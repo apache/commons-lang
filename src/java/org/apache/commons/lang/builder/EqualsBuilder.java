@@ -74,13 +74,15 @@ import java.lang.reflect.Modifier;
  * @author Pete Gieser
  * @author Arun Mammen Thomas
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.25 2004/08/25 21:20:13 ggregory Exp $
+ * @version $Id: EqualsBuilder.java,v 1.26 2004/08/26 05:46:45 ggregory Exp $
  */
 public class EqualsBuilder {
+    
     /**
      * If the fields tested are equals.
+     * The default value is <code>true</code>.
      */
-    private boolean isEquals;
+    private boolean isEquals = true;
 
     /**
      * <p>Constructor for EqualsBuilder.</p>
@@ -89,8 +91,7 @@ public class EqualsBuilder {
      * @see Object#equals(Object)
      */
     public EqualsBuilder() {
-        super();
-        isEquals = true;
+        // do nothing for now.
     }
 
     //-------------------------------------------------------------------------
@@ -283,7 +284,7 @@ public class EqualsBuilder {
             return this;
         }
         if (lhs == null || rhs == null) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         Class lhsClass = lhs.getClass();
@@ -292,7 +293,7 @@ public class EqualsBuilder {
             isEquals = lhs.equals(rhs);
         } else if (lhs.getClass() != rhs.getClass()) {
             // Here when we compare different dimensions, for example: a boolean[][] to a boolean[] 
-            isEquals = false;
+            this.setEquals(false);
         }
         // 'Switch' on type of array, to dispatch to the correct handler
         // This handles multi dimensional arrays of the same depth
@@ -471,11 +472,11 @@ public class EqualsBuilder {
             return this;
         }
         if (lhs == null || rhs == null) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -502,11 +503,11 @@ public class EqualsBuilder {
             return this;
         }
         if (lhs == null || rhs == null) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -533,11 +534,11 @@ public class EqualsBuilder {
             return this;
         }
         if (lhs == null || rhs == null) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -564,11 +565,11 @@ public class EqualsBuilder {
             return this;
         }
         if (lhs == null || rhs == null) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -595,11 +596,11 @@ public class EqualsBuilder {
             return this;
         }
         if (lhs == null || rhs == null) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -626,11 +627,11 @@ public class EqualsBuilder {
             return this;
         }
         if (lhs == null || rhs == null) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -657,11 +658,11 @@ public class EqualsBuilder {
             return this;
         }
         if (lhs == null || rhs == null) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -688,11 +689,11 @@ public class EqualsBuilder {
             return this;
         }
         if (lhs == null || rhs == null) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -719,11 +720,11 @@ public class EqualsBuilder {
             return this;
         }
         if (lhs == null || rhs == null) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         if (lhs.length != rhs.length) {
-            isEquals = false;
+            this.setEquals(false);
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
@@ -733,13 +734,21 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Return <code>true</code> if the fields that have been checked
+     * <p>Returns <code>true</code> if the fields that have been checked
      * are all equal.</p>
      *
      * @return boolean
      */
     public boolean isEquals() {
-        return isEquals;
+        return this.isEquals;
     }
 
+    /**
+     * Sets the <code>isEquals</code> value.
+     * 
+     * @param isEquals The value to set.
+     */
+    protected void setEquals(boolean isEquals) {
+        this.isEquals = isEquals;
+    }
 }

@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Maarten Coene
- * @version $Id: EqualsBuilderTest.java,v 1.10 2004/08/25 21:20:15 ggregory Exp $
+ * @version $Id: EqualsBuilderTest.java,v 1.11 2004/08/26 05:46:45 ggregory Exp $
  */
 public class EqualsBuilderTest extends TestCase {
 
@@ -373,6 +373,15 @@ public class EqualsBuilderTest extends TestCase {
         assertTrue(new EqualsBuilder().append(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY).isEquals());
     }
 
+    public void testAccessors() {
+        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        assertTrue(equalsBuilder.isEquals());
+        equalsBuilder.setEquals(true);
+        assertTrue(equalsBuilder.isEquals());
+        equalsBuilder.setEquals(false);
+        assertFalse(equalsBuilder.isEquals());
+    }
+    
     public void testBoolean() {
         boolean o1 = true;
         boolean o2 = false;
