@@ -42,7 +42,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.41 2004/09/30 07:03:25 bayard Exp $
+ * @version $Id: ExceptionUtils.java,v 1.42 2004/10/09 10:04:04 scolebourne Exp $
  */
 public class ExceptionUtils {
     
@@ -391,24 +391,28 @@ public class ExceptionUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Returns the (zero based) index of the first <code>Throwable</code>
-     * that matches the specified type in the exception chain.</p>
+     * that matches the specified class (exactly) in the exception chain.
+     * Subclasses of the specified class do not match - see
+     * {@link #indexOfType(Throwable, Class)} for the opposite.</p>
      * 
      * <p>A <code>null</code> throwable returns <code>-1</code>.
      * A <code>null</code> type returns <code>-1</code>.
      * No match in the chain returns <code>-1</code>.</p>
      *
      * @param throwable  the throwable to inspect, may be null
-     * @param type  the type to search for
+     * @param clazz  the class to search for, subclasses do not match, null returns -1
      * @return the index into the throwable chain, -1 if no match or null input
      */
-    public static int indexOfThrowable(Throwable throwable, Class type) {
-        return indexOfThrowable(throwable, type, 0);
+    public static int indexOfThrowable(Throwable throwable, Class clazz) {
+        return indexOf(throwable, clazz, 0, false);
     }
 
     /**
      * <p>Returns the (zero based) index of the first <code>Throwable</code>
      * that matches the specified type in the exception chain from
-     * a specified index.</p>
+     * a specified index.
+     * Subclasses of the specified class do not match - see
+     * {@link #indexOfType(Throwable, Class, int)} for the opposite.</p>
      * 
      * <p>A <code>null</code> throwable returns <code>-1</code>.
      * A <code>null</code> type returns <code>-1</code>.
@@ -417,13 +421,61 @@ public class ExceptionUtils {
      * A start index greater than the number of throwables returns <code>-1</code>.</p>
      *
      * @param throwable  the throwable to inspect, may be null
-     * @param type  the type to search for
+     * @param clazz  the class to search for, subclasses do not match, null returns -1
      * @param fromIndex  the (zero based) index of the starting position,
      *  negative treated as zero, larger than chain size returns -1
      * @return the index into the throwable chain, -1 if no match or null input
      */
-    public static int indexOfThrowable(Throwable throwable, Class type, int fromIndex) {
-        if (throwable == null) {
+    public static int indexOfThrowable(Throwable throwable, Class clazz, int fromIndex) {
+        return indexOf(throwable, clazz, fromIndex, false);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Returns the (zero based) index of the first <code>Throwable</code>
+     * that matches the specified class or subclass in the exception chain.
+     * Subclasses of the specified class do match - see
+     * {@link #indexOfThrowable(Throwable, Class)} for the opposite.</p>
+     * 
+     * <p>A <code>null</code> throwable returns <code>-1</code>.
+     * A <code>null</code> type returns <code>-1</code>.
+     * No match in the chain returns <code>-1</code>.</p>
+     *
+     * @param throwable  the throwable to inspect, may be null
+     * @param type  the type to search for, subclasses match, null returns -1
+     * @return the index into the throwable chain, -1 if no match or null input
+     * @since 2.1
+     */
+    public static int indexOfType(Throwable throwable, Class type) {
+        return indexOf(throwable, type, 0, true);
+    }
+
+    /**
+     * <p>Returns the (zero based) index of the first <code>Throwable</code>
+     * that matches the specified type in the exception chain from
+     * a specified index.
+     * Subclasses of the specified class do match - see
+     * {@link #indexOfThrowable(Throwable, Class)} for the opposite.</p>
+     * 
+     * <p>A <code>null</code> throwable returns <code>-1</code>.
+     * A <code>null</code> type returns <code>-1</code>.
+     * No match in the chain returns <code>-1</code>.
+     * A negative start index is treated as zero.
+     * A start index greater than the number of throwables returns <code>-1</code>.</p>
+     *
+     * @param throwable  the throwable to inspect, may be null
+     * @param type  the type to search for, subclasses match, null returns -1
+     * @param fromIndex  the (zero based) index of the starting position,
+     *  negative treated as zero, larger than chain size returns -1
+     * @return the index into the throwable chain, -1 if no match or null input
+     * @since 2.1
+     */
+    public static int indexOfType(Throwable throwable, Class type, int fromIndex) {
+        return indexOf(throwable, type, fromIndex, true);
+    }
+
+    private static int indexOf(Throwable throwable, Class type, int fromIndex, boolean subclass) {
+        if (throwable == null || type == null) {
             return -1;
         }
         if (fromIndex < 0) {
@@ -433,11 +485,17 @@ public class ExceptionUtils {
         if (fromIndex >= throwables.length) {
             return -1;
         }
-        for (int i = fromIndex; i < throwables.length; i++) {
-// TODO: decide on whether to include this
-//            if (type.isAssignableFrom(throwables[i].getClass())) {
-            if (throwables[i].getClass().equals(type)) {
-                return i;
+        if (subclass) {
+            for (int i = fromIndex; i < throwables.length; i++) {
+                if (type.isAssignableFrom(throwables[i].getClass())) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = fromIndex; i < throwables.length; i++) {
+                if (type.equals(throwables[i].getClass())) {
+                    return i;
+                }
             }
         }
         return -1;
