@@ -59,7 +59,7 @@ import junit.framework.TestCase;
  * Test cases for the {@link Range} classes.
  *
  * @author Stephen Colebourne
- * @version $Id: AbstractRangeTest.java,v 1.2 2003/06/08 14:19:43 scolebourne Exp $
+ * @version $Id: AbstractRangeTest.java,v 1.3 2003/08/04 01:14:02 scolebourne Exp $
  */
 public abstract class AbstractRangeTest extends TestCase {
 
@@ -153,175 +153,175 @@ public abstract class AbstractRangeTest extends TestCase {
 
     //--------------------------------------------------------------------------
 
-    public void testIncludesLong() {
-        assertEquals(false, tenToTwenty.includesLong(null));
-        assertEquals(true, tenToTwenty.includesLong(nonComparable));
+    public void testContainsLong() {
+        assertEquals(false, tenToTwenty.containsLong(null));
+        assertEquals(true, tenToTwenty.containsLong(nonComparable));
         
-        assertEquals(false, tenToTwenty.includesLong(five));
-        assertEquals(true, tenToTwenty.includesLong(ten));
-        assertEquals(true, tenToTwenty.includesLong(fifteen));
-        assertEquals(true, tenToTwenty.includesLong(twenty));
-        assertEquals(false, tenToTwenty.includesLong(twentyFive));
+        assertEquals(false, tenToTwenty.containsLong(five));
+        assertEquals(true, tenToTwenty.containsLong(ten));
+        assertEquals(true, tenToTwenty.containsLong(fifteen));
+        assertEquals(true, tenToTwenty.containsLong(twenty));
+        assertEquals(false, tenToTwenty.containsLong(twentyFive));
         
-        assertEquals(false, tenToTwenty.includesLong(long8));
-        assertEquals(true, tenToTwenty.includesLong(long10));
-        assertEquals(true, tenToTwenty.includesLong(long12));
-        assertEquals(true, tenToTwenty.includesLong(long20));
-        assertEquals(false, tenToTwenty.includesLong(long21));
+        assertEquals(false, tenToTwenty.containsLong(long8));
+        assertEquals(true, tenToTwenty.containsLong(long10));
+        assertEquals(true, tenToTwenty.containsLong(long12));
+        assertEquals(true, tenToTwenty.containsLong(long20));
+        assertEquals(false, tenToTwenty.containsLong(long21));
         
-        assertEquals(false, tenToTwenty.includesLong(double8));
-        assertEquals(true, tenToTwenty.includesLong(double10));
-        assertEquals(true, tenToTwenty.includesLong(double12));
-        assertEquals(true, tenToTwenty.includesLong(double20));
-        assertEquals(false, tenToTwenty.includesLong(double21));
+        assertEquals(false, tenToTwenty.containsLong(double8));
+        assertEquals(true, tenToTwenty.containsLong(double10));
+        assertEquals(true, tenToTwenty.containsLong(double12));
+        assertEquals(true, tenToTwenty.containsLong(double20));
+        assertEquals(false, tenToTwenty.containsLong(double21));
         
-        assertEquals(false, tenToTwenty.includesLong(float8));
-        assertEquals(true, tenToTwenty.includesLong(float10));
-        assertEquals(true, tenToTwenty.includesLong(float12));
-        assertEquals(true, tenToTwenty.includesLong(float20));
-        assertEquals(false, tenToTwenty.includesLong(float21));
+        assertEquals(false, tenToTwenty.containsLong(float8));
+        assertEquals(true, tenToTwenty.containsLong(float10));
+        assertEquals(true, tenToTwenty.containsLong(float12));
+        assertEquals(true, tenToTwenty.containsLong(float20));
+        assertEquals(false, tenToTwenty.containsLong(float21));
         
-        assertEquals(false, tenToTwenty.includesLong(9L));
-        assertEquals(true, tenToTwenty.includesLong(10L));
-        assertEquals(true, tenToTwenty.includesLong(15L));
-        assertEquals(true, tenToTwenty.includesLong(20L));
-        assertEquals(false, tenToTwenty.includesLong(21L));
+        assertEquals(false, tenToTwenty.containsLong(9L));
+        assertEquals(true, tenToTwenty.containsLong(10L));
+        assertEquals(true, tenToTwenty.containsLong(15L));
+        assertEquals(true, tenToTwenty.containsLong(20L));
+        assertEquals(false, tenToTwenty.containsLong(21L));
     }
         
-    public void testIncludesInteger() {
-        assertEquals(false, tenToTwenty.includesInteger(null));
-        assertEquals(true, tenToTwenty.includesInteger(nonComparable));
+    public void testContainsInteger() {
+        assertEquals(false, tenToTwenty.containsInteger(null));
+        assertEquals(true, tenToTwenty.containsInteger(nonComparable));
         
-        assertEquals(false, tenToTwenty.includesInteger(five));
-        assertEquals(true, tenToTwenty.includesInteger(ten));
-        assertEquals(true, tenToTwenty.includesInteger(fifteen));
-        assertEquals(true, tenToTwenty.includesInteger(twenty));
-        assertEquals(false, tenToTwenty.includesInteger(twentyFive));
+        assertEquals(false, tenToTwenty.containsInteger(five));
+        assertEquals(true, tenToTwenty.containsInteger(ten));
+        assertEquals(true, tenToTwenty.containsInteger(fifteen));
+        assertEquals(true, tenToTwenty.containsInteger(twenty));
+        assertEquals(false, tenToTwenty.containsInteger(twentyFive));
         
-        assertEquals(false, tenToTwenty.includesInteger(long8));
-        assertEquals(true, tenToTwenty.includesInteger(long10));
-        assertEquals(true, tenToTwenty.includesInteger(long12));
-        assertEquals(true, tenToTwenty.includesInteger(long20));
-        assertEquals(false, tenToTwenty.includesInteger(long21));
+        assertEquals(false, tenToTwenty.containsInteger(long8));
+        assertEquals(true, tenToTwenty.containsInteger(long10));
+        assertEquals(true, tenToTwenty.containsInteger(long12));
+        assertEquals(true, tenToTwenty.containsInteger(long20));
+        assertEquals(false, tenToTwenty.containsInteger(long21));
         
-        assertEquals(false, tenToTwenty.includesInteger(double8));
-        assertEquals(true, tenToTwenty.includesInteger(double10));
-        assertEquals(true, tenToTwenty.includesInteger(double12));
-        assertEquals(true, tenToTwenty.includesInteger(double20));
-        assertEquals(false, tenToTwenty.includesInteger(double21));
+        assertEquals(false, tenToTwenty.containsInteger(double8));
+        assertEquals(true, tenToTwenty.containsInteger(double10));
+        assertEquals(true, tenToTwenty.containsInteger(double12));
+        assertEquals(true, tenToTwenty.containsInteger(double20));
+        assertEquals(false, tenToTwenty.containsInteger(double21));
         
-        assertEquals(false, tenToTwenty.includesInteger(float8));
-        assertEquals(true, tenToTwenty.includesInteger(float10));
-        assertEquals(true, tenToTwenty.includesInteger(float12));
-        assertEquals(true, tenToTwenty.includesInteger(float20));
-        assertEquals(false, tenToTwenty.includesInteger(float21));
+        assertEquals(false, tenToTwenty.containsInteger(float8));
+        assertEquals(true, tenToTwenty.containsInteger(float10));
+        assertEquals(true, tenToTwenty.containsInteger(float12));
+        assertEquals(true, tenToTwenty.containsInteger(float20));
+        assertEquals(false, tenToTwenty.containsInteger(float21));
         
-        assertEquals(false, tenToTwenty.includesInteger(9));
-        assertEquals(true, tenToTwenty.includesInteger(10));
-        assertEquals(true, tenToTwenty.includesInteger(15));
-        assertEquals(true, tenToTwenty.includesInteger(20));
-        assertEquals(false, tenToTwenty.includesInteger(21));
-    }
-
-    public void testIncludesDouble() {
-        assertEquals(false, tenToTwenty.includesDouble(null));
-        assertEquals(true, tenToTwenty.includesDouble(nonComparable));
-        
-        assertEquals(false, tenToTwenty.includesDouble(five));
-        assertEquals(true, tenToTwenty.includesDouble(ten));
-        assertEquals(true, tenToTwenty.includesDouble(fifteen));
-        assertEquals(true, tenToTwenty.includesDouble(twenty));
-        assertEquals(false, tenToTwenty.includesDouble(twentyFive));
-        
-        assertEquals(false, tenToTwenty.includesDouble(long8));
-        assertEquals(true, tenToTwenty.includesDouble(long10));
-        assertEquals(true, tenToTwenty.includesDouble(long12));
-        assertEquals(true, tenToTwenty.includesDouble(long20));
-        assertEquals(false, tenToTwenty.includesDouble(long21));
-        
-        assertEquals(false, tenToTwenty.includesDouble(double8));
-        assertEquals(true, tenToTwenty.includesDouble(double10));
-        assertEquals(true, tenToTwenty.includesDouble(double12));
-        assertEquals(true, tenToTwenty.includesDouble(double20));
-        assertEquals(false, tenToTwenty.includesDouble(double21));
-        
-        assertEquals(false, tenToTwenty.includesDouble(float8));
-        assertEquals(true, tenToTwenty.includesDouble(float10));
-        assertEquals(true, tenToTwenty.includesDouble(float12));
-        assertEquals(true, tenToTwenty.includesDouble(float20));
-        assertEquals(false, tenToTwenty.includesDouble(float21));
-        
-        assertEquals(false, tenToTwenty.includesDouble(9d));
-        assertEquals(true, tenToTwenty.includesDouble(10d));
-        assertEquals(true, tenToTwenty.includesDouble(15d));
-        assertEquals(true, tenToTwenty.includesDouble(20d));
-        assertEquals(false, tenToTwenty.includesDouble(21d));
+        assertEquals(false, tenToTwenty.containsInteger(9));
+        assertEquals(true, tenToTwenty.containsInteger(10));
+        assertEquals(true, tenToTwenty.containsInteger(15));
+        assertEquals(true, tenToTwenty.containsInteger(20));
+        assertEquals(false, tenToTwenty.containsInteger(21));
     }
 
-    public void testIncludesFloat() {
-        assertEquals(false, tenToTwenty.includesFloat(null));
-        assertEquals(true, tenToTwenty.includesFloat(nonComparable));
+    public void testContainsDouble() {
+        assertEquals(false, tenToTwenty.containsDouble(null));
+        assertEquals(true, tenToTwenty.containsDouble(nonComparable));
         
-        assertEquals(false, tenToTwenty.includesFloat(five));
-        assertEquals(true, tenToTwenty.includesFloat(ten));
-        assertEquals(true, tenToTwenty.includesFloat(fifteen));
-        assertEquals(true, tenToTwenty.includesFloat(twenty));
-        assertEquals(false, tenToTwenty.includesFloat(twentyFive));
+        assertEquals(false, tenToTwenty.containsDouble(five));
+        assertEquals(true, tenToTwenty.containsDouble(ten));
+        assertEquals(true, tenToTwenty.containsDouble(fifteen));
+        assertEquals(true, tenToTwenty.containsDouble(twenty));
+        assertEquals(false, tenToTwenty.containsDouble(twentyFive));
         
-        assertEquals(false, tenToTwenty.includesFloat(long8));
-        assertEquals(true, tenToTwenty.includesFloat(long10));
-        assertEquals(true, tenToTwenty.includesFloat(long12));
-        assertEquals(true, tenToTwenty.includesFloat(long20));
-        assertEquals(false, tenToTwenty.includesFloat(long21));
+        assertEquals(false, tenToTwenty.containsDouble(long8));
+        assertEquals(true, tenToTwenty.containsDouble(long10));
+        assertEquals(true, tenToTwenty.containsDouble(long12));
+        assertEquals(true, tenToTwenty.containsDouble(long20));
+        assertEquals(false, tenToTwenty.containsDouble(long21));
         
-        assertEquals(false, tenToTwenty.includesFloat(double8));
-        assertEquals(true, tenToTwenty.includesFloat(double10));
-        assertEquals(true, tenToTwenty.includesFloat(double12));
-        assertEquals(true, tenToTwenty.includesFloat(double20));
-        assertEquals(false, tenToTwenty.includesFloat(double21));
+        assertEquals(false, tenToTwenty.containsDouble(double8));
+        assertEquals(true, tenToTwenty.containsDouble(double10));
+        assertEquals(true, tenToTwenty.containsDouble(double12));
+        assertEquals(true, tenToTwenty.containsDouble(double20));
+        assertEquals(false, tenToTwenty.containsDouble(double21));
         
-        assertEquals(false, tenToTwenty.includesFloat(float8));
-        assertEquals(true, tenToTwenty.includesFloat(float10));
-        assertEquals(true, tenToTwenty.includesFloat(float12));
-        assertEquals(true, tenToTwenty.includesFloat(float20));
-        assertEquals(false, tenToTwenty.includesFloat(float21));
+        assertEquals(false, tenToTwenty.containsDouble(float8));
+        assertEquals(true, tenToTwenty.containsDouble(float10));
+        assertEquals(true, tenToTwenty.containsDouble(float12));
+        assertEquals(true, tenToTwenty.containsDouble(float20));
+        assertEquals(false, tenToTwenty.containsDouble(float21));
         
-        assertEquals(false, tenToTwenty.includesFloat(9f));
-        assertEquals(true, tenToTwenty.includesFloat(10f));
-        assertEquals(true, tenToTwenty.includesFloat(15f));
-        assertEquals(true, tenToTwenty.includesFloat(20f));
-        assertEquals(false, tenToTwenty.includesFloat(21f));
+        assertEquals(false, tenToTwenty.containsDouble(9d));
+        assertEquals(true, tenToTwenty.containsDouble(10d));
+        assertEquals(true, tenToTwenty.containsDouble(15d));
+        assertEquals(true, tenToTwenty.containsDouble(20d));
+        assertEquals(false, tenToTwenty.containsDouble(21d));
+    }
+
+    public void testContainsFloat() {
+        assertEquals(false, tenToTwenty.containsFloat(null));
+        assertEquals(true, tenToTwenty.containsFloat(nonComparable));
+        
+        assertEquals(false, tenToTwenty.containsFloat(five));
+        assertEquals(true, tenToTwenty.containsFloat(ten));
+        assertEquals(true, tenToTwenty.containsFloat(fifteen));
+        assertEquals(true, tenToTwenty.containsFloat(twenty));
+        assertEquals(false, tenToTwenty.containsFloat(twentyFive));
+        
+        assertEquals(false, tenToTwenty.containsFloat(long8));
+        assertEquals(true, tenToTwenty.containsFloat(long10));
+        assertEquals(true, tenToTwenty.containsFloat(long12));
+        assertEquals(true, tenToTwenty.containsFloat(long20));
+        assertEquals(false, tenToTwenty.containsFloat(long21));
+        
+        assertEquals(false, tenToTwenty.containsFloat(double8));
+        assertEquals(true, tenToTwenty.containsFloat(double10));
+        assertEquals(true, tenToTwenty.containsFloat(double12));
+        assertEquals(true, tenToTwenty.containsFloat(double20));
+        assertEquals(false, tenToTwenty.containsFloat(double21));
+        
+        assertEquals(false, tenToTwenty.containsFloat(float8));
+        assertEquals(true, tenToTwenty.containsFloat(float10));
+        assertEquals(true, tenToTwenty.containsFloat(float12));
+        assertEquals(true, tenToTwenty.containsFloat(float20));
+        assertEquals(false, tenToTwenty.containsFloat(float21));
+        
+        assertEquals(false, tenToTwenty.containsFloat(9f));
+        assertEquals(true, tenToTwenty.containsFloat(10f));
+        assertEquals(true, tenToTwenty.containsFloat(15f));
+        assertEquals(true, tenToTwenty.containsFloat(20f));
+        assertEquals(false, tenToTwenty.containsFloat(21f));
     }
 
     //--------------------------------------------------------------------------
 
-    public void testIncludesRange() {
-        assertEquals(false, tenToTwenty.includesRange(createRange(five, five)));
-        assertEquals(false, tenToTwenty.includesRange(createRange(five, ten)));
-        assertEquals(false, tenToTwenty.includesRange(createRange(five, twelve)));
-        assertEquals(false, tenToTwenty.includesRange(createRange(five, fifteen)));
-        assertEquals(false, tenToTwenty.includesRange(createRange(five, twenty)));
-        assertEquals(false, tenToTwenty.includesRange(createRange(five, twentyFive)));
+    public void testContainsRange() {
+        assertEquals(false, tenToTwenty.containsRange(createRange(five, five)));
+        assertEquals(false, tenToTwenty.containsRange(createRange(five, ten)));
+        assertEquals(false, tenToTwenty.containsRange(createRange(five, twelve)));
+        assertEquals(false, tenToTwenty.containsRange(createRange(five, fifteen)));
+        assertEquals(false, tenToTwenty.containsRange(createRange(five, twenty)));
+        assertEquals(false, tenToTwenty.containsRange(createRange(five, twentyFive)));
         
-        assertEquals(true, tenToTwenty.includesRange(createRange(ten, ten)));
-        assertEquals(true, tenToTwenty.includesRange(createRange(ten, twelve)));
-        assertEquals(true, tenToTwenty.includesRange(createRange(ten, fifteen)));
-        assertEquals(true, tenToTwenty.includesRange(createRange(ten, twenty)));
-        assertEquals(false, tenToTwenty.includesRange(createRange(ten, twentyFive)));
+        assertEquals(true, tenToTwenty.containsRange(createRange(ten, ten)));
+        assertEquals(true, tenToTwenty.containsRange(createRange(ten, twelve)));
+        assertEquals(true, tenToTwenty.containsRange(createRange(ten, fifteen)));
+        assertEquals(true, tenToTwenty.containsRange(createRange(ten, twenty)));
+        assertEquals(false, tenToTwenty.containsRange(createRange(ten, twentyFive)));
         
-        assertEquals(true, tenToTwenty.includesRange(createRange(twelve, twelve)));
-        assertEquals(true, tenToTwenty.includesRange(createRange(twelve, fifteen)));
-        assertEquals(true, tenToTwenty.includesRange(createRange(twelve, twenty)));
-        assertEquals(false, tenToTwenty.includesRange(createRange(twelve, twentyFive)));
+        assertEquals(true, tenToTwenty.containsRange(createRange(twelve, twelve)));
+        assertEquals(true, tenToTwenty.containsRange(createRange(twelve, fifteen)));
+        assertEquals(true, tenToTwenty.containsRange(createRange(twelve, twenty)));
+        assertEquals(false, tenToTwenty.containsRange(createRange(twelve, twentyFive)));
         
-        assertEquals(true, tenToTwenty.includesRange(createRange(fifteen, fifteen)));
-        assertEquals(true, tenToTwenty.includesRange(createRange(fifteen, twenty)));
-        assertEquals(false, tenToTwenty.includesRange(createRange(fifteen, twentyFive)));
+        assertEquals(true, tenToTwenty.containsRange(createRange(fifteen, fifteen)));
+        assertEquals(true, tenToTwenty.containsRange(createRange(fifteen, twenty)));
+        assertEquals(false, tenToTwenty.containsRange(createRange(fifteen, twentyFive)));
         
-        assertEquals(true, tenToTwenty.includesRange(createRange(twenty, twenty)));
-        assertEquals(false, tenToTwenty.includesRange(createRange(twenty, twentyFive)));
+        assertEquals(true, tenToTwenty.containsRange(createRange(twenty, twenty)));
+        assertEquals(false, tenToTwenty.containsRange(createRange(twenty, twentyFive)));
         
-        assertEquals(false, tenToTwenty.includesRange(createRange(twentyFive, twentyFive)));
+        assertEquals(false, tenToTwenty.containsRange(createRange(twentyFive, twentyFive)));
     }
 
     public void testOverlapsRange() {

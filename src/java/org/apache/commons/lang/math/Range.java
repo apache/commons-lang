@@ -62,7 +62,7 @@ package org.apache.commons.lang.math;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: Range.java,v 1.3 2003/06/24 21:14:50 scolebourne Exp $
+ * @version $Id: Range.java,v 1.4 2003/08/04 01:14:01 scolebourne Exp $
  */
 public abstract class Range {
 
@@ -203,7 +203,7 @@ public abstract class Range {
      * @return <code>true</code> if the specified number occurs within this range
      * @throws IllegalArgumentException if the <code>Number</code> cannot be compared
      */
-    public abstract boolean includesNumber(Number number);
+    public abstract boolean containsNumber(Number number);
 
     /**
      * <p>Tests whether the specified <code>Number</code> occurs within
@@ -211,17 +211,17 @@ public abstract class Range {
      * 
      * <p><code>null</code> is handled and returns <code>false</code>.</p>
      * 
-     * <p>This implementation forwards to the {@link #includesLong(long)} method.</p>
+     * <p>This implementation forwards to the {@link #containsLong(long)} method.</p>
      *
      * @param value  the long to test, may be <code>null</code>
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>long</code> comparison
      */
-    public boolean includesLong(Number value) {
+    public boolean containsLong(Number value) {
         if (value == null) {
             return false;
         }
-        return includesLong(value.longValue());
+        return containsLong(value.longValue());
     }
 
     /**
@@ -235,7 +235,7 @@ public abstract class Range {
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>long</code> comparison
      */
-    public boolean includesLong(long value) {
+    public boolean containsLong(long value) {
         return (value >= getMinimumLong() && value <= getMaximumLong());
     }
 
@@ -245,17 +245,17 @@ public abstract class Range {
      * 
      * <p><code>null</code> is handled and returns <code>false</code>.</p>
      * 
-     * <p>This implementation forwards to the {@link #includesInteger(int)} method.</p>
+     * <p>This implementation forwards to the {@link #containsInteger(int)} method.</p>
      *
      * @param value  the integer to test, may be <code>null</code>
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>int</code> comparison
      */
-    public boolean includesInteger(Number value) {
+    public boolean containsInteger(Number value) {
         if (value == null) {
             return false;
         }
-        return includesInteger(value.intValue());
+        return containsInteger(value.intValue());
     }
 
     /**
@@ -269,7 +269,7 @@ public abstract class Range {
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>int</code> comparison
      */
-    public boolean includesInteger(int value) {
+    public boolean containsInteger(int value) {
         return (value >= getMinimumInteger() && value <= getMaximumInteger());
     }
 
@@ -279,17 +279,17 @@ public abstract class Range {
      * 
      * <p><code>null</code> is handled and returns <code>false</code>.</p>
      * 
-     * <p>This implementation forwards to the {@link #includesDouble(double)} method.</p>
+     * <p>This implementation forwards to the {@link #containsDouble(double)} method.</p>
      *
      * @param value  the double to test, may be <code>null</code>
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>double</code> comparison
      */
-    public boolean includesDouble(Number value) {
+    public boolean containsDouble(Number value) {
         if (value == null) {
             return false;
         }
-        return includesDouble(value.doubleValue());
+        return containsDouble(value.doubleValue());
     }
 
     /**
@@ -303,7 +303,7 @@ public abstract class Range {
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>double</code> comparison
      */
-    public boolean includesDouble(double value) {
+    public boolean containsDouble(double value) {
         int compareMin = NumberUtils.compare(getMinimumDouble(), value);
         int compareMax = NumberUtils.compare(getMaximumDouble(), value);
         return (compareMin <= 0 && compareMax >= 0);
@@ -315,17 +315,17 @@ public abstract class Range {
      * 
      * <p><code>null</code> is handled and returns <code>false</code>.</p>
      * 
-     * <p>This implementation forwards to the {@link #includesFloat(float)} method.</p>
+     * <p>This implementation forwards to the {@link #containsFloat(float)} method.</p>
      *
      * @param value  the float to test, may be <code>null</code>
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>float</code> comparison
      */
-    public boolean includesFloat(Number value) {
+    public boolean containsFloat(Number value) {
         if (value == null) {
             return false;
         }
-        return includesFloat(value.floatValue());
+        return containsFloat(value.floatValue());
     }
 
     /**
@@ -339,7 +339,7 @@ public abstract class Range {
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>float</code> comparison
      */
-    public boolean includesFloat(float value) {
+    public boolean containsFloat(float value) {
         int compareMin = NumberUtils.compare(getMinimumFloat(), value);
         int compareMax = NumberUtils.compare(getMaximumFloat(), value);
         return (compareMin <= 0 && compareMax >= 0);
@@ -357,7 +357,7 @@ public abstract class Range {
      * 
      * <p><code>null</code> is handled and returns <code>false</code>.</p>
      * 
-     * <p>This implementation uses the {@link #includesNumber(Number)} method.
+     * <p>This implementation uses the {@link #containsNumber(Number)} method.
      * Subclasses may be able to optimise this.</p>
      *
      * @param range  the range to test, may be <code>null</code>
@@ -365,12 +365,12 @@ public abstract class Range {
      *  this range; otherwise, <code>false</code>
      * @throws IllegalArgumentException if the <code>Range</code> cannot be compared
      */
-    public boolean includesRange(Range range) {
+    public boolean containsRange(Range range) {
         if (range == null) {
             return false;
         }
-        return includesNumber(range.getMinimumNumber()) &&
-               includesNumber(range.getMaximumNumber());
+        return containsNumber(range.getMinimumNumber()) 
+            && containsNumber(range.getMaximumNumber());
     }
 
     /**
@@ -382,8 +382,8 @@ public abstract class Range {
      * 
      * <p><code>null</code> is handled and returns <code>false</code>.</p>
      * 
-     * <p>This implementation uses the {@link #includesNumber(Number)} and
-     * {@link #includesRange(Range)} methods.
+     * <p>This implementation uses the {@link #containsNumber(Number)} and
+     * {@link #containsRange(Range)} methods.
      * Subclasses may be able to optimise this.</p>
      *
      * @param range  the range to test, may be <code>null</code>
@@ -395,9 +395,9 @@ public abstract class Range {
         if (range == null) {
             return false;
         }
-        return range.includesNumber(getMinimumNumber()) ||
-               range.includesNumber(getMaximumNumber()) || 
-               includesNumber(range.getMinimumNumber());
+        return range.containsNumber(getMinimumNumber())
+            || range.containsNumber(getMaximumNumber())
+            || containsNumber(range.getMinimumNumber());
     }
 
     // Basics
