@@ -64,63 +64,59 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:jmcnally@collab.net">John McNally</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: ObjectUtilsTest.java,v 1.1 2002/07/19 03:35:55 bayard Exp $
+ * @version $Id: ObjectUtilsTest.java,v 1.2 2002/09/18 19:49:47 scolebourne Exp $
  */
-public class ObjectUtilsTest extends TestCase
-{
+public class ObjectUtilsTest extends TestCase {
     private static final String FOO = "foo";
     private static final String BAR = "bar";
 
-    public ObjectUtilsTest(String name)
-    {
+    public ObjectUtilsTest(String name) {
         super(name);
     }
-    
-    public static void main(String[] args) 
-    {
+
+    public static void main(String[] args) {
         TestRunner.run(suite());
     }
 
-    public static Test suite() 
-    {
-    	TestSuite suite = new TestSuite(ObjectUtilsTest.class);
-    	suite.setName("ObjectUtils Tests");
+    public static Test suite() {
+        TestSuite suite = new TestSuite(ObjectUtilsTest.class);
+        suite.setName("ObjectUtils Tests");
         return suite;
     }
 
-    protected void setUp() throws Exception 
-    {
+    protected void setUp() throws Exception {
         super.setUp();
     }
 
-    protected void tearDown() throws Exception
-    {
+    protected void tearDown() throws Exception {
         super.tearDown();
     }
 
     //-----------------------------------------------------------------------
-    
-    public void testIsNull()
-    {
+
+    public void testIsNull() {
         Object o = FOO;
         Object dflt = BAR;
-        assertSame("dflt was not returned when o was null", dflt,
-                     ObjectUtils.defaultIfNull(null, dflt));
-        assertSame("dflt was returned when o was not null", o,
-                     ObjectUtils.defaultIfNull(o, dflt));
+        assertSame("dflt was not returned when o was null", dflt, ObjectUtils.defaultIfNull(null, dflt));
+        assertSame("dflt was returned when o was not null", o, ObjectUtils.defaultIfNull(o, dflt));
     }
-        
-    public void testEquals()
-    {
-        assertTrue("ObjectUtils.equals(null, null) returned false", 
-                   ObjectUtils.equals(null, null));
-        assertTrue("ObjectUtils.equals(\"foo\", null) returned true", 
-                   !ObjectUtils.equals(FOO, null));
-        assertTrue("ObjectUtils.equals(null, \"bar\") returned true", 
-                   !ObjectUtils.equals(null, BAR));
-        assertTrue("ObjectUtils.equals(\"foo\", \"bar\") returned true", 
-                   !ObjectUtils.equals(FOO, BAR));
-        assertTrue("ObjectUtils.equals(\"foo\", \"foo\") returned false", 
-                   ObjectUtils.equals(FOO, FOO));
-    }        
+
+    public void testEquals() {
+        assertTrue("ObjectUtils.equals(null, null) returned false", ObjectUtils.equals(null, null));
+        assertTrue("ObjectUtils.equals(\"foo\", null) returned true", !ObjectUtils.equals(FOO, null));
+        assertTrue("ObjectUtils.equals(null, \"bar\") returned true", !ObjectUtils.equals(null, BAR));
+        assertTrue("ObjectUtils.equals(\"foo\", \"bar\") returned true", !ObjectUtils.equals(FOO, BAR));
+        assertTrue("ObjectUtils.equals(\"foo\", \"foo\") returned false", ObjectUtils.equals(FOO, FOO));
+    }
+
+    public void testIdentityToString() {
+        assertEquals(
+            "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
+            ObjectUtils.identityToString(FOO));
+        Integer i = new Integer(90);
+        assertEquals(
+            "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i)),
+            ObjectUtils.identityToString(i));
+        assertEquals(null, ObjectUtils.identityToString(null));
+    }
 }
