@@ -75,7 +75,8 @@ import org.apache.commons.lang.ArrayUtils;
  * @author Gregor Raýman
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
- * @version $Id: MethodUtils.java,v 1.10 2002/12/25 22:03:00 scolebourne Exp $
+ * @author Gary Gregory
+ * @version $Id: MethodUtils.java,v 1.11 2003/01/25 13:01:38 scolebourne Exp $
  */
 public class MethodUtils {
     
@@ -428,8 +429,6 @@ public class MethodUtils {
         }
 
         // Check the implemented interfaces and subinterfaces
-        String methodName = method.getName();
-        Class[] parameterTypes = method.getParameterTypes();
         method =
                 getAccessibleMethodFromInterfaceNest(clazz,
                         method.getName(),
@@ -516,7 +515,6 @@ public class MethodUtils {
         }
         
         // search through all methods 
-        int paramSize = parameterTypes.length;
         Method[] methods = clazz.getMethods();
         ArrayList compatibles = new ArrayList(methods.length);
         for (int i = 0, size = methods.length; i < size ; i++) {
