@@ -55,6 +55,7 @@ package org.apache.commons.lang.exception;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.*;
 
@@ -74,9 +75,9 @@ import java.util.*;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.13 2003/05/14 02:59:13 bayard Exp $
+ * @version $Id: NestableDelegate.java,v 1.14 2003/06/10 06:16:54 scolebourne Exp $
  */
-public class NestableDelegate implements java.io.Serializable {
+public class NestableDelegate implements Serializable {
 
     /**
      * Constructor error message.
@@ -109,7 +110,7 @@ public class NestableDelegate implements java.io.Serializable {
      * @param nestable the Nestable implementation (<i>must</i> extend
      * {@link java.lang.Throwable})
      */
-    NestableDelegate(Nestable nestable) {
+    public NestableDelegate(Nestable nestable) {
         if (nestable instanceof Throwable) {
             this.nestable = (Throwable) nestable;
         } else {
@@ -129,7 +130,7 @@ public class NestableDelegate implements java.io.Serializable {
      * negative or not less than the count of <code>Throwable</code>s in the
      * chain
      */
-    String getMessage(int index) {
+    public String getMessage(int index) {
         Throwable t = this.getThrowable(index);
         if (Nestable.class.isInstance(t)) {
             return ((Nestable) t).getMessage(0);
@@ -150,7 +151,7 @@ public class NestableDelegate implements java.io.Serializable {
      * @return The concatenated message for this and all nested
      * <code>Throwable</code>s
      */
-    String getMessage(String baseMsg) {
+    public String getMessage(String baseMsg) {
         StringBuffer msg = new StringBuffer();
         if (baseMsg != null) {
             msg.append(baseMsg);
@@ -180,7 +181,7 @@ public class NestableDelegate implements java.io.Serializable {
      *
      * @return the error messages
      */
-    String[] getMessages() {
+    public String[] getMessages() {
         Throwable[] throwables = this.getThrowables();
         String[] msgs = new String[throwables.length];
         for (int i = 0; i < throwables.length; i++) {
@@ -203,7 +204,7 @@ public class NestableDelegate implements java.io.Serializable {
      * negative or not less than the count of <code>Throwable</code>s in the
      * chain
      */
-    Throwable getThrowable(int index) {
+    public Throwable getThrowable(int index) {
         if (index == 0) {
             return this.nestable;
         }
@@ -217,7 +218,7 @@ public class NestableDelegate implements java.io.Serializable {
      *
      * @return the throwable count
      */
-    int getThrowableCount() {
+    public int getThrowableCount() {
         return ExceptionUtils.getThrowableCount(this.nestable);
     }
 
@@ -228,7 +229,7 @@ public class NestableDelegate implements java.io.Serializable {
      *
      * @return the <code>Throwable</code>s
      */
-    Throwable[] getThrowables() {
+    public Throwable[] getThrowables() {
         return ExceptionUtils.getThrowables(this.nestable);
     }
 
@@ -247,7 +248,7 @@ public class NestableDelegate implements java.io.Serializable {
      * is negative or not less than the count of <code>Throwable</code>s in the
      * chain
      */
-    int indexOfThrowable(Class type, int fromIndex) {
+    public int indexOfThrowable(Class type, int fromIndex) {
         return ExceptionUtils.indexOfThrowable(this.nestable, type, fromIndex);
     }
 
@@ -336,7 +337,7 @@ public class NestableDelegate implements java.io.Serializable {
      * @param t The <code>Throwable</code>.
      * @return  An array of strings describing each stack frame.
      */
-    private String[] getStackFrames(Throwable t) {
+    protected String[] getStackFrames(Throwable t) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw, true);
 
@@ -356,7 +357,7 @@ public class NestableDelegate implements java.io.Serializable {
      *
      * @param stacks The list containing String[] elements
      */
-     private void trimStackFrames(List stacks) {
+    protected void trimStackFrames(List stacks) {
          for (int size=stacks.size(), i=size-1; i > 0; i--) {
              String[] curr = (String[]) stacks.get(i);
              String[] next = (String[]) stacks.get(i-1); 
