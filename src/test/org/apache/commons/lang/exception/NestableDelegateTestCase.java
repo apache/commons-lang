@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
- * @version $Id: NestableDelegateTestCase.java,v 1.9 2004/10/09 10:45:24 scolebourne Exp $
+ * @version $Id: NestableDelegateTestCase.java,v 1.10 2004/12/25 19:50:09 bayard Exp $
  */
 public class NestableDelegateTestCase extends junit.framework.TestCase {
     private static final String CONSTRUCTOR_FAILED_MSG = 
@@ -521,15 +521,15 @@ public class NestableDelegateTestCase extends junit.framework.TestCase {
         
         // Only testing the flags for jdk1.3 and below
         if (!ExceptionUtils.isThrowableNested()) {
-            d.topDown = true; d.trimStackFrames = true;
+        	NestableDelegate.topDown = true; NestableDelegate.trimStackFrames = true;
             checkStackTrace(d, true, true, NestableDelegateTester1.class.getName()+": level 1", 24);
-            d.topDown = true; d.trimStackFrames = false;
+            NestableDelegate.topDown = true; NestableDelegate.trimStackFrames = false;
             checkStackTrace(d, true, false, NestableDelegateTester1.class.getName()+": level 1", 80);
-            d.topDown = false; d.trimStackFrames = true;
+            NestableDelegate.topDown = false; NestableDelegate.trimStackFrames = true;
             checkStackTrace(d, false, true, "java.lang.Exception: level 5", 24);
-            d.topDown = false; d.trimStackFrames = false;
+            NestableDelegate.topDown = false; NestableDelegate.trimStackFrames = false;
             checkStackTrace(d, false, false, "java.lang.Exception: level 5", 80);
-            d.topDown = true; d.trimStackFrames = true;
+            NestableDelegate.topDown = true; NestableDelegate.trimStackFrames = true;
         }
     }
     private void checkStackTrace(NestableDelegate d, boolean topDown, boolean trimStackFrames,
