@@ -65,7 +65,7 @@ import java.util.List;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.16 2003/07/19 20:17:12 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.17 2003/07/19 21:55:05 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -142,7 +142,7 @@ public class ClassUtils {
      * @throws IllegalArgumentException if the className is empty
      */
     public static String getShortClassName(String className) {
-        if (StringUtils.isEmptyOrNull(className)) {
+        if (StringUtils.isEmpty(className)) {
             throw new IllegalArgumentException("The class name must not be empty");
         }
         char[] chars = className.toCharArray();
@@ -199,7 +199,7 @@ public class ClassUtils {
      * @throws IllegalArgumentException if the className is empty
      */
     public static String getPackageName(String className) {
-        if (StringUtils.isEmptyOrNull(className)) {
+        if (StringUtils.isEmpty(className)) {
             throw new IllegalArgumentException("The class name must not be empty");
         }
         int i = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
