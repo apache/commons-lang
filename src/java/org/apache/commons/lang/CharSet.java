@@ -67,8 +67,9 @@ import java.util.Set;
  *
  * @author Henri Yandell
  * @author Stephen Colebourne
+ * @author Phil Steitz
  * @since 1.0
- * @version $Id: CharSet.java,v 1.10 2003/08/02 18:18:33 scolebourne Exp $
+ * @version $Id: CharSet.java,v 1.11 2003/08/04 00:50:14 scolebourne Exp $
  */
 public class CharSet implements Serializable {
 
@@ -126,10 +127,26 @@ public class CharSet implements Serializable {
      *  - set containing all the characters from the individual sets</li>
      * </ul>
      * 
+     * <p>The matching order is:</p>
+     * <ol
+     *  <li>Negated multi character range, such as "^a-e"
+     *  <li>Ordinary multi character range, such as "a-e"
+     *  <li>Negated single character, such as "^a"
+     *  <li>Ordinary single character, such as "a"
+     * </ol>
+     * <p>Matching works left to right. Once a match is found the
+     * search starts again from the next character.</p>
+     * 
      * <p>If the same range is defined twice using the same syntax, only
      * one range will be kept.
-     * Thus, "a-ca-c" creates only one range of "a-c".
-     * However, "a-cabc" creates two ranges as they are defined differently.</p>
+     * Thus, "a-ca-c" creates only one range of "a-c".</p>
+     *
+     * <p>If the start and end of a range are in the wrong order,
+     * they are reversed. Thus "a-e" is the same as "e-a".
+     * As a result, "a-ee-a" would create only one range,
+     * as the "a-e" and "e-a" are the same.</p>
+     *
+     * <p>The set of characters represented is the union of the specified ranges.</p>
      *
      * <p>All CharSet objects returned by this method will be immutable.</p>
      * 
@@ -180,71 +197,26 @@ public class CharSet implements Serializable {
         }
 
         int len = str.length();
-        switch (len) {
-            case 0:
-            // do nothing
-            break;
-            
-            case 1:
-            set.add(new CharRange(str.charAt(0)));
-            break;
-            
-            default:
-            int start = -1;
-            boolean negated = false;
-            for (int i = 0; i < len; i++) {
-                char ch = str.charAt(i);
-                if (ch == '-') {
-                    if (start == -1) {
-                        // dash found not as range separator
-                        // treat as ordinary start block char
-                        start = ch; 
-                    } else if (i == len - 1) {
-                        // dash is last character, store two single characters
-                        set.add(new CharRange((char) start, (char) start, negated));
-                        set.add(DASH);
-                        start = -1;
-                        negated = false;
-                    } else {
-                        // range block found, store it
-                        set.add(new CharRange((char) start, str.charAt(++i), negated));
-                        start = -1;
-                        negated = false;
-                    }
-                } else if (ch == '^') {
-                    if (start == -1) {
-                        if (negated) {
-                            // double negate, treat second as ordinary start block char
-                            start = ch;
-                        } else {
-                            // negate next block
-                            negated = true;
-                        }
-                    } else {
-                        // previous block has ended, store it
-                        set.add(new CharRange((char) start, (char) start, negated));
-                        start = -1;
-                        negated = true;
-                    }
-                } else {
-                    if (start == -1) {
-                        // start of block
-                        start = ch;
-                    } else {
-                        // previous block has ended, store it, and start next block
-                        set.add(new CharRange((char) start, (char) start, negated));
-                        start = ch;
-                        negated = false;
-                    }
-                }
+        int pos = 0;
+        while (pos < len) {
+            int remainder = (len - pos);
+            if (remainder >= 4 && str.charAt(pos) == '^' && str.charAt(pos + 2) == '-') {
+                // negated range
+                set.add(new CharRange(str.charAt(pos + 1), str.charAt(pos + 3), true));
+                pos += 4;
+            } else if (remainder >= 3 && str.charAt(pos + 1) == '-') {
+                // range
+                set.add(new CharRange(str.charAt(pos), str.charAt(pos + 2)));
+                pos += 3;
+            } else if (remainder >= 2 && str.charAt(pos) == '^') {
+                // negated char
+                set.add(new CharRange(str.charAt(pos + 1), true));
+                pos += 2;
+            } else {
+                // char
+                set.add(new CharRange(str.charAt(pos)));
+                pos += 1;
             }
-            // handle leftovers
-            if (start != -1) {
-                set.add(new CharRange((char) start, (char) start, negated));
-            } else if (negated) {
-                set.add(NEGATE);
-            }
-            break;
         }
     }
 

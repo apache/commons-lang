@@ -62,8 +62,9 @@ package org.apache.commons.lang;
  * 
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
+ * @author Phil Steitz
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.20 2003/08/02 18:18:33 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.21 2003/08/04 00:50:14 scolebourne Exp $
  */
 public class CharSetUtils {
 
@@ -80,13 +81,12 @@ public class CharSetUtils {
     // Factory
     //-----------------------------------------------------------------------
     /**
-     * <p>Creates a <code>CharSetUtils</code> object which allows a certain amount of
+     * <p>Creates a <code>CharSet</code> instance which allows a certain amount of
      * set logic to be performed.</p>
      * <p>The syntax is:</p>
      * <ul>
      *  <li>&quot;aeio&quot; which implies 'a','e',..</li>
-     *  <li>&quot;^e&quot; implies not e. However it only negates, it's not
-     *   a set in itself due to the size of that set in unicode.</li>
+     *  <li>&quot;^e&quot; implies not e.</li>
      *  <li>&quot;ej-m&quot; implies e,j->m. e,j,k,l,m.</li>
      * </ul>
      * 
@@ -94,6 +94,7 @@ public class CharSetUtils {
      * CharSetUtils.evaluateSet(null)  = null
      * CharSetUtils.evaluateSet("")    = CharSet matching nothing
      * CharSetUtils.evaluateSet("a-e") = CharSet matching a,b,c,d,e
+     * CharSetUtils.evaluateSet("abe-g") = CharSet matching a,b,e,f,g
      * </pre>
      *
      * @param set  the set, may be null
@@ -109,13 +110,12 @@ public class CharSetUtils {
     }
 
     /**
-     * <p>Creates a <code>CharSetUtils</code> object which allows a certain amount of
+     * <p>Creates a <code>CharSet</code> instance which allows a certain amount of
      * set logic to be performed.</p>
      * <p>The syntax is:</p>
      * <ul>
      *  <li>&quot;aeio&quot; which implies 'a','e',..</li>
-     *  <li>&quot;^e&quot; implies not e. However it only negates, it's not
-     *   a set in itself due to the size of that set in unicode.</li>
+     *  <li>&quot;^e&quot; implies not e.</li>
      *  <li>&quot;ej-m&quot; implies e,j->m. e,j,k,l,m.</li>
      * </ul>
      * 
