@@ -68,12 +68,11 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.time.FastDateFormat}.
  *
  * @author Sean Schofield
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: FastDateFormatTest.java,v 1.4 2003/06/08 23:14:23 scolebourne Exp $
+ * @version $Id: FastDateFormatTest.java,v 1.5 2003/07/16 05:14:43 ggregory Exp $
  */
 public class FastDateFormatTest extends TestCase {
-
-    private FastDateFormat fastDateFormat = null;
 
     public FastDateFormatTest(String name) {
         super(name);
