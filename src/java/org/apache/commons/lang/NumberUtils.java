@@ -28,7 +28,7 @@ import java.math.BigInteger;
  * @author Eric Pugh
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: NumberUtils.java,v 1.16 2004/02/18 22:59:49 ggregory Exp $
+ * @version $Id: NumberUtils.java,v 1.17 2004/02/19 21:04:03 fredrik Exp $
  * 
  * @deprecated Moved to org.apache.commons.lang.math.
  *             Class will be removed in Commons Lang 3.0.
@@ -608,7 +608,7 @@ public final class NumberUtils {
      * @return <code>true</code> if the string is a correctly formatted number
      */
     public static boolean isNumber(String str) {
-        if ((str == null) || (str.length() == 0)) {
+        if (StringUtils.isEmpty(str)) {
             return false;
         }
         char[] chars = str.toCharArray();
