@@ -111,7 +111,7 @@ import java.util.List;
  * @author Al Chou
  * @author Michael Davey
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.128 2004/02/24 22:31:42 fredrik Exp $
+ * @version $Id: StringUtils.java,v 1.129 2004/03/10 23:54:48 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2675,19 +2675,25 @@ public class StringUtils {
         if (replaceChars == null) {
             replaceChars = "";
         }
-        StringBuffer buffer = new StringBuffer(str.length());
+        boolean modified = false;
+        StringBuffer buf = new StringBuffer(str.length());
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
             int index = searchChars.indexOf(ch);
             if (index >= 0) {
+                modified = true;
                 if (index < replaceChars.length()) {
-                    buffer.append(replaceChars.charAt(index));
+                    buf.append(replaceChars.charAt(index));
                 }
             } else {
-                buffer.append(ch);
+                buf.append(ch);
             }
         }
-        return buffer.toString();
+        if (modified) {
+            return buf.toString();
+        } else {
+            return str;
+        }
     }
 
     // Overlay
