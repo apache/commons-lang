@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,6 +54,7 @@
 package org.apache.commons.lang.time;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -69,8 +70,9 @@ import junit.textui.TestRunner;
  *
  * @author Sean Schofield
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Fredrik Westermarck
  * @since 2.0
- * @version $Id: FastDateFormatTest.java,v 1.6 2003/08/18 02:22:28 bayard Exp $
+ * @version $Id: FastDateFormatTest.java,v 1.7 2004/02/04 18:49:10 fredrik Exp $
  */
 public class FastDateFormatTest extends TestCase {
 
@@ -108,7 +110,7 @@ public class FastDateFormatTest extends TestCase {
         FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy");
         FastDateFormat format2 = FastDateFormat.getInstance("MM-DD-yyyy");
         FastDateFormat format3 = FastDateFormat.getInstance("MM-DD-yyyy");
-        
+
         assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
         assertSame(format2, format3);
         assertEquals("MM/DD/yyyy", format1.getPattern());
@@ -124,7 +126,7 @@ public class FastDateFormatTest extends TestCase {
         try {
             Locale.setDefault(Locale.US);
             TimeZone.setDefault(TimeZone.getTimeZone("America/New_York"));
-    
+
             FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
                     TimeZone.getTimeZone("Atlantic/Reykjavik"));
             FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy");
@@ -132,7 +134,7 @@ public class FastDateFormatTest extends TestCase {
             FastDateFormat format4 = FastDateFormat.getInstance("MM/DD/yyyy", TimeZone.getDefault());
             FastDateFormat format5 = FastDateFormat.getInstance("MM-DD-yyyy", TimeZone.getDefault());
             FastDateFormat format6 = FastDateFormat.getInstance("MM-DD-yyyy");
-    
+
             assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
             assertEquals(TimeZone.getTimeZone("Atlantic/Reykjavik"), format1.getTimeZone());
             assertEquals(true, format1.getTimeZoneOverridesCalendar());
@@ -141,7 +143,7 @@ public class FastDateFormatTest extends TestCase {
             assertSame(format3, format4);
             assertTrue(format3 != format5); // -- junit 3.8 version -- assertFalse(format3 == format5);
             assertTrue(format4 != format6); // -- junit 3.8 version -- assertFalse(format3 == format5);
-            
+
         } finally {
             Locale.setDefault(realDefaultLocale);
             TimeZone.setDefault(realDefaultZone);
@@ -159,7 +161,7 @@ public class FastDateFormatTest extends TestCase {
             assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
             assertSame(format1, format3);
             assertSame(Locale.GERMANY, format1.getLocale());
-            
+
         } finally {
             Locale.setDefault(realDefaultLocale);
         }
@@ -171,13 +173,13 @@ public class FastDateFormatTest extends TestCase {
         try {
             Locale.setDefault(Locale.US);
             TimeZone.setDefault(TimeZone.getTimeZone("America/New_York"));
-    
+
             FastDateFormat format1 = FastDateFormat.getInstance("MM/DD/yyyy",
                     TimeZone.getTimeZone("Atlantic/Reykjavik"), Locale.GERMANY);
             FastDateFormat format2 = FastDateFormat.getInstance("MM/DD/yyyy", Locale.GERMANY);
             FastDateFormat format3 = FastDateFormat.getInstance("MM/DD/yyyy",
                     TimeZone.getDefault(), Locale.GERMANY);
-    
+
             assertTrue(format1 != format2); // -- junit 3.8 version -- assertNotSame(format1, format2);
             assertEquals(TimeZone.getTimeZone("Atlantic/Reykjavik"), format1.getTimeZone());
             assertEquals(TimeZone.getDefault(), format2.getTimeZone());
@@ -188,13 +190,13 @@ public class FastDateFormatTest extends TestCase {
             assertEquals(Locale.GERMANY, format1.getLocale());
             assertEquals(Locale.GERMANY, format2.getLocale());
             assertEquals(Locale.GERMANY, format3.getLocale());
-            
+
         } finally {
             Locale.setDefault(realDefaultLocale);
             TimeZone.setDefault(realDefaultZone);
         }
     }
-    
+
     public void testFormat() {
         Locale realDefaultLocale = Locale.getDefault();
         TimeZone realDefaultZone = TimeZone.getDefault();
@@ -203,12 +205,12 @@ public class FastDateFormatTest extends TestCase {
             TimeZone.setDefault(TimeZone.getTimeZone("America/New_York"));
             FastDateFormat fdf = null;
             SimpleDateFormat sdf = null;
-    
+
             GregorianCalendar cal1 = new GregorianCalendar(2003, 0, 10, 15, 33, 20);
             GregorianCalendar cal2 = new GregorianCalendar(2003, 6, 10, 9, 00, 00);
             Date date1 = cal1.getTime();
             Date date2 = cal2.getTime();
-            
+
             fdf = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss");
             sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             assertEquals(sdf.format(date1), fdf.format(date1));
@@ -216,15 +218,15 @@ public class FastDateFormatTest extends TestCase {
             assertEquals("2003-01-10T15:33:20", fdf.format(cal1));
             assertEquals("2003-07-10T09:00:00", fdf.format(date2));
             assertEquals("2003-07-10T09:00:00", fdf.format(cal2));
-            
+
             fdf = FastDateFormat.getInstance("Z");
             assertEquals("-0500", fdf.format(date1));
             assertEquals("-0500", fdf.format(cal1));
-            
+
             fdf = FastDateFormat.getInstance("Z");
             assertEquals("-0400", fdf.format(date2));
             assertEquals("-0400", fdf.format(cal2));
-            
+
             fdf = FastDateFormat.getInstance("ZZ");
             assertEquals("-05:00", fdf.format(date1));
             assertEquals("-05:00", fdf.format(cal1));
@@ -232,7 +234,7 @@ public class FastDateFormatTest extends TestCase {
             fdf = FastDateFormat.getInstance("ZZ");
             assertEquals("-04:00", fdf.format(date2));
             assertEquals("-04:00", fdf.format(cal2));
-            
+
             String pattern = "GGGG GGG GG G yyyy yyy yy y MMMM MMM MM M" +
                 " dddd ddd dd d DDDD DDD DD D EEEE EEE EE E aaaa aaa aa a zzzz zzz zz z";
             fdf = FastDateFormat.getInstance(pattern);
@@ -245,5 +247,20 @@ public class FastDateFormatTest extends TestCase {
             TimeZone.setDefault(realDefaultZone);
         }
     }
-    
+
+    /**
+     * Test case for {@link FastDateFormat#getDateInstance(int, java.util.Locale)}.
+     */
+    public void testShortDateStyleWithLocales() {
+        Locale usLocale = Locale.US;
+        Locale swedishLocale = new Locale("sv", "SE");
+        Calendar cal = Calendar.getInstance();
+        cal.set(2004, 1, 3);
+        FastDateFormat fdf = FastDateFormat.getDateInstance(FastDateFormat.SHORT, usLocale);
+        assertEquals("2/3/04", fdf.format(cal));
+
+        fdf = FastDateFormat.getDateInstance(FastDateFormat.SHORT, swedishLocale);
+        assertEquals("2004-02-03", fdf.format(cal));
+
+    }
 }
