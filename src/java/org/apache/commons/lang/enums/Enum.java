@@ -230,7 +230,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Mike Bowler
  * @author Matthias Eichel
  * @since 2.1 (class existed in enum package from v1.0)
- * @version $Id: Enum.java,v 1.3 2004/09/30 17:24:47 ggregory Exp $
+ * @version $Id: Enum.java,v 1.4 2004/12/12 22:36:20 ggregory Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
 
@@ -376,7 +376,7 @@ public abstract class Enum implements Comparable, Serializable {
      *  be <code>null</code>
      * @param name  the name of the <code>Enum</code> to get,
      *  may be <code>null</code>
-     * @return the enum object, or null if the enum does not exist
+     * @return the enum object, or <code>null</code> if the enum does not exist
      * @throws IllegalArgumentException if the enum class
      *  is <code>null</code>
      */
