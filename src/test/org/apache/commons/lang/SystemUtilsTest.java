@@ -64,7 +64,8 @@ import junit.textui.TestRunner;
  * Only limited testing can be performed.
  *
  * @author Stephen Colebourne
- * @version $Id: SystemUtilsTest.java,v 1.2 2003/05/24 14:34:14 scolebourne Exp $
+ * @author Tetsuya Kaneuchi
+ * @version $Id: SystemUtilsTest.java,v 1.3 2003/07/21 22:57:51 scolebourne Exp $
  */
 public class SystemUtilsTest extends TestCase {
 
@@ -74,22 +75,6 @@ public class SystemUtilsTest extends TestCase {
 
     public static void main(String[] args) {
         TestRunner.run(suite());
-//        SystemUtils s = new SystemUtils();
-//        System.out.println(s.IS_OS_WINDOWS);
-//        System.out.println(s.IS_OS_WINDOWS_95);
-//        System.out.println(s.IS_OS_WINDOWS_98);
-//        java.util.Properties p = System.getProperties();
-//        java.util.Enumeration keys = p.keys();
-//        java.util.List list = new java.util.ArrayList();
-//        while( keys.hasMoreElements() ) {
-//            list.add(keys.nextElement());
-//        }
-//        java.util.Collections.sort(list);
-//        for (java.util.Iterator it = list.iterator(); it.hasNext();) {
-//            String key = (String) it.next();
-//            System.out.println(key + " " + p.getProperty(key));
-//        }
-    
     }
 
     public static Test suite() {
@@ -354,6 +339,53 @@ public class SystemUtilsTest extends TestCase {
         OS_NAME = "OS/2";
         OS_VERSION = "4.0";
         assertEquals(false, getOSMatches("Windows 9", "4.1"));
+    }
+
+    public void testIS_OS() {
+        String osName = System.getProperty("os.name");
+        if (osName == null) {
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
+            assertEquals(false, SystemUtils.IS_OS_SOLARIS);
+            assertEquals(false, SystemUtils.IS_OS_LINUX);
+            assertEquals(false, SystemUtils.IS_OS_MAC_OSX);
+        } else if (osName.startsWith("Windows")) {
+            assertTrue(SystemUtils.IS_OS_WINDOWS);
+        } else if (osName.startsWith("Solaris")) {
+            assertTrue(SystemUtils.IS_OS_SOLARIS);
+        } else if (osName.toLowerCase().startsWith("linux")) {
+            assertTrue(SystemUtils.IS_OS_LINUX);
+        } else if (osName.startsWith("Mac OS X")) {
+            assertTrue(SystemUtils.IS_OS_MAC_OSX);
+        } else if (osName.startsWith("OS/2")) {
+            assertTrue(SystemUtils.IS_OS_OS2);
+        } else if (osName.startsWith("SunOS")) {
+            assertTrue(SystemUtils.IS_OS_SUN_OS);
+        } else {
+            System.out.println("Can't test IS_OS value");
+        }
+    }
+
+    public void testIS_JAVA() {
+        String javaVersion = System.getProperty("java.version");
+        if (javaVersion == null) {
+            assertEquals(false, SystemUtils.IS_JAVA_1_1);
+            assertEquals(false, SystemUtils.IS_JAVA_1_2);
+            assertEquals(false, SystemUtils.IS_JAVA_1_3);
+            assertEquals(false, SystemUtils.IS_JAVA_1_4);
+            assertEquals(false, SystemUtils.IS_JAVA_1_5);
+        } else if (javaVersion.startsWith("1.1")) {
+            assertTrue(SystemUtils.IS_JAVA_1_1);
+        } else if (javaVersion.startsWith("1.2")) {
+            assertTrue(SystemUtils.IS_JAVA_1_2);
+        } else if (javaVersion.startsWith("1.3")) {
+            assertTrue(SystemUtils.IS_JAVA_1_3);
+        } else if (javaVersion.startsWith("1.4")) {
+            assertTrue(SystemUtils.IS_JAVA_1_4);
+        } else if (javaVersion.startsWith("1.5")) {
+            assertTrue(SystemUtils.IS_JAVA_1_5);
+        } else {
+            System.out.println("Can't test IS_JAVA value");
+        }
     }
     
 }
