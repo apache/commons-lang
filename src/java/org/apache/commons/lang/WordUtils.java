@@ -28,7 +28,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.9 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: WordUtils.java,v 1.10 2004/06/03 03:08:33 bayard Exp $
  */
 public class WordUtils {
 
@@ -278,25 +278,11 @@ public class WordUtils {
      * @return capitalized String, <code>null</code> if null String input
      */
     public static String capitalizeFully(String str) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        if (str == null || str.length() == 0) {
             return str;
         }
-        StringBuffer buffer = new StringBuffer(strLen);
-        boolean whitespace = true;
-        for (int i = 0; i < strLen; i++) {
-            char ch = str.charAt(i);
-            if (Character.isWhitespace(ch)) {
-                buffer.append(ch);
-                whitespace = true;
-            } else if (whitespace) {
-                buffer.append(Character.toTitleCase(ch));
-                whitespace = false;
-            } else {
-                buffer.append(Character.toLowerCase(ch));
-            }
-        }
-        return buffer.toString();
+        str = str.toLowerCase();
+        return capitalize(str);
     }
 
     /**
