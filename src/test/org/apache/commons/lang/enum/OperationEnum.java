@@ -61,27 +61,42 @@ import java.util.Map;
  * Operator enumeration.
  *
  * @author Stephen Colebourne
- * @version $Id: OperationEnum.java,v 1.3 2003/08/02 18:38:36 scolebourne Exp $
+ * @version $Id: OperationEnum.java,v 1.4 2003/08/04 23:52:27 scolebourne Exp $
  */
 public abstract class OperationEnum extends Enum {
-    public static final OperationEnum PLUS;
-    public static final OperationEnum MINUS;
-    static {
-        // Get around JDK Linux bug
-        PLUS = new OperationEnum("Plus") {
-            public int eval(int a, int b) {
-                return (a + b);
-            }
-        };
-        MINUS = new OperationEnum("Minus") {
-            public int eval(int a, int b) {
-                return (a - b);
-            }
-        };
+    // This syntax works for JDK 1.3 and upwards:
+//    public static final OperationEnum PLUS = new OperationEnum("Plus") {
+//        public int eval(int a, int b) {
+//            return (a + b);
+//        }
+//    };
+//    public static final OperationEnum MINUS = new OperationEnum("Minus") {
+//        public int eval(int a, int b) {
+//            return (a - b);
+//        }
+//    };
+    // This syntax works for JDK 1.2 and upwards:
+    public static final OperationEnum PLUS = new PlusOperation();
+    private static class PlusOperation extends OperationEnum {
+        private PlusOperation() {
+            super("Plus");
+        }
+        public int eval(int a, int b) {
+            return (a + b);
+        }
+    }
+    public static final OperationEnum MINUS = new MinusOperation();
+    private static class MinusOperation extends OperationEnum {
+        private MinusOperation() {
+            super("Minus");
+        }
+        public int eval(int a, int b) {
+            return (a - b);
+        }
     }
 
     private OperationEnum(String name) {
-        super(name);
+        super(name, OperationEnum.class);
     }
 
     public abstract int eval(int a, int b);

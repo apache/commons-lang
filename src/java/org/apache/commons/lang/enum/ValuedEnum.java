@@ -133,12 +133,12 @@ import org.apache.commons.lang.ClassUtils;
  * @author Apache Avalon project
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.10 2003/07/30 23:17:23 scolebourne Exp $
+ * @version $Id: ValuedEnum.java,v 1.11 2003/08/04 23:52:27 scolebourne Exp $
  */
 public abstract class ValuedEnum extends Enum {
     
     /** Lang version 1.0.1 serial compatability */
-    static final long serialVersionUID = -7129650521543789085L;
+    private static final long serialVersionUID = -7129650521543789085L;
     
     /**
      * The value contained in enum.
@@ -148,11 +148,23 @@ public abstract class ValuedEnum extends Enum {
     /**
      * Constructor for enum item.
      *
-     * @param name the name of enum item.
-     * @param value the value of enum item.
+     * @param name  the name of enum item
+     * @param value  the value of enum item
      */
     protected ValuedEnum(String name, int value) {
         super(name);
+        iValue = value;
+    }
+
+    /**
+     * Constructor for enum item.
+     *
+     * @param name  the name of enum item
+     * @param enumClass  the enum class
+     * @param value  the value of enum item
+     */
+    protected ValuedEnum(String name, Class enumClass, int value) {
+        super(name, enumClass);
         iValue = value;
     }
 
@@ -217,8 +229,7 @@ public abstract class ValuedEnum extends Enum {
      */
     public String toString() {
         if (iToString == null) {
-            Class cls = Enum.getEnumClass(getClass());
-            String shortName = ClassUtils.getShortClassName(cls);
+            String shortName = ClassUtils.getShortClassName(getEnumClass());
             iToString = shortName + "[" + getName() + "=" + getValue() + "]";
         }
         return iToString;
