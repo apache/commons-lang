@@ -42,7 +42,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.40 2004/09/30 06:21:40 bayard Exp $
+ * @version $Id: ExceptionUtils.java,v 1.41 2004/09/30 07:03:25 bayard Exp $
  */
 public class ExceptionUtils {
     
@@ -434,7 +434,9 @@ public class ExceptionUtils {
             return -1;
         }
         for (int i = fromIndex; i < throwables.length; i++) {
-            if (type.isAssignableFrom(throwables[i].getClass())) {
+// TODO: decide on whether to include this
+//            if (type.isAssignableFrom(throwables[i].getClass())) {
+            if (throwables[i].getClass().equals(type)) {
                 return i;
             }
         }
