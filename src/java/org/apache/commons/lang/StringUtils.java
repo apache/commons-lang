@@ -147,7 +147,7 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.116 2003/11/03 03:48:59 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.117 2003/11/04 21:00:22 fredrik Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1114,7 +1114,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int indexOfAny(String str, char[] searchChars) {
-        if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
+        if (StringUtils.isEmpty(str) || searchChars == null || searchChars.length == 0) {
             return -1;
         }
         for (int i = 0; i < str.length(); i++) {
@@ -1151,7 +1151,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int indexOfAny(String str, String searchChars) {
-        if (str == null || str.length() == 0 || searchChars == null || searchChars.length() == 0) {
+        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(searchChars)) {
             return -1;
         }
         return indexOfAny(str, searchChars.toCharArray());
@@ -2485,14 +2485,14 @@ public class StringUtils {
      *  <code>null</code> if null String input
      * @since 2.1
      */
-    public static String removeStart(String string, String remove) {
-        if (string == null || string.length() == 0 || remove == null || remove.length() == 0) {
-            return string;
+    public static String removeStart(String str, String remove) {
+        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(remove)) {
+            return str;
         }
-        if (string.startsWith(remove)){
-            return string.substring(remove.length());
+        if (str.startsWith(remove)){
+            return str.substring(remove.length());
         }
-        return string;
+        return str;
     }
 
     /**
@@ -2519,14 +2519,14 @@ public class StringUtils {
      *  <code>null</code> if null String input
      * @since 2.1
      */
-    public static String removeEnd(String string, String remove) {
-        if (string == null || string.length() == 0 || remove == null || remove.length() == 0) {
-            return string;
+    public static String removeEnd(String str, String remove) {
+        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(remove)) {
+            return str;
         }
-        if (string.endsWith(remove)) {
-            return string.substring(0, string.length() - remove.length());
+        if (str.endsWith(remove)) {
+            return str.substring(0, str.length() - remove.length());
         }
-        return string;
+        return str;
     }
 
     // Replacing
