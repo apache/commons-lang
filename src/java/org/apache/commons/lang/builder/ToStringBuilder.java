@@ -116,7 +116,7 @@ import java.util.Set;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.17 2003/03/27 08:54:31 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.18 2003/04/08 20:44:10 ggregory Exp $
  */
 public class ToStringBuilder {
 
@@ -283,7 +283,7 @@ public class ToStringBuilder {
 
     /**
      * <p>This method uses reflection to build a suitable
-     * <code>toString<code> using the default <code>ToStringStyle</code>.
+     * <code>toString</code> using the default <code>ToStringStyle</code>.
      *
      * <p>It uses <code>Field.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run
