@@ -196,17 +196,20 @@ public class DateFormatUtilsTest extends TestCase {
         Calendar cal = Calendar.getInstance(timeZone);
         cal.set(2003,5,8,10,11,12);
         String text = DateFormatUtils.format(cal.getTime(), 
-                        DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(), timeZone);
+                        DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(), timeZone,
+                        DateFormatUtils.SMTP_DATETIME_FORMAT.getLocale());
         assertEquals("Sun, 08 Jun 2003 10:11:12 -0300", text);
         text = DateFormatUtils.format(cal.getTime().getTime(), 
-                        DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(), timeZone);
+                        DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(), timeZone,
+                        DateFormatUtils.SMTP_DATETIME_FORMAT.getLocale());
         assertEquals("Sun, 08 Jun 2003 10:11:12 -0300", text);
         text = DateFormatUtils.SMTP_DATETIME_FORMAT.format(cal);
         assertEquals("Sun, 08 Jun 2003 10:11:12 -0300", text);
         
         // format UTC
         text = DateFormatUtils.formatUTC(cal.getTime().getTime(), 
-                        DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern());
+                        DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
+                        DateFormatUtils.SMTP_DATETIME_FORMAT.getLocale());
         assertEquals("Sun, 08 Jun 2003 13:11:12 +0000", text);
     }
 
