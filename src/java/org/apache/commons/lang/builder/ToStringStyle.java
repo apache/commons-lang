@@ -80,7 +80,7 @@ import org.apache.commons.lang.SystemUtils;
  * the array length.</p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringStyle.java,v 1.5 2002/11/17 21:46:42 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.6 2002/11/22 21:16:24 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -1800,14 +1800,14 @@ public abstract class ToStringStyle implements Serializable {
      * <p>This is an inner class rather than using
      * <code>StandardToStringStyle</code> to ensure its immutability.</p>
      */
-    private static final class DefaultToStringStyle extends ToStringStyle {
+    static final class DefaultToStringStyle extends ToStringStyle {
         
         /**
          * <p>Constructor</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        private DefaultToStringStyle() {
+        DefaultToStringStyle() {
             super();
         }
         
@@ -1831,14 +1831,14 @@ public abstract class ToStringStyle implements Serializable {
      * <p>This is an inner class rather than using
      * <code>StandardToStringStyle</code> to ensure its immutability.
      */
-    private static final class NoFieldNameToStringStyle extends ToStringStyle {
+    static final class NoFieldNameToStringStyle extends ToStringStyle {
         
         /**
          * <p>Constructor</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        private NoFieldNameToStringStyle() {
+        NoFieldNameToStringStyle() {
             super();
             setUseFieldNames(false);
         }
@@ -1863,14 +1863,14 @@ public abstract class ToStringStyle implements Serializable {
      * <p>This is an inner class rather than using
      * <code>StandardToStringStyle</code> to ensure its immutability.</p>
      */
-    private static final class SimpleToStringStyle extends ToStringStyle {
+    static final class SimpleToStringStyle extends ToStringStyle {
         
         /**
          * <p>Constructor</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        private SimpleToStringStyle() {
+        SimpleToStringStyle() {
             super();
             setUseClassName(false);
             setUseIdentityHashCode(false);
@@ -1897,14 +1897,14 @@ public abstract class ToStringStyle implements Serializable {
      * <p>This is an inner class rather than using
      * <code>StandardToStringStyle</code> to ensure its immutability.</p>
      */
-    private static final class MultiLineToStringStyle extends ToStringStyle {
+    static final class MultiLineToStringStyle extends ToStringStyle {
 
         /**
          * <p>Constructor</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        private MultiLineToStringStyle() {
+        MultiLineToStringStyle() {
             super();
             setContentStart("[" + SystemUtils.LINE_SEPARATOR + "  ");
             setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
