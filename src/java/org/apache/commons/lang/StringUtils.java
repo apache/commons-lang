@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.85 2003/08/01 21:02:16 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.86 2003/08/01 22:05:43 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1689,6 +1689,128 @@ public class StringUtils {
             return "";
         }
         return str.substring(pos + separator.length());
+    }
+
+    // Substring between
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets the String that is nested in between two instances of the
+     * same String.</p>
+     *
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * A <code>null</code> tag returns <code>null</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.substringBetween(null, *)            = null
+     * StringUtils.substringBetween("", "")             = ""
+     * StringUtils.substringBetween("", "tag")          = null
+     * StringUtils.substringBetween("tagabctag", null)  = null
+     * StringUtils.substringBetween("tagabctag", "")    = ""
+     * StringUtils.substringBetween("tagabctag", "tag") = "abc"
+     * </pre>
+     *
+     * @param str  the String containing the substring, may be null
+     * @param tag  the String before and after the substring, may be null
+     * @return the substring, <code>null</code> if no match
+     */
+    public static String substringBetween(String str, String tag) {
+        return substringBetween(str, tag, tag);
+    }
+    
+    /**
+     * <p>Gets the String that is nested in between two Strings.
+     * Only the first match is returned.</p>
+     * 
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * A <code>null</code> open/close returns <code>null</code> (no match).
+     * An empty ("") open/close returns an empty string.</p>
+     *
+     * <pre>
+     * StringUtils.substringBetween(null, *, *)          = null
+     * StringUtils.substringBetween("", "", "")          = ""
+     * StringUtils.substringBetween("", "", "tag")       = null
+     * StringUtils.substringBetween("", "tag", "tag")    = null
+     * StringUtils.substringBetween("yabcz", null, null) = null
+     * StringUtils.substringBetween("yabcz", "", "")     = ""
+     * StringUtils.substringBetween("yabcz", "y", "z")   = "abc"
+     * StringUtils.substringBetween("yabczyabcz", "y", "z")   = "abc"
+     * </pre>
+     *
+     * @param str  the String containing the substring, may be null
+     * @param open  the String before the substring, may be null
+     * @param close  the String after the substring, may be null
+     * @return the substring, <code>null</code> if no match
+     */
+    public static String substringBetween(String str, String open, String close) {
+        if (str == null || open == null || close == null) {
+            return null;
+        }
+        int start = str.indexOf(open);
+        if (start != -1) {
+            int end = str.indexOf(close, start + open.length());
+            if (end != -1) {
+                return str.substring(start + open.length(), end);
+            }
+        }
+        return null;
+    }
+
+    // Nested extraction
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets the String that is nested in between two instances of the
+     * same String.</p>
+     *
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * A <code>null</code> tag returns <code>null</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.getNestedString(null, *)            = null
+     * StringUtils.getNestedString("", "")             = ""
+     * StringUtils.getNestedString("", "tag")          = null
+     * StringUtils.getNestedString("tagabctag", null)  = null
+     * StringUtils.getNestedString("tagabctag", "")    = ""
+     * StringUtils.getNestedString("tagabctag", "tag") = "abc"
+     * </pre>
+     *
+     * @param str  the String containing nested-string, may be null
+     * @param tag  the String before and after nested-string, may be null
+     * @return the nested String, <code>null</code> if no match
+     * @deprecated Use the better named {@link #substringBetween(String, String)}.
+     *             Method will be removed in Commons Lang 3.0.
+     */
+    public static String getNestedString(String str, String tag) {
+        return substringBetween(str, tag, tag);
+    }
+    
+    /**
+     * <p>Gets the String that is nested in between two Strings.
+     * Only the first match is returned.</p>
+     * 
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * A <code>null</code> open/close returns <code>null</code> (no match).
+     * An empty ("") open/close returns an empty string.</p>
+     *
+     * <pre>
+     * StringUtils.getNestedString(null, *, *)          = null
+     * StringUtils.getNestedString("", "", "")          = ""
+     * StringUtils.getNestedString("", "", "tag")       = null
+     * StringUtils.getNestedString("", "tag", "tag")    = null
+     * StringUtils.getNestedString("yabcz", null, null) = null
+     * StringUtils.getNestedString("yabcz", "", "")     = ""
+     * StringUtils.getNestedString("yabcz", "y", "z")   = "abc"
+     * StringUtils.getNestedString("yabczyabcz", "y", "z")   = "abc"
+     * </pre>
+     *
+     * @param str  the String containing nested-string, may be null
+     * @param open  the String before nested-string, may be null
+     * @param close  the String after nested-string, may be null
+     * @return the nested String, <code>null</code> if no match
+     * @deprecated Use the better named {@link #substringBetween(String, String, String)}.
+     *             Method will be removed in Commons Lang 3.0.
+     */
+    public static String getNestedString(String str, String open, String close) {
+        return substringBetween(str, open, close);
     }
 
     // Splitting
@@ -3340,70 +3462,6 @@ public class StringUtils {
             }
         }
         return buffer.toString();
-    }
-
-    // Nested extraction
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Gets the String that is nested in between two instances of the
-     * same String.</p>
-     *
-     * <p>A <code>null</code> input String returns <code>null</code>.
-     * A <code>null</code> tag returns <code>null</code>.</p>
-     * 
-     * <pre>
-     * StringUtils.getNestedString(null, *)            = null
-     * StringUtils.getNestedString("", "")             = ""
-     * StringUtils.getNestedString("", "tag")          = null
-     * StringUtils.getNestedString("tagabctag", null)  = null
-     * StringUtils.getNestedString("tagabctag", "")    = ""
-     * StringUtils.getNestedString("tagabctag", "tag") = "abc"
-     * </pre>
-     *
-     * @param str  the String containing nested-string, may be null
-     * @param tag  the String before and after nested-string, may be null
-     * @return the nested String, <code>null</code> if no match
-     */
-    public static String getNestedString(String str, String tag) {
-        return getNestedString(str, tag, tag);
-    }
-    
-    /**
-     * <p>Gets the String that is nested in between two Strings.
-     * Only the first match is returned.</p>
-     * 
-     * <p>A <code>null</code> input String returns <code>null</code>.
-     * A <code>null</code> open/close returns <code>null</code> (no match).
-     * An empty ("") open/close returns an empty string.</p>
-     *
-     * <pre>
-     * StringUtils.getNestedString(null, *, *)          = null
-     * StringUtils.getNestedString("", "", "")          = ""
-     * StringUtils.getNestedString("", "", "tag")       = null
-     * StringUtils.getNestedString("", "tag", "tag")    = null
-     * StringUtils.getNestedString("yabcz", null, null) = null
-     * StringUtils.getNestedString("yabcz", "", "")     = ""
-     * StringUtils.getNestedString("yabcz", "y", "z")   = "abc"
-     * StringUtils.getNestedString("yabczyabcz", "y", "z")   = "abc"
-     * </pre>
-     *
-     * @param str  the String containing nested-string, may be null
-     * @param open  the String before nested-string, may be null
-     * @param close  the String after nested-string, may be null
-     * @return the nested String, <code>null</code> if no match
-     */
-    public static String getNestedString(String str, String open, String close) {
-        if (str == null || open == null || close == null) {
-            return null;
-        }
-        int start = str.indexOf(open);
-        if (start != -1) {
-            int end = str.indexOf(close, start + open.length());
-            if (end != -1) {
-                return str.substring(start + open.length(), end);
-            }
-        }
-        return null;
     }
 
     // Count matches

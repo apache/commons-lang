@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsSubstringTest.java,v 1.10 2003/07/30 22:21:39 scolebourne Exp $
+ * @version $Id: StringUtilsSubstringTest.java,v 1.11 2003/08/01 22:05:43 scolebourne Exp $
  */
 public class StringUtilsSubstringTest extends TestCase {
     private static final String FOO = "foo";
@@ -268,6 +268,27 @@ public class StringUtilsSubstringTest extends TestCase {
         assertEquals("", StringUtils.substringAfterLast("abc", ""));
     }        
         
+    //-----------------------------------------------------------------------
+    public void testSubstringBetween_StringString() {
+        assertEquals(null, StringUtils.substringBetween(null, "tag"));
+        assertEquals("", StringUtils.substringBetween("", ""));
+        assertEquals(null, StringUtils.substringBetween("", "abc"));
+        assertEquals("", StringUtils.substringBetween("    ", " "));
+        assertEquals(null, StringUtils.substringBetween("abc", null));
+        assertEquals("", StringUtils.substringBetween("abc", ""));
+        assertEquals(null, StringUtils.substringBetween("abc", "a"));
+        assertEquals("bc", StringUtils.substringBetween("abca", "a"));
+        assertEquals("bc", StringUtils.substringBetween("abcabca", "a"));
+        assertEquals("bar", StringUtils.substringBetween("\nbar\n", "\n"));
+    }
+            
+    public void testSubstringBetween_StringStringString() {
+        assertEquals(null, StringUtils.substringBetween(null, "", ""));
+        assertEquals("", StringUtils.substringBetween("", "", ""));
+        assertEquals("", StringUtils.substringBetween("    ", " ", "  "));
+        assertEquals("bar", StringUtils.substringBetween("<foo>bar</foo>", "<foo>", "</foo>") );
+    }
+
     //-----------------------------------------------------------------------
     public void testCountMatches_String() {
         assertEquals(0, StringUtils.countMatches(null, null));
