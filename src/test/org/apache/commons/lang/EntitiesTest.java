@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: EntitiesTest.java,v 1.5 2003/05/24 19:24:15 ggregory Exp $
+ * @version $Id: EntitiesTest.java,v 1.6 2003/06/29 03:04:33 alex Exp $
  */
 public class EntitiesTest extends TestCase
 {
@@ -133,29 +133,35 @@ public class EntitiesTest extends TestCase
 
     public void testArrayIntMap() throws Exception
     {
-        Entities.ArrayIntMap map = new Entities.ArrayIntMap(2);
-        checkSomeIntMap(map);
+        Entities.ArrayEntityMap map = new Entities.ArrayEntityMap(2);
+        checkSomeEntityMap(map);
     }
 
     public void testTreeIntMap() throws Exception
     {
-        Entities.IntMap map = new Entities.TreeIntMap();
-        checkSomeIntMap(map);
+        Entities.EntityMap map = new Entities.TreeEntityMap();
+        checkSomeEntityMap(map);
     }
 
     public void testHashIntMap() throws Exception
     {
-        Entities.IntMap map = new Entities.HashIntMap();
-        checkSomeIntMap(map);
+        Entities.EntityMap map = new Entities.HashEntityMap();
+        checkSomeEntityMap(map);
     }
 
     public void testBinaryIntMap() throws Exception
     {
-        Entities.BinaryIntMap map = new Entities.BinaryIntMap(2);
-        checkSomeIntMap(map);
+        Entities.BinaryEntityMap map = new Entities.BinaryEntityMap(2);
+        checkSomeEntityMap(map);
     }
 
-    private void checkSomeIntMap(Entities.IntMap map) {
+    public void testPrimitiveIntMap() throws Exception
+    {
+        Entities.PrimitiveEntityMap map = new Entities.PrimitiveEntityMap();
+        checkSomeEntityMap(map);
+    }
+
+    private void checkSomeEntityMap(Entities.EntityMap map) {
         map.add("foo", 1);
         assertEquals(1, map.value("foo"));
         assertEquals("foo", map.name(1));
@@ -164,5 +170,15 @@ public class EntitiesTest extends TestCase
         assertEquals(3, map.value("baz"));
         assertEquals("baz", map.name(3));
     }
+
+    public void testHtml40Nbsp() throws Exception
+    {
+        assertEquals("&nbsp;", Entities.HTML40.escape("\u00A0"));
+        Entities e = new Entities();
+        e.map = new Entities.PrimitiveEntityMap();
+        Entities.fillWithHtml40Entities(e);
+        assertEquals("&nbsp;", e.escape("\u00A0"));
+    }
+
 }
 
