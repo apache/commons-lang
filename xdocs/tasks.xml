@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<document>
+
+ <properties>
+  <title>Commons Lang - Tasks outstanding</title>
+  <author email="commons-dev@jakarta.apache.org">Commons Documentation Team</author>
+ </properties>
+
+ <body>
+
+<section name="Tasks outstanding">
+
+<p>
+The following tasks are on the TODO list:
+</p>
+
+<ul>
+<li>Write user guide</li>
+<li>Improve maven script to generate previous version javadoc as per collections</li>
+<li>DateRange/Duration class</li>
+<li>DurationFormatUtils to be completed and made public</li>
+<li>CloneUtils - utility class to enable cloning via various different mechanisms</li>
+<li>CharUtils - Utilities to work on a char[] in the same way as a String</li>
+<li>StringBuf - A StringBuffer implementation with additional methods from StringUtils</li>
+<li>Money and Currency - Maybe separate project</li>
+<li>Code examples - Document as many static methods as possible with example usage</li>
+<li>Complete new Tokeniser class</li>
+<li>Mutable Number classes - like Integer/Double but mutable</li>
+</ul>
+
+<p>
+Would you like to Volunteer? If so, contact the <a href="mail-lists.html">mailing lists</a>.
+</p>
+</section>
+
+</body>
+</document>
+
+
+
+
+
+
