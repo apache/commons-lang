@@ -3,3 +3,5 @@ target
 *.ipr
 *.iml
 dist
+.classpath
+.project
