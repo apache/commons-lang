@@ -66,7 +66,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Michael Becke
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.11 2003/05/24 12:06:37 scolebourne Exp $
+ * @version $Id: SystemUtils.java,v 1.12 2003/05/24 14:34:14 scolebourne Exp $
  */
 public class SystemUtils {
     
@@ -83,12 +83,22 @@ public class SystemUtils {
 
     //-----------------------------------------------------------------------
     /**
+     * The <code>file.encoding</code> System Property.
+     * File encoding, such as Cp1252.
+     * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or property not specified.
+     */
+    public static final String FILE_ENCODING = getSystemProperty("file.encoding");
+
+    /**
      * The <code>file.separator</code> System Property.
      * File separator ("/" on UNIX).
      * First in JDK version 1.1.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String FILE_SEPARATOR = getSystemProperty("file.separator");
 
@@ -98,7 +108,7 @@ public class SystemUtils {
      * First in JDK version 1.1.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_CLASS_PATH = getSystemProperty("java.class.path");
 
@@ -108,17 +118,17 @@ public class SystemUtils {
      * First in JDK version 1.1.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_CLASS_VERSION = getSystemProperty("java.class.version");
 
     /**
      * The <code>java.compiler</code> System Property.
      * Name of JIT compiler to use.
-     * First in JDK version 1.4.
+     * First in JDK version 1.2. Not used in Sun JDKs after 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_COMPILER = getSystemProperty("java.compiler");
 
@@ -128,7 +138,7 @@ public class SystemUtils {
      * First in JDK version 1.3.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_EXT_DIRS = getSystemProperty("java.ext.dirs");
 
@@ -138,29 +148,49 @@ public class SystemUtils {
      * First in JDK version 1.1.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_HOME = getSystemProperty("java.home");
 
     /**
      * The <code>java.io.tmpdir</code> System Property.
      * Default temp file path.
-     * First in JDK version 1.4.
+     * First in JDK version 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_IO_TMPDIR = getSystemProperty("java.io.tmpdir");
 
     /**
      * The <code>java.library.path</code> System Property.
      * List of paths to search when loading libraries.
-     * First in JDK version 1.4.
+     * First in JDK version 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_LIBRARY_PATH = getSystemProperty("java.library.path");
+
+    /**
+     * The <code>java.runtime.name</code> System Property.
+     * Java Runtime Environment name.
+     * First in JDK version 1.3.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or property not specified.
+     */
+    public static final String JAVA_RUNTIME_NAME = getSystemProperty("java.runtime.name");
+
+    /**
+     * The <code>java.runtime.version</code> System Property.
+     * Java Runtime Environment version.
+     * First in JDK version 1.3.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or property not specified.
+     */
+    public static final String JAVA_RUNTIME_VERSION = getSystemProperty("java.runtime.version");
 
     /**
      * The <code>java.specification.name</code> System Property.
@@ -168,7 +198,7 @@ public class SystemUtils {
      * First in JDK version 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_SPECIFICATION_NAME = getSystemProperty("java.specification.name");
 
@@ -178,7 +208,7 @@ public class SystemUtils {
      * First in JDK version 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_SPECIFICATION_VENDOR = getSystemProperty("java.specification.vendor");
 
@@ -188,7 +218,7 @@ public class SystemUtils {
      * First in JDK version 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_SPECIFICATION_VERSION = getSystemProperty("java.specification.version");
 
@@ -198,7 +228,7 @@ public class SystemUtils {
      * First in JDK version 1.1.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_VENDOR = getSystemProperty("java.vendor");
 
@@ -208,7 +238,7 @@ public class SystemUtils {
      * First in JDK version 1.1. 
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_VENDOR_URL = getSystemProperty("java.vendor.url");
 
@@ -218,9 +248,19 @@ public class SystemUtils {
      * First in JDK version 1.1. 
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_VERSION = getSystemProperty("java.version");
+
+    /**
+     * The <code>java.vm.info</code> System Property.
+     * Java Virtual Machine implementation info.
+     * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or property not specified.
+     */
+    public static final String JAVA_VM_INFO = getSystemProperty("java.vm.info");
 
     /**
      * The <code>java.vm.name</code> System Property.
@@ -228,7 +268,7 @@ public class SystemUtils {
      * First in JDK version 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_VM_NAME = getSystemProperty("java.vm.name");
 
@@ -238,7 +278,7 @@ public class SystemUtils {
      * First in JDK version 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_VM_SPECIFICATION_NAME = getSystemProperty("java.vm.specification.name");
 
@@ -248,7 +288,7 @@ public class SystemUtils {
      * First in JDK version 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_VM_SPECIFICATION_VENDOR = getSystemProperty("java.vm.specification.vendor");
 
@@ -258,7 +298,7 @@ public class SystemUtils {
      * First in JDK version 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_VM_SPECIFICATION_VERSION = getSystemProperty("java.vm.specification.version");
 
@@ -268,7 +308,7 @@ public class SystemUtils {
      * First in JDK version 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_VM_VENDOR = getSystemProperty("java.vm.vendor");
 
@@ -278,7 +318,7 @@ public class SystemUtils {
      * First in JDK version 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String JAVA_VM_VERSION = getSystemProperty("java.vm.version");
 
@@ -288,7 +328,7 @@ public class SystemUtils {
      * First in JDK version 1.1. 
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String LINE_SEPARATOR = getSystemProperty("line.separator");
 
@@ -298,7 +338,7 @@ public class SystemUtils {
      * First in JDK version 1.1. 
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String OS_ARCH = getSystemProperty("os.arch");
 
@@ -308,7 +348,7 @@ public class SystemUtils {
      * First in JDK version 1.1. 
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String OS_NAME = getSystemProperty("os.name");
 
@@ -318,7 +358,7 @@ public class SystemUtils {
      * First in JDK version 1.1. 
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String OS_VERSION = getSystemProperty("os.version");
 
@@ -328,7 +368,7 @@ public class SystemUtils {
      * First in JDK version 1.1. 
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String PATH_SEPARATOR = getSystemProperty("path.separator");
 
@@ -338,7 +378,7 @@ public class SystemUtils {
      * First in JDK version 1.1. 
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String USER_DIR = getSystemProperty("user.dir");
 
@@ -348,9 +388,32 @@ public class SystemUtils {
      * First in JDK version 1.1. 
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String USER_HOME = getSystemProperty("user.home");
+
+    /**
+     * The <code>user.language</code> System Property.
+     * User's language code, such as 'en'.
+     * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or property not specified.
+     */
+    public static final String USER_LANGUAGE = getSystemProperty("user.language");
+
+    /**
+     * The <code>user.country</code> or <code>user.region</code> System Property.
+     * User's country code, such as 'GB'.
+     * First in JDK version 1.2 as <code>user.region</code>.
+     * Renamed to <code>user.country</code> in 1.4
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or property not specified.
+     */
+    public static final String USER_COUNTRY = 
+        (getSystemProperty("user.country") == null ?
+            getSystemProperty("user.region") : getSystemProperty("user.country"));
 
     /**
      * The <code>user.name</code> System Property.
@@ -358,7 +421,7 @@ public class SystemUtils {
      * First in JDK version 1.1. 
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property.
+     * security access to read this property or property not specified.
      */
     public static final String USER_NAME = getSystemProperty("user.name");
 
@@ -422,6 +485,128 @@ public class SystemUtils {
      * The field will return zero if <code>JAVA_VERSION</code> is <code>null</code>.
      */
     public static final int JAVA_VERSION_INT = getJavaVersionAsInt();
+
+    //-----------------------------------------------------------------------
+    // OS names from http://www.vamphq.com/os.html
+    // Selected ones included - please advise commons-dev@jakarta.apache.org
+    // if you want another added or a mistake corrected
+
+    /**
+     * Is <code>true</code> if this is Windows.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_WINDOWS = getOSMatches("Windows");
+
+    /**
+     * Is <code>true</code> if this is Windows 95.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_WINDOWS_95 = getOSMatches("Windows 9", "4.0");
+    // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
+
+    /**
+     * Is <code>true</code> if this is Windows 98.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_WINDOWS_98 = getOSMatches("Windows 9", "4.1");
+    // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
+
+    /**
+     * Is <code>true</code> if this is Windows ME.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_WINDOWS_ME = getOSMatches("Windows", "4.9");
+    // JDK 1.2 running on WindowsME may return 'Windows 95', hence the above
+
+    /**
+     * Is <code>true</code> if this is Windows NT.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_WINDOWS_NT = getOSMatches("Windows NT");
+
+    /**
+     * Is <code>true</code> if this is Windows 2000.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_WINDOWS_2000 = getOSMatches("Windows", "5.0");
+    // Windows 2000 returns 'Windows 2000' but may suffer from same JDK1.2 problem
+
+    /**
+     * Is <code>true</code> if this is Windows XP.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_WINDOWS_XP = getOSMatches("Windows", "5.1");
+    // Windows XP returns 'Windows 2000' just for fun...
+
+    /**
+     * Is <code>true</code> if this is Mac.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_MAC = getOSMatches("Mac");
+
+    /**
+     * Is <code>true</code> if this is Mac.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_MAC_OSX = getOSMatches("Mac OS X");
+
+    /**
+     * Is <code>true</code> if this is Linux.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_LINUX = getOSMatches("Linux") || getOSMatches("LINUX");
+
+    /**
+     * Is <code>true</code> if this is Mac.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_OS2 = getOSMatches("OS/2");
+
+    /**
+     * Is <code>true</code> if this is Solaris.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_SOLARIS = getOSMatches("Solaris");
+
+    /**
+     * Is <code>true</code> if this is SunOS.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_SUN_OS = getOSMatches("SunOS");
+
+    /**
+     * Is <code>true</code> if this is HP-UX.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_HP_UX = getOSMatches("HP-UX");
+
+    /**
+     * Is <code>true</code> if this is AIX.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_AIX = getOSMatches("AIX");
+
+    /**
+     * Is <code>true</code> if this is Irix.
+     * <p>
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     */
+    public static final boolean IS_OS_IRIX = getOSMatches("Irix");
 
     //-----------------------------------------------------------------------
     /**
@@ -511,107 +696,34 @@ public class SystemUtils {
         return Integer.parseInt(str);
     }
     
-    //-----------------------------------------------------------------------    
-    // Parsing operating system may stay here, or it may be moved somewhere else entirely
-//    /** True iff this is running on Windows */
-//    public static final boolean IS_WINDOWS;
-//    /** True iff this is running on Unix */
-//    public static final boolean IS_UNIX;
-//    /** True iff this is running on Mac */
-//    public static final boolean IS_MAC;
-//    /** True iff this is running on OS2 */
-//    public static final boolean IS_OS2;
-//    /** True iff this is running on Linux */
-//    public static final boolean IS_LINUX;
-//    
-//    /*
-//     * The JLS doesn't seem to specify an exact naming convention for the
-//     * os.name. We ensure a uniform naming here.
-//     */
-//    static {
-//        // from http://www.geocities.com/vamp201/os.html
-//        if (OS_NAME.startsWith("Windows")) {
-//            IS_WINDOWS = true;
-//            IS_UNIX = false;
-//            IS_MAC = false;
-//            IS_OS2 = false;
-//            IS_LINUX = false;
-//        } else if (OS_NAME.startsWith("SunOS")) {
-//            IS_WINDOWS = false;
-//            IS_UNIX = true;
-//            IS_MAC = false;
-//            IS_OS2 = false;
-//            IS_LINUX = false;
-//        } else if (OS_NAME.startsWith("Solaris")) {
-//            IS_WINDOWS = false;
-//            IS_UNIX = true;
-//            IS_MAC = false;
-//            IS_OS2 = false;
-//            IS_LINUX = false;
-//        } else if (OS_NAME.startsWith("Linux")) {
-//            IS_WINDOWS = false;
-//            IS_UNIX = true;
-//            IS_MAC = false;
-//            IS_OS2 = false;
-//            IS_LINUX = true;
-//        } else if (OS_NAME.startsWith("HP-UX")) {
-//            IS_WINDOWS = false;
-//            IS_UNIX = true;
-//            IS_MAC = false;
-//            IS_OS2 = false;
-//            IS_LINUX = false;
-//        } else if (OS_NAME.startsWith("AIX")) {
-//            IS_WINDOWS = false;
-//            IS_UNIX = true;
-//            IS_MAC = false;
-//            IS_OS2 = false;
-//            IS_LINUX = false;
-//        } else if (OS_NAME.startsWith("Irix")) {
-//            IS_WINDOWS = false;
-//            IS_UNIX = true;
-//            IS_MAC = false;
-//            IS_OS2 = false;
-//            IS_LINUX = false;
-//        } else if (OS_NAME.startsWith("Digital Unix")) {
-//            IS_WINDOWS = false;
-//            IS_UNIX = true;
-//            IS_MAC = false;
-//            IS_OS2 = false;
-//            IS_LINUX = false;
-//        } else if (OS_NAME.startsWith("OS/400")) {
-//            IS_WINDOWS = false;
-//            IS_UNIX = true;
-//            IS_MAC = false;
-//            IS_OS2 = false;
-//            IS_LINUX = false;
-//        } else if (OS_NAME.startsWith("OS/2")) {
-//            IS_WINDOWS = false;
-//            IS_UNIX = false;
-//            IS_MAC = false;
-//            IS_OS2 = true;
-//            IS_LINUX = false;
-//        } else if (OS_NAME.startsWith("Mac OS X")) {
-//            IS_WINDOWS = false;
-//            IS_UNIX = true;
-//            IS_MAC = true;
-//            IS_OS2 = false;
-//            IS_LINUX = false;
-//        } else if (OS_NAME.startsWith("Mac")) {
-//            IS_WINDOWS = false;
-//            IS_UNIX = false;
-//            IS_MAC = true;
-//            IS_OS2 = false;
-//            IS_LINUX = false;
-//        } else {
-//            IS_WINDOWS = false;
-//            IS_UNIX = false;
-//            IS_MAC = false;
-//            IS_OS2 = false;
-//            IS_LINUX = false;
-//        }
-//    }
+    /**
+     * Decides if the operating system matches.
+     * 
+     * @param osNamePrefix  the prefix for the os name
+     * @return true if matches, or false if not or can't determine
+     */
+    private static boolean getOSMatches(String osNamePrefix) {
+        if (OS_NAME == null) {
+            return false;
+        }
+        return OS_NAME.startsWith(osNamePrefix);
+    }    
 
-    //-----------------------------------------------------------------------
+    /**
+     * Decides if the operating system matches.
+     * 
+     * @param osNamePrefix  the prefix for the os name
+     * @param osVersionPrefix  the prefix for the version
+     * @return true if matches, or false if not or can't determine
+     */
+    private static boolean getOSMatches(String osNamePrefix, String osVersionPrefix) {
+        if (OS_NAME == null || OS_VERSION == null) {
+            return false;
+        }
+        return OS_NAME.startsWith(osNamePrefix) && OS_VERSION.startsWith(osVersionPrefix);
+    }    
+
+    //-----------------------------------------------------------------------    
     /**
      * <p>Get the Java version number as a <code>float</code>.</p>
      *
