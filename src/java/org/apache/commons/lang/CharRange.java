@@ -61,8 +61,9 @@ package org.apache.commons.lang;
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
+ * @author Chris Feldhacker
  * @since 1.0
- * @version $Id: CharRange.java,v 1.8 2003/07/26 15:33:34 scolebourne Exp $
+ * @version $Id: CharRange.java,v 1.9 2003/08/02 11:20:49 scolebourne Exp $
  */
 class CharRange {
 
@@ -192,19 +193,19 @@ class CharRange {
     /**
      * <p>Output a string representation of the character range.</p>
      * 
-     * @return string representation
+     * @return string representation of this range
      */
     public String toString() {
-        String str = "";
-        if( isNegated() ) {
-            str += "^";
+        StringBuffer buf = new StringBuffer(4);
+        if (isNegated()) {
+            buf.append('^');
         }
-        str += start;
-        if( isRange() ) {
-            str += "-";
-            str += close;
+        buf.append(start);
+        if (isRange()) {
+            buf.append('-');
+            buf.append(close);
         }
-        return str;
+        return buf.toString();
     }
     
 }
