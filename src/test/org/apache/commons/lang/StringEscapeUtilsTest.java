@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.8 2003/06/29 03:05:45 alex Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.9 2003/07/19 20:22:36 scolebourne Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
@@ -87,6 +87,22 @@ public class StringEscapeUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
 
     public void testEscapeJava() throws IOException {
+        assertEquals(null, StringEscapeUtils.escapeJava(null));
+        try {
+            StringEscapeUtils.escapeJava(null, null);
+            fail();
+        } catch (IOException ex) {
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
+        try {
+            StringEscapeUtils.escapeJava(null, "");
+            fail();
+        } catch (IOException ex) {
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
+        
         assertEscapeJava("empty string", "", "");
         assertEscapeJava(FOO, FOO);
         assertEscapeJava("tab", "\\t", "\t");
@@ -122,6 +138,22 @@ public class StringEscapeUtilsTest extends TestCase {
     }
 
     public void testUnescapeJava() throws IOException {
+        assertEquals(null, StringEscapeUtils.unescapeJava(null));
+        try {
+            StringEscapeUtils.unescapeJava(null, null);
+            fail();
+        } catch (IOException ex) {
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
+        try {
+            StringEscapeUtils.unescapeJava(null, "");
+            fail();
+        } catch (IOException ex) {
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
+        
         assertUnescapeJava("", "");
         assertUnescapeJava("test", "test");
         assertUnescapeJava("\ntest\b", "\\ntest\\b");
@@ -154,6 +186,22 @@ public class StringEscapeUtilsTest extends TestCase {
     }
 
     public void testEscapeJavaScript() {
+        assertEquals(null, StringEscapeUtils.escapeJavaScript(null));
+        try {
+            StringEscapeUtils.escapeJavaScript(null, null);
+            fail();
+        } catch (IOException ex) {
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
+        try {
+            StringEscapeUtils.escapeJavaScript(null, "");
+            fail();
+        } catch (IOException ex) {
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
+        
         assertEquals("He didn\\'t say, \\\"stop!\\\"", StringEscapeUtils.escapeJavaScript("He didn't say, \"stop!\""));
     }
 

@@ -61,7 +61,7 @@ import junit.framework.TestSuite;
  * Unit tests for the wrap methods of WordWrapUtils.
  * 
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: WordWrapUtilsTest.java,v 1.1 2003/04/15 14:28:41 bayard Exp $
+ * @version $Id: WordWrapUtilsTest.java,v 1.2 2003/07/19 20:22:36 scolebourne Exp $
  */
 public class WordWrapUtilsTest extends TestCase {
 
@@ -106,5 +106,10 @@ public class WordWrapUtilsTest extends TestCase {
         String expected =
                 "Here is one line\nof\ttext that is\ngoing to be wrapped\nafter 20 columns.";
         assertEquals("Text with tab at wrapping index didn't wrap correctly, ", expected, WordWrapUtils.wrapText(input, "\n", 20));
+    }
+
+    public void testWrapText4() {
+        assertEquals(null, WordWrapUtils.wrapText(null, "\n", 20));
+        assertEquals("", WordWrapUtils.wrapText("", "\n", 20));
     }
 }

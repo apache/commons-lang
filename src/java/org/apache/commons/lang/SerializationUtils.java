@@ -72,13 +72,16 @@ import java.io.Serializable;
  * <li>Deserialize managing finally and IOException
  * </ul>
  *
+ * <p>This class throws exceptions for invalid <code>null</code> inputs.
+ * Each method documents its behaviour in more detail.</p>
+ *
  * @author <a href="mailto:nissim@nksystems.com">Nissim Karpenstein</a>
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author Stephen Colebourne
  * @author Jeff Varszegi
  * @since 1.0
- * @version $Id: SerializationUtils.java,v 1.6 2003/06/23 22:36:50 scolebourne Exp $
+ * @version $Id: SerializationUtils.java,v 1.7 2003/07/19 20:22:36 scolebourne Exp $
  */
 public class SerializationUtils {
     
@@ -120,11 +123,15 @@ public class SerializationUtils {
      * <p>The stream passed in is not buffered internally within this method.
      * This is the responsibility of your application if desired.</p>
      *
-     * @param obj  the object to serialize to bytes
-     * @param outputStream  the stream to write to
+     * @param obj  the object to serialize to bytes, may be null
+     * @param outputStream  the stream to write to, must not be null
+     * @throws IllegalArgumentException if <code>outputStream</code> is <code>null</code>
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static void serialize(Serializable obj, OutputStream outputStream) {
+        if (outputStream == null) {
+            throw new NullArgumentException("OutputStream");
+        }
         ObjectOutputStream out = null;
         try {
             // stream closed in the finally
@@ -168,11 +175,15 @@ public class SerializationUtils {
      * <p>The stream passed in is not buffered internally within this method.
      * This is the responsibility of your application if desired.</p>
      *
-     * @param inputStream  the serialized object input stream
+     * @param inputStream  the serialized object input stream, must not be null
      * @return the deserialized object
+     * @throws IllegalArgumentException if <code>inputStream</code> is <code>null</code>
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static Object deserialize(InputStream inputStream) {
+        if (inputStream == null) {
+            throw new NullArgumentException("InputStream");
+        }
         ObjectInputStream in = null;
         try {
             // stream closed in the finally
@@ -197,11 +208,15 @@ public class SerializationUtils {
     /**
      * <p>Deserializes a single <code>Object</code> from an array of bytes.</p>
      *
-     * @param objectData  the serialized object
+     * @param objectData  the serialized object, must not be null
      * @return the deserialized object
+     * @throws IllegalArgumentException if <code>objectData</code> is <code>null</code>
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static Object deserialize(byte[] objectData) {
+        if (objectData == null) {
+            throw new NullArgumentException("byte[]");
+        }
         ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
         return deserialize(bais);
     }
