@@ -8,7 +8,7 @@
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Package</h1>
 <h2>Developers Guide</h2>
-$Id: DEVELOPERS-GUIDE.html,v 1.2 2003/07/30 23:54:33 bayard Exp $<br />
+$Id: DEVELOPERS-GUIDE.html,v 1.3 2003/07/30 23:58:36 bayard Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#PackageStructure">[Package Structure]</a>
 <a href="#UtilityClasses">[Utility Classes]</a>
@@ -59,6 +59,8 @@ Each Utils class shall:</p>
 <li>deal with one class or interface and its variations (subclasses)</li>
 <li>provide methods that perform useful utility functions</li>
 <li>the class will not be final</li>
+<li>methods should generally be 'nice' and 'quiet'.  That is, they should 
+suppress Exceptions when sensible. </li>
 </ul>
 
 <p>A utility class can act as a factory for specific implementations of a class or 
@@ -99,6 +101,11 @@ to small!) to enhance readability of the generated Javadoc.</p>
 
 <p>If an example is needed enclose it with &lt;pre&gt;&lt;/pre&gt;.
 It should be supported with an explanation within a normal paragraph.</p>
+
+<h4>Exception throwing</h4>
+<p>When throwing an exception to indicate a bad argument, always throw 
+IllegalArgumentException, even if the argument was null. Do not throw 
+NullPointerException. </p>
 
 </body>
 </html>
