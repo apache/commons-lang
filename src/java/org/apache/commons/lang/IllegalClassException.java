@@ -54,16 +54,17 @@
 package org.apache.commons.lang;
 
 /**
- * Thrown when an object is an instance of an unexpected class.
+ * Thrown when an object is an instance of an unexpected type (a class or interface).
  * 
  * @author Matthew Hawthorne
+ * @author Gary Gregory
  * @since 2.0
- * @version $Id: IllegalClassException.java,v 1.2 2003/05/16 16:14:16 scolebourne Exp $
+ * @version $Id: IllegalClassException.java,v 1.3 2003/06/03 20:49:59 ggregory Exp $
  */
 public class IllegalClassException extends IllegalArgumentException {
 
     /**
-     * Instantiates with the specified classes.
+     * Instantiates with the specified types (classes or interfaces).
      * 
      * @param expected  the expected type
      * @param actual  the actual type
@@ -72,12 +73,12 @@ public class IllegalClassException extends IllegalArgumentException {
         super(
             "Expected: "
                 + safeGetClassName(expected)
-                + ", Actual: "
+                + ", actual: "
                 + safeGetClassName(actual));
     }
 
     /**
-     * Instantiates with the specified classes.
+     * Instantiates with the specified message.
      * 
      * @param message  the exception message
      */
@@ -86,10 +87,10 @@ public class IllegalClassException extends IllegalArgumentException {
     }
 
     /**
-     * Gets a classname without throwing an Exception.
+     * Returns the class name or <code>null</code> if the class is <code>null</code>.
      * 
      * @param cls  a <code>Class</code>
-     * @return the name of <code>c</code>, or a <code>null</code> <code>String</code>
+     * @return the name of <code>cls</code>, or <code>null</code> if if <code>cls</code> is <code>null</code>.
      */
     private static final String safeGetClassName(Class cls) {
         return cls == null ? null : cls.getName();
