@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsEqualsIndexOfTest.java,v 1.4 2003/07/20 23:57:26 scolebourne Exp $
+ * @version $Id: StringUtilsEqualsIndexOfTest.java,v 1.5 2003/07/26 14:36:30 scolebourne Exp $
  */
 public class StringUtilsEqualsIndexOfTest extends TestCase {
     private static final String FOO = "foo";
@@ -159,6 +159,7 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(0, StringUtils.indexOf("abc", "", 0));
         assertEquals(0, StringUtils.indexOf("abc", "", -1));
         assertEquals(3, StringUtils.indexOf("abc", "", 9));
+        assertEquals(3, StringUtils.indexOf("abc", "", 3));
         assertEquals(0, StringUtils.indexOf("aabaabaa", "a", 0));
         assertEquals(2, StringUtils.indexOf("aabaabaa", "b", 0));
         assertEquals(1, StringUtils.indexOf("aabaabaa", "ab", 0));
