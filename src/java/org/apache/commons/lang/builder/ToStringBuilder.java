@@ -55,9 +55,6 @@ package org.apache.commons.lang.builder;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
 /**
  * <code>ToString</code> generation routine.
  * <p>
@@ -96,7 +93,7 @@ import java.util.Map;
  * passed into the constructor.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilder.java,v 1.2 2002/09/19 19:42:59 scolebourne Exp $
+ * @version $Id: ToStringBuilder.java,v 1.3 2002/09/22 09:18:32 scolebourne Exp $
  */
 public class ToStringBuilder {
     
@@ -296,7 +293,7 @@ public class ToStringBuilder {
     /**
      * Append to the toString an Object value.
      *
-     * @param value  the value to add to the toString
+     * @param object  the value to add to the toString
      * @return this
      */
     public ToStringBuilder append(Object object) {
@@ -307,7 +304,7 @@ public class ToStringBuilder {
     /**
      * Append to the toString an Object value.
      *
-     * @param value  the value to add to the toString
+     * @param object  the value to add to the toString
      * @param fieldName  the field name
      * @return this
      */
@@ -319,7 +316,7 @@ public class ToStringBuilder {
     /**
      * Append to the toString an Object value.
      *
-     * @param value  the value to add to the toString
+     * @param object  the value to add to the toString
      * @param fieldName  the field name
      * @param fullDetail  true for detail, false for summary info
      * @return this
@@ -535,7 +532,6 @@ public class ToStringBuilder {
      * Append to the toString an Object array.
      *
      * @param array  the array to add to the toString
-     * @param fieldName  the field name
      * @return this
      */
     public ToStringBuilder append(Object[] array) {
@@ -546,8 +542,8 @@ public class ToStringBuilder {
     /**
      * Append to the toString an Object array.
      *
-     * @param array  the array to add to the toString
      * @param fieldName  the field name
+     * @param array  the array to add to the toString
      * @return this
      */
     public ToStringBuilder append(String fieldName, Object[] array) {
@@ -562,8 +558,8 @@ public class ToStringBuilder {
      * will output the array in full. Setting false will output a summary,
      * typically the size of the array.
      *
-     * @param array  the array to add to the toString
      * @param fieldName  the field name
+     * @param array  the array to add to the toString
      * @param fullDetail  true for detail, false for summary info
      * @return this
      */
@@ -578,7 +574,6 @@ public class ToStringBuilder {
      * Append to the toString a long array.
      *
      * @param array  the array to add to the toString
-     * @param fieldName  the field name
      * @return this
      */
     public ToStringBuilder append(long[] array) {
@@ -589,6 +584,7 @@ public class ToStringBuilder {
     /**
      * Append a hashCode for a long array.
      *
+     * @param fieldName  the field name
      * @param array  the array to add to the hashCode
      * @return this
      */
@@ -604,8 +600,8 @@ public class ToStringBuilder {
      * will output the array in full. Setting false will output a summary,
      * typically the size of the array.
      *
-     * @param array  the array to add to the toString
      * @param fieldName  the field name
+     * @param array  the array to add to the toString
      * @param fullDetail  true for detail, false for summary info
      * @return this
      */
@@ -620,7 +616,6 @@ public class ToStringBuilder {
      * Append to the toString a int array.
      *
      * @param array  the array to add to the toString
-     * @param fieldName  the field name
      * @return this
      */
     public ToStringBuilder append(int[] array) {
@@ -631,6 +626,7 @@ public class ToStringBuilder {
     /**
      * Append a hashCode for an int array.
      *
+     * @param fieldName  the field name
      * @param array  the array to add to the hashCode
      * @return this
      */
@@ -646,8 +642,8 @@ public class ToStringBuilder {
      * will output the array in full. Setting false will output a summary,
      * typically the size of the array.
      *
-     * @param array  the array to add to the toString
      * @param fieldName  the field name
+     * @param array  the array to add to the toString
      * @param fullDetail  true for detail, false for summary info
      * @return this
      */
@@ -662,7 +658,6 @@ public class ToStringBuilder {
      * Append to the toString a short array.
      *
      * @param array  the array to add to the toString
-     * @param fieldName  the field name
      * @return this
      */
     public ToStringBuilder append(short[] array) {
@@ -673,6 +668,7 @@ public class ToStringBuilder {
     /**
      * Append a hashCode for a short array.
      *
+     * @param fieldName  the field name
      * @param array  the array to add to the hashCode
      * @return this
      */
@@ -688,8 +684,8 @@ public class ToStringBuilder {
      * will output the array in full. Setting false will output a summary,
      * typically the size of the array.
      *
-     * @param array  the array to add to the toString
      * @param fieldName  the field name
+     * @param array  the array to add to the toString
      * @param fullDetail  true for detail, false for summary info
      * @return this
      */
@@ -704,7 +700,6 @@ public class ToStringBuilder {
      * Append to the toString a char array.
      *
      * @param array  the array to add to the toString
-     * @param fieldName  the field name
      * @return this
      */
     public ToStringBuilder append(char[] array) {
@@ -715,6 +710,7 @@ public class ToStringBuilder {
     /**
      * Append a hashCode for a char array.
      *
+     * @param fieldName  the field name
      * @param array  the array to add to the hashCode
      * @return this
      */
@@ -730,8 +726,8 @@ public class ToStringBuilder {
      * will output the array in full. Setting false will output a summary,
      * typically the size of the array.
      *
-     * @param array  the array to add to the toString
      * @param fieldName  the field name
+     * @param array  the array to add to the toString
      * @param fullDetail  true for detail, false for summary info
      * @return this
      */
@@ -746,7 +742,6 @@ public class ToStringBuilder {
      * Append to the toString a byte array.
      *
      * @param array  the array to add to the toString
-     * @param fieldName  the field name
      * @return this
      */
     public ToStringBuilder append(byte[] array) {
@@ -757,6 +752,7 @@ public class ToStringBuilder {
     /**
      * Append a hashCode for a byte array.
      *
+     * @param fieldName  the field name
      * @param array  the array to add to the hashCode
      * @return this
      */
@@ -772,8 +768,8 @@ public class ToStringBuilder {
      * will output the array in full. Setting false will output a summary,
      * typically the size of the array.
      *
-     * @param array  the array to add to the toString
      * @param fieldName  the field name
+     * @param array  the array to add to the toString
      * @param fullDetail  true for detail, false for summary info
      * @return this
      */
@@ -788,7 +784,6 @@ public class ToStringBuilder {
      * Append to the toString a double array.
      *
      * @param array  the array to add to the toString
-     * @param fieldName  the field name
      * @return this
      */
     public ToStringBuilder append(double[] array) {
@@ -799,6 +794,7 @@ public class ToStringBuilder {
     /**
      * Append a hashCode for a double array.
      *
+     * @param fieldName  the field name
      * @param array  the array to add to the hashCode
      * @return this
      */
@@ -814,8 +810,8 @@ public class ToStringBuilder {
      * will output the array in full. Setting false will output a summary,
      * typically the size of the array.
      *
-     * @param array  the array to add to the toString
      * @param fieldName  the field name
+     * @param array  the array to add to the toString
      * @param fullDetail  true for detail, false for summary info
      * @return this
      */
@@ -830,7 +826,6 @@ public class ToStringBuilder {
      * Append to the toString a float array.
      *
      * @param array  the array to add to the toString
-     * @param fieldName  the field name
      * @return this
      */
     public ToStringBuilder append(float[] array) {
@@ -841,6 +836,7 @@ public class ToStringBuilder {
     /**
      * Append a hashCode for a float array.
      *
+     * @param fieldName  the field name
      * @param array  the array to add to the hashCode
      * @return this
      */
@@ -856,8 +852,8 @@ public class ToStringBuilder {
      * will output the array in full. Setting false will output a summary,
      * typically the size of the array.
      *
-     * @param array  the array to add to the toString
      * @param fieldName  the field name
+     * @param array  the array to add to the toString
      * @param fullDetail  true for detail, false for summary info
      * @return this
      */
@@ -872,7 +868,6 @@ public class ToStringBuilder {
      * Append to the toString a boolean array.
      *
      * @param array  the array to add to the toString
-     * @param fieldName  the field name
      * @return this
      */
     public ToStringBuilder append(boolean[] array) {
@@ -883,6 +878,7 @@ public class ToStringBuilder {
     /**
      * Append a hashCode for a boolean array.
      *
+     * @param fieldName  the field name
      * @param array  the array to add to the hashCode
      * @return this
      */
@@ -898,8 +894,8 @@ public class ToStringBuilder {
      * will output the array in full. Setting false will output a summary,
      * typically the size of the array.
      *
-     * @param array  the array to add to the toString
      * @param fieldName  the field name
+     * @param array  the array to add to the toString
      * @param fullDetail  true for detail, false for summary info
      * @return this
      */

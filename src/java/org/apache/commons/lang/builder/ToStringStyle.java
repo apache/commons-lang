@@ -75,7 +75,7 @@ import org.apache.commons.lang.SystemUtils;
  * whole array, whereas the summary method will just output the array length.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringStyle.java,v 1.3 2002/09/19 19:44:10 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.4 2002/09/22 09:18:32 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -1086,6 +1086,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Append the class name.
      * 
+     * @param buffer  the StringBuffer to populate
      * @param object  the object whose name to output
      */
     protected void appendClassName(StringBuffer buffer, Object object) {
@@ -1101,6 +1102,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Append the IdentityHashCode.
      * 
+     * @param buffer  the StringBuffer to populate
      * @param object  the object whose id to output
      */
     protected void appendIdentityHashCode(StringBuffer buffer, Object object) {
@@ -1201,7 +1203,7 @@ public abstract class ToStringStyle implements Serializable {
      * return false. The calling code may pass in null indicating that it doesn't
      * care about the detail level. In this case the default detail level is used.
      * 
-     * @param fullDetail  the detail level requested
+     * @param fullDetailRequest  the detail level requested
      * @return whether full detail is to be shown
      */
     protected boolean isFullDetail(Boolean fullDetailRequest) {
@@ -1279,7 +1281,7 @@ public abstract class ToStringStyle implements Serializable {
 
     /**
      * Sets whether to use the identity hash code.
-     * @param useFieldNames  the new useIdentityHashCode flag
+     * @param useIdentityHashCode  the new useIdentityHashCode flag
      */
     protected void setUseIdentityHashCode(boolean useIdentityHashCode) {
         this.useIdentityHashCode = useIdentityHashCode;
@@ -1631,6 +1633,7 @@ public abstract class ToStringStyle implements Serializable {
         
         /**
          * Ensure singleton after serialization.
+         * @return the singleton
          */
         private Object readResolve() {
             return ToStringStyle.DEFAULT_STYLE;
@@ -1657,6 +1660,7 @@ public abstract class ToStringStyle implements Serializable {
         
         /**
          * Ensure singleton after serialization.
+         * @return the singleton
          */
         private Object readResolve() {
             return ToStringStyle.NO_FIELD_NAMES_STYLE;
@@ -1688,6 +1692,7 @@ public abstract class ToStringStyle implements Serializable {
         
         /**
          * Ensure singleton after serialization.
+         * @return the singleton
          */
         private Object readResolve() {
             return ToStringStyle.SIMPLE_STYLE;
@@ -1716,6 +1721,7 @@ public abstract class ToStringStyle implements Serializable {
         
         /**
          * Ensure singleton after serialization.
+         * @return the singleton
          */
         private Object readResolve() {
             return ToStringStyle.MULTI_LINE_STYLE;

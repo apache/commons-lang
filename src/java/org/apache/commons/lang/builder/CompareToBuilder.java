@@ -99,13 +99,13 @@ import org.apache.commons.lang.NumberUtils;
  * </pre>
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CompareToBuilder.java,v 1.2 2002/09/17 22:06:37 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.3 2002/09/22 09:18:32 scolebourne Exp $
  */
 public class CompareToBuilder {
     /**
      * If the fields tested are equals.
      */
-    protected int comparison;
+    private int comparison;
 
     /**
      * Constructor for CompareToBuilder.
@@ -178,7 +178,7 @@ public class CompareToBuilder {
         for (int i = 0; i < fields.length && compareToBuilder.comparison == 0; ++i) {
             Field f = fields[i];
             if (testTransients || !Modifier.isTransient(f.getModifiers())) {
-                if ( !Modifier.isStatic(f.getModifiers())) {
+                if (!Modifier.isStatic(f.getModifiers())) {
                     try {
                         compareToBuilder.append(f.get(lhs), f.get(rhs));
                     } catch (IllegalAccessException e) {
@@ -219,7 +219,7 @@ public class CompareToBuilder {
         Class lhsClass = lhs.getClass();
         if (!lhsClass.isArray()) {
             //the simple case, not an array, just test the element 
-            comparison = ((Comparable)lhs).compareTo(rhs);
+            comparison = ((Comparable) lhs).compareTo(rhs);
         } else {
             //'Switch' on type of array, to dispatch to the correct handler
             // This handles multi dimensional arrays
@@ -360,12 +360,12 @@ public class CompareToBuilder {
             return this;
         }
         if (lhs == rhs) {
-        	return this;
+            return this;
         }
         if (lhs == false) {
-        	comparison = -1;
+            comparison = -1;
         } else {
-        	comparison = +1;
+            comparison = +1;
         }
         return this;
     }
@@ -391,18 +391,18 @@ public class CompareToBuilder {
         }
         if (lhs == null || rhs == null) {
             throw new NullPointerException();
-         }
-         
+        }
+
         int length = (lhs.length < rhs.length) ? lhs.length : rhs.length;
         for (int i = 0; i < length && comparison == 0; ++i) {
             Class lhsClass = lhs[i].getClass();
             if (!lhsClass.isInstance(rhs[i])) {
-            	throw new ClassCastException();
+                throw new ClassCastException();
             }
             append(lhs[i], rhs[i]);
         }
         if (comparison == 0 && lhs.length != rhs.length) {
-        	comparison = (lhs.length < rhs.length) ? -1 : +1;
+            comparison = (lhs.length < rhs.length) ? -1 : +1;
         }
         return this;
     }
@@ -429,7 +429,7 @@ public class CompareToBuilder {
             append(lhs[i], rhs[i]);
         }
         if (comparison == 0 && lhs.length != rhs.length) {
-        	comparison = (lhs.length < rhs.length) ? -1 : +1;
+            comparison = (lhs.length < rhs.length) ? -1 : +1;
         }
         return this;
     }
@@ -456,7 +456,7 @@ public class CompareToBuilder {
             append(lhs[i], rhs[i]);
         }
         if (comparison == 0 && lhs.length != rhs.length) {
-        	comparison = (lhs.length < rhs.length) ? -1 : +1;
+            comparison = (lhs.length < rhs.length) ? -1 : +1;
         }
         return this;
     }
@@ -483,7 +483,7 @@ public class CompareToBuilder {
             append(lhs[i], rhs[i]);
         }
         if (comparison == 0 && lhs.length != rhs.length) {
-        	comparison = (lhs.length < rhs.length) ? -1 : +1;
+            comparison = (lhs.length < rhs.length) ? -1 : +1;
         }
         return this;
     }
@@ -510,7 +510,7 @@ public class CompareToBuilder {
             append(lhs[i], rhs[i]);
         }
         if (comparison == 0 && lhs.length != rhs.length) {
-        	comparison = (lhs.length < rhs.length) ? -1 : +1;
+            comparison = (lhs.length < rhs.length) ? -1 : +1;
         }
         return this;
     }
@@ -537,7 +537,7 @@ public class CompareToBuilder {
             append(lhs[i], rhs[i]);
         }
         if (comparison == 0 && lhs.length != rhs.length) {
-        	comparison = (lhs.length < rhs.length) ? -1 : +1;
+            comparison = (lhs.length < rhs.length) ? -1 : +1;
         }
         return this;
     }
@@ -564,7 +564,7 @@ public class CompareToBuilder {
             append(lhs[i], rhs[i]);
         }
         if (comparison == 0 && lhs.length != rhs.length) {
-        	comparison = (lhs.length < rhs.length) ? -1 : +1;
+            comparison = (lhs.length < rhs.length) ? -1 : +1;
         }
         return this;
     }
@@ -591,7 +591,7 @@ public class CompareToBuilder {
             append(lhs[i], rhs[i]);
         }
         if (comparison == 0 && lhs.length != rhs.length) {
-        	comparison = (lhs.length < rhs.length) ? -1 : +1;
+            comparison = (lhs.length < rhs.length) ? -1 : +1;
         }
         return this;
     }
@@ -618,7 +618,7 @@ public class CompareToBuilder {
             append(lhs[i], rhs[i]);
         }
         if (comparison == 0 && lhs.length != rhs.length) {
-        	comparison = (lhs.length < rhs.length) ? -1 : +1;
+            comparison = (lhs.length < rhs.length) ? -1 : +1;
         }
         return this;
     }

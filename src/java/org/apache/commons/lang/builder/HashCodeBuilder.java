@@ -102,7 +102,7 @@ import java.lang.reflect.Modifier;
  * </code>
  * 
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: HashCodeBuilder.java,v 1.2 2002/09/17 22:06:38 scolebourne Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.3 2002/09/22 09:18:32 scolebourne Exp $
  */
 public class HashCodeBuilder {
     
@@ -132,8 +132,8 @@ public class HashCodeBuilder {
      * these should be different for each class, however this is not vital.
      * Prime numbers are preferred, especially for the multiplier.
      * 
-     * @param initialNonZeroOddNumber
-     * @param multiplierNonZeroOddNumber
+     * @param initialNonZeroOddNumber  a non-zero, odd number used as the initial value
+     * @param multiplierNonZeroOddNumber  a non-zero, odd number used as the multiplier
      * @throws IllegalArgumentException if the number is zero or even
      */
     public HashCodeBuilder(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber) {
@@ -215,15 +215,15 @@ public class HashCodeBuilder {
      * these should be different for each class, however this is not vital.
      * Prime numbers are preferred, especially for the multiplier.
      * 
-     * @param initialNonZeroOddNumber
-     * @param multiplierNonZeroOddNumber
+     * @param initialNonZeroOddNumber  a non-zero, odd number used as the initial value
+     * @param multiplierNonZeroOddNumber  a non-zero, odd number used as the multiplier
      * @param object  the object to create a hash code for
      * @return int hash code
      * @throws IllegalArgumentException if the object is null
      * @throws IllegalArgumentException if the number is zero or even
      */
     public static int reflectionHashCode(
-            int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
+            int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, 
             Object object) {
         return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, false);
     }
