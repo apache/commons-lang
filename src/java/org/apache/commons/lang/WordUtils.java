@@ -28,7 +28,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.16 2004/10/16 15:20:30 scolebourne Exp $
+ * @version $Id$
  */
 public class WordUtils {
 
@@ -218,8 +218,9 @@ public class WordUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Capitalizes all the whitespace separated words in a String.
-     * Only the first letter of each word is changed. To change all letters to
-     * the capitalized case, use {@link #capitalizeFully(String)}.</p>
+     * Only the first letter of each word is changed. To convert the 
+     * rest of each word to lowercase at the same time, 
+     * use {@link #capitalizeFully(String)}.</p>
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
      * A <code>null</code> input String returns <code>null</code>.
@@ -243,8 +244,9 @@ public class WordUtils {
 
     /**
      * <p>Capitalizes all the delimiter separated words in a String.
-     * Only the first letter of each word is changed. To change all letters to
-     * the capitalized case, use {@link #capitalizeFully(String)}.</p>
+     * Only the first letter of each word is changed. To convert the 
+     * rest of each word to lowercase at the same time, 
+     * use {@link #capitalizeFully(String, char[])}.</p>
      *
      * <p>The delimiters represent a set of characters understood to separate words.
      * The first string character and the first non-delimiter character after a
@@ -311,8 +313,9 @@ public class WordUtils {
     }
 
     /**
-     * <p>Capitalizes all the whitespace separated words in a String.
-     * All letters are changed, so the resulting string will be fully changed.</p>
+     * <p>Converts all the whitespace separated words in a String into capitalized words, 
+     * that is each word is made up of a titlecase character and then a series of 
+     * lowercase characters.  </p>
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
      * A <code>null</code> input String returns <code>null</code>.
@@ -333,8 +336,9 @@ public class WordUtils {
     }
 
     /**
-     * <p>Capitalizes all the delimiter separated words in a String.
-     * All letters are changed, so the resulting string will be fully changed.</p>
+     * <p>Converts all the delimiter separated words in a String into capitalized words, 
+     * that is each word is made up of a titlecase character and then a series of 
+     * lowercase characters. </p>
      *
      * <p>The delimiters represent a set of characters understood to separate words.
      * The first string character and the first non-delimiter character after a
