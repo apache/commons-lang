@@ -38,7 +38,7 @@ import junit.textui.TestRunner;
  * @author Fredrik Westermarck
  * @author Gary Gregory
  * @author Maarten Coene
- * @version $Id: ArrayUtilsTest.java,v 1.26 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.27 2004/06/06 03:53:24 bayard Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -1540,6 +1540,66 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(true, ArrayUtils.contains(array, (short) 2));
         assertEquals(true, ArrayUtils.contains(array, (short) 3));
         assertEquals(false, ArrayUtils.contains(array, (short) 99));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIndexOfChar() {
+        char[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, 'a'));
+        array = new char[] { 'a', 'b', 'c', 'd', 'a' };
+        assertEquals(0, ArrayUtils.indexOf(array, 'a'));
+        assertEquals(1, ArrayUtils.indexOf(array, 'b'));
+        assertEquals(2, ArrayUtils.indexOf(array, 'c'));
+        assertEquals(3, ArrayUtils.indexOf(array, 'd'));
+        assertEquals(-1, ArrayUtils.indexOf(array, 'e'));
+    }
+
+    public void testIndexOfCharWithStartIndex() {
+        char[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, 'a', 2));
+        array = new char[] { 'a', 'b', 'c', 'd', 'a' };
+        assertEquals(4, ArrayUtils.indexOf(array, 'a', 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 'b', 2));
+        assertEquals(2, ArrayUtils.indexOf(array, 'c', 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 'd', 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 'd', -1));
+        assertEquals(-1, ArrayUtils.indexOf(array, 'e', 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, 'a', 6));
+    }
+
+    public void testLastIndexOfChar() {
+        char[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 'a'));
+        array = new char[] { 'a', 'b', 'c', 'd', 'a' };
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 'a'));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 'b'));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 'c'));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, 'd'));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 'e'));
+    }
+
+    public void testLastIndexOfCharWithStartIndex() {
+        char[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 'a', 2));
+        array = new char[] { 'a', 'b', 'c', 'd', 'a' };
+        assertEquals(0, ArrayUtils.lastIndexOf(array, 'a', 2));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 'b', 2));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 'c', 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 'd', 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 'd', -1));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 'e'));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 'a', 88));
+    }
+
+    public void testContainsChar() {
+        char[] array = null;
+        assertEquals(false, ArrayUtils.contains(array, 'b'));
+        array = new char[] { 'a', 'b', 'c', 'd', 'a' };
+        assertEquals(true, ArrayUtils.contains(array, 'a'));
+        assertEquals(true, ArrayUtils.contains(array, 'b'));
+        assertEquals(true, ArrayUtils.contains(array, 'c'));
+        assertEquals(true, ArrayUtils.contains(array, 'd'));
+        assertEquals(false, ArrayUtils.contains(array, 'e'));
     }
     
     //-----------------------------------------------------------------------
