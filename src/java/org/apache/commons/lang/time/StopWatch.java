@@ -76,8 +76,8 @@ package org.apache.commons.lang.time;
  *
  * @author Henri Yandell
  * @author Stephen Colebourne
- * @since 2.1
- * @version $Id: StopWatch.java,v 1.2 2003/02/04 22:19:33 scolebourne Exp $
+ * @since 2.0
+ * @version $Id: StopWatch.java,v 1.3 2003/05/21 23:37:20 scolebourne Exp $
  */
 public class StopWatch {
     
