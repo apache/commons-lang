@@ -64,7 +64,7 @@ package org.apache.commons.lang;
  * @author Stephen Colebourne
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.23 2003/08/18 02:22:22 bayard Exp $
+ * @version $Id: CharSetUtils.java,v 1.24 2003/08/19 00:21:46 scolebourne Exp $
  */
 public class CharSetUtils {
 
@@ -80,35 +80,6 @@ public class CharSetUtils {
 
     // Factory
     //-----------------------------------------------------------------------
-    /**
-     * <p>Creates a <code>CharSet</code> instance which allows a certain amount of
-     * set logic to be performed.</p>
-     * <p>The syntax is:</p>
-     * <ul>
-     *  <li>&quot;aeio&quot; which implies 'a','e',..</li>
-     *  <li>&quot;^e&quot; implies not e.</li>
-     *  <li>&quot;ej-m&quot; implies e,j->m. e,j,k,l,m.</li>
-     * </ul>
-     * 
-     * <pre>
-     * CharSetUtils.evaluateSet(null)  = null
-     * CharSetUtils.evaluateSet("")    = CharSet matching nothing
-     * CharSetUtils.evaluateSet("a-e") = CharSet matching a,b,c,d,e
-     * CharSetUtils.evaluateSet("abe-g") = CharSet matching a,b,e,f,g
-     * </pre>
-     *
-     * @param setStr  the set, may be null
-     * @return a CharSet instance, <code>null</code> if null input
-     * @deprecated Use {@link CharSet#getInstance(String)}.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static CharSet evaluateSet(String setStr) {
-        if (setStr == null) {
-            return null;
-        }
-        return CharSet.getInstance(setStr); 
-    }
-
     /**
      * <p>Creates a <code>CharSet</code> instance which allows a certain amount of
      * set logic to be performed.</p>

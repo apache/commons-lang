@@ -67,7 +67,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Stephen Colebourne
- * @version $Id: CharSetUtilsTest.java,v 1.13 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: CharSetUtilsTest.java,v 1.14 2003/08/19 00:21:46 scolebourne Exp $
  */
 public class CharSetUtilsTest extends TestCase {
     
@@ -104,12 +104,6 @@ public class CharSetUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
-    public void testEvaluateSet_String() {
-        assertEquals(null, CharSetUtils.evaluateSet((String) null));
-        assertEquals("[]", CharSetUtils.evaluateSet("").toString());
-        assertEquals("[a-e]", CharSetUtils.evaluateSet("a-e").toString());
-    }
-    
     public void testEvaluateSet_Stringarray() {
         assertEquals(null, CharSetUtils.evaluateSet((String[]) null));
         assertEquals("[]", CharSetUtils.evaluateSet(new String[0]).toString());
