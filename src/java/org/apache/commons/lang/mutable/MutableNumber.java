@@ -22,14 +22,23 @@ import java.io.Serializable;
  * A mutable <code>Number</code>.
  *
  * @since 2.1
- * @version $Id: MutableNumber.java,v 1.1 2004/06/11 02:26:32 matth Exp $
+ * @version $Id: MutableNumber.java,v 1.2 2004/06/13 06:18:49 bayard Exp $
  */
 public abstract class MutableNumber
     extends Number
     implements Comparable, Mutable, Serializable {
 
-    MutableNumber() {
+    private Number value;
+
+    public MutableNumber() {
         super();
+    }
+
+    /**
+     * @param a <code>Number</code>
+     */
+    protected void setValue(Number value) {
+        this.value = value;
     }
 
     // ----------------------------------------------------------------
@@ -37,9 +46,31 @@ public abstract class MutableNumber
     // ----------------------------------------------------------------
 
     public float floatValue() {
-        return (float)doubleValue();
+        return this.value.floatValue();
     }
     
+    public long longValue() {
+        return this.value.longValue();
+    }
+
+    public double doubleValue() {
+        return this.value.doubleValue();
+    }
+
+    public int intValue() {
+        return this.value.intValue();
+    }
+
+    // ----------------------------------------------------------------
+    // Mutable overrides
+    // ----------------------------------------------------------------
+
+    /**
+     * @return a <code>Number</code>
+     */
+    public Object getValue() {
+        return this.value;
+    }
     // ----------------------------------------------------------------
     // Object overrides
     // ----------------------------------------------------------------
@@ -49,7 +80,7 @@ public abstract class MutableNumber
     }
 
     public int hashCode() {
-        return super.hashCode();
+        return this.value.hashCode();
     }
 
     /**
@@ -61,7 +92,7 @@ public abstract class MutableNumber
      * @see #compareTo(Object)
      */
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        return this.value.equals(obj);
     }
 
     // ----------------------------------------------------------------

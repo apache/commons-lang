@@ -19,45 +19,26 @@ package org.apache.commons.lang.mutable;
  * A mutable <code>Integer</code>.
  * 
  * @since 2.1
- * @version $Id: MutableInteger.java,v 1.1 2004/06/11 02:26:32 matth Exp $
+ * @version $Id: MutableInteger.java,v 1.2 2004/06/13 06:18:49 bayard Exp $
  */
 public class MutableInteger extends MutableNumber {
 
     /**
-     * Internal value.
-     */
-    private int value;
-
-    /**
      * Instantiates with the specified value
-     * 
      * @param value a value.
      */
     public MutableInteger(int value) {
         super();
-        this.value = value;
+        setValue(new Integer(value));
     }
 
     public void setValue(int value) {
-        this.value = value;
+        setValue(new Integer(value));
     }
 
-    public double doubleValue() {
-        return this.value;
-    }
-
-    public long longValue() {
-        return this.value;
-    }
-
-    public int intValue() {
-        return this.value;
-    }
-
-    public Object getValue() {
-        return new Float(this.value);
-    }
-
+    /**
+     * @param value a <code>Number</code>
+     */
     public void setValue(Object value) {
         setValue(((Number)value).intValue());
     }

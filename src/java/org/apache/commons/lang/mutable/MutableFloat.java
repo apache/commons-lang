@@ -16,48 +16,29 @@
 package org.apache.commons.lang.mutable;
 
 /**
- * A mutable <code>Float</code>
+ * A mutable <code>Float</code>.
  * 
  * @since 2.1
- * @version $Id: MutableFloat.java,v 1.1 2004/06/11 02:26:32 matth Exp $
+ * @version $Id: MutableFloat.java,v 1.2 2004/06/13 06:18:49 bayard Exp $
  */
 public class MutableFloat extends MutableNumber {
 
     /**
-     * Internal value.
-     */
-    private float value;
-
-    /**
      * Instantiates with the specified value
-     * 
      * @param value a value.
      */
     public MutableFloat(float value) {
         super();
-        this.value = value;
+        setValue(new Float(value));
     }
 
     public void setValue(float value) {
-        this.value = value;
+        setValue(new Float(value));
     }
 
-    public double doubleValue() {
-        return this.value;
-    }
-
-    public int intValue() {
-        return (int)this.value;
-    }
-
-    public long longValue() {
-        return (long)this.value;
-    }
-
-    public Object getValue() {
-        return new Float(this.value);
-    }
-
+    /**
+     * @param value a <code>Number</code>
+     */
     public void setValue(Object value) {
         setValue(((Number)value).floatValue());
     }
