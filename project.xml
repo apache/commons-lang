@@ -44,8 +44,17 @@
     </developer>
     <developer>
       <name>Steven Caswell</name>
-      <id></id>
+      <id>scaswell</id>
       <email>steven@caswell.name</email>
+      <organization></organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Robert Burrell Donkin</name>
+      <id>rdonkin</id>
+      <email>rdonkin@apache.org</email>
       <organization></organization>
       <roles>
         <role>Java Developer</role>
