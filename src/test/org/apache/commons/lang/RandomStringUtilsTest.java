@@ -61,7 +61,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: RandomStringUtilsTest.java,v 1.1 2002/07/19 03:35:55 bayard Exp $
+ * @version $Id: RandomStringUtilsTest.java,v 1.2 2002/10/08 19:01:39 sullis Exp $
  */
 public class RandomStringUtilsTest extends junit.framework.TestCase {
     /**
@@ -94,13 +94,13 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
      */
     public void testRandomStringUtils() {
         String r1 = RandomStringUtils.random(50);
-        assertEquals("random(5) length", 50, r1.length());
+        assertEquals("random(50) length", 50, r1.length());
         String r2 = RandomStringUtils.random(50);
-        assertEquals("random(5) length", 50, r2.length());
+        assertEquals("random(50) length", 50, r2.length());
         assertTrue("!r1.equals(r2)", !r1.equals(r2));
         
         r1 = RandomStringUtils.randomAscii(50);
-        assertEquals("randomAscii(10) length", 50, r1.length());
+        assertEquals("randomAscii(50) length", 50, r1.length());
         for(int i = 0; i < r1.length(); i++) {
             assertTrue("char between 32 and 127", (int) r1.charAt(i) >= 32 && (int) r1.charAt(i) <= 127);
         }        
