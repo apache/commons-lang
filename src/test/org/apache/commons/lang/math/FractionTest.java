@@ -60,11 +60,11 @@ import junit.framework.TestSuite;
  * Test cases for the {@link Fraction} classes.
  *
  * @author Stephen Colebourne
- * @version $Id: FractionTest.java,v 1.3 2003/08/04 02:01:53 scolebourne Exp $
+ * @version $Id: FractionTest.java,v 1.4 2003/08/13 23:42:17 scolebourne Exp $
  */
 public class FractionTest extends TestCase {
     
-    private static final int SKIP = 17;
+    private static final int SKIP = 53;
 
     public FractionTest(String name) {
         super(name);
@@ -165,14 +165,17 @@ public class FractionTest extends TestCase {
         // zero denominator
         try {
             f = Fraction.getFraction(1, 0);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         try {
             f = Fraction.getFraction(2, 0);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         try {
             f = Fraction.getFraction(-3, 0);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
     }
 
@@ -200,14 +203,17 @@ public class FractionTest extends TestCase {
         // negatives
         try {
             f = Fraction.getFraction(1, -6, -10);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
 
         try {
             f = Fraction.getFraction(1, -6, -10);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
 
         try {
             f = Fraction.getFraction(1, -6, -10);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         // negative whole
@@ -217,27 +223,43 @@ public class FractionTest extends TestCase {
         
         try {
             f = Fraction.getFraction(-1, -6, 10);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
 
         try {
             f = Fraction.getFraction(-1, 6, -10);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         try {
             f = Fraction.getFraction(-1, -6, -10);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         // zero denominator
         try {
             f = Fraction.getFraction(0, 1, 0);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         try {
             f = Fraction.getFraction(1, 2, 0);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         try {
             f = Fraction.getFraction(-1, -3, 0);
+            fail("expecting ArithmeticException");
+        } catch (ArithmeticException ex) {}
+        
+        try {
+            f = Fraction.getFraction(Integer.MAX_VALUE, 1, 2); 
+            fail("expecting ArithmeticException");
+        } catch (ArithmeticException ex) {}
+        
+        try {
+            f = Fraction.getFraction(-Integer.MAX_VALUE, 1, 2);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
     }
 
@@ -279,14 +301,17 @@ public class FractionTest extends TestCase {
         // zero denominator
         try {
             f = Fraction.getReducedFraction(1, 0);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         try {
             f = Fraction.getReducedFraction(2, 0);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         try {
             f = Fraction.getReducedFraction(-3, 0);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
 
         // reduced        
@@ -316,14 +341,22 @@ public class FractionTest extends TestCase {
         
         try {
             f = Fraction.getFraction(Double.NaN);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         try {
             f = Fraction.getFraction(Double.POSITIVE_INFINITY);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         try {
             f = Fraction.getFraction(Double.NEGATIVE_INFINITY);
+            fail("expecting ArithmeticException");
+        } catch (ArithmeticException ex) {}
+        
+        try {
+            f = Fraction.getFraction((double) Integer.MAX_VALUE + 1);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         // zero
@@ -377,7 +410,7 @@ public class FractionTest extends TestCase {
                 assertEquals(f2.getDenominator(), f.getDenominator());
             }
         }
-        // save time by skipping some tests!
+        // save time by skipping some tests!  (
         for (int i = 1001; i <= 10000; i+=SKIP) {  // denominator
             for (int j = 1; j <= i; j++) {  // numerator
                 try {
@@ -396,8 +429,10 @@ public class FractionTest extends TestCase {
     public void testFactory_String() {
         try {
             Fraction.getFraction(null);
+            fail("expecting ArithmeticException");
         } catch (IllegalArgumentException ex) {}
     }
+    
     
     public void testFactory_String_double() {
         Fraction f = null;
@@ -420,6 +455,11 @@ public class FractionTest extends TestCase {
         
         try {
             f = Fraction.getFraction("2.3R");
+        } catch (NumberFormatException ex) {}
+        
+        try {
+            f = Fraction.getFraction("2147483648"); // too big
+            fail("Expecting NumberFormatException");
         } catch (NumberFormatException ex) {}
         
         try {
@@ -448,26 +488,32 @@ public class FractionTest extends TestCase {
         
         try {
             f = Fraction.getFraction("2 3");
+            fail("expecting NumberFomatException");
         } catch (NumberFormatException ex) {}
         
         try {
             f = Fraction.getFraction("a 3");
+            fail("expecting NumberFomatException");
         } catch (NumberFormatException ex) {}
         
         try {
             f = Fraction.getFraction("2 b/4");
+            fail("expecting NumberFomatException");
         } catch (NumberFormatException ex) {}
         
         try {
             f = Fraction.getFraction("2 ");
+            fail("expecting NumberFomatException");
         } catch (NumberFormatException ex) {}
 
         try {
             f = Fraction.getFraction(" 3");
+            fail("expecting NumberFomatException");
         } catch (NumberFormatException ex) {}
         
         try {
             f = Fraction.getFraction(" ");
+            fail("expecting NumberFomatException");
         } catch (NumberFormatException ex) {}
     }
 
@@ -500,18 +546,22 @@ public class FractionTest extends TestCase {
         
         try {
             f = Fraction.getFraction("2/d");
+            fail("expecting NumberFomatException");
         } catch (NumberFormatException ex) {}
         
         try {
             f = Fraction.getFraction("2e/3");
+            fail("expecting NumberFomatException");
         } catch (NumberFormatException ex) {}
         
         try {
             f = Fraction.getFraction("2/");
+            fail("expecting NumberFomatException");
         } catch (NumberFormatException ex) {}
         
         try {
             f = Fraction.getFraction("/");
+            fail("expecting NumberFomatException");
         } catch (NumberFormatException ex) {}
     }
 
@@ -625,6 +675,12 @@ public class FractionTest extends TestCase {
         f = f.pow(-2);
         assertEquals(25, f.getNumerator());
         assertEquals(9, f.getDenominator());
+        
+        f = Fraction.getFraction(Integer.MAX_VALUE);
+        try {
+            f = f.pow(2);
+            fail("expecting ArithmeticException");
+        } catch (ArithmeticException ex) {}
     }
     
     public void testAdd() {
@@ -656,11 +712,23 @@ public class FractionTest extends TestCase {
         assertEquals(-1, f.getNumerator());
         assertEquals(5, f.getDenominator());
         
+        f1 = Fraction.getFraction(Integer.MAX_VALUE - 1, 1);
+        f2 = Fraction.ONE;
+        f = f1.add(f2);
+        assertEquals(Integer.MAX_VALUE, f.getNumerator());
+        assertEquals(1, f.getDenominator());
+        
         f1 = Fraction.getFraction(3, 5);
         f2 = Fraction.getFraction(1, 2);
         f = f1.add(f2);
         assertEquals(11, f.getNumerator());
         assertEquals(10, f.getDenominator());
+        
+        f1 = Fraction.getFraction(3, 8);
+        f2 = Fraction.getFraction(1, 6);
+        f = f1.add(f2);
+        assertEquals(13, f.getNumerator());
+        assertEquals(24, f.getDenominator());
         
         f1 = Fraction.getFraction(0, 5);
         f2 = Fraction.getFraction(1, 5);
@@ -671,7 +739,26 @@ public class FractionTest extends TestCase {
         
         try {
             f.add(null);
+            fail("expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {}
+        
+        f1 = Fraction.getFraction(Integer.MAX_VALUE - 1, 1);
+        f2 = Fraction.ONE;
+        f = f1.add(f2);
+        assertEquals(Integer.MAX_VALUE, f.getNumerator());
+        assertEquals(1, f.getDenominator());
+        
+        try {
+            f = f.add(Fraction.ONE); // should overflow
+            fail("expecting ArithmeticException but got: " + f.toString());
+        } catch (ArithmeticException ex) {}
+        
+        try {
+            f= Fraction.getFraction(-Integer.MAX_VALUE, 1);
+            f = f.add(f);
+            fail("expecting ArithmeticException");
+        } catch (ArithmeticException ex) {}
+            
     }
             
     public void testSubtract() {
@@ -728,7 +815,16 @@ public class FractionTest extends TestCase {
         
         try {
             f.subtract(null);
+            fail("expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {}
+        
+        try {
+            f1 = Fraction.getFraction(1, Integer.MAX_VALUE);
+            f2 = Fraction.getFraction(1, Integer.MAX_VALUE - 1);
+            f = f1.subtract(f2);
+            fail("expecting ArithmeticException");  //should overflow
+        } catch (ArithmeticException ex) {}
+            
     }
             
     public void testMultiply() {
@@ -759,9 +855,28 @@ public class FractionTest extends TestCase {
         f = f1.multiplyBy(f2);
         assertSame(Fraction.ZERO, f);
         
+        f1 = Fraction.getFraction(2, 7);
+        f2 = Fraction.ONE;
+        f = f1.multiplyBy(f2);
+        assertEquals(2, f.getNumerator());
+        assertEquals(7, f.getDenominator());
+        
         try {
             f.multiplyBy(null);
+            fail("expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {}
+        
+        try {
+            f1 = Fraction.getFraction(1, Integer.MAX_VALUE);
+            f = f1.multiplyBy(f1);  // should overflow
+            fail("expecting ArithmeticException");
+        } catch (ArithmeticException ex) {}
+            
+        try {
+            f1 = Fraction.getFraction(1, -Integer.MAX_VALUE);
+            f = f1.multiplyBy(f1);  // should overflow
+            fail("expecting ArithmeticException");
+        } catch (ArithmeticException ex) {}
     }
             
     public void testDivide() {
@@ -779,6 +894,7 @@ public class FractionTest extends TestCase {
         f2 = Fraction.ZERO;
         try {
             f = f1.divideBy(f2);
+            fail("expecting ArithmeticException");
         } catch (ArithmeticException ex) {}
         
         f1 = Fraction.getFraction(0, 5);
@@ -786,9 +902,32 @@ public class FractionTest extends TestCase {
         f = f1.divideBy(f2);
         assertSame(Fraction.ZERO, f);
         
+        f1 = Fraction.getFraction(2, 7);
+        f2 = Fraction.ONE;
+        f = f1.divideBy(f2);
+        assertEquals(2, f.getNumerator());
+        assertEquals(7, f.getDenominator());
+        
+        f1 = Fraction.getFraction(1, Integer.MAX_VALUE);
+        f = f1.divideBy(f1);  
+        assertEquals(1, f.getNumerator());
+        assertEquals(1, f.getDenominator());
+        
         try {
             f.divideBy(null);
+            fail("IllegalArgumentException");
         } catch (IllegalArgumentException ex) {}
+        
+        try {
+            f1 = Fraction.getFraction(1, Integer.MAX_VALUE);
+            f = f1.divideBy(f1.invert());  // should overflow
+            fail("expecting ArithmeticException");
+        } catch (ArithmeticException ex) {}
+        try {
+            f1 = Fraction.getFraction(1, -Integer.MAX_VALUE);
+            f = f1.divideBy(f1.invert());  // should overflow
+            fail("expecting ArithmeticException");
+        } catch (ArithmeticException ex) {}
     }
             
     public void testEquals() {
@@ -834,10 +973,12 @@ public class FractionTest extends TestCase {
         
         try {
             f1.compareTo(null);
+            fail("expecting NullPointerException");
         } catch (NullPointerException ex) {}
         
         try {
             f1.compareTo(new Object());
+            fail("expecting ClassCastException");
         } catch (ClassCastException ex) {}
         
         f2 = Fraction.getFraction(2, 5);

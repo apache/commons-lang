@@ -66,7 +66,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Tim O'Brien
  * @since 2.0
- * @version $Id: Fraction.java,v 1.8 2003/08/04 02:01:53 scolebourne Exp $
+ * @version $Id: Fraction.java,v 1.9 2003/08/13 23:42:17 scolebourne Exp $
  */
 public final class Fraction extends Number implements Serializable, Comparable {
 
@@ -161,6 +161,8 @@ public final class Fraction extends Number implements Serializable, Comparable {
      * @throws ArithmeticException if the denomiator is <code>zero</code>
      * @throws ArithmeticException if the denomiator is negative
      * @throws ArithmeticException if the numerator is negative
+     * @throws ArithmeticException if the resulting numerator exceeds 
+     *  <code>Integer.MAX_VALUE</code>
      */
     public static Fraction getFraction(int whole, int numerator, int denominator) {
         if (denominator == 0) {
@@ -172,12 +174,16 @@ public final class Fraction extends Number implements Serializable, Comparable {
         if (numerator < 0) {
             throw new ArithmeticException("The numerator must not be negative");
         }
+        double numeratorValue = 0;
         if (whole < 0) {
-            numerator = whole * denominator - numerator;
+            numeratorValue = (double) whole * denominator - numerator;
         } else {
-            numerator = whole * denominator + numerator;
+            numeratorValue = (double) whole * denominator + numerator;
         }
-        return new Fraction(numerator, denominator);
+        if (Math.abs(numeratorValue) > Integer.MAX_VALUE) {
+            throw new ArithmeticException("Numerator too large to represent as an Integer.");
+        }
+        return new Fraction((int) numeratorValue, denominator);
     }
 
     /**
@@ -199,30 +205,34 @@ public final class Fraction extends Number implements Serializable, Comparable {
             numerator = -numerator;
             denominator = -denominator;
         }
-        int gcd = greatestCommonDenominator(Math.abs(numerator), denominator);
+        int gcd = greatestCommonDivisor(Math.abs(numerator), denominator);
         return new Fraction(numerator / gcd, denominator / gcd);
     }
 
     /**
      * <p>Creates a <code>Fraction</code> instance from a <code>double</code> value.</p>
      *
-     * <p>This method uses the continued fraction algorithm.</p>
+     * <p>This method uses the <a href="http://archives.math.utk.edu/articles/atuyl/confrac/">
+     *  continued fraction algorithm</a>, computing a maximum of
+     *  25 convergents and bounding the denominator by 10,000.</p>
      *
      * @param value  the double value to convert
      * @return a new fraction instance that is close to the value
-     * @throws ArithmeticException if the value is infinite or <code>NaN</code>
+     * @throws ArithmeticException if <code>|value| > Integer.MAX_VALUE</code> 
+     *  or <code>value = NaN</code>
      * @throws ArithmeticException if the calculated denomiator is <code>zero</code>
+     * @throws ArithmeticException if the the algorithm does not converge
      */
     public static Fraction getFraction(double value) {
-        if (Double.isInfinite(value) || Double.isNaN(value)) {
-            throw new ArithmeticException("The value must not be infinite or NaN");
-        }
         int sign = (value < 0 ? -1 : 1);
         value = Math.abs(value);
+        if (value  > Integer.MAX_VALUE || Double.isNaN(value)) {
+            throw new ArithmeticException
+                ("The value must not be greater than Integer.MAX_VALUE or NaN");
+        }
         int wholeNumber = (int) value;
         value -= wholeNumber;
-
-        // http://archives.math.utk.edu/articles/atuyl/confrac/
+        
         int numer0 = 0;  // the pre-previous
         int denom0 = 1;  // the pre-previous
         int numer1 = 1;  // the previous
@@ -430,7 +440,7 @@ public final class Fraction extends Number implements Serializable, Comparable {
      * @return a new reduce fraction instance, or this if no simplification possible
      */
     public Fraction reduce() {
-        int gcd = greatestCommonDenominator(Math.abs(numerator), denominator);
+        int gcd = greatestCommonDivisor(Math.abs(numerator), denominator);
         return Fraction.getFraction(numerator / gcd, denominator / gcd);
     }
 
@@ -483,27 +493,39 @@ public final class Fraction extends Number implements Serializable, Comparable {
      *
      * @param power  the power to raise the fraction to
      * @return <code>this</code> if the power is one, <code>ONE</code> if the power
-     * is zero or a new fraction instance raised to the appropriate power
+     * is zero (even if the fraction equals ZERO) or a new fraction instance 
+     * raised to the appropriate power
+     * @throws ArithmeticException if the resulting numerator or denominator exceeds
+     *  <code>Integer.MAX_VALUE</code>
      */
     public Fraction pow(int power) {
         if (power == 1) {
             return this;
         } else if (power == 0) {
             return ONE;
-        } else if (power < 0) {
-            return getFraction((int) Math.pow(denominator, -power), (int) Math.pow(numerator, -power));
+        } else {
+            double denominatorValue = Math.pow(denominator, power);
+            double numeratorValue = Math.pow(numerator, power);
+            if (numeratorValue > Integer.MAX_VALUE || denominatorValue > Integer.MAX_VALUE) {
+                throw new ArithmeticException("Integer overflow");
+            }
+            if (power < 0) {
+                return getFraction((int) Math.pow(denominator, -power), 
+                    (int) Math.pow(numerator, -power));
+            }
+            return getFraction((int) Math.pow(numerator, power), 
+                (int) Math.pow(denominator, power));
         }
-        return getFraction((int) Math.pow(numerator, power), (int) Math.pow(denominator, power));
     }
 
     /**
-     * <p>Gets the greatest common denominator of two numbers.</p>
+     * <p>Gets the greatest common divisor of two numbers.</p>
      *
      * @param number1  a positive number
      * @param number2  a positive number
-     * @return the greatest common denominator, never zero
+     * @return the greatest common divisor, never zero
      */
-    private static int greatestCommonDenominator(int number1, int number2) {
+    private static int greatestCommonDivisor(int number1, int number2) {
         int remainder = number1 % number2;
         while (remainder != 0) {
             number1 = number2;
@@ -517,15 +539,14 @@ public final class Fraction extends Number implements Serializable, Comparable {
     //-------------------------------------------------------------------
 
     /**
-     * <p>Adds the value of this fraction to another, returning the result.</p>
-     *
-     * <p>The implementation spots common cases of zero numerators and equal
-     * denominators. Otherwise, it uses <code>(a/b) + (c/d) = (a*d + b*c) / (b*d)</code>
-     * and then reduces the result.</p>
+     * <p>Adds the value of this fraction to another, returning the result in 
+     * reduced form.</p>
      *
      * @param fraction  the fraction to add, must not be <code>null</code>
      * @return a <code>Fraction</code> instance with the resulting values
      * @throws IllegalArgumentException if the fraction is <code>null</code>
+     * @throws ArithmeticException if the resulting numerator or denominator exceeds
+     *  <code>Integer.MAX_VALUE</code>
      */
     public Fraction add(Fraction fraction) {
         if (fraction == null) {
@@ -536,56 +557,46 @@ public final class Fraction extends Number implements Serializable, Comparable {
         }
         if (fraction.numerator == 0) {
             return this;
+        }     
+        // Compute lcd explicitly to limit overflow
+        int gcd = greatestCommonDivisor(Math.abs(fraction.denominator), Math.abs(denominator));
+        int thisResidue = denominator/gcd;
+        int thatResidue = fraction.denominator/gcd;
+        double denominatorValue = Math.abs((double) gcd * thisResidue * thatResidue);
+        double numeratorValue = (double) numerator * thatResidue + fraction.numerator * thisResidue;
+        if (Math.abs(numeratorValue) > Integer.MAX_VALUE || 
+            Math.abs(denominatorValue) > Integer.MAX_VALUE) {
+                throw new ArithmeticException("Integer overflow");
         }
-        if (denominator == fraction.denominator) {
-            return getReducedFraction(numerator + fraction.numerator, denominator);
-        }
-        return getReducedFraction(
-            numerator * fraction.denominator + denominator * fraction.numerator,
-            denominator * fraction.denominator
-        );
+        return Fraction.getReducedFraction((int) numeratorValue, (int) denominatorValue);
     }
 
     /**
      * <p>Subtracts the value of another fraction from the value of this one,
-     * returning the result.</p>
-     *
-     * <p>The implementation spots common cases of zero numerators and equal
-     * denominators. Otherwise, it uses <code>(a/b) - (c/d) = (a*d - b*c) / (b*d)</code>
-     * and then reduces the result.</p>
+     * returning the result in reduced form.</p>
      *
      * @param fraction  the fraction to subtract, must not be <code>null</code>
      * @return a <code>Fraction</code> instance with the resulting values
      * @throws IllegalArgumentException if the fraction is <code>null</code>
+     * @throws ArithmeticException if the resulting numerator or denominator exceeds
+     *  <code>Integer.MAX_VALUE</code>
      */
     public Fraction subtract(Fraction fraction) {
         if (fraction == null) {
             throw new IllegalArgumentException("The fraction must not be null");
         }
-        if (numerator == 0) {
-            return fraction.negate();
-        }
-        if (fraction.numerator == 0) {
-            return this;
-        }
-        if (denominator == fraction.denominator) {
-            return getReducedFraction(numerator - fraction.numerator, denominator);
-        }
-        return getReducedFraction(
-            numerator * fraction.denominator - denominator * fraction.numerator,
-            denominator * fraction.denominator
-        );
+        return add(fraction.negate());
     }
 
     /**
-     * <p>Multiplies the value of this fraction by another, returning the result.</p>
-     *
-     * <p>The implementation uses <code>(a/b)*(c/d) = (a*c)/(b*d)</code>
-     * and then reduces the result.</p>
+     * <p>Multiplies the value of this fraction by another, returning the result 
+     * in reduced form.</p>
      *
      * @param fraction  the fraction to multipy by, must not be <code>null</code>
      * @return a <code>Fraction</code> instance with the resulting values
      * @throws IllegalArgumentException if the fraction is <code>null</code>
+     * @throws ArithmeticException if the resulting numerator or denominator exceeds
+     *  <code>Integer.MAX_VALUE</code>
      */
     public Fraction multiplyBy(Fraction fraction) {
         if (fraction == null) {
@@ -594,22 +605,25 @@ public final class Fraction extends Number implements Serializable, Comparable {
         if (numerator == 0 || fraction.numerator == 0) {
             return ZERO;
         }
-        return getReducedFraction(
-            numerator * fraction.numerator,
-            denominator * fraction.denominator
-        );
+        double numeratorValue = (double) numerator * fraction.numerator;
+        double denominatorValue = (double) denominator * fraction.denominator;
+        if (Math.abs(numeratorValue) > Integer.MAX_VALUE || 
+            Math.abs(denominatorValue) > Integer.MAX_VALUE) {
+                throw new ArithmeticException("Integer overflow");
+        }
+        return getReducedFraction((int) numeratorValue, (int) denominatorValue);
     }
 
     /**
-     * <p>Divide the value of this fraction by another, returning the result.</p>
-     *
-     * <p>The implementation uses <code>(a/b)/(c/d) = a/b * d/c = (a*d)/(b*c)</code>
-     * and then reduces the result.</p>
+     * <p>Divide the value of this fraction by another, returning the result 
+     * in reduced form.</p>
      *
      * @param fraction  the fraction to divide by, must not be <code>null</code>
      * @return a <code>Fraction</code> instance with the resulting values
      * @throws IllegalArgumentException if the fraction is <code>null</code>
      * @throws ArithmeticException if the fraction to divide by is zero
+     * @throws ArithmeticException if the resulting numerator or denominator exceeds
+     *  <code>Integer.MAX_VALUE</code>
      */
     public Fraction divideBy(Fraction fraction) {
         if (fraction == null) {
@@ -620,11 +634,14 @@ public final class Fraction extends Number implements Serializable, Comparable {
         }
         if (numerator == 0) {
             return ZERO;
+        }  
+        double numeratorValue = (double) numerator * fraction.denominator;
+        double denominatorValue = (double) denominator * fraction.numerator;
+        if (Math.abs(numeratorValue) > Integer.MAX_VALUE || 
+            Math.abs(denominatorValue) > Integer.MAX_VALUE) {
+                throw new ArithmeticException("Integer overflow");
         }
-        return getReducedFraction(
-            numerator * fraction.denominator,
-            denominator * fraction.numerator
-        );
+        return getReducedFraction((int) numeratorValue, (int) denominatorValue);
     }
 
     // Basics
@@ -668,7 +685,7 @@ public final class Fraction extends Number implements Serializable, Comparable {
      * <p>Compares this object to another based on size.</p>
      *
      * @param object  the object to compare to
-     * @return -ve if this is less, 0 if equal, +ve if greater
+     * @return -1 if this is less, 0 if equal, +1 if greater
      * @throws ClassCastException if the object is not a <code>Fraction</code>
      * @throws NullPointerException if the object is <code>null</code>
      */
