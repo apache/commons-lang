@@ -67,7 +67,8 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTest.java,v 1.3 2002/07/26 01:40:11 dlr Exp $
+ * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
+ * @version $Id: StringUtilsTest.java,v 1.4 2002/09/19 06:58:13 bayard Exp $
  */
 public class StringUtilsTest extends TestCase
 {
@@ -325,6 +326,31 @@ public class StringUtilsTest extends TestCase
                      7, StringUtils.getLevenshteinDistance("hippo", "elephant") );
         assertEquals("getLevenshteinDistance(String, String) failed",
                      1, StringUtils.getLevenshteinDistance("hello", "hallo") );
+    }
+
+    public void testContainsOnly() {
+        String str1 = "a";
+        String str2 = "b";
+        String str3 = "ab";
+        char[] chars1= {'b'};
+        char[] chars2= {'a'};
+        char[] chars3= {'a', 'b'};
+        char[] emptyChars = new char[0];
+        assertEquals("containsOnly(null, null) failed", false, StringUtils.containsOnly(null, null));
+        assertEquals("containsOnly(empty-string, null) failed", false, StringUtils.containsOnly("", null));
+        assertEquals("containsOnly(null, empty-string) failed", false, StringUtils.containsOnly(null, emptyChars));
+        assertEquals("containsOnly(str1, empty-char-array) failed", false, StringUtils.containsOnly(str1, emptyChars));
+        assertEquals("containsOnly(empty-string, chars1) failed", true, StringUtils.containsOnly("", chars1));
+        assertEquals("containsOnly(str1, chars1) failed", false, StringUtils.containsOnly(str1, chars1));
+        assertEquals("containsOnly(str1, chars1) failed", false, StringUtils.containsOnly(str1, chars1));
+        assertEquals("containsOnly(str1, chars1) success", true, StringUtils.containsOnly(str1, chars2));
+        assertEquals("containsOnly(str1, chars1) success", true, StringUtils.containsOnly(str1, chars3));
+        assertEquals("containsOnly(str2, chars2) success", true, StringUtils.containsOnly(str2, chars1));
+        assertEquals("containsOnly(str2, chars2) failed", false, StringUtils.containsOnly(str2, chars2));
+        assertEquals("containsOnly(str2, chars2) success", true, StringUtils.containsOnly(str2, chars3));
+        assertEquals("containsOnly(String3, chars3) failed", false, StringUtils.containsOnly(str3, chars1));
+        assertEquals("containsOnly(String3, chars3) failed", false, StringUtils.containsOnly(str3, chars2));
+        assertEquals("containsOnly(String3, chars3) success", true, StringUtils.containsOnly(str3, chars3));
     }
 
 }

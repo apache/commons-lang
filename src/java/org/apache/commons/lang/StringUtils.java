@@ -81,7 +81,8 @@ import java.util.Iterator;
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
- * @version $Id: StringUtils.java,v 1.10 2002/08/31 19:05:32 bayard Exp $
+ * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
+ * @version $Id: StringUtils.java,v 1.11 2002/09/19 06:58:13 bayard Exp $
  */
 public class StringUtils {
 
@@ -1547,6 +1548,34 @@ public class StringUtils {
         return d[n][m];
     }
 
+    /**
+     * Checks if the String contains only certain chars.
+     *
+     * @param str the String to check
+     * @param valid an array of valid chars
+     * @return true if it only contains valid chars and is non-null
+     */
+    public static boolean containsOnly(String str, char[] valid) {
+        if(str == null || valid == null) {
+            return false;
+        }
+
+        int strSize = str.length();
+        int validSize = valid.length;
+
+        for(int i=0; i<strSize; i++) {
+            boolean contains = false;
+            for(int j=0; j<validSize; j++) {
+                if(valid[j] == str.charAt(i)) {
+                    contains = true;
+                    break;
+                }
+            }
+            if(!contains) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
-
-
