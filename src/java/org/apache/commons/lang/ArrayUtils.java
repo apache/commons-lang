@@ -82,7 +82,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Fredrik Westermarck
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.32 2004/01/19 21:50:06 fredrik Exp $
+ * @version $Id: ArrayUtils.java,v 1.33 2004/01/19 23:24:07 fredrik Exp $
  */
 public class ArrayUtils {
 
@@ -1765,7 +1765,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (array == null || array.length == 0) {
+        if (ArrayUtils.isEmpty(array)) {
             return -1;
         }
         if (startIndex < 0) {
@@ -1797,7 +1797,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final double[] array, final double valueToFind, int startIndex, double tolerance) {
-        if (array == null || array.length == 0) {
+        if (ArrayUtils.isEmpty(array)) {
             return -1;
         }
         if (startIndex < 0) {
@@ -1859,7 +1859,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (array == null || array.length == 0) {
+        if (ArrayUtils.isEmpty(array)) {
             return -1;
         }
         if (startIndex < 0) {
@@ -1893,7 +1893,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex, double tolerance) {
-        if (array == null || array.length == 0) {
+        if (ArrayUtils.isEmpty(array)) {
             return -1;
         }
         if (startIndex < 0) {
@@ -1972,7 +1972,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (array == null || array.length == 0) {
+        if (ArrayUtils.isEmpty(array)) {
             return -1;
         }
         if (startIndex < 0) {
@@ -2015,7 +2015,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (array == null || array.length == 0) {
+        if (ArrayUtils.isEmpty(array)) {
             return -1;
         }
         if (startIndex < 0) {
@@ -2075,7 +2075,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (array == null || array.length == 0) {
+        if (ArrayUtils.isEmpty(array)) {
             return -1;
         }
         if (startIndex < 0) {
@@ -2118,7 +2118,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (array == null || array.length == 0) {
+        if (ArrayUtils.isEmpty(array)) {
             return -1;
         }
         if (startIndex < 0) {

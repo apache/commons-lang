@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -72,7 +72,7 @@ import java.util.Map;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: Validate.java,v 1.6 2003/08/23 10:39:20 scolebourne Exp $
+ * @version $Id: Validate.java,v 1.7 2004/01/19 23:24:07 fredrik Exp $
  */
 public class Validate {
     
@@ -273,7 +273,7 @@ public class Validate {
      * @throws IllegalArgumentException if the array is empty
      */
     public static void notEmpty(Object[] array, String message) {
-        if (array == null || array.length == 0) {
+        if (ArrayUtils.isEmpty(array)) {
             throw new IllegalArgumentException(message);
         }
     }
@@ -292,7 +292,7 @@ public class Validate {
      * @throws IllegalArgumentException if the array is empty
      */
     public static void notEmpty(Object[] array) {
-        if (array == null || array.length == 0) {
+        if (ArrayUtils.isEmpty(array)) {
             throw new IllegalArgumentException("The validated array is empty");
         }
     }
