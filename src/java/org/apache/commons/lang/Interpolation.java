@@ -10,7 +10,7 @@ import java.util.Map;
  * @author Ken Fitzpatrick
  * @author Henri Yandell
  * @since 2.1
- * @version $Id: Interpolation.java,v 1.2 2004/08/15 23:18:43 scolebourne Exp $
+ * @version $Id: Interpolation.java,v 1.3 2004/09/01 17:41:41 ggregory Exp $
  */
 public class Interpolation {
 
@@ -81,7 +81,6 @@ public class Interpolation {
         // default the returned String to the templateString
         String returnString = templateString;
         String nextKey = null;
-        Object substitutionBean = null;
         String substitutionValue = null;
         String nextValueToBeSubstituted = null;
         
