@@ -59,13 +59,15 @@ import java.util.Arrays;
  * Thrown to indicate an incomplete argument to a method.
  * 
  * @author Matthew Hawthorne
- * @version $Id: IncompleteArgumentException.java,v 1.1 2003/05/15 04:05:11 bayard Exp $
+ * @since 2.0
+ * @version $Id: IncompleteArgumentException.java,v 1.2 2003/05/16 16:14:17 scolebourne Exp $
  */
 public class IncompleteArgumentException extends IllegalArgumentException {
 
     /**
      * Instantiates with the specified description.
-     * @param argName a description of the incomplete argument
+     * 
+     * @param argName  a description of the incomplete argument
      */
     public IncompleteArgumentException(String argName) {
         super(argName + " is incomplete.");
@@ -73,7 +75,9 @@ public class IncompleteArgumentException extends IllegalArgumentException {
 
     /**
      * Instantiates with the specified description.
-     * @param item a description of the incomplete argument
+     * 
+     * @param argName  a description of the incomplete argument
+     * @param items  an array describing the arguments missing
      */
     public IncompleteArgumentException(String argName, String[] items) {
         super(
@@ -84,7 +88,8 @@ public class IncompleteArgumentException extends IllegalArgumentException {
 
     /**
      * Converts an array to a string without throwing an exception.
-     * @param array an array
+     * 
+     * @param array  an array
      * @return the array as a string
      */
     private static final String safeArrayToString(Object[] array) {
