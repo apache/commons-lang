@@ -84,7 +84,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @since 1.0
- * @version $Id: NestableException.java,v 1.12 2004/08/04 18:41:09 ggregory Exp $
+ * @version $Id$
  */
 public class NestableException extends Exception implements Nestable {
     
@@ -151,6 +151,8 @@ public class NestableException extends Exception implements Nestable {
      * Returns the detail message string of this throwable. If it was
      * created with a null message, returns the following:
      * (cause==null ? null : cause.toString()).
+     *
+     * @return String message string of the throwable
      */
     public String getMessage() {
         if (super.getMessage() != null) {
