@@ -75,7 +75,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @author Holger Krauth
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.31 2003/01/19 18:15:38 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.32 2003/01/20 22:15:13 dlr Exp $
  */
 public class StringUtils {
 
@@ -1277,13 +1277,15 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        if (str.length() == 0) {
+        else if (str.length() == 0) {
             return "";
         }
-        return new StringBuffer(str.length())
-            .append(Character.toLowerCase(str.charAt(0)))
-            .append(str.substring(1))
-            .toString();
+        else {
+            return new StringBuffer(str.length())
+                .append(Character.toLowerCase(str.charAt(0)))
+                .append(str.substring(1))
+                .toString();
+        }
     }
 
     /**
@@ -1299,13 +1301,15 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        if (str.length() == 0) {
+        else if (str.length() == 0) {
             return "";
         }
-        return new StringBuffer(str.length())
-            .append(Character.toTitleCase(str.charAt(0)))
-            .append(str.substring(1))
-            .toString();
+        else {
+            return new StringBuffer(str.length())
+                .append(Character.toTitleCase(str.charAt(0)))
+                .append(str.substring(1))
+                .toString();
+        }
     }
 
     /**
