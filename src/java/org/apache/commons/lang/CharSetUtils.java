@@ -63,7 +63,7 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.15 2003/07/30 00:08:38 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.16 2003/07/30 22:17:00 scolebourne Exp $
  */
 public class CharSetUtils {
 
@@ -320,7 +320,8 @@ public class CharSetUtils {
     }
 
     /**
-     * <p>Translate characters in a String.</p>
+     * <p>Translate characters in a String.
+     * This is a multi character search and replace routine.</p>
      *
      * <p>An example is:</p>
      * <ul>
@@ -331,26 +332,31 @@ public class CharSetUtils {
      * <p>If the length of characters to search for is greater than the
      * length of characters to replace, then the last character is 
      * used.</p>
+     * 
+     * <pre>
+     * CharSetUtils.translate(null, *, *) = null
+     * CharSetUtils.translate("", *, *) = ""
+     * </pre>
      *
      * @param str  String to replace characters in, may be null
-     * @param repl  String to find that will be replaced, must not be null
-     * @param with  String to put into the target String, must not be null or empty ("")
+     * @param searchChars   a set of characters to search for, must not be null
+     * @param replaceChars  a set of characters to replace, must not be null or empty ("")
      * @return translated String, <code>null</code> if null string input
      * @throws NullPointerException if <code>with</code> or <code>repl</code> 
      *  is <code>null</code>
      * @throws ArrayIndexOutOfBoundsException if <code>with</code> is empty ("")
      */
-    public static String translate(String str, String repl, String with) {
-        if (str == null) {
-            return null;
+    public static String translate(String str, String searchChars, String replaceChars) {
+        if (str == null || str.length() == 0) {
+            return str;
         }
         StringBuffer buffer = new StringBuffer(str.length());
         char[] chrs = str.toCharArray();
-        char[] withChrs = with.toCharArray();
+        char[] withChrs = replaceChars.toCharArray();
         int sz = chrs.length;
-        int withMax = with.length() - 1;
+        int withMax = replaceChars.length() - 1;
         for(int i=0; i<sz; i++) {
-            int idx = repl.indexOf(chrs[i]);
+            int idx = searchChars.indexOf(chrs[i]);
             if(idx != -1) {
                 if(idx > withMax) {
                     idx = withMax;
