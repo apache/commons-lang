@@ -70,8 +70,9 @@ import java.util.TimeZone;
  *
  * @author <a href="mailto:sergek@lokitech.com">Serge Knystautas</a>
  * @author Stephen Colebourne
+ * @author Janek Bogucki
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.4 2003/06/23 23:41:10 scolebourne Exp $
+ * @version $Id: DateUtils.java,v 1.5 2003/06/28 17:49:53 scolebourne Exp $
  */
 public class DateUtils {
     
@@ -650,13 +651,11 @@ public class DateUtils {
      * Date iterator.
      */
     static class DateIterator implements Iterator {
-        private final Calendar startFinal;
         private final Calendar endFinal;
-        private Calendar spot = null;
+        private final Calendar spot;
         
         DateIterator(Calendar startFinal, Calendar endFinal) {
             super();
-            this.startFinal = startFinal;
             this.endFinal = endFinal;
             spot = startFinal;
             spot.add(Calendar.DATE, -1);
