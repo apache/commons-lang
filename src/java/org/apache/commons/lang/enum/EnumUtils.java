@@ -63,7 +63,7 @@ import java.util.Map;
  * @see Enum
  * @see ValuedEnum
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumUtils.java,v 1.2 2002/09/17 09:33:28 bayard Exp $
+ * @version $Id: EnumUtils.java,v 1.3 2002/09/28 10:49:59 scolebourne Exp $
  */
 public abstract class EnumUtils implements Comparable, Serializable {
 
@@ -100,6 +100,7 @@ public abstract class EnumUtils implements Comparable, Serializable {
     /**
      * Gets the Map of Enum objects by name using the Enum class.
      * If the requested class has no enum objects an empty Map is returned.
+     * The Map is unmodifiable.
      * 
      * @param enumClass  the class of the Enum to get
      * @return the enum object Map
@@ -114,6 +115,7 @@ public abstract class EnumUtils implements Comparable, Serializable {
      * Gets the List of Enum objects using the Enum class.
      * The list is in the order that the objects were created (source code order).
      * If the requested class has no enum objects an empty List is returned.
+     * The List is unmodifiable.
      * 
      * @param enumClass  the class of the Enum to get
      * @return the enum object Map
@@ -128,6 +130,7 @@ public abstract class EnumUtils implements Comparable, Serializable {
      * Gets an iterator over the Enum objects in an Enum class.
      * The iterator is in the order that the objects were created (source code order).
      * If the requested class has no enum objects an empty Iterator is returned.
+     * The Iterator is unmodifiable.
      * 
      * @param enumClass  the class of the Enum to get
      * @return an iterator of the Enum objects
