@@ -63,44 +63,54 @@ import org.apache.commons.lang.math.NumberUtils;
 /** 
  * <p><code>CompareTo</code> generation routines.</p>
  *
- * <p>This class provides methods to build a good <code>compareTo</code>
- * method for any class. It is consistent with the <code>equals()</code> and
+ * <p>This class provides methods to assist in building a quality
+ * <code>compareTo(Object)</code>.  It is consistent with <code>equals(Object)</code> and
  * <code>hashcode()</code> built with {@link EqualsBuilder} and
  * {@link HashCodeBuilder}.</p>
  *
- * <p>Two Objects that compare equal using <code>equals()</code> should normally
- * also compare equal using <code>compareTo()</code></p>.
+ * <p>Two Objects that compare equal using <code>equals(Object)</code> should normally
+ * also compare equal using <code>compareTo(Object)</code>.</p>
  *
  * <p>All relevant fields should be included in the calculation of the
  * comparison. Derived fields may be ignored. The same fields, in the same
- * order, should be used in both <code>compareTo()</code> and
- * <code>equals()</code>.</p>
+ * order, should be used in both <code>compareTo(Object)</code> and
+ * <code>equals(Object)</code>.</p>
  *
- * <p>Typical use for the code is as follows:</p>
+ * <p>To use this class write code as follows:</p>
  *
  * <pre>
- *  public int compareTo(Object o) {
- *    MyClass rhs = (MyClass) o;
- *    return new CompareToBuilder()
- *                 .appendSuper(super.compareTo(o)
- *                 .append(field1, rhs.field1)
- *                 .append(field2, rhs.field2)
- *                 .append(field3, rhs.field3)
- *                 .toComparison();
- *  }
+ * public class MyClass {
+ *   String field1;
+ *   int field2;
+ *   boolean field3;
+ *
+ *   ...
+ *
+ *   public int compareTo(Object o) {
+ *     MyClass myClass = (MyClass) o;
+ *     return new CompareToBuilder()
+ *       .appendSuper(super.compareTo(o)
+ *       .append(this.field1, myClass.field1)
+ *       .append(this.field2, myClass.field2)
+ *       .append(this.field3, myClass.field3)
+ *       .toComparison();
+ *   }
+ * }
  * </pre>
  *
- * <p>Alternatively, there is a method that uses reflection to determine
- * the fields to test. Because these fields are usually private, the method,
- * <code>reflectionCompare</code>, uses <code>AccessibleObject.setAccessible</code> to change
- * the visibility of the fields. This will fail under a security manager,
- * unless the appropriate permissions are set. It is also slower than testing
- * explicitly.</p>
+ * <p>Alternatively, there is a method {@link #reflectionCompare reflectionCompare} that uses
+ * reflection to determine the fields to append. Because fields can be private,
+ * <code>reflectionCompare</code> uses <code>AccessibleObject.setAccessible</code> to
+ * bypass normal access control checks. This will fail under a security manager,
+ * unless the appropriate permissions are set up correctly. It is also
+ * slower than appending explicitly.</p>
  *
- * <p>A typical invocation for this method would look like:</p>
+ * <p>A typical implementation of <code>compareTo(Object)</code> using
+ * <code>reflectionCompare</code> looks like:</p>
+
  * <pre>
  * public int compareTo(Object o) {
- *   return CompareToBuilder.reflectionCompare(this, obj);
+ *   return CompareToBuilder.reflectionCompare(this, o);
  * }
  * </pre>
  *
@@ -109,12 +119,12 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.19 2003/07/21 23:32:41 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.20 2003/08/16 12:40:31 scolebourne Exp $
  */
 public class CompareToBuilder {
     
     /**
-     * If the fields tested are equals.
+     * Current state of the comparison as appended fields are checked.
      */
     private int comparison;
 
@@ -130,121 +140,128 @@ public class CompareToBuilder {
         comparison = 0;
     }
 
-    //-------------------------------------------------------------------------
-    
+    //-----------------------------------------------------------------------
     /** 
-     * <p>This method uses reflection to determine the ordering between two
-     * Objects.</p>
+     * <p>Compares two <code>Object</code>s via reflection.</p>
      *
-     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
-     * fields. This means that it will throw a security exception if run under
-     * a security manager, if the permissions are not set up correctly. It is
-     * also not as efficient as testing explicitly.</p>
+     * <p>Fields can be private, thus <code>AccessibleObject.setAccessible</code>
+     * is used to bypass normal access control checks. This will fail under a 
+     * security manager unless the appropriate permissions are set.</p>
      *
-     * <p>Transient members will be not be tested, as they are likely derived
-     * fields, and not part of the value of the object.</p>
+     * <ul>
+     * <li>Static fields will not be compared</li>
+     * <li>Transient members will be not be compared, as they are likely derived
+     *     fields</li>
+     * <li>Superclass fields will be compared</li>
+     * </ul>
      *
-     * <p>Static fields will not be tested. Superclass fields will be included.</p>
+     * <p>If both <code>lhs</code> and <code>rhs</code> are <code>null</code>,
+     * they are considered equal.</p>
      *
-     * @param lhs  <code>this</code> object
-     * @param rhs  the other object
-     * @return a negative integer, zero, or a positive integer as this 
-     *  Object is less than, equal to, or greater than the specified Object.
-     * @throws NullPointerException  if either (but not both) parameter is
+     * @param lhs  left-hand object
+     * @param rhs  right-hand object
+     * @return a negative integer, zero, or a positive integer as <code>lhs</code>
+     *  is less than, equal to, or greater than <code>rhs</code>
+     * @throws NullPointerException  if either (but not both) parameters are
      *  <code>null</code>
-     * @throws ClassCastException  if the specified Object's type prevents it
-     *  from being compared to this Object.
+     * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
+     *  with <code>lhs</code>
      */
     public static int reflectionCompare(Object lhs, Object rhs) {
         return reflectionCompare(lhs, rhs, false, null);
     }
 
     /**
-     * <p>This method uses reflection to determine if the two Objects are
-     * equal.</p>
+     * <p>Compares two <code>Object</code>s via reflection.</p>
      *
-     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
-     * fields. This means that it will throw a security exception if run under
-     * a security manager, if  the permissions are not set up correctly. It is
-     * also not as efficient as testing explicitly.</p>
+     * <p>Fields can be private, thus <code>AccessibleObject.setAccessible</code>
+     * is used to bypass normal access control checks. This will fail under a 
+     * security manager unless the appropriate permissions are set.</p>
      *
-     * <p>If the <code>testTransients</code> is set to <code>true</code>,
-     * transient members will be tested, otherwise they are ignored, as they
-     * are likely derived fields, and not part of the value of the object.</p>
+     * <ul>
+     * <li>Static fields will not be compared</li>
+     * <li>If <code>compareTransients</code> is <code>true</code>,
+     *     compares transient members.  Otherwise ignores them, as they
+     *     are likely derived fields.</li>
+     * <li>Superclass fields will be compared</li>
+     * </ul>
      *
-     * <p>Static fields will not be tested. Superclass fields will be included.</p>
-     * 
-     * @param lhs  <code>this</code> object
-     * @param rhs  the other object
-     * @param testTransients  whether to include transient fields
-     * @return a negative integer, zero, or a positive integer as this 
-     *  Object is less than, equal to, or greater than the specified Object.
-     * @throws NullPointerException  if either (but not both) parameter is
-     *  <code>null</code>
-     * @throws ClassCastException  if the specified Object's type prevents it
-     *  from being compared to this Object.
+     * <p>If both <code>lhs</code> and <code>rhs</code> are <code>null</code>,
+     * they are considered equal.</p>
+     *
+     * @param lhs  left-hand object
+     * @param rhs  right-hand object
+     * @param compareTransients  whether to compare transient fields
+     * @return a negative integer, zero, or a positive integer as <code>lhs</code>
+     *  is less than, equal to, or greater than <code>rhs</code>
+     * @throws NullPointerException  if either <code>lhs</code> or <code>rhs</code>
+     *  (but not both) is <code>null</code>
+     * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
+     *  with <code>lhs</code>
      */
-    public static int reflectionCompare(Object lhs, Object rhs, boolean testTransients) {
-        return reflectionCompare(lhs, rhs, testTransients, null);
+    public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients) {
+        return reflectionCompare(lhs, rhs, compareTransients, null);
     }
 
     /**
-     * <p>This method uses reflection to determine if the two Objects are
-     * equal.</p>
+     * <p>Compares two <code>Object</code>s via reflection.</p>
      *
-     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
-     * fields. This means that it will throw a security exception if run under
-     * a security manager, if  the permissions are not set up correctly. It is
-     * also not as efficient as testing explicitly.</p>
+     * <p>Fields can be private, thus <code>AccessibleObject.setAccessible</code>
+     * is used to bypass normal access control checks. This will fail under a 
+     * security manager unless the appropriate permissions are set.</p>
      *
-     * <p>If the <code>testTransients</code> is set to <code>true</code>,
-     * transient members will be tested, otherwise they are ignored, as they
-     * are likely derived fields, and not part of the value of the object.</p>
+     * <ul>
+     * <li>Static fields will not be compared</li>
+     * <li>If the <code>compareTransients</code> is <code>true</code>,
+     *     compares transient members.  Otherwise ignores them, as they
+     *     are likely derived fields.</li>
+     * <li>Compares superclass fields up to and including <code>reflectUpToClass</code>.
+     *     If <code>reflectUpToClass</code> is <code>null</code>, compares all superclass fields.</li>
+     * </ul>
      *
-     * <p>Static fields will not be included. Superclass fields will be appended
-     * up to and including the specified superclass. A null superclass is treated
-     * as java.lang.Object.</p>
-     * 
-     * @param lhs  <code>this</code> object
-     * @param rhs  the other object
-     * @param testTransients  whether to include transient fields
-     * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be null
-     * @return a negative integer, zero, or a positive integer as this 
-     *  Object is less than, equal to, or greater than the specified Object.
-     * @throws NullPointerException  if either (but not both) parameter is
-     *  <code>null</code>
-     * @throws ClassCastException  if the specified Object's type prevents it
-     *  from being compared to this Object.
+     * <p>If both <code>lhs</code> and <code>rhs</code> are <code>null</code>,
+     * they are considered equal.</p>
+     *
+     * @param lhs  left-hand object
+     * @param rhs  right-hand object
+     * @param compareTransients  whether to compare transient fields
+     * @param reflectUpToClass  last superclass for which fields are compared
+     * @return a negative integer, zero, or a positive integer as <code>lhs</code>
+     *  is less than, equal to, or greater than <code>rhs</code>
+     * @throws NullPointerException  if either <code>lhs</code> or <code>rhs</code>
+     *  (but not both) is <code>null</code>
+     * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
+     *  with <code>lhs</code>
      */
-    public static int reflectionCompare(Object lhs, Object rhs, boolean testTransients, Class reflectUpToClass) {
+    public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients, Class reflectUpToClass) {
         if (lhs == rhs) {
             return 0;
         }
         if (lhs == null || rhs == null) {
             throw new NullPointerException();
         }
-        Class c1 = lhs.getClass();
-        if (!c1.isInstance(rhs)) {
+        Class lhsClazz = lhs.getClass();
+        if (!lhsClazz.isInstance(rhs)) {
             throw new ClassCastException();
         }
         CompareToBuilder compareToBuilder = new CompareToBuilder();
-        reflectionAppend(lhs, rhs, c1, compareToBuilder, testTransients);
-        while (c1.getSuperclass() != null && c1 != reflectUpToClass) {
-            c1 = c1.getSuperclass();
-            reflectionAppend(lhs, rhs, c1, compareToBuilder, testTransients);
+        reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients);
+        while (lhsClazz.getSuperclass() != null && lhsClazz != reflectUpToClass) {
+            lhsClazz = lhsClazz.getSuperclass();
+            reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients);
         }
         return compareToBuilder.toComparison();
     }
 
     /**
-     * <p>Appends the fields and values defined by the given object of the
-     * given Class.</p>
+     * <p>Appends to <code>builder</code> the comparison of <code>lhs</code>
+     * to <code>rhs</code> using the fields defined in <code>clazz</code>.</p>
      * 
-     * @param lhs  the left hand object
-     * @param rhs  the right hand object
-     * @param clazz  the class to append details of
-     * @param builder  the builder to append to
-     * @param useTransients  whether to test transient fields
+     * @param lhs  left-hand object
+     * @param rhs  right-hand object
+     * @param clazz  <code>Class</code> that defines fields to be compared
+     * @param builder  <code>CompareToBuilder</code> to append to
+     * @param useTransients  whether to compare transient fields
      */
     private static void reflectionAppend(
         Object lhs,
@@ -252,6 +269,7 @@ public class CompareToBuilder {
         Class clazz,
         CompareToBuilder builder,
         boolean useTransients) {
+        
         Field[] fields = clazz.getDeclaredFields();
         AccessibleObject.setAccessible(fields, true);
         for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
@@ -262,21 +280,21 @@ public class CompareToBuilder {
                 try {
                     builder.append(f.get(lhs), f.get(rhs));
                 } catch (IllegalAccessException e) {
-                    //this can't happen. Would get a Security exception instead
-                    //throw a runtime exception in case the impossible happens.
+                    // This can't happen. Would get a Security exception instead.
+                    // Throw a runtime exception in case the impossible happens.
                     throw new InternalError("Unexpected IllegalAccessException");
                 }
             }
         }
     }
 
-    //-------------------------------------------------------------------------
-    
+    //-----------------------------------------------------------------------
     /**
-     * <p>Adds the result of super.hashCode() to this builder.</p>
+     * <p>Appends to the <code>builder</code> the <code>compareTo(Object)</code>
+     * result of the superclass.</p>
      *
-     * @param superCompareTo  the result of calling <code>super.compareTo()</code>
-     * @return CompareToBuilder - used to chain calls.
+     * @param superCompareTo  result of calling <code>super.compareTo(Object)</code>
+     * @return this - used to chain append calls
      */
     public CompareToBuilder appendSuper(int superCompareTo) {
         if (comparison != 0) {
@@ -286,49 +304,53 @@ public class CompareToBuilder {
         return this;
     }
     
-    //-------------------------------------------------------------------------
-    
+    //-----------------------------------------------------------------------
     /**
-     * <p>Comparison of two Object references.</p>
+     * <p>Appends to the <code>builder</code> the comparison of
+     * two <code>Object</code>s.</p>
      *
      * <ol>
-     *  <li>Check if Objects are same using <code>==</code></li>
-     *  <li>Check if either is null, a null object is less than a non-null</li>
-     *  <li>Check the object contents</li>
+     * <li>Check if <code>lhs == rhs</code></li>
+     * <li>Check if either <code>lhs</code> or <code>rhs</code> is <code>null</code>,
+     *     a <code>null</code> object is less than a non-<code>null</code> object</li>
+     * <li>Check the object contents</li>
      * </ol>
      * 
-     * <p>The first parameter to be compared must either be an array or implement
-     * <code>Comparable</code>.</p>
+     * <p><code>lhs</code> must either be an array or implement {@link Comparable}.</p>
      *
-     * @param lhs  the Object from <code>this</code> object
-     * @param rhs  the Object from the other object
-     * @return CompareToBuilder - used to chain calls.
-     * @throws ClassCastException if the specified Object's type prevents it
-     * from being compared to this Object.
+     * @param lhs  left-hand object
+     * @param rhs  right-hand object
+     * @return this - used to chain append calls
+     * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
+     *  with <code>lhs</code>
      */
     public CompareToBuilder append(Object lhs, Object rhs) {
         return append(lhs, rhs, null);
     }
 
     /**
-     * <p>Comparison of two Object references.</p>
-     * <ol>
-     *  <li>Check if Objects are same using <code>==</code></li>
-     *  <li>Check if either is null, a null object is less than a non-null</li>
-     *  <li>Check the object contents</li>
-     * </ol>
-     * 
-     * <p>If the first parameter to be compared is an array, the array methods will
-     * be used. Otherwise the comparator will be used. If the comparator is null, 
-     * the <code>lhs</code> will be cast to <code>Comparable</code>.</p>
+     * <p>Appends to the <code>builder</code> the comparison of
+     * two <code>Object</code>s.</p>
      *
-     * @param lhs  the Object from <code>this</code> object
-     * @param rhs  the Object from the other object
-     * @param comparator  the comparator to use to compare the objects,
-     *  <code>null</code> means to treat the <code>lhs</code> as <code>Comparable</code>.
-     * @return CompareToBuilder - used to chain calls.
-     * @throws ClassCastException if the specified Object's type prevents it
-     * from being compared to this Object.
+     * <ol>
+     * <li>Check if <code>lhs == rhs</code></li>
+     * <li>Check if either <code>lhs</code> or <code>rhs</code> is <code>null</code>,
+     *     a <code>null</code> object is less than a non-<code>null</code> object</li>
+     * <li>Check the object contents</li>
+     * </ol>
+     *
+     * <p>If <code>lhs</code> is an array, array comparison methods will be used.
+     * Otherwise <code>comparator</code> will be used to compare the objects.
+     * If <code>comparator</code> is <code>null</code>, <code>lhs</code> must
+     * implement {@link Comparable} instead.</p>
+     *
+     * @param lhs  left-hand object
+     * @param rhs  right-hand object
+     * @param comparator  <code>Comparator</code> used to compare the objects,
+     *  <code>null</code> means treat lhs as <code>Comparable</code>
+     * @return this - used to chain append calls
+     * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
+     *  with <code>lhs</code>
      */
     public CompareToBuilder append(Object lhs, Object rhs, Comparator comparator) {
         if (comparison != 0) {
@@ -345,11 +367,10 @@ public class CompareToBuilder {
             comparison = +1;
             return this;
         }
-        Class lhsClass = lhs.getClass();
-        if (lhsClass.isArray()) {
-            // 'Switch' on type of array, to dispatch to the correct handler
-            // This handles multi dimensional arrays
-            // this could throw a ClassCastException is rhs is not the correct array type
+        if (lhs.getClass().isArray()) {
+            // switch on type of array, to dispatch to the correct handler
+            // handles multi dimensional arrays
+            // throws a ClassCastException if rhs is not the correct array type
             if (lhs instanceof long[]) {
                 append((long[]) lhs, (long[]) rhs);
             } else if (lhs instanceof int[]) {
@@ -367,8 +388,8 @@ public class CompareToBuilder {
             } else if (lhs instanceof boolean[]) {
                 append((boolean[]) lhs, (boolean[]) rhs);
             } else {
-                // Not an array of primitives
-                // this could throw a ClassCastException is rhs is not an array
+                // not an array of primitives
+                // throws a ClassCastException if rhs is not an array
                 append((Object[]) lhs, (Object[]) rhs, comparator);
             }
         } else {
@@ -382,12 +403,14 @@ public class CompareToBuilder {
         return this;
     }
 
+    //-------------------------------------------------------------------------
     /**
-     * <p>Test if two <code>long</code>s are &lt;, &gt; or ==.</p>
+     * Appends to the <code>builder</code> the comparison of
+     * two <code>long</code>s.
      *
-     * @param lhs  the <code>long</code> from <code>this</code> object
-     * @param rhs  the <code>long</code> from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand value
+     * @param rhs  right-hand value
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(long lhs, long rhs) {
         if (comparison != 0) {
@@ -398,11 +421,12 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>int</code>s are &lt;, &gt; or ==.</p>
+     * Appends to the <code>builder</code> the comparison of
+     * two <code>int</code>s.
      *
-     * @param lhs  the <code>int</code> from <code>this</code> object
-     * @param rhs  the <code>int</code> from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand value
+     * @param rhs  right-hand value
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(int lhs, int rhs) {
         if (comparison != 0) {
@@ -413,11 +437,12 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>short</code>s are &lt;, &gt; or ==.</p>
+     * Appends to the <code>builder</code> the comparison of
+     * two <code>short</code>s.
      * 
-     * @param lhs  the <code>short</code> from <code>this</code> object
-     * @param rhs  the <code>short</code> from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand value
+     * @param rhs  right-hand value
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(short lhs, short rhs) {
         if (comparison != 0) {
@@ -428,11 +453,12 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>char</code>s are &lt;, &gt; or ==.</p>
+     * Appends to the <code>builder</code> the comparison of
+     * two <code>char</code>s.
      *
-     * @param lhs  the <code>char</code> from <code>this</code> object
-     * @param rhs  the <code>char</code> from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand value
+     * @param rhs  right-hand value
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(char lhs, char rhs) {
         if (comparison != 0) {
@@ -443,11 +469,12 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>byte</code>s are &lt, &gt; or ==.</p>
+     * Appends to the <code>builder</code> the comparison of
+     * two <code>byte</code>s.
      * 
-     * @param lhs  the <code>byte</code> from <code>this</code> object
-     * @param rhs  the <code>byte</code> from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand value
+     * @param rhs  right-hand value
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(byte lhs, byte rhs) {
         if (comparison != 0) {
@@ -458,16 +485,17 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>double</code>s are &lt;, &gt; or ==.</p>
+     * <p>Appends to the <code>builder</code> the comparison of
+     * two <code>double</code>s.</p>
      *
      * <p>This handles NaNs, Infinties, and <code>-0.0</code>.</p>
      *
      * <p>It is compatible with the hash code generated by
      * <code>HashCodeBuilder</code>.</p>
      *
-     * @param lhs  the <code>double</code> from <code>this</code> object
-     * @param rhs  the <code>double</code> from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand value
+     * @param rhs  right-hand value
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(double lhs, double rhs) {
         if (comparison != 0) {
@@ -478,16 +506,17 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>float</code>s are &lt;, &gt; or ==.</p>
+     * <p>Appends to the <code>builder</code> the comparison of
+     * two <code>float</code>s.</p>
      *
      * <p>This handles NaNs, Infinties, and <code>-0.0</code>.</p>
      *
      * <p>It is compatible with the hash code generated by
      * <code>HashCodeBuilder</code>.</p>
      *
-     * @param lhs  the <code>float</code> from <code>this</code> object
-     * @param rhs  the <code>float</code> from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand value
+     * @param rhs  right-hand value
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(float lhs, float rhs) {
         if (comparison != 0) {
@@ -498,11 +527,12 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>booleans</code>s are &lt;, &gt; or ==.</p>
+     * Appends to the <code>builder</code> the comparison of
+     * two <code>booleans</code>s.
      *
-     * @param lhs  the <code>boolean</code> from <code>this</code> object
-     * @param rhs  the <code>boolean</code> from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand value
+     * @param rhs  right-hand value
+     * @return this - used to chain append calls
       */
     public CompareToBuilder append(boolean lhs, boolean rhs) {
         if (comparison != 0) {
@@ -519,50 +549,53 @@ public class CompareToBuilder {
         return this;
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * <p>Deep comparison of an <code>Object</code> array.</p>
+     * <p>Appends to the <code>builder</code> the deep comparison of
+     * two <code>Object</code> arrays.</p>
      *
      * <ol>
      *  <li>Check if arrays are the same using <code>==</code></li>
-     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a short length array is less than a long length array</li>
-     *  <li>Check array contents element by element using {@link #append(long, long)}</li>
-     * </ol>
-     *
-     * <p>This method will also will be called for the top level of multi-dimensional,
-     * ragged, and multi-typed arrays.</p>
-     *
-     * @param lhs  array from <code>this</code> object
-     * @param rhs  array from the other object
-     * @return CompareToBuilder - used to chain calls.
-     * @throws ClassCastException  if the specified Object's type prevents it
-     *  from being compared to this Object.
-     */
-    public CompareToBuilder append(Object[] lhs, Object[] rhs) {
-        return append(lhs, rhs, null);
-    }
-    
-    /**
-     * <p>Deep comparison of an <code>Object</code> array.</p>
-     *
-     * <ol>
-     *  <li>Check if arrays are the same using <code>==</code></li>
-     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
-     *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(Object, Object, Comparator)}</li>
      * </ol>
      *
      * <p>This method will also will be called for the top level of multi-dimensional,
      * ragged, and multi-typed arrays.</p>
      *
-     * @param lhs  array from <code>this</code> object
-     * @param rhs  array from the other object
-     * @param comparator  the comparator to use to compare the objects,
-     *  <code>null</code> means to treat the <code>lhs</code> as <code>Comparable</code>.
-     * @return CompareToBuilder - used to chain calls.
-     * @throws ClassCastException  if the specified Object's type prevents it
-     *  from being compared to this Object.
+     * @param lhs  left-hand array
+     * @param rhs  right-hand array
+     * @return this - used to chain append calls
+     * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
+     *  with <code>lhs</code>
      */
+    public CompareToBuilder append(Object[] lhs, Object[] rhs) {
+        return append(lhs, rhs, null);
+    }
+    
+    /**
+     * <p>Appends to the <code>builder</code> the deep comparison of
+     * two <code>Object</code> arrays.</p>
+     *
+     * <ol>
+     *  <li>Check if arrays are the same using <code>==</code></li>
+     *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
+     *  <li>Check array length, a short length array is less than a long length array</li>
+     *  <li>Check array contents element by element using {@link #append(Object, Object, Comparator)}</li>
+     * </ol>
+     *
+     * <p>This method will also will be called for the top level of multi-dimensional,
+     * ragged, and multi-typed arrays.</p>
+     *
+     * @param lhs  left-hand array
+     * @param rhs  right-hand array
+     * @param comparator  <code>Comparator</code> to use to compare the array elements,
+     *  <code>null</code> means to treat <code>lhs</code> elements as <code>Comparable</code>.
+     * @return this - used to chain append calls
+     * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
+       *  with <code>lhs</code>
+       */
     public CompareToBuilder append(Object[] lhs, Object[] rhs, Comparator comparator) {
         if (comparison != 0) {
             return this;
@@ -589,18 +622,19 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Deep comparison of a <code>long</code> array.</p>
+     * <p>Appends to the <code>builder</code> the deep comparison of
+     * two <code>long</code> arrays.</p>
      *
      * <ol>
      *  <li>Check if arrays are the same using <code>==</code></li>
-     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(long, long)}</li>
      * </ol>
      *
-     * @param lhs  array from <code>this</code> object
-     * @param rhs  array from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand array
+     * @param rhs  right-hand array
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(long[] lhs, long[] rhs) {
         if (comparison != 0) {
@@ -628,18 +662,19 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Deep comparison of an <code>int</code> array.</p>
+     * <p>Appends to the <code>builder</code> the deep comparison of
+     * two <code>int</code> arrays.</p>
      *
      * <ol>
      *  <li>Check if arrays are the same using <code>==</code></li>
-     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(int, int)}</li>
      * </ol>
      *
-     * @param lhs  array from <code>this</code> object
-     * @param rhs  array from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand array
+     * @param rhs  right-hand array
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(int[] lhs, int[] rhs) {
         if (comparison != 0) {
@@ -667,18 +702,19 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Deep comparison of a <code>short</code> array.</p>
+     * <p>Appends to the <code>builder</code> the deep comparison of
+     * two <code>short</code> arrays.</p>
      *
      * <ol>
      *  <li>Check if arrays are the same using <code>==</code></li>
-     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(short, short)}</li>
      * </ol>
      *
-     * @param lhs  array from <code>this</code> object
-     * @param rhs  array from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand array
+     * @param rhs  right-hand array
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(short[] lhs, short[] rhs) {
         if (comparison != 0) {
@@ -706,18 +742,19 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Deep comparison of a <code>char</code> array.</p>
+     * <p>Appends to the <code>builder</code> the deep comparison of
+     * two <code>char</code> arrays.</p>
      *
      * <ol>
      *  <li>Check if arrays are the same using <code>==</code></li>
-     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(char, char)}</li>
      * </ol>
      *
-     * @param lhs  array from <code>this</code> object
-     * @param rhs  array from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand array
+     * @param rhs  right-hand array
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(char[] lhs, char[] rhs) {
         if (comparison != 0) {
@@ -745,18 +782,19 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Deep comparison of a <code>byte</code> array.</p>
+     * <p>Appends to the <code>builder</code> the deep comparison of
+     * two <code>byte</code> arrays.</p>
      *
      * <ol>
      *  <li>Check if arrays are the same using <code>==</code></li>
-     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(byte, byte)}</li>
      * </ol>
      *
-     * @param lhs  array from <code>this</code> object
-     * @param rhs  array from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand array
+     * @param rhs  right-hand array
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(byte[] lhs, byte[] rhs) {
         if (comparison != 0) {
@@ -784,18 +822,19 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Deep comparison of a <code>double</code> array.</p>
+     * <p>Appends to the <code>builder</code> the deep comparison of
+     * two <code>double</code> arrays.</p>
      *
      * <ol>
      *  <li>Check if arrays are the same using <code>==</code></li>
-     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(double, double)}</li>
      * </ol>
      *
-     * @param lhs  array from <code>this</code> object
-     * @param rhs  array from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand array
+     * @param rhs  right-hand array
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(double[] lhs, double[] rhs) {
         if (comparison != 0) {
@@ -823,18 +862,19 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Deep comparison of a <code>float</code> array.</p>
+     * <p>Appends to the <code>builder</code> the deep comparison of
+     * two <code>float</code> arrays.</p>
      *
      * <ol>
      *  <li>Check if arrays are the same using <code>==</code></li>
-     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
-     *  <li>Check array contents element by element using {@link #append(float, float)}
+     *  <li>Check array contents element by element using {@link #append(float, float)}</li>
      * </ol>
      *
-     * @param lhs  array from <code>this</code> object
-     * @param rhs  array from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand array
+     * @param rhs  right-hand array
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(float[] lhs, float[] rhs) {
         if (comparison != 0) {
@@ -862,18 +902,19 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Deep comparison of a <code>boolean/code> array.</p>
+     * <p>Appends to the <code>builder</code> the deep comparison of
+     * two <code>boolean</code> arrays.</p>
      *
      * <ol>
      *  <li>Check if arrays are the same using <code>==</code></li>
-     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check if for <code>null</code>, <code>null</code> is less than non-<code>null</code></li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(boolean, boolean)}</li>
      * </ol>
      *
-     * @param lhs  array from <code>this</code> object
-     * @param rhs  array from the other object
-     * @return CompareToBuilder - used to chain calls.
+     * @param lhs  left-hand array
+     * @param rhs  right-hand array
+     * @return this - used to chain append calls
      */
     public CompareToBuilder append(boolean[] lhs, boolean[] rhs) {
         if (comparison != 0) {
@@ -900,14 +941,14 @@ public class CompareToBuilder {
         return this;
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * <p>Return a negative integer if this <code>Object</code> is less
-     * than, a positive integer if this <code>Object</code> is greater than,
-     * or <code>0</code> if this <code>Object</code> is equal to the specified
-     * Object.</p>
+     * Returns a negative integer, a positive integer, or zero as
+     * the <code>builder</code> has judged the "left-hand" side
+     * as less than, greater than, or equal to the "right-hand"
+     * side.
      * 
-     * @return int - a negative integer, zero, or a positive integer as this 
-     *  Object is less than, equal to, or greater than the specified Object.
+     * @return final comparison result
      */
     public int toComparison() {
         return comparison;
