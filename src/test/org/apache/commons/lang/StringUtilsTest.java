@@ -75,7 +75,7 @@ import junit.textui.TestRunner;
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: StringUtilsTest.java,v 1.52 2003/08/21 22:13:24 ggregory Exp $
+ * @version $Id: StringUtilsTest.java,v 1.53 2003/10/29 01:50:14 ggregory Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -985,6 +985,23 @@ public class StringUtilsTest extends TestCase {
     public void testEMPTY() {
         assertNotNull(StringUtils.EMPTY);
         assertEquals("", StringUtils.EMPTY);
+    }
+    
+    public void testRemoveStart() {
+        // StringUtils.removeStart("", *)        = ""
+        assertNull(StringUtils.removeStart(null, null));
+        assertNull(StringUtils.removeStart(null, ""));
+        assertNull(StringUtils.removeStart(null, "a"));
+        
+        // StringUtils.removeStart(*, null)      = *
+        assertEquals(StringUtils.removeStart("", null), "");
+        assertEquals(StringUtils.removeStart("", ""), "");
+        assertEquals(StringUtils.removeStart("", "a"), "");
+        
+        // All others:
+        assertEquals(StringUtils.removeStart("www.domain.com", "www."), "domain.com");
+        assertEquals(StringUtils.removeStart("domain.com", "www."), "domain.com");
+        assertEquals(StringUtils.removeStart("domain.com", ""), "domain.com");        
     }
 }
 

@@ -145,7 +145,7 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.112 2003/10/23 20:49:22 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.113 2003/10/29 01:49:47 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -4351,6 +4351,41 @@ public class StringUtils {
             a = c;
         }
         return a;
+    }
+
+    /**
+     * <p>Removes a substring only if it is at the begining of a source string, otherwise returns the source string.
+     *
+     * <p>A <code>null</code> source string will return <code>null</code>.
+     * An empty ("") source string will return the empty string.
+     * A <code>null</code> search string will return the source string.</p>
+     * 
+     * <pre>
+     * StringUtils.removeStart(null, *)      = null
+     * StringUtils.removeStart("", *)        = ""
+     * StringUtils.removeStart(*, null)      = *
+     * StringUtils.removeStart("www.domain.com", "www.")   = "domain.com"
+     * StringUtils.removeStart("domain.com", "www.")   = "domain.com"
+     * StringUtils.removeStart("abc", "")    = "abc"
+     * </pre>
+     *
+     * @param string  the source String to search, may be null
+     * @param remove  the String to search for, may be null
+     * @return the substring after the optional occurrence of the separator,
+     *  <code>null</code> if null String input
+     */
+    public static String removeStart(String str, String remove) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        if (remove == null || remove.length() == 0) {
+            return str;
+        }
+        int pos = str.indexOf(remove);
+        if (pos == -1) {
+            return str;
+        }
+        return str.substring(pos + remove.length());
     }
 
 }
