@@ -62,7 +62,7 @@ package org.apache.commons.lang;
  * 
  * @author Stephen Colebourne
  * @since 2.1
- * @version $Id: CharUtils.java,v 1.1 2004/01/31 13:00:07 scolebourne Exp $
+ * @version $Id: CharUtils.java,v 1.2 2004/02/12 20:09:11 ggregory Exp $
  */
 public class CharUtils {
     
@@ -180,7 +180,7 @@ public class CharUtils {
      *   CharUtils.toCharacter("BA", 'X') = 'B'
      * </pre>
      *
-     * @param ch  the character to convert
+     * @param str  the character to convert
      * @return the char value of the Character or the default if null
      * @throws IllegalArgumentException if the String is empty
      */
@@ -202,7 +202,7 @@ public class CharUtils {
      *   CharUtils.toCharacter("BA", 'X') = 'B'
      * </pre>
      *
-     * @param ch  the character to convert
+     * @param str  the character to convert
      * @param defaultValue  the value to use if the  Character is null
      * @return the char value of the Character or the default if null
      */
