@@ -68,9 +68,9 @@ import java.util.TimeZone;
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: DateFormatUtils.java,v 1.1 2003/06/08 23:14:23 scolebourne Exp $
+ * @version $Id: DateFormatUtils.java,v 1.2 2003/06/09 21:22:31 scolebourne Exp $
  */
-public final class DateFormatUtils {
+public class DateFormatUtils {
 
     /**
      * ISO8601 formatter for date-time witout timezone.
