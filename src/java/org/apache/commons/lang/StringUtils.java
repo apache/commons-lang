@@ -111,7 +111,7 @@ import java.util.List;
  * @author Al Chou
  * @author Michael Davey
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.131 2004/07/11 16:48:31 stevencaswell Exp $
+ * @version $Id: StringUtils.java,v 1.132 2004/07/30 01:55:42 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -138,7 +138,7 @@ public class StringUtils {
 
     /**
      * Represents a failed index search.
-     * @since 2.?.?
+     * @since 2.1
      */
     public static final int INDEX_NOT_FOUND = -1;
 
