@@ -1,7 +1,7 @@
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.13 2003/07/04 15:26:38 bayard Exp $
+        $Id: build.xml,v 1.14 2003/07/12 03:58:02 bayard Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
@@ -68,7 +68,6 @@
         	overview="${source.home}/org/apache/commons/lang/overview.html" 
         	packagenames="org.apache.commons.*" 
         	author="true" 
-        	private="true" 
         	version="true" 
         	doctitle="&lt;h1&gt;${component.title}&lt;/h1&gt;" 
         	windowtitle="${component.title} (Version ${component.version})" 
