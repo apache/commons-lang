@@ -63,9 +63,18 @@ import java.util.LinkedList;
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharSetUtils.java,v 1.3 2002/07/21 20:19:50 bayard Exp $
+ * @version $Id: CharSetUtils.java,v 1.4 2002/09/18 19:55:32 scolebourne Exp $
  */
 public class CharSetUtils {
+
+    /**
+     * CharSetUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as <code>CharSetUtils.evaluateSet(null);</code>.
+     * This constructor is public to permit tools that require a JavaBean instance
+     * to operate.
+     */
+    public CharSetUtils() {
+    }
 
     /**
      * Creates a CharSetUtils object which allows a certain amount of 
