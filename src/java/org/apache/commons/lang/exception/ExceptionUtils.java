@@ -54,11 +54,12 @@ package org.apache.commons.lang.exception;
  * <http://www.apache.org/>.
  */
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -371,7 +372,99 @@ public class ExceptionUtils
         }
         return -1;
     }
+    
+    /**
+     * Prints a compact stack trace for the root cause of a throwable.
+     * The compact stack trace starts with the root cause and prints
+     * stack frames up to the place where it was caught and wrapped.
+     * Then it prints the wrapped exception and continues with stack frames
+     * until the wrapper exception is caught and wrapped again, etc.
+     * <p>
+     * The method is equivalent to t.printStackTrace() for throwables
+     * that don't have nested causes.
+     */
+    public static void printRootCauseStackTrace(Throwable t, PrintStream stream)
+    {
+        String trace[] = getRootCauseStackTrace(t);
+        for (int i = 0; i < trace.length; i++){
+            stream.println(trace[i]);
+        }
+        stream.flush();
+    }
+    
+    /**
+     * Equivalent to printRootCauseStackTrace(t, System.err)
+     */
+    public static void printRootCauseStackTrace(Throwable t)
+    {
+        printRootCauseStackTrace(t, System.err);
+    }
 
+    /**
+     * Same as printRootCauseStackTrace(t, stream), except it takes
+     * a PrintWriter as an argument.
+     */
+    public static void printRootCauseStackTrace(Throwable t, PrintWriter writer)
+    {
+        String trace[] = getRootCauseStackTrace(t);
+        for (int i = 0; i < trace.length; i++){
+            writer.println(trace[i]);
+        }
+        writer.flush();
+    }
+
+
+    /**
+     * Creates a compact stack trace for the root cause of the supplied 
+     * throwable.
+     *   
+     * See <code>printRootCauseStackTrace(Throwable t, PrintStream s)</code>      */
+    public static String[] getRootCauseStackTrace(Throwable t)
+    {
+        Throwable throwables[] = getThrowables(t);
+        int count = throwables.length;        
+        ArrayList frames = new ArrayList();
+        List nextTrace = getStackFrameList(throwables[count-1]);        
+        for (int i = count; --i >= 0;){
+            List trace = nextTrace;
+            if (i != 0){
+                nextTrace = getStackFrameList(throwables[i-1]);
+                removeCommonFrames(trace, nextTrace);
+            }
+            if (i == count - 1){
+                frames.add(throwables[i].toString());
+            }
+            else {
+                frames.add(" [wrapped] " + throwables[i].toString());
+            }
+            for (int j = 0; j < trace.size(); j++){
+                frames.add(trace.get(j));
+            }
+        }
+        return (String[]) frames.toArray(new String[0]);
+    }
+
+    /**
+     * Given two stack traces, removes common frames from the cause trace.
+     *      * @param causeFrames   stack trace of a cause throwable     * @param wrapperFrames stack trace of a wrapper throwable      */
+    private static void removeCommonFrames(List causeFrames, List wrapperFrames)
+    {
+        int causeFrameIndex = causeFrames.size() - 1; 
+        int wrapperFrameIndex = wrapperFrames.size() - 1;
+        while (causeFrameIndex >= 0 && wrapperFrameIndex >= 0)
+        {
+            // Remove the frame from the cause trace if it is the same
+            // as in the wrapper trace
+            String causeFrame = (String)causeFrames.get(causeFrameIndex);
+            String wrapperFrame = (String)wrapperFrames.get(wrapperFrameIndex);
+            if (causeFrame.equals(wrapperFrame)){
+                causeFrames.remove(causeFrameIndex);
+            }
+            causeFrameIndex--;
+            wrapperFrameIndex--;
+        }
+    }
+    
     /**
      * A convenient way of extracting the stack trace from an
      * exception.
@@ -417,5 +510,32 @@ public class ExceptionUtils
             list.add(frames.nextToken());
         }
         return (String []) list.toArray(new String[] {});
+    }
+    
+    /**
+     * Produces a List of stack frames - the message is not included.
+     * This works in most cases - it will only fail if the exception message
+     * contains a line that starts with:  "   at".
+     *      * @param t is any throwable     * @return List of stack frames     */
+    static List getStackFrameList(Throwable t){
+        String stackTrace = getStackTrace(t);
+        String linebreak = SystemUtils.LINE_SEPARATOR;
+        StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
+        List list = new LinkedList();
+        boolean traceStarted = false;
+        while (frames.hasMoreTokens())
+        {
+            String token = frames.nextToken(); 
+            // Determine if the line starts with <whitespace>at
+            int at = token.indexOf("at");
+            if (at != -1 && token.substring(0, at).trim().length() == 0){
+                traceStarted = true;
+                list.add(token);
+            }
+            else if (traceStarted){
+                break;
+            }
+        }
+        return list;
     }
 }
