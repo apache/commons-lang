@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,7 +74,8 @@ import java.util.Map;
  * <em>NOTE:</em>Due to the way in which Java ClassLoaders work, comparing Enum objects
  * should always be done using the equals() method, not ==. The equals() method will
  * try == first so in most cases the effect is the same.
- * <p>
+ * 
+ * <h4>Simple Enums</h4>
  * To use this class, it must be subclassed. For example:
  *
  * <pre>
@@ -110,9 +111,51 @@ import java.util.Map;
  * The <code>getEnum</code> and <code>iterator</code> methods are recommended. 
  * Unfortunately, Java restrictions require these to be coded as shown in each subclass.
  * An alternative choice is to use the {@link EnumUtils} class.
- * <p>
+ * 
+ * <h4>Subclassed Enums</h4>
+ * A hierarchy of Enum classes can be built. In this case, the superclass is 
+ * unaffected by the addition of subclasses (as per normal Java). The subclasses
+ * may add additional Enum constants <i>of the type of the superclass</i>. The
+ * query methods on the subclass will return all of the Enum constants from the
+ * superclass and subclass.
+ *
+ * <pre>
+ * public class ExtraColorEnum extends ColorEnum {
+ *   // NOTE: Color enum declared above is final, change that to get this
+ *   // example to compile.
+ *   public static final ColorEnum YELLOW = new ExtraColorEnum("Yellow");
+ *
+ *   private ExtraColorEnum(String color) {
+ *     super(color);
+ *   }
+ * 
+ *   public static ColorEnum getEnum(String color) {
+ *     return (ColorEnum) getEnum(ExtraColorEnum.class, color);
+ *   }
+ * 
+ *   public static Map getEnumMap() {
+ *     return getEnumMap(ExtraColorEnum.class);
+ *   }
+ * 
+ *   public static List getEnumList() {
+ *     return getEnumList(ExtraColorEnum.class);
+ *   }
+ * 
+ *   public static Iterator iterator() {
+ *     return iterator(ExtraColorEnum.class);
+ *   }
+ * }
+ * </pre>
+ * 
+ * This example will return RED, GREEN, BLUE, YELLOW from the List and iterator 
+ * methods in that order. The RED, GREEN and BLUE instances will be the same (==) 
+ * as those from the superclass ColorEnum. Note that YELLOW is declared as a
+ * ColorEnum and not an ExtraColorEnum.
+ * 
+ * <h4>Functional Enums</h4>
  * The enums can have functionality by using anonymous inner classes
  * [Effective Java, Bloch01]:
+ * 
  * <pre>
  * public abstract class OperationEnum extends Enum {
  *   public static final OperationEnum PLUS = new OperationEnum("Plus") {
@@ -156,7 +199,7 @@ import java.util.Map;
  * @author Stephen Colebourne
  * @author Chris Webb
  * @since 1.0
- * @version $Id: Enum.java,v 1.7 2003/02/04 16:56:08 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.8 2003/02/04 18:30:07 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
     /**
@@ -200,11 +243,11 @@ public abstract class Enum implements Comparable, Serializable {
             throw new IllegalArgumentException("The Enum name must not be empty");
         }
         iName = name;
-        String className = Enum.getEnumClassName(getClass());
-        Entry entry = (Entry) cEnumClasses.get(className);
+        Class enumClass = Enum.getEnumClass(getClass());
+        Entry entry = (Entry) cEnumClasses.get(enumClass);
         if (entry == null) {
-            entry = new Entry();
-            cEnumClasses.put(className, entry);
+            entry = createEntry(getClass());
+            cEnumClasses.put(enumClass, entry);
         }
         if (entry.map.containsKey(name)) {
             throw new IllegalArgumentException("The Enum name must be unique, '" + name + "' has already been added");
@@ -219,7 +262,7 @@ public abstract class Enum implements Comparable, Serializable {
      * @return the resolved object
      */
     protected Object readResolve() {
-        Entry entry = (Entry) cEnumClasses.get(Enum.getEnumClassName(getClass()));
+        Entry entry = (Entry) cEnumClasses.get(Enum.getEnumClass(getClass()));
         if (entry == null) {
             return null;
         }
@@ -293,6 +336,7 @@ public abstract class Enum implements Comparable, Serializable {
         return Enum.getEnumList(enumClass).iterator();
     }
 
+    //-----------------------------------------------------------------------
     /**
      * Gets an entry from the map of Enums.
      * 
@@ -306,17 +350,40 @@ public abstract class Enum implements Comparable, Serializable {
         if (Enum.class.isAssignableFrom(enumClass) == false) {
             throw new IllegalArgumentException("The Class must be a subclass of Enum");
         }
-        Entry entry = (Entry) cEnumClasses.get(enumClass.getName());
+        Entry entry = (Entry) cEnumClasses.get(enumClass);
         return entry;
     }
     
     /**
-     * Convert a class to a class name accounting for inner classes.
+     * Creates an entry for storing the Enums.
+     * This accounts for subclassed Enums.
+     * 
+     * @param enumClass  the class of the Enum to get
+     * @return the enum entry
+     */
+    private static Entry createEntry(Class enumClass) {
+        Entry entry = new Entry();
+        Class cls = enumClass.getSuperclass();
+        while (cls != null && cls != Enum.class && cls != ValuedEnum.class) {
+            Entry loopEntry = (Entry) cEnumClasses.get(cls);
+            if (loopEntry != null) {
+                entry.list.addAll(loopEntry.list);
+                entry.map.putAll(loopEntry.map);
+                break;  // stop here, as this will already have had superclasses added
+            }
+            cls = cls.getSuperclass();
+        }
+        return entry;
+    }
+    
+    /**
+     * Convert a class to the actual common enum class.
+     * This accounts for anonymous inner classes.
      * 
      * @param cls  the class to get the name for
      * @return the class name
      */
-    protected static String getEnumClassName(Class cls) {
+    protected static Class getEnumClass(Class cls) {
         String className = cls.getName();
         int index = className.lastIndexOf('$');
         if (index > -1) {
@@ -325,15 +392,13 @@ public abstract class Enum implements Comparable, Serializable {
             if (inner.length() > 0 &&
                 inner.charAt(0) >= '0' &&
                 inner.charAt(0) < '9') {
-                // Strip off anonymous inner class reference.
-                className = className.substring(0, index);
+                return cls.getSuperclass();
             }
         }
-        return className;
+        return cls;
     }
 
-    //--------------------------------------------------------------------------------
-
+    //-----------------------------------------------------------------------
     /**
      * Retrieve the name of this Enum item, set in the constructor.
      * 
@@ -359,7 +424,7 @@ public abstract class Enum implements Comparable, Serializable {
         } else if (other.getClass() == this.getClass()) {
             // shouldn't happen, but...
             return iName.equals(((Enum) other).iName);
-        } else if (other.getClass().getName().equals(this.getClass().getName())) {
+        } else if (getEnumClass(other.getClass()).getName().equals(getEnumClass(this.getClass()).getName())) {
             // different classloaders
             try {
                 // try to avoid reflection
@@ -416,7 +481,7 @@ public abstract class Enum implements Comparable, Serializable {
      * the type name.
      */
     public String toString() {
-        String shortName = Enum.getEnumClassName(getClass());
+        String shortName = Enum.getEnumClass(getClass()).getName();
         int pos = shortName.lastIndexOf('.');
         if (pos != -1) {
             shortName = shortName.substring(pos + 1);

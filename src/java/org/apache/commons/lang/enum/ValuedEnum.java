@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -130,7 +130,7 @@ import java.util.List;
  *
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.4 2002/12/31 22:39:39 scolebourne Exp $
+ * @version $Id: ValuedEnum.java,v 1.5 2003/02/04 18:30:07 scolebourne Exp $
  */
 public abstract class ValuedEnum extends Enum {
     /**
@@ -204,11 +204,12 @@ public abstract class ValuedEnum extends Enum {
      * stripped from the type name.
      */
     public String toString() {
-        String shortName = Enum.getEnumClassName(getClass());
+        String shortName = Enum.getEnumClass(getClass()).getName();
         int pos = shortName.lastIndexOf('.');
         if (pos != -1) {
             shortName = shortName.substring(pos + 1);
         }
+        shortName = shortName.replace('$', '.');
         return shortName + "[" + getName() + "=" + getValue() + "]";
     }
 }
