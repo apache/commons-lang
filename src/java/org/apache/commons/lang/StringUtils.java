@@ -73,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.19 2002/10/19 17:18:49 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.20 2002/10/27 19:42:04 bayard Exp $
  */
 public class StringUtils {
 
@@ -1453,26 +1453,26 @@ public class StringUtils {
     //--------------------------------------------------------------------------
     
     /**
-     * Return either the passed in String, or if it is <code>null</code>,
+     * Return either the passed in Object, or if it is <code>null</code>,
      * then an empty String.
      * 
-     * @param str the String to check
-     * @return the passed in String, or blank if it was null
+     * @param str the Object to check
+     * @return the passed in Object's toString, or blank if it was null
      */
-    public static String defaultString(String str) {
-        return defaultString(str, "");
+    public static String defaultString(Object obj) {
+        return defaultString(obj, "");
     }
 
     /**
-     * Return either the passed in String, or if it is <code>null</code>,
+     * Return either the passed in Object, or if it is <code>null</code>,
      * then a passed in default String.
      * 
-     * @param str the String to check
-     * @param defaultString  the default String to return is str is null
+     * @param obj the Object to check
+     * @param defaultString  the default String to return if str is null
      * @return the passed in string, or the default if it was null
      */
-    public static String defaultString(String str, String defaultString) {
-        return (str == null) ? defaultString : str;
+    public static String defaultString(Object obj, String defaultString) {
+        return (obj == null) ? defaultString : obj.toString();
     }
 
     // Reversing
