@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.6 2003/05/16 22:08:31 scolebourne Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.7 2003/05/24 04:35:07 alex Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
@@ -160,13 +160,6 @@ public class StringEscapeUtilsTest extends TestCase {
 
     // HTML and XML
     //--------------------------------------------------------------
-
-    public void testEntitiesObject() throws Exception
-    {
-        assertEquals("gt", Entities.XML.entityName('>'));
-        assertEquals(new Integer('>'), Entities.XML.entityValue("gt"));
-        assertEquals(null, Entities.XML.entityValue("xyzzy"));
-    }
 
     String[][] htmlEscapes = {
         {"no escaping", "plain text", "plain text"},
