@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang.time;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -105,8 +107,16 @@ public class DateUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-
-
+    public void testConstructor() {
+        assertNotNull(new DateUtils());
+        Constructor[] cons = DateUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(DateUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(DateUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
     /**
      * Tests various values with the round method
      */

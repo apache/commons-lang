@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang.time;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -85,6 +87,17 @@ public class DateFormatUtilsTest extends TestCase {
         super(s);
     }
 
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new DateFormatUtils());
+        Constructor[] cons = DateFormatUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(DateFormatUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(DateFormatUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
     public void testDateTimeISO(){
         TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
         Calendar cal = Calendar.getInstance(timeZone);
