@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: CharSetUtilsTest.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @version $Id: CharSetUtilsTest.java,v 1.2 2002/07/21 20:14:14 bayard Exp $
  */
 public class CharSetUtilsTest extends TestCase
 {
@@ -135,6 +135,8 @@ public class CharSetUtilsTest extends TestCase
                      "", CharSetUtils.delete("hello", new String[] {"a-z"}));
         assertEquals("delete(String,String[]) failed",
                      "heo", CharSetUtils.delete("hello", new String[] {"l"}));
+        assertEquals("deleteWhitespace(String) failed",
+                     "test", CharSetUtils.deleteWhitespace("t  \t\ne\rs\n\n   \tt"));
     }
 }
 

@@ -63,7 +63,7 @@ import java.util.LinkedList;
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharSetUtils.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @version $Id: CharSetUtils.java,v 1.2 2002/07/21 20:14:14 bayard Exp $
  */
 public class CharSetUtils {
 
@@ -157,6 +157,15 @@ public class CharSetUtils {
             }
         }
         return count;
+    }
+
+    /**
+     * Deletes all whitespace from a String.
+     *
+     * @param str  String target to delete whitespace from
+     */
+    public static String deleteWhitespace(String str) {
+        return delete(str, " \t\r\n\b" );
     }
 
     /**
