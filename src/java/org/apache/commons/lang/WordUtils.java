@@ -66,7 +66,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.1 2003/08/17 21:57:37 scolebourne Exp $
+ * @version $Id: WordUtils.java,v 1.2 2003/08/17 22:56:11 scolebourne Exp $
  */
 public class WordUtils {
 
@@ -155,6 +155,8 @@ public class WordUtils {
 //        return (stringBuffer.toString());
 //    }
 
+    // Wrapping
+    //-----------------------------------------------------------------------
     /**
      * <p>Wraps a single line of text, identifying words by <code>' '</code>.</p>
      * 
@@ -250,4 +252,140 @@ public class WordUtils {
         return wrappedLine.toString();
     }
 
+    // Capitalizing
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Capitalizes all the whitespace separated words in a String.
+     * Only the first letter of each word is changed.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A <code>null</code> input String returns <code>null</code>.
+     * Capitalization uses the unicode title case, normally equivalent to
+     * upper case.</p>
+     *
+     * <pre>
+     * WordUtils.capitalize(null)        = null
+     * WordUtils.capitalize("")          = ""
+     * WordUtils.capitalize("i am FINE") = "I Am FINE"
+     * </pre>
+     * 
+     * @param str  the String to capitalize, may be null
+     * @return capitalized String, <code>null</code> if null String input
+     */
+    public static String capitalize(String str) {
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
+        }
+        StringBuffer buffer = new StringBuffer(strLen);
+        boolean whitespace = true;
+        for (int i = 0; i < strLen; i++) {
+            char ch = str.charAt(i);
+            if (Character.isWhitespace(ch)) {
+                buffer.append(ch);
+                whitespace = true;
+            } else if (whitespace) {
+                buffer.append(Character.toTitleCase(ch));
+                whitespace = false;
+            } else {
+                buffer.append(ch);
+            }
+        }
+        return buffer.toString();
+    }
+
+    /**
+     * <p>Uncapitalizes all the whitespace separated words in a String.
+     * Only the first letter of each word is changed.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A <code>null</code> input String returns <code>null</code>.</p>
+     *
+     * <pre>
+     * WordUtils.uncapitalize(null)        = null
+     * WordUtils.uncapitalize("")          = ""
+     * WordUtils.uncapitalize("I Am FINE") = "i am fINE"
+     * </pre>
+     * 
+     * @param str  the String to uncapitalize, may be null
+     * @return uncapitalized String, <code>null</code> if null String input
+     * @see #uncapitalize(String)
+     * @see #capitalizeAllWords(String)
+     */
+    public static String uncapitalize(String str) {
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
+        }
+        StringBuffer buffer = new StringBuffer(strLen);
+        boolean whitespace = true;
+        for (int i = 0; i < strLen; i++) {
+            char ch = str.charAt(i);
+            if (Character.isWhitespace(ch)) {
+                buffer.append(ch);
+                whitespace = true;
+            } else if (whitespace) {
+                buffer.append(Character.toLowerCase(ch));
+                whitespace = false;
+            } else {
+                buffer.append(ch);
+            }
+        }
+        return buffer.toString();
+    }
+
+    /**
+     * <p>Swaps the case of a String using a word based algorithm.</p>
+     * 
+     * <ul>
+     *  <li>Upper case character converts to Lower case</li>
+     *  <li>Title case character converts to Lower case</li>
+     *  <li>Lower case character after Whitespace or at start converts to Title case</li>
+     *  <li>Other Lower case character converts to Upper case</li>
+     * </ul>
+     * 
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A <code>null</code> input String returns <code>null</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.swapCase(null)                 = null
+     * StringUtils.swapCase("")                   = ""
+     * StringUtils.swapCase("The dog has a BONE") = "tHE DOG HAS A bone"
+     * </pre>
+     * 
+     * @param str  the String to swap case, may be null
+     * @return the changed String, <code>null</code> if null String input
+     */
+    public static String swapCase(String str) {
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
+        }
+        StringBuffer buffer = new StringBuffer(strLen);
+
+        boolean whitespace = true;
+        char ch = 0;
+        char tmp = 0;
+
+        for (int i = 0; i < strLen; i++) {
+            ch = str.charAt(i);
+            if (Character.isUpperCase(ch)) {
+                tmp = Character.toLowerCase(ch);
+            } else if (Character.isTitleCase(ch)) {
+                tmp = Character.toLowerCase(ch);
+            } else if (Character.isLowerCase(ch)) {
+                if (whitespace) {
+                    tmp = Character.toTitleCase(ch);
+                } else {
+                    tmp = Character.toUpperCase(ch);
+                }
+            } else {
+                tmp = ch;
+            }
+            buffer.append(tmp);
+            whitespace = Character.isWhitespace(ch);
+        }
+        return buffer.toString();
+    }
+    
 }

@@ -66,7 +66,7 @@ import junit.framework.TestSuite;
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Henri Yandell
  * @author Stephen Colebourne
- * @version $Id: WordUtilsTest.java,v 1.1 2003/08/17 21:57:37 scolebourne Exp $
+ * @version $Id: WordUtilsTest.java,v 1.2 2003/08/17 22:56:11 scolebourne Exp $
  */
 public class WordUtilsTest extends TestCase {
 
@@ -195,4 +195,45 @@ public class WordUtilsTest extends TestCase {
 //        System.err.println(expected);
 //        System.err.println(WordUtils.wrap(input, 20, "\n", false));
     }
+    
+    //-----------------------------------------------------------------------
+    public void testCapitalize_String() {
+        assertEquals(null, WordUtils.capitalize(null));
+        assertEquals("", WordUtils.capitalize(""));
+        assertEquals("  ", WordUtils.capitalize("  "));
+        
+        assertEquals("I", WordUtils.capitalize("I") );
+        assertEquals("I", WordUtils.capitalize("i") );
+        assertEquals("I Am Here 123", WordUtils.capitalize("i am here 123") );
+        assertEquals("I Am Here 123", WordUtils.capitalize("I Am Here 123") );
+        assertEquals("I Am HERE 123", WordUtils.capitalize("i am HERE 123") );
+        assertEquals("I AM HERE 123", WordUtils.capitalize("I AM HERE 123") );
+    }
+    
+    public void testUncapitalize_String() {
+        assertEquals(null, WordUtils.uncapitalize(null));
+        assertEquals("", WordUtils.uncapitalize(""));
+        assertEquals("  ", WordUtils.uncapitalize("  "));
+        
+        assertEquals("i", WordUtils.uncapitalize("I") );
+        assertEquals("i", WordUtils.uncapitalize("i") );
+        assertEquals("i am here 123", WordUtils.uncapitalize("i am here 123") );
+        assertEquals("i am here 123", WordUtils.uncapitalize("I Am Here 123") );
+        assertEquals("i am hERE 123", WordUtils.uncapitalize("i am HERE 123") );
+        assertEquals("i aM hERE 123", WordUtils.uncapitalize("I AM HERE 123") );
+    }
+    
+    public void testSwapCase_String() {
+        assertEquals(null, WordUtils.swapCase(null));
+        assertEquals("", WordUtils.swapCase(""));
+        assertEquals("  ", WordUtils.swapCase("  "));
+        
+        assertEquals("i", WordUtils.swapCase("I") );
+        assertEquals("I", WordUtils.swapCase("i") );
+        assertEquals("I AM HERE 123", WordUtils.swapCase("i am here 123") );
+        assertEquals("i aM hERE 123", WordUtils.swapCase("I Am Here 123") );
+        assertEquals("I AM here 123", WordUtils.swapCase("i am HERE 123") );
+        assertEquals("i am here 123", WordUtils.swapCase("I AM HERE 123") );
+    }
+
 }
