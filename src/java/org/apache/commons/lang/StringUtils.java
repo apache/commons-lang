@@ -146,7 +146,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.79 2003/07/25 22:22:30 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.80 2003/07/26 14:34:49 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -822,6 +822,7 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", "b", 9)  = -1
      * StringUtils.indexOf("aabaabaa", "b", -1) = 2
      * StringUtils.indexOf("aabaabaa", "", 2)   = 2
+     * StringUtils.indexOf("abc", "", 9)        = 3
      * </pre>
      * 
      * @param str  the String to check, may be null
@@ -833,6 +834,10 @@ public class StringUtils {
     public static int indexOf(String str, String searchStr, int startPos) {
         if (str == null || searchStr == null) {
             return -1;
+        }
+        // JDK1.2/JDK1.3 have a bug, when startPos > str.length for "", hence
+        if (searchStr.length() == 0 && startPos >= str.length()) {
+            return str.length();
         }
         return str.indexOf(searchStr, startPos);
     }
