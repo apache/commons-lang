@@ -51,6 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+
 package org.apache.commons.lang.time;
 
 import java.util.Date;
@@ -75,7 +76,7 @@ import java.text.SimpleDateFormat;
  * @author Brian S O'Neill
  * @author Sean Schofield
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.1 2003/01/07 19:55:55 bayard Exp $
+ * @version $Id: FastDateFormat.java,v 1.2 2003/01/07 21:21:42 bayard Exp $
  */
 public class FastDateFormat {
     /** Style pattern */
