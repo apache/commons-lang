@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.20 2003/08/16 02:41:18 bayard Exp $
+$Id: RELEASE-NOTES.txt,v 1.21 2003/08/17 19:51:09 bayard Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -36,7 +36,6 @@ lang package:
     ClassUtils
     StringEscapeUtils
     StringPrintWriter
-    WordWrapUtils
     IllegalClassException
     IncompleteArgumentException
     NotImplementedException
@@ -145,7 +144,6 @@ ID Sev Pri Plt Owner State Result Summary
 18077  StringUtils.chomp does not match Perl  
 18723  RandomStringUtils infloops with length < 1  
 18836  test.lang fails if compiled with non iso-8859-1 locales  
-18948  Resurrect the WordWrapUtils from commons-sandbox/utils  
 19296  [Lang] What to do with FastDateFormat unused private constru  
 19364  [Lang] time unit tests fail on Sundays  
 19756  [lang] java.lang.ExceptionInInitializerError thrown by JVMRa  
@@ -253,7 +251,6 @@ Jar changes
 > org.apache.commons.lang.StringEscapeUtils
 > org.apache.commons.lang.ArrayUtils
 > org.apache.commons.lang.Entities$BinaryEntityMap
-> org.apache.commons.lang.WordWrapUtils
 > org.apache.commons.lang.ClassUtils
 > org.apache.commons.lang.IntHashMap$Entry
 > org.apache.commons.lang.IllegalClassException
