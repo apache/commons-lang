@@ -54,10 +54,11 @@
 package org.apache.commons.lang;
 
 /**
- * <p>Common <code>System</code> class helpers.</p>
+ * <p>Helpers for <code>java.lang.System</code>.</p>
  * 
- * <p>If a particular system property cannot be read due to security
- * restrictions, the field will return <code>null</code>.</p>
+ * <p>If a system property cannot be read due to security restrictions, 
+ * the corresponding field in this class will be set to <code>null</code>
+ * and a message will be written to <code>System.err</code>.</p>
  *
  * @author Based on code from Avalon Excalibur
  * @author Based on code from Lucene
@@ -66,7 +67,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Michael Becke
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.14 2003/05/30 01:15:53 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.15 2003/05/31 01:02:33 ggregory Exp $
  */
 public class SystemUtils {
 
@@ -76,7 +77,7 @@ public class SystemUtils {
      * <p>File encoding, such as <code>Cp1252</code>.</p>
      * 
      * <p>Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.</p>
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java version 1.2.
      */
@@ -87,7 +88,7 @@ public class SystemUtils {
      * File separator ("/" on UNIX).
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java version 1.1.
      */
@@ -97,63 +98,63 @@ public class SystemUtils {
     /**
      * Is <code>true</code> if this is Java version 1.1 (also 1.1.x versions).
      * <p>
-     * The field will return false if <code>JAVA_VERSION</code> is <code>null</code>.
+     * The field will return false if {@link #JAVA_VERSION} is <code>null</code>.</p>
      */
     public static final boolean IS_JAVA_1_1 = getJavaVersionMatches("1.1");
 
     /**
      * Is <code>true</code> if this is Java version 1.2 (also 1.2.x versions).
      * <p>
-     * The field will return false if <code>JAVA_VERSION</code> is <code>null</code>.
+     * The field will return false if {@link #JAVA_VERSION} is <code>null</code>.</p>
      */
     public static final boolean IS_JAVA_1_2 = getJavaVersionMatches("1.2");
 
     /**
      * Is <code>true</code> if this is Java version 1.3 (also 1.3.x versions).
      * <p>
-     * The field will return false if <code>JAVA_VERSION</code> is <code>null</code>.
+     * The field will return false if {@link #JAVA_VERSION} is <code>null</code>.</p>
      */
     public static final boolean IS_JAVA_1_3 = getJavaVersionMatches("1.3");
 
     /**
      * Is <code>true</code> if this is Java version 1.4 (also 1.4.x versions).
      * <p>
-     * The field will return false if <code>JAVA_VERSION</code> is <code>null</code>.
+     * The field will return false if {@link #JAVA_VERSION} is <code>null</code>.</p>
      */
     public static final boolean IS_JAVA_1_4 = getJavaVersionMatches("1.4");
 
     /**
      * Is <code>true</code> if this is Java version 1.5 (also 1.5.x versions).
      * <p>
-     * The field will return false if <code>JAVA_VERSION</code> is <code>null</code>.
+     * The field will return false if {@link #JAVA_VERSION} is <code>null</code>.</p>
      */
     public static final boolean IS_JAVA_1_5 = getJavaVersionMatches("1.5");
 
     /**
      * Is <code>true</code> if this is AIX.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_AIX = getOSMatches("AIX");
 
     /**
      * Is <code>true</code> if this is HP-UX.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_HP_UX = getOSMatches("HP-UX");
 
     /**
      * Is <code>true</code> if this is Irix.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_IRIX = getOSMatches("Irix");
 
     /**
      * Is <code>true</code> if this is Linux.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_LINUX = getOSMatches("Linux") || getOSMatches("LINUX");
     // Windows XP returns 'Windows 2000' just for fun...
@@ -161,35 +162,35 @@ public class SystemUtils {
     /**
      * Is <code>true</code> if this is Mac.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_MAC = getOSMatches("Mac");
 
     /**
      * Is <code>true</code> if this is Mac.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_MAC_OSX = getOSMatches("Mac OS X");
 
     /**
      * Is <code>true</code> if this is Mac.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_OS2 = getOSMatches("OS/2");
 
     /**
      * Is <code>true</code> if this is Solaris.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_SOLARIS = getOSMatches("Solaris");
 
     /**
      * Is <code>true</code> if this is SunOS.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_SUN_OS = getOSMatches("SunOS");
 
@@ -201,21 +202,21 @@ public class SystemUtils {
     /**
      * Is <code>true</code> if this is Windows.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_WINDOWS = getOSMatches("Windows");
 
     /**
      * Is <code>true</code> if this is Windows 2000.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_WINDOWS_2000 = getOSMatches("Windows", "5.0");
 
     /**
      * Is <code>true</code> if this is Windows 95.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_WINDOWS_95 = getOSMatches("Windows 9", "4.0");
     // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
@@ -223,7 +224,7 @@ public class SystemUtils {
     /**
      * Is <code>true</code> if this is Windows 98.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_WINDOWS_98 = getOSMatches("Windows 9", "4.1");
     // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
@@ -231,7 +232,7 @@ public class SystemUtils {
     /**
      * Is <code>true</code> if this is Windows ME.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_WINDOWS_ME = getOSMatches("Windows", "4.9");
     // JDK 1.2 running on WindowsME may return 'Windows 95', hence the above
@@ -239,7 +240,7 @@ public class SystemUtils {
     /**
      * Is <code>true</code> if this is Windows NT.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_WINDOWS_NT = getOSMatches("Windows NT");
     // Windows 2000 returns 'Windows 2000' but may suffer from same JDK1.2 problem
@@ -247,7 +248,7 @@ public class SystemUtils {
     /**
      * Is <code>true</code> if this is Windows XP.
      * <p>
-     * The field will return false if <code>OS_NAME</code> is <code>null</code>.
+     * The field will return false if <code>OS_NAME</code> is <code>null</code>.</p>
      */
     public static final boolean IS_OS_WINDOWS_XP = getOSMatches("Windows", "5.1");
 
@@ -256,7 +257,7 @@ public class SystemUtils {
      * Java class path.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java version 1.1.
      */
@@ -267,7 +268,7 @@ public class SystemUtils {
      * Java class format version number.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java version 1.1.
      */
@@ -279,7 +280,7 @@ public class SystemUtils {
      * First in JDK version 1.2. Not used in Sun JDKs after 1.2.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java version 1.2. Not used in Sun versions after 1.2.
      */
@@ -290,7 +291,7 @@ public class SystemUtils {
      * Path of extension directory or directories.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.3
      */
@@ -301,7 +302,7 @@ public class SystemUtils {
      * Java installation directory.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.1
      */
@@ -312,7 +313,7 @@ public class SystemUtils {
      * Default temp file path.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -323,7 +324,7 @@ public class SystemUtils {
      * List of paths to search when loading libraries.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -334,7 +335,7 @@ public class SystemUtils {
      * Java Runtime Environment name.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.3
      */
@@ -345,7 +346,7 @@ public class SystemUtils {
      * Java Runtime Environment version.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.3
      */
@@ -356,7 +357,7 @@ public class SystemUtils {
      * Java Runtime Environment specification name.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -367,7 +368,7 @@ public class SystemUtils {
      * Java Runtime Environment specification vendor.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -378,7 +379,7 @@ public class SystemUtils {
      * Java Runtime Environment specification version.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.3
      */
@@ -389,7 +390,7 @@ public class SystemUtils {
      * Java vendor-specific string.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.1
      */
@@ -400,7 +401,7 @@ public class SystemUtils {
      * Java vendor URL.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
       * 
      * @since Java 1.1
     */
@@ -411,7 +412,7 @@ public class SystemUtils {
      * Java version number.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.1
      */
@@ -420,25 +421,25 @@ public class SystemUtils {
     //-----------------------------------------------------------------------
     /**
      * Gets the Java version as a <code>float</code>.
-     * Example output:
+     * <p>Example return values:</p>
      * <ul>
      *  <li><code>1.2f</code> for JDK 1.2
      *  <li><code>1.31f</code> for JDK 1.3.1
      * </ul>
      * <p>
-     * The field will return zero if <code>JAVA_VERSION</code> is <code>null</code>.
+     * The field will return zero if {@link #JAVA_VERSION} is <code>null</code>.</p>
      */
     public static final float JAVA_VERSION_FLOAT = getJavaVersionAsFloat();
 
     /**
      * Gets the Java version as an <code>int</code>.
-     * Example output:
+     * <p>Example return values:</p>
      * <ul>
      *  <li><code>120</code> for JDK 1.2
      *  <li><code>131</code> for JDK 1.3.1
      * </ul>
      * <p>
-     * The field will return zero if <code>JAVA_VERSION</code> is <code>null</code>.
+     * The field will return zero if {@link #JAVA_VERSION} is <code>null</code>.</p>
      */
     public static final int JAVA_VERSION_INT = getJavaVersionAsInt();
 
@@ -447,7 +448,7 @@ public class SystemUtils {
      * Java Virtual Machine implementation info.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -458,7 +459,7 @@ public class SystemUtils {
      * Java Virtual Machine implementation name.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -469,7 +470,7 @@ public class SystemUtils {
      * Java Virtual Machine specification name.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -480,7 +481,7 @@ public class SystemUtils {
      * Java Virtual Machine specification vendor.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -491,7 +492,7 @@ public class SystemUtils {
      * Java Virtual Machine specification version.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -502,7 +503,7 @@ public class SystemUtils {
      * Java Virtual Machine implementation vendor.
       * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -513,7 +514,7 @@ public class SystemUtils {
      * Java Virtual Machine implementation version.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -524,7 +525,7 @@ public class SystemUtils {
      * Line separator ("\n" on UNIX).
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.1
      */
@@ -535,7 +536,7 @@ public class SystemUtils {
      * Operating system architecture.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.1
      */
@@ -546,7 +547,7 @@ public class SystemUtils {
      * Operating system name.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.1
      */
@@ -557,7 +558,7 @@ public class SystemUtils {
      * Operating system version.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.1
      */
@@ -568,7 +569,7 @@ public class SystemUtils {
      * Path separator (":" on UNIX).
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.1
      */
@@ -581,7 +582,7 @@ public class SystemUtils {
      * Renamed to <code>user.country</code> in 1.4
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -594,7 +595,7 @@ public class SystemUtils {
      * User's current working directory.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.1
      */
@@ -605,7 +606,7 @@ public class SystemUtils {
      * User's home directory.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.1
      */
@@ -616,7 +617,7 @@ public class SystemUtils {
      * User's language code, such as 'en'.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.2
      */
@@ -627,7 +628,7 @@ public class SystemUtils {
      * User's account name.
      * <p>
      * Defaults to <code>null</code> if the runtime does not have
-     * security access to read this property or property not specified.
+     * security access to read this property or the property does not exist.</p>
      * 
      * @since Java 1.1
      */
@@ -635,9 +636,9 @@ public class SystemUtils {
 
     //-----------------------------------------------------------------------    
     /**
-     * <p>Get the Java version number as a <code>float</code>.</p>
+     * <p>Gets the Java version number as a <code>float</code>.</p>
      *
-     * <P>Example output:</p>
+     * <p>Example return values:</p>
      * <ul>
      *  <li><code>1.2f</code> for JDK 1.2
      *  <li><code>1.31f</code> for JDK 1.3.1
@@ -652,16 +653,16 @@ public class SystemUtils {
     }
 
     /**
-     * <p>Get the Java version number as a <code>float</code>.</p>
+     * <p>Gets the Java version number as a <code>float</code>.</p>
      *
-     * <p>Example output:</p>
+     * <p>Example return values:</p>
      * <ul>
      *  <li><code>1.2f</code> for JDK 1.2
      *  <li><code>1.31f</code> for JDK 1.3.1
      * </ul>
      * 
      * <p>Patch releases are not reported.
-     * Zero is returned if JAVA_VERSION is <code>null</code>.</p>
+     * Zero is returned if {@link #JAVA_VERSION} is <code>null</code>.</p>
      * 
      * @return the version, for example 1.31f for JDK 1.3.1
      */
@@ -677,16 +678,16 @@ public class SystemUtils {
     }
     
     /**
-     * <p>Get the Java version number as an <code>int</code>.</p>
+     * <p>Gets the Java version number as an <code>int</code>.</p>
      *
-     * <p>Example output:</p>
+     * <p>Example return values:</p>
      * <ul>
      *  <li><code>120</code> for JDK 1.2
      *  <li><code>131</code> for JDK 1.3.1
      * </ul>
      * 
      * <p>Patch releases are not reported.
-     * Zero is returned if JAVA_VERSION is <code>null</code>.</p>
+     * Zero is returned if {@link #JAVA_VERSION} is <code>null</code>.</p>
      * 
      * @return the version, for example 131 for JDK 1.3.1
      */
@@ -746,21 +747,21 @@ public class SystemUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * Gets a System property, defaulting to the given value if the property 
-     * cannot be read.
+     * Gets a System property, defaulting to <code>null</code> if the property 
+     * cannot be read. If a <code>SecurityException</code> is caught, the return
+     * value is <code>null</code> and a message is written to <code>System.err</code>.
      * 
      * @param property the system property name
-     * @return the system property value or <code>null</code> if security problem
+     * @return the system property value or <code>null</code> if a security problem occurs
      */
     private static String getSystemProperty(String property) {
         try {
             return System.getProperty(property);
-            
         } catch (SecurityException ex) {
             // we are not allowed to look at this property
             System.err.println(
-                "SecurityException thrown when reading system property '" + property 
-                + "' - property value will default to null"
+                "Caught a SecurityException reading the system property '" + property 
+                + "'; the SystemUtils property value will default to null."
             );
             return null;
         }
