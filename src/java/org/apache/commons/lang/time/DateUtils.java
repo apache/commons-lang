@@ -53,8 +53,6 @@
  */
 package org.apache.commons.lang.time;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -71,7 +69,7 @@ import java.util.TimeZone;
  * @author Janek Bogucki
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.15 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: DateUtils.java,v 1.16 2003/08/18 21:52:39 ggregory Exp $
  */
 public class DateUtils {
     
@@ -111,14 +109,6 @@ public class DateUtils {
             {Calendar.MONTH, DateUtils.SEMI_MONTH},
             {Calendar.YEAR},
             {Calendar.ERA}};
-
-    private static DateFormat[] dateFormats = {
-        //3/31/92 10:00:07 PST
-        new SimpleDateFormat("M/dd/yy h:mm:ss z"),
-        //January 23, 1987 10:05pm
-        new SimpleDateFormat("MMM d, yyyy h:mm a"),
-        //22:00 GMT
-        new SimpleDateFormat("h:mm z")};
 
     /**
      * A week range, starting on Sunday.
