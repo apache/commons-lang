@@ -21,7 +21,7 @@ package org.apache.commons.lang.mutable;
  * 
  * @see Byte
  * @since 2.1
- * @version $Id: MutableByte.java,v 1.6 2004/10/08 19:45:46 ggregory Exp $
+ * @version $Id$
  */
 public class MutableByte extends Number implements Comparable, Mutable {
 
@@ -97,22 +97,48 @@ public class MutableByte extends Number implements Comparable, Mutable {
     }
 
     //-----------------------------------------------------------------------
+    // shortValue relies on Number implementation
+    /**
+     * Returns the value of this MutableByte as a byte.
+     *
+     * @return the numeric value represented by this object after conversion to type byte.
+     */
     public byte byteValue() {
         return value;
     }
 
+    /**
+     * Returns the value of this MutableByte as a int.
+     *
+     * @return the numeric value represented by this object after conversion to type int.
+     */
     public int intValue() {
         return value;
     }
 
+    /**
+     * Returns the value of this MutableByte as a long.
+     *
+     * @return the numeric value represented by this object after conversion to type long.
+     */
     public long longValue() {
         return value;
     }
 
+    /**
+     * Returns the value of this MutableByte as a float.
+     *
+     * @return the numeric value represented by this object after conversion to type float.
+     */
     public float floatValue() {
         return value;
     }
 
+    /**
+     * Returns the value of this MutableByte as a double.
+     *
+     * @return the numeric value represented by this object after conversion to type double.
+     */
     public double doubleValue() {
         return value;
     }
