@@ -68,8 +68,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Moritz Petersen
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @author Nikolay Metchev
+ * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.14 2003/06/25 23:32:08 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.15 2003/06/25 23:33:47 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -903,6 +904,74 @@ public class ArrayUtils {
      */
     public static boolean contains(final Object[] array, final Object objectToFind) {
         return (indexOf(array, objectToFind) != -1);
+    }
+
+    // Primitive/Object converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Booleans to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Boolean</code> array, may be <code>null</code>
+     * @return a <code>boolean</code> array
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static boolean[] toPrimitive(final Boolean[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BOOLEAN_ARRAY;
+        }
+        final boolean[] result = new boolean[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].booleanValue();
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of object Booleans to primitives handling null.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Boolean</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return a <code>boolean</code> array
+     */
+    public static boolean[] toPrimitive(final Boolean[] array, final boolean valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BOOLEAN_ARRAY;
+        }
+        final boolean[] result = new boolean[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Boolean b = array[i];
+            result[i] = (b == null ? valueForNull : b.booleanValue());
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of primitive booleans to objects.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>boolean</code> array
+     * @return a <code>Boolean</code> array
+     */
+    public static Boolean[] toObject(final boolean[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BOOLEAN_OBJECT_ARRAY;
+        }
+        final Boolean[] result = new Boolean[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = (array[i] ? Boolean.TRUE : Boolean.FALSE);
+        }
+        return result;
     }
 
 }

@@ -64,10 +64,11 @@ import junit.textui.TestRunner;
 /**
  * Unit tests {@link org.apache.commons.lang.ArrayUtils}.
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Stephen Colebourne
  * @author Moritz Petersen
  * @author Nikolay Metchev
- * @version $Id: ArrayUtilsTest.java,v 1.6 2003/03/23 21:47:30 scolebourne Exp $
+ * @author Matthew Hawthorne
+ * @version $Id: ArrayUtilsTest.java,v 1.7 2003/06/25 23:33:47 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -80,8 +81,8 @@ public class ArrayUtilsTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(ArrayUtilsTest.class);
-    	suite.setName("ArrayUtils Tests");
+        TestSuite suite = new TestSuite(ArrayUtilsTest.class);
+        suite.setName("ArrayUtils Tests");
         return suite;
     }
 
@@ -706,4 +707,47 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(true, ArrayUtils.contains(array, null));
         assertEquals(false, ArrayUtils.contains(array, "notInArray"));
     }
+    
+    // testToPrimitive/Object for boolean
+    //  -----------------------------------------------------------------------
+    public void testToPrimitive_boolean() {
+        assertEquals(null, ArrayUtils.toPrimitive(null));
+        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.toPrimitive(new Boolean[0]));
+        assertTrue(Arrays.equals(
+            new boolean[] {true, false, true},
+            ArrayUtils.toPrimitive(new Boolean[] {Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}))
+        );
+
+        try {
+            ArrayUtils.toPrimitive(new Boolean[] {Boolean.TRUE, null});
+            fail();
+        } catch (NullPointerException ex) {}
+    }
+
+    public void testToPrimitive_boolean_boolean() {
+        assertEquals(null, ArrayUtils.toPrimitive(null, false));
+        assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.toPrimitive(new Boolean[0], false));
+        assertTrue(Arrays.equals(
+            new boolean[] {true, false, true},
+            ArrayUtils.toPrimitive(new Boolean[] {Boolean.TRUE, Boolean.FALSE, Boolean.TRUE}, false))
+        );
+        assertTrue(Arrays.equals(
+            new boolean[] {true, false, false},
+            ArrayUtils.toPrimitive(new Boolean[] {Boolean.TRUE, null, Boolean.FALSE}, false))
+        );
+        assertTrue(Arrays.equals(
+            new boolean[] {true, true, false},
+            ArrayUtils.toPrimitive(new Boolean[] {Boolean.TRUE, null, Boolean.FALSE}, true))
+        );
+    }
+
+    public void testToObject_boolean() {
+        assertEquals(null, ArrayUtils.toObject(null));
+        assertSame(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayUtils.toObject(new boolean[0]));
+        assertTrue(Arrays.equals(
+            new Boolean[] {Boolean.TRUE, Boolean.FALSE, Boolean.TRUE},
+            ArrayUtils.toObject(new boolean[] {true, false, true}))
+        );
+    }
+
 }
