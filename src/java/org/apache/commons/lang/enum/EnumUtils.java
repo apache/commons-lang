@@ -62,8 +62,9 @@ import java.util.Map;
  *
  * @see Enum
  * @see ValuedEnum
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumUtils.java,v 1.3 2002/09/28 10:49:59 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 1.0
+ * @version $Id: EnumUtils.java,v 1.4 2002/12/23 00:17:06 scolebourne Exp $
  */
 public abstract class EnumUtils implements Comparable, Serializable {
 

@@ -114,8 +114,9 @@ import java.util.Map;
  * <em>NOTE:</em> This class originated in the Jakarta Avalon project.
  * </p>
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: Enum.java,v 1.4 2002/11/02 13:16:30 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 1.0
+ * @version $Id: Enum.java,v 1.5 2002/12/23 00:17:06 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
     /**

@@ -110,8 +110,9 @@ import java.lang.reflect.Modifier;
  * <p>The exact format of the <code>toString</code> is determined by
  * the {@link ToStringStyle} passed into the constructor.</p>
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilder.java,v 1.9 2002/12/08 20:45:08 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 1.0
+ * @version $Id: ToStringBuilder.java,v 1.10 2002/12/23 00:20:31 scolebourne Exp $
  */
 public class ToStringBuilder {
     

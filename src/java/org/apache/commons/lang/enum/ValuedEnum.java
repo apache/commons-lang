@@ -128,8 +128,9 @@ import java.util.List;
  * <em>NOTE:</em> This class originated in the Jakarta Avalon project.
  * </p>
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ValuedEnum.java,v 1.2 2002/11/14 21:52:14 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 1.0
+ * @version $Id: ValuedEnum.java,v 1.3 2002/12/23 00:17:06 scolebourne Exp $
  */
 public abstract class ValuedEnum extends Enum {
     /**
