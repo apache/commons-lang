@@ -73,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.26 2002/11/23 00:54:24 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.27 2002/11/27 22:54:29 bayard Exp $
  */
 public class StringUtils {
 
@@ -1398,6 +1398,9 @@ public class StringUtils {
      * @throws NullPointerException if sub is <code>null</code>
      */
     public static int countMatches(String str, String sub) {
+        if (sub.equals("")) {
+            return 0;
+        }
         if (str == null) {
             return 0;
         }
