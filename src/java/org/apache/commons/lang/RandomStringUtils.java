@@ -58,18 +58,12 @@ import java.util.Random;
 /**
  * <p>Common random <code>String</code> manipulation routines.</p>
  *
- * <p>Originally from 
- *  <a href="http://jakarta.apache.org/turbine/">Turbine</a> and the
- * GenerationJavaCore library.</p>
+ * <p>Originally from the GenerationJava Core library.</p>
  *
- * @author <a href="mailto:jon@latchkey.com">Jon S. Stevens</a>
- * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
- * @author <a href="mailto:gcoladonato@yahoo.com">Greg Coladonato</a>
- * @author <a href="mailto:bayard@generationjava.com">Bayard</a>
- * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
+ * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: RandomStringUtils.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @version $Id: RandomStringUtils.java,v 1.2 2002/07/26 14:05:04 bayard Exp $
  */
 public class RandomStringUtils {
 
