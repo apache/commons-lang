@@ -58,9 +58,9 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * <p>Operations on {@link java.lang.String} that are 
+ * <p>Operations on {@link java.lang.String} that are
  * <code>null</code> safe.</p>
- * 
+ *
  * <ul>
  *  <li><b>IsEmpty/IsBlank</b>
  *      - checks if a String contains text</li>
@@ -108,7 +108,7 @@ import java.util.List;
  *
  * <p>The <code>StringUtils</code> class defines certain words related to
  * String handling.</p>
- * 
+ *
  * <ul>
  *  <li>null - <code>null</code></li>
  *  <li>empty - a zero-length string (<code>""</code>)</li>
@@ -116,16 +116,16 @@ import java.util.List;
  *  <li>whitespace - the characters defined by {@link Character#isWhitespace(char)}</li>
  *  <li>trim - the characters &lt;= 32 as in {@link String#trim()}</li>
  * </ul>
- * 
+ *
  * <p><code>StringUtils</code> handles <code>null</code> input Strings quietly.
  * That is to say that a <code>null</code> input will return <code>null</code>.
  * Where a <code>boolean</code> or <code>int</code> is being returned
  * details vary by method.</p>
- * 
- * <p>A side effect of the <code>null</code> handling is that a 
+ *
+ * <p>A side effect of the <code>null</code> handling is that a
  * <code>NullPointerException</code> should be considered a bug in
  * <code>StringUtils</code> (except for deprecated methods).</p>
- * 
+ *
  * <p>Methods in this class give sample code to explain their operation.
  * The symbol <code>*</code> is used to indicate any input including <code>null</code>.</p>
  *
@@ -147,14 +147,14 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.118 2003/11/23 20:44:39 psteitz Exp $
+ * @version $Id: StringUtils.java,v 1.119 2003/11/29 13:13:32 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
     // Whitespace:
     // Character.isWhitespace() is faster than WHITESPACE.indexOf()
     // where WHITESPACE is a string of all whitespace characters
-    // 
+    //
     // Character access:
     // String.charAt(n) versus toCharArray(), then array[n]
     // String.charAt(n) is about 15% worse for a 10K string
@@ -211,7 +211,7 @@ public class StringUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Checks if a String is empty ("") or null.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isEmpty(null)      = true
      * StringUtils.isEmpty("")        = true
@@ -223,7 +223,7 @@ public class StringUtils {
      * <p>NOTE: This method changed in Lang version 2.0.
      * It no longer trims the String.
      * That functionality is available in isBlank().</p>
-     * 
+     *
      * @param str  the String to check, may be null
      * @return <code>true</code> if the String is empty or null
      */
@@ -233,7 +233,7 @@ public class StringUtils {
 
     /**
      * <p>Checks if a String is not empty ("") and not null.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isNotEmpty(null)      = false
      * StringUtils.isNotEmpty("")        = false
@@ -251,7 +251,7 @@ public class StringUtils {
 
     /**
      * <p>Checks if a String is whitespace, empty ("") or null.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isBlank(null)      = true
      * StringUtils.isBlank("")        = true
@@ -279,7 +279,7 @@ public class StringUtils {
 
     /**
      * <p>Checks if a String is not empty (""), not null and not whitespace only.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isNotBlank(null)      = false
      * StringUtils.isNotBlank("")        = false
@@ -289,7 +289,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is 
+     * @return <code>true</code> if the String is
      *  not empty and not null and not whitespace
      * @since 2.0
      */
@@ -312,7 +312,7 @@ public class StringUtils {
      * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String, handling <code>null</code> by returning
      * an empty String ("").</p>
-     * 
+     *
      * <pre>
      * StringUtils.clean(null)          = ""
      * StringUtils.clean("")            = ""
@@ -335,14 +335,14 @@ public class StringUtils {
      * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String, handling <code>null</code> by returning
      * <code>null</code>.</p>
-     * 
+     *
      * <p>The String is trimmed using {@link String#trim()}.
      * Trim removes start and end characters &lt;= 32.
      * To strip whitespace use {@link #strip(String)}.</p>
-     * 
+     *
      * <p>To trim your choice of characters, use the
      * {@link #strip(String, String)} methods.</p>
-     * 
+     *
      * <pre>
      * StringUtils.trim(null)          = null
      * StringUtils.trim("")            = ""
@@ -358,15 +358,15 @@ public class StringUtils {
         return (str == null ? null : str.trim());
     }
 
-    /** 
-     * <p>Removes control characters (char &lt;= 32) from both  
-     * ends of this String returning <code>null</code> if the String is 
+    /**
+     * <p>Removes control characters (char &lt;= 32) from both
+     * ends of this String returning <code>null</code> if the String is
      * empty ("") after the trim or if it is <code>null</code>.
-     * 
+     *
      * <p>The String is trimmed using {@link String#trim()}.
      * Trim removes start and end characters &lt;= 32.
      * To strip whitespace use {@link #stripToNull(String)}.</p>
-     * 
+     *
      * <pre>
      * StringUtils.trimToNull(null)          = null
      * StringUtils.trimToNull("")            = null
@@ -374,9 +374,9 @@ public class StringUtils {
      * StringUtils.trimToNull("abc")         = "abc"
      * StringUtils.trimToNull("    abc    ") = "abc"
      * </pre>
-     *  
+     *
      * @param str  the String to be trimmed, may be null
-     * @return the trimmed String, 
+     * @return the trimmed String,
      *  <code>null</code> if only chars &lt;= 32, empty or null String input
      * @since 2.0
      */
@@ -385,15 +385,15 @@ public class StringUtils {
         return (ts == null || ts.length() == 0 ? null : ts);
     }
 
-    /** 
-     * <p>Removes control characters (char &lt;= 32) from both 
+    /**
+     * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String returning an empty String ("") if the String
      * is empty ("") after the trim or if it is <code>null</code>.
-     * 
+     *
      * <p>The String is trimmed using {@link String#trim()}.
      * Trim removes start and end characters &lt;= 32.
      * To strip whitespace use {@link #stripToEmpty(String)}.</p>
-     * 
+     *
      * <pre>
      * StringUtils.trimToEmpty(null)          = ""
      * StringUtils.trimToEmpty("")            = ""
@@ -401,7 +401,7 @@ public class StringUtils {
      * StringUtils.trimToEmpty("abc")         = "abc"
      * StringUtils.trimToEmpty("    abc    ") = "abc"
      * </pre>
-     *  
+     *
      * @param str  the String to be trimmed, may be null
      * @return the trimmed String, or an empty String if <code>null</code> input
      * @since 2.0
@@ -414,12 +414,12 @@ public class StringUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Strips whitespace from the start and end of a String.</p>
-     * 
+     *
      * <p>This is similar to {@link #trim(String)} but removes whitespace.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
-     * 
+     *
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.strip(null)     = null
      * StringUtils.strip("")       = ""
@@ -430,7 +430,7 @@ public class StringUtils {
      * StringUtils.strip(" abc ")  = "abc"
      * StringUtils.strip(" ab c ") = "ab c"
      * </pre>
-     * 
+     *
      * @param str  the String to remove whitespace from, may be null
      * @return the stripped String, <code>null</code> if null String input
      */
@@ -438,13 +438,13 @@ public class StringUtils {
         return strip(str, null);
     }
 
-    /** 
+    /**
      * <p>Strips whitespace from the start and end of a String  returning
      * <code>null</code> if the String is empty ("") after the strip.</p>
-     * 
+     *
      * <p>This is similar to {@link #trimToNull(String)} but removes whitespace.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
-     * 
+     *
      * <pre>
      * StringUtils.strip(null)     = null
      * StringUtils.strip("")       = null
@@ -455,9 +455,9 @@ public class StringUtils {
      * StringUtils.strip(" abc ")  = "abc"
      * StringUtils.strip(" ab c ") = "ab c"
      * </pre>
-     *  
+     *
      * @param str  the String to be stripped, may be null
-     * @return the stripped String, 
+     * @return the stripped String,
      *  <code>null</code> if whitespace, empty or null String input
      * @since 2.0
      */
@@ -469,13 +469,13 @@ public class StringUtils {
         return (str.length() == 0 ? null : str);
     }
 
-    /** 
+    /**
      * <p>Strips whitespace from the start and end of a String  returning
      * an empty String if <code>null</code> input.</p>
-     * 
+     *
      * <p>This is similar to {@link #trimToEmpty(String)} but removes whitespace.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
-     * 
+     *
      * <pre>
      * StringUtils.strip(null)     = ""
      * StringUtils.strip("")       = ""
@@ -486,7 +486,7 @@ public class StringUtils {
      * StringUtils.strip(" abc ")  = "abc"
      * StringUtils.strip(" ab c ") = "ab c"
      * </pre>
-     *  
+     *
      * @param str  the String to be stripped, may be null
      * @return the trimmed String, or an empty String if <code>null</code> input
      * @since 2.0
@@ -502,11 +502,11 @@ public class StringUtils {
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * An empty string ("") input returns the empty string.</p>
-     * 
+     *
      * <p>If the stripChars String is <code>null</code>, whitespace is
      * stripped as defined by {@link Character#isWhitespace(char)}.
      * Alternatively use {@link #strip(String)}.</p>
-     * 
+     *
      * <pre>
      * StringUtils.strip(null, *)          = null
      * StringUtils.strip("", *)            = ""
@@ -516,7 +516,7 @@ public class StringUtils {
      * StringUtils.strip(" abc ", null)    = "abc"
      * StringUtils.strip("  abcyx", "xyz") = "  abc"
      * </pre>
-     * 
+     *
      * @param str  the String to remove characters from, may be null
      * @param stripChars  the characters to remove, null treated as whitespace
      * @return the stripped String, <code>null</code> if null String input
@@ -534,10 +534,10 @@ public class StringUtils {
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * An empty string ("") input returns the empty string.</p>
-     * 
+     *
      * <p>If the stripChars String is <code>null</code>, whitespace is
      * stripped as defined by {@link Character#isWhitespace(char)}.</p>
-     * 
+     *
      * <pre>
      * StringUtils.stripStart(null, *)          = null
      * StringUtils.stripStart("", *)            = ""
@@ -548,7 +548,7 @@ public class StringUtils {
      * StringUtils.stripStart(" abc ", null)    = "abc "
      * StringUtils.stripStart("yxabc  ", "xyz") = "abc  "
      * </pre>
-     * 
+     *
      * @param str  the String to remove characters from, may be null
      * @param stripChars  the characters to remove, null treated as whitespace
      * @return the stripped String, <code>null</code> if null String input
@@ -578,10 +578,10 @@ public class StringUtils {
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * An empty string ("") input returns the empty string.</p>
-     * 
+     *
      * <p>If the stripChars String is <code>null</code>, whitespace is
      * stripped as defined by {@link Character#isWhitespace(char)}.</p>
-     * 
+     *
      * <pre>
      * StringUtils.stripEnd(null, *)          = null
      * StringUtils.stripEnd("", *)            = ""
@@ -592,7 +592,7 @@ public class StringUtils {
      * StringUtils.stripEnd(" abc ", null)    = " abc"
      * StringUtils.stripEnd("  abcyx", "xyz") = "  abc"
      * </pre>
-     * 
+     *
      * @param str  the String to remove characters from, may be null
      * @param stripChars  the characters to remove, null treated as whitespace
      * @return the stripped String, <code>null</code> if null String input
@@ -627,14 +627,14 @@ public class StringUtils {
      * A <code>null</code> array will return <code>null</code>.
      * An empty array will return itself.
      * A <code>null</code> array entry will be ignored.</p>
-     * 
+     *
      * <pre>
      * StringUtils.stripAll(null)             = null
      * StringUtils.stripAll([])               = []
      * StringUtils.stripAll(["abc", "  abc"]) = ["abc", "abc"]
      * StringUtils.stripAll(["abc  ", null])  = ["abc", null]
      * </pre>
-     * 
+     *
      * @param strs  the array to remove whitespace from, may be null
      * @return the stripped Strings, <code>null</code> if null array input
      */
@@ -653,7 +653,7 @@ public class StringUtils {
      * A <code>null</code> array entry will be ignored.
      * A <code>null</code> stripChars will strip whitespace as defined by
      * {@link Character#isWhitespace(char)}.</p>
-     * 
+     *
      * <pre>
      * StringUtils.stripAll(null, *)                = null
      * StringUtils.stripAll([], *)                  = []
@@ -662,7 +662,7 @@ public class StringUtils {
      * StringUtils.stripAll(["abc  ", null], "yz")  = ["abc  ", null]
      * StringUtils.stripAll(["yabcz", null], "yz")  = ["abc", null]
      * </pre>
-     * 
+     *
      * @param strs  the array to remove characters from, may be null
      * @param stripChars  the characters to remove, null treated as whitespace
      * @return the stripped Strings, <code>null</code> if null array input
@@ -694,7 +694,7 @@ public class StringUtils {
      * StringUtils.equals("abc", "abc") = true
      * StringUtils.equals("abc", "ABC") = false
      * </pre>
-     *  
+     *
      * @see java.lang.String#equals(Object)
      * @param str1  the first String, may be null
      * @param str2  the second String, may be null
@@ -719,7 +719,7 @@ public class StringUtils {
      * StringUtils.equalsIgnoreCase("abc", "abc") = true
      * StringUtils.equalsIgnoreCase("abc", "ABC") = true
      * </pre>
-     * 
+     *
      * @see java.lang.String#equalsIgnoreCase(String)
      * @param str1  the first String, may be null
      * @param str2  the second String, may be null
@@ -737,17 +737,17 @@ public class StringUtils {
      * This method uses {@link String#indexOf(int)}.</p>
      *
      * <p>A <code>null</code> or empty ("") String will return <code>-1</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.indexOf(null, *)         = -1
      * StringUtils.indexOf("", *)           = -1
      * StringUtils.indexOf("aabaabaa", 'a') = 0
      * StringUtils.indexOf("aabaabaa", 'b') = 2
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchChar  the character to find
-     * @return the first index of the search character, 
+     * @return the first index of the search character,
      *  -1 if no match or <code>null</code> string input
      * @since 2.0
      */
@@ -766,7 +766,7 @@ public class StringUtils {
      * <p>A <code>null</code> or empty ("") String will return <code>-1</code>.
      * A negative start position is treated as zero.
      * A start position greater than the string length returns <code>-1</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.indexOf(null, *, *)          = -1
      * StringUtils.indexOf("", *, *)            = -1
@@ -775,11 +775,11 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", 'b', 9)  = -1
      * StringUtils.indexOf("aabaabaa", 'b', -1) = 2
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchChar  the character to find
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search character, 
+     * @return the first index of the search character,
      *  -1 if no match or <code>null</code> string input
      * @since 2.0
      */
@@ -795,7 +795,7 @@ public class StringUtils {
      * This method uses {@link String#indexOf(String)}.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.indexOf(null, *)          = -1
      * StringUtils.indexOf(*, null)          = -1
@@ -805,7 +805,7 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", "ab") = 1
      * StringUtils.indexOf("aabaabaa", "")   = 0
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchStr  the String to find, may be null
      * @return the first index of the search String,
@@ -824,7 +824,7 @@ public class StringUtils {
      * This method uses {@link String#indexOf(String)}.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.ordinalIndexOf(null, *, *)          = -1
      * StringUtils.ordinalIndexOf(*, null, *)          = -1
@@ -838,7 +838,7 @@ public class StringUtils {
      * StringUtils.ordinalIndexOf("aabaabaa", "", 1)   = 0
      * StringUtils.ordinalIndexOf("aabaabaa", "", 2)   = 0
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchStr  the String to find, may be null
      * @param ordinal  the n-th <code>searchStr</code> to find
@@ -874,7 +874,7 @@ public class StringUtils {
      * An empty ("") search String always matches.
      * A start position greater than the string length only matches
      * an empty search String.</p>
-     * 
+     *
      * <pre>
      * StringUtils.indexOf(null, *, *)          = -1
      * StringUtils.indexOf(*, null, *)          = -1
@@ -888,7 +888,7 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", "", 2)   = 2
      * StringUtils.indexOf("abc", "", 9)        = 3
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchStr  the String to find, may be null
      * @param startPos  the start position, negative treated as zero
@@ -914,17 +914,17 @@ public class StringUtils {
      * This method uses {@link String#lastIndexOf(int)}.</p>
      *
      * <p>A <code>null</code> or empty ("") String will return <code>-1</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.lastIndexOf(null, *)         = -1
      * StringUtils.lastIndexOf("", *)           = -1
      * StringUtils.lastIndexOf("aabaabaa", 'a') = 7
      * StringUtils.lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchChar  the character to find
-     * @return the last index of the search character, 
+     * @return the last index of the search character,
      *  -1 if no match or <code>null</code> string input
      * @since 2.0
      */
@@ -943,7 +943,7 @@ public class StringUtils {
      * <p>A <code>null</code> or empty ("") String will return <code>-1</code>.
      * A negative start position returns <code>-1</code>.
      * A start position greater than the string length searches the whole string.</p>
-     * 
+     *
      * <pre>
      * StringUtils.lastIndexOf(null, *, *)          = -1
      * StringUtils.lastIndexOf("", *,  *)           = -1
@@ -954,11 +954,11 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'b', -1) = -1
      * StringUtils.lastIndexOf("aabaabaa", 'a', 0)  = 0
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchChar  the character to find
      * @param startPos  the start position
-     * @return the last index of the search character, 
+     * @return the last index of the search character,
      *  -1 if no match or <code>null</code> string input
      * @since 2.0
      */
@@ -974,7 +974,7 @@ public class StringUtils {
      * This method uses {@link String#lastIndexOf(String)}.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.lastIndexOf(null, *)          = -1
      * StringUtils.lastIndexOf(*, null)          = -1
@@ -984,7 +984,7 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", "ab") = 1
      * StringUtils.lastIndexOf("aabaabaa", "")   = 8
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchStr  the String to find, may be null
      * @return the last index of the search String,
@@ -1006,7 +1006,7 @@ public class StringUtils {
      * A negative start position returns <code>-1</code>.
      * An empty ("") search String always matches unless the start position is negative.
      * A start position greater than the string length searches the whole string.</p>
-     * 
+     *
      * <pre>
      * StringUtils.lastIndexOf(null, *, *)          = -1
      * StringUtils.lastIndexOf(*, null, *)          = -1
@@ -1018,7 +1018,7 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", "a", 0)  = 0
      * StringUtils.lastIndexOf("aabaabaa", "b", 0)  = -1
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchStr  the String to find, may be null
      * @param startPos  the start position, negative treated as zero
@@ -1040,17 +1040,17 @@ public class StringUtils {
      * This method uses {@link String#indexOf(int)}.</p>
      *
      * <p>A <code>null</code> or empty ("") String will return <code>false</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.contains(null, *)    = false
      * StringUtils.contains("", *)      = false
      * StringUtils.contains("abc", 'a') = true
      * StringUtils.contains("abc", 'z') = false
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchChar  the character to find
-     * @return true if the String contains the search character, 
+     * @return true if the String contains the search character,
      *  false if not or <code>null</code> string input
      * @since 2.0
      */
@@ -1066,7 +1066,7 @@ public class StringUtils {
      * This method uses {@link String#indexOf(int)}.</p>
      *
      * <p>A <code>null</code> String will return <code>false</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.contains(null, *)     = false
      * StringUtils.contains(*, null)     = false
@@ -1075,10 +1075,10 @@ public class StringUtils {
      * StringUtils.contains("abc", "a")  = true
      * StringUtils.contains("abc", "z")  = false
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchStr  the String to find, may be null
-     * @return true if the String contains the search String, 
+     * @return true if the String contains the search String,
      *  false if not or <code>null</code> string input
      * @since 2.0
      */
@@ -1097,7 +1097,7 @@ public class StringUtils {
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
      * A <code>null</code> or zero length search array will return <code>-1</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.indexOfAny(null, *)                = -1
      * StringUtils.indexOfAny("", *)                  = -1
@@ -1107,7 +1107,7 @@ public class StringUtils {
      * StringUtils.indexOfAny("zzabyycdxx",['b','y']) = 3
      * StringUtils.indexOfAny("aba", ['z'])           = -1
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
@@ -1134,7 +1134,7 @@ public class StringUtils {
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
      * A <code>null</code> search string will return <code>-1</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.indexOfAny(null, *)            = -1
      * StringUtils.indexOfAny("", *)              = -1
@@ -1144,7 +1144,7 @@ public class StringUtils {
      * StringUtils.indexOfAny("zzabyycdxx", "by") = 3
      * StringUtils.indexOfAny("aba","z")          = -1
      * </pre>
-     *  
+     *
      * @param str  the String to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
@@ -1165,7 +1165,7 @@ public class StringUtils {
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
      * A <code>null</code> or zero length search array will return <code>-1</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.indexOfAnyBut(null, *)           = -1
      * StringUtils.indexOfAnyBut("", *)             = -1
@@ -1175,7 +1175,7 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut("zzabyycdxx", '')  = 0
      * StringUtils.indexOfAnyBut("aba", 'ab')       = -1
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
@@ -1203,7 +1203,7 @@ public class StringUtils {
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
      * A <code>null</code> search string will return <code>-1</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.indexOfAnyBut(null, *)            = -1
      * StringUtils.indexOfAnyBut("", *)              = -1
@@ -1213,7 +1213,7 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut("zzabyycdxx", "")   = 0
      * StringUtils.indexOfAnyBut("aba","ab")         = -1
      * </pre>
-     *  
+     *
      * @param str  the String to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
@@ -1249,7 +1249,7 @@ public class StringUtils {
      * StringUtils.containsOnly("ab1", 'abc')  = false
      * StringUtils.containsOnly("abz", 'abc')  = false
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param valid  an array of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
@@ -1284,7 +1284,7 @@ public class StringUtils {
      * StringUtils.containsOnly("ab1", "abc")  = false
      * StringUtils.containsOnly("abz", "abc")  = false
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param validChars  a String of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
@@ -1315,7 +1315,7 @@ public class StringUtils {
      * StringUtils.containsNone("ab1", 'xyz')  = true
      * StringUtils.containsNone("abz", 'xyz')  = false
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param invalidChars  an array of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
@@ -1354,7 +1354,7 @@ public class StringUtils {
      * StringUtils.containsNone("ab1", "xyz")  = true
      * StringUtils.containsNone("abz", "xyz")  = false
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param invalidChars  a String of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
@@ -1377,7 +1377,7 @@ public class StringUtils {
      * A <code>null</code> search array entry will be ignored, but a search
      * array containing "" will return <code>0</code> if <code>str</code> is not
      * null. This method uses {@link String#indexOf(String)}.</p>
-     * 
+     *
      * <pre>
      * StringUtils.indexOfAny(null, *)                     = -1
      * StringUtils.indexOfAny(*, null)                     = -1
@@ -1390,7 +1390,7 @@ public class StringUtils {
      * StringUtils.indexOfAny("", [""])                    = 0
      * StringUtils.indexOfAny("", ["a"])                   = -1
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchStrs  the Strings to search for, may be null
      * @return the first index of any of the searchStrs in str, -1 if no match
@@ -1429,9 +1429,9 @@ public class StringUtils {
      * <p>A <code>null</code> String will return <code>-1</code>.
      * A <code>null</code> search array will return <code>-1</code>.
      * A <code>null</code> or zero length search array entry will be ignored,
-     * but a search array containing "" will return the length of <code>str</code> 
+     * but a search array containing "" will return the length of <code>str</code>
      * if <code>str</code> is not null. This method uses {@link String#indexOf(String)}</p>
-     * 
+     *
      * <pre>
      * StringUtils.lastIndexOfAny(null, *)                   = -1
      * StringUtils.lastIndexOfAny(*, null)                   = -1
@@ -1443,7 +1443,7 @@ public class StringUtils {
      * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn","op"]) = -1
      * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn",""])   = 10
      * </pre>
-     * 
+     *
      * @param str  the String to check, may be null
      * @param searchStrs  the Strings to search for, may be null
      * @return the last index of any of the Strings, -1 if no match
@@ -1478,7 +1478,7 @@ public class StringUtils {
      *
      * <p>A <code>null</code> String will return <code>null</code>.
      * An empty ("") String will return "".</p>
-     * 
+     *
      * <pre>
      * StringUtils.substring(null, *)   = null
      * StringUtils.substring("", *)     = ""
@@ -1488,7 +1488,7 @@ public class StringUtils {
      * StringUtils.substring("abc", -2) = "bc"
      * StringUtils.substring("abc", -4) = "abc"
      * </pre>
-     * 
+     *
      * @param str  the String to get the substring from, may be null
      * @param start  the position to start from, negative means
      *  count back from the end of the String by this many characters
@@ -1521,14 +1521,14 @@ public class StringUtils {
      * characters from the end of the String.</p>
      *
      * <p>The returned substring starts with the character in the <code>start</code>
-     * position and ends before the <code>end</code> position. All position counting is 
-     * zero-based -- i.e., to start at the beginning of the string use 
-     * <code>start = 0</code>. Negative start and end positions can be used to 
+     * position and ends before the <code>end</code> position. All position counting is
+     * zero-based -- i.e., to start at the beginning of the string use
+     * <code>start = 0</code>. Negative start and end positions can be used to
      * specify offsets relative to the end of the String.</p>
      *
      * <p>If <code>start</code> is not strictly to the left of <code>end</code>, ""
      * is returned.</p>
-     * 
+     *
      * <pre>
      * StringUtils.substring(null, *, *)    = null
      * StringUtils.substring("", * ,  *)    = "";
@@ -1540,7 +1540,7 @@ public class StringUtils {
      * StringUtils.substring("abc", -2, -1) = "b"
      * StringUtils.substring("abc", -4, 2)  = "ab"
      * </pre>
-     * 
+     *
      * @param str  the String to get the substring from, may be null
      * @param start  the position to start from, negative means
      *  count back from the end of the String by this many characters
@@ -1599,7 +1599,7 @@ public class StringUtils {
      * StringUtils.left("abc", 2)   = "ab"
      * StringUtils.left("abc", 4)   = "abc"
      * </pre>
-     * 
+     *
      * @param str  the String to get the leftmost characters from, may be null
      * @param len  the length of the required String, must be zero or positive
      * @return the leftmost characters, <code>null</code> if null String input
@@ -1633,7 +1633,7 @@ public class StringUtils {
      * StringUtils.right("abc", 2)   = "bc"
      * StringUtils.right("abc", 4)   = "abc"
      * </pre>
-     * 
+     *
      * @param str  the String to get the rightmost characters from, may be null
      * @param len  the length of the required String, must be zero or positive
      * @return the rightmost characters, <code>null</code> if null String input
@@ -1670,7 +1670,7 @@ public class StringUtils {
      * StringUtils.mid("abc", 4, 2)   = ""
      * StringUtils.mid("abc", -2, 2)  = "ab"
      * </pre>
-     * 
+     *
      * @param str  the String to get the characters from, may be null
      * @param pos  the position to start from, negative treated as zero
      * @param len  the length of the required String, must be zero or positive
@@ -1742,7 +1742,7 @@ public class StringUtils {
      * An empty ("") string input will return the empty string.
      * A <code>null</code> separator will return the empty string if the
      * input string is not <code>null</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.substringAfter(null, *)      = null
      * StringUtils.substringAfter("", *)        = ""
@@ -1781,7 +1781,7 @@ public class StringUtils {
      * <p>A <code>null</code> string input will return <code>null</code>.
      * An empty ("") string input will return the empty string.
      * An empty or <code>null</code> separator will return the input string.</p>
-     * 
+     *
      * <pre>
      * StringUtils.substringBeforeLast(null, *)      = null
      * StringUtils.substringBeforeLast("", *)        = ""
@@ -1859,7 +1859,7 @@ public class StringUtils {
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> tag returns <code>null</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.substringBetween(null, *)            = null
      * StringUtils.substringBetween("", "")             = ""
@@ -1881,7 +1881,7 @@ public class StringUtils {
     /**
      * <p>Gets the String that is nested in between two Strings.
      * Only the first match is returned.</p>
-     * 
+     *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> open/close returns <code>null</code> (no match).
      * An empty ("") open/close returns an empty string.</p>
@@ -1925,7 +1925,7 @@ public class StringUtils {
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> tag returns <code>null</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.getNestedString(null, *)            = null
      * StringUtils.getNestedString("", "")             = ""
@@ -1948,7 +1948,7 @@ public class StringUtils {
     /**
      * <p>Gets the String that is nested in between two Strings.
      * Only the first match is returned.</p>
-     * 
+     *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> open/close returns <code>null</code> (no match).
      * An empty ("") open/close returns an empty string.</p>
@@ -1984,7 +1984,7 @@ public class StringUtils {
      *
      * <p>The separator is not included in the returned String array.
      * Adjacent separators are treated as one separator.</p>
-     * 
+     *
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
@@ -1994,7 +1994,7 @@ public class StringUtils {
      * StringUtils.split("abc  def") = ["abc", "def"]
      * StringUtils.split(" abc ")    = ["abc"]
      * </pre>
-     * 
+     *
      * @param str  the String to parse, may be null
      * @return an array of parsed Strings, <code>null</code> if null String input
      */
@@ -2008,7 +2008,7 @@ public class StringUtils {
      *
      * <p>The separator is not included in the returned String array.
      * Adjacent separators are treated as one separator.</p>
-     * 
+     *
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
@@ -2020,7 +2020,7 @@ public class StringUtils {
      * StringUtils.split("a\tb\nc", null) = ["a", "b", "c"]
      * StringUtils.split("a b c", ' ')    = ["a", "b", "c"]
      * </pre>
-     * 
+     *
      * @param str  the String to parse, may be null
      * @param separatorChar  the character used as the delimiter,
      *  <code>null</code> splits on whitespace
@@ -2064,7 +2064,7 @@ public class StringUtils {
      *
      * <p>The separator is not included in the returned String array.
      * Adjacent separators are treated as one separator.</p>
-     * 
+     *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> separatorChars splits on whitespace.</p>
      *
@@ -2076,7 +2076,7 @@ public class StringUtils {
      * StringUtils.split("abc  def", " ") = ["abc", "def"]
      * StringUtils.split("ab:cd:ef", ":") = ["ab", "cd", "ef"]
      * </pre>
-     * 
+     *
      * @param str  the String to parse, may be null
      * @param separatorChars  the characters used as the delimiters,
      *  <code>null</code> splits on whitespace
@@ -2195,7 +2195,7 @@ public class StringUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Concatenates elements of an array into a single String.
-     * Null objects or empty strings within the array are represented by 
+     * Null objects or empty strings within the array are represented by
      * empty strings.</p>
      *
      * <pre>
@@ -2205,7 +2205,7 @@ public class StringUtils {
      * StringUtils.concatenate(["a", "b", "c"]) = "abc"
      * StringUtils.concatenate([null, "", "a"]) = "a"
      * </pre>
-     * 
+     *
      * @param array  the array of values to concatenate, may be null
      * @return the concatenated String, <code>null</code> if null array input
      * @deprecated Use the better named {@link #join(Object[])} instead.
@@ -2220,9 +2220,9 @@ public class StringUtils {
      * containing the provided list of elements.</p>
      *
      * <p>No separator is added to the joined String.
-     * Null objects or empty strings within the array are represented by 
+     * Null objects or empty strings within the array are represented by
      * empty strings.</p>
-     * 
+     *
      * <pre>
      * StringUtils.join(null)            = null
      * StringUtils.join([])              = ""
@@ -2230,7 +2230,7 @@ public class StringUtils {
      * StringUtils.join(["a", "b", "c"]) = "abc"
      * StringUtils.join([null, "", "a"]) = "a"
      * </pre>
-     * 
+     *
      * @param array  the array of values to join together, may be null
      * @return the joined String, <code>null</code> if null array input
      * @since 2.0
@@ -2244,7 +2244,7 @@ public class StringUtils {
      * containing the provided list of elements.</p>
      *
      * <p>No delimiter is added before or after the list.
-     * Null objects or empty strings within the array are represented by 
+     * Null objects or empty strings within the array are represented by
      * empty strings.</p>
      *
      * <pre>
@@ -2285,8 +2285,8 @@ public class StringUtils {
      * containing the provided list of elements.</p>
      *
      * <p>No delimiter is added before or after the list.
-     * A <code>null</code> separator is the same as an empty String (""). 
-     * Null objects or empty strings within the array are represented by 
+     * A <code>null</code> separator is the same as an empty String ("").
+     * Null objects or empty strings within the array are represented by
      * empty strings.</p>
      *
      * <pre>
@@ -2339,7 +2339,7 @@ public class StringUtils {
      * <p>Joins the elements of the provided <code>Iterator</code> into
      * a single String containing the provided elements.</p>
      *
-     * <p>No delimiter is added before or after the list. Null objects or empty 
+     * <p>No delimiter is added before or after the list. Null objects or empty
      * strings within the iteration are represented by empty strings.</p>
      *
      * <p>See the examples here: {@link #join(Object[],char)}. </p>
@@ -2401,8 +2401,8 @@ public class StringUtils {
     /**
      * <p>Deletes all 'space' characters from a String as defined by
      * {@link Character#isSpace(char)}.</p>
-     * 
-     * <p>This is the only StringUtils method that uses the 
+     *
+     * <p>This is the only StringUtils method that uses the
      * <code>isSpace</code> definition. You are advised to use
      * {@link #deleteWhitespace(String)} instead as whitespace is much
      * better localized.</p>
@@ -2415,7 +2415,7 @@ public class StringUtils {
      * StringUtils.deleteSpaces("ab  c")        = "abc"
      * StringUtils.deleteSpaces("a\nb\tc     ") = "abc"
      * </pre>
-     *  
+     *
      * <p>Spaces are defined as <code>{' ', '\t', '\r', '\n', '\b'}</code>
      * in line with the deprecated <code>isSpace</code> method.</p>
      *
@@ -2441,7 +2441,7 @@ public class StringUtils {
      * StringUtils.deleteWhitespace("abc")        = "abc"
      * StringUtils.deleteWhitespace("   ab  c  ") = "abc"
      * </pre>
-     *  
+     *
      * @param str  the String to delete whitespace from, may be null
      * @return the String without whitespaces, <code>null</code> if null String input
      */
@@ -2468,11 +2468,11 @@ public class StringUtils {
     /**
      * <p>Removes a substring only if it is at the begining of a source string,
      * otherwise returns the source string.</p>
-     * 
+     *
      * <p>A <code>null</code> source string will return <code>null</code>.
      * An empty ("") source string will return the empty string.
      * A <code>null</code> search string will return the source string.</p>
-     * 
+     *
      * <pre>
      * StringUtils.removeStart(null, *)      = null
      * StringUtils.removeStart("", *)        = ""
@@ -2506,7 +2506,7 @@ public class StringUtils {
      * <p>A <code>null</code> source string will return <code>null</code>.
      * An empty ("") source string will return the empty string.
      * A <code>null</code> search string will return the source string.</p>
-     * 
+     *
      * <pre>
      * StringUtils.removeEnd(null, *)      = null
      * StringUtils.removeEnd("", *)        = ""
@@ -2537,9 +2537,9 @@ public class StringUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Replaces a String with another String inside a larger String, once.</p>
-     * 
+     *
      * <p>A <code>null</code> reference passed to this method is a no-op.</p>
-     * 
+     *
      * <pre>
      * StringUtils.replaceOnce(null, *, *)        = null
      * StringUtils.replaceOnce("", *, *)          = ""
@@ -2549,7 +2549,7 @@ public class StringUtils {
      * StringUtils.replaceOnce("aba", "a", "")    = "aba"
      * StringUtils.replaceOnce("aba", "a", "z")   = "zba"
      * </pre>
-     * 
+     *
      * @see #replace(String text, String repl, String with, int max)
      * @param text  text to search and replace in, may be null
      * @param repl  the String to search for, may be null
@@ -2565,7 +2565,7 @@ public class StringUtils {
      * <p>Replaces all occurrences of a String within another String.</p>
      *
      * <p>A <code>null</code> reference passed to this method is a no-op.</p>
-     * 
+     *
      * <pre>
      * StringUtils.replace(null, *, *)        = null
      * StringUtils.replace("", *, *)          = ""
@@ -2575,7 +2575,7 @@ public class StringUtils {
      * StringUtils.replace("aba", "a", "")    = "b"
      * StringUtils.replace("aba", "a", "z")   = "zbz"
      * </pre>
-     * 
+     *
      * @see #replace(String text, String repl, String with, int max)
      * @param text  text to search and replace in, may be null
      * @param repl  the String to search for, may be null
@@ -2605,7 +2605,7 @@ public class StringUtils {
      * StringUtils.replace("abaa", "a", "z", 2)   = "zbza"
      * StringUtils.replace("abaa", "a", "z", -1)  = "zbzz"
      * </pre>
-     * 
+     *
      * @param text  text to search and replace in, may be null
      * @param repl  the String to search for, may be null
      * @param with  the String to replace with, may be null
@@ -2640,14 +2640,14 @@ public class StringUtils {
      *
      * <p>A <code>null</code> string input returns <code>null</code>.
      * An empty ("") string input returns an empty string.</p>
-     * 
+     *
      * <pre>
      * StringUtils.replaceChars(null, *, *)        = null
      * StringUtils.replaceChars("", *, *)          = ""
      * StringUtils.replaceChars("abcba", 'b', 'y') = "aycya"
      * StringUtils.replaceChars("abcba", 'z', 'y') = "abcba"
      * </pre>
-     * 
+     *
      * @param str  String to replace characters in, may be null
      * @param searchChar  the character to search for, may be null
      * @param replaceChar  the character to replace, may be null
@@ -2667,18 +2667,18 @@ public class StringUtils {
      *
      * <p>For example:<br />
      * <code>replaceChars(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;) = jelly</code>.</p>
-     * 
+     *
      * <p>A <code>null</code> string input returns <code>null</code>.
      * An empty ("") string input returns an empty string.
      * A null or empty set of search characters returns the input string.</p>
-     * 
+     *
      * <p>The length of the search characters should normally equal the length
      * of the replace characters.
      * If the search characters is longer, then the extra search characters
      * are deleted.
      * If the search characters is shorter, then the extra replace characters
      * are ignored.</p>
-     * 
+     *
      * <pre>
      * StringUtils.replaceChars(null, *, *)           = null
      * StringUtils.replaceChars("", *, *)             = ""
@@ -2690,7 +2690,7 @@ public class StringUtils {
      * StringUtils.replaceChars("abcba", "bc", "y")   = "ayya"
      * StringUtils.replaceChars("abcba", "bc", "yzx") = "ayzya"
      * </pre>
-     * 
+     *
      * @param str  String to replace characters in, may be null
      * @param searchChars  a set of characters to search for, may be null
      * @param replaceChars  a set of characters to replace, may be null
@@ -2749,7 +2749,7 @@ public class StringUtils {
      * StringUtils.overlayString("abcdef", "zzzz", -1, 4) = IndexOutOfBoundsException
      * StringUtils.overlayString("abcdef", "zzzz", 2, 8)  = IndexOutOfBoundsException
      * </pre>
-     * 
+     *
      * @param text  the String to do overlaying in, may be null
      * @param overlay  the String to overlay, may be null
      * @param start  the position to start overlaying at, must be valid
@@ -2770,7 +2770,7 @@ public class StringUtils {
 
     /**
      * <p>Overlays part of a String with another String.</p>
-     * 
+     *
      * <p>A <code>null</code> string input returns <code>null</code>.
      * A negative index is treated as zero.
      * An index greater than the string length is treated as the string length.
@@ -2789,7 +2789,7 @@ public class StringUtils {
      * StringUtils.overlay("abcdef", "zzzz", -2, -3) = "zzzzabcdef"
      * StringUtils.overlay("abcdef", "zzzz", 8, 10)  = "abcdefzzzz"
      * </pre>
-     * 
+     *
      * @param str  the String to do overlaying in, may be null
      * @param overlay  the String to overlay, may be null
      * @param start  the position to start overlaying at
@@ -2925,7 +2925,7 @@ public class StringUtils {
     /**
      * <p>Remove any &quot;\n&quot; if and only if it is at the end
      * of the supplied String.</p>
-     * 
+     *
      * @param str  the String to chomp from, must not be null
      * @return String without chomped ending
      * @throws NullPointerException if str is <code>null</code>
@@ -2938,7 +2938,7 @@ public class StringUtils {
 
     /**
      * <p>Remove a value if and only if the String ends with that value.</p>
-     * 
+     *
      * @param str  the String to chomp from, must not be null
      * @param sep  the String to chomp, must not be null
      * @return String without chomped ending
@@ -2958,7 +2958,7 @@ public class StringUtils {
         }
     }
 
-    /** 
+    /**
      * <p>Remove everything and return the last value of a supplied String, and
      * everything after it from a String.</p>
      *
@@ -2981,7 +2981,7 @@ public class StringUtils {
         }
     }
 
-    /** 
+    /**
      * <p>Remove the first value of a supplied String, and everything before it
      * from a String.</p>
      *
@@ -3001,7 +3001,7 @@ public class StringUtils {
         }
     }
 
-    /** 
+    /**
      * <p>Remove and return everything before the first value of a
      * supplied String from another String.</p>
      *
@@ -3211,7 +3211,7 @@ public class StringUtils {
      * <p>Right pad a String with spaces (' ').</p>
      *
      * <p>The String is padded to the size of <code>size</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.rightPad(null, *)   = null
      * StringUtils.rightPad("", 3)     = "   "
@@ -3436,7 +3436,7 @@ public class StringUtils {
     /**
      * <p>Centers a String in a larger String of size <code>size</code>
      * using the space character (' ').<p>
-     * 
+     *
      * <p>If the size is less than the String length, the String is returned.
      * A <code>null</code> String returns <code>null</code>.
      * A negative size is treated as zero.</p>
@@ -3451,7 +3451,7 @@ public class StringUtils {
      * StringUtils.center("abcd", 2) = "abcd"
      * StringUtils.center("a", 4)    = " a  "
      * </pre>
-     * 
+     *
      * @param str  the String to center, may be null
      * @param size  the int size of new String, negative treated as zero
      * @return centered String, <code>null</code> if null String input
@@ -3477,7 +3477,7 @@ public class StringUtils {
      * StringUtils.center("a", 4, ' ')    = " a  "
      * StringUtils.center("a", 4, 'y')    = "yayy"
      * </pre>
-     * 
+     *
      * @param str  the String to center, may be null
      * @param size  the int size of new String, negative treated as zero
      * @param padChar  the character to pad the new String with
@@ -3517,7 +3517,7 @@ public class StringUtils {
      * StringUtils.center("abc", 7, null) = "  abc  "
      * StringUtils.center("abc", 7, "")   = "  abc  "
      * </pre>
-     * 
+     *
      * @param str  the String to center, may be null
      * @param size  the int size of new String, negative treated as zero
      * @param padStr  the String to pad the new String with, must not be null or empty
@@ -3545,15 +3545,15 @@ public class StringUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Converts a String to upper case as per {@link String#toUpperCase()}.</p>
-     * 
+     *
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.upperCase(null)  = null
      * StringUtils.upperCase("")    = ""
      * StringUtils.upperCase("aBc") = "ABC"
      * </pre>
-     * 
+     *
      * @param str  the String to upper case, may be null
      * @return the upper cased String, <code>null</code> if null String input
      */
@@ -3566,15 +3566,15 @@ public class StringUtils {
 
     /**
      * <p>Converts a String to lower case as per {@link String#toLowerCase()}.</p>
-     * 
+     *
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.lowerCase(null)  = null
      * StringUtils.lowerCase("")    = ""
      * StringUtils.lowerCase("aBc") = "abc"
      * </pre>
-     * 
+     *
      * @param str  the String to lower case, may be null
      * @return the lower cased String, <code>null</code> if null String input
      */
@@ -3588,17 +3588,17 @@ public class StringUtils {
     /**
      * <p>Capitalizes a String changing the first letter to title case as
      * per {@link Character#toTitleCase(char)}. No other letters are changed.</p>
-     * 
+     *
      * <p>For a word based algorithm, see {@link WordUtils#capitalize(String)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.capitalize(null)  = null
      * StringUtils.capitalize("")    = ""
      * StringUtils.capitalize("cat") = "Cat"
      * StringUtils.capitalize("cAt") = "CAt"
      * </pre>
-     * 
+     *
      * @param str  the String to capitalize, may be null
      * @return the capitalized String, <code>null</code> if null String input
      * @see WordUtils#capitalize(String)
@@ -3619,7 +3619,7 @@ public class StringUtils {
     /**
      * <p>Capitalizes a String changing the first letter to title case as
      * per {@link Character#toTitleCase(char)}. No other letters are changed.</p>
-     * 
+     *
      * @param str  the String to capitalize, may be null
      * @return the capitalized String, <code>null</code> if null String input
      * @deprecated Use the standardly named {@link #capitalize(String)}.
@@ -3632,17 +3632,17 @@ public class StringUtils {
     /**
      * <p>Uncapitalizes a String changing the first letter to title case as
      * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
-     * 
+     *
      * <p>For a word based algorithm, see {@link WordUtils#uncapitalize(String)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.uncapitalize(null)  = null
      * StringUtils.uncapitalize("")    = ""
      * StringUtils.uncapitalize("Cat") = "cat"
      * StringUtils.uncapitalize("CAT") = "cAT"
      * </pre>
-     * 
+     *
      * @param str  the String to uncapitalize, may be null
      * @return the uncapitalized String, <code>null</code> if null String input
      * @see WordUtils#uncapitalize(String)
@@ -3663,7 +3663,7 @@ public class StringUtils {
     /**
      * <p>Uncapitalizes a String changing the first letter to title case as
      * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
-     * 
+     *
      * @param str  the String to uncapitalize, may be null
      * @return the uncapitalized String, <code>null</code> if null String input
      * @deprecated Use the standardly named {@link #uncapitalize(String)}.
@@ -3676,27 +3676,27 @@ public class StringUtils {
     /**
      * <p>Swaps the case of a String changing upper and title case to
      * lower case, and lower case to upper case.</p>
-     * 
+     *
      * <ul>
      *  <li>Upper case character converts to Lower case</li>
      *  <li>Title case character converts to Lower case</li>
      *  <li>Lower case character converts to Upper case</li>
      * </ul>
-     * 
+     *
      * <p>For a word based algorithm, see {@link WordUtils#swapCase(String)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.swapCase(null)                 = null
      * StringUtils.swapCase("")                   = ""
      * StringUtils.swapCase("The dog has a BONE") = "tHE DOG HAS A bone"
      * </pre>
-     * 
+     *
      * <p>NOTE: This method changed in Lang version 2.0.
      * It no longer performs a word based algorithm.
      * If you only use ASCII, you will notice no change.
      * That functionality is available in WordUtils.</p>
-     * 
+     *
      * @param str  the String to swap case, may be null
      * @return the changed String, <code>null</code> if null String input
      */
@@ -3744,7 +3744,7 @@ public class StringUtils {
      * <p>Counts how many times the substring appears in the larger String.</p>
      *
      * <p>A <code>null</code> or empty ("") String input returns <code>0</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.countMatches(null, *)       = 0
      * StringUtils.countMatches("", *)         = 0
@@ -3779,7 +3779,7 @@ public class StringUtils {
      *
      * <p><code>null</code> will return <code>false</code>.
      * An empty String ("") will return <code>true</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isAlpha(null)   = false
      * StringUtils.isAlpha("")     = true
@@ -3811,7 +3811,7 @@ public class StringUtils {
      *
      * <p><code>null</code> will return <code>false</code>
      * An empty String ("") will return <code>true</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isAlphaSpace(null)   = false
      * StringUtils.isAlphaSpace("")     = true
@@ -3844,7 +3844,7 @@ public class StringUtils {
      *
      * <p><code>null</code> will return <code>false</code>.
      * An empty String ("") will return <code>true</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isAlphanumeric(null)   = false
      * StringUtils.isAlphanumeric("")     = true
@@ -3878,7 +3878,7 @@ public class StringUtils {
      *
      * <p><code>null</code> will return <code>false</code>.
      * An empty String ("") will return <code>true</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isAlphanumeric(null)   = false
      * StringUtils.isAlphanumeric("")     = true
@@ -3912,7 +3912,7 @@ public class StringUtils {
      *
      * <p><code>null</code> will return <code>false</code>.
      * An empty String ("") will return <code>true</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isNumeric(null)   = false
      * StringUtils.isNumeric("")     = true
@@ -3947,7 +3947,7 @@ public class StringUtils {
      *
      * <p><code>null</code> will return <code>false</code>.
      * An empty String ("") will return <code>true</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isNumeric(null)   = false
      * StringUtils.isNumeric("")     = true
@@ -3981,7 +3981,7 @@ public class StringUtils {
      *
      * <p><code>null</code> will return <code>false</code>.
      * An empty String ("") will return <code>true</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isWhitespace(null)   = false
      * StringUtils.isWhitespace("")     = true
@@ -4011,15 +4011,15 @@ public class StringUtils {
     // Defaults
     //-----------------------------------------------------------------------
     /**
-     * <p>Returns either the passed in String, 
+     * <p>Returns either the passed in String,
      * or if the String is <code>null</code>, an empty String ("").</p>
-     * 
+     *
      * <pre>
      * StringUtils.defaultString(null)  = ""
      * StringUtils.defaultString("")    = ""
      * StringUtils.defaultString("bat") = "bat"
      * </pre>
-     * 
+     *
      * @see ObjectUtils#toString(Object)
      * @see String#valueOf(Object)
      * @param str  the String to check, may be null
@@ -4031,19 +4031,19 @@ public class StringUtils {
     }
 
     /**
-     * <p>Returns either the passed in String, 
+     * <p>Returns either the passed in String,
      * or if the String is <code>null</code>, an empty String ("").</p>
-     * 
+     *
      * <pre>
      * StringUtils.defaultString(null, "null")  = "null"
      * StringUtils.defaultString("", "null")    = ""
      * StringUtils.defaultString("bat", "null") = "bat"
      * </pre>
-     * 
+     *
      * @see ObjectUtils#toString(Object,String)
      * @see String#valueOf(Object)
      * @param str  the String to check, may be null
-     * @param defaultStr  the default String to return 
+     * @param defaultStr  the default String to return
      *  if the input is <code>null</code>, may be null
      * @return the passed in String, or the default if it was <code>null</code>
      */
@@ -4057,13 +4057,13 @@ public class StringUtils {
      * <p>Reverses a String as per {@link StringBuffer#reverse()}.</p>
      *
      * <p><A code>null</code> String returns <code>null</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.reverse(null)  = null
      * StringUtils.reverse("")    = ""
      * StringUtils.reverse("bat") = "tab"
      * </pre>
-     * 
+     *
      * @param str  the String to reverse, may be null
      * @return the reversed String, <code>null</code> if null String input
      */
@@ -4080,14 +4080,14 @@ public class StringUtils {
      * <p>The Strings between the delimiters are not reversed.
      * Thus java.lang.String becomes String.lang.java (if the delimiter
      * is <code>'.'</code>).</p>
-     * 
+     *
      * <pre>
      * StringUtils.reverseDelimited(null, *)      = null
      * StringUtils.reverseDelimited("", *)        = ""
      * StringUtils.reverseDelimited("a.b.c", 'x') = "a.b.c"
      * StringUtils.reverseDelimited("a.b.c", ".") = "c.b.a"
      * </pre>
-     * 
+     *
      * @param str  the String to reverse, may be null
      * @param separatorChar  the separator character to use
      * @return the reversed String, <code>null</code> if null String input
@@ -4097,7 +4097,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        // could implement manually, but simple way is to reuse other, 
+        // could implement manually, but simple way is to reuse other,
         // probably slower, methods.
         String[] strs = split(str, separatorChar);
         ArrayUtils.reverse(strs);
@@ -4110,27 +4110,27 @@ public class StringUtils {
      * <p>The Strings between the delimiters are not reversed.
      * Thus java.lang.String becomes String.lang.java (if the delimiter
      * is <code>"."</code>).</p>
-     * 
+     *
      * <pre>
      * StringUtils.reverseDelimitedString(null, *)       = null
      * StringUtils.reverseDelimitedString("",*)          = ""
      * StringUtils.reverseDelimitedString("a.b.c", null) = "a.b.c"
      * StringUtils.reverseDelimitedString("a.b.c", ".")  = "c.b.a"
      * </pre>
-     * 
+     *
      * @param str  the String to reverse, may be null
      * @param separatorChars  the separator characters to use, null treated as whitespace
      * @return the reversed String, <code>null</code> if null String input
      * @deprecated Use {@link #reverseDelimited(String, char)} instead.
      *      This method is broken as the join doesn't know which char to use.
      *      Method will be removed in Commons Lang 3.0.
-     * 
+     *
      */
     public static String reverseDelimitedString(String str, String separatorChars) {
         if (str == null) {
             return null;
         }
-        // could implement manually, but simple way is to reuse other, 
+        // could implement manually, but simple way is to reuse other,
         // probably slower, methods.
         String[] strs = split(str, separatorChars);
         ArrayUtils.reverse(strs);
@@ -4143,7 +4143,7 @@ public class StringUtils {
     // Abbreviating
     //-----------------------------------------------------------------------
     /**
-     * <p>Abbreviates a String using ellipses. This will turn 
+     * <p>Abbreviates a String using ellipses. This will turn
      * "Now is the time for all good men" into "Now is the time for..."</p>
      *
      * <p>Specifically:
@@ -4179,7 +4179,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Abbreviates a String using ellipses. This will turn 
+     * <p>Abbreviates a String using ellipses. This will turn
      * "Now is the time for all good men" into "...is the time for..."</p>
      *
      * <p>Works like <code>abbreviate(String, int)</code>, but allows you to specify
@@ -4264,7 +4264,7 @@ public class StringUtils {
      *
      * @param str1  the first String, may be null
      * @param str2  the second String, may be null
-     * @return the portion of str2 where it differs from str1; returns the 
+     * @return the portion of str2 where it differs from str1; returns the
      * empty String if they are equal
      * @since 2.0
      */
@@ -4285,8 +4285,8 @@ public class StringUtils {
     /**
      * <p>Compares two Strings, and returns the index at which the
      * Strings begin to differ.</p>
-     * 
-     * <p>For example, 
+     *
+     * <p>For example,
      * <code>indexOfDifference("i am a machine", "i am a robot") -> 7</code></p>
      *
      * <pre>
@@ -4330,7 +4330,7 @@ public class StringUtils {
      * <p>Find the Levenshtein distance between two Strings.</p>
      *
      * <p>This is the number of changes needed to change one String into
-     * another, where each change is a single character modification (deletion, 
+     * another, where each change is a single character modification (deletion,
      * insertion or substitution).</p>
      *
      * <p>This implementation of the Levenshtein distance algorithm
@@ -4349,7 +4349,7 @@ public class StringUtils {
      * StringUtils.getLevenshteinDistance("hippo", "zzzzzzzz") = 8
      * StringUtils.getLevenshteinDistance("hello", "hallo")    = 1
      * </pre>
-     * 
+     *
      * @param s  the first String, must not be null
      * @param t  the second String, must not be null
      * @return result distance
@@ -4414,7 +4414,7 @@ public class StringUtils {
 
     /**
      * <p>Gets the minimum of three <code>int</code> values.</p>
-     * 
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
