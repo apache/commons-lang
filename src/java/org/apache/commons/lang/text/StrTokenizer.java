@@ -73,7 +73,7 @@ import java.util.ListIterator;
  * @author Stephen Colebourne
  * @author Gary D. Gregory
  * @since 2.1
- * @version $Id: StrTokenizer.java,v 1.2 2004/12/23 18:55:48 mattinger Exp $
+ * @version $Id: StrTokenizer.java,v 1.3 2004/12/25 20:30:16 bayard Exp $
  */
 public class StrTokenizer implements ListIterator, Cloneable {
 
@@ -705,6 +705,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
         int delimLen = 0;
         int quoteLen = 0;
         while (start < len &&
+                (ignoreLen = ignored.isMatch(chars, len, start)) >= 1 &&
                 (delimLen = delim.isMatch(chars, len, start)) < 1 &&
                 (quoteLen = quote.isMatch(chars, len, start)) < 1) {
             start += ignoreLen;
