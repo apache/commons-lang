@@ -112,7 +112,7 @@ import java.lang.reflect.Modifier;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.16 2003/07/21 23:30:42 scolebourne Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.17 2003/07/25 23:03:30 ggregory Exp $
  */
 public class HashCodeBuilder {
 
@@ -446,7 +446,7 @@ public class HashCodeBuilder {
      * @return this
      */
     public HashCodeBuilder append(short value) {
-        iTotal = iTotal * iConstant + (int) value;
+        iTotal = iTotal * iConstant + value;
         return this;
     }
 
@@ -457,7 +457,7 @@ public class HashCodeBuilder {
      * @return this
      */
     public HashCodeBuilder append(char value) {
-        iTotal = iTotal * iConstant + (int) value;
+        iTotal = iTotal * iConstant + value;
         return this;
     }
 
@@ -468,7 +468,7 @@ public class HashCodeBuilder {
      * @return this
      */
     public HashCodeBuilder append(byte value) {
-        iTotal = iTotal * iConstant + (int) value;
+        iTotal = iTotal * iConstant + value;
         return this;
     }
 
