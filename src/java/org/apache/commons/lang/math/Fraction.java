@@ -65,29 +65,62 @@ import java.io.Serializable;
  * @author Travis Reeder
  * @author Stephen Colebourne
  * @author Tim O'Brien
+ * @author Pete Gieser
  * @since 2.0
- * @version $Id: Fraction.java,v 1.9 2003/08/13 23:42:17 scolebourne Exp $
+ * @version $Id: Fraction.java,v 1.10 2003/08/16 11:14:01 scolebourne Exp $
  */
 public final class Fraction extends Number implements Serializable, Comparable {
 
     /** Serialization lock, Lang version 2.0 */
     private static final long serialVersionUID = 65382027393090L;
 
+    /**
+     * <code>Fraction</code> representation of 0.
+     */
     public static final Fraction ZERO = new Fraction(0, 1);
+    /**
+     * <code>Fraction</code> representation of 1.
+     */
     public static final Fraction ONE = new Fraction(1, 1);
-
+    /**
+     * <code>Fraction</code> representation of 1/2.
+     */
     public static final Fraction ONE_HALF = new Fraction(1, 2);
-
+    /**
+     * <code>Fraction</code> representation of 1/3.
+     */
     public static final Fraction ONE_THIRD = new Fraction(1, 3);
+    /**
+     * <code>Fraction</code> representation of 2/3.
+     */
     public static final Fraction TWO_THIRDS = new Fraction(2, 3);
-
+    /**
+     * <code>Fraction</code> representation of 1/4.
+     */
     public static final Fraction ONE_QUARTER = new Fraction(1, 4);
+    /**
+     * <code>Fraction</code> representation of 2/4.
+     */
     public static final Fraction TWO_QUARTERS = new Fraction(2, 4);
+    /**
+     * <code>Fraction</code> representation of 3/4.
+     */
     public static final Fraction THREE_QUARTERS = new Fraction(3, 4);
-
+    /**
+     * <code>Fraction</code> representation of 1/5.
+     */
     public static final Fraction ONE_FIFTH = new Fraction(1, 5);
+    /**
+     * <code>Fraction</code> representation of 2/5.
+     */
     public static final Fraction TWO_FIFTHS = new Fraction(2, 5);
+    /**
+     * <code>Fraction</code> representation of 3/5.
+     */
     public static final Fraction THREE_FIFTHS = new Fraction(3, 5);
+    /**
+     * <code>Fraction</code> representation of 4/5.
+     */
     public static final Fraction FOUR_FIFTHS = new Fraction(4, 5);
 
 

@@ -72,8 +72,9 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
+ * @author Pete Gieser
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.23 2003/08/01 20:45:17 scolebourne Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.24 2003/08/16 11:04:46 scolebourne Exp $
  */
 public class StringEscapeUtils {
 
@@ -308,6 +309,7 @@ public class StringEscapeUtils {
      * @param out  the <code>Writer</code> used to output unescaped characters
      * @param str  the <code>String</code> to unescape, may be null
      * @throws IllegalArgumentException if the Writer is <code>null</code>
+     * @throws IOException if error occurs on undelying Writer
      */
     public static void unescapeJava(Writer out, String str) throws IOException {
         if (out == null) {
@@ -422,6 +424,7 @@ public class StringEscapeUtils {
      * @param out  the <code>Writer</code> used to output unescaped characters
      * @param str  the <code>String</code> to unescape, may be null
      * @throws IllegalArgumentException if the Writer is <code>null</code>
+     * @throws IOException if error occurs on undelying Writer
      */
     public static void unescapeJavaScript(Writer out, String str) throws IOException {
         unescapeJava(out, str);

@@ -56,14 +56,14 @@ package org.apache.commons.lang.util;
 /**
  * <p>Manage operations dealing with bit-mapped fields.</p>
  *
- * <p>Code originated from the POI project.</p>
- *
+ * @author Apache Jakarta POI
  * @author Scott Sanders (sanders at apache dot org)
  * @author Marc Johnson (mjohnson at apache dot org)
  * @author Andrew C. Oliver (acoliver at apache dot org)
  * @author Stephen Colebourne
+ * @author Pete Gieser
  * @since 2.0
- * @version $Id: BitField.java,v 1.6 2003/07/14 22:25:06 bayard Exp $
+ * @version $Id: BitField.java,v 1.7 2003/08/16 11:08:49 scolebourne Exp $
  */
 public class BitField {
     
@@ -100,6 +100,7 @@ public class BitField {
      * value is stored as a BitField (and so shifted left so many
      * bits).</p>
      *
+     * @see #setValue
      * @param holder the int data containing the bits we're interested
      *  in
      * @return the selected bits, shifted right appropriately
@@ -117,6 +118,7 @@ public class BitField {
      * value is stored as a BitField (and so shifted left so many
      * bits).</p>
      *
+     * @see #setShortValue
      * @param holder the short data containing the bits we're
      *  interested in
      * @return the selected bits, shifted right appropriately
@@ -183,6 +185,7 @@ public class BitField {
     /**
      * <p>Replace the bits with new values.</p>
      *
+     * @see #getValue
      * @param holder the int data containint the bits we're
      *  interested in
      * @param value the new value for the specified bits
@@ -196,6 +199,7 @@ public class BitField {
     /**
      * <p>Replace the bits with new values.</p>
      *
+     * @see #getShortValue
      * @param holder the short data containing the bits we're
      *  interested in
      * @param value the new value for the specified bits

@@ -74,7 +74,7 @@ import java.util.TimeZone;
  * @author Janek Bogucki
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.12 2003/08/15 16:14:35 bayard Exp $
+ * @version $Id: DateUtils.java,v 1.13 2003/08/16 11:09:26 scolebourne Exp $
  */
 public class DateUtils {
     
@@ -154,7 +154,7 @@ public class DateUtils {
     public final static int RANGE_MONTH_MONDAY = 6;
 
     /**
-     * <p><code>DateUtils<code> instances should NOT be constructed in
+     * <p><code>DateUtils</code> instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * <code>DateUtils.parse(str);</code>.</p>
      *

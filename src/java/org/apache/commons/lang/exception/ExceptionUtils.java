@@ -78,8 +78,9 @@ import org.apache.commons.lang.SystemUtils;
  * @author Dmitri Plotnikov
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Pete Gieser
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.31 2003/07/31 23:45:28 scolebourne Exp $
+ * @version $Id: ExceptionUtils.java,v 1.32 2003/08/16 11:15:20 scolebourne Exp $
  */
 public class ExceptionUtils {
     
@@ -180,9 +181,9 @@ public class ExceptionUtils {
      * <p>Introspects the <code>Throwable</code> to obtain the cause.</p>
      * 
      * <ol>
-     * <li>Try known exception types.</p>
-     * <li>Try the supplied array of method names.</p>
-     * <li>Try the field 'detail'.</p>
+     * <li>Try known exception types.</li>
+     * <li>Try the supplied array of method names.</li>
+     * <li>Try the field 'detail'.</li>
      * </ol>
      * 
      * <p>A <code>null</code> set of method names means use the default set.
