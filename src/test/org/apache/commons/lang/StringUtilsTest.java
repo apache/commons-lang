@@ -67,7 +67,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTest.java,v 1.1 2002/07/19 03:35:55 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.2 2002/07/23 05:21:27 bayard Exp $
  */
 public class StringUtilsTest extends TestCase
 {
@@ -142,6 +142,8 @@ public class StringUtilsTest extends TestCase
 
     public void testJoin()
     {
+        assertEquals("concatenate(Object[]) failed", 
+                     "foobarbaz", StringUtils.concatenate(ARRAY_LIST));
         assertEquals("join(Object[], String) failed", TEXT_LIST,
                      StringUtils.join(ARRAY_LIST, SEPARATOR));
         assertEquals("join(Iterator, String) failed", TEXT_LIST,
