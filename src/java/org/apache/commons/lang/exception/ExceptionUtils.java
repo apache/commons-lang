@@ -80,7 +80,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.35 2003/09/07 14:32:35 psteitz Exp $
+ * @version $Id: ExceptionUtils.java,v 1.36 2003/11/04 00:04:40 dlr Exp $
  */
 public class ExceptionUtils {
     
@@ -173,6 +173,7 @@ public class ExceptionUtils {
      * @param throwable  the throwable to introspect for a cause, may be null
      * @return the cause of the <code>Throwable</code>,
      *  <code>null</code> if none found or null throwable input
+     * @since 1.0
      */
     public static Throwable getCause(Throwable throwable) {
         return getCause(throwable, CAUSE_METHOD_NAMES);
@@ -194,6 +195,7 @@ public class ExceptionUtils {
      * @param methodNames  the method names, null treated as default set
      * @return the cause of the <code>Throwable</code>,
      *  <code>null</code> if none found or null throwable input
+     * @since 1.0
      */
     public static Throwable getCause(Throwable throwable, String[] methodNames) {
         if (throwable == null) {
