@@ -44,7 +44,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Maarten Coene
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.48 2004/10/09 11:55:51 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.49 2004/10/10 18:56:16 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -955,30 +955,7 @@ public class ArrayUtils {
             return Array.getLength(array);
         }
     }
-    
-    /**
-     * Returns the last index of the given array or -1 if empty or null.
-     * This method can deal with <code>Object</code> arrays and with primitive arrays.
-     * This value is one less than the size since arrays indices are 0-based.</p>
-     *
-     * <pre>
-     * ArrayUtils.lastIndex(null)            = -1
-     * ArrayUtils.lastIndex([])              = -1
-     * ArrayUtils.lastIndex([null])          = 0
-     * ArrayUtils.lastIndex([true, false])   = 1
-     * ArrayUtils.lastIndex([1, 2, 3])       = 2
-     * ArrayUtils.lastIndex(["a", "b", "c"]) = 2
-     * </pre>
-     *  
-     * @param array  the array to return the last index for, may be null
-     * @return the last index, -1 if empty or null
-     * @throws IllegalArgumentException if the object arguement is not an array.
-     * @since 2.1
-     */
-    public static int lastIndex(Object array) {
-        return ArrayUtils.getLength(array) - 1;
-    }
-    
+
     /**
      * <p>Checks whether two arrays are the same type taking into account
      * multi-dimensional arrays.</p>

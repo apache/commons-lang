@@ -38,7 +38,7 @@ import junit.textui.TestRunner;
  * @author Fredrik Westermarck
  * @author Gary Gregory
  * @author Maarten Coene
- * @version $Id: ArrayUtilsTest.java,v 1.28 2004/08/25 21:20:13 ggregory Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.29 2004/10/10 18:56:16 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -2490,62 +2490,5 @@ public class ArrayUtilsTest extends TestCase {
             fail("IllegalArgumentException should have been thrown");
         } catch (IllegalArgumentException e) {}
     }
-    
-    public void testLastIndex() {
-        assertEquals(-1, ArrayUtils.lastIndex(null));
-        
-        Object[] emptyObjectArray = new Object[0];
-        Object[] notEmptyObjectArray = new Object[] {"aValue"};
-        assertEquals(-1, ArrayUtils.lastIndex((Object[]) null));
-        assertEquals(-1, ArrayUtils.lastIndex(emptyObjectArray));
-        assertEquals(0, ArrayUtils.lastIndex(notEmptyObjectArray));
- 
-        int[] emptyIntArray = new int[] {};
-        int[] notEmptyIntArray = new int[] { 1 };
-        assertEquals(-1, ArrayUtils.lastIndex((int[]) null));
-        assertEquals(-1, ArrayUtils.lastIndex(emptyIntArray));
-        assertEquals(0, ArrayUtils.lastIndex(notEmptyIntArray));
 
-        short[] emptyShortArray = new short[] {};
-        short[] notEmptyShortArray = new short[] { 1 };
-        assertEquals(-1, ArrayUtils.lastIndex((short[]) null));
-        assertEquals(-1, ArrayUtils.lastIndex(emptyShortArray));
-        assertEquals(0, ArrayUtils.lastIndex(notEmptyShortArray));
-
-        char[] emptyCharArray = new char[] {};
-        char[] notEmptyCharArray = new char[] { 1 };
-        assertEquals(-1, ArrayUtils.lastIndex((char[]) null));
-        assertEquals(-1, ArrayUtils.lastIndex(emptyCharArray));
-        assertEquals(0, ArrayUtils.lastIndex(notEmptyCharArray));
-
-        byte[] emptyByteArray = new byte[] {};
-        byte[] notEmptyByteArray = new byte[] { 1 };
-        assertEquals(-1, ArrayUtils.lastIndex((byte[]) null));
-        assertEquals(-1, ArrayUtils.lastIndex(emptyByteArray));
-        assertEquals(0, ArrayUtils.lastIndex(notEmptyByteArray));
-
-        double[] emptyDoubleArray = new double[] {};
-        double[] notEmptyDoubleArray = new double[] { 1.0 };
-        assertEquals(-1, ArrayUtils.lastIndex((double[]) null));
-        assertEquals(-1, ArrayUtils.lastIndex(emptyDoubleArray));
-        assertEquals(0, ArrayUtils.lastIndex(notEmptyDoubleArray));
-
-        float[] emptyFloatArray = new float[] {};
-        float[] notEmptyFloatArray = new float[] { 1.0F };
-        assertEquals(-1, ArrayUtils.lastIndex((float[]) null));
-        assertEquals(-1, ArrayUtils.lastIndex(emptyFloatArray));
-        assertEquals(0, ArrayUtils.lastIndex(notEmptyFloatArray));
-
-        boolean[] emptyBooleanArray = new boolean[] {};
-        boolean[] notEmptyBooleanArray = new boolean[] { true };
-        assertEquals(-1, ArrayUtils.lastIndex((boolean[]) null));
-        assertEquals(-1, ArrayUtils.lastIndex(emptyBooleanArray));
-        assertEquals(0, ArrayUtils.lastIndex(notEmptyBooleanArray));
-        
-        try {
-            ArrayUtils.lastIndex("notAnArray");
-            fail("IllegalArgumentException should have been thrown");
-        } catch (IllegalArgumentException e) {}
-    }
-    
 }
