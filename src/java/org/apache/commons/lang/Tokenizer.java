@@ -70,7 +70,7 @@ import java.util.ListIterator;
  * @author Stephen Colebourne
  * @author Gary D. Gregory
  * @since 2.1
- * @version $Id: Tokenizer.java,v 1.8 2004/08/28 09:21:05 scolebourne Exp $
+ * @version $Id: Tokenizer.java,v 1.9 2004/08/28 11:46:19 scolebourne Exp $
  */
 public class Tokenizer implements ListIterator, Cloneable {
 
@@ -548,7 +548,7 @@ public class Tokenizer implements ListIterator, Cloneable {
             if (start == len && delim.isMatch(chars[start - 1])) {
                 // Add the token, following the rules
                 // in this object
-                addToken(tokens, new String());
+                addToken(tokens, StringUtils.EMPTY);
             }
         }
 
@@ -629,12 +629,12 @@ public class Tokenizer implements ListIterator, Cloneable {
         // Loop until we've found the end of the quoted
         // string or the end of the input
         int cbufcnt = 0;
-        int end = start + 1;
+        int pos = start + 1;
         boolean done = false;
         boolean quoting = true;
         int len = chars.length;
 
-        while (end < len && !done) {
+        while (pos < len && !done) {
             // Quoting mode can occur several times throughout
             // a given string, so must switch between quoting
             // and non-quoting until we encounter a non-quoted
@@ -645,21 +645,21 @@ public class Tokenizer implements ListIterator, Cloneable {
                 // followed by a second quote.  If so, then we need
                 // to actually put the quote character into the token
                 // rather than end the token.
-                if (quote.isMatch(chars[end]) &&
-                        end + 1 < len &&
-                        chars[end + 1] == chars[end]) {
-                    cbuf[cbufcnt++] = chars[end];
-                    end++;
+                if (quote.isMatch(chars[pos]) &&
+                        pos + 1 < len &&
+                        chars[pos + 1] == chars[pos]) {
+                    cbuf[cbufcnt++] = chars[pos];
+                    pos++;
                 }
                 // End the quoting if we get to this condition
-                else if (quote.isMatch(chars[end])) {
+                else if (quote.isMatch(chars[pos])) {
                     quoting = false;
                 }
                 // Otherwise, just put the character into the token
                 else {
-                    cbuf[cbufcnt++] = chars[end];
+                    cbuf[cbufcnt++] = chars[pos];
                 }
-                end++;
+                pos++;
             }
             // If we're not in quoting mode, if we encounter
             // a delimiter, the token is ended.  If we encounter
@@ -667,22 +667,22 @@ public class Tokenizer implements ListIterator, Cloneable {
             // the character
             else {
                 // If we're
-                if (delim.isMatch(chars[end])) {
+                if (delim.isMatch(chars[pos])) {
                     done = true;
                 } else {
-                    if (quote.isMatch(chars[end])) {
+                    if (quote.isMatch(chars[pos])) {
                         quoting = true;
                     } else {
-                        cbuf[cbufcnt++] = chars[end];
+                        cbuf[cbufcnt++] = chars[pos];
                     }
-                    end++;
+                    pos++;
                 }
             }
         }
 
         token.append(cbuf, 0, cbufcnt);
 
-        return end + 1;
+        return pos + 1;
     }
 
     /**
@@ -698,14 +698,14 @@ public class Tokenizer implements ListIterator, Cloneable {
         int len = chars.length;
         // Skip ahead until we get to a delimiter character, or
         // the end of the input
-        int end = start + 1;
-        while (end < len && !delim.isMatch(chars[end])) {
-            end++;
+        int pos = start + 1;
+        while (pos < len && !delim.isMatch(chars[pos])) {
+            pos++;
         }
 
-        token.append(chars, start, Math.min(end, len) - start);
+        token.append(chars, start, Math.min(pos, len) - start);
 
-        return end + 1;
+        return pos + 1;
     }
 
     /**
@@ -1001,7 +1001,7 @@ public class Tokenizer implements ListIterator, Cloneable {
         }
 
         /**
-         * Returns whether or not the given charatcer matches.
+         * Returns whether or not the given character matches.
          * 
          * @param ch the character to match.
          * @return whether or not the given charatcer matches.
