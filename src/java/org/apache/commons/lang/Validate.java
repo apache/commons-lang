@@ -35,9 +35,10 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: Validate.java,v 1.11 2004/02/19 21:04:03 fredrik Exp $
+ * @version $Id: Validate.java,v 1.12 2004/06/01 21:25:35 scolebourne Exp $
  */
 public class Validate {
+    // Validate has no dependencies on other classes in Commons Lang at present
     
     /**
      * Constructor. This class should not normally be instantiated.
@@ -236,7 +237,7 @@ public class Validate {
      * @throws IllegalArgumentException if the array is empty
      */
     public static void notEmpty(Object[] array, String message) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (array == null || array.length == 0) {
             throw new IllegalArgumentException(message);
         }
     }
@@ -255,7 +256,7 @@ public class Validate {
      * @throws IllegalArgumentException if the array is empty
      */
     public static void notEmpty(Object[] array) {
-        if (ArrayUtils.isEmpty(array)) {
+        if (array == null || array.length == 0) {
             throw new IllegalArgumentException("The validated array is empty");
         }
     }
@@ -356,7 +357,7 @@ public class Validate {
      * @throws IllegalArgumentException if the string is empty
      */
     public static void notEmpty(String string, String message) {
-        if (StringUtils.isEmpty(string)) {
+        if (string == null || string.length() == 0) {
             throw new IllegalArgumentException(message);
         }
     }
@@ -375,7 +376,7 @@ public class Validate {
      * @throws IllegalArgumentException if the string is empty
      */
     public static void notEmpty(String string) {
-        if (StringUtils.isEmpty(string)) {
+        if (string == null || string.length() == 0) {
             throw new IllegalArgumentException("The validated string is empty");
         }
     }
