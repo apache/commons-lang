@@ -56,7 +56,6 @@ package org.apache.commons.lang;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -72,7 +71,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.34 2003/07/20 15:41:52 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.35 2003/07/20 15:49:58 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     

@@ -55,7 +55,8 @@ package org.apache.commons.lang;
 
 import java.util.Random;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
@@ -64,7 +65,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: RandomStringUtilsTest.java,v 1.7 2003/06/09 21:36:03 scolebourne Exp $
+ * @version $Id: RandomStringUtilsTest.java,v 1.8 2003/07/20 15:49:58 scolebourne Exp $
  */
 public class RandomStringUtilsTest extends junit.framework.TestCase {
     /**

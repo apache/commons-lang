@@ -55,6 +55,7 @@ package org.apache.commons.lang;
 
 import java.io.IOException;
 import java.io.Writer;
+
 import org.apache.commons.lang.exception.NestableRuntimeException;
 
 /**
@@ -70,7 +71,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.17 2003/07/19 20:22:36 scolebourne Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.18 2003/07/20 15:49:58 scolebourne Exp $
  */
 public class StringEscapeUtils {
 

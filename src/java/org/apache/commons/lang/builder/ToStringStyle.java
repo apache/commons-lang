@@ -60,6 +60,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.SystemUtils;
+
 /**
  * <p><code>ToStringStyle</code> works with <code>ToStringBuilder</code>
  * to create a <code>toString</code>. The main public interface is always
@@ -84,7 +85,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.16 2003/07/16 01:47:39 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.17 2003/07/20 15:49:58 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     

@@ -65,6 +65,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
@@ -78,7 +79,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.25 2003/07/14 22:22:46 bayard Exp $
+ * @version $Id: ExceptionUtils.java,v 1.26 2003/07/20 15:49:58 scolebourne Exp $
  */
 public class ExceptionUtils {
     

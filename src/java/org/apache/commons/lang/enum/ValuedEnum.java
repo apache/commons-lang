@@ -55,6 +55,7 @@ package org.apache.commons.lang.enum;
 
 import java.util.Iterator;
 import java.util.List;
+
 /**
  * <p>Abstract superclass for type-safe enums with integer values suitable
  * for use in <code>switch</code> statements.</p>
@@ -130,7 +131,7 @@ import java.util.List;
  * @author Apache Avalon project
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.7 2003/07/14 22:58:31 scolebourne Exp $
+ * @version $Id: ValuedEnum.java,v 1.8 2003/07/20 15:49:58 scolebourne Exp $
  */
 public abstract class ValuedEnum extends Enum {
     /**
