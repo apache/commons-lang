@@ -15,9 +15,7 @@
  */
 package org.apache.commons.lang.time;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.mutable.MutableInt;
 
 /**
  * <p>Duration formatting utilities and constants.</p>
@@ -28,7 +26,7 @@ import org.apache.commons.lang.mutable.MutableInt;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DurationFormatUtils.java,v 1.12 2004/08/29 03:42:48 bayard Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.13 2004/09/01 17:40:55 ggregory Exp $
  */
 public class DurationFormatUtils {
 
