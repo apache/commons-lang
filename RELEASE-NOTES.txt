@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.25 2003/08/19 00:21:46 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.26 2003/08/19 02:39:59 bayard Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -32,6 +32,7 @@ Since the release of the 1.0 package the following classes have been added:
 
 lang package:
     ArrayUtils
+    BitField
     BooleanUtils
     CharRange (previously package scoped)
     ClassUtils
@@ -43,6 +44,7 @@ lang package:
     NullArgumentException
     SerializationException
     UnhandledException
+    Validate
 
 
 math sub-package:
@@ -62,11 +64,6 @@ time sub-package:
     FastDateFormat
     DateUtils
     StopWatch
-
-util sub-package: 
-    BitField
-    IdentifierUtils
-    Validate
 
 Since the release of the 1.0 package the following classes have been changed:
 
