@@ -1,14 +1,15 @@
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.23 2003/09/20 10:18:56 scolebourne Exp $
+        $Id: build.xml,v 1.24 2003/10/23 21:07:44 scolebourne Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
     <property file="${user.home}/build.properties"/>
     <property file="${basedir}/build.properties"/>
     <property file="${basedir}/default.properties"/>
-    <!-- ========== Construct compile classpath =============================== -->
+    <property name="jdk.javadoc" value="http://java.sun.com/products/jdk/1.2/docs/api/"/>
+         <!-- ========== Construct compile classpath =============================== -->
     <path id="compile.classpath">
         <pathelement location="${build.home}/classes"/>
     </path>
@@ -82,7 +83,7 @@
 	        	 windowtitle="${component.title} (Version ${component.version})"
 	        	 bottom="Copyright &amp;copy; 2001-2003 - Apache Software Foundation"
 	        	 use="true"
-	        	 link="http://java.sun.com/products/jdk/1.2/docs/api/">
+	        	 link="${jdk.javadoc}">
             <classpath refid="compile.classpath"/>
         </javadoc>
     </target>
