@@ -53,7 +53,6 @@
  */
 package org.apache.commons.lang.enum;
 
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +64,7 @@ import java.util.Map;
  * @see ValuedEnum
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: EnumUtils.java,v 1.5 2003/02/22 20:42:36 scolebourne Exp $
+ * @version $Id: EnumUtils.java,v 1.6 2003/03/06 22:50:21 scolebourne Exp $
  */
 public class EnumUtils {
 
