@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.20 2004/07/05 17:54:48 stevencaswell Exp $
+ * @version $Id: DateUtils.java,v 1.21 2004/07/05 18:07:44 stevencaswell Exp $
  */
 public class DateUtils {
     
@@ -124,7 +124,7 @@ public class DateUtils {
      * would return 1 April 2002 0:00:00.000.</p>
      * 
      * <p>For a date in a timezone that handles the change to daylight
-     * saving time, roudning to Calendar.HOUR_OF_DAY will behave as follows.
+     * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a 
      * date that crosses this time would produce the following values:
      * <ul>
@@ -161,7 +161,7 @@ public class DateUtils {
      * would return 1 April 2002 0:00:00.000.</p>
      * 
      * <p>For a date in a timezone that handles the change to daylight
-     * saving time, roudning to Calendar.HOUR_OF_DAY will behave as follows.
+     * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a 
      * date that crosses this time would produce the following values:
      * <ul>
@@ -197,7 +197,7 @@ public class DateUtils {
      * would return 1 April 2002 0:00:00.000.</p>
      * 
      * <p>For a date in a timezone that handles the change to daylight
-     * saving time, roudning to Calendar.HOUR_OF_DAY will behave as follows.
+     * saving time, rounding to Calendar.HOUR_OF_DAY will behave as follows.
      * Suppose daylight saving time begins at 02:00 on March 30. Rounding a 
      * date that crosses this time would produce the following values:
      * <ul>
