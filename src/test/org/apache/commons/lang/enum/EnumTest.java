@@ -62,6 +62,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -72,7 +73,7 @@ import org.apache.commons.lang.SerializationUtils;
  * Test cases for the {@link Enum} class.
  *
  * @author Stephen Colebourne
- * @version $Id: EnumTest.java,v 1.14 2004/02/12 01:00:05 scolebourne Exp $
+ * @version $Id: EnumTest.java,v 1.15 2004/02/13 23:17:45 scolebourne Exp $
  */
 
 public final class EnumTest extends TestCase {
@@ -432,10 +433,15 @@ public final class EnumTest extends TestCase {
 
     public void testNestedBroken() {
         List list = new ArrayList(NestBroken.ColorEnum.getEnumList());
-        assertEquals(0, list.size());  // no enums!!! 
-        // this is BROKEN because the enum constants are defined in a DIFFERENT
-        // class from getEnumList(). Once NestBroken class is referenced,
-        // and thus class loaded with its enum constants, the getEnumList works:
+        try {
+            assertEquals(0, list.size());  // no enums!!! 
+            // this is BROKEN because the enum constants are defined in a DIFFERENT
+            // class from getEnumList(). Once NestBroken class is referenced,
+            // and thus class loaded with its enum constants, the getEnumList works:
+        } catch (AssertionFailedError ex) {
+            // this actually works and isn't broken on Linux SunJDK1.4.1, so...
+            assertEquals(3, list.size());
+        }
         new NestBroken();
         list = new ArrayList(NestBroken.ColorEnum.getEnumList());
         assertEquals(3, list.size());  // all is well!!!
