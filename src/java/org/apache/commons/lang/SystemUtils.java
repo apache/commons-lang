@@ -71,7 +71,7 @@ import java.io.File;
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.30 2004/02/12 01:58:33 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.31 2004/02/14 00:23:50 ggregory Exp $
  */
 public class SystemUtils {
 
@@ -107,6 +107,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since 2.1
      */
     public static final String AWT_TOOLKIT = getSystemProperty("awt.toolkit");
@@ -118,8 +124,14 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since 2.0
-     * @since Java 1.2.
+     * @since Java 1.2
      */
     public static final String FILE_ENCODING = getSystemProperty("file.encoding");
 
@@ -130,9 +142,63 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
-     * @since Java 1.1.
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
+     * @since Java 1.1
      */
     public static final String FILE_SEPARATOR = getSystemProperty("file.separator");
+
+    /**
+     * <p>The <code>java.awt.fonts</code> System Property.</p>
+     *
+     * <p>Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
+     * @since 2.1
+     */
+    public static final String JAVA_AWT_FONTS = getSystemProperty("java.awt.fonts");
+
+    /**
+     * <p>The <code>java.awt.graphicsenv</code> System Property.</p>
+     *
+     * <p>Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
+     * @since 2.1
+     */
+    public static final String JAVA_AWT_GRAPHICSENV = getSystemProperty("java.awt.graphicsenv");
+
+    /**
+     * <p>The <code>java.awt.printerjob</code> System Property.</p>
+     *
+     * <p>Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
+     * @since 2.1
+     */
+    public static final String JAVA_AWT_PRINTERJOB = getSystemProperty("java.awt.printerjob");
 
     /**
      * <p>The <code>java.class.path</code> System Property. Java class path.</p>
@@ -140,7 +206,13 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
-     * @since Java 1.1.
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
+     * @since Java 1.1
      */
     public static final String JAVA_CLASS_PATH = getSystemProperty("java.class.path");
 
@@ -151,7 +223,13 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
-     * @since Java 1.1.
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
+     * @since Java 1.1
      */
     public static final String JAVA_CLASS_VERSION = getSystemProperty("java.class.version");
 
@@ -161,6 +239,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since Java 1.2. Not used in Sun versions after 1.2.
      */
@@ -173,6 +257,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.4
      */
     public static final String JAVA_ENDORSED_DIRS = getSystemProperty("java.endorsed.dirs");
@@ -184,6 +274,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.3
      */
     public static final String JAVA_EXT_DIRS = getSystemProperty("java.ext.dirs");
@@ -194,6 +290,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.1
      */
     public static final String JAVA_HOME = getSystemProperty(JAVA_HOME_KEY);
@@ -203,6 +305,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since Java 1.2
      */
@@ -215,6 +323,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.2
      */
     public static final String JAVA_LIBRARY_PATH = getSystemProperty("java.library.path");
@@ -225,6 +339,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since 2.0
      * @since Java 1.3
@@ -238,6 +358,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since 2.0
      * @since Java 1.3
      */
@@ -250,6 +376,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.2
      */
     public static final String JAVA_SPECIFICATION_NAME = getSystemProperty("java.specification.name");
@@ -260,6 +392,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since Java 1.2
      */
@@ -272,15 +410,44 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.3
      */
     public static final String JAVA_SPECIFICATION_VERSION = getSystemProperty("java.specification.version");
+
+    /**
+     * <p>The <code>java.util.prefs.PreferencesFactory</code> System Property. A class name.</p>
+     *
+     * <p>Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
+     * @since 2.1
+     * @since Java 1.4
+     */
+    public static final String JAVA_UTIL_PREFS_PREFERENCES_FACTORY = getSystemProperty("java.util.prefs.PreferencesFactory");
 
     /**
      * <p>The <code>java.vendor</code> System Property. Java vendor-specific string.</p>
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since Java 1.1
      */
@@ -291,7 +458,13 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
-      * 
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.1
     */
     public static final String JAVA_VENDOR_URL = getSystemProperty("java.vendor.url");
@@ -301,6 +474,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since Java 1.1
      */
@@ -312,6 +491,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since 2.0
      * @since Java 1.2
@@ -325,6 +510,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.2
      */
     public static final String JAVA_VM_NAME = getSystemProperty("java.vm.name");
@@ -335,6 +526,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since Java 1.2
      */
@@ -347,6 +544,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.2
      */
     public static final String JAVA_VM_SPECIFICATION_VENDOR = getSystemProperty("java.vm.specification.vendor");
@@ -357,6 +560,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since Java 1.2
      */
@@ -369,6 +578,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.2
      */
     public static final String JAVA_VM_VENDOR = getSystemProperty("java.vm.vendor");
@@ -379,6 +594,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since Java 1.2
      */
@@ -391,6 +612,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.1
      */
     public static final String LINE_SEPARATOR = getSystemProperty("line.separator");
@@ -400,6 +627,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since Java 1.1
      */
@@ -411,6 +644,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.1
      */
     public static final String OS_NAME = getSystemProperty("os.name");
@@ -420,6 +659,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since Java 1.1
      */
@@ -432,6 +677,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.1
      */
     public static final String PATH_SEPARATOR = getSystemProperty("path.separator");
@@ -443,6 +694,12 @@ public class SystemUtils {
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since 2.0
      * @since Java 1.2
@@ -458,6 +715,12 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.1
      */
     public static final String USER_DIR = getSystemProperty(USER_DIR_KEY);
@@ -468,16 +731,28 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.1
      */
     public static final String USER_HOME = getSystemProperty(USER_HOME_KEY);
 
     /**
      * <p>The <code>user.language</code> System Property. User's language code,
-     * such as 'en'.</p>
+     * such as <code>"en"</code>.</p>
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
      * 
      * @since 2.0
      * @since Java 1.2
@@ -490,9 +765,32 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
      * @since Java 1.1
      */
     public static final String USER_NAME = getSystemProperty("user.name");
+
+    /**
+     * <p>The <code>user.timezone</code> System Property. 
+     * For example: <code>"America/Los_Angeles"</code>.</p>
+     *
+     * <p>Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
+     * @since 2.1
+     */
+    public static final String USER_TIMEZONE = getSystemProperty("user.timezone");
 
     // Java version
     //-----------------------------------------------------------------------
