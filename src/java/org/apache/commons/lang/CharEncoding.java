@@ -19,23 +19,18 @@ package org.apache.commons.lang;
 import java.io.UnsupportedEncodingException;
 
 /**
- * TODO: Accept/Reject for 2.1.
+ * <p>Character encoding names required of every implementation of the Java platform.</p>
  * 
- * Character encoding names required of every implementation of the Java platform.
- * 
- * According to the Java documentation <a
- * href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding names
- * </a>:
- * <p>
+ * <p>According to the Java documentation
+ * <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding names</a>:<br />
  * <cite>Every implementation of the Java platform is required to support the following character encodings. Consult the
  * release documentation for your implementation to see if any other encodings are supported. </cite>
  * </p>
  * 
- * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding
- *          names </a>
+ * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding names</a>
  * @author Apache Software Foundation
  * @since 2.1
- * @version $Id: CharEncoding.java,v 1.1 2004/10/02 01:46:29 bayard Exp $
+ * @version $Id: CharEncoding.java,v 1.2 2004/10/06 21:40:09 scolebourne Exp $
  */
 public class CharEncoding {
 
@@ -47,8 +42,7 @@ public class CharEncoding {
      * Every implementation of the Java platform is required to support this character encoding.
      * </p>
      * 
-     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character
-     *          encoding names </a>
+     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding names</a>
      */
     public static final String ISO_8859_1 = "ISO-8859-1";
 
@@ -60,8 +54,7 @@ public class CharEncoding {
      * Every implementation of the Java platform is required to support this character encoding.
      * </p>
      * 
-     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character
-     *          encoding names </a>
+     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding names</a>
      */
     public static final String US_ASCII = "US-ASCII";
 
@@ -74,8 +67,7 @@ public class CharEncoding {
      * Every implementation of the Java platform is required to support this character encoding.
      * </p>
      * 
-     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character
-     *          encoding names </a>
+     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding names</a>
      */
     public static final String UTF_16 = "UTF-16";
 
@@ -87,8 +79,7 @@ public class CharEncoding {
      * Every implementation of the Java platform is required to support this character encoding.
      * </p>
      * 
-     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character
-     *          encoding names </a>
+     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding names</a>
      */
     public static final String UTF_16BE = "UTF-16BE";
 
@@ -100,8 +91,7 @@ public class CharEncoding {
      * Every implementation of the Java platform is required to support this character encoding.
      * </p>
      * 
-     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character
-     *          encoding names </a>
+     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding names</a>
      */
     public static final String UTF_16LE = "UTF-16LE";
 
@@ -113,8 +103,7 @@ public class CharEncoding {
      * Every implementation of the Java platform is required to support this character encoding.
      * </p>
      * 
-     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character
-     *          encoding names </a>
+     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding names</a>
      */
     public static final String UTF_8 = "UTF-8";
 
@@ -123,17 +112,14 @@ public class CharEncoding {
      * Returns whether the named charset is supported.
      * </p>
      * <p>
-     * This is similar to <a
-     * href="http://java.sun.com/j2se/1.4.2/docs/api/java/nio/charset/Charset.html#isSupported(java.lang.String)">java.nio.charset.Charset.isSupported(String)
-     * </a>
+     * This is similar to
+     * <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/nio/charset/Charset.html#isSupported(java.lang.String)">java.nio.charset.Charset.isSupported(String)</a>
      * </p>
      * 
-     * @param name
-     *                  The name of the requested charset; may be either a canonical name or an alias
+     * @param name  the name of the requested charset; may be either a canonical name or an alias
      * @return <code>true</code> if, and only if, support for the named charset is available in the current Java virtual machine
      * 
-     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character
-     *          encoding names </a>
+     * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding names</a>
      */
     public static boolean isSupported(String name) {
         if (name == null) {
