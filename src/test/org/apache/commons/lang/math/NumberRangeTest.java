@@ -54,15 +54,15 @@
 package org.apache.commons.lang.math;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
 /**
  * Test cases for the {@link NumberRange} class.
  *
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Stephen Colebourne
- * @version $Id: NumberRangeTest.java,v 1.1 2002/12/22 16:20:29 scolebourne Exp $
+ * @version $Id: NumberRangeTest.java,v 1.2 2003/06/08 14:19:43 scolebourne Exp $
  */
 public final class NumberRangeTest extends AbstractRangeTest {
 

@@ -54,21 +54,17 @@
  * <http://www.apache.org/>.
  *
  */
-
-
 package org.apache.commons.lang.reflect;
-
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import org.apache.commons.lang.reflect.priv.PrivateBeanFactory;
-import org.apache.commons.lang.reflect.priv.PublicSubBean;
-
-import junit.framework.TestCase;
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.commons.lang.reflect.priv.PrivateBeanFactory;
+import org.apache.commons.lang.reflect.priv.PublicSubBean;
 
 /**
  * <p> Test case for <code>MethodUtils</code> </p>

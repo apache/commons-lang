@@ -53,16 +53,17 @@
  */
 package org.apache.commons.lang.math;
 
+import java.util.Random;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import java.util.Random;
 
 /**
  * Test cases for the {@link RandomUtils} class.
  *
  * @author <a href="mailto:phil@steitz.com">Phil Steitz</a>
- * @version $Revision: 1.1 $ $Date: 2003/05/14 02:41:26 $
+ * @version $Revision: 1.2 $ $Date: 2003/06/08 14:19:43 $
  */
 
 public final class RandomUtilsTest extends TestCase {
