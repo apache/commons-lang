@@ -60,7 +60,7 @@ import java.util.Arrays;
  * 
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: IncompleteArgumentException.java,v 1.4 2003/08/18 02:22:23 bayard Exp $
+ * @version $Id: IncompleteArgumentException.java,v 1.5 2004/01/10 01:59:40 fredrik Exp $
  */
 public class IncompleteArgumentException extends IllegalArgumentException {
 
@@ -87,7 +87,7 @@ public class IncompleteArgumentException extends IllegalArgumentException {
     }
 
     /**
-     * <p>7Converts an array to a string without throwing an exception.</p>
+     * <p>Converts an array to a string without throwing an exception.</p>
      * 
      * @param array  an array
      * @return the array as a string
