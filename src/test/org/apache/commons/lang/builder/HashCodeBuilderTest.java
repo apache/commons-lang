@@ -61,7 +61,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.HashCodeBuilder}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: HashCodeBuilderTest.java,v 1.2 2002/12/08 21:22:42 scolebourne Exp $
+ * @version $Id: HashCodeBuilderTest.java,v 1.3 2003/01/19 17:35:20 scolebourne Exp $
  */
 public class HashCodeBuilderTest extends TestCase {
 
@@ -134,9 +134,57 @@ public class HashCodeBuilderTest extends TestCase {
         }
     }
 
+    static class TestSubObject extends TestObject {
+        private int b;
+        transient private int t;
+        public TestSubObject() {
+            super(0);
+        }
+        public TestSubObject(int a, int b, int t) {
+            super(a);
+            this.b = b;
+            this.t = t;
+        }
+        public boolean equals(Object o) {
+            if (o == this) {
+                return true;
+            }
+            if (!(o instanceof TestSubObject)) {
+                return false;
+            }
+            TestSubObject rhs = (TestSubObject) o;
+            return super.equals(o) && (b == rhs.b);
+        }
+    }
+
     public void testReflectionHashCode() {
         assertEquals(17 * 37, HashCodeBuilder.reflectionHashCode(new TestObject(0)));
         assertEquals(17 * 37 + 123456, HashCodeBuilder.reflectionHashCode(new TestObject(123456)));
+    }
+
+    public void testReflectionHierarchyHashCode() {
+        assertEquals(17 * 37 * 37, HashCodeBuilder.reflectionHashCode(new TestSubObject(0, 0, 0)));
+        assertEquals(17 * 37 * 37 * 37, HashCodeBuilder.reflectionHashCode(new TestSubObject(0, 0, 0), true));
+        assertEquals((17 * 37 + 7890) * 37 + 123456, HashCodeBuilder.reflectionHashCode(new TestSubObject(123456, 7890, 0)));
+        assertEquals(((17 * 37 + 7890) * 37 + 0) * 37 + 123456, HashCodeBuilder.reflectionHashCode(new TestSubObject(123456, 7890, 0), true));
+    }
+
+    public void testReflectionHierarchyHashCodeEx1() {
+        try {
+            HashCodeBuilder.reflectionHashCode(0, 0, new TestSubObject(0, 0, 0), true);
+        } catch (IllegalArgumentException ex) {
+            return;
+        }
+        fail();
+    }
+
+    public void testReflectionHierarchyHashCodeEx2() {
+        try {
+            HashCodeBuilder.reflectionHashCode(2, 2, new TestSubObject(0, 0, 0), true);
+        } catch (IllegalArgumentException ex) {
+            return;
+        }
+        fail();
     }
 
     public void testReflectionHashCodeEx1() {

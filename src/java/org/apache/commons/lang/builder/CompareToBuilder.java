@@ -103,8 +103,9 @@ import org.apache.commons.lang.NumberUtils;
  *
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author Stephen Colebourne
+ * @author Gary Gregory
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.9 2002/12/25 22:00:31 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.10 2003/01/19 17:35:21 scolebourne Exp $
  */
 public class CompareToBuilder {
     
@@ -139,7 +140,7 @@ public class CompareToBuilder {
      * <p>Transient members will be not be tested, as they are likely derived
      * fields, and not part of the value of the object.</p>
      *
-     * <p>Static fields will not be tested.</p>
+     * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
      * @param lhs  <code>this</code> object
      * @param rhs  the other object
@@ -151,7 +152,7 @@ public class CompareToBuilder {
      *  from being compared to this Object.
      */
     public static int reflectionCompare(Object lhs, Object rhs) {
-        return reflectionCompare(lhs, rhs, false);
+        return reflectionCompare(lhs, rhs, false, null);
     }
 
     /**
@@ -167,7 +168,7 @@ public class CompareToBuilder {
      * transient members will be tested, otherwise they are ignored, as they
      * are likely derived fields, and not part of the value of the object.</p>
      *
-     * <p>Static fields will not be tested.</p>
+     * <p>Static fields will not be tested. Superclass fields will be included.</p>
      * 
      * @param lhs  <code>this</code> object
      * @param rhs  the other object
@@ -180,6 +181,38 @@ public class CompareToBuilder {
      *  from being compared to this Object.
      */
     public static int reflectionCompare(Object lhs, Object rhs, boolean testTransients) {
+        return reflectionCompare(lhs, rhs, testTransients, null);
+    }
+
+    /**
+     * <p>This method uses reflection to determine if the two Objects are
+     * equal.</p>
+     *
+     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manger, if  the permissions are not set up correctly. It is
+     * also not as efficient as testing explicitly.</p>
+     *
+     * <p>If the <code>testTransients</code> is set to <code>true</code>,
+     * transient members will be tested, otherwise they are ignored, as they
+     * are likely derived fields, and not part of the value of the object.</p>
+     *
+     * <p>Static fields will not be included. Superclass fields will be appended
+     * up to and including the specified superclass. A null superclass is treated
+     * as java.lang.Object.</p>
+     * 
+     * @param lhs  <code>this</code> object
+     * @param rhs  the other object
+     * @param testTransients  whether to include transient fields
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be null
+     * @return a negative integer, zero, or a positive integer as this 
+     *  Object is less than, equal to, or greater than the specified Object.
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
+     * @throws ClassCastException  if the specified Object's type prevents it
+     *  from being compared to this Object.
+     */
+    public static int reflectionCompare(Object lhs, Object rhs, boolean testTransients, Class reflectUpToClass) {
         if (lhs == rhs) {
             return 0;
         }
@@ -190,24 +223,41 @@ public class CompareToBuilder {
         if (!c1.isInstance(rhs)) {
             throw new ClassCastException();
         }
-        Field[] fields = c1.getDeclaredFields();
-        Field.setAccessible(fields, true);
         CompareToBuilder compareToBuilder = new CompareToBuilder();
-        for (int i = 0; i < fields.length && compareToBuilder.comparison == 0; ++i) {
+        reflectionAppend(lhs, rhs, c1, compareToBuilder, testTransients);
+        while (c1.getSuperclass() != null && c1 != reflectUpToClass) {
+            c1 = c1.getSuperclass();
+            reflectionAppend(lhs, rhs, c1, compareToBuilder, testTransients);
+        }
+        return compareToBuilder.toComparison();
+    }
+
+    /**
+     * Appends the fields and values defined by the given object of the
+     * given Class.
+     * 
+     * @param lhs  the left hand object
+     * @param rhs  the right hand object
+     * @param clazz  the class to append details of
+     * @param builder  the builder to append to
+     * @param useTransients  whether to test transient fields
+     */
+    private static void reflectionAppend(Object lhs, Object rhs, Class clazz, CompareToBuilder builder, boolean useTransients) {
+        Field[] fields = clazz.getDeclaredFields();
+        Field.setAccessible(fields, true);
+        for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
             Field f = fields[i];
-            if (testTransients || !Modifier.isTransient(f.getModifiers())) {
+            if (useTransients || !Modifier.isTransient(f.getModifiers())) {
                 if (!Modifier.isStatic(f.getModifiers())) {
                     try {
-                        compareToBuilder.append(f.get(lhs), f.get(rhs));
-                    } catch (IllegalAccessException ex) {
+                        builder.append(f.get(lhs), f.get(rhs));
+                    } catch (IllegalAccessException e) {
                         //this can't happen. Would get a Security exception instead
                         //throw a runtime exception in case the impossible happens.
-                        throw new InternalError("Unexpected IllegalAccessException");
                     }
                 }
             }
         }
-        return compareToBuilder.toComparison();
     }
 
     //-------------------------------------------------------------------------

@@ -106,8 +106,9 @@ import java.lang.reflect.Modifier;
  *
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author Stephen Colebourne
+ * @author Gary Gregory
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.9 2003/01/15 20:54:00 bayard Exp $
+ * @version $Id: EqualsBuilder.java,v 1.10 2003/01/19 17:35:21 scolebourne Exp $
  */
 public class EqualsBuilder {
     /**
@@ -139,14 +140,14 @@ public class EqualsBuilder {
      * <p>Transient members will be not be tested, as they are likely derived
      * fields, and not part of the value of the Object.</p>
      *
-     * <p>Static fields will not be tested.</p>
+     * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
-     * @param lhs  Left Hand Side
-     * @param rhs  Right Hand Side
+     * @param lhs  <code>this</code> object
+     * @param rhs  the other object
      * @return <code>true</code> if the two Objects have tested equals.
      */
     public static boolean reflectionEquals(Object lhs, Object rhs) {
-        return reflectionEquals(lhs, rhs, false);
+        return reflectionEquals(lhs, rhs, false, null);
     }
 
     /**
@@ -161,43 +162,113 @@ public class EqualsBuilder {
      * members will be tested, otherwise they are ignored, as they are likely
      * derived fields, and not part of the value of the Object.</p>
      *
-     * <p>Static fields will not be tested.</p>
+     * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
-     * @param lhs  Left Hand Side
-     * @param rhs  Right Hand Side
+     * @param lhs  <code>this</code> object
+     * @param rhs  the other object
      * @param testTransients  whether to include transient fields
      * @return <code>true</code> if the two Objects have tested equals.
      */
-    public static boolean reflectionEquals(Object lhs, Object rhs,
-            boolean testTransients) {
+    public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients) {
+        return reflectionEquals(lhs, rhs, testTransients, null);
+    }
+
+    /**
+     * <p>This method uses reflection to determine if the two Object are equal.</p>
+     *
+     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manger, if the permissions are not set up correctly. It is also
+     * not as efficient as testing explicitly.</p>
+     *
+     * <p>If the testTransients parameter is set to <code>true</code>, transient
+     * members will be tested, otherwise they are ignored, as they are likely
+     * derived fields, and not part of the value of the Object.</p>
+     *
+     * <p>Static fields will not be included. Superclass fields will be appended
+     * up to and including the specified superclass. A null superclass is treated
+     * as java.lang.Object.</p>
+     *
+     * @param lhs  <code>this</code> object
+     * @param rhs  the other object
+     * @param testTransients  whether to include transient fields
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be null
+     * @return <code>true</code> if the two Objects have tested equals.
+     */
+    public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients, Class reflectUpToClass) {
         if (lhs == rhs) {
             return true;
         }
         if (lhs == null || rhs == null) {
             return false;
         }
-        Class c1 = lhs.getClass();
-        if (!c1.isInstance(rhs)) {
+        // Find the leaf class since there may be transients in the leaf 
+        // class or in classes between the leaf and root.
+        // If we are not testing transients or a subclass has no ivars, 
+        // then a subclass can test equals to a superclass.
+        Class lhsClass = lhs.getClass();
+        Class rhsClass = rhs.getClass();
+        Class testClass;
+        if (lhsClass.isInstance(rhs)) {
+            testClass = lhsClass;
+            if (!rhsClass.isInstance(lhs)) {
+                // rhsClass is a subclass of lhsClass
+                testClass = rhsClass;
+            }
+        } else if (rhsClass.isInstance(lhs)) {
+            testClass = rhsClass;
+            if (!lhsClass.isInstance(rhs)) {
+                // lhsClass is a subclass of rhsClass
+                testClass = lhsClass;
+            }
+        } else {
+            // The two classes are not related.
             return false;
         }
-        Field[] fields = c1.getDeclaredFields();
-        Field.setAccessible(fields, true);
         EqualsBuilder equalsBuilder = new EqualsBuilder();
-        for (int i = 0; i < fields.length && equalsBuilder.isEquals; ++i) {
+        try {
+            reflectionAppend(lhs, rhs, testClass, equalsBuilder, testTransients);
+            while (testClass.getSuperclass() != null && testClass != reflectUpToClass) {
+                testClass = testClass.getSuperclass();
+                reflectionAppend(lhs, rhs, testClass, equalsBuilder, testTransients);
+            }
+        } catch (IllegalArgumentException e) {
+            // In this case, we tried to test a subclass vs. a superclass and
+            // the subclass has ivars or the ivars are transient and 
+            // we are testing transients.
+            // If a subclass has ivars that we are trying to test them, we get an
+            // exception and we know that the objects are not equal.
+            return false;
+        }
+        return equalsBuilder.isEquals();
+    }
+
+    /**
+     * Appends the fields and values defined by the given object of the
+     * given Class.
+     * 
+     * @param lhs  the left hand object
+     * @param rhs  the right hand object
+     * @param clazz  the class to append details of
+     * @param builder  the builder to append to
+     * @param useTransients  whether to test transient fields
+     */
+    private static void reflectionAppend(Object lhs, Object rhs, Class clazz, EqualsBuilder builder, boolean useTransients) {
+        Field[] fields = clazz.getDeclaredFields();
+        Field.setAccessible(fields, true);
+        for (int i = 0; i < fields.length && builder.isEquals; i++) {
             Field f = fields[i];
-            if (testTransients || !Modifier.isTransient(f.getModifiers())) {
+            if (useTransients || !Modifier.isTransient(f.getModifiers())) {
                 if (!Modifier.isStatic(f.getModifiers())) {
                     try {
-                        equalsBuilder.append(f.get(lhs), f.get(rhs));
+                        builder.append(f.get(lhs), f.get(rhs));
                     } catch (IllegalAccessException e) {
                         //this can't happen. Would get a Security exception instead
                         //throw a runtime exception in case the impossible happens.
-                        throw new InternalError("Unexpected IllegalAccessException");
                     }
                 }
             }
         }
-        return equalsBuilder.isEquals();
     }
 
     //-------------------------------------------------------------------------
