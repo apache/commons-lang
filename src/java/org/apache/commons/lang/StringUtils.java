@@ -145,7 +145,7 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.109 2003/09/07 14:32:34 psteitz Exp $
+ * @version $Id: StringUtils.java,v 1.110 2003/10/21 20:24:22 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2439,17 +2439,21 @@ public class StringUtils {
      * @return the String without whitespaces, <code>null</code> if null String input
      */
     public static String deleteWhitespace(String str) {
-        if (str == null) {
-            return null;
+        if (str == null || str.length() == 0) {
+            return str;
         }
         int sz = str.length();
-        StringBuffer buffer = new StringBuffer(sz);
+        char[] chs = new char[sz];
+        int count = 0;
         for (int i = 0; i < sz; i++) {
             if (!Character.isWhitespace(str.charAt(i))) {
-                buffer.append(str.charAt(i));
+                chs[count++] = str.charAt(i);
             }
         }
-        return buffer.toString();
+        if (count == sz) {
+            return str;
+        }
+        return new String(chs, 0, count);
     }
 
     // Replacing
