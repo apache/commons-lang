@@ -57,38 +57,72 @@ package org.apache.commons.lang.exception;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
- * Test manager for the org.apache.commons.lang.exception classes.
+ * Tests {@link org.apache.commons.lang.exception.ExceptionUtils}.
  *
- * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
+ * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
+ * @since 1.0
  */
-public class ExceptionTestSuite extends TestCase
+public class ExceptionUtilsTestCase extends junit.framework.TestCase
 {
-    /**
-     * Construct a new instance.
-     */
-    public ExceptionTestSuite(String name)
+    private NestableException nested;
+    private Throwable withCause;
+    private Throwable withoutCause;
+
+    public ExceptionUtilsTestCase(String name)
     {
         super(name);
-    }
-
-    /**
-     * Command-line interface.
-     */
-    public static void main(String[] args)
-    {
-        TestRunner.run(suite());
     }
     
     public static Test suite()
     {
-        TestSuite suite = new TestSuite();
-        suite.addTest(NestableDelegateTestCase.suite());
-        suite.addTest(NestableExceptionTestCase.suite());
-        suite.addTest(NestableRuntimeExceptionTestCase.suite());
-        suite.addTest(ExceptionUtilsTestCase.suite());
-        return suite;
+        return new TestSuite(ExceptionUtilsTestCase.class);
+    }
+
+    public void setUp()
+    {
+        withoutCause = new ExceptionWithoutCause();
+        nested = new NestableException(withoutCause);
+        withCause = new ExceptionWithCause(nested);
+    }
+
+    public void testGetCause()
+    {
+        assertNull(ExceptionUtils.getCause(withoutCause));
+        assertTrue(ExceptionUtils.getCause(nested) == withoutCause);
+        assertTrue(ExceptionUtils.getCause(withCause) == nested);
+    }
+
+    public void testGetRootCause()
+    {
+        assertNull(ExceptionUtils.getRootCause(withoutCause));
+        assertTrue(ExceptionUtils.getRootCause(withCause) == withoutCause);
+        assertTrue(ExceptionUtils.getRootCause(withCause) == withoutCause);
+    }
+
+    private static class ExceptionWithCause extends Exception
+    {
+        private Throwable cause;
+
+        public ExceptionWithCause(Throwable cause)
+        {
+            this.cause = cause;
+        }
+
+        public Throwable getCause()
+        {
+            return cause;
+        }
+    }
+
+    private static class ExceptionWithoutCause extends Exception
+    {
+        /**
+         * Bogus signature.
+         */
+        public void getCause()
+        {
+        }
     }
 }
