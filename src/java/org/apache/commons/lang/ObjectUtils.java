@@ -62,7 +62,7 @@ import java.io.Serializable;
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.6 2002/12/23 00:32:24 scolebourne Exp $
+ * @version $Id: ObjectUtils.java,v 1.7 2003/02/02 04:12:32 bayard Exp $
  */
 public class ObjectUtils {
     
@@ -77,7 +77,7 @@ public class ObjectUtils {
      * <code>Null</code> placeholder can be used to distinguish between
      * these two cases.</p>
      *
-     * <p>Another example is <code>HashTable</code>, where <code>null</code>
+     * <p>Another example is <code>Hashtable</code>, where <code>null</code>
      * cannot be stored.</p>
      *
      * <p>This instance is Serializable.</p>
@@ -158,7 +158,7 @@ public class ObjectUtils {
      * <code>Null</code> placeholder can be used to distinguish between
      * these two cases.</p>
      *
-     * <p>Another example is <code>HashTable</code>, where <code>null</code>
+     * <p>Another example is <code>Hashtable</code>, where <code>null</code>
      * cannot be stored.</p>
      */
     public static class Null implements Serializable {
