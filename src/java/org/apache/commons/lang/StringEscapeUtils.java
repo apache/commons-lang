@@ -53,13 +53,10 @@
  */
 package org.apache.commons.lang;
 
-import java.util.StringTokenizer;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.IOException;
 import java.io.Writer;
-import java.io.StringWriter;
 
 import org.apache.commons.lang.exception.NestableRuntimeException;
 
@@ -72,13 +69,13 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * <a href="http://www.purpletech.com/code/">Purple Technology</a>
  * </p>
  *
- * @author original author of escape and unescape=?
+ * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:cybertiger@cyberiantiger.org">cybertiger@cyberiantiger.org</a>
  * @author Helge Tesgaard
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.1 2003/03/31 03:53:52 alex Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.2 2003/04/01 17:19:28 bayard Exp $
  */
 public class StringEscapeUtils {
 
