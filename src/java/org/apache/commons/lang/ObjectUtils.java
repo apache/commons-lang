@@ -54,8 +54,13 @@
 package org.apache.commons.lang;
 
 import java.io.Serializable;
+
 /**
  * <p>Common <code>Object</code> manipulation routines.</p>
+ * 
+ * <p>This class tries to handle <code>null</code> input gracefully.
+ * An exception will generally not be thrown for a <code>null</code> input.
+ * Each method documents its behaviour in more detail.</p>
  *
  * @author <a href="mailto:nissim@nksystems.com">Nissim Karpenstein</a>
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
@@ -63,7 +68,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.11 2003/07/16 01:47:39 ggregory Exp $
+ * @version $Id: ObjectUtils.java,v 1.12 2003/07/19 20:21:39 scolebourne Exp $
  */
 public class ObjectUtils {
     
@@ -130,7 +135,7 @@ public class ObjectUtils {
     
     /**
      * <p>Gets the toString that would be produced by <code>Object</code>
-     * if a class did not override toString itself. <code>Null</code>
+     * if a class did not override toString itself. <code>null</code>
      * will return <code>null</code>.</p>
      *
      * @param object  the object to create a toString for, may be
@@ -147,7 +152,7 @@ public class ObjectUtils {
 
     /**
      * <p>Appends the toString that would be produced by <code>Object</code>
-     * if a class did not override toString itself. <code>Null</code>
+     * if a class did not override toString itself. <code>null</code>
      * will return <code>null</code>.</p>
      *
      * @param buffer  the buffer to append to, may not be
