@@ -18,6 +18,7 @@ package org.apache.commons.lang.time;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -41,7 +42,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Henri Yandell
  * @since 2.1
- * @version $Id: DurationFormatUtils.java,v 1.19 2004/09/27 04:49:07 bayard Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.20 2004/10/02 01:40:30 bayard Exp $
  */
 public class DurationFormatUtils {
 
@@ -258,9 +259,9 @@ public class DurationFormatUtils {
         // timezones get funky around 0, so normalizing everything to GMT 
         // stops the hours being off
         Calendar start = Calendar.getInstance(timezone);
-        start.setTimeInMillis(startMillis);
+        start.setTime(new Date(startMillis));
         Calendar end = Calendar.getInstance(timezone);
-        end.setTimeInMillis(endMillis);
+        end.setTime(new Date(endMillis));
 
         // initial estimates
         int years = end.get(Calendar.YEAR) - start.get(Calendar.YEAR);
