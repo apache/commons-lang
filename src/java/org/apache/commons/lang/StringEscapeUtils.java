@@ -59,7 +59,7 @@ import java.io.Writer;
 import org.apache.commons.lang.exception.NestableRuntimeException;
 
 /**
- * <p>Common <code>String</code> escaping routines.</p>
+ * <p>Escapes and unescapes <code>String</code>s for Java, Java Script, HTML, and XML.
  *
  * <p>Originally from
  * <a href="http://jakarta.apache.org/turbine/">Turbine</a> and the
@@ -72,20 +72,22 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:cybertiger@cyberiantiger.org">Antony Riley</a>
  * @author Helge Tesgaard
  * @author <a href="sean@boohai.com">Sean Brown</a>
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.9 2003/04/16 16:31:45 bayard Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.10 2003/05/16 19:00:07 ggregory Exp $
  */
 public class StringEscapeUtils {
 
     /**
-     * The entity set to use when escaping and unescaping HTML
+     * The entity set to use when escaping and unescaping HTML.
      */
     protected static Entities DEFAULT_ENTITIES = Entities.HTML40;
 
     /**
      * <p><code>StringEscapeUtils</code> instances should NOT be constructed in
-     * standard programming. Instead, the class should be used as
-     * <code>StringEscapeUtils.escapeJava("foo");</code>.</p>
+     * standard programming.</p> 
+     * <p>Instead, the class should be used as:</p>
+     * <pre>StringEscapeUtils.escapeJava("foo");</pre>
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
@@ -96,8 +98,8 @@ public class StringEscapeUtils {
     // Java and JavaScript
     //--------------------------------------------------------------------------
     /**
-     * <p>Escapes any values it finds into their Java String form.
-     * Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.) </p>
+     * <p>Escapes the characters in a <code>String</code> using Java String rules.</p>
+     * <p>Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.) </p>
      *
      * <p>So a tab becomes the characters <code>'\\'</code> and
      * <code>'t'</code>.</p>
@@ -121,6 +123,8 @@ public class StringEscapeUtils {
     }
 
     /**
+     * <p>Escapes the characters in a <code>String</code> using Java String rules to a <code>Writer</code>.</p>
+     * 
      * @see #escapeJava(java.lang.String)
      * @param out Writer to write escaped string into
      * @param str String to escape values in
@@ -132,6 +136,7 @@ public class StringEscapeUtils {
     }
 
     /**
+     * <p>Escapes the characters in a <code>String</code> using JavaScript String rules.</p>
      * <p>Escapes any values it finds into their JavaScript String form.
      * Deals correctly with quotes and control-chars (tab, backslash, cr, ff, etc.) </p>
      *
@@ -157,6 +162,8 @@ public class StringEscapeUtils {
     }
 
     /**
+     * <p>Escapes the characters in a <code>String</code> using JavaScript String rules to a <code>Writer</code>.</p>
+     * 
      * @see #escapeJavaScript(java.lang.String)
      * @param out Writer to write escaped string into
      * @param str String to escape values in
@@ -244,14 +251,23 @@ public class StringEscapeUtils {
         }
     }
 
+    /**
+     * Returns an upper case hexadecimal <code>String</code> for the given character.
+     * 
+     * @param ch The character to convert.
+     * @return An upper case hexadecimal <code>String</code>
+     */
     private static String hex(char ch) {
         return Integer.toHexString(ch).toUpperCase();
     }
 
     /**
-     * Unescapes any Java literals found in the String. For example,
-     * it will turn a sequence of '\' and 'n' into a newline character,
+     * Unescapes any Java literals found in the <code>String</code>. 
+     * For example, it will turn a sequence of '\' and 'n' into a newline character,
      * unless the '\' is preceded by another '\'.
+     * 
+     * @param str The <code>String</code> to unescape.
+     * @return A new unescaped <code>String</code>.
      */
     public static String unescapeJava(String str) {
         try {
@@ -265,6 +281,14 @@ public class StringEscapeUtils {
         }
     }
 
+    /**
+     * Unescapes any Java literals found in the <code>String</code> to a <code>Writer</code>. 
+     * For example, it will turn a sequence of '\' and 'n' into a newline character,
+     * unless the '\' is preceded by another '\'.
+     * 
+     * @param out The <code>Writer</code> used to output unescaped characters.
+     * @param str The <code>String</code> to unescape.
+     */
     public static void unescapeJava(Writer out, String str) throws IOException {
         int sz = str.length();
         StringBuffer unicode = new StringBuffer(4);
@@ -343,10 +367,16 @@ public class StringEscapeUtils {
         }
     }
 
+    /**
+     * @see #unescapeJava(String)
+     */
     public static String unescapeJavaScript(String str) {
         return unescapeJava(str);
     }
 
+    /**
+     * @see #unescapeJava(Writer,String)
+     */
     public static void unescapeJavaScript(Writer out, String str) throws IOException {
         unescapeJava(out, str);
     }
@@ -355,36 +385,40 @@ public class StringEscapeUtils {
     //--------------------------------------------------------------------------
 
     /**
-     * <p>Turns funky characters into HTML entity equivalents.</p>
+     * <p>Escapes the characters in a <code>String</code> using HTML entities.</p>
      * <p>
      * For example: <tt>"bread" & "butter"</tt> => <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
      * </p>
      * <p>Supports all known HTML 4.0 entities, including funky accents.
      * </p>
-     * <p>
-     * See <a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">WebMonkey</a>
-     * <a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2</a>
-     * <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html</a>HTML 4.0</a>
-     * <a href="http://www.w3.org/TR/html401/charset.html#h-5.3"</a>Character references</a>
-     * <a href="http://www.w3.org/TR/html401/charset.html#code-position</a>HTML 4.0: code positions</a>
-     * </p>
+     * 
+     * @param str The <code>String</code> to escape
+     * @return A new escaped <code>String</code>.
+     * 
      * @see Entities
      * @see #unescapeHtml(String)
+     * @see </br><a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
+     * @see </br><a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
+     * @see </br><a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
+     * @see </br><a href="http://www.w3.org/TR/html401/charset.html#h-5.3">HTML 4.01 Character References</a>
+     * @see </br><a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
      **/
     public static String escapeHtml(String str) {
         return escapeEntities(str, Entities.HTML40);
     }
 
     /**
-     * <p>Given a string containing entity escapes, returns a string
+     * <p>Unescapes a string containing entity escapes to a string
      * containing the actual Unicode characters corresponding to the
-     * escapes.  Supports HTML 4.0 entities.</p>
+     * escapes. Supports HTML 4.0 entities.</p>
      * <p>For example, the string "&amp;lt;Fran&ccedilla;ais&amp;gt;"
      * will become "<Fran\u00E7ais>"</p>
      * <p>If an entity is unrecognized, it is left alone, and inserted
      * verbatim into the result string. e.g. "&amp;gt;&amp;zzzz;x" will
      * become "&gt;&amp;zzzz;x".</p>
      *
+     * @param str The <code>String</code> to unescape
+     * @return A new unescaped <code>String</code>.
      * @see #escapeHtml(String)
      **/
     public static String unescapeHtml(String str) {
@@ -392,7 +426,7 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Turns funky characters into XML entity equivalents.</p>
+     * <p>Escapes the characters in a <code>String</code> using XML entities.</p>
      * <p>
      * For example: <tt>"bread" & "butter"</tt> =>
      * <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
@@ -401,6 +435,8 @@ public class StringEscapeUtils {
      * Supports only the four basic XML entities (gt, lt, quot, amp).
      * Does not support DTDs or external entities.
      * </p>
+     * @param str The <code>String</code> to escape
+     * @return A new escaped <code>String</code>.
      * @see #unescapeXml(java.lang.String)
      **/
     public static String escapeXml(String str) {
@@ -408,7 +444,7 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Given a string containing XML entity escapes, returns a string
+     * <p>Unescapes a string containing XML entity escapes to a string
      * containing the actual Unicode characters corresponding to the
      * escapes.
      * </p>
@@ -417,12 +453,21 @@ public class StringEscapeUtils {
      * Does not support DTDs or external entities.
      * </p>
      *
+     * @param str The <code>String</code> to unescape
+     * @return A new unescaped <code>String</code>.
      * @see #escapeXml(String)
      **/
     public static String unescapeXml(String str) {
         return unescapeEntities(str, Entities.XML);
     }
 
+    /**
+     * Escapes the characters in a <code>String</code> using the the given <code>Entities</code>.
+     * 
+     * @param str The <code>String</code> to escape.
+     * @param entities The <code>Entities</code> to escape the <code>String</code> with.
+     * @return A new escaped <code>String</code>.
+     */
     private static String escapeEntities(String str, Entities entities) {
         StringBuffer buf = new StringBuffer(str.length() * 2);
         int i;
