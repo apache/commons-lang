@@ -1,5 +1,3 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -62,11 +61,11 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 /**
- * Unit tests {@link org.apache.commons.lang.SerializationUtils}.
+ * Unit tests {@link org.apache.commons.lang.ArrayUtils}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author Moritz Petersen
- * @version $Id: ArrayUtilsTest.java,v 1.3 2002/11/24 16:50:38 scolebourne Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.4 2002/12/15 15:00:46 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
