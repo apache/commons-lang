@@ -62,7 +62,7 @@ import java.util.Random;
  * 
  * @author Henri Yandell
  * @since 2.0
- * @version $Id: JVMRandom.java,v 1.5 2003/05/14 02:41:26 bayard Exp $
+ * @version $Id: JVMRandom.java,v 1.6 2003/06/16 02:26:41 bayard Exp $
  */
 public final class JVMRandom extends Random {
 
@@ -73,16 +73,19 @@ public final class JVMRandom extends Random {
         this.constructed = true;
     }
     
+    /** Unsupported in 2.0 */
     public synchronized void setSeed(long seed) {
         if (this.constructed) {
             throw new UnsupportedOperationException();
         }
     }
 
+    /** Unsupported in 2.0 */
     public synchronized double nextGaussian() {
         throw new UnsupportedOperationException();
     }
 
+    /** Unsupported in 2.0 */
     public void nextBytes(byte[] byteArray) {
         throw new UnsupportedOperationException();
     }

@@ -61,7 +61,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 /**
- * <p><code>ArrayUtils</code> contains utility methods for working for
+ * <p><code>ArrayUtils</code> contains utility methods for working with
  * arrays.</p>
  *
  * @author Stephen Colebourne
@@ -69,7 +69,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @author Nikolay Metchev
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.11 2003/04/09 01:04:47 ggregory Exp $
+ * @version $Id: ArrayUtils.java,v 1.12 2003/06/16 02:28:16 bayard Exp $
  */
 public class ArrayUtils {
 
