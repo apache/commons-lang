@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.29 2004/09/26 05:45:33 bayard Exp $
+ * @version $Id: DateUtils.java,v 1.30 2004/09/27 03:14:15 bayard Exp $
  */
 public class DateUtils {
     
@@ -55,10 +55,6 @@ public class DateUtils {
      * Number of milliseconds in a standard day.
      */
     public static final long MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
-
-    // hmm. not very accurate. used by DurationFormatUtils
-    static final long MILLIS_PER_YEAR = 365 * MILLIS_PER_DAY + 6 * MILLIS_PER_HOUR;
-    static final long MILLIS_PER_MONTH = MILLIS_PER_YEAR / 12;
 
     /**
      * This is half a month, so this represents whether a date is in the top
