@@ -74,7 +74,7 @@ import java.lang.reflect.Modifier;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.22 2004/08/15 02:17:13 bayard Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.23 2004/09/30 06:26:37 bayard Exp $
  */
 public class HashCodeBuilder {
 
@@ -461,7 +461,7 @@ public class HashCodeBuilder {
      * <p>Append a <code>hashCode</code> for a <code>boolean</code>.</p>
      * <p>This adds <code>iConstant * 1</code> to the <code>hashCode</code>
      * and not a <code>1231</code> or <code>1237</code> as done in java.lang.Boolean. 
-     * This is in accordance with the Effective Java design. </p>
+     * This is in accordance with the <quote>Effective Java</quote> design. </p>
      *
      * @param value  the boolean to add to the <code>hashCode</code>
      * @return this
