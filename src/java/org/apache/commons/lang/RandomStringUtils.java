@@ -62,8 +62,9 @@ import java.util.Random;
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Stephen Colebourne
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.11 2003/05/14 02:50:43 bayard Exp $
+ * @version $Id: RandomStringUtils.java,v 1.12 2003/05/20 21:15:19 ggregory Exp $
  */
 public class RandomStringUtils {
 
@@ -130,7 +131,7 @@ public class RandomStringUtils {
      * <p>Creates a random string whose length is the number of characters
      * specified.</p>
      *
-     * <u>Characters will be chosen from the set of alpha-numeric
+     * <p>Characters will be chosen from the set of alpha-numeric
      * characters.</p>
      *
      * @param count length of random string to create
