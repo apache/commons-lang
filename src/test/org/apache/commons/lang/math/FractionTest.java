@@ -19,16 +19,12 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 /**
  * Test cases for the {@link Fraction} class
  *
  * @author Stephen Colebourne
  * @author C. Scott Ananian
- * @version $Id: FractionTest.java,v 1.7 2004/07/11 23:20:17 psteitz Exp $
+ * @version $Id: FractionTest.java,v 1.8 2004/12/25 19:43:51 bayard Exp $
  */
 public class FractionTest extends TestCase {
     
