@@ -71,7 +71,7 @@ import java.io.File;
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.29 2004/01/15 21:20:12 scolebourne Exp $
+ * @version $Id: SystemUtils.java,v 1.30 2004/02/12 01:58:33 ggregory Exp $
  */
 public class SystemUtils {
 
@@ -99,6 +99,18 @@ public class SystemUtils {
      */
     private static final String JAVA_HOME_KEY = "java.home";
     
+    /**
+     * <p>The <code>awt.toolkit</code> System Property.</p>
+     * <p>Holds a class name, on Windows XP this is <code>sun.awt.windows.WToolkit</code>.</p>
+     * <p><b>On platforms without a GUI, this value is <code>null</code>.</b></p>
+     * 
+     * <p>Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or the property does not exist.</p>
+     * 
+     * @since 2.1
+     */
+    public static final String AWT_TOOLKIT = getSystemProperty("awt.toolkit");
+
     /**
      * <p>The <code>file.encoding</code> System Property.</p>
      * <p>File encoding, such as <code>Cp1252</code>.</p>
