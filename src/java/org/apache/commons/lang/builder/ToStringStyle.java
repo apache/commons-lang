@@ -54,6 +54,7 @@
 package org.apache.commons.lang.builder;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
 
@@ -81,7 +82,7 @@ import org.apache.commons.lang.SystemUtils;
  *
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.10 2003/03/23 17:54:16 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.11 2003/03/27 08:54:31 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -319,6 +320,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * <p>Either detail or summary views can be specified.</p>
      *
+     * <p>If a cycle is detected, an object will be appended with the Object.toString() format.</p>
+     *
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param fieldName  the field name, typically not used as already appended
      * @param value  the value to add to the <code>toString</code>,
@@ -326,7 +329,12 @@ public abstract class ToStringStyle implements Serializable {
      * @param detail  output detail or not
      */
     protected void appendInternal(StringBuffer buffer, String fieldName, Object value, boolean detail) {
-        if (value instanceof Collection) {
+        if (ToStringBuilder.isRegistered(value) 
+                && !(value instanceof Number || value instanceof Boolean || value instanceof Character)) {
+            appendAsObjectToString(buffer, value);
+            
+        } 
+        else if (value instanceof Collection) {
             if (detail) {
                 appendDetail(buffer, fieldName, (Collection) value);
             } else {
@@ -729,6 +737,32 @@ public abstract class ToStringStyle implements Serializable {
         buffer.append(arrayStart);
         for (int i = 0; i < array.length; i++) {
             Object item = array[i];
+            if (i > 0) {
+                buffer.append(arraySeparator);
+            }
+            if (item == null) {
+                appendNullText(buffer, fieldName);
+                
+            } else {
+                appendInternal(buffer, fieldName, item, arrayContentDetail);
+            }
+        }
+        buffer.append(arrayEnd);
+    }
+
+    /**
+     * <p>Append to the <code>toString</code> the detail of an any array type.</p>
+     *
+     * @param buffer  the <code>StringBuffer</code> to populate
+     * @param fieldName  the field name, typically not used as already appended
+     * @param array  the array to add to the <code>toString</code>,
+     *  not <code>null</code>
+     */
+    protected void reflectionAppendArrayDetail(StringBuffer buffer, String fieldName, Object array) {
+        buffer.append(arrayStart);
+        int length = Array.getLength(array);
+        for (int i = 0; i < length; i++) {
+            Object item = Array.get(array, i);
             if (i > 0) {
                 buffer.append(arraySeparator);
             }
@@ -1272,6 +1306,19 @@ public abstract class ToStringStyle implements Serializable {
             buffer.append('@');
             buffer.append(Integer.toHexString(System.identityHashCode(object)));
         }
+    }
+
+    /**
+     * <p>Appends with the same format as the default <code>Object toString()
+     * </code> method. Appends the class name followed by 
+     * {@link System#identityHashCode(java.lang.Object)}.</p>
+     * 
+     * @param buffer  the <code>StringBuffer</code> to populate
+     * @param object  the <code>Object</code> whose class name and id to output
+     */
+    protected void appendAsObjectToString(StringBuffer buffer, Object object) {
+        this.appendClassName(buffer, object);
+        this.appendIdentityHashCode(buffer, object);
     }
 
     /**
