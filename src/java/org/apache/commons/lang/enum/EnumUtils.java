@@ -63,13 +63,15 @@ import java.util.Map;
  * @see Enum
  * @see ValuedEnum
  * @author Stephen Colebourne
+ * @author Gary Gregory
  * @since 1.0
- * @version $Id: EnumUtils.java,v 1.9 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: EnumUtils.java,v 1.10 2003/08/21 05:29:08 ggregory Exp $
  */
 public class EnumUtils {
 
     /**
      * Public constructor. This class should not normally be instantiated.
+     * @since 2.0
      */
     public EnumUtils() {
     }

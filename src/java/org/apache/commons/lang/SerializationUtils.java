@@ -80,8 +80,9 @@ import java.io.Serializable;
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author Stephen Colebourne
  * @author Jeff Varszegi
+ * @author Gary Gregory
  * @since 1.0
- * @version $Id: SerializationUtils.java,v 1.10 2003/08/18 02:22:23 bayard Exp $
+ * @version $Id: SerializationUtils.java,v 1.11 2003/08/21 05:35:23 ggregory Exp $
  */
 public class SerializationUtils {
     
@@ -91,6 +92,7 @@ public class SerializationUtils {
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
+     * @since 2.0
      */
     public SerializationUtils() {
         super();
