@@ -55,35 +55,41 @@ package org.apache.commons.lang;
 
 import java.io.Serializable;
 /**
- * Common <code>Object</code> manipulation routines.
+ * <p>Common <code>Object</code> manipulation routines.</p>
  *
  * @author <a href="mailto:nissim@nksystems.com">Nissim Karpenstein</a>
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ObjectUtils.java,v 1.4 2002/09/22 09:18:33 scolebourne Exp $
+ * @version $Id: ObjectUtils.java,v 1.5 2002/11/16 10:41:03 scolebourne Exp $
  */
 public class ObjectUtils {
     
     /**
-     * Singleton used as a null placeholder where null has another meaning.
-     * <p>
-     * For example, in a <code>HashMap</code> the get(key) method returns null 
-     * if the Map contains null or if there is no matching key. The Null 
-     * placeholder can be used to distinguish between these two cases.
-     * <p>
-     * Another example is <code>HashTable</code>, where <code>null</code> 
-     * cannot be stored.
-     * <p>
-     * This instance is Serializable.
+     * <p>Singleton used as a <code>null</code> placeholder where
+     * <code>null</code> has another meaning.</p>
+     *
+     * <p>For example, in a <code>HashMap</code> the
+     * {@link java.util.HashMap#get(java.lang.Object)} method returns
+     * <code>null</code> if the <code>Map</code> contains
+     * <code>null</code> or if there is no matching key. The
+     * <code>Null</code> placeholder can be used to distinguish between
+     * these two cases.</p>
+     *
+     * <p>Another example is <code>HashTable</code>, where <code>null</code>
+     * cannot be stored.</p>
+     *
+     * <p>This instance is Serializable.</p>
      */
     public static final Null NULL = new Null();
     
     /**
-     * ObjectUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>ObjectUtils.defaultIfNull("a","b");</code>.
-     * This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
+     * <p><code>ObjectUtils</code> instances should NOT be constructed in
+     * standard programming. Instead, the class should be used as
+     * <code>ObjectUtils.defaultIfNull("a","b");</code>.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
      */
     public ObjectUtils() {
     }
@@ -91,19 +97,20 @@ public class ObjectUtils {
     //--------------------------------------------------------------------
     
     /**
-     * Returns a default value if the object passed is null.
+     * <p>Returns a default value if the object passed is
+     * <code>null</code>.</p>
      *
-     * @param object  the object to test
+     * @param object  the <code>Object</code> to test
      * @param defaultValue  the default value to return
-     * @return object if it is not null, defaultValue otherwise
+     * @return <code>object</code> if it is not <code>null</code>, defaultValue otherwise
      */
     public static Object defaultIfNull(Object object, Object defaultValue) {
         return (object != null ? object : defaultValue);
     }
 
     /**
-     * Compares two objects for equality, where either one or both
-     * objects may be <code>null</code>.
+     * <p>Compares two objects for equality, where either one or both
+     * objects may be <code>null</code>.</p>
      *
      * @param object1  the first object
      * @param object2  the second object
@@ -120,11 +127,14 @@ public class ObjectUtils {
     }
     
     /**
-     * Gets the toString that would be produced by Object if a class did not
-     * override toString itself. Null will return null.
+     * <p>Gets the toString that would be produced by <code>Object</code>
+     * if a class did not override toString itself. <code>Null</code>
+     * will return <code>null</code>.</p>
      *
-     * @param object  the object to create a toString for, may be null
-     * @return the default toString text, or null if null passed in
+     * @param object  the object to create a toString for, may be
+     *  <code>null</code>
+     * @return the default toString text, or <code>null</code> if
+     *  <code>null</code> passed in
      */
     public static String identityToString(Object object) {
         if (object == null) {
@@ -138,14 +148,17 @@ public class ObjectUtils {
     }
 
     /**
-     * Class used as a null placeholder where null has another meaning.
-     * <p>
-     * For example, in a <code>HashMap</code> the get(key) method returns null 
-     * if the Map contains null or if there is no matching key. The Null 
-     * placeholder can be used to distinguish between these two cases.
-     * <p>
-     * Another example is <code>HashTable</code>, where <code>null</code> 
-     * cannot be stored.
+     * <p>Class used as a null placeholder where null has another meaning.</p>
+     *
+     * <p>For example, in a <code>HashMap</code> the
+     * {@link java.util.HashMap#get(java.lang.Object)} method returns
+     * <code>null</code> if the <code>Map</code> contains
+     * <code>null</code> or if there is no matching key. The
+     * <code>Null</code> placeholder can be used to distinguish between
+     * these two cases.</p>
+     *
+     * <p>Another example is <code>HashTable</code>, where <code>null</code>
+     * cannot be stored.</p>
      */
     public static class Null implements Serializable {
         /**
@@ -155,7 +168,8 @@ public class ObjectUtils {
         }
         
         /**
-         * Ensure singleton.
+         * <p>Ensure singleton.</p>
+         * 
          * @return the singleton value
          */
         private Object readResolve() {

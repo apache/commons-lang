@@ -55,47 +55,53 @@ package org.apache.commons.lang;
  */
 
 /**
- * Numerous routines to manipulate a character set.
+ * <p>Numerous routines to manipulate a <code>CharSet</code>.</p>
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharSetUtils.java,v 1.6 2002/09/29 08:20:52 bayard Exp $
+ * @version $Id: CharSetUtils.java,v 1.7 2002/11/16 10:41:03 scolebourne Exp $
  */
 public class CharSetUtils {
 
     /**
-     * CharSetUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>CharSetUtils.evaluateSet(null);</code>.
-     * This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
+     * <p>CharSetUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as <code>CharSetUtils.evaluateSet(null);</code>.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
      */
     public CharSetUtils() {
     }
 
     /**
-     * Creates a CharSetUtils object which allows a certain amount of 
-     * set logic to be performed upon the following syntax:
+     * <p>Creates a CharSetUtils object which allows a certain amount of
+     * set logic to be performed upon the following syntax:</p>
      *
-     * "aeio" which implies 'a','e',..
-     * "^e" implies not e. However it only negates, it's not 
-     * a set in itself due to the size of that set in unicode.
-     * "ej-m" implies e,j->m. e,j,k,l,m.
+     * <ul>
+     *  <li>"aeio" which implies 'a','e',..
+     *  <li>"^e" implies not e. However it only negates, it's not
+     *   a set in itself due to the size of that set in unicode.
+     *  <li>"ej-m" implies e,j->m. e,j,k,l,m.
+     * </ul>
+     *
      * @param set
      * @return CharSet
      * @throws NullPointerException if any of set[i] is null or if set is null
-     * @param set
-     * @return CharSet
      */
     public static CharSet evaluateSet(String[] set) {
         return new CharSet(set); 
     }
 
     /**
-     * Squeezes any repititions of a character that is mentioned in the 
-     * supplied set. An example is:
-     *    squeeze("hello", "el")  => "helo"
-     * See evaluateSet for set-syntax.
-     * 
+     * <p>Squeezes any repititions of a character that is mentioned in the
+     * supplied set.</p>
+     *
+     * <p>An example is:</p>
+     * <ul>
+     *  <li>squeeze("hello", "el")  => "helo"
+     * </ul>
+     * @see #evaluateSet(java.lang.String[]) for set-syntax.
+     *
      * @param str  the string to work from
      * @param set  the character set to use for manipulation
      */
@@ -106,14 +112,19 @@ public class CharSetUtils {
     }
 
     /**
-     * Squeezes any repititions of a character that is mentioned in the 
-     * supplied set. An example is:
-     *    squeeze("hello", {"el"})  => "helo"
-     * See evaluateSet for set-syntax.
+     * <p>Squeezes any repititions of a character that is mentioned in the
+     * supplied set.</p>
+     *
+     * <p>An example is:</p>
+     * <ul>
+     *   <li>squeeze("hello", {"el"})  => "helo"
+     * </ul>
+     * @see #evaluateSet(java.lang.String[]) for set-syntax.
      * 
      * @param str  the string to work from
      * @param set  the character set to use for manipulation
-     * @throws NullPointerException if str is null
+     * @throws NullPointerException if <code>str</code> is
+     *  <code>null</code>
      */
     public static String squeeze(String str, String[] set) {
         CharSet chars = evaluateSet(set);
@@ -136,9 +147,13 @@ public class CharSetUtils {
     }
 
     /**
-     * Takes an argument in set-syntax, see evaluateSet,
-     * and returns the number of characters present in the specified string.
-     * An example would be:   count("hello", {"c-f","o"}) returns 2.
+     * <p>Takes an argument in set-syntax, see evaluateSet,
+     * and returns the number of characters present in the specified string.</p>
+     *
+     * <p>An example would be:</p>
+     * <ul>
+     *   <li>count("hello", {"c-f","o"}) returns 2.
+     * </ul>
      *
      * @param str  String target to count characters in
      * @param set  String set of characters to count
@@ -150,9 +165,13 @@ public class CharSetUtils {
     }
     
     /**
-     * Takes an argument in set-syntax, see evaluateSet,
-     * and returns the number of characters present in the specified string.
-     * An example would be:   count("hello", {"c-f","o"}) returns 2.
+     * <p>Takes an argument in set-syntax, see evaluateSet,
+     * and returns the number of characters present in the specified string.</p>
+     *
+     * An example would be:</p>
+     * <ul>
+     *  <li>count("hello", {"c-f","o"}) returns 2.
+     * </ul>
      *
      * @param str  String target to count characters in
      * @param set  String[] set of characters to count
@@ -171,9 +190,13 @@ public class CharSetUtils {
     }
 
     /**
-     * Takes an argument in set-syntax, see evaluateSet,
-     * and deletes any of characters present in the specified string.
-     * An example would be:   delete("hello", {"c-f","o"}) returns "hll"
+     * <p>Takes an argument in set-syntax, see evaluateSet,
+     * and deletes any of characters present in the specified string.</p>
+     *
+     * <p>An example would be:</p>
+     * <ul>
+     *   <li>delete("hello", {"c-f","o"}) returns "hll"
+     * </ul>
      *
      * @param str  String target to delete characters from
      * @param set  String set of characters to delete
@@ -185,13 +208,18 @@ public class CharSetUtils {
     }
     
     /**
-     * Takes an argument in set-syntax, see evaluateSet,
-     * and deletes any of characters present in the specified string.
-     * An example would be:   delete("hello", {"c-f","o"}) returns "hll"
+     * <p>Takes an argument in set-syntax, see evaluateSet,
+     * and deletes any of characters present in the specified string.</p>
+     *
+     * <p>An example would be:</p>
+     * <ul>
+     *  <li>delete("hello", {"c-f","o"}) returns "hll"
+     * </ul>
      *
      * @param str  String target to delete characters from
      * @param set  String[] set of characters to delete
-     * @throws NullPointerException of str is null
+     * @throws NullPointerException of <code>str</code> is
+     *  <code>null</code>
      */
     public static String delete(String str, String[] set) {
         CharSet chars = evaluateSet(set);
@@ -207,16 +235,22 @@ public class CharSetUtils {
     }
 
     /**
-     * Translate characters in a String.
-     * An example is:  translate("hello", "ho", "jy") => jelly
-     * If the length of characters to search for is greater than the 
-     * length of characters to replace, then the last character is 
-     * used.
+     * <p>Translate characters in a String.</p>
      *
-     * @param target String to replace characters  in
+     * <p>An example is:</p>
+     * <ul>
+     *   <li>translate("hello", "ho", "jy") => jelly
+     * </ul>
+     *
+     * <p>If the length of characters to search for is greater than the
+     * length of characters to replace, then the last character is 
+     * used.</p>
+     *
+     * @param target String to replace characters in
      * @param repl String to find that will be replaced
      * @param with String to put into the target String
-     * @throws NullPointerException if target, with or repl is null
+     * @throws NullPointerException if <code>target</code>, with
+     *  or <code>repl</code> is <code>null</code>
      */
     public static String translate(String target, String repl, String with) {
         StringBuffer buffer = new StringBuffer(target.length());

@@ -56,24 +56,24 @@ package org.apache.commons.lang;
 import org.apache.commons.lang.exception.NestableException;
 
 /**
- * Exception thrown when something goes wrong in notifying.
+ * <p>Exception thrown when something goes wrong in notifying.</p>
  *
  * @author <a href="mailto:bayard@apache.org">Henri Yandell</a>
- * @version $Id: NotifierException.java,v 1.1 2002/11/12 03:01:05 bayard Exp $
+ * @version $Id: NotifierException.java,v 1.2 2002/11/16 10:41:03 scolebourne Exp $
  */
 public class NotifierException extends NestableException {
 
     /**
-     * Constructs a new <code>NotifierException</code> without specified
-     * detail message.
+     * <p>Constructs a new <code>NotifierException</code> without specified
+     * detail message.</p>
      */
     public NotifierException() {
         super();
     }
 
     /**
-     * Constructs a new <code>NotifierException</code> with specified
-     * detail message.
+     * <p>Constructs a new <code>NotifierException</code> with specified
+     * detail message.</p>
      *
      * @param msg  the error message.
      */
@@ -82,23 +82,23 @@ public class NotifierException extends NestableException {
     }
 
     /**
-     * Constructs a new <code>NotifierException</code> with specified
-     * nested <code>Throwable</code> root cause.
+     * <p>Constructs a new <code>NotifierException</code> with specified
+     * nested <code>Throwable</code> root cause.</p>
      *
-     * @param rootCause  the exception or error that caused this exception
-     *                   to be thrown.
+     * @param rootCause  the <code>Exception</code> or <code>Error</code> that
+     *  caused this exception to be thrown.
      */
     public NotifierException(Throwable rootCause) {
         super(rootCause);
     }
 
     /**
-     * Constructs a new <code>NotifierException</code> with specified
-     * detail message and nested <code>Throwable</code> root cause.
+     * <p>Constructs a new <code>NotifierException</code> with specified
+     * detail message and nested <code>Throwable</code> root cause.</p>
      *
      * @param msg        the error message.
-     * @param rootCause  the exception or error that caused this exception
-     *                   to be thrown.
+     * @param rootCause  the <code>Exception</code> or <code>Error</code> that
+     * caused this exception to be thrown.
      */
     public NotifierException(String msg, Throwable rootCause) {
         super(msg, rootCause);

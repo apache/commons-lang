@@ -59,21 +59,25 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * A set of characters. You can iterate over the characters in the 
- * set. 
+ * <p>A set of characters. You can iterate over the characters in the
+ * set.</p>
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharSet.java,v 1.5 2002/10/09 04:35:03 sullis Exp $
+ * @version $Id: CharSet.java,v 1.6 2002/11/16 10:41:03 scolebourne Exp $
  */
 public class CharSet {
 
     private List set = new LinkedList();
 
     /**
-     * Restricted constructor. Use the factory method evaluateSet().
+     * <p>Restricted constructor.</p>
      *
-     * @throws NullPointerException if any of set[i] is null or if set is null
+     * <p>Use the factory method
+     * {@link CharSetUtils#evaluateSet(java.lang.String[])}.</p>
+     *
+     * @throws NullPointerException if any of set[i] is <code>null</code>
+     *  or if set is <code>null</code>
      */
     protected CharSet(String[] set) {
         int sz = set.length;
@@ -83,10 +87,12 @@ public class CharSet {
     }
 
     /**
-     * Does the set contain the character specified
+     * <p>Does the <code>CharSet</code> contain the specified
+     * character <code>ch</code>.</p>
      * 
      * @param ch  the character to check for
-     * @return true if it does contain it
+     * @return <code>true</code> if it does contain the character
+     *  <code>ch</code>
      */
     public boolean contains(char ch) {
         Iterator iterator = set.iterator();
@@ -107,10 +113,10 @@ public class CharSet {
     }
 
     /**
-     * Add a set definition string to the set
+     * <p>Add a set definition string to the <code>CharSet</code>.</p>
      * 
      * @param str  set definition string
-     * @throws NullPointerException if str is null
+     * @throws NullPointerException if <code>str</code> is <code>null</code>
      */
     protected void add(String str) {
         int sz = str.length();
@@ -145,7 +151,7 @@ public class CharSet {
     }
 
     /**
-     * Returns a string representation of the set
+     * <p>Returns a string representation of the set.</p>
      * 
      * @return string representation
      */

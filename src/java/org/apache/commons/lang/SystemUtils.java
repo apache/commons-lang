@@ -55,21 +55,23 @@ package org.apache.commons.lang;
  */
 
 /**
- * Common <code>System</code> class helpers.
+ * <p>Common <code>System</code> class helpers.</p>
  *
  * @author Based on code from Avalon Excalibur
  * @author Based on code from Lucene
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
- * @version $Id: SystemUtils.java,v 1.3 2002/10/29 19:47:02 bayard Exp $
+ * @version $Id: SystemUtils.java,v 1.4 2002/11/16 10:41:03 scolebourne Exp $
  */
 public class SystemUtils {
     
     /**
-     * SystemUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>SystemUtils.FILE_SEPARATOR</code>.
-     * This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
+     * <P>SystemUtils instances should NOT be constructed in standard
+     * programming. Instead, the class should be used as
+     * <code>SystemUtils.FILE_SEPARATOR</code>.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
      */
     public SystemUtils() {
     }
@@ -409,10 +411,13 @@ public class SystemUtils {
 //    }
 
     /**
-     * Get the Java version number as a float.
-     * Example output:<br>
-     * 1.2f  for JDK 1.2<br>
-     * 1.31f  for JDK 1.3.1<br>
+     * <p>Get the Java version number as a <code>float</code>.</p>
+     *
+     * <P>Example output:</p>
+     * <ul>
+     *  <li><code>1.2f</code> for JDK 1.2
+     *  <li><code>1.31f</code> for JDK 1.3.1
+     * </ul>
      * 
      * @return the version, for example 1.31f for JDK 1.3.1
      */
@@ -425,13 +430,17 @@ public class SystemUtils {
     }
     
     /**
-     * Is the Java version at the the requested version.
-     * Example input:<br>
-     * 1.2f  for JDK 1.2<br>
-     * 1.31f  for JDK 1.3.1<br>
+     * <p>Is the Java version at the the requested version.</p>
+     *
+     * <p>Example input:</p>
+     * <ul>
+     *  <li><code>1.2f</code> for JDK 1.2
+     *  <li><code>1.31f</code> for JDK 1.3.1
+     * </ul>
      * 
      * @param requiredVersion  the required version, for example 1.31f
-     * @return true if the actual version is equal or greater than the required version
+     * @return <code>true</code> if the actual version is equal or greater
+     *  than the required version
      */
     public boolean isJavaVersionAtLeast(float requiredVersion) {
         return (getJavaVersion() >= requiredVersion);

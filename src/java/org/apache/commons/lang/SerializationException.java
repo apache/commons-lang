@@ -57,25 +57,26 @@ package org.apache.commons.lang;
 import org.apache.commons.lang.exception.NestableRuntimeException;
 
 /**
- * Exception thrown when the Serialization process fails. The original
- * error is wrapped within this one.
+ * <p>Exception thrown when the Serialization process fails.</p>
+ *
+ * <p>The original error is wrapped within this one.</p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: SerializationException.java,v 1.2 2002/08/31 11:11:03 scolebourne Exp $
+ * @version $Id: SerializationException.java,v 1.3 2002/11/16 10:41:03 scolebourne Exp $
  */
 public class SerializationException extends NestableRuntimeException {
 
     /**
-     * Constructs a new <code>SerializationException</code> without specified
-     * detail message.
+     * <p>Constructs a new <code>SerializationException</code> without specified
+     * detail message.</p>
      */
     public SerializationException() {
         super();
     }
 
     /**
-     * Constructs a new <code>SerializationException</code> with specified
-     * detail message.
+     * <p>Constructs a new <code>SerializationException</code> with specified
+     * detail message.</p>
      *
      * @param msg  The error message.
      */
@@ -84,23 +85,23 @@ public class SerializationException extends NestableRuntimeException {
     }
 
     /**
-     * Constructs a new <code>SerializationException</code> with specified
-     * nested <code>Throwable</code>.
+     * <p>Constructs a new <code>SerializationException</code> with specified
+     * nested <code>Throwable</code>.</p>
      *
-     * @param cause  The exception or error that caused this exception
-     *               to be thrown.
+     * @param cause  The <code>Exception</code> or <code>Error</code>
+     *  that caused this exception to be thrown.
      */
     public SerializationException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * Constructs a new <code>SerializationException</code> with specified
-     * detail message and nested <code>Throwable</code>.
+     * <p>Constructs a new <code>SerializationException</code> with specified
+     * detail message and nested <code>Throwable</code>.</p>
      *
      * @param msg    The error message.
-     * @param cause  The exception or error that caused this exception
-     *               to be thrown.
+     * @param cause  The <code>Exception</code> or <code>Error</code>
+     *  that caused this exception to be thrown.
      */
     public SerializationException(String msg, Throwable cause) {
         super(msg, cause);
