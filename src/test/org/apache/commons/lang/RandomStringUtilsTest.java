@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: RandomStringUtilsTest.java,v 1.5 2003/04/09 14:13:03 bayard Exp $
+ * @version $Id: RandomStringUtilsTest.java,v 1.6 2003/05/14 02:50:43 bayard Exp $
  */
 public class RandomStringUtilsTest extends junit.framework.TestCase {
     /**
@@ -166,6 +166,52 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
         }
         assertNotNull("random(<0) throws exception", e);
     }
+    
+    /** 
+     * Test homogeneity of random strings generated --
+     * i.e., test that characters show up with expected frequencies
+     * in generated strings.  Will fail randomly about 1 in 1000 times.
+     * Repeated failures indicate a problem.
+     */
+    public void testRandomStringUtilsHomog() {
+        String set = "abc";
+        char[] chars = set.toCharArray();
+        String gen = "";
+        int[] counts = {0,0,0};
+        int[] expected = {200,200,200};
+        for (int i = 0; i< 100; i++) {
+           gen = RandomStringUtils.random(6,chars);
+           for (int j = 0; j < 6; j++) {
+               switch (gen.charAt(j)) {
+                   case 'a': {counts[0]++; break;}
+                   case 'b': {counts[1]++; break;}
+                   case 'c': {counts[2]++; break;}
+                   default: {fail("generated character not in set");}
+               }
+           }
+        } 
+        // Perform chi-square test with df = 3-1 = 2, testing at .001 level
+        assertTrue("test homogeneity -- will fail about 1 in 1000 times",
+            chiSquare(expected,counts) < 13.82);  
+    }
+    
+    //FIXME: add similar tests for other functions
+    
+    /**
+     * Computes Chi-Square statistic given observed and expected counts
+     * @param observed array of observed frequency counts
+     * @param expected array of exptected frequency counts
+     */
+    private double chiSquare(int[] expected, int[] observed) {
+        double sumSq = 0.0d;
+        double dev = 0.0d;
+        for (int i = 0; i< observed.length; i++) {
+            dev = (double)(observed[i] - expected[i]);
+            sumSq += dev*dev/(double)expected[i];
+        }
+        return sumSq;
+    }           
+        
 
     public static void main(String args[]) {
         TestRunner.run(suite());
