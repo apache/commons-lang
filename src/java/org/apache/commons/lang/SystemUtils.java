@@ -55,14 +55,18 @@ package org.apache.commons.lang;
 
 /**
  * <p>Common <code>System</code> class helpers.</p>
+ * 
+ * <p>If a particular system property cannot be read due to security
+ * restrictions, the field will return <code>null</code>.</p>
  *
  * @author Based on code from Avalon Excalibur
  * @author Based on code from Lucene
  * @author Stephen Colebourne
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Michael Becke
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.9 2003/05/14 17:13:00 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.10 2003/05/22 21:51:26 scolebourne Exp $
  */
 public class SystemUtils {
     
@@ -81,224 +85,309 @@ public class SystemUtils {
      * The <code>file.separator</code> System Property.
      * File separator ("/" on UNIX).
      * First in JDK version 1.1.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String FILE_SEPARATOR = System.getProperty("file.separator");
+    public static final String FILE_SEPARATOR = getSystemProperty("file.separator");
     
 
     /**
      * The <code>java.class.path</code> System Property.
      * Java class path.
      * First in JDK version 1.1.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_CLASS_PATH = System.getProperty("java.class.path");
+    public static final String JAVA_CLASS_PATH = getSystemProperty("java.class.path");
     
 
     /**
      * The <code>java.class.version</code> System Property.
      * Java class format version number.
      * First in JDK version 1.1.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_CLASS_VERSION = System.getProperty("java.class.version");
+    public static final String JAVA_CLASS_VERSION = getSystemProperty("java.class.version");
     
 
     /**
      * The <code>java.compiler</code> System Property.
      * Name of JIT compiler to use.
      * First in JDK version 1.4.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_COMPILER = System.getProperty("java.compiler");
+    public static final String JAVA_COMPILER = getSystemProperty("java.compiler");
     
 
     /**
      * The <code>java.ext.dirs</code> System Property.
      * Path of extension directory or directories.
      * First in JDK version 1.3.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_EXT_DIRS = System.getProperty("java.ext.dirs");
+    public static final String JAVA_EXT_DIRS = getSystemProperty("java.ext.dirs");
     
 
     /**
      * The <code>java.home</code> System Property.
      * Java installation directory.
      * First in JDK version 1.1.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_HOME = System.getProperty("java.home");
+    public static final String JAVA_HOME = getSystemProperty("java.home");
     
 
     /**
      * The <code>java.io.tmpdir</code> System Property.
      * Default temp file path.
      * First in JDK version 1.4.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_IO_TMPDIR = System.getProperty("java.io.tmpdir");
+    public static final String JAVA_IO_TMPDIR = getSystemProperty("java.io.tmpdir");
     
 
     /**
      * The <code>java.library.path</code> System Property.
      * List of paths to search when loading libraries.
      * First in JDK version 1.4.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_LIBRARY_PATH = System.getProperty("java.library.path");
+    public static final String JAVA_LIBRARY_PATH = getSystemProperty("java.library.path");
     
 
     /**
      * The <code>java.specification.name</code> System Property.
      * Java Runtime Environment specification name.
      * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_SPECIFICATION_NAME = System.getProperty("java.specification.name");
+    public static final String JAVA_SPECIFICATION_NAME = getSystemProperty("java.specification.name");
     
 
     /**
      * The <code>java.specification.vendor</code> System Property.
      * Java Runtime Environment specification vendor.
      * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_SPECIFICATION_VENDOR = System.getProperty("java.specification.vendor");
+    public static final String JAVA_SPECIFICATION_VENDOR = getSystemProperty("java.specification.vendor");
     
 
     /**
      * The <code>java.specification.version</code> System Property.
      * Java Runtime Environment specification version.
      * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_SPECIFICATION_VERSION = System.getProperty("java.specification.version");
+    public static final String JAVA_SPECIFICATION_VERSION = getSystemProperty("java.specification.version");
     
 
     /**
      * The <code>java.vendor</code> System Property.
      * Java vendor-specific string.
      * First in JDK version 1.1.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_VENDOR = System.getProperty("java.vendor");
+    public static final String JAVA_VENDOR = getSystemProperty("java.vendor");
     
 
     /**
      * The <code>java.vendor.url</code> System Property.
      * Java vendor URL.
      * First in JDK version 1.1. 
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_VENDOR_URL = System.getProperty("java.vendor.url");
+    public static final String JAVA_VENDOR_URL = getSystemProperty("java.vendor.url");
     
 
     /**
      * The <code>java.version</code> System Property.
      * Java version number.
      * First in JDK version 1.1. 
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_VERSION = System.getProperty("java.version");
+    public static final String JAVA_VERSION = getSystemProperty("java.version");
     
 
     /**
      * The <code>java.vm.name</code> System Property.
      * Java Virtual Machine implementation name.
      * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_VM_NAME = System.getProperty("java.vm.name");
+    public static final String JAVA_VM_NAME = getSystemProperty("java.vm.name");
     
 
     /**
      * The <code>java.vm.specification.name</code> System Property.
      * Java Virtual Machine specification name.
      * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_VM_SPECIFICATION_NAME = System.getProperty("java.vm.specification.name");
+    public static final String JAVA_VM_SPECIFICATION_NAME = getSystemProperty("java.vm.specification.name");
     
 
     /**
      * The <code>java.vm.specification.vendor</code> System Property.
      * Java Virtual Machine specification vendor.
      * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_VM_SPECIFICATION_VENDOR = System.getProperty("java.vm.specification.vendor");
+    public static final String JAVA_VM_SPECIFICATION_VENDOR = getSystemProperty("java.vm.specification.vendor");
     
 
     /**
      * The <code>java.vm.specification.version</code> System Property.
      * Java Virtual Machine specification version.
      * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_VM_SPECIFICATION_VERSION = System.getProperty("java.vm.specification.version");
+    public static final String JAVA_VM_SPECIFICATION_VERSION = getSystemProperty("java.vm.specification.version");
     
 
     /**
      * The <code>java.vm.vendor</code> System Property.
      * Java Virtual Machine implementation vendor.
      * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_VM_VENDOR = System.getProperty("java.vm.vendor");
+    public static final String JAVA_VM_VENDOR = getSystemProperty("java.vm.vendor");
     
 
     /**
      * The <code>java.vm.version</code> System Property.
      * Java Virtual Machine implementation version.
      * First in JDK version 1.2.
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String JAVA_VM_VERSION = System.getProperty("java.vm.version");
+    public static final String JAVA_VM_VERSION = getSystemProperty("java.vm.version");
     
 
     /**
      * The <code>line.separator</code> System Property.
      * Line separator ("\n" on UNIX).
      * First in JDK version 1.1. 
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    public static final String LINE_SEPARATOR = getSystemProperty("line.separator");
     
 
     /**
      * The <code>os.arch</code> System Property.
      * Operating system architecture.
      * First in JDK version 1.1. 
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String OS_ARCH = System.getProperty("os.arch");
+    public static final String OS_ARCH = getSystemProperty("os.arch");
     
 
     /**
      * The <code>os.name</code> System Property.
      * Operating system name.
      * First in JDK version 1.1. 
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String OS_NAME = System.getProperty("os.name");
+    public static final String OS_NAME = getSystemProperty("os.name");
     
 
     /**
      * The <code>os.version</code> System Property.
      * Operating system version.
      * First in JDK version 1.1. 
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String OS_VERSION = System.getProperty("os.version");
+    public static final String OS_VERSION = getSystemProperty("os.version");
     
 
     /**
      * The <code>path.separator</code> System Property.
      * Path separator (":" on UNIX).
      * First in JDK version 1.1. 
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String PATH_SEPARATOR = System.getProperty("path.separator");
+    public static final String PATH_SEPARATOR = getSystemProperty("path.separator");
     
 
     /**
      * The <code>user.dir</code> System Property.
      * User's current working directory.
      * First in JDK version 1.1. 
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String USER_DIR = System.getProperty("user.dir");
+    public static final String USER_DIR = getSystemProperty("user.dir");
     
 
     /**
      * The <code>user.home</code> System Property.
      * User's home directory.
      * First in JDK version 1.1. 
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String USER_HOME = System.getProperty("user.home");
+    public static final String USER_HOME = getSystemProperty("user.home");
     
 
     /**
      * The <code>user.name</code> System Property.
      * User's account name.
      * First in JDK version 1.1. 
+     * <p>
+     * Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property.
      */
-    public static final String USER_NAME = System.getProperty("user.name");
+    public static final String USER_NAME = getSystemProperty("user.name");
+    
     
     /** 
      * Is <code>true</code> if this is Java version 1.1 (also 1.1.x versions).
@@ -325,6 +414,23 @@ public class SystemUtils {
      */
     public static final boolean IS_JAVA_1_5 = JAVA_VERSION.startsWith("1.5.");
 
+
+    /**
+     * Gets a System property, defaulting to the given value if the property 
+     * cannot be read.
+     * 
+     * @param property the system property name
+     * @return the system property value or <code>null</code> if security problem
+     */
+    private static String getSystemProperty(String property) {
+        try {
+            return System.getProperty(property);
+            
+        } catch (SecurityException ex) {
+            // we are not allowed to look at this property
+            return null;
+        }
+    }    
 
     // Parsing operating system may stay here, or it may be moved somewhere else entirely
 //    /** True iff this is running on Windows */
