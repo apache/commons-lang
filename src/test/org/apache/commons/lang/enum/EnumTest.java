@@ -67,7 +67,7 @@ import org.apache.commons.lang.SerializationUtils;
  * Test cases for the {@link Enum} class.
  *
  * @author Stephen Colebourne
- * @version $Id: EnumTest.java,v 1.8 2003/07/30 23:13:09 scolebourne Exp $
+ * @version $Id: EnumTest.java,v 1.9 2003/07/31 22:36:39 scolebourne Exp $
  */
 
 public final class EnumTest extends TestCase {
@@ -119,7 +119,9 @@ public final class EnumTest extends TestCase {
     }
 
     public void testToString() {
-        assertEquals("ColorEnum[Red]", ColorEnum.RED.toString());
+        String toString = ColorEnum.RED.toString();
+        assertEquals("ColorEnum[Red]", toString);
+        assertSame(toString, ColorEnum.RED.toString());
     }
 
     public void testIterator() {
