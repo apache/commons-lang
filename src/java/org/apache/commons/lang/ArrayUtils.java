@@ -81,7 +81,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Gary Gregory
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.39 2004/01/31 20:12:16 ggregory Exp $
+ * @version $Id: ArrayUtils.java,v 1.40 2004/02/03 22:14:24 ggregory Exp $
  */
 public class ArrayUtils {
 
@@ -2787,11 +2787,11 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Adds the element to the end of the array.</p>
+     * <p>Copies the given array and adds the given element at the end of the new array.</p>
      *
      * <p>The new array contains the same elements of the input
      * array plus the given element in the last position. The component type of 
-     * the new array is  the same as that of the input array.</p>
+     * the new array is the same as that of the input array.</p>
      *
      * <p>If the input array is <code>null</code>, a new one element array is returned
      *  whose component type is the same as the element.</p>
@@ -2806,25 +2806,262 @@ public class ArrayUtils {
      * 
      * @param array  the array to "add" the element to, may be <code>null</code>
      * @param element  the object to add
-     * @return A new array containing the existing elements and the new element
+     * @return A new array containing the existing elements plus the new element
      * @since 2.1
      */
-    public static Object[] add(Object[] array, Object element) {
-        Object joinedArray;
-        int elementPos;
-        if (array != null) {
-            joinedArray = Array.newInstance(array.getClass().getComponentType(), array.length + 1);
-            System.arraycopy(array, 0, joinedArray, 0, array.length);
-            elementPos = array.length;
-        } else {
-            // null input array, use the element type
-            joinedArray = Array.newInstance(element != null ? element.getClass() : Object.class, 1);
-            elementPos = 0;
-        }
-        Array.set(joinedArray, elementPos, element);
-        return (Object[]) joinedArray;
+    public static Object[] add(final Object[] array, final Object element) {
+        Object newArray = copyArrayGrow1(array, element != null ? element.getClass() : Object.class);
+        Array.set(newArray, lastIndex(newArray), element);
+        return (Object[]) newArray;
     }
-
+    
+    /**
+     * <p>Copies the given array and adds the given element at the end of the new array.</p>
+     *
+     * <p>The new array contains the same elements of the input
+     * array plus the given element in the last position. The component type of 
+     * the new array is the same as that of the input array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, true)          = [true]
+     * ArrayUtils.add([true], false)       = [true, false]
+     * ArrayUtils.add([true, false], true) = [true, false, true]
+     * </pre>
+     * 
+     * @param array  the array to copy and add the element to, may be <code>null</code>
+     * @param element  the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     * @since 2.1
+     */
+    public static boolean[] add(final boolean[] array, final boolean element) {
+        boolean[] newArray = (boolean[])copyArrayGrow1(array, Boolean.TYPE);
+        newArray[lastIndex(newArray)] = element;
+        return newArray;
+    }
+    
+    /**
+     * <p>Copies the given array and adds the given element at the end of the new array.</p>
+     *
+     * <p>The new array contains the same elements of the input
+     * array plus the given element in the last position. The component type of 
+     * the new array is the same as that of the input array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, 0)   = [0]
+     * ArrayUtils.add([1], 0)    = [1, 0]
+     * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
+     * </pre>
+     * 
+     * @param array  the array to copy and add the element to, may be <code>null</code>
+     * @param element  the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     * @since 2.1
+     */
+    public static byte[] add(final byte[] array, final byte element) {
+        byte[] newArray = (byte[])copyArrayGrow1(array, Byte.TYPE);
+        newArray[lastIndex(newArray)] = element;
+        return newArray;
+    }
+    
+    /**
+     * <p>Copies the given array and adds the given element at the end of the new array.</p>
+     *
+     * <p>The new array contains the same elements of the input
+     * array plus the given element in the last position. The component type of 
+     * the new array is the same as that of the input array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, '0')       = ['0']
+     * ArrayUtils.add(['1'], '0')      = ['1', '0']
+     * ArrayUtils.add(['1', '0'], '1') = ['1', '0', '1']
+     * </pre>
+     * 
+     * @param array  the array to copy and add the element to, may be <code>null</code>
+     * @param element  the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     * @since 2.1
+     */
+    public static char[] add(final char[] array, final char element) {
+        char[] newArray = (char[])copyArrayGrow1(array, Character.TYPE);
+        newArray[lastIndex(newArray)] = element;
+        return newArray;
+    }
+    
+    /**
+     * <p>Copies the given array and adds the given element at the end of the new array.</p>
+     *
+     * <p>The new array contains the same elements of the input
+     * array plus the given element in the last position. The component type of 
+     * the new array is the same as that of the input array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, 0)   = [0]
+     * ArrayUtils.add([1], 0)    = [1, 0]
+     * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
+     * </pre>
+     * 
+     * @param array  the array to copy and add the element to, may be <code>null</code>
+     * @param element  the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     * @since 2.1
+     */
+    public static double[] add(final double[] array, final double element) {
+        double[] newArray = (double[])copyArrayGrow1(array, Double.TYPE);
+        newArray[lastIndex(newArray)] = element;
+        return newArray;
+    }
+    
+    /**
+     * <p>Copies the given array and adds the given element at the end of the new array.</p>
+     *
+     * <p>The new array contains the same elements of the input
+     * array plus the given element in the last position. The component type of 
+     * the new array is the same as that of the input array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, 0)   = [0]
+     * ArrayUtils.add([1], 0)    = [1, 0]
+     * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
+     * </pre>
+     * 
+     * @param array  the array to copy and add the element to, may be <code>null</code>
+     * @param element  the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     * @since 2.1
+     */
+    public static float[] add(final float[] array, final float element) {
+        float[] newArray = (float[])copyArrayGrow1(array, Float.TYPE);
+        newArray[lastIndex(newArray)] = element;
+        return newArray;
+    }
+    
+    /**
+     * <p>Copies the given array and adds the given element at the end of the new array.</p>
+     *
+     * <p>The new array contains the same elements of the input
+     * array plus the given element in the last position. The component type of 
+     * the new array is the same as that of the input array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, 0)   = [0]
+     * ArrayUtils.add([1], 0)    = [1, 0]
+     * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
+     * </pre>
+     * 
+     * @param array  the array to copy and add the element to, may be <code>null</code>
+     * @param element  the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     * @since 2.1
+     */
+    public static int[] add(final int[] array, final int element) {
+        int[] newArray = (int[])copyArrayGrow1(array, Integer.TYPE);
+        newArray[lastIndex(newArray)] = element;
+        return newArray;
+    }
+    
+    /**
+     * <p>Copies the given array and adds the given element at the end of the new array.</p>
+     *
+     * <p>The new array contains the same elements of the input
+     * array plus the given element in the last position. The component type of 
+     * the new array is the same as that of the input array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, 0)   = [0]
+     * ArrayUtils.add([1], 0)    = [1, 0]
+     * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
+     * </pre>
+     * 
+     * @param array  the array to copy and add the element to, may be <code>null</code>
+     * @param element  the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     * @since 2.1
+     */
+    public static long[] add(final long[] array, final long element) {
+        long[] newArray = (long[])copyArrayGrow1(array, Long.TYPE);
+        newArray[lastIndex(newArray)] = element;
+        return newArray;
+    }
+    
+    /**
+     * <p>Copies the given array and adds the given element at the end of the new array.</p>
+     *
+     * <p>The new array contains the same elements of the input
+     * array plus the given element in the last position. The component type of 
+     * the new array is the same as that of the input array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, 0)   = [0]
+     * ArrayUtils.add([1], 0)    = [1, 0]
+     * ArrayUtils.add([1, 0], 1) = [1, 0, 1]
+     * </pre>
+     * 
+     * @param array  the array to copy and add the element to, may be <code>null</code>
+     * @param element  the object to add at the last index of the new array
+     * @return A new array containing the existing elements plus the new element
+     * @since 2.1
+     */
+    public static short[] add(final short[] array, final short element) {
+        short[] newArray = (short[])copyArrayGrow1(array, Short.TYPE);
+        newArray[lastIndex(newArray)] = element;
+        return newArray;
+    }
+    
+    /**
+     * Returns a copy of the given array of size 1 greater than the argument. 
+     * The last value of the array is left to the default value.
+     * 
+     * @param array The array to copy, must not be <code>null</code>.
+     * @param newArrayComponentType If <code>array</code> is <code>null</code>, create a 
+     * size 1 array of this type.
+     * @return A new copy of the array of size 1 greater than the input.
+     */    
+    private static Object copyArrayGrow1(final Object array, Class newArrayComponentType) {
+        if (array != null) {
+            int arrayLength = Array.getLength(array);
+            Object newArray = Array.newInstance(array.getClass().getComponentType(), arrayLength + 1);
+            System.arraycopy(array, 0, newArray, 0, arrayLength);
+            return newArray;
+        } else {
+            return Array.newInstance(newArrayComponentType, 1);
+        }
+    }
+    
+    /**
+     * Returns the last index of the given array. This value is one less than the size since
+     * arrays indices are 0-based.
+     *  
+     * @param array The array to return the last index for, must not be <code>null</code>.
+     * @return The last index
+     */
+    public static int lastIndex(final Object array) {
+        return Array.getLength(array) - 1;
+    }
+    
     /**
      * <p>Inserts the specified element at the specified position in the array. 
      * Shifts the element currently at that position (if any) and any subsequent

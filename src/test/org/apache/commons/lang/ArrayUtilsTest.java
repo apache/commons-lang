@@ -75,7 +75,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Fredrik Westermarck
  * @author Gary Gregory
- * @version $Id: ArrayUtilsTest.java,v 1.23 2004/01/31 20:12:15 ggregory Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.24 2004/02/03 22:14:24 ggregory Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -111,103 +111,6 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(false, Modifier.isFinal(ArrayUtils.class.getModifiers()));
     }
     
-    void assertArraysEquals(Object[] array1, Object[] array2) {
-        assertTrue(Arrays.equals(array1, array2));
-    }
-    
-    public void testJoin() {
-        assertNull(ArrayUtils.addAll(null, null));
-        Object[] joinedArray;
-        String[] stringArray1 = new String[]{"a", "b", "c"};
-        String[] stringArray2 = new String[]{"1", "2", "3"};
-        joinedArray = ArrayUtils.addAll(stringArray1, null);
-        assertArraysEquals(stringArray1, joinedArray);
-        assertArraysEquals(new String[]{"a", "b", "c"}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        joinedArray = ArrayUtils.addAll(null, stringArray2);
-        assertArraysEquals(stringArray2, joinedArray);
-        assertArraysEquals(new String[]{"1", "2", "3"}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        joinedArray = ArrayUtils.addAll(stringArray1, stringArray2);
-        assertArraysEquals(new String[]{"a", "b", "c", "1", "2", "3"}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        joinedArray = ArrayUtils.addAll(ArrayUtils.EMPTY_STRING_ARRAY, null);
-        assertArraysEquals(ArrayUtils.EMPTY_STRING_ARRAY, joinedArray);
-        assertArraysEquals(new String[]{}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        joinedArray = ArrayUtils.addAll(null, ArrayUtils.EMPTY_STRING_ARRAY);
-        assertArraysEquals(ArrayUtils.EMPTY_STRING_ARRAY, joinedArray);
-        assertArraysEquals(new String[]{}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        joinedArray = ArrayUtils.addAll(ArrayUtils.EMPTY_STRING_ARRAY, ArrayUtils.EMPTY_STRING_ARRAY);
-        assertArraysEquals(ArrayUtils.EMPTY_STRING_ARRAY, joinedArray);
-        assertArraysEquals(new String[]{}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        String[] stringArrayNull = new String []{null};
-        joinedArray = ArrayUtils.addAll(stringArrayNull, stringArrayNull);        
-        assertArraysEquals(new String[]{null, null}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-    }    
-    
-    public void testAddObjectArrayObject() {
-        Object[] joinedArray;
-        joinedArray = ArrayUtils.add((Object[])null, null);
-        assertArraysEquals(new Object[]{null}, joinedArray);
-        assertEquals(Object.class, joinedArray.getClass().getComponentType());
-        joinedArray = ArrayUtils.add((Object[])null, "a");
-        assertArraysEquals(new String[]{"a"}, joinedArray);
-        assertArraysEquals(new Object[]{"a"}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        String[] stringArray1 = new String[]{"a", "b", "c"};
-        joinedArray = ArrayUtils.add(stringArray1, null);
-        assertArraysEquals(new String[]{"a", "b", "c", null}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        joinedArray = ArrayUtils.add(stringArray1, "d");
-        assertArraysEquals(new String[]{"a", "b", "c", "d"}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());        
-    }
-
-    public void testAddAtIndex() {
-        Object[] joinedArray;
-        joinedArray = ArrayUtils.add((Object[])null, 0, null);
-        assertArraysEquals(new Object[]{null}, joinedArray);
-        assertEquals(Object.class, joinedArray.getClass().getComponentType());
-        joinedArray = ArrayUtils.add((Object[])null, 0, "a");
-        assertArraysEquals(new String[]{"a"}, joinedArray);
-        assertArraysEquals(new Object[]{"a"}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        String[] stringArray1 = new String[]{"a", "b", "c"};
-        joinedArray = ArrayUtils.add(stringArray1, 0, null);
-        assertArraysEquals(new String[]{null, "a", "b", "c"}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        joinedArray = ArrayUtils.add(stringArray1, 1, null);
-        assertArraysEquals(new String[]{"a", null, "b", "c"}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        joinedArray = ArrayUtils.add(stringArray1, 3, null);
-        assertArraysEquals(new String[]{"a", "b", "c", null}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());
-        joinedArray = ArrayUtils.add(stringArray1, 3, "d");
-        assertArraysEquals(new String[]{"a", "b", "c", "d"}, joinedArray);
-        assertEquals(String.class, joinedArray.getClass().getComponentType());        
-
-        Object[] o = new Object[] {"1", "2", "4"};
-        Object[] result = ArrayUtils.add(o, 2, "3");
-        Object[] result2 = ArrayUtils.add(o, 3, "5");
-        
-        assertNotNull(result);
-        assertEquals(4, result.length);
-        assertEquals("1", result[0]);
-        assertEquals("2", result[1]);
-        assertEquals("3", result[2]);
-        assertEquals("4", result[3]);
-        assertNotNull(result2);
-        assertEquals(4, result2.length);
-        assertEquals("1", result2[0]);
-        assertEquals("2", result2[1]);
-        assertEquals("4", result2[2]);
-        assertEquals("5", result2[3]);
-    }
-
     //-----------------------------------------------------------------------
     public void testToString() {
         assertEquals("{}", ArrayUtils.toString(null));
