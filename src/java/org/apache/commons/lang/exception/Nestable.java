@@ -64,7 +64,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: Nestable.java,v 1.2 2002/07/26 20:30:10 stevencaswell Exp $
+ * @version $Id: Nestable.java,v 1.3 2002/08/25 13:20:59 stevencaswell Exp $
  */
 public interface Nestable
 {
@@ -74,13 +74,6 @@ public interface Nestable
      */
     public Throwable getCause();
 
-    /**
-     * Returns the number of nested <code>Throwable</code>s represented by
-     * this <code>Nestable</code>, including this <code>Nestable</code>.
-     * @deprecated replaced by {@link #getThrowableCount()}
-     */
-    public int getLength();
-    
     /**
      * Returns the error message of this and any nested
      * <code>Throwable</code>.
@@ -172,25 +165,6 @@ public interface Nestable
      * chain
      */
     public int indexOfThrowable(Class type, int fromIndex);
-    
-    /**
-     * Returns the index, numbered from 0, of the first <code>Throwable</code>
-     * that matches the specified type in the chain of <code>Throwable</code>s
-     * with an index greater than or equal to the specified position, or -1 if
-     * the type is not found. If <code>pos</code> is negative, the effect is the
-     * same as if it were 0. If <code>pos</code> is greater than or equal to the
-     * length of the chain, the effect is the same as if it were the index of
-     * the last element in the chain.
-     *
-     * @param pos index, numbered from 0, of the starting position in the chain
-     * to be searched
-     * @param type <code>Class</code> to be found
-     * 
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
-     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
-     */
-    public int indexOfThrowable(int pos, Class type);
     
     /**
      * Prints the stack trace of this exception to the specified print
