@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -73,7 +73,8 @@ import junit.textui.TestRunner;
  * @author Matthew Hawthorne
  * @author Tim O'Brien
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
- * @version $Id: ArrayUtilsTest.java,v 1.19 2004/01/08 17:54:28 fredrik Exp $
+ * @author Fredrik Westermarck
+ * @version $Id: ArrayUtilsTest.java,v 1.20 2004/01/19 21:50:06 fredrik Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -136,7 +137,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(true, ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array3));
         assertEquals(true, ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array4));
     }
-    
+
     //-----------------------------------------------------------------------
     public void testIsEquals() {
         long[][] array1 = new long[][] {{2,5}, {4,5}};
@@ -2289,4 +2290,66 @@ public class ArrayUtilsTest extends TestCase {
                 new double[] { Double.MIN_VALUE, Double.MAX_VALUE, 9999999 })));
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * Test for {@link ArrayUtils#isEmpty(java.lang.Object[])}.
+     */
+    public void testIsEmptyObject() {
+        Object[] emptyArray = new Object[] {};
+        Object[] notEmptyArray = new Object[] { new String("Value") };
+        assertEquals(true, ArrayUtils.isEmpty(emptyArray));
+        assertEquals(false, ArrayUtils.isEmpty(notEmptyArray));
+    }
+
+    /**
+     * Tests for {@link ArrayUtils#isEmpty(long[])},
+     * {@link ArrayUtils#isEmpty(int[])},
+     * {@link ArrayUtils#isEmpty(short[])},
+     * {@link ArrayUtils#isEmpty(char[])},
+     * {@link ArrayUtils#isEmpty(byte[])},
+     * {@link ArrayUtils#isEmpty(double[])},
+     * {@link ArrayUtils#isEmpty(float[])} and
+     * {@link ArrayUtils#isEmpty(boolean[])}.
+     */
+    public void testIsEmptyPrimitives() {
+        long[] emptyLongArray = new long[] {};
+        long[] notEmptyLongArray = new long[] { 1L };
+        assertEquals(true, ArrayUtils.isEmpty(emptyLongArray));
+        assertEquals(false, ArrayUtils.isEmpty(notEmptyLongArray));
+
+        int[] emptyIntArray = new int[] {};
+        int[] notEmptyIntArray = new int[] { 1 };
+        assertEquals(true, ArrayUtils.isEmpty(emptyIntArray));
+        assertEquals(false, ArrayUtils.isEmpty(notEmptyIntArray));
+
+        short[] emptyShortArray = new short[] {};
+        short[] notEmptyShortArray = new short[] { 1 };
+        assertEquals(true, ArrayUtils.isEmpty(emptyShortArray));
+        assertEquals(false, ArrayUtils.isEmpty(notEmptyShortArray));
+
+        char[] emptyCharArray = new char[] {};
+        char[] notEmptyCharArray = new char[] { 1 };
+        assertEquals(true, ArrayUtils.isEmpty(emptyCharArray));
+        assertEquals(false, ArrayUtils.isEmpty(notEmptyCharArray));
+
+        byte[] emptyByteArray = new byte[] {};
+        byte[] notEmptyByteArray = new byte[] { 1 };
+        assertEquals(true, ArrayUtils.isEmpty(emptyByteArray));
+        assertEquals(false, ArrayUtils.isEmpty(notEmptyByteArray));
+
+        double[] emptyDoubleArray = new double[] {};
+        double[] notEmptyDoubleArray = new double[] { 1.0 };
+        assertEquals(true, ArrayUtils.isEmpty(emptyDoubleArray));
+        assertEquals(false, ArrayUtils.isEmpty(notEmptyDoubleArray));
+
+        float[] emptyFloatArray = new float[] {};
+        float[] notEmptyFloatArray = new float[] { 1.0F };
+        assertEquals(true, ArrayUtils.isEmpty(emptyFloatArray));
+        assertEquals(false, ArrayUtils.isEmpty(notEmptyFloatArray));
+
+        boolean[] emptyBooleanArray = new boolean[] {};
+        boolean[] notEmptyBooleanArray = new boolean[] { true };
+        assertEquals(true, ArrayUtils.isEmpty(emptyBooleanArray));
+        assertEquals(false, ArrayUtils.isEmpty(notEmptyBooleanArray));
+    }
 }
