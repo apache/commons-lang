@@ -1,5 +1,6 @@
 package org.apache.commons.lang.builder;
 
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
@@ -12,7 +13,7 @@ import org.apache.commons.lang.ClassUtils;
  *
  * <p>This class uses reflection to determine the fields to append. 
  * Because these fields are usually private, the class 
- * uses <code>Field.setAccessible</code> to
+ * uses <code>AccessibleObject.setAccessible</code> to
  * change the visibility of the fields. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly.</p>
  *
@@ -49,7 +50,7 @@ import org.apache.commons.lang.ClassUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: ReflectionToStringBuilder.java,v 1.5 2003/07/15 23:12:51 scolebourne Exp $
+ * @version $Id: ReflectionToStringBuilder.java,v 1.6 2003/07/20 01:13:14 ggregory Exp $
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
 
@@ -100,7 +101,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * <p>This method uses reflection to build a suitable
      * <code>toString</code> using the default <code>ToStringStyle</code>.
      *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run
      * under a security manger, if the permissions are not set up correctly.
      * It is also not as efficient as testing explicitly.</p>
@@ -120,7 +121,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * <p>This method uses reflection to build a suitable
      * <code>toString</code>.</p>
      *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run
      * under a security manger, if the permissions are not set up correctly.
      * It is also not as efficient as testing explicitly.</p>
@@ -146,7 +147,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * <p>This method uses reflection to build a suitable
      * <code>toString</code>.</p>
      *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run
      * under a security manger, if the permissions are not set up correctly.
      * It is also not as efficient as testing explicitly. </p>
@@ -176,7 +177,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * <p>This method uses reflection to build a suitable
      * <code>toString</code>.</p>
      *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run
      * under a security manger, if the permissions are not set up correctly.
      * It is also not as efficient as testing explicitly. </p>
@@ -343,7 +344,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
                 return;
             }
             Field[] fields = clazz.getDeclaredFields();
-            Field.setAccessible(fields, true);
+            AccessibleObject.setAccessible(fields, true);
             for (int i = 0; i < fields.length; i++) {
                 Field field = fields[i];
                 String fieldName = field.getName();
