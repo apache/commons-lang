@@ -61,7 +61,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.HashCodeBuilder}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: HashCodeBuilderTest.java,v 1.1 2002/09/12 22:01:00 scolebourne Exp $
+ * @version $Id: HashCodeBuilderTest.java,v 1.2 2002/12/08 21:22:42 scolebourne Exp $
  */
 public class HashCodeBuilderTest extends TestCase {
 
@@ -164,6 +164,13 @@ public class HashCodeBuilderTest extends TestCase {
             return;
         }
         fail();
+    }
+
+    public void testSuper() {
+        Object obj = new Object();
+        assertEquals(17 * 37 + (19 * 41 + obj.hashCode()), new HashCodeBuilder(17, 37).appendSuper(
+            new HashCodeBuilder(19, 41).append(obj).toHashCode()
+        ).toHashCode());
     }
 
     public void testObject() {
