@@ -75,8 +75,9 @@ import java.util.StringTokenizer;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Arun Mammen Thomas
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.44 2003/04/16 04:37:33 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.45 2003/05/30 01:00:24 ggregory Exp $
  */
 public class StringUtils {
 
@@ -130,7 +131,7 @@ public class StringUtils {
      * @see java.lang.String#trim()
      * @param str the String to check
      * @return the trimmed text (never <code>null</code>)
-     * @deprecated use the clearer named trimToEmpty(String)
+     * @deprecated Use the clearer named {@link #trimToEmpty(String)}.
      */
     public static String clean(String str) {
         return (str == null ? "" : str.trim());
@@ -887,7 +888,7 @@ public class StringUtils {
      *
      * Note that this behavior has changed from 1.0.  It
      * now more closely matches Perl chomp.  For the previous behavior,
-     * use slice(String,String).
+     * use {@link #slice(String,String)}.
      *
      * @param str string to chomp from
      * @param separator separator string
@@ -911,7 +912,7 @@ public class StringUtils {
      * @param str String to chomp from
      * @return String without chomped ending
      * @throws NullPointerException if str is <code>null</code>
-     * @deprecated use chomp(String) instead
+     * @deprecated Use {@link #chomp(String)} instead.
      */
     public static String chompLast(String str) {
         return chompLast(str, "\n");
@@ -924,7 +925,7 @@ public class StringUtils {
      * @param sep String to chomp
      * @return String without chomped ending
      * @throws NullPointerException if str or sep is <code>null</code>
-     * @deprecated use chomp(String,String) instead
+     * @deprecated Use {@link #chomp(String,String)} instead.
      */
     public static String chompLast(String str, String sep) {
         if (str.length() == 0) {
@@ -947,7 +948,7 @@ public class StringUtils {
      * @param sep String to chomp
      * @return String chomped
      * @throws NullPointerException if str or sep is <code>null</code>
-     * @deprecated use sliceRemainder(String,String) instead
+     * @deprecated Use {@link #sliceRemainder(String,String)} instead.
      */
     public static String getChomp(String str, String sep) {
         int idx = str.lastIndexOf(sep);
@@ -968,7 +969,7 @@ public class StringUtils {
      * @param sep String to chomp
      * @return String without chomped beginning
      * @throws NullPointerException if str or sep is <code>null</code>
-     * @deprecated use sliceFirstRemainder(String,String) instead
+     * @deprecated Use {@link #sliceFirstRemainder(String,String)} instead.
      */
     public static String prechomp(String str, String sep) {
         int idx = str.indexOf(sep);
@@ -987,7 +988,7 @@ public class StringUtils {
      * @param sep String to chomp
      * @return String prechomped
      * @throws NullPointerException if str or sep is <code>null</code>
-     * @deprecated use sliceFirst(String) instead
+     * @deprecated Use {@link #sliceFirst(String,String)} instead.
      */
     public static String getPrechomp(String str, String sep) {
         int idx = str.indexOf(sep);
@@ -1036,7 +1037,7 @@ public class StringUtils {
      * @param str String to chop a newline from
      * @return String without newline
      * @throws NullPointerException if str is <code>null</code>
-     * @deprecated use chomp(String) instead
+     * @deprecated Use {@link #chomp(String)} instead.
      */
     public static String chopNewline(String str) {
         int lastIdx = str.length() - 1;
