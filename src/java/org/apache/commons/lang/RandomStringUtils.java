@@ -64,7 +64,7 @@ import java.util.Random;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.20 2003/07/31 23:24:35 scolebourne Exp $
+ * @version $Id: RandomStringUtils.java,v 1.21 2003/08/01 20:45:17 scolebourne Exp $
  */
 public class RandomStringUtils {
 
@@ -86,6 +86,8 @@ public class RandomStringUtils {
     public RandomStringUtils() {
     }
 
+    // Random
+    //-----------------------------------------------------------------------
     /**
      * <p>Creates a random string whose length is the number of characters
      * specified.</p>

@@ -60,6 +60,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * <p><code>ArrayUtils</code> contains utility methods for working with
  * arrays.</p>
@@ -75,7 +76,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.20 2003/07/31 23:45:28 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.21 2003/08/01 20:45:17 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -228,6 +229,7 @@ public class ArrayUtils {
         return new EqualsBuilder().append(array1, array2).isEquals();
     }
 
+    // To map
     //-----------------------------------------------------------------------
     /**
      * <p>Converts the given array into a {@link java.util.Map}. Each element of the array

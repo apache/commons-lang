@@ -67,7 +67,7 @@ import java.util.StringTokenizer;
  * @author Stephen Colebourne
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: WordWrapUtils.java,v 1.7 2003/07/19 20:22:36 scolebourne Exp $
+ * @version $Id: WordWrapUtils.java,v 1.8 2003/08/01 20:45:17 scolebourne Exp $
  */
 public class WordWrapUtils {
 
@@ -84,7 +84,6 @@ public class WordWrapUtils {
 
     // Wrapping
     //--------------------------------------------------------------------------
-
     /**
      * <p>Wraps a block of text to a specified line length.</p>
      *

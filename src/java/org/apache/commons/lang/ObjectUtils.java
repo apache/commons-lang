@@ -68,7 +68,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.15 2003/07/26 00:45:27 ggregory Exp $
+ * @version $Id: ObjectUtils.java,v 1.16 2003/08/01 20:45:17 scolebourne Exp $
  */
 public class ObjectUtils {
     
@@ -101,6 +101,7 @@ public class ObjectUtils {
     public ObjectUtils() {
     }
 
+    // Defaulting
     //-----------------------------------------------------------------------
     /**
      * <p>Returns a default value if the object passed is
@@ -151,6 +152,7 @@ public class ObjectUtils {
         return object1.equals(object2);
     }
     
+    // Identity ToString
     //-----------------------------------------------------------------------
     /**
      * <p>Gets the toString that would be produced by <code>Object</code>
@@ -205,6 +207,7 @@ public class ObjectUtils {
             .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
+    // ToString
     //-----------------------------------------------------------------------
     /**
      * <p>Gets the <code>toString</code> of an <code>Object</code> returning
@@ -244,6 +247,7 @@ public class ObjectUtils {
         return (obj == null ? nullStr : obj.toString());
     }
 
+    // Null
     //-----------------------------------------------------------------------
     /**
      * <p>Class used as a null placeholder where <code>null</code>

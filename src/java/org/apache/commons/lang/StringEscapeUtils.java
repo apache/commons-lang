@@ -73,7 +73,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.22 2003/07/31 23:45:28 scolebourne Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.23 2003/08/01 20:45:17 scolebourne Exp $
  */
 public class StringEscapeUtils {
 
@@ -429,7 +429,6 @@ public class StringEscapeUtils {
 
     // HTML and XML
     //--------------------------------------------------------------------------
-
     /**
      * <p>Escapes the characters in a <code>String</code> using HTML entities.</p>
      *

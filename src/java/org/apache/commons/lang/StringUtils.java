@@ -76,10 +76,8 @@ import java.util.List;
  *      - does String contain only/none of these characters
  *  <li><b>SubString/Left/Right/Mid/SubStringBefore/SubStringAfter</b>
  *      - null-safe substring extraction
- *  <li><b>Split</b>
- *      - splits a String into an array of subtrings based on a separator
- *  <li><b>Join/Concatenate</b>
- *      - joins an array of Strings into one with optional separator
+ *  <li><b>Split/Join</b>
+ *      - splits a String into an array of substrings and vice versa
  *  <li><b>Replace/Delete/Overlay</b>
  *      - Searches a String and replaces one String with another
  *  <li><b>Chomp/Chop</b>
@@ -146,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.83 2003/07/31 20:38:26 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.84 2003/08/01 20:45:17 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -195,7 +193,6 @@ public class StringUtils {
 
     // Empty checks
     //-----------------------------------------------------------------------
-
     /**
      * <p>Checks if a String is empty ("") or null.</p>
      * 
@@ -293,7 +290,6 @@ public class StringUtils {
 
     // Trim
     //-----------------------------------------------------------------------
-
     /**
      * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String, handling <code>null</code> by returning
@@ -396,7 +392,6 @@ public class StringUtils {
     
     // Stripping
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Strips whitespace from the start and end of a String.</p>
      * 
@@ -602,7 +597,6 @@ public class StringUtils {
 
     // StripAll
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Strips whitespace from the start and end of every String in an array.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
@@ -665,7 +659,6 @@ public class StringUtils {
 
     // Equals
     //-----------------------------------------------------------------------
-
     /**
      * <p>Compares two Strings, returning <code>true</code> if they are equal.</p>
      *
@@ -717,7 +710,6 @@ public class StringUtils {
 
     // IndexOf
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Finds the first index within a String, handling <code>null</code>.
      * This method uses {@link String#indexOf(int)}.</p>
@@ -845,7 +837,6 @@ public class StringUtils {
     
     // LastIndexOf
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Finds the last index within a String, handling <code>null</code>.
      * This method uses {@link String#lastIndexOf(int)}.</p>
@@ -968,7 +959,6 @@ public class StringUtils {
     
     // Contains
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Checks if String contains a search character, handling <code>null</code>.
      * This method uses {@link String#indexOf(int)}.</p>
@@ -1023,7 +1013,6 @@ public class StringUtils {
     
     // IndexOfAny
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Find the first index of any of a set of potential substrings.</p>
      *
@@ -1125,7 +1114,6 @@ public class StringUtils {
 
     // IndexOfAnyBut
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Search a String to find the first index of any
      * character not in the given set of characters.</p>
@@ -1187,7 +1175,6 @@ public class StringUtils {
 
     // ContainsOnly
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Checks if the String contains only certain characters.</p>
      *
@@ -1253,7 +1240,6 @@ public class StringUtils {
     
     // ContainsNone
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Checks that the String does not contain certain characters.</p>
      *
@@ -1322,7 +1308,6 @@ public class StringUtils {
     
     // Substring
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Gets a substring from the specified String avoiding exceptions.</p>
      *
@@ -1437,7 +1422,6 @@ public class StringUtils {
 
     // Left/Right/Mid
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Gets the leftmost <code>len</code> characters of a String.</p>
      *
@@ -1555,7 +1539,6 @@ public class StringUtils {
 
     // SubStringAfter/SubStringBefore
     //-----------------------------------------------------------------------
-
     /**
      * <p>Gets the substring before the first occurance of a separator.
      * The separator is not returned.</p>
@@ -1710,7 +1693,6 @@ public class StringUtils {
 
     // Splitting
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Splits the provided text into an array, using whitespace as the
      * separator.
@@ -2100,7 +2082,6 @@ public class StringUtils {
 
     // Delete
     //-----------------------------------------------------------------------
-
     /**
      * <p>Deletes all 'space' characters from a String as defined by
      * {@link Character#isSpace(char)}.</p>
@@ -2164,7 +2145,6 @@ public class StringUtils {
 
     // Replacing
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Replaces a String with another String inside a larger String, once.</p>
      * 
@@ -2264,7 +2244,6 @@ public class StringUtils {
     
     // Replace, character based
     //-----------------------------------------------------------------------
-
     /**
      * <p>Replaces all occurrances of a character in a String with another.
      * This is a null-safe version of {@link String#replace(char, char)}.</p>
@@ -2364,7 +2343,6 @@ public class StringUtils {
 
     // Overlay
     //-----------------------------------------------------------------------
-
     /**
      * <p>Overlays part of a String with another String.</p>
      *
@@ -2402,7 +2380,6 @@ public class StringUtils {
 
     // Chomping
     //-----------------------------------------------------------------------
-
     /**
      * <p>Removes one newline from end of a String if it's there,
      * otherwise leave it alone.  A newline is &quot;<code>\n</code>&quot;,
@@ -2595,7 +2572,6 @@ public class StringUtils {
 
     // Chopping
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Remove the last character from a String.</p>
      *
@@ -2667,7 +2643,6 @@ public class StringUtils {
 
     // Conversion
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Escapes any values it finds into their String form.</p>
      *
@@ -2690,7 +2665,6 @@ public class StringUtils {
 
     // Padding
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Repeat a String <code>repeat</code> times to form a
      * new String.</p>
@@ -3010,7 +2984,6 @@ public class StringUtils {
 
     // Centering
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Centers a String in a larger String of size <code>size</code>
      * using the space character (' ').<p>
@@ -3121,7 +3094,6 @@ public class StringUtils {
 
     // Case conversion
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Converts a String to upper case as per {@link String#toUpperCase()}.</p>
      * 
@@ -3350,7 +3322,6 @@ public class StringUtils {
 
     // Nested extraction
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Gets the String that is nested in between two instances of the
      * same String.</p>
@@ -3415,7 +3386,6 @@ public class StringUtils {
 
     // Count matches
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Counts how many times the substring appears in the larger String.</p>
      *
@@ -3450,7 +3420,6 @@ public class StringUtils {
 
     // Character Tests
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Checks if the String contains only unicode letters.</p>
      *
@@ -3689,7 +3658,6 @@ public class StringUtils {
 
     // Defaults
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Returns either the passed in String, 
      * or if the String is <code>null</code>, an empty String ("").</p>
@@ -3729,7 +3697,6 @@ public class StringUtils {
 
     // Reversing
     //-----------------------------------------------------------------------
-
     /**
      * <p>Reverses a String as per {@link StringBuffer#reverse()}.</p>
      *
@@ -3818,7 +3785,6 @@ public class StringUtils {
 
     // Abbreviating
     //-----------------------------------------------------------------------
-
     /**
      * <p>Abbreviates a String using ellipses. This will turn 
      * "Now is the time for all good men" into "Now is the time for..."</p>
@@ -3918,7 +3884,6 @@ public class StringUtils {
 
     // Difference
     //-----------------------------------------------------------------------
-
     /**
      * <p>Compares two Strings, and returns the portion where they differ.
      * (More precisely, return the remainder of the second String,
@@ -4001,7 +3966,6 @@ public class StringUtils {
 
     // Misc
     //-----------------------------------------------------------------------
-
     /**
      * <p>Find the Levenshtein distance between two Strings.</p>
      *

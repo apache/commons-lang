@@ -63,7 +63,7 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.18 2003/07/31 21:32:47 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.19 2003/08/01 20:45:17 scolebourne Exp $
  */
 public class CharSetUtils {
 
@@ -77,6 +77,7 @@ public class CharSetUtils {
     public CharSetUtils() {
     }
 
+    // Factory
     //-----------------------------------------------------------------------
     /**
      * <p>Creates a <code>CharSetUtils</code> object which allows a certain amount of
@@ -132,6 +133,7 @@ public class CharSetUtils {
         return new CharSet(set); 
     }
 
+    // Squeeze
     //-----------------------------------------------------------------------
     /**
      * <p>Squeezes any repititions of a character that is mentioned in the
@@ -197,6 +199,7 @@ public class CharSetUtils {
         return buffer.toString();
     }
 
+    // Count
     //-----------------------------------------------------------------------
     /**
      * <p>Takes an argument in set-syntax, see evaluateSet,
@@ -255,6 +258,7 @@ public class CharSetUtils {
         return count;
     }
 
+    // Keep
     //-----------------------------------------------------------------------
     /**
      * <p>Takes an argument in set-syntax, see evaluateSet,
@@ -311,6 +315,7 @@ public class CharSetUtils {
         return modify(str, set, true);
     }
 
+    // Delete
     //-----------------------------------------------------------------------
     /**
      * <p>Takes an argument in set-syntax, see evaluateSet,
@@ -376,6 +381,7 @@ public class CharSetUtils {
         return buffer.toString();
     }
 
+    // Translate
     //-----------------------------------------------------------------------
     /**
      * <p>Translate characters in a String.
