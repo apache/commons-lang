@@ -61,7 +61,7 @@ import java.util.List;
  * classes without using reflection.</p>
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ClassUtils.java,v 1.5 2002/11/16 10:41:03 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.6 2002/12/15 19:36:08 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -79,8 +79,21 @@ public class ClassUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * <p>Gets the class name minus the package name from a
-     * <code>Class</code>.</p>
+     * <p>Gets the class name minus the package name for an <code>Object</code>.</p>
+     * 
+     * @param object  the class to get the short name for
+     * @param valueIfNull  the value to return if null
+     * @return the class name of the object without the package name, or the null value
+     */
+    public static String getShortClassName(Object object, String valueIfNull) {
+        if (object == null) {
+            return valueIfNull;
+        }
+        return getShortClassName(object.getClass().getName());
+    }
+    
+    /**
+     * <p>Gets the class name minus the package name from a <code>Class</code>.</p>
      * 
      * @param cls  the class to get the short name for, must not be
      *  <code>null</code>
@@ -92,22 +105,6 @@ public class ClassUtils {
             throw new IllegalArgumentException("The class must not be null");
         }
         return getShortClassName(cls.getName());
-    }
-    
-    /**
-     * <p>Gets the class name minus the package name for an
-     * <code>Object</code>.</p>
-     * 
-     * @param object  the class to get the short name for, must not be
-     *  <code>null</code>
-     * @return the class name of the object without the package name
-     * @throws IllegalArgumentException if the object is <code>null</code>
-     */
-    public static String getShortClassName(Object object) {
-        if (object == null) {
-            throw new IllegalArgumentException("The object must not be null");
-        }
-        return getShortClassName(object.getClass().getName());
     }
     
     /**
@@ -138,6 +135,20 @@ public class ClassUtils {
     // -------------------------------------------------------------------------
     
     /**
+     * <p>Gets the package name of an <code>Object</code>.</p>
+     * 
+     * @param object  the class to get the package name for
+     * @param valueIfNull  the value to return if null
+     * @return the package name of the object, or the null value
+     */
+    public static String getPackageName(Object object, String valueIfNull) {
+        if (object == null) {
+            return valueIfNull;
+        }
+        return getPackageName(object.getClass().getName());
+    }
+    
+    /**
      * <p>Gets the package name of a <code>Class</code>.</p>
      * 
      * @param cls  the class to get the package name for, must not be
@@ -150,21 +161,6 @@ public class ClassUtils {
             throw new IllegalArgumentException("The class must not be null");
         }
         return getPackageName(cls.getName());
-    }
-    
-    /**
-     * <p>Gets the package name of an <code>Object</code>.</p>
-     * 
-     * @param object  the class to get the package name for, must not be
-     *  <code>null</code>
-     * @return the package name
-     * @throws IllegalArgumentException if the object is <code>null</code>
-     */
-    public static String getPackageName(Object object) {
-        if (object == null) {
-            throw new IllegalArgumentException("The object must not be null");
-        }
-        return getPackageName(object.getClass().getName());
     }
     
     /**
@@ -211,11 +207,12 @@ public class ClassUtils {
     
     /**
      * <p>Gets a <code>List</code> of all interfaces implemented by the given
-     * class.</p>
+     * class and its superclasses.</p>
      *
      * <p>The order is determined by looking through each interface in turn as
-     * declared in the source file and following its hieracrchy up. Later
-     * duplicates are ignored, so the order is maintained.</p>
+     * declared in the source file and following its hieracrchy up. Then each 
+     * superclass is considered in the same way. Later duplicates are ignored, 
+     * so the order is maintained.</p>
      * 
      * @param cls  the class to look up, must not be <code>null</code>
      * @return the <code>List</code> of interfaces in order
@@ -226,18 +223,21 @@ public class ClassUtils {
             throw new IllegalArgumentException("The class must not be null");
         }
         List list = new ArrayList();
-        Class[] interfaces = cls.getInterfaces();
-        for (int i = 0; i < interfaces.length; i++) {
-            if (list.contains(interfaces[i]) == false) {
-                list.add(interfaces[i]);
-            }
-            List superInterfaces = getAllInterfaces(interfaces[i]);
-            for (Iterator it = superInterfaces.iterator(); it.hasNext();) {
-                Class intface = (Class) it.next();
-                if (list.contains(intface) == false) {
-                    list.add(intface);
+        while (cls != null) {
+            Class[] interfaces = cls.getInterfaces();
+            for (int i = 0; i < interfaces.length; i++) {
+                if (list.contains(interfaces[i]) == false) {
+                    list.add(interfaces[i]);
+                }
+                List superInterfaces = getAllInterfaces(interfaces[i]);
+                for (Iterator it = superInterfaces.iterator(); it.hasNext();) {
+                    Class intface = (Class) it.next();
+                    if (list.contains(intface) == false) {
+                        list.add(intface);
+                    }
                 }
             }
+            cls = cls.getSuperclass();
         }
         return list;
     }
@@ -295,17 +295,18 @@ public class ClassUtils {
 //        return null;
 //    }
 
+    // -------------------------------------------------------------------------
+    
     /**
      * <p>Given a <code>List</code> of class names, this method converts them into classes.     *
      * A new <code>List</code> is returned. If the class name cannot be found, <code>null</code>
      * is stored in the <code>List</code>. If the class name in the <code>List</code> is
      * <code>null</code>, <code>null</code> is stored in the output <code>List</code>.</p>
      * 
-     * @param classNames  the classNames to change, the class is stored back
-     *  into the <code>List</code>. <code>null</code> will be stored in the <code>List</code>
-     *  if no class is found.
-     * @return the <code>List</code> of Class objects corresponding to the class names
+     * @param classNames  the classNames to change
+     * @return a <code>List</code> of Class objects corresponding to the class names
      * @throws IllegalArgumentException if the classNames is <code>null</code>
+     * @throws ClassCastException if classNames contains a non String entry
      */
     public static List convertClassNamesToClasses(List classNames) {
         if (classNames == null) {
@@ -324,40 +325,41 @@ public class ClassUtils {
     }
     
     /**
-     * <p>Given a <code>List</code> of classes, this method finds all those which
-     * are subclasses or implementations of a specified superclass.</p>
+     * <p>Given a <code>List</code> of <code>Class</code> objects, this method converts
+     * them into class names.
+     * A new <code>List</code> is returned. <code>null</code> objects will be copied into
+     * the returned list as <code>null</code>.</p>
      * 
-     * @param classes  the classes to check
-     * @param superclass  the superclass to check for
-     * @return the list of subclasses or implementations
-     * @throws IllegalArgumentException if the classes or superClass is <code>null</code>
+     * @param classes  the classes to change
+     * @return a <code>List</code> of Class objects corresponding to the class names
+     * @throws IllegalArgumentException if the classNames is <code>null</code>
+     * @throws ClassCastException if classNames contains a non Class or null entry
      */
-    public static List getAssignableFrom(List classes, Class superclass) {
+    public static List convertClassesToClassNames(List classes) {
         if (classes == null) {
-            throw new IllegalArgumentException("The classes must not be null");
+            throw new IllegalArgumentException("The classes list must not be null");
         }
-        if (superclass == null) {
-            throw new IllegalArgumentException("The superclass must not be null");
-        }
-        List subs = new ArrayList();
-        Iterator it = classes.iterator();
-        while (it.hasNext()) {
+        List classNames = new ArrayList(classes.size());
+        for (Iterator it = classes.iterator(); it.hasNext();) {
             Class cls = (Class) it.next();
             if (cls == null) {
-                throw new IllegalArgumentException("The class list must not contain nulls");
-            }
-            if (isAssignable(cls, superclass)) {
-                subs.add(cls);
+                classNames.add(null);
+            } else {
+                classNames.add(cls.getName());
             }
         }
-        return subs;
+        return classNames;
     }
-
+    
+    // -------------------------------------------------------------------------
+    
     /**
      * <p>Checks if an array of Classes can be assigned to another array of Classes.</p>
      *
-     * <p>This can be used to check if parameter types are suitably compatable for
-     * reflection invocation.</p>
+     * <p>This method calls {@link #isAssignable(Class, Class) isAssignable} for each
+     * Class pair in the input arrays. It can be used to check if a set of arguments
+     * (the first parameter) are suitably compatable with a set of method parameter types
+     * (the second parameter).</p>
      *
      * <p>Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this
      * method takes into account widenings of primitive classes and
