@@ -67,7 +67,7 @@ import java.util.*;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.6 2003/05/24 13:29:44 alex Exp $
+ * @version $Id: Entities.java,v 1.7 2003/05/24 15:11:36 alex Exp $
  */
 class Entities {
 
@@ -437,10 +437,21 @@ class Entities {
     }
 
     static class ArrayIntMap implements IntMap {
-        int growBy = 100;
-        private int size = 0;
-        private String[] names = new String[growBy];
-        private int[] values = new int[growBy];
+        protected int growBy = 100;
+        protected int size = 0;
+        protected String[] names;
+        protected int[] values;
+
+        public ArrayIntMap() {
+            names = new String[growBy];
+            values = new int[growBy];
+        }
+
+        public ArrayIntMap(int growBy) {
+            this.growBy = growBy;
+            names = new String[growBy];
+            values = new int[growBy];
+        }
 
         public void add(String name, int value) {
             ensureCapacity(size + 1);
@@ -449,7 +460,7 @@ class Entities {
             size++;
         }
 
-        private void ensureCapacity(int capacity) {
+        protected void ensureCapacity(int capacity) {
             if (capacity > names.length) {
                 int newSize = Math.max(capacity, size + growBy);
                 String[] newNames = new String[newSize];
@@ -480,7 +491,54 @@ class Entities {
         }
     }
 
-    IntMap map = new HashIntMap();
+    static class BinaryIntMap extends ArrayIntMap {
+
+        public BinaryIntMap() {
+        }
+
+        public BinaryIntMap(int growBy) {
+            super(growBy);
+        }
+
+        // based on code in java.util.Arrays
+        private int binarySearch(int key) {
+            int low = 0;
+            int high = size - 1;
+
+            while (low <= high) {
+                int mid = (low + high) >> 1;
+                int midVal = values[mid];
+
+                if (midVal < key)
+                    low = mid + 1;
+                else if (midVal > key)
+                    high = mid - 1;
+                else
+                    return mid; // key found
+            }
+            return -(low + 1);  // key not found.
+        }
+
+        public void add(String name, int value) {
+            ensureCapacity(size + 1);
+            int insertAt = binarySearch(value);
+            if (insertAt > 0) return;    // note: this means you can't insert the same value twice
+            insertAt = -(insertAt + 1);  // binarySearch returns it negative and off-by-one
+            System.arraycopy(values, insertAt, values, insertAt + 1, size - insertAt);
+            values[insertAt] = value;
+            System.arraycopy(names, insertAt, names, insertAt + 1, size - insertAt);
+            names[insertAt] = name;
+            size++;
+        }
+
+        public String name(int value) {
+            int index = binarySearch(value);
+            if (index < 0) return null;
+            return names[index];
+        }
+    }
+
+    IntMap map = new BinaryIntMap();
 
     public void addEntities(String[][] entityArray) {
         for (int i = 0; i < entityArray.length; ++i) {

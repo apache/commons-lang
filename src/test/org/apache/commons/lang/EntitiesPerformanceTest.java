@@ -53,16 +53,13 @@
  */
 package org.apache.commons.lang;
 
-import java.io.IOException;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-import junit.extensions.RepeatedTest;
 
 public class EntitiesPerformanceTest extends TestCase {
-    private int COUNT = 200;
+    private int COUNT = 10000;
     private int STRING_LENGTH = 1000;
 
     private static String stringWithUnicode;
@@ -70,6 +67,7 @@ public class EntitiesPerformanceTest extends TestCase {
     private static Entities treeEntities;
     private static Entities hashEntities;
     private static Entities arrayEntities;
+    private static Entities binaryEntities;
 
     public EntitiesPerformanceTest(String name) {
         super(name);
@@ -81,8 +79,6 @@ public class EntitiesPerformanceTest extends TestCase {
 
     public static Test suite() {
         TestSuite suite = new TestSuite(EntitiesPerformanceTest.class);
-//        suite.setName("Entities Performance Tests");
-//        return new RepeatedTest(suite, 1000);
         return suite;
     }
 
@@ -91,14 +87,18 @@ public class EntitiesPerformanceTest extends TestCase {
             StringBuffer buf = new StringBuffer(STRING_LENGTH);
             for (int i = 0; i < STRING_LENGTH/5; ++i) {
                 buf.append("xxxx");
-                String entityValue = Entities.html40[i % Entities.html40.length][1];
-                char ch = (char) Integer.parseInt(entityValue);
+                char ch = html40value(i);
                 buf.append(ch);
             }
             stringWithUnicode = buf.toString();
             stringWithEntities = Entities.HTML40.unescape(stringWithUnicode);
         }
+    }
 
+    private char html40value(int i) {
+        String entityValue = Entities.html40[i % Entities.html40.length][1];
+        char ch = (char) Integer.parseInt(entityValue);
+        return ch;
     }
 
     public void testBuildHash() throws Exception {
@@ -125,6 +125,30 @@ public class EntitiesPerformanceTest extends TestCase {
         }
     }
 
+    public void testBuildBinary() throws Exception {
+        for (int i = 0; i < COUNT; ++i) {
+            binaryEntities = new Entities();
+            binaryEntities.map = new Entities.BinaryIntMap();
+            Entities.fillWithHtml40Entities(binaryEntities);
+        }
+    }
+
+    public void testLookupHash() throws Exception {
+        lookup(hashEntities);
+    }
+
+    public void testLookupTree() throws Exception {
+        lookup(treeEntities);
+    }
+
+    public void testLookupArray() throws Exception {
+        lookup(arrayEntities);
+    }
+
+    public void testLookupBinary() throws Exception {
+        lookup(binaryEntities);
+    }
+
     public void testEscapeHash() throws Exception {
         escapeIt(hashEntities);
     }
@@ -137,6 +161,10 @@ public class EntitiesPerformanceTest extends TestCase {
         escapeIt(arrayEntities);
     }
 
+    public void testEscapeBinary() throws Exception {
+        escapeIt(binaryEntities);
+    }
+
     public void testUnscapeHash() throws Exception {
         unescapeIt(hashEntities);
     }
@@ -147,6 +175,16 @@ public class EntitiesPerformanceTest extends TestCase {
 
     public void testUnescapeArray() throws Exception {
         unescapeIt(arrayEntities);
+    }
+
+    public void testUnescapeBinary() throws Exception {
+        unescapeIt(binaryEntities);
+    }
+
+    private void lookup(Entities entities) {
+        for (int i = 0; i < COUNT*1000; ++i) {
+            entities.entityName(html40value(i));
+        }
     }
 
     private void escapeIt(Entities entities) {
@@ -162,8 +200,5 @@ public class EntitiesPerformanceTest extends TestCase {
             assertEquals("xxxx\u0192", unescaped.substring(0,5));
         }
     }
-
-
-
 }
 

@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: EntitiesTest.java,v 1.3 2003/05/24 13:29:44 alex Exp $
+ * @version $Id: EntitiesTest.java,v 1.4 2003/05/24 15:11:36 alex Exp $
  */
 public class EntitiesTest extends TestCase
 {
@@ -135,8 +135,29 @@ public class EntitiesTest extends TestCase
 
     public void testArrayIntMap() throws Exception
     {
-        Entities.ArrayIntMap map = new Entities.ArrayIntMap();
-        map.growBy = 2;
+        Entities.ArrayIntMap map = new Entities.ArrayIntMap(2);
+        checkSomeIntMap(map);
+    }
+
+    public void testTreeIntMap() throws Exception
+    {
+        Entities.IntMap map = new Entities.TreeIntMap();
+        checkSomeIntMap(map);
+    }
+
+    public void testHashIntMap() throws Exception
+    {
+        Entities.IntMap map = new Entities.HashIntMap();
+        checkSomeIntMap(map);
+    }
+
+    public void testBinaryIntMap() throws Exception
+    {
+        Entities.BinaryIntMap map = new Entities.BinaryIntMap(2);
+        checkSomeIntMap(map);
+    }
+
+    private void checkSomeIntMap(Entities.IntMap map) {
         map.add("foo", 1);
         assertEquals(1, map.value("foo"));
         assertEquals("foo", map.name(1));
