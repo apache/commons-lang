@@ -22,7 +22,7 @@ import java.io.Serializable;
  * A mutable <code>Object</code> wrapper.
  * 
  * @since 2.1
- * @version $Id: MutableObject.java,v 1.3 2004/10/08 19:45:46 ggregory Exp $
+ * @version $Id: MutableObject.java,v 1.4 2004/10/08 21:33:03 scolebourne Exp $
  */
 public class MutableObject implements Mutable, Serializable {
 
@@ -79,7 +79,6 @@ public class MutableObject implements Mutable, Serializable {
      * @param obj
      *            the object to compare with.
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
-     * @throws ClassCastException if the argument is not a MutableObject
      */
     public boolean equals(Object obj) {
         if (obj instanceof MutableObject) {
