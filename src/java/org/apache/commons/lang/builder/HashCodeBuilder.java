@@ -108,7 +108,7 @@ import java.lang.reflect.Modifier;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.11 2003/03/23 17:54:16 scolebourne Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.12 2003/04/18 09:12:16 ggregory Exp $
  */
 public class HashCodeBuilder {
 
@@ -263,8 +263,8 @@ public class HashCodeBuilder {
      * these should be different for each class, however this is not vital.
      * Prime numbers are preferred, especially for the multiplier.</p>
      *
-     * @param initialNonZeroOddNumber
-     * @param multiplierNonZeroOddNumber
+     * @param initialNonZeroOddNumber  a non-zero, odd number used as the initial value
+     * @param multiplierNonZeroOddNumber  a non-zero, odd number used as the multiplier
      * @param object  the Object to create a <code>hashCode</code> for
      * @param testTransients  whether to include transient fields
      * @return int hash code
@@ -297,8 +297,8 @@ public class HashCodeBuilder {
      * these should be different for each class, however this is not vital.
      * Prime numbers are preferred, especially for the multiplier.</p>
      *
-     * @param initialNonZeroOddNumber
-     * @param multiplierNonZeroOddNumber
+     * @param initialNonZeroOddNumber  a non-zero, odd number used as the initial value
+     * @param multiplierNonZeroOddNumber  a non-zero, odd number used as the multiplier
      * @param object  the Object to create a <code>hashCode</code> for
      * @param testTransients  whether to include transient fields
      * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be null
@@ -307,8 +307,11 @@ public class HashCodeBuilder {
      * @throws IllegalArgumentException if the number is zero or even
      */
     public static int reflectionHashCode(
-            int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
-            Object object, boolean testTransients, Class reflectUpToClass) {
+        int initialNonZeroOddNumber,
+        int multiplierNonZeroOddNumber,
+        Object object,
+        boolean testTransients,
+        Class reflectUpToClass) {
 
         if (object == null) {
             throw new IllegalArgumentException("The object to build a hash code for must not be null");
@@ -337,9 +340,9 @@ public class HashCodeBuilder {
         Field.setAccessible(fields, true);
         for (int i = 0; i < fields.length; i++) {
             Field f = fields[i];
-            if ((f.getName().indexOf('$') == -1) &&
-                (useTransients || !Modifier.isTransient(f.getModifiers())) &&
-                (!Modifier.isStatic(f.getModifiers()))) {
+            if ((f.getName().indexOf('$') == -1)
+                && (useTransients || !Modifier.isTransient(f.getModifiers()))
+                && (!Modifier.isStatic(f.getModifiers()))) {
                 try {
                     builder.append(f.get(object));
                 } catch (IllegalAccessException e) {
@@ -349,7 +352,7 @@ public class HashCodeBuilder {
                 }
             }
         }
-     }
+    }
 
     //-------------------------------------------------------------------------
 
