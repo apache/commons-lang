@@ -66,7 +66,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.10 2003/07/31 22:30:07 scolebourne Exp $
+ * @version $Id: BooleanUtils.java,v 1.11 2003/07/31 23:55:57 scolebourne Exp $
  */
 public class BooleanUtils {
 
@@ -654,12 +654,23 @@ public class BooleanUtils {
      * 
      * @param array  an array of <code>Boolean<code>s
      * @return <code>true</code> if the xor is successful.
-     * @throws NullPointerException if <code>array</code> contains a <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty.
+     * @throws IllegalArgumentException if <code>array</code> contains a <code>null</code>
      */
     public static Boolean xor(Boolean[] array) {
-        return (xor(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE);
+        if (array == null) {
+            throw new IllegalArgumentException("The Array must not be null");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array is empty");
+        }
+        boolean[] primitive = null;
+        try {
+            primitive = ArrayUtils.toPrimitive(array);
+        } catch (NullPointerException ex) {
+            throw new IllegalArgumentException("The array must not conatin any null elements");
+        }
+        return (xor(primitive) ? Boolean.TRUE : Boolean.FALSE);
     }
 
 }
