@@ -53,6 +53,9 @@
  */
 package org.apache.commons.lang.time;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -65,6 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author Stephen Colebourne
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  */
 public class DurationFormatUtilsTest extends TestCase {
 
@@ -158,5 +162,27 @@ public class DurationFormatUtilsTest extends TestCase {
         time = 12789 + 62 * 60000;
         assertEquals("1:02:12.789", DurationFormatUtils.formatISO(time));
     }
+
+    public void testISODurationFormat(){
+        TimeZone timeZone = TimeZone.getTimeZone("GMT-3");
+        Calendar cal = Calendar.getInstance(timeZone);
+        cal.set(2002, 1, 23, 9, 11, 12);
+        cal.set(Calendar.MILLISECOND, 1);
+        String text;
+        // repeat a test from testDateTimeISO to compare extended and not extended.
+        text = DateFormatUtils.ISO_DATETIME_TIMEZONE_FORMAT.format(cal);
+        assertEquals("2002-02-23T09:11:12-03:00", text);
+        // test fixture is the same as above, but now with extended format.
+        text = DurationFormatUtils.ISO_EXTENDED_FORMAT.format(cal);
+        assertEquals("P2002Y2M23DT9H11M12.1S", text);
+        // test fixture from example in http://www.w3.org/TR/xmlschema-2/#duration
+        cal.set(1, 1, 3, 10, 30, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        text = DurationFormatUtils.ISO_EXTENDED_FORMAT.format(cal);
+        assertEquals("P1Y2M3DT10H30M0.0S", text);
+        // want a way to say 'don't print the seconds in format()' or other fields for that matter:
+        //assertEquals("P1Y2M3DT10H30M", text);
+    }
+
     
 }
