@@ -54,8 +54,7 @@
 package org.apache.commons.lang.builder;
 
 /**
- * <p><code>StandardToStringStyle</code> works with {@link ToStringBuilder}
- * to create a <code>toString</code>.</p>
+ * <p>Works with {@link ToStringBuilder} to create a <code>toString</code>.</p>
  *
  * <p>This class is intended to be used as a singleton.
  * There is no need to instantiate a new style each time.
@@ -67,7 +66,7 @@ package org.apache.commons.lang.builder;
  * @author Pete Gieser
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: StandardToStringStyle.java,v 1.15 2003/08/22 03:06:36 ggregory Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.16 2003/08/23 00:22:53 ggregory Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
