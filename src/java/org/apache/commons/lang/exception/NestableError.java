@@ -54,7 +54,6 @@ package org.apache.commons.lang.exception;
  * <http://www.apache.org/>.
  */
 
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 

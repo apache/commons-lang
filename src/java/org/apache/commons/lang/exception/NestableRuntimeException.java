@@ -54,13 +54,8 @@ package org.apache.commons.lang.exception;
  * <http://www.apache.org/>.
  */
 
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.LinkedList;
-import java.util.StringTokenizer;
 
 /**
  * The base class of all runtime exceptions which can contain other
@@ -71,7 +66,7 @@ import java.util.StringTokenizer;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableRuntimeException.java,v 1.4 2002/08/25 19:15:03 dlr Exp $
+ * @version $Id: NestableRuntimeException.java,v 1.5 2002/09/29 08:20:52 bayard Exp $
  */
 public class NestableRuntimeException extends RuntimeException
     implements Nestable
