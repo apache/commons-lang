@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
  * @author Stephen Colebourne
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.26 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: LangTestSuite.java,v 1.27 2004/07/04 04:51:25 bayard Exp $
  */
 public class LangTestSuite extends TestCase {
     
@@ -62,6 +62,7 @@ public class LangTestSuite extends TestCase {
         suite.addTest(EntitiesTest.suite());
         suite.addTest(IllegalClassExceptionTest.suite());
         suite.addTest(IncompleteArgumentExceptionTest.suite());
+        suite.addTest(InterpolationTest.suite());
         suite.addTest(NotImplementedExceptionTest.suite());
         suite.addTest(NullArgumentExceptionTest.suite());
         suite.addTest(NumberRangeTest.suite());
