@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
- * @version $Id: BooleanUtilsTest.java,v 1.5 2003/07/30 22:21:39 scolebourne Exp $
+ * @version $Id: BooleanUtilsTest.java,v 1.6 2003/07/31 23:55:57 scolebourne Exp $
  */
 public class BooleanUtilsTest extends TestCase {
 
@@ -466,6 +466,13 @@ public class BooleanUtilsTest extends TestCase {
             fail("Exception was not thrown for empty input.");
         } catch (IllegalArgumentException ex) {}
     }
+    
+    public void testXor_object_nullElementInput() {
+        try {
+            BooleanUtils.xor(new Boolean[] {null});
+            fail("Exception was not thrown for null element input.");
+        } catch (IllegalArgumentException ex) {}
+    }
 
     public void testXor_object_validInput_2items() {
         assertTrue(
@@ -565,6 +572,7 @@ public class BooleanUtilsTest extends TestCase {
                         Boolean.TRUE,
                         Boolean.TRUE })
                 .booleanValue());
+                
     }
 
 }
