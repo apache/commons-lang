@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsEqualsIndexOfTest.java,v 1.10 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  */
 public class StringUtilsEqualsIndexOfTest extends TestCase {
     private static final String FOO = "foo";
@@ -43,8 +43,8 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(StringUtilsEqualsIndexOfTest.class);
-    	suite.setName("StringUtilsEqualsIndexOf Tests");
+        TestSuite suite = new TestSuite(StringUtilsEqualsIndexOfTest.class);
+        suite.setName("StringUtilsEqualsIndexOf Tests");
         return suite;
     }
 

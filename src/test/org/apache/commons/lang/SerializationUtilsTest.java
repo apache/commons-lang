@@ -33,7 +33,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: SerializationUtilsTest.java,v 1.6 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  */
 public class SerializationUtilsTest extends TestCase {
     private String iString;
@@ -49,8 +49,8 @@ public class SerializationUtilsTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(SerializationUtilsTest.class);
-    	suite.setName("SerializationUtils Tests");
+        TestSuite suite = new TestSuite(SerializationUtilsTest.class);
+        suite.setName("SerializationUtils Tests");
         return suite;
     }
 

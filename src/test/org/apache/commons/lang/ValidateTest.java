@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Norm Deane
- * @version $Id: ValidateTest.java,v 1.6 2004/10/08 21:44:41 scolebourne Exp $
+ * @version $Id$
  */
 public class ValidateTest extends TestCase {
 
@@ -43,8 +43,8 @@ public class ValidateTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(ValidateTest.class);
-    	suite.setName("Validate Tests");
+        TestSuite suite = new TestSuite(ValidateTest.class);
+        suite.setName("Validate Tests");
         return suite;
     }
 
@@ -359,23 +359,23 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testAllElementsOfType() {
-    	List coll = new ArrayList();
-    	coll.add("a");
-    	coll.add("b");
-    	Validate.allElementsOfType(coll, String.class, "MSG");
-    	try {
-    		Validate.allElementsOfType(coll, Integer.class, "MSG");
-    		fail("Expecting IllegalArgumentException");
-    	} catch (IllegalArgumentException ex) {
-    		assertEquals("MSG", ex.getMessage());
-    	}
-    	coll.set(1, Boolean.FALSE);
-    	try {
-    		Validate.allElementsOfType(coll, String.class);
-    		fail("Expecting IllegalArgumentException");
-    	} catch (IllegalArgumentException ex) {
-    		assertEquals("The validated collection contains an element not of type java.lang.String at index: 1", ex.getMessage());
-    	}
+        List coll = new ArrayList();
+        coll.add("a");
+        coll.add("b");
+        Validate.allElementsOfType(coll, String.class, "MSG");
+        try {
+            Validate.allElementsOfType(coll, Integer.class, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        coll.set(1, Boolean.FALSE);
+        try {
+            Validate.allElementsOfType(coll, String.class);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("The validated collection contains an element not of type java.lang.String at index: 1", ex.getMessage());
+        }
         
         coll = new ArrayList();
         coll.add(new Integer(5));

@@ -42,8 +42,8 @@ public class DurationFormatUtilsTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(DurationFormatUtilsTest.class);
-    	suite.setName("DurationFormatUtils Tests");
+        TestSuite suite = new TestSuite(DurationFormatUtilsTest.class);
+        suite.setName("DurationFormatUtils Tests");
         return suite;
     }
 

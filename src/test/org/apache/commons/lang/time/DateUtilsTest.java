@@ -81,8 +81,8 @@ public class DateUtilsTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(DateUtilsTest.class);
-    	suite.setName("DateUtils Tests");
+        TestSuite suite = new TestSuite(DateUtilsTest.class);
+        suite.setName("DateUtils Tests");
         return suite;
     }
 

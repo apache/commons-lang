@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
- * @version $Id: NestableDelegateTestCase.java,v 1.10 2004/12/25 19:50:09 bayard Exp $
+ * @version $Id$
  */
 public class NestableDelegateTestCase extends junit.framework.TestCase {
     private static final String CONSTRUCTOR_FAILED_MSG = 
@@ -521,7 +521,7 @@ public class NestableDelegateTestCase extends junit.framework.TestCase {
         
         // Only testing the flags for jdk1.3 and below
         if (!ExceptionUtils.isThrowableNested()) {
-        	NestableDelegate.topDown = true; NestableDelegate.trimStackFrames = true;
+            NestableDelegate.topDown = true; NestableDelegate.trimStackFrames = true;
             checkStackTrace(d, true, true, NestableDelegateTester1.class.getName()+": level 1", 24);
             NestableDelegate.topDown = true; NestableDelegate.trimStackFrames = false;
             checkStackTrace(d, true, false, NestableDelegateTester1.class.getName()+": level 1", 80);

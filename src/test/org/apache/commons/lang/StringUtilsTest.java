@@ -98,8 +98,8 @@ public class StringUtilsTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(StringUtilsTest.class);
-    	suite.setName("StringUtilsTest Tests");
+        TestSuite suite = new TestSuite(StringUtilsTest.class);
+        suite.setName("StringUtilsTest Tests");
         return suite;
     }
 

@@ -170,7 +170,7 @@ public class ClassUtils {
      * <p>Gets the package name from a <code>String</code>.</p>
      *
      * <p>The string passed in is assumed to be a class name - it is not checked.</p>
-	 * <p>If the class is unpackaged, return an empty string.</p>
+     * <p>If the class is unpackaged, return an empty string.</p>
      * 
      * @param className  the className to get the package name for, may be <code>null</code>
      * @return the package name or an empty string

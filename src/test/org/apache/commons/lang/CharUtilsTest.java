@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.CharUtils}.
  *
  * @author Stephen Colebourne
- * @version $Id: CharUtilsTest.java,v 1.4 2004/03/10 23:23:46 scolebourne Exp $
+ * @version $Id$
  */
 public class CharUtilsTest extends TestCase {
 
@@ -44,8 +44,8 @@ public class CharUtilsTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(CharUtilsTest.class);
-    	suite.setName("CharUtils Tests");
+        TestSuite suite = new TestSuite(CharUtilsTest.class);
+        suite.setName("CharUtils Tests");
         return suite;
     }
 

@@ -35,7 +35,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: Validate.java,v 1.13 2004/10/08 21:44:41 scolebourne Exp $
+ * @version $Id$
  */
 public class Validate {
     // Validate has no dependencies on other classes in Commons Lang at present
@@ -508,13 +508,13 @@ public class Validate {
      * @since 2.1
      */
     public static void allElementsOfType(Collection collection, Class clazz, String message) {
-    	Validate.notNull(collection);
+        Validate.notNull(collection);
         Validate.notNull(clazz);
-    	for (Iterator it = collection.iterator(); it.hasNext(); ) {
-    		if (clazz.isInstance(it.next()) == false) {
-    			throw new IllegalArgumentException(message);
-    		}
-    	}
+        for (Iterator it = collection.iterator(); it.hasNext(); ) {
+            if (clazz.isInstance(it.next()) == false) {
+                throw new IllegalArgumentException(message);
+            }
+        }
     }
 
     /**
@@ -533,15 +533,15 @@ public class Validate {
      * @since 2.1
      */
     public static void allElementsOfType(Collection collection, Class clazz) {
-    	Validate.notNull(collection);
+        Validate.notNull(collection);
         Validate.notNull(clazz);
-    	int i = 0;
-    	for (Iterator it = collection.iterator(); it.hasNext(); i++) {
+        int i = 0;
+        for (Iterator it = collection.iterator(); it.hasNext(); i++) {
             if (clazz.isInstance(it.next()) == false) {
-    			throw new IllegalArgumentException("The validated collection contains an element not of type "
+                throw new IllegalArgumentException("The validated collection contains an element not of type "
                     + clazz.getName() + " at index: " + i);
-    		}
-    	}
+            }
+        }
     }
 
 }

@@ -29,7 +29,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: RandomStringUtilsTest.java,v 1.13 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  */
 public class RandomStringUtilsTest extends junit.framework.TestCase {
     /**
@@ -40,8 +40,8 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(RandomStringUtilsTest.class);
-    	suite.setName("RandomStringUtils Tests");
+        TestSuite suite = new TestSuite(RandomStringUtilsTest.class);
+        suite.setName("RandomStringUtils Tests");
         return suite;
     }
     

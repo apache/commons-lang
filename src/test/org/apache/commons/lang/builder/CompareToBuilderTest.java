@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CompareToBuilderTest.java,v 1.8 2004/02/18 23:00:51 ggregory Exp $
+ * @version $Id$
  */
 public class CompareToBuilderTest extends TestCase {
 
@@ -77,10 +77,10 @@ public class CompareToBuilderTest extends TestCase {
         public int getA() {
             return a;
         }
-		public int compareTo(Object o) {
-			TestObject rhs = (TestObject) o;
-			return (a < rhs.a) ? -1 : (a > rhs.a) ? +1 : 0;
-		}
+        public int compareTo(Object o) {
+            TestObject rhs = (TestObject) o;
+            return (a < rhs.a) ? -1 : (a > rhs.a) ? +1 : 0;
+        }
     }
 
     static class TestSubObject extends TestObject {

@@ -41,8 +41,8 @@ public class DateFormatUtilsTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(DateFormatUtilsTest.class);
-    	suite.setName("DateFormatUtils Tests");
+        TestSuite suite = new TestSuite(DateFormatUtilsTest.class);
+        suite.setName("DateFormatUtils Tests");
         return suite;
     }
 
