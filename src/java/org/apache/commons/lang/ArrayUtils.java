@@ -64,7 +64,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
  * @author Moritz Petersen
- * @version $Id: ArrayUtils.java,v 1.2 2002/11/14 22:29:25 scolebourne Exp $
+ * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
+ * @version $Id: ArrayUtils.java,v 1.3 2002/11/15 00:25:45 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -397,7 +398,8 @@ public class ArrayUtils {
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
-     * @param true if length of arrays matches, treating <code>null</code> as an empty array
+     * @return <code>true</code> if length of arrays matches, treating
+     *  <code>null</code> as an empty array
      */    
     public static boolean isSameLength(Object[] array1, Object[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
@@ -415,8 +417,9 @@ public class ArrayUtils {
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
-     * @param true if length of arrays matches, treating <code>null</code> as an empty array
-     */    
+     * @return <code>true</code> if length of arrays matches, treating
+     *  <code>null</code> as an empty array
+     */
     public static boolean isSameLength(long[] array1, long[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
@@ -433,8 +436,9 @@ public class ArrayUtils {
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
-     * @param true if length of arrays matches, treating <code>null</code> as an empty array
-     */    
+     * @return <code>true</code> if length of arrays matches, treating
+     *  <code>null</code> as an empty array
+     */
     public static boolean isSameLength(int[] array1, int[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
@@ -451,8 +455,9 @@ public class ArrayUtils {
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
-     * @param true if length of arrays matches, treating <code>null</code> as an empty array
-     */    
+     * @return <code>true</code> if length of arrays matches, treating
+     *  <code>null</code> as an empty array
+     */
     public static boolean isSameLength(short[] array1, short[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
@@ -469,8 +474,9 @@ public class ArrayUtils {
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
-     * @param true if length of arrays matches, treating <code>null</code> as an empty array
-     */    
+     * @return <code>true</code> if length of arrays matches, treating
+     *  <code>null</code> as an empty array
+     */
     public static boolean isSameLength(byte[] array1, byte[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
@@ -487,8 +493,9 @@ public class ArrayUtils {
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
-     * @param true if length of arrays matches, treating <code>null</code> as an empty array
-     */    
+     * @return <code>true</code> if length of arrays matches, treating
+     *  <code>null</code> as an empty array
+     */
     public static boolean isSameLength(double[] array1, double[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
@@ -505,8 +512,9 @@ public class ArrayUtils {
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
-     * @param true if length of arrays matches, treating <code>null</code> as an empty array
-     */    
+     * @return <code>true</code> if length of arrays matches, treating
+     *  <code>null</code> as an empty array
+     */
     public static boolean isSameLength(float[] array1, float[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
@@ -523,8 +531,9 @@ public class ArrayUtils {
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
-     * @param true if length of arrays matches, treating <code>null</code> as an empty array
-     */    
+     * @return <code>true</code> if length of arrays matches, treating
+     *  <code>null</code> as an empty array
+     */
     public static boolean isSameLength(boolean[] array1, boolean[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
@@ -540,7 +549,7 @@ public class ArrayUtils {
      * 
      * @param array1 the first array, must not be <code>null</code>
      * @param array2 the second array, must not be <code>null</code>
-     * @param true if type of arrays matches
+     * @return <code>true</code> if type of arrays matches
      * @throws IllegalArgumentException if either array is <code>null</code>
      */    
     public static boolean isSameType(Object array1, Object array2) {
