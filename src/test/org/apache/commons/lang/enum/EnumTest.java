@@ -66,7 +66,7 @@ import org.apache.commons.lang.SerializationUtils;
  * Test cases for the {@link Enum} class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumTest.java,v 1.2 2002/10/13 18:41:24 sullis Exp $
+ * @version $Id: EnumTest.java,v 1.3 2002/11/02 13:17:06 scolebourne Exp $
  */
 
 public final class EnumTest extends TestCase {
@@ -153,6 +153,33 @@ public final class EnumTest extends TestCase {
         assertSame(ColorEnum.RED, SerializationUtils.clone(ColorEnum.RED));
         assertSame(ColorEnum.GREEN, SerializationUtils.clone(ColorEnum.GREEN));
         assertSame(ColorEnum.BLUE, SerializationUtils.clone(ColorEnum.BLUE));
+    }
+
+    public void testBroken1() {
+        try {
+            Broken1Enum.RED.getName();
+            fail();
+        } catch (ExceptionInInitializerError ex) {
+            assertTrue(ex.getCause() instanceof IllegalArgumentException);
+        }
+    }
+
+    public void testBroken2() {
+        try {
+            Broken2Enum.RED.getName();
+            fail();
+        } catch (ExceptionInInitializerError ex) {
+            assertTrue(ex.getCause() instanceof IllegalArgumentException);
+        }
+    }
+
+    public void testBroken3() {
+        try {
+            Broken3Enum.RED.getName();
+            fail();
+        } catch (ExceptionInInitializerError ex) {
+            assertTrue(ex.getCause() instanceof IllegalArgumentException);
+        }
     }
 
 }
