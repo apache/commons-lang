@@ -53,7 +53,6 @@
  */
 package org.apache.commons.lang;
 
-import java.util.Arrays;
 import java.io.IOException;
 
 import junit.framework.Test;
@@ -66,7 +65,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.5 2003/04/09 21:30:18 alex Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.6 2003/05/16 22:08:31 scolebourne Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
