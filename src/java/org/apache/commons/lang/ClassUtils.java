@@ -62,17 +62,17 @@ import java.util.List;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.11 2003/05/28 16:20:31 ggregory Exp $
+ * @version $Id: ClassUtils.java,v 1.12 2003/05/29 21:02:53 ggregory Exp $
  */
 public class ClassUtils {
 
     /**
-     * The package separator character: <code>.</code>
+     * The package separator character: <code>&#x2e;</code>
      */
     public static final char PACKAGE_SEPARATOR_CHAR = '.';
     
     /**
-     * The package separator String: <code>.</code>
+     * The package separator String: <code>&#x2e;</code>
      */
     public static final String PACKAGE_SEPARATOR = String.valueOf(PACKAGE_SEPARATOR_CHAR);
     
