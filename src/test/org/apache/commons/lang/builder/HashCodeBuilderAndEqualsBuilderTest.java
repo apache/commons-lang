@@ -59,11 +59,12 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Tests HashCodeBuilder and EqualsBuilderTest to insure that equal 
+ * Tests {@link org.apache.commons.lang.builder.HashCodeBuilder} and
+ * {@link org.apache.commons.lang.builder.EqualsBuilderTest} to insure that equal
  * objects must have equal hash codes.
  * 
  * @author Gary Gregory
- * @version $Id: HashCodeBuilderAndEqualsBuilderTest.java,v 1.2 2003/05/21 23:49:15 scolebourne Exp $
+ * @version $Id: HashCodeBuilderAndEqualsBuilderTest.java,v 1.3 2003/08/16 13:02:14 scolebourne Exp $
  */
 public class HashCodeBuilderAndEqualsBuilderTest extends TestCase {
 

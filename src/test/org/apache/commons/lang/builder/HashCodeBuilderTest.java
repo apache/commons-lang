@@ -57,11 +57,12 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
- * Unit tests {@link org.apache.commons.lang.HashCodeBuilder}.
+ * Unit tests {@link org.apache.commons.lang.builder.HashCodeBuilder}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: HashCodeBuilderTest.java,v 1.4 2003/05/21 23:49:15 scolebourne Exp $
+ * @version $Id: HashCodeBuilderTest.java,v 1.5 2003/08/16 13:02:14 scolebourne Exp $
  */
 public class HashCodeBuilderTest extends TestCase {
 

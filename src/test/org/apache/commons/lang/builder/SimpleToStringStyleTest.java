@@ -51,9 +51,8 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-// package org.apache.commons.lang.builder
-
 package org.apache.commons.lang.builder;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -61,11 +60,12 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
- * Unit tests {@link org.apache.commons.lang.ToStringStyle}.
+ * Unit tests {@link org.apache.commons.lang.builder.SimpleToStringStyleTest}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: SimpleToStringStyleTest.java,v 1.3 2003/05/21 23:49:15 scolebourne Exp $
+ * @version $Id: SimpleToStringStyleTest.java,v 1.4 2003/08/16 13:02:14 scolebourne Exp $
  */
 public class SimpleToStringStyleTest extends TestCase {
 
@@ -81,7 +81,7 @@ public class SimpleToStringStyleTest extends TestCase {
 
     public static Test suite() {
         TestSuite suite = new TestSuite(SimpleToStringStyleTest.class);
-        suite.setName("DefaultToStringStyle Tests");
+        suite.setName("SimpleToStringStyle Tests");
         return suite;
     }
 

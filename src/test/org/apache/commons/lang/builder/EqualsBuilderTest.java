@@ -57,13 +57,14 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
- * Unit tests {@link org.apache.commons.lang.EqualsBuilder}.
+ * Unit tests {@link org.apache.commons.lang.builder.EqualsBuilder}.
  *
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: EqualsBuilderTest.java,v 1.5 2003/05/21 23:49:14 scolebourne Exp $
+ * @version $Id: EqualsBuilderTest.java,v 1.6 2003/08/16 13:02:14 scolebourne Exp $
  */
 public class EqualsBuilderTest extends TestCase {
 
@@ -77,7 +78,7 @@ public class EqualsBuilderTest extends TestCase {
 
     public static Test suite() {
         TestSuite suite = new TestSuite(EqualsBuilderTest.class);
-        suite.setName("HashCodeBuilder Tests");
+        suite.setName("EqualsBuilder Tests");
         return suite;
     }
 
@@ -276,7 +277,7 @@ public class EqualsBuilderTest extends TestCase {
      * Equivalence relationship tests inspired by "Effective Java":
      * <ul>
      * <li>reflection</li>
-     * <li>symetry</li>
+     * <li>symmetry</li>
      * <li>transitive</li>
      * <li>consistency</li>
      * <li>non-null reference</li>
@@ -299,7 +300,7 @@ public class EqualsBuilderTest extends TestCase {
         assertTrue(EqualsBuilder.reflectionEquals(to, to, testTransients));
         assertTrue(EqualsBuilder.reflectionEquals(to2, to2, testTransients));
 
-        // symetry test
+        // symmetry test
         assertTrue(EqualsBuilder.reflectionEquals(to, toBis, testTransients) && EqualsBuilder.reflectionEquals(toBis, to, testTransients));
 
         // transitive test

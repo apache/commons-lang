@@ -51,9 +51,8 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-// package org.apache.commons.lang.builder
-
 package org.apache.commons.lang.builder;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -65,10 +64,10 @@ import junit.textui.TestRunner;
 import org.apache.commons.lang.SystemUtils;
 
 /**
- * Unit tests {@link org.apache.commons.lang.ToStringStyle}.
+ * Unit tests {@link org.apache.commons.lang.builder.MultiLineToStringStyleTest}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: MultiLineToStringStyleTest.java,v 1.4 2003/07/20 15:49:57 scolebourne Exp $
+ * @version $Id: MultiLineToStringStyleTest.java,v 1.5 2003/08/16 13:02:14 scolebourne Exp $
  */
 public class MultiLineToStringStyleTest extends TestCase {
 
@@ -85,7 +84,7 @@ public class MultiLineToStringStyleTest extends TestCase {
 
     public static Test suite() {
         TestSuite suite = new TestSuite(MultiLineToStringStyleTest.class);
-        suite.setName("DefaultToStringStyle Tests");
+        suite.setName("MultiLineToStringStyle Tests");
         return suite;
     }
 

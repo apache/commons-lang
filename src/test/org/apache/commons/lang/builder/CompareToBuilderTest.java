@@ -59,12 +59,13 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
- * Unit tests {@link org.apache.commons.lang.CompareToBuilder}.
+ * Unit tests {@link org.apache.commons.lang.builder.CompareToBuilder}.
  *
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CompareToBuilderTest.java,v 1.5 2003/05/21 23:49:14 scolebourne Exp $
+ * @version $Id: CompareToBuilderTest.java,v 1.6 2003/08/16 13:02:14 scolebourne Exp $
  */
 public class CompareToBuilderTest extends TestCase {
 
