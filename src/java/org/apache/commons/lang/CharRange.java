@@ -62,7 +62,7 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharRange.java,v 1.6 2003/07/14 22:25:02 bayard Exp $
+ * @version $Id: CharRange.java,v 1.7 2003/07/16 00:39:05 scolebourne Exp $
  */
 class CharRange {
 
@@ -101,6 +101,7 @@ class CharRange {
      * @param start  String start first character is in this range (inclusive).
      * @param close  String first character is close character in this
      *  range (inclusive).
+     * @throws NullPointerException if either String is <code>null</code>
      */
     public CharRange(String start, String close) {
         this.start = start.charAt(0);
