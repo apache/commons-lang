@@ -53,7 +53,7 @@
  */
 package org.apache.commons.lang.builder;
 
-import org.apache.commons.lang.builder.CompareToBuilder;
+import java.math.BigInteger;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CompareToBuilderTest.java,v 1.3 2002/12/08 21:43:34 scolebourne Exp $
+ * @version $Id: CompareToBuilderTest.java,v 1.4 2003/01/19 17:35:20 scolebourne Exp $
  */
 public class CompareToBuilderTest extends TestCase {
 
@@ -91,7 +91,7 @@ public class CompareToBuilderTest extends TestCase {
 
     //-----------------------------------------------------------------------
 
-    static class TestObject implements Comparable{
+    static class TestObject implements Comparable {
         private int a;
         public TestObject(int a) {
             this.a = a;
@@ -118,6 +118,35 @@ public class CompareToBuilderTest extends TestCase {
 			TestObject rhs = (TestObject) o;
 			return (a < rhs.a) ? -1 : (a > rhs.a) ? +1 : 0;
 		}
+    }
+
+    static class TestSubObject extends TestObject {
+        private int b;
+        public TestSubObject() {
+            super(0);
+        }
+        public TestSubObject(int a, int b) {
+            super(a);
+            this.b = b;
+        }
+        public boolean equals(Object o) {
+            if (o == this) {
+                return true;
+            }
+            if (!(o instanceof TestSubObject)) {
+                return false;
+            }
+            TestSubObject rhs = (TestSubObject) o;
+            return super.equals(o) && (b == rhs.b);
+        }
+    }
+
+    static class TestTransientSubObject extends TestObject {
+        private transient int t;
+        public TestTransientSubObject(int a, int t) {
+            super(a);
+            this.t = t;
+        }
     }
 
     public void testReflectionCompare() {
@@ -149,6 +178,105 @@ public class CompareToBuilderTest extends TestCase {
         } catch (ClassCastException ex) {}
     }
 
+    public void testReflectionHierarchyCompare() {
+        testReflectionHierarchyCompare(false);
+    }
+    
+    public void testReflectionHierarchyCompareTransients() {
+        testReflectionHierarchyCompare(true);
+
+        TestTransientSubObject x;
+        TestTransientSubObject y;
+        TestTransientSubObject z;
+
+        x = new TestTransientSubObject(1, 1);
+        y = new TestTransientSubObject(2, 2);
+        z = new TestTransientSubObject(3, 3);
+        assertXYZCompareOrder(x, y, z, true);
+        
+        x = new TestTransientSubObject(1, 1);
+        y = new TestTransientSubObject(1, 2);
+        z = new TestTransientSubObject(1, 3);
+        assertXYZCompareOrder(x, y, z, true);  
+    }
+    
+    private void assertXYZCompareOrder(Object x, Object y, Object z, boolean testTransients) {
+        assertTrue(0 == CompareToBuilder.reflectionCompare(x, x, testTransients));
+        assertTrue(0 == CompareToBuilder.reflectionCompare(y, y, testTransients));
+        assertTrue(0 == CompareToBuilder.reflectionCompare(z, z, testTransients));
+        
+        assertTrue(0 > CompareToBuilder.reflectionCompare(x, y, testTransients));
+        assertTrue(0 > CompareToBuilder.reflectionCompare(x, z, testTransients));
+        assertTrue(0 > CompareToBuilder.reflectionCompare(y, z, testTransients));
+        
+        assertTrue(0 < CompareToBuilder.reflectionCompare(y, x, testTransients));
+        assertTrue(0 < CompareToBuilder.reflectionCompare(z, x, testTransients));
+        assertTrue(0 < CompareToBuilder.reflectionCompare(z, y, testTransients));
+    }
+    
+    public void testReflectionHierarchyCompare(boolean testTransients) {
+        TestObject to1 = new TestObject(1);
+        TestObject to2 = new TestObject(2);
+        TestObject to3 = new TestObject(3);
+        TestSubObject tso1 = new TestSubObject(1, 1);
+        TestSubObject tso2 = new TestSubObject(2, 2);
+        TestSubObject tso3 = new TestSubObject(3, 3);
+        
+        assertReflectionCompareContract(to1, to1, to1, false);
+        assertReflectionCompareContract(to1, to2, to3, false);
+        assertReflectionCompareContract(tso1, tso1, tso1, false);
+        assertReflectionCompareContract(tso1, tso2, tso3, false);
+        assertReflectionCompareContract("1", "2", "3", false);
+        
+        assertTrue(0 != CompareToBuilder.reflectionCompare(tso1, new TestSubObject(1, 0), testTransients));
+        assertTrue(0 != CompareToBuilder.reflectionCompare(tso1, new TestSubObject(0, 1), testTransients));
+
+        // root class
+        assertXYZCompareOrder(to1, to2, to3, true);
+        // subclass  
+        assertXYZCompareOrder(tso1, tso2, tso3, true);  
+    }
+
+    /**
+     * See "Effective Java" under "Consider Implementing Comparable".
+     *  
+     * @param x an object to compare 
+     * @param y an object to compare
+     * @param z an object to compare
+     * @param testTransients Whether to include transients in the comparison
+     */
+    public void assertReflectionCompareContract(Object x, Object y, Object z, boolean testTransients) {
+
+        // signum
+        assertTrue(reflectionCompareSignum(x, y, testTransients) == -reflectionCompareSignum(y, x, testTransients));
+        
+        // transitive
+        if (CompareToBuilder.reflectionCompare(x, y, testTransients) > 0 && CompareToBuilder.reflectionCompare(y, z, testTransients) > 0){
+            assertTrue(CompareToBuilder.reflectionCompare(x, z, testTransients) > 0);
+        }
+        
+        // un-named
+        if (CompareToBuilder.reflectionCompare(x, y, testTransients) == 0) {
+            assertTrue(reflectionCompareSignum(x, z, testTransients) == -reflectionCompareSignum(y, z, testTransients));
+        }
+        
+        // strongly recommended but not strictly required
+        assertTrue((CompareToBuilder.reflectionCompare(x, y, testTransients) ==0 ) == EqualsBuilder.reflectionEquals(x, y, testTransients));
+    }
+    
+    /**
+     * Returns the signum of the result of comparing x and y with
+     * <code>CompareToBuilder.reflectionCompare</code>
+     * 
+     * @param lhs The "left-hand-side" of the comparison.
+     * @param rhs The "right-hand-side" of the comparison.
+     * @param testTransients Whether to include transients in the comparison
+     * @return int The signum
+     */
+    private int reflectionCompareSignum(Object lhs, Object rhs, boolean testTransients) {
+        return BigInteger.valueOf(CompareToBuilder.reflectionCompare(lhs, rhs, testTransients)).signum();
+    }
+    
     public void testAppendSuper() {
         TestObject o1 = new TestObject(4);
         TestObject o2 = new TestObject(5);

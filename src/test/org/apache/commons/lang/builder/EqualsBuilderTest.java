@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EqualsBuilderTest.java,v 1.2 2002/12/08 21:10:11 scolebourne Exp $
+ * @version $Id: EqualsBuilderTest.java,v 1.3 2003/01/19 17:35:20 scolebourne Exp $
  */
 public class EqualsBuilderTest extends TestCase {
 
@@ -92,6 +92,8 @@ public class EqualsBuilderTest extends TestCase {
 
     static class TestObject {
         private int a;
+        public TestObject() {
+        }
         public TestObject(int a) {
             this.a = a;
         }
@@ -115,6 +117,78 @@ public class EqualsBuilderTest extends TestCase {
         }
     }
 
+    static class TestSubObject extends TestObject {
+        private int b;
+        public TestSubObject() {
+            super(0);
+        }
+        public TestSubObject(int a, int b) {
+            super(a);
+            this.b = b;
+        }
+        public boolean equals(Object o) {
+            if (o == this) {
+                return true;
+            }
+            if (!(o instanceof TestSubObject)) {
+                return false;
+            }
+            TestSubObject rhs = (TestSubObject) o;
+            return super.equals(o) && (b == rhs.b);
+        }
+
+        public void setB(int b) {
+            this.b = b;
+        }
+
+        public int getB() {
+            return b;
+        }
+    }
+
+    static class TestEmptySubObject extends TestObject {
+        public TestEmptySubObject(int a) {
+            super(a);
+        }
+    }
+
+    static class TestTSubObject extends TestObject {
+        private transient int t;
+        public TestTSubObject(int a, int t) {
+            super(a);
+            this.t = t;
+        }
+    }
+
+    static class TestTTSubObject extends TestTSubObject {
+        private transient int tt;
+        public TestTTSubObject(int a, int t, int tt) {
+            super(a, t);
+            this.tt = tt;
+        }
+    }
+
+    static class TestTTLeafObject extends TestTTSubObject {
+        private int leafValue;
+        public TestTTLeafObject(int a, int t, int tt, int leafValue) {
+            super(a, t, tt);
+            this.leafValue = leafValue;
+        }
+    }
+
+    static class TestTSubObject2 extends TestObject {
+        private transient int t;
+        public TestTSubObject2(int a, int t) {
+            super(a);
+        }
+        public int getT() {
+            return t;
+        }
+        public void setT(int t) {
+            this.t = t;
+        }
+    }
+
     public void testReflectionEquals() {
         TestObject o1 = new TestObject(4);
         TestObject o2 = new TestObject(5);
@@ -124,10 +198,135 @@ public class EqualsBuilderTest extends TestCase {
         assertTrue(EqualsBuilder.reflectionEquals(o1, o2));
 
         assertTrue(!EqualsBuilder.reflectionEquals(o1, this));
-        
+
         assertTrue(!EqualsBuilder.reflectionEquals(o1, null));
         assertTrue(!EqualsBuilder.reflectionEquals(null, o2));
         assertTrue(EqualsBuilder.reflectionEquals((Object) null, (Object) null));
+    }
+    
+    public void testReflectionHierarchyEquals() {
+        testReflectionHierarchyEquals(false);
+        testReflectionHierarchyEquals(true);
+        // Transients
+        assertTrue(EqualsBuilder.reflectionEquals(new TestTTLeafObject(1, 2, 3, 4), new TestTTLeafObject(1, 2, 3, 4), true));
+        assertTrue(EqualsBuilder.reflectionEquals(new TestTTLeafObject(1, 2, 3, 4), new TestTTLeafObject(1, 2, 3, 4), false));
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestTTLeafObject(1, 0, 0, 4), new TestTTLeafObject(1, 2, 3, 4), true));
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestTTLeafObject(1, 2, 3, 4), new TestTTLeafObject(1, 2, 3, 0), true));
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestTTLeafObject(0, 2, 3, 4), new TestTTLeafObject(1, 2, 3, 4), true));
+    }
+
+    public void testReflectionHierarchyEquals(boolean testTransients) {
+        TestObject to1 = new TestObject(4);
+        TestObject to1Bis = new TestObject(4);
+        TestObject to1Ter = new TestObject(4);
+        TestObject to2 = new TestObject(5);
+        TestEmptySubObject teso = new TestEmptySubObject(4);
+        TestTSubObject ttso = new TestTSubObject(4, 1);
+        TestTTSubObject tttso = new TestTTSubObject(4, 1, 2);
+        TestTTLeafObject ttlo = new TestTTLeafObject(4, 1, 2, 3);
+        TestSubObject tso1 = new TestSubObject(1, 4);
+        TestSubObject tso1bis = new TestSubObject(1, 4);
+        TestSubObject tso1ter = new TestSubObject(1, 4);
+        TestSubObject tso2 = new TestSubObject(2, 5);
+
+        testReflectionEqualsEquivalenceRelationship(to1, to1Bis, to1Ter, to2, new TestObject(), testTransients);
+        testReflectionEqualsEquivalenceRelationship(tso1, tso1bis, tso1ter, tso2, new TestSubObject(), testTransients);
+
+        // More sanity checks:
+
+        // same values
+        assertTrue(EqualsBuilder.reflectionEquals(ttlo, ttlo, testTransients));
+        assertTrue(EqualsBuilder.reflectionEquals(new TestSubObject(1, 10), new TestSubObject(1, 10), testTransients));
+        // same super values, diff sub values
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestSubObject(1, 10), new TestSubObject(1, 11), testTransients));
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestSubObject(1, 11), new TestSubObject(1, 10), testTransients));
+        // diff super values, same sub values
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestSubObject(0, 10), new TestSubObject(1, 10), testTransients));
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestSubObject(1, 10), new TestSubObject(0, 10), testTransients));
+
+        // mix super and sub types: equals
+        assertTrue(EqualsBuilder.reflectionEquals(to1, teso, testTransients));
+        assertTrue(EqualsBuilder.reflectionEquals(teso, to1, testTransients));
+
+        assertTrue(EqualsBuilder.reflectionEquals(to1, ttso, false)); // Force testTransients = false for this assert
+        assertTrue(EqualsBuilder.reflectionEquals(ttso, to1, false)); // Force testTransients = false for this assert
+
+        assertTrue(EqualsBuilder.reflectionEquals(to1, tttso, false)); // Force testTransients = false for this assert
+        assertTrue(EqualsBuilder.reflectionEquals(tttso, to1, false)); // Force testTransients = false for this assert
+
+        assertTrue(EqualsBuilder.reflectionEquals(ttso, tttso, false)); // Force testTransients = false for this assert
+        assertTrue(EqualsBuilder.reflectionEquals(tttso, ttso, false)); // Force testTransients = false for this assert
+
+        // mix super and sub types: NOT equals
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestObject(0), new TestEmptySubObject(1), testTransients));
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestEmptySubObject(1), new TestObject(0), testTransients));
+
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestObject(0), new TestTSubObject(1, 1), testTransients));
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestTSubObject(1, 1), new TestObject(0), testTransients));
+
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestObject(1), new TestSubObject(0, 10), testTransients));
+        assertTrue(!EqualsBuilder.reflectionEquals(new TestSubObject(0, 10), new TestObject(1), testTransients));
+
+        assertTrue(!EqualsBuilder.reflectionEquals(to1, ttlo));
+        assertTrue(!EqualsBuilder.reflectionEquals(tso1, this));
+    }
+
+    /**
+     * Equivalence relationship tests inspired by "Effective Java":
+     * <ul>
+     * <li>reflection</li>
+     * <li>symetry</li>
+     * <li>transitive</li>
+     * <li>consistency</li>
+     * <li>non-null reference</li>
+     * </ul>
+     * @param to a TestObject
+     * @param toBis a TestObject, equal to to and toTer
+     * @param toTer Left hand side, equal to to and toBis
+     * @param to2 a different TestObject
+     * @param oToChange a TestObject that will be changed
+     */
+    public void testReflectionEqualsEquivalenceRelationship(
+        TestObject to,
+        TestObject toBis,
+        TestObject toTer,
+        TestObject to2,
+        TestObject oToChange,
+        boolean testTransients) {
+
+        // reflection test
+        assertTrue(EqualsBuilder.reflectionEquals(to, to, testTransients));
+        assertTrue(EqualsBuilder.reflectionEquals(to2, to2, testTransients));
+
+        // symetry test
+        assertTrue(EqualsBuilder.reflectionEquals(to, toBis, testTransients) && EqualsBuilder.reflectionEquals(toBis, to, testTransients));
+
+        // transitive test
+        assertTrue(
+            EqualsBuilder.reflectionEquals(to, toBis, testTransients)
+                && EqualsBuilder.reflectionEquals(toBis, toTer, testTransients)
+                && EqualsBuilder.reflectionEquals(to, toTer, testTransients));
+
+        // consistency test
+        oToChange.setA(to.getA());
+        if (oToChange instanceof TestSubObject) {
+            ((TestSubObject) oToChange).setB(((TestSubObject) to).getB());
+        }
+        assertTrue(EqualsBuilder.reflectionEquals(oToChange, to, testTransients));
+        assertTrue(EqualsBuilder.reflectionEquals(oToChange, to, testTransients));
+        oToChange.setA(to.getA() + 1);
+        if (oToChange instanceof TestSubObject) {
+            ((TestSubObject) oToChange).setB(((TestSubObject) to).getB() + 1);
+        }
+        assertTrue(!EqualsBuilder.reflectionEquals(oToChange, to, testTransients));
+        assertTrue(!EqualsBuilder.reflectionEquals(oToChange, to, testTransients));
+
+        // non-null reference test
+        assertTrue(!EqualsBuilder.reflectionEquals(to, null, testTransients));
+        assertTrue(!EqualsBuilder.reflectionEquals(to2, null, testTransients));
+        assertTrue(!EqualsBuilder.reflectionEquals(null, to, testTransients));
+        assertTrue(!EqualsBuilder.reflectionEquals(null, to2, testTransients));
+        assertTrue(EqualsBuilder.reflectionEquals((Object) null, (Object) null, testTransients));
     }
 
     public void testSuper() {

@@ -113,7 +113,7 @@ import java.lang.reflect.Modifier;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.12 2002/12/31 20:21:34 scolebourne Exp $
+ * @version $Id: ToStringBuilder.java,v 1.13 2003/01/19 17:35:21 scolebourne Exp $
  */
 public class ToStringBuilder {
     
@@ -331,8 +331,7 @@ public class ToStringBuilder {
      * up to and including the specified superclass. A null superclass is treated
      * as java.lang.Object.</p>
      *
-     * <p>
-     * If the style is <code>null</code>, the default
+     * <p>If the style is <code>null</code>, the default
      * <code>ToStringStyle</code> is used.</p>
      * 
      * @param object  the Object to be output
@@ -367,14 +366,14 @@ public class ToStringBuilder {
      * @param object  the object to append details of
      * @param clazz  the class to append details of
      * @param builder  the builder to append to
-     * @param outputTransients  whether to output transient fields
+     * @param useTransients  whether to output transient fields
      */
-    private static void reflectionAppend(Object object, Class clazz, ToStringBuilder builder, boolean outputTransients) {
+    private static void reflectionAppend(Object object, Class clazz, ToStringBuilder builder, boolean useTransients) {
         Field[] fields = clazz.getDeclaredFields();
         Field.setAccessible(fields, true);
-        for (int i = 0; i < fields.length; ++i) {
+        for (int i = 0; i < fields.length; i++) {
             Field f = fields[i];
-            if (outputTransients || !Modifier.isTransient(f.getModifiers())) {
+            if (useTransients || !Modifier.isTransient(f.getModifiers())) {
                 if (!Modifier.isStatic(f.getModifiers())) {
                     try {
                         builder.append(f.getName(), f.get(object));

@@ -106,8 +106,9 @@ import java.lang.reflect.Modifier;
  * </pre>
  *
  * @author Stephen Colebourne
+ * @author Gary Gregory
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.8 2003/01/15 20:51:57 bayard Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.9 2003/01/19 17:35:21 scolebourne Exp $
  */
 public class HashCodeBuilder {
 
@@ -179,14 +180,14 @@ public class HashCodeBuilder {
      * <p>Transient members will be not be used, as they are likely derived
      * fields, and not part of the value of the Object.</p>
      *
-     * <p>Static fields will not be tested.</p>
+     * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
      * @param object  the Object to create a <code>hashCode</code> for
      * @return int hash code
      * @throws IllegalArgumentException if the object is <code>null</code>
      */
     public static int reflectionHashCode(Object object) {
-        return reflectionHashCode(object, false);
+        return reflectionHashCode(17, 37, object, false, null);
     }
 
     /**
@@ -204,7 +205,7 @@ public class HashCodeBuilder {
      * members will be tested, otherwise they are ignored, as they are likely
      * derived fields, and not part of the value of the Object.</p>
      *
-     * <p>Static fields will not be tested.</p>
+     * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
      * @param object  the Object to create a <code>hashCode</code> for
      * @param testTransients  whether to include transient fields
@@ -212,7 +213,7 @@ public class HashCodeBuilder {
      * @throws IllegalArgumentException if the object is <code>null</code>
      */
     public static int reflectionHashCode(Object object, boolean testTransients) {
-        return reflectionHashCode(17, 37, object, testTransients);
+        return reflectionHashCode(17, 37, object, testTransients, null);
     }
 
     /**
@@ -226,7 +227,7 @@ public class HashCodeBuilder {
      * <p>Transient members will be not be used, as they are likely derived
      * fields, and not part of the value of the Object.</p>
      *
-     * <p>Static fields will not be tested.</p>
+     * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
      * <p>Two randomly chosen, non-zero, odd numbers must be passed in. Ideally
      * these should be different for each class, however this is not vital.
@@ -240,9 +241,8 @@ public class HashCodeBuilder {
      * @throws IllegalArgumentException if the number is zero or even
      */
     public static int reflectionHashCode(
-            int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
-            Object object) {
-        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, false);
+            int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object object) {
+        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, false, null);
     }
 
     /**
@@ -257,7 +257,7 @@ public class HashCodeBuilder {
      * members will be tested, otherwise they are ignored, as they are likely
      * derived fields, and not part of the value of the Object.</p>
      *
-     * <p>Static fields will not be tested.</p>
+     * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
      * <p>Two randomly chosen, non-zero, odd numbers must be passed in. Ideally
      * these should be different for each class, however this is not vital.
@@ -274,29 +274,81 @@ public class HashCodeBuilder {
     public static int reflectionHashCode(
             int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
             Object object, boolean testTransients) {
+        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, testTransients, null);
+    }
+            
+    /**
+     * <p>This method uses reflection to build a valid hash code.</p>
+     *
+     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manger, if the permissions are not set up correctly. It is also
+     * not as efficient as testing explicitly.</p>
+     *
+     * <p>If the TestTransients parameter is set to <code>true</code>, transient
+     * members will be tested, otherwise they are ignored, as they are likely
+     * derived fields, and not part of the value of the Object.</p>
+     *
+     * <p>Static fields will not be included. Superclass fields will be included
+     * up to and including the specified superclass. A null superclass is treated
+     * as java.lang.Object.</p>
+     *
+     * <p>Two randomly chosen, non-zero, odd numbers must be passed in. Ideally
+     * these should be different for each class, however this is not vital.
+     * Prime numbers are preferred, especially for the multiplier.</p>
+     *
+     * @param initialNonZeroOddNumber
+     * @param multiplierNonZeroOddNumber
+     * @param object  the Object to create a <code>hashCode</code> for
+     * @param testTransients  whether to include transient fields
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be null
+     * @return int hash code
+     * @throws IllegalArgumentException if the Object is <code>null</code>
+     * @throws IllegalArgumentException if the number is zero or even
+     */
+    public static int reflectionHashCode(
+            int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
+            Object object, boolean testTransients, Class reflectUpToClass) {
 
         if (object == null) {
             throw new IllegalArgumentException("The object to build a hash code for must not be null");
         }
-        HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(initialNonZeroOddNumber, multiplierNonZeroOddNumber);
-        Field[] fields = object.getClass().getDeclaredFields();
+        HashCodeBuilder builder = new HashCodeBuilder(initialNonZeroOddNumber, multiplierNonZeroOddNumber);
+        Class clazz = object.getClass();
+        reflectionAppend(object, clazz, builder, testTransients);
+        while (clazz.getSuperclass() != null && clazz != reflectUpToClass) {
+            clazz = clazz.getSuperclass();
+            reflectionAppend(object, clazz, builder, testTransients);
+        }
+        return builder.toHashCode();
+    }
+
+    /**
+     * Appends the fields and values defined by the given object of the
+     * given Class.
+     * 
+     * @param object  the object to append details of
+     * @param clazz  the class to append details of
+     * @param builder  the builder to append to
+     * @param useTransients  whether to use transient fields
+     */
+    private static void reflectionAppend(Object object, Class clazz, HashCodeBuilder builder, boolean useTransients) {
+        Field[] fields = clazz.getDeclaredFields();
         Field.setAccessible(fields, true);
-        for (int i = 0; i < fields.length; ++i) {
+        for (int i = 0; i < fields.length; i++) {
             Field f = fields[i];
-            if (testTransients || !Modifier.isTransient(f.getModifiers())) {
+            if (useTransients || !Modifier.isTransient(f.getModifiers())) {
                 if (!Modifier.isStatic(f.getModifiers())) {
                     try {
-                        hashCodeBuilder.append(f.get(object));
+                        builder.append(f.get(object));
                     } catch (IllegalAccessException e) {
                         //this can't happen. Would get a Security exception instead
                         //throw a runtime exception in case the impossible happens.
-                        throw new InternalError("Unexpected IllegalAccessException");
                     }
                 }
             }
         }
-        return hashCodeBuilder.toHashCode();
-    }
+     }
 
     //-------------------------------------------------------------------------
 
