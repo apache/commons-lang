@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Maarten Coene
- * @version $Id: EqualsBuilderTest.java,v 1.9 2004/02/18 23:00:51 ggregory Exp $
+ * @version $Id: EqualsBuilderTest.java,v 1.10 2004/08/25 21:20:15 ggregory Exp $
  */
 public class EqualsBuilderTest extends TestCase {
 
@@ -669,6 +669,13 @@ public class EqualsBuilderTest extends TestCase {
         assertTrue(new EqualsBuilder().append(array1, array2).isEquals());
         array1[1][1] = false;
         assertTrue(!new EqualsBuilder().append(array1, array2).isEquals());
+        
+        // compare 1 dim to 2.
+        boolean[] array3 = new boolean[]{true, true};
+        assertFalse(new EqualsBuilder().append(array1, array3).isEquals());
+        assertFalse(new EqualsBuilder().append(array3, array1).isEquals());
+        assertFalse(new EqualsBuilder().append(array2, array3).isEquals());
+        assertFalse(new EqualsBuilder().append(array3, array2).isEquals());
     }
 
     public void testRaggedArray() {
