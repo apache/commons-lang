@@ -1,7 +1,7 @@
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.17 2003/07/30 01:32:09 bayard Exp $
+        $Id: build.xml,v 1.18 2003/08/16 02:43:29 bayard Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
@@ -111,7 +111,6 @@
                                 test.enum,
                                 test.exception,
                                 test.math,
-                                test.reflect,
                                 test.time,
                                 test.util" description="Run all unit test cases">
         <echo message="Running tests ..."/>
