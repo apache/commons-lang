@@ -59,17 +59,19 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+import junit.extensions.RepeatedTest;
 
-/**
- * Unit tests for {@link StringEscapeUtils}.
- *
- * @author of original StringUtilsTest.testEscape = ?
- * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: EntitiesTest.java,v 1.3 2003/05/24 13:29:44 alex Exp $
- */
-public class EntitiesTest extends TestCase
-{
-    public EntitiesTest(String name) {
+public class EntitiesPerformanceTest extends TestCase {
+    private int COUNT = 200;
+    private int STRING_LENGTH = 1000;
+
+    private static String stringWithUnicode;
+    private static String stringWithEntities;
+    private static Entities treeEntities;
+    private static Entities hashEntities;
+    private static Entities arrayEntities;
+
+    public EntitiesPerformanceTest(String name) {
         super(name);
     }
 
@@ -78,72 +80,90 @@ public class EntitiesTest extends TestCase
     }
 
     public static Test suite() {
-        TestSuite suite = new TestSuite(EntitiesTest.class);
-        suite.setName("EntitiesTest Tests");
+        TestSuite suite = new TestSuite(EntitiesPerformanceTest.class);
+//        suite.setName("Entities Performance Tests");
+//        return new RepeatedTest(suite, 1000);
         return suite;
     }
 
-    Entities entities;
+    public void setUp() {
+        if (stringWithUnicode == null) {
+            StringBuffer buf = new StringBuffer(STRING_LENGTH);
+            for (int i = 0; i < STRING_LENGTH/5; ++i) {
+                buf.append("xxxx");
+                String entityValue = Entities.html40[i % Entities.html40.length][1];
+                char ch = (char) Integer.parseInt(entityValue);
+                buf.append(ch);
+            }
+            stringWithUnicode = buf.toString();
+            stringWithEntities = Entities.HTML40.unescape(stringWithUnicode);
+        }
 
-    public void setUp()
-    {
-        entities = new Entities();
-        entities.addEntity("foo", 161);
-        entities.addEntity("bar", 162);
     }
 
-    public void testEscapeNamedEntity() throws Exception
-    {
-        assertEquals("&foo;", entities.escape("\u00A1"));
-        assertEquals("x&foo;", entities.escape("x\u00A1"));
-        assertEquals("&foo;x", entities.escape("\u00A1x"));
-        assertEquals("x&foo;x", entities.escape("x\u00A1x"));
-        assertEquals("&foo;&bar;", entities.escape("\u00A1\u00A2"));
+    public void testBuildHash() throws Exception {
+        for (int i = 0; i < COUNT; ++i) {
+            hashEntities = new Entities();
+            hashEntities.map = new Entities.HashIntMap();
+            Entities.fillWithHtml40Entities(hashEntities);
+        }
     }
 
-    public void testUnescapeNamedEntity() throws Exception
-    {
-        assertEquals("\u00A1", entities.unescape("&foo;"));
-        assertEquals("x\u00A1", entities.unescape("x&foo;"));
-        assertEquals("\u00A1x", entities.unescape("&foo;x"));
-        assertEquals("x\u00A1x", entities.unescape("x&foo;x"));
-        assertEquals("\u00A1\u00A2", entities.unescape("&foo;&bar;"));
+    public void testBuildTree() throws Exception {
+        for (int i = 0; i < COUNT; ++i) {
+            treeEntities = new Entities();
+            treeEntities.map = new Entities.TreeIntMap();
+            Entities.fillWithHtml40Entities(treeEntities);
+        }
     }
 
-    public void testUnescapeUnknownEntity() throws Exception
-    {
-        assertEquals("&zzzz;", entities.unescape("&zzzz;"));
+    public void testBuildArray() throws Exception {
+        for (int i = 0; i < COUNT; ++i) {
+            arrayEntities = new Entities();
+            arrayEntities.map = new Entities.ArrayIntMap();
+            Entities.fillWithHtml40Entities(arrayEntities);
+        }
     }
 
-    public void testAddEntitiesArray() throws Exception
-    {
-        String[][] array = {{"foo", "100"}, {"bar", "101"}};
-        Entities e = new Entities();
-        e.addEntities(array);
-        assertEquals("foo", e.entityName(100));
-        assertEquals("bar", e.entityName(101));
-        assertEquals(100, e.entityValue("foo"));
-        assertEquals(101, e.entityValue("bar"));
+    public void testEscapeHash() throws Exception {
+        escapeIt(hashEntities);
     }
 
-    public void testEntitiesXmlObject() throws Exception
-    {
-        assertEquals("gt", Entities.XML.entityName('>'));
-        assertEquals((int) '>', Entities.XML.entityValue("gt"));
-        assertEquals(-1, Entities.XML.entityValue("xyzzy"));
+    public void testEscapeTree() throws Exception {
+        escapeIt(treeEntities);
     }
 
-    public void testArrayIntMap() throws Exception
-    {
-        Entities.ArrayIntMap map = new Entities.ArrayIntMap();
-        map.growBy = 2;
-        map.add("foo", 1);
-        assertEquals(1, map.value("foo"));
-        assertEquals("foo", map.name(1));
-        map.add("bar", 2);
-        map.add("baz", 3);
-        assertEquals(3, map.value("baz"));
-        assertEquals("baz", map.name(3));
+    public void testEscapeArray() throws Exception {
+        escapeIt(arrayEntities);
     }
+
+    public void testUnscapeHash() throws Exception {
+        unescapeIt(hashEntities);
+    }
+
+    public void testUnscapeTree() throws Exception {
+        unescapeIt(treeEntities);
+    }
+
+    public void testUnescapeArray() throws Exception {
+        unescapeIt(arrayEntities);
+    }
+
+    private void escapeIt(Entities entities) {
+        for (int i = 0; i < COUNT; ++i) {
+            String escaped  = entities.escape(stringWithUnicode);
+            assertEquals("xxxx&fnof;", escaped.substring(0,10));
+        }
+    }
+
+    private void unescapeIt(Entities entities) {
+        for (int i = 0; i < COUNT; ++i) {
+            String unescaped  = entities.unescape(stringWithEntities);
+            assertEquals("xxxx\u0192", unescaped.substring(0,5));
+        }
+    }
+
+
+
 }
 

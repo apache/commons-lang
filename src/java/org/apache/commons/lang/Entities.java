@@ -53,8 +53,7 @@
  */
 package org.apache.commons.lang;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>Provides HTML and XML entity utilities.</p>
@@ -68,7 +67,7 @@ import java.util.Map;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.5 2003/05/24 04:35:06 alex Exp $
+ * @version $Id: Entities.java,v 1.6 2003/05/24 13:29:44 alex Exp $
  */
 class Entities {
 
@@ -79,11 +78,11 @@ class Entities {
         {"gt", "62"}, // > - greater-than
     };
 
-    static private String[][] apos = {
+    static String[][] apos = {
         {"apos", "39"}, // XML apostrophe
     };
 
-    static private String[][] iso8859_1 = {
+    static String[][] iso8859_1 = {
         {"nbsp", "160"}, // non-breaking space
         {"iexcl", "161"}, //inverted exclamation mark
         {"cent", "162"}, //cent sign
@@ -385,25 +384,37 @@ class Entities {
 
     static {
         HTML40 = new Entities();
-        HTML40.addEntities(basic);
-        HTML40.addEntities(iso8859_1);
-        HTML40.addEntities(html40);
+        fillWithHtml40Entities(HTML40);
     }
 
-    static class IntMap {
-        private Map mapNameToValue = new HashMap();
-        private Map mapValueToName = new HashMap();
+    static void fillWithHtml40Entities(Entities entities) {
+        entities.addEntities(basic);
+        entities.addEntities(iso8859_1);
+        entities.addEntities(html40);
+    }
+
+    static interface IntMap {
+        void add(String name, int value);
+
+        String name(int value);
+
+        int value(String name);
+    }
+
+    static abstract class MapIntMap implements IntMap {
+        protected Map mapNameToValue;
+        protected Map mapValueToName;
 
         public void add(String name, int value) {
             mapNameToValue.put(name, new Integer(value));
             mapValueToName.put(new Integer(value), name);
         }
 
-        private String name(int value) {
+        public String name(int value) {
             return (String) mapValueToName.get(new Integer(value));
         }
 
-        private int value(String name) {
+        public int value(String name) {
             Object value = mapNameToValue.get(name);
             if (value == null)
                 return -1;
@@ -411,7 +422,65 @@ class Entities {
         }
     }
 
-    IntMap map = new IntMap();
+    static class HashIntMap extends MapIntMap {
+        public HashIntMap() {
+            mapNameToValue = new HashMap();
+            mapValueToName = new HashMap();
+        }
+    }
+
+    static class TreeIntMap extends MapIntMap {
+        public TreeIntMap() {
+            mapNameToValue = new TreeMap();
+            mapValueToName = new TreeMap();
+        }
+    }
+
+    static class ArrayIntMap implements IntMap {
+        int growBy = 100;
+        private int size = 0;
+        private String[] names = new String[growBy];
+        private int[] values = new int[growBy];
+
+        public void add(String name, int value) {
+            ensureCapacity(size + 1);
+            names[size] = name;
+            values[size] = value;
+            size++;
+        }
+
+        private void ensureCapacity(int capacity) {
+            if (capacity > names.length) {
+                int newSize = Math.max(capacity, size + growBy);
+                String[] newNames = new String[newSize];
+                System.arraycopy(names, 0, newNames, 0, size);
+                names = newNames;
+                int[] newValues = new int[newSize];
+                System.arraycopy(values, 0, newValues, 0, size);
+                values = newValues;
+            }
+        }
+
+        public String name(int value) {
+            for (int i = 0; i < size; ++i) {
+                if (values[i] == value) {
+                    return names[i];
+                }
+            }
+            return null;
+        }
+
+        public int value(String name) {
+            for (int i = 0; i < size; ++i) {
+                if (names[i].equals(name)) {
+                    return values[i];
+                }
+            }
+            return -1;
+        }
+    }
+
+    IntMap map = new HashIntMap();
 
     public void addEntities(String[][] entityArray) {
         for (int i = 0; i < entityArray.length; ++i) {
