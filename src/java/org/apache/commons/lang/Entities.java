@@ -53,12 +53,8 @@
  */
 package org.apache.commons.lang;
 
-import java.util.Map;
 import java.util.HashMap;
-import java.io.IOException;
-import java.io.Writer;
-
-import org.apache.commons.lang.exception.NestableRuntimeException;
+import java.util.Map;
 
 //todo: unit test and make public
 
@@ -75,7 +71,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  *
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.2 2003/04/09 21:30:18 alex Exp $
+ * @version $Id: Entities.java,v 1.3 2003/04/10 00:01:21 ggregory Exp $
  */
 class Entities {
 

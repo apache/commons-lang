@@ -53,8 +53,6 @@
  */
 package org.apache.commons.lang;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.io.IOException;
 import java.io.Writer;
 
@@ -75,7 +73,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Helge Tesgaard
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.7 2003/04/09 21:30:18 alex Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.8 2003/04/10 00:01:21 ggregory Exp $
  */
 public class StringEscapeUtils {
 
