@@ -100,14 +100,14 @@ import java.lang.reflect.Modifier;
  * <p> A typical invocation for this method would look like:</p>
  * <pre>
  * public boolean equals(Object o) {
- *   return EqualsBuilder.reflectionEquals(this, obj);
+ *   return EqualsBuilder.reflectionEquals(this, o);
  * }
  * </pre>
- * 
+ *
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.8 2002/12/23 00:20:31 scolebourne Exp $
+ * @version $Id: EqualsBuilder.java,v 1.9 2003/01/15 20:54:00 bayard Exp $
  */
 public class EqualsBuilder {
     /**
@@ -127,7 +127,7 @@ public class EqualsBuilder {
     }
 
     //-------------------------------------------------------------------------
-    
+
     /**
      * <p>This method uses reflection to determine if the two Object are equal.</p>
      *
@@ -140,7 +140,7 @@ public class EqualsBuilder {
      * fields, and not part of the value of the Object.</p>
      *
      * <p>Static fields will not be tested.</p>
-     * 
+     *
      * @param lhs  Left Hand Side
      * @param rhs  Right Hand Side
      * @return <code>true</code> if the two Objects have tested equals.
@@ -162,13 +162,13 @@ public class EqualsBuilder {
      * derived fields, and not part of the value of the Object.</p>
      *
      * <p>Static fields will not be tested.</p>
-     * 
+     *
      * @param lhs  Left Hand Side
      * @param rhs  Right Hand Side
      * @param testTransients  whether to include transient fields
      * @return <code>true</code> if the two Objects have tested equals.
      */
-    public static boolean reflectionEquals(Object lhs, Object rhs, 
+    public static boolean reflectionEquals(Object lhs, Object rhs,
             boolean testTransients) {
         if (lhs == rhs) {
             return true;
@@ -201,7 +201,7 @@ public class EqualsBuilder {
     }
 
     //-------------------------------------------------------------------------
-    
+
     /**
      * <p>Adds the result of super.equals() to this builder.</p>
      *
@@ -215,9 +215,9 @@ public class EqualsBuilder {
         isEquals = superEquals;
         return this;
     }
-    
+
     //-------------------------------------------------------------------------
-    
+
     /**
      * <p>Test if two <code>Object</code>s are equal using their
      * <code>equals</code> method.</p>
@@ -239,7 +239,7 @@ public class EqualsBuilder {
         }
         Class lhsClass = lhs.getClass();
         if (!lhsClass.isArray()) {
-            //the simple case, not an array, just test the element 
+            //the simple case, not an array, just test the element
             isEquals = lhs.equals(rhs);
         } else {
             //'Switch' on type of array, to dispatch to the correct handler
