@@ -59,7 +59,7 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.8 2002/12/23 00:32:24 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.9 2003/03/23 05:50:51 bayard Exp $
  */
 public class CharSetUtils {
 
@@ -191,11 +191,47 @@ public class CharSetUtils {
 
     /**
      * <p>Takes an argument in set-syntax, see evaluateSet,
+     * and keeps any of characters present in the specified string.</p>
+     *
+     * <p>An example would be:</p>
+     * <ul>
+     *   <li>keep("hello", {"c-fo"}) returns "hll"
+     * </ul>
+     *
+     * @param str  String target to keep characters from
+     * @param set  String set of characters to keep
+     */
+    public static String keep(String str, String set) {
+        String[] strs = new String[1];
+        strs[0] = set;
+        return keep(str, strs);
+    }
+    
+    /**
+     * <p>Takes an argument in set-syntax, see evaluateSet,
+     * and keeps any of characters present in the specified string.</p>
+     *
+     * <p>An example would be:</p>
+     * <ul>
+     *  <li>keep("hello", {"c-f","o"}) returns "hll"
+     * </ul>
+     *
+     * @param str  String target to keep characters from
+     * @param set  String[] set of characters to keep
+     * @throws NullPointerException of <code>str</code> is
+     *  <code>null</code>
+     */
+    public static String keep(String str, String[] set) {
+        return modify(str, set, true);
+    }
+
+    /**
+     * <p>Takes an argument in set-syntax, see evaluateSet,
      * and deletes any of characters present in the specified string.</p>
      *
      * <p>An example would be:</p>
      * <ul>
-     *   <li>delete("hello", {"c-f","o"}) returns "hll"
+     *   <li>delete("hello", {"c-fo"}) returns "hll"
      * </ul>
      *
      * @param str  String target to delete characters from
@@ -222,12 +258,17 @@ public class CharSetUtils {
      *  <code>null</code>
      */
     public static String delete(String str, String[] set) {
+        return modify(str, set, false);
+    }
+
+    // Implementation of delete and keep
+    private static String modify(String str, String[] set, boolean expect) {
         CharSet chars = evaluateSet(set);
         StringBuffer buffer = new StringBuffer(str.length());
         char[] chrs = str.toCharArray();
         int sz = chrs.length;
         for(int i=0; i<sz; i++) {
-            if(!chars.contains(chrs[i])) {
+            if(chars.contains(chrs[i]) == expect) {
                 buffer.append(chrs[i]);
             }
         }
