@@ -63,9 +63,8 @@ import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.SystemUtils;
 
 /**
- * <p><code>ToStringStyle</code> works with <code>ToStringBuilder</code>
- * to create a <code>toString</code>. The main public interface is always
- * via <code>ToStringBuilder</code>.</p>
+ * <p>Controls <code>String</code> formatting for {@link ToStringBuilder}.
+ * The main public interface is always via <code>ToStringBuilder</code>.</p>
  *
  * <p>These classes are intended to be used as <code>Singletons</code>.
  * There is no need to instantiate a new style each time. A program
@@ -87,7 +86,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.26 2003/08/22 03:06:36 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.27 2003/08/23 00:21:49 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 

@@ -58,7 +58,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * <p><code>Equals</code> generation routines.</p>
+ * <p>Assists in implementing {@link Object#equals(Object)} methods.</p>
  *
  * <p> This class provides methods to build a good equals method for any
  * class. It follows rules laid out in
@@ -111,7 +111,7 @@ import java.lang.reflect.Modifier;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.19 2003/08/21 15:52:54 ggregory Exp $
+ * @version $Id: EqualsBuilder.java,v 1.20 2003/08/23 00:21:49 ggregory Exp $
  */
 public class EqualsBuilder {
     /**

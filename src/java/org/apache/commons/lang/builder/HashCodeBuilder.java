@@ -58,7 +58,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * <p><code>HashCode</code> generation routines.</p>
+ * <p>Assists in implementing {@link Object#hashCode()} methods.</p>
  *
  * <p> This class enables a good <code>hashCode</code> method to be built for any class. It
  * follows the rules laid out in the book
@@ -112,7 +112,7 @@ import java.lang.reflect.Modifier;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.19 2003/08/21 15:52:54 ggregory Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.20 2003/08/23 00:21:49 ggregory Exp $
  */
 public class HashCodeBuilder {
 

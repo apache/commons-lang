@@ -62,7 +62,7 @@ import java.util.Set;
 import org.apache.commons.lang.ClassUtils;
 
 /**
- * <p>Builds <code>toString()</code> values using reflection.</p>
+ * <p>Assists in implementing {@link Object#toString()} methods using reflection.</p>
  *
  * <p>This class uses reflection to determine the fields to append. 
  * Because these fields are usually private, the class 
@@ -100,11 +100,11 @@ import org.apache.commons.lang.ClassUtils;
  * <p>The exact format of the <code>toString</code> is determined by
  * the {@link ToStringStyle} passed into the constructor.</p>
  *
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Gary Gregory
  * @author Stephen Colebourne
  * @author Pete Gieser
  * @since 2.0
- * @version $Id: ReflectionToStringBuilder.java,v 1.9 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: ReflectionToStringBuilder.java,v 1.10 2003/08/23 00:21:49 ggregory Exp $
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
 
