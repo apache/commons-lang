@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * TestCase for StopWatch.
  *
  * @author Stephen Colebourne
- * @version $Id: StopWatchTest.java,v 1.7 2004/02/18 23:03:03 ggregory Exp $
+ * @version $Id: StopWatchTest.java,v 1.8 2004/09/05 19:55:29 bayard Exp $
  */
 public class StopWatchTest extends TestCase {
 
@@ -73,14 +73,13 @@ public class StopWatchTest extends TestCase {
         watch.start();
             try {Thread.sleep(550);} catch (InterruptedException ex) {}
         watch.split();
-        long splitTime = watch.getTime();
+        long splitTime = watch.getSplitTime();
             try {Thread.sleep(550);} catch (InterruptedException ex) {}
         watch.unsplit();
             try {Thread.sleep(550);} catch (InterruptedException ex) {}
         watch.stop();
         long totalTime = watch.getTime();
         
-//        System.err.println(splitTime +"  "+totalTime);
         assertTrue(splitTime >= 500);
         assertTrue(splitTime < 700);
         assertTrue(totalTime >= 1500);
@@ -99,11 +98,80 @@ public class StopWatchTest extends TestCase {
         watch.stop();
         long totalTime = watch.getTime();
         
-//        System.err.println(suspendTime +"  "+totalTime);
         assertTrue(suspendTime >= 500);
         assertTrue(suspendTime < 700);
         assertTrue(totalTime >= 1000);
         assertTrue(totalTime < 1300);
+    }
+
+    // test bad states
+    public void testBadStates() {
+        StopWatch watch = new StopWatch();
+        try {
+            watch.stop();
+            fail("Calling stop on an unstarted StopWatch should throw an exception. ");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
+        try {
+            watch.stop();
+            fail("Calling stop on an unstarted StopWatch should throw an exception. ");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
+        try {
+            watch.suspend();
+            fail("Calling suspend on an unstarted StopWatch should throw an exception. ");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
+        try {
+            watch.unsplit();
+            fail("Calling unsplit on an unsplit StopWatch should throw an exception. ");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
+        try {
+            watch.resume();
+            fail("Calling resume on an unsuspended StopWatch should throw an exception. ");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
+        watch.start();
+
+        try {
+            watch.start();
+            fail("Calling start on an started StopWatch should throw an exception. ");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
+        try {
+            watch.unsplit();
+            fail("Calling unsplit on an unsplit StopWatch should throw an exception. ");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
+        try {
+            watch.getSplitTime();
+            fail("Calling getSplitTime on an unsplit StopWatch should throw an exception. ");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
+        try {
+            watch.resume();
+            fail("Calling resume on an unsuspended StopWatch should throw an exception. ");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
     }
 
 }
