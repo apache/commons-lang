@@ -53,10 +53,8 @@
  */
 package org.apache.commons.lang;
 
-import java.util.StringTokenizer;
 import java.util.Iterator;
-
-import org.apache.commons.lang.exception.NestableRuntimeException;
+import java.util.StringTokenizer;
 
 /**
  * <p>Common <code>String</code> manipulation routines.</p>
@@ -78,7 +76,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Arun Mammen Thomas
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.42 2003/04/09 18:45:29 alex Exp $
+ * @version $Id: StringUtils.java,v 1.43 2003/04/10 00:01:21 ggregory Exp $
  */
 public class StringUtils {
 
