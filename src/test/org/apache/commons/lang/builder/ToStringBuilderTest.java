@@ -487,6 +487,24 @@ public class ToStringBuilderTest extends TestCase {
         }
       }
     
+    private static class SelfInstanceTwoVarsReflectionTestFixture {
+        private SelfInstanceTwoVarsReflectionTestFixture typeIsSelf;
+        private String otherType = "The Other Type";
+
+        public SelfInstanceTwoVarsReflectionTestFixture() {
+            this.typeIsSelf = this;
+        }
+        
+        public String getOtherType(){
+            return this.otherType;
+        }
+
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+      }
+    
+    
     /**
      * Test an Object pointing to itself, the simplest test.
      * 
@@ -511,6 +529,20 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + "]", test.toString());
         this.validateEmptyReflectionRegistry();
     }
+    
+    /**
+     * Test a class that defines an ivar pointing to itself.  This test was 
+     * created to show that handling cyclical object resulted in a missing endFieldSeparator call.
+     * 
+     * @throws Exception
+     */
+    public void testSelfInstanceTwoVarsReflectionObjectCycle() throws Exception {
+        SelfInstanceTwoVarsReflectionTestFixture test = new SelfInstanceTwoVarsReflectionTestFixture();
+        assertTrue(ReflectionToStringBuilder.getRegistry().isEmpty());
+        assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + ",otherType=" + test.getOtherType().toString() + "]", test.toString());
+        this.validateEmptyReflectionRegistry();
+    }
+    
 
     /**
      * Test Objects pointing to each other.
