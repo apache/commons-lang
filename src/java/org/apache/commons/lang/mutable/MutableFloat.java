@@ -23,7 +23,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * 
  * @see Float
  * @since 2.1
- * @version $Id: MutableFloat.java,v 1.6 2004/10/08 19:45:46 ggregory Exp $
+ * @version $Id: MutableFloat.java,v 1.7 2004/10/08 21:33:03 scolebourne Exp $
  */
 public class MutableFloat extends Number implements Comparable, Mutable {
 
@@ -163,7 +163,6 @@ public class MutableFloat extends Number implements Comparable, Mutable {
      * @param obj
      *            the object to be compared
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
-     * @throws ClassCastException if the argument is not a MutableFloat
      * @see java.lang.Float#floatToIntBits(float)
      */
     public boolean equals(Object obj) {
@@ -172,22 +171,6 @@ public class MutableFloat extends Number implements Comparable, Mutable {
     }
 
     //-----------------------------------------------------------------------
-    /**
-     * Checks if this object equals the specified object.
-     * <p>
-     * The object must be a MutableFloat with the same value to be equal.
-     * 
-     * @param obj
-     *            the object to compare to
-     * @return true if equal
-     */
-    //    public boolean equals(Object obj) {
-    //        if (obj instanceof MutableFloat) {
-    //            float other = ((MutableFloat) obj).value;
-    //            return (Float.floatToIntBits(other) == Float.floatToIntBits(value));
-    //        }
-    //        return false;
-    //    }
     /**
      * Returns a suitable hashcode for this mutable.
      * 
