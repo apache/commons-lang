@@ -67,7 +67,7 @@ import org.apache.commons.lang.SerializationUtils;
  * Test cases for the {@link Enum} class.
  *
  * @author Stephen Colebourne
- * @version $Id: EnumTest.java,v 1.9 2003/07/31 22:36:39 scolebourne Exp $
+ * @version $Id: EnumTest.java,v 1.10 2003/08/05 00:24:02 scolebourne Exp $
  */
 
 public final class EnumTest extends TestCase {
@@ -197,6 +197,51 @@ public final class EnumTest extends TestCase {
     public void testBroken3() {
         try {
             Broken3Enum.RED.getName();
+            fail();
+        } catch (ExceptionInInitializerError ex) {
+            assertTrue(ex.getException() instanceof IllegalArgumentException);
+        }
+    }
+
+    public void testBroken1Operation() {
+        try {
+            Broken1OperationEnum.PLUS.getName();
+            fail();
+        } catch (ExceptionInInitializerError ex) {
+            assertTrue(ex.getException() instanceof IllegalArgumentException);
+        }
+    }
+
+    public void testBroken2Operation() {
+        try {
+            Broken2OperationEnum.PLUS.getName();
+            fail();
+        } catch (ExceptionInInitializerError ex) {
+            assertTrue(ex.getException() instanceof IllegalArgumentException);
+        }
+    }
+
+    public void testBroken3Operation() {
+        try {
+            Broken3OperationEnum.PLUS.getName();
+            fail();
+        } catch (ExceptionInInitializerError ex) {
+            assertTrue(ex.getException() instanceof IllegalArgumentException);
+        }
+    }
+
+    public void testBroken4Operation() {
+        try {
+            Broken4OperationEnum.PLUS.getName();
+            fail();
+        } catch (ExceptionInInitializerError ex) {
+            assertTrue(ex.getException() instanceof IllegalArgumentException);
+        }
+    }
+
+    public void testBroken5Operation() {
+        try {
+            Broken5OperationEnum.PLUS.getName();
             fail();
         } catch (ExceptionInInitializerError ex) {
             assertTrue(ex.getException() instanceof IllegalArgumentException);

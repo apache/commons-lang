@@ -133,7 +133,7 @@ import org.apache.commons.lang.ClassUtils;
  * @author Apache Avalon project
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.11 2003/08/04 23:52:27 scolebourne Exp $
+ * @version $Id: ValuedEnum.java,v 1.12 2003/08/05 00:24:02 scolebourne Exp $
  */
 public abstract class ValuedEnum extends Enum {
     
@@ -153,18 +153,6 @@ public abstract class ValuedEnum extends Enum {
      */
     protected ValuedEnum(String name, int value) {
         super(name);
-        iValue = value;
-    }
-
-    /**
-     * Constructor for enum item.
-     *
-     * @param name  the name of enum item
-     * @param enumClass  the enum class
-     * @param value  the value of enum item
-     */
-    protected ValuedEnum(String name, Class enumClass, int value) {
-        super(name, enumClass);
         iValue = value;
     }
 
