@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: CharSetUtilsTest.java,v 1.3 2002/07/21 20:19:50 bayard Exp $
+ * @version $Id: CharSetUtilsTest.java,v 1.4 2002/09/29 07:13:07 bayard Exp $
  */
 public class CharSetUtilsTest extends TestCase
 {
@@ -133,6 +133,8 @@ public class CharSetUtilsTest extends TestCase
                      "hello", CharSetUtils.delete("hello", new String[] {""}));
         assertEquals("delete(String,String[]) failed",
                      "", CharSetUtils.delete("hello", new String[] {"a-z"}));
+        assertEquals("delete(String,String[]) failed",
+                     "", CharSetUtils.delete("----", new String[] {"-"}));
         assertEquals("delete(String,String[]) failed",
                      "heo", CharSetUtils.delete("hello", new String[] {"l"}));
     }
