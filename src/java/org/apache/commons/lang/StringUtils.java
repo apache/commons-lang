@@ -145,7 +145,7 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.113 2003/10/29 01:49:47 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.114 2003/10/29 02:16:15 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -202,6 +202,7 @@ public class StringUtils {
      * instance to operate.</p>
      */
     public StringUtils() {
+        // no init.
     }
 
     // Empty checks
@@ -2801,7 +2802,8 @@ public class StringUtils {
                 lastIdx--;
             }
         } else if (last == '\r') {
-
+            // why is this block empty?
+            // just to skip incrementing the index?
         } else {
             lastIdx++;
         }
@@ -4381,11 +4383,44 @@ public class StringUtils {
         if (remove == null || remove.length() == 0) {
             return str;
         }
-        int pos = str.indexOf(remove);
-        if (pos == -1) {
+        if (str.startsWith(remove)){
+            return str.substring(remove.length());
+        }
+        return str;
+    }
+
+    /**
+     * <p>Removes a substring only if it is at the end of a source string, otherwise returns the source string.
+     *
+     * <p>A <code>null</code> source string will return <code>null</code>.
+     * An empty ("") source string will return the empty string.
+     * A <code>null</code> search string will return the source string.</p>
+     * 
+     * <pre>
+     * StringUtils.removeEnd(null, *)      = null
+     * StringUtils.removeEnd("", *)        = ""
+     * StringUtils.removeEnd(*, null)      = *
+     * StringUtils.removeEnd("www.domain.com", ".com.")   = "www,domain"
+     * StringUtils.removeEnd("www.domain.com", ".com")   = "www.domain"
+     * StringUtils.removeEnd("abc", "")    = "abc"
+     * </pre>
+     *
+     * @param string  the source String to search, may be null
+     * @param remove  the String to search for, may be null
+     * @return the substring after the optional occurrence of the separator,
+     *  <code>null</code> if null String input
+     */
+    public static String removeEnd(String str, String remove) {
+        if (str == null || str.length() == 0) {
             return str;
         }
-        return str.substring(pos + remove.length());
+        if (remove == null || remove.length() == 0) {
+            return str;
+        }
+        if (str.endsWith(remove)) {
+            return str.substring(0, str.length() - remove.length());
+        }
+        return str;
     }
 
 }
