@@ -60,7 +60,7 @@ import java.io.PrintWriter;
 import org.apache.commons.lang.exception.NestableRuntimeException;
 
 /**
- * <p>Escapes and unescapes <code>String</code>s for Java, Java Script, HTML, and XML.
+ * <p>Escapes and unescapes <code>String</code>s for Java, Java Script, HTML, XML, and SQL.
  *
  * <p>Originally from
  * <a href="http://jakarta.apache.org/turbine/">Turbine</a> and the
@@ -75,7 +75,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.14 2003/07/05 19:04:31 bayard Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.15 2003/07/05 23:37:30 alex Exp $
  */
 public class StringEscapeUtils {
 
@@ -427,8 +427,8 @@ public class StringEscapeUtils {
      * <p>Unescapes a string containing entity escapes to a string
      * containing the actual Unicode characters corresponding to the
      * escapes. Supports HTML 4.0 entities.</p>
-     * <p>For example, the string "&amp;lt;Fran&ccedilla;ais&amp;gt;"
-     * will become "<Fran\u00E7ais>"</p>
+     * <p>For example, the string "&amp;lt;Fran&amp;ccedil;ais&amp;gt;"
+     * will become "&lt;Fran&ccedil;ais&gt;"</p>
      * <p>If an entity is unrecognized, it is left alone, and inserted
      * verbatim into the result string. e.g. "&amp;gt;&amp;zzzz;x" will
      * become "&gt;&amp;zzzz;x".</p>
@@ -480,11 +480,13 @@ public class StringEscapeUtils {
     /**
      * Escapes the characters in a <code>String</code> to be suitable to pass to
      * an SQL query.  For example,
-     * <code>statement.executeQuery("SELECT * FROM MOVIES WHERE TITLE='" + StringEscapeUtils.escapeSql("McHale's Navy") + "'");</code>
-     * Presently, this method only turns single-quotes into doubled single-quotes.
+     * <pre>statement.executeQuery("SELECT * FROM MOVIES WHERE TITLE='" + 
+     *   StringEscapeUtils.escapeSql("McHale's Navy") + 
+     *   "'");</pre>
+     * At present, this method only turns single-quotes into doubled single-quotes (<code>"McHale's Navy"</code> => <code>"McHale''s Navy"</code>).
      * It does not handle the cases of percent (%) or underscore (_) for use in LIKE clauses.
      * see http://www.jguru.com/faq/view.jsp?EID=8881
-     * @param s
+     * @param s the string to escape
      * @return A new String, escaped for SQL
      */
     public static String escapeSql(String s)
