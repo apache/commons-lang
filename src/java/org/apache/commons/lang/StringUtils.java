@@ -73,8 +73,9 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author Stephen Colebourne
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
+ * @author Holger Krauth
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.30 2002/12/23 00:32:24 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.31 2003/01/19 18:15:38 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -584,7 +585,9 @@ public class StringUtils {
     
     /**
      * <p>Replace a String with another String inside a larger String, once.</p>
-     *
+     * 
+     * <p>A <code>null</code> reference passed to this method is a no-op.</p>
+     * 
      * @see #replace(String text, String repl, String with, int max)
      * @param text text to search and replace in
      * @param repl String to search for
@@ -598,6 +601,8 @@ public class StringUtils {
     /**
      * <p>Replace all occurances of a String within another String.</p>
      *
+     * <p>A <code>null</code> reference passed to this method is a no-op.</p>
+     * 
      * @see #replace(String text, String repl, String with, int max)
      * @param text text to search and replace in
      * @param repl String to search for
@@ -612,21 +617,17 @@ public class StringUtils {
      * <p>Replace a String with another String inside a larger String,
      * for the first <code>max</code> values of the search String.</p>
      *
-     * <p>A <code>null</code> reference is passed to this method is a
-     * no-op.</p>
+     * <p>A <code>null</code> reference passed to this method is a no-op.</p>
      *
      * @param text text to search and replace in
      * @param repl String to search for
      * @param with String to replace with
-     * @param max maximum number of values to replace, or
-     *  <code>-1</code> if no maximum
+     * @param max maximum number of values to replace, or <code>-1</code> if no maximum
      * @return the text with any replacements processed
-     * @throws NullPointerException if repl is <code>null</code>
      */
-    public static String replace(String text, String repl, String with,
-                                 int max) {
-        if (text == null) {
-            return null;
+    public static String replace(String text, String repl, String with, int max) {
+        if (text == null || repl == null || with == null || repl.length() == 0) {
+            return text;
         }
 
         StringBuffer buf = new StringBuffer(text.length());
