@@ -31,7 +31,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.25 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: ClassUtils.java,v 1.26 2004/02/19 01:24:50 ggregory Exp $
  */
 public class ClassUtils {
 
@@ -530,7 +530,7 @@ public class ClassUtils {
     /**
      * Compares two <code>Class</code>s by name.
      */
-    public static final Comparator CLASS_NAME_COMPARATOR = new Comparator() {
+    public static class ClassNameCompartor implements Comparator {
         /**
          * Compares two <code>Class</code>s by name.
          * 
@@ -549,12 +549,18 @@ public class ClassUtils {
             }
             return class1.getName().compareTo(class2.getName());
         }
-    };
+    }
+    
+    /**
+     * Compares two <code>Class</code>s by name.
+     */
+    public static final Comparator CLASS_NAME_COMPARATOR = new ClassNameCompartor();
 
     /**
      * Compares two <code>Package</code>s by name.
      */
-    public static final Comparator PACKAGE_NAME_COMPARATOR = new Comparator() {
+    public static class PackageNameCompartor implements Comparator {
+
         /**
          * Compares two <code>Package</code>s by name.
          * 
@@ -572,7 +578,12 @@ public class ClassUtils {
                 return 1;
             }
             return package1.getName().compareTo(package2.getName());
-        }
-    };
+        }        
+    }
+    
+    /**
+     * Compares two <code>Package</code>s by name.
+     */
+    public static final Comparator PACKAGE_NAME_COMPARATOR = new PackageNameCompartor();
     
 }
