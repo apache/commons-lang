@@ -1,7 +1,9 @@
-package org.apache.commons.lang;
+package org.apache.commons.lang.text;
 
 import java.util.Iterator;
 import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * <p>Performs basic variable interpolation on a String for variables within a Map.
@@ -10,7 +12,7 @@ import java.util.Map;
  * @author Ken Fitzpatrick
  * @author Henri Yandell
  * @since 2.1
- * @version $Id: Interpolation.java,v 1.3 2004/09/01 17:41:41 ggregory Exp $
+ * @version $Id: Interpolation.java,v 1.1 2004/09/05 00:56:31 bayard Exp $
  */
 public class Interpolation {
 

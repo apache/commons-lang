@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang;
+package org.apache.commons.lang.text;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -24,11 +24,11 @@ import java.util.Map;
 import java.util.HashMap;
 
 /**
- * Unit tests {@link org.apache.commons.lang.Interpolation}.
+ * Unit tests {@link org.apache.commons.lang.text.Interpolation}.
  *
  * @author Henri Yandell
  * @author Ken Fitzpatrick
- * @version $Id: InterpolationTest.java,v 1.1 2004/07/04 04:51:25 bayard Exp $
+ * @version $Id: InterpolationTest.java,v 1.1 2004/09/05 00:56:31 bayard Exp $
  */
 public class InterpolationTest extends TestCase {
 
