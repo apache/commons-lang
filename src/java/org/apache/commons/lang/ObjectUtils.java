@@ -68,7 +68,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.13 2003/07/20 15:41:52 scolebourne Exp $
+ * @version $Id: ObjectUtils.java,v 1.14 2003/07/25 22:37:58 scolebourne Exp $
  */
 public class ObjectUtils {
     
@@ -105,6 +105,14 @@ public class ObjectUtils {
     /**
      * <p>Returns a default value if the object passed is
      * <code>null</code>.</p>
+     * 
+     * <pre>
+     * ObjectUtils.defaultIfNull(null, null)      = null
+     * ObjectUtils.defaultIfNull(null, "")        = ""
+     * ObjectUtils.defaultIfNull(null, "zz")      = "zz"
+     * ObjectUtils.defaultIfNull("abc", *)        = "abc"
+     * ObjectUtils.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
+     * </pre>
      *
      * @param object  the <code>Object</code> to test, may be <code>null</code>
      * @param defaultValue  the default value to return, may be <code>null</code>
@@ -117,6 +125,17 @@ public class ObjectUtils {
     /**
      * <p>Compares two objects for equality, where either one or both
      * objects may be <code>null</code>.</p>
+     *
+     * <pre>
+     * ObjectUtils.equals(null, null)                  = true
+     * ObjectUtils.equals(null, "")                    = false
+     * ObjectUtils.equals("", null)                    = false
+     * ObjectUtils.equals("", "")                      = true
+     * ObjectUtils.equals(Boolean.TRUE, null)          = false
+     * ObjectUtils.equals(Boolean.TRUE, "true")        = false
+     * ObjectUtils.equals(Boolean.TRUE, Boolean.TRUE)  = true
+     * ObjectUtils.equals(Boolean.TRUE, Boolean.FALSE) = false
+     * </pre>
      *
      * @param object1  the first object, may be <code>null</code>
      * @param object2  the second object, may be <code>null</code>
@@ -138,6 +157,12 @@ public class ObjectUtils {
      * if a class did not override toString itself. <code>null</code>
      * will return <code>null</code>.</p>
      *
+     * <pre>
+     * ObjectUtils.identityToString(null)         = null
+     * ObjectUtils.identityToString("")           = "java.lang.String@1e23"
+     * ObjectUtils.identityToString(Boolean.TRUE) = "java.lang.Boolean@7fa"
+     * </pre>
+     *
      * @param object  the object to create a toString for, may be
      *  <code>null</code>
      * @return the default toString text, or <code>null</code> if
@@ -147,7 +172,7 @@ public class ObjectUtils {
         if (object == null) {
             return null;
         }
-        return appendIdentityToString(new StringBuffer(), object).toString();
+        return appendIdentityToString(null, object).toString();
     }
 
     /**
@@ -155,16 +180,24 @@ public class ObjectUtils {
      * if a class did not override toString itself. <code>null</code>
      * will return <code>null</code>.</p>
      *
-     * @param buffer  the buffer to append to, may not be
-     *  <code>null</code>
-     * @param object  the object to create a toString for, may be
-     *  <code>null</code>
+     * <pre>
+     * ObjectUtils.appendIdentityToString(*, null)            = null
+     * ObjectUtils.appendIdentityToString(null, "")           = "java.lang.String@1e23"
+     * ObjectUtils.appendIdentityToString(null, Boolean.TRUE) = "java.lang.Boolean@7fa"
+     * ObjectUtils.appendIdentityToString(buf, Boolean.TRUE)  = buf.append("java.lang.Boolean@7fa")
+     * </pre>
+     *
+     * @param buffer  the buffer to append to, may be <code>null</code>
+     * @param object  the object to create a toString for, may be <code>null</code>
      * @return the default toString text, or <code>null</code> if
      *  <code>null</code> passed in
      */
     public static StringBuffer appendIdentityToString(StringBuffer buffer, Object object) {
         if (object == null) {
             return null;
+        }
+        if (buffer == null) {
+            buffer = new StringBuffer();
         }
         return buffer
             .append(object.getClass().getName())
