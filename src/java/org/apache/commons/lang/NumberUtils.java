@@ -56,14 +56,14 @@ package org.apache.commons.lang;
 import java.math.BigInteger;
 import java.math.BigDecimal;
 /**
- * <p>Provides extra functionality for Java Number classes</p>.
+ * <p>Provides extra functionality for Java Number classes.</p>
  *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author Stephen Colebourne
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @since 1.0
- * @version $Id: NumberUtils.java,v 1.7 2003/03/23 18:00:59 scolebourne Exp $
+ * @version $Id: NumberUtils.java,v 1.8 2003/04/09 01:04:47 ggregory Exp $
  */
 public final class NumberUtils {
     

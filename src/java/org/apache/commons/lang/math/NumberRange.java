@@ -62,7 +62,7 @@ import java.io.Serializable;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author Stephen Colebourne
  * @since 2.0 (previously in org.apache.commons.lang)
- * @version $Id: NumberRange.java,v 1.2 2003/03/23 17:51:15 scolebourne Exp $
+ * @version $Id: NumberRange.java,v 1.3 2003/04/09 01:04:47 ggregory Exp $
  */
 public final class NumberRange extends Range implements Serializable {
     
@@ -110,7 +110,7 @@ public final class NumberRange extends Range implements Serializable {
      * minimum and maximum numbers (both inclusive).</p>
      * 
      * <p>The arguments may be passed in the order (min,max) or (max,min). The
-     * {@link #getMinimum()} and {@link #getMaximum()} methods will return the
+     * {@link #getMinimumNumber()} and {@link #getMaximumNumber()} methods will return the
      * correct value.</p>
      * 
      * <p>This constructor is designed to be used with two <code>Number</code>
