@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtilsTest.java,v 1.7 2002/11/07 21:52:44 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.8 2002/11/22 23:33:34 bayard Exp $
  */
 public class StringUtilsTest extends TestCase
 {
@@ -196,6 +196,8 @@ public class StringUtilsTest extends TestCase
                      "", StringUtils.replace(FOO + FOO + FOO, FOO, ""));
         assertEquals("replaceOnce(String, String, String) failed",
                      FOO, StringUtils.replaceOnce(FOO + FOO, FOO, ""));
+        assertEquals("carriage-return replace(String,String,String) failed",
+                     "test123", StringUtils.replace("test\r1\r2\r3", "\r", ""));
     }
 
     public void testOverlayString()
