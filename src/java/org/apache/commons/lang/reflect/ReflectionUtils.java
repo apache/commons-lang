@@ -69,7 +69,7 @@ import org.apache.commons.lang.StringUtils;
  * reflection.
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ReflectionUtils.java,v 1.2 2002/11/18 23:01:36 rdonkin Exp $
+ * @version $Id: ReflectionUtils.java,v 1.3 2002/11/20 21:45:47 rdonkin Exp $
  */
 public class ReflectionUtils {
     
@@ -197,7 +197,10 @@ public class ReflectionUtils {
      * Primitive classes are handled correctly .
      * <p>
      * In other words, a <code>boolean</code> Class will be converted to 
-     * a <code>Boolean</code> Class and so on.
+     * a <code>Boolean</code> Class and so on.</p>
+     *
+     * <p>This method also handles widening for primitives as given in section 5.1.2 of the
+     * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>.
      *
      * @param requestedTypes  the class array requested
      * @param paramTypes  the actual class array for the method
@@ -214,12 +217,89 @@ public class ReflectionUtils {
             paramTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
         for (int i = 0; i < requestedTypes.length; i++) {
-            if (ClassUtils.isAssignable(requestedTypes[i], paramTypes[i]) == false) {
+            if (isCompatable(requestedTypes[i], paramTypes[i]) == false) {
                 return false;
             }
         }
         return true;
     }
+    
+
+    /**
+     * <p>Determine whether a type can be used as a parameter in a method invocation.
+     * This method handles primitive conversions correctly.</p>
+     *
+     * <p>This method also handles widening for primitives as given in section 5.1.2 of the
+     * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>.
+     *
+     * @param parameterType the type of parameter accepted by the method
+     * @param requestedType the type of parameter being requested 
+     *
+     * @return true if the assignement is compatible.
+     */
+    public static boolean isCompatable(Class requestedType, Class parameterType) {
+        // try plain assignment
+        if (ClassUtils.isAssignable(requestedType, parameterType)) {
+            return true;
+        }
+        
+        if (parameterType.isPrimitive()) {
+            // also, this method does *not* do widening - you must specify exactly
+            // is this the right behaviour?
+            if (boolean.class.equals(parameterType)) {
+                return Boolean.class.equals(requestedType);
+            }              
+            
+            if (byte.class.equals(parameterType)) {
+                return Byte.class.equals(requestedType);
+            }
+            
+            if (short.class.equals(parameterType)) {
+                return (Short.class.equals(requestedType)
+                        || Byte.class.equals(requestedType));
+            }                    
+            
+            if (char.class.equals(parameterType)) {
+                return Character.class.equals(requestedType);
+            }
+                               
+            if (int.class.equals(parameterType)) {
+                return (Integer.class.equals(requestedType)
+                        || Character.class.equals(requestedType)
+                        || Short.class.equals(requestedType)
+                        || Byte.class.equals(requestedType));
+            }       
+            if (long.class.equals(parameterType)) {
+                return (Long.class.equals(requestedType) 
+                        || Integer.class.equals(requestedType)
+                        || Character.class.equals(requestedType)
+                        || Short.class.equals(requestedType)
+                        || Byte.class.equals(requestedType));
+            }                   
+                
+            if (float.class.equals(parameterType)) {
+                return (Float.class.equals(requestedType)
+                        || Long.class.equals(requestedType)
+                        || Integer.class.equals(requestedType)
+                        || Character.class.equals(requestedType)
+                        || Short.class.equals(requestedType)
+                        || Byte.class.equals(requestedType));
+            }     
+               
+            if (double.class.equals(parameterType)) {
+                return (Double.class.equals(requestedType)	
+                        || Float.class.equals(requestedType)
+                        || Long.class.equals(requestedType)
+                        || Integer.class.equals(requestedType)
+                        || Character.class.equals(requestedType)
+                        || Short.class.equals(requestedType)
+                        || Byte.class.equals(requestedType));
+            }   
+        }
+        
+        return false;
+    }
+
     
     /**
      * Converts a primitive class to its matching object class.

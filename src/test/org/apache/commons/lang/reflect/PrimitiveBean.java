@@ -67,6 +67,15 @@ public class PrimitiveBean {
     private boolean _boolean;
     private long _long;
     private int _int;
+    private short _short;
+    
+    public short getShort() {
+        return _short;
+    }
+    
+    public void setShort(short _short) {
+        this._short = _short;
+    }
     
     public float getFloat() {
         return _float;
