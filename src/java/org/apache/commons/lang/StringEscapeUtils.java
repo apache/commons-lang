@@ -74,7 +74,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.11 2003/05/18 00:10:38 ggregory Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.12 2003/05/24 04:35:06 alex Exp $
  */
 public class StringEscapeUtils {
 
@@ -461,68 +461,12 @@ public class StringEscapeUtils {
         return unescapeEntities(str, Entities.XML);
     }
 
-    /**
-     * Escapes the characters in a <code>String</code> using the the given <code>Entities</code>.
-     * 
-     * @param str The <code>String</code> to escape.
-     * @param entities The <code>Entities</code> to escape the <code>String</code> with.
-     * @return A new escaped <code>String</code>.
-     */
     private static String escapeEntities(String str, Entities entities) {
-        StringBuffer buf = new StringBuffer(str.length() * 2);
-        int i;
-        for (i = 0; i < str.length(); ++i) {
-            char ch = str.charAt(i);
-            String entity = entities.entityName(ch);
-            if (entity == null) {
-                if (((int) ch) > 0x7F) {
-                    int intValue = ((int) ch);
-                    buf.append("&#");
-                    buf.append(intValue);
-                    buf.append(';');
-                } else {
-                    buf.append(ch);
-                }
-            } else {
-                buf.append('&');
-                buf.append(entity);
-                buf.append(';');
-            }
-        }
-        return buf.toString();
+        return entities.escape(str);
     }
 
     private static String unescapeEntities(String str, Entities entities) {
-        StringBuffer buf = new StringBuffer(str.length());
-        int i;
-        for (i = 0; i < str.length(); ++i) {
-            char ch = str.charAt(i);
-            if (ch == '&') {
-                int semi = str.indexOf(';', i + 1);
-                if (semi == -1) {
-                    buf.append(ch);
-                    continue;
-                }
-                String entity = str.substring(i + 1, semi);
-                Integer iso;
-                if (entity.charAt(0) == '#') {
-                    iso = new Integer(entity.substring(1));
-                } else {
-                    iso = entities.entityValue(entity);
-                }
-                if (iso == null) {
-                    buf.append('&');
-                    buf.append(entity);
-                    buf.append(';');
-                } else {
-                    buf.append((char) (iso.intValue()));
-                }
-                i = semi;
-            } else {
-                buf.append(ch);
-            }
-        }
-        return buf.toString();
+        return entities.unescape(str);
     }
 
 }
