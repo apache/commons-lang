@@ -79,8 +79,9 @@ import org.apache.commons.lang.SystemUtils;
  * output the whole array, whereas the summary method will just output
  * the array length.</p>
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringStyle.java,v 1.8 2002/12/08 20:45:08 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 1.0
+ * @version $Id: ToStringStyle.java,v 1.9 2002/12/23 00:20:31 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     

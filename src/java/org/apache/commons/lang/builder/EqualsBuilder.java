@@ -105,8 +105,9 @@ import java.lang.reflect.Modifier;
  * </pre>
  * 
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EqualsBuilder.java,v 1.7 2002/12/08 21:10:42 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 1.0
+ * @version $Id: EqualsBuilder.java,v 1.8 2002/12/23 00:20:31 scolebourne Exp $
  */
 public class EqualsBuilder {
     /**

@@ -105,8 +105,9 @@ import java.lang.reflect.Modifier;
  * }
  * </pre>
  * 
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: HashCodeBuilder.java,v 1.6 2002/12/08 21:22:07 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 1.0
+ * @version $Id: HashCodeBuilder.java,v 1.7 2002/12/23 00:20:31 scolebourne Exp $
  */
 public class HashCodeBuilder {
     
