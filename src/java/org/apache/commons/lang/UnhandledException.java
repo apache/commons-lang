@@ -58,30 +58,30 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
 /**
  * Thrown when it is impossible or undesirable to consume
  * or throw a checked exception.
- * 
+ *
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: UnhandledException.java,v 1.3 2003/08/18 02:22:23 bayard Exp $
+ * @version $Id: UnhandledException.java,v 1.4 2003/09/24 20:28:25 fredrik Exp $
  */
 public class UnhandledException extends NestableRuntimeException {
 
     /**
      * Constructs the exception using a cause.
-     * 
+     *
      * @param cause  the underlying cause
      */
-	public UnhandledException(Throwable cause) {
-		super(cause);
-	}
+    public UnhandledException(Throwable cause) {
+        super(cause);
+    }
 
     /**
      * Constructs the exception using a message and cause.
-     * 
+     *
      * @param message  the message to use
      * @param cause  the underlying cause
      */
-	public UnhandledException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public UnhandledException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
 }

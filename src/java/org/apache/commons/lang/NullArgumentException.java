@@ -60,17 +60,16 @@ package org.apache.commons.lang;
  * @author Matthew Hawthorne
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: NullArgumentException.java,v 1.5 2003/08/18 02:22:23 bayard Exp $
+ * @version $Id: NullArgumentException.java,v 1.6 2003/09/24 20:28:25 fredrik Exp $
  */
 public class NullArgumentException extends IllegalArgumentException {
 
-	/**
-	 * <p>Instantiates with the given argument name.</p>
-     * 
-	 * @param argName  the name of the argument that was <code>null</code>.
-	 */
-	public NullArgumentException(String argName) {
-		super(argName + " must not be null.");
-	}
-
+   /**
+    * <p>Instantiates with the given argument name.</p>
+    *
+    * @param argName  the name of the argument that was <code>null</code>.
+    */
+    public NullArgumentException(String argName) {
+        super(argName + " must not be null.");
+    }
 }
