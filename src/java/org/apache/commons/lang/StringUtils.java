@@ -74,7 +74,7 @@ import java.util.List;
  *      - index of any of a set of Strings
  *  <li><b>ContainsOnly/ContainsNone</b>
  *      - does String contain only/none of these characters
- *  <li><b>SubString/Left/Right/Mid</b>
+ *  <li><b>SubString/Left/Right/Mid/SubStringBefore/SubStringAfter</b>
  *      - null-safe substring extraction
  *  <li><b>Split</b>
  *      - splits a String into an array of subtrings based on a separator
@@ -82,8 +82,8 @@ import java.util.List;
  *      - joins an array of Strings into one with optional separator
  *  <li><b>Replace/Delete/Overlay</b>
  *      - Searches a String and replaces one String with another
- *  <li><b>Chomp/Chop/Slice</b>
- *      - searches a String and returns the substring before/after the separator
+ *  <li><b>Chomp/Chop</b>
+ *      - removes the last part of a String
  *  <li><b>LeftPad/RightPad/Center/Repeat</b>
  *      - pads a String
  *  <li><b>UpperCase/LowerCase/SwapCase/Capitalise/Uncapitalise</b>
@@ -146,7 +146,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.78 2003/07/25 00:50:00 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.79 2003/07/25 22:22:30 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1547,6 +1547,161 @@ public class StringUtils {
         }
     }
 
+    // SubStringAfter/SubStringBefore
+    //-----------------------------------------------------------------------
+
+    /**
+     * <p>Gets the substring before the first occurance of a separator.
+     * The separator is not returned.</p>
+     *
+     * <p>A <code>null</code> string input will return <code>null</code>.
+     * An empty ("") string input will return the empty string.
+     * A <code>null</code> separator will return the input string.</p>
+     *
+     * <pre>
+     * StringUtils.substringBefore(null, *)      = null
+     * StringUtils.substringBefore("", *)        = ""
+     * StringUtils.substringBefore("abc", "a")   = ""
+     * StringUtils.substringBefore("abcba", "b") = "a"
+     * StringUtils.substringBefore("abc", "c")   = "ab"
+     * StringUtils.substringBefore("abc", "d")   = "abc"
+     * StringUtils.substringBefore("abc", "")    = ""
+     * StringUtils.substringBefore("abc", null)  = "abc"
+     * </pre>
+     *
+     * @param str  the String to get a substring from, may be null
+     * @param separator  the String to search for, may be null
+     * @return the substring before the first occurance of the separator,
+     *  <code>null</code> if null String input
+     */
+    public static String substringBefore(String str, String separator) {
+        if (str == null || separator == null || str.length() == 0) {
+            return str;
+        }
+        if (separator.length() == 0) {
+            return "";
+        }
+        int pos = str.indexOf(separator);
+        if (pos == -1) {
+            return str;
+        }
+        return str.substring(0, pos);
+    }
+
+    /**
+     * <p>Gets the substring after the first occurance of a separator.
+     * The separator is not returned.</p>
+     *
+     * <p>A <code>null</code> string input will return <code>null</code>.
+     * An empty ("") string input will return the empty string.
+     * A <code>null</code> separator will return the empty string if the
+     * input string is not <code>null</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.substringAfter(null, *)      = null
+     * StringUtils.substringAfter("", *)        = ""
+     * StringUtils.substringAfter(*, null)      = ""
+     * StringUtils.substringAfter("abc", "a")   = "bc"
+     * StringUtils.substringAfter("abcba", "b") = "cba"
+     * StringUtils.substringAfter("abc", "c")   = ""
+     * StringUtils.substringAfter("abc", "d")   = ""
+     * StringUtils.substringAfter("abc", "")    = "abc"
+     * </pre>
+     *
+     * @param str  the String to get a substring from, may be null
+     * @param separator  the String to search for, may be null
+     * @return the substring after the first occurance of the separator,
+     *  <code>null</code> if null String input
+     */
+    public static String substringAfter(String str, String separator) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        if (separator == null) {
+            return "";
+        }
+        int pos = str.indexOf(separator);
+        if (pos == -1) {
+            return "";
+        }
+        return str.substring(pos + separator.length());
+    }
+
+    /**
+     * <p>Gets the substring before the last occurance of a separator.
+     * The separator is not returned.</p>
+     *
+     * <p>A <code>null</code> string input will return <code>null</code>.
+     * An empty ("") string input will return the empty string.
+     * An empty or <code>null</code> separator will return the input string.</p>
+     * 
+     * <pre>
+     * StringUtils.substringBeforeLast(null, *)      = null
+     * StringUtils.substringBeforeLast("", *)        = ""
+     * StringUtils.substringBeforeLast("abcba", "b") = "abc"
+     * StringUtils.substringBeforeLast("abc", "c")   = "ab"
+     * StringUtils.substringBeforeLast("a", "a")     = ""
+     * StringUtils.substringBeforeLast("a", "z")     = "a"
+     * StringUtils.substringBeforeLast("a", null)    = "a"
+     * StringUtils.substringBeforeLast("a", "")      = "a"
+     * </pre>
+     *
+     * @param str  the String to get a substring from, may be null
+     * @param separator  the String to search for, may be null
+     * @return the substring before the last occurance of the separator,
+     *  <code>null</code> if null String input
+     */
+    public static String substringBeforeLast(String str, String separator) {
+        if (str == null || separator == null || str.length() == 0 || separator.length() == 0) {
+            return str;
+        }
+        int pos = str.lastIndexOf(separator);
+        if (pos == -1) {
+            return str;
+        }
+        return str.substring(0, pos);
+    }
+
+    /**
+     * <p>Gets the substring after the last occurance of a separator.
+     * The separator is not returned.</p>
+     *
+     * <p>A <code>null</code> string input will return <code>null</code>.
+     * An empty ("") string input will return the empty string.
+     * An empty or <code>null</code> separator will return the empty string if
+     * the input string is not <code>null</code>.</p>
+     *
+     * <pre>
+     * StringUtils.substringAfterLast(null, *)      = null
+     * StringUtils.substringAfterLast("", *)        = ""
+     * StringUtils.substringAfterLast(*, "")        = ""
+     * StringUtils.substringAfterLast(*, null)      = ""
+     * StringUtils.substringAfterLast("abc", "a")   = "bc"
+     * StringUtils.substringAfterLast("abcba", "b") = "a"
+     * StringUtils.substringAfterLast("abc", "c")   = ""
+     * StringUtils.substringAfterLast("a", "a")     = ""
+     * StringUtils.substringAfterLast("a", "z")     = ""
+     * </pre>
+     *
+     * @param str  the String to get a substring from, may be null
+     * @param separator  the String to search for, may be null
+     * @return the substring after the last occurance of the separator,
+     *  <code>null</code> if null String input
+     */
+    public static String substringAfterLast(String str, String separator) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        if (separator == null || separator.length() == 0) {
+            return "";
+        }
+        int pos = str.lastIndexOf(separator);
+        if (pos == -1 || pos == (str.length() - separator.length())) {
+            return "";
+        }
+        return str.substring(pos + separator.length());
+    }
+
     // Splitting
     //-----------------------------------------------------------------------
     
@@ -2145,8 +2300,7 @@ public class StringUtils {
      * &quot;<code>\r</code>&quot;, or &quot;<code>\r\n</code>&quot;.</p>
      *
      * <p>NOTE: This method changed in 2.0.
-     * It now more closely matches Perl chomp.
-     * For the previous behavior, use {@link #slice(String)}.</p>
+     * It now more closely matches Perl chomp.</p>
      *
      * <pre>
      * StringUtils.chomp(null)          = null
@@ -2200,7 +2354,7 @@ public class StringUtils {
      *
      * <p>NOTE: This method changed in version 2.0.
      * It now more closely matches Perl chomp.
-     * For the previous behavior, use {@link #slice(String,String)}.
+     * For the previous behavior, use {@link #substringBeforeLast(String, String)}.
      * This method uses {@link String#endsWith(String)}.</p>
      *
      * <pre>
@@ -2268,14 +2422,14 @@ public class StringUtils {
 
     /** 
      * <p>Remove everything and return the last value of a supplied String, and
-     * everything after it from a String.
-     * [That makes no sense. Just use sliceRemainder() :-)]</p>
+     * everything after it from a String.</p>
      *
      * @param str  the String to chomp from, must not be null
      * @param sep  the String to chomp, must not be null
      * @return String chomped
      * @throws NullPointerException if str or sep is <code>null</code>
-     * @deprecated Use {@link #sliceRemainder(String,String)} instead.
+     * @deprecated Use {@link #substringAfterLast(String, String)} instead
+     *             (although this doesn't include the separator)
      *             Method will be removed in Commons Lang 3.0.
      */
     public static String getChomp(String str, String sep) {
@@ -2297,7 +2451,7 @@ public class StringUtils {
      * @param sep  the String to chomp, must not be null
      * @return String without chomped beginning
      * @throws NullPointerException if str or sep is <code>null</code>
-     * @deprecated Use {@link #sliceFirstRemainder(String,String)} instead.
+     * @deprecated Use {@link #substringAfter(String,String)} instead.
      *             Method will be removed in Commons Lang 3.0.
      */
     public static String prechomp(String str, String sep) {
@@ -2317,7 +2471,8 @@ public class StringUtils {
      * @param sep  the String to chomp, must not be null
      * @return String prechomped
      * @throws NullPointerException if str or sep is <code>null</code>
-     * @deprecated Use {@link #sliceFirst(String,String)} instead.
+     * @deprecated Use {@link #substringBefore(String,String)} instead
+     *             (although this doesn't include the separator)
      *             Method will be removed in Commons Lang 3.0.
      */
     public static String getPrechomp(String str, String sep) {
@@ -2400,195 +2555,6 @@ public class StringUtils {
         return str.substring(0, lastIdx);
     }
 
-
-    // Slicing
-    //-----------------------------------------------------------------------
-
-    /**
-     * <p>Removes the last newline, and everything after it from a String.</p>
-     *
-     * <p>A <code>null</code> string input will return <code>null</code>.
-     * An empty ("") string input will return the empty string.</p>
-     *
-     * <pre>
-     * StringUtils.slice(null)          = null
-     * StringUtils.slice("")            = ""
-     * StringUtils.slice("abc \n")      = "abc "
-     * StringUtils.slice("abc\n")       = "abc"
-     * StringUtils.slice("abc\r\n")     = "abc\r"
-     * StringUtils.slice("abc")         = "abc"
-     * StringUtils.slice("abc\nabc")    = "abc"
-     * StringUtils.slice("abc\nabc\n")  = "abc\nabc"
-     * StringUtils.slice("\n")          = ""
-     * </pre>
-     *
-     * <p><em>(This method was formerly named chomp or chopNewline.)</em></p>
-     *
-     * @param str  the String to slice the newline from, may be null
-     * @return String without sliced newline, <code>null</code> if null String input
-     */
-    public static String slice(String str) {
-        return slice(str, "\n");
-    }
-
-    /**
-     * <p>Finds the last occurence of a separator String,
-     * returning everything before it. The separator is not returned.</p>
-     *
-     * <p>A <code>null</code> string input will return <code>null</code>.
-     * An empty ("") string input will return the empty string.
-     * An empty or <code>null</code> separator will return the input string.</p>
-     * 
-     * <pre>
-     * StringUtils.slice(null, *)      = null
-     * StringUtils.slice("", *)        = ""
-     * StringUtils.slice("abcba", "b") = "abc"
-     * StringUtils.slice("abc", "c")   = "ab"
-     * StringUtils.slice("a", "a")     = ""
-     * StringUtils.slice("a", "z")     = "a"
-     * StringUtils.slice("a", null)    = "a"
-     * StringUtils.slice("a", "")      = "a"
-     * </pre>
-     *
-     * <p><em>(This method was formerly named chomp.)</em></p>
-     *
-     * @param str  the String to slice from, may be null
-     * @param separator  the String to slice, may be null
-     * @return String without sliced ending, <code>null</code> if null String input
-     */
-    public static String slice(String str, String separator) {
-        if (str == null || separator == null || str.length() == 0 || separator.length() == 0) {
-            return str;
-        }
-        int pos = str.lastIndexOf(separator);
-        if (pos == -1) {
-            return str;
-        }
-        return str.substring(0, pos);
-    }
-
-    /**
-     * <p>Finds the last occurence of a separator String,
-     * returning everything after it.</p>
-     *
-     * <p>A <code>null</code> string input will return <code>null</code>.
-     * An empty ("") string input will return the empty string.
-     * An empty or <code>null</code> separator will return the empty string if
-     * the input string is not <code>null</code>.</p>
-     *
-     * <pre>
-     * StringUtils.sliceRemainder(null, *)         = null
-     * StringUtils.sliceRemainder("", *)           = ""
-     * StringUtils.sliceRemainder(*, "")           = ""
-     * StringUtils.sliceRemainder(*, null)         = ""
-     * StringUtils.sliceRemainder("abc", "a")      = "bc"
-     * StringUtils.sliceRemainder("abcba", "b")    = "a"
-     * StringUtils.sliceRemainder("abc", "c")      = ""
-     * StringUtils.sliceRemainder("a", "a")        = ""
-     * StringUtils.sliceRemainder("a", "z")        = ""
-     * </pre>
-     *
-     * <p><em>(This method was formerly named getchomp. Also, now it does not
-     * include the separator in the return value.)</em></p>
-     *
-     * @param str  the String to slice from, may be null
-     * @param separator  the String to slice, may be null
-     * @return String sliced, <code>null</code> if null String input
-     */
-    public static String sliceRemainder(String str, String separator) {
-        if (str == null || str.length() == 0) {
-            return str;
-        }
-        if (separator == null || separator.length() == 0) {
-            return "";
-        }
-        int pos = str.lastIndexOf(separator);
-        if (pos == -1 || pos == (str.length() - separator.length())) {
-            return "";
-        }
-        return str.substring(pos + separator.length());
-    }
-
-    /**
-     * <p>Finds the first occurence of a separator String,
-     * returning everything before it. The separator is not returned.</p>
-     *
-     * <p>A <code>null</code> string input will return <code>null</code>.
-     * An empty ("") string input will return the empty string.
-     * A <code>null</code> separator will return the input string.</p>
-     *
-     * <pre>
-     * StringUtils.sliceFirst(null, *)         = null
-     * StringUtils.sliceFirst("", *)           = ""
-     * StringUtils.sliceFirst("abc", "a")      = ""
-     * StringUtils.sliceFirst("abcba", "b")    = "a"
-     * StringUtils.sliceFirst("abc", "c")      = "ab"
-     * StringUtils.sliceFirst("abc", "d")      = "abc"
-     * StringUtils.sliceFirst("abc", "")       = ""
-     * StringUtils.sliceFirst("abc", null)     = "abc"
-     * </pre>
-     *
-     * <p><em>(This method was formerly named getPrechomp.  Also, it used to
-     * include the separator, but now it does not.)</em></p>
-     *
-     * @param str  the String to slice from, may be null
-     * @param separator  the String to slice, may be null
-     * @return sliced String, <code>null</code> if null String input
-     */
-    public static String sliceFirst(String str, String separator) {
-        if (str == null || separator == null || str.length() == 0) {
-            return str;
-        }
-        if (separator.length() == 0) {
-            return "";
-        }
-        int pos = str.indexOf(separator);
-        if (pos == -1) {
-            return str;
-        }
-        return str.substring(0, pos);
-    }
-
-    /**
-     * <p>Finds the first occurence of a separator String,
-     * returning everything after it.</p>
-     *
-     * <p>A <code>null</code> string input will return <code>null</code>.
-     * An empty ("") string input will return the empty string.
-     * A <code>null</code> separator will return the empty string if the
-     * input string is not <code>null</code>.</p>
-     * 
-     * <pre>
-     * StringUtils.sliceFirstRemainder(null, *)      = null
-     * StringUtils.sliceFirstRemainder("", *)        = ""
-     * StringUtils.sliceFirstRemainder(*, null)      = ""
-     * StringUtils.sliceFirstRemainder("abc", "a")   = "bc"
-     * StringUtils.sliceFirstRemainder("abcba", "b") = "cba"
-     * StringUtils.sliceFirstRemainder("abc", "c")   = ""
-     * StringUtils.sliceFirstRemainder("abc", "d")   = ""
-     * StringUtils.sliceFirstRemainder("abc", "")    = "abc"
-     * </pre>
-     *
-     * <p><em>(This method was formerly named prechomp.  Also, previously
-     * it included the separator in the return value; now it does not.)</em></p>
-     *
-     * @param str  the String to slice from, may be null
-     * @param separator  the String to slice, may be null
-     * @return String without sliced beginning, <code>null</code> if null String input
-     */
-    public static String sliceFirstRemainder(String str, String separator) {
-        if (str == null || str.length() == 0) {
-            return str;
-        }
-        if (separator == null) {
-            return "";
-        }
-        int pos = str.indexOf(separator);
-        if (pos == -1) {
-            return "";
-        }
-        return str.substring(pos + separator.length());
-    }
 
     // Conversion
     //-----------------------------------------------------------------------

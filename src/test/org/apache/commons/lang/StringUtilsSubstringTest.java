@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsSubstringTest.java,v 1.8 2003/07/21 00:41:13 scolebourne Exp $
+ * @version $Id: StringUtilsSubstringTest.java,v 1.9 2003/07/25 22:22:30 scolebourne Exp $
  */
 public class StringUtilsSubstringTest extends TestCase {
     private static final String FOO = "foo";
@@ -178,6 +178,89 @@ public class StringUtilsSubstringTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
     
+    //-----------------------------------------------------------------------
+    public void testSubstringBefore_StringString() {
+        assertEquals("foo", StringUtils.substringBefore("fooXXbarXXbaz", "XX"));
+
+        assertEquals(null, StringUtils.substringBefore(null, null));
+        assertEquals(null, StringUtils.substringBefore(null, ""));
+        assertEquals(null, StringUtils.substringBefore(null, "XX"));
+        assertEquals("", StringUtils.substringBefore("", null));
+        assertEquals("", StringUtils.substringBefore("", ""));
+        assertEquals("", StringUtils.substringBefore("", "XX"));
+        
+        assertEquals("foo", StringUtils.substringBefore("foo", null));
+        assertEquals("foo", StringUtils.substringBefore("foo", "b"));
+        assertEquals("f", StringUtils.substringBefore("foot", "o"));
+        assertEquals("", StringUtils.substringBefore("abc", "a"));
+        assertEquals("a", StringUtils.substringBefore("abcba", "b"));
+        assertEquals("ab", StringUtils.substringBefore("abc", "c"));
+        assertEquals("", StringUtils.substringBefore("abc", ""));
+    }
+    
+    public void testSubstringAfter_StringString() {
+        assertEquals("barXXbaz", StringUtils.substringAfter("fooXXbarXXbaz", "XX"));
+        
+        assertEquals(null, StringUtils.substringAfter(null, null));
+        assertEquals(null, StringUtils.substringAfter(null, ""));
+        assertEquals(null, StringUtils.substringAfter(null, "XX"));
+        assertEquals("", StringUtils.substringAfter("", null));
+        assertEquals("", StringUtils.substringAfter("", ""));
+        assertEquals("", StringUtils.substringAfter("", "XX"));
+        
+        assertEquals("", StringUtils.substringAfter("foo", null));
+        assertEquals("ot", StringUtils.substringAfter("foot", "o"));
+        assertEquals("bc", StringUtils.substringAfter("abc", "a"));
+        assertEquals("cba", StringUtils.substringAfter("abcba", "b"));
+        assertEquals("", StringUtils.substringAfter("abc", "c"));
+        assertEquals("abc", StringUtils.substringAfter("abc", ""));
+        assertEquals("", StringUtils.substringAfter("abc", "d"));
+    }
+
+    public void testSubstringBeforeLast_StringString() {
+        assertEquals("fooXXbar", StringUtils.substringBeforeLast("fooXXbarXXbaz", "XX"));
+
+        assertEquals(null, StringUtils.substringBeforeLast(null, null));
+        assertEquals(null, StringUtils.substringBeforeLast(null, ""));
+        assertEquals(null, StringUtils.substringBeforeLast(null, "XX"));
+        assertEquals("", StringUtils.substringBeforeLast("", null));
+        assertEquals("", StringUtils.substringBeforeLast("", ""));
+        assertEquals("", StringUtils.substringBeforeLast("", "XX"));
+
+        assertEquals("foo", StringUtils.substringBeforeLast("foo", null));
+        assertEquals("foo", StringUtils.substringBeforeLast("foo", "b"));
+        assertEquals("fo", StringUtils.substringBeforeLast("foo", "o"));
+        assertEquals("abc\r\n", StringUtils.substringBeforeLast("abc\r\n", "d"));
+        assertEquals("abc", StringUtils.substringBeforeLast("abcdabc", "d"));
+        assertEquals("abcdabc", StringUtils.substringBeforeLast("abcdabcd", "d"));
+        assertEquals("a", StringUtils.substringBeforeLast("abc", "b"));
+        assertEquals("abc ", StringUtils.substringBeforeLast("abc \n", "\n"));
+        assertEquals("a", StringUtils.substringBeforeLast("a", null));
+        assertEquals("a", StringUtils.substringBeforeLast("a", ""));
+        assertEquals("", StringUtils.substringBeforeLast("a", "a"));
+    }
+    
+    public void testSubstringAfterLast_StringString() {
+        assertEquals("baz", StringUtils.substringAfterLast("fooXXbarXXbaz", "XX"));
+
+        assertEquals(null, StringUtils.substringAfterLast(null, null));
+        assertEquals(null, StringUtils.substringAfterLast(null, ""));
+        assertEquals(null, StringUtils.substringAfterLast(null, "XX"));
+        assertEquals("", StringUtils.substringAfterLast("", null));
+        assertEquals("", StringUtils.substringAfterLast("", ""));
+        assertEquals("", StringUtils.substringAfterLast("", "a"));
+
+        assertEquals("", StringUtils.substringAfterLast("foo", null));
+        assertEquals("", StringUtils.substringAfterLast("foo", "b"));
+        assertEquals("t", StringUtils.substringAfterLast("foot", "o"));
+        assertEquals("bc", StringUtils.substringAfterLast("abc", "a"));
+        assertEquals("a", StringUtils.substringAfterLast("abcba", "b"));
+        assertEquals("", StringUtils.substringAfterLast("abc", "c"));
+        assertEquals("", StringUtils.substringAfterLast("", "d"));
+        assertEquals("", StringUtils.substringAfterLast("abc", ""));
+    }        
+        
+    //-----------------------------------------------------------------------
     public void testCountMatches_String() {
         assertEquals(0, StringUtils.countMatches(null, null));
         assertEquals(0, StringUtils.countMatches("blah", null));
