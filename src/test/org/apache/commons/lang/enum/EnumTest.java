@@ -55,7 +55,6 @@ package org.apache.commons.lang.enum;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,13 +65,14 @@ import java.util.Map;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
 import org.apache.commons.lang.SerializationUtils;
 
 /**
  * Test cases for the {@link Enum} class.
  *
  * @author Stephen Colebourne
- * @version $Id: EnumTest.java,v 1.13 2004/02/12 00:45:09 ggregory Exp $
+ * @version $Id: EnumTest.java,v 1.14 2004/02/12 01:00:05 scolebourne Exp $
  */
 
 public final class EnumTest extends TestCase {
@@ -501,9 +501,9 @@ public final class EnumTest extends TestCase {
     }
     
     public void testEqualsToWrongInstance() {
-        ColorEnum.RED.equals("test");
-        ColorEnum.RED.equals(new Integer(1));
-        ColorEnum.RED.equals(new Boolean(true));
-        ColorEnum.RED.equals(new StringBuffer("test"));
+        assertEquals(false, ColorEnum.RED.equals("test"));
+        assertEquals(false, ColorEnum.RED.equals(new Integer(1)));
+        assertEquals(false, ColorEnum.RED.equals(new Boolean(true)));
+        assertEquals(false, ColorEnum.RED.equals(new StringBuffer("test")));
     }
 }
