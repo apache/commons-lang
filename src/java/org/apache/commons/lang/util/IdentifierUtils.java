@@ -56,19 +56,18 @@ package org.apache.commons.lang.util;
 import java.io.Serializable;
 import java.util.Random;
 
-import org.apache.commons.lang.functor.Factory;
-import org.apache.commons.lang.functor.FactoryException;
 /**
  * <p><code>IdentifierUtils</code> provides a number of different identifier
  * reference implementations.</p>
  * 
- * <p>All the identifer factories are serializable and synchronized. The
- * factories all implement the <i>functor</i> 
- * {@link org.apache.commons.lang.functor.Factory Factory} interface</p>
+ * <p>All the identifer factories are serializable and synchronized.
+ * The factories all implement one of the factory interfaces defined in this
+ * package. This allows you to obtain and use multiple factories for 
+ * different reasons.</p>
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: IdentifierUtils.java,v 1.4 2003/04/09 01:04:48 ggregory Exp $
+ * @version $Id: IdentifierUtils.java,v 1.5 2003/05/16 22:06:43 scolebourne Exp $
  */
 public class IdentifierUtils {
 
@@ -87,7 +86,7 @@ public class IdentifierUtils {
      * <li>...
      * </ul>
 	 */
-    public static final Factory LONG_IDENTIFIER_FACTORY = new LongIdentifierFactory(true, 0L);
+    public static final LongIdentifierFactory LONG_IDENTIFIER_FACTORY = new LongNumericIdentifierFactory(true, 0L);
     /**
      * <p>Singleton instance of the <code>StringNumericIdentifierFactory</code>.
      * </p>
@@ -103,7 +102,7 @@ public class IdentifierUtils {
      * <li>...
      * </ul>
      */
-    public static final Factory STRING_NUMERIC_IDENTIFIER_FACTORY = new StringNumericIdentifierFactory(true, 0L);
+    public static final StringIdentifierFactory STRING_NUMERIC_IDENTIFIER_FACTORY = new StringNumericIdentifierFactory(true, 0L);
     /**
      * <p>Singleton instance of the
      * <code>StringAlphanumericIdentifierFactory</code>.</p>
@@ -128,7 +127,7 @@ public class IdentifierUtils {
      * <li>...
      * </ul>
      */
-    public static final Factory STRING_ALPHANUMERIC_IDENTIFIER_FACTORY = new StringAlphanumericIdentifierFactory(true, 15);
+    public static final StringIdentifierFactory STRING_ALPHANUMERIC_IDENTIFIER_FACTORY = new StringAlphanumericIdentifierFactory(true, 15);
     /**
      * <p>Singleton instance of the
      * <code>StringSessionIdentifierFactory</code>.</p>
@@ -138,7 +137,7 @@ public class IdentifierUtils {
      * 
      * <p>The objects returned are 10 or more base-36 digits.</p>
      */
-    public static final Factory STRING_SESSION_IDENTIFIER_FACTORY = new StringSessionIdentifierFactory();
+    public static final StringIdentifierFactory STRING_SESSION_IDENTIFIER_FACTORY = new StringSessionIdentifierFactory();
 
     //---------------------------------------------------------------------------------
     
@@ -166,7 +165,7 @@ public class IdentifierUtils {
      * @return a new identifier
      */
     public static Long nextLongIdentifier() {
-        return (Long) LONG_IDENTIFIER_FACTORY.create();
+        return LONG_IDENTIFIER_FACTORY.nextLongIdentifier();
     }
 
     /**
@@ -178,8 +177,8 @@ public class IdentifierUtils {
      * 
      * @return a new identifier factory
      */
-    public static Factory longIdentifierFactory() {
-        return new LongIdentifierFactory(true, 0L);
+    public static LongIdentifierFactory longIdentifierFactory() {
+        return new LongNumericIdentifierFactory(true, 0L);
     }
 
     /**
@@ -187,12 +186,12 @@ public class IdentifierUtils {
      * increasing in size.</p>
      * 
      * @param wrap  should the factory wrap when it reaches the maximum 
-     *  long value (or throw an exception)
+     *  long value (or throw an IllegalStateException)
      * @param initialValue  the initial long value to start at
      * @return a new identifier factory
      */
-    public static Factory longIdentifierFactory(boolean wrap, long initialValue) {
-        return new LongIdentifierFactory(wrap, initialValue);
+    public static LongIdentifierFactory longIdentifierFactory(boolean wrap, long initialValue) {
+        return new LongNumericIdentifierFactory(wrap, initialValue);
     }
     
     //---------------------------------------------------------------------------------
@@ -208,7 +207,7 @@ public class IdentifierUtils {
      * @return a new identifier
      */
     public static String nextStringNumericIdentifier() {
-        return (String) STRING_NUMERIC_IDENTIFIER_FACTORY.create();
+        return STRING_NUMERIC_IDENTIFIER_FACTORY.nextStringIdentifier();
     }
 
     /**
@@ -220,7 +219,7 @@ public class IdentifierUtils {
      * 
      * @return a new identifier factory
      */
-    public static Factory stringNumericIdentifierFactory() {
+    public static StringIdentifierFactory stringNumericIdentifierFactory() {
         return new StringNumericIdentifierFactory(true, 0L);
     }
 
@@ -229,11 +228,11 @@ public class IdentifierUtils {
      * representing numbers increasing in size.</p>
      * 
      * @param wrap  should the factory wrap when it reaches the maximum 
-     *  long value (or throw an exception)
+     *  long value (or throw an IllegalStateException)
      * @param initialValue  the initial long value to start at
      * @return a new identifier factory
      */
-    public static Factory stringNumericIdentifierFactory(boolean wrap, long initialValue) {
+    public static StringIdentifierFactory stringNumericIdentifierFactory(boolean wrap, long initialValue) {
         return new StringNumericIdentifierFactory(wrap, initialValue);
     }
     
@@ -250,7 +249,7 @@ public class IdentifierUtils {
      * @return a new identifier
      */
     public static String nextStringAlphanumericIdentifier() {
-        return (String) STRING_ALPHANUMERIC_IDENTIFIER_FACTORY.create();
+        return STRING_ALPHANUMERIC_IDENTIFIER_FACTORY.nextStringIdentifier();
     }
 
     /**
@@ -261,7 +260,7 @@ public class IdentifierUtils {
      * 
      * @return a new identifier factory
      */
-    public static Factory stringAlphanumericIdentifierFactory() {
+    public static StringIdentifierFactory stringAlphanumericIdentifierFactory() {
         return new StringAlphanumericIdentifierFactory(true, 15);
     }
 
@@ -270,11 +269,11 @@ public class IdentifierUtils {
      * representing numbers increasing in size in base-36.</p>
      * 
      * @param wrap  should the factory wrap when it reaches the maximum 
-     *  size (or throw an exception)
+     *  size (or throw an IllegalStateException)
      * @param size  the number of characters the id should fill
      * @return a new identifier factory
      */
-    public static Factory stringAlphanumericIdentifierFactory(boolean wrap, int size) {
+    public static StringIdentifierFactory stringAlphanumericIdentifierFactory(boolean wrap, int size) {
         return new StringAlphanumericIdentifierFactory(wrap, size);
     }
     
@@ -285,14 +284,13 @@ public class IdentifierUtils {
      * String Session factory.
      * </p>
      * 
-     * <p>The singleton instance is not guaranteed to be unique (although its
-     * pretty unlikely), so in a long- lived server, the id may be duplicated.
-     * </p>
+     * <p>The generation routine is based on a random number and a counter
+     * within a 2 second time interval.</p>
      * 
      * @return a new identifier
      */
     public static String nextStringSessionIdentifier() {
-        return (String) STRING_SESSION_IDENTIFIER_FACTORY.create();
+        return STRING_SESSION_IDENTIFIER_FACTORY.nextStringIdentifier();
     }
 
     /**
@@ -305,7 +303,7 @@ public class IdentifierUtils {
      * 
      * @return a new identifier factory
      */
-    public static Factory stringSessionIdentifierFactory() {
+    public static StringIdentifierFactory stringSessionIdentifierFactory() {
         return new StringSessionIdentifierFactory();
     }
 
@@ -317,7 +315,7 @@ public class IdentifierUtils {
      *
      * @author Stephen Colebourne
      */
-    private static class LongIdentifierFactory implements Factory, Serializable {
+    private static class LongNumericIdentifierFactory implements LongIdentifierFactory, Serializable {
     
         /** Should the counter wrap. */
         private final boolean wrap;
@@ -331,18 +329,27 @@ public class IdentifierUtils {
          *  long value (or throw an exception)
          * @param initialValue  the initial long value to start at
          */
-        private LongIdentifierFactory(boolean wrap, long initialValue) {
+        private LongNumericIdentifierFactory(boolean wrap, long initialValue) {
             super();
             this.wrap = wrap;
             this.count = initialValue;
         }
 
         /**
-         * Create a new identifier.
+         * Gets the next new identifier.
          * 
          * @return a new identifier as a Long
          */
-        public Object create() {
+        public Object nextIdentifier() {
+            return nextLongIdentifier();
+        }
+        
+        /**
+         * Gets the next new identifier.
+         * 
+         * @return a new identifier as a Long
+         */
+        public Long nextLongIdentifier() {
             long value = 0;
             if (wrap) {
                 synchronized (this) {
@@ -351,7 +358,7 @@ public class IdentifierUtils {
             } else {
                 synchronized (this) {
                     if (count == Long.MAX_VALUE) {
-                        throw new FactoryException("The maximum number of identifiers has been reached");
+                        throw new IllegalStateException("The maximum number of identifiers has been reached");
                     }
                     value = count++;
                 }
@@ -368,7 +375,7 @@ public class IdentifierUtils {
      *
      * @author Stephen Colebourne
      */
-    private static class StringNumericIdentifierFactory implements Factory, Serializable {
+    private static class StringNumericIdentifierFactory implements StringIdentifierFactory, Serializable {
     
         /** Should the counter wrap. */
         private final boolean wrap;
@@ -389,11 +396,20 @@ public class IdentifierUtils {
         }
 
         /**
-         * Create a new identifier.
+         * Gets the next new identifier.
          * 
          * @return a new identifier as a String
          */
-        public Object create() {
+        public Object nextIdentifier() {
+            return nextStringIdentifier();
+        }
+        
+        /**
+         * Gets the next new identifier.
+         * 
+         * @return a new identifier as a String
+         */
+        public String nextStringIdentifier() {
             long value = 0;
             if (wrap) {
                 synchronized (this) {
@@ -402,7 +418,7 @@ public class IdentifierUtils {
             } else {
                 synchronized (this) {
                     if (count == Long.MAX_VALUE) {
-                        throw new FactoryException("The maximum number of identifiers has been reached");
+                        throw new IllegalStateException("The maximum number of identifiers has been reached");
                     }
                     value = count++;
                 }
@@ -421,7 +437,7 @@ public class IdentifierUtils {
      *
      * @author Stephen Colebourne
      */
-    private static class StringAlphanumericIdentifierFactory implements Factory, Serializable {
+    private static class StringAlphanumericIdentifierFactory implements StringIdentifierFactory, Serializable {
     
         /** Should the counter wrap. */
         private final boolean wrap;
@@ -448,17 +464,26 @@ public class IdentifierUtils {
         }
 
         /**
-         * Create a new identifier.
+         * Gets the next new identifier.
          * 
          * @return a new identifier as a String
          */
-        public synchronized Object create() {
+        public Object nextIdentifier() {
+            return nextStringIdentifier();
+        }
+        
+        /**
+         * Gets the next new identifier.
+         * 
+         * @return a new identifier as a String
+         */
+        public synchronized String nextStringIdentifier() {
             for (int i = count.length - 1; i >= 0; i--) {
                 switch (count[i]) {
                     case 122:  // z
                     count[i] = '0';
                     if (i == 0 && wrap == false) {
-                        throw new FactoryException("The maximum number of identifiers has been reached");
+                        throw new IllegalStateException("The maximum number of identifiers has been reached");
                     }
                     break;
                     
@@ -493,7 +518,7 @@ public class IdentifierUtils {
      * @author Neeme Praks
      * @author Stephen Colebourne
      */
-    private static class StringSessionIdentifierFactory implements Factory, Serializable {
+    private static class StringSessionIdentifierFactory implements StringIdentifierFactory, Serializable {
 
         /**
          * We want to have a random string with a length of 6 characters.
@@ -527,17 +552,26 @@ public class IdentifierUtils {
         private StringSessionIdentifierFactory() {
             super();
         }
+        
+        /**
+         * Gets the next identifier.
+         * 
+         * @return the next 10 char String identifier
+         */
+        public Object nextIdentifier() {
+            return nextStringIdentifier();
+        }
 
         /**
-         * Create a new identifier. Only guaranteed unique within
+         * Gets the next new identifier. Only guaranteed unique within
          * this JVM, but fairly safe for cross JVM usage as well.
          * 
          * <p>Format of identifier is
          * [6 chars random][3 chars time][1+ chars count]</p>
          * 
-         * @return a new identifier as a Long
+         * @return the next 10 char String identifier
          */
-        public Object create() {
+        public String nextStringIdentifier() {
             // Random value
             //--------------
             long currentRandom = randomizer.nextLong();
