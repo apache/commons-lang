@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.23 2003/08/17 22:59:28 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.24 2003/08/18 02:35:16 bayard Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -251,10 +251,10 @@ Jar changes
 > org.apache.commons.lang.IncompleteArgumentException
 > org.apache.commons.lang.Entities$PrimitiveEntityMap
 > org.apache.commons.lang.Entities$TreeEntityMap
+> org.apache.commons.lang.WordUtils
 > org.apache.commons.lang.StringEscapeUtils
 > org.apache.commons.lang.ArrayUtils
 > org.apache.commons.lang.Entities$BinaryEntityMap
-> org.apache.commons.lang.WordUtils
 > org.apache.commons.lang.ClassUtils
 > org.apache.commons.lang.IntHashMap$Entry
 > org.apache.commons.lang.IllegalClassException
@@ -366,7 +366,6 @@ org.apache.commons.lang.StringUtils
 >     public static java.lang.String uncapitalise(java.lang.String);
 <     public static java.lang.String getNestedString(java.lang.String, java.lang.String);
 <     public static java.lang.String getNestedString(java.lang.String, java.lang.String, java.lang.String);
----
 >     public static boolean isWhitespace(java.lang.String);
 >     public static java.lang.String reverseDelimited(java.lang.String, char);
 >     public static java.lang.String abbreviate(java.lang.String, int);
@@ -627,6 +626,8 @@ org.apache.commons.lang.builder.ToStringBuilder
 
 org.apache.commons.lang.builder.StandardToStringStyle
 --------------------
+>     public boolean isUseShortClassName();
+>     public void setUseShortClassName(boolean);
 >     public boolean isFieldSeparatorAtStart();
 >     public void setFieldSeparatorAtStart(boolean);
 >     public boolean isFieldSeparatorAtEnd();
@@ -638,6 +639,8 @@ org.apache.commons.lang.builder.ToStringStyle
 >     public void appendToString(java.lang.StringBuffer, java.lang.String);
 >     protected void removeLastFieldSeparator(java.lang.StringBuffer);
 >     protected void reflectionAppendArrayDetail(java.lang.StringBuffer, java.lang.String, java.lang.Object);
+>     protected boolean isUseShortClassName();
+>     protected void setUseShortClassName(boolean);
 >     protected boolean isFieldSeparatorAtStart();
 >     protected void setFieldSeparatorAtStart(boolean);
 >     protected boolean isFieldSeparatorAtEnd();
