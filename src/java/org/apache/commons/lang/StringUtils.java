@@ -145,7 +145,7 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.110 2003/10/21 20:24:22 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.111 2003/10/23 20:40:36 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2495,7 +2495,7 @@ public class StringUtils {
      * StringUtils.replace("aba", null, null) = "aba"
      * StringUtils.replace("aba", null, null) = "aba"
      * StringUtils.replace("aba", "a", null)  = "aba"
-     * StringUtils.replace("aba", "a", "")    = "aba"
+     * StringUtils.replace("aba", "a", "")    = "b"
      * StringUtils.replace("aba", "a", "z")   = "zbz"
      * </pre>
      * 
