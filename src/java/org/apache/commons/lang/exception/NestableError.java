@@ -65,7 +65,7 @@ import java.io.PrintWriter;
  * @see org.apache.commons.lang.exception.NestableException
  * @since 1.0
  */
-public class NestableError extends Exception implements Nestable
+public class NestableError extends Error implements Nestable
 {
     /**
      * The helper instance which contains much of the code which we
