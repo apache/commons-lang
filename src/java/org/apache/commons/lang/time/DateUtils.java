@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.19 2004/06/27 06:29:29 bayard Exp $
+ * @version $Id: DateUtils.java,v 1.20 2004/07/05 17:54:48 stevencaswell Exp $
  */
 public class DateUtils {
     
@@ -123,6 +123,18 @@ public class DateUtils {
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.</p>
      * 
+     * <p>For a date in a timezone that handles the change to daylight
+     * saving time, roudning to Calendar.HOUR_OF_DAY will behave as follows.
+     * Suppose daylight saving time begins at 02:00 on March 30. Rounding a 
+     * date that crosses this time would produce the following values:
+     * <ul>
+     * <li>March 30, 2003 01:10 rounds to March 30, 2003 01:00</li>
+     * <li>March 30, 2003 01:40 rounds to March 30, 2003 03:00</li>
+     * <li>March 30, 2003 02:10 rounds to March 30, 2003 03:00</li>
+     * <li>March 30, 2003 02:40 rounds to March 30, 2003 04:00</li>
+     * </ul>
+     * </p>
+     * 
      * @param date  the date to work with
      * @param field  the field from <code>Calendar</code>
      *  or <code>SEMI_MONTH</code>
@@ -148,6 +160,18 @@ public class DateUtils {
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.</p>
      * 
+     * <p>For a date in a timezone that handles the change to daylight
+     * saving time, roudning to Calendar.HOUR_OF_DAY will behave as follows.
+     * Suppose daylight saving time begins at 02:00 on March 30. Rounding a 
+     * date that crosses this time would produce the following values:
+     * <ul>
+     * <li>March 30, 2003 01:10 rounds to March 30, 2003 01:00</li>
+     * <li>March 30, 2003 01:40 rounds to March 30, 2003 03:00</li>
+     * <li>March 30, 2003 02:10 rounds to March 30, 2003 03:00</li>
+     * <li>March 30, 2003 02:40 rounds to March 30, 2003 04:00</li>
+     * </ul>
+     * </p>
+     * 
      * @param date  the date to work with
      * @param field  the field from <code>Calendar</code>
      *  or <code>SEMI_MONTH</code>
@@ -171,6 +195,18 @@ public class DateUtils {
      * 13:45:01.231, if this was passed with HOUR, it would return
      * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
      * would return 1 April 2002 0:00:00.000.</p>
+     * 
+     * <p>For a date in a timezone that handles the change to daylight
+     * saving time, roudning to Calendar.HOUR_OF_DAY will behave as follows.
+     * Suppose daylight saving time begins at 02:00 on March 30. Rounding a 
+     * date that crosses this time would produce the following values:
+     * <ul>
+     * <li>March 30, 2003 01:10 rounds to March 30, 2003 01:00</li>
+     * <li>March 30, 2003 01:40 rounds to March 30, 2003 03:00</li>
+     * <li>March 30, 2003 02:10 rounds to March 30, 2003 03:00</li>
+     * <li>March 30, 2003 02:40 rounds to March 30, 2003 04:00</li>
+     * </ul>
+     * </p>
      * 
      * @param date  the date to work with, either Date or Calendar
      * @param field  the field from <code>Calendar</code>
@@ -352,7 +388,7 @@ public class DateUtils {
                 roundUp = offset > ((max - min) / 2);
             }
             //We need to remove this field
-            val.add(fields[i][0], -offset);
+            val.set(fields[i][0], val.get(fields[i][0]) - offset);
         }
         throw new IllegalArgumentException("The field " + field + " is not supported");
 
