@@ -5,7 +5,7 @@
   <name>Lang</name>
   <currentVersion>2.0</currentVersion>
   <inceptionYear>2001</inceptionYear>
-  
+  <logo/>
   <description>
     Commons.Lang, a package of Java utility classes for the
     classes that are in java.lang's hierarchy, or are considered to be so
