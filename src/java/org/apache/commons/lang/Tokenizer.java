@@ -92,6 +92,7 @@ import java.util.ListIterator;
  *
  * @author Matthew Inger
  * @author Stephen Colebourne
+ * @author Gary D. Gregory
  */
 public class Tokenizer implements ListIterator {
     // TODO: Constructors
@@ -712,7 +713,7 @@ public class Tokenizer implements ListIterator {
      * This character is ignored when parsing the String, unless it is
      * within a quoted region.
      * 
-     * @param quote  the ignored character to use
+     * @param ignored  the ignored character to use
      */
     public void setIgnoredChar(char ignored) {
         setIgnoredMatcher(new CharMatcher(ignored));
@@ -733,7 +734,7 @@ public class Tokenizer implements ListIterator {
      * Sets whether the tokenizer should return empty tokens as null.
      * The default for this property is false.
      * 
-     * @return emptyAsNull  whether empty tokens are returned as null
+     * @param emptyAsNull  whether empty tokens are returned as null
      */
     public void setEmptyTokenAsNull(boolean emptyAsNull) {
         this.emptyAsNull = emptyAsNull;
@@ -754,7 +755,7 @@ public class Tokenizer implements ListIterator {
      * Sets whether the tokenizer should ignore and not return empty tokens.
      * The default for this property is false.
      * 
-     * @return ignoreEmptyTokens  whether empty tokens are not returned
+     * @param ignoreEmptyTokens  whether empty tokens are not returned
      */
     public void setIgnoreEmptyTokens(boolean ignoreEmptyTokens) {
         this.ignoreEmptyTokens = ignoreEmptyTokens;
@@ -810,8 +811,14 @@ public class Tokenizer implements ListIterator {
             return (char[]) chars.clone();
         }
 
-        public boolean isMatch(char c) {
-            return (Arrays.binarySearch(chars, c) >= 0);
+        /**
+         * Returns whether or not the given charatcer matches.
+         * 
+         * @param ch the character to match.
+         * @return whether or not the given charatcer matches.
+         */
+        public boolean isMatch(char ch) {
+            return (Arrays.binarySearch(chars, ch) >= 0);
         }
     }
     
@@ -825,7 +832,7 @@ public class Tokenizer implements ListIterator {
         /**
          * Constructor that creates a matcher that matches a single character.
          * 
-         * @param chars  the character to match
+         * @param ch  the character to match
          */
         public CharMatcher(char ch) {
             super();
@@ -841,6 +848,12 @@ public class Tokenizer implements ListIterator {
             return this.ch;
         }
 
+        /**
+         * Returns whether or not the given charatcer matches.
+         * 
+         * @param ch the character to match.
+         * @return whether or not the given charatcer matches.
+         */
         public boolean isMatch(char ch) {
             return (this.ch == ch);
         }
@@ -856,6 +869,12 @@ public class Tokenizer implements ListIterator {
             super();
         }
 
+        /**
+         * Always returns <code>false</code>.
+         * 
+         * @param ch the character to match.
+         * @return Always returns <code>false</code>.
+         */
         public boolean isMatch(char ch) {
             return false;
         }
@@ -871,6 +890,12 @@ public class Tokenizer implements ListIterator {
             super();
         }
 
+        /**
+         * Returns whether or not the given charatcer matches.
+         * 
+         * @param ch the character to match.
+         * @return whether or not the given charatcer matches.
+         */
         public boolean isMatch(char ch) {
             return (ch <= 32);
         }
