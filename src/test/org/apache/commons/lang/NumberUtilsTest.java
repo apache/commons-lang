@@ -66,7 +66,7 @@ import junit.framework.TestSuite;
  *
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: NumberUtilsTest.java,v 1.3 2002/11/22 23:30:32 bayard Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.4 2002/12/15 16:53:28 scolebourne Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -511,4 +511,43 @@ public class NumberUtilsTest extends TestCase {
         }
     }
 
+    public void testConstants() {
+        assertTrue(NumberUtils.LONG_ZERO instanceof Long);
+        assertTrue(NumberUtils.LONG_ONE instanceof Long);
+        assertTrue(NumberUtils.LONG_MINUS_ONE instanceof Long);
+        assertTrue(NumberUtils.INTEGER_ZERO instanceof Integer);
+        assertTrue(NumberUtils.INTEGER_ONE instanceof Integer);
+        assertTrue(NumberUtils.INTEGER_MINUS_ONE instanceof Integer);
+        assertTrue(NumberUtils.SHORT_ZERO instanceof Short);
+        assertTrue(NumberUtils.SHORT_ONE instanceof Short);
+        assertTrue(NumberUtils.SHORT_MINUS_ONE instanceof Short);
+        assertTrue(NumberUtils.BYTE_ZERO instanceof Byte);
+        assertTrue(NumberUtils.BYTE_ONE instanceof Byte);
+        assertTrue(NumberUtils.BYTE_MINUS_ONE instanceof Byte);
+        assertTrue(NumberUtils.DOUBLE_ZERO instanceof Double);
+        assertTrue(NumberUtils.DOUBLE_ONE instanceof Double);
+        assertTrue(NumberUtils.DOUBLE_MINUS_ONE instanceof Double);
+        assertTrue(NumberUtils.FLOAT_ZERO instanceof Float);
+        assertTrue(NumberUtils.FLOAT_ONE instanceof Float);
+        assertTrue(NumberUtils.FLOAT_MINUS_ONE instanceof Float);
+        
+        assertTrue(NumberUtils.LONG_ZERO.longValue() == 0);
+        assertTrue(NumberUtils.LONG_ONE.longValue() == 1);
+        assertTrue(NumberUtils.LONG_MINUS_ONE.longValue() == -1);
+        assertTrue(NumberUtils.INTEGER_ZERO.intValue() == 0);
+        assertTrue(NumberUtils.INTEGER_ONE.intValue() == 1);
+        assertTrue(NumberUtils.INTEGER_MINUS_ONE.intValue() == -1);
+        assertTrue(NumberUtils.SHORT_ZERO.shortValue() == 0);
+        assertTrue(NumberUtils.SHORT_ONE.shortValue() == 1);
+        assertTrue(NumberUtils.SHORT_MINUS_ONE.shortValue() == -1);
+        assertTrue(NumberUtils.BYTE_ZERO.byteValue() == 0);
+        assertTrue(NumberUtils.BYTE_ONE.byteValue() == 1);
+        assertTrue(NumberUtils.BYTE_MINUS_ONE.byteValue() == -1);
+        assertTrue(NumberUtils.DOUBLE_ZERO.doubleValue() == 0.0d);
+        assertTrue(NumberUtils.DOUBLE_ONE.doubleValue() == 1.0d);
+        assertTrue(NumberUtils.DOUBLE_MINUS_ONE.doubleValue() == -1.0d);
+        assertTrue(NumberUtils.FLOAT_ZERO.floatValue() == 0.0f);
+        assertTrue(NumberUtils.FLOAT_ONE.floatValue() == 1.0f);
+        assertTrue(NumberUtils.FLOAT_MINUS_ONE.floatValue() == -1.0f);
+    }
 }
