@@ -23,7 +23,7 @@ import junit.textui.TestRunner;
 /**
  * JUnit tests.
  * 
- * @version $Id: MutableDoubleTest.java,v 1.3 2004/12/26 02:35:47 bayard Exp $
+ * @version $Id$
  * @see MutableDouble
  */
 public class MutableDoubleTest extends TestCase {
@@ -143,6 +143,9 @@ public class MutableDoubleTest extends TestCase {
         MutableDouble mutNum = new MutableDouble(1.7);
         
         assertEquals( 1.7F, mutNum.floatValue(), 0 );
+        assertEquals( 1.7, mutNum.doubleValue(), 0 );
+        assertEquals( (byte) 1, mutNum.byteValue() );
+        assertEquals( (short) 1, mutNum.shortValue() );
         assertEquals( 1, mutNum.intValue() );
         assertEquals( 1L, mutNum.longValue() );
     }
