@@ -22,6 +22,17 @@ public class Interpolation {
     private static final String SYMBOLIC_VALUE_MARKER_END = "}";
 
     /**
+     * <p><code>Interpolation</code> instances should NOT be constructed in
+     * standard programming. 
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
+     */
+    public Interpolation() {
+        // no init.
+    }
+
+    /**
      * <p>Interpolates a String to replace variables of the form <code>${...}</code>.</p>
      * 
      * <p>This method is useful for enabling simple strings to be modified based
