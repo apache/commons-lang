@@ -69,24 +69,23 @@ import java.util.TreeMap;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.11 2003/07/26 00:32:19 ggregory Exp $
+ * @version $Id: Entities.java,v 1.12 2003/07/26 15:34:19 scolebourne Exp $
  */
 class Entities {
 
-    static private String[][] basic = {
+    private static final String[][] BASIC_ARRAY = {
         {"quot", "34"}, // " - double-quote
         {"amp", "38"}, // & - ampersand
         {"lt", "60"}, // < - less-than
         {"gt", "62"}, // > - greater-than
     };
 
-    static String[][] apos = {
+    private static final String[][] APOS_ARRAY = {
         {"apos", "39"}, // XML apostrophe
     };
 
-    //todo: load these from a DTD file
-
-    static String[][] iso8859_1 = {
+    // package scoped for testing
+    static final String[][] ISO8859_1_ARRAY = {
         {"nbsp", "160"}, // non-breaking space
         {"iexcl", "161"}, //inverted exclamation mark
         {"cent", "162"}, //cent sign
@@ -186,7 +185,8 @@ class Entities {
     };
 
     // http://www.w3.org/TR/REC-html40/sgml/entities.html
-    static String[][] html40 = {
+    // package scoped for testing
+    static final String[][] HTML40_ARRAY = {
 // <!-- Latin Extended-B -->
         {"fnof", "402"}, //latin small f with hook = function= florin, U+0192 ISOtech -->
 // <!-- Greek -->
@@ -387,14 +387,14 @@ class Entities {
 
     static {
         XML = new Entities();
-        XML.addEntities(basic);
-        XML.addEntities(apos);
+        XML.addEntities(BASIC_ARRAY);
+        XML.addEntities(APOS_ARRAY);
     }
 
     static {
         HTML32 = new Entities();
-        HTML32.addEntities(basic);
-        HTML32.addEntities(iso8859_1);
+        HTML32.addEntities(BASIC_ARRAY);
+        HTML32.addEntities(ISO8859_1_ARRAY);
     }
 
     static {
@@ -403,9 +403,9 @@ class Entities {
     }
 
     static void fillWithHtml40Entities(Entities entities) {
-        entities.addEntities(basic);
-        entities.addEntities(iso8859_1);
-        entities.addEntities(html40);
+        entities.addEntities(BASIC_ARRAY);
+        entities.addEntities(ISO8859_1_ARRAY);
+        entities.addEntities(HTML40_ARRAY);
     }
 
     static interface EntityMap {
@@ -601,6 +601,7 @@ class Entities {
         }
     }
 
+    // package scoped for testing
     EntityMap map = new Entities.LookupEntityMap();
 
     public void addEntities(String[][] entityArray) {
