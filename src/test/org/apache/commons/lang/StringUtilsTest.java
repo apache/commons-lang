@@ -54,6 +54,7 @@
 package org.apache.commons.lang;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -69,7 +70,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.23 2003/07/16 21:23:50 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.24 2003/07/16 23:45:39 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -153,6 +154,12 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testJoin() {
+        assertEquals(null, StringUtils.concatenate(null));
+        assertEquals(null, StringUtils.join((Object[]) null, null));
+        assertEquals(null, StringUtils.join((Object[]) null, ','));
+        assertEquals(null, StringUtils.join((Iterator) null, null));
+        assertEquals(null, StringUtils.join((Iterator) null, ','));
+        
         assertEquals("concatenate(Object[]) failed",
                      TEXT_LIST_NOSEP, StringUtils.concatenate(ARRAY_LIST));
         assertEquals("join(Object[], String) failed", TEXT_LIST,
@@ -256,6 +263,19 @@ public class StringUtilsTest extends TestCase {
     public void testOverlayString() {
         assertEquals("overlayString(String, String, int, int) failed",
                      "foo foor baz", StringUtils.overlayString(SENTENCE, FOO, 4, 6) );
+        assertEquals(null, StringUtils.overlayString(null, null, 2, 4));
+        assertEquals("abef", StringUtils.overlayString("abcdef", null, 2, 4));
+        assertEquals("abef", StringUtils.overlayString("abcdef", "", 2, 4));
+        assertEquals("abzzzzef", StringUtils.overlayString("abcdef", "zzzz", 2, 4));
+        assertEquals("abcdzzzzcdef", StringUtils.overlayString("abcdef", "zzzz", 4, 2));
+        try {
+            StringUtils.overlayString("abcdef", "zzzz", -1, 4);
+            fail();
+        } catch (IndexOutOfBoundsException ex) {}
+        try {
+            StringUtils.overlayString("abcdef", "zzzz", 2, 8);
+            fail();
+        } catch (IndexOutOfBoundsException ex) {}
     }
 
     public void testRepeat() {
@@ -272,8 +292,30 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testCenter() {
-        assertEquals("center(String, int) failed",
-                     "   "+FOO+"   ", StringUtils.center(FOO, 9) );
+        assertEquals(null, StringUtils.center(null, -1));
+        assertEquals(null, StringUtils.center(null, 4));
+        assertEquals("    ", StringUtils.center("", 4));
+        assertEquals(" ab ", StringUtils.center("ab", 4));
+        assertEquals("abcd", StringUtils.center("abcd", 2));
+        assertEquals(" a  ", StringUtils.center("a", 4));
+
+        assertEquals(null, StringUtils.center(null, -1, " "));
+        assertEquals(null, StringUtils.center(null, 4, " "));
+        assertEquals("    ", StringUtils.center("", 4, " "));
+        assertEquals(" ab ", StringUtils.center("ab", 4, " "));
+        assertEquals("abcd", StringUtils.center("abcd", 2, " "));
+        assertEquals(" a  ", StringUtils.center("a", 4, " "));
+        assertEquals("yayz", StringUtils.center("a", 4, "yz"));
+        try {
+            StringUtils.center("abc", 4, null);
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
+        try {
+            StringUtils.center("abc", 4, "");
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
     }
 
     public void testDeprecatedChompFunctions() {
@@ -304,6 +346,9 @@ public class StringUtilsTest extends TestCase {
             { "\n", "" },
             { "\r", "" },
             { "\r\n", "" },
+            { null, null },
+            { "", "" },
+            { "a", "" },
         };
         for (int i = 0; i < chopCases.length; i++) {
             String original = chopCases[i][0];
@@ -370,6 +415,9 @@ public class StringUtilsTest extends TestCase {
             {"foo\nbar", "foo"},
             {"foo\nbar\n", "foo\nbar"},
             {"foo\nbar\nbaz", "foo\nbar"},
+            {null, null},
+            {"", ""},
+            {"foo", "foo"},
         };
         for (int i = 0; i < sliceCases.length; i++) {
             String original = sliceCases[i][0];
@@ -381,47 +429,66 @@ public class StringUtilsTest extends TestCase {
         String original = "fooXXbarXXbaz";
         String sep = "XX";
 
-        assertEquals("slice(String,String) failed",
-                     "fooXXbar", StringUtils.slice(original, sep) );
+        assertEquals("fooXXbar", StringUtils.slice(original, sep) );
+        assertEquals(null, StringUtils.slice(null, sep) );
+        assertEquals(null, StringUtils.slice(null, null) );
+        assertEquals("foo", StringUtils.slice("foo", null) );
+        assertEquals("foo", StringUtils.slice("foo", "b") );
+        assertEquals("fo", StringUtils.slice("foo", "o") );
 
-        assertEquals("sliceRemainder(String, String) failed",
-                     "baz", StringUtils.sliceRemainder(original, sep) );
+        assertEquals("baz", StringUtils.sliceRemainder(original, sep) );
+        assertEquals(null, StringUtils.sliceRemainder(null, sep) );
+        assertEquals(null, StringUtils.sliceRemainder(null, null) );
+        assertEquals("", StringUtils.sliceRemainder("foo", null) );
+        assertEquals("", StringUtils.sliceRemainder("foo", "b") );
+        assertEquals("t", StringUtils.sliceRemainder("foot", "o") );
 
-        assertEquals("sliceFirst(String, String) failed",
-                     "foo", StringUtils.sliceFirst(original, sep) );
+        assertEquals("foo", StringUtils.sliceFirst(original, sep) );
 
-        assertEquals("sliceFirstRemainder(String, String) failed",
-                     "barXXbaz", StringUtils.sliceFirstRemainder(original, sep) );
+        assertEquals("barXXbaz", StringUtils.sliceFirstRemainder(original, sep) );
 
     }
 
     public void testPadFunctions() {
-        assertEquals("rightPad(String, int) failed",
-                     "1234    ", StringUtils.rightPad ("1234", 8) );
-
-        assertEquals("rightPad(String, int, String) failed",
-                     "1234-+-+", StringUtils.rightPad ("1234", 8, "-+") );
-
-        assertEquals("rightPad(String, int, String) failed",
-                     "123456-+~", StringUtils.rightPad ("123456", 9, "-+~") );
-
-        assertEquals("leftPad(String, int) failed",
-                     "    1234", StringUtils.leftPad("1234", 8) );
-
-        assertEquals("leftPad(String, int, String) failed",
-                     "-+-+1234", StringUtils.leftPad("1234", 8, "-+") );
-
-        assertEquals("leftPad(String, int, String) failed",
-                     "-+~123456", StringUtils.leftPad("123456", 9, "-+~") );
+        assertEquals(null, StringUtils.rightPad (null, 8) );
+        assertEquals("1234    ", StringUtils.rightPad ("1234", 8) );
+        
+        assertEquals(null, StringUtils.rightPad (null, 8, "-+") );
+        assertEquals("1234-+-+", StringUtils.rightPad ("1234", 8, "-+") );
+        assertEquals("123456-+~", StringUtils.rightPad ("123456", 9, "-+~") );
+        assertEquals("123456-+", StringUtils.rightPad ("123456", 8, "-+~") );
+        try {
+            StringUtils.rightPad("123456", 6, null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            StringUtils.rightPad("123456", 6, "");
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        
+        assertEquals(null, StringUtils.leftPad (null, 8) );
+        assertEquals("    1234", StringUtils.leftPad("1234", 8) );
+        
+        assertEquals(null, StringUtils.leftPad (null, 8, "-+") );
+        assertEquals("-+-+1234", StringUtils.leftPad("1234", 8, "-+") );
+        assertEquals("-+~123456", StringUtils.leftPad("123456", 9, "-+~") );
+        assertEquals("-+123456", StringUtils.leftPad("123456", 8, "-+~") );
+        try {
+            StringUtils.leftPad("123456", 6, null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            StringUtils.leftPad("123456", 6, "");
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
 
     public void testReverseFunctions() {
-        assertEquals("reverse(String) failed",
-                     "sdrawkcab", StringUtils.reverse("backwards") );
-        assertEquals("reverse(empty-string) failed",
-                     "", StringUtils.reverse("") );
-        assertEquals("reverseDelimitedString(String,'.') failed",
-                     "org.apache.test",
+        assertEquals("sdrawkcab", StringUtils.reverse("backwards") );
+        assertEquals("", StringUtils.reverse("") );
+        assertEquals(null, StringUtils.reverse(null) );
+        
+        assertEquals("org.apache.test",
                        StringUtils.reverseDelimitedString("test.apache.org", ".") );
         assertEquals("reverseDelimitedString(empty-string,'.') failed",
                      "",
@@ -624,8 +691,8 @@ public class StringUtilsTest extends TestCase {
         assertEquals("indexOfAnyBut(String3, chars3)", -1, StringUtils.indexOfAnyBut(str3, chars3));
     }
 
-    public void testAbbreviate()
-    {
+    public void testAbbreviate() {
+        assertEquals(null, StringUtils.abbreviate(null, 10));
         assertEquals("abbreviate(String,int) failed",
 		     "short", StringUtils.abbreviate("short", 10));
         assertEquals("abbreviate(String,int) failed",
@@ -642,6 +709,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals("abbreviate(String,int,int) failed",
                 "raspberry peach", StringUtils.abbreviate(raspberry, 11, 15));
 
+        assertEquals(null, StringUtils.abbreviate(null, 7, 14));
         assertAbbreviateWithOffset("abcdefg...", -1, 10);
         assertAbbreviateWithOffset("abcdefg...", 0, 10);
         assertAbbreviateWithOffset("abcdefg...", 1, 10);
@@ -679,15 +747,19 @@ public class StringUtilsTest extends TestCase {
         assertEquals(message, expected, actual);
     }
 
-    public void testDifference()
-    {
+    public void testDifference() {
+        assertEquals(null, StringUtils.difference(null, null));
+        assertEquals("i am a robot", StringUtils.difference(null, "i am a robot"));
+        assertEquals("i am a machine", StringUtils.difference("i am a machine", null));
         assertEquals("robot", StringUtils.difference("i am a machine", "i am a robot"));
         assertEquals("", StringUtils.difference("foo", "foo"));
         assertEquals("you are a robot", StringUtils.difference("i am a robot", "you are a robot"));
     }
 
-    public void testDifferenceAt()
-    {
+    public void testDifferenceAt() {
+        assertEquals(-1, StringUtils.differenceAt(null, null));
+        assertEquals(0, StringUtils.differenceAt(null, "i am a robot"));
+        assertEquals(0, StringUtils.differenceAt("i am a machine", null));
         assertEquals(7, StringUtils.differenceAt("i am a machine", "i am a robot"));
         assertEquals(-1, StringUtils.differenceAt("foo", "foo"));
         assertEquals(0, StringUtils.differenceAt("i am a robot", "you are a robot"));

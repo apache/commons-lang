@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsSubstringTest.java,v 1.3 2003/03/23 21:51:19 scolebourne Exp $
+ * @version $Id: StringUtilsSubstringTest.java,v 1.4 2003/07/16 23:45:39 scolebourne Exp $
  */
 public class StringUtilsSubstringTest extends TestCase {
     private static final String FOO = "foo";
@@ -192,17 +192,12 @@ public class StringUtilsSubstringTest extends TestCase {
     }
 
     public void testCountMatches() {
-        try {
-            assertEquals(-1, 
-                StringUtils.countMatches(null, null));
-            throw new RuntimeException("Should have thrown a NullPointerException. ");
-        } catch(NullPointerException npe) {
-        }
+        assertEquals(0, StringUtils.countMatches(null, null));
+        assertEquals(0, StringUtils.countMatches("blah", null));
+        assertEquals(0, StringUtils.countMatches(null, "DD"));
 
-        assertEquals(0, 
-             StringUtils.countMatches("x", "") );
-        assertEquals(0, 
-             StringUtils.countMatches("", "") );
+        assertEquals(0, StringUtils.countMatches("x", ""));
+        assertEquals(0, StringUtils.countMatches("", ""));
 
         assertEquals(3, 
              StringUtils.countMatches("one long someone sentence of one", "one"));
