@@ -4,8 +4,17 @@
   <id>commons-lang</id>
   <name>Lang</name>
   <currentVersion>2.0</currentVersion>
+
+  <organization>
+    <name>Apache Software Foundation</name>
+    <url>http://www.apache.org</url>
+    <logo>http://jakarta.apache.org/images/jakarta-logo.gif</logo>
+  </organization>
+
   <inceptionYear>2001</inceptionYear>
-  <logo/>
+
+  <logo>/images/logo.png</logo>
+
   <description>
     Commons.Lang, a package of Java utility classes for the
     classes that are in java.lang's hierarchy, or are considered to be so
