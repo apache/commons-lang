@@ -23,7 +23,7 @@ import junit.textui.TestRunner;
 /**
  * JUnit tests.
  * 
- * @version $Id: MutableIntTest.java,v 1.1 2004/07/07 23:50:28 scolebourne Exp $
+ * @version $Id: MutableIntTest.java,v 1.2 2004/12/26 02:35:47 bayard Exp $
  * @see MutableInt
  */
 public class MutableIntTest extends TestCase {
@@ -126,6 +126,14 @@ public class MutableIntTest extends TestCase {
             mutNum.compareTo("0");
             fail();
         } catch (ClassCastException ex) {}
+    }
+
+    public void testPrimitiveValues() {
+        MutableInt mutNum = new MutableInt(1);
+        
+        assertEquals( 1.0F, mutNum.floatValue(), 0 );
+        assertEquals( 1.0, mutNum.doubleValue(), 0 );
+        assertEquals( 1L, mutNum.longValue() );
     }
 
     public void testToString() {
