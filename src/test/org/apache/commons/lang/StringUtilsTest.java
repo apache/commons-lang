@@ -71,7 +71,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.27 2003/07/18 23:57:43 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.28 2003/07/19 00:22:50 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -311,6 +311,9 @@ public class StringUtilsTest extends TestCase {
     public void testCenter() {
         assertEquals(null, StringUtils.center(null, -1));
         assertEquals(null, StringUtils.center(null, 4));
+        assertEquals("ab", StringUtils.center("ab", 0));
+        assertEquals("ab", StringUtils.center("ab", -1));
+        assertEquals("ab", StringUtils.center("ab", 1));
         assertEquals("    ", StringUtils.center("", 4));
         assertEquals(" ab ", StringUtils.center("ab", 4));
         assertEquals("abcd", StringUtils.center("abcd", 2));
@@ -319,12 +322,20 @@ public class StringUtilsTest extends TestCase {
 
         assertEquals(null, StringUtils.center(null, -1, " "));
         assertEquals(null, StringUtils.center(null, 4, " "));
+        assertEquals("ab", StringUtils.center("ab", 0, " "));
+        assertEquals("ab", StringUtils.center("ab", -1, " "));
+        assertEquals("ab", StringUtils.center("ab", 1, " "));
         assertEquals("    ", StringUtils.center("", 4, " "));
         assertEquals(" ab ", StringUtils.center("ab", 4, " "));
         assertEquals("abcd", StringUtils.center("abcd", 2, " "));
         assertEquals(" a  ", StringUtils.center("a", 4, " "));
         assertEquals("yayz", StringUtils.center("a", 4, "yz"));
         assertEquals("yzyayzy", StringUtils.center("a", 7, "yz"));
+        try {
+            StringUtils.center(null, 4, null);
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
         try {
             StringUtils.center("abc", 4, null);
             fail();
@@ -477,6 +488,10 @@ public class StringUtilsTest extends TestCase {
         assertEquals("123456-+~", StringUtils.rightPad ("123456", 9, "-+~") );
         assertEquals("123456-+", StringUtils.rightPad ("123456", 8, "-+~") );
         try {
+            StringUtils.rightPad(null, 6, null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
             StringUtils.rightPad("123456", 6, null);
             fail();
         } catch (IllegalArgumentException ex) {}
@@ -492,6 +507,10 @@ public class StringUtilsTest extends TestCase {
         assertEquals("-+-+1234", StringUtils.leftPad("1234", 8, "-+") );
         assertEquals("-+~123456", StringUtils.leftPad("123456", 9, "-+~") );
         assertEquals("-+123456", StringUtils.leftPad("123456", 8, "-+~") );
+        try {
+            StringUtils.leftPad(null, 6, null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
         try {
             StringUtils.leftPad("123456", 6, null);
             fail();
