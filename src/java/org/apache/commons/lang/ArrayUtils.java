@@ -70,7 +70,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.15 2003/06/25 23:33:47 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.16 2003/06/28 18:01:18 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -906,7 +906,10 @@ public class ArrayUtils {
         return (indexOf(array, objectToFind) != -1);
     }
 
-    // Primitive/Object converters
+    // Primitive/Object array converters
+    // ----------------------------------------------------------------------
+    
+    // Boolean array converters
     // ----------------------------------------------------------------------
     /**
      * <p>Converts an array of object Booleans to primitives.</p>
@@ -970,6 +973,414 @@ public class ArrayUtils {
         final Boolean[] result = new Boolean[array.length];
         for (int i = 0; i < array.length; i++) {
             result[i] = (array[i] ? Boolean.TRUE : Boolean.FALSE);
+        }
+        return result;
+    }
+
+    // Byte array converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Bytes to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Byte</code> array, may be <code>null</code>
+     * @return a <code>byte</code> array
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static byte[] toPrimitive(final Byte[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BYTE_ARRAY;
+        }
+        final byte[] result = new byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].byteValue();
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of object Bytes to primitives handling null.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Byte</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return a <code>byte</code> array
+     */
+    public static byte[] toPrimitive(final Byte[] array, final byte valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BYTE_ARRAY;
+        }
+        final byte[] result = new byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Byte b = array[i];
+            result[i] = (b == null ? valueForNull : b.byteValue());
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of primitive bytes to objects.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>byte</code> array
+     * @return a <code>Byte</code> array
+     */
+    public static Byte[] toObject(final byte[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BYTE_OBJECT_ARRAY;
+        }
+        final Byte[] result = new Byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = new Byte(array[i]);
+        }
+        return result;
+    }  
+    
+    // Short array converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Shorts to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Short</code> array, may be <code>null</code>
+     * @return a <code>byte</code> array
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static short[] toPrimitive(final Short[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_SHORT_ARRAY;
+        }
+        final short[] result = new short[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].shortValue();
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of object Short to primitives handling null.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Short</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return a <code>byte</code> array
+     */
+    public static short[] toPrimitive(final Short[] array, final short valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_SHORT_ARRAY;
+        }
+        final short[] result = new short[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Short b = array[i];
+            result[i] = (b == null ? valueForNull : b.shortValue());
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of primitive shorts to objects.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>short</code> array
+     * @return a <code>Short</code> array
+     */
+    public static Short[] toObject(final short[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_SHORT_OBJECT_ARRAY;
+        }
+        final Short[] result = new Short[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = new Short(array[i]);
+        }
+        return result;
+    }    
+
+    // Int array converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Integers to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Integer</code> array, may be <code>null</code>
+     * @return an <code>int</code> array
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static int[] toPrimitive(final Integer[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_INT_ARRAY;
+        }
+        final int[] result = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].intValue();
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of object Integer to primitives handling null.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Integer</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return an <code>int</code> array
+     */
+    public static int[] toPrimitive(final Integer[] array, final int valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_INT_ARRAY;
+        }
+        final int[] result = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Integer b = array[i];
+            result[i] = (b == null ? valueForNull : b.intValue());
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of primitive ints to objects.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  an <code>int</code> array
+     * @return an <code>Integer</code> array
+     */
+    public static Integer[] toObject(final int[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_INTEGER_OBJECT_ARRAY;
+        }
+        final Integer[] result = new Integer[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = new Integer(array[i]);
+        }
+        return result;
+    }
+    
+    // Long array converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Longs to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Long</code> array, may be <code>null</code>
+     * @return a <code>long</code> array
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static long[] toPrimitive(final Long[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_LONG_ARRAY;
+        }
+        final long[] result = new long[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].longValue();
+        }
+        return result;
+    }
+    
+    /**
+     * <p>Converts an array of object Long to primitives handling null.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Long</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return a <code>long</code> array
+     */
+    public static long[] toPrimitive(final Long[] array, final long valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_LONG_ARRAY;
+        }
+        final long[] result = new long[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Long b = array[i];
+            result[i] = (b == null ? valueForNull : b.longValue());
+        }
+        return result;
+    }
+    
+    /**
+     * <p>Converts an array of primitive longs to objects.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array a <code>long</code> array
+     * @return a <code>Long</code> array
+     */
+    public static Long[] toObject(final long[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_LONG_OBJECT_ARRAY;
+        }
+        final Long[] result = new Long[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = new Long(array[i]);
+        }
+        return result;
+    }
+
+    //   Float array converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Floats to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Float</code> array, may be <code>null</code>
+     * @return a <code>float</code> array
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static float[] toPrimitive(final Float[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_FLOAT_ARRAY;
+        }
+        final float[] result = new float[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].floatValue();
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of object Floats to primitives handling null.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Float</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return a <code>float</code> array
+     */
+    public static float[] toPrimitive(final Float[] array, final float valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_FLOAT_ARRAY;
+        }
+        final float[] result = new float[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Float b = array[i];
+            result[i] = (b == null ? valueForNull : b.floatValue());
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of primitive floats to objects.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array a <code>float</code> array
+     * @return a <code>Float</code> array
+     */
+    public static Float[] toObject(final float[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_FLOAT_OBJECT_ARRAY;
+        }
+        final Float[] result = new Float[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = new Float(array[i]);
+        }
+        return result;
+    }
+
+    // Double array converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Doubles to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Double</code> array, may be <code>null</code>
+     * @return a <code>double</code> array
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static double[] toPrimitive(final Double[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_DOUBLE_ARRAY;
+        }
+        final double[] result = new double[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].doubleValue();
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of object Doubles to primitives handling null.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array  a <code>Double</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return a <code>double</code> array
+     */
+    public static double[] toPrimitive(final Double[] array, final double valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_DOUBLE_ARRAY;
+        }
+        final double[] result = new double[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Double b = array[i];
+            result[i] = (b == null ? valueForNull : b.doubleValue());
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of primitive doubles to objects.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
+     * @param array a <code>double</code> array
+     * @return a <code>Double</code> array
+     */
+    public static Double[] toObject(final double[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_DOUBLE_OBJECT_ARRAY;
+        }
+        final Double[] result = new Double[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = new Double(array[i]);
         }
         return result;
     }

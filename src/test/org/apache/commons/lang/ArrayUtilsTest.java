@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author Moritz Petersen
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
- * @version $Id: ArrayUtilsTest.java,v 1.7 2003/06/25 23:33:47 scolebourne Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.8 2003/06/28 18:01:19 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -142,10 +142,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals("bar", map.get("foo"));
         assertEquals("world", map.get("hello"));
         
-        try {
-            ArrayUtils.toMap(null);
-            fail("exception expected");
-        } catch (IllegalArgumentException ex) {}
+        assertEquals(null, ArrayUtils.toMap(null));
         try {
             ArrayUtils.toMap(new String[][] {{"foo", "bar"}, {"short"}});
             fail("exception expected");
@@ -711,7 +708,8 @@ public class ArrayUtilsTest extends TestCase {
     // testToPrimitive/Object for boolean
     //  -----------------------------------------------------------------------
     public void testToPrimitive_boolean() {
-        assertEquals(null, ArrayUtils.toPrimitive(null));
+        final Boolean[] b = null;
+        assertEquals(null, ArrayUtils.toPrimitive(b));
         assertSame(ArrayUtils.EMPTY_BOOLEAN_ARRAY, ArrayUtils.toPrimitive(new Boolean[0]));
         assertTrue(Arrays.equals(
             new boolean[] {true, false, true},
@@ -742,12 +740,350 @@ public class ArrayUtilsTest extends TestCase {
     }
 
     public void testToObject_boolean() {
-        assertEquals(null, ArrayUtils.toObject(null));
+        final boolean[] b = null;
+        assertEquals(null, ArrayUtils.toObject(b));
         assertSame(ArrayUtils.EMPTY_BOOLEAN_OBJECT_ARRAY, ArrayUtils.toObject(new boolean[0]));
         assertTrue(Arrays.equals(
             new Boolean[] {Boolean.TRUE, Boolean.FALSE, Boolean.TRUE},
             ArrayUtils.toObject(new boolean[] {true, false, true}))
         );
+    }
+
+    // testToPrimitive/Object for byte
+    //  -----------------------------------------------------------------------
+    public void testToPrimitive_byte() {
+        final Byte[] b = null;
+        assertEquals(null, ArrayUtils.toPrimitive(b));
+        
+        assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, ArrayUtils.toPrimitive(new Byte[0]));
+        
+        assertTrue(Arrays.equals(
+            new byte[] {Byte.MIN_VALUE, Byte.MAX_VALUE, (byte)9999999},
+            ArrayUtils.toPrimitive(new Byte[] {new Byte(Byte.MIN_VALUE), 
+                new Byte(Byte.MAX_VALUE), new Byte((byte)9999999)}))
+        );
+
+        try {
+            ArrayUtils.toPrimitive(new Byte[] {new Byte(Byte.MIN_VALUE), null});
+            fail();
+        } catch (NullPointerException ex) {}
+    }
+
+    public void testToPrimitive_byte_byte() {
+        final Byte[] b = null;
+        assertEquals(null, ArrayUtils.toPrimitive(b, Byte.MIN_VALUE));
+        
+        assertSame(ArrayUtils.EMPTY_BYTE_ARRAY, 
+            ArrayUtils.toPrimitive(new Byte[0], (byte)1));
+        
+        assertTrue(Arrays.equals(
+            new byte[] {Byte.MIN_VALUE, Byte.MAX_VALUE, (byte)9999999},
+            ArrayUtils.toPrimitive(new Byte[] {new Byte(Byte.MIN_VALUE), 
+                new Byte(Byte.MAX_VALUE), new Byte((byte)9999999)}, 
+                Byte.MIN_VALUE))
+        );
+        
+        assertTrue(Arrays.equals(
+            new byte[] {Byte.MIN_VALUE, Byte.MAX_VALUE, (byte)9999999},
+            ArrayUtils.toPrimitive(new Byte[] {new Byte(Byte.MIN_VALUE), null, 
+                new Byte((byte)9999999)}, Byte.MAX_VALUE))
+        );
+    }
+
+    public void testToObject_byte() {
+        final byte[] b = null;
+        assertEquals(null, ArrayUtils.toObject(b));
+        
+        assertSame(ArrayUtils.EMPTY_BYTE_OBJECT_ARRAY, 
+            ArrayUtils.toObject(new byte[0]));
+        
+        assertTrue(Arrays.equals(
+            new Byte[] {new Byte(Byte.MIN_VALUE), 
+                new Byte(Byte.MAX_VALUE), new Byte((byte)9999999)},
+                ArrayUtils.toObject(new byte[] {Byte.MIN_VALUE, Byte.MAX_VALUE, 
+                (byte)9999999}))
+        );
+    }
+
+    // testToPrimitive/Object for short
+    //  -----------------------------------------------------------------------
+    public void testToPrimitive_short() {
+        final Short[] b = null;
+        assertEquals(null, ArrayUtils.toPrimitive(b));
+        
+        assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.toPrimitive(new Short[0]));
+        
+        assertTrue(Arrays.equals(
+            new short[] {Short.MIN_VALUE, Short.MAX_VALUE, (short)9999999},
+            ArrayUtils.toPrimitive(new Short[] {new Short(Short.MIN_VALUE), 
+                new Short(Short.MAX_VALUE), new Short((short)9999999)}))
+        );
+
+        try {
+            ArrayUtils.toPrimitive(new Short[] {new Short(Short.MIN_VALUE), null});
+            fail();
+        } catch (NullPointerException ex) {}
+    }
+
+    public void testToPrimitive_short_short() {
+        final Short[] s = null;
+        assertEquals(null, ArrayUtils.toPrimitive(s, Short.MIN_VALUE));
+        
+        assertSame(ArrayUtils.EMPTY_SHORT_ARRAY, ArrayUtils.toPrimitive(new Short[0], 
+        Short.MIN_VALUE));
+        
+        assertTrue(Arrays.equals(
+            new short[] {Short.MIN_VALUE, Short.MAX_VALUE, (short)9999999},
+            ArrayUtils.toPrimitive(new Short[] {new Short(Short.MIN_VALUE), 
+                new Short(Short.MAX_VALUE), new Short((short)9999999)}, Short.MIN_VALUE))
+        );
+        
+        assertTrue(Arrays.equals(
+            new short[] {Short.MIN_VALUE, Short.MAX_VALUE, (short)9999999},
+            ArrayUtils.toPrimitive(new Short[] {new Short(Short.MIN_VALUE), null, 
+                new Short((short)9999999)}, Short.MAX_VALUE))
+        );
+    }
+
+    public void testToObject_short() {
+        final short[] b = null;
+        assertEquals(null, ArrayUtils.toObject(b));
+        
+        assertSame(ArrayUtils.EMPTY_SHORT_OBJECT_ARRAY, 
+        ArrayUtils.toObject(new short[0]));
+        
+        assertTrue(Arrays.equals(
+            new Short[] {new Short(Short.MIN_VALUE), new Short(Short.MAX_VALUE), 
+                new Short((short)9999999)},
+            ArrayUtils.toObject(new short[] {Short.MIN_VALUE, Short.MAX_VALUE, 
+                (short)9999999}))
+        );
+    }
+
+    //  testToPrimitive/Object for int
+    //  -----------------------------------------------------------------------
+     public void testToPrimitive_int() {
+         final Integer[] b = null;
+         assertEquals(null, ArrayUtils.toPrimitive(b));
+         assertSame(ArrayUtils.EMPTY_INT_ARRAY, ArrayUtils.toPrimitive(new Integer[0]));
+         assertTrue(Arrays.equals(
+             new int[] {Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Integer[] {new Integer(Integer.MIN_VALUE), 
+                 new Integer(Integer.MAX_VALUE), new Integer(9999999)}))
+         );
+
+         try {
+             ArrayUtils.toPrimitive(new Integer[] {new Integer(Integer.MIN_VALUE), null});
+             fail();
+         } catch (NullPointerException ex) {}
+     }
+
+     public void testToPrimitive_int_int() {
+         final Long[] l = null;
+         assertEquals(null, ArrayUtils.toPrimitive(l, Integer.MIN_VALUE));
+         assertSame(ArrayUtils.EMPTY_INT_ARRAY, 
+         ArrayUtils.toPrimitive(new Integer[0], 1));
+         assertTrue(Arrays.equals(
+             new int[] {Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Integer[] {new Integer(Integer.MIN_VALUE), 
+                 new Integer(Integer.MAX_VALUE), new Integer(9999999)},1)));
+         assertTrue(Arrays.equals(
+             new int[] {Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Integer[] {new Integer(Integer.MIN_VALUE), 
+                 null, new Integer(9999999)}, Integer.MAX_VALUE))
+         );
+     }
+     
+    public void testToObject_int() {
+        final int[] b = null;
+        assertEquals(null, ArrayUtils.toObject(b));
+    
+        assertSame(
+            ArrayUtils.EMPTY_INTEGER_OBJECT_ARRAY,
+            ArrayUtils.toObject(new int[0]));
+    
+        assertTrue(
+            Arrays.equals(
+                new Integer[] {
+                    new Integer(Integer.MIN_VALUE),
+                    new Integer(Integer.MAX_VALUE),
+                    new Integer(9999999)},
+            ArrayUtils.toObject(
+                new int[] { Integer.MIN_VALUE, Integer.MAX_VALUE, 9999999 })));
+    }
+
+    //  testToPrimitive/Object for long
+    //  -----------------------------------------------------------------------
+     public void testToPrimitive_long() {
+         final Long[] b = null;
+         assertEquals(null, ArrayUtils.toPrimitive(b));
+         
+         assertSame(ArrayUtils.EMPTY_LONG_ARRAY, 
+            ArrayUtils.toPrimitive(new Long[0]));
+         
+         assertTrue(Arrays.equals(
+             new long[] {Long.MIN_VALUE, Long.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Long[] {new Long(Long.MIN_VALUE), 
+                 new Long(Long.MAX_VALUE), new Long(9999999)}))
+         );
+
+         try {
+             ArrayUtils.toPrimitive(new Long[] {new Long(Long.MIN_VALUE), null});
+             fail();
+         } catch (NullPointerException ex) {}
+     }
+
+     public void testToPrimitive_long_long() {
+         final Long[] l = null;
+         assertEquals(null, ArrayUtils.toPrimitive(l, Long.MIN_VALUE));
+         
+         assertSame(ArrayUtils.EMPTY_LONG_ARRAY, 
+         ArrayUtils.toPrimitive(new Long[0], 1));
+         
+         assertTrue(Arrays.equals(
+             new long[] {Long.MIN_VALUE, Long.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Long[] {new Long(Long.MIN_VALUE), 
+                 new Long(Long.MAX_VALUE), new Long(9999999)},1)));
+         
+         assertTrue(Arrays.equals(
+             new long[] {Long.MIN_VALUE, Long.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Long[] {new Long(Long.MIN_VALUE), 
+                 null, new Long(9999999)}, Long.MAX_VALUE))
+         );
+     }
+     
+    public void testToObject_long() {
+        final long[] b = null;
+        assertEquals(null, ArrayUtils.toObject(b));
+    
+        assertSame(
+            ArrayUtils.EMPTY_LONG_OBJECT_ARRAY,
+            ArrayUtils.toObject(new long[0]));
+    
+        assertTrue(
+            Arrays.equals(
+                new Long[] {
+                    new Long(Long.MIN_VALUE),
+                    new Long(Long.MAX_VALUE),
+                    new Long(9999999)},
+            ArrayUtils.toObject(
+                new long[] { Long.MIN_VALUE, Long.MAX_VALUE, 9999999 })));
+    }
+
+    //  testToPrimitive/Object for float
+    //  -----------------------------------------------------------------------
+     public void testToPrimitive_float() {
+         final Float[] b = null;
+         assertEquals(null, ArrayUtils.toPrimitive(b));
+         
+         assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY, 
+            ArrayUtils.toPrimitive(new Float[0]));
+         
+         assertTrue(Arrays.equals(
+             new float[] {Float.MIN_VALUE, Float.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Float[] {new Float(Float.MIN_VALUE), 
+                 new Float(Float.MAX_VALUE), new Float(9999999)}))
+         );
+
+         try {
+             ArrayUtils.toPrimitive(new Float[] {new Float(Float.MIN_VALUE), null});
+             fail();
+         } catch (NullPointerException ex) {}
+     }
+
+     public void testToPrimitive_float_float() {
+         final Float[] l = null;
+         assertEquals(null, ArrayUtils.toPrimitive(l, Float.MIN_VALUE));
+         
+         assertSame(ArrayUtils.EMPTY_FLOAT_ARRAY, 
+         ArrayUtils.toPrimitive(new Float[0], 1));
+         
+         assertTrue(Arrays.equals(
+             new float[] {Float.MIN_VALUE, Float.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Float[] {new Float(Float.MIN_VALUE), 
+                 new Float(Float.MAX_VALUE), new Float(9999999)},1)));
+         
+         assertTrue(Arrays.equals(
+             new float[] {Float.MIN_VALUE, Float.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Float[] {new Float(Float.MIN_VALUE), 
+                 null, new Float(9999999)}, Float.MAX_VALUE))
+         );
+     }
+     
+    public void testToObject_float() {
+        final float[] b = null;
+        assertEquals(null, ArrayUtils.toObject(b));
+    
+        assertSame(
+            ArrayUtils.EMPTY_FLOAT_OBJECT_ARRAY,
+            ArrayUtils.toObject(new float[0]));
+    
+        assertTrue(
+            Arrays.equals(
+                new Float[] {
+                    new Float(Float.MIN_VALUE),
+                    new Float(Float.MAX_VALUE),
+                    new Float(9999999)},
+            ArrayUtils.toObject(
+                new float[] { Float.MIN_VALUE, Float.MAX_VALUE, 9999999 })));
+    }
+
+    //  testToPrimitive/Object for double
+    //  -----------------------------------------------------------------------
+     public void testToPrimitive_double() {
+         final Double[] b = null;
+         assertEquals(null, ArrayUtils.toPrimitive(b));
+         
+         assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY, 
+            ArrayUtils.toPrimitive(new Double[0]));
+         
+         assertTrue(Arrays.equals(
+             new double[] {Double.MIN_VALUE, Double.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Double[] {new Double(Double.MIN_VALUE), 
+                 new Double(Double.MAX_VALUE), new Double(9999999)}))
+         );
+
+         try {
+             ArrayUtils.toPrimitive(new Float[] {new Float(Float.MIN_VALUE), null});
+             fail();
+         } catch (NullPointerException ex) {}
+     }
+
+     public void testToPrimitive_double_double() {
+         final Double[] l = null;
+         assertEquals(null, ArrayUtils.toPrimitive(l, Double.MIN_VALUE));
+         
+         assertSame(ArrayUtils.EMPTY_DOUBLE_ARRAY, 
+         ArrayUtils.toPrimitive(new Double[0], 1));
+         
+         assertTrue(Arrays.equals(
+             new double[] {Double.MIN_VALUE, Double.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Double[] {new Double(Double.MIN_VALUE), 
+                 new Double(Double.MAX_VALUE), new Double(9999999)},1)));
+         
+         assertTrue(Arrays.equals(
+             new double[] {Double.MIN_VALUE, Double.MAX_VALUE, 9999999},
+             ArrayUtils.toPrimitive(new Double[] {new Double(Double.MIN_VALUE), 
+                 null, new Double(9999999)}, Double.MAX_VALUE))
+         );
+     }
+     
+    public void testToObject_double() {
+        final double[] b = null;
+        assertEquals(null, ArrayUtils.toObject(b));
+    
+        assertSame(
+            ArrayUtils.EMPTY_DOUBLE_OBJECT_ARRAY,
+            ArrayUtils.toObject(new double[0]));
+    
+        assertTrue(
+            Arrays.equals(
+                new Double[] {
+                    new Double(Double.MIN_VALUE),
+                    new Double(Double.MAX_VALUE),
+                    new Double(9999999)},
+            ArrayUtils.toObject(
+                new double[] { Double.MIN_VALUE, Double.MAX_VALUE, 9999999 })));
     }
 
 }
