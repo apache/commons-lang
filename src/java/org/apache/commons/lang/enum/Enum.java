@@ -63,6 +63,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -203,12 +204,15 @@ import org.apache.commons.lang.StringUtils;
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.15 2003/07/20 15:49:58 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.16 2003/07/30 23:13:09 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
+
+    /** Serialization id */    
+    static final long serialVersionUID = -487045951170455942L;
+    
     // After discussion, the default size for HashMaps is used, as the
     // sizing algorithm changes across the JDK versions
-    
     /**
      * An empty <code>Map</code>, as JDK1.2 didn't have an empty map.
      */
@@ -221,6 +225,14 @@ public abstract class Enum implements Comparable, Serializable {
      * The string representation of the Enum.
      */
     private final String iName;
+    /**
+     * The hashcode representation of the Enum.
+     */
+    private transient final int iHashCode;
+    /**
+     * The toString representation of the Enum.
+     */
+    protected transient String iToString = null;
 
     /**
      * <p>Enable the iterator to retain the source code order.</p>
@@ -268,6 +280,9 @@ public abstract class Enum implements Comparable, Serializable {
         }
         entry.map.put(name, this);
         entry.list.add(this);
+        
+        iHashCode = 7 + enumClass.hashCode() + 3 * name.hashCode();
+        // cannot create toString here as subclasses may want to include other data
     }
 
     /**
@@ -490,7 +505,7 @@ public abstract class Enum implements Comparable, Serializable {
      * @return a hashcode based on the name
      */
     public final int hashCode() {
-        return 7 + iName.hashCode();
+        return iHashCode;
     }
 
     /**
@@ -507,25 +522,26 @@ public abstract class Enum implements Comparable, Serializable {
      * @throws NullPointerException if other is <code>null</code>
      */
     public int compareTo(Object other) {
+        if (other == this) {
+            return 0;
+        }
         return iName.compareTo(((Enum) other).iName);
     }
 
     /**
      * <p>Human readable description of this Enum item.</p>
-     *
-     * <p>For use when debugging.</p>
      * 
      * @return String in the form <code>type[name]</code>, for example:
      * <code>Color[Red]</code>. Note that the package name is stripped from
      * the type name.
      */
     public String toString() {
-        String shortName = Enum.getEnumClass(getClass()).getName();
-        int pos = shortName.lastIndexOf('.');
-        if (pos != -1) {
-            shortName = shortName.substring(pos + 1);
+        if (iToString == null) {
+            Class cls = Enum.getEnumClass(getClass());
+            String shortName = ClassUtils.getShortClassName(cls);
+            iToString = shortName + "[" + getName() + "]";
         }
-        shortName = shortName.replace('$', '.');
-        return shortName + "[" + getName() + "]";
+        return iToString;
     }
+    
 }

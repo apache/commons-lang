@@ -65,7 +65,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link Enum} class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumUtilsTest.java,v 1.3 2003/05/22 22:00:06 scolebourne Exp $
+ * @version $Id: EnumUtilsTest.java,v 1.4 2003/07/30 23:13:09 scolebourne Exp $
  */
 
 public final class EnumUtilsTest extends TestCase {
@@ -88,15 +88,19 @@ public final class EnumUtilsTest extends TestCase {
         assertSame(ColorEnum.RED, it.next());
         assertSame(ColorEnum.GREEN, it.next());
         assertSame(ColorEnum.BLUE, it.next());
+        it = EnumUtils.iterator(DummyEnum.class);
+        assertEquals(false, it.hasNext());
     }
 
     public void testIteratorEx() {
         try {
             EnumUtils.iterator(null);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            EnumUtils.iterator(Object.class);
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
 
     public void testList() {
@@ -105,15 +109,19 @@ public final class EnumUtilsTest extends TestCase {
         assertSame(ColorEnum.RED, it.next());
         assertSame(ColorEnum.GREEN, it.next());
         assertSame(ColorEnum.BLUE, it.next());
+        list = EnumUtils.getEnumList(DummyEnum.class);
+        assertEquals(0, list.size());
     }
 
     public void testListEx() {
         try {
             EnumUtils.getEnumList(null);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            EnumUtils.getEnumList(Object.class);
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
 
     public void testMap() {
@@ -124,15 +132,19 @@ public final class EnumUtilsTest extends TestCase {
         assertSame(ColorEnum.RED, map.get("Red"));
         assertSame(ColorEnum.GREEN, map.get("Green"));
         assertSame(ColorEnum.BLUE, map.get("Blue"));
+        map = EnumUtils.getEnumMap(DummyEnum.class);
+        assertEquals(0, map.size());
     }
 
     public void testMapEx() {
         try {
             EnumUtils.getEnumMap(null);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            EnumUtils.getEnumMap(Object.class);
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
 
     public void testGet() {
@@ -140,15 +152,18 @@ public final class EnumUtilsTest extends TestCase {
         assertSame(ColorEnum.GREEN, EnumUtils.getEnum(ColorEnum.class, "Green"));
         assertSame(ColorEnum.BLUE, EnumUtils.getEnum(ColorEnum.class, "Blue"));
         assertSame(null, EnumUtils.getEnum(ColorEnum.class, "Pink"));
+        assertSame(null, EnumUtils.getEnum(DummyEnum.class, "Pink"));
     }
 
     public void testGetEx() {
         try {
             EnumUtils.getEnum(null, "");
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            EnumUtils.getEnum(Object.class, "Red");
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
 
     public void testGetValue() {
@@ -156,15 +171,18 @@ public final class EnumUtilsTest extends TestCase {
         assertSame(ValuedColorEnum.GREEN, EnumUtils.getEnum(ValuedColorEnum.class, 2));
         assertSame(ValuedColorEnum.BLUE, EnumUtils.getEnum(ValuedColorEnum.class, 3));
         assertSame(null, EnumUtils.getEnum(ValuedColorEnum.class, 4));
+        assertSame(null, EnumUtils.getEnum(DummyEnum.class, 5));
     }
 
     public void testGetValueEx() {
         try {
             EnumUtils.getEnum(null, 0);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            EnumUtils.getEnum(Object.class, 2);
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
 
 }
