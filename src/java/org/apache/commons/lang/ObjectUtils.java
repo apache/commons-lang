@@ -1,5 +1,3 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,7 +51,9 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
+import java.io.Serializable;
 /**
  * Common <code>Object</code> manipulation routines.
  *
@@ -61,9 +61,23 @@ package org.apache.commons.lang;
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ObjectUtils.java,v 1.2 2002/09/18 19:49:08 scolebourne Exp $
+ * @version $Id: ObjectUtils.java,v 1.3 2002/09/18 20:11:53 scolebourne Exp $
  */
 public class ObjectUtils {
+    
+    /**
+     * Singleton used as a null placeholder where null has another meaning.
+     * <p>
+     * For example, in a <code>HashMap</code> the get(key) method returns null 
+     * if the Map contains null or if there is no matching key. The Null 
+     * placeholder can be used to distinguish between these two cases.
+     * <p>
+     * Another example is <code>HashTable</code>, where <code>null</code> 
+     * cannot be stored.
+     * <p>
+     * This instance is Serializable.
+     */
+    public static final Null NULL = new Null();
     
     /**
      * ObjectUtils instances should NOT be constructed in standard programming.
@@ -121,6 +135,31 @@ public class ObjectUtils {
             .append('@')
             .append(Integer.toHexString(System.identityHashCode(object)))
             .toString();
+    }
+
+    /**
+     * Class used as a null placeholder where null has another meaning.
+     * <p>
+     * For example, in a <code>HashMap</code> the get(key) method returns null 
+     * if the Map contains null or if there is no matching key. The Null 
+     * placeholder can be used to distinguish between these two cases.
+     * <p>
+     * Another example is <code>HashTable</code>, where <code>null</code> 
+     * cannot be stored.
+     */
+    public static class Null implements Serializable {
+        /**
+         * Restricted constructor - singleton
+         */
+        private Null() {
+        }
+        
+        /**
+         * Ensure singleton
+         */
+        private Object readResolve() {
+            return ObjectUtils.NULL;
+        }
     }
     
 }
