@@ -81,7 +81,7 @@ import java.util.Iterator;
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
- * @version $Id: StringUtils.java,v 1.7 2002/08/23 08:00:26 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.8 2002/08/30 02:52:54 dlr Exp $
  */
 public class StringUtils {
 
@@ -406,14 +406,7 @@ public class StringUtils {
     }
 
     /**
-     * Splits the provided text into a list, based on a given separator.
-     * The separator is not included in the returned String array.
-     * A null separator will cause parsing to be on whitespace.
-     *
-     * @param str  the string to parse
-     * @param separator  The separator character. If <code>null</code>, splits
-     *  on whitespace.
-     * @return an array of parsed Strings 
+     * @see #split(String, String, int)
      */
     public static String[] split(String text, String separator) {
         return split(text, separator, -1);
@@ -425,11 +418,15 @@ public class StringUtils {
      * The maximum number of splits to perfom can be controlled.
      * A null separator will cause parsing to be on whitespace.
      *
-     * @param str  the string to parse
-     * @param separator  The separator character. If <code>null</code>, splits
-     *  on whitespace.
-     * @param max  The maximum number of elements to include in the
-     *  list.  A zero or negative value implies no limit.
+     * <p>This is useful for quickly splitting a string directly into
+     * an array of tokens, instead of an enumeration of tokens (as
+     * <code>StringTokenizer</code> does).
+     *
+     * @param str The string to parse.
+     * @param separator Characters used as the delimiters. If
+     * <code>null</code>, splits on whitespace.
+     * @param max The maximum number of elements to include in the
+     * list.  A zero or negative value implies no limit.
      * @return an array of parsed Strings 
      */
     public static String[] split(String text, String separator, int max) {
