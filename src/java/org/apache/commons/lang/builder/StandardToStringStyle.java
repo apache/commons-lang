@@ -66,7 +66,7 @@ package org.apache.commons.lang.builder;
  * @author Stephen Colebourne
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: StandardToStringStyle.java,v 1.11 2003/08/16 12:41:23 scolebourne Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.12 2003/08/16 12:56:25 scolebourne Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
@@ -102,19 +102,41 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * <p>Gets whether to output short or long class names.</p>
      *
+     * @return the current useShortClassName flag
+     */
+    public boolean isUseShortClassName() {
+        return super.isUseShortClassName();
+    }
+
+    /**
+     * <p>Gets whether to output short or long class names.</p>
+     *
      * @return the current shortClassName flag
+     * @deprecated Use {@link #isUseShortClassName()}
+     *             Method will be removed in Commons Lang 3.0.
      */
     public boolean isShortClassName() {
-        return super.isShortClassName();
+        return super.isUseShortClassName();
+    }
+
+    /**
+     * <p>Sets whether to output short or long class names.</p>
+     *
+     * @param useShortClassName  the new useShortClassName flag
+     */
+    public void setUseShortClassName(boolean useShortClassName) {
+        super.setUseShortClassName(useShortClassName);
     }
 
     /**
      * <p>Sets whether to output short or long class names.</p>
      *
      * @param shortClassName  the new shortClassName flag
+     * @deprecated Use {@link #setUseShortClassName(boolean)}
+     *             Method will be removed in Commons Lang 3.0.
      */
     public void setShortClassName(boolean shortClassName) {
-        super.setShortClassName(shortClassName);
+        super.setUseShortClassName(shortClassName);
     }
 
     //---------------------------------------------------------------------

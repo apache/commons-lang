@@ -87,7 +87,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.22 2003/08/14 00:10:42 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.23 2003/08/16 12:56:25 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -1458,7 +1458,18 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Gets whether to output short or long class names.</p>
      *
+     * @return the current useShortClassName flag
+     */
+    protected boolean isUseShortClassName() {
+        return useShortClassName;
+    }
+
+    /**
+     * <p>Gets whether to output short or long class names.</p>
+     *
      * @return the current shortClassName flag
+     * @deprecated Use {@link #isUseShortClassName()}
+     *             Method will be removed in Commons Lang 3.0.
      */
     protected boolean isShortClassName() {
         return useShortClassName;
@@ -1467,7 +1478,18 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Sets whether to output short or long class names.</p>
      *
+     * @param useShortClassName  the new useShortClassName flag
+     */
+    protected void setUseShortClassName(boolean useShortClassName) {
+        this.useShortClassName = useShortClassName;
+    }
+
+    /**
+     * <p>Sets whether to output short or long class names.</p>
+     *
      * @param shortClassName  the new shortClassName flag
+     * @deprecated Use {@link #setUseShortClassName(boolean)}
+     *             Method will be removed in Commons Lang 3.0.
      */
     protected void setShortClassName(boolean shortClassName) {
         this.useShortClassName = shortClassName;

@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ToStringStyle}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StandardToStringStyleTest.java,v 1.3 2003/05/21 23:49:15 scolebourne Exp $
+ * @version $Id: StandardToStringStyleTest.java,v 1.4 2003/08/16 12:56:25 scolebourne Exp $
  */
 public class StandardToStringStyleTest extends TestCase {
 
@@ -75,7 +75,7 @@ public class StandardToStringStyleTest extends TestCase {
     private static final StandardToStringStyle STYLE = new StandardToStringStyle();
     
     static {
-        STYLE.setShortClassName(true);
+        STYLE.setUseShortClassName(true);
         STYLE.setUseIdentityHashCode(false);
         STYLE.setArrayStart("[");
         STYLE.setArraySeparator(", ");
