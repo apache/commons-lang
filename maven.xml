@@ -32,5 +32,26 @@ limitations under the License.
   <!-- ================================================================== -->
   <!-- END: C O M M O N S - B U I L D                                     -->
   <!-- ================================================================== -->
+
+  <!-- need various bits in the src build. Binary build is handled by Ant -->
+  <postGoal name="dist:prepare-src-filesystem">
+    <j:set var="maven.dist.src.assembly.dir" value="${pom.getPluginContext('maven-dist-plugin').getVariable('maven.dist.src.assembly.dir')}" />
+    
+    <!-- Copy Files -->
+    <copy todir="${maven.dist.src.assembly.dir}">
+      <fileset dir=".">
+        <include name="RELEASE-NOTES.html"/>
+        <include name="NOTICE.txt"/>
+        <include name="PROPOSAL.html"/>
+        <include name="STATUS.html"/>
+      </fileset>
+    </copy>
+
+    <!-- Copy XDocs -->
+    <copy todir="${maven.dist.src.assembly.dir}/xdocs">
+      <fileset dir="xdocs" />
+    </copy>
+    
+  </postGoal>
   
 </project>
