@@ -38,7 +38,7 @@ import junit.textui.TestRunner;
  * @author Fredrik Westermarck
  * @author Gary Gregory
  * @author Maarten Coene
- * @version $Id: ArrayUtilsTest.java,v 1.27 2004/06/06 03:53:24 bayard Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.28 2004/08/25 21:20:13 ggregory Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -103,14 +103,61 @@ public class ArrayUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-    public void testIsEquals() {
-        long[][] array1 = new long[][] {{2,5}, {4,5}};
-        long[][] array2 = new long[][] {{2,5}, {4,6}};
+    private void assertIsEquals(Object array1, Object array2, Object array3) {
         assertEquals(true, ArrayUtils.isEquals(array1, array1));
+        assertEquals(true, ArrayUtils.isEquals(array2, array2));
+        assertEquals(true, ArrayUtils.isEquals(array3, array3));
         assertEquals(false, ArrayUtils.isEquals(array1, array2));
-        
-        Object[] array3 = new Object[] {new String(new char[] {'A', 'B'})};
-        Object[] array4 = new Object[] {"AB"};
+        assertEquals(false, ArrayUtils.isEquals(array2, array1));
+        assertEquals(false, ArrayUtils.isEquals(array1, array3));
+        assertEquals(false, ArrayUtils.isEquals(array3, array1));
+        assertEquals(false, ArrayUtils.isEquals(array1, array2));
+        assertEquals(false, ArrayUtils.isEquals(array2, array1));
+    }
+
+    public void testIsEquals() {
+        long[][] larray1 = new long[][]{{2, 5}, {4, 5}};
+        long[][] larray2 = new long[][]{{2, 5}, {4, 6}};
+        long[] larray3 = new long[]{2, 5};
+        this.assertIsEquals(larray1, larray2, larray3);
+
+        int[][] iarray1 = new int[][]{{2, 5}, {4, 5}};
+        int[][] iarray2 = new int[][]{{2, 5}, {4, 6}};
+        int[] iarray3 = new int[]{2, 5};
+        this.assertIsEquals(iarray1, iarray2, iarray3);
+
+        short[][] sarray1 = new short[][]{{2, 5}, {4, 5}};
+        short[][] sarray2 = new short[][]{{2, 5}, {4, 6}};
+        short[] sarray3 = new short[]{2, 5};
+        this.assertIsEquals(sarray1, sarray2, sarray3);
+
+        float[][] farray1 = new float[][]{{2, 5}, {4, 5}};
+        float[][] farray2 = new float[][]{{2, 5}, {4, 6}};
+        float[] farray3 = new float[]{2, 5};
+        this.assertIsEquals(farray1, farray2, farray3);
+
+        double[][] darray1 = new double[][]{{2, 5}, {4, 5}};
+        double[][] darray2 = new double[][]{{2, 5}, {4, 6}};
+        double[] darray3 = new double[]{2, 5};
+        this.assertIsEquals(darray1, darray2, darray3);
+
+        byte[][] byteArray1 = new byte[][]{{2, 5}, {4, 5}};
+        byte[][] byteArray2 = new byte[][]{{2, 5}, {4, 6}};
+        byte[] byteArray3 = new byte[]{2, 5};
+        this.assertIsEquals(byteArray1, byteArray2, byteArray3);
+
+        char[][] charArray1 = new char[][]{{2, 5}, {4, 5}};
+        char[][] charArray2 = new char[][]{{2, 5}, {4, 6}};
+        char[] charArray3 = new char[]{2, 5};
+        this.assertIsEquals(charArray1, charArray2, charArray3);
+
+        boolean[][] barray1 = new boolean[][]{{true, false}, {true, true}};
+        boolean[][] barray2 = new boolean[][]{{true, false}, {true, false}};
+        boolean[] barray3 = new boolean[]{false, true};
+        this.assertIsEquals(barray1, barray2, barray3);
+
+        Object[] array3 = new Object[]{new String(new char[]{'A', 'B'})};
+        Object[] array4 = new Object[]{"AB"};
         assertEquals(true, ArrayUtils.isEquals(array3, array3));
         assertEquals(true, ArrayUtils.isEquals(array3, array4));
 
