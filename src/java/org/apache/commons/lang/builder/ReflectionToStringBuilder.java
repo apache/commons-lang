@@ -49,7 +49,7 @@ import org.apache.commons.lang.ClassUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: ReflectionToStringBuilder.java,v 1.4 2003/07/15 23:04:23 ggregory Exp $
+ * @version $Id: ReflectionToStringBuilder.java,v 1.5 2003/07/15 23:12:51 scolebourne Exp $
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
 
@@ -390,7 +390,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>Calls <code>java.lang.reflect.Field.get(Object)}</code></p>
+     * <p>Calls <code>java.lang.reflect.Field.get(Object)</code>.</p>
      *
      * @see java.lang.reflect.Field#get(Object)
      * @throws IllegalArgumentException
