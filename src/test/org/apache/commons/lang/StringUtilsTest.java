@@ -38,7 +38,7 @@ import junit.textui.TestRunner;
  * @author Phil Steitz
  * @author Gary D. Gregory
  * @author Al Chou
- * @version $Id: StringUtilsTest.java,v 1.58 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: StringUtilsTest.java,v 1.59 2004/03/10 23:54:48 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -471,8 +471,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals("ayzya", StringUtils.replaceChars("abcba", "bc", "yzx"));
         
         assertEquals("abcba", StringUtils.replaceChars("abcba", "z", "w"));
-        // Comment out for now, delete later when discussion completes [Gary Gregory, Dec 14 2003]
-        //assertSame("abcba", StringUtils.replaceChars("abcba", "z", "w"));
+        assertSame("abcba", StringUtils.replaceChars("abcba", "z", "w"));
         
         // Javadoc examples:
         assertEquals("jelly", StringUtils.replaceChars("hello", "ho", "jy"));
@@ -482,8 +481,9 @@ public class StringUtilsTest extends TestCase {
         
         // From http://nagoya.apache.org/bugzilla/show_bug.cgi?id=25454
         assertEquals("bcc", StringUtils.replaceChars("abc", "ab", "bc"));
-        assertEquals("q651.506bera", StringUtils.replaceChars("d216.102oren", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789",
-                "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM567891234"));
+        assertEquals("q651.506bera", StringUtils.replaceChars("d216.102oren",
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789",
+            "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM567891234"));
     }
     
     public void testOverlayString_StringStringIntInt() {
