@@ -74,8 +74,9 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Stephen Colebourne
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @author Holger Krauth
+ * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.32 2003/01/20 22:15:13 dlr Exp $
+ * @version $Id: StringUtils.java,v 1.33 2003/03/17 05:28:36 alex Exp $
  */
 public class StringUtils {
 
@@ -1744,6 +1745,95 @@ public class StringUtils {
             j--;
             i++;
         }
+    }
+
+    // Abbreviating
+    //--------------------------------------------------------------------------
+
+    /**
+     * Turn "Now is the time for all good men" into "Now is the time for..."
+     * <p>
+     * Specifically:
+     * <p>
+     * If str is less than max characters long, return it.
+     * Else abbreviate it to (substring(str, 0, max-3) + "...").
+     * If maxWidth is less than 3, throw an IllegalArgumentException.
+     * In no case will it return a string of length greater than maxWidth.
+     *
+     * @param maxWidth maximum length of result string
+     **/
+    public static String abbreviate(String s, int maxWidth) {
+        return abbreviate(s, 0, maxWidth);
+    }
+
+    /**
+     * Turn "Now is the time for all good men" into "...is the time for..."
+     * <p>
+     * Works like abbreviate(String, int), but allows you to specify a "left edge"
+     * offset.  Note that this left edge is not necessarily going to be the leftmost
+     * character in the result, or the first
+     * character following the ellipses, but it will appear somewhere in the result.
+     * In no case will it return a string of length greater than maxWidth.
+     *
+     * @param offset left edge of source string
+     * @param maxWidth maximum length of result string
+     **/
+    public static String abbreviate(String s, int offset, int maxWidth) {
+        if (maxWidth < 4)
+            throw new IllegalArgumentException("Minimum abbreviation width is 4");
+        if (s.length() <= maxWidth)
+            return s;
+        if (offset > s.length())
+            offset = s.length();
+        if ((s.length() - offset) < (maxWidth-3))
+            offset = s.length() - (maxWidth-3);
+        if (offset <= 4)
+            return s.substring(0, maxWidth-3) + "...";
+        if (maxWidth < 7)
+            throw new IllegalArgumentException("Minimum abbreviation width with offset is 7");
+        if ((offset + (maxWidth-3)) < s.length())
+            return "..." + abbreviate(s.substring(offset), maxWidth-3);
+        return "..." + s.substring(s.length() - (maxWidth-3));
+    }
+
+    // Difference
+    //--------------------------------------------------------------------------
+
+    /**
+     * Compare two strings, and return the portion where they differ.
+     * (More precisely, return the remainder of the second string,
+     * starting from where it's different from the first.)
+     * <p>
+     * E.g. strdiff("i am a machine", "i am a robot") -> "robot"
+     *
+     * @return the portion of s2 where it differs from s1; returns the empty string ("") if they are equal
+     **/
+    public static String difference(String s1, String s2) {
+        int at = differenceAt(s1, s2);
+        if (at == -1)
+            return "";
+        return s2.substring(at);
+    }
+
+    /**
+     * Compare two strings, and return the index at which the strings begin to differ
+     * <p>
+     * E.g. strdiff("i am a machine", "i am a robot") -> 7
+     *
+     * @return the index where s2 and s1 begin to differ; -1 if they are equal
+     **/
+    public static int differenceAt(String s1, String s2)
+    {
+        int i;
+        for (i=0; i<s1.length() && i<s2.length(); ++i) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                break;
+            }
+        }
+        if (i<s2.length() || i<s1.length()) {
+            return i;
+        }
+        return -1;
     }
 
 
