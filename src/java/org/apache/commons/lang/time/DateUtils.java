@@ -74,7 +74,7 @@ import java.util.TimeZone;
  * @author Janek Bogucki
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.10 2003/08/06 21:13:39 ggregory Exp $
+ * @version $Id: DateUtils.java,v 1.11 2003/08/10 13:32:16 stevencaswell Exp $
  */
 public class DateUtils {
     
@@ -418,23 +418,11 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date cannot be parsed
      */
     public static Calendar parseCVS(String dateStr) {
-        return parseCVS(dateStr, Locale.getDefault());
-    }
-
-    /**
-     * <p>Parses a date string formatted in CVS format.</p>
-     * 
-     * @param dateStr  the date to parse
-     * @param locale  the locale to parse in
-     * @return the parsed date
-     * @throws IllegalArgumentException if the date is null or cannot be parsed
-     */
-    public static Calendar parseCVS(String dateStr, Locale locale) {
         if (dateStr == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
         //Get the symbol names
-        DateFormatSymbols symbols = new DateFormatSymbols(locale);
+        DateFormatSymbols symbols = new DateFormatSymbols(Locale.ENGLISH);
 
         //Prep the string to parse
         String value = dateStr.toLowerCase().trim();
