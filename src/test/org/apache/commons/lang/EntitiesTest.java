@@ -53,8 +53,6 @@
  */
 package org.apache.commons.lang;
 
-import java.io.IOException;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -65,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: EntitiesTest.java,v 1.4 2003/05/24 15:11:36 alex Exp $
+ * @version $Id: EntitiesTest.java,v 1.5 2003/05/24 19:24:15 ggregory Exp $
  */
 public class EntitiesTest extends TestCase
 {
