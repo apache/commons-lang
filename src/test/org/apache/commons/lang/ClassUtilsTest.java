@@ -32,7 +32,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Gary D. Gregory
- * @version $Id: ClassUtilsTest.java,v 1.14 2004/12/19 22:35:38 scolebourne Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.15 2005/01/27 06:45:11 bayard Exp $
  */
 public class ClassUtilsTest extends TestCase {
 
@@ -387,6 +387,35 @@ public class ClassUtilsTest extends TestCase {
         };
         // This used to return the exact same array, but no longer does.
         assertNotSame("unmodified", noPrimitives, ClassUtils.primitivesToWrappers(noPrimitives));
+    }
+
+    public void testForName() {
+        String[] names = new String[] {
+            "boolean", "char", "byte", "short", "int", "long", "float", "double", 
+            "boolean[]", "char[]", "byte[]", "short[]", "int[]", "long[]", "float[]", "double[]", 
+            "java.lang.Object[]", "java.lang.String", "java.lang.String[]"
+        };
+
+        Class[] classes = new Class[] {
+            boolean.class, char.class, byte.class, short.class, int.class, long.class, float.class, double.class, 
+            boolean[].class, char[].class, byte[].class, short[].class, int[].class, long[].class, float[].class, double[].class, 
+            Object[].class, String.class, String[].class
+        };
+
+        for(int i=0; i<names.length; i++) {
+            try {
+                assertEquals( "Incorrect class found. ", classes[i], ClassUtils.forName(names[i]) );
+            } catch(ClassNotFoundException cnfe) {
+                fail("Failed to find class for '" + names[i] + "'");
+            }
+        }
+
+        try {
+            ClassUtils.forName("SomeSillyMadeUpClassName");
+            fail("Non-existent classname should have thrown an exception. ");
+        } catch(ClassNotFoundException cnfe) {
+            // should fail
+        }
     }
 
     public static ClassLoader newSystemClassLoader() throws  SecurityException, IllegalArgumentException {
