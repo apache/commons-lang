@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,11 +61,12 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
  * Unit tests {@link org.apache.commons.lang.ClassUtils}.
  *
  * @author Stephen Colebourne
- * @version $Id: ClassUtilsTest.java,v 1.2 2002/12/31 22:32:23 scolebourne Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.3 2003/03/23 21:47:30 scolebourne Exp $
  */
 public class ClassUtilsTest extends TestCase {
 
