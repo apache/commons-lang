@@ -73,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.14 2002/09/27 05:53:37 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.15 2002/09/27 06:08:16 bayard Exp $
  */
 public class StringUtils {
 
@@ -119,15 +119,35 @@ public class StringUtils {
     }
 
     /**
+     * Deletes all 'space' characters from a String.
+     * Spaces are defined as {' ', '\t', '\r', '\n', '\b'}
+     * in line with the deprecated Character.isSpace
+     *
+     * @param str  String target to delete spaces from
+     * @return the text without spaces
+     * @throws NullPointerException
+     */
+    public static String deleteSpaces(String str) {
+        return CharSetUtils.delete(str, " \t\r\n\b");
+    }
+
+    /**
      * Deletes all whitespace from a String.
-     * Whitespace is defined as {' ', '\t', '\r', '\n', '\b'}
+     * Whitespace is defined by Character.isWhitespace
      *
      * @param str  String target to delete whitespace from
      * @return the text without whitespace
      * @throws NullPointerException
      */
     public static String deleteWhitespace(String str) {
-        return CharSetUtils.delete(str, " \t\r\n\b");
+        StringBuffer buffer = new StringBuffer();
+        int sz = str.length();
+        for (int i=0; i<sz; i++) {
+            if(!Character.isWhitespace(str.charAt(i))) {
+                buffer.append(str.charAt(i));
+            }
+        }
+        return buffer.toString();
     }
 
     /**
