@@ -28,7 +28,7 @@ import junit.framework.TestSuite;
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Henri Yandell
  * @author Stephen Colebourne
- * @version $Id: WordUtilsTest.java,v 1.6 2004/06/03 03:40:28 bayard Exp $
+ * @version $Id: WordUtilsTest.java,v 1.7 2004/06/03 03:49:47 bayard Exp $
  */
 public class WordUtilsTest extends TestCase {
 
@@ -224,6 +224,20 @@ public class WordUtilsTest extends TestCase {
         assertEquals("i am here 123", WordUtils.uncapitalize("I Am Here 123") );
         assertEquals("i am hERE 123", WordUtils.uncapitalize("i am HERE 123") );
         assertEquals("i aM hERE 123", WordUtils.uncapitalize("I AM HERE 123") );
+    }
+    
+    public void testUncapitalizeWithDelimiters_String() {
+        assertEquals(null, WordUtils.uncapitalize(null, null));
+        assertEquals("", WordUtils.uncapitalize("", new char[0]));
+        assertEquals("  ", WordUtils.uncapitalize("  ", new char[0]));
+        
+        char[] chars = new char[] { '-', '+', ' ', '@' };
+        assertEquals("i", WordUtils.uncapitalize("I", chars) );
+        assertEquals("i", WordUtils.uncapitalize("i", chars) );
+        assertEquals("i am-here+123", WordUtils.uncapitalize("i am-here+123", chars) );
+        assertEquals("i+am here-123", WordUtils.uncapitalize("I+Am Here-123", chars) );
+        assertEquals("i-am+hERE 123", WordUtils.uncapitalize("i-am+HERE 123", chars) );
+        assertEquals("i aM-hERE+123", WordUtils.uncapitalize("I AM-HERE+123", chars) );
     }
     
     public void testSwapCase_String() {
