@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.94 2003/08/14 00:04:20 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.95 2003/08/14 00:14:20 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3438,6 +3438,7 @@ public class StringUtils {
 
     /**
      * @deprecated Use the standardly named {@link #capitalize(String)}.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String capitalise(String str) {
         return capitalize(str);
@@ -3472,6 +3473,7 @@ public class StringUtils {
 
     /**
      * @deprecated Use the standardly named {@link #uncapitalize(String)}.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String uncapitalise(String str) {
         return uncapitalize(str);
@@ -3571,6 +3573,7 @@ public class StringUtils {
 
     /**
      * @deprecated Use the standardly named {@link #capitalize(String)}.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String capitaliseAllWords(String str) {
         return capitalizeAllWords(str);
@@ -3616,6 +3619,7 @@ public class StringUtils {
 
     /**
      * @deprecated Use the standardly named {@link #uncapitalize(String)}.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String uncapitaliseAllWords(String str) {
         return uncapitalizeAllWords(str);
