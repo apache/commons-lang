@@ -62,7 +62,8 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.BooleanUtils}.
  *
  * @author Stephen Colebourne
- * @version $Id: BooleanUtilsTest.java,v 1.3 2003/03/23 21:47:30 scolebourne Exp $
+ * @author Matthew Hawthorne
+ * @version $Id: BooleanUtilsTest.java,v 1.4 2003/06/28 18:16:03 scolebourne Exp $
  */
 public class BooleanUtilsTest extends TestCase {
 
@@ -337,4 +338,188 @@ public class BooleanUtilsTest extends TestCase {
         assertEquals("N", BooleanUtils.toString(false, "Y", "N"));
     }
     
+    //  testXor
+    //  -----------------------------------------------------------------------
+    public void testXor_primitive_nullInput() {
+        final boolean[] b = null;
+        try {
+            BooleanUtils.xor(b);
+            fail("Exception was not thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+    }
+
+    public void testXor_primitive_emptyInput() {
+        try {
+            BooleanUtils.xor(new boolean[] {});
+            fail("Exception was not thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+    }
+
+    public void testXor_primitive_validInput_2items() {
+        assertTrue(
+            "True result for (true, true)",
+            ! BooleanUtils.xor(new boolean[] { true, true }));
+
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils.xor(new boolean[] { false, false }));
+
+        assertTrue(
+            "False result for (true, false)",
+            BooleanUtils.xor(new boolean[] { true, false }));
+
+        assertTrue(
+            "False result for (false, true)",
+            BooleanUtils.xor(new boolean[] { false, true }));
+    }
+
+    public void testXor_primitive_validInput_3items() {
+        assertTrue(
+            "False result for (false, false, true)",
+            BooleanUtils.xor(new boolean[] { false, false, true }));
+
+        assertTrue(
+            "False result for (false, true, false)",
+            BooleanUtils.xor(new boolean[] { false, true, false }));
+
+        assertTrue(
+            "False result for (true, false, false)",
+            BooleanUtils.xor(new boolean[] { true, false, false }));
+
+        assertTrue(
+            "True result for (true, true, true)",
+            ! BooleanUtils.xor(new boolean[] { true, true, true }));
+
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils.xor(new boolean[] { false, false, false }));
+
+        assertTrue(
+            "True result for (true, true, false)",
+            ! BooleanUtils.xor(new boolean[] { true, true, false }));
+
+        assertTrue(
+            "True result for (true, false, true)",
+            ! BooleanUtils.xor(new boolean[] { true, false, true }));
+
+        assertTrue(
+            "False result for (false, true, true)",
+            ! BooleanUtils.xor(new boolean[] { false, true, true }));
+    }
+
+    public void testXor_object_nullInput() {
+        final Boolean[] b = null;
+        try {
+            BooleanUtils.xor(b);
+            fail("Exception was not thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+    }
+
+    public void testXor_object_emptyInput() {
+        try {
+            BooleanUtils.xor(new Boolean[] {});
+            fail("Exception was not thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+    }
+
+    public void testXor_object_validInput_2items() {
+        assertTrue(
+            "True result for (true, true)",
+            ! BooleanUtils
+                .xor(new Boolean[] { Boolean.TRUE, Boolean.TRUE })
+                .booleanValue());
+
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils
+                .xor(new Boolean[] { Boolean.FALSE, Boolean.FALSE })
+                .booleanValue());
+
+        assertTrue(
+            "False result for (true, false)",
+            BooleanUtils
+                .xor(new Boolean[] { Boolean.TRUE, Boolean.FALSE })
+                .booleanValue());
+
+        assertTrue(
+            "False result for (false, true)",
+            BooleanUtils
+                .xor(new Boolean[] { Boolean.FALSE, Boolean.TRUE })
+                .booleanValue());
+    }
+
+    public void testXor_object_validInput_3items() {
+        assertTrue(
+            "False result for (false, false, true)",
+            BooleanUtils
+                .xor(
+                    new Boolean[] {
+                        Boolean.FALSE,
+                        Boolean.FALSE,
+                        Boolean.TRUE })
+                .booleanValue());
+
+        assertTrue(
+            "False result for (false, true, false)",
+            BooleanUtils
+                .xor(
+                    new Boolean[] {
+                        Boolean.FALSE,
+                        Boolean.TRUE,
+                        Boolean.FALSE })
+                .booleanValue());
+
+        assertTrue(
+            "False result for (true, false, false)",
+            BooleanUtils
+                .xor(
+                    new Boolean[] {
+                        Boolean.TRUE,
+                        Boolean.FALSE,
+                        Boolean.FALSE })
+                .booleanValue());
+
+        assertTrue(
+            "True result for (true, true, true)",
+            ! BooleanUtils
+                .xor(new Boolean[] { Boolean.TRUE, Boolean.TRUE, Boolean.TRUE })
+                .booleanValue());
+
+        assertTrue(
+            "True result for (false, false)",
+            ! BooleanUtils.xor(
+                    new Boolean[] {
+                        Boolean.FALSE,
+                        Boolean.FALSE,
+                        Boolean.FALSE })
+                .booleanValue());
+
+        assertTrue(
+            "True result for (true, true, false)",
+            ! BooleanUtils.xor(
+                    new Boolean[] {
+                        Boolean.TRUE,
+                        Boolean.TRUE,
+                        Boolean.FALSE })
+                .booleanValue());
+
+        assertTrue(
+            "True result for (true, false, true)",
+            ! BooleanUtils.xor(
+                    new Boolean[] {
+                        Boolean.TRUE,
+                        Boolean.FALSE,
+                        Boolean.TRUE })
+                .booleanValue());
+
+        assertTrue(
+            "False result for (false, true, true)",
+            ! BooleanUtils.xor(
+                    new Boolean[] {
+                        Boolean.FALSE,
+                        Boolean.TRUE,
+                        Boolean.TRUE })
+                .booleanValue());
+    }
+
 }

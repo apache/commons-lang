@@ -60,8 +60,9 @@ import org.apache.commons.lang.math.NumberUtils;
  * boolean and Boolean objects.</p>
  *
  * @author Stephen Colebourne
+ * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.5 2003/06/24 21:14:50 scolebourne Exp $
+ * @version $Id: BooleanUtils.java,v 1.6 2003/06/28 18:16:03 scolebourne Exp $
  */
 public class BooleanUtils {
 
@@ -77,7 +78,6 @@ public class BooleanUtils {
 
     // Boolean utilities
     //--------------------------------------------------------------------------
-    
     /**
      * <p>Negates the specified boolean.</p>
      * 
@@ -95,7 +95,6 @@ public class BooleanUtils {
     
     // boolean Boolean methods
     //--------------------------------------------------------------------------
-    
     /**
      * <p>Boolean factory that avoids creating new Boolean objecs all the time.</p>
      * 
@@ -137,7 +136,6 @@ public class BooleanUtils {
     
     // Integer to Boolean methods
     //--------------------------------------------------------------------------
-    
     /**
      * <p>Convert an int to a boolean using the convention that zero is false.</p>
      * 
@@ -271,7 +269,6 @@ public class BooleanUtils {
     
     // Boolean to Integer methods
     //--------------------------------------------------------------------------
-    
     /**
      * <p>Convert a boolean to an int using the convention that zero is false.</p>
      * 
@@ -365,7 +362,6 @@ public class BooleanUtils {
     
     // String to Boolean methods
     //--------------------------------------------------------------------------
-    
     /**
      * <p>Converts a String to a Boolean.</p>
      * 
@@ -425,7 +421,6 @@ public class BooleanUtils {
 
     // String to boolean methods
     //--------------------------------------------------------------------------
-    
     /**
      * <p>Converts a String to a boolean.</p>
      * 
@@ -476,7 +471,6 @@ public class BooleanUtils {
 
     // Boolean to String methods
     //--------------------------------------------------------------------------
-    
     /**
      * <p>Converts a Boolean to a String returning 'true', 'false', or <code>null</code>.</p>
      * 
@@ -525,7 +519,6 @@ public class BooleanUtils {
     
     // boolean to String methods
     //--------------------------------------------------------------------------
-    
     /**
      * <p>Converts a boolean to a String returning 'true' or 'false'.</p>
      * 
@@ -568,4 +561,53 @@ public class BooleanUtils {
         return (bool ? trueString : falseString);
     }
     
+    // xor methods
+    //  --------------------------------------------------------------------------
+    /**
+     * Performs an xor on a set of booleans.
+     * 
+     * @param array  an array of <code>boolean<code>s
+     * @return <code>true</code> if the xor is successful.
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty.
+     */
+    public static boolean xor(boolean[] array) {
+        // Validates input
+        if (array == null) {
+            throw new NullArgumentException("Array");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array is empty");
+        }
+
+        // Loops through array, comparing each item
+        int trueCount = 0;
+        for (int i = 0; i < array.length; i++) {
+            // If item is true, and trueCount is < 1, increments count
+            // Else, xor fails
+            if (array[i]) {
+                if (trueCount < 1) {
+                    trueCount++;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        // Returns true if there was exactly 1 true item
+        return trueCount == 1;
+    }
+
+    /**
+     * Performs an xor on an array of Booleans.
+     * 
+     * @param array  an array of <code>Boolean<code>s
+     * @return <code>true</code> if the xor is successful.
+     * @throws NullPointerException if <code>array</code> contains a <code>null</code>
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty.
+     */
+    public static Boolean xor(Boolean[] array) {
+        return new Boolean(xor(ArrayUtils.toPrimitive(array)));
+    }
+
 }
