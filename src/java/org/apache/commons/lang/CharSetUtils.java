@@ -63,7 +63,7 @@ import java.util.LinkedList;
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharSetUtils.java,v 1.4 2002/09/18 19:55:32 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.5 2002/09/28 10:34:54 scolebourne Exp $
  */
 public class CharSetUtils {
 
@@ -84,6 +84,11 @@ public class CharSetUtils {
      * "^e" implies not e. However it only negates, it's not 
      * a set in itself due to the size of that set in unicode.
      * "ej-m" implies e,j->m. e,j,k,l,m.
+     * @param set
+     * @return CharSet
+     * @throws NullPointerException if any of set[i] is null or if set is null
+     * @param set
+     * @return CharSet
      */
     public static CharSet evaluateSet(String[] set) {
         return new CharSet(set); 
@@ -112,6 +117,7 @@ public class CharSetUtils {
      * 
      * @param str  the string to work from
      * @param set  the character set to use for manipulation
+     * @throws NullPointerException if str is null
      */
     public static String squeeze(String str, String[] set) {
         CharSet chars = evaluateSet(set);
@@ -189,6 +195,7 @@ public class CharSetUtils {
      *
      * @param str  String target to delete characters from
      * @param set  String[] set of characters to delete
+     * @throws NullPointerException of str is null
      */
     public static String delete(String str, String[] set) {
         CharSet chars = evaluateSet(set);
@@ -204,7 +211,6 @@ public class CharSetUtils {
     }
 
     /**
-     * NEEDS TO TAKE A CHAR-SET.
      * Translate characters in a String.
      * An example is:  translate("hello", "ho", "jy") => jelly
      * If the length of characters to search for is greater than the 
@@ -214,6 +220,7 @@ public class CharSetUtils {
      * @param target String to replace characters  in
      * @param repl String to find that will be replaced
      * @param with String to put into the target String
+     * @throws NullPointerException if target, with or repl is null
      */
     public static String translate(String target, String repl, String with) {
         StringBuffer buffer = new StringBuffer(target.length());

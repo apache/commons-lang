@@ -63,14 +63,16 @@ import java.util.LinkedList;
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharSet.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @version $Id: CharSet.java,v 1.2 2002/09/28 10:34:54 scolebourne Exp $
  */
 public class CharSet {
 
     private LinkedList set = new LinkedList();
 
     /**
-     * Restricted consructor. Use the factory method evaluateSet().
+     * Restricted constructor. Use the factory method evaluateSet().
+     *
+     * @throws NullPointerException if any of set[i] is null or if set is null
      */
     protected CharSet(String[] set) {
         int sz = set.length;
@@ -107,6 +109,7 @@ public class CharSet {
      * Add a set definition string to the set
      * 
      * @param str  set definition string
+     * @throws NullPointerException if str is null
      */
     protected void add(String str) {
         int sz = str.length();
