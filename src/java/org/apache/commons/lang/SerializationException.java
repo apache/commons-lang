@@ -61,7 +61,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * error is wrapped within this one.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: SerializationException.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @version $Id: SerializationException.java,v 1.2 2002/08/31 11:11:03 scolebourne Exp $
  */
 public class SerializationException extends NestableRuntimeException {
 
@@ -77,7 +77,7 @@ public class SerializationException extends NestableRuntimeException {
      * Constructs a new <code>SerializationException</code> with specified
      * detail message.
      *
-     * @param msg The error message.
+     * @param msg  The error message.
      */
     public SerializationException(String msg) {
         super(msg);
@@ -87,7 +87,7 @@ public class SerializationException extends NestableRuntimeException {
      * Constructs a new <code>SerializationException</code> with specified
      * nested <code>Throwable</code>.
      *
-     * @param nested The exception or error that caused this exception
+     * @param cause  The exception or error that caused this exception
      *               to be thrown.
      */
     public SerializationException(Throwable cause) {
@@ -99,7 +99,7 @@ public class SerializationException extends NestableRuntimeException {
      * detail message and nested <code>Throwable</code>.
      *
      * @param msg    The error message.
-     * @param nested The exception or error that caused this exception
+     * @param cause  The exception or error that caused this exception
      *               to be thrown.
      */
     public SerializationException(String msg, Throwable cause) {
