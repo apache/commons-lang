@@ -58,13 +58,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * <p>A set of characters. You can iterate over the characters in the
- * set.</p>
+ * <p>A set of characters.</p>
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharSet.java,v 1.8 2003/03/23 17:59:09 scolebourne Exp $
+ * @version $Id: CharSet.java,v 1.9 2003/07/31 21:32:47 scolebourne Exp $
  */
 public class CharSet {
 
@@ -75,9 +74,18 @@ public class CharSet {
      *
      * <p>Use the factory method
      * {@link CharSetUtils#evaluateSet(java.lang.String[])}.</p>
+     */
+    protected CharSet(String set) {
+        add(set);
+    }
+
+    /**
+     * <p>Restricted constructor.</p>
      *
-     * @throws NullPointerException if any of set[i] is <code>null</code>
-     *  or if set is <code>null</code>
+     * <p>Use the factory method
+     * {@link CharSetUtils#evaluateSet(java.lang.String[])}.</p>
+     *
+     * @throws NullPointerException if set is <code>null</code>
      */
     protected CharSet(String[] set) {
         int sz = set.length;
@@ -116,31 +124,33 @@ public class CharSet {
      * <p>Add a set definition string to the <code>CharSet</code>.</p>
      * 
      * @param str  set definition string
-     * @throws NullPointerException if <code>str</code> is <code>null</code>
      */
     protected void add(String str) {
+        if (str == null) {
+            return;
+        }
         int sz = str.length();
         CharRange range = null;
 
-        if("-".equals(str)) {
+        if ("-".equals(str)) {
             range = new CharRange('-');
             set.add(range);
             return;
-        } 
+        }
 
         boolean end = false;
         boolean negated = false;
-        for(int i=0; i<sz; i++) {
+        for (int i = 0; i < sz; i++) {
             char ch = str.charAt(i);
-            if(ch == '-') {
+            if (ch == '-') {
                 end = true;
                 continue;
             }
-            if(end) {
+            if (end) {
                 range.setEnd(ch);
                 continue;
             }
-            if(ch == '^') {
+            if (ch == '^') {
                 negated = true;
                 continue;
             }
