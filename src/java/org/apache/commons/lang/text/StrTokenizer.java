@@ -73,7 +73,7 @@ import java.util.ListIterator;
  * @author Stephen Colebourne
  * @author Gary D. Gregory
  * @since 2.1
- * @version $Id: StrTokenizer.java,v 1.3 2004/12/25 20:30:16 bayard Exp $
+ * @version $Id: StrTokenizer.java,v 1.4 2004/12/25 20:41:23 bayard Exp $
  */
 public class StrTokenizer implements ListIterator, Cloneable {
 
@@ -134,7 +134,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
         TSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(TAB_MATCHER);
         TSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(DOUBLE_QUOTE_MATCHER);
         TSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(NONE_MATCHER);
-        CSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(TRIM_MATCHER);
+        TSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(TRIM_MATCHER);
         TSV_TOKENIZER_PROTOTYPE.setEmptyTokenAsNull(false);
         TSV_TOKENIZER_PROTOTYPE.setIgnoreEmptyTokens(false);
     }
