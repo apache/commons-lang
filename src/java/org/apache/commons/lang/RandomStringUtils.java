@@ -63,7 +63,7 @@ import java.util.Random;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.10 2003/04/09 14:13:03 bayard Exp $
+ * @version $Id: RandomStringUtils.java,v 1.11 2003/05/14 02:50:43 bayard Exp $
  */
 public class RandomStringUtils {
 
@@ -313,6 +313,6 @@ public class RandomStringUtils {
      * @return the random string
      */
     public static String random(int count, char[] set) {
-        return random(count, 0, set.length - 1, false, false, set);
+        return random(count, 0, set.length, false, false, set);
     }
 }
