@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang;
 
+import java.io.File;
+
 /**
  * <p>Helpers for <code>java.lang.System</code>.</p>
  * 
@@ -69,13 +71,33 @@ package org.apache.commons.lang;
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.26 2003/10/23 21:48:28 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.27 2003/12/31 22:00:31 ggregory Exp $
  */
 public class SystemUtils {
 
     // System property constants
     //-----------------------------------------------------------------------
     // These MUST be declared first. Other constants depend on this.
+    
+    /**
+     * The System property key for the user home directory.
+     */
+    public static final String USER_HOME_KEY = "user.home";
+
+    /**
+     * The System property key for the user directory.
+     */
+    public static final String USER_DIR_KEY = "user.dir";
+    
+    /**
+     * The System property key for the Java IO tenmporary directory.
+     */
+    public static final String JAVA_IO_TMPDIR_KEY = "java.io.tmpdir";
+    
+    /**
+     * The System property key for the Java home directory.
+     */
+    public static final String JAVA_HOME_KEY = "java.home";
     
     /**
      * <p>The <code>file.encoding</code> System Property.</p>
@@ -162,7 +184,7 @@ public class SystemUtils {
      * 
      * @since Java 1.1
      */
-    public static final String JAVA_HOME = getSystemProperty("java.home");
+    public static final String JAVA_HOME = getSystemProperty(JAVA_HOME_KEY);
 
     /**
      * <p>The <code>java.io.tmpdir</code> System Property. Default temp file path.</p>
@@ -172,7 +194,7 @@ public class SystemUtils {
      * 
      * @since Java 1.2
      */
-    public static final String JAVA_IO_TMPDIR = getSystemProperty("java.io.tmpdir");
+    public static final String JAVA_IO_TMPDIR = getSystemProperty(JAVA_IO_TMPDIR_KEY);
 
     /**
      * <p>The <code>java.library.path</code> System Property. List of paths to search
@@ -426,7 +448,7 @@ public class SystemUtils {
      * 
      * @since Java 1.1
      */
-    public static final String USER_DIR = getSystemProperty("user.dir");
+    public static final String USER_DIR = getSystemProperty(USER_DIR_KEY);
 
     /**
      * <p>The <code>user.home</code> System Property. User's home directory.</p>
@@ -436,7 +458,7 @@ public class SystemUtils {
      * 
      * @since Java 1.1
      */
-    public static final String USER_HOME = getSystemProperty("user.home");
+    public static final String USER_HOME = getSystemProperty(USER_HOME_KEY);
 
     /**
      * <p>The <code>user.language</code> System Property. User's language code,
@@ -909,4 +931,56 @@ public class SystemUtils {
         return (JAVA_VERSION_INT >= requiredVersion);
     }
     
+    /**
+     * <p>Gets the Java home directory.</p>
+     * 
+     * @return a directory
+     * @exception  SecurityException  if a security manager exists and its  
+     *             <code>checkPropertyAccess</code> method doesn't allow
+     *              access to the specified system property.
+     * @see System#getProperty(String)
+     */
+    public static File getJavaHome() {
+        return new File(System.getProperty(JAVA_HOME_KEY));
+    }
+
+    /**
+     * <p>Gets the Java IO temporary directory.</p>
+     * 
+     * @return a directory
+     * @exception  SecurityException  if a security manager exists and its  
+     *             <code>checkPropertyAccess</code> method doesn't allow
+     *              access to the specified system property.
+     * @see System#getProperty(String)
+     */
+    public static File getJavaIoTmpDir() {
+        return new File(System.getProperty(JAVA_IO_TMPDIR_KEY));
+    }
+
+    /**
+     * <p>Gets the user directory.</p>
+     * 
+     * @return a directory
+     * @exception  SecurityException  if a security manager exists and its  
+     *             <code>checkPropertyAccess</code> method doesn't allow
+     *              access to the specified system property.
+     * @see System#getProperty(String)
+     */
+    public static File getUserDir() {
+        return new File(System.getProperty(USER_DIR_KEY));
+    }
+
+    /**
+     * <p>Gets the user home directory.</p>
+     * 
+     * @return a directory
+     * @exception  SecurityException  if a security manager exists and its  
+     *             <code>checkPropertyAccess</code> method doesn't allow
+     *              access to the specified system property.
+     * @see System#getProperty(String)
+     */
+    public static File getUserHome() {
+        return new File(System.getProperty(USER_HOME_KEY));
+    }
+
 }
