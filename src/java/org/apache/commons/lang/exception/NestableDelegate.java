@@ -63,14 +63,16 @@ import java.io.StringWriter;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableDelegate.java,v 1.9 2002/09/29 08:20:52 bayard Exp $
+ * @author Sean C. Sullivan
+ * @version $Id: NestableDelegate.java,v 1.9.2.1 2002/11/22 20:11:30 bayard Exp $
  */
 public class NestableDelegate
+	implements java.io.Serializable
 {
     /**
      * Constructor error message.
      */
-    private static final String MUST_BE_THROWABLE =
+    private transient static final String MUST_BE_THROWABLE =
         "The Nestable implementation passed to the NestableDelegate(Nestable) "
         + "constructor must extend java.lang.Throwable";
 

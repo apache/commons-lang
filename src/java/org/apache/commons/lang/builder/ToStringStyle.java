@@ -75,7 +75,7 @@ import org.apache.commons.lang.SystemUtils;
  * whole array, whereas the summary method will just output the array length.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringStyle.java,v 1.4 2002/09/22 09:18:32 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.4.2.1 2002/11/22 23:20:57 bayard Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -1655,7 +1655,7 @@ public abstract class ToStringStyle implements Serializable {
          */
         private NoFieldNameToStringStyle() {
             super();
-            setUseFieldNames(false);
+            this.setUseFieldNames(false);
         }
         
         /**
@@ -1683,11 +1683,11 @@ public abstract class ToStringStyle implements Serializable {
          */
         private SimpleToStringStyle() {
             super();
-            setUseClassName(false);
-            setUseIdentityHashCode(false);
-            setUseFieldNames(false);
-            setContentStart("");
-            setContentEnd("");
+            this.setUseClassName(false);
+            this.setUseIdentityHashCode(false);
+            this.setUseFieldNames(false);
+            this.setContentStart("");
+            this.setContentEnd("");
         }
         
         /**
@@ -1714,9 +1714,9 @@ public abstract class ToStringStyle implements Serializable {
          */
         private MultiLineToStringStyle() {
             super();
-            setContentStart("[" + SystemUtils.LINE_SEPARATOR + "  ");
-            setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
-            setContentEnd(SystemUtils.LINE_SEPARATOR + "]");
+            this.setContentStart("[" + SystemUtils.LINE_SEPARATOR + "  ");
+            this.setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
+            this.setContentEnd(SystemUtils.LINE_SEPARATOR + "]");
         }
         
         /**

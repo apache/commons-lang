@@ -115,9 +115,13 @@ import java.util.Map;
  * </p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: Enum.java,v 1.2 2002/08/31 10:51:02 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.2.2.1 2002/11/22 20:07:53 bayard Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
+    /**
+     * An empty map, as JDK1.2 didn't have an empty map
+     */
+    private static final Map EMPTY_MAP = Collections.unmodifiableMap(new HashMap());
     /**
      * Map, key of class name, value of Entry.
      */
@@ -159,6 +163,9 @@ public abstract class Enum implements Comparable, Serializable {
         if (entry == null) {
             entry = new Entry();
             cEnumClasses.put(getClass().getName(), entry);
+        }
+        if (entry.map.containsKey(name)) {
+            throw new IllegalArgumentException("The Enum name must be unique, '" + name + "' has already been added");
         }
         entry.map.put(name, this);
         entry.list.add(this);
@@ -210,7 +217,7 @@ public abstract class Enum implements Comparable, Serializable {
         }
         Entry entry = (Entry) cEnumClasses.get(enumClass.getName());
         if (entry == null) {
-            return Collections.EMPTY_MAP;
+            return EMPTY_MAP;
         }
         return Collections.unmodifiableMap(entry.map);
     }

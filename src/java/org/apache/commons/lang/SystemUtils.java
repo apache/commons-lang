@@ -61,7 +61,7 @@ package org.apache.commons.lang;
  * @author Based on code from Lucene
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
- * @version $Id: SystemUtils.java,v 1.2 2002/08/25 22:17:53 scolebourne Exp $
+ * @version $Id: SystemUtils.java,v 1.2.2.1 2002/11/22 23:31:13 bayard Exp $
  */
 public class SystemUtils {
     
@@ -433,7 +433,7 @@ public class SystemUtils {
      * @param requiredVersion  the required version, for example 1.31f
      * @return true if the actual version is equal or greater than the required version
      */
-    public boolean isJavaVersionAtLeast(float requiredVersion) {
+    public static boolean isJavaVersionAtLeast(float requiredVersion) {
         return (getJavaVersion() >= requiredVersion);
     }
     

@@ -59,7 +59,7 @@ package org.apache.commons.lang;
  *
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Revision: 1.1 $ $Date: 2002/07/19 03:35:54 $
+ * @version $Revision: 1.1.2.1 $ $Date: 2002/11/22 23:20:28 $
  */
 public final class NumberRange {
 
@@ -126,7 +126,7 @@ public final class NumberRange {
      * @return the maximum number in this range
      */
     public Number getMaximum() {
-        return min;
+        return max;
     }
 
     /**

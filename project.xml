@@ -3,7 +3,7 @@
   <extend>../project.xml</extend>
   <id>commons-lang</id>
   <name>Lang</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1</currentVersion>
   <inceptionYear>2001</inceptionYear>
   
   <description>
