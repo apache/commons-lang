@@ -56,19 +56,19 @@ package org.apache.commons.lang.builder;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 /**
- * <code>ToString</code> generation routine.
- * <p>
- * This class enables a good toString to be built for any class. This class aims 
- * to simplify the process by:
+ * <p><code>ToString</code> generation routine.</p>
+ *
+ * <p>This class enables a good <code>toString</code> to be built for any
+ * class. This class aims to simplify the process by:</p>
  * <ul>
  * <li>allowing field names
  * <li>handling all types consistently
  * <li>handling nulls consistently
  * <li>outputting arrays and multi-dimensional arrays
- * <li>enabling the detail level to be controlled for objects and collections
+ * <li>enabling the detail level to be controlled for Objects and Collections
  * </ul>
- * <p>
- * To use this class write code as follows:
+ *
+ * <p>To use this class write code as follows:
  * <pre>
  * public class Person {
  *   String name;
@@ -86,28 +86,28 @@ import java.lang.reflect.Modifier;
  *   }
  * }
  * </pre>
- * This will produce a toString of the format:
- * <code>Person@7f54[name=Stephen,age=29,smoker=false]</code>
- * <p>
- * Alternatively, there is a method that uses reflection to determine
+ * <p>This will produce a toString of the format:
+ * <code>Person@7f54[name=Stephen,age=29,smoker=false]</code></p>
+ *
+ * <p>Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method, 
- * <code>reflectionToString</code>, uses <code>Field.setAccessible</code> to change
- * the visibility of the fields. This will fail under a security manager, 
- * unless the appropriate permissions are set. It is also slower than testing 
- * explicitly.
- * <p>
- * A typical invocation for this method would look like:
+ * <code>reflectionToString</code>, uses <code>Field.setAccessible</code> to
+ * change the visibility of the fields. This will fail under a security manager,
+ * unless the appropriate permissions are set up correctly. It is also
+ * slower than testing explicitly.</p>
+ *
+ * <p>A typical invocation for this method would look like:</p>
  * <pre>
  * public String toString() {
  *   return ToStringBuilder.reflectionToString(this);
  * }
  * </pre>
- * <p>
- * The exact format of the toString is determined by the {@link ToStringStyle}
- * passed into the constructor.
+ *
+ * <p>The exact format of the <code>toString</code> is determined by
+ * the {@link ToStringStyle} passed into the constructor.</p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilder.java,v 1.7 2002/10/30 21:31:13 scolebourne Exp $
+ * @version $Id: ToStringBuilder.java,v 1.8 2002/11/17 21:46:42 scolebourne Exp $
  */
 public class ToStringBuilder {
     
@@ -129,40 +129,52 @@ public class ToStringBuilder {
     private final Object object;
     
     /**
-     * Constructor for ToStringBuilder.
-     * This constructor outputs using the default style set with 
-     * <code>setDefaultStyle</code>.
+     * <p>Constructor for <code>ToStringBuilder</code>.</p>
+     *
+     * <p>This constructor outputs using the default style set with
+     * <code>setDefaultStyle</code>.</p>
      * 
-     * @param object  the object to build a toString for, must not be null
-     * @throws IllegalArgumentException  if the object passed in is null
+     * @param object  the Object to build a <code>toString</code> for,
+     *  must not be <code>null</code>
+     * @throws IllegalArgumentException  if the Object passed in is
+     *  <code>null</code>
      */
     public ToStringBuilder(Object object) {
         this(object, getDefaultStyle(), null);
     }
     
     /**
-     * Constructor for ToStringBuilder specifying the output style.
-     * <p>
-     * If the style is null, the default style is used.
+     * <p>Constructor for <code>ToStringBuilder</code> specifying the
+     * output style.</p>
+     *
+     * <p>If the style is <code>null</code>, the default style is used.</p>
      * 
-     * @param object  the object to build a toString for, must not be null
-     * @param style  the style of the toString to create, may be null
-     * @throws IllegalArgumentException  if the object passed in is null
+     * @param object  the Object to build a <code>toString</code> for,
+     *  must not be <code>null</code>
+     * @param style  the style of the <code>toString</code> to create,
+     *  may be <code>null</code>
+     * @throws IllegalArgumentException  if the Object passed in is
+     *  <code>null</code>
      */
     public ToStringBuilder(Object object, ToStringStyle style) {
         this(object, style, null);
     }
     
     /**
-     * Constructor for ToStringBuilder.
-     * <p>
-     * If the style is null, the default style is used.
-     * If the buffer is null, a new one is created.
+     * <p>Constructor for <code>ToStringBuilder</code>.</p>
+     *
+     * <p>If the style is <code>null</code>, the default style is used.</p>
+     *
+     * <p>If the buffer is <code>null</code>, a new one is created.</p>
      * 
-     * @param object  the object to build a toString for, must not be null
-     * @param style  the style of the toString to create, may be null
-     * @param buffer  the string buffer to populate, may be null
-     * @throws IllegalArgumentException  if the object passed in is null
+     * @param object  the Object to build a <code>toString</code> for,
+     *  must not be <code>null</code>
+     * @param style  the style of the <code>toString</code> to create,
+     *  may be <code>null</code>
+     * @param buffer  the <code>StringBuffer</code> to populate, may be
+     *  <code>null</code>
+     * @throws IllegalArgumentException  if the Object passed in is
+     *  <code>null</code>
      */
     public ToStringBuilder(Object object, ToStringStyle style, StringBuffer buffer) {
         super();
@@ -185,23 +197,26 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Gets the default style to use.
-     * <p>
-     * This could allow the toString style to be controlled for an entire
-     * application with one call. This might be used to have a verbose toString
-     * during development and a compact toString in production.
+     * <p>Gets the default <code>ToStringStyle</code> to use.</p>
+     *
+     * <p>This could allow the <code>ToStringStyle</code> to be
+     * controlled for an entire application with one call.</p>
+     *
+     * <p>This might be used to have a verbose
+     * <code>ToStringStyle</code> during development and a compact
+     * <code>ToStringStyle</code> in production.</p>
      * 
-     * @return the default toString style
+     * @return the default <code>ToStringStyle</code>
      */
     public static ToStringStyle getDefaultStyle() {
         return defaultStyle;
     }
     
     /**
-     * Sets the default style to use.
+     * <p>Sets the default <code>ToStringStyle</code> to use.</p>
      * 
-     * @param style  the default toString style
-     * @throws IllegalArgumentException if the style is null
+     * @param style  the default <code>ToStringStyle</code>
+     * @throws IllegalArgumentException if the style is <code>null</code>
      */
     public static void setDefaultStyle(ToStringStyle style) {
         if (style == null) {
@@ -213,65 +228,80 @@ public class ToStringBuilder {
     //-------------------------------------------------------------------------
     
     /**
-     * This method uses reflection to build a suitable toString using the default style.
-     * <p>
-     * It uses Field.setAccessible to gain access to private fields. This means
-     * that it will throw a security exception if run under a security manger, if
-     * the permissions are not set up.
-     * It is also not as efficient as testing explicitly. 
-     * Transient members will be not be included, as they are likely derived.
-     * Static fields will be not be included.
-     * fields, and not part of the value of the object. 
-     * 
-     * @param object  the object to be output
+     * <p>This method uses reflection to build a suitable
+     * <code>toString<code> using the default <code>ToStringStyle</code>.
+     *
+     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run
+     * under a security manger, if the permissions are not set up correctly.
+     * It is also not as efficient as testing explicitly.</p>
+     *
+     * <p>Transient members will be not be included, as they are likely derived.</p>
+     *
+     * <p>Static fields will be not be included.</p>
+     *
+     * @param object  the Object to be output
      * @return the String result
-     * @throws IllegalArgumentException if the object is null
+     * @throws IllegalArgumentException if the Object is <code>null</code>
      */
     public static String reflectionToString(Object object) {
         return reflectionToString(object, null, false);
     }
 
     /**
-     * This method uses reflection to build a suitable toString.
-     * <p>
-     * It uses Field.setAccessible to gain access to private fields. This means
-     * that it will throw a security exception if run under a security manger, if
-     * the permissions are not set up.
-     * It is also not as efficient as testing explicitly. 
-     * Transient members will be not be included, as they are likely derived.
-     * Static fields will be not be included.
-     * fields, and not part of the value of the object. 
-     * <p>
-     * If the style is null, the default style is used.
+     * <p>This method uses reflection to build a suitable
+     * <code>toString</code>.</p>
+     *
+     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run
+     * under a security manger, if the permissions are not set up correctly.
+     * It is also not as efficient as testing explicitly.</p>
+     *
+     * <p>Transient members will be not be included, as they are likely
+     * derived.</p>
+     *
+     * <p>Static fields will be not be included.</p>
+     *
+     * <p>If the style is <code>null</code>, the default
+     * <code>ToStringStyle</code> is used.</p>
      * 
-     * @param object  the object to be output
-     * @param style  the style of the toString to create, may be null
+     * @param object  the Object to be output
+     * @param style  the style of the <code>toString</code> to create,
+     *  may be <code>null</code>
      * @return the String result
-     * @throws IllegalArgumentException if the object or style is null
+     * @throws IllegalArgumentException if the Object or
+     *  <code>ToStringStyle</code> is <code>null</code>
      */
     public static String reflectionToString(Object object, ToStringStyle style) {
         return reflectionToString(object, style, false);
     }
 
     /**
-     * This method uses reflection to build a suitable toString.
+     * <p>This method uses reflection to build a suitable
+     * <code>toString</code>.</p>
+     *
+     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run
+     * under a security manger, if the permissions are not set up correctly.
+     * It is also not as efficient as testing explicitly. </p>
+     *
+     * <p>If the <code>outputTransients</code> is <code>true</code>,
+     * transient members will be output, otherwise they are ignored,
+     * as they are likely derived fields, and not part of the value of the
+     * Object.</p>
+     *
+     * <p>Static fields will not be tested.</p>
+     *
      * <p>
-     * It uses Field.setAccessible to gain access to private fields. This means
-     * that it will throw a security exception if run under a security manger, if
-     * the permissions are not set up.
-     * It is also not as efficient as testing explicitly. 
-     * If the outputTransients parameter is set to true, transient members will be
-     * output, otherwise they are ignored, as they are likely derived fields, and
-     * not part of the value of the object. 
-     * Static fields will not be tested.
-     * <p>
-     * If the style is null, the default style is used.
+     * If the style is <code>null</code>, the default
+     * <code>ToStringStyle</code> is used.</p>
      * 
-     * @param object  the object to be output
-     * @param style  the style of the toString to create, may be null
+     * @param object  the Object to be output
+     * @param style  the style of the <code>toString</code> to create,
+     *  may be <code>null</code>
      * @param outputTransients  whether to include transient fields
      * @return the String result
-     * @throws IllegalArgumentException if the object is null
+     * @throws IllegalArgumentException if the Object is <code>null</code>
      */
     public static String reflectionToString(Object object, ToStringStyle style, 
             boolean outputTransients) {
@@ -305,9 +335,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString an Object value.
+     * <p>Append to the <code>toString</code> an <code>Object</code>
+     * value.</p>
      *
-     * @param object  the value to add to the toString
+     * @param object  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(Object object) {
@@ -316,10 +347,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString an Object value.
+     * <p>Append to the <code>toString</code> an <code>Object</code>
+     * value.</p>
      *
-     * @param object  the value to add to the toString
      * @param fieldName  the field name
+     * @param object  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, Object object) {
@@ -328,11 +360,13 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString an Object value.
+     * <p>Append to the <code>toString</code> an <code>Object</code>
+     * value.</p>
      *
-     * @param object  the value to add to the toString
      * @param fieldName  the field name
-     * @param fullDetail  true for detail, false for summary info
+     * @param object  the value to add to the <code>toString</code>
+     * @param fullDetail  <code>true</code> for detail,
+     *  <code>false</code> for summary info
      * @return this
      */
     public ToStringBuilder append(String fieldName, Object object, boolean fullDetail) {
@@ -343,9 +377,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a long value.
+     * <p>Append to the <code>toString</code> a <code>long</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(long value) {
@@ -354,10 +389,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a long value.
+     * <p>Append to the <code>toString</code> a <code>long</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
      * @param fieldName  the field name
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, long value) {
@@ -368,9 +404,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString an int value.
+     * <p>Append to the <code>toString</code> an <code>int</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(int value) {
@@ -379,10 +416,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString an int value.
+     * <p>Append to the <code>toString</code> an <code>int</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
      * @param fieldName  the field name
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, int value) {
@@ -393,9 +431,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a short value.
+     * <p>Append to the <code>toString</code> an <code>short</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(short value) {
@@ -404,10 +443,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a short value.
+     * <p>Append to the <code>toString</code> an <code>short</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
      * @param fieldName  the field name
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, short value) {
@@ -418,9 +458,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a char value.
+     * <p>Append to the <code>toString</code> an <code>char</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(char value) {
@@ -429,10 +470,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a char value.
+     * <p>Append to the <code>toString</code> an <code>char</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
      * @param fieldName  the field name
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, char value) {
@@ -443,9 +485,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a byte value.
+     * <p>Append to the <code>toString</code> an <code>byte</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(byte value) {
@@ -454,10 +497,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a byte value.
+     * <p>Append to the <code>toString</code> an <code>byte</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
      * @param fieldName  the field name
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, byte value) {
@@ -468,9 +512,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a double value.
+     * <p>Append to the <code>toString</code> an <code>double</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(double value) {
@@ -479,10 +524,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a double value.
+     * <p>Append to the <code>toString</code> an <code>double</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
      * @param fieldName  the field name
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, double value) {
@@ -493,9 +539,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a float value.
+     * <p>Append to the <code>toString</code> an <code>float</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(float value) {
@@ -504,10 +551,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a float value.
+     * <p>Append to the <code>toString</code> an <code>float</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
      * @param fieldName  the field name
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, float value) {
@@ -518,9 +566,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a boolean value.
+     * <p>Append to the <code>toString</code> an <code>boolean</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(boolean value) {
@@ -529,10 +578,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a boolean value.
+     * <p>Append to the <code>toString</code> an <code>boolean</code>
+     * value.</p>
      *
-     * @param value  the value to add to the toString
      * @param fieldName  the field name
+     * @param value  the value to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, boolean value) {
@@ -543,9 +593,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString an Object array.
+     * <p>Append to the <code>toString</code> an <code>Object</code>
+     * array.</p>
      *
-     * @param array  the array to add to the toString
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(Object[] array) {
@@ -554,10 +605,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString an Object array.
+     * <p>Append to the <code>toString</code> an <code>Object</code>
+     * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the toString
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, Object[] array) {
@@ -566,15 +618,18 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString an Object array.
-     * <p>
-     * A boolean parameter controls the level of detail to show. Setting true
-     * will output the array in full. Setting false will output a summary,
-     * typically the size of the array.
+     * <p>Append to the <code>toString</code> an <code>Object</code>
+     * array.</p>
+     *
+     * <p>A boolean parameter controls the level of detail to show.
+     * Setting <code>true</code> will output the array in full. Setting
+     * <code>false</code> will output a summary, typically the size of
+     * the array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the toString
-     * @param fullDetail  true for detail, false for summary info
+     * @param array  the array to add to the <code>toString</code>
+     * @param fullDetail  <code>true</code> for detail, <code>false</code>
+     *  for summary info
      * @return this
      */
     public ToStringBuilder append(String fieldName, Object[] array, boolean fullDetail) {
@@ -585,9 +640,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a long array.
+     * <p>Append to the <code>toString</code> a <code>long</code>
+     * array.</p>
      *
-     * @param array  the array to add to the toString
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(long[] array) {
@@ -596,10 +652,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append a hashCode for a long array.
+     * <p>Append a <code>hashCode</code> for a <code>long</code>
+     * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the hashCode
+     * @param array  the array to add to the <code>hashCode</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, long[] array) {
@@ -608,15 +665,18 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a long array.
-     * <p>
-     * A boolean parameter controls the level of detail to show. Setting true
-     * will output the array in full. Setting false will output a summary,
-     * typically the size of the array.
+     * <p>Append to the <code>toString</code> a <code>long</code>
+     * array.</p>
+     *
+     * <p>A boolean parameter controls the level of detail to show.
+     * Setting <code>true</code> will output the array in full. Setting
+     * <code>false</code> will output a summary, typically the size of
+     * the array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the toString
-     * @param fullDetail  true for detail, false for summary info
+     * @param array  the array to add to the <code>toString</code>
+     * @param fullDetail  <code>true</code> for detail, <code>false</code>
+     *  for summary info
      * @return this
      */
     public ToStringBuilder append(String fieldName, long[] array, boolean fullDetail) {
@@ -627,9 +687,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a int array.
+     * <p>Append to the <code>toString</code> a <code>int</code>
+     * array.</p>
      *
-     * @param array  the array to add to the toString
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(int[] array) {
@@ -638,10 +699,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append a hashCode for an int array.
+     * <p>Append a <code>hashCode</code> for an <code>int</code>
+     * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the hashCode
+     * @param array  the array to add to the <code>hashCode</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, int[] array) {
@@ -650,15 +712,18 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString an int array.
-     * <p>
-     * A boolean parameter controls the level of detail to show. Setting true
-     * will output the array in full. Setting false will output a summary,
-     * typically the size of the array.
+     * <p>Append to the <code>toString</code> an <code>int</code>
+     * array.</p>
+     *
+     * <p>A boolean parameter controls the level of detail to show.
+     * Setting <code>true</code> will output the array in full. Setting
+     * <code>false</code> will output a summary, typically the size of
+     * the array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the toString
-     * @param fullDetail  true for detail, false for summary info
+     * @param array  the array to add to the <code>toString</code>
+     * @param fullDetail  <code>true</code> for detail, <code>false</code>
+     *  for summary info
      * @return this
      */
     public ToStringBuilder append(String fieldName, int[] array, boolean fullDetail) {
@@ -669,9 +734,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a short array.
+     * <p>Append to the <code>toString</code> a <code>short</code>
+     * array.</p>
      *
-     * @param array  the array to add to the toString
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(short[] array) {
@@ -680,10 +746,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append a hashCode for a short array.
+     * <p>Append a <code>hashCode</code> for a <code>short</code>
+     * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the hashCode
+     * @param array  the array to add to the <code>hashCode</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, short[] array) {
@@ -692,15 +759,18 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a short array.
-     * <p>
-     * A boolean parameter controls the level of detail to show. Setting true
-     * will output the array in full. Setting false will output a summary,
-     * typically the size of the array.
+     * <p>Append to the <code>toString</code> a <code>short</code>
+     * array.</p>
+     *
+     * <p>A boolean parameter controls the level of detail to show.
+     * Setting <code>true</code> will output the array in full. Setting
+     * <code>false</code> will output a summary, typically the size of
+     * the array.
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the toString
-     * @param fullDetail  true for detail, false for summary info
+     * @param array  the array to add to the <code>toString</code>
+     * @param fullDetail  <code>true</code> for detail, <code>false</code>
+     *  for summary info
      * @return this
      */
     public ToStringBuilder append(String fieldName, short[] array, boolean fullDetail) {
@@ -711,9 +781,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a char array.
+     * <p>Append to the <code>toString</code> a <code>char</code>
+     * array.</p>
      *
-     * @param array  the array to add to the toString
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(char[] array) {
@@ -722,10 +793,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append a hashCode for a char array.
+     * <p>Append a <code>hashCode</code> for a <code>char</code>
+     * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the hashCode
+     * @param array  the array to add to the <code>hashCode</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, char[] array) {
@@ -734,15 +806,18 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a char array.
-     * <p>
-     * A boolean parameter controls the level of detail to show. Setting true
-     * will output the array in full. Setting false will output a summary,
-     * typically the size of the array.
+     * <p>Append to the <code>toString</code> a <code>char</code>
+     * array.</p>
+     *
+     * <p>A boolean parameter controls the level of detail to show.
+     * Setting <code>true</code> will output the array in full. Setting
+     * <code>false</code> will output a summary, typically the size of
+     * the array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the toString
-     * @param fullDetail  true for detail, false for summary info
+     * @param array  the array to add to the <code>toString</code>
+     * @param fullDetail  <code>true</code> for detail, <code>false</code>
+     *  for summary info
      * @return this
      */
     public ToStringBuilder append(String fieldName, char[] array, boolean fullDetail) {
@@ -753,9 +828,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a byte array.
+     * <p>Append to the <code>toString</code> a <code>byte</code>
+     * array.</p>
      *
-     * @param array  the array to add to the toString
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(byte[] array) {
@@ -764,10 +840,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append a hashCode for a byte array.
+     * <p>Append a <code>hashCode</code> for a <code>byte</code>
+     * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the hashCode
+     * @param array  the array to add to the <code>hashCode</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, byte[] array) {
@@ -776,15 +853,18 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a byte array.
-     * <p>
-     * A boolean parameter controls the level of detail to show. Setting true
-     * will output the array in full. Setting false will output a summary,
-     * typically the size of the array.
+     * <p>Append to the <code>toString</code> a <code>byte</code>
+     * array.</p>
+     *
+     * <p>A boolean parameter controls the level of detail to show.
+     * Setting <code>true</code> will output the array in full. Setting
+     * <code>false</code> will output a summary, typically the size of
+     * the array.
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the toString
-     * @param fullDetail  true for detail, false for summary info
+     * @param array  the array to add to the <code>toString</code>
+     * @param fullDetail  <code>true</code> for detail, <code>false</code>
+     *  for summary info
      * @return this
      */
     public ToStringBuilder append(String fieldName, byte[] array, boolean fullDetail) {
@@ -795,9 +875,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a double array.
+     * <p>Append to the <code>toString</code> a <code>double</code>
+     * array.</p>
      *
-     * @param array  the array to add to the toString
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(double[] array) {
@@ -806,10 +887,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append a hashCode for a double array.
+     * <p>Append a <code>hashCode</code> for a <code>double</code>
+     * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the hashCode
+     * @param array  the array to add to the <code>hashCode</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, double[] array) {
@@ -818,15 +900,18 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a double array.
-     * <p>
-     * A boolean parameter controls the level of detail to show. Setting true
-     * will output the array in full. Setting false will output a summary,
-     * typically the size of the array.
+     * <p>Append to the <code>toString</code> a <code>double</code>
+     * array.</p>
+     *
+     * <p>A boolean parameter controls the level of detail to show.
+     * Setting <code>true</code> will output the array in full. Setting
+     * <code>false</code> will output a summary, typically the size of
+     * the array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the toString
-     * @param fullDetail  true for detail, false for summary info
+     * @param array  the array to add to the <code>toString</code>
+     * @param fullDetail  <code>true</code> for detail, <code>false</code>
+     *  for summary info
      * @return this
      */
     public ToStringBuilder append(String fieldName, double[] array, boolean fullDetail) {
@@ -837,9 +922,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a float array.
+     * <p>Append to the <code>toString</code> a <code>float</code>
+     * array.</p>
      *
-     * @param array  the array to add to the toString
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(float[] array) {
@@ -848,10 +934,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append a hashCode for a float array.
+     * <p>Append a <code>hashCode</code> for a <code>float</code>
+     * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the hashCode
+     * @param array  the array to add to the <code>hashCode</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, float[] array) {
@@ -860,15 +947,18 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a float array.
-     * <p>
-     * A boolean parameter controls the level of detail to show. Setting true
-     * will output the array in full. Setting false will output a summary,
-     * typically the size of the array.
+     * <p>Append to the <code>toString</code> a <code>float</code>
+     * array.</p>
+     *
+     * <p>A boolean parameter controls the level of detail to show.
+     * Setting <code>true</code> will output the array in full. Setting
+     * <code>false</code> will output a summary, typically the size of
+     * the array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the toString
-     * @param fullDetail  true for detail, false for summary info
+     * @param array  the array to add to the <code>toString</code>
+     * @param fullDetail  <code>true</code> for detail, <code>false</code>
+     *  for summary info
      * @return this
      */
     public ToStringBuilder append(String fieldName, float[] array, boolean fullDetail) {
@@ -879,9 +969,10 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Append to the toString a boolean array.
+     * <p>Append to the <code>toString</code> a <code>boolean</code>
+     * array.</p>
      *
-     * @param array  the array to add to the toString
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(boolean[] array) {
@@ -890,10 +981,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append a hashCode for a boolean array.
+     * <p>Append a <code>hashCode</code> for a <code>boolean</code>
+     * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the hashCode
+     * @param array  the array to add to the <code>hashCode</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, boolean[] array) {
@@ -902,15 +994,18 @@ public class ToStringBuilder {
     }
 
     /**
-     * Append to the toString a boolean array.
-     * <p>
-     * A boolean parameter controls the level of detail to show. Setting true
-     * will output the array in full. Setting false will output a summary,
-     * typically the size of the array.
+     * <p>Append to the <code>toString</code> a <code>boolean</code>
+     * array.</p>
+     *
+     * <p>A boolean parameter controls the level of detail to show.
+     * Setting <code>true</code> will output the array in full. Setting
+     * <code>false</code> will output a summary, typically the size of
+     * the array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the toString
-     * @param fullDetail  true for detail, false for summary info
+     * @param array  the array to add to the <code>toString</code>
+     * @param fullDetail  <code>true</code> for detail, <code>false</code>
+     *  for summary info
      * @return this
      */
     public ToStringBuilder append(String fieldName, boolean[] array, boolean fullDetail) {
@@ -921,18 +1016,18 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
-     * Gets the buffer being populated
+     * <p>Gets the <code>StringBuffer</code> being populated.</p>
      * 
-     * @return the StringBuffer being populated
+     * @return the <code>StringBuffer</code> being populated
      */    
     public StringBuffer getStringBuffer() {
         return buffer;
     }
 
     /**
-     * Returns the built toString
+     * <p>Returns the built <code>toString</code>.</p>
      * 
-     * @return the String toString
+     * @return the String <code>toString</code>
      */    
     public String toString() {
         style.appendEnd(buffer, object);

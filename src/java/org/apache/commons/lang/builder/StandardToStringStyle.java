@@ -54,21 +54,22 @@
 package org.apache.commons.lang.builder;
 
 /**
- * <code>StandardToStringStyle</code> works with ToStringBuilder to create a
- * toString.
- * <p>
- * This class is intended to be used as a singleton. There is no need 
- * to instantiate a new style each time. Your code should instantiate the class
- * once, customize the values as required, and then store the result in a 
- * public static final variable for the rest of the program to access.
+ * <p><code>StandardToStringStyle</code> works with {@link ToStringBuilder}
+ * to create a <code>toString</code>.</p>
+ *
+ * <p>This class is intended to be used as a <code>Singleton</code>. There
+ * is no need * to instantiate a new style each time. Your code should
+ * instantiate the class once, customize the values as required, and then
+ * store the result in a public static final variable for the rest of the
+ * program to access.</p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StandardToStringStyle.java,v 1.4 2002/09/22 09:18:32 scolebourne Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.5 2002/11/17 21:46:42 scolebourne Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
     /**
-     * Constructor.
+     * <p>Constructor.</p>
      */
     public StandardToStringStyle() {
         super();
@@ -77,7 +78,8 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets whether to use the class name.
+     * <p>Gets whether to use the class name.</p>
+     *
      * @return the current useClassName flag
      */
     public boolean isUseClassName() {
@@ -85,7 +87,8 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets whether to use the class name.
+     * <p>Sets whether to use the class name.</p>
+     *
      * @param useClassName  the new useClassName flag
      */
     public void setUseClassName(boolean useClassName) {
@@ -95,7 +98,8 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets whether to output short or long class names.
+     * <p>Gets whether to output short or long class names.</p>
+     *
      * @return the current shortClassName flag
      */
     public boolean isShortClassName() {
@@ -103,7 +107,8 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets whether to output short or long class names.
+     * <p>Sets whether to output short or long class names.</p>
+     *
      * @param shortClassName  the new shortClassName flag
      */
     public void setShortClassName(boolean shortClassName) {
@@ -113,7 +118,7 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets whether to use the identity hash code.
+     * <p>Gets whether to use the identity hash code.</p>
      * @return the current useIdentityHashCode flag
      */
     public boolean isUseIdentityHashCode() {
@@ -121,7 +126,8 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets whether to use the identity hash code.
+     * <p>Sets whether to use the identity hash code.</p>
+     *
      * @param useIdentityHashCode  the new useIdentityHashCode flag
      */
     public void setUseIdentityHashCode(boolean useIdentityHashCode) {
@@ -131,7 +137,8 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets whether to use the field names passed in.
+     * <p>Gets whether to use the field names passed in.</p>
+     *
      * @return the current useFieldNames flag
      */
     public boolean isUseFieldNames() {
@@ -139,7 +146,8 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets whether to use the field names passed in.
+     * <p>Sets whether to use the field names passed in.</p>
+     *
      * @param useFieldNames  the new useFieldNames flag
      */
     public void setUseFieldNames(boolean useFieldNames) {
@@ -149,7 +157,9 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets whether to use full detail when the caller doesn't specify.
+     * <p>Gets whether to use full detail when the caller doesn't
+     * specify.</p>
+     *
      * @return the current defaultFullDetail flag
      */
     public boolean isDefaultFullDetail() {
@@ -157,7 +167,9 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets whether to use full detail when the caller doesn't specify.
+     * <p>Sets whether to use full detail when the caller doesn't
+     * specify.</p>
+     *
      * @param defaultFullDetail  the new defaultFullDetail flag
      */
     public void setDefaultFullDetail(boolean defaultFullDetail) {
@@ -167,7 +179,8 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets whether to output array content detail.
+     * <p>Gets whether to output array content detail.</p>
+     *
      * @return the current array content detail setting
      */
     public boolean isArrayContentDetail() {
@@ -175,7 +188,8 @@ public class StandardToStringStyle extends ToStringStyle {
     }
     
     /**
-     * Sets whether to output array content detail.
+     * <p>Sets whether to output array content detail.</p>
+     *
      * @param arrayContentDetail  the new arrayContentDetail flag
      */
     public void setArrayContentDetail(boolean arrayContentDetail) {
@@ -185,7 +199,8 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the array start text.
+     * <p>Gets the array start text.</p>
+     *
      * @return the current array start text
      */
     public String getArrayStart() {
@@ -193,8 +208,11 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets the array start text.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the array start text.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted
+     * to a empry String.</p>
+     *
      * @param arrayStart  the new array start text
      */
     public void setArrayStart(String arrayStart) {
@@ -204,7 +222,8 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the array end text.
+     * <p>Gets the array end text.</p>
+     *
      * @return the current array end text
      */
     public String getArrayEnd() {
@@ -212,8 +231,11 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets the array end text.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the array end text.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted
+     * to a empty String.</p>
+     *
      * @param arrayEnd  the new array end text
      */
     public void setArrayEnd(String arrayEnd) {
@@ -223,7 +245,8 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the array separator text.
+     * <p>Gets the array separator text.</p>
+     *
      * @return the current array separator text
      */
     public String getArraySeparator() {
@@ -231,8 +254,11 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets the array separator text.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the array separator text.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted
+     * to a empty String.</p>
+     *
      * @param arraySeparator  the new array separator text
      */
     public void setArraySeparator(String arraySeparator) {
@@ -242,7 +268,8 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the content start text.
+     * <p>Gets the content start text.</p>
+     *
      * @return the current content start text
      */
     public String getContentStart() {
@@ -250,8 +277,11 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets the content start text.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the content start text.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted
+     * to a empty String.</p>
+     *
      * @param contentStart  the new content start text
      */
     public void setContentStart(String contentStart) {
@@ -261,7 +291,8 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the content end text.
+     * <p>Gets the content end text.</p>
+     *
      * @return the current content end text
      */
     public String getContentEnd() {
@@ -269,8 +300,11 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets the content end text.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the content end text.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted
+     * to a empty String.</p>
+     *
      * @param contentEnd  the new content end text
      */
     public void setContentEnd(String contentEnd) {
@@ -280,7 +314,8 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the field name value separator text.
+     * <p>Gets the field name value separator text.</p>
+     *
      * @return the current field name value separator text
      */
     public String getFieldNameValueSeparator() {
@@ -288,8 +323,11 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets the field name value separator text.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the field name value separator text.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted
+     * to a empty String.</p>
+     *
      * @param fieldNameValueSeparator  the new field name value separator text
      */
     public void setFieldNameValueSeparator(String fieldNameValueSeparator) {
@@ -299,7 +337,8 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the field separator text.
+     * <p>Gets the field separator text.</p>
+     *
      * @return the current field separator text
      */
     public String getFieldSeparator() {
@@ -307,8 +346,11 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets the field separator text.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the field separator text.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted
+     * to a empty String.</p>
+     *
      * @param fieldSeparator  the new field separator text
      */
     public void setFieldSeparator(String fieldSeparator) {
@@ -318,16 +360,20 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the text to output when null found.
-     * @return the current text to output when null found
+     * <p>Gets the text to output when <code>null</code> found.</p>
+     *
+     * @return the current text to output when <code>null</code> found
      */
     public String getNullText() {
         return super.getNullText();
     }
 
     /**
-     * Sets the text to output when null found.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the text to output when <code>null</code> found.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted
+     * to a empty String.</p>
+     *
      * @param nullText  the new text to output when null found
      */
     public void setNullText(String nullText) {
@@ -337,8 +383,11 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the text to output when a Collection, Map or Array size is output.
-     * This is output before the size value.
+     * <p>Gets the text to output when a <code>Collection</code>,
+     * <code>Map</code> or <code>Array</code> size is output.</p>
+     *
+     * <p>This is output before the size value.</p>
+     *
      * @return the current start of size text
      */
     public String getSizeStartText() {
@@ -346,9 +395,14 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets the text to output when a Collection, Map or Array size is output.
-     * This is output before the size value.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the text to output when a <code>Collection</code>,
+     * <code>Map</code> or <code>Array</code> size is output.</p>
+     *
+     * <p>This is output before the size value.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted to
+     * a empty String.</p>
+     *
      * @param sizeStartText  the new start of size text
      */
     public void setSizeStartText(String sizeStartText) {
@@ -358,8 +412,11 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the text to output when a Collection, Map or Array size is output.
-     * This is output after the size value.
+     * Gets the text to output when a <code>Collection</code>,
+     * <code>Map</code> or <code>Array</code> size is output.</p>
+     *
+     * <p>This is output after the size value.</p>
+     *
      * @return the current end of size text
      */
     public String getSizeEndText() {
@@ -367,9 +424,14 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets the text to output when a Collection, Map or Array size is output.
-     * This is output after the size value.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the text to output when a <code>Collection</code>,
+     * <code>Map</code> or <code>Array</code> size is output.</p>
+     *
+     * <p>This is output after the size value.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted
+     * to a Empty String.</p>
+     *
      * @param sizeEndText  the new end of size text
      */
     public void setSizeEndText(String sizeEndText) {
@@ -379,8 +441,11 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the text to output when an Object is output in summary mode.
-     * This is output before the size value.
+     * <p>Gets the text to output when an <code>Object</code> is
+     * output in summary mode.</p>
+     *
+     * <P>This is output before the size value.</p>
+     *
      * @return the current start of summary text
      */
     public String getSummaryObjectStartText() {
@@ -388,9 +453,14 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets the text to output when an Object is output in summary mode.
-     * This is output before the size value.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the text to output when an <code>Object</code> is
+     * output in summary mode.</p>
+     *
+     * <p>This is output before the size value.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted to
+     * a empty String.</p>
+     *
      * @param summaryObjectStartText  the new start of summary text
      */
     public void setSummaryObjectStartText(String summaryObjectStartText) {
@@ -400,8 +470,11 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the text to output when an Object is output in summary mode.
-     * This is output after the size value.
+     * <p>Gets the text to output when an <code>Object</code> is
+     * output in summary mode.</p>
+     *
+     * <p>This is output after the size value.</p>
+     *
      * @return the current end of summary text
      */
     public String getSummaryObjectEndText() {
@@ -409,9 +482,14 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * Sets the text to output when an Object is output in summary mode.
-     * This is output after the size value.
-     * Null is accepted, but will be converted to a blank string.
+     * <p>Sets the text to output when an <code>Object</code> is
+     * output in summary mode.</p>
+     *
+     * <p>This is output after the size value.</p>
+     *
+     * <p><code>Null</code> is accepted, but will be converted to
+     * a empty String.</p>
+     *
      * @param summaryObjectEndText  the new end of summary text
      */
     public void setSummaryObjectEndText(String summaryObjectEndText) {
