@@ -60,6 +60,51 @@ import java.util.List;
 /**
  * <p>Common <code>String</code> manipulation routines that are 
  * <code>null</code> safe.</p>
+ * 
+ * <ul>
+ *  <li><b>IsEmpty/IsBlank</b>
+ *      - checks if a String contains text
+ *  <li><b>Trim/Strip</b>
+ *      - remove leading and trailing whitespace
+ *  <li><b>Equals</b>
+ *      - compare two strings null-safe
+ *  <li><b>IndexOf/LastIndexOf/Contains</b>
+ *      - null-safe index of checks
+ *  <li><b>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</b>
+ *      - index of any of a set of Strings
+ *  <li><b>ContainsOnly/ContainsNone</b>
+ *      - does String contain only/none of these characters
+ *  <li><b>SubString/Left/Right/Mid</b>
+ *      - null-safe substring extraction
+ *  <li><b>Split</b>
+ *      - splits a String into an array of subtrings based on a separator
+ *  <li><b>Join/Concatenate</b>
+ *      - joins an array of Strings into one with optional separator
+ *  <li><b>Replace/Delete/Overlay</b>
+ *      - Searches a String and replaces one String with another
+ *  <li><b>Chomp/Chop/Slice</b>
+ *      - searches a String and returns the substring before/after the separator
+ *  <li><b>LeftPad/RightPad/Center/Repeat</b>
+ *      - pads a String
+ *  <li><b>UpperCase/LowerCase/SwapCase/Capitalise/Uncapitalise</b>
+ *      - change the case of a String
+ *  <li><b>NestedString</b>
+ *      - returns a substring nested within other Strings
+ *  <li><b>CountMatches</b>
+ *      - counts the number of occurrances of one String in another
+ *  <li><b>IsAlpha/IsNumeric/IsWhitespace</b>
+ *      - checks the characters in a String
+ *  <li><b>DefaultString</b>
+ *      - protects against a null input String
+ *  <li><b>Reverse/ReverseDelimited</b>
+ *      - reverses a String
+ *  <li><b>Abbreviate</b>
+ *      - abbreviates a string using ellipsis
+ *  <li><b>Difference</b>
+ *      - compares two Strings and reports on their differences
+ *  <li><b>LevensteinDistance</b>
+ *      - the number of changes needed to change one String into another
+ * </ul>
  *
  * <p>The <code>StringUtils</code> class defines certain words related to
  * String handling.</p>
@@ -67,8 +112,9 @@ import java.util.List;
  * <ul>
  *  <li>null - <code>null</code>
  *  <li>empty - a zero-length string (<code>""</code>)
- *  <li>space - the space character (<code>' '</code>)(32)
+ *  <li>space - the space character (<code>' '</code>)(char 32)
  *  <li>whitespace - the characters defined by {@link Character#isWhitespace(char)}
+ *  <li>trim - the characters &lt;= 32 as in {@link String#trim(String)}
  * </ul>
  * 
  * <p><code>StringUtils</code> handles <code>null</code> input Strings quietly.
@@ -96,7 +142,7 @@ import java.util.List;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.71 2003/07/20 10:29:22 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.72 2003/07/20 14:47:29 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3335,17 +3381,17 @@ public class StringUtils {
      * is <code>'.'</code>).</p>
      * 
      * <pre>
-     * StringUtils.reverseDelimitedString(null, '.')    = null
-     * StringUtils.reverseDelimitedString("", '.')      = ""
-     * StringUtils.reverseDelimitedString("a.b.c", 'x') = "a.b.c"
-     * StringUtils.reverseDelimitedString("a.b.c", ".") = "c.b.a"
+     * StringUtils.reverseDelimited(null, '.')    = null
+     * StringUtils.reverseDelimited("", '.')      = ""
+     * StringUtils.reverseDelimited("a.b.c", 'x') = "a.b.c"
+     * StringUtils.reverseDelimited("a.b.c", ".") = "c.b.a"
      * </pre>
      * 
      * @param str  the String to reverse, may be null
      * @param separatorChar  the separator character to use
      * @return the reversed String, <code>null</code> if null String input
      */
-    public static String reverseDelimitedString(String str, char separatorChar) {
+    public static String reverseDelimited(String str, char separatorChar) {
         if (str == null) {
             return null;
         }
@@ -3373,7 +3419,7 @@ public class StringUtils {
      * @param str  the String to reverse, may be null
      * @param separatorChars  the separator characters to use, null treated as whitespace
      * @return the reversed String, <code>null</code> if null String input
-     * @deprecated Use {@link #reverseDelimitedString(String, char)} instead.
+     * @deprecated Use {@link #reverseDelimited(String, char)} instead.
      *      This method is broken as the join doesn't know which char to use.
      *      Method will be removed in Commons Lang 3.0.
      * 

@@ -72,7 +72,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.32 2003/07/20 10:29:21 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.33 2003/07/20 14:47:29 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -704,12 +704,12 @@ public class StringUtilsTest extends TestCase {
         assertEquals("sdrawkcab", StringUtils.reverse("backwards") );
     }
         
-    public void testReverseDelimitedString_StringChar() {
-        assertEquals(null, StringUtils.reverseDelimitedString(null, '.') );
-        assertEquals("", StringUtils.reverseDelimitedString("", '.') );
-        assertEquals("c.b.a", StringUtils.reverseDelimitedString("a.b.c", '.') );
-        assertEquals("a b c", StringUtils.reverseDelimitedString("a b c", '.') );
-        assertEquals("", StringUtils.reverseDelimitedString("", '.') );
+    public void testReverseDelimited_StringChar() {
+        assertEquals(null, StringUtils.reverseDelimited(null, '.') );
+        assertEquals("", StringUtils.reverseDelimited("", '.') );
+        assertEquals("c.b.a", StringUtils.reverseDelimited("a.b.c", '.') );
+        assertEquals("a b c", StringUtils.reverseDelimited("a b c", '.') );
+        assertEquals("", StringUtils.reverseDelimited("", '.') );
     }
 
     public void testReverseDelimitedString_StringString() {
