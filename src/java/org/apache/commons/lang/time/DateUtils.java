@@ -71,7 +71,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:sergek@lokitech.com">Serge Knystautas</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.3 2003/06/08 23:14:23 scolebourne Exp $
+ * @version $Id: DateUtils.java,v 1.4 2003/06/23 23:41:10 scolebourne Exp $
  */
 public class DateUtils {
     
@@ -151,11 +151,35 @@ public class DateUtils {
     public final static int RANGE_MONTH_MONDAY = 6;
 
     /**
-     * See the other round method.  Works with a Date object.
+     * <p><code>DateUtils<code> instances should NOT be constructed in
+     * standard programming. Instead, the class should be used as
+     * <code>DateUtils.parse(str);</code>.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
      */
-    public static Date round(Date val, int field) {
+    public DateUtils() {
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Round this date, leaving the field specified as the most significant
+     * field.  For example, if you had the datetime of 28 Mar 2002
+     * 13:45:01.231, if this was passed with HOUR, it would return 28 Mar
+     * 2002 14:00:00.000.  If this was passed with MONTH, it would return
+     * 1 April 2002 0:00:00.000.
+     * 
+     * @param date  the date to work with
+     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @return the rounded date
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date round(Date date, int field) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
         GregorianCalendar gval = new GregorianCalendar();
-        gval.setTime(val);
+        gval.setTime(date);
         modify(gval, field, true);
         return gval.getTime();
     }
@@ -166,33 +190,66 @@ public class DateUtils {
      * 13:45:01.231, if this was passed with HOUR, it would return 28 Mar
      * 2002 14:00:00.000.  If this was passed with MONTH, it would return
      * 1 April 2002 0:00:00.000.
+     * 
+     * @param date  the date to work with
+     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @return the rounded date (a different object)
+     * @throws IllegalArgumentException if the date is null
      */
-    public static Calendar round(Calendar val, int field) {
-        Calendar rounded = (Calendar) val.clone();
+    public static Calendar round(Calendar date, int field) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+        Calendar rounded = (Calendar) date.clone();
         modify(rounded, field, true);
         return rounded;
     }
 
     /**
-     * See the other round method.  Works with an Object, trying to
-     * use it as either a Date or Calendar.
+     * Round this date, leaving the field specified as the most significant
+     * field.  For example, if you had the datetime of 28 Mar 2002
+     * 13:45:01.231, if this was passed with HOUR, it would return 28 Mar
+     * 2002 14:00:00.000.  If this was passed with MONTH, it would return
+     * 1 April 2002 0:00:00.000.
+     * 
+     * @param date  the date to work with, either Date or Calendar
+     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @return the rounded date
+     * @throws IllegalArgumentException if the date is null
+     * @throws ClassCastException if the object type is not a Date or Calendar
      */
-    public static Date round(Object val, int field) {
-        if (val instanceof Date) {
-            return round((Date) val, field);
-        } else if (val instanceof Calendar) {
-            return round((Calendar) val, field).getTime();
+    public static Date round(Object date, int field) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+        if (date instanceof Date) {
+            return round((Date) date, field);
+        } else if (date instanceof Calendar) {
+            return round((Calendar) date, field).getTime();
         } else {
-            throw new ClassCastException("Could not round " + val);
+            throw new ClassCastException("Could not round " + date);
         }
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * See the other trunc method.  Works with a Date.
+     * Truncate this date, leaving the field specified as the most significant
+     * field.  For example, if you had the datetime of 28 Mar 2002
+     * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
+     * 2002 13:00:00.000.  If this was passed with MONTH, it would return
+     * 1 Mar 2002 0:00:00.000.
+     * 
+     * @param date  the date to work with
+     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @return the rounded date
+     * @throws IllegalArgumentException if the date is null
      */
-    public static Date trunc(Date val, int field) {
+    public static Date truncate(Date date, int field) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
         GregorianCalendar gval = new GregorianCalendar();
-        gval.setTime(val);
+        gval.setTime(date);
         modify(gval, field, false);
         return gval.getTime();
     }
@@ -203,27 +260,55 @@ public class DateUtils {
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
      * 2002 13:00:00.000.  If this was passed with MONTH, it would return
      * 1 Mar 2002 0:00:00.000.
+     * 
+     * @param date  the date to work with
+     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @return the rounded date (a different object)
+     * @throws IllegalArgumentException if the date is null
      */
-    public static Calendar trunc(Calendar val, int field) {
-        Calendar truncated = (Calendar) val.clone();
+    public static Calendar truncate(Calendar date, int field) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+        Calendar truncated = (Calendar) date.clone();
         modify(truncated, field, false);
         return truncated;
     }
 
     /**
-     * See the other trunc method.  Works with an Object, trying to
-     * use it as either a Date or Calendar.
+     * Truncate this date, leaving the field specified as the most significant
+     * field.  For example, if you had the datetime of 28 Mar 2002
+     * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
+     * 2002 13:00:00.000.  If this was passed with MONTH, it would return
+     * 1 Mar 2002 0:00:00.000.
+     * 
+     * @param date  the date to work with, either Date or Calendar
+     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @return the rounded date
+     * @throws IllegalArgumentException if the date is null
+     * @throws ClassCastException if the object type is not a Date or Calendar
      */
-    public static Date trunc(Object val, int field) {
-        if (val instanceof Date) {
-            return trunc((Date) val, field);
-        } else if (val instanceof Calendar) {
-            return trunc((Calendar) val, field).getTime();
+    public static Date truncate(Object date, int field) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+        if (date instanceof Date) {
+            return truncate((Date) date, field);
+        } else if (date instanceof Calendar) {
+            return truncate((Calendar) date, field).getTime();
         } else {
-            throw new ClassCastException("Could not trunc " + val);
+            throw new ClassCastException("Could not truncate " + date);
         }
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * Internal calculation method
+     * 
+     * @param val  the calendar
+     * @param field  the field constant
+     * @param round  true to round, false to truncate
+     */
     private static void modify(Calendar val, int field, boolean round) {
         boolean roundUp = false;
         for (int i = 0; i < fields.length; i++) {
@@ -295,26 +380,39 @@ public class DateUtils {
             //We need to remove this field
             val.add(fields[i][0], -offset);
         }
-        throw new RuntimeException("We do not support that field.");
+        throw new IllegalArgumentException("The field " + field + " is not supported");
 
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * Parses strings the way that CVS supports it (very human readable).
+     * Parses a date string formatted in CVS format.
+     * 
+     * @param dateStr  the date to parse
+     * @return the parsed date
+     * @throws IllegalArgumentException if the date cannot be parsed
      */
-    public static Calendar parse(String original) {
-        return parse(original, Locale.getDefault());
+    public static Calendar parseCVS(String dateStr) {
+        return parseCVS(dateStr, Locale.getDefault());
     }
 
     /**
-     * Parses strings the way that CVS supports it (very human readable).
+     * Parses a date string formatted in CVS format.
+     * 
+     * @param dateStr  the date to parse
+     * @param locale  the locale to parse in
+     * @return the parsed date
+     * @throws IllegalArgumentException if the date is null or cannot be parsed
      */
-    public static Calendar parse(String original, Locale locale) {
+    public static Calendar parseCVS(String dateStr, Locale locale) {
+        if (dateStr == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
         //Get the symbol names
         DateFormatSymbols symbols = new DateFormatSymbols(locale);
 
         //Prep the string to parse
-        String value = original.toLowerCase().trim();
+        String value = dateStr.toLowerCase().trim();
 
         //Get the current date/time
         Calendar now = Calendar.getInstance();
@@ -326,7 +424,7 @@ public class DateUtils {
             //Split the value and unit
             int start = value.indexOf(" ");
             if (start < 0) {
-                throw new RuntimeException("Could not find space in between value and unit");
+                throw new IllegalArgumentException("Could not find space in between value and unit");
             }
             String unit = value.substring(start + 1);
             value = value.substring(0, start);
@@ -358,7 +456,7 @@ public class DateUtils {
             } else if (unit.equals("years") || unit.equals("year")) {
                 now.add(Calendar.YEAR, -val);
             } else {
-                throw new RuntimeException("We do not understand that many units ago");
+                throw new IllegalArgumentException("We do not understand that many units ago");
             }
             return now;
         } else if (value.startsWith("last ")) {
@@ -404,7 +502,7 @@ public class DateUtils {
         //Try to parse the date a number of different ways
         for (int i = 0; i < dateFormats.length; i++) {
             try {
-                Date datetime = dateFormats[i].parse(original);
+                Date datetime = dateFormats[i].parse(dateStr);
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(datetime);
                 return cal;
@@ -413,7 +511,29 @@ public class DateUtils {
             }
         }
 
-        throw new RuntimeException("Unable to parse '" + original + "'.");
+        throw new IllegalArgumentException("Unable to parse '" + dateStr + "'.");
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * This constructs an Iterator that will start and stop over a date
+     * range based on the focused date and the range style.  For instance,
+     * passing Thursday, July 4, 2002 and a RANGE_MONTH_SUNDAY will return
+     * an Iterator that starts with Sunday, June 30, 2002 and ends with
+     * Saturday, August 3, 2002.
+     * 
+     * @param focus  the date to work with
+     * @param rangeStyle  the style constant to use
+     * @return the date iterator
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Iterator iterator(Date focus, int rangeStyle) {
+        if (focus == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+        GregorianCalendar gval = new GregorianCalendar();
+        gval.setTime(focus);
+        return iterator(gval, rangeStyle);
     }
 
     /**
@@ -422,8 +542,16 @@ public class DateUtils {
      * passing Thursday, July 4, 2002 and a RANGE_MONTH_SUNDAY will return
      * an Iterator that starts with Sunday, June 30, 2002 and ends with
      * Saturday, August 3, 2002.
+     * 
+     * @param focus  the date to work with
+     * @param rangeStyle  the style constant to use
+     * @return the date iterator
+     * @throws IllegalArgumentException if the date is null
      */
-    public static Iterator getCalendarIterator(Calendar focus, int rangeStyle) {
+    public static Iterator iterator(Calendar focus, int rangeStyle) {
+        if (focus == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
         Calendar start = null;
         Calendar end = null;
         int startCutoff = Calendar.SUNDAY;
@@ -432,7 +560,7 @@ public class DateUtils {
             case RANGE_MONTH_SUNDAY:
             case RANGE_MONTH_MONDAY:
                 //Set start to the first of the month
-                start = trunc(focus, Calendar.MONTH);
+                start = truncate(focus, Calendar.MONTH);
                 //Set end to the last of the month
                 end = (Calendar) start.clone();
                 end.add(Calendar.MONTH, 1);
@@ -448,8 +576,8 @@ public class DateUtils {
             case RANGE_WEEK_RELATIVE:
             case RANGE_WEEK_CENTER:
                 //Set start and end to the current date
-                start = trunc(focus, Calendar.DATE);
-                end = trunc(focus, Calendar.DATE);
+                start = truncate(focus, Calendar.DATE);
+                end = truncate(focus, Calendar.DATE);
                 switch (rangeStyle) {
                     case RANGE_WEEK_SUNDAY:
                         //already set by default
@@ -469,7 +597,7 @@ public class DateUtils {
                 }
                 break;
             default:
-                throw new RuntimeException("The range style " + rangeStyle + " is not valid.");
+                throw new IllegalArgumentException("The range style " + rangeStyle + " is not valid.");
         }
         if (startCutoff < Calendar.SUNDAY) {
             startCutoff += 7;
@@ -489,54 +617,65 @@ public class DateUtils {
         while (end.get(Calendar.DAY_OF_WEEK) != endCutoff) {
             end.add(Calendar.DATE, 1);
         }
-        final Calendar startFinal = start;
-        final Calendar endFinal = end;
-        Iterator it = new Iterator() {
-            Calendar spot = null;
-            {
-                spot = startFinal;
-                spot.add(Calendar.DATE, -1);
-            }
-
-            public boolean hasNext() {
-                return spot.before(endFinal);
-            }
-
-            public Object next() {
-                if (spot.equals(endFinal)) {
-                    throw new NoSuchElementException();
-                }
-                spot.add(Calendar.DATE, 1);
-                return spot.clone();
-            }
-
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-        };
-        return it;
+        return new DateIterator(start, end);
     }
 
     /**
-     * See the other getCalendarIterator.  Works with a Date.
+     * This constructs an Iterator that will start and stop over a date
+     * range based on the focused date and the range style.  For instance,
+     * passing Thursday, July 4, 2002 and a RANGE_MONTH_SUNDAY will return
+     * an Iterator that starts with Sunday, June 30, 2002 and ends with
+     * Saturday, August 3, 2002.
+     * 
+     * @param focus  the date to work with, either Date or Calendar
+     * @param rangeStyle  the style constant to use
+     * @return the date iterator
+     * @throws IllegalArgumentException if the date is null
+     * @throws ClassCastException if the object type is not a Date or Calendar
      */
-    public static Iterator getCalendarIterator(Date focus, int rangeStyle) {
-        GregorianCalendar gval = new GregorianCalendar();
-        gval.setTime(focus);
-        return getCalendarIterator(gval, rangeStyle);
-    }
-
-    /**
-     * See the other getCalendarIterator.  Works with an Object, trying
-     * to use it as a Date or Calendar.
-     */
-    public static Iterator getCalendarIterator(Object focus, int rangeStyle) {
+    public static Iterator iterator(Object focus, int rangeStyle) {
+        if (focus == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
         if (focus instanceof Date) {
-            return getCalendarIterator((Date) focus, rangeStyle);
+            return iterator((Date) focus, rangeStyle);
         } else if (focus instanceof Calendar) {
-            return getCalendarIterator((Calendar) focus, rangeStyle);
+            return iterator((Calendar) focus, rangeStyle);
         } else {
             throw new ClassCastException("Could not iterate based on " + focus);
+        }
+    }
+
+    /**
+     * Date iterator.
+     */
+    static class DateIterator implements Iterator {
+        private final Calendar startFinal;
+        private final Calendar endFinal;
+        private Calendar spot = null;
+        
+        DateIterator(Calendar startFinal, Calendar endFinal) {
+            super();
+            this.startFinal = startFinal;
+            this.endFinal = endFinal;
+            spot = startFinal;
+            spot.add(Calendar.DATE, -1);
+        }
+
+        public boolean hasNext() {
+            return spot.before(endFinal);
+        }
+
+        public Object next() {
+            if (spot.equals(endFinal)) {
+                throw new NoSuchElementException();
+            }
+            spot.add(Calendar.DATE, 1);
+            return spot.clone();
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
         }
     }
 
