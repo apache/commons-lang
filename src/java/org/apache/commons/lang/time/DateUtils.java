@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.33 2004/10/16 17:08:42 scolebourne Exp $
+ * @version $Id: DateUtils.java,v 1.34 2004/10/16 17:43:05 scolebourne Exp $
  */
 public class DateUtils {
     
@@ -255,6 +255,7 @@ public class DateUtils {
      *  or <code>SEMI_MONTH</code>
      * @return the rounded date
      * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws ArithmeticException if the year is over 280 million
      */
     public static Date round(Date date, int field) {
         if (date == null) {
@@ -292,6 +293,7 @@ public class DateUtils {
      *  or <code>SEMI_MONTH</code>
      * @return the rounded date (a different object)
      * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws ArithmeticException if the year is over 280 million
      */
     public static Calendar round(Calendar date, int field) {
         if (date == null) {
@@ -330,6 +332,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is <code>null</code>
      * @throws ClassCastException if the object type is not a <code>Date</code>
      *  or <code>Calendar</code>
+     * @throws ArithmeticException if the year is over 280 million
      */
     public static Date round(Object date, int field) {
         if (date == null) {
@@ -359,6 +362,7 @@ public class DateUtils {
      *  or <code>SEMI_MONTH</code>
      * @return the rounded date
      * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws ArithmeticException if the year is over 280 million
      */
     public static Date truncate(Date date, int field) {
         if (date == null) {
@@ -384,6 +388,7 @@ public class DateUtils {
      *  or <code>SEMI_MONTH</code>
      * @return the rounded date (a different object)
      * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws ArithmeticException if the year is over 280 million
      */
     public static Calendar truncate(Calendar date, int field) {
         if (date == null) {
@@ -412,6 +417,7 @@ public class DateUtils {
      *  is <code>null</code>
      * @throws ClassCastException if the object type is not a
      *  <code>Date</code> or <code>Calendar</code>
+     * @throws ArithmeticException if the year is over 280 million
      */
     public static Date truncate(Object date, int field) {
         if (date == null) {
@@ -433,8 +439,13 @@ public class DateUtils {
      * @param val  the calendar
      * @param field  the field constant
      * @param round  true to round, false to truncate
+     * @throws ArithmeticException if the year is over 280 million
      */
     private static void modify(Calendar val, int field, boolean round) {
+        if (val.get(Calendar.YEAR) > 280000000) {
+            throw new ArithmeticException("Calendar value too large for accurate calculations");
+        }
+        
         boolean roundUp = false;
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields[i].length; j++) {

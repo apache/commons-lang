@@ -628,6 +628,23 @@ public class DateUtilsTest extends TestCase {
                 DateUtils.truncate((Object) cal8, Calendar.DATE));
         TimeZone.setDefault(defaultZone);
         dateTimeParser.setTimeZone(defaultZone);
+        
+        // Bug 31395, large dates
+        Date endOfTime = new Date(Long.MAX_VALUE); // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
+        GregorianCalendar endCal = new GregorianCalendar();
+        endCal.setTime(endOfTime);
+        try {
+            DateUtils.truncate(endCal, Calendar.DATE);
+            fail();
+        } catch (ArithmeticException ex) {}
+        endCal.set(Calendar.YEAR, 280000001);
+        try {
+            DateUtils.truncate(endCal, Calendar.DATE);
+            fail();
+        } catch (ArithmeticException ex) {}
+        endCal.set(Calendar.YEAR, 280000000);
+        Calendar cal = DateUtils.truncate(endCal, Calendar.DATE);
+        assertEquals(0, cal.get(Calendar.HOUR));
     }
 
     /**
