@@ -67,7 +67,7 @@ import java.util.*;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.7 2003/05/24 15:11:36 alex Exp $
+ * @version $Id: Entities.java,v 1.8 2003/05/24 15:28:38 alex Exp $
  */
 class Entities {
 
@@ -366,9 +366,9 @@ class Entities {
         {"euro", "8364"}, //  -- euro sign, U+20AC NEW -->
     };
 
-    public static Entities XML;
-    public static Entities HTML32;
-    public static Entities HTML40;
+    public static final Entities XML;
+    public static final Entities HTML32;
+    public static final Entities HTML40;
 
     static {
         XML = new Entities();
