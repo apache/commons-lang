@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.92 2003/08/13 21:32:10 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.93 2003/08/13 23:30:58 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3877,6 +3877,8 @@ public class StringUtils {
      * StringUtils.defaultString("bat") = "bat"
      * </pre>
      * 
+     * @see ObjectUtils#toString(Object)
+     * @see String#valueOf(Object)
      * @param str  the String to check, may be null
      * @return the passed in String, or the empty String if it
      *  was <code>null</code>
@@ -3895,6 +3897,8 @@ public class StringUtils {
      * StringUtils.defaultString("bat", "null") = "bat"
      * </pre>
      * 
+     * @see ObjectUtils#toString(Object,String)
+     * @see String#valueOf(Object)
      * @param str  the String to check, may be null
      * @param defaultStr  the default String to return 
      *  if the input is <code>null</code>, may be null

@@ -68,7 +68,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.16 2003/08/01 20:45:17 scolebourne Exp $
+ * @version $Id: ObjectUtils.java,v 1.17 2003/08/13 23:30:58 scolebourne Exp $
  */
 public class ObjectUtils {
     
@@ -220,6 +220,8 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE) = "true"
      * </pre>
      * 
+     * @see StringUtils#defaultString(String)
+     * @see String#valueOf(Object)
      * @param obj  the Object to <code>toString</code>, may be null
      * @return the passed in Object's toString, or nullStr if <code>null</code> input
      */
@@ -239,6 +241,8 @@ public class ObjectUtils {
      * ObjectUtils.toString(Boolean.TRUE, "null") = "true"
      * </pre>
      * 
+     * @see StringUtils#defaultString(String,String)
+     * @see String#valueOf(Object)
      * @param obj  the Object to <code>toString</code>, may be null
      * @param nullStr  the String to return if <code>null</code> input, may be null
      * @return the passed in Object's toString, or nullStr if <code>null</code> input
