@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ToStringStyle}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StandardToStringStyleTest.java,v 1.2 2002/12/08 20:48:46 scolebourne Exp $
+ * @version $Id: StandardToStringStyleTest.java,v 1.3 2003/05/21 23:49:15 scolebourne Exp $
  */
 public class StandardToStringStyleTest extends TestCase {
 

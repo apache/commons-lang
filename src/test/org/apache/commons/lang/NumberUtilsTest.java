@@ -53,7 +53,6 @@
  */
 package org.apache.commons.lang;
 
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -66,7 +65,7 @@ import junit.framework.TestSuite;
  *
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: NumberUtilsTest.java,v 1.5 2003/03/23 21:49:13 scolebourne Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.6 2003/05/21 23:49:15 scolebourne Exp $
  */
 public class NumberUtilsTest extends TestCase {
 

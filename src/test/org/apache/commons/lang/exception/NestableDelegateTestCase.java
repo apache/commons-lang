@@ -1,9 +1,7 @@
-package org.apache.commons.lang.exception;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,22 +51,24 @@ package org.apache.commons.lang.exception;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang.exception;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
  * Tests the org.apache.commons.lang.exception.NestableDelegate class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
- * @version $Id: NestableDelegateTestCase.java,v 1.4 2003/05/14 02:59:13 bayard Exp $
+ * @version $Id: NestableDelegateTestCase.java,v 1.5 2003/05/21 23:49:14 scolebourne Exp $
  */
-public class NestableDelegateTestCase extends junit.framework.TestCase
-{
+public class NestableDelegateTestCase extends junit.framework.TestCase {
     private static final String CONSTRUCTOR_FAILED_MSG = 
     "The Nestable implementation passed to the NestableDelegate(Nestable) constructor must extend java.lang.Throwable";
 

@@ -1,9 +1,7 @@
-package org.apache.commons.lang.exception;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,25 +51,24 @@ package org.apache.commons.lang.exception;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang.exception;
 
-import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.ObjectOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
-import java.io.Serializable;
+import java.io.ObjectOutputStream;
 
-import junit.framework.*;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
  * Tests the org.apache.commons.lang.exception.NestableException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableExceptionTestCase.java,v 1.7 2002/10/09 17:20:44 sullis Exp $
+ * @version $Id: NestableExceptionTestCase.java,v 1.8 2003/05/21 23:49:14 scolebourne Exp $
  */
-public class NestableExceptionTestCase extends AbstractNestableTestCase
-{
+public class NestableExceptionTestCase extends AbstractNestableTestCase {
     
     /**
      * Construct a new instance of
