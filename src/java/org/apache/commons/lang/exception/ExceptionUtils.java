@@ -176,13 +176,9 @@ public class ExceptionUtils
      */
     private static Throwable getCauseUsingWellKnownTypes(Throwable t)
     {
-        if (t instanceof NestableException)
+        if (t instanceof Nestable)
         {
-            return ((NestableException) t).getCause();
-        }
-        else if (t instanceof NestableRuntimeException)
-        {
-            return ((NestableRuntimeException) t).getCause();
+            return ((Nestable) t).getCause();
         }
         else if (t instanceof SQLException)
         {
