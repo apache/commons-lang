@@ -66,7 +66,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.2 2003/08/17 22:56:11 scolebourne Exp $
+ * @version $Id: WordUtils.java,v 1.3 2003/08/17 23:06:11 scolebourne Exp $
  */
 public class WordUtils {
 
@@ -256,7 +256,8 @@ public class WordUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Capitalizes all the whitespace separated words in a String.
-     * Only the first letter of each word is changed.</p>
+     * Only the first letter of each word is changed. To change all letters to
+     * the capitalized case, use {@link #capitalizeFully(String)}.</p>
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
      * A <code>null</code> input String returns <code>null</code>.
@@ -271,6 +272,7 @@ public class WordUtils {
      * 
      * @param str  the String to capitalize, may be null
      * @return capitalized String, <code>null</code> if null String input
+     * @see #capitalizeFully(String)
      */
     public static String capitalize(String str) {
         int strLen;
@@ -289,6 +291,46 @@ public class WordUtils {
                 whitespace = false;
             } else {
                 buffer.append(ch);
+            }
+        }
+        return buffer.toString();
+    }
+
+    /**
+     * <p>Capitalizes all the whitespace separated words in a String.
+     * All letters are changed, so the resulting string will be fully changed.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A <code>null</code> input String returns <code>null</code>.
+     * Capitalization uses the unicode title case, normally equivalent to
+     * upper case.</p>
+     *
+     * <pre>
+     * WordUtils.capitalize(null)        = null
+     * WordUtils.capitalize("")          = ""
+     * WordUtils.capitalize("i am FINE") = "I Am Fine"
+     * </pre>
+     * 
+     * @param str  the String to capitalize, may be null
+     * @return capitalized String, <code>null</code> if null String input
+     */
+    public static String capitalizeFully(String str) {
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
+        }
+        StringBuffer buffer = new StringBuffer(strLen);
+        boolean whitespace = true;
+        for (int i = 0; i < strLen; i++) {
+            char ch = str.charAt(i);
+            if (Character.isWhitespace(ch)) {
+                buffer.append(ch);
+                whitespace = true;
+            } else if (whitespace) {
+                buffer.append(Character.toTitleCase(ch));
+                whitespace = false;
+            } else {
+                buffer.append(Character.toLowerCase(ch));
             }
         }
         return buffer.toString();
