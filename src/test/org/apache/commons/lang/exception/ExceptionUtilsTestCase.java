@@ -22,6 +22,7 @@ import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
+import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import org.apache.commons.lang.SystemUtils;
@@ -32,6 +33,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Stephen Colebourne
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
  */
 public class ExceptionUtilsTestCase extends junit.framework.TestCase {
@@ -76,6 +78,30 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
     }
 
     //-----------------------------------------------------------------------
+    
+    public void testCauseMethodNameOps() {
+        this.testCauseMethodNameOps(null);
+        this.testCauseMethodNameOps("");
+        this.testCauseMethodNameOps(" ");
+        this.testCauseMethodNameOps("\t\r\n\t");
+        this.testCauseMethodNameOps("testMethodName");
+    }
+    
+    void testCauseMethodNameOps(String name) {
+        String methodName = "testMethodName";
+        try {
+            Assert.assertFalse(ExceptionUtils.isCauseMethodName(methodName));
+            ExceptionUtils.addCauseMethodName(methodName);            
+            ExceptionUtils.addCauseMethodName(methodName);            
+            Assert.assertTrue(ExceptionUtils.isCauseMethodName(methodName));
+        } finally {
+            ExceptionUtils.removeCauseMethodName(methodName);
+            Assert.assertFalse(
+                    "The method name " + methodName + " should not be in the array", 
+                    ExceptionUtils.isCauseMethodName(methodName));
+        }
+    }
+    
     public void testGetCause_Throwable() {
         assertSame(null, ExceptionUtils.getCause(null));
         assertSame(null, ExceptionUtils.getCause(withoutCause));
