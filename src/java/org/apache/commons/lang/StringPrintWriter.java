@@ -69,14 +69,24 @@ import java.io.StringWriter;
  *
  * @author Alex Chaffee
  * @author Scott Stanchfield
+ * @author Gary D. Gregory
  * @since 2.0
  */
 class StringPrintWriter extends PrintWriter {
     
+    /**
+     * Constructs a new instance.
+     */
     public StringPrintWriter() {
         super(new StringWriter());
     }
 
+    /**
+     * Constructs a new instance using the specified initial string-buffer
+     * size.
+     *
+     * @param initialSize  an int specifying the initial size of the buffer.
+     */
     public StringPrintWriter(int initialSize) {
         super(new StringWriter(initialSize));
     }
@@ -90,7 +100,7 @@ class StringPrintWriter extends PrintWriter {
      */
     public String getString() {
         flush();
-        return ((StringWriter) out).toString();
+        return ((StringWriter) this.out).toString();
     }
     
 }
