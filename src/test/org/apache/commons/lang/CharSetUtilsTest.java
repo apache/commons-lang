@@ -54,8 +54,6 @@ package org.apache.commons.lang;
  * <http://www.apache.org/>.
  */
 
-import java.util.Arrays;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -65,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: CharSetUtilsTest.java,v 1.4 2002/09/29 07:13:07 bayard Exp $
+ * @version $Id: CharSetUtilsTest.java,v 1.5 2003/03/20 02:50:42 ggregory Exp $
  */
 public class CharSetUtilsTest extends TestCase
 {
