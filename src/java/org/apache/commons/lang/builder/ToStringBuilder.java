@@ -54,7 +54,9 @@
 package org.apache.commons.lang.builder;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+
 /**
  * <p><code>ToString</code> generation routine.</p>
  *
@@ -113,10 +115,10 @@ import java.lang.reflect.Modifier;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.14 2003/01/19 18:49:05 scolebourne Exp $
+ * @version $Id: ToStringBuilder.java,v 1.15 2003/03/20 05:32:11 ggregory Exp $
  */
 public class ToStringBuilder {
-    
+
     /**
      * The default style of output to use
      */
@@ -133,7 +135,7 @@ public class ToStringBuilder {
      * The object being output
      */
     private final Object object;
-    
+
     /**
      * <p>Constructor for <code>ToStringBuilder</code>.</p>
      *
@@ -148,7 +150,7 @@ public class ToStringBuilder {
     public ToStringBuilder(Object object) {
         this(object, getDefaultStyle(), null);
     }
-    
+
     /**
      * <p>Constructor for <code>ToStringBuilder</code> specifying the
      * output style.</p>
@@ -165,7 +167,7 @@ public class ToStringBuilder {
     public ToStringBuilder(Object object, ToStringStyle style) {
         this(object, style, null);
     }
-    
+
     /**
      * <p>Constructor for <code>ToStringBuilder</code>.</p>
      *
@@ -196,12 +198,12 @@ public class ToStringBuilder {
         this.buffer = buffer;
         this.style = style;
         this.object = object;
-        
+
         style.appendStart(buffer, object);
     }
-    
+
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the default <code>ToStringStyle</code> to use.</p>
      *
@@ -217,7 +219,7 @@ public class ToStringBuilder {
     public static ToStringStyle getDefaultStyle() {
         return defaultStyle;
     }
-    
+
     /**
      * <p>Sets the default <code>ToStringStyle</code> to use.</p>
      * 
@@ -230,9 +232,9 @@ public class ToStringBuilder {
         }
         defaultStyle = style;
     }
-    
+
     //-------------------------------------------------------------------------
-    
+
     /**
      * <p>This method uses reflection to build a suitable
      * <code>toString<code> using the default <code>ToStringStyle</code>.
@@ -343,8 +345,11 @@ public class ToStringBuilder {
      * @throws IllegalArgumentException if the Object is <code>null</code>
      */
     public static String reflectionToString(Object object, ToStringStyle style, boolean outputTransients, Class reflectUpToClass) {
+        if (style == null) {
+            style = getDefaultStyle();
+        }
         if (object == null) {
-            throw new IllegalArgumentException("The object must not be null");
+            return style.getNullText();
         }
         if (style == null) {
             style = getDefaultStyle();
@@ -364,31 +369,71 @@ public class ToStringBuilder {
      * given Class.
      * 
      * @param object  the object to append details of
-     * @param clazz  the class to append details of
+     * @param clazz  the class of object parameter
      * @param builder  the builder to append to
      * @param useTransients  whether to output transient fields
      */
     private static void reflectionAppend(Object object, Class clazz, ToStringBuilder builder, boolean useTransients) {
+        if (clazz.isArray()) {
+            reflectionAppendArray(object, clazz, builder);
+            return;
+        }
         Field[] fields = clazz.getDeclaredFields();
         Field.setAccessible(fields, true);
         for (int i = 0; i < fields.length; i++) {
             Field f = fields[i];
-            if ((f.getName().indexOf('$') == -1) &&
-                (useTransients || !Modifier.isTransient(f.getModifiers())) &&
-                (!Modifier.isStatic(f.getModifiers()))) {
+            if ((f.getName().indexOf('$') == -1)
+                && (useTransients || !Modifier.isTransient(f.getModifiers()))
+                && (!Modifier.isStatic(f.getModifiers()))) {
                 try {
                     builder.append(f.getName(), f.get(object));
                 } catch (IllegalAccessException ex) {
                     //this can't happen. Would get a Security exception instead
                     //throw a runtime exception in case the impossible happens.
-                    throw new InternalError("Unexpected IllegalAccessException");
+                    throw new InternalError("Unexpected IllegalAccessException: " + ex.getMessage());
                 }
             }
         }
-     }
-     
-     //----------------------------------------------------------------------------
-    
+    }
+
+    /**
+     * Appends the array elements in the given <code>Object</code> of the
+     * given <code>Class</code> to a <code>ToStringBuilder</code>.
+     * 
+     * @param object  the array object to append details of
+     * @param clazz  the array class of the object parameter
+     * @param builder  the builder to append to
+     */
+    private static void reflectionAppendArray(Object object, Class clazz, ToStringBuilder builder) {
+        try {
+            // A multi-dimension array invokes the append(Object) method.
+            // A single-dimension array of primitive type pt invokes the append(pt[]) method.
+            builder.getClass().getDeclaredMethod("append", new Class[] { clazz.getComponentType().isArray() ? Object.class : clazz }).invoke(
+                builder,
+                new Object[] { object });
+        } catch (SecurityException e) {
+            // "This cannot happen"
+            throw new InternalError("Unexpected SecurityException: " + e.getMessage());
+        } catch (NoSuchMethodException e) {
+            // "This cannot happen"
+            throw new InternalError("Unexpected NoSuchMethodException: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            // Method.invoke exception
+            // "This cannot happen"
+            throw new InternalError("Unexpected IllegalArgumentException: " + e.getMessage());
+        } catch (IllegalAccessException e) {
+            // Method.invoke exception
+            // "This cannot happen"
+            throw new InternalError("Unexpected IllegalAccessException: " + e.getMessage());
+        } catch (InvocationTargetException e) {
+            // Method.invoke exception
+            // "This cannot happen"
+            throw new InternalError("Unexpected InvocationTargetException: " + e.getMessage());
+        }
+    }
+
+    //----------------------------------------------------------------------------
+
     /**
      * <p>Append the <code>toString</code> from the superclass.</p>
      * 
@@ -441,7 +486,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> an <code>Object</code>
      * value.</p>
@@ -483,7 +528,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> a <code>long</code>
      * value.</p>
@@ -510,7 +555,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> an <code>int</code>
      * value.</p>
@@ -537,7 +582,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> an <code>short</code>
      * value.</p>
@@ -564,7 +609,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> an <code>char</code>
      * value.</p>
@@ -591,7 +636,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> an <code>byte</code>
      * value.</p>
@@ -618,7 +663,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> an <code>double</code>
      * value.</p>
@@ -645,7 +690,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> an <code>float</code>
      * value.</p>
@@ -672,7 +717,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> an <code>boolean</code>
      * value.</p>
@@ -699,7 +744,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> an <code>Object</code>
      * array.</p>
@@ -746,7 +791,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> a <code>long</code>
      * array.</p>
@@ -793,7 +838,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> a <code>int</code>
      * array.</p>
@@ -840,7 +885,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> a <code>short</code>
      * array.</p>
@@ -887,7 +932,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> a <code>char</code>
      * array.</p>
@@ -934,7 +979,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> a <code>byte</code>
      * array.</p>
@@ -981,7 +1026,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> a <code>double</code>
      * array.</p>
@@ -1028,7 +1073,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> a <code>float</code>
      * array.</p>
@@ -1075,7 +1120,7 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Append to the <code>toString</code> a <code>boolean</code>
      * array.</p>
@@ -1122,12 +1167,12 @@ public class ToStringBuilder {
     }
 
     //----------------------------------------------------------------------------
-    
+
     /**
      * <p>Gets the <code>ToStringStyle</code> being used.</p>
      * 
      * @return the <code>ToStringStyle</code> being used
-     */    
+     */
     public ToStringStyle getStyle() {
         return style;
     }
@@ -1136,7 +1181,7 @@ public class ToStringBuilder {
      * <p>Gets the <code>StringBuffer</code> being populated.</p>
      * 
      * @return the <code>StringBuffer</code> being populated
-     */    
+     */
     public StringBuffer getStringBuffer() {
         return buffer;
     }
@@ -1148,7 +1193,7 @@ public class ToStringBuilder {
      * Use {@link #getStringBuffer} to get the current string state.</p>
      * 
      * @return the String <code>toString</code>
-     */    
+     */
     public String toString() {
         style.appendEnd(buffer, object);
         return buffer.toString();
