@@ -58,27 +58,30 @@ import java.lang.reflect.Modifier;
 
 import org.apache.commons.lang.ArrayUtils;
 /**
- * <code>ConstructorUtils</code> contains utility methods for working for
- * constructors by reflection.
- * <p>
- * The ability is provided to break the scoping restrictions coded by the
+ * <p><code>ConstructorUtils</code> contains utility methods for working for
+ * constructors by reflection.</p>
+ *
+ * <p>The ability is provided to break the scoping restrictions coded by the
  * programmer. This can allow classes to be created that shouldn't be, for
  * example new instances of an enumerated type. Thus, this facility should
- * be used with care.
+ * be used with care.</p>
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ConstructorUtils.java,v 1.1 2002/10/24 23:12:54 scolebourne Exp $
+ * @version $Id: ConstructorUtils.java,v 1.2 2003/07/14 22:29:03 bayard Exp $
  */
 public class ConstructorUtils {
 
-    /** An empty constructor array */
+    /**
+     * An empty constructor array.
+     */
     public static final Constructor[] EMPTY_CONSTRUCTOR_ARRAY = new Constructor[0];
     
     /**
-     * ConstructorUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>ConstructorUtils.newInstance(...)</code>.
+     * <p>ConstructorUtils instances should NOT be constructed in standard programming.</p>
+     *
+     * <p>Instead, the class should be used as <code>ConstructorUtils.newInstance(...)</code>.
      * This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
+     * to operate.</p>
      */
     public ConstructorUtils() {
     }
@@ -86,30 +89,35 @@ public class ConstructorUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets a public <code>Constructor</code> object by matching the 
-     * parameter types as per the Java Language Specification.
+     * <p>Gets a public <code>Constructor</code> object by matching the
+     * parameter types as per the Java Language Specification.</p>
      *
-     * @param cls  Class object to find constructor for, must not be null
-     * @param types  array of Class objects representing parameter types, may be null
+     * @param cls  Class object to find constructor for, must not
+     *  be <code>null</code>
+     * @param types  array of Class objects representing parameter
+     *  types, may be <code>null</code>
      * @return Constructor object
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static Constructor getConstructor(Class cls, Class[] types) {
         return getConstructor(cls, types, false);
     }
     
     /**
-     * Gets a public <code>Constructor</code> object by matching the 
-     * parameter types as per the Java Language Specification.
+     * <p>Gets a public <code>Constructor</code> object by matching the
+     * parameter types as per the Java Language Specification.</p>
      *
-     * @param cls  Class object to find constructor for, must not be null
-     * @param types  array of Class objects representing parameter types, may be null
-     * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public methods.
+     * @param cls  Class object to find constructor for, must not
+     *  be <code>null</code>
+     * @param types  array of Class objects representing parameter
+     *  types, may be <code>null</code>
+     * @param breakScope  whether to break scope restrictions using
+     *  the <code>setAccessible</code> method. <code>False</code> will
+     *  only match public methods.
      * @return Constructor object
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static Constructor getConstructor(Class cls, Class[] types, boolean breakScope) {
         if (cls == null) {
@@ -151,30 +159,34 @@ public class ConstructorUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets a public <code>Constructor</code> object by exactly matching the
-     * parameter types.
+     * <p>Gets a public <code>Constructor</code> object by exactly matching the
+     * parameter types.</p>
      *
-     * @param cls  Class object to find constructor for, must not be null
-     * @param types  array of Class objects representing parameter types, may be null
+     * @param cls  Class object to find constructor for, must not
+     *  be <code>null</code>
+     * @param types  array of Class objects representing parameter
+     *  types, may be <code>null</code>
      * @return Constructor object
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static Constructor getConstructorExact(Class cls, Class[] types) {
         return getConstructorExact(cls, types, false);
     }
     
     /**
-     * Gets a <code>Constructor</code> object by exactly matching the
-     * parameter types.
+     * <p>Gets a <code>Constructor</code> object by exactly matching the
+     * parameter types.</p>
      *
-     * @param cls  Class object to find constructor for, must not be null
-     * @param types  array of Class objects representing parameter types, may be null
+     * @param cls  Class object to find constructor for, must not
+     *  be <code>null</code>
+     * @param types  array of Class objects representing parameter types, may
+     *  be <code>null</code>
      * @param breakScope  whether to break scope restrictions using the
      *  <code>setAccessible</code> method. False will only match public methods.
      * @return Constructor object
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static Constructor getConstructorExact(Class cls, Class[] types, boolean breakScope) {
         if (cls == null) {
@@ -206,41 +218,48 @@ public class ConstructorUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Creates a new instance using a <code>Constructor</code> and parameters.
+     * <p>Creates a new instance using a <code>Constructor</code> and parameters.</p>
      * 
-     * @param con  Class object to find constructor for, must not be null
-     * @param param  the single parameter to pass to the constructor, may be null
+     * @param con  Class object to find constructor for, must not
+     *  be <code>null</code>
+     * @param param  the single parameter to pass to the constructor, may
+     *  be <code>null</code>
      * @return the newly created object
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the constructor is null
+     * @throws IllegalArgumentException if the constructor is <code>null</code>
      */
     public static Object newInstance(Constructor con, Object param) {
         return newInstance(con, new Object[] {param}, false);
     }
     
     /**
-     * Creates a new instance using a <code>Constructor</code> and parameters.
+     * <p>Creates a new instance using a <code>Constructor</code> and parameters.</p>
      * 
-     * @param con  Class object to find constructor for, must not be null
-     * @param params  array of objects to pass as parameters, may be null
+     * @param con  Class object to find constructor for, must not
+     *  be <code>null</code>
+     * @param params  array of objects to pass as parameters, may
+     *  be <code>null</code>
      * @return the newly created object
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the constructor is null
+     * @throws IllegalArgumentException if the constructor is <code>null</code>
      */
     public static Object newInstance(Constructor con, Object[] params) {
         return newInstance(con, params, false);
     }
     
     /**
-     * Creates a new instance using a <code>Constructor</code> and parameters.
+     * <p>Creates a new instance using a <code>Constructor</code> and parameters.</p>
      * 
-     * @param con  Class object to find constructor for, must not be null
-     * @param params  array of objects to pass as parameters, may be null
+     * @param con  Class object to find constructor for, must not
+     *  be <code>null</code>
+     * @param params  array of objects to pass as parameters, may
+     *  be <code>null</code>
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public methods.
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public methods.
      * @return the newly created object
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the constructor is null
+     * @throws IllegalArgumentException if the constructor is <code>null</code>
      */
     public static Object newInstance(Constructor con, Object[] params, boolean breakScope) {
         if (con == null) {
@@ -266,7 +285,7 @@ public class ConstructorUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Creates a new instance of the specified <code>Class</code> by name.
+     * <p>Creates a new instance of the specified <code>Class</code> by name.</p>
      * 
      * @param className  String class name to instantiate, must not be empty
      * @return the newly created object
@@ -278,9 +297,10 @@ public class ConstructorUtils {
     }
     
     /**
-     * Creates a new instance of the specified <code>Class</code> by name.
-     * If the constructor is not public, <code>setAccessible(true)</code>
-     * is used to make it accessible.
+     * <p>Creates a new instance of the specified <code>Class</code> by name.</p>
+     *
+     * <p>If the constructor is not public, <code>setAccessible(true)</code>
+     * is used to make it accessible.</p>
      * 
      * @param className  String class name to instantiate, must not be empty
      * @param breakScope  whether to break scope restrictions using the
@@ -297,28 +317,30 @@ public class ConstructorUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Creates a new instance of the specified <code>Class</code>.
+     * <p>Creates a new instance of the specified <code>Class</code>.</p>
      * 
-     * @param cls  Class object to instantiate, must not be null
+     * @param cls  Class object to instantiate, must not be <code>null</code>
      * @return the newly created object
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static Object newInstance(Class cls) {
         return newInstance(cls, false);
     }
     
     /**
-     * Creates a new instance of the specified <code>Class</code>.
-     * If the constructor is not public, <code>setAccessible(true)</code>
-     * is used to make it accessible.
+     * <p>Creates a new instance of the specified <code>Class</code>.</p>
+     *
+     * <p>If the constructor is not public, <code>setAccessible(true)</code>
+     * is used to make it accessible.</p>
      * 
-     * @param cls  Class object to instantiate, must not be null
+     * @param cls  Class object to instantiate, must not be <code>null</code>
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public methods.
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public methods.
      * @return the newly created object
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static Object newInstance(Class cls, boolean breakScope) {
         if (breakScope) {
@@ -346,35 +368,44 @@ public class ConstructorUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Creates a new instance of the specified <code>Class</code>.
-     * The constructor is found by matching the 
-     * parameter types as per the Java Language Specification.
+     * <p>Creates a new instance of the specified <code>Class</code>.</p>
+     *
+     * <p>The constructor is found by matching the
+     * parameter types as per the Java Language Specification.</p>
      * 
-     * @param cls  Class object to instantiate, must not be null
-     * @param types  array of Class objects representing parameter types, may be null
-     * @param params  array of objects to pass as parameters, may be null
+     * @param cls  Class object to instantiate, must not
+     *  be <code>null</code>
+     * @param types  array of Class objects representing parameter types,
+     *  may be <code>null</code>
+     * @param params  array of objects to pass as parameters, may
+     *  be <code>null</code>
      * @return the newly created object
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static Object newInstance(Class cls, Class[] types, Object[] params) {
         return newInstance(cls, types, params, false);
     }
     
     /**
-     * Creates a new instance of the specified <code>Class</code>.
-     * The constructor is found by matching the 
-     * parameter types as per the Java Language Specification.
+     * <p>Creates a new instance of the specified <code>Class</code>.</p>
+     *
+     * <p>The constructor is found by matching the
+     * parameter types as per the Java Language Specification.</p>
      * 
-     * @param cls  Class object to instantiate, must not be null
-     * @param types  array of Class objects representing parameter types, may be null
-     * @param params  array of objects to pass as parameters, may be null
+     * @param cls  Class object to instantiate, must not
+     *  be <code>null</code>
+     * @param types  array of Class objects representing parameter types,
+     *  may be <code>null</code>
+     * @param params  array of objects to pass as parameters, may
+     *  be <code>null</code>
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public methods.
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public methods.
      * @return the newly created object
      * @throws ReflectionException if an error occurs during reflection
      * @throws IllegalArgumentException if the types and params lengths differ
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static Object newInstance(Class cls, Class[] types, Object[] params, boolean breakScope) {
         if (ArrayUtils.isSameLength(types, params) == false) {
@@ -387,33 +418,42 @@ public class ConstructorUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Creates a new instance of the specified <code>Class</code>.
-     * The constructor is found by matching the parameter types exactly.
+     * <p>Creates a new instance of the specified <code>Class</code>.</p>
+     *
+     * <p>The constructor is found by matching the parameter types exactly.</p>
      * 
-     * @param cls  Class object to instantiate, must not be null
-     * @param types  array of Class objects representing parameter types, may be null
-     * @param params  array of objects to pass as parameters, may be null
+     * @param cls  Class object to instantiate, must not
+     *  be <code>null</code>
+     * @param types  array of Class objects representing parameter types,
+     *  may be <code>null</code>
+     * @param params  array of objects to pass as parameters, may
+     *  be <code>null</code>
      * @return the newly created object
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static Object newInstanceExact(Class cls, Class[] types, Object[] params) {
         return newInstanceExact(cls, types, params, false);
     }
     
     /**
-     * Creates a new instance of the specified <code>Class</code>.
-     * The constructor is found by matching the parameter types exactly.
+     * <p>Creates a new instance of the specified <code>Class</code>.</p>
+     *
+     * <p>The constructor is found by matching the parameter types exactly.</p>
      * 
-     * @param cls  Class object to instantiate, must not be null
-     * @param types  array of Class objects representing parameter types, may be null
-     * @param params  array of objects to pass as parameters, may be null
+     * @param cls  Class object to instantiate, must not
+     *  be <code>null</code>
+     * @param types  array of Class objects representing parameter types,
+     *  may be <code>null</code>
+     * @param params  array of objects to pass as parameters, may
+     *  be <code>null</code>
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public methods.
+     *  <code>setAccessible</code> method. <code>False</code> will only match
+     *  public methods.
      * @return the newly created object
      * @throws ReflectionException if an error occurs during reflection
      * @throws IllegalArgumentException if the types and params lengths differ
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static Object newInstanceExact(Class cls, Class[] types, Object[] params, boolean breakScope) {
         if (ArrayUtils.isSameLength(types, params) == false) {

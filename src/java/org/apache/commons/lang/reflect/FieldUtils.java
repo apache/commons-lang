@@ -56,26 +56,29 @@ package org.apache.commons.lang.reflect;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 /**
- * <code>FieldUtils</code> contains utility methods for working with
- * fields by reflection.
- * <p>
- * The ability is provided to break the scoping restrictions coded by the
+ * <p><code>FieldUtils</code> contains utility methods for working with
+ * fields by reflection.</p>
+ *
+ * <p>The ability is provided to break the scoping restrictions coded by the
  * programmer. This can allow fields to be changed that shouldn't be. This
- * facility should be used with care.
+ * facility should be used with care.</p>
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: FieldUtils.java,v 1.1 2002/10/24 23:12:54 scolebourne Exp $
+ * @version $Id: FieldUtils.java,v 1.2 2003/07/14 22:29:04 bayard Exp $
  */
 public class FieldUtils {
     
-    /** An empty field array */
+    /**
+     * An empty field array.
+     */
     public static final Field[] EMPTY_FIELD_ARRAY = new Field[0];
     
     /**
-     * FieldUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>FieldUtils.getField(cls, name)</code>.
+     * <p>FieldUtils instances should NOT be constructed in standard programming.</p>
+     *
+     * <p>Instead, the class should be used as <code>FieldUtils.getField(cls, name)</code>.
      * This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
+     * to operate.</p>
      */
     public FieldUtils() {
     }
@@ -83,13 +86,14 @@ public class FieldUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets an accessible Field by name repecting scope.
-     * Superclasses/interfaces will be considered.
+     * <p>Gets an accessible <code>Field</code> by name repecting scope.
+     * Superclasses/interfaces will be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @return the Field object
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Field getField(Class cls, String fieldName) {
@@ -97,15 +101,17 @@ public class FieldUtils {
     }
     
     /**
-     * Gets an accessible Field by name breaking scope if requested.
-     * Superclasses/interfaces will be considered.
+     * <p>Gets an accessible <code>Field</code> by name breaking scope
+     * if requested. Superclasses/interfaces will be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public fields.
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
      * @return the Field object
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Field getField(Class cls, String fieldName, boolean breakScope) {
@@ -189,13 +195,14 @@ public class FieldUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets an accessible Field by name respecting scope.
-     * Only the specified class will be considered.
+     * <p>Gets an accessible <code>Field</code> by name respecting scope.
+     * Only the specified class will be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @return the Field object
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Field getFieldExact(Class cls, String fieldName) {
@@ -203,15 +210,16 @@ public class FieldUtils {
     }
     
     /**
-     * Gets an accessible Field by name breaking scope if requested.
-     * Only the specified class will be considered.
+     * <p>Gets an accessible <code>Field</code> by name breaking scope
+     * if requested. Only the specified class will be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @param breakScope  whether to break scope restrictions using the
      *  <code>setAccessible</code> method. False will only match public fields.
      * @return the Field object
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Field getFieldExact(Class cls, String fieldName, boolean breakScope) {
@@ -247,11 +255,12 @@ public class FieldUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets a static Field value from a Field object.
+     * <p>Gets a static Field value from a <code>Field</code> object.</p>
      * 
      * @param field  the field to use
      * @return the field value
-     * @throws IllegalArgumentException if the field is null or not static
+     * @throws IllegalArgumentException if the field is
+     *  <code>null</code> or not static
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getStaticFieldValue(Field field) {
@@ -265,13 +274,15 @@ public class FieldUtils {
     }
     
     /**
-     * Gets a static Field value from a Field object.
+     * <p>Gets a static Field value from a <code>Field</code> object.</p>
      * 
      * @param field  the field to use
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public methods.
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public methods.
      * @return the field value
-     * @throws IllegalArgumentException if the field is null or not static
+     * @throws IllegalArgumentException if the field is <code>null</code>
+     *  or not static
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getStaticFieldValue(Field field, boolean breakScope) {
@@ -285,12 +296,13 @@ public class FieldUtils {
     }
     
     /**
-     * Gets a Field value from a Field object.
+     * <p>Gets a Field value from a <code>Field</code> object.</p>
      * 
      * @param field  the field to use
-     * @param object  the object to call on, may be null for static fields
+     * @param object  the object to call on, may be <code>null</code>
+     *  for static fields
      * @return the field value
-     * @throws IllegalArgumentException if the field is null
+     * @throws IllegalArgumentException if the field is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getFieldValue(Field field, Object object) {
@@ -298,14 +310,16 @@ public class FieldUtils {
     }
     
     /**
-     * Gets a Field value from a Field object.
+     * <p>Gets a Field value from a Field object.</p>
      * 
      * @param field  the field to use
-     * @param object  the object to call on, may be null for static fields
+     * @param object  the object to call on, may be <code>null</code>
+     *  for static fields
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public methods.
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public methods.
      * @return the field value
-     * @throws IllegalArgumentException if the field is null
+     * @throws IllegalArgumentException if the field is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getFieldValue(Field field, Object object, boolean breakScope) {
@@ -332,13 +346,14 @@ public class FieldUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets a static Field value by name. The field must be public.
-     * Superclasses will be considered.
+     * <p>Gets a static Field value by name. The field must be public.
+     * Superclasses will be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @return the value of the field
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getStaticFieldValue(Class cls, String fieldName) {
@@ -346,15 +361,17 @@ public class FieldUtils {
     }
     
     /**
-     * Gets a static Field value by name.
-     * Only the specified class will be considered.
+     * <p>Gets a static Field value by name. Only the specified class
+     * will be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public fields.
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
      * @return the Field object
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getStaticFieldValue(Class cls, String fieldName, boolean breakScope) {
@@ -379,13 +396,14 @@ public class FieldUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets a static Field value by name. The field must be public.
-     * Only the specified class will be considered.
+     * <p>Gets a static Field value by name. The field must be public.
+     * Only the specified class will be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @return the value of the field
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getStaticFieldValueExact(Class cls, String fieldName) {
@@ -393,15 +411,17 @@ public class FieldUtils {
     }
     
     /**
-     * Gets a static Field value by name.
-     * Only the specified class will be considered.
+     * <p>Gets a static Field value by name. Only the specified class will
+     * be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public fields.
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
      * @return the Field object
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getStaticFieldValueExact(Class cls, String fieldName, boolean breakScope) {
@@ -426,13 +446,14 @@ public class FieldUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets a Field value by name. The field must be public.
-     * Superclasses will be considered.
+     * <p>Gets a Field value by name. The field must be public. Superclasses
+     * will be considered.</p>
      *
-     * @param object  the object to reflect, must not be null
+     * @param object  the object to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @return the value of the field
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getFieldValue(Object object, String fieldName) {
@@ -440,15 +461,17 @@ public class FieldUtils {
     }
     
     /**
-     * Gets a Field value by name.
-     * Only the specified class will be considered.
+     * <p>Gets a Field value by name. Only the specified class will be
+     * considered.</p>
      *
-     * @param object  the object to reflect, must not be null
+     * @param object  the object to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public fields.
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
      * @return the Field object
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getFieldValue(Object object, String fieldName, boolean breakScope) {
@@ -459,13 +482,14 @@ public class FieldUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets a Field value by name. The field must be public.
-     * Only the class of the specified object will be considered.
+     * <p>Gets a Field value by name. The field must be public.
+     * Only the class of the specified object will be considered.</p>
      *
-     * @param object  the object to reflect, must not be null
+     * @param object  the object to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @return the value of the field
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getFieldValueExact(Object object, String fieldName) {
@@ -473,15 +497,17 @@ public class FieldUtils {
     }
     
     /**
-     * Gets a Field value by name.
-     * Only the class of the specified object will be considered.
+     * <p<>Gets a Field value by name. Only the class of the specified
+     * object will be considered.</p>
      *
-     * @param object  the object to reflect, must not be null
+     * @param object  the object to reflect, must not be <code>null</code>
      * @param fieldName  the field name to obtain
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public fields.
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
      * @return the Field object
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object getFieldValueExact(Object object, String fieldName, boolean breakScope) {
