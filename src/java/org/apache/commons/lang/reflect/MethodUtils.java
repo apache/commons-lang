@@ -66,6 +66,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+
 /**
  * <code>MethodUtils</code> contains utility methods for working for
  * methods by reflection.
@@ -82,7 +83,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Gregor Raýman
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
- * @version $Id: MethodUtils.java,v 1.8 2002/11/21 19:38:51 rdonkin Exp $
+ * @version $Id: MethodUtils.java,v 1.9 2002/12/10 19:06:49 rdonkin Exp $
  */
 public class MethodUtils {
     
@@ -114,6 +115,21 @@ public class MethodUtils {
      */
     public static Method getMethod(Class cls, String methodName) {
         return getMethod(cls, methodName, ArrayUtils.EMPTY_CLASS_ARRAY, false);
+    }
+    
+    /**
+     * Gets a Method by name. The method must be public.
+     * Superclasses will be considered.
+     *
+     * @param cls  the class to reflect, must not be null
+     * @param methodName  the field name to obtain
+     * @return the Method object
+     * @throws IllegalArgumentException if the class or method name is null
+     * @throws ReflectionException if an error occurs during reflection
+     */
+    public static Method getMethod(Class cls, String methodName, Class paramType) {
+        Class[] paramTypes = {paramType};
+        return getMethod(cls, methodName, paramTypes);
     }
     
     /**
@@ -173,7 +189,24 @@ public class MethodUtils {
                 }
                 throw new NoSuchMethodException("The method '" + methodName + "' could not be found");
             } else {
-                return cls.getMethod(methodName, paramTypes);
+                // apply workarounds
+                Method method = null;
+                try {
+                
+                    method = cls.getMethod(methodName, paramTypes);
+                    
+                } catch(NoSuchMethodException e) {
+                    // swallow
+                }
+                
+                if (method == null) {
+                    // use the same as beanutils for the moment
+                    Method[] compatibles = getCompatibleMethods(cls, methodName, paramTypes);
+                    if (compatibles.length > 0) {
+                        method = compatibles[0];
+                    }
+                }
+                return getMethod(method);
             }
     
         } catch (ReflectionException ex) {
@@ -185,6 +218,50 @@ public class MethodUtils {
             throw new ReflectionException(ReflectionUtils.getThrowableText(
                 ex, "getting method", cls.getName(), null, methodName), ex);
         }
+    }
+
+    /**
+     * <p>Return an accessible method (that is, one that can be invoked via
+     * reflection) that implements the specified Method.  If no such method
+     * can be found, return <code>null</code>.</p>
+     *
+     * @param method The method that we wish to call
+     */
+    public static Method getMethod(Method method) {
+        
+        Method accessibleMethod = getAccessibleMethod(method);
+        if (accessibleMethod == null) {
+            try {
+                //
+                // XXX Default access superclass workaround
+                //
+                // When a public class has a default access superclass
+                // with public methods, these methods are accessible.
+                // Calling them from compiled code works fine.
+                //
+                // Unfortunately, using reflection to invoke these methods
+                // seems to (wrongly) to prevent access even when the method
+                // modifer is public.
+                //
+                // The following workaround solves the problem but will only
+                // work from sufficiently privilages code. 
+                //
+                // Better workarounds would be greatfully accepted.
+                //
+                if (ReflectionUtils.isPublicScope(method)) {
+                    method.setAccessible(true);
+                    accessibleMethod = method;
+                }
+                
+            } catch (SecurityException se) {
+                // log but continue just in case the method.invoke works anyway
+                log(
+                "Cannot setAccessible on method. Therefore cannot use jvm access bug workaround.", 
+                se);
+            }
+        }
+        return (accessibleMethod);
+
     }
     
     // -------------------------------------------------------------------------
@@ -303,7 +380,7 @@ public class MethodUtils {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }  
 
-        Method method = getMatchingAccessibleMethod(
+        Method method = getMethod(
                 object.getClass(),
                 methodName,
                 parameterTypes);
@@ -330,62 +407,11 @@ public class MethodUtils {
         }
     }
 
-    /**
-     * <p>Return an accessible method (that is, one that can be invoked via
-     * reflection) with given name and a single parameter.  If no such method
-     * can be found, return <code>null</code>.
-     * Basically, a convenience wrapper that constructs a <code>Class</code>
-     * array for you.</p>
-     *
-     * @param clazz get method from this class
-     * @param methodName get method with this name
-     * @param parameterType taking this type of parameter
-     */
-    public static Method getAccessibleMethod(
-            Class clazz,
-            String methodName,
-            Class parameterType) {
-
-        Class[] parameterTypes = {parameterType};
-        return getAccessibleMethod(clazz, methodName, parameterTypes);
-
-    }
 
 
-    /**
-     * <p>Return an accessible method (that is, one that can be invoked via
-     * reflection) with given name and parameters.  If no such method
-     * can be found, return <code>null</code>.
-     * This is just a convenient wrapper for
-     * {@link #getAccessibleMethod(Method method)}.</p>
-     *
-     * @param clazz get method from this class
-     * @param methodName get method with this name
-     * @param parameterTypes with these parameters types
-     */
-    public static Method getAccessibleMethod(
-            Class clazz,
-            String methodName,
-            Class[] parameterTypes) {
+    // -------------------------------------------------------- Private Methods
 
-        try {
-            return getAccessibleMethod
-                    (clazz.getMethod(methodName, parameterTypes));
-        } catch (NoSuchMethodException e) {
-            return (null);
-        }
-
-    }
-
-
-    /**
-     * <p>Return an accessible method (that is, one that can be invoked via
-     * reflection) that implements the specified Method.  If no such method
-     * can be found, return <code>null</code>.</p>
-     *
-     * @param method The method that we wish to call
-     */
-    public static Method getAccessibleMethod(Method method) {
+    private static Method getAccessibleMethod(Method method) {
 
         // Make sure we have a method to check
         if (method == null) {
@@ -394,13 +420,19 @@ public class MethodUtils {
 
         // If the requested method is not public we cannot call it
         if (!Modifier.isPublic(method.getModifiers())) {
+            log("Method is not public");
             return (null);
         }
 
         // If the declaring class is public, we are done
         Class clazz = method.getDeclaringClass();
         if (Modifier.isPublic(clazz.getModifiers())) {
+            log("Class is public");
             return (method);
+        }
+        
+        if (debug) {
+            log("Method is in non-public class " + clazz);
         }
 
         // Check the implemented interfaces and subinterfaces
@@ -410,12 +442,11 @@ public class MethodUtils {
                 getAccessibleMethodFromInterfaceNest(clazz,
                         method.getName(),
                         method.getParameterTypes());
+
         return (method);
 
     }
 
-
-    // -------------------------------------------------------- Private Methods
 
     /**
      * <p>Return an accessible method (that is, one that can be invoked via
@@ -433,7 +464,9 @@ public class MethodUtils {
      */
     private static Method getAccessibleMethodFromInterfaceNest
             (Class clazz, String methodName, Class parameterTypes[]) {
-
+        if (debug) {
+            log("Finding accessible method " + methodName + " from interface nest");
+        }
         Method method = null;
 
         // Search up the superclass chain
@@ -470,38 +503,18 @@ public class MethodUtils {
         }
 
         // If we found a method return it
-        if (method != null)
+        if (method != null) {
+            if (debug) {
+                log("Found method in class " + method.getDeclaringClass());
+            }
             return (method);
-
+        }
         // We did not find anything
         return (null);
 
-    }
-
-
-    /**
-     * <p>Find an accessible method that matches the given name and has compatible parameters.
-     * Compatible parameters mean that every method parameter is assignable from 
-     * the given parameters.
-     * In other words, it finds a method with the given name 
-     * that will take the parameters given.<p>
-     *
-     * <p>This method is slightly undeterminstic since it loops 
-     * through methods names and return the first matching method.</p>
-     * 
-     * <p>This method is used by 
-     * {@link 
-     * #invokeMethod(Object object,String methodName,Object [] args,Class[] parameterTypes)}.
-     *
-     * <p>This method can match primitive parameter by passing in wrapper classes.
-     * For example, a <code>Boolean</code> will match a primitive <code>boolean</code>
-     * parameter.
-     *
-     * @param clazz find method in this class
-     * @param methodName find method with this name
-     * @param parameterTypes find method with compatible parameters 
-     */
-    private static Method getMatchingAccessibleMethod(
+    } 
+    
+    private static Method[] getCompatibleMethods(
                                                 Class clazz,
                                                 String methodName,
                                                 Class[] parameterTypes) {
@@ -510,90 +523,36 @@ public class MethodUtils {
             log("Matching name=" + methodName + " on " + clazz);
         }
         
-        // see if we can find the method directly
-        // most of the time this works and it's much faster
-        try {
-            Method method = clazz.getMethod(methodName, parameterTypes);
-            if (debug) {
-                log("Found straight match: " + method);
-                log("isPublic:" + Modifier.isPublic(method.getModifiers()));
-            }
-            
-            try {
-                //
-                // XXX Default access superclass workaround
-                //
-                // When a public class has a default access superclass
-                // with public methods, these methods are accessible.
-                // Calling them from compiled code works fine.
-                //
-                // Unfortunately, using reflection to invoke these methods
-                // seems to (wrongly) to prevent access even when the method
-                // modifer is public.
-                //
-                // The following workaround solves the problem but will only
-                // work from sufficiently privilages code. 
-                //
-                // Better workarounds would be greatfully accepted.
-                //
-                method.setAccessible(true);
-                
-            } catch (SecurityException se) {
-                // log but continue just in case the method.invoke works anyway
-                log(
-                "Cannot setAccessible on method. Therefore cannot use jvm access bug workaround.", 
-                se);
-            }
-            return method;
-            
-        } catch (NoSuchMethodException e) { /* SWALLOW */ }
-        
         // search through all methods 
         int paramSize = parameterTypes.length;
         Method[] methods = clazz.getMethods();
+        ArrayList compatibles = new ArrayList(methods.length);
         for (int i = 0, size = methods.length; i < size ; i++) {
+            if (debug) {
+                log("Checking: " + methods[i]);
+            }     
             if (methods[i].getName().equals(methodName)) {	
                 // log some trace information
                 if (debug) {
-                    log("Found matching name:");
-                    log(methods[i]);
+                    log("Found matching name:" + methods[i]);
                 }                
                 
                 // compare parameters
                 Class[] methodsParams = methods[i].getParameterTypes();
                 if (ReflectionUtils.isCompatible(parameterTypes, methodsParams)) {
                     // get accessible version of method
-                    Method method = getAccessibleMethod(methods[i]);
+                    Method method = getMethod(methods[i]);
                     if (method != null) {
-                        if (debug) {
-                            log(method + " accessible version of " 
-                                        + methods[i]);
-                        }
-                        try {
-                            //
-                            // XXX Default access superclass workaround
-                            // (See above for more details.)
-                            //
-                            method.setAccessible(true);
-                            
-                        } catch (SecurityException se) {
-                            // log but continue just in case the method.invoke works anyway
-                            log(
-                            "Cannot setAccessible on method. Therefore cannot use jvm access bug workaround.", 
-                            se);
-                        }
-                        return method;
+                        compatibles.add(method);
+                    } else {
+                        log("Couldn't find accessible method for: " + methods[i]);
                     }
-                    
-                    log("Couldn't find accessible method.");
                 }
             }
         }
         
-        // didn't find a match
-        log("No match found.");
-        return null;                                        
-    }    
+        return (Method[]) compatibles.toArray(new Method[compatibles.size()]); 
+    }  
     
     private static void log(Object o) {
         if (debug) {

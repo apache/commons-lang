@@ -129,7 +129,7 @@ public class MethodUtilsTestCase extends TestCase {
 
         // easy bit first - find a public method
         // METHOD ONE
-        Method method = MethodUtils.getAccessibleMethod
+        Method method = MethodUtils.getMethod
                 (TestBean.class, "setStringProperty", String.class);
 
         // check that we've found one that matches
@@ -141,7 +141,7 @@ public class MethodUtilsTestCase extends TestCase {
 
         // trickier this one - find a method in a direct interface
         // METHOD TWO
-        method = MethodUtils.getAccessibleMethod
+        method = MethodUtils.getMethod
                 (privateBeanFactory.create().getClass(),
                         "methodBar",
                         String.class);
@@ -155,7 +155,7 @@ public class MethodUtilsTestCase extends TestCase {
 
         // trickier this one - find a method in a indirect interface
         // METHOD THREE
-        method = MethodUtils.getAccessibleMethod
+        method = MethodUtils.getMethod
                 (privateBeanFactory.createSubclass().getClass(),
                         "methodBaz",
                         String.class);
@@ -478,7 +478,7 @@ public class MethodUtilsTestCase extends TestCase {
         try {
 
             // Acquire the methods we need
-            Method currentCounterMethod = MethodUtils.getAccessibleMethod
+            Method currentCounterMethod = MethodUtils.getMethod
                 (TestBean.class, "currentCounter",
                  new Class[0]);
             assertNotNull("currentCounterMethod exists",
@@ -493,7 +493,7 @@ public class MethodUtilsTestCase extends TestCase {
                        Modifier.isPublic(currentCounterMethod.getModifiers()));
             assertTrue("currentCounterMethod static",
                        Modifier.isStatic(currentCounterMethod.getModifiers()));
-            Method incrementCounterMethod1 = MethodUtils.getAccessibleMethod
+            Method incrementCounterMethod1 = MethodUtils.getMethod
                 (TestBean.class, "incrementCounter",
                  new Class[0]);
             assertNotNull("incrementCounterMethod1 exists",
@@ -508,7 +508,7 @@ public class MethodUtilsTestCase extends TestCase {
                        Modifier.isPublic(incrementCounterMethod1.getModifiers()));
             assertTrue("incrementCounterMethod1 static",
                        Modifier.isStatic(incrementCounterMethod1.getModifiers()));
-            Method incrementCounterMethod2 = MethodUtils.getAccessibleMethod
+            Method incrementCounterMethod2 = MethodUtils.getMethod
                 (TestBean.class, "incrementCounter",
                  new Class[] { Integer.TYPE });
             assertNotNull("incrementCounterMethod2 exists",
