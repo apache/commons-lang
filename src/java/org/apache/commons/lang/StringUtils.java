@@ -77,7 +77,7 @@ import java.util.StringTokenizer;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.48 2003/06/23 03:51:13 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.49 2003/06/24 02:55:17 bayard Exp $
  */
 public class StringUtils {
 
@@ -1187,9 +1187,10 @@ public class StringUtils {
      * unless the '\' is preceded by another '\'.
      * <p>
      * As of Lang 2.0, this calls {@link StringEscapeUtils#unescapeJava(java.lang.String)}
-     * behind the scenes.  For convenience, this method is not deprecated.
+     * behind the scenes. 
      * <p>
      * @see StringEscapeUtils#unescapeJava(java.lang.String)
+     * @deprecated Use {@link StringEscapeUtils#unescapeJava(java.lang.String)}
      */
     public static String unescape(String str) {
         return StringEscapeUtils.unescapeJava(str);
