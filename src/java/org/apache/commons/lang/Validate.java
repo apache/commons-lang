@@ -72,7 +72,7 @@ import java.util.Map;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: Validate.java,v 1.7 2004/01/19 23:24:07 fredrik Exp $
+ * @version $Id: Validate.java,v 1.8 2004/02/11 23:33:23 ggregory Exp $
  */
 public class Validate {
     
@@ -124,7 +124,7 @@ public class Validate {
      * Validate.isTrue( i > 0, "The value must be greater than zero: ", i);
      * </pre>
      *
-     * <p>For performance reasons, the object is passed as a separate parameter and
+     * <p>For performance reasons, the long value is passed as a separate parameter and
      * appended to the message string only in the case of an error.</p>
      * 
      * @param expression  a boolean expression
@@ -150,7 +150,7 @@ public class Validate {
      * Validate.isTrue( d > 0.0, "The value must be greater than zero: ", d);
      * </pre>
      *
-     * <p>For performance reasons, the object is passed as a separate parameter and
+     * <p>For performance reasons, the double value is passed as a separate parameter and
      * appended to the message string only in the case of an error.</p>
      * 
      * @param expression  a boolean expression
@@ -345,7 +345,7 @@ public class Validate {
      * if the argument Map is empty (<code>null</code> or no elements).</p>
      *
      * <pre>
-     * Validate.notEmpty(myMap, "The collection must not be empty");
+     * Validate.notEmpty(myMap, "The map must not be empty");
      * </pre>
      * 
      * @param map  the map to check is not empty
@@ -426,9 +426,11 @@ public class Validate {
      * <code>null</code>.</p>
      *
      * <pre>
-     * Validate.notEmpty(myArray, "The array must not contain null elements");
+     * Validate.noNullElements(myArray, "The array must not contain null elements");
      * </pre>
      * 
+     * <p>If the array is null then the message in the exception is 'The validated object is null'.</p>
+     *
      * @param array  the array to check
      * @param message  the exception message if the array has
      *  <code>null</code> elements
@@ -450,10 +452,13 @@ public class Validate {
      * <code>null</code>.</p>
      *
      * <pre>
-     * Validate.notEmpty(myArray);
+     * Validate.noNullElements(myArray);
      * </pre>
      *
-     * <p>The message in the exception is 'The validated array contains null element at index: '.</p>
+     * <p>If the array has a null element the message in the exception is
+     * 'The validated array contains null element at index: '.</p>
+     *
+     * <p>If the array is null then the message in the exception is 'The validated object is null'.</p>
      * 
      * @param array  the array to check
      * @throws IllegalArgumentException if the array has <code>null</code>
@@ -473,23 +478,24 @@ public class Validate {
 
     /**
      * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument collection has <code>null</code> elements or is
+     * if the argument Collection has <code>null</code> elements or is
      * <code>null</code>.</p>
      *
      * <pre>
-     * Validate.notEmpty(myCollection, "The collection must not contain null elements");
+     * Validate.noNullElements(myCollection, "The collection must not contain null elements");
      * </pre>
+     *
+     * <p>If the collection is null then the message in the exception is 'The validated object is null'.</p>
      * 
      * @param collection  the collection to check
-     * @param message  the exception message if the array has
+     * @param message  the exception message if the collection has
      *  <code>null</code> elements
      * @throws IllegalArgumentException if the collection has
      *  <code>null</code> elements or is <code>null</code>
      */
     public static void noNullElements(Collection collection, String message) {
         Validate.notNull(collection);
-        int i = 0;
-        for (Iterator it = collection.iterator(); it.hasNext(); i++) {
+        for (Iterator it = collection.iterator(); it.hasNext();) {
             if (it.next() == null) {
                 throw new IllegalArgumentException(message);
             }
@@ -498,14 +504,16 @@ public class Validate {
 
     /**
      * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument collection has <code>null</code> elements or is
+     * if the argument Collection has <code>null</code> elements or is
      * <code>null</code>.</p>
      *
      * <pre>
-     * Validate.notEmpty(myCollection);
+     * Validate.noNullElements(myCollection);
      * </pre>
      *
      * <p>The message in the exception is 'The validated collection contains null element at index: '.</p>
+     *
+     * <p>If the collection is null then the message in the exception is 'The validated object is null'.</p>
      * 
      * @param collection  the collection to check
      * @throws IllegalArgumentException if the collection has
