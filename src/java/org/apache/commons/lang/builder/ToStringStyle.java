@@ -80,7 +80,7 @@ import org.apache.commons.lang.SystemUtils;
  * the array length.</p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringStyle.java,v 1.6 2002/11/22 21:16:24 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.7 2002/11/22 22:52:17 bayard Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -1800,14 +1800,14 @@ public abstract class ToStringStyle implements Serializable {
      * <p>This is an inner class rather than using
      * <code>StandardToStringStyle</code> to ensure its immutability.</p>
      */
-    static final class DefaultToStringStyle extends ToStringStyle {
+    private static final class DefaultToStringStyle extends ToStringStyle {
         
         /**
          * <p>Constructor</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        DefaultToStringStyle() {
+        private DefaultToStringStyle() {
             super();
         }
         
@@ -1831,16 +1831,16 @@ public abstract class ToStringStyle implements Serializable {
      * <p>This is an inner class rather than using
      * <code>StandardToStringStyle</code> to ensure its immutability.
      */
-    static final class NoFieldNameToStringStyle extends ToStringStyle {
+    private static final class NoFieldNameToStringStyle extends ToStringStyle {
         
         /**
          * <p>Constructor</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        NoFieldNameToStringStyle() {
+        private NoFieldNameToStringStyle() {
             super();
-            setUseFieldNames(false);
+            this.setUseFieldNames(false);
         }
         
         /**
@@ -1863,20 +1863,20 @@ public abstract class ToStringStyle implements Serializable {
      * <p>This is an inner class rather than using
      * <code>StandardToStringStyle</code> to ensure its immutability.</p>
      */
-    static final class SimpleToStringStyle extends ToStringStyle {
+    private static final class SimpleToStringStyle extends ToStringStyle {
         
         /**
          * <p>Constructor</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        SimpleToStringStyle() {
+        private SimpleToStringStyle() {
             super();
-            setUseClassName(false);
-            setUseIdentityHashCode(false);
-            setUseFieldNames(false);
-            setContentStart("");
-            setContentEnd("");
+            this.setUseClassName(false);
+            this.setUseIdentityHashCode(false);
+            this.setUseFieldNames(false);
+            this.setContentStart("");
+            this.setContentEnd("");
         }
         
         /**
@@ -1897,18 +1897,18 @@ public abstract class ToStringStyle implements Serializable {
      * <p>This is an inner class rather than using
      * <code>StandardToStringStyle</code> to ensure its immutability.</p>
      */
-    static final class MultiLineToStringStyle extends ToStringStyle {
+    private static final class MultiLineToStringStyle extends ToStringStyle {
 
         /**
          * <p>Constructor</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        MultiLineToStringStyle() {
+        private MultiLineToStringStyle() {
             super();
-            setContentStart("[" + SystemUtils.LINE_SEPARATOR + "  ");
-            setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
-            setContentEnd(SystemUtils.LINE_SEPARATOR + "]");
+            this.setContentStart("[" + SystemUtils.LINE_SEPARATOR + "  ");
+            this.setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
+            this.setContentEnd(SystemUtils.LINE_SEPARATOR + "]");
         }
         
         /**
