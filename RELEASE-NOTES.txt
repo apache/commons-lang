@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.34 2004/12/28 23:13:03 scolebourne Exp $
+$Id$
 
                         Commons Lang Package
                             Version 2.1
@@ -27,7 +27,7 @@ However, we don't recommend that as a long-term solution.)
 If your code previously relied on unusual aspects, it may no longer work.
 
 
-DEPRECTAIONS:
+DEPRECATIONS:
 
 - The enum package has been renamed to enums for JDK1.5 compilance.
 All functionality is identical, just the package has changed.
