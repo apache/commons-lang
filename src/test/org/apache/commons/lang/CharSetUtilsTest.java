@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Stephen Colebourne
  * @author Gary D. Gregory
- * @version $Id: CharSetUtilsTest.java,v 1.16 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  */
 public class CharSetUtilsTest extends TestCase {
     
@@ -244,7 +244,7 @@ public class CharSetUtilsTest extends TestCase {
         assertEquals("hello", CharSetUtils.translate("hello", "", "x"));
         assertEquals("hello", CharSetUtils.translate("hello", "", ""));
         assertEquals("hello", CharSetUtils.translate("hello", "", ""));
-        // From http://nagoya.apache.org/bugzilla/show_bug.cgi?id=25454
+        // From http://issues.apache.org/bugzilla/show_bug.cgi?id=25454
         assertEquals("q651.506bera", CharSetUtils.translate("d216.102oren", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789",
                 "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM567891234"));
     }
