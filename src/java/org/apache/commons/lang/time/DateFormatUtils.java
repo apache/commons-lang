@@ -68,56 +68,56 @@ import java.util.TimeZone;
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: DateFormatUtils.java,v 1.3 2003/07/14 22:25:05 bayard Exp $
+ * @version $Id: DateFormatUtils.java,v 1.4 2003/08/06 01:44:57 ggregory Exp $
  */
 public class DateFormatUtils {
 
     /**
-     * ISO8601 formatter for date-time witout timezone.
+     * ISO8601 formatter for date-time witout time zone .
      * The format used is <tt>yyyy-MM-dd'T'HH:mm:ss</tt>.
      */
     public static final FastDateFormat ISO_DATETIME_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ss");
 
     /**
-     * ISO8601 formatter for date-time with timezone.
+     * ISO8601 formatter for date-time with time zone .
      * The format used is <tt>yyyy-MM-dd'T'HH:mm:ssZZ</tt>.
      */
     public static final FastDateFormat ISO_DATETIME_TIMEZONE_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZZ");
 
     /**
-     * ISO8601 formatter for date without timezone.
+     * ISO8601 formatter for date without time zone .
      * The format used is <tt>yyyy-MM-dd</tt>.
      */
     public static final FastDateFormat ISO_DATE_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-dd");
 
     /**
-     * ISO8601-like formatter for date with timezone.
+     * ISO8601-like formatter for date with time zone .
      * The format used is <tt>yyyy-MM-ddZZ</tt>.
      * This pattern does not comply with the formal ISO8601 specification
-     * as the standard does not allow a timezone without a time.
+     * as the standard does not allow a time zone  without a time.
      */
     public static final FastDateFormat ISO_DATE_TIMEZONE_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-ddZZ");
 
     /**
-     * ISO8601 formatter for time without timezone.
+     * ISO8601 formatter for time without time zone .
      * The format used is <tt>'T'HH:mm:ss</tt>.
      */
     public static final FastDateFormat ISO_TIME_FORMAT
             = FastDateFormat.getInstance("'T'HH:mm:ss");
 
     /**
-     * ISO8601 formatter for time with timezone.
+     * ISO8601 formatter for time with time zone .
      * The format used is <tt>'T'HH:mm:ssZZ</tt>.
      */
     public static final FastDateFormat ISO_TIME_TIMEZONE_FORMAT
             = FastDateFormat.getInstance("'T'HH:mm:ssZZ");
 
     /**
-     * ISO8601-like formatter for time without timezone.
+     * ISO8601-like formatter for time without time zone .
      * The format used is <tt>HH:mm:ss</tt>.
      * This pattern does not comply with the formal ISO8601 specification
      * as the standard requires the 'T' prefix for times.
@@ -126,7 +126,7 @@ public class DateFormatUtils {
             = FastDateFormat.getInstance("HH:mm:ss");
 
     /**
-     * ISO8601-like formatter for time with timezone.
+     * ISO8601-like formatter for time with time zone .
      * The format used is <tt>HH:mm:ssZZ</tt>.
      * This pattern does not comply with the formal ISO8601 specification
      * as the standard requires the 'T' prefix for times.
@@ -152,7 +152,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern using the UTC timezone.</p>
+     * <p>Format a date/time into a specific pattern using the UTC time zone .</p>
      * 
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date
@@ -163,7 +163,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern using the UTC timezone.</p>
+     * <p>Format a date/time into a specific pattern using the UTC time zone .</p>
      * 
      * @param date  the date to format
      * @param pattern  the pattern to use to format the date
@@ -174,7 +174,7 @@ public class DateFormatUtils {
     }
     
     /**
-     * <p>Format a date/time into a specific pattern using the UTC timezone.</p>
+     * <p>Format a date/time into a specific pattern using the UTC time zone .</p>
      * 
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date
@@ -186,7 +186,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern using the UTC timezone.</p>
+     * <p>Format a date/time into a specific pattern using the UTC time zone .</p>
      * 
      * @param date  the date to format
      * @param pattern  the pattern to use to format the date
@@ -220,11 +220,11 @@ public class DateFormatUtils {
     }
     
     /**
-     * <p>Format a date/time into a specific pattern in a timezone.</p>
+     * <p>Format a date/time into a specific pattern in a time zone .</p>
      * 
      * @param millis  the time expressed in milliseconds
      * @param pattern  the pattern to use to format the date
-     * @param timeZone  the timezone to use, may be <code>null</code>
+     * @param timeZone  the time zone  to use, may be <code>null</code>
      * @return the formatted date
      */
     public static String format(long millis, String pattern, TimeZone timeZone) {
@@ -232,11 +232,11 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern in a timezone.</p>
+     * <p>Format a date/time into a specific pattern in a time zone .</p>
      * 
      * @param date  the date to format
      * @param pattern  the pattern to use to format the date
-     * @param timeZone  the timezone to use, may be <code>null</code>
+     * @param timeZone  the time zone  to use, may be <code>null</code>
      * @return the formatted date
      */
     public static String format(Date date, String pattern, TimeZone timeZone) {
@@ -268,11 +268,11 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern in a timezone and locale.</p>
+     * <p>Format a date/time into a specific pattern in a time zone  and locale.</p>
      * 
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date
-     * @param timeZone  the timezone to use, may be <code>null</code>
+     * @param timeZone  the time zone  to use, may be <code>null</code>
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */
@@ -281,11 +281,11 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern in a timezone and locale.</p>
+     * <p>Format a date/time into a specific pattern in a time zone  and locale.</p>
      * 
      * @param date  the date to format
      * @param pattern  the pattern to use to format the date
-     * @param timeZone  the timezone to use, may be <code>null</code>
+     * @param timeZone  the time zone  to use, may be <code>null</code>
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */

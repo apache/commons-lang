@@ -73,12 +73,12 @@ import java.util.TimeZone;
  * @author Stephen Colebourne
  * @author Janek Bogucki
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.8 2003/08/05 21:15:49 stevencaswell Exp $
+ * @version $Id: DateUtils.java,v 1.9 2003/08/06 01:44:57 ggregory Exp $
  */
 public class DateUtils {
     
     /**
-     * The UTC timezone (often referred to as GMT).
+     * The UTC time zone  (often referred to as GMT).
      */
     public static final TimeZone UTC_TIMEZONE = TimeZone.getTimeZone("GMT");
     /**

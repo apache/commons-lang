@@ -81,7 +81,7 @@ import java.util.TimeZone;
  * </p>
  *
  * <p>Only formatting is supported, but all patterns are compatible with
- * SimpleDateFormat (except timezones - see below).</p>
+ * SimpleDateFormat (except time zones - see below).</p>
  *
  * <p>Java 1.4 introduced a new pattern letter, <code>'Z'</code>, to represent
  * time zones in RFC822 format (eg. <code>+0800</code> or <code>-1100</code>).
@@ -98,7 +98,7 @@ import java.util.TimeZone;
  * @author Gary Gregory
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.13 2003/08/06 00:02:15 stevencaswell Exp $
+ * @version $Id: FastDateFormat.java,v 1.14 2003/08/06 01:44:57 ggregory Exp $
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes
