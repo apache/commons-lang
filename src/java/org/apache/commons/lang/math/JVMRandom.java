@@ -62,7 +62,7 @@ import java.util.Random;
  * 
  * @author Henri Yandell
  * @since 2.0
- * @version $Id: JVMRandom.java,v 1.3 2003/05/12 04:29:26 bayard Exp $
+ * @version $Id: JVMRandom.java,v 1.4 2003/05/12 04:41:40 bayard Exp $
  */
 public final class JVMRandom extends Random {
 
@@ -98,11 +98,17 @@ public final class JVMRandom extends Random {
      * Math.random() sequence. 
      *
      * @param n  the specified exclusive max-value
+     * @throws IllegalArgumentException when n <= 0
      *
      * @return the random int
      */
     public int nextInt(int n) {
-        // check this cannot return 'n'
+        if (n <= 0) {
+            throw new IllegalArgumentException(
+                "Upper bound for nextInt must be positive"
+            );
+        }
+        // TODO: check this cannot return 'n'
         return (int)(Math.random() * n);
     }
     /**
@@ -113,8 +119,30 @@ public final class JVMRandom extends Random {
      */
     public long nextLong() {
         // possible loss of precision?
-        return (long)(Math.random() * Long.MAX_VALUE);
+        return nextLong(Long.MAX_VALUE);
     }
+
+
+    /**
+     * Returns a pseudorandom, uniformly distributed long value between 0 
+     * (inclusive) and the specified value (exclusive), from the 
+     * Math.random() sequence.
+     *
+     * @param n  the specified exclusive max-value
+     * @throws IllegalArgumentException when n <= 0
+     *
+     * @return the random long
+     */
+    public static long nextLong(long n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException(
+                "Upper bound for nextInt must be positive"
+            );
+        }
+        // TODO: check this cannot return 'n'
+        return (long)(Math.random() * n);
+     }
+
     /**
      * Returns the next pseudorandom, uniformly distributed boolean value 
      * from the Math.random() sequence.
