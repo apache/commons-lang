@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ClassUtils}.
  *
  * @author Stephen Colebourne
- * @version $Id: ClassUtilsTest.java,v 1.1 2002/12/15 19:36:08 scolebourne Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.2 2002/12/31 22:32:23 scolebourne Exp $
  */
 public class ClassUtilsTest extends TestCase {
 
@@ -252,6 +252,8 @@ public class ClassUtilsTest extends TestCase {
     public void test_isInnerClass_Class() {
         assertEquals(true, ClassUtils.isInnerClass(Inner.class));
         assertEquals(true, ClassUtils.isInnerClass(Map.Entry.class));
+        assertEquals(true, ClassUtils.isInnerClass(new Cloneable() {
+        }.getClass()));
         assertEquals(false, ClassUtils.isInnerClass(this.getClass()));
         assertEquals(false, ClassUtils.isInnerClass(String.class));
         try {
