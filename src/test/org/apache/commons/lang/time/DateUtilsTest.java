@@ -163,6 +163,10 @@ public class DateUtilsTest extends TestCase {
         assertEquals(true, DateUtils.isSameDay(date1, date2));
         date2 = new GregorianCalendar(2005, 6, 10, 13, 45).getTime();
         assertEquals(false, DateUtils.isSameDay(date1, date2));
+        try {
+            DateUtils.isSameDay((Date) null, (Date) null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
     
     //-----------------------------------------------------------------------
@@ -176,6 +180,63 @@ public class DateUtilsTest extends TestCase {
         assertEquals(true, DateUtils.isSameDay(cal1, cal2));
         cal2.add(Calendar.YEAR, 1);
         assertEquals(false, DateUtils.isSameDay(cal1, cal2));
+        try {
+            DateUtils.isSameDay((Calendar) null, (Calendar) null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIsSameInstant_Date() {
+        Date date1 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
+        Date date2 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
+        assertEquals(true, DateUtils.isSameInstant(date1, date2));
+        date2 = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
+        assertEquals(false, DateUtils.isSameInstant(date1, date2));
+        date1 = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
+        assertEquals(true, DateUtils.isSameInstant(date1, date2));
+        date2 = new GregorianCalendar(2005, 6, 10, 13, 45).getTime();
+        assertEquals(false, DateUtils.isSameInstant(date1, date2));
+        try {
+            DateUtils.isSameInstant((Date) null, (Date) null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIsSameInstant_Cal() {
+        GregorianCalendar cal1 = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
+        GregorianCalendar cal2 = new GregorianCalendar(TimeZone.getTimeZone("GMT-1"));
+        cal1.set(2004, 6, 9, 13, 45, 0);
+        cal1.set(Calendar.MILLISECOND, 0);
+        cal2.set(2004, 6, 9, 13, 45, 0);
+        cal2.set(Calendar.MILLISECOND, 0);
+        assertEquals(false, DateUtils.isSameInstant(cal1, cal2));
+        
+        cal2.set(2004, 6, 9, 11, 45, 0);
+        assertEquals(true, DateUtils.isSameInstant(cal1, cal2));
+        try {
+            DateUtils.isSameInstant((Calendar) null, (Calendar) null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIsSameLocalTime_Cal() {
+        GregorianCalendar cal1 = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
+        GregorianCalendar cal2 = new GregorianCalendar(TimeZone.getTimeZone("GMT-1"));
+        cal1.set(2004, 6, 9, 13, 45, 0);
+        cal1.set(Calendar.MILLISECOND, 0);
+        cal2.set(2004, 6, 9, 13, 45, 0);
+        cal2.set(Calendar.MILLISECOND, 0);
+        assertEquals(true, DateUtils.isSameLocalTime(cal1, cal2));
+        
+        cal2.set(2004, 6, 9, 11, 45, 0);
+        assertEquals(false, DateUtils.isSameLocalTime(cal1, cal2));
+        try {
+            DateUtils.isSameLocalTime((Calendar) null, (Calendar) null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
     
     //-----------------------------------------------------------------------

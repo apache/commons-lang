@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.28 2004/10/16 16:45:59 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.29 2004/10/16 17:08:42 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.1
@@ -74,7 +74,7 @@ indexOfThrowable method untouched (see incompatible changes section)
 
 - NumberUtils - various string to number parsing methods added
 
-- DateUtils - isSameDay method added to compare day ignoring time
+- DateUtils - methods added to compare dates in various ways
 - FastDateFormat - extra formatting methods that take in a millisecond long value
                 -- additional static factory methods
 - StopWatch - new methods for split behaviour
@@ -114,4 +114,4 @@ BUG FIXES:
 30815  ArrayUtils.isEquals() throws ClassCastException when array1
 31478  Compile error with JDK 5 "enum" is a keyword
 31572  o.a.c.lang.enum.ValuedEnum: 'enum'is a keyword in JDK1.5.0
-
+26922  public static boolean DateUtils.equals(Date dt1, Date dt2)
