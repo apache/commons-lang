@@ -72,6 +72,13 @@ import java.util.TimeZone;
 /**
  * <p>FastDateFormat is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
+ * 
+ * <p>This class can be used as a direct replacement to
+ * <code>SimpleDateFormat</code> in most formatting situations.
+ * This class is especially useful in multi-threaded server environments.
+ * <code>SimpleDateFormat</code> is not thread-safe in any JDK version,
+ * nor will it be as Sun have closed the bug/RFE.
+ * </p>
  *
  * <p>Only formatting is supported, but all patterns are compatible with
  * SimpleDateFormat (except timezones - see below).</p>
@@ -91,7 +98,7 @@ import java.util.TimeZone;
  * @author Gary Gregory
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.10 2003/07/20 01:21:29 ggregory Exp $
+ * @version $Id: FastDateFormat.java,v 1.11 2003/07/22 00:09:14 scolebourne Exp $
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes
