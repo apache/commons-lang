@@ -76,7 +76,7 @@ import org.apache.commons.lang.ArrayUtils;
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
  * @author Gary Gregory
- * @version $Id: MethodUtils.java,v 1.12 2003/07/14 22:29:04 bayard Exp $
+ * @version $Id: MethodUtils.java,v 1.13 2003/07/20 01:13:54 ggregory Exp $
  */
 public class MethodUtils {
     
@@ -488,7 +488,7 @@ public class MethodUtils {
                     method = interfaces[i].getDeclaredMethod(methodName,
                             parameterTypes);
                 } catch (NoSuchMethodException e) {
-                    ;
+                    // empty
                 }
                 if (method != null)
                     break;
