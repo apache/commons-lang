@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * Test suite for the Text package.
  *
  * @author Stephen Colebourne
- * @version $Id: TextTestSuite.java,v 1.1 2004/09/05 00:56:31 bayard Exp $
+ * @version $Id: TextTestSuite.java,v 1.2 2004/10/06 22:29:24 scolebourne Exp $
  */
 public class TextTestSuite extends TestCase {
     
@@ -49,6 +49,8 @@ public class TextTestSuite extends TestCase {
         TestSuite suite = new TestSuite();
         suite.setName("Commons-Lang-Text Tests");
         suite.addTest(InterpolationTest.suite());
+        suite.addTest(StrTokenizerTest.suite());
         return suite;
     }
+
 }

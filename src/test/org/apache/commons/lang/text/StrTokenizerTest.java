@@ -13,30 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang;
+package org.apache.commons.lang.text;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
+import org.apache.commons.lang.ObjectUtils;
+
 /**
  * Unit test for Tokenizer.
  *
  * @author Matthew Inger
  */
-public class TokenizerTest extends TestCase {
+public class StrTokenizerTest extends TestCase {
     
     /**
      * JUnit constructor.
      * @param name
      */
-    public TokenizerTest(String name) {
+    public StrTokenizerTest(String name) {
         super(name);
     }
 
     public static Test suite() {
-        TestSuite suite = new TestSuite(TokenizerTest.class);
+        TestSuite suite = new TestSuite(StrTokenizerTest.class);
         suite.setName("TokenizerTest Tests");
         return suite;
     }
@@ -50,10 +52,10 @@ public class TokenizerTest extends TestCase {
     public void test1() {
 
         String input = "a;b;c;\"d;\"\"e\";f; ; ;";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(Tokenizer.TRIM_MATCHER);
+        tok.setIgnoredMatcher(StrTokenizer.TRIM_MATCHER);
         tok.setIgnoreEmptyTokens(false);
         String tokens [] = tok.getAllTokens();
 
@@ -83,10 +85,10 @@ public class TokenizerTest extends TestCase {
     public void test2() {
 
         String input = "a;b;c ;\"d;\"\"e\";f; ; ;";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(Tokenizer.NONE_MATCHER);
+        tok.setIgnoredMatcher(StrTokenizer.NONE_MATCHER);
         tok.setIgnoreEmptyTokens(false);
         String tokens [] = tok.getAllTokens();
 
@@ -116,10 +118,10 @@ public class TokenizerTest extends TestCase {
     public void test3() {
 
         String input = "a;b; c;\"d;\"\"e\";f; ; ;";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(Tokenizer.NONE_MATCHER);
+        tok.setIgnoredMatcher(StrTokenizer.NONE_MATCHER);
         tok.setIgnoreEmptyTokens(false);
         String tokens [] = tok.getAllTokens();
 
@@ -149,10 +151,10 @@ public class TokenizerTest extends TestCase {
     public void test4() {
 
         String input = "a;b; c;\"d;\"\"e\";f; ; ;";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(Tokenizer.TRIM_MATCHER);
+        tok.setIgnoredMatcher(StrTokenizer.TRIM_MATCHER);
         tok.setIgnoreEmptyTokens(true);
         String tokens [] = tok.getAllTokens();
 
@@ -179,10 +181,10 @@ public class TokenizerTest extends TestCase {
     public void test5() {
 
         String input = "a;b; c;\"d;\"\"e\";f; ; ;";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(Tokenizer.TRIM_MATCHER);
+        tok.setIgnoredMatcher(StrTokenizer.TRIM_MATCHER);
         tok.setIgnoreEmptyTokens(false);
         tok.setEmptyTokenAsNull(true);
         String tokens [] = tok.getAllTokens();
@@ -213,10 +215,10 @@ public class TokenizerTest extends TestCase {
     public void test6() {
 
         String input = "a;b; c;\"d;\"\"e\";f; ; ;";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(Tokenizer.TRIM_MATCHER);
+        tok.setIgnoredMatcher(StrTokenizer.TRIM_MATCHER);
         tok.setIgnoreEmptyTokens(false);
 //        tok.setTreatingEmptyAsNull(true);
         String tokens [] = tok.getAllTokens();
@@ -261,10 +263,10 @@ public class TokenizerTest extends TestCase {
     public void test7() {
 
         String input = "a   b c \"d e\" f ";
-        Tokenizer tok = new Tokenizer(input);
-        tok.setDelimiterMatcher(Tokenizer.SPACE_MATCHER);
-        tok.setQuoteMatcher(Tokenizer.DOUBLE_QUOTE_MATCHER);
-        tok.setIgnoredMatcher(Tokenizer.NONE_MATCHER);
+        StrTokenizer tok = new StrTokenizer(input);
+        tok.setDelimiterMatcher(StrTokenizer.SPACE_MATCHER);
+        tok.setQuoteMatcher(StrTokenizer.DOUBLE_QUOTE_MATCHER);
+        tok.setIgnoredMatcher(StrTokenizer.NONE_MATCHER);
         tok.setIgnoreEmptyTokens(false);
         String tokens [] = tok.getAllTokens();
 
@@ -294,10 +296,10 @@ public class TokenizerTest extends TestCase {
     public void test8() {
 
         String input = "a   b c \"d e\" f ";
-        Tokenizer tok = new Tokenizer(input);
-        tok.setDelimiterMatcher(Tokenizer.SPACE_MATCHER);
-        tok.setQuoteMatcher(Tokenizer.DOUBLE_QUOTE_MATCHER);
-        tok.setIgnoredMatcher(Tokenizer.NONE_MATCHER);
+        StrTokenizer tok = new StrTokenizer(input);
+        tok.setDelimiterMatcher(StrTokenizer.SPACE_MATCHER);
+        tok.setQuoteMatcher(StrTokenizer.DOUBLE_QUOTE_MATCHER);
+        tok.setIgnoredMatcher(StrTokenizer.NONE_MATCHER);
         tok.setIgnoreEmptyTokens(true);
         String tokens [] = tok.getAllTokens();
 
@@ -322,7 +324,7 @@ public class TokenizerTest extends TestCase {
 
     public void testBasic1() {
         String input = "a  b c";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         assertEquals("a", tok.next());
         assertEquals("b", tok.next());
         assertEquals("c", tok.next());
@@ -330,7 +332,7 @@ public class TokenizerTest extends TestCase {
     
     public void testBasic2() {
         String input = "a \nb\fc";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         assertEquals("a", tok.next());
         assertEquals("b", tok.next());
         assertEquals("c", tok.next());
@@ -338,7 +340,7 @@ public class TokenizerTest extends TestCase {
     
     public void testBasic3() {
         String input = "a \nb\u0001\fc";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         assertEquals("a", tok.next());
         assertEquals("b\u0001", tok.next());
         assertEquals("c", tok.next());
@@ -346,7 +348,7 @@ public class TokenizerTest extends TestCase {
     
     public void testBasic4() {
         String input = "a \"b\" c";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         assertEquals("a", tok.next());
         assertEquals("\"b\"", tok.next());
         assertEquals("c", tok.next());
@@ -354,7 +356,7 @@ public class TokenizerTest extends TestCase {
     
     public void testBasicQuoted1() {
         String input = "a \"b\" c";
-        Tokenizer tok = new Tokenizer(input, ' ', '"');
+        StrTokenizer tok = new StrTokenizer(input, ' ', '"');
         assertEquals("a", tok.next());
         assertEquals("b", tok.next());
         assertEquals("c", tok.next());
@@ -362,7 +364,7 @@ public class TokenizerTest extends TestCase {
     
     public void testBasicDelim1() {
         String input = "a:b:c";
-        Tokenizer tok = new Tokenizer(input, ':');
+        StrTokenizer tok = new StrTokenizer(input, ':');
         assertEquals("a", tok.next());
         assertEquals("b", tok.next());
         assertEquals("c", tok.next());
@@ -370,13 +372,13 @@ public class TokenizerTest extends TestCase {
     
     public void testBasicDelim2() {
         String input = "a:b:c";
-        Tokenizer tok = new Tokenizer(input, ',');
+        StrTokenizer tok = new StrTokenizer(input, ',');
         assertEquals("a:b:c", tok.next());
     }
     
     public void testBasicEmpty1() {
         String input = "a  b c";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         tok.setIgnoreEmptyTokens(false);
         assertEquals("a", tok.next());
         assertEquals("", tok.next());
@@ -386,7 +388,7 @@ public class TokenizerTest extends TestCase {
     
     public void testBasicEmpty2() {
         String input = "a  b c";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         tok.setIgnoreEmptyTokens(false);
         tok.setEmptyTokenAsNull(true);
         assertEquals("a", tok.next());
@@ -397,16 +399,16 @@ public class TokenizerTest extends TestCase {
     
     public void testGetContent() {
         String input = "a   b c \"d e\" f ";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         assertSame(input, tok.getContent());
         
-        tok = new Tokenizer(input.toCharArray());
+        tok = new StrTokenizer(input.toCharArray());
         assertEquals(input, tok.getContent());
     }
 
     public void testReset() {
         String input = "a b c";
-        Tokenizer tok = new Tokenizer(input);
+        StrTokenizer tok = new StrTokenizer(input);
         assertEquals("a", tok.next());
         assertEquals("b", tok.next());
         assertEquals("c", tok.next());
@@ -423,17 +425,17 @@ public class TokenizerTest extends TestCase {
     }
     
     public void testMatcher() {
-        assertEquals(true, Tokenizer.SPACE_MATCHER.isMatch(' '));
-        assertEquals(false, Tokenizer.SPACE_MATCHER.isMatch('\n'));
-        assertEquals(false, Tokenizer.SPACE_MATCHER.isMatch('\u0001'));
+        assertEquals(1, StrTokenizer.SPACE_MATCHER.isMatch(new char[] {' '}, 1, 0));
+        assertEquals(0, StrTokenizer.SPACE_MATCHER.isMatch(new char[] {'\n'}, 1, 0));
+        assertEquals(0, StrTokenizer.SPACE_MATCHER.isMatch(new char[] {'\u0001'}, 1, 0));
         
-        assertEquals(true, Tokenizer.TRIM_MATCHER.isMatch(' '));
-        assertEquals(true, Tokenizer.TRIM_MATCHER.isMatch('\n'));
-        assertEquals(true, Tokenizer.TRIM_MATCHER.isMatch('\u0001'));
+        assertEquals(1, StrTokenizer.TRIM_MATCHER.isMatch(new char[] {' '}, 1, 0));
+        assertEquals(1, StrTokenizer.TRIM_MATCHER.isMatch(new char[] {'\n'}, 1, 0));
+        assertEquals(1, StrTokenizer.TRIM_MATCHER.isMatch(new char[] {'\u0001'}, 1, 0));
         
-        assertEquals(true, Tokenizer.SPLIT_MATCHER.isMatch(' '));
-        assertEquals(true, Tokenizer.SPLIT_MATCHER.isMatch('\n'));
-        assertEquals(false, Tokenizer.SPLIT_MATCHER.isMatch('\u0001'));
+        assertEquals(1, StrTokenizer.SPLIT_MATCHER.isMatch(new char[] {' '}, 1, 0));
+        assertEquals(1, StrTokenizer.SPLIT_MATCHER.isMatch(new char[] {'\n'}, 1, 0));
+        assertEquals(0, StrTokenizer.SPLIT_MATCHER.isMatch(new char[] {'\u0001'}, 1, 0));
     }
     
 }
