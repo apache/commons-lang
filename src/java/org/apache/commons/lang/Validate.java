@@ -35,7 +35,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: Validate.java,v 1.10 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: Validate.java,v 1.11 2004/02/19 21:04:03 fredrik Exp $
  */
 public class Validate {
     
@@ -356,7 +356,7 @@ public class Validate {
      * @throws IllegalArgumentException if the string is empty
      */
     public static void notEmpty(String string, String message) {
-        if (string == null || string.length() == 0) {
+        if (StringUtils.isEmpty(string)) {
             throw new IllegalArgumentException(message);
         }
     }
@@ -375,7 +375,7 @@ public class Validate {
      * @throws IllegalArgumentException if the string is empty
      */
     public static void notEmpty(String string) {
-        if (string == null || string.length() == 0) {
+        if (StringUtils.isEmpty(string)) {
             throw new IllegalArgumentException("The validated string is empty");
         }
     }

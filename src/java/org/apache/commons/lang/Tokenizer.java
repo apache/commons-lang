@@ -70,7 +70,7 @@ import java.util.ListIterator;
  * @author Stephen Colebourne
  * @author Gary D. Gregory
  * @since 2.1
- * @version $Id: Tokenizer.java,v 1.5 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: Tokenizer.java,v 1.6 2004/02/19 21:04:03 fredrik Exp $
  */
 public class Tokenizer implements ListIterator, Cloneable {
 
@@ -566,7 +566,7 @@ public class Tokenizer implements ListIterator, Cloneable {
      * @param tok  the token to add
      */
     private void addToken(List list, String tok) {
-        if (tok == null || tok.length() == 0) {
+        if (StringUtils.isEmpty(tok)) {
             if (ignoreEmptyTokens) {
                 return;
             }

@@ -28,7 +28,7 @@ package org.apache.commons.lang;
  * @author Phil Steitz
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.31 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: CharSetUtils.java,v 1.32 2004/02/19 21:04:03 fredrik Exp $
  */
 public class CharSetUtils {
 
@@ -222,7 +222,7 @@ public class CharSetUtils {
         if (str == null) {
             return null;
         }
-        if (str.length() == 0 || set == null || set.length() == 0) {
+        if (str.length() == 0 || StringUtils.isEmpty(set)) {
             return "";
         }
         String[] strs = new String[1];

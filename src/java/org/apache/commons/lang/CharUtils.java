@@ -24,7 +24,7 @@ package org.apache.commons.lang;
  * 
  * @author Stephen Colebourne
  * @since 2.1
- * @version $Id: CharUtils.java,v 1.3 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: CharUtils.java,v 1.4 2004/02/19 21:04:03 fredrik Exp $
  */
 public class CharUtils {
     
@@ -147,7 +147,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the String is empty
      */
     public static char toCharacter(String str) {
-        if (str == null || str.length() == 0) {
+        if (StringUtils.isEmpty(str)) {
             throw new IllegalArgumentException("The String must not be empty");
         }
         return str.charAt(0);
@@ -169,7 +169,7 @@ public class CharUtils {
      * @return the char value of the Character or the default if null
      */
     public static char toCharacter(String str, char defaultValue) {
-        if (str == null || str.length() == 0) {
+        if (StringUtils.isEmpty(str)) {
             return defaultValue;
         }
         return str.charAt(0);
