@@ -72,15 +72,16 @@ import java.util.TimeZone;
  * @author <a href="mailto:sergek@lokitech.com">Serge Knystautas</a>
  * @author Stephen Colebourne
  * @author Janek Bogucki
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.9 2003/08/06 01:44:57 ggregory Exp $
+ * @version $Id: DateUtils.java,v 1.10 2003/08/06 21:13:39 ggregory Exp $
  */
 public class DateUtils {
     
     /**
      * The UTC time zone  (often referred to as GMT).
      */
-    public static final TimeZone UTC_TIMEZONE = TimeZone.getTimeZone("GMT");
+    public static final TimeZone UTC_TIME_ZONE = TimeZone.getTimeZone("GMT");
     /**
      * Number of milliseconds in a standard second.
      */

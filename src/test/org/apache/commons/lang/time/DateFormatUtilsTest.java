@@ -70,6 +70,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author Stephen Colebourne
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  */
 public class DateFormatUtilsTest extends TestCase {
 
@@ -112,12 +113,12 @@ public class DateFormatUtilsTest extends TestCase {
         assertEquals("2002-02-23T09:11:12", text);
         
         text = DateFormatUtils.format(cal.getTime(), 
-                      DateFormatUtils.ISO_DATETIME_TIMEZONE_FORMAT.getPattern(), timeZone);
+                      DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), timeZone);
         assertEquals("2002-02-23T09:11:12-03:00", text);
         text = DateFormatUtils.format(cal.getTime().getTime(), 
-                      DateFormatUtils.ISO_DATETIME_TIMEZONE_FORMAT.getPattern(), timeZone);
+                      DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern(), timeZone);
         assertEquals("2002-02-23T09:11:12-03:00", text);
-        text = DateFormatUtils.ISO_DATETIME_TIMEZONE_FORMAT.format(cal);
+        text = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(cal);
         assertEquals("2002-02-23T09:11:12-03:00", text);
     }
 
@@ -135,12 +136,12 @@ public class DateFormatUtilsTest extends TestCase {
         assertEquals("2002-02-23", text);
         
         text = DateFormatUtils.format(cal.getTime(), 
-                      DateFormatUtils.ISO_DATE_TIMEZONE_FORMAT.getPattern(), timeZone);
+                      DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.getPattern(), timeZone);
         assertEquals("2002-02-23-03:00", text);
         text = DateFormatUtils.format(cal.getTime().getTime(), 
-                      DateFormatUtils.ISO_DATE_TIMEZONE_FORMAT.getPattern(), timeZone);
+                      DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.getPattern(), timeZone);
         assertEquals("2002-02-23-03:00", text);
-        text = DateFormatUtils.ISO_DATE_TIMEZONE_FORMAT.format(cal);
+        text = DateFormatUtils.ISO_DATE_TIME_ZONE_FORMAT.format(cal);
         assertEquals("2002-02-23-03:00", text);
     }
 
@@ -158,12 +159,12 @@ public class DateFormatUtilsTest extends TestCase {
         assertEquals("T10:11:12", text);
         
         text = DateFormatUtils.format(cal.getTime(), 
-                      DateFormatUtils.ISO_TIME_TIMEZONE_FORMAT.getPattern(), timeZone);
+                      DateFormatUtils.ISO_TIME_TIME_ZONE_FORMAT.getPattern(), timeZone);
         assertEquals("T10:11:12-03:00", text);
         text = DateFormatUtils.format(cal.getTime().getTime(), 
-                      DateFormatUtils.ISO_TIME_TIMEZONE_FORMAT.getPattern(), timeZone);
+                      DateFormatUtils.ISO_TIME_TIME_ZONE_FORMAT.getPattern(), timeZone);
         assertEquals("T10:11:12-03:00", text);
-        text = DateFormatUtils.ISO_TIME_TIMEZONE_FORMAT.format(cal);
+        text = DateFormatUtils.ISO_TIME_TIME_ZONE_FORMAT.format(cal);
         assertEquals("T10:11:12-03:00", text);
     }
 
@@ -181,12 +182,12 @@ public class DateFormatUtilsTest extends TestCase {
         assertEquals("10:11:12", text);
         
         text = DateFormatUtils.format(cal.getTime(), 
-                      DateFormatUtils.ISO_TIME_NO_T_TIMEZONE_FORMAT.getPattern(), timeZone);
+                      DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern(), timeZone);
         assertEquals("10:11:12-03:00", text);
         text = DateFormatUtils.format(cal.getTime().getTime(), 
-                      DateFormatUtils.ISO_TIME_NO_T_TIMEZONE_FORMAT.getPattern(), timeZone);
+                      DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.getPattern(), timeZone);
         assertEquals("10:11:12-03:00", text);
-        text = DateFormatUtils.ISO_TIME_NO_T_TIMEZONE_FORMAT.format(cal);
+        text = DateFormatUtils.ISO_TIME_NO_T_TIME_ZONE_FORMAT.format(cal);
         assertEquals("10:11:12-03:00", text);
     }
 
