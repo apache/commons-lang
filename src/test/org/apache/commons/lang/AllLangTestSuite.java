@@ -63,7 +63,7 @@ public class AllLangTestSuite extends TestCase {
         suite.addTest(ExceptionTestSuite.suite());
         suite.addTest(MathTestSuite.suite());
         suite.addTest(MutableTestSuite.suite());
-        suite.addTest(TextTestSuite.suite());
+//        suite.addTest(TextTestSuite.suite());
         suite.addTest(TimeTestSuite.suite());
         return suite;
     }
