@@ -62,7 +62,7 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharRange.java,v 1.3 2002/12/23 00:32:24 scolebourne Exp $
+ * @version $Id: CharRange.java,v 1.4 2003/02/02 09:26:52 bayard Exp $
  */
 class CharRange {
 
@@ -156,11 +156,12 @@ class CharRange {
      * <p>Is the passed in character <code>ch</code> inside
      * this range.</p>
      *
+     * @param ch character to test for
      * @return boolean <code>true</code> is in range
      */
     public boolean inRange(char ch) {
-        if(isRange()) {
-            return ((ch >= start) && (ch <= close) );
+        if( isRange() ) {
+            return ((ch >= start) && (ch <= close));
         } else {
             return start == ch;
         }
@@ -194,11 +195,11 @@ class CharRange {
      */
     public String toString() {
         String str = "";
-        if(isNegated()) {
+        if( isNegated() ) {
             str += "^";
         }
         str += start;
-        if(isRange()) {
+        if( isRange() ) {
             str += "-";
             str += close;
         }
