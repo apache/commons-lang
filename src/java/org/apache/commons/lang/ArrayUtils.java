@@ -80,9 +80,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Pete Gieser
  * @author Gary Gregory
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
- * @author Fredrik Westermarck
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.35 2004/01/30 01:39:58 ggregory Exp $
+ * @version $Id: ArrayUtils.java,v 1.36 2004/01/30 01:51:36 ggregory Exp $
  */
 public class ArrayUtils {
 
