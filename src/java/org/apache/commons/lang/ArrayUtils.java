@@ -69,7 +69,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @author Nikolay Metchev
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.12 2003/06/16 02:28:16 bayard Exp $
+ * @version $Id: ArrayUtils.java,v 1.13 2003/06/20 08:03:51 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -219,111 +219,6 @@ public class ArrayUtils {
         }
         return map;
     }
-    
-//    /**
-//     * <p>Output the array as a String.</p>
-//     *
-//     * <p>Multi-dimensional arrays are handled by the Object[] method.</p>
-//     *
-//     * <p>The format is that of Java source code, for example {1,2}.</p>
-//     * 
-//     * @param array  the array to get a toString for, must not be <code>null</code>
-//     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is <code>null</code>
-//     */
-//    public static String toString(long[] array) {
-//        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
-//    }
-//    
-//    /**
-//     * <p>Output the array as a String.</p>
-//     *
-//     * <p>Multi-dimensional arrays are handled by the Object[] method.</p>
-//     *
-//     * <p>The format is that of Java source code, for example {1,2}.</p>
-//     * 
-//     * @param array  the array to get a toString for, must not be <code>null</code>
-//     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is <code>null</code>
-//     */
-//    public static String toString(int[] array) {
-//        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
-//    }
-//    
-//    /**
-//     * <p>Output the array as a String.</p>
-//     *
-//     * <p>Multi-dimensional arrays are handled by the Object[] method.</p>
-//     *
-//     * <p>The format is that of Java source code, for example {1,2}.</p>
-//     * 
-//     * @param array  the array to get a toString for, must not be <code>null</code>
-//     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is <code>null</code>
-//     */
-//    public static String toString(short[] array) {
-//        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
-//    }
-//    
-//    /**
-//     * <p>Output the array as a String.</p>
-//     *
-//     * <p>Multi-dimensional arrays are handled by the Object[] method.</p>
-//     *
-//     * <p>The format is that of Java source code, for example {1,2}.</p>
-//     * 
-//     * @param array  the array to get a toString for, must not be <code>null</code>
-//     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is <code>null</code>
-//     */
-//    public static String toString(byte[] array) {
-//        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
-//    }
-//    
-//    /**
-//     * <p>Output the array as a String.</p>
-//     *
-//     * <p>Multi-dimensional arrays are handled by the Object[] method.</p>
-//     *
-//     * <p>The format is that of Java source code, for example {1.0,2.0}.</p>
-//     * 
-//     * @param array  the array to get a toString for, must not be <code>null</code>
-//     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is <code>null</code>
-//     */
-//    public static String toString(double[] array) {
-//        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
-//    }
-//    
-//    /**
-//     * <p>Output the array as a String.</p>
-//     *
-//     * <p>Multi-dimensional arrays are handled by the Object[] method.</p>
-//     *
-//     * <p>The format is that of Java source code, for example {1.0,2.0}.</p>
-//     *
-//     * @param array  the array to get a toString for, must not be <code>null</code>
-//     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is <code>null</code>
-//     */
-//    public static String toString(float[] array) {
-//        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
-//    }
-//    
-//    /**
-//     * <p>Output the array as a String.</p>
-//     *
-//     * <p>Multi-dimensional arrays are handled by the Object[] method.</p>
-//     *
-//     * <p>The format is that of Java source code, for example {true,false}.</p>
-//     * 
-//     * @param array  the array to get a toString for, must not be <code>null</code>
-//     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is <code>null</code>
-//     */
-//    public static String toString(boolean[] array) {
-//        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
-//    }
     
     //-----------------------------------------------------------------------
 
