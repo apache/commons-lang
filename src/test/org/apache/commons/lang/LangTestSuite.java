@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
  * @author Stephen Colebourne
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.28 2004/09/05 00:56:31 bayard Exp $
+ * @version $Id: LangTestSuite.java,v 1.29 2004/10/02 01:46:30 bayard Exp $
  */
 public class LangTestSuite extends TestCase {
     
@@ -54,6 +54,7 @@ public class LangTestSuite extends TestCase {
         suite.addTest(ArrayUtilsAddTest.suite());
         suite.addTest(BitFieldTest.suite());
         suite.addTest(BooleanUtilsTest.suite());
+        suite.addTest(CharEncodingTest.suite());
         suite.addTest(CharRangeTest.suite());
         suite.addTest(CharSetTest.suite());
         suite.addTest(CharSetUtilsTest.suite());

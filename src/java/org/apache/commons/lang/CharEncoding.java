@@ -35,9 +35,9 @@ import java.io.UnsupportedEncodingException;
  *          names </a>
  * @author Apache Software Foundation
  * @since 2.1
- * @version $Id: CharacterEncoding.java,v 1.2 2004/08/26 18:54:04 ggregory Exp $
+ * @version $Id: CharEncoding.java,v 1.1 2004/10/02 01:46:29 bayard Exp $
  */
-public class CharacterEncoding {
+public class CharEncoding {
 
     /**
      * <p>
