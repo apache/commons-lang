@@ -24,7 +24,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @see org.apache.commons.lang.exception.NestableException
  * @since 1.0
- * @version $Id: NestableError.java,v 1.8 2004/02/18 22:54:04 ggregory Exp $
+ * @version $Id$
  */
 public class NestableError extends Error implements Nestable {
 
@@ -91,6 +91,8 @@ public class NestableError extends Error implements Nestable {
      * Returns the detail message string of this throwable. If it was
      * created with a null message, returns the following:
      * (cause==null ? null : cause.toString()).
+     *
+     * @return String message string of the throwable
      */
     public String getMessage() {
         if (super.getMessage() != null) {
