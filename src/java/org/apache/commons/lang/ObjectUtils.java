@@ -68,7 +68,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.17 2003/08/13 23:30:58 scolebourne Exp $
+ * @version $Id: ObjectUtils.java,v 1.18 2003/08/16 09:50:59 scolebourne Exp $
  */
 public class ObjectUtils {
     
@@ -231,7 +231,7 @@ public class ObjectUtils {
 
     /**
      * <p>Gets the <code>toString</code> of an <code>Object</code> returning
-     * an empty string ("") if <code>null</code> input.</p>
+     * a specified text if <code>null</code> input.</p>
      * 
      * <pre>
      * ObjectUtils.toString(null, null)           = null
