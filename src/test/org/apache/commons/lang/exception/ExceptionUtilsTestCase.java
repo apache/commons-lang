@@ -54,8 +54,9 @@ package org.apache.commons.lang.exception;
  * <http://www.apache.org/>.
  */
 
+import java.io.PrintWriter;
+
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
@@ -83,11 +84,34 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase
 
     public void setUp()
     {
-        withoutCause = new ExceptionWithoutCause();
+        withoutCause = createExceptionWithoutCause();
         nested = new NestableException(withoutCause);
         withCause = new ExceptionWithCause(nested);
     }
+    
+    private Throwable createExceptionWithoutCause(){
+        try {
+            throw new ExceptionWithoutCause();
+        }
+        catch (Throwable t){
+            return t;
+        }
+    }
 
+    private Throwable createExceptionWithCause(){
+        try {
+            try {
+                throw new ExceptionWithCause(createExceptionWithoutCause());
+            }
+            catch (Throwable t){
+                throw new ExceptionWithCause(t);
+            }
+        }
+        catch (Throwable t){
+            return t;
+        }
+    } 
+    
     public void testGetCause()
     {
         assertNull(ExceptionUtils.getCause(withoutCause));
@@ -107,6 +131,15 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase
         assertEquals(ExceptionUtils.getThrowableCount(null), 0);
     }
 
+    public void testPrintThrowables()
+    {
+        Throwable withCause = createExceptionWithCause();
+        ExceptionUtils.printRootCauseStackTrace(withCause, 
+            new PrintWriter(System.out));
+        ExceptionUtils.printRootCauseStackTrace(withoutCause, 
+            System.out);
+    }
+    
     /**
      * Provides a method with a well known chained/nested exception
      * name which matches the full signature (e.g. has a return value
