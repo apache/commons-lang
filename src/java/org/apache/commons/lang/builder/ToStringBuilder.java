@@ -79,9 +79,9 @@ import java.lang.reflect.Modifier;
  * 
  *   public String toString() {
  *     return new ToStringBuilder(this).
- *       append(name, "name").
- *       append(age, "age").
- *       append(smoker, "smoker").
+ *       append("name", name).
+ *       append("age", age).
+ *       append("smoker", smoker).
  *       toString();
  *   }
  * }
@@ -107,7 +107,7 @@ import java.lang.reflect.Modifier;
  * passed into the constructor.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilder.java,v 1.6 2002/10/01 20:03:04 stevencaswell Exp $
+ * @version $Id: ToStringBuilder.java,v 1.7 2002/10/30 21:31:13 scolebourne Exp $
  */
 public class ToStringBuilder {
     
