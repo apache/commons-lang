@@ -74,7 +74,7 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.41 2003/07/31 20:38:26 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.42 2003/08/01 21:02:16 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -205,6 +205,16 @@ public class StringUtilsTest extends TestCase {
                      "Hello aPACHE", StringUtils.swapCase("hELLO Apache") );
     }
 
+    public void testJoin_Objectarray() {
+        assertEquals(null, StringUtils.join(null));
+        assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST));
+        assertEquals("", StringUtils.join(NULL_ARRAY_LIST));
+        assertEquals("abc", StringUtils.join(new String[] {"a", "b", "c"}));
+        assertEquals("a", StringUtils.join(new String[] {null, "a", ""}));
+        assertEquals("foo", StringUtils.join(MIXED_ARRAY_LIST));
+        assertEquals("foo2", StringUtils.join(MIXED_TYPE_LIST));
+    }
+        
     public void testJoin_ArrayChar() {
         assertEquals(null, StringUtils.join((Object[]) null, ','));
         assertEquals(TEXT_LIST_CHAR, StringUtils.join(ARRAY_LIST, SEPARATOR_CHAR));
@@ -250,7 +260,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals(TEXT_LIST, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), SEPARATOR));
     }
     
-    public void testConcatenate_Array() {
+    public void testConcatenate_Objectarray() {
         assertEquals(null, StringUtils.concatenate(null));
         assertEquals("", StringUtils.concatenate(EMPTY_ARRAY_LIST));
         assertEquals("", StringUtils.concatenate(NULL_ARRAY_LIST));
