@@ -97,8 +97,9 @@ import java.util.TimeZone;
  * @author Sean Schofield
  * @author Gary Gregory
  * @author Stephen Colebourne
+ * @author Nikolay Metchev
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.16 2003/09/07 14:32:35 psteitz Exp $
+ * @version $Id: FastDateFormat.java,v 1.17 2003/11/29 13:52:34 scolebourne Exp $
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes
@@ -247,6 +248,48 @@ public class FastDateFormat extends Format {
         return format;
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets a date formatter instance using the specified style in the
+     * default time zone and locale.</p>
+     * 
+     * @param style  date style: FULL, LONG, MEDIUM, or SHORT
+     * @return a localized standard date formatter
+     * @throws IllegalArgumentException if the Locale has no date
+     *  pattern defined
+     */
+    public static FastDateFormat getDateInstance(int style) {
+        return getDateInstance(style, null, null);
+    }
+
+    /**
+     * <p>Gets a date formatter instance using the specified style and
+     * locale in the default time zone.</p>
+     * 
+     * @param style  date style: FULL, LONG, MEDIUM, or SHORT
+     * @param locale  optional locale, overrides system locale
+     * @return a localized standard date formatter
+     * @throws IllegalArgumentException if the Locale has no date
+     *  pattern defined
+     */
+    public static FastDateFormat getDateInstance(int style, Locale locale) {
+        return getDateInstance(style, null, locale);
+    }
+
+    /**
+     * <p>Gets a date formatter instance using the specified style and
+     * time zone in the default locale.</p>
+     * 
+     * @param style  date style: FULL, LONG, MEDIUM, or SHORT
+     * @param timeZone  optional time zone, overrides time zone of
+     *  formatted date
+     * @return a localized standard date formatter
+     * @throws IllegalArgumentException if the Locale has no date
+     *  pattern defined
+     */
+    public static FastDateFormat getDateInstance(int style, TimeZone timeZone) {
+        return getDateInstance(style, timeZone, null);
+    }
     /**
      * <p>Gets a date formatter instance using the specified style, time
      * zone and locale.</p>
@@ -287,6 +330,49 @@ public class FastDateFormat extends Format {
         return format;
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets a time formatter instance using the specified style in the
+     * default time zone and locale.</p>
+     * 
+     * @param style  time style: FULL, LONG, MEDIUM, or SHORT
+     * @return a localized standard time formatter
+     * @throws IllegalArgumentException if the Locale has no time
+     *  pattern defined
+     */
+    public static FastDateFormat getTimeInstance(int style) {
+        return getTimeInstance(style, null, null);
+    }
+
+    /**
+     * <p>Gets a time formatter instance using the specified style and
+     * locale in the default time zone.</p>
+     * 
+     * @param style  time style: FULL, LONG, MEDIUM, or SHORT
+     * @param locale  optional locale, overrides system locale
+     * @return a localized standard time formatter
+     * @throws IllegalArgumentException if the Locale has no time
+     *  pattern defined
+     */
+    public static FastDateFormat getTimeInstance(int style, Locale locale) {
+        return getTimeInstance(style, null, locale);
+    }
+    
+    /**
+     * <p>Gets a time formatter instance using the specified style and
+     * time zone in the default locale.</p>
+     * 
+     * @param style  time style: FULL, LONG, MEDIUM, or SHORT
+     * @param timeZone  optional time zone, overrides time zone of
+     *  formatted time
+     * @return a localized standard time formatter
+     * @throws IllegalArgumentException if the Locale has no time
+     *  pattern defined
+     */
+    public static FastDateFormat getTimeInstance(int style, TimeZone timeZone) {
+        return getTimeInstance(style, timeZone, null);
+    }
+    
     /**
      * <p>Gets a time formatter instance using the specified style, time
      * zone and locale.</p>
@@ -327,6 +413,54 @@ public class FastDateFormat extends Format {
         return format;
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets a date/time formatter instance using the specified style
+     * in the default time zone and locale.</p>
+     * 
+     * @param dateStyle  date style: FULL, LONG, MEDIUM, or SHORT
+     * @param timeStyle  time style: FULL, LONG, MEDIUM, or SHORT
+     * @return a localized standard date/time formatter
+     * @throws IllegalArgumentException if the Locale has no date/time
+     *  pattern defined
+     */
+    public static FastDateFormat getDateTimeInstance(
+            int dateStyle, int timeStyle) {
+        return getDateTimeInstance(dateStyle, timeStyle, null, null);
+    }
+    
+    /**
+     * <p>Gets a date/time formatter instance using the specified style and
+     * locale in the default time zone.</p>
+     * 
+     * @param dateStyle  date style: FULL, LONG, MEDIUM, or SHORT
+     * @param timeStyle  time style: FULL, LONG, MEDIUM, or SHORT
+     * @param locale  optional locale, overrides system locale
+     * @return a localized standard date/time formatter
+     * @throws IllegalArgumentException if the Locale has no date/time
+     *  pattern defined
+     */
+    public static FastDateFormat getDateTimeInstance(
+            int dateStyle, int timeStyle, Locale locale) {
+        return getDateTimeInstance(dateStyle, timeStyle, null, locale);
+    }
+    
+    /**
+     * <p>Gets a date/time formatter instance using the specified style and
+     * time zone in the default locale.</p>
+     * 
+     * @param dateStyle  date style: FULL, LONG, MEDIUM, or SHORT
+     * @param timeStyle  time style: FULL, LONG, MEDIUM, or SHORT
+     * @param timeZone  optional time zone, overrides time zone of
+     *  formatted date
+     * @return a localized standard date/time formatter
+     * @throws IllegalArgumentException if the Locale has no date/time
+     *  pattern defined
+     */
+    public static FastDateFormat getDateTimeInstance(
+            int dateStyle, int timeStyle, TimeZone timeZone) {
+        return getDateTimeInstance(dateStyle, timeStyle, timeZone, null);
+    }    
     /**
      * <p>Gets a date/time formatter instance using the specified style,
      * time zone and locale.</p>
