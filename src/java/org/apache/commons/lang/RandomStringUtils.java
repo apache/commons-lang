@@ -64,7 +64,7 @@ import java.util.Random;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.18 2003/07/26 00:26:32 ggregory Exp $
+ * @version $Id: RandomStringUtils.java,v 1.19 2003/07/26 10:32:17 scolebourne Exp $
  */
 public class RandomStringUtils {
 
@@ -200,7 +200,7 @@ public class RandomStringUtils {
      * <p>This method has exactly the same semantics as
      * {@link #random(int,int,int,boolean,boolean,char[],Random)}, but
      * instead of using an externally supplied source of randomness, it uses
-     * the internal static {@link Random} instance ({@link #RANDOM}).</p>
+     * the internal static {@link Random} instance.</p>
      *
      * @param count  the length of random string to create
      * @param start  the position in set of chars to start at
@@ -221,19 +221,20 @@ public class RandomStringUtils {
      * <p>Creates a random string based on a variety of options, using
      * supplied source of randomness.</p>
      *
-	 * <p>If start and end are both <code>0</code>, start and end are set
+     * <p>If start and end are both <code>0</code>, start and end are set
      * to <code>' '</code> and <code>'z'</code>, the ASCII printable
      * characters, will be used, unless letters and numbers are both
-	 * <code>false</code>, in which case, start and end are set to
+     * <code>false</code>, in which case, start and end are set to
      * <code>0</code> and <code>Integer.MAX_VALUE</code>.
      *
-	 * <p>If set is not <code>null</code>, characters between start and
+     * <p>If set is not <code>null</code>, characters between start and
      * end are chosen.</p>
      *
-     * <p>As a source of randomness is used supplied {@link Random}
-     * instance. This makes method behave predictively, and allows
-     * usage of <code>RandomStringUtils</code> in situations that need
-     * repetitive behaviour.</p>
+     * <p>This method accepts a user-supplied {@link Random}
+     * instance to use as a source of randomness. By seeding a single 
+     * {@link Random} instance with a fixed seed and using it for each call,
+     * the same random sequence of strings can be generated repeatedly
+     * and predictably.</p>
      *
      * @param count  the length of random string to create
      * @param start  the position in set of chars to start at

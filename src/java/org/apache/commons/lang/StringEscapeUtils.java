@@ -71,8 +71,9 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Helge Tesgaard
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Phil Steitz
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.19 2003/07/25 23:06:58 scolebourne Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.20 2003/07/26 10:32:17 scolebourne Exp $
  */
 public class StringEscapeUtils {
 
@@ -446,7 +447,6 @@ public class StringEscapeUtils {
      * @param str  the <code>String</code> to escape, may be null
      * @return a new escaped <code>String</code>, <code>null</code> if null string input
      * 
-     * @see Entities
      * @see #unescapeHtml(String)
      * @see </br><a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
      * @see </br><a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
