@@ -102,7 +102,7 @@ import java.lang.reflect.Modifier;
  * 
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EqualsBuilder.java,v 1.1 2002/09/12 22:00:00 scolebourne Exp $
+ * @version $Id: EqualsBuilder.java,v 1.2 2002/09/17 22:06:38 scolebourne Exp $
  */
 public class EqualsBuilder {
     /**
@@ -129,11 +129,12 @@ public class EqualsBuilder {
      * that it will throw a security exception if run under a security manger, if
      * the permissions are not set up.
      * It is also not as efficient as testing explicitly. 
-     * Transient members will be not be tested, as they are likely derived 
-     * fields, and not part of the value of the object. 
+     * Transient members will be not be tested, as they are likely derived
+     * fields, and not part of the value of the object.
+     * Static fields will not be tested.
      * 
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  Left Hand Side
+     * @param rhs  Right Hand Side
      * @return boolean - if the two objects have tested equals.
      */
     public static boolean reflectionEquals(Object lhs, Object rhs) {
@@ -150,13 +151,15 @@ public class EqualsBuilder {
      * If the TestTransients parameter is set to true, transient members will be
      * tested, otherwise they are ignored, as they are likely derived fields, and
      * not part of the value of the object. 
+     * Static fields will not be tested.
      * 
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
-     * @param testTransients - whether to include transient fields
+     * @param lhs  Left Hand Side
+     * @param rhs  Right Hand Side
+     * @param testTransients  whether to include transient fields
      * @return boolean - if the two objects have tested equals.
      */
-    public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients) {
+    public static boolean reflectionEquals(Object lhs, Object rhs, 
+            boolean testTransients) {
         if (lhs == rhs) {
             return true;
         }
@@ -173,12 +176,14 @@ public class EqualsBuilder {
         for (int i = 0; i < fields.length && equalsBuilder.isEquals; ++i) {
             Field f = fields[i];
             if (testTransients || !Modifier.isTransient(f.getModifiers())) {
-                try {
-                    equalsBuilder.append(f.get(lhs), f.get(rhs));
-                } catch (IllegalAccessException e) {
-                    //this can't happen. Would get a Security exception instead
-                    //throw a runtime exception in case the impossible happens.
-                    throw new InternalError("Unexpected IllegalAccessException");
+                if (!Modifier.isStatic(f.getModifiers())) {
+                    try {
+                        equalsBuilder.append(f.get(lhs), f.get(rhs));
+                    } catch (IllegalAccessException e) {
+                        //this can't happen. Would get a Security exception instead
+                        //throw a runtime exception in case the impossible happens.
+                        throw new InternalError("Unexpected IllegalAccessException");
+                    }
                 }
             }
         }
