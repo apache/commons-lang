@@ -69,7 +69,7 @@ import org.apache.commons.lang.StringUtils;
  * reflection.
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ReflectionUtils.java,v 1.4 2002/11/20 22:31:40 rdonkin Exp $
+ * @version $Id: ReflectionUtils.java,v 1.5 2002/12/15 19:34:34 scolebourne Exp $
  */
 public class ReflectionUtils {
     
@@ -391,7 +391,7 @@ public class ReflectionUtils {
             message = null;
         }
         StringBuffer buf = new StringBuffer();
-        buf.append(ClassUtils.getShortClassName(th));
+        buf.append(ClassUtils.getShortClassName(th, ""));
         buf.append(" while ");
         buf.append(desc);
         buf.append(" on Class '");
