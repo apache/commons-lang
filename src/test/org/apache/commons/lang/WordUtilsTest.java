@@ -28,7 +28,7 @@ import junit.framework.TestSuite;
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Henri Yandell
  * @author Stephen Colebourne
- * @version $Id: WordUtilsTest.java,v 1.5 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: WordUtilsTest.java,v 1.6 2004/06/03 03:40:28 bayard Exp $
  */
 public class WordUtilsTest extends TestCase {
 
@@ -172,19 +172,47 @@ public class WordUtilsTest extends TestCase {
         assertEquals("I AM HERE 123", WordUtils.capitalize("I AM HERE 123") );
     }
     
+    public void testCapitalizeWithDelimiters_String() {
+        assertEquals(null, WordUtils.capitalize(null, null));
+        assertEquals("", WordUtils.capitalize("", new char[0]));
+        assertEquals("  ", WordUtils.capitalize("  ", new char[0]));
+        
+        char[] chars = new char[] { '-', '+', ' ', '@' };
+        assertEquals("I", WordUtils.capitalize("I", chars) );
+        assertEquals("I", WordUtils.capitalize("i", chars) );
+        assertEquals("I-Am Here+123", WordUtils.capitalize("i-am here+123", chars) );
+        assertEquals("I Am+Here-123", WordUtils.capitalize("I Am+Here-123", chars) );
+        assertEquals("I+Am-HERE 123", WordUtils.capitalize("i+am-HERE 123", chars) );
+        assertEquals("I-AM HERE+123", WordUtils.capitalize("I-AM HERE+123", chars) );
+    }
+
     public void testCapitalizeFully_String() {
         assertEquals(null, WordUtils.capitalizeFully(null));
         assertEquals("", WordUtils.capitalizeFully(""));
         assertEquals("  ", WordUtils.capitalizeFully("  "));
         
-        assertEquals("I", WordUtils.capitalize("I") );
-        assertEquals("I", WordUtils.capitalize("i") );
+        assertEquals("I", WordUtils.capitalizeFully("I") );
+        assertEquals("I", WordUtils.capitalizeFully("i") );
         assertEquals("I Am Here 123", WordUtils.capitalizeFully("i am here 123") );
         assertEquals("I Am Here 123", WordUtils.capitalizeFully("I Am Here 123") );
         assertEquals("I Am Here 123", WordUtils.capitalizeFully("i am HERE 123") );
         assertEquals("I Am Here 123", WordUtils.capitalizeFully("I AM HERE 123") );
     }
     
+    public void testCapitalizeFullyWithDelimiters_String() {
+        assertEquals(null, WordUtils.capitalizeFully(null, null));
+        assertEquals("", WordUtils.capitalizeFully("", new char[0]));
+        assertEquals("  ", WordUtils.capitalizeFully("  ", new char[0]));
+        
+        char[] chars = new char[] { '-', '+', ' ', '@' };
+        assertEquals("I", WordUtils.capitalizeFully("I", chars) );
+        assertEquals("I", WordUtils.capitalizeFully("i", chars) );
+        assertEquals("I-Am Here+123", WordUtils.capitalizeFully("i-am here+123", chars) );
+        assertEquals("I Am+Here-123", WordUtils.capitalizeFully("I Am+Here-123", chars) );
+        assertEquals("I+Am-Here 123", WordUtils.capitalizeFully("i+am-HERE 123", chars) );
+        assertEquals("I-Am Here+123", WordUtils.capitalizeFully("I-AM HERE+123", chars) );
+    }
+
     public void testUncapitalize_String() {
         assertEquals(null, WordUtils.uncapitalize(null));
         assertEquals("", WordUtils.uncapitalize(""));

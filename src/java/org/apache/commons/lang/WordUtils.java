@@ -28,7 +28,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.10 2004/06/03 03:08:33 bayard Exp $
+ * @version $Id: WordUtils.java,v 1.11 2004/06/03 03:40:28 bayard Exp $
  */
 public class WordUtils {
 
@@ -238,20 +238,64 @@ public class WordUtils {
      * @see #capitalizeFully(String)
      */
     public static String capitalize(String str) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        return capitalize(str, null);
+    }
+
+    /**
+     * <p>Capitalizes all the delimiter separated words in a String.
+     * Only the first letter of each word is changed. To change all letters to
+     * the capitalized case, use {@link #capitalizeFully(String)}.</p>
+     *
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * Capitalization uses the unicode title case, normally equivalent to
+     * upper case.</p>
+     *
+     * <pre>
+     * WordUtils.capitalize(null)        = null
+     * WordUtils.capitalize("")          = ""
+     * WordUtils.capitalize("i am FINE") = "I Am FINE"
+     * </pre>
+     * 
+     * @param str  the String to capitalize, may be null
+     * @param delimiters  characters to capitalize afterwards
+     * @return capitalized String, <code>null</code> if null String input
+     * @see #uncapitalize(String)
+     * @see #capitalizeFully(String)
+     */
+    public static String capitalize(String str, char[] delimiters) {
+        if (str == null || str.length() == 0) {
             return str;
         }
+        int strLen = str.length();
         StringBuffer buffer = new StringBuffer(strLen);
-        boolean whitespace = true;
+
+        int delimitersLen = 0;
+        if(delimiters != null) {
+            delimitersLen = delimiters.length;
+        }
+
+        boolean capitalizeNext = true;
         for (int i = 0; i < strLen; i++) {
             char ch = str.charAt(i);
-            if (Character.isWhitespace(ch)) {
+
+            boolean isDelimiter = false;
+            if(delimiters == null) {
+                isDelimiter = Character.isWhitespace(ch);
+            } else {
+                for(int j=0; j < delimitersLen; j++) {
+                    if(ch == delimiters[j]) {
+                        isDelimiter = true;
+                        break;
+                    }
+                }
+            }
+
+            if (isDelimiter) {
                 buffer.append(ch);
-                whitespace = true;
-            } else if (whitespace) {
+                capitalizeNext = true;
+            } else if (capitalizeNext) {
                 buffer.append(Character.toTitleCase(ch));
-                whitespace = false;
+                capitalizeNext = false;
             } else {
                 buffer.append(ch);
             }
@@ -278,11 +322,33 @@ public class WordUtils {
      * @return capitalized String, <code>null</code> if null String input
      */
     public static String capitalizeFully(String str) {
+        return capitalizeFully(str, null);
+    }
+
+    /**
+     * <p>Capitalizes all the delimiter separated words in a String.
+     * All letters are changed, so the resulting string will be fully changed.</p>
+     *
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * Capitalization uses the unicode title case, normally equivalent to
+     * upper case.</p>
+     *
+     * <pre>
+     * WordUtils.capitalize(null)        = null
+     * WordUtils.capitalize("")          = ""
+     * WordUtils.capitalize("i am FINE") = "I Am Fine"
+     * </pre>
+     * 
+     * @param str  the String to capitalize, may be null
+     * @param delimiters  characters to capitalize afterwards
+     * @return capitalized String, <code>null</code> if null String input
+     */
+    public static String capitalizeFully(String str, char[] delimiters) {
         if (str == null || str.length() == 0) {
             return str;
         }
         str = str.toLowerCase();
-        return capitalize(str);
+        return capitalize(str, delimiters);
     }
 
     /**
