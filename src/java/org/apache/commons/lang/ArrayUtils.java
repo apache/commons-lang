@@ -44,7 +44,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Maarten Coene
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.47 2004/10/08 00:11:00 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.48 2004/10/09 11:55:51 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -2943,9 +2943,10 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static Object[] add(Object[] array, Object element) {
-        Object newArray = copyArrayGrow1(array, element != null ? element.getClass() : Object.class);
-        Array.set(newArray, lastIndex(newArray), element);
-        return (Object[]) newArray;
+        Class type = (array != null ? array.getClass() : (element != null ? element.getClass() : Object.class));
+        Object[] newArray = (Object[]) copyArrayGrow1(array, type);
+        newArray[newArray.length - 1] = element;
+        return newArray;
     }
     
     /**
@@ -2971,7 +2972,7 @@ public class ArrayUtils {
      */
     public static boolean[] add(boolean[] array, boolean element) {
         boolean[] newArray = (boolean[])copyArrayGrow1(array, Boolean.TYPE);
-        newArray[lastIndex(newArray)] = element;
+        newArray[newArray.length - 1] = element;
         return newArray;
     }
     
@@ -2998,7 +2999,7 @@ public class ArrayUtils {
      */
     public static byte[] add(byte[] array, byte element) {
         byte[] newArray = (byte[])copyArrayGrow1(array, Byte.TYPE);
-        newArray[lastIndex(newArray)] = element;
+        newArray[newArray.length - 1] = element;
         return newArray;
     }
     
@@ -3025,7 +3026,7 @@ public class ArrayUtils {
      */
     public static char[] add(char[] array, char element) {
         char[] newArray = (char[])copyArrayGrow1(array, Character.TYPE);
-        newArray[lastIndex(newArray)] = element;
+        newArray[newArray.length - 1] = element;
         return newArray;
     }
     
@@ -3052,7 +3053,7 @@ public class ArrayUtils {
      */
     public static double[] add(double[] array, double element) {
         double[] newArray = (double[])copyArrayGrow1(array, Double.TYPE);
-        newArray[lastIndex(newArray)] = element;
+        newArray[newArray.length - 1] = element;
         return newArray;
     }
     
@@ -3079,7 +3080,7 @@ public class ArrayUtils {
      */
     public static float[] add(float[] array, float element) {
         float[] newArray = (float[])copyArrayGrow1(array, Float.TYPE);
-        newArray[lastIndex(newArray)] = element;
+        newArray[newArray.length - 1] = element;
         return newArray;
     }
     
@@ -3106,7 +3107,7 @@ public class ArrayUtils {
      */
     public static int[] add(int[] array, int element) {
         int[] newArray = (int[])copyArrayGrow1(array, Integer.TYPE);
-        newArray[lastIndex(newArray)] = element;
+        newArray[newArray.length - 1] = element;
         return newArray;
     }
     
@@ -3133,7 +3134,7 @@ public class ArrayUtils {
      */
     public static long[] add(long[] array, long element) {
         long[] newArray = (long[])copyArrayGrow1(array, Long.TYPE);
-        newArray[lastIndex(newArray)] = element;
+        newArray[newArray.length - 1] = element;
         return newArray;
     }
     
@@ -3160,7 +3161,7 @@ public class ArrayUtils {
      */
     public static short[] add(short[] array, short element) {
         short[] newArray = (short[])copyArrayGrow1(array, Short.TYPE);
-        newArray[lastIndex(newArray)] = element;
+        newArray[newArray.length - 1] = element;
         return newArray;
     }
     
