@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTrimEmptyTest.java,v 1.13 2003/07/20 00:04:12 scolebourne Exp $
+ * @version $Id: StringUtilsTrimEmptyTest.java,v 1.14 2003/07/20 00:17:29 scolebourne Exp $
  */
 public class StringUtilsTrimEmptyTest extends TestCase {
     private static final String FOO = "foo";
@@ -168,26 +168,6 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(false, StringUtils.isNotBlank(StringUtilsTest.WHITESPACE));
         assertEquals(true, StringUtils.isNotBlank("foo"));
         assertEquals(true, StringUtils.isNotBlank("  foo  "));
-    }
-
-    public void testDeleteSpace() {
-        assertEquals(null, StringUtils.deleteSpaces(null));
-        assertEquals("", StringUtils.deleteSpaces(""));
-        assertEquals("", StringUtils.deleteSpaces("    \t\t\n\n   "));
-        assertEquals("test", StringUtils.deleteSpaces("t  \t\ne\rs\n\n   \tt"));
-    }
-    
-    public void testDeleteWhitespace() {
-        assertEquals(null, StringUtils.deleteWhitespace(null));
-        assertEquals("", StringUtils.deleteWhitespace(""));
-        assertEquals("", StringUtils.deleteWhitespace("  \u000C  \t\t\u001F\n\n \u000B  "));
-        assertEquals("", StringUtils.deleteWhitespace(StringUtilsTest.WHITESPACE));
-        assertEquals(StringUtilsTest.NON_WHITESPACE, StringUtils.deleteWhitespace(StringUtilsTest.NON_WHITESPACE));
-        // Note: u-2007 and u-000A both cause problems in the source code
-        // it should ignore 2007 but delete 000A
-        assertEquals("\u00A0\u202F", StringUtils.deleteWhitespace("  \u00A0  \t\t\n\n \u202F  "));
-        assertEquals("\u00A0\u202F", StringUtils.deleteWhitespace("\u00A0\u202F"));
-        assertEquals("test", StringUtils.deleteWhitespace("\u000Bt  \t\n\u0009e\rs\n\n   \tt"));
     }
 
     public void testStrip_String() {
