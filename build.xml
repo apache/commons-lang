@@ -1,7 +1,7 @@
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.20 2003/08/21 02:48:03 bayard Exp $
+        $Id: build.xml,v 1.21 2003/08/22 01:33:12 bayard Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
@@ -100,7 +100,7 @@
 	<tar destfile="${final.name}.tar" basedir="${final.name}"/>
 	<gzip zipfile="${final.name}.tar.gz" src="${final.name}.tar"/>
 	<delete file="${final.name}.tar"/>
-	<fixcrlf srcdir="${final.name}" eol="crlf" includes="*.txt"/>
+	<fixcrlf srcdir="${final.name}" eol="crlf" includes="**/*.txt"/>
 	<zip destfile="${final.name}.zip" basedir="${final.name}"/>
 	<delete dir="${final.name}"/>
     </target>
