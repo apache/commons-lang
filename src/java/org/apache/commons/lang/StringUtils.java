@@ -56,7 +56,6 @@ package org.apache.commons.lang;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import org.apache.commons.lang.math.NumberUtils;
 
@@ -99,10 +98,25 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.64 2003/07/19 00:22:50 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.65 2003/07/19 18:09:33 scolebourne Exp $
  */
 public class StringUtils {
-
+    // Performance testing notes (JDK 1.4, Jul03, scolebourne)
+    // Whitespace:
+    // Character.isWhitespace() is faster than WHITESPACE.indexOf()
+    // where WHITESPACE is a string of all whitespace characters
+    // 
+    // Character access:
+    // String.charAt(n) versus toCharArray(), then array[n]
+    // String.charAt(n) is about 15% worse for a 10K string
+    // They are about equal for a length 50 string
+    // String.charAt(n) is about 4 times better for a length 3 string
+    // String.charAt(n) is best bet overall
+    //
+    // Append:
+    // String.concat about twice as fast as StringBuffer.append
+    // (not sure who tested this)
+    
     /**
      * <p>The maximum size to which the padding constant(s) can expand.</p>
      */
@@ -121,7 +135,6 @@ public class StringUtils {
      * <p>Used for efficient space padding. The length of each String expands as needed.</p>
      */
     private final static String[] padding = new String[Character.MAX_VALUE];
-       // String.concat about twice as fast as StringBuffer.append
 
     /**
      * <p><code>StringUtils<code> instances should NOT be constructed in
@@ -181,7 +194,7 @@ public class StringUtils {
      *
      * @see java.lang.String#trim()
      * @param str  the String to be trimmed, may be null
-     * @return the trimmed text, <code>null</code> if null String input
+     * @return the trimmed string, <code>null</code> if null String input
      */
     public static String trim(String str) {
         return (str == null ? null : str.trim());
@@ -206,7 +219,7 @@ public class StringUtils {
      * @see java.lang.String#trim()
      * @param str  the String to be trimmed, may be null
      * @return the trimmed String, 
-     *  <code>null</code> if a whitespace, empty or null String input
+     *  <code>null</code> if only chars &lt;= 32, empty or null String input
      */
     public static String trimToNull(String str) {
         String ts = trim(str);
@@ -231,7 +244,7 @@ public class StringUtils {
      *  
      * @see java.lang.String#trim()
      * @param str  the String to be trimmed, may be null
-     * @return the trimmed String, or an empty String if null input
+     * @return the trimmed String, or an empty String if <code>null</code> input
      */
     public static String trimToEmpty(String str) {
         return (str == null ? "" : str.trim());
@@ -287,8 +300,8 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        StringBuffer buffer = new StringBuffer();
         int sz = str.length();
+        StringBuffer buffer = new StringBuffer(sz);
         for (int i = 0; i < sz; i++) {
             if (!Character.isWhitespace(str.charAt(i))) {
                 buffer.append(str.charAt(i));
@@ -992,13 +1005,16 @@ public class StringUtils {
      * separator.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
-     * <p>The separator is not included in the returned String array.</p>
+     * <p>The separator is not included in the returned String array.
+     * Adjacent separators are treated as one separator.</p>
      * 
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
-     * StringUtils.split(null)      = null
-     * StringUtils.split("abc def") = ["abc", "def"]
+     * StringUtils.split(null)       = null
+     * StringUtils.split("")         = []
+     * StringUtils.split("abc def")  = ["abc", "def"]
+     * StringUtils.split("abc  def") = ["abc", "def"]
      * </pre>
      * 
      * @param str  the String to parse, may be null
@@ -1009,17 +1025,19 @@ public class StringUtils {
     }
 
     /**
-     * <p>Splits the provided text into an array, using the specified separator.</p>
+     * <p>Splits the provided text into an array, separator specified.
+     * This is an alternative to using StringTokenizer.</p>
      *
      * <p>The separator is not included in the returned String array.
-     * Adjacent separators will cause an empty String to be returned ("").</p>
+     * Adjacent separators are treated as one separator.</p>
      * 
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
-     * StringUtils.split(null, '.')      = null
-     * StringUtils.split("a.b.c", '.') = ["a", "b", "c"]
-     * StringUtils.split("a..b.c", '.') = ["a", "", "b", "c"]
+     * StringUtils.split(null, '.')     = null
+     * StringUtils.split("", '.')       = []
+     * StringUtils.split("a.b.c", '.')  = ["a", "b", "c"]
+     * StringUtils.split("a..b.c", '.') = ["a", "b", "c"]
      * StringUtils.split("a:b:c", '.')  = ["a:b:c"]
      * </pre>
      * 
@@ -1029,34 +1047,52 @@ public class StringUtils {
      * @return an array of parsed Strings, <code>null</code> if null String input
      */
     public static String[] split(String str, char separatorChar) {
+        // Performance tuned for 2.0 (JDK1.4)
+        
         if (str == null) {
             return null;
         }
-        char[] chars = str.toCharArray();
-        List list = new ArrayList();
-        int start = 0;
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == separatorChar) {
-                list.add(str.substring(start, i));
-                start = i + 1;
-            }
+        int len = str.length();
+        if (len == 0) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
         }
-        list.add(str.substring(start));
+        List list = new ArrayList();
+        int i =0, start = 0;
+        boolean match = false;
+        while (i < len) {
+            if (str.charAt(i) == separatorChar) {
+                if (match) {
+                    list.add(str.substring(start, i));
+                    match = false;
+                }
+                start = ++i;
+                continue;
+            }
+            match = true;
+            i++;
+        }
+        if (match) {
+            list.add(str.substring(start, i));
+        }
         return (String[]) list.toArray(new String[list.size()]);
     }
 
     /**
-     * <p>Splits the provided text into an array, using the specified separators.</p>
+     * <p>Splits the provided text into an array, separators specified.
+     * This is an alternative to using StringTokenizer.</p>
      *
-     * <p>The separator is not included in the returned String array.</p>
+     * <p>The separator is not included in the returned String array.
+     * Adjacent separators are treated as one separator.</p>
      * 
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> separatorChars splits on whitespace.</p>
      *
      * <pre>
      * StringUtils.split(null, null)      = null
+     * StringUtils.split("", null)        = []
      * StringUtils.split("abc def", null) = ["abc", "def"]
      * StringUtils.split("abc def", " ")  = ["abc", "def"]
+     * StringUtils.split("abc  def", " ") = ["abc", "def"]
      * StringUtils.split("ab:cd:ef", ":") = ["ab", "cd", "ef"]
      * </pre>
      * 
@@ -1070,74 +1106,104 @@ public class StringUtils {
     }
 
     /**
-     * <p>Splits the provided text into a array, based on a given separator.</p>
+     * <p>Splits the provided text into an array, separators specified.
+     * This is an alternative to using StringTokenizer.</p>
      *
-     * <p>The separator is not included in the returned String array. The
-     * maximum number of splits to perfom can be controlled. A <code>null</code>
-     * separator will cause parsing to be on whitespace.</p>
-     *
-     * <p>This is useful for quickly splitting a String directly into
-     * an array of tokens, instead of an enumeration of tokens (as
-     * <code>StringTokenizer</code> does).</p>
+     * <p>The separator is not included in the returned String array.
+     * Adjacent separators are treated as one separator.</p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> separatorChars splits on whitespace.</p>
      * 
      * <pre>
-     * StringUtils.split(null, null, 0)       = null
-     * StringUtils.split("ab de fg", null, 0) = ["ab", "cd", "ef"]
-     * StringUtils.split("ab:cd:ef", ":", 0)  = ["ab", "cd", "ef"]
-     * StringUtils.split("ab:cd:ef", ":", 2)  = ["ab", "cdef"]
+     * StringUtils.split(null, null, 0)         = null
+     * StringUtils.split("", null, 0)           = []
+     * StringUtils.split("ab de fg", null, 0)   = ["ab", "cd", "ef"]
+     * StringUtils.split("ab   de fg", null, 0) = ["ab", "cd", "ef"]
+     * StringUtils.split("ab:cd:ef", ":", 0)    = ["ab", "cd", "ef"]
+     * StringUtils.split("ab:cd:ef", ":", 2)    = ["ab", "cdef"]
      * </pre>
      * 
      * @param str  the String to parse, may be null
      * @param separatorChars  the characters used as the delimiters,
      *  <code>null</code> splits on whitespace
      * @param max  the maximum number of elements to include in the
-     *  array. A zero or negative value implies no limit.
+     *  array. A zero or negative value implies no limit
      * @return an array of parsed Strings, <code>null</code> if null String input
      */
     public static String[] split(String str, String separatorChars, int max) {
+        // Performance tuned for 2.0 (JDK1.4)
+        // Direct code is quicker than StringTokenizer.
+        // Also, StringTokenizer uses isSpace() not isWhitespace()
+        
         if (str == null) {
             return null;
         }
-        StringTokenizer tok = null;
+        int len = str.length();
+        if (len == 0) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        List list = new ArrayList();
+        int sizePlus1 = 1;
+        int i =0, start = 0;
+        boolean match = false;
         if (separatorChars == null) {
-            // Null separator means we're using StringTokenizer's default
-            // delimiter, which comprises all whitespace characters.
-            
-            // TODO: StringTokenizer uses isSpace() not isWhitespace()
-            tok = new StringTokenizer(str);
-        } else {
-            tok = new StringTokenizer(str, separatorChars);
-        }
-
-        int listSize = tok.countTokens();
-        if (max > 0 && listSize > max) {
-            listSize = max;
-        }
-
-        String[] list = new String[listSize];
-        int i = 0;
-        int lastTokenBegin = 0;
-        int lastTokenEnd = 0;
-        while (tok.hasMoreTokens()) {
-            if (max > 0 && i == listSize - 1) {
-                // In the situation where we hit the max yet have
-                // tokens left over in our input, the last list
-                // element gets all remaining text.
-                String endToken = tok.nextToken();
-                lastTokenBegin = str.indexOf(endToken, lastTokenEnd);
-                list[i] = str.substring(lastTokenBegin);
-                break;
-            } else {
-                list[i] = tok.nextToken();
-                lastTokenBegin = str.indexOf(list[i], lastTokenEnd);
-                lastTokenEnd = lastTokenBegin + list[i].length();
+            // Null separator means use whitespace
+            while (i < len) {
+                if (Character.isWhitespace(str.charAt(i))) {
+                    if (match) {
+                        if (sizePlus1++ == max) {
+                            i = len;
+                        }
+                        list.add(str.substring(start, i));
+                        match = false;
+                    }
+                    start = ++i;
+                    continue;
+                }
+                match = true;
+                i++;
             }
-            i++;
+        } else if (separatorChars.length() == 1) {
+            // Optimise 1 character case
+            char sep = separatorChars.charAt(0);
+            while (i < len) {
+                if (str.charAt(i) == sep) {
+                    if (match) {
+                        if (sizePlus1++ == max) {
+                            i = len;
+                        }
+                        list.add(str.substring(start, i));
+                        match = false;
+                    }
+                    start = ++i;
+                    continue;
+                }
+                match = true;
+                i++;
+            }
+        } else {
+            // standard case
+            while (i < len) {
+                if (separatorChars.indexOf(str.charAt(i)) >= 0) {
+                    if (match) {
+                        if (sizePlus1++ == max) {
+                            i = len;
+                        }
+                        list.add(str.substring(start, i));
+                        match = false;
+                    }
+                    start = ++i;
+                    continue;
+                }
+                match = true;
+                i++;
+            }
         }
-        return list;
+        if (match) {
+            list.add(str.substring(start, i));
+        }
+        return (String[]) list.toArray(new String[list.size()]);
     }
 
     // Joining
@@ -1792,41 +1858,47 @@ public class StringUtils {
      *  <code>null</code> if null String input
      */
     public static String repeat(String str, int repeat) {
+        // Performance tuned for 2.0 (JDK1.4)
+        
         if (str == null) {
             return null;
         }
         if (repeat <= 0) {
             return "";
         }
-        int inputLength = str.length();
+        int inputLength;
+        if (repeat == 1 || (inputLength = str.length()) == 0) {
+            return str;
+        }
         if (inputLength == 1 && repeat <= PAD_LIMIT) {
            return padding(repeat, str.charAt(0));
         }
 
-        char[] input = str.toCharArray();
-        char[] output = new char[repeat * inputLength];
+        int outputLength = inputLength * repeat;
         switch (inputLength) {
             case 1:
-                char ch = input[0];
+                char ch = str.charAt(0);
+                char[] output1 = new char[outputLength];
                 for (int i = repeat - 1; i >= 0; i--) {
-                    output[i] = ch;
+                    output1[i] = ch;
                 }
-                break;
+                return new String(output1);
             case 2:
-                char ch0 = input[0];
-                char ch1 = input[1];
+                char ch0 = str.charAt(0);
+                char ch1 = str.charAt(1);
+                char[] output2 = new char[outputLength];
                 for (int i = repeat * 2 - 2; i >= 0; i--,i--) {
-                    output[i] = ch0;
-                    output[i + 1] = ch1;
+                    output2[i] = ch0;
+                    output2[i + 1] = ch1;
                 }
-                break;
+                return new String(output2);
             default:
-                for (int i = repeat - 1; i >= 0; i--) {
-                    System.arraycopy(input, 0, output, i * inputLength, inputLength);
-                }
-                break;            
+                StringBuffer buf = new StringBuffer(outputLength);
+                for (int i = 0; i < repeat; i++) {
+                    buf.append(str);
+                }        
+                return buf.toString();
         }
-        return new String(output);
     }
 
     /**
@@ -2210,8 +2282,7 @@ public class StringUtils {
      * This is similar to {@link String#trim()} but instead removes whitespace.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      * 
-     * <p>If the input String is <code>null</code>, <code>null</code>
-     * is returned.</p>
+     * <p>A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <pre>
      * StringUtils.strip(null)     = null
@@ -2234,8 +2305,7 @@ public class StringUtils {
      * This is similar to {@link String#trim()} but allows the characters
      * to be stripped to be controlled.</p>
      *
-     * <p>If the input String is <code>null</code>, <code>null</code>
-     * is returned.</p>
+     * <p>A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <p>If the stripChars String is <code>null</code>, whitespace is
      * stripped as defined by {@link Character#isWhitespace(char)}.
@@ -2262,8 +2332,7 @@ public class StringUtils {
     /**
      * <p>Strips any of a set of characters from the start of a String.</p>
      *
-     * <p>If the input String is <code>null</code>, <code>null</code>
-     * is returned.</p>
+     * <p>A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <p>If the stripChars String is <code>null</code>, whitespace is
      * stripped as defined by {@link Character#isWhitespace(char)}.</p>
@@ -2302,8 +2371,7 @@ public class StringUtils {
     /**
      * <p>Strips any of a set of characters from the end of a String.</p>
      *
-     * <p>If the input String is <code>null</code>, <code>null</code>
-     * is returned.</p>
+     * <p>A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <p>If the stripChars String is <code>null</code>, whitespace is
      * stripped as defined by {@link Character#isWhitespace(char)}.</p>
@@ -2570,9 +2638,8 @@ public class StringUtils {
         }
         StringBuffer buffer = new StringBuffer(strLen);
         boolean whitespace = true;
-        char[] strChars = str.toCharArray();
         for (int i = 0; i < strLen; i++) {
-            char ch = strChars[i];
+            char ch = str.charAt(i);
             if (Character.isWhitespace(ch)) {
                 buffer.append(ch);
                 whitespace = true;
@@ -2609,9 +2676,8 @@ public class StringUtils {
         }
         StringBuffer buffer = new StringBuffer(strLen);
         boolean whitespace = true;
-        char[] strChars = str.toCharArray();
         for (int i = 0; i < strLen; i++) {
-            char ch = strChars[i];
+            char ch = str.charAt(i);
             if (Character.isWhitespace(ch)) {
                 buffer.append(ch);
                 whitespace = true;
