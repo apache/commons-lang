@@ -41,7 +41,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Henri Yandell
  * @since 2.1
- * @version $Id: DurationFormatUtils.java,v 1.17 2004/09/27 03:31:59 bayard Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.18 2004/09/27 03:40:15 bayard Exp $
  */
 public class DurationFormatUtils {
 
@@ -104,7 +104,7 @@ public class DurationFormatUtils {
      * @return the time as a String
      */
     public static String format(long millis, String format) {
-        return format(millis, format, true);
+        return format(millis, format, true, TimeZone.getDefault());
     }
     /**
      * <p>Get the time gap as a string, using the specified format.
