@@ -66,7 +66,7 @@ import junit.framework.TestSuite;
  *
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: NumberUtilsTest.java,v 1.2 2002/09/15 10:27:56 scolebourne Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.2.2.1 2002/11/22 23:29:24 bayard Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -114,7 +114,11 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("createNumber(String) 12 failed", new Float("1.1E20"), NumberUtils.createNumber("1.1E20"));
         assertEquals("createNumber(String) 13 failed", new Double("-1.1E200"), NumberUtils.createNumber("-1.1E200"));
         assertEquals("createNumber(String) 14 failed", new Double("1.1E-200"), NumberUtils.createNumber("1.1E-200"));
-        assertEquals("createNumber(String) 15 failed", new BigDecimal("1.1E-700"), NumberUtils.createNumber("1.1E-700F"));
+
+        // jdk 1.2 doesn't support this. unsure about jdk 1.2.2
+        if(SystemUtils.isJavaVersionAtLeast(1.3f)) {
+            assertEquals("createNumber(String) 15 failed", new BigDecimal("1.1E-700"), NumberUtils.createNumber("1.1E-700F"));
+        }
         assertEquals(
             "createNumber(String) 16 failed",
             new Long("10" + Integer.MAX_VALUE),
