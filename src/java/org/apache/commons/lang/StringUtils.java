@@ -73,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.21 2002/10/28 04:33:29 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.22 2002/11/14 22:29:25 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1524,8 +1524,8 @@ public class StringUtils {
     //--------------------------------------------------------------------------
     
     /**
-     * Return either the passed in Object, or if it is <code>null</code>,
-     * then an empty String.
+     * Returns either the passed in Object as a String, or,
+     * if the Object is <code>null</code>, an empty String.
      * 
      * @param str the Object to check
      * @return the passed in Object's toString, or blank if it was null
@@ -1535,8 +1535,8 @@ public class StringUtils {
     }
 
     /**
-     * Return either the passed in Object, or if it is <code>null</code>,
-     * then a passed in default String.
+     * Returns either the passed in Object as a String, or, 
+     * if the Object is <code>null</code>, a passed in default String.
      * 
      * @param obj the Object to check
      * @param defaultString  the default String to return if str is null
@@ -1550,8 +1550,7 @@ public class StringUtils {
     //--------------------------------------------------------------------------
 
     /**
-     * Reverse a String, <code>null</code> String returns
-     * <code>null</code>.
+     * Reverse a String, <code>null</code> String returns <code>null</code>.
      * 
      * @param str the String to reverse
      * @return the reversed String
