@@ -40,13 +40,16 @@ import java.lang.reflect.Modifier;
  *
  * <p>Typical use for the code is as follows:</p>
  * <pre>
- * public boolean equals(Object o) {
- *   if ( !(o instanceof MyClass) ) {
- *    return false;
+ * public boolean equals(Object obj) {
+ *   if (obj instanceof MyClass == false) {
+ *     return false;
  *   }
- *  MyClass rhs = (MyClass) o;
- *  return new EqualsBuilder()
- *                 .appendSuper(super.equals(o))
+ *   if (this == obj) {
+ *     return true;
+ *   }
+ *   MyClass rhs = (MyClass) obj;
+ *   return new EqualsBuilder()
+ *                 .appendSuper(super.equals(obj))
  *                 .append(field1, rhs.field1)
  *                 .append(field2, rhs.field2)
  *                 .append(field3, rhs.field3)
@@ -63,8 +66,8 @@ import java.lang.reflect.Modifier;
  *
  * <p> A typical invocation for this method would look like:</p>
  * <pre>
- * public boolean equals(Object o) {
- *   return EqualsBuilder.reflectionEquals(this, o);
+ * public boolean equals(Object obj) {
+ *   return EqualsBuilder.reflectionEquals(this, obj);
  * }
  * </pre>
  *
@@ -74,7 +77,7 @@ import java.lang.reflect.Modifier;
  * @author Pete Gieser
  * @author Arun Mammen Thomas
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.27 2004/10/08 00:07:59 scolebourne Exp $
+ * @version $Id: EqualsBuilder.java,v 1.28 2004/10/16 17:27:11 scolebourne Exp $
  */
 public class EqualsBuilder {
     
