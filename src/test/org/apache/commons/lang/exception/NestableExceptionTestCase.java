@@ -55,8 +55,12 @@ package org.apache.commons.lang.exception;
  */
 
 import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 
 import junit.framework.*;
 import junit.textui.TestRunner;
@@ -64,7 +68,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableExceptionTestCase.java,v 1.5 2002/09/11 19:00:52 stevencaswell Exp $
+ * @version $Id: NestableExceptionTestCase.java,v 1.6 2002/10/09 05:28:53 sullis Exp $
  */
 public class NestableExceptionTestCase extends AbstractNestableTestCase
 {
@@ -242,6 +246,67 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase
         return Exception.class;
     }
     
+    public void testSerialization()
+    {
+    	RuntimeException nestedEx = new RuntimeException("nested exception message");
+    	NestableExceptionTester1 ex = new NestableExceptionTester1("serialization test", nestedEx);
+
+		assertTrue( "implements java.io.Serializable", nestedEx instanceof java.io.Serializable);
+		
+		assertTrue( "implements java.io.Serializable", ex instanceof java.io.Serializable);
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ByteArrayInputStream bais = null;
+		ObjectOutputStream oos = null;
+		ObjectInputStream ois = null;
+		
+		try
+		{
+			oos = new ObjectOutputStream(baos);
+			oos.writeObject(ex);
+			oos.flush();
+			bais = new ByteArrayInputStream(baos.toByteArray());
+			ois = new ObjectInputStream(bais);
+			NestableExceptionTester1 deserializedEx = (NestableExceptionTester1) ois.readObject();
+			assertEquals( 
+					"getThrowableCount() return value",
+						ex.getThrowableCount(),
+						deserializedEx.getThrowableCount());
+			
+			for (int i = 0; i < ex.getThrowableCount(); i++)
+			{
+				Throwable t = ex.getThrowable(i);
+				Throwable deserializedThrowable = deserializedEx.getThrowable(i);
+				
+				assertEquals( t.getClass(),
+						deserializedThrowable.getClass());
+						
+				assertEquals(
+					t.getMessage(),
+					deserializedThrowable.getMessage());
+			}
+		}
+		catch (Exception caughtEx)
+		{
+			fail("an unexpected exception occurred: "
+					+ caughtEx.toString());
+		}
+		finally
+		{
+			if (null != oos)
+			{
+				try
+				{
+					oos.close();
+				}
+				catch (Exception ignored)
+				{
+					// intentionally empty
+				}
+			}
+		}
+		
+    }
 }
 
 /**
