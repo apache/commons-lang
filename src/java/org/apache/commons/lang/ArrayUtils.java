@@ -76,8 +76,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
  * @author Tim O'Brien
+ * @author Pete Gieser
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.22 2003/08/03 23:29:19 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.23 2003/08/16 11:04:46 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -1531,6 +1532,7 @@ public class ArrayUtils {
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
+     * @param tolerance  search for value within plus/minus this amount
      * @return the last index of the value within the array,
      *  <code>-1</code> if not found or <code>null</code> array input
      */
@@ -1574,9 +1576,10 @@ public class ArrayUtils {
      * <p>The method returns <code>false</code> if a <code>null</code> array
      * is passed in.</p>
      *
-     * @param array the array to search
-     * @param valueToFind the value to find
-     * @param tolerance the array contains the tolerance of the search.
+     * @param array  the array to search
+     * @param valueToFind  the value to find
+     * @param tolerance  the array contains the tolerance of the search
+     * @return true if value falling within tolerance is in array
      */
     public static boolean contains(final double[] array, final double valueToFind, final double tolerance) {
         return (indexOf(array, valueToFind, 0, tolerance) != -1);

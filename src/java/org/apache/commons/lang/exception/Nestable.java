@@ -64,14 +64,17 @@ import java.io.PrintWriter;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
+ * @author Pete Gieser
  * @since 1.0
- * @version $Id: Nestable.java,v 1.7 2003/07/26 13:00:36 scolebourne Exp $
+ * @version $Id: Nestable.java,v 1.8 2003/08/16 11:15:20 scolebourne Exp $
  */
 public interface Nestable {
     
     /**
      * Returns the reference to the exception or error that caused the
      * exception implementing the <code>Nestable</code> to be thrown.
+     *
+     * @return throwable that caused the original exception
      */
     public Throwable getCause();
 

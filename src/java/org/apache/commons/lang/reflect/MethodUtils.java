@@ -71,15 +71,18 @@ import org.apache.commons.lang.ArrayUtils;
  * @author Based on code from <code>BeanUtils</code> by: Craig R. McClanahan
  * @author Ralph Schaer
  * @author Chris Audley
- * @author Rey François
- * @author Gregor Raýman
+ * @author Rey Franï¿½ois
+ * @author Gregor Raï¿½man
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
  * @author Gary Gregory
- * @version $Id: MethodUtils.java,v 1.13 2003/07/20 01:13:54 ggregory Exp $
+ * @version $Id: MethodUtils.java,v 1.14 2003/08/16 11:10:23 scolebourne Exp $
  */
 public class MethodUtils {
-    
+
+    /**
+     * Debug flag.
+     */
     public static final boolean debug = false;
     
     /**
@@ -120,6 +123,7 @@ public class MethodUtils {
      *
      * @param cls  the class to reflect, must not be <code>null</code>
      * @param methodName  the field name to obtain
+     * @param paramType  the class of the parameter
      * @return the Method object
      * @throws IllegalArgumentException if the class or method name
      *  is <code>null</code>
@@ -131,11 +135,13 @@ public class MethodUtils {
     }
     
     /**
-     * <p>Gets a <code>Method</code> by name.</p> The method must be public.
-     * Superclasses will be considered.</p>
+     * <p>Gets a <code>Method</code> by name.</p>
+     *
+     * <p>The method must be public.  Superclasses will be considered.</p>
      *
      * @param cls  the class to reflect, must not be <code>null</code>
      * @param methodName  the field name to obtain
+     * @param paramTypes  the classes of the parameters
      * @return the Method object
      * @throws IllegalArgumentException if the class or method name
      *  is <code>null</code>
@@ -150,6 +156,7 @@ public class MethodUtils {
      *
      * @param cls  the class to reflect, must not be <code>null</code>
      * @param methodName  the method name to obtain
+     * @param paramTypes  the classes of the parameters
      * @param breakScope  whether to break scope restrictions using the
      *  <code>setAccessible</code> method. <code>False</code> will only
      *  match public fields.
@@ -226,6 +233,7 @@ public class MethodUtils {
      * no such method can be found, return <code>null</code>.</p>
      *
      * @param method The method that we wish to call
+     * @return Method
      */
     public static Method getMethod(Method method) {
         
@@ -282,6 +290,7 @@ public class MethodUtils {
      * @param methodName  get method with this name, must not
      *  be <code>null</code>
      * @param arg  use this argument, must not be <code>null</code>
+     * @return Object
      * @throws ReflectionException if an error occurs during reflection
      * @throws IllegalArgumentException if any parameter is
      *  <code>null</code>
@@ -323,6 +332,7 @@ public class MethodUtils {
      *  be <code>null</code>
      * @param args  use these arguments - treat <code>null</code>
      *  as empty array
+     * @return Object
      * @throws ReflectionException if an error occurs during reflection
      * @throws IllegalArgumentException if the objectToInvoke, methodName
      *  or any argument is <code>null</code>
@@ -368,6 +378,7 @@ public class MethodUtils {
      * @param args  use these arguments - treat null as empty array
      * @param parameterTypes  match these parameters - treat
      *  <code>null</code> as empty array
+     * @return Object
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object invokeMethod(

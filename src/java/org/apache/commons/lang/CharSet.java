@@ -62,20 +62,21 @@ import java.util.Set;
 
 /**
  * <p>A set of characters.</p>
- * 
+ *
  * <p>This class is immutable, but subclasses may not be.</p>
  *
  * @author Henri Yandell
  * @author Stephen Colebourne
  * @author Phil Steitz
+ * @author Pete Gieser
  * @since 1.0
- * @version $Id: CharSet.java,v 1.14 2003/08/07 21:12:19 bayard Exp $
+ * @version $Id: CharSet.java,v 1.15 2003/08/16 11:04:46 scolebourne Exp $
  */
 public class CharSet implements Serializable {
 
     /** Serialization lock, Lang version 2.0. */
     private static final long serialVersionUID = 5947847346149275958L;
-    
+
     /** A CharSet defining no characters. */
     public static final CharSet EMPTY = new CharSet((String) null);
     /** A CharSet defining ASCII alphabetic characters "a-zA-Z". */
@@ -86,7 +87,7 @@ public class CharSet implements Serializable {
     public static final CharSet ASCII_ALPHA_UPPER = new CharSet("A-Z");
     /** A CharSet defining ASCII alphabetic characters "0-9". */
     public static final CharSet ASCII_NUMERIC = new CharSet("0-9");
-    
+
     /**
      * A Map of the common cases used in the factory.
      * Subclasses can add more common patterns if desired.
@@ -101,14 +102,14 @@ public class CharSet implements Serializable {
         COMMON.put("A-Z", ASCII_ALPHA_UPPER);
         COMMON.put("0-9", ASCII_NUMERIC);
     }
-    
+
     /** The set of CharRange objects. */
     private Set set = new HashSet();
 
     //-----------------------------------------------------------------------
     /**
      * <p>Factory method to create a new CharSet using a special syntax.</p>
-     * 
+     *
      * <ul>
      *  <li><code>null</code> or empty string ("")
      * - set containing no characters</li>
@@ -121,7 +122,7 @@ public class CharSet implements Serializable {
      *  <li>Combinations, such as "abe-g"
      *  - set containing all the characters from the individual sets</li>
      * </ul>
-     * 
+     *
      * <p>The matching order is:</p>
      * <ol
      *  <li>Negated multi character range, such as "^a-e"
@@ -131,7 +132,7 @@ public class CharSet implements Serializable {
      * </ol>
      * <p>Matching works left to right. Once a match is found the
      * search starts again from the next character.</p>
-     * 
+     *
      * <p>If the same range is defined twice using the same syntax, only
      * one range will be kept.
      * Thus, "a-ca-c" creates only one range of "a-c".</p>
@@ -144,8 +145,9 @@ public class CharSet implements Serializable {
      * <p>The set of characters represented is the union of the specified ranges.</p>
      *
      * <p>All CharSet objects returned by this method will be immutable.</p>
-     * 
+     *
      * @param setStr  the String describing the set, may be null
+     * @return a CharSet instance
      */
     public static CharSet getInstance(String setStr) {
         Object set = COMMON.get(setStr);
@@ -170,6 +172,7 @@ public class CharSet implements Serializable {
      * <p>Constructs a new CharSet using the set syntax.
      * Each string is merged in with the set.</p>
      *
+     * @param set  Strings to merge into the initial set
      * @throws NullPointerException if set is <code>null</code>
      */
     protected CharSet(String[] set) {
@@ -183,7 +186,7 @@ public class CharSet implements Serializable {
     //-----------------------------------------------------------------------
     /**
      * <p>Add a set definition string to the <code>CharSet</code>.</p>
-     * 
+     *
      * @param str  set definition string
      */
     protected void add(String str) {
@@ -218,18 +221,18 @@ public class CharSet implements Serializable {
     //-----------------------------------------------------------------------
     /**
      * <p>Gets the internal set as an array of CharRange objects.</p>
-     * 
+     *
      * @return an array of immutable CharRange objects
      */
     public CharRange[] getCharRanges() {
         return (CharRange[]) set.toArray(new CharRange[set.size()]);
     }
-    
+
     //-----------------------------------------------------------------------
     /**
      * <p>Does the <code>CharSet</code> contain the specified
      * character <code>ch</code>.</p>
-     * 
+     *
      * @param ch  the character to check for
      * @return <code>true</code> if the set contains the characters
      */
@@ -248,11 +251,10 @@ public class CharSet implements Serializable {
     /**
      * <p>Compares two CharSet objects, returning true if they represent
      * exactly the same set of characters defined in the same way.</p>
-     * 
+     *
      * <p>The two sets <code>abc</code> and <code>a-c</code> are <i>not</i>
      * equal according to this method.</p>
-     * 
-     * 
+     *
      * @param obj  the object to compare to
      * @return true if equal
      */
@@ -269,16 +271,16 @@ public class CharSet implements Serializable {
 
     /**
      * <p>Gets a hashCode compatable with the equals method.</p>
-     * 
+     *
      * @return a suitable hashCode
      */
     public int hashCode() {
         return 89 + set.hashCode();
     }
-    
+
     /**
      * <p>Gets a string representation of the set.</p>
-     * 
+     *
      * @return string representation of the set
      */
     public String toString() {
