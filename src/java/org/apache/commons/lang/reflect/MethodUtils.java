@@ -53,20 +53,12 @@
  */
 package org.apache.commons.lang.reflect;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-
 /**
  * <code>MethodUtils</code> contains utility methods for working for
  * methods by reflection.
@@ -83,7 +75,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Gregor Raýman
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
- * @version $Id: MethodUtils.java,v 1.9 2002/12/10 19:06:49 rdonkin Exp $
+ * @version $Id: MethodUtils.java,v 1.10 2002/12/25 22:03:00 scolebourne Exp $
  */
 public class MethodUtils {
     

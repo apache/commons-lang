@@ -56,12 +56,8 @@ package org.apache.commons.lang.builder;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.NumberUtils;
-import org.apache.commons.lang.enum.Enum;
 /** 
  * <p><code>CompareTo</code> generation routines.</p>
  *
@@ -108,7 +104,7 @@ import org.apache.commons.lang.enum.Enum;
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.8 2002/12/23 00:20:31 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.9 2002/12/25 22:00:31 scolebourne Exp $
  */
 public class CompareToBuilder {
     

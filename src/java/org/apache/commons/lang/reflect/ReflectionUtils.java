@@ -55,21 +55,17 @@ package org.apache.commons.lang.reflect;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
-import org.apache.commons.lang.*;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 /**
  * <code>ReflectionUtils</code> contains utility methods for working for
  * reflection.
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ReflectionUtils.java,v 1.5 2002/12/15 19:34:34 scolebourne Exp $
+ * @version $Id: ReflectionUtils.java,v 1.6 2002/12/25 22:03:00 scolebourne Exp $
  */
 public class ReflectionUtils {
     
