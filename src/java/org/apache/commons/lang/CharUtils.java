@@ -24,7 +24,7 @@ package org.apache.commons.lang;
  * 
  * @author Stephen Colebourne
  * @since 2.1
- * @version $Id: CharUtils.java,v 1.5 2004/02/24 22:22:51 fredrik Exp $
+ * @version $Id: CharUtils.java,v 1.6 2004/02/26 21:10:01 fredrik Exp $
  */
 public class CharUtils {
     
@@ -136,10 +136,10 @@ public class CharUtils {
      * an exception on empty Strings.</p>
      * 
      * <pre>
-     *   CharUtils.toCharacter(null, 'X') = IllegalArgumentException
-     *   CharUtils.toCharacter("", 'X')   = IllegalArgumentException
-     *   CharUtils.toCharacter("A", 'X')  = 'A'
-     *   CharUtils.toCharacter("BA", 'X') = 'B'
+     *   CharUtils.toCharacter(null) = IllegalArgumentException
+     *   CharUtils.toCharacter("")   = IllegalArgumentException
+     *   CharUtils.toCharacter("A")  = 'A'
+     *   CharUtils.toCharacter("BA") = 'B'
      * </pre>
      *
      * @param str  the character to convert
@@ -321,8 +321,8 @@ public class CharUtils {
      * <p>This format is the Java source code format.</p>
      *
      * <pre>
-     *   CharUtils.toUnicode(' ') = "\u0020"
-     *   CharUtils.toUnicode('A') = "\u0041"
+     *   CharUtils.unicodeEscaped(' ') = "\u0020"
+     *   CharUtils.unicodeEscaped('A') = "\u0041"
      * </pre>
      * 
      * @param ch  the character to convert
@@ -347,9 +347,9 @@ public class CharUtils {
      * <p>If <code>null</code> is passed in, <code>null</code> will be returned.</p>
      *
      * <pre>
-     *   CharUtils.toUnicode(null) = null
-     *   CharUtils.toUnicode(' ')  = "\u0020"
-     *   CharUtils.toUnicode('A')  = "\u0041"
+     *   CharUtils.unicodeEscaped(null) = null
+     *   CharUtils.unicodeEscaped(' ')  = "\u0020"
+     *   CharUtils.unicodeEscaped('A')  = "\u0041"
      * </pre>
      * 
      * @param ch  the character to convert, may be null
