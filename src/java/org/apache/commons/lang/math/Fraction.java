@@ -65,7 +65,7 @@ import java.io.Serializable;
  * @author Travis Reeder
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: Fraction.java,v 1.4 2003/07/14 22:25:05 bayard Exp $
+ * @version $Id: Fraction.java,v 1.5 2003/07/26 00:57:02 ggregory Exp $
  */
 public final class Fraction extends Number implements Serializable, Comparable {
 
@@ -388,7 +388,7 @@ public final class Fraction extends Number implements Serializable, Comparable {
      * @return the whole number fraction part
      */
     public int intValue() {
-        return (int) numerator / denominator;
+        return numerator / denominator;
     }
 
     /**
