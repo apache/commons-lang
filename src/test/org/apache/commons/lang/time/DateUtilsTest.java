@@ -153,7 +153,20 @@ public class DateUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
-    public void testIsSameDay() {
+    public void testIsSameDay_Date() {
+        Date date1 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
+        Date date2 = new GregorianCalendar(2004, 6, 9, 13, 45).getTime();
+        assertEquals(true, DateUtils.isSameDay(date1, date2));
+        date2 = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
+        assertEquals(false, DateUtils.isSameDay(date1, date2));
+        date1 = new GregorianCalendar(2004, 6, 10, 13, 45).getTime();
+        assertEquals(true, DateUtils.isSameDay(date1, date2));
+        date2 = new GregorianCalendar(2005, 6, 10, 13, 45).getTime();
+        assertEquals(false, DateUtils.isSameDay(date1, date2));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIsSameDay_Cal() {
         GregorianCalendar cal1 = new GregorianCalendar(2004, 6, 9, 13, 45);
         GregorianCalendar cal2 = new GregorianCalendar(2004, 6, 9, 13, 45);
         assertEquals(true, DateUtils.isSameDay(cal1, cal2));
