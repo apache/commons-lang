@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author Stephen Colebourne
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.16 2003/05/15 04:05:11 bayard Exp $
+ * @version $Id: LangTestSuite.java,v 1.17 2003/05/24 04:38:05 alex Exp $
  */
 public class LangTestSuite extends TestCase {
     
@@ -92,6 +92,7 @@ public class LangTestSuite extends TestCase {
         suite.addTest(BooleanUtilsTest.suite());
         suite.addTest(CharSetUtilsTest.suite());
         suite.addTest(ClassUtilsTest.suite());
+        suite.addTest(EntitiesTest.suite());
         suite.addTest(IllegalClassExceptionTest.suite());
         suite.addTest(IncompleteArgumentExceptionTest.suite());
         suite.addTest(NotImplementedExceptionTest.suite());

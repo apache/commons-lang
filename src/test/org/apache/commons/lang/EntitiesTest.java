@@ -65,10 +65,23 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: EntitiesTest.java,v 1.1 2003/05/24 04:35:07 alex Exp $
+ * @version $Id: EntitiesTest.java,v 1.2 2003/05/24 04:38:05 alex Exp $
  */
 public class EntitiesTest extends TestCase
 {
+    public EntitiesTest(String name) {
+        super(name);
+    }
+
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
+
+    public static Test suite() {
+        TestSuite suite = new TestSuite(EntitiesTest.class);
+        suite.setName("EntitiesTest Tests");
+        return suite;
+    }
 
     Entities entities;
 
