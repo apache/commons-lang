@@ -48,7 +48,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.31 2004/07/01 17:10:47 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.32 2004/07/01 17:40:10 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -251,10 +251,7 @@ public abstract class ToStringStyle implements Serializable {
      *  <code>toString</code> for.
      */
     public void appendEnd(StringBuffer buffer, Object object) {
-        if (object == null){
-            return;
-        }
-        if (fieldSeparatorAtEnd == false) {
+        if (this.fieldSeparatorAtEnd == false) {
             removeLastFieldSeparator(buffer);
         }
         appendContentEnd(buffer);

@@ -87,7 +87,7 @@ import org.apache.commons.lang.ObjectUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.34 2004/07/01 17:10:47 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.35 2004/07/01 17:40:10 ggregory Exp $
  */
 public class ToStringBuilder {
 
@@ -1026,10 +1026,16 @@ public class ToStringBuilder {
      * <p>This method appends the end of data indicator, and can only be called once.
      * Use {@link #getStringBuffer} to get the current string state.</p>
      * 
+     * <p>If the object is <code>null</code>, return the style's <code>nullText</code></p>
+     * 
      * @return the String <code>toString</code>
      */
     public String toString() {
-        style.appendEnd(this.getStringBuffer(), this.getObject());
+        if (this.getObject() == null) {
+            this.getStringBuffer().append(this.getStyle().getNullText());
+        } else {
+            style.appendEnd(this.getStringBuffer(), this.getObject());
+        }
         return this.getStringBuffer().toString();
     }
 
