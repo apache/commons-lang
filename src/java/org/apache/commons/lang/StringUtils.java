@@ -76,8 +76,9 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Holger Krauth
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
+ * @author Arun Mammen Thomas
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.37 2003/03/23 21:52:31 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.38 2003/03/24 00:47:02 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -99,6 +100,14 @@ public class StringUtils {
      * <p>Removes control characters, including whitespace, from both
      * ends of this String, handling <code>null</code> by returning
      * an empty String.</p>
+     * 
+     * <pre>
+     * StringUtils.clean("abc")         = "abc"
+     * StringUtils.clean("    abc    ") = "abc"
+     * StringUtils.clean("     ")       = ""
+     * StringUtils.clean("")            = ""
+     * StringUtils.clean(null)          = ""
+     * </pre>
      *
      * @see java.lang.String#trim()
      * @param str the String to check
@@ -112,13 +121,70 @@ public class StringUtils {
      * <p>Removes control characters, including whitespace, from both
      * ends of this String, handling <code>null</code> by returning
      * <code>null</code>.</p>
+     * 
+     * <p>The string is trimmed using {@link String#trim()}.</p>
+     * 
+     * <pre>
+     * StringUtils.trim("abc")         = "abc"
+     * StringUtils.trim("    abc    ") = "abc"
+     * StringUtils.trim("     ")       = ""
+     * StringUtils.trim("")            = ""
+     * StringUtils.trim(null)          = null
+     * </pre>
      *
      * @see java.lang.String#trim()
-     * @param str the String to check
+     * @param str the String to be trimmed
      * @return the trimmed text (or <code>null</code>)
      */
     public static String trim(String str) {
         return (str == null ? null : str.trim());
+    }
+
+    /** 
+     * <p>Removes control characters, including whitespace, from both  
+     * ends of this string returning <code>null</code> if the string is 
+     * empty after the trim or if it is <code>null</code>.
+     * 
+     * <p>The string is trimmed using {@link String#trim()}.</p>
+     * 
+     * <pre>
+     * StringUtils.trimToNull("abc")         = "abc"
+     * StringUtils.trimToNull("    abc    ") = "abc"
+     * StringUtils.trimToNull("     ")       = null
+     * StringUtils.trimToNull("")            = null
+     * StringUtils.trimToNull(null)          = null
+     * </pre>
+     *  
+     * @see java.lang.String#trim()
+     * @param str the String to be trimmed.
+     * @return the trimmed string, or null if it's empty or null
+     */
+    public static String trimToNull(String str) {
+        String ts = trim(str);
+        return (ts == null || ts.length() == 0 ? null : ts);
+    }
+
+    /** 
+     * <p>Removes control characters, including whitespace, from both 
+     * ends of this string returning an empty string if the string is
+     * empty after the trim or if it is <code>null</code>.
+     * 
+     * <p>The string is trimmed using {@link String#trim()}.</p>
+     * 
+     * <pre>
+     * StringUtils.trimToEmpty("abc")         = "abc"
+     * StringUtils.trimToEmpty("    abc    ") = "abc"
+     * StringUtils.trimToEmpty("     ")       = ""
+     * StringUtils.trimToEmpty("")            = ""
+     * StringUtils.trimToEmpty(null)          = ""
+     * </pre>
+     *  
+     * @see java.lang.String#trim()
+     * @param str the String to be trimmed
+     * @return the trimmed string, or an empty string if it's empty or null
+     */
+    public static String trimToEmpty(String str) {
+        return (str == null ? "" : str.trim());
     }
 
     /**
@@ -1708,8 +1774,8 @@ public class StringUtils {
     /**
      * <p>Checks if the String contains only certain chars.</p>
      *
-     * @param str  the string to check
-     * @param validChars  a string of valid chars
+     * @param str the String to check
+     * @param validChars a string of valid chars
      * @return true if it only contains valid chars and is non-null
      */
     public static boolean containsOnly(String str, String validChars) {
@@ -1722,8 +1788,8 @@ public class StringUtils {
     /**
      * <p>Checks if the String contains only certain chars.</p>
      *
-     * @param str  the string to check
-     * @param validChars  an array of valid chars
+     * @param str the String to check
+     * @param validChars an array of valid chars
      * @return true if it only contains valid chars and is non-null
      */
     public static boolean containsOnly(String str, char[] validChars) {
@@ -1751,8 +1817,8 @@ public class StringUtils {
     /**
      * <p>Checks that the String does not contain certain chars.</p>
      *
-     * @param str  the string to check
-     * @param invalidChars  a string of invalid chars
+     * @param str the String to check
+     * @param invalidChars a string of invalid chars
      * @return true if it contains none of the invalid chars, or is null
      */
     public static boolean containsNone(String str, String invalidChars) {
@@ -1765,8 +1831,8 @@ public class StringUtils {
     /**
      * <p>Checks that the String does not contain certain chars.</p>
      *
-     * @param str  the string to check
-     * @param invalidChars  an array of invalid chars
+     * @param str the String to check
+     * @param invalidChars an array of invalid chars
      * @return true if it contains none of the invalid chars, or is null
      */
     public static boolean containsNone(String str, char[] invalidChars) {
