@@ -64,7 +64,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
  * @author Moritz Petersen
- * @version $Id: ArrayUtils.java,v 1.1 2002/10/13 22:42:06 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.2 2002/11/14 22:29:25 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -101,28 +101,28 @@ public class ArrayUtils {
     //--------------------------------------------------------------------------
     
     /**
-     * Outputs an array as a String, treating null as an empty array.
+     * Outputs an array as a String, treating <code>null</code> as an empty array.
      * <p>
      * Multi-dimensional arrays are handled correctly, including 
      * multi-dimensional primitive arrays.
      * The format is that of Java source code, for example {a,b}.
      * 
-     * @param array  the array to get a toString for, may not be null
-     * @return a String representation of the array, '{}' if null passed in
+     * @param array  the array to get a toString for, may not be <code>null</code>
+     * @return a String representation of the array, '{}' if <code>null</code> passed in
      */
     public static String toString(Object array) {
         return toString(array, "{}");
     }
     
     /**
-     * Outputs an array as a String handling nulls.
+     * Outputs an array as a String handling <code>null</code>s.
      * <p>
      * Multi-dimensional arrays are handled correctly, including 
      * multi-dimensional primitive arrays.
      * The format is that of Java source code, for example {a,b}.
      * 
-     * @param array  the array to get a toString for, may be null
-     * @param stringIfNull  the String to return if the array is null
+     * @param array  the array to get a toString for, may be <code>null</code>
+     * @param stringIfNull  the String to return if the array is <code>null</code>
      * @return a String representation of the array
      */    
     public static String toString(Object array, String stringIfNull) {
@@ -149,7 +149,7 @@ public class ArrayUtils {
      * @param array  an array whose elements are either a {@link Map.Entry} or 
      *  an Array containing at least two elements
      * @return a Map that was created from the array
-     * @throws IllegalArgumentException  if the array is null
+     * @throws IllegalArgumentException  if the array is <code>null</code>
      * @throws IllegalArgumentException  if one element of this Array is
      *  itself an Array containing less then two elements
      * @throws IllegalArgumentException  if the array contains elements other
@@ -188,9 +188,9 @@ public class ArrayUtils {
 //     * Multi-dimensional arrays are handled by the Object[] method.
 //     * The format is that of Java source code, for example {1,2}.
 //     * 
-//     * @param array  the array to get a toString for, must not be null
+//     * @param array  the array to get a toString for, must not be <code>null</code>
 //     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is null
+//     * @throws IllegalArgumentException if the array is <code>null</code>
 //     */
 //    public static String toString(long[] array) {
 //        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
@@ -202,9 +202,9 @@ public class ArrayUtils {
 //     * Multi-dimensional arrays are handled by the Object[] method.
 //     * The format is that of Java source code, for example {1,2}.
 //     * 
-//     * @param array  the array to get a toString for, must not be null
+//     * @param array  the array to get a toString for, must not be <code>null</code>
 //     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is null
+//     * @throws IllegalArgumentException if the array is <code>null</code>
 //     */
 //    public static String toString(int[] array) {
 //        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
@@ -216,9 +216,9 @@ public class ArrayUtils {
 //     * Multi-dimensional arrays are handled by the Object[] method.
 //     * The format is that of Java source code, for example {1,2}.
 //     * 
-//     * @param array  the array to get a toString for, must not be null
+//     * @param array  the array to get a toString for, must not be <code>null</code>
 //     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is null
+//     * @throws IllegalArgumentException if the array is <code>null</code>
 //     */
 //    public static String toString(short[] array) {
 //        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
@@ -230,9 +230,9 @@ public class ArrayUtils {
 //     * Multi-dimensional arrays are handled by the Object[] method.
 //     * The format is that of Java source code, for example {1,2}.
 //     * 
-//     * @param array  the array to get a toString for, must not be null
+//     * @param array  the array to get a toString for, must not be <code>null</code>
 //     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is null
+//     * @throws IllegalArgumentException if the array is <code>null</code>
 //     */
 //    public static String toString(byte[] array) {
 //        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
@@ -244,9 +244,9 @@ public class ArrayUtils {
 //     * Multi-dimensional arrays are handled by the Object[] method.
 //     * The format is that of Java source code, for example {1.0,2.0}.
 //     * 
-//     * @param array  the array to get a toString for, must not be null
+//     * @param array  the array to get a toString for, must not be <code>null</code>
 //     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is null
+//     * @throws IllegalArgumentException if the array is <code>null</code>
 //     */
 //    public static String toString(double[] array) {
 //        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
@@ -258,9 +258,9 @@ public class ArrayUtils {
 //     * Multi-dimensional arrays are handled by the Object[] method.
 //     * The format is that of Java source code, for example {1.0,2.0}.
 //     * 
-//     * @param array  the array to get a toString for, must not be null
+//     * @param array  the array to get a toString for, must not be <code>null</code>
 //     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is null
+//     * @throws IllegalArgumentException if the array is <code>null</code>
 //     */
 //    public static String toString(float[] array) {
 //        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
@@ -272,9 +272,9 @@ public class ArrayUtils {
 //     * Multi-dimensional arrays are handled by the Object[] method.
 //     * The format is that of Java source code, for example {true,false}.
 //     * 
-//     * @param array  the array to get a toString for, must not be null
+//     * @param array  the array to get a toString for, must not be <code>null</code>
 //     * @return a String representation of the array
-//     * @throws IllegalArgumentException if the array is null
+//     * @throws IllegalArgumentException if the array is <code>null</code>
 //     */
 //    public static String toString(boolean[] array) {
 //        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
@@ -283,12 +283,12 @@ public class ArrayUtils {
     //--------------------------------------------------------------------------
 
     /**
-     * Shallow clones an array returning a typecast result and handling null.
+     * Shallow clones an array returning a typecast result and handling <code>null</code>.
      * <p>
      * The objecs in the array are not cloned.
      * 
-     * @param array  the array to shallow clone, may not be null
-     * @return the cloned array, or null if null passed in
+     * @param array  the array to shallow clone, may not be <code>null</code>
+     * @return the cloned array, or <code>null</code> if <code>null</code> passed in
      */
     public static Object[] clone(Object[] array) {
         if (array == null) {
@@ -298,10 +298,10 @@ public class ArrayUtils {
     }
     
     /**
-     * Clones an array returning a typecast result and handling null.
+     * Clones an array returning a typecast result and handling <code>null</code>.
      * 
-     * @param array  the array to clone, may not be null
-     * @return the cloned array, or null if null passed in
+     * @param array  the array to clone, may not be <code>null</code>
+     * @return the cloned array, or <code>null</code> if <code>null</code> passed in
      */
     public static long[] clone(long[] array) {
         if (array == null) {
@@ -311,10 +311,10 @@ public class ArrayUtils {
     }
     
     /**
-     * Clones an array returning a typecast result and handling null.
+     * Clones an array returning a typecast result and handling <code>null</code>.
      * 
-     * @param array  the array to clone, may not be null
-     * @return the cloned array, or null if null passed in
+     * @param array  the array to clone, may not be <code>null</code>
+     * @return the cloned array, or <code>null</code> if <code>null</code> passed in
      */
     public static int[] clone(int[] array) {
         if (array == null) {
@@ -324,10 +324,10 @@ public class ArrayUtils {
     }
     
     /**
-     * Clones an array returning a typecast result and handling null.
+     * Clones an array returning a typecast result and handling <code>null</code>.
      * 
-     * @param array  the array to clone, may not be null
-     * @return the cloned array, or null if null passed in
+     * @param array  the array to clone, may not be <code>null</code>
+     * @return the cloned array, or <code>null</code> if <code>null</code> passed in
      */
     public static short[] clone(short[] array) {
         if (array == null) {
@@ -337,10 +337,10 @@ public class ArrayUtils {
     }
     
     /**
-     * Clones an array returning a typecast result and handling null.
+     * Clones an array returning a typecast result and handling <code>null</code>.
      * 
-     * @param array  the array to clone, may not be null
-     * @return the cloned array, or null if null passed in
+     * @param array  the array to clone, may not be <code>null</code>
+     * @return the cloned array, or <code>null</code> if <code>null</code> passed in
      */
     public static byte[] clone(byte[] array) {
         if (array == null) {
@@ -350,10 +350,10 @@ public class ArrayUtils {
     }
     
     /**
-     * Clones an array returning a typecast result and handling null.
+     * Clones an array returning a typecast result and handling <code>null</code>.
      * 
-     * @param array  the array to clone, may not be null
-     * @return the cloned array, or null if null passed in
+     * @param array  the array to clone, may not be <code>null</code>
+     * @return the cloned array, or <code>null</code> if <code>null</code> passed in
      */
     public static double[] clone(double[] array) {
         if (array == null) {
@@ -363,10 +363,10 @@ public class ArrayUtils {
     }
     
     /**
-     * Clones an array returning a typecast result and handling null.
+     * Clones an array returning a typecast result and handling <code>null</code>.
      * 
-     * @param array  the array to clone, may not be null
-     * @return the cloned array, or null if null passed in
+     * @param array  the array to clone, may not be <code>null</code>
+     * @return the cloned array, or <code>null</code> if <code>null</code> passed in
      */
     public static float[] clone(float[] array) {
         if (array == null) {
@@ -376,10 +376,10 @@ public class ArrayUtils {
     }
     
     /**
-     * Clones an array returning a typecast result and handling null.
+     * Clones an array returning a typecast result and handling <code>null</code>.
      * 
-     * @param array  the array to clone, may not be null
-     * @return the cloned array, or null if null passed in
+     * @param array  the array to clone, may not be <code>null</code>
+     * @return the cloned array, or <code>null</code> if <code>null</code> passed in
      */
     public static boolean[] clone(boolean[] array) {
         if (array == null) {
@@ -391,12 +391,13 @@ public class ArrayUtils {
     //--------------------------------------------------------------------------
 
     /**
-     * Checks whether two arrays are the same length, treating null arrays as length 0.
+     * Checks whether two arrays are the same length, treating <code>null</code> 
+     * arrays as length 0.
      * Any multi-dimensional aspects of the arrays are ignored.
      * 
-     * @param array1 the first array, may be null
-     * @param array2 the second array, may be null
-     * @param true if length of arrays matches, treating null as an empty array
+     * @param array1 the first array, may be <code>null</code>
+     * @param array2 the second array, may be <code>null</code>
+     * @param true if length of arrays matches, treating <code>null</code> as an empty array
      */    
     public static boolean isSameLength(Object[] array1, Object[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
@@ -408,12 +409,13 @@ public class ArrayUtils {
     }
     
     /**
-     * Checks whether two arrays are the same length, treating null arrays as length 0.
+     * Checks whether two arrays are the same length, treating <code>null</code> 
+     * arrays as length 0.
      * Any multi-dimensional aspects of the arrays are ignored.
      * 
-     * @param array1 the first array, may be null
-     * @param array2 the second array, may be null
-     * @param true if length of arrays matches, treating null as an empty array
+     * @param array1 the first array, may be <code>null</code>
+     * @param array2 the second array, may be <code>null</code>
+     * @param true if length of arrays matches, treating <code>null</code> as an empty array
      */    
     public static boolean isSameLength(long[] array1, long[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
@@ -425,12 +427,13 @@ public class ArrayUtils {
     }
     
     /**
-     * Checks whether two arrays are the same length, treating null arrays as length 0.
+     * Checks whether two arrays are the same length, treating <code>null</code> 
+     * arrays as length 0.
      * Any multi-dimensional aspects of the arrays are ignored.
      * 
-     * @param array1 the first array, may be null
-     * @param array2 the second array, may be null
-     * @param true if length of arrays matches, treating null as an empty array
+     * @param array1 the first array, may be <code>null</code>
+     * @param array2 the second array, may be <code>null</code>
+     * @param true if length of arrays matches, treating <code>null</code> as an empty array
      */    
     public static boolean isSameLength(int[] array1, int[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
@@ -442,12 +445,13 @@ public class ArrayUtils {
     }
     
     /**
-     * Checks whether two arrays are the same length, treating null arrays as length 0.
+     * Checks whether two arrays are the same length, treating <code>null</code> 
+     * arrays as length 0.
      * Any multi-dimensional aspects of the arrays are ignored.
      * 
-     * @param array1 the first array, may be null
-     * @param array2 the second array, may be null
-     * @param true if length of arrays matches, treating null as an empty array
+     * @param array1 the first array, may be <code>null</code>
+     * @param array2 the second array, may be <code>null</code>
+     * @param true if length of arrays matches, treating <code>null</code> as an empty array
      */    
     public static boolean isSameLength(short[] array1, short[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
@@ -459,12 +463,13 @@ public class ArrayUtils {
     }
     
     /**
-     * Checks whether two arrays are the same length, treating null arrays as length 0.
+     * Checks whether two arrays are the same length, treating <code>null</code> 
+     * arrays as length 0.
      * Any multi-dimensional aspects of the arrays are ignored.
      * 
-     * @param array1 the first array, may be null
-     * @param array2 the second array, may be null
-     * @param true if length of arrays matches, treating null as an empty array
+     * @param array1 the first array, may be <code>null</code>
+     * @param array2 the second array, may be <code>null</code>
+     * @param true if length of arrays matches, treating <code>null</code> as an empty array
      */    
     public static boolean isSameLength(byte[] array1, byte[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
@@ -476,12 +481,13 @@ public class ArrayUtils {
     }
     
     /**
-     * Checks whether two arrays are the same length, treating null arrays as length 0.
+     * Checks whether two arrays are the same length, treating <code>null</code> 
+     * arrays as length 0.
      * Any multi-dimensional aspects of the arrays are ignored.
      * 
-     * @param array1 the first array, may be null
-     * @param array2 the second array, may be null
-     * @param true if length of arrays matches, treating null as an empty array
+     * @param array1 the first array, may be <code>null</code>
+     * @param array2 the second array, may be <code>null</code>
+     * @param true if length of arrays matches, treating <code>null</code> as an empty array
      */    
     public static boolean isSameLength(double[] array1, double[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
@@ -493,12 +499,13 @@ public class ArrayUtils {
     }
     
     /**
-     * Checks whether two arrays are the same length, treating null arrays as length 0.
+     * Checks whether two arrays are the same length, treating <code>null</code> 
+     * arrays as length 0.
      * Any multi-dimensional aspects of the arrays are ignored.
      * 
-     * @param array1 the first array, may be null
-     * @param array2 the second array, may be null
-     * @param true if length of arrays matches, treating null as an empty array
+     * @param array1 the first array, may be <code>null</code>
+     * @param array2 the second array, may be <code>null</code>
+     * @param true if length of arrays matches, treating <code>null</code> as an empty array
      */    
     public static boolean isSameLength(float[] array1, float[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
@@ -510,12 +517,13 @@ public class ArrayUtils {
     }
     
     /**
-     * Checks whether two arrays are the same length, treating null arrays as length 0.
+     * Checks whether two arrays are the same length, treating <code>null</code> 
+     * arrays as length 0.
      * Any multi-dimensional aspects of the arrays are ignored.
      * 
-     * @param array1 the first array, may be null
-     * @param array2 the second array, may be null
-     * @param true if length of arrays matches, treating null as an empty array
+     * @param array1 the first array, may be <code>null</code>
+     * @param array2 the second array, may be <code>null</code>
+     * @param true if length of arrays matches, treating <code>null</code> as an empty array
      */    
     public static boolean isSameLength(boolean[] array1, boolean[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
@@ -530,10 +538,10 @@ public class ArrayUtils {
      * Checks whether two arrays are the same type taking into account
      * multi-dimensional arrays.
      * 
-     * @param array1 the first array, must not be null
-     * @param array2 the second array, must not be null
+     * @param array1 the first array, must not be <code>null</code>
+     * @param array2 the second array, must not be <code>null</code>
      * @param true if type of arrays matches
-     * @throws IllegalArgumentException if either array is null
+     * @throws IllegalArgumentException if either array is <code>null</code>
      */    
     public static boolean isSameType(Object array1, Object array2) {
         if (array1 == null || array2 == null) {

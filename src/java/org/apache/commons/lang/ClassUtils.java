@@ -56,13 +56,12 @@ package org.apache.commons.lang;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 /**
  * <code>ClassUtils</code> contains utility methods for working for
  * classes without using reflection.
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ClassUtils.java,v 1.3 2002/10/24 23:12:54 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.4 2002/11/14 22:29:25 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -80,9 +79,9 @@ public class ClassUtils {
     /**
      * Gets the class name minus the package name from a Class.
      * 
-     * @param cls  the class to get the short name for, must not be null
+     * @param cls  the class to get the short name for, must not be <code>null</code>
      * @return the class name without the package name
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static String getShortClassName(Class cls) {
         if (cls == null) {
@@ -94,9 +93,9 @@ public class ClassUtils {
     /**
      * Gets the class name minus the package name for an Object.
      * 
-     * @param object  the class to get the short name for, must not be null
+     * @param object  the class to get the short name for, must not be <code>null</code>
      * @return the class name of the object without the package name
-     * @throws IllegalArgumentException if the object is null
+     * @throws IllegalArgumentException if the object is <code>null</code>
      */
     public static String getShortClassName(Object object) {
         if (object == null) {
@@ -108,8 +107,7 @@ public class ClassUtils {
     /**
      * Gets the class name minus the package name from a String.
      * <p>
-     * The string passed in is assumed to be a class name - it is not
-     * checked.
+     * The string passed in is assumed to be a class name - it is not checked.
      * 
      * @param className  the className to get the short name for, must not be empty
      * @return the class name of the class without the package name
@@ -136,9 +134,9 @@ public class ClassUtils {
     /**
      * Gets the package name of a Class.
      * 
-     * @param cls  the class to get the package name for, must not be null
+     * @param cls  the class to get the package name for, must not be <code>null</code>
      * @return the package name
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static String getPackageName(Class cls) {
         if (cls == null) {
@@ -150,9 +148,9 @@ public class ClassUtils {
     /**
      * Gets the package name of an Object.
      * 
-     * @param object  the class to get the package name for, must not be null
+     * @param object  the class to get the package name for, must not be <code>null</code>
      * @return the package name
-     * @throws IllegalArgumentException if the object is null
+     * @throws IllegalArgumentException if the object is <code>null</code>
      */
     public static String getPackageName(Object object) {
         if (object == null) {
@@ -164,8 +162,7 @@ public class ClassUtils {
     /**
      * Gets the package name from a String.
      * <p>
-     * The string passed in is assumed to be a class name - it is not
-     * checked.
+     * The string passed in is assumed to be a class name - it is not checked.
      * 
      * @param className  the className to get the package name for, must not be empty
      * @return the package name
@@ -187,9 +184,9 @@ public class ClassUtils {
     /**
      * Gets a list of superclasses for the given class.
      * 
-     * @param cls  the class to look up, must not be null
+     * @param cls  the class to look up, must not be <code>null</code>
      * @return the list of superclasses in order going up from this one
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static List getAllSuperclasses(Class cls) {
         if (cls == null) {
@@ -211,9 +208,9 @@ public class ClassUtils {
      * declared in the source file and following its hieracrchy up. Later
      * duplicates are ignored, so the order is maintained.
      * 
-     * @param cls  the class to look up, must not be null
+     * @param cls  the class to look up, must not be <code>null</code>
      * @return the list of interfaces in order
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static List getAllInterfaces(Class cls) {
         if (cls == null) {
@@ -236,69 +233,69 @@ public class ClassUtils {
         return list;
     }
     
-    /**
-     * Gets a list of subclasses of the specified class.
-     * <p>
-     * This method searches the classpath to find all the subclasses
-     * of a particular class available. No classes are loaded, the 
-     * returned list contains class names, not classes.
-     *
-     * @param cls  the class to find subclasses for
-     * @return the list of subclass String class names
-     * @throws IllegalArgumentException if the class is null
-     */
-    public static List getAllSubclassNames(Class cls) {
-        if (cls == null) {
-            throw new IllegalArgumentException("The class must not be null");
-        }
-        // TODO Use JavaWorld tip for searching the classpath
-        return null;
-    }
+//    /**
+//     * Gets a list of subclasses of the specified class.
+//     * <p>
+//     * This method searches the classpath to find all the subclasses
+//     * of a particular class available. No classes are loaded, the 
+//     * returned list contains class names, not classes.
+//     *
+//     * @param cls  the class to find subclasses for
+//     * @return the list of subclass String class names
+//     * @throws IllegalArgumentException if the class is <code>null</code>
+//     */
+//    public static List getAllSubclassNames(Class cls) {
+//        if (cls == null) {
+//            throw new IllegalArgumentException("The class must not be null");
+//        }
+//        // TODO Use JavaWorld tip for searching the classpath
+//        return null;
+//    }
 
-    /**
-     * Gets a list of subclasses of the specified class.
-     * <p>
-     * This method searches the classpath to find all the subclasses
-     * of a particular class available.
-     *
-     * @param cls  the class to find subclasses for
-     * @return the list of subclasses
-     * @throws IllegalArgumentException if the class is null
-     */
-    public static List getAllSubclasses(Class cls) {
-        List names = getAllSubclassNames(cls);
-        return convertClassNamesToClasses(names);
-    }
+//    /**
+//     * Gets a list of subclasses of the specified class.
+//     * <p>
+//     * This method searches the classpath to find all the subclasses
+//     * of a particular class available.
+//     *
+//     * @param cls  the class to find subclasses for
+//     * @return the list of subclasses
+//     * @throws IllegalArgumentException if the class is <code>null</code>
+//     */
+//    public static List getAllSubclasses(Class cls) {
+//        List names = getAllSubclassNames(cls);
+//        return convertClassNamesToClasses(names);
+//    }
 
-    /**
-     * Gets a list of implementations of the specified interface.
-     * <p>
-     * This method searches the classpath to find all the implementations
-     * of a particular interface available. No classes are loaded, the 
-     * returned list contains class names, not classes.
-     *
-     * @param cls  the class to find sub classes for
-     * @return the list of implementation String class names
-     * @throws IllegalArgumentException if the class is null
-     */
-    public static List getAllImplementationClassNames(Class cls) {
-        if (cls == null) {
-            throw new IllegalArgumentException("The class must not be null");
-        }
-        // TODO Use JavaWorld tip for searching the classpath
-        return null;
-    }
+//    /**
+//     * Gets a list of implementations of the specified interface.
+//     * <p>
+//     * This method searches the classpath to find all the implementations
+//     * of a particular interface available. No classes are loaded, the 
+//     * returned list contains class names, not classes.
+//     *
+//     * @param cls  the class to find sub classes for
+//     * @return the list of implementation String class names
+//     * @throws IllegalArgumentException if the class is <code>null</code>
+//     */
+//    public static List getAllImplementationClassNames(Class cls) {
+//        if (cls == null) {
+//            throw new IllegalArgumentException("The class must not be null");
+//        }
+//        // TODO Use JavaWorld tip for searching the classpath
+//        return null;
+//    }
 
     /**
      * Given a list of class names, this method converts them into classes.
-     * A new list is returned. If the class name cannot be found, null is
-     * stored in the list. If the class name in the list is null, null is 
-     * stored in the output list.
+     * A new list is returned. If the class name cannot be found, <code>null</code>
+     * is stored in the list. If the class name in the list is <code>null</code>,
+     * <code>null</code> is stored in the output list.
      * 
-     * @param classes  the classNames to change, the class is stored back
-     *  into the list. null will be stored in the list if no class is found.
+     * @param classNames  the classNames to change, the class is stored back
+     *  into the list. <code>null</code> will be stored in the list if no class is found.
      * @return the list of Class objects corresponding to the class names
-     * @throws IllegalArgumentException if the classNames is null
+     * @throws IllegalArgumentException if the classNames is <code>null</code>
      */
     public static List convertClassNamesToClasses(List classNames) {
         if (classNames == null) {
@@ -323,7 +320,7 @@ public class ClassUtils {
      * @param classes  the classes to check
      * @param superclass  the superclass to check for
      * @return the list of subclasses or implementations
-     * @throws IllegalArgumentException if the classes or superClass is null
+     * @throws IllegalArgumentException if the classes or superClass is <code>null</code>
      */
     public static List getAssignableFrom(List classes, Class superclass) {
         if (classes == null) {
@@ -353,13 +350,13 @@ public class ClassUtils {
      * reflection invocation.
      * <p>
      * Unlike the Class.isAssignableFrom method, this method takes into 
-     * account widenings of primitive classes and nulls.
+     * account widenings of primitive classes and <code>null</code>s.
      * <p>
      * Primitive widenings allow an int to be assigned to a long, float or 
      * double. This method returns the correct result for these cases.
      * <p>
-     * Null may be assigned to any reference type. This method will return
-     * true if null is passed in and the toClass is non-primitive.
+     * <code>Null</code> may be assigned to any reference type. This method will return
+     * true if <code>null</code> is passed in and the toClass is non-primitive.
      * <p>
      * Specifically, this method tests whether the type represented by the
      * specified <code>Class</code> parameter can be converted to the type
@@ -368,8 +365,8 @@ public class ClassUtils {
      * <em>The Java Language Specification</em>, sections 5.1.1, 5.1.2 and 
      * 5.1.4 for details.
      *
-     * @param classArray  the array of Classes to check, may be null
-     * @param toClassArray  the array of Classes to try to assign into, may be null
+     * @param classArray  the array of Classes to check, may be <code>null</code>
+     * @param toClassArray  the array of Classes to try to assign into, may be <code>null</code>
      * @return true if assignment possible
      */
     public static boolean isAssignable(Class[] classArray, Class[] toClassArray) {
@@ -394,13 +391,13 @@ public class ClassUtils {
      * Checks if one Class can be assigned to a variable of another Class.
      * <p>
      * Unlike the Class.isAssignableFrom method, this method takes into 
-     * account widenings of primitive classes and nulls.
+     * account widenings of primitive classes and <code>null</code>s.
      * <p>
      * Primitive widenings allow an int to be assigned to a long, float or 
      * double. This method returns the correct result for these cases.
      * <p>
      * Null may be assigned to any reference type. This method will return
-     * true if null is passed in and the toClass is non-primitive.
+     * true if <code>null</code> is passed in and the toClass is non-primitive.
      * <p>
      * Specifically, this method tests whether the type represented by the
      * specified <code>Class</code> parameter can be converted to the type
@@ -409,10 +406,10 @@ public class ClassUtils {
      * <em>The Java Language Specification</em>, sections 5.1.1, 5.1.2 and 
      * 5.1.4 for details.
      *
-     * @param cls  the Class to check, may be null
-     * @param toClass  the Class to try to assign into, must not be null
+     * @param cls  the Class to check, may be <code>null</code>
+     * @param toClass  the Class to try to assign into, must not be <code>null</code>
      * @return true if assignment possible
-     * @throws IllegalArgumentException if the toClass is null
+     * @throws IllegalArgumentException if the toClass is <code>null</code>
      */
     public static boolean isAssignable(Class cls, Class toClass) {
         if (toClass == null) {
@@ -477,7 +474,7 @@ public class ClassUtils {
      * 
      * @param cls  the class to check
      * @return true if the class is an inner or static nested class
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static boolean isInnerClass(Class cls) {
         if (cls == null) {
