@@ -267,7 +267,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.23 2003/11/29 15:03:54 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.24 2004/02/12 00:45:09 ggregory Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
 
@@ -567,34 +567,27 @@ public abstract class Enum implements Comparable, Serializable {
         } else if (other == null) {
             return false;
         } else if (other.getClass() == this.getClass()) {
-            // shouldn't happen, but...
+            // Ok to do a class cast to Enum here since the test above
+            // guarantee both
+            // classes are in the same class loader.
             return iName.equals(((Enum) other).iName);
-        } else if (((Enum) other).getEnumClass().getName().equals(getEnumClass().getName())) {
-            // different classloaders
-            try {
-                // try to avoid reflection
-                return iName.equals(((Enum) other).iName);
-
-            } catch (ClassCastException ex) {
-                // use reflection
-                try {
-                    Method mth = other.getClass().getMethod("getName", null);
-                    String name = (String) mth.invoke(other, null);
-                    return iName.equals(name);
-                } catch (NoSuchMethodException ex2) {
-                    // ignore - should never happen
-                } catch (IllegalAccessException ex2) {
-                    // ignore - should never happen
-                } catch (InvocationTargetException ex2) {
-                    // ignore - should never happen
-                }
-                return false;
-            }
         } else {
+            // This and other are in different class loaders, we must use reflection.
+            try {
+                Method mth = other.getClass().getMethod("getName", null);
+                String name = (String) mth.invoke(other, null);
+                return iName.equals(name);
+            } catch (NoSuchMethodException ex2) {
+                // ignore - should never happen
+            } catch (IllegalAccessException ex2) {
+                // ignore - should never happen
+            } catch (InvocationTargetException ex2) {
+                // ignore - should never happen
+            }
             return false;
         }
     }
-
+    
     /**
      * <p>Returns a suitable hashCode for the enumeration.</p>
      *
