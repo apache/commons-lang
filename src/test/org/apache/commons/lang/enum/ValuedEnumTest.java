@@ -66,7 +66,7 @@ import org.apache.commons.lang.SerializationUtils;
  * Test cases for the {@link Enum} class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ValuedEnumTest.java,v 1.1 2002/08/11 23:17:54 scolebourne Exp $
+ * @version $Id: ValuedEnumTest.java,v 1.2 2002/10/13 18:42:06 sullis Exp $
  */
 
 public final class ValuedEnumTest extends TestCase {
@@ -120,6 +120,12 @@ public final class ValuedEnumTest extends TestCase {
 
     public void testList() {
         List list = ValuedColorEnum.getEnumList();
+        
+        assertNotNull(list);
+        
+        assertEquals( list.size(),
+        			 ValuedColorEnum.getEnumMap().keySet().size());
+        
         Iterator it = list.iterator();
         assertSame(ValuedColorEnum.RED, it.next());
         assertSame(ValuedColorEnum.GREEN, it.next());
@@ -128,6 +134,12 @@ public final class ValuedEnumTest extends TestCase {
 
     public void testMap() {
         Map map = ValuedColorEnum.getEnumMap();
+        
+        assertNotNull(map);
+        
+        assertEquals( map.keySet().size(),
+        			 ValuedColorEnum.getEnumList().size());
+        			 
         assertTrue(map.containsValue(ValuedColorEnum.RED));
         assertTrue(map.containsValue(ValuedColorEnum.GREEN));
         assertTrue(map.containsValue(ValuedColorEnum.BLUE));
