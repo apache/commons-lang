@@ -68,8 +68,9 @@ import java.util.TimeZone;
  * @author Stephen Colebourne
  * @author Janek Bogucki
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.16 2003/08/18 21:52:39 ggregory Exp $
+ * @version $Id: DateUtils.java,v 1.17 2003/12/23 03:54:14 psteitz Exp $
  */
 public class DateUtils {
     
@@ -80,19 +81,19 @@ public class DateUtils {
     /**
      * Number of milliseconds in a standard second.
      */
-    public static final int MILLIS_IN_SECOND = 1000;
+    public static final long MILLIS_PER_SECOND = 1000;
     /**
      * Number of milliseconds in a standard minute.
      */
-    public static final int MILLIS_IN_MINUTE = 60 * 1000;
+    public static final long MILLIS_PER_MINUTE = 60 * 1000;
     /**
      * Number of milliseconds in a standard hour.
      */
-    public static final int MILLIS_IN_HOUR = 60 * 60 * 1000;
+    public static final long MILLIS_PER_HOUR = 60 * 60 * 1000;
     /**
      * Number of milliseconds in a standard day.
      */
-    public static final int MILLIS_IN_DAY = 24 * 60 * 60 * 1000;
+    public static final long MILLIS_PER_DAY = 24 * 60 * 60 * 1000;
 
     /**
      * This is half a month, so this represents whether a date is in the top
@@ -700,5 +701,34 @@ public class DateUtils {
             throw new UnsupportedOperationException();
         }
     }
-
+    
+    //------------------------------------------------------------------------- 
+    // Deprecated int constants
+    // TODO: Remove in 3.0
+    
+    /**
+     * Number of milliseconds in a standard second.
+     * 
+     * @deprecated Use MILLIS_PER_SECOND. This will be removed in Commons Lang 3.0.
+     */
+    public static final int MILLIS_IN_SECOND = 1000;
+    /**
+     * Number of milliseconds in a standard minute.
+     * 
+     * @deprecated Use MILLIS_PER_MINUTE. This will be removed in Commons Lang 3.0.
+     */
+    public static final int MILLIS_IN_MINUTE = 60 * 1000;
+    /**
+     * Number of milliseconds in a standard hour.
+     * 
+     * @deprecated Use MILLIS_PER_HOUR. This will be removed in Commons Lang 3.0.
+     */
+    public static final int MILLIS_IN_HOUR = 60 * 60 * 1000;
+    /**
+     * Number of milliseconds in a standard day.
+     * 
+     * @deprecated Use MILLIS_PER_DAY. This will be removed in Commons Lang 3.0.
+     */
+    public static final int MILLIS_IN_DAY = 24 * 60 * 60 * 1000;
+    
 }
