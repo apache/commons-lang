@@ -63,18 +63,18 @@ import org.apache.commons.lang.math.NumberUtils;
 /** 
  * <p><code>CompareTo</code> generation routines.</p>
  *
- * <p>This class provides methods to build a good <comde>compareTo()</code>
- * method for any class. It is consistent with the <code>equals</code> and
- * <code>hashcode</code> built with {@link EqualsBuilder} and
+ * <p>This class provides methods to build a good <code>compareTo</code>
+ * method for any class. It is consistent with the <code>equals()</code> and
+ * <code>hashcode()</code> built with {@link EqualsBuilder} and
  * {@link HashCodeBuilder}.</p>
  *
- * <p>Two object that compare equal using equals should normally compare 
- * equals using <code>compareTo</code></p>.
+ * <p>Two Objects that compare equal using <code>equals()</code> should normally
+ * also compare equal using <code>compareTo()</code></p>.
  *
  * <p>All relevant fields should be included in the calculation of the
  * comparison. Derived fields may be ignored. The same fields, in the same
- * order, should be used in both <code>compareTo</code> and
- * <code>equals</code>.</p>
+ * order, should be used in both <code>compareTo()</code> and
+ * <code>equals()</code>.</p>
  *
  * <p>Typical use for the code is as follows:</p>
  *
@@ -107,8 +107,9 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author Stephen Colebourne
  * @author Gary Gregory
+ * @author Pete Gieser
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.17 2003/07/19 03:25:38 ggregory Exp $
+ * @version $Id: CompareToBuilder.java,v 1.18 2003/07/21 23:14:37 scolebourne Exp $
  */
 public class CompareToBuilder {
     
@@ -137,7 +138,7 @@ public class CompareToBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
-     * a security manger, if the permissions are not set up correctly. It is
+     * a security manager, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.</p>
      *
      * <p>Transient members will be not be tested, as they are likely derived
@@ -164,7 +165,7 @@ public class CompareToBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
-     * a security manger, if  the permissions are not set up correctly. It is
+     * a security manager, if  the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.</p>
      *
      * <p>If the <code>testTransients</code> is set to <code>true</code>,
@@ -193,7 +194,7 @@ public class CompareToBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
-     * a security manger, if  the permissions are not set up correctly. It is
+     * a security manager, if  the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.</p>
      *
      * <p>If the <code>testTransients</code> is set to <code>true</code>,
@@ -274,10 +275,10 @@ public class CompareToBuilder {
     /**
      * <p>Adds the result of super.hashCode() to this builder.</p>
      *
-     * @param superHashCode  the result of calling <code>super.equals()</code>
+     * @param superCompareTo  the result of calling <code>super.compareTo()</code>
      * @return CompareToBuilder - used to chain calls.
      */
-    public CompareToBuilder appendSuper(int superHashCode) {
+    public CompareToBuilder appendSuper(int superCompareTo) {
         if (comparison != 0) {
             return this;
         }
@@ -522,7 +523,7 @@ public class CompareToBuilder {
      * <p>Deep comparison of an <code>Object</code> array.</p>
      *
      * <ol>
-     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
      *  <li>Check array length, a short length array is less than a long length array</li>
      *  <li>Check array contents element by element using {@link #append(long, long)}</li>
@@ -545,7 +546,7 @@ public class CompareToBuilder {
      * <p>Deep comparison of an <code>Object</code> array.</p>
      *
      * <ol>
-     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(Object, Object, Comparator)}</li>
@@ -591,7 +592,7 @@ public class CompareToBuilder {
      * <p>Deep comparison of a <code>long</code> array.</p>
      *
      * <ol>
-     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(long, long)}</li>
@@ -630,7 +631,7 @@ public class CompareToBuilder {
      * <p>Deep comparison of an <code>int</code> array.</p>
      *
      * <ol>
-     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(int, int)}</li>
@@ -669,7 +670,7 @@ public class CompareToBuilder {
      * <p>Deep comparison of a <code>short</code> array.</p>
      *
      * <ol>
-     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(short, short)}</li>
@@ -708,7 +709,7 @@ public class CompareToBuilder {
      * <p>Deep comparison of a <code>char</code> array.</p>
      *
      * <ol>
-     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(char, char)}</li>
@@ -747,7 +748,7 @@ public class CompareToBuilder {
      * <p>Deep comparison of a <code>byte</code> array.</p>
      *
      * <ol>
-     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(byte, byte)}</li>
@@ -786,7 +787,7 @@ public class CompareToBuilder {
      * <p>Deep comparison of a <code>double</code> array.</p>
      *
      * <ol>
-     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(double, double)}</li>
@@ -825,7 +826,7 @@ public class CompareToBuilder {
      * <p>Deep comparison of a <code>float</code> array.</p>
      *
      * <ol>
-     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(float, float)}
@@ -864,7 +865,7 @@ public class CompareToBuilder {
      * <p>Deep comparison of a <code>boolean/code> array.</p>
      *
      * <ol>
-     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if arrays are the same using <code>==</code></li>
      *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
      *  <li>Check array length, a shorter length array is less than a longer length array</li>
      *  <li>Check array contents element by element using {@link #append(boolean, boolean)}</li>
@@ -900,9 +901,10 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Return a negative integer if the <code>Object</code> is less
-     * than, a positive integer if the <code>Object</code> is greater than,
-     * or <code>0</code> if the <code>Object</code> is equal.</p>
+     * <p>Return a negative integer if this <code>Object</code> is less
+     * than, a positive integer if this <code>Object</code> is greater than,
+     * or <code>0</code> if this <code>Object</code> is equal to the specified
+     * Object.</p>
      * 
      * @return int - a negative integer, zero, or a positive integer as this 
      *  Object is less than, equal to, or greater than the specified Object.
