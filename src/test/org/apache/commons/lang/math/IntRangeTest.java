@@ -60,7 +60,9 @@ import junit.framework.TestSuite;
  * Test cases for the {@link IntRange} class.
  *
  * @author Stephen Colebourne
- * @version $Id: IntRangeTest.java,v 1.5 2003/08/18 02:22:27 bayard Exp $
+ * @author Janek Bogucki
+ * @author Phil Steitz
+ * @version $Id: IntRangeTest.java,v 1.6 2003/09/04 16:25:56 psteitz Exp $
  */
 public final class IntRangeTest extends AbstractRangeTest {
 
@@ -134,6 +136,10 @@ public final class IntRangeTest extends AbstractRangeTest {
         // test non Integer, for full coverage
         Long fiveL = new Long(5L);
         Long tenL = new Long(10L);
+        nr = new IntRange(fiveL, tenL);
+        assertEquals(five, nr.getMinimumNumber());
+        assertEquals(ten, nr.getMaximumNumber());
+        nr = new IntRange(tenL, fiveL);
         assertEquals(five, nr.getMinimumNumber());
         assertEquals(ten, nr.getMaximumNumber());
         
