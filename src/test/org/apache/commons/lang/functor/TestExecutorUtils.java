@@ -68,7 +68,7 @@ import org.apache.commons.lang.functor.PredicateUtils;
  * Tests the org.apache.commons.lang.functor.ExecutorUtils class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: TestExecutorUtils.java,v 1.3 2002/11/22 23:11:58 bayard Exp $
+ * @version $Id: TestExecutorUtils.java,v 1.4 2002/12/15 12:30:44 scolebourne Exp $
  */
 public class TestExecutorUtils extends junit.framework.TestCase {
 
@@ -413,7 +413,7 @@ public class TestExecutorUtils extends junit.framework.TestCase {
     
     public void testSwitchExecutorEx4() {
         try {
-            ExecutorUtils.switchExecutor(Collections.EMPTY_MAP);
+            ExecutorUtils.switchExecutor(new HashMap());
         } catch (IllegalArgumentException ex) {
             return;
         }
@@ -487,7 +487,7 @@ public class TestExecutorUtils extends junit.framework.TestCase {
     
     public void testSwitchMapExecutorEx2() {
         try {
-            ExecutorUtils.switchMapExecutor(Collections.EMPTY_MAP);
+            ExecutorUtils.switchMapExecutor(new HashMap());
         } catch (IllegalArgumentException ex) {
             return;
         }
