@@ -66,7 +66,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.3 2003/08/17 23:06:11 scolebourne Exp $
+ * @version $Id: WordUtils.java,v 1.4 2003/08/17 23:31:44 scolebourne Exp $
  */
 public class WordUtils {
 
@@ -272,6 +272,7 @@ public class WordUtils {
      * 
      * @param str  the String to capitalize, may be null
      * @return capitalized String, <code>null</code> if null String input
+     * @see #uncapitalize(String)
      * @see #capitalizeFully(String)
      */
     public static String capitalize(String str) {
@@ -351,8 +352,7 @@ public class WordUtils {
      * 
      * @param str  the String to uncapitalize, may be null
      * @return uncapitalized String, <code>null</code> if null String input
-     * @see #uncapitalize(String)
-     * @see #capitalizeAllWords(String)
+     * @see #capitalize(String)
      */
     public static String uncapitalize(String str) {
         int strLen;
