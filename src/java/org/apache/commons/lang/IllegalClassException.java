@@ -16,17 +16,50 @@
 package org.apache.commons.lang;
 
 /**
- * <p>Thrown when an object is an instance of an unexpected type (a class or interface).</p>
+ * <p>Thrown when an object is an instance of an unexpected type (a class or interface).
+ * This exception supplements the standard <code>IllegalArgumentException</code>
+ * by providing a more semantically rich description of the problem.</p>
+ * 
+ * <p><code>IllegalClassException</code> represents the case where a method takes
+ * in a genericly typed parameter like Object (typically because it has to due to some
+ * other interface it implements), but this implementation only actually accepts a specific
+ * type, for example String. This exception would be used in place of
+ * <code>IllegalArgumentException</code>, yet it still extends it.</p>
+ * 
+ * <pre>
+ * public void foo(Object obj) {
+ *   if (obj instanceof String == false) {
+ *     throw new IllegalClassException(String.class, obj);
+ *   }
+ *   // do something with the string
+ * }
+ * </pre>
  * 
  * @author Matthew Hawthorne
  * @author Gary Gregory
+ * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: IllegalClassException.java,v 1.6 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: IllegalClassException.java,v 1.7 2004/10/15 20:55:01 scolebourne Exp $
  */
 public class IllegalClassException extends IllegalArgumentException {
 
     /**
-     * <p>Instantiates with the specified types (classes or interfaces).</p>
+     * <p>Instantiates with the expected type, and actual object.</p>
+     * 
+     * @param expected  the expected type
+     * @param actual  the actual object
+     * @since 2.1
+     */
+    public IllegalClassException(Class expected, Object actual) {
+        super(
+            "Expected: "
+                + safeGetClassName(expected)
+                + ", actual: "
+                + (actual == null ? "null" : actual.getClass().getName()));
+    }
+
+    /**
+     * <p>Instantiates with the expected and actual types.</p>
      * 
      * @param expected  the expected type
      * @param actual  the actual type

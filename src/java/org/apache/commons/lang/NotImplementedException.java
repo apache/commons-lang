@@ -22,12 +22,31 @@ import org.apache.commons.lang.exception.Nestable;
 import org.apache.commons.lang.exception.NestableDelegate;
 
 /**
- * <p>Thrown to indicate that a block of code has not been implemented.</p>
+ * <p>Thrown to indicate that a block of code has not been implemented.
+ * This exception supplements <code>UnsupportedOperationException</code>
+ * by providing a more semantically rich description of the problem.</p>
+ * 
+ * <p><code>NotImplementedException</code> represents the case where the
+ * author has yet to implement the logic at this point in the program.
+ * This can act as an exception based TODO tag.
+ * Because this logic might be within a catch block, this exception
+ * suports exception chaining.</p>
+ * 
+ * <pre>
+ * public void foo() {
+ *   try {
+ *     // do something that throws an Exception
+ *   } catch (Exception ex) {
+ *     // don't know what to do here yet
+ *     throw new NotImplementedException("TODO", ex);
+ *   }
+ * }
+ * </pre>
  * 
  * @author Matthew Hawthorne
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: NotImplementedException.java,v 1.8 2004/03/16 22:42:58 scolebourne Exp $
+ * @version $Id: NotImplementedException.java,v 1.9 2004/10/15 20:55:01 scolebourne Exp $
  */
 public class NotImplementedException
         extends UnsupportedOperationException implements Nestable {
