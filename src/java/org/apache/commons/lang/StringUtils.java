@@ -114,7 +114,7 @@ import java.util.List;
  *  <li>empty - a zero-length string (<code>""</code>)
  *  <li>space - the space character (<code>' '</code>)(char 32)
  *  <li>whitespace - the characters defined by {@link Character#isWhitespace(char)}
- *  <li>trim - the characters &lt;= 32 as in {@link String#trim(String)}
+ *  <li>trim - the characters &lt;= 32 as in {@link String#trim()}
  * </ul>
  * 
  * <p><code>StringUtils</code> handles <code>null</code> input Strings quietly.
@@ -141,8 +141,9 @@ import java.util.List;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.74 2003/07/20 15:41:52 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.75 2003/07/20 23:57:26 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -192,8 +193,7 @@ public class StringUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Checks if a String is empty ("") or null.
-     * <code>null</code> returns <code>false</code></p>
+     * <p>Checks if a String is empty ("") or null.</p>
      * 
      * <pre>
      * StringUtils.isEmpty(null)      = true
@@ -260,7 +260,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if a String is not empty ("") and not null.</p>
+     * <p>Checks if a String is not empty (""), not null and not whitespace only.</p>
      * 
      * <pre>
      * StringUtils.isNotBlank(null)      = false
@@ -612,7 +612,7 @@ public class StringUtils {
      * StringUtils.stripAll(["abc  ", null])  = ["abc", null]
      * </pre>
      * 
-     * @param str  the array to remove whitespace from, may be null
+     * @param strs  the array to remove whitespace from, may be null
      * @return the stripped Strings, <code>null</code> if null array input
      */
     public static String[] stripAll(String[] strs) {
@@ -640,7 +640,7 @@ public class StringUtils {
      * StringUtils.stripAll(["yabcz", null], "yz")  = ["abc", null]
      * </pre>
      * 
-     * @param str  the array to remove characters from, may be null
+     * @param strs  the array to remove characters from, may be null
      * @param stripChars  the characters to remove, null treated as whitespace
      * @return the stripped Strings, <code>null</code> if null array input
      */
@@ -713,13 +713,13 @@ public class StringUtils {
     
     /**
      * <p>Finds the first index within a String, handling <code>null</code>.
-     * This method uses {@link String#indexOf(int)}</p>
+     * This method uses {@link String#indexOf(int)}.</p>
      *
-     * <p>A <code>null</code> String will return <code>-1</code>.</p>
+     * <p>A <code>null</code> or empty ("") String will return <code>-1</code>.</p>
      * 
      * <pre>
-     * StringUtils.indexOf(null, ' ')       = -1
-     * StringUtils.indexOf("", ' ')         = -1
+     * StringUtils.indexOf(null, *)         = -1
+     * StringUtils.indexOf("", *)           = -1
      * StringUtils.indexOf("aabaabaa", 'a') = 0
      * StringUtils.indexOf("aabaabaa", 'b') = 2
      * </pre>
@@ -739,17 +739,15 @@ public class StringUtils {
     /**
      * <p>Finds the first index within a String from a start position,
      * handling <code>null</code>.
-     * This method uses {@link String#indexOf(int, int)}</p>
+     * This method uses {@link String#indexOf(int, int)}.</p>
      *
-     * <p>A <code>null</code> String will return <code>-1</code>.
+     * <p>A <code>null</code> or empty ("") String will return <code>-1</code>.
      * A negative start position is treated as zero.
      * A start position greater than the string length returns <code>-1</code>.</p>
      * 
      * <pre>
-     * StringUtils.indexOf(null, ' ', 0)        = -1
-     * StringUtils.indexOf(null, ' ', -1)       = -1
-     * StringUtils.indexOf("", ' ', 0)          = -1
-     * StringUtils.indexOf("", ' ', -1)         = -1
+     * StringUtils.indexOf(null, *, *)          = -1
+     * StringUtils.indexOf("", *, *)            = -1
      * StringUtils.indexOf("aabaabaa", 'b', 0)  = 2
      * StringUtils.indexOf("aabaabaa", 'b', 3)  = 5
      * StringUtils.indexOf("aabaabaa", 'b', 9)  = -1
@@ -771,17 +769,18 @@ public class StringUtils {
     
     /**
      * <p>Finds the first index within a String, handling <code>null</code>.
-     * This method uses {@link String#indexOf(String)}</p>
+     * This method uses {@link String#indexOf(String)}.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.</p>
      * 
      * <pre>
-     * StringUtils.indexOf(null, null)       = -1
-     * StringUtils.indexOf("", null)         = -1
+     * StringUtils.indexOf(null, *)          = -1
+     * StringUtils.indexOf(*, null)          = -1
      * StringUtils.indexOf("", "")           = 0
      * StringUtils.indexOf("aabaabaa", "a")  = 0
      * StringUtils.indexOf("aabaabaa", "b")  = 2
      * StringUtils.indexOf("aabaabaa", "ab") = 1
+     * StringUtils.indexOf("aabaabaa", "")   = 0
      * </pre>
      * 
      * @param str  the String to check, may be null
@@ -798,7 +797,7 @@ public class StringUtils {
     
     /**
      * <p>Finds the first index within a String, handling <code>null</code>.
-     * This method uses {@link String#indexOf(String, int)}</p>
+     * This method uses {@link String#indexOf(String, int)}.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
      * A negative start position is treated as zero.
@@ -807,10 +806,8 @@ public class StringUtils {
      * an empty search String.</p>
      * 
      * <pre>
-     * StringUtils.indexOf(null, null, 0)       = -1
-     * StringUtils.indexOf(null, null, -1)      = -1
-     * StringUtils.indexOf("", null, 0)         = -1
-     * StringUtils.indexOf("", null, -1)        = -1
+     * StringUtils.indexOf(null, *, *)          = -1
+     * StringUtils.indexOf(*, null, *)          = -1
      * StringUtils.indexOf("", "", 0)           = 0
      * StringUtils.indexOf("aabaabaa", "a", 0)  = 0
      * StringUtils.indexOf("aabaabaa", "b", 0)  = 2
@@ -818,6 +815,7 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", "b", 3)  = 5
      * StringUtils.indexOf("aabaabaa", "b", 9)  = -1
      * StringUtils.indexOf("aabaabaa", "b", -1) = 2
+     * StringUtils.indexOf("aabaabaa", "", 2)   = 2
      * </pre>
      * 
      * @param str  the String to check, may be null
@@ -838,13 +836,13 @@ public class StringUtils {
     
     /**
      * <p>Finds the last index within a String, handling <code>null</code>.
-     * This method uses {@link String#indexOf(int)}</p>
+     * This method uses {@link String#lastIndexOf(int)}.</p>
      *
-     * <p>A <code>null</code> String will return <code>-1</code>.</p>
+     * <p>A <code>null</code> or empty ("") String will return <code>-1</code>.</p>
      * 
      * <pre>
-     * StringUtils.lastIndexOf(null, ' ')       = -1
-     * StringUtils.lastIndexOf("", ' ')         = -1
+     * StringUtils.lastIndexOf(null, *)         = -1
+     * StringUtils.lastIndexOf("", *)           = -1
      * StringUtils.lastIndexOf("aabaabaa", 'a') = 7
      * StringUtils.lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
@@ -864,22 +862,21 @@ public class StringUtils {
     /**
      * <p>Finds the last index within a String from a start position,
      * handling <code>null</code>.
-     * This method uses {@link String#indexOf(int, int)}</p>
+     * This method uses {@link String#lastIndexOf(int, int)}.</p>
      *
-     * <p>A <code>null</code> String will return <code>-1</code>.
-     * A negative  or zero start position returns <code>-1</code>.
+     * <p>A <code>null</code> or empty ("") String will return <code>-1</code>.
+     * A negative start position returns <code>-1</code>.
      * A start position greater than the string length searches the whole string.</p>
      * 
      * <pre>
-     * StringUtils.lastIndexOf(null, ' ', 0)        = -1
-     * StringUtils.lastIndexOf(null, ' ', -1)       = -1
-     * StringUtils.lastIndexOf("", ' ', 0)          = -1
-     * StringUtils.lastIndexOf("", ' ', -1)         = -1
+     * StringUtils.lastIndexOf(null, *, *)          = -1
+     * StringUtils.lastIndexOf("", *,  *)           = -1
      * StringUtils.lastIndexOf("aabaabaa", 'b', 8)  = 5
      * StringUtils.lastIndexOf("aabaabaa", 'b', 4)  = 2
      * StringUtils.lastIndexOf("aabaabaa", 'b', 0)  = -1
      * StringUtils.lastIndexOf("aabaabaa", 'b', 9)  = 5
      * StringUtils.lastIndexOf("aabaabaa", 'b', -1) = -1
+     * StringUtils.lastIndexOf("aabaabaa", 'a', 0)  = 0
      * </pre>
      * 
      * @param str  the String to check, may be null
@@ -897,17 +894,18 @@ public class StringUtils {
     
     /**
      * <p>Finds the last index within a String, handling <code>null</code>.
-     * This method uses {@link String#indexOf(String)}</p>
+     * This method uses {@link String#lastIndexOf(String)}.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.</p>
      * 
      * <pre>
-     * StringUtils.lastIndexOf(null, null)       = -1
-     * StringUtils.lastIndexOf("", null)         = -1
+     * StringUtils.lastIndexOf(null, *)          = -1
+     * StringUtils.lastIndexOf(*, null)          = -1
      * StringUtils.lastIndexOf("", "")           = 0
      * StringUtils.lastIndexOf("aabaabaa", "a")  = 0
      * StringUtils.lastIndexOf("aabaabaa", "b")  = 2
      * StringUtils.lastIndexOf("aabaabaa", "ab") = 1
+     * StringUtils.lastIndexOf("aabaabaa", "")   = 8
      * </pre>
      * 
      * @param str  the String to check, may be null
@@ -924,24 +922,23 @@ public class StringUtils {
     
     /**
      * <p>Finds the first index within a String, handling <code>null</code>.
-     * This method uses {@link String#indexOf(String, int)}</p>
+     * This method uses {@link String#lastIndexOf(String, int)}.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
      * A negative start position returns <code>-1</code>.
-     * A zero start position only matches an empty String ("").
-     * An empty ("") search String always matches unless start position negative.
+     * An empty ("") search String always matches unless the start position is negative.
      * A start position greater than the string length searches the whole string.</p>
      * 
      * <pre>
-     * StringUtils.lastIndexOf(null, null, 0)       = -1
-     * StringUtils.lastIndexOf(null, null, -1)      = -1
-     * StringUtils.lastIndexOf("", null, 0)         = -1
-     * StringUtils.lastIndexOf("", null, -1)        = -1
+     * StringUtils.lastIndexOf(null, *, *)          = -1
+     * StringUtils.lastIndexOf(*, null, *)          = -1
      * StringUtils.lastIndexOf("aabaabaa", "a", 8)  = 7
      * StringUtils.lastIndexOf("aabaabaa", "b", 8)  = 5
      * StringUtils.lastIndexOf("aabaabaa", "ab", 8) = 4
      * StringUtils.lastIndexOf("aabaabaa", "b", 9)  = 5
      * StringUtils.lastIndexOf("aabaabaa", "b", -1) = -1
+     * StringUtils.lastIndexOf("aabaabaa", "a", 0)  = 0
+     * StringUtils.lastIndexOf("aabaabaa", "b", 0)  = -1
      * </pre>
      * 
      * @param str  the String to check, may be null
@@ -962,13 +959,13 @@ public class StringUtils {
     
     /**
      * <p>Checks if String contains a search character, handling <code>null</code>.
-     * This method uses {@link String#indexOf(int)}</p>
+     * This method uses {@link String#indexOf(int)}.</p>
      *
-     * <p>A <code>null</code> String will return <code>-1</code>.</p>
+     * <p>A <code>null</code> or empty ("") String will return <code>false</code>.</p>
      * 
      * <pre>
-     * StringUtils.contains(null, ' ')  = false
-     * StringUtils.contains("", ' ')    = false
+     * StringUtils.contains(null, *)    = false
+     * StringUtils.contains("", *)      = false
      * StringUtils.contains("abc", 'a') = true
      * StringUtils.contains("abc", 'z') = false
      * </pre>
@@ -987,13 +984,13 @@ public class StringUtils {
     
     /**
      * <p>Find the first index within a String, handling <code>null</code>.
-     * This method uses {@link String#indexOf(String)}</p>
+     * This method uses {@link String#indexOf(int)}.</p>
      *
-     * <p>A <code>null</code> String will return <code>-1</code>.</p>
+     * <p>A <code>null</code> String will return <code>false</code>.</p>
      * 
      * <pre>
-     * StringUtils.contains(null, null)  = false
-     * StringUtils.contains("", null)    = false
+     * StringUtils.contains(null, *)     = false
+     * StringUtils.contains(*, null)     = false
      * StringUtils.contains("", "")      = true
      * StringUtils.contains("abc", "")   = true
      * StringUtils.contains("abc", "a")  = true
@@ -1019,19 +1016,22 @@ public class StringUtils {
      * <p>Find the first index of any of a set of potential substrings.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
-     * A <code>null</code> search array will return <code>-1</code>.
-     * A <code>null</code> search array entry will be ignored.</p>
+     * A <code>null</code> or zero length search array will return <code>-1</code>.
+     * A <code>null</code> search array entry will be ignored, but a search
+     * array containing "" will return <code>0</code> if <code>str</code> is not
+     * null. This method uses {@link String#indexOf(String)}.</p>
      * 
      * <pre>
-     * StringUtils.indexOfAny(null, null)                = -1
-     * StringUtils.indexOfAny(null, ["ab","cd"])         = -1
-     * StringUtils.indexOfAny("", null)                  = -1
-     * StringUtils.indexOfAny("", ["ab","cd"])           = -1
-     * StringUtils.indexOfAny("zzabyycdxx", null)        = -1
-     * StringUtils.indexOfAny("zzabyycdxx", [])          = -1
-     * StringUtils.indexOfAny("zzabyycdxx", ["ab","cd"]) = 2
-     * StringUtils.indexOfAny("zzabyycdxx", ["cd","ab"]) = 2
-     * StringUtils.indexOfAny("zzabyycdxx", ["mn","op"]) = -1
+     * StringUtils.indexOfAny(null, *)                     = -1
+     * StringUtils.indexOfAny(*, null)                     = -1
+     * StringUtils.indexOfAny(*, [])                       = -1
+     * StringUtils.indexOfAny("zzabyycdxx", ["ab","cd"])   = 2
+     * StringUtils.indexOfAny("zzabyycdxx", ["cd","ab"])   = 2
+     * StringUtils.indexOfAny("zzabyycdxx", ["mn","op"])   = -1
+     * StringUtils.indexOfAny("zzabyycdxx", ["zab","aby"]) = 1
+     * StringUtils.indexOfAny("zzabyycdxx", [""])          = 0
+     * StringUtils.indexOfAny("", [""])                    = 0
+     * StringUtils.indexOfAny("", ["a"])                   = -1
      * </pre>
      * 
      * @param str  the String to check, may be null
@@ -1071,18 +1071,20 @@ public class StringUtils {
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
      * A <code>null</code> search array will return <code>-1</code>.
-     * A <code>null</code> search array entry will be ignored.</p>
+     * A <code>null</code> or zero length search array entry will be ignored,
+     * but a search array containing "" will return the length of <code>str</code> 
+     * if <code>str</code> is not null. This method uses {@link String#indexOf(String)}</p>
      * 
      * <pre>
-     * StringUtils.lastIndexOfAny(null, null)                = -1
-     * StringUtils.lastIndexOfAny(null, ["ab","cd"])         = -1
-     * StringUtils.lastIndexOfAny("", null)                  = -1
-     * StringUtils.lastIndexOfAny("", ["ab","cd"])           = -1
-     * StringUtils.lastIndexOfAny("zzabyycdxx", null)        = -1
-     * StringUtils.lastIndexOfAny("zzabyycdxx", [])          = -1
+     * StringUtils.lastIndexOfAny(null, *)                   = -1
+     * StringUtils.lastIndexOfAny(*, null)                   = -1
+     * StringUtils.lastIndexOfAny(*, [])                     = -1
+     * StringUtils.lastIndexOfAny(*, [null])                 = -1
      * StringUtils.lastIndexOfAny("zzabyycdxx", ["ab","cd"]) = 6
      * StringUtils.lastIndexOfAny("zzabyycdxx", ["cd","ab"]) = 6
      * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn","op"]) = -1
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn","op"]) = -1
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn",""])   = 10
      * </pre>
      * 
      * @param str  the String to check, may be null
@@ -1115,6 +1117,17 @@ public class StringUtils {
     /**
      * <p>Search a String to find the first index of any
      * character not in the given set of characters.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.
+     * A <code>null</code> or zero length search array will return <code>-1</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.indexOfAnyBut(null, *)                     = -1
+     * StringUtils.indexOfAnyBut(*, null)                     = -1
+     * StringUtils.indexOfAnyBut("zzabyycdxx",'za')           = 3
+     * StringUtils.indexOfAnyBut("zzabyycdxx", '')            = 0
+     * StringUtils.indexOfAnyBut("aba", 'ab')                 = -1
+     * </pre>
      * 
      * @param str  the String to check, may be null
      * @param searchChars  the chars to search for, may be null
@@ -1130,7 +1143,18 @@ public class StringUtils {
     /**
      * <p>Search a String to find the first index of any
      * character not in the given set of characters.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.
+     * A <code>null</code> search string will return <code>-1</code>.</p>
      * 
+     * <pre>
+     * StringUtils.indexOfAnyBut(null, *)                     = -1
+     * StringUtils.indexOfAnyBut(*, null)                     = -1
+     * StringUtils.indexOfAnyBut("zzabyycdxx", "za")          = 3
+     * StringUtils.indexOfAnyBut("zzabyycdxx", "")            = 0
+     * StringUtils.indexOfAnyBut("aba","ab")                  = -1
+     * </pre>
+     *  
      * @param str  the String to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
@@ -1155,11 +1179,14 @@ public class StringUtils {
     /**
      * <p>Checks if the String contains only certain characters.</p>
      *
+     * <p>A <code>null</code> String will return <code>false</code>.
+     * A <code>null</code> valid character array will return <code>false</code>.
+     * An empty String ("") always returns <code>true</code>.</p>
+     *
      * <pre>
-     * StringUtils.containsOnly(null, 'abc')   = false
-     * StringUtils.containsOnly("", null)      = false
-     * StringUtils.containsOnly("", 'abc')     = true
-     * StringUtils.containsOnly("", '')        = true
+     * StringUtils.containsOnly(null, *)       = false
+     * StringUtils.containsOnly(*, null)       = false
+     * StringUtils.containsOnly("", *)         = true
      * StringUtils.containsOnly("ab", '')      = false
      * StringUtils.containsOnly("abab", 'abc') = true
      * StringUtils.containsOnly("ab1", 'abc')  = false
@@ -1187,11 +1214,14 @@ public class StringUtils {
     /**
      * <p>Checks if the String contains only certain characters.</p>
      *
+     * <p>A <code>null</code> String will return <code>false</code>.
+     * A <code>null</code> valid character String will return <code>false</code>.
+     * An empty String ("") always returns <code>true</code>.</p>
+     *
      * <pre>
-     * StringUtils.containsOnly(null, "abc")   = false
-     * StringUtils.containsOnly("", null)      = false
-     * StringUtils.containsOnly("", "abc")     = true
-     * StringUtils.containsOnly("", "")        = true
+     * StringUtils.containsOnly(null, *)       = false
+     * StringUtils.containsOnly(*, null)       = false
+     * StringUtils.containsOnly("", *)         = true
      * StringUtils.containsOnly("ab", "")      = false
      * StringUtils.containsOnly("abab", "abc") = true
      * StringUtils.containsOnly("ab1", "abc")  = false
@@ -1215,15 +1245,18 @@ public class StringUtils {
     /**
      * <p>Checks that the String does not contain certain characters.</p>
      *
+     * <p>A <code>null</code> String will return <code>true</code>.
+     * A <code>null</code> invalid character array will return <code>true</code>.
+     * An empty String ("") always returns true.</p>
+     *
      * <pre>
-     * StringUtils.containsOnly(null, 'xyz')   = true
-     * StringUtils.containsOnly("", null)      = true
-     * StringUtils.containsOnly("", 'xyz')     = true
-     * StringUtils.containsOnly("", '')        = true
-     * StringUtils.containsOnly("ab", '')      = true
-     * StringUtils.containsOnly("abab", 'xyz') = true
-     * StringUtils.containsOnly("ab1", 'xyz')  = true
-     * StringUtils.containsOnly("abz", 'xyz')  = false
+     * StringUtils.containsNone(null, *)       = true
+     * StringUtils.containsNone(*, null)       = true
+     * StringUtils.containsNone("", *)         = true
+     * StringUtils.containsNone("ab", '')      = true
+     * StringUtils.containsNone("abab", 'xyz') = true
+     * StringUtils.containsNone("ab1", 'xyz')  = true
+     * StringUtils.containsNone("abz", 'xyz')  = false
      * </pre>
      * 
      * @param str  the String to check, may be null
@@ -1250,15 +1283,18 @@ public class StringUtils {
     /**
      * <p>Checks that the String does not contain certain characters.</p>
      *
+     * <p>A <code>null</code> String will return <code>true</code>.
+     * A <code>null</code> invalid character array will return <code>true</code>.
+     * An empty String ("") always returns true.</p>
+     *
      * <pre>
-     * StringUtils.containsOnly(null, "xyz")   = true
-     * StringUtils.containsOnly("", null)      = true
-     * StringUtils.containsOnly("", "xyz")     = true
-     * StringUtils.containsOnly("", "")        = true
-     * StringUtils.containsOnly("ab", "")      = true
-     * StringUtils.containsOnly("abab", "xyz") = true
-     * StringUtils.containsOnly("ab1", "xyz")  = true
-     * StringUtils.containsOnly("abz", "xyz")  = false
+     * StringUtils.containsNone(null, *)       = true
+     * StringUtils.containsNone(*, null)       = true
+     * StringUtils.containsNone("", *)         = true
+     * StringUtils.containsNone("ab", "")      = true
+     * StringUtils.containsNone("abab", "xyz") = true
+     * StringUtils.containsNone("ab1", "xyz")  = true
+     * StringUtils.containsNone("abz", "xyz")  = false
      * </pre>
      * 
      * @param str  the String to check, may be null
@@ -1280,10 +1316,13 @@ public class StringUtils {
      *
      * <p>A negative start position can be used to start <code>n</code>
      * characters from the end of the String.</p>
+     *
+     * <p>A <code>null</code> String will return <code>null</code>.
+     * An empty ("") String will return "".</p>
      * 
      * <pre>
-     * StringUtils.substring(null, 0)   = null
-     * StringUtils.substring("", 0)     = ""
+     * StringUtils.substring(null, *)   = null
+     * StringUtils.substring("", *)     = ""
      * StringUtils.substring("abc", 0)  = "abc"
      * StringUtils.substring("abc", 2)  = "c"
      * StringUtils.substring("abc", 4)  = ""
@@ -1321,14 +1360,24 @@ public class StringUtils {
      *
      * <p>A negative start position can be used to start/end <code>n</code>
      * characters from the end of the String.</p>
+     *
+     * <p>The returned substring starts with the character in the <code>start</code>
+     * position and ends before the <code>end</code> position. All postion counting is 
+     * zero-based -- i.e., to start at the beginning of the string use 
+     * <code>start = 0</code>. Negative start and end positions can be used to 
+     * specify offsets relative to the end of the String.</p>
+     *
+     * <p>If <code>start</code> is not strictly to the left of <code>end</code>, ""
+     * is returned.</p>
      * 
      * <pre>
-     * StringUtils.substring(null, 0, 2)    = null
-     * StringUtils.substring("", 0, 2)      = ""
+     * StringUtils.substring(null, *, *)    = null
+     * StringUtils.substring("", * ,  *)    = "";
      * StringUtils.substring("abc", 0, 2)   = "ab"
      * StringUtils.substring("abc", 2, 0)   = ""
      * StringUtils.substring("abc", 2, 4)   = "c"
      * StringUtils.substring("abc", 4, 6)   = ""
+     * StringUtils.substring("abc", 2, 2)   = ""
      * StringUtils.substring("abc", -2, -1) = "b"
      * StringUtils.substring("abc", -4, 2)  = "ab"
      * </pre>
@@ -1502,6 +1551,7 @@ public class StringUtils {
      * StringUtils.split("")         = []
      * StringUtils.split("abc def")  = ["abc", "def"]
      * StringUtils.split("abc  def") = ["abc", "def"]
+     * StringUtils.split(" abc ")    = ["abc"]
      * </pre>
      * 
      * @param str  the String to parse, may be null
@@ -1521,15 +1571,17 @@ public class StringUtils {
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
-     * StringUtils.split(null, '.')     = null
-     * StringUtils.split("", '.')       = []
-     * StringUtils.split("a.b.c", '.')  = ["a", "b", "c"]
-     * StringUtils.split("a..b.c", '.') = ["a", "b", "c"]
-     * StringUtils.split("a:b:c", '.')  = ["a:b:c"]
+     * StringUtils.split(null, '.')       = null
+     * StringUtils.split("", '.')         = []
+     * StringUtils.split("a.b.c", '.')    = ["a", "b", "c"]
+     * StringUtils.split("a..b.c", '.')   = ["a", "b", "c"]
+     * StringUtils.split("a:b:c", '.')    = ["a:b:c"]
+     * StringUtils.split("a\tb\nc", null) = ["a", "b", "c"]
+     * StringUtils.split("a b c", ' ')    = ["a", "b", "c"]
      * </pre>
      * 
      * @param str  the String to parse, may be null
-     * @param separatorChars  the characters used as the delimiters,
+     * @param separatorChar  the character used as the delimiter,
      *  <code>null</code> splits on whitespace
      * @return an array of parsed Strings, <code>null</code> if null String input
      */
@@ -2868,7 +2920,7 @@ public class StringUtils {
 
     /**
      * <p>Capitalises a String changing the first letter to title case as
-     * per {@link Character#toTitleCase()}. No other letters are changed.</p>
+     * per {@link Character#toTitleCase(char)}. No other letters are changed.</p>
      * 
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      * 
@@ -2895,7 +2947,7 @@ public class StringUtils {
 
     /**
      * <p>Uncapitalises a String changing the first letter to title case as
-     * per {@link Character#toLowerCase()}. No other letters are changed.</p>
+     * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
      * 
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      * 
