@@ -32,7 +32,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.29 2004/06/27 04:42:54 bayard Exp $
+ * @version $Id: ClassUtils.java,v 1.30 2004/06/30 18:33:58 ggregory Exp $
  */
 public class ClassUtils {
 
@@ -101,14 +101,12 @@ public class ClassUtils {
     /**
      * <p>Gets the class name minus the package name from a <code>Class</code>.</p>
      * 
-     * @param cls  the class to get the short name for, must not be
-     *  <code>null</code>
-     * @return the class name without the package name
-     * @throws IllegalArgumentException if the class is <code>null</code>
+     * @param cls  the class to get the short name for.
+     * @return the class name without the package name or an empty string
      */
     public static String getShortClassName(Class cls) {
         if (cls == null) {
-            throw new IllegalArgumentException("The class must not be null");
+            return StringUtils.EMPTY;
         }
         return getShortClassName(cls.getName());
     }
@@ -118,14 +116,15 @@ public class ClassUtils {
      *
      * <p>The string passed in is assumed to be a class name - it is not checked.</p>
      * 
-     * @param className  the className to get the short name for,
-     *  must not be empty or <code>null</code>
-     * @return the class name of the class without the package name
-     * @throws IllegalArgumentException if the className is empty
+     * @param className  the className to get the short name for
+     * @return the class name of the class without the package name or an empty string
      */
     public static String getShortClassName(String className) {
-        if (StringUtils.isEmpty(className)) {
-            throw new IllegalArgumentException("The class name must not be empty");
+        if (className == null) {
+            return StringUtils.EMPTY;
+        }
+        if (className.length() == 0) {
+            return StringUtils.EMPTY;
         }
         char[] chars = className.toCharArray();
         int lastDot = 0;
@@ -158,14 +157,12 @@ public class ClassUtils {
     /**
      * <p>Gets the package name of a <code>Class</code>.</p>
      * 
-     * @param cls  the class to get the package name for,
-     *  must not be <code>null</code>
-     * @return the package name
-     * @throws IllegalArgumentException if the class is <code>null</code>
+     * @param cls  the class to get the package name for, may be <code>null</code>.
+     * @return the package name or an empty string
      */
     public static String getPackageName(Class cls) {
         if (cls == null) {
-            throw new IllegalArgumentException("The class must not be null");
+            return StringUtils.EMPTY;
         }
         return getPackageName(cls.getName());
     }
@@ -174,19 +171,18 @@ public class ClassUtils {
      * <p>Gets the package name from a <code>String</code>.</p>
      *
      * <p>The string passed in is assumed to be a class name - it is not checked.</p>
+	 * <p>If the class is unpackaged, return an empty string.</p>
      * 
-     * @param className  the className to get the package name for,
-     *  must not be empty or <code>null</code>
-     * @return the package name
-     * @throws IllegalArgumentException if the className is empty
+     * @param className  the className to get the package name for, may be <code>null</code>
+     * @return the package name or an empty string
      */
     public static String getPackageName(String className) {
-        if (StringUtils.isEmpty(className)) {
-            throw new IllegalArgumentException("The class name must not be empty");
+        if (className == null) {
+            return StringUtils.EMPTY;
         }
         int i = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
         if (i == -1) {
-            return "";
+            return StringUtils.EMPTY;
         }
         return className.substring(0, i);
     }
