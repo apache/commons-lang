@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -80,8 +80,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Pete Gieser
  * @author Gary Gregory
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
+ * @author Fredrik Westermarck
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.31 2004/01/08 17:50:40 fredrik Exp $
+ * @version $Id: ArrayUtils.java,v 1.32 2004/01/19 21:50:06 fredrik Exp $
  */
 public class ArrayUtils {
 
@@ -2625,4 +2626,130 @@ public class ArrayUtils {
         return result;
     }
 
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Checks if an array of Objects is empty or <code>null</code>.</p>
+     *
+     * @param array  the array to test
+     * @return <code>true</code> if the array is empty or <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isEmpty(final Object[] array) {
+        if (array == null || array.length == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * <p>Checks if an array of primitive longs is empty or <code>null</code>.</p>
+     *
+     * @param array  the array to test
+     * @return <code>true</code> if the array is empty or <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isEmpty(final long[] array) {
+        if (array == null || array.length == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * <p>Checks if an array of primitive ints is empty or <code>null</code>.</p>
+     *
+     * @param array  the array to test
+     * @return <code>true</code> if the array is empty or <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isEmpty(final int[] array) {
+        if (array == null || array.length == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * <p>Checks if an array of primitive shorts is empty or <code>null</code>.</p>
+     *
+     * @param array  the array to test
+     * @return <code>true</code> if the array is empty or <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isEmpty(final short[] array) {
+        if (array == null || array.length == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * <p>Checks if an array of primitive chars is empty or <code>null</code>.</p>
+     *
+     * @param array  the array to test
+     * @return <code>true</code> if the array is empty or <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isEmpty(final char[] array) {
+        if (array == null || array.length == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * <p>Checks if an array of primitive bytes is empty or <code>null</code>.</p>
+     *
+     * @param array  the array to test
+     * @return <code>true</code> if the array is empty or <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isEmpty(final byte[] array) {
+        if (array == null || array.length == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * <p>Checks if an array of primitive doubles is empty or <code>null</code>.</p>
+     *
+     * @param array  the array to test
+     * @return <code>true</code> if the array is empty or <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isEmpty(final double[] array) {
+        if (array == null || array.length == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * <p>Checks if an array of primitive floats is empty or <code>null</code>.</p>
+     *
+     * @param array  the array to test
+     * @return <code>true</code> if the array is empty or <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isEmpty(final float[] array) {
+        if (array == null || array.length == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * <p>Checks if an array of primitive booleans is empty or <code>null</code>.</p>
+     *
+     * @param array  the array to test
+     * @return <code>true</code> if the array is empty or <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isEmpty(final boolean[] array) {
+        if (array == null || array.length == 0) {
+            return true;
+        }
+        return false;
+    }
 }
