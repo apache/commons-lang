@@ -64,7 +64,7 @@ import junit.framework.TestSuite;
  *
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Revision: 1.1 $ $Date: 2002/07/19 03:35:55 $
+ * @version $Revision: 1.2 $ $Date: 2002/10/08 19:14:20 $
  */
 
 public final class NumberRangeTest extends TestCase {
@@ -175,6 +175,45 @@ public final class NumberRangeTest extends TestCase {
         assertEquals(expected, result);
     }
 
+	public void testConstructorNullParameters()
+	{
+		try
+		{
+			NumberRange nr = new NumberRange(null);
+			fail("NumberRange(null) did not throw an exception.");
+		}
+		catch (Exception e)
+		{
+			assertTrue(
+				"NumberRange(null)",
+				e instanceof NullPointerException);
+		}
+
+		try
+		{
+			NumberRange nr = new NumberRange(five, null);
+			fail("NumberRange(five, null) did not throw an exception.");
+		}
+		catch (Exception e)
+		{
+			assertTrue(
+				"NumberRange(five, null)",
+				e instanceof NullPointerException);
+		}
+
+		try
+		{
+			NumberRange nr = new NumberRange(null, five);
+			fail("NumberRange(null, five) did not throw an exception.");
+		}
+		catch (Exception e)
+		{
+			assertTrue(
+				"NumberRange(null, five)",
+				e instanceof NullPointerException);
+		}
+
+	}
 
     public void testToString() {
         String expected = "10-20";
