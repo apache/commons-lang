@@ -30,7 +30,7 @@ limitations under the License.
 
     <menu name="Commons Lang">
       <item name="Overview" href="/index.html"/>
-      <!--item name="Users guide" href="/userguide.html"/-->
+      <item name="Users guide" href="/userguide.html"/>
       <item name="Javadoc (2.0 release)" href="api/index.html"/>
       <item name="Mailing lists" href="/mail-lists.html"/>
       <item name="Team" href="/team-list.html"/>
