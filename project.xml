@@ -287,6 +287,9 @@ limitations under the License.
     <contributor>
       <name>Chris Webb</name>
     </contributor>
+    <contributor>
+      <name>Michael Davey</name>
+    </contributor>
   </contributors>
   
   <!-- Lang should depend on very little -->
