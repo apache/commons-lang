@@ -52,8 +52,9 @@
  * <http://www.apache.org/>.
  */
 
-/**
- * Note: originally released under the GNU LGPL v2.1, but rereleased by the original author under the ASF license (above).
+/*
+ * Note: originally released under the GNU LGPL v2.1, 
+ * but rereleased by the original author under the ASF license (above).
  */
 package org.apache.commons.lang;
 
@@ -66,11 +67,12 @@ package org.apache.commons.lang;
  *
  * @author Justin Couch
  * @author Alex Chaffee (alex@apache.org)
- * @version $Revision: 1.2 $
+ * @author Stephen Colebourne
+ * @version $Revision: 1.3 $
  * @see java.util.HashMap
  */
-public class IntHashMap
-{
+class IntHashMap {
+
     /**
      * The hash table data.
      */
@@ -100,8 +102,7 @@ public class IntHashMap
      * <p>Innerclass that acts as a datastructure to create a new entry in the
      * table.</p>
      */
-    private static class Entry
-    {
+    private static class Entry {
         int hash;
         int key;
         Object value;
@@ -115,8 +116,7 @@ public class IntHashMap
          * @param value The value for this key
          * @param next A reference to the next entry in the table
          */
-        protected Entry(int hash, int key, Object value, Entry next)
-        {
+        protected Entry(int hash, int key, Object value, Entry next) {
             this.hash = hash;
             this.key = key;
             this.value = value;
@@ -128,8 +128,7 @@ public class IntHashMap
      * <p>Constructs a new, empty hashtable with a default capacity and load
      * factor, which is <code>20</code> and <code>0.75</code> respectively.</p>
      */
-    public IntHashMap()
-    {
+    public IntHashMap() {
         this(20, 0.75f);
     }
 
@@ -141,8 +140,7 @@ public class IntHashMap
      * @throws IllegalArgumentException if the initial capacity is less
      *   than zero.
      */
-    public IntHashMap(int initialCapacity)
-    {
+    public IntHashMap(int initialCapacity) {
         this(initialCapacity, 0.75f);
     }
 
@@ -155,16 +153,17 @@ public class IntHashMap
      * @throws IllegalArgumentException  if the initial capacity is less
      *             than zero, or if the load factor is nonpositive.
      */
-    public IntHashMap(int initialCapacity, float loadFactor)
-    {
-        if (initialCapacity < 0)
-            throw new IllegalArgumentException("Illegal Capacity: " +
-                    initialCapacity);
-        if (loadFactor <= 0)
+    public IntHashMap(int initialCapacity, float loadFactor) {
+        super();
+        if (initialCapacity < 0) {
+            throw new IllegalArgumentException("Illegal Capacity: " + initialCapacity);
+        }
+        if (loadFactor <= 0) {
             throw new IllegalArgumentException("Illegal Load: " + loadFactor);
-
-        if (initialCapacity == 0)
+        }
+        if (initialCapacity == 0) {
             initialCapacity = 1;
+        }
 
         this.loadFactor = loadFactor;
         table = new Entry[initialCapacity];
@@ -176,8 +175,7 @@ public class IntHashMap
      *
      * @return  the number of keys in this hashtable.
      */
-    public int size()
-    {
+    public int size() {
         return count;
     }
 
@@ -187,8 +185,7 @@ public class IntHashMap
      * @return  <code>true</code> if this hashtable maps no keys to values;
      *          <code>false</code> otherwise.
      */
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         return count == 0;
     }
 
@@ -210,20 +207,15 @@ public class IntHashMap
      * @see        #containsValue(Object)
      * @see        java.util.Map
      */
-    public boolean contains(Object value)
-    {
-        if (value == null)
-        {
+    public boolean contains(Object value) {
+        if (value == null) {
             throw new NullPointerException();
         }
 
         Entry tab[] = table;
-        for (int i = tab.length; i-- > 0;)
-        {
-            for (Entry e = tab[i]; e != null; e = e.next)
-            {
-                if (e.value.equals(value))
-                {
+        for (int i = tab.length; i-- > 0;) {
+            for (Entry e = tab[i]; e != null; e = e.next) {
+                if (e.value.equals(value)) {
                     return true;
                 }
             }
@@ -242,8 +234,7 @@ public class IntHashMap
      * @see    java.util.Map
      * @since JDK1.2
      */
-    public boolean containsValue(Object value)
-    {
+    public boolean containsValue(Object value) {
         return contains(value);
     }
 
@@ -256,15 +247,12 @@ public class IntHashMap
      *    method; <code>false</code> otherwise.
      * @see #contains(Object)
      */
-    public boolean containsKey(int key)
-    {
+    public boolean containsKey(int key) {
         Entry tab[] = table;
         int hash = key;
         int index = (hash & 0x7FFFFFFF) % tab.length;
-        for (Entry e = tab[index]; e != null; e = e.next)
-        {
-            if (e.hash == hash)
-            {
+        for (Entry e = tab[index]; e != null; e = e.next) {
+            if (e.hash == hash) {
                 return true;
             }
         }
@@ -280,15 +268,12 @@ public class IntHashMap
      *          this hashtable.
      * @see     #put(int, Object)
      */
-    public Object get(int key)
-    {
+    public Object get(int key) {
         Entry tab[] = table;
         int hash = key;
         int index = (hash & 0x7FFFFFFF) % tab.length;
-        for (Entry e = tab[index]; e != null; e = e.next)
-        {
-            if (e.hash == hash)
-            {
+        for (Entry e = tab[index]; e != null; e = e.next) {
+            if (e.hash == hash) {
                 return e.value;
             }
         }
@@ -304,8 +289,7 @@ public class IntHashMap
      * in the hashtable exceeds this hashtable's capacity and load
      * factor.</p>
      */
-    protected void rehash()
-    {
+    protected void rehash() {
         int oldCapacity = table.length;
         Entry oldMap[] = table;
 
@@ -315,10 +299,8 @@ public class IntHashMap
         threshold = (int) (newCapacity * loadFactor);
         table = newMap;
 
-        for (int i = oldCapacity; i-- > 0;)
-        {
-            for (Entry old = oldMap[i]; old != null;)
-            {
+        for (int i = oldCapacity; i-- > 0;) {
+            for (Entry old = oldMap[i]; old != null;) {
                 Entry e = old;
                 old = old.next;
 
@@ -344,24 +326,20 @@ public class IntHashMap
      * @throws  NullPointerException  if the key is <code>null</code>.
      * @see     #get(int)
      */
-    public Object put(int key, Object value)
-    {
+    public Object put(int key, Object value) {
         // Makes sure the key is not already in the hashtable.
         Entry tab[] = table;
         int hash = key;
         int index = (hash & 0x7FFFFFFF) % tab.length;
-        for (Entry e = tab[index]; e != null; e = e.next)
-        {
-            if (e.hash == hash)
-            {
+        for (Entry e = tab[index]; e != null; e = e.next) {
+            if (e.hash == hash) {
                 Object old = e.value;
                 e.value = value;
                 return old;
             }
         }
 
-        if (count >= threshold)
-        {
+        if (count >= threshold) {
             // Rehash the table if the threshold is exceeded
             rehash();
 
@@ -387,21 +365,15 @@ public class IntHashMap
      * @return  the value to which the key had been mapped in this hashtable,
      *          or <code>null</code> if the key did not have a mapping.
      */
-    public Object remove(int key)
-    {
+    public Object remove(int key) {
         Entry tab[] = table;
         int hash = key;
         int index = (hash & 0x7FFFFFFF) % tab.length;
-        for (Entry e = tab[index], prev = null; e != null; prev = e, e = e.next)
-        {
-            if (e.hash == hash)
-            {
-                if (prev != null)
-                {
+        for (Entry e = tab[index], prev = null; e != null; prev = e, e = e.next) {
+            if (e.hash == hash) {
+                if (prev != null) {
                     prev.next = e.next;
-                }
-                else
-                {
+                } else {
                     tab[index] = e.next;
                 }
                 count--;
@@ -416,11 +388,12 @@ public class IntHashMap
     /**
      * <p>Clears this hashtable so that it contains no keys.</p>
      */
-    public synchronized void clear()
-    {
+    public synchronized void clear() {
         Entry tab[] = table;
-        for (int index = tab.length; --index >= 0;)
+        for (int index = tab.length; --index >= 0;) {
             tab[index] = null;
+        }
         count = 0;
     }
+    
 }
