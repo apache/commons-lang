@@ -18,12 +18,28 @@ package org.apache.commons.lang;
 import org.apache.commons.lang.exception.NestableRuntimeException;
 
 /**
- * Thrown when it is impossible or undesirable to consume
- * or throw a checked exception.
+ * <p>Thrown when it is impossible or undesirable to consume or throw a checked exception.</p>
+ * This exception supplements the standard exception classes by providing a more
+ * semantically rich description of the problem.</p>
+ * 
+ * <p><code>UnhandledException</code> represents the case where a method has to deal
+ * with a checked exception but does not wish to.
+ * Instead, the checked exception is rethrown in this unchecked wrapper.</p>
+ * 
+ * <pre>
+ * public void foo() {
+ *   try {
+ *     // do something that throws IOException
+ *   } catch (IOException ex) {
+ *     // don't want to or can't throw IOException from foo()
+ *     throw new UnhandledException(ex);
+ *   }
+ * }
+ * </pre>
  *
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: UnhandledException.java,v 1.5 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: UnhandledException.java,v 1.6 2004/10/15 20:55:01 scolebourne Exp $
  */
 public class UnhandledException extends NestableRuntimeException {
 

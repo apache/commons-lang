@@ -17,12 +17,30 @@ package org.apache.commons.lang;
 
 /**
  * <p>Thrown to indicate that an argument was <code>null</code> and should
- * not have been.</p>
+ * not have been.
+ * This exception supplements the standard <code>IllegalArgumentException</code>
+ * by providing a more semantically rich description of the problem.</p>
+ * 
+ * <p><code>NullArgumentException</code> represents the case where a method takes
+ * in a parameter that must not be <code>null</code>.
+ * Some coding standards would use <code>NullPointerException</code> for this case,
+ * others will use <code>IllegalArgumentException</code>.
+ * Thus this exception would be used in place of
+ * <code>IllegalArgumentException</code>, yet it still extends it.</p>
+ * 
+ * <pre>
+ * public void foo(String str) {
+ *   if (str == null) {
+ *     throw new NullArgumentException("str");
+ *   }
+ *   // do something with the string
+ * }
+ * </pre>
  * 
  * @author Matthew Hawthorne
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: NullArgumentException.java,v 1.7 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: NullArgumentException.java,v 1.8 2004/10/15 20:55:01 scolebourne Exp $
  */
 public class NullArgumentException extends IllegalArgumentException {
 
@@ -32,6 +50,7 @@ public class NullArgumentException extends IllegalArgumentException {
     * @param argName  the name of the argument that was <code>null</code>.
     */
     public NullArgumentException(String argName) {
-        super(argName + " must not be null.");
+        super((argName == null ? "Argument" : argName) + " must not be null.");
     }
+
 }

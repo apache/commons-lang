@@ -18,11 +18,31 @@ package org.apache.commons.lang;
 import java.util.Arrays;
 
 /**
- * <p>Thrown to indicate an incomplete argument to a method.</p>
+ * <p>Thrown to indicate an incomplete argument to a method.
+ * This exception supplements the standard <code>IllegalArgumentException</code>
+ * by providing a more semantically rich description of the problem.</p>
+ * 
+ * <p><code>IncompleteArgumentException</code> represents the case where a method takes
+ * in a parameter that has a number of properties, some of which have not been set.
+ * A case might be a search requirements bean that must have three properties set
+ * in order for the method to run, but only one is actually set.
+ * This exception would be used in place of
+ * <code>IllegalArgumentException</code>, yet it still extends it.</p>
+ * 
+ * <pre>
+ * public void foo(PersonSearcher search) {
+ *   if (search.getSurname() == null ||
+ *       search.getForename() == null ||
+ *       search.getSex() == null) {
+ *     throw new IncompleteArgumentException("search");
+ *   }
+ *   // do something with the searcher
+ * }
+ * </pre>
  * 
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: IncompleteArgumentException.java,v 1.6 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: IncompleteArgumentException.java,v 1.7 2004/10/15 20:55:01 scolebourne Exp $
  */
 public class IncompleteArgumentException extends IllegalArgumentException {
 
