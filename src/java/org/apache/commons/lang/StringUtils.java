@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.95 2003/08/14 00:14:20 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.96 2003/08/14 00:59:39 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3424,6 +3424,8 @@ public class StringUtils {
      * 
      * @param str  the String to capitalize, may be null
      * @return the capitalized String, <code>null</code> if null String input
+     * @see #capitalizeAllWords(String)
+     * @see #uncapitalize(String)
      */
     public static String capitalize(String str) {
         int strLen;
@@ -3459,6 +3461,8 @@ public class StringUtils {
      * 
      * @param str  the String to uncapitalize, may be null
      * @return the uncapitalized String, <code>null</code> if null String input
+     * @see #uncapitalizeAllWords(String)
+     * @see #capitalize(String)
      */
     public static String uncapitalize(String str) {
         int strLen;
@@ -3548,6 +3552,8 @@ public class StringUtils {
      * 
      * @param str  the String to capitalize, may be null
      * @return capitalized String, <code>null</code> if null String input
+     * @see #capitalize(String)
+     * @see #uncapitalizeAllWords(String)
      */
     public static String capitalizeAllWords(String str) {
         int strLen;
@@ -3572,7 +3578,7 @@ public class StringUtils {
     }
 
     /**
-     * @deprecated Use the standardly named {@link #capitalize(String)}.
+     * @deprecated Use the standardly named {@link #capitalizeAllWords(String)}.
      *             Method will be removed in Commons Lang 3.0.
      */
     public static String capitaliseAllWords(String str) {
@@ -3594,6 +3600,8 @@ public class StringUtils {
      * 
      * @param str  the String to uncapitalize, may be null
      * @return uncapitalized String, <code>null</code> if null String input
+     * @see #uncapitalize(String)
+     * @see #capitalizeAllWords(String)
      */
     public static String uncapitalizeAllWords(String str) {
         int strLen;
@@ -3618,7 +3626,7 @@ public class StringUtils {
     }
 
     /**
-     * @deprecated Use the standardly named {@link #uncapitalize(String)}.
+     * @deprecated Use the standardly named {@link #uncapitalizeAllWords(String)}.
      *             Method will be removed in Commons Lang 3.0.
      */
     public static String uncapitaliseAllWords(String str) {
