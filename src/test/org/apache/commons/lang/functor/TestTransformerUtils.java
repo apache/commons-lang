@@ -76,9 +76,12 @@ import org.apache.commons.lang.functor.PredicateUtils;
  * Tests the org.apache.commons.lang.functor.TransformerUtils class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: TestTransformerUtils.java,v 1.2 2002/11/06 19:16:15 bayard Exp $
+ * @version $Id: TestTransformerUtils.java,v 1.3 2002/11/22 22:52:40 bayard Exp $
  */
 public class TestTransformerUtils extends junit.framework.TestCase {
+
+    // JDK 1.2 compliancy
+    private static final Map EMPTY_MAP = Collections.unmodifiableMap(new HashMap());
 
     private static final Object cObject = new Object();
     private static final Object cString = "Hello";
@@ -403,7 +406,7 @@ public class TestTransformerUtils extends junit.framework.TestCase {
     
     public void testSwitchTransformerEx4() {
         try {
-            TransformerUtils.switchTransformer(Collections.EMPTY_MAP);
+            TransformerUtils.switchTransformer(EMPTY_MAP);
         } catch (IllegalArgumentException ex) {
             return;
         }
@@ -460,7 +463,7 @@ public class TestTransformerUtils extends junit.framework.TestCase {
     
     public void testSwitchMapTransformerEx2() {
         try {
-            TransformerUtils.switchMapTransformer(Collections.EMPTY_MAP);
+            TransformerUtils.switchMapTransformer(EMPTY_MAP);
         } catch (IllegalArgumentException ex) {
             return;
         }
