@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
- * @version $Id: StringUtilsTest.java,v 1.13 2003/01/20 22:15:13 dlr Exp $
+ * @version $Id: StringUtilsTest.java,v 1.14 2003/03/17 05:28:37 alex Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -375,6 +375,75 @@ public class StringUtilsTest extends TestCase {
         assertEquals("containsOnly(String3, chars3) failed", false, StringUtils.containsOnly(str3, chars1));
         assertEquals("containsOnly(String3, chars3) failed", false, StringUtils.containsOnly(str3, chars2));
         assertEquals("containsOnly(String3, chars3) success", true, StringUtils.containsOnly(str3, chars3));
+    }
+
+    public void testAbbreviate()
+    {
+        assertEquals("abbreviate(String,int) failed",
+		     "short", StringUtils.abbreviate("short", 10));
+        assertEquals("abbreviate(String,int) failed",
+		     "Now is ...", StringUtils.abbreviate("Now is the time for all good men to come to the aid of their party.", 10));
+
+        String raspberry = "raspberry peach";
+        assertEquals("abbreviate(String,int) failed (one past limit)",
+		     "raspberry p...", StringUtils.abbreviate(raspberry, 14));
+        assertEquals("abbreviate(String,int) (at limit)",
+		     "raspberry peach", StringUtils.abbreviate("raspberry peach", 15));
+        assertEquals("abbreviate(String,int) (one below limit)",
+		     "raspberry peach", StringUtils.abbreviate("raspberry peach", 16));
+
+        assertEquals("abbreviate(String,int,int) failed",
+                "raspberry peach", StringUtils.abbreviate(raspberry, 11, 15));
+
+        assertAbbreviateWithOffset("abcdefg...", -1, 10);
+        assertAbbreviateWithOffset("abcdefg...", 0, 10);
+        assertAbbreviateWithOffset("abcdefg...", 1, 10);
+        assertAbbreviateWithOffset("abcdefg...", 2, 10);
+        assertAbbreviateWithOffset("abcdefg...", 3, 10);
+        assertAbbreviateWithOffset("abcdefg...", 4, 10);
+        assertAbbreviateWithOffset("...fghi...", 5, 10);
+        assertAbbreviateWithOffset("...ghij...", 6, 10);
+        assertAbbreviateWithOffset("...hijk...", 7, 10);
+        assertAbbreviateWithOffset("...ijklmno", 8, 10);
+        assertAbbreviateWithOffset("...ijklmno", 9, 10);
+        assertAbbreviateWithOffset("...ijklmno", 10, 10);
+        assertAbbreviateWithOffset("...ijklmno", 10, 10);
+        assertAbbreviateWithOffset("...ijklmno", 11, 10);
+        assertAbbreviateWithOffset("...ijklmno", 12, 10);
+        assertAbbreviateWithOffset("...ijklmno", 13, 10);
+        assertAbbreviateWithOffset("...ijklmno", 14, 10);
+        assertAbbreviateWithOffset("...ijklmno", 15, 10);
+        assertAbbreviateWithOffset("...ijklmno", 16, 10);
+        assertAbbreviateWithOffset("...ijklmno", Integer.MAX_VALUE, 10);
+
+    }
+
+    private void assertAbbreviateWithOffset(String expected, int offset, int maxWidth)
+    {
+        String abcdefghijklmno = "abcdefghijklmno";
+        String message = "abbreviate(String,int,int) failed";
+        String actual = StringUtils.abbreviate(abcdefghijklmno, offset, maxWidth);
+        if (offset >= 0 && offset < abcdefghijklmno.length()) {
+            assertTrue(message + " -- should contain offset character",
+                    actual.indexOf((char)('a'+offset)) != -1);
+        }
+        assertTrue(message + " -- should not be greater than maxWidth",
+                actual.length() <= maxWidth);
+        assertEquals(message, expected, actual);
+    }
+
+    public void testDifference()
+    {
+        assertEquals("robot", StringUtils.difference("i am a machine", "i am a robot"));
+        assertEquals("", StringUtils.difference("foo", "foo"));
+        assertEquals("you are a robot", StringUtils.difference("i am a robot", "you are a robot"));
+    }
+
+    public void testDifferenceAt()
+    {
+        assertEquals(7, StringUtils.differenceAt("i am a machine", "i am a robot"));
+        assertEquals(-1, StringUtils.differenceAt("foo", "foo"));
+        assertEquals(0, StringUtils.differenceAt("i am a robot", "you are a robot"));
     }
 
 }
