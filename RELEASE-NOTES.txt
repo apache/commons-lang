@@ -1,0 +1,20 @@
+$Id: RELEASE-NOTES.txt,v 1.1 2002/07/19 03:35:53 bayard Exp $
+
+			Commons Lang Package
+			   Version 1.0-dev
+			    Release Notes
+
+
+INTRODUCTION:
+
+This document contains the release notes for this version of the Commons
+Lang package, and highlights changes since the previous version.  The
+current release adds new features and bug fixes, and is being done now to
+follow the release early/release often mentality.
+
+
+NEW FEATURES:
+
+BUG FIXES:
+
+
