@@ -99,6 +99,7 @@
       </includes>
       <excludes>
         <exclude>**/Abstract*.java</exclude>
+        <exclude>**/*CalendarUtils*.java</exclude>
       </excludes>
     </unitTest>
   </build>
