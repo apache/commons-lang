@@ -58,6 +58,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+/*
+TODO: Refactor code from NestableDelegate to ExceptionUtils.
+
+printStackTrace(Throwable, PrintWriter)
+*/
 
 /**
  * Utility routines for manipulating <code>Throwable</code> objects.
@@ -271,5 +278,96 @@ public class ExceptionUtils
             }
         }
         return null;
+    }
+
+    /**
+     * Returns the number of <code>Throwable</code> objects in the
+     * exception chain.
+     *
+     * @return The throwable count.
+     */
+    public static int getThrowableCount(Throwable t)
+    {
+        // Count the number of throwables
+        int count = 1;
+        t = ExceptionUtils.getCause(t);
+        while (t != null)
+        {
+            count++;
+            t = ExceptionUtils.getCause(t);
+        }
+        return count;
+    }
+
+    /**
+     * Returns the list of <code>Throwable</code> objects in the
+     * exception chain.
+     *
+     * @return The list of <code>Throwable</code> objects.
+     */
+    public static Throwable[] getThrowables(Throwable t)
+    {
+        ArrayList list = new ArrayList();
+        if (t != null)
+        {
+            list.add(t);
+            t = ExceptionUtils.getCause(t);
+            while (t != null)
+            {
+                list.add(t);
+                t = ExceptionUtils.getCause(t);
+            }
+        }
+        return (Throwable []) list.toArray(new Throwable[list.size()]);
+    }
+
+    /**
+     * Delegates to {@link #indexOfThrowable(Throwable, Class, int)},
+     * starting the search at the beginning of the exception chain.
+     *
+     * @see #indexOfThrowable(Throwable, Class, int)
+     */
+    public static int indexOfThrowable(Throwable t, Class type)
+    {
+        return indexOfThrowable(t, type, 0);
+    }
+
+    /**
+     * Returns the (zero based) index, of the first
+     * <code>Throwable</code> that matches the specified type in the
+     * exception chain of <code>Throwable</code> objects with an index
+     * greater than or equal to the specified index, or
+     * <code>-1</code> if the type is not found.
+     *
+     * @param type <code>Class</code> to look for.
+     * @param fromIndex The (zero based) index of the starting
+     * position in the chain to be searched.
+     * @return index The first occurrence of the type in the chain, or
+     * <code>-1</code> if the type is not found.
+     * @throws IndexOutOfBoundsException If the <code>fromIndex</code>
+     * argument is negative or not less than the count of
+     * <code>Throwable</code>s in the chain.
+     */
+    public static int indexOfThrowable(Throwable t, Class type, int fromIndex)
+    {
+        if (fromIndex < 0)
+        {
+            throw new IndexOutOfBoundsException
+                ("Throwable index out of range: " + fromIndex);
+        }
+        Throwable[] throwables = ExceptionUtils.getThrowables(t);
+        if (fromIndex >= throwables.length)
+        {
+            throw new IndexOutOfBoundsException
+                ("Throwable index out of range: " + fromIndex);
+        }
+        for (int i = fromIndex; i < throwables.length; i++)
+        {
+            if (throwables[i].getClass().equals(type))
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }
