@@ -64,13 +64,13 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * <code>NestableDelegate</code> is a shared implementation of the nestable
- * exception functionality.
+ * <p>A shared implementation of the nestable exception functionality.</p>
  * <p>
  * The code is shared between 
  * {@link org.apache.commons.lang.exception.NestableError NestableError},
  * {@link org.apache.commons.lang.exception.NestableException NestableException} and
  * {@link org.apache.commons.lang.exception.NestableRuntimeException NestableRuntimeException}.
+ * </p>
  * 
  * @author <a href="mailto:Rafal.Krzewski@e-point.pl">Rafal Krzewski</a>
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
@@ -79,7 +79,7 @@ import java.util.List;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.19 2003/08/21 05:33:10 ggregory Exp $
+ * @version $Id: NestableDelegate.java,v 1.20 2003/08/23 00:41:29 ggregory Exp $
  */
 public class NestableDelegate implements Serializable {
 
