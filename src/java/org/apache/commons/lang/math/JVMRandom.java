@@ -62,7 +62,7 @@ import java.util.Random;
  * 
  * @author Henri Yandell
  * @since 2.0
- * @version $Id: JVMRandom.java,v 1.8 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: JVMRandom.java,v 1.9 2003/12/29 00:43:09 ggregory Exp $
  */
 public final class JVMRandom extends Random {
 
@@ -71,6 +71,9 @@ public final class JVMRandom extends Random {
      */
     private boolean constructed = false;
 
+    /**
+     * Constructs a new instance.
+     */
     public JVMRandom() {
         this.constructed = true;
     }
