@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.10 2003/07/14 23:03:27 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.11 2003/07/15 23:42:13 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -63,7 +63,6 @@ lang:
     SerializationUtils:
         added empty constructor
     StringUtils:
-        defaultString(String) method changed to defaultString(Object). 
         isEmpty() changed to not trim.
         chomp() changed to be more like Perl.
         Twenty-one new methods.
@@ -263,8 +262,8 @@ org.apache.commons.lang.StringUtils
 >     public static java.lang.String leftPad(java.lang.String, int, char);
 >     public static java.lang.String uncapitaliseAllWords(java.lang.String);
 >     public static boolean isWhitespace(java.lang.String);
-<     public static java.lang.String defaultString(java.lang.String);
-<     public static java.lang.String defaultString(java.lang.String, java.lang.String);
+>     public static java.lang.String defaultString(java.lang.Object);
+>     public static java.lang.String defaultString(java.lang.Object, java.lang.String);
 ---
 >     public static boolean containsOnly(java.lang.String, java.lang.String);
 >     public static boolean containsNone(java.lang.String, java.lang.String);
