@@ -94,8 +94,8 @@ import org.apache.commons.lang.ClassUtils;
  *
  * @author Apache Avalon project
  * @author Stephen Colebourne
- * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.1 2004/02/23 04:34:20 ggregory Exp $
+ * @since 2.1 (class existed in enum package from v1.0)
+ * @version $Id: ValuedEnum.java,v 1.2 2004/06/01 20:56:44 scolebourne Exp $
  */
 public abstract class ValuedEnum extends Enum {
     
