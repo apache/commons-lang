@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:alex@apache.org">Alex Chaffee</a>
- * @version $Id: ToStringBuilderTest.java,v 1.15 2004/07/01 17:58:09 ggregory Exp $
+ * @version $Id: ToStringBuilderTest.java,v 1.16 2004/07/26 21:39:21 ggregory Exp $
  */
 public class ToStringBuilderTest extends TestCase {
 
@@ -475,6 +475,18 @@ public class ToStringBuilderTest extends TestCase {
         }
     }
 
+    private static class SelfInstanceVarReflectionTestFixture {
+        private SelfInstanceVarReflectionTestFixture typeIsSelf;
+
+        public SelfInstanceVarReflectionTestFixture() {
+            this.typeIsSelf = this;
+        }
+
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+      }
+    
     /**
      * Test an Object pointing to itself, the simplest test.
      * 
@@ -485,6 +497,18 @@ public class ToStringBuilderTest extends TestCase {
         simple.o = simple;
         assertTrue(ReflectionToStringBuilder.getRegistry().isEmpty());
         assertEquals(this.toBaseString(simple) + "[o=" + this.toBaseString(simple) + "]", simple.toString());
+        this.validateEmptyReflectionRegistry();
+    }
+
+    /**
+     * Test a class that defines an ivar pointing to itself.
+     * 
+     * @throws Exception
+     */
+    public void testSelfInstanceVarReflectionObjectCycle() throws Exception {
+        SelfInstanceVarReflectionTestFixture test = new SelfInstanceVarReflectionTestFixture();
+        assertTrue(ReflectionToStringBuilder.getRegistry().isEmpty());
+        assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + "]", test.toString());
         this.validateEmptyReflectionRegistry();
     }
 
