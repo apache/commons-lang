@@ -83,9 +83,10 @@ import org.apache.commons.lang.enum.Enum;
  *  public int comapareTo(Object o) {
  *    MyClass rhs = (MyClass) o;
  *    return new CompareToBuilder()
+ *                 .appendSuper(super.compareTo(o)
  *                 .append(field1, rhs.field1)
  *                 .append(field2, rhs.field2)
- *                 .appendb(field3, rhs.field3)
+ *                 .append(field3, rhs.field3)
  *                 .toComparison();
  *  }
  * </pre>
@@ -106,7 +107,7 @@ import org.apache.commons.lang.enum.Enum;
  *
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CompareToBuilder.java,v 1.6 2002/12/08 21:38:19 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.7 2002/12/08 21:43:34 scolebourne Exp $
  */
 public class CompareToBuilder {
     
@@ -212,6 +213,22 @@ public class CompareToBuilder {
         return compareToBuilder.toComparison();
     }
 
+    //-------------------------------------------------------------------------
+    
+    /**
+     * <p>Adds the result of super.hashCode() to this builder.</p>
+     *
+     * @param superHashCode  the result of calling <code>super.equals()</code>
+     * @return CompareToBuilder - used to chain calls.
+     */
+    public CompareToBuilder appendSuper(int superHashCode) {
+        if (comparison != 0) {
+            return this;
+        }
+        comparison = superHashCode;
+        return this;
+    }
+    
     //-------------------------------------------------------------------------
     
     /**

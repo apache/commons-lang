@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CompareToBuilderTest.java,v 1.2 2002/12/08 21:37:25 scolebourne Exp $
+ * @version $Id: CompareToBuilderTest.java,v 1.3 2002/12/08 21:43:34 scolebourne Exp $
  */
 public class CompareToBuilderTest extends TestCase {
 
@@ -149,6 +149,20 @@ public class CompareToBuilderTest extends TestCase {
         } catch (ClassCastException ex) {}
     }
 
+    public void testAppendSuper() {
+        TestObject o1 = new TestObject(4);
+        TestObject o2 = new TestObject(5);
+        assertTrue(new CompareToBuilder().appendSuper(0).append(o1, o1).toComparison() == 0);
+        assertTrue(new CompareToBuilder().appendSuper(0).append(o1, o2).toComparison() < 0);
+        assertTrue(new CompareToBuilder().appendSuper(0).append(o2, o1).toComparison() > 0);
+        
+        assertTrue(new CompareToBuilder().appendSuper(-1).append(o1, o1).toComparison() < 0);
+        assertTrue(new CompareToBuilder().appendSuper(-1).append(o1, o2).toComparison() < 0);
+        
+        assertTrue(new CompareToBuilder().appendSuper(1).append(o1, o1).toComparison() > 0);
+        assertTrue(new CompareToBuilder().appendSuper(1).append(o1, o2).toComparison() > 0);
+    }
+    
     public void testObject() {
         TestObject o1 = new TestObject(4);
         TestObject o2 = new TestObject(4);
