@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ClassUtils}.
  *
  * @author Stephen Colebourne
- * @version $Id: ClassUtilsTest.java,v 1.4 2003/07/30 22:21:39 scolebourne Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.5 2003/07/31 23:47:20 scolebourne Exp $
  */
 public class ClassUtilsTest extends TestCase {
 
@@ -172,10 +172,8 @@ public class ClassUtilsTest extends TestCase {
         assertEquals(2, list.size());
         assertEquals(CX.class, list.get(0));
         assertEquals(Object.class, list.get(1));
-        try {
-            ClassUtils.getAllSuperclasses(null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        
+        assertEquals(null, ClassUtils.getAllSuperclasses(null));
     }
     
     public void test_getAllInterfaces_Class() {
@@ -187,10 +185,8 @@ public class ClassUtilsTest extends TestCase {
         assertEquals(IE.class, list.get(3));
         assertEquals(IF.class, list.get(4));
         assertEquals(IA.class, list.get(5));
-        try {
-            ClassUtils.getAllInterfaces(null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        
+        assertEquals(null, ClassUtils.getAllInterfaces(null));
     }
     
     private static interface IA {
@@ -230,11 +226,7 @@ public class ClassUtilsTest extends TestCase {
             ClassUtils.convertClassNamesToClasses(list);
             fail();
         } catch (ClassCastException ex) {}
-        
-        try {
-            ClassUtils.convertClassNamesToClasses(null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        assertEquals(null, ClassUtils.convertClassNamesToClasses(null));
     }
     
     public void test_convertClassesToClassNames_List() {
@@ -256,11 +248,7 @@ public class ClassUtilsTest extends TestCase {
             ClassUtils.convertClassesToClassNames(list);
             fail();
         } catch (ClassCastException ex) {}
-        
-        try {
-            ClassUtils.convertClassesToClassNames(null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        assertEquals(null, ClassUtils.convertClassesToClassNames(null));
     }
     
     // -------------------------------------------------------------------------
@@ -271,10 +259,7 @@ public class ClassUtilsTest extends TestCase {
         }.getClass()));
         assertEquals(false, ClassUtils.isInnerClass(this.getClass()));
         assertEquals(false, ClassUtils.isInnerClass(String.class));
-        try {
-            ClassUtils.isInnerClass(null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        assertEquals(false, ClassUtils.isInnerClass(null));
     }
     
     // -------------------------------------------------------------------------
@@ -297,14 +282,9 @@ public class ClassUtilsTest extends TestCase {
     }
     
     public void test_isAssignable() throws Exception {
-        try {
-            ClassUtils.isAssignable(String.class, null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            ClassUtils.isAssignable((Class) null, (Class) null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        assertEquals(false, ClassUtils.isAssignable((Class) null, null));
+        assertEquals(false, ClassUtils.isAssignable(String.class, null));
+        
         assertEquals(true, ClassUtils.isAssignable(null, Object.class));
         assertEquals(true, ClassUtils.isAssignable(null, Integer.class));
         assertEquals(false, ClassUtils.isAssignable(null, Integer.TYPE));

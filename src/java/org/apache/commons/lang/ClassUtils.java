@@ -59,13 +59,13 @@ import java.util.List;
 /**
  * <p>Provides utility methods for working for classes without using reflection.</p>
  *
- * <p>This class throws exceptions for invalid <code>null</code> inputs.
+ * <p>This class handles invalid <code>null</code> inputs as best it can.
  * Each method documents its behaviour in more detail.</p>
  *
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.17 2003/07/19 21:55:05 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.18 2003/07/31 23:47:20 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -216,11 +216,11 @@ public class ClassUtils {
      * 
      * @param cls  the class to look up, must not be <code>null</code>
      * @return the <code>List</code> of superclasses in order going up from this one
-     * @throws IllegalArgumentException if the class is <code>null</code>
+     *  <code>null</code> if null input
      */
     public static List getAllSuperclasses(Class cls) {
         if (cls == null) {
-            throw new IllegalArgumentException("The class must not be null");
+            return null;
         }
         List classes = new ArrayList();
         Class superclass = cls.getSuperclass();
@@ -241,12 +241,12 @@ public class ClassUtils {
      * so the order is maintained.</p>
      * 
      * @param cls  the class to look up, must not be <code>null</code>
-     * @return the <code>List</code> of interfaces in order
-     * @throws IllegalArgumentException if the class is <code>null</code>
+     * @return the <code>List</code> of interfaces in order,
+     *  <code>null</code> if null input
      */
     public static List getAllInterfaces(Class cls) {
         if (cls == null) {
-            throw new IllegalArgumentException("The class must not be null");
+            return null;
         }
         List list = new ArrayList();
         while (cls != null) {
@@ -331,13 +331,13 @@ public class ClassUtils {
      * <code>null</code>, <code>null</code> is stored in the output <code>List</code>.</p>
      * 
      * @param classNames  the classNames to change
-     * @return a <code>List</code> of Class objects corresponding to the class names
-     * @throws IllegalArgumentException if the classNames is <code>null</code>
+     * @return a <code>List</code> of Class objects corresponding to the class names,
+     *  <code>null</code> if null input
      * @throws ClassCastException if classNames contains a non String entry
      */
     public static List convertClassNamesToClasses(List classNames) {
         if (classNames == null) {
-            throw new IllegalArgumentException("The class names must not be null");
+            return null;
         }
         List classes = new ArrayList(classNames.size());
         for (Iterator it = classNames.iterator(); it.hasNext();) {
@@ -359,13 +359,13 @@ public class ClassUtils {
      * the returned list as <code>null</code>.</p>
      * 
      * @param classes  the classes to change
-     * @return a <code>List</code> of Class objects corresponding to the class names
-     * @throws IllegalArgumentException if the classNames is <code>null</code>
+     * @return a <code>List</code> of Class objects corresponding to the class names,
+     *  <code>null</code> if null input
      * @throws ClassCastException if classNames contains a non Class or null entry
      */
     public static List convertClassesToClassNames(List classes) {
         if (classes == null) {
-            throw new IllegalArgumentException("The classes list must not be null");
+            return null;
         }
         List classNames = new ArrayList(classes.size());
         for (Iterator it = classes.iterator(); it.hasNext();) {
@@ -452,14 +452,13 @@ public class ClassUtils {
      * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
      * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
      *
-     * @param cls  the Class to check, may be <code>null</code>
-     * @param toClass  the Class to try to assign into, must not be <code>null</code>
+     * @param cls  the Class to check, may be null
+     * @param toClass  the Class to try to assign into, returns false if null
      * @return <code>true</code> if assignment possible
-     * @throws IllegalArgumentException if the toClass is <code>null</code>
      */
     public static boolean isAssignable(Class cls, Class toClass) {
         if (toClass == null) {
-            throw new IllegalArgumentException("The class must not be null");
+            return false;
         }
         // have to check for null, as isAssignableFrom doesn't
         if (cls == null) {
@@ -519,12 +518,12 @@ public class ClassUtils {
      * <p>Is the specified class an inner class or static nested class.</p>
      * 
      * @param cls  the class to check
-     * @return <code>true</code> if the class is an inner or static nested class
-     * @throws IllegalArgumentException if the class is <code>null</code>
+     * @return <code>true</code> if the class is an inner or static nested class,
+     *  false if not or <code>null</code>
      */
     public static boolean isInnerClass(Class cls) {
         if (cls == null) {
-            throw new IllegalArgumentException("The class must not be null");
+            return false;
         }
         return (cls.getName().indexOf(INNER_CLASS_SEPARATOR_CHAR) >= 0);
     }
