@@ -69,7 +69,7 @@ import java.util.Set;
  * @author Stephen Colebourne
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: CharSet.java,v 1.13 2003/08/06 00:02:15 stevencaswell Exp $
+ * @version $Id: CharSet.java,v 1.14 2003/08/07 21:12:19 bayard Exp $
  */
 public class CharSet implements Serializable {
 
@@ -101,11 +101,6 @@ public class CharSet implements Serializable {
         COMMON.put("A-Z", ASCII_ALPHA_UPPER);
         COMMON.put("0-9", ASCII_NUMERIC);
     }
-    
-    /** Shared range for the dash character. */
-    private static final CharRange DASH = new CharRange('-');
-    /** Shared range for the negate character. */
-    private static final CharRange NEGATE = new CharRange('^');
     
     /** The set of CharRange objects. */
     private Set set = new HashSet();
