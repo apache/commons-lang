@@ -74,7 +74,7 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.42 2003/08/01 21:02:16 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.43 2003/08/01 23:01:52 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -490,14 +490,20 @@ public class StringUtilsTest extends TestCase {
         assertSame("abcba", StringUtils.replaceChars("abcba", "z", "w"));
     }
     
-    public void testOverlayString() {
+    public void testOverlayString_StringStringIntInt() {
         assertEquals("overlayString(String, String, int, int) failed",
                      "foo foor baz", StringUtils.overlayString(SENTENCE, FOO, 4, 6) );
-        assertEquals(null, StringUtils.overlayString(null, null, 2, 4));
-        assertEquals("abef", StringUtils.overlayString("abcdef", null, 2, 4));
         assertEquals("abef", StringUtils.overlayString("abcdef", "", 2, 4));
         assertEquals("abzzzzef", StringUtils.overlayString("abcdef", "zzzz", 2, 4));
         assertEquals("abcdzzzzcdef", StringUtils.overlayString("abcdef", "zzzz", 4, 2));
+        try {
+            StringUtils.overlayString(null, "zzzz", 2, 4);
+            fail();
+        } catch (NullPointerException ex) {}
+        try {
+            StringUtils.overlayString("abcdef", null, 2, 4);
+            fail();
+        } catch (NullPointerException ex) {}
         try {
             StringUtils.overlayString("abcdef", "zzzz", -1, 4);
             fail();
@@ -506,6 +512,33 @@ public class StringUtilsTest extends TestCase {
             StringUtils.overlayString("abcdef", "zzzz", 2, 8);
             fail();
         } catch (IndexOutOfBoundsException ex) {}
+    }
+
+    public void testOverlay_StringStringIntInt() {
+        assertEquals(null, StringUtils.overlay(null, null, 2, 4));
+        assertEquals(null, StringUtils.overlay(null, null, -2, -4));
+        
+        assertEquals("", StringUtils.overlay("", null, 0, 0));
+        assertEquals("", StringUtils.overlay("", "", 0, 0));
+        assertEquals("zzzz", StringUtils.overlay("", "zzzz", 0, 0));
+        assertEquals("zzzz", StringUtils.overlay("", "zzzz", 2, 4));
+        assertEquals("zzzz", StringUtils.overlay("", "zzzz", -2, -4));
+        
+        assertEquals("abef", StringUtils.overlay("abcdef", null, 2, 4));
+        assertEquals("abef", StringUtils.overlay("abcdef", null, 4, 2));
+        assertEquals("abef", StringUtils.overlay("abcdef", "", 2, 4));
+        assertEquals("abef", StringUtils.overlay("abcdef", "", 4, 2));
+        assertEquals("abzzzzef", StringUtils.overlay("abcdef", "zzzz", 2, 4));
+        assertEquals("abzzzzef", StringUtils.overlay("abcdef", "zzzz", 4, 2));
+        
+        assertEquals("zzzzef", StringUtils.overlay("abcdef", "zzzz", -1, 4));
+        assertEquals("zzzzef", StringUtils.overlay("abcdef", "zzzz", 4, -1));
+        assertEquals("zzzzabcdef", StringUtils.overlay("abcdef", "zzzz", -2, -1));
+        assertEquals("zzzzabcdef", StringUtils.overlay("abcdef", "zzzz", -1, -2));
+        assertEquals("abcdzzzz", StringUtils.overlay("abcdef", "zzzz", 4, 10));
+        assertEquals("abcdzzzz", StringUtils.overlay("abcdef", "zzzz", 10, 4));
+        assertEquals("abcdefzzzz", StringUtils.overlay("abcdef", "zzzz", 8, 10));
+        assertEquals("abcdefzzzz", StringUtils.overlay("abcdef", "zzzz", 10, 8));
     }
 
     public void testRepeat_StringInt() {

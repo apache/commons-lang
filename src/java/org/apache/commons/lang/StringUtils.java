@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.86 2003/08/01 22:05:43 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.87 2003/08/01 23:01:52 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -204,7 +204,7 @@ public class StringUtils {
      * StringUtils.isEmpty("  bob  ") = false
      * </pre>
      *
-     * <p>NOTE: This method changed in version 2.0.
+     * <p>NOTE: This method changed in Lang version 2.0.
      * It no longer trims the String.
      * That functionality is available in isBlank().</p>
      * 
@@ -2491,7 +2491,8 @@ public class StringUtils {
      * <p>Overlays part of a String with another String.</p>
      *
      * <pre>
-     * StringUtils.overlayString(null, *, *, *)           = null
+     * StringUtils.overlayString(null, *, *, *)           = NullPointerException
+     * StringUtils.overlayString(*, null, *, *)           = NullPointerException
      * StringUtils.overlayString("", "abc", 0, 0)         = "abc"
      * StringUtils.overlayString("abcdef", null, 2, 4)    = "abef"
      * StringUtils.overlayString("abcdef", "", 2, 4)      = "abef"
@@ -2506,19 +2507,76 @@ public class StringUtils {
      * @param start  the position to start overlaying at, must be valid
      * @param end  the position to stop overlaying before, must be valid
      * @return overlayed String, <code>null</code> if null String input
+     * @throws NullPointerException if text or overlay is null
      * @throws IndexOutOfBoundsException if either position is invalid
+     * @deprecated Use better named {@link #overlay(String, String, int, int)} instead.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String overlayString(String text, String overlay, int start, int end) {
-        if (text == null) {
+        return new StringBuffer(start + overlay.length() + text.length() - end + 1)
+            .append(text.substring(0, start))
+            .append(overlay)
+            .append(text.substring(end))
+            .toString();
+    }
+
+    /**
+     * <p>Overlays part of a String with another String.</p>
+     * 
+     * <p>A <code>null</code> string input returns <code>null</code>.
+     * A negative index is treated as zero.
+     * An index greater than the string length is treated as the string length.
+     * The start index is always the smaller of the two indices.</p>
+     *
+     * <pre>
+     * StringUtils.overlay(null, *, *, *)            = null
+     * StringUtils.overlay("", "abc", 0, 0)          = "abc"
+     * StringUtils.overlay("abcdef", null, 2, 4)     = "abef"
+     * StringUtils.overlay("abcdef", "", 2, 4)       = "abef"
+     * StringUtils.overlay("abcdef", "", 4, 2)       = "abef"
+     * StringUtils.overlay("abcdef", "zzzz", 2, 4)   = "abzzzzef"
+     * StringUtils.overlay("abcdef", "zzzz", 4, 2)   = "abzzzzef"
+     * StringUtils.overlay("abcdef", "zzzz", -1, 4)  = "zzzzef"
+     * StringUtils.overlay("abcdef", "zzzz", 2, 8)   = "abzzzz"
+     * StringUtils.overlay("abcdef", "zzzz", -2, -3) = "zzzzabcdef"
+     * StringUtils.overlay("abcdef", "zzzz", 8, 10)  = "abcdefzzzz"
+     * </pre>
+     * 
+     * @param str  the String to do overlaying in, may be null
+     * @param overlay  the String to overlay, may be null
+     * @param start  the position to start overlaying at
+     * @param end  the position to stop overlaying before
+     * @return overlayed String, <code>null</code> if null String input
+     */
+    public static String overlay(String str, String overlay, int start, int end) {
+        if (str == null) {
             return null;
         }
         if (overlay == null) {
             overlay = "";
         }
-        return new StringBuffer(start + overlay.length() + text.length() - end + 1)
-            .append(text.substring(0, start))
+        int len = str.length();
+        if (start < 0) {
+            start = 0;
+        }
+        if (start > len) {
+            start = len;
+        }
+        if (end < 0) {
+            end = 0;
+        }
+        if (end > len) {
+            end = len;
+        }
+        if (start > end) {
+            int temp = start;
+            start = end;
+            end = temp;
+        }
+        return new StringBuffer(len + start - end + overlay.length() + 1)
+            .append(str.substring(0, start))
             .append(overlay)
-            .append(text.substring(end))
+            .append(str.substring(end))
             .toString();
     }
 
