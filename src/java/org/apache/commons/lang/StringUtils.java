@@ -58,24 +58,24 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * <p>Common <code>String</code> manipulation routines that are 
+ * <p>Common {@link java.lang.String} manipulation routines that are 
  * <code>null</code> safe.</p>
  * 
  * <ul>
  *  <li><b>IsEmpty/IsBlank</b>
  *      - checks if a String contains text
  *  <li><b>Trim/Strip</b>
- *      - remove leading and trailing whitespace
+ *      - removes leading and trailing whitespace
  *  <li><b>Equals</b>
- *      - compare two strings null-safe
+ *      - compares two strings null-safe
  *  <li><b>IndexOf/LastIndexOf/Contains</b>
- *      - null-safe index of checks
+ *      - null-safe index-of checks
  *  <li><b>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</b>
- *      - index of any of a set of Strings
+ *      - index-of any of a set of Strings
  *  <li><b>ContainsOnly/ContainsNone</b>
- *      - does String contain only/none of these characters
+ *      - does String contains only/none of these characters
  *  <li><b>SubString/Left/Right/Mid/SubStringBefore/SubStringAfter</b>
- *      - null-safe substring extraction
+ *      - null-safe substring extractions
  *  <li><b>Split/Join</b>
  *      - splits a String into an array of substrings and vice versa
  *  <li><b>Replace/Delete/Overlay</b>
@@ -85,7 +85,7 @@ import java.util.List;
  *  <li><b>LeftPad/RightPad/Center/Repeat</b>
  *      - pads a String
  *  <li><b>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</b>
- *      - change the case of a String
+ *      - changes the case of a String
  *  <li><b>NestedString</b>
  *      - returns a substring nested within other Strings
  *  <li><b>CountMatches</b>
@@ -110,23 +110,24 @@ import java.util.List;
  * <ul>
  *  <li>null - <code>null</code>
  *  <li>empty - a zero-length string (<code>""</code>)
- *  <li>space - the space character (<code>' '</code>)(char 32)
+ *  <li>space - the space character (<code>' '</code>, char 32)
  *  <li>whitespace - the characters defined by {@link Character#isWhitespace(char)}
  *  <li>trim - the characters &lt;= 32 as in {@link String#trim()}
  * </ul>
  * 
  * <p><code>StringUtils</code> handles <code>null</code> input Strings quietly.
  * That is to say that a <code>null</code> input will return <code>null</code>.
- * Where a <code>boolean</code> or <code>int</code> is being returned exact
+ * Where a <code>boolean</code> or <code>int</code> is being returned
  * details vary by method.</p>
  * 
  * <p>A side effect of the <code>null</code> handling is that a 
- * NullPointerException should be considered a bug in <code>StringUtils</code>.
- * (Except for deprecated methods).</p>
+ * {@link java.lang.NullPointerException} should be considered a bug in <code>StringUtils</code>
+ * (except for deprecated methods).</p>
  * 
  * <p>Methods in this class give sample code to explain their operation.
  * The symbol <code>*</code> is used to indicate any input including <code>null</code>.</p>
  *
+ * @see java.lang.String
  * @author <a href="http://jakarta.apache.org/turbine/">Apache Jakarta Turbine</a>
  * @author GenerationJavaCore
  * @author <a href="mailto:jon@latchkey.com">Jon S. Stevens</a>
@@ -144,7 +145,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.97 2003/08/14 01:21:36 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.98 2003/08/14 01:49:03 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -186,7 +187,7 @@ public class StringUtils {
     }
 
     /**
-     * <p><code>StringUtils<code> instances should NOT be constructed in
+     * <p><code>StringUtils</code> instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * <code>StringUtils.trim(" foo ");</code>.</p>
      *
@@ -2836,7 +2837,7 @@ public class StringUtils {
      * @return String prechomped
      * @throws NullPointerException if str or sep is <code>null</code>
      * @deprecated Use {@link #substringBefore(String,String)} instead
-     *             (although this doesn't include the separator)
+     *             (although this doesn't include the separator).
      *             Method will be removed in Commons Lang 3.0.
      */
     public static String getPrechomp(String str, String sep) {
