@@ -77,7 +77,7 @@ import java.util.StringTokenizer;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.49 2003/06/24 02:55:17 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.50 2003/06/24 08:15:15 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1162,7 +1162,6 @@ public class StringUtils {
     // Conversion
     //--------------------------------------------------------------------------
     
-    // spec 3.10.6
     /**
      * <p>Escapes any values it finds into their String form.</p>
      *
@@ -1170,12 +1169,14 @@ public class StringUtils {
      * <code>'t'</code>.</p>
      *
      * <p>As of Lang 2.0, this calls {@link StringEscapeUtils#escapeJava(java.lang.String)}
-     * behind the scenes.  For convenience, this method is not deprecated.
+     * behind the scenes.
      * </p>
      * @see StringEscapeUtils#escapeJava(java.lang.String)
      * @param str String to escape values in
      * @return String with escaped values
      * @throws NullPointerException if str is <code>null</code>
+     * @deprecated Use {@link StringEscapeUtils#escapeJava(java.lang.String)}
+     *             This method will be removed in Commons Lang 3.0
      */
     public static String escape(String str) {
         return StringEscapeUtils.escapeJava(str);
@@ -1191,6 +1192,7 @@ public class StringUtils {
      * <p>
      * @see StringEscapeUtils#unescapeJava(java.lang.String)
      * @deprecated Use {@link StringEscapeUtils#unescapeJava(java.lang.String)}
+     *             This method will be removed in Commons Lang 3.0
      */
     public static String unescape(String str) {
         return StringEscapeUtils.unescapeJava(str);
