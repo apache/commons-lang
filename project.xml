@@ -78,6 +78,15 @@
         <role>Java Developer</role>
       </roles>
     </developer>
+    <developer>
+      <name>Fredrik Westermarck</name>
+      <id>fredrik</id>
+      <email></email>
+      <organization></organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
   </developers>
 
   <contributors>
@@ -467,14 +476,6 @@
     </contributor>
     <contributor>
       <name>Chris Webb</name>
-      <email></email>
-      <organization></organization>
-      <roles>
-        <role>Java Developer</role>
-      </roles>
-    </contributor>
-    <contributor>
-      <name>Fredrik Westermarck</name>
       <email></email>
       <organization></organization>
       <roles>
