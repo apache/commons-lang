@@ -6,3 +6,4 @@ dist
 .classpath
 .project
 bin
+build.properties
