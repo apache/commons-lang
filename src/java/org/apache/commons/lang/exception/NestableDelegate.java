@@ -79,7 +79,7 @@ import java.util.List;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.18 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: NestableDelegate.java,v 1.19 2003/08/21 05:33:10 ggregory Exp $
  */
 public class NestableDelegate implements Serializable {
 
@@ -100,12 +100,14 @@ public class NestableDelegate implements Serializable {
     /**
      * Whether to print the stack trace top-down.
      * This public flag may be set by calling code, typically in initialisation.
+     * @since 2.0
      */
     public static boolean topDown = true;
     
     /**
      * Whether to trim the repeated stack trace.
      * This public flag may be set by calling code, typically in initialisation.
+     * @since 2.0
      */
     public static boolean trimStackFrames = true;
 
@@ -115,6 +117,7 @@ public class NestableDelegate implements Serializable {
      *
      * @param nestable the Nestable implementation (<i>must</i> extend
      * {@link java.lang.Throwable})
+     * @since 2.0
      */
     public NestableDelegate(Nestable nestable) {
         if (nestable instanceof Throwable) {
@@ -135,6 +138,7 @@ public class NestableDelegate implements Serializable {
      * @throws IndexOutOfBoundsException if the <code>index</code> argument is
      * negative or not less than the count of <code>Throwable</code>s in the
      * chain
+     * @since 2.0
      */
     public String getMessage(int index) {
         Throwable t = this.getThrowable(index);
@@ -156,6 +160,7 @@ public class NestableDelegate implements Serializable {
      * java.lang.Throwable}.
      * @return The concatenated message for this and all nested
      * <code>Throwable</code>s
+     * @since 2.0
      */
     public String getMessage(String baseMsg) {
         StringBuffer msg = new StringBuffer();
@@ -186,6 +191,7 @@ public class NestableDelegate implements Serializable {
      * operation.
      *
      * @return the error messages
+     * @since 2.0
      */
     public String[] getMessages() {
         Throwable[] throwables = this.getThrowables();
@@ -209,6 +215,7 @@ public class NestableDelegate implements Serializable {
      * @throws IndexOutOfBoundsException if the <code>index</code> argument is
      * negative or not less than the count of <code>Throwable</code>s in the
      * chain
+     * @since 2.0
      */
     public Throwable getThrowable(int index) {
         if (index == 0) {
@@ -223,6 +230,7 @@ public class NestableDelegate implements Serializable {
      * <code>Nestable</code> contained by this delegate.
      *
      * @return the throwable count
+     * @since 2.0
      */
     public int getThrowableCount() {
         return ExceptionUtils.getThrowableCount(this.nestable);
@@ -234,6 +242,7 @@ public class NestableDelegate implements Serializable {
      * element for each <code>Throwable</code>.
      *
      * @return the <code>Throwable</code>s
+     * @since 2.0
      */
     public Throwable[] getThrowables() {
         return ExceptionUtils.getThrowables(this.nestable);
@@ -253,6 +262,7 @@ public class NestableDelegate implements Serializable {
      * @throws IndexOutOfBoundsException if the <code>fromIndex</code> argument
      * is negative or not less than the count of <code>Throwable</code>s in the
      * chain
+     * @since 2.0
      */
     public int indexOfThrowable(Class type, int fromIndex) {
         if (fromIndex < 0) {
@@ -355,6 +365,7 @@ public class NestableDelegate implements Serializable {
      *
      * @param t The <code>Throwable</code>.
      * @return  An array of strings describing each stack frame.
+     * @since 2.0
      */
     protected String[] getStackFrames(Throwable t) {
         StringWriter sw = new StringWriter();
@@ -375,6 +386,7 @@ public class NestableDelegate implements Serializable {
      * one just on top.
      *
      * @param stacks The list containing String[] elements
+     * @since 2.0
      */
     protected void trimStackFrames(List stacks) {
          for (int size=stacks.size(), i=size-1; i > 0; i--) {
