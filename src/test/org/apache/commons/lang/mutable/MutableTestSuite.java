@@ -22,7 +22,7 @@ import junit.textui.TestRunner;
 /**
  * JUnit tests.
  *
- * @version $Id: MutableTestSuite.java,v 1.3 2004/07/07 23:50:28 scolebourne Exp $
+ * @version $Id: MutableTestSuite.java,v 1.4 2004/07/08 00:02:35 scolebourne Exp $
  */
 public class MutableTestSuite {
 
@@ -39,6 +39,7 @@ public class MutableTestSuite {
         suite.addTest(MutableLongTest.suite());
         suite.addTest(MutableFloatTest.suite());
         suite.addTest(MutableDoubleTest.suite());
+        suite.addTest(MutableObjectTest.suite());
 
         return suite;
     }
