@@ -109,7 +109,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.18 2003/07/21 23:14:37 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.19 2003/07/21 23:32:41 scolebourne Exp $
  */
 public class CompareToBuilder {
     
@@ -282,7 +282,7 @@ public class CompareToBuilder {
         if (comparison != 0) {
             return this;
         }
-        comparison = superHashCode;
+        comparison = superCompareTo;
         return this;
     }
     
