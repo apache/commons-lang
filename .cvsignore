@@ -7,3 +7,4 @@ dist
 .project
 bin
 build.properties
+*.log
