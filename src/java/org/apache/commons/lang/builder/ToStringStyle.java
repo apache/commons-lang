@@ -48,7 +48,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.33 2004/10/08 00:07:59 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.34 2004/10/16 18:13:34 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -2116,74 +2116,5 @@ public abstract class ToStringStyle implements Serializable {
         }
 
     }
-
-    //----------------------------------------------------------------------------
-
-// Removed, as the XML style needs more work for escaping characters, arrays,
-// collections, maps and embedded beans.
-//    /**
-//     * ToStringStyle that outputs in XML style
-//     */
-//    private static class XMLToStringStyle extends ToStringStyle {
-//        
-//        /**
-//         * Constructor - use the static constant rather than instantiating.
-//         */
-//        private XMLToStringStyle() {
-//            super();
-//            nullText = "null";
-//            sizeStartText = "size=";
-//            sizeEndText = "";
-//        }
-//        
-//        /**
-//         * @see ToStringStyle#appendStart(StringBuffer, Object)
-//         */
-//        public void appendStart(StringBuffer buffer, Object object) {
-//            buffer.append('<');
-//            buffer.append(getShortClassName(object.getClass()));
-//            buffer.append(" class=\"");
-//            appendClassName(buffer, object);
-//            buffer.append("\" hashCode=\"");
-//            appendIdentityHashCode(buffer, object);
-//            buffer.append("\">");
-//            buffer.append(SystemUtils.LINE_SEPARATOR);
-//            buffer.append("  ");
-//        }
-//
-//        /**
-//         * @see ToStringStyle#appendFieldStart(StringBuffer, String)
-//         */
-//        protected void appendFieldStart(StringBuffer buffer, String fieldName) {
-//            buffer.append('<');
-//            buffer.append(fieldName);
-//            buffer.append('>');
-//        }
-//
-//        /**
-//         * @see ToStringStyle#appendFieldEnd(StringBuffer, String)
-//         */
-//        protected void appendFieldEnd(StringBuffer buffer, String fieldName) {
-//            buffer.append("</");
-//            buffer.append(fieldName);
-//            buffer.append('>');
-//            buffer.append(SystemUtils.LINE_SEPARATOR);
-//            buffer.append("  ");
-//        }
-//
-//        /**
-//         * @see ToStringStyle#appendEnd(StringBuffer, Object)
-//         */
-//        public void appendEnd(StringBuffer buffer, Object object) {
-//            int len = buffer.length();
-//            if (len > 2 && buffer.charAt(len - 1) == ' ' && buffer.charAt(len - 2) == ' ') {
-//                buffer.setLength(len - 2);
-//            }
-//            buffer.append("</");
-//            buffer.append(getShortClassName(object.getClass()));
-//            buffer.append("\">");
-//        }
-//
-//    }
 
 }
