@@ -23,12 +23,12 @@ import junit.textui.TestRunner;
 /**
  * JUnit tests.
  * 
- * @version $Id: MutableFloatTest.java,v 1.2 2004/07/07 23:50:28 scolebourne Exp $
- * @see MutableFloat
+ * @version $Id: MutableIntTest.java,v 1.1 2004/07/07 23:50:28 scolebourne Exp $
+ * @see MutableInt
  */
-public class MutableFloatTest extends TestCase {
+public class MutableIntTest extends TestCase {
 
-    public MutableFloatTest(String testName) {
+    public MutableIntTest(String testName) {
         super(testName);
     }
 
@@ -37,39 +37,39 @@ public class MutableFloatTest extends TestCase {
     }
 
     public static Test suite() {
-        return new TestSuite(MutableFloatTest.class);
+        return new TestSuite(MutableIntTest.class);
     }
 
     // ----------------------------------------------------------------
     public void testConstructors() {
-        assertEquals(0f, new MutableFloat().floatValue(), 0.0001f);
+        assertEquals(0, new MutableInt().intValue());
         
-        assertEquals(1f, new MutableFloat(1f).floatValue(), 0.0001f);
+        assertEquals(1, new MutableInt(1).intValue());
         
-        assertEquals(2f, new MutableFloat(new Float(2f)).floatValue(), 0.0001f);
-        assertEquals(3f, new MutableFloat(new MutableFloat(3f)).floatValue(), 0.0001f);
+        assertEquals(2, new MutableInt(new Integer(2)).intValue());
+        assertEquals(3, new MutableInt(new MutableLong(3)).intValue());
         try {
-            new MutableFloat(null);
+            new MutableInt(null);
             fail();
         } catch (NullPointerException ex) {}
     }
 
     public void testGetSet() {
-        final MutableFloat mutNum = new MutableFloat(0f);
-        assertEquals(0f, new MutableFloat().floatValue(), 0.0001f);
-        assertEquals(new Float(0), new MutableFloat().getValue());
+        final MutableInt mutNum = new MutableInt(0);
+        assertEquals(0, new MutableInt().intValue());
+        assertEquals(new Integer(0), new MutableInt().getValue());
         
         mutNum.setValue(1);
-        assertEquals(1f, mutNum.floatValue(), 0.0001f);
-        assertEquals(new Float(1f), mutNum.getValue());
+        assertEquals(1, mutNum.intValue());
+        assertEquals(new Integer(1), mutNum.getValue());
         
-        mutNum.setValue(new Float(2f));
-        assertEquals(2f, mutNum.floatValue(), 0.0001f);
-        assertEquals(new Float(2f), mutNum.getValue());
+        mutNum.setValue(new Integer(2));
+        assertEquals(2, mutNum.intValue());
+        assertEquals(new Integer(2), mutNum.getValue());
         
-        mutNum.setValue(new MutableFloat(3f));
-        assertEquals(3f, mutNum.floatValue(), 0.0001f);
-        assertEquals(new Float(3f), mutNum.getValue());
+        mutNum.setValue(new MutableLong(3));
+        assertEquals(3, mutNum.intValue());
+        assertEquals(new Integer(3), mutNum.getValue());
         try {
             mutNum.setValue(null);
             fail();
@@ -80,21 +80,10 @@ public class MutableFloatTest extends TestCase {
         } catch (ClassCastException ex) {}
     }
 
-    public void testNanInfinite() {
-        MutableFloat mutNum = new MutableFloat(Float.NaN);
-        assertEquals(true, mutNum.isNaN());
-        
-        mutNum = new MutableFloat(Float.POSITIVE_INFINITY);
-        assertEquals(true, mutNum.isInfinite());
-        
-        mutNum = new MutableFloat(Float.NEGATIVE_INFINITY);
-        assertEquals(true, mutNum.isInfinite());
-    }
-
     public void testEquals() {
-        final MutableFloat mutNumA = new MutableFloat(0f);
-        final MutableFloat mutNumB = new MutableFloat(0f);
-        final MutableFloat mutNumC = new MutableFloat(1f);
+        final MutableInt mutNumA = new MutableInt(0);
+        final MutableInt mutNumB = new MutableInt(0);
+        final MutableInt mutNumC = new MutableInt(1);
 
         assertEquals(true, mutNumA.equals(mutNumA));
         assertEquals(true, mutNumA.equals(mutNumB));
@@ -104,33 +93,33 @@ public class MutableFloatTest extends TestCase {
         assertEquals(false, mutNumB.equals(mutNumC));
         assertEquals(true, mutNumC.equals(mutNumC));
         assertEquals(false, mutNumA.equals(null));
-        assertEquals(false, mutNumA.equals(new Float(0f)));
+        assertEquals(false, mutNumA.equals(new Integer(0)));
         assertEquals(false, mutNumA.equals("0"));
     }
 
     public void testHashCode() {
-        final MutableFloat mutNumA = new MutableFloat(0f);
-        final MutableFloat mutNumB = new MutableFloat(0f);
-        final MutableFloat mutNumC = new MutableFloat(1f);
+        final MutableInt mutNumA = new MutableInt(0);
+        final MutableInt mutNumB = new MutableInt(0);
+        final MutableInt mutNumC = new MutableInt(1);
 
         assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
         assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
         assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(true, mutNumA.hashCode() == new Float(0f).hashCode());
+        assertEquals(true, mutNumA.hashCode() == new Integer(0).hashCode());
     }
 
     public void testCompareTo() {
-        final MutableFloat mutNum = new MutableFloat(0f);
+        final MutableInt mutNum = new MutableInt(0);
 
-        assertEquals(0, mutNum.compareTo(new MutableFloat(0f)));
-        assertEquals(+1, mutNum.compareTo(new MutableFloat(-1f)));
-        assertEquals(-1, mutNum.compareTo(new MutableFloat(1f)));
+        assertEquals(0, mutNum.compareTo(new MutableInt(0)));
+        assertEquals(+1, mutNum.compareTo(new MutableInt(-1)));
+        assertEquals(-1, mutNum.compareTo(new MutableInt(1)));
         try {
             mutNum.compareTo(null);
             fail();
         } catch (NullPointerException ex) {}
         try {
-            mutNum.compareTo(new Float(0f));
+            mutNum.compareTo(new Integer(0));
             fail();
         } catch (ClassCastException ex) {}
         try {
@@ -140,9 +129,9 @@ public class MutableFloatTest extends TestCase {
     }
 
     public void testToString() {
-        assertEquals("0.0", new MutableFloat(0f).toString());
-        assertEquals("10.0", new MutableFloat(10f).toString());
-        assertEquals("-123.0", new MutableFloat(-123f).toString());
+        assertEquals("0", new MutableInt(0).toString());
+        assertEquals("10", new MutableInt(10).toString());
+        assertEquals("-123", new MutableInt(-123).toString());
     }
 
 }

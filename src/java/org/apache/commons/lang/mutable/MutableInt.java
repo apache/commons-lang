@@ -21,7 +21,7 @@ import java.io.Serializable;
  * A mutable <code>int</code>.
  * 
  * @since 2.1
- * @version $Id: MutableInt.java,v 1.1 2004/07/05 22:15:33 scolebourne Exp $
+ * @version $Id: MutableInt.java,v 1.2 2004/07/07 23:50:28 scolebourne Exp $
  */
 public class MutableInt extends Number
         implements Comparable, Mutable, Serializable {
@@ -49,15 +49,43 @@ public class MutableInt extends Number
         this.value = value;
     }
 
+    /**
+     * Constructs a new MutableInt with the specified value.
+     * 
+     * @param value a value.
+     * @throws NullPointerException if the object is null
+     */
+    public MutableInt(Number value) {
+        super();
+        this.value = value.intValue();
+    }
+
     //-----------------------------------------------------------------------
+    /**
+     * Gets the value as a Integer instance.
+     * 
+     * @return the value as a Integer
+     */
     public Object getValue() {
         return new Integer(this.value);
     }
 
+    /**
+     * Sets the value.
+     * 
+     * @param value  the value to set
+     */
     public void setValue(int value) {
         this.value = value;
     }
 
+    /**
+     * Sets the value from any Number instance.
+     * 
+     * @param value  the value to set
+     * @throws NullPointerException if the object is null
+     * @throws ClassCastException if the type is invalid
+     */
     public void setValue(Object value) {
         setValue(((Number) value).intValue());
     }

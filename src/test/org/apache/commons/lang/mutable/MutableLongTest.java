@@ -16,16 +16,21 @@
 package org.apache.commons.lang.mutable;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
  * JUnit tests.
  * 
- * @version $Id: MutableLongTest.java,v 1.1 2004/06/11 02:26:32 matth Exp $
+ * @version $Id: MutableLongTest.java,v 1.2 2004/07/07 23:50:28 scolebourne Exp $
  * @see MutableLong
  */
-public class MutableLongTest extends MutableNumberTest {
+public class MutableLongTest extends TestCase {
+
+    public MutableLongTest(String testName) {
+        super(testName);
+    }
 
     public static void main(String[] args) {
         TestRunner.run(suite());
@@ -35,40 +40,98 @@ public class MutableLongTest extends MutableNumberTest {
         return new TestSuite(MutableLongTest.class);
     }
 
-    public MutableLongTest(String testName) {
-        super(testName);
-    }
-
-    public MutableNumber getMutableNumber(double value) {
-        return new MutableLong((long)value);
-    }
-
     // ----------------------------------------------------------------
-    // Converters
-    // ----------------------------------------------------------------    
-
-    public byte byteValue(double value) {
-        return (byte)(long)value;
+    public void testConstructors() {
+        assertEquals(0, new MutableLong().longValue());
+        
+        assertEquals(1, new MutableLong(1).longValue());
+        
+        assertEquals(2, new MutableLong(new Long(2)).longValue());
+        assertEquals(3, new MutableLong(new MutableLong(3)).longValue());
+        try {
+            new MutableLong(null);
+            fail();
+        } catch (NullPointerException ex) {}
     }
 
-    public short shortValue(double value) {
-        return (short)(long)value;
+    public void testGetSet() {
+        final MutableLong mutNum = new MutableLong(0);
+        assertEquals(0, new MutableLong().longValue());
+        assertEquals(new Long(0), new MutableLong().getValue());
+        
+        mutNum.setValue(1);
+        assertEquals(1, mutNum.longValue());
+        assertEquals(new Long(1), mutNum.getValue());
+        
+        mutNum.setValue(new Long(2));
+        assertEquals(2, mutNum.longValue());
+        assertEquals(new Long(2), mutNum.getValue());
+        
+        mutNum.setValue(new MutableLong(3));
+        assertEquals(3, mutNum.longValue());
+        assertEquals(new Long(3), mutNum.getValue());
+        try {
+            mutNum.setValue(null);
+            fail();
+        } catch (NullPointerException ex) {}
+        try {
+            mutNum.setValue("0");
+            fail();
+        } catch (ClassCastException ex) {}
     }
 
-    public int intValue(double value) {
-        return (int)(long)value;
+    public void testEquals() {
+        final MutableLong mutNumA = new MutableLong(0);
+        final MutableLong mutNumB = new MutableLong(0);
+        final MutableLong mutNumC = new MutableLong(1);
+
+        assertEquals(true, mutNumA.equals(mutNumA));
+        assertEquals(true, mutNumA.equals(mutNumB));
+        assertEquals(true, mutNumB.equals(mutNumA));
+        assertEquals(true, mutNumB.equals(mutNumB));
+        assertEquals(false, mutNumA.equals(mutNumC));
+        assertEquals(false, mutNumB.equals(mutNumC));
+        assertEquals(true, mutNumC.equals(mutNumC));
+        assertEquals(false, mutNumA.equals(null));
+        assertEquals(false, mutNumA.equals(new Long(0)));
+        assertEquals(false, mutNumA.equals("0"));
     }
 
-    public long longValue(double value) {
-        return (long)value;
+    public void testHashCode() {
+        final MutableLong mutNumA = new MutableLong(0);
+        final MutableLong mutNumB = new MutableLong(0);
+        final MutableLong mutNumC = new MutableLong(1);
+
+        assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
+        assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
+        assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
+        assertEquals(true, mutNumA.hashCode() == new Long(0).hashCode());
     }
 
-    public float floatValue(double value) {
-        return (long)value;
+    public void testCompareTo() {
+        final MutableLong mutNum = new MutableLong(0);
+
+        assertEquals(0, mutNum.compareTo(new MutableLong(0)));
+        assertEquals(+1, mutNum.compareTo(new MutableLong(-1)));
+        assertEquals(-1, mutNum.compareTo(new MutableLong(1)));
+        try {
+            mutNum.compareTo(null);
+            fail();
+        } catch (NullPointerException ex) {}
+        try {
+            mutNum.compareTo(new Long(0));
+            fail();
+        } catch (ClassCastException ex) {}
+        try {
+            mutNum.compareTo("0");
+            fail();
+        } catch (ClassCastException ex) {}
     }
 
-    public double doubleValue(double value) {
-        return (long)value;
+    public void testToString() {
+        assertEquals("0", new MutableLong(0).toString());
+        assertEquals("10", new MutableLong(10).toString());
+        assertEquals("-123", new MutableLong(-123).toString());
     }
 
 }

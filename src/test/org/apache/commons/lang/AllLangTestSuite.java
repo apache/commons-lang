@@ -19,17 +19,19 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 import org.apache.commons.lang.builder.BuilderTestSuite;
 import org.apache.commons.lang.enums.EnumTestSuite;
 import org.apache.commons.lang.exception.ExceptionTestSuite;
 import org.apache.commons.lang.math.MathTestSuite;
+import org.apache.commons.lang.mutable.MutableTestSuite;
 import org.apache.commons.lang.time.TimeTestSuite;
 
 /**
  * Test suite for [lang].
  *
  * @author Stephen Colebourne
- * @version $Id: AllLangTestSuite.java,v 1.6 2004/06/01 20:55:28 scolebourne Exp $
+ * @version $Id: AllLangTestSuite.java,v 1.7 2004/07/07 23:50:28 scolebourne Exp $
  */
 public class AllLangTestSuite extends TestCase {
     
@@ -59,6 +61,7 @@ public class AllLangTestSuite extends TestCase {
         suite.addTest(org.apache.commons.lang.enum.EnumTestSuite.suite());
         suite.addTest(ExceptionTestSuite.suite());
         suite.addTest(MathTestSuite.suite());
+        suite.addTest(MutableTestSuite.suite());
         suite.addTest(TimeTestSuite.suite());
         return suite;
     }

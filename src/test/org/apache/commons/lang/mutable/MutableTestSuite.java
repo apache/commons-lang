@@ -22,9 +22,9 @@ import junit.textui.TestRunner;
 /**
  * JUnit tests.
  *
- * @version $Id: MutableTestSuite.java,v 1.2 2004/06/27 06:28:32 bayard Exp $
+ * @version $Id: MutableTestSuite.java,v 1.3 2004/07/07 23:50:28 scolebourne Exp $
  */
-public final class MutableTestSuite {
+public class MutableTestSuite {
 
     public static void main(String[] args) {
         TestRunner.run(suite());
@@ -35,7 +35,7 @@ public final class MutableTestSuite {
 
         suite.addTest(MutableByteTest.suite());
         suite.addTest(MutableShortTest.suite());
-        suite.addTest(MutableIntegerTest.suite());
+        suite.addTest(MutableIntTest.suite());
         suite.addTest(MutableLongTest.suite());
         suite.addTest(MutableFloatTest.suite());
         suite.addTest(MutableDoubleTest.suite());

@@ -16,59 +16,122 @@
 package org.apache.commons.lang.mutable;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
  * JUnit tests.
  * 
- * @version $Id: MutableByteTest.java,v 1.1 2004/06/11 02:26:32 matth Exp $
+ * @version $Id: MutableByteTest.java,v 1.2 2004/07/07 23:50:28 scolebourne Exp $
  * @see MutableByte
  */
-public class MutableByteTest extends MutableNumberTest {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-    
-    public static Test suite() {
-        return new TestSuite(MutableByteTest.class);
-    }
+public class MutableByteTest extends TestCase {
 
     public MutableByteTest(String testName) {
         super(testName);
     }
 
-    public MutableNumber getMutableNumber(double value) {
-        return new MutableByte((byte)value);
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
+
+    public static Test suite() {
+        return new TestSuite(MutableByteTest.class);
     }
 
     // ----------------------------------------------------------------
-    //  Converters
-    // ----------------------------------------------------------------
-
-    public byte byteValue(double value) {
-        return (byte)value;
+    public void testConstructors() {
+        assertEquals((byte) 0, new MutableByte().byteValue());
+        
+        assertEquals((byte) 1, new MutableByte((byte) 1).byteValue());
+        
+        assertEquals((byte) 2, new MutableByte(new Byte((byte) 2)).byteValue());
+        assertEquals((byte) 3, new MutableByte(new MutableByte((byte) 3)).byteValue());
+        try {
+            new MutableByte(null);
+            fail();
+        } catch (NullPointerException ex) {}
     }
 
-    public short shortValue(double value) {
-        return (byte)value;
+    public void testGetSet() {
+        final MutableByte mutNum = new MutableByte((byte) 0);
+        assertEquals((byte) 0, new MutableByte().byteValue());
+        assertEquals(new Byte((byte) 0), new MutableByte().getValue());
+        
+        mutNum.setValue((byte) 1);
+        assertEquals((byte) 1, mutNum.byteValue());
+        assertEquals(new Byte((byte) 1), mutNum.getValue());
+        
+        mutNum.setValue(new Byte((byte) 2));
+        assertEquals((byte) 2, mutNum.byteValue());
+        assertEquals(new Byte((byte) 2), mutNum.getValue());
+        
+        mutNum.setValue(new MutableByte((byte) 3));
+        assertEquals((byte) 3, mutNum.byteValue());
+        assertEquals(new Byte((byte) 3), mutNum.getValue());
+        try {
+            mutNum.setValue(null);
+            fail();
+        } catch (NullPointerException ex) {}
+        try {
+            mutNum.setValue("0");
+            fail();
+        } catch (ClassCastException ex) {}
     }
 
-    public int intValue(double value) {
-        return (byte)value;
+    public void testEquals() {
+        final MutableByte mutNumA = new MutableByte((byte) 0);
+        final MutableByte mutNumB = new MutableByte((byte) 0);
+        final MutableByte mutNumC = new MutableByte((byte) 1);
+
+        assertEquals(true, mutNumA.equals(mutNumA));
+        assertEquals(true, mutNumA.equals(mutNumB));
+        assertEquals(true, mutNumB.equals(mutNumA));
+        assertEquals(true, mutNumB.equals(mutNumB));
+        assertEquals(false, mutNumA.equals(mutNumC));
+        assertEquals(false, mutNumB.equals(mutNumC));
+        assertEquals(true, mutNumC.equals(mutNumC));
+        assertEquals(false, mutNumA.equals(null));
+        assertEquals(false, mutNumA.equals(new Byte((byte) 0)));
+        assertEquals(false, mutNumA.equals("0"));
     }
 
-    public long longValue(double value) {
-        return (byte)value;
+    public void testHashCode() {
+        final MutableByte mutNumA = new MutableByte((byte) 0);
+        final MutableByte mutNumB = new MutableByte((byte) 0);
+        final MutableByte mutNumC = new MutableByte((byte) 1);
+
+        assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
+        assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
+        assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
+        assertEquals(true, mutNumA.hashCode() == new Byte((byte) 0).hashCode());
     }
 
-    public float floatValue(double value) {
-        return (byte)value;
+    public void testCompareTo() {
+        final MutableByte mutNum = new MutableByte((byte) 0);
+
+        assertEquals((byte) 0, mutNum.compareTo(new MutableByte((byte) 0)));
+        assertEquals((byte) +1, mutNum.compareTo(new MutableByte((byte) -1)));
+        assertEquals((byte) -1, mutNum.compareTo(new MutableByte((byte) 1)));
+        try {
+            mutNum.compareTo(null);
+            fail();
+        } catch (NullPointerException ex) {}
+        try {
+            mutNum.compareTo(new Byte((byte) 0));
+            fail();
+        } catch (ClassCastException ex) {}
+        try {
+            mutNum.compareTo("0");
+            fail();
+        } catch (ClassCastException ex) {}
     }
 
-    public double doubleValue(double value) {
-        return (byte)value;
+    public void testToString() {
+        assertEquals("0", new MutableByte((byte) 0).toString());
+        assertEquals("10", new MutableByte((byte) 10).toString());
+        assertEquals("-123", new MutableByte((byte) -123).toString());
     }
 
-} // MutableByteTest
+}

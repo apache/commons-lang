@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2004 The Apache Software Foundation.
+ * Copyright 2004 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,50 +15,142 @@
  */
 package org.apache.commons.lang.mutable;
 
+import java.io.Serializable;
+
 /**
- * A mutable <code>Long</code>
+ * A mutable <code>long</code>.
  * 
  * @since 2.1
- * @version $Id: MutableLong.java,v 1.3 2004/06/24 04:20:46 bayard Exp $
+ * @version $Id: MutableLong.java,v 1.4 2004/07/07 23:50:28 scolebourne Exp $
  */
-public class MutableLong extends MutableNumber {
+public class MutableLong extends Number
+        implements Comparable, Mutable, Serializable {
 
-    /**
-     * Internal value.
-     */
+    /** Serialization lock. */
+    private static final long serialVersionUID = 62986528375L;
+
+    /** The mutable value. */
     private long value;
 
     /**
-     * Instantiates with the specified value
+     * Constructs a new MutableLong with the default value of zero.
+     */
+    public MutableLong() {
+        super();
+    }
+
+    /**
+     * Constructs a new MutableLong with the specified value.
+     * 
      * @param value a value.
      */
     public MutableLong(long value) {
         super();
-        setValue(value);
-    }
-
-    public void setValue(long value) {
         this.value = value;
     }
 
-    public double doubleValue() {
-        return this.value;
+    /**
+     * Constructs a new MutableLong with the specified value.
+     * 
+     * @param value a value.
+     * @throws NullPointerException if the object is null
+     */
+    public MutableLong(Number value) {
+        super();
+        this.value = value.longValue();
     }
 
-    public long longValue() {
-        return this.value;
-    }
-
-    public int intValue() {
-        return (int)this.value;
-    }
-
+    //-----------------------------------------------------------------------
+    /**
+     * Gets the value as a Long instance.
+     * 
+     * @return the value as a Long
+     */
     public Object getValue() {
         return new Long(this.value);
     }
 
+    /**
+     * Sets the value.
+     * 
+     * @param value  the value to set
+     */
+    public void setValue(long value) {
+        this.value = value;
+    }
+
+    /**
+     * Sets the value from any Number instance.
+     * 
+     * @param value  the value to set
+     * @throws NullPointerException if the object is null
+     * @throws ClassCastException if the type is invalid
+     */
     public void setValue(Object value) {
-        setValue(((Number)value).longValue());
+        setValue(((Number) value).longValue());
+    }
+
+    //-----------------------------------------------------------------------
+    public int intValue() {
+        return (int) value;
+    }
+
+    public long longValue() {
+        return value;
+    }
+
+    public float floatValue() {
+        return (float) value;
+    }
+
+    public double doubleValue() {
+        return (double) value;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Checks if this object equals the specified object.
+     * <p>
+     * The object must be a MutableLong with the same value to be equal.
+     *
+     * @param obj  the object to compare to
+     * @return true if equal
+     */
+    public boolean equals(Object obj) {
+        if (obj instanceof MutableLong) {
+            return (value == ((MutableLong) obj).value);
+        }
+        return false;
+    }
+
+    /**
+     * Returns a suitable hashcode for this mutable.
+     *
+     * @return a suitable hashcode
+     */
+    public int hashCode() {
+        return (int)(value ^ (value >>> 32));
+    }
+
+    /**
+     * Compares this mutable to another in ascending order.
+     *
+     * @param obj  the mutable to compare to
+     * @return negative if this is less, zero if equal, positive if greater
+     */
+    public int compareTo(Object obj) {
+        MutableLong other = (MutableLong) obj;
+        long anotherVal = other.value;
+        return (value < anotherVal ? -1 : (value == anotherVal ? 0 : 1));
+    }
+
+    /**
+     * Returns the String value of this mutable.
+     *
+     * @return the mutable value as a string
+     */
+    public String toString() {
+        return String.valueOf(value);
     }
 
 }
