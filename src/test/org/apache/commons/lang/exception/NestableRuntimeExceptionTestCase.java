@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang.exception;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
@@ -61,7 +63,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableRuntimeException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.7 2003/05/21 23:49:14 scolebourne Exp $
+ * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.8 2003/08/07 00:50:30 stevencaswell Exp $
  */
 public class NestableRuntimeExceptionTestCase extends AbstractNestableTestCase {
     
@@ -236,6 +238,45 @@ public class NestableRuntimeExceptionTestCase extends AbstractNestableTestCase {
     public Class getThrowableClass()
     {
         return RuntimeException.class;
+    }
+    
+    public void testSpecificPrintStackTrace()
+    {
+        // Test printStackTrac()
+        // Replace System.err with our own PrintStream so that we can obtain
+        // and check the printStrackTrace output
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        NestableRuntimeException ne = new NestableRuntimeException("outer", new NestableRuntimeException("inner", new Exception("another exception")));
+        for(int i = 0; i < 2; i++)
+        {
+            if(i == 0)
+            {
+                // Test printStackTrac()
+                // Replace System.err with our own PrintStream so that we can
+                // obtain and check the printStrackTrace output
+                PrintStream err = System.err;
+                System.setErr(ps);
+                ne.printStackTrace();
+                // Restore the System.err
+                System.setErr(err);
+            }
+            else
+            {
+                // Test printStackTrace(PrintStream)
+                ne.printStackTrace(ps);
+            }
+        }
+        String msg = baos.toString();
+        assertTrue( "printStackTrace() starts with outer message", msg.startsWith("org.apache.commons.lang.exception.NestableRuntimeException: outer"));
+        assertTrue( "printStackTrace() contains 1st nested message", msg.indexOf("Caused by: org.apache.commons.lang.exception.NestableRuntimeException: inner") >= 0);
+        assertTrue( "printStackTrace() contains 2nd nested message", msg.indexOf("Caused by: java.lang.Exception: another exception") >= 0);
+        assertTrue( "printStackTrace() inner message after outer message", 
+            msg.indexOf("org.apache.commons.lang.exception.NestableRuntimeException: outer") <
+            msg.indexOf("Caused by: org.apache.commons.lang.exception.NestableRuntimeException: inner"));
+        assertTrue( "printStackTrace() cause message after inner message",
+            msg.indexOf("Caused by: org.apache.commons.lang.exception.NestableRuntimeException: inner") <
+            msg.indexOf("Caused by: java.lang.Exception: another exception"));
     }
     
 }

@@ -57,6 +57,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -66,7 +67,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableExceptionTestCase.java,v 1.8 2003/05/21 23:49:14 scolebourne Exp $
+ * @version $Id: NestableExceptionTestCase.java,v 1.9 2003/08/07 00:50:30 stevencaswell Exp $
  */
 public class NestableExceptionTestCase extends AbstractNestableTestCase {
     
@@ -241,6 +242,42 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     public Class getThrowableClass()
     {
         return Exception.class;
+    }
+
+    public void testSpecificPrintStackTrace()
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        NestableException ne = new NestableException("outer", new NestableException("inner", new Exception("another exception")));
+        for(int i = 0; i < 2; i++)
+        {
+            if(i == 0)
+            {
+                // Test printStackTrac()
+                // Replace System.err with our own PrintStream so that we can
+                // obtain and check the printStrackTrace output
+                PrintStream err = System.err;
+                System.setErr(ps);
+                ne.printStackTrace();
+                // Restore the System.err
+                System.setErr(err);
+            }
+            else
+            {
+                // Test printStackTrace(PrintStream)
+                ne.printStackTrace(ps);
+            }
+        }
+        String msg = baos.toString();
+        assertTrue( "printStackTrace() starts with outer message", msg.startsWith("org.apache.commons.lang.exception.NestableException: outer"));
+        assertTrue( "printStackTrace() contains 1st nested message", msg.indexOf("Caused by: org.apache.commons.lang.exception.NestableException: inner") >= 0);
+        assertTrue( "printStackTrace() contains 2nd nested message", msg.indexOf("Caused by: java.lang.Exception: another exception") >= 0);
+        assertTrue( "printStackTrace() inner message after outer message", 
+            msg.indexOf("org.apache.commons.lang.exception.NestableException: outer") <
+            msg.indexOf("Caused by: org.apache.commons.lang.exception.NestableException: inner"));
+        assertTrue( "printStackTrace() cause message after inner message",
+            msg.indexOf("Caused by: org.apache.commons.lang.exception.NestableException: inner") <
+            msg.indexOf("Caused by: java.lang.Exception: another exception"));
     }
     
     public void testSerialization()
