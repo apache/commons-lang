@@ -62,7 +62,7 @@ package org.apache.commons.lang.time;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DurationFormatUtils.java,v 1.7 2003/12/20 22:19:21 psteitz Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.8 2003/12/23 03:54:14 psteitz Exp $
  */
 class DurationFormatUtils {
     // TODO: Make class public once methods can fully select which fields to output
@@ -106,12 +106,12 @@ class DurationFormatUtils {
      */
     public static String formatISO(long millis) {
         int hours, minutes, seconds, milliseconds;
-        hours = (int) (millis / DateUtils.MILLIS_IN_HOUR);
-        millis = millis - (hours * DateUtils.MILLIS_IN_HOUR);
-        minutes = (int) (millis / DateUtils.MILLIS_IN_MINUTE);
-        millis = millis - (minutes * DateUtils.MILLIS_IN_MINUTE);
-        seconds = (int) (millis / DateUtils.MILLIS_IN_SECOND);
-        millis = millis - (seconds * DateUtils.MILLIS_IN_SECOND);
+        hours = (int) (millis / DateUtils.MILLIS_PER_HOUR);
+        millis = millis - (hours * DateUtils.MILLIS_PER_HOUR);
+        minutes = (int) (millis / DateUtils.MILLIS_PER_MINUTE);
+        millis = millis - (minutes * DateUtils.MILLIS_PER_MINUTE);
+        seconds = (int) (millis / DateUtils.MILLIS_PER_SECOND);
+        millis = millis - (seconds * DateUtils.MILLIS_PER_SECOND);
         milliseconds = (int) millis;
 
         StringBuffer buf = new StringBuffer(32);
@@ -145,10 +145,10 @@ class DurationFormatUtils {
         boolean suppressLeadingZeroElements,
         boolean suppressTrailingZeroElements) {
         long[] values = new long[4];
-        values[0] = millis / DateUtils.MILLIS_IN_DAY;
-        values[1] = (millis / DateUtils.MILLIS_IN_HOUR) % 24;
-        values[2] = (millis / DateUtils.MILLIS_IN_MINUTE) % 60;
-        values[3] = (millis / DateUtils.MILLIS_IN_SECOND) % 60;
+        values[0] = millis / DateUtils.MILLIS_PER_DAY;
+        values[1] = (millis / DateUtils.MILLIS_PER_HOUR) % 24;
+        values[2] = (millis / DateUtils.MILLIS_PER_MINUTE) % 60;
+        values[3] = (millis / DateUtils.MILLIS_PER_SECOND) % 60;
         String[] fieldsOne = { " day ", " hour ", " minute ", " second" };
         String[] fieldsPlural = { " days ", " hours ", " minutes ", " seconds" };
 
