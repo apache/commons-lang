@@ -63,12 +63,49 @@ import java.math.BigDecimal;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
- * @version $Id: NumberUtils.java,v 1.4 2002/11/16 10:41:03 scolebourne Exp $
+ * @version $Id: NumberUtils.java,v 1.5 2002/12/15 16:53:28 scolebourne Exp $
  */
 public final class NumberUtils {
+    
+    /** Reusable Long constant for zero. */
+    public static final Long LONG_ZERO = new Long(0L);
+    /** Reusable Long constant for one. */
+    public static final Long LONG_ONE = new Long(1L);
+    /** Reusable Long constant for minus one. */
+    public static final Long LONG_MINUS_ONE = new Long(-1L);
+    /** Reusable Integer constant for zero. */
+    public static final Integer INTEGER_ZERO = new Integer(0);
+    /** Reusable Integer constant for one. */
+    public static final Integer INTEGER_ONE = new Integer(1);
+    /** Reusable Integer constant for minus one. */
+    public static final Integer INTEGER_MINUS_ONE = new Integer(-1);
+    /** Reusable Short constant for zero. */
+    public static final Short SHORT_ZERO = new Short((short) 0);
+    /** Reusable Short constant for one. */
+    public static final Short SHORT_ONE = new Short((short) 1);
+    /** Reusable Short constant for minus one. */
+    public static final Short SHORT_MINUS_ONE = new Short((short) -1);
+    /** Reusable Byte constant for zero. */
+    public static final Byte BYTE_ZERO = new Byte((byte) 0);
+    /** Reusable Byte constant for one. */
+    public static final Byte BYTE_ONE = new Byte((byte) 1);
+    /** Reusable Byte constant for minus one. */
+    public static final Byte BYTE_MINUS_ONE = new Byte((byte) -1);
+    /** Reusable Double constant for zero. */
+    public static final Double DOUBLE_ZERO = new Double(0.0d);
+    /** Reusable Double constant for one. */
+    public static final Double DOUBLE_ONE = new Double(1.0d);
+    /** Reusable Double constant for minus one. */
+    public static final Double DOUBLE_MINUS_ONE = new Double(-1.0d);
+    /** Reusable Float constant for zero. */
+    public static final Float FLOAT_ZERO = new Float(0.0f);
+    /** Reusable Float constant for one. */
+    public static final Float FLOAT_ONE = new Float(1.0f);
+    /** Reusable Float constant for minus one. */
+    public static final Float FLOAT_MINUS_ONE = new Float(-1.0f);
 
     /**
-     * <p>NumberUtils instances should NOT be constructed in standard programming.
+     * <p><code>NumberUtils</code> instances should NOT be constructed in standard programming.
      * Instead, the class should be used as <code>NumberUtils.stringToInt("6");</code>.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
