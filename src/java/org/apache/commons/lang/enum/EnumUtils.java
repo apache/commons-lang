@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,6 +57,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 /**
  * Utility class for accessing and manipulating Enums.
  *
@@ -64,9 +65,9 @@ import java.util.Map;
  * @see ValuedEnum
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: EnumUtils.java,v 1.4 2002/12/23 00:17:06 scolebourne Exp $
+ * @version $Id: EnumUtils.java,v 1.5 2003/02/22 20:42:36 scolebourne Exp $
  */
-public abstract class EnumUtils implements Comparable, Serializable {
+public class EnumUtils {
 
     /**
      * Restricted constructor
