@@ -194,6 +194,7 @@ class IntHashMap {
      * (which predates the Map interface).</p>
      *
      * @param value value whose presence in this HashMap is to be tested.
+     * @return boolean <code>true</code> if the value is contained
      * @see    java.util.Map
      * @since JDK1.2
      */
