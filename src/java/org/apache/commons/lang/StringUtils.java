@@ -90,7 +90,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.56 2003/07/15 23:41:54 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.57 2003/07/16 20:19:24 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -2225,37 +2225,6 @@ public class StringUtils {
         return containsOnly(str, validChars.toCharArray());
     }
     
-    /**
-     * <p>Checks if the String contains only certain chars.</p>
-     *
-     * @param str the String to check
-     * @param validChars an array of valid chars
-     * @return true if it only contains valid chars and is non-null
-     */
-     /* rewritten
-    public static boolean containsOnly(String str, char[] validChars) {
-        if (str == null || validChars == null) {
-            return false;
-        }
-        int strSize = str.length();
-        int validSize = validChars.length;
-        for (int i = 0; i < strSize; i++) {
-            char ch = str.charAt(i);
-            boolean contains = false;
-            for (int j = 0; j < validSize; j++) {
-                if (validChars[j] == ch) {
-                    contains = true;
-                    break;
-                }
-            }
-            if (contains == false) {
-                return false;
-            }
-        }
-        return true;
-    }
-    */
-
     /**
      * <p>Checks that the String does not contain certain chars.</p>
      *
