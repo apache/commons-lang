@@ -3,7 +3,7 @@
 
 <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.8 2002/12/23 00:33:50 scolebourne Exp $
+        $Id: build.xml,v 1.9 2003/01/07 19:56:40 bayard Exp $
 -->
 
 
@@ -157,13 +157,13 @@
                                 compile.tests, 
                                 test.lang, 
                                 test.builder, 
-                                test.enum, 
                                 test.exception, 
                                 test.functor,
                                 test.math,
                                 test.reflect,
                                 test.time,
-                                test.util"
+                                test.util,
+                                test.enum" 
                                 
    description="Run all unit test cases">
     <echo message="Running tests ..."/>
