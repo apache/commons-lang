@@ -62,7 +62,7 @@ import java.util.List;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.7 2002/12/23 00:32:24 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.8 2002/12/31 22:32:23 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -499,7 +499,7 @@ public class ClassUtils {
         if (cls == null) {
             throw new IllegalArgumentException("The class must not be null");
         }
-        return (cls.getDeclaringClass() != null);
+        return (cls.getName().indexOf('$') >= 0);
     }
     
 }
