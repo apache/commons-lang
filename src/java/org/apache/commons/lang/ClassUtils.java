@@ -31,7 +31,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.35 2005/01/27 06:45:11 bayard Exp $
+ * @version $Id$
  */
 public class ClassUtils {
 
@@ -481,79 +481,6 @@ public class ClassUtils {
         return convertedClasses;
     }
 
-    /**
-     * <p>Enhanced version of java.lang.Class.forName(String) that can handle 
-     * primitive types and arrays using the Foo[] notation. 
-     *
-     * @param name the fully qualified name of the class to create
-     * @return the desired class
-     * @since 2.1
-     */
-    public static Class forName(String name) throws ClassNotFoundException {
-        String fixedName = name;
-        if(name.endsWith("[]")) {
-            fixedName = "[L" + name.substring(0, name.length() - "[]".length()) + ";";
-        }
-        try {
-            return Class.forName(fixedName);
-        } catch(ClassNotFoundException cnfe) {
-            // try primitives
-            if("boolean".equals(name)) {
-                return boolean.class;
-            } else
-            if("char".equals(name)) {
-                return char.class;
-            } else
-            if("byte".equals(name)) {
-                return byte.class;
-            } else
-            if("short".equals(name)) {
-                return short.class;
-            } else
-            if("int".equals(name)) {
-                return int.class;
-            } else
-            if("long".equals(name)) {
-                return long.class;
-            } else
-            if("float".equals(name)) {
-                return float.class;
-            } else
-            if("double".equals(name)) {
-                return double.class;
-            }
-
-            // try primitive arrays
-            if("boolean[]".equals(name)) {
-                return boolean[].class;
-            } else
-            if("char[]".equals(name)) {
-                return char[].class;
-            } else
-            if("byte[]".equals(name)) {
-                return byte[].class;
-            } else
-            if("short[]".equals(name)) {
-                return short[].class;
-            } else
-            if("int[]".equals(name)) {
-                return int[].class;
-            } else
-            if("long[]".equals(name)) {
-                return long[].class;
-            } else
-            if("float[]".equals(name)) {
-                return float[].class;
-            } else
-            if("double[]".equals(name)) {
-                return double[].class;
-            }
-
-            throw cnfe;
-        }
-
-    }
-    
     // Inner class
     // ----------------------------------------------------------------------
     /**
