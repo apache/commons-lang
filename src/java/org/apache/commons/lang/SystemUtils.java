@@ -67,7 +67,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Michael Becke
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.17 2003/07/08 05:59:58 bayard Exp $
+ * @version $Id: SystemUtils.java,v 1.18 2003/07/18 16:48:25 ggregory Exp $
  */
 public class SystemUtils {
 
@@ -185,7 +185,7 @@ public class SystemUtils {
     public static final boolean IS_OS_MAC_OSX = getOSMatches("Mac OS X");
 
     /**
-     * <p>Is <code>true</code> if this is Mac.</p>
+     * <p>Is <code>true</code> if this is OS/2.</p>
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
