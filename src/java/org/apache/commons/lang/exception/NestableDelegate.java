@@ -67,7 +67,7 @@ import java.util.StringTokenizer;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableDelegate.java,v 1.4 2002/08/21 07:31:54 dlr Exp $
+ * @version $Id: NestableDelegate.java,v 1.5 2002/08/21 23:52:02 dlr Exp $
  */
 public class NestableDelegate
 {
@@ -217,16 +217,7 @@ public class NestableDelegate
      */
     int getThrowableCount() // package
     {
-        // Count the number of throwables
-        int count = 1;
-        String msg = null;
-        Throwable t = ExceptionUtils.getCause(this.cause);
-        while (t != null)
-        {
-            ++count;
-            t = ExceptionUtils.getCause(t);
-        }
-        return count;
+        return ExceptionUtils.getThrowableCount(this.cause);
     }
     
     /**
@@ -238,21 +229,7 @@ public class NestableDelegate
      */
     Throwable[] getThrowables() // package
     {
-        int count = this.getThrowableCount();
-        // Allocate an array to hold the messages
-        Throwable[] throwables = new Throwable[count];
-        count = 0;
-        if(cause != null)
-        {
-            throwables[count++] = this.cause;
-            Throwable t = ExceptionUtils.getCause(this.cause);
-            while(t != null)
-            {
-                throwables[count++] = t;
-                t = ExceptionUtils.getCause(t);
-            }
-        }
-        return throwables;
+        return ExceptionUtils.getThrowables(this.cause);
     }
 
     /**
@@ -272,25 +249,7 @@ public class NestableDelegate
      */
     int indexOfThrowable(Class type, int fromIndex) // package
     {
-        if(fromIndex < 0)
-        {
-            throw new IndexOutOfBoundsException("Throwable index out of range: "
-                                                + fromIndex);
-        }
-        Throwable throwables[] = this.getThrowables();
-        if(fromIndex >= throwables.length)
-        {
-            throw new IndexOutOfBoundsException("Throwable index out of range: "
-                                                + fromIndex);
-        }
-        for(int i = fromIndex; i < throwables.length; i++)
-        {
-            if(throwables[i].getClass().equals(type))
-            {
-                return i;
-            }
-        }
-        return -1;
+        return ExceptionUtils.indexOfThrowable(this.cause, type, fromIndex);
     }
     
     /**
