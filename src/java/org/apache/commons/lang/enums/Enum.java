@@ -228,8 +228,9 @@ import org.apache.commons.lang.StringUtils;
  * @author Stephen Colebourne
  * @author Chris Webb
  * @author Mike Bowler
- * @since 1.0
- * @version $Id: Enum.java,v 1.1 2004/02/23 04:34:20 ggregory Exp $
+ * @author Matthias Eichel
+ * @since 2.1 (class existed in enum package from v1.0)
+ * @version $Id: Enum.java,v 1.2 2004/06/01 20:54:57 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
 
@@ -537,7 +538,10 @@ public abstract class Enum implements Comparable, Serializable {
             // classes are in the same class loader.
             return iName.equals(((Enum) other).iName);
         } else {
-            // This and other are in different class loaders, we must use reflection.
+            // This and other are in different class loaders, we must check indirectly
+            if (other.getClass().getName().equals(this.getClass().getName()) == false) {
+                return false;
+            }
             try {
                 Method mth = other.getClass().getMethod("getName", null);
                 String name = (String) mth.invoke(other, null);

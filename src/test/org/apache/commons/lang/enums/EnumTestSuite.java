@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * Test suite for the Enum package.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumTestSuite.java,v 1.1 2004/02/23 04:34:20 ggregory Exp $
+ * @version $Id: EnumTestSuite.java,v 1.2 2004/06/01 20:54:57 scolebourne Exp $
  */
 public class EnumTestSuite extends TestCase {
     
@@ -49,6 +49,7 @@ public class EnumTestSuite extends TestCase {
         TestSuite suite = new TestSuite();
         suite.setName("Commons-Lang-Enum Tests");
         suite.addTest(EnumTest.suite());
+        suite.addTest(EnumEqualsTest.suite());
         suite.addTest(EnumUtilsTest.suite());
         suite.addTest(ValuedEnumTest.suite());
         return suite;
