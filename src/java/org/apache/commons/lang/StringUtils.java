@@ -73,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.22 2002/11/14 22:29:25 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.23 2002/11/15 00:06:40 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1502,19 +1502,17 @@ public class StringUtils {
 
     /**
      * Checks if the String contains a 'true' value. These are defined 
-     * as the words 'true', 'on' and 'yes'.
+     * as the words 'true', 'on' and 'yes', case insensitive.
      *
      * @param str the String to check
-     * @return true if the string is 'true|on|yes'
+     * @return true if the string is 'true|on|yes' case insensitive
      */
     public static boolean isTrue(String str) {
-        if("true".equals(str)) {
+        if ("true".equalsIgnoreCase(str)) {
             return true;
-        } else
-        if("on".equals(str)) {
+        } else if ("on".equalsIgnoreCase(str)) {
             return true;
-        } else
-        if("yes".equals(str)) {
+        } else if ("yes".equalsIgnoreCase(str)) {
             return true;
         }
         return false;
