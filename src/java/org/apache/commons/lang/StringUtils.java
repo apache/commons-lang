@@ -192,7 +192,7 @@ public class StringUtils {
      * @return <code>true</code> if the String is empty or null
      */
     public static boolean isEmpty(String str) {
-        return (str == null || str.length() == 0);
+        return str == null || str.length() == 0;
     }
 
     /**
@@ -210,7 +210,7 @@ public class StringUtils {
      * @return <code>true</code> if the String is not empty and not null
      */
     public static boolean isNotEmpty(String str) {
-        return (str != null && str.length() > 0);
+        return str != null && str.length() > 0;
     }
 
     /**
@@ -292,7 +292,7 @@ public class StringUtils {
      *             Method will be removed in Commons Lang 3.0.
      */
     public static String clean(String str) {
-        return (str == null ? EMPTY : str.trim());
+        return str == null ? EMPTY : str.trim();
     }
 
     /**
@@ -319,7 +319,7 @@ public class StringUtils {
      * @return the trimmed string, <code>null</code> if null String input
      */
     public static String trim(String str) {
-        return (str == null ? null : str.trim());
+        return str == null ? null : str.trim();
     }
 
     /**
@@ -346,7 +346,7 @@ public class StringUtils {
      */
     public static String trimToNull(String str) {
         String ts = trim(str);
-        return (isEmpty(ts) ? null : ts);
+        return isEmpty(ts) ? null : ts;
     }
 
     /**
@@ -371,7 +371,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String trimToEmpty(String str) {
-        return (str == null ? EMPTY : str.trim());
+        return str == null ? EMPTY : str.trim();
     }
 
     // Stripping
@@ -4397,7 +4397,7 @@ public class StringUtils {
      *  was <code>null</code>
      */
     public static String defaultString(String str) {
-        return (str == null ? EMPTY : str);
+        return str == null ? EMPTY : str;
     }
 
     /**
@@ -4418,7 +4418,7 @@ public class StringUtils {
      * @return the passed in String, or the default if it was <code>null</code>
      */
     public static String defaultString(String str, String defaultStr) {
-        return (str == null ? defaultStr : str);
+        return str == null ? defaultStr : str;
     }
 
     // Reversing
