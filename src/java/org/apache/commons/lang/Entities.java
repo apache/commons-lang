@@ -53,7 +53,9 @@
  */
 package org.apache.commons.lang;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * <p>Provides HTML and XML entity utilities.</p>
@@ -67,7 +69,7 @@ import java.util.*;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.9 2003/06/29 03:02:29 alex Exp $
+ * @version $Id: Entities.java,v 1.10 2003/07/14 22:21:11 bayard Exp $
  */
 class Entities {
 
@@ -369,17 +371,17 @@ class Entities {
     };
 
     /**
-     * The set of entities supported by standard XML
+     * <p>The set of entities supported by standard XML.</p>
      */
     public static final Entities XML;
 
     /**
-     * The set of entities supported by HTML 3.2
+     * <p>The set of entities supported by HTML 3.2.</p>
      */
     public static final Entities HTML32;
 
     /**
-     * The set of entities supported by HTML 4.0
+     * <p>The set of entities supported by HTML 4.0.</p>
      */
     public static final Entities HTML40;
 
@@ -621,9 +623,10 @@ class Entities {
     }
 
     /**
-     * Escapes the characters in a <code>String</code>.
-     * For example, if you have called addEntity("foo", 0xA1),
-     * escape("\u00A1") will return "&foo;"
+     * <p>Escapes the characters in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * escape(&quot;\u00A1&quot;) will return &quot;&amp;foo;&quot;</p>
      *
      * @param str The <code>String</code> to escape.
      * @return A new escaped <code>String</code>.
@@ -654,9 +657,10 @@ class Entities {
     }
 
     /**
-     * Unescapes the entities in a <code>String</code>.
-     * For example, if you have called addEntity("foo", 0xA1),
-     * unescape("&foo;") will return "\u00A1"
+     * <p>Unescapes the entities in a <code>String</code>.</p>
+     *
+     * <p>For example, if you have called addEntity(&quot;foo&quot;, 0xA1),
+     * unescape(&quot;&amp;foo;&quot;) will return &quot;\u00A1&quot;</p>
      *
      * @param str The <code>String</code> to escape.
      * @return A new escaped <code>String</code>.
