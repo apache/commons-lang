@@ -76,7 +76,7 @@ import org.apache.commons.lang.NumberUtils;
  *
  * <p>Typical use for the code is as follows:</p>
  * <pre>
- *  public int comapareTo(Object o) {
+ *  public int compareTo(Object o) {
  *    MyClass rhs = (MyClass) o;
  *    return new CompareToBuilder()
  *                 .appendSuper(super.compareTo(o)
@@ -105,7 +105,7 @@ import org.apache.commons.lang.NumberUtils;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.10 2003/01/19 17:35:21 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.11 2003/01/19 17:51:42 scolebourne Exp $
  */
 public class CompareToBuilder {
     
