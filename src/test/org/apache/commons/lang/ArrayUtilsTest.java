@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,8 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author Moritz Petersen
- * @version $Id: ArrayUtilsTest.java,v 1.4 2002/12/15 15:00:46 scolebourne Exp $
+ * @author Nikolay Metchev
+ * @version $Id: ArrayUtilsTest.java,v 1.5 2003/02/04 22:06:24 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -637,4 +638,71 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(null, array);
     }
     
+    //-----------------------------------------------------------------------
+    public void testIndexOf() {
+        Object[] array = new Object[] { "0", "1", "2", "3", null, "0" };
+        assertEquals(-1, ArrayUtils.indexOf(null, null));
+        assertEquals(-1, ArrayUtils.indexOf(null, "0"));
+        assertEquals(0, ArrayUtils.indexOf(array, "0"));
+        assertEquals(1, ArrayUtils.indexOf(array, "1"));
+        assertEquals(2, ArrayUtils.indexOf(array, "2"));
+        assertEquals(3, ArrayUtils.indexOf(array, "3"));
+        assertEquals(4, ArrayUtils.indexOf(array, null));
+        assertEquals(-1, ArrayUtils.indexOf(array, "notInArray"));
+    }
+
+    public void testIndexOfWithStartIndex() {
+        Object[] array = new Object[] { "0", "1", "2", "3", null, "0" };
+        assertEquals(-1, ArrayUtils.indexOf(null, null, 2));
+        assertEquals(-1, ArrayUtils.indexOf(null, "0", 2));
+        assertEquals(5, ArrayUtils.indexOf(array, "0", 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, "1", 2));
+        assertEquals(2, ArrayUtils.indexOf(array, "2", 2));
+        assertEquals(3, ArrayUtils.indexOf(array, "3", 2));
+        assertEquals(4, ArrayUtils.indexOf(array, null, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, "notInArray"));
+        
+        assertEquals(4, ArrayUtils.indexOf(array, null, -1));
+        assertEquals(-1, ArrayUtils.indexOf(array, "0", 6));
+    }
+
+    public void testLastIndexOf() {
+        Object[] array = new Object[] { "0", "1", "2", "3", null, "0" };
+        assertEquals(-1, ArrayUtils.lastIndexOf(null, null));
+        assertEquals(-1, ArrayUtils.lastIndexOf(null, "0"));
+        assertEquals(5, ArrayUtils.lastIndexOf(array, "0"));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, "1"));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, "2"));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, "3"));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, null));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, "notInArray"));
+    }
+
+    public void testLastIndexOfWithStartIndex() {
+        Object[] array = new Object[] { "0", "1", "2", "3", null, "0" };
+        assertEquals(-1, ArrayUtils.lastIndexOf(null, null, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(null, "0", 2));
+        assertEquals(0, ArrayUtils.lastIndexOf(array, "0", 2));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, "1", 2));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, "2", 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, "3", 2));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, null, 5));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, null, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, "notInArray"));
+        
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, null, -1));
+        assertEquals(5, ArrayUtils.lastIndexOf(array, "0", 88));
+    }
+
+    public void testContains() {
+        Object[] array = new Object[] { "0", "1", "2", "3", null, "0" };
+        assertEquals(false, ArrayUtils.contains(null, null));
+        assertEquals(false, ArrayUtils.contains(null, "1"));
+        assertEquals(true, ArrayUtils.contains(array, "0"));
+        assertEquals(true, ArrayUtils.contains(array, "1"));
+        assertEquals(true, ArrayUtils.contains(array, "2"));
+        assertEquals(true, ArrayUtils.contains(array, "3"));
+        assertEquals(true, ArrayUtils.contains(array, null));
+        assertEquals(false, ArrayUtils.contains(array, "notInArray"));
+    }
 }

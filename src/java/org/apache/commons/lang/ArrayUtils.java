@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -67,8 +67,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Stephen Colebourne
  * @author Moritz Petersen
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
+ * @author Nikolay Metchev
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.7 2002/12/23 00:32:24 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.8 2003/02/04 22:06:24 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -104,7 +105,7 @@ public class ArrayUtils {
     }
 
     // Basic methods handling multi-dimensional arrays
-    //--------------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     
     /**
      * <p>Outputs an array as a String, treating <code>null</code> as an empty array.</p>
@@ -166,7 +167,7 @@ public class ArrayUtils {
         return new EqualsBuilder().append(array1, array2).isEquals();
     }
     
-    //--------------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     
     /**
      * <p>Converts the given array into a {@link Map}. Each element of the array
@@ -324,7 +325,7 @@ public class ArrayUtils {
 //        return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
 //    }
     
-    //--------------------------------------------------------------------------
+    //-----------------------------------------------------------------------
 
     /**
      * <p>Shallow clones an array returning a typecast result and handling
@@ -480,7 +481,7 @@ public class ArrayUtils {
         return (boolean[]) array.clone();
     }
 
-    //--------------------------------------------------------------------------
+    //-----------------------------------------------------------------------
 
     /**
      * <p>Checks whether two arrays are the same length, treating
@@ -680,6 +681,8 @@ public class ArrayUtils {
         return array1.getClass().getName().equals(array2.getClass().getName());
     }
     
+    //-----------------------------------------------------------------------
+    
     /** 
      * Reverses the order of the given array.
      * <p>
@@ -687,7 +690,7 @@ public class ArrayUtils {
      * <p>
      * The method does nothing if <code>null</code> is passed in.
      * 
-     * @param array  the array to reverse
+     * @param array  the array to reverse, may be <code>null</code>
      */
     public static void reverse(Object[] array) {
         if (array == null) {
@@ -710,7 +713,7 @@ public class ArrayUtils {
      * <p>
      * The method does nothing if <code>null</code> is passed in.
      * 
-     * @param array  the array to reverse
+     * @param array  the array to reverse, may be <code>null</code>
      */
     public static void reverse(long[] array) {
         if (array == null) {
@@ -733,7 +736,7 @@ public class ArrayUtils {
      * <p>
      * The method does nothing if <code>null</code> is passed in.
      * 
-     * @param array  the array to reverse
+     * @param array  the array to reverse, may be <code>null</code>
      */
     public static void reverse(int[] array) {
         if (array == null) {
@@ -756,7 +759,7 @@ public class ArrayUtils {
      * <p>
      * There is no special handling for multi-dimensional arrays.
      * 
-     * @param array  the array to reverse
+     * @param array  the array to reverse, may be <code>null</code>
      */
     public static void reverse(short[] array) {
         if (array == null) {
@@ -779,7 +782,7 @@ public class ArrayUtils {
      * <p>
      * The method does nothing if <code>null</code> is passed in.
      * 
-     * @param array  the array to reverse
+     * @param array  the array to reverse, may be <code>null</code>
      */
     public static void reverse(char[] array) {
         if (array == null) {
@@ -802,7 +805,7 @@ public class ArrayUtils {
      * <p>
      * The method does nothing if <code>null</code> is passed in.
      * 
-     * @param array  the array to reverse
+     * @param array  the array to reverse, may be <code>null</code>
      */
     public static void reverse(byte[] array) {
         if (array == null) {
@@ -825,7 +828,7 @@ public class ArrayUtils {
      * <p>
      * The method does nothing if <code>null</code> is passed in.
      * 
-     * @param array  the array to reverse
+     * @param array  the array to reverse, may be <code>null</code>
      */
     public static void reverse(double[] array) {
         if (array == null) {
@@ -848,7 +851,7 @@ public class ArrayUtils {
      * <p>
      * The method does nothing if <code>null</code> is passed in.
      * 
-     * @param array  the array to reverse
+     * @param array  the array to reverse, may be <code>null</code>
      */
     public static void reverse(float[] array) {
         if (array == null) {
@@ -871,7 +874,7 @@ public class ArrayUtils {
      * <p>
      * The method does nothing if <code>null</code> is passed in.
      * 
-     * @param array  the array to reverse
+     * @param array  the array to reverse, may be <code>null</code>
      */
     public static void reverse(boolean[] array) {
         if (array == null) {
@@ -888,5 +891,125 @@ public class ArrayUtils {
             i++;
         }
     }
-
+    
+    //-----------------------------------------------------------------------
+    
+    /**
+     * Find the index of the given object in the array.
+     * <p>
+     * The method returns -1 if a <code>null</code> array is passed in.
+     * 
+     * @param array  the array to search through for the object, may be <code>null</code>
+     * @param objectToFind  the object to find, may be <code>null</code>
+     * @return the index of the object within the array, or -1 if not found
+     */
+    public static int indexOf(Object[] array, Object objectToFind) {
+        return indexOf(array, objectToFind, 0);
+    }
+    
+    /**
+     * Find the index of the given object in the array starting at the given index.
+     * <p>
+     * The method returns -1 if a <code>null</code> array is passed in.
+     * <p>
+     * A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return -1.
+     * 
+     * @param array  the array to search through for the object, may be <code>null</code>
+     * @param objectToFind  the object to find, may be <code>null</code>
+     * @param startIndex  the index to start searching at
+     * @return the index of the object within the array starting at the
+     *  given index, or -1 if not found
+     */
+    public static int indexOf(Object[] array, Object objectToFind, int startIndex) {
+        if (array == null) {
+            return -1;
+        }
+        if (startIndex < 0) {
+            startIndex = 0;
+        }
+        if (objectToFind == null) {
+            for (int i = startIndex; i < array.length; i++) {
+                if (array[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = startIndex; i < array.length; i++) {
+                if (objectToFind.equals(array[i])) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+    
+    /**
+     * Find the last index of the given object within the array.
+     * <p>
+     * The method returns -1 if a <code>null</code> array is passed in.
+     * 
+     * @param array  the array to travers backwords looking for the object, may be <code>null</code>
+     * @param objectToFind  the object to find, may be <code>null</code>
+     * @return the last index of the object to find, or -1 if not found
+     */
+    public static int lastIndexOf(Object[] array, Object objectToFind) {
+        if (array == null) {
+            return -1;
+        }
+        return lastIndexOf(array, objectToFind, array.length - 1);
+    }
+    
+    /**
+     * Find the last index of the given object in the array starting at the given index.
+     * <p>
+     * The method returns -1 if a <code>null</code> array is passed in.
+     * <p>
+     * A negative startIndex will return -1. A startIndex larger than the array
+     * length will search from the end of the array.
+     * 
+     * @param array  the array to traverse for looking for the object, may be <code>null</code>
+     * @param objectToFind  the object to find, may be <code>null</code>
+     * @param startIndex  the start index to travers backwards from
+     * @return the last index of the object within the array starting at the given index,
+     *  or -1 if not found
+     */
+    public static int lastIndexOf(Object[] array, Object objectToFind, int startIndex) {
+        if (array == null) {
+            return -1;
+        }
+        if (startIndex < 0) {
+            return -1;
+        } else if (startIndex >= array.length) {
+            startIndex = array.length - 1;
+        }
+        if (objectToFind == null) {
+            for (int i = startIndex; i >= 0; i--) {
+                if (array[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = startIndex; i >= 0; i--) {
+                if (objectToFind.equals(array[i])) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+    
+    /**
+     * Checks if the object is in the given array.
+     * <p>
+     * The method returns <code>false</code> if a <code>null</code> array is passed in.
+     * 
+     * @param array  the array to search through
+     * @param objectToFind  the object to find
+     * @return <code>true</code> if the array contains the object
+     */
+    public static boolean contains(Object[] array, Object objectToFind) {
+        return (indexOf(array, objectToFind) != -1);
+    }
+    
 }
