@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
- * @version $Id: NestableDelegateTestCase.java,v 1.2 2002/07/26 20:30:58 stevencaswell Exp $
+ * @version $Id: NestableDelegateTestCase.java,v 1.3 2002/09/18 15:51:41 stevencaswell Exp $
  */
 public class NestableDelegateTestCase extends junit.framework.TestCase
 {
@@ -545,12 +545,8 @@ class NestableDelegateTester1 extends Exception implements Nestable
     }
     
     /**
-     * Returns the error message of this and any nested <code>Throwable</code>s
-     * in an array of Strings, one element for each message. Any
-     * <code>Throwable</code> specified without a message is represented in
-     * the array by a null.
-     *
-     * @return the <code>Throwable</code>s
+     * @see Nestable#getThrowables()
+     * Returns zero-length <code>Throwable</code> array for this test.
      */
     public Throwable[] getThrowables()
     {
@@ -558,12 +554,8 @@ class NestableDelegateTester1 extends Exception implements Nestable
     }
     
     /**
-     * Returns the error message of this and any nested <code>Throwable</code>s
-     * in an array of Strings, one element for each message. Any
-     * <code>Throwable</code> specified without a message is represented in
-     * the array by a null.
-     *
-     * @return the error messages
+     * @see Nestable#getMessages()
+     * Returns zero-length String array for this test.
      */
     public String[] getMessages()
     {
@@ -571,16 +563,8 @@ class NestableDelegateTester1 extends Exception implements Nestable
     }
     
     /**
-     * Returns the index, numbered from 0, of the first occurrence of the
-     * specified type in the chain of <code>Throwable</code>s, or -1 if the
-     * specified type is not found in the chain. If <code>pos</code> is
-     * negative, the effect is the same as if it were 0. If <code>pos</code>
-     * is greater than or equal to the length of the chain, the effect is the
-     * same as if it were the index of the last element in the chain.
-     *
-     * @param type <code>Class</code> to be found
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
+     * @see Nestable#indexOfThrowable(Class)
+     * Returns -1 for this test.
      */
     public int indexOfThrowable(Class type)
     {
@@ -588,15 +572,8 @@ class NestableDelegateTester1 extends Exception implements Nestable
     }
     
     /**
-     * Returns the <code>Throwable</code> in the chain of
-     * <code>Throwable</code>s at the specified index, numbererd from 0. If
-     * <code>index</code> is negative, the effect is the same as if it
-     * were 0. If <code>index</code> is greater than or equal to the length
-     * of the chain, the last <code>Throwable</code> in the chain is returned.
-     *
-     * @param index the index of the <code>Throwable</code> in the chain of
-     * <code>Throwable</code>s
-     * @return the <code>Throwable</code>
+     * @see Nestable#getThrowable(int)
+     * Returns <code>null</code> for this test.
      */
     public Throwable getThrowable(int index)
     {
@@ -604,8 +581,8 @@ class NestableDelegateTester1 extends Exception implements Nestable
     }
     
     /**
-     * Returns the number of nested <code>Throwable</code>s represented by
-     * this <code>Nestable</code>, including this <code>Nestable</code>.
+     * @see Nestable#getThrowableCount()
+     * Returns 1 for this test.
      */
     public int getThrowableCount()
     {
@@ -613,8 +590,7 @@ class NestableDelegateTester1 extends Exception implements Nestable
     }
     
     /**
-     * Returns the reference to the exception or error that caused the
-     * exception implementing the <code>Nestable</code> to be thrown.
+     * @see Nestable#getCause()
      */
     public Throwable getCause()
     {
@@ -622,12 +598,8 @@ class NestableDelegateTester1 extends Exception implements Nestable
     }
     
     /**
-     * Prints the stack trace for this exception only--root cause not
-     * included--using the provided writer.  Used by {@link
-     * org.apache.commons.lang.exception.NestableDelegate} to write
-     * individual stack traces to a buffer.  The implementation of
-     * this method should call
-     * <code>super.printStackTrace(out);</code> in most cases.
+     * Empty method to satisfy the implemented interface. Does nothing
+     * in this test.
      *
      * @param out The writer to use.
      */
@@ -636,16 +608,7 @@ class NestableDelegateTester1 extends Exception implements Nestable
     }
     
     /**
-     * Returns the error message of the <code>Throwable</code> in the chain
-     * of <code>Throwable</code>s at the specified index, numbererd from 0.
-     * If <code>index</code> is negative, the effect is the same as if it
-     * were 0. If <code>index</code> is greater than or equal to the length
-     * of the chain, the message of the last <code>Throwable</code> in the
-     * chain is returned.
-     *
-     * @param index the index of the <code>Throwable</code> in the chain of
-     * <code>Throwable</code>s
-     * @return the error message
+     * @see Nestable#getMessage(int)
      */
     public String getMessage(int index)
     {
@@ -660,52 +623,10 @@ class NestableDelegateTester1 extends Exception implements Nestable
     }
     
     /**
-     * Returns the index, numbered from 0, of the first <code>Throwable</code>
-     * that matches the specified type in the chain of <code>Throwable</code>s
-     * with an index greater than or equal to the specified position, or -1 if
-     * the type is not found. If <code>pos</code> is negative, the effect is the
-     * same as if it were 0. If <code>pos</code> is greater than or equal to the
-     * length of the chain, the effect is the same as if it were the index of
-     * the last element in the chain.
-     *
-     * @param type <code>Class</code> to be found
-     * @param pos index, numbered from 0, of the starting position in the chain
-     * to be searched
-     *
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
+     * @see Nestable#indexOfThrowable(Class, int)
+     * Returns -1 for this test.
      */
     public int indexOfThrowable(Class type, int fromIndex)
-    {
-        return -1;
-    }
-    
-    /** Returns the number of nested <code>Throwable</code>s represented by
-     * this <code>Nestable</code>, including this <code>Nestable</code>.
-     * @deprecated
-     */
-    public int getLength()
-    {
-        return 1;
-    }
-    
-    /** Returns the index, numbered from 0, of the first <code>Throwable</code>
-     * that matches the specified type in the chain of <code>Throwable</code>s
-     * with an index greater than or equal to the specified position, or -1 if
-     * the type is not found. If <code>pos</code> is negative, the effect is the
-     * same as if it were 0. If <code>pos</code> is greater than or equal to the
-     * length of the chain, the effect is the same as if it were the index of
-     * the last element in the chain.
-     *
-     * @param pos index, numbered from 0, of the starting position in the chain
-     * to be searched
-     * @param type <code>Class</code> to be found
-     *
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
-     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
-     */
-    public int indexOfThrowable(int pos, Class type)
     {
         return -1;
     }
@@ -739,12 +660,8 @@ class NestableDelegateTester2 extends Throwable implements Nestable
     }
     
     /**
-     * Returns the error message of this and any nested <code>Throwable</code>s
-     * in an array of Strings, one element for each message. Any
-     * <code>Throwable</code> specified without a message is represented in
-     * the array by a null.
-     *
-     * @return the <code>Throwable</code>s
+     * @see Nestable#getThrowables()
+     * Returns zero-length <code>Throwable</code> array for this test.
      */
     public Throwable[] getThrowables()
     {
@@ -752,12 +669,8 @@ class NestableDelegateTester2 extends Throwable implements Nestable
     }
     
     /**
-     * Returns the error message of this and any nested <code>Throwable</code>s
-     * in an array of Strings, one element for each message. Any
-     * <code>Throwable</code> specified without a message is represented in
-     * the array by a null.
-     *
-     * @return the error messages
+     * @see Nestable#getMessages()
+     * Returns zero-length String array for this test.
      */
     public String[] getMessages()
     {
@@ -765,16 +678,8 @@ class NestableDelegateTester2 extends Throwable implements Nestable
     }
     
     /**
-     * Returns the index, numbered from 0, of the first occurrence of the
-     * specified type in the chain of <code>Throwable</code>s, or -1 if the
-     * specified type is not found in the chain. If <code>pos</code> is
-     * negative, the effect is the same as if it were 0. If <code>pos</code>
-     * is greater than or equal to the length of the chain, the effect is the
-     * same as if it were the index of the last element in the chain.
-     *
-     * @param type <code>Class</code> to be found
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
+     * @see Nestable#indexOfThrowable(Class)
+     * Returns -1 for this test.
      */
     public int indexOfThrowable(Class type)
     {
@@ -782,15 +687,8 @@ class NestableDelegateTester2 extends Throwable implements Nestable
     }
     
     /**
-     * Returns the <code>Throwable</code> in the chain of
-     * <code>Throwable</code>s at the specified index, numbererd from 0. If
-     * <code>index</code> is negative, the effect is the same as if it
-     * were 0. If <code>index</code> is greater than or equal to the length
-     * of the chain, the last <code>Throwable</code> in the chain is returned.
-     *
-     * @param index the index of the <code>Throwable</code> in the chain of
-     * <code>Throwable</code>s
-     * @return the <code>Throwable</code>
+     * @see Nestable#getThrowable(int)
+     * Returns <code>null</code> for this test.
      */
     public Throwable getThrowable(int index)
     {
@@ -798,8 +696,10 @@ class NestableDelegateTester2 extends Throwable implements Nestable
     }
     
     /**
-     * Returns the number of nested <code>Throwable</code>s represented by
-     * this <code>Nestable</code>, including this <code>Nestable</code>.
+     * @see Nestable#getThrowableCount()
+     * Returns 1 for this test.
+     *
+     * @return 1
      */
     public int getThrowableCount()
     {
@@ -807,8 +707,7 @@ class NestableDelegateTester2 extends Throwable implements Nestable
     }
     
     /**
-     * Returns the reference to the exception or error that caused the
-     * exception implementing the <code>Nestable</code> to be thrown.
+     * @see Nestable#getCause()
      */
     public Throwable getCause()
     {
@@ -816,12 +715,8 @@ class NestableDelegateTester2 extends Throwable implements Nestable
     }
     
     /**
-     * Prints the stack trace for this exception only--root cause not
-     * included--using the provided writer.  Used by {@link
-     * org.apache.commons.lang.exception.NestableDelegate} to write
-     * individual stack traces to a buffer.  The implementation of
-     * this method should call
-     * <code>super.printStackTrace(out);</code> in most cases.
+     * Empty method to satisfy the implemented interface. Does nothing
+     * in this test.
      *
      * @param out The writer to use.
      */
@@ -830,16 +725,7 @@ class NestableDelegateTester2 extends Throwable implements Nestable
     }
     
     /**
-     * Returns the error message of the <code>Throwable</code> in the chain
-     * of <code>Throwable</code>s at the specified index, numbererd from 0.
-     * If <code>index</code> is negative, the effect is the same as if it
-     * were 0. If <code>index</code> is greater than or equal to the length
-     * of the chain, the message of the last <code>Throwable</code> in the
-     * chain is returned.
-     *
-     * @param index the index of the <code>Throwable</code> in the chain of
-     * <code>Throwable</code>s
-     * @return the error message
+     * @see Nestable#getMessage(int)
      */
     public String getMessage(int index)
     {
@@ -854,52 +740,10 @@ class NestableDelegateTester2 extends Throwable implements Nestable
     }
     
     /**
-     * Returns the index, numbered from 0, of the first <code>Throwable</code>
-     * that matches the specified type in the chain of <code>Throwable</code>s
-     * with an index greater than or equal to the specified position, or -1 if
-     * the type is not found. If <code>pos</code> is negative, the effect is the
-     * same as if it were 0. If <code>pos</code> is greater than or equal to the
-     * length of the chain, the effect is the same as if it were the index of
-     * the last element in the chain.
-     *
-     * @param type <code>Class</code> to be found
-     * @param pos index, numbered from 0, of the starting position in the chain
-     * to be searched
-     *
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
+     * @see Nestable#indexOfThrowable(Class, int)     
+     * Returns -1 for this test.
      */
     public int indexOfThrowable(Class type, int fromIndex)
-    {
-        return -1;
-    }
-    
-    /** Returns the number of nested <code>Throwable</code>s represented by
-     * this <code>Nestable</code>, including this <code>Nestable</code>.
-     * @deprecated
-     */
-    public int getLength()
-    {
-        return 1;
-    }
-    
-    /** Returns the index, numbered from 0, of the first <code>Throwable</code>
-     * that matches the specified type in the chain of <code>Throwable</code>s
-     * with an index greater than or equal to the specified position, or -1 if
-     * the type is not found. If <code>pos</code> is negative, the effect is the
-     * same as if it were 0. If <code>pos</code> is greater than or equal to the
-     * length of the chain, the effect is the same as if it were the index of
-     * the last element in the chain.
-     *
-     * @param pos index, numbered from 0, of the starting position in the chain
-     * to be searched
-     * @param type <code>Class</code> to be found
-     *
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
-     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
-     */
-    public int indexOfThrowable(int pos, Class type)
     {
         return -1;
     }
@@ -911,8 +755,8 @@ class ThrowableNestable extends Throwable implements Nestable
     private Throwable cause = new Exception("ThrowableNestable cause");
 
     /**
-     * Returns the number of nested <code>Throwable</code>s represented by
-     * this <code>Nestable</code>, including this <code>Nestable</code>.
+     * @see Nestable#getThrowableCount()
+     * Returns 1 for this test.
      */
     public int getThrowableCount()
     {
@@ -920,10 +764,9 @@ class ThrowableNestable extends Throwable implements Nestable
     }
     
     /**
-     * Returns the error message of this and any nested
-     * <code>Throwable</code>.
-     *
-     * @return The error message.
+     * @see Nestable#getMessage()
+     * Returns the hard-coded string "ThrowableNestable exception" for this
+     * test.
      */
     public String getMessage()
     {
@@ -931,16 +774,9 @@ class ThrowableNestable extends Throwable implements Nestable
     }
 
     /**
-     * Returns the error message of the <code>Throwable</code> in the chain
-     * of <code>Throwable</code>s at the specified index, numbererd from 0.
-     * If <code>index</code> is negative, the effect is the same as if it
-     * were 0. If <code>index</code> is greater than or equal to the length
-     * of the chain, the message of the last <code>Throwable</code> in the
-     * chain is returned.
-     *
-     * @param index the index of the <code>Throwable</code> in the chain of
-     * <code>Throwable</code>s
-     * @return the error message
+     * @see Nestable#getMessage(int)
+     * Returns the hard-coded string "ThrowableNestable exception" for this
+     * test.
      */
     public String getMessage(int index)
     {
@@ -948,10 +784,8 @@ class ThrowableNestable extends Throwable implements Nestable
     }
 
     /**
-     * Returns the error message of this and any nested <code>Throwable</code>s
-     * in an array of Strings, one element for each message. Any
-     * <code>Throwable</code> specified without a message is represented in
-     * the array by a null.
+     * @see Nestable#getMessages()
+     * Returns single-element string array with "ThrowableNestable exception".
      */
     public String[] getMessages()
     {
@@ -961,8 +795,7 @@ class ThrowableNestable extends Throwable implements Nestable
     }
     
     /**
-     * Returns the reference to the exception or error that caused the
-     * exception implementing the <code>Nestable</code> to be thrown.
+     * @see Nestable#getCause()
      */
     public Throwable getCause()
     {
@@ -970,35 +803,34 @@ class ThrowableNestable extends Throwable implements Nestable
     }
 
     /**
-     * Prints the stack trace of this exception to the specified print
-     * writer.  Includes inforamation from the exception--if
-     * any--which caused this exception.
-     *
-     * @param out <code>PrintWriter</code> to use for output.
+     * @see Nestable#printStackTrace(PrintWriter)
+     * Empty method to satisfy the implemented interface. Does nothing
+     * in this test.
      */
     public void printStackTrace(PrintWriter out)
     {
     }
     
     /**
-     * Prints the stack trace for this exception only--root cause not
-     * included--using the provided writer.  Used by {@link
-     * org.apache.commons.lang.exception.NestableDelegate} to write
-     * individual stack traces to a buffer.  The implementation of
-     * this method should call
-     * <code>super.printStackTrace(out);</code> in most cases.
-     *
-     * @param out The writer to use.
+     * @see Nestable#printPartialStackTrace(PrintWriter)
+     * Empty method to satisfy the implemented interface. Does nothing
+     * in this test.
      */
     public void printPartialStackTrace(PrintWriter out)
     {
     }
     
+    /**
+     * @see Nestable#getThrowable(int)
+     */
     public Throwable getThrowable(int index)
     {
         return cause;
     }
     
+    /**
+     * @see Nestable#getThrowables()
+     */
     public Throwable[] getThrowables()
     {
         Throwable throwables[] = new Throwable[1];
@@ -1006,6 +838,9 @@ class ThrowableNestable extends Throwable implements Nestable
         return throwables;
     }
     
+    /**
+     * @see Nestable#indexOfThrowable(Class)
+     */
     public int indexOfThrowable(Class type)
     {
         if(Exception.class.isInstance(type))
@@ -1016,46 +851,9 @@ class ThrowableNestable extends Throwable implements Nestable
     }
     
     /**
-     * Returns the index of the first <code>Throwable</code> that matches the
-     * specified type with an index greater than or equal to the specified
-     * position, or -1 if the type is not found.
-     *
-     * @param type <code>Class</code> to be found
-     * @param pos
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
+     * @see Nestable#indexOfThrowable(Class,int)
      */
     public int indexOfThrowable(Class type, int fromIndex)
-    {
-        return indexOfThrowable(type);
-    }
-    
-    /** Returns the number of nested <code>Throwable</code>s represented by
-     * this <code>Nestable</code>, including this <code>Nestable</code>.
-     * @deprecated
-     */
-    public int getLength()
-    {
-        return 1;
-    }
-    
-    /** Returns the index, numbered from 0, of the first <code>Throwable</code>
-     * that matches the specified type in the chain of <code>Throwable</code>s
-     * with an index greater than or equal to the specified position, or -1 if
-     * the type is not found. If <code>pos</code> is negative, the effect is the
-     * same as if it were 0. If <code>pos</code> is greater than or equal to the
-     * length of the chain, the effect is the same as if it were the index of
-     * the last element in the chain.
-     *
-     * @param pos index, numbered from 0, of the starting position in the chain
-     * to be searched
-     * @param type <code>Class</code> to be found
-     *
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
-     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
-     */
-    public int indexOfThrowable(int pos, Class type)
     {
         return indexOfThrowable(type);
     }
@@ -1071,32 +869,40 @@ class ThrowableNestedNestable extends Throwable implements Nestable
         this.cause = cause;
     }
     
+    /**
+     * @see Nestable#getThrowableCount()
+     * Returns 1 for this test.
+     */
     public int getThrowableCount()
     {
         return 1;
     }
     
     /**
-     * Returns the error message of this and any nested
-     * <code>Throwable</code>.
-     *
-     * @return The error message.
+     * @see Nestable#getMessage()
+     * For this test, returns "ThrowableNestable exception (" appended to the
+     * message of the cause specified in the constructor.
      */
     public String getMessage()
     {
         return "ThrowableNestedNestable exception (" + cause.getMessage() + ")";
     }
 
+    /**
+     * @see Nestable#getMessage(int)
+     * For this test, returns "ThrowableNestable exception (" appended to the
+     * message of the cause specified in the constructor.
+     */
     public String getMessage(int index)
     {
         return "ThrowableNestedNestable exception (" + cause.getMessage() + ")";
     }
     
     /**
-     * Returns the error message of this and any nested <code>Throwable</code>s
-     * in an array of Strings, one element for each message. Any
-     * <code>Throwable</code> specified without a message is represented in
-     * the array by a null.
+     * @see Nestable#getMessages()
+     * For this test, returns a single-element string array containing
+     * "ThrowableNestable exception (" appended to the
+     * message of the cause specified in the constructor.
      */
     public String[] getMessages()
     {
@@ -1106,8 +912,7 @@ class ThrowableNestedNestable extends Throwable implements Nestable
     }
     
     /**
-     * Returns the reference to the exception or error that caused the
-     * exception implementing the <code>Nestable</code> to be thrown.
+     * @see Nestable#getCause()
      */
     public Throwable getCause()
     {
@@ -1115,11 +920,9 @@ class ThrowableNestedNestable extends Throwable implements Nestable
     }
     
     /**
-     * Prints the stack trace of this exception to the specified print
-     * writer.  Includes inforamation from the exception--if
-     * any--which caused this exception.
-     *
-     * @param out <code>PrintWriter</code> to use for output.
+     * @see Nestable#printStackTrace(PrintWriter)
+     * For this test, writes the string
+     * "ThrowableNestedNestable stack trace place-holder" to the print writer.
      */
     public void printStackTrace(PrintWriter out)
     {
@@ -1127,25 +930,27 @@ class ThrowableNestedNestable extends Throwable implements Nestable
     }
     
     /**
-     * Prints the stack trace for this exception only--root cause not
-     * included--using the provided writer.  Used by {@link
-     * org.apache.commons.lang.exception.NestableDelegate} to write
-     * individual stack traces to a buffer.  The implementation of
-     * this method should call
-     * <code>super.printStackTrace(out);</code> in most cases.
-     *
-     * @param out The writer to use.
+     * @see Nestable#printPartialStackTrace(PrintWriter)
+     * For this test, writes the string
+     * "ThrowableNestedNestable partial stack trace place-holder" to the print
+     * writer.
      */
     public void printPartialStackTrace(PrintWriter out)
     {
         out.println("ThrowableNestedNestable partial stack trace place-holder");
     }
     
+    /**
+     * @see Nestable#getThrowable(int)
+     */
     public Throwable getThrowable(int index)
     {
         return cause;
     }
     
+    /**
+     * @see Nestable#getThrowableS()
+     */
     public Throwable[] getThrowables()
     {
         Throwable throwables[] = new Throwable[1];
@@ -1153,6 +958,9 @@ class ThrowableNestedNestable extends Throwable implements Nestable
         return throwables;
     }
     
+    /**
+     * @see Nestable#indexOfThrowable(Class)
+     */
     public int indexOfThrowable(Class type)
     {
         if(Exception.class.isInstance(type))
@@ -1163,46 +971,9 @@ class ThrowableNestedNestable extends Throwable implements Nestable
     }
     
     /**
-     * Returns the index of the first <code>Throwable</code> that matches the
-     * specified type with an index greater than or equal to the specified
-     * position, or -1 if the type is not found.
-     *
-     * @param type <code>Class</code> to be found
-     * @param pos
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
+     * @see Nestable#indexOfThrowable(Class, int)
      */
     public int indexOfThrowable(Class type, int fromIndex)
-    {
-        return indexOfThrowable(type);
-    }
-    
-    /** Returns the number of nested <code>Throwable</code>s represented by
-     * this <code>Nestable</code>, including this <code>Nestable</code>.
-     * @deprecated
-     */
-    public int getLength()
-    {
-        return 1;
-    }
-    
-    /** Returns the index, numbered from 0, of the first <code>Throwable</code>
-     * that matches the specified type in the chain of <code>Throwable</code>s
-     * with an index greater than or equal to the specified position, or -1 if
-     * the type is not found. If <code>pos</code> is negative, the effect is the
-     * same as if it were 0. If <code>pos</code> is greater than or equal to the
-     * length of the chain, the effect is the same as if it were the index of
-     * the last element in the chain.
-     *
-     * @param pos index, numbered from 0, of the starting position in the chain
-     * to be searched
-     * @param type <code>Class</code> to be found
-     *
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
-     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
-     */
-    public int indexOfThrowable(int pos, Class type)
     {
         return indexOfThrowable(type);
     }
@@ -1211,32 +982,37 @@ class ThrowableNestedNestable extends Throwable implements Nestable
 
 class NonThrowableNestable implements Nestable
 {
+    /**
+     * @see Nestable#getThrowableCount()
+     * Returns 1 for this test.
+     */
     public int getThrowableCount()
     {
         return 1;
     }
     
     /**
-     * Returns the error message of this and any nested
-     * <code>Throwable</code>.
-     *
-     * @return The error message.
+     * @see Nestable#getMessage()
+     * Returns the string "non-throwable" for this test.
      */
     public String getMessage()
     {
         return "non-throwable";
     }
 
+    /**
+     * @see Nestable#getMessage(int)
+     * Returns the string "non-throwable" for this test.
+     */
     public String getMessage(int index)
     {
         return "non-throwable";
     }
     
     /**
-     * Returns the error message of this and any nested <code>Throwable</code>s
-     * in an array of Strings, one element for each message. Any
-     * <code>Throwable</code> specified without a message is represented in
-     * the array by a null.
+     * @see Nestable#getMessage()
+     * Returns a single-element array containing the string "non-throwable" for
+     * this test.
      */
     public String[] getMessages()
     {
@@ -1246,8 +1022,8 @@ class NonThrowableNestable implements Nestable
     }
     
     /**
-     * Returns the reference to the exception or error that caused the
-     * exception implementing the <code>Nestable</code> to be thrown.
+     * @see Nestable#getCause()
+     * Returns <code>null</code> for this test.
      */
     public Throwable getCause()
     {
@@ -1255,86 +1031,65 @@ class NonThrowableNestable implements Nestable
     }
     
     /**
-     * Prints the stack trace of this exception to the specified print
-     * writer.  Includes inforamation from the exception--if
-     * any--which caused this exception.
-     *
-     * @param out <code>PrintWriter</code> to use for output.
+     * @see Nestable#printStackTrace(PrintWriter)
+     * Empty method to satisfy the implemented interface. Does nothing
+     * in this test.
      */
     public void printStackTrace(PrintWriter out)
     {
     }
     
     /**
-     * Prints the stack trace for this exception only--root cause not
-     * included--using the provided writer.  Used by {@link
-     * org.apache.commons.lang.exception.NestableDelegate} to write
-     * individual stack traces to a buffer.  The implementation of
-     * this method should call
-     * <code>super.printStackTrace(out);</code> in most cases.
-     *
-     * @param out The writer to use.
+     * @see Nestable#printStackTrace(PrintStream)
+     * Empty method to satisfy the implemented interface. Does nothing
+     * in this test.
+     */
+    public void printStackTrace(PrintStream out)
+    {
+    }
+    
+    /**
+     * @see Nestable#printPartialStackTrace(PrintWriter)
+     * Empty method to satisfy the implemented interface. Does nothing
+     * in this test.
      */
     public void printPartialStackTrace(PrintWriter out)
     {
     }
     
+
+    /**
+     * @see Nestable#getThrowable(int)
+     * Returns <code>null</code> for this test.
+     */
     public Throwable getThrowable(int index)
     {
         return null;
     }
     
+    /**
+     * @see Nestable#getThrowables()
+     * Returns zero-length <code>Throwable</code> array.
+     */
     public Throwable[] getThrowables()
     {
         return new Throwable[0];
     }
     
+    /**
+     * @see Nestable#indexOfThrowable(Class)
+     * Returns -1 for this test.
+     */
     public int indexOfThrowable(Class type)
     {
         return -1;
     }
     
     /**
-     * Returns the index of the first <code>Throwable</code> that matches the
-     * specified type with an index greater than or equal to the specified
-     * position, or -1 if the type is not found.
-     *
-     * @param type <code>Class</code> to be found
-     * @param pos
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
+     * @see Nestable#indexOfThrowable(Class, int)
+     * Returns -1 for this test.
      */
     public int indexOfThrowable(Class type, int fromIndex)
-    {
-        return -1;
-    }
-    
-    /** Returns the number of nested <code>Throwable</code>s represented by
-     * this <code>Nestable</code>, including this <code>Nestable</code>.
-     * @deprecated
-     */
-    public int getLength()
-    {
-        return 1;
-    }
-    
-    /** Returns the index, numbered from 0, of the first <code>Throwable</code>
-     * that matches the specified type in the chain of <code>Throwable</code>s
-     * with an index greater than or equal to the specified position, or -1 if
-     * the type is not found. If <code>pos</code> is negative, the effect is the
-     * same as if it were 0. If <code>pos</code> is greater than or equal to the
-     * length of the chain, the effect is the same as if it were the index of
-     * the last element in the chain.
-     *
-     * @param pos index, numbered from 0, of the starting position in the chain
-     * to be searched
-     * @param type <code>Class</code> to be found
-     *
-     * @return index of the first occurrence of the type in the chain, or -1 if
-     * the type is not found
-     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
-     */
-    public int indexOfThrowable(int pos, Class type)
     {
         return -1;
     }
