@@ -1,5 +1,3 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 import java.util.Random;
 /**
@@ -62,8 +61,9 @@ import java.util.Random;
  *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: RandomStringUtils.java,v 1.6 2002/11/16 10:41:03 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 1.0
+ * @version $Id: RandomStringUtils.java,v 1.7 2002/12/23 00:32:24 scolebourne Exp $
  */
 public class RandomStringUtils {
 

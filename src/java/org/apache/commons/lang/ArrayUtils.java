@@ -64,10 +64,11 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * <p><code>ArrayUtils</code> contains utility methods for working for
  * arrays.</p>
  *
- * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
+ * @author Stephen Colebourne
  * @author Moritz Petersen
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: ArrayUtils.java,v 1.6 2002/11/24 16:50:38 scolebourne Exp $
+ * @since 2.0
+ * @version $Id: ArrayUtils.java,v 1.7 2002/12/23 00:32:24 scolebourne Exp $
  */
 public class ArrayUtils {
 

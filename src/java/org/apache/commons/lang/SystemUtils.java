@@ -58,9 +58,10 @@ package org.apache.commons.lang;
  *
  * @author Based on code from Avalon Excalibur
  * @author Based on code from Lucene
- * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
+ * @author Stephen Colebourne
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
- * @version $Id: SystemUtils.java,v 1.6 2002/12/08 16:18:39 scolebourne Exp $
+ * @since 1.0
+ * @version $Id: SystemUtils.java,v 1.7 2002/12/23 00:32:24 scolebourne Exp $
  */
 public class SystemUtils {
     

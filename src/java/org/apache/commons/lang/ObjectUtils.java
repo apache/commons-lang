@@ -60,8 +60,9 @@ import java.io.Serializable;
  * @author <a href="mailto:nissim@nksystems.com">Nissim Karpenstein</a>
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ObjectUtils.java,v 1.5 2002/11/16 10:41:03 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 1.0
+ * @version $Id: ObjectUtils.java,v 1.6 2002/12/23 00:32:24 scolebourne Exp $
  */
 public class ObjectUtils {
     

@@ -59,7 +59,8 @@ import org.apache.commons.lang.exception.NestableException;
  * <p>Exception thrown when something goes wrong in notifying.</p>
  *
  * @author <a href="mailto:bayard@apache.org">Henri Yandell</a>
- * @version $Id: NotifierException.java,v 1.2 2002/11/16 10:41:03 scolebourne Exp $
+ * @since 2.0
+ * @version $Id: NotifierException.java,v 1.3 2002/12/23 00:32:24 scolebourne Exp $
  */
 public class NotifierException extends NestableException {
 

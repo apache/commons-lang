@@ -1,5 +1,3 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 /**
  * <p>A range of characters. Able to understand the idea of a contiguous
@@ -61,8 +60,9 @@ package org.apache.commons.lang;
  * <p>Used by <code>CharSet</code> to handle sets of characters.</p>
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharRange.java,v 1.2 2002/11/16 10:41:03 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 1.0
+ * @version $Id: CharRange.java,v 1.3 2002/12/23 00:32:24 scolebourne Exp $
  */
 class CharRange {
 

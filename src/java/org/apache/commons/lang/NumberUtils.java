@@ -1,5 +1,3 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 import java.math.BigInteger;
 import java.math.BigDecimal;
@@ -61,9 +60,10 @@ import java.math.BigDecimal;
  *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Stephen Colebourne
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
- * @version $Id: NumberUtils.java,v 1.5 2002/12/15 16:53:28 scolebourne Exp $
+ * @since 1.0
+ * @version $Id: NumberUtils.java,v 1.6 2002/12/23 00:32:24 scolebourne Exp $
  */
 public final class NumberUtils {
     
