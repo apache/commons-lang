@@ -67,7 +67,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: RandomStringUtilsTest.java,v 1.9 2003/07/30 22:21:39 scolebourne Exp $
+ * @version $Id: RandomStringUtilsTest.java,v 1.10 2003/07/31 23:24:35 scolebourne Exp $
  */
 public class RandomStringUtilsTest extends junit.framework.TestCase {
     /**
@@ -157,6 +157,12 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
         r2 = RandomStringUtils.random(50, set);
         assertTrue("!r1.equals(r2)", !r1.equals(r2));
         
+        r1 = RandomStringUtils.random(50, (String) null);
+        assertEquals("random(50) length", 50, r1.length());
+        r2 = RandomStringUtils.random(50, (String) null);
+        assertEquals("random(50) length", 50, r2.length());
+        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        
         set = "stuvwxyz";
         r1 = RandomStringUtils.random(50, set.toCharArray());
         assertEquals("random(50, \"stuvwxyz\")", 50, r1.length());
@@ -164,6 +170,12 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
             assertTrue("random char in set", set.indexOf(r1.charAt(i)) > -1);
         }
         r2 = RandomStringUtils.random(50, set);
+        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        
+        r1 = RandomStringUtils.random(50, (char[]) null);
+        assertEquals("random(50) length", 50, r1.length());
+        r2 = RandomStringUtils.random(50, (char[]) null);
+        assertEquals("random(50) length", 50, r2.length());
         assertTrue("!r1.equals(r2)", !r1.equals(r2));
 
         long seed = System.currentTimeMillis();
@@ -174,13 +186,36 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
         r1 = RandomStringUtils.random(0);
         assertEquals("random(0).equals(\"\")", "", r1);
 
-        Exception e = null;
+    }
+    public void testExceptions() {
         try {
-            r1 = RandomStringUtils.random(-1);
-        } catch (Exception e2) {
-            e = e2;
-        }
-        assertNotNull("random(<0) throws exception", e);
+            RandomStringUtils.random(-1);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            RandomStringUtils.random(-1, true, true);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            RandomStringUtils.random(-1, new char[0]);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            RandomStringUtils.random(-1, "");
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            RandomStringUtils.random(-1, 'a', 'z', false, false);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            RandomStringUtils.random(-1, 'a', 'z', false, false, new char[0]);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            RandomStringUtils.random(-1, 'a', 'z', false, false, new char[0], new Random());
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
     
     /**
