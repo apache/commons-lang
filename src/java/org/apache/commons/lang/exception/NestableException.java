@@ -1,5 +1,3 @@
-package org.apache.commons.lang.exception;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.apache.commons.lang.exception;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang.exception;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -120,10 +119,11 @@ import java.io.PrintWriter;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableException.java,v 1.5 2002/09/29 08:20:52 bayard Exp $
+ * @since 1.0
+ * @version $Id: NestableException.java,v 1.6 2002/12/23 00:15:19 scolebourne Exp $
  */
-public class NestableException extends Exception implements Nestable
-{
+public class NestableException extends Exception implements Nestable {
+    
     /**
      * The helper instance which contains much of the code which we
      * delegate to.
@@ -140,8 +140,7 @@ public class NestableException extends Exception implements Nestable
      * Constructs a new <code>NestableException</code> without specified
      * detail message.
      */
-    public NestableException()
-    {
+    public NestableException() {
         super();
     }
 
@@ -151,8 +150,7 @@ public class NestableException extends Exception implements Nestable
      *
      * @param msg The error message.
      */
-    public NestableException(String msg)
-    {
+    public NestableException(String msg) {
         super(msg);
     }
 
@@ -163,8 +161,7 @@ public class NestableException extends Exception implements Nestable
      * @param cause the exception or error that caused this exception to be
      * thrown
      */
-    public NestableException(Throwable cause)
-    {
+    public NestableException(Throwable cause) {
         super();
         this.cause = cause;
     }
@@ -177,82 +174,65 @@ public class NestableException extends Exception implements Nestable
      * @param cause  the exception or error that caused this exception to be
      * thrown
      */
-    public NestableException(String msg, Throwable cause)
-    {
+    public NestableException(String msg, Throwable cause) {
         super(msg);
         this.cause = cause;
     }
 
-    public Throwable getCause()
-    {
+    public Throwable getCause() {
         return cause;
     }
 
-    public String getMessage()
-    {
+    public String getMessage() {
         return delegate.getMessage(super.getMessage());
     }
 
-    public String getMessage(int index)
-    {
-        if (index == 0)
-        {
+    public String getMessage(int index) {
+        if (index == 0) {
             return super.getMessage();
-        }
-        else
-        {
+        } else {
             return delegate.getMessage(index);
         }
     }
-    
-    public String[] getMessages()
-    {
+
+    public String[] getMessages() {
         return delegate.getMessages();
     }
-    
-    public Throwable getThrowable(int index)
-    {
+
+    public Throwable getThrowable(int index) {
         return delegate.getThrowable(index);
     }
-    
-    public int getThrowableCount()
-    {
+
+    public int getThrowableCount() {
         return delegate.getThrowableCount();
     }
-    
-    public Throwable[] getThrowables()
-    {
+
+    public Throwable[] getThrowables() {
         return delegate.getThrowables();
     }
-    
-    public int indexOfThrowable(Class type)
-    {
+
+    public int indexOfThrowable(Class type) {
         return delegate.indexOfThrowable(type, 0);
     }
 
-    public int indexOfThrowable(Class type, int fromIndex)
-    {
+    public int indexOfThrowable(Class type, int fromIndex) {
         return delegate.indexOfThrowable(type, fromIndex);
     }
 
-    public void printStackTrace()
-    {
+    public void printStackTrace() {
         delegate.printStackTrace();
     }
 
-    public void printStackTrace(PrintStream out)
-    {
+    public void printStackTrace(PrintStream out) {
         delegate.printStackTrace(out);
     }
 
-    public void printStackTrace(PrintWriter out)
-    {
+    public void printStackTrace(PrintWriter out) {
         delegate.printStackTrace(out);
     }
 
-    public final void printPartialStackTrace(PrintWriter out)
-    {
+    public final void printPartialStackTrace(PrintWriter out) {
         super.printStackTrace(out);
     }
-    
+
 }
