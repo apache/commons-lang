@@ -64,7 +64,8 @@ import java.io.Serializable;
 
 /**
  * <p><code>SerializationUtils</code> provides methods that assist with the 
- * serialization process, or perform additional functionality based on serialization.</p>
+ * serialization process, or perform additional functionality based on serialization.
+ * </p><p>
  * <ul>
  * <li>Deep clone using serialization
  * <li>Serialize managing finally and IOException
@@ -77,7 +78,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Jeff Varszegi
  * @since 1.0
- * @version $Id: SerializationUtils.java,v 1.5 2003/03/23 18:02:29 scolebourne Exp $
+ * @version $Id: SerializationUtils.java,v 1.6 2003/06/23 22:36:50 scolebourne Exp $
  */
 public class SerializationUtils {
     
