@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtilsTest.java,v 1.6 2002/10/28 04:33:29 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.7 2002/11/07 21:52:44 bayard Exp $
  */
 public class StringUtilsTest extends TestCase
 {
@@ -81,7 +81,6 @@ public class StringUtilsTest extends TestCase
     private static final String FOO = "foo";
     private static final String BAR = "bar";
     private static final String CAP_FOO = "Foo";
-    private static final String UPPER_FOO = "FOO";
 
     private static final String SENTENCE = "foo bar baz";
 
