@@ -27,7 +27,7 @@ import java.io.PrintWriter;
  * times, and provided that all exceptions except the first one
  * are descendants of <code>NestedException</code>, when the
  * exception is finally printed out using any of the <code>
- * printStackTrace()</code> methods, the stacktrace will contain
+ * printStackTrace()</code> methods, the stack trace will contain
  * the information about all exceptions thrown and caught on
  * the way.
  * <p> Running the following program
@@ -64,7 +64,7 @@ import java.io.PrintWriter;
  * 30      }
  * 31 }
  * </pre></blockquote>
- * <p>Yields the following stacktrace:
+ * <p>Yields the following stack trace:
  * <p><blockquote><pre>
  * org.apache.commons.lang.exception.NestableException: foo
  *         at Test.a(Test.java:16)
@@ -84,7 +84,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @since 1.0
- * @version $Id: NestableException.java,v 1.11 2004/02/18 22:54:04 ggregory Exp $
+ * @version $Id: NestableException.java,v 1.12 2004/08/04 18:41:09 ggregory Exp $
  */
 public class NestableException extends Exception implements Nestable {
     
