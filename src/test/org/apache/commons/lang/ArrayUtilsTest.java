@@ -71,7 +71,7 @@ import junit.textui.TestRunner;
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
  * @author Tim O'Brien
- * @version $Id: ArrayUtilsTest.java,v 1.13 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.14 2003/10/11 19:58:40 tobrien Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -1023,6 +1023,8 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(2, ArrayUtils.indexOf(array, (double) 2.2, 0, (double) 0.35));
         assertEquals(3, ArrayUtils.indexOf(array, (double) 4.15, 0, (double) 2.0));
         assertEquals(1, ArrayUtils.indexOf(array, (double) 1.00001324, 0, (double) 0.0001));
+        assertEquals(3, ArrayUtils.indexOf(array, (double) 4.15, -1, (double) 2.0));
+        assertEquals(1, ArrayUtils.indexOf(array, (double) 1.00001324, -300, (double) 0.0001));
     }
 
     public void testLastIndexOfDouble() {
@@ -1076,6 +1078,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(2, ArrayUtils.lastIndexOf(array, (double) 2.2, 3, (double) 0.35));
         assertEquals(3, ArrayUtils.lastIndexOf(array, (double) 4.15, array.length, (double) 2.0));
         assertEquals(1, ArrayUtils.lastIndexOf(array, (double) 1.00001324, array.length, (double) 0.0001));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 4.15, -200, (double) 2.0));
     }
 
     public void testContainsDouble() {
@@ -1422,6 +1425,11 @@ public class ArrayUtilsTest extends TestCase {
          );
      }
      
+    public void testToPrimitive_intNull() {
+        Integer[] iArray = null;
+        assertEquals(null, ArrayUtils.toPrimitive(iArray, Integer.MIN_VALUE));
+    }
+
     public void testToObject_int() {
         final int[] b = null;
         assertEquals(null, ArrayUtils.toObject(b));
