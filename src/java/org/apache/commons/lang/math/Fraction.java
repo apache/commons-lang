@@ -66,10 +66,11 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Tim O'Brien
  * @since 2.0
- * @version $Id: Fraction.java,v 1.6 2003/08/03 22:43:03 scolebourne Exp $
+ * @version $Id: Fraction.java,v 1.7 2003/08/04 01:20:47 scolebourne Exp $
  */
 public final class Fraction extends Number implements Serializable, Comparable {
 
+    /** Serialization lock, Lang version 2.0 */
     private static final long serialVersionUID = 65382027393090L;
 
     public static final Fraction ZERO = new Fraction(0, 1);

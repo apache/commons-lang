@@ -64,12 +64,12 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Chris Feldhacker
  * @since 1.0
- * @version $Id: CharRange.java,v 1.11 2003/08/04 00:46:24 scolebourne Exp $
+ * @version $Id: CharRange.java,v 1.12 2003/08/04 01:20:47 scolebourne Exp $
  */
 public final class CharRange implements Serializable {
 
     /** Serialization lock, Lang version 2.0 */
-    static final long serialVersionUID = 8270183163158333422L;
+    private static final long serialVersionUID = 8270183163158333422L;
     
     /** The first character, inclusive, in the range */
     private final char start;
