@@ -81,7 +81,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Gary Gregory
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.29 2003/12/05 23:37:18 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.30 2003/12/29 01:08:38 ggregory Exp $
  */
 public class ArrayUtils {
 
@@ -462,6 +462,8 @@ public class ArrayUtils {
      *      returned subarray. Undervalue (&lt; startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
+     * @return a new array containing the elements between
+     *      the start and end indices.
      */
     public static Object[] subarray(Object[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -498,6 +500,8 @@ public class ArrayUtils {
      *      returned subarray. Undervalue (&lt; startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
+     * @return a new array containing the elements between
+     *      the start and end indices.
      */
     public static long[] subarray(long[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -534,6 +538,8 @@ public class ArrayUtils {
      *      returned subarray. Undervalue (&lt; startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
+     * @return a new array containing the elements between
+     *      the start and end indices.
      */
     public static int[] subarray(int[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -570,6 +576,8 @@ public class ArrayUtils {
      *      returned subarray. Undervalue (&lt; startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
+     * @return a new array containing the elements between
+     *      the start and end indices.
      */
     public static short[] subarray(short[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -606,6 +614,8 @@ public class ArrayUtils {
      *      returned subarray. Undervalue (&lt; startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
+     * @return a new array containing the elements between
+     *      the start and end indices.
      */
     public static char[] subarray(char[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -642,6 +652,8 @@ public class ArrayUtils {
      *      returned subarray. Undervalue (&lt; startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
+     * @return a new array containing the elements between
+     *      the start and end indices.
      */
     public static byte[] subarray(byte[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -678,6 +690,8 @@ public class ArrayUtils {
      *      returned subarray. Undervalue (&lt; startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
+     * @return a new array containing the elements between
+     *      the start and end indices.
      */
     public static double[] subarray(double[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -714,6 +728,8 @@ public class ArrayUtils {
      *      returned subarray. Undervalue (&lt; startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
+     * @return a new array containing the elements between
+     *      the start and end indices.
      */
     public static float[] subarray(float[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -750,6 +766,8 @@ public class ArrayUtils {
      *      returned subarray. Undervalue (&lt; startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
+     * @return a new array containing the elements between
+     *      the start and end indices.
      */
     public static boolean[] subarray(boolean[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
