@@ -24,7 +24,7 @@ package org.apache.commons.lang;
  * 
  * @author Stephen Colebourne
  * @since 2.1
- * @version $Id: CharUtils.java,v 1.10 2004/09/05 20:38:36 bayard Exp $
+ * @version $Id$
  */
 public class CharUtils {
     

@@ -24,7 +24,7 @@ package org.apache.commons.lang.math;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: Range.java,v 1.6 2004/02/18 22:56:13 ggregory Exp $
+ * @version $Id$
  */
 public abstract class Range {
 

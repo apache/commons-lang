@@ -24,7 +24,7 @@ import junit.framework.TestSuite;
  * @author Stephen Colebourne
  * @author Janek Bogucki
  * @author Phil Steitz
- * @version $Id: IntRangeTest.java,v 1.7 2004/02/18 23:02:38 ggregory Exp $
+ * @version $Id$
  */
 public final class IntRangeTest extends AbstractRangeTest {
 

@@ -30,7 +30,7 @@ import junit.framework.TestSuite;
  * @author Eric Pugh
  * @author Phil Steitz
  * @author Stephen Colebourne
- * @version $Id: NumberUtilsTest.java,v 1.11 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  */
 public class NumberUtilsTest extends TestCase {
 

@@ -16,7 +16,7 @@ limitations under the License.
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.32 2004/10/21 00:36:37 ggregory Exp $
+        $Id$
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>

@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  * Tests ArrayUtils add methods.
  * 
  * @author Gary D. Gregory
- * @version $Id: ArrayUtilsAddTest.java,v 1.6 2005/01/27 06:43:20 bayard Exp $
+ * @version $Id$
  */
 public class ArrayUtilsAddTest extends TestCase {
     public static void main(String[] args) {

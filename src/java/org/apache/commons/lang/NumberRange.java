@@ -25,7 +25,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Revision: 1.11 $ $Date: 2004/02/18 22:59:49 $
+ * @version $Revision$ $Date$
  * 
  * @deprecated Use one of the Range classes in org.apache.commons.lang.math.
  *             Class will be removed in Commons Lang 3.0.

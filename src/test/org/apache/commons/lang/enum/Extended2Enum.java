@@ -23,7 +23,7 @@ import java.util.Map;
  * Extended enumeration.
  *
  * @author Stephen Colebourne
- * @version $Id: Extended2Enum.java,v 1.4 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id$
  */
 public class Extended2Enum extends Extended1Enum {
     public static final Extended1Enum GAMMA = new Extended2Enum("Gamma");

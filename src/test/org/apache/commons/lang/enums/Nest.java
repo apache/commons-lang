@@ -25,7 +25,7 @@ import java.util.Map;
  * to any other class.
  *
  * @author Stephen Colebourne
- * @version $Id: Nest.java,v 1.1 2004/02/23 04:34:20 ggregory Exp $
+ * @version $Id$
  */
 
 public final class Nest {

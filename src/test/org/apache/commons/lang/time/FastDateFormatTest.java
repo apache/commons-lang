@@ -34,7 +34,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Fredrik Westermarck
  * @since 2.0
- * @version $Id: FastDateFormatTest.java,v 1.11 2004/09/30 06:12:17 bayard Exp $
+ * @version $Id$
  */
 public class FastDateFormatTest extends TestCase {
 

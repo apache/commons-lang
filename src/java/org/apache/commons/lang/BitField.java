@@ -26,7 +26,7 @@ package org.apache.commons.lang;
  * @author Pete Gieser
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: BitField.java,v 1.6 2004/08/15 02:12:51 bayard Exp $
+ * @version $Id$
  */
 public class BitField {
     

@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Ken Fitzpatrick
  * @author Henri Yandell
  * @since 2.1
- * @version $Id: Interpolation.java,v 1.1 2004/09/05 00:56:31 bayard Exp $
+ * @version $Id$
  */
 public class Interpolation {
 

@@ -26,7 +26,7 @@ limitations under the License.
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Package</h1>
 <h2>Developers Guide</h2>
-$Id: developerguide.xml,v 1.1 2004/09/05 21:48:08 bayard Exp $<br />
+$Id$<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#PackageStructure">[Package Structure]</a>
 <a href="#UtilityClasses">[Utility Classes]</a>

@@ -22,7 +22,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link LongRange} class.
  *
  * @author Stephen Colebourne
- * @version $Id: LongRangeTest.java,v 1.5 2004/02/18 23:02:38 ggregory Exp $
+ * @version $Id$
  */
 public final class LongRangeTest extends AbstractRangeTest {
 

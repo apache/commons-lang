@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * JUnit tests.
  * 
  * @author Matthew Hawthorne
- * @version $Id: NotImplementedExceptionTest.java,v 1.4 2004/03/04 00:13:38 scolebourne Exp $
+ * @version $Id$
  * @see NotImplementedException
  */
 public class NotImplementedExceptionTest extends TestCase {

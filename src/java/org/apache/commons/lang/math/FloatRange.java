@@ -22,7 +22,7 @@ import java.io.Serializable;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: FloatRange.java,v 1.6 2004/02/18 22:56:13 ggregory Exp $
+ * @version $Id$
  */
 public final class FloatRange extends Range implements Serializable {
     

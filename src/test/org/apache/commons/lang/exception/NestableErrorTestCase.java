@@ -25,7 +25,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableError class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableErrorTestCase.java,v 1.7 2004/10/09 10:45:24 scolebourne Exp $
+ * @version $Id$
  */
 public class NestableErrorTestCase extends AbstractNestableTestCase {
     

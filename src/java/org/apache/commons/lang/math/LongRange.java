@@ -22,7 +22,7 @@ import java.io.Serializable;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: LongRange.java,v 1.8 2004/10/21 01:18:33 ggregory Exp $
+ * @version $Id$
  */
 public final class LongRange extends Range implements Serializable {
     

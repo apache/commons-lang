@@ -21,7 +21,7 @@ import junit.framework.TestCase;
  * Test cases for the {@link Range} classes.
  *
  * @author Stephen Colebourne
- * @version $Id: AbstractRangeTest.java,v 1.6 2004/02/18 23:02:38 ggregory Exp $
+ * @version $Id$
  */
 public abstract class AbstractRangeTest extends TestCase {
 

@@ -25,7 +25,7 @@ import junit.framework.TestSuite;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Tim O'Brien
- * @version $Revision: 1.8 $ $Date$
+ * @version $Revision$ $Date$
  */
 
 public final class NumberRangeTest extends TestCase {

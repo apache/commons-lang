@@ -36,7 +36,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: NumberUtilsTest.java,v 1.12 2004/02/18 23:22:30 ggregory Exp $
+ * @version $Id$
  */
 public class NumberUtilsTest extends TestCase {
 

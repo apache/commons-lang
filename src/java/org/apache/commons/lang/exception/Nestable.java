@@ -28,7 +28,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: Nestable.java,v 1.12 2004/10/09 10:45:24 scolebourne Exp $
+ * @version $Id$
  */
 public interface Nestable {
     

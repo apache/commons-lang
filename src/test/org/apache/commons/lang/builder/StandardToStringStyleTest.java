@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.builder.ToStringStyle}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StandardToStringStyleTest.java,v 1.7 2004/02/18 23:00:51 ggregory Exp $
+ * @version $Id$
  */
 public class StandardToStringStyleTest extends TestCase {
 

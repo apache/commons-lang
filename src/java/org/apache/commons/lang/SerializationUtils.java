@@ -44,7 +44,7 @@ import java.io.Serializable;
  * @author Jeff Varszegi
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: SerializationUtils.java,v 1.13 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id$
  */
 public class SerializationUtils {
     

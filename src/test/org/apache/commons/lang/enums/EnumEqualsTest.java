@@ -24,7 +24,7 @@ import junit.framework.TestSuite;
  *
  * @author Matthias Eichel
  * @author Stephen Colebourne
- * @version $Id: EnumEqualsTest.java,v 1.1 2004/06/01 20:54:57 scolebourne Exp $
+ * @version $Id$
  */
 public final class EnumEqualsTest extends TestCase {
 

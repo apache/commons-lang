@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * Test suite for the Enum package.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumTestSuite.java,v 1.4 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id$
  */
 public class EnumTestSuite extends TestCase {
     

@@ -31,7 +31,7 @@ import java.io.Serializable;
  * @author Gary Gregory
  * @author Mario Winterer
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.24 2004/06/01 21:08:48 scolebourne Exp $
+ * @version $Id$
  */
 public class ObjectUtils {
     

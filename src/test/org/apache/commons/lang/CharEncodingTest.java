@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
  * 
  * @see CharEncoding
  * @author Gary D. Gregory
- * @version $Id: CharEncodingTest.java,v 1.1 2004/10/02 01:46:30 bayard Exp $
+ * @version $Id$
  */
 public class CharEncodingTest extends TestCase {
 

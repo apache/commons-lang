@@ -31,7 +31,7 @@ package org.apache.commons.lang;
  * @author Alex Chaffee (alex@apache.org)
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Revision: 1.6 $
+ * @version $Revision$
  * @see java.util.HashMap
  */
 class IntHashMap {

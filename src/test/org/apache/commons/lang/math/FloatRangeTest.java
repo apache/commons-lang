@@ -22,7 +22,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link FloatRange} class.
  *
  * @author Stephen Colebourne
- * @version $Id: FloatRangeTest.java,v 1.6 2004/02/18 23:02:38 ggregory Exp $
+ * @version $Id$
  */
 public final class FloatRangeTest extends AbstractRangeTest {
 

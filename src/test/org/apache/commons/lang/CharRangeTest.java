@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.CharRange}.
  *
  * @author Stephen Colebourne
- * @version $Id: CharRangeTest.java,v 1.4 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  */
 public class CharRangeTest extends TestCase {
     

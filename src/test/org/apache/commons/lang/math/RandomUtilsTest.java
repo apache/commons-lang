@@ -25,7 +25,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link RandomUtils} class.
  *
  * @author <a href="mailto:phil@steitz.com">Phil Steitz</a>
- * @version $Revision: 1.8 $ $Date: 2004/12/25 17:52:19 $
+ * @version $Revision$ $Date$
  */
 
 public final class RandomUtilsTest extends TestCase {

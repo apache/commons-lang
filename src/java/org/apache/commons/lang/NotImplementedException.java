@@ -46,7 +46,7 @@ import org.apache.commons.lang.exception.NestableDelegate;
  * @author Matthew Hawthorne
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: NotImplementedException.java,v 1.10 2004/10/21 01:18:33 ggregory Exp $
+ * @version $Id$
  */
 public class NotImplementedException
         extends UnsupportedOperationException implements Nestable {

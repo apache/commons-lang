@@ -24,7 +24,7 @@ import java.util.Random;
  * 
  * @author Henri Yandell
  * @since 2.0
- * @version $Id: JVMRandom.java,v 1.11 2004/10/21 01:18:33 ggregory Exp $
+ * @version $Id$
  */
 public final class JVMRandom extends Random {
 

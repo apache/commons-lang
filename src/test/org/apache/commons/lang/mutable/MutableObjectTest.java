@@ -23,7 +23,7 @@ import junit.textui.TestRunner;
 /**
  * JUnit tests.
  * 
- * @version $Id: MutableObjectTest.java,v 1.2 2004/12/26 02:35:47 bayard Exp $
+ * @version $Id$
  * @see MutableShort
  */
 public class MutableObjectTest extends TestCase {

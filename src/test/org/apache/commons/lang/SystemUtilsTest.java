@@ -33,7 +33,7 @@ import junit.textui.TestRunner;
  * @author Stephen Colebourne
  * @author Tetsuya Kaneuchi
  * @author Gary D. Gregory
- * @version $Id: SystemUtilsTest.java,v 1.11 2004/11/12 00:48:41 scolebourne Exp $
+ * @version $Id$
  */
 public class SystemUtilsTest extends TestCase {
     public static void main(String[] args) {

@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: ObjectUtilsTest.java,v 1.13 2004/06/01 21:08:48 scolebourne Exp $
+ * @version $Id$
  */
 public class ObjectUtilsTest extends TestCase {
     private static final String FOO = "foo";

@@ -23,7 +23,7 @@ import java.util.Map;
  * Color enumeration.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ColorEnum.java,v 1.4 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id$
  */
 
 public final class ColorEnum extends Enum {

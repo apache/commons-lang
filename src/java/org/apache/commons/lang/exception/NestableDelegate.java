@@ -41,7 +41,7 @@ import java.util.List;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.26 2004/10/09 10:45:24 scolebourne Exp $
+ * @version $Id$
  */
 public class NestableDelegate implements Serializable {
 

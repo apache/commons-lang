@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DateFormatUtils.java,v 1.9 2004/02/18 22:56:42 ggregory Exp $
+ * @version $Id$
  */
 public class DateFormatUtils {
 

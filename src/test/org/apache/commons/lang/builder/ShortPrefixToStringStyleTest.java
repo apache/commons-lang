@@ -24,7 +24,7 @@ import junit.framework.TestCase;
  * Unit tests {@link org.apache.commons.lang.builder.ToStringStyle.SHORT_PREFIX_STYLE}.
  * 
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: ShortPrefixToStringStyleTest.java,v 1.2 2004/02/18 23:00:51 ggregory Exp $
+ * @version $Id$
  */
 public class ShortPrefixToStringStyleTest extends TestCase {
 

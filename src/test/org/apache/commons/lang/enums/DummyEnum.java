@@ -19,7 +19,7 @@ package org.apache.commons.lang.enums;
  * Dummy enumeration - no values.
  *
  * @author Stephen Colebourne
- * @version $Id: DummyEnum.java,v 1.1 2004/02/23 04:34:20 ggregory Exp $
+ * @version $Id$
  */
 public abstract class DummyEnum extends Enum {
 

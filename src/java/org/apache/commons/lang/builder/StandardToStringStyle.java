@@ -28,7 +28,7 @@ package org.apache.commons.lang.builder;
  * @author Pete Gieser
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: StandardToStringStyle.java,v 1.17 2004/02/18 22:53:24 ggregory Exp $
+ * @version $Id$
  */
 public class StandardToStringStyle extends ToStringStyle {
     

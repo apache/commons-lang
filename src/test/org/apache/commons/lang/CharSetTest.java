@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Phil Steitz
- * @version $Id: CharSetTest.java,v 1.4 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  */
 public class CharSetTest extends TestCase {
     

@@ -22,7 +22,7 @@ import junit.textui.TestRunner;
 /**
  * JUnit tests.
  *
- * @version $Id: MutableTestSuite.java,v 1.4 2004/07/08 00:02:35 scolebourne Exp $
+ * @version $Id$
  */
 public class MutableTestSuite {
 

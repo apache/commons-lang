@@ -23,7 +23,7 @@ import java.util.Map;
  * Base extended enumeration.
  *
  * @author Stephen Colebourne
- * @version $Id: Extended1Enum.java,v 1.4 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id$
  */
 public class Extended1Enum extends Enum {
     public static final Extended1Enum ALPHA = new Extended1Enum("Alpha");
