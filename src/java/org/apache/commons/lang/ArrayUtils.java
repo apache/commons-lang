@@ -75,8 +75,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
+ * @author Tim O'Brien
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.21 2003/08/01 20:45:17 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.22 2003/08/03 23:29:19 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -1376,6 +1377,23 @@ public class ArrayUtils {
     }
 
     /**
+     * <p>Find the index of the given value within a given tolerance in the array.
+     * This method will return the index of the first value which falls between the region
+     * defined by valueToFind - tolerance and valueToFind + tolerance.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  the array to search through for the object, may be <code>null</code>
+     * @param valueToFind  the value to find
+     * @param tolerance tolerance of the search
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
+     */
+    public static int indexOf(final double[] array, final double valueToFind, final double tolerance) {
+        return indexOf(array, valueToFind, 0, tolerance);
+    }
+
+    /**
      * <p>Find the index of the given value in the array starting at the given index.</p>
      *
      * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
@@ -1390,7 +1408,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return -1;
         }
         if (startIndex < 0) {
@@ -1398,6 +1416,40 @@ public class ArrayUtils {
         }
         for (int i = startIndex; i < array.length; i++) {
             if (valueToFind == array[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * <p>Find the index of the given value in the array starting at the given index.
+     * This method will return the index of the first value which falls between the region
+     * defined by valueToFind - tolerance and valueToFind + tolerance.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return -1.</p>
+     * 
+     * @param array  the array to search through for the object, may be <code>null</code>
+     * @param valueToFind  the value to find
+     * @param startIndex  the index to start searching at
+     * @param tolerance tolerance of the search
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
+     */
+    public static int indexOf(final double[] array, final double valueToFind, int startIndex, double tolerance) {
+        if (array == null || array.length == 0) {
+            return -1;
+        }
+        if (startIndex < 0) {
+            startIndex = 0;
+        }
+        double min = valueToFind - tolerance;
+        double max = valueToFind + tolerance;
+        for (int i = startIndex; i < array.length; i++) {
+            if (array[i] >= min && array[i] <= max) {
                 return i;
             }
         }
@@ -1419,6 +1471,23 @@ public class ArrayUtils {
     }
 
     /**
+     * <p>Find the last index of the given value within a given tolerance in the array.
+     * This method will return the index of the last value which falls between the region
+     * defined by valueToFind - tolerance and valueToFind + tolerance.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  the array to search through for the object, may be <code>null</code>
+     * @param valueToFind  the value to find
+     * @param tolerance tolerance of the search
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
+     */
+    public static int lastIndexOf(final double[] array, final double valueToFind, final double tolerance) {
+        return lastIndexOf(array, valueToFind, Integer.MAX_VALUE, tolerance);
+    }
+
+    /**
      * <p>Find the last index of the given value in the array starting at the given index.</p>
      *
      * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
@@ -1433,7 +1502,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return -1;
         }
         if (startIndex < 0) {
@@ -1443,6 +1512,41 @@ public class ArrayUtils {
         }
         for (int i = startIndex; i >= 0; i--) {
             if (valueToFind == array[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * <p>Find the last index of the given value in the array starting at the given index.
+     * This method will return the index of the last value which falls between the region
+     * defined by valueToFind - tolerance and valueToFind + tolerance.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     *
+     * <p>A negative startIndex will return -1. A startIndex larger than the array
+     * length will search from the end of the array.</p>
+     * 
+     * @param array  the array to traverse for looking for the object, may be <code>null</code>
+     * @param valueToFind  the value to find
+     * @param startIndex  the start index to travers backwards from
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
+     */
+    public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex, double tolerance) {
+        if (array == null || array.length == 0) {
+            return -1;
+        }
+        if (startIndex < 0) {
+            return -1;
+        } else if (startIndex >= array.length) {
+            startIndex = array.length - 1;
+        }
+        double min = valueToFind - tolerance;
+        double max = valueToFind + tolerance;
+        for (int i = startIndex; i >= 0; i--) {
+            if (array[i] >= min && array[i] <= max) {
                 return i;
             }
         }
@@ -1460,6 +1564,22 @@ public class ArrayUtils {
      */
     public static boolean contains(final double[] array, final double valueToFind) {
         return (indexOf(array, valueToFind) != -1);
+    }
+
+    /**
+     * <p>Checks if a value falling within the given tolerance is in the
+     * given array.  If the array contains a value within the inclusive range 
+     * defined by (value - tolerance) to (value + tolerance).</p>
+     *
+     * <p>The method returns <code>false</code> if a <code>null</code> array
+     * is passed in.</p>
+     *
+     * @param array the array to search
+     * @param valueToFind the value to find
+     * @param tolerance the array contains the tolerance of the search.
+     */
+    public static boolean contains(final double[] array, final double valueToFind, final double tolerance) {
+        return (indexOf(array, valueToFind, 0, tolerance) != -1);
     }
 
     // float IndexOf
@@ -1493,7 +1613,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return -1;
         }
         if (startIndex < 0) {
@@ -1536,7 +1656,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final float[] array, final float valueToFind, int startIndex) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return -1;
         }
         if (startIndex < 0) {
@@ -1596,7 +1716,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return -1;
         }
         if (startIndex < 0) {
@@ -1639,7 +1759,7 @@ public class ArrayUtils {
      *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
-        if (array == null) {
+        if (array == null || array.length == 0) {
             return -1;
         }
         if (startIndex < 0) {
