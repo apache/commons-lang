@@ -21,6 +21,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
@@ -149,6 +150,19 @@ public class DateUtilsTest extends TestCase {
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(DateUtils.class.getModifiers()));
         assertEquals(false, Modifier.isFinal(DateUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIsSameDay() {
+        GregorianCalendar cal1 = new GregorianCalendar(2004, 6, 9, 13, 45);
+        GregorianCalendar cal2 = new GregorianCalendar(2004, 6, 9, 13, 45);
+        assertEquals(true, DateUtils.isSameDay(cal1, cal2));
+        cal2.add(Calendar.DAY_OF_YEAR, 1);
+        assertEquals(false, DateUtils.isSameDay(cal1, cal2));
+        cal1.add(Calendar.DAY_OF_YEAR, 1);
+        assertEquals(true, DateUtils.isSameDay(cal1, cal2));
+        cal2.add(Calendar.YEAR, 1);
+        assertEquals(false, DateUtils.isSameDay(cal1, cal2));
     }
     
     //-----------------------------------------------------------------------
