@@ -23,7 +23,7 @@ import junit.textui.TestRunner;
 /**
  * JUnit tests.
  * 
- * @version $Id: MutableFloatTest.java,v 1.3 2004/12/26 02:35:47 bayard Exp $
+ * @version $Id$
  * @see MutableFloat
  */
 public class MutableFloatTest extends TestCase {
@@ -144,6 +144,9 @@ public class MutableFloatTest extends TestCase {
         
         assertEquals( 1, mutNum.intValue() );
         assertEquals( 1.7, mutNum.doubleValue(), 0.00001 );
+        assertEquals( (byte) 1, mutNum.byteValue() );
+        assertEquals( (short) 1, mutNum.shortValue() );
+        assertEquals( 1, mutNum.intValue() );
         assertEquals( 1L, mutNum.longValue() );
     }
 
