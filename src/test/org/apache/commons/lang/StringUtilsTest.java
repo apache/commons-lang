@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtilsTest.java,v 1.10 2002/11/23 00:51:34 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.11 2002/12/07 21:50:30 bayard Exp $
  */
 public class StringUtilsTest extends TestCase
 {
@@ -317,6 +317,14 @@ public class StringUtilsTest extends TestCase
                      "\\u0234", StringUtils.escape("\u0234") );
         assertEquals("escape(String) failed",
                      "\\u00fd", StringUtils.escape("\u00fd") );
+        assertEquals("unescape(String) failed", 
+                     "", StringUtils.unescape("") );
+        assertEquals("unescape(String) failed", 
+                     "test", StringUtils.unescape("test") );
+        assertEquals("unescape(String) failed", 
+                     "\ntest\b", StringUtils.unescape("\\ntest\\b") );
+        assertEquals("unescape(String) failed", 
+                     "\u123425foo\ntest\b", StringUtils.unescape("\\u123425foo\\ntest\\b") );
     }
 
     public void testGetLevenshteinDistance() {
