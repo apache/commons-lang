@@ -69,6 +69,9 @@ import org.apache.commons.lang.ClassUtils;
  * }
  * </pre>
  *
+ * <p><em>NOTE:</em>These are declared <code>final</code>, so compilers may 
+ * inline the code. Ensure you recompile everything when using final. </p>
+ *
  * <p>The above class could then be used as follows:</p>
  *
  * <pre>
@@ -95,7 +98,7 @@ import org.apache.commons.lang.ClassUtils;
  * @author Apache Avalon project
  * @author Stephen Colebourne
  * @since 2.1 (class existed in enum package from v1.0)
- * @version $Id: ValuedEnum.java,v 1.2 2004/06/01 20:56:44 scolebourne Exp $
+ * @version $Id: ValuedEnum.java,v 1.3 2004/09/30 06:35:52 bayard Exp $
  */
 public abstract class ValuedEnum extends Enum {
     
