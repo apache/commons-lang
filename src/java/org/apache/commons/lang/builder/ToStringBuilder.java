@@ -88,13 +88,17 @@ import java.lang.reflect.Modifier;
  * </pre>
  * <p>This will produce a toString of the format:
  * <code>Person@7f54[name=Stephen,age=29,smoker=false]</code></p>
+ * 
+ * <p>To add the superclass <code>toString</code>, use {@link #appendSuper}.
+ * To append the <code>toString</code> from an object that is delegated
+ * to (or any other object), use {@link #appendToString}.</p>
  *
  * <p>Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method, 
  * <code>reflectionToString</code>, uses <code>Field.setAccessible</code> to
  * change the visibility of the fields. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly. It is also
- * slower than testing explicitly.</p>
+ * slower than testing explicitly and does not handle superclasses.</p>
  *
  * <p>A typical invocation for this method would look like:</p>
  * <pre>
@@ -107,7 +111,7 @@ import java.lang.reflect.Modifier;
  * the {@link ToStringStyle} passed into the constructor.</p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilder.java,v 1.8 2002/11/17 21:46:42 scolebourne Exp $
+ * @version $Id: ToStringBuilder.java,v 1.9 2002/12/08 20:45:08 scolebourne Exp $
  */
 public class ToStringBuilder {
     
@@ -330,6 +334,59 @@ public class ToStringBuilder {
             }
         }
         return builder.toString();
+    }
+
+    //----------------------------------------------------------------------------
+    
+    /**
+     * <p>Append the <code>toString</code> from the superclass.</p>
+     * 
+     * <p>This method asumes that the superclass uses the same <code>ToStringStyle</code>
+     * as this one.</p>
+     * 
+     * <p>If the <code>superToString</code> is null, no change is made.</p>
+     *
+     * @param superToString  the result of <code>super.toString()</code>
+     * @return this
+     */
+    public ToStringBuilder appendSuper(String superToString) {
+        if (superToString != null) {
+            style.appendSuper(buffer, superToString);
+        }
+        return this;
+    }
+
+    /**
+     * <p>Append the <code>toString</code> from another object.</p>
+     * 
+     * <p>This method is useful where a class delegates most of the implementation of
+     * it's properties to another class. You can then call toString() on the other 
+     * class and pass the result into this method.</p>
+     * 
+     * <pre>
+     *   private AnotherObject delegate;
+     *   private String fieldInThisClass;
+     * 
+     *   public String toString() {
+     *     return new ToStringBuilder(this).
+     *       appendToString(delegate.toString()).
+     *       append(fieldInThisClass).
+     *       toString();
+     *   }</pre>
+     * 
+     * <p>This method asumes that the other object uses the same <code>ToStringStyle</code>
+     * as this one.</p>
+     * 
+     * <p>If the <code>toString</code> is null, no change is made.</p>
+     *
+     * @param toString  the result of <code>toString()</code> on another object
+     * @return this
+     */
+    public ToStringBuilder appendToString(String toString) {
+        if (toString != null) {
+            style.appendToString(buffer, toString);
+        }
+        return this;
     }
 
     //----------------------------------------------------------------------------
@@ -1016,6 +1073,15 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
     
     /**
+     * <p>Gets the <code>ToStringStyle</code> being used.</p>
+     * 
+     * @return the <code>ToStringStyle</code> being used
+     */    
+    public ToStringStyle getStyle() {
+        return style;
+    }
+
+    /**
      * <p>Gets the <code>StringBuffer</code> being populated.</p>
      * 
      * @return the <code>StringBuffer</code> being populated
@@ -1026,6 +1092,9 @@ public class ToStringBuilder {
 
     /**
      * <p>Returns the built <code>toString</code>.</p>
+     * 
+     * <p>This method appends the end of the buffer, and can only be called once.
+     * Use {@link #getStringBuffer} to get the current string state.</p>
      * 
      * @return the String <code>toString</code>
      */    

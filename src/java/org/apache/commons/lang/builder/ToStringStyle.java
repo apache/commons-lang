@@ -80,7 +80,7 @@ import org.apache.commons.lang.SystemUtils;
  * the array length.</p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringStyle.java,v 1.7 2002/11/22 22:52:17 bayard Exp $
+ * @version $Id: ToStringStyle.java,v 1.8 2002/12/08 20:45:08 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -130,6 +130,14 @@ public abstract class ToStringStyle implements Serializable {
      * The field name value separator <code>'='</code>.
      */
     private String fieldNameValueSeparator = "=";
+    /**
+     * Whether the field separator should be added before any other fields.
+     */
+    private boolean fieldSeparatorAtStart = false;
+    /**
+     * Whether the field separator should be added after any other fields.
+     */
+    private boolean fieldSeparatorAtEnd = false;
     /**
      * The field separator <code>','</code>.
      */
@@ -188,6 +196,41 @@ public abstract class ToStringStyle implements Serializable {
     //----------------------------------------------------------------------------
     
     /**
+     * <p>Append the superclass toString.</p>
+     * 
+     * <p>A null <code>super.toString()</code> is ignored.</p>
+     * 
+     * @param buffer  the <code>StringBuffer</code> to populate
+     * @param superToString  the <code>super.toString()</code>
+     */
+    public void appendSuper(StringBuffer buffer, String superToString) {
+        appendToString(buffer, superToString);
+    }
+    
+    /**
+     * <p>Append a toString.</p>
+     * 
+     * <p>A null <code>toString()</code> is ignored.</p>
+     * 
+     * @param buffer  the <code>StringBuffer</code> to populate
+     * @param toString  the <code>super.toString()</code>
+     */
+    public void appendToString(StringBuffer buffer, String toString) {
+        if (toString != null) {
+            int pos1 = toString.indexOf(contentStart) + contentStart.length();
+            int pos2 = toString.lastIndexOf(contentEnd);
+            if (pos1 != pos2 && pos1 >= 0 && pos2 >= 0) {
+                String data = toString.substring(pos1, pos2);
+                if (fieldSeparatorAtStart) {
+                    removeLastFieldSeparator(buffer);
+                }
+                buffer.append(data);
+                appendFieldSeparator(buffer);
+            }
+        }
+    }
+
+    /**
      * <p>Append the start of data indicator.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
@@ -198,6 +241,9 @@ public abstract class ToStringStyle implements Serializable {
         appendClassName(buffer, object);
         appendIdentityHashCode(buffer, object);
         appendContentStart(buffer);
+        if (fieldSeparatorAtStart) {
+            appendFieldSeparator(buffer);
+        }
     }
 
     /**
@@ -208,7 +254,32 @@ public abstract class ToStringStyle implements Serializable {
      *  <code>toString</code> for, must not be <code>null</code>
      */
     public void appendEnd(StringBuffer buffer, Object object) {
+        if (fieldSeparatorAtEnd == false) {
+            removeLastFieldSeparator(buffer);
+        }
         appendContentEnd(buffer);
+    }
+
+    /**
+     * <p>Remove the last field separator from the buffer</p>
+     * 
+     * @param buffer  the <code>StringBuffer</code> to populate
+     */
+    protected void removeLastFieldSeparator(StringBuffer buffer) {
+        int len = buffer.length();
+        int sepLen = fieldSeparator.length();
+        if (len > 0 && sepLen > 0 && len >= sepLen) {
+            boolean match = true;
+            for (int i = 0; i < sepLen; i++) {
+                if (buffer.charAt(len - 1 - i) != fieldSeparator.charAt(sepLen - 1 - i)) {
+                    match = false;
+                    break;
+                }
+            }
+            if (match) {
+                buffer.setLength(len - sepLen);
+            }
+        }
     }
     
     //----------------------------------------------------------------------------
@@ -1217,11 +1288,6 @@ public abstract class ToStringStyle implements Serializable {
      * @param buffer  the <code>StringBuffer</code> to populate
      */
     protected void appendContentEnd(StringBuffer buffer) {
-        int len = buffer.length();
-        int sepLen = fieldSeparator.length();
-        if (len > 0 && sepLen > 0 && len >= sepLen && buffer.charAt(len - 1) == fieldSeparator.charAt(sepLen - 1)) {
-            buffer.setLength(len - sepLen);
-        }
         buffer.append(contentEnd);
     }
     
@@ -1639,6 +1705,50 @@ public abstract class ToStringStyle implements Serializable {
     //---------------------------------------------------------------------
     
     /**
+     * <p>Gets whether the field separator should be added at the start 
+     * of each buffer.</p>
+     * 
+     * @return the fieldSeparatorAtStart flag
+     */
+    protected boolean isFieldSeparatorAtStart() {
+        return fieldSeparatorAtStart;
+    }
+
+    /**
+     * <p>Sets whether the field separator should be added at the start 
+     * of each buffer.</p>
+     * 
+     * @param fieldSeparatorAtStart  the fieldSeparatorAtStart flag
+     */
+    protected void setFieldSeparatorAtStart(boolean fieldSeparatorAtStart) {
+        this.fieldSeparatorAtStart = fieldSeparatorAtStart;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * <p>Gets whether the field separator should be added at the end 
+     * of each buffer.</p>
+     * 
+     * @return fieldSeparatorAtEnd flag
+     */
+    protected boolean isFieldSeparatorAtEnd() {
+        return fieldSeparatorAtEnd;
+    }
+
+    /**
+     * <p>Sets whether the field separator should be added at the end 
+     * of each buffer.</p>
+     * 
+     * @param fieldSeparatorAtEnd  the fieldSeparatorAtEnd flag
+     */
+    protected void setFieldSeparatorAtEnd(boolean fieldSeparatorAtEnd) {
+        this.fieldSeparatorAtEnd = fieldSeparatorAtEnd;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
      * <p>Gets the text to output when <code>null</code> found.</p>
      *
      * @return the current text to output when null found
@@ -1790,8 +1900,6 @@ public abstract class ToStringStyle implements Serializable {
         this.summaryObjectEndText = summaryObjectEndText;
     }
 
-    //---------------------------------------------------------------------
-    
     //----------------------------------------------------------------------------
     
     /**
@@ -1906,8 +2014,9 @@ public abstract class ToStringStyle implements Serializable {
          */
         private MultiLineToStringStyle() {
             super();
-            this.setContentStart("[" + SystemUtils.LINE_SEPARATOR + "  ");
+            this.setContentStart("[");
             this.setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
+            this.setFieldSeparatorAtStart(true);
             this.setContentEnd(SystemUtils.LINE_SEPARATOR + "]");
         }
         
