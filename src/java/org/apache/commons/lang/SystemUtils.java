@@ -33,7 +33,7 @@ import java.io.File;
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.32 2004/02/18 22:59:49 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.33 2004/02/25 00:25:29 ggregory Exp $
  */
 public class SystemUtils {
 
@@ -145,6 +145,27 @@ public class SystemUtils {
      * @since 2.1
      */
     public static final String JAVA_AWT_GRAPHICSENV = getSystemProperty("java.awt.graphicsenv");
+
+    /**
+     * <p>
+     * The <code>java.awt.headless</code> System Property.
+     * The value of this property is the String <code>"true"</code> or <code>"false"</code>. 
+     * </p>
+     *
+     * <p>Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or the property does not exist.</p>
+     * 
+     * <p>
+     * This value is initialized when the class is loaded. If {@link System#setProperty(String,String)}
+     * or {@link System#setProperties(java.util.Properties)} is called after this class is loaded, the value
+     * will be out of sync with that System property.
+     * </p>
+     * 
+     * @see #isJavaAwtHeadless()
+     * @since 2.1
+     * @since Java 1.4
+     */
+    public static final String JAVA_AWT_HEADLESS = getSystemProperty("java.awt.headless");
 
     /**
      * <p>The <code>java.awt.printerjob</code> System Property.</p>
@@ -821,7 +842,7 @@ public class SystemUtils {
     /**
      * <p>Is <code>true</code> if this is Java version 1.4 (also 1.4.x versions).</p>
      *
-     * <p>The field will <code>false</code> false if {@link #JAVA_VERSION} is
+     * <p>The field will return <code>false</code> if {@link #JAVA_VERSION} is
      * <code>null</code>.</p>
      */
     public static final boolean IS_JAVA_1_4 = getJavaVersionMatches("1.4");
@@ -1166,7 +1187,7 @@ public class SystemUtils {
             );
             return null;
         }
-    }    
+    }
     
     /**
      * <p>Is the Java version at least the requested version.</p>
@@ -1202,7 +1223,20 @@ public class SystemUtils {
     public static boolean isJavaVersionAtLeast(int requiredVersion) {
         return (JAVA_VERSION_INT >= requiredVersion);
     }
-    
+
+    /**
+     * Returns whether the {@link #JAVA_AWT_HEADLESS} value is <code>true</code>.
+     *  
+     * @return <code>true</code> if <code>JAVA_AWT_HEADLESS</code> is <code>"true"</code>,
+     * <code>false</code> otherwise.
+     * 
+     * @see #JAVA_AWT_HEADLESS
+     * @since 2.1
+     * @since Java 1.4
+     */
+    public static boolean isJavaAwtHeadless() {
+        return JAVA_AWT_HEADLESS != null ? JAVA_AWT_HEADLESS.equals(Boolean.TRUE.toString()) : false;
+    }
     /**
      * <p>Gets the Java home directory as a <code>File</code>.</p>
      * 

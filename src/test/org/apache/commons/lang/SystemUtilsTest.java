@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
-
 import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -29,14 +29,13 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.SystemUtils}.
  * 
  * Only limited testing can be performed.
- *
+ * 
  * @author Stephen Colebourne
  * @author Tetsuya Kaneuchi
  * @author Gary D. Gregory
- * @version $Id: SystemUtilsTest.java,v 1.9 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: SystemUtilsTest.java,v 1.10 2004/02/25 00:25:29 ggregory Exp $
  */
 public class SystemUtilsTest extends TestCase {
-
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
@@ -46,12 +45,14 @@ public class SystemUtilsTest extends TestCase {
         suite.setName("SystemUtils Tests");
         return suite;
     }
-    
+
     //-----------------------------------------------------------------------
     // COPIED FROM SystemUtils
     //-----------------------------------------------------------------------
     private String JAVA_VERSION;
+
     private String OS_NAME;
+
     private String OS_VERSION;
 
     public SystemUtilsTest(String name) {
@@ -59,16 +60,21 @@ public class SystemUtilsTest extends TestCase {
     }
 
     /**
-     * <p>Get the Java version number as a <code>float</code>.</p>
-     *
-     * <p>Example output:</p>
+     * <p>
+     * Get the Java version number as a <code>float</code>.
+     * </p>
+     * 
+     * <p>
+     * Example output:
+     * </p>
      * <ul>
-     *  <li><code>1.2f</code> for JDK 1.2
-     *  <li><code>1.31f</code> for JDK 1.3.1
+     * <li><code>1.2f</code> for JDK 1.2
+     * <li><code>1.31f</code> for JDK 1.3.1
      * </ul>
      * 
-     * <p>Patch releases are not reported.
-     * Zero is returned if JAVA_VERSION is <code>null</code>.</p>
+     * <p>
+     * Patch releases are not reported. Zero is returned if JAVA_VERSION is <code>null</code>.
+     * </p>
      * 
      * @return the version, for example 1.31f for JDK 1.3.1
      */
@@ -82,18 +88,23 @@ public class SystemUtilsTest extends TestCase {
         }
         return Float.parseFloat(str);
     }
-    
+
     /**
-     * <p>Get the Java version number as an <code>int</code>.</p>
-     *
-     * <p>Example output:</p>
+     * <p>
+     * Get the Java version number as an <code>int</code>.
+     * </p>
+     * 
+     * <p>
+     * Example output:
+     * </p>
      * <ul>
-     *  <li><code>120</code> for JDK 1.2
-     *  <li><code>131</code> for JDK 1.3.1
+     * <li><code>120</code> for JDK 1.2
+     * <li><code>131</code> for JDK 1.3.1
      * </ul>
      * 
-     * <p>Patch releases are not reported.
-     * Zero is returned if JAVA_VERSION is <code>null</code>.</p>
+     * <p>
+     * Patch releases are not reported. Zero is returned if JAVA_VERSION is <code>null</code>.
+     * </p>
      * 
      * @return the version, for example 131 for JDK 1.3.1
      */
@@ -110,11 +121,12 @@ public class SystemUtilsTest extends TestCase {
         }
         return Integer.parseInt(str);
     }
-    
+
     /**
      * Decides if the java version matches.
      * 
-     * @param versionPrefix  the prefix for the java version
+     * @param versionPrefix
+     *                  the prefix for the java version
      * @return true if matches, or false if not or can't determine
      */
     private boolean getJavaVersionMatches(String versionPrefix) {
@@ -122,12 +134,13 @@ public class SystemUtilsTest extends TestCase {
             return false;
         }
         return JAVA_VERSION.startsWith(versionPrefix);
-    }    
+    }
 
     /**
      * Decides if the operating system matches.
      * 
-     * @param osNamePrefix  the prefix for the os name
+     * @param osNamePrefix
+     *                  the prefix for the os name
      * @return true if matches, or false if not or can't determine
      */
     private boolean getOSMatches(String osNamePrefix) {
@@ -135,13 +148,15 @@ public class SystemUtilsTest extends TestCase {
             return false;
         }
         return OS_NAME.startsWith(osNamePrefix);
-    }    
+    }
 
     /**
      * Decides if the operating system matches.
      * 
-     * @param osNamePrefix  the prefix for the os name
-     * @param osVersionPrefix  the prefix for the version
+     * @param osNamePrefix
+     *                  the prefix for the os name
+     * @param osVersionPrefix
+     *                  the prefix for the version
      * @return true if matches, or false if not or can't determine
      */
     private boolean getOSMatches(String osNamePrefix, String osVersionPrefix) {
@@ -149,7 +164,7 @@ public class SystemUtilsTest extends TestCase {
             return false;
         }
         return OS_NAME.startsWith(osNamePrefix) && OS_VERSION.startsWith(osVersionPrefix);
-    }    
+    }
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -168,7 +183,7 @@ public class SystemUtilsTest extends TestCase {
         assertEquals(true, Modifier.isPublic(SystemUtils.class.getModifiers()));
         assertEquals(false, Modifier.isFinal(SystemUtils.class.getModifiers()));
     }
-    
+
     /**
      * Assums no security manager exists.
      */
@@ -268,7 +283,7 @@ public class SystemUtilsTest extends TestCase {
     public void testJavaVersion() {
         assertEquals(SystemUtils.JAVA_VERSION_FLOAT, SystemUtils.getJavaVersion(), 0f);
     }
-   
+
     public void testJavaVersionAsFloat() {
         JAVA_VERSION = null;
         assertEquals(0f, getJavaVersionAsFloat(), 0.000001f);
@@ -289,7 +304,7 @@ public class SystemUtilsTest extends TestCase {
         JAVA_VERSION = "1.6.0";
         assertEquals(1.6f, getJavaVersionAsFloat(), 0.000001f);
     }
-    
+
     public void testJavaVersionAsInt() {
         JAVA_VERSION = null;
         assertEquals(0, getJavaVersionAsInt());
@@ -310,7 +325,7 @@ public class SystemUtilsTest extends TestCase {
         JAVA_VERSION = "1.6.0";
         assertEquals(160, getJavaVersionAsInt());
     }
-    
+
     public void testJavaVersionAtLeastFloat() {
         float version = SystemUtils.JAVA_VERSION_FLOAT;
         assertEquals(true, SystemUtils.isJavaVersionAtLeast(version));
@@ -319,7 +334,7 @@ public class SystemUtilsTest extends TestCase {
         version += 0.2f;
         assertEquals(false, SystemUtils.isJavaVersionAtLeast(version));
     }
-    
+
     public void testJavaVersionAtLeastInt() {
         int version = SystemUtils.JAVA_VERSION_INT;
         assertEquals(true, SystemUtils.isJavaVersionAtLeast(version));
@@ -328,7 +343,7 @@ public class SystemUtilsTest extends TestCase {
         version += 20;
         assertEquals(false, SystemUtils.isJavaVersionAtLeast(version));
     }
-    
+
     //-----------------------------------------------------------------------
     public void testJavaVersionMatches() {
         JAVA_VERSION = null;
@@ -386,7 +401,7 @@ public class SystemUtilsTest extends TestCase {
         assertEquals(false, getJavaVersionMatches("1.4"));
         assertEquals(false, getJavaVersionMatches("1.5"));
     }
-    
+
     public void testOSMatches() {
         OS_NAME = null;
         assertEquals(false, getOSMatches("Windows"));
@@ -397,7 +412,7 @@ public class SystemUtilsTest extends TestCase {
         OS_NAME = "OS/2";
         assertEquals(false, getOSMatches("Windows"));
     }
-    
+
     public void testOSMatches2() {
         OS_NAME = null;
         OS_VERSION = null;
@@ -417,5 +432,24 @@ public class SystemUtilsTest extends TestCase {
         OS_NAME = "OS/2";
         OS_VERSION = "4.0";
         assertEquals(false, getOSMatches("Windows 9", "4.1"));
+    }
+
+    public void testJavaAwtHeadless() {
+        boolean atLeastJava14 = SystemUtils.isJavaVersionAtLeast(140);
+        String expectedStringValue = System.getProperty("java.awt.headless");
+        String expectedStringValueWithDefault = System.getProperty("java.awt.headless", "false");
+        assertNotNull(expectedStringValueWithDefault);
+        if (atLeastJava14) {
+            boolean expectedValue = Boolean.valueOf(expectedStringValue).booleanValue();
+            if (expectedStringValue != null) {
+                assertEquals(expectedStringValue, SystemUtils.JAVA_AWT_HEADLESS);
+            }
+            assertEquals(expectedValue, SystemUtils.isJavaAwtHeadless());
+        } else {
+            assertNull(expectedStringValue);
+            assertNull(SystemUtils.JAVA_AWT_HEADLESS);
+            assertEquals(expectedStringValueWithDefault, "" + SystemUtils.isJavaAwtHeadless());
+        }
+        assertEquals(expectedStringValueWithDefault, "" + SystemUtils.isJavaAwtHeadless());
     }
 }
