@@ -44,7 +44,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Maarten Coene
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.42 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: ArrayUtils.java,v 1.43 2004/03/16 01:40:57 ggregory Exp $
  */
 public class ArrayUtils {
 
@@ -2768,12 +2768,13 @@ public class ArrayUtils {
     /**
      * <p>Adds all the elements of the provided arrays into a new array.</p>
      * <p>The new array contains all of the element of <code>array1</code> followed
-     * by all of the elements <code>array2</code>.</p>
+     * by all of the elements <code>array2</code>. If an array is returned, it is always
+     * a new array.</p>
      *
      * <pre>
      * ArrayUtils.addAll(null, null)     = null
-     * ArrayUtils.addAll(array1, null)   = array1
-     * ArrayUtils.addAll(null, array2)   = array2
+     * ArrayUtils.addAll(array1, null)   = cloned copy of array1
+     * ArrayUtils.addAll(null, array2)   = cloned copy of array2
      * ArrayUtils.addAll([], [])         = []
      * ArrayUtils.addAll([null], [null]) = [null, null]
      * ArrayUtils.addAll(["a", "b", "c"], ["1", "2", "3"]) = ["a", "b", "c", "1", "2", "3"]
@@ -2787,9 +2788,9 @@ public class ArrayUtils {
      */
     public static Object[] addAll(Object[] array1, Object[] array2) {
         if (array1 == null) {
-            return array2;
+            return clone(array2);
         } else if (array2 == null) {
-            return array1;
+            return clone(array1);
         } else {
             Object[] joinedArray = (Object[]) Array.newInstance(array1.getClass().getComponentType(), array1.length
                 + array2.length);
