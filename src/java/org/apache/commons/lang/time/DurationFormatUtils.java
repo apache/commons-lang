@@ -60,19 +60,76 @@ package org.apache.commons.lang.time;
  * @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author Stephen Colebourne
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DurationFormatUtils.java,v 1.3 2003/07/14 22:25:05 bayard Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.4 2003/07/18 17:04:31 ggregory Exp $
  */
 class DurationFormatUtils {
     // TODO: Make class public once methods can fully select which fields to output
 
     /**
-     * <p>DurationFormatUtils instances should NOT be constructed in standard programming.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
+     * <p>Pattern used with <code>FastDateFormat</code> and <code>SimpleDateFormat </code> for the ISO8601 
+     * date time extended format used in durations.</p>
+     * 
+     * @see org.apache.commons.lang.time.FastDateFormat
+     * @see java.text.SimpleDateFormat
      */
-    public DurationFormatUtils() {
+    public static final String ISO_EXTENDED_FORMAT_PATTERN = "'P'yyyy'Y'M'M'd'DT'H'H'm'M's.S'S'";
+
+    /**
+     * <p>ISO8601 formatter for the date time extended format used in durations, 
+     * with XML Schema durations particularly in mind.</p>
+     * 
+     * <p>This format represents the Gregorian year, month, day, hour, minute, and second components defined 
+     * in § 5.5.3.2 of ISO 8601, respectively. These components are ordered in their significance by their order 
+     * of appearance i.e. as year, month, day, hour, minute, and second.</p>
+     * 
+     * <p>The ISO8601 extended format P<i>n</i>Y<i>n</i>M<i>n</i>DT<i>n</i>H<i>n</i>M<i>n</i>S, where <i>n</i>Y 
+     * represents the number of years, <i>n</i>M the number of months, <i>n</i>D the number of days, 
+     * 'T' is the date/time separator, <i>n</i>H the number of hours, <i>n</i>M the number of minutes and 
+     * <i>n</i>S the number of seconds. The number of seconds can include decimal digits to arbitrary precision.</p>
+     * 
+     * @see #ISO_EXTENDED_FORMAT_PATTERN
+     * @see <a href="http://www.w3.org/TR/xmlschema-2/#duration">http://www.w3.org/TR/xmlschema-2/#duration</a>
+     */
+    public static final FastDateFormat ISO_EXTENDED_FORMAT =
+        FastDateFormat.getInstance(ISO_EXTENDED_FORMAT_PATTERN);
+
+    /**
+     * <p>Get the time gap as a string.</p>
+     * 
+     * <p>The format used is ISO8601-like:
+     * <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.</p>
+     * 
+     * @param millis  the duration to format
+     * @return the time as a String
+     */
+    public static String formatISO(long millis) {
+        int hours, minutes, seconds, milliseconds;
+        hours = (int) (millis / DateUtils.MILLIS_IN_HOUR);
+        millis = millis - (hours * DateUtils.MILLIS_IN_HOUR);
+        minutes = (int) (millis / DateUtils.MILLIS_IN_MINUTE);
+        millis = millis - (minutes * DateUtils.MILLIS_IN_MINUTE);
+        seconds = (int) (millis / DateUtils.MILLIS_IN_SECOND);
+        millis = millis - (seconds * DateUtils.MILLIS_IN_SECOND);
+        milliseconds = (int) millis;
+
+        StringBuffer buf = new StringBuffer(32);
+        buf.append(hours);
+        buf.append(':');
+        buf.append((char) (minutes / 10 + '0'));
+        buf.append((char) (minutes % 10 + '0'));
+        buf.append(':');
+        buf.append((char) (seconds / 10 + '0'));
+        buf.append((char) (seconds % 10 + '0'));
+        buf.append('.');
+        if (milliseconds < 10) {
+            buf.append('0').append('0');
+        } else if (milliseconds < 100) {
+            buf.append('0');
+        }
+        buf.append(milliseconds);
+        return buf.toString();
     }
 
     /**
@@ -81,8 +138,8 @@ class DurationFormatUtils {
      * seconds and has the following behavior.</p>
      *
      * <ul>
-     *  <li>minutes are not displayed when <code>0</code>. (ie:
-     *   &quot;45 seconds&quot;)</li>
+     *  <li>minutes are not displayed when <code>0</code> (ie:
+     *   &quot;45 seconds&quot;)</li>.
      *  <li>seconds are always displayed in plural form (ie
      *   &quot;0 seconds&quot; or &quot;10 seconds&quot;) except
      *   for <code>1</code> (ie &quot;1 second&quot;)</li>
@@ -91,18 +148,21 @@ class DurationFormatUtils {
      * @param millis  the elapsed time to report in milliseconds
      * @return the formatted text in minutes/seconds
      */
-    public static String formatWords(long millis, boolean supressLeadingZeroElements, boolean supressTrailingZeroElements) {
+    public static String formatWords(
+        long millis,
+        boolean supressLeadingZeroElements,
+        boolean supressTrailingZeroElements) {
         long[] values = new long[4];
         values[0] = millis / DateUtils.MILLIS_IN_DAY;
         values[1] = (millis / DateUtils.MILLIS_IN_HOUR) % 24;
         values[2] = (millis / DateUtils.MILLIS_IN_MINUTE) % 60;
         values[3] = (millis / DateUtils.MILLIS_IN_SECOND) % 60;
-        String[] fieldsOne = {" day ", " hour ", " minute ", " second"};
-        String[] fieldsPlural = {" days ", " hours ", " minutes ", " seconds"};
-        
+        String[] fieldsOne = { " day ", " hour ", " minute ", " second" };
+        String[] fieldsPlural = { " days ", " hours ", " minutes ", " seconds" };
+
         StringBuffer buf = new StringBuffer(64);
         boolean valueOutput = false;
-        
+
         for (int i = 0; i < 4; i++) {
             long value = values[i];
             if (value == 0) {
@@ -126,45 +186,17 @@ class DurationFormatUtils {
                 buf.append(value).append(fieldsPlural[i]);
             }
         }
-        
+
         return buf.toString().trim();
     }
 
     /**
-     * <p>Get the time gap as a string.</p>
-     * 
-     * <p>The format used is ISO8601-like.
-     * <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.</p>
-     * 
-     * @param millis  the duration to format
-     * @return the time as a String
+     * <p>DurationFormatUtils instances should NOT be constructed in standard programming.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
      */
-    public static String formatISO(long millis) {
-        int hours, minutes, seconds, milliseconds;
-        hours = (int) (millis / DateUtils.MILLIS_IN_HOUR);
-        millis = millis - (hours * DateUtils.MILLIS_IN_HOUR);
-        minutes = (int) (millis / DateUtils.MILLIS_IN_MINUTE);
-        millis = millis - (minutes * DateUtils.MILLIS_IN_MINUTE);
-        seconds = (int) (millis / DateUtils.MILLIS_IN_SECOND);
-        millis = millis - (seconds * DateUtils.MILLIS_IN_SECOND);
-        milliseconds = (int) millis;
-
-        StringBuffer buf = new StringBuffer(32);
-        buf.append(hours);
-        buf.append(':');
-        buf.append((char)(minutes / 10 + '0'));
-        buf.append((char)(minutes % 10 + '0'));
-        buf.append(':');
-        buf.append((char)(seconds / 10 + '0'));
-        buf.append((char)(seconds % 10 + '0'));
-        buf.append('.');
-        if (milliseconds < 10) {
-            buf.append('0').append('0');
-        } else if (milliseconds < 100) {
-            buf.append('0');
-        }
-        buf.append(milliseconds);
-        return buf.toString();
+    public DurationFormatUtils() {
     }
 
 }
