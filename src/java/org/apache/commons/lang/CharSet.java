@@ -55,7 +55,6 @@ package org.apache.commons.lang;
  */
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.LinkedList;
 /**
  * A set of characters. You can iterate over the characters in the 
@@ -63,7 +62,7 @@ import java.util.LinkedList;
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharSet.java,v 1.3 2002/09/29 07:15:12 bayard Exp $
+ * @version $Id: CharSet.java,v 1.4 2002/09/29 08:20:52 bayard Exp $
  */
 public class CharSet {
 

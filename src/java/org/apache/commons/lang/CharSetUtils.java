@@ -54,16 +54,12 @@ package org.apache.commons.lang;
  * <http://www.apache.org/>.
  */
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.LinkedList;
-
 /**
  * Numerous routines to manipulate a character set.
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharSetUtils.java,v 1.5 2002/09/28 10:34:54 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.6 2002/09/29 08:20:52 bayard Exp $
  */
 public class CharSetUtils {
 
