@@ -61,7 +61,7 @@ import junit.textui.TestRunner;
  * Test suite for the Math package.
  *
  * @author Stephen Colebourne
- * @version $Id: MathTestSuite.java,v 1.1 2002/12/22 16:20:29 scolebourne Exp $
+ * @version $Id: MathTestSuite.java,v 1.2 2002/12/22 19:39:39 scolebourne Exp $
  */
 public class MathTestSuite extends TestCase {
     
@@ -87,6 +87,7 @@ public class MathTestSuite extends TestCase {
         suite.setName("Commons-Lang-Math Tests");
         suite.addTest(DoubleRangeTest.suite());
         suite.addTest(FloatRangeTest.suite());
+        suite.addTest(FractionTest.suite());
         suite.addTest(IntRangeTest.suite());
         suite.addTest(LongRangeTest.suite());
         suite.addTest(NumberRangeTest.suite());
