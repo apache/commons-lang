@@ -91,7 +91,7 @@ import java.util.TimeZone;
  * @author Gary Gregory
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.9 2003/07/19 19:54:24 scolebourne Exp $
+ * @version $Id: FastDateFormat.java,v 1.10 2003/07/20 01:21:29 ggregory Exp $
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes
@@ -109,19 +109,19 @@ public class FastDateFormat extends Format {
     /**
      * FULL locale dependent date or time style.
      */
-    public static final int FULL = SimpleDateFormat.FULL;
+    public static final int FULL = DateFormat.FULL;
     /**
      * LONG locale dependent date or time style
      */
-    public static final int LONG = SimpleDateFormat.LONG;
+    public static final int LONG = DateFormat.LONG;
     /**
      * MEDIUM locale dependent date or time style
      */
-    public static final int MEDIUM = SimpleDateFormat.MEDIUM;
+    public static final int MEDIUM = DateFormat.MEDIUM;
     /**
      * SHORT locale dependent date or time style
      */
-    public static final int SHORT = SimpleDateFormat.SHORT;
+    public static final int SHORT = DateFormat.SHORT;
     
     // package scoped as used by inner class
     static final double LOG_10 = Math.log(10);
