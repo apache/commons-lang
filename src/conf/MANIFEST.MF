@@ -1,7 +1,7 @@
 Extension-Name: @name@
 Specification-Title: Jakarta Commons Lang
 Specification-Vendor: Apache Software Foundation
-Specification-Version: 1.0
+Specification-Version: 2.0
 Implementation-Vendor: Apache Software Foundation
 Implementation-Title: org.apache.commons.lang
 Implementation-Version: @version@
