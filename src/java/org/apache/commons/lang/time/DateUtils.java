@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.27 2004/09/07 23:03:37 scolebourne Exp $
+ * @version $Id: DateUtils.java,v 1.28 2004/09/21 02:11:06 ggregory Exp $
  */
 public class DateUtils {
     
@@ -126,7 +126,7 @@ public class DateUtils {
      * </p>
      * 
      * @param cal1  the first calendar, not null
-     * @param cal1  the second calendar, not null
+     * @param cal2  the second calendar, not null
      * @return true if they represent the same day
      * @throws IllegalArgumentException if either calendar is <code>null</code>
      */
