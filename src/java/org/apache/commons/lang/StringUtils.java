@@ -54,7 +54,7 @@ import java.util.List;
  *      - changes the case of a String</li>
  *  <li><b>CountMatches</b>
  *      - counts the number of occurrences of one String in another</li>
- *  <li><b>IsAlpha/IsNumeric/IsWhitespace</b>
+ *  <li><b>IsAlpha/IsNumeric/IsWhitespace/IsAsciiPrintable</b>
  *      - checks the characters in a String</li>
  *  <li><b>DefaultString</b>
  *      - protects against a null input String</li>
@@ -109,8 +109,9 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @author Al Chou
+ * @author Michael Davey
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.127 2004/02/19 21:31:19 fredrik Exp $
+ * @version $Id: StringUtils.java,v 1.128 2004/02/24 22:31:42 fredrik Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3862,6 +3863,44 @@ public class StringUtils {
         return true;
     }
 
+    /**
+     * <p>Checks if the string contains only ASCII printable characters.</p>
+     * 
+     * <p><code>null</code> will return <code>false</code>.
+     * An empty String ("") will return <code>true</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.isAsciiPrintable(null)     = false
+     * StringUtils.isAsciiPrintable("")       = true
+     * StringUtils.isAsciiPrintable(" ")      = true
+     * StringUtils.isAsciiPrintable("Ceki")   = true
+     * StringUtils.isAsciiPrintable("ab2c")   = true
+     * StringUtils.isAsciiPrintable("!ab-c~") = true
+     * StringUtils.isAsciiPrintable("\u0020") = true
+     * StringUtils.isAsciiPrintable("\u0021") = true
+     * StringUtils.isAsciiPrintable("\u007e") = true
+     * StringUtils.isAsciiPrintable("\u007f") = false
+     * StringUtils.isAsciiPrintable("Ceki G\u00fclc\u00fc") = false
+     * </pre>
+     *
+     * @param str the string to check, may be null
+     * @return <code>true</code> if every character is in the range
+     *  32 thru 126
+     * @since 2.1
+     */
+    public static boolean isAsciiPrintable(String str) {
+        if (str == null) {
+            return false;
+        }
+        int sz = str.length();
+        for (int i = 0; i < sz; i++) {
+            if (CharUtils.isAsciiPrintable(str.charAt(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+  
     /**
      * <p>Checks if the String contains only unicode digits.
      * A decimal point is not a unicode digit and returns false.</p>
