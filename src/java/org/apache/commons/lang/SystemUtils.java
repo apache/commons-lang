@@ -60,8 +60,9 @@ package org.apache.commons.lang;
  * @author Based on code from Lucene
  * @author Stephen Colebourne
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.8 2003/03/23 18:02:29 scolebourne Exp $
+ * @version $Id: SystemUtils.java,v 1.9 2003/05/14 17:13:00 ggregory Exp $
  */
 public class SystemUtils {
     
@@ -77,7 +78,7 @@ public class SystemUtils {
     }
 
     /**
-     * System Property - file.separator.
+     * The <code>file.separator</code> System Property.
      * File separator ("/" on UNIX).
      * First in JDK version 1.1.
      */
@@ -85,7 +86,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.class.path.
+     * The <code>java.class.path</code> System Property.
      * Java class path.
      * First in JDK version 1.1.
      */
@@ -93,7 +94,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.class.version.
+     * The <code>java.class.version</code> System Property.
      * Java class format version number.
      * First in JDK version 1.1.
      */
@@ -101,7 +102,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.compiler.
+     * The <code>java.compiler</code> System Property.
      * Name of JIT compiler to use.
      * First in JDK version 1.4.
      */
@@ -109,7 +110,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.ext.dirs.
+     * The <code>java.ext.dirs</code> System Property.
      * Path of extension directory or directories.
      * First in JDK version 1.3.
      */
@@ -117,7 +118,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.home.
+     * The <code>java.home</code> System Property.
      * Java installation directory.
      * First in JDK version 1.1.
      */
@@ -125,7 +126,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.io.tmpdir.
+     * The <code>java.io.tmpdir</code> System Property.
      * Default temp file path.
      * First in JDK version 1.4.
      */
@@ -133,7 +134,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.library.path.
+     * The <code>java.library.path</code> System Property.
      * List of paths to search when loading libraries.
      * First in JDK version 1.4.
      */
@@ -141,7 +142,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.specification.name.
+     * The <code>java.specification.name</code> System Property.
      * Java Runtime Environment specification name.
      * First in JDK version 1.2.
      */
@@ -149,7 +150,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.specification.vendor.
+     * The <code>java.specification.vendor</code> System Property.
      * Java Runtime Environment specification vendor.
      * First in JDK version 1.2.
      */
@@ -157,7 +158,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.specification.version.
+     * The <code>java.specification.version</code> System Property.
      * Java Runtime Environment specification version.
      * First in JDK version 1.2.
      */
@@ -165,7 +166,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.vendor.
+     * The <code>java.vendor</code> System Property.
      * Java vendor-specific string.
      * First in JDK version 1.1.
      */
@@ -173,7 +174,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.vendor.url.
+     * The <code>java.vendor.url</code> System Property.
      * Java vendor URL.
      * First in JDK version 1.1. 
      */
@@ -181,7 +182,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.version.
+     * The <code>java.version</code> System Property.
      * Java version number.
      * First in JDK version 1.1. 
      */
@@ -189,7 +190,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.vm.name.
+     * The <code>java.vm.name</code> System Property.
      * Java Virtual Machine implementation name.
      * First in JDK version 1.2.
      */
@@ -197,7 +198,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.vm.specification.name.
+     * The <code>java.vm.specification.name</code> System Property.
      * Java Virtual Machine specification name.
      * First in JDK version 1.2.
      */
@@ -205,7 +206,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.vm.specification.vendor.
+     * The <code>java.vm.specification.vendor</code> System Property.
      * Java Virtual Machine specification vendor.
      * First in JDK version 1.2.
      */
@@ -213,7 +214,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.vm.specification.version.
+     * The <code>java.vm.specification.version</code> System Property.
      * Java Virtual Machine specification version.
      * First in JDK version 1.2.
      */
@@ -221,7 +222,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.vm.vendor.
+     * The <code>java.vm.vendor</code> System Property.
      * Java Virtual Machine implementation vendor.
      * First in JDK version 1.2.
      */
@@ -229,7 +230,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - java.vm.version.
+     * The <code>java.vm.version</code> System Property.
      * Java Virtual Machine implementation version.
      * First in JDK version 1.2.
      */
@@ -237,7 +238,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - line.separator.
+     * The <code>line.separator</code> System Property.
      * Line separator ("\n" on UNIX).
      * First in JDK version 1.1. 
      */
@@ -245,7 +246,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - os.arch.
+     * The <code>os.arch</code> System Property.
      * Operating system architecture.
      * First in JDK version 1.1. 
      */
@@ -253,7 +254,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - os.name.
+     * The <code>os.name</code> System Property.
      * Operating system name.
      * First in JDK version 1.1. 
      */
@@ -261,7 +262,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - os.version.
+     * The <code>os.version</code> System Property.
      * Operating system version.
      * First in JDK version 1.1. 
      */
@@ -269,7 +270,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - path.separator.
+     * The <code>path.separator</code> System Property.
      * Path separator (":" on UNIX).
      * First in JDK version 1.1. 
      */
@@ -277,7 +278,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - user.dir.
+     * The <code>user.dir</code> System Property.
      * User's current working directory.
      * First in JDK version 1.1. 
      */
@@ -285,7 +286,7 @@ public class SystemUtils {
     
 
     /**
-     * System Property - user.home.
+     * The <code>user.home</code> System Property.
      * User's home directory.
      * First in JDK version 1.1. 
      */
@@ -293,30 +294,34 @@ public class SystemUtils {
     
 
     /**
-     * System Property - user.name.
+     * The <code>user.name</code> System Property.
      * User's account name.
      * First in JDK version 1.1. 
      */
     public static final String USER_NAME = System.getProperty("user.name");
     
     /** 
-     * True iff this is Java version 1.1. 
+     * Is <code>true</code> if this is Java version 1.1 (also 1.1.x versions).
      */
     public static final boolean IS_JAVA_1_1 = JAVA_VERSION.startsWith("1.1.");
+
     /** 
-     * True iff this is Java version 1.2. 
+     * Is <code>true</code> if this is Java version 1.2 (also 1.2.x versions).
      */
     public static final boolean IS_JAVA_1_2 = JAVA_VERSION.startsWith("1.2.");
+
     /** 
-     * True iff this is Java version 1.3. 
+     * Is <code>true</code> if this is Java version 1.3 (also 1.3.x versions).
      */
     public static final boolean IS_JAVA_1_3 = JAVA_VERSION.startsWith("1.3.");
+
     /** 
-     * True iff this is Java version 1.4. 
+     * Is <code>true</code> if this is Java version 1.4 (also 1.4.x versions).
      */
     public static final boolean IS_JAVA_1_4 = JAVA_VERSION.startsWith("1.4.");
+
     /** 
-     * True iff this is Java version 1.5. 
+     * Is <code>true</code> if this is Java version 1.5 (also 1.5.x versions).
      */
     public static final boolean IS_JAVA_1_5 = JAVA_VERSION.startsWith("1.5.");
 
