@@ -74,8 +74,10 @@ import java.util.List;
  *      - index-of any of a set of Strings</li>
  *  <li><b>ContainsOnly/ContainsNone</b>
  *      - does String contains only/none of these characters</li>
- *  <li><b>SubString/Left/Right/Mid/SubStringBefore/SubStringAfter</b>
+ *  <li><b>Substring/Left/Right/Mid</b>
  *      - null-safe substring extractions</li>
+ *  <li><b>SubstringBefore/SubstringAfter/SubstringBetween</b>
+ *      - substring extraction relative to other strings</li>
  *  <li><b>Split/Join</b>
  *      - splits a String into an array of substrings and vice versa</li>
  *  <li><b>Replace/Delete/Overlay</b>
@@ -86,8 +88,6 @@ import java.util.List;
  *      - pads a String</li>
  *  <li><b>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</b>
  *      - changes the case of a String</li>
- *  <li><b>NestedString</b>
- *      - returns a substring nested within other Strings</li>
  *  <li><b>CountMatches</b>
  *      - counts the number of occurrances of one String in another</li>
  *  <li><b>IsAlpha/IsNumeric/IsWhitespace</b>
@@ -121,8 +121,8 @@ import java.util.List;
  * details vary by method.</p>
  * 
  * <p>A side effect of the <code>null</code> handling is that a 
- * {@link java.lang.NullPointerException} should be considered a bug in <code>StringUtils</code>
- * (except for deprecated methods).</p>
+ * <code>NullPointerException</code> should be considered a bug in
+ * <code>StringUtils</code> (except for deprecated methods).</p>
  * 
  * <p>Methods in this class give sample code to explain their operation.
  * The symbol <code>*</code> is used to indicate any input including <code>null</code>.</p>
@@ -145,7 +145,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.102 2003/08/18 02:22:23 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.103 2003/08/19 00:11:20 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)

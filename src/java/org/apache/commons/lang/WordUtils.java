@@ -66,7 +66,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.5 2003/08/18 02:22:23 bayard Exp $
+ * @version $Id: WordUtils.java,v 1.6 2003/08/19 00:11:20 scolebourne Exp $
  */
 public class WordUtils {
 
@@ -168,7 +168,7 @@ public class WordUtils {
      *
      * <pre>
      * WordUtils.wrap(null, *) = null
-     * WordUtils.wrap("", *) = null
+     * WordUtils.wrap("", *) = ""
      * </pre>
      *
      * @param str  the String to be word wrapped, may be null
@@ -187,7 +187,7 @@ public class WordUtils {
      * 
      * <pre>
      * WordUtils.wrap(null, *, *, *) = null
-     * WordUtils.wrap("", *, *, *) = null
+     * WordUtils.wrap("", *, *, *) = ""
      * </pre>
      *
      * @param str  the String to be word wrapped, may be null

@@ -70,7 +70,7 @@ import java.util.Set;
  * @author Phil Steitz
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: CharSet.java,v 1.16 2003/08/18 02:22:22 bayard Exp $
+ * @version $Id: CharSet.java,v 1.17 2003/08/19 00:11:20 scolebourne Exp $
  */
 public class CharSet implements Serializable {
 
@@ -124,7 +124,7 @@ public class CharSet implements Serializable {
      * </ul>
      *
      * <p>The matching order is:</p>
-     * <ol
+     * <ol>
      *  <li>Negated multi character range, such as "^a-e"
      *  <li>Ordinary multi character range, such as "a-e"
      *  <li>Negated single character, such as "^a"
