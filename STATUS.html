@@ -7,7 +7,7 @@
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Component</h1>
-$Id: STATUS.html,v 1.28 2002/12/07 21:50:29 bayard Exp $<br />
+$Id: STATUS.html,v 1.29 2002/12/15 19:36:41 scolebourne Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#Dependencies">[Dependencies]</a>
 <a href="#Release Info">[Release Info]</a>
@@ -29,14 +29,20 @@ The following classes are included:</p>
 <li><strong>StringUtils</strong> - Helper for java.lang.String.</li>
 <li><strong>CharSetUtils</strong> - Methods for dealing with CharSets, which are sets of characters such as [a-z] and [abcdez].</li>
 <li><strong>RandomStringUtils</strong> - Helper for creating randomised Strings.</li>
+<li><strong>BooleanUtils</strong> - Helper for boolean and java.lang.Boolean.</li>
 <li><strong>NumberUtils</strong> - Helper for java.lang.Number and its subclasses.</li>
 <li><strong>NumberRange</strong> - A range of numbers with an upper and lower bound.</li>
 <li><strong>ObjectUtils</strong> - Helper for java.lang.Object.</li>
+<li><strong>ArrayUtils</strong> - Helper for manipulating arrays.</li>
+<li><strong>ClassUtils</strong> - Helper for manipulating java.lang.Class objects.</li>
 <li><strong>SerializationUtils</strong> - Helper for serializing Objects.</li>
 <li><strong>SystemUtils</strong> - Utility class defining the Java system properties.</li>
-<li><strong>NestedException package</strong> - A sub-package for the creation of nested exceptions.</li>
+<li><strong>Validate</strong> - Utility to provide validation for method arguments.</li>
+
+<li><strong>Exception package</strong> - A sub-package for the creation and manipulation of nested exceptions.</li>
 <li><strong>Enum package</strong> - A sub-package for the creation of enumerated types.</li>
 <li><strong>Builder package</strong> - A sub-package for the creation of equals, hashCode, compareTo and toString methods.</li>
+<li><strong>Functor package</strong> - A sub-package for basic f(x) type functions.</li>
 </ul>
 
 
@@ -72,7 +78,6 @@ A 2.0 will be released after a undefined period of development.
 <ul>
 <li>CharRange.UNSET - will have problems if we introduce reverse ranges that go down to \u0000.</lI>
 <li>Null effects - the classes are not standardised in how they handle null.</li>
-<li>When running the TestFactoryUtils test, sometimes the CPU speed is not quick enough and 'assertEquals((double) System.currentTimeMillis(), (double) ((Date) created).getTime(), 0.01d);' fails. </li>
 </ul>
 </p>
 
@@ -92,14 +97,11 @@ still under discussion, so please mail the list before actioning.</p>
 <li>CloneUtils - utility class to enable cloning via various different mechanisms. This code exists in [pattern] at present.</li>
 <li>StringUtils truncateNicely method - A substring with some extra power to choose where to cut off. It was in Avalon and was added separately to String Taglib from a code submission. This suggests it may have some commonality. [CODED]</li>
 <li>StringUtils unescape method - String Taglib has shown that this method is missing from StringUtils. It would take a String with "\n" in and convert it to the Java character. unescape and escape should be symmetric - [DONE. Test symmetry] </li>
-<li>ArrayUtils - opinion seems to be that this belongs with [lang] and not [collections]
-<li>GUID and other Identifier generators - these may belong in [util], some code exists in [pattern] at the moment
 <li>CharUtils - Utilities to work on a char[] in the same way as a String
 <li>AStringBuffer - A StringBuffer implementation with additional methods from StringUtils
 <li>O(n) - Document all algorithm-implementing methods with the order. Possibly with an O(n) on the end of each parameterm or with an @order tag.</li>
 <li>Money and Currency</li>
 <li>ExceptionUtils - truncated stack trace, from Dmitri</li>
-<li>Validate - a utility to aid validation - Ola Berg working on this</li>
 </ul>
 
 
