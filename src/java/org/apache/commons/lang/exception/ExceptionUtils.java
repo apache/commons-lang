@@ -67,6 +67,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.NullArgumentException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 
@@ -79,7 +80,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.28 2003/07/26 00:43:08 ggregory Exp $
+ * @version $Id: ExceptionUtils.java,v 1.29 2003/07/26 13:05:21 scolebourne Exp $
  */
 public class ExceptionUtils {
     
@@ -92,8 +93,7 @@ public class ExceptionUtils {
     static final String WRAPPED_MARKER = " [wrapped] ";
 
     /**
-     * <p>The names of methods commonly used to access a wrapped
-     * exception.</p>
+     * <p>The names of methods commonly used to access a wrapped exception.</p>
      */
     private static String[] CAUSE_METHOD_NAMES = {
         "getCause",
@@ -107,12 +107,27 @@ public class ExceptionUtils {
     };
 
     /**
-     * <p>Constructs a new <code>ExceptionUtils</code>. Protected to
-     * discourage instantiation.</p>
+     * <p>The Method object for JDK1.4 getCause.</p>
      */
-    protected ExceptionUtils() {
+    private static final Method THROWABLE_CAUSE_METHOD;
+    static {
+        Method getCauseMethod;
+        try {
+            getCauseMethod = Throwable.class.getMethod("getCause", null);
+        } catch (Exception e) {
+            getCauseMethod = null;
+        }
+        THROWABLE_CAUSE_METHOD = getCauseMethod;
+    }
+    
+    /**
+     * <p>Public constructor allows an instance of <code>ExceptionUtils</code>
+     * to be created, although that is not normally necessary.</p>
+     */
+    public ExceptionUtils() {
     }
 
+    //-----------------------------------------------------------------------
     /**
      * <p>Adds to the list of method names used in the search for <code>Throwable</code>
      * objects.</p>
@@ -121,7 +136,7 @@ public class ExceptionUtils {
      *  and empty strings are ignored
      */
     public static void addCauseMethodName(String methodName) {
-      if(StringUtils.isNotEmpty(methodName)) {
+        if (StringUtils.isNotEmpty(methodName)) {
             List list = new ArrayList(Arrays.asList(CAUSE_METHOD_NAMES));
             list.add(methodName);
             CAUSE_METHOD_NAMES = (String[]) list.toArray(new String[list.size()]);
@@ -129,7 +144,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * <p>Introspects the specified <code>Throwable</code> to obtain the cause.</p>
+     * <p>Introspects the <code>Throwable</code> to obtain the cause.</p>
      * 
      * <p>The method searches for methods with specific names that return a 
      * <code>Throwable</code> object. This will pick up most wrapping exceptions,
@@ -154,31 +169,47 @@ public class ExceptionUtils {
      * 
      * <p>If none of the above is found, returns <code>null</code>.</p>
      *
-     * @param throwable The exception to introspect for a cause.
-     * @return The cause of the <code>Throwable</code>.
-     * @throws NullPointerException if the throwable is <code>null</code>
+     * @param throwable  the throwable to introspect for a cause, may be null
+     * @return the cause of the <code>Throwable</code>,
+     *  <code>null</code> if none found or null throwable input
      */
     public static Throwable getCause(Throwable throwable) {
         return getCause(throwable, CAUSE_METHOD_NAMES);
     }
 
     /**
-     * <p>Introspects the specified <code>Throwable</code> to obtain the cause
-     * using a supplied array of method names.</p>
+     * <p>Introspects the <code>Throwable</code> to obtain the cause.</p>
+     * 
+     * <ol>
+     * <li>Try known exception types.</p>
+     * <li>Try the supplied array of method names.</p>
+     * <li>Try the field 'detail'.</p>
+     * </ol>
+     * 
+     * <p>A <code>null</code> set of method names means use the default set.
+     * A <code>null</code> in the set of method names will be ignored.</p>
      *
-     * @param throwable The exception to introspect for a cause.
-     * @return The cause of the <code>Throwable</code>.
-     * @throws NullPointerException if the method names array is <code>null</code>
-     *  or contains <code>null</code>
-     * @throws NullPointerException if the throwable is <code>null</code>
+     * @param throwable  the throwable to introspect for a cause, may be null
+     * @param methodNames  the method names, null treated as default set
+     * @return the cause of the <code>Throwable</code>,
+     *  <code>null</code> if none found or null throwable input
      */
     public static Throwable getCause(Throwable throwable, String[] methodNames) {
+        if (throwable == null) {
+            return null;
+        }
         Throwable cause = getCauseUsingWellKnownTypes(throwable);
         if (cause == null) {
+            if (methodNames == null) {
+                methodNames = CAUSE_METHOD_NAMES;
+            }
             for (int i = 0; i < methodNames.length; i++) {
-                cause = getCauseUsingMethodName(throwable, methodNames[i]);
-                if (cause != null) {
-                    break;
+                String methodName = methodNames[i];
+                if (methodName != null) {
+                    cause = getCauseUsingMethodName(throwable, methodName);
+                    if (cause != null) {
+                        break;
+                    }
                 }
             }
 
@@ -190,12 +221,15 @@ public class ExceptionUtils {
     }
 
     /**
-     * <p>Walks through the exception chain to the last element -- the
-     * "root" of the tree -- using {@link #getCause(Throwable)}, and
+     * <p>Introspects the <code>Throwable</code> to obtain the root cause.</p>
+     * 
+     * <p>This method walks through the exception chain to the last element,
+     * "root" of the tree, using {@link #getCause(Throwable)}, and
      * returns that exception.</p>
      *
-     * @param throwable  the throwable to get the root cause for
-     * @return The root cause of the <code>Throwable</code>.
+     * @param throwable  the throwable to get the root cause for, may be null
+     * @return the root cause of the <code>Throwable</code>,
+     *  <code>null</code> if none found or null throwable input
      */
     public static Throwable getRootCause(Throwable throwable) {
         Throwable cause = getCause(throwable);
@@ -209,13 +243,14 @@ public class ExceptionUtils {
     }
 
     /**
+     * <p>Finds a <code>Throwable</code> for known types.</p>
+     * 
      * <p>Uses <code>instanceof</code> checks to examine the exception,
      * looking for well known types which could contain chained or
      * wrapped exceptions.</p>
      *
      * @param throwable  the exception to examine
-     * @return The wrapped exception, or <code>null</code> if not
-     * found.
+     * @return the wrapped exception, or <code>null</code> if not found
      */
     private static Throwable getCauseUsingWellKnownTypes(Throwable throwable) {
         if (throwable instanceof Nestable) {
@@ -234,8 +269,7 @@ public class ExceptionUtils {
      * 
      * @param throwable  the exception to examine
      * @param methodName  the name of the method to find and invoke
-     * @return The wrapped exception, or <code>null</code> if not
-     *  found.
+     * @return the wrapped exception, or <code>null</code> if not found
      */
     private static Throwable getCauseUsingMethodName(Throwable throwable, String methodName) {
         Method method = null;
@@ -261,8 +295,7 @@ public class ExceptionUtils {
      * 
      * @param throwable  the exception to examine
      * @param fieldName  the name of the attribute to examine
-     * @return The wrapped exception, or <code>null</code> if not
-     *  found.
+     * @return the wrapped exception, or <code>null</code> if not found
      */
     private static Throwable getCauseUsingFieldName(Throwable throwable, String fieldName) {
         Field field = null;
@@ -282,15 +315,78 @@ public class ExceptionUtils {
         return null;
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * <p>Returns the number of <code>Throwable</code> objects in the
-     * exception chain.</p>
+     * <p>Checks if the Throwable class has a <code>getCause</code> method.</p>
+     * 
+     * <p>This is true for JDK 1.4 and above.</p>
+     * 
+     * @return true if Throwable is nestable
+     */
+    public static boolean isThrowableNested() {
+        return (THROWABLE_CAUSE_METHOD != null);
+    }
+    
+    /**
+     * <p>Checks whether this <code>Throwable</code> class can store a cause.</p>
+     * 
+     * <p>This method does <b>not</b> check whether it actually does store a cause.<p>
      *
-     * @param throwable  the exception to inspect
-     * @return The throwable count.
+     * @param throwable  the <code>Throwable</code> to examine, may be null
+     * @return boolean <code>true</code> if nested otherwise <code>false</code>
+     */
+    public static boolean isNestedThrowable(Throwable throwable) {
+        if (throwable == null) {
+            return false;
+        }
+
+        if (throwable instanceof Nestable) {
+            return true;
+        } else if (throwable instanceof SQLException) {
+            return true;
+        } else if (throwable instanceof InvocationTargetException) {
+            return true;
+        } else if (isThrowableNested()) {
+            return true;
+        }
+
+        Class cls = throwable.getClass();
+        for (int i = 0, isize = CAUSE_METHOD_NAMES.length; i < isize; i++) {
+            try {
+                Method method = cls.getMethod(CAUSE_METHOD_NAMES[i], null);
+                if (method != null) {
+                    return true;
+                }
+            } catch (NoSuchMethodException ignored) {
+            } catch (SecurityException ignored) {
+            }
+        }
+
+        try {
+            Field field = cls.getField("detail");
+            if (field != null) {
+                return true;
+            }
+        } catch (NoSuchFieldException ignored) {
+        } catch (SecurityException ignored) {
+        }
+
+        return false;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Counts the number of <code>Throwable</code> objects in the
+     * exception chain.</p>
+     * 
+     * <p>A throwable without cause will return <code>1</code>.
+     * A throwable with one cause will return <code>2</code> and so on.
+     * A <code>null</code> throwable will return <code>0</code>.</p>
+     * 
+     * @param throwable  the throwable to inspect, may be null
+     * @return the count of throwables, zero if null input
      */
     public static int getThrowableCount(Throwable throwable) {
-        // Count the number of throwables
         int count = 0;
         while (throwable != null) {
             count++;
@@ -302,9 +398,15 @@ public class ExceptionUtils {
     /**
      * <p>Returns the list of <code>Throwable</code> objects in the
      * exception chain.</p>
+     * 
+     * <p>A throwable without cause will return an array containing
+     * one element - the input throwable.
+     * A throwable with one cause will return an array containing
+     * two elements. - the input throwable and the cause throwable.
+     * A <code>null</code> throwable will return an array size zero.</p>
      *
-     * @param throwable  the exception to inspect
-     * @return The list of <code>Throwable</code> objects.
+     * @param throwable  the throwable to inspect, may be null
+     * @return the array of throwables, never null
      */
     public static Throwable[] getThrowables(Throwable throwable) {
         List list = new ArrayList();
@@ -315,40 +417,50 @@ public class ExceptionUtils {
         return (Throwable[]) list.toArray(new Throwable[list.size()]);
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * <p>Delegates to {@link #indexOfThrowable(Throwable, Class, int)},
-     * starting the search at the beginning of the exception chain.</p>
+     * <p>Returns the (zero based) index of the first <code>Throwable</code>
+     * that matches the specified type in the exception chain.</p>
+     * 
+     * <p>A <code>null</code> throwable returns <code>-1</code>.
+     * A <code>null</code> type returns <code>-1</code>.
+     * No match in the chain returns <code>-1</code>.</p>
      *
-     * @see #indexOfThrowable(Throwable, Class, int)
+     * @param throwable  the throwable to inspect, may be null
+     * @param type  the type to search for
+     * @return the index into the throwable chain, -1 if no match or null input
      */
     public static int indexOfThrowable(Throwable throwable, Class type) {
         return indexOfThrowable(throwable, type, 0);
     }
 
     /**
-     * <p>Returns the (zero based) index, of the first
-     * <code>Throwable</code> that matches the specified type in the
-     * exception chain of <code>Throwable</code> objects with an index
-     * greater than or equal to the specified index, or
-     * <code>-1</code> if the type is not found.</p>
+     * <p>Returns the (zero based) index of the first <code>Throwable</code>
+     * that matches the specified type in the exception chain from
+     * a specified index.</p>
+     * 
+     * <p>A <code>null</code> throwable returns <code>-1</code>.
+     * A <code>null</code> type returns <code>-1</code>.
+     * No match in the chain returns <code>-1</code>.
+     * A negative start index is treated as zero.
+     * A start index greater than the number of throwables returns <code>-1</code>.</p>
      *
-     * @param throwable  the exception to inspect
-     * @param type  <code>Class</code> to look for
-     * @param fromIndex  the (zero based) index of the starting
-     *  position in the chain to be searched
-     * @return the first occurrence of the type in the chain, or
-     *  <code>-1</code> if the type is not found
-     * @throws IndexOutOfBoundsException If the <code>fromIndex</code>
-     *  argument is negative or not less than the count of
-     *  <code>Throwable</code>s in the chain.
+     * @param throwable  the throwable to inspect, may be null
+     * @param type  the type to search for
+     * @param fromIndex  the (zero based) index of the starting position,
+     *  negative treated as zero, larger than chain size returns -1
+     * @return the index into the throwable chain, -1 if no match or null input
      */
     public static int indexOfThrowable(Throwable throwable, Class type, int fromIndex) {
+        if (throwable == null) {
+            return -1;
+        }
         if (fromIndex < 0) {
-            throw new IndexOutOfBoundsException("Throwable index out of range: " + fromIndex);
+            fromIndex = 0;
         }
         Throwable[] throwables = ExceptionUtils.getThrowables(throwable);
         if (fromIndex >= throwables.length) {
-            throw new IndexOutOfBoundsException("Throwable index out of range: " + fromIndex);
+            return -1;
         }
         for (int i = fromIndex; i < throwables.length; i++) {
             if (throwables[i].getClass().equals(type)) {
@@ -356,6 +468,25 @@ public class ExceptionUtils {
             }
         }
         return -1;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Prints a compact stack trace for the root cause of a throwable
+     * to <code>System.err</code>.</p>
+     * 
+     * <p>The compact stack trace starts with the root cause and prints
+     * stack frames up to the place where it was caught and wrapped.
+     * Then it prints the wrapped exception and continues with stack frames
+     * until the wrapper exception is caught and wrapped again, etc.</p>
+     *
+     * <p>The method is equivalent to <code>printStackTrace</code> for throwables
+     * that don't have nested causes.</p>
+     * 
+     * @param throwable  the throwable to output
+     */
+    public static void printRootCauseStackTrace(Throwable throwable) {
+        printRootCauseStackTrace(throwable, System.err);
     }
 
     /**
@@ -366,11 +497,21 @@ public class ExceptionUtils {
      * Then it prints the wrapped exception and continues with stack frames
      * until the wrapper exception is caught and wrapped again, etc.</p>
      *
-     * <p>The method is equivalent to t.printStackTrace() for throwables
+     * <p>The method is equivalent to <code>printStackTrace</code> for throwables
      * that don't have nested causes.</p>
+     * 
+     * @param throwable  the throwable to output, may be null
+     * @param stream  the stream to output to, may not be null
+     * @throws IllegalArgumentException if the stream is <code>null</code>
      */
-    public static void printRootCauseStackTrace(Throwable t, PrintStream stream) {
-        String trace[] = getRootCauseStackTrace(t);
+    public static void printRootCauseStackTrace(Throwable throwable, PrintStream stream) {
+        if (throwable == null) {
+            return;
+        }
+        if (stream == null) {
+            throw new NullArgumentException("PrintStream");
+        }
+        String trace[] = getRootCauseStackTrace(throwable);
         for (int i = 0; i < trace.length; i++) {
             stream.println(trace[i]);
         }
@@ -378,33 +519,47 @@ public class ExceptionUtils {
     }
 
     /**
-     * <p>Calls <code>printRootCauseStackTraceprintRootCauseStackTrace</code>.</p>
-     * Same as: <pre>printRootCauseStackTrace(t, System.err);</pre>
+     * <p>Prints a compact stack trace for the root cause of a throwable.</p>
+     *
+     * <p>The compact stack trace starts with the root cause and prints
+     * stack frames up to the place where it was caught and wrapped.
+     * Then it prints the wrapped exception and continues with stack frames
+     * until the wrapper exception is caught and wrapped again, etc.</p>
+     *
+     * <p>The method is equivalent to <code>printStackTrace</code> for throwables
+     * that don't have nested causes.</p>
      * 
-     * @see #printRootCauseStackTrace(Throwable,PrintWriter)
+     * @param throwable  the throwable to output, may be null
+     * @param writer  the writer to output to, may not be null
+     * @throws IllegalArgumentException if the writer is <code>null</code>
      */
-    public static void printRootCauseStackTrace(Throwable t) {
-        printRootCauseStackTrace(t, System.err);
-    }
-
-    /**
-     * <p>Same as {@link #printRootCauseStackTrace(Throwable,java.io.PrintStream)},
-     * except it takes a <code>PrintWriter</code> as an argument.</p>
-     */
-    public static void printRootCauseStackTrace(Throwable t, PrintWriter writer) {
-        String trace[] = getRootCauseStackTrace(t);
+    public static void printRootCauseStackTrace(Throwable throwable, PrintWriter writer) {
+        if (throwable == null) {
+            return;
+        }
+        if (writer == null) {
+            throw new NullArgumentException("PrintWriter");
+        }
+        String trace[] = getRootCauseStackTrace(throwable);
         for (int i = 0; i < trace.length; i++) {
             writer.println(trace[i]);
         }
         writer.flush();
     }
 
+    //-----------------------------------------------------------------------
     /**
      * <p>Creates a compact stack trace for the root cause of the supplied
      * <code>Throwable</code>.</p>
+     * 
+     * @param throwable  the throwable to examine, may be null
+     * @return an array of stack trace frames, never null
      */
-    public static String[] getRootCauseStackTrace(Throwable t) {
-        Throwable throwables[] = getThrowables(t);
+    public static String[] getRootCauseStackTrace(Throwable throwable) {
+        if (throwable == null) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        Throwable throwables[] = getThrowables(throwable);
         int count = throwables.length;
         ArrayList frames = new ArrayList();
         List nextTrace = getStackFrameList(throwables[count - 1]);
@@ -430,9 +585,13 @@ public class ExceptionUtils {
      * <p>Removes common frames from the cause trace given the two stack traces.</p>
      * 
      * @param causeFrames  stack trace of a cause throwable
-     * @param wrapperFrames stack trace of a wrapper throwable 
+     * @param wrapperFrames  stack trace of a wrapper throwable
+     * @throws IllegalArgumentException if either argument is null
      */
     public static void removeCommonFrames(List causeFrames, List wrapperFrames) {
+        if (causeFrames == null || wrapperFrames == null) {
+            throw new NullArgumentException("List");
+        }
         int causeFrameIndex = causeFrames.size() - 1;
         int wrapperFrameIndex = wrapperFrames.size() - 1;
         while (causeFrameIndex >= 0 && wrapperFrameIndex >= 0) {
@@ -448,94 +607,54 @@ public class ExceptionUtils {
         }
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * <p>A convenient way of extracting the stack trace from an
-     * exception.</p>
+     * <p>Gets the stack trace from a Throwable as a String.</p>
      *
-     * @param t The <code>Throwable</code>.
-     * @return The stack trace as generated by the exception's
-     *  <code>printStackTrace(PrintWriter)</code> method.
+     * @param throwable  the <code>Throwable</code> to be examined
+     * @return the stack trace as generated by the exception's
+     *  <code>printStackTrace(PrintWriter)</code> method
      */
-    public static String getStackTrace(Throwable t) {
+    public static String getStackTrace(Throwable throwable) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw, true);
-        t.printStackTrace(pw);
+        throwable.printStackTrace(pw);
         return sw.getBuffer().toString();
     }
 
     /**
      * <p>A way to get the entire nested stack-trace of an throwable.</p>
      *
-     * @param t The <code>Throwable</code>.
-     * @return The nested stack trace, with the root cause first.
+     * @param throwable  the <code>Throwable</code> to be examined
+     * @return the nested stack trace, with the root cause first
      */
-    public static String getFullStackTrace(Throwable t) {
+    public static String getFullStackTrace(Throwable throwable) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw, true);
-        Throwable[] ts = getThrowables(t);
-        for(int i=0; i<ts.length; i++) {
+        Throwable[] ts = getThrowables(throwable);
+        for (int i = 0; i < ts.length; i++) {
             ts[i].printStackTrace(pw);
-            if(isNestedThrowable(ts[i])) {
+            if (isNestedThrowable(ts[i])) {
                 break;
             }
         }
         return sw.getBuffer().toString();
     }
 
-    /**
-     * <p>Returns whether a <code>Throwable</code> is considered nested
-     * or not.</p>
-     *
-     * @param throwable  The <code>Throwable</code>.
-     * @return boolean <code>true</code> if nested otherwise <code>false</code>
-     */
-    public static boolean isNestedThrowable(Throwable throwable) {
-        if(throwable == null) {
-            return false;
-        }
-
-        if (throwable instanceof Nestable) {
-            return true;
-        } else if (throwable instanceof SQLException) {
-            return true;
-        } else if (throwable instanceof InvocationTargetException) {
-            return true;
-        }
-
-        int sz = CAUSE_METHOD_NAMES.length;
-        for(int i=0; i<sz; i++) {
-            try {
-                Method method = throwable.getClass().getMethod(CAUSE_METHOD_NAMES[i], null);
-                if(method != null) {
-                    return true;
-                }
-            } catch (NoSuchMethodException ignored) {
-            } catch (SecurityException ignored) {
-            }
-        }
-
-        try {
-            Field field = throwable.getClass().getField("detail");
-            if(field != null) {
-                return true;
-            }
-        } catch (NoSuchFieldException ignored) {
-        } catch (SecurityException ignored) {
-        }
-
-        return false;
-    }
-
+    //-----------------------------------------------------------------------
     /**
      * <p>Captures the stack trace associated with the specified
      * <code>Throwable</code> object, decomposing it into a list of
      * stack frames.</p>
      *
-     * @param t The <code>Throwable</code>.
-     * @return  An array of strings describing each stack frame.
+     * @param throwable  the <code>Throwable</code> to exaamine, may be null
+     * @return an array of strings describing each stack frame, never null
      */
-    public static String[] getStackFrames(Throwable t) {
-        return getStackFrames(getStackTrace(t));
+    public static String[] getStackFrames(Throwable throwable) {
+        if (throwable == null) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        return getStackFrames(getStackTrace(throwable));
     }
 
     /**
@@ -551,8 +670,7 @@ public class ExceptionUtils {
         while (frames.hasMoreTokens()) {
             list.add(frames.nextToken());
         }
-        return (String[]) list.toArray(new String[] {
-        });
+        return (String[]) list.toArray(new String[list.size()]);
     }
 
     /**
@@ -586,19 +704,4 @@ public class ExceptionUtils {
         return list;
     }
     
-    private static Object getCauseMethod = null;
-    static {
-        try {
-            getCauseMethod = Throwable.class.getMethod("getCause", null);
-        } catch (Exception e) {
-            // ignore
-        }
-    }
-    
-    /**
-     * <p>Checks if the Throwable class has a <code>getCause</code> method.</p>
-     */
-    public static boolean isThrowableNested() {
-        return (getCauseMethod != null);
-    }
 }
