@@ -57,16 +57,16 @@ package org.apache.commons.lang.builder;
  * <p><code>StandardToStringStyle</code> works with {@link ToStringBuilder}
  * to create a <code>toString</code>.</p>
  *
- * <p>This class is intended to be used as a <code>Singleton</code>. There
- * is no need to instantiate a new style each time. Your code should
- * instantiate the class once, customize the values as required, and then
+ * <p>This class is intended to be used as a singleton.
+ * There is no need to instantiate a new style each time.
+ * Simply instantiate the class once, customize the values as required, and
  * store the result in a public static final variable for the rest of the
  * program to access.</p>
  *
  * @author Stephen Colebourne
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: StandardToStringStyle.java,v 1.10 2003/07/21 23:30:42 scolebourne Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.11 2003/08/16 12:41:23 scolebourne Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
