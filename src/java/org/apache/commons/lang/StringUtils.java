@@ -80,7 +80,7 @@ import java.util.Iterator;
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
- * @version $Id: StringUtils.java,v 1.4 2002/07/23 05:21:28 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.5 2002/07/26 01:40:11 dlr Exp $
  */
 public class StringUtils {
 
@@ -1566,56 +1566,6 @@ public class StringUtils {
         return d[n][m];
     }
 
-    /**
-     * Convert a string from unicode to bytes in a native encoding.
-     * The string must be in unicode (as Java always expects this);
-     * {@link #convertNativeToUnicode(String, String)} will convert
-     * strings in native encodings into unicode.  This method is
-     * generally used to create a <code>String</code> for use as
-     * output, and is useful when dealing with I18N.
-     *
-     * @param source String the unicode string to convert
-     * @param charset String the name of the charset into which to
-     * convert.
-     * @return The string given represented in the native encoding
-     * specified.
-     * @see #convertNativeToUnicode(String, String)
-     */
-    public static String convertUnicodeToNative(String source, String charset)
-            throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        OutputStreamWriter out = new OutputStreamWriter(baos, charset);
-        out.write(source);
-        out.close();
-        return baos.toString();
-    }
-
-    /**
-     * Convert a string from a native encoding to unicode.  This
-     * method is generally used to create a <code>String</code> for
-     * use as input, and is useful when dealing with I18N.
-     *
-     * @param input String the input to convert from native encoding
-     * to unicode.
-     * @param charset String the charset from which to convert.
-     * @return The string given represented in unicode rather than the
-     * specified native encoding.
-     */
-    public static String convertNativeToUnicode(String input, String charset)
-            throws IOException {
-        InputStreamReader in = new InputStreamReader
-            (new ByteArrayInputStream(input.getBytes()), charset);
-        StringBuffer output = new StringBuffer();
-        char[] buf = new char[CHAR_BUFFER_SIZE];
-        int count = 0;
-        while ((count = in.read(buf, 0, CHAR_BUFFER_SIZE)) > 0)
-        {
-            output.append(buf, 0, count);
-        }
-        in.close();
-        return output.toString();
-    }
-    
 // these are not really of use in the Java world. Only if you're a C afficionado
 //    public static String sprintf(String format, Object[] list);
 //    public static Object[] sscanf(String str, String format);

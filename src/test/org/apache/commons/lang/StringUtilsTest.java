@@ -67,7 +67,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTest.java,v 1.2 2002/07/23 05:21:27 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.3 2002/07/26 01:40:11 dlr Exp $
  */
 public class StringUtilsTest extends TestCase
 {
@@ -256,19 +256,6 @@ public class StringUtilsTest extends TestCase
 
         assertEquals("leftPad(String, int, String) failed",
                      "-+~123456", StringUtils.leftPad("123456", 9, "-+~") );
-    }
-
-    public void testUnicodeFunctions() throws java.io.IOException
-    {
-        /* this test fails on my window box with an Sun english JDK 1.3.1
-           I think that the input string is not right
-        */
-/* Kept out for the moment.
-        String input = "これは日本楔譴離謄好箸任后#";
-        String unicode = StringUtils.convertNativeToUnicode(input, "iso-2022-jp");
-        String iso = StringUtils.convertUnicodeToNative(unicode, "iso-2022-jp");
-        assertEquals("Unicode conversions failed", input, iso);
-*/
     }
 
     public void testReverseFunctions() {
