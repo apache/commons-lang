@@ -140,11 +140,12 @@ public final class ColorEnum extends Enum {
    <section name="lang.time.*">
     <p>Lang 2.0 saw the arrival of a time package. It contains some basic utilities for manipulating time (a delorean, police box and [hgwells lookup needed]?). These include a StopWatch for simple performance measurements and an optimised FastDateFormat class. </p>
    </section>
-   <section name="Next version of Lang">
-    <p>The next version of Lang will be 2.1. The most notable addition is a mutable package, but there are also new classes such as DurationFormatUtils [and ...]. </p>
-   </section>
 
    <section name="lang.text.*">
+   </section>
+
+   <section name="Next version of Lang">
+    <p>The next version of Lang will be 2.1. The most notable addition is a mutable package, but there are also new classes such as DurationFormatUtils [and ...]. </p>
    </section>
 
 </body>
