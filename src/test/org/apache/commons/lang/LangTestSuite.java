@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author Stephen Colebourne
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.24 2004/01/31 13:00:07 scolebourne Exp $
+ * @version $Id: LangTestSuite.java,v 1.25 2004/02/03 22:14:24 ggregory Exp $
  */
 public class LangTestSuite extends TestCase {
     
@@ -89,6 +89,7 @@ public class LangTestSuite extends TestCase {
         TestSuite suite = new TestSuite();
         suite.setName("Commons-Lang Tests");
         suite.addTest(ArrayUtilsTest.suite());
+        suite.addTest(ArrayUtilsAddTest.suite());
         suite.addTest(BitFieldTest.suite());
         suite.addTest(BooleanUtilsTest.suite());
         suite.addTest(CharRangeTest.suite());
