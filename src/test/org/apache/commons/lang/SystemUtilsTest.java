@@ -53,9 +53,11 @@
  */
 package org.apache.commons.lang;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
+import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -68,13 +70,10 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Tetsuya Kaneuchi
- * @version $Id: SystemUtilsTest.java,v 1.7 2003/10/07 20:59:46 scolebourne Exp $
+ * @author Gary D. Gregory
+ * @version $Id: SystemUtilsTest.java,v 1.8 2003/12/31 22:01:06 ggregory Exp $
  */
 public class SystemUtilsTest extends TestCase {
-
-    public SystemUtilsTest(String name) {
-        super(name);
-    }
 
     public static void main(String[] args) {
         TestRunner.run(suite());
@@ -85,24 +84,6 @@ public class SystemUtilsTest extends TestCase {
         suite.setName("SystemUtils Tests");
         return suite;
     }
-
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-
-    //-----------------------------------------------------------------------
-    public void testConstructor() {
-        assertNotNull(new SystemUtils());
-        Constructor[] cons = SystemUtils.class.getDeclaredConstructors();
-        assertEquals(1, cons.length);
-        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(true, Modifier.isPublic(SystemUtils.class.getModifiers()));
-        assertEquals(false, Modifier.isFinal(SystemUtils.class.getModifiers()));
-    }
     
     //-----------------------------------------------------------------------
     // COPIED FROM SystemUtils
@@ -110,19 +91,10 @@ public class SystemUtilsTest extends TestCase {
     private String JAVA_VERSION;
     private String OS_NAME;
     private String OS_VERSION;
-    
-    /**
-     * Decides if the java version matches.
-     * 
-     * @param versionPrefix  the prefix for the java version
-     * @return true if matches, or false if not or can't determine
-     */
-    private boolean getJavaVersionMatches(String versionPrefix) {
-        if (JAVA_VERSION == null) {
-            return false;
-        }
-        return JAVA_VERSION.startsWith(versionPrefix);
-    }    
+
+    public SystemUtilsTest(String name) {
+        super(name);
+    }
 
     /**
      * <p>Get the Java version number as a <code>float</code>.</p>
@@ -176,6 +148,19 @@ public class SystemUtilsTest extends TestCase {
         }
         return Integer.parseInt(str);
     }
+    
+    /**
+     * Decides if the java version matches.
+     * 
+     * @param versionPrefix  the prefix for the java version
+     * @return true if matches, or false if not or can't determine
+     */
+    private boolean getJavaVersionMatches(String versionPrefix) {
+        if (JAVA_VERSION == null) {
+            return false;
+        }
+        return JAVA_VERSION.startsWith(versionPrefix);
+    }    
 
     /**
      * Decides if the operating system matches.
@@ -204,67 +189,122 @@ public class SystemUtilsTest extends TestCase {
         return OS_NAME.startsWith(osNamePrefix) && OS_VERSION.startsWith(osVersionPrefix);
     }    
 
+    protected void setUp() throws Exception {
+        super.setUp();
+    }
+
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
+
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new SystemUtils());
+        Constructor[] cons = SystemUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(SystemUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(SystemUtils.class.getModifiers()));
+    }
+    
+    /**
+     * Assums no security manager exists.
+     */
+    public void testGetJavaHome() {
+        File dir = SystemUtils.getJavaHome();
+        Assert.assertNotNull(dir);
+        Assert.assertTrue(dir.exists());
+    }
+
+    /**
+     * Assums no security manager exists.
+     */
+    public void testGetJavaIoTmpDir() {
+        File dir = SystemUtils.getJavaIoTmpDir();
+        Assert.assertNotNull(dir);
+        Assert.assertTrue(dir.exists());
+    }
+
+    /**
+     * Assums no security manager exists.
+     */
+    public void testGetUserDir() {
+        File dir = SystemUtils.getUserDir();
+        Assert.assertNotNull(dir);
+        Assert.assertTrue(dir.exists());
+    }
+
+    /**
+     * Assums no security manager exists.
+     */
+    public void testGetUserHome() {
+        File dir = SystemUtils.getUserHome();
+        Assert.assertNotNull(dir);
+        Assert.assertTrue(dir.exists());
+    }
+
+    public void testIS_JAVA() {
+        String javaVersion = System.getProperty("java.version");
+        if (javaVersion == null) {
+            assertEquals(false, SystemUtils.IS_JAVA_1_1);
+            assertEquals(false, SystemUtils.IS_JAVA_1_2);
+            assertEquals(false, SystemUtils.IS_JAVA_1_3);
+            assertEquals(false, SystemUtils.IS_JAVA_1_4);
+            assertEquals(false, SystemUtils.IS_JAVA_1_5);
+        } else if (javaVersion.startsWith("1.1")) {
+            assertTrue(SystemUtils.IS_JAVA_1_1);
+        } else if (javaVersion.startsWith("1.2")) {
+            assertTrue(SystemUtils.IS_JAVA_1_2);
+        } else if (javaVersion.startsWith("1.3")) {
+            assertTrue(SystemUtils.IS_JAVA_1_3);
+        } else if (javaVersion.startsWith("1.4")) {
+            assertTrue(SystemUtils.IS_JAVA_1_4);
+        } else if (javaVersion.startsWith("1.5")) {
+            assertTrue(SystemUtils.IS_JAVA_1_5);
+        } else {
+            System.out.println("Can't test IS_JAVA value");
+        }
+    }
+
+    public void testIS_OS() {
+        String osName = System.getProperty("os.name");
+        if (osName == null) {
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
+            assertEquals(false, SystemUtils.IS_OS_UNIX);
+            assertEquals(false, SystemUtils.IS_OS_SOLARIS);
+            assertEquals(false, SystemUtils.IS_OS_LINUX);
+            assertEquals(false, SystemUtils.IS_OS_MAC_OSX);
+        } else if (osName.startsWith("Windows")) {
+            assertEquals(false, SystemUtils.IS_OS_UNIX);
+            assertEquals(true, SystemUtils.IS_OS_WINDOWS);
+        } else if (osName.startsWith("Solaris")) {
+            assertEquals(true, SystemUtils.IS_OS_SOLARIS);
+            assertEquals(true, SystemUtils.IS_OS_UNIX);
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
+        } else if (osName.toLowerCase().startsWith("linux")) {
+            assertEquals(true, SystemUtils.IS_OS_LINUX);
+            assertEquals(true, SystemUtils.IS_OS_UNIX);
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
+        } else if (osName.startsWith("Mac OS X")) {
+            assertEquals(true, SystemUtils.IS_OS_MAC_OSX);
+            assertEquals(true, SystemUtils.IS_OS_UNIX);
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
+        } else if (osName.startsWith("OS/2")) {
+            assertEquals(true, SystemUtils.IS_OS_OS2);
+            assertEquals(false, SystemUtils.IS_OS_UNIX);
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
+        } else if (osName.startsWith("SunOS")) {
+            assertEquals(true, SystemUtils.IS_OS_SUN_OS);
+            assertEquals(true, SystemUtils.IS_OS_UNIX);
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
+        } else {
+            System.out.println("Can't test IS_OS value");
+        }
+    }
+
     //-----------------------------------------------------------------------
     public void testJavaVersion() {
         assertEquals(SystemUtils.JAVA_VERSION_FLOAT, SystemUtils.getJavaVersion(), 0f);
-    }
-    
-    //-----------------------------------------------------------------------
-    public void testJavaVersionMatches() {
-        JAVA_VERSION = null;
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.1";
-        assertEquals(true, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.2";
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(true, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.3.0";
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(true, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.3.1";
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(true, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.4.0";
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(true, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.4.1";
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(true, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.5.0";
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(true, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.6.0";
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
     }
    
     public void testJavaVersionAsFloat() {
@@ -327,6 +367,64 @@ public class SystemUtilsTest extends TestCase {
         assertEquals(false, SystemUtils.isJavaVersionAtLeast(version));
     }
     
+    //-----------------------------------------------------------------------
+    public void testJavaVersionMatches() {
+        JAVA_VERSION = null;
+        assertEquals(false, getJavaVersionMatches("1.1"));
+        assertEquals(false, getJavaVersionMatches("1.2"));
+        assertEquals(false, getJavaVersionMatches("1.3"));
+        assertEquals(false, getJavaVersionMatches("1.4"));
+        assertEquals(false, getJavaVersionMatches("1.5"));
+        JAVA_VERSION = "1.1";
+        assertEquals(true, getJavaVersionMatches("1.1"));
+        assertEquals(false, getJavaVersionMatches("1.2"));
+        assertEquals(false, getJavaVersionMatches("1.3"));
+        assertEquals(false, getJavaVersionMatches("1.4"));
+        assertEquals(false, getJavaVersionMatches("1.5"));
+        JAVA_VERSION = "1.2";
+        assertEquals(false, getJavaVersionMatches("1.1"));
+        assertEquals(true, getJavaVersionMatches("1.2"));
+        assertEquals(false, getJavaVersionMatches("1.3"));
+        assertEquals(false, getJavaVersionMatches("1.4"));
+        assertEquals(false, getJavaVersionMatches("1.5"));
+        JAVA_VERSION = "1.3.0";
+        assertEquals(false, getJavaVersionMatches("1.1"));
+        assertEquals(false, getJavaVersionMatches("1.2"));
+        assertEquals(true, getJavaVersionMatches("1.3"));
+        assertEquals(false, getJavaVersionMatches("1.4"));
+        assertEquals(false, getJavaVersionMatches("1.5"));
+        JAVA_VERSION = "1.3.1";
+        assertEquals(false, getJavaVersionMatches("1.1"));
+        assertEquals(false, getJavaVersionMatches("1.2"));
+        assertEquals(true, getJavaVersionMatches("1.3"));
+        assertEquals(false, getJavaVersionMatches("1.4"));
+        assertEquals(false, getJavaVersionMatches("1.5"));
+        JAVA_VERSION = "1.4.0";
+        assertEquals(false, getJavaVersionMatches("1.1"));
+        assertEquals(false, getJavaVersionMatches("1.2"));
+        assertEquals(false, getJavaVersionMatches("1.3"));
+        assertEquals(true, getJavaVersionMatches("1.4"));
+        assertEquals(false, getJavaVersionMatches("1.5"));
+        JAVA_VERSION = "1.4.1";
+        assertEquals(false, getJavaVersionMatches("1.1"));
+        assertEquals(false, getJavaVersionMatches("1.2"));
+        assertEquals(false, getJavaVersionMatches("1.3"));
+        assertEquals(true, getJavaVersionMatches("1.4"));
+        assertEquals(false, getJavaVersionMatches("1.5"));
+        JAVA_VERSION = "1.5.0";
+        assertEquals(false, getJavaVersionMatches("1.1"));
+        assertEquals(false, getJavaVersionMatches("1.2"));
+        assertEquals(false, getJavaVersionMatches("1.3"));
+        assertEquals(false, getJavaVersionMatches("1.4"));
+        assertEquals(true, getJavaVersionMatches("1.5"));
+        JAVA_VERSION = "1.6.0";
+        assertEquals(false, getJavaVersionMatches("1.1"));
+        assertEquals(false, getJavaVersionMatches("1.2"));
+        assertEquals(false, getJavaVersionMatches("1.3"));
+        assertEquals(false, getJavaVersionMatches("1.4"));
+        assertEquals(false, getJavaVersionMatches("1.5"));
+    }
+    
     public void testOSMatches() {
         OS_NAME = null;
         assertEquals(false, getOSMatches("Windows"));
@@ -358,64 +456,4 @@ public class SystemUtilsTest extends TestCase {
         OS_VERSION = "4.0";
         assertEquals(false, getOSMatches("Windows 9", "4.1"));
     }
-
-    public void testIS_OS() {
-        String osName = System.getProperty("os.name");
-        if (osName == null) {
-            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
-            assertEquals(false, SystemUtils.IS_OS_UNIX);
-            assertEquals(false, SystemUtils.IS_OS_SOLARIS);
-            assertEquals(false, SystemUtils.IS_OS_LINUX);
-            assertEquals(false, SystemUtils.IS_OS_MAC_OSX);
-        } else if (osName.startsWith("Windows")) {
-            assertEquals(false, SystemUtils.IS_OS_UNIX);
-            assertEquals(true, SystemUtils.IS_OS_WINDOWS);
-        } else if (osName.startsWith("Solaris")) {
-            assertEquals(true, SystemUtils.IS_OS_SOLARIS);
-            assertEquals(true, SystemUtils.IS_OS_UNIX);
-            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
-        } else if (osName.toLowerCase().startsWith("linux")) {
-            assertEquals(true, SystemUtils.IS_OS_LINUX);
-            assertEquals(true, SystemUtils.IS_OS_UNIX);
-            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
-        } else if (osName.startsWith("Mac OS X")) {
-            assertEquals(true, SystemUtils.IS_OS_MAC_OSX);
-            assertEquals(true, SystemUtils.IS_OS_UNIX);
-            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
-        } else if (osName.startsWith("OS/2")) {
-            assertEquals(true, SystemUtils.IS_OS_OS2);
-            assertEquals(false, SystemUtils.IS_OS_UNIX);
-            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
-        } else if (osName.startsWith("SunOS")) {
-            assertEquals(true, SystemUtils.IS_OS_SUN_OS);
-            assertEquals(true, SystemUtils.IS_OS_UNIX);
-            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
-        } else {
-            System.out.println("Can't test IS_OS value");
-        }
-    }
-
-    public void testIS_JAVA() {
-        String javaVersion = System.getProperty("java.version");
-        if (javaVersion == null) {
-            assertEquals(false, SystemUtils.IS_JAVA_1_1);
-            assertEquals(false, SystemUtils.IS_JAVA_1_2);
-            assertEquals(false, SystemUtils.IS_JAVA_1_3);
-            assertEquals(false, SystemUtils.IS_JAVA_1_4);
-            assertEquals(false, SystemUtils.IS_JAVA_1_5);
-        } else if (javaVersion.startsWith("1.1")) {
-            assertTrue(SystemUtils.IS_JAVA_1_1);
-        } else if (javaVersion.startsWith("1.2")) {
-            assertTrue(SystemUtils.IS_JAVA_1_2);
-        } else if (javaVersion.startsWith("1.3")) {
-            assertTrue(SystemUtils.IS_JAVA_1_3);
-        } else if (javaVersion.startsWith("1.4")) {
-            assertTrue(SystemUtils.IS_JAVA_1_4);
-        } else if (javaVersion.startsWith("1.5")) {
-            assertTrue(SystemUtils.IS_JAVA_1_5);
-        } else {
-            System.out.println("Can't test IS_JAVA value");
-        }
-    }
-    
 }
