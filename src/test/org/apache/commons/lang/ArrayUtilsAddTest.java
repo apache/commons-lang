@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  * Tests ArrayUtils add methods.
  * 
  * @author Gary D. Gregory
- * @version $Id: ArrayUtilsAddTest.java,v 1.5 2005/01/22 04:22:12 bayard Exp $
+ * @version $Id: ArrayUtilsAddTest.java,v 1.6 2005/01/27 06:43:20 bayard Exp $
  */
 public class ArrayUtilsAddTest extends TestCase {
     public static void main(String[] args) {
@@ -210,7 +210,7 @@ public class ArrayUtilsAddTest extends TestCase {
     }
     
     public void testAddObjectArrayToObjectArray() {
-        assertNull(ArrayUtils.addAll(null, null));
+        assertNull(ArrayUtils.addAll((Object[]) null, (Object[]) null));
         Object[] newArray;
         String[] stringArray1 = new String[]{"a", "b", "c"};
         String[] stringArray2 = new String[]{"1", "2", "3"};
@@ -243,6 +243,39 @@ public class ArrayUtilsAddTest extends TestCase {
         newArray = ArrayUtils.addAll(stringArrayNull, stringArrayNull);        
         assertTrue(Arrays.equals((new String[]{null, null}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
+
+        // boolean
+        assertTrue( Arrays.equals( new boolean[] { true, false, false, true }, 
+            ArrayUtils.addAll( new boolean[] { true, false }, new boolean[] { false, true } ) ) );
+
+        // char
+        assertTrue( Arrays.equals( new char[] { 'a', 'b', 'c', 'd' }, 
+            ArrayUtils.addAll( new char[] { 'a', 'b' }, new char[] { 'c', 'd' } ) ) );
+
+        // byte
+        assertTrue( Arrays.equals( new byte[] { (byte) 0, (byte) 1, (byte) 2, (byte) 3 }, 
+            ArrayUtils.addAll( new byte[] { (byte) 0, (byte) 1 }, new byte[] { (byte) 2, (byte) 3 } ) ) );
+
+        // short
+        assertTrue( Arrays.equals( new short[] { (short) 10, (short) 20, (short) 30, (short) 40 }, 
+            ArrayUtils.addAll( new short[] { (short) 10, (short) 20 }, new short[] { (short) 30, (short) 40 } ) ) );
+
+        // int
+        assertTrue( Arrays.equals( new int[] { 1, 1000, -1000, -1 }, 
+            ArrayUtils.addAll( new int[] { 1, 1000 }, new int[] { -1000, -1 } ) ) );
+
+        // long
+        assertTrue( Arrays.equals( new long[] { 1L, -1L, 1000L, -1000L }, 
+            ArrayUtils.addAll( new long[] { 1L, -1L }, new long[] { 1000L, -1000L } ) ) );
+
+        // float
+        assertTrue( Arrays.equals( new float[] { 10.5f, 10.1f, 1.6f, 0.01f }, 
+            ArrayUtils.addAll( new float[] { 10.5f, 10.1f }, new float[] { 1.6f, 0.01f } ) ) );
+
+        // double
+        assertTrue( Arrays.equals( new double[] { Math.PI, -Math.PI, 0, 9.99 }, 
+            ArrayUtils.addAll( new double[] { Math.PI, -Math.PI }, new double[] { 0, 9.99 } ) ) );
+
     }    
     
     public void testAddObjectAtIndex() {

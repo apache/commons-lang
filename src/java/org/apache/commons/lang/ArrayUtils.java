@@ -44,7 +44,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Maarten Coene
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.50 2005/01/22 04:22:12 bayard Exp $
+ * @version $Id: ArrayUtils.java,v 1.51 2005/01/27 06:43:20 bayard Exp $
  */
 public class ArrayUtils {
 
@@ -2887,13 +2887,244 @@ public class ArrayUtils {
             return clone(array2);
         } else if (array2 == null) {
             return clone(array1);
-        } else {
-            Object[] joinedArray = (Object[]) Array.newInstance(array1.getClass().getComponentType(), array1.length
-                + array2.length);
-            System.arraycopy(array1, 0, joinedArray, 0, array1.length);
-            System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
-            return joinedArray;
         }
+        Object[] joinedArray = (Object[]) Array.newInstance(array1.getClass().getComponentType(),
+                                                            array1.length + array2.length);
+        System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+        System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+        return joinedArray;
+    }
+
+    /**
+     * <p>Adds all the elements of the given arrays into a new array.</p>
+     * <p>The new array contains all of the element of <code>array1</code> followed
+     * by all of the elements <code>array2</code>. When an array is returned, it is always
+     * a new array.</p>
+     *
+     * <pre>
+     * ArrayUtils.addAll(array1, null)   = cloned copy of array1
+     * ArrayUtils.addAll(null, array2)   = cloned copy of array2
+     * ArrayUtils.addAll([], [])         = []
+     * </pre>
+     *
+     * @param array1  the first array whose elements are added to the new array.
+     * @param array2  the second array whose elements are added to the new array.
+     * @return The new boolean[] array.
+     * @since 2.1
+     */
+    public static boolean[] addAll(boolean[] array1, boolean[] array2) {
+        if (array1 == null) {
+            return clone(array2);
+        } else if (array2 == null) {
+            return clone(array1);
+        }
+        boolean[] joinedArray = new boolean[array1.length + array2.length];
+        System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+        System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+        return joinedArray;
+    }
+
+    /**
+     * <p>Adds all the elements of the given arrays into a new array.</p>
+     * <p>The new array contains all of the element of <code>array1</code> followed
+     * by all of the elements <code>array2</code>. When an array is returned, it is always
+     * a new array.</p>
+     *
+     * <pre>
+     * ArrayUtils.addAll(array1, null)   = cloned copy of array1
+     * ArrayUtils.addAll(null, array2)   = cloned copy of array2
+     * ArrayUtils.addAll([], [])         = []
+     * </pre>
+     *
+     * @param array1  the first array whose elements are added to the new array.
+     * @param array2  the second array whose elements are added to the new array.
+     * @return The new char[] array.
+     * @since 2.1
+     */
+    public static char[] addAll(char[] array1, char[] array2) {
+        if (array1 == null) {
+            return clone(array2);
+        } else if (array2 == null) {
+            return clone(array1);
+        }
+        char[] joinedArray = new char[array1.length + array2.length];
+        System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+        System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+        return joinedArray;
+    }
+
+    /**
+     * <p>Adds all the elements of the given arrays into a new array.</p>
+     * <p>The new array contains all of the element of <code>array1</code> followed
+     * by all of the elements <code>array2</code>. When an array is returned, it is always
+     * a new array.</p>
+     *
+     * <pre>
+     * ArrayUtils.addAll(array1, null)   = cloned copy of array1
+     * ArrayUtils.addAll(null, array2)   = cloned copy of array2
+     * ArrayUtils.addAll([], [])         = []
+     * </pre>
+     *
+     * @param array1  the first array whose elements are added to the new array.
+     * @param array2  the second array whose elements are added to the new array.
+     * @return The new byte[] array.
+     * @since 2.1
+     */
+    public static byte[] addAll(byte[] array1, byte[] array2) {
+        if (array1 == null) {
+            return clone(array2);
+        } else if (array2 == null) {
+            return clone(array1);
+        }
+        byte[] joinedArray = new byte[array1.length + array2.length];
+        System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+        System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+        return joinedArray;
+    }
+
+    /**
+     * <p>Adds all the elements of the given arrays into a new array.</p>
+     * <p>The new array contains all of the element of <code>array1</code> followed
+     * by all of the elements <code>array2</code>. When an array is returned, it is always
+     * a new array.</p>
+     *
+     * <pre>
+     * ArrayUtils.addAll(array1, null)   = cloned copy of array1
+     * ArrayUtils.addAll(null, array2)   = cloned copy of array2
+     * ArrayUtils.addAll([], [])         = []
+     * </pre>
+     *
+     * @param array1  the first array whose elements are added to the new array.
+     * @param array2  the second array whose elements are added to the new array.
+     * @return The new short[] array.
+     * @since 2.1
+     */
+    public static short[] addAll(short[] array1, short[] array2) {
+        if (array1 == null) {
+            return clone(array2);
+        } else if (array2 == null) {
+            return clone(array1);
+        }
+        short[] joinedArray = new short[array1.length + array2.length];
+        System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+        System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+        return joinedArray;
+    }
+
+    /**
+     * <p>Adds all the elements of the given arrays into a new array.</p>
+     * <p>The new array contains all of the element of <code>array1</code> followed
+     * by all of the elements <code>array2</code>. When an array is returned, it is always
+     * a new array.</p>
+     *
+     * <pre>
+     * ArrayUtils.addAll(array1, null)   = cloned copy of array1
+     * ArrayUtils.addAll(null, array2)   = cloned copy of array2
+     * ArrayUtils.addAll([], [])         = []
+     * </pre>
+     *
+     * @param array1  the first array whose elements are added to the new array.
+     * @param array2  the second array whose elements are added to the new array.
+     * @return The new int[] array.
+     * @since 2.1
+     */
+    public static int[] addAll(int[] array1, int[] array2) {
+        if (array1 == null) {
+            return clone(array2);
+        } else if (array2 == null) {
+            return clone(array1);
+        }
+        int[] joinedArray = new int[array1.length + array2.length];
+        System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+        System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+        return joinedArray;
+    }
+
+    /**
+     * <p>Adds all the elements of the given arrays into a new array.</p>
+     * <p>The new array contains all of the element of <code>array1</code> followed
+     * by all of the elements <code>array2</code>. When an array is returned, it is always
+     * a new array.</p>
+     *
+     * <pre>
+     * ArrayUtils.addAll(array1, null)   = cloned copy of array1
+     * ArrayUtils.addAll(null, array2)   = cloned copy of array2
+     * ArrayUtils.addAll([], [])         = []
+     * </pre>
+     *
+     * @param array1  the first array whose elements are added to the new array.
+     * @param array2  the second array whose elements are added to the new array.
+     * @return The new long[] array.
+     * @since 2.1
+     */
+    public static long[] addAll(long[] array1, long[] array2) {
+        if (array1 == null) {
+            return clone(array2);
+        } else if (array2 == null) {
+            return clone(array1);
+        }
+        long[] joinedArray = new long[array1.length + array2.length];
+        System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+        System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+        return joinedArray;
+    }
+
+    /**
+     * <p>Adds all the elements of the given arrays into a new array.</p>
+     * <p>The new array contains all of the element of <code>array1</code> followed
+     * by all of the elements <code>array2</code>. When an array is returned, it is always
+     * a new array.</p>
+     *
+     * <pre>
+     * ArrayUtils.addAll(array1, null)   = cloned copy of array1
+     * ArrayUtils.addAll(null, array2)   = cloned copy of array2
+     * ArrayUtils.addAll([], [])         = []
+     * </pre>
+     *
+     * @param array1  the first array whose elements are added to the new array.
+     * @param array2  the second array whose elements are added to the new array.
+     * @return The new float[] array.
+     * @since 2.1
+     */
+    public static float[] addAll(float[] array1, float[] array2) {
+        if (array1 == null) {
+            return clone(array2);
+        } else if (array2 == null) {
+            return clone(array1);
+        }
+        float[] joinedArray = new float[array1.length + array2.length];
+        System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+        System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+        return joinedArray;
+    }
+
+    /**
+     * <p>Adds all the elements of the given arrays into a new array.</p>
+     * <p>The new array contains all of the element of <code>array1</code> followed
+     * by all of the elements <code>array2</code>. When an array is returned, it is always
+     * a new array.</p>
+     *
+     * <pre>
+     * ArrayUtils.addAll(array1, null)   = cloned copy of array1
+     * ArrayUtils.addAll(null, array2)   = cloned copy of array2
+     * ArrayUtils.addAll([], [])         = []
+     * </pre>
+     *
+     * @param array1  the first array whose elements are added to the new array.
+     * @param array2  the second array whose elements are added to the new array.
+     * @return The new double[] array.
+     * @since 2.1
+     */
+    public static double[] addAll(double[] array1, double[] array2) {
+        if (array1 == null) {
+            return clone(array2);
+        } else if (array2 == null) {
+            return clone(array1);
+        }
+        double[] joinedArray = new double[array1.length + array2.length];
+        System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+        System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+        return joinedArray;
     }
 
     /**
