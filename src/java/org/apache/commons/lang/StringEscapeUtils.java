@@ -29,14 +29,14 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Purple Technology
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @author <a href="mailto:cybertiger@cyberiantiger.org">Antony Riley</a>
+ * @author Antony Riley
  * @author Helge Tesgaard
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @author Pete Gieser
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.28 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.29 2004/09/05 20:09:33 bayard Exp $
  */
 public class StringEscapeUtils {
 
