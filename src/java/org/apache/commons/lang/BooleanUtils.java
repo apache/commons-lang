@@ -66,7 +66,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.8 2003/07/19 20:17:12 scolebourne Exp $
+ * @version $Id: BooleanUtils.java,v 1.9 2003/07/25 23:06:58 scolebourne Exp $
  */
 public class BooleanUtils {
 
@@ -659,7 +659,7 @@ public class BooleanUtils {
      * @throws IllegalArgumentException if <code>array</code> is empty.
      */
     public static Boolean xor(Boolean[] array) {
-        return new Boolean(xor(ArrayUtils.toPrimitive(array)));
+        return (xor(ArrayUtils.toPrimitive(array)) ? Boolean.TRUE : Boolean.FALSE);
     }
 
 }

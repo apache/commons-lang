@@ -62,11 +62,11 @@ import java.util.Random;
  * 
  * @author Henri Yandell
  * @since 2.0
- * @version $Id: RandomUtils.java,v 1.3 2003/07/14 22:25:05 bayard Exp $
+ * @version $Id: RandomUtils.java,v 1.4 2003/07/25 23:06:58 scolebourne Exp $
  */
 public final class RandomUtils {
 
-    public static Random JVM_RANDOM = new JVMRandom();
+    public static final Random JVM_RANDOM = new JVMRandom();
 
 // should be possible for JVM_RANDOM?
 //    public static void nextBytes(byte[]) {
