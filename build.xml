@@ -16,7 +16,7 @@ limitations under the License.
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.29 2004/10/01 22:32:53 ggregory Exp $
+        $Id: build.xml,v 1.30 2004/10/01 22:45:51 ggregory Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
@@ -56,11 +56,11 @@ limitations under the License.
     </target>
     <target name="compile" depends="static" description="Compile shareable components">
         <javac srcdir="${source.home}"
-        	   destdir="${build.home}/classes"
-        	   debug="${compile.debug}"
-        	   deprecation="${compile.deprecation}"
-		       target="1.1"
-        	   optimize="${compile.optimize}">
+               destdir="${build.home}/classes"
+               debug="${compile.debug}"
+               deprecation="${compile.deprecation}"
+               target="1.1"
+               optimize="${compile.optimize}">
             <classpath refid="compile.classpath"/>
         </javac>
         <copy todir="${build.home}/classes" filtering="on">
@@ -69,11 +69,11 @@ limitations under the License.
     </target>
     <target name="compile.tests" depends="compile" description="Compile unit test cases">
         <javac srcdir="${test.home}"
-        	   destdir="${build.home}/tests"
-        	   debug="${compile.debug}"
-        	   deprecation="off"
-		       target="1.1"
-        	   optimize="${compile.optimize}">
+               destdir="${build.home}/tests"
+               debug="${compile.debug}"
+               deprecation="off"
+               target="1.1"
+               optimize="${compile.optimize}">
             <classpath refid="test.classpath"/>
         </javac>
         <copy todir="${build.home}/tests" filtering="on">
