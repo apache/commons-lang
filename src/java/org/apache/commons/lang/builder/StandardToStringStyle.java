@@ -64,8 +64,9 @@ package org.apache.commons.lang.builder;
  * program to access.</p>
  *
  * @author Stephen Colebourne
+ * @author Pete Gieser
  * @since 1.0
- * @version $Id: StandardToStringStyle.java,v 1.9 2003/07/14 22:25:03 bayard Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.10 2003/07/21 23:30:42 scolebourne Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
@@ -211,8 +212,8 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * <p>Sets the array start text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted
-     * to a empry String.</p>
+     * <p><code>null</code> is accepted, but will be converted
+     * to an empty String.</p>
      *
      * @param arrayStart  the new array start text
      */
@@ -234,8 +235,8 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * <p>Sets the array end text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted
-     * to a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted
+     * to an empty String.</p>
      *
      * @param arrayEnd  the new array end text
      */
@@ -257,8 +258,8 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * <p>Sets the array separator text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted
-     * to a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted
+     * to an empty String.</p>
      *
      * @param arraySeparator  the new array separator text
      */
@@ -280,8 +281,8 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * <p>Sets the content start text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted
-     * to a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted
+     * to an empty String.</p>
      *
      * @param contentStart  the new content start text
      */
@@ -303,8 +304,8 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * <p>Sets the content end text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted
-     * to a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted
+     * to an empty String.</p>
      *
      * @param contentEnd  the new content end text
      */
@@ -326,8 +327,8 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * <p>Sets the field name value separator text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted
-     * to a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted
+     * to an empty String.</p>
      *
      * @param fieldNameValueSeparator  the new field name value separator text
      */
@@ -349,8 +350,8 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * <p>Sets the field separator text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted
-     * to a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted
+     * to an empty String.</p>
      *
      * @param fieldSeparator  the new field separator text
      */
@@ -416,8 +417,8 @@ public class StandardToStringStyle extends ToStringStyle {
     /**
      * <p>Sets the text to output when <code>null</code> found.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted
-     * to a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted
+     * to an empty String.</p>
      *
      * @param nullText  the new text to output when <code>null</code> found
      */
@@ -440,13 +441,13 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Sets the text to output when a <code>Collection</code>,
+     * <p>Sets the start text to output when a <code>Collection</code>,
      * <code>Map</code> or <code>Array</code> size is output.</p>
      *
      * <p>This is output before the size value.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param sizeStartText  the new start of size text
      */
@@ -457,7 +458,7 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * Gets the text to output when a <code>Collection</code>,
+     * Gets the end text to output when a <code>Collection</code>,
      * <code>Map</code> or <code>Array</code> size is output.</p>
      *
      * <p>This is output after the size value.</p>
@@ -469,13 +470,13 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Sets the text to output when a <code>Collection</code>,
+     * <p>Sets the end text to output when a <code>Collection</code>,
      * <code>Map</code> or <code>Array</code> size is output.</p>
      *
      * <p>This is output after the size value.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted
-     * to a Empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted
+     * to an empty String.</p>
      *
      * @param sizeEndText  the new end of size text
      */
@@ -486,7 +487,7 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * <p>Gets the text to output when an <code>Object</code> is
+     * <p>Gets the start text to output when an <code>Object</code> is
      * output in summary mode.</p>
      *
      * <P>This is output before the size value.</p>
@@ -498,13 +499,13 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Sets the text to output when an <code>Object</code> is
+     * <p>Sets the start text to output when an <code>Object</code> is
      * output in summary mode.</p>
      *
      * <p>This is output before the size value.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param summaryObjectStartText  the new start of summary text
      */
@@ -515,7 +516,7 @@ public class StandardToStringStyle extends ToStringStyle {
     //---------------------------------------------------------------------
     
     /**
-     * <p>Gets the text to output when an <code>Object</code> is
+     * <p>Gets the end text to output when an <code>Object</code> is
      * output in summary mode.</p>
      *
      * <p>This is output after the size value.</p>
@@ -527,13 +528,13 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Sets the text to output when an <code>Object</code> is
+     * <p>Sets the end text to output when an <code>Object</code> is
      * output in summary mode.</p>
      *
      * <p>This is output after the size value.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param summaryObjectEndText  the new end of summary text
      */

@@ -49,8 +49,9 @@ import org.apache.commons.lang.ClassUtils;
  *
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Stephen Colebourne
+ * @author Pete Gieser
  * @since 2.0
- * @version $Id: ReflectionToStringBuilder.java,v 1.6 2003/07/20 01:13:14 ggregory Exp $
+ * @version $Id: ReflectionToStringBuilder.java,v 1.7 2003/07/21 23:30:42 scolebourne Exp $
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
 
@@ -103,7 +104,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run
-     * under a security manger, if the permissions are not set up correctly.
+     * under a security manager, if the permissions are not set up correctly.
      * It is also not as efficient as testing explicitly.</p>
      *
      * <p>Transient members will be not be included, as they are likely derived.
@@ -123,7 +124,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run
-     * under a security manger, if the permissions are not set up correctly.
+     * under a security manager, if the permissions are not set up correctly.
      * It is also not as efficient as testing explicitly.</p>
      *
      * <p>Transient members will be not be included, as they are likely derived.
@@ -149,7 +150,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run
-     * under a security manger, if the permissions are not set up correctly.
+     * under a security manager, if the permissions are not set up correctly.
      * It is also not as efficient as testing explicitly. </p>
      *
      * <p>If the <code>outputTransients</code> is <code>true</code>,
@@ -179,7 +180,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run
-     * under a security manger, if the permissions are not set up correctly.
+     * under a security manager, if the permissions are not set up correctly.
      * It is also not as efficient as testing explicitly. </p>
      *
      * <p>If the <code>outputTransients</code> is <code>true</code>,
@@ -198,7 +199,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @param style  the style of the <code>toString</code> to create,
      *  may be <code>null</code>
      * @param outputTransients  whether to include transient fields
-     * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be null
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
+     *  may be <code>null</code>
      * @return the String result
      * @throws IllegalArgumentException if the Object is <code>null</code>
      */
@@ -232,7 +234,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     private Class upToClass = null;
 
     /**
-     * <p>Constructs a new instance.</p>
+     * <p>Constructor.</p>
      *
      * <p>This constructor outputs using the default style set with
      * <code>setDefaultStyle</code>.</p>
@@ -247,7 +249,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>Constructor specifying the output style.</p>
+     * <p>Constructor.</p>
      *
      * <p>If the style is <code>null</code>, the default style is used.</p>
      * 
@@ -263,7 +265,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>Constructors a new instance.</p>
+     * <p>Constructor.</p>
      *
      * <p>If the style is <code>null</code>, the default style is used.</p>
      *
@@ -283,7 +285,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Constructs a new instance.
+     * Constructor.
      * 
      * @param object  the Object to build a <code>toString</code> for,
      *  must not be <code>null</code>
@@ -291,6 +293,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *  may be <code>null</code>
      * @param buffer  the <code>StringBuffer</code> to populate, may be
      *  <code>null</code>
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
+     *  may be <code>null</code>
+     * @param outputTransients  whether to include transient fields
      */
     public ReflectionToStringBuilder(
         Object object,
@@ -324,7 +329,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * <p>Appends the fields and values defined by the given object of the
      * given Class.</p>
      *
-     * <p>If a cycle is detected as an objects is &quot;toString()'ed&quot;,
+     * <p>If a cycle is detected as an object is &quot;toString()'ed&quot;,
      * such an object is rendered as if <code>Object.toString()</code> 
      * had been called and not implemented by the object.</p>
      * 
@@ -402,7 +407,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>Returns whether or not to append transient fields.</p>
+     * <p>Gets whether or not to append transient fields.</p>
      * 
      * @return Whether or not to append transient fields.
      */
@@ -424,7 +429,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>Registers this builder's source object to avoid infinite
-     * loops processing circular object references.</p>
+     * loops when processing circular object references.</p>
      */
     void registerObject() {
         register(this.getObject());
@@ -448,6 +453,11 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         this.upToClass = clazz;
     }
 
+    /**
+     * Gets the String built by this builder.
+     *
+     * @return the built string
+     */
     public String toString() {
         if (this.getObject() == null) {
             return this.getStyle().getNullText();
@@ -463,7 +473,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>Unegisters this builder's source object to avoid infinite
-     * loops processing circular object references.</p>
+     * loops when processing circular object references.</p>
      */
     void unregisterObject() {
         unregister(this.getObject());
