@@ -64,7 +64,7 @@ package org.apache.commons.lang;
  * @author Pete Gieser
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: BitField.java,v 1.3 2003/09/07 14:32:34 psteitz Exp $
+ * @version $Id: BitField.java,v 1.4 2003/12/29 00:27:08 ggregory Exp $
  */
 public class BitField {
     
@@ -101,7 +101,7 @@ public class BitField {
      * value is stored as a BitField (and so shifted left so many
      * bits).</p>
      *
-     * @see #setValue
+     * @see #setValue(int,int)
      * @param holder the int data containing the bits we're interested
      *  in
      * @return the selected bits, shifted right appropriately
@@ -119,7 +119,7 @@ public class BitField {
      * value is stored as a BitField (and so shifted left so many
      * bits).</p>
      *
-     * @see #setShortValue
+     * @see #setShortValue(short,short)
      * @param holder the short data containing the bits we're
      *  interested in
      * @return the selected bits, shifted right appropriately
@@ -186,7 +186,7 @@ public class BitField {
     /**
      * <p>Replaces the bits with new values.</p>
      *
-     * @see #getValue
+     * @see #getValue(int)
      * @param holder the int data containing the bits we're
      *  interested in
      * @param value the new value for the specified bits
@@ -200,7 +200,7 @@ public class BitField {
     /**
      * <p>Replaces the bits with new values.</p>
      *
-     * @see #getShortValue
+     * @see #getShortValue(short)
      * @param holder the short data containing the bits we're
      *  interested in
      * @param value the new value for the specified bits
