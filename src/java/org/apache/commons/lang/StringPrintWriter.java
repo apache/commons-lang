@@ -53,7 +53,8 @@
  */
 package org.apache.commons.lang;
 
-import java.io.*;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * <p>A PrintWriter that maintains a String as its backing store.</p>
