@@ -56,6 +56,7 @@ package org.apache.commons.lang;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -71,9 +72,37 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.28 2003/07/19 00:22:50 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.29 2003/07/19 18:10:30 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
+    
+    static final String WHITESPACE;
+    static final String NON_WHITESPACE;
+    static final String TRIMMABLE;
+    static final String NON_TRIMMABLE;
+    static {
+        String ws = "";
+        String nws = "";
+        String tr = "";
+        String ntr = "";
+        for (int i = 0; i < Character.MAX_VALUE; i++) {
+            if (Character.isWhitespace((char) i)) {
+                ws += String.valueOf((char) i);
+                if (i > 32) {
+                    ntr += String.valueOf((char) i);
+                }
+            } else if (i < 40) {
+                nws += String.valueOf((char) i);
+            }
+        }
+        for (int i = 0; i <= 32; i++) {
+            tr += String.valueOf((char) i);
+        }
+        WHITESPACE = ws;
+        NON_WHITESPACE = nws;
+        TRIMMABLE = tr;
+        NON_TRIMMABLE = ntr;
+    }
 
     private static final String[] ARRAY_LIST = { "foo", "bar", "baz" };
     private static final String[] EMPTY_ARRAY_LIST = {};
@@ -210,53 +239,106 @@ public class StringUtilsTest extends TestCase {
                                       null));
     }
 
-    public void testSplit() {
+    public void testSplit_String() {
         assertEquals(null, StringUtils.split(null));
+        assertEquals(0, StringUtils.split("").length);
+
+        String str = "a b  .c";
+        String[] res = StringUtils.split(str);
+        assertEquals(3, res.length);
+        assertEquals("a", res[0]);
+        assertEquals("b", res[1]);
+        assertEquals(".c", res[2]);
+            
+        str = " a ";
+        res = StringUtils.split(str);
+        assertEquals(1, res.length);
+        assertEquals("a", res[0]);
+        
+        str = "a" + WHITESPACE + "b" + NON_WHITESPACE + "c";
+        res = StringUtils.split(str);
+        assertEquals(2, res.length);
+        assertEquals("a", res[0]);
+        assertEquals("b" + NON_WHITESPACE + "c", res[1]);
+    }
+    
+    public void testSplit_StringChar() {
         assertEquals(null, StringUtils.split(null, '.'));
+        assertEquals(0, StringUtils.split("", '.').length);
+
+        String str = "a.b.. c";
+        String[] res = StringUtils.split(str, '.');
+        assertEquals(3, res.length);
+        assertEquals("a", res[0]);
+        assertEquals("b", res[1]);
+        assertEquals(" c", res[2]);
+            
+        str = ".a.";
+        res = StringUtils.split(str, '.');
+        assertEquals(1, res.length);
+        assertEquals("a", res[0]);
+    }
+    
+    public void testSplit() {
         assertEquals(null, StringUtils.split(null, "."));
         assertEquals(null, StringUtils.split(null, ".", 3));
         
-        String[] res = StringUtils.split("a..b.c", '.');
-        assertEquals(4, res.length);
-        assertEquals("a", res[0]);
-        assertEquals("", res[1]);
-        assertEquals("b", res[2]);
-        assertEquals("c", res[3]);
-
-        String[] result = StringUtils.split(TEXT_LIST, SEPARATOR, 2);
-        String[] expected = { "foo", "bar,baz" };
-        assertEquals("split(Object[], String, int) yielded unexpected length",
-                     expected.length, result.length);
-        for (int i = 0; i < result.length; i++)
-        {
-            assertEquals("split(Object[], String, int) failed", expected[i],
-                         result[i]);
+        assertEquals(0, StringUtils.split("", ".").length);
+        assertEquals(0, StringUtils.split("", ".", 3).length);
+        
+        innerTestSplit('.', ".", ' ');
+        innerTestSplit('.', ".", ',');
+        innerTestSplit('.', ".,", 'x');
+        for (int i = 0; i < WHITESPACE.length(); i++) {
+            for (int j = 0; j < NON_WHITESPACE.length(); j++) {
+                innerTestSplit(WHITESPACE.charAt(i), null, NON_WHITESPACE.charAt(j));
+                innerTestSplit(WHITESPACE.charAt(i), String.valueOf(WHITESPACE.charAt(i)), NON_WHITESPACE.charAt(j));
+            }
         }
+    }
+    
+    private void innerTestSplit(char separator, String sepStr, char noMatch) {
+        try {
+            final String str = "a" + separator + "b" + separator + separator + noMatch + "c";
+            String[] res;
+            // (str, sepStr)
+            res = StringUtils.split(str, sepStr);
+            assertEquals(3, res.length);
+            assertEquals("a", res[0]);
+            assertEquals("b", res[1]);
+            assertEquals(noMatch + "c", res[2]);
+            
+            final String str2 = separator + "a" + separator;
+            res = StringUtils.split(str2, sepStr);
+            assertEquals(1, res.length);
+            assertEquals("a", res[0]);
 
-        result = StringUtils.split(TEXT_LIST, SEPARATOR, 0);
-        expected = ARRAY_LIST;
-        assertEquals("split(Object[], String, int) yielded unexpected length",
-                     expected.length, result.length);
-        for (int i = 0; i < result.length; i++)
-        {
-            assertEquals("split(Object[], String, int) failed", expected[i],
-                         result[i]);
+            res = StringUtils.split(str, sepStr, -1);
+            assertEquals(3, res.length);
+            assertEquals("a", res[0]);
+            assertEquals("b", res[1]);
+            assertEquals(noMatch + "c", res[2]);
+            
+            res = StringUtils.split(str, sepStr, 0);
+            assertEquals(3, res.length);
+            assertEquals("a", res[0]);
+            assertEquals("b", res[1]);
+            assertEquals(noMatch + "c", res[2]);
+            
+            res = StringUtils.split(str, sepStr, 1);
+            assertEquals(1, res.length);
+            assertEquals(str, res[0]);
+            
+            res = StringUtils.split(str, sepStr, 2);
+            assertEquals(2, res.length);
+            assertEquals("a", res[0]);
+            assertEquals(str.substring(2), res[1]);
+            
+        } catch (AssertionFailedError ex) {
+            System.out.println("Failed on separator hex(" + Integer.toHexString(separator) +
+                 "), noMatch hex(" + Integer.toHexString(noMatch) + "), sepStr(" + sepStr + ")");
+            throw ex;
         }
-
-        result = StringUtils.split(TEXT_LIST, SEPARATOR, -1);
-        expected = ARRAY_LIST;
-        assertEquals("split(Object[], String, int) yielded unexpected length",
-                     expected.length, result.length);
-        for (int i = 0; i < result.length; i++)
-        {
-            assertEquals("split(Object[], String, int) failed", expected[i],
-                         result[i]);
-        }
-
-        result = StringUtils.split("one two three four five six", null, 3);
-        assertEquals("split(Object[], null, int)[0] failed", "one", result[0]);
-        assertEquals("split(Object[], null, int)[1] failed", "two", result[1]);
-        assertEquals("split(Object[], null, int)[2] failed", "three four five six", result[2]);
     }
 
     public void testReplaceFunctions() {

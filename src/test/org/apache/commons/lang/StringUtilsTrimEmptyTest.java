@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTrimEmptyTest.java,v 1.10 2003/07/18 02:06:23 scolebourne Exp $
+ * @version $Id: StringUtilsTrimEmptyTest.java,v 1.11 2003/07/19 18:10:30 scolebourne Exp $
  */
 public class StringUtilsTrimEmptyTest extends TestCase {
     private static final String FOO = "foo";
@@ -108,6 +108,8 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(FOO, StringUtils.trim(" " + FOO));
         assertEquals(FOO, StringUtils.trim(FOO + ""));
         assertEquals("", StringUtils.trim(" \t\r\n\b "));
+        assertEquals("", StringUtils.trim(StringUtilsTest.TRIMMABLE));
+        assertEquals(StringUtilsTest.NON_TRIMMABLE, StringUtils.trim(StringUtilsTest.NON_TRIMMABLE));
         assertEquals("", StringUtils.trim(""));
         assertEquals(null, StringUtils.trim(null));
     }
@@ -118,6 +120,8 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(FOO, StringUtils.trimToNull(" " + FOO));
         assertEquals(FOO, StringUtils.trimToNull(FOO + ""));
         assertEquals(null, StringUtils.trimToNull(" \t\r\n\b "));
+        assertEquals(null, StringUtils.trimToNull(StringUtilsTest.TRIMMABLE));
+        assertEquals(StringUtilsTest.NON_TRIMMABLE, StringUtils.trimToNull(StringUtilsTest.NON_TRIMMABLE));
         assertEquals(null, StringUtils.trimToNull(""));
         assertEquals(null, StringUtils.trimToNull(null));
     }
@@ -128,6 +132,8 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(FOO, StringUtils.trimToEmpty(" " + FOO));
         assertEquals(FOO, StringUtils.trimToEmpty(FOO + ""));
         assertEquals("", StringUtils.trimToEmpty(" \t\r\n\b "));
+        assertEquals("", StringUtils.trimToEmpty(StringUtilsTest.TRIMMABLE));
+        assertEquals(StringUtilsTest.NON_TRIMMABLE, StringUtils.trimToEmpty(StringUtilsTest.NON_TRIMMABLE));
         assertEquals("", StringUtils.trimToEmpty(""));
         assertEquals("", StringUtils.trimToEmpty(null));
     }
@@ -197,79 +203,132 @@ public class StringUtilsTrimEmptyTest extends TestCase {
     }
 
     public void testDeleteSpace() {
-        assertEquals("deleteWhitespace(String) failed",
-                     "", StringUtils.deleteWhitespace(""));
-        assertEquals("deleteWhitespace(String) failed",
-                     "", StringUtils.deleteWhitespace("  \u000C  \t\t\u001F\n\n \u000B  "));
+        assertEquals(null, StringUtils.deleteSpaces(null));
+        assertEquals("", StringUtils.deleteSpaces(""));
+        assertEquals("", StringUtils.deleteSpaces("    \t\t\n\n   "));
+        assertEquals("test", StringUtils.deleteSpaces("t  \t\ne\rs\n\n   \tt"));
+    }
+    
+    public void testDeleteWhitespace() {
+        assertEquals(null, StringUtils.deleteWhitespace(null));
+        assertEquals("", StringUtils.deleteWhitespace(""));
+        assertEquals("", StringUtils.deleteWhitespace("  \u000C  \t\t\u001F\n\n \u000B  "));
+        assertEquals("", StringUtils.deleteWhitespace(StringUtilsTest.WHITESPACE));
+        assertEquals(StringUtilsTest.NON_WHITESPACE, StringUtils.deleteWhitespace(StringUtilsTest.NON_WHITESPACE));
         // Note: u-2007 and u-000A both cause problems in the source code
         // it should ignore 2007 but delete 000A
-        assertEquals("deleteWhitespace(String) failed",
-                     "\u00A0\u202F", StringUtils.deleteWhitespace("  \u00A0  \t\t\n\n \u202F  "));
-        assertEquals("deleteWhitespace(String) failed",
-                     "\u00A0\u202F", StringUtils.deleteWhitespace("\u00A0\u202F"));
-        assertEquals("deleteWhitespace(String) failed",
-                     "test", StringUtils.deleteWhitespace("\u000Bt  \t\n\u0009e\rs\n\n   \tt"));
-
-        assertEquals("deleteSpaces(String) failed",
-                     "", StringUtils.deleteSpaces(""));
-        assertEquals("deleteSpaces(String) failed",
-                     "", StringUtils.deleteSpaces("    \t\t\n\n   "));
-        assertEquals("deleteSpaces(String) failed",
-                     "test", StringUtils.deleteSpaces("t  \t\ne\rs\n\n   \tt"));
+        assertEquals("\u00A0\u202F", StringUtils.deleteWhitespace("  \u00A0  \t\t\n\n \u202F  "));
+        assertEquals("\u00A0\u202F", StringUtils.deleteWhitespace("\u00A0\u202F"));
+        assertEquals("test", StringUtils.deleteWhitespace("\u000Bt  \t\n\u0009e\rs\n\n   \tt"));
     }
 
-    public void testStrip() {
-        // it's important that foo2Space is fooLeftSpace and fooRightSpace 
-        // merged together. So same number of spaces to left as fLS and same 
-        // to right as fLS. Same applies for foo2Dots.
-        String foo2Space = "    "+FOO+"    ";
-        String foo2Dots = "......"+FOO+".........";
-        String fooLeftSpace = "    "+FOO;
-        String fooLeftDots = "......"+FOO;
-        String fooRightSpace = FOO+"    ";
-        String fooRightDots = FOO+".........";
-
+    public void testStrip_String() {
         assertEquals(null, StringUtils.strip(null));
         assertEquals("", StringUtils.strip(""));
         assertEquals("", StringUtils.strip("        "));
-        assertEquals(FOO, StringUtils.strip(foo2Space));
+        assertEquals("abc", StringUtils.strip("  abc  "));
+        assertEquals(StringUtilsTest.NON_WHITESPACE, 
+            StringUtils.strip(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE));
+    }
+    
+    public void testStrip_StringString() {
+        // null strip
+        assertEquals(null, StringUtils.strip(null, null));
+        assertEquals("", StringUtils.strip("", null));
+        assertEquals("", StringUtils.strip("        ", null));
+        assertEquals("abc", StringUtils.strip("  abc  ", null));
+        assertEquals(StringUtilsTest.NON_WHITESPACE, 
+            StringUtils.strip(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE, null));
+
+        // "" strip
+        assertEquals(null, StringUtils.strip(null, ""));
+        assertEquals("", StringUtils.strip("", ""));
+        assertEquals("        ", StringUtils.strip("        ", ""));
+        assertEquals("  abc  ", StringUtils.strip("  abc  ", ""));
+        assertEquals(StringUtilsTest.WHITESPACE, StringUtils.strip(StringUtilsTest.WHITESPACE, ""));
         
-        assertEquals(FOO, StringUtils.strip(foo2Space, null));
-        assertEquals(FOO, StringUtils.strip(foo2Dots, "."));
-        assertEquals(FOO, StringUtils.strip(fooRightSpace));
-        assertEquals(FOO, StringUtils.strip(fooRightDots, "."));
-        assertEquals(FOO, StringUtils.strip(fooLeftSpace));
-        assertEquals(FOO, StringUtils.strip(fooLeftDots, "."));
-
+        // " " strip
+        assertEquals(null, StringUtils.strip(null, " "));
+        assertEquals("", StringUtils.strip("", " "));
+        assertEquals("", StringUtils.strip("        ", " "));
+        assertEquals("abc", StringUtils.strip("  abc  ", " "));
+        
+        // "ab" strip
+        assertEquals(null, StringUtils.strip(null, "ab"));
+        assertEquals("", StringUtils.strip("", "ab"));
+        assertEquals("        ", StringUtils.strip("        ", "ab"));
+        assertEquals("  abc  ", StringUtils.strip("  abc  ", "ab"));
+        assertEquals("c", StringUtils.strip("abcabab", "ab"));
+        assertEquals(StringUtilsTest.WHITESPACE, StringUtils.strip(StringUtilsTest.WHITESPACE, ""));
+    }
+    
+    public void testStripStart_StringString() {
+        // null stripStart
         assertEquals(null, StringUtils.stripStart(null, null));
+        assertEquals("", StringUtils.stripStart("", null));
+        assertEquals("", StringUtils.stripStart("        ", null));
+        assertEquals("abc  ", StringUtils.stripStart("  abc  ", null));
+        assertEquals(StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE, 
+            StringUtils.stripStart(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE, null));
+
+        // "" stripStart
+        assertEquals(null, StringUtils.stripStart(null, ""));
+        assertEquals("", StringUtils.stripStart("", ""));
+        assertEquals("        ", StringUtils.stripStart("        ", ""));
+        assertEquals("  abc  ", StringUtils.stripStart("  abc  ", ""));
+        assertEquals(StringUtilsTest.WHITESPACE, StringUtils.stripStart(StringUtilsTest.WHITESPACE, ""));
+        
+        // " " stripStart
+        assertEquals(null, StringUtils.stripStart(null, " "));
         assertEquals("", StringUtils.stripStart("", " "));
-        assertEquals(fooRightSpace, StringUtils.stripStart(foo2Space, null));
-        assertEquals(fooRightSpace, StringUtils.stripStart(foo2Space, " "));
-        assertEquals(fooRightDots, StringUtils.stripStart(foo2Dots, "."));
-        assertEquals(fooRightSpace, StringUtils.stripStart(fooRightSpace, " "));
-        assertEquals(fooRightDots, StringUtils.stripStart(fooRightDots, "."));
-        assertEquals(FOO, StringUtils.stripStart(fooLeftSpace, " "));
-        assertEquals(FOO, StringUtils.stripStart(fooLeftDots, "."));
-
+        assertEquals("", StringUtils.stripStart("        ", " "));
+        assertEquals("abc  ", StringUtils.stripStart("  abc  ", " "));
+        
+        // "ab" stripStart
+        assertEquals(null, StringUtils.stripStart(null, "ab"));
+        assertEquals("", StringUtils.stripStart("", "ab"));
+        assertEquals("        ", StringUtils.stripStart("        ", "ab"));
+        assertEquals("  abc  ", StringUtils.stripStart("  abc  ", "ab"));
+        assertEquals("cabab", StringUtils.stripStart("abcabab", "ab"));
+        assertEquals(StringUtilsTest.WHITESPACE, StringUtils.stripStart(StringUtilsTest.WHITESPACE, ""));
+    }
+    
+    public void testStripEnd_StringString() {
+        // null stripEnd
         assertEquals(null, StringUtils.stripEnd(null, null));
+        assertEquals("", StringUtils.stripEnd("", null));
+        assertEquals("", StringUtils.stripEnd("        ", null));
+        assertEquals("  abc", StringUtils.stripEnd("  abc  ", null));
+        assertEquals(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE, 
+            StringUtils.stripEnd(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE, null));
+
+        // "" stripEnd
+        assertEquals(null, StringUtils.stripEnd(null, ""));
+        assertEquals("", StringUtils.stripEnd("", ""));
+        assertEquals("        ", StringUtils.stripEnd("        ", ""));
+        assertEquals("  abc  ", StringUtils.stripEnd("  abc  ", ""));
+        assertEquals(StringUtilsTest.WHITESPACE, StringUtils.stripEnd(StringUtilsTest.WHITESPACE, ""));
+        
+        // " " stripEnd
+        assertEquals(null, StringUtils.stripEnd(null, " "));
         assertEquals("", StringUtils.stripEnd("", " "));
-        assertEquals(fooLeftSpace, StringUtils.stripEnd(foo2Space, null));
-        assertEquals(fooLeftSpace, StringUtils.stripEnd(foo2Space, " "));
-        assertEquals(fooLeftDots, StringUtils.stripEnd(foo2Dots, "."));
-        assertEquals(FOO, StringUtils.stripEnd(fooRightSpace, " "));
-        assertEquals(FOO, StringUtils.stripEnd(fooRightDots, "."));
-        assertEquals(fooLeftSpace, StringUtils.stripEnd(fooLeftSpace, " "));
-        assertEquals(fooLeftDots, StringUtils.stripEnd(fooLeftDots, "."));
+        assertEquals("", StringUtils.stripEnd("        ", " "));
+        assertEquals("  abc", StringUtils.stripEnd("  abc  ", " "));
+        
+        // "ab" stripEnd
+        assertEquals(null, StringUtils.stripEnd(null, "ab"));
+        assertEquals("", StringUtils.stripEnd("", "ab"));
+        assertEquals("        ", StringUtils.stripEnd("        ", "ab"));
+        assertEquals("  abc  ", StringUtils.stripEnd("  abc  ", "ab"));
+        assertEquals("abc", StringUtils.stripEnd("abcabab", "ab"));
+        assertEquals(StringUtilsTest.WHITESPACE, StringUtils.stripEnd(StringUtilsTest.WHITESPACE, ""));
+    }
 
-        assertEquals(FOO, StringUtils.strip(". . . . ."+FOO+". . ", " ."));
-        assertEquals("-."+FOO, StringUtils.strip(". . . . -."+FOO+". . ", " ."));
-        assertEquals(FOO, StringUtils.strip("..  .."+FOO+".. ", " ."));
-        assertEquals(FOO, StringUtils.strip("..  .."+FOO+".. ", "+= ."));
-
+    public void testStripAll() {
         // test stripAll method, merely an array version of the above strip
         String[] empty = new String[0];
-        String[] fooSpace = new String[] { foo2Space, fooLeftSpace, fooRightSpace };
-        String[] fooDots = new String[] { foo2Dots, fooLeftDots, fooRightDots };
+        String[] fooSpace = new String[] { "  "+FOO+"  ", "  "+FOO, FOO+"  " };
+        String[] fooDots = new String[] { ".."+FOO+"..", ".."+FOO, FOO+".." };
         String[] foo = new String[] { FOO, FOO, FOO };
 
         assertEquals(null, StringUtils.stripAll(null));
