@@ -16,7 +16,7 @@ limitations under the License.
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.31 2004/10/21 00:21:39 ggregory Exp $
+        $Id: build.xml,v 1.32 2004/10/21 00:36:37 ggregory Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
@@ -101,7 +101,8 @@ limitations under the License.
 	        	 windowtitle="${component.title} (Version ${component.version})"
 	        	 bottom="Copyright &amp;copy; 2001-2003 - Apache Software Foundation"
 	        	 use="true"
-	        	 link="${jdk.javadoc}">
+	        	 link="${jdk.javadoc}"
+                 source="${compile.source}">
             <classpath refid="compile.classpath"/>
         </javadoc>
     </target>
