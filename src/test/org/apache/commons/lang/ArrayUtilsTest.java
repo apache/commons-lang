@@ -70,7 +70,7 @@ import junit.textui.TestRunner;
  * @author Moritz Petersen
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
- * @version $Id: ArrayUtilsTest.java,v 1.10 2003/07/30 22:21:39 scolebourne Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.11 2003/07/31 22:31:12 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -684,7 +684,8 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.indexOf(array, "notInArray", 2));
         
         assertEquals(4, ArrayUtils.indexOf(array, null, -1));
-        assertEquals(-1, ArrayUtils.indexOf(array, "0", 6));
+        assertEquals(-1, ArrayUtils.indexOf(array, null, 8));
+        assertEquals(-1, ArrayUtils.indexOf(array, "0", 8));
     }
 
     public void testLastIndexOf() {

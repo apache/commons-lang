@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Tetsuya Kaneuchi
- * @version $Id: SystemUtilsTest.java,v 1.4 2003/07/30 22:21:39 scolebourne Exp $
+ * @version $Id: SystemUtilsTest.java,v 1.5 2003/07/31 22:31:12 scolebourne Exp $
  */
 public class SystemUtilsTest extends TestCase {
 
@@ -204,6 +204,11 @@ public class SystemUtilsTest extends TestCase {
         return OS_NAME.startsWith(osNamePrefix) && OS_VERSION.startsWith(osVersionPrefix);
     }    
 
+    //-----------------------------------------------------------------------
+    public void testJavaVersion() {
+        assertEquals(SystemUtils.JAVA_VERSION_FLOAT, SystemUtils.getJavaVersion(), 0f);
+    }
+    
     //-----------------------------------------------------------------------
     public void testJavaVersionMatches() {
         JAVA_VERSION = null;
