@@ -146,7 +146,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.80 2003/07/26 14:34:49 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.81 2003/07/26 15:35:35 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -168,17 +168,18 @@ public class StringUtils {
     /**
      * <p>The maximum size to which the padding constant(s) can expand.</p>
      */
-    private static int PAD_LIMIT = 8192;
+    private static final int PAD_LIMIT = 8192;
 
     /**
      * <p>An array of <code>String</code>s used for padding.</p>
      *
      * <p>Used for efficient space padding. The length of each String expands as needed.</p>
      */
-    private final static String[] padding = new String[Character.MAX_VALUE];
+    private static final String[] PADDING = new String[Character.MAX_VALUE];
     
     static {
-        padding[32] = "                                ";
+        // space padding is most common, start with 64 chars
+        PADDING[32] = "                                                                ";
     }
 
     /**
@@ -2665,13 +2666,17 @@ public class StringUtils {
      * @throws IndexOutOfBoundsException if <code>repeat &lt; 0</code>
      */
     private static String padding(int repeat, char padChar) {
-        if (padding[padChar] == null) {
-            padding[padChar] = String.valueOf(padChar);
+        // be careful of synchronization in this method
+        // we are assuming that get and set from an array index is atomic
+        String pad = PADDING[padChar];
+        if (pad == null) {
+            pad = String.valueOf(padChar);
         }
-        while (padding[padChar].length() < repeat) {
-            padding[padChar] = padding[padChar].concat(padding[padChar]);
+        while (pad.length() < repeat) {
+            pad = pad.concat(pad);
         }
-        return padding[padChar].substring(0, repeat);
+        PADDING[padChar] = pad;
+        return pad.substring(0, repeat);
     }
 
     /**
