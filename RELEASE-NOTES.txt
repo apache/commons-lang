@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.7 2003/07/11 06:38:58 rdonkin Exp $
+$Id: RELEASE-NOTES.txt,v 1.8 2003/07/12 03:29:27 bayard Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -89,6 +89,56 @@ builder:
 
 
 BUG FIXES:
+
+ID Sev Pri Plt Owner State Result Summary 
+13367  [PATCH] StringUtil enhancement  
+13391  Javadoc nit  
+13771  Additional Lang Method Suggestions  
+14306  NullPointerException in CompareToBuilder  
+14357  static option for reversing the stacktrace  
+14447  ToStringBuilder doesn't work well in subclasses  
+14883  StringUtils.countMatches loops forever if substring empty  
+14884  NumberRange inaccurate for Long, etc.  
+14985  More flexibility for getRootCause in ExceptionUtils  
+15154  SystemUtils.IS_JAVA_1_5 Javadoc is wrong  
+15257  Hierarchy support in ToStringBuilder.reflectionToString()  
+15438  ArrayUtils.contains()  
+15439  Enum does not support inner sub-classes  
+15986  Infinite loop in ToStringBuilder.reflectionToString for inne  
+16076  Example in Javadoc for ToStringBuilder wrong for append.  
+16193  Hierarchy support in EqualsBuilder.reflectionEquals()  
+16202  typo in the javadoc example code  
+16204  Infinite loop in StringUtils.replace(text, repl, with) + FIX  
+16227  Added class hierachy support to CompareToBuilder.reflectionC  
+16228  Added class hierachy support to HashCodeBuilder.reflectionHa  
+16284  MethodUtils: Removed unused code/unused local vars.  
+16341  No Javadoc for NestableDelegate  
+16622  Removed compile warning in FastDateFormat  
+16669  JavaDoc Errata  
+16676  StackOverflow due to ToStringBuilder  
+16689  ExceptionUtils new methods.  
+16690  Specify initial size for Enum's HashMap.  
+16787  Removed compile warning in ObjectUtils  
+17250  [Lang] Should ToStringBuilder.reflectionToString handle arra  
+17654  EnumUtils nit: The import java.io.Serializable is never used  
+17882  Add join(..., char c) to StringUtils (and some performance f  
+18077  StringUtils.chomp does not match Perl  
+18723  RandomStringUtils infloops with length < 1  
+18836  test.lang fails if compiled with non iso-8859-1 locales  
+18948  Resurrect the WordWrapUtils from commons-sandbox/utils  
+19296  [Lang] What to do with FastDateFormat unused private constru  
+19364  [Lang] time unit tests fail on Sundays  
+19756  [lang] java.lang.ExceptionInInitializerError thrown by JVMRa  
+19880  [lang] patch and test case fixing problem with RandomStringU  
+20165  [LANG] SystemUtils does not play nice in an Applet  
+20538  [lang] NumberUtils.isNumber allows illegal trailing characte  
+20592  [lang] RandomStringUtils.randomAlpha methods omit 'z'  
+20603  [lang] Make NestableDelegate methods public instead of packa  
+20632  Refactored reflection feature of ToStringBuilder into new Re  
+20652  StringUtils.chopNewLine - StringIndexOutOfBoundsException  
+21021  [PATCH] reduce object creation in ToStringBuilder  
+21068  [lang] [PATCH] NumberUtils min/max, BooleanUtils.xor, and Ar  
+21099  [lang][PATCH] Unused field 'startFinal' in DateIterator  
 
 
 DEPRECATIONS:
