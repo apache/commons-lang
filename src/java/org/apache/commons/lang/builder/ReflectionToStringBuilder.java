@@ -11,7 +11,7 @@ import org.apache.commons.lang.ClassUtils;
  * <p>Builds <code>toString()</code> values using reflection.</p>
  *
  * <p>This class uses reflection to determine the fields to append. 
- * Because these fields are usually private, the class, 
+ * Because these fields are usually private, the class 
  * uses <code>Field.setAccessible</code> to
  * change the visibility of the fields. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly.</p>
@@ -20,13 +20,11 @@ import org.apache.commons.lang.ClassUtils;
  * <pre>
  * public String toString() {
  *   return ReflectionToStringBuilder.toString(this);
- * }
- * </pre>
+ * }</pre>
  *
  * <p>You can also use the builder to debug 3rd party objects:</p>
  * <pre>
- * System.out.println("An object: " + ReflectionToStringBuilder.toString(anObject));
- * </pre>
+ * System.out.println("An object: " + ReflectionToStringBuilder.toString(anObject));</pre>
  * 
  * <p>A subclass can control field output by overriding the methods:
  * <ul> 
@@ -34,6 +32,16 @@ import org.apache.commons.lang.ClassUtils;
  *  <li>{@link #getValue(java.lang.reflect.Field)}</li>
  * </ul>
  * </p>
+ * <p>For example, this method does <i>not</i> include the <code>password</code> field in the returned 
+ * <code>String</code>:</p>
+ * <pre>
+ * public String toString() {
+ *     return (new ReflectionToStringBuilder(this) {
+ *         protected boolean accept(Field f) {
+ *             return super.accept(f) && !f.getName().equals("password");
+ *         }
+ *     }).toString();
+ * }</pre>
  * 
  * <p>The exact format of the <code>toString</code> is determined by
  * the {@link ToStringStyle} passed into the constructor.</p>
@@ -41,7 +49,7 @@ import org.apache.commons.lang.ClassUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: ReflectionToStringBuilder.java,v 1.3 2003/07/14 23:02:27 scolebourne Exp $
+ * @version $Id: ReflectionToStringBuilder.java,v 1.4 2003/07/15 23:04:23 ggregory Exp $
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
 
@@ -382,7 +390,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>Calls <code>java.lang.reflect.Field.get(Object)</code></p>
+     * <p>Calls <code>java.lang.reflect.Field.get(Object)}</code></p>
      *
      * @see java.lang.reflect.Field#get(Object)
      * @throws IllegalArgumentException
