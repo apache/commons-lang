@@ -69,7 +69,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.19 2003/04/16 04:37:33 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.20 2003/06/21 22:24:56 bayard Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -331,6 +331,27 @@ public class StringUtilsTest extends TestCase {
                 "foobar", StringUtils.chomp("foobar", "baz"));
         assertEquals("chomp(String, String) failed",
                 "foo", StringUtils.chomp("foo", "foooo"));
+    }
+
+    public void testChopNewLine() {
+
+        String[][] newLineCases = {
+            { FOO + "\r\n", FOO } ,
+            { FOO + "\n" , FOO } ,
+            { FOO + "\r", FOO + "\r" },
+            { FOO, FOO },
+            { FOO + "\n" + FOO , FOO + "\n" + FOO },
+            { FOO + "\n\n", FOO + "\n"},
+            { "\n", "" },
+            { "\r\n", "" }
+      };
+
+      for (int i = 0; i < newLineCases.length; i++) {
+          String original = newLineCases[i][0];
+          String expectedResult = newLineCases[i][1];
+          assertEquals("chopNewline(String) failed",
+                  expectedResult, StringUtils.chopNewline(original));
+      }
     }
 
     public void testSliceFunctions() {
