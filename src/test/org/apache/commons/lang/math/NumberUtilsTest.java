@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang.math;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -73,7 +75,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: NumberUtilsTest.java,v 1.5 2003/07/26 19:12:30 ggregory Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.6 2003/08/04 02:01:53 scolebourne Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -91,6 +93,16 @@ public class NumberUtilsTest extends TestCase {
         return suite;
     }
 
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new NumberUtils());
+        Constructor[] cons = NumberUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(NumberUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(NumberUtils.class.getModifiers()));
+    }
+    
     //---------------------------------------------------------------------
 
     /**
@@ -286,10 +298,8 @@ public class NumberUtilsTest extends TestCase {
             6,
             NumberUtils.min(new long[] { 6, 9 }));
 
-        assertEquals(
-            "min(long[]) failed for array length 5",
-            -10,
-            NumberUtils.min(new long[] { -10, -5, 0, 5, 10 }));
+        assertEquals(-10, NumberUtils.min(new long[] { -10, -5, 0, 5, 10 }));
+        assertEquals(-10, NumberUtils.min(new long[] { -5, 0, -10, 5, 10 }));
     }
 
     public void testMinInt() {
@@ -314,10 +324,8 @@ public class NumberUtilsTest extends TestCase {
             6,
             NumberUtils.min(new int[] { 6, 9 }));
 
-        assertEquals(
-            "min(int[]) failed for array length 5",
-            -10,
-            NumberUtils.min(new int[] { -10, -5, 0, 5, 10 }));
+        assertEquals(-10, NumberUtils.min(new int[] { -10, -5, 0, 5, 10 }));
+        assertEquals(-10, NumberUtils.min(new int[] { -5, 0, -10, 5, 10 }));
     }
 
     public void testMinShort() {
@@ -342,10 +350,8 @@ public class NumberUtilsTest extends TestCase {
             6,
             NumberUtils.min(new short[] { 6, 9 }));
 
-        assertEquals(
-            "min(short[]) failed for array length 5",
-            -10,
-            NumberUtils.min(new short[] { -10, -5, 0, 5, 10 }));
+        assertEquals(-10, NumberUtils.min(new short[] { -10, -5, 0, 5, 10 }));
+        assertEquals(-10, NumberUtils.min(new short[] { -5, 0, -10, 5, 10 }));
     }
 
     public void testMinDouble() {
@@ -377,6 +383,8 @@ public class NumberUtilsTest extends TestCase {
             -10.45,
             NumberUtils.min(new double[] { -10.45, -5.56, 0, 5.67, 10.78 }),
             0);
+        assertEquals(-10, NumberUtils.min(new double[] { -10, -5, 0, 5, 10 }), 0.0001);
+        assertEquals(-10, NumberUtils.min(new double[] { -5, 0, -10, 5, 10 }), 0.0001);
     }
 
     public void testMinFloat() {
@@ -408,6 +416,8 @@ public class NumberUtilsTest extends TestCase {
             -10.6f,
             NumberUtils.min(new float[] { -10.6f, -5.5f, 0, 5.4f, 10.3f }),
             0);
+        assertEquals(-10, NumberUtils.min(new float[] { -10, -5, 0, 5, 10 }), 0.0001f);
+        assertEquals(-10, NumberUtils.min(new float[] { -5, 0, -10, 5, 10 }), 0.0001f);
     }
 
     public void testMaxLong() {
@@ -436,6 +446,8 @@ public class NumberUtilsTest extends TestCase {
             "max(long[]) failed for array length 5",
             10,
             NumberUtils.max(new long[] { -10, -5, 0, 5, 10 }));
+        assertEquals(10, NumberUtils.max(new long[] { -10, -5, 0, 5, 10 }));
+        assertEquals(10, NumberUtils.max(new long[] { -5, 0, 10, 5, -10 }));
     }
 
     public void testMaxInt() {
@@ -464,6 +476,8 @@ public class NumberUtilsTest extends TestCase {
             "max(int[]) failed for array length 5",
             10,
             NumberUtils.max(new int[] { -10, -5, 0, 5, 10 }));
+        assertEquals(10, NumberUtils.max(new int[] { -10, -5, 0, 5, 10 }));
+        assertEquals(10, NumberUtils.max(new int[] { -5, 0, 10, 5, -10 }));
     }
 
     public void testMaxShort() {
@@ -492,6 +506,8 @@ public class NumberUtilsTest extends TestCase {
             "max(short[]) failed for array length 5",
             10,
             NumberUtils.max(new short[] { -10, -5, 0, 5, 10 }));
+        assertEquals(10, NumberUtils.max(new short[] { -10, -5, 0, 5, 10 }));
+        assertEquals(10, NumberUtils.max(new short[] { -5, 0, 10, 5, -10 }));
     }
 
     public void testMaxDouble() {
@@ -523,6 +539,8 @@ public class NumberUtilsTest extends TestCase {
             10.4f,
             NumberUtils.max(new double[] { -10.5f, -5.6f, 0, 5.7f, 10.4f }),
             0);
+        assertEquals(10, NumberUtils.max(new double[] { -10, -5, 0, 5, 10 }), 0.0001);
+        assertEquals(10, NumberUtils.max(new double[] { -5, 0, 10, 5, -10 }), 0.0001);
     }
  
     public void testMaxFloat() {
@@ -554,6 +572,8 @@ public class NumberUtilsTest extends TestCase {
             10.4f,
             NumberUtils.max(new float[] { -10.5f, -5.6f, 0, 5.7f, 10.4f }),
             0);
+        assertEquals(10, NumberUtils.max(new float[] { -10, -5, 0, 5, 10 }), 0.0001f);
+        assertEquals(10, NumberUtils.max(new float[] { -5, 0, 10, 5, -10 }), 0.0001f);
     }
 
     public void testMinimumLong() {
@@ -576,20 +596,42 @@ public class NumberUtilsTest extends TestCase {
         short low = 1234;
         short mid = 1234 + 1;
         short high = 1234 + 2;
-        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(low, mid, high));
-        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(mid, low, high));
-        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(mid, high, low));
-        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(low, mid, low));
+        assertEquals("minimum(short,short,short) 1 failed", low, NumberUtils.min(low, mid, high));
+        assertEquals("minimum(short,short,short) 1 failed", low, NumberUtils.min(mid, low, high));
+        assertEquals("minimum(short,short,short) 1 failed", low, NumberUtils.min(mid, high, low));
+        assertEquals("minimum(short,short,short) 1 failed", low, NumberUtils.min(low, mid, low));
     }
 
     public void testMinimumByte() {
         byte low = 123;
         byte mid = 123 + 1;
         byte high = 123 + 2;
-        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(low, mid, high));
-        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(mid, low, high));
-        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(mid, high, low));
-        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(low, mid, low));
+        assertEquals("minimum(byte,byte,byte) 1 failed", low, NumberUtils.min(low, mid, high));
+        assertEquals("minimum(byte,byte,byte) 1 failed", low, NumberUtils.min(mid, low, high));
+        assertEquals("minimum(byte,byte,byte) 1 failed", low, NumberUtils.min(mid, high, low));
+        assertEquals("minimum(byte,byte,byte) 1 failed", low, NumberUtils.min(low, mid, low));
+    }
+
+    public void testMinimumDouble() {
+        double low = 12.3;
+        double mid = 12.3 + 1;
+        double high = 12.3 + 2;
+        assertEquals(low, NumberUtils.min(low, mid, high), 0.0001);
+        assertEquals(low, NumberUtils.min(mid, low, high), 0.0001);
+        assertEquals(low, NumberUtils.min(mid, high, low), 0.0001);
+        assertEquals(low, NumberUtils.min(low, mid, low), 0.0001);
+        assertEquals(mid, NumberUtils.min(high, mid, high), 0.0001);
+    }
+
+    public void testMinimumFloat() {
+        float low = 12.3f;
+        float mid = 12.3f + 1;
+        float high = 12.3f + 2;
+        assertEquals(low, NumberUtils.min(low, mid, high), 0.0001f);
+        assertEquals(low, NumberUtils.min(mid, low, high), 0.0001f);
+        assertEquals(low, NumberUtils.min(mid, high, low), 0.0001f);
+        assertEquals(low, NumberUtils.min(low, mid, low), 0.0001f);
+        assertEquals(mid, NumberUtils.min(high, mid, high), 0.0001f);
     }
 
     public void testMaximumLong() {
@@ -612,20 +654,42 @@ public class NumberUtilsTest extends TestCase {
         short low = 1234;
         short mid = 1234 + 1;
         short high = 1234 + 2;
-        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(low, mid, high));
-        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(mid, low, high));
-        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(mid, high, low));
-        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(high, mid, high));
+        assertEquals("maximum(short,short,short) 1 failed", high, NumberUtils.max(low, mid, high));
+        assertEquals("maximum(short,short,short) 1 failed", high, NumberUtils.max(mid, low, high));
+        assertEquals("maximum(short,short,short) 1 failed", high, NumberUtils.max(mid, high, low));
+        assertEquals("maximum(short,short,short) 1 failed", high, NumberUtils.max(high, mid, high));
     }
 
     public void testMaximumByte() {
         byte low = 123;
         byte mid = 123 + 1;
         byte high = 123 + 2;
-        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(low, mid, high));
-        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(mid, low, high));
-        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(mid, high, low));
-        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(high, mid, high));
+        assertEquals("maximum(byte,byte,byte) 1 failed", high, NumberUtils.max(low, mid, high));
+        assertEquals("maximum(byte,byte,byte) 1 failed", high, NumberUtils.max(mid, low, high));
+        assertEquals("maximum(byte,byte,byte) 1 failed", high, NumberUtils.max(mid, high, low));
+        assertEquals("maximum(byte,byte,byte) 1 failed", high, NumberUtils.max(high, mid, high));
+    }
+
+    public void testMaximumDouble() {
+        double low = 12.3;
+        double mid = 12.3 + 1;
+        double high = 12.3 + 2;
+        assertEquals(high, NumberUtils.max(low, mid, high), 0.0001);
+        assertEquals(high, NumberUtils.max(mid, low, high), 0.0001);
+        assertEquals(high, NumberUtils.max(mid, high, low), 0.0001);
+        assertEquals(mid, NumberUtils.max(low, mid, low), 0.0001);
+        assertEquals(high, NumberUtils.max(high, mid, high), 0.0001);
+    }
+
+    public void testMaximumFloat() {
+        float low = 12.3f;
+        float mid = 12.3f + 1;
+        float high = 12.3f + 2;
+        assertEquals(high, NumberUtils.max(low, mid, high), 0.0001f);
+        assertEquals(high, NumberUtils.max(mid, low, high), 0.0001f);
+        assertEquals(high, NumberUtils.max(mid, high, low), 0.0001f);
+        assertEquals(mid, NumberUtils.max(low, mid, low), 0.0001f);
+        assertEquals(high, NumberUtils.max(high, mid, high), 0.0001f);
     }
 
     public void testCompareDouble() {

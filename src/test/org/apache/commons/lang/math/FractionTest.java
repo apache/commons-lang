@@ -60,7 +60,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link Fraction} classes.
  *
  * @author Stephen Colebourne
- * @version $Id: FractionTest.java,v 1.2 2002/12/22 21:18:51 scolebourne Exp $
+ * @version $Id: FractionTest.java,v 1.3 2003/08/04 02:01:53 scolebourne Exp $
  */
 public class FractionTest extends TestCase {
     
@@ -703,6 +703,18 @@ public class FractionTest extends TestCase {
         assertEquals(7, f.getNumerator());
         assertEquals(5, f.getDenominator());
         
+        f1 = Fraction.getFraction(0, 5);
+        f2 = Fraction.getFraction(4, 5);
+        f = f1.subtract(f2);
+        assertEquals(-4, f.getNumerator());
+        assertEquals(5, f.getDenominator());
+        
+        f1 = Fraction.getFraction(0, 5);
+        f2 = Fraction.getFraction(-4, 5);
+        f = f1.subtract(f2);
+        assertEquals(4, f.getNumerator());
+        assertEquals(5, f.getDenominator());
+        
         f1 = Fraction.getFraction(3, 5);
         f2 = Fraction.getFraction(1, 2);
         f = f1.subtract(f2);
@@ -845,7 +857,9 @@ public class FractionTest extends TestCase {
         Fraction f = null;
 
         f = Fraction.getFraction(3, 5);
-        assertEquals("3/5", f.toString());
+        String str = f.toString();
+        assertEquals("3/5", str);
+        assertSame(str, f.toString());
         
         f = Fraction.getFraction(7, 5);
         assertEquals("7/5", f.toString());        
@@ -864,7 +878,9 @@ public class FractionTest extends TestCase {
         Fraction f = null;
 
         f = Fraction.getFraction(3, 5);
-        assertEquals("3/5", f.toProperString());        
+        String str = f.toProperString();
+        assertEquals("3/5", str);
+        assertSame(str, f.toProperString());
         
         f = Fraction.getFraction(7, 5);
         assertEquals("1 2/5", f.toProperString());        

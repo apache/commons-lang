@@ -66,7 +66,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Tim O'Brien
  * @since 2.0
- * @version $Id: Fraction.java,v 1.7 2003/08/04 01:20:47 scolebourne Exp $
+ * @version $Id: Fraction.java,v 1.8 2003/08/04 02:01:53 scolebourne Exp $
  */
 public final class Fraction extends Number implements Serializable, Comparable {
 
@@ -200,9 +200,6 @@ public final class Fraction extends Number implements Serializable, Comparable {
             denominator = -denominator;
         }
         int gcd = greatestCommonDenominator(Math.abs(numerator), denominator);
-        if (gcd == 0) {
-            return new Fraction(numerator, denominator);
-        }
         return new Fraction(numerator / gcd, denominator / gcd);
     }
 
@@ -434,9 +431,6 @@ public final class Fraction extends Number implements Serializable, Comparable {
      */
     public Fraction reduce() {
         int gcd = greatestCommonDenominator(Math.abs(numerator), denominator);
-        if (gcd == 0) {
-            return this;
-        }
         return Fraction.getFraction(numerator / gcd, denominator / gcd);
     }
 
@@ -507,7 +501,7 @@ public final class Fraction extends Number implements Serializable, Comparable {
      *
      * @param number1  a positive number
      * @param number2  a positive number
-     * @return the greatest common denominator
+     * @return the greatest common denominator, never zero
      */
     private static int greatestCommonDenominator(int number1, int number2) {
         int remainder = number1 % number2;
