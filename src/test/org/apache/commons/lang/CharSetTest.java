@@ -64,7 +64,8 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.CharSet}.
  *
  * @author Stephen Colebourne
- * @version $Id: CharSetTest.java,v 1.1 2003/08/02 18:18:33 scolebourne Exp $
+ * @author Phil Steitz
+ * @version $Id: CharSetTest.java,v 1.2 2003/08/04 00:50:14 scolebourne Exp $
  */
 public class CharSetTest extends TestCase {
     
@@ -278,59 +279,107 @@ public class CharSetTest extends TestCase {
         set = CharSet.getInstance("^");
         array = set.getCharRanges();
         assertEquals(1, array.length);
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('^')));
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('^'))); // "^"
         
         set = CharSet.getInstance("^^");
         array = set.getCharRanges();
         assertEquals(1, array.length);
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', '^', true)));
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', '^', true))); // "^^"
         
         set = CharSet.getInstance("^^^");
         array = set.getCharRanges();
         assertEquals(2, array.length);
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', '^', true)));
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', '^')));
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', '^', true))); // "^^"
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', '^'))); // "^"
         
         set = CharSet.getInstance("^^^^");
         array = set.getCharRanges();
         assertEquals(1, array.length);
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', '^', true)));
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', '^', true))); // "^^" x2
         
         set = CharSet.getInstance("a^");
         array = set.getCharRanges();
         assertEquals(2, array.length);
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('a')));
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('^')));
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('a'))); // "a"
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('^'))); // "^"
         
         set = CharSet.getInstance("^a-");
         array = set.getCharRanges();
         assertEquals(2, array.length);
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('a', 'a', true)));
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('-')));
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('a', 'a', true))); // "^a"
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('-'))); // "-"
         
         set = CharSet.getInstance("^^-c");
         array = set.getCharRanges();
         assertEquals(1, array.length);
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', 'c', true)));
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', 'c', true))); // "^^-c"
         
         set = CharSet.getInstance("^c-^");
         array = set.getCharRanges();
         assertEquals(1, array.length);
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('c', '^', true)));
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('c', '^', true))); // "^c-^"
         
         set = CharSet.getInstance("^c-^d");
         array = set.getCharRanges();
         assertEquals(2, array.length);
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('c', '^', true)));
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('d')));
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('c', '^', true))); // "^c-^"
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('d'))); // "d"
         
         set = CharSet.getInstance("^^-");
         array = set.getCharRanges();
         assertEquals(2, array.length);
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', '^', true)));
-        assertEquals(true, ArrayUtils.contains(array, new CharRange('-')));
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('^', '^', true))); // "^^"
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('-'))); // "-"
     }
     
+    public void testConstructor_String_oddCombinations() {
+        CharSet set;
+        CharRange[] array = null;
+        
+        set = CharSet.getInstance("a-^c");
+        array = set.getCharRanges();
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('a', '^'))); // "a-^"
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('c'))); // "c"
+        assertEquals(false, set.contains('b'));
+        assertEquals(true, set.contains('^'));  
+        assertEquals(true, set.contains('_')); // between ^ and a
+        assertEquals(true, set.contains('c'));  
+        
+        set = CharSet.getInstance("^a-^c");
+        array = set.getCharRanges();
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('a', '^', true))); // "^a-^"
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('c'))); // "c"
+        assertEquals(true, set.contains('b'));
+        assertEquals(false, set.contains('^'));  
+        assertEquals(false, set.contains('_')); // between ^ and a
+        
+        set = CharSet.getInstance("a- ^-- "); //contains everything
+        array = set.getCharRanges();
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('a', ' '))); // "a- "
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('-', ' ', true))); // "^-- "
+        assertEquals(true, set.contains('#'));
+        assertEquals(true, set.contains('^'));
+        assertEquals(true, set.contains('a'));
+        assertEquals(true, set.contains('*'));
+        assertEquals(true, set.contains('A'));
+        
+        set = CharSet.getInstance("^-b");
+        array = set.getCharRanges();
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('^','b'))); // "^-b"
+        assertEquals(true, set.contains('b'));
+        assertEquals(true, set.contains('_')); // between ^ and a
+        assertEquals(false, set.contains('A'));
+        assertEquals(true, set.contains('^')); 
+        
+        set = CharSet.getInstance("b-^");
+        array = set.getCharRanges();
+        assertEquals(true, ArrayUtils.contains(array, new CharRange('^','b'))); // "b-^"
+        assertEquals(true, set.contains('b'));
+        assertEquals(true, set.contains('^'));
+        assertEquals(true, set.contains('a')); // between ^ and b
+        assertEquals(false, set.contains('c')); 
+    }
+        
     //-----------------------------------------------------------------------    
     public void testEquals_Object() {
         CharSet abc = CharSet.getInstance("abc");
@@ -377,6 +426,7 @@ public class CharSetTest extends TestCase {
     //-----------------------------------------------------------------------    
     public void testContains_Char() {
         CharSet btod = CharSet.getInstance("b-d");
+        CharSet dtob = CharSet.getInstance("d-b");
         CharSet bcd = CharSet.getInstance("bcd");
         CharSet bd = CharSet.getInstance("bd");
         CharSet notbtod = CharSet.getInstance("^b-d");
@@ -404,6 +454,16 @@ public class CharSetTest extends TestCase {
         assertEquals(false, notbtod.contains('c'));
         assertEquals(false, notbtod.contains('d'));
         assertEquals(true, notbtod.contains('e'));
+        
+        assertEquals(false, dtob.contains('a'));
+        assertEquals(true, dtob.contains('b'));
+        assertEquals(true, dtob.contains('c'));
+        assertEquals(true, dtob.contains('d'));
+        assertEquals(false, dtob.contains('e'));
+      
+        CharRange[] array = dtob.getCharRanges();
+        assertEquals("[b-d]", dtob.toString());
+        assertEquals(1, array.length);
     }
     
     //-----------------------------------------------------------------------    
