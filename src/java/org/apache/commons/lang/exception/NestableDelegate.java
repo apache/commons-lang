@@ -65,7 +65,7 @@ import java.io.Writer;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableDelegate.java,v 1.6 2002/08/24 19:18:50 dlr Exp $
+ * @version $Id: NestableDelegate.java,v 1.7 2002/08/25 19:02:49 dlr Exp $
  */
 public class NestableDelegate
 {
@@ -127,8 +127,8 @@ public class NestableDelegate
     }
     
     /**
-     * Returns the full message contains by the <code>Nestable</code> and any
-     * nested <code>Throwable</code>s.
+     * Returns the full message contained by the <code>Nestable</code>
+     * and any nested <code>Throwable</code>s.
      *
      * @param baseMsg the base message to use when creating the full
      * message. Should be generally be called via
