@@ -56,6 +56,7 @@
 package org.apache.commons.lang.builder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -65,7 +66,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ToStringBuilder}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilderTest.java,v 1.2 2002/12/08 20:48:46 scolebourne Exp $
+ * @version $Id: ToStringBuilderTest.java,v 1.3 2002/12/31 20:17:53 scolebourne Exp $
  */
 public class ToStringBuilderTest extends TestCase {
 
@@ -163,10 +164,57 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
     }
     
-    public void testReflection() {
-        assertEquals(baseStr + "[value=5]", ToStringBuilder.reflectionToString(base));
+	public void testReflection() {
+		assertEquals(baseStr + "[value=5]", ToStringBuilder.reflectionToString(base));
+	}
+
+    private String toBaseString(Object o) {
+        return o.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(o));
     }
-    
+
+    public void testReflectionHierarchyArrayList() {
+        List base = new ArrayList();
+        String baseStr = this.toBaseString(base);
+        assertEquals(baseStr + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]", ToStringBuilder.reflectionToString(base, null, true));
+        assertEquals(baseStr + "[size=0]", ToStringBuilder.reflectionToString(base, null, false));
+    }
+
+    public void testReflectionHierarchy() {
+        ReflectionTestFixtureA baseA = new ReflectionTestFixtureA();
+        String baseStr = this.toBaseString(baseA);
+        assertEquals(baseStr + "[a=a]", ToStringBuilder.reflectionToString(baseA));
+        assertEquals(baseStr + "[a=a]", ToStringBuilder.reflectionToString(baseA, null));
+        assertEquals(baseStr + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false));
+        assertEquals(baseStr + "[a=a,transientA=t]", ToStringBuilder.reflectionToString(baseA, null, true));
+        assertEquals(baseStr + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, null));
+        assertEquals(baseStr + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, Object.class));
+        assertEquals(baseStr + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, List.class));
+        assertEquals(baseStr + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, ReflectionTestFixtureA.class));
+        
+        ReflectionTestFixtureB baseB = new ReflectionTestFixtureB();
+        baseStr = this.toBaseString(baseB);
+        assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB));
+        assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB));
+        assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null));
+        assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false));
+        assertEquals(baseStr + "[b=b,transientB=t,a=a,transientA=t]", ToStringBuilder.reflectionToString(baseB, null, true));
+        assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, null));
+        assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, Object.class));
+        assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, List.class));
+        assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, ReflectionTestFixtureA.class));
+        assertEquals(baseStr + "[b=b]", ToStringBuilder.reflectionToString(baseB, null, false, ReflectionTestFixtureB.class));
+    }
+
+	static class ReflectionTestFixtureA {
+		private char a='a';
+        private transient char transientA='t';
+	}
+
+	static class ReflectionTestFixtureB extends ReflectionTestFixtureA {
+		private char b='b';
+        private transient char transientB='t';
+	}
+
     public void testAppendSuper() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").toString());
