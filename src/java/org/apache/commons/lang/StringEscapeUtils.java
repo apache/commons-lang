@@ -69,11 +69,11 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @author <a href="mailto:cybertiger@cyberiantiger.org">cybertiger@cyberiantiger.org</a>
+ * @author <a href="mailto:cybertiger@cyberiantiger.org">Antony Riley</a>
  * @author Helge Tesgaard
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.8 2003/04/10 00:01:21 ggregory Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.9 2003/04/16 16:31:45 bayard Exp $
  */
 public class StringEscapeUtils {
 
