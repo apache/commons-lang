@@ -23,7 +23,7 @@ limitations under the License.
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Package</h1>
 <h2>Developers Guide</h2>
-$Id: DEVELOPERS-GUIDE.html,v 1.7 2004/02/18 23:13:37 ggregory Exp $<br />
+$Id: DEVELOPERS-GUIDE.html,v 1.8 2004/07/07 05:08:05 bayard Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#PackageStructure">[Package Structure]</a>
 <a href="#UtilityClasses">[Utility Classes]</a>
@@ -84,6 +84,7 @@ decorator classes may be moved to top-level classes in a subpackage.  The
 naming of such a subpackage should be discussed and agreed upon on the
 developers mailing list.</p>
 
+<p>If different overloaded variants of a method are desired, with the same method signature, it should not be indicated via a boolean argument, but via a more focused method name. Rather than replace(boolean repeat), replace and replaceAll, or replaceOnce and replace. </p>
 
 
 <a name="Javadoc"></a>
