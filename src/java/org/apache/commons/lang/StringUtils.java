@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -148,7 +148,7 @@ import java.util.List;
  * @author Phil Steitz
  * @author Al Chou
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.124 2004/02/16 23:48:10 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.125 2004/02/18 22:32:50 fredrik Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -383,7 +383,7 @@ public class StringUtils {
      */
     public static String trimToNull(String str) {
         String ts = trim(str);
-        return (ts == null || ts.length() == 0 ? null : ts);
+        return (isEmpty(ts) ? null : ts);
     }
 
     /**
@@ -523,7 +523,7 @@ public class StringUtils {
      * @return the stripped String, <code>null</code> if null String input
      */
     public static String strip(String str, String stripChars) {
-        if (str == null || str.length() == 0) {
+        if (isEmpty(str)) {
             return str;
         }
         str = stripStart(str, stripChars);
@@ -753,7 +753,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int indexOf(String str, char searchChar) {
-        if (str == null || str.length() == 0) {
+        if (isEmpty(str)) {
             return -1;
         }
         return str.indexOf(searchChar);
@@ -785,7 +785,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int indexOf(String str, char searchChar, int startPos) {
-        if (str == null || str.length() == 0) {
+        if (isEmpty(str)) {
             return -1;
         }
         return str.indexOf(searchChar, startPos);
@@ -930,7 +930,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int lastIndexOf(String str, char searchChar) {
-        if (str == null || str.length() == 0) {
+        if (isEmpty(str)) {
             return -1;
         }
         return str.lastIndexOf(searchChar);
@@ -964,7 +964,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int lastIndexOf(String str, char searchChar, int startPos) {
-        if (str == null || str.length() == 0) {
+        if (isEmpty(str)) {
             return -1;
         }
         return str.lastIndexOf(searchChar, startPos);
@@ -1056,7 +1056,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static boolean contains(String str, char searchChar) {
-        if (str == null || str.length() == 0) {
+        if (isEmpty(str)) {
             return false;
         }
         return (str.indexOf(searchChar) >= 0);
@@ -1115,7 +1115,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int indexOfAny(String str, char[] searchChars) {
-        if (StringUtils.isEmpty(str) || searchChars == null || searchChars.length == 0) {
+        if (isEmpty(str) || searchChars == null || searchChars.length == 0) {
             return -1;
         }
         for (int i = 0; i < str.length(); i++) {
@@ -1152,7 +1152,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int indexOfAny(String str, String searchChars) {
-        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(searchChars)) {
+        if (isEmpty(str) || isEmpty(searchChars)) {
             return -1;
         }
         return indexOfAny(str, searchChars.toCharArray());
@@ -1183,7 +1183,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int indexOfAnyBut(String str, char[] searchChars) {
-        if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
+        if (isEmpty(str) || searchChars == null || searchChars.length == 0) {
             return -1;
         }
         outer : for (int i = 0; i < str.length(); i++) {
@@ -1221,7 +1221,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int indexOfAnyBut(String str, String searchChars) {
-        if (str == null || str.length() == 0 || searchChars == null || searchChars.length() == 0) {
+        if (isEmpty(str) || isEmpty(searchChars)) {
             return -1;
         }
         for (int i = 0; i < str.length(); i++) {
@@ -1722,7 +1722,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String substringBefore(String str, String separator) {
-        if (str == null || separator == null || str.length() == 0) {
+        if (isEmpty(str) || separator == null) {
             return str;
         }
         if (separator.length() == 0) {
@@ -1762,7 +1762,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String substringAfter(String str, String separator) {
-        if (str == null || str.length() == 0) {
+        if (isEmpty(str)) {
             return str;
         }
         if (separator == null) {
@@ -1801,7 +1801,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String substringBeforeLast(String str, String separator) {
-        if (str == null || separator == null || str.length() == 0 || separator.length() == 0) {
+        if (isEmpty(str) || isEmpty(separator)) {
             return str;
         }
         int pos = str.lastIndexOf(separator);
@@ -1839,10 +1839,10 @@ public class StringUtils {
      * @since 2.0
      */
     public static String substringAfterLast(String str, String separator) {
-        if (str == null || str.length() == 0) {
+        if (isEmpty(str)) {
             return str;
         }
-        if (separator == null || separator.length() == 0) {
+        if (isEmpty(separator)) {
             return EMPTY;
         }
         int pos = str.lastIndexOf(separator);
@@ -2091,7 +2091,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Splits the provided text into an array with a maximum length, 
+     * <p>Splits the provided text into an array with a maximum length,
      * separators specified.</p>
      *
      * <p>The separator is not included in the returned String array.
@@ -2100,7 +2100,7 @@ public class StringUtils {
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> separatorChars splits on whitespace.</p>
      *
-     * <p>If more than <code>max</code> delimited substrings are found, the last 
+     * <p>If more than <code>max</code> delimited substrings are found, the last
      * returned string includes all characters after the first <code>max - 1</code>
      * returned strings (including separator characters).</p>
      *
@@ -2112,7 +2112,7 @@ public class StringUtils {
      * StringUtils.split("ab:cd:ef", ":", 0)    = ["ab", "cd", "ef"]
      * StringUtils.split("ab:cd:ef", ":", 2)    = ["ab", "cd:ef"]
      * </pre>
-     * 
+     *
      * @param str  the String to parse, may be null
      * @param separatorChars  the characters used as the delimiters,
      *  <code>null</code> splits on whitespace
@@ -2450,7 +2450,7 @@ public class StringUtils {
      * @return the String without whitespaces, <code>null</code> if null String input
      */
     public static String deleteWhitespace(String str) {
-        if (str == null || str.length() == 0) {
+        if (isEmpty(str)) {
             return str;
         }
         int sz = str.length();
@@ -2494,7 +2494,7 @@ public class StringUtils {
      * @since 2.1
      */
     public static String removeStart(String str, String remove) {
-        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(remove)) {
+        if (isEmpty(str) || isEmpty(remove)) {
             return str;
         }
         if (str.startsWith(remove)){
@@ -2528,7 +2528,7 @@ public class StringUtils {
      * @since 2.1
      */
     public static String removeEnd(String str, String remove) {
-        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(remove)) {
+        if (isEmpty(str) || isEmpty(remove)) {
             return str;
         }
         if (str.endsWith(remove)) {
@@ -2622,7 +2622,7 @@ public class StringUtils {
      *  <code>null</code> if null String input
      */
     public static String replace(String text, String repl, String with, int max) {
-        if (text == null || repl == null || with == null || repl.length() == 0 || max == 0) {
+        if (text == null || isEmpty(repl) || with == null || max == 0) {
             return text;
         }
 
@@ -2706,7 +2706,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String replaceChars(String str, String searchChars, String replaceChars) {
-        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(searchChars)) {
+        if (isEmpty(str) || isEmpty(searchChars)) {
             return str;
         }
         if (replaceChars == null) {
@@ -2851,7 +2851,7 @@ public class StringUtils {
      * @return String without newline, <code>null</code> if null String input
      */
     public static String chomp(String str) {
-        if (str == null || str.length() == 0) {
+        if (isEmpty(str)) {
             return str;
         }
 
@@ -2907,7 +2907,7 @@ public class StringUtils {
      * @return String without trailing separator, <code>null</code> if null String input
      */
     public static String chomp(String str, String separator) {
-        if (str == null || str.length() == 0 || separator == null) {
+        if (isEmpty(str) || separator == null) {
             return str;
         }
         if (str.endsWith(separator)) {
@@ -3286,7 +3286,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        if (padStr == null || padStr.length() == 0) {
+        if (isEmpty(padStr)) {
             padStr = " ";
         }
         int padLen = padStr.length();
@@ -3398,7 +3398,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        if (padStr == null || padStr.length() == 0) {
+        if (isEmpty(padStr)) {
             padStr = " ";
         }
         int padLen = padStr.length();
@@ -3522,7 +3522,7 @@ public class StringUtils {
         if (str == null || size <= 0) {
             return str;
         }
-        if (padStr == null || padStr.length() == 0) {
+        if (isEmpty(padStr)) {
             padStr = " ";
         }
         int strLen = str.length();
@@ -3754,7 +3754,7 @@ public class StringUtils {
      * @return the number of occurrences, 0 if either String is <code>null</code>
      */
     public static int countMatches(String str, String sub) {
-        if (str == null || str.length() == 0 || sub == null || sub.length() == 0) {
+        if (isEmpty(str) || isEmpty(sub)) {
             return 0;
         }
         int count = 0;
