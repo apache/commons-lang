@@ -29,7 +29,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Maarten Coene
- * @version $Id: EqualsBuilderTest.java,v 1.12 2005/01/16 19:34:34 ggregory Exp $
+ * @version $Id: EqualsBuilderTest.java,v 1.13 2005/01/17 01:59:52 ggregory Exp $
  */
 public class EqualsBuilderTest extends TestCase {
 
@@ -945,4 +945,15 @@ public class EqualsBuilderTest extends TestCase {
         assertTrue(new EqualsBuilder().append(y, x).isEquals());
     }
     
+    /**
+     * Test from http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
+     */
+    public void testNpeForNullElement() {
+        Object[] x1 = new Object[] { new Integer(1), null, new Integer(3) };
+        Object[] x2 = new Object[] { new Integer(1), new Integer(2), new Integer(3) };
+
+        // causes an NPE in 2.0 according to:
+        // http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
+        new EqualsBuilder().append(x1, x2);
+    }
 }
