@@ -413,14 +413,45 @@ public class DateUtilsTest extends TestCase {
         assertEquals("parseCVS format MMM d, yyyy h:mm a",
                   now, DateUtils.parseCVS(new SimpleDateFormat("MMM d, yyyy h:mm a").format(now.getTime())), 50);
         // h:mm z
+        /*
+         * This format is difficult to test using the current time because the
+         * parseCVS method applies the default date of January 1, 1970 to the
+         * parsed time. The most straightforward way to test the parse is to
+         * pass in a known value, and test the output against this know value.
+         */
         now = Calendar.getInstance();
-        now.set(Calendar.MILLISECOND, 0);
-        now.set(Calendar.SECOND, 0);
-        now.set(Calendar.DAY_OF_MONTH, 1);
-        now.set(Calendar.MONTH, Calendar.JANUARY);
-        now.set(Calendar.YEAR, 1970);
-        assertEquals("parseCVS format h:mm z",
-                  now, DateUtils.parseCVS(new SimpleDateFormat("H:mm z").format(now.getTime())), 50);
+        now.setTime(new SimpleDateFormat("h:mm z").parse("16:30 GMT"));
+        assertEquals("parseCVS format h:mm z 16:30 GMT", 
+                  now, DateUtils.parseCVS("16:30 GMT"), 50);
+        now = Calendar.getInstance();
+        now.setTime(new SimpleDateFormat("h:mm z").parse("16:30 EST"));
+        assertEquals("parseCVS format h:mm z 16:30 EST", 
+                  now, DateUtils.parseCVS("16:30 EST"), 50);
+        now = Calendar.getInstance();
+        now.setTime(new SimpleDateFormat("h:mm z").parse("16:30 GMT-05:00"));
+        assertEquals("parseCVS format h:mm z 16:30 GMT-05:00", 
+                  now, DateUtils.parseCVS("16:30 GMT-05:00"), 50);
+        now = Calendar.getInstance();
+        now.setTime(new SimpleDateFormat("h:mm z").parse("16:30 GMT+01:00"));
+        assertEquals("parseCVS format h:mm z 16:30 GMT+01:00", 
+                  now, DateUtils.parseCVS("16:30 GMT+01:00"), 50);
+        
+        now = Calendar.getInstance();
+        now.setTime(new SimpleDateFormat("h:mm z").parse("06:30 GMT"));
+        assertEquals("parseCVS format h:mm z 06:30 GMT", 
+                  now, DateUtils.parseCVS("06:30 GMT"), 50);
+        now = Calendar.getInstance();
+        now.setTime(new SimpleDateFormat("h:mm z").parse("06:30 EST"));
+        assertEquals("parseCVS format h:mm z 06:30 EST", 
+                  now, DateUtils.parseCVS("06:30 EST"), 50);
+        now = Calendar.getInstance();
+        now.setTime(new SimpleDateFormat("h:mm z").parse("06:30 GMT-05:00"));
+        assertEquals("parseCVS format h:mm z 06:30 GMT-05:00", 
+                  now, DateUtils.parseCVS("06:30 GMT-05:00"), 50);
+        now = Calendar.getInstance();
+        now.setTime(new SimpleDateFormat("h:mm z").parse("06:30 GMT+01:00"));
+        assertEquals("parseCVS format h:mm z 06:30 GMT+01:00", 
+                  now, DateUtils.parseCVS("06:30 GMT+01:00"), 50);
         
         now = Calendar.getInstance();
         now.add(Calendar.WEEK_OF_MONTH, -1);
