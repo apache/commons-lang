@@ -44,7 +44,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Maarten Coene
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.44 2004/06/06 03:53:23 bayard Exp $
+ * @version $Id: ArrayUtils.java,v 1.45 2004/07/27 21:10:33 ggregory Exp $
  */
 public class ArrayUtils {
 
@@ -2869,9 +2869,9 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Adds all the elements of the provided arrays into a new array.</p>
+     * <p>Adds all the elements of the given arrays into a new array.</p>
      * <p>The new array contains all of the element of <code>array1</code> followed
-     * by all of the elements <code>array2</code>. If an array is returned, it is always
+     * by all of the elements <code>array2</code>. When an array is returned, it is always
      * a new array.</p>
      *
      * <pre>
@@ -2883,9 +2883,9 @@ public class ArrayUtils {
      * ArrayUtils.addAll(["a", "b", "c"], ["1", "2", "3"]) = ["a", "b", "c", "1", "2", "3"]
      * </pre>
      *
-     * @param array1  the first array whose elements are added to the new array, may be null
-     * @param array2  the second array whose elements are added to the new array, may be null
-     * @return The new array, <code>null</code> if null array inputs. 
+     * @param array1  the first array whose elements are added to the new array, may be <code>null</code>
+     * @param array2  the second array whose elements are added to the new array, may be <code>null</code>
+     * @return The new array, <code>null</code> if <code>null</code> array inputs. 
      *      The type of the new array is the type of the first array.
      * @since 2.1
      */
