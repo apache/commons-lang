@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: RandomStringUtilsTest.java,v 1.4 2003/03/23 21:50:58 scolebourne Exp $
+ * @version $Id: RandomStringUtilsTest.java,v 1.5 2003/04/09 14:13:03 bayard Exp $
  */
 public class RandomStringUtilsTest extends junit.framework.TestCase {
     /**
@@ -154,6 +154,17 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
         r1 = RandomStringUtils.random(50,0,0,true,true,null,new Random(seed));
         r2 = RandomStringUtils.random(50,0,0,true,true,null,new Random(seed));
         assertEquals("r1.equals(r2)", r1, r2);
+
+        r1 = RandomStringUtils.random(0);
+        assertEquals("random(0).equals(\"\")", "", r1);
+
+        Exception e = null;
+        try {
+            r1 = RandomStringUtils.random(-1);
+        } catch (Exception e2) {
+            e = e2;
+        }
+        assertNotNull("random(<0) throws exception", e);
     }
 
     public static void main(String args[]) {
