@@ -1,8 +1,8 @@
-$Id: RELEASE-NOTES.txt,v 1.6 2003/07/08 22:05:14 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.7 2003/07/11 06:38:58 rdonkin Exp $
 
                         Commons Lang Package
-                           Version 2.0
-                            Release Notes
+                            Version 2.0
+                           Release Notes
 
 
 INTRODUCTION:
@@ -15,7 +15,7 @@ NEW FEATURES:
 
 Since the release of the 1.0 package the following classes have been added:
 
-lang package.
+lang package:
     ArrayUtils
     BooleanUtils
     ClassUtils
@@ -30,7 +30,7 @@ lang package.
     UnhandledException
 
 
-math sub-package.
+math sub-package:
     IntRange
     LongRange
     Range
@@ -55,7 +55,7 @@ util sub-package:
 
 Since the release of the 1.0 package the following classes have been changed:
 
-lang.
+lang:
     CharSetUtils:
       added:
         keep method:  keep any characters specified in the CharSet string
@@ -70,19 +70,19 @@ lang.
         isJavaVersionAtLeast added. getJavaVersion deprecated.
 	host of new constants.
 
-enum.
+enum:
     Enum:
         getEnumClass(Class) added
     EnumUtils:
         Removed Comparable/Serializable interfaces.
 
-exception.
+exception:
     NestableDelegate:
         Gained many new methods for dissecting an Exception.
     ExceptionUtils:
         Gained many new methods to improve handling of nested stack traces.
         
-builder.
+builder:
     ReflectionToStringBuilder:
         Handy class added for creating default toStrings.
     All other builder classes received a set of new methods.
@@ -93,7 +93,7 @@ BUG FIXES:
 
 DEPRECATIONS:
 
-lang.
+lang:
     NumberRange:
         now deprecated, see math subpackage
     NumberUtils:
