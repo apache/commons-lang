@@ -54,6 +54,7 @@ package org.apache.commons.lang;
  * <http://www.apache.org/>.
  */
 
+import java.util.Arrays;
 import java.util.Map;
 
 import junit.framework.Test;
@@ -65,7 +66,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author Moritz Petersen
- * @version $Id: ArrayUtilsTest.java,v 1.1 2002/10/13 22:42:59 scolebourne Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.2 2002/11/16 12:56:44 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -92,7 +93,47 @@ public class ArrayUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testToString() {
+        assertEquals("{}", ArrayUtils.toString(null));
+        assertEquals("{}", ArrayUtils.toString(new Object[0]));
+        assertEquals("{}", ArrayUtils.toString(new String[0]));
+        assertEquals("{<null>}", ArrayUtils.toString(new String[] {null}));
+        assertEquals("{pink,blue}", ArrayUtils.toString(new String[] {"pink","blue"}));
+        
+        assertEquals("<empty>", ArrayUtils.toString(null, "<empty>"));
+        assertEquals("{}", ArrayUtils.toString(new Object[0], "<empty>"));
+        assertEquals("{}", ArrayUtils.toString(new String[0], "<empty>"));
+        assertEquals("{<null>}", ArrayUtils.toString(new String[] {null}, "<empty>"));
+        assertEquals("{pink,blue}", ArrayUtils.toString(new String[] {"pink","blue"}, "<empty>"));
+    }
 
+    //-----------------------------------------------------------------------
+    public void testHashCode() {
+        long[][] array1 = new long[][] {{2,5}, {4,5}};
+        long[][] array2 = new long[][] {{2,5}, {4,6}};
+        assertEquals(true, ArrayUtils.hashCode(array1) == ArrayUtils.hashCode(array1));
+        assertEquals(false, ArrayUtils.hashCode(array1) == ArrayUtils.hashCode(array2));
+        
+        Object[] array3 = new Object[] {new String(new char[] {'A', 'B'})};
+        Object[] array4 = new Object[] {"AB"};
+        assertEquals(true, ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array3));
+        assertEquals(true, ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array4));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIsEquals() {
+        long[][] array1 = new long[][] {{2,5}, {4,5}};
+        long[][] array2 = new long[][] {{2,5}, {4,6}};
+        assertEquals(true, ArrayUtils.isEquals(array1, array1));
+        assertEquals(false, ArrayUtils.isEquals(array1, array2));
+        
+        Object[] array3 = new Object[] {new String(new char[] {'A', 'B'})};
+        Object[] array4 = new Object[] {"AB"};
+        assertEquals(true, ArrayUtils.isEquals(array3, array3));
+        assertEquals(true, ArrayUtils.isEquals(array3, array4));
+    }
+    
+    //-----------------------------------------------------------------------
     public void testToMap() {
         Map map = ArrayUtils.toMap(new String[][] {{"foo", "bar"}, {"hello", "world"}});
         
@@ -102,30 +143,19 @@ public class ArrayUtilsTest extends TestCase {
         try {
             ArrayUtils.toMap(null);
             fail("exception expected");
-        } catch (IllegalArgumentException e) {
-            // expected.
-        }
-        
+        } catch (IllegalArgumentException ex) {}
         try {
             ArrayUtils.toMap(new String[][] {{"foo", "bar"}, {"short"}});
             fail("exception expected");
-        } catch (IllegalArgumentException e) {
-            // expected.
-        }
-        
+        } catch (IllegalArgumentException ex) {}
         try {
             ArrayUtils.toMap(new Object[] {new Object[] {"foo", "bar"}, "illegal type"});
             fail("exception expected");
-        } catch (IllegalArgumentException e) {
-            // expected.
-        }
-        
+        } catch (IllegalArgumentException ex) {}
         try {
             ArrayUtils.toMap(new Object[] {new Object[] {"foo", "bar"}, null});
             fail("exception expected");
-        } catch (IllegalArgumentException e) {
-            // expected.
-        }
+        } catch (IllegalArgumentException ex) {}
         
         map = ArrayUtils.toMap(new Object[] {new Map.Entry() {
             public Object getKey() {
@@ -147,6 +177,344 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals("bar", map.get("foo"));
     }
 
+    //-----------------------------------------------------------------------
+    public void testClone() {
+        assertEquals(null, ArrayUtils.clone((Object[]) null));
+        Object[] original1 = new Object[0];
+        Object[] cloned1 = ArrayUtils.clone(original1);
+        assertTrue(Arrays.equals(original1, cloned1));
+        assertTrue(original1 != cloned1);
+        
+        StringBuffer buf = new StringBuffer("pick");
+        original1 = new Object[] {buf, "a", new String[] {"stick"}};
+        cloned1 = ArrayUtils.clone(original1);
+        assertTrue(Arrays.equals(original1, cloned1));
+        assertTrue(original1 != cloned1);
+        assertSame(original1[0], cloned1[0]);
+        assertSame(original1[1], cloned1[1]);
+        assertSame(original1[2], cloned1[2]);
+    }
 
+    public void testCloneBoolean() {
+        boolean[] original = new boolean[] {true, false};
+        boolean[] cloned = ArrayUtils.clone(original);
+        assertTrue(Arrays.equals(original, cloned));
+        assertTrue(original != cloned);
+    }
+    
+    public void testCloneLong() {
+        long[] original = new long[] {0L, 1L};
+        long[] cloned = ArrayUtils.clone(original);
+        assertTrue(Arrays.equals(original, cloned));
+        assertTrue(original != cloned);
+    }
+    
+    public void testCloneInt() {
+        int[] original = new int[] {5, 8};
+        int[] cloned = ArrayUtils.clone(original);
+        assertTrue(Arrays.equals(original, cloned));
+        assertTrue(original != cloned);
+    }
+    
+    public void testCloneShort() {
+        short[] original = new short[] {1, 4};
+        short[] cloned = ArrayUtils.clone(original);
+        assertTrue(Arrays.equals(original, cloned));
+        assertTrue(original != cloned);
+    }
+    
+    public void testCloneChar() {
+        char[] original = new char[] {'a', '4'};
+        char[] cloned = ArrayUtils.clone(original);
+        assertTrue(Arrays.equals(original, cloned));
+        assertTrue(original != cloned);
+    }
+    
+    public void testCloneByte() {
+        byte[] original = new byte[] {1, 6};
+        byte[] cloned = ArrayUtils.clone(original);
+        assertTrue(Arrays.equals(original, cloned));
+        assertTrue(original != cloned);
+    }
+    
+    public void testCloneDouble() {
+        double[] original = new double[] {2.4d, 5.7d};
+        double[] cloned = ArrayUtils.clone(original);
+        assertTrue(Arrays.equals(original, cloned));
+        assertTrue(original != cloned);
+    }
+    
+    public void testCloneFloat() {
+        float[] original = new float[] {2.6f, 6.4f};
+        float[] cloned = ArrayUtils.clone(original);
+        assertTrue(Arrays.equals(original, cloned));
+        assertTrue(original != cloned);
+    }
 
+    //-----------------------------------------------------------------------
+    public void testSameLength() {
+        Object[] nullArray = null;
+        Object[] emptyArray = new Object[0];
+        Object[] oneArray = new Object[] {"pick"};
+        Object[] twoArray = new Object[] {"pick", "stick"};
+        
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
+        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+    }
+
+    public void testSameLengthBoolean() {
+        boolean[] nullArray = null;
+        boolean[] emptyArray = new boolean[0];
+        boolean[] oneArray = new boolean[] {true};
+        boolean[] twoArray = new boolean[] {true, false};
+        
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
+        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+    }
+    
+    public void testSameLengthLong() {
+        long[] nullArray = null;
+        long[] emptyArray = new long[0];
+        long[] oneArray = new long[] {0L};
+        long[] twoArray = new long[] {0L, 76L};
+        
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
+        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+    }
+    
+    public void testSameLengthInt() {
+        int[] nullArray = null;
+        int[] emptyArray = new int[0];
+        int[] oneArray = new int[] {4};
+        int[] twoArray = new int[] {5, 7};
+        
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
+        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+    }
+    
+    public void testSameLengthShort() {
+        short[] nullArray = null;
+        short[] emptyArray = new short[0];
+        short[] oneArray = new short[] {4};
+        short[] twoArray = new short[] {6, 8};
+        
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
+        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+    }
+    
+    public void testSameLengthChar() {
+        char[] nullArray = null;
+        char[] emptyArray = new char[0];
+        char[] oneArray = new char[] {'f'};
+        char[] twoArray = new char[] {'d', 't'};
+        
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
+        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+    }
+    
+    public void testSameLengthByte() {
+        byte[] nullArray = null;
+        byte[] emptyArray = new byte[0];
+        byte[] oneArray = new byte[] {3};
+        byte[] twoArray = new byte[] {4, 6};
+        
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
+        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+    }
+    
+    public void testSameLengthDouble() {
+        double[] nullArray = null;
+        double[] emptyArray = new double[0];
+        double[] oneArray = new double[] {1.3d};
+        double[] twoArray = new double[] {4.5d, 6.3d};
+        
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
+        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+    }
+    
+    public void testSameLengthFloat() {
+        float[] nullArray = null;
+        float[] emptyArray = new float[0];
+        float[] oneArray = new float[] {2.5f};
+        float[] twoArray = new float[] {6.4f, 5.8f};
+        
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(nullArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(nullArray, twoArray));
+        
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, nullArray));
+        assertEquals(true, ArrayUtils.isSameLength(emptyArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(emptyArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, emptyArray));
+        assertEquals(true, ArrayUtils.isSameLength(oneArray, oneArray));
+        assertEquals(false, ArrayUtils.isSameLength(oneArray, twoArray));
+        
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, nullArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, emptyArray));
+        assertEquals(false, ArrayUtils.isSameLength(twoArray, oneArray));
+        assertEquals(true, ArrayUtils.isSameLength(twoArray, twoArray));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testSameType() {
+        try {
+            ArrayUtils.isSameType(null, null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            ArrayUtils.isSameType(null, new Object[0]);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            ArrayUtils.isSameType(new Object[0], null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        
+        assertEquals(true, ArrayUtils.isSameType(new Object[0], new Object[0]));
+        assertEquals(false, ArrayUtils.isSameType(new String[0], new Object[0]));
+        assertEquals(true, ArrayUtils.isSameType(new String[0][0], new String[0][0]));
+        assertEquals(false, ArrayUtils.isSameType(new String[0], new String[0][0]));
+        assertEquals(false, ArrayUtils.isSameType(new String[0][0], new String[0]));
+    }
+    
 }
