@@ -64,7 +64,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: Nestable.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @version $Id: Nestable.java,v 1.2 2002/07/26 20:30:10 stevencaswell Exp $
  */
 public interface Nestable
 {
@@ -77,6 +77,7 @@ public interface Nestable
     /**
      * Returns the number of nested <code>Throwable</code>s represented by
      * this <code>Nestable</code>, including this <code>Nestable</code>.
+     * @deprecated replaced by {@link #getThrowableCount()}
      */
     public int getLength();
     
@@ -84,29 +85,31 @@ public interface Nestable
      * Returns the error message of this and any nested
      * <code>Throwable</code>.
      *
-     * @return The error message.
+     * @return the error message
      */
     public String getMessage();
 
     /**
      * Returns the error message of the <code>Throwable</code> in the chain
      * of <code>Throwable</code>s at the specified index, numbererd from 0.
-     * If <code>index</code> is negative, the effect is the same as if it
-     * were 0. If <code>index</code> is greater than or equal to the length
-     * of the chain, the message of the last <code>Throwable</code> in the
-     * chain is returned.
      *
      * @param index the index of the <code>Throwable</code> in the chain of
      * <code>Throwable</code>s
-     * @return the error message
+     * @return the error message, or null if the <code>Throwable</code> at the
+     * specified index in the chain does not contain a message
+     * @throws IndexOutOfBoundsException if the <code>index</code> argument is
+     * negative or not less than the count of <code>Throwable</code>s in the
+     * chain
      */
     public String getMessage(int index);
 
     /**
      * Returns the error message of this and any nested <code>Throwable</code>s
      * in an array of Strings, one element for each message. Any
-     * <code>Throwable</code> specified without a message is represented in
-     * the array by a null.
+     * <code>Throwable</code> not containing a message is represented in the
+     * array by a null. This has the effect of cause the length of the returned
+     * array to be equal to the result of the {@link #getThrowableCount()}
+     * operation.
      *
      * @return the error messages
      */
@@ -114,22 +117,29 @@ public interface Nestable
 
     /**
      * Returns the <code>Throwable</code> in the chain of
-     * <code>Throwable</code>s at the specified index, numbererd from 0. If
-     * <code>index</code> is negative, the effect is the same as if it
-     * were 0. If <code>index</code> is greater than or equal to the length
-     * of the chain, the last <code>Throwable</code> in the chain is returned.
+     * <code>Throwable</code>s at the specified index, numbererd from 0.
      *
-     * @param index the index of the <code>Throwable</code> in the chain of
-     * <code>Throwable</code>s
+     * @param index the index, numbered from 0, of the <code>Throwable</code> in
+     * the chain of <code>Throwable</code>s
      * @return the <code>Throwable</code>
+     * @throws IndexOutOfBoundsException if the <code>index</code> argument is
+     * negative or not less than the count of <code>Throwable</code>s in the
+     * chain
      */
     public Throwable getThrowable(int index);
 
     /**
-     * Returns the error message of this and any nested <code>Throwable</code>s
-     * in an array of Strings, one element for each message. Any
-     * <code>Throwable</code> specified without a message is represented in
-     * the array by a null.
+     * Returns the number of nested <code>Throwable</code>s represented by
+     * this <code>Nestable</code>, including this <code>Nestable</code>.
+     *
+     * @return the throwable count
+     */
+    public int getThrowableCount();
+    
+    /**
+     * Returns this <code>Nestable</code> and any nested <code>Throwable</code>s
+     * in an array of <code>Throwable</code>s, one element for each
+     * <code>Throwable</code>.
      *
      * @return the <code>Throwable</code>s
      */
@@ -138,10 +148,7 @@ public interface Nestable
     /**
      * Returns the index, numbered from 0, of the first occurrence of the
      * specified type in the chain of <code>Throwable</code>s, or -1 if the
-     * specified type is not found in the chain. If <code>pos</code> is
-     * negative, the effect is the same as if it were 0. If <code>pos</code>
-     * is greater than or equal to the length of the chain, the effect is the
-     * same as if it were the index of the last element in the chain.
+     * specified type is not found in the chain.
      *
      * @param type <code>Class</code> to be found
      * @return index of the first occurrence of the type in the chain, or -1 if
@@ -152,18 +159,36 @@ public interface Nestable
     /**
      * Returns the index, numbered from 0, of the first <code>Throwable</code>
      * that matches the specified type in the chain of <code>Throwable</code>s
+     * with an index greater than or equal to the specified index, or -1 if
+     * the type is not found.
+     *
+     * @param type <code>Class</code> to be found
+     * @param fromIndex the index, numbered from 0, of the starting position in
+     * the chain to be searched
+     * @return index of the first occurrence of the type in the chain, or -1 if
+     * the type is not found
+     * @throws IndexOutOfBoundsException if the <code>fromIndex</code> argument
+     * is negative or not less than the count of <code>Throwable</code>s in the
+     * chain
+     */
+    public int indexOfThrowable(Class type, int fromIndex);
+    
+    /**
+     * Returns the index, numbered from 0, of the first <code>Throwable</code>
+     * that matches the specified type in the chain of <code>Throwable</code>s
      * with an index greater than or equal to the specified position, or -1 if
      * the type is not found. If <code>pos</code> is negative, the effect is the
      * same as if it were 0. If <code>pos</code> is greater than or equal to the
      * length of the chain, the effect is the same as if it were the index of
      * the last element in the chain.
      *
-     * @param type <code>Class</code> to be found
      * @param pos index, numbered from 0, of the starting position in the chain
      * to be searched
+     * @param type <code>Class</code> to be found
      * 
      * @return index of the first occurrence of the type in the chain, or -1 if
      * the type is not found
+     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
      */
     public int indexOfThrowable(int pos, Class type);
     
