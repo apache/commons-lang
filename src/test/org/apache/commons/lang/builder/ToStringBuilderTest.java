@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ToStringBuilder}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilderTest.java,v 1.5 2003/03/20 05:33:35 ggregory Exp $
+ * @version $Id: ToStringBuilderTest.java,v 1.6 2003/03/23 17:35:51 scolebourne Exp $
  */
 public class ToStringBuilderTest extends TestCase {
 
