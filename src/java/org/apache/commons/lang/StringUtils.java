@@ -145,7 +145,7 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.106 2003/08/22 17:25:33 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.107 2003/08/23 10:39:20 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -4155,7 +4155,7 @@ public class StringUtils {
      * Strings begin to differ.</p>
      * 
      * <p>For example, 
-     * <code>differenceAt("i am a machine", "i am a robot") -> 7</code></p>
+     * <code>indexOfDifference("i am a machine", "i am a robot") -> 7</code></p>
      *
      * <pre>
      * StringUtils.indexOfDifference(null, null) = -1

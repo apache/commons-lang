@@ -56,8 +56,9 @@ package org.apache.commons.lang;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+
 /**
- * <p>Assists in alidating arguments.</p>
+ * <p>Assists in validating arguments.</p>
  * 
  * <p>The class is based along the lines of JUnit. If an argument value is 
  * deemed invalid, an IllegalArgumentException is thrown. For example:</p>
@@ -71,7 +72,7 @@ import java.util.Map;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: Validate.java,v 1.5 2003/08/22 17:25:33 ggregory Exp $
+ * @version $Id: Validate.java,v 1.6 2003/08/23 10:39:20 scolebourne Exp $
  */
 public class Validate {
     
