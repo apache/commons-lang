@@ -108,7 +108,7 @@ import java.lang.reflect.Modifier;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.12 2003/03/23 17:54:16 scolebourne Exp $
+ * @version $Id: EqualsBuilder.java,v 1.13 2003/04/18 09:12:16 ggregory Exp $
  */
 public class EqualsBuilder {
     /**
@@ -253,14 +253,19 @@ public class EqualsBuilder {
      * @param builder  the builder to append to
      * @param useTransients  whether to test transient fields
      */
-    private static void reflectionAppend(Object lhs, Object rhs, Class clazz, EqualsBuilder builder, boolean useTransients) {
+    private static void reflectionAppend(
+        Object lhs,
+        Object rhs,
+        Class clazz,
+        EqualsBuilder builder,
+        boolean useTransients) {
         Field[] fields = clazz.getDeclaredFields();
         Field.setAccessible(fields, true);
         for (int i = 0; i < fields.length && builder.isEquals; i++) {
             Field f = fields[i];
-            if ((f.getName().indexOf('$') == -1) &&
-                (useTransients || !Modifier.isTransient(f.getModifiers())) &&
-                (!Modifier.isStatic(f.getModifiers()))) {
+            if ((f.getName().indexOf('$') == -1)
+                && (useTransients || !Modifier.isTransient(f.getModifiers()))
+                && (!Modifier.isStatic(f.getModifiers()))) {
                 try {
                     builder.append(f.get(lhs), f.get(rhs));
                 } catch (IllegalAccessException e) {
