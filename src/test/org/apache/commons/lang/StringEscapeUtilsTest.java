@@ -29,7 +29,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.14 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.15 2004/10/16 18:52:21 scolebourne Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
@@ -226,6 +226,11 @@ public class StringEscapeUtilsTest extends TestCase {
         // note that the test string must be 7-bit-clean (unicode escaped) or else it will compile incorrectly
         // on some locales        
         assertEquals("funny chars pass through OK", "Fran\u00E7ais", StringEscapeUtils.unescapeHtml("Fran\u00E7ais"));
+        
+        assertEquals("Hello&;World", StringEscapeUtils.unescapeHtml("Hello&;World"));
+        assertEquals("Hello&#;World", StringEscapeUtils.unescapeHtml("Hello&#;World"));
+        assertEquals("Hello&# ;World", StringEscapeUtils.unescapeHtml("Hello&# ;World"));
+        assertEquals("Hello&##;World", StringEscapeUtils.unescapeHtml("Hello&##;World"));
     }
 
     public void testUnescapeHexCharsHtml() {

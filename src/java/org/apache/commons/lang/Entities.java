@@ -31,7 +31,7 @@ import java.util.TreeMap;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.18 2004/09/01 18:00:01 ggregory Exp $
+ * @version $Id: Entities.java,v 1.19 2004/10/16 18:52:21 scolebourne Exp $
  */
 class Entities {
 
@@ -648,12 +648,22 @@ class Entities {
                 }
                 String entityName = str.substring(i + 1, semi);
                 int entityValue;
-                if (entityName.charAt(0) == '#') {
-                    char charAt1 = entityName.charAt(1);
-                    if (charAt1 == 'x' || charAt1=='X') {
-                        entityValue = Integer.valueOf(entityName.substring(2), 16).intValue();
+                if (entityName.length() == 0) {
+                    entityValue = -1;
+                } else if (entityName.charAt(0) == '#') {
+                    if (entityName.length() == 1) {
+                        entityValue = -1;
                     } else {
-                        entityValue = Integer.parseInt(entityName.substring(1));
+                        char charAt1 = entityName.charAt(1);
+                        try {
+                            if (charAt1 == 'x' || charAt1=='X') {
+                                entityValue = Integer.valueOf(entityName.substring(2), 16).intValue();
+                            } else {
+                                entityValue = Integer.parseInt(entityName.substring(1));
+                            }
+                        } catch (NumberFormatException ex) {
+                            entityValue = -1;
+                        }
                     }
                 } else {
                     entityValue = this.entityValue(entityName);

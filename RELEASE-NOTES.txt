@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.31 2004/10/16 17:47:48 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.32 2004/10/16 18:52:21 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.1
@@ -107,6 +107,7 @@ BUG FIXES:
 28468  StringUtils.defaultString: Documentation error
 28554  Add hashCode-support to class ObjectUtils
 29082  Enhancement of ExceptionUtils.CAUSE_METHOD_NAMES
+29149  StringEscapeUtils.unescapeHtml() doesn't handle an empty entity
 29294  lang.math.Fraction class deficiencies
 29673  ExceptionUtils: new getCause() methodname (for tomcat)
 29794  Add convenience format(long) methods to FastDateForma
@@ -117,3 +118,4 @@ BUG FIXES:
 31395  DateUtils.truncate oddity at the far end of the Date spectrum
 31478  Compile error with JDK 5 "enum" is a keyword
 31572  o.a.c.lang.enum.ValuedEnum: 'enum'is a keyword in JDK1.5.0
+
