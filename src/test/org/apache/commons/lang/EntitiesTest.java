@@ -63,7 +63,8 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: EntitiesTest.java,v 1.6 2003/06/29 03:04:33 alex Exp $
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @version $Id: EntitiesTest.java,v 1.7 2003/07/26 00:31:29 ggregory Exp $
  */
 public class EntitiesTest extends TestCase
 {
@@ -127,7 +128,7 @@ public class EntitiesTest extends TestCase
     public void testEntitiesXmlObject() throws Exception
     {
         assertEquals("gt", Entities.XML.entityName('>'));
-        assertEquals((int) '>', Entities.XML.entityValue("gt"));
+        assertEquals('>', Entities.XML.entityValue("gt"));
         assertEquals(-1, Entities.XML.entityValue("xyzzy"));
     }
 
