@@ -66,7 +66,7 @@ import junit.framework.TestSuite;
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Henri Yandell
  * @author Stephen Colebourne
- * @version $Id: WordUtilsTest.java,v 1.2 2003/08/17 22:56:11 scolebourne Exp $
+ * @version $Id: WordUtilsTest.java,v 1.3 2003/08/17 23:06:11 scolebourne Exp $
  */
 public class WordUtilsTest extends TestCase {
 
@@ -208,6 +208,19 @@ public class WordUtilsTest extends TestCase {
         assertEquals("I Am Here 123", WordUtils.capitalize("I Am Here 123") );
         assertEquals("I Am HERE 123", WordUtils.capitalize("i am HERE 123") );
         assertEquals("I AM HERE 123", WordUtils.capitalize("I AM HERE 123") );
+    }
+    
+    public void testCapitalizeFully_String() {
+        assertEquals(null, WordUtils.capitalizeFully(null));
+        assertEquals("", WordUtils.capitalizeFully(""));
+        assertEquals("  ", WordUtils.capitalizeFully("  "));
+        
+        assertEquals("I", WordUtils.capitalize("I") );
+        assertEquals("I", WordUtils.capitalize("i") );
+        assertEquals("I Am Here 123", WordUtils.capitalizeFully("i am here 123") );
+        assertEquals("I Am Here 123", WordUtils.capitalizeFully("I Am Here 123") );
+        assertEquals("I Am Here 123", WordUtils.capitalizeFully("i am HERE 123") );
+        assertEquals("I Am Here 123", WordUtils.capitalizeFully("I AM HERE 123") );
     }
     
     public void testUncapitalize_String() {
