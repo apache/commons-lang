@@ -61,11 +61,11 @@ package org.apache.commons.lang.time;
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: DurationFormatUtils.java,v 1.1 2003/06/08 23:14:23 scolebourne Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.2 2003/06/09 21:23:14 scolebourne Exp $
  */
-public final class DurationFormatUtils {
+class DurationFormatUtils {
+    // TODO: Make class public once methods can fully select which fields to output
 
-    //-----------------------------------------------------------------------
     /**
      * DurationFormatUtils instances should NOT be constructed in standard programming.
      * <p>
