@@ -124,7 +124,8 @@ public class ExceptionUtils
             {
             }
 
-            if (getCause != null && getCause.getReturnType() == Throwable.class)
+            if (getCause != null &&
+                Throwable.class.isAssignableFrom(getCause.getReturnType()))
             {
                 try
                 {
