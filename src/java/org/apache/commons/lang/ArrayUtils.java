@@ -80,8 +80,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Pete Gieser
  * @author Gary Gregory
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
+ * @author Maarten Coene
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.40 2004/02/03 22:14:24 ggregory Exp $
+ * @version $Id: ArrayUtils.java,v 1.41 2004/02/14 01:15:19 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -955,6 +956,56 @@ public class ArrayUtils {
         return true;
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Returns the length of the specified array.
+     * This method can deal with <code>Object</code> arrays and with primitive arrays.</p>
+     *
+     * <p>If the input array is <code>null</code>, <code>0</code> is returned.</p>
+     *
+     * <pre>
+     * ArrayUtils.getLength(null)            = 0
+     * ArrayUtils.getLength([])              = 0
+     * ArrayUtils.getLength([null])          = 1
+     * ArrayUtils.getLength([true, false])   = 2
+     * ArrayUtils.getLength([1, 2, 3])       = 3
+     * ArrayUtils.getLength(["a", "b", "c"]) = 3
+     * </pre>
+     *
+     * @param array  the array to retrieve the length from, may be null
+     * @return The length of the array, or <code>0</code> if the array is <code>null</code>
+     * @throws IllegalArgumentException if the object arguement is not an array.
+     */
+    public static int getLength(final Object array) {
+        if (array == null) {
+            return 0;
+        } else {
+            return Array.getLength(array);
+        }
+    }
+    
+    /**
+     * Returns the last index of the given array or -1 if empty or null.
+     * This method can deal with <code>Object</code> arrays and with primitive arrays.
+     * This value is one less than the size since arrays indices are 0-based.</p>
+     *
+     * <pre>
+     * ArrayUtils.lastIndex(null)            = -1
+     * ArrayUtils.lastIndex([])              = -1
+     * ArrayUtils.lastIndex([null])          = 0
+     * ArrayUtils.lastIndex([true, false])   = 1
+     * ArrayUtils.lastIndex([1, 2, 3])       = 2
+     * ArrayUtils.lastIndex(["a", "b", "c"]) = 2
+     * </pre>
+     *  
+     * @param array  the array to return the last index for, may be null
+     * @return the last index, -1 if empty or null
+     * @throws IllegalArgumentException if the object arguement is not an array.
+     */
+    public static int lastIndex(final Object array) {
+        return ArrayUtils.getLength(array) - 1;
+    }
+    
     /**
      * <p>Checks whether two arrays are the same type taking into account
      * multi-dimensional arrays.</p>
@@ -3052,17 +3103,6 @@ public class ArrayUtils {
     }
     
     /**
-     * Returns the last index of the given array. This value is one less than the size since
-     * arrays indices are 0-based.
-     *  
-     * @param array The array to return the last index for, must not be <code>null</code>.
-     * @return The last index
-     */
-    public static int lastIndex(final Object array) {
-        return Array.getLength(array) - 1;
-    }
-    
-    /**
      * <p>Inserts the specified element at the specified position in the array. 
      * Shifts the element currently at that position (if any) and any subsequent
      * elements to the right (adds one to their indices).</p>
@@ -3111,4 +3151,5 @@ public class ArrayUtils {
         }
         return (Object[]) result;
     }
+    
 }

@@ -75,7 +75,8 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Fredrik Westermarck
  * @author Gary Gregory
- * @version $Id: ArrayUtilsTest.java,v 1.24 2004/02/03 22:14:24 ggregory Exp $
+ * @author Maarten Coene
+ * @version $Id: ArrayUtilsTest.java,v 1.25 2004/02/14 01:15:20 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -2362,4 +2363,120 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(true, ArrayUtils.isEmpty(emptyBooleanArray));
         assertEquals(false, ArrayUtils.isEmpty(notEmptyBooleanArray));
     }
+    
+    // ------------------------------------------------------------------------
+    public void testGetLength() {
+        assertEquals(0, ArrayUtils.getLength(null));
+        
+        Object[] emptyObjectArray = new Object[0];
+        Object[] notEmptyObjectArray = new Object[] {"aValue"};
+        assertEquals(0, ArrayUtils.getLength((Object[]) null));
+        assertEquals(0, ArrayUtils.getLength(emptyObjectArray));
+        assertEquals(1, ArrayUtils.getLength(notEmptyObjectArray));
+ 
+        int[] emptyIntArray = new int[] {};
+        int[] notEmptyIntArray = new int[] { 1 };
+        assertEquals(0, ArrayUtils.getLength((int[]) null));
+        assertEquals(0, ArrayUtils.getLength(emptyIntArray));
+        assertEquals(1, ArrayUtils.getLength(notEmptyIntArray));
+
+        short[] emptyShortArray = new short[] {};
+        short[] notEmptyShortArray = new short[] { 1 };
+        assertEquals(0, ArrayUtils.getLength((short[]) null));
+        assertEquals(0, ArrayUtils.getLength(emptyShortArray));
+        assertEquals(1, ArrayUtils.getLength(notEmptyShortArray));
+
+        char[] emptyCharArray = new char[] {};
+        char[] notEmptyCharArray = new char[] { 1 };
+        assertEquals(0, ArrayUtils.getLength((char[]) null));
+        assertEquals(0, ArrayUtils.getLength(emptyCharArray));
+        assertEquals(1, ArrayUtils.getLength(notEmptyCharArray));
+
+        byte[] emptyByteArray = new byte[] {};
+        byte[] notEmptyByteArray = new byte[] { 1 };
+        assertEquals(0, ArrayUtils.getLength((byte[]) null));
+        assertEquals(0, ArrayUtils.getLength(emptyByteArray));
+        assertEquals(1, ArrayUtils.getLength(notEmptyByteArray));
+
+        double[] emptyDoubleArray = new double[] {};
+        double[] notEmptyDoubleArray = new double[] { 1.0 };
+        assertEquals(0, ArrayUtils.getLength((double[]) null));
+        assertEquals(0, ArrayUtils.getLength(emptyDoubleArray));
+        assertEquals(1, ArrayUtils.getLength(notEmptyDoubleArray));
+
+        float[] emptyFloatArray = new float[] {};
+        float[] notEmptyFloatArray = new float[] { 1.0F };
+        assertEquals(0, ArrayUtils.getLength((float[]) null));
+        assertEquals(0, ArrayUtils.getLength(emptyFloatArray));
+        assertEquals(1, ArrayUtils.getLength(notEmptyFloatArray));
+
+        boolean[] emptyBooleanArray = new boolean[] {};
+        boolean[] notEmptyBooleanArray = new boolean[] { true };
+        assertEquals(0, ArrayUtils.getLength((boolean[]) null));
+        assertEquals(0, ArrayUtils.getLength(emptyBooleanArray));
+        assertEquals(1, ArrayUtils.getLength(notEmptyBooleanArray));
+        
+        try {
+            ArrayUtils.getLength("notAnArray");
+            fail("IllegalArgumentException should have been thrown");
+        } catch (IllegalArgumentException e) {}
+    }
+    
+    public void testLastIndex() {
+        assertEquals(-1, ArrayUtils.lastIndex(null));
+        
+        Object[] emptyObjectArray = new Object[0];
+        Object[] notEmptyObjectArray = new Object[] {"aValue"};
+        assertEquals(-1, ArrayUtils.lastIndex((Object[]) null));
+        assertEquals(-1, ArrayUtils.lastIndex(emptyObjectArray));
+        assertEquals(0, ArrayUtils.lastIndex(notEmptyObjectArray));
+ 
+        int[] emptyIntArray = new int[] {};
+        int[] notEmptyIntArray = new int[] { 1 };
+        assertEquals(-1, ArrayUtils.lastIndex((int[]) null));
+        assertEquals(-1, ArrayUtils.lastIndex(emptyIntArray));
+        assertEquals(0, ArrayUtils.lastIndex(notEmptyIntArray));
+
+        short[] emptyShortArray = new short[] {};
+        short[] notEmptyShortArray = new short[] { 1 };
+        assertEquals(-1, ArrayUtils.lastIndex((short[]) null));
+        assertEquals(-1, ArrayUtils.lastIndex(emptyShortArray));
+        assertEquals(0, ArrayUtils.lastIndex(notEmptyShortArray));
+
+        char[] emptyCharArray = new char[] {};
+        char[] notEmptyCharArray = new char[] { 1 };
+        assertEquals(-1, ArrayUtils.lastIndex((char[]) null));
+        assertEquals(-1, ArrayUtils.lastIndex(emptyCharArray));
+        assertEquals(0, ArrayUtils.lastIndex(notEmptyCharArray));
+
+        byte[] emptyByteArray = new byte[] {};
+        byte[] notEmptyByteArray = new byte[] { 1 };
+        assertEquals(-1, ArrayUtils.lastIndex((byte[]) null));
+        assertEquals(-1, ArrayUtils.lastIndex(emptyByteArray));
+        assertEquals(0, ArrayUtils.lastIndex(notEmptyByteArray));
+
+        double[] emptyDoubleArray = new double[] {};
+        double[] notEmptyDoubleArray = new double[] { 1.0 };
+        assertEquals(-1, ArrayUtils.lastIndex((double[]) null));
+        assertEquals(-1, ArrayUtils.lastIndex(emptyDoubleArray));
+        assertEquals(0, ArrayUtils.lastIndex(notEmptyDoubleArray));
+
+        float[] emptyFloatArray = new float[] {};
+        float[] notEmptyFloatArray = new float[] { 1.0F };
+        assertEquals(-1, ArrayUtils.lastIndex((float[]) null));
+        assertEquals(-1, ArrayUtils.lastIndex(emptyFloatArray));
+        assertEquals(0, ArrayUtils.lastIndex(notEmptyFloatArray));
+
+        boolean[] emptyBooleanArray = new boolean[] {};
+        boolean[] notEmptyBooleanArray = new boolean[] { true };
+        assertEquals(-1, ArrayUtils.lastIndex((boolean[]) null));
+        assertEquals(-1, ArrayUtils.lastIndex(emptyBooleanArray));
+        assertEquals(0, ArrayUtils.lastIndex(notEmptyBooleanArray));
+        
+        try {
+            ArrayUtils.lastIndex("notAnArray");
+            fail("IllegalArgumentException should have been thrown");
+        } catch (IllegalArgumentException e) {}
+    }
+    
 }
