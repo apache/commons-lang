@@ -66,7 +66,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Michael Becke
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.10 2003/05/22 21:51:26 scolebourne Exp $
+ * @version $Id: SystemUtils.java,v 1.11 2003/05/24 12:06:37 scolebourne Exp $
  */
 public class SystemUtils {
     
@@ -81,6 +81,7 @@ public class SystemUtils {
     public SystemUtils() {
     }
 
+    //-----------------------------------------------------------------------
     /**
      * The <code>file.separator</code> System Property.
      * File separator ("/" on UNIX).
@@ -90,7 +91,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String FILE_SEPARATOR = getSystemProperty("file.separator");
-    
 
     /**
      * The <code>java.class.path</code> System Property.
@@ -101,7 +101,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_CLASS_PATH = getSystemProperty("java.class.path");
-    
 
     /**
      * The <code>java.class.version</code> System Property.
@@ -112,7 +111,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_CLASS_VERSION = getSystemProperty("java.class.version");
-    
 
     /**
      * The <code>java.compiler</code> System Property.
@@ -123,7 +121,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_COMPILER = getSystemProperty("java.compiler");
-    
 
     /**
      * The <code>java.ext.dirs</code> System Property.
@@ -134,7 +131,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_EXT_DIRS = getSystemProperty("java.ext.dirs");
-    
 
     /**
      * The <code>java.home</code> System Property.
@@ -145,7 +141,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_HOME = getSystemProperty("java.home");
-    
 
     /**
      * The <code>java.io.tmpdir</code> System Property.
@@ -156,7 +151,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_IO_TMPDIR = getSystemProperty("java.io.tmpdir");
-    
 
     /**
      * The <code>java.library.path</code> System Property.
@@ -167,7 +161,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_LIBRARY_PATH = getSystemProperty("java.library.path");
-    
 
     /**
      * The <code>java.specification.name</code> System Property.
@@ -178,7 +171,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_SPECIFICATION_NAME = getSystemProperty("java.specification.name");
-    
 
     /**
      * The <code>java.specification.vendor</code> System Property.
@@ -189,7 +181,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_SPECIFICATION_VENDOR = getSystemProperty("java.specification.vendor");
-    
 
     /**
      * The <code>java.specification.version</code> System Property.
@@ -200,7 +191,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_SPECIFICATION_VERSION = getSystemProperty("java.specification.version");
-    
 
     /**
      * The <code>java.vendor</code> System Property.
@@ -211,7 +201,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_VENDOR = getSystemProperty("java.vendor");
-    
 
     /**
      * The <code>java.vendor.url</code> System Property.
@@ -222,7 +211,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_VENDOR_URL = getSystemProperty("java.vendor.url");
-    
 
     /**
      * The <code>java.version</code> System Property.
@@ -233,7 +221,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_VERSION = getSystemProperty("java.version");
-    
 
     /**
      * The <code>java.vm.name</code> System Property.
@@ -244,7 +231,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_VM_NAME = getSystemProperty("java.vm.name");
-    
 
     /**
      * The <code>java.vm.specification.name</code> System Property.
@@ -255,7 +241,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_VM_SPECIFICATION_NAME = getSystemProperty("java.vm.specification.name");
-    
 
     /**
      * The <code>java.vm.specification.vendor</code> System Property.
@@ -266,7 +251,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_VM_SPECIFICATION_VENDOR = getSystemProperty("java.vm.specification.vendor");
-    
 
     /**
      * The <code>java.vm.specification.version</code> System Property.
@@ -277,7 +261,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_VM_SPECIFICATION_VERSION = getSystemProperty("java.vm.specification.version");
-    
 
     /**
      * The <code>java.vm.vendor</code> System Property.
@@ -288,7 +271,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_VM_VENDOR = getSystemProperty("java.vm.vendor");
-    
 
     /**
      * The <code>java.vm.version</code> System Property.
@@ -299,7 +281,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String JAVA_VM_VERSION = getSystemProperty("java.vm.version");
-    
 
     /**
      * The <code>line.separator</code> System Property.
@@ -310,7 +291,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String LINE_SEPARATOR = getSystemProperty("line.separator");
-    
 
     /**
      * The <code>os.arch</code> System Property.
@@ -321,7 +301,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String OS_ARCH = getSystemProperty("os.arch");
-    
 
     /**
      * The <code>os.name</code> System Property.
@@ -332,7 +311,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String OS_NAME = getSystemProperty("os.name");
-    
 
     /**
      * The <code>os.version</code> System Property.
@@ -343,7 +321,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String OS_VERSION = getSystemProperty("os.version");
-    
 
     /**
      * The <code>path.separator</code> System Property.
@@ -354,7 +331,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String PATH_SEPARATOR = getSystemProperty("path.separator");
-    
 
     /**
      * The <code>user.dir</code> System Property.
@@ -365,7 +341,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String USER_DIR = getSystemProperty("user.dir");
-    
 
     /**
      * The <code>user.home</code> System Property.
@@ -376,7 +351,6 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String USER_HOME = getSystemProperty("user.home");
-    
 
     /**
      * The <code>user.name</code> System Property.
@@ -387,34 +361,69 @@ public class SystemUtils {
      * security access to read this property.
      */
     public static final String USER_NAME = getSystemProperty("user.name");
-    
-    
-    /** 
+
+    //-----------------------------------------------------------------------
+    /**
      * Is <code>true</code> if this is Java version 1.1 (also 1.1.x versions).
+     * <p>
+     * The field will return false if <code>JAVA_VERSION</code> is <code>null</code>.
      */
-    public static final boolean IS_JAVA_1_1 = JAVA_VERSION.startsWith("1.1.");
+    public static final boolean IS_JAVA_1_1 = getJavaVersionMatches("1.1");
 
-    /** 
+    /**
      * Is <code>true</code> if this is Java version 1.2 (also 1.2.x versions).
+     * <p>
+     * The field will return false if <code>JAVA_VERSION</code> is <code>null</code>.
      */
-    public static final boolean IS_JAVA_1_2 = JAVA_VERSION.startsWith("1.2.");
+    public static final boolean IS_JAVA_1_2 = getJavaVersionMatches("1.2");
 
-    /** 
+    /**
      * Is <code>true</code> if this is Java version 1.3 (also 1.3.x versions).
+     * <p>
+     * The field will return false if <code>JAVA_VERSION</code> is <code>null</code>.
      */
-    public static final boolean IS_JAVA_1_3 = JAVA_VERSION.startsWith("1.3.");
+    public static final boolean IS_JAVA_1_3 = getJavaVersionMatches("1.3");
 
-    /** 
+    /**
      * Is <code>true</code> if this is Java version 1.4 (also 1.4.x versions).
+     * <p>
+     * The field will return false if <code>JAVA_VERSION</code> is <code>null</code>.
      */
-    public static final boolean IS_JAVA_1_4 = JAVA_VERSION.startsWith("1.4.");
+    public static final boolean IS_JAVA_1_4 = getJavaVersionMatches("1.4");
 
-    /** 
+    /**
      * Is <code>true</code> if this is Java version 1.5 (also 1.5.x versions).
+     * <p>
+     * The field will return false if <code>JAVA_VERSION</code> is <code>null</code>.
      */
-    public static final boolean IS_JAVA_1_5 = JAVA_VERSION.startsWith("1.5.");
+    public static final boolean IS_JAVA_1_5 = getJavaVersionMatches("1.5");
 
+    //-----------------------------------------------------------------------
+    /**
+     * Gets the Java version as a <code>float</code>.
+     * Example output:
+     * <ul>
+     *  <li><code>1.2f</code> for JDK 1.2
+     *  <li><code>1.31f</code> for JDK 1.3.1
+     * </ul>
+     * <p>
+     * The field will return zero if <code>JAVA_VERSION</code> is <code>null</code>.
+     */
+    public static final float JAVA_VERSION_FLOAT = getJavaVersionAsFloat();
 
+    /**
+     * Gets the Java version as an <code>int</code>.
+     * Example output:
+     * <ul>
+     *  <li><code>120</code> for JDK 1.2
+     *  <li><code>131</code> for JDK 1.3.1
+     * </ul>
+     * <p>
+     * The field will return zero if <code>JAVA_VERSION</code> is <code>null</code>.
+     */
+    public static final int JAVA_VERSION_INT = getJavaVersionAsInt();
+
+    //-----------------------------------------------------------------------
     /**
      * Gets a System property, defaulting to the given value if the property 
      * cannot be read.
@@ -428,10 +437,81 @@ public class SystemUtils {
             
         } catch (SecurityException ex) {
             // we are not allowed to look at this property
+            System.err.println(
+                "SecurityException thrown when reading system property '" + property 
+                + "' - property value will default to null"
+            );
             return null;
         }
     }    
 
+    /**
+     * Decides if the java version matches.
+     * 
+     * @param versionPrefix  the prefix for the java version
+     * @return true if matches, or false if not or can't determine
+     */
+    private static boolean getJavaVersionMatches(String versionPrefix) {
+        if (JAVA_VERSION == null) {
+            return false;
+        }
+        return JAVA_VERSION.startsWith(versionPrefix);
+    }    
+
+    /**
+     * <p>Get the Java version number as a <code>float</code>.</p>
+     *
+     * <p>Example output:</p>
+     * <ul>
+     *  <li><code>1.2f</code> for JDK 1.2
+     *  <li><code>1.31f</code> for JDK 1.3.1
+     * </ul>
+     * 
+     * <p>Patch releases are not reported.
+     * Zero is returned if JAVA_VERSION is <code>null</code>.</p>
+     * 
+     * @return the version, for example 1.31f for JDK 1.3.1
+     */
+    private static float getJavaVersionAsFloat() {
+        if (JAVA_VERSION == null) {
+            return 0f;
+        }
+        String str = JAVA_VERSION.substring(0, 3);
+        if (JAVA_VERSION.length() >= 5) {
+            str = str + JAVA_VERSION.substring(4, 5);
+        }
+        return Float.parseFloat(str);
+    }
+    
+    /**
+     * <p>Get the Java version number as an <code>int</code>.</p>
+     *
+     * <p>Example output:</p>
+     * <ul>
+     *  <li><code>120</code> for JDK 1.2
+     *  <li><code>131</code> for JDK 1.3.1
+     * </ul>
+     * 
+     * <p>Patch releases are not reported.
+     * Zero is returned if JAVA_VERSION is <code>null</code>.</p>
+     * 
+     * @return the version, for example 131 for JDK 1.3.1
+     */
+    private static int getJavaVersionAsInt() {
+        if (JAVA_VERSION == null) {
+            return 0;
+        }
+        String str = JAVA_VERSION.substring(0, 1);
+        str = str + JAVA_VERSION.substring(2, 3);
+        if (JAVA_VERSION.length() >= 5) {
+            str = str + JAVA_VERSION.substring(4, 5);
+        } else {
+            str = str + "0";
+        }
+        return Integer.parseInt(str);
+    }
+    
+    //-----------------------------------------------------------------------    
     // Parsing operating system may stay here, or it may be moved somewhere else entirely
 //    /** True iff this is running on Windows */
 //    public static final boolean IS_WINDOWS;
@@ -531,6 +611,7 @@ public class SystemUtils {
 //        }
 //    }
 
+    //-----------------------------------------------------------------------
     /**
      * <p>Get the Java version number as a <code>float</code>.</p>
      *
@@ -540,23 +621,21 @@ public class SystemUtils {
      *  <li><code>1.31f</code> for JDK 1.3.1
      * </ul>
      * 
+     * @deprecated Use JAVA_VERSION_FLOAT instead.
+     *             Will be removed in Commons Lang 3.0.
      * @return the version, for example 1.31f for JDK 1.3.1
      */
     public static float getJavaVersion() {
-        String str = JAVA_VERSION.substring(0, 3);
-        if (JAVA_VERSION.length() >= 5) {
-            str = str + JAVA_VERSION.substring(4, 5);
-        }
-        return Float.parseFloat(str);
+        return JAVA_VERSION_FLOAT;
     }
     
     /**
-     * <p>Is the Java version at the the requested version.</p>
+     * <p>Is the Java version at least the requested version.</p>
      *
      * <p>Example input:</p>
      * <ul>
-     *  <li><code>1.2f</code> for JDK 1.2
-     *  <li><code>1.31f</code> for JDK 1.3.1
+     *  <li><code>1.2f</code> to test for JDK 1.2
+     *  <li><code>1.31f</code> to test for JDK 1.3.1
      * </ul>
      * 
      * @param requiredVersion  the required version, for example 1.31f
@@ -564,7 +643,24 @@ public class SystemUtils {
      *  than the required version
      */
     public static boolean isJavaVersionAtLeast(float requiredVersion) {
-        return (getJavaVersion() >= requiredVersion);
+        return (JAVA_VERSION_FLOAT >= requiredVersion);
+    }
+    
+    /**
+     * <p>Is the Java version at least the requested version.</p>
+     *
+     * <p>Example input:</p>
+     * <ul>
+     *  <li><code>120</code> to test for JDK 1.2 or greater
+     *  <li><code>131</code> to test for JDK 1.3.1 or greater
+     * </ul>
+     * 
+     * @param requiredVersion  the required version, for example 131
+     * @return <code>true</code> if the actual version is equal or greater
+     *  than the required version
+     */
+    public static boolean isJavaVersionAtLeast(int requiredVersion) {
+        return (JAVA_VERSION_INT >= requiredVersion);
     }
     
 }
