@@ -28,7 +28,7 @@ package org.apache.commons.lang;
  * @author Phil Steitz
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.33 2004/03/10 23:31:53 scolebourne Exp $
+ * @version $Id$
  */
 public class CharSetUtils {
 
@@ -308,7 +308,14 @@ public class CharSetUtils {
     }
 
     //-----------------------------------------------------------------------
-    // Implementation of delete and keep
+    /**
+     * Implementation of delete and keep
+     *
+     * @param str String to modify characters within
+     * @param set String[] set of characters to modify
+     * @param expect whether to evaluate on match, or non-match
+     * @return modified String
+     */
     private static String modify(String str, String[] set, boolean expect) {
         CharSet chars = evaluateSet(set);
         StringBuffer buffer = new StringBuffer(str.length());
