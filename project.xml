@@ -3,7 +3,7 @@
   <extend>../project.xml</extend>
   <id>commons-lang</id>
   <name>Lang</name>
-  <currentVersion>1.0-dev</currentVersion>
+  <currentVersion>1.0</currentVersion>
   <inceptionYear>2001</inceptionYear>
   
   <description>
@@ -88,6 +88,9 @@
         <include>**/*Test.java</include>
         <include>**/*TestCase.java</include>
       </includes>
+      <excludes>
+        <exclude>**/Abstract*.java</exclude>
+      </excludes>
     </unitTest>
   </build>
 
