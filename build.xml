@@ -1,7 +1,7 @@
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.15 2003/07/21 19:30:46 ggregory Exp $
+        $Id: build.xml,v 1.16 2003/07/21 22:54:37 scolebourne Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
@@ -38,7 +38,11 @@
         </copy>
     </target>
     <target name="compile" depends="static" description="Compile shareable components">
-        <javac srcdir="${source.home}" destdir="${build.home}/classes" debug="${compile.debug}" deprecation="${compile.deprecation}" optimize="${compile.optimize}">
+        <javac srcdir="${source.home}"
+        	   destdir="${build.home}/classes"
+        	   debug="${compile.debug}"
+        	   deprecation="${compile.deprecation}"
+        	   optimize="${compile.optimize}">
             <classpath refid="compile.classpath"/>
         </javac>
         <copy todir="${build.home}/classes" filtering="on">
@@ -46,7 +50,11 @@
         </copy>
     </target>
     <target name="compile.tests" depends="compile" description="Compile unit test cases">
-        <javac srcdir="${test.home}" destdir="${build.home}/tests" debug="${compile.debug}" deprecation="off" optimize="${compile.optimize}">
+        <javac srcdir="${test.home}"
+        	   destdir="${build.home}/tests"
+        	   debug="${compile.debug}"
+        	   deprecation="off"
+        	   optimize="${compile.optimize}">
             <classpath refid="test.classpath"/>
         </javac>
         <copy todir="${build.home}/tests" filtering="on">
@@ -62,7 +70,17 @@
         <mkdir dir="${dist.home}"/>
         <mkdir dir="${dist.home}/docs"/>
         <mkdir dir="${dist.home}/docs/api"/>
-        <javadoc sourcepath="${source.home}" destdir="${dist.home}/docs/api" overview="${source.home}/org/apache/commons/lang/overview.html" packagenames="org.apache.commons.*" author="true" version="true" doctitle="&lt;h1&gt;${component.title}&lt;/h1&gt;" windowtitle="${component.title} (Version ${component.version})" bottom="Copyright &amp;copy; 2001-2003 - Apache Software Foundation" use="true" link="http://java.sun.com/products/jdk/1.2/docs/api/">
+        <javadoc sourcepath="${source.home}"
+	        	 destdir="${dist.home}/docs/api"
+	        	 overview="${source.home}/org/apache/commons/lang/overview.html"
+	        	 packagenames="org.apache.commons.*"
+	        	 author="true"
+	        	 version="true"
+	        	 doctitle="&lt;h1&gt;${component.title}&lt;/h1&gt;"
+	        	 windowtitle="${component.title} (Version ${component.version})"
+	        	 bottom="Copyright &amp;copy; 2001-2003 - Apache Software Foundation"
+	        	 use="true"
+	        	 link="http://java.sun.com/products/jdk/1.2/docs/api/">
             <classpath refid="compile.classpath"/>
         </javadoc>
     </target>
