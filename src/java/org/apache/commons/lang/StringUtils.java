@@ -63,56 +63,56 @@ import java.util.List;
  * 
  * <ul>
  *  <li><b>IsEmpty/IsBlank</b>
- *      - checks if a String contains text
+ *      - checks if a String contains text</li>
  *  <li><b>Trim/Strip</b>
- *      - removes leading and trailing whitespace
+ *      - removes leading and trailing whitespace</li>
  *  <li><b>Equals</b>
- *      - compares two strings null-safe
+ *      - compares two strings null-safe</li>
  *  <li><b>IndexOf/LastIndexOf/Contains</b>
  *      - null-safe index-of checks
  *  <li><b>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</b>
- *      - index-of any of a set of Strings
+ *      - index-of any of a set of Strings</li>
  *  <li><b>ContainsOnly/ContainsNone</b>
- *      - does String contains only/none of these characters
+ *      - does String contains only/none of these characters</li>
  *  <li><b>SubString/Left/Right/Mid/SubStringBefore/SubStringAfter</b>
- *      - null-safe substring extractions
+ *      - null-safe substring extractions</li>
  *  <li><b>Split/Join</b>
- *      - splits a String into an array of substrings and vice versa
+ *      - splits a String into an array of substrings and vice versa</li>
  *  <li><b>Replace/Delete/Overlay</b>
- *      - Searches a String and replaces one String with another
+ *      - Searches a String and replaces one String with another</li>
  *  <li><b>Chomp/Chop</b>
- *      - removes the last part of a String
+ *      - removes the last part of a String</li>
  *  <li><b>LeftPad/RightPad/Center/Repeat</b>
- *      - pads a String
+ *      - pads a String</li>
  *  <li><b>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</b>
- *      - changes the case of a String
+ *      - changes the case of a String</li>
  *  <li><b>NestedString</b>
- *      - returns a substring nested within other Strings
+ *      - returns a substring nested within other Strings</li>
  *  <li><b>CountMatches</b>
- *      - counts the number of occurrances of one String in another
+ *      - counts the number of occurrances of one String in another</li>
  *  <li><b>IsAlpha/IsNumeric/IsWhitespace</b>
- *      - checks the characters in a String
+ *      - checks the characters in a String</li>
  *  <li><b>DefaultString</b>
- *      - protects against a null input String
+ *      - protects against a null input String</li>
  *  <li><b>Reverse/ReverseDelimited</b>
- *      - reverses a String
+ *      - reverses a String</li>
  *  <li><b>Abbreviate</b>
- *      - abbreviates a string using ellipsis
+ *      - abbreviates a string using ellipsis</li>
  *  <li><b>Difference</b>
- *      - compares two Strings and reports on their differences
+ *      - compares two Strings and reports on their differences</li>
  *  <li><b>LevensteinDistance</b>
- *      - the number of changes needed to change one String into another
+ *      - the number of changes needed to change one String into another</li>
  * </ul>
  *
  * <p>The <code>StringUtils</code> class defines certain words related to
  * String handling.</p>
  * 
  * <ul>
- *  <li>null - <code>null</code>
- *  <li>empty - a zero-length string (<code>""</code>)
- *  <li>space - the space character (<code>' '</code>, char 32)
- *  <li>whitespace - the characters defined by {@link Character#isWhitespace(char)}
- *  <li>trim - the characters &lt;= 32 as in {@link String#trim()}
+ *  <li>null - <code>null</code></li>
+ *  <li>empty - a zero-length string (<code>""</code>)</li>
+ *  <li>space - the space character (<code>' '</code>, char 32)</li>
+ *  <li>whitespace - the characters defined by {@link Character#isWhitespace(char)}</li>
+ *  <li>trim - the characters &lt;= 32 as in {@link String#trim()}</li>
  * </ul>
  * 
  * <p><code>StringUtils</code> handles <code>null</code> input Strings quietly.
@@ -145,7 +145,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.98 2003/08/14 01:49:03 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.99 2003/08/14 02:20:48 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3498,10 +3498,10 @@ public class StringUtils {
      * <p>Swaps the case of a String using a word based algorithm.</p>
      * 
      * <ul>
-     *  <li>Upper case character converts to Lower case
-     *  <li>Title case character converts to Lower case
-     *  <li>Lower case character after Whitespace or at start converts to Title case
-     *  <li>Other Lower case character converts to Upper case
+     *  <li>Upper case character converts to Lower case</li>
+     *  <li>Title case character converts to Lower case</li>
+     *  <li>Lower case character after Whitespace or at start converts to Title case</li>
+     *  <li>Other Lower case character converts to Upper case</li>
      * </ul>
      * 
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
