@@ -7,7 +7,7 @@
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Component</h1>
-$Id: STATUS.html,v 1.11 2002/09/12 22:15:44 scolebourne Exp $<br />
+$Id: STATUS.html,v 1.12 2002/09/15 10:29:25 scolebourne Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#Dependencies">[Dependencies]</a>
 <a href="#Release Info">[Release Info]</a>
@@ -32,12 +32,11 @@ The following classes are included:</p>
 <li><strong>NumberUtils</strong> - Helper for java.lang.Number and its subclasses.</li>
 <li><strong>NumberRange</strong> - A range of numbers with an upper and lower bound.</li>
 <li><strong>ObjectUtils</strong> - Helper for creating any Object.</li>
-<!--<li><strong>ClassUtils</strong> - Helper for working with java.lang.Class.</li>-->
 <li><strong>SerializationUtils</strong> - Helper for serializing Objects.</li>
-<li><strong>HashCodeBuilder</strong> - Helper to enable the construction of a good hash code.</li>
+<li><strong>SystemUtils</strong> - Utility class defining the Java system properties.</li>
 <li><strong>NestedException package</strong> - A sub-package for the creation of nested exceptions.</li>
 <li><strong>Enum package</strong> - A sub-package for the creation of enumerated types.</li>
-<li><strong>Builder package</strong> - A sub-package for the creation of equals and hashCode methods.</li>
+<li><strong>Builder package</strong> - A sub-package for the creation of equals, hashCode and compareTo methods.</li>
 </ul>
 
 
@@ -71,6 +70,7 @@ An rc1 and then a full release are planned in early Autumn/Fall 2002.
 <h3>4.  KNOWN ISSUES</h3>
 <p>
 <ul>
+<li>Exception tests - Don't compile at present</li>
 <li>SystemUtils - Details of this new class need to be finalised</li>
 </ul>
 </p>
@@ -83,19 +83,16 @@ An rc1 and then a full release are planned in early Autumn/Fall 2002.
 still under discussion, so please mail the list before actioning.</p>
 <ul>
 <li>Reflection utilities - new sub-package to deal with reflection</li>
-<li>SystemUtils - Utility to define system constants</li>
 <li>Operating system information - maybe part of SystemUtils, maybe another project</li>
 <li>ToStringBuilder - Helper to build a good toString method</li>
-<li>CompareToBuilder - Helper to build a good compareTo method</li>
 <li>NullObject - Singleton object to use as a placeholder when null is not accepted</li>
 <li>ObjectUtils identityToString method - replicating the original toString of an object (from John Yu)</li>
 <li>MathUtils - possible addition of mathmatics helper. Could go in NumberUtils</li>
 <li>CalendarUtils - possible addition of a calendar utility class (from Serge Knystautas)</li>
 <li>CloneUtils - utility class to enable cloning via various different mechanisms</li>
 <li>StringUtils containsOnly method - proposed new method to check if a string contains only certain chars</li>
-<li>exception package tests - consolidate code duplicated across tests for Nestable implementations</li>
-<li>exception package tests - add testing of new NestableError class</li>
 </ul>
+
 
 <a name="Committers"></a>
 <h3>6.  COMMITTERS</h3>
