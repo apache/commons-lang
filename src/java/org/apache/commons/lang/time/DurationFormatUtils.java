@@ -446,6 +446,12 @@ public class DurationFormatUtils {
     static final Object s = "s";
     static final Object S = "S";
     
+    /**
+     * Parse a classic date format string into Tokens
+     *
+     * @param format to parse
+     * @return Token[] of tokens
+     */
     static Token[] lexx(String format) {
         char[] array = format.toCharArray();
         java.util.ArrayList list = new java.util.ArrayList(array.length);
@@ -507,7 +513,13 @@ public class DurationFormatUtils {
      */
     static class Token {
 
-        // will only work for the tokens, not for stringbuffers/numbers
+        /**
+         * Helper method to determine if a set of tokens contain a value
+         *
+         * @param tokens set to look in
+         * @param value to look for
+         * @return boolean <code>true</code> if contained
+         */
         static boolean containsTokenWithValue(Token[] tokens, Object value) {
             int sz = tokens.length;
             for (int i = 0; i < sz; i++) {
@@ -521,28 +533,59 @@ public class DurationFormatUtils {
         private Object value;
         private int count;
 
+        /**
+         * Wrap a token around a value. A value would be something like a 'Y'.
+         *
+         * @param value to wrap
+         */
         Token(Object value) {
             this.value = value;
             this.count = 1;
         }
 
+        /**
+         * Wrap a token around a repeated number of a value, for example it would 
+         * store 'yyyy' as a value for y and a count of 4.
+         *
+         * @param value to wrap
+         * @param count to wrap
+         */
         Token(Object value, int count) {
             this.value = value;
             this.count = count;
         }
 
+        /**
+         * Add another one of the value
+         */
         void increment() { 
             count++;
         }
 
+        /**
+         * Get the current number of values represented
+         *
+         * @return int number of values represented
+         */
         int getCount() {
             return count;
         }
 
+        /**
+         * Get the particular value this token represents.
+         * 
+         * @return Object value
+         */
         Object getValue() {
             return value;
         }
 
+        /**
+         * Supports equality of this Token to another Token.
+         *
+         * @param obj2 Object to consider equality of
+         * @return boolean <code>true</code> if equal
+         */
         public boolean equals(Object obj2) {
             if (obj2 instanceof Token) {
                 Token tok2 = (Token) obj2;
@@ -564,6 +607,11 @@ public class DurationFormatUtils {
             }
         }
 
+        /**
+         * Represent this token as a String.
+         *
+         * @return String representation of the token
+         */
         public String toString() {
             return StringUtils.repeat(this.value.toString(), this.count);
         }
