@@ -64,7 +64,7 @@ import java.util.Random;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.17 2003/07/19 20:21:08 scolebourne Exp $
+ * @version $Id: RandomStringUtils.java,v 1.18 2003/07/26 00:26:32 ggregory Exp $
  */
 public class RandomStringUtils {
 
@@ -255,8 +255,8 @@ public class RandomStringUtils {
             throw new IllegalArgumentException("Requested random string length " + count + " is less than 0.");
         }
         if( (start == 0) && (end == 0) ) {
-            end = (int)'z' + 1;
-            start = (int)' ';
+            end = 'z' + 1;
+            start = ' ';
             if(!letters && !numbers) {
                 start = 0;
                 end = Integer.MAX_VALUE;
