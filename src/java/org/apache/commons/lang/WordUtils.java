@@ -28,7 +28,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.14 2004/09/02 19:04:56 fredrik Exp $
+ * @version $Id: WordUtils.java,v 1.15 2004/10/08 22:10:37 scolebourne Exp $
  */
 public class WordUtils {
 
@@ -255,13 +255,15 @@ public class WordUtils {
      * upper case.</p>
      *
      * <pre>
-     * WordUtils.capitalize(null)        = null
-     * WordUtils.capitalize("")          = ""
-     * WordUtils.capitalize("i am FINE") = "I Am FINE"
+     * WordUtils.capitalize(null, *)            = null
+     * WordUtils.capitalize("", *)              = ""
+     * WordUtils.capitalize(*, new char[0])     = *
+     * WordUtils.capitalize("i am fine", null)  = "I Am Fine"
+     * WordUtils.capitalize("i aM.fine", {'.'}) = "I aM.Fine"
      * </pre>
      * 
      * @param str  the String to capitalize, may be null
-     * @param delimiters  set of characters to determine capitalization
+     * @param delimiters  set of characters to determine capitalization, null means whitespace
      * @return capitalized String, <code>null</code> if null String input
      * @see #uncapitalize(String)
      * @see #capitalizeFully(String)
@@ -342,14 +344,15 @@ public class WordUtils {
      * upper case.</p>
      *
      * <pre>
-     * WordUtils.capitalizeFully(null, null)                         = null
-     * WordUtils.capitalizeFully("", null)                           = ""
-     * WordUtils.capitalizeFully("i am FINE", new char[] {' '})      = "I Am Fine"
-     * WordUtils.capitalizeFully("i+am-FINE", new char[] {'-', '+'}) = "I+Am-Fine"
+     * WordUtils.capitalizeFully(null, *)            = null
+     * WordUtils.capitalizeFully("", *)              = ""
+     * WordUtils.capitalizeFully(*, null)            = *
+     * WordUtils.capitalizeFully(*, new char[0])     = *
+     * WordUtils.capitalizeFully("i aM.fine", {'.'}) = "I am.Fine"
      * </pre>
      * 
      * @param str  the String to capitalize, may be null
-     * @param delimiters  set of characters to determine capitalization
+     * @param delimiters  set of characters to determine capitalization, null means whitespace
      * @return capitalized String, <code>null</code> if null String input
      */
     public static String capitalizeFully(String str, char[] delimiters) {
@@ -393,13 +396,15 @@ public class WordUtils {
      * A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
-     * WordUtils.uncapitalize(null)        = null
-     * WordUtils.uncapitalize("")          = ""
-     * WordUtils.uncapitalize("I Am FINE") = "i am fINE"
+     * WordUtils.uncapitalize(null, *)            = null
+     * WordUtils.uncapitalize("", *)              = ""
+     * WordUtils.uncapitalize(*, null)            = *
+     * WordUtils.uncapitalize(*, new char[0])     = *
+     * WordUtils.uncapitalize("I AM.FINE", {'.'}) = "i AM.fINE"
      * </pre>
      * 
      * @param str  the String to uncapitalize, may be null
-     * @param delimiters  set of characters to determine uncapitalization
+     * @param delimiters  set of characters to determine uncapitalization, null means whitespace
      * @return uncapitalized String, <code>null</code> if null String input
      * @see #capitalize(String)
      */
