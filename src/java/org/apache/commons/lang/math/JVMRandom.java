@@ -24,7 +24,7 @@ import java.util.Random;
  * 
  * @author Henri Yandell
  * @since 2.0
- * @version $Id: JVMRandom.java,v 1.10 2004/02/18 22:56:13 ggregory Exp $
+ * @version $Id: JVMRandom.java,v 1.11 2004/10/21 01:18:33 ggregory Exp $
  */
 public final class JVMRandom extends Random {
 
@@ -42,6 +42,9 @@ public final class JVMRandom extends Random {
     
     /**
      * Unsupported in 2.0.
+     * 
+     * @param seed ignored
+     * @throws UnsupportedOperationException
      */
     public synchronized void setSeed(long seed) {
         if (this.constructed) {
@@ -51,6 +54,9 @@ public final class JVMRandom extends Random {
 
     /**
      * Unsupported in 2.0.
+     * 
+     * @return Nothing, this method always throws an UnsupportedOperationException.
+     * @throws UnsupportedOperationException
      */
     public synchronized double nextGaussian() {
         throw new UnsupportedOperationException();
@@ -58,6 +64,9 @@ public final class JVMRandom extends Random {
 
     /**
      * Unsupported in 2.0.
+     * 
+     * @param byteArray ignored
+     * @throws UnsupportedOperationException
      */
     public void nextBytes(byte[] byteArray) {
         throw new UnsupportedOperationException();

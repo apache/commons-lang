@@ -46,7 +46,7 @@ import org.apache.commons.lang.exception.NestableDelegate;
  * @author Matthew Hawthorne
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: NotImplementedException.java,v 1.9 2004/10/15 20:55:01 scolebourne Exp $
+ * @version $Id: NotImplementedException.java,v 1.10 2004/10/21 01:18:33 ggregory Exp $
  */
 public class NotImplementedException
         extends UnsupportedOperationException implements Nestable {
@@ -122,6 +122,7 @@ public class NotImplementedException
     //-----------------------------------------------------------------------
     /**
      * Gets the root cause of this exception.
+     * @return the root cause of this exception.
      * 
      * @since 2.1
      */

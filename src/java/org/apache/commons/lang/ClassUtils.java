@@ -32,7 +32,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.32 2004/10/15 20:57:18 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.33 2004/10/21 01:18:33 ggregory Exp $
  */
 public class ClassUtils {
 
@@ -505,6 +505,9 @@ public class ClassUtils {
     private static class ClassNameComparator implements Comparator {
         /**
          * Compares two <code>Class</code>s by name.
+         * @param o1 The receiver of the comparison call to {@link String#compareTo(String)}.
+         * @param o2 The argument of the comparison call to {@link String#compareTo(String)}.
+         * @return The return value from {@link String#compareTo(String)}
          * 
          * @throws ClassCastException
          *                  If <code>o1</code> or <code>o2</code> are not <code>Class</code>
@@ -536,6 +539,9 @@ public class ClassUtils {
         /**
          * Compares two <code>Package</code>s by name.
          * 
+         * @param o1 The receiver of the comparison call to {@link String#compareTo(String)}.
+         * @param o2 The argument of the comparison call to {@link String#compareTo(String)}.
+         * @return The return value from {@link String#compareTo(String)}
          * @throws ClassCastException
          *                  If <code>o1</code> or <code>o2</code> are not <code>Package</code>
          *                  instances.
