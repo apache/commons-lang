@@ -38,7 +38,7 @@ import junit.textui.TestRunner;
  * @author Phil Steitz
  * @author Gary D. Gregory
  * @author Al Chou
- * @version $Id: StringUtilsTest.java,v 1.62 2004/08/22 03:40:27 bayard Exp $
+ * @version $Id$
  */
 public class StringUtilsTest extends TestCase {
     
@@ -843,7 +843,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals("ayya", StringUtils.replaceChars("abcba", "bc", "y"));
         assertEquals("ayzya", StringUtils.replaceChars("abcba", "bc", "yzx"));
         
-        // From http://nagoya.apache.org/bugzilla/show_bug.cgi?id=25454
+        // From http://issues.apache.org/bugzilla/show_bug.cgi?id=25454
         assertEquals("bcc", StringUtils.replaceChars("abc", "ab", "bc"));
         assertEquals("q651.506bera", StringUtils.replaceChars("d216.102oren",
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789",
