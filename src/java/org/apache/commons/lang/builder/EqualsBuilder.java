@@ -72,37 +72,37 @@ import java.lang.reflect.Modifier;
  * code must be used in the equals method, and vice versa.
  * <p>
  * Typical use for the code is as follows:
- * <code>
+ * <pre>
  * public boolean equals(Object o) {
  *   if (!o instanceof MyClass) {
  *    return false;
  *   }
  *  MyClass rhs = (MyClass) o;
  *  return new EqualsBuilder()
- *                 .test(field1, rhs.field1)
- *                 .test(field2, rhs.field2)
- *                 .test(field3, rhs.field3)
+ *                 .append(field1, rhs.field1)
+ *                 .append(field2, rhs.field2)
+ *                 .append(field3, rhs.field3)
  *                 .isEquals();
  *  }
- * </code>
+ * </pre>
  * <p>
  * Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method, 
- * <code>reflectionTest</code>, uses <code>Field.setAccessible</code> to change
+ * <code>reflectionEquals</code>, uses <code>Field.setAccessible</code> to change
  * the visibility of the fields. This will fail under a security manager, 
  * unless the appropriate permissions are set. It is also slower than testing 
  * explicitly.
  * <p>
  * A typical invocation for this method would look like:
- * <code>
+ * <pre>
  * public boolean equals(Object o) {
  *   return EqualsBuilder.reflectionEquals(this, obj);
  * }
- * </code>
+ * </pre>
  * 
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EqualsBuilder.java,v 1.3 2002/09/22 09:18:32 scolebourne Exp $
+ * @version $Id: EqualsBuilder.java,v 1.4 2002/10/01 20:00:43 stevencaswell Exp $
  */
 public class EqualsBuilder {
     /**
