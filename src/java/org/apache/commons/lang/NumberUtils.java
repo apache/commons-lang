@@ -57,15 +57,27 @@ package org.apache.commons.lang;
 import java.math.BigInteger;
 import java.math.BigDecimal;
 /**
- * Provides extra functionality for java Number classes.
+ * Provides extra functionality for Java Number classes.
  *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: NumberUtils.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
+ * @version $Id: NumberUtils.java,v 1.2 2002/09/15 10:26:42 scolebourne Exp $
  */
 public final class NumberUtils {
 
+    /**
+     * NumberUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as <code>NumberUtils.stringToInt("6");</code>.
+     * This constructor is public to permit tools that require a JavaBean instance
+     * to operate.
+     */
+    public NumberUtils() {
+    }
+
+    //--------------------------------------------------------------------
+    
     /**
      * Convert a String to an int, returning zero if the conversion fails
      * 
@@ -92,6 +104,8 @@ public final class NumberUtils {
         }
     }
 
+    //--------------------------------------------------------------------
+    
     // must handle Long, Float, Integer, Float, Short,
     //                  BigDecimal, BigInteger and Byte
     // useful methods:
@@ -312,6 +326,8 @@ public final class NumberUtils {
         return s.length() > 0;
     }
 
+    //--------------------------------------------------------------------
+    
     /**
      * Convert a String to a Float
      * 
@@ -382,8 +398,33 @@ public final class NumberUtils {
         return bd;
     }
 
+    //--------------------------------------------------------------------
+    
     /**
-     * Get the minimum of three values.
+     * Gets the minimum of three long values.
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static long minimum(long a, long b, long c) {
+        if (b < a) {
+            a = b;
+        }
+        if (c < a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * Gets the minimum of three int values.
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
      */
     public static int minimum(int a, int b, int c) {
         if (b < a) {
@@ -396,7 +437,30 @@ public final class NumberUtils {
     }
 
     /**
-     * Get the maximum of three values.
+     * Gets the maximum of three long values.
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static long maximum(long a, long b, long c) {
+        if (b > a) {
+            a = b;
+        }
+        if (c > a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * Gets the maximum of three int values.
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
      */
     public static int maximum(int a, int b, int c) {
         if (b > a) {
@@ -408,6 +472,122 @@ public final class NumberUtils {
         return a;
     }
 
+    //--------------------------------------------------------------------
+    
+    /**
+     * Compares two doubles for order.
+     * <p>
+     * This method is more comprhensive than the standard Java greater than,
+     * less than and equals operators.
+     * It returns -1 if the first value is less than the second.
+     * It returns +1 if the first value is greater than the second.
+     * It returns 0 if the values are equal.
+     * <p>
+     * The ordering is as follows, largest to smallest:
+     * <ul>
+     * <li>NaN
+     * <li>Positive infinity
+     * <li>Maximum double
+     * <li>Normal positve numbers
+     * <li>+0.0
+     * <li>-0.0
+     * <li>Minimum double (-Double.MAX_VALUE)
+     * <li>Normal negative numbers
+     * <li>Negative infinity
+     * </ul>
+     * Comparing NaN with NaN will return 0.
+     * 
+     * @param lhs  the first double
+     * @param rhs  the second double
+     * @return -1 if lhs is less, +1 if greater, 0 if equal to rhs
+     */
+    public static int compare(double lhs, double rhs) {
+        if (lhs < rhs) {
+            return -1;
+        }
+        if (lhs > rhs) {
+            return +1;
+        }
+        // Need to compare bits to handle 0.0 == -0.0 being true
+        // compare should put -0.0 < +0.0
+        // Two NaNs are also == for compare purposes
+        // where NaN == NaN is false
+        long lhsBits = Double.doubleToLongBits(lhs);
+        long rhsBits = Double.doubleToLongBits(rhs);
+        if (lhsBits == rhsBits) {
+            return 0;
+        }
+        // Something exotic! A comparison to NaN or 0.0 vs -0.0
+        // Fortunately NaN's long is > than everything else
+        // Also negzeros bits < poszero
+        // NAN: 9221120237041090560
+        // MAX: 9218868437227405311
+        // NEGZERO: -9223372036854775808
+        if (lhsBits < rhsBits) {
+            return -1;
+        } else {
+            return +1;
+        }
+    }
+    
+    /**
+     * Compares two floats for order.
+     * <p>
+     * This method is more comprhensive than the standard Java greater than,
+     * less than and equals operators.
+     * It returns -1 if the first value is less than the second.
+     * It returns +1 if the first value is greater than the second.
+     * It returns 0 if the values are equal.
+     * <p>
+     * The ordering is as follows, largest to smallest:
+     * <ul>
+     * <li>NaN
+     * <li>Positive infinity
+     * <li>Maximum float
+     * <li>Normal positve numbers
+     * <li>+0.0
+     * <li>-0.0
+     * <li>Normal negative numbers
+     * <li>Minimum float (-Float.MAX_VALUE)
+     * <li>Negative infinity
+     * </ul>
+     * Comparing NaN with NaN will return 0.
+     * 
+     * @param lhs  the first float
+     * @param rhs  the second float
+     * @return -1 if lhs is less, +1 if greater, 0 if equal to rhs
+     */
+    public static int compare(float lhs, float rhs) {
+        if (lhs < rhs) {
+            return -1;
+        }
+        if (lhs > rhs) {
+            return +1;
+        }
+        //Need to compare bits to handle 0.0 == -0.0 being true
+        // compare should put -0.0 < +0.0
+        // Two NaNs are also == for compare purposes
+        // where NaN == NaN is false
+        int lhsBits = Float.floatToIntBits(lhs);
+        int rhsBits = Float.floatToIntBits(rhs);
+        if (lhsBits == rhsBits) {
+            return 0;
+        }
+        //Something exotic! A comparison to NaN or 0.0 vs -0.0
+        //Fortunately NaN's int is > than everything else
+        //Also negzeros bits < poszero
+        //NAN: 2143289344
+        //MAX: 2139095039
+        //NEGZERO: -2147483648
+        if (lhsBits < rhsBits) {
+            return -1;
+        } else {
+            return +1;
+        }
+    }
+    
+    //--------------------------------------------------------------------
+    
     /**
      * Checks whether the String contains only digit characters.
      * Null and blank string will return false.
