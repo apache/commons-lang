@@ -77,7 +77,7 @@ import java.util.StringTokenizer;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.47 2003/06/21 22:24:55 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.48 2003/06/23 03:51:13 bayard Exp $
  */
 public class StringUtils {
 
@@ -1048,7 +1048,7 @@ public class StringUtils {
      */
     public static String chopNewline(String str) {
         int lastIdx = str.length() - 1;
-        if (lastIdx == 0) {
+        if (lastIdx <= 0) {
             return "";
         }
         char last = str.charAt(lastIdx);
