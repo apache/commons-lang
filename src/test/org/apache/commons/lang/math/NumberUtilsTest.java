@@ -72,7 +72,8 @@ import org.apache.commons.lang.SystemUtils;
  * @author Phil Steitz
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
- * @version $Id: NumberUtilsTest.java,v 1.4 2003/07/21 19:42:12 ggregory Exp $
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @version $Id: NumberUtilsTest.java,v 1.5 2003/07/26 19:12:30 ggregory Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -150,9 +151,17 @@ public class NumberUtilsTest extends TestCase {
     public void testCreateFloat() {
         assertEquals("createFloat(String) failed", new Float("1234.5"), NumberUtils.createFloat("1234.5"));
         assertEquals("createFloat(null) failed", null, NumberUtils.createFloat(null));
+        this.testCreateFloatFailure("");
+        this.testCreateFloatFailure(" ");
+        this.testCreateFloatFailure("\b\t\n\f\r");
+        // Funky whitespaces
+        this.testCreateFloatFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+    }
+
+    protected void testCreateFloatFailure(String str) {
         try {
-            Float f = NumberUtils.createFloat("");
-            fail("createFloat(empty) failed");
+            Float value = NumberUtils.createFloat(str);
+            fail("createFloat(blank) failed: " + value);
         } catch (NumberFormatException ex) {
             // empty
         }
@@ -161,9 +170,17 @@ public class NumberUtilsTest extends TestCase {
     public void testCreateDouble() {
         assertEquals("createDouble(String) failed", new Double("1234.5"), NumberUtils.createDouble("1234.5"));
         assertEquals("createDouble(null) failed", null, NumberUtils.createDouble(null));
+        this.testCreateDoubleFailure("");
+        this.testCreateDoubleFailure(" ");
+        this.testCreateDoubleFailure("\b\t\n\f\r");
+        // Funky whitespaces
+        this.testCreateDoubleFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+    }
+
+    protected void testCreateDoubleFailure(String str) {
         try {
-            Double d = NumberUtils.createDouble("");
-            fail("createDouble(empty) failed");
+            Double value = NumberUtils.createDouble(str);
+            fail("createDouble(blank) failed: " + value);
         } catch (NumberFormatException ex) {
             // empty
         }
@@ -172,9 +189,17 @@ public class NumberUtilsTest extends TestCase {
     public void testCreateInteger() {
         assertEquals("createInteger(String) failed", new Integer("12345"), NumberUtils.createInteger("12345"));
         assertEquals("createInteger(null) failed", null, NumberUtils.createInteger(null));
+        this.testCreateIntegerFailure("");
+        this.testCreateIntegerFailure(" ");
+        this.testCreateIntegerFailure("\b\t\n\f\r");
+        // Funky whitespaces
+        this.testCreateIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+    }
+
+    protected void testCreateIntegerFailure(String str) {
         try {
-            Integer i = NumberUtils.createInteger("");
-            fail("createInteger(empty) failed");
+            Integer value = NumberUtils.createInteger(str);
+            fail("createInteger(blank) failed: " + value);
         } catch (NumberFormatException ex) {
             // empty
         }
@@ -183,9 +208,17 @@ public class NumberUtilsTest extends TestCase {
     public void testCreateLong() {
         assertEquals("createLong(String) failed", new Long("12345"), NumberUtils.createLong("12345"));
         assertEquals("createLong(null) failed", null, NumberUtils.createLong(null));
+        this.testCreateLongFailure("");
+        this.testCreateLongFailure(" ");
+        this.testCreateLongFailure("\b\t\n\f\r");
+        // Funky whitespaces
+        this.testCreateLongFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+    }
+
+    protected void testCreateLongFailure(String str) {
         try {
-            Long l = NumberUtils.createLong("");
-            fail("createLong(empty) failed");
+            Long value = NumberUtils.createLong(str);
+            fail("createLong(blank) failed: " + value);
         } catch (NumberFormatException ex) {
             // empty
         }
@@ -194,9 +227,17 @@ public class NumberUtilsTest extends TestCase {
     public void testCreateBigInteger() {
         assertEquals("createBigInteger(String) failed", new BigInteger("12345"), NumberUtils.createBigInteger("12345"));
         assertEquals("createBigInteger(null) failed", null, NumberUtils.createBigInteger(null));
+        this.testCreateBigIntegerFailure("");
+        this.testCreateBigIntegerFailure(" ");
+        this.testCreateBigIntegerFailure("\b\t\n\f\r");
+        // Funky whitespaces
+        this.testCreateBigIntegerFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+    }
+
+    protected void testCreateBigIntegerFailure(String str) {
         try {
-            BigInteger i = NumberUtils.createBigInteger("");
-            fail("createBigInteger(empty) failed");
+            BigInteger value = NumberUtils.createBigInteger(str);
+            fail("createBigInteger(blank) failed: " + value);
         } catch (NumberFormatException ex) {
             // empty
         }
@@ -205,9 +246,17 @@ public class NumberUtilsTest extends TestCase {
     public void testCreateBigDecimal() {
         assertEquals("createBigDecimal(String) failed", new BigDecimal("1234.5"), NumberUtils.createBigDecimal("1234.5"));
         assertEquals("createBigDecimal(null) failed", null, NumberUtils.createBigDecimal(null));
+        this.testCreateBigDecimalFailure("");
+        this.testCreateBigDecimalFailure(" ");
+        this.testCreateBigDecimalFailure("\b\t\n\f\r");
+        // Funky whitespaces
+        this.testCreateBigDecimalFailure("\u00A0\uFEFF\u000B\u000C\u001C\u001D\u001E\u001F");
+    }
+
+    protected void testCreateBigDecimalFailure(String str) {
         try {
-            BigDecimal d = NumberUtils.createBigDecimal("");
-            fail("createBigDecimal(empty) failed");
+            BigDecimal value = NumberUtils.createBigDecimal(str);
+            fail("createBigDecimal(blank) failed: " + value);
         } catch (NumberFormatException ex) {
             // empty
         }
