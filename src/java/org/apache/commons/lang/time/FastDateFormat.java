@@ -83,14 +83,14 @@ import java.util.TimeZone;
  * time zones (eg. +08:00 or -11:00). This introduces a minor incompatability with
  * Java 1.4, but at a gain of useful functionality.
  * <p>
- * NOTE: Code originally taken from the open source TreeTrove project.
+ * NOTE: Code originally taken from the open source TeaTrove project.
  *
  * @author Brian S O'Neill
  * @author Sean Schofield
  * @author Gary Gregory
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.6 2003/06/08 23:14:23 scolebourne Exp $
+ * @version $Id: FastDateFormat.java,v 1.7 2003/07/12 08:26:22 scolebourne Exp $
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes
@@ -103,7 +103,7 @@ public class FastDateFormat extends Format {
     // Note that the fastest append to StringBuffer is a single char (used here).
     // Note that Integer.toString() is not called, the conversion is simply
     // taking the value and adding (mathematically) the ASCII value for '0'.
-    // So, don't change this code! It works and is vary fast.
+    // So, don't change this code! It works and is very fast.
     
     /** FULL locale dependent date or time style */
     public static final int FULL = SimpleDateFormat.FULL;
