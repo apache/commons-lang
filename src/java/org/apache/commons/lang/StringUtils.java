@@ -145,7 +145,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.99 2003/08/14 02:20:48 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.100 2003/08/16 10:36:00 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3642,22 +3642,6 @@ public class StringUtils {
             }
         }
         return buffer.toString();
-    }
-
-    /**
-     * <p>Uncapitalizes all the whitespace separated words in a String.
-     * Only the first letter of each word is changed.</p>
-     *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
-     * A <code>null</code> input String returns <code>null</code>.</p>
-     *
-     * @param str  the String to uncapitalize, may be null
-     * @return uncapitalized String, <code>null</code> if null String input
-     * @deprecated Use the standardly named {@link #uncapitalizeAllWords(String)}.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String uncapitaliseAllWords(String str) {
-        return uncapitalizeAllWords(str);
     }
 
     // Count matches
