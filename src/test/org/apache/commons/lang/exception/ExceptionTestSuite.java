@@ -86,6 +86,7 @@ public class ExceptionTestSuite extends TestCase
     {
         TestSuite suite = new TestSuite();
         suite.addTest(NestableDelegateTestCase.suite());
+        suite.addTest(NestableErrorTestCase.suite());
         suite.addTest(NestableExceptionTestCase.suite());
         suite.addTest(NestableRuntimeExceptionTestCase.suite());
         suite.addTest(ExceptionUtilsTestCase.suite());
