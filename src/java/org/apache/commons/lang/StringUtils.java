@@ -78,7 +78,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Arun Mammen Thomas
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.39 2003/03/25 00:15:58 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.40 2003/03/29 16:17:21 alex Exp $
  */
 public class StringUtils {
 
@@ -820,36 +820,72 @@ public class StringUtils {
 
     // Chomping
     //--------------------------------------------------------------------------
-    
-    /** 
-     * <p>Remove the last newline, and everything after it from a String.</p>
+
+    /**
+     * <p>Remove one newline from end of a String if it's there,
+     * otherwise leave it alone.  A newline is "\n", "\r", or "\r\n".
+     * <p>
+     * Note that this behavior has changed from 1.0.  It
+     * now more closely matches Perl chomp.  For the previous behavior,
+     * use slice(String).
      *
-     * @param str String to chomp the newline from
-     * @return String without chomped newline
+     * @param str String to chomp a newline from
+     * @return String without newline
      * @throws NullPointerException if str is <code>null</code>
      */
     public static String chomp(String str) {
-        return chomp(str, "\n");
-    }
-    
-    /** 
-     * <p>Remove the last value of a supplied String, and everything after
-     * it from a String.</p>
-     *
-     * @param str String to chomp from
-     * @param sep String to chomp
-     * @return String without chomped ending
-     * @throws NullPointerException if str or sep is <code>null</code>
-     */
-    public static String chomp(String str, String sep) {
-        int idx = str.lastIndexOf(sep);
-        if (idx != -1) {
-            return str.substring(0, idx);
-        } else {
+        if (str.length() == 0) {
             return str;
         }
+
+        if (str.length() == 1) {
+            if ("\r".equals(str) || "\n".equals(str)) {
+                return "";
+            }
+            else {
+                return str;
+            }
+        }
+
+        int lastIdx = str.length() - 1;
+        char last = str.charAt(lastIdx);
+
+        if (last == '\n') {
+            if (str.charAt(lastIdx - 1) == '\r') {
+                lastIdx--;
+            }
+        } else if (last == '\r') {
+
+        } else {
+            lastIdx++;
+        }
+        return str.substring(0, lastIdx);
     }
-    
+
+    /**
+     * <p>Remove one string (the separator) from the end of another
+     * string if it's there, otherwise leave it alone.
+     * <p>
+     *
+     * Note that this behavior has changed from 1.0.  It
+     * now more closely matches Perl chomp.  For the previous behavior,
+     * use slice(String,String).
+     *
+     * @param str string to chomp from
+     * @param separator separator string
+     * @return String without trailing separator
+     * @throws NullPointerException if str is <code>null</code>
+     */
+    public static String chomp(String str, String separator) {
+        if (str.length() == 0) {
+            return str;
+        }
+        if (str.endsWith(separator)) {
+            return str.substring(0, str.length() - separator.length());
+        }
+        return str;
+    }
+
     /**
      * <p>Remove a newline if and only if it is at the end
      * of the supplied String.</p>
@@ -857,6 +893,7 @@ public class StringUtils {
      * @param str String to chomp from
      * @return String without chomped ending
      * @throws NullPointerException if str is <code>null</code>
+     * @deprecated use chomp(String) instead
      */
     public static String chompLast(String str) {
         return chompLast(str, "\n");
@@ -869,6 +906,7 @@ public class StringUtils {
      * @param sep String to chomp
      * @return String without chomped ending
      * @throws NullPointerException if str or sep is <code>null</code>
+     * @deprecated use chomp(String,String) instead
      */
     public static String chompLast(String str, String sep) {
         if (str.length() == 0) {
@@ -884,12 +922,14 @@ public class StringUtils {
 
     /** 
      * <p>Remove everything and return the last value of a supplied String, and
-     * everything after it from a String.</p>
+     * everything after it from a String.
+     * [That makes no sense. Just use sliceRemainder() :-)]</p>
      *
      * @param str String to chomp from
      * @param sep String to chomp
      * @return String chomped
      * @throws NullPointerException if str or sep is <code>null</code>
+     * @deprecated use sliceRemainder(String,String) instead
      */
     public static String getChomp(String str, String sep) {
         int idx = str.lastIndexOf(sep);
@@ -910,6 +950,7 @@ public class StringUtils {
      * @param sep String to chomp
      * @return String without chomped beginning
      * @throws NullPointerException if str or sep is <code>null</code>
+     * @deprecated use sliceFirstRemainder(String,String) instead
      */
     public static String prechomp(String str, String sep) {
         int idx = str.indexOf(sep);
@@ -928,6 +969,7 @@ public class StringUtils {
      * @param sep String to chomp
      * @return String prechomped
      * @throws NullPointerException if str or sep is <code>null</code>
+     * @deprecated use sliceFirst(String) instead
      */
     public static String getPrechomp(String str, String sep) {
         int idx = str.indexOf(sep);
@@ -976,6 +1018,7 @@ public class StringUtils {
      * @param str String to chop a newline from
      * @return String without newline
      * @throws NullPointerException if str is <code>null</code>
+     * @deprecated use chomp(String) instead
      */
     public static String chopNewline(String str) {
         int lastIdx = str.length() - 1;
@@ -990,6 +1033,102 @@ public class StringUtils {
         return str.substring(0, lastIdx);
     }
 
+
+    // Slicing
+    //--------------------------------------------------------------------------
+
+    /**
+     * <p>Remove the last newline, and everything after it from a String.</p>
+     * (This method was formerly named chomp or chopNewline.)
+     *
+     * @param str String to slice the newline from
+     * @return String without sliced newline
+     * @throws NullPointerException if str is <code>null</code>
+     */
+    public static String slice(String str) {
+        return slice(str, "\n");
+    }
+
+    /**
+     * <p>Find the last occurence of a separator String;
+     * remove it and everything after it.</p>
+     * (This method was formerly named chomp.)
+     *
+     * @param str String to slice from
+     * @param sep String to slice
+     * @return String without sliced ending
+     * @throws NullPointerException if str or sep is <code>null</code>
+     */
+    public static String slice(String str, String sep) {
+        int idx = str.lastIndexOf(sep);
+        if (idx != -1) {
+            return str.substring(0, idx);
+        } else {
+            return str;
+        }
+    }
+
+    /**
+     * <p>Find the last occurence of a separator String, and return
+     * everything after it.</p>
+     * (This method was formerly named getchomp. Also, now it does not
+     * include the separator in the return value.)
+     *
+     * @param str String to slice from
+     * @param sep String to slice
+     * @return String sliced
+     * @throws NullPointerException if str or sep is <code>null</code>
+     */
+    public static String sliceRemainder(String str, String sep) {
+        int idx = str.lastIndexOf(sep);
+        if (idx == str.length() - sep.length()) {
+            return "";
+        } else if (idx != -1) {
+            return str.substring(idx + sep.length());
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * <p>Find the first occurence of a separator String, and return
+     * everything after it.</p>
+     * (This method was formerly named prechomp.  Also, previously
+     * it included the separator in the return value; now it does not.)
+     *
+     * @param str String to slice from
+     * @param sep String to slice
+     * @return String without sliced beginning
+     * @throws NullPointerException if str or sep is <code>null</code>
+     */
+    public static String sliceFirstRemainder(String str, String sep) {
+        int idx = str.indexOf(sep);
+        if (idx != -1) {
+            return str.substring(idx + sep.length());
+        } else {
+            return str;
+        }
+    }
+
+    /**
+     * <p>Find the first occurence of a separator string;
+     * return everything before it (but not including the separator).</p>
+     * (This method was formerly named getPrechomp.  Also, it used to
+     * include the separator, but now it does not.)
+     *
+     * @param str String to slice from
+     * @param sep String to slice
+     * @return String presliced
+     * @throws NullPointerException if str or sep is <code>null</code>
+     */
+    public static String sliceFirst(String str, String sep) {
+        int idx = str.indexOf(sep);
+        if (idx != -1) {
+            return str.substring(0, idx);
+        } else {
+            return "";
+        }
+    }
 
     // Conversion
     //--------------------------------------------------------------------------
