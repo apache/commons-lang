@@ -55,13 +55,14 @@ package org.apache.commons.lang;
  */
 
 /**
- * A range of characters. Able to understand the idea of a contiguous 
- * sublist of an alphabet, a negated concept, and a set of characters.
- * Used by CharSet to handle sets of characters.
+ * <p>A range of characters. Able to understand the idea of a contiguous
+ * sublist of an alphabet, a negated concept, and a set of characters.</p>
+ *
+ * <p>Used by <code>CharSet</code> to handle sets of characters.</p>
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharRange.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @version $Id: CharRange.java,v 1.2 2002/11/16 10:41:03 scolebourne Exp $
  */
 class CharRange {
 
@@ -75,7 +76,7 @@ class CharRange {
     private boolean negated;
 
     /**
-     * Construct a CharRange over a single character.
+     * <p>Construct a <code>CharRange</code> over a single character.</p>
      *
      * @param start char over which this range is placed
      */
@@ -84,7 +85,7 @@ class CharRange {
     }
 
     /**
-     * Construct a CharRange over a set of characters.
+     * <p>Construct a <code>CharRange</code> over a set of characters.</p>
      *
      * @param start  char start character in this range. inclusive
      * @param close  char close character in this range. inclusive
@@ -95,11 +96,11 @@ class CharRange {
     }
 
     /**
-     * Construct a CharRange over a set of characters.
+     * <p>Construct a <code>CharRange</code> over a set of characters.</p>
      *
      * @param start  String start first character is in this range (inclusive).
      * @param close  String first character is close character in this
-     * range (inclusive).
+     *  range (inclusive).
      */
     public CharRange(String start, String close) {
         this.start = start.charAt(0);
@@ -107,7 +108,7 @@ class CharRange {
     }
 
     /**
-     * Get the start character for this character range
+     * <p>Get the start character for this character range.</p>
      * 
      * @return start char (inclusive)
      */
@@ -116,7 +117,7 @@ class CharRange {
     }
 
     /**
-     * Get the end character for this character range
+     * <p>Get the end character for this character range.</p>
      * 
      * @return end char (inclusive)
      */
@@ -125,7 +126,7 @@ class CharRange {
     }
 
     /**
-     * Set the start character for this character range
+     * <p>Set the start character for this character range.</p>
      * 
      * @param ch  start char (inclusive)
      */
@@ -134,7 +135,7 @@ class CharRange {
     }
 
     /**
-     * Set the end character for this character range
+     * <p>Set the end character for this character range.</p>
      * 
      * @param ch  start char (inclusive)
      */
@@ -143,18 +144,19 @@ class CharRange {
     }
 
     /**
-     * Is this CharRange over many characters
+     * <p>Is this <code>CharRange</code> over many characters.</p>
      *
-     * @return boolean true is many characters
+     * @return boolean <code>true</code> is many characters
      */
     public boolean isRange() {
         return this.close != UNSET;
     }
 
     /**
-     * Is the passed in character inside this range
+     * <p>Is the passed in character <code>ch</code> inside
+     * this range.</p>
      *
-     * @return boolean true is in range
+     * @return boolean <code>true</code> is in range
      */
     public boolean inRange(char ch) {
         if(isRange()) {
@@ -165,27 +167,28 @@ class CharRange {
     }
 
     /**
-     * Checks if this CharRange is negated.
+     * <p>Checks if this <code>CharRange</code> is negated.</p>
      *
-     * @return boolean true is negated
+     * @return boolean <code>true</code> is negated
      */
     public boolean isNegated() {
         return negated;
     }
 
     /**
-     * Sets this character range to be negated or not. 
-     * This implies that this CharRange is over all characters except 
-     * the ones in this range.
+     * <p>Sets this character range to be negated or not.</p>
+     *
+     * <p>This implies that this <code>CharRange</code> is over
+     * all characters except the ones in this range.</p>
      * 
-     * @param negated  true to negate the range
+     * @param negated  <code>true</code> to negate the range
      */
     public void setNegated(boolean negated) {
         this.negated = negated;
     }
 
     /**
-     * Output a string representation of the character range
+     * <p>Output a string representation of the character range.</p>
      * 
      * @return string representation
      */

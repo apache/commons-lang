@@ -57,19 +57,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 /**
- * <code>ClassUtils</code> contains utility methods for working for
- * classes without using reflection.
+ * <p><code>ClassUtils</code> contains utility methods for working for
+ * classes without using reflection.</p>
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ClassUtils.java,v 1.4 2002/11/14 22:29:25 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.5 2002/11/16 10:41:03 scolebourne Exp $
  */
 public class ClassUtils {
 
     /**
-     * ClassUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>ClassUtils.getShortClassName(cls)</code>.
-     * This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
+     * <p>ClassUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as
+     * <code>ClassUtils.getShortClassName(cls)</code>.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
      */
     public ClassUtils() {
     }
@@ -77,9 +79,11 @@ public class ClassUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets the class name minus the package name from a Class.
+     * <p>Gets the class name minus the package name from a
+     * <code>Class</code>.</p>
      * 
-     * @param cls  the class to get the short name for, must not be <code>null</code>
+     * @param cls  the class to get the short name for, must not be
+     *  <code>null</code>
      * @return the class name without the package name
      * @throws IllegalArgumentException if the class is <code>null</code>
      */
@@ -91,9 +95,11 @@ public class ClassUtils {
     }
     
     /**
-     * Gets the class name minus the package name for an Object.
+     * <p>Gets the class name minus the package name for an
+     * <code>Object</code>.</p>
      * 
-     * @param object  the class to get the short name for, must not be <code>null</code>
+     * @param object  the class to get the short name for, must not be
+     *  <code>null</code>
      * @return the class name of the object without the package name
      * @throws IllegalArgumentException if the object is <code>null</code>
      */
@@ -105,9 +111,9 @@ public class ClassUtils {
     }
     
     /**
-     * Gets the class name minus the package name from a String.
-     * <p>
-     * The string passed in is assumed to be a class name - it is not checked.
+     * <p>Gets the class name minus the package name from a String.</p>
+     *
+     * <p>The string passed in is assumed to be a class name - it is not checked.</p>
      * 
      * @param className  the className to get the short name for, must not be empty
      * @return the class name of the class without the package name
@@ -132,9 +138,10 @@ public class ClassUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets the package name of a Class.
+     * <p>Gets the package name of a <code>Class</code>.</p>
      * 
-     * @param cls  the class to get the package name for, must not be <code>null</code>
+     * @param cls  the class to get the package name for, must not be
+     *  <code>null</code>
      * @return the package name
      * @throws IllegalArgumentException if the class is <code>null</code>
      */
@@ -146,9 +153,10 @@ public class ClassUtils {
     }
     
     /**
-     * Gets the package name of an Object.
+     * <p>Gets the package name of an <code>Object</code>.</p>
      * 
-     * @param object  the class to get the package name for, must not be <code>null</code>
+     * @param object  the class to get the package name for, must not be
+     *  <code>null</code>
      * @return the package name
      * @throws IllegalArgumentException if the object is <code>null</code>
      */
@@ -160,9 +168,9 @@ public class ClassUtils {
     }
     
     /**
-     * Gets the package name from a String.
-     * <p>
-     * The string passed in is assumed to be a class name - it is not checked.
+     * <p>Gets the package name from a <code>String</code>.</p>
+     *
+     * <p>The string passed in is assumed to be a class name - it is not checked.</p>
      * 
      * @param className  the className to get the package name for, must not be empty
      * @return the package name
@@ -182,10 +190,10 @@ public class ClassUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets a list of superclasses for the given class.
+     * <p>Gets a <code>List</code> of superclasses for the given class.</p>
      * 
      * @param cls  the class to look up, must not be <code>null</code>
-     * @return the list of superclasses in order going up from this one
+     * @return the <code>List</code> of superclasses in order going up from this one
      * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static List getAllSuperclasses(Class cls) {
@@ -202,14 +210,15 @@ public class ClassUtils {
     }
     
     /**
-     * Gets a list of all interfaces implemented by the given class.
-     * <p>
-     * The order is determined by looking through each interface in turn as
+     * <p>Gets a <code>List</code> of all interfaces implemented by the given
+     * class.</p>
+     *
+     * <p>The order is determined by looking through each interface in turn as
      * declared in the source file and following its hieracrchy up. Later
-     * duplicates are ignored, so the order is maintained.
+     * duplicates are ignored, so the order is maintained.</p>
      * 
      * @param cls  the class to look up, must not be <code>null</code>
-     * @return the list of interfaces in order
+     * @return the <code>List</code> of interfaces in order
      * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static List getAllInterfaces(Class cls) {
@@ -234,14 +243,14 @@ public class ClassUtils {
     }
     
 //    /**
-//     * Gets a list of subclasses of the specified class.
-//     * <p>
-//     * This method searches the classpath to find all the subclasses
+//     * <p>Gets a <code>List</code> of subclasses of the specified class.</p>
+//     *
+//     * <p>This method searches the classpath to find all the subclasses
 //     * of a particular class available. No classes are loaded, the 
-//     * returned list contains class names, not classes.
+//     * returned list contains class names, not classes.</p>
 //     *
 //     * @param cls  the class to find subclasses for
-//     * @return the list of subclass String class names
+//     * @return the <code>List</code> of subclass String class names
 //     * @throws IllegalArgumentException if the class is <code>null</code>
 //     */
 //    public static List getAllSubclassNames(Class cls) {
@@ -253,13 +262,13 @@ public class ClassUtils {
 //    }
 
 //    /**
-//     * Gets a list of subclasses of the specified class.
-//     * <p>
-//     * This method searches the classpath to find all the subclasses
-//     * of a particular class available.
+//     * <p>Gets a <code>List</code> of subclasses of the specified class.</p>
+//     *
+//     * <p>This method searches the classpath to find all the subclasses
+//     * of a particular class available.</p>
 //     *
 //     * @param cls  the class to find subclasses for
-//     * @return the list of subclasses
+//     * @return the <code>List</code> of subclasses
 //     * @throws IllegalArgumentException if the class is <code>null</code>
 //     */
 //    public static List getAllSubclasses(Class cls) {
@@ -268,14 +277,14 @@ public class ClassUtils {
 //    }
 
 //    /**
-//     * Gets a list of implementations of the specified interface.
-//     * <p>
-//     * This method searches the classpath to find all the implementations
+//     * <p>Gets a <code>List</code> of implementations of the specified interface.</p>
+//     *
+//     * <p>This method searches the classpath to find all the implementations
 //     * of a particular interface available. No classes are loaded, the 
-//     * returned list contains class names, not classes.
+//     * returned list contains class names, not classes.</p>
 //     *
 //     * @param cls  the class to find sub classes for
-//     * @return the list of implementation String class names
+//     * @return the <code>List</code> of implementation String class names
 //     * @throws IllegalArgumentException if the class is <code>null</code>
 //     */
 //    public static List getAllImplementationClassNames(Class cls) {
@@ -287,14 +296,15 @@ public class ClassUtils {
 //    }
 
     /**
-     * Given a list of class names, this method converts them into classes.
-     * A new list is returned. If the class name cannot be found, <code>null</code>
-     * is stored in the list. If the class name in the list is <code>null</code>,
-     * <code>null</code> is stored in the output list.
+     * <p>Given a <code>List</code> of class names, this method converts them into classes.     *
+     * A new <code>List</code> is returned. If the class name cannot be found, <code>null</code>
+     * is stored in the <code>List</code>. If the class name in the <code>List</code> is
+     * <code>null</code>, <code>null</code> is stored in the output <code>List</code>.</p>
      * 
      * @param classNames  the classNames to change, the class is stored back
-     *  into the list. <code>null</code> will be stored in the list if no class is found.
-     * @return the list of Class objects corresponding to the class names
+     *  into the <code>List</code>. <code>null</code> will be stored in the <code>List</code>
+     *  if no class is found.
+     * @return the <code>List</code> of Class objects corresponding to the class names
      * @throws IllegalArgumentException if the classNames is <code>null</code>
      */
     public static List convertClassNamesToClasses(List classNames) {
@@ -314,8 +324,8 @@ public class ClassUtils {
     }
     
     /**
-     * Given a list of classes, this method finds all those which are
-     * subclasses or implementations of a specified superclass.
+     * <p>Given a <code>List</code> of classes, this method finds all those which
+     * are subclasses or implementations of a specified superclass.</p>
      * 
      * @param classes  the classes to check
      * @param superclass  the superclass to check for
@@ -344,30 +354,33 @@ public class ClassUtils {
     }
 
     /**
-     * Checks if an array of Classes can be assigned to another array of Classes.
-     * <p>
-     * This can be used to check if parameter types are suitably compatable for
-     * reflection invocation.
-     * <p>
-     * Unlike the Class.isAssignableFrom method, this method takes into 
-     * account widenings of primitive classes and <code>null</code>s.
-     * <p>
-     * Primitive widenings allow an int to be assigned to a long, float or 
-     * double. This method returns the correct result for these cases.
-     * <p>
-     * <code>Null</code> may be assigned to any reference type. This method will return
-     * true if <code>null</code> is passed in and the toClass is non-primitive.
-     * <p>
-     * Specifically, this method tests whether the type represented by the
+     * <p>Checks if an array of Classes can be assigned to another array of Classes.</p>
+     *
+     * <p>This can be used to check if parameter types are suitably compatable for
+     * reflection invocation.</p>
+     *
+     * <p>Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this
+     * method takes into account widenings of primitive classes and
+     * <code>null</code>s.</p>
+     *
+     * <p>Primitive widenings allow an int to be assigned to a <code>long</code>,
+     * <code>float</code> or <code>double</code>. This method returns the correct
+     * result for these cases.</p>
+     *
+     * <p><code>Null</code> may be assigned to any reference type. This method will
+     * return <code>true</code> if <code>null</code> is passed in and the toClass is
+     * non-primitive.</p>
+     *
+     * <p>Specifically, this method tests whether the type represented by the
      * specified <code>Class</code> parameter can be converted to the type
      * represented by this <code>Class</code> object via an identity conversion
      * widening primitive or widening reference conversion. See 
-     * <em>The Java Language Specification</em>, sections 5.1.1, 5.1.2 and 
-     * 5.1.4 for details.
+     * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
+     * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
      *
      * @param classArray  the array of Classes to check, may be <code>null</code>
      * @param toClassArray  the array of Classes to try to assign into, may be <code>null</code>
-     * @return true if assignment possible
+     * @return <code>true</code> if assignment possible
      */
     public static boolean isAssignable(Class[] classArray, Class[] toClassArray) {
         if (ArrayUtils.isSameLength(classArray, toClassArray) == false) {
@@ -388,27 +401,30 @@ public class ClassUtils {
     }
     
     /**
-     * Checks if one Class can be assigned to a variable of another Class.
-     * <p>
-     * Unlike the Class.isAssignableFrom method, this method takes into 
-     * account widenings of primitive classes and <code>null</code>s.
-     * <p>
-     * Primitive widenings allow an int to be assigned to a long, float or 
-     * double. This method returns the correct result for these cases.
-     * <p>
-     * Null may be assigned to any reference type. This method will return
-     * true if <code>null</code> is passed in and the toClass is non-primitive.
-     * <p>
-     * Specifically, this method tests whether the type represented by the
+     * <p>Checks if one <code>Class</code> can be assigned to a variable of
+     * another <code>Class</code>.</p>
+     *
+     * <p>Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method,
+     * this method takes into account widenings of primitive classes and
+     * <code>null</code>s.</p>
+     *
+     * <p>Primitive widenings allow an int to be assigned to a long, float or
+     * double. This method returns the correct result for these cases.</p>
+     *
+     * <p><code>Null</code> may be assigned to any reference type. This method
+     * will return <code>true</code> if <code>null</code> is passed in and the
+     * toClass is non-primitive.</p>
+     *
+     * <p>Specifically, this method tests whether the type represented by the
      * specified <code>Class</code> parameter can be converted to the type
      * represented by this <code>Class</code> object via an identity conversion
      * widening primitive or widening reference conversion. See 
-     * <em>The Java Language Specification</em>, sections 5.1.1, 5.1.2 and 
-     * 5.1.4 for details.
+     * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
+     * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
      *
      * @param cls  the Class to check, may be <code>null</code>
      * @param toClass  the Class to try to assign into, must not be <code>null</code>
-     * @return true if assignment possible
+     * @return <code>true</code> if assignment possible
      * @throws IllegalArgumentException if the toClass is <code>null</code>
      */
     public static boolean isAssignable(Class cls, Class toClass) {
@@ -470,10 +486,10 @@ public class ClassUtils {
     }
     
     /**
-     * Is the specified class an inner class or static nested class.
+     * <p>Is the specified class an inner class or static nested class.</p>
      * 
      * @param cls  the class to check
-     * @return true if the class is an inner or static nested class
+     * @return <code>true</code> if the class is an inner or static nested class
      * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static boolean isInnerClass(Class cls) {

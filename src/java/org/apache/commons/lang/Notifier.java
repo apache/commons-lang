@@ -63,13 +63,13 @@ import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * A utility which takes much of the pain out of the Event/Listener 
+ * <p>A utility which takes much of the pain out of the Event/Listener
  * system. It handles the collection, and the loop-notification.
- * Reflection is used for the actual notification call.
+ * Reflection is used for the actual notification call.</p>
  *
- * Alternate strategies are usable. For example this class currently 
+ * <p>Alternate strategies are usable. For example this class currently
  * does not enforce a particular interface, which means it cannot 
- * cache that method. Doing this probably makes a lot of sense.
+ * cache that method. Doing this probably makes a lot of sense.</p>
  */
 public class Notifier {
 
@@ -93,8 +93,8 @@ public class Notifier {
     }
 
     /**
-     * Construct with the class and the name of the method to 
-     * call upon the listeners.
+     * <p>Construct with the class and the name of the method to
+     * call upon the listeners.</p>
      */
     public Notifier(Class clss, String name) {
         if(clss == null) {
@@ -128,10 +128,11 @@ public class Notifier {
     }
 
     /**
-     * Convenience method for when a listener has a single method.
-     * Currently this method needs to be called, but it's possible 
+     * <p>Convenience method for when a listener has a single method.</p>
+     *
+     * <p>Currently this method needs to be called, but it's possible
      * that by providing the interface class, it can be assumed as 
-     * to what the listening method is.
+     * to what the listening method is.</p>
      */
     public void notify(EventObject event) throws NotifierException {
         if(this.clss == null) {
@@ -142,9 +143,10 @@ public class Notifier {
     }
 
     /**
-     * Notify the listeners of a certain event, to a certain method.
-     * This is usable when a Listener has more than one method and 
-     * a single Notifier wants to be shared.
+     * <p>Notify the listeners of a certain event, to a certain method.</p>
+     *
+     * <p>This is usable when a Listener has more than one method and
+     * a single <code>Notifier</code> wants to be shared.</p>
      */
     private void notify(Method listenerMethod, EventObject event) throws NotifierException {
         Iterator itr = getListeners().iterator();
@@ -165,9 +167,10 @@ public class Notifier {
     }
 
     /**
-     * Notify the listeners of a certain event, to a certain method.
-     * This is usable when a Listener has more than one method and 
-     * a single Notifier wants to be shared.
+     * <p>Notify the listeners of a certain event, to a certain method.</p>
+     *
+     * <p>This is usable when a Listener has more than one method and
+     * a single Notifier wants to be shared.</p>
      */
     public void notify(String methodName, EventObject event) throws NotifierException {
         Iterator itr = getListeners().iterator();

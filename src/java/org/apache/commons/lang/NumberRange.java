@@ -55,11 +55,11 @@ package org.apache.commons.lang;
  */
 
 /**
- * Represents a range of {@link Number} objects.
+ * <p>Represents a range of {@link Number} objects.</p>
  *
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Revision: 1.2 $ $Date: 2002/11/07 16:59:44 $
+ * @version $Revision: 1.3 $ $Date: 2002/11/16 10:41:03 $
  */
 public final class NumberRange {
 
@@ -72,8 +72,8 @@ public final class NumberRange {
 
 
     /**
-     * Constructs a new instance using the specified number as both the
-     * minimum and maximum in theis range.
+     * <p>Constructs a new <code>NumberRange</code> using the specified
+     * number as both the minimum and maximum in this range.</p>
      *
      * @param num the number to use for this range
      * @throws NullPointerException if the number is <code>null</code>
@@ -88,13 +88,13 @@ public final class NumberRange {
     }
 
     /**
-     * Constructs a new instance with the specified minimum and maximum
-     * numbers.
+     * <p>Constructs a new <code>NumberRange</code> with the specified
+     * minimum and maximum numbers.</p>
      *
      * @param min the minimum number in this range
      * @param max the maximum number in this range
      * @throws NullPointerException if either the minimum or maximum number is
-     *         <code>null</code>
+     *  <code>null</code>
      */
     public NumberRange(Number min, Number max) {
         if (min == null) {
@@ -112,7 +112,7 @@ public final class NumberRange {
     }
 
     /**
-     * Returns the minimum number in this range.
+     * <p>Returns the minimum number in this range.</p>
      *
      * @return the minimum number in this range
      */
@@ -121,7 +121,7 @@ public final class NumberRange {
     }
 
     /**
-     * Returns the maximum number in this range.
+     * <p>Returns the maximum number in this range.</p>
      *
      * @return the maximum number in this range
      */
@@ -130,11 +130,12 @@ public final class NumberRange {
     }
 
     /**
-     * Tests whether the specified number occurs within this range.
+     * <p>Tests whether the specified <code>number</code> occurs within
+     * this range.</p>
      *
      * @param number the number to test
      * @return <code>true</code> if the specified number occurs within this
-     *         range; otherwise, <code>false</code>
+     *  range; otherwise, <code>false</code>
      */
     public boolean includesNumber(Number number) {
         if (number == null) {
@@ -146,11 +147,12 @@ public final class NumberRange {
     }
 
     /**
-     * Tests whether the specified range occurs entirely within this range.
+     * <p>Tests whether the specified range occurs entirely within this
+     * range.</p>
      *
      * @param range the range to test
      * @return <code>true</code> if the specified range occurs entirely within
-     *         this range; otherwise, <code>false</code>
+     *  this range; otherwise, <code>false</code>
      */
     public boolean includesRange(NumberRange range) {
         if (range == null) {
@@ -161,11 +163,11 @@ public final class NumberRange {
     }
 
     /**
-     * Tests whether the specified range overlaps with this range.
+     * <p>Tests whether the specified range overlaps with this range.</p>
      *
      * @param range the range to test
      * @return <code>true</code> if the specified range overlaps with this
-     *         range; otherwise, <code>false</code>
+     *  range; otherwise, <code>false</code>
      */
     public boolean overlaps(NumberRange range) {
         if (range == null) {
@@ -177,11 +179,12 @@ public final class NumberRange {
     }
 
     /**
-     * Indicates whether some other object is "equal" to this one.
+     * <p>Indicates whether some other <code>Object</code> is "equal" to
+     * this one</p>.
      *
      * @param obj the reference object with which to compare
      * @return <code>true</code> if this object is the same as the obj
-     *         argument; <code>false</code> otherwise
+     *  argument; <code>false</code> otherwise
      */
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -195,7 +198,7 @@ public final class NumberRange {
     }
 
     /**
-     * Returns a hash code value for this object.
+     * <p>Returns a hash code value for this object.</p>
      *
      * @return a hash code value for this object
      */
@@ -207,10 +210,11 @@ public final class NumberRange {
     }
 
     /**
-     * Returns the string representation of this range. This string is the
-     * string representation of the minimum and maximum numbers in the range,
-     * separated by a hyphen. If a number is negative, then it is enclosed
-     * in parentheses.
+     * <p>Returns the string representation of this range.</p>
+     *
+     * <p>This string is the string representation of the minimum and
+     * maximum numbers in the range, separated by a hyphen. If a number
+     * is negative, then it is enclosed in parentheses.</p>
      *
      * @return the string representation of this range
      */
