@@ -60,6 +60,15 @@
         <role>Java Developer</role>
       </roles>
     </developer>
+    <developer>
+      <name>Gary Gregory</name>
+      <id>ggregory</id>
+      <email>ggregory@seagullsw.com</email>
+      <organization>SEAGULL Software</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      </developer>
   </developers>
 
   <contributors>
