@@ -53,11 +53,6 @@
  */
 package org.apache.commons.lang.builder;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * <p>Builds <code>toString()</code> values.</p>
  *
@@ -122,25 +117,14 @@ import java.util.Set;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.21 2003/05/31 22:22:49 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.22 2003/06/03 03:51:56 ggregory Exp $
  */
 public class ToStringBuilder {
-    
+
     /**
      * The default style of output to use
      */
     private static ToStringStyle defaultStyle = ToStringStyle.DEFAULT_STYLE;
-
-    /**
-     * A registry of objects used by <code>reflectionToString</code> methods to detect cyclical object references 
-     * and avoid infinite loops.
-     */
-    private static ThreadLocal reflectionRegistry = new ThreadLocal() {
-        protected synchronized Object initialValue() {
-            // The HashSet implementation is not synchronized, which is just what we need here. 
-            return new HashSet();
-        }
-    };
 
     //----------------------------------------------------------------------------
 
@@ -161,230 +145,43 @@ public class ToStringBuilder {
     }
 
     /**
-     * Returns the registry of objects being traversed by the 
-     * <code>reflectionToString</code> methods in the current thread.
-     * @return Set the registry of objects being traversed 
-     */
-    static Set getReflectionRegistry() {
-        return (Set) reflectionRegistry.get();
-    }
-
-    /**
-     * Returns <code>true</code> if the registry contains the given object.
-     * Used by the reflection methods to avoid infinite loops.
+     * Forwards to ReflectionToStringBuilder.
      * 
-     * @param value The object to lookup in the registry.
-     * @return boolean <code>true</code> if the registry contains the given object.
-     */
-    static boolean isRegistered(Object value) {
-        return getReflectionRegistry().contains(value);
-    }
-
-    /**
-     * Appends the fields and values defined by the given object of the
-     * given Class. If a cycle is detected as an objects is "toString()'ed",
-     * such an object is rendered as if <code>Object.toString()</code> 
-     * had been called and not implemented by the object.
-     * 
-     * @param object  the object to append details of
-     * @param clazz  the class of object parameter
-     * @param builder  the builder to append to
-     * @param useTransients  whether to output transient fields
-     */
-    private static void reflectionAppend(Object object, Class clazz, ToStringBuilder builder, boolean useTransients) {
-        if (isRegistered(object)) {
-            // The object has already been appended, therefore we have an object cycle. 
-            // Append a simple Object.toString style string. The field name is already appended at this point.
-            builder.appendAsObjectToString(object);
-            return;
-        }
-        try {
-            register(object);
-            if (clazz.isArray()) {
-                builder.reflectionAppendArray(object);
-                return;
-            }
-            Field[] fields = clazz.getDeclaredFields();
-            Field.setAccessible(fields, true);
-            for (int i = 0; i < fields.length; i++) {
-                Field f = fields[i];
-                String fieldName = f.getName();
-                if ((fieldName.indexOf('$') == -1)
-                    && (useTransients || !Modifier.isTransient(f.getModifiers()))
-                    && (!Modifier.isStatic(f.getModifiers()))) {
-                    try {
-                        // Warning: Field.get(Object) creates wrappers objects for primitive types.
-                        Object fieldValue = f.get(object);
-                        if (isRegistered(fieldValue)
-                            && !f.getType().isPrimitive()) {
-                            // A known field value has already been appended, therefore we have an object cycle, 
-                            // append a simple Object.toString style string.
-                            builder.getStyle().appendFieldStart(builder.getStringBuffer(), fieldName);
-                            builder.appendAsObjectToString(fieldValue);
-                            // The recursion out of 
-                            //    builder.append(fieldName, fieldValue); 
-                            // below will append the field 
-                            // end marker.
-                        } else {
-                            try {
-                                register(object);
-                                builder.append(fieldName, fieldValue);
-                            } finally {
-                                unregister(object);
-                            }
-                        }
-                    } catch (IllegalAccessException ex) {
-                        //this can't happen. Would get a Security exception instead
-                        //throw a runtime exception in case the impossible happens.
-                        throw new InternalError("Unexpected IllegalAccessException: " + ex.getMessage());
-                    }
-                }
-            }
-        } finally {
-            unregister(object);
-        }
-    }
-
-    //-------------------------------------------------------------------------
-
-    /**
-     * <p>This method uses reflection to build a suitable
-     * <code>toString</code> using the default <code>ToStringStyle</code>.
-     *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
-     * fields. This means that it will throw a security exception if run
-     * under a security manger, if the permissions are not set up correctly.
-     * It is also not as efficient as testing explicitly.</p>
-     *
-     * <p>Transient members will be not be included, as they are likely derived.</p>
-     *
-     * <p>Static fields will not be included. Superclass fields will be appended.</p>
-     *
-     * @param object  the Object to be output
-     * @return the String result
-     * @throws IllegalArgumentException if the Object is <code>null</code>
+     * @see ReflectionToStringBuilder#toString(Object)
      */
     public static String reflectionToString(Object object) {
-        return reflectionToString(object, null, false, null);
+        return ReflectionToStringBuilder.toString(object);
     }
 
     /**
-     * <p>This method uses reflection to build a suitable
-     * <code>toString</code>.</p>
-     *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
-     * fields. This means that it will throw a security exception if run
-     * under a security manger, if the permissions are not set up correctly.
-     * It is also not as efficient as testing explicitly.</p>
-     *
-     * <p>Transient members will be not be included, as they are likely
-     * derived.</p>
-     *
-     * <p>Static fields will not be included. Superclass fields will be appended.</p>
-     *
-     * <p>If the style is <code>null</code>, the default
-     * <code>ToStringStyle</code> is used.</p>
+     * Forwards to ReflectionToStringBuilder.
      * 
-     * @param object  the Object to be output
-     * @param style  the style of the <code>toString</code> to create,
-     *  may be <code>null</code>
-     * @return the String result
-     * @throws IllegalArgumentException if the Object or
-     *  <code>ToStringStyle</code> is <code>null</code>
+     * @see ReflectionToStringBuilder#toString(Object,ToStringStyle)
      */
     public static String reflectionToString(Object object, ToStringStyle style) {
-        return reflectionToString(object, style, false, null);
+        return ReflectionToStringBuilder.toString(object, style);
     }
 
     /**
-     * <p>This method uses reflection to build a suitable
-     * <code>toString</code>.</p>
-     *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
-     * fields. This means that it will throw a security exception if run
-     * under a security manger, if the permissions are not set up correctly.
-     * It is also not as efficient as testing explicitly. </p>
-     *
-     * <p>If the <code>outputTransients</code> is <code>true</code>,
-     * transient members will be output, otherwise they are ignored,
-     * as they are likely derived fields, and not part of the value of the
-     * Object.</p>
-     *
-     * <p>Static fields will not be included. Superclass fields will be appended.</p>
-     *
-     * <p>
-     * If the style is <code>null</code>, the default
-     * <code>ToStringStyle</code> is used.</p>
+     * Forwards to ReflectionToStringBuilder.
      * 
-     * @param object  the Object to be output
-     * @param style  the style of the <code>toString</code> to create,
-     *  may be <code>null</code>
-     * @param outputTransients  whether to include transient fields
-     * @return the String result
-     * @throws IllegalArgumentException if the Object is <code>null</code>
+     * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean)
      */
     public static String reflectionToString(Object object, ToStringStyle style, boolean outputTransients) {
-        return reflectionToString(object, style, outputTransients, null);
+        return ReflectionToStringBuilder.toString(object, style, outputTransients, null);
     }
 
     /**
-     * <p>This method uses reflection to build a suitable
-     * <code>toString</code>.</p>
-     *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
-     * fields. This means that it will throw a security exception if run
-     * under a security manger, if the permissions are not set up correctly.
-     * It is also not as efficient as testing explicitly. </p>
-     *
-     * <p>If the <code>outputTransients</code> is <code>true</code>,
-     * transient members will be output, otherwise they are ignored,
-     * as they are likely derived fields, and not part of the value of the
-     * Object.</p>
-     *
-     * <p>Static fields will not be included. Superclass fields will be appended
-     * up to and including the specified superclass. A null superclass is treated
-     * as java.lang.Object.</p>
-     *
-     * <p>If the style is <code>null</code>, the default
-     * <code>ToStringStyle</code> is used.</p>
+     * Forwards to ReflectionToStringBuilder.
      * 
-     * @param object  the Object to be output
-     * @param style  the style of the <code>toString</code> to create,
-     *  may be <code>null</code>
-     * @param outputTransients  whether to include transient fields
-     * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be null
-     * @return the String result
-     * @throws IllegalArgumentException if the Object is <code>null</code>
+     * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean,Class)
      */
     public static String reflectionToString(
         Object object,
         ToStringStyle style,
         boolean outputTransients,
         Class reflectUpToClass) {
-        if (style == null) {
-            style = getDefaultStyle();
-        }
-        if (object == null) {
-            return style.getNullText();
-        }
-        ToStringBuilder builder = new ToStringBuilder(object, style);
-        Class clazz = object.getClass();
-        reflectionAppend(object, clazz, builder, outputTransients);
-        while (clazz.getSuperclass() != null && clazz != reflectUpToClass) {
-            clazz = clazz.getSuperclass();
-            reflectionAppend(object, clazz, builder, outputTransients);
-        }
-        return builder.toString();
-    }
-
-    /**
-     * Registers the given object.
-     * Used by the reflection methods to avoid infinite loops.
-     * 
-     * @param value The object to register.
-     */
-    static void register(Object value) {
-        getReflectionRegistry().add(value);
+        return ReflectionToStringBuilder.toString(object, style, outputTransients, reflectUpToClass);
     }
 
     /**
@@ -401,27 +198,17 @@ public class ToStringBuilder {
     }
 
     /**
-     * Unregisters the given object.
-     * Used by the reflection methods to avoid infinite loops.
-     * 
-     * @param value The object to unregister.
-     */
-    static void unregister(Object value) {
-        getReflectionRegistry().remove(value);
-    }
-    
-    /**
-     * Current toString buffer
+     * Current toString buffer.
      */
     private final StringBuffer buffer;
-    
+
     /**
-     * The object being output
+     * The object being output.
      */
     private final Object object;
-    
+
     /**
-     * The style of output to use
+     * The style of output to use.
      */
     private final ToStringStyle style;
 
@@ -1258,18 +1045,6 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append to the <code>toString</code> an <code>Object</code>
-     * array.</p>
-     *
-     * @param array  the array to add to the <code>toString</code>
-     * @return this
-     */
-    public ToStringBuilder reflectionAppendArray(Object array) {
-        style.reflectionAppendArrayDetail(buffer, null, array);
-        return this;
-    }
-
-    /**
      * <p>Returns the built <code>toString</code>.</p>
      * 
      * <p>This method appends the end of the buffer, and can only be called once.
@@ -1280,6 +1055,15 @@ public class ToStringBuilder {
     public String toString() {
         style.appendEnd(buffer, object);
         return buffer.toString();
+    }
+
+    /**
+     * Returns the object being output.
+     * 
+     * @return The object being output.
+     */
+    public Object getObject() {
+        return object;
     }
 
 }
