@@ -33,7 +33,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Gary D. Gregory
- * @version $Id: ClassUtilsTest.java,v 1.12 2004/06/27 04:42:54 bayard Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.13 2004/06/30 18:33:58 ggregory Exp $
  */
 public class ClassUtilsTest extends TestCase {
 
@@ -83,23 +83,14 @@ public class ClassUtilsTest extends TestCase {
     public void test_getShortClassName_Class() {
         assertEquals("ClassUtils", ClassUtils.getShortClassName(ClassUtils.class));
         assertEquals("Map.Entry", ClassUtils.getShortClassName(Map.Entry.class));
-        try {
-            ClassUtils.getShortClassName((Class) null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        assertEquals("", ClassUtils.getShortClassName((Class) null));
     }
     
     public void test_getShortClassName_String() {
         assertEquals("ClassUtils", ClassUtils.getShortClassName(ClassUtils.class.getName()));
         assertEquals("Map.Entry", ClassUtils.getShortClassName(Map.Entry.class.getName()));
-        try {
-            ClassUtils.getShortClassName((String) null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            ClassUtils.getShortClassName("");
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        assertEquals("", ClassUtils.getShortClassName((String) null));
+        assertEquals("", ClassUtils.getShortClassName(""));
     }
     
     // -------------------------------------------------------------------------
@@ -112,23 +103,14 @@ public class ClassUtilsTest extends TestCase {
     public void test_getPackageName_Class() {
         assertEquals("java.lang", ClassUtils.getPackageName(String.class));
         assertEquals("java.util", ClassUtils.getPackageName(Map.Entry.class));
-        try {
-            ClassUtils.getPackageName((Class) null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        assertEquals("", ClassUtils.getPackageName((Class)null));
     }
     
     public void test_getPackageName_String() {
         assertEquals("org.apache.commons.lang", ClassUtils.getPackageName(ClassUtils.class.getName()));
         assertEquals("java.util", ClassUtils.getPackageName(Map.Entry.class.getName()));
-        try {
-            ClassUtils.getPackageName((String) null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            ClassUtils.getPackageName("");
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        assertEquals("", ClassUtils.getPackageName((String)null));
+        assertEquals("", ClassUtils.getPackageName(""));
     }
     
     // -------------------------------------------------------------------------
