@@ -127,11 +127,10 @@ import java.util.List;
  * Unfortunately, Java restrictions require these to be coded as shown in each subclass.
  * An alternative choice is to use the {@link EnumUtils} class.</p>
  *
- * <p><em>NOTE:</em> This class originated in the Jakarta Avalon project.</p>
- *
+ * @author Apache Avalon project
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.6 2003/07/14 22:25:04 bayard Exp $
+ * @version $Id: ValuedEnum.java,v 1.7 2003/07/14 22:58:31 scolebourne Exp $
  */
 public abstract class ValuedEnum extends Enum {
     /**
