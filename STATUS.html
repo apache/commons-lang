@@ -7,7 +7,7 @@
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Component</h1>
-$Id: STATUS.html,v 1.30 2002/12/16 21:48:41 bayard Exp $<br />
+$Id: STATUS.html,v 1.31 2002/12/22 21:11:09 scolebourne Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#Dependencies">[Dependencies]</a>
 <a href="#Release Info">[Release Info]</a>
@@ -43,6 +43,7 @@ The following classes are included:</p>
 <li><strong>Enum package</strong> - A sub-package for the creation of enumerated types.</li>
 <li><strong>Builder package</strong> - A sub-package for the creation of equals, hashCode, compareTo and toString methods.</li>
 <li><strong>Functor package</strong> - A sub-package for basic f(x) type functions.</li>
+<li><strong>Math package</strong> - A sub-package for simple business (not scientific) maths classes.</li>
 </ul>
 
 
@@ -88,11 +89,10 @@ A 2.0 will be released after a undefined period of development.
 <p>Want to help?  Here's some "to do" items the team has identified. Note that all are
 still under discussion, so please mail the list before actioning.</p>
 <ul>
-<li>Reflection utilities - new sub-package to deal with reflection</li>
+<li>Reflection utilities - work underway in reflect package.</li>
 <li>Operating system information - maybe part of SystemUtils, maybe another project</li>
-<li>MathUtils - possible addition of mathmatics helper. Could go in NumberUtils</li>
-<li>Fractions</li>
-<li>CalendarUtils - possible addition of a calendar utility class (from Serge Knystautas). Also a DateUtils from Ant. </li>
+<li>Maths utils - possible addition of mathmatics helper.</li>
+<li>Date and Calendar utils - work underway in time package.</li>
 <li>DateRange</li>
 <li>CloneUtils - utility class to enable cloning via various different mechanisms. This code exists in [pattern] at present.</li>
 <li>StringUtils truncateNicely method - A substring with some extra power to choose where to cut off. It was in Avalon and was added separately to String Taglib from a code submission. This suggests it may have some commonality. [CODED]</li>
@@ -101,7 +101,6 @@ still under discussion, so please mail the list before actioning.</p>
 <li>AStringBuffer - A StringBuffer implementation with additional methods from StringUtils
 <li>O(n) - Document all algorithm-implementing methods with the order. Possibly with an O(n) on the end of each parameterm or with an @order tag.</li>
 <li>Money and Currency</li>
-<li>ExceptionUtils - truncated stack trace, from Dmitri</li>
 </ul>
 
 
