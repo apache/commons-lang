@@ -44,7 +44,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Maarten Coene
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.43 2004/03/16 01:40:57 ggregory Exp $
+ * @version $Id: ArrayUtils.java,v 1.44 2004/06/06 03:53:23 bayard Exp $
  */
 public class ArrayUtils {
 
@@ -1626,6 +1626,109 @@ public class ArrayUtils {
         return (indexOf(array, valueToFind) != -1);
     }
 
+    // char IndexOf
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Find the index of the given value in the array.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  the array to search through for the object, may be <code>null</code>
+     * @param valueToFind  the value to find
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
+     */
+    public static int indexOf(final char[] array, final char valueToFind) {
+        return indexOf(array, valueToFind, 0);
+    }
+
+    /**
+     * <p>Find the index of the given value in the array starting at the given index.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return -1.</p>
+     * 
+     * @param array  the array to search through for the object, may be <code>null</code>
+     * @param valueToFind  the value to find
+     * @param startIndex  the index to start searching at
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
+     */
+    public static int indexOf(final char[] array, final char valueToFind, int startIndex) {
+        if (array == null) {
+            return -1;
+        }
+        if (startIndex < 0) {
+            startIndex = 0;
+        }
+        for (int i = startIndex; i < array.length; i++) {
+            if (valueToFind == array[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * <p>Find the last index of the given value within the array.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  the array to travers backwords looking for the object, may be <code>null</code>
+     * @param valueToFind  the object to find
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
+     */
+    public static int lastIndexOf(final char[] array, final char valueToFind) {
+        return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
+    }
+
+    /**
+     * <p>Find the last index of the given value in the array starting at the given index.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     *
+     * <p>A negative startIndex will return -1. A startIndex larger than the array
+     * length will search from the end of the array.</p>
+     * 
+     * @param array  the array to traverse for looking for the object, may be <code>null</code>
+     * @param valueToFind  the value to find
+     * @param startIndex  the start index to travers backwards from
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
+     */
+    public static int lastIndexOf(final char[] array, final char valueToFind, int startIndex) {
+        if (array == null) {
+            return -1;
+        }
+        if (startIndex < 0) {
+            return -1;
+        } else if (startIndex >= array.length) {
+            startIndex = array.length - 1;
+        }
+        for (int i = startIndex; i >= 0; i--) {
+            if (valueToFind == array[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * <p>Checks if the value is in the given array.</p>
+     *
+     * <p>The method returns <code>false</code> if a <code>null</code> array is passed in.</p>
+     * 
+     * @param array  the array to search through
+     * @param valueToFind  the value to find
+     * @return <code>true</code> if the array contains the object
+     */
+    public static boolean contains(final char[] array, final char valueToFind) {
+        return (indexOf(array, valueToFind) != -1);
+    }
+
     // byte IndexOf
     //-----------------------------------------------------------------------
     /**
@@ -3113,6 +3216,627 @@ public class ArrayUtils {
             System.arraycopy(array, index, result, index + 1, length - index);
         }
         return (Object[]) result;
+    }
+    
+    /**
+     * <p>Removes the element at the specified position from the specified array.
+     * All subsequent elements are shifted to the left (substracts one from
+     * their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, an IndexOutOfBoundsException
+     * will be thrown, because in that case no valid index can be specified.</p>
+     *
+     * <pre>
+     * ArrayUtils.remove(["a"], 0)           = []
+     * ArrayUtils.remove(["a", "b"], 0)      = ["b"]
+     * ArrayUtils.remove(["a", "b"], 1)      = ["a"]
+     * ArrayUtils.remove(["a", "b", "c"], 1) = ["a", "c"]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may not be <code>null</code>
+     * @param index  the position of the element to be removed
+     * @return A new array containing the existing elements except the element
+     *         at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index >= array.length), or if the array is <code>null</code>.
+     * @since 2.1
+     */
+    public static Object[] remove(final Object[] array, final int index) {
+        return (Object[]) remove((Object) array, index);
+    }
+    
+    /**
+     * <p>Removes the first occurrence of the specified element from the
+     * specified array. All subsequent elements are shifted to the left 
+     * (substracts one from their indices). If the array doesn't contains
+     * such an element, no elements are removed from the array.</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the first occurrence of the specified element. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <pre>
+     * ArrayUtils.removeElement(null, "a")            = null
+     * ArrayUtils.removeElement([], "a")              = []
+     * ArrayUtils.removeElement(["a"], "b")           = ["a"]
+     * ArrayUtils.removeElement(["a", "b"], "a")      = ["b"]
+     * ArrayUtils.removeElement(["a", "b", "a"], "a") = ["b", "a"]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may be <code>null</code>
+     * @param element  the element to be removed
+     * @return A new array containing the existing elements except the first
+     *         occurrence of the specified element.
+     * @since 2.1
+     */
+    public static Object[] removeElement(final Object[] array, final Object element) {
+        int index = indexOf(array, element);
+        if (index == -1) {
+            return clone(array);
+        } 
+        return remove(array, index);
+    }
+    
+    /**
+     * <p>Removes the element at the specified position from the specified array.
+     * All subsequent elements are shifted to the left (substracts one from
+     * their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, an IndexOutOfBoundsException
+     * will be thrown, because in that case no valid index can be specified.</p>
+     *
+     * <pre>
+     * ArrayUtils.remove([true], 0)              = []
+     * ArrayUtils.remove([true, false], 0)       = [false]
+     * ArrayUtils.remove([true, false], 1)       = [true]
+     * ArrayUtils.remove([true, true, false], 1) = [true, false]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may not be <code>null</code>
+     * @param index  the position of the element to be removed
+     * @return A new array containing the existing elements except the element
+     *         at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index >= array.length), or if the array is <code>null</code>.
+     * @since 2.1
+     */
+    public static boolean[] remove(final boolean[] array, final int index) {
+        return (boolean[]) remove((Object) array, index);
+    }
+    
+    /**
+     * <p>Removes the first occurrence of the specified element from the
+     * specified array. All subsequent elements are shifted to the left 
+     * (substracts one from their indices). If the array doesn't contains
+     * such an element, no elements are removed from the array.</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the first occurrence of the specified element. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <pre>
+     * ArrayUtils.removeElement(null, true)                = null
+     * ArrayUtils.removeElement([], true)                  = []
+     * ArrayUtils.removeElement([true], false)             = [true]
+     * ArrayUtils.removeElement([true, false], false)      = [true]
+     * ArrayUtils.removeElement([true, false, true], true) = [false, true]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may be <code>null</code>
+     * @param element  the element to be removed
+     * @return A new array containing the existing elements except the first
+     *         occurrence of the specified element.
+     * @since 2.1
+     */
+    public static boolean[] removeElement(final boolean[] array, final boolean element) {
+        int index = indexOf(array, element);
+        if (index == -1) {
+            return clone(array);
+        } 
+        return remove(array, index);
+    }
+    
+    /**
+     * <p>Removes the element at the specified position from the specified array.
+     * All subsequent elements are shifted to the left (substracts one from
+     * their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, an IndexOutOfBoundsException
+     * will be thrown, because in that case no valid index can be specified.</p>
+     *
+     * <pre>
+     * ArrayUtils.remove([1], 0)          = []
+     * ArrayUtils.remove([1, 0], 0)       = [0]
+     * ArrayUtils.remove([1, 0], 1)       = [1]
+     * ArrayUtils.remove([1, 0, 1], 1)    = [1, 1]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may not be <code>null</code>
+     * @param index  the position of the element to be removed
+     * @return A new array containing the existing elements except the element
+     *         at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index >= array.length), or if the array is <code>null</code>.
+     * @since 2.1
+     */
+    public static byte[] remove(final byte[] array, final int index) {
+        return (byte[]) remove((Object) array, index);
+    }
+    
+    /**
+     * <p>Removes the first occurrence of the specified element from the
+     * specified array. All subsequent elements are shifted to the left 
+     * (substracts one from their indices). If the array doesn't contains
+     * such an element, no elements are removed from the array.</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the first occurrence of the specified element. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <pre>
+     * ArrayUtils.removeElement(null, 1)        = null
+     * ArrayUtils.removeElement([], 1)          = []
+     * ArrayUtils.removeElement([1], 0)         = [1]
+     * ArrayUtils.removeElement([1, 0], 0)      = [1]
+     * ArrayUtils.removeElement([1, 0, 1], 1)   = [0, 1]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may be <code>null</code>
+     * @param element  the element to be removed
+     * @return A new array containing the existing elements except the first
+     *         occurrence of the specified element.
+     * @since 2.1
+     */
+    public static byte[] removeElement(final byte[] array, final byte element) {
+        int index = indexOf(array, element);
+        if (index == -1) {
+            return clone(array);
+        } 
+        return remove(array, index);
+    }
+    
+    /**
+     * <p>Removes the element at the specified position from the specified array.
+     * All subsequent elements are shifted to the left (substracts one from
+     * their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, an IndexOutOfBoundsException
+     * will be thrown, because in that case no valid index can be specified.</p>
+     *
+     * <pre>
+     * ArrayUtils.remove(['a'], 0)           = []
+     * ArrayUtils.remove(['a', 'b'], 0)      = ['b']
+     * ArrayUtils.remove(['a', 'b'], 1)      = ['a']
+     * ArrayUtils.remove(['a', 'b', 'c'], 1) = ['a', 'c']
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may not be <code>null</code>
+     * @param index  the position of the element to be removed
+     * @return A new array containing the existing elements except the element
+     *         at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index >= array.length), or if the array is <code>null</code>.
+     * @since 2.1
+     */
+    public static char[] remove(final char[] array, final int index) {
+        return (char[]) remove((Object) array, index);
+    }
+    
+    /**
+     * <p>Removes the first occurrence of the specified element from the
+     * specified array. All subsequent elements are shifted to the left 
+     * (substracts one from their indices). If the array doesn't contains
+     * such an element, no elements are removed from the array.</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the first occurrence of the specified element. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <pre>
+     * ArrayUtils.removeElement(null, 'a')            = null
+     * ArrayUtils.removeElement([], 'a')              = []
+     * ArrayUtils.removeElement(['a'], 'b')           = ['a']
+     * ArrayUtils.removeElement(['a', 'b'], 'a')      = ['b']
+     * ArrayUtils.removeElement(['a', 'b', 'a'], 'a') = ['b', 'a']
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may be <code>null</code>
+     * @param element  the element to be removed
+     * @return A new array containing the existing elements except the first
+     *         occurrence of the specified element.
+     * @since 2.1
+     */
+    public static char[] removeElement(final char[] array, final char element) {
+        int index = indexOf(array, element);
+        if (index == -1) {
+            return clone(array);
+        } 
+        return remove(array, index);
+    }
+    
+    /**
+     * <p>Removes the element at the specified position from the specified array.
+     * All subsequent elements are shifted to the left (substracts one from
+     * their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, an IndexOutOfBoundsException
+     * will be thrown, because in that case no valid index can be specified.</p>
+     *
+     * <pre>
+     * ArrayUtils.remove([1.1], 0)           = []
+     * ArrayUtils.remove([2.5, 6.0], 0)      = [6.0]
+     * ArrayUtils.remove([2.5, 6.0], 1)      = [2.5]
+     * ArrayUtils.remove([2.5, 6.0, 3.8], 1) = [2.5, 3.8]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may not be <code>null</code>
+     * @param index  the position of the element to be removed
+     * @return A new array containing the existing elements except the element
+     *         at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index >= array.length), or if the array is <code>null</code>.
+     * @since 2.1
+     */
+    public static double[] remove(final double[] array, final int index) {
+        return (double[]) remove((Object) array, index);
+    }
+    
+    /**
+     * <p>Removes the first occurrence of the specified element from the
+     * specified array. All subsequent elements are shifted to the left 
+     * (substracts one from their indices). If the array doesn't contains
+     * such an element, no elements are removed from the array.</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the first occurrence of the specified element. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <pre>
+     * ArrayUtils.removeElement(null, 1.1)            = null
+     * ArrayUtils.removeElement([], 1.1)              = []
+     * ArrayUtils.removeElement([1.1], 1.2)           = [1.1]
+     * ArrayUtils.removeElement([1.1, 2.3], 1.1)      = [2.3]
+     * ArrayUtils.removeElement([1.1, 2.3, 1.1], 1.1) = [2.3, 1.1]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may be <code>null</code>
+     * @param element  the element to be removed
+     * @return A new array containing the existing elements except the first
+     *         occurrence of the specified element.
+     * @since 2.1
+     */
+    public static double[] removeElement(final double[] array, final double element) {
+        int index = indexOf(array, element);
+        if (index == -1) {
+            return clone(array);
+        } 
+        return remove(array, index);
+    }
+    
+    /**
+     * <p>Removes the element at the specified position from the specified array.
+     * All subsequent elements are shifted to the left (substracts one from
+     * their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, an IndexOutOfBoundsException
+     * will be thrown, because in that case no valid index can be specified.</p>
+     *
+     * <pre>
+     * ArrayUtils.remove([1.1], 0)           = []
+     * ArrayUtils.remove([2.5, 6.0], 0)      = [6.0]
+     * ArrayUtils.remove([2.5, 6.0], 1)      = [2.5]
+     * ArrayUtils.remove([2.5, 6.0, 3.8], 1) = [2.5, 3.8]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may not be <code>null</code>
+     * @param index  the position of the element to be removed
+     * @return A new array containing the existing elements except the element
+     *         at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index >= array.length), or if the array is <code>null</code>.
+     * @since 2.1
+     */
+    public static float[] remove(final float[] array, final int index) {
+        return (float[]) remove((Object) array, index);
+    }
+    
+    /**
+     * <p>Removes the first occurrence of the specified element from the
+     * specified array. All subsequent elements are shifted to the left 
+     * (substracts one from their indices). If the array doesn't contains
+     * such an element, no elements are removed from the array.</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the first occurrence of the specified element. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <pre>
+     * ArrayUtils.removeElement(null, 1.1)            = null
+     * ArrayUtils.removeElement([], 1.1)              = []
+     * ArrayUtils.removeElement([1.1], 1.2)           = [1.1]
+     * ArrayUtils.removeElement([1.1, 2.3], 1.1)      = [2.3]
+     * ArrayUtils.removeElement([1.1, 2.3, 1.1], 1.1) = [2.3, 1.1]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may be <code>null</code>
+     * @param element  the element to be removed
+     * @return A new array containing the existing elements except the first
+     *         occurrence of the specified element.
+     * @since 2.1
+     */
+    public static float[] removeElement(final float[] array, final float element) {
+        int index = indexOf(array, element);
+        if (index == -1) {
+            return clone(array);
+        } 
+        return remove(array, index);
+    }
+    
+    /**
+     * <p>Removes the element at the specified position from the specified array.
+     * All subsequent elements are shifted to the left (substracts one from
+     * their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, an IndexOutOfBoundsException
+     * will be thrown, because in that case no valid index can be specified.</p>
+     *
+     * <pre>
+     * ArrayUtils.remove([1], 0)         = []
+     * ArrayUtils.remove([2, 6], 0)      = [6]
+     * ArrayUtils.remove([2, 6], 1)      = [2]
+     * ArrayUtils.remove([2, 6, 3], 1)   = [2, 3]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may not be <code>null</code>
+     * @param index  the position of the element to be removed
+     * @return A new array containing the existing elements except the element
+     *         at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index >= array.length), or if the array is <code>null</code>.
+     * @since 2.1
+     */
+    public static int[] remove(final int[] array, final int index) {
+        return (int[]) remove((Object) array, index);
+    }
+    
+    /**
+     * <p>Removes the first occurrence of the specified element from the
+     * specified array. All subsequent elements are shifted to the left 
+     * (substracts one from their indices). If the array doesn't contains
+     * such an element, no elements are removed from the array.</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the first occurrence of the specified element. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <pre>
+     * ArrayUtils.removeElement(null, 1)      = null
+     * ArrayUtils.removeElement([], 1)        = []
+     * ArrayUtils.removeElement([1], 2)       = [1]
+     * ArrayUtils.removeElement([1, 3], 1)    = [3]
+     * ArrayUtils.removeElement([1, 3, 1], 1) = [3, 1]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may be <code>null</code>
+     * @param element  the element to be removed
+     * @return A new array containing the existing elements except the first
+     *         occurrence of the specified element.
+     * @since 2.1
+     */
+    public static int[] removeElement(final int[] array, final int element) {
+        int index = indexOf(array, element);
+        if (index == -1) {
+            return clone(array);
+        } 
+        return remove(array, index);
+    }
+    
+    /**
+     * <p>Removes the element at the specified position from the specified array.
+     * All subsequent elements are shifted to the left (substracts one from
+     * their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, an IndexOutOfBoundsException
+     * will be thrown, because in that case no valid index can be specified.</p>
+     *
+     * <pre>
+     * ArrayUtils.remove([1], 0)         = []
+     * ArrayUtils.remove([2, 6], 0)      = [6]
+     * ArrayUtils.remove([2, 6], 1)      = [2]
+     * ArrayUtils.remove([2, 6, 3], 1)   = [2, 3]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may not be <code>null</code>
+     * @param index  the position of the element to be removed
+     * @return A new array containing the existing elements except the element
+     *         at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index >= array.length), or if the array is <code>null</code>.
+     * @since 2.1
+     */
+    public static long[] remove(final long[] array, final int index) {
+        return (long[]) remove((Object) array, index);
+    }
+    
+    /**
+     * <p>Removes the first occurrence of the specified element from the
+     * specified array. All subsequent elements are shifted to the left 
+     * (substracts one from their indices). If the array doesn't contains
+     * such an element, no elements are removed from the array.</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the first occurrence of the specified element. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <pre>
+     * ArrayUtils.removeElement(null, 1)      = null
+     * ArrayUtils.removeElement([], 1)        = []
+     * ArrayUtils.removeElement([1], 2)       = [1]
+     * ArrayUtils.removeElement([1, 3], 1)    = [3]
+     * ArrayUtils.removeElement([1, 3, 1], 1) = [3, 1]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may be <code>null</code>
+     * @param element  the element to be removed
+     * @return A new array containing the existing elements except the first
+     *         occurrence of the specified element.
+     * @since 2.1
+     */
+    public static long[] removeElement(final long[] array, final long element) {
+        int index = indexOf(array, element);
+        if (index == -1) {
+            return clone(array);
+        } 
+        return remove(array, index);
+    }
+    
+    /**
+     * <p>Removes the element at the specified position from the specified array.
+     * All subsequent elements are shifted to the left (substracts one from
+     * their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, an IndexOutOfBoundsException
+     * will be thrown, because in that case no valid index can be specified.</p>
+     *
+     * <pre>
+     * ArrayUtils.remove([1], 0)         = []
+     * ArrayUtils.remove([2, 6], 0)      = [6]
+     * ArrayUtils.remove([2, 6], 1)      = [2]
+     * ArrayUtils.remove([2, 6, 3], 1)   = [2, 3]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may not be <code>null</code>
+     * @param index  the position of the element to be removed
+     * @return A new array containing the existing elements except the element
+     *         at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index >= array.length), or if the array is <code>null</code>.
+     * @since 2.1
+     */
+    public static short[] remove(final short[] array, final int index) {
+        return (short[]) remove((Object) array, index);
+    }
+    
+    /**
+     * <p>Removes the first occurrence of the specified element from the
+     * specified array. All subsequent elements are shifted to the left 
+     * (substracts one from their indices). If the array doesn't contains
+     * such an element, no elements are removed from the array.</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the first occurrence of the specified element. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <pre>
+     * ArrayUtils.removeElement(null, 1)      = null
+     * ArrayUtils.removeElement([], 1)        = []
+     * ArrayUtils.removeElement([1], 2)       = [1]
+     * ArrayUtils.removeElement([1, 3], 1)    = [3]
+     * ArrayUtils.removeElement([1, 3, 1], 1) = [3, 1]
+     * </pre>
+     * 
+     * @param array  the array to remove the element from, may be <code>null</code>
+     * @param element  the element to be removed
+     * @return A new array containing the existing elements except the first
+     *         occurrence of the specified element.
+     * @since 2.1
+     */
+    public static short[] removeElement(final short[] array, final short element) {
+        int index = indexOf(array, element);
+        if (index == -1) {
+            return clone(array);
+        } 
+        return remove(array, index);
+    }
+    
+    /**
+     * <p>Removes the element at the specified position from the specified array.
+     * All subsequent elements are shifted to the left (substracts one from
+     * their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array except the element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, an IndexOutOfBoundsException
+     * will be thrown, because in that case no valid index can be specified.</p>
+     * 
+     * @param array  the array to remove the element from, may not be <code>null</code>
+     * @param index  the position of the element to be removed
+     * @return A new array containing the existing elements except the element
+     *         at the specified position.
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index >= array.length), or if the array is <code>null</code>.
+     * @since 2.1
+     */
+    private static Object remove(final Object array, final int index) {
+        int length = getLength(array);
+        if (index < 0 || index >= length) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + length);
+        }
+        
+        Object result = Array.newInstance(array.getClass().getComponentType(), length - 1);
+        System.arraycopy(array, 0, result, 0, index);
+        if (index < length - 1) {
+            System.arraycopy(array, index + 1, result, index, length - index - 1);
+        }
+        
+        return result;
     }
     
 }
