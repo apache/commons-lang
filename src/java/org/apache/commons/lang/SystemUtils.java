@@ -67,8 +67,9 @@ package org.apache.commons.lang;
  * @author Gary Gregory
  * @author Michael Becke
  * @author Tetsuya Kaneuchi
+ * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.23 2003/08/22 16:34:06 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.24 2003/10/07 20:59:46 scolebourne Exp $
  */
 public class SystemUtils {
 
@@ -625,6 +626,19 @@ public class SystemUtils {
      * @since 2.0
      */
     public static final boolean IS_OS_SUN_OS = getOSMatches("SunOS");
+
+    /**
+     * <p>Is <code>true</code> if this is POSIX compilant system,
+     * ie. any of AIX, HP-UX, Irix, Linux, MacOSX, Solaris or SUN OS.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     * 
+     * @since 2.1
+     */
+    public static final boolean IS_OS_UNIX =
+        IS_OS_AIX || IS_OS_HP_UX || IS_OS_IRIX || IS_OS_LINUX ||
+        IS_OS_MAC_OSX || IS_OS_SOLARIS || IS_OS_SUN_OS;
 
     /**
      * <p>Is <code>true</code> if this is Windows.</p>
