@@ -111,12 +111,52 @@ import java.util.Map;
  * Unfortunately, Java restrictions require these to be coded as shown in each subclass.
  * An alternative choice is to use the {@link EnumUtils} class.
  * <p>
+ * The enums can have functionality by using anonymous inner classes
+ * [Effective Java, Bloch01]:
+ * <pre>
+ * public abstract class OperationEnum extends Enum {
+ *   public static final OperationEnum PLUS = new OperationEnum("Plus") {
+ *     public double eval(double a, double b) {
+ *       return (a + b);
+ *     }
+ *   };
+ *   public static final OperationEnum MINUS = new OperationEnum("Minus") {
+ *     public double eval(double a, double b) {
+ *       return (a - b);
+ *     }
+ *   };
+ *
+ *   private OperationEnum(String color) {
+ *     super(color);
+ *   }
+ * 
+ *   public abstract double eval(double a, double b);
+ * 
+ *   public static OperationEnum getEnum(String name) {
+ *     return (OperationEnum) getEnum(OperationEnum.class, name);
+ *   }
+ * 
+ *   public static Map getEnumMap() {
+ *     return getEnumMap(OperationEnum.class);
+ *   }
+ * 
+ *   public static List getEnumList() {
+ *     return getEnumList(OperationEnum.class);
+ *   }
+ * 
+ *   public static Iterator iterator() {
+ *     return iterator(OperationEnum.class);
+ *   }
+ * }
+ * </pre>
+ * <p>
  * <em>NOTE:</em> This class originated in the Jakarta Avalon project.
  * </p>
  *
  * @author Stephen Colebourne
+ * @author Chris Webb
  * @since 1.0
- * @version $Id: Enum.java,v 1.5 2002/12/23 00:17:06 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.6 2002/12/31 22:39:39 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
     /**
@@ -160,10 +200,11 @@ public abstract class Enum implements Comparable, Serializable {
             throw new IllegalArgumentException("The Enum name must not be empty");
         }
         iName = name;
-        Entry entry = (Entry) cEnumClasses.get(getClass().getName());
+        String className = Enum.getEnumClassName(getClass());
+        Entry entry = (Entry) cEnumClasses.get(className);
         if (entry == null) {
             entry = new Entry();
-            cEnumClasses.put(getClass().getName(), entry);
+            cEnumClasses.put(className, entry);
         }
         if (entry.map.containsKey(name)) {
             throw new IllegalArgumentException("The Enum name must be unique, '" + name + "' has already been added");
@@ -178,22 +219,25 @@ public abstract class Enum implements Comparable, Serializable {
      * @return the resolved object
      */
     protected Object readResolve() {
-        return Enum.getEnum(getClass(), getName());
+        Entry entry = (Entry) cEnumClasses.get(Enum.getEnumClassName(getClass()));
+        if (entry == null) {
+            return null;
+        }
+        return (Enum) entry.map.get(getName());
     }
+    
+    //--------------------------------------------------------------------------------
 
     /**
      * Gets an Enum object by class and name.
      * 
-     * @param enumClass  the class of the Enum to get
+     * @param enumClass  the class of the Enum to get, must not be null
      * @param name  the name of the Enum to get, may be null
      * @return the enum object, or null if the enum does not exist
      * @throws IllegalArgumentException if the enum class is null
      */
     protected static Enum getEnum(Class enumClass, String name) {
-        if (enumClass == null) {
-            throw new IllegalArgumentException("The Enum Class must not be null");
-        }
-        Entry entry = (Entry) cEnumClasses.get(enumClass.getName());
+        Entry entry = getEntry(enumClass);
         if (entry == null) {
             return null;
         }
@@ -204,19 +248,13 @@ public abstract class Enum implements Comparable, Serializable {
      * Gets the Map of Enum objects by name using the Enum class.
      * If the requested class has no enum objects an empty Map is returned.
      * 
-     * @param enumClass  the class of the Enum to get
+     * @param enumClass  the class of the Enum to get, must not be null
      * @return the enum object Map
      * @throws IllegalArgumentException if the enum class is null
      * @throws IllegalArgumentException if the enum class is not a subclass of Enum
      */
     protected static Map getEnumMap(Class enumClass) {
-        if (enumClass == null) {
-            throw new IllegalArgumentException("The Enum Class must not be null");
-        }
-        if (Enum.class.isAssignableFrom(enumClass) == false) {
-            throw new IllegalArgumentException("The Class must be a subclass of Enum");
-        }
-        Entry entry = (Entry) cEnumClasses.get(enumClass.getName());
+        Entry entry = getEntry(enumClass);
         if (entry == null) {
             return EMPTY_MAP;
         }
@@ -228,19 +266,13 @@ public abstract class Enum implements Comparable, Serializable {
      * The list is in the order that the objects were created (source code order).
      * If the requested class has no enum objects an empty List is returned.
      * 
-     * @param enumClass  the class of the Enum to get
+     * @param enumClass  the class of the Enum to get, must not be null
      * @return the enum object Map
      * @throws IllegalArgumentException if the enum class is null
      * @throws IllegalArgumentException if the enum class is not a subclass of Enum
      */
     protected static List getEnumList(Class enumClass) {
-        if (enumClass == null) {
-            throw new IllegalArgumentException("The Enum Class must not be null");
-        }
-        if (Enum.class.isAssignableFrom(enumClass) == false) {
-            throw new IllegalArgumentException("The Class must be a subclass of Enum");
-        }
-        Entry entry = (Entry) cEnumClasses.get(enumClass.getName());
+        Entry entry = getEntry(enumClass);
         if (entry == null) {
             return Collections.EMPTY_LIST;
         }
@@ -252,7 +284,7 @@ public abstract class Enum implements Comparable, Serializable {
      * The iterator is in the order that the objects were created (source code order).
      * If the requested class has no enum objects an empty Iterator is returned.
      * 
-     * @param enumClass  the class of the Enum to get
+     * @param enumClass  the class of the Enum to get, must not be null
      * @return an iterator of the Enum objects
      * @throws IllegalArgumentException if the enum class is null
      * @throws IllegalArgumentException if the enum class is not a subclass of Enum
@@ -260,6 +292,47 @@ public abstract class Enum implements Comparable, Serializable {
     protected static Iterator iterator(Class enumClass) {
         return Enum.getEnumList(enumClass).iterator();
     }
+
+    /**
+     * Gets an entry from the map of Enums.
+     * 
+     * @param enumClass  the class of the Enum to get
+     * @return the enum entry
+     */
+    private static Entry getEntry(Class enumClass) {
+        if (enumClass == null) {
+            throw new IllegalArgumentException("The Enum Class must not be null");
+        }
+        if (Enum.class.isAssignableFrom(enumClass) == false) {
+            throw new IllegalArgumentException("The Class must be a subclass of Enum");
+        }
+        Entry entry = (Entry) cEnumClasses.get(enumClass.getName());
+        return entry;
+    }
+    
+    /**
+     * Convert a class to a class name accounting for inner classes.
+     * 
+     * @param cls  the class to get the name for
+     * @return the class name
+     */
+    protected static String getEnumClassName(Class cls) {
+        String className = cls.getName();
+        int index = className.lastIndexOf('$');
+        if (index > -1) {
+            // is it an anonymous inner class?
+            String inner = className.substring(index + 1);
+            if (inner.length() > 0 &&
+                inner.charAt(0) >= '0' &&
+                inner.charAt(0) < '9') {
+                // Strip off anonymous inner class reference.
+                className = className.substring(0, index);
+            }
+        }
+        return className;
+    }
+
+    //--------------------------------------------------------------------------------
 
     /**
      * Retrieve the name of this Enum item, set in the constructor.
@@ -343,7 +416,7 @@ public abstract class Enum implements Comparable, Serializable {
      * the type name.
      */
     public String toString() {
-        String shortName = getClass().getName();
+        String shortName = Enum.getEnumClassName(getClass());
         int pos = shortName.lastIndexOf('.');
         if (pos != -1) {
             shortName = shortName.substring(pos + 1);
