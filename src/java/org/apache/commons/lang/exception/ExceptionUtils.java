@@ -82,7 +82,8 @@ public class ExceptionUtils
         "getCause",
         "getNextException",
         "getTargetException",
-        "getException"
+        "getException",
+        "getSourceException"
     };
 
     /**
