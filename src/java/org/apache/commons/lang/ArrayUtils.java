@@ -56,6 +56,8 @@ package org.apache.commons.lang;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 /**
@@ -65,7 +67,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
  * @author Moritz Petersen
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: ArrayUtils.java,v 1.4 2002/11/16 10:41:03 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.5 2002/11/16 12:56:43 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -100,6 +102,7 @@ public class ArrayUtils {
     public ArrayUtils() {
     }
 
+    // Basic methods handling multi-dimensional arrays
     //--------------------------------------------------------------------------
     
     /**
@@ -110,7 +113,7 @@ public class ArrayUtils {
      *
      * <p>The format is that of Java source code, for example {a,b}.</p>
      * 
-     * @param array  the array to get a toString for, may not be <code>null</code>
+     * @param array  the array to get a toString for, may be <code>null</code>
      * @return a String representation of the array, '{}' if <code>null</code> passed in
      */
     public static String toString(Object array) {
@@ -135,6 +138,34 @@ public class ArrayUtils {
         }
         return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
     }
+    
+    /**
+     * <p>Get a hashCode for an array handling multi-dimensional arrays correctly.</p>
+     * 
+     * <p>Multi-dimensional primitive arrays are also handled correctly by this method.</p>
+     * 
+     * @param array  the array to get a hashCode for, may be <code>null</code>
+     * @return a hashCode for the array
+     */
+    public static int hashCode(Object array) {
+        return new HashCodeBuilder().append(array).toHashCode();
+    }
+    
+    /**
+     * <p>Compares two arrays, using equals(), handling multi-dimensional arrays
+     * correctly.</p>
+     * 
+     * <p>Multi-dimensional primitive arrays are also handled correctly by this method.</p>
+     * 
+     * @param array1  the array to get a hashCode for, may be <code>null</code>
+     * @param array2  the array to get a hashCode for, may be <code>null</code>
+     * @return <code>true</code> if the arrays are equal
+     */
+    public static boolean isEquals(Object array1, Object array2) {
+        return new EqualsBuilder().append(array1, array2).isEquals();
+    }
+    
+    //--------------------------------------------------------------------------
     
     /**
      * <p>Converts the given array into a {@link Map}. Each element of the array
@@ -298,9 +329,10 @@ public class ArrayUtils {
      * <p>Shallow clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>The objecs in the array are not cloned.</p>
+     * <p>The objecs in the array are not cloned, thus there is no special
+     * handling for multi-dimensional arrays.</p>
      * 
-     * @param array  the array to shallow clone, may not be <code>null</code>
+     * @param array  the array to shallow clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
@@ -314,8 +346,10 @@ public class ArrayUtils {
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
-     * @param array  the array to clone, may not be <code>null</code>
+     * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
@@ -329,8 +363,10 @@ public class ArrayUtils {
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
-     * @param array  the array to clone, may not be <code>null</code>
+     * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
@@ -344,8 +380,10 @@ public class ArrayUtils {
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
-     * @param array  the array to clone, may not be <code>null</code>
+     * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
@@ -359,8 +397,27 @@ public class ArrayUtils {
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
-     * @param array  the array to clone, may not be <code>null</code>
+     * @param array  the array to clone, may be <code>null</code>
+     * @return the cloned array, or <code>null</code> if <code>null</code>
+     *  passed in
+     */
+    public static char[] clone(char[] array) {
+        if (array == null) {
+            return null;
+        }
+        return (char[]) array.clone();
+    }
+    
+    /**
+     * <p>Clones an array returning a typecast result and handling
+     * <code>null</code>.</p>
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
+     * 
+     * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
@@ -374,8 +431,10 @@ public class ArrayUtils {
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
-     * @param array  the array to clone, may not be <code>null</code>
+     * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
@@ -389,8 +448,10 @@ public class ArrayUtils {
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
-     * @param array  the array to clone, may not be <code>null</code>
+     * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
@@ -404,8 +465,10 @@ public class ArrayUtils {
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
-     * @param array  the array to clone, may not be <code>null</code>
+     * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
@@ -509,6 +572,26 @@ public class ArrayUtils {
      * @return <code>true</code> if length of arrays matches, treating
      *  <code>null</code> as an empty array
      */
+    public static boolean isSameLength(char[] array1, char[] array2) {
+        if ((array1 == null && array2 != null && array2.length > 0) ||
+            (array2 == null && array1 != null && array1.length > 0) ||
+            (array1 != null && array2 != null && array1.length != array2.length)) {
+                return false;
+        }
+        return true;
+    }
+    
+    /**
+     * <p>Checks whether two arrays are the same length, treating
+     * <code>null</code> arrays as length <code>0</code>.</p>
+     *
+     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
+     * 
+     * @param array1 the first array, may be <code>null</code>
+     * @param array2 the second array, may be <code>null</code>
+     * @return <code>true</code> if length of arrays matches, treating
+     *  <code>null</code> as an empty array
+     */
     public static boolean isSameLength(byte[] array1, byte[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
@@ -581,6 +664,8 @@ public class ArrayUtils {
     /**
      * <p>Checks whether two arrays are the same type taking into account
      * multi-dimensional arrays.</p>
+     * 
+     * <p>Primitive arrays may be compared using this method too.</p>
      * 
      * @param array1 the first array, must not be <code>null</code>
      * @param array2 the second array, must not be <code>null</code>
