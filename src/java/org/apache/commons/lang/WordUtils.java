@@ -28,7 +28,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.13 2004/06/04 03:58:27 bayard Exp $
+ * @version $Id: WordUtils.java,v 1.14 2004/09/02 19:04:56 fredrik Exp $
  */
 public class WordUtils {
 
@@ -317,9 +317,9 @@ public class WordUtils {
      * upper case.</p>
      *
      * <pre>
-     * WordUtils.capitalize(null)        = null
-     * WordUtils.capitalize("")          = ""
-     * WordUtils.capitalize("i am FINE") = "I Am Fine"
+     * WordUtils.capitalizeFully(null)        = null
+     * WordUtils.capitalizeFully("")          = ""
+     * WordUtils.capitalizeFully("i am FINE") = "I Am Fine"
      * </pre>
      * 
      * @param str  the String to capitalize, may be null
@@ -342,9 +342,10 @@ public class WordUtils {
      * upper case.</p>
      *
      * <pre>
-     * WordUtils.capitalize(null)        = null
-     * WordUtils.capitalize("")          = ""
-     * WordUtils.capitalize("i am FINE") = "I Am Fine"
+     * WordUtils.capitalizeFully(null, null)                         = null
+     * WordUtils.capitalizeFully("", null)                           = ""
+     * WordUtils.capitalizeFully("i am FINE", new char[] {' '})      = "I Am Fine"
+     * WordUtils.capitalizeFully("i+am-FINE", new char[] {'-', '+'}) = "I+Am-Fine"
      * </pre>
      * 
      * @param str  the String to capitalize, may be null
