@@ -60,7 +60,7 @@ import java.io.Serializable;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: LongRange.java,v 1.5 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: LongRange.java,v 1.6 2003/12/29 00:58:27 ggregory Exp $
  */
 public final class LongRange extends Range implements Serializable {
     
@@ -264,9 +264,11 @@ public final class LongRange extends Range implements Serializable {
     }
 
     /**
-     * <p>Gets the maximum number in this range as a <code>int</code>.</p>
+     * <p>Gets the maximum number in this range cast to an <code>int</code>.</p>
      * 
      * <p>This conversion can lose information for large values.</p>
+     * 
+     * @return the maximum number in this range cast to an <code>int</code>.
      */
     public int getMaximumInteger() {
         return (int) max;
