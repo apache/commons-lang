@@ -63,7 +63,7 @@ import java.util.Random;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.7 2002/12/23 00:32:24 scolebourne Exp $
+ * @version $Id: RandomStringUtils.java,v 1.8 2003/02/02 03:46:13 bayard Exp $
  */
 public class RandomStringUtils {
 
@@ -191,18 +191,16 @@ public class RandomStringUtils {
     public static String random(int count, int start, int end, boolean letters, boolean numbers) {
         return random(count, start, end, letters, numbers, null);
     }
-    
+
     /**
-     * <p>Creates a random string based on a variety of options.</p>
+     * <p>Creates a random string based on a variety of options, using
+     * default source of randomness.</p>
      *
-	 * <p>If start and end are both <code>0</code>, start and end are set
-     * to <code>' '</code> and <code>'z'</code>, the ASCII printable
-     * characters, will be used, unless letters and numbers are both
-	 * <code>false</code>, in which case, start and end are set to
-     * <code>0</code> and <code>Integer.MAX_VALUE</code>.
-     *
-	 * <p>If set is not <code>null</code>, characters between start and
-     * end are chosen.</p>
+     * This method has exactly the same semantics as {@link
+     * #random(int,int,int,boolean,boolean,char[],Random)}, but
+     * instead of depending on internal source of randomness ({@link
+     * #RANDOM}) it uses externally supplied instance of {@link
+     * Random} class.
      *
      * @param count length of random string to create
      * @param start position in set of chars to start at
@@ -216,6 +214,40 @@ public class RandomStringUtils {
      *  <code>(end - start) + 1</code> characters in the set array.
      */
     public static String random(int count, int start, int end, boolean letters, boolean numbers, char[] set) {
+        return random(count,start,end,letters,numbers,set,RANDOM);
+    }
+
+    /**
+     * <p>Creates a random string based on a variety of options, using
+     * supplied source of randomness.</p>
+     *
+	 * <p>If start and end are both <code>0</code>, start and end are set
+     * to <code>' '</code> and <code>'z'</code>, the ASCII printable
+     * characters, will be used, unless letters and numbers are both
+	 * <code>false</code>, in which case, start and end are set to
+     * <code>0</code> and <code>Integer.MAX_VALUE</code>.
+     *
+	 * <p>If set is not <code>null</code>, characters between start and
+     * end are chosen.</p>
+     *
+     * <p>As a source of randomness is used supplied {@link Random}
+     * instance. This makes method behave predictively, and allows
+     * usage of <code>RandomStringUtils</code> in situations that need
+     * repetitive behaviour.</p>
+     *
+     * @param count length of random string to create
+     * @param start position in set of chars to start at
+     * @param end position in set of chars to end before
+     * @param letters only allow letters?
+     * @param numbers only allow numbers?
+     * @param set set of chars to choose randoms from. If <code>null</code>,
+     *  then it will use the set of all chars.
+     * @param random source of randomness.
+     * @return the random string
+     * @throws ArrayIndexOutOfBoundsException if there are not
+     *  <code>(end - start) + 1</code> characters in the set array.
+     */
+    public static String random(int count, int start, int end, boolean letters, boolean numbers, char[] set, Random random) {
         if( (start == 0) && (end == 0) ) {
             end = (int)'z';
             start = (int)' ';
@@ -231,9 +263,9 @@ public class RandomStringUtils {
         while(count-- != 0) {
             char ch;
             if(set == null) {
-                ch = (char)(RANDOM.nextInt(gap) + start);
+                ch = (char)(random.nextInt(gap) + start);
             } else {
-                ch = set[RANDOM.nextInt(gap) + start];
+                ch = set[random.nextInt(gap) + start];
             }
             if( (letters && numbers && Character.isLetterOrDigit(ch)) ||
                 (letters && Character.isLetter(ch)) ||
