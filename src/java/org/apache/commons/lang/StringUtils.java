@@ -78,7 +78,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Arun Mammen Thomas
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.38 2003/03/24 00:47:02 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.39 2003/03/25 00:15:58 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -112,6 +112,7 @@ public class StringUtils {
      * @see java.lang.String#trim()
      * @param str the String to check
      * @return the trimmed text (never <code>null</code>)
+     * @deprecated use the clearer named trimToEmpty(String)
      */
     public static String clean(String str) {
         return (str == null ? "" : str.trim());
