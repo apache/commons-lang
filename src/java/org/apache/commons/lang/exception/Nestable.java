@@ -1,5 +1,3 @@
-package org.apache.commons.lang.exception;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.apache.commons.lang.exception;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang.exception;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -65,10 +64,11 @@ import java.io.PrintWriter;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: Nestable.java,v 1.4 2002/09/12 01:20:25 stevencaswell Exp $
+ * @since 1.0
+ * @version $Id: Nestable.java,v 1.5 2002/12/23 00:15:19 scolebourne Exp $
  */
-public interface Nestable
-{
+public interface Nestable {
+    
     /**
      * Returns the reference to the exception or error that caused the
      * exception implementing the <code>Nestable</code> to be thrown.
@@ -129,7 +129,7 @@ public interface Nestable
      * @return the throwable count
      */
     public int getThrowableCount();
-    
+
     /**
      * Returns this <code>Nestable</code> and any nested <code>Throwable</code>s
      * in an array of <code>Throwable</code>s, one element for each
@@ -166,7 +166,7 @@ public interface Nestable
      * chain
      */
     public int indexOfThrowable(Class type, int fromIndex);
-    
+
     /**
      * Prints the stack trace of this exception to the specified print
      * writer.  Includes inforamation from the exception--if

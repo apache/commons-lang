@@ -1,5 +1,3 @@
-package org.apache.commons.lang.exception;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.apache.commons.lang.exception;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang.exception;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -64,17 +63,17 @@ import java.io.StringWriter;
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Sean C. Sullivan
- * @version $Id: NestableDelegate.java,v 1.10 2002/10/09 05:29:52 sullis Exp $
+ * @since 1.0
+ * @version $Id: NestableDelegate.java,v 1.11 2002/12/23 00:15:19 scolebourne Exp $
  */
-public class NestableDelegate
-	implements java.io.Serializable
-{
+public class NestableDelegate implements java.io.Serializable {
+
     /**
      * Constructor error message.
      */
     private transient static final String MUST_BE_THROWABLE =
         "The Nestable implementation passed to the NestableDelegate(Nestable) "
-        + "constructor must extend java.lang.Throwable";
+            + "constructor must extend java.lang.Throwable";
 
     /**
      * Holds the reference to the exception or error that we're
@@ -90,14 +89,10 @@ public class NestableDelegate
      * @param nestable the Nestable implementation (<i>must</i> extend
      * {@link java.lang.Throwable})
      */
-    NestableDelegate(Nestable nestable) // package
-    {
-        if (nestable instanceof Throwable)
-        {
+    NestableDelegate(Nestable nestable) {
+        if (nestable instanceof Throwable) {
             this.nestable = (Throwable) nestable;
-        }
-        else
-        {
+        } else {
             throw new IllegalArgumentException(MUST_BE_THROWABLE);
         }
     }
@@ -114,19 +109,15 @@ public class NestableDelegate
      * negative or not less than the count of <code>Throwable</code>s in the
      * chain
      */
-    String getMessage(int index)
-    {
+    String getMessage(int index) {
         Throwable t = this.getThrowable(index);
-        if(Nestable.class.isInstance(t))
-        {
+        if (Nestable.class.isInstance(t)) {
             return ((Nestable) t).getMessage(0);
-        }
-        else
-        {
+        } else {
             return t.getMessage();
         }
     }
-    
+
     /**
      * Returns the full message contained by the <code>Nestable</code>
      * and any nested <code>Throwable</code>s.
@@ -139,22 +130,17 @@ public class NestableDelegate
      * @return The concatenated message for this and all nested
      * <code>Throwable</code>s
      */
-    String getMessage(String baseMsg) // package
-    {
+    String getMessage(String baseMsg) {
         StringBuffer msg = new StringBuffer();
-        if (baseMsg != null)
-        {
+        if (baseMsg != null) {
             msg.append(baseMsg);
         }
 
         Throwable nestedCause = ExceptionUtils.getCause(this.nestable);
-        if (nestedCause != null)
-        {
+        if (nestedCause != null) {
             String causeMsg = nestedCause.getMessage();
-            if (causeMsg != null)
-            {
-                if (baseMsg != null)
-                {
+            if (causeMsg != null) {
+                if (baseMsg != null) {
                     msg.append(": ");
                 }
                 msg.append(causeMsg);
@@ -174,15 +160,14 @@ public class NestableDelegate
      *
      * @return the error messages
      */
-    String[] getMessages() // package
-    {
+    String[] getMessages() {
         Throwable[] throwables = this.getThrowables();
         String[] msgs = new String[throwables.length];
-        for(int i = 0; i < throwables.length; i++)
-        {
-            msgs[i] = (Nestable.class.isInstance(throwables[i]) ?
-                       ((Nestable) throwables[i]).getMessage(0) :
-                       throwables[i].getMessage());
+        for (int i = 0; i < throwables.length; i++) {
+            msgs[i] =
+                (Nestable.class.isInstance(throwables[i])
+                    ? ((Nestable) throwables[i]).getMessage(0)
+                    : throwables[i].getMessage());
         }
         return msgs;
     }
@@ -198,27 +183,24 @@ public class NestableDelegate
      * negative or not less than the count of <code>Throwable</code>s in the
      * chain
      */
-    Throwable getThrowable(int index)
-    {
-        if(index == 0)
-        {
+    Throwable getThrowable(int index) {
+        if (index == 0) {
             return this.nestable;
         }
         Throwable[] throwables = this.getThrowables();
         return throwables[index];
     }
-    
+
     /**
      * Returns the number of <code>Throwable</code>s contained in the
      * <code>Nestable</code> contained by this delegate.
      *
      * @return the throwable count
      */
-    int getThrowableCount() // package
-    {
+    int getThrowableCount() {
         return ExceptionUtils.getThrowableCount(this.nestable);
     }
-    
+
     /**
      * Returns this delegate's <code>Nestable</code> and any nested
      * <code>Throwable</code>s in an array of <code>Throwable</code>s, one
@@ -226,8 +208,7 @@ public class NestableDelegate
      *
      * @return the <code>Throwable</code>s
      */
-    Throwable[] getThrowables() // package
-    {
+    Throwable[] getThrowables() {
         return ExceptionUtils.getThrowables(this.nestable);
     }
 
@@ -246,17 +227,15 @@ public class NestableDelegate
      * is negative or not less than the count of <code>Throwable</code>s in the
      * chain
      */
-    int indexOfThrowable(Class type, int fromIndex) // package
-    {
+    int indexOfThrowable(Class type, int fromIndex) {
         return ExceptionUtils.indexOfThrowable(this.nestable, type, fromIndex);
     }
-    
+
     /**
      * Prints the stack trace of this exception the the standar error
      * stream.
      */
-    public void printStackTrace()
-    {
+    public void printStackTrace() {
         printStackTrace(System.err);
     }
 
@@ -267,10 +246,8 @@ public class NestableDelegate
      * @param out <code>PrintStream</code> to use for output.
      * @see #printStackTrace(PrintWriter)
      */
-    public void printStackTrace(PrintStream out)
-    {
-        synchronized (out)
-        {
+    public void printStackTrace(PrintStream out) {
+        synchronized (out) {
             PrintWriter pw = new PrintWriter(out, false);
             printStackTrace(pw);
             // Flush the PrintWriter before it's GC'ed.
@@ -284,24 +261,17 @@ public class NestableDelegate
      *
      * @param out <code>PrintWriter</code> to use for output.
      */
-    public void printStackTrace(PrintWriter out)
-    {
-        synchronized (out)
-        {
+    public void printStackTrace(PrintWriter out) {
+        synchronized (out) {
             String[] st = getStackFrames(this.nestable);
             Throwable nestedCause = ExceptionUtils.getCause(this.nestable);
-            if (nestedCause != null)
-            {
-                if (nestedCause instanceof Nestable)
-                {
+            if (nestedCause != null) {
+                if (nestedCause instanceof Nestable) {
                     // Recurse until a non-Nestable is encountered.
-                    ((Nestable) nestedCause).printStackTrace(out);
-                }
-                else
-                {
+                     ((Nestable) nestedCause).printStackTrace(out);
+                } else {
                     String[] nst = getStackFrames(nestedCause);
-                    for (int i = 0; i < nst.length; i++)
-                    {
+                    for (int i = 0; i < nst.length; i++) {
                         out.println(nst[i]);
                     }
                 }
@@ -309,8 +279,7 @@ public class NestableDelegate
             }
 
             // Output desired frames from stack trace.
-            for (int i = 0; i < st.length; i++)
-            {
+            for (int i = 0; i < st.length; i++) {
                 out.println(st[i]);
             }
         }
@@ -324,18 +293,14 @@ public class NestableDelegate
      * @param t The <code>Throwable</code>.
      * @return  An array of strings describing each stack frame.
      */
-    private String[] getStackFrames(Throwable t)
-    {
+    private String[] getStackFrames(Throwable t) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw, true);
 
         // Avoid infinite loop between decompose() and printStackTrace().
-        if (t instanceof Nestable)
-        {
+        if (t instanceof Nestable) {
             ((Nestable) t).printPartialStackTrace(pw);
-        }
-        else
-        {
+        } else {
             t.printStackTrace(pw);
         }
         return ExceptionUtils.getStackFrames(sw.getBuffer().toString());
