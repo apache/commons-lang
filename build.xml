@@ -1,7 +1,7 @@
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.16 2003/07/21 22:54:37 scolebourne Exp $
+        $Id: build.xml,v 1.17 2003/07/30 01:32:09 bayard Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
@@ -94,7 +94,7 @@
         <mkdir dir="${dist.home}"/>
         <mkdir dir="${build.home}/classes/META-INF"/>
         <copy file="LICENSE.txt" tofile="${build.home}/classes/META-INF/LICENSE.txt"/>
-        <jar jarfile="${dist.home}/${final.name}.jar" basedir="${build.home}/classes" manifest="${build.home}/conf/MANIFEST.MF"/>
+        <jar jarfile="${dist.home}/${final.name}.jar" basedir="${build.home}/classes" manifest="${build.home}/conf/MANIFEST.MF" excludes="**/*.html"/>
     </target>
     <target name="install-jar" depends="jar" description="--> Installs jar file in ${lib.repo}">
         <copy todir="${lib.repo}" filtering="no">
