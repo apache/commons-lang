@@ -83,7 +83,7 @@ public class Notifier {
             throw new IllegalArgumentException("Illegal to have a null listener Class. ");
         }
         
-        this.clss = clss;
+        this.clss = listener;
         // now we check methods, if only one of them, then 
         // let's set it
         Method[] meths = clss.getDeclaredMethods();
