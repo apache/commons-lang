@@ -115,7 +115,7 @@ import java.util.Map;
  * </p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: Enum.java,v 1.1 2002/08/11 23:17:54 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.2 2002/08/31 10:51:02 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
     /**
@@ -131,9 +131,14 @@ public abstract class Enum implements Comparable, Serializable {
      * Enable the iterator to retain the source code order
      */
     private static class Entry {
+        /** Map of Enum name to Enum */
         final Map map = new HashMap(50);
+        /** List of Enums in source code order */
         final List list = new ArrayList(25);
 
+        /**
+         * Restrictive constructor
+         */
         private Entry() {
         }
     }
@@ -162,6 +167,7 @@ public abstract class Enum implements Comparable, Serializable {
     /**
      * Handle the deserialization of the class to ensure that multiple
      * copies are not wastefully created, or illegal enum types created.
+     * @return the resolved object
      */
     protected Object readResolve() {
         return Enum.getEnum(getClass(), getName());
@@ -262,6 +268,7 @@ public abstract class Enum implements Comparable, Serializable {
      * Identity is tested for first, so this method usually runs fast.
      *
      * @param other  the other object to compare for equality
+     * @return true if the Enums are equal
      */
     public final boolean equals(Object other) {
         if (other == this) {
