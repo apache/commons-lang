@@ -1,7 +1,7 @@
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.21 2003/08/22 01:33:12 bayard Exp $
+        $Id: build.xml,v 1.22 2003/08/23 05:27:30 bayard Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
@@ -92,7 +92,7 @@
         <copy file="RELEASE-NOTES.txt" todir="${dist.home}"/>
         <antcall target="jar"/>
     </target>
-    <target name="dist-build" depends="dist" description="Build binary distribution files">
+    <target name="dist-build" depends="clean,dist" description="Build binary distribution files">
         <mkdir dir="${final.name}"/>
         <move todir="${final.name}/${final.name}">
             <fileset dir="${dist.home}"/>
