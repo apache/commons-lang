@@ -111,7 +111,7 @@ import java.util.List;
  * @author Al Chou
  * @author Michael Davey
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.135 2004/09/02 19:16:18 fredrik Exp $
+ * @version $Id: StringUtils.java,v 1.136 2004/10/08 00:11:22 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -808,7 +808,7 @@ public class StringUtils {
      * @param ordinal  the n-th <code>searchStr</code> to find
      * @return the n-th index of the search String,
      *  <code>-1</code> (<code>INDEX_NOT_FOUND</code>) if no match or <code>null</code> string input
-     * @since 2.?.?
+     * @since 2.1
      */
     public static int ordinalIndexOf(String str, String searchStr, int ordinal) {
         if (str == null || searchStr == null || ordinal <= 0) {
@@ -1948,7 +1948,7 @@ public class StringUtils {
      *
      * <p>The separator is not included in the returned String array.
      * Adjacent separators are treated as one separator.
-     * For more control over the split use the Tokenizer class.</p>
+     * For more control over the split use the StrTokenizer class.</p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
@@ -1973,7 +1973,7 @@ public class StringUtils {
      *
      * <p>The separator is not included in the returned String array.
      * Adjacent separators are treated as one separator.
-     * For more control over the split use the Tokenizer class.</p>
+     * For more control over the split use the StrTokenizer class.</p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
@@ -2003,7 +2003,7 @@ public class StringUtils {
      *
      * <p>The separator is not included in the returned String array.
      * Adjacent separators are treated as one separator.
-     * For more control over the split use the Tokenizer class.</p>
+     * For more control over the split use the StrTokenizer class.</p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> separatorChars splits on whitespace.</p>
@@ -2182,7 +2182,7 @@ public class StringUtils {
      *
      * <p>The separator is not included in the returned String array.
      * Adjacent separators are treated as separators for empty tokens.
-     * For more control over the split use the Tokenizer class.</p>
+     * For more control over the split use the StrTokenizer class.</p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
@@ -2209,7 +2209,7 @@ public class StringUtils {
      *
      * <p>The separator is not included in the returned String array.
      * Adjacent separators are treated as separators for empty tokens.
-     * For more control over the split use the Tokenizer class.</p>
+     * For more control over the split use the StrTokenizer class.</p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
@@ -2292,7 +2292,7 @@ public class StringUtils {
      *
      * <p>The separator is not included in the returned String array.
      * Adjacent separators are treated as separators for empty tokens.
-     * For more control over the split use the Tokenizer class.</p>
+     * For more control over the split use the StrTokenizer class.</p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> separatorChars splits on whitespace.</p>
@@ -2316,6 +2316,7 @@ public class StringUtils {
      * @param separatorChars  the characters used as the delimiters,
      *  <code>null</code> splits on whitespace
      * @return an array of parsed Strings, <code>null</code> if null String input
+     * @since 2.1
      */
     public static String[] splitPreserveAllTokens(String str, String separatorChars) {
         return splitWorker(str, separatorChars, -1, true);
@@ -2355,6 +2356,7 @@ public class StringUtils {
      * @param max  the maximum number of elements to include in the
      *  array. A zero or negative value implies no limit
      * @return an array of parsed Strings, <code>null</code> if null String input
+     * @since 2.1
      */
     public static String[] splitPreserveAllTokens(String str, String separatorChars, int max) {
         return splitWorker(str, separatorChars, max, true);
