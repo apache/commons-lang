@@ -33,7 +33,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Gary D. Gregory
- * @version $Id: ClassUtilsTest.java,v 1.11 2004/02/18 23:22:29 ggregory Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.12 2004/06/27 04:42:54 bayard Exp $
  */
 public class ClassUtilsTest extends TestCase {
 
@@ -374,6 +374,38 @@ public class ClassUtilsTest extends TestCase {
         // test null     
         assertNull("null -> null",
             ClassUtils.primitiveToWrapper(null));
+    }
+
+    public void testPrimitivesToWrappers() {
+        // test null
+        assertNull("null -> null",
+            ClassUtils.primitivesToWrappers(null));
+        // test empty array
+        assertEquals("empty -> empty",
+                ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.primitivesToWrappers(ArrayUtils.EMPTY_CLASS_ARRAY));
+
+        // test an array of various classes
+        final Class[] primitives = new Class[] {
+                Boolean.TYPE, Byte.TYPE, Character.TYPE, Short.TYPE, 
+                Integer.TYPE, Long.TYPE, Double.TYPE, Float.TYPE,
+                String.class, ClassUtils.class
+        };
+        Class[] wrappers= ClassUtils.primitivesToWrappers(primitives);
+        
+        for (int i=0; i < primitives.length; i++) {
+            // test each returned wrapper
+            Class primitive = primitives[i];
+            Class expectedWrapper = ClassUtils.primitiveToWrapper(primitive);
+            
+            assertEquals(primitive + " -> " + expectedWrapper, expectedWrapper, wrappers[i]);
+        }
+
+        // test an array of no primitive classes
+        final Class[] noPrimitives = new Class[] {
+                String.class, ClassUtils.class
+        };
+        // This used to return the exact same array, but no longer does.
+        assertNotSame("unmodified", noPrimitives, ClassUtils.primitivesToWrappers(noPrimitives));
     }
     
     public void testClassComparator() {

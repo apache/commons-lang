@@ -32,7 +32,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.28 2004/02/24 06:01:28 ggregory Exp $
+ * @version $Id: ClassUtils.java,v 1.29 2004/06/27 04:42:54 bayard Exp $
  */
 public class ClassUtils {
 
@@ -510,6 +510,31 @@ public class ClassUtils {
             convertedClass = (Class) primitiveWrapperMap.get(cls);
         }   
         return convertedClass;
+    }
+
+    /**
+     * <p>Converts the specified array of primitive Class objects to an array of 
+     * its corresponding wrapper Class objects.</p>
+     *
+     * @param classes  the class array to convert, may be null or empty
+     * @return an array which contains for each given class, the wrapper class or 
+     * the original class if class is not a primitive. <code>null</code> if null input. 
+     * Empty array if an empty array passed in.
+     */
+    public static Class[] primitivesToWrappers(Class[] classes) {
+        if (classes == null) {
+            return null;
+        }
+        
+        if (classes.length == 0) {
+            return ArrayUtils.EMPTY_CLASS_ARRAY;
+        }
+        
+        Class[] convertedClasses = new Class[classes.length];
+        for (int i=0; i < classes.length; i++) {
+            convertedClasses[i] = primitiveToWrapper( classes[i] );
+        }
+        return convertedClasses;
     }
     
     // Inner class
