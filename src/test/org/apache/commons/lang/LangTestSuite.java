@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author Stephen Colebourne
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.20 2003/08/17 19:41:17 bayard Exp $
+ * @version $Id: LangTestSuite.java,v 1.21 2003/08/17 21:57:37 scolebourne Exp $
  */
 public class LangTestSuite extends TestCase {
     
@@ -112,6 +112,7 @@ public class LangTestSuite extends TestCase {
         suite.addTest(StringEscapeUtilsTest.suite());
         suite.addTest(SystemUtilsTest.suite());
         suite.addTest(UnhandledExceptionTest.suite());
+        suite.addTest(WordUtilsTest.suite());
         return suite;
     }
 }
