@@ -84,7 +84,7 @@ import java.util.List;
  *      - removes the last part of a String
  *  <li><b>LeftPad/RightPad/Center/Repeat</b>
  *      - pads a String
- *  <li><b>UpperCase/LowerCase/SwapCase/Capitalise/Uncapitalise</b>
+ *  <li><b>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</b>
  *      - change the case of a String
  *  <li><b>NestedString</b>
  *      - returns a substring nested within other Strings
@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.93 2003/08/13 23:30:58 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.94 2003/08/14 00:04:20 bayard Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3410,22 +3410,22 @@ public class StringUtils {
     }
 
     /**
-     * <p>Capitalises a String changing the first letter to title case as
+     * <p>Capitalizes a String changing the first letter to title case as
      * per {@link Character#toTitleCase(char)}. No other letters are changed.</p>
      * 
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <pre>
-     * StringUtils.capitalise(null)  = null
-     * StringUtils.capitalise("")    = ""
-     * StringUtils.capitalise("cat") = "Cat"
-     * StringUtils.capitalise("cAt") = "CAt"
+     * StringUtils.capitalize(null)  = null
+     * StringUtils.capitalize("")    = ""
+     * StringUtils.capitalize("cat") = "Cat"
+     * StringUtils.capitalize("cAt") = "CAt"
      * </pre>
      * 
-     * @param str  the String to capitalise, may be null
-     * @return the capitalised String, <code>null</code> if null String input
+     * @param str  the String to capitalize, may be null
+     * @return the capitalized String, <code>null</code> if null String input
      */
-    public static String capitalise(String str) {
+    public static String capitalize(String str) {
         int strLen;
         if (str == null || (strLen = str.length()) == 0) {
             return str;
@@ -3437,22 +3437,29 @@ public class StringUtils {
     }
 
     /**
-     * <p>Uncapitalises a String changing the first letter to title case as
+     * @deprecated Use the standardly named {@link #capitalize(String)}.
+     */
+    public static String capitalise(String str) {
+        return capitalize(str);
+    }
+
+    /**
+     * <p>Uncapitalizes a String changing the first letter to title case as
      * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
      * 
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <pre>
-     * StringUtils.uncapitalise(null)  = null
-     * StringUtils.uncapitalise("")    = ""
-     * StringUtils.uncapitalise("Cat") = "cat"
-     * StringUtils.uncapitalise("CAT") = "cAT"
+     * StringUtils.uncapitalize(null)  = null
+     * StringUtils.uncapitalize("")    = ""
+     * StringUtils.uncapitalize("Cat") = "cat"
+     * StringUtils.uncapitalize("CAT") = "cAT"
      * </pre>
      * 
-     * @param str  the String to uncapitalise, may be null
-     * @return the uncapitalised String, <code>null</code> if null String input
+     * @param str  the String to uncapitalize, may be null
+     * @return the uncapitalized String, <code>null</code> if null String input
      */
-    public static String uncapitalise(String str) {
+    public static String uncapitalize(String str) {
         int strLen;
         if (str == null || (strLen = str.length()) == 0) {
             return str;
@@ -3461,6 +3468,13 @@ public class StringUtils {
             .append(Character.toLowerCase(str.charAt(0)))
             .append(str.substring(1))
             .toString();
+    }
+
+    /**
+     * @deprecated Use the standardly named {@link #uncapitalize(String)}.
+     */
+    public static String uncapitalise(String str) {
+        return uncapitalize(str);
     }
 
     /**
@@ -3518,22 +3532,22 @@ public class StringUtils {
     }
 
     /**
-     * <p>Capitalises all the whitespace separated words in a String.
+     * <p>Capitalizes all the whitespace separated words in a String.
      * Only the first letter of each word is changed.</p>
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
-     * StringUtils.capitaliseAllWords(null)        = null
-     * StringUtils.capitaliseAllWords("")          = ""
-     * StringUtils.capitaliseAllWords("i am FINE") = "I Am FINE"
+     * StringUtils.capitalizeAllWords(null)        = null
+     * StringUtils.capitalizeAllWords("")          = ""
+     * StringUtils.capitalizeAllWords("i am FINE") = "I Am FINE"
      * </pre>
      * 
-     * @param str  the String to capitalise, may be null
-     * @return capitalised String, <code>null</code> if null String input
+     * @param str  the String to capitalize, may be null
+     * @return capitalized String, <code>null</code> if null String input
      */
-    public static String capitaliseAllWords(String str) {
+    public static String capitalizeAllWords(String str) {
         int strLen;
         if (str == null || (strLen = str.length()) == 0) {
             return str;
@@ -3556,22 +3570,29 @@ public class StringUtils {
     }
 
     /**
-     * <p>Uncapitalises all the whitespace separated words in a String.
+     * @deprecated Use the standardly named {@link #capitalize(String)}.
+     */
+    public static String capitaliseAllWords(String str) {
+        return capitalizeAllWords(str);
+    }
+
+    /**
+     * <p>Uncapitalizes all the whitespace separated words in a String.
      * Only the first letter of each word is changed.</p>
      *
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
-     * StringUtils.uncapitaliseAllWords(null)        = null
-     * StringUtils.uncapitaliseAllWords("")          = ""
-     * StringUtils.uncapitaliseAllWords("I Am FINE") = "i am fINE"
+     * StringUtils.uncapitalizeAllWords(null)        = null
+     * StringUtils.uncapitalizeAllWords("")          = ""
+     * StringUtils.uncapitalizeAllWords("I Am FINE") = "i am fINE"
      * </pre>
      * 
-     * @param str  the String to uncapitalise, may be null
-     * @return uncapitalised String, <code>null</code> if null String input
+     * @param str  the String to uncapitalize, may be null
+     * @return uncapitalized String, <code>null</code> if null String input
      */
-    public static String uncapitaliseAllWords(String str) {
+    public static String uncapitalizeAllWords(String str) {
         int strLen;
         if (str == null || (strLen = str.length()) == 0) {
             return str;
@@ -3591,6 +3612,13 @@ public class StringUtils {
             }
         }
         return buffer.toString();
+    }
+
+    /**
+     * @deprecated Use the standardly named {@link #uncapitalize(String)}.
+     */
+    public static String uncapitaliseAllWords(String str) {
+        return uncapitalizeAllWords(str);
     }
 
     // Count matches
