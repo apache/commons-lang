@@ -69,7 +69,7 @@ import org.apache.commons.lang.NullArgumentException;
  * @author Phil Steitz
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.4 2003/07/20 16:03:21 scolebourne Exp $
+ * @version $Id: NumberUtils.java,v 1.5 2003/07/26 02:57:37 ggregory Exp $
  */
 public final class NumberUtils {
     
@@ -458,8 +458,7 @@ public final class NumberUtils {
         if (str == null) {
             return null;
         }
-        BigInteger bi = new BigInteger(str);
-        return bi;
+        return new BigInteger(str);
     }
 
     /**
@@ -475,8 +474,7 @@ public final class NumberUtils {
         if (str == null) {
             return null;
         }
-        BigDecimal bd = new BigDecimal(str);
-        return bd;
+        return new BigDecimal(str);
     }
 
     // Min in array
