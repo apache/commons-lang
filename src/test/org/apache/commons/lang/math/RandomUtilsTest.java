@@ -25,7 +25,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link RandomUtils} class.
  *
  * @author <a href="mailto:phil@steitz.com">Phil Steitz</a>
- * @version $Revision: 1.7 $ $Date: 2004/02/18 23:02:38 $
+ * @version $Revision: 1.8 $ $Date: 2004/12/25 17:52:19 $
  */
 
 public final class RandomUtilsTest extends TestCase {
@@ -54,6 +54,12 @@ public final class RandomUtilsTest extends TestCase {
         rnd.setSeed(System.currentTimeMillis());
         tstNextInt(rnd);
     } 
+    
+    /** test distribution of JVMRandom.nextInt() */
+    public void testJvmRandomNextInt() {
+        tstNextInt(RandomUtils.JVM_RANDOM);
+    } 
+
     
     /** 
      * Generate 1000 values for nextInt(bound) and compare
@@ -268,14 +274,49 @@ public final class RandomUtilsTest extends TestCase {
             chiSquare(expected,observed) < 10.83);  
     }
     
-    /** make sure that setSeed fails */
-    public void testSetSeed() {
+    /** make sure that unimplemented methods fail */
+    public void testUnimplementedMethods() {
+
         try {
             RandomUtils.JVM_RANDOM.setSeed(1000);
             fail("expecting UnsupportedOperationException");
         } catch (UnsupportedOperationException ex) {
             // empty
         }
+
+        try {
+            RandomUtils.JVM_RANDOM.nextGaussian();
+            fail("expecting UnsupportedOperationException");
+        } catch (UnsupportedOperationException ex) {
+            // empty
+        }
+
+        try {
+            RandomUtils.JVM_RANDOM.nextBytes(null);
+            fail("expecting UnsupportedOperationException");
+        } catch (UnsupportedOperationException ex) {
+            // empty
+        }
+
+    }
+
+    /** make sure that illegal arguments fail */
+    public void testIllegalArguments() {
+
+        try {
+            RandomUtils.JVM_RANDOM.nextInt(-1);
+            fail("expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            // empty
+        }
+
+        try {
+            JVMRandom.nextLong( -1L );
+            fail("expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            // empty
+        }
+
     }
     
     /**
