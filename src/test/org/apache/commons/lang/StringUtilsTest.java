@@ -69,7 +69,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.20 2003/06/21 22:24:56 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.21 2003/06/23 03:51:13 bayard Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -343,6 +343,7 @@ public class StringUtilsTest extends TestCase {
             { FOO + "\n" + FOO , FOO + "\n" + FOO },
             { FOO + "\n\n", FOO + "\n"},
             { "\n", "" },
+            { "", "" },
             { "\r\n", "" }
       };
 
