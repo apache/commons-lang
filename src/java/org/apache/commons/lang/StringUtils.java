@@ -79,7 +79,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.52 2003/07/08 05:59:58 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.53 2003/07/09 23:54:16 bayard Exp $
  */
 public class StringUtils {
 
@@ -652,7 +652,7 @@ public class StringUtils {
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
      *
-     * <p>No delimiter is added before or after the list. A
+     * <p>No delimiter is added before or after the list.
      *
      * @param array the array of values to join together
      * @param separator the separator character to use
@@ -698,7 +698,7 @@ public class StringUtils {
      * <p>Joins the elements of the provided <code>Iterator</code> into
      * a single String containing the provided elements.</p>
      *
-     * <p>No delimiter is added before or after the list. A
+     * <p>No delimiter is added before or after the list.
      *
      * @param iterator the <code>Iterator</code> of values to join together
      * @param separator  the separator character to use
