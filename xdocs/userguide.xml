@@ -95,10 +95,24 @@ limitations under the License.
    </section>
 
    <section name="lang.builder.*">
+   <!--
+   CompareToBuilder
+   EqualsBuilder
+   HashCodeBuilder
+   ReflectionToStringBuilder
+   StandardToStringStyle
+   ToStringBuilder
+   ToStringStyle
+   -->
     <p>When you write a hashcode, do you check Bloch's Effective Java? No? You just hack in a quick number? Well HashCodeBuilder will save your day. It, and its buddies (EqualsBuilder, CompareToBuilder, ToStringBuilder), take care of the nasty bits while you focus on the important bits, like which fields will go into making up the hashcode.</p>
    </section>
 
-   <section name="lang.enums (formerly lang.enum)">
+   <section name="lang.enums.* (formerly lang.enum)">
+   <!--
+   Enum
+   EnumUtils
+   ValuedEnum
+   -->
     <p>Enums are an old C thing. Very useful. One of the major uses is to give type to your constants, and even more, to give them order. For example:</p>
     <h5>A simple Enum</h5>
 <source>
@@ -124,24 +138,65 @@ public final class ColorEnum extends Enum {
    </section>
 
    <section name="lang.exception.*">
+   <!--
+   ExceptionUtils
+   Nestable
+   NestableDelegate
+   NestableError
+   NestableException
+   NestableRuntimeException
+   -->
     <p>JDK 1.4 brought us NestedExceptions, that is an Exception which can link to another Exception. This subpackage provides it to those of us who have to code to something other than JDK 1.4 (most reusable code libaries are aimed at JDK 1.2).</p>
     <p>It isn't just a nested exception framework though, it uses reflection to allow it to handle many nested exception frameworks, including JDK 1.4's.</p>
     <p>The reflection ability is one of the more interesting tricks hidden in the reflection sub-package, and of much use to writers of applications such as Tomcat or IDEs, in fact any code which has to catch 'Exception' from an unknown source and then wanting to display in a novel way.</p>
    </section>
 
    <section name="lang.math.*">
+   <!--
+   DoubleRange
+   FloatRange
+   Fraction
+   IntRange
+   JVMRandom
+   LongRange
+   NumberRange
+   NumberUtils
+   RandomUtils
+   Range
+   -->
     <p>Although Commons-Math also exists, some basic mathematical functions are contained within Lang. These include classes to represent ranges of numbers, a Fraction class, various utilities for random numbers, and the flagship class, NumberUtils which contains a handful of classic number functions. </p>
     <p>There are two aspects of this package I would like to highlight. The first is NumberUtils.createNumber(String), a method which does its best to convert a String into a Number object. You have no idea what type of Number it will return, so you should call the relevant xxxValue method when you reach the point of needing a number. NumberUtils also has a related isNumber method. The second is the JVMRandom class. This is an instance of Random which relies on the Math.random() method for its implementation and so gives the developer access to the JVM's random seed. If you try to create Random objects in the same millisecond, they will give the same answer; so quickly you will find yourself caching that Random object. Rather than caching your own object, simply use the one the JVM is caching already. The RandomUtils provides a static access to the JVMRandom class, which may be easier to use. </p>
    </section>
 
    <section name="lang.mutable.*">
+   <!--
+   Mutable
+   MutableByte
+   MutableDouble
+   MutableFloat
+   MutableInt
+   MutableLong
+   MutableObject
+   MutableShort
+   -->
    </section>
 
    <section name="lang.time.*">
-    <p>Lang 2.0 saw the arrival of a time package. It contains some basic utilities for manipulating time (a delorean, police box and [hgwells lookup needed]?). These include a StopWatch for simple performance measurements and an optimised FastDateFormat class. </p>
+   <!--
+   DateFormatUtils
+   DateUtils
+   DurationFormatUtils
+   FastDateFormat
+   StopWatch
+   -->
+    <p>Lang 2.0 saw the arrival of a time package. It contains some basic utilities for manipulating time (a delorean, police box and grandfather clock?). These include a StopWatch for simple performance measurements and an optimised FastDateFormat class. </p>
    </section>
 
    <section name="lang.text.*">
+   <!--
+   Interpolation
+   MappedMessageFormat
+   -->
    </section>
 
    <section name="Next version of Lang">
