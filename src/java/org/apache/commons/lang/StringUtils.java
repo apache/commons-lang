@@ -90,7 +90,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.58 2003/07/16 21:19:22 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.59 2003/07/16 21:23:50 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1492,23 +1492,6 @@ public class StringUtils {
      */
     public static String escape(String str) {
         return StringEscapeUtils.escapeJava(str);
-    }
-
-    /**
-     * <p>Unescapes any Java literals found in the String. For example,
-     * it will turn a sequence of <code>'\'</code> and <code>'n'</code>
-     * into a newline character, unless the <code>'\'</code> is preceded
-     * by another <code>'\'</code>.</p>
-     *
-     * <p>As of Lang 2.0, this calls {@link StringEscapeUtils#unescapeJava(java.lang.String)}
-     * behind the scenes.</p>
-     *
-     * @see StringEscapeUtils#unescapeJava(java.lang.String)
-     * @deprecated Use {@link StringEscapeUtils#unescapeJava(java.lang.String)}
-     *             This method will be removed in Commons Lang 3.0
-     */
-    public static String unescape(String str) {
-        return StringEscapeUtils.unescapeJava(str);
     }
 
     // Padding
