@@ -66,7 +66,7 @@ package org.apache.commons.lang;
  * @author Phil Steitz
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.27 2003/09/07 14:32:34 psteitz Exp $
+ * @version $Id: CharSetUtils.java,v 1.28 2003/09/24 20:22:33 fredrik Exp $
  */
 public class CharSetUtils {
 
@@ -131,7 +131,7 @@ public class CharSetUtils {
      * @return modified String, <code>null</code> if null string input
      */
     public static String squeeze(String str, String set) {
-        if (str == null || str.length() == 0 || set == null || set.length() == 0) {
+        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(set)) {
             return str;
         }
         String[] strs = new String[1];
@@ -154,7 +154,7 @@ public class CharSetUtils {
      * @return modified String, <code>null</code> if null string input
      */
     public static String squeeze(String str, String[] set) {
-        if (str == null || str.length() == 0 || set == null || set.length == 0) {
+        if (StringUtils.isEmpty(str) || set == null || set.length == 0) {
             return str;
         }
         CharSet chars = evaluateSet(set);
@@ -197,7 +197,7 @@ public class CharSetUtils {
      * @return character count, zero if null string input
      */
     public static int count(String str, String set) {
-        if (str == null || str.length() == 0 || set == null || set.length() == 0) {
+        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(set)) {
             return 0;
         }
         String[] strs = new String[1];
@@ -220,7 +220,7 @@ public class CharSetUtils {
      * @return character count, zero if null string input
      */
     public static int count(String str, String[] set) {
-        if (str == null || str.length() == 0 || set == null || set.length == 0) {
+        if (StringUtils.isEmpty(str) || set == null || set.length == 0) {
             return 0;
         }
         CharSet chars = evaluateSet(set);
@@ -315,7 +315,7 @@ public class CharSetUtils {
      * @return modified String, <code>null</code> if null string input
      */
     public static String delete(String str, String set) {
-        if (str == null || str.length() == 0 || set == null || set.length() == 0) {
+        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(set)) {
             return str;
         }
         String[] strs = new String[1];
@@ -339,7 +339,7 @@ public class CharSetUtils {
      * @return modified String, <code>null</code> if null string input
      */
     public static String delete(String str, String[] set) {
-        if (str == null || str.length() == 0 || set == null || set.length == 0) {
+        if (StringUtils.isEmpty(str) || set == null || set.length == 0) {
             return str;
         }
         return modify(str, set, false);
@@ -392,7 +392,7 @@ public class CharSetUtils {
      *             Method will be removed in Commons Lang 3.0.
      */
     public static String translate(String str, String searchChars, String replaceChars) {
-        if (str == null || str.length() == 0) {
+        if (StringUtils.isEmpty(str)) {
             return str;
         }
         StringBuffer buffer = new StringBuffer(str.length());
