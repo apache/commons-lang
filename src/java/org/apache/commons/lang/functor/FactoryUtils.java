@@ -62,7 +62,7 @@ import org.apache.commons.lang.SerializationException;
 import org.apache.commons.lang.SerializationUtils;
 /**
  * <code>FactoryUtils</code> provides reference implementations and utilities
- * for the Factory pattern interface. The supplied factories are:
+ * for the Factory functor interface. The supplied factories are:
  * <ul>
  * <li>Prototype - clones a specified object
  * <li>Reflection - creates objects using reflection
@@ -73,7 +73,7 @@ import org.apache.commons.lang.SerializationUtils;
  * All the supplied factories are Serializable.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: FactoryUtils.java,v 1.1 2002/11/05 16:44:28 bayard Exp $
+ * @version $Id: FactoryUtils.java,v 1.2 2002/11/14 21:54:49 scolebourne Exp $
  */
 public class FactoryUtils {
 
@@ -105,6 +105,7 @@ public class FactoryUtils {
 
     /**
      * Gets a Factory that will return null each time the factory is used.
+     * This could be useful during testing as a placeholder.
      *
      * @return the factory
      */
@@ -119,7 +120,7 @@ public class FactoryUtils {
      * use the prototype factory.
      *
      * @param constantToReturn  the constant object to return each time in the factory
-     * @return the factory.
+     * @return the <code>constant</code> factory.
      */
     public static Factory constantFactory(Object constantToReturn) {
         return new ConstantFactory(constantToReturn);
@@ -136,15 +137,14 @@ public class FactoryUtils {
      * <ul>
      *
      * @param prototype  the object to clone each time in the factory
-     * @return the factory
+     * @return the <code>prototype</code> factory
      * @throws IllegalArgumentException if the prototype is null
      * @throws IllegalArgumentException if the prototype cannot be cloned
      */
     public static Factory prototypeFactory(Object prototype) {
         if (prototype == null) {
-            throw new IllegalArgumentException("PrototypeFactory: The prototype must not be null");
+            throw new IllegalArgumentException("The prototype must not be null");
         }
-        // TODO: move to cloneable pattern
         try {
             prototype.getClass().getMethod("clone", null);
             return new PrototypeCloneFactory(prototype);
@@ -160,7 +160,7 @@ public class FactoryUtils {
                 }
             }
         }
-        throw new IllegalArgumentException("PrototypeFactory: The prototype must be cloneable");
+        throw new IllegalArgumentException("The prototype must be cloneable via a public clone method");
     }
 
     /**
@@ -168,7 +168,7 @@ public class FactoryUtils {
      * a no-args constructor.
      *
      * @param classToInstantiate  the Class to instantiate each time in the factory
-     * @return the factory
+     * @return the <code>reflection</code> factory
      * @throws IllegalArgumentException if the classToInstantiate is null
      */
     public static Factory reflectionFactory(Class classToInstantiate) {
@@ -182,7 +182,7 @@ public class FactoryUtils {
      * @param classToInstantiate  the Class to instantiate each time in the factory
      * @param paramTypes  parameter types for the constructor, can be null
      * @param args  the arguments to pass to the constructor, can be null
-     * @return the factory
+     * @return the <code>reflection</code> factory
      * @throws IllegalArgumentException if the classToInstantiate is null
      * @throws IllegalArgumentException if the paramTypes and args don't match
      * @throws IllegalArgumentException if the constructor doesn't exist
@@ -221,7 +221,7 @@ public class FactoryUtils {
      * ConstantFactory returns the same instance each time.
      */
     private static class ConstantFactory implements Factory, Serializable {
-
+        /** The constant to return each time */
         private final Object iConstant;
 
         /**
@@ -247,7 +247,9 @@ public class FactoryUtils {
      * PrototypeCloneFactory creates objects by copying a prototype using the clone method.
      */
     private static class PrototypeCloneFactory implements Factory, Serializable {
+        /** The object to clone each time */
         private final Object iPrototype;
+        /** The method used to clone */
         private transient Method iCloneMethod;
 
         /**
@@ -302,7 +304,7 @@ public class FactoryUtils {
      * PrototypeSerializationFactory creates objects by cloning a prototype using serialization.
      */
     private static class PrototypeSerializationFactory implements Factory, Serializable {
-
+        /** The object to clone via serialization each time */
         private final Serializable iPrototype;
 
         /**
@@ -336,10 +338,13 @@ public class FactoryUtils {
      * ReflectionFactory creates objects using reflection.
      */
     private static class ReflectionFactory implements Factory, Serializable {
-
+        /** The class to create */
         private final Class iClassToInstantiate;
+        /** The constructor parameter types */
         private final Class[] iParamTypes;
+        /** The constructor arguments */
         private final Object[] iArgs;
+        /** The constructor */
         private transient Constructor iConstructor = null;
 
         /**

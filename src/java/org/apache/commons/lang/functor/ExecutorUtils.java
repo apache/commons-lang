@@ -65,34 +65,34 @@ import org.apache.commons.lang.functor.TransformerException;
 import org.apache.commons.lang.functor.TransformerUtils;
 /**
  * <code>ExecutorUtils</code> provides reference implementations and utilities
- * for the Executor pattern interface. The supplied commands are:
+ * for the Executor functor interface. The supplied executors are:
  * <ul>
  * <li>Invoker - invokes a method on the input object
- * <li>For - repeatedly calls a command for a fixed number of times
- * <li>While - repeatedly calls a command while a predicate is true
- * <li>DoWhile - repeatedly calls a command while a predicate is true
- * <li>Chained - chains two or more commands together
- * <li>Switch - calls one command based on one or more predicates
- * <li>SwitchMap - calls one command looked up from a Map
- * <li>Transformer - wraps a Transformer as a Predicate
+ * <li>For - repeatedly calls an executor for a fixed number of times
+ * <li>While - repeatedly calls an executor while a predicate is true
+ * <li>DoWhile - repeatedly calls an executor while a predicate is true
+ * <li>Chained - chains two or more executors together
+ * <li>Switch - calls one executor based on one or more predicates
+ * <li>SwitchMap - calls one executor looked up from a Map
+ * <li>Transformer - wraps a Transformer as an Executor
  * <li>NOP - does nothing
  * <li>Exception - always throws an exception
  * </ul>
- * All the supplied commands are Serializable.
+ * All the supplied executors are Serializable.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ExecutorUtils.java,v 1.1 2002/11/06 19:15:40 bayard Exp $
+ * @version $Id: ExecutorUtils.java,v 1.2 2002/11/14 21:54:49 scolebourne Exp $
  */
 public class ExecutorUtils {
 
     /**
      * A Executor that always throws an exception
      */
-    private static final Executor EXCEPTION_COMMAND = new ExceptionExecutor();
+    private static final Executor EXCEPTION_EXECUTOR = new ExceptionExecutor();
     /**
      * A Executor that does nothing
      */
-    private static final Executor NOP_COMMAND = new NOPExecutor();
+    private static final Executor NOP_EXECUTOR = new NOPExecutor();
 
     /**
      * Restrictive constructor
@@ -105,116 +105,119 @@ public class ExecutorUtils {
      * Gets a Executor that always throws an exception.
      * This could be useful during testing as a placeholder.
      *
-     * @return the command
+     * @return the executor
      */
     public static Executor exceptionExecutor() {
-        return EXCEPTION_COMMAND;
+        return EXCEPTION_EXECUTOR;
     }
 
     /**
      * Gets a Executor that will do nothing.
      * This could be useful during testing as a placeholder.
      *
-     * @return the command
+     * @return the executor
      */
     public static Executor nopExecutor() {
-        return NOP_COMMAND;
+        return NOP_EXECUTOR;
     }
 
     /**
-     * Creates a Executor that calls a Factory each time the transformer is used.
-     * The transformer will return the value returned by the factory.
+     * Creates a Executor that calls a Transformer each time it is called.
+     * The transformer will be called using the executor's input object.
+     * The transformer's result will be ignored.
      *
-     * @param transformer  the transformer to run each time in the command
-     * @return the command.
+     * @param transformer  the transformer to run each time in the executor
+     * @return the executor.
      */
     public static Executor asExecutor(Transformer transformer) {
         if (transformer == null) {
-            throw new IllegalArgumentException("TransformerExecutor: The transformer must not be null");
+            throw new IllegalArgumentException("The transformer must not be null");
         }
         return new TransformerExecutor(transformer);
     }
 
     /**
-     * Creates a Executor that will call the command <code>count</code> times.
+     * Creates a Executor that will call the executor <code>count</code> times.
      *
      * @param count  the number of times to loop
-     * @param command  the command to call repeatedly
-     * @return the command
+     * @param executor  the executor to call repeatedly
+     * @return the <code>for</code> executor
      * @throws IllegalArgumentException if either argument is null
      */
-    public static Executor forExecutor(int count, Executor command) {
+    public static Executor forExecutor(int count, Executor executor) {
         if (count < 0) {
-            throw new IllegalArgumentException("ForExecutor: The loop count must not be less than zero, it was " + count);
+            throw new IllegalArgumentException("The loop count must not be less than zero, it was " + count);
         }
-        if (command == null) {
-            throw new IllegalArgumentException("ForExecutor: The command must not be null");
+        if (executor == null) {
+            throw new IllegalArgumentException("The executor must not be null");
         }
-        return new ForExecutor(count, command);
+        return new ForExecutor(count, executor);
     }
 
     /**
-     * Creates a Executor that will call the command repeatedly until the 
+     * Creates a Executor that will call the executor repeatedly until the 
      * predicate returns false.
      *
      * @param predicate  the predicate to use as an end of loop test
-     * @param command  the command to call repeatedly
-     * @return the command
+     * @param executor  the executor to call repeatedly
+     * @return the <code>while</code> executor
      * @throws IllegalArgumentException if either argument is null
      */
-    public static Executor whileExecutor(Predicate predicate, Executor command) {
+    public static Executor whileExecutor(Predicate predicate, Executor executor) {
         if (predicate == null) {
-            throw new IllegalArgumentException("WhileExecutor: The predicate must not be null");
+            throw new IllegalArgumentException("The predicate must not be null");
         }
-        if (command == null) {
-            throw new IllegalArgumentException("WhileExecutor: The command must not be null");
+        if (executor == null) {
+            throw new IllegalArgumentException("The executor must not be null");
         }
-        return new WhileExecutor(predicate, command, false);
+        return new WhileExecutor(predicate, executor, false);
     }
 
     /**
-     * Creates a Executor that will call the command once and then repeatedly
+     * Creates a Executor that will call the executor once and then repeatedly
      * until the predicate returns false.
      *
-     * @param command  the command to call repeatedly
+     * @param executor  the executor to call repeatedly
      * @param predicate  the predicate to use as an end of loop test
-     * @return the command
+     * @return the <code>do-while</code> executor
      * @throws IllegalArgumentException if either argument is null
      */
-    public static Executor doWhileExecutor(Executor command, Predicate predicate) {
-        if (command == null) {
-            throw new IllegalArgumentException("DoWhileExecutor: The command must not be null");
+    public static Executor doWhileExecutor(Executor executor, Predicate predicate) {
+        if (executor == null) {
+            throw new IllegalArgumentException("The executor must not be null");
         }
         if (predicate == null) {
-            throw new IllegalArgumentException("DoWhileExecutor: The predicate must not be null");
+            throw new IllegalArgumentException("The predicate must not be null");
         }
-        return new WhileExecutor(predicate, command, true);
+        return new WhileExecutor(predicate, executor, true);
     }
 
     /**
-     * Creates a Executor that will invoke a specific method on the command's
+     * Creates a Executor that will invoke a specific method on the executor's
      * input object by reflection.
      *
      * @param methodName  the name of the method
-     * @return the command
+     * @return the <code>invoker</code> executor
      * @throws IllegalArgumentException if the method name is null
      */
     public static Executor invokerExecutor(String methodName) {
+        // reuse transformer as it has caching - this is lazy really, should have inner class here
         return asExecutor(TransformerUtils.invokerTransformer(methodName, null, null));
     }
 
     /**
-     * Creates a Executor that will invoke a specific method on the command's
+     * Creates a Executor that will invoke a specific method on the executor's
      * input object by reflection.
      *
      * @param methodName  the name of the method
      * @param paramTypes  the parameter types
      * @param args  the arguments
-     * @return the command
+     * @return the <code>invoker</code> executor
      * @throws IllegalArgumentException if the method name is null
      * @throws IllegalArgumentException if the paramTypes and args don't match
      */
     public static Executor invokerExecutor(String methodName, Class[] paramTypes, Object[] args) {
+        // reuse transformer as it has caching - this is lazy really, should have inner class here
         return asExecutor(TransformerUtils.invokerTransformer(methodName, paramTypes, args));
     }
 
@@ -222,52 +225,52 @@ public class ExecutorUtils {
      * Create a new Executor that calls two Executors, passing the result of
      * the first into the second.
      * 
-     * @param command1  the first command
-     * @param command2  the second command
-     * @return the command
-     * @throws IllegalArgumentException if either command is null
+     * @param executor1  the first executor
+     * @param executor2  the second executor
+     * @return the <code>chained</code> executor
+     * @throws IllegalArgumentException if either executor is null
      */
-    public static Executor chainedExecutor(Executor command1, Executor command2) {
-        Executor[] commands = new Executor[] { command1, command2 };
-        validate(commands);
-        return new ChainedExecutor(commands);
+    public static Executor chainedExecutor(Executor executor1, Executor executor2) {
+        Executor[] executors = new Executor[] { executor1, executor2 };
+        validate(executors);
+        return new ChainedExecutor(executors);
     }
 
     /**
-     * Create a new Executor that calls each command in turn, passing the 
-     * result into the next command.
+     * Create a new Executor that calls each executor in turn, passing the 
+     * result into the next executor.
      * 
-     * @param commands  an array of commands to chain
-     * @return the command
-     * @throws IllegalArgumentException if the commands array is null
-     * @throws IllegalArgumentException if the commands array has 0 elements
-     * @throws IllegalArgumentException if any command in the array is null
+     * @param executors  an array of executors to chain
+     * @return the <code>chained</code> executor
+     * @throws IllegalArgumentException if the executors array is null
+     * @throws IllegalArgumentException if the executors array has 0 elements
+     * @throws IllegalArgumentException if any executor in the array is null
      */
-    public static Executor chainedExecutor(Executor[] commands) {
-        commands = copy(commands);
-        validate(commands);
-        return new ChainedExecutor(commands);
+    public static Executor chainedExecutor(Executor[] executors) {
+        executors = copy(executors);
+        validate(executors);
+        return new ChainedExecutor(executors);
     }
 
     /**
-     * Create a new Executor that calls each command in turn, passing the 
-     * result into the next command. The ordering is that of the iterator()
+     * Create a new Executor that calls each executor in turn, passing the 
+     * result into the next executor. The ordering is that of the iterator()
      * method on the collection.
      * 
-     * @param commands  a collection of commands to chain
-     * @return the command
-     * @throws IllegalArgumentException if the commands collection is null
-     * @throws IllegalArgumentException if the commands collection is empty
-     * @throws IllegalArgumentException if any command in the collection is null
+     * @param executors  a collection of executors to chain
+     * @return the <code>chained</code> executor
+     * @throws IllegalArgumentException if the executors collection is null
+     * @throws IllegalArgumentException if the executors collection is empty
+     * @throws IllegalArgumentException if any executor in the collection is null
      */
-    public static Executor chainedExecutor(Collection commands) {
-        if (commands == null) {
-            throw new IllegalArgumentException("ChainedExecutor: The command collection must not be null");
+    public static Executor chainedExecutor(Collection executors) {
+        if (executors == null) {
+            throw new IllegalArgumentException("The executor collection must not be null");
         }
         // convert to array like this to guarantee iterator() ordering
-        Executor[] cmds = new Executor[commands.size()];
+        Executor[] cmds = new Executor[executors.size()];
         int i = 0;
-        for (Iterator it = commands.iterator(); it.hasNext();) {
+        for (Iterator it = executors.iterator(); it.hasNext();) {
             cmds[i++] = (Executor) it.next();
         }
         validate(cmds);
@@ -275,81 +278,85 @@ public class ExecutorUtils {
     }
 
     /**
-     * Create a new Executor that calls one of two commands depending 
+     * Create a new Executor that calls one of two executors depending 
      * on the specified predicate.
      * 
      * @param predicate  the predicate to switch on
-     * @param trueExecutor  the command called if the predicate is true
-     * @param falseExecutor  the command called if the predicate is false
-     * @return the command
+     * @param trueExecutor  the executor called if the predicate is true
+     * @param falseExecutor  the executor called if the predicate is false
+     * @return the <code>switch</code> executor
      * @throws IllegalArgumentException if the predicate is null
-     * @throws IllegalArgumentException if either command is null
+     * @throws IllegalArgumentException if either executor is null
      */
     public static Executor switchExecutor(Predicate predicate, Executor trueExecutor, Executor falseExecutor) {
         return switchExecutorInternal(new Predicate[] { predicate }, new Executor[] { trueExecutor }, falseExecutor);
     }
 
     /**
-     * Create a new Executor that calls one of the commands depending 
-     * on the predicates. The command at array location 0 is called if the
-     * predicate at array location 0 returned true. Each predicate is evaluated
+     * Create a new Executor that calls one of the executors depending 
+     * on the predicates.
+     * <p>
+     * The executor at array location 0 is called if the predicate at array 
+     * location 0 returned true. Each predicate is evaluated
      * until one returns true.
      * 
      * @param predicates  an array of predicates to check
-     * @param commands  an array of commands to call
-     * @return the command
+     * @param executors  an array of executors to call
+     * @return the <code>switch</code> executor
      * @throws IllegalArgumentException if the either array is null
      * @throws IllegalArgumentException if the either array has 0 elements
      * @throws IllegalArgumentException if any element in the arrays is null
      * @throws IllegalArgumentException if the arrays are different sizes
      */
-    public static Executor switchExecutor(Predicate[] predicates, Executor[] commands) {
-        return switchExecutorInternal(copy(predicates), copy(commands), null);
+    public static Executor switchExecutor(Predicate[] predicates, Executor[] executors) {
+        return switchExecutorInternal(copy(predicates), copy(executors), null);
     }
 
     /**
-     * Create a new Executor that calls one of the commands depending 
-     * on the predicates. The command at array location 0 is called if the
-     * predicate at array location 0 returned true. Each predicate is evaluated
+     * Create a new Executor that calls one of the executors depending 
+     * on the predicates.
+     * <p>
+     * The executor at array location 0 is called if the predicate at array
+     * location 0 returned true. Each predicate is evaluated
      * until one returns true. If no predicates evaluate to true, the default
-     * command is called.
+     * executor is called.
      * 
      * @param predicates  an array of predicates to check
-     * @param commands  an array of commands to call
+     * @param executors  an array of executors to call
      * @param defaultExecutor  the default to call if no predicate matches
-     * @return the command
+     * @return the <code>switch</code> executor
      * @throws IllegalArgumentException if the either array is null
      * @throws IllegalArgumentException if the either array has 0 elements
      * @throws IllegalArgumentException if any element in the arrays is null
      * @throws IllegalArgumentException if the arrays are different sizes
      */
-    public static Executor switchExecutor(Predicate[] predicates, Executor[] commands, Executor defaultExecutor) {
-        return switchExecutorInternal(copy(predicates), copy(commands), defaultExecutor);
+    public static Executor switchExecutor(Predicate[] predicates, Executor[] executors, Executor defaultExecutor) {
+        return switchExecutorInternal(copy(predicates), copy(executors), defaultExecutor);
     }
     
     /**
-     * Create a new Executor that calls one of the commands depending 
+     * Create a new Executor that calls one of the executors depending 
      * on the predicates. 
      * <p>
-     * The Map consists of Predicate keys and Executor values. A command 
+     * The Map consists of Predicate keys and Executor values. A executor 
      * is called if its matching predicate returns true. Each predicate is evaluated
      * until one returns true. If no predicates evaluate to true, the default
-     * command is called. The default command is set in the map with a 
+     * executor is called. The default executor is set in the map with a 
      * null key. The ordering is that of the iterator() method on the entryset 
      * collection of the map.
      * 
-     * @param predicatesAndExecutors  a map of predicates to commands
-     * @return the command
+     * @param predicatesAndExecutors  a map of predicates to executors
+     * @return the <code>switch</code> executor
      * @throws IllegalArgumentException if the map is null
      * @throws IllegalArgumentException if the map is empty
-     * @throws IllegalArgumentException if any command in the map is null
+     * @throws IllegalArgumentException if any executor in the map is null
      * @throws ClassCastException  if the map elements are of the wrong type
      */
     public static Executor switchExecutor(Map predicatesAndExecutors) {
         Executor[] trs = null;
         Predicate[] preds = null;
         if (predicatesAndExecutors == null) {
-            throw new IllegalArgumentException("SwitchExecutor: The predicate and command map must not be null");
+            throw new IllegalArgumentException("The predicate and executor map must not be null");
         }
         // convert to array like this to guarantee iterator() ordering
         Executor def = (Executor) predicatesAndExecutors.remove(null);
@@ -367,40 +374,49 @@ public class ExecutorUtils {
     }
 
     /**
-     * Validate input and create command
+     * Validate input and create executor.
+     * 
+     * @param predicates  an array of predicates to check
+     * @param executors  an array of executors to call
+     * @param defaultExecutor  the default to call if no predicate matches
+     * @return the <code>switch</code> executor
+     * @throws IllegalArgumentException if the either array is null
+     * @throws IllegalArgumentException if the either array has 0 elements
+     * @throws IllegalArgumentException if any element in the arrays is null
+     * @throws IllegalArgumentException if the arrays are different sizes
      */
-    private static Executor switchExecutorInternal(Predicate[] predicates, Executor[] commands, Executor defaultExecutor) {
+    private static Executor switchExecutorInternal(Predicate[] predicates, Executor[] executors, Executor defaultExecutor) {
         validate(predicates);
-        validate(commands);
-        if (predicates.length != commands.length) {
-            throw new IllegalArgumentException("SwitchExecutor: The predicate and command arrays must be the same size");
+        validate(executors);
+        if (predicates.length != executors.length) {
+            throw new IllegalArgumentException("The predicate and executor arrays must be the same size");
         }
         if (defaultExecutor == null) {
             defaultExecutor = nopExecutor();
         }
-        return new SwitchExecutor(predicates, commands, defaultExecutor);
+        return new SwitchExecutor(predicates, executors, defaultExecutor);
     }
 
     /**
      * Create a new Executor that uses the input object as a key to find the
-     * command to call. 
+     * executor to call. 
      * <p>
-     * The Map consists of object keys and Executor values. A command 
+     * The Map consists of object keys and Executor values. A executor 
      * is called if the input object equals the key. If there is no match, the
-     * default command is called. The default command is set in the map
+     * default executor is called. The default executor is set in the map
      * using a null key.
      * 
-     * @param objectsAndExecutors  a map of objects to commands
-     * @return the command
+     * @param objectsAndExecutors  a map of objects to executors
+     * @return the executor
      * @throws IllegalArgumentException if the map is null
      * @throws IllegalArgumentException if the map is empty
-     * @throws IllegalArgumentException if any command in the map is null
+     * @throws IllegalArgumentException if any executor in the map is null
      */
     public static Executor switchMapExecutor(Map objectsAndExecutors) {
         Executor[] trs = null;
         Predicate[] preds = null;
         if (objectsAndExecutors == null) {
-            throw new IllegalArgumentException("SwitchEqualsExecutor: The obejct and command map must not be null");
+            throw new IllegalArgumentException("The obejct and executor map must not be null");
         }
         Executor def = (Executor) objectsAndExecutors.remove(null);
         int size = objectsAndExecutors.size();
@@ -417,9 +433,10 @@ public class ExecutorUtils {
     }
 
     /**
-     * Copy method
+     * Clone the predicates to ensure that the internal reference can't be messed with.
      * 
      * @param predicates  the predicates to copy
+     * @return the cloned predicates
      */
     private static Predicate[] copy(Predicate[] predicates) {
         if (predicates == null) {
@@ -429,53 +446,56 @@ public class ExecutorUtils {
     }
     
     /**
-     * Validate method
+     * Validate the predicates to ensure that all is well.
      * 
      * @param predicates  the predicates to validate
+     * @return the validated predicates
      */
     private static void validate(Predicate[] predicates) {
         if (predicates == null) {
-            throw new IllegalArgumentException("ExecutorUtils: The predicate array must not be null");
+            throw new IllegalArgumentException("The predicate array must not be null");
         }
         if (predicates.length < 1) {
             throw new IllegalArgumentException(
-                "ExecutorUtils: At least 1 predicate must be specified in the predicate array, size was " + predicates.length);
+                "At least 1 predicate must be specified in the predicate array, size was " + predicates.length);
         }
         for (int i = 0; i < predicates.length; i++) {
             if (predicates[i] == null) {
-                throw new IllegalArgumentException("ExecutorUtils: The predicate array must not contain a null predicate, index " + i + " was null");
+                throw new IllegalArgumentException("The predicate array must not contain a null predicate, index " + i + " was null");
             }
         }
     }
 
     /**
-     * Copy method
+     * Clone the executors to ensure that the internal reference can't be messed with.
      * 
-     * @param commands  the commands to copy
+     * @param executors  the executors to copy
+     * @return the cloned executors
      */
-    private static Executor[] copy(Executor[] commands) {
-        if (commands == null) {
+    private static Executor[] copy(Executor[] executors) {
+        if (executors == null) {
             return null;
         }
-        return (Executor[]) commands.clone();
+        return (Executor[]) executors.clone();
     }
     
     /**
-     * Validate method
+     * Validate the executors to ensure that all is well.
      * 
-     * @param commands  the commands to validate
+     * @param executors  the executors to validate
+     * @return the validated executors
      */
-    private static void validate(Executor[] commands) {
-        if (commands == null) {
-            throw new IllegalArgumentException("ExecutorUtils: The command array must not be null");
+    private static void validate(Executor[] executors) {
+        if (executors == null) {
+            throw new IllegalArgumentException("The executor array must not be null");
         }
-        if (commands.length < 1) {
+        if (executors.length < 1) {
             throw new IllegalArgumentException(
-                "ExecutorUtils: At least 1 command must be specified in the command array, size was " + commands.length);
+                "At least 1 executor must be specified in the executor array, size was " + executors.length);
         }
-        for (int i = 0; i < commands.length; i++) {
-            if (commands[i] == null) {
-                throw new IllegalArgumentException("ExecutorUtils: The command array must not contain a null command, index " + i + " was null");
+        for (int i = 0; i < executors.length; i++) {
+            if (executors[i] == null) {
+                throw new IllegalArgumentException("The executor array must not contain a null executor, index " + i + " was null");
             }
         }
     }
@@ -530,14 +550,14 @@ public class ExecutorUtils {
     //----------------------------------------------------------------------------------
 
     /**
-     * TransformerExecutor returns the result of calling a Transformer.
+     * TransformerExecutor calls a Transformer using the input object and ignore the result.
      */
     private static class TransformerExecutor implements Executor, Serializable {
-
+        /** The transformer to wrap */
         private final Transformer iTransformer;
 
         /**
-         * Constructor to store factory
+         * Constructor to store transformer
          */
         private TransformerExecutor(Transformer transformer) {
             super();
@@ -545,7 +565,7 @@ public class ExecutorUtils {
         }
 
         /**
-         * Return the result of calling the factory
+         * Call the transformer
          */
         public void execute(Object input) {
             try {
@@ -561,22 +581,22 @@ public class ExecutorUtils {
     //----------------------------------------------------------------------------------
 
     /**
-     * ChainedExecutor calls a list of commands.
+     * ChainedExecutor calls a list of executors.
      */
     private static class ChainedExecutor implements Executor, Serializable {
-
+        /** The executors to call in turn */
         private final Executor[] iExecutors;
 
         /**
          * Constructor to store params
          */
-        private ChainedExecutor(Executor[] commands) {
+        private ChainedExecutor(Executor[] executors) {
             super();
-            iExecutors = commands;
+            iExecutors = executors;
         }
 
         /**
-         * Execute a list of commands
+         * Execute a list of executors
          */
         public void execute(Object input) {
             for (int i = 0; i < iExecutors.length; i++) {
@@ -589,26 +609,28 @@ public class ExecutorUtils {
     //----------------------------------------------------------------------------------
 
     /**
-     * SwitchExecutor calls the command whose predicate returns true.
+     * SwitchExecutor calls the executor whose predicate returns true.
      */
     private static class SwitchExecutor implements Executor, Serializable {
-
+        /** The tests to consider */
         private final Predicate[] iPredicates;
+        /** The matching executors to call */
         private final Executor[] iExecutors;
+        /** The default executor to call if no tests match */
         private final Executor iDefault;
 
         /**
          * Constructor to store params
          */
-        private SwitchExecutor(Predicate[] predicates, Executor[] commands, Executor defaultExecutor) {
+        private SwitchExecutor(Predicate[] predicates, Executor[] executors, Executor defaultExecutor) {
             super();
             iPredicates = predicates;
-            iExecutors = commands;
+            iExecutors = executors;
             iDefault = defaultExecutor;
         }
 
         /**
-         * Execute the command whose predicate returns true
+         * Execute the executor whose predicate returns true
          */
         public void execute(Object input) {
             for (int i = 0; i < iPredicates.length; i++) {
@@ -625,24 +647,25 @@ public class ExecutorUtils {
     //----------------------------------------------------------------------------------
 
     /**
-     * ForExecutor calls the command a fixed nunmber of times.
+     * ForExecutor calls the executor a fixed nunmber of times.
      */
     private static class ForExecutor implements Executor, Serializable {
-
+        /** The number of times to loop */
         private final int iCount;
+        /** The executor to call */
         private final Executor iExecutor;
 
         /**
          * Constructor to store params
          */
-        private ForExecutor(int count, Executor command) {
+        private ForExecutor(int count, Executor executor) {
             super();
             iCount = count;
-            iExecutor = command;
+            iExecutor = executor;
         }
 
         /**
-         * Execute the command count times
+         * Execute the executor count times
          */
         public void execute(Object input) {
             for (int i = 0; i < iCount; i++) {
@@ -655,26 +678,28 @@ public class ExecutorUtils {
     //----------------------------------------------------------------------------------
 
     /**
-     * WhileExecutor calls the command until the predicate is false.
+     * WhileExecutor calls the executor until the predicate is false.
      */
     private static class WhileExecutor implements Executor, Serializable {
-
+        /** The test condition */
         private final Predicate iPredicate;
+        /** The executor to call */
         private final Executor iExecutor;
+        /** The flag, true is a do loop, false is a while */
         private final boolean iDoLoop;
 
         /**
          * Constructor to store params
          */
-        private WhileExecutor(Predicate predicate, Executor command, boolean doLoop) {
+        private WhileExecutor(Predicate predicate, Executor executor, boolean doLoop) {
             super();
             iPredicate = predicate;
-            iExecutor = command;
+            iExecutor = executor;
             iDoLoop = doLoop;
         }
 
         /**
-         * Execute the command until the predicate is false
+         * Execute the executor until the predicate is false
          */
         public void execute(Object input) {
             if (iDoLoop) {
