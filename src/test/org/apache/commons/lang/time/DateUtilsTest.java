@@ -693,7 +693,7 @@ public class DateUtilsTest extends TestCase {
      * Used to check that Calendar objects are close enough
      * delta is in milliseconds
      */
-    public static void assertEquals(String message, Calendar cal1, Calendar cal2, long delta) {
+    private static void assertEquals(String message, Calendar cal1, Calendar cal2, long delta) {
         if (Math.abs(cal1.getTime().getTime() - cal2.getTime().getTime()) > delta) {
             throw new AssertionFailedError(
                     message + " expected " + cal1.getTime() + " but got " + cal2.getTime());
