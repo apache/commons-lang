@@ -62,6 +62,7 @@ import junit.framework.TestSuite;
  * Tests {@link org.apache.commons.lang.exception.ExceptionUtils}.
  *
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
+ * @aithor <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @since 1.0
  */
 public class ExceptionUtilsTestCase extends junit.framework.TestCase
@@ -123,11 +124,9 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase
 
     private static class ExceptionWithoutCause extends Exception
     {
-        /**
-         * Bogus signature.
-         */
-        public void getCause()
+        public Throwable getCause()
         {
+            return null;
         }
     }
 }
