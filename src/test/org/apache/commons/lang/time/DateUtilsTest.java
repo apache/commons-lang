@@ -363,10 +363,10 @@ public class DateUtilsTest extends TestCase {
         } catch (ClassCastException ex) {}
     }
 
-    /**
+    // TODO: Decide whether this code is removed or goes into 2.1
+    /*
      * Tests the parse method, which is supposed to handle various strings
      * as flexibly as CVS supports.
-     */
     public void testParseCVS() throws Exception {
         try {
             DateUtils.parseCVS(null);
@@ -414,12 +414,12 @@ public class DateUtilsTest extends TestCase {
         assertEquals("parseCVS format MMM d, yyyy h:mm a",
                   now, DateUtils.parseCVS(new SimpleDateFormat("MMM d, yyyy h:mm a").format(now.getTime())), 50);
         // h:mm z
-        /*
-         * This format is difficult to test using the current time because the
-         * parseCVS method applies the default date of January 1, 1970 to the
-         * parsed time. The most straightforward way to test the parse is to
-         * pass in a known value, and test the output against this know value.
-         */
+        //
+        // This format is difficult to test using the current time because the
+        // parseCVS method applies the default date of January 1, 1970 to the
+        // parsed time. The most straightforward way to test the parse is to
+        // pass in a known value, and test the output against this know value.
+        // 
         now = Calendar.getInstance();
         now.setTime(new SimpleDateFormat("h:mm z").parse("16:30 GMT"));
         assertEquals("parseCVS format h:mm z 16:30 GMT", 
@@ -567,6 +567,7 @@ public class DateUtilsTest extends TestCase {
         assertEquals("parseCVS last January",
                 now, DateUtils.parseCVS("last January"), 50);
     }
+     */
 
     /**
      * Tests the iterator exceptions
