@@ -87,7 +87,7 @@ import org.apache.commons.lang.ObjectUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.32 2004/02/18 22:53:24 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.33 2004/06/30 18:21:49 ggregory Exp $
  */
 public class ToStringBuilder {
 
@@ -144,7 +144,7 @@ public class ToStringBuilder {
     /**
      * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
      * 
-     * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean,Class)
+     * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean,boolean,Class)
      * @since 2.0
      */
     public static String reflectionToString(
@@ -228,14 +228,8 @@ public class ToStringBuilder {
      *  may be <code>null</code>
      * @param buffer  the <code>StringBuffer</code> to populate, may be
      *  <code>null</code>
-     * @throws IllegalArgumentException  if the Object passed in is
-     *  <code>null</code>
      */
     public ToStringBuilder(Object object, ToStringStyle style, StringBuffer buffer) {
-        super();
-        if (object == null) {
-            throw new IllegalArgumentException("The object to create a toString for must not be null");
-        }
         if (style == null) {
             style = getDefaultStyle();
         }
@@ -1038,8 +1032,8 @@ public class ToStringBuilder {
      * @return the String <code>toString</code>
      */
     public String toString() {
-        style.appendEnd(buffer, object);
-        return buffer.toString();
+        style.appendEnd(this.getStringBuffer(), this.getObject());
+        return this.getStringBuffer().toString();
     }
 
 }

@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:alex@apache.org">Alex Chaffee</a>
- * @version $Id: ToStringBuilderTest.java,v 1.13 2004/02/18 23:00:51 ggregory Exp $
+ * @version $Id: ToStringBuilderTest.java,v 1.14 2004/06/30 18:22:22 ggregory Exp $
  */
 public class ToStringBuilderTest extends TestCase {
 
@@ -62,46 +62,18 @@ public class ToStringBuilderTest extends TestCase {
     //-----------------------------------------------------------------------
 
     public void testConstructorEx1() {
-        try {
-            new ToStringBuilder(null);
-            
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+        assertEquals("", new ToStringBuilder(null).toString());
     }
 
     public void testConstructorEx2() {
-        try {
-            new ToStringBuilder(null, null);
-            
-        } catch (IllegalArgumentException ex) {
-            try {
-                new ToStringBuilder(base, null);
-                
-            } catch (Exception ex2) {
-                fail();
-            }
-            return;
-        }
-        fail();
+        assertEquals("", new ToStringBuilder(null, null).toString());
+        new ToStringBuilder(this.base, null).toString();
     }
 
     public void testConstructorEx3() {
-        try {
-            new ToStringBuilder(null, null, null);
-            
-        } catch (IllegalArgumentException ex) {
-            try {
-                new ToStringBuilder(base, null, null);
-                new ToStringBuilder(base, ToStringStyle.DEFAULT_STYLE, null);
-                
-            } catch (Exception ex2) {
-                fail();
-            }
-            return;
-        }
-        fail();
+        assertEquals("", new ToStringBuilder(null, null, null).toString());
+        new ToStringBuilder(this.base, null, null);
+        new ToStringBuilder(this.base, ToStringStyle.DEFAULT_STYLE, null);
     }
 
     public void testGetSetDefault() {
@@ -915,4 +887,7 @@ public class ToStringBuilderTest extends TestCase {
         static final int staticInt2 = 67890;
     }
 
+    public void testReflectionNull() {
+        assertEquals("<null>", ReflectionToStringBuilder.toString(null));
+    }
 }
