@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  * interface.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: AbstractNestableTestCase.java,v 1.1 2002/09/11 18:16:10 stevencaswell Exp $
+ * @version $Id: AbstractNestableTestCase.java,v 1.2 2002/09/11 19:40:14 stevencaswell Exp $
  */
 public abstract class AbstractNestableTestCase extends TestCase
 {
@@ -253,7 +253,7 @@ public abstract class AbstractNestableTestCase extends TestCase
         throwables = new Class[2];
         throwables[0] = getTester1Class();
         throwables[1] = getThrowableClass();
-        n = new NestableExceptionTester1(getThrowable(msgs[1]));
+        n = getTester1(getThrowable(msgs[1]));
         doNestableExceptionGetThrowableI(n, throwables, msgs);
  
         msgs = new String[5];
@@ -324,7 +324,6 @@ public abstract class AbstractNestableTestCase extends TestCase
         msgs[0] = null;
         msgs[1] = "level 2";
         throwables = new Class[2];
-//        throwables[0] = NestableExceptionTester1.class;
         throwables[0] = getTester1Class();
         throwables[1] = getThrowableClass();
         n = getTester1(getThrowable(msgs[1]));
@@ -514,8 +513,9 @@ public abstract class AbstractNestableTestCase extends TestCase
         PrintWriter pw2 = new PrintWriter(ps2, true);
         ne9.printPartialStackTrace(pw2);
         String stack2 = baos2.toString();
-        assertTrue("stack trace startsWith == org.apache.commons.lang.exception.NestableException: ne9: ne9 exception",
-            stack2.startsWith("org.apache.commons.lang.exception.NestableException: ne9: ne9 exception"));
+        String startsWith = ne9.getClass().getName() + ": ne9: ne9 exception";
+        assertTrue("stack trace startsWith == " + startsWith,
+            stack2.startsWith(startsWith));
         assertEquals("stack trace indexOf rethrown == -1",
             stack2.indexOf("rethrown"), -1);
     }
@@ -531,10 +531,12 @@ public abstract class AbstractNestableTestCase extends TestCase
         PrintWriter pw1 = new PrintWriter(ps1, true);
         ne8.printStackTrace(ps1);
         String stack1 = baos1.toString();
-        assertTrue("stack trace startsWith == java.lang.Exception: ne8 exception",
-            stack1.startsWith("java.lang.Exception: ne8 exception")); 
-        assertTrue("stack trace indexOf org.apache.commons.lang.exception.NestableException: ne8: ne8 exception > -1",
-            stack1.indexOf("org.apache.commons.lang.exception.NestableException: ne8: ne8 exception") > -1); 
+        String startsWith = getThrowableClass().getName() + ": ne8 exception";
+        assertTrue("stack trace startsWith == " + startsWith,
+            stack1.startsWith(startsWith));
+        String indexOf = ne8.getClass().getName() + ": ne8: ne8 exception";
+        assertTrue("stack trace indexOf " + indexOf + " > -1",
+            stack1.indexOf(indexOf) > -1); 
     }
 
     /**
