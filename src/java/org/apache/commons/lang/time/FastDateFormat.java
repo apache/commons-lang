@@ -61,7 +61,7 @@ import java.util.TimeZone;
  * @author Stephen Colebourne
  * @author Nikolay Metchev
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.21 2004/09/12 05:03:26 bayard Exp $
+ * @version $Id: FastDateFormat.java,v 1.22 2004/10/08 00:09:01 scolebourne Exp $
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes
@@ -219,6 +219,7 @@ public class FastDateFormat extends Format {
      * @return a localized standard date formatter
      * @throws IllegalArgumentException if the Locale has no date
      *  pattern defined
+     * @since 2.1
      */
     public static FastDateFormat getDateInstance(int style) {
         return getDateInstance(style, null, null);
@@ -233,6 +234,7 @@ public class FastDateFormat extends Format {
      * @return a localized standard date formatter
      * @throws IllegalArgumentException if the Locale has no date
      *  pattern defined
+     * @since 2.1
      */
     public static FastDateFormat getDateInstance(int style, Locale locale) {
         return getDateInstance(style, null, locale);
@@ -248,6 +250,7 @@ public class FastDateFormat extends Format {
      * @return a localized standard date formatter
      * @throws IllegalArgumentException if the Locale has no date
      *  pattern defined
+     * @since 2.1
      */
     public static FastDateFormat getDateInstance(int style, TimeZone timeZone) {
         return getDateInstance(style, timeZone, null);
@@ -301,6 +304,7 @@ public class FastDateFormat extends Format {
      * @return a localized standard time formatter
      * @throws IllegalArgumentException if the Locale has no time
      *  pattern defined
+     * @since 2.1
      */
     public static FastDateFormat getTimeInstance(int style) {
         return getTimeInstance(style, null, null);
@@ -315,6 +319,7 @@ public class FastDateFormat extends Format {
      * @return a localized standard time formatter
      * @throws IllegalArgumentException if the Locale has no time
      *  pattern defined
+     * @since 2.1
      */
     public static FastDateFormat getTimeInstance(int style, Locale locale) {
         return getTimeInstance(style, null, locale);
@@ -330,6 +335,7 @@ public class FastDateFormat extends Format {
      * @return a localized standard time formatter
      * @throws IllegalArgumentException if the Locale has no time
      *  pattern defined
+     * @since 2.1
      */
     public static FastDateFormat getTimeInstance(int style, TimeZone timeZone) {
         return getTimeInstance(style, timeZone, null);
@@ -385,6 +391,7 @@ public class FastDateFormat extends Format {
      * @return a localized standard date/time formatter
      * @throws IllegalArgumentException if the Locale has no date/time
      *  pattern defined
+     * @since 2.1
      */
     public static FastDateFormat getDateTimeInstance(
             int dateStyle, int timeStyle) {
@@ -401,6 +408,7 @@ public class FastDateFormat extends Format {
      * @return a localized standard date/time formatter
      * @throws IllegalArgumentException if the Locale has no date/time
      *  pattern defined
+     * @since 2.1
      */
     public static FastDateFormat getDateTimeInstance(
             int dateStyle, int timeStyle, Locale locale) {
@@ -418,6 +426,7 @@ public class FastDateFormat extends Format {
      * @return a localized standard date/time formatter
      * @throws IllegalArgumentException if the Locale has no date/time
      *  pattern defined
+     * @since 2.1
      */
     public static FastDateFormat getDateTimeInstance(
             int dateStyle, int timeStyle, TimeZone timeZone) {
@@ -787,6 +796,7 @@ public class FastDateFormat extends Format {
      * 
      * @param millis  the millisecond value to format
      * @return the formatted string
+     * @since 2.1
      */
     public String format(long millis) {
         return format(new Date(millis));
@@ -821,6 +831,7 @@ public class FastDateFormat extends Format {
      * @param millis  the millisecond value to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
+     * @since 2.1
      */
     public StringBuffer format(long millis, StringBuffer buf) {
         return format(new Date(millis), buf);

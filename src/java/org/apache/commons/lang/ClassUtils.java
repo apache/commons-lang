@@ -32,7 +32,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.30 2004/06/30 18:33:58 ggregory Exp $
+ * @version $Id: ClassUtils.java,v 1.31 2004/10/08 00:10:59 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -499,6 +499,7 @@ public class ClassUtils {
      * @param cls  the class to convert, may be null
      * @return the wrapper class for <code>cls</code> or <code>cls</code> if
      * <code>cls</code> is not a primitive. <code>null</code> if null input.
+     * @since 2.1
      */
     public static Class primitiveToWrapper(Class cls) {
         Class convertedClass = cls;
@@ -516,6 +517,7 @@ public class ClassUtils {
      * @return an array which contains for each given class, the wrapper class or 
      * the original class if class is not a primitive. <code>null</code> if null input. 
      * Empty array if an empty array passed in.
+     * @since 2.1
      */
     public static Class[] primitivesToWrappers(Class[] classes) {
         if (classes == null) {
@@ -523,7 +525,7 @@ public class ClassUtils {
         }
         
         if (classes.length == 0) {
-            return ArrayUtils.EMPTY_CLASS_ARRAY;
+            return classes;
         }
         
         Class[] convertedClasses = new Class[classes.length];

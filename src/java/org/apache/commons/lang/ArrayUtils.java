@@ -44,7 +44,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Maarten Coene
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.46 2004/08/15 02:12:51 bayard Exp $
+ * @version $Id: ArrayUtils.java,v 1.47 2004/10/08 00:11:00 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -427,6 +427,7 @@ public class ArrayUtils {
      *      array length.
      * @return a new array containing the elements between
      *      the start and end indices.
+     * @since 2.1
      */
     public static Object[] subarray(Object[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -465,6 +466,7 @@ public class ArrayUtils {
      *      array length.
      * @return a new array containing the elements between
      *      the start and end indices.
+     * @since 2.1
      */
     public static long[] subarray(long[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -503,6 +505,7 @@ public class ArrayUtils {
      *      array length.
      * @return a new array containing the elements between
      *      the start and end indices.
+     * @since 2.1
      */
     public static int[] subarray(int[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -541,6 +544,7 @@ public class ArrayUtils {
      *      array length.
      * @return a new array containing the elements between
      *      the start and end indices.
+     * @since 2.1
      */
     public static short[] subarray(short[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -579,6 +583,7 @@ public class ArrayUtils {
      *      array length.
      * @return a new array containing the elements between
      *      the start and end indices.
+     * @since 2.1
      */
     public static char[] subarray(char[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -617,6 +622,7 @@ public class ArrayUtils {
      *      array length.
      * @return a new array containing the elements between
      *      the start and end indices.
+     * @since 2.1
      */
     public static byte[] subarray(byte[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -655,6 +661,7 @@ public class ArrayUtils {
      *      array length.
      * @return a new array containing the elements between
      *      the start and end indices.
+     * @since 2.1
      */
     public static double[] subarray(double[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -693,6 +700,7 @@ public class ArrayUtils {
      *      array length.
      * @return a new array containing the elements between
      *      the start and end indices.
+     * @since 2.1
      */
     public static float[] subarray(float[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -731,6 +739,7 @@ public class ArrayUtils {
      *      array length.
      * @return a new array containing the elements between
      *      the start and end indices.
+     * @since 2.1
      */
     public static boolean[] subarray(boolean[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
@@ -937,6 +946,7 @@ public class ArrayUtils {
      * @param array  the array to retrieve the length from, may be null
      * @return The length of the array, or <code>0</code> if the array is <code>null</code>
      * @throws IllegalArgumentException if the object arguement is not an array.
+     * @since 2.1
      */
     public static int getLength(Object array) {
         if (array == null) {
@@ -963,6 +973,7 @@ public class ArrayUtils {
      * @param array  the array to return the last index for, may be null
      * @return the last index, -1 if empty or null
      * @throws IllegalArgumentException if the object arguement is not an array.
+     * @since 2.1
      */
     public static int lastIndex(Object array) {
         return ArrayUtils.getLength(array) - 1;
@@ -1637,6 +1648,7 @@ public class ArrayUtils {
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
      *  <code>-1</code> if not found or <code>null</code> array input
+     * @since 2.1
      */
     public static int indexOf(char[] array, char valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -1655,6 +1667,7 @@ public class ArrayUtils {
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
      *  <code>-1</code> if not found or <code>null</code> array input
+     * @since 2.1
      */
     public static int indexOf(char[] array, char valueToFind, int startIndex) {
         if (array == null) {
@@ -1680,6 +1693,7 @@ public class ArrayUtils {
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
      *  <code>-1</code> if not found or <code>null</code> array input
+     * @since 2.1
      */
     public static int lastIndexOf(char[] array, char valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -1698,6 +1712,7 @@ public class ArrayUtils {
      * @param startIndex  the start index to travers backwards from
      * @return the last index of the value within the array,
      *  <code>-1</code> if not found or <code>null</code> array input
+     * @since 2.1
      */
     public static int lastIndexOf(char[] array, char valueToFind, int startIndex) {
         if (array == null) {
@@ -1724,6 +1739,7 @@ public class ArrayUtils {
      * @param array  the array to search through
      * @param valueToFind  the value to find
      * @return <code>true</code> if the array contains the object
+     * @since 2.1
      */
     public static boolean contains(char[] array, char valueToFind) {
         return (indexOf(array, valueToFind) != -1);

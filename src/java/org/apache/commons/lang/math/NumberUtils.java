@@ -33,7 +33,7 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.18 2004/02/18 22:56:13 ggregory Exp $
+ * @version $Id: NumberUtils.java,v 1.19 2004/10/08 00:07:59 scolebourne Exp $
  */
 public class NumberUtils {
     
@@ -122,6 +122,7 @@ public class NumberUtils {
      * @param str  the string to convert, may be null
      * @return the int represented by the string, or <code>zero</code> if
      *  conversion fails
+     * @since 2.1
      */
     public static int toInt(String str) {
         return toInt(str, 0);
@@ -164,6 +165,7 @@ public class NumberUtils {
      * @param str  the string to convert, may be null
      * @param defaultValue  the default value
      * @return the int represented by the string, or the default if conversion fails
+     * @since 2.1
      */
     public static int toInt(String str, int defaultValue) {
         if(str == null) {

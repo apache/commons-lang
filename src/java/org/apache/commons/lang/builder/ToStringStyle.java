@@ -48,7 +48,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.32 2004/07/01 17:40:10 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.33 2004/10/08 00:07:59 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -69,6 +69,7 @@ public abstract class ToStringStyle implements Serializable {
     
     /**
      * The short prefix toString style.
+     * @since 2.1
      */
     public static final ToStringStyle SHORT_PREFIX_STYLE = new ShortPrefixToStringStyle();
 
