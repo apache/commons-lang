@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.11 2003/07/15 23:42:13 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.12 2003/07/16 21:19:22 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -10,6 +10,16 @@ INTRODUCTION:
 This document contains the release notes for this version of the Commons
 Lang package. Commons Lang is a set of utility functions and reusable 
 components that should be a help in any Java environment.
+
+
+INCOMPATIBLE CHANGES:
+Some StringUtils methods have changed functionality from 1.0.
+    isEmpty()
+    isNotEmpty()
+    chomp(String)
+    chomp(String,String)
+Check your code before implementing this release.
+
 
 NEW FEATURES:
 
@@ -63,9 +73,11 @@ lang:
     SerializationUtils:
         added empty constructor
     StringUtils:
-        isEmpty() changed to not trim.
+        isEmpty() changed to not trim and return false for null.
+        isNotEmpty() changed return true for null.
         chomp() changed to be more like Perl.
-        Twenty-one new methods.
+        Various methods changed in the handling of null (less exceptions).
+        Thirty-one new methods.
         Eight methods deprecated.
     SystemUtils:
         isJavaVersionAtLeast(int) added. getJavaVersion() deprecated.
@@ -149,6 +161,7 @@ lang:
         now deprecated, see math subpackage
     NumberUtils:
         now deprecated, see math subpackage
+
 
 CHANGES:   [In 'diff' format]
 
@@ -248,8 +261,12 @@ org.apache.commons.lang.StringUtils
 --------------------
 >     public static java.lang.String trimToNull(java.lang.String);
 >     public static java.lang.String trimToEmpty(java.lang.String);
+>     public static boolean isEmptyOrNull(java.lang.String);
+>     public static boolean isNotEmptyOrNull(java.lang.String);
 >     public static boolean isEmptyTrimmed(java.lang.String);
 >     public static boolean isNotEmptyTrimmed(java.lang.String);
+>     public static boolean isEmptyTrimmedOrNull(java.lang.String);
+>     public static boolean isNotEmptyTrimmedOrNull(java.lang.String);
 >     public static java.lang.String join(java.lang.Object[], char);
 >     public static java.lang.String join(java.util.Iterator, char);
 >     public static java.lang.String slice(java.lang.String);
@@ -268,16 +285,12 @@ org.apache.commons.lang.StringUtils
 >     public static boolean containsOnly(java.lang.String, java.lang.String);
 >     public static boolean containsNone(java.lang.String, java.lang.String);
 >     public static boolean containsNone(java.lang.String, char[]);
->     public static boolean containsOnly(java.lang.String, char[]);
 >     public static int indexOfAnyBut(java.lang.String, char[]);
 >     public static int indexOfAnyBut(java.lang.String, java.lang.String);
->     public static java.lang.String defaultString(java.lang.Object);
->     public static java.lang.String defaultString(java.lang.Object, java.lang.String);
 >     public static java.lang.String abbreviate(java.lang.String, int);
 >     public static java.lang.String abbreviate(java.lang.String, int, int);
 >     public static java.lang.String difference(java.lang.String, java.lang.String);
 >     public static int differenceAt(java.lang.String, java.lang.String);
-<     public static boolean containsOnly(java.lang.String, char[]);
 ---
 >     static {};
 

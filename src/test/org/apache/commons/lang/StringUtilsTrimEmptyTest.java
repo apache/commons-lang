@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTrimEmptyTest.java,v 1.8 2003/07/14 22:26:22 scolebourne Exp $
+ * @version $Id: StringUtilsTrimEmptyTest.java,v 1.9 2003/07/16 21:19:22 scolebourne Exp $
  */
 public class StringUtilsTrimEmptyTest extends TestCase {
     private static final String FOO = "foo";
@@ -137,7 +137,7 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(false, StringUtils.isEmpty("  foo  "));
         assertEquals(false, StringUtils.isEmpty(" "));
         assertEquals(true, StringUtils.isEmpty(""));
-        assertEquals(true, StringUtils.isEmpty(null));
+        assertEquals(false, StringUtils.isEmpty(null));
     }
 
     public void testIsNotEmpty() {
@@ -145,7 +145,23 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(true, StringUtils.isNotEmpty("  foo  "));
         assertEquals(true, StringUtils.isNotEmpty(" "));
         assertEquals(false, StringUtils.isNotEmpty(""));
-        assertEquals(false, StringUtils.isNotEmpty(null));
+        assertEquals(true, StringUtils.isNotEmpty(null));
+    }
+
+    public void testIsEmptyOrNull() {
+        assertEquals(false, StringUtils.isEmptyOrNull("foo"));
+        assertEquals(false, StringUtils.isEmptyOrNull("  foo  "));
+        assertEquals(false, StringUtils.isEmptyOrNull(" "));
+        assertEquals(true, StringUtils.isEmptyOrNull(""));
+        assertEquals(true, StringUtils.isEmptyOrNull(null));
+    }
+
+    public void testIsNotEmptyOrNull() {
+        assertEquals(true, StringUtils.isNotEmptyOrNull("foo"));
+        assertEquals(true, StringUtils.isNotEmptyOrNull("  foo  "));
+        assertEquals(true, StringUtils.isNotEmptyOrNull(" "));
+        assertEquals(false, StringUtils.isNotEmptyOrNull(""));
+        assertEquals(false, StringUtils.isNotEmptyOrNull(null));
     }
 
     public void testIsEmptyTrimmed() {
@@ -153,7 +169,7 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(false, StringUtils.isEmptyTrimmed("  foo  "));
         assertEquals(true, StringUtils.isEmptyTrimmed(" "));
         assertEquals(true, StringUtils.isEmptyTrimmed(""));
-        assertEquals(true, StringUtils.isEmptyTrimmed(null));
+        assertEquals(false, StringUtils.isEmptyTrimmed(null));
     }
 
     public void testIsNotEmptyTrimmed() {
@@ -161,7 +177,23 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(true, StringUtils.isNotEmptyTrimmed("  foo  "));
         assertEquals(false, StringUtils.isNotEmptyTrimmed(" "));
         assertEquals(false, StringUtils.isNotEmptyTrimmed(""));
-        assertEquals(false, StringUtils.isNotEmptyTrimmed(null));
+        assertEquals(true, StringUtils.isNotEmptyTrimmed(null));
+    }
+
+    public void testIsEmptyTrimmedOrNull() {
+        assertEquals(false, StringUtils.isEmptyTrimmedOrNull("foo"));
+        assertEquals(false, StringUtils.isEmptyTrimmedOrNull("  foo  "));
+        assertEquals(true, StringUtils.isEmptyTrimmedOrNull(" "));
+        assertEquals(true, StringUtils.isEmptyTrimmedOrNull(""));
+        assertEquals(true, StringUtils.isEmptyTrimmedOrNull(null));
+    }
+
+    public void testIsNotEmptyTrimmedOrNull() {
+        assertEquals(true, StringUtils.isNotEmptyTrimmedOrNull("foo"));
+        assertEquals(true, StringUtils.isNotEmptyTrimmedOrNull("  foo  "));
+        assertEquals(false, StringUtils.isNotEmptyTrimmedOrNull(" "));
+        assertEquals(false, StringUtils.isNotEmptyTrimmedOrNull(""));
+        assertEquals(false, StringUtils.isNotEmptyTrimmedOrNull(null));
     }
 
     public void testDeleteSpace() {

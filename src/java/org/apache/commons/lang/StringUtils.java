@@ -90,7 +90,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.57 2003/07/16 20:19:24 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.58 2003/07/16 21:19:22 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -129,16 +129,16 @@ public class StringUtils {
     //--------------------------------------------------------------------------
 
     /**
-     * <p>Removes control characters, including whitespace, from both
+     * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String, handling <code>null</code> by returning
      * an empty String ("").</p>
      * 
      * <pre>
+     * StringUtils.clean(null)          = ""
      * StringUtils.clean("abc")         = "abc"
      * StringUtils.clean("    abc    ") = "abc"
      * StringUtils.clean("     ")       = ""
      * StringUtils.clean("")            = ""
-     * StringUtils.clean(null)          = ""
      * </pre>
      *
      * @see java.lang.String#trim()
@@ -152,18 +152,19 @@ public class StringUtils {
     }
 
     /**
-     * <p>Removes control characters, including whitespace, from both
+     * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String, handling <code>null</code> by returning
      * <code>null</code>.</p>
      * 
-     * <p>The string is trimmed using {@link String#trim()}.</p>
+     * <p>The string is trimmed using {@link String#trim()}.
+     * Trim removes start and end characters &lt;= 32.</p>
      * 
      * <pre>
+     * StringUtils.trim(null)          = null
      * StringUtils.trim("abc")         = "abc"
      * StringUtils.trim("    abc    ") = "abc"
      * StringUtils.trim("     ")       = ""
      * StringUtils.trim("")            = ""
-     * StringUtils.trim(null)          = null
      * </pre>
      *
      * @see java.lang.String#trim()
@@ -176,18 +177,19 @@ public class StringUtils {
     }
 
     /** 
-     * <p>Removes control characters, including whitespace, from both  
+     * <p>Removes control characters (char &lt;= 32) from both  
      * ends of this string returning <code>null</code> if the string is 
      * empty ("") after the trim or if it is <code>null</code>.
      * 
-     * <p>The string is trimmed using {@link String#trim()}.</p>
+     * <p>The string is trimmed using {@link String#trim()}.
+     * Trim removes start and end characters &lt;= 32.</p>
      * 
      * <pre>
+     * StringUtils.trimToNull(null)          = null
      * StringUtils.trimToNull("abc")         = "abc"
      * StringUtils.trimToNull("    abc    ") = "abc"
      * StringUtils.trimToNull("     ")       = null
      * StringUtils.trimToNull("")            = null
-     * StringUtils.trimToNull(null)          = null
      * </pre>
      *  
      * @see java.lang.String#trim()
@@ -201,18 +203,19 @@ public class StringUtils {
     }
 
     /** 
-     * <p>Removes control characters, including whitespace, from both 
+     * <p>Removes control characters (char &lt;= 32) from both 
      * ends of this string returning an empty string ("") if the string
      * is empty ("") after the trim or if it is <code>null</code>.
      * 
-     * <p>The string is trimmed using {@link String#trim()}.</p>
+     * <p>The string is trimmed using {@link String#trim()}.
+     * Trim removes start and end characters &lt;= 32.</p>
      * 
      * <pre>
+     * StringUtils.trimToEmpty(null)          = ""
      * StringUtils.trimToEmpty("abc")         = "abc"
      * StringUtils.trimToEmpty("    abc    ") = "abc"
      * StringUtils.trimToEmpty("     ")       = ""
      * StringUtils.trimToEmpty("")            = ""
-     * StringUtils.trimToEmpty(null)          = ""
      * </pre>
      *  
      * @see java.lang.String#trim()
@@ -227,6 +230,14 @@ public class StringUtils {
      * <p>Deletes all 'space' characters from a String as defined by
      * {@link Character#isSpace(char)}.</p>
      *
+     * <pre>
+     * StringUtils.deleteSpaces(null)           = null
+     * StringUtils.deleteSpaces("abc")          = "abc"
+     * StringUtils.deleteSpaces(" \t  abc \n ") = "abc"
+     * StringUtils.deleteSpaces("ab  c")        = "abc"
+     * StringUtils.deleteSpaces("a\nb\tc     ") = "abc"
+     * </pre>
+     *  
      * <p>Spaces are defined as <code>{' ', '\t', '\r', '\n', '\b'}</code>
      * in line with the deprecated <code>isSpace</code> method.</p>
      *
@@ -244,6 +255,12 @@ public class StringUtils {
      * <p>Deletes all whitespaces from a String as defined by
      * {@link Character#isWhitespace(char)}.</p>
      *
+     * <pre>
+     * StringUtils.deleteWhitespace(null)        = null
+     * StringUtils.deleteWhitespace("abc")       = "abc"
+     * StringUtils.deleteWhitespace("   abc  ")  = "abc"
+     * </pre>
+     *  
      * @param str  the String to delete whitespace from, may be null
      * @return the String without whitespaces, <code>null</code> if null string input
      */
@@ -265,10 +282,11 @@ public class StringUtils {
     //--------------------------------------------------------------------------
 
     /**
-     * <p>Checks if a String is <code>null</code> or empty ("").</p>
+     * <p>Checks if a String is empty ("").
+     * <code>null</code> returns <code>false</code></p>
      * 
      * <pre>
-     * StringUtils.isEmpty(null)      = true
+     * StringUtils.isEmpty(null)      = false
      * StringUtils.isEmpty("")        = true
      * StringUtils.isEmpty(" ")       = false
      * StringUtils.isEmpty("bob")     = false
@@ -276,43 +294,133 @@ public class StringUtils {
      * </pre>
      *
      * <p>NOTE: This method changed in version 2.0.
-     * It no longer trims the String.
-     * That functionality is available in isEmptyTrimmed().</p>
+     * It no longer trims the String, and null is no longer true.
+     * That functionality is available in isEmptyTrimmedOrNull().</p>
      * 
      * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is <code>null</code> or empty
+     * @return <code>true</code> if the String is empty
      */
     public static boolean isEmpty(String str) {
-        return (str == null || str.length() == 0);
+        return (str != null && str.length() == 0);
     }
 
     /**
-     * <p>Checks if a String is not <code>null</code> and not empty ("").</p>
+     * <p>Checks if a String is not empty ("").
+     * <code>null</code> returns <code>true</code></p>
      * 
      * <pre>
-     * StringUtils.isNotEmpty(null)      = false
+     * StringUtils.isNotEmpty(null)      = true
      * StringUtils.isNotEmpty("")        = false
      * StringUtils.isNotEmpty(" ")       = true
      * StringUtils.isNotEmpty("bob")     = true
      * StringUtils.isNotEmpty("  bob  ") = true
      * </pre>
      *
+     * <p>NOTE: This method changed in version 2.0.
+     * It no longer returns false for null.
+     * That functionality is available in isNotEmptyOrNull().</p>
+     * 
      * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is not <code>null</code> and not empty
+     * @return <code>true</code> if the String is not empty
      */
     public static boolean isNotEmpty(String str) {
+        return (str == null || str.length() > 0);
+    }
+
+    /**
+     * <p>Checks if a String is empty ("") or <code>null</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.isEmptyOrNull(null)      = true
+     * StringUtils.isEmptyOrNull("")        = true
+     * StringUtils.isEmptyOrNull(" ")       = false
+     * StringUtils.isEmptyOrNull("bob")     = false
+     * StringUtils.isEmptyOrNull("  bob  ") = false
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @return <code>true</code> if the String is empty or null
+     */
+    public static boolean isEmptyOrNull(String str) {
+        return (str == null || str.length() == 0);
+    }
+
+    /**
+     * <p>Checks if a String is not not empty ("") and not <code>null</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.isNotEmptyOrNull(null)      = false
+     * StringUtils.isNotEmptyOrNull("")        = false
+     * StringUtils.isNotEmptyOrNull(" ")       = true
+     * StringUtils.isNotEmptyOrNull("bob")     = true
+     * StringUtils.isNotEmptyOrNull("  bob  ") = true
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @return <code>true</code> if the String is neither empty nor null
+     */
+    public static boolean isNotEmptyOrNull(String str) {
         return (str != null && str.length() > 0);
     }
 
     /**
-     * <p>Checks if a trimmed String is <code>null</code> or empty ("").</p>
+     * <p>Checks if a trimmed String is empty ("").
+     * <code>null</code> returns <code>false</code></p>
+     * 
+     * <p>The string is trimmed using {@link String#trim()}.
+     * Trim removes start and end characters &lt;= 32.</p>
      *
      * <pre>
-     * StringUtils.isNotEmpty(null)      = true
-     * StringUtils.isNotEmpty("")        = true
-     * StringUtils.isNotEmpty(" ")       = true
-     * StringUtils.isNotEmpty("bob")     = false
-     * StringUtils.isNotEmpty("  bob  ") = false
+     * StringUtils.isEmptyTrimmed(null)      = false
+     * StringUtils.isEmptyTrimmed("")        = true
+     * StringUtils.isEmptyTrimmed(" ")       = true
+     * StringUtils.isEmptyTrimmed("bob")     = false
+     * StringUtils.isEmptyTrimmed("  bob  ") = false
+     * </pre>
+     *
+     * @see java.lang.String#trim()
+     * @param str  the String to check, may be null
+     * @return <code>true</code> if the String is empty after trim()
+     */
+    public static boolean isEmptyTrimmed(String str) {
+        return (str != null && str.trim().length() == 0);
+    }
+
+    /**
+     * <p>Checks if a trimmed String is not empty ("").</p>
+     * <code>null</code> returns <code>true</code></p>
+     * 
+     * <p>The string is trimmed using {@link String#trim()}.
+     * Trim removes start and end characters &lt;= 32.</p>
+     *
+     * <pre>
+     * StringUtils.isNotEmptyTrimmed(null)      = true
+     * StringUtils.isNotEmptyTrimmed("")        = false
+     * StringUtils.isNotEmptyTrimmed(" ")       = false
+     * StringUtils.isNotEmptyTrimmed("bob")     = true
+     * StringUtils.isNotEmptyTrimmed("  bob  ") = true
+     * </pre>
+     *
+     * @see java.lang.String#trim()
+     * @param str  the String to check, may be null
+     * @return <code>true</code> if the String is not empty after trim()
+     */
+    public static boolean isNotEmptyTrimmed(String str) {
+        return (str == null || str.trim().length() > 0);
+    }
+
+    /**
+     * <p>Checks if a trimmed String is empty ("") or <code>null</code>.</p>
+     * 
+     * <p>The string is trimmed using {@link String#trim()}.
+     * Trim removes start and end characters &lt;= 32.</p>
+     *
+     * <pre>
+     * StringUtils.isEmptyTrimmedOrNull(null)      = true
+     * StringUtils.isEmptyTrimmedOrNull("")        = true
+     * StringUtils.isEmptyTrimmedOrNull(" ")       = true
+     * StringUtils.isEmptyTrimmedOrNull("bob")     = false
+     * StringUtils.isEmptyTrimmedOrNull("  bob  ") = false
      * </pre>
      *
      * @see java.lang.String#trim()
@@ -320,19 +428,22 @@ public class StringUtils {
      * @return <code>true</code> if the String is <code>null</code>
      *  or empty after trim()
      */
-    public static boolean isEmptyTrimmed(String str) {
+    public static boolean isEmptyTrimmedOrNull(String str) {
         return (str == null || str.trim().length() == 0);
     }
 
     /**
-     * <p>Checks if a trimmed String is not <code>null</code> and not empty ("").</p>
+     * <p>Checks if a trimmed String is not empty ("") and not <code>null</code>.</p>
+     * 
+     * <p>The string is trimmed using {@link String#trim()}.
+     * Trim removes start and end characters &lt;= 32.</p>
      *
      * <pre>
-     * StringUtils.isNotEmpty(null)      = false
-     * StringUtils.isNotEmpty("")        = false
-     * StringUtils.isNotEmpty(" ")       = false
-     * StringUtils.isNotEmpty("bob")     = true
-     * StringUtils.isNotEmpty("  bob  ") = true
+     * StringUtils.isNotEmptyTrimmedOrNull(null)      = false
+     * StringUtils.isNotEmptyTrimmedOrNull("")        = false
+     * StringUtils.isNotEmptyTrimmedOrNull(" ")       = false
+     * StringUtils.isNotEmptyTrimmedOrNull("bob")     = true
+     * StringUtils.isNotEmptyTrimmedOrNull("  bob  ") = true
      * </pre>
      *
      * @see java.lang.String#trim()
@@ -340,7 +451,7 @@ public class StringUtils {
      * @return <code>true</code> if the String is not <code>null</code>
      *  and not empty after trim()
      */
-    public static boolean isNotEmptyTrimmed(String str) {
+    public static boolean isNotEmptyTrimmedOrNull(String str) {
         return (str != null && str.trim().length() > 0);
     }
 
@@ -375,7 +486,7 @@ public class StringUtils {
      * <p>Compares two Strings, returning <code>true</code> if they are equal ignoring
      * the case.</p>
      *
-     * <p><code>Nulls</code> are handled without exceptions. Two <code>null</code>
+     * <p><code>null</code>s are handled without exceptions. Two <code>null</code>
      * references are considered equal. Comparison is case insensitive.</p>
      *
      * <pre>
@@ -400,6 +511,16 @@ public class StringUtils {
      * <p>Find the first index of any of a set of potential substrings.</p>
      *
      * <p><code>null</code> String will return <code>-1</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.indexOfAny(null, null)                = -1
+     * StringUtils.indexOfAny(null, ["ab","cd"])         = -1
+     * StringUtils.indexOfAny("zzabyycdxx", null)        = -1
+     * StringUtils.indexOfAny("zzabyycdxx", [])          = -1
+     * StringUtils.indexOfAny("zzabyycdxx", ["ab","cd"]) = 2
+     * StringUtils.indexOfAny("zzabyycdxx", ["cd","ab"]) = 2
+     * StringUtils.indexOfAny("zzabyycdxx", ["mn","op"]) = -1
+     * </pre>
      * 
      * @param str  the String to check, may be null
      * @param searchStrs  the Strings to search for, may be null
@@ -434,6 +555,16 @@ public class StringUtils {
      * <p>Find the latest index of any of a set of potential substrings.</p>
      *
      * <p><code>null</code> string will return <code>-1</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.lastIndexOfAny(null, null)                = -1
+     * StringUtils.lastIndexOfAny(null, ["ab","cd"])         = -1
+     * StringUtils.lastIndexOfAny("zzabyycdxx", null)        = -1
+     * StringUtils.lastIndexOfAny("zzabyycdxx", [])          = -1
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["ab","cd"]) = 6
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["cd","ab"]) = 6
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn","op"]) = -1
+     * </pre>
      * 
      * @param str  the String to check, may be null
      * @param searchStrs  the Strings to search for, may be null
