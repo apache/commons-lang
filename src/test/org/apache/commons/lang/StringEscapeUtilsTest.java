@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.3 2003/04/09 18:45:29 alex Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.4 2003/04/09 20:55:33 alex Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
@@ -143,8 +143,8 @@ public class StringEscapeUtilsTest extends TestCase {
 
         assertEquals("unescape(String) failed" +
                 (message == null ? "" : (": " + message)) +
-                // we escape this so we can see it in the error message
                 ": expected '" + StringUtils.escape(expected) +
+                // we escape this so we can see it in the error message
                 "' actual '" + StringUtils.escape(actual) + "'",
                 expected, actual);
 
@@ -159,8 +159,16 @@ public class StringEscapeUtilsTest extends TestCase {
     }
 
 
-    // HTML
+    // HTML and XML
     //--------------------------------------------------------------
+
+    public void testEntitiesObject() throws Exception
+    {
+        assertEquals("gt", Entities.XML.entityName('>'));
+        assertEquals(new Integer('>'), Entities.XML.entityValue("gt"));
+        assertEquals(null, Entities.XML.entityValue("xyzzy"));
+    }
+
     String[][] htmlEscapes = {
         {"no escaping", "plain text", "plain text"},
         {"no escaping", "plain text", "plain text"},
@@ -171,6 +179,8 @@ public class StringEscapeUtilsTest extends TestCase {
         {"first character only", "&lt; less than", "< less than"},
         {"apostrophe", "Huntington's chorea", "Huntington's chorea"},
         {"languages", "English,Fran&ccedil;ais,&#26085;&#26412;&#35486; (nihongo)", "English,Fran\u00E7ais,\u65E5\u672C\u8A9E (nihongo)"},
+        {"8-bit ascii doesn't number-escape", "~\u007F", "\u007E\u007F"},
+        {"8-bit ascii does number-escape", "&#128;&#159;", "\u0080\u009F"},
     };
 
     public void testEscapeHtml() {
@@ -180,7 +190,7 @@ public class StringEscapeUtilsTest extends TestCase {
         }
     }
 
-    public void testHtmlunescape() {
+    public void testUnescapeHtml() {
         for (int i = 0; i < htmlEscapes.length; ++i) {
             assertEquals(htmlEscapes[i][0], htmlEscapes[i][2], StringEscapeUtils.unescapeHtml(htmlEscapes[i][1]));
             // todo: add test for (and implement) Writer-based version
@@ -189,6 +199,25 @@ public class StringEscapeUtilsTest extends TestCase {
         // note that the test string must be 7-bit-clean (unicode escaped) or else it will compile incorrectly
         // on some locales
         assertEquals("funny chars pass through OK", "Fran\u00E7ais", StringEscapeUtils.unescapeHtml("Fran\u00E7ais"));
+    }
+
+    public void testEscapeHtmlVersions() throws Exception
+    {
+        assertEquals("&Beta;", StringEscapeUtils.escapeHtml("\u0392"));
+        assertEquals("\u0392", StringEscapeUtils.unescapeHtml("&Beta;"));
+
+        //todo: refine API for escaping/unescaping specific HTML versions
+
+    }
+
+    public void testEscapeXml() throws Exception {
+        assertEquals("&lt;abc&gt;", StringEscapeUtils.escapeXml("<abc>"));
+        assertEquals("<abc>", StringEscapeUtils.unescapeXml("&lt;abc&gt;"));
+
+        assertEquals("XML should use numbers, not names for HTML entities",
+                "&#161;", StringEscapeUtils.escapeXml("\u00A1"));
+        assertEquals("XML should use numbers, not names for HTML entities",
+                "\u00A0", StringEscapeUtils.unescapeXml("&#160;"));
     }
 
     // SQL
