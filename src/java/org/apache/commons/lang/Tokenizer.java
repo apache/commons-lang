@@ -70,7 +70,7 @@ import java.util.ListIterator;
  * @author Stephen Colebourne
  * @author Gary D. Gregory
  * @since 2.1
- * @version $Id: Tokenizer.java,v 1.9 2004/08/28 11:46:19 scolebourne Exp $
+ * @version $Id: Tokenizer.java,v 1.10 2004/09/02 07:52:35 scolebourne Exp $
  */
 public class Tokenizer implements ListIterator, Cloneable {
 
@@ -229,8 +229,7 @@ public class Tokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Constructs a tokenizer splitting on space, tab, newline and formfeed
-     * as per StringTokenizer.
+     * Constructs a tokenizer splitting on the specified delimiter character.
      * 
      * @param input  the string which is to be parsed
      * @param delim  the field delimiter character
@@ -280,20 +279,27 @@ public class Tokenizer implements ListIterator, Cloneable {
     /**
      * Constructs a tokenizer splitting on space, tab, newline and formfeed
      * as per StringTokenizer.
+     * <p>
+     * This method is designed for use when you are using a character array in
+     * your own code. The input is not cloned, so using the tokenizer in this way
+     * is not thread-safe.
      * 
-     * @param input  the string which is to be parsed, cloned
+     * @param input  the string which is to be parsed
      */
     public Tokenizer(char[] input) {
         super();
         this.text = null;
-        this.chars = (char[]) input.clone();
+        this.chars = input;
     }
 
     /**
-     * Constructs a tokenizer splitting on space, tab, newline and formfeed
-     * as per StringTokenizer.
+     * Constructs a tokenizer splitting on the specified delimiter character.
+     * <p>
+     * This method is designed for use when you are using a character array in
+     * your own code. The input is not cloned, so using the tokenizer in this way
+     * is not thread-safe.
      * 
-     * @param input  the string which is to be parsed, cloned
+     * @param input  the string which is to be parsed
      * @param delim the field delimiter character
      */
     public Tokenizer(char[] input, char delim) {
@@ -303,8 +309,12 @@ public class Tokenizer implements ListIterator, Cloneable {
 
     /**
      * Constructs a tokenizer splitting using the specified delimiter matcher.
+     * <p>
+     * This method is designed for use when you are using a character array in
+     * your own code. The input is not cloned, so using the tokenizer in this way
+     * is not thread-safe.
      * 
-     * @param input  the string which is to be parsed, cloned
+     * @param input  the string which is to be parsed
      * @param delim  the field delimiter matcher
      */
     public Tokenizer(char[] input, Matcher delim) {
@@ -315,8 +325,12 @@ public class Tokenizer implements ListIterator, Cloneable {
     /**
      * Constructs a tokenizer splitting on the specified delimiter character
      * and handling quotes using the specified quote character.
+     * <p>
+     * This method is designed for use when you are using a character array in
+     * your own code. The input is not cloned, so using the tokenizer in this way
+     * is not thread-safe.
      * 
-     * @param input  the string which is to be parsed, cloned
+     * @param input  the string which is to be parsed
      * @param delim  the field delimiter character
      * @param quote  the field quoted string character
      */
@@ -329,7 +343,7 @@ public class Tokenizer implements ListIterator, Cloneable {
      * Constructs a tokenizer splitting using the specified delimiter matcher
      * and handling quotes using the specified quote matcher.
      * 
-     * @param input  the string which is to be parsed, cloned
+     * @param input  the string which is to be parsed
      * @param delim  the field delimiter character
      * @param quote  the field quoted string character
      */
@@ -413,13 +427,17 @@ public class Tokenizer implements ListIterator, Cloneable {
      * Reset this tokenizer, giving it a new input string to parse.
      * In this manner you can re-use a tokenizer with the same settings
      * on multiple input lines.
+     * <p>
+     * This method is designed for use when you are using a character array in
+     * your own code. The input is not cloned, so using the tokenizer in this way
+     * is not thread-safe.
      * 
      * @param input  the new character array to tokenize, cloned
      */
     public void reset(char [] input) {
         reset();
         this.text = null;
-        chars = (char[]) input.clone();
+        chars = input;
     }
 
     // ListIterator
