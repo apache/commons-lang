@@ -74,7 +74,8 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.48 2003/08/14 01:15:51 ggregory Exp $
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @version $Id: StringUtilsTest.java,v 1.49 2003/08/14 01:16:30 ggregory Exp $
  */
 public class StringUtilsTest extends TestCase {
     
