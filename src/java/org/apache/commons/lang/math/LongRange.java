@@ -60,7 +60,7 @@ import java.io.Serializable;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: LongRange.java,v 1.3 2003/07/14 22:25:05 bayard Exp $
+ * @version $Id: LongRange.java,v 1.4 2003/08/04 01:14:02 scolebourne Exp $
  */
 public final class LongRange extends Range implements Serializable {
     
@@ -302,11 +302,11 @@ public final class LongRange extends Range implements Serializable {
      * @param number  the number to test, may be <code>null</code>
      * @return <code>true</code> if the specified number occurs within this range
      */
-    public boolean includesNumber(Number number) {
+    public boolean containsNumber(Number number) {
         if (number == null) {
             return false;
         }
-        return includesLong(number.longValue());
+        return containsLong(number.longValue());
     }
 
     /**
@@ -320,7 +320,7 @@ public final class LongRange extends Range implements Serializable {
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>long</code> comparison
      */
-    public boolean includesLong(long value) {
+    public boolean containsLong(long value) {
         return (value >= min && value <= max);
     }
 
@@ -337,12 +337,12 @@ public final class LongRange extends Range implements Serializable {
      * @return <code>true</code> if the specified range occurs entirely within this range
      * @throws IllegalArgumentException if the range is not of this type
      */
-    public boolean includesRange(Range range) {
+    public boolean containsRange(Range range) {
         if (range == null) {
             return false;
         }
-        return includesLong(range.getMinimumLong()) &&
-               includesLong(range.getMaximumLong());
+        return containsLong(range.getMinimumLong()) &&
+               containsLong(range.getMaximumLong());
     }
 
     /**
@@ -358,9 +358,9 @@ public final class LongRange extends Range implements Serializable {
         if (range == null) {
             return false;
         }
-        return range.includesLong(min) ||
-               range.includesLong(max) || 
-               includesLong(range.getMinimumLong());
+        return range.containsLong(min) ||
+               range.containsLong(max) || 
+               containsLong(range.getMinimumLong());
     }
 
     // Basics

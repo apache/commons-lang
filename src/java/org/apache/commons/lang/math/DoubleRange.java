@@ -60,7 +60,7 @@ import java.io.Serializable;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: DoubleRange.java,v 1.3 2003/07/14 22:25:04 bayard Exp $
+ * @version $Id: DoubleRange.java,v 1.4 2003/08/04 01:14:02 scolebourne Exp $
  */
 public final class DoubleRange extends Range implements Serializable {
     
@@ -324,11 +324,11 @@ public final class DoubleRange extends Range implements Serializable {
      * @param number  the number to test, may be <code>null</code>
      * @return <code>true</code> if the specified number occurs within this range
      */
-    public boolean includesNumber(Number number) {
+    public boolean containsNumber(Number number) {
         if (number == null) {
             return false;
         }
-        return includesDouble(number.doubleValue());
+        return containsDouble(number.doubleValue());
     }
 
     /**
@@ -342,7 +342,7 @@ public final class DoubleRange extends Range implements Serializable {
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>double</code> comparison
      */
-    public boolean includesDouble(double value) {
+    public boolean containsDouble(double value) {
         return (value >= min && value <= max);
     }
 
@@ -359,12 +359,12 @@ public final class DoubleRange extends Range implements Serializable {
      * @return <code>true</code> if the specified range occurs entirely within this range
      * @throws IllegalArgumentException if the range is not of this type
      */
-    public boolean includesRange(Range range) {
+    public boolean containsRange(Range range) {
         if (range == null) {
             return false;
         }
-        return includesDouble(range.getMinimumDouble()) &&
-               includesDouble(range.getMaximumDouble());
+        return containsDouble(range.getMinimumDouble())
+            && containsDouble(range.getMaximumDouble());
     }
 
     /**
@@ -380,9 +380,9 @@ public final class DoubleRange extends Range implements Serializable {
         if (range == null) {
             return false;
         }
-        return range.includesDouble(min) ||
-               range.includesDouble(max) || 
-               includesDouble(range.getMinimumDouble());
+        return range.containsDouble(min)
+            || range.containsDouble(max)
+            || containsDouble(range.getMinimumDouble());
     }
 
     // Basics

@@ -62,7 +62,7 @@ import junit.framework.TestSuite;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Stephen Colebourne
- * @version $Id: NumberRangeTest.java,v 1.2 2003/06/08 14:19:43 scolebourne Exp $
+ * @version $Id: NumberRangeTest.java,v 1.3 2003/08/04 01:14:02 scolebourne Exp $
  */
 public final class NumberRangeTest extends AbstractRangeTest {
 
@@ -166,25 +166,25 @@ public final class NumberRangeTest extends AbstractRangeTest {
 
     //--------------------------------------------------------------------------
 
-    public void testIncludesNumber() {
-        assertEquals(false, tenToTwenty.includesNumber(null));
-        assertEquals(false, tenToTwenty.includesNumber(five));
-        assertEquals(true, tenToTwenty.includesNumber(ten));
-        assertEquals(true, tenToTwenty.includesNumber(fifteen));
-        assertEquals(true, tenToTwenty.includesNumber(twenty));
-        assertEquals(false, tenToTwenty.includesNumber(twentyFive));
+    public void testContainsNumber() {
+        assertEquals(false, tenToTwenty.containsNumber(null));
+        assertEquals(false, tenToTwenty.containsNumber(five));
+        assertEquals(true, tenToTwenty.containsNumber(ten));
+        assertEquals(true, tenToTwenty.containsNumber(fifteen));
+        assertEquals(true, tenToTwenty.containsNumber(twenty));
+        assertEquals(false, tenToTwenty.containsNumber(twentyFive));
         
         try {
-            tenToTwenty.includesNumber(long21);
+            tenToTwenty.containsNumber(long21);
             fail();
         } catch (IllegalArgumentException ex) {}
     }
 
-    public void testIncludesLongBig() {
+    public void testContainsLongBig() {
         // original NumberRange class failed this test
         NumberRange big = new NumberRange(new Long(Long.MAX_VALUE), new Long(Long.MAX_VALUE- 2));
-        assertEquals(true, big.includesLong(Long.MAX_VALUE - 1));
-        assertEquals(false, big.includesLong(Long.MAX_VALUE - 3));
+        assertEquals(true, big.containsLong(Long.MAX_VALUE - 1));
+        assertEquals(false, big.containsLong(Long.MAX_VALUE - 3));
     }
 
     //--------------------------------------------------------------------------

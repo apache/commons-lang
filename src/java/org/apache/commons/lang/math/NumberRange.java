@@ -62,7 +62,7 @@ import java.io.Serializable;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author Stephen Colebourne
  * @since 2.0 (previously in org.apache.commons.lang)
- * @version $Id: NumberRange.java,v 1.4 2003/07/14 22:25:05 bayard Exp $
+ * @version $Id: NumberRange.java,v 1.5 2003/08/04 01:14:01 scolebourne Exp $
  */
 public final class NumberRange extends Range implements Serializable {
     
@@ -198,7 +198,7 @@ public final class NumberRange extends Range implements Serializable {
      * @return <code>true</code> if the specified number occurs within this range
      * @throws IllegalArgumentException if the number is of a different type to the range
      */
-    public boolean includesNumber(Number number) {
+    public boolean containsNumber(Number number) {
         if (number == null) {
             return false;
         }

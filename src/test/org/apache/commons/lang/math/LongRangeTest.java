@@ -60,7 +60,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link LongRange} class.
  *
  * @author Stephen Colebourne
- * @version $Id: LongRangeTest.java,v 1.2 2003/06/08 14:19:43 scolebourne Exp $
+ * @version $Id: LongRangeTest.java,v 1.3 2003/08/04 01:14:02 scolebourne Exp $
  */
 public final class LongRangeTest extends AbstractRangeTest {
 
@@ -148,39 +148,39 @@ public final class LongRangeTest extends AbstractRangeTest {
 
     //--------------------------------------------------------------------------
 
-    public void testIncludesNumber() {
-        assertEquals(false, tenToTwenty.includesNumber(null));
-        assertEquals(true, tenToTwenty.includesNumber(nonComparable));
+    public void testContainsNumber() {
+        assertEquals(false, tenToTwenty.containsNumber(null));
+        assertEquals(true, tenToTwenty.containsNumber(nonComparable));
         
-        assertEquals(false, tenToTwenty.includesNumber(five));
-        assertEquals(true, tenToTwenty.includesNumber(ten));
-        assertEquals(true, tenToTwenty.includesNumber(fifteen));
-        assertEquals(true, tenToTwenty.includesNumber(twenty));
-        assertEquals(false, tenToTwenty.includesNumber(twentyFive));
+        assertEquals(false, tenToTwenty.containsNumber(five));
+        assertEquals(true, tenToTwenty.containsNumber(ten));
+        assertEquals(true, tenToTwenty.containsNumber(fifteen));
+        assertEquals(true, tenToTwenty.containsNumber(twenty));
+        assertEquals(false, tenToTwenty.containsNumber(twentyFive));
         
-        assertEquals(false, tenToTwenty.includesNumber(long8));
-        assertEquals(true, tenToTwenty.includesNumber(long10));
-        assertEquals(true, tenToTwenty.includesNumber(long12));
-        assertEquals(true, tenToTwenty.includesNumber(long20));
-        assertEquals(false, tenToTwenty.includesNumber(long21));
+        assertEquals(false, tenToTwenty.containsNumber(long8));
+        assertEquals(true, tenToTwenty.containsNumber(long10));
+        assertEquals(true, tenToTwenty.containsNumber(long12));
+        assertEquals(true, tenToTwenty.containsNumber(long20));
+        assertEquals(false, tenToTwenty.containsNumber(long21));
         
-        assertEquals(false, tenToTwenty.includesNumber(double8));
-        assertEquals(true, tenToTwenty.includesNumber(double10));
-        assertEquals(true, tenToTwenty.includesNumber(double12));
-        assertEquals(true, tenToTwenty.includesNumber(double20));
-        assertEquals(false, tenToTwenty.includesNumber(double21));
+        assertEquals(false, tenToTwenty.containsNumber(double8));
+        assertEquals(true, tenToTwenty.containsNumber(double10));
+        assertEquals(true, tenToTwenty.containsNumber(double12));
+        assertEquals(true, tenToTwenty.containsNumber(double20));
+        assertEquals(false, tenToTwenty.containsNumber(double21));
         
-        assertEquals(false, tenToTwenty.includesNumber(float8));
-        assertEquals(true, tenToTwenty.includesNumber(float10));
-        assertEquals(true, tenToTwenty.includesNumber(float12));
-        assertEquals(true, tenToTwenty.includesNumber(float20));
-        assertEquals(false, tenToTwenty.includesNumber(float21));
+        assertEquals(false, tenToTwenty.containsNumber(float8));
+        assertEquals(true, tenToTwenty.containsNumber(float10));
+        assertEquals(true, tenToTwenty.containsNumber(float12));
+        assertEquals(true, tenToTwenty.containsNumber(float20));
+        assertEquals(false, tenToTwenty.containsNumber(float21));
     }
 
-    public void testIncludesLongBig() {
+    public void testContainsLongBig() {
         LongRange big = new LongRange(Long.MAX_VALUE, Long.MAX_VALUE- 2);
-        assertEquals(true, big.includesLong(Long.MAX_VALUE - 1));
-        assertEquals(false, big.includesLong(Long.MAX_VALUE - 3));
+        assertEquals(true, big.containsLong(Long.MAX_VALUE - 1));
+        assertEquals(false, big.containsLong(Long.MAX_VALUE - 3));
     }
 
     //--------------------------------------------------------------------------

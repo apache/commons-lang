@@ -60,7 +60,7 @@ import java.io.Serializable;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: FloatRange.java,v 1.3 2003/07/14 22:25:04 bayard Exp $
+ * @version $Id: FloatRange.java,v 1.4 2003/08/04 01:14:01 scolebourne Exp $
  */
 public final class FloatRange extends Range implements Serializable {
     
@@ -320,11 +320,11 @@ public final class FloatRange extends Range implements Serializable {
      * @param number  the number to test, may be <code>null</code>
      * @return <code>true</code> if the specified number occurs within this range
      */
-    public boolean includesNumber(Number number) {
+    public boolean containsNumber(Number number) {
         if (number == null) {
             return false;
         }
-        return includesFloat(number.floatValue());
+        return containsFloat(number.floatValue());
     }
 
     /**
@@ -338,7 +338,7 @@ public final class FloatRange extends Range implements Serializable {
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>float</code> comparison
      */
-    public boolean includesFloat(float value) {
+    public boolean containsFloat(float value) {
         return (value >= min && value <= max);
     }
 
@@ -355,12 +355,12 @@ public final class FloatRange extends Range implements Serializable {
      * @return <code>true</code> if the specified range occurs entirely within this range
      * @throws IllegalArgumentException if the range is not of this type
      */
-    public boolean includesRange(Range range) {
+    public boolean containsRange(Range range) {
         if (range == null) {
             return false;
         }
-        return includesFloat(range.getMinimumFloat()) &&
-               includesFloat(range.getMaximumFloat());
+        return containsFloat(range.getMinimumFloat()) &&
+               containsFloat(range.getMaximumFloat());
     }
 
     /**
@@ -376,9 +376,9 @@ public final class FloatRange extends Range implements Serializable {
         if (range == null) {
             return false;
         }
-        return range.includesFloat(min) ||
-               range.includesFloat(max) || 
-               includesFloat(range.getMinimumFloat());
+        return range.containsFloat(min) ||
+               range.containsFloat(max) || 
+               containsFloat(range.getMinimumFloat());
     }
 
     // Basics
