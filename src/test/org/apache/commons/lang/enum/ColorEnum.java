@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,11 +56,12 @@ package org.apache.commons.lang.enum;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 /**
  * Color enumeration.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ColorEnum.java,v 1.1 2002/08/11 23:17:54 scolebourne Exp $
+ * @version $Id: ColorEnum.java,v 1.2 2003/05/22 22:00:06 scolebourne Exp $
  */
 
 public final class ColorEnum extends Enum {

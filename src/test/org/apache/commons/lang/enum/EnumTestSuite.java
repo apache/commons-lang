@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,11 +57,12 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
  * Test suite for the Enum package.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumTestSuite.java,v 1.1 2002/08/11 23:17:54 scolebourne Exp $
+ * @version $Id: EnumTestSuite.java,v 1.2 2003/05/22 22:00:06 scolebourne Exp $
  */
 public class EnumTestSuite extends TestCase {
     

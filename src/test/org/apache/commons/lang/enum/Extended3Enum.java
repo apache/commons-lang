@@ -53,15 +53,15 @@
  */
 package org.apache.commons.lang.enum;
 
-import java.util.Map;
-import java.util.List;
-import java.lang.String;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Extended enumeration.
  *
  * @author Stephen Colebourne
- * @version $Id: Extended3Enum.java,v 1.1 2003/02/04 18:30:08 scolebourne Exp $
+ * @version $Id: Extended3Enum.java,v 1.2 2003/05/22 22:00:06 scolebourne Exp $
  */
 public class Extended3Enum extends Extended2Enum {
     public static final Extended1Enum DELTA = new Extended3Enum("Delta");
