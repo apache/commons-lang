@@ -63,7 +63,7 @@ import java.util.StringTokenizer;
  * @author Stephen Colebourne
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: WordWrapUtils.java,v 1.5 2003/07/08 05:59:58 bayard Exp $
+ * @version $Id: WordWrapUtils.java,v 1.6 2003/07/12 03:06:23 bayard Exp $
  */
 public class WordWrapUtils {
 
@@ -166,117 +166,4 @@ public class WordWrapUtils {
         return (wrappedLine.toString());
     }
 
-    // Word wrapping
-    //--------------------------------------------------------------------------
-
-    /**
-     * <p>Create a word-wrapped version of a String. Wrap at 80 characters and
-     * use newlines as the delimiter. If a word is over 80 characters long 
-     * use a - sign to split it.</p>
-     */
-    public static String wordWrap(String str) {
-        return wordWrap(str, 80, "\n", "-");
-    }
-    /**
-     * <p>Create a word-wrapped version of a String. Wrap at a specified width and
-     * use newlines as the delimiter. If a word is over the width in lenght 
-     * use a - sign to split it.</p>
-     */
-    public static String wordWrap(String str, int width) {
-        return wordWrap(str, width, "\n", "-");
-    }
-    /**
-     * <p>Word-wrap a string.</p>
-     *
-     * @param str   String to word-wrap
-     * @param width int to wrap at
-     * @param delim String to use to separate lines
-     * @param split String to use to split a word greater than width long
-     *
-     * @return String that has been word wrapped
-     */
-    public static String wordWrap(String str, int width, String delim, String split) {
-        int sz = str.length();
-
-        /// shift width up one. mainly as it makes the logic easier
-        width++;
-
-        // our best guess as to an initial size
-        StringBuffer buffer = new StringBuffer(sz / width * delim.length() + sz);
-
-        // every line will include a delim on the end
-        width = width - delim.length();
-
-        int idx = -1;
-        String substr = null;
-
-        // beware: i is rolled-back inside the loop
-        for (int i = 0; i < sz; i += width) {
-
-            // on the last line
-            if (i > sz - width) {
-                buffer.append(str.substring(i));
-                break;
-            }
-
-            // the current line
-            substr = str.substring(i, i + width);
-
-            // is the delim already on the line
-            idx = substr.indexOf(delim);
-            if (idx != -1) {
-                buffer.append(substr.substring(0, idx));
-                buffer.append(delim);
-                i -= width - idx - delim.length();
-
-                // Erase a space after a delim. Is this too obscure?
-                if(substr.length() > idx + 1) {
-                    if (substr.charAt(idx + 1) != '\n') {
-                        if (Character.isWhitespace(substr.charAt(idx + 1))) {
-                            i++;
-                        }
-                    }
-                }
-                continue;
-            }
-
-            idx = -1;
-
-            // figure out where the last space is
-            char[] chrs = substr.toCharArray();
-            for (int j = width; j > 0; j--) {
-                if (Character.isWhitespace(chrs[j - 1])) {
-                    idx = j;
-                    break;
-                }
-            }
-
-            // idx is the last whitespace on the line.
-            if (idx == -1) {
-                for (int j = width; j > 0; j--) {
-                    if (chrs[j - 1] == '-') {
-                        idx = j;
-                        break;
-                    }
-                }
-                if (idx == -1) {
-                    buffer.append(substr);
-                    buffer.append(delim);
-                } else {
-                    if (idx != width) {
-                        idx++;
-                    }
-                    buffer.append(substr.substring(0, idx));
-                    buffer.append(delim);
-                    i -= width - idx;
-                }
-            } else {
-                    buffer.append(substr.substring(0, idx));
-                    buffer.append(StringUtils.repeat(" ", width - idx));
-                    buffer.append(delim);
-                    i -= width - idx;
-            }
-        }
-        return buffer.toString();
-    }
 }
