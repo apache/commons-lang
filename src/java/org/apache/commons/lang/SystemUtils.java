@@ -66,12 +66,16 @@ package org.apache.commons.lang;
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Michael Becke
+ * @author Tetsuya Kaneuchi
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.18 2003/07/18 16:48:25 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.19 2003/07/21 22:57:50 scolebourne Exp $
  */
 public class SystemUtils {
 
+    // System property constants
     //-----------------------------------------------------------------------
+    // These MUST be declared first. Other constants depend on this.
+    
     /**
      * <p>The <code>file.encoding</code> System Property.</p>
      * <p>File encoding, such as <code>Cp1252</code>.</p>
@@ -93,185 +97,6 @@ public class SystemUtils {
      * @since Java version 1.1.
      */
     public static final String FILE_SEPARATOR = getSystemProperty("file.separator");
-
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Is <code>true</code> if this is Java version 1.1 (also 1.1.x versions).</p>
-     *
-     * <p>The field will return <code>false</code> if {@link #JAVA_VERSION} is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_JAVA_1_1 = getJavaVersionMatches("1.1");
-
-    /**
-     * <p>Is <code>true</code> if this is Java version 1.2 (also 1.2.x versions).</p>
-     *
-     * <p>The field will return <code>false</code> if {@link #JAVA_VERSION} is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_JAVA_1_2 = getJavaVersionMatches("1.2");
-
-    /**
-     * <p>Is <code>true</code> if this is Java version 1.3 (also 1.3.x versions).</p>
-     *
-     * <p>The field will return <code>false</code> if {@link #JAVA_VERSION} is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_JAVA_1_3 = getJavaVersionMatches("1.3");
-
-    /**
-     * <p>Is <code>true</code> if this is Java version 1.4 (also 1.4.x versions).</p>
-     *
-     * <p>The field will <code>false</code> false if {@link #JAVA_VERSION} is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_JAVA_1_4 = getJavaVersionMatches("1.4");
-
-    /**
-     * <p>Is <code>true</code> if this is Java version 1.5 (also 1.5.x versions).</p>
-     *
-     * <p>The field will return <code>false</code> if {@link #JAVA_VERSION} is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_JAVA_1_5 = getJavaVersionMatches("1.5");
-
-    /**
-     * <p>Is <code>true</code> if this is AIX.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_AIX = getOSMatches("AIX");
-
-    /**
-     * <p>Is <code>true</code> if this is HP-UX.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_HP_UX = getOSMatches("HP-UX");
-
-    /**
-     * <p>Is <code>true</code> if this is Irix.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_IRIX = getOSMatches("Irix");
-
-    /**
-     * <p>Is <code>true</code> if this is Linux.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_LINUX = getOSMatches("Linux") || getOSMatches("LINUX");
-    // Windows XP returns 'Windows 2000' just for fun...
-
-    /**
-     * <p>Is <code>true</code> if this is Mac.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_MAC = getOSMatches("Mac");
-
-    /**
-     * <p>Is <code>true</code> if this is Mac.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_MAC_OSX = getOSMatches("Mac OS X");
-
-    /**
-     * <p>Is <code>true</code> if this is OS/2.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_OS2 = getOSMatches("OS/2");
-
-    /**
-     * <p>Is <code>true</code> if this is Solaris.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_SOLARIS = getOSMatches("Solaris");
-
-    /**
-     * <p>Is <code>true</code> if this is SunOS.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_SUN_OS = getOSMatches("SunOS");
-
-    //-----------------------------------------------------------------------
-    // OS names from http://www.vamphq.com/os.html
-    // Selected ones included - please advise commons-dev@jakarta.apache.org
-    // if you want another added or a mistake corrected
-
-    /**
-     * <p>Is <code>true</code> if this is Windows.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_WINDOWS = getOSMatches("Windows");
-
-    /**
-     * <p>Is <code>true</code> if this is Windows 2000.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_WINDOWS_2000 = getOSMatches("Windows", "5.0");
-
-    /**
-     * <p>Is <code>true</code> if this is Windows 95.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_WINDOWS_95 = getOSMatches("Windows 9", "4.0");
-    // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
-
-    /**
-     * <p>Is <code>true</code> if this is Windows 98.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_WINDOWS_98 = getOSMatches("Windows 9", "4.1");
-    // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
-
-    /**
-     * <p>Is <code>true</code> if this is Windows ME.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_WINDOWS_ME = getOSMatches("Windows", "4.9");
-    // JDK 1.2 running on WindowsME may return 'Windows 95', hence the above
-
-    /**
-     * <p>Is <code>true</code> if this is Windows NT.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_WINDOWS_NT = getOSMatches("Windows NT");
-    // Windows 2000 returns 'Windows 2000' but may suffer from same JDK1.2 problem
-
-    /**
-     * <p>Is <code>true</code> if this is Windows XP.</p>
-     *
-     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
-     * <code>null</code>.</p>
-     */
-    public static final boolean IS_OS_WINDOWS_XP = getOSMatches("Windows", "5.1");
 
     /**
      * <p>The <code>java.class.path</code> System Property. Java class path.</p>
@@ -431,33 +256,6 @@ public class SystemUtils {
      * @since Java 1.1
      */
     public static final String JAVA_VERSION = getSystemProperty("java.version");
-
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Gets the Java version as a <code>float</code>.</p>
-     *
-     * <p>Example return values:</p>
-     * <ul>
-     *  <li><code>1.2f</code> for JDK 1.2
-     *  <li><code>1.31f</code> for JDK 1.3.1
-     * </ul>
-     *
-     * <p>The field will return zero if {@link #JAVA_VERSION} is <code>null</code>.</p>
-     */
-    public static final float JAVA_VERSION_FLOAT = getJavaVersionAsFloat();
-
-    /**
-     * <p>Gets the Java version as an <code>int</code>.</p>
-     *
-     * <p>Example return values:</p>
-     * <ul>
-     *  <li><code>120</code> for JDK 1.2
-     *  <li><code>131</code> for JDK 1.3.1
-     * </ul>
-     *
-     * <p>The field will return zero if {@link #JAVA_VERSION} is <code>null</code>.</p>
-     */
-    public static final int JAVA_VERSION_INT = getJavaVersionAsInt();
 
     /**
      * <p>The <code>java.vm.info</code> System Property. Java Virtual Machine implementation
@@ -644,6 +442,235 @@ public class SystemUtils {
      */
     public static final String USER_NAME = getSystemProperty("user.name");
 
+    // Java version
+    //-----------------------------------------------------------------------
+    // These MUST be declared after those above as they depend on the
+    // values being set up
+    
+    /**
+     * <p>Gets the Java version as a <code>float</code>.</p>
+     *
+     * <p>Example return values:</p>
+     * <ul>
+     *  <li><code>1.2f</code> for JDK 1.2
+     *  <li><code>1.31f</code> for JDK 1.3.1
+     * </ul>
+     *
+     * <p>The field will return zero if {@link #JAVA_VERSION} is <code>null</code>.</p>
+     */
+    public static final float JAVA_VERSION_FLOAT = getJavaVersionAsFloat();
+
+    /**
+     * <p>Gets the Java version as an <code>int</code>.</p>
+     *
+     * <p>Example return values:</p>
+     * <ul>
+     *  <li><code>120</code> for JDK 1.2
+     *  <li><code>131</code> for JDK 1.3.1
+     * </ul>
+     *
+     * <p>The field will return zero if {@link #JAVA_VERSION} is <code>null</code>.</p>
+     */
+    public static final int JAVA_VERSION_INT = getJavaVersionAsInt();
+
+    // Java version checks
+    //-----------------------------------------------------------------------
+    // These MUST be declared after those above as they depend on the
+    // values being set up
+    
+    /**
+     * <p>Is <code>true</code> if this is Java version 1.1 (also 1.1.x versions).</p>
+     *
+     * <p>The field will return <code>false</code> if {@link #JAVA_VERSION} is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_JAVA_1_1 = getJavaVersionMatches("1.1");
+
+    /**
+     * <p>Is <code>true</code> if this is Java version 1.2 (also 1.2.x versions).</p>
+     *
+     * <p>The field will return <code>false</code> if {@link #JAVA_VERSION} is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_JAVA_1_2 = getJavaVersionMatches("1.2");
+
+    /**
+     * <p>Is <code>true</code> if this is Java version 1.3 (also 1.3.x versions).</p>
+     *
+     * <p>The field will return <code>false</code> if {@link #JAVA_VERSION} is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_JAVA_1_3 = getJavaVersionMatches("1.3");
+
+    /**
+     * <p>Is <code>true</code> if this is Java version 1.4 (also 1.4.x versions).</p>
+     *
+     * <p>The field will <code>false</code> false if {@link #JAVA_VERSION} is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_JAVA_1_4 = getJavaVersionMatches("1.4");
+
+    /**
+     * <p>Is <code>true</code> if this is Java version 1.5 (also 1.5.x versions).</p>
+     *
+     * <p>The field will return <code>false</code> if {@link #JAVA_VERSION} is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_JAVA_1_5 = getJavaVersionMatches("1.5");
+
+    // Operating system checks
+    //-----------------------------------------------------------------------
+    // These MUST be declared after those above as they depend on the
+    // values being set up
+    // OS names from http://www.vamphq.com/os.html
+    // Selected ones included - please advise commons-dev@jakarta.apache.org
+    // if you want another added or a mistake corrected
+
+    /**
+     * <p>Is <code>true</code> if this is AIX.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_AIX = getOSMatches("AIX");
+
+    /**
+     * <p>Is <code>true</code> if this is HP-UX.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_HP_UX = getOSMatches("HP-UX");
+
+    /**
+     * <p>Is <code>true</code> if this is Irix.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_IRIX = getOSMatches("Irix");
+
+    /**
+     * <p>Is <code>true</code> if this is Linux.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_LINUX = getOSMatches("Linux") || getOSMatches("LINUX");
+
+    /**
+     * <p>Is <code>true</code> if this is Mac.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_MAC = getOSMatches("Mac");
+
+    /**
+     * <p>Is <code>true</code> if this is Mac.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_MAC_OSX = getOSMatches("Mac OS X");
+
+    /**
+     * <p>Is <code>true</code> if this is OS/2.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_OS2 = getOSMatches("OS/2");
+
+    /**
+     * <p>Is <code>true</code> if this is Solaris.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_SOLARIS = getOSMatches("Solaris");
+
+    /**
+     * <p>Is <code>true</code> if this is SunOS.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_SUN_OS = getOSMatches("SunOS");
+
+    /**
+     * <p>Is <code>true</code> if this is Windows.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_WINDOWS = getOSMatches("Windows");
+
+    /**
+     * <p>Is <code>true</code> if this is Windows 2000.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_WINDOWS_2000 = getOSMatches("Windows", "5.0");
+
+    /**
+     * <p>Is <code>true</code> if this is Windows 95.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_WINDOWS_95 = getOSMatches("Windows 9", "4.0");
+    // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
+
+    /**
+     * <p>Is <code>true</code> if this is Windows 98.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_WINDOWS_98 = getOSMatches("Windows 9", "4.1");
+    // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
+
+    /**
+     * <p>Is <code>true</code> if this is Windows ME.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_WINDOWS_ME = getOSMatches("Windows", "4.9");
+    // JDK 1.2 running on WindowsME may return 'Windows 95', hence the above
+
+    /**
+     * <p>Is <code>true</code> if this is Windows NT.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_WINDOWS_NT = getOSMatches("Windows NT");
+    // Windows 2000 returns 'Windows 2000' but may suffer from same JDK1.2 problem
+
+    /**
+     * <p>Is <code>true</code> if this is Windows XP.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     */
+    public static final boolean IS_OS_WINDOWS_XP = getOSMatches("Windows", "5.1");
+    // Windows XP returns 'Windows 2000' just for fun...
+
+    //-----------------------------------------------------------------------    
+    /**
+     * <p>SystemUtils instances should NOT be constructed in standard
+     * programming. Instead, the class should be used as
+     * <code>SystemUtils.FILE_SEPARATOR</code>.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
+     */
+    public SystemUtils() {
+    }
+    
     //-----------------------------------------------------------------------    
     /**
      * <p>Gets the Java version number as a <code>float</code>.</p>
@@ -654,9 +681,9 @@ public class SystemUtils {
      *  <li><code>1.31f</code> for JDK 1.3.1
      * </ul>
      * 
+     * @return the version, for example 1.31f for JDK 1.3.1
      * @deprecated Use {@link #JAVA_VERSION_FLOAT} instead.
      *             Method will be removed in Commons Lang 3.0.
-     * @return the version, for example 1.31f for JDK 1.3.1
      */
     public static float getJavaVersion() {
         return JAVA_VERSION_FLOAT;
@@ -811,17 +838,6 @@ public class SystemUtils {
      */
     public static boolean isJavaVersionAtLeast(int requiredVersion) {
         return (JAVA_VERSION_INT >= requiredVersion);
-    }
-    
-    /**
-     * <p>SystemUtils instances should NOT be constructed in standard
-     * programming. Instead, the class should be used as
-     * <code>SystemUtils.FILE_SEPARATOR</code>.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
-     */
-    public SystemUtils() {
     }
     
 }
