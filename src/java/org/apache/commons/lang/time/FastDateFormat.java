@@ -85,14 +85,13 @@ import java.util.TimeZone;
  * This introduces a minor incompatability with Java 1.4, but at a gain of
  * useful functionality.</p>
  *
- * <p>NOTE: Code originally taken from the open source TreeTrove project.</p>
- *
+ * @author TeaTrove project
  * @author Brian S O'Neill
  * @author Sean Schofield
  * @author Gary Gregory
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.8 2003/07/14 22:25:05 bayard Exp $
+ * @version $Id: FastDateFormat.java,v 1.9 2003/07/19 19:54:24 scolebourne Exp $
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes
