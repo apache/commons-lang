@@ -68,19 +68,19 @@ import java.util.Iterator;
  * @author <a href="mailto:jon@latchkey.com">Jon S. Stevens</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author <a href="mailto:gcoladonato@yahoo.com">Greg Coladonato</a>
- * @author <a href="mailto:bayard@generationjava.com">Bayard</a>
+ * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.12 2002/09/21 05:02:43 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.13 2002/09/25 03:30:19 bayard Exp $
  */
 public class StringUtils {
 
     /**
      * The size of the buffer to use when working with I/O (4 kB).
      */
-    public static int CHAR_BUFFER_SIZE = 4 * 1024;
+    public static final int CHAR_BUFFER_SIZE = 4 * 1024;
     
     /**
      * StringUtils instances should NOT be constructed in standard programming.
@@ -1483,7 +1483,7 @@ public class StringUtils {
      * 
      * @param s  the first String
      * @param t  the second String
-     * @param result distance
+     * @return int result distance
      */
     public static int getLevenshteinDistance(String s, String t) {
         int d[][]; // matrix
@@ -1547,22 +1547,22 @@ public class StringUtils {
      * @return true if it only contains valid chars and is non-null
      */
     public static boolean containsOnly(String str, char[] valid) {
-        if(str == null || valid == null) {
+        if (str == null || valid == null) {
             return false;
         }
 
         int strSize = str.length();
         int validSize = valid.length;
 
-        for(int i=0; i<strSize; i++) {
+        for (int i = 0; i < strSize; i++) {
             boolean contains = false;
-            for(int j=0; j<validSize; j++) {
-                if(valid[j] == str.charAt(i)) {
+            for (int j = 0; j < validSize; j++) {
+                if (valid[j] == str.charAt(i)) {
                     contains = true;
                     break;
                 }
             }
-            if(!contains) {
+            if (!contains) {
                 return false;
             }
         }
