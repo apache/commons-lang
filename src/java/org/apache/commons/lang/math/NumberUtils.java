@@ -71,7 +71,7 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.13 2003/09/07 14:32:35 psteitz Exp $
+ * @version $Id: NumberUtils.java,v 1.14 2003/09/13 03:11:30 psteitz Exp $
  */
 public class NumberUtils {
     
@@ -129,6 +129,12 @@ public class NumberUtils {
      *
      * <p>If the string is <code>null</code>, <code>zero</code> is returned.</p>
      * 
+     * <pre>
+     *   NumberUtils.stringToInt(null) = 0
+     *   NumberUtils.stringToInt("")   = 0
+     *   NumberUtils.stringToInt("1")  = 1
+     * </pre>
+     *
      * @param str  the string to convert, may be null
      * @return the int represented by the string, or <code>zero</code> if
      *  conversion fails
@@ -143,6 +149,12 @@ public class NumberUtils {
      *
      * <p>If the string is <code>null</code>, the default value is returned.</p>
      * 
+     * <pre>
+     *   NumberUtils.stringToInt(null, 1) = 1
+     *   NumberUtils.stringToInt("", 1)   = 1
+     *   NumberUtils.stringToInt("1", 0)  = 1
+     * </pre>
+     *
      * @param str  the string to convert, may be null
      * @param defaultValue  the default value
      * @return the int represented by the string, or the default if conversion fails
@@ -161,6 +173,12 @@ public class NumberUtils {
      *
      * <p>If the string is <code>null</code>, <code>zero</code> is returned.</p>
      *
+     * <pre>
+     *   NumberUtils.stringToLong(null) = 0L
+     *   NumberUtils.stringToLong("")   = 0L
+     *   NumberUtils.stringToLong("1")  = 1L
+     * </pre>
+     *
      * @param str  the string to convert, may be null
      * @return the long represented by the string, or <code>0</code> if
      *  conversion fails
@@ -175,6 +193,12 @@ public class NumberUtils {
      * default value if the conversion fails.</p>
      *
      * <p>If the string is <code>null</code>, the default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.stringToLong(null, 1L) = 1L
+     *   NumberUtils.stringToLong("", 1L)   = 1L
+     *   NumberUtils.stringToLong("1", 0L)  = 1L
+     * </pre>
      *
      * @param str  the string to convert, may be null
      * @param defaultValue  the default value
@@ -196,6 +220,12 @@ public class NumberUtils {
      * <p>If the string <code>str</code> is <code>null</code>,
      * <code>0.0f</code> is returned.</p>
      *
+     * <pre>
+     *   NumberUtils.stringToFloat(null)   = 0.0f
+     *   NumberUtils.stringToFloat("")     = 0.0f
+     *   NumberUtils.stringToFloat("1.5")  = 1.5f
+     * </pre>
+     *
      * @param str the string to convert, may be <code>null</code>
      * @return the float represented by the string, or <code>0.0f</code>
      *  if conversion fails
@@ -212,6 +242,12 @@ public class NumberUtils {
      * <p>If the string <code>str</code> is <code>null</code>, the default
      * value is returned.</p>
      *
+     * <pre>
+     *   NumberUtils.stringToFloat(null, 1.1f)   = 1.0f
+     *   NumberUtils.stringToFloat("", 1.1f)     = 1.1f
+     *   NumberUtils.stringToFloat("1.5", 0.0f)  = 1.5f
+     * </pre>
+     *
      * @param str the string to convert, may be <code>null</code>
      * @param defaultValue the default value
      * @return the float represented by the string, or defaultValue
@@ -219,7 +255,7 @@ public class NumberUtils {
      * @since 2.1
      */
     public static float stringToFloat(String str, float defaultValue) {
-      if(str==null) {
+      if (str == null) {
           return defaultValue;
       }     
       try {
@@ -235,6 +271,12 @@ public class NumberUtils {
      *
      * <p>If the string <code>str</code> is <code>null</code>,
      * <code>0.0d</code> is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.stringToDouble(null)   = 0.0d
+     *   NumberUtils.stringToDouble("")     = 0.0d
+     *   NumberUtils.stringToDouble("1.5")  = 1.5d
+     * </pre>
      *
      * @param str the string to convert, may be <code>null</code>
      * @return the double represented by the string, or <code>0.0d</code>
@@ -252,6 +294,12 @@ public class NumberUtils {
      * <p>If the string <code>str</code> is <code>null</code>, the default
      * value is returned.</p>
      *
+     * <pre>
+     *   NumberUtils.stringToDouble(null, 1.1d)   = 1.1d
+     *   NumberUtils.stringToDouble("", 1.1d)     = 1.1d
+     *   NumberUtils.stringToDouble("1.5", 0.0d)  = 1.5d
+     * </pre>
+     *
      * @param str the string to convert, may be <code>null</code>
      * @param defaultValue the default value
      * @return the double represented by the string, or defaultValue
@@ -259,7 +307,7 @@ public class NumberUtils {
      * @since 2.1
      */
     public static double stringToDouble(String str, double defaultValue) {
-      if(str==null) {
+      if (str == null) {
           return defaultValue;
       }
       try {
