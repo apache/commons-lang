@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project>
-  <extend>../project.xml</extend>
+  <extend>../commons-build/project.xml</extend>
   <id>commons-lang</id>
   <name>Lang</name>
   <currentVersion>2.1-dev</currentVersion>
