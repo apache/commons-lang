@@ -69,9 +69,9 @@ import org.apache.commons.lang.NullArgumentException;
  * @author Phil Steitz
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.5 2003/07/26 02:57:37 ggregory Exp $
+ * @version $Id: NumberUtils.java,v 1.6 2003/07/26 15:39:04 scolebourne Exp $
  */
-public final class NumberUtils {
+public class NumberUtils {
     
     /** Reusable Long constant for zero. */
     public static final Long LONG_ZERO = new Long(0L);

@@ -62,9 +62,9 @@ import java.util.Random;
  * 
  * @author Henri Yandell
  * @since 2.0
- * @version $Id: RandomUtils.java,v 1.4 2003/07/25 23:06:58 scolebourne Exp $
+ * @version $Id: RandomUtils.java,v 1.5 2003/07/26 15:39:04 scolebourne Exp $
  */
-public final class RandomUtils {
+public class RandomUtils {
 
     public static final Random JVM_RANDOM = new JVMRandom();
 
