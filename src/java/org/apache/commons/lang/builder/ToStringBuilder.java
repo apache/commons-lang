@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang.builder;
 
+import org.apache.commons.lang.BooleanUtils;
+
 /**
  * <p>Builds <code>toString()</code> values.</p>
  *
@@ -117,7 +119,7 @@ package org.apache.commons.lang.builder;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.22 2003/06/03 03:51:56 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.23 2003/06/23 17:04:39 ggregory Exp $
  */
 public class ToStringBuilder {
 
@@ -572,7 +574,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, boolean[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, new Boolean(fullDetail));
+        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
         return this;
     }
 
@@ -618,7 +620,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, byte[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, new Boolean(fullDetail));
+        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
         return this;
     }
 
@@ -664,7 +666,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, char[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, new Boolean(fullDetail));
+        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
         return this;
     }
 
@@ -710,7 +712,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, double[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, new Boolean(fullDetail));
+        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
         return this;
     }
 
@@ -756,7 +758,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, float[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, new Boolean(fullDetail));
+        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
         return this;
     }
 
@@ -802,7 +804,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, int[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, new Boolean(fullDetail));
+        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
         return this;
     }
 
@@ -848,7 +850,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, long[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, new Boolean(fullDetail));
+        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
         return this;
     }
 
@@ -876,7 +878,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, Object object, boolean fullDetail) {
-        style.append(buffer, fieldName, object, new Boolean(fullDetail));
+        style.append(buffer, fieldName, object, BooleanUtils.toBooleanObject(fullDetail));
         return this;
     }
 
@@ -909,7 +911,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, Object[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, new Boolean(fullDetail));
+        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
         return this;
     }
 
@@ -955,7 +957,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, short[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, new Boolean(fullDetail));
+        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
         return this;
     }
 
