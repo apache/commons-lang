@@ -67,7 +67,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Stephen Colebourne
- * @version $Id: CharSetUtilsTest.java,v 1.11 2003/07/31 21:32:47 scolebourne Exp $
+ * @version $Id: CharSetUtilsTest.java,v 1.12 2003/07/31 22:31:12 scolebourne Exp $
  */
 public class CharSetUtilsTest extends TestCase {
     
@@ -130,6 +130,8 @@ public class CharSetUtilsTest extends TestCase {
         assertEquals("hello", CharSetUtils.squeeze("hello", ""));
         assertEquals("hello", CharSetUtils.squeeze("hello", "a-e"));
         assertEquals("helo", CharSetUtils.squeeze("hello", "l-p"));
+        assertEquals("heloo", CharSetUtils.squeeze("helloo", "l"));
+        assertEquals("hello", CharSetUtils.squeeze("helloo", "^l"));
     }
     
     public void testSqueeze_StringStringarray() {
