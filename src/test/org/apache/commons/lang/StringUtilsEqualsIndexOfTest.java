@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsEqualsIndexOfTest.java,v 1.5 2003/07/26 14:36:30 scolebourne Exp $
+ * @version $Id: StringUtilsEqualsIndexOfTest.java,v 1.6 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class StringUtilsEqualsIndexOfTest extends TestCase {
     private static final String FOO = "foo";
@@ -315,6 +315,8 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     
     //-----------------------------------------------------------------------
     public void testIndexOfAnyButChar() {
+        assertEquals(-1, StringUtils.indexOfAnyBut(null, (char[]) null));
+        assertEquals(-1, StringUtils.indexOfAnyBut("", (char[]) null));
         assertEquals(-1, StringUtils.indexOfAnyBut(null, new char[0]));
         assertEquals(-1, StringUtils.indexOfAnyBut("", new char[0]));
         assertEquals(3, StringUtils.indexOfAnyBut("zzabyycdxx", new char[] {'z','a'})); 

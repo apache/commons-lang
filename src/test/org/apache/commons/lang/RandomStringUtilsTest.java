@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Random;
 
 import junit.framework.Test;
@@ -65,7 +67,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: RandomStringUtilsTest.java,v 1.8 2003/07/20 15:49:58 scolebourne Exp $
+ * @version $Id: RandomStringUtilsTest.java,v 1.9 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class RandomStringUtilsTest extends junit.framework.TestCase {
     /**
@@ -93,6 +95,17 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
     public void tearDown() {
     }
     
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new RandomStringUtils());
+        Constructor[] cons = RandomStringUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(RandomStringUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(RandomStringUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
     /**
      * Test the implementation
      */

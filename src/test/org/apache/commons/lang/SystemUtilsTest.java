@@ -53,6 +53,9 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -65,7 +68,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Tetsuya Kaneuchi
- * @version $Id: SystemUtilsTest.java,v 1.3 2003/07/21 22:57:51 scolebourne Exp $
+ * @version $Id: SystemUtilsTest.java,v 1.4 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class SystemUtilsTest extends TestCase {
 
@@ -91,6 +94,16 @@ public class SystemUtilsTest extends TestCase {
         super.tearDown();
     }
 
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new SystemUtils());
+        Constructor[] cons = SystemUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(SystemUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(SystemUtils.class.getModifiers()));
+    }
+    
     //-----------------------------------------------------------------------
     // COPIED FROM SystemUtils
     //-----------------------------------------------------------------------

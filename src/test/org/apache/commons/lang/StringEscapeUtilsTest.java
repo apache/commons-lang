@@ -54,6 +54,8 @@
 package org.apache.commons.lang;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -65,7 +67,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.10 2003/07/30 00:08:38 scolebourne Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.11 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
@@ -85,7 +87,16 @@ public class StringEscapeUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-
+    public void testConstructor() {
+        assertNotNull(new StringEscapeUtils());
+        Constructor[] cons = StringEscapeUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(StringEscapeUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(StringEscapeUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
     public void testEscapeJava() throws IOException {
         assertEquals(null, StringEscapeUtils.escapeJava(null));
         try {

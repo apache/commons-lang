@@ -53,6 +53,9 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -65,7 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: ObjectUtilsTest.java,v 1.7 2003/07/25 22:37:59 scolebourne Exp $
+ * @version $Id: ObjectUtilsTest.java,v 1.8 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class ObjectUtilsTest extends TestCase {
     private static final String FOO = "foo";
@@ -94,7 +97,16 @@ public class ObjectUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-
+    public void testConstructor() {
+        assertNotNull(new ObjectUtils());
+        Constructor[] cons = ObjectUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(ObjectUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(ObjectUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
     public void testIsNull() {
         Object o = FOO;
         Object dflt = BAR;
