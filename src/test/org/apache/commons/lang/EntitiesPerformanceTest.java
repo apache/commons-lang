@@ -165,11 +165,11 @@ public class EntitiesPerformanceTest extends TestCase {
         escapeIt(binaryEntities);
     }
 
-    public void testUnscapeHash() throws Exception {
+    public void testUnescapeHash() throws Exception {
         unescapeIt(hashEntities);
     }
 
-    public void testUnscapeTree() throws Exception {
+    public void testUnescapeTree() throws Exception {
         unescapeIt(treeEntities);
     }
 
