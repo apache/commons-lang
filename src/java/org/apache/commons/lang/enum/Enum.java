@@ -214,13 +214,60 @@ import org.apache.commons.lang.StringUtils;
  * </pre>
  * <p>The code above will work on JDK 1.2. If JDK1.3 and later is used,
  * the subclasses may be defined as anonymous.</p>
+ * 
+ * <h4>Nested class Enums</h4>
  *
+ * <p>Care must be taken with class loading when defining a static nested class
+ * for enums. The static nested class can be loaded without the surrounding outer
+ * class being loaded. This can result in an empty list/map/iterator being returned.
+ * One solution is to define a static block that references the outer class where
+ * the constants are defined. For example:</p>
+ *
+ * <pre>
+ * public final class Outer {
+ *   public static final BWEnum BLACK = new BWEnum("Black");
+ *   public static final BWEnum WHITE = new BWEnum("White");
+ *
+ *   // static nested enum class
+ *   public static final class BWEnum extends Enum {
+ * 
+ *     static {
+ *       // explicitly reference BWEnum class to force constants to load
+ *       Object obj = Outer.BLACK;
+ *     }
+ * 
+ *     // ... other methods omitted
+ *   }
+ * }
+ * </pre>
+ * 
+ * <p>Although the above solves the problem, it is not recommended. The best solution
+ * is to define the constants in the enum class, and hold references in the outer class:
+ *
+ * <pre>
+ * public final class Outer {
+ *   public static final BWEnum BLACK = BWEnum.BLACK;
+ *   public static final BWEnum WHITE = BWEnum.WHITE;
+ *
+ *   // static nested enum class
+ *   public static final class BWEnum extends Enum {
+ *     // only define constants in enum classes - private if desired
+ *     private static final BWEnum BLACK = new BWEnum("Black");
+ *     private static final BWEnum WHITE = new BWEnum("White");
+ * 
+ *     // ... other methods omitted
+ *   }
+ * }
+ * </pre>
+ * 
+ * <p>For more details, see the 'Nested' test cases.
+ * 
  * @author Apache Avalon project
  * @author Stephen Colebourne
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.22 2003/09/07 14:32:34 psteitz Exp $
+ * @version $Id: Enum.java,v 1.23 2003/11/29 15:03:54 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
 

@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang.enum;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +69,7 @@ import org.apache.commons.lang.SerializationUtils;
  * Test cases for the {@link Enum} class.
  *
  * @author Stephen Colebourne
- * @version $Id: EnumTest.java,v 1.11 2003/08/18 02:22:27 bayard Exp $
+ * @version $Id: EnumTest.java,v 1.12 2003/11/29 15:03:54 scolebourne Exp $
  */
 
 public final class EnumTest extends TestCase {
@@ -132,7 +134,7 @@ public final class EnumTest extends TestCase {
     }
 
     public void testList() {
-        List list = ColorEnum.getEnumList();
+        List list = new ArrayList(ColorEnum.getEnumList());
         
         assertNotNull(list);
         
@@ -146,19 +148,17 @@ public final class EnumTest extends TestCase {
     }
 
     public void testMap() {
-        Map map = ColorEnum.getEnumMap();
+        Map map = new HashMap(ColorEnum.getEnumMap());
         
         assertNotNull(map);
-        
-        assertEquals( map.keySet().size(),
-        				ColorEnum.getEnumList().size());
-        
         assertTrue(map.containsValue(ColorEnum.RED));
         assertTrue(map.containsValue(ColorEnum.GREEN));
         assertTrue(map.containsValue(ColorEnum.BLUE));
         assertSame(ColorEnum.RED, map.get("Red"));
         assertSame(ColorEnum.GREEN, map.get("Green"));
         assertSame(ColorEnum.BLUE, map.get("Blue"));
+        assertEquals( map.keySet().size(),
+                        ColorEnum.getEnumList().size());
     }
 
     public void testGet() {
@@ -413,6 +413,56 @@ public final class EnumTest extends TestCase {
         assertSame(Extended3Enum.BETA, map.get("Beta"));
         assertSame(Extended3Enum.GAMMA, map.get("Gamma"));
         assertSame(Extended3Enum.DELTA, map.get("Delta"));
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNested() {
+        List list = new ArrayList(Nest.ColorEnum.getEnumList());
+        assertEquals(3, list.size());  // all is well
+        Iterator it = list.iterator();
+        assertSame(Nest.ColorEnum.RED, it.next());
+        assertSame(Nest.ColorEnum.GREEN, it.next());
+        assertSame(Nest.ColorEnum.BLUE, it.next());
+        // This nesting works because the enum constants are defined in the SAME
+        // class as the getEnumList(). It just acts as a normal enum.
+    }
+
+    public void testNestedBroken() {
+        List list = new ArrayList(NestBroken.ColorEnum.getEnumList());
+        assertEquals(0, list.size());  // no enums!!! 
+        // this is BROKEN because the enum constants are defined in a DIFFERENT
+        // class from getEnumList(). Once NestBroken class is referenced,
+        // and thus class loaded with its enum constants, the getEnumList works:
+        new NestBroken();
+        list = new ArrayList(NestBroken.ColorEnum.getEnumList());
+        assertEquals(3, list.size());  // all is well!!!
+        Iterator it = list.iterator();
+        assertSame(NestBroken.RED, it.next());
+        assertSame(NestBroken.GREEN, it.next());
+        assertSame(NestBroken.BLUE, it.next());
+    }
+
+    public void testNestedLinked() {
+        List list = new ArrayList(NestLinked.ColorEnum.getEnumList());
+        assertEquals(3, list.size());  // all is well
+        Iterator it = list.iterator();
+        assertSame(NestLinked.RED, it.next());
+        assertSame(NestLinked.GREEN, it.next());
+        assertSame(NestLinked.BLUE, it.next());
+        // This nesting works because a static block in the enum class forces a
+        // class load of the outer class which defines the enum constants.
+    }
+
+    public void testNestedReferenced() {
+        List list = new ArrayList(NestReferenced.ColorEnum.getEnumList());
+        assertEquals(3, list.size());  // all is well
+        Iterator it = list.iterator();
+        assertSame(NestReferenced.RED, it.next());
+        assertSame(NestReferenced.GREEN, it.next());
+        assertSame(NestReferenced.BLUE, it.next());
+        // This nesting works because the enum constants are actually defined in
+        // the SAME class as the getEnumList(). The references in the outer class
+        // are just extra references.
     }
 
 }
