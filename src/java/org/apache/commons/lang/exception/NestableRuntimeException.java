@@ -71,7 +71,7 @@ import java.util.StringTokenizer;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableRuntimeException.java,v 1.3 2002/08/25 13:20:59 stevencaswell Exp $
+ * @version $Id: NestableRuntimeException.java,v 1.4 2002/08/25 19:15:03 dlr Exp $
  */
 public class NestableRuntimeException extends RuntimeException
     implements Nestable
@@ -142,31 +142,12 @@ public class NestableRuntimeException extends RuntimeException
 
     public String getMessage()
     {
-        StringBuffer msg = new StringBuffer();
-        String ourMsg = super.getMessage();
-        if (ourMsg != null)
-        {
-            msg.append(ourMsg);
-        }
-        if (cause != null)
-        {
-            String causeMsg = cause.getMessage();
-            if (causeMsg != null)
-            {
-                if (ourMsg != null)
-                {
-                    msg.append(": ");
-                }
-                msg.append(causeMsg);
-            }
-
-        }
-        return (msg.length() > 0 ? msg.toString() : null);
+        return delegate.getMessage(super.getMessage());
     }
 
     public String getMessage(int index)
     {
-        if(index == 0)
+        if (index == 0)
         {
             return super.getMessage();
         }
