@@ -77,7 +77,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.36 2003/03/23 18:05:44 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.37 2003/03/23 21:52:31 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1705,6 +1705,87 @@ public class StringUtils {
         return true;
     }
 
+    /**
+     * <p>Checks if the String contains only certain chars.</p>
+     *
+     * @param str  the string to check
+     * @param validChars  a string of valid chars
+     * @return true if it only contains valid chars and is non-null
+     */
+    public static boolean containsOnly(String str, String validChars) {
+        if (str == null || validChars == null) {
+            return false;
+        }
+        return containsOnly(str, validChars.toCharArray());
+    }
+    
+    /**
+     * <p>Checks if the String contains only certain chars.</p>
+     *
+     * @param str  the string to check
+     * @param validChars  an array of valid chars
+     * @return true if it only contains valid chars and is non-null
+     */
+    public static boolean containsOnly(String str, char[] validChars) {
+        if (str == null || validChars == null) {
+            return false;
+        }
+        int strSize = str.length();
+        int validSize = validChars.length;
+        for (int i = 0; i < strSize; i++) {
+            char ch = str.charAt(i);
+            boolean contains = false;
+            for (int j = 0; j < validSize; j++) {
+                if (validChars[j] == ch) {
+                    contains = true;
+                    break;
+                }
+            }
+            if (contains == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * <p>Checks that the String does not contain certain chars.</p>
+     *
+     * @param str  the string to check
+     * @param invalidChars  a string of invalid chars
+     * @return true if it contains none of the invalid chars, or is null
+     */
+    public static boolean containsNone(String str, String invalidChars) {
+        if (str == null || invalidChars == null) {
+            return true;
+        }
+        return containsNone(str, invalidChars.toCharArray());
+    }
+    
+    /**
+     * <p>Checks that the String does not contain certain chars.</p>
+     *
+     * @param str  the string to check
+     * @param invalidChars  an array of invalid chars
+     * @return true if it contains none of the invalid chars, or is null
+     */
+    public static boolean containsNone(String str, char[] invalidChars) {
+        if (str == null || invalidChars == null) {
+            return true;
+        }
+        int strSize = str.length();
+        int validSize = invalidChars.length;
+        for (int i = 0; i < strSize; i++) {
+            char ch = str.charAt(i);
+            for (int j = 0; j < validSize; j++) {
+                if (invalidChars[j] == ch) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     // Defaults
     //--------------------------------------------------------------------------
     
@@ -1934,34 +2015,4 @@ public class StringUtils {
         return d[n][m];
     }
 
-    /**
-     * <p>Checks if the String contains only certain chars.</p>
-     *
-     * @param str the String to check
-     * @param valid an array of valid chars
-     * @return true if it only contains valid chars and is non-null
-     */
-    public static boolean containsOnly(String str, char[] valid) {
-        if (str == null || valid == null) {
-            return false;
-        }
-
-        int strSize = str.length();
-        int validSize = valid.length;
-
-        for (int i = 0; i < strSize; i++) {
-            boolean contains = false;
-            for (int j = 0; j < validSize; j++) {
-                if (valid[j] == str.charAt(i)) {
-                    contains = true;
-                    break;
-                }
-            }
-            if (!contains) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 }
