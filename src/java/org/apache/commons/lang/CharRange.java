@@ -62,14 +62,14 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharRange.java,v 1.7 2003/07/16 00:39:05 scolebourne Exp $
+ * @version $Id: CharRange.java,v 1.8 2003/07/26 15:33:34 scolebourne Exp $
  */
 class CharRange {
 
     /**
      * <p>Used internally to represent <code>null</code> in a char.</p>
      */
-    private static char UNSET;
+    private static final char UNSET = 0;
 
     private char start;
     private char close;
