@@ -75,7 +75,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Helge Tesgaard
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.6 2003/04/09 20:55:32 alex Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.7 2003/04/09 21:30:18 alex Exp $
  */
 public class StringEscapeUtils {
 
@@ -362,9 +362,14 @@ public class StringEscapeUtils {
      * For example: <tt>"bread" & "butter"</tt> => <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
      * </p>
      * <p>Supports all known HTML 4.0 entities, including funky accents.
-     * See the source code for more detail.
      * </p>
-     * @see http://hotwired.lycos.com/webmonkey/reference/special_characters/
+     * <p>
+     * See <a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">WebMonkey</a>
+     * <a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2</a>
+     * <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html</a>HTML 4.0</a>
+     * <a href="http://www.w3.org/TR/html401/charset.html#h-5.3"</a>Character references</a>
+     * <a href="http://www.w3.org/TR/html401/charset.html#code-position</a>HTML 4.0: code positions</a>
+     * </p>
      * @see Entities
      * @see #unescapeHtml(String)
      **/
@@ -373,9 +378,14 @@ public class StringEscapeUtils {
     }
 
     /**
-     * Given a string containing entity escapes, returns a string
+     * <p>Given a string containing entity escapes, returns a string
      * containing the actual Unicode characters corresponding to the
-     * escapes.
+     * escapes.  Supports HTML 4.0 entities.</p>
+     * <p>For example, the string "&amp;lt;Fran&ccedilla;ais&amp;gt;"
+     * will become "<Fran\u00E7ais>"</p>
+     * <p>If an entity is unrecognized, it is left alone, and inserted
+     * verbatim into the result string. e.g. "&amp;gt;&amp;zzzz;x" will
+     * become "&gt;&amp;zzzz;x".</p>
      *
      * @see #escapeHtml(String)
      **/
@@ -386,7 +396,8 @@ public class StringEscapeUtils {
     /**
      * <p>Turns funky characters into XML entity equivalents.</p>
      * <p>
-     * For example: <tt>"bread" & "butter"</tt> => <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
+     * For example: <tt>"bread" & "butter"</tt> =>
+     * <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
      * </p>
      * <p>
      * Supports only the four basic XML entities (gt, lt, quot, amp).

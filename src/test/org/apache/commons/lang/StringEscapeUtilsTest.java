@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.4 2003/04/09 20:55:33 alex Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.5 2003/04/09 21:30:18 alex Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
@@ -201,6 +201,11 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals("funny chars pass through OK", "Fran\u00E7ais", StringEscapeUtils.unescapeHtml("Fran\u00E7ais"));
     }
 
+    public void testUnescapeUnknownEntity() throws Exception
+    {
+        assertEquals("&zzzz;", StringEscapeUtils.unescapeHtml("&zzzz;"));
+    }
+
     public void testEscapeHtmlVersions() throws Exception
     {
         assertEquals("&Beta;", StringEscapeUtils.escapeHtml("\u0392"));
@@ -218,13 +223,15 @@ public class StringEscapeUtilsTest extends TestCase {
                 "&#161;", StringEscapeUtils.escapeXml("\u00A1"));
         assertEquals("XML should use numbers, not names for HTML entities",
                 "\u00A0", StringEscapeUtils.unescapeXml("&#160;"));
+
+        assertEquals("ain't", StringEscapeUtils.unescapeXml("ain&apos;t"));
+        assertEquals("ain&apos;t", StringEscapeUtils.escapeXml("ain't"));
     }
 
     // SQL
     // see http://www.jguru.com/faq/view.jsp?EID=8881
     //--------------------
-//    public void testEscapeSQL() throws Exception {
     // sql doubles-up single-quotes
-//    }
+    //}
 }
 
