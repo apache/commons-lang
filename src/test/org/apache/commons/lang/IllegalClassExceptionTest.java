@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  * JUnit tests.
  * 
  * @author Matthew Hawthorne
- * @version $Id: IllegalClassExceptionTest.java,v 1.1 2003/05/15 04:05:11 bayard Exp $
+ * @version $Id: IllegalClassExceptionTest.java,v 1.2 2003/06/06 07:04:12 rdonkin Exp $
  * @see IllegalClassException
  */
 public class IllegalClassExceptionTest extends TestCase {
@@ -103,14 +103,14 @@ public class IllegalClassExceptionTest extends TestCase {
 
     public void testGetMessage_classArgs_nullInput() {
         final Throwable t = new IllegalClassException(null, null);
-        assertEquals("Expected: null, Actual: null", t.getMessage());
+        assertEquals("Expected: null, actual: null", t.getMessage());
     }
 
     public void testGetMessage_classArgs_normalInput() {
         final Throwable t =
             new IllegalClassException(String.class, Integer.class);
         assertEquals(
-            "Expected: java.lang.String, Actual: java.lang.Integer",
+            "Expected: java.lang.String, actual: java.lang.Integer",
             t.getMessage());
     }
 
