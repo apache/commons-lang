@@ -1,7 +1,7 @@
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.18 2003/08/16 02:43:29 bayard Exp $
+        $Id: build.xml,v 1.19 2003/08/17 19:32:55 bayard Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
@@ -42,6 +42,7 @@
         	   destdir="${build.home}/classes"
         	   debug="${compile.debug}"
         	   deprecation="${compile.deprecation}"
+		   target="1.1"
         	   optimize="${compile.optimize}">
             <classpath refid="compile.classpath"/>
         </javac>
@@ -54,6 +55,7 @@
         	   destdir="${build.home}/tests"
         	   debug="${compile.debug}"
         	   deprecation="off"
+		   target="1.1"
         	   optimize="${compile.optimize}">
             <classpath refid="test.classpath"/>
         </javac>
@@ -89,6 +91,18 @@
         <copy file="LICENSE.txt" todir="${dist.home}"/>
         <copy file="RELEASE-NOTES.txt" todir="${dist.home}"/>
         <antcall target="jar"/>
+    </target>
+    <target name="dist-build" depends="dist" description="Build binary distribution files">
+        <mkdir dir="${final.name}"/>
+        <move todir="${final.name}/${final.name}">
+            <fileset dir="${dist.home}"/>
+        </move>
+	<tar destfile="${final.name}.tar" basedir="${final.name}"/>
+	<gzip zipfile="${final.name}.tar.gz" src="${final.name}.tar"/>
+	<delete file="${final.name}.tar"/>
+	<fixcrlf srcdir="${final.name}" eol="crlf" includes="*.txt"/>
+	<zip destfile="${final.name}.zip" basedir="${final.name}"/>
+	<delete dir="${final.name}"/>
     </target>
     <target name="jar" depends="compile" description="Create jar">
         <mkdir dir="${dist.home}"/>
