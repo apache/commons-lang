@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author Moritz Petersen
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
- * @version $Id: ArrayUtilsTest.java,v 1.8 2003/06/28 18:01:19 scolebourne Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.9 2003/07/12 10:09:40 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -659,7 +659,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(2, ArrayUtils.indexOf(array, "2", 2));
         assertEquals(3, ArrayUtils.indexOf(array, "3", 2));
         assertEquals(4, ArrayUtils.indexOf(array, null, 2));
-        assertEquals(-1, ArrayUtils.indexOf(array, "notInArray"));
+        assertEquals(-1, ArrayUtils.indexOf(array, "notInArray", 2));
         
         assertEquals(4, ArrayUtils.indexOf(array, null, -1));
         assertEquals(-1, ArrayUtils.indexOf(array, "0", 6));
@@ -687,7 +687,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.lastIndexOf(array, "3", 2));
         assertEquals(4, ArrayUtils.lastIndexOf(array, null, 5));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, null, 2));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, "notInArray"));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, "notInArray", 5));
         
         assertEquals(-1, ArrayUtils.lastIndexOf(array, null, -1));
         assertEquals(5, ArrayUtils.lastIndexOf(array, "0", 88));
@@ -703,6 +703,407 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(true, ArrayUtils.contains(array, "3"));
         assertEquals(true, ArrayUtils.contains(array, null));
         assertEquals(false, ArrayUtils.contains(array, "notInArray"));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIndexOfLong() {
+        long[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, 0));
+        array = new long[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.indexOf(array, 0));
+        assertEquals(1, ArrayUtils.indexOf(array, 1));
+        assertEquals(2, ArrayUtils.indexOf(array, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 3));
+        assertEquals(-1, ArrayUtils.indexOf(array, 99));
+    }
+
+    public void testIndexOfLongWithStartIndex() {
+        long[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 2));
+        array = new long[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.indexOf(array, 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 1, 2));
+        assertEquals(2, ArrayUtils.indexOf(array, 2, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 3, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 99, 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 6));
+    }
+
+    public void testLastIndexOfLong() {
+        long[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0));
+        array = new long[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 0));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 1));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 2));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, 3));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
+    }
+
+    public void testLastIndexOfLongWithStartIndex() {
+        long[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0, 2));
+        array = new long[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.lastIndexOf(array, 0, 2));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 1, 2));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 2, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 0, 88));
+    }
+
+    public void testContainsLong() {
+        long[] array = null;
+        assertEquals(false, ArrayUtils.contains(array, 1));
+        array = new long[] { 0, 1, 2, 3, 0 };
+        assertEquals(true, ArrayUtils.contains(array, 0));
+        assertEquals(true, ArrayUtils.contains(array, 1));
+        assertEquals(true, ArrayUtils.contains(array, 2));
+        assertEquals(true, ArrayUtils.contains(array, 3));
+        assertEquals(false, ArrayUtils.contains(array, 99));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIndexOfInt() {
+        int[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, 0));
+        array = new int[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.indexOf(array, 0));
+        assertEquals(1, ArrayUtils.indexOf(array, 1));
+        assertEquals(2, ArrayUtils.indexOf(array, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 3));
+        assertEquals(-1, ArrayUtils.indexOf(array, 99));
+    }
+
+    public void testIndexOfIntWithStartIndex() {
+        int[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 2));
+        array = new int[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.indexOf(array, 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 1, 2));
+        assertEquals(2, ArrayUtils.indexOf(array, 2, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 3, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, 99, 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, 0, 6));
+    }
+
+    public void testLastIndexOfInt() {
+        int[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0));
+        array = new int[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 0));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 1));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 2));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, 3));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
+    }
+
+    public void testLastIndexOfIntWithStartIndex() {
+        int[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 0, 2));
+        array = new int[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.lastIndexOf(array, 0, 2));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, 1, 2));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, 2, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, 0, 88));
+    }
+
+    public void testContainsInt() {
+        int[] array = null;
+        assertEquals(false, ArrayUtils.contains(array, 1));
+        array = new int[] { 0, 1, 2, 3, 0 };
+        assertEquals(true, ArrayUtils.contains(array, 0));
+        assertEquals(true, ArrayUtils.contains(array, 1));
+        assertEquals(true, ArrayUtils.contains(array, 2));
+        assertEquals(true, ArrayUtils.contains(array, 3));
+        assertEquals(false, ArrayUtils.contains(array, 99));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIndexOfShort() {
+        short[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, (short) 0));
+        array = new short[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.indexOf(array, (short) 0));
+        assertEquals(1, ArrayUtils.indexOf(array, (short) 1));
+        assertEquals(2, ArrayUtils.indexOf(array, (short) 2));
+        assertEquals(3, ArrayUtils.indexOf(array, (short) 3));
+        assertEquals(-1, ArrayUtils.indexOf(array, (short) 99));
+    }
+
+    public void testIndexOfShortWithStartIndex() {
+        short[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, (short) 0, 2));
+        array = new short[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.indexOf(array, (short) 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, (short) 1, 2));
+        assertEquals(2, ArrayUtils.indexOf(array, (short) 2, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, (short) 3, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, (short) 99, 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, (short) 0, 6));
+    }
+
+    public void testLastIndexOfShort() {
+        short[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (short) 0));
+        array = new short[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (short) 0));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, (short) 1));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, (short) 2));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, (short) 3));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (short) 99));
+    }
+
+    public void testLastIndexOfShortWithStartIndex() {
+        short[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (short) 0, 2));
+        array = new short[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.lastIndexOf(array, (short) 0, 2));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, (short) 1, 2));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, (short) 2, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (short) 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (short) 99));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (short) 0, 88));
+    }
+
+    public void testContainsShort() {
+        short[] array = null;
+        assertEquals(false, ArrayUtils.contains(array, (short) 1));
+        array = new short[] { 0, 1, 2, 3, 0 };
+        assertEquals(true, ArrayUtils.contains(array, (short) 0));
+        assertEquals(true, ArrayUtils.contains(array, (short) 1));
+        assertEquals(true, ArrayUtils.contains(array, (short) 2));
+        assertEquals(true, ArrayUtils.contains(array, (short) 3));
+        assertEquals(false, ArrayUtils.contains(array, (short) 99));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIndexOfByte() {
+        byte[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, (byte) 0));
+        array = new byte[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.indexOf(array, (byte) 0));
+        assertEquals(1, ArrayUtils.indexOf(array, (byte) 1));
+        assertEquals(2, ArrayUtils.indexOf(array, (byte) 2));
+        assertEquals(3, ArrayUtils.indexOf(array, (byte) 3));
+        assertEquals(-1, ArrayUtils.indexOf(array, (byte) 99));
+    }
+
+    public void testIndexOfByteWithStartIndex() {
+        byte[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, (byte) 0, 2));
+        array = new byte[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.indexOf(array, (byte) 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, (byte) 1, 2));
+        assertEquals(2, ArrayUtils.indexOf(array, (byte) 2, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, (byte) 3, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, (byte) 99, 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, (byte) 0, 6));
+    }
+
+    public void testLastIndexOfByte() {
+        byte[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (byte) 0));
+        array = new byte[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (byte) 0));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, (byte) 1));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, (byte) 2));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, (byte) 3));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (byte) 99));
+    }
+
+    public void testLastIndexOfByteWithStartIndex() {
+        byte[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (byte) 0, 2));
+        array = new byte[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.lastIndexOf(array, (byte) 0, 2));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, (byte) 1, 2));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, (byte) 2, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (byte) 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (byte) 99));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (byte) 0, 88));
+    }
+
+    public void testContainsByte() {
+        byte[] array = null;
+        assertEquals(false, ArrayUtils.contains(array, (byte) 1));
+        array = new byte[] { 0, 1, 2, 3, 0 };
+        assertEquals(true, ArrayUtils.contains(array, (byte) 0));
+        assertEquals(true, ArrayUtils.contains(array, (byte) 1));
+        assertEquals(true, ArrayUtils.contains(array, (byte) 2));
+        assertEquals(true, ArrayUtils.contains(array, (byte) 3));
+        assertEquals(false, ArrayUtils.contains(array, (byte) 99));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIndexOfDouble() {
+        double[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0));
+        array = new double[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.indexOf(array, (double) 0));
+        assertEquals(1, ArrayUtils.indexOf(array, (double) 1));
+        assertEquals(2, ArrayUtils.indexOf(array, (double) 2));
+        assertEquals(3, ArrayUtils.indexOf(array, (double) 3));
+        assertEquals(-1, ArrayUtils.indexOf(array, (double) 99));
+    }
+
+    public void testIndexOfDoubleWithStartIndex() {
+        double[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 2));
+        array = new double[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.indexOf(array, (double) 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, (double) 1, 2));
+        assertEquals(2, ArrayUtils.indexOf(array, (double) 2, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, (double) 3, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, (double) 99, 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 6));
+    }
+
+    public void testLastIndexOfDouble() {
+        double[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0));
+        array = new double[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, (double) 1));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, (double) 2));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, (double) 3));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 99));
+    }
+
+    public void testLastIndexOfDoubleWithStartIndex() {
+        double[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, 2));
+        array = new double[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.lastIndexOf(array, (double) 0, 2));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, (double) 1, 2));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, (double) 2, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 99));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0, 88));
+    }
+
+    public void testContainsDouble() {
+        double[] array = null;
+        assertEquals(false, ArrayUtils.contains(array, (double) 1));
+        array = new double[] { 0, 1, 2, 3, 0 };
+        assertEquals(true, ArrayUtils.contains(array, (double) 0));
+        assertEquals(true, ArrayUtils.contains(array, (double) 1));
+        assertEquals(true, ArrayUtils.contains(array, (double) 2));
+        assertEquals(true, ArrayUtils.contains(array, (double) 3));
+        assertEquals(false, ArrayUtils.contains(array, (double) 99));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIndexOfFloat() {
+        float[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, (float) 0));
+        array = new float[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.indexOf(array, (float) 0));
+        assertEquals(1, ArrayUtils.indexOf(array, (float) 1));
+        assertEquals(2, ArrayUtils.indexOf(array, (float) 2));
+        assertEquals(3, ArrayUtils.indexOf(array, (float) 3));
+        assertEquals(-1, ArrayUtils.indexOf(array, (float) 99));
+    }
+
+    public void testIndexOfFloatWithStartIndex() {
+        float[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, (float) 0, 2));
+        array = new float[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.indexOf(array, (float) 0, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, (float) 1, 2));
+        assertEquals(2, ArrayUtils.indexOf(array, (float) 2, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, (float) 3, 2));
+        assertEquals(-1, ArrayUtils.indexOf(array, (float) 99, 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, (float) 0, 6));
+    }
+
+    public void testLastIndexOfFloat() {
+        float[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 0));
+        array = new float[] { 0, 1, 2, 3, 0 };
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (float) 0));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, (float) 1));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, (float) 2));
+        assertEquals(3, ArrayUtils.lastIndexOf(array, (float) 3));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 99));
+    }
+
+    public void testLastIndexOfFloatWithStartIndex() {
+        float[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 0, 2));
+        array = new float[] { 0, 1, 2, 3, 0 };
+        assertEquals(0, ArrayUtils.lastIndexOf(array, (float) 0, 2));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, (float) 1, 2));
+        assertEquals(2, ArrayUtils.lastIndexOf(array, (float) 2, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 99));
+        assertEquals(4, ArrayUtils.lastIndexOf(array, (float) 0, 88));
+    }
+
+    public void testContainsFloat() {
+        float[] array = null;
+        assertEquals(false, ArrayUtils.contains(array, (float) 1));
+        array = new float[] { 0, 1, 2, 3, 0 };
+        assertEquals(true, ArrayUtils.contains(array, (float) 0));
+        assertEquals(true, ArrayUtils.contains(array, (float) 1));
+        assertEquals(true, ArrayUtils.contains(array, (float) 2));
+        assertEquals(true, ArrayUtils.contains(array, (float) 3));
+        assertEquals(false, ArrayUtils.contains(array, (float) 99));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testIndexOfBoolean() {
+        boolean[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, true));
+        array = new boolean[] { true, false, true };
+        assertEquals(0, ArrayUtils.indexOf(array, true));
+        assertEquals(1, ArrayUtils.indexOf(array, false));
+        array = new boolean[] { true, true };
+        assertEquals(-1, ArrayUtils.indexOf(array, false));
+    }
+
+    public void testIndexOfBooleanWithStartIndex() {
+        boolean[] array = null;
+        assertEquals(-1, ArrayUtils.indexOf(array, true, 2));
+        array = new boolean[] { true, false, true };
+        assertEquals(2, ArrayUtils.indexOf(array, true, 1));
+        assertEquals(-1, ArrayUtils.indexOf(array, false, 2));
+        array = new boolean[] { true, true };
+        assertEquals(-1, ArrayUtils.indexOf(array, false, 0));
+    }
+
+    public void testLastIndexOfBoolean() {
+        boolean[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, true));
+        array = new boolean[] { true, false, true };
+        assertEquals(2, ArrayUtils.lastIndexOf(array, true));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, false));
+        array = new boolean[] { true, true };
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, false));
+    }
+
+    public void testLastIndexOfBooleanWithStartIndex() {
+        boolean[] array = null;
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, true, 2));
+        array = new boolean[] { true, false, true };
+        assertEquals(2, ArrayUtils.lastIndexOf(array, true, 2));
+        assertEquals(0, ArrayUtils.lastIndexOf(array, true, 1));
+        assertEquals(1, ArrayUtils.lastIndexOf(array, false, 2));
+        array = new boolean[] { true, true };
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, false, 2));
+    }
+
+    public void testContainsBoolean() {
+        boolean[] array = null;
+        assertEquals(false, ArrayUtils.contains(array, true));
+        array = new boolean[] { true, false, true };
+        assertEquals(true, ArrayUtils.contains(array, true));
+        assertEquals(true, ArrayUtils.contains(array, false));
+        array = new boolean[] { true, true };
+        assertEquals(true, ArrayUtils.contains(array, true));
+        assertEquals(false, ArrayUtils.contains(array, false));
     }
     
     // testToPrimitive/Object for boolean
