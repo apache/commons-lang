@@ -22,48 +22,48 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Tests CharacterEncoding.
+ * Tests CharEncoding.
  * 
- * @see CharacterEncoding
+ * @see CharEncoding
  * @author Gary D. Gregory
- * @version $Id: CharacterEncodingTest.java,v 1.1 2004/08/03 17:17:08 ggregory Exp $
+ * @version $Id: CharEncodingTest.java,v 1.1 2004/10/02 01:46:30 bayard Exp $
  */
-public class CharacterEncodingTest extends TestCase {
+public class CharEncodingTest extends TestCase {
 
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
 
     public static Test suite() {
-        TestSuite suite = new TestSuite(CharacterEncodingTest.class);
-        suite.setName("CharacterEncoding Tests");
+        TestSuite suite = new TestSuite(CharEncodingTest.class);
+        suite.setName("CharEncoding Tests");
         return suite;
     }
 
     private void assertSupportedEncoding(String name) {
-        assertTrue("Encoding should be supported: " + name, CharacterEncoding.isSupported(name));
+        assertTrue("Encoding should be supported: " + name, CharEncoding.isSupported(name));
     }
 
     public void testMustBeSupportedJava1_3_1() {
         if (SystemUtils.isJavaVersionAtLeast(1.3f)) {
-            this.assertSupportedEncoding(CharacterEncoding.ISO_8859_1);
-            this.assertSupportedEncoding(CharacterEncoding.US_ASCII);
-            this.assertSupportedEncoding(CharacterEncoding.UTF_16);
-            this.assertSupportedEncoding(CharacterEncoding.UTF_16BE);
-            this.assertSupportedEncoding(CharacterEncoding.UTF_16LE);
-            this.assertSupportedEncoding(CharacterEncoding.UTF_8);
+            this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
+            this.assertSupportedEncoding(CharEncoding.US_ASCII);
+            this.assertSupportedEncoding(CharEncoding.UTF_16);
+            this.assertSupportedEncoding(CharEncoding.UTF_16BE);
+            this.assertSupportedEncoding(CharEncoding.UTF_16LE);
+            this.assertSupportedEncoding(CharEncoding.UTF_8);
         } else {
             this.warn("Java 1.3 tests not run since the current version is " + SystemUtils.JAVA_VERSION);
         }
     }
 
     public void testNotSupported() {
-        assertFalse(CharacterEncoding.isSupported(null));
-        assertFalse(CharacterEncoding.isSupported(""));
-        assertFalse(CharacterEncoding.isSupported(" "));
-        assertFalse(CharacterEncoding.isSupported("\t\r\n"));
-        assertFalse(CharacterEncoding.isSupported("DOESNOTEXIST"));
-        assertFalse(CharacterEncoding.isSupported("this is not a valid encoding name"));
+        assertFalse(CharEncoding.isSupported(null));
+        assertFalse(CharEncoding.isSupported(""));
+        assertFalse(CharEncoding.isSupported(" "));
+        assertFalse(CharEncoding.isSupported("\t\r\n"));
+        assertFalse(CharEncoding.isSupported("DOESNOTEXIST"));
+        assertFalse(CharEncoding.isSupported("this is not a valid encoding name"));
     }
 
     public void testWorksOnJava1_1_8() {
@@ -72,9 +72,9 @@ public class CharacterEncodingTest extends TestCase {
         // The Javadoc do not specify which encodings are required.
         //
         if (SystemUtils.isJavaVersionAtLeast(1.1f)) {
-            this.assertSupportedEncoding(CharacterEncoding.ISO_8859_1);
-            this.assertSupportedEncoding(CharacterEncoding.US_ASCII);
-            this.assertSupportedEncoding(CharacterEncoding.UTF_8);
+            this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
+            this.assertSupportedEncoding(CharEncoding.US_ASCII);
+            this.assertSupportedEncoding(CharEncoding.UTF_8);
         } else {
             this.warn("Java 1.1 tests not run since the current version is " + SystemUtils.JAVA_VERSION);
         }
@@ -86,9 +86,9 @@ public class CharacterEncodingTest extends TestCase {
         // The Javadoc do not specify which encodings are required.
         //
         if (SystemUtils.isJavaVersionAtLeast(1.2f)) {
-            this.assertSupportedEncoding(CharacterEncoding.ISO_8859_1);
-            this.assertSupportedEncoding(CharacterEncoding.US_ASCII);
-            this.assertSupportedEncoding(CharacterEncoding.UTF_8);
+            this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
+            this.assertSupportedEncoding(CharEncoding.US_ASCII);
+            this.assertSupportedEncoding(CharEncoding.UTF_8);
         } else {
             this.warn("Java 1.2 tests not run since the current version is " + SystemUtils.JAVA_VERSION);
         }
