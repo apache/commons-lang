@@ -74,7 +74,7 @@ import java.lang.reflect.Modifier;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.23 2004/09/30 06:26:37 bayard Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.24 2004/11/23 19:15:28 ggregory Exp $
  */
 public class HashCodeBuilder {
 
@@ -88,20 +88,15 @@ public class HashCodeBuilder {
     private int iTotal = 0;
 
     /**
-     * <p>Constructor.</p>
-     *
-     * <p>This constructor uses two hard coded choices for the constants
+     * <p>Uses two hard coded choices for the constants
      * needed to build a <code>hashCode</code>.</p>
      */
     public HashCodeBuilder() {
-        super();
         iConstant = 37;
         iTotal = 17;
     }
 
     /**
-     * <p>Constructor.</p>
-     *
      * <p>Two randomly chosen, non-zero, odd numbers must be passed in.
      * Ideally these should be different for each class, however this is
      * not vital.</p>
@@ -113,7 +108,6 @@ public class HashCodeBuilder {
      * @throws IllegalArgumentException if the number is zero or even
      */
     public HashCodeBuilder(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber) {
-        super();
         if (initialNonZeroOddNumber == 0) {
             throw new IllegalArgumentException("HashCodeBuilder requires a non zero initial value");
         }
