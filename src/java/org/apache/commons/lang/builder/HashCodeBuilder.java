@@ -53,6 +53,7 @@
  */
 package org.apache.commons.lang.builder;
 
+import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 /**
@@ -93,7 +94,7 @@ import java.lang.reflect.Modifier;
  *
  * <p>Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method,
- * <code>reflectionHashCode</code>, uses <code>Field.setAccessible</code> to
+ * <code>reflectionHashCode</code>, uses <code>AccessibleObject.setAccessible</code> to
  * change the visibility of the fields. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly. It is also slower
  * than testing explicitly.</p>
@@ -108,7 +109,7 @@ import java.lang.reflect.Modifier;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.13 2003/07/14 22:25:03 bayard Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.14 2003/07/20 01:12:32 ggregory Exp $
  */
 public class HashCodeBuilder {
 
@@ -172,7 +173,7 @@ public class HashCodeBuilder {
      * <p>This constructor uses two hard coded choices for the constants
      * needed to build a hash code.</p>
      *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manger, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.</p>
@@ -196,7 +197,7 @@ public class HashCodeBuilder {
      * <p>This constructor uses two hard coded choices for the constants needed
      * to build a hash code.</p>
      *
-     * <p> It uses <code>Field.setAccessible</code> to gain access to private
+     * <p> It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manger, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.</p>
@@ -219,7 +220,7 @@ public class HashCodeBuilder {
     /**
      * <p>This method uses reflection to build a valid hash code.</p>
      *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manger, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.</p>
@@ -248,7 +249,7 @@ public class HashCodeBuilder {
     /**
      * <p>This method uses reflection to build a valid hash code.</p>
      *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manger, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly.</p>
@@ -280,7 +281,7 @@ public class HashCodeBuilder {
     /**
      * <p>This method uses reflection to build a valid hash code.</p>
      *
-     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
      * a security manger, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly.</p>
@@ -338,7 +339,7 @@ public class HashCodeBuilder {
      */
     private static void reflectionAppend(Object object, Class clazz, HashCodeBuilder builder, boolean useTransients) {
         Field[] fields = clazz.getDeclaredFields();
-        Field.setAccessible(fields, true);
+        AccessibleObject.setAccessible(fields, true);
         for (int i = 0; i < fields.length; i++) {
             Field f = fields[i];
             if ((f.getName().indexOf('$') == -1)
