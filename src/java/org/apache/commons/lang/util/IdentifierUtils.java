@@ -68,7 +68,7 @@ import org.apache.commons.lang.functor.FactoryException;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: IdentifierUtils.java,v 1.3 2003/03/23 17:52:25 scolebourne Exp $
+ * @version $Id: IdentifierUtils.java,v 1.4 2003/04/09 01:04:48 ggregory Exp $
  */
 public class IdentifierUtils {
 
@@ -502,8 +502,8 @@ public class IdentifierUtils {
          */
         private static final long MAX_RANDOM_LEN = 2176782336L; // 36 ** 6
         /**
-         * The identifier must be unique within the typical lifespan of a
-         * session; the value can roll over after that.  3 characters:
+         * <p>The identifier must be unique within the typical lifespan of a
+         * session; the value can roll over after that.</p>3 characters:
          * (this means a roll over after over a day, which is much larger
          * than a typical lifespan).
          */

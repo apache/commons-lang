@@ -69,7 +69,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @author Nikolay Metchev
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.10 2003/03/23 17:57:42 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.11 2003/04/09 01:04:47 ggregory Exp $
  */
 public class ArrayUtils {
 
@@ -170,8 +170,8 @@ public class ArrayUtils {
     //-----------------------------------------------------------------------
     
     /**
-     * <p>Converts the given array into a {@link Map}. Each element of the array
-     * must be either a {@link Map.Entry} or an Array, containing at least two
+     * <p>Converts the given array into a {@link java.util.Map}. Each element of the array
+     * must be either a {@link java.util.Map.Entry} or an Array, containing at least two
      * elements, where the first element is used as key and the second as
      * value.</p>
      *
@@ -184,14 +184,14 @@ public class ArrayUtils {
      *     {"BLUE", "#0000FF"}});
      * </pre>
      *
-     * @param array  an array whose elements are either a {@link Map.Entry} or 
+     * @param array  an array whose elements are either a {@link java.util.Map.Entry} or 
      *  an Array containing at least two elements
      * @return a <code>Map</code> that was created from the array
      * @throws IllegalArgumentException  if the array is <code>null</code>
      * @throws IllegalArgumentException  if one element of this Array is
      *  itself an Array containing less then two elements
      * @throws IllegalArgumentException  if the array contains elements other
-     *  than {@link Map.Entry} and an Array
+     *  than {@link java.util.Map.Entry} and an Array
      */
     public static Map toMap(Object[] array) {
         if (array == null) {

@@ -61,7 +61,7 @@ import java.util.*;
  *
  * @author <a href="mailto:sergek@lokitech.com">Serge Knystautas</a>
  * @since 2.1
- * @version $Id: CalendarUtils.java,v 1.2 2003/02/04 22:19:33 scolebourne Exp $
+ * @version $Id: CalendarUtils.java,v 1.3 2003/04/09 01:04:48 ggregory Exp $
  */
 public class CalendarUtils {
 
@@ -269,14 +269,14 @@ public class CalendarUtils {
     }
 
     /**
-     * Parses strings the way that CVS supports it... very human readable
+     * Parses strings the way that CVS supports it (very human readable).
      */
     public static Calendar parse(String original) {
         return parse(original, Locale.getDefault());
     }
 
     /**
-     * Parses strings the way that CVS supports it... very human readable
+     * Parses strings the way that CVS supports it (very human readable).
      */
     public static Calendar parse(String original, Locale locale) {
         //Get the symbol names
