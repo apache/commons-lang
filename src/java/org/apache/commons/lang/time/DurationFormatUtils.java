@@ -28,7 +28,7 @@ import org.apache.commons.lang.mutable.MutableInt;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DurationFormatUtils.java,v 1.11 2004/08/27 06:45:25 bayard Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.12 2004/08/29 03:42:48 bayard Exp $
  */
 public class DurationFormatUtils {
 
@@ -118,6 +118,11 @@ public class DurationFormatUtils {
         if(Token.containsTokenWithValue(tokens, M) ) {
             months = (int) (millis / DateUtils.MILLIS_PER_MONTH);
             millis = millis - (months * DateUtils.MILLIS_PER_MONTH);
+            // as MONTH * 12 != YEAR, this fixes issues
+            if(months == 12) {
+                years++;
+                months = 0;
+            }
         }
         if(Token.containsTokenWithValue(tokens, d) ) {
             days = (int) (millis / DateUtils.MILLIS_PER_DAY);
