@@ -87,7 +87,7 @@ import org.apache.commons.lang.ObjectUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.33 2004/06/30 18:21:49 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.34 2004/07/01 17:10:47 ggregory Exp $
  */
 public class ToStringBuilder {
 
@@ -189,8 +189,7 @@ public class ToStringBuilder {
      * <p>This constructor outputs using the default style set with
      * <code>setDefaultStyle</code>.</p>
      * 
-     * @param object  the Object to build a <code>toString</code> for,
-     *  must not be <code>null</code>
+     * @param object  the Object to build a <code>toString</code> for
      * @throws IllegalArgumentException  if the Object passed in is
      *  <code>null</code>
      */
@@ -204,8 +203,7 @@ public class ToStringBuilder {
      *
      * <p>If the style is <code>null</code>, the default style is used.</p>
      * 
-     * @param object  the Object to build a <code>toString</code> for,
-     *  must not be <code>null</code>
+     * @param object  the Object to build a <code>toString</code> for
      * @param style  the style of the <code>toString</code> to create,
      *  may be <code>null</code>
      * @throws IllegalArgumentException  if the Object passed in is
@@ -222,8 +220,7 @@ public class ToStringBuilder {
      *
      * <p>If the buffer is <code>null</code>, a new one is created.</p>
      * 
-     * @param object  the Object to build a <code>toString</code> for,
-     *  must not be <code>null</code>
+     * @param object  the Object to build a <code>toString</code> for
      * @param style  the style of the <code>toString</code> to create,
      *  may be <code>null</code>
      * @param buffer  the <code>StringBuffer</code> to populate, may be

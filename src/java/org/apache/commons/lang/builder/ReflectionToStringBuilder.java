@@ -488,8 +488,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * </p>
      * 
      * @param object
-     *                  the Object to build a <code>toString</code> for, must not
-     *                  be <code>null</code>
+     *                  the Object to build a <code>toString</code> for
      * @param style
      *                  the style of the <code>toString</code> to create, may be
      *                  <code>null</code>
@@ -509,8 +508,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *                     {@link #ReflectionToStringBuilder(Object,ToStringStyle,StringBuffer,Class,boolean,boolean)}.
      * 
      * @param object
-     *                  the Object to build a <code>toString</code> for, must not
-     *                  be <code>null</code>
+     *                  the Object to build a <code>toString</code> for
      * @param style
      *                  the style of the <code>toString</code> to create, may be
      *                  <code>null</code>
@@ -532,8 +530,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * Constructor.
      * 
      * @param object
-     *                  the Object to build a <code>toString</code> for, must not
-     *                  be <code>null</code>
+     *                  the Object to build a <code>toString</code> for
      * @param style
      *                  the style of the <code>toString</code> to create, may be
      *                  <code>null</code>
