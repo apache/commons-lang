@@ -24,7 +24,8 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.StringUtils} - Substring methods
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StringUtilsIsTest.java,v 1.8 2004/02/18 23:06:19 ggregory Exp $
+ * @author Michael Davey
+ * @version $Id: StringUtilsIsTest.java,v 1.9 2004/02/24 22:31:43 fredrik Exp $
  */
 public class StringUtilsIsTest extends TestCase {
 
@@ -123,6 +124,31 @@ public class StringUtilsIsTest extends TestCase {
         assertEquals(false, StringUtils.isAlphanumericSpace("hkHKHik*khbkuh"));
     }
 
+    public void testIsAsciiPrintable_String() {
+        assertEquals(false, StringUtils.isAsciiPrintable(null));
+        assertEquals(true, StringUtils.isAsciiPrintable(""));
+        assertEquals(true, StringUtils.isAsciiPrintable(" "));
+        assertEquals(true, StringUtils.isAsciiPrintable("a"));
+        assertEquals(true, StringUtils.isAsciiPrintable("A"));
+        assertEquals(true, StringUtils.isAsciiPrintable("1"));
+        assertEquals(true, StringUtils.isAsciiPrintable("Ceki"));
+        assertEquals(true, StringUtils.isAsciiPrintable("!ab2c~"));
+        assertEquals(true, StringUtils.isAsciiPrintable("1000"));
+        assertEquals(true, StringUtils.isAsciiPrintable("10 00"));
+        assertEquals(false, StringUtils.isAsciiPrintable("10\t00"));
+        assertEquals(true, StringUtils.isAsciiPrintable("10.00"));
+        assertEquals(true, StringUtils.isAsciiPrintable("10,00"));
+        assertEquals(true, StringUtils.isAsciiPrintable("!ab-c~"));
+        assertEquals(true, StringUtils.isAsciiPrintable("hkHK=Hik6i?UGH_KJgU7.tUJgKJ*GI87GI,kug"));
+        assertEquals(true, StringUtils.isAsciiPrintable("\u0020"));
+        assertEquals(true, StringUtils.isAsciiPrintable("\u0021"));
+        assertEquals(true, StringUtils.isAsciiPrintable("\u007e"));
+        assertEquals(false, StringUtils.isAsciiPrintable("\u007f"));
+        assertEquals(true, StringUtils.isAsciiPrintable("G?lc?"));
+        assertEquals(true, StringUtils.isAsciiPrintable("=?iso-8859-1?Q?G=FClc=FC?="));
+        assertEquals(false, StringUtils.isAsciiPrintable("G\u00fclc\u00fc"));
+    }
+  
     public void testIsNumeric() {
         assertEquals(false, StringUtils.isNumeric(null));
         assertEquals(true, StringUtils.isNumeric(""));
