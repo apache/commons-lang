@@ -167,6 +167,49 @@ public class DurationFormatUtilsTest extends TestCase {
         //assertEquals("P1Y2M3DT10H30M", text);
     }
 
+    public void testFormat() {
+        long time = 0;
+        assertEquals( "0", DurationFormatUtils.format(time, "y") );
+        assertEquals( "0", DurationFormatUtils.format(time, "M") );
+        assertEquals( "0", DurationFormatUtils.format(time, "d") );
+        assertEquals( "0", DurationFormatUtils.format(time, "H") );
+        assertEquals( "0", DurationFormatUtils.format(time, "m") );
+        assertEquals( "0", DurationFormatUtils.format(time, "s") );
+        assertEquals( "0", DurationFormatUtils.format(time, "S") );
+        assertEquals( "0000", DurationFormatUtils.format(time, "SSSS") );
+        assertEquals( "0000", DurationFormatUtils.format(time, "yyyy") );
+        assertEquals( "0000", DurationFormatUtils.format(time, "yyMM") );
+
+        time = 60 * 1000;
+        assertEquals( "0", DurationFormatUtils.format(time, "y") );
+        assertEquals( "0", DurationFormatUtils.format(time, "M") );
+        assertEquals( "0", DurationFormatUtils.format(time, "d") );
+        assertEquals( "0", DurationFormatUtils.format(time, "H") );
+        assertEquals( "1", DurationFormatUtils.format(time, "m") );
+        assertEquals( "60", DurationFormatUtils.format(time, "s") );
+        assertEquals( "60000", DurationFormatUtils.format(time, "S") );
+        assertEquals( "01:00", DurationFormatUtils.format(time, "mm:ss") );
+
+        time = 3 * DateUtils.MILLIS_PER_YEAR + 7 * DateUtils.MILLIS_PER_MONTH;
+        assertEquals( "37", DurationFormatUtils.format(time, "yM") );
+        assertEquals( "3 years 7 months", DurationFormatUtils.format(time, "y' years 'M' months'") );
+        assertEquals( "03/07", DurationFormatUtils.format(time, "yy/MM") );
+
+        time = 3 * DateUtils.MILLIS_PER_YEAR + 11 * DateUtils.MILLIS_PER_MONTH;
+        assertEquals( "311", DurationFormatUtils.format(time, "yM") );
+        assertEquals( "3 years 11 months", DurationFormatUtils.format(time, "y' years 'M' months'") );
+        assertEquals( "03/11", DurationFormatUtils.format(time, "yy/MM") );
+
+        time = 3 * DateUtils.MILLIS_PER_YEAR + 12 * DateUtils.MILLIS_PER_MONTH;
+        assertEquals( "40", DurationFormatUtils.format(time, "yM") );
+        assertEquals( "4 years 0 months", DurationFormatUtils.format(time, "y' years 'M' months'") );
+        assertEquals( "04/00", DurationFormatUtils.format(time, "yy/MM") );
+        assertEquals( "48", DurationFormatUtils.format(time, "M") );
+        assertEquals( "48", DurationFormatUtils.format(time, "MM") );
+        assertEquals( "048", DurationFormatUtils.format(time, "MMM") );
+
+    }
+
     public void testLexx() {
         // tests each constant
         assertArrayEquals( 
