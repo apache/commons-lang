@@ -65,7 +65,7 @@ import java.io.Serializable;
  * @author Travis Reeder
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: Fraction.java,v 1.2 2003/03/23 17:51:15 scolebourne Exp $
+ * @version $Id: Fraction.java,v 1.3 2003/04/09 01:08:30 ggregory Exp $
  */
 public final class Fraction extends Number implements Serializable, Comparable {
     
@@ -452,8 +452,8 @@ public final class Fraction extends Number implements Serializable, Comparable {
     }
     
     /**
-     * <p>Gets a fraction that is the positive equivalent
-     * (fraction >= 0 ? this : -fraction) of this one.</p>
+     * <p>Gets a fraction that is the positive equivalent of this one.</p>
+     * <p>More precisely: <pre>(fraction >= 0 ? this : -fraction)</pre></p>
      * 
      * <p>The returned fraction is not reduced.</p>
      * 
