@@ -64,7 +64,7 @@ import java.lang.reflect.Modifier;
  * , by Joshua Bloch. Writing a good <code>hashCode</code> is actually quite
  * difficult. This class aims to simplify the process.</p>
  *
- * <p> All relevant fields from the object should be included in the
+ * <p>All relevant fields from the object should be included in the
  * <code>hashCode</code>. Derived fields may be excluded. In general, any
  * field used in the equals method must be used in the <code>hashCode</code>
  * method.</p>
@@ -108,16 +108,16 @@ import java.lang.reflect.Modifier;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.12 2003/04/18 09:12:16 ggregory Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.13 2003/07/14 22:25:03 bayard Exp $
  */
 public class HashCodeBuilder {
 
     /**
-     * Constant to use in building the hashCode
+     * Constant to use in building the hashCode.
      */
     private final int iConstant;
     /**
-     * Running total of the hashCode
+     * Running total of the hashCode.
      */
     private int iTotal = 0;
 
@@ -178,7 +178,7 @@ public class HashCodeBuilder {
      * also not as efficient as testing explicitly.</p>
      *
      * <p>Transient members will be not be used, as they are likely derived
-     * fields, and not part of the value of the Object.</p>
+     * fields, and not part of the value of the <code>Object</code>.</p>
      *
      * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
@@ -203,7 +203,7 @@ public class HashCodeBuilder {
      *
      * <P>If the TestTransients parameter is set to <code>true</code>, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the Object.</p>
+     * derived fields, and not part of the value of the <code>Object</code>.</p>
      *
      * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
@@ -225,7 +225,7 @@ public class HashCodeBuilder {
      * also not as efficient as testing explicitly.</p>
      *
      * <p>Transient members will be not be used, as they are likely derived
-     * fields, and not part of the value of the Object.</p>
+     * fields, and not part of the value of the <code>Object</code>.</p>
      *
      * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
@@ -255,7 +255,7 @@ public class HashCodeBuilder {
      *
      * <p>If the TestTransients parameter is set to <code>true</code>, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the Object.</p>
+     * derived fields, and not part of the value of the <code>Object</code>.</p>
      *
      * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
@@ -287,7 +287,7 @@ public class HashCodeBuilder {
      *
      * <p>If the TestTransients parameter is set to <code>true</code>, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the Object.</p>
+     * derived fields, and not part of the value of the <code>Object</code>.</p>
      *
      * <p>Static fields will not be included. Superclass fields will be included
      * up to and including the specified superclass. A null superclass is treated
@@ -301,7 +301,8 @@ public class HashCodeBuilder {
      * @param multiplierNonZeroOddNumber  a non-zero, odd number used as the multiplier
      * @param object  the Object to create a <code>hashCode</code> for
      * @param testTransients  whether to include transient fields
-     * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be null
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
+     *  may be <code>null</code>
      * @return int hash code
      * @throws IllegalArgumentException if the Object is <code>null</code>
      * @throws IllegalArgumentException if the number is zero or even
@@ -327,8 +328,8 @@ public class HashCodeBuilder {
     }
 
     /**
-     * Appends the fields and values defined by the given object of the
-     * given Class.
+     * <p>Appends the fields and values defined by the given object of the
+     * given <code>Class</code>.</p>
      * 
      * @param object  the object to append details of
      * @param clazz  the class to append details of

@@ -70,47 +70,85 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.17 2003/07/12 10:09:40 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.18 2003/07/14 22:25:02 bayard Exp $
  */
 public class ArrayUtils {
 
-    /** An empty immutable object array */
+    /**
+     * An empty immutable <code>Object</code> array.
+     */
     public static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
-    /** An empty immutable class array */
+    /**
+     * An empty immutable <code>Class</code> array.
+     */
     public static final Class[] EMPTY_CLASS_ARRAY = new Class[0];
-    /** An empty immutable string array */
+    /**
+     * An empty immutable <code>String</code> array.
+     */
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
-    /** An empty immutable long array */
+    /**
+     * An empty immutable <code>long</code> array.
+     */
     public static final long[] EMPTY_LONG_ARRAY = new long[0];
-    /** An empty immutable Long array */
+    /**
+     * An empty immutable <code>Long</code> array.
+     */
     public static final Long[] EMPTY_LONG_OBJECT_ARRAY = new Long[0];
-    /** An empty immutable int array */
+    /**
+     * An empty immutable <code>int</code> array.
+     */
     public static final int[] EMPTY_INT_ARRAY = new int[0];
-    /** An empty immutable Integer array */
+    /**
+     * An empty immutable <code>Integer</code> array.
+     */
     public static final Integer[] EMPTY_INTEGER_OBJECT_ARRAY = new Integer[0];
-    /** An empty immutable short array */
+    /**
+     * An empty immutable <code>short</code> array.
+     */
     public static final short[] EMPTY_SHORT_ARRAY = new short[0];
-    /** An empty immutable Short array */
+    /**
+     * An empty immutable <code>Short</code> array.
+     */
     public static final Short[] EMPTY_SHORT_OBJECT_ARRAY = new Short[0];
-    /** An empty immutable byte array */
+    /**
+     * An empty immutable <code>byte</code> array.
+     */
     public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
-    /** An empty immutable Byte array */
+    /**
+     * An empty immutable <code>Byte</code> array.
+     */
     public static final Byte[] EMPTY_BYTE_OBJECT_ARRAY = new Byte[0];
-    /** An empty immutable double array */
+    /**
+     * An empty immutable <code>double</code> array.
+     */
     public static final double[] EMPTY_DOUBLE_ARRAY = new double[0];
-    /** An empty immutable Double array */
+    /**
+     * An empty immutable <code>Double</code> array.
+     */
     public static final Double[] EMPTY_DOUBLE_OBJECT_ARRAY = new Double[0];
-    /** An empty immutable float array */
+    /**
+     * An empty immutable <code>float</code> array.
+     */
     public static final float[] EMPTY_FLOAT_ARRAY = new float[0];
-    /** An empty immutable Float array */
+    /**
+     * An empty immutable <code>Float</code> array.
+     */
     public static final Float[] EMPTY_FLOAT_OBJECT_ARRAY = new Float[0];
-    /** An empty immutable boolean array */
+    /**
+     * An empty immutable <code>boolean</code> array.
+     */
     public static final boolean[] EMPTY_BOOLEAN_ARRAY = new boolean[0];
-    /** An empty immutable Boolean array */
+    /**
+     * An empty immutable <code>Boolean</code> array.
+     */
     public static final Boolean[] EMPTY_BOOLEAN_OBJECT_ARRAY = new Boolean[0];
-    /** An empty immutable char array */
+    /**
+     * An empty immutable <code>char</code> array.
+     */
     public static final char[] EMPTY_CHAR_ARRAY = new char[0];
-    /** An empty immutable Character array */
+    /**
+     * An empty immutable <code>Character</code> array.
+     */
     public static final Character[] EMPTY_CHARACTER_OBJECT_ARRAY = new Character[0];
 
     /**
@@ -131,7 +169,7 @@ public class ArrayUtils {
      * <p>Multi-dimensional arrays are handled correctly, including
      * multi-dimensional primitive arrays.</p>
      *
-     * <p>The format is that of Java source code, for example {a,b}.</p>
+     * <p>The format is that of Java source code, for example <code>{a,b}</code>.</p>
      * 
      * @param array  the array to get a toString for, may be <code>null</code>
      * @return a String representation of the array, '{}' if <code>null</code> passed in
@@ -146,7 +184,7 @@ public class ArrayUtils {
      * <p>Multi-dimensional arrays are handled correctly, including
      * multi-dimensional primitive arrays.</p>
      *
-     * <p>The format is that of Java source code, for example {a,b}.</p>
+     * <p>The format is that of Java source code, for example <code>{a,b}</code>.</p>
      * 
      * @param array  the array to get a toString for, may be <code>null</code>
      * @param stringIfNull  the String to return if the array is <code>null</code>
@@ -801,7 +839,7 @@ public class ArrayUtils {
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
-     * @return the index of the object within the array, or -1 if not found
+     * @return the index of the object within the array, or <code>-1</code> if not found
      */
     public static int indexOf(final Object[] array, final Object objectToFind) {
         return indexOf(array, objectToFind, 0);
@@ -813,13 +851,13 @@ public class ArrayUtils {
      * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return -1.</p>
+     * length will return <code>-1</code>.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
      * @param startIndex  the index to start searching at
      * @return the index of the object within the array starting at the
-     *  given index, or -1 if not found
+     *  given index, or <code>-1</code> if not found
      */
     public static int indexOf(final Object[] array, final Object objectToFind, int startIndex) {
         if (array == null) {
@@ -851,7 +889,7 @@ public class ArrayUtils {
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
-     * @return the last index of the object to find, or -1 if not found
+     * @return the last index of the object to find, or <code>-1</code> if not found
      */
     public static int lastIndexOf(final Object[] array, final Object objectToFind) {
         return lastIndexOf(array, objectToFind, Integer.MAX_VALUE);
@@ -862,14 +900,14 @@ public class ArrayUtils {
      *
      * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
      *
-     * <p>A negative startIndex will return -1. A startIndex larger than the array
-     * length will search from the end of the array.</p>
+     * <p>A negative startIndex will return <code>-1</code>. A startIndex larger than
+     * the array length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
      * @param startIndex  the start index to travers backwards from
      * @return the last index of the object within the array starting at the given index,
-     *  or -1 if not found
+     *  or <code>-1</code> if not found
      */
     public static int lastIndexOf(final Object[] array, final Object objectToFind, int startIndex) {
         if (array == null) {
@@ -1644,7 +1682,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Converts an array of object Booleans to primitives handling null.</p>
+     * <p>Converts an array of object Booleans to primitives handling <code>null</code>.</p>
      * 
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
@@ -1712,7 +1750,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Converts an array of object Bytes to primitives handling null.</p>
+     * <p>Converts an array of object Bytes to primitives handling <code>null</code>.</p>
      * 
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
@@ -1780,7 +1818,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Converts an array of object Short to primitives handling null.</p>
+     * <p>Converts an array of object Short to primitives handling <code>null</code>.</p>
      * 
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
@@ -1848,7 +1886,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Converts an array of object Integer to primitives handling null.</p>
+     * <p>Converts an array of object Integer to primitives handling <code>null</code>.</p>
      * 
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
@@ -1916,7 +1954,7 @@ public class ArrayUtils {
     }
     
     /**
-     * <p>Converts an array of object Long to primitives handling null.</p>
+     * <p>Converts an array of object Long to primitives handling <code>null</code>.</p>
      * 
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
@@ -1984,7 +2022,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Converts an array of object Floats to primitives handling null.</p>
+     * <p>Converts an array of object Floats to primitives handling <code>null</code>.</p>
      * 
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
@@ -2052,7 +2090,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Converts an array of object Doubles to primitives handling null.</p>
+     * <p>Converts an array of object Doubles to primitives handling <code>null</code>.</p>
      * 
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 

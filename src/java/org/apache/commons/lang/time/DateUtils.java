@@ -66,13 +66,14 @@ import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
 /**
- * A suite of utilities surrounding the use of the Calendar and Date object.
+ * <p>A suite of utilities surrounding the use of the
+ * {@link java.util.Calendar} and {@link java.util.Date} object.</p>
  *
  * @author <a href="mailto:sergek@lokitech.com">Serge Knystautas</a>
  * @author Stephen Colebourne
  * @author Janek Bogucki
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.5 2003/06/28 17:49:53 scolebourne Exp $
+ * @version $Id: DateUtils.java,v 1.6 2003/07/14 22:25:05 bayard Exp $
  */
 public class DateUtils {
     
@@ -164,16 +165,19 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * Round this date, leaving the field specified as the most significant
-     * field.  For example, if you had the datetime of 28 Mar 2002
-     * 13:45:01.231, if this was passed with HOUR, it would return 28 Mar
-     * 2002 14:00:00.000.  If this was passed with MONTH, it would return
-     * 1 April 2002 0:00:00.000.
+     * <p>Round this date, leaving the field specified as the most
+     * significant field.</p>
+     *
+     * <p>For example, if you had the datetime of 28 Mar 2002
+     * 13:45:01.231, if this was passed with HOUR, it would return
+     * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
+     * would return 1 April 2002 0:00:00.000.</p>
      * 
      * @param date  the date to work with
-     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @param field  the field from <code>Calendar</code>
+     *  or <code>SEMI_MONTH</code>
      * @return the rounded date
-     * @throws IllegalArgumentException if the date is null
+     * @throws IllegalArgumentException if the date is <code>null</code>
      */
     public static Date round(Date date, int field) {
         if (date == null) {
@@ -186,16 +190,19 @@ public class DateUtils {
     }
 
     /**
-     * Round this date, leaving the field specified as the most significant
-     * field.  For example, if you had the datetime of 28 Mar 2002
-     * 13:45:01.231, if this was passed with HOUR, it would return 28 Mar
-     * 2002 14:00:00.000.  If this was passed with MONTH, it would return
-     * 1 April 2002 0:00:00.000.
+     * <p>Round this date, leaving the field specified as the most
+     * significant field.</p>
+     *
+     * <p>For example, if you had the datetime of 28 Mar 2002
+     * 13:45:01.231, if this was passed with HOUR, it would return
+     * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
+     * would return 1 April 2002 0:00:00.000.</p>
      * 
      * @param date  the date to work with
-     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @param field  the field from <code>Calendar</code>
+     *  or <code>SEMI_MONTH</code>
      * @return the rounded date (a different object)
-     * @throws IllegalArgumentException if the date is null
+     * @throws IllegalArgumentException if the date is <code>null</code>
      */
     public static Calendar round(Calendar date, int field) {
         if (date == null) {
@@ -207,17 +214,21 @@ public class DateUtils {
     }
 
     /**
-     * Round this date, leaving the field specified as the most significant
-     * field.  For example, if you had the datetime of 28 Mar 2002
-     * 13:45:01.231, if this was passed with HOUR, it would return 28 Mar
-     * 2002 14:00:00.000.  If this was passed with MONTH, it would return
-     * 1 April 2002 0:00:00.000.
+     * <p>Round this date, leaving the field specified as the most
+     * significant field.</p>
+     *
+     * <p>For example, if you had the datetime of 28 Mar 2002
+     * 13:45:01.231, if this was passed with HOUR, it would return
+     * 28 Mar 2002 14:00:00.000. If this was passed with MONTH, it
+     * would return 1 April 2002 0:00:00.000.</p>
      * 
      * @param date  the date to work with, either Date or Calendar
-     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @param field  the field from <code>Calendar</code>
+     *  or <code>SEMI_MONTH</code>
      * @return the rounded date
-     * @throws IllegalArgumentException if the date is null
-     * @throws ClassCastException if the object type is not a Date or Calendar
+     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws ClassCastException if the object type is not a <code>Date</code>
+     *  or <code>Calendar</code>
      */
     public static Date round(Object date, int field) {
         if (date == null) {
@@ -234,16 +245,19 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * Truncate this date, leaving the field specified as the most significant
-     * field.  For example, if you had the datetime of 28 Mar 2002
+     * <p>Truncate this date, leaving the field specified as the most
+     * significant field.</p>
+     *
+     * <p>For example, if you had the datetime of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
-     * 2002 13:00:00.000.  If this was passed with MONTH, it would return
-     * 1 Mar 2002 0:00:00.000.
+     * 2002 13:00:00.000.  If this was passed with MONTH, it would
+     * return 1 Mar 2002 0:00:00.000.</p>
      * 
      * @param date  the date to work with
-     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @param field  the field from <code>Calendar</code>
+     *  or <code>SEMI_MONTH</code>
      * @return the rounded date
-     * @throws IllegalArgumentException if the date is null
+     * @throws IllegalArgumentException if the date is <code>null</code>
      */
     public static Date truncate(Date date, int field) {
         if (date == null) {
@@ -256,16 +270,19 @@ public class DateUtils {
     }
 
     /**
-     * Truncate this date, leaving the field specified as the most significant
-     * field.  For example, if you had the datetime of 28 Mar 2002
+     * <p>Truncate this date, leaving the field specified as the most
+     * significant field.</p>
+     *
+     * <p>For example, if you had the datetime of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
-     * 2002 13:00:00.000.  If this was passed with MONTH, it would return
-     * 1 Mar 2002 0:00:00.000.
+     * 2002 13:00:00.000.  If this was passed with MONTH, it would
+     * return 1 Mar 2002 0:00:00.000.</p>
      * 
      * @param date  the date to work with
-     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @param field  the field from <code>Calendar</code>
+     *  or <code>SEMI_MONTH</code>
      * @return the rounded date (a different object)
-     * @throws IllegalArgumentException if the date is null
+     * @throws IllegalArgumentException if the date is <code>null</code>
      */
     public static Calendar truncate(Calendar date, int field) {
         if (date == null) {
@@ -277,17 +294,23 @@ public class DateUtils {
     }
 
     /**
-     * Truncate this date, leaving the field specified as the most significant
-     * field.  For example, if you had the datetime of 28 Mar 2002
+     * <p>Truncate this date, leaving the field specified as the most
+     * significant field.</p>
+     *
+     * <p>For example, if you had the datetime of 28 Mar 2002
      * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
-     * 2002 13:00:00.000.  If this was passed with MONTH, it would return
-     * 1 Mar 2002 0:00:00.000.
+     * 2002 13:00:00.000.  If this was passed with MONTH, it would
+     * return 1 Mar 2002 0:00:00.000.</p>
      * 
-     * @param date  the date to work with, either Date or Calendar
-     * @param field  the field from <code>Calendar</code> or SEMI_MONTH
+     * @param date  the date to work with, either <code>Date</code>
+     *  or <code>Calendar</code>
+     * @param field  the field from <code>Calendar</code>
+     *  or <code>SEMI_MONTH</code>
      * @return the rounded date
-     * @throws IllegalArgumentException if the date is null
-     * @throws ClassCastException if the object type is not a Date or Calendar
+     * @throws IllegalArgumentException if the date
+     *  is <code>null</code>
+     * @throws ClassCastException if the object type is not a
+     *  <code>Date</code> or <code>Calendar</code>
      */
     public static Date truncate(Object date, int field) {
         if (date == null) {
@@ -304,7 +327,7 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * Internal calculation method
+     * <p>Internal calculation method.</p>
      * 
      * @param val  the calendar
      * @param field  the field constant
@@ -387,7 +410,7 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * Parses a date string formatted in CVS format.
+     * <p>Parses a date string formatted in CVS format.</p>
      * 
      * @param dateStr  the date to parse
      * @return the parsed date
@@ -398,7 +421,7 @@ public class DateUtils {
     }
 
     /**
-     * Parses a date string formatted in CVS format.
+     * <p>Parses a date string formatted in CVS format.</p>
      * 
      * @param dateStr  the date to parse
      * @param locale  the locale to parse in
@@ -517,16 +540,19 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * This constructs an Iterator that will start and stop over a date
-     * range based on the focused date and the range style.  For instance,
-     * passing Thursday, July 4, 2002 and a RANGE_MONTH_SUNDAY will return
-     * an Iterator that starts with Sunday, June 30, 2002 and ends with
-     * Saturday, August 3, 2002.
+     * <p>This constructs an <code>Iterator</code> that will
+     * start and stop over a date range based on the focused
+     * date and the range style.</p>
+     *
+     * <p>For instance, passing Thursday, July 4, 2002 and a
+     * <code>RANGE_MONTH_SUNDAY</code> will return an
+     * <code>Iterator</code> that starts with Sunday, June 30,
+     * 2002 and ends with Saturday, August 3, 2002.
      * 
      * @param focus  the date to work with
      * @param rangeStyle  the style constant to use
      * @return the date iterator
-     * @throws IllegalArgumentException if the date is null
+     * @throws IllegalArgumentException if the date is <code>null</code>
      */
     public static Iterator iterator(Date focus, int rangeStyle) {
         if (focus == null) {
@@ -538,16 +564,19 @@ public class DateUtils {
     }
 
     /**
-     * This constructs an Iterator that will start and stop over a date
-     * range based on the focused date and the range style.  For instance,
-     * passing Thursday, July 4, 2002 and a RANGE_MONTH_SUNDAY will return
-     * an Iterator that starts with Sunday, June 30, 2002 and ends with
-     * Saturday, August 3, 2002.
+     * <p>This constructs an <code>Iterator</code> that will
+     * start and stop over a date range based on the focused
+     * date and the range style.</p>
+     *
+     * <p>For instance, passing Thursday, July 4, 2002 and a
+     * <code>RANGE_MONTH_SUNDAY</code> will return an
+     * <code>Iterator</code> that starts with Sunday, June 30,
+     * 2002 and ends with Saturday, August 3, 2002.
      * 
      * @param focus  the date to work with
      * @param rangeStyle  the style constant to use
      * @return the date iterator
-     * @throws IllegalArgumentException if the date is null
+     * @throws IllegalArgumentException if the date is <code>null</code>
      */
     public static Iterator iterator(Calendar focus, int rangeStyle) {
         if (focus == null) {
@@ -622,17 +651,23 @@ public class DateUtils {
     }
 
     /**
-     * This constructs an Iterator that will start and stop over a date
-     * range based on the focused date and the range style.  For instance,
-     * passing Thursday, July 4, 2002 and a RANGE_MONTH_SUNDAY will return
-     * an Iterator that starts with Sunday, June 30, 2002 and ends with
-     * Saturday, August 3, 2002.
+     * <p>This constructs an <code>Iterator</code> that will
+     * start and stop over a date range based on the focused
+     * date and the range style.</p>
+     *
+     * <p>For instance, passing Thursday, July 4, 2002 and a
+     * <code>RANGE_MONTH_SUNDAY</code> will return an
+     * <code>Iterator</code> that starts with Sunday, June 30,
+     * 2002 and ends with Saturday, August 3, 2002.</p>
      * 
-     * @param focus  the date to work with, either Date or Calendar
+     * @param focus  the date to work with, either
+     *  <code>Date</code> or <code>Calendar</code>
      * @param rangeStyle  the style constant to use
      * @return the date iterator
-     * @throws IllegalArgumentException if the date is null
-     * @throws ClassCastException if the object type is not a Date or Calendar
+     * @throws IllegalArgumentException if the date
+     *  is <code>null</code>
+     * @throws ClassCastException if the object type is
+     *  not a <code>Date</code> or <code>Calendar</code>
      */
     public static Iterator iterator(Object focus, int rangeStyle) {
         if (focus == null) {
@@ -648,7 +683,7 @@ public class DateUtils {
     }
 
     /**
-     * Date iterator.
+     * <p>Date iterator.</p>
      */
     static class DateIterator implements Iterator {
         private final Calendar endFinal;

@@ -65,7 +65,7 @@ package org.apache.commons.lang.builder;
  *
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: StandardToStringStyle.java,v 1.8 2003/03/23 17:54:16 scolebourne Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.9 2003/07/14 22:25:03 bayard Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
@@ -419,7 +419,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * <p><code>Null</code> is accepted, but will be converted
      * to a empty String.</p>
      *
-     * @param nullText  the new text to output when null found
+     * @param nullText  the new text to output when <code>null</code> found
      */
     public void setNullText(String nullText) {
         super.setNullText(nullText);

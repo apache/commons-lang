@@ -67,7 +67,7 @@ import java.util.Random;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: IdentifierUtils.java,v 1.5 2003/05/16 22:06:43 scolebourne Exp $
+ * @version $Id: IdentifierUtils.java,v 1.6 2003/07/14 22:25:06 bayard Exp $
  */
 public class IdentifierUtils {
 
@@ -80,10 +80,10 @@ public class IdentifierUtils {
      * 
      * <p>The objects returned are:</p>
      * <ul>
-     * <li>new Long(0L)
-     * <li>new Long(1L)
-     * <li>new Long(2L)
-     * <li>...
+     * <li>new Long(0L)</li>
+     * <li>new Long(1L)</li>
+     * <li>new Long(2L)</li>
+     * <li>...</li>
      * </ul>
 	 */
     public static final LongIdentifierFactory LONG_IDENTIFIER_FACTORY = new LongNumericIdentifierFactory(true, 0L);
@@ -96,10 +96,10 @@ public class IdentifierUtils {
      * 
      * <p>The objects returned are:</p>
      * <ul>
-     * <li>"0"
-     * <li>"1"
-     * <li>"2"
-     * <li>...
+     * <li>&quot;0&quot;</li>
+     * <li>&quot;1&quot;</li>
+     * <li>&quot;2&quot;</li>
+     * <li>...</li>
      * </ul>
      */
     public static final StringIdentifierFactory STRING_NUMERIC_IDENTIFIER_FACTORY = new StringNumericIdentifierFactory(true, 0L);
@@ -113,18 +113,18 @@ public class IdentifierUtils {
      * 
      * <p>The objects returned are:</p>
      * <ul>
-     * <li>"000000000000001"
-     * <li>"000000000000002"
-     * <li>"000000000000003"
+     * <li>&quot;000000000000001&quot;</li>
+     * <li>&quot;000000000000002&quot;</li>
+     * <li>&quot;000000000000003&quot;</li>
      * <li>...
-     * <li>"00000000000000y"
-     * <li>"00000000000000z"
-     * <li>"000000000000010"
-     * <li>"000000000000011"
+     * <li>&quot;00000000000000y&quot;</li>
+     * <li>&quot;00000000000000z&quot;</li>
+     * <li>&quot;000000000000010&quot;</li>
+     * <li>&quot;000000000000011&quot;</li>
      * <li>...
-     * <li>"00000000000001z"
-     * <li>"000000000000020"
-     * <li>...
+     * <li>&quot;00000000000001z&quot;</li>
+     * <li>&quot;000000000000020&quot;</li>
+     * <li>...</li>
      * </ul>
      */
     public static final StringIdentifierFactory STRING_ALPHANUMERIC_IDENTIFIER_FACTORY = new StringAlphanumericIdentifierFactory(true, 15);
@@ -156,8 +156,7 @@ public class IdentifierUtils {
     
     /**
      * <p>Gets the next identifier using the singleton instance of the
-     * Long factory.
-     * </p>
+     * Long factory.</p>
      * 
      * <p>The singleton instance will wrap, so in a long-lived server, the id
      * may be duplicated.</p>
@@ -185,7 +184,7 @@ public class IdentifierUtils {
      * <p>Gets a new identifier factory that returns a series of Long objects
      * increasing in size.</p>
      * 
-     * @param wrap  should the factory wrap when it reaches the maximum 
+     * @param wrap should the factory wrap when it reaches the maximum
      *  long value (or throw an IllegalStateException)
      * @param initialValue  the initial long value to start at
      * @return a new identifier factory
@@ -198,8 +197,7 @@ public class IdentifierUtils {
     
     /**
      * <p>Gets the next identifier using the singleton instance of the
-     * String Numeric factory.
-     * </p>
+     * String Numeric factory.</p>
      * 
      * <p>The singleton instance will wrap, so in a long-lived server, the id
      * may be duplicated.</p>
@@ -227,7 +225,7 @@ public class IdentifierUtils {
      * <p>Gets a new identifier factory that returns a series of String objects
      * representing numbers increasing in size.</p>
      * 
-     * @param wrap  should the factory wrap when it reaches the maximum 
+     * @param wrap should the factory wrap when it reaches the maximum
      *  long value (or throw an IllegalStateException)
      * @param initialValue  the initial long value to start at
      * @return a new identifier factory
@@ -240,8 +238,7 @@ public class IdentifierUtils {
     
     /**
      * <p>Gets the next identifier using the singleton instance of the
-     * String Alphanumeric factory.
-     * </p>
+     * String Alphanumeric factory.</p>
      * 
      * <p>The singleton instance will wrap, so in a long-lived server, the id
      * may be duplicated.</p>
@@ -268,7 +265,7 @@ public class IdentifierUtils {
      * <p>Gets a new identifier factory that returns a series of String objects
      * representing numbers increasing in size in base-36.</p>
      * 
-     * @param wrap  should the factory wrap when it reaches the maximum 
+     * @param wrap should the factory wrap when it reaches the maximum
      *  size (or throw an IllegalStateException)
      * @param size  the number of characters the id should fill
      * @return a new identifier factory
@@ -281,8 +278,7 @@ public class IdentifierUtils {
     
     /**
      * <p>Gets the next identifier using the singleton instance of the
-     * String Session factory.
-     * </p>
+     * String Session factory.</p>
      * 
      * <p>The generation routine is based on a random number and a counter
      * within a 2 second time interval.</p>
@@ -295,8 +291,7 @@ public class IdentifierUtils {
 
     /**
      * <p>Gets a new identifier factory that returns a series of String objects
-     * that appear to be random and are suitable for use as session identifiers.
-     * </p>
+     * that appear to be random and are suitable for use as session identifiers.</p>
      * 
      * <p>The generation routine is based on a random number and a counter
      * within a 2 second time interval.</p>
@@ -310,8 +305,8 @@ public class IdentifierUtils {
     //---------------------------------------------------------------------------------
 
     /**
-     * <code>LongIdentifierFactory</code> is an Identifier Factory
-     * that generates an incrementing number as a Long object.
+     * <p><code>LongIdentifierFactory</code> is an Identifier Factory
+     * that generates an incrementing number as a Long object.</p>
      *
      * @author Stephen Colebourne
      */
@@ -323,9 +318,9 @@ public class IdentifierUtils {
         private long count = 0;
     
         /**
-         * Constructor.
+         * <p>Constructor.</p>
          * 
-         * @param wrap  should the factory wrap when it reaches the maximum 
+         * @param wrap should the factory wrap when it reaches the maximum
          *  long value (or throw an exception)
          * @param initialValue  the initial long value to start at
          */
@@ -336,7 +331,7 @@ public class IdentifierUtils {
         }
 
         /**
-         * Gets the next new identifier.
+         * <p>Gets the next new identifier.</p>
          * 
          * @return a new identifier as a Long
          */
@@ -345,7 +340,7 @@ public class IdentifierUtils {
         }
         
         /**
-         * Gets the next new identifier.
+         * <p>Gets the next new identifier.</p>
          * 
          * @return a new identifier as a Long
          */
@@ -370,8 +365,8 @@ public class IdentifierUtils {
     //---------------------------------------------------------------------------------
 
     /**
-     * <code>StringNumericIdentifierFactory</code> is an Identifier Factory
-     * that generates an incrementing number as a String object.
+     * <p><code>StringNumericIdentifierFactory</code> is an Identifier Factory
+     * that generates an incrementing number as a String object.</p>
      *
      * @author Stephen Colebourne
      */
@@ -383,9 +378,9 @@ public class IdentifierUtils {
         private long count = 0;
         
         /**
-         * Constructor.
+         * <p>Constructor.</p>
          * 
-         * @param wrap  should the factory wrap when it reaches the maximum 
+         * @param wrap should the factory wrap when it reaches the maximum
          *  long value (or throw an exception)
          * @param initialValue  the initial long value to start at
          */
@@ -396,7 +391,7 @@ public class IdentifierUtils {
         }
 
         /**
-         * Gets the next new identifier.
+         * <p>Gets the next new identifier.</p>
          * 
          * @return a new identifier as a String
          */
@@ -405,7 +400,7 @@ public class IdentifierUtils {
         }
         
         /**
-         * Gets the next new identifier.
+         * <p>Gets the next new identifier.</p>
          * 
          * @return a new identifier as a String
          */
@@ -431,9 +426,9 @@ public class IdentifierUtils {
     //---------------------------------------------------------------------------------
 
     /**
-     * <code>StringAlphanumericIdentifierFactory</code> is an Identifier Factory
+     * <p><code>StringAlphanumericIdentifierFactory</code> is an Identifier Factory
      * that generates an incrementing incrementing number in base 36 as a String
-     * object.
+     * object.</p>
      *
      * @author Stephen Colebourne
      */
@@ -445,9 +440,9 @@ public class IdentifierUtils {
         private char[] count = null;
         
         /**
-         * Constructor.
+         * <p>Constructor.</p>
          * 
-         * @param wrap  should the factory wrap when it reaches the maximum 
+         * @param wrap should the factory wrap when it reaches the maximum
          *  long value (or throw an exception)
          * @param size  the size of the identifier
          */
@@ -464,7 +459,7 @@ public class IdentifierUtils {
         }
 
         /**
-         * Gets the next new identifier.
+         * <p>Gets the next new identifier.</p>
          * 
          * @return a new identifier as a String
          */
@@ -473,7 +468,7 @@ public class IdentifierUtils {
         }
         
         /**
-         * Gets the next new identifier.
+         * <p>Gets the next new identifier.</p>
          * 
          * @return a new identifier as a String
          */
@@ -547,14 +542,14 @@ public class IdentifierUtils {
         private Random randomizer = new Random();
 
         /**
-         * Constructor.
+         * <p>Constructor.</p>
          */
         private StringSessionIdentifierFactory() {
             super();
         }
         
         /**
-         * Gets the next identifier.
+         * <p>Gets the next identifier.</p>
          * 
          * @return the next 10 char String identifier
          */
@@ -563,11 +558,13 @@ public class IdentifierUtils {
         }
 
         /**
-         * Gets the next new identifier. Only guaranteed unique within
-         * this JVM, but fairly safe for cross JVM usage as well.
+         * <p>Gets the next new identifier.</p>
+         *
+         * <p>Only guaranteed unique within this JVM, but fairly safe
+         * for cross JVM usage as well.</p>
          * 
          * <p>Format of identifier is
-         * [6 chars random][3 chars time][1+ chars count]</p>
+         * <code>[6 chars random][3 chars time][1+ chars count]</code></p>
          * 
          * @return the next 10 char String identifier
          */

@@ -56,14 +56,15 @@ package org.apache.commons.lang.enum;
 import java.util.Iterator;
 import java.util.List;
 /**
- * Abstract superclass for type-safe enums with integer values suitable
- * for use in <code>switch</code> statements.
- * <p>
- * <em>NOTE:</em>Due to the way in which Java ClassLoaders work, comparing Enum objects
- * should always be done using the equals() method, not ==. The equals() method will
- * try == first so in most cases the effect is the same.
- * <p>
- * To use this class, it must be subclassed. For example:
+ * <p>Abstract superclass for type-safe enums with integer values suitable
+ * for use in <code>switch</code> statements.</p>
+ *
+ * <p><em>NOTE:</em>Due to the way in which Java ClassLoaders work, comparing
+ * <code>Enum</code> objects should always be done using the equals() method,
+ * not <code>==</code>. The equals() method will try <code>==</code> first so
+ * in most cases the effect is the same.</p>
+ *
+ * <p>To use this class, it must be subclassed. For example:</p>
  *
  * <pre>
  * public final class JavaVersionEnum extends ValuedEnum {
@@ -103,7 +104,8 @@ import java.util.List;
  * }
  * </pre>
  *
- * The above class could then be used as follows:
+ * <p>The above class could then be used as follows:</p>
+ *
  * <pre>
  * public void doSomething(JavaVersion ver) {
  *   switch (ver.getValue()) {
@@ -117,20 +119,19 @@ import java.util.List;
  *   }
  * }
  * </pre>
- * <p>
- * As shown, each enum has a name and a value. These can be accessed using 
- * <code>getName</code> and <code>getValue</code>.
- * <p>
- * The <code>getEnum</code> and <code>iterator</code> methods are recommended.
+ *
+ * <p>As shown, each enum has a name and a value. These can be accessed using
+ * <code>getName</code> and <code>getValue</code>.</p>
+ *
+ * <p>The <code>getEnum</code> and <code>iterator</code> methods are recommended.
  * Unfortunately, Java restrictions require these to be coded as shown in each subclass.
- * An alternative choice is to use the {@link EnumUtils} class.
- * <p>
- * <em>NOTE:</em> This class originated in the Jakarta Avalon project.
- * </p>
+ * An alternative choice is to use the {@link EnumUtils} class.</p>
+ *
+ * <p><em>NOTE:</em> This class originated in the Jakarta Avalon project.</p>
  *
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.5 2003/02/04 18:30:07 scolebourne Exp $
+ * @version $Id: ValuedEnum.java,v 1.6 2003/07/14 22:25:04 bayard Exp $
  */
 public abstract class ValuedEnum extends Enum {
     /**
@@ -150,14 +151,16 @@ public abstract class ValuedEnum extends Enum {
     }
 
     /**
-     * Gets an Enum object by class and value.
-     * This method loops through the list of Enums, thus if there
-     * are many Enums this will be slow.
+     * <p>Gets an <code>Enum</code> object by class and value.</p>
+     *
+     * <p>This method loops through the list of <code>Enum</code>,
+     * thus if there are many <code>Enum</code>s this will be
+     * slow.</p>
      * 
-     * @param enumClass  the class of the Enum to get
-     * @param value  the value of the Enum to get
+     * @param enumClass  the class of the <code>Enum</code> to get
+     * @param value  the value of the <code>Enum</code> to get
      * @return the enum object, or null if the enum does not exist
-     * @throws IllegalArgumentException if the enum class is null
+     * @throws IllegalArgumentException if the enum class is <code>null</code>
      */
     protected static Enum getEnum(Class enumClass, int value) {
         if (enumClass == null) {
@@ -174,7 +177,7 @@ public abstract class ValuedEnum extends Enum {
     }
 
     /**
-     * Get value of enum item.
+     * <p>Get value of enum item.</p>
      *
      * @return the enum item's value.
      */
@@ -183,25 +186,30 @@ public abstract class ValuedEnum extends Enum {
     }
 
     /**
-     * Tests for order. The default ordering is numeric by value, but this
-     * can be overridden by subclasses.
+     * <p>Tests for order.</p>
+     *
+     * <p>The default ordering is numeric by value, but this
+     * can be overridden by subclasses.</p>
      * 
      * @see java.lang.Comparable#compareTo(Object)
      * @param other  the other object to compare to
-     * @return -ve if this is less than the other object, +ve if greater than, 0 of equal
-     * @throws ClassCastException if other is not an Enum
-     * @throws NullPointerException if other is null
+     * @return -ve if this is less than the other object, +ve if greater than,
+     *  <code>0</code> of equal
+     * @throws ClassCastException if other is not an <code>Enum</code>
+     * @throws NullPointerException if other is <code>null</code>
      */
     public int compareTo(Object other) {
         return iValue - ((ValuedEnum) other).iValue;
     }
 
     /**
-     * Human readable description of this Enum item. For use when debugging.
+     * <p>Human readable description of this <code>Enum</code> item.</p>
+     *
+     * <p>For use when debugging.</p>
      * 
      * @return String in the form <code>type[name=value]</code>, for example:
-     * <code>JavaVersion[Java 1.0=100]</code>. Note that the package name is
-     * stripped from the type name.
+     *  <code>JavaVersion[Java 1.0=100]</code>. Note that the package name is
+     *  stripped from the type name.
      */
     public String toString() {
         String shortName = Enum.getEnumClass(getClass()).getName();

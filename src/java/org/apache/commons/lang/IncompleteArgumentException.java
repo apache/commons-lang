@@ -56,16 +56,16 @@ package org.apache.commons.lang;
 import java.util.Arrays;
 
 /**
- * Thrown to indicate an incomplete argument to a method.
+ * <p>Thrown to indicate an incomplete argument to a method.</p>
  * 
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: IncompleteArgumentException.java,v 1.2 2003/05/16 16:14:17 scolebourne Exp $
+ * @version $Id: IncompleteArgumentException.java,v 1.3 2003/07/14 22:25:02 bayard Exp $
  */
 public class IncompleteArgumentException extends IllegalArgumentException {
 
     /**
-     * Instantiates with the specified description.
+     * <p>Instantiates with the specified description.</p>
      * 
      * @param argName  a description of the incomplete argument
      */
@@ -74,7 +74,7 @@ public class IncompleteArgumentException extends IllegalArgumentException {
     }
 
     /**
-     * Instantiates with the specified description.
+     * <p>Instantiates with the specified description.</p>
      * 
      * @param argName  a description of the incomplete argument
      * @param items  an array describing the arguments missing
@@ -87,7 +87,7 @@ public class IncompleteArgumentException extends IllegalArgumentException {
     }
 
     /**
-     * Converts an array to a string without throwing an exception.
+     * <p>7Converts an array to a string without throwing an exception.</p>
      * 
      * @param array  an array
      * @return the array as a string

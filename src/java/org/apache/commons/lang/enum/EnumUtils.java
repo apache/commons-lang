@@ -58,85 +58,98 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Utility class for accessing and manipulating Enums.
+ * <p>Utility class for accessing and manipulating {@link Enum}s.</p>
  *
  * @see Enum
  * @see ValuedEnum
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: EnumUtils.java,v 1.6 2003/03/06 22:50:21 scolebourne Exp $
+ * @version $Id: EnumUtils.java,v 1.7 2003/07/14 22:25:04 bayard Exp $
  */
 public class EnumUtils {
 
     /**
-     * Restricted constructor
+     * Restricted constructor.
      */
     private EnumUtils() {
     }
 
     /**
-     * Gets an Enum object by class and name.
+     * <p>Gets an <code>Enum</code> object by class and name.</p>
      * 
-     * @param enumClass  the class of the Enum to get
-     * @param name  the name of the Enum to get, may be null
+     * @param enumClass  the class of the <code>Enum</code> to get
+     * @param name  the name of the Enum to get, may be <code>null</code>
      * @return the enum object
-     * @throws IllegalArgumentException if the enum class is null
+     * @throws IllegalArgumentException if the enum class is <code>null</code>
      */
     public static Enum getEnum(Class enumClass, String name) {
         return Enum.getEnum(enumClass, name);
     }
 
     /**
-     * Gets a ValuedEnum object by class and value.
+     * <p>Gets a <code>ValuedEnum</code> object by class and value.</p>
      * 
-     * @param enumClass  the class of the Enum to get
-     * @param value  the value of the Enum to get
+     * @param enumClass  the class of the <code>Enum</code> to get
+     * @param value  the value of the <code>Enum</code> to get
      * @return the enum object, or null if the enum does not exist
-     * @throws IllegalArgumentException if the enum class is null
+     * @throws IllegalArgumentException if the enum class is <code>null</code>
      */
     public static ValuedEnum getEnum(Class enumClass, int value) {
         return (ValuedEnum) ValuedEnum.getEnum(enumClass, value);
     }
 
     /**
-     * Gets the Map of Enum objects by name using the Enum class.
-     * If the requested class has no enum objects an empty Map is returned.
-     * The Map is unmodifiable.
+     * <p>Gets the <code>Map</code> of <code>Enum</code> objects by
+     * name using the <code>Enum</code> class.</p>
+     *
+     * <p>If the requested class has no enum objects an empty
+     * <code>Map</code> is returned. The <code>Map</code> is unmodifiable.</p>
      * 
-     * @param enumClass  the class of the Enum to get
+     * @param enumClass  the class of the <code>Enum</code> to get
      * @return the enum object Map
-     * @throws IllegalArgumentException if the enum class is null
-     * @throws IllegalArgumentException if the enum class is not a subclass of Enum
+     * @throws IllegalArgumentException if the enum class is <code>null</code>
+     * @throws IllegalArgumentException if the enum class is not a subclass
+     *  of <code>Enum</code>
      */
     public static Map getEnumMap(Class enumClass) {
         return Enum.getEnumMap(enumClass);
     }
 
     /**
-     * Gets the List of Enum objects using the Enum class.
-     * The list is in the order that the objects were created (source code order).
-     * If the requested class has no enum objects an empty List is returned.
-     * The List is unmodifiable.
+     * <p>Gets the <code>List</code> of <code>Enum</code> objects using
+     * the <code>Enum</code> class.</p>
+     *
+     * <p>The list is in the order that the objects were created
+     * (source code order).</p>
+     *
+     * <p>If the requested class has no enum objects an empty
+     * <code>List</code> is returned. The <code>List</code> is unmodifiable.</p>
      * 
      * @param enumClass  the class of the Enum to get
      * @return the enum object Map
-     * @throws IllegalArgumentException if the enum class is null
-     * @throws IllegalArgumentException if the enum class is not a subclass of Enum
+     * @throws IllegalArgumentException if the enum class is <code>null</code>
+     * @throws IllegalArgumentException if the enum class is not a subclass
+     *  of <code>Enum</code>
      */
     public static List getEnumList(Class enumClass) {
         return Enum.getEnumList(enumClass);
     }
 
     /**
-     * Gets an iterator over the Enum objects in an Enum class.
-     * The iterator is in the order that the objects were created (source code order).
-     * If the requested class has no enum objects an empty Iterator is returned.
-     * The Iterator is unmodifiable.
+     * <p>Gets an <code>Iterator</code> over the <code>Enum</code> objects
+     * in an <code>Enum</code> class.</p>
+     *
+     * <p>The iterator is in the order that the objects were created
+     * (source code order).</p>
+     *
+     * <p>If the requested class has no enum objects an empty
+     * <code>Iterator</code> is returned. The <code>Iterator</code>
+     * is unmodifiable.</p>
      * 
-     * @param enumClass  the class of the Enum to get
-     * @return an iterator of the Enum objects
-     * @throws IllegalArgumentException if the enum class is null
-     * @throws IllegalArgumentException if the enum class is not a subclass of Enum
+     * @param enumClass  the class of the <code>Enum</code> to get
+     * @return an <code>Iterator</code> of the <code>Enum</code> objects
+     * @throws IllegalArgumentException if the enum class is <code>null</code>
+     * @throws IllegalArgumentException if the enum class is not a subclass of <code>Enum</code>
      */
     public static Iterator iterator(Class enumClass) {
         return Enum.getEnumList(enumClass).iterator();

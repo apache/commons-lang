@@ -54,18 +54,19 @@
 package org.apache.commons.lang;
 
 /**
- * Thrown to indicate that an argument was null and should not have been.
+ * <p>Thrown to indicate that an argument was <code>null</code> and should
+ * not have been.</p>
  * 
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: NullArgumentException.java,v 1.2 2003/05/16 16:14:17 scolebourne Exp $
+ * @version $Id: NullArgumentException.java,v 1.3 2003/07/14 22:25:02 bayard Exp $
  */
 public class NullArgumentException extends IllegalArgumentException {
 
 	/**
-	 * Instantiates with the given argument name.
-     * 
-	 * @param argName  the name of the argument that was null.
+	 * <p>Instantiates with the given argument name.</p>
+         *
+	 * @param argName  the name of the argument that was <code>null</code>.
 	 */
 	public NullArgumentException(String argName) {
 		super(argName + " cannot be null.");

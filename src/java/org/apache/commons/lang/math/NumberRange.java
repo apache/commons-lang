@@ -57,25 +57,33 @@ import java.io.Serializable;
 
 /**
  * <p><code>NumberRange</code> represents an inclusive range of 
- * {@link java.lang.Number Number} objects of the same type.</p>
+ * {@link java.lang.Number} objects of the same type.</p>
  *
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author Stephen Colebourne
  * @since 2.0 (previously in org.apache.commons.lang)
- * @version $Id: NumberRange.java,v 1.3 2003/04/09 01:04:47 ggregory Exp $
+ * @version $Id: NumberRange.java,v 1.4 2003/07/14 22:25:05 bayard Exp $
  */
 public final class NumberRange extends Range implements Serializable {
     
     private static final long serialVersionUID = 71849363892710L;
 
-    /* The minimum number in this range. */
+    /**
+     * The minimum number in this range.
+     */
     private final Number min;
-    /* The maximum number in this range. */
+    /**
+     * The maximum number in this range.
+     */
     private final Number max;
     
-    /** Cached output hashCode (class is immutable) */
+    /**
+     * Cached output hashCode (class is immutable).
+     */
     private transient int hashCode = 0;
-    /** Cached output toString (class is immutable) */
+    /**
+     * Cached output toString (class is immutable).
+     */
     private transient String toString = null;
 
     /**

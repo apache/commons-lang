@@ -59,7 +59,7 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.11 2003/04/09 00:07:50 ggregory Exp $
+ * @version $Id: CharSetUtils.java,v 1.12 2003/07/14 22:25:02 bayard Exp $
  */
 public class CharSetUtils {
 
@@ -78,10 +78,10 @@ public class CharSetUtils {
      * set logic to be performed.</p>
      * <p>The syntax is:</p>
      * <ul>
-     *  <li>"aeio" which implies 'a','e',..
-     *  <li>"^e" implies not e. However it only negates, it's not
-     *   a set in itself due to the size of that set in unicode.
-     *  <li>"ej-m" implies e,j->m. e,j,k,l,m.
+     *  <li>&quot;aeio&quot; which implies 'a','e',..</li>
+     *  <li>&quot;^e&quot; implies not e. However it only negates, it's not
+     *   a set in itself due to the size of that set in unicode.</li>
+     *  <li>&quot;ej-m&quot; implies e,j->m. e,j,k,l,m.</li>
      * </ul>
      *
      * @param set
@@ -98,7 +98,7 @@ public class CharSetUtils {
      *
      * <p>An example is:</p>
      * <ul>
-     *  <li>squeeze("hello", "el")  => "helo"
+     *  <li>squeeze(&quot;hello&quot;, &quot;el&quot;) => &quot;helo&quot;</li>
      * </ul>
      * @see #evaluateSet(java.lang.String[]) for set-syntax.
      *
@@ -117,7 +117,7 @@ public class CharSetUtils {
      *
      * <p>An example is:</p>
      * <ul>
-     *   <li>squeeze("hello", {"el"})  => "helo"
+     *   <li>squeeze(&quot;hello&quot;, {&quot;el&quot;}) => &quot;helo&quot;</li>
      * </ul>
      * @see #evaluateSet(java.lang.String[]) for set-syntax.
      * 
@@ -152,7 +152,7 @@ public class CharSetUtils {
      *
      * <p>An example would be:</p>
      * <ul>
-     *   <li>count("hello", {"c-f","o"}) returns 2.
+     *   <li>count(&quot;hello&quot;, {&quot;c-f&quot;, &quot;o&quot;}) returns 2.</li>
      * </ul>
      *
      * @param str  String target to count characters in
@@ -168,9 +168,9 @@ public class CharSetUtils {
      * <p>Takes an argument in set-syntax, see evaluateSet,
      * and returns the number of characters present in the specified string.</p>
      *
-     * An example would be:</p>
+     * <p>An example would be:</p>
      * <ul>
-     *  <li>count("hello", {"c-f","o"}) returns 2.
+     *  <li>count(&quot;hello&quot;, {&quot;c-f&quot;, &quot;o&quot;}) returns 2.</li>
      * </ul>
      *
      * @param str  String target to count characters in
@@ -195,7 +195,7 @@ public class CharSetUtils {
      *
      * <p>An example would be:</p>
      * <ul>
-     *   <li>keep("hello", {"c-fo"}) returns "hll"
+     *   <li>keep(&quot;hello&quot;, {&quot;c-fo&quot;}) returns &quot;hll&quot;</li>
      * </ul>
      *
      * @param str  String target to keep characters from
@@ -213,7 +213,8 @@ public class CharSetUtils {
      *
      * <p>An example would be:</p>
      * <ul>
-     *  <li>keep("hello", {"c-f","o"}) returns "hll"
+     *  <li>keep(&quot;hello&quot;, {&quot;c-f&quot;, &quot;o&quot;})
+     *   returns &quot;hll&quot;</li>
      * </ul>
      *
      * @param str  String target to keep characters from
@@ -231,7 +232,7 @@ public class CharSetUtils {
      *
      * <p>An example would be:</p>
      * <ul>
-     *   <li>delete("hello", {"c-fo"}) returns "hll"
+     *   <li>delete(&quot;hello&quot;, {&quot;c-fo&quot;}) returns &quot;hll&quot;</li>
      * </ul>
      *
      * @param str  String target to delete characters from
@@ -249,7 +250,8 @@ public class CharSetUtils {
      *
      * <p>An example would be:</p>
      * <ul>
-     *  <li>delete("hello", {"c-f","o"}) returns "hll"
+     *  <li>delete(&quot;hello&quot;, {&quot;c-f&quot;, &quot;o&quot;}) returns
+     *   &quot;hll&quot;</li>
      * </ul>
      *
      * @param str  String target to delete characters from
@@ -280,7 +282,8 @@ public class CharSetUtils {
      *
      * <p>An example is:</p>
      * <ul>
-     *   <li>translate("hello", "ho", "jy") => jelly
+     *   <li>translate(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;)
+     *    => jelly</li>
      * </ul>
      *
      * <p>If the length of characters to search for is greater than the

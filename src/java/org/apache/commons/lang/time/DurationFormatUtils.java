@@ -54,36 +54,39 @@
 package org.apache.commons.lang.time;
 
 /**
- * Duration formatting utilites and constants.
+ * <p>Duration formatting utilites and constants.</p>
  *
  * @author Apache Ant - DateUtils
  * @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: DurationFormatUtils.java,v 1.2 2003/06/09 21:23:14 scolebourne Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.3 2003/07/14 22:25:05 bayard Exp $
  */
 class DurationFormatUtils {
     // TODO: Make class public once methods can fully select which fields to output
 
     /**
-     * DurationFormatUtils instances should NOT be constructed in standard programming.
-     * <p>
-     * This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
+     * <p>DurationFormatUtils instances should NOT be constructed in standard programming.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
      */
     public DurationFormatUtils() {
     }
 
     /**
-     * Format an elapsed time into a plurialization correct string.
+     * <p>Format an elapsed time into a plurialization correct string.
      * It is limited only to report elapsed time in minutes and
-     * seconds and has the following behavior.
+     * seconds and has the following behavior.</p>
+     *
      * <ul>
-     * <li>minutes are not displayed when 0. (ie: "45 seconds")</li>
-     * <li>seconds are always displayed in plural form (ie "0 seconds" or
-     * "10 seconds") except for 1 (ie "1 second")</li>
-     * </ul>
+     *  <li>minutes are not displayed when <code>0</code>. (ie:
+     *   &quot;45 seconds&quot;)</li>
+     *  <li>seconds are always displayed in plural form (ie
+     *   &quot;0 seconds&quot; or &quot;10 seconds&quot;) except
+     *   for <code>1</code> (ie &quot;1 second&quot;)</li>
+     *  </ul>
      * 
      * @param millis  the elapsed time to report in milliseconds
      * @return the formatted text in minutes/seconds

@@ -54,16 +54,16 @@
 package org.apache.commons.lang;
 
 /**
- * Thrown to indicate that a method has not been implemented.
+ * <p>Thrown to indicate that a method has not been implemented.</p>
  * 
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: NotImplementedException.java,v 1.2 2003/05/16 16:14:17 scolebourne Exp $
+ * @version $Id: NotImplementedException.java,v 1.3 2003/07/14 22:25:02 bayard Exp $
  */
 public class NotImplementedException extends UnsupportedOperationException {
 
     /**
-     * Constructes the exception with the specified class.
+     * <p>Constructes the exception with the specified class.</p>
      * 
      * @param clazz  the <code>Class</code> that has not implemented the method
      */
@@ -74,7 +74,7 @@ public class NotImplementedException extends UnsupportedOperationException {
     }
 
     /**
-     * Constructs the exception with the specified message.
+     * <p>Constructs the exception with the specified message.</p>
      * 
      * @param msg  the exception message.
      */

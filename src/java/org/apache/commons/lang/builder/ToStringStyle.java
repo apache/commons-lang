@@ -83,7 +83,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.14 2003/06/03 03:51:56 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.15 2003/07/14 22:25:04 bayard Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -175,15 +175,15 @@ public abstract class ToStringStyle implements Serializable {
      */
     private String sizeStartText = "<size=";
     /**
-     * The summary size text start <code>'>'</code>.
+     * The summary size text start <code>'&gt;'</code>.
      */
     private String sizeEndText = ">";
     /**
-     * The summary object text start <code>'<'</code>.
+     * The summary object text start <code>'&lt;'</code>.
      */
     private String summaryObjectStartText = "<";
     /**
-     * The summary object text start <code>'>'</code>.
+     * The summary object text start <code>'&gt;'</code>.
      */
     private String summaryObjectEndText = ">";
     
@@ -201,7 +201,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Append the superclass toString.</p>
      * 
-     * <p>A null <code>super.toString()</code> is ignored.</p>
+     * <p>A <code>null</code> <code>super.toString()</code> is ignored.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param superToString  the <code>super.toString()</code>
@@ -213,7 +213,7 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Append a toString.</p>
      * 
-     * <p>A null <code>toString()</code> is ignored.</p>
+     * <p>A <code>null</code> <code>toString()</code> is ignored.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param toString  the <code>super.toString()</code>
@@ -321,7 +321,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * <p>Either detail or summary views can be specified.</p>
      *
-     * <p>If a cycle is detected, an object will be appended with the Object.toString() format.</p>
+     * <p>If a cycle is detected, an object will be appended with the
+     * <code>Object.toString()</code> format.</p>
      *
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param fieldName  the field name, typically not used as already appended
@@ -459,7 +460,7 @@ public abstract class ToStringStyle implements Serializable {
     
     /**
      * <p>Append to the <code>toString</code> an <code>Object</code>
-     * value, printing a summary of the Object.</P>
+     * value, printing a summary of the <code>Object</code>.</P>
      *
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param fieldName  the field name, typically not used as already appended

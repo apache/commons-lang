@@ -30,8 +30,8 @@ import org.apache.commons.lang.ClassUtils;
  * 
  * <p>A subclass can control field output by overriding the methods:
  * <ul> 
- * <li>{@link #accept(java.lang.reflect.Field)}</li>
- * <li>{@link #getValue(java.lang.reflect.Field)}</li>
+ *  <li>{@link #accept(java.lang.reflect.Field)}</li>
+ *  <li>{@link #getValue(java.lang.reflect.Field)}</li>
  * </ul>
  * </p>
  * 
@@ -41,13 +41,13 @@ import org.apache.commons.lang.ClassUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: ReflectionToStringBuilder.java,v 1.1 2003/06/03 03:51:56 ggregory Exp $
+ * @version $Id: ReflectionToStringBuilder.java,v 1.2 2003/07/14 22:25:03 bayard Exp $
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
-     * A registry of objects used by <code>reflectionToString</code> methods to detect cyclical object references 
-     * and avoid infinite loops.
+     * A registry of objects used by <code>reflectionToString</code> methods to detect
+     * cyclical object references and avoid infinite loops.
      */
     private static ThreadLocal registry = new ThreadLocal() {
         protected synchronized Object initialValue() {
@@ -58,8 +58,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     };
 
     /**
-     * Returns the registry of objects being traversed by the 
-     * <code>reflectionToString</code> methods in the current thread.
+     * <p>Returns the registry of objects being traversed by the
+     * <code>reflectionToString</code> methods in the current thread.</p>
+     *
      * @return Set the registry of objects being traversed 
      */
     static Set getRegistry() {
@@ -67,8 +68,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Returns <code>true</code> if the registry contains the given object.
-     * Used by the reflection methods to avoid infinite loops.
+     * <p>Returns <code>true</code> if the registry contains the given object.
+     * Used by the reflection methods to avoid infinite loops.</p>
      * 
      * @param value The object to lookup in the registry.
      * @return boolean <code>true</code> if the registry contains the given object.
@@ -149,8 +150,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *
      * <p>Static fields will not be included. Superclass fields will be appended.</p>
      *
-     * <p>
-     * If the style is <code>null</code>, the default
+     * <p>If the style is <code>null</code>, the default
      * <code>ToStringStyle</code> is used.</p>
      * 
      * @param object  the Object to be output
@@ -202,8 +202,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Unregisters the given object.
-     * Used by the reflection methods to avoid infinite loops.
+     * <p>Unregisters the given object.</p>
+     *
+     * <p>Used by the reflection methods to avoid infinite loops.</p>
      * 
      * @param value The object to unregister.
      */
@@ -296,9 +297,9 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     /**
      * Returns whether or not to append the given <code>Field</code>.
      * <ul>
-     * <li>Static fields are not appended.</li>
-     * <li>Transient fields are appended only if {@link #isAppendTransients()} returns <code>true</code>.
-     * <li>Inner class fields are not appened.</li>
+     *  <li>Static fields are not appended.</li>
+     *  <li>Transient fields are appended only if {@link #isAppendTransients()} returns <code>true</code>.
+     *  <li>Inner class fields are not appened.</li>
      * </ul>
      * @param field The Field to test.
      * @return Whether or not to append the given <code>Field</code>.
@@ -311,10 +312,12 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Appends the fields and values defined by the given object of the
-     * given Class. If a cycle is detected as an objects is "toString()'ed",
+     * <p>Appends the fields and values defined by the given object of the
+     * given Class.</p>
+     *
+     * <p>If a cycle is detected as an objects is &quot;toString()'ed&quot;,
      * such an object is rendered as if <code>Object.toString()</code> 
-     * had been called and not implemented by the object.
+     * had been called and not implemented by the object.</p>
      * 
      * @param clazz The class of object parameter
      */
@@ -370,7 +373,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
     
     /**
-     * Gets the last super class to stop appending fields for.
+     * <p>Gets the last super class to stop appending fields for.</p>
      * 
      * @return The last super class to stop appending fields for.
      */
@@ -379,7 +382,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Calls <code>java.lang.reflect.Field.get(Object)</code>
+     * <p>Calls <code>java.lang.reflect.Field.get(Object)</code></p>
+     *
      * @see java.lang.reflect.Field#get(Object)
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
@@ -389,7 +393,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Returns whether or not to append transient fields.
+     * <p>Returns whether or not to append transient fields.</p>
      * 
      * @return Whether or not to append transient fields.
      */
@@ -410,14 +414,15 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Registers this builder's source object to avoid infinite loops processing circular object references.
+     * <p>Registers this builder's source object to avoid infinite
+     * loops processing circular object references.</p>
      */
     void registerObject() {
         register(this.getObject());
     }
 
     /**
-     * Sets whether or not to append transient fields.
+     * <p>Sets whether or not to append transient fields.</p>
      * 
      * @param appendTransients Whether or not to append transient fields.
      */
@@ -426,7 +431,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Sets the last super class to stop appending fields for.
+     * <p>Sets the last super class to stop appending fields for.</p>
      * 
      * @param clazz The last super class to stop appending fields for.
      */
@@ -448,7 +453,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Unegisters this builder's source object to avoid infinite loops processing circular object references.
+     * <p>Unegisters this builder's source object to avoid infinite
+     * loops processing circular object references.</p>
      */
     void unregisterObject() {
         unregister(this.getObject());

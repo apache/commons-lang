@@ -108,7 +108,7 @@ import java.lang.reflect.Modifier;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.13 2003/04/18 09:12:16 ggregory Exp $
+ * @version $Id: EqualsBuilder.java,v 1.14 2003/07/14 22:25:03 bayard Exp $
  */
 public class EqualsBuilder {
     /**
@@ -130,7 +130,8 @@ public class EqualsBuilder {
     //-------------------------------------------------------------------------
 
     /**
-     * <p>This method uses reflection to determine if the two Object are equal.</p>
+     * <p>This method uses reflection to determine if the two <code>Object</code>s
+     * are equal.</p>
      *
      * <p>It uses <code>Field.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
@@ -151,7 +152,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>This method uses reflection to determine if the two Object are equal.</p>
+     * <p>This method uses reflection to determine if the two <code>Object</code>s
+     * are equal.</p>
      *
      * <p>It uses <code>Field.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
@@ -160,7 +162,7 @@ public class EqualsBuilder {
      *
      * <p>If the TestTransients parameter is set to <code>true</code>, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the Object.</p>
+     * derived fields, and not part of the value of the <code>Object</code>.</p>
      *
      * <p>Static fields will not be tested. Superclass fields will be included.</p>
      *
@@ -174,7 +176,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>This method uses reflection to determine if the two Object are equal.</p>
+     * <p>This method uses reflection to determine if the two <code>Object</code>s
+     * are equal.</p>
      *
      * <p>It uses <code>Field.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
@@ -183,7 +186,7 @@ public class EqualsBuilder {
      *
      * <p>If the testTransients parameter is set to <code>true</code>, transient
      * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the Object.</p>
+     * derived fields, and not part of the value of the <code>Object</code>.</p>
      *
      * <p>Static fields will not be included. Superclass fields will be appended
      * up to and including the specified superclass. A null superclass is treated
@@ -192,7 +195,8 @@ public class EqualsBuilder {
      * @param lhs  <code>this</code> object
      * @param rhs  the other object
      * @param testTransients  whether to include transient fields
-     * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be null
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
+     *  may be <code>null</code>
      * @return <code>true</code> if the two Objects have tested equals.
      */
     public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients, Class reflectUpToClass) {
@@ -244,8 +248,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * Appends the fields and values defined by the given object of the
-     * given Class.
+     * <p>Appends the fields and values defined by the given object of the
+     * given Class.</p>
      * 
      * @param lhs  the left hand object
      * @param rhs  the right hand object
@@ -280,7 +284,7 @@ public class EqualsBuilder {
     //-------------------------------------------------------------------------
 
     /**
-     * <p>Adds the result of super.equals() to this builder.</p>
+     * <p>Adds the result of <code>super.equals()</code> to this builder.</p>
      *
      * @param superEquals  the result of calling <code>super.equals()</code>
      * @return EqualsBuilder - used to chain calls.
@@ -476,7 +480,7 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Performs a deep comparison of two Object arrays.</p>
+     * <p>Performs a deep comparison of two <code>Object</code> arrays.</p>
      *
      * <p>This also will be called for the top level of
      * multi-dimensional, ragged, and multi-typed arrays.</p>
@@ -512,8 +516,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Deep comparison of array of <code>long</code> Length and all values
-     * are compared.</p>
+     * <p>Deep comparison of array of <code>long</code>. Length and all
+     * values are compared.</p>
      *
      * <p>The method {@link #append(long, long)} is used.</p>
      *
@@ -543,8 +547,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Deep comparison of array of <code>int</code> Length and all values
-     * are compared.</p>
+     * <p>Deep comparison of array of <code>int</code>. Length and all
+     * values are compared.</p>
      *
      * <p>The method {@link #append(int, int)} is used.</p>
      *
@@ -574,8 +578,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Deep comparison of array of <code>short</code> Length and all values
-     * are compared.</p>
+     * <p>Deep comparison of array of <code>short</code>. Length and all
+     * values are compared.</p>
      *
      * <p>The method {@link #append(short, short)} is used.</p>
      *
@@ -605,8 +609,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Deep comparison of array of <code>char</code> Length and all values
-     * are compared.</p>
+     * <p>Deep comparison of array of <code>char</code>. Length and all
+     * values are compared.</p>
      *
      * <p>The method {@link #append(char, char)} is used.</p>
      *
@@ -636,8 +640,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Deep comparison of array of <code>byte</code> Length and all values
-     * are compared.</p>
+     * <p>Deep comparison of array of <code>byte</code>. Length and all
+     * values are compared.</p>
      *
      * <p>The method {@link #append(byte, byte)} is used.</p>
      *
@@ -667,8 +671,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Deep comparison of array of <code>double</code> Length and all values
-     * are compared.</p>
+     * <p>Deep comparison of array of <code>double</code>. Length and all
+     * values are compared.</p>
      *
      * <p>The method {@link #append(double, double)} is used.</p>
      *
@@ -698,8 +702,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Deep comparison of array of <code>float</code> Length and all values
-     * are compared.</p>
+     * <p>Deep comparison of array of <code>float</code>. Length and all
+     * values are compared.</p>
      *
      * <p>The method {@link #append(float, float)} is used.</p>
      *
@@ -729,8 +733,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Deep comparison of array of <code>boolean</code> Length and all values
-     * are compared.</p>
+     * <p>Deep comparison of array of <code>boolean</code>. Length and all
+     * values are compared.</p>
      *
      * <p>The method {@link #append(boolean, boolean)} is used.</p>
      *
