@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.16 2003/07/30 03:21:42 bayard Exp $
+$Id: RELEASE-NOTES.txt,v 1.17 2003/07/30 03:30:58 bayard Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -23,7 +23,7 @@ Check your code before implementing this release.
 
 NEW FEATURES:
 
-Since the release of the 1.0.1 package the following classes have been added:
+Since the release of the 1.0 package the following classes have been added:
 
 lang package:
     ArrayUtils
