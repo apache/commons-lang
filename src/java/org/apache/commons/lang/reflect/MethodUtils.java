@@ -74,11 +74,19 @@ import org.apache.commons.lang.StringUtils;
  * programmer. This can break an implementation if used incorrectly. This
  * facility should be used with care.
  *
- * @author Based on code from BeanUtils
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: MethodUtils.java,v 1.1 2002/10/24 23:12:54 scolebourne Exp $
+ * @author Based on code from <code>BeanUtils</code> by: Craig R. McClanahan
+ * @author Ralph Schaer
+ * @author Chris Audley
+ * @author Rey François
+ * @author Gregor Raýman
+ * @author Jan Sorensen
+ * @author Robert Burrell Donkin
+ * @version $Id: MethodUtils.java,v 1.2 2002/11/14 18:51:57 rdonkin Exp $
  */
 public class MethodUtils {
+    
+    public static final boolean debug = true;
     
     /** An empty method array */
     public static final Method[] EMPTY_METHOD_ARRAY = new Method[0];
@@ -329,15 +337,15 @@ public class MethodUtils {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }  
 
-return null;
-//        Method method = getMatchingAccessibleMethod(
-//                object.getClass(),
-//                methodName,
-//                parameterTypes);
-//        if (method == null)
-//            throw new NoSuchMethodException("No such accessible method: " +
-//                    methodName + "() on object: " + object.getClass().getName());
-//        return method.invoke(object, args);
+//return null;
+        Method method = getMatchingAccessibleMethod(
+                object.getClass(),
+                methodName,
+                parameterTypes);
+        if (method == null)
+            throw new NoSuchMethodException("No such accessible method: " +
+                    methodName + "() on object: " + object.getClass().getName());
+        return method.invoke(object, args);
     }
 
 
@@ -608,143 +616,202 @@ return null;
 
     }
 
-//    /**
-//     * <p>Find an accessible method that matches the given name and has compatible parameters.
-//     * Compatible parameters mean that every method parameter is assignable from 
-//     * the given parameters.
-//     * In other words, it finds a method with the given name 
-//     * that will take the parameters given.<p>
-//     *
-//     * <p>This method is slightly undeterminstic since it loops 
-//     * through methods names and return the first matching method.</p>
-//     * 
-//     * <p>This method is used by 
-//     * {@link 
-//     * #invokeMethod(Object object,String methodName,Object [] args,Class[] parameterTypes)}.
-//     *
-//     * <p>This method can match primitive parameter by passing in wrapper classes.
-//     * For example, a <code>Boolean</code> will match a primitive <code>boolean</code>
-//     * parameter.
-//     *
-//     * @param clazz find method in this class
-//     * @param methodName find method with this name
-//     * @param parameterTypes find method with compatible parameters 
-//     */
-//    private static Method getMatchingAccessibleMethod(
-//                                                Class clazz,
-//                                                String methodName,
-//                                                Class[] parameterTypes) {
-//        // trace logging
-//        if (log.isTraceEnabled()) {
-//            log.trace("Matching name=" + methodName + " on " + clazz);
-//        }
-//        
-//        // see if we can find the method directly
-//        // most of the time this works and it's much faster
-//        try {
-//            Method method = clazz.getMethod(methodName, parameterTypes);
-//            return method;
-//            
-//        } catch (NoSuchMethodException e) { /* SWALLOW */ }
-//        
-//        // search through all methods 
-//        int paramSize = parameterTypes.length;
-//        Method[] methods = clazz.getMethods();
-//        for (int i = 0, size = methods.length; i < size ; i++) {
-//            if (methods[i].getName().equals(methodName)) {	
-//                // log some trace information
-//                if (log.isTraceEnabled()) {
-//                    log.trace("Found matching name:");
-//                    log.trace(methods[i]);
-//                }                
-//                
-//                // compare parameters
-//                Class[] methodsParams = methods[i].getParameterTypes();
-//                int methodParamSize = methodsParams.length;
-//                if (methodParamSize == paramSize) {          
-//                    boolean match = true;
-//                    for (int n = 0 ; n < methodParamSize; n++) {
-//                        if (log.isTraceEnabled()) {
-//                            log.trace("Param=" + parameterTypes[n].getName());
-//                            log.trace("Method=" + methodsParams[n].getName());
-//                        }
-//                        if (!isAssignmentCompatible(methodsParams[n], parameterTypes[n])) {
-//                            if (log.isTraceEnabled()) {
-//                                log.trace(methodsParams[n] + " is not assignable from " 
-//                                            + parameterTypes[n]);
-//                            }    
-//                            match = false;
-//                            break;
-//                        }
-//                    }
-//                    
-//                    if (match) {
-//                        // get accessible version of method
-//                        Method method = getAccessibleMethod(methods[i]);
-//                        if (method != null) {
-//                            if (log.isTraceEnabled()) {
-//                                log.trace(method + " accessible version of " 
-//                                            + methods[i]);
-//                            }
-//                            return method;
-//                        }
-//                        
-//                        log.trace("Couldn't find accessible method.");
-//                    }
-//                }
-//            }
-//        }
-//        
-//        // didn't find a match
-//        log.trace("No match found.");
-//        return null;                                        
-//    }
-//
-//    /**
-//     * <p>Determine whether a type can be used as a parameter in a method invocation.
-//     * This method handles primitive conversions correctly.</p>
-//     *
-//     * <p>In order words, it will match a <code>Boolean</code> to a <code>boolean</code>,
-//     * a <code>Long</code> to a <code>long</code>,
-//     * a <code>Float</code> to a <code>float</code>,
-//     * a <code>Integer</code> to a <code>int</code>,
-//     * and a <code>Double</code> to a <code>double</code>.
-//     * Now logic widening matches are allowed.
-//     * For example, a <code>Long</code> will not match a <code>int</code>.
-//     *
-//     * @param parameterType the type of parameter accepted by the method
-//     * @param parameterization the type of parameter being tested 
-//     *
-//     * @return true if the assignement is compatible.
-//     */
-//    private static final boolean isAssignmentCompatible(Class parameterType, Class parameterization) {
-//        // try plain assignment
-//        if (parameterType.isAssignableFrom(parameterization)) {
-//            return true;
-//        }
-//        
-//        if (parameterType.isPrimitive()) {
-//            // does anyone know a better strategy than comparing names?
-//            // also, this method does *not* do widening - you must specify exactly
-//            // is this the right behaviour?
-//            if (boolean.class.equals(parameterType)) {
-//                return Boolean.class.equals(parameterization);
-//            }         
-//            if (float.class.equals(parameterType)) {
-//                return Float.class.equals(parameterization);
-//            }     
-//            if (long.class.equals(parameterType)) {
-//                return Long.class.equals(parameterization);
-//            }     
-//            if (int.class.equals(parameterType)) {
-//                return Integer.class.equals(parameterization);
-//            }                
-//            if (double.class.equals(parameterType)) {
-//                return Double.class.equals(parameterization);
-//            }               
-//        }
-//        
-//        return false;
-//    }
-//    
+
+    /**
+     * <p>Find an accessible method that matches the given name and has compatible parameters.
+     * Compatible parameters mean that every method parameter is assignable from 
+     * the given parameters.
+     * In other words, it finds a method with the given name 
+     * that will take the parameters given.<p>
+     *
+     * <p>This method is slightly undeterminstic since it loops 
+     * through methods names and return the first matching method.</p>
+     * 
+     * <p>This method is used by 
+     * {@link 
+     * #invokeMethod(Object object,String methodName,Object [] args,Class[] parameterTypes)}.
+     *
+     * <p>This method can match primitive parameter by passing in wrapper classes.
+     * For example, a <code>Boolean</code> will match a primitive <code>boolean</code>
+     * parameter.
+     *
+     * @param clazz find method in this class
+     * @param methodName find method with this name
+     * @param parameterTypes find method with compatible parameters 
+     */
+    private static Method getMatchingAccessibleMethod(
+                                                Class clazz,
+                                                String methodName,
+                                                Class[] parameterTypes) {
+        // trace logging
+        if (debug) {
+            log("Matching name=" + methodName + " on " + clazz);
+        }
+        
+        // see if we can find the method directly
+        // most of the time this works and it's much faster
+        try {
+            Method method = clazz.getMethod(methodName, parameterTypes);
+            if (debug) {
+                log("Found straight match: " + method);
+                log("isPublic:" + Modifier.isPublic(method.getModifiers()));
+            }
+            
+            try {
+                //
+                // XXX Default access superclass workaround
+                //
+                // When a public class has a default access superclass
+                // with public methods, these methods are accessible.
+                // Calling them from compiled code works fine.
+                //
+                // Unfortunately, using reflection to invoke these methods
+                // seems to (wrongly) to prevent access even when the method
+                // modifer is public.
+                //
+                // The following workaround solves the problem but will only
+                // work from sufficiently privilages code. 
+                //
+                // Better workarounds would be greatfully accepted.
+                //
+                method.setAccessible(true);
+                
+            } catch (SecurityException se) {
+                // log but continue just in case the method.invoke works anyway
+                log(
+                "Cannot setAccessible on method. Therefore cannot use jvm access bug workaround.", 
+                se);
+            }
+            return method;
+            
+        } catch (NoSuchMethodException e) { /* SWALLOW */ }
+        
+        // search through all methods 
+        int paramSize = parameterTypes.length;
+        Method[] methods = clazz.getMethods();
+        for (int i = 0, size = methods.length; i < size ; i++) {
+            if (methods[i].getName().equals(methodName)) {	
+                // log some trace information
+                if (debug) {
+                    log("Found matching name:");
+                    log(methods[i]);
+                }                
+                
+                // compare parameters
+                Class[] methodsParams = methods[i].getParameterTypes();
+                int methodParamSize = methodsParams.length;
+                if (methodParamSize == paramSize) {          
+                    boolean match = true;
+                    for (int n = 0 ; n < methodParamSize; n++) {
+                        if (debug) {
+                            log("Param=" + parameterTypes[n].getName());
+                            log("Method=" + methodsParams[n].getName());
+                        }
+                        if (!isAssignmentCompatible(methodsParams[n], parameterTypes[n])) {
+                            if (debug) {
+                                log(methodsParams[n] + " is not assignable from " 
+                                            + parameterTypes[n]);
+                            }    
+                            match = false;
+                            break;
+                        }
+                    }
+                    
+                    if (match) {
+                        // get accessible version of method
+                        Method method = getAccessibleMethod(methods[i]);
+                        if (method != null) {
+                            if (debug) {
+                                log(method + " accessible version of " 
+                                            + methods[i]);
+                            }
+                            try {
+                                //
+                                // XXX Default access superclass workaround
+                                // (See above for more details.)
+                                //
+                                method.setAccessible(true);
+                                
+                            } catch (SecurityException se) {
+                                // log but continue just in case the method.invoke works anyway
+                                log(
+                                "Cannot setAccessible on method. Therefore cannot use jvm access bug workaround.", 
+                                se);
+                            }
+                            return method;
+                        }
+                        
+                        log("Couldn't find accessible method.");
+                    }
+                }
+            }
+        }
+        
+        // didn't find a match
+        log("No match found.");
+        return null;                                        
+    }
+
+
+    /**
+     * <p>Determine whether a type can be used as a parameter in a method invocation.
+     * This method handles primitive conversions correctly.</p>
+     *
+     * <p>In order words, it will match a <code>Boolean</code> to a <code>boolean</code>,
+     * a <code>Long</code> to a <code>long</code>,
+     * a <code>Float</code> to a <code>float</code>,
+     * a <code>Integer</code> to a <code>int</code>,
+     * and a <code>Double</code> to a <code>double</code>.
+     * Now logic widening matches are allowed.
+     * For example, a <code>Long</code> will not match a <code>int</code>.
+     *
+     * @param parameterType the type of parameter accepted by the method
+     * @param parameterization the type of parameter being tested 
+     *
+     * @return true if the assignement is compatible.
+     */
+    private static final boolean isAssignmentCompatible(Class parameterType, Class parameterization) {
+        // try plain assignment
+        if (parameterType.isAssignableFrom(parameterization)) {
+            return true;
+        }
+        
+        if (parameterType.isPrimitive()) {
+            // does anyone know a better strategy than comparing names?
+            // also, this method does *not* do widening - you must specify exactly
+            // is this the right behaviour?
+            if (boolean.class.equals(parameterType)) {
+                return Boolean.class.equals(parameterization);
+            }         
+            if (float.class.equals(parameterType)) {
+                return Float.class.equals(parameterization);
+            }     
+            if (long.class.equals(parameterType)) {
+                return Long.class.equals(parameterization);
+            }     
+            if (int.class.equals(parameterType)) {
+                return Integer.class.equals(parameterization);
+            }                
+            if (double.class.equals(parameterType)) {
+                return Double.class.equals(parameterization);
+            }               
+        }
+        
+        return false;
+    }
+    
+    
+    private static void log(Object o) {
+        if (debug) {
+            System.err.println(o);
+        }
+    }
+    
+    private static void log(Object o, Throwable t) {
+        if (debug) {
+            System.err.println(o);
+            System.err.println(t);
+            
+        }
+    }
 }
