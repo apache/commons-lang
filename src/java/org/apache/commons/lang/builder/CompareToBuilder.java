@@ -99,7 +99,7 @@ import org.apache.commons.lang.NumberUtils;
  * </pre>
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CompareToBuilder.java,v 1.3 2002/09/22 09:18:32 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.4 2002/09/28 10:44:51 scolebourne Exp $
  */
 public class CompareToBuilder {
     /**
@@ -131,9 +131,10 @@ public class CompareToBuilder {
      * Static fields will not be tested.
      * @param lhs  Left Hand Side
      * @param rhs  Right Hand Side
-     * @return int  a negative integer, zero, or a positive integer as this 
+     * @return a negative integer, zero, or a positive integer as this 
      * object is less than, equal to, or greater than the specified object.
-     * @throws ClassCastException - if the specified object's type prevents it 
+     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws ClassCastException  if the specified object's type prevents it 
      * from being compared to this Object.
      */
     public static int reflectionCompare(Object lhs, Object rhs) {
@@ -155,9 +156,10 @@ public class CompareToBuilder {
      * @param lhs  Left Hand Side
      * @param rhs  Right Hand Side
      * @param testTransients  whether to include transient fields
-     * @return int - a negative integer, zero, or a positive integer as this 
+     * @return a negative integer, zero, or a positive integer as this 
      * object is less than, equal to, or greater than the specified object.
-     * @throws ClassCastException - if the specified object's type prevents it 
+     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws ClassCastException  if the specified object's type prevents it 
      * from being compared to this Object.
      */
     public static int reflectionCompare(Object lhs, Object rhs, 
@@ -203,7 +205,8 @@ public class CompareToBuilder {
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws ClassCastException - if the specified object's type prevents it
+     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws ClassCastException if the specified object's type prevents it
      * from being compared to this Object.
      */
     public CompareToBuilder append(Object lhs, Object rhs) {
@@ -379,7 +382,8 @@ public class CompareToBuilder {
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws ClassCastException - if the specified object's type prevents it 
+     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws ClassCastException  if the specified object's type prevents it 
      * from being compared to this Object.
      */
     public CompareToBuilder append(Object[] lhs, Object[] rhs) {
@@ -413,6 +417,7 @@ public class CompareToBuilder {
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
+     * @throws NullPointerException  if either (but not both) parameter is null
      */
     public CompareToBuilder append(long[] lhs, long[] rhs) {
         if (comparison != 0) {
@@ -440,6 +445,7 @@ public class CompareToBuilder {
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
+     * @throws NullPointerException  if either (but not both) parameter is null
      */
     public CompareToBuilder append(int[] lhs, int[] rhs) {
         if (comparison != 0) {
@@ -467,6 +473,7 @@ public class CompareToBuilder {
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
+     * @throws NullPointerException  if either (but not both) parameter is null
      */
     public CompareToBuilder append(short[] lhs, short[] rhs) {
         if (comparison != 0) {
@@ -494,6 +501,7 @@ public class CompareToBuilder {
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
+     * @throws NullPointerException  if either (but not both) parameter is null
      */
     public CompareToBuilder append(char[] lhs, char[] rhs) {
         if (comparison != 0) {
@@ -521,6 +529,7 @@ public class CompareToBuilder {
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
+     * @throws NullPointerException  if either (but not both) parameter is null
      */
     public CompareToBuilder append(byte[] lhs, byte[] rhs) {
         if (comparison != 0) {
@@ -548,6 +557,7 @@ public class CompareToBuilder {
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
+     * @throws NullPointerException  if either (but not both) parameter is null
      */
     public CompareToBuilder append(double[] lhs, double[] rhs) {
         if (comparison != 0) {
@@ -575,6 +585,7 @@ public class CompareToBuilder {
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
+     * @throws NullPointerException  if either (but not both) parameter is null
      */
     public CompareToBuilder append(float[] lhs, float[] rhs) {
         if (comparison != 0) {
@@ -602,6 +613,7 @@ public class CompareToBuilder {
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
+     * @throws NullPointerException  if either (but not both) parameter is null
      */
     public CompareToBuilder append(boolean[] lhs, boolean[] rhs) {
         if (comparison != 0) {
