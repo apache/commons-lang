@@ -82,11 +82,11 @@ import org.apache.commons.lang.StringUtils;
  * @author Gregor Raýman
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
- * @version $Id: MethodUtils.java,v 1.3 2002/11/18 22:18:44 rdonkin Exp $
+ * @version $Id: MethodUtils.java,v 1.4 2002/11/18 23:00:26 rdonkin Exp $
  */
 public class MethodUtils {
     
-    public static final boolean debug = true;
+    public static final boolean debug = false;
     
     /** An empty method array */
     public static final Method[] EMPTY_METHOD_ARRAY = new Method[0];
