@@ -66,7 +66,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.9 2003/07/25 23:06:58 scolebourne Exp $
+ * @version $Id: BooleanUtils.java,v 1.10 2003/07/31 22:30:07 scolebourne Exp $
  */
 public class BooleanUtils {
 
@@ -620,13 +620,13 @@ public class BooleanUtils {
      * 
      * @param array  an array of <code>boolean<code>s
      * @return <code>true</code> if the xor is successful.
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty.
      */
     public static boolean xor(boolean[] array) {
         // Validates input
         if (array == null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {
             throw new IllegalArgumentException("Array is empty");
         }
@@ -655,7 +655,7 @@ public class BooleanUtils {
      * @param array  an array of <code>Boolean<code>s
      * @return <code>true</code> if the xor is successful.
      * @throws NullPointerException if <code>array</code> contains a <code>null</code>
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty.
      */
     public static Boolean xor(Boolean[] array) {
