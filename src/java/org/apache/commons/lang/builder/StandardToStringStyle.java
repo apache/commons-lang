@@ -65,8 +65,9 @@ package org.apache.commons.lang.builder;
  *
  * @author Stephen Colebourne
  * @author Pete Gieser
+ * @author Gary Gregory
  * @since 1.0
- * @version $Id: StandardToStringStyle.java,v 1.14 2003/08/21 15:52:54 ggregory Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.15 2003/08/22 03:06:36 ggregory Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
@@ -390,6 +391,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * of each buffer.</p>
      * 
      * @return the fieldSeparatorAtStart flag
+     * @since 2.0
      */
     public boolean isFieldSeparatorAtStart() {
         return super.isFieldSeparatorAtStart();
