@@ -38,7 +38,7 @@ import junit.textui.TestRunner;
  * @author Phil Steitz
  * @author Gary D. Gregory
  * @author Al Chou
- * @version $Id: StringUtilsTest.java,v 1.60 2004/07/11 16:49:07 stevencaswell Exp $
+ * @version $Id: StringUtilsTest.java,v 1.61 2004/08/15 23:47:05 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -1322,5 +1322,51 @@ public class StringUtilsTest extends TestCase {
         assertEquals(StringUtils.removeEnd("domain.com", ""), "domain.com");   
         assertEquals(StringUtils.removeEnd("domain.com", null), "domain.com");   
     }
-}
 
+    public void testRemove_String() {
+        // StringUtils.remove(null, *)        = null
+        assertEquals(null, StringUtils.remove(null, null));
+        assertEquals(null, StringUtils.remove(null, ""));
+        assertEquals(null, StringUtils.remove(null, "a"));
+        
+        // StringUtils.remove("", *)          = ""
+        assertEquals("", StringUtils.remove("", null));
+        assertEquals("", StringUtils.remove("", ""));
+        assertEquals("", StringUtils.remove("", "a"));
+        
+        // StringUtils.remove(*, null)        = *
+        assertEquals(null, StringUtils.remove(null, null));
+        assertEquals("", StringUtils.remove("", null));
+        assertEquals("a", StringUtils.remove("a", null));
+        
+        // StringUtils.remove(*, "")          = *
+        assertEquals(null, StringUtils.remove(null, ""));
+        assertEquals("", StringUtils.remove("", ""));
+        assertEquals("a", StringUtils.remove("a", ""));
+        
+        // StringUtils.remove("queued", "ue") = "qd"
+        assertEquals("qd", StringUtils.remove("queued", "ue"));
+        
+        // StringUtils.remove("queued", "zz") = "queued"
+        assertEquals("queued", StringUtils.remove("queued", "zz"));
+    }
+
+    public void testRemove_char() {
+        // StringUtils.remove(null, *)       = null
+        assertEquals(null, StringUtils.remove(null, 'a'));
+        assertEquals(null, StringUtils.remove(null, 'a'));
+        assertEquals(null, StringUtils.remove(null, 'a'));
+        
+        // StringUtils.remove("", *)          = ""
+        assertEquals("", StringUtils.remove("", 'a'));
+        assertEquals("", StringUtils.remove("", 'a'));
+        assertEquals("", StringUtils.remove("", 'a'));
+        
+        // StringUtils.remove("queued", 'u') = "qeed"
+        assertEquals("qeed", StringUtils.remove("queued", 'u'));
+        
+        // StringUtils.remove("queued", 'z') = "queued"
+        assertEquals("queued", StringUtils.remove("queued", 'z'));
+    }
+
+}
