@@ -22,7 +22,7 @@ import java.io.Serializable;
  * A mutable <code>Object</code> wrapper.
  * 
  * @since 2.1
- * @version $Id: MutableObject.java,v 1.4 2004/10/08 21:33:03 scolebourne Exp $
+ * @version $Id: MutableObject.java,v 1.5 2004/10/08 22:29:33 ggregory Exp $
  */
 public class MutableObject implements Mutable, Serializable {
 
@@ -33,7 +33,7 @@ public class MutableObject implements Mutable, Serializable {
     private Object value;
 
     /**
-     * Constructs a new MutableObject with the default value of null.
+     * Constructs a new MutableObject with the default value of <code>null</code>.
      */
     public MutableObject() {
         super();
@@ -89,9 +89,9 @@ public class MutableObject implements Mutable, Serializable {
     }
 
     /**
-     * Returns a suitable hashcode for this mutable.
+     * Returns the value's hash code or <code>0</code> if the value is <code>null</code>.
      * 
-     * @return a suitable hashcode
+     * @return the value's hash code or <code>0</code> if the value is <code>null</code>.
      */
     public int hashCode() {
         return (value == null ? 0 : value.hashCode());
