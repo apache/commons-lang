@@ -220,7 +220,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.20 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: Enum.java,v 1.21 2003/08/21 15:52:55 ggregory Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
 
@@ -233,20 +233,25 @@ public abstract class Enum implements Comparable, Serializable {
      * An empty <code>Map</code>, as JDK1.2 didn't have an empty map.
      */
     private static final Map EMPTY_MAP = Collections.unmodifiableMap(new HashMap(0));
+    
     /**
      * <code>Map</code>, key of class name, value of <code>Entry</code>.
      */
     private static final Map cEnumClasses = new HashMap();
+    
     /**
      * The string representation of the Enum.
      */
     private final String iName;
+    
     /**
      * The hashcode representation of the Enum.
      */
     private transient final int iHashCode;
+    
     /**
      * The toString representation of the Enum.
+     * @since 2.0
      */
     protected transient String iToString = null;
 
@@ -493,6 +498,7 @@ public abstract class Enum implements Comparable, Serializable {
      * constant value.</p>
      * 
      * @return the <code>Class</code> of the enum
+     * @since 2.0
      */
     public Class getEnumClass() {
         return getClass();

@@ -68,7 +68,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.19 2003/08/18 02:22:23 bayard Exp $
+ * @version $Id: ObjectUtils.java,v 1.20 2003/08/21 15:52:54 ggregory Exp $
  */
 public class ObjectUtils {
     
@@ -193,6 +193,7 @@ public class ObjectUtils {
      * @param object  the object to create a toString for, may be <code>null</code>
      * @return the default toString text, or <code>null</code> if
      *  <code>null</code> passed in
+     * @since 2.0
      */
     public static StringBuffer appendIdentityToString(StringBuffer buffer, Object object) {
         if (object == null) {
@@ -224,6 +225,7 @@ public class ObjectUtils {
      * @see String#valueOf(Object)
      * @param obj  the Object to <code>toString</code>, may be null
      * @return the passed in Object's toString, or nullStr if <code>null</code> input
+     * @since 2.0
      */
     public static String toString(Object obj) {
         return (obj == null ? "" : obj.toString());
@@ -246,6 +248,7 @@ public class ObjectUtils {
      * @param obj  the Object to <code>toString</code>, may be null
      * @param nullStr  the String to return if <code>null</code> input, may be null
      * @return the passed in Object's toString, or nullStr if <code>null</code> input
+     * @since 2.0
      */
     public static String toString(Object obj, String nullStr) {
         return (obj == null ? nullStr : obj.toString());

@@ -64,7 +64,7 @@ import java.util.Random;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.22 2003/08/18 02:22:23 bayard Exp $
+ * @version $Id: RandomStringUtils.java,v 1.23 2003/08/21 15:52:54 ggregory Exp $
  */
 public class RandomStringUtils {
 
@@ -250,6 +250,7 @@ public class RandomStringUtils {
      * @throws ArrayIndexOutOfBoundsException if there are not
      *  <code>(end - start) + 1</code> characters in the set array.
      * @throws IllegalArgumentException if <code>count</code> &lt; 0.
+     * @since 2.0
      */
     public static String random(int count, int start, int end, boolean letters, boolean numbers, char[] chars, Random random) {
         if (count == 0) {

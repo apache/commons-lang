@@ -87,7 +87,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.24 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: ToStringStyle.java,v 1.25 2003/08/21 15:52:54 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -221,6 +221,7 @@ public abstract class ToStringStyle implements Serializable {
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param toString  the additional <code>toString</code>
+     * @since 2.0
      */
     public void appendToString(StringBuffer buffer, String toString) {
         if (toString != null) {
@@ -271,6 +272,7 @@ public abstract class ToStringStyle implements Serializable {
      * <p>Remove the last field separator from the buffer.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
+     * @since 2.0
      */
     protected void removeLastFieldSeparator(StringBuffer buffer) {
         int len = buffer.length();
@@ -762,6 +764,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param fieldName  the field name, typically not used as already appended
      * @param array  the array to add to the <code>toString</code>,
      *  not <code>null</code>
+     * @since 2.0
      */
     protected void reflectionAppendArrayDetail(StringBuffer buffer, String fieldName, Object array) {
         buffer.append(arrayStart);
@@ -1459,6 +1462,7 @@ public abstract class ToStringStyle implements Serializable {
      * <p>Gets whether to output short or long class names.</p>
      *
      * @return the current useShortClassName flag
+     * @since 2.0
      */
     protected boolean isUseShortClassName() {
         return useShortClassName;
@@ -1479,6 +1483,7 @@ public abstract class ToStringStyle implements Serializable {
      * <p>Sets whether to output short or long class names.</p>
      *
      * @param useShortClassName  the new useShortClassName flag
+     * @since 2.0
      */
     protected void setUseShortClassName(boolean useShortClassName) {
         this.useShortClassName = useShortClassName;
@@ -1766,6 +1771,7 @@ public abstract class ToStringStyle implements Serializable {
      * of each buffer.</p>
      * 
      * @return the fieldSeparatorAtStart flag
+     * @since 2.0
      */
     protected boolean isFieldSeparatorAtStart() {
         return fieldSeparatorAtStart;
@@ -1776,6 +1782,7 @@ public abstract class ToStringStyle implements Serializable {
      * of each buffer.</p>
      * 
      * @param fieldSeparatorAtStart  the fieldSeparatorAtStart flag
+     * @since 2.0
      */
     protected void setFieldSeparatorAtStart(boolean fieldSeparatorAtStart) {
         this.fieldSeparatorAtStart = fieldSeparatorAtStart;
@@ -1788,6 +1795,7 @@ public abstract class ToStringStyle implements Serializable {
      * of each buffer.</p>
      * 
      * @return fieldSeparatorAtEnd flag
+     * @since 2.0
      */
     protected boolean isFieldSeparatorAtEnd() {
         return fieldSeparatorAtEnd;
@@ -1798,6 +1806,7 @@ public abstract class ToStringStyle implements Serializable {
      * of each buffer.</p>
      * 
      * @param fieldSeparatorAtEnd  the fieldSeparatorAtEnd flag
+     * @since 2.0
      */
     protected void setFieldSeparatorAtEnd(boolean fieldSeparatorAtEnd) {
         this.fieldSeparatorAtEnd = fieldSeparatorAtEnd;
