@@ -64,7 +64,7 @@ import org.apache.commons.lang.functor.TransformerException;
 import org.apache.commons.lang.functor.TransformerUtils;
 /**
  * <code>PredicateUtils</code> provides reference implementations and utilities
- * for the Predicate pattern interface. The supplied predicates are:
+ * for the Predicate functor interface. The supplied predicates are:
  * <ul>
  * <li>Invoker - returns the result of a method call on the input object
  * <li>InstanceOf - true if the object is an instanceof a class
@@ -88,7 +88,7 @@ import org.apache.commons.lang.functor.TransformerUtils;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author Ola Berg
- * @version $Id: PredicateUtils.java,v 1.1 2002/11/05 16:44:28 bayard Exp $
+ * @version $Id: PredicateUtils.java,v 1.2 2002/11/14 21:54:49 scolebourne Exp $
  */
 public class PredicateUtils {
 
@@ -127,7 +127,7 @@ public class PredicateUtils {
      * Gets a Predicate that always throws an exception.
      * This could be useful during testing as a placeholder.
      *
-     * @return the factory
+     * @return the predicate
      */
     public static Predicate exceptionPredicate() {
         return EXCEPTION_PREDICATE;
@@ -199,7 +199,8 @@ public class PredicateUtils {
     
     /**
      * Creates a Predicate that checks if the object passed in is of
-     * a particular type, using instanceof.
+     * a particular type, using instanceof. A <code>null</code> input
+     * object will return <code>false</code>.
      * 
      * @param type  the type to check for, may not be null
      * @return the predicate
@@ -207,7 +208,7 @@ public class PredicateUtils {
      */
     public static Predicate instanceofPredicate(Class type) {
         if (type == null) {
-            throw new IllegalArgumentException("InstanceofPredicate: The type to check instanceof must not be null");
+            throw new IllegalArgumentException("The type to check instanceof must not be null");
         }
         return new InstanceofPredicate(type);
     }
@@ -215,7 +216,9 @@ public class PredicateUtils {
     /**
      * Creates a Predicate that returns true the first time an object is
      * encoutered, and false if the same object is received 
-     * again. The comparison is by equals().
+     * again. The comparison is by equals(). A <code>null</code> input object
+     * is accepted and will return true the first time, and false subsequently
+     * as well.
      * 
      * @return the predicate
      */
@@ -239,6 +242,7 @@ public class PredicateUtils {
      * @throws IllegalArgumentException if the methodName is null.
      */
     public static Predicate invokerPredicate(String methodName){
+        // reuse transformer as it has caching - this is lazy really, should have inner class here
         return asPredicate(TransformerUtils.invokerTransformer(methodName));
     }
 
@@ -260,6 +264,7 @@ public class PredicateUtils {
      * @throws IllegalArgumentException if the paramTypes and args don't match
      */
     public static Predicate invokerPredicate(String methodName, Class[] paramTypes, Object[] args){
+        // reuse transformer as it has caching - this is lazy really, should have inner class here
         return asPredicate(TransformerUtils.invokerTransformer(methodName, paramTypes, args));
     }
 
@@ -272,7 +277,7 @@ public class PredicateUtils {
      * 
      * @param predicate1  the first predicate, may not be null
      * @param predicate2  the second predicate, may not be null
-     * @return the predicate
+     * @return the <code>and</code> predicate
      * @throws IllegalArgumentException if either predicate is null
      */
     public static Predicate andPredicate(Predicate predicate1, Predicate predicate2) {
@@ -284,7 +289,7 @@ public class PredicateUtils {
      * predicates are true.
      * 
      * @param predicates  an array of predicates to check, may not be null
-     * @return the predicate
+     * @return the <code>all</code> predicate
      * @throws IllegalArgumentException if the predicates array is null
      * @throws IllegalArgumentException if the predicates array has less than 2 elements
      * @throws IllegalArgumentException if any predicate in the array is null
@@ -298,7 +303,7 @@ public class PredicateUtils {
      * predicates are true. The predicates are checked in iterator order.
      * 
      * @param predicates  a collection of predicates to check, may not be null
-     * @return the predicate
+     * @return the <code>all</code> predicate
      * @throws IllegalArgumentException if the predicates collection is null
      * @throws IllegalArgumentException if the predicates collection has less than 2 elements
      * @throws IllegalArgumentException if any predicate in the collection is null
@@ -313,7 +318,7 @@ public class PredicateUtils {
      * 
      * @param predicate1  the first predicate, may not be null
      * @param predicate2  the second predicate, may not be null
-     * @return the predicate
+     * @return the <code>or</code> predicate
      * @throws IllegalArgumentException if either predicate is null
      */
     public static Predicate orPredicate(Predicate predicate1, Predicate predicate2) {
@@ -325,7 +330,7 @@ public class PredicateUtils {
      * predicates are true.
      * 
      * @param predicates  an array of predicates to check, may not be null
-     * @return the predicate
+     * @return the <code>any</code> predicate
      * @throws IllegalArgumentException if the predicates array is null
      * @throws IllegalArgumentException if the predicates array has less than 2 elements
      * @throws IllegalArgumentException if any predicate in the array is null
@@ -339,7 +344,7 @@ public class PredicateUtils {
      * predicates are true. The predicates are checked in iterator order.
      * 
      * @param predicates  a collection of predicates to check, may not be null
-     * @return the predicate
+     * @return the <code>any</code> predicate
      * @throws IllegalArgumentException if the predicates collection is null
      * @throws IllegalArgumentException if the predicates collection has less than 2 elements
      * @throws IllegalArgumentException if any predicate in the collection is null
@@ -354,7 +359,7 @@ public class PredicateUtils {
      * 
      * @param predicate1  the first predicate, may not be null
      * @param predicate2  the second predicate, may not be null
-     * @return the predicate
+     * @return the <code>either</code> predicate
      * @throws IllegalArgumentException if either predicate is null
      */
     public static Predicate eitherPredicate(Predicate predicate1, Predicate predicate2) {
@@ -366,7 +371,7 @@ public class PredicateUtils {
      * predicates are true.
      * 
      * @param predicates  an array of predicates to check, may not be null
-     * @return the predicate
+     * @return the <code>one</code> predicate
      * @throws IllegalArgumentException if the predicates array is null
      * @throws IllegalArgumentException if the predicates array has less than 2 elements
      * @throws IllegalArgumentException if any predicate in the array is null
@@ -380,7 +385,7 @@ public class PredicateUtils {
      * predicates are true. The predicates are checked in iterator order.
      * 
      * @param predicates  a collection of predicates to check, may not be null
-     * @return the predicate
+     * @return the <code>one</code> predicate
      * @throws IllegalArgumentException if the predicates collection is null
      * @throws IllegalArgumentException if the predicates collection has less than 2 elements
      * @throws IllegalArgumentException if any predicate in the collection is null
@@ -395,7 +400,7 @@ public class PredicateUtils {
      * 
      * @param predicate1  the first predicate, may not be null
      * @param predicate2  the second predicate, may not be null
-     * @return the predicate
+     * @return the <code>neither</code> predicate
      * @throws IllegalArgumentException if either predicate is null
      */
     public static Predicate neitherPredicate(Predicate predicate1, Predicate predicate2) {
@@ -407,7 +412,7 @@ public class PredicateUtils {
      * predicates are true.
      * 
      * @param predicates  an array of predicates to check, may not be null
-     * @return the predicate
+     * @return the <code>none</code> predicate
      * @throws IllegalArgumentException if the predicates array is null
      * @throws IllegalArgumentException if the predicates array has less than 2 elements
      * @throws IllegalArgumentException if any predicate in the array is null
@@ -425,7 +430,7 @@ public class PredicateUtils {
      * predicates are true. The predicates are checked in iterator order.
      * 
      * @param predicates  a collection of predicates to check, may not be null
-     * @return the predicate
+     * @return the <code>none</code> predicate
      * @throws IllegalArgumentException if the predicates collection is null
      * @throws IllegalArgumentException if the predicates collection has less than 2 elements
      * @throws IllegalArgumentException if any predicate in the collection is null
@@ -443,12 +448,12 @@ public class PredicateUtils {
      * returns false and vice versa.
      * 
      * @param predicate  the predicate to not
-     * @return the predicate
+     * @return the <code>not</code> predicate
      * @throws IllegalArgumentException if the predicate is null
      */
     public static Predicate notPredicate(Predicate predicate) {
         if (predicate == null) {
-            throw new IllegalArgumentException("NotPredicate: The predicate must not be null");
+            throw new IllegalArgumentException("The predicate must not be null");
         }
         return new NotPredicate(predicate);
     }
@@ -462,12 +467,12 @@ public class PredicateUtils {
      * will be thrown.
      * 
      * @param transformer  the transformer to wrap, may not be null
-     * @return the predicate
+     * @return the transformer wrapping predicate
      * @throws IllegalArgumentException if the transformer is null
      */
     public static Predicate asPredicate(Transformer transformer) {
         if (transformer == null) {
-            throw new IllegalArgumentException("TransformerPredicate: The transformer to call must not be null");
+            throw new IllegalArgumentException("The transformer to call must not be null");
         }
         return new TransformerPredicate(transformer);
     }
@@ -531,11 +536,11 @@ public class PredicateUtils {
      */
     private static Predicate[] validate(Collection predicates) {
         if (predicates == null) {
-            throw new IllegalArgumentException("PredicateUtils: The predicate collection must not be null");
+            throw new IllegalArgumentException("The predicate collection must not be null");
         }
         if (predicates.size() < 2) {
             throw new IllegalArgumentException(
-                "PredicateUtils: At least 2 predicates must be specified in the predicate collection, size was " + predicates.size());
+                "At least 2 predicates must be specified in the predicate collection, size was " + predicates.size());
         }
         // convert to array like this to guarantee iterator() ordering
         Predicate[] preds = new Predicate[predicates.size()];
@@ -543,7 +548,7 @@ public class PredicateUtils {
         for (Iterator it = predicates.iterator(); it.hasNext();) {
             preds[i] = (Predicate) it.next();
             if (preds[i] == null) {
-                throw new IllegalArgumentException("PredicateUtils: The predicate collection must not contain a null predicate, index " + i + " was null");
+                throw new IllegalArgumentException("The predicate collection must not contain a null predicate, index " + i + " was null");
             }
             i++;
         }
@@ -558,16 +563,16 @@ public class PredicateUtils {
      */
     private static Predicate[] validate(Predicate[] predicates) {
         if (predicates == null) {
-            throw new IllegalArgumentException("PredicateUtils: The predicate array must not be null");
+            throw new IllegalArgumentException("The predicate array must not be null");
         }
         if (predicates.length < 2) {
             throw new IllegalArgumentException(
-                "PredicateUtils: At least 2 predicates must be specified in the predicate array, size was " + predicates.length);
+                "At least 2 predicates must be specified in the predicate array, size was " + predicates.length);
         }
         Predicate[] preds = new Predicate[predicates.length];
         for (int i = 0; i < predicates.length; i++) {
             if (predicates[i] == null) {
-                throw new IllegalArgumentException("PredicateUtils: The predicate array must not contain a null predicate, index " + i + " was null");
+                throw new IllegalArgumentException("The predicate array must not contain a null predicate, index " + i + " was null");
             }
             preds[i] = predicates[i];
         }
@@ -604,7 +609,7 @@ public class PredicateUtils {
      * ConstantPredicate returns the same instance each time.
      */
     private static class ConstantPredicate implements Predicate, Serializable {
-
+        /** The constant value to return each time */
         private final boolean iConstant;
 
         /**
@@ -630,6 +635,7 @@ public class PredicateUtils {
      * AllPredicate returns true if all predicates return true
      */
     private static class AllPredicate implements Predicate, Serializable {
+        /** The array of predicates to call */
         private final Predicate[] iPredicates;
 
         /**
@@ -660,6 +666,7 @@ public class PredicateUtils {
      * AnyPredicate returns true if one of the predicates return true
      */
     private static class AnyPredicate implements Predicate, Serializable {
+        /** The array of predicates to call */
         private final Predicate[] iPredicates;
 
         /**
@@ -690,6 +697,7 @@ public class PredicateUtils {
      * OnePredicate returns true if only one of the predicates return true
      */
     private static class OnePredicate implements Predicate, Serializable {
+        /** The array of predicates to call */
         private final Predicate[] iPredicates;
 
         /**
@@ -724,6 +732,7 @@ public class PredicateUtils {
      * NotPredicate returns the opposite of the wrapped predicate
      */
     private static class NotPredicate implements Predicate, Serializable {
+        /** The predicate to call */
         private final Predicate iPredicate;
 
         /**
@@ -749,6 +758,7 @@ public class PredicateUtils {
      * InstanceofPredicate checks the type of an object
      */
     private static class InstanceofPredicate implements Predicate, Serializable {
+        /** The type to check for */
         private final Class iType;
 
         /**
@@ -774,6 +784,7 @@ public class PredicateUtils {
      * EqualPredicate that checks if the object is a particular value by equals().
      */
     private static class EqualPredicate implements Predicate, Serializable {
+        /** The object to compare to */
         private final Object iValue;
 
         /**
@@ -799,6 +810,7 @@ public class PredicateUtils {
      * IdentityPredicate that checks if the object is a particular value by identity.
      */
     private static class IdentityPredicate implements Predicate, Serializable {
+        /** The object to compare identity to */
         private final Object iValue;
 
         /**
@@ -826,6 +838,7 @@ public class PredicateUtils {
      * again using equals().
      */
     private static class UniquePredicate implements Predicate, Serializable {
+        /** The set of previously seen objects */
         private final Set iSet = new HashSet();
 
         /**
@@ -851,7 +864,7 @@ public class PredicateUtils {
      * TransformerPredicate returns the result of the Transformer as a boolean.
      */
     private static class TransformerPredicate implements Predicate, Serializable {
-
+        /** The transformer to call */
         private final Transformer iTransformer;
 
         /**
@@ -889,6 +902,7 @@ public class PredicateUtils {
      * NullIsExceptionPredicate returns an exception if null is passed in.
      */
     private static class NullIsExceptionPredicate implements Predicate, Serializable {
+        /** The predicate to call */
         private final Predicate iPredicate;
         
         /**
@@ -917,6 +931,7 @@ public class PredicateUtils {
      * NullIsFalsePredicate returns false if null is passed in.
      */
     private static class NullIsFalsePredicate implements Predicate, Serializable {
+        /** The predicate to call */
         private final Predicate iPredicate;
         
         /**
@@ -945,6 +960,7 @@ public class PredicateUtils {
      * NullIsTruePredicate returns true if null is passed in.
      */
     private static class NullIsTruePredicate implements Predicate, Serializable {
+        /** The predicate to call */
         private final Predicate iPredicate;
         
         /**
