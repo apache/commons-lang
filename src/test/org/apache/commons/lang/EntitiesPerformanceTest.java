@@ -68,6 +68,8 @@ public class EntitiesPerformanceTest extends TestCase {
     private static Entities hashEntities;
     private static Entities arrayEntities;
     private static Entities binaryEntities;
+    private static Entities primitiveEntities;
+    private static Entities lookupEntities;
 
     public EntitiesPerformanceTest(String name) {
         super(name);
@@ -85,9 +87,9 @@ public class EntitiesPerformanceTest extends TestCase {
     public void setUp() {
         if (stringWithUnicode == null) {
             StringBuffer buf = new StringBuffer(STRING_LENGTH);
-            for (int i = 0; i < STRING_LENGTH/5; ++i) {
+            for (int i = 0; i < STRING_LENGTH / 5; ++i) {
                 buf.append("xxxx");
-                char ch = html40value(i);
+                char ch = isovalue(i);
                 buf.append(ch);
             }
             stringWithUnicode = buf.toString();
@@ -101,36 +103,65 @@ public class EntitiesPerformanceTest extends TestCase {
         return ch;
     }
 
+    private char isovalue(int i) {
+        String entityValue = Entities.iso8859_1[i % Entities.iso8859_1.length][1];
+        char ch = (char) Integer.parseInt(entityValue);
+        return ch;
+    }
+
     public void testBuildHash() throws Exception {
         for (int i = 0; i < COUNT; ++i) {
-            hashEntities = new Entities();
-            hashEntities.map = new Entities.HashIntMap();
-            Entities.fillWithHtml40Entities(hashEntities);
+            hashEntities = build(new Entities.HashEntityMap());
         }
     }
 
+
     public void testBuildTree() throws Exception {
         for (int i = 0; i < COUNT; ++i) {
-            treeEntities = new Entities();
-            treeEntities.map = new Entities.TreeIntMap();
-            Entities.fillWithHtml40Entities(treeEntities);
+            treeEntities = build(new Entities.TreeEntityMap());
         }
     }
 
     public void testBuildArray() throws Exception {
         for (int i = 0; i < COUNT; ++i) {
-            arrayEntities = new Entities();
-            arrayEntities.map = new Entities.ArrayIntMap();
-            Entities.fillWithHtml40Entities(arrayEntities);
+            arrayEntities = build(new Entities.ArrayEntityMap());
         }
     }
 
     public void testBuildBinary() throws Exception {
         for (int i = 0; i < COUNT; ++i) {
-            binaryEntities = new Entities();
-            binaryEntities.map = new Entities.BinaryIntMap();
-            Entities.fillWithHtml40Entities(binaryEntities);
+            binaryEntities = build(new Entities.BinaryEntityMap());
         }
+    }
+
+    public void testBuildPrimitive() throws Exception {
+        for (int i = 0; i < COUNT; ++i) {
+            buildPrimitive();
+        }
+    }
+
+    private void buildPrimitive()
+    {
+        primitiveEntities = build(new Entities.PrimitiveEntityMap());
+    }
+
+    public void testBuildLookup() throws Exception {
+        for (int i = 0; i < COUNT; ++i) {
+            buildLookup();
+        }
+    }
+
+    private void buildLookup()
+    {
+        lookupEntities = build(new Entities.LookupEntityMap());
+    }
+
+    private Entities build(Entities.EntityMap intMap) {
+        Entities entities;
+        entities = new Entities();
+        entities.map = intMap;
+        Entities.fillWithHtml40Entities(entities);
+        return entities;
     }
 
     public void testLookupHash() throws Exception {
@@ -149,6 +180,16 @@ public class EntitiesPerformanceTest extends TestCase {
         lookup(binaryEntities);
     }
 
+    public void testLookupPrimitive() throws Exception {
+        if (primitiveEntities == null) buildPrimitive();
+        lookup(primitiveEntities);
+    }
+
+    public void testLookupLookup() throws Exception {
+        if (lookupEntities == null) buildLookup();
+        lookup(lookupEntities);
+    }
+
     public void testEscapeHash() throws Exception {
         escapeIt(hashEntities);
     }
@@ -163,6 +204,14 @@ public class EntitiesPerformanceTest extends TestCase {
 
     public void testEscapeBinary() throws Exception {
         escapeIt(binaryEntities);
+    }
+
+    public void testEscapePrimitive() throws Exception {
+        escapeIt(primitiveEntities);
+    }
+
+    public void testEscapeLookup() throws Exception {
+        escapeIt(lookupEntities);
     }
 
     public void testUnescapeHash() throws Exception {
@@ -182,23 +231,25 @@ public class EntitiesPerformanceTest extends TestCase {
     }
 
     private void lookup(Entities entities) {
-        for (int i = 0; i < COUNT*1000; ++i) {
-            entities.entityName(html40value(i));
+        for (int i = 0; i < COUNT * 1000; ++i) {
+            entities.entityName(isovalue(i));
         }
     }
 
     private void escapeIt(Entities entities) {
         for (int i = 0; i < COUNT; ++i) {
-            String escaped  = entities.escape(stringWithUnicode);
-            assertEquals("xxxx&fnof;", escaped.substring(0,10));
+            String escaped = entities.escape(stringWithUnicode);
+            assertEquals("xxxx&nbsp;", escaped.substring(0, 10));
         }
     }
 
     private void unescapeIt(Entities entities) {
         for (int i = 0; i < COUNT; ++i) {
-            String unescaped  = entities.unescape(stringWithEntities);
-            assertEquals("xxxx\u0192", unescaped.substring(0,5));
+            String unescaped = entities.unescape(stringWithEntities);
+            assertEquals("xxxx\u00A0", unescaped.substring(0, 5));
         }
     }
+
+
 }
 
