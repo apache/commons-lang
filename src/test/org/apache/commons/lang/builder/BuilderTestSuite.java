@@ -61,7 +61,7 @@ import junit.textui.TestRunner;
  * Test suite for the Lang Builder package.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: BuilderTestSuite.java,v 1.2 2002/09/15 10:27:06 scolebourne Exp $
+ * @version $Id: BuilderTestSuite.java,v 1.3 2002/09/17 22:07:50 scolebourne Exp $
  */
 public class BuilderTestSuite extends TestCase {
     
@@ -88,6 +88,12 @@ public class BuilderTestSuite extends TestCase {
         suite.addTest(CompareToBuilderTest.suite());
         suite.addTest(EqualsBuilderTest.suite());
         suite.addTest(HashCodeBuilderTest.suite());
+        suite.addTest(ToStringBuilderTest.suite());
+        suite.addTest(DefaultToStringStyleTest.suite());
+        suite.addTest(NoFieldNamesToStringStyleTest.suite());
+        suite.addTest(MultiLineToStringStyleTest.suite());
+        suite.addTest(SimpleToStringStyleTest.suite());
+        suite.addTest(StandardToStringStyleTest.suite());
         return suite;
     }
 }
