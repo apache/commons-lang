@@ -69,11 +69,13 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * <a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">WebMonkey</a>
  * <a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2</a>
  * <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html</a>HTML 4.0</a>
- * </p>
+ * <a href="http://www.w3.org/TR/html401/charset.html#h-5.3"</a>Character references</a>
+ * <a href="http://www.w3.org/TR/html401/charset.html#code-position</a>HTML 4.0: code positions</a>
+/p>
  *
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.1 2003/04/09 20:55:32 alex Exp $
+ * @version $Id: Entities.java,v 1.2 2003/04/09 21:30:18 alex Exp $
  */
 class Entities {
 
@@ -82,6 +84,10 @@ class Entities {
         {"amp", "38"}, // & - ampersand
         {"lt", "60"}, // < - less-than
         {"gt", "62"}, // > - greater-than
+    };
+
+    static private Object[][] apos = {
+        {"apos", "39"}, // XML apostrophe
     };
 
     static private Object[][] iso8859_1 = {
@@ -375,6 +381,7 @@ class Entities {
     static {
         XML = new Entities();
         XML.addEntities(basic);
+        XML.addEntities(apos);
     }
 
     static {
