@@ -7,12 +7,13 @@
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Component</h1>
-$Id: STATUS.html,v 1.7 2002/08/22 20:44:03 dlr Exp $<br />
+$Id: STATUS.html,v 1.8 2002/08/25 22:18:24 scolebourne Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#Dependencies">[Dependencies]</a>
 <a href="#Release Info">[Release Info]</a>
-<a href="#Committers">[Committers]</a>
+<a href="#Known Issues">[Known Issues]</a>
 <a href="#Action Items">[Action Items]</a>
+<a href="#Committers">[Committers]</a>
 <br /><br />
 </div>
 
@@ -33,7 +34,9 @@ The following classes are included:</p>
 <li><strong>ObjectUtils</strong> - Helper for creating any Object.</li>
 <!--<li><strong>ClassUtils</strong> - Helper for working with java.lang.Class.</li>-->
 <li><strong>SerializationUtils</strong> - Helper for serializing Objects.</li>
-<li><strong>NestedException package</strong> - A sub-package for creation of nested exceptions.</li>
+<li><strong>HashCodeBuilder</strong> - Helper to enable the construction of a good hash code.</li>
+<li><strong>NestedException package</strong> - A sub-package for the creation of nested exceptions.</li>
+<li><strong>Enum package</strong> - A sub-package for the creation of enumerated types.</li>
 </ul>
 
 
@@ -67,16 +70,33 @@ An rc1 and then a full release are planned in early Autumn/Fall 2002.
 <h3>4.  KNOWN ISSUES</h3>
 <p>
 <ul>
-<li>StringUtils - A resolution of constructor issues from <a
-href="http://archives.apache.org/eyebrowse/SummarizeList?listName=commons-dev@jakarta.apache.org">development
-mailing list</a> is a showstopper issue for any application using this
-class in a bean-like fashion, or class loading it.</li>
+<li>SystemUtils - Details of this new class need to be finalised</li>
 </ul>
 </p>
 
 
+<a name="Action Items"></a>
+<h3>5.  ACTION ITEMS</h3>
+
+<p>Want to help?  Here's some "to do" items the team has identified. Note that all are
+still under discussion, so please mail the list before actioning.</p>
+<ul>
+<li>Reflection utilities - new sub-package to deal with reflection</li>
+<li>SystemUtils - Utility to define system constants</li>
+<li>Operating system information - maybe part of SystemUtils, maybe another project</li>
+<li>ToStringBuilder - Helper to build a good toString method</li>
+<li>EqualsBuilder - Helper to build a good equals method</li>
+<li>CompareToBuilder - Helper to build a good compareTo method</li>
+<li>NullObject - Singleton object to use as a placeholder when null is not accepted</li>
+<li>ObjectUtils identityToString method - replicating the original toString of an object (from John Yu)</li>
+<li>MathUtils - possible addition of mathmatics helper. Could go in NumberUtils</li>
+<li>CalendarUtils - possible addition of a calendar utility class (from Serge Knystautas)</li>
+<li>CloneUtils - utility class to enable cloning via various different mechanisms</li>
+<li>StringUtils containsOnly method - proposed new method to check if a string contains only certain chars</li>
+</ul>
+
 <a name="Committers"></a>
-<h3>5.  COMMITTERS</h3>
+<h3>6.  COMMITTERS</h3>
 
 <p>The following individuals are the primary developers and maintainers of this
 component.  Developers who plan to use <em>Lang</em> in their own
