@@ -7,7 +7,7 @@
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Component</h1>
-$Id: STATUS.html,v 1.40 2003/07/08 05:21:44 bayard Exp $<br />
+$Id: STATUS.html,v 1.41 2003/07/08 22:05:14 scolebourne Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#Dependencies">[Dependencies]</a>
 <a href="#Release Info">[Release Info]</a>
@@ -76,7 +76,7 @@ The following principal classes are included:</p>
 <ul>
  <li><strong>DateFormatUtils</strong> - Aids in formatting Dates.</li>
  <li><strong>DateUtils</strong> - Aids in manipulating Dates.</li>
- <li><strong>DurationFormatUtils</strong> - Formats durations, represented by milliseconds.</li>
+ <!--li><strong>DurationFormatUtils</strong> - Formats durations, represented by milliseconds.</li-->
  <li><strong>FastDateFormat</strong> - Optimised version of SimpleDateFormat.</li>
  <li><strong>StopWatch</strong> - Records durations, represented by milliseconds.</li>
 </ul></li>
@@ -133,9 +133,8 @@ Unknown.
 <p>Want to help?  Here's some "to do" items the team has identified as possibly being in scope for Lang. Note that all are still under discussion, so please mail the list before actioning.</p>
 <ul>
 <li>Reflection utilities - work underway in reflect package.</li>
-<li>Operating system information - maybe part of SystemUtils, maybe another project</li>
-<li>Maths utils - possible addition of mathmatics helper.</li>
-<li>DateRange</li>
+<li>DateRange/Duration class</li>
+<li>DurationFormatUtils to be completed and made public</li>
 <li>CloneUtils - utility class to enable cloning via various different mechanisms. This code exists in [pattern] at present.</li>
 <li>StringUtils unescape method - String Taglib has shown that this method is missing from StringUtils. It would take a String with "\n" in and convert it to the Java character. unescape and escape should be symmetric - [DONE. Test symmetry] </li>
 <li>StringUtils.reverseSplit(String, String delim, int count). Should basically be a 'reverseArray(reverseDelimitedString(split(txt, delim, count)))</li>
