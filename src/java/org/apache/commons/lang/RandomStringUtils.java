@@ -64,7 +64,7 @@ import java.util.Random;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.19 2003/07/26 10:32:17 scolebourne Exp $
+ * @version $Id: RandomStringUtils.java,v 1.20 2003/07/31 23:24:35 scolebourne Exp $
  */
 public class RandomStringUtils {
 
@@ -190,7 +190,7 @@ public class RandomStringUtils {
      * @return the random string
      */
     public static String random(int count, int start, int end, boolean letters, boolean numbers) {
-        return random(count, start, end, letters, numbers, null);
+        return random(count, start, end, letters, numbers, null, RANDOM);
     }
 
     /**
@@ -207,14 +207,14 @@ public class RandomStringUtils {
      * @param end  the position in set of chars to end before
      * @param letters  only allow letters?
      * @param numbers  only allow numbers?
-     * @param set  the set of chars to choose randoms from.
+     * @param chars  the set of chars to choose randoms from.
      *  If <code>null</code>, then it will use the set of all chars.
      * @return the random string
      * @throws ArrayIndexOutOfBoundsException if there are not
      *  <code>(end - start) + 1</code> characters in the set array.
      */
-    public static String random(int count, int start, int end, boolean letters, boolean numbers, char[] set) {
-        return random(count,start,end,letters,numbers,set,RANDOM);
+    public static String random(int count, int start, int end, boolean letters, boolean numbers, char[] chars) {
+        return random(count, start, end, letters, numbers, chars, RANDOM);
     }
 
     /**
@@ -241,7 +241,7 @@ public class RandomStringUtils {
      * @param end  the position in set of chars to end before
      * @param letters  only allow letters?
      * @param numbers  only allow numbers?
-     * @param set  the set of chars to choose randoms from.
+     * @param chars  the set of chars to choose randoms from.
      *  If <code>null</code>, then it will use the set of all chars.
      * @param random  a source of randomness.
      * @return the random string
@@ -249,16 +249,16 @@ public class RandomStringUtils {
      *  <code>(end - start) + 1</code> characters in the set array.
      * @throws IllegalArgumentException if <code>count</code> &lt; 0.
      */
-    public static String random(int count, int start, int end, boolean letters, boolean numbers, char[] set, Random random) {
-        if( count == 0 ) {
+    public static String random(int count, int start, int end, boolean letters, boolean numbers, char[] chars, Random random) {
+        if (count == 0) {
             return "";
-        } else if( count < 0 ) {
+        } else if (count < 0) {
             throw new IllegalArgumentException("Requested random string length " + count + " is less than 0.");
         }
-        if( (start == 0) && (end == 0) ) {
+        if ((start == 0) && (end == 0)) {
             end = 'z' + 1;
             start = ' ';
-            if(!letters && !numbers) {
+            if (!letters && !numbers) {
                 start = 0;
                 end = Integer.MAX_VALUE;
             }
@@ -267,20 +267,18 @@ public class RandomStringUtils {
         StringBuffer buffer = new StringBuffer();
         int gap = end - start;
 
-        while(count-- != 0) {
+        while (count-- != 0) {
             char ch;
-            if(set == null) {
-                ch = (char)(random.nextInt(gap) + start);
+            if (chars == null) {
+                ch = (char) (random.nextInt(gap) + start);
             } else {
-                ch = set[random.nextInt(gap) + start];
+                ch = chars[random.nextInt(gap) + start];
             }
-            if( (letters && numbers && Character.isLetterOrDigit(ch)) ||
-                (letters && Character.isLetter(ch)) ||
-                (numbers && Character.isDigit(ch)) ||
-                (!letters && !numbers)
-              ) 
-            {
-                buffer.append( ch );
+            if ((letters && numbers && Character.isLetterOrDigit(ch))
+                || (letters && Character.isLetter(ch))
+                || (numbers && Character.isDigit(ch))
+                || (!letters && !numbers)) {
+                buffer.append(ch);
             } else {
                 count++;
             }
@@ -296,13 +294,16 @@ public class RandomStringUtils {
      * specified.</p>
      *
      * @param count  the length of random string to create
-     * @param set  the String containing the set of characters to use,
-     *  must not be <code>null</code>
+     * @param chars  the String containing the set of characters to use,
+     *  may be null
      * @return the random string
-     * @throws NullPointerException if the set is <code>null</code>
+     * @throws IllegalArgumentException if <code>count</code> &lt; 0.
      */
-    public static String random(int count, String set) {
-        return random(count, set.toCharArray());
+    public static String random(int count, String chars) {
+        if (chars == null) {
+            return random(count, 0, 0, false, false, null, RANDOM);
+        }
+        return random(count, chars.toCharArray());
     }
 
     /**
@@ -312,12 +313,16 @@ public class RandomStringUtils {
      * <p>Characters will be chosen from the set of characters specified.</p>
      *
      * @param count  the length of random string to create
-     * @param set  the character array containing the set of characters to use
-     *  must not be <code>null</code>
+     * @param chars  the character array containing the set of characters to use,
+     *  may be null
      * @return the random string
-     * @throws NullPointerException if the set is <code>null</code>
+     * @throws IllegalArgumentException if <code>count</code> &lt; 0.
      */
-    public static String random(int count, char[] set) {
-        return random(count, 0, set.length, false, false, set);
+    public static String random(int count, char[] chars) {
+        if (chars == null) {
+            return random(count, 0, 0, false, false, null, RANDOM);
+        }
+        return random(count, 0, chars.length, false, false, chars, RANDOM);
     }
+    
 }
