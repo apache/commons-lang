@@ -58,13 +58,14 @@ import java.io.Serializable;
 /**
  * <p>A contiguous range of characters, optionally negated.</p>
  * 
- * <p>This class is immutable.</p>
+ * <p>Instances are immutable.</p>
  *
  * @author Henri Yandell
  * @author Stephen Colebourne
  * @author Chris Feldhacker
+ * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharRange.java,v 1.14 2003/08/18 02:22:22 bayard Exp $
+ * @version $Id: CharRange.java,v 1.15 2003/08/22 17:25:33 ggregory Exp $
  */
 public final class CharRange implements Serializable {
 

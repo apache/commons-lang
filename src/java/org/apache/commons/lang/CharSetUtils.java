@@ -54,18 +54,19 @@
 package org.apache.commons.lang;
 
 /**
- * <p>Numerous routines to manipulate a <code>CharSet</code>.</p>
+ * <p>Operations on <code>CharSet</code>s.</p>
  *
  * <p>This class handles <code>null</code> input gracefully.
  * An exception will not be thrown for a <code>null</code> input.
  * Each method documents its behaviour in more detail.</p>
  * 
+ * @see CharSet
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @author Phil Steitz
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.25 2003/08/22 03:06:36 ggregory Exp $
+ * @version $Id: CharSetUtils.java,v 1.26 2003/08/22 17:25:33 ggregory Exp $
  */
 public class CharSetUtils {
 

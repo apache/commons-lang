@@ -56,8 +56,7 @@ package org.apache.commons.lang;
 import org.apache.commons.lang.math.NumberUtils;
 
 /**
- * <p><code>BooleanUtils</code> contains utility methods for working for
- * boolean and Boolean objects.</p>
+ * <p>Operations on boolean primitives and Boolean objects.</p>
  *
  * <p>This class tries to handle <code>null</code> input gracefully.
  * An exception will not be thrown for a <code>null</code> input.
@@ -65,8 +64,9 @@ import org.apache.commons.lang.math.NumberUtils;
  * 
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
+ * @author Gary Gregory
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.13 2003/08/18 02:22:22 bayard Exp $
+ * @version $Id: BooleanUtils.java,v 1.14 2003/08/22 17:25:33 ggregory Exp $
  */
 public class BooleanUtils {
 
@@ -143,7 +143,7 @@ public class BooleanUtils {
     // Integer to Boolean methods
     //-----------------------------------------------------------------------
     /**
-     * <p>Convert an int to a boolean using the convention that <code>zero</code>
+     * <p>Converts an int to a boolean using the convention that <code>zero</code>
      * is <code>false</code>.</p>
      * 
      * @param value  the int to convert
@@ -155,7 +155,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert an int to a Boolean using the convention that <code>zero</code>
+     * <p>Converts an int to a Boolean using the convention that <code>zero</code>
      * is <code>false</code>.</p>
      * 
      * @param value  the int to convert
@@ -167,7 +167,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert an Integer to a Boolean using the convention that <code>zero</code>
+     * <p>Converts an Integer to a Boolean using the convention that <code>zero</code>
      * is <code>false</code>.</p>
      * 
      * <p><code>null</code> will be converted to <code>null</code>.</p>
@@ -184,7 +184,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert an int to a boolean specifying the conversion values.</p>
+     * <p>Converts an int to a boolean specifying the conversion values.</p>
      * 
      * @param value  the Integer to convert
      * @param trueValue  the value to match for <code>true</code>
@@ -203,7 +203,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert an Integer to a boolean specifying the conversion values.</p>
+     * <p>Converts an Integer to a boolean specifying the conversion values.</p>
      * 
      * @param value  the Integer to convert
      * @param trueValue  the value to match for <code>true</code>,
@@ -230,7 +230,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert an int to a Boolean specifying the conversion values.</p>
+     * <p>Converts an int to a Boolean specifying the conversion values.</p>
      * 
      * @param value  the Integer to convert
      * @param trueValue  the value to match for <code>true</code>
@@ -252,7 +252,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert an Integer to a Boolean specifying the conversion values.</p>
+     * <p>Converts an Integer to a Boolean specifying the conversion values.</p>
      * 
      * @param value  the Integer to convert
      * @param trueValue  the value to match for <code>true</code>,
@@ -287,7 +287,7 @@ public class BooleanUtils {
     // Boolean to Integer methods
     //-----------------------------------------------------------------------
     /**
-     * <p>Convert a boolean to an int using the convention that
+     * <p>Converts a boolean to an int using the convention that
      * <code>zero</code> is <code>false</code>.</p>
      * 
      * @param bool  the boolean to convert
@@ -298,7 +298,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert a boolean to an Integer using the convention that
+     * <p>Converts a boolean to an Integer using the convention that
      * <code>zero</code> is <code>false</code>.</p>
      * 
      * @param bool  the boolean to convert
@@ -309,7 +309,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert a Boolean to a Integer using the convention that
+     * <p>Converts a Boolean to a Integer using the convention that
      * <code>zero</code> is <code>false</code>.</p>
      * 
      * <p><code>null</code> will be converted to <code>null</code>.</p>
@@ -325,7 +325,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert a boolean to an int specifying the conversion values.</p>
+     * <p>Converts a boolean to an int specifying the conversion values.</p>
      * 
      * @param bool  the to convert
      * @param trueValue  the value to return if <code>true</code>
@@ -337,7 +337,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert a Boolean to an int specifying the conversion values.</p>
+     * <p>Converts a Boolean to an int specifying the conversion values.</p>
      * 
      * @param bool  the Boolean to convert
      * @param trueValue  the value to return if <code>true</code>
@@ -353,7 +353,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert a boolean to an Integer specifying the conversion values.</p>
+     * <p>Converts a boolean to an Integer specifying the conversion values.</p>
      * 
      * @param bool  the to convert
      * @param trueValue  the value to return if <code>true</code>,
@@ -367,7 +367,7 @@ public class BooleanUtils {
     }
     
     /**
-     * <p>Convert a Boolean to an Integer specifying the conversion values.</p>
+     * <p>Converts a Boolean to an Integer specifying the conversion values.</p>
      * 
      * @param bool  the Boolean to convert
      * @param trueValue  the value to return if <code>true</code>,

@@ -58,7 +58,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * <p>Common {@link java.lang.String} manipulation routines that are 
+ * <p>Operations on {@link java.lang.String} that are 
  * <code>null</code> safe.</p>
  * 
  * <ul>
@@ -142,10 +142,10 @@ import java.util.List;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Arun Mammen Thomas
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.105 2003/08/21 22:13:24 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.106 2003/08/22 17:25:33 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)

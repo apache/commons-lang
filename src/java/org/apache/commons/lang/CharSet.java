@@ -63,7 +63,7 @@ import java.util.Set;
 /**
  * <p>A set of characters.</p>
  *
- * <p>This class is immutable, but subclasses may not be.</p>
+ * <p>Instances are immutable, but instances of subclasses may not be.</p>
  *
  * @author Henri Yandell
  * @author Stephen Colebourne
@@ -71,7 +71,7 @@ import java.util.Set;
  * @author Pete Gieser
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSet.java,v 1.19 2003/08/21 05:26:02 ggregory Exp $
+ * @version $Id: CharSet.java,v 1.20 2003/08/22 17:25:33 ggregory Exp $
  */
 public class CharSet implements Serializable {
 
