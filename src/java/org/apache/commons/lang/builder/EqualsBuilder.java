@@ -74,7 +74,7 @@ import java.lang.reflect.Modifier;
  * Typical use for the code is as follows:
  * <pre>
  * public boolean equals(Object o) {
- *   if (!o instanceof MyClass) {
+ *   if ( !(o instanceof MyClass) ) {
  *    return false;
  *   }
  *  MyClass rhs = (MyClass) o;
@@ -102,7 +102,7 @@ import java.lang.reflect.Modifier;
  * 
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EqualsBuilder.java,v 1.4 2002/10/01 20:00:43 stevencaswell Exp $
+ * @version $Id: EqualsBuilder.java,v 1.5 2002/11/01 16:40:41 bayard Exp $
  */
 public class EqualsBuilder {
     /**
