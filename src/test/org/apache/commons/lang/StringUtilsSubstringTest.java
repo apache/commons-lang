@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsSubstringTest.java,v 1.4 2003/07/16 23:45:39 scolebourne Exp $
+ * @version $Id: StringUtilsSubstringTest.java,v 1.5 2003/07/18 02:06:23 scolebourne Exp $
  */
 public class StringUtilsSubstringTest extends TestCase {
     private static final String FOO = "foo";
@@ -208,12 +208,19 @@ public class StringUtilsSubstringTest extends TestCase {
     }
 
     public void testGetNestedString() {
-        assertEquals( "", StringUtils.getNestedString("", "") );
-        assertEquals( "", StringUtils.getNestedString("    ", " ") );
-        assertEquals( "bar", StringUtils.getNestedString("\nbar\n", "\n") );
-        assertEquals( "", StringUtils.getNestedString("", "", "") );
-        assertEquals( "", StringUtils.getNestedString("    ", " ", "  ") );
-        assertEquals( "bar", StringUtils.getNestedString("<foo>bar</foo>", "<foo>", "</foo>") );
+        assertEquals(null, StringUtils.getNestedString(null, "tag"));
+        assertEquals(null, StringUtils.getNestedString("abc", null));
+        assertEquals("", StringUtils.getNestedString("abc", ""));
+        assertEquals(null, StringUtils.getNestedString("abc", "a"));
+        assertEquals("bc", StringUtils.getNestedString("abca", "a"));
+        assertEquals("bc", StringUtils.getNestedString("abcabca", "a"));
+        assertEquals("", StringUtils.getNestedString("", ""));
+        assertEquals("", StringUtils.getNestedString("    ", " "));
+        assertEquals("bar", StringUtils.getNestedString("\nbar\n", "\n"));
+        
+        assertEquals("", StringUtils.getNestedString("", "", ""));
+        assertEquals("", StringUtils.getNestedString("    ", " ", "  "));
+        assertEquals("bar", StringUtils.getNestedString("<foo>bar</foo>", "<foo>", "</foo>") );
     }
 
 }

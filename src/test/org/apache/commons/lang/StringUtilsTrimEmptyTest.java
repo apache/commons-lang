@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTrimEmptyTest.java,v 1.9 2003/07/16 21:19:22 scolebourne Exp $
+ * @version $Id: StringUtilsTrimEmptyTest.java,v 1.10 2003/07/18 02:06:23 scolebourne Exp $
  */
 public class StringUtilsTrimEmptyTest extends TestCase {
     private static final String FOO = "foo";
@@ -229,16 +229,21 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         String fooRightSpace = FOO+"    ";
         String fooRightDots = FOO+".........";
 
+        assertEquals(null, StringUtils.strip(null));
         assertEquals("", StringUtils.strip(""));
         assertEquals("", StringUtils.strip("        "));
         assertEquals(FOO, StringUtils.strip(foo2Space));
+        
+        assertEquals(FOO, StringUtils.strip(foo2Space, null));
         assertEquals(FOO, StringUtils.strip(foo2Dots, "."));
         assertEquals(FOO, StringUtils.strip(fooRightSpace));
         assertEquals(FOO, StringUtils.strip(fooRightDots, "."));
         assertEquals(FOO, StringUtils.strip(fooLeftSpace));
         assertEquals(FOO, StringUtils.strip(fooLeftDots, "."));
 
+        assertEquals(null, StringUtils.stripStart(null, null));
         assertEquals("", StringUtils.stripStart("", " "));
+        assertEquals(fooRightSpace, StringUtils.stripStart(foo2Space, null));
         assertEquals(fooRightSpace, StringUtils.stripStart(foo2Space, " "));
         assertEquals(fooRightDots, StringUtils.stripStart(foo2Dots, "."));
         assertEquals(fooRightSpace, StringUtils.stripStart(fooRightSpace, " "));
@@ -246,7 +251,9 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(FOO, StringUtils.stripStart(fooLeftSpace, " "));
         assertEquals(FOO, StringUtils.stripStart(fooLeftDots, "."));
 
+        assertEquals(null, StringUtils.stripEnd(null, null));
         assertEquals("", StringUtils.stripEnd("", " "));
+        assertEquals(fooLeftSpace, StringUtils.stripEnd(foo2Space, null));
         assertEquals(fooLeftSpace, StringUtils.stripEnd(foo2Space, " "));
         assertEquals(fooLeftDots, StringUtils.stripEnd(foo2Dots, "."));
         assertEquals(FOO, StringUtils.stripEnd(fooRightSpace, " "));
@@ -265,8 +272,12 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         String[] fooDots = new String[] { foo2Dots, fooLeftDots, fooRightDots };
         String[] foo = new String[] { FOO, FOO, FOO };
 
+        assertEquals(null, StringUtils.stripAll(null));
         assertArrayEquals(empty, StringUtils.stripAll(empty));
         assertArrayEquals(foo, StringUtils.stripAll(fooSpace));
+        
+        assertEquals(null, StringUtils.stripAll(null, null));
+        assertArrayEquals(foo, StringUtils.stripAll(fooSpace, null));
         assertArrayEquals(foo, StringUtils.stripAll(fooDots, "."));
     }
 
