@@ -7,7 +7,7 @@
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Component</h1>
-$Id: STATUS.html,v 1.20 2002/09/27 19:24:11 stevencaswell Exp $<br />
+$Id: STATUS.html,v 1.21 2002/09/29 07:24:20 bayard Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#Dependencies">[Dependencies]</a>
 <a href="#Release Info">[Release Info]</a>
@@ -70,6 +70,8 @@ An rc1 and then a full release are planned in early Autumn/Fall 2002.
 <h3>4.  KNOWN ISSUES</h3>
 <p>
 <ul>
+<li>CharRange.UNSET - will have problems if we introduce reverse ranges that go down to \u0000.</lI>
+<li>Null effects - the classes are not standardised in how they handle null.</li>
 </ul>
 </p>
 
@@ -95,6 +97,7 @@ still under discussion, so please mail the list before actioning.</p>
 <li>GUID and other Identifier generators - these may belong in [util], some code exists in [pattern] at the moment
 <li>CharUtils - Utilities to work on a char[] in the same way as a String
 <li>AStringBuffer - A StringBuffer implementation with additional methods from StringUtils
+<li>O(n) - Document all algorithm-implementing methods with the order. Possibly with an O(n) on the end of each parameterm or with an @order tag.</li>
 </ul>
 
 
