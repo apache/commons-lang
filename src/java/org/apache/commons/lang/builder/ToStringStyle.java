@@ -58,6 +58,7 @@ import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
 
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.SystemUtils;
 
@@ -86,7 +87,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.21 2003/07/25 23:04:24 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.22 2003/08/14 00:10:42 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -1426,12 +1427,7 @@ public abstract class ToStringStyle implements Serializable {
      * @return the short name
      */
     protected String getShortClassName(Class cls) {
-        String name = cls.getName();
-        int pos = name.lastIndexOf('.');
-        if (pos == -1) {
-            return name;
-        }
-        return name.substring(pos + 1);
+        return ClassUtils.getShortClassName(cls);
     }
 
     // Setters and getters for the customizable parts of the style
