@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.14 2003/07/19 21:55:05 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.15 2003/07/20 16:14:51 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -17,7 +17,7 @@ Some StringUtils methods have changed functionality from 1.0.
     isEmpty()
     chomp(String)
     chomp(String,String)
-     plus others have changed null handling
+Other methods have changed null handling
 Check your code before implementing this release.
 
 
