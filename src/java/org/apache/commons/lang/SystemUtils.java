@@ -69,7 +69,7 @@ package org.apache.commons.lang;
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.24 2003/10/07 20:59:46 scolebourne Exp $
+ * @version $Id: SystemUtils.java,v 1.25 2003/10/23 03:55:34 ggregory Exp $
  */
 public class SystemUtils {
 
@@ -131,6 +131,17 @@ public class SystemUtils {
      * @since Java 1.2. Not used in Sun versions after 1.2.
      */
     public static final String JAVA_COMPILER = getSystemProperty("java.compiler");
+
+    /**
+     * <p>The <code>java.endorsed.dirs</code> System Property. Path of endorsed directory
+     * or directories.</p>
+     *
+     * <p>Defaults to <code>null</code> if the runtime does not have
+     * security access to read this property or the property does not exist.</p>
+     * 
+     * @since Java 1.4
+     */
+    public static final String JAVA_ENDORSED_DIRS = getSystemProperty("java.endorsed.dirs");
 
     /**
      * <p>The <code>java.ext.dirs</code> System Property. Path of extension directory
@@ -725,6 +736,7 @@ public class SystemUtils {
      * instance to operate.</p>
      */
     public SystemUtils() {
+        // no init.
     }
     
     //-----------------------------------------------------------------------    
