@@ -15,6 +15,9 @@
  */
 package org.apache.commons.lang.time;
 
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -31,7 +34,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.34 2004/10/16 17:43:05 scolebourne Exp $
+ * @version $Id: DateUtils.java,v 1.35 2004/10/16 21:06:18 scolebourne Exp $
  */
 public class DateUtils {
     
@@ -226,6 +229,42 @@ public class DateUtils {
                 cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
                 cal1.getClass() == cal2.getClass());
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Parses a string representing a date by trying a variety of different parsers.</p>
+     * 
+     * <p>The parse will try each parse pattern in turn.
+     * A parse is only deemed sucessful if it parses the whole of the input string.
+     * If no parse patterns match, a ParseException is thrown.</p>
+     * 
+     * @param str  the date to parse, not null
+     * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null
+     * @return the parsed date
+     * @throws IllegalArgumentException if the date string or pattern array is null
+     * @throws ParseException if none of the date patterns were suitable
+     */
+    public static Date parseDate(String str, String[] parsePatterns) throws ParseException {
+        if (str == null || parsePatterns == null) {
+            throw new IllegalArgumentException("Date and Patterns must not be null");
+        }
+        
+        SimpleDateFormat parser = null;
+        ParsePosition pos = new ParsePosition(0);
+        for (int i = 0; i < parsePatterns.length; i++) {
+            if (i == 0) {
+                parser = new SimpleDateFormat(parsePatterns[0]);
+            } else {
+                parser.applyPattern(parsePatterns[i]);
+            }
+            pos.setIndex(0);
+            Date date = parser.parse(str, pos);
+            if (date != null && pos.getIndex() == str.length()) {
+                return date;
+            }
+        }
+        throw new ParseException("Unable to parse the date: " + str, -1);
     }
 
     //-----------------------------------------------------------------------

@@ -18,6 +18,7 @@ package org.apache.commons.lang.time;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -235,6 +236,40 @@ public class DateUtilsTest extends TestCase {
         assertEquals(false, DateUtils.isSameLocalTime(cal1, cal2));
         try {
             DateUtils.isSameLocalTime((Calendar) null, (Calendar) null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testParseDate() throws Exception {
+        GregorianCalendar cal = new GregorianCalendar(1972, 11, 3);
+        String dateStr = "1972-12-03";
+        String[] parsers = new String[] {"yyyy'-'DDD", "yyyy'-'MM'-'dd", "yyyyMMdd"};
+        Date date = DateUtils.parseDate(dateStr, parsers);
+        assertEquals(cal.getTime(), date);
+        
+        dateStr = "1972-338";
+        date = DateUtils.parseDate(dateStr, parsers);
+        assertEquals(cal.getTime(), date);
+        
+        dateStr = "19721203";
+        date = DateUtils.parseDate(dateStr, parsers);
+        assertEquals(cal.getTime(), date);
+        
+        try {
+            DateUtils.parseDate("PURPLE", parsers);
+            fail();
+        } catch (ParseException ex) {}
+        try {
+            DateUtils.parseDate("197212AB", parsers);
+            fail();
+        } catch (ParseException ex) {}
+        try {
+            DateUtils.parseDate(null, parsers);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.parseDate(dateStr, null);
             fail();
         } catch (IllegalArgumentException ex) {}
     }
