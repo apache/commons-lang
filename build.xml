@@ -16,14 +16,15 @@ limitations under the License.
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.26 2004/02/19 21:29:35 scolebourne Exp $
+        $Id: build.xml,v 1.27 2004/09/30 16:51:14 ggregory Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
     <property file="${user.home}/build.properties"/>
     <property file="${basedir}/build.properties"/>
     <property file="${basedir}/default.properties"/>
-    <property name="jdk.javadoc" value="http://java.sun.com/products/jdk/1.2/docs/api/"/>
+	<!-- The Sun Javadoc for versions prior to 1.3 are off-line. -->
+    <property name="jdk.javadoc" value="http://java.sun.com/j2se/1.3/docs/api/"/>
          <!-- ========== Construct compile classpath =============================== -->
     <path id="compile.classpath">
         <pathelement location="${build.home}/classes"/>
