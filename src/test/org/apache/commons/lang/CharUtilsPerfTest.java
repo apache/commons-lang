@@ -53,10 +53,10 @@ run_inlined_CharUtils_isAsciiNumeric: 709 milliseconds.
 run_inlined_CharUtils_isAsciiNumeric: 84,420 milliseconds.
 
 
- * @version $Id: CharUtilsPerfTest.java,v 1.1 2004/03/18 22:37:39 ggregory Exp $
+ * @version $Id: CharUtilsPerfTest.java,v 1.2 2004/03/19 00:29:32 ggregory Exp $
  */
 public class CharUtilsPerfTest {
-    final static String VERSION = "$Id: CharUtilsPerfTest.java,v 1.1 2004/03/18 22:37:39 ggregory Exp $";
+    final static String VERSION = "$Id: CharUtilsPerfTest.java,v 1.2 2004/03/19 00:29:32 ggregory Exp $";
 
     final static int WARM_UP = 100;
 
@@ -118,7 +118,7 @@ public class CharUtilsPerfTest {
         //System.out.println("Measuring...");
         start = System.currentTimeMillis();
         run_CharSet(COUNT);
-        this.printlnTotal("run_inlined_CharUtils_isAsciiNumeric", start);
+        this.printlnTotal("run_CharSet", start);
     }
 
     private int run_CharSet(int loopCount) {
