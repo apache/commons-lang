@@ -71,8 +71,9 @@ import java.util.Map;
  * @author <a href="mailto:ola.berg@arkitema.se">Ola Berg</a>
  * @author Stephen Colebourne
  * @author Gary Gregory
+ * @author Norm Deane
  * @since 2.0
- * @version $Id: Validate.java,v 1.8 2004/02/11 23:33:23 ggregory Exp $
+ * @version $Id: Validate.java,v 1.9 2004/02/14 00:48:19 scolebourne Exp $
  */
 public class Validate {
     
@@ -527,6 +528,55 @@ public class Validate {
                 throw new IllegalArgumentException("The validated collection contains null element at index: " + i);
             }
         }
+    }
+    
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument collection  is <code>null</code> or has elements that
+     * are not of type <code>clazz</code>.</p>
+     *
+     * <pre>
+     * Validate.allElementsOfClass(collection, String.class, "Collection has invalid elements");
+     * </pre>
+     *
+     * @param collection  the collection to check
+     * @param clazz  the <code>Class</code> which the collection's elements are expected to be
+     * @param message  the exception message if the <code>Collection</code> has elements not of type <code>clazz</code>
+     * @since 2.1
+     */
+    public static void allElementsOfClass(Collection collection, Class clazz, String message) {
+    	Validate.notNull(collection);
+    	for (Iterator it = collection.iterator(); it.hasNext(); ) {
+    		if ((it.next().getClass().equals(clazz)) == false) {
+    			throw new IllegalArgumentException(message);
+    		}
+    	}
+    }   
+    
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument collection  is <code>null</code> or has elements that are not of 
+     * type <code>clazz</code>.</p>
+     *
+     * <pre>
+     * Validate.allElementsOfClass(collection, String.class);
+     * </pre>
+     *
+     * <p>The message in the exception is 'The validated collection contains an element not of type clazz at index: '.</p>
+     * 
+     * @param collection  the collection to check
+     * @param clazz the <code>Class</code> which the collection's elements are expected to be
+     * @since 2.1
+     */
+    public static void allElementsOfClass(Collection collection, Class clazz) {
+    	Validate.notNull(collection);
+    	int i = 0;
+    	for (Iterator it = collection.iterator(); it.hasNext(); i++) {
+    		if ((it.next().getClass().equals(clazz)) == false) {
+    			throw new IllegalArgumentException("The validated collection contains an element not of type "
+                    + (clazz == null ? "null" : clazz.getName()) + " at index: " + i);
+    		}
+    	}
     }
 
 }

@@ -67,7 +67,8 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.util.Validate}.
  *
  * @author Stephen Colebourne
- * @version $Id: ValidateTest.java,v 1.3 2003/08/19 02:32:16 bayard Exp $
+ * @author Norm Deane
+ * @version $Id: ValidateTest.java,v 1.4 2004/02/14 00:48:20 scolebourne Exp $
  */
 public class ValidateTest extends TestCase {
 
@@ -395,4 +396,23 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testAllElementsOfClass() {
+    	List coll = new ArrayList();
+    	coll.add("a");
+    	coll.add("b");
+    	Validate.allElementsOfClass(coll, String.class, "MSG");
+    	try {
+    		Validate.allElementsOfClass(coll, Integer.class, "MSG");
+    		fail("Expecting IllegalArgumentException");
+    	} catch (IllegalArgumentException ex) {
+    		assertEquals("MSG", ex.getMessage());
+    	}
+    	coll.set(1, Boolean.FALSE);
+    	try {
+    		Validate.allElementsOfClass(coll, String.class);
+    		fail("Expecting IllegalArgumentException");
+    	} catch (IllegalArgumentException ex) {
+    		assertEquals("The validated collection contains an element not of type java.lang.String at index: 1", ex.getMessage());
+    	}
+    }
 }
