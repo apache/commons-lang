@@ -75,7 +75,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Helge Tesgaard
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.4 2003/04/09 00:07:49 ggregory Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.5 2003/04/09 18:45:28 alex Exp $
  */
 public class StringEscapeUtils {
 
@@ -184,11 +184,11 @@ public class StringEscapeUtils {
 
             // handle unicode
             if (ch > 0xfff) {
-                out.write("\\u" + Integer.toHexString(ch));
+                out.write("\\u" + hex(ch));
             } else if (ch > 0xff) {
-                out.write("\\u0" + Integer.toHexString(ch));
+                out.write("\\u0" + hex(ch));
             } else if (ch > 0x7f) {
-                out.write("\\u00" + Integer.toHexString(ch));
+                out.write("\\u00" + hex(ch));
             } else if (ch < 32) {
                 switch (ch) {
                     case '\b':
@@ -213,9 +213,9 @@ public class StringEscapeUtils {
                         break;
                     default :
                         if (ch > 0xf) {
-                            out.write("\\u00" + Integer.toHexString(ch));
+                            out.write("\\u00" + hex(ch));
                         } else {
-                            out.write("\\u000" + Integer.toHexString(ch));
+                            out.write("\\u000" + hex(ch));
                         }
                         break;
                 }
@@ -239,6 +239,10 @@ public class StringEscapeUtils {
                 }
             }
         }
+    }
+
+    private static String hex(char ch) {
+        return Integer.toHexString(ch).toUpperCase();
     }
 
     /**
@@ -268,6 +272,7 @@ public class StringEscapeUtils {
             if (inUnicode) {
                 // if in unicode, then we're reading unicode
                 // values in somehow
+                unicode.append(ch);
                 if (unicode.length() == 4) {
                     // unicode now contains the four hex digits
                     // which represents our unicode chacater
@@ -275,16 +280,13 @@ public class StringEscapeUtils {
                         int value = Integer.parseInt(unicode.toString(), 16);
                         out.write((char) value);
                         unicode.setLength(0);
-                        unicode.setLength(4);
                         inUnicode = false;
                         hadSlash = false;
                     } catch (NumberFormatException nfe) {
                         throw new NestableRuntimeException("Unable to parse unicode value: " + unicode, nfe);
                     }
-                } else {
-                    unicode.append(ch);
-                    continue;
                 }
+                continue;
             }
             if (hadSlash) {
                 // handle an escaped value
