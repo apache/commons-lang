@@ -71,7 +71,7 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.15 2003/09/23 15:46:42 fredrik Exp $
+ * @version $Id: NumberUtils.java,v 1.16 2003/09/23 17:02:10 fredrik Exp $
  */
 public class NumberUtils {
     
@@ -204,6 +204,9 @@ public class NumberUtils {
      * @return the int represented by the string, or the default if conversion fails
      */
     public static int toInt(String str, int defaultValue) {
+        if(str == null) {
+            return defaultValue;
+        }
         try {
             return Integer.parseInt(str);
         } catch (NumberFormatException nfe) {
@@ -250,6 +253,9 @@ public class NumberUtils {
      * @since 2.1
      */
     public static long toLong(String str, long defaultValue) {
+        if (str == null) {
+            return defaultValue;
+        }
         try {
             return Long.parseLong(str);
         } catch (NumberFormatException nfe) {
