@@ -66,7 +66,7 @@ import junit.framework.TestSuite;
  *
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: NumberUtilsTest.java,v 1.1 2002/07/19 03:35:55 bayard Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.2 2002/09/15 10:27:56 scolebourne Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -154,7 +154,16 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("createBigDecimal(String) failed", new BigDecimal("1234.5"), NumberUtils.createBigDecimal("1234.5"));
     }
 
-    public void testMinimum() {
+    public void testMinimumLong() {
+        assertEquals("minimum(long,long,long) 1 failed", 12345L, NumberUtils.minimum(12345L, 12345L + 1L, 12345L + 2L));
+        assertEquals("minimum(long,long,long) 2 failed", 12345L, NumberUtils.minimum(12345L + 1L, 12345L, 12345 + 2L));
+        assertEquals("minimum(long,long,long) 3 failed", 12345L, NumberUtils.minimum(12345L + 1L, 12345L + 2L, 12345L));
+        assertEquals("minimum(long,long,long) 4 failed", 12345L, NumberUtils.minimum(12345L + 1L, 12345L, 12345L));
+        assertEquals("minimum(long,long,long) 5 failed", 12345L, NumberUtils.minimum(12345L, 12345L, 12345L));
+
+    }
+
+    public void testMinimumInt() {
         assertEquals("minimum(int,int,int) 1 failed", 12345, NumberUtils.minimum(12345, 12345 + 1, 12345 + 2));
         assertEquals("minimum(int,int,int) 2 failed", 12345, NumberUtils.minimum(12345 + 1, 12345, 12345 + 2));
         assertEquals("minimum(int,int,int) 3 failed", 12345, NumberUtils.minimum(12345 + 1, 12345 + 2, 12345));
@@ -163,13 +172,206 @@ public class NumberUtilsTest extends TestCase {
 
     }
 
-    public void testMaximum() {
+    public void testMaximumLong() {
+        assertEquals("maximum(long,long,long) 1 failed", 12345L, NumberUtils.maximum(12345L, 12345L - 1L, 12345L - 2L));
+        assertEquals("maximum(long,long,long) 2 failed", 12345L, NumberUtils.maximum(12345L - 1L, 12345L, 12345L - 2L));
+        assertEquals("maximum(long,long,long) 3 failed", 12345L, NumberUtils.maximum(12345L - 1L, 12345L - 2L, 12345L));
+        assertEquals("maximum(long,long,long) 4 failed", 12345L, NumberUtils.maximum(12345L - 1L, 12345L, 12345L));
+        assertEquals("maximum(long,long,long) 5 failed", 12345L, NumberUtils.maximum(12345L, 12345L, 12345L));
+
+    }
+
+    public void testMaximumInt() {
         assertEquals("maximum(int,int,int) 1 failed", 12345, NumberUtils.maximum(12345, 12345 - 1, 12345 - 2));
         assertEquals("maximum(int,int,int) 2 failed", 12345, NumberUtils.maximum(12345 - 1, 12345, 12345 - 2));
         assertEquals("maximum(int,int,int) 3 failed", 12345, NumberUtils.maximum(12345 - 1, 12345 - 2, 12345));
         assertEquals("maximum(int,int,int) 4 failed", 12345, NumberUtils.maximum(12345 - 1, 12345, 12345));
         assertEquals("maximum(int,int,int) 5 failed", 12345, NumberUtils.maximum(12345, 12345, 12345));
 
+    }
+
+    public void testCompareDouble() {
+        assertTrue(NumberUtils.compare(Double.NaN, Double.NaN) == 0);
+        assertTrue(NumberUtils.compare(Double.NaN, Double.POSITIVE_INFINITY) == +1);
+        assertTrue(NumberUtils.compare(Double.NaN, Double.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(Double.NaN, 1.2d) == +1);
+        assertTrue(NumberUtils.compare(Double.NaN, 0.0d) == +1);
+        assertTrue(NumberUtils.compare(Double.NaN, -0.0d) == +1);
+        assertTrue(NumberUtils.compare(Double.NaN, -1.2d) == +1);
+        assertTrue(NumberUtils.compare(Double.NaN, -Double.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(Double.NaN, Double.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(Double.POSITIVE_INFINITY, Double.NaN) == -1);
+        assertTrue(NumberUtils.compare(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY) == 0);
+        assertTrue(NumberUtils.compare(Double.POSITIVE_INFINITY, Double.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(Double.POSITIVE_INFINITY, 1.2d) == +1);
+        assertTrue(NumberUtils.compare(Double.POSITIVE_INFINITY, 0.0d) == +1);
+        assertTrue(NumberUtils.compare(Double.POSITIVE_INFINITY, -0.0d) == +1);
+        assertTrue(NumberUtils.compare(Double.POSITIVE_INFINITY, -1.2d) == +1);
+        assertTrue(NumberUtils.compare(Double.POSITIVE_INFINITY, -Double.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(Double.MAX_VALUE, Double.NaN) == -1);
+        assertTrue(NumberUtils.compare(Double.MAX_VALUE, Double.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(Double.MAX_VALUE, Double.MAX_VALUE) == 0);
+        assertTrue(NumberUtils.compare(Double.MAX_VALUE, 1.2d) == +1);
+        assertTrue(NumberUtils.compare(Double.MAX_VALUE, 0.0d) == +1);
+        assertTrue(NumberUtils.compare(Double.MAX_VALUE, -0.0d) == +1);
+        assertTrue(NumberUtils.compare(Double.MAX_VALUE, -1.2d) == +1);
+        assertTrue(NumberUtils.compare(Double.MAX_VALUE, -Double.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(Double.MAX_VALUE, Double.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(1.2d, Double.NaN) == -1);
+        assertTrue(NumberUtils.compare(1.2d, Double.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(1.2d, Double.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(1.2d, 1.2d) == 0);
+        assertTrue(NumberUtils.compare(1.2d, 0.0d) == +1);
+        assertTrue(NumberUtils.compare(1.2d, -0.0d) == +1);
+        assertTrue(NumberUtils.compare(1.2d, -1.2d) == +1);
+        assertTrue(NumberUtils.compare(1.2d, -Double.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(1.2d, Double.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(0.0d, Double.NaN) == -1);
+        assertTrue(NumberUtils.compare(0.0d, Double.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(0.0d, Double.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(0.0d, 1.2d) == -1);
+        assertTrue(NumberUtils.compare(0.0d, 0.0d) == 0);
+        assertTrue(NumberUtils.compare(0.0d, -0.0d) == +1);
+        assertTrue(NumberUtils.compare(0.0d, -1.2d) == +1);
+        assertTrue(NumberUtils.compare(0.0d, -Double.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(0.0d, Double.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(-0.0d, Double.NaN) == -1);
+        assertTrue(NumberUtils.compare(-0.0d, Double.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(-0.0d, Double.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(-0.0d, 1.2d) == -1);
+        assertTrue(NumberUtils.compare(-0.0d, 0.0d) == -1);
+        assertTrue(NumberUtils.compare(-0.0d, -0.0d) == 0);
+        assertTrue(NumberUtils.compare(-0.0d, -1.2d) == +1);
+        assertTrue(NumberUtils.compare(-0.0d, -Double.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(-0.0d, Double.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(-1.2d, Double.NaN) == -1);
+        assertTrue(NumberUtils.compare(-1.2d, Double.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(-1.2d, Double.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(-1.2d, 1.2d) == -1);
+        assertTrue(NumberUtils.compare(-1.2d, 0.0d) == -1);
+        assertTrue(NumberUtils.compare(-1.2d, -0.0d) == -1);
+        assertTrue(NumberUtils.compare(-1.2d, -1.2d) == 0);
+        assertTrue(NumberUtils.compare(-1.2d, -Double.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(-1.2d, Double.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(-Double.MAX_VALUE, Double.NaN) == -1);
+        assertTrue(NumberUtils.compare(-Double.MAX_VALUE, Double.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(-Double.MAX_VALUE, Double.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(-Double.MAX_VALUE, 1.2d) == -1);
+        assertTrue(NumberUtils.compare(-Double.MAX_VALUE, 0.0d) == -1);
+        assertTrue(NumberUtils.compare(-Double.MAX_VALUE, -0.0d) == -1);
+        assertTrue(NumberUtils.compare(-Double.MAX_VALUE, -1.2d) == -1);
+        assertTrue(NumberUtils.compare(-Double.MAX_VALUE, -Double.MAX_VALUE) == 0);
+        assertTrue(NumberUtils.compare(-Double.MAX_VALUE, Double.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(Double.NEGATIVE_INFINITY, Double.NaN) == -1);
+        assertTrue(NumberUtils.compare(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(Double.NEGATIVE_INFINITY, Double.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(Double.NEGATIVE_INFINITY, 1.2d) == -1);
+        assertTrue(NumberUtils.compare(Double.NEGATIVE_INFINITY, 0.0d) == -1);
+        assertTrue(NumberUtils.compare(Double.NEGATIVE_INFINITY, -0.0d) == -1);
+        assertTrue(NumberUtils.compare(Double.NEGATIVE_INFINITY, -1.2d) == -1);
+        assertTrue(NumberUtils.compare(Double.NEGATIVE_INFINITY, -Double.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY) == 0);
+    }
+
+    public void testCompareFloat() {
+        assertTrue(NumberUtils.compare(Float.NaN, Float.NaN) == 0);
+        assertTrue(NumberUtils.compare(Float.NaN, Float.POSITIVE_INFINITY) == +1);
+        assertTrue(NumberUtils.compare(Float.NaN, Float.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(Float.NaN, 1.2f) == +1);
+        assertTrue(NumberUtils.compare(Float.NaN, 0.0f) == +1);
+        assertTrue(NumberUtils.compare(Float.NaN, -0.0f) == +1);
+        assertTrue(NumberUtils.compare(Float.NaN, -1.2f) == +1);
+        assertTrue(NumberUtils.compare(Float.NaN, -Float.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(Float.NaN, Float.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(Float.POSITIVE_INFINITY, Float.NaN) == -1);
+        assertTrue(NumberUtils.compare(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY) == 0);
+        assertTrue(NumberUtils.compare(Float.POSITIVE_INFINITY, Float.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(Float.POSITIVE_INFINITY, 1.2f) == +1);
+        assertTrue(NumberUtils.compare(Float.POSITIVE_INFINITY, 0.0f) == +1);
+        assertTrue(NumberUtils.compare(Float.POSITIVE_INFINITY, -0.0f) == +1);
+        assertTrue(NumberUtils.compare(Float.POSITIVE_INFINITY, -1.2f) == +1);
+        assertTrue(NumberUtils.compare(Float.POSITIVE_INFINITY, -Float.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(Float.MAX_VALUE, Float.NaN) == -1);
+        assertTrue(NumberUtils.compare(Float.MAX_VALUE, Float.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(Float.MAX_VALUE, Float.MAX_VALUE) == 0);
+        assertTrue(NumberUtils.compare(Float.MAX_VALUE, 1.2f) == +1);
+        assertTrue(NumberUtils.compare(Float.MAX_VALUE, 0.0f) == +1);
+        assertTrue(NumberUtils.compare(Float.MAX_VALUE, -0.0f) == +1);
+        assertTrue(NumberUtils.compare(Float.MAX_VALUE, -1.2f) == +1);
+        assertTrue(NumberUtils.compare(Float.MAX_VALUE, -Float.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(Float.MAX_VALUE, Float.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(1.2f, Float.NaN) == -1);
+        assertTrue(NumberUtils.compare(1.2f, Float.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(1.2f, Float.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(1.2f, 1.2f) == 0);
+        assertTrue(NumberUtils.compare(1.2f, 0.0f) == +1);
+        assertTrue(NumberUtils.compare(1.2f, -0.0f) == +1);
+        assertTrue(NumberUtils.compare(1.2f, -1.2f) == +1);
+        assertTrue(NumberUtils.compare(1.2f, -Float.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(1.2f, Float.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(0.0f, Float.NaN) == -1);
+        assertTrue(NumberUtils.compare(0.0f, Float.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(0.0f, Float.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(0.0f, 1.2f) == -1);
+        assertTrue(NumberUtils.compare(0.0f, 0.0f) == 0);
+        assertTrue(NumberUtils.compare(0.0f, -0.0f) == +1);
+        assertTrue(NumberUtils.compare(0.0f, -1.2f) == +1);
+        assertTrue(NumberUtils.compare(0.0f, -Float.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(0.0f, Float.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(-0.0f, Float.NaN) == -1);
+        assertTrue(NumberUtils.compare(-0.0f, Float.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(-0.0f, Float.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(-0.0f, 1.2f) == -1);
+        assertTrue(NumberUtils.compare(-0.0f, 0.0f) == -1);
+        assertTrue(NumberUtils.compare(-0.0f, -0.0f) == 0);
+        assertTrue(NumberUtils.compare(-0.0f, -1.2f) == +1);
+        assertTrue(NumberUtils.compare(-0.0f, -Float.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(-0.0f, Float.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(-1.2f, Float.NaN) == -1);
+        assertTrue(NumberUtils.compare(-1.2f, Float.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(-1.2f, Float.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(-1.2f, 1.2f) == -1);
+        assertTrue(NumberUtils.compare(-1.2f, 0.0f) == -1);
+        assertTrue(NumberUtils.compare(-1.2f, -0.0f) == -1);
+        assertTrue(NumberUtils.compare(-1.2f, -1.2f) == 0);
+        assertTrue(NumberUtils.compare(-1.2f, -Float.MAX_VALUE) == +1);
+        assertTrue(NumberUtils.compare(-1.2f, Float.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(-Float.MAX_VALUE, Float.NaN) == -1);
+        assertTrue(NumberUtils.compare(-Float.MAX_VALUE, Float.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(-Float.MAX_VALUE, Float.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(-Float.MAX_VALUE, 1.2f) == -1);
+        assertTrue(NumberUtils.compare(-Float.MAX_VALUE, 0.0f) == -1);
+        assertTrue(NumberUtils.compare(-Float.MAX_VALUE, -0.0f) == -1);
+        assertTrue(NumberUtils.compare(-Float.MAX_VALUE, -1.2f) == -1);
+        assertTrue(NumberUtils.compare(-Float.MAX_VALUE, -Float.MAX_VALUE) == 0);
+        assertTrue(NumberUtils.compare(-Float.MAX_VALUE, Float.NEGATIVE_INFINITY) == +1);
+        
+        assertTrue(NumberUtils.compare(Float.NEGATIVE_INFINITY, Float.NaN) == -1);
+        assertTrue(NumberUtils.compare(Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY) == -1);
+        assertTrue(NumberUtils.compare(Float.NEGATIVE_INFINITY, Float.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(Float.NEGATIVE_INFINITY, 1.2f) == -1);
+        assertTrue(NumberUtils.compare(Float.NEGATIVE_INFINITY, 0.0f) == -1);
+        assertTrue(NumberUtils.compare(Float.NEGATIVE_INFINITY, -0.0f) == -1);
+        assertTrue(NumberUtils.compare(Float.NEGATIVE_INFINITY, -1.2f) == -1);
+        assertTrue(NumberUtils.compare(Float.NEGATIVE_INFINITY, -Float.MAX_VALUE) == -1);
+        assertTrue(NumberUtils.compare(Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY) == 0);
     }
 
     public void testIsDigits() {
