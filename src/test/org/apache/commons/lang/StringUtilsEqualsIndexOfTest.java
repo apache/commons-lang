@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsEqualsIndexOfTest.java,v 1.2 2003/03/23 21:50:58 scolebourne Exp $
+ * @version $Id: StringUtilsEqualsIndexOfTest.java,v 1.3 2003/07/19 23:29:06 scolebourne Exp $
  */
 public class StringUtilsEqualsIndexOfTest extends TestCase {
     private static final String FOO = "foo";
@@ -115,6 +115,131 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(false, StringUtils.equalsIgnoreCase(null, FOO));
     }
 
+    //-----------------------------------------------------------------------
+    public void testIndexOf_char() {
+        assertEquals(-1, StringUtils.indexOf(null, ' '));
+        assertEquals(-1, StringUtils.indexOf("", ' '));
+        assertEquals(0, StringUtils.indexOf("aabaabaa", 'a'));
+        assertEquals(2, StringUtils.indexOf("aabaabaa", 'b'));
+    }
+
+    public void testIndexOf_charInt() {
+        assertEquals(-1, StringUtils.indexOf(null, ' ', 0));
+        assertEquals(-1, StringUtils.indexOf(null, ' ', -1));
+        assertEquals(-1, StringUtils.indexOf("", ' ', 0));
+        assertEquals(-1, StringUtils.indexOf("", ' ', -1));
+        assertEquals(0, StringUtils.indexOf("aabaabaa", 'a', 0));
+        assertEquals(2, StringUtils.indexOf("aabaabaa", 'b', 0));
+        assertEquals(5, StringUtils.indexOf("aabaabaa", 'b', 3));
+        assertEquals(-1, StringUtils.indexOf("aabaabaa", 'b', 9));
+        assertEquals(2, StringUtils.indexOf("aabaabaa", 'b', -1));
+    }
+
+    public void testIndexOf_String() {
+        assertEquals(-1, StringUtils.indexOf(null, null));
+        assertEquals(-1, StringUtils.indexOf("", null));
+        assertEquals(0, StringUtils.indexOf("", ""));
+        assertEquals(0, StringUtils.indexOf("aabaabaa", "a"));
+        assertEquals(2, StringUtils.indexOf("aabaabaa", "b"));
+        assertEquals(1, StringUtils.indexOf("aabaabaa", "ab"));
+    }
+
+    public void testIndexOf_StringInt() {
+        assertEquals(-1, StringUtils.indexOf(null, null, 0));
+        assertEquals(-1, StringUtils.indexOf(null, null, -1));
+        assertEquals(-1, StringUtils.indexOf(null, "", 0));
+        assertEquals(-1, StringUtils.indexOf(null, "", -1));
+        assertEquals(-1, StringUtils.indexOf("", null, 0));
+        assertEquals(-1, StringUtils.indexOf("", null, -1));
+        assertEquals(0, StringUtils.indexOf("", "", 0));
+        assertEquals(0, StringUtils.indexOf("", "", -1));
+        assertEquals(0, StringUtils.indexOf("", "", 9));
+        assertEquals(0, StringUtils.indexOf("abc", "", 0));
+        assertEquals(0, StringUtils.indexOf("abc", "", -1));
+        assertEquals(3, StringUtils.indexOf("abc", "", 9));
+        assertEquals(0, StringUtils.indexOf("aabaabaa", "a", 0));
+        assertEquals(2, StringUtils.indexOf("aabaabaa", "b", 0));
+        assertEquals(1, StringUtils.indexOf("aabaabaa", "ab", 0));
+        assertEquals(5, StringUtils.indexOf("aabaabaa", "b", 3));
+        assertEquals(-1, StringUtils.indexOf("aabaabaa", "b", 9));
+        assertEquals(2, StringUtils.indexOf("aabaabaa", "b", -1));
+    }
+
+    //-----------------------------------------------------------------------
+    public void testLastIndexOf_char() {
+        assertEquals(-1, StringUtils.lastIndexOf(null, ' '));
+        assertEquals(-1, StringUtils.lastIndexOf("", ' '));
+        assertEquals(7, StringUtils.lastIndexOf("aabaabaa", 'a'));
+        assertEquals(5, StringUtils.lastIndexOf("aabaabaa", 'b'));
+    }
+
+    public void testLastIndexOf_charInt() {
+        assertEquals(-1, StringUtils.lastIndexOf(null, ' ', 0));
+        assertEquals(-1, StringUtils.lastIndexOf(null, ' ', -1));
+        assertEquals(-1, StringUtils.lastIndexOf("", ' ', 0));
+        assertEquals(-1, StringUtils.lastIndexOf("", ' ', -1));
+        assertEquals(7, StringUtils.lastIndexOf("aabaabaa", 'a', 8));
+        assertEquals(5, StringUtils.lastIndexOf("aabaabaa", 'b', 8));
+        assertEquals(2, StringUtils.lastIndexOf("aabaabaa", 'b', 3));
+        assertEquals(5, StringUtils.lastIndexOf("aabaabaa", 'b', 9));
+        assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", 'b', -1));
+    }
+
+    public void testLastIndexOf_String() {
+        assertEquals(-1, StringUtils.lastIndexOf(null, null));
+        assertEquals(-1, StringUtils.lastIndexOf("", null));
+        assertEquals(0, StringUtils.lastIndexOf("", ""));
+        assertEquals(7, StringUtils.lastIndexOf("aabaabaa", "a"));
+        assertEquals(5, StringUtils.lastIndexOf("aabaabaa", "b"));
+        assertEquals(4, StringUtils.lastIndexOf("aabaabaa", "ab"));
+    }
+
+    public void testLastIndexOf_StringInt() {
+        assertEquals(-1, StringUtils.lastIndexOf(null, null, 0));
+        assertEquals(-1, StringUtils.lastIndexOf(null, null, -1));
+        assertEquals(-1, StringUtils.lastIndexOf(null, "", 0));
+        assertEquals(-1, StringUtils.lastIndexOf(null, "", -1));
+        assertEquals(-1, StringUtils.lastIndexOf("", null, 0));
+        assertEquals(-1, StringUtils.lastIndexOf("", null, -1));
+        assertEquals(0, StringUtils.lastIndexOf("", "", 0));
+        assertEquals(-1, StringUtils.lastIndexOf("", "", -1));
+        assertEquals(0, StringUtils.lastIndexOf("", "", 9));
+        assertEquals(0, StringUtils.lastIndexOf("abc", "", 0));
+        assertEquals(-1, StringUtils.lastIndexOf("abc", "", -1));
+        assertEquals(3, StringUtils.lastIndexOf("abc", "", 9));
+        assertEquals(7, StringUtils.lastIndexOf("aabaabaa", "a", 8));
+        assertEquals(5, StringUtils.lastIndexOf("aabaabaa", "b", 8));
+        assertEquals(4, StringUtils.lastIndexOf("aabaabaa", "ab", 8));
+        assertEquals(2, StringUtils.lastIndexOf("aabaabaa", "b", 3));
+        assertEquals(5, StringUtils.lastIndexOf("aabaabaa", "b", 9));
+        assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "b", -1));
+    }
+
+    //-----------------------------------------------------------------------
+    public void contains_char() {
+        assertEquals(false, StringUtils.contains(null, ' '));
+        assertEquals(false, StringUtils.contains("", ' '));
+        assertEquals(true, StringUtils.contains("abc", 'a'));
+        assertEquals(true, StringUtils.contains("abc", 'b'));
+        assertEquals(true, StringUtils.contains("abc", 'c'));
+        assertEquals(false, StringUtils.contains("abc", 'z'));
+    }
+
+    public void contains_String() {
+        assertEquals(false, StringUtils.contains(null, null));
+        assertEquals(false, StringUtils.contains(null, ""));
+        assertEquals(false, StringUtils.contains(null, "a"));
+        assertEquals(false, StringUtils.contains("", null));
+        assertEquals(true, StringUtils.contains("", ""));
+        assertEquals(false, StringUtils.contains("", "a"));
+        assertEquals(true, StringUtils.contains("abc", "a"));
+        assertEquals(true, StringUtils.contains("abc", "b"));
+        assertEquals(true, StringUtils.contains("abc", "c"));
+        assertEquals(true, StringUtils.contains("abc", "abc"));
+        assertEquals(false, StringUtils.contains("abc", "z"));
+    }
+
+    //-----------------------------------------------------------------------
     public void testIndexOfAny() {
         assertEquals(-1, StringUtils.indexOfAny(null, null));
         assertEquals(-1, StringUtils.indexOfAny(null, FOOBAR_SUB_ARRAY));
@@ -131,6 +256,130 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(3, StringUtils.lastIndexOfAny(FOOBAR, FOOBAR_SUB_ARRAY));
         assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, new String[0]));
         assertEquals(-1, StringUtils.lastIndexOfAny(FOOBAR, new String[] {"llll"}));
+    }
+
+    //-----------------------------------------------------------------------
+    public void testIndexOfAnyBut() {
+        String str1 = "a";
+        String str2 = "b";
+        String str3 = "ab";
+        String chars1= "b";
+        String chars2= "a";
+        String chars3= "ab";
+        assertEquals(-1, StringUtils.indexOfAnyBut(null, (String) null));
+        assertEquals(-1, StringUtils.indexOfAnyBut("", (String) null));
+        assertEquals(-1, StringUtils.indexOfAnyBut(null, ""));
+        assertEquals(0, StringUtils.indexOfAnyBut(str1, ""));
+        assertEquals(-1, StringUtils.indexOfAnyBut("", ""));
+        assertEquals(-1, StringUtils.indexOfAnyBut("", chars1));
+        assertEquals(0, StringUtils.indexOfAnyBut(str1, chars1));
+        assertEquals(-1, StringUtils.indexOfAnyBut(str1, chars2));
+        assertEquals(-1, StringUtils.indexOfAnyBut(str1, chars3));
+        assertEquals(-1, StringUtils.indexOfAnyBut(str2, chars1));
+        assertEquals(0, StringUtils.indexOfAnyBut(str2, chars2));
+        assertEquals(-1, StringUtils.indexOfAnyBut(str2, chars3));
+        assertEquals(0, StringUtils.indexOfAnyBut(str3, chars1));
+        assertEquals(1, StringUtils.indexOfAnyBut(str3, chars2));
+        assertEquals(-1, StringUtils.indexOfAnyBut(str3, chars3));
+    }
+
+    //-----------------------------------------------------------------------
+    public void testContainsOnly_String() {
+        String str1 = "a";
+        String str2 = "b";
+        String str3 = "ab";
+        String chars1= "b";
+        String chars2= "a";
+        String chars3= "ab";
+        assertEquals(false, StringUtils.containsOnly(null, (String) null));
+        assertEquals(false, StringUtils.containsOnly("", (String) null));
+        assertEquals(false, StringUtils.containsOnly(null, ""));
+        assertEquals(false, StringUtils.containsOnly(str1, ""));
+        assertEquals(true, StringUtils.containsOnly("", ""));
+        assertEquals(true, StringUtils.containsOnly("", chars1));
+        assertEquals(false, StringUtils.containsOnly(str1, chars1));
+        assertEquals(true, StringUtils.containsOnly(str1, chars2));
+        assertEquals(true, StringUtils.containsOnly(str1, chars3));
+        assertEquals(true, StringUtils.containsOnly(str2, chars1));
+        assertEquals(false, StringUtils.containsOnly(str2, chars2));
+        assertEquals(true, StringUtils.containsOnly(str2, chars3));
+        assertEquals(false, StringUtils.containsOnly(str3, chars1));
+        assertEquals(false, StringUtils.containsOnly(str3, chars2));
+        assertEquals(true, StringUtils.containsOnly(str3, chars3));
+    }
+
+    public void testContainsOnly_CharArray() {
+        String str1 = "a";
+        String str2 = "b";
+        String str3 = "ab";
+        char[] chars1= {'b'};
+        char[] chars2= {'a'};
+        char[] chars3= {'a', 'b'};
+        char[] emptyChars = new char[0];
+        assertEquals(false, StringUtils.containsOnly(null, (char[]) null));
+        assertEquals(false, StringUtils.containsOnly("", (char[]) null));
+        assertEquals(false, StringUtils.containsOnly(null, emptyChars));
+        assertEquals(false, StringUtils.containsOnly(str1, emptyChars));
+        assertEquals(true, StringUtils.containsOnly("", emptyChars));
+        assertEquals(true, StringUtils.containsOnly("", chars1));
+        assertEquals(false, StringUtils.containsOnly(str1, chars1));
+        assertEquals(true, StringUtils.containsOnly(str1, chars2));
+        assertEquals(true, StringUtils.containsOnly(str1, chars3));
+        assertEquals(true, StringUtils.containsOnly(str2, chars1));
+        assertEquals(false, StringUtils.containsOnly(str2, chars2));
+        assertEquals(true, StringUtils.containsOnly(str2, chars3));
+        assertEquals(false, StringUtils.containsOnly(str3, chars1));
+        assertEquals(false, StringUtils.containsOnly(str3, chars2));
+        assertEquals(true, StringUtils.containsOnly(str3, chars3));
+    }
+
+    public void testContainsNone_String() {
+        String str1 = "a";
+        String str2 = "b";
+        String str3 = "ab.";
+        String chars1= "b";
+        String chars2= ".";
+        String chars3= "cd";
+        assertEquals(true, StringUtils.containsNone(null, (String) null));
+        assertEquals(true, StringUtils.containsNone("", (String) null));
+        assertEquals(true, StringUtils.containsNone(null, ""));
+        assertEquals(true, StringUtils.containsNone(str1, ""));
+        assertEquals(true, StringUtils.containsNone("", ""));
+        assertEquals(true, StringUtils.containsNone("", chars1));
+        assertEquals(true, StringUtils.containsNone(str1, chars1));
+        assertEquals(true, StringUtils.containsNone(str1, chars2));
+        assertEquals(true, StringUtils.containsNone(str1, chars3));
+        assertEquals(false, StringUtils.containsNone(str2, chars1));
+        assertEquals(true, StringUtils.containsNone(str2, chars2));
+        assertEquals(true, StringUtils.containsNone(str2, chars3));
+        assertEquals(false, StringUtils.containsNone(str3, chars1));
+        assertEquals(false, StringUtils.containsNone(str3, chars2));
+        assertEquals(true, StringUtils.containsNone(str3, chars3));
+    }
+
+    public void testContainsNone_CharArray() {
+        String str1 = "a";
+        String str2 = "b";
+        String str3 = "ab.";
+        char[] chars1= {'b'};
+        char[] chars2= {'.'};
+        char[] chars3= {'c', 'd'};
+        char[] emptyChars = new char[0];
+        assertEquals(true, StringUtils.containsNone(null, (char[]) null));
+        assertEquals(true, StringUtils.containsNone("", (char[]) null));
+        assertEquals(true, StringUtils.containsNone(null, emptyChars));
+        assertEquals(true, StringUtils.containsNone(str1, emptyChars));
+        assertEquals(true, StringUtils.containsNone("", emptyChars));
+        assertEquals(true, StringUtils.containsNone("", chars1));
+        assertEquals(true, StringUtils.containsNone(str1, chars1));
+        assertEquals(true, StringUtils.containsNone(str1, chars2));
+        assertEquals(true, StringUtils.containsNone(str1, chars3));
+        assertEquals(false, StringUtils.containsNone(str2, chars1));
+        assertEquals(true, StringUtils.containsNone(str2, chars2));
+        assertEquals(true, StringUtils.containsNone(str2, chars3));
+        assertEquals(false, StringUtils.containsNone(str3, chars1));
+        assertEquals(false, StringUtils.containsNone(str3, chars2));
+        assertEquals(true, StringUtils.containsNone(str3, chars3));
     }
 
 }
