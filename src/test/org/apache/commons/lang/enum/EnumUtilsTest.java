@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang.enum;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +67,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link Enum} class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumUtilsTest.java,v 1.4 2003/07/30 23:13:09 scolebourne Exp $
+ * @version $Id: EnumUtilsTest.java,v 1.5 2003/07/30 23:21:39 scolebourne Exp $
  */
 
 public final class EnumUtilsTest extends TestCase {
@@ -83,6 +85,17 @@ public final class EnumUtilsTest extends TestCase {
         return suite;
     }
 
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new EnumUtils());
+        Constructor[] cons = EnumUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(EnumUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(EnumUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
     public void testIterator() {
         Iterator it = EnumUtils.iterator(ColorEnum.class);
         assertSame(ColorEnum.RED, it.next());
@@ -103,6 +116,7 @@ public final class EnumUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
 
+    //-----------------------------------------------------------------------
     public void testList() {
         List list = EnumUtils.getEnumList(ColorEnum.class);
         Iterator it = list.iterator();
@@ -124,6 +138,7 @@ public final class EnumUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
 
+    //-----------------------------------------------------------------------
     public void testMap() {
         Map map = EnumUtils.getEnumMap(ColorEnum.class);
         assertTrue(map.containsValue(ColorEnum.RED));
@@ -147,6 +162,7 @@ public final class EnumUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
 
+    //-----------------------------------------------------------------------
     public void testGet() {
         assertSame(ColorEnum.RED, EnumUtils.getEnum(ColorEnum.class, "Red"));
         assertSame(ColorEnum.GREEN, EnumUtils.getEnum(ColorEnum.class, "Green"));
@@ -166,6 +182,7 @@ public final class EnumUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
 
+    //-----------------------------------------------------------------------
     public void testGetValue() {
         assertSame(ValuedColorEnum.RED, EnumUtils.getEnum(ValuedColorEnum.class, 1));
         assertSame(ValuedColorEnum.GREEN, EnumUtils.getEnum(ValuedColorEnum.class, 2));
