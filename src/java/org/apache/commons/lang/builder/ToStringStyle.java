@@ -43,12 +43,26 @@ import org.apache.commons.lang.SystemUtils;
  * <p>For example, the detail version of the array based methods will
  * output the whole array, whereas the summary method will just output
  * the array length.</p>
+ * 
+ * <p>If you want to format the output of certain objects, such as dates, you
+ * must create a subclass and override a method.
+ * <pre>
+ * public class MyStyle extends ToStringStyle {
+ *   protected void appendDetail(StringBuffer buffer, String fieldName, Object value) {
+ *     if (value instanceof Date) {
+ *       value = new SimpleDateFormat("yyyy-MM-dd").format(value);
+ *     }
+ *     buffer.append(value);
+ *   }
+ * }
+ * </pre>
+ * </p>
  *
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.34 2004/10/16 18:13:34 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.35 2004/10/16 18:20:46 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
