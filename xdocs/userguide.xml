@@ -26,30 +26,79 @@ limitations under the License.
 
   <section name="Description">
    <p>The Commons Lang library provides much needed additions to the standard JDK's java.lang package. Very generic, very reusable components for everyday use.</p>
-   <p>The top level package contains various Utils classes, whilst there are various subpackages including enums, exception and builder. Using the Utils classes is generally simplicity itself. They are the equivalent of global functions in another language, a collection of stand-alone, thread-safe, static methods. In contrast, subpackages contain interfaces which may have to be implemented or classes which may need to be extended to get the full functionality from the code. </p>
-   </section>
+   <p>The top level package contains various Utils classes, whilst there are various subpackages including enums, exception and builder. Using the Utils classes is generally simplicity itself. They are the equivalent of global functions in another language, a collection of stand-alone, thread-safe, static methods. In contrast, subpackages may contain interfaces which may have to be implemented or classes which may need to be extended to get the full functionality from the code. They may, however, contain more global-like functions. </p>
+   <p>Lang seeks to support Java 1.2 onwards, so although you may have seen features in later versions of Java, such as split methods and nested exceptions, Lang still maintains non-java.lang versions for users of earlier versions of Java. </p>
+   <p>You will find deprecated methods as you stroll through the Lang documentation. These are removed in the next major release. </p>
+   <p>Before we begin, it's a good time to mention the Utils classes. They all contain empty public constructors with warnings not to use. This may seem an odd thing to do, but it allows tools like Velocity to access the class as if it were a bean. In other words, yes we know abbout private constructors. </p>
+  </section>
 
    <section name="lang.*">
-    <subsection name="String classes">
-     <p>The first thing for me at the top level is StringUtils. I'm partizan here as it's one of the ones I had a lions share in. Oodles and oodles of functions here which tweak, transform, squeeze and cuddle java.lang.Strings. Throw in RandomStringUtils and CharSetUtils to complete the 'String' trilogy. </p>
-     <p>Most developers have their own, most of them are tiny and small. The Jakarta ones are guaranteed to be used in a larger audience and have subtle issues like using toTitleCase in StringUtils.capitalise and not toUpperCase (Yugoslavians[Bad term now. Research which languages are affected] will thank you). </p>
+    <subsection name="String manipulation - StringUtils, StringEscapeUtils, RandomStringUtils, Tokenizer, WordUtils">
+     <p>Lang has a series of String utilities. The first is StringUtils, oodles and oodles of functions which tweak, transform, squeeze and cuddle java.lang.Strings. In addition to StringUtils, there are a series of other String manipulating classes; RandomStringUtils, StringEscapeUtils and Tokenizer. RandomStringUtils speaks for itself. It's provides ways in which to generate pieces of text, such as might be used for default passwords. StringEscapeUtils contains methods to escape and unescape Java, JavaScript, HTML, XML and SQL. Tokenizer is an improved alternative to java.util.StringTokenizer. </p>
+     <p>These are ideal classes to start using if you're looking to get into Lang. StringUtils' capitalize, substringBetween/Before/After, split and join are good methods to begin with. If you use java.sql.Statements a lot, StringEscapeUtils.escapeSql might be of interest. </p>
+     <p>In addition to these classes, WordUtils is another String manipulator. It works on Strings at the word level, for example WordUtils.capitalize will capitalize every word in a piece of text. WordUtils also contains methods to wrap text. </p>
     </subsection>
 
-    <subsection name="SystemUtils">
+    <subsection name="Character handling - CharSetUtils, CharSet, CharRange, CharUtils">
+     <p>In addition to dealing with Strings, it's also important to deal with chars and Characters. CharUtils exists for this purpose, while CharSetUtils exists for set-manipulation of Strings. Be careful, although CharSetUtils takes an argument of type String, it is only as a set of characters. For example, 'CharSetUtils.delete("testtest", "tr")' will remove all t's and all r's from the String, not just the String "tr". </p>
+     <p>CharRange and CharSet are both used internally by CharSetUtils, and will probaby rarely be used. </p>
+    </subsection>
+
+    <subsection name="JVM interaction - SystemUtils, CharacterEncoding">
      <p>SystemUtils is a simple little class which makes it easy to find out information about which platform you are on. For some, this is a necessary evil. It was never something I expected to use myself until I was trying to ensure that Commons Lang itself compiled under JDK 1.2. Having pushed out a few JDK 1.3 bits that had slipped in (Collections.EMPTY_MAP is a classic offender), I then found that one of the Unit Tests was dying mysteriously under JDK 1.2, but ran fine under JDK 1.3. There was no obvious solution and I needed to move onwards, so the simple solution was to wrap that particular test in a 'if(SystemUtils.isJavaVersionAtLeast(1.3f)) {', make a note and move on. </p>
+     <p>The CharacterEncoding class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment. </p>
     </subsection>
 
-    <subsection name="SerializationUtils">
-     <p>Serialization doesn't have to be that hard! A simple util class can take away the pain. Plus it provides a method to clone an object by unserializing and reserializing, an old Java trick.</p>
+    <subsection name="Serialization - SerializationUtils, SerializationException">
+     <p>Serialization doesn't have to be that hard! A simple util class can take away the pain, plus it provides a method to clone an object by unserializing and reserializing, an old Java trick.</p>
     </subsection>
 
-    <subsection name="ObjectUtils">
-     <p>Do things to Objects.</p>
+    <subsection name="Assorted functions - ObjectUtils, ClassUtils, ArrayUtils, BooleanUtils">
+     <p>Would you believe it, ObjectUtils contains handy functions for Objects, mainly null-safe implementations of the methods on java.lang.Object. </p>
+     <p>ClassUtils is largely a set of helper methods for reflection. Of special note are the comparators hidden away in ClassUtils, useful for sorting Class and Package objects by name; however they merely sort alphabetically and don't understand the common habit of sorting <code>java</code> and <code>javax</code> first. </p>
+     <p>Next up, ArrayUtils. This is a big one with many methods and many overloads of these methods so it is probably worth an in depth look here. Before we begin, assume that every method mentioned is overloaded for all the primitives and for Object. Also, the short-hand 'xxx' implies a generic primitive type, but usually also includes Object. </p>
+     <ul>
+      <li>ArrayUtils provides singleton empty arrays for all the basic types. These will largely be of use in the Collections API with its toArray methods, but also will be of use with methods which want to return an empty array on error. </li>
+      <li>add(xxx[], xxx) will add a primitive type to an array, resizing the array as you'd expect. Object is also supported. </li>
+      <li>clone(xxx[]) clones a primitive or Object array. </li>
+      <li>contains(xxx[], xxx) searches for a primitive or Object in a primitive or Object array. </li>
+      <li>getLength(Object) returns the length of any array or an IllegalArgumentException if the parameter is not an array. hashCode(Object), equals(Object, Object), toString(Object) </li>
+      <li>indexOf(xxx[], xxx) and indexOf(xxx[], xxx, int) are copies of the classic String methods, but this time for primitive/Object arrays. In addition, a lastIndexOf set of methods exists. </li>
+      <li>isEmpty(xxx[]) lets you know if an array is zero-sized or null. </li>
+      <li>isSameLength(xxx[], xxx[]) returns true if the arrays are the same length. </li>
+      <li>Along side the add methods, there are also remove methods of two types. The first type remove the value at an index, remove(xxx[], int), while the second type remove the first value from the array, remove(xxx[], xxx). </li>
+      <li>Nearing the end now. The reverse(xxx[]) method turns an array around. </li>
+      <li>The subarray(xxx[], int, int) method splices an array out of a larger array. </li>
+      <li>Primitive to primitive wrapper conversion is handled by the toObject(xxx[]) and toPrimitive(Xxx[]) methods. </li>
+     </ul>
+     <p>Lastly, ArrayUtils.toMap(Object[]) is worthy of special note. It is not a heavily overloaded method for working with arrays, but a simple way to create Maps from literals. </p>
+     <h5>Using toMap</h5>
+     <source> 
+       Map colorMap = MapUtils.toMap(new String[][] {{
+           {"RED", "#FF0000"},
+           {"GREEN", "#00FF00"},
+           {"BLUE", "#0000FF"}
+       });
+     </source>
+
+     <p>Our final util class is BooleanUtils. It contains various Boolean acting methods, probably of most interest is the BooleanUtils.toBoolean(String) method which turns various positive/negative Strings into a Boolean object, and not just true/false as with Boolean.valueOf. </p>
     </subsection>
 
+    <subsection name="Exceptions - IllegalClassException, IncompleteArgumentException, NotImplementedException, NullArgumentException, UnhandledException">
+     <p>Lang also has a series of Exceptions that we felt are useful. All of these exceptions are descendents of RuntimeException, they're just a bit more meaningful than java.lang.IllegalArgumentException. </p>
+    </subsection>
+
+    <subsection name="Flotsam - BitField, Validate">
+     <p>On reaching the end of our package, we are left with a couple of classes that haven't fit any of the topics so far. </p>
+     <p>The BitField class provides a wrapper class around the classic bitmask integer, whilst the Validate class may be used for assertions (remember, we support Java 1.2). </p>
+    </subsection>
    </section>
 
-   <section name="lang.enums">
+   <section name="lang.builder.*">
+    <p>When you write a hashcode, do you check Bloch's Effective Java? No? You just hack in a quick number? Well HashCodeBuilder will save your day. It, and its buddies (EqualsBuilder, CompareToBuilder, ToStringBuilder), take care of the nasty bits while you focus on the important bits, like which fields will go into making up the hashcode.</p>
+   </section>
+
+   <section name="lang.enums (formerly lang.enum)">
     <p>Enums are an old C thing. Very useful. One of the major uses is to give type to your constants, and even more, to give them order. For example:</p>
     <h5>A simple Enum</h5>
 <source>
@@ -80,19 +129,22 @@ public final class ColorEnum extends Enum {
     <p>The reflection ability is one of the more interesting tricks hidden in the reflection sub-package, and of much use to writers of applications such as Tomcat or IDEs, in fact any code which has to catch 'Exception' from an unknown source and then wanting to display in a novel way.</p>
    </section>
 
-   <section name="lang.builder.*">
-    <p>When you write a hashcode, do you check Bloch's Effective Java? No? You just hack in a quick number? Well HashCodeBuilder will save your day. It, and its buddies (EqualsBuilder, CompareToBuilder, ToStringBuilder), take care of the nasty bits while you focus on the important bits, like which fields will go into making up the hashcode.</p>
-   </section>
-
    <section name="lang.math.*">
     <p>Although Commons-Math also exists, some basic mathematical functions are contained within Lang. These include classes to represent ranges of numbers, a Fraction class, various utilities for random numbers, and the flagship class, NumberUtils which contains a handful of classic number functions. </p>
     <p>There are two aspects of this package I would like to highlight. The first is NumberUtils.createNumber(String), a method which does its best to convert a String into a Number object. You have no idea what type of Number it will return, so you should call the relevant xxxValue method when you reach the point of needing a number. NumberUtils also has a related isNumber method. The second is the JVMRandom class. This is an instance of Random which relies on the Math.random() method for its implementation and so gives the developer access to the JVM's random seed. If you try to create Random objects in the same millisecond, they will give the same answer; so quickly you will find yourself caching that Random object. Rather than caching your own object, simply use the one the JVM is caching already. The RandomUtils provides a static access to the JVMRandom class, which may be easier to use. </p>
    </section>
+
+   <section name="lang.mutable.*">
+   </section>
+
    <section name="lang.time.*">
     <p>Lang 2.0 saw the arrival of a time package. It contains some basic utilities for manipulating time (a delorean, police box and [hgwells lookup needed]?). These include a StopWatch for simple performance measurements and an optimised FastDateFormat class. </p>
    </section>
    <section name="Next version of Lang">
     <p>The next version of Lang will be 2.1. The most notable addition is a mutable package, but there are also new classes such as DurationFormatUtils [and ...]. </p>
+   </section>
+
+   <section name="lang.text.*">
    </section>
 
 </body>
