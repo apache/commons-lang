@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ToStringBuilder}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilderTest.java,v 1.3 2002/12/31 20:17:53 scolebourne Exp $
+ * @version $Id: ToStringBuilderTest.java,v 1.4 2003/01/19 18:49:05 scolebourne Exp $
  */
 public class ToStringBuilderTest extends TestCase {
 
@@ -215,6 +215,23 @@ public class ToStringBuilderTest extends TestCase {
         private transient char transientB='t';
 	}
 
+    public void testInnerClassReflection() {
+        Outer outer = new Outer();
+        assertEquals(toBaseString(outer) + "[inner=" + toBaseString(outer.inner) + "[]]", outer.toString());
+    }
+    
+    static class Outer {
+        Inner inner = new Inner();
+        class Inner {
+            public String toString() {
+                return ToStringBuilder.reflectionToString(this);
+            }
+        }
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this);
+        }
+    }
+    
     public void testAppendSuper() {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").toString());

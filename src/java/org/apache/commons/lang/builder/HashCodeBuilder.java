@@ -108,7 +108,7 @@ import java.lang.reflect.Modifier;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.9 2003/01/19 17:35:21 scolebourne Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.10 2003/01/19 18:49:05 scolebourne Exp $
  */
 public class HashCodeBuilder {
 
@@ -337,14 +337,15 @@ public class HashCodeBuilder {
         Field.setAccessible(fields, true);
         for (int i = 0; i < fields.length; i++) {
             Field f = fields[i];
-            if (useTransients || !Modifier.isTransient(f.getModifiers())) {
-                if (!Modifier.isStatic(f.getModifiers())) {
-                    try {
-                        builder.append(f.get(object));
-                    } catch (IllegalAccessException e) {
-                        //this can't happen. Would get a Security exception instead
-                        //throw a runtime exception in case the impossible happens.
-                    }
+            if ((f.getName().indexOf('$') == -1) &&
+                (useTransients || !Modifier.isTransient(f.getModifiers())) &&
+                (!Modifier.isStatic(f.getModifiers()))) {
+                try {
+                    builder.append(f.get(object));
+                } catch (IllegalAccessException e) {
+                    //this can't happen. Would get a Security exception instead
+                    //throw a runtime exception in case the impossible happens.
+                    throw new InternalError("Unexpected IllegalAccessException");
                 }
             }
         }

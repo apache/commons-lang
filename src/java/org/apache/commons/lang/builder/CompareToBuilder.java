@@ -105,7 +105,7 @@ import org.apache.commons.lang.NumberUtils;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.11 2003/01/19 17:51:42 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.12 2003/01/19 18:49:05 scolebourne Exp $
  */
 public class CompareToBuilder {
     
@@ -247,14 +247,15 @@ public class CompareToBuilder {
         Field.setAccessible(fields, true);
         for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
             Field f = fields[i];
-            if (useTransients || !Modifier.isTransient(f.getModifiers())) {
-                if (!Modifier.isStatic(f.getModifiers())) {
-                    try {
-                        builder.append(f.get(lhs), f.get(rhs));
-                    } catch (IllegalAccessException e) {
-                        //this can't happen. Would get a Security exception instead
-                        //throw a runtime exception in case the impossible happens.
-                    }
+            if ((f.getName().indexOf('$') == -1) &&
+                (useTransients || !Modifier.isTransient(f.getModifiers())) &&
+                (!Modifier.isStatic(f.getModifiers()))) {
+                try {
+                    builder.append(f.get(lhs), f.get(rhs));
+                } catch (IllegalAccessException e) {
+                    //this can't happen. Would get a Security exception instead
+                    //throw a runtime exception in case the impossible happens.
+                    throw new InternalError("Unexpected IllegalAccessException");
                 }
             }
         }
