@@ -111,7 +111,7 @@ import java.util.List;
  * @author Al Chou
  * @author Michael Davey
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.132 2004/07/30 01:55:42 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.133 2004/08/15 23:47:05 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2689,6 +2689,69 @@ public class StringUtils {
             return str.substring(0, str.length() - remove.length());
         }
         return str;
+    }
+
+    /**
+     * <p>Removes all occurances of a substring from within the source string.</p>
+     *
+     * <p>A <code>null</code> source string will return <code>null</code>.
+     * An empty ("") source string will return the empty string.
+     * A <code>null</code> remove string will return the source string.
+     * An empty ("") remove string will return the source string.</p>
+     *
+     * <pre>
+     * StringUtils.remove(null, *)        = null
+     * StringUtils.remove("", *)          = ""
+     * StringUtils.remove(*, null)        = *
+     * StringUtils.remove(*, "")          = *
+     * StringUtils.remove("queued", "ue") = "qd"
+     * StringUtils.remove("queued", "zz") = "queued"
+     * </pre>
+     *
+     * @param str  the source String to search, may be null
+     * @param remove  the String to search for and remove, may be null
+     * @return the substring with the string removed if found,
+     *  <code>null</code> if null String input
+     * @since 2.1
+     */
+    public static String remove(String str, String remove) {
+        if (isEmpty(str) || isEmpty(remove)) {
+            return str;
+        }
+        return replace(str, remove, "", -1);
+    }
+
+    /**
+     * <p>Removes all occurances of a character from within the source string.</p>
+     *
+     * <p>A <code>null</code> source string will return <code>null</code>.
+     * An empty ("") source string will return the empty string.</p>
+     *
+     * <pre>
+     * StringUtils.remove(null, *)       = null
+     * StringUtils.remove("", *)         = ""
+     * StringUtils.remove("queued", 'u') = "qeed"
+     * StringUtils.remove("queued", 'z') = "queued"
+     * </pre>
+     *
+     * @param str  the source String to search, may be null
+     * @param remove  the char to search for and remove, may be null
+     * @return the substring with the char removed if found,
+     *  <code>null</code> if null String input
+     * @since 2.1
+     */
+    public static String remove(String str, char remove) {
+        if (isEmpty(str) || str.indexOf(remove) == -1) {
+            return str;
+        }
+        char[] chars = str.toCharArray();
+        int pos = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] != remove) {
+                chars[pos++] = chars[i];
+            }
+        }
+        return new String(chars, 0, pos);
     }
 
     // Replacing
