@@ -54,14 +54,11 @@
 package org.apache.commons.lang.time;
 
 import java.text.DateFormat;
-import java.text.DateFormatSymbols;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
@@ -74,7 +71,7 @@ import java.util.TimeZone;
  * @author Janek Bogucki
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.13 2003/08/16 11:09:26 scolebourne Exp $
+ * @version $Id: DateUtils.java,v 1.14 2003/08/16 12:48:22 scolebourne Exp $
  */
 public class DateUtils {
     
