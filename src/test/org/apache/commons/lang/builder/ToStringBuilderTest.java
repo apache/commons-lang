@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ToStringBuilder}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilderTest.java,v 1.4 2003/01/19 18:49:05 scolebourne Exp $
+ * @version $Id: ToStringBuilderTest.java,v 1.5 2003/03/20 05:33:35 ggregory Exp $
  */
 public class ToStringBuilderTest extends TestCase {
 
@@ -171,6 +171,170 @@ public class ToStringBuilderTest extends TestCase {
     private String toBaseString(Object o) {
         return o.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(o));
     }
+    
+    // Reflection Array tests
+    
+    //
+    // Note on the following line of code repeated in the reflection array tests.
+    //
+    // assertReflectionArray("<null>", array);
+    //
+    // The expected value is not baseStr + "[<null>]" since array==null and is typed as Object.
+    // The null array does not carry array type information.
+    // If we added a primitive array type constructor and pile of associated methods, 
+    // then type declaring type information could be carried forward. IMHO, null is null.
+    //
+    // Gary Gregory - 2003-03-12 - ggregory@seagullsw.com  
+    //
+    
+    public void assertReflectionArray(String expected, Object actual) {
+        assertEquals(expected, ToStringBuilder.reflectionToString(actual));
+        assertEquals(expected, ToStringBuilder.reflectionToString(actual, null));
+        assertEquals(expected, ToStringBuilder.reflectionToString(actual, null, true));
+        assertEquals(expected, ToStringBuilder.reflectionToString(actual, null, false));
+    }
+
+    public void testReflectionObjectArray() {
+        Object[] array = new Object[] { null, base, new int[] { 3, 6 } };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{<null>,5,{3,6}}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionLongArray() {
+        long[] array = new long[] { 1, 2, -3, 4 };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionIntArray() {
+        int[] array = new int[] { 1, 2, -3, 4 };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionShortArray() {
+        short[] array = new short[] { 1, 2, -3, 4 };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionyteArray() {
+        byte[] array = new byte[] { 1, 2, -3, 4 };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionCharArray() {
+        char[] array = new char[] { 'A', '2', '_', 'D' };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{A,2,_,D}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionDoubleArray() {
+        double[] array = new double[] { 1.0, 2.9876, -3.00001, 4.3 };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionFloatArray() {
+        float[] array = new float[] { 1.0f, 2.9876f, -3.00001f, 4.3f };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionBooleanArray() {
+        boolean[] array = new boolean[] { true, false, false };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{true,false,false}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+    
+    // Reflection Array Array tests
+
+    public void testReflectionFloatArrayArray() {
+        float[][] array = new float[][] { { 1.0f, 2.29686f }, null, { Float.NaN } };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{{1.0,2.29686},<null>,{NaN}}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+
+    public void testReflectionLongArrayArray() {
+        long[][] array = new long[][] { { 1, 2 }, null, { 5 } };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionIntArrayArray() {
+        int[][] array = new int[][] { { 1, 2 }, null, { 5 } };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionhortArrayArray() {
+        short[][] array = new short[][] { { 1, 2 }, null, { 5 } };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionByteArrayArray() {
+        byte[][] array = new byte[][] { { 1, 2 }, null, { 5 } };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionCharArrayArray() {
+        char[][] array = new char[][] { { 'A', 'B' }, null, { 'p' } };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{{A,B},<null>,{p}}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionDoubleArrayArray() {
+        double[][] array = new double[][] { { 1.0, 2.29686 }, null, { Double.NaN } };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{{1.0,2.29686},<null>,{NaN}}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+
+    public void testReflectionBooleanArrayArray() {
+        boolean[][] array = new boolean[][] { { true, false }, null, { false } };
+        String baseStr = this.toBaseString(array);
+        assertEquals(baseStr + "[{{true,false},<null>,{false}}]", ToStringBuilder.reflectionToString(array));
+        assertEquals(baseStr + "[{{true,false},<null>,{false}}]", ToStringBuilder.reflectionToString(array));
+        array = null;
+        assertReflectionArray("<null>", array);
+    }
+    
+    // Reflection hierarchy tests
 
     public void testReflectionHierarchyArrayList() {
         List base = new ArrayList();
@@ -396,7 +560,6 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append(array).toString());
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
     }
-
 
     public void testLongArrayArray() {
         long[][] array = new long[][] {{1, 2}, null, {5}};
