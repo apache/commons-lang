@@ -48,7 +48,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.29 2004/02/18 22:53:24 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.30 2004/06/30 18:21:49 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -234,11 +234,13 @@ public abstract class ToStringStyle implements Serializable {
      *  <code>toString</code> for, must not be <code>null</code>
      */
     public void appendStart(StringBuffer buffer, Object object) {
-        appendClassName(buffer, object);
-        appendIdentityHashCode(buffer, object);
-        appendContentStart(buffer);
-        if (fieldSeparatorAtStart) {
-            appendFieldSeparator(buffer);
+        if (object != null) {
+            appendClassName(buffer, object);
+            appendIdentityHashCode(buffer, object);
+            appendContentStart(buffer);
+            if (fieldSeparatorAtStart) {
+                appendFieldSeparator(buffer);
+            }
         }
     }
 
@@ -247,9 +249,12 @@ public abstract class ToStringStyle implements Serializable {
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param object  the <code>Object</code> to build a
-     *  <code>toString</code> for, must not be <code>null</code>
+     *  <code>toString</code> for.
      */
     public void appendEnd(StringBuffer buffer, Object object) {
+        if (object == null){
+            return;
+        }
         if (fieldSeparatorAtEnd == false) {
             removeLastFieldSeparator(buffer);
         }
@@ -1282,7 +1287,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param object  the <code>Object</code> whose name to output
      */
     protected void appendClassName(StringBuffer buffer, Object object) {
-        if (useClassName) {
+        if (useClassName && object != null) {
             if (useShortClassName) {
                 buffer.append(getShortClassName(object.getClass()));
             } else {
@@ -1298,7 +1303,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param object  the <code>Object</code> whose id to output
      */
     protected void appendIdentityHashCode(StringBuffer buffer, Object object) {
-        if (useIdentityHashCode) {
+        if (this.isUseIdentityHashCode() && object!=null) {
             buffer.append('@');
             buffer.append(Integer.toHexString(System.identityHashCode(object)));
         }
