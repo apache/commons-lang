@@ -42,7 +42,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.43 2004/10/21 01:18:33 ggregory Exp $
+ * @version $Id$
  */
 public class ExceptionUtils {
     
@@ -103,11 +103,59 @@ public class ExceptionUtils {
      * @since 2.0
      */
     public static void addCauseMethodName(String methodName) {
-        if (StringUtils.isNotEmpty(methodName)) {
-            List list = new ArrayList(Arrays.asList(CAUSE_METHOD_NAMES));
-            list.add(methodName);
-            CAUSE_METHOD_NAMES = (String[]) list.toArray(new String[list.size()]);
+        if (StringUtils.isNotEmpty(methodName) && !isCauseMethodName(methodName)) {            
+            List list = getCauseMethodNameList();
+            if (list.add(methodName)) {
+                CAUSE_METHOD_NAMES = toArray(list);
+            }
         }
+    }
+
+    /**
+     * <p>Removes from the list of method names used in the search for <code>Throwable</code>
+     * objects.</p>
+     * 
+     * @param methodName  the methodName to remove from the list, <code>null</code>
+     *  and empty strings are ignored
+     * @since 2.1
+     */
+    public static void removeCauseMethodName(String methodName) {
+        if (StringUtils.isNotEmpty(methodName)) {
+            List list = getCauseMethodNameList();
+            if (list.remove(methodName)) {
+                CAUSE_METHOD_NAMES = toArray(list);
+            }
+        }
+    }
+
+    /**
+     * Returns the given list as a <code>String[]</code>.
+     * @param list a list to transform.
+     * @return the given list as a <code>String[]</code>.
+     */
+    private static String[] toArray(List list) {
+        return (String[]) list.toArray(new String[list.size()]);
+    }
+
+    /**
+     * Returns {@link #CAUSE_METHOD_NAMES} as a List.
+     * @return {@link #CAUSE_METHOD_NAMES} as a List.
+     */
+    private static ArrayList getCauseMethodNameList() {
+        return new ArrayList(Arrays.asList(CAUSE_METHOD_NAMES));
+    }
+
+    /**
+     * <p>Tests if the list of method names used in the search for <code>Throwable</code>
+     * objects include the given name.</p>
+     * 
+     * @param methodName  the methodName to search in the list.
+     * @return if the list of method names used in the search for <code>Throwable</code>
+     *  objects include the given name.
+     * @since 2.1
+     */
+    public static boolean isCauseMethodName(String methodName) {
+        return ArrayUtils.indexOf(CAUSE_METHOD_NAMES, methodName) >= 0;
     }
 
     /**
@@ -712,7 +760,7 @@ public class ExceptionUtils {
         while (frames.hasMoreTokens()) {
             list.add(frames.nextToken());
         }
-        return (String[]) list.toArray(new String[list.size()]);
+        return toArray(list);
     }
 
     /**
