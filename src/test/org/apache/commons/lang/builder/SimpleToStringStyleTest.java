@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ToStringStyle}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: SimpleToStringStyleTest.java,v 1.1 2002/09/17 22:07:50 scolebourne Exp $
+ * @version $Id: SimpleToStringStyleTest.java,v 1.2 2002/12/08 20:48:46 scolebourne Exp $
  */
 public class SimpleToStringStyleTest extends TestCase {
 
@@ -101,6 +101,15 @@ public class SimpleToStringStyleTest extends TestCase {
         assertEquals("", new ToStringBuilder(base).toString());
     }
 
+    public void testAppendSuper() {
+        assertEquals("", new ToStringBuilder(base).appendSuper("").toString());
+        assertEquals("<null>", new ToStringBuilder(base).appendSuper("<null>").toString());
+        
+        assertEquals("hello", new ToStringBuilder(base).appendSuper("").append("a", "hello").toString());
+        assertEquals("<null>,hello", new ToStringBuilder(base).appendSuper("<null>").append("a", "hello").toString());
+        assertEquals("hello", new ToStringBuilder(base).appendSuper(null).append("a", "hello").toString());
+    }
+    
     public void testObject() {
         Integer i3 = new Integer(3);
         Integer i4 = new Integer(4);

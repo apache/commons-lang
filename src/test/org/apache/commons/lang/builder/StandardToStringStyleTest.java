@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ToStringStyle}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StandardToStringStyleTest.java,v 1.1 2002/09/17 22:07:50 scolebourne Exp $
+ * @version $Id: StandardToStringStyleTest.java,v 1.2 2002/12/08 20:48:46 scolebourne Exp $
  */
 public class StandardToStringStyleTest extends TestCase {
 
@@ -117,6 +117,15 @@ public class StandardToStringStyleTest extends TestCase {
         assertEquals(baseStr + "[]", new ToStringBuilder(base).toString());
     }
 
+    public void testAppendSuper() {
+        assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
+        assertEquals(baseStr + "[%NULL%]", new ToStringBuilder(base).appendSuper("Integer@8888[%NULL%]").toString());
+        
+        assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[]").append("a", "hello").toString());
+        assertEquals(baseStr + "[%NULL%,a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[%NULL%]").append("a", "hello").toString());
+        assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper(null).append("a", "hello").toString());
+    }
+    
     public void testObject() {
         Integer i3 = new Integer(3);
         Integer i4 = new Integer(4);

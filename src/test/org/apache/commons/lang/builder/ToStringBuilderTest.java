@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ToStringBuilder}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilderTest.java,v 1.1 2002/09/17 22:07:50 scolebourne Exp $
+ * @version $Id: ToStringBuilderTest.java,v 1.2 2002/12/08 20:48:46 scolebourne Exp $
  */
 public class ToStringBuilderTest extends TestCase {
 
@@ -165,6 +165,24 @@ public class ToStringBuilderTest extends TestCase {
     
     public void testReflection() {
         assertEquals(baseStr + "[value=5]", ToStringBuilder.reflectionToString(base));
+    }
+    
+    public void testAppendSuper() {
+        assertEquals(baseStr + "[]", new ToStringBuilder(base).appendSuper("Integer@8888[]").toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").toString());
+        
+        assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[]").append("a", "hello").toString());
+        assertEquals(baseStr + "[<null>,a=hello]", new ToStringBuilder(base).appendSuper("Integer@8888[<null>]").append("a", "hello").toString());
+        assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendSuper(null).append("a", "hello").toString());
+    }
+    
+    public void testAppendToString() {
+        assertEquals(baseStr + "[]", new ToStringBuilder(base).appendToString("Integer@8888[]").toString());
+        assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).appendToString("Integer@8888[<null>]").toString());
+        
+        assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendToString("Integer@8888[]").append("a", "hello").toString());
+        assertEquals(baseStr + "[<null>,a=hello]", new ToStringBuilder(base).appendToString("Integer@8888[<null>]").append("a", "hello").toString());
+        assertEquals(baseStr + "[a=hello]", new ToStringBuilder(base).appendToString(null).append("a", "hello").toString());
     }
     
     public void testObject() {

@@ -64,7 +64,7 @@ package org.apache.commons.lang.builder;
  * program to access.</p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StandardToStringStyle.java,v 1.5 2002/11/17 21:46:42 scolebourne Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.6 2002/12/08 20:45:08 scolebourne Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
@@ -355,6 +355,50 @@ public class StandardToStringStyle extends ToStringStyle {
      */
     public void setFieldSeparator(String fieldSeparator) {
         super.setFieldSeparator(fieldSeparator);
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * <p>Gets whether the field separator should be added at the start 
+     * of each buffer.</p>
+     * 
+     * @return the fieldSeparatorAtStart flag
+     */
+    public boolean isFieldSeparatorAtStart() {
+        return super.isFieldSeparatorAtStart();
+    }
+
+    /**
+     * <p>Sets whether the field separator should be added at the start 
+     * of each buffer.</p>
+     * 
+     * @param fieldSeparatorAtStart  the fieldSeparatorAtStart flag
+     */
+    public void setFieldSeparatorAtStart(boolean fieldSeparatorAtStart) {
+        super.setFieldSeparatorAtStart(fieldSeparatorAtStart);
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * <p>Gets whether the field separator should be added at the end 
+     * of each buffer.</p>
+     * 
+     * @return fieldSeparatorAtEnd flag
+     */
+    public boolean isFieldSeparatorAtEnd() {
+        return super.isFieldSeparatorAtEnd();
+    }
+
+    /**
+     * <p>Sets whether the field separator should be added at the end 
+     * of each buffer.</p>
+     * 
+     * @param fieldSeparatorAtEnd  the fieldSeparatorAtEnd flag
+     */
+    public void setFieldSeparatorAtEnd(boolean fieldSeparatorAtEnd) {
+        super.setFieldSeparatorAtEnd(fieldSeparatorAtEnd);
     }
 
     //---------------------------------------------------------------------
