@@ -56,7 +56,6 @@ package org.apache.commons.lang.math;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import org.apache.commons.lang.NullArgumentException;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -71,7 +70,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Matthew Hawthorne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.8 2003/07/28 21:37:32 scolebourne Exp $
+ * @version $Id: NumberUtils.java,v 1.9 2003/07/31 23:45:28 scolebourne Exp $
  */
 public class NumberUtils {
     
@@ -490,13 +489,13 @@ public class NumberUtils {
      * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
     public static long min(long[] array) {
         // Validates input
         if (array == null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
@@ -517,13 +516,13 @@ public class NumberUtils {
      * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
     public static int min(int[] array) {
         // Validates input
         if (array == null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
@@ -544,13 +543,13 @@ public class NumberUtils {
      * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
     public static short min(short[] array) {
         // Validates input
         if (array == null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
@@ -571,13 +570,13 @@ public class NumberUtils {
      * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
     public static double min(double[] array) {
         // Validates input
         if (array == null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
@@ -598,13 +597,13 @@ public class NumberUtils {
      * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
     public static float min(float[] array) {
         // Validates input
         if (array == null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
@@ -627,13 +626,13 @@ public class NumberUtils {
      * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
     public static long max(long[] array) {
         // Validates input
         if (array == null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
@@ -654,13 +653,13 @@ public class NumberUtils {
      * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
     public static int max(int[] array) {
         // Validates input
         if (array == null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
@@ -681,13 +680,13 @@ public class NumberUtils {
      * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
     public static short max(short[] array) {
         // Validates input
         if (array == null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
@@ -708,13 +707,13 @@ public class NumberUtils {
      * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
     public static double max(double[] array) {
         // Validates input
         if (array== null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }
@@ -735,13 +734,13 @@ public class NumberUtils {
      * 
      * @param array  an array, must not be null or empty
      * @return the minimum value in the array
-     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
      */
     public static float max(float[] array) {
         // Validates input
         if (array == null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {
             throw new IllegalArgumentException("Array cannot be empty.");
         }

@@ -75,7 +75,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.19 2003/07/19 20:17:12 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.20 2003/07/31 23:45:28 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -607,7 +607,7 @@ public class ArrayUtils {
      */    
     public static boolean isSameType(final Object array1, final Object array2) {
         if (array1 == null || array2 == null) {
-            throw new NullArgumentException("Array");
+            throw new IllegalArgumentException("The Array must not be null");
         }
         return array1.getClass().getName().equals(array2.getClass().getName());
     }
