@@ -54,7 +54,7 @@
 package org.apache.commons.lang;
 
 /**
- * <p>Manage operations dealing with bit-mapped fields.</p>
+ * <p>Operations on bit-mapped fields.</p>
  *
  * @author Apache Jakarta POI
  * @author Scott Sanders (sanders at apache dot org)
@@ -62,8 +62,9 @@ package org.apache.commons.lang;
  * @author Andrew C. Oliver (acoliver at apache dot org)
  * @author Stephen Colebourne
  * @author Pete Gieser
+ * @author Gary Gregory
  * @since 2.0
- * @version $Id: BitField.java,v 1.1 2003/08/19 02:32:15 bayard Exp $
+ * @version $Id: BitField.java,v 1.2 2003/08/22 16:57:04 ggregory Exp $
  */
 public class BitField {
     
@@ -71,7 +72,7 @@ public class BitField {
     private final int _shift_count;
 
     /**
-     * <p>Create a BitField instance.</p>
+     * <p>Creates a BitField instance.</p>
      *
      * @param mask the mask specifying which bits apply to this
      *  BitField. Bits that are set in this mask are the bits
@@ -92,7 +93,7 @@ public class BitField {
     }
 
     /**
-     * <p>Obtain the value for the specified BitField, appropriately
+     * <p>Obtains the value for the specified BitField, appropriately
      * shifted right.</p>
      *
      * <p>Many users of a BitField will want to treat the specified
@@ -110,7 +111,7 @@ public class BitField {
     }
 
     /**
-     * <p>Obtain the value for the specified BitField, appropriately
+     * <p>Obtains the value for the specified BitField, appropriately
      * shifted right, as a short.</p>
      *
      * <p>Many users of a BitField will want to treat the specified
@@ -128,7 +129,7 @@ public class BitField {
     }
 
     /**
-     * <p>Obtain the value for the specified BitField, unshifted.</p>
+     * <p>Obtains the value for the specified BitField, unshifted.</p>
      *
      * @param holder the int data containing the bits we're
      *  interested in
@@ -139,7 +140,7 @@ public class BitField {
     }
 
     /**
-     * <p>Obtain the value for the specified BitField, unshifted.</p>
+     * <p>Obtains the value for the specified BitField, unshifted.</p>
      *
      * @param holder the short data containing the bits we're
      *  interested in
@@ -183,7 +184,7 @@ public class BitField {
     }
 
     /**
-     * <p>Replace the bits with new values.</p>
+     * <p>Replaces the bits with new values.</p>
      *
      * @see #getValue
      * @param holder the int data containint the bits we're
@@ -197,7 +198,7 @@ public class BitField {
     }
 
     /**
-     * <p>Replace the bits with new values.</p>
+     * <p>Replaces the bits with new values.</p>
      *
      * @see #getShortValue
      * @param holder the short data containing the bits we're
@@ -211,7 +212,7 @@ public class BitField {
     }
 
     /**
-     * <p>Clear the bits.</p>
+     * <p>Clears the bits.</p>
      *
      * @param holder the int data containing the bits we're
      *  interested in
@@ -223,7 +224,7 @@ public class BitField {
     }
 
     /**
-     * <p>Clear the bits.</p>
+     * <p>Clears the bits.</p>
      *
      * @param holder the short data containing the bits we're
      *  interested in
@@ -235,7 +236,7 @@ public class BitField {
     }
 
     /**
-     * <p>Clear the bits.</p>
+     * <p>Clears the bits.</p>
      *
      * @param holder the byte data containing the bits we're
      *  interested in
@@ -248,7 +249,7 @@ public class BitField {
     }
 
     /**
-     * <p>Set the bits.</p>
+     * <p>Sets the bits.</p>
      *
      * @param holder the int data containing the bits we're
      *  interested in
@@ -260,7 +261,7 @@ public class BitField {
     }
 
     /**
-     * <p>Set the bits.</p>
+     * <p>Sets the bits.</p>
      *
      * @param holder the short data containing the bits we're
      *  interested in
@@ -272,7 +273,7 @@ public class BitField {
     }
 
     /**
-     * <p>Set the bits.</p>
+     * <p>Sets the bits.</p>
      *
      * @param holder the byte data containing the bits we're
      *  interested in
@@ -285,7 +286,7 @@ public class BitField {
     }
 
     /**
-     * <p>Set a boolean BitField.</p>
+     * <p>Sets a boolean BitField.</p>
      *
      * @param holder the int data containing the bits we're
      *  interested in
@@ -298,7 +299,7 @@ public class BitField {
     }
 
     /**
-     * <p>Set a boolean BitField.</p>
+     * <p>Sets a boolean BitField.</p>
      *
      * @param holder the short data containing the bits we're
      *  interested in
@@ -311,7 +312,7 @@ public class BitField {
     }
 
     /**
-     * <p>Set a boolean BitField.</p>
+     * <p>Sets a boolean BitField.</p>
      *
      * @param holder the byte data containing the bits we're
      *  interested in
