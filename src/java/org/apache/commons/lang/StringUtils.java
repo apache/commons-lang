@@ -146,7 +146,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.76 2003/07/21 00:41:13 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.77 2003/07/22 23:36:40 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1762,9 +1762,20 @@ public class StringUtils {
     // Joining
     //-----------------------------------------------------------------------
     /**
-     * <p>Concatenates elements of an array into a single String.</p>
+     * <p>Concatenates elements of an array into a single String.
+     * Null objects or empty strings within the array are represented by 
+     * empty strings.</p>
      *
-     * <p>The difference from join is that concatenate has no delimiter.</p>
+     * <p>The difference from join is that concatenate has no delimiter -- i.e., <br>
+     * <code>StringUtils.concatenate(array) = StringUtils.join(array, null)</code>.</p>
+     *
+     * <pre>
+     * StringUtils.concatenate(null)            = null
+     * StringUtils.concatenate([])              = ""
+     * StringUtils.concatenate([null])          = ""
+     * StringUtils.concatenate(["a", "b", "c"]) = "abc"
+     * StringUtils.concatenate([null, "", "a"]) = "a"
+     * </pre>
      * 
      * @param array  the array of values to concatenate, may be null
      * @return the concatenated String, <code>null</code> if null array input
@@ -1778,6 +1789,17 @@ public class StringUtils {
      * containing the provided list of elements.</p>
      *
      * <p>No delimiter is added before or after the list.
+     * Null objects or empty strings within the array are represented by 
+     * empty strings.</p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)               = null
+     * StringUtils.join([], *)                 = ""
+     * StringUtils.join([null], *)             = ""
+     * StringUtils.join(["a", "b", "c"], ';')  = "a;b;c"
+     * StringUtils.join(["a", "b", "c"], null) = "abc"
+     * StringUtils.join([null, "", "a"], ';')  = ";;a"
+     * </pre>
      *
      * @param array  the array of values to join together, may be null
      * @param separator  the separator character to use
@@ -1807,7 +1829,19 @@ public class StringUtils {
      * containing the provided list of elements.</p>
      *
      * <p>No delimiter is added before or after the list.
-     * A <code>null</code> separator is the same as an empty String ("").</p>
+     * A <code>null</code> separator is the same as an empty String (""). 
+     * Null objects or empty strings within the array are represented by 
+     * empty strings.</p>
+     *
+     * <pre>
+     * StringUtils.join(null, *)                = null
+     * StringUtils.join([], *)                  = ""
+     * StringUtils.join([null], *)              = ""
+     * StringUtils.join(["a", "b", "c"], "--")  = "a--b--c"
+     * StringUtils.join(["a", "b", "c"], null)  = "abc"
+     * StringUtils.join(["a", "b", "c"], "")    = "abc"
+     * StringUtils.join([null, "", "a"], ',')   = ",,a"
+     * </pre>
      *
      * @param array  the array of values to join together, may be null
      * @param separator  the separator character to use, null treated as ""
@@ -1847,7 +1881,10 @@ public class StringUtils {
      * <p>Joins the elements of the provided <code>Iterator</code> into
      * a single String containing the provided elements.</p>
      *
-     * <p>No delimiter is added before or after the list.
+     * <p>No delimiter is added before or after the list. Null objects or empty 
+     * strings within the iteration are represented by empty strings.</p>
+     *
+     * <p>See the examples here: {@link #join(Object[],char)}. </p>
      *
      * @param iterator  the <code>Iterator</code> of values to join together, may be null
      * @param separator  the separator character to use
@@ -1876,6 +1913,8 @@ public class StringUtils {
      *
      * <p>No delimiter is added before or after the list.
      * A <code>null</code> separator is the same as an empty String ("").</p>
+     *
+     * <p>See the examples here: {@link #join(Object[],String)}. </p>
      *
      * @param iterator  the <code>Iterator</code> of values to join together, may be null
      * @param separator  the separator character to use, null treated as ""
@@ -2063,7 +2102,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Overlay a part of a String with another String.</p>
+     * <p>Overlays part of a String with another String.</p>
      *
      * <pre>
      * StringUtils.overlayString(null, *, *, *)           = null
@@ -2101,13 +2140,27 @@ public class StringUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Remove one newline from end of a String if it's there,
+     * <p>Removes one newline from end of a String if it's there,
      * otherwise leave it alone.  A newline is &quot;<code>\n</code>&quot;,
      * &quot;<code>\r</code>&quot;, or &quot;<code>\r\n</code>&quot;.</p>
      *
      * <p>NOTE: This method changed in 2.0.
      * It now more closely matches Perl chomp.
      * For the previous behavior, use {@link #slice(String)}.</p>
+     *
+     * <pre>
+     * StringUtils.chomp(null)          = null
+     * StringUtils.chomp("")            = ""
+     * StringUtils.chomp("abc \r")      = "abc "
+     * StringUtils.chomp("abc\n")       = "abc"
+     * StringUtils.chomp("abc\r\n")     = "abc"
+     * StringUtils.chomp("abc\r\n\r\n") = "abc\r\n"
+     * StringUtils.chomp("abc\n\r")     = "abc\n"
+     * StringUtils.chomp("abc\n\rabc")  = "abc\n\rabc"
+     * StringUtils.chomp("\r")          = ""
+     * StringUtils.chomp("\n")          = ""
+     * StringUtils.chomp("\r\n")        = ""
+     * </pre>
      *
      * @param str  the String to chomp a newline from, may be null
      * @return String without newline, <code>null</code> if null String input
@@ -2142,12 +2195,26 @@ public class StringUtils {
     }
 
     /**
-     * <p>Remove <code>separator</code> from the end of
+     * <p>Removes <code>separator</code> from the end of
      * <code>str</code> if it's there, otherwise leave it alone.</p>
      *
      * <p>NOTE: This method changed in version 2.0.
      * It now more closely matches Perl chomp.
-     * For the previous behavior, use {@link #slice(String,String)}.</p>
+     * For the previous behavior, use {@link #slice(String,String)}.
+     * This method uses {@link String#endsWith(String)}.</p>
+     *
+     * <pre>
+     * StringUtils.chomp(null, *)         = null
+     * StringUtils.chomp("", *)           = ""
+     * StringUtils.chomp("foobar", "bar") = "foo"
+     * StringUtils.chomp("foobar", "baz") = "foobar"
+     * StringUtils.chomp("foo", "foo")    = ""
+     * StringUtils.chomp("foo ", "foo")   = "foo"
+     * StringUtils.chomp(" foo", "foo")   = " "
+     * StringUtils.chomp("foo", "foooo")  = "foo"
+     * StringUtils.chomp("foo", "")       = "foo"
+     * StringUtils.chomp("foo", null)     = "foo"
+     * </pre>
      *
      * @param str  the String to chomp from, may be null
      * @param separator  separator String, may be null
@@ -2271,6 +2338,20 @@ public class StringUtils {
      * <p>If the String ends in <code>\r\n</code>, then remove both
      * of them.</p>
      *
+     * <pre>
+     * StringUtils.chop(null)          = null
+     * StringUtils.chop("")            = ""
+     * StringUtils.chop("abc \r")      = "abc "
+     * StringUtils.chop("abc\n")       = "abc"
+     * StringUtils.chop("abc\r\n")     = "abc"
+     * StringUtils.chop("abc")         = "ab"
+     * StringUtils.chop("abc\nabc")    = "abc\nab"
+     * StringUtils.chop("a")           = ""
+     * StringUtils.chop("\r")          = ""
+     * StringUtils.chop("\n")          = ""
+     * StringUtils.chop("\r\n")        = ""
+     * </pre>
+     *
      * @param str  the String to chop last character from, may be null
      * @return String without last character, <code>null</code> if null String input
      */
@@ -2294,7 +2375,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Remove <code>\n</code> from end of a String if it's there.
+     * <p>Removes <code>\n</code> from end of a String if it's there.
      * If a <code>\r</code> precedes it, then remove that too.</p>
      *
      * @param str  the String to chop a newline from, must not be null
@@ -2324,7 +2405,22 @@ public class StringUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Remove the last newline, and everything after it from a String.</p>
+     * <p>Removes the last newline, and everything after it from a String.</p>
+     *
+     * <p>A <code>null</code> string input will return <code>null</code>.
+     * An empty ("") string input will return the empty string.</p>
+     *
+     * <pre>
+     * StringUtils.slice(null)          = null
+     * StringUtils.slice("")            = ""
+     * StringUtils.slice("abc \n")      = "abc "
+     * StringUtils.slice("abc\n")       = "abc"
+     * StringUtils.slice("abc\r\n")     = "abc\r"
+     * StringUtils.slice("abc")         = "abc"
+     * StringUtils.slice("abc\nabc")    = "abc"
+     * StringUtils.slice("abc\nabc\n")  = "abc\nabc"
+     * StringUtils.slice("\n")          = ""
+     * </pre>
      *
      * <p><em>(This method was formerly named chomp or chopNewline.)</em></p>
      *
@@ -2336,8 +2432,25 @@ public class StringUtils {
     }
 
     /**
-     * <p>Find the last occurence of a separator String;
-     * remove it and everything after it.</p>
+     * <p>Finds the last occurence of a separator String,
+     * returning everything before it. The separator is not returned.</p>
+     *
+     * <p>A <code>null</code> string input will return <code>null</code>.
+     * An empty ("") string input will return the empty string.
+     * An empty or <code>null</code> separator will return the input string.</p>
+     *
+     * <p>This method is the opposite of {@link #sliceRemainder(String, String)}.</p>
+     * 
+     * <pre>
+     * StringUtils.slice(null, *)      = null
+     * StringUtils.slice("", *)        = ""
+     * StringUtils.slice("abcba", "b") = "abc"
+     * StringUtils.slice("abc", "c")   = "ab"
+     * StringUtils.slice("a", "a")     = ""
+     * StringUtils.slice("a", "z")     = "a"
+     * StringUtils.slice("a", null)    = "a"
+     * StringUtils.slice("a", "")      = "a"
+     * </pre>
      *
      * <p><em>(This method was formerly named chomp.)</em></p>
      *
@@ -2358,8 +2471,26 @@ public class StringUtils {
     }
 
     /**
-     * <p>Find the last occurence of a separator String, and return
-     * everything after it.</p>
+     * <p>Finds the last occurence of a separator String,
+     * returning everything after it.</p>
+     *
+     * <p>A <code>null</code> string input will return <code>null</code>.
+     * An empty ("") string input will return the empty string.
+     * An empty or <code>null</code> separator will return the empty string.</p>
+     * 
+     * <p>This method is the opposite of {@link #slice(String, String)}.</p>
+     *
+     * <pre>
+     * StringUtils.sliceRemainder(null, *)         = null
+     * StringUtils.sliceRemainder("", *)           = ""
+     * StringUtils.sliceRemainder(*, "")           = ""
+     * StringUtils.sliceRemainder(*, null)         = ""
+     * StringUtils.sliceRemainder("abc", "a")      = "bc"
+     * StringUtils.sliceRemainder("abcba", "b")    = "a"
+     * StringUtils.sliceRemainder("abc", "c")      = ""
+     * StringUtils.sliceRemainder("a", "a")        = ""
+     * StringUtils.sliceRemainder("a", "z")        = ""
+     * </pre>
      *
      * <p><em>(This method was formerly named getchomp. Also, now it does not
      * include the separator in the return value.)</em></p>
@@ -2386,8 +2517,65 @@ public class StringUtils {
     }
 
     /**
-     * <p>Find the first occurence of a separator String, and return
-     * everything after it.</p>
+     * <p>Finds the first occurence of a separator String,
+     * returning everything before it. The separator is not returned.</p>
+     *
+     * <p>A <code>null</code> string input will return <code>null</code>.
+     * An empty ("") string input will return the empty string.
+     * An empty or <code>null</code> separator will return the input string.</p>
+     * 
+     * <p>This method is the opposite of {@link #sliceFirst(String, String)}.</p>
+     *
+     * <pre>
+     * StringUtils.sliceFirst(null, *)         = null
+     * StringUtils.sliceFirst("", *)           = ""
+     * StringUtils.sliceFirst("abc", "a")      = ""
+     * StringUtils.sliceFirst("abcba", "b")    = "a"
+     * StringUtils.sliceFirst("abc", "c")      = "ab"
+     * StringUtils.sliceFirst("abc", "d")      = ""
+     * StringUtils.sliceFirst("abc", "")       = "abc"
+     * StringUtils.sliceFirst("abc", null)     = "abc"
+     * </pre>
+     *
+     * <p><em>(This method was formerly named getPrechomp.  Also, it used to
+     * include the separator, but now it does not.)</em></p>
+     *
+     * @param str  the String to slice from, may be null
+     * @param separator  the String to slice, may be null
+     * @return sliced String, <code>null</code> if null String input
+     */
+    public static String sliceFirst(String str, String separator) {
+        if (str == null || separator == null || str.length() == 0 || separator.length() == 0) {
+            return str;
+        }
+        int idx = str.indexOf(separator);
+        if (idx != -1) {
+            return str.substring(0, idx);
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * <p>Finds the first occurence of a separator String,
+     * returning everything after it.</p>
+     *
+     * <p>A <code>null</code> string input will return <code>null</code>.
+     * An empty ("") string input will return the empty string.
+     * An empty or <code>null</code> separator will return the empty string.</p>
+     * 
+     * <p>This method is the opposite of {@link #sliceFirst(String, String)}.</p>
+     *
+     * <pre>
+     * StringUtils.sliceFirstRemainder(null, *)         = null
+     * StringUtils.sliceFirstRemainder("", *)           = ""
+     * StringUtils.sliceFirstRemainder(*, "")           = ""
+     * StringUtils.sliceFirstRemainder(*, null)         = ""
+     * StringUtils.sliceFirstRemainder("abc", "a")      = "bc"
+     * StringUtils.sliceFirstRemainder("abcba", "b")    = "cba"
+     * StringUtils.sliceFirstRemainder("abc", "c")      = ""
+     * StringUtils.sliceFirstRemainder("abc", "d")      = "abc"
+     * </pre>
      *
      * <p><em>(This method was formerly named prechomp.  Also, previously
      * it included the separator in the return value; now it does not.)</em></p>
@@ -2408,29 +2596,6 @@ public class StringUtils {
             return str.substring(idx + separator.length());
         } else {
             return str;
-        }
-    }
-
-    /**
-     * <p>Find the first occurence of a separator String;
-     * return everything before it (but not including the separator).</p>
-     *
-     * <p><em>(This method was formerly named getPrechomp.  Also, it used to
-     * include the separator, but now it does not.)</em></p>
-     *
-     * @param str  the String to slice from, may be null
-     * @param separator  the String to slice, may be null
-     * @return sliced String, <code>null</code> if null String input
-     */
-    public static String sliceFirst(String str, String separator) {
-        if (str == null || separator == null || str.length() == 0 || separator.length() == 0) {
-            return str;
-        }
-        int idx = str.indexOf(separator);
-        if (idx != -1) {
-            return str.substring(0, idx);
-        } else {
-            return "";
         }
     }
 
@@ -3182,9 +3347,9 @@ public class StringUtils {
     //-----------------------------------------------------------------------
     
     /**
-     * <p>How many times is the substring in the larger String.</p>
+     * <p>Counts how many times the substring appears in the larger String.</p>
      *
-     * <p>A <code>null</code> String input returns <code>0</code>.</p>
+     * <p>A <code>null</code> or empty ("") String input returns <code>0</code>.</p>
      * 
      * <pre>
      * StringUtils.countMatches(null, *)       = 0
@@ -3496,7 +3661,7 @@ public class StringUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Reverse a String as per {@link StringBuffer#reverse()}.</p>
+     * <p>Reverses a String as per {@link StringBuffer#reverse()}.</p>
      *
      * <p><A code>null</code> String returns <code>null</code>.</p>
      * 
@@ -3585,19 +3750,30 @@ public class StringUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Turn "Now is the time for all good men" into "Now is the time for..."</p>
+     * <p>Abbreviates a String using ellipses. This will turn 
+     * "Now is the time for all good men" into "Now is the time for..."</p>
      *
      * <p>Specifically:
      * <ul>
      *   <li>If <code>str</code> is less than <code>maxWidth</code> characters
      *       long, return it.</li>
      *   <li>Else abbreviate it to <code>(substring(str, 0, max-3) + "...")</code>.</li>
-     *   <li>If <code>maxWidth</code> is less than </code>3, throw an
+     *   <li>If <code>maxWidth</code> is less than <code>4</code>, throw an
      *       <code>IllegalArgumentException</code>.</li>
      *   <li>In no case will it return a String of length greater than
      *       <code>maxWidth</code>.</li>
      * </ul>
      * </p>
+     *
+     * <pre>
+     * StringUtils.abbreviate(null, *)      = null
+     * StringUtils.abbreviate("", 4)        = ""
+     * StringUtils.abbreviate("abcdefg", 6) = "abc..."
+     * StringUtils.abbreviate("abcdefg", 7) = "abcdefg"
+     * StringUtils.abbreviate("abcdefg", 8) = "abcdefg"
+     * StringUtils.abbreviate("abcdefg", 4) = "a..."
+     * StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
+     * </pre>
      *
      * @param str  the String to check, may be null
      * @param maxWidth  maximum length of result String, must be at least 4
@@ -3609,7 +3785,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Turn "Now is the time for all good men" into "...is the time for..."</p>
+     * <p>Abbreviates a String using ellipses. This will turn 
+     * "Now is the time for all good men" into "...is the time for..."</p>
      *
      * <p>Works like <code>abbreviate(String, int)</code>, but allows you to specify
      * a "left edge" offset.  Note that this left edge is not necessarily going to
@@ -3618,6 +3795,22 @@ public class StringUtils {
      *
      * <p>In no case will it return a String of length greater than
      * <code>maxWidth</code>.</p>
+     *
+     * <pre>
+     * StringUtils.abbreviate(null, *, *)                = null
+     * StringUtils.abbreviate("", 0, 4)                  = ""
+     * StringUtils.abbreviate("abcdefghijklmno", -1, 10) = "abcdefg..."
+     * StringUtils.abbreviate("abcdefghijklmno", 0, 10)  = "abcdefg..."
+     * StringUtils.abbreviate("abcdefghijklmno", 1, 10)  = "abcdefg..."
+     * StringUtils.abbreviate("abcdefghijklmno", 4, 10)  = "abcdefg..."
+     * StringUtils.abbreviate("abcdefghijklmno", 5, 10)  = "...fghi..."
+     * StringUtils.abbreviate("abcdefghijklmno", 6, 10)  = "...ghij..."
+     * StringUtils.abbreviate("abcdefghijklmno", 8, 10)  = "...ijklmno"
+     * StringUtils.abbreviate("abcdefghijklmno", 10, 10) = "...ijklmno"
+     * StringUtils.abbreviate("abcdefghijklmno", 12, 10) = "...ijklmno"
+     * StringUtils.abbreviate("abcdefghij", 0, 3)        = IllegalArgumentException
+     * StringUtils.abbreviate("abcdefghij", 5, 6)        = IllegalArgumentException
+     * </pre>
      *
      * @param str  the String to check, may be null
      * @param offset  left edge of source String
@@ -3657,7 +3850,7 @@ public class StringUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Compare two Strings, and return the portion where they differ.
+     * <p>Compares two Strings, and returns the portion where they differ.
      * (More precisely, return the remainder of the second String,
      * starting from where it's different from the first.)</p>
      *
@@ -3695,7 +3888,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Compare two Strings, and return the index at which the
+     * <p>Compares two Strings, and returns the index at which the
      * Strings begin to differ.</p>
      * 
      * <p>For example, 
@@ -3743,10 +3936,25 @@ public class StringUtils {
      * <p>Find the Levenshtein distance between two Strings.</p>
      *
      * <p>This is the number of changes needed to change one String into
-     * another. Where each change is a single character modification.</p>
+     * another, where each change is a single character modification (deletion, 
+     * insertion or substitution).</p>
      *
-     * <p>This implemmentation of the levenshtein distance algorithm
+     * <p>This implementation of the Levenshtein distance algorithm
      * is from <a href="http://www.merriampark.com/ld.htm">http://www.merriampark.com/ld.htm</a></p>
+     *
+     * <pre>
+     * StringUtils.getLevenshteinDistance(null, *)             = IllegalArgumentException
+     * StringUtils.getLevenshteinDistance(*, null)             = IllegalArgumentException
+     * StringUtils.getLevenshteinDistance("","")               = 0
+     * StringUtils.getLevenshteinDistance("","a")              = 1
+     * StringUtils.getLevenshteinDistance("aaapppp", "")       = 7
+     * StringUtils.getLevenshteinDistance("frog", "fog")       = 1
+     * StringUtils.getLevenshteinDistance("fly", "ant")        = 3
+     * StringUtils.getLevenshteinDistance("elephant", "hippo") = 7
+     * StringUtils.getLevenshteinDistance("hippo", "elephant") = 7
+     * StringUtils.getLevenshteinDistance("hippo", "zzzzzzzz") = 8
+     * StringUtils.getLevenshteinDistance("hello", "hallo")    = 1
+     * </pre>
      * 
      * @param s  the first String, must not be null
      * @param t  the second String, must not be null
