@@ -21,7 +21,7 @@ import java.io.Serializable;
  * A mutable <code>long</code>.
  * 
  * @since 2.1
- * @version $Id: MutableLong.java,v 1.4 2004/07/07 23:50:28 scolebourne Exp $
+ * @version $Id: MutableLong.java,v 1.5 2004/10/01 17:12:29 ggregory Exp $
  */
 public class MutableLong extends Number
         implements Comparable, Mutable, Serializable {
@@ -100,11 +100,11 @@ public class MutableLong extends Number
     }
 
     public float floatValue() {
-        return (float) value;
+        return value;
     }
 
     public double doubleValue() {
-        return (double) value;
+        return value;
     }
 
     //-----------------------------------------------------------------------

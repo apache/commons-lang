@@ -21,7 +21,7 @@ import java.io.Serializable;
  * A mutable <code>short</code>.
  * 
  * @since 2.1
- * @version $Id: MutableShort.java,v 1.4 2004/07/07 23:50:28 scolebourne Exp $
+ * @version $Id: MutableShort.java,v 1.5 2004/10/01 17:12:29 ggregory Exp $
  */
 public class MutableShort extends Number
         implements Comparable, Mutable, Serializable {
@@ -96,19 +96,19 @@ public class MutableShort extends Number
     }
 
     public int intValue() {
-        return (int) value;
+        return value;
     }
 
     public long longValue() {
-        return (long) value;
+        return value;
     }
 
     public float floatValue() {
-        return (float) value;
+        return value;
     }
 
     public double doubleValue() {
-        return (double) value;
+        return value;
     }
 
     //-----------------------------------------------------------------------
@@ -133,7 +133,7 @@ public class MutableShort extends Number
      * @return a suitable hashcode
      */
     public int hashCode() {
-        return (int) value;
+        return value;
     }
 
     /**
@@ -154,7 +154,7 @@ public class MutableShort extends Number
      * @return the mutable value as a string
      */
     public String toString() {
-        return String.valueOf((int) value);
+        return String.valueOf(value);
     }
 
 }

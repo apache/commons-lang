@@ -23,7 +23,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * A mutable <code>float</code>.
  * 
  * @since 2.1
- * @version $Id: MutableFloat.java,v 1.4 2004/07/07 23:50:28 scolebourne Exp $
+ * @version $Id: MutableFloat.java,v 1.5 2004/10/01 17:12:29 ggregory Exp $
  */
 public class MutableFloat extends Number
         implements Comparable, Mutable, Serializable {
@@ -106,7 +106,7 @@ public class MutableFloat extends Number
     }
 
     public double doubleValue() {
-        return (double) value;
+        return value;
     }
 
     /**
