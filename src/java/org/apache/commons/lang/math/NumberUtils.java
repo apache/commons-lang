@@ -57,6 +57,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.apache.commons.lang.NullArgumentException;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * <p>Provides extra functionality for Java Number classes.</p>
@@ -68,8 +69,9 @@ import org.apache.commons.lang.NullArgumentException;
  * @author Eric Pugh
  * @author Phil Steitz
  * @author Matthew Hawthorne
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.6 2003/07/26 15:39:04 scolebourne Exp $
+ * @version $Id: NumberUtils.java,v 1.7 2003/07/26 19:12:03 ggregory Exp $
  */
 public class NumberUtils {
     
@@ -216,11 +218,8 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Number createNumber(String str) throws NumberFormatException {
-        if (str == null) {
+        if (!validateNumber(str)) {
             return null;
-        }
-        if (str.length() == 0) {
-            throw new NumberFormatException("\"\" is not a valid number.");
         }
         if (str.startsWith("--")) {
             // this is protection for poorness in java.lang.BigDecimal.
@@ -389,7 +388,7 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Float createFloat(String str) {
-        if (str == null) {
+        if (!validateNumber(str)) {
             return null;
         }
         return Float.valueOf(str);
@@ -405,7 +404,7 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Double createDouble(String str) {
-        if (str == null) {
+        if (!validateNumber(str)) {
             return null;
         }
         return Double.valueOf(str);
@@ -423,7 +422,7 @@ public class NumberUtils {
      */
     public static Integer createInteger(String str) {
         // decode() handles 0xAABD and 0777 (hex and octal) as well.
-        if (str == null) {
+        if (!validateNumber(str)) {
             return null;
         }
         return Integer.decode(str);
@@ -439,7 +438,7 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Long createLong(String str) {
-        if (str == null) {
+        if (!validateNumber(str)) {
             return null;
         }
         return Long.valueOf(str);
@@ -455,7 +454,7 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static BigInteger createBigInteger(String str) {
-        if (str == null) {
+        if (!validateNumber(str)) {
             return null;
         }
         return new BigInteger(str);
@@ -471,12 +470,33 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static BigDecimal createBigDecimal(String str) {
-        if (str == null) {
+        if (!validateNumber(str)) {
             return null;
         }
         return new BigDecimal(str);
     }
 
+    /**
+     * Checks the validitiy of a <code>String</code> for conversion it to a number.
+     * <ol>
+     * <li>If <code>str</code> is <code>null</code>, return <code>false</code>;</li>
+     * <li>If <code>str</code> is <i>blank</i>, throw a <code>NumberFormatException</code>;</li>
+     * <li>Otherewise return <code>true</code>.</li>
+     * </ol>
+     *  
+     * @param str The <code>String</code> to check.
+     * @return Whether or not the argument is suitable for conversion.
+     */
+    protected static boolean validateNumber(String str) {
+        if (str == null) {
+            return false;
+        }
+        if (StringUtils.isBlank(str)) {
+            throw new NumberFormatException("A blank string is not a valid number.");
+        }  
+        return true;
+    }
+    
     // Min in array
     //--------------------------------------------------------------------
     /**
