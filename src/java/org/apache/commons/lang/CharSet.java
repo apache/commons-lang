@@ -56,17 +56,19 @@ package org.apache.commons.lang;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+
 /**
  * A set of characters. You can iterate over the characters in the 
  * set. 
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharSet.java,v 1.4 2002/09/29 08:20:52 bayard Exp $
+ * @version $Id: CharSet.java,v 1.5 2002/10/09 04:35:03 sullis Exp $
  */
 public class CharSet {
 
-    private LinkedList set = new LinkedList();
+    private List set = new LinkedList();
 
     /**
      * Restricted constructor. Use the factory method evaluateSet().
