@@ -19,14 +19,13 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-
 import org.apache.commons.lang.exception.Nestable;
 
 /**
  * JUnit tests.
  * 
  * @author Matthew Hawthorne
- * @version $Id: UnhandledExceptionTest.java,v 1.3 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: UnhandledExceptionTest.java,v 1.4 2004/02/18 23:22:29 ggregory Exp $
  * @see UnhandledException
  */
 public class UnhandledExceptionTest extends TestCase {
