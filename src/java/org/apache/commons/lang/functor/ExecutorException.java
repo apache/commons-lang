@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * If required, a root cause error can be wrapped within this one.
  *
  * @author <a href="mailto:nicolaken@apache.org">Nicola Ken Barozzi</a>
- * @version $Id: ExecutorException.java,v 1.1 2002/11/06 19:15:40 bayard Exp $
+ * @version $Id: ExecutorException.java,v 1.2 2003/03/23 17:50:02 scolebourne Exp $
  */
 public class ExecutorException extends NestableRuntimeException {
 

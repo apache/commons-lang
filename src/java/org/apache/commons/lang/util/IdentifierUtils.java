@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -68,7 +68,7 @@ import org.apache.commons.lang.functor.FactoryException;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: IdentifierUtils.java,v 1.2 2002/12/29 22:06:21 scolebourne Exp $
+ * @version $Id: IdentifierUtils.java,v 1.3 2003/03/23 17:52:25 scolebourne Exp $
  */
 public class IdentifierUtils {
 

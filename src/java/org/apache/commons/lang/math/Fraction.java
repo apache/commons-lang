@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ import java.io.Serializable;
  * @author Travis Reeder
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: Fraction.java,v 1.1 2002/12/22 19:39:39 scolebourne Exp $
+ * @version $Id: Fraction.java,v 1.2 2003/03/23 17:51:15 scolebourne Exp $
  */
 public final class Fraction extends Number implements Serializable, Comparable {
     

@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,7 +70,7 @@ import java.util.Map;
  * @author <a href="mailto:ola.berg@arkitema.se">Ola Berg</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: Validate.java,v 1.1 2002/12/29 22:09:54 scolebourne Exp $
+ * @version $Id: Validate.java,v 1.2 2003/03/23 17:52:25 scolebourne Exp $
  */
 public class Validate {
     

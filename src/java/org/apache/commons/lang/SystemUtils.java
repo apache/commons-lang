@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,7 +61,7 @@ package org.apache.commons.lang;
  * @author Stephen Colebourne
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.7 2002/12/23 00:32:24 scolebourne Exp $
+ * @version $Id: SystemUtils.java,v 1.8 2003/03/23 18:02:29 scolebourne Exp $
  */
 public class SystemUtils {
     

@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -66,7 +66,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @since 1.0
- * @version $Id: NestableRuntimeException.java,v 1.6 2002/12/23 00:15:19 scolebourne Exp $
+ * @version $Id: NestableRuntimeException.java,v 1.7 2003/03/23 17:47:51 scolebourne Exp $
  */
 public class NestableRuntimeException extends RuntimeException implements Nestable {
     

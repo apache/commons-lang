@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,7 +63,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Revision: 1.5 $ $Date: 2002/12/23 00:32:24 $
+ * @version $Revision: 1.6 $ $Date: 2003/03/23 18:00:59 $
  * 
  * @deprecated Use one of the Range classes in org.apache.commons.lang.math
  */

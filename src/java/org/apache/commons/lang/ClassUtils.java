@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ import java.util.List;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.8 2002/12/31 22:32:23 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.9 2003/03/23 17:59:09 scolebourne Exp $
  */
 public class ClassUtils {
 
