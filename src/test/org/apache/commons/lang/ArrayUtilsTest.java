@@ -1,3 +1,5 @@
+package org.apache.commons.lang;
+
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -51,53 +53,100 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.lang;
+
+import java.util.Map;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 /**
- * Test suite for the Lang package.
+ * Unit tests {@link org.apache.commons.lang.SerializationUtils}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: LangTestSuite.java,v 1.5 2002/10/13 22:42:59 scolebourne Exp $
+ * @author Moritz Petersen
+ * @version $Id: ArrayUtilsTest.java,v 1.1 2002/10/13 22:42:59 scolebourne Exp $
  */
-public class LangTestSuite extends TestCase {
-    
-    /**
-     * Construct a new instance.
-     */
-    public LangTestSuite(String name) {
+public class ArrayUtilsTest extends TestCase {
+
+    public ArrayUtilsTest(String name) {
         super(name);
     }
 
-    /**
-     * Command-line interface.
-     */
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
 
-    /**
-     * Get the suite of tests
-     */
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(ArrayUtilsTest.suite());
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
+    	TestSuite suite = new TestSuite(ArrayUtilsTest.class);
+    	suite.setName("ArrayUtils Tests");
         return suite;
     }
+
+    protected void setUp() throws Exception {
+        super.setUp();
+    }
+
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
+
+    //-----------------------------------------------------------------------
+
+    public void testToMap() {
+        Map map = ArrayUtils.toMap(new String[][] {{"foo", "bar"}, {"hello", "world"}});
+        
+        assertEquals("bar", map.get("foo"));
+        assertEquals("world", map.get("hello"));
+        
+        try {
+            ArrayUtils.toMap(null);
+            fail("exception expected");
+        } catch (IllegalArgumentException e) {
+            // expected.
+        }
+        
+        try {
+            ArrayUtils.toMap(new String[][] {{"foo", "bar"}, {"short"}});
+            fail("exception expected");
+        } catch (IllegalArgumentException e) {
+            // expected.
+        }
+        
+        try {
+            ArrayUtils.toMap(new Object[] {new Object[] {"foo", "bar"}, "illegal type"});
+            fail("exception expected");
+        } catch (IllegalArgumentException e) {
+            // expected.
+        }
+        
+        try {
+            ArrayUtils.toMap(new Object[] {new Object[] {"foo", "bar"}, null});
+            fail("exception expected");
+        } catch (IllegalArgumentException e) {
+            // expected.
+        }
+        
+        map = ArrayUtils.toMap(new Object[] {new Map.Entry() {
+            public Object getKey() {
+                return "foo";
+            }
+            public Object getValue() {
+                return "bar";
+            }
+            public Object setValue(Object value) {
+                throw new UnsupportedOperationException();
+            }
+            public boolean equals(Object o) {
+                throw new UnsupportedOperationException();
+            }
+            public int hashCode() {
+                throw new UnsupportedOperationException();
+            }
+        }});
+        assertEquals("bar", map.get("foo"));
+    }
+
+
+
 }
