@@ -69,7 +69,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @author Nikolay Metchev
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.13 2003/06/20 08:03:51 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.14 2003/06/25 23:32:08 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -81,19 +81,37 @@ public class ArrayUtils {
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
     /** An empty immutable long array */
     public static final long[] EMPTY_LONG_ARRAY = new long[0];
+    /** An empty immutable Long array */
+    public static final Long[] EMPTY_LONG_OBJECT_ARRAY = new Long[0];
     /** An empty immutable int array */
     public static final int[] EMPTY_INT_ARRAY = new int[0];
+    /** An empty immutable Integer array */
+    public static final Integer[] EMPTY_INTEGER_OBJECT_ARRAY = new Integer[0];
     /** An empty immutable short array */
     public static final short[] EMPTY_SHORT_ARRAY = new short[0];
+    /** An empty immutable Short array */
+    public static final Short[] EMPTY_SHORT_OBJECT_ARRAY = new Short[0];
     /** An empty immutable byte array */
     public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
+    /** An empty immutable Byte array */
+    public static final Byte[] EMPTY_BYTE_OBJECT_ARRAY = new Byte[0];
     /** An empty immutable double array */
     public static final double[] EMPTY_DOUBLE_ARRAY = new double[0];
+    /** An empty immutable Double array */
+    public static final Double[] EMPTY_DOUBLE_OBJECT_ARRAY = new Double[0];
     /** An empty immutable float array */
     public static final float[] EMPTY_FLOAT_ARRAY = new float[0];
+    /** An empty immutable Float array */
+    public static final Float[] EMPTY_FLOAT_OBJECT_ARRAY = new Float[0];
     /** An empty immutable boolean array */
     public static final boolean[] EMPTY_BOOLEAN_ARRAY = new boolean[0];
-    
+    /** An empty immutable Boolean array */
+    public static final Boolean[] EMPTY_BOOLEAN_OBJECT_ARRAY = new Boolean[0];
+    /** An empty immutable char array */
+    public static final char[] EMPTY_CHAR_ARRAY = new char[0];
+    /** An empty immutable Character array */
+    public static final Character[] EMPTY_CHARACTER_OBJECT_ARRAY = new Character[0];
+
     /**
      * <p>ArrayUtils instances should NOT be constructed in standard programming.
      * Instead, the class should be used as <code>ArrayUtils.clone(new int[] {2})</code>.</p>
@@ -103,10 +121,9 @@ public class ArrayUtils {
      */
     public ArrayUtils() {
     }
-
+    
     // Basic methods handling multi-dimensional arrays
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Outputs an array as a String, treating <code>null</code> as an empty array.</p>
      *
@@ -118,10 +135,10 @@ public class ArrayUtils {
      * @param array  the array to get a toString for, may be <code>null</code>
      * @return a String representation of the array, '{}' if <code>null</code> passed in
      */
-    public static String toString(Object array) {
+    public static String toString(final Object array) {
         return toString(array, "{}");
     }
-    
+
     /**
      * <p>Outputs an array as a String handling <code>null</code>s.</p>
      *
@@ -134,13 +151,13 @@ public class ArrayUtils {
      * @param stringIfNull  the String to return if the array is <code>null</code>
      * @return a String representation of the array
      */    
-    public static String toString(Object array, String stringIfNull) {
+    public static String toString(final Object array, final String stringIfNull) {
         if (array == null) {
             return stringIfNull;
         }
         return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
     }
-    
+
     /**
      * <p>Get a hashCode for an array handling multi-dimensional arrays correctly.</p>
      * 
@@ -149,10 +166,10 @@ public class ArrayUtils {
      * @param array  the array to get a hashCode for, may be <code>null</code>
      * @return a hashCode for the array
      */
-    public static int hashCode(Object array) {
+    public static int hashCode(final Object array) {
         return new HashCodeBuilder().append(array).toHashCode();
     }
-    
+
     /**
      * <p>Compares two arrays, using equals(), handling multi-dimensional arrays
      * correctly.</p>
@@ -163,12 +180,11 @@ public class ArrayUtils {
      * @param array2  the array to get a hashCode for, may be <code>null</code>
      * @return <code>true</code> if the arrays are equal
      */
-    public static boolean isEquals(Object array1, Object array2) {
+    public static boolean isEquals(final Object array1, final Object array2) {
         return new EqualsBuilder().append(array1, array2).isEquals();
     }
-    
+
     //-----------------------------------------------------------------------
-    
     /**
      * <p>Converts the given array into a {@link java.util.Map}. Each element of the array
      * must be either a {@link java.util.Map.Entry} or an Array, containing at least two
@@ -183,21 +199,22 @@ public class ArrayUtils {
      *     {"GREEN", "#00FF00"},
      *     {"BLUE", "#0000FF"}});
      * </pre>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      *
      * @param array  an array whose elements are either a {@link java.util.Map.Entry} or 
-     *  an Array containing at least two elements
+     *  an Array containing at least two elements, may be <code>null</code>
      * @return a <code>Map</code> that was created from the array
-     * @throws IllegalArgumentException  if the array is <code>null</code>
      * @throws IllegalArgumentException  if one element of this Array is
      *  itself an Array containing less then two elements
      * @throws IllegalArgumentException  if the array contains elements other
      *  than {@link java.util.Map.Entry} and an Array
      */
-    public static Map toMap(Object[] array) {
+    public static Map toMap(final Object[] array) {
         if (array == null) {
-            throw new IllegalArgumentException("The array must not be null");            
+            return null;
         }
-        Map map = new HashMap((int) (array.length * 1.5));
+        final Map map = new HashMap((int) (array.length * 1.5));
         for (int i = 0; i < array.length; i++) {
             Object object = array[i];
             if (object instanceof Map.Entry) {
@@ -219,9 +236,8 @@ public class ArrayUtils {
         }
         return map;
     }
-    
-    //-----------------------------------------------------------------------
 
+    //-----------------------------------------------------------------------
     /**
      * <p>Shallow clones an array returning a typecast result and handling
      * <code>null</code>.</p>
@@ -229,39 +245,41 @@ public class ArrayUtils {
      * <p>The objecs in the array are not cloned, thus there is no special
      * handling for multi-dimensional arrays.</p>
      * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
+     * 
      * @param array  the array to shallow clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
-    public static Object[] clone(Object[] array) {
+    public static Object[] clone(final Object[] array) {
         if (array == null) {
             return null;
         }
         return (Object[]) array.clone();
     }
-    
+
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
-    public static long[] clone(long[] array) {
+    public static long[] clone(final long[] array) {
         if (array == null) {
             return null;
         }
         return (long[]) array.clone();
     }
-    
+
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
@@ -273,103 +291,103 @@ public class ArrayUtils {
         }
         return (int[]) array.clone();
     }
-    
+
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
-    public static short[] clone(short[] array) {
+    public static short[] clone(final short[] array) {
         if (array == null) {
             return null;
         }
         return (short[]) array.clone();
     }
-    
+
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
-    public static char[] clone(char[] array) {
+    public static char[] clone(final char[] array) {
         if (array == null) {
             return null;
         }
         return (char[]) array.clone();
     }
-    
+
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
-    public static byte[] clone(byte[] array) {
+    public static byte[] clone(final byte[] array) {
         if (array == null) {
             return null;
         }
         return (byte[]) array.clone();
     }
-    
+
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
-    public static double[] clone(double[] array) {
+    public static double[] clone(final double[] array) {
         if (array == null) {
             return null;
         }
         return (double[]) array.clone();
     }
-    
+
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
-    public static float[] clone(float[] array) {
+    public static float[] clone(final float[] array) {
         if (array == null) {
             return null;
         }
         return (float[]) array.clone();
     }
-    
+
     /**
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, or <code>null</code> if <code>null</code>
      *  passed in
      */
-    public static boolean[] clone(boolean[] array) {
+    public static boolean[] clone(final boolean[] array) {
         if (array == null) {
             return null;
         }
@@ -377,7 +395,6 @@ public class ArrayUtils {
     }
 
     //-----------------------------------------------------------------------
-
     /**
      * <p>Checks whether two arrays are the same length, treating
      * <code>null</code> arrays as length <code>0</code>.
@@ -389,7 +406,7 @@ public class ArrayUtils {
      * @return <code>true</code> if length of arrays matches, treating
      *  <code>null</code> as an empty array
      */    
-    public static boolean isSameLength(Object[] array1, Object[] array2) {
+    public static boolean isSameLength(final Object[] array1, final Object[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
             (array1 != null && array2 != null && array1.length != array2.length)) {
@@ -397,19 +414,17 @@ public class ArrayUtils {
         }
         return true;
     }
-    
+
     /**
      * <p>Checks whether two arrays are the same length, treating
      * <code>null</code> arrays as length <code>0</code>.</p>
-     *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
      * @return <code>true</code> if length of arrays matches, treating
      *  <code>null</code> as an empty array
      */
-    public static boolean isSameLength(long[] array1, long[] array2) {
+    public static boolean isSameLength(final long[] array1, final long[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
             (array1 != null && array2 != null && array1.length != array2.length)) {
@@ -417,19 +432,17 @@ public class ArrayUtils {
         }
         return true;
     }
-    
+
     /**
      * <p>Checks whether two arrays are the same length, treating
      * <code>null</code> arrays as length <code>0</code>.</p>
-     *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
      * @return <code>true</code> if length of arrays matches, treating
      *  <code>null</code> as an empty array
      */
-    public static boolean isSameLength(int[] array1, int[] array2) {
+    public static boolean isSameLength(final int[] array1, final int[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
             (array1 != null && array2 != null && array1.length != array2.length)) {
@@ -437,19 +450,17 @@ public class ArrayUtils {
         }
         return true;
     }
-    
+
     /**
      * <p>Checks whether two arrays are the same length, treating
      * <code>null</code> arrays as length <code>0</code>.</p>
-     *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
      * @return <code>true</code> if length of arrays matches, treating
      *  <code>null</code> as an empty array
      */
-    public static boolean isSameLength(short[] array1, short[] array2) {
+    public static boolean isSameLength(final short[] array1, final short[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
             (array1 != null && array2 != null && array1.length != array2.length)) {
@@ -457,19 +468,17 @@ public class ArrayUtils {
         }
         return true;
     }
-    
+
     /**
      * <p>Checks whether two arrays are the same length, treating
      * <code>null</code> arrays as length <code>0</code>.</p>
-     *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
      * @return <code>true</code> if length of arrays matches, treating
      *  <code>null</code> as an empty array
      */
-    public static boolean isSameLength(char[] array1, char[] array2) {
+    public static boolean isSameLength(final char[] array1, final char[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
             (array1 != null && array2 != null && array1.length != array2.length)) {
@@ -477,19 +486,17 @@ public class ArrayUtils {
         }
         return true;
     }
-    
+
     /**
      * <p>Checks whether two arrays are the same length, treating
      * <code>null</code> arrays as length <code>0</code>.</p>
-     *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
      * @return <code>true</code> if length of arrays matches, treating
      *  <code>null</code> as an empty array
      */
-    public static boolean isSameLength(byte[] array1, byte[] array2) {
+    public static boolean isSameLength(final byte[] array1, final byte[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
             (array1 != null && array2 != null && array1.length != array2.length)) {
@@ -497,19 +504,17 @@ public class ArrayUtils {
         }
         return true;
     }
-    
+
     /**
      * <p>Checks whether two arrays are the same length, treating
      * <code>null</code> arrays as length <code>0</code>.</p>
-     *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
      * @return <code>true</code> if length of arrays matches, treating
      *  <code>null</code> as an empty array
      */
-    public static boolean isSameLength(double[] array1, double[] array2) {
+    public static boolean isSameLength(final double[] array1, final double[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
             (array1 != null && array2 != null && array1.length != array2.length)) {
@@ -517,19 +522,17 @@ public class ArrayUtils {
         }
         return true;
     }
-    
+
     /**
      * <p>Checks whether two arrays are the same length, treating
      * <code>null</code> arrays as length <code>0</code>.</p>
-     *
-     * <p>Any multi-dimensional aspects of the arrays are ignored</p>.
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
      * @return <code>true</code> if length of arrays matches, treating
      *  <code>null</code> as an empty array
      */
-    public static boolean isSameLength(float[] array1, float[] array2) {
+    public static boolean isSameLength(final float[] array1, final float[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
             (array1 != null && array2 != null && array1.length != array2.length)) {
@@ -537,19 +540,17 @@ public class ArrayUtils {
         }
         return true;
     }
-    
+
     /**
      * <p>Checks whether two arrays are the same length, treating
      * <code>null</code> arrays as length <code>0</code>.</p>
-     *
-     * <p>Any multi-dimensional aspects of the arrays are ignored.</p>
      * 
      * @param array1 the first array, may be <code>null</code>
      * @param array2 the second array, may be <code>null</code>
      * @return <code>true</code> if length of arrays matches, treating
      *  <code>null</code> as an empty array
      */
-    public static boolean isSameLength(boolean[] array1, boolean[] array2) {
+    public static boolean isSameLength(final boolean[] array1, final boolean[] array2) {
         if ((array1 == null && array2 != null && array2.length > 0) ||
             (array2 == null && array1 != null && array1.length > 0) ||
             (array1 != null && array2 != null && array1.length != array2.length)) {
@@ -557,37 +558,34 @@ public class ArrayUtils {
         }
         return true;
     }
-    
+
     /**
      * <p>Checks whether two arrays are the same type taking into account
      * multi-dimensional arrays.</p>
-     * 
-     * <p>Primitive arrays may be compared using this method too.</p>
      * 
      * @param array1 the first array, must not be <code>null</code>
      * @param array2 the second array, must not be <code>null</code>
      * @return <code>true</code> if type of arrays matches
      * @throws IllegalArgumentException if either array is <code>null</code>
      */    
-    public static boolean isSameType(Object array1, Object array2) {
+    public static boolean isSameType(final Object array1, final Object array2) {
         if (array1 == null || array2 == null) {
-            throw new IllegalArgumentException("The array must not be null");
+            throw new NullArgumentException("Array");
         }
         return array1.getClass().getName().equals(array2.getClass().getName());
     }
-    
+
     //-----------------------------------------------------------------------
-    
     /** 
-     * Reverses the order of the given array.
-     * <p>
-     * There is no special handling for multi-dimensional arrays.
-     * <p>
-     * The method does nothing if <code>null</code> is passed in.
+     * <p>Reverses the order of the given array.</p>
+     *
+     * <p>There is no special handling for multi-dimensional arrays.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
-    public static void reverse(Object[] array) {
+    public static void reverse(final Object[] array) {
         if (array == null) {
             return;
         }
@@ -604,13 +602,13 @@ public class ArrayUtils {
     }
 
     /**
-     * Reverses the order of the given array.
-     * <p>
-     * The method does nothing if <code>null</code> is passed in.
+     * <p>Reverses the order of the given array.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
-    public static void reverse(long[] array) {
+    public static void reverse(final long[] array) {
         if (array == null) {
             return;
         }
@@ -627,13 +625,13 @@ public class ArrayUtils {
     }
 
     /**
-     * Reverses the order of the given array.
-     * <p>
-     * The method does nothing if <code>null</code> is passed in.
+     * <p>Reverses the order of the given array.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
-    public static void reverse(int[] array) {
+    public static void reverse(final int[] array) {
         if (array == null) {
             return;
         }
@@ -650,13 +648,13 @@ public class ArrayUtils {
     }
 
     /**
-     * Reverses the order of the given array.
-     * <p>
-     * There is no special handling for multi-dimensional arrays.
+     * <p>Reverses the order of the given array.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
-    public static void reverse(short[] array) {
+    public static void reverse(final short[] array) {
         if (array == null) {
             return;
         }
@@ -673,13 +671,13 @@ public class ArrayUtils {
     }
 
     /**
-     * Reverses the order of the given array.
-     * <p>
-     * The method does nothing if <code>null</code> is passed in.
+     * <p>Reverses the order of the given array.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
-    public static void reverse(char[] array) {
+    public static void reverse(final char[] array) {
         if (array == null) {
             return;
         }
@@ -696,13 +694,13 @@ public class ArrayUtils {
     }
 
     /**
-     * Reverses the order of the given array.
-     * <p>
-     * The method does nothing if <code>null</code> is passed in.
+     * <p>Reverses the order of the given array.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
-    public static void reverse(byte[] array) {
+    public static void reverse(final byte[] array) {
         if (array == null) {
             return;
         }
@@ -719,13 +717,13 @@ public class ArrayUtils {
     }
 
     /**
-     * Reverses the order of the given array.
-     * <p>
-     * The method does nothing if <code>null</code> is passed in.
+     * <p>Reverses the order of the given array.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
-    public static void reverse(double[] array) {
+    public static void reverse(final double[] array) {
         if (array == null) {
             return;
         }
@@ -742,13 +740,13 @@ public class ArrayUtils {
     }
 
     /**
-     * Reverses the order of the given array.
-     * <p>
-     * The method does nothing if <code>null</code> is passed in.
+     * <p>Reverses the order of the given array.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
-    public static void reverse(float[] array) {
+    public static void reverse(final float[] array) {
         if (array == null) {
             return;
         }
@@ -765,13 +763,13 @@ public class ArrayUtils {
     }
 
     /**
-     * Reverses the order of the given array.
-     * <p>
-     * The method does nothing if <code>null</code> is passed in.
+     * <p>Reverses the order of the given array.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
-    public static void reverse(boolean[] array) {
+    public static void reverse(final boolean[] array) {
         if (array == null) {
             return;
         }
@@ -786,29 +784,29 @@ public class ArrayUtils {
             i++;
         }
     }
-    
+
+    // IndexOf
     //-----------------------------------------------------------------------
-    
     /**
-     * Find the index of the given object in the array.
-     * <p>
-     * The method returns -1 if a <code>null</code> array is passed in.
+     * <p>Find the index of the given object in the array.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
      * @return the index of the object within the array, or -1 if not found
      */
-    public static int indexOf(Object[] array, Object objectToFind) {
+    public static int indexOf(final Object[] array, final Object objectToFind) {
         return indexOf(array, objectToFind, 0);
     }
-    
+
     /**
-     * Find the index of the given object in the array starting at the given index.
-     * <p>
-     * The method returns -1 if a <code>null</code> array is passed in.
-     * <p>
-     * A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return -1.
+     * <p>Find the index of the given object in the array starting at the given index.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> input.</p>
+     *
+     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
+     * length will return -1.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
@@ -816,7 +814,7 @@ public class ArrayUtils {
      * @return the index of the object within the array starting at the
      *  given index, or -1 if not found
      */
-    public static int indexOf(Object[] array, Object objectToFind, int startIndex) {
+    public static int indexOf(final Object[] array, final Object objectToFind, int startIndex) {
         if (array == null) {
             return -1;
         }
@@ -838,30 +836,30 @@ public class ArrayUtils {
         }
         return -1;
     }
-    
+
     /**
-     * Find the last index of the given object within the array.
-     * <p>
-     * The method returns -1 if a <code>null</code> array is passed in.
+     * <p>Find the last index of the given object within the array.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> input.</p>
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
      * @return the last index of the object to find, or -1 if not found
      */
-    public static int lastIndexOf(Object[] array, Object objectToFind) {
+    public static int lastIndexOf(final Object[] array, final Object objectToFind) {
         if (array == null) {
             return -1;
         }
         return lastIndexOf(array, objectToFind, array.length - 1);
     }
-    
+
     /**
-     * Find the last index of the given object in the array starting at the given index.
-     * <p>
-     * The method returns -1 if a <code>null</code> array is passed in.
-     * <p>
-     * A negative startIndex will return -1. A startIndex larger than the array
-     * length will search from the end of the array.
+     * <p>Find the last index of the given object in the array starting at the given index.</p>
+     *
+     * <p>This method returns <code>-1</code> if <code>null</code> input.</p>
+     *
+     * <p>A negative startIndex will return -1. A startIndex larger than the array
+     * length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
@@ -869,7 +867,7 @@ public class ArrayUtils {
      * @return the last index of the object within the array starting at the given index,
      *  or -1 if not found
      */
-    public static int lastIndexOf(Object[] array, Object objectToFind, int startIndex) {
+    public static int lastIndexOf(final Object[] array, final Object objectToFind, int startIndex) {
         if (array == null) {
             return -1;
         }
@@ -893,18 +891,18 @@ public class ArrayUtils {
         }
         return -1;
     }
-    
+
     /**
-     * Checks if the object is in the given array.
-     * <p>
-     * The method returns <code>false</code> if a <code>null</code> array is passed in.
+     * <p>Checks if the object is in the given array.</p>
+     *
+     * <p>The method returns <code>false</code> if a <code>null</code> array is passed in.</p>
      * 
      * @param array  the array to search through
      * @param objectToFind  the object to find
      * @return <code>true</code> if the array contains the object
      */
-    public static boolean contains(Object[] array, Object objectToFind) {
+    public static boolean contains(final Object[] array, final Object objectToFind) {
         return (indexOf(array, objectToFind) != -1);
     }
-    
+
 }
