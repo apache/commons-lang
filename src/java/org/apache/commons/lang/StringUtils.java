@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.87 2003/08/01 23:01:52 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.88 2003/08/01 23:11:55 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1431,7 +1431,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.left(null, *)    = null
-     * StringUtils.left(*, -ve)     = IllegalArgumentException
+     * StringUtils.left(*, -ve)     = ""
      * StringUtils.left("", *)      = ""
      * StringUtils.left("abc", 0)   = ""
      * StringUtils.left("abc", 2)   = "ab"
@@ -1441,14 +1441,13 @@ public class StringUtils {
      * @param str  the String to get the leftmost characters from, may be null
      * @param len  the length of the required String, must be zero or positive
      * @return the leftmost characters, <code>null</code> if null String input
-     * @throws IllegalArgumentException if len is less than zero
      */
     public static String left(String str, int len) {
         if (str == null) {
             return null;
         }
         if (len < 0) {
-            throw new IllegalArgumentException("Requested String length " + len + " is less than zero");
+            return "";
         }
         if (str.length() <= len) {
             return str;
@@ -1466,7 +1465,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.right(null, *)    = null
-     * StringUtils.right(*, -ve)     = IllegalArgumentException
+     * StringUtils.right(*, -ve)     = ""
      * StringUtils.right("", *)      = ""
      * StringUtils.right("abc", 0)   = ""
      * StringUtils.right("abc", 2)   = "bc"
@@ -1476,14 +1475,13 @@ public class StringUtils {
      * @param str  the String to get the rightmost characters from, may be null
      * @param len  the length of the required String, must be zero or positive
      * @return the rightmost characters, <code>null</code> if null String input
-     * @throws IllegalArgumentException if len is less than zero
      */
     public static String right(String str, int len) {
         if (str == null) {
             return null;
         }
         if (len < 0) {
-            throw new IllegalArgumentException("Requested String length " + len + " is less than zero");
+            return "";
         }
         if (str.length() <= len) {
             return str;
@@ -1502,7 +1500,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.mid(null, *, *)    = null
-     * StringUtils.mid(*, *, -ve)     = IllegalArgumentException
+     * StringUtils.mid(*, *, -ve)     = ""
      * StringUtils.mid("", 0, *)      = ""
      * StringUtils.mid("abc", 0, 2)   = "ab"
      * StringUtils.mid("abc", 0, 4)   = "abc"
@@ -1515,20 +1513,16 @@ public class StringUtils {
      * @param pos  the position to start from, negative treated as zero
      * @param len  the length of the required String, must be zero or positive
      * @return the middle characters, <code>null</code> if null String input
-     * @throws IllegalArgumentException if len is less than zero
      */
     public static String mid(String str, int pos, int len) {
         if (str == null) {
             return null;
         }
-        if (pos > str.length()) {
+        if (len < 0 || pos > str.length()) {
             return "";
         }
         if (pos < 0) {
             pos = 0;
-        }
-        if (len < 0) {
-            throw new IllegalArgumentException("Requested String length " + len + " is less than zero");
         }
         if (str.length() <= (pos + len)) {
             return str.substring(pos);
