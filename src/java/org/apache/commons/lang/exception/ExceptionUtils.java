@@ -79,7 +79,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.27 2003/07/25 23:06:58 scolebourne Exp $
+ * @version $Id: ExceptionUtils.java,v 1.28 2003/07/26 00:43:08 ggregory Exp $
  */
 public class ExceptionUtils {
     
@@ -378,7 +378,8 @@ public class ExceptionUtils {
     }
 
     /**
-     * <p>Equivalent to <code>printRootCauseStackTrace(t, System.err);</code></p>
+     * <p>Calls <code>printRootCauseStackTraceprintRootCauseStackTrace</code>.</p>
+     * Same as: <pre>printRootCauseStackTrace(t, System.err);</pre>
      * 
      * @see #printRootCauseStackTrace(Throwable,PrintWriter)
      */

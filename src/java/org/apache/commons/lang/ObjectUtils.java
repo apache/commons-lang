@@ -68,7 +68,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.14 2003/07/25 22:37:58 scolebourne Exp $
+ * @version $Id: ObjectUtils.java,v 1.15 2003/07/26 00:45:27 ggregory Exp $
  */
 public class ObjectUtils {
     
@@ -208,7 +208,7 @@ public class ObjectUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Gets the <code>toString</code> of an <code>Object</code> returning
-     * an empty string ("") if <code>null</code> input,</p>
+     * an empty string ("") if <code>null</code> input.</p>
      * 
      * <pre>
      * ObjectUtils.toString(null)         = ""
@@ -218,7 +218,6 @@ public class ObjectUtils {
      * </pre>
      * 
      * @param obj  the Object to <code>toString</code>, may be null
-     * @param nullStr  the String to return if <code>null</code> input, may be null
      * @return the passed in Object's toString, or nullStr if <code>null</code> input
      */
     public static String toString(Object obj) {
@@ -227,7 +226,7 @@ public class ObjectUtils {
 
     /**
      * <p>Gets the <code>toString</code> of an <code>Object</code> returning
-     * an empty string ("") if <code>null</code> input,</p>
+     * an empty string ("") if <code>null</code> input.</p>
      * 
      * <pre>
      * ObjectUtils.toString(null, null)           = null
