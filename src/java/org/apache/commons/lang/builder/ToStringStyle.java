@@ -55,9 +55,7 @@ package org.apache.commons.lang.builder;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
-import java.text.DateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Map;
 
 import org.apache.commons.lang.ObjectUtils;
@@ -87,7 +85,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.18 2003/07/21 19:34:10 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.19 2003/07/21 23:03:53 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -190,25 +188,6 @@ public abstract class ToStringStyle implements Serializable {
      * The summary object text start <code>'&gt;'</code>.
      */
     private String summaryObjectEndText = ">";
-
-    /**
-     * An optional <code>DateFormat</code>.
-     */
-    private DateFormat dateFormat = null;
-
-    /**
-     * Gets the <code>DateFormat</code>, which may be <code>null</code>.
-     */
-    protected DateFormat getDateFormat() {
-        return this.dateFormat;
-    }
-
-    /**
-     * Sets the <code>DateFormat</code>, which may be <code>null</code>.
-     */
-    protected void setDateFormat(DateFormat dateFormat) {
-        this.dateFormat = dateFormat;
-    }
 
     //----------------------------------------------------------------------------
 
@@ -428,19 +407,12 @@ public abstract class ToStringStyle implements Serializable {
                 appendSummary(buffer, fieldName, (boolean[]) value);
             }
 
-            } else if (value.getClass().isArray()) {
-                if (detail) {
-                    appendDetail(buffer, fieldName, (Object[]) value);
-                } else {
-                    appendSummary(buffer, fieldName, (Object[]) value);
-                }
-
-            } else if (value instanceof Date) {
-                if (detail) {
-                    appendDetail(buffer, fieldName, (Date) value);
-                } else {
-                    appendSummary(buffer, fieldName, (Object) value);
-                }
+        } else if (value.getClass().isArray()) {
+            if (detail) {
+                appendDetail(buffer, fieldName, (Object[]) value);
+            } else {
+                appendSummary(buffer, fieldName, (Object[]) value);
+            }
 
         } else {
             if (detail) {
@@ -462,19 +434,6 @@ public abstract class ToStringStyle implements Serializable {
      */
     protected void appendDetail(StringBuffer buffer, String fieldName, Object value) {
         buffer.append(value);
-    }
-
-    /**
-     * <p>Append to the <code>toString</code> a <code>Date</code>
-     * value, using the optional <code>DateFormat</code>.</p>
-     *
-     * @param buffer  the <code>StringBuffer</code> to populate
-     * @param fieldName  the field name, typically not used as already appended
-     * @param value  the <code>Date</code> to add to the <code>toString</code>,
-     *  not <code>null</code>
-     */
-    protected void appendDetail(StringBuffer buffer, String fieldName, Date value) {
-        buffer.append(this.getDateFormat() != null ? this.getDateFormat().format(value) : (Object) value);
     }
 
     /**
@@ -2112,71 +2071,71 @@ public abstract class ToStringStyle implements Serializable {
 
     //----------------------------------------------------------------------------
 
-    // Removed, as the XML style needs more work for escaping characters, arrays,
-    // collections, maps and embedded beans.
-    //    /**
-    //     * ToStringStyle that outputs in XML style
-    //     */
-    //    private static class XMLToStringStyle extends ToStringStyle {
-    //        
-    //        /**
-    //         * Constructor - use the static constant rather than instantiating.
-    //         */
-    //        private XMLToStringStyle() {
-    //            super();
-    //            nullText = "null";
-    //            sizeStartText = "size=";
-    //            sizeEndText = "";
-    //        }
-    //        
-    //        /**
-    //         * @see ToStringStyle#appendStart(StringBuffer, Object)
-    //         */
-    //        public void appendStart(StringBuffer buffer, Object object) {
-    //            buffer.append('<');
-    //            buffer.append(getShortClassName(object.getClass()));
-    //            buffer.append(" class=\"");
-    //            appendClassName(buffer, object);
-    //            buffer.append("\" hashCode=\"");
-    //            appendIdentityHashCode(buffer, object);
-    //            buffer.append("\">");
-    //            buffer.append(SystemUtils.LINE_SEPARATOR);
-    //            buffer.append("  ");
-    //        }
-    //
-    //        /**
-    //         * @see ToStringStyle#appendFieldStart(StringBuffer, String)
-    //         */
-    //        protected void appendFieldStart(StringBuffer buffer, String fieldName) {
-    //            buffer.append('<');
-    //            buffer.append(fieldName);
-    //            buffer.append('>');
-    //        }
-    //
-    //        /**
-    //         * @see ToStringStyle#appendFieldEnd(StringBuffer, String)
-    //         */
-    //        protected void appendFieldEnd(StringBuffer buffer, String fieldName) {
-    //            buffer.append("</");
-    //            buffer.append(fieldName);
-    //            buffer.append('>');
-    //            buffer.append(SystemUtils.LINE_SEPARATOR);
-    //            buffer.append("  ");
-    //        }
-    //
-    //        /**
-    //         * @see ToStringStyle#appendEnd(StringBuffer, Object)
-    //         */
-    //        public void appendEnd(StringBuffer buffer, Object object) {
-    //            int len = buffer.length();
-    //            if (len > 2 && buffer.charAt(len - 1) == ' ' && buffer.charAt(len - 2) == ' ') {
-    //                buffer.setLength(len - 2);
-    //            }
-    //            buffer.append("</");
-    //            buffer.append(getShortClassName(object.getClass()));
-    //            buffer.append("\">");
-    //        }
-    //
-    //    }
+// Removed, as the XML style needs more work for escaping characters, arrays,
+// collections, maps and embedded beans.
+//    /**
+//     * ToStringStyle that outputs in XML style
+//     */
+//    private static class XMLToStringStyle extends ToStringStyle {
+//        
+//        /**
+//         * Constructor - use the static constant rather than instantiating.
+//         */
+//        private XMLToStringStyle() {
+//            super();
+//            nullText = "null";
+//            sizeStartText = "size=";
+//            sizeEndText = "";
+//        }
+//        
+//        /**
+//         * @see ToStringStyle#appendStart(StringBuffer, Object)
+//         */
+//        public void appendStart(StringBuffer buffer, Object object) {
+//            buffer.append('<');
+//            buffer.append(getShortClassName(object.getClass()));
+//            buffer.append(" class=\"");
+//            appendClassName(buffer, object);
+//            buffer.append("\" hashCode=\"");
+//            appendIdentityHashCode(buffer, object);
+//            buffer.append("\">");
+//            buffer.append(SystemUtils.LINE_SEPARATOR);
+//            buffer.append("  ");
+//        }
+//
+//        /**
+//         * @see ToStringStyle#appendFieldStart(StringBuffer, String)
+//         */
+//        protected void appendFieldStart(StringBuffer buffer, String fieldName) {
+//            buffer.append('<');
+//            buffer.append(fieldName);
+//            buffer.append('>');
+//        }
+//
+//        /**
+//         * @see ToStringStyle#appendFieldEnd(StringBuffer, String)
+//         */
+//        protected void appendFieldEnd(StringBuffer buffer, String fieldName) {
+//            buffer.append("</");
+//            buffer.append(fieldName);
+//            buffer.append('>');
+//            buffer.append(SystemUtils.LINE_SEPARATOR);
+//            buffer.append("  ");
+//        }
+//
+//        /**
+//         * @see ToStringStyle#appendEnd(StringBuffer, Object)
+//         */
+//        public void appendEnd(StringBuffer buffer, Object object) {
+//            int len = buffer.length();
+//            if (len > 2 && buffer.charAt(len - 1) == ' ' && buffer.charAt(len - 2) == ' ') {
+//                buffer.setLength(len - 2);
+//            }
+//            buffer.append("</");
+//            buffer.append(getShortClassName(object.getClass()));
+//            buffer.append("\">");
+//        }
+//
+//    }
 
 }
