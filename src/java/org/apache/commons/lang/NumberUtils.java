@@ -63,7 +63,7 @@ import java.math.BigDecimal;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
- * @version $Id: NumberUtils.java,v 1.2 2002/09/15 10:26:42 scolebourne Exp $
+ * @version $Id: NumberUtils.java,v 1.3 2002/09/28 10:34:54 scolebourne Exp $
  */
 public final class NumberUtils {
 
@@ -491,8 +491,8 @@ public final class NumberUtils {
      * <li>Normal positve numbers
      * <li>+0.0
      * <li>-0.0
-     * <li>Minimum double (-Double.MAX_VALUE)
      * <li>Normal negative numbers
+     * <li>Minimum double (-Double.MAX_VALUE)
      * <li>Negative infinity
      * </ul>
      * Comparing NaN with NaN will return 0.

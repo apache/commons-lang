@@ -73,15 +73,10 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.15 2002/09/27 06:08:16 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.16 2002/09/28 10:34:54 scolebourne Exp $
  */
 public class StringUtils {
 
-    /**
-     * The size of the buffer to use when working with I/O (4 kB).
-     */
-    public static final int CHAR_BUFFER_SIZE = 4 * 1024;
-    
     /**
      * StringUtils instances should NOT be constructed in standard programming.
      * Instead, the class should be used as <code>StringUtils.trim(" foo ");</code>.

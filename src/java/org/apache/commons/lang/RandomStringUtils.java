@@ -63,7 +63,7 @@ import java.util.Random;
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: RandomStringUtils.java,v 1.4 2002/09/18 19:53:52 bayard Exp $
+ * @version $Id: RandomStringUtils.java,v 1.5 2002/09/28 10:34:54 scolebourne Exp $
  */
 public class RandomStringUtils {
 
@@ -178,6 +178,12 @@ public class RandomStringUtils {
     
     /**
      * Creates a random string based on a variety of options.
+	 * If start and end are both 0, start and end are set to ' ' and 'z', the ASCII
+	 * printable characters, will be used, unless letters and numbers are both 
+	 * false, in which case, start and end are set to 0 and Integer.MAX_VALUE.
+	 * <p>
+	 * If set is not null, characters between start and end are chosen.
+	 * <p>
      *
      * @param count int length of random string to create
      * @param start int position in set of chars to start at
@@ -187,6 +193,8 @@ public class RandomStringUtils {
      * @param set char[] set of chars to choose randoms from.
      *        If null, then it will use the set of all chars.
      * @return the random string
+     * @throws ArrayIndexOutOfBoundsException if there are not (end - start) + 1 
+     * characters in the set array.
      */
     public static String random(int count, int start, int end, boolean letters, boolean numbers, char[] set) {
         if( (start == 0) && (end == 0) ) {
