@@ -98,13 +98,13 @@ public class EntitiesPerformanceTest extends TestCase {
     }
 
     private char html40value(int i) {
-        String entityValue = Entities.html40[i % Entities.html40.length][1];
+        String entityValue = Entities.HTML40_ARRAY[i % Entities.HTML40_ARRAY.length][1];
         char ch = (char) Integer.parseInt(entityValue);
         return ch;
     }
 
     private char isovalue(int i) {
-        String entityValue = Entities.iso8859_1[i % Entities.iso8859_1.length][1];
+        String entityValue = Entities.ISO8859_1_ARRAY[i % Entities.ISO8859_1_ARRAY.length][1];
         char ch = (char) Integer.parseInt(entityValue);
         return ch;
     }
