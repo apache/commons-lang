@@ -1,19 +1,33 @@
-$Id: RELEASE-NOTES.txt,v 1.1 2002/07/19 03:35:53 bayard Exp $
+$Id: RELEASE-NOTES.txt,v 1.2 2002/07/25 22:44:29 bayard Exp $
 
 			Commons Lang Package
-			   Version 1.0-dev
+			   Version 1.0-b1
 			    Release Notes
 
 
 INTRODUCTION:
 
 This document contains the release notes for this version of the Commons
-Lang package, and highlights changes since the previous version.  The
-current release adds new features and bug fixes, and is being done now to
-follow the release early/release often mentality.
+Lang package. 
+
+There is a high demand for the functionality found in Commons Lang in other 
+Jakarta projects. Some are already using it, often because they submitted 
+the original code, other times because they find the functionality useful,
+and other times because they want to release and don't want to depend upon a 
+nightly build of Commons Lang.
+
+Therefore this is a beta release of a stable api for these projects and any 
+other interested project to depend upon. 
+
+It is important to note that this is not a traditional beta, a piece of 
+code thrown out with many bugs remaining. It is a beta because additional 
+classes are expected to be added before a full release, but the classes 
+contained in this release are not expected to change.
 
 
 NEW FEATURES:
+
+It's all a new feature. 
 
 BUG FIXES:
 
