@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -81,7 +81,7 @@ import java.util.Map;
  * All the supplied transformers are Serializable.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: TransformerUtils.java,v 1.3 2002/11/14 21:54:49 scolebourne Exp $
+ * @version $Id: TransformerUtils.java,v 1.4 2003/03/23 17:50:02 scolebourne Exp $
  */
 public class TransformerUtils {
 

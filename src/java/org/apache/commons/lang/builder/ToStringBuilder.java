@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -115,7 +115,7 @@ import java.lang.reflect.Modifier;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.15 2003/03/20 05:32:11 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.16 2003/03/23 17:54:16 scolebourne Exp $
  */
 public class ToStringBuilder {
 

@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @see org.apache.commons.lang.exception.NestableException
  * @since 1.0
- * @version $Id: NestableError.java,v 1.4 2002/12/23 00:15:19 scolebourne Exp $
+ * @version $Id: NestableError.java,v 1.5 2003/03/23 17:47:51 scolebourne Exp $
  */
 public class NestableError extends Error implements Nestable {
 

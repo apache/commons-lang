@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * If required, a root cause error can be wrapped within this one.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: PredicateException.java,v 1.1 2002/11/05 16:44:28 bayard Exp $
+ * @version $Id: PredicateException.java,v 1.2 2003/03/23 17:50:02 scolebourne Exp $
  */
 public class PredicateException extends NestableRuntimeException {
 

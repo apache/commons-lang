@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,7 +63,7 @@ package org.apache.commons.lang.util;
  * @author Andrew C. Oliver (acoliver at apache dot org)
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: BitField.java,v 1.3 2002/12/29 22:06:21 scolebourne Exp $
+ * @version $Id: BitField.java,v 1.4 2003/03/23 17:52:25 scolebourne Exp $
  */
 public class BitField {
     

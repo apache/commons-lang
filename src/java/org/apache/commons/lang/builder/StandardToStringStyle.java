@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ package org.apache.commons.lang.builder;
  *
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: StandardToStringStyle.java,v 1.7 2002/12/23 00:20:31 scolebourne Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.8 2003/03/23 17:54:16 scolebourne Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     

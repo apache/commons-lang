@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -105,7 +105,7 @@ import org.apache.commons.lang.NumberUtils;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.12 2003/01/19 18:49:05 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.13 2003/03/23 17:54:16 scolebourne Exp $
  */
 public class CompareToBuilder {
     

@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,7 +63,7 @@ import java.math.BigDecimal;
  * @author Stephen Colebourne
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @since 1.0
- * @version $Id: NumberUtils.java,v 1.6 2002/12/23 00:32:24 scolebourne Exp $
+ * @version $Id: NumberUtils.java,v 1.7 2003/03/23 18:00:59 scolebourne Exp $
  */
 public final class NumberUtils {
     

@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -77,7 +77,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Dmitri Plotnikov
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.21 2003/03/18 05:10:48 bayard Exp $
+ * @version $Id: ExceptionUtils.java,v 1.22 2003/03/23 17:47:51 scolebourne Exp $
  */
 public class ExceptionUtils {
     /**

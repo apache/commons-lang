@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  *
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: SerializationException.java,v 1.4 2002/12/22 19:54:58 scolebourne Exp $
+ * @version $Id: SerializationException.java,v 1.5 2003/03/23 18:02:29 scolebourne Exp $
  */
 public class SerializationException extends NestableRuntimeException {
 

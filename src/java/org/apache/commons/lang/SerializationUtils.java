@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -77,7 +77,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Jeff Varszegi
  * @since 1.0
- * @version $Id: SerializationUtils.java,v 1.4 2002/12/22 19:55:30 scolebourne Exp $
+ * @version $Id: SerializationUtils.java,v 1.5 2003/03/23 18:02:29 scolebourne Exp $
  */
 public class SerializationUtils {
     
