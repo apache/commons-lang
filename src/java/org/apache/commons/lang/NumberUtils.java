@@ -63,7 +63,7 @@ import java.math.BigDecimal;
  * @author Stephen Colebourne
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @since 1.0
- * @version $Id: NumberUtils.java,v 1.8 2003/04/09 01:04:47 ggregory Exp $
+ * @version $Id: NumberUtils.java,v 1.9 2003/06/08 14:09:36 scolebourne Exp $
  */
 public final class NumberUtils {
     
@@ -685,7 +685,7 @@ public final class NumberUtils {
         boolean hasDecPoint = false;
         boolean allowSigns = false;
         boolean foundDigit = false;
-        //Deal with any possible sign up front
+        // deal with any possible sign up front
         int start = (chars[0] == '-') ? 1 : 0;
         if (sz > start + 1) {
             if (chars[start] == '0' && chars[start + 1] == 'x') {
@@ -693,7 +693,7 @@ public final class NumberUtils {
                 if (i == sz) {
                     return false; // str == "0x"
                 }
-                //Checking hex (it can't be anything else)
+                // checking hex (it can't be anything else)
                 for (; i < chars.length; i++) {
                     if ((chars[i] < '0' || chars[i] > '9')
                         && (chars[i] < 'a' || chars[i] > 'f')
@@ -704,11 +704,11 @@ public final class NumberUtils {
                 return true;
             }
         }
-        sz--; //Don't want to loop to the last char, check it afterwords
-              //for type qualifiers
+        sz--; // don't want to loop to the last char, check it afterwords
+              // for type qualifiers
         int i = start;
-        //Loop to the next to last char or to the last char if we need another digit to
-        //make a valid number (e.g. chars[0..5] = "1234E")
+        // loop to the next to last char or to the last char if we need another digit to
+        // make a valid number (e.g. chars[0..5] = "1234E")
         while (i < sz || (i < sz + 1 && allowSigns && !foundDigit)) {
             if (chars[i] >= '0' && chars[i] <= '9') {
                 foundDigit = true;
@@ -716,14 +716,14 @@ public final class NumberUtils {
 
             } else if (chars[i] == '.') {
                 if (hasDecPoint || hasExp) {
-                    //Two decimal points or dec in exponent   
+                    // two decimal points or dec in exponent   
                     return false;
                 }
                 hasDecPoint = true;
             } else if (chars[i] == 'e' || chars[i] == 'E') {
-                //We've already taken care of hex.
+                // we've already taken care of hex.
                 if (hasExp) {
-                    //Two E's
+                    // two E's
                     return false;
                 }
                 if (!foundDigit) {
@@ -736,7 +736,7 @@ public final class NumberUtils {
                     return false;
                 }
                 allowSigns = false;
-                foundDigit = false; //We need a digit after the E
+                foundDigit = false; // we need a digit after the E
             } else {
                 return false;
             }
@@ -744,11 +744,11 @@ public final class NumberUtils {
         }
         if (i < chars.length) {
             if (chars[i] >= '0' && chars[i] <= '9') {
-                //No type qualifier, OK
+                // no type qualifier, OK
                 return true;
             }
             if (chars[i] == 'e' || chars[i] == 'E') {
-                //Can't have an E at the last byte
+                // can't have an E at the last byte
                 return false;
             }
             if (!allowSigns
@@ -760,12 +760,12 @@ public final class NumberUtils {
             }
             if (chars[i] == 'l'
                 || chars[i] == 'L') {
-                //Not allowing L with an exponoent
+                // not allowing L with an exponoent
                 return foundDigit && !hasExp;
             }
         }
-        //allowSigns is true iff the val ends in 'E'
-        //Found digit it to make sure weird stuff like '.' and '1E-' doesn't pass
+        // allowSigns is true iff the val ends in 'E'
+        // found digit it to make sure weird stuff like '.' and '1E-' doesn't pass
         return !allowSigns && foundDigit;
     }
 }
