@@ -73,14 +73,9 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.20 2003/07/26 10:32:17 scolebourne Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.21 2003/07/28 16:17:57 ggregory Exp $
  */
 public class StringEscapeUtils {
-
-    /**
-     * The entity set to use when escaping and unescaping HTML.
-     */
-    private static final Entities DEFAULT_ENTITIES = Entities.HTML40;
 
     /**
      * <p><code>StringEscapeUtils</code> instances should NOT be constructed in
