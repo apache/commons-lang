@@ -59,7 +59,8 @@ import java.io.Writer;
 import org.apache.commons.lang.exception.NestableRuntimeException;
 
 /**
- * <p>Escapes and unescapes <code>String</code>s for Java, Java Script, HTML, XML, and SQL.
+ * <p>Escapes and unescapes <code>String</code>s for
+ * Java, Java Script, HTML, XML, and SQL.</p>
  *
  * @author Apache Jakarta Turbine
  * @author GenerationJavaCore library
@@ -71,14 +72,14 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.18 2003/07/20 15:49:58 scolebourne Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.19 2003/07/25 23:06:58 scolebourne Exp $
  */
 public class StringEscapeUtils {
 
     /**
      * The entity set to use when escaping and unescaping HTML.
      */
-    protected static Entities DEFAULT_ENTITIES = Entities.HTML40;
+    private static final Entities DEFAULT_ENTITIES = Entities.HTML40;
 
     /**
      * <p><code>StringEscapeUtils</code> instances should NOT be constructed in

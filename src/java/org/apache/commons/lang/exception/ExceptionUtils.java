@@ -79,7 +79,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.26 2003/07/20 15:49:58 scolebourne Exp $
+ * @version $Id: ExceptionUtils.java,v 1.27 2003/07/25 23:06:58 scolebourne Exp $
  */
 public class ExceptionUtils {
     
@@ -95,7 +95,7 @@ public class ExceptionUtils {
      * <p>The names of methods commonly used to access a wrapped
      * exception.</p>
      */
-    protected static String[] CAUSE_METHOD_NAMES = {
+    private static String[] CAUSE_METHOD_NAMES = {
         "getCause",
         "getNextException",
         "getTargetException",
