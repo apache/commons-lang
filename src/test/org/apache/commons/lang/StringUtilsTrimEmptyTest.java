@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTrimEmptyTest.java,v 1.14 2003/07/20 00:17:29 scolebourne Exp $
+ * @version $Id: StringUtilsTrimEmptyTest.java,v 1.15 2003/07/20 00:37:09 scolebourne Exp $
  */
 public class StringUtilsTrimEmptyTest extends TestCase {
     private static final String FOO = "foo";
@@ -91,7 +91,39 @@ public class StringUtilsTrimEmptyTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testIsEmpty() {
+        assertEquals(true, StringUtils.isEmpty(null));
+        assertEquals(true, StringUtils.isEmpty(""));
+        assertEquals(false, StringUtils.isEmpty(" "));
+        assertEquals(false, StringUtils.isEmpty("foo"));
+        assertEquals(false, StringUtils.isEmpty("  foo  "));
+    }
 
+    public void testIsNotEmpty() {
+        assertEquals(false, StringUtils.isNotEmpty(null));
+        assertEquals(false, StringUtils.isNotEmpty(""));
+        assertEquals(true, StringUtils.isNotEmpty(" "));
+        assertEquals(true, StringUtils.isNotEmpty("foo"));
+        assertEquals(true, StringUtils.isNotEmpty("  foo  "));
+    }
+
+    public void testIsBlank() {
+        assertEquals(true, StringUtils.isBlank(null));
+        assertEquals(true, StringUtils.isBlank(""));
+        assertEquals(true, StringUtils.isBlank(StringUtilsTest.WHITESPACE));
+        assertEquals(false, StringUtils.isBlank("foo"));
+        assertEquals(false, StringUtils.isBlank("  foo  "));
+    }
+
+    public void testIsNotBlank() {
+        assertEquals(false, StringUtils.isNotBlank(null));
+        assertEquals(false, StringUtils.isNotBlank(""));
+        assertEquals(false, StringUtils.isNotBlank(StringUtilsTest.WHITESPACE));
+        assertEquals(true, StringUtils.isNotBlank("foo"));
+        assertEquals(true, StringUtils.isNotBlank("  foo  "));
+    }
+
+    //-----------------------------------------------------------------------
     public void testClean() {
         assertEquals(FOO, StringUtils.clean(FOO + "  "));
         assertEquals(FOO, StringUtils.clean(" " + FOO + "  "));
@@ -138,38 +170,7 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals("", StringUtils.trimToEmpty(null));
     }
 
-    public void testIsEmpty() {
-        assertEquals(true, StringUtils.isEmpty(null));
-        assertEquals(true, StringUtils.isEmpty(""));
-        assertEquals(false, StringUtils.isEmpty(" "));
-        assertEquals(false, StringUtils.isEmpty("foo"));
-        assertEquals(false, StringUtils.isEmpty("  foo  "));
-    }
-
-    public void testIsNotEmpty() {
-        assertEquals(false, StringUtils.isNotEmpty(null));
-        assertEquals(false, StringUtils.isNotEmpty(""));
-        assertEquals(true, StringUtils.isNotEmpty(" "));
-        assertEquals(true, StringUtils.isNotEmpty("foo"));
-        assertEquals(true, StringUtils.isNotEmpty("  foo  "));
-    }
-
-    public void testIsBlank() {
-        assertEquals(true, StringUtils.isBlank(null));
-        assertEquals(true, StringUtils.isBlank(""));
-        assertEquals(true, StringUtils.isBlank(StringUtilsTest.WHITESPACE));
-        assertEquals(false, StringUtils.isBlank("foo"));
-        assertEquals(false, StringUtils.isBlank("  foo  "));
-    }
-
-    public void testIsNotBlank() {
-        assertEquals(false, StringUtils.isNotBlank(null));
-        assertEquals(false, StringUtils.isNotBlank(""));
-        assertEquals(false, StringUtils.isNotBlank(StringUtilsTest.WHITESPACE));
-        assertEquals(true, StringUtils.isNotBlank("foo"));
-        assertEquals(true, StringUtils.isNotBlank("  foo  "));
-    }
-
+    //-----------------------------------------------------------------------
     public void testStrip_String() {
         assertEquals(null, StringUtils.strip(null));
         assertEquals("", StringUtils.strip(""));
