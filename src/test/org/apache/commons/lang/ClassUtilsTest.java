@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ClassUtils}.
  *
  * @author Stephen Colebourne
- * @version $Id: ClassUtilsTest.java,v 1.6 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.7 2003/10/23 21:03:44 scolebourne Exp $
  */
 public class ClassUtilsTest extends TestCase {
 
@@ -377,6 +377,38 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("boolean -> float", false, ClassUtils.isAssignable(Boolean.TYPE, Float.TYPE));
         assertEquals("boolean -> double", false, ClassUtils.isAssignable(Boolean.TYPE, Double.TYPE));
         assertEquals("boolean -> boolean", true, ClassUtils.isAssignable(Boolean.TYPE, Boolean.TYPE));
+    }
+    
+    public void testPrimitiveToWrapper() {
+       
+        // test primitive classes
+        assertEquals("boolean -> Boolean.class", 
+            Boolean.class, ClassUtils.primitiveToWrapper(Boolean.TYPE));   
+        assertEquals("byte -> Byte.class",
+            Byte.class, ClassUtils.primitiveToWrapper(Byte.TYPE));
+        assertEquals("char -> Character.class",
+            Character.class, ClassUtils.primitiveToWrapper(Character.TYPE));
+        assertEquals("short -> Short.class",
+            Short.class, ClassUtils.primitiveToWrapper(Short.TYPE));
+        assertEquals("int -> Integer.class",
+            Integer.class, ClassUtils.primitiveToWrapper(Integer.TYPE));
+        assertEquals("long -> Long.class",
+            Long.class, ClassUtils.primitiveToWrapper(Long.TYPE));
+        assertEquals("double -> Double.class",
+            Double.class, ClassUtils.primitiveToWrapper(Double.TYPE));
+        assertEquals("float -> Float.class",
+            Float.class, ClassUtils.primitiveToWrapper(Float.TYPE));
+        
+        // test a few other classes
+        assertEquals("String.class -> String.class",
+            String.class, ClassUtils.primitiveToWrapper(String.class));
+        assertEquals("ClassUtils.class -> ClassUtils.class",
+            org.apache.commons.lang.ClassUtils.class, 
+            ClassUtils.primitiveToWrapper(org.apache.commons.lang.ClassUtils.class));
+            
+        // test null     
+        assertNull("null -> null",
+            ClassUtils.primitiveToWrapper(null));
     }
     
 //    public static List getAssignableFrom(List classes, Class superclass) {
