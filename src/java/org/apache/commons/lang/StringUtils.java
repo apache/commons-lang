@@ -146,7 +146,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.81 2003/07/26 15:35:35 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.82 2003/07/30 22:17:49 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2331,10 +2331,10 @@ public class StringUtils {
         }
 
         if (str.length() == 1) {
-            if ("\r".equals(str) || "\n".equals(str)) {
+            char ch = str.charAt(0);
+            if (ch == '\r' || ch == '\n') {
                 return "";
-            }
-            else {
+            } else {
                 return str;
             }
         }
@@ -2615,8 +2615,8 @@ public class StringUtils {
         if (repeat <= 0) {
             return "";
         }
-        int inputLength;
-        if (repeat == 1 || (inputLength = str.length()) == 0) {
+        int inputLength = str.length();
+        if (repeat == 1 || inputLength == 0) {
             return str;
         }
         if (inputLength == 1 && repeat <= PAD_LIMIT) {
@@ -2771,13 +2771,13 @@ public class StringUtils {
         }
         int strLen = str.length();
         int pads = size - strLen;
+        if (pads <= 0) {
+            return str; // returns original String when possible
+        }
         if (padLen == 1 && pads <= PAD_LIMIT) {
             return rightPad(str, size, padStr.charAt(0));
         }
         
-        if (pads <= 0) {
-            return str; // returns original String when possible
-        }
         if (pads == padLen) {
             return str.concat(padStr);
         } else if (pads < padLen) {
@@ -2884,13 +2884,13 @@ public class StringUtils {
         }
         int strLen = str.length();
         int pads = size - strLen;
+        if (pads <= 0) {
+            return str; // returns original String when possible
+        }
         if (padLen == 1 && pads <= PAD_LIMIT) {
             return leftPad(str, size, padStr.charAt(0));
         }
         
-        if (pads <= 0) {
-            return str; // returns original String when possible
-        }
         if (pads == padLen) {
             return padStr.concat(str);
         } else if (pads < padLen) {
