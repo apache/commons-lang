@@ -80,7 +80,9 @@ import java.util.List;
  *      - substring extraction relative to other strings</li>
  *  <li><b>Split/Join</b>
  *      - splits a String into an array of substrings and vice versa</li>
- *  <li><b>Replace/Delete/Overlay</b>
+ *  <li><b>Remove/Delete</b>
+ *      - removes part of a String</li>
+ *  <li><b>Replace/Overlay</b>
  *      - Searches a String and replaces one String with another</li>
  *  <li><b>Chomp/Chop</b>
  *      - removes the last part of a String</li>
@@ -145,7 +147,7 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.114 2003/10/29 02:16:15 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.115 2003/11/01 19:20:35 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2457,6 +2459,76 @@ public class StringUtils {
         return new String(chs, 0, count);
     }
 
+    // Remove
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Removes a substring only if it is at the begining of a source string,
+     * otherwise returns the source string.</p>
+     * 
+     * <p>A <code>null</code> source string will return <code>null</code>.
+     * An empty ("") source string will return the empty string.
+     * A <code>null</code> search string will return the source string.</p>
+     * 
+     * <pre>
+     * StringUtils.removeStart(null, *)      = null
+     * StringUtils.removeStart("", *)        = ""
+     * StringUtils.removeStart(*, null)      = *
+     * StringUtils.removeStart("www.domain.com", "www.")   = "domain.com"
+     * StringUtils.removeStart("domain.com", "www.")       = "domain.com"
+     * StringUtils.removeStart("www.domain.com", "domain") = "www.domain.com"
+     * StringUtils.removeStart("abc", "")    = "abc"
+     * </pre>
+     *
+     * @param str  the source String to search, may be null
+     * @param remove  the String to search for and remove, may be null
+     * @return the substring with the string removed if found,
+     *  <code>null</code> if null String input
+     * @since 2.1
+     */
+    public static String removeStart(String str, String remove) {
+        if (str == null || str.length() == 0 || remove == null || remove.length() == 0) {
+            return str;
+        }
+        if (str.startsWith(remove)){
+            return str.substring(remove.length());
+        }
+        return str;
+    }
+
+    /**
+     * <p>Removes a substring only if it is at the end of a source string,
+     * otherwise returns the source string.</p>
+     *
+     * <p>A <code>null</code> source string will return <code>null</code>.
+     * An empty ("") source string will return the empty string.
+     * A <code>null</code> search string will return the source string.</p>
+     * 
+     * <pre>
+     * StringUtils.removeEnd(null, *)      = null
+     * StringUtils.removeEnd("", *)        = ""
+     * StringUtils.removeEnd(*, null)      = *
+     * StringUtils.removeEnd("www.domain.com", ".com.")  = "www,domain"
+     * StringUtils.removeEnd("www.domain.com", ".com")   = "www.domain"
+     * StringUtils.removeEnd("www.domain.com", "domain") = "www.domain.com"
+     * StringUtils.removeEnd("abc", "")    = "abc"
+     * </pre>
+     *
+     * @param str  the source String to search, may be null
+     * @param remove  the String to search for and remove, may be null
+     * @return the substring with the string removed if found,
+     *  <code>null</code> if null String input
+     * @since 2.1
+     */
+    public static String removeEnd(String str, String remove) {
+        if (str == null || str.length() == 0 || remove == null || remove.length() == 0) {
+            return str;
+        }
+        if (str.endsWith(remove)) {
+            return str.substring(0, str.length() - remove.length());
+        }
+        return str;
+    }
+
     // Replacing
     //-----------------------------------------------------------------------
     /**
@@ -4353,74 +4425,6 @@ public class StringUtils {
             a = c;
         }
         return a;
-    }
-
-    /**
-     * <p>Removes a substring only if it is at the begining of a source string, otherwise returns the source string.
-     *
-     * <p>A <code>null</code> source string will return <code>null</code>.
-     * An empty ("") source string will return the empty string.
-     * A <code>null</code> search string will return the source string.</p>
-     * 
-     * <pre>
-     * StringUtils.removeStart(null, *)      = null
-     * StringUtils.removeStart("", *)        = ""
-     * StringUtils.removeStart(*, null)      = *
-     * StringUtils.removeStart("www.domain.com", "www.")   = "domain.com"
-     * StringUtils.removeStart("domain.com", "www.")   = "domain.com"
-     * StringUtils.removeStart("abc", "")    = "abc"
-     * </pre>
-     *
-     * @param string  the source String to search, may be null
-     * @param remove  the String to search for, may be null
-     * @return the substring after the optional occurrence of the separator,
-     *  <code>null</code> if null String input
-     */
-    public static String removeStart(String str, String remove) {
-        if (str == null || str.length() == 0) {
-            return str;
-        }
-        if (remove == null || remove.length() == 0) {
-            return str;
-        }
-        if (str.startsWith(remove)){
-            return str.substring(remove.length());
-        }
-        return str;
-    }
-
-    /**
-     * <p>Removes a substring only if it is at the end of a source string, otherwise returns the source string.
-     *
-     * <p>A <code>null</code> source string will return <code>null</code>.
-     * An empty ("") source string will return the empty string.
-     * A <code>null</code> search string will return the source string.</p>
-     * 
-     * <pre>
-     * StringUtils.removeEnd(null, *)      = null
-     * StringUtils.removeEnd("", *)        = ""
-     * StringUtils.removeEnd(*, null)      = *
-     * StringUtils.removeEnd("www.domain.com", ".com.")   = "www,domain"
-     * StringUtils.removeEnd("www.domain.com", ".com")   = "www.domain"
-     * StringUtils.removeEnd("abc", "")    = "abc"
-     * </pre>
-     *
-     * @param string  the source String to search, may be null
-     * @param remove  the String to search for, may be null
-     * @return the substring after the optional occurrence of the separator,
-     *  <code>null</code> if null String input
-     */
-    public static String removeEnd(String str, String remove) {
-        if (str == null || str.length() == 0) {
-            return str;
-        }
-        if (remove == null || remove.length() == 0) {
-            return str;
-        }
-        if (str.endsWith(remove)) {
-            return str.substring(0, str.length() - remove.length());
-        }
-        return str;
     }
 
 }

@@ -75,7 +75,7 @@ import junit.textui.TestRunner;
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: StringUtilsTest.java,v 1.54 2003/10/29 02:16:30 ggregory Exp $
+ * @version $Id: StringUtilsTest.java,v 1.55 2003/11/01 19:20:35 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -1000,6 +1000,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals(StringUtils.removeStart("www.domain.com", "www."), "domain.com");
         assertEquals(StringUtils.removeStart("domain.com", "www."), "domain.com");
         assertEquals(StringUtils.removeStart("domain.com", ""), "domain.com");        
+        assertEquals(StringUtils.removeStart("domain.com", null), "domain.com");        
     }
 
     public void testRemoveEnd() {
@@ -1017,6 +1018,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals(StringUtils.removeEnd("www.domain.com", ".com"), "www.domain");
         assertEquals(StringUtils.removeEnd("www.domain", ".com"), "www.domain");
         assertEquals(StringUtils.removeEnd("domain.com", ""), "domain.com");   
+        assertEquals(StringUtils.removeEnd("domain.com", null), "domain.com");   
     }
 }
 
