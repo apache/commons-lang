@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.17 2003/07/30 03:30:58 bayard Exp $
+$Id: RELEASE-NOTES.txt,v 1.18 2003/08/02 18:28:19 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -11,14 +11,18 @@ This document contains the release notes for this version of the Commons
 Lang package. Commons Lang is a set of utility functions and reusable 
 components that should be a help in any Java environment.
 
+This release has involved a major clean and tidy exercise.
+Javadoc and Tests are now much more thorough.
+All methods should now be much clearer in what they do in unusual cases.
+
 
 INCOMPATIBLE CHANGES:
-Some StringUtils methods have changed functionality from 1.0.
+Some StringUtils methods have changed functionality from 1.0:
     isEmpty()
     chomp(String)
     chomp(String,String)
-Other methods have changed null handling
-Check your code before implementing this release.
+Numerous other methods have changed null handling to accept nulls gracefully.
+As with all major version releases, check your code for incompatibilities.
 
 
 NEW FEATURES:
@@ -28,6 +32,7 @@ Since the release of the 1.0 package the following classes have been added:
 lang package:
     ArrayUtils
     BooleanUtils
+    CharRange (previously package scoped)
     ClassUtils
     StringEscapeUtils
     StringPrintWriter
@@ -66,6 +71,9 @@ util sub-package:
 Since the release of the 1.0 package the following classes have been changed:
 
 lang:
+    CharSet:
+        Added factory method, equals and hashCode().
+        Better defined and tested the set syntax.
     CharSetUtils:
         added keep method:  keep any characters specified in the CharSet string
     RandomStringUtils:
@@ -76,8 +84,8 @@ lang:
         isEmpty() changed to not trim
         chomp() changed to be more like Perl.
         Various methods changed in the handling of null (less exceptions).
-        Thirty new methods.
-        Seven methods deprecated.
+        Many new methods.
+        Various methods deprecated.
     SystemUtils:
         isJavaVersionAtLeast(int) added. getJavaVersion() deprecated.
         host of new constants.
