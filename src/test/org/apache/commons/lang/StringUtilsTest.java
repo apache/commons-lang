@@ -68,15 +68,20 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
- * @version $Id: StringUtilsTest.java,v 1.14 2003/03/17 05:28:37 alex Exp $
+ * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
+ * @version $Id: StringUtilsTest.java,v 1.15 2003/03/23 05:26:23 bayard Exp $
  */
 public class StringUtilsTest extends TestCase {
 
     private static final String[] ARRAY_LIST = { "foo", "bar", "baz" };
+    private static final String[] EMPTY_ARRAY_LIST = {};
 
     private static final String SEPARATOR = ",";
+    private static final char   SEPARATOR_CHAR = ';';
 
     private static final String TEXT_LIST = "foo,bar,baz";
+    private static final String TEXT_LIST_CHAR = "foo;bar;baz";
+    private static final String TEXT_LIST_NOSEP = "foobarbaz";
 
     private static final String FOO = "foo";
     private static final String BAR = "bar";
@@ -149,12 +154,44 @@ public class StringUtilsTest extends TestCase {
 
     public void testJoin() {
         assertEquals("concatenate(Object[]) failed", 
-                     "foobarbaz", StringUtils.concatenate(ARRAY_LIST));
+                     TEXT_LIST_NOSEP, StringUtils.concatenate(ARRAY_LIST));
         assertEquals("join(Object[], String) failed", TEXT_LIST,
                      StringUtils.join(ARRAY_LIST, SEPARATOR));
         assertEquals("join(Iterator, String) failed", TEXT_LIST,
                      StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(),
                                       SEPARATOR));
+
+        assertEquals("join(Object[], char) failed", TEXT_LIST_CHAR,
+                     StringUtils.join(ARRAY_LIST, SEPARATOR_CHAR));
+        assertEquals("join(Iterator, char) failed", TEXT_LIST_CHAR,
+                     StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(),
+                                      SEPARATOR_CHAR));
+
+        assertEquals("join(Object[], null) failed", TEXT_LIST_NOSEP,
+                     StringUtils.join(ARRAY_LIST, null));
+        assertEquals("join(Iterator, null) failed", TEXT_LIST_NOSEP,
+                     StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(),
+                                      null));
+
+        assertEquals("concatenate(Object[]) failed", 
+                     "", StringUtils.concatenate(EMPTY_ARRAY_LIST));
+        assertEquals("join(Object[], String) failed", "",
+                     StringUtils.join(EMPTY_ARRAY_LIST, SEPARATOR));
+        assertEquals("join(Iterator, String) failed", "",
+                     StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(),
+                                      SEPARATOR));
+
+        assertEquals("join(Object[], char) failed", "",
+                     StringUtils.join(EMPTY_ARRAY_LIST, SEPARATOR_CHAR));
+        assertEquals("join(Iterator, char) failed", "",
+                     StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(),
+                                      SEPARATOR_CHAR));
+
+        assertEquals("join(Object[], null) failed", "",
+                     StringUtils.join(EMPTY_ARRAY_LIST, null));
+        assertEquals("join(Iterator, null) failed", "",
+                     StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(),
+                                      null));
     }
 
     public void testSplit() {
