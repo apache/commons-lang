@@ -57,6 +57,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
 import junit.framework.Test;
@@ -69,7 +71,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: SerializationUtilsTest.java,v 1.3 2003/07/19 20:22:36 scolebourne Exp $
+ * @version $Id: SerializationUtilsTest.java,v 1.4 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class SerializationUtilsTest extends TestCase {
     private String iString;
@@ -105,7 +107,37 @@ public class SerializationUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-
+    public void testConstructor() {
+        assertNotNull(new SerializationUtils());
+        Constructor[] cons = SerializationUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(SerializationUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(SerializationUtils.class.getModifiers()));
+    }
+    
+    public void testException() {
+        SerializationException serEx;
+        Exception ex = new Exception();
+        
+        serEx = new SerializationException();
+        assertSame(null, serEx.getMessage());
+        assertSame(null, serEx.getCause());
+        
+        serEx = new SerializationException("Message");
+        assertSame("Message", serEx.getMessage());
+        assertSame(null, serEx.getCause());
+        
+        serEx = new SerializationException(ex);
+        assertEquals("java.lang.Exception", serEx.getMessage());
+        assertSame(ex, serEx.getCause());
+        
+        serEx = new SerializationException("Message", ex);
+        assertSame("Message", serEx.getMessage());
+        assertSame(ex, serEx.getCause());
+    }
+    
+    //-----------------------------------------------------------------------
     public void testSerializeStream() throws Exception {
         ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         SerializationUtils.serialize(iMap, streamTest);

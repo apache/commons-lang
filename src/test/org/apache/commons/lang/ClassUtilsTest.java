@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +68,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.ClassUtils}.
  *
  * @author Stephen Colebourne
- * @version $Id: ClassUtilsTest.java,v 1.3 2003/03/23 21:47:30 scolebourne Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.4 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class ClassUtilsTest extends TestCase {
 
@@ -93,6 +95,16 @@ public class ClassUtilsTest extends TestCase {
     }
 
     private static class Inner {
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new ClassUtils());
+        Constructor[] cons = ClassUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(ClassUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(ClassUtils.class.getModifiers()));
     }
     
     // -------------------------------------------------------------------------
@@ -231,11 +243,13 @@ public class ClassUtilsTest extends TestCase {
         assertEquals(0, result.size());
         
         list.add(String.class);
+        list.add(null);
         list.add(Object.class);
         result = ClassUtils.convertClassesToClassNames(list);
-        assertEquals(2, result.size());
+        assertEquals(3, result.size());
         assertEquals("java.lang.String", result.get(0));
-        assertEquals("java.lang.Object", result.get(1));
+        assertEquals(null, result.get(1));
+        assertEquals("java.lang.Object", result.get(2));
 
         list.add(new Object());
         try {

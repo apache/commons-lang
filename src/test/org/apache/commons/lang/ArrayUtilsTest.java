@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -68,7 +70,7 @@ import junit.textui.TestRunner;
  * @author Moritz Petersen
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
- * @version $Id: ArrayUtilsTest.java,v 1.9 2003/07/12 10:09:40 scolebourne Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.10 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -94,6 +96,16 @@ public class ArrayUtilsTest extends TestCase {
         super.tearDown();
     }
 
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new ArrayUtils());
+        Constructor[] cons = ArrayUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(ArrayUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(ArrayUtils.class.getModifiers()));
+    }
+    
     //-----------------------------------------------------------------------
     public void testToString() {
         assertEquals("{}", ArrayUtils.toString(null));
@@ -195,6 +207,7 @@ public class ArrayUtilsTest extends TestCase {
     }
 
     public void testCloneBoolean() {
+        assertEquals(null, ArrayUtils.clone((boolean[]) null));
         boolean[] original = new boolean[] {true, false};
         boolean[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -202,6 +215,7 @@ public class ArrayUtilsTest extends TestCase {
     }
     
     public void testCloneLong() {
+        assertEquals(null, ArrayUtils.clone((long[]) null));
         long[] original = new long[] {0L, 1L};
         long[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -209,6 +223,7 @@ public class ArrayUtilsTest extends TestCase {
     }
     
     public void testCloneInt() {
+        assertEquals(null, ArrayUtils.clone((int[]) null));
         int[] original = new int[] {5, 8};
         int[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -216,6 +231,7 @@ public class ArrayUtilsTest extends TestCase {
     }
     
     public void testCloneShort() {
+        assertEquals(null, ArrayUtils.clone((short[]) null));
         short[] original = new short[] {1, 4};
         short[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -223,6 +239,7 @@ public class ArrayUtilsTest extends TestCase {
     }
     
     public void testCloneChar() {
+        assertEquals(null, ArrayUtils.clone((char[]) null));
         char[] original = new char[] {'a', '4'};
         char[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -230,6 +247,7 @@ public class ArrayUtilsTest extends TestCase {
     }
     
     public void testCloneByte() {
+        assertEquals(null, ArrayUtils.clone((byte[]) null));
         byte[] original = new byte[] {1, 6};
         byte[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -237,6 +255,7 @@ public class ArrayUtilsTest extends TestCase {
     }
     
     public void testCloneDouble() {
+        assertEquals(null, ArrayUtils.clone((double[]) null));
         double[] original = new double[] {2.4d, 5.7d};
         double[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -244,6 +263,7 @@ public class ArrayUtilsTest extends TestCase {
     }
     
     public void testCloneFloat() {
+        assertEquals(null, ArrayUtils.clone((float[]) null));
         float[] original = new float[] {2.6f, 6.4f};
         float[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
@@ -642,6 +662,7 @@ public class ArrayUtilsTest extends TestCase {
         Object[] array = new Object[] { "0", "1", "2", "3", null, "0" };
         assertEquals(-1, ArrayUtils.indexOf(null, null));
         assertEquals(-1, ArrayUtils.indexOf(null, "0"));
+        assertEquals(-1, ArrayUtils.indexOf(new Object[0], "0"));
         assertEquals(0, ArrayUtils.indexOf(array, "0"));
         assertEquals(1, ArrayUtils.indexOf(array, "1"));
         assertEquals(2, ArrayUtils.indexOf(array, "2"));
@@ -653,6 +674,7 @@ public class ArrayUtilsTest extends TestCase {
     public void testIndexOfWithStartIndex() {
         Object[] array = new Object[] { "0", "1", "2", "3", null, "0" };
         assertEquals(-1, ArrayUtils.indexOf(null, null, 2));
+        assertEquals(-1, ArrayUtils.indexOf(new Object[0], "0", 0));
         assertEquals(-1, ArrayUtils.indexOf(null, "0", 2));
         assertEquals(5, ArrayUtils.indexOf(array, "0", 2));
         assertEquals(-1, ArrayUtils.indexOf(array, "1", 2));
@@ -685,6 +707,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(1, ArrayUtils.lastIndexOf(array, "1", 2));
         assertEquals(2, ArrayUtils.lastIndexOf(array, "2", 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, "3", 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, "3", -1));
         assertEquals(4, ArrayUtils.lastIndexOf(array, null, 5));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, null, 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, "notInArray", 5));
@@ -725,6 +748,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.indexOf(array, 1, 2));
         assertEquals(2, ArrayUtils.indexOf(array, 2, 2));
         assertEquals(3, ArrayUtils.indexOf(array, 3, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 3, -1));
         assertEquals(-1, ArrayUtils.indexOf(array, 99, 0));
         assertEquals(-1, ArrayUtils.indexOf(array, 0, 6));
     }
@@ -748,7 +772,8 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(1, ArrayUtils.lastIndexOf(array, 1, 2));
         assertEquals(2, ArrayUtils.lastIndexOf(array, 2, 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, 3, 2));
-        assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 3, -1));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 99, 4));
         assertEquals(4, ArrayUtils.lastIndexOf(array, 0, 88));
     }
 
@@ -783,6 +808,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.indexOf(array, 1, 2));
         assertEquals(2, ArrayUtils.indexOf(array, 2, 2));
         assertEquals(3, ArrayUtils.indexOf(array, 3, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, 3, -1));
         assertEquals(-1, ArrayUtils.indexOf(array, 99, 0));
         assertEquals(-1, ArrayUtils.indexOf(array, 0, 6));
     }
@@ -806,6 +832,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(1, ArrayUtils.lastIndexOf(array, 1, 2));
         assertEquals(2, ArrayUtils.lastIndexOf(array, 2, 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, 3, -1));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, 99));
         assertEquals(4, ArrayUtils.lastIndexOf(array, 0, 88));
     }
@@ -841,6 +868,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.indexOf(array, (short) 1, 2));
         assertEquals(2, ArrayUtils.indexOf(array, (short) 2, 2));
         assertEquals(3, ArrayUtils.indexOf(array, (short) 3, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, (short) 3, -1));
         assertEquals(-1, ArrayUtils.indexOf(array, (short) 99, 0));
         assertEquals(-1, ArrayUtils.indexOf(array, (short) 0, 6));
     }
@@ -864,6 +892,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(1, ArrayUtils.lastIndexOf(array, (short) 1, 2));
         assertEquals(2, ArrayUtils.lastIndexOf(array, (short) 2, 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (short) 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (short) 3, -1));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (short) 99));
         assertEquals(4, ArrayUtils.lastIndexOf(array, (short) 0, 88));
     }
@@ -899,6 +928,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.indexOf(array, (byte) 1, 2));
         assertEquals(2, ArrayUtils.indexOf(array, (byte) 2, 2));
         assertEquals(3, ArrayUtils.indexOf(array, (byte) 3, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, (byte) 3, -1));
         assertEquals(-1, ArrayUtils.indexOf(array, (byte) 99, 0));
         assertEquals(-1, ArrayUtils.indexOf(array, (byte) 0, 6));
     }
@@ -922,6 +952,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(1, ArrayUtils.lastIndexOf(array, (byte) 1, 2));
         assertEquals(2, ArrayUtils.lastIndexOf(array, (byte) 2, 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (byte) 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (byte) 3, -1));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (byte) 99));
         assertEquals(4, ArrayUtils.lastIndexOf(array, (byte) 0, 88));
     }
@@ -946,6 +977,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(1, ArrayUtils.indexOf(array, (double) 1));
         assertEquals(2, ArrayUtils.indexOf(array, (double) 2));
         assertEquals(3, ArrayUtils.indexOf(array, (double) 3));
+        assertEquals(3, ArrayUtils.indexOf(array, (double) 3, -1));
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 99));
     }
 
@@ -980,6 +1012,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(1, ArrayUtils.lastIndexOf(array, (double) 1, 2));
         assertEquals(2, ArrayUtils.lastIndexOf(array, (double) 2, 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 3, -1));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 99));
         assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0, 88));
     }
@@ -1015,6 +1048,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.indexOf(array, (float) 1, 2));
         assertEquals(2, ArrayUtils.indexOf(array, (float) 2, 2));
         assertEquals(3, ArrayUtils.indexOf(array, (float) 3, 2));
+        assertEquals(3, ArrayUtils.indexOf(array, (float) 3, -1));
         assertEquals(-1, ArrayUtils.indexOf(array, (float) 99, 0));
         assertEquals(-1, ArrayUtils.indexOf(array, (float) 0, 6));
     }
@@ -1038,6 +1072,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(1, ArrayUtils.lastIndexOf(array, (float) 1, 2));
         assertEquals(2, ArrayUtils.lastIndexOf(array, (float) 2, 2));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 3, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 3, -1));
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 99));
         assertEquals(4, ArrayUtils.lastIndexOf(array, (float) 0, 88));
     }
@@ -1070,8 +1105,11 @@ public class ArrayUtilsTest extends TestCase {
         array = new boolean[] { true, false, true };
         assertEquals(2, ArrayUtils.indexOf(array, true, 1));
         assertEquals(-1, ArrayUtils.indexOf(array, false, 2));
+        assertEquals(1, ArrayUtils.indexOf(array, false, 0));
+        assertEquals(1, ArrayUtils.indexOf(array, false, -1));
         array = new boolean[] { true, true };
         assertEquals(-1, ArrayUtils.indexOf(array, false, 0));
+        assertEquals(-1, ArrayUtils.indexOf(array, false, -1));
     }
 
     public void testLastIndexOfBoolean() {
@@ -1091,8 +1129,10 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(2, ArrayUtils.lastIndexOf(array, true, 2));
         assertEquals(0, ArrayUtils.lastIndexOf(array, true, 1));
         assertEquals(1, ArrayUtils.lastIndexOf(array, false, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, true, -1));
         array = new boolean[] { true, true };
         assertEquals(-1, ArrayUtils.lastIndexOf(array, false, 2));
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, true, -1));
     }
 
     public void testContainsBoolean() {

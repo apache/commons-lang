@@ -53,6 +53,9 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -64,7 +67,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Stephen Colebourne
- * @version $Id: CharSetUtilsTest.java,v 1.9 2003/07/30 00:08:38 scolebourne Exp $
+ * @version $Id: CharSetUtilsTest.java,v 1.10 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class CharSetUtilsTest extends TestCase {
     
@@ -91,7 +94,16 @@ public class CharSetUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-
+    public void testConstructor() {
+        assertNotNull(new CharSetUtils());
+        Constructor[] cons = CharSetUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(CharSetUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(CharSetUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
     public void testSqueeze() {
         assertEquals(null, CharSetUtils.squeeze(null, (String[]) null));
         assertEquals(null, CharSetUtils.squeeze(null, (String) null));

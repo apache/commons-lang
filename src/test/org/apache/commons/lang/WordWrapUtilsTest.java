@@ -53,6 +53,9 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -61,7 +64,9 @@ import junit.framework.TestSuite;
  * Unit tests for the wrap methods of WordWrapUtils.
  * 
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: WordWrapUtilsTest.java,v 1.2 2003/07/19 20:22:36 scolebourne Exp $
+ * @author Henri Yandell
+ * @author Stephen Colebourne
+ * @version $Id: WordWrapUtilsTest.java,v 1.3 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class WordWrapUtilsTest extends TestCase {
 
@@ -75,6 +80,17 @@ public class WordWrapUtilsTest extends TestCase {
         return suite;
     }
 
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new WordWrapUtils());
+        Constructor[] cons = WordWrapUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(WordWrapUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(WordWrapUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
     /**
      * Wrap text. This is the most general use.
      */

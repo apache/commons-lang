@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -72,7 +74,7 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.39 2003/07/25 22:22:30 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.40 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -146,7 +148,16 @@ public class StringUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-
+    public void testConstructor() {
+        assertNotNull(new StringUtils());
+        Constructor[] cons = StringUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(StringUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(StringUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
     public void testCaseFunctions() {
         assertEquals(null, StringUtils.upperCase(null));
         assertEquals(null, StringUtils.lowerCase(null));
@@ -221,6 +232,7 @@ public class StringUtilsTest extends TestCase {
     public void testJoin_IteratorChar() {
         assertEquals(null, StringUtils.join((Iterator) null, ','));
         assertEquals(TEXT_LIST_CHAR, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), SEPARATOR_CHAR));
+        assertEquals("", StringUtils.join(Arrays.asList(NULL_ARRAY_LIST).iterator(), SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(), SEPARATOR_CHAR));
     }
     
@@ -452,6 +464,9 @@ public class StringUtilsTest extends TestCase {
         assertEquals("aaa", StringUtils.repeat("a", 3));
         assertEquals("ababab", StringUtils.repeat("ab", 3));
         assertEquals("abcabcabc", StringUtils.repeat("abc", 3));
+        String str = StringUtils.repeat("a", 10000);  // bigger than pad limit
+        assertEquals(10000, str.length());
+        assertEquals(true, StringUtils.containsOnly(str, new char[] {'a'}));
     }
 
     public void testDeprecatedChompFunctions() {
@@ -509,6 +524,7 @@ public class StringUtilsTest extends TestCase {
             { "foo\n\rfoo", "foo\n\rfoo" },
             { "\n", "" },
             { "\r", "" },
+            { "a", "a" },
             { "\r\n", "" },
             { "", "" },
             { null, null },
@@ -589,6 +605,9 @@ public class StringUtilsTest extends TestCase {
         assertEquals("abc", StringUtils.rightPad("abc", 2, ' '));
         assertEquals("abc", StringUtils.rightPad("abc", -1, ' '));
         assertEquals("abcxx", StringUtils.rightPad("abc", 5, 'x'));
+        String str = StringUtils.rightPad("aaa", 10000, 'a');  // bigger than pad length
+        assertEquals(10000, str.length());
+        assertEquals(true, StringUtils.containsOnly(str, new char[] {'a'}));
     }
 
     public void testRightPad_StringIntString() {
@@ -624,6 +643,9 @@ public class StringUtilsTest extends TestCase {
         assertEquals("  abc", StringUtils.leftPad("abc", 5, ' '));
         assertEquals("xxabc", StringUtils.leftPad("abc", 5, 'x'));
         assertEquals("abc", StringUtils.leftPad("abc", 2, ' '));
+        String str = StringUtils.leftPad("aaa", 10000, 'a');  // bigger than pad length
+        assertEquals(10000, str.length());
+        assertEquals(true, StringUtils.containsOnly(str, new char[] {'a'}));
     }
         
     public void testLeftPad_StringIntString() {

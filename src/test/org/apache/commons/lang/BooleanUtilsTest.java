@@ -53,6 +53,9 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -63,7 +66,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
- * @version $Id: BooleanUtilsTest.java,v 1.4 2003/06/28 18:16:03 scolebourne Exp $
+ * @version $Id: BooleanUtilsTest.java,v 1.5 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class BooleanUtilsTest extends TestCase {
 
@@ -89,6 +92,16 @@ public class BooleanUtilsTest extends TestCase {
         super.tearDown();
     }
 
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new BooleanUtils());
+        Constructor[] cons = BooleanUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(BooleanUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(BooleanUtils.class.getModifiers()));
+    }
+    
     //-----------------------------------------------------------------------
     public void test_negate_Boolean() {
         assertSame(null, BooleanUtils.negate(null));
@@ -151,6 +164,14 @@ public class BooleanUtilsTest extends TestCase {
     public void test_toBoolean_Integer_Integer_Integer() {
         Integer six = new Integer(6);
         Integer seven = new Integer(7);
+
+        assertEquals(true, BooleanUtils.toBoolean((Integer) null, null, seven));
+        assertEquals(false, BooleanUtils.toBoolean((Integer) null, six, null));
+        try {
+            BooleanUtils.toBoolean(null, six, seven);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        
         assertEquals(true, BooleanUtils.toBoolean(new Integer(6), six, seven));
         assertEquals(false, BooleanUtils.toBoolean(new Integer(7), six, seven));
         try {
@@ -170,10 +191,19 @@ public class BooleanUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
     
-    public void test_toBooleanObject_Integer_Integer_Integer() {
+    public void test_toBooleanObject_Integer_Integer_Integer_Integer() {
         Integer six = new Integer(6);
         Integer seven = new Integer(7);
         Integer eight = new Integer(8);
+
+        assertSame(Boolean.TRUE, BooleanUtils.toBooleanObject((Integer) null, null, seven, eight));
+        assertSame(Boolean.FALSE, BooleanUtils.toBooleanObject((Integer) null, six, null, eight));
+        assertSame(null, BooleanUtils.toBooleanObject((Integer) null, six, seven, null));
+        try {
+            BooleanUtils.toBooleanObject(null, six, seven, eight);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject(new Integer(6), six, seven, eight));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject(new Integer(7), six, seven, eight));
         assertEquals(null, BooleanUtils.toBooleanObject(new Integer(8), six, seven, eight));
@@ -251,6 +281,14 @@ public class BooleanUtilsTest extends TestCase {
     }
     
     public void test_toBooleanObject_String_String_String_String() {
+        assertSame(Boolean.TRUE, BooleanUtils.toBooleanObject((String) null, null, "N", "U"));
+        assertSame(Boolean.FALSE, BooleanUtils.toBooleanObject((String) null, "Y", null, "U"));
+        assertSame(null, BooleanUtils.toBooleanObject((String) null, "Y", "N", null));
+        try {
+            BooleanUtils.toBooleanObject((String) null, "Y", "N", "U");
+            fail();
+        } catch (IllegalArgumentException ex) {}
+
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject("Y", "Y", "N", "U"));
         assertEquals(Boolean.FALSE, BooleanUtils.toBooleanObject("N", "Y", "N", "U"));
         assertEquals(null, BooleanUtils.toBooleanObject("U", "Y", "N", "U"));
@@ -280,6 +318,13 @@ public class BooleanUtilsTest extends TestCase {
     }
 
     public void test_toBoolean_String_String_String() {
+        assertEquals(true, BooleanUtils.toBoolean((String) null, null, "N"));
+        assertEquals(false, BooleanUtils.toBoolean((String) null, "Y", null));
+        try {
+            BooleanUtils.toBooleanObject((String) null, "Y", "N", "U");
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        
         assertEquals(true, BooleanUtils.toBoolean("Y", "Y", "N"));
         assertEquals(false, BooleanUtils.toBoolean("N", "Y", "N"));
         try {

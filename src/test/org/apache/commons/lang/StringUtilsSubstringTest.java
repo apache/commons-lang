@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsSubstringTest.java,v 1.9 2003/07/25 22:22:30 scolebourne Exp $
+ * @version $Id: StringUtilsSubstringTest.java,v 1.10 2003/07/30 22:21:39 scolebourne Exp $
  */
 public class StringUtilsSubstringTest extends TestCase {
     private static final String FOO = "foo";
@@ -98,14 +98,33 @@ public class StringUtilsSubstringTest extends TestCase {
     //-----------------------------------------------------------------------
 
 
-    public void testSubstring2() {
+    public void testSubstring_StringInt() {
+        assertEquals(null, StringUtils.substring(null, 0));
+        assertEquals("", StringUtils.substring("", 0));
+        assertEquals("", StringUtils.substring("", 2));
+        
         assertEquals("", StringUtils.substring(SENTENCE, 80));
         assertEquals(BAZ, StringUtils.substring(SENTENCE, 8));
         assertEquals(BAZ, StringUtils.substring(SENTENCE, -3));
         assertEquals(SENTENCE, StringUtils.substring(SENTENCE, 0));
+        assertEquals("abc", StringUtils.substring("abc", -4));
+        assertEquals("abc", StringUtils.substring("abc", -3));
+        assertEquals("bc", StringUtils.substring("abc", -2));
+        assertEquals("c", StringUtils.substring("abc", -1));
+        assertEquals("abc", StringUtils.substring("abc", 0));
+        assertEquals("bc", StringUtils.substring("abc", 1));
+        assertEquals("c", StringUtils.substring("abc", 2));
+        assertEquals("", StringUtils.substring("abc", 3));
+        assertEquals("", StringUtils.substring("abc", 4));
     }
     
-    public void testSubstring3() {
+    public void testSubstring_StringIntInt() {
+        assertEquals(null, StringUtils.substring(null, 0, 0));
+        assertEquals(null, StringUtils.substring(null, 1, 2));
+        assertEquals("", StringUtils.substring("", 0, 0));
+        assertEquals("", StringUtils.substring("", 1, 2));
+        assertEquals("", StringUtils.substring("", -2, -1));
+        
         assertEquals("", StringUtils.substring(SENTENCE, 8, 6));
         assertEquals(FOO, StringUtils.substring(SENTENCE, 0, 3));
         assertEquals("o", StringUtils.substring(SENTENCE, -9, 3));
@@ -114,17 +133,6 @@ public class StringUtilsSubstringTest extends TestCase {
         assertEquals(SENTENCE, StringUtils.substring(SENTENCE, 0, 80));
         assertEquals("", StringUtils.substring(SENTENCE, 2, 2));
         assertEquals("b",StringUtils.substring("abc", -2, -1));
-    }
-    
-    public void testSubstring4() {
-        assertEquals("", StringUtils.substring("",0));
-        assertEquals("", StringUtils.substring("",2));
-        assertEquals("", StringUtils.substring("",0,0));
-        assertEquals("", StringUtils.substring("",1,2));
-        assertEquals("", StringUtils.substring("",-2,-1));
-        assertEquals(null, StringUtils.substring(null,0));
-        assertEquals(null, StringUtils.substring(null,0,0));
-        assertEquals(null, StringUtils.substring(null,1,2));
     }
            
     public void testLeft_String() {
