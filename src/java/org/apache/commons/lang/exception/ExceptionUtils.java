@@ -101,54 +101,11 @@ public class ExceptionUtils
      */
     public static Throwable getCause(Throwable t)
     {
-        Throwable cause = null;
-
-        if (t instanceof NestableException)
+        Throwable cause = getCauseUsingWellKnownTypes(t);
+        if (cause == null)
         {
-            cause = ((NestableException) t).getCause();
+            cause = getCauseUsingMethodName(CAUSE_METHOD_NAME, t);
         }
-        else if (t instanceof NestableRuntimeException)
-        {
-            cause = ((NestableRuntimeException) t).getCause();
-        }
-        else if (t instanceof SQLException)
-        {
-            cause = ((SQLException) t).getNextException();
-        }
-        else
-        {
-            Method getCause = null;
-            Class c = t.getClass();
-            try
-            {
-                getCause = c.getMethod(CAUSE_METHOD_NAME, null);
-            }
-            catch (NoSuchMethodException ignored)
-            {
-            }
-            catch (SecurityException ignored)
-            {
-            }
-
-            if (getCause != null &&
-                Throwable.class.isAssignableFrom(getCause.getReturnType()))
-            {
-                try
-                {
-                    cause = (Throwable) getCause.invoke(t, CAUSE_METHOD_PARAMS);
-                }
-                catch (IllegalAccessException ignored)
-                {
-                }
-                catch (IllegalArgumentException ignored)
-                {
-                }
-                catch (InvocationTargetException ignored)
-                {
-                }
-            }
-        }
-
         return cause;
     }
     
@@ -172,5 +129,79 @@ public class ExceptionUtils
             }
         }
         return cause;
+    }
+
+    /**
+     * Uses <code>instanceof</code> checks to examine the exception,
+     * looking for well known types which could contain chained or
+     * wrapped exceptions.
+     *
+     * @param t The exception to examine.
+     * @return The wrapped exception, or <code>null</code> if not
+     * found.
+     */
+    private static Throwable getCauseUsingWellKnownTypes(Throwable t)
+    {
+        if (t instanceof NestableException)
+        {
+            return ((NestableException) t).getCause();
+        }
+        else if (t instanceof NestableRuntimeException)
+        {
+            return ((NestableRuntimeException) t).getCause();
+        }
+        else if (t instanceof SQLException)
+        {
+            return ((SQLException) t).getNextException();
+        }
+        else if (t instanceof InvocationTargetException)
+        {
+            return ((InvocationTargetException) t).getTargetException();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * @param methodName The name of the method to find and invoke.
+     * @param t The exception to examine.
+     * @return The wrapped exception, or <code>null</code> if not
+     * found.
+     */
+    private static Throwable getCauseUsingMethodName(String methodName,
+                                                     Throwable t)
+    {
+        Method method = null;
+        try
+        {
+            method = t.getClass().getMethod(methodName, null);
+        }
+        catch (NoSuchMethodException ignored)
+        {
+        }
+        catch (SecurityException ignored)
+        {
+        }
+
+        if (method != null &&
+            Throwable.class.isAssignableFrom(method.getReturnType()))
+        {
+            try
+            {
+                return (Throwable) method.invoke(t, CAUSE_METHOD_PARAMS);
+            }
+            catch (IllegalAccessException ignored)
+            {
+            }
+            catch (IllegalArgumentException ignored)
+            {
+            }
+            catch (InvocationTargetException ignored)
+            {
+            }
+        }
+        return null;
     }
 }
