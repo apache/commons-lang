@@ -51,25 +51,24 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.lang;
+package org.apache.commons.lang.time;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 /**
- * Test suite for the Lang package.
+ * Test suite for the Time package.
  *
  * @author Stephen Colebourne
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: LangTestSuite.java,v 1.11 2002/12/18 23:30:19 scolebourne Exp $
+ * @version $Id: TimeTestSuite.java,v 1.1 2002/12/18 23:30:19 scolebourne Exp $
  */
-public class LangTestSuite extends TestCase {
+public class TimeTestSuite extends TestCase {
     
     /**
      * Construct a new instance.
      */
-    public LangTestSuite(String name) {
+    public TimeTestSuite(String name) {
         super(name);
     }
 
@@ -85,22 +84,9 @@ public class LangTestSuite extends TestCase {
      */
     public static Test suite() {
         TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(ArrayUtilsTest.suite());
-        suite.addTest(BooleanUtilsTest.suite());
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(ClassUtilsTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
-        suite.addTest(ValidateTest.suite());
+        suite.setName("Commons-Lang-Time Tests");
+        suite.addTest(CalendarUtilsTest.suite());
+        suite.addTest(DateUtilsTest.suite());
         return suite;
     }
 }
