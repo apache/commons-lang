@@ -59,16 +59,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * <p><code>ToString</code> generation routine.</p>
+ * <p><code>toString()</code> generation routines.</p>
  *
- * <p>This class enables a good <code>toString</code> to be built for any
- * class. This class aims to simplify the process by:</p>
+ * <p>This class enables a good and consistent <code>toString()</code> to be built for any
+ * class or object. This class aims to simplify the process by:</p>
  * <ul>
  * <li>allowing field names
  * <li>handling all types consistently
  * <li>handling nulls consistently
  * <li>outputting arrays and multi-dimensional arrays
  * <li>enabling the detail level to be controlled for Objects and Collections
+ * <li>handling class hierarchies
  * </ul>
  *
  * <p>To use this class write code as follows:
@@ -110,13 +111,18 @@ import java.util.Set;
  * }
  * </pre>
  *
+ * <p>You can also use the builder to debug 3rd party objects:</p>
+ * <pre>
+ * System.out.println("An object: " + ToStringBuilder.reflectionToString(anObject));
+ * </pre>
+ * 
  * <p>The exact format of the <code>toString</code> is determined by
  * the {@link ToStringStyle} passed into the constructor.</p>
  *
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.18 2003/04/08 20:44:10 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.19 2003/04/08 22:35:40 ggregory Exp $
  */
 public class ToStringBuilder {
 
