@@ -53,8 +53,10 @@
  */
 package org.apache.commons.lang.math;
 
-import java.math.BigInteger;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+
+import org.apache.commons.lang.NullArgumentException;
 
 /**
  * <p>Provides extra functionality for Java Number classes.</p>
@@ -65,8 +67,9 @@ import java.math.BigDecimal;
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author Eric Pugh
  * @author Phil Steitz
- * @since 1.0
- * @version $Id: NumberUtils.java,v 1.1 2003/06/24 21:14:50 scolebourne Exp $
+ * @author Matthew Hawthorne
+ * @since 2.0
+ * @version $Id: NumberUtils.java,v 1.2 2003/06/28 18:42:03 scolebourne Exp $
  */
 public final class NumberUtils {
     
@@ -437,6 +440,281 @@ public final class NumberUtils {
         return bd;
     }
 
+    // Min in array
+    //--------------------------------------------------------------------
+    /**
+     * Returns the minimum value in an array.
+     * 
+     * @param array  an array
+     * @return the minimum value in the array
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static long min(long[] array) {
+        // Validates input
+        if (array == null) {
+            throw new NullArgumentException("Array");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+    
+        // Finds and returns min
+        long min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+    
+        return min;
+    }
+
+    /**
+     * Returns the minimum value in an array.
+     * 
+     * @param array  an array
+     * @return the minimum value in the array
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static int min(int[] array) {
+        // Validates input
+        if (array == null) {
+            throw new NullArgumentException("Array");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+    
+        // Finds and returns min
+        int min = array[0];
+        for (int j = 1; j < array.length; j++) {
+            if (array[j] < min) {
+                min = array[j];
+            }
+        }
+    
+        return min;
+    }
+
+    /**
+     * Returns the minimum value in an array.
+     * 
+     * @param array  an array
+     * @return the minimum value in the array
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static short min(short[] array) {
+        // Validates input
+        if (array == null) {
+            throw new NullArgumentException("Array");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+    
+        // Finds and returns min
+        short min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+    
+        return min;
+    }
+
+     /**
+     * Returns the minimum value in an array.
+     * 
+     * @param array  an array
+     * @return the minimum value in the array
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static double min(double[] array) {
+        // Validates input
+        if (array == null) {
+            throw new NullArgumentException("Array");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+    
+        // Finds and returns min
+        double min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+    
+        return min;
+    }
+
+    /**
+     * Returns the minimum value in an array.
+     * 
+     * @param array  an array
+     * @return the minimum value in the array
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static float min(float[] array) {
+        // Validates input
+        if (array == null) {
+            throw new NullArgumentException("Array");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+    
+        // Finds and returns min
+        float min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+    
+        return min;
+    }
+
+    // Max in array
+    //--------------------------------------------------------------------
+    /**
+     * Returns the maximum value in an array.
+     * 
+     * @param array  an array
+     * @return the minimum value in the array
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static long max(long[] array) {
+        // Validates input
+        if (array == null) {
+            throw new NullArgumentException("Array");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+
+        // Finds and returns max
+        long max = array[0];
+        for (int j = 1; j < array.length; j++) {
+            if (array[j] > max) {
+                max = array[j];
+            }
+        }
+
+        return max;
+    }
+
+    /**
+     * Returns the maximum value in an array.
+     * 
+     * @param array  an array
+     * @return the minimum value in the array
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static int max(int[] array) {
+        // Validates input
+        if (array == null) {
+            throw new NullArgumentException("Array");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+    
+        // Finds and returns max
+        int max = array[0];
+        for (int j = 1; j < array.length; j++) {
+            if (array[j] > max) {
+                max = array[j];
+            }
+        }
+    
+        return max;
+    }
+
+    /**
+     * Returns the maximum value in an array.
+     * 
+     * @param array  an array
+     * @return the minimum value in the array
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static short max(short[] array) {
+        // Validates input
+        if (array == null) {
+            throw new NullArgumentException("Array");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+    
+        // Finds and returns max
+        short max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+    
+        return max;
+    }
+
+    /**
+     * Returns the maximum value in an array.
+     * 
+     * @param array  an array
+     * @return the minimum value in the array
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static double max(double[] array) {
+        // Validates input
+        if (array== null) {
+            throw new NullArgumentException("Array");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+    
+        // Finds and returns max
+        double max = array[0];
+        for (int j = 1; j < array.length; j++) {
+            if (array[j] > max) {
+                max = array[j];
+            }
+        }
+    
+        return max;
+    }
+
+    /**
+     * Returns the maximum value in an array.
+     * 
+     * @param array  an array
+     * @return the minimum value in the array
+     * @throws NullArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static float max(float[] array) {
+        // Validates input
+        if (array == null) {
+            throw new NullArgumentException("Array");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+
+        // Finds and returns max
+        float max = array[0];
+        for (int j = 1; j < array.length; j++) {
+            if (array[j] > max) {
+                max = array[j];
+            }
+        }
+
+        return max;
+    }
+     
+    // 3 param min
     //-----------------------------------------------------------------------
     /**
      * <p>Gets the minimum of three <code>long</code> values.</p>
@@ -538,6 +816,7 @@ public final class NumberUtils {
         return Math.min(Math.min(a, b), c);
     }
 
+    // 3 param max
     //-----------------------------------------------------------------------
     /**
      * <p>Gets the maximum of three <code>long</code> values.</p>
