@@ -75,7 +75,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: NumberUtilsTest.java,v 1.7 2003/08/18 02:22:27 bayard Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.8 2003/09/04 07:27:12 psteitz Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -121,6 +121,25 @@ public class NumberUtilsTest extends TestCase {
     public void testStringToIntStringI() {
         assertTrue("stringToInt(String,int) 1 failed", NumberUtils.stringToInt("12345", 5) == 12345);
         assertTrue("stringToInt(String,int) 2 failed", NumberUtils.stringToInt("1234.5", 5) == 5);
+    }
+
+    /**
+     * Test for float stringToFloat(String)
+     */
+    public void testStringToFloatString() {
+        assertTrue("stringToFloat(String) 1 failed", NumberUtils.stringToFloat("-1.2345") == -1.2345f);
+        assertTrue("stringToFloat(String) 2 failed", NumberUtils.stringToFloat("1.2345") == 1.2345f);
+        assertTrue("stringToFloat(String) 3 failed", NumberUtils.stringToFloat("abc") == 0.0f);
+        assertTrue("stringToFloat(empty) failed", NumberUtils.stringToFloat("") == 0.0f);
+        assertTrue("stringToFloat(null) failed", NumberUtils.stringToFloat(null) == 0.0f);
+    }
+
+    /**
+     * Test for float stringToFloat(String, float)
+     */
+    public void testStringToFloatStringF() {
+        assertTrue("stringToFloat(String,int) 1 failed", NumberUtils.stringToFloat("1.2345", 5.1f) == 1.2345f);
+        assertTrue("stringToFloat(String,int) 2 failed", NumberUtils.stringToFloat("a", 5.0f) == 5.0f);
     }
 
     public void testCreateNumber() {

@@ -69,8 +69,9 @@ import org.apache.commons.lang.StringUtils;
  * @author Phil Steitz
  * @author Matthew Hawthorne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.10 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: NumberUtils.java,v 1.11 2003/09/04 07:27:12 psteitz Exp $
  */
 public class NumberUtils {
     
@@ -152,6 +153,47 @@ public class NumberUtils {
         } catch (NumberFormatException nfe) {
             return defaultValue;
         }
+    }
+
+    /**
+     * <p>Convert a <code>String</code> to a <code>float</code>, returning
+     * <code>0.0f</code> if the conversion fails.</p>
+     *
+     * <p>If the string <code>str</code> is <code>null</code>,
+     * <code>0.0f</code> is returned.</p>
+     *
+     * @param str the string to convert, may be <code>null</code>
+     * @return the float represented by the string, or <code>0.0f</code>
+     *  if conversion fails
+     * @since 2.1
+     */
+    public static float stringToFloat(String str) {
+        return stringToFloat(str, 0.0f);
+    }
+
+    /**
+     * <p>Convert a <code>String</code> to a <code>float</code>, returning a
+     * default value if the conversion fails.</p>
+     *
+     * <p>If the string <code>str</code> is <code>null</code>, the default
+     * value is returned.</p>
+     *
+     * @param str the string to convert, may be <code>null</code>
+     * @param defaultValue the default value
+     * @return the float represented by the string, or defaultValue
+     *  if conversion fails
+     * @since 2.1
+     */
+    public static float stringToFloat(String str, float defaultValue) {
+      if(str==null) {
+          return defaultValue;
+      }
+      
+      try {
+          return Float.parseFloat(str);
+      } catch (NumberFormatException nfe) {
+          return defaultValue;
+      }
     }
 
     //-----------------------------------------------------------------------
