@@ -19,24 +19,26 @@ import java.util.Map;
 import java.util.ArrayList;
 
 /**
- * Provides the ability to substitute values from one or more maps into
- * designated places within a string.
+ * Substitutes values from one or more maps into designated places within a string.
  * <p>
  * For example:
+ * </p>
  * <pre>
  *   "User ${id} has uid ${uid} and path of env{path}"
  * </pre>
  * can be expanded using values from a map associated with "$" and a different
  * map associated with "env".
  * <p> 
- * This class is similar to the java.text.MessageFormat class, but allows
+ * This class is similar to the {@link java.text.MessageFormat} class, but allows
  * data to be retrieved from one or maps instead of from a single list.
  * Unlike the MessageFormat class, however, it simply uses the result of 
  * applying toString() to the referenced values in the map(s) and does not 
  * support any "format" operations applied to the objects before substitution 
  * into the target string.
- *
- * Originally org.apache.commons.digester.substitution.MultiVariableExpander
+ * </p>
+ * <p>
+ * Originally org.apache.commons.digester.substitution.MultiVariableExpander.
+ * </p>
  *
  * @since 2.1
  */
