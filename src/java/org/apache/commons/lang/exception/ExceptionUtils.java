@@ -77,7 +77,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Dmitri Plotnikov
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.20 2003/01/20 23:04:19 dlr Exp $
+ * @version $Id: ExceptionUtils.java,v 1.21 2003/03/18 05:10:48 bayard Exp $
  */
 public class ExceptionUtils {
     /**
@@ -452,6 +452,68 @@ public class ExceptionUtils {
         PrintWriter pw = new PrintWriter(sw, true);
         t.printStackTrace(pw);
         return sw.getBuffer().toString();
+    }
+
+    /**
+     * A way to get the entire nested stack-trace of an throwable.
+     *
+     * @param t The <code>Throwable</code>.
+     * @return The nested stack trace, with the root cause first.
+     */
+    public static String getFullStackTrace(Throwable t) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw, true);
+        Throwable[] ts = getThrowables(t);
+        for(int i=0; i<ts.length; i++) {
+            ts[i].printStackTrace(pw);
+            if(isNestedThrowable(ts[i])) {
+                break;
+            }
+        }
+        return sw.getBuffer().toString();
+    }
+
+    /**
+     * Whether an Throwable is considered nested or not.
+     *
+     * @param t The <code>Throwable</code>.
+     * @return boolean true/false
+     */
+    public static boolean isNestedThrowable(Throwable throwable) {
+        if(throwable == null) {
+            return false;
+        }
+
+        if (throwable instanceof Nestable) {
+            return true;
+        } else if (throwable instanceof SQLException) {
+            return true;
+        } else if (throwable instanceof InvocationTargetException) {
+            return true;
+        }
+
+        int sz = CAUSE_METHOD_NAMES.length;
+        for(int i=0; i<sz; i++) {
+            try {
+                Method method = throwable.getClass().getMethod(CAUSE_METHOD_NAMES[i], null);
+                if(method != null) {
+                    return true;
+                }
+            } catch (NoSuchMethodException ignored) {
+            } catch (SecurityException ignored) {
+            }
+        }
+
+        try {
+            Field field = throwable.getClass().getField("detail");
+            if(field != null) {
+                return true;
+            }
+        } catch (NoSuchFieldException ignored) {
+        } catch (SecurityException ignored) {
+        }
+
+        return false;
     }
 
     /**
