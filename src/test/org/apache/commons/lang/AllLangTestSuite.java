@@ -63,13 +63,12 @@ import org.apache.commons.lang.enum.EnumTestSuite;
 import org.apache.commons.lang.exception.ExceptionTestSuite;
 import org.apache.commons.lang.math.MathTestSuite;
 import org.apache.commons.lang.time.TimeTestSuite;
-import org.apache.commons.lang.util.UtilTestSuite;
 
 /**
  * Test suite for [lang].
  *
  * @author Stephen Colebourne
- * @version $Id: AllLangTestSuite.java,v 1.2 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: AllLangTestSuite.java,v 1.3 2003/08/19 02:38:56 bayard Exp $
  */
 public class AllLangTestSuite extends TestCase {
     
@@ -99,7 +98,6 @@ public class AllLangTestSuite extends TestCase {
         suite.addTest(ExceptionTestSuite.suite());
         suite.addTest(MathTestSuite.suite());
         suite.addTest(TimeTestSuite.suite());
-        suite.addTest(UtilTestSuite.suite());
         return suite;
     }
 }
