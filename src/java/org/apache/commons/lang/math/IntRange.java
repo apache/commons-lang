@@ -60,7 +60,7 @@ import java.io.Serializable;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: IntRange.java,v 1.4 2003/08/04 01:14:01 scolebourne Exp $
+ * @version $Id: IntRange.java,v 1.5 2003/08/06 00:02:15 stevencaswell Exp $
  */
 public final class IntRange extends Range implements Serializable {
     
@@ -76,7 +76,7 @@ public final class IntRange extends Range implements Serializable {
     private final int max;
     
     /**
-     * Cached output minObject (class is immutable)
+     * Cached output minObject (class is immutable).
      */
     private transient Integer minObject = null;
     /**

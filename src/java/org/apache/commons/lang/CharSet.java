@@ -69,22 +69,22 @@ import java.util.Set;
  * @author Stephen Colebourne
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: CharSet.java,v 1.12 2003/08/04 01:20:47 scolebourne Exp $
+ * @version $Id: CharSet.java,v 1.13 2003/08/06 00:02:15 stevencaswell Exp $
  */
 public class CharSet implements Serializable {
 
-    /** Serialization lock, Lang version 2.0 */
+    /** Serialization lock, Lang version 2.0. */
     private static final long serialVersionUID = 5947847346149275958L;
     
-    /** A CharSet defining no characters */
+    /** A CharSet defining no characters. */
     public static final CharSet EMPTY = new CharSet((String) null);
-    /** A CharSet defining ASCII alphabetic characters "a-zA-Z" */
+    /** A CharSet defining ASCII alphabetic characters "a-zA-Z". */
     public static final CharSet ASCII_ALPHA = new CharSet("a-zA-Z");
-    /** A CharSet defining ASCII alphabetic characters "a-z" */
+    /** A CharSet defining ASCII alphabetic characters "a-z". */
     public static final CharSet ASCII_ALPHA_LOWER = new CharSet("a-z");
-    /** A CharSet defining ASCII alphabetic characters "A-Z" */
+    /** A CharSet defining ASCII alphabetic characters "A-Z". */
     public static final CharSet ASCII_ALPHA_UPPER = new CharSet("A-Z");
-    /** A CharSet defining ASCII alphabetic characters "0-9" */
+    /** A CharSet defining ASCII alphabetic characters "0-9". */
     public static final CharSet ASCII_NUMERIC = new CharSet("0-9");
     
     /**
@@ -102,12 +102,12 @@ public class CharSet implements Serializable {
         COMMON.put("0-9", ASCII_NUMERIC);
     }
     
-    /** Shared range for the dash character */
+    /** Shared range for the dash character. */
     private static final CharRange DASH = new CharRange('-');
-    /** Shared range for the negate character */
+    /** Shared range for the negate character. */
     private static final CharRange NEGATE = new CharRange('^');
     
-    /** The set of CharRange objects */
+    /** The set of CharRange objects. */
     private Set set = new HashSet();
 
     //-----------------------------------------------------------------------

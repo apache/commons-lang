@@ -64,21 +64,21 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Chris Feldhacker
  * @since 1.0
- * @version $Id: CharRange.java,v 1.12 2003/08/04 01:20:47 scolebourne Exp $
+ * @version $Id: CharRange.java,v 1.13 2003/08/06 00:04:37 stevencaswell Exp $
  */
 public final class CharRange implements Serializable {
 
-    /** Serialization lock, Lang version 2.0 */
+    /** Serialization lock, Lang version 2.0. */
     private static final long serialVersionUID = 8270183163158333422L;
     
-    /** The first character, inclusive, in the range */
+    /** The first character, inclusive, in the range. */
     private final char start;
-    /** The last character, inclusive, in the range */
+    /** The last character, inclusive, in the range. */
     private final char end;
-    /** True if the range is everything except the characters specified */
+    /** True if the range is everything except the characters specified. */
     private final boolean negated;
     
-    /** Cached toString */
+    /** Cached toString. */
     private transient String iToString;
 
     //-----------------------------------------------------------------------
