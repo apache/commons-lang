@@ -85,13 +85,14 @@ public class ExceptionUtils
     
     /**
      * Introspects the specified <code>Throwable</code> for a
-     * <code>getCause()</code> method (standard as of JDK 1.4, and
-     * part of the {@link
+     * <code>getCause()</code> method which returns a
+     * <code>Throwable</code> object (standard as of JDK 1.4, and part
+     * of the {@link
      * org.apache.commons.lang.exception.NestableException} API),
      * extracting and returning the cause of the exception.
      * Otherwise, returns <code>null</code>.
-     * <p>
-     * TODO: Examine for a "detail" public member attribute from
+     *
+     * <p>TODO: Examine for a "detail" public member attribute from
      * java.rmi.RemoteException.
      *
      * @param t The exception to introspect for a cause.
