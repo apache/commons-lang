@@ -70,7 +70,7 @@ import java.io.PrintWriter;
  * the way.
  * <p> Running the following program
  * <p><blockquote><pre>
- *  1 import org.apache.commons.NestedException;
+ *  1 import org.apache.commons.lang.exception.NestableException;
  *  2
  *  3 public class Test {
  *  4     public static void main( String[] args ) {
@@ -85,7 +85,7 @@ import java.io.PrintWriter;
  * 13          try {
  * 14              b();
  * 15          } catch(Exception e) {
- * 16              throw new NestedException("foo", e);
+ * 16              throw new NestableException("foo", e);
  * 17          }
  * 18      }
  * 19
@@ -93,7 +93,7 @@ import java.io.PrintWriter;
  * 21          try {
  * 22              c();
  * 23          } catch(Exception e) {
- * 24              throw new NestedException("bar", e);
+ * 24              throw new NestableException("bar", e);
  * 25          }
  * 26      }
  * 27
@@ -104,15 +104,17 @@ import java.io.PrintWriter;
  * </pre></blockquote>
  * <p>Yields the following stacktrace:
  * <p><blockquote><pre>
- * java.lang.Exception: baz: bar: foo
- *    at Test.c(Test.java:29)
- *    at Test.b(Test.java:22)
- * rethrown as NestedException: bar
- *    at Test.b(Test.java:24)
- *    at Test.a(Test.java:14)
- * rethrown as NestedException: foo
- *    at Test.a(Test.java:16)
- *    at Test.main(Test.java:6)
+ * org.apache.commons.lang.exception.NestableException: foo
+ *         at Test.a(Test.java:16)
+ *         at Test.main(Test.java:6)
+ * Caused by: org.apache.commons.lang.exception.NestableException: bar
+ *         at Test.b(Test.java:24)
+ *         at Test.a(Test.java:14)
+ *         ... 1 more
+ * Caused by: java.lang.Exception: baz
+ *         at Test.c(Test.java:29)
+ *         at Test.b(Test.java:22)
+ *         ... 2 more
  * </pre></blockquote><br>
  *
  * @author <a href="mailto:Rafal.Krzewski@e-point.pl">Rafal Krzewski</a>
@@ -120,7 +122,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @since 1.0
- * @version $Id: NestableException.java,v 1.7 2003/03/23 17:47:51 scolebourne Exp $
+ * @version $Id: NestableException.java,v 1.8 2003/05/14 02:59:13 bayard Exp $
  */
 public class NestableException extends Exception implements Nestable {
     
@@ -183,8 +185,19 @@ public class NestableException extends Exception implements Nestable {
         return cause;
     }
 
+    /**
+     * Returns the detail message string of this throwable. If it was
+     * created with a null message, returns the following:
+     * (cause==null ? null : cause.toString()).
+     */
     public String getMessage() {
-        return delegate.getMessage(super.getMessage());
+        if (super.getMessage() != null) {
+            return super.getMessage();
+        } else if (cause != null) {
+            return cause.toString();
+        } else {
+            return null;
+        }
     }
 
     public String getMessage(int index) {

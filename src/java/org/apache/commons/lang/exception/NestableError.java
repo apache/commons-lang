@@ -62,7 +62,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @see org.apache.commons.lang.exception.NestableException
  * @since 1.0
- * @version $Id: NestableError.java,v 1.5 2003/03/23 17:47:51 scolebourne Exp $
+ * @version $Id: NestableError.java,v 1.6 2003/05/14 02:59:13 bayard Exp $
  */
 public class NestableError extends Error implements Nestable {
 
@@ -125,8 +125,19 @@ public class NestableError extends Error implements Nestable {
         return cause;
     }
 
+    /**
+     * Returns the detail message string of this throwable. If it was
+     * created with a null message, returns the following:
+     * (cause==null ? null : cause.toString()).
+     */
     public String getMessage() {
-        return delegate.getMessage(super.getMessage());
+        if (super.getMessage() != null) {
+            return super.getMessage();
+        } else if (cause != null) {
+            return cause.toString();
+        } else {
+            return null;
+        }
     }
 
     public String getMessage(int index) {

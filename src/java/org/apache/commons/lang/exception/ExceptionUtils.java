@@ -77,7 +77,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Dmitri Plotnikov
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.22 2003/03/23 17:47:51 scolebourne Exp $
+ * @version $Id: ExceptionUtils.java,v 1.23 2003/05/14 02:59:13 bayard Exp $
  */
 public class ExceptionUtils {
     /**
@@ -423,7 +423,7 @@ public class ExceptionUtils {
      * @param causeFrames   stack trace of a cause throwable
      * @param wrapperFrames stack trace of a wrapper throwable 
      */
-    private static void removeCommonFrames(List causeFrames, List wrapperFrames) {
+    public static void removeCommonFrames(List causeFrames, List wrapperFrames) {
         int causeFrameIndex = causeFrames.size() - 1;
         int wrapperFrameIndex = wrapperFrames.size() - 1;
         while (causeFrameIndex >= 0 && wrapperFrameIndex >= 0) {
@@ -571,5 +571,20 @@ public class ExceptionUtils {
             }
         }
         return list;
+    }
+    
+    private static Object getCauseMethod = null;
+    static {
+        try {
+            getCauseMethod = Throwable.class.getMethod("getCause", null);
+        } catch (Exception e) {
+            // ignore
+        }
+    }
+    /**
+     * Checks if the Throwable class has a <code>getCause</code> method.
+     */
+    public static boolean isThrowableNested() {
+        return (getCauseMethod != null);
     }
 }

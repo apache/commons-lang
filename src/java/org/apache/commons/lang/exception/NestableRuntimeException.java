@@ -66,7 +66,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @since 1.0
- * @version $Id: NestableRuntimeException.java,v 1.7 2003/03/23 17:47:51 scolebourne Exp $
+ * @version $Id: NestableRuntimeException.java,v 1.8 2003/05/14 02:59:13 bayard Exp $
  */
 public class NestableRuntimeException extends RuntimeException implements Nestable {
     
@@ -129,8 +129,19 @@ public class NestableRuntimeException extends RuntimeException implements Nestab
         return cause;
     }
 
+    /**
+     * Returns the detail message string of this throwable. If it was
+     * created with a null message, returns the following:
+     * (cause==null ? null : cause.toString()).
+     */
     public String getMessage() {
-        return delegate.getMessage(super.getMessage());
+        if (super.getMessage() != null) {
+            return super.getMessage();
+        } else if (cause != null) {
+            return cause.toString();
+        } else {
+            return null;
+        }
     }
 
     public String getMessage(int index) {

@@ -56,6 +56,7 @@ package org.apache.commons.lang.exception;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.*;
 
 /**
  * <code>NestableDelegate</code> is a shared implementation of the nestable
@@ -73,7 +74,7 @@ import java.io.StringWriter;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.12 2003/01/25 13:06:26 scolebourne Exp $
+ * @version $Id: NestableDelegate.java,v 1.13 2003/05/14 02:59:13 bayard Exp $
  */
 public class NestableDelegate implements java.io.Serializable {
 
@@ -90,6 +91,16 @@ public class NestableDelegate implements java.io.Serializable {
      * org.apache.commons.lang.exception.Nestable} implementation).
      */
     private Throwable nestable = null;
+    
+    /**
+     * Whether to print the stack trace top-down.
+     */
+    public static boolean topDown = true;
+    
+    /**
+     * Whether to trim the repeated stack trace.
+     */
+    public static boolean trimStackFrames = true;
 
     /**
      * Constructs a new <code>NestableDelegate</code> instance to manage the
@@ -266,30 +277,53 @@ public class NestableDelegate implements java.io.Serializable {
 
     /**
      * Prints the stack trace of this exception to the specified
-     * writer.
+     * writer. If the Throwable class has a <code>getCause</code>
+     * method (i.e. running on jre1.4 or higher), this method just 
+     * uses Throwable's printStackTrace() method. Otherwise, generates
+     * the stack-trace, by taking into account the 'topDown' and 
+     * 'trimStackFrames' parameters. The topDown and trimStackFrames 
+     * are set to 'true' by default (produces jre1.4-like stack trace).
      *
      * @param out <code>PrintWriter</code> to use for output.
      */
     public void printStackTrace(PrintWriter out) {
-        synchronized (out) {
-            String[] st = getStackFrames(this.nestable);
-            Throwable nestedCause = ExceptionUtils.getCause(this.nestable);
-            if (nestedCause != null) {
-                if (nestedCause instanceof Nestable) {
-                    // Recurse until a non-Nestable is encountered.
-                     ((Nestable) nestedCause).printStackTrace(out);
-                } else {
-                    String[] nst = getStackFrames(nestedCause);
-                    for (int i = 0; i < nst.length; i++) {
-                        out.println(nst[i]);
-                    }
-                }
-                out.print("rethrown as ");
+        Throwable throwable = this.nestable;
+        // if running on jre1.4 or higher, use default printStackTrace
+        if (ExceptionUtils.isThrowableNested()) {
+            if (throwable instanceof Nestable) {
+                ((Nestable)throwable).printPartialStackTrace(out);
+            } else {
+                throwable.printStackTrace(out);
             }
+            return;
+        }
 
-            // Output desired frames from stack trace.
-            for (int i = 0; i < st.length; i++) {
-                out.println(st[i]);
+        // generating the nested stack trace
+        List stacks = new ArrayList();
+        while (throwable != null) {
+            String[] st = getStackFrames(throwable);
+            stacks.add(st);
+            throwable = ExceptionUtils.getCause(throwable);
+        }
+
+        // If NOT topDown, reverse the stack
+        String separatorLine = "Caused by: ";
+        if (!topDown) {
+            separatorLine = "Rethrown as: ";
+            Collections.reverse(stacks);
+        }
+
+        // Remove the repeated lines in the stack
+        if (trimStackFrames) trimStackFrames(stacks);
+
+        synchronized (out) {
+            for (Iterator iter=stacks.iterator(); iter.hasNext();) {
+                String[] st = (String[]) iter.next();
+                for (int i=0, len=st.length; i < len; i++) {
+                    out.println(st[i]);
+                }
+                if (iter.hasNext())
+                    out.print(separatorLine);
             }
         }
     }
@@ -314,4 +348,31 @@ public class NestableDelegate implements java.io.Serializable {
         }
         return ExceptionUtils.getStackFrames(sw.getBuffer().toString());
     }
+    
+    /**
+     * Trims the stack frames. The first set is left untouched. The rest
+     * of the frames are truncated from the bottom by comparing with
+     * one just on top.
+     *
+     * @param stacks The list containing String[] elements
+     */
+     private void trimStackFrames(List stacks) {
+         for (int size=stacks.size(), i=size-1; i > 0; i--) {
+             String[] curr = (String[]) stacks.get(i);
+             String[] next = (String[]) stacks.get(i-1); 
+             
+             List currList = new ArrayList(Arrays.asList(curr));
+             List nextList = new ArrayList(Arrays.asList(next));
+             ExceptionUtils.removeCommonFrames(currList, nextList);
+
+             int trimmed = curr.length - currList.size();
+             if (trimmed > 0) {
+                 currList.add("\t... "+trimmed+" more");
+                 stacks.set(
+                     i, 
+                     (String[])currList.toArray(new String[currList.size()])
+                 );
+             }
+         }
+     }
 }
