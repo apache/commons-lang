@@ -65,7 +65,7 @@ import java.util.List;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.18 2003/07/31 23:47:20 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.19 2003/08/01 20:45:17 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -100,8 +100,8 @@ public class ClassUtils {
     public ClassUtils() {
     }
 
-    // -------------------------------------------------------------------------
-    
+    // Short class name
+    // ----------------------------------------------------------------------
     /**
      * <p>Gets the class name minus the package name for an <code>Object</code>.</p>
      * 
@@ -157,8 +157,8 @@ public class ClassUtils {
         return new String(chars, lastDot, chars.length - lastDot);
     }
     
-    // -------------------------------------------------------------------------
-    
+    // Package name
+    // ----------------------------------------------------------------------
     /**
      * <p>Gets the package name of an <code>Object</code>.</p>
      * 
@@ -209,8 +209,8 @@ public class ClassUtils {
         return className.substring(0, i);
     }
     
-    // -------------------------------------------------------------------------
-    
+    // Superclasses/Superinterfaces
+    // ----------------------------------------------------------------------
     /**
      * <p>Gets a <code>List</code> of superclasses for the given class.</p>
      * 
@@ -321,8 +321,8 @@ public class ClassUtils {
 //        return null;
 //    }
 
-    // -------------------------------------------------------------------------
-    
+    // Convert list
+    // ----------------------------------------------------------------------
     /**
      * <p>Given a <code>List</code> of class names, this method converts them into classes.</p>
      *
@@ -379,8 +379,8 @@ public class ClassUtils {
         return classNames;
     }
     
-    // -------------------------------------------------------------------------
-    
+    // Is assignable
+    // ----------------------------------------------------------------------
     /**
      * <p>Checks if an array of Classes can be assigned to another array of Classes.</p>
      *
@@ -514,6 +514,8 @@ public class ClassUtils {
         return toClass.isAssignableFrom(cls);
     }
     
+    // Inner class
+    // ----------------------------------------------------------------------
     /**
      * <p>Is the specified class an inner class or static nested class.</p>
      * 

@@ -66,7 +66,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.11 2003/07/31 23:55:57 scolebourne Exp $
+ * @version $Id: BooleanUtils.java,v 1.12 2003/08/01 20:45:17 scolebourne Exp $
  */
 public class BooleanUtils {
 
@@ -98,7 +98,7 @@ public class BooleanUtils {
     }
     
     // boolean Boolean methods
-    //--------------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     /**
      * <p>Boolean factory that avoids creating new Boolean objecs all the time.</p>
      * 
@@ -141,7 +141,7 @@ public class BooleanUtils {
     }
     
     // Integer to Boolean methods
-    //--------------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     /**
      * <p>Convert an int to a boolean using the convention that <code>zero</code>
      * is <code>false</code>.</p>
@@ -285,7 +285,7 @@ public class BooleanUtils {
     }
     
     // Boolean to Integer methods
-    //--------------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     /**
      * <p>Convert a boolean to an int using the convention that
      * <code>zero</code> is <code>false</code>.</p>
@@ -386,7 +386,7 @@ public class BooleanUtils {
     }
     
     // String to Boolean methods
-    //--------------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     /**
      * <p>Converts a String to a Boolean.</p>
      * 
@@ -452,7 +452,7 @@ public class BooleanUtils {
     }
 
     // String to boolean methods
-    //--------------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     /**
      * <p>Converts a String to a boolean.</p>
      * 
@@ -505,7 +505,7 @@ public class BooleanUtils {
     }
 
     // Boolean to String methods
-    //--------------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     /**
      * <p>Converts a Boolean to a String returning <code>'true'</code>,
      * <code>'false'</code>, or <code>null</code>.</p>
@@ -562,7 +562,7 @@ public class BooleanUtils {
     }
     
     // boolean to String methods
-    //--------------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     /**
      * <p>Converts a boolean to a String returning <code>'true'</code>
      * or <code>'false'</code>.</p>
@@ -614,7 +614,7 @@ public class BooleanUtils {
     }
     
     // xor methods
-    //  --------------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     /**
      * <p>Performs an xor on a set of booleans.</p>
      * 

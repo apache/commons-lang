@@ -81,7 +81,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Jeff Varszegi
  * @since 1.0
- * @version $Id: SerializationUtils.java,v 1.8 2003/07/31 23:45:28 scolebourne Exp $
+ * @version $Id: SerializationUtils.java,v 1.9 2003/08/01 20:45:17 scolebourne Exp $
  */
 public class SerializationUtils {
     
@@ -96,6 +96,8 @@ public class SerializationUtils {
         super();
     }
 
+    // Clone
+    //-----------------------------------------------------------------------
     /**
      * <p>Deep clone an <code>Object</code> using serialization.</p>
      *
@@ -113,6 +115,8 @@ public class SerializationUtils {
         return deserialize(serialize(object));
     }
     
+    // Serialize
+    //-----------------------------------------------------------------------
     /**
      * <p>Serializes an <code>Object</code> to the specified stream.</p>
      *
@@ -165,6 +169,8 @@ public class SerializationUtils {
         return baos.toByteArray();
     }
 
+    // Deserialize
+    //-----------------------------------------------------------------------
     /**
      * <p>Deserializes an <code>Object</code> from the specified stream.</p>
      *
