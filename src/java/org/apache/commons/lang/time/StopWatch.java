@@ -46,7 +46,7 @@ package org.apache.commons.lang.time;
  * @author Henri Yandell
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: StopWatch.java,v 1.10 2004/10/08 00:09:01 scolebourne Exp $
+ * @version $Id: StopWatch.java,v 1.11 2004/10/15 23:11:31 scolebourne Exp $
  */
 public class StopWatch {
 
@@ -244,7 +244,7 @@ public class StopWatch {
      * @return the time as a String
      */
     public String toString() {
-        return DurationFormatUtils.formatISO(getTime());
+        return DurationFormatUtils.formatDurationHMS(getTime());
     }
 
     /**
@@ -257,7 +257,7 @@ public class StopWatch {
      * @since 2.1
      */
     public String toSplitString() {
-        return DurationFormatUtils.formatISO(getSplitTime());
+        return DurationFormatUtils.formatDurationHMS(getSplitTime());
     }
 
 }
