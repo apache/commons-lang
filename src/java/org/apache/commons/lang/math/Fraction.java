@@ -64,8 +64,9 @@ import java.io.Serializable;
  *
  * @author Travis Reeder
  * @author Stephen Colebourne
+ * @author Tim O'Brien
  * @since 2.0
- * @version $Id: Fraction.java,v 1.5 2003/07/26 00:57:02 ggregory Exp $
+ * @version $Id: Fraction.java,v 1.6 2003/08/03 22:43:03 scolebourne Exp $
  */
 public final class Fraction extends Number implements Serializable, Comparable {
 
@@ -331,7 +332,7 @@ public final class Fraction extends Number implements Serializable, Comparable {
      * <p>Gets the numerator part of the fraction.</p>
      *
      * <p>This method may return a value greater than the denominator, an
-     * improper fraction, such as the seven in 7/8.</p>
+     * improper fraction, such as the seven in 7/4.</p>
      *
      * @return the numerator fraction part
      */
@@ -351,10 +352,10 @@ public final class Fraction extends Number implements Serializable, Comparable {
     /**
      * <p>Gets the proper numerator, always positive.</p>
      *
-     * <p>An improper fraction 7/8 can be resolved into a proper one, 1 3/4.
+     * <p>An improper fraction 7/4 can be resolved into a proper one, 1 3/4.
      * This method returns the 3 from the proper fraction.</p>
      *
-     * <p>If the fraction is negative such as -7/8, it can be resolved into
+     * <p>If the fraction is negative such as -7/4, it can be resolved into
      * -1 3/4, so this method returns the positive proper numerator, 3.</p>
      *
      * @return the numerator fraction part of a proper fraction, always positive
@@ -366,10 +367,10 @@ public final class Fraction extends Number implements Serializable, Comparable {
     /**
      * <p>Gets the proper whole part of the fraction.</p>
      *
-     * <p>An improper fraction 7/8 can be resolved into a proper one, 1 3/4.
+     * <p>An improper fraction 7/4 can be resolved into a proper one, 1 3/4.
      * This method returns the 1 from the proper fraction.</p>
      *
-     * <p>If the fraction is negative such as -7/8, it can be resolved into
+     * <p>If the fraction is negative such as -7/4, it can be resolved into
      * -1 3/4, so this method returns the positive whole part -1.</p>
      *
      * @return the whole fraction part of a proper fraction, that includes the sign
