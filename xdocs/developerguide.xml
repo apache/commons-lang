@@ -13,17 +13,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<html>
-<head>
-<title>Developers guide for Jakarta Commons "Lang" Package</title>
-<head>
-<body bgcolor="white">
+<document>
+<properties>
+<title>Developer guide for Jakarta Commons "Lang"</title>
+</properties>
+<body>
+
+
+<section name='Developers guide for Jakarta Commons "Lang"'>
 
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Package</h1>
 <h2>Developers Guide</h2>
-$Id: DEVELOPERS-GUIDE.html,v 1.8 2004/07/07 05:08:05 bayard Exp $<br />
+$Id: developerguide.xml,v 1.1 2004/09/05 21:48:08 bayard Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#PackageStructure">[Package Structure]</a>
 <a href="#UtilityClasses">[Utility Classes]</a>
@@ -124,7 +127,7 @@ NullPointerException. (Obviously, you should document what the code actually doe
 
 <h4>Deprecations</h4>
 <p>When deprecating a method or class include a clear reference to when the method will be deleted.
-This should be of the form 'Method will be removed in Commons Lang 3.0.'.
+This should be of the form 'Method will be removed in Commons Lang 3.0.'. </p>
 
 <h4>Language used in code/comments</h4>
 <p>It has been decided to casually standardize on US-English.
@@ -132,7 +135,6 @@ To avoid misplaced jeers of 'americanisation', the people making this decision l
 However, it's not something to get worked up about.
 Lots of spelling differences will creep in all over.</p>
 
+</section>
 </body>
-</html>
-
-
+</document>
