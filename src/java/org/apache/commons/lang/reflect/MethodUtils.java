@@ -60,12 +60,12 @@ import java.util.ArrayList;
 
 import org.apache.commons.lang.ArrayUtils;
 /**
- * <code>MethodUtils</code> contains utility methods for working for
- * methods by reflection.
- * <p>
- * The ability is provided to break the scoping restrictions coded by the
+ * <p><code>MethodUtils</code> contains utility methods for working for
+ * methods by reflection.</p>
+ *
+ * <p>The ability is provided to break the scoping restrictions coded by the
  * programmer. This can break an implementation if used incorrectly. This
- * facility should be used with care.
+ * facility should be used with care.</p>
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
  * @author Based on code from <code>BeanUtils</code> by: Craig R. McClanahan
@@ -76,20 +76,23 @@ import org.apache.commons.lang.ArrayUtils;
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
  * @author Gary Gregory
- * @version $Id: MethodUtils.java,v 1.11 2003/01/25 13:01:38 scolebourne Exp $
+ * @version $Id: MethodUtils.java,v 1.12 2003/07/14 22:29:04 bayard Exp $
  */
 public class MethodUtils {
     
     public static final boolean debug = false;
     
-    /** An empty method array */
+    /**
+     * An empty method array.
+     */
     public static final Method[] EMPTY_METHOD_ARRAY = new Method[0];
     
     /**
-     * MethodUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>MethodUtils.getMethod(cls, name)</code>.
+     * <p>MethodUtils instances should NOT be constructed in standard programming.</p>
+     *
+     * <p>Instead, the class should be used as <code>MethodUtils.getMethod(cls, name)</code>.
      * This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
+     * to operate.</p>
      */
     public MethodUtils() {
     }
@@ -97,13 +100,14 @@ public class MethodUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets a Method by name. The method must be public and take no parameters.
-     * Superclasses will be considered.
+     * <p>Gets a <code>Method</code> by name. The method must be public and take
+     * no parameters. Superclasses will be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param methodName  the field name to obtain
      * @return the Method object
-     * @throws IllegalArgumentException if the class or method name is null
+     * @throws IllegalArgumentException if the class or method name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Method getMethod(Class cls, String methodName) {
@@ -111,13 +115,14 @@ public class MethodUtils {
     }
     
     /**
-     * Gets a Method by name. The method must be public.
-     * Superclasses will be considered.
+     * <p>Gets a <code>Method</code> by name. The method must be public.
+     * Superclasses will be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param methodName  the field name to obtain
      * @return the Method object
-     * @throws IllegalArgumentException if the class or method name is null
+     * @throws IllegalArgumentException if the class or method name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Method getMethod(Class cls, String methodName, Class paramType) {
@@ -126,13 +131,14 @@ public class MethodUtils {
     }
     
     /**
-     * Gets a Method by name. The method must be public.
-     * Superclasses will be considered.
+     * <p>Gets a <code>Method</code> by name.</p> The method must be public.
+     * Superclasses will be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param methodName  the field name to obtain
      * @return the Method object
-     * @throws IllegalArgumentException if the class or method name is null
+     * @throws IllegalArgumentException if the class or method name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Method getMethod(Class cls, String methodName, Class[] paramTypes) {
@@ -140,15 +146,16 @@ public class MethodUtils {
     }
     
     /**
-     * Gets a Method by name.
-     * Superclasses will be considered.
+     * <p>Gets a <code>Method</code> by name. Superclasses will be considered.</p>
      *
-     * @param cls  the class to reflect, must not be null
+     * @param cls  the class to reflect, must not be <code>null</code>
      * @param methodName  the method name to obtain
      * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. False will only match public fields.
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
      * @return the Method object
-     * @throws IllegalArgumentException if the class or field name is null
+     * @throws IllegalArgumentException if the class or field name
+     *  is <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Method getMethod(Class cls, String methodName, Class[] paramTypes, boolean breakScope) {
@@ -215,8 +222,8 @@ public class MethodUtils {
 
     /**
      * <p>Return an accessible method (that is, one that can be invoked via
-     * reflection) that implements the specified Method.  If no such method
-     * can be found, return <code>null</code>.</p>
+     * reflection) that implements the specified <code>Method</code>. If
+     * no such method can be found, return <code>null</code>.</p>
      *
      * @param method The method that we wish to call
      */
@@ -270,12 +277,14 @@ public class MethodUtils {
      * {@link #invokeMethod(Object object,String methodName,Object [] args)}.
      * </p>
      *
-     * @param objectToInvoke  invoke method on this object, must not be null
-     * @param methodName  get method with this name, must not be null
-     * @param arg  use this argument, must not be null
-     *
+     * @param objectToInvoke  invoke method on this object, must
+     *  not be <code>null</code>
+     * @param methodName  get method with this name, must not
+     *  be <code>null</code>
+     * @param arg  use this argument, must not be <code>null</code>
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if any parameter is null
+     * @throws IllegalArgumentException if any parameter is
+     *  <code>null</code>
      */
     public static Object invokeMethod(
             Object objectToInvoke,
@@ -305,15 +314,18 @@ public class MethodUtils {
      * would match a <code>boolean</code> primitive.</p>
      *
      * <p> This is a convenient wrapper for
-     * {@link #invokeMethod(Object object,String methodName,Object [] args,Class[] parameterTypes)}.
+     * {@link #invokeMethod(Object object, String methodName, Object[] args, Class[] parameterTypes)}.
      * </p>
      *
-     * @param objectToInvoke  invoke method on this object, must not be null
-     * @param methodName  get method with this name, must not be null
-     * @param args  use these arguments - treat null as empty array
-     *
+     * @param objectToInvoke  invoke method on this object, must not
+     *  be <code>null</code>
+     * @param methodName  get method with this name, must not
+     *  be <code>null</code>
+     * @param args  use these arguments - treat <code>null</code>
+     *  as empty array
      * @throws ReflectionException if an error occurs during reflection
-     * @throws IllegalArgumentException if the objectToInvoke, methodName or any argument is null
+     * @throws IllegalArgumentException if the objectToInvoke, methodName
+     *  or any argument is <code>null</code>
      */
     public static Object invokeMethod(
             Object objectToInvoke,
@@ -354,8 +366,8 @@ public class MethodUtils {
      * @param object  invoke method on this object
      * @param methodName  get method with this name
      * @param args  use these arguments - treat null as empty array
-     * @param parameterTypes  match these parameters - treat null as empty array
-     *
+     * @param parameterTypes  match these parameters - treat
+     *  <code>null</code> as empty array
      * @throws ReflectionException if an error occurs during reflection
      */
     public static Object invokeMethod(

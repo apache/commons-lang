@@ -55,25 +55,25 @@ package org.apache.commons.lang.reflect;
 
 import org.apache.commons.lang.exception.NestableRuntimeException;
 /**
- * Exception thrown when the Reflection process fails. The original
- * error is wrapped within this one.
+ * <p>Exception thrown when the Reflection process fails. The original
+ * error is wrapped within this one.</p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ReflectionException.java,v 1.1 2002/10/24 23:12:54 scolebourne Exp $
+ * @version $Id: ReflectionException.java,v 1.2 2003/07/14 22:29:04 bayard Exp $
  */
 public class ReflectionException extends NestableRuntimeException {
 
     /**
-     * Constructs a new <code>ReflectionException</code> without specified
-     * detail message.
+     * <p>Constructs a new <code>ReflectionException</code> without specified
+     * detail message.</p>
      */
     public ReflectionException() {
         super();
     }
 
     /**
-     * Constructs a new <code>ReflectionException</code> with specified
-     * detail message.
+     * <p>Constructs a new <code>ReflectionException</code> with specified
+     * detail message.</p>
      *
      * @param msg  The error message.
      */
@@ -82,23 +82,23 @@ public class ReflectionException extends NestableRuntimeException {
     }
 
     /**
-     * Constructs a new <code>ReflectionException</code> with specified
-     * nested <code>Throwable</code>.
+     * <p>Constructs a new <code>ReflectionException</code> with specified
+     * nested <code>Throwable</code>.</p>
      *
      * @param cause  The exception or error that caused this exception
-     *               to be thrown.
+     *  to be thrown.
      */
     public ReflectionException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * Constructs a new <code>ReflectionException</code> with specified
-     * detail message and nested <code>Throwable</code>.
+     * <p>Constructs a new <code>ReflectionException</code> with specified
+     * detail message and nested <code>Throwable</code>.</p>
      *
-     * @param msg    The error message.
+     * @param msg  The error message.
      * @param cause  The exception or error that caused this exception
-     *               to be thrown.
+     *  to be thrown.
      */
     public ReflectionException(String msg, Throwable cause) {
         super(msg, cause);
