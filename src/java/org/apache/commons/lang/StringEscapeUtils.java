@@ -75,12 +75,12 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Helge Tesgaard
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.3 2003/04/02 06:14:46 alex Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.4 2003/04/09 00:07:49 ggregory Exp $
  */
 public class StringEscapeUtils {
 
     /**
-     * <p><code>StringEscapeUtils<code> instances should NOT be constructed in
+     * <p><code>StringEscapeUtils</code> instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * <code>StringEscapeUtils.escapeJava("foo");</code>.</p>
      *
@@ -496,8 +496,8 @@ public class StringEscapeUtils {
     }
 
     /**
-     * Turns funky characters into HTML entity equivalents<p>
-     * e.g. <tt>"bread" & "butter"</tt> => <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
+     * <p>Turns funky characters into HTML entity equivalents.</p>
+     * For example: <tt>"bread" & "butter"</tt> => <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
      * Supports all known HTML entities, including funky accents. See the source code for more detail.
      * see http://hotwired.lycos.com/webmonkey/reference/special_characters/
      * @see #unescapeHtml(String)

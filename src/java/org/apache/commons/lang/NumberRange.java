@@ -63,7 +63,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Revision: 1.6 $ $Date: 2003/03/23 18:00:59 $
+ * @version $Revision: 1.7 $ $Date: 2003/04/09 00:07:50 $
  * 
  * @deprecated Use one of the Range classes in org.apache.commons.lang.math
  */
@@ -189,7 +189,7 @@ public final class NumberRange {
 
     /**
      * <p>Indicates whether some other <code>Object</code> is "equal" to
-     * this one</p>.
+     * this one.</p>
      *
      * @param obj the reference object with which to compare
      * @return <code>true</code> if this object is the same as the obj
