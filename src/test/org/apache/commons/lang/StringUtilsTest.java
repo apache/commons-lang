@@ -69,7 +69,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.16 2003/03/23 21:51:19 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.17 2003/03/29 16:17:21 alex Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -153,7 +153,7 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testJoin() {
-        assertEquals("concatenate(Object[]) failed", 
+        assertEquals("concatenate(Object[]) failed",
                      TEXT_LIST_NOSEP, StringUtils.concatenate(ARRAY_LIST));
         assertEquals("join(Object[], String) failed", TEXT_LIST,
                      StringUtils.join(ARRAY_LIST, SEPARATOR));
@@ -173,7 +173,7 @@ public class StringUtilsTest extends TestCase {
                      StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(),
                                       null));
 
-        assertEquals("concatenate(Object[]) failed", 
+        assertEquals("concatenate(Object[]) failed",
                      "", StringUtils.concatenate(EMPTY_ARRAY_LIST));
         assertEquals("join(Object[], String) failed", "",
                      StringUtils.join(EMPTY_ARRAY_LIST, SEPARATOR));
@@ -268,10 +268,7 @@ public class StringUtilsTest extends TestCase {
                      "   "+FOO+"   ", StringUtils.center(FOO, 9) );
     }
 
-    public void testChompFunctions() {
-        assertEquals("chomp(String) failed",
-                     FOO, StringUtils.chomp(FOO + "\n" + FOO) );
-
+    public void testDeprecatedChompFunctions() {
         assertEquals("chompLast(String) failed",
                      FOO, StringUtils.chompLast(FOO + "\n") );
 
@@ -284,11 +281,88 @@ public class StringUtilsTest extends TestCase {
         assertEquals("getPrechomp(String, String) failed",
                      FOO + "\n", StringUtils.getPrechomp(FOO + "\n" + FOO, "\n") );
 
-        assertEquals("chop(String, String) failed",
-                     FOO, StringUtils.chop(FOO + "\r\n") );
-
         assertEquals("chopNewline(String, String) failed",
                      FOO, StringUtils.chopNewline(FOO + "\r\n") );
+    }
+
+    public void testChop() {
+
+        String[][] chopCases = {
+            { FOO + "\r\n", FOO } ,
+            { FOO + "\n" , FOO } ,
+            { FOO + "\r", FOO },
+            { "foo", "fo"},
+            { "foo\nfoo", "foo\nfo" },
+            { "\n", "" },
+            { "\r", "" },
+            { "\r\n", "" },
+        };
+        for (int i = 0; i < chopCases.length; i++) {
+            String original = chopCases[i][0];
+            String expectedResult = chopCases[i][1];
+            assertEquals("chop(String) failed",
+                    expectedResult, StringUtils.chop(original));
+        }
+    }
+
+    public void testChomp() {
+
+        String[][] chompCases = {
+            { FOO + "\r\n", FOO } ,
+            { FOO + "\n" , FOO } ,
+            { FOO + "\r", FOO },
+            { FOO, FOO },
+            { FOO + "\n\n", FOO + "\n"},
+            { "foo\nfoo", "foo\nfoo" },
+            { "\n", "" },
+            { "\r", "" },
+            { "\r\n", "" },
+        };
+        for (int i = 0; i < chompCases.length; i++) {
+            String original = chompCases[i][0];
+            String expectedResult = chompCases[i][1];
+            assertEquals("chomp(String) failed",
+                    expectedResult, StringUtils.chomp(original));
+        }
+
+        assertEquals("chomp(String, String) failed",
+                "foo", StringUtils.chomp("foobar", "bar"));
+        assertEquals("chomp(String, String) failed",
+                "foobar", StringUtils.chomp("foobar", "baz"));
+        assertEquals("chomp(String, String) failed",
+                "foo", StringUtils.chomp("foo", "foooo"));
+    }
+
+    public void testSliceFunctions() {
+
+        String[][] sliceCases = {
+            {"foo\n", "foo"},
+            {"foo\nbar", "foo"},
+            {"foo\nbar\n", "foo\nbar"},
+            {"foo\nbar\nbaz", "foo\nbar"},
+        };
+        for (int i = 0; i < sliceCases.length; i++) {
+            String original = sliceCases[i][0];
+            String expectedResult = sliceCases[i][1];
+            assertEquals("slice(String) failed",
+                    expectedResult, StringUtils.slice(original));
+        }
+
+        String original = "fooXXbarXXbaz";
+        String sep = "XX";
+
+        assertEquals("slice(String,String) failed",
+                     "fooXXbar", StringUtils.slice(original, sep) );
+
+        assertEquals("sliceRemainder(String, String) failed",
+                     "baz", StringUtils.sliceRemainder(original, sep) );
+
+        assertEquals("sliceFirst(String, String) failed",
+                     "foo", StringUtils.sliceFirst(original, sep) );
+
+        assertEquals("sliceFirstRemainder(String, String) failed",
+                     "barXXbaz", StringUtils.sliceFirstRemainder(original, sep) );
+
     }
 
     public void testPadFunctions() {
@@ -317,13 +391,13 @@ public class StringUtilsTest extends TestCase {
         assertEquals("reverse(empty-string) failed",
                      "", StringUtils.reverse("") );
         assertEquals("reverseDelimitedString(String,'.') failed",
-                     "org.apache.test", 
+                     "org.apache.test",
                        StringUtils.reverseDelimitedString("test.apache.org", ".") );
         assertEquals("reverseDelimitedString(empty-string,'.') failed",
-                     "", 
+                     "",
                        StringUtils.reverseDelimitedString("", ".") );
         assertEquals("reverseDelimitedString(String,' ') failed",
-                     "once upon a time", 
+                     "once upon a time",
                        StringUtils.reverseDelimitedString("time a upon once"," ") );
     }
 
@@ -359,13 +433,13 @@ public class StringUtilsTest extends TestCase {
                      "\\u0234", StringUtils.escape("\u0234") );
         assertEquals("escape(String) failed",
                      "\\u00fd", StringUtils.escape("\u00fd") );
-        assertEquals("unescape(String) failed", 
+        assertEquals("unescape(String) failed",
                      "", StringUtils.unescape("") );
-        assertEquals("unescape(String) failed", 
+        assertEquals("unescape(String) failed",
                      "test", StringUtils.unescape("test") );
-        assertEquals("unescape(String) failed", 
+        assertEquals("unescape(String) failed",
                      "\ntest\b", StringUtils.unescape("\\ntest\\b") );
-        assertEquals("unescape(String) failed", 
+        assertEquals("unescape(String) failed",
                      "\u123425foo\ntest\b", StringUtils.unescape("\\u123425foo\\ntest\\b") );
     }
 
