@@ -111,7 +111,7 @@ import java.util.List;
  * @author Al Chou
  * @author Michael Davey
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.129 2004/03/10 23:54:48 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.130 2004/05/24 20:15:44 fredrik Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -4032,8 +4032,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Returns either the passed in String,
-     * or if the String is <code>null</code>, an empty String ("").</p>
+     * <p>Returns either the passed in String, or if the String is
+     * <code>null</code>, the value of <code>defaultStr</code>.</p>
      *
      * <pre>
      * StringUtils.defaultString(null, "null")  = "null"
