@@ -15,6 +15,8 @@
  */
 package org.apache.commons.lang.builder;
 
+import java.util.Arrays;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -27,7 +29,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Maarten Coene
- * @version $Id: EqualsBuilderTest.java,v 1.11 2004/08/26 05:46:45 ggregory Exp $
+ * @version $Id: EqualsBuilderTest.java,v 1.12 2005/01/16 19:34:34 ggregory Exp $
  */
 public class EqualsBuilderTest extends TestCase {
 
@@ -110,7 +112,7 @@ public class EqualsBuilderTest extends TestCase {
             return b;
         }
     }
-
+    
     static class TestEmptySubObject extends TestObject {
         public TestEmptySubObject(int a) {
             super(a);
@@ -873,5 +875,74 @@ public class EqualsBuilderTest extends TestCase {
         array1[1] = true;
         assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
     }
+    
+    public static class TestACanEqualB {
+        private int a;
 
+        public TestACanEqualB(int a) {
+            this.a = a;
+        }
+
+        public boolean equals(Object o) {
+            if (o == this)
+                return true;
+            if (o instanceof TestACanEqualB)
+                return this.a == ((TestACanEqualB) o).getA();
+            if (o instanceof TestBCanEqualA)
+                return this.a == ((TestBCanEqualA) o).getB();
+            return false;
+        }
+
+        public int getA() {
+            return this.a;
+        }
+    }
+
+    public static class TestBCanEqualA {
+        private int b;
+
+        public TestBCanEqualA(int b) {
+            this.b = b;
+        }
+
+        public boolean equals(Object o) {
+            if (o == this)
+                return true;
+            if (o instanceof TestACanEqualB)
+                return this.b == ((TestACanEqualB) o).getA();
+            if (o instanceof TestBCanEqualA)
+                return this.b == ((TestBCanEqualA) o).getB();
+            return false;
+        }
+
+        public int getB() {
+            return this.b;
+        }
+    }
+    
+    /**
+     * Tests two instances of classes that can be equal and that are not "related". The two classes are not subclasses
+     * of each other and do not share a parent aside from Object.
+     * See http://issues.apache.org/bugzilla/show_bug.cgi?id=33069
+     */
+    public void testUnrelatedClasses() {
+        Object[] x = new Object[]{new TestACanEqualB(1)};
+        Object[] y = new Object[]{new TestBCanEqualA(1)};
+
+        // sanity checks:
+        assertTrue(Arrays.equals(x, x));
+        assertTrue(Arrays.equals(y, y));
+        assertTrue(Arrays.equals(x, y));
+        assertTrue(Arrays.equals(y, x));
+        // real tests:
+        assertTrue(x[0].equals(x[0]));
+        assertTrue(y[0].equals(y[0]));
+        assertTrue(x[0].equals(y[0]));
+        assertTrue(y[0].equals(x[0]));
+        assertTrue(new EqualsBuilder().append(x, x).isEquals());
+        assertTrue(new EqualsBuilder().append(y, y).isEquals());
+        assertTrue(new EqualsBuilder().append(x, y).isEquals());
+        assertTrue(new EqualsBuilder().append(y, x).isEquals());
+    }
+    
 }
