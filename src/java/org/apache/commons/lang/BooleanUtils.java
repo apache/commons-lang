@@ -28,7 +28,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Matthew Hawthorne
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.18 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: BooleanUtils.java,v 1.19 2004/10/08 21:27:00 scolebourne Exp $
  */
 public class BooleanUtils {
 
@@ -67,6 +67,46 @@ public class BooleanUtils {
     
     // boolean Boolean methods
     //-----------------------------------------------------------------------
+    /**
+     * <p>Is a Boolean value <code>true</code>, handling <code>null</code>.</p>
+     *
+     * <pre>
+     *   BooleanUtils.isTrue(Boolean.TRUE)  = true
+     *   BooleanUtils.isTrue(Boolean.FALSE) = false
+     *   BooleanUtils.isTrue(null)          = false
+     * </pre>
+     *
+     * @param bool  the boolean to convert
+     * @return <code>true</code> only if the input is non-null and true
+     * @since 2.1
+     */
+    public static boolean isTrue(Boolean bool) {
+        if (bool == null) {
+            return false;
+        }
+        return (bool.booleanValue() ? true : false);
+    }
+
+    /**
+     * <p>Is a Boolean value <code>false</code>, handling <code>null</code>.</p>
+     *
+     * <pre>
+     *   BooleanUtils.isFalse(Boolean.TRUE)  = false
+     *   BooleanUtils.isFalse(Boolean.FALSE) = true
+     *   BooleanUtils.isFalse(null)          = false
+     * </pre>
+     *
+     * @param bool  the boolean to convert
+     * @return <code>true</code> only if the input is non-null and false
+     * @since 2.1
+     */
+    public static boolean isFalse(Boolean bool) {
+        if (bool == null) {
+            return false;
+        }
+        return (bool.booleanValue() ? false : true);
+    }
+
     /**
      * <p>Boolean factory that avoids creating new Boolean objecs all the time.</p>
      * 
