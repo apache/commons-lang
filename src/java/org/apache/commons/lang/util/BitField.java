@@ -62,7 +62,8 @@ package org.apache.commons.lang.util;
  * @author Marc Johnson (mjohnson at apache dot org)
  * @author Andrew C. Oliver (acoliver at apache dot org)
  * @author Stephen Colebourne
- * @version $Id: BitField.java,v 1.2 2002/12/18 23:28:19 scolebourne Exp $
+ * @since 2.0
+ * @version $Id: BitField.java,v 1.3 2002/12/29 22:06:21 scolebourne Exp $
  */
 public class BitField {
     

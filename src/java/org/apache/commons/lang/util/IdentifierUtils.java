@@ -67,7 +67,8 @@ import org.apache.commons.lang.functor.FactoryException;
  * {@link org.apache.commons.lang.functor.Factory Factory} interface</p>
  *
  * @author Stephen Colebourne
- * @version $Id: IdentifierUtils.java,v 1.1 2002/12/29 21:35:04 scolebourne Exp $
+ * @since 2.0
+ * @version $Id: IdentifierUtils.java,v 1.2 2002/12/29 22:06:21 scolebourne Exp $
  */
 public class IdentifierUtils {
 
