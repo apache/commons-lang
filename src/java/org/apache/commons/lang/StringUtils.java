@@ -57,8 +57,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.math.NumberUtils;
-
 /**
  * <p>Common <code>String</code> manipulation routines that are 
  * <code>null</code> safe.</p>
@@ -98,7 +96,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.70 2003/07/20 00:37:09 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.71 2003/07/20 10:29:22 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -123,18 +121,15 @@ public class StringUtils {
     private static int PAD_LIMIT = 8192;
 
     /**
-     * <p>A <code>String</code> containing all space characters (' ').</p>
-     *
-     * <p>Used for efficient space padding.  The length of the String expands as needed.</p>
-     */
-    private static String spaces = new String(" ");
-
-    /**
      * <p>An array of <code>String</code>s used for padding.</p>
      *
      * <p>Used for efficient space padding. The length of each String expands as needed.</p>
      */
     private final static String[] padding = new String[Character.MAX_VALUE];
+    
+    static {
+        padding[32] = "                                ";
+    }
 
     /**
      * <p><code>StringUtils<code> instances should NOT be constructed in
@@ -2393,27 +2388,6 @@ public class StringUtils {
     }
 
     /**
-     * <p>Returns a String containing the requested number of 
-     * space characters (' ').</p>
-     * 
-     * <pre>
-     * StringUtils.padding(0)  = ""
-     * StringUtils.padding(3)  = "   "
-     * StringUtils.padding(-2) = IndexOutOfBoundsException
-     * </pre>
-     *
-     * @param repeat  number of times to repeat space
-     * @return a String with <code>repeat</code> spaces
-     * @throws IndexOutOfBoundsException if <code>repeat &lt; 0</code>
-     */
-    private static String padding(int repeat) {
-        while (spaces.length() < repeat)  {
-            spaces = spaces.concat(spaces);
-        }
-        return spaces.substring(0, repeat);
-    }
-
-    /**
      * <p>Returns padding using the specified delimiter repeated
      * to a given length.</p>
      *
@@ -2457,17 +2431,7 @@ public class StringUtils {
      *  <code>null</code> if null String input
      */
     public static String rightPad(String str, int size) {
-        if (str == null) {
-            return null;
-        }
-        int pads = size - str.length();
-        if (pads <= 0) {
-            return str; // returns original String when possible
-        }
-        if (pads > PAD_LIMIT) {
-            return rightPad(str, size, ' ');
-        }
-        return str.concat(padding(pads));
+        return rightPad(str, size, ' ');
     }
 
     /**
@@ -2517,7 +2481,7 @@ public class StringUtils {
      * StringUtils.rightPad("bat", -1, "yz") = "bat"
      * StringUtils.rightPad("bat", 1, null)  = IllegalArgumentException
      * StringUtils.rightPad("bat", 1, "")    = IllegalArgumentException
-     * StringUtils.rightPad(null, 1, "")     = IllegalArgumentException
+     * StringUtils.rightPad(null, 1, "")     = null
      * </pre>
      *
      * @param str  the String to pad out, may be null
@@ -2528,12 +2492,12 @@ public class StringUtils {
      * @throws IllegalArgumentException if padStr is the empty String or null
      */
     public static String rightPad(String str, int size, String padStr) {
+        if (str == null) {
+            return null;
+        }
         int padLen;
         if (padStr == null || (padLen = padStr.length()) == 0) {
             throw new IllegalArgumentException("Pad String must not be null or empty");
-        }
-        if (str == null) {
-            return null;
         }
         int strLen = str.length();
         int pads = size - strLen;
@@ -2577,17 +2541,7 @@ public class StringUtils {
      *  <code>null</code> if null String input
      */
     public static String leftPad(String str, int size) {
-        if (str == null) {
-            return null;
-        }
-        int pads = size - str.length();
-        if (pads <= 0) { 
-            return str; // returns original String when possible
-        }
-        if (pads > PAD_LIMIT) {
-            return leftPad(str, size, ' ');
-        }
-        return padding(pads).concat(str);
+        return leftPad(str, size, ' ');        
     }
 
     /**
@@ -2637,7 +2591,7 @@ public class StringUtils {
      * StringUtils.leftPad("bat", -1, "yz") = "bat"
      * StringUtils.leftPad("bat", 1, null)  = IllegalArgumentException
      * StringUtils.leftPad("bat", 1, "")    = IllegalArgumentException
-     * StringUtils.leftPad(null, 1, "")     = IllegalArgumentException
+     * StringUtils.leftPad(null, 1, "")     = null
      * </pre>
      *
      * @param str  the String to pad out, may be null
@@ -2648,12 +2602,12 @@ public class StringUtils {
      * @throws IllegalArgumentException if padStr is the empty String or null
      */
     public static String leftPad(String str, int size, String padStr) {
+        if (str == null) {
+            return null;
+        }
         int padLen;
         if (padStr == null || (padLen = padStr.length()) == 0) {
             throw new IllegalArgumentException("Pad String must not be null or empty");
-        }
-        if (str == null) {
-            return null;
         }
         int strLen = str.length();
         int pads = size - strLen;
@@ -2706,6 +2660,34 @@ public class StringUtils {
      * @return centered String, <code>null</code> if null String input
      */
     public static String center(String str, int size) {
+        return center(str, size, ' ');
+    }
+
+    /**
+     * <p>Centers a String in a larger String of size <code>size</code>.
+     * Uses a supplied character as the value to pad the String with.</p>
+     *
+     * <p>If the size is less than the String length, the String is returned.
+     * A <code>null</code> String returns <code>null</code>.
+     * A negative size is treated as zero.</p>
+     *
+     * <pre>
+     * StringUtils.center(null, -1, ' ')  = null
+     * StringUtils.center("ab", -1, ' ')  = "ab"
+     * StringUtils.center(null, 4, ' ')   = null
+     * StringUtils.center("", 4, ' ')     = "    "
+     * StringUtils.center("ab", 4, ' ')   = " ab"
+     * StringUtils.center("abcd", 2, ' ') = "abcd"
+     * StringUtils.center("a", 4, ' ')    = " a  "
+     * StringUtils.center("a", 4, 'y')    = "yayy"
+     * </pre>
+     * 
+     * @param str  the String to center, may be null
+     * @param size  the int size of new String, negative treated as zero
+     * @param padChar  the character to pad the new String with
+     * @return centered String, <code>null</code> if null String input
+     */
+    public static String center(String str, int size, char padChar) {
         if (str == null || size <= 0) {
             return str;
         }
@@ -2714,15 +2696,14 @@ public class StringUtils {
         if (pads <= 0) {
             return str;
         }
-        str = leftPad(str, strLen + pads / 2, ' ');
-        str = rightPad(str, size, ' ');
+        str = leftPad(str, strLen + pads / 2, padChar);
+        str = rightPad(str, size, padChar);
         return str;
     }
 
     /**
-     * <p>Centers a String in a larger String of size <code>size</code>.</p>
-     *
-     * <p>Uses a supplied String as the value to pad the String with.</p>
+     * <p>Centers a String in a larger String of size <code>size</code>.
+     * Uses a supplied String as the value to pad the String with.</p>
      *
      * <p>If the size is less than the String length, the String is returned.
      * A <code>null</code> String returns <code>null</code>.
@@ -2734,12 +2715,12 @@ public class StringUtils {
      * StringUtils.center(null, 4, " ")   = null
      * StringUtils.center("", 4, " ")     = "    "
      * StringUtils.center("ab", 4, " ")   = " ab"
-     * StringUtils.center("abcd", 2, " ") = " abcd"
+     * StringUtils.center("abcd", 2, " ") = "abcd"
      * StringUtils.center("a", 4, " ")    = " a  "
-     * StringUtils.center("a", 4, "yz")    = "yayz"
+     * StringUtils.center("a", 4, "yz")   = "yayz"
      * StringUtils.center("abc", 4, null) = IllegalArgumentException
      * StringUtils.center("abc", 4, "")   = IllegalArgumentException
-     * StringUtils.center(null, 4, "")    = IllegalArgumentException
+     * StringUtils.center(null, 4, "")    = null
      * </pre>
      * 
      * @param str  the String to center, may be null
@@ -2749,11 +2730,11 @@ public class StringUtils {
      * @throws IllegalArgumentException if padStr is <code>null</code> or empty
      */
     public static String center(String str, int size, String padStr) {
-        if (padStr == null || padStr.length() == 0) {
-            throw new IllegalArgumentException("Pad String must not be null or empty");
-        }
         if (str == null || size <= 0) {
             return str;
+        }
+        if (padStr == null || padStr.length() == 0) {
+            throw new IllegalArgumentException("Pad String must not be null or empty");
         }
         int strLen = str.length();
         int pads = size - strLen;
@@ -3494,6 +3475,17 @@ public class StringUtils {
      * <p>For example,
      * <code>difference("i am a machine", "i am a robot") -> "robot"</code>.</p>
      *
+     * <pre>
+     * StringUtils.difference(null, null) = null
+     * StringUtils.difference("", "") = ""
+     * StringUtils.difference("", "abc") = "abc"
+     * StringUtils.difference("abc", "") = ""
+     * StringUtils.difference("abc", "abc") = ""
+     * StringUtils.difference("ab", "abxyz") = "xyz"
+     * StringUtils.difference("abcde", "abxyz") = "xyz"
+     * StringUtils.difference("abcde", "xyz") = "xyz"
+     * </pre>
+     *
      * @param str1  the first String, may be null
      * @param str2  the second String, may be null
      * @return the portion of str2 where it differs from str1; returns the 
@@ -3519,6 +3511,17 @@ public class StringUtils {
      * 
      * <p>For example, 
      * <code>differenceAt("i am a machine", "i am a robot") -> 7</code></p>
+     *
+     * <pre>
+     * StringUtils.differenceAt(null, null) = -1
+     * StringUtils.differenceAt("", "") = -1
+     * StringUtils.differenceAt("", "abc") = 0
+     * StringUtils.differenceAt("abc", "") = 0
+     * StringUtils.differenceAt("abc", "abc") = -1
+     * StringUtils.differenceAt("ab", "abxyz") = 2
+     * StringUtils.differenceAt("abcde", "abxyz") = 2
+     * StringUtils.differenceAt("abcde", "xyz") = 0
+     * </pre>
      *
      * @param str1  the first String, may be null
      * @param str2  the second String, may be null
@@ -3610,12 +3613,31 @@ public class StringUtils {
                 }
 
                 // Step 6
-                d[i][j] = NumberUtils.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
+                d[i][j] = min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
             }
         }
 
         // Step 7
         return d[n][m];
+    }
+
+    /**
+     * <p>Gets the minimum of three <code>int</code> values.</p>
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    private static int min(int a, int b, int c) {
+        // Method copied from NumberUtils to avoid dependency on subpackage
+        if (b < a) {
+            a = b;
+        }
+        if (c < a) {
+            a = c;
+        }
+        return a;
     }
 
 }
