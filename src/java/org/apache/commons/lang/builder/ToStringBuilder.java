@@ -69,7 +69,7 @@ import java.lang.reflect.Modifier;
  * </ul>
  * <p>
  * To use this class write code as follows:
- * <code>
+ * <pre>
  * public class Person {
  *   String name;
  *   int age;
@@ -85,15 +85,29 @@ import java.lang.reflect.Modifier;
  *       toString();
  *   }
  * }
- * </code>
+ * </pre>
  * This will produce a toString of the format:
  * <code>Person@7f54[name=Stephen,age=29,smoker=false]</code>
+ * <p>
+ * Alternatively, there is a method that uses reflection to determine
+ * the fields to test. Because these fields are usually private, the method, 
+ * <code>reflectionToString</code>, uses <code>Field.setAccessible</code> to change
+ * the visibility of the fields. This will fail under a security manager, 
+ * unless the appropriate permissions are set. It is also slower than testing 
+ * explicitly.
+ * <p>
+ * A typical invocation for this method would look like:
+ * <pre>
+ * public String toString() {
+ *   return ToStringBuilder.reflectionToString(this);
+ * }
+ * </pre>
  * <p>
  * The exact format of the toString is determined by the {@link ToStringStyle}
  * passed into the constructor.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilder.java,v 1.5 2002/09/29 08:26:05 bayard Exp $
+ * @version $Id: ToStringBuilder.java,v 1.6 2002/10/01 20:03:04 stevencaswell Exp $
  */
 public class ToStringBuilder {
     
