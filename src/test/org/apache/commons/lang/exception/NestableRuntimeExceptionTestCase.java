@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableRuntimeException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.1 2002/07/19 03:35:56 bayard Exp $
+ * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.2 2002/07/26 20:30:58 stevencaswell Exp $
  */
 public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
 {
@@ -125,8 +125,36 @@ public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
             ne6.getCause()); 
     }
     
+    public void testGetThrowableCount()
+    {
+        NestableRuntimeException ne1 = new NestableRuntimeException();
+        assertEquals("ne1 throwable count", 1, ne1.getThrowableCount());
+
+        NestableRuntimeException ne2 = new NestableRuntimeException("ne2");
+        assertEquals("ne2 throwable count", 1, ne2.getThrowableCount());
+        
+        NestableRuntimeException ne3 = new NestableRuntimeException(new Exception("ne3 exception"));
+        assertEquals("ne3 throwable count", 2, ne3.getThrowableCount());
+        
+        NestableRuntimeException ne4 = new NestableRuntimeException("ne4", new Exception("ne4 exception"));
+        assertEquals("ne4 throwable count", 2, ne4.getThrowableCount());
+        
+        NestableRuntimeException ne5 = new NestableRuntimeException("ne5", null);
+        assertEquals("ne 5 throwable count", 1, ne5.getThrowableCount());
+        
+        NestableRuntimeException ne6 = new NestableRuntimeException(null, new Exception("ne6 exception"));
+        assertEquals("ne 6 throwable count", 2, ne6.getThrowableCount());
+        
+        NestableRuntimeException ne7 = new NestableRuntimeException("ne7o", new NestableRuntimeException("ne7i", new Exception("ne7 exception")));
+        assertEquals("ne 7 throwable count", 3, ne7.getThrowableCount());
+
+        NestableRuntimeException ne8 = new NestableRuntimeException("level 1", new NestableRuntimeException("level 2", new NestableRuntimeException(new NestableRuntimeException("level 4", new Exception("level 5")))));
+        assertEquals("ne 8 throwable count", 5, ne8.getThrowableCount());
+    }
+    
     public void testGetLength()
     {
+        // test the deprecated method
         NestableRuntimeException ne1 = new NestableRuntimeException();
         assertEquals("ne1 length", 1, ne1.getLength());
 
@@ -151,7 +179,7 @@ public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
         NestableRuntimeException ne8 = new NestableRuntimeException("level 1", new NestableRuntimeException("level 2", new NestableRuntimeException(new NestableRuntimeException("level 4", new Exception("level 5")))));
         assertEquals("ne 8 length", 5, ne8.getLength());
     }
-    
+
     public void testGetMessage()
     {
         NestableRuntimeException ne1 = new NestableRuntimeException();
@@ -188,7 +216,7 @@ public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
             ne7.getMessage().equals("ne7o: ne7i: ne7 exception")); 
     }
     
-    public void testGetMessageN()
+    public void testGetMessageI()
     {
         String[] msgs = new String[5];
         msgs[0] = "level 1";
@@ -201,8 +229,24 @@ public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
         {
             assertEquals("message " + i, msgs[i], ne.getMessage(i));
         }
-        assertEquals("message -1", msgs[0], ne.getMessage(-1));
-        assertEquals("message 999", msgs[4], ne.getMessage(999));
+        
+        // Test for index out of bounds
+        try
+        {
+            String msg = ne.getMessage(-1);
+            fail("getMessage(-1) should have thrown IndexOutOfBoundsException");
+        }
+        catch(IndexOutOfBoundsException ioode)
+        {
+        }
+        try
+        {
+            String msg = ne.getMessage(msgs.length + 100);
+            fail("getMessage(999) should have thrown IndexOutOfBoundsException");
+        }
+        catch(IndexOutOfBoundsException ioode)
+        {
+        }
     }
     
     public void testGetMessages()
@@ -222,7 +266,7 @@ public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
         }
     }
 
-    public void testGetThrowable()
+    public void testGetThrowableI()
     {
         Nestable n = null;
         String msgs[] = null;
@@ -235,7 +279,7 @@ public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
         throwables[0] = NestableRuntimeExceptionTester1.class;
         throwables[1] = Exception.class;
         n = new NestableRuntimeExceptionTester1(new Exception(msgs[1]));
-        doNestableRuntimeExceptionGetThrowable(n, throwables, msgs);
+        doNestableRuntimeExceptionGetThrowableI(n, throwables, msgs);
  
         msgs = new String[5];
         msgs[0] = "level 1";
@@ -250,10 +294,10 @@ public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
         throwables[3] = NestableRuntimeExceptionTester2.class;
         throwables[4] = Exception.class;        
         n = new NestableRuntimeExceptionTester1(msgs[0], new NestableRuntimeExceptionTester2(msgs[1], new NestableRuntimeExceptionTester1(new NestableRuntimeExceptionTester2(msgs[3], new Exception(msgs[4])))));
-        doNestableRuntimeExceptionGetThrowable(n, throwables, msgs);
+        doNestableRuntimeExceptionGetThrowableI(n, throwables, msgs);
     }
     
-    private void doNestableRuntimeExceptionGetThrowable(Nestable n, Class[] classes, String[] msgs)
+    private void doNestableRuntimeExceptionGetThrowableI(Nestable n, Class[] classes, String[] msgs)
     {
         Throwable t = null;
         String msg = null;
@@ -272,28 +316,24 @@ public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
             }
             assertEquals("throwable message", msgs[i], msg);
         }
-        t = n.getThrowable(-1);
-        assertEquals("throwable(-1)", classes[0], t.getClass());
-        if(Nestable.class.isInstance(t))
+        
+        // Test for index out of bounds
+        try
         {
-            msg = ((Nestable) t).getMessage(0);
+            t = n.getThrowable(-1);
+            fail("getThrowable(-1) should have thrown IndexOutOfBoundsException");
         }
-        else
+        catch(IndexOutOfBoundsException ioobe)
         {
-            msg = t.getMessage();
         }
-        assertEquals("throwable message", msgs[0], msg);
-        t = n.getThrowable(999);
-        assertEquals("throwable(999)", classes[classes.length - 1], t.getClass());
-        if(Nestable.class.isInstance(t))
+        try
         {
-            msg = ((Nestable) t).getMessage(0);
+            t = n.getThrowable(999);
+            fail("getThrowable(999) should have thrown IndexOutOfBoundsException");
         }
-        else
+        catch(IndexOutOfBoundsException ioobe)
         {
-            msg = t.getMessage();
         }
-        assertEquals("throwable message", msgs[msgs.length - 1], msg);
     }
     
     public void testGetThrowables()
@@ -382,9 +422,9 @@ public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
         
         int index = n.indexOfThrowable(type);
         assertEquals("index of throwable " + type.getName(), expectedIndex, index);
-        t = n.getThrowable(index);
         if(expectedMsg != null)
         {
+            t = n.getThrowable(index);
             String msg = null;
             if(Nestable.class.isInstance(t))
             {
@@ -398,7 +438,7 @@ public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
         }
     }
     
-    public void testIndexOfThrowableN()
+    public void testIndexOfThrowableI()
     {
         Nestable n = null;
         String msgs[] = null;
@@ -420,32 +460,81 @@ public class NestableRuntimeExceptionTestCase extends junit.framework.TestCase
         n = new NestableRuntimeExceptionTester1(msgs[0], new NestableRuntimeExceptionTester2(msgs[1], new NestableRuntimeExceptionTester1(new NestableRuntimeExceptionTester2(msgs[3], new Exception(msgs[4])))));
         for(int i = 0; i < throwables.length; i++)
         {
-            doNestableRuntimeExceptionIndexOfThrowableN(n, throwables[i], 0, indexes[i], msgs[indexes[i]]);
+            doNestableRuntimeExceptionIndexOfThrowableI(n, throwables[i], 0, indexes[i], msgs[indexes[i]]);
         }
-        doNestableRuntimeExceptionIndexOfThrowableN(n, NestableRuntimeExceptionTester2.class, 2, 3, msgs[3]);
-        doNestableRuntimeExceptionIndexOfThrowableN(n, NestableRuntimeExceptionTester1.class, 1, 2, msgs[2]);
-        doNestableRuntimeExceptionIndexOfThrowableN(n, java.util.Date.class, 0, -1, null);
+        doNestableRuntimeExceptionIndexOfThrowableI(n, NestableRuntimeExceptionTester2.class, 2, 3, msgs[3]);
+        doNestableRuntimeExceptionIndexOfThrowableI(n, NestableRuntimeExceptionTester1.class, 1, 2, msgs[2]);
+        doNestableRuntimeExceptionIndexOfThrowableI(n, NestableRuntimeExceptionTester1.class, 3, -1, null);
+        doNestableRuntimeExceptionIndexOfThrowableI(n, NestableRuntimeExceptionTester1.class, 4, -1, null);
+        doNestableRuntimeExceptionIndexOfThrowableI(n, java.util.Date.class, 0, -1, null);
+        
+        try
+        {
+            int index = n.indexOfThrowable(NestableRuntimeExceptionTester1.class, -1);
+            fail("method should have thrown IndexOutOfBoundsException");
+        }
+        catch(IndexOutOfBoundsException iooob)
+        {
+        }
+        try
+        {
+            int index = n.indexOfThrowable(NestableRuntimeExceptionTester1.class, 5);
+            fail("method should have thrown IndexOutOfBoundsException");
+        }
+        catch(IndexOutOfBoundsException iooob)
+        {
+        }
+        
+        // test the deprecated method
+        int index = n.indexOfThrowable(-1, NestableRuntimeExceptionTester1.class);
+        assertEquals("deprecated method index", 0, index);
+        index = n.indexOfThrowable(999, Exception.class);
+        assertEquals("deprecated method index", 4, index);
     }
 
-    private void doNestableRuntimeExceptionIndexOfThrowableN(Nestable n, Class type, int pos, int expectedIndex, String expectedMsg)
+    private void doNestableRuntimeExceptionIndexOfThrowableI(Nestable n, Class type, int fromIndex, int expectedIndex, String expectedMsg)
     {
         Throwable t = null;
         
-        int index = n.indexOfThrowable(pos, type);
+        int index = n.indexOfThrowable(type, fromIndex);
         assertEquals("index of throwable " + type.getName(), expectedIndex, index);
-        t = n.getThrowable(index);
-        if(expectedMsg != null)
+        if(expectedIndex > -1)
         {
-            String msg = null;
-            if(Nestable.class.isInstance(t))
+            t = n.getThrowable(index);
+            if(expectedMsg != null)
             {
-                msg = ((Nestable) t).getMessage(0);
+                String msg = null;
+                if(Nestable.class.isInstance(t))
+                {
+                    msg = ((Nestable) t).getMessage(0);
+                }
+                else
+                {
+                    msg = t.getMessage();
+                }
+                assertEquals("message of indexed throwable", expectedMsg, msg);
             }
-            else
+        }
+        
+        // test the deprecated method
+        int index1 = n.indexOfThrowable(fromIndex, type);
+        assertEquals("index of throwable " + type.getName(), expectedIndex, index);
+        if(expectedIndex > -1)
+        {
+            t = n.getThrowable(index);
+            if(expectedMsg != null)
             {
-                msg = t.getMessage();
+                String msg = null;
+                if(Nestable.class.isInstance(t))
+                {
+                    msg = ((Nestable) t).getMessage(0);
+                }
+                else
+                {
+                    msg = t.getMessage();
+                }
+                assertEquals("message of indexed throwable", expectedMsg, msg);
             }
-            assertEquals("message of indexed throwable", expectedMsg, msg);
         }
     }
     
