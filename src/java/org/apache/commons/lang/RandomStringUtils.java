@@ -65,7 +65,7 @@ import java.util.Random;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.14 2003/07/08 05:59:58 bayard Exp $
+ * @version $Id: RandomStringUtils.java,v 1.15 2003/07/08 22:06:35 scolebourne Exp $
  */
 public class RandomStringUtils {
 
@@ -198,8 +198,8 @@ public class RandomStringUtils {
      * <p>Creates a random string based on a variety of options, using
      * default source of randomness.</p>
      *
-     * <p>This method has exactly the same semantics as {@link
-     * #random(int,int,int,boolean,boolean,char[],Random)}, but
+     * <p>This method has exactly the same semantics as
+     * {@link #random(int,int,int,boolean,boolean,char[],Random)}, but
      * instead of using an externally supplied source of randomness, it uses
      * the internal static {@link Random} instance ({@link #RANDOM}).</p>
      *
