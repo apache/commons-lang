@@ -295,7 +295,7 @@ public class MethodUtilsTestCase extends TestCase {
             // should get here!
             fail("No exception thrown when no appropriate method exists");
             
-        } catch (NoSuchMethodException e) {
+        } catch (ReflectionException e) {
             // this is what we're expecting!
         }
         
