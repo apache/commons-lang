@@ -64,7 +64,8 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: EqualsBuilderTest.java,v 1.7 2003/08/18 02:22:26 bayard Exp $
+ * @author Maarten Coene
+ * @version $Id: EqualsBuilderTest.java,v 1.8 2004/02/11 20:08:49 ggregory Exp $
  */
 public class EqualsBuilderTest extends TestCase {
 
@@ -418,17 +419,27 @@ public class EqualsBuilderTest extends TestCase {
     }
 
     public void testObjectArray() {
-        TestObject[] obj1 = new TestObject[2];
+        TestObject[] obj1 = new TestObject[3];
         obj1[0] = new TestObject(4);
         obj1[1] = new TestObject(5);
-        TestObject[] obj2 = new TestObject[2];
+        obj1[2] = null;
+        TestObject[] obj2 = new TestObject[3];
         obj2[0] = new TestObject(4);
         obj2[1] = new TestObject(5);
+        obj2[2] = null;
+        
         assertTrue(new EqualsBuilder().append(obj1, obj1).isEquals());
+        assertTrue(new EqualsBuilder().append(obj2, obj2).isEquals());
         assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1[1].setA(6);
         assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
-
+        obj1[1].setA(5);
+        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+        obj1[2] = obj1[1];
+        assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
+        obj1[2] = null;
+        assertTrue(new EqualsBuilder().append(obj1, obj2).isEquals());
+                       
         obj2 = null;
         assertTrue(!new EqualsBuilder().append(obj1, obj2).isEquals());
         obj1 = null;

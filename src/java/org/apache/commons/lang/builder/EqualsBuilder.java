@@ -110,8 +110,9 @@ import java.lang.reflect.Modifier;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @author Pete Gieser
+ * @author Arun Mammen Thomas
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.22 2003/12/26 22:04:49 ggregory Exp $
+ * @version $Id: EqualsBuilder.java,v 1.23 2004/02/11 20:08:49 ggregory Exp $
  */
 public class EqualsBuilder {
     /**
@@ -510,11 +511,6 @@ public class EqualsBuilder {
             return this;
         }
         for (int i = 0; i < lhs.length && isEquals; ++i) {
-            Class lhsClass = lhs[i].getClass();
-            if (!lhsClass.isInstance(rhs[i])) {
-                isEquals = false; //If the types don't match, not equal
-                break;
-            }
             append(lhs[i], rhs[i]);
         }
         return this;
