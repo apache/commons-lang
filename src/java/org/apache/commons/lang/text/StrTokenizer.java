@@ -73,7 +73,7 @@ import java.util.ListIterator;
  * @author Stephen Colebourne
  * @author Gary D. Gregory
  * @since 2.1
- * @version $Id: StrTokenizer.java,v 1.6 2004/12/25 21:02:20 bayard Exp $
+ * @version $Id$
  */
 public class StrTokenizer implements ListIterator, Cloneable {
 
@@ -839,20 +839,20 @@ public class StrTokenizer implements ListIterator, Cloneable {
 
         /* Trim string based on the trimmer matcher */
         while (trimmer.isMatch(chars, 1, start) > 0) {
-			start++;
-		}
+            start++;
+        }
 
-		int length = Math.min(pos, len) - start;
+        int length = Math.min(pos, len) - start;
 
         while (trimmer.isMatch(chars, 1, start + length - 1) > 0) {
-			length--;
-		}
+            length--;
+        }
 
         for (int i=0;i<length;i++) {
-			if (ignored.isMatch(chars, 1, start + i) == 0) {
-				token.append(chars[start + i]);
-			}
-		}
+            if (ignored.isMatch(chars, 1, start + i) == 0) {
+                token.append(chars[start + i]);
+            }
+        }
 
 
         return pos + delimLen;

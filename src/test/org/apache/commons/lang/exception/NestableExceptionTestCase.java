@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableExceptionTestCase.java,v 1.12 2004/10/09 10:45:24 scolebourne Exp $
+ * @version $Id$
  */
 public class NestableExceptionTestCase extends AbstractNestableTestCase {
     
@@ -252,61 +252,61 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     public void testSerialization()
-    	throws java.io.IOException, ClassNotFoundException
+        throws java.io.IOException, ClassNotFoundException
     {
-    	RuntimeException nestedEx = new RuntimeException("nested exception message");
-    	NestableExceptionTester1 ex = new NestableExceptionTester1("serialization test", nestedEx);
+        RuntimeException nestedEx = new RuntimeException("nested exception message");
+        NestableExceptionTester1 ex = new NestableExceptionTester1("serialization test", nestedEx);
 
-		assertTrue( "implements java.io.Serializable", nestedEx instanceof java.io.Serializable);
-		
-		assertTrue( "implements java.io.Serializable", ex instanceof java.io.Serializable);
-		
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ByteArrayInputStream bais = null;
-		ObjectOutputStream oos = null;
-		ObjectInputStream ois = null;
+        assertTrue( "implements java.io.Serializable", nestedEx instanceof java.io.Serializable);
+        
+        assertTrue( "implements java.io.Serializable", ex instanceof java.io.Serializable);
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayInputStream bais = null;
+        ObjectOutputStream oos = null;
+        ObjectInputStream ois = null;
 
-		try
-		{		
-			oos = new ObjectOutputStream(baos);
-			oos.writeObject(ex);
-			oos.flush();
-			bais = new ByteArrayInputStream(baos.toByteArray());
-			ois = new ObjectInputStream(bais);
-			NestableExceptionTester1 deserializedEx = (NestableExceptionTester1) ois.readObject();
-			assertEquals( 
-					"getThrowableCount() return value",
-						ex.getThrowableCount(),
-						deserializedEx.getThrowableCount());
-			
-			for (int i = 0; i < ex.getThrowableCount(); i++)
-			{
-				Throwable t = ex.getThrowable(i);
-				Throwable deserializedThrowable = deserializedEx.getThrowable(i);
-				
-				assertEquals( t.getClass(),
-						deserializedThrowable.getClass());
-						
-				assertEquals(
-					t.getMessage(),
-					deserializedThrowable.getMessage());
-			}
-		}
-		finally
-		{
-			if (null != oos)
-			{
-				try
-				{
-					oos.close();
-				}
-				catch (Exception ignored)
-				{
-					// intentionally empty
-				}
-			}
-		}
-		
+        try
+        {        
+            oos = new ObjectOutputStream(baos);
+            oos.writeObject(ex);
+            oos.flush();
+            bais = new ByteArrayInputStream(baos.toByteArray());
+            ois = new ObjectInputStream(bais);
+            NestableExceptionTester1 deserializedEx = (NestableExceptionTester1) ois.readObject();
+            assertEquals( 
+                    "getThrowableCount() return value",
+                        ex.getThrowableCount(),
+                        deserializedEx.getThrowableCount());
+            
+            for (int i = 0; i < ex.getThrowableCount(); i++)
+            {
+                Throwable t = ex.getThrowable(i);
+                Throwable deserializedThrowable = deserializedEx.getThrowable(i);
+                
+                assertEquals( t.getClass(),
+                        deserializedThrowable.getClass());
+                        
+                assertEquals(
+                    t.getMessage(),
+                    deserializedThrowable.getMessage());
+            }
+        }
+        finally
+        {
+            if (null != oos)
+            {
+                try
+                {
+                    oos.close();
+                }
+                catch (Exception ignored)
+                {
+                    // intentionally empty
+                }
+            }
+        }
+        
     }
 }
 

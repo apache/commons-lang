@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:alex@apache.org">Alex Chaffee</a>
- * @version $Id: ToStringBuilderTest.java,v 1.16 2004/07/26 21:39:21 ggregory Exp $
+ * @version $Id$
  */
 public class ToStringBuilderTest extends TestCase {
 
@@ -355,15 +355,15 @@ public class ToStringBuilderTest extends TestCase {
         this.validateEmptyReflectionRegistry();
     }
 
-	static class ReflectionTestFixtureA {
-		private char a='a';
+    static class ReflectionTestFixtureA {
+        private char a='a';
         private transient char transientA='t';
-	}
+    }
 
-	static class ReflectionTestFixtureB extends ReflectionTestFixtureA {
-		private char b='b';
+    static class ReflectionTestFixtureB extends ReflectionTestFixtureA {
+        private char b='b';
         private transient char transientB='t';
-	}
+    }
 
     public void testInnerClassReflection() {
         Outer outer = new Outer();

@@ -28,7 +28,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
- * @version $Id: BooleanUtilsTest.java,v 1.10 2004/10/08 21:27:00 scolebourne Exp $
+ * @version $Id$
  */
 public class BooleanUtilsTest extends TestCase {
 
@@ -41,8 +41,8 @@ public class BooleanUtilsTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(BooleanUtilsTest.class);
-    	suite.setName("BooleanUtils Tests");
+        TestSuite suite = new TestSuite(BooleanUtilsTest.class);
+        suite.setName("BooleanUtils Tests");
         return suite;
     }
 

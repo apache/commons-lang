@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
  * @author Scott Sanders
  * @author Marc Johnson
  * @author Glen Stampoultzis
- * @version $Id: BitFieldTest.java,v 1.4 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  */
 public class BitFieldTest extends TestCase {
 
@@ -35,8 +35,8 @@ public class BitFieldTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(BitFieldTest.class);
-    	suite.setName("BitField Tests");
+        TestSuite suite = new TestSuite(BitFieldTest.class);
+        suite.setName("BitField Tests");
         return suite;
     }
 

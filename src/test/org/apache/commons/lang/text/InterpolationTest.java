@@ -28,7 +28,7 @@ import java.util.HashMap;
  *
  * @author Henri Yandell
  * @author Ken Fitzpatrick
- * @version $Id: InterpolationTest.java,v 1.1 2004/09/05 00:56:31 bayard Exp $
+ * @version $Id$
  */
 public class InterpolationTest extends TestCase {
 
@@ -45,8 +45,8 @@ public class InterpolationTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(InterpolationTest.class);
-    	suite.setName("Interpolation Tests");
+        TestSuite suite = new TestSuite(InterpolationTest.class);
+        suite.setName("Interpolation Tests");
         return suite;
     }
 

@@ -45,8 +45,8 @@ public class ClassUtilsTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(ClassUtilsTest.class);
-    	suite.setName("ClassUtils Tests");
+        TestSuite suite = new TestSuite(ClassUtilsTest.class);
+        suite.setName("ClassUtils Tests");
         return suite;
     }
 
@@ -390,12 +390,12 @@ public class ClassUtilsTest extends TestCase {
     }
 
     public static ClassLoader newSystemClassLoader() throws  SecurityException, IllegalArgumentException {
-    	ClassLoader scl = ClassLoader.getSystemClassLoader();
-    	if (!(scl instanceof URLClassLoader)) {
-    		fail("Need a better test set up.");
-    	}
-    	URLClassLoader urlScl = (URLClassLoader)scl;
-    	return URLClassLoader.newInstance(urlScl.getURLs(), null);
+        ClassLoader scl = ClassLoader.getSystemClassLoader();
+        if (!(scl instanceof URLClassLoader)) {
+            fail("Need a better test set up.");
+        }
+        URLClassLoader urlScl = (URLClassLoader)scl;
+        return URLClassLoader.newInstance(urlScl.getURLs(), null);
     }
 
 }

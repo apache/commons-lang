@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsSubstringTest.java,v 1.14 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  */
 public class StringUtilsSubstringTest extends TestCase {
     private static final String FOO = "foo";
@@ -44,8 +44,8 @@ public class StringUtilsSubstringTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(StringUtilsSubstringTest.class);
-    	suite.setName("StringUtilsSubstring Tests");
+        TestSuite suite = new TestSuite(StringUtilsSubstringTest.class);
+        suite.setName("StringUtilsSubstring Tests");
         return suite;
     }
 

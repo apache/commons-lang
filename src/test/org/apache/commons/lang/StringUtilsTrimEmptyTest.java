@@ -25,7 +25,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTrimEmptyTest.java,v 1.17 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  */
 public class StringUtilsTrimEmptyTest extends TestCase {
     private static final String FOO = "foo";
@@ -39,8 +39,8 @@ public class StringUtilsTrimEmptyTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(StringUtilsTrimEmptyTest.class);
-    	suite.setName("StringUtilsTrimEmpty Tests");
+        TestSuite suite = new TestSuite(StringUtilsTrimEmptyTest.class);
+        suite.setName("StringUtilsTrimEmpty Tests");
         return suite;
     }
 

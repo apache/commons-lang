@@ -33,8 +33,8 @@ public class StopWatchTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(StopWatchTest.class);
-    	suite.setName("StopWatch Tests");
+        TestSuite suite = new TestSuite(StopWatchTest.class);
+        suite.setName("StopWatch Tests");
         return suite;
     }
 

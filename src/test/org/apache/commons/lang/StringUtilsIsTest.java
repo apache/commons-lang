@@ -25,7 +25,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author Michael Davey
- * @version $Id: StringUtilsIsTest.java,v 1.9 2004/02/24 22:31:43 fredrik Exp $
+ * @version $Id$
  */
 public class StringUtilsIsTest extends TestCase {
 
@@ -38,8 +38,8 @@ public class StringUtilsIsTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(StringUtilsIsTest.class);
-    	suite.setName("StringUtilsIsXxx Tests");
+        TestSuite suite = new TestSuite(StringUtilsIsTest.class);
+        suite.setName("StringUtilsIsXxx Tests");
         return suite;
     }
 

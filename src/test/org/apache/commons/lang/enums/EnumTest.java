@@ -35,7 +35,7 @@ import org.apache.commons.lang.SerializationUtils;
  *
  * @author Stephen Colebourne
  * @author Gary D. Gregory
- * @version $Id: EnumTest.java,v 1.1 2004/02/23 04:34:20 ggregory Exp $
+ * @version $Id$
  */
 
 public final class EnumTest extends TestCase {
@@ -105,7 +105,7 @@ public final class EnumTest extends TestCase {
         assertNotNull(list);
         
         assertEquals( list.size(),
-        				ColorEnum.getEnumMap().keySet().size());
+                        ColorEnum.getEnumMap().keySet().size());
         
         Iterator it = list.iterator();
         assertSame(ColorEnum.RED, it.next());
