@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:jmcnally@collab.net">John McNally</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: ObjectUtilsTest.java,v 1.2 2002/09/18 19:49:47 scolebourne Exp $
+ * @version $Id: ObjectUtilsTest.java,v 1.3 2002/09/18 20:12:15 scolebourne Exp $
  */
 public class ObjectUtilsTest extends TestCase {
     private static final String FOO = "foo";
@@ -119,4 +119,11 @@ public class ObjectUtilsTest extends TestCase {
             ObjectUtils.identityToString(i));
         assertEquals(null, ObjectUtils.identityToString(null));
     }
+
+    public void testNull() {
+        assertTrue(ObjectUtils.NULL != null);
+        assertTrue(ObjectUtils.NULL instanceof ObjectUtils.Null);
+        assertSame(ObjectUtils.NULL, SerializationUtils.clone(ObjectUtils.NULL));
+    }
+   
 }
