@@ -112,6 +112,8 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEquals("2 minutes 1 second", text);
         text = DurationFormatUtils.formatWords(72*60*1000, true, false);
         assertEquals("1 hour 12 minutes 0 seconds", text);
+        text = DurationFormatUtils.formatWords(24*60*60*1000, true, false);
+        assertEquals("1 day 0 hours 0 minutes 0 seconds", text);
         
         text = DurationFormatUtils.formatWords(50*1000, true, true);
         assertEquals("50 seconds", text);
@@ -123,6 +125,8 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEquals("2 minutes 1 second", text);
         text = DurationFormatUtils.formatWords(72*60*1000, true, true);
         assertEquals("1 hour 12 minutes", text);
+        text = DurationFormatUtils.formatWords(24*60*60*1000, true, true);
+        assertEquals("1 day", text);
         
         text = DurationFormatUtils.formatWords(50*1000, false, true);
         assertEquals("0 days 0 hours 0 minutes 50 seconds", text);
@@ -134,6 +138,8 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEquals("0 days 0 hours 2 minutes 1 second", text);
         text = DurationFormatUtils.formatWords(72*60*1000, false, true);
         assertEquals("0 days 1 hour 12 minutes", text);
+        text = DurationFormatUtils.formatWords(24*60*60*1000, false, true);
+        assertEquals("1 day", text);
         
         text = DurationFormatUtils.formatWords(50*1000, false, false);
         assertEquals("0 days 0 hours 0 minutes 50 seconds", text);
@@ -145,6 +151,8 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEquals("0 days 0 hours 2 minutes 1 second", text);
         text = DurationFormatUtils.formatWords(72*60*1000, false, false);
         assertEquals("0 days 1 hour 12 minutes 0 seconds", text);
+        text = DurationFormatUtils.formatWords(48*60*60*1000 + 72*60*1000 , false, false);
+        assertEquals("2 days 1 hour 12 minutes 0 seconds", text);
     }
 
     public void testFormatISOStyle(){
