@@ -69,30 +69,52 @@ import java.util.Set;
  * @author Stephen Colebourne
  * @author Phil Steitz
  * @author Pete Gieser
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: CharSet.java,v 1.17 2003/08/19 00:11:20 scolebourne Exp $
+ * @version $Id: CharSet.java,v 1.18 2003/08/21 05:25:34 ggregory Exp $
  */
 public class CharSet implements Serializable {
 
     /** Serialization lock, Lang version 2.0. */
     private static final long serialVersionUID = 5947847346149275958L;
 
-    /** A CharSet defining no characters. */
+    /** 
+     * A CharSet defining no characters. 
+     * @since 2.0
+     */
     public static final CharSet EMPTY = new CharSet((String) null);
-    /** A CharSet defining ASCII alphabetic characters "a-zA-Z". */
+
+    /** 
+     * A CharSet defining ASCII alphabetic characters "a-zA-Z".
+     * @since 2.0
+     */
     public static final CharSet ASCII_ALPHA = new CharSet("a-zA-Z");
-    /** A CharSet defining ASCII alphabetic characters "a-z". */
+
+    /** 
+     * A CharSet defining ASCII alphabetic characters "a-z".
+     * @since 2.0
+     */
     public static final CharSet ASCII_ALPHA_LOWER = new CharSet("a-z");
-    /** A CharSet defining ASCII alphabetic characters "A-Z". */
+
+    /** 
+     * A CharSet defining ASCII alphabetic characters "A-Z".
+     * @since 2.0
+     */
     public static final CharSet ASCII_ALPHA_UPPER = new CharSet("A-Z");
-    /** A CharSet defining ASCII alphabetic characters "0-9". */
+
+    /** 
+     * A CharSet defining ASCII alphabetic characters "0-9".
+     * @since 2.0
+     */
     public static final CharSet ASCII_NUMERIC = new CharSet("0-9");
 
     /**
      * A Map of the common cases used in the factory.
      * Subclasses can add more common patterns if desired.
+     * @since 2.0
      */
     protected static final Map COMMON = new HashMap();
+    
     static {
         COMMON.put(null, EMPTY);
         COMMON.put("", EMPTY);
@@ -148,6 +170,7 @@ public class CharSet implements Serializable {
      *
      * @param setStr  the String describing the set, may be null
      * @return a CharSet instance
+     * @since 2.0
      */
     public static CharSet getInstance(String setStr) {
         Object set = COMMON.get(setStr);
@@ -162,6 +185,7 @@ public class CharSet implements Serializable {
      * <p>Constructs a new CharSet using the set syntax.</p>
      *
      * @param setStr  the String describing the set, may be null
+     * @since 2.0
      */
     protected CharSet(String setStr) {
         super();
@@ -223,6 +247,7 @@ public class CharSet implements Serializable {
      * <p>Gets the internal set as an array of CharRange objects.</p>
      *
      * @return an array of immutable CharRange objects
+     * @since 2.0
      */
     public CharRange[] getCharRanges() {
         return (CharRange[]) set.toArray(new CharRange[set.size()]);
@@ -257,6 +282,7 @@ public class CharSet implements Serializable {
      *
      * @param obj  the object to compare to
      * @return true if equal
+     * @since 2.0
      */
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -273,6 +299,7 @@ public class CharSet implements Serializable {
      * <p>Gets a hashCode compatable with the equals method.</p>
      *
      * @return a suitable hashCode
+     * @since 2.0
      */
     public int hashCode() {
         return 89 + set.hashCode();
