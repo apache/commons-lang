@@ -145,7 +145,7 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.107 2003/08/23 10:39:20 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.108 2003/09/04 18:18:18 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -163,13 +163,19 @@ public class StringUtils {
     // Append:
     // String.concat about twice as fast as StringBuffer.append
     // (not sure who tested this)
-    
+
     /**
      * The empty String <code>""</code>.
      * @since 2.0
      */
     public static final String EMPTY = "";
-    
+
+    /**
+     * Represents a failed index search.
+     * @since 2.?.?
+     */
+    public static final int INDEX_NOT_FOUND = -1;
+
     /**
      * <p>The maximum size to which the padding constant(s) can expand.</p>
      */
@@ -181,7 +187,7 @@ public class StringUtils {
      * <p>Used for efficient space padding. The length of each String expands as needed.</p>
      */
     private static final String[] PADDING = new String[Character.MAX_VALUE];
-    
+
     static {
         // space padding is most common, start with 64 chars
         PADDING[32] = "                                                                ";
@@ -261,7 +267,7 @@ public class StringUtils {
             return true;
         }
         for (int i = 0; i < strLen; i++) {
-            if ((Character.isWhitespace(str.charAt(i)) == false) ) {
+            if ((Character.isWhitespace(str.charAt(i)) == false)) {
                 return false;
             }
         }
@@ -290,7 +296,7 @@ public class StringUtils {
             return false;
         }
         for (int i = 0; i < strLen; i++) {
-            if ((Character.isWhitespace(str.charAt(i)) == false) ) {
+            if ((Character.isWhitespace(str.charAt(i)) == false)) {
                 return true;
             }
         }
@@ -400,7 +406,7 @@ public class StringUtils {
     public static String trimToEmpty(String str) {
         return (str == null ? EMPTY : str.trim());
     }
-    
+
     // Stripping
     //-----------------------------------------------------------------------
     /**
@@ -428,7 +434,7 @@ public class StringUtils {
     public static String strip(String str) {
         return strip(str, null);
     }
-    
+
     /** 
      * <p>Strips whitespace from the start and end of a String  returning
      * <code>null</code> if the String is empty ("") after the strip.</p>
@@ -485,7 +491,7 @@ public class StringUtils {
     public static String stripToEmpty(String str) {
         return (str == null ? EMPTY : strip(str, null));
     }
-    
+
     /**
      * <p>Strips any of a set of characters from the start and end of a String.
      * This is similar to {@link String#trim()} but allows the characters
@@ -593,7 +599,7 @@ public class StringUtils {
         if (str == null || (end = str.length()) == 0) {
             return str;
         }
- 
+
         if (stripChars == null) {
             while ((end != 0) && Character.isWhitespace(str.charAt(end - 1))) {
                 end--;
@@ -632,7 +638,7 @@ public class StringUtils {
     public static String[] stripAll(String[] strs) {
         return stripAll(strs, null);
     }
- 
+
     /**
      * <p>Strips any of a set of characters from the start and end of every
      * String in an array.</p>
@@ -668,7 +674,7 @@ public class StringUtils {
             newArr[i] = strip(strs[i], stripChars);
         }
         return newArr;
-    }   
+    }
 
     // Equals
     //-----------------------------------------------------------------------
@@ -748,7 +754,7 @@ public class StringUtils {
         }
         return str.indexOf(searchChar);
     }
-    
+
     /**
      * <p>Finds the first index within a String from a start position,
      * handling <code>null</code>.
@@ -780,7 +786,7 @@ public class StringUtils {
         }
         return str.indexOf(searchChar, startPos);
     }
-    
+
     /**
      * <p>Finds the first index within a String, handling <code>null</code>.
      * This method uses {@link String#indexOf(String)}.</p>
@@ -809,7 +815,53 @@ public class StringUtils {
         }
         return str.indexOf(searchStr);
     }
-    
+
+    /**
+     * <p>Finds the n-th index within a String, handling <code>null</code>.
+     * This method uses {@link String#indexOf(String)}.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.ordinalIndexOf(null, *, *)          = -1
+     * StringUtils.ordinalIndexOf(*, null, *)          = -1
+     * StringUtils.ordinalIndexOf("", "", *)           = 0
+     * StringUtils.ordinalIndexOf("aabaabaa", "a", 1)  = 0
+     * StringUtils.ordinalIndexOf("aabaabaa", "a", 2)  = 1
+     * StringUtils.ordinalIndexOf("aabaabaa", "b", 1)  = 2
+     * StringUtils.ordinalIndexOf("aabaabaa", "b", 2)  = 5
+     * StringUtils.ordinalIndexOf("aabaabaa", "ab", 1) = 1
+     * StringUtils.ordinalIndexOf("aabaabaa", "ab", 2) = 4
+     * StringUtils.ordinalIndexOf("aabaabaa", "", 1)   = 0
+     * StringUtils.ordinalIndexOf("aabaabaa", "", 2)   = 0
+     * </pre>
+     * 
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
+     * @param ordinal  the n-th <code>searchStr</code> to find
+     * @return the n-th index of the search String,
+     *  <code>-1</code> (<code>INDEX_NOT_FOUND</code>) if no match or <code>null</code> string input
+     * @since 2.?.?
+     */
+    public static int ordinalIndexOf(String str, String searchStr, int ordinal) {
+        if (str == null || searchStr == null || ordinal <= 0) {
+            return INDEX_NOT_FOUND;
+        }
+        if (searchStr.length() == 0) {
+            return 0;
+        }
+        int found = 0;
+        int index = INDEX_NOT_FOUND;
+        do {
+            index = str.indexOf(searchStr, index + 1);
+            if (index < 0) {
+                return index;
+            }
+            found++;
+        } while (found < ordinal);
+        return index;
+    }
+
     /**
      * <p>Finds the first index within a String, handling <code>null</code>.
      * This method uses {@link String#indexOf(String, int)}.</p>
@@ -851,7 +903,7 @@ public class StringUtils {
         }
         return str.indexOf(searchStr, startPos);
     }
-    
+
     // LastIndexOf
     //-----------------------------------------------------------------------
     /**
@@ -879,7 +931,7 @@ public class StringUtils {
         }
         return str.lastIndexOf(searchChar);
     }
-    
+
     /**
      * <p>Finds the last index within a String from a start position,
      * handling <code>null</code>.
@@ -913,7 +965,7 @@ public class StringUtils {
         }
         return str.lastIndexOf(searchChar, startPos);
     }
-    
+
     /**
      * <p>Finds the last index within a String, handling <code>null</code>.
      * This method uses {@link String#lastIndexOf(String)}.</p>
@@ -942,7 +994,7 @@ public class StringUtils {
         }
         return str.lastIndexOf(searchStr);
     }
-    
+
     /**
      * <p>Finds the first index within a String, handling <code>null</code>.
      * This method uses {@link String#lastIndexOf(String, int)}.</p>
@@ -977,7 +1029,7 @@ public class StringUtils {
         }
         return str.lastIndexOf(searchStr, startPos);
     }
-    
+
     // Contains
     //-----------------------------------------------------------------------
     /**
@@ -1005,7 +1057,7 @@ public class StringUtils {
         }
         return (str.indexOf(searchChar) >= 0);
     }
-    
+
     /**
      * <p>Find the first index within a String, handling <code>null</code>.
      * This method uses {@link String#indexOf(int)}.</p>
@@ -1033,7 +1085,7 @@ public class StringUtils {
         }
         return (str.indexOf(searchStr) >= 0);
     }
-    
+
     // IndexOfAny chars
     //-----------------------------------------------------------------------
     /**
@@ -1058,20 +1110,20 @@ public class StringUtils {
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
      */
-     public static int indexOfAny(String str, char[] searchChars) {
-         if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
-             return -1;
-         }
-         for (int i = 0; i < str.length(); i ++) {
-             char ch = str.charAt(i);
-             for (int j = 0; j < searchChars.length; j++) {
-                 if (searchChars[j] == ch) {
-                     return i;
-                 }
-             }
-         }
-         return -1;
-     }
+    public static int indexOfAny(String str, char[] searchChars) {
+        if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
+            return -1;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            for (int j = 0; j < searchChars.length; j++) {
+                if (searchChars[j] == ch) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
 
     /**
      * <p>Search a String to find the first index of any
@@ -1126,21 +1178,21 @@ public class StringUtils {
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
      */
-     public static int indexOfAnyBut(String str, char[] searchChars) {
-         if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
-             return -1;
-         }
-         outer: for (int i = 0; i < str.length(); i ++) {
-             char ch = str.charAt(i);
-             for (int j = 0; j < searchChars.length; j++) {
-                 if (searchChars[j] == ch) {
-                     continue outer;
-                 }
-             }
-             return i;
-         }
-         return -1;
-     }
+    public static int indexOfAnyBut(String str, char[] searchChars) {
+        if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
+            return -1;
+        }
+        outer : for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            for (int j = 0; j < searchChars.length; j++) {
+                if (searchChars[j] == ch) {
+                    continue outer;
+                }
+            }
+            return i;
+        }
+        return -1;
+    }
 
     /**
      * <p>Search a String to find the first index of any
@@ -1201,7 +1253,7 @@ public class StringUtils {
      */
     public static boolean containsOnly(String str, char[] valid) {
         // All these pre-checks are to maintain API with an older version
-        if ( (valid == null) || (str == null) ) {
+        if ((valid == null) || (str == null)) {
             return false;
         }
         if (str.length() == 0) {
@@ -1241,7 +1293,7 @@ public class StringUtils {
         }
         return containsOnly(str, validChars.toCharArray());
     }
-    
+
     // ContainsNone
     //-----------------------------------------------------------------------
     /**
@@ -1311,7 +1363,7 @@ public class StringUtils {
         }
         return containsNone(str, invalidChars.toCharArray());
     }
-    
+
     // IndexOfAny strings
     //-----------------------------------------------------------------------
     /**
@@ -1458,7 +1510,7 @@ public class StringUtils {
 
         return str.substring(start);
     }
-    
+
     /**
      * <p>Gets a substring from the specified String avoiding exceptions.</p>
      *
@@ -1822,7 +1874,7 @@ public class StringUtils {
     public static String substringBetween(String str, String tag) {
         return substringBetween(str, tag, tag);
     }
-    
+
     /**
      * <p>Gets the String that is nested in between two Strings.
      * Only the first match is returned.</p>
@@ -1889,7 +1941,7 @@ public class StringUtils {
     public static String getNestedString(String str, String tag) {
         return substringBetween(str, tag, tag);
     }
-    
+
     /**
      * <p>Gets the String that is nested in between two Strings.
      * Only the first match is returned.</p>
@@ -1974,7 +2026,7 @@ public class StringUtils {
      */
     public static String[] split(String str, char separatorChar) {
         // Performance tuned for 2.0 (JDK1.4)
-        
+
         if (str == null) {
             return null;
         }
@@ -1983,7 +2035,7 @@ public class StringUtils {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
         List list = new ArrayList();
-        int i =0, start = 0;
+        int i = 0, start = 0;
         boolean match = false;
         while (i < len) {
             if (str.charAt(i) == separatorChar) {
@@ -2061,7 +2113,7 @@ public class StringUtils {
         // Performance tuned for 2.0 (JDK1.4)
         // Direct code is quicker than StringTokenizer.
         // Also, StringTokenizer uses isSpace() not isWhitespace()
-        
+
         if (str == null) {
             return null;
         }
@@ -2071,7 +2123,7 @@ public class StringUtils {
         }
         List list = new ArrayList();
         int sizePlus1 = 1;
-        int i =0, start = 0;
+        int i = 0, start = 0;
         boolean match = false;
         if (separatorChars == null) {
             // Null separator means use whitespace
@@ -2155,7 +2207,7 @@ public class StringUtils {
     public static String concatenate(Object[] array) {
         return join(array, null);
     }
-    
+
     /**
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
@@ -2179,7 +2231,7 @@ public class StringUtils {
     public static String join(Object[] array) {
         return join(array, null);
     }
-    
+
     /**
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
@@ -2256,10 +2308,12 @@ public class StringUtils {
         // ArraySize ==  0: Len = 0
         // ArraySize > 0:   Len = NofStrings *(len(firstString) + len(separator))
         //           (Assuming that all Strings are roughly equally long)
-        int bufSize 
-            = ((arraySize == 0) ? 0 
-                : arraySize * ((array[0] == null ? 16 : array[0].toString().length()) 
-                    + ((separator != null) ? separator.length(): 0)));
+        int bufSize =
+            ((arraySize == 0)
+                ? 0
+                : arraySize
+                    * ((array[0] == null ? 16 : array[0].toString().length())
+                        + ((separator != null) ? separator.length() : 0)));
 
         StringBuffer buf = new StringBuffer(bufSize);
 
@@ -2292,7 +2346,7 @@ public class StringUtils {
         if (iterator == null) {
             return null;
         }
-        StringBuffer buf = new StringBuffer(256);  // Java default is 16, probably too small
+        StringBuffer buf = new StringBuffer(256); // Java default is 16, probably too small
         while (iterator.hasNext()) {
             Object obj = iterator.next();
             if (obj != null) {
@@ -2322,7 +2376,7 @@ public class StringUtils {
         if (iterator == null) {
             return null;
         }
-        StringBuffer buf = new StringBuffer(256);  // Java default is 16, probably too small
+        StringBuffer buf = new StringBuffer(256); // Java default is 16, probably too small
         while (iterator.hasNext()) {
             Object obj = iterator.next();
             if (obj != null) {
@@ -2331,7 +2385,7 @@ public class StringUtils {
             if ((separator != null) && iterator.hasNext()) {
                 buf.append(separator);
             }
-         }
+        }
         return buf.toString();
     }
 
@@ -2496,7 +2550,7 @@ public class StringUtils {
         buf.append(text.substring(start));
         return buf.toString();
     }
-    
+
     // Replace, character based
     //-----------------------------------------------------------------------
     /**
@@ -2525,7 +2579,7 @@ public class StringUtils {
         }
         return str.replace(searchChar, replaceChar);
     }
-    
+
     /**
      * <p>Replaces multiple characters in a String in one go.
      * This method can also be used to delete characters.</p>
@@ -2563,7 +2617,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String replaceChars(String str, String searchChars, String replaceChars) {
-        if (str == null || str.length() == 0 || searchChars == null || searchChars.length()== 0) {
+        if (str == null || str.length() == 0 || searchChars == null || searchChars.length() == 0) {
             return str;
         }
         char[] chars = str.toCharArray();
@@ -2799,7 +2853,7 @@ public class StringUtils {
     public static String chompLast(String str) {
         return chompLast(str, "\n");
     }
-    
+
     /**
      * <p>Remove a value if and only if the String ends with that value.</p>
      * 
@@ -2956,7 +3010,6 @@ public class StringUtils {
         return str.substring(0, lastIdx);
     }
 
-
     // Conversion
     //-----------------------------------------------------------------------
     /**
@@ -3001,7 +3054,7 @@ public class StringUtils {
      */
     public static String repeat(String str, int repeat) {
         // Performance tuned for 2.0 (JDK1.4)
-        
+
         if (str == null) {
             return null;
         }
@@ -3013,32 +3066,32 @@ public class StringUtils {
             return str;
         }
         if (inputLength == 1 && repeat <= PAD_LIMIT) {
-           return padding(repeat, str.charAt(0));
+            return padding(repeat, str.charAt(0));
         }
 
         int outputLength = inputLength * repeat;
         switch (inputLength) {
-            case 1:
+            case 1 :
                 char ch = str.charAt(0);
                 char[] output1 = new char[outputLength];
                 for (int i = repeat - 1; i >= 0; i--) {
                     output1[i] = ch;
                 }
                 return new String(output1);
-            case 2:
+            case 2 :
                 char ch0 = str.charAt(0);
                 char ch1 = str.charAt(1);
                 char[] output2 = new char[outputLength];
-                for (int i = repeat * 2 - 2; i >= 0; i--,i--) {
+                for (int i = repeat * 2 - 2; i >= 0; i--, i--) {
                     output2[i] = ch0;
                     output2[i + 1] = ch1;
                 }
                 return new String(output2);
-            default:
+            default :
                 StringBuffer buf = new StringBuffer(outputLength);
                 for (int i = 0; i < repeat; i++) {
                     buf.append(str);
-                }        
+                }
                 return buf.toString();
         }
     }
@@ -3169,7 +3222,7 @@ public class StringUtils {
         if (padLen == 1 && pads <= PAD_LIMIT) {
             return rightPad(str, size, padStr.charAt(0));
         }
-        
+
         if (pads == padLen) {
             return str.concat(padStr);
         } else if (pads < padLen) {
@@ -3204,7 +3257,7 @@ public class StringUtils {
      *  <code>null</code> if null String input
      */
     public static String leftPad(String str, int size) {
-        return leftPad(str, size, ' ');        
+        return leftPad(str, size, ' ');
     }
 
     /**
@@ -3281,7 +3334,7 @@ public class StringUtils {
         if (padLen == 1 && pads <= PAD_LIMIT) {
             return leftPad(str, size, padStr.charAt(0));
         }
-        
+
         if (pads == padLen) {
             return padStr.concat(str);
         } else if (pads < padLen) {
@@ -3697,8 +3750,7 @@ public class StringUtils {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isLetter(str.charAt(i)) == false) &&
-                (str.charAt(i) != ' ')) {
+            if ((Character.isLetter(str.charAt(i)) == false) && (str.charAt(i) != ' ')) {
                 return false;
             }
         }
@@ -3765,8 +3817,7 @@ public class StringUtils {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isLetterOrDigit(str.charAt(i)) == false) &&
-                (str.charAt(i) != ' ')) {
+            if ((Character.isLetterOrDigit(str.charAt(i)) == false) && (str.charAt(i) != ' ')) {
                 return false;
             }
         }
@@ -3836,8 +3887,7 @@ public class StringUtils {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isDigit(str.charAt(i)) == false) &&
-                (str.charAt(i) != ' ')) {
+            if ((Character.isDigit(str.charAt(i)) == false) && (str.charAt(i) != ' ')) {
                 return false;
             }
         }
@@ -3869,7 +3919,7 @@ public class StringUtils {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isWhitespace(str.charAt(i)) == false) ) {
+            if ((Character.isWhitespace(str.charAt(i)) == false)) {
                 return false;
             }
         }
@@ -4192,7 +4242,6 @@ public class StringUtils {
         return -1;
     }
 
-
     // Misc
     //-----------------------------------------------------------------------
     /**
@@ -4301,4 +4350,3 @@ public class StringUtils {
     }
 
 }
-
