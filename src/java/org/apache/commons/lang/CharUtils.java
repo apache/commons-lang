@@ -24,7 +24,7 @@ package org.apache.commons.lang;
  * 
  * @author Stephen Colebourne
  * @since 2.1
- * @version $Id: CharUtils.java,v 1.6 2004/02/26 21:10:01 fredrik Exp $
+ * @version $Id: CharUtils.java,v 1.7 2004/03/10 22:59:45 scolebourne Exp $
  */
 public class CharUtils {
     
@@ -94,13 +94,13 @@ public class CharUtils {
      * <p>Converts the Character to a char throwing an exception for <code>null</code>.</p>
      * 
      * <pre>
-     *   CharUtils.toCharacter(null, 'X') = IllegalArgumentException
-     *   CharUtils.toCharacter(' ', 'X')  = ' '
-     *   CharUtils.toCharacter('A', 'X')  = 'A'
+     *   CharUtils.toCharacter(null) = IllegalArgumentException
+     *   CharUtils.toCharacter(' ')  = ' '
+     *   CharUtils.toCharacter('A')  = 'A'
      * </pre>
      *
      * @param ch  the character to convert
-     * @return the char value of the Character or the default if null
+     * @return the char value of the Character
      * @throws IllegalArgumentException if the Character is null
      */
     public static char toCharacter(Character ch) {
@@ -143,7 +143,7 @@ public class CharUtils {
      * </pre>
      *
      * @param str  the character to convert
-     * @return the char value of the Character or the default if null
+     * @return the char value of the Character
      * @throws IllegalArgumentException if the String is empty
      */
     public static char toCharacter(String str) {
