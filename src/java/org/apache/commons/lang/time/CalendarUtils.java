@@ -1,9 +1,7 @@
-package org.apache.commons.lang.time;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,6 +51,7 @@ package org.apache.commons.lang.time;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang.time;
 
 import java.text.*;
 import java.util.*;
@@ -61,6 +60,8 @@ import java.util.*;
  * A suite of utilities surrounding the use of the Calendar and Date object.
  *
  * @author <a href="mailto:sergek@lokitech.com">Serge Knystautas</a>
+ * @since 2.1
+ * @version $Id: CalendarUtils.java,v 1.2 2003/02/04 22:19:33 scolebourne Exp $
  */
 public class CalendarUtils {
 

@@ -51,7 +51,6 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-
 package org.apache.commons.lang.time;
 
 import java.util.Date;
@@ -67,7 +66,7 @@ import java.text.DateFormatSymbols;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-/******************************************************************************
+/**
  * Similar to {@link java.text.SimpleDateFormat}, but faster and thread-safe.
  * Only formatting is supported, but all patterns are compatible with
  * SimpleDateFormat. [Code originally taken from the open source TreeTrove
@@ -76,8 +75,8 @@ import java.text.SimpleDateFormat;
  * @author Brian S O'Neill
  * @author Sean Schofield
  * @author Gary Gregory
- * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.3 2003/02/04 22:12:08 scolebourne Exp $
+ * @since 2.1
+ * @version $Id: FastDateFormat.java,v 1.4 2003/02/04 22:19:33 scolebourne Exp $
  */
 public class FastDateFormat {
     /** Style pattern */

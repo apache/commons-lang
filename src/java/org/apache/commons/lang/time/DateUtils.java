@@ -1,7 +1,7 @@
-/*
+/* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,14 +23,14 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Ant", and "Apache Software
+ * 4. The names "The Jakarta Project", "Commons", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
- *    permission of the Apache Group.
+ *    permission of the Apache Software Foundation.
  *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -68,10 +68,8 @@ import java.util.TimeZone;
  *
  * @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
- *
- * @since Lang 2.0
- *
- * @version $Revision: 1.1 $
+ * @since 2.1
+ * @version $Id: DateUtils.java,v 1.2 2003/02/04 22:19:33 scolebourne Exp $
  */
 public final class DateUtils {
 
@@ -124,8 +122,12 @@ public final class DateUtils {
         MINUTE_SECONDS.setFormat(1, SECONDS_FORMAT);
     }
 
-    /** public constructor */
-    /// TODO: Insert note that this should not be used
+    /**
+     * <p>DateUtils instances should NOT be constructed in standard programming.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
+     */
     public DateUtils() {
     }
 
