@@ -60,13 +60,14 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
  * Unit tests {@link org.apache.commons.lang.ArrayUtils}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author Moritz Petersen
  * @author Nikolay Metchev
- * @version $Id: ArrayUtilsTest.java,v 1.5 2003/02/04 22:06:24 scolebourne Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.6 2003/03/23 21:47:30 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 

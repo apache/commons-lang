@@ -1,9 +1,7 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,6 +51,7 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -61,12 +60,13 @@ import java.math.BigInteger;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
 /**
  * Unit tests {@link org.apache.commons.lang.NumberUtils}.
  *
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: NumberUtilsTest.java,v 1.4 2002/12/15 16:53:28 scolebourne Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.5 2003/03/23 21:49:13 scolebourne Exp $
  */
 public class NumberUtilsTest extends TestCase {
 

@@ -1,9 +1,7 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,18 +51,20 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
  * Unit tests {@link org.apache.commons.lang.ObjectUtils}.
  *
  * @author <a href="mailto:jmcnally@collab.net">John McNally</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: ObjectUtilsTest.java,v 1.3 2002/09/18 20:12:15 scolebourne Exp $
+ * @version $Id: ObjectUtilsTest.java,v 1.4 2003/03/23 21:49:13 scolebourne Exp $
  */
 public class ObjectUtilsTest extends TestCase {
     private static final String FOO = "foo";

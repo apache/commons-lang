@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsEqualsIndexOfTest.java,v 1.1 2002/07/19 03:35:55 bayard Exp $
+ * @version $Id: StringUtilsEqualsIndexOfTest.java,v 1.2 2003/03/23 21:50:58 scolebourne Exp $
  */
 public class StringUtilsEqualsIndexOfTest extends TestCase {
     private static final String FOO = "foo";
