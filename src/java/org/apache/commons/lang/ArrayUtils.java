@@ -81,7 +81,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Gary Gregory
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.38 2004/01/31 09:57:39 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.39 2004/01/31 20:12:16 ggregory Exp $
  */
 public class ArrayUtils {
 
@@ -2753,26 +2753,26 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided arrays into a single new array.</p>
-     * <p>The new array contains all of the element of the first array followed
-     * by all of the elements from the second array.</p>
+     * <p>Adds all the elements of the provided arrays into a new array.</p>
+     * <p>The new array contains all of the element of <code>array1</code> followed
+     * by all of the elements <code>array2</code>.</p>
      *
      * <pre>
-     * ArrayUtils.join(null, null)     = null
-     * ArrayUtils.join(array1, null)   = array1
-     * ArrayUtils.join(null, array2)   = array2
-     * ArrayUtils.join([], [])         = []
-     * ArrayUtils.join([null], [null]) = [null, null]
-     * ArrayUtils.join(["a", "b", "c"], ["1", "2", "3"]) = ["a", "b", "c", "1", "2", "3"]
+     * ArrayUtils.addAll(null, null)     = null
+     * ArrayUtils.addAll(array1, null)   = array1
+     * ArrayUtils.addAll(null, array2)   = array2
+     * ArrayUtils.addAll([], [])         = []
+     * ArrayUtils.addAll([null], [null]) = [null, null]
+     * ArrayUtils.addAll(["a", "b", "c"], ["1", "2", "3"]) = ["a", "b", "c", "1", "2", "3"]
      * </pre>
      *
-     * @param array1  the first array of values to join together, may be null
-     * @param array2  the second array of values to join together, may be null
-     * @return The new joined array, <code>null</code> if null array inputs. 
-     *      The type of the joined array is the type of the first array.
+     * @param array1  the first array whose elements are added to the new array, may be null
+     * @param array2  the second array whose elements are added to the new array, may be null
+     * @return The new array, <code>null</code> if null array inputs. 
+     *      The type of the new array is the type of the first array.
      * @since 2.1
      */
-    public static Object[] join(Object[] array1, Object[] array2) {
+    public static Object[] addAll(Object[] array1, Object[] array2) {
         if (array1 == null) {
             return array2;
         } else if (array2 == null) {
