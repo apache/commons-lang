@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -58,13 +58,22 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
+ * <code>NestableDelegate</code> is a shared implementation of the nestable
+ * exception functionality.
+ * <p>
+ * The code is shared between 
+ * {@link org.apache.commons.lang.exception.NestableError NestableError},
+ * {@link org.apache.commons.lang.exception.NestableException NestableException} and
+ * {@link org.apache.commons.lang.exception.NestableRuntimeException NestableRuntimeException}.
+ * 
  * @author <a href="mailto:Rafal.Krzewski@e-point.pl">Rafal Krzewski</a>
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Sean C. Sullivan
+ * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.11 2002/12/23 00:15:19 scolebourne Exp $
+ * @version $Id: NestableDelegate.java,v 1.12 2003/01/25 13:06:26 scolebourne Exp $
  */
 public class NestableDelegate implements java.io.Serializable {
 
