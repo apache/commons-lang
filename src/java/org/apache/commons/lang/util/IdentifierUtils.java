@@ -57,17 +57,7 @@ import java.io.Serializable;
 import java.util.Random;
 
 /**
- * <p><code>IdentifierUtils</code> provides a number of different identifier
- * reference implementations.</p>
- * 
- * <p>All the identifer factories are serializable and synchronized.
- * The factories all implement one of the factory interfaces defined in this
- * package. This allows you to obtain and use multiple factories for 
- * different reasons.</p>
- *
- * @author Stephen Colebourne
- * @since 2.0
- * @version $Id: IdentifierUtils.java,v 1.7 2003/08/18 02:22:25 bayard Exp $
+ * @deprecated WILL BE DELETED SOON. See Commons ID in the sandbox.
  */
 public class IdentifierUtils {
 

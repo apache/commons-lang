@@ -54,12 +54,7 @@
 package org.apache.commons.lang.util;
 
 /**
- * <p><code>StringIdentifierFactory</code> defines a simple interface for
- * String based identifier generation.</p>
- *
- * @author Stephen Colebourne
- * @since 2.0
- * @version $Id: StringIdentifierFactory.java,v 1.2 2003/08/18 02:22:25 bayard Exp $
+ * @deprecated WILL BE DELETED SOON. See Commons ID in the sandbox.
  */
 public interface StringIdentifierFactory extends IdentifierFactory {
 
