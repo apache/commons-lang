@@ -111,7 +111,7 @@ import java.lang.reflect.Modifier;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.21 2003/09/07 14:32:34 psteitz Exp $
+ * @version $Id: EqualsBuilder.java,v 1.22 2003/12/26 22:04:49 ggregory Exp $
  */
 public class EqualsBuilder {
     /**
@@ -123,7 +123,7 @@ public class EqualsBuilder {
      * <p>Constructor for EqualsBuilder.</p>
      *
      * <p>Starts off assuming that equals is <code>true</code>.</p>
-     * @see java.lang.Object#equals
+     * @see Object#equals(Object)
      */
     public EqualsBuilder() {
         super();
