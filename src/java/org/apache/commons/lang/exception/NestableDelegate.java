@@ -79,7 +79,7 @@ import java.util.List;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.16 2003/07/25 23:05:22 ggregory Exp $
+ * @version $Id: NestableDelegate.java,v 1.17 2003/07/26 13:05:21 scolebourne Exp $
  */
 public class NestableDelegate implements Serializable {
 
@@ -99,11 +99,13 @@ public class NestableDelegate implements Serializable {
     
     /**
      * Whether to print the stack trace top-down.
+     * This public flag may be set by calling code, typically in initialisation.
      */
     public static boolean topDown = true;
     
     /**
      * Whether to trim the repeated stack trace.
+     * This public flag may be set by calling code, typically in initialisation.
      */
     public static boolean trimStackFrames = true;
 
@@ -253,7 +255,20 @@ public class NestableDelegate implements Serializable {
      * chain
      */
     public int indexOfThrowable(Class type, int fromIndex) {
-        return ExceptionUtils.indexOfThrowable(this.nestable, type, fromIndex);
+        if (fromIndex < 0) {
+            throw new IndexOutOfBoundsException("The start index was out of bounds: " + fromIndex);
+        }
+        Throwable[] throwables = ExceptionUtils.getThrowables(this.nestable);
+        if (fromIndex >= throwables.length) {
+            throw new IndexOutOfBoundsException("The start index was out of bounds: "
+                + fromIndex + " >= " + throwables.length);
+        }
+        for (int i = fromIndex; i < throwables.length; i++) {
+            if (throwables[i].getClass().equals(type)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
