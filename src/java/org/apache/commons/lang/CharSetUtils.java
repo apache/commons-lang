@@ -63,7 +63,7 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.16 2003/07/30 22:17:00 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.17 2003/07/31 20:38:26 scolebourne Exp $
  */
 public class CharSetUtils {
 
@@ -345,6 +345,8 @@ public class CharSetUtils {
      * @throws NullPointerException if <code>with</code> or <code>repl</code> 
      *  is <code>null</code>
      * @throws ArrayIndexOutOfBoundsException if <code>with</code> is empty ("")
+     * @deprecated Use {@link StringUtils#replaceChars(String, String, String)}.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String translate(String str, String searchChars, String replaceChars) {
         if (str == null || str.length() == 0) {
