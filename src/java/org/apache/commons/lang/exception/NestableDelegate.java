@@ -79,7 +79,7 @@ import java.util.List;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.15 2003/07/20 15:49:58 scolebourne Exp $
+ * @version $Id: NestableDelegate.java,v 1.16 2003/07/25 23:05:22 ggregory Exp $
  */
 public class NestableDelegate implements Serializable {
 
@@ -375,7 +375,7 @@ public class NestableDelegate implements Serializable {
                  currList.add("\t... "+trimmed+" more");
                  stacks.set(
                      i, 
-                     (String[])currList.toArray(new String[currList.size()])
+                     currList.toArray(new String[currList.size()])
                  );
              }
          }
