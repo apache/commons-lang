@@ -82,7 +82,7 @@ import org.apache.commons.lang.SystemUtils;
  *
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.11 2003/03/27 08:54:31 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.12 2003/04/08 22:34:53 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -263,7 +263,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Remove the last field separator from the buffer</p>
+     * <p>Remove the last field separator from the buffer.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      */
@@ -1959,7 +1959,7 @@ public abstract class ToStringStyle implements Serializable {
     private static final class DefaultToStringStyle extends ToStringStyle {
         
         /**
-         * <p>Constructor</p>
+         * <p>Constructor.</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
@@ -1990,7 +1990,7 @@ public abstract class ToStringStyle implements Serializable {
     private static final class NoFieldNameToStringStyle extends ToStringStyle {
         
         /**
-         * <p>Constructor</p>
+         * <p>Constructor.</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
@@ -2022,7 +2022,7 @@ public abstract class ToStringStyle implements Serializable {
     private static final class SimpleToStringStyle extends ToStringStyle {
         
         /**
-         * <p>Constructor</p>
+         * <p>Constructor.</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
@@ -2056,7 +2056,7 @@ public abstract class ToStringStyle implements Serializable {
     private static final class MultiLineToStringStyle extends ToStringStyle {
 
         /**
-         * <p>Constructor</p>
+         * <p>Constructor.</p>
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
