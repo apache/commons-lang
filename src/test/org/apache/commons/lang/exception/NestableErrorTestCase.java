@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableError class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableErrorTestCase.java,v 1.1 2002/09/11 18:17:23 stevencaswell Exp $
+ * @version $Id: NestableErrorTestCase.java,v 1.2 2002/09/11 18:58:05 stevencaswell Exp $
  */
 public class NestableErrorTestCase extends AbstractNestableTestCase
 {
@@ -104,6 +104,8 @@ public class NestableErrorTestCase extends AbstractNestableTestCase
 
     /**
      * Command line entry point for running the test suite.
+     *
+     * @param args array of command line arguments
      */
     public static void main(String args[])
     {
@@ -240,6 +242,9 @@ public class NestableErrorTestCase extends AbstractNestableTestCase
     
 }
 
+/**
+ * First nestable tester implementation for use in test cases.
+ */
 class NestableErrorTester1 extends NestableError
 {
     public NestableErrorTester1()
@@ -264,6 +269,9 @@ class NestableErrorTester1 extends NestableError
     
 }
 
+/**
+ * Second nestable tester implementation for use in test cases.
+ */
 class NestableErrorTester2 extends NestableError
 {
     public NestableErrorTester2()

@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableRuntimeException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.4 2002/09/11 18:16:53 stevencaswell Exp $
+ * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.5 2002/09/11 19:04:26 stevencaswell Exp $
  */
 public class NestableRuntimeExceptionTestCase extends AbstractNestableTestCase
 {
@@ -81,104 +81,162 @@ public class NestableRuntimeExceptionTestCase extends AbstractNestableTestCase
     }
 
     /**
-     * Set up instance variables required by this test case.
+     * Sets up instance variables required by this test case.
      */
     public void setUp()
     {
     }
     
+    /**
+     * Returns the test suite
+     *
+     * @return the test suite
+     */
     public static Test suite()
     {
         return new TestSuite(NestableExceptionTestCase.class);
     }
     
     /**
-     * Tear down instance variables required by this test case.
+     * Tears down instance variables required by this test case.
      */
     public void tearDown()
     {
     }
     
+    /**
+     * Command line entry point for running the test suite.
+     *
+     * @param args array of command line arguments
+     */
     public static void main(String args[])
     {
         TestRunner.run(suite());
     }
     
+    /**
+     * @see AbstractNestableTestCase#getNestable()
+     */
     public Nestable getNestable()
     {
         return new NestableRuntimeException();
     }
     
+    /**
+     * @see AbstractNestableTestCase#getNestable(Nestable)
+     */
     public Nestable getNestable(Nestable n)
     {
         return new NestableRuntimeException((Throwable) n);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getNestable(String)
+     */
     public Nestable getNestable(String msg)
     {
         return new NestableRuntimeException(msg);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getNestable(Throwable)
+     */
     public Nestable getNestable(Throwable t)
     {
         return new NestableRuntimeException(t);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getNestable(String, Throwable)
+     */
     public Nestable getNestable(String msg, Throwable t)
     {
         return new NestableRuntimeException(msg, t);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getNestable(String, Nestable)
+     */
     public Nestable getNestable(String msg, Nestable n)
     {
         return new NestableRuntimeException(msg, (Throwable) n);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getTester1(Throwable)
+     */
     public Nestable getTester1(Throwable t)
     {
         return new NestableRuntimeExceptionTester1(t);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getTester1(Nestable)
+     */
     public Nestable getTester1(Nestable n)
     {
         return new NestableRuntimeExceptionTester1((Throwable) n);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getTester1(String, Throwable)
+     */
     public Nestable getTester1(String msg, Throwable t)
     {
         return new NestableRuntimeExceptionTester1(msg, t);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getTester1(String, Nestable)
+     */
     public Nestable getTester1(String msg, Nestable n)
     {
         return new NestableRuntimeExceptionTester1(msg, (Throwable) n);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getTester1Class()
+     */
     public Class getTester1Class()
     {
         return NestableRuntimeExceptionTester1.class;
     }
     
+    /**
+     * @see AbstractNestableTestCase#getTester2(String, Throwable)
+     */
     public Nestable getTester2(String msg, Throwable t)
     {
         return new NestableRuntimeExceptionTester2(msg, t);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getTester2(String, Nestable)
+     */
     public Nestable getTester2(String msg, Nestable n)
     {
         return new NestableRuntimeExceptionTester1(msg, (Throwable) n);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getTester2Class()
+     */
     public Class getTester2Class()
     {
         return NestableRuntimeExceptionTester2.class;
     }
     
+    /**
+     * @see AbstractNestableTestCase#getThrowable(String)
+     */
     public Throwable getThrowable(String msg)
     {
         return new RuntimeException(msg);
     }
     
+    /**
+     * @see AbstractNestableTestCase#getThrowableClass()
+     */
     public Class getThrowableClass()
     {
         return RuntimeException.class;
@@ -186,6 +244,9 @@ public class NestableRuntimeExceptionTestCase extends AbstractNestableTestCase
     
 }
 
+/**
+ * First nestable tester implementation for use in test cases.
+ */
 class NestableRuntimeExceptionTester1 extends NestableRuntimeException
 {
     public NestableRuntimeExceptionTester1()
@@ -210,6 +271,9 @@ class NestableRuntimeExceptionTester1 extends NestableRuntimeException
     
 }
 
+/**
+ * Second nestable tester implementation.
+ */
 class NestableRuntimeExceptionTester2 extends NestableRuntimeException
 {
     public NestableRuntimeExceptionTester2()
@@ -233,3 +297,4 @@ class NestableRuntimeExceptionTester2 extends NestableRuntimeException
     }
     
 }
+
