@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableRuntimeException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.5 2002/09/11 19:04:26 stevencaswell Exp $
+ * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.6 2002/09/11 19:40:56 stevencaswell Exp $
  */
 public class NestableRuntimeExceptionTestCase extends AbstractNestableTestCase
 {
@@ -94,7 +94,7 @@ public class NestableRuntimeExceptionTestCase extends AbstractNestableTestCase
      */
     public static Test suite()
     {
-        return new TestSuite(NestableExceptionTestCase.class);
+        return new TestSuite(NestableRuntimeExceptionTestCase.class);
     }
     
     /**
@@ -215,7 +215,7 @@ public class NestableRuntimeExceptionTestCase extends AbstractNestableTestCase
      */
     public Nestable getTester2(String msg, Nestable n)
     {
-        return new NestableRuntimeExceptionTester1(msg, (Throwable) n);
+        return new NestableRuntimeExceptionTester2(msg, (Throwable) n);
     }
     
     /**
