@@ -62,7 +62,7 @@ import java.util.List;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.14 2003/07/16 00:39:05 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.15 2003/07/16 21:19:22 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -133,12 +133,13 @@ public class ClassUtils {
      *
      * <p>The string passed in is assumed to be a class name - it is not checked.</p>
      * 
-     * @param className  the className to get the short name for, must not be empty
+     * @param className  the className to get the short name for,
+     *  must not be empty or <code>null</code>
      * @return the class name of the class without the package name
      * @throws IllegalArgumentException if the className is empty
      */
     public static String getShortClassName(String className) {
-        if (StringUtils.isEmpty(className)) {
+        if (StringUtils.isEmptyOrNull(className)) {
             throw new IllegalArgumentException("The class name must not be empty");
         }
         char[] chars = className.toCharArray();
@@ -172,8 +173,8 @@ public class ClassUtils {
     /**
      * <p>Gets the package name of a <code>Class</code>.</p>
      * 
-     * @param cls  the class to get the package name for, must not be
-     *  <code>null</code>
+     * @param cls  the class to get the package name for,
+     *  must not be <code>null</code>
      * @return the package name
      * @throws IllegalArgumentException if the class is <code>null</code>
      */
@@ -189,12 +190,13 @@ public class ClassUtils {
      *
      * <p>The string passed in is assumed to be a class name - it is not checked.</p>
      * 
-     * @param className  the className to get the package name for, must not be empty
+     * @param className  the className to get the package name for,
+     *  must not be empty or <code>null</code>
      * @return the package name
      * @throws IllegalArgumentException if the className is empty
      */
     public static String getPackageName(String className) {
-        if (StringUtils.isEmpty(className)) {
+        if (StringUtils.isEmptyOrNull(className)) {
             throw new IllegalArgumentException("The class name must not be empty");
         }
         int i = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);

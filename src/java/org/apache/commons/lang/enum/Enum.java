@@ -201,7 +201,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.12 2003/07/14 22:58:31 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.13 2003/07/16 21:19:21 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
     // After discussion, the default size for HashMaps is used, as the
@@ -243,14 +243,15 @@ public abstract class Enum implements Comparable, Serializable {
     /**
      * <p>Constructor to add a new named item to the enumeration.</p>
      *
-     * @param name  the name of the enum object
+     * @param name  the name of the enum object,
+     *  must not be empty or <code>null</code>
      * @throws IllegalArgumentException if the name is <code>null</code>
-     *  or a blank string
+     *  or an empty string
      */
     protected Enum(String name) {
         super();
 
-        if (StringUtils.isEmpty(name)) {
+        if (StringUtils.isEmptyOrNull(name)) {
             throw new IllegalArgumentException("The Enum name must not be empty or null");
         }
         iName = name;

@@ -65,7 +65,7 @@ import org.apache.commons.lang.StringUtils;
  * reflection.</p>
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ReflectionUtils.java,v 1.7 2003/07/14 22:28:48 bayard Exp $
+ * @version $Id: ReflectionUtils.java,v 1.8 2003/07/16 21:19:22 scolebourne Exp $
  */
 public class ReflectionUtils {
     
@@ -167,13 +167,14 @@ public class ReflectionUtils {
     /**
      * <p>Gets a class object for the specified string.</p>
      *
-     * @param className  fully qualified class name to find, must not be empty
+     * @param className  fully qualified class name to find,
+     *  must not be empty or <code>null</code>
      * @return Class object for class
      * @throws ReflectionException if an error occurs during reflection
      * @throws IllegalArgumentException if the class name is empty
      */
     public static Class getClass(String className) throws ReflectionException {
-        if (StringUtils.isEmpty(className)) {
+        if (StringUtils.isEmptyOrNull(className)) {
             throw new IllegalArgumentException("The class name must not be null");
         }
         try {
