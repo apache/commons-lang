@@ -1,0 +1,34 @@
+<html>
+<body>
+An implementation of the C style 'enum' in the Java world.
+
+The classic example being an RGB color enumeration.
+<pre>
+public final class ColorEnum extends Enum {
+    public static final ColorEnum RED = new ColorEnum("Red");
+    public static final ColorEnum GREEN = new ColorEnum("Green");
+    public static final ColorEnum BLUE = new ColorEnum("Blue");
+
+    private ColorEnum(String color) {
+        super(color);
+    }
+
+    public static ColorEnum getEnum(String color) {
+        return (ColorEnum) getEnum(ColorEnum.class, color);
+    }
+
+    public static Map getEnumMap() {
+        return getEnumMap(ColorEnum.class);
+    }
+
+    public static List getEnumList() {
+        return getEnumList(ColorEnum.class);
+    }
+
+    public static Iterator iterator() {
+        return iterator(ColorEnum.class);
+    }
+}
+</pre>
+</body>
+</html>
