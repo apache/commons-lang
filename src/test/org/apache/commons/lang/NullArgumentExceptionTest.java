@@ -62,7 +62,8 @@ import junit.textui.TestRunner;
  * JUnit tests.
  * 
  * @author Matthew Hawthorne
- * @version $Id: NullArgumentExceptionTest.java,v 1.1 2003/05/15 04:05:11 bayard Exp $
+ * @author Stephen Colebourne
+ * @version $Id: NullArgumentExceptionTest.java,v 1.2 2003/07/19 20:19:24 scolebourne Exp $
  * @see NullArgumentException
  */
 public class NullArgumentExceptionTest extends TestCase {
@@ -89,13 +90,13 @@ public class NullArgumentExceptionTest extends TestCase {
 
     public void testGetMessage_nullConstructorInput() {
         final Throwable t = new NullArgumentException(null);
-        assertEquals("null cannot be null.", t.getMessage());
+        assertEquals("null must not be null.", t.getMessage());
     }
 
     public void testGetMessage_validConstructorInput() {
         final String argName = "name";
         final Throwable t = new NullArgumentException(argName);
-        assertEquals(argName + " cannot be null.", t.getMessage());
+        assertEquals(argName + " must not be null.", t.getMessage());
     }
 
 } // NullArgumentExceptionTest
