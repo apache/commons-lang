@@ -82,7 +82,7 @@ import org.apache.commons.lang.SystemUtils;
  *
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.12 2003/04/08 22:34:53 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.13 2003/04/18 04:57:19 bayard Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -333,8 +333,7 @@ public abstract class ToStringStyle implements Serializable {
                 && !(value instanceof Number || value instanceof Boolean || value instanceof Character)) {
             appendAsObjectToString(buffer, value);
             
-        } 
-        else if (value instanceof Collection) {
+        } else if (value instanceof Collection) {
             if (detail) {
                 appendDetail(buffer, fieldName, (Collection) value);
             } else {
