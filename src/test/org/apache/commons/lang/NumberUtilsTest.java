@@ -68,7 +68,7 @@ import junit.framework.TestSuite;
  * @author Eric Pugh
  * @author Phil Steitz
  * @author Stephen Colebourne
- * @version $Id: NumberUtilsTest.java,v 1.9 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.10 2003/10/11 21:20:24 tobrien Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -107,15 +107,17 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("createNumber(String) 3 failed", new Double("1234.5"), NumberUtils.createNumber("1234.5D"));
         assertEquals("createNumber(String) 4 failed", new Float("1234.5"), NumberUtils.createNumber("1234.5F"));
         assertEquals("createNumber(String) 5 failed", new Long(Integer.MAX_VALUE + 1L), NumberUtils.createNumber("" + (Integer.MAX_VALUE + 1L)));
-        assertEquals("createNumber(String) 6 failed", new Long(12345), NumberUtils.createNumber("12345L"));
-        assertEquals("createNumber(String) 7 failed", new Float("-1234.5"), NumberUtils.createNumber("-1234.5"));
-        assertEquals("createNumber(String) 8 failed", new Integer("-12345"), NumberUtils.createNumber("-12345"));
-        assertTrue("createNumber(String) 9 failed", 0xFADE == NumberUtils.createNumber("0xFADE").intValue());
-        assertTrue("createNumber(String) 10 failed", -0xFADE == NumberUtils.createNumber("-0xFADE").intValue());
-        assertEquals("createNumber(String) 11 failed", new Double("1.1E200"), NumberUtils.createNumber("1.1E200"));
-        assertEquals("createNumber(String) 12 failed", new Float("1.1E20"), NumberUtils.createNumber("1.1E20"));
-        assertEquals("createNumber(String) 13 failed", new Double("-1.1E200"), NumberUtils.createNumber("-1.1E200"));
-        assertEquals("createNumber(String) 14 failed", new Double("1.1E-200"), NumberUtils.createNumber("1.1E-200"));
+        assertEquals("createNumber(String) 6 failed", new BigInteger(Long.MAX_VALUE + "0"), NumberUtils.createNumber(Long.MAX_VALUE + "0L"));
+        assertEquals("createNumber(String) 7 failed", new Long(12345), NumberUtils.createNumber("12345L"));
+        assertEquals("createNumber(String) 8 failed", new Float("-1234.5"), NumberUtils.createNumber("-1234.5"));
+        assertEquals("createNumber(String) 9 failed", new Integer("-12345"), NumberUtils.createNumber("-12345"));
+        assertTrue("createNumber(String) 10 failed", 0xFADE == NumberUtils.createNumber("0xFADE").intValue());
+        assertTrue("createNumber(String) 11 failed", -0xFADE == NumberUtils.createNumber("-0xFADE").intValue());
+        assertEquals("createNumber(String) 12 failed", new Double("1.1E200"), NumberUtils.createNumber("1.1E200"));
+        assertEquals("createNumber(String) 13 failed", new Float("1.1E20"), NumberUtils.createNumber("1.1E20"));
+        assertEquals("createNumber(String) 14 failed", new Double("-1.1E200"), NumberUtils.createNumber("-1.1E200"));
+        assertEquals("createNumber(String) 15 failed", new Double("1.1E-200"), NumberUtils.createNumber("1.1E-200"));
+        assertEquals("createNumber(String) 16 failed", new Double("1.1E-200"), NumberUtils.createNumber("1.1E-200"));
 
         // jdk 1.2 doesn't support this. unsure about jdk 1.2.2
         if(SystemUtils.isJavaVersionAtLeast(1.3f)) { 
@@ -519,6 +521,20 @@ public class NumberUtilsTest extends TestCase {
         assertTrue("isNumber(String)/createNumber(String) 21 Neg failed", !checkCreateNumber(val)); 
 
     }
+    
+    public void testIsNumberInvalidInput() {
+        String val = "0x";
+        assertEquals("isNumber() with 0x wasn't false",  false, NumberUtils.isNumber(val));
+        val = "0x3x3";
+        assertEquals("isNumber() with 0x3x3 wasn't false",  false, NumberUtils.isNumber(val));
+        val = "20EE-3";
+        assertEquals("isNumber() with 20EE-3 wasn't false",  false, NumberUtils.isNumber(val));
+        val = "2435q";
+        assertEquals("isNumber() with 2435q wasn't false",  false, NumberUtils.isNumber(val));
+        val = ".";
+        assertEquals("isNumber() with . wasn't false",  false, NumberUtils.isNumber(val));
+
+    }
 
     private boolean checkCreateNumber(String val) {
         try {
@@ -534,4 +550,12 @@ public class NumberUtilsTest extends TestCase {
         }
     }
 
+    public void testPublicNoArgConstructor() {
+        try {
+            NumberUtils nu = new NumberUtils();
+        } catch( Exception e ) {
+            fail( "Error calling public no-arg constructor" );
+        }
+    }
+    
 }
