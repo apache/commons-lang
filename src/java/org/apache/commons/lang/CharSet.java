@@ -69,9 +69,9 @@ import java.util.Set;
  * @author Stephen Colebourne
  * @author Phil Steitz
  * @author Pete Gieser
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSet.java,v 1.18 2003/08/21 05:25:34 ggregory Exp $
+ * @version $Id: CharSet.java,v 1.19 2003/08/21 05:26:02 ggregory Exp $
  */
 public class CharSet implements Serializable {
 
