@@ -65,7 +65,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @since 1.0
- * @version $Id: Nestable.java,v 1.6 2003/03/23 17:47:51 scolebourne Exp $
+ * @version $Id: Nestable.java,v 1.7 2003/07/26 13:00:36 scolebourne Exp $
  */
 public interface Nestable {
     
@@ -169,8 +169,8 @@ public interface Nestable {
 
     /**
      * Prints the stack trace of this exception to the specified print
-     * writer.  Includes inforamation from the exception--if
-     * any--which caused this exception.
+     * writer.  Includes information from the exception, if any,
+     * which caused this exception.
      *
      * @param out <code>PrintWriter</code> to use for output.
      */
@@ -178,8 +178,8 @@ public interface Nestable {
 
     /**
      * Prints the stack trace of this exception to the specified print
-     * stream.  Includes inforamation from the exception--if
-     * any--which caused this exception.
+     * stream.  Includes inforamation from the exception, if any,
+     * which caused this exception.
      *
      * @param out <code>PrintStream</code> to use for output.
      */
@@ -196,4 +196,5 @@ public interface Nestable {
      * @param out The writer to use.
      */
     public void printPartialStackTrace(PrintWriter out);
+    
 }
