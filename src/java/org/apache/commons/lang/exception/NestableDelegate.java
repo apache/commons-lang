@@ -41,7 +41,7 @@ import java.util.List;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.25 2004/09/30 07:03:25 bayard Exp $
+ * @version $Id: NestableDelegate.java,v 1.26 2004/10/09 10:45:24 scolebourne Exp $
  */
 public class NestableDelegate implements Serializable {
 
@@ -62,6 +62,9 @@ public class NestableDelegate implements Serializable {
     /**
      * Whether to print the stack trace top-down.
      * This public flag may be set by calling code, typically in initialisation.
+     * This exists for backwards compatability, setting it to false will return
+     * the library to v1.0 behaviour (but will affect all users of the library
+     * in the classloader).
      * @since 2.0
      */
     public static boolean topDown = true;
@@ -69,9 +72,22 @@ public class NestableDelegate implements Serializable {
     /**
      * Whether to trim the repeated stack trace.
      * This public flag may be set by calling code, typically in initialisation.
+     * This exists for backwards compatability, setting it to false will return
+     * the library to v1.0 behaviour (but will affect all users of the library
+     * in the classloader).
      * @since 2.0
      */
     public static boolean trimStackFrames = true;
+    
+    /**
+     * Whether to match subclasses via indexOf.
+     * This public flag may be set by calling code, typically in initialisation.
+     * This exists for backwards compatability, setting it to false will return
+     * the library to v2.0 behaviour (but will affect all users of the library
+     * in the classloader).
+     * @since 2.1
+     */
+    public static boolean matchSubclasses = true;
 
     /**
      * Constructs a new <code>NestableDelegate</code> instance to manage the
@@ -212,11 +228,19 @@ public class NestableDelegate implements Serializable {
 
     /**
      * Returns the index, numbered from 0, of the first <code>Throwable</code>
-     * that matches the specified type in the chain of <code>Throwable</code>s
-     * held in this delegate's <code>Nestable</code> with an index greater than
-     * or equal to the specified index, or -1 if the type is not found.
+     * that matches the specified type, or a subclass, in the chain of <code>Throwable</code>s
+     * with an index greater than or equal to the specified index.
+     * The method returns -1 if the specified type is not found in the chain.
+     * <p>
+     * NOTE: From v2.1, we have clarified the <code>Nestable</code> interface
+     * such that this method matches subclasses.
+     * If you want to NOT match subclasses, please use
+     * {@link ExceptionUtils#indexOfThrowable(Throwable, Class, int)}
+     * (which is avaiable in all versions of lang).
+     * An alternative is to use the public static flag {@link #matchSubclasses}
+     * on <code>NestableDelegate</code>, however this is not recommended.
      *
-     * @param type <code>Class</code> to be found
+     * @param type  the type to find, subclasses match, null returns -1
      * @param fromIndex the index, numbered from 0, of the starting position in
      * the chain to be searched
      * @return index of the first occurrence of the type in the chain, or -1 if
@@ -227,6 +251,9 @@ public class NestableDelegate implements Serializable {
      * @since 2.0
      */
     public int indexOfThrowable(Class type, int fromIndex) {
+        if (type == null) {
+            return -1;
+        }
         if (fromIndex < 0) {
             throw new IndexOutOfBoundsException("The start index was out of bounds: " + fromIndex);
         }
@@ -235,11 +262,17 @@ public class NestableDelegate implements Serializable {
             throw new IndexOutOfBoundsException("The start index was out of bounds: "
                 + fromIndex + " >= " + throwables.length);
         }
-        for (int i = fromIndex; i < throwables.length; i++) {
-// TODO: decide on whether to include this
-//            if (type.isAssignableFrom(throwables[i].getClass())) {
-            if (throwables[i].getClass().equals(type)) {
-                return i;
+        if (matchSubclasses) {
+            for (int i = fromIndex; i < throwables.length; i++) {
+                if (type.isAssignableFrom(throwables[i].getClass())) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = fromIndex; i < throwables.length; i++) {
+                if (type.equals(throwables[i].getClass())) {
+                    return i;
+                }
             }
         }
         return -1;

@@ -15,6 +15,8 @@
  */
 package org.apache.commons.lang.exception;
 
+import java.io.EOFException;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
@@ -23,7 +25,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableError class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableErrorTestCase.java,v 1.6 2004/02/18 23:02:15 ggregory Exp $
+ * @version $Id: NestableErrorTestCase.java,v 1.7 2004/10/09 10:45:24 scolebourne Exp $
  */
 public class NestableErrorTestCase extends AbstractNestableTestCase {
     
@@ -189,13 +191,21 @@ public class NestableErrorTestCase extends AbstractNestableTestCase {
      */
     public Throwable getThrowable(String msg)
     {
-        return new Error(msg);
+        return new EOFException(msg);
     }
     
     /**
      * @see AbstractNestableTestCase#getThrowableClass()
      */
     public Class getThrowableClass()
+    {
+        return EOFException.class;
+    }
+    
+    /**
+     * @see AbstractNestableTestCase#getBaseThrowableClass()
+     */
+    public Class getBaseThrowableClass()
     {
         return Error.class;
     }

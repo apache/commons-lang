@@ -28,7 +28,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: Nestable.java,v 1.11 2004/02/18 22:54:04 ggregory Exp $
+ * @version $Id: Nestable.java,v 1.12 2004/10/09 10:45:24 scolebourne Exp $
  */
 public interface Nestable {
     
@@ -106,10 +106,16 @@ public interface Nestable {
 
     /**
      * Returns the index, numbered from 0, of the first occurrence of the
-     * specified type in the chain of <code>Throwable</code>s, or -1 if the
-     * specified type is not found in the chain.
+     * specified type, or a subclass, in the chain of <code>Throwable</code>s.
+     * The method returns -1 if the specified type is not found in the chain.
+     * <p>
+     * NOTE: From v2.1, we have clarified the <code>Nestable</code> interface
+     * such that this method matches subclasses.
+     * If you want to NOT match subclasses, please use
+     * {@link ExceptionUtils#indexOfThrowable(Throwable, Class)}
+     * (which is avaiable in all versions of lang).
      *
-     * @param type <code>Class</code> to be found
+     * @param type  the type to find, subclasses match, null returns -1
      * @return index of the first occurrence of the type in the chain, or -1 if
      * the type is not found
      */
@@ -117,11 +123,17 @@ public interface Nestable {
 
     /**
      * Returns the index, numbered from 0, of the first <code>Throwable</code>
-     * that matches the specified type in the chain of <code>Throwable</code>s
-     * with an index greater than or equal to the specified index, or -1 if
-     * the type is not found.
+     * that matches the specified type, or a subclass, in the chain of <code>Throwable</code>s
+     * with an index greater than or equal to the specified index.
+     * The method returns -1 if the specified type is not found in the chain.
+     * <p>
+     * NOTE: From v2.1, we have clarified the <code>Nestable</code> interface
+     * such that this method matches subclasses.
+     * If you want to NOT match subclasses, please use
+     * {@link ExceptionUtils#indexOfThrowable(Throwable, Class, int)}
+     * (which is avaiable in all versions of lang).
      *
-     * @param type <code>Class</code> to be found
+     * @param type  the type to find, subclasses match, null returns -1
      * @param fromIndex the index, numbered from 0, of the starting position in
      * the chain to be searched
      * @return index of the first occurrence of the type in the chain, or -1 if
@@ -152,8 +164,8 @@ public interface Nestable {
 
     /**
      * Prints the stack trace for this exception only--root cause not
-     * included--using the provided writer.  Used by {@link
-     * org.apache.commons.lang.exception.NestableDelegate} to write
+     * included--using the provided writer.  Used by
+     * {@link org.apache.commons.lang.exception.NestableDelegate} to write
      * individual stack traces to a buffer.  The implementation of
      * this method should call
      * <code>super.printStackTrace(out);</code> in most cases.

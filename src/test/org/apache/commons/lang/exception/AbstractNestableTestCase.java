@@ -25,7 +25,7 @@ import junit.framework.TestCase;
  * interface.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: AbstractNestableTestCase.java,v 1.6 2004/02/18 23:02:15 ggregory Exp $
+ * @version $Id: AbstractNestableTestCase.java,v 1.7 2004/10/09 10:45:24 scolebourne Exp $
  */
 public abstract class AbstractNestableTestCase extends TestCase
 {
@@ -360,7 +360,9 @@ public abstract class AbstractNestableTestCase extends TestCase
         {
             doNestableExceptionIndexOfThrowable(n, throwables[i], indexes[i], msgs[indexes[i]]);
         }
+        doNestableExceptionIndexOfThrowable(n, getBaseThrowableClass(), 0, msgs[0]);
         doNestableExceptionIndexOfThrowable(n, java.util.Date.class, -1, null);
+        doNestableExceptionIndexOfThrowable(n, null, -1, null);
     }
     
     private void doNestableExceptionIndexOfThrowable(Nestable n, Class type, int expectedIndex, String expectedMsg)
@@ -368,7 +370,7 @@ public abstract class AbstractNestableTestCase extends TestCase
         Throwable t = null;
         
         int index = n.indexOfThrowable(type);
-        assertEquals("index of throwable " + type.getName(), expectedIndex, index);
+        assertEquals("index of throwable " + (type == null ? "null" : type.getName()), expectedIndex, index);
         if(expectedIndex > -1)
         {
             t = n.getThrowable(index);
@@ -421,6 +423,7 @@ public abstract class AbstractNestableTestCase extends TestCase
         doNestableExceptionIndexOfThrowableI(n, getTester1Class(), 4, -1, null);
         doNestableExceptionIndexOfThrowableI(n, getThrowableClass(), 2, 4, msgs[4]);
         doNestableExceptionIndexOfThrowableI(n, java.util.Date.class, 0, -1, null);
+        doNestableExceptionIndexOfThrowableI(n, null, 0, -1, null);
         
         // Test for index out of bounds
         try
@@ -447,7 +450,7 @@ public abstract class AbstractNestableTestCase extends TestCase
         Throwable t = null;
         
         int index = n.indexOfThrowable(type, fromIndex);
-        assertEquals("index of throwable " + type.getName(), expectedIndex, index);
+        assertEquals("index of throwable " + (type == null ? "null" : type.getName()), expectedIndex, index);
         if(expectedIndex > -1)
         {
             t = n.getThrowable(index);
@@ -665,5 +668,13 @@ public abstract class AbstractNestableTestCase extends TestCase
      * @return the class
      */
     public abstract Class getThrowableClass();
+
+    /**
+     * Returns the base class being used, typically Error, Eception or RuntimeException.
+     *
+     * @return the class
+     */
+    public abstract Class getBaseThrowableClass();
+
 }
 
