@@ -61,22 +61,27 @@ package org.apache.commons.lang;
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ObjectUtils.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @version $Id: ObjectUtils.java,v 1.2 2002/09/18 19:49:08 scolebourne Exp $
  */
 public class ObjectUtils {
     
     /**
-     * Prevent construction of ObjectUtils instances
+     * ObjectUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as <code>ObjectUtils.defaultIfNull("a","b");</code>.
+     * This constructor is public to permit tools that require a JavaBean instance
+     * to operate.
      */
-    private ObjectUtils() {
+    public ObjectUtils() {
     }
 
+    //--------------------------------------------------------------------
+    
     /**
      * Returns a default value if the object passed is null.
      *
-     * @param object  the object to test.
-     * @param defaultValue  the default value to return.
-     * @return object if it is not null, defaultValue otherwise.
+     * @param object  the object to test
+     * @param defaultValue  the default value to return
+     * @return object if it is not null, defaultValue otherwise
      */
     public static Object defaultIfNull(Object object, Object defaultValue) {
         return (object != null ? object : defaultValue);
@@ -86,19 +91,36 @@ public class ObjectUtils {
      * Compares two objects for equality, where either one or both
      * objects may be <code>null</code>.
      *
-     * @param object1  the first object.
-     * @param object2  the second object.
-     * @return True if the values of both objects are the same.
+     * @param object1  the first object
+     * @param object2  the second object
+     * @return <code>true</code> if the values of both objects are the same
      */
     public static boolean equals(Object object1, Object object2) {
-        if (object1 == null) {
-            return (object2 == null);
-        } else if (object2 == null) {
-            // object1 is not null
-            return false;
-        } else {
-            return object1.equals(object2);
+        if (object1 == object2) {
+            return true;
         }
+        if ((object1 == null) || (object2 == null)) {
+            return false;
+        }
+        return object1.equals(object2);
+    }
+    
+    /**
+     * Gets the toString that would be produced by Object if a class did not
+     * override toString itself. Null will return null.
+     *
+     * @param object  the object to create a toString for, may be null
+     * @return the default toString text, or null if null passed in
+     */
+    public static String identityToString(Object object) {
+        if (object == null) {
+            return null;
+        }
+        return new StringBuffer()
+            .append(object.getClass().getName())
+            .append('@')
+            .append(Integer.toHexString(System.identityHashCode(object)))
+            .toString();
     }
     
 }
