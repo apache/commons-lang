@@ -82,7 +82,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Gregor Raýman
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
- * @version $Id: MethodUtils.java,v 1.6 2002/11/20 22:31:40 rdonkin Exp $
+ * @version $Id: MethodUtils.java,v 1.7 2002/11/21 18:53:32 rdonkin Exp $
  */
 public class MethodUtils {
     
@@ -204,11 +204,7 @@ public class MethodUtils {
      * @param methodName  get method with this name, must not be null
      * @param arg  use this argument, must not be null
      *
-     * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the
-     *  method invoked
-     * @throws IllegalAccessException if the requested method is not accessible
-     *  via reflection
+     * @throws ReflectionException if an error occurs during reflection
      * @throws IllegalArgumentException if any parameter is null
      */
     public static Object invokeMethod(
@@ -216,9 +212,7 @@ public class MethodUtils {
             String methodName,
             Object arg)
                 throws
-                    NoSuchMethodException,
-                    IllegalAccessException,
-                    InvocationTargetException {
+                    ReflectionException {
 
         if (objectToInvoke == null) {
             throw new IllegalArgumentException("The object to invoke must not be null");
@@ -248,11 +242,7 @@ public class MethodUtils {
      * @param methodName  get method with this name, must not be null
      * @param args  use these arguments - treat null as empty array
      *
-     * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the
-     *  method invoked
-     * @throws IllegalAccessException if the requested method is not accessible
-     *  via reflection
+     * @throws ReflectionException if an error occurs during reflection
      * @throws IllegalArgumentException if the objectToInvoke, methodName or any argument is null
      */
     public static Object invokeMethod(
@@ -260,9 +250,7 @@ public class MethodUtils {
             String methodName,
             Object[] args)
                 throws
-                    NoSuchMethodException,
-                    IllegalAccessException,
-                    InvocationTargetException {
+                    ReflectionException {
         
         if (objectToInvoke == null) {
             throw new IllegalArgumentException("The object to invoke must not be null");
@@ -298,11 +286,7 @@ public class MethodUtils {
      * @param args  use these arguments - treat null as empty array
      * @param parameterTypes  match these parameters - treat null as empty array
      *
-     * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the
-     *  method invoked
-     * @throws IllegalAccessException if the requested method is not accessible
-     *  via reflection
+     * @throws ReflectionException if an error occurs during reflection
      */
     public static Object invokeMethod(
             Object object,
@@ -310,9 +294,7 @@ public class MethodUtils {
             Object[] args,
             Class[] parameterTypes)
                 throws
-                    NoSuchMethodException,
-                    IllegalAccessException,
-                    InvocationTargetException {
+                    ReflectionException {
                     
         if (parameterTypes == null) {
             parameterTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
@@ -326,9 +308,26 @@ public class MethodUtils {
                 methodName,
                 parameterTypes);
         if (method == null)
-            throw new NoSuchMethodException("No such accessible method: " +
+            throw new ReflectionException("No such accessible method: " +
                     methodName + "() on object: " + object.getClass().getName());
-        return method.invoke(object, args);
+        
+        try {
+        
+            return method.invoke(object, args);
+            
+        } catch (IllegalAccessException ex) {
+            throw new ReflectionException(
+                ReflectionUtils.getThrowableText(
+                    ex, "invoking method", object.getClass().getName(), parameterTypes, methodName)
+                , ex);
+        
+        } catch (InvocationTargetException ex) {
+            throw new ReflectionException(
+                ReflectionUtils.getThrowableText(
+                    ex, "invoking method", object.getClass().getName(), parameterTypes, methodName)
+                , ex);
+        
+        }
     }
 
     /**
