@@ -17,11 +17,11 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution, if
- *    any, must include the following acknowlegement:
+ *    any, must include the following acknowledgement:
  *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowlegement may appear in the software itself,
- *    if and wherever such third-party acknowlegements normally appear.
+ *    Alternately, this acknowledgement may appear in the software itself,
+ *    if and wherever such third-party acknowledgements normally appear.
  *
  * 4. The names "The Jakarta Project", "Commons", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
@@ -61,7 +61,7 @@ import java.util.Map;
  * Base extended enumeration.
  *
  * @author Stephen Colebourne
- * @version $Id: Extended1Enum.java,v 1.2 2003/05/22 22:00:06 scolebourne Exp $
+ * @version $Id: Extended1Enum.java,v 1.3 2003/08/18 02:22:27 bayard Exp $
  */
 public class Extended1Enum extends Enum {
     public static final Extended1Enum ALPHA = new Extended1Enum("Alpha");
