@@ -71,7 +71,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Matthew Hawthorne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.7 2003/07/26 19:12:03 ggregory Exp $
+ * @version $Id: NumberUtils.java,v 1.8 2003/07/28 21:37:32 scolebourne Exp $
  */
 public class NumberUtils {
     
@@ -218,9 +218,12 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Number createNumber(String str) throws NumberFormatException {
-        if (!validateNumber(str)) {
+        if (str == null) {
             return null;
         }
+        if (StringUtils.isBlank(str)) {
+            throw new NumberFormatException("A blank string is not a valid number");
+        }  
         if (str.startsWith("--")) {
             // this is protection for poorness in java.lang.BigDecimal.
             // it accepts this as a legal value, but it does not appear 
@@ -388,7 +391,7 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Float createFloat(String str) {
-        if (!validateNumber(str)) {
+        if (str == null) {
             return null;
         }
         return Float.valueOf(str);
@@ -404,7 +407,7 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Double createDouble(String str) {
-        if (!validateNumber(str)) {
+        if (str == null) {
             return null;
         }
         return Double.valueOf(str);
@@ -421,10 +424,10 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Integer createInteger(String str) {
-        // decode() handles 0xAABD and 0777 (hex and octal) as well.
-        if (!validateNumber(str)) {
+        if (str == null) {
             return null;
         }
+        // decode() handles 0xAABD and 0777 (hex and octal) as well.
         return Integer.decode(str);
     }
 
@@ -438,7 +441,7 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static Long createLong(String str) {
-        if (!validateNumber(str)) {
+        if (str == null) {
             return null;
         }
         return Long.valueOf(str);
@@ -454,7 +457,7 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static BigInteger createBigInteger(String str) {
-        if (!validateNumber(str)) {
+        if (str == null) {
             return null;
         }
         return new BigInteger(str);
@@ -470,33 +473,16 @@ public class NumberUtils {
      * @throws NumberFormatException if the value cannot be converted
      */
     public static BigDecimal createBigDecimal(String str) {
-        if (!validateNumber(str)) {
+        if (str == null) {
             return null;
         }
+        // handle JDK1.3.1 bug where "" throws IndexOutOfBoundsException
+        if (StringUtils.isBlank(str)) {
+            throw new NumberFormatException("A blank string is not a valid number");
+        }  
         return new BigDecimal(str);
     }
 
-    /**
-     * Checks the validitiy of a <code>String</code> for conversion it to a number.
-     * <ol>
-     * <li>If <code>str</code> is <code>null</code>, return <code>false</code>;</li>
-     * <li>If <code>str</code> is <i>blank</i>, throw a <code>NumberFormatException</code>;</li>
-     * <li>Otherewise return <code>true</code>.</li>
-     * </ol>
-     *  
-     * @param str The <code>String</code> to check.
-     * @return Whether or not the argument is suitable for conversion.
-     */
-    protected static boolean validateNumber(String str) {
-        if (str == null) {
-            return false;
-        }
-        if (StringUtils.isBlank(str)) {
-            throw new NumberFormatException("A blank string is not a valid number.");
-        }  
-        return true;
-    }
-    
     // Min in array
     //--------------------------------------------------------------------
     /**
