@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.TimeZone;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
@@ -40,10 +41,25 @@ import junit.textui.TestRunner;
 public class DateUtilsTest extends TestCase {
     DateFormat dateParser = null;
     DateFormat dateTimeParser = null;
+    DateFormat timeZoneDateParser = null;
     Date date1 = null;
     Date date2 = null;
+    Date date3 = null;
+    Date date4 = null;
+    Date date5 = null;
+    Date date6 = null;
+    Date date7 = null;
+    Date date8 = null;
     Calendar cal1 = null;
     Calendar cal2 = null;
+    Calendar cal3 = null;
+    Calendar cal4 = null;
+    Calendar cal5 = null;
+    Calendar cal6 = null;
+    Calendar cal7 = null;
+    Calendar cal8 = null;
+    TimeZone zone = null;
+    TimeZone defaultZone = null;
 
     public DateUtilsTest(String name) {
         super(name);
@@ -67,10 +83,36 @@ public class DateUtilsTest extends TestCase {
 
         date1 = dateTimeParser.parse("February 12, 2002 12:34:56.789");
         date2 = dateTimeParser.parse("November 18, 2001 1:23:11.321");
+        defaultZone = TimeZone.getDefault();
+        zone = TimeZone.getTimeZone("MET");
+        TimeZone.setDefault(zone);
+        dateTimeParser.setTimeZone(zone);
+        date3 = dateTimeParser.parse("March 30, 2003 05:30:45.000");
+        date4 = dateTimeParser.parse("March 30, 2003 01:10:00.000");
+        date5 = dateTimeParser.parse("March 30, 2003 01:40:00.000");
+        date6 = dateTimeParser.parse("March 30, 2003 02:10:00.000");
+        date7 = dateTimeParser.parse("March 30, 2003 02:40:00.000");
+        date8 = dateTimeParser.parse("October 26, 2003 05:30:45.000");
+        dateTimeParser.setTimeZone(defaultZone);
+        TimeZone.setDefault(defaultZone);
         cal1 = Calendar.getInstance();
         cal1.setTime(date1);
         cal2 = Calendar.getInstance();
         cal2.setTime(date2);
+        TimeZone.setDefault(zone);
+        cal3 = Calendar.getInstance();
+        cal3.setTime(date3);
+        cal4 = Calendar.getInstance();
+        cal4.setTime(date4);
+        cal5 = Calendar.getInstance();
+        cal5.setTime(date5);
+        cal6 = Calendar.getInstance();
+        cal6.setTime(date6);
+        cal7 = Calendar.getInstance();
+        cal7.setTime(date7);
+        cal8 = Calendar.getInstance();
+        cal8.setTime(date8);
+        TimeZone.setDefault(defaultZone);
     }
 
     protected void tearDown() throws Exception {
@@ -206,6 +248,62 @@ public class DateUtilsTest extends TestCase {
             DateUtils.round(date1, -9999);
             fail();
         } catch(IllegalArgumentException ex) {}
+        
+        // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
+        // Test rounding across the beginning of daylight saving time
+        TimeZone.setDefault(zone);
+        dateTimeParser.setTimeZone(zone);
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 00:00:00.000"),
+                DateUtils.round(date4, Calendar.DATE));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 00:00:00.000"),
+                DateUtils.round((Object) cal4, Calendar.DATE));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 00:00:00.000"),
+                DateUtils.round(date5, Calendar.DATE));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 00:00:00.000"),
+                DateUtils.round((Object) cal5, Calendar.DATE));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 00:00:00.000"),
+                DateUtils.round(date6, Calendar.DATE));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 00:00:00.000"),
+                DateUtils.round((Object) cal6, Calendar.DATE));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 00:00:00.000"),
+                DateUtils.round(date7, Calendar.DATE));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 00:00:00.000"),
+                DateUtils.round((Object) cal7, Calendar.DATE));
+        
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 01:00:00.000"),
+                DateUtils.round(date4, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 01:00:00.000"),
+                DateUtils.round((Object) cal4, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.round(date5, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.round((Object) cal5, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.round(date6, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.round((Object) cal6, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                DateUtils.round(date7, Calendar.HOUR_OF_DAY));
+        assertEquals("round MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY));
+        TimeZone.setDefault(defaultZone);
+        dateTimeParser.setTimeZone(defaultZone);
     }
 
     /**
@@ -323,6 +421,26 @@ public class DateUtilsTest extends TestCase {
             DateUtils.truncate("", Calendar.SECOND);
             fail();
         } catch (ClassCastException ex) {}
+
+        // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
+        // Test truncate across beginning of daylight saving time
+        TimeZone.setDefault(zone);
+        dateTimeParser.setTimeZone(zone);
+        assertEquals("truncate MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 00:00:00.000"),
+                DateUtils.truncate(date3, Calendar.DATE));
+        assertEquals("truncate MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 00:00:00.000"),
+                DateUtils.truncate((Object) cal3, Calendar.DATE));
+        // Test truncate across end of daylight saving time
+        assertEquals("truncate MET date across DST change-over",
+                dateTimeParser.parse("October 26, 2003 00:00:00.000"),
+                DateUtils.truncate(date8, Calendar.DATE));
+        assertEquals("truncate MET date across DST change-over",
+                dateTimeParser.parse("October 26, 2003 00:00:00.000"),
+                DateUtils.truncate((Object) cal8, Calendar.DATE));
+        TimeZone.setDefault(defaultZone);
+        dateTimeParser.setTimeZone(defaultZone);
     }
 
     // TODO: Decide whether this code is removed or goes into 2.1
