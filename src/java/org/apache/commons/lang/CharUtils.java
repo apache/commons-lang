@@ -24,7 +24,7 @@ package org.apache.commons.lang;
  * 
  * @author Stephen Colebourne
  * @since 2.1
- * @version $Id: CharUtils.java,v 1.8 2004/03/10 23:23:46 scolebourne Exp $
+ * @version $Id: CharUtils.java,v 1.9 2004/05/24 00:10:15 ggregory Exp $
  */
 public class CharUtils {
     
@@ -82,7 +82,7 @@ public class CharUtils {
      * @return a Character of the specified character
      */
     public static Character toCharacterObject(char ch) {
-        if (ch < 128) {
+        if (ch < CHAR_ARRAY.length) {
             return CHAR_ARRAY[ch];
         } else {
             return new Character(ch);
