@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang;
 
+import java.math.BigDecimal;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -62,33 +64,38 @@ import junit.framework.TestSuite;
  *
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Revision: 1.5 $ $Date: 2003/08/18 02:22:25 $
+ * @author Tim O'Brien
+ * @version $Revision: 1.6 $ $Date: 2003/10/11 20:35:11 $
  */
 
 public final class NumberRangeTest extends TestCase {
 
 
     private NumberRange tenToTwenty;
+    private NumberRange fifteenToTwentyFive;
+    private NumberRange fiveToNine;
     private Number five;
+    private Number nine;
     private Number ten;
     private Number fifteen;
     private Number twenty;
     private Number twentyFive;
 
-
     public NumberRangeTest(String name) {
         super(name);
     }
 
-
     public void setUp() {
         five       = new Integer(5);
+        nine      = new Double(9.0);
         ten        = new Integer(10);
         fifteen    = new Integer(15);
         twenty     = new Integer(20);
         twentyFive = new Integer(25);
 
         tenToTwenty = new NumberRange(ten, twenty);
+        fifteenToTwentyFive = new NumberRange( fifteen, twentyFive);
+        fiveToNine = new NumberRange( five, nine );
     }
 
 
@@ -125,7 +132,26 @@ public final class NumberRangeTest extends TestCase {
         result = tenToTwenty.equals(new NumberRange(fifteen, twenty));
         assertEquals(expected, result);
     }
+    
+    public void testEqualsWithOtherObject() {
+        assertEquals( "A NumberRange should not equals a String object", false, fiveToNine.equals("TEST"));
+    }
 
+    public void testEqualsWithSameReference() {
+        assertEquals( "A NumberRange should equal itself", true, fiveToNine.equals(fiveToNine));
+    }
+
+    public void testEqualsNull() {
+        assertEquals( "A NumberRange should not equal null", false, fiveToNine.equals(null));
+    }
+
+    public void testHashCode() {
+        NumberRange nr = new NumberRange( new Integer(5), new Double(9.0));
+        assertEquals( "The hashCode of 5-9 should equals the hashcode of another NumberRange of the same min/max",
+                                fiveToNine.hashCode(), nr.hashCode());
+        assertTrue( "The hashCode of 10-20 should not equal the hashCode of 5-9", 
+                            fiveToNine.hashCode() != tenToTwenty.hashCode());                        
+    }
 
     public void testIncludesNumber() {
         boolean expected = false;
@@ -149,6 +175,10 @@ public final class NumberRangeTest extends TestCase {
         assertEquals(expected, result);
     }
 
+    public void testIncludesNumberNull() {
+        boolean result = tenToTwenty.includesNumber(null);
+        assertEquals("Includes number should return false for null values", false, result);
+    }
 
     public void testIncludesRange() {
         boolean expected = false;
@@ -182,49 +212,70 @@ public final class NumberRangeTest extends TestCase {
         assertEquals(expected, result);
     }
 
-	public void testConstructorNullParameters()
-	{
-		try
-		{
+    public void testIncludesRangeNull() {
+        boolean result = tenToTwenty.includesRange(null);
+        assertEquals("Includes range should return false for null values", false, result);
+    }
+
+    public void testConstructor() {
+        NumberRange nr = new NumberRange( new Double(2.0));
+        assertEquals("Unexpected min on NumberRange", 2.0, nr.getMinimum().doubleValue(), Double.MIN_VALUE);
+        assertEquals("Unexpected max on NumberRange", 2.0, nr.getMaximum().doubleValue(), Double.MIN_VALUE);
+    }
+
+	public void testConstructorNullParameters() {
+		try {
 			NumberRange nr = new NumberRange(null);
 			fail("NumberRange(null) did not throw an exception.");
-		}
-		catch (Exception e)
-		{
-			assertTrue(
-				"NumberRange(null)",
-				e instanceof NullPointerException);
+		} catch (Exception e) {
+			assertTrue(	"NumberRange(null)", e instanceof NullPointerException);
 		}
 
-		try
-		{
+		try {
 			NumberRange nr = new NumberRange(five, null);
 			fail("NumberRange(five, null) did not throw an exception.");
-		}
-		catch (Exception e)
-		{
-			assertTrue(
-				"NumberRange(five, null)",
-				e instanceof NullPointerException);
+		} catch (Exception e) {
+			assertTrue("NumberRange(five, null)", e instanceof NullPointerException);
 		}
 
-		try
-		{
+		try {
 			NumberRange nr = new NumberRange(null, five);
 			fail("NumberRange(null, five) did not throw an exception.");
+		} catch (Exception e) {
+			assertTrue("NumberRange(null, five)", e instanceof NullPointerException);
 		}
-		catch (Exception e)
-		{
-			assertTrue(
-				"NumberRange(null, five)",
-				e instanceof NullPointerException);
-		}
-
 	}
+
+    public void testConstructorWithMaxLessThanMin() {
+        NumberRange nr = new NumberRange( new Double(2.0), new Double(1.0));
+        assertEquals("Unexpected min on NumberRange", 2.0, nr.getMinimum().doubleValue(), Double.MIN_VALUE);
+        assertEquals("Unexpected max on NumberRange", 2.0, nr.getMaximum().doubleValue(), Double.MIN_VALUE);
+    }
+
+    public void testOverlap() {
+        assertEquals( "5-9 should not overlap 10-20", false, fiveToNine.overlaps( tenToTwenty ));
+        assertEquals( "10-20 should overlap 15-25", true, tenToTwenty.overlaps( fifteenToTwentyFive ));
+    }
+
+    public void testOverlapNull() {
+        assertEquals( "5-9 should not overlap null", false, fiveToNine.overlaps( null ));
+    }
 
     public void testToString() {
         String expected = "10-20";
         String result = tenToTwenty.toString();
+        assertEquals(expected, result);
+    }
+
+    public void testToStringWithNegatives() {
+        String expected = "(-20)-(-10)";
+        NumberRange nr = new NumberRange( new Integer(-20), new Integer(-10));
+        String result = nr.toString();
+        assertEquals(expected, result);
+
+        expected = "(-20)-10";
+        nr = new NumberRange( new Integer(-20), new Integer(10));
+        result = nr.toString();
         assertEquals(expected, result);
     }
 
