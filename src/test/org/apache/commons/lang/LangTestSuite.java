@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: LangTestSuite.java,v 1.8 2002/12/15 19:36:08 scolebourne Exp $
+ * @version $Id: LangTestSuite.java,v 1.9 2002/12/16 21:48:41 bayard Exp $
  */
 public class LangTestSuite extends TestCase {
     
@@ -90,6 +90,7 @@ public class LangTestSuite extends TestCase {
         suite.addTest(BooleanUtilsTest.suite());
         suite.addTest(CharSetUtilsTest.suite());
         suite.addTest(ClassUtilsTest.suite());
+        suite.addTest(DateUtilsTest.suite());
         suite.addTest(NumberRangeTest.suite());
         suite.addTest(NumberUtilsTest.suite());
         suite.addTest(ObjectUtilsTest.suite());
