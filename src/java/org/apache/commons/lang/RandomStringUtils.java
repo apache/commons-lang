@@ -64,7 +64,7 @@ import java.util.Random;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.25 2003/09/07 14:32:34 psteitz Exp $
+ * @version $Id: RandomStringUtils.java,v 1.26 2003/11/04 20:31:45 fredrik Exp $
  */
 public class RandomStringUtils {
 
@@ -252,7 +252,8 @@ public class RandomStringUtils {
      * @throws IllegalArgumentException if <code>count</code> &lt; 0.
      * @since 2.0
      */
-    public static String random(int count, int start, int end, boolean letters, boolean numbers, char[] chars, Random random) {
+    public static String random(int count, int start, int end, boolean letters, boolean numbers,
+                                char[] chars, Random random) {
         if (count == 0) {
             return "";
         } else if (count < 0) {
