@@ -102,13 +102,13 @@ import java.lang.reflect.Modifier;
  * 
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EqualsBuilder.java,v 1.2 2002/09/17 22:06:38 scolebourne Exp $
+ * @version $Id: EqualsBuilder.java,v 1.3 2002/09/22 09:18:32 scolebourne Exp $
  */
 public class EqualsBuilder {
     /**
      * If the fields tested are equals.
      */
-    protected boolean isEquals;
+    private boolean isEquals;
 
     /**
      * Constructor for EqualsBuilder.

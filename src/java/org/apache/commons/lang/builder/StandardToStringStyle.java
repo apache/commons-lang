@@ -63,7 +63,7 @@ package org.apache.commons.lang.builder;
  * public static final variable for the rest of the program to access.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StandardToStringStyle.java,v 1.3 2002/09/19 19:45:22 scolebourne Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.4 2002/09/22 09:18:32 scolebourne Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
@@ -122,7 +122,7 @@ public class StandardToStringStyle extends ToStringStyle {
 
     /**
      * Sets whether to use the identity hash code.
-     * @param useFieldNames  the new useIdentityHashCode flag
+     * @param useIdentityHashCode  the new useIdentityHashCode flag
      */
     public void setUseIdentityHashCode(boolean useIdentityHashCode) {
         super.setUseIdentityHashCode(useIdentityHashCode);

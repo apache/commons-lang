@@ -61,7 +61,7 @@ import java.io.Serializable;
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ObjectUtils.java,v 1.3 2002/09/18 20:11:53 scolebourne Exp $
+ * @version $Id: ObjectUtils.java,v 1.4 2002/09/22 09:18:33 scolebourne Exp $
  */
 public class ObjectUtils {
     
@@ -155,7 +155,8 @@ public class ObjectUtils {
         }
         
         /**
-         * Ensure singleton
+         * Ensure singleton.
+         * @return the singleton value
          */
         private Object readResolve() {
             return ObjectUtils.NULL;
