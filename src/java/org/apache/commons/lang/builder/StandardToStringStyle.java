@@ -63,7 +63,7 @@ package org.apache.commons.lang.builder;
  * public static final variable for the rest of the program to access.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StandardToStringStyle.java,v 1.2 2002/09/17 22:09:11 scolebourne Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.3 2002/09/19 19:45:22 scolebourne Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
@@ -81,7 +81,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current useClassName flag
      */
     public boolean isUseClassName() {
-        return useClassName;
+        return super.isUseClassName();
     }
 
     /**
@@ -89,7 +89,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param useClassName  the new useClassName flag
      */
     public void setUseClassName(boolean useClassName) {
-        this.useClassName = useClassName;
+        super.setUseClassName(useClassName);
     }
 
     //---------------------------------------------------------------------
@@ -99,7 +99,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current shortClassName flag
      */
     public boolean isShortClassName() {
-        return useShortClassName;
+        return super.isShortClassName();
     }
 
     /**
@@ -107,7 +107,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param shortClassName  the new shortClassName flag
      */
     public void setShortClassName(boolean shortClassName) {
-        this.useShortClassName = shortClassName;
+        super.setShortClassName(shortClassName);
     }
 
     //---------------------------------------------------------------------
@@ -117,7 +117,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current useIdentityHashCode flag
      */
     public boolean isUseIdentityHashCode() {
-        return useIdentityHashCode;
+        return super.isUseIdentityHashCode();
     }
 
     /**
@@ -125,7 +125,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param useFieldNames  the new useIdentityHashCode flag
      */
     public void setUseIdentityHashCode(boolean useIdentityHashCode) {
-        this.useIdentityHashCode = useIdentityHashCode;
+        super.setUseIdentityHashCode(useIdentityHashCode);
     }
 
     //---------------------------------------------------------------------
@@ -135,7 +135,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current useFieldNames flag
      */
     public boolean isUseFieldNames() {
-        return useFieldNames;
+        return super.isUseFieldNames();
     }
 
     /**
@@ -143,7 +143,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param useFieldNames  the new useFieldNames flag
      */
     public void setUseFieldNames(boolean useFieldNames) {
-        this.useFieldNames = useFieldNames;
+        super.setUseFieldNames(useFieldNames);
     }
 
     //---------------------------------------------------------------------
@@ -153,7 +153,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current defaultFullDetail flag
      */
     public boolean isDefaultFullDetail() {
-        return defaultFullDetail;
+        return super.isDefaultFullDetail();
     }
 
     /**
@@ -161,7 +161,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param defaultFullDetail  the new defaultFullDetail flag
      */
     public void setDefaultFullDetail(boolean defaultFullDetail) {
-        this.defaultFullDetail = defaultFullDetail;
+        super.setDefaultFullDetail(defaultFullDetail);
     }
 
     //---------------------------------------------------------------------
@@ -171,7 +171,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current array content detail setting
      */
     public boolean isArrayContentDetail() {
-        return arrayContentDetail;
+        return super.isArrayContentDetail();
     }
     
     /**
@@ -179,7 +179,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param arrayContentDetail  the new arrayContentDetail flag
      */
     public void setArrayContentDetail(boolean arrayContentDetail) {
-        this.arrayContentDetail = arrayContentDetail;
+        super.setArrayContentDetail(arrayContentDetail);
     }
 
     //---------------------------------------------------------------------
@@ -189,7 +189,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current array start text
      */
     public String getArrayStart() {
-        return arrayStart;
+        return super.getArrayStart();
     }
 
     /**
@@ -198,10 +198,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param arrayStart  the new array start text
      */
     public void setArrayStart(String arrayStart) {
-        if (arrayStart == null) {
-            arrayStart = "";
-        }
-        this.arrayStart = arrayStart;
+        super.setArrayStart(arrayStart);
     }
 
     //---------------------------------------------------------------------
@@ -211,7 +208,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current array end text
      */
     public String getArrayEnd() {
-        return arrayEnd;
+        return super.getArrayEnd();
     }
 
     /**
@@ -220,10 +217,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param arrayEnd  the new array end text
      */
     public void setArrayEnd(String arrayEnd) {
-        if (arrayStart == null) {
-            arrayStart = "";
-        }
-        this.arrayEnd = arrayEnd;
+        super.setArrayEnd(arrayEnd);
     }
 
     //---------------------------------------------------------------------
@@ -233,7 +227,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current array separator text
      */
     public String getArraySeparator() {
-        return arraySeparator;
+        return super.getArraySeparator();
     }
 
     /**
@@ -242,10 +236,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param arraySeparator  the new array separator text
      */
     public void setArraySeparator(String arraySeparator) {
-        if (arraySeparator == null) {
-            arraySeparator = "";
-        }
-        this.arraySeparator = arraySeparator;
+        super.setArraySeparator(arraySeparator);
     }
 
     //---------------------------------------------------------------------
@@ -255,7 +246,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current content start text
      */
     public String getContentStart() {
-        return contentStart;
+        return super.getContentStart();
     }
 
     /**
@@ -264,10 +255,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param contentStart  the new content start text
      */
     public void setContentStart(String contentStart) {
-        if (contentStart == null) {
-            contentStart = "";
-        }
-        this.contentStart = contentStart;
+        super.setContentStart(contentStart);
     }
 
     //---------------------------------------------------------------------
@@ -277,7 +265,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current content end text
      */
     public String getContentEnd() {
-        return contentEnd;
+        return super.getContentEnd();
     }
 
     /**
@@ -286,10 +274,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param contentEnd  the new content end text
      */
     public void setContentEnd(String contentEnd) {
-        if (contentEnd == null) {
-            contentEnd = "";
-        }
-        this.contentEnd = contentEnd;
+        super.setContentEnd(contentEnd);
     }
 
     //---------------------------------------------------------------------
@@ -299,7 +284,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current field name value separator text
      */
     public String getFieldNameValueSeparator() {
-        return fieldNameValueSeparator;
+        return super.getFieldNameValueSeparator();
     }
 
     /**
@@ -308,10 +293,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param fieldNameValueSeparator  the new field name value separator text
      */
     public void setFieldNameValueSeparator(String fieldNameValueSeparator) {
-        if (fieldNameValueSeparator == null) {
-            fieldNameValueSeparator = "";
-        }
-        this.fieldNameValueSeparator = fieldNameValueSeparator;
+        super.setFieldNameValueSeparator(fieldNameValueSeparator);
     }
 
     //---------------------------------------------------------------------
@@ -321,7 +303,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current field separator text
      */
     public String getFieldSeparator() {
-        return fieldSeparator;
+        return super.getFieldSeparator();
     }
 
     /**
@@ -330,10 +312,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param fieldSeparator  the new field separator text
      */
     public void setFieldSeparator(String fieldSeparator) {
-        if (fieldSeparator == null) {
-            fieldSeparator = "";
-        }
-        this.fieldSeparator = fieldSeparator;
+        super.setFieldSeparator(fieldSeparator);
     }
 
     //---------------------------------------------------------------------
@@ -343,7 +322,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current text to output when null found
      */
     public String getNullText() {
-        return nullText;
+        return super.getNullText();
     }
 
     /**
@@ -352,10 +331,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param nullText  the new text to output when null found
      */
     public void setNullText(String nullText) {
-        if (nullText == null) {
-            nullText = "";
-        }
-        this.nullText = nullText;
+        super.setNullText(nullText);
     }
 
     //---------------------------------------------------------------------
@@ -366,7 +342,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current start of size text
      */
     public String getSizeStartText() {
-        return sizeStartText;
+        return super.getSizeStartText();
     }
 
     /**
@@ -376,10 +352,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param sizeStartText  the new start of size text
      */
     public void setSizeStartText(String sizeStartText) {
-        if (sizeStartText == null) {
-            sizeStartText = "";
-        }
-        this.sizeStartText = sizeStartText;
+        super.setSizeStartText(sizeStartText);
     }
 
     //---------------------------------------------------------------------
@@ -390,7 +363,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current end of size text
      */
     public String getSizeEndText() {
-        return sizeEndText;
+        return super.getSizeEndText();
     }
 
     /**
@@ -400,10 +373,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param sizeEndText  the new end of size text
      */
     public void setSizeEndText(String sizeEndText) {
-        if (sizeEndText == null) {
-            sizeEndText = "";
-        }
-        this.sizeEndText = sizeEndText;
+        super.setSizeEndText(sizeEndText);
     }
 
     //---------------------------------------------------------------------
@@ -414,7 +384,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current start of summary text
      */
     public String getSummaryObjectStartText() {
-        return summaryObjectStartText;
+        return super.getSummaryObjectStartText();
     }
 
     /**
@@ -424,10 +394,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param summaryObjectStartText  the new start of summary text
      */
     public void setSummaryObjectStartText(String summaryObjectStartText) {
-        if (summaryObjectStartText == null) {
-            summaryObjectStartText = "";
-        }
-        this.summaryObjectStartText = summaryObjectStartText;
+        super.setSummaryObjectStartText(summaryObjectStartText);
     }
 
     //---------------------------------------------------------------------
@@ -438,7 +405,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current end of summary text
      */
     public String getSummaryObjectEndText() {
-        return summaryObjectEndText;
+        return super.getSummaryObjectEndText();
     }
 
     /**
@@ -448,10 +415,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param summaryObjectEndText  the new end of summary text
      */
     public void setSummaryObjectEndText(String summaryObjectEndText) {
-        if (summaryObjectEndText == null) {
-            summaryObjectEndText = "";
-        }
-        this.summaryObjectEndText = summaryObjectEndText;
+        super.setSummaryObjectEndText(summaryObjectEndText);
     }
 
     //---------------------------------------------------------------------
