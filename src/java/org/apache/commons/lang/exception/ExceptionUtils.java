@@ -80,7 +80,8 @@ public class ExceptionUtils
     };
 
     /**
-     * The parameters of the <code>getCause()</code> method.
+     * The empty parameter list passed to methods used to access a
+     * wrapped exception.
      */
     protected static final Object[] CAUSE_METHOD_PARAMS = {};
 
