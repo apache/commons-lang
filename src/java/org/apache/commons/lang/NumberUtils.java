@@ -62,8 +62,10 @@ import java.math.BigDecimal;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author Stephen Colebourne
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
+ * @author Eric Pugh
+ * @author Phil Steitz
  * @since 1.0
- * @version $Id: NumberUtils.java,v 1.9 2003/06/08 14:09:36 scolebourne Exp $
+ * @version $Id: NumberUtils.java,v 1.10 2003/06/08 14:14:01 scolebourne Exp $
  */
 public final class NumberUtils {
     
@@ -763,6 +765,8 @@ public final class NumberUtils {
                 // not allowing L with an exponoent
                 return foundDigit && !hasExp;
             }
+            // last character is illegal
+            return false;
         }
         // allowSigns is true iff the val ends in 'E'
         // found digit it to make sure weird stuff like '.' and '1E-' doesn't pass

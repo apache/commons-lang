@@ -65,7 +65,10 @@ import junit.framework.TestSuite;
  *
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: NumberUtilsTest.java,v 1.6 2003/05/21 23:49:15 scolebourne Exp $
+ * @author Eric Pugh
+ * @author Phil Steitz
+ * @author Stephen Colebourne
+ * @version $Id: NumberUtilsTest.java,v 1.7 2003/06/08 14:14:01 scolebourne Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -493,13 +496,34 @@ public class NumberUtilsTest extends TestCase {
         val = "1234E5l";
         assertTrue("isNumber(String) 14 Neg failed", !NumberUtils.isNumber(val));
         assertTrue("isNumber(String)/createNumber(String) 14 Neg failed", !checkCreateNumber(val));
+        val = "11a";
+        assertTrue("isNumber(String) 15 Neg failed", !NumberUtils.isNumber(val));
+        assertTrue("isNumber(String)/createNumber(String) 15 Neg failed", !checkCreateNumber(val)); 
+        val = "1a";
+        assertTrue("isNumber(String) 16 Neg failed", !NumberUtils.isNumber(val));
+        assertTrue("isNumber(String)/createNumber(String) 16 Neg failed", !checkCreateNumber(val)); 
+        val = "a";
+        assertTrue("isNumber(String) 17 Neg failed", !NumberUtils.isNumber(val));
+        assertTrue("isNumber(String)/createNumber(String) 17 Neg failed", !checkCreateNumber(val)); 
+        val = "11g";
+        assertTrue("isNumber(String) 18 Neg failed", !NumberUtils.isNumber(val));
+        assertTrue("isNumber(String)/createNumber(String) 18 Neg failed", !checkCreateNumber(val)); 
+        val = "11z";
+        assertTrue("isNumber(String) 19 Neg failed", !NumberUtils.isNumber(val));
+        assertTrue("isNumber(String)/createNumber(String) 19 Neg failed", !checkCreateNumber(val)); 
+        val = "11def";
+        assertTrue("isNumber(String) 20 Neg failed", !NumberUtils.isNumber(val));
+        assertTrue("isNumber(String)/createNumber(String) 20 Neg failed", !checkCreateNumber(val)); 
+        val = "11d11";
+        assertTrue("isNumber(String) 21 Neg failed", !NumberUtils.isNumber(val));
+        assertTrue("isNumber(String)/createNumber(String) 21 Neg failed", !checkCreateNumber(val)); 
 
     }
 
     private boolean checkCreateNumber(String val) {
         try {
             Object obj = NumberUtils.createNumber(val);
-            if(obj == null) {
+            if (obj == null) {
                 return false;
             }
             return true;
