@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.32 2004/10/16 18:52:21 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.33 2004/10/16 21:06:18 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.1
@@ -75,6 +75,7 @@ indexOfThrowable method untouched (see incompatible changes section)
 - NumberUtils - various string to number parsing methods added
 
 - DateUtils - methods added to compare dates in various ways
+           -- method to parse a date string using multiple patterns
 - FastDateFormat - extra formatting methods that take in a millisecond long value
                 -- additional static factory methods
 - StopWatch - new methods for split behaviour
@@ -113,6 +114,7 @@ BUG FIXES:
 29794  Add convenience format(long) methods to FastDateForma
 30328  HashCodeBuilder does not use the same values as Boolean (fixed as documentation)
 30334  New class proposal: CharacterEncoding
+30674  parseDate class from HttpClient's DateParser class
 30815  ArrayUtils.isEquals() throws ClassCastException when array1
 30929  Nestable.indexOfThrowable(Class)  uses Class.equals() to match
 31395  DateUtils.truncate oddity at the far end of the Date spectrum
