@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CompareToBuilderTest.java,v 1.1 2002/09/15 10:27:06 scolebourne Exp $
+ * @version $Id: CompareToBuilderTest.java,v 1.2 2002/12/08 21:37:25 scolebourne Exp $
  */
 public class CompareToBuilderTest extends TestCase {
 
@@ -145,10 +145,8 @@ public class CompareToBuilderTest extends TestCase {
         Object o2 = new Object();
         try {
             CompareToBuilder.reflectionCompare(o1, o2);
-        } catch (ClassCastException ex) {
-            return;
-        }
-        fail();
+            fail();
+        } catch (ClassCastException ex) {}
     }
 
     public void testObject() {
@@ -159,27 +157,50 @@ public class CompareToBuilderTest extends TestCase {
         o2.setA(5);
         assertTrue(new CompareToBuilder().append(o1, o2).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(o2, o1).toComparison() > 0);
-    }
-
-    public void testObjectEx1() {
-        TestObject o1 = new TestObject(4);
-        try {
-            new CompareToBuilder().append(o1, null).toComparison();
-        } catch (NullPointerException ex) {
-            return;
-        }
-        fail();
+        
+        assertTrue(new CompareToBuilder().append(o1, null).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((Object) null, (Object) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, o1).toComparison() < 0);
     }
 
     public void testObjectEx2() {
         TestObject o1 = new TestObject(4);
         Object o2 = new Object();
         try {
-            new CompareToBuilder().append(o1, o2).toComparison();
-        } catch (ClassCastException ex) {
-            return;
-        }
-        fail();
+            new CompareToBuilder().append(o1, o2);
+            fail();
+        } catch (ClassCastException ex) {}
+    }
+
+    public void testObjectComparator() {
+        String o1 = "Fred";
+        String o2 = "Fred";
+        assertTrue(new CompareToBuilder().append(o1, o1, String.CASE_INSENSITIVE_ORDER).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(o1, o2, String.CASE_INSENSITIVE_ORDER).toComparison() == 0);
+        o2 = "FRED";
+        assertTrue(new CompareToBuilder().append(o1, o2, String.CASE_INSENSITIVE_ORDER).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(o2, o1, String.CASE_INSENSITIVE_ORDER).toComparison() == 0);
+        o2 = "FREDA";
+        assertTrue(new CompareToBuilder().append(o1, o2, String.CASE_INSENSITIVE_ORDER).toComparison() < 0);
+        assertTrue(new CompareToBuilder().append(o2, o1, String.CASE_INSENSITIVE_ORDER).toComparison() > 0);
+        
+        assertTrue(new CompareToBuilder().append(o1, null, String.CASE_INSENSITIVE_ORDER).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((Object) null, (Object) null, String.CASE_INSENSITIVE_ORDER).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, o1, String.CASE_INSENSITIVE_ORDER).toComparison() < 0);
+    }
+    
+    public void testObjectComparatorNull() {
+        String o1 = "Fred";
+        String o2 = "Fred";
+        assertTrue(new CompareToBuilder().append(o1, o1, null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(o1, o2, null).toComparison() == 0);
+        o2 = "Zebra";
+        assertTrue(new CompareToBuilder().append(o1, o2, null).toComparison() < 0);
+        assertTrue(new CompareToBuilder().append(o2, o1, null).toComparison() > 0);
+        
+        assertTrue(new CompareToBuilder().append(o1, null, null).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((Object) null, (Object) null, null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, o1, null).toComparison() < 0);
     }
 
     public void testLong() {
@@ -307,22 +328,14 @@ public class CompareToBuilderTest extends TestCase {
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(obj1, obj3).toComparison() < 0);
         assertTrue(new CompareToBuilder().append(obj3, obj1).toComparison() > 0);
-
+        
         obj1[1] = new TestObject(7);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
-    }
 
-    public void testObjectArrayEx1() {
-        TestObject[] obj1 = new TestObject[2];
-        obj1[0] = new TestObject(4);
-        obj1[1] = new TestObject(5);
-        try {
-            new CompareToBuilder().append(obj1, null).toComparison();
-        } catch (NullPointerException ex) {
-            return;
-        }
-        fail();
+        assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((Object[]) null, (Object[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
     public void testLongArray() {
@@ -345,6 +358,10 @@ public class CompareToBuilderTest extends TestCase {
         obj1[1] = 7;
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
+
+        assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((long[]) null, (long[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
     public void testIntArray() {
@@ -367,6 +384,10 @@ public class CompareToBuilderTest extends TestCase {
         obj1[1] = 7;
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
+
+        assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((int[]) null, (int[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
     public void testShortArray() {
@@ -389,6 +410,10 @@ public class CompareToBuilderTest extends TestCase {
         obj1[1] = 7;
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
+
+        assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((short[]) null, (short[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
     public void testCharArray() {
@@ -411,6 +436,10 @@ public class CompareToBuilderTest extends TestCase {
         obj1[1] = 7;
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
+
+        assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((char[]) null, (char[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
     public void testByteArray() {
@@ -433,6 +462,10 @@ public class CompareToBuilderTest extends TestCase {
         obj1[1] = 7;
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
+
+        assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((byte[]) null, (byte[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
     public void testDoubleArray() {
@@ -455,6 +488,10 @@ public class CompareToBuilderTest extends TestCase {
         obj1[1] = 7;
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
+
+        assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((double[]) null, (double[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
     public void testFloatArray() {
@@ -477,6 +514,10 @@ public class CompareToBuilderTest extends TestCase {
         obj1[1] = 7;
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
+
+        assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((float[]) null, (float[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
     public void testBooleanArray() {
@@ -499,6 +540,10 @@ public class CompareToBuilderTest extends TestCase {
         obj1[1] = true;
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
         assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
+
+        assertTrue(new CompareToBuilder().append(obj1, null).toComparison() > 0);
+        assertTrue(new CompareToBuilder().append((boolean[]) null, (boolean[]) null).toComparison() == 0);
+        assertTrue(new CompareToBuilder().append(null, obj1).toComparison() < 0);
     }
 
     public void testMultiLongArray() {
@@ -760,7 +805,8 @@ public class CompareToBuilderTest extends TestCase {
 
         array1[1] = new TestObject(7);
         assertTrue(new CompareToBuilder().append(obj1, obj2).toComparison() > 0);
-        assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);    }
+        assertTrue(new CompareToBuilder().append(obj2, obj1).toComparison() < 0);
+    }
 
     public void testLongArrayHiddenByObject() {
         long[] array1 = new long[2];
