@@ -3431,7 +3431,7 @@ public class ArrayUtils {
         } else {
             return new Object[] { null };
         }
-        return (Object[]) add( (Object) array, index, element, clss );
+        return (Object[]) add( array, index, element, clss );
     }
     
     /**
@@ -3462,7 +3462,7 @@ public class ArrayUtils {
      * (index < 0 || index > array.length).
      */
     public static boolean[] add(boolean[] array, int index, boolean element) {
-        return (boolean[]) add( (Object) array, index, new Boolean(element), Boolean.TYPE );
+        return (boolean[]) add( array, index, new Boolean(element), Boolean.TYPE );
     }
     
     /**
@@ -3494,7 +3494,7 @@ public class ArrayUtils {
      * (index < 0 || index > array.length).
      */
     public static char[] add(char[] array, int index, char element) {
-        return (char[]) add( (Object) array, index, new Character(element), Character.TYPE );
+        return (char[]) add( array, index, new Character(element), Character.TYPE );
     }
     
     /**
@@ -3525,7 +3525,7 @@ public class ArrayUtils {
      * (index < 0 || index > array.length).
      */
     public static byte[] add(byte[] array, int index, byte element) {
-        return (byte[]) add( (Object) array, index, new Byte(element), Byte.TYPE );
+        return (byte[]) add( array, index, new Byte(element), Byte.TYPE );
     }
     
     /**
@@ -3556,7 +3556,7 @@ public class ArrayUtils {
      * (index < 0 || index > array.length).
      */
     public static short[] add(short[] array, int index, short element) {
-        return (short[]) add( (Object) array, index, new Short(element), Short.TYPE );
+        return (short[]) add( array, index, new Short(element), Short.TYPE );
     }
     
     /**
@@ -3587,7 +3587,7 @@ public class ArrayUtils {
      * (index < 0 || index > array.length).
      */
     public static int[] add(int[] array, int index, int element) {
-        return (int[]) add( (Object) array, index, new Integer(element), Integer.TYPE );
+        return (int[]) add( array, index, new Integer(element), Integer.TYPE );
     }
     
     /**
@@ -3618,7 +3618,7 @@ public class ArrayUtils {
      * (index < 0 || index > array.length).
      */
     public static long[] add(long[] array, int index, long element) {
-        return (long[]) add( (Object) array, index, new Long(element), Long.TYPE );
+        return (long[]) add( array, index, new Long(element), Long.TYPE );
     }
     
     /**
@@ -3649,7 +3649,7 @@ public class ArrayUtils {
      * (index < 0 || index > array.length).
      */
     public static float[] add(float[] array, int index, float element) {
-        return (float[]) add( (Object) array, index, new Float(element), Float.TYPE );
+        return (float[]) add( array, index, new Float(element), Float.TYPE );
     }
     
     /**
@@ -3680,7 +3680,7 @@ public class ArrayUtils {
      * (index < 0 || index > array.length).
      */
     public static double[] add(double[] array, int index, double element) {
-        return (double[]) add( (Object) array, index, new Double(element), Double.TYPE );
+        return (double[]) add( array, index, new Double(element), Double.TYPE );
     }
     
     /**
