@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author Moritz Petersen
- * @version $Id: ArrayUtilsTest.java,v 1.2 2002/11/16 12:56:44 scolebourne Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.3 2002/11/24 16:50:38 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -515,6 +515,127 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(true, ArrayUtils.isSameType(new String[0][0], new String[0][0]));
         assertEquals(false, ArrayUtils.isSameType(new String[0], new String[0][0]));
         assertEquals(false, ArrayUtils.isSameType(new String[0][0], new String[0]));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testReverse() {
+        StringBuffer str1 = new StringBuffer("pick");
+        String str2 = "a";
+        String[] str3 = new String[] {"stick"};
+        String str4 = "up";
+        
+        Object[] array = new Object[] {str1, str2, str3};
+        ArrayUtils.reverse(array);
+        assertEquals(array[0], str3);
+        assertEquals(array[1], str2);
+        assertEquals(array[2], str1);
+        
+        array = new Object[] {str1, str2, str3, str4};
+        ArrayUtils.reverse(array);
+        assertEquals(array[0], str4);
+        assertEquals(array[1], str3);
+        assertEquals(array[2], str2);
+        assertEquals(array[3], str1);
+
+        array = null;
+        ArrayUtils.reverse(array);
+        assertEquals(null, array);
+    }
+
+    public void testReverseLong() {
+        long[] array = new long[] {1L, 2L, 3L};
+        ArrayUtils.reverse(array);
+        assertEquals(array[0], 3L);
+        assertEquals(array[1], 2L);
+        assertEquals(array[2], 1L);
+
+        array = null;
+        ArrayUtils.reverse(array);
+        assertEquals(null, array);
+    }
+    
+    public void testReverseInt() {
+        int[] array = new int[] {1, 2, 3};
+        ArrayUtils.reverse(array);
+        assertEquals(array[0], 3);
+        assertEquals(array[1], 2);
+        assertEquals(array[2], 1);
+
+        array = null;
+        ArrayUtils.reverse(array);
+        assertEquals(null, array);
+    }
+    
+    public void testReverseShort() {
+        short[] array = new short[] {1, 2, 3};
+        ArrayUtils.reverse(array);
+        assertEquals(array[0], 3);
+        assertEquals(array[1], 2);
+        assertEquals(array[2], 1);
+
+        array = null;
+        ArrayUtils.reverse(array);
+        assertEquals(null, array);
+    }
+    
+    public void testReverseChar() {
+        char[] array = new char[] {'a', 'f', 'C'};
+        ArrayUtils.reverse(array);
+        assertEquals(array[0], 'C');
+        assertEquals(array[1], 'f');
+        assertEquals(array[2], 'a');
+
+        array = null;
+        ArrayUtils.reverse(array);
+        assertEquals(null, array);
+    }
+    
+    public void testReverseByte() {
+        byte[] array = new byte[] {2, 3, 4};
+        ArrayUtils.reverse(array);
+        assertEquals(array[0], 4);
+        assertEquals(array[1], 3);
+        assertEquals(array[2], 2);
+
+        array = null;
+        ArrayUtils.reverse(array);
+        assertEquals(null, array);
+    }
+    
+    public void testReverseDouble() {
+        double[] array = new double[] {0.3d, 0.4d, 0.5d};
+        ArrayUtils.reverse(array);
+        assertEquals(array[0], 0.5d, 0.0d);
+        assertEquals(array[1], 0.4d, 0.0d);
+        assertEquals(array[2], 0.3d, 0.0d);
+
+        array = null;
+        ArrayUtils.reverse(array);
+        assertEquals(null, array);
+    }
+    
+    public void testReverseFloat() {
+        float[] array = new float[] {0.3f, 0.4f, 0.5f};
+        ArrayUtils.reverse(array);
+        assertEquals(array[0], 0.5f, 0.0f);
+        assertEquals(array[1], 0.4f, 0.0f);
+        assertEquals(array[2], 0.3f, 0.0f);
+
+        array = null;
+        ArrayUtils.reverse(array);
+        assertEquals(null, array);
+    }
+    
+    public void testReverseBoolean() {
+        boolean[] array = new boolean[] {false, false, true};
+        ArrayUtils.reverse(array);
+        assertEquals(array[0], true);
+        assertEquals(array[1], false);
+        assertEquals(array[2], false);
+
+        array = null;
+        ArrayUtils.reverse(array);
+        assertEquals(null, array);
     }
     
 }
