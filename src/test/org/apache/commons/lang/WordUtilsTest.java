@@ -28,7 +28,7 @@ import junit.framework.TestSuite;
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Henri Yandell
  * @author Stephen Colebourne
- * @version $Id: WordUtilsTest.java,v 1.7 2004/06/03 03:49:47 bayard Exp $
+ * @version $Id: WordUtilsTest.java,v 1.8 2004/10/08 22:10:23 scolebourne Exp $
  */
 public class WordUtilsTest extends TestCase {
 
@@ -184,6 +184,9 @@ public class WordUtilsTest extends TestCase {
         assertEquals("I Am+Here-123", WordUtils.capitalize("I Am+Here-123", chars) );
         assertEquals("I+Am-HERE 123", WordUtils.capitalize("i+am-HERE 123", chars) );
         assertEquals("I-AM HERE+123", WordUtils.capitalize("I-AM HERE+123", chars) );
+        chars = new char[] {'.'};
+        assertEquals("I aM.Fine", WordUtils.capitalize("i aM.fine", chars) );
+        assertEquals("I Am.fine", WordUtils.capitalize("i am.fine", null) );
     }
 
     public void testCapitalizeFully_String() {
@@ -211,6 +214,9 @@ public class WordUtilsTest extends TestCase {
         assertEquals("I Am+Here-123", WordUtils.capitalizeFully("I Am+Here-123", chars) );
         assertEquals("I+Am-Here 123", WordUtils.capitalizeFully("i+am-HERE 123", chars) );
         assertEquals("I-Am Here+123", WordUtils.capitalizeFully("I-AM HERE+123", chars) );
+        chars = new char[] {'.'};
+        assertEquals("I am.Fine", WordUtils.capitalizeFully("i aM.fine", chars) );
+        assertEquals("I Am.fine", WordUtils.capitalizeFully("i am.fine", null) );
     }
 
     public void testUncapitalize_String() {
@@ -238,6 +244,9 @@ public class WordUtilsTest extends TestCase {
         assertEquals("i+am here-123", WordUtils.uncapitalize("I+Am Here-123", chars) );
         assertEquals("i-am+hERE 123", WordUtils.uncapitalize("i-am+HERE 123", chars) );
         assertEquals("i aM-hERE+123", WordUtils.uncapitalize("I AM-HERE+123", chars) );
+        chars = new char[] {'.'};
+        assertEquals("i AM.fINE", WordUtils.uncapitalize("I AM.FINE", chars) );
+        assertEquals("i aM.FINE", WordUtils.uncapitalize("I AM.FINE", null) );
     }
     
     public void testSwapCase_String() {
