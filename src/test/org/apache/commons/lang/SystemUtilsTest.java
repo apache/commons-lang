@@ -33,7 +33,7 @@ import junit.textui.TestRunner;
  * @author Stephen Colebourne
  * @author Tetsuya Kaneuchi
  * @author Gary D. Gregory
- * @version $Id: SystemUtilsTest.java,v 1.10 2004/02/25 00:25:29 ggregory Exp $
+ * @version $Id: SystemUtilsTest.java,v 1.11 2004/11/12 00:48:41 scolebourne Exp $
  */
 public class SystemUtilsTest extends TestCase {
     public static void main(String[] args) {
@@ -51,6 +51,8 @@ public class SystemUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     private String JAVA_VERSION;
 
+    private String JAVA_VERSION_TRIMMED;
+
     private String OS_NAME;
 
     private String OS_VERSION;
@@ -60,51 +62,41 @@ public class SystemUtilsTest extends TestCase {
     }
 
     /**
-     * <p>
-     * Get the Java version number as a <code>float</code>.
-     * </p>
-     * 
-     * <p>
-     * Example output:
-     * </p>
+     * <p>Gets the Java version number as a <code>float</code>.</p>
+     *
+     * <p>Example return values:</p>
      * <ul>
-     * <li><code>1.2f</code> for JDK 1.2
-     * <li><code>1.31f</code> for JDK 1.3.1
+     *  <li><code>1.2f</code> for JDK 1.2
+     *  <li><code>1.31f</code> for JDK 1.3.1
      * </ul>
      * 
-     * <p>
-     * Patch releases are not reported. Zero is returned if JAVA_VERSION is <code>null</code>.
-     * </p>
+     * <p>Patch releases are not reported.
+     * Zero is returned if {@link #JAVA_VERSION_TRIMMED} is <code>null</code>.</p>
      * 
      * @return the version, for example 1.31f for JDK 1.3.1
      */
     private float getJavaVersionAsFloat() {
-        if (JAVA_VERSION == null) {
+        if (JAVA_VERSION_TRIMMED == null) {
             return 0f;
         }
-        String str = JAVA_VERSION.substring(0, 3);
-        if (JAVA_VERSION.length() >= 5) {
-            str = str + JAVA_VERSION.substring(4, 5);
+        String str = JAVA_VERSION_TRIMMED.substring(0, 3);
+        if (JAVA_VERSION_TRIMMED.length() >= 5) {
+            str = str + JAVA_VERSION_TRIMMED.substring(4, 5);
         }
         return Float.parseFloat(str);
     }
 
     /**
-     * <p>
-     * Get the Java version number as an <code>int</code>.
-     * </p>
-     * 
-     * <p>
-     * Example output:
-     * </p>
+     * <p>Gets the Java version number as an <code>int</code>.</p>
+     *
+     * <p>Example return values:</p>
      * <ul>
-     * <li><code>120</code> for JDK 1.2
-     * <li><code>131</code> for JDK 1.3.1
+     *  <li><code>120</code> for JDK 1.2
+     *  <li><code>131</code> for JDK 1.3.1
      * </ul>
      * 
-     * <p>
-     * Patch releases are not reported. Zero is returned if JAVA_VERSION is <code>null</code>.
-     * </p>
+     * <p>Patch releases are not reported.
+     * Zero is returned if {@link #JAVA_VERSION_TRIMMED} is <code>null</code>.</p>
      * 
      * @return the version, for example 131 for JDK 1.3.1
      */
@@ -112,14 +104,31 @@ public class SystemUtilsTest extends TestCase {
         if (JAVA_VERSION == null) {
             return 0;
         }
-        String str = JAVA_VERSION.substring(0, 1);
-        str = str + JAVA_VERSION.substring(2, 3);
-        if (JAVA_VERSION.length() >= 5) {
-            str = str + JAVA_VERSION.substring(4, 5);
+        String str = JAVA_VERSION_TRIMMED.substring(0, 1);
+        str = str + JAVA_VERSION_TRIMMED.substring(2, 3);
+        if (JAVA_VERSION_TRIMMED.length() >= 5) {
+            str = str + JAVA_VERSION_TRIMMED.substring(4, 5);
         } else {
             str = str + "0";
         }
         return Integer.parseInt(str);
+    }
+
+    /**
+     * Trims the text of the java version to start with numbers.
+     * 
+     * @return the trimmed java version
+     */
+    private String getJavaVersionTrimmed() {
+        if (JAVA_VERSION != null) {
+            for (int i = 0; i < JAVA_VERSION.length(); i++) {
+                char ch = JAVA_VERSION.charAt(i);
+                if (ch >= '0' && ch <= '9') {
+                    return JAVA_VERSION.substring(i);
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -130,10 +139,10 @@ public class SystemUtilsTest extends TestCase {
      * @return true if matches, or false if not or can't determine
      */
     private boolean getJavaVersionMatches(String versionPrefix) {
-        if (JAVA_VERSION == null) {
+        if (JAVA_VERSION_TRIMMED == null) {
             return false;
         }
-        return JAVA_VERSION.startsWith(versionPrefix);
+        return JAVA_VERSION_TRIMMED.startsWith(versionPrefix);
     }
 
     /**
@@ -286,44 +295,68 @@ public class SystemUtilsTest extends TestCase {
 
     public void testJavaVersionAsFloat() {
         JAVA_VERSION = null;
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(0f, getJavaVersionAsFloat(), 0.000001f);
         JAVA_VERSION = "1.1";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(1.1f, getJavaVersionAsFloat(), 0.000001f);
         JAVA_VERSION = "1.2";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(1.2f, getJavaVersionAsFloat(), 0.000001f);
         JAVA_VERSION = "1.3.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(1.3f, getJavaVersionAsFloat(), 0.000001f);
         JAVA_VERSION = "1.3.1";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(1.31f, getJavaVersionAsFloat(), 0.000001f);
         JAVA_VERSION = "1.4.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(1.4f, getJavaVersionAsFloat(), 0.000001f);
         JAVA_VERSION = "1.4.1";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(1.41f, getJavaVersionAsFloat(), 0.000001f);
         JAVA_VERSION = "1.5.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(1.5f, getJavaVersionAsFloat(), 0.000001f);
         JAVA_VERSION = "1.6.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(1.6f, getJavaVersionAsFloat(), 0.000001f);
+        JAVA_VERSION = "JavaVM-1.3.1";  //HP-UX
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
+        assertEquals(1.31f, getJavaVersionAsFloat(), 0.000001f);
     }
 
     public void testJavaVersionAsInt() {
         JAVA_VERSION = null;
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(0, getJavaVersionAsInt());
         JAVA_VERSION = "1.1";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(110, getJavaVersionAsInt());
         JAVA_VERSION = "1.2";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(120, getJavaVersionAsInt());
         JAVA_VERSION = "1.3.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(130, getJavaVersionAsInt());
         JAVA_VERSION = "1.3.1";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(131, getJavaVersionAsInt());
         JAVA_VERSION = "1.4.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(140, getJavaVersionAsInt());
         JAVA_VERSION = "1.4.1";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(141, getJavaVersionAsInt());
         JAVA_VERSION = "1.5.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(150, getJavaVersionAsInt());
         JAVA_VERSION = "1.6.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(160, getJavaVersionAsInt());
+        JAVA_VERSION = "JavaVM-1.3.1";  //HP-UX
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
+        assertEquals(131, getJavaVersionAsInt());
     }
 
     public void testJavaVersionAtLeastFloat() {
@@ -347,54 +380,63 @@ public class SystemUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testJavaVersionMatches() {
         JAVA_VERSION = null;
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(false, getJavaVersionMatches("1.1"));
         assertEquals(false, getJavaVersionMatches("1.2"));
         assertEquals(false, getJavaVersionMatches("1.3"));
         assertEquals(false, getJavaVersionMatches("1.4"));
         assertEquals(false, getJavaVersionMatches("1.5"));
         JAVA_VERSION = "1.1";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(true, getJavaVersionMatches("1.1"));
         assertEquals(false, getJavaVersionMatches("1.2"));
         assertEquals(false, getJavaVersionMatches("1.3"));
         assertEquals(false, getJavaVersionMatches("1.4"));
         assertEquals(false, getJavaVersionMatches("1.5"));
         JAVA_VERSION = "1.2";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(false, getJavaVersionMatches("1.1"));
         assertEquals(true, getJavaVersionMatches("1.2"));
         assertEquals(false, getJavaVersionMatches("1.3"));
         assertEquals(false, getJavaVersionMatches("1.4"));
         assertEquals(false, getJavaVersionMatches("1.5"));
         JAVA_VERSION = "1.3.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(false, getJavaVersionMatches("1.1"));
         assertEquals(false, getJavaVersionMatches("1.2"));
         assertEquals(true, getJavaVersionMatches("1.3"));
         assertEquals(false, getJavaVersionMatches("1.4"));
         assertEquals(false, getJavaVersionMatches("1.5"));
         JAVA_VERSION = "1.3.1";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(false, getJavaVersionMatches("1.1"));
         assertEquals(false, getJavaVersionMatches("1.2"));
         assertEquals(true, getJavaVersionMatches("1.3"));
         assertEquals(false, getJavaVersionMatches("1.4"));
         assertEquals(false, getJavaVersionMatches("1.5"));
         JAVA_VERSION = "1.4.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(false, getJavaVersionMatches("1.1"));
         assertEquals(false, getJavaVersionMatches("1.2"));
         assertEquals(false, getJavaVersionMatches("1.3"));
         assertEquals(true, getJavaVersionMatches("1.4"));
         assertEquals(false, getJavaVersionMatches("1.5"));
         JAVA_VERSION = "1.4.1";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(false, getJavaVersionMatches("1.1"));
         assertEquals(false, getJavaVersionMatches("1.2"));
         assertEquals(false, getJavaVersionMatches("1.3"));
         assertEquals(true, getJavaVersionMatches("1.4"));
         assertEquals(false, getJavaVersionMatches("1.5"));
         JAVA_VERSION = "1.5.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(false, getJavaVersionMatches("1.1"));
         assertEquals(false, getJavaVersionMatches("1.2"));
         assertEquals(false, getJavaVersionMatches("1.3"));
         assertEquals(false, getJavaVersionMatches("1.4"));
         assertEquals(true, getJavaVersionMatches("1.5"));
         JAVA_VERSION = "1.6.0";
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(false, getJavaVersionMatches("1.1"));
         assertEquals(false, getJavaVersionMatches("1.2"));
         assertEquals(false, getJavaVersionMatches("1.3"));

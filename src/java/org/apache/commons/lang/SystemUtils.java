@@ -32,8 +32,9 @@ import java.io.File;
  * @author Michael Becke
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
+ * @author Jason Gritman
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.37 2004/11/06 01:27:59 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.38 2004/11/12 00:48:41 scolebourne Exp $
  */
 public class SystemUtils {
 
@@ -782,9 +783,23 @@ public class SystemUtils {
 
     // Java version
     //-----------------------------------------------------------------------
-    // These MUST be declared after those above as they depend on the
+    // This MUST be declared after those above as it depends on the
     // values being set up
-    
+
+    /**
+     * <p>Gets the Java version as a <code>String</code> trimming leading letters.</p>
+     *
+     * <p>The field will return <code>null</code> if {@link #JAVA_VERSION} is <code>null</code>.</p>
+     * 
+     * @since 2.1
+     */
+    public static final String JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
+
+    // Java version values
+    //-----------------------------------------------------------------------
+    // These MUST be declared after the trim above as they depend on the
+    // value being set up
+
     /**
      * <p>Gets the Java version as a <code>float</code>.</p>
      *
@@ -1086,17 +1101,17 @@ public class SystemUtils {
      * </ul>
      * 
      * <p>Patch releases are not reported.
-     * Zero is returned if {@link #JAVA_VERSION} is <code>null</code>.</p>
+     * Zero is returned if {@link #JAVA_VERSION_TRIMMED} is <code>null</code>.</p>
      * 
      * @return the version, for example 1.31f for JDK 1.3.1
      */
     private static float getJavaVersionAsFloat() {
-        if (JAVA_VERSION == null) {
+        if (JAVA_VERSION_TRIMMED == null) {
             return 0f;
         }
-        String str = JAVA_VERSION.substring(0, 3);
-        if (JAVA_VERSION.length() >= 5) {
-            str = str + JAVA_VERSION.substring(4, 5);
+        String str = JAVA_VERSION_TRIMMED.substring(0, 3);
+        if (JAVA_VERSION_TRIMMED.length() >= 5) {
+            str = str + JAVA_VERSION_TRIMMED.substring(4, 5);
         }
         return Float.parseFloat(str);
     }
@@ -1111,22 +1126,39 @@ public class SystemUtils {
      * </ul>
      * 
      * <p>Patch releases are not reported.
-     * Zero is returned if {@link #JAVA_VERSION} is <code>null</code>.</p>
+     * Zero is returned if {@link #JAVA_VERSION_TRIMMED} is <code>null</code>.</p>
      * 
      * @return the version, for example 131 for JDK 1.3.1
      */
     private static int getJavaVersionAsInt() {
-        if (JAVA_VERSION == null) {
+        if (JAVA_VERSION_TRIMMED == null) {
             return 0;
         }
-        String str = JAVA_VERSION.substring(0, 1);
-        str = str + JAVA_VERSION.substring(2, 3);
-        if (JAVA_VERSION.length() >= 5) {
-            str = str + JAVA_VERSION.substring(4, 5);
+        String str = JAVA_VERSION_TRIMMED.substring(0, 1);
+        str = str + JAVA_VERSION_TRIMMED.substring(2, 3);
+        if (JAVA_VERSION_TRIMMED.length() >= 5) {
+            str = str + JAVA_VERSION_TRIMMED.substring(4, 5);
         } else {
             str = str + "0";
         }
         return Integer.parseInt(str);
+    }
+
+    /**
+     * Trims the text of the java version to start with numbers.
+     * 
+     * @return the trimmed java version
+     */
+    private static String getJavaVersionTrimmed() {
+        if (JAVA_VERSION != null) {
+            for (int i = 0; i < JAVA_VERSION.length(); i++) {
+                char ch = JAVA_VERSION.charAt(i);
+                if (ch >= '0' && ch <= '9') {
+                    return JAVA_VERSION.substring(i);
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -1136,10 +1168,10 @@ public class SystemUtils {
      * @return true if matches, or false if not or can't determine
      */
     private static boolean getJavaVersionMatches(String versionPrefix) {
-        if (JAVA_VERSION == null) {
+        if (JAVA_VERSION_TRIMMED == null) {
             return false;
         }
-        return JAVA_VERSION.startsWith(versionPrefix);
+        return JAVA_VERSION_TRIMMED.startsWith(versionPrefix);
     }    
     
     /**
