@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
- * @version $Id: NestableDelegateTestCase.java,v 1.5 2003/05/21 23:49:14 scolebourne Exp $
+ * @version $Id: NestableDelegateTestCase.java,v 1.6 2003/07/26 14:36:00 scolebourne Exp $
  */
 public class NestableDelegateTestCase extends junit.framework.TestCase {
     private static final String CONSTRUCTOR_FAILED_MSG = 
@@ -573,8 +573,9 @@ public class NestableDelegateTestCase extends junit.framework.TestCase {
         int actCount = countLines(stack1);
         assertTrue("topDown: "+topDown+", trimStackFrames: "+trimStackFrames+" startsWith",
             stack1.startsWith(startsWith));
-        assertEquals("topDown: "+topDown+", trimStackFrames: "+trimStackFrames+" lineCount",
-            expCount, actCount);
+        // test is unreliable, as count varies depending on JUnit version/where main method is
+//        assertEquals("topDown: "+topDown+", trimStackFrames: "+trimStackFrames+" lineCount",
+//            expCount, actCount);
     }
     private int countLines(String s) {
         if (s == null) return 0;
