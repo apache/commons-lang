@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * JUnit tests.
  * 
  * @author Matthew Hawthorne
- * @version $Id: NotImplementedExceptionTest.java,v 1.3 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: NotImplementedExceptionTest.java,v 1.4 2004/03/04 00:13:38 scolebourne Exp $
  * @see NotImplementedException
  */
 public class NotImplementedExceptionTest extends TestCase {
@@ -41,43 +41,57 @@ public class NotImplementedExceptionTest extends TestCase {
         super(testName);
     }
 
-    // testConstructor
-
-    public void testConstructor_classArg_nullInput() {
-        final Class c = null;
-        new NotImplementedException(c);
+    //-----------------------------------------------------------------------
+    public void testConstructor_() {
+        NotImplementedException ex = new NotImplementedException();
+        assertEquals("Code is not implemented", ex.getMessage());
+        assertEquals(null, ex.getCause());
     }
 
-    public void testConstructor_stringArg_nullInput() {
-        final String s = null;
-        new NotImplementedException(s);
+    public void testConstructor_String1() {
+        NotImplementedException ex = new NotImplementedException((String) null);
+        assertEquals("Code is not implemented", ex.getMessage());
+        assertEquals(null, ex.getCause());
+    }        
+    public void testConstructor_String2() {
+        NotImplementedException ex = new NotImplementedException("msg");
+        assertEquals("msg", ex.getMessage());
+        assertEquals(null, ex.getCause());
     }
 
-    // testGetMessage
-
-    public void testGetMessage_classArg_nullInput() {
-        final Class c = null;
-        final Throwable t = new NotImplementedException(c);
-        assertEquals("Method is not implemented in class null", t.getMessage());
+    public void testConstructor_Throwable1() {
+        NotImplementedException ex = new NotImplementedException((Throwable) null);
+        assertEquals("Code is not implemented", ex.getMessage());
+        assertEquals(null, ex.getCause());
+    }        
+    public void testConstructor_Throwable2() {
+        Exception npe = new NullPointerException();
+        NotImplementedException ex = new NotImplementedException(npe);
+        assertEquals("Code is not implemented", ex.getMessage());
+        assertSame(npe, ex.getCause());
     }
 
-    public void testGetMessage_classArg_validInput() {
-        final Throwable t = new NotImplementedException(String.class);
-        assertEquals(
-            "Method is not implemented in class java.lang.String",
-            t.getMessage());
+    public void testConstructor_StringThrowable1() {
+        NotImplementedException ex = new NotImplementedException((String) null, (Throwable) null);
+        assertEquals("Code is not implemented", ex.getMessage());
+        assertEquals(null, ex.getCause());
+    }
+    public void testConstructor_StringThrowable2() {
+        Exception npe = new NullPointerException();
+        NotImplementedException ex = new NotImplementedException("msg", npe);
+        assertEquals("msg", ex.getMessage());
+        assertSame(npe, ex.getCause());
     }
 
-    public void testGetMessage_stringArg_nullInput() {
-        final String s = null;
-        final Throwable t = new NotImplementedException(s);
-        assertEquals(null, t.getMessage());
+    public void testConstructor_Class1() {
+        NotImplementedException ex = new NotImplementedException((Class) null);
+        assertEquals("Code is not implemented", ex.getMessage());
+        assertEquals(null, ex.getCause());
+    }
+    public void testConstructor_Class2() {
+        NotImplementedException ex = new NotImplementedException(String.class);
+        assertEquals("Code is not implemented in class java.lang.String", ex.getMessage());
+        assertEquals(null, ex.getCause());
     }
 
-    public void testGetMessage_stringArg_validInput() {
-        final String msg = "message";
-        final Throwable t = new NotImplementedException(msg);
-        assertEquals(msg, t.getMessage());
-    }
-
-} // NotImplementedExceptionTest
+}
