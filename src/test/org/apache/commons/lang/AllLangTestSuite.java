@@ -25,7 +25,7 @@ import org.apache.commons.lang.enums.EnumTestSuite;
 import org.apache.commons.lang.exception.ExceptionTestSuite;
 import org.apache.commons.lang.math.MathTestSuite;
 import org.apache.commons.lang.mutable.MutableTestSuite;
-import org.apache.commons.lang.text.TextTestSuite;
+//import org.apache.commons.lang.text.TextTestSuite;
 import org.apache.commons.lang.time.TimeTestSuite;
 
 /**
