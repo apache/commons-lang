@@ -73,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.16 2002/09/28 10:34:54 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.17 2002/09/30 00:47:45 bayard Exp $
  */
 public class StringUtils {
 
@@ -173,7 +173,7 @@ public class StringUtils {
      * Nulls are handled without exceptions. Two <code>null</code>
      * references are considered equal. Comparison is case sensitive.
      *
-     * @see java.lang.String#equals(String)
+     * @see java.lang.String#equals(Object)
      * @param str1  the first string
      * @param str2  the second string
      * @return true if the Strings are equal, case sensitive, or both null
