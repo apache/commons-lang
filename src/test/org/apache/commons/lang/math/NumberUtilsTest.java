@@ -75,7 +75,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: NumberUtilsTest.java,v 1.8 2003/09/04 07:27:12 psteitz Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.9 2003/09/05 15:55:09 psteitz Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -124,12 +124,36 @@ public class NumberUtilsTest extends TestCase {
     }
 
     /**
+     * Test for long stringToLong(String)
+     */
+    public void testStringToLongString() {
+        assertTrue("stringToLong(String) 1 failed", NumberUtils.stringToLong("12345") == 12345l);
+        assertTrue("stringToLong(String) 2 failed", NumberUtils.stringToLong("abc") == 0l);
+        assertTrue("stringToLong(String) 3 failed", NumberUtils.stringToLong("1L") == 0l);
+        assertTrue("stringToLong(String) 4 failed", NumberUtils.stringToLong("1l") == 0l);
+        assertTrue("stringToLong(Long.MAX_VALUE) failed", NumberUtils.stringToLong(Long.MAX_VALUE+"") == Long.MAX_VALUE);
+        assertTrue("stringToLong(Long.MIN_VALUE) failed", NumberUtils.stringToLong(Long.MIN_VALUE+"") == Long.MIN_VALUE);
+        assertTrue("stringToLong(empty) failed", NumberUtils.stringToLong("") == 0l);
+        assertTrue("stringToLong(null) failed", NumberUtils.stringToLong(null) == 0l);
+    }
+
+    /**
+     * Test for long stringToLong(String, long)
+     */
+    public void testStringToLongStringL() {
+        assertTrue("stringToLong(String,long) 1 failed", NumberUtils.stringToLong("12345", 5l) == 12345l);
+        assertTrue("stringToLong(String,long) 2 failed", NumberUtils.stringToLong("1234.5", 5l) == 5l);
+    }
+
+    /**
      * Test for float stringToFloat(String)
      */
     public void testStringToFloatString() {
         assertTrue("stringToFloat(String) 1 failed", NumberUtils.stringToFloat("-1.2345") == -1.2345f);
         assertTrue("stringToFloat(String) 2 failed", NumberUtils.stringToFloat("1.2345") == 1.2345f);
         assertTrue("stringToFloat(String) 3 failed", NumberUtils.stringToFloat("abc") == 0.0f);
+        assertTrue("stringToFloat(Float.MAX_VALUE) failed", NumberUtils.stringToFloat(Float.MAX_VALUE+"") ==  Float.MAX_VALUE);
+        assertTrue("stringToFloat(Float.MIN_VALUE) failed", NumberUtils.stringToFloat(Float.MIN_VALUE+"") == Float.MIN_VALUE);
         assertTrue("stringToFloat(empty) failed", NumberUtils.stringToFloat("") == 0.0f);
         assertTrue("stringToFloat(null) failed", NumberUtils.stringToFloat(null) == 0.0f);
     }
@@ -140,6 +164,27 @@ public class NumberUtilsTest extends TestCase {
     public void testStringToFloatStringF() {
         assertTrue("stringToFloat(String,int) 1 failed", NumberUtils.stringToFloat("1.2345", 5.1f) == 1.2345f);
         assertTrue("stringToFloat(String,int) 2 failed", NumberUtils.stringToFloat("a", 5.0f) == 5.0f);
+    }
+
+    /**
+     * Test for double stringToDouble(String)
+     */
+    public void testStringToDoubleString() {
+        assertTrue("stringToDouble(String) 1 failed", NumberUtils.stringToDouble("-1.2345") == -1.2345d);
+        assertTrue("stringToDouble(String) 2 failed", NumberUtils.stringToDouble("1.2345") == 1.2345d);
+        assertTrue("stringToDouble(String) 3 failed", NumberUtils.stringToDouble("abc") == 0.0d);
+        assertTrue("stringToDouble(Double.MAX_VALUE) failed", NumberUtils.stringToDouble(Double.MAX_VALUE+"") == Double.MAX_VALUE);
+        assertTrue("stringToDouble(Double.MIN_VALUE) failed", NumberUtils.stringToDouble(Double.MIN_VALUE+"") == Double.MIN_VALUE);
+        assertTrue("stringToDouble(empty) failed", NumberUtils.stringToDouble("") == 0.0d);
+        assertTrue("stringToDouble(null) failed", NumberUtils.stringToDouble(null) == 0.0d);
+    }
+
+    /**
+     * Test for double stringToFloat(String, float)
+     */
+    public void testStringToDoubleStringD() {
+        assertTrue("stringToDouble(String,int) 1 failed", NumberUtils.stringToDouble("1.2345", 5.1d) == 1.2345d);
+        assertTrue("stringToDouble(String,int) 2 failed", NumberUtils.stringToDouble("a", 5.0d) == 5.0d);
     }
 
     public void testCreateNumber() {

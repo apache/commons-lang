@@ -71,7 +71,7 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.11 2003/09/04 07:27:12 psteitz Exp $
+ * @version $Id: NumberUtils.java,v 1.12 2003/09/05 15:55:09 psteitz Exp $
  */
 public class NumberUtils {
     
@@ -156,6 +156,40 @@ public class NumberUtils {
     }
 
     /**
+     * <p>Convert a <code>String</code> to a <code>long</code>, returning
+     * <code>zero</code> if the conversion fails.</p>
+     *
+     * <p>If the string is <code>null</code>, <code>zero</code> is returned.</p>
+     *
+     * @param str  the string to convert, may be null
+     * @return the long represented by the string, or <code>0</code> if
+     *  conversion fails
+     * @since 2.1
+     */
+    public static long stringToLong(String str) {
+        return stringToLong(str, 0L);
+    }
+
+    /**
+     * <p>Convert a <code>String</code> to a <code>long</code>, returning a
+     * default value if the conversion fails.</p>
+     *
+     * <p>If the string is <code>null</code>, the default value is returned.</p>
+     *
+     * @param str  the string to convert, may be null
+     * @param defaultValue  the default value
+     * @return the long represented by the string, or the default if conversion fails
+     * @since 2.1
+     */
+    public static long stringToLong(String str, long defaultValue) {
+        try {
+            return Long.parseLong(str);
+        } catch (NumberFormatException nfe) {
+            return defaultValue;
+        }
+    }
+
+    /**
      * <p>Convert a <code>String</code> to a <code>float</code>, returning
      * <code>0.0f</code> if the conversion fails.</p>
      *
@@ -187,10 +221,49 @@ public class NumberUtils {
     public static float stringToFloat(String str, float defaultValue) {
       if(str==null) {
           return defaultValue;
-      }
-      
+      }     
       try {
           return Float.parseFloat(str);
+      } catch (NumberFormatException nfe) {
+          return defaultValue;
+      }
+    }
+
+    /**
+     * <p>Convert a <code>String</code> to a <code>double</code>, returning
+     * <code>0.0d</code> if the conversion fails.</p>
+     *
+     * <p>If the string <code>str</code> is <code>null</code>,
+     * <code>0.0d</code> is returned.</p>
+     *
+     * @param str the string to convert, may be <code>null</code>
+     * @return the double represented by the string, or <code>0.0d</code>
+     *  if conversion fails
+     * @since 2.1
+     */
+    public static double stringToDouble(String str) {
+        return stringToDouble(str, 0.0d);
+    }
+
+    /**
+     * <p>Convert a <code>String</code> to a <code>double</code>, returning a
+     * default value if the conversion fails.</p>
+     *
+     * <p>If the string <code>str</code> is <code>null</code>, the default
+     * value is returned.</p>
+     *
+     * @param str the string to convert, may be <code>null</code>
+     * @param defaultValue the default value
+     * @return the double represented by the string, or defaultValue
+     *  if conversion fails
+     * @since 2.1
+     */
+    public static double stringToDouble(String str, double defaultValue) {
+      if(str==null) {
+          return defaultValue;
+      }
+      try {
+          return Double.parseDouble(str);
       } catch (NumberFormatException nfe) {
           return defaultValue;
       }
