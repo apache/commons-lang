@@ -73,7 +73,7 @@ import junit.textui.TestRunner;
  * @author Matthew Hawthorne
  * @author Tim O'Brien
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
- * @version $Id: ArrayUtilsTest.java,v 1.18 2003/12/05 23:37:18 scolebourne Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.19 2004/01/08 17:54:28 fredrik Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -148,6 +148,9 @@ public class ArrayUtilsTest extends TestCase {
         Object[] array4 = new Object[] {"AB"};
         assertEquals(true, ArrayUtils.isEquals(array3, array3));
         assertEquals(true, ArrayUtils.isEquals(array3, array4));
+
+        assertEquals(true, ArrayUtils.isEquals(null, null));
+        assertEquals(false, ArrayUtils.isEquals(null, array4));
     }
     
     //-----------------------------------------------------------------------
