@@ -67,7 +67,7 @@ import java.util.StringTokenizer;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableDelegate.java,v 1.3 2002/08/21 07:22:47 dlr Exp $
+ * @version $Id: NestableDelegate.java,v 1.4 2002/08/21 07:31:54 dlr Exp $
  */
 public class NestableDelegate
 {
@@ -181,7 +181,9 @@ public class NestableDelegate
         String[] msgs = new String[throwables.length];
         for(int i = 0; i < throwables.length; i++)
         {
-            msgs[i] = (Nestable.class.isInstance(throwables[i]) ? ((Nestable) throwables[i]).getMessage(0) : throwables[i].getMessage());
+            msgs[i] = (Nestable.class.isInstance(throwables[i]) ?
+                       ((Nestable) throwables[i]).getMessage(0) :
+                       throwables[i].getMessage());
         }
         return msgs;
     }
@@ -272,12 +274,14 @@ public class NestableDelegate
     {
         if(fromIndex < 0)
         {
-            throw new IndexOutOfBoundsException("Throwable index out of range: " + fromIndex);
+            throw new IndexOutOfBoundsException("Throwable index out of range: "
+                                                + fromIndex);
         }
         Throwable throwables[] = this.getThrowables();
         if(fromIndex >= throwables.length)
         {
-            throw new IndexOutOfBoundsException("Throwable index out of range: " + fromIndex);
+            throw new IndexOutOfBoundsException("Throwable index out of range: "
+                                                + fromIndex);
         }
         for(int i = fromIndex; i < throwables.length; i++)
         {
