@@ -69,7 +69,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @author Nikolay Metchev
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.9 2003/03/23 04:58:47 bayard Exp $
+ * @version $Id: ArrayUtils.java,v 1.10 2003/03/23 17:57:42 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -1012,25 +1012,4 @@ public class ArrayUtils {
         return (indexOf(array, objectToFind) != -1);
     }
     
-    /**
-     * <p>Reverses an array.</p>
-     *
-     * <p>TAKEN FROM CollectionsUtils.</p>
-     *
-     * @param array  the array to reverse
-     */
-    public static void reverseArray(Object[] array) {
-        int i = 0;
-        int j = array.length - 1;
-        Object tmp;
-
-        while (j > i) {
-            tmp = array[j];
-            array[j] = array[i];
-            array[i] = tmp;
-            j--;
-            i++;
-        }
-    }
-
 }
