@@ -60,6 +60,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
  * Unit tests {@link org.apache.commons.lang.StringUtils}.
  *
@@ -70,7 +71,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.25 2003/07/16 23:56:44 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.26 2003/07/18 02:06:23 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -115,6 +116,14 @@ public class StringUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
 
     public void testCaseFunctions() {
+        assertEquals(null, StringUtils.upperCase(null));
+        assertEquals(null, StringUtils.lowerCase(null));
+        assertEquals(null, StringUtils.swapCase(null));
+        assertEquals(null, StringUtils.capitalise(null));
+        assertEquals(null, StringUtils.uncapitalise(null));
+        assertEquals(null, StringUtils.capitaliseAllWords(null));
+        assertEquals(null, StringUtils.uncapitaliseAllWords(null));
+
         assertEquals("capitalise(String) failed",
                      CAP_FOO, StringUtils.capitalise(FOO) );
         assertEquals("capitalise(empty-string) failed",
@@ -202,6 +211,18 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testSplit() {
+        assertEquals(null, StringUtils.split(null));
+        assertEquals(null, StringUtils.split(null, '.'));
+        assertEquals(null, StringUtils.split(null, "."));
+        assertEquals(null, StringUtils.split(null, ".", 3));
+        
+        String[] res = StringUtils.split("a..b.c", '.');
+        assertEquals(4, res.length);
+        assertEquals("a", res[0]);
+        assertEquals("", res[1]);
+        assertEquals("b", res[2]);
+        assertEquals("c", res[3]);
+
         String[] result = StringUtils.split(TEXT_LIST, SEPARATOR, 2);
         String[] expected = { "foo", "bar,baz" };
         assertEquals("split(Object[], String, int) yielded unexpected length",
@@ -479,11 +500,21 @@ public class StringUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {}
     }
 
-    public void testReverseFunctions() {
+    public void testReverse() {
+        assertEquals(null, StringUtils.reverse(null) );
         assertEquals("sdrawkcab", StringUtils.reverse("backwards") );
         assertEquals("", StringUtils.reverse("") );
-        assertEquals(null, StringUtils.reverse(null) );
+    }
         
+    public void testReverseDelimitedString() {
+        assertEquals(null, StringUtils.reverseDelimitedString(null, '.') );
+        assertEquals("c.b.a", StringUtils.reverseDelimitedString("a.b.c", '.') );
+        assertEquals("a b c", StringUtils.reverseDelimitedString("a b c", '.') );
+        assertEquals("", StringUtils.reverseDelimitedString("", '.') );
+
+        assertEquals(null, StringUtils.reverseDelimitedString(null, null) );
+        assertEquals("a.b.c", StringUtils.reverseDelimitedString("a.b.c", null) );
+        assertEquals("c b a", StringUtils.reverseDelimitedString("a b c", null) );
         assertEquals("org.apache.test",
                        StringUtils.reverseDelimitedString("test.apache.org", ".") );
         assertEquals("reverseDelimitedString(empty-string,'.') failed",
@@ -495,33 +526,22 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testDefaultFunctions() {
-        assertEquals("defaultString(empty-string) failed",
-                     "", StringUtils.defaultString("") );
-        assertEquals("defaultString(String) failed",
-                     FOO, StringUtils.defaultString(FOO) );
-        assertEquals("defaultString(null) failed",
-                     "", StringUtils.defaultString(null) );
-        assertEquals("defaultString(empty-string,String) failed",
-                     "", StringUtils.defaultString("", BAR) );
-        assertEquals("defaultString(String,String) failed",
-                     FOO, StringUtils.defaultString(FOO, BAR) );
-        assertEquals("defaultString(null,String) failed",
-                     BAR, StringUtils.defaultString(null, BAR) );
+        assertEquals("", StringUtils.defaultString(null) );
+        assertEquals("", StringUtils.defaultString("") );
+        assertEquals(FOO, StringUtils.defaultString(FOO) );
+        
+        assertEquals(BAR, StringUtils.defaultString(null, BAR) );
+        assertEquals("", StringUtils.defaultString("", BAR) );
+        assertEquals(FOO, StringUtils.defaultString(FOO, BAR) );
 
-        assertEquals("defaultString((Object) empty-string) failed",
-                     "", StringUtils.defaultString((Object) "") );
-        assertEquals("defaultString((Object) String) failed",
-                     FOO, StringUtils.defaultString((Object) FOO) );
-        assertEquals("defaultString((Object) null) failed",
-                     "", StringUtils.defaultString((Object) null) );
-        assertEquals("defaultString((Object) empty-string,String) failed",
-                     "", StringUtils.defaultString((Object) "", BAR) );
-        assertEquals("defaultString((Object) String,String) failed",
-                     FOO, StringUtils.defaultString((Object) FOO, BAR) );
-        assertEquals("defaultString((Object) null,String) failed",
-                     BAR, StringUtils.defaultString((Object) null, BAR) );
-        assertEquals("defaultString(Boolean.TRUE,String) failed",
-                     Boolean.TRUE.toString(), StringUtils.defaultString(Boolean.TRUE, BAR) );
+        assertEquals("", StringUtils.defaultString((Object) "") );
+        assertEquals(FOO, StringUtils.defaultString((Object) FOO) );
+        assertEquals("", StringUtils.defaultString((Object) null) );
+        
+        assertEquals("", StringUtils.defaultString((Object) "", BAR) );
+        assertEquals(FOO, StringUtils.defaultString((Object) FOO, BAR) );
+        assertEquals(BAR, StringUtils.defaultString((Object) null, BAR) );
+        assertEquals(Boolean.TRUE.toString(), StringUtils.defaultString(Boolean.TRUE, BAR) );
     }
 
     public void testEscapeFunctions() {
