@@ -58,21 +58,22 @@ import java.lang.reflect.Modifier;
 
 import org.apache.commons.lang.NumberUtils;
 /** 
- * <code>CompareTo</code> generation routines.
- * <p>
- * This class provides methods to build a good <comde>compareTo()</code> method for any class.
- * It is consistent with the <code>equals</code> and <code>hashcode</code> built
- * with EqualsBuilder and HashCodeBuilder.
- * <p>
- * Two object that compare equal using equals should compare equals using
- * compareTo.
- * <p>
- * All relevant fields should be included in the calculation of the comparison. Derived
- * fields may be ignored. The same fields, in the same order, should be used in
- * both <code>compareTo</code> and <code>equals</code>.
- * <p>
- * Typical use for the code is as follows:
+ * <p><code>CompareTo</code> generation routines.</p>
  *
+ * <p>This class provides methods to build a good <comde>compareTo()</code>
+ * method for any class. It is consistent with the <code>equals</code> and
+ * <code>hashcode</code> built with {@link EqualsBuilder} and
+ * {@link HashCodeBuilder}.</p>
+ *
+ * <p>Two object that compare equal using equals should compare equals using
+ * compareTo</p>.
+ *
+ * <p>All relevant fields should be included in the calculation of the
+ * comparison. Derived fields may be ignored. The same fields, in the same
+ * order, should be used in both <code>compareTo</code> and
+ * <code>equals</code>.</p>
+ *
+ * <p>Typical use for the code is as follows:</p>
  * <pre>
  *  public int comapareTo(Object o) {
  *    MyClass rhs = (MyClass) o;
@@ -83,23 +84,24 @@ import org.apache.commons.lang.NumberUtils;
  *                 .toComparison();
  *  }
  * </pre>
- * <p>
- * Alternatively, there is a method that uses reflection to determine
+ *
+ * <p>Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method,
  * <code>reflectionCompare</code>, uses <code>Field.setAccessible</code> to change
  * the visibility of the fields. This will fail under a security manager,
  * unless the appropriate permissions are set. It is also slower than testing
- * explicitly.
- * <p>
- * A typical invocation for this method would look like:
+ * explicitly.</p>
+ *
+ * <p>A typical invocation for this method would look like:</p>
  * <pre>
  * public int compareTo(Object o) {
  *   return CompareToBuilder.reflectionCompare(this, obj);
  * }
  * </pre>
+ *
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CompareToBuilder.java,v 1.4 2002/09/28 10:44:51 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.5 2002/11/17 21:46:42 scolebourne Exp $
  */
 public class CompareToBuilder {
     /**
@@ -108,8 +110,10 @@ public class CompareToBuilder {
     private int comparison;
 
     /**
-     * Constructor for CompareToBuilder.
-     * Starts off assuming that the objects are equal.
+     * <p>Constructor for CompareToBuilder.</p>
+     *
+     * <p>Starts off assuming that the objects are equal.</p>
+     *
      * @see java.lang.Object#Object()
      */
     public CompareToBuilder() {
@@ -120,47 +124,56 @@ public class CompareToBuilder {
     //-------------------------------------------------------------------------
     
     /** 
-     * This method uses reflection to determine the ordering between two objects.
-     * <p>
-     * It uses Field.setAccessible to gain access to private fields. This means
-     * that it will throw a security exception if run under a security manger, if
-     * the permissions are not set up.
-     * It is also not as efficient as testing explicitly.
-     * Transient members will be not be tested, as they are likely derived
-     * fields, and not part of the value of the object.
-     * Static fields will not be tested.
+     * <p>This method uses reflection to determine the ordering between two
+     * Objects.</p>
+     *
+     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manger, if the permissions are not set up correctly. It is
+     * also not as efficient as testing explicitly.</p>
+     *
+     * <p>Transient members will be not be tested, as they are likely derived
+     * fields, and not part of the value of the object.</p>
+     *
+     * <p>Static fields will not be tested.</p>
+     *
      * @param lhs  Left Hand Side
      * @param rhs  Right Hand Side
      * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object.
-     * @throws NullPointerException  if either (but not both) parameter is null
-     * @throws ClassCastException  if the specified object's type prevents it 
-     * from being compared to this Object.
+     *  Object is less than, equal to, or greater than the specified Object.
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
+     * @throws ClassCastException  if the specified Object's type prevents it
+     *  from being compared to this Object.
      */
     public static int reflectionCompare(Object lhs, Object rhs) {
         return reflectionCompare(lhs, rhs, false);
     }
 
     /**
-     * This method uses reflection to determine if the two object are equal. 
-     * <p>
-     * It uses Field.setAccessible to gain access to private fields. This means
-     * that it will throw a security exception if run under a security manger, if
-     * the permissions are not set up.
-     * It is also not as efficient as testing explicitly. 
-     * If the TestTransients parameter is set to true, transient members will be
-     * tested, otherwise they are ignored, as they are likely derived fields, and
-     * not part of the value of the object. 
-     * Static fields will not be tested.
+     * <p>This method uses reflection to determine if the two Objects are
+     * equal.</p>
+     *
+     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manger, if  the permissions are not set up correctly. It is
+     * also not as efficient as testing explicitly.</p>
+     *
+     * <p>If the <code>testTransients</code> is set to <code>true</code>,
+     * transient members will be tested, otherwise they are ignored, as they
+     * are likely derived fields, and not part of the value of the object.</p>
+     *
+     * <p>Static fields will not be tested.</p>
      * 
      * @param lhs  Left Hand Side
      * @param rhs  Right Hand Side
      * @param testTransients  whether to include transient fields
      * @return a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object.
-     * @throws NullPointerException  if either (but not both) parameter is null
-     * @throws ClassCastException  if the specified object's type prevents it 
-     * from being compared to this Object.
+     *  Object is less than, equal to, or greater than the specified Object.
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
+     * @throws ClassCastException  if the specified Object's type prevents it
+     *  from being compared to this Object.
      */
     public static int reflectionCompare(Object lhs, Object rhs, 
             boolean testTransients) {
@@ -196,17 +209,20 @@ public class CompareToBuilder {
 
     //-------------------------------------------------------------------------
     
-    /** Test if two <code>Object</code>s are equal using either the
+    /**
+     * <p>Test if two <code>Object</code>s are equal using either the
      * <code>compareTo</code> method, or native comparison if the Objects are
-     * actually arrays.
-     * <p>
-     * The objects must be <code>Comparable</code>. If they are not, the method
-     * will throw a <code>ClassCastException</code>.
+     * actually arrays.</p>
+     *
+     * <p>The objects must be <code>Comparable</code>. If they are not, the
+     * method will throw a <code>ClassCastException</code>.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws NullPointerException  if either (but not both) parameter is null
-     * @throws ClassCastException if the specified object's type prevents it
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
+     * @throws ClassCastException if the specified Object's type prevents it
      * from being compared to this Object.
      */
     public CompareToBuilder append(Object lhs, Object rhs) {
@@ -251,7 +267,8 @@ public class CompareToBuilder {
     }
 
     /**
-     * Test if two <code>long</code>s are <, > or ==.
+     * <p>Test if two <code>long</code>s are <, > or ==.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
@@ -265,7 +282,8 @@ public class CompareToBuilder {
     }
 
     /**
-     * Test if two <code>int</code>s are <, > or ==.
+     * <p>Test if two <code>int</code>s are <, > or ==.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
@@ -279,7 +297,7 @@ public class CompareToBuilder {
     }
 
     /**
-     * Test if two <code>short</code>s are <, > or ==.
+     * <p>Test if two <code>short</code>s are <, > or ==.</p>
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
@@ -293,7 +311,8 @@ public class CompareToBuilder {
     }
 
     /**
-     * Test if two <code>char</code>s are <, > or ==.
+     * <p>Test if two <code>char</code>s are <, > or ==.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
@@ -307,7 +326,7 @@ public class CompareToBuilder {
     }
 
     /**
-     * Test if two <code>byte</code>s are <, > or ==.
+     * <p>Test if two <code>byte</code>s are <, > or ==.</p>
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
@@ -321,9 +340,13 @@ public class CompareToBuilder {
     }
 
     /**
-     * Test if two <code>double</code>s are <, > or ==. This handles NaNs, 
-     * Infinties, and -0.0. It is compatible with the hash code generated by 
-     * <code>HashCodeBuilder</code>.
+     * <p>Test if two <code>double</code>s are <, > or ==.</p>
+     *
+     * <p>This handles NaNs, Infinties, and <code>-0.0</code>.</p>
+     *
+     * <p>It is compatible with the hash code generated by
+     * <code>HashCodeBuilder</code>.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
@@ -337,9 +360,13 @@ public class CompareToBuilder {
     }
 
     /**
-     * Test if two <code>double</code>s are <, > or ==. This handles NaNs, 
-     * Infinties, and -0.0. It is compatible with the hash code generated by 
-     * <code>HashCodeBuilder</code>.
+     * <p>Test if two <code>double</code>s are <, > or ==.</p>
+     *
+     * <p>This handles NaNs, Infinties, and <code>-0.0</code>.</p>
+     *
+     * <p>It is compatible with the hash code generated by
+     * <code>HashCodeBuilder</code>.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
@@ -353,7 +380,8 @@ public class CompareToBuilder {
     }
 
     /**
-     * Test if two <code>booleans</code>s are <, > or ==.
+     * <p>Test if two <code>booleans</code>s are <, > or ==.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
@@ -374,17 +402,22 @@ public class CompareToBuilder {
     }
 
     /**
-     * Performs a deep comparison of two object arrays. This also will be
-     * called for the top level of multi-dimensional, ragged, and multi-typed
-     * arrays. If two arrays are of different lengths, and all elements of the
+     * <p>Performs a deep comparison of two Object arrays.</p>
+     *
+     * <p>This also will be called for the top level of multi-dimensional,
+     * ragged, and multi-typed arrays.</p>
+     *
+     * <p>If two arrays are of different lengths, and all elements of the
      * shorter array are equal to the elements in the longer array, the longer
-     * array is the greater. This is dictionary, or lexical, ordering.
+     * array is the greater. This is dictionary, or lexical, ordering.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws NullPointerException  if either (but not both) parameter is null
-     * @throws ClassCastException  if the specified object's type prevents it 
-     * from being compared to this Object.
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
+     * @throws ClassCastException  if the specified Object's type prevents it
+     *  from being compared to this Object.
      */
     public CompareToBuilder append(Object[] lhs, Object[] rhs) {
         if (comparison != 0) {
@@ -412,12 +445,16 @@ public class CompareToBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>long</code> Length and all values
-     *  are compared. The method append(long, long) is used.
+     * <p>Deep comparison of array of <code>long</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(long, long)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
      */
     public CompareToBuilder append(long[] lhs, long[] rhs) {
         if (comparison != 0) {
@@ -440,12 +477,16 @@ public class CompareToBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>int</code> Length and all values
-     *  are compared. The method append(int, int) is used.
+     * <p>Deep comparison of array of <code>int</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(int, int)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
      */
     public CompareToBuilder append(int[] lhs, int[] rhs) {
         if (comparison != 0) {
@@ -468,12 +509,16 @@ public class CompareToBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>short</code> Length and all values
-     *  are compared. The method append(short, short) is used.
+     * <p>Deep comparison of array of <code>short</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(short, short)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null<code>
      */
     public CompareToBuilder append(short[] lhs, short[] rhs) {
         if (comparison != 0) {
@@ -496,12 +541,16 @@ public class CompareToBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>char</code> Length and all values
-     *  are compared. The method append(char, char) is used.
+     * <p>Deep comparison of array of <code>char</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(char, char)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
      */
     public CompareToBuilder append(char[] lhs, char[] rhs) {
         if (comparison != 0) {
@@ -524,12 +573,16 @@ public class CompareToBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>byte</code> Length and all values
-     *  are compared. The method append(byte, byte) is used.
+     * <p>Deep comparison of array of <code>byte</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(byte, byte)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
      */
     public CompareToBuilder append(byte[] lhs, byte[] rhs) {
         if (comparison != 0) {
@@ -552,12 +605,16 @@ public class CompareToBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>double</code> Length and all values
-     *  are compared. The method append(double, double) is used.
+     * <p>Deep comparison of array of <code>double</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(double, double)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
      */
     public CompareToBuilder append(double[] lhs, double[] rhs) {
         if (comparison != 0) {
@@ -580,12 +637,16 @@ public class CompareToBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>float</code> Length and all values
-     *  are compared. The method append(float, float) is used.
+     * <p>Deep comparison of array of <code>float</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(float, float)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
      */
     public CompareToBuilder append(float[] lhs, float[] rhs) {
         if (comparison != 0) {
@@ -608,12 +669,16 @@ public class CompareToBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>boolean</code> Length and all values
-     *  are compared. The method append(boolean, boolean) is used.
+     * <p>Deep comparison of array of <code>boolean</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(boolean, boolean)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return CompareToBuilder - used to chain calls.
-     * @throws NullPointerException  if either (but not both) parameter is null
+     * @throws NullPointerException  if either (but not both) parameter is
+     *  <code>null</code>
      */
     public CompareToBuilder append(boolean[] lhs, boolean[] rhs) {
         if (comparison != 0) {
@@ -636,11 +701,12 @@ public class CompareToBuilder {
     }
 
     /**
-     * Return a negative integer if the object is less than, a positive 
-     * integer if the object is greater than, or 0 if the object is equal.
+     * <p>Return a negative integer if the Object is less than, a positive
+     * integer if the Object is greater than, or <code>0</code> if the
+     * Object is equal.
      * 
      * @return int - a negative integer, zero, or a positive integer as this 
-     * object is less than, equal to, or greater than the specified object.
+     *  Object is less than, equal to, or greater than the specified Object.
      */
     public int toComparison() {
         return comparison;

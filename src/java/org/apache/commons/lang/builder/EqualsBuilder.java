@@ -56,22 +56,25 @@ package org.apache.commons.lang.builder;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 /**
- * <code>Equals</code> generation routines. 
- * <p>
- * This class provides methods to build a good equals method for any class.  
- * It follows rules laid out in Effective Java, by Joshua Bloch. In particular
- * the rule for comparing <code>doubles </code>, <code>floats</code>, and 
- * arrays can be tricky. Also, making  sure that <code>equals()</code>
- * and <code>hashCode()</code> are consistent can be difficult.
- * <p>
- * Two object that compare as equals must generate the same hash code. But two
- * objects with the same hash code do not have to be equal.
- * <p>
- * All relevant fields should be included in the calculation of equals. Derived
- * fields may be ignored. In particular, any field used in generating a hash 
- * code must be used in the equals method, and vice versa.
- * <p>
- * Typical use for the code is as follows:
+ * <p><code>Equals</code> generation routines.</p>
+ *
+ * <p> This class provides methods to build a good equals method for any
+ * class. It follows rules laid out in
+ * <a href="http://java.sun.com/docs/books/effective/index.html">Effective Java</a>
+ * , by Joshua Bloch. In particular the rule for comparing <code>doubles</code>,
+ * <code>floats</code>, and arrays can be tricky. Also, making sure that
+ * <code>equals()</code> and <code>hashCode()</code> are consistent can be
+ * difficult.</p>
+ *
+ * <p>Two Object that compare as equals must generate the same hash code.
+ * But two Objects with the same hash code do not have to be equal.</p>
+ *
+ * <p>All relevant fields should be included in the calculation of equals.
+ * Derived fields may be ignored. In particular, any field used in
+ * generating a hash code must be used in the equals method, and vice
+ * versa.</p>
+ *
+ * <p>Typical use for the code is as follows:</p>
  * <pre>
  * public boolean equals(Object o) {
  *   if ( !(o instanceof MyClass) ) {
@@ -85,15 +88,15 @@ import java.lang.reflect.Modifier;
  *                 .isEquals();
  *  }
  * </pre>
- * <p>
- * Alternatively, there is a method that uses reflection to determine
- * the fields to test. Because these fields are usually private, the method, 
- * <code>reflectionEquals</code>, uses <code>Field.setAccessible</code> to change
- * the visibility of the fields. This will fail under a security manager, 
- * unless the appropriate permissions are set. It is also slower than testing 
- * explicitly.
- * <p>
- * A typical invocation for this method would look like:
+ *
+ * <p> Alternatively, there is a method that uses reflection to determine
+ * the fields to test. Because these fields are usually private, the method,
+ * <code>reflectionEquals</code>, uses <code>Field.setAccessible</code> to
+ * change the visibility of the fields. This will fail under a security
+ * manager, unless the appropriate permissions are set up correctly. It is
+ * also slower than testing explicitly.</p>
+ *
+ * <p> A typical invocation for this method would look like:</p>
  * <pre>
  * public boolean equals(Object o) {
  *   return EqualsBuilder.reflectionEquals(this, obj);
@@ -102,7 +105,7 @@ import java.lang.reflect.Modifier;
  * 
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EqualsBuilder.java,v 1.5 2002/11/01 16:40:41 bayard Exp $
+ * @version $Id: EqualsBuilder.java,v 1.6 2002/11/17 21:46:42 scolebourne Exp $
  */
 public class EqualsBuilder {
     /**
@@ -111,8 +114,9 @@ public class EqualsBuilder {
     private boolean isEquals;
 
     /**
-     * Constructor for EqualsBuilder.
-     * Starts off assuming that equals is true.
+     * <p>Constructor for EqualsBuilder.</p>
+     *
+     * <p>Starts off assuming that equals is <code>true</code>.</p>
      * @see java.lang.Object#Object()
      */
     public EqualsBuilder() {
@@ -123,40 +127,44 @@ public class EqualsBuilder {
     //-------------------------------------------------------------------------
     
     /**
-     * This method uses reflection to determine if the two object are equal. 
-     * <p>
-     * It uses Field.setAccessible to gain access to private fields. This means
-     * that it will throw a security exception if run under a security manger, if
-     * the permissions are not set up.
-     * It is also not as efficient as testing explicitly. 
-     * Transient members will be not be tested, as they are likely derived
-     * fields, and not part of the value of the object.
-     * Static fields will not be tested.
+     * <p>This method uses reflection to determine if the two Object are equal.</p>
+     *
+     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manger, if the permissions are not set up correctly. It is also
+     * not as efficient as testing explicitly.</p>
+     *
+     * <p>Transient members will be not be tested, as they are likely derived
+     * fields, and not part of the value of the Object.</p>
+     *
+     * <p>Static fields will not be tested.</p>
      * 
      * @param lhs  Left Hand Side
      * @param rhs  Right Hand Side
-     * @return boolean - if the two objects have tested equals.
+     * @return <code>true</code> if the two Objects have tested equals.
      */
     public static boolean reflectionEquals(Object lhs, Object rhs) {
         return reflectionEquals(lhs, rhs, false);
     }
 
     /**
-     * This method uses reflection to determine if the two object are equal. 
-     * <p>
-     * It uses Field.setAccessible to gain access to private fields. This means
-     * that it will throw a security exception if run under a security manger, if
-     * the permissions are not set up.
-     * It is also not as efficient as testing explicitly. 
-     * If the TestTransients parameter is set to true, transient members will be
-     * tested, otherwise they are ignored, as they are likely derived fields, and
-     * not part of the value of the object. 
-     * Static fields will not be tested.
+     * <p>This method uses reflection to determine if the two Object are equal.</p>
+     *
+     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manger, if the permissions are not set up correctly. It is also
+     * not as efficient as testing explicitly.</p>
+     *
+     * <p>If the TestTransients parameter is set to <code>true</code>, transient
+     * members will be tested, otherwise they are ignored, as they are likely
+     * derived fields, and not part of the value of the Object.</p>
+     *
+     * <p>Static fields will not be tested.</p>
      * 
      * @param lhs  Left Hand Side
      * @param rhs  Right Hand Side
      * @param testTransients  whether to include transient fields
-     * @return boolean - if the two objects have tested equals.
+     * @return <code>true</code> if the two Objects have tested equals.
      */
     public static boolean reflectionEquals(Object lhs, Object rhs, 
             boolean testTransients) {
@@ -193,8 +201,9 @@ public class EqualsBuilder {
     //-------------------------------------------------------------------------
     
     /**
-     * Test if two <code>Object</code>s are equal using their <code>equals</code>
-     *  method.
+     * <p>Test if two <code>Object</code>s are equal using their
+     * <code>equals</code> method.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -242,7 +251,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * Test if two <code>long</code>s are equal using ==.
+     * <p>Test if two <code>long</code>s are equal using ==.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -256,7 +266,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * Test if two <code>int</code>s are equal using ==.
+     * <p>Test if two <code>int</code>s are equal using ==.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -270,7 +281,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * Test if two <code>short</code>s are equal using ==.
+     * <p>Test if two <code>short</code>s are equal using ==.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -284,7 +296,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * Test if two <code>char</code>s are equal using ==.
+     * <p>Test if two <code>char</code>s are equal using ==.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -298,7 +311,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * Test if two <code>byte</code>s are equal using ==.
+     * <p>Test if two <code>byte</code>s are equal using ==.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -312,10 +326,14 @@ public class EqualsBuilder {
     }
 
     /**
-     * Test if two <code>double</code>s are equal by testing that the 
-     * pattern of bits returned by doubleToLong are equal. This handles NaNs, 
-     * Infinties, and -0.0. It is compatible with the hash code generated by 
-     * <code>HashCodeBuilder</code>.
+     * <p>Test if two <code>double</code>s are equal by testing that the
+     * pattern of bits returned by <code>doubleToLong</code> are equal.</p>
+     *
+     * <p>This handles NaNs, Infinties, and <code>-0.0</code>.</p>
+     *
+     * <p>It is compatible with the hash code generated by
+     * <code>HashCodeBuilder</code>.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -328,10 +346,14 @@ public class EqualsBuilder {
     }
 
     /**
-     * Test if two <code>float</code>s are equal byt testing that the 
-     * pattern of bits returned by doubleToLong are equal. This handles NaNs, 
-     * Infinties, and -0.0. It is compatible with the hash code generated by 
-     * <code>HashCodeBuilder</code>.
+     * <p>Test if two <code>float</code>s are equal byt testing that the
+     * pattern of bits returned by doubleToLong are equal.</p>
+     *
+     * <p>This handles NaNs, Infinties, and <code>-0.0</code>.</p>
+     *
+     * <p>It is compatible with the hash code generated by
+     * <code>HashCodeBuilder</code>.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -344,7 +366,8 @@ public class EqualsBuilder {
     }
 
     /**
-     * Test if two <code>booleans</code>s are equal using ==.
+     * <p>Test if two <code>booleans</code>s are equal using ==.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -358,9 +381,11 @@ public class EqualsBuilder {
     }
 
     /**
-     * Performs a deep comparison of two object arrays. This also will be
-     * called for the top level of multi-dimensional, ragged, and multi-typed
-     * arrays. 
+     * <p>Performs a deep comparison of two Object arrays.</p>
+     *
+     * <p>This also will be called for the top level of
+     * multi-dimensional, ragged, and multi-typed arrays.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -392,8 +417,11 @@ public class EqualsBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>long</code> Length and all values
-     *  are compared. The method append(long, long) is used.
+     * <p>Deep comparison of array of <code>long</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(long, long)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -420,8 +448,11 @@ public class EqualsBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>int</code> Length and all values
-     *  are compared. The method append(int, int) is used.
+     * <p>Deep comparison of array of <code>int</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(int, int)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -448,8 +479,11 @@ public class EqualsBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>short</code> Length and all values
-     *  are compared. The method append(short, short) is used.
+     * <p>Deep comparison of array of <code>short</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(short, short)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -476,8 +510,11 @@ public class EqualsBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>char</code> Length and all values
-     *  are compared. The method append(char, char) is used.
+     * <p>Deep comparison of array of <code>char</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(char, char)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -504,8 +541,11 @@ public class EqualsBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>byte</code> Length and all values
-     *  are compared. The method append(byte, byte) is used.
+     * <p>Deep comparison of array of <code>byte</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(byte, byte)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -532,8 +572,11 @@ public class EqualsBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>double</code> Length and all values
-     *  are compared. The method append(double, double) is used.
+     * <p>Deep comparison of array of <code>double</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(double, double)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -560,8 +603,11 @@ public class EqualsBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>float</code> Length and all values
-     *  are compared. The method append(float, float) is used.
+     * <p>Deep comparison of array of <code>float</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(float, float)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -588,8 +634,11 @@ public class EqualsBuilder {
     }
 
     /**
-     * Deep comparison of array of <code>boolean</code> Length and all values
-     *  are compared. The method append(boolean, boolean) is used.
+     * <p>Deep comparison of array of <code>boolean</code> Length and all values
+     * are compared.</p>
+     *
+     * <p>The method {@link #append(boolean, boolean)} is used.</p>
+     *
      * @param lhs - Left Hand Side
      * @param rhs - Right Hand Side
      * @return EqualsBuilder - used to chain calls.
@@ -616,7 +665,9 @@ public class EqualsBuilder {
     }
 
     /**
-     * Return true if the fields that have been checked are all equal.
+     * <p>Return <code>true</code> if the fields that have been checked
+     * are all equal.</p>
+     *
      * @return boolean
      */
     public boolean isEquals() {
