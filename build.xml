@@ -3,7 +3,7 @@
 
 <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.3 2002/08/13 17:56:45 dlr Exp $
+        $Id: build.xml,v 1.4 2002/09/12 21:58:15 scolebourne Exp $
 -->
 
 
@@ -153,67 +153,16 @@
 <!-- ========== Unit Test Targets ========================================= -->
 
 
-  <target name="test"  depends="compile.tests, test.exception, test.enum"
+  <target name="test"  depends="compile.tests, test.lang, test.exception, test.enum, test.builder"
    description="Run all unit test cases">
     <echo message="Running tests ..."/>
+  </target>
+
+  <target name="test.lang" depends="compile.tests">
+    <echo message="Running lang package tests ..."/>
     <java classname="${test.runner}" fork="yes"
         failonerror="${test.failonerror}">
       <arg value="org.apache.commons.lang.LangTestSuite"/>
-      <classpath refid="test.classpath"/>
-    </java>
-  </target>
-
-
-  <target name="test.strings" depends="compile.tests">
-    <echo message="Running Strings tests ..."/>
-    <java classname="${test.runner}" fork="yes"
-        failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.lang.StringsTest"/>
-      <classpath refid="test.classpath"/>
-    </java>
-  </target>
-
-  <target name="test.objects" depends="compile.tests">
-    <echo message="Running Objects tests ..."/>
-    <java classname="${test.runner}" fork="yes"
-        failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.lang.ObjectsTest"/>
-      <classpath refid="test.classpath"/>
-    </java>
-  </target>
-
-  <target name="test.numberRange" depends="compile.tests">
-    <echo message="Running NumberRange tests ..."/>
-    <java classname="${test.runner}" fork="yes"
-        failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.lang.NumberRangeTest"/>
-      <classpath refid="test.classpath"/>
-    </java>
-  </target>
-
-  <target name="test.randomStrings" depends="compile.tests">
-    <echo message="Running RandomStrings tests ..."/>
-    <java classname="${test.runner}" fork="yes"
-        failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.lang.RandomStringsTest"/>
-      <classpath refid="test.classpath"/>
-    </java>
-  </target>
-
-  <target name="test.serialization" depends="compile.tests">
-    <echo message="Running Serialization tests ..."/>
-    <java classname="${test.runner}" fork="yes"
-        failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.lang.SerializationTest"/>
-      <classpath refid="test.classpath"/>
-    </java>
-  </target>
-
-  <target name="test.charset" depends="compile.tests">
-    <echo message="Running CharSet tests ..."/>
-    <java classname="${test.runner}" fork="yes"
-        failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.lang.CharSetTest"/>
       <classpath refid="test.classpath"/>
     </java>
   </target>
@@ -232,6 +181,15 @@
     <java classname="${test.runner}" fork="yes"
         failonerror="${test.failonerror}">
       <arg value="org.apache.commons.lang.enum.EnumTestSuite"/>
+      <classpath refid="test.classpath"/>
+    </java>
+  </target>
+
+  <target name="test.builder" depends="compile.tests">
+    <echo message="Running builder package tests ..."/>
+    <java classname="${test.runner}" fork="yes"
+        failonerror="${test.failonerror}">
+      <arg value="org.apache.commons.lang.builder.BuilderTestSuite"/>
       <classpath refid="test.classpath"/>
     </java>
   </target>
