@@ -42,7 +42,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Henri Yandell
  * @since 2.1
- * @version $Id: DurationFormatUtils.java,v 1.21 2004/10/15 23:11:31 scolebourne Exp $
+ * @version $Id$
  */
 public class DurationFormatUtils {
 
@@ -224,7 +224,8 @@ public class DurationFormatUtils {
      * 
      * <p>The format used is the ISO8601 period format.</p>
      * 
-     * @param millis  the duration to format
+     * @param startMillis  the start of the duration to format
+     * @param endMillis  the end of the duration to format
      * @return the time as a String
      */
     public static String formatPeriodISO(long startMillis, long endMillis) {
@@ -417,6 +418,12 @@ public class DurationFormatUtils {
     /**
      * Reduces by difference, then if it overshot, calculates the overshot amount and 
      * fixes and returns the amount to change by.
+     *
+     * @param start Start of period being formatted
+     * @param end End of period being formatted
+     * @param field Field to reduce, as per constants in {@link java.util.Calendar}
+     * @param difference amount to reduce by
+     * @return int reduced value
      */
     static int reduceAndCorrect(Calendar start, Calendar end, int field, int difference) {
         end.add( field, -1 * difference );
