@@ -17,11 +17,11 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution, if
- *    any, must include the following acknowlegement:
+ *    any, must include the following acknowledgement:
  *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowlegement may appear in the software itself,
- *    if and wherever such third-party acknowlegements normally appear.
+ *    Alternately, this acknowledgement may appear in the software itself,
+ *    if and wherever such third-party acknowledgements normally appear.
  *
  * 4. The names "The Jakarta Project", "Commons", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
@@ -125,7 +125,7 @@ import org.apache.commons.lang.ObjectUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.26 2003/07/21 23:30:41 scolebourne Exp $
+ * @version $Id: ToStringBuilder.java,v 1.27 2003/08/18 02:22:24 bayard Exp $
  */
 public class ToStringBuilder {
 

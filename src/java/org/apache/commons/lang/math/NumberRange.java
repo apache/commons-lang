@@ -17,11 +17,11 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution, if
- *    any, must include the following acknowlegement:
+ *    any, must include the following acknowledgement:
  *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowlegement may appear in the software itself,
- *    if and wherever such third-party acknowlegements normally appear.
+ *    Alternately, this acknowledgement may appear in the software itself,
+ *    if and wherever such third-party acknowledgements normally appear.
  *
  * 4. The names "The Jakarta Project", "Commons", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
@@ -62,7 +62,7 @@ import java.io.Serializable;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author Stephen Colebourne
  * @since 2.0 (previously in org.apache.commons.lang)
- * @version $Id: NumberRange.java,v 1.5 2003/08/04 01:14:01 scolebourne Exp $
+ * @version $Id: NumberRange.java,v 1.6 2003/08/18 02:22:24 bayard Exp $
  */
 public final class NumberRange extends Range implements Serializable {
     

@@ -17,11 +17,11 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution, if
- *    any, must include the following acknowlegement:
+ *    any, must include the following acknowledgement:
  *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowlegement may appear in the software itself,
- *    if and wherever such third-party acknowlegements normally appear.
+ *    Alternately, this acknowledgement may appear in the software itself,
+ *    if and wherever such third-party acknowledgements normally appear.
  *
  * 4. The names "The Jakarta Project", "Commons", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
@@ -68,7 +68,7 @@ package org.apache.commons.lang;
  * @author Michael Becke
  * @author Tetsuya Kaneuchi
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.19 2003/07/21 22:57:50 scolebourne Exp $
+ * @version $Id: SystemUtils.java,v 1.20 2003/08/18 02:22:23 bayard Exp $
  */
 public class SystemUtils {
 
