@@ -41,7 +41,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Henri Yandell
  * @since 2.1
- * @version $Id: DurationFormatUtils.java,v 1.18 2004/09/27 03:40:15 bayard Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.19 2004/09/27 04:49:07 bayard Exp $
  */
 public class DurationFormatUtils {
 
@@ -94,6 +94,14 @@ public class DurationFormatUtils {
     public static String formatISO(long millis) {
         return format(millis, "H:mm:ss.SSS");
     }
+
+    public static String format(long millis) {
+        return format(millis, ISO_EXTENDED_FORMAT_PATTERN, false, TimeZone.getDefault() );
+    }
+    public static String format(long startMillis, long endMillis) {
+        return format(startMillis, endMillis, ISO_EXTENDED_FORMAT_PATTERN, false, TimeZone.getDefault() );
+    }
+
 
     /**
      * <p>Get the time gap as a string, using the specified format, and padding with zeros and 
@@ -221,11 +229,10 @@ public class DurationFormatUtils {
      * @param startMillis  the start of the duration
      * @param endMillis  the end of the duration
      * @param format  the way in which to format the duration
-     * @param padWithZeros whether to pad the left hand side of numbers with 0's
      * @return the time as a String
      */
-    public static String format(long startMillis, long endMillis, String format, boolean padWithZeros) {
-        return format(startMillis, endMillis, format, padWithZeros, TimeZone.getDefault());
+    public static String format(long startMillis, long endMillis, String format) {
+        return format(startMillis, endMillis, format, true, TimeZone.getDefault());
     }
     /**
      * <p>Get the time gap as a string, using the specified format.
@@ -266,7 +273,7 @@ public class DurationFormatUtils {
         int days = end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);
         while(days < 0) {
             days += 31;  // such overshooting is taken care of later on
-            days -= 1;
+            months -= 1;
         }
         int hours = end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY);
         while(hours < 0) {
@@ -297,6 +304,40 @@ public class DurationFormatUtils {
         days -= reduceAndCorrect( start, end, Calendar.DAY_OF_MONTH, days );
         months -= reduceAndCorrect( start, end, Calendar.MONTH, months );
         years -= reduceAndCorrect( start, end, Calendar.YEAR, years );
+
+        // This next block of code adds in values that 
+        // aren't requested. This allows the user to ask for the 
+        // number of months and get the real count and not just 0->11.
+        if(!Token.containsTokenWithValue(tokens, y) ) {
+            if(Token.containsTokenWithValue(tokens, M) ) {
+                months += 12 * years;
+                years = 0;
+            } else {
+                // TODO: this is a bit weak, needs work to know about leap years
+                days += 365 * years;
+                years = 0;
+            }
+        }
+        if(!Token.containsTokenWithValue(tokens, M) ) {
+            days += end.get(Calendar.DAY_OF_YEAR) - start.get(Calendar.DAY_OF_YEAR);
+            months = 0;
+        }
+        if(!Token.containsTokenWithValue(tokens, d) ) {
+            hours += 24 * days;
+            days = 0;
+        }
+        if(!Token.containsTokenWithValue(tokens, H) ) {
+            minutes += 60 * hours;
+            hours = 0;
+        }
+        if(!Token.containsTokenWithValue(tokens, m) ) {
+            seconds += 60 * minutes;
+            minutes = 0;
+        }
+        if(!Token.containsTokenWithValue(tokens, s) ) {
+            milliseconds += 1000 * seconds;
+            seconds = 0;
+        }
 
         return formatDuration(tokens, years, months, days, hours, minutes, seconds, milliseconds, padWithZeros);
     }
