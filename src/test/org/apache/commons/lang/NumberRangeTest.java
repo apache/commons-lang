@@ -15,8 +15,6 @@
  */
 package org.apache.commons.lang;
 
-import java.math.BigDecimal;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -27,7 +25,7 @@ import junit.framework.TestSuite;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Tim O'Brien
- * @version $Revision: 1.7 $ $Date: 2004/02/18 23:06:19 $
+ * @version $Revision: 1.8 $ $Date: 2004/02/18 23:22:29 $
  */
 
 public final class NumberRangeTest extends TestCase {

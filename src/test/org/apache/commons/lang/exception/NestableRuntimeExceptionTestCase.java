@@ -17,6 +17,7 @@ package org.apache.commons.lang.exception;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
@@ -25,7 +26,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableRuntimeException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.10 2004/02/18 23:02:15 ggregory Exp $
+ * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.11 2004/02/18 23:22:29 ggregory Exp $
  */
 public class NestableRuntimeExceptionTestCase extends AbstractNestableTestCase {
     

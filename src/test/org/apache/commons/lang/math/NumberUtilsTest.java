@@ -24,7 +24,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-
 import org.apache.commons.lang.SystemUtils;
 
 /**
@@ -37,7 +36,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: NumberUtilsTest.java,v 1.11 2004/02/18 23:02:38 ggregory Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.12 2004/02/18 23:22:30 ggregory Exp $
  */
 public class NumberUtilsTest extends TestCase {
 

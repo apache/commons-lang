@@ -22,10 +22,9 @@ import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
-import org.apache.commons.lang.SystemUtils;
-
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import org.apache.commons.lang.SystemUtils;
 
 /**
  * Tests {@link org.apache.commons.lang.exception.ExceptionUtils}.

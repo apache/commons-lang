@@ -16,8 +16,6 @@
 package org.apache.commons.lang;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -29,14 +27,13 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-import org.apache.commons.lang.enum.ColorEnum;
 
 /**
  * Unit tests {@link org.apache.commons.lang.ClassUtils}.
  *
  * @author Stephen Colebourne
  * @author Gary D. Gregory
- * @version $Id: ClassUtilsTest.java,v 1.10 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.11 2004/02/18 23:22:29 ggregory Exp $
  */
 public class ClassUtilsTest extends TestCase {
 

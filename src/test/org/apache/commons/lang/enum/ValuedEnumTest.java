@@ -22,14 +22,13 @@ import java.util.Map;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
 import org.apache.commons.lang.SerializationUtils;
 
 /**
  * Test cases for the {@link Enum} class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ValuedEnumTest.java,v 1.6 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id: ValuedEnumTest.java,v 1.7 2004/02/18 23:22:29 ggregory Exp $
  */
 
 public final class ValuedEnumTest extends TestCase {
