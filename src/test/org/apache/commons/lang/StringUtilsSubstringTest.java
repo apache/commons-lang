@@ -63,7 +63,8 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsSubstringTest.java,v 1.6 2003/07/20 15:29:44 scolebourne Exp $
+ * @author Phil Steitz
+ * @version $Id: StringUtilsSubstringTest.java,v 1.7 2003/07/20 23:57:26 scolebourne Exp $
  */
 public class StringUtilsSubstringTest extends TestCase {
     private static final String FOO = "foo";
@@ -111,8 +112,21 @@ public class StringUtilsSubstringTest extends TestCase {
         assertEquals(FOO, StringUtils.substring(SENTENCE, 0, -8));
         assertEquals("o", StringUtils.substring(SENTENCE, -9, -8));
         assertEquals(SENTENCE, StringUtils.substring(SENTENCE, 0, 80));
+        assertEquals("", StringUtils.substring(SENTENCE, 2, 2));
+        assertEquals("b",StringUtils.substring("abc", -2, -1));
     }
     
+    public void testSubstring4() {
+        assertEquals("", StringUtils.substring("",0));
+        assertEquals("", StringUtils.substring("",2));
+        assertEquals("", StringUtils.substring("",0,0));
+        assertEquals("", StringUtils.substring("",1,2));
+        assertEquals("", StringUtils.substring("",-2,-1));
+        assertEquals(null, StringUtils.substring(null,0));
+        assertEquals(null, StringUtils.substring(null,0,0));
+        assertEquals(null, StringUtils.substring(null,1,2));
+    }
+           
     public void testLeft() {
         assertSame(null, StringUtils.left(null, 0));
         assertSame(null, StringUtils.left(null, 2));

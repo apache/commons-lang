@@ -71,7 +71,8 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.35 2003/07/20 15:49:58 scolebourne Exp $
+ * @author Phil Steitz
+ * @version $Id: StringUtilsTest.java,v 1.36 2003/07/20 23:57:26 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -276,6 +277,13 @@ public class StringUtilsTest extends TestCase {
         res = StringUtils.split(str, '.');
         assertEquals(1, res.length);
         assertEquals("a", res[0]);
+        
+        str = "a b c";
+        res = StringUtils.split(str,' ');
+        assertEquals(3, res.length);
+        assertEquals("a", res[0]);
+        assertEquals("b", res[1]);
+        assertEquals("c", res[2]);
     }
     
     public void testSplit_StringString_StringStringInt() {
