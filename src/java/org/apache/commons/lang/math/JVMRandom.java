@@ -62,17 +62,21 @@ import java.util.Random;
  * 
  * @author Henri Yandell
  * @since 2.0
- * @version $Id: JVMRandom.java,v 1.4 2003/05/12 04:41:40 bayard Exp $
+ * @version $Id: JVMRandom.java,v 1.5 2003/05/14 02:41:26 bayard Exp $
  */
 public final class JVMRandom extends Random {
 
-    // important to not call super() as this will 
-    // call setSeed with the current Time
+    /** ensures that only the constructor can call reseed */
+    private boolean constructed = false;
+
     public JVMRandom() {
+        this.constructed = true;
     }
     
     public synchronized void setSeed(long seed) {
-        throw new UnsupportedOperationException();
+        if (this.constructed) {
+            throw new UnsupportedOperationException();
+        }
     }
 
     public synchronized double nextGaussian() {
