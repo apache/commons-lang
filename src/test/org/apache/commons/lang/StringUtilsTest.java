@@ -70,7 +70,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.24 2003/07/16 23:45:39 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.25 2003/07/16 23:56:44 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -279,16 +279,12 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testRepeat() {
+        assertEquals(null, StringUtils.repeat(null, 2));
         assertEquals("", StringUtils.repeat("ab", 0));
         assertEquals("", StringUtils.repeat("", 3));
         assertEquals("aaa", StringUtils.repeat("a", 3));
         assertEquals("ababab", StringUtils.repeat("ab", 3));
         assertEquals("abcabcabc", StringUtils.repeat("abc", 3));
-        try {
-            StringUtils.repeat(null, 0);
-            fail();
-        } catch (NullPointerException ex) {
-        }
     }
 
     public void testCenter() {
