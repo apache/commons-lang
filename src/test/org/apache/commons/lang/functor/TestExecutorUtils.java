@@ -68,9 +68,12 @@ import org.apache.commons.lang.functor.PredicateUtils;
  * Tests the org.apache.commons.lang.functor.ExecutorUtils class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: TestExecutorUtils.java,v 1.1 2002/11/06 19:16:15 bayard Exp $
+ * @version $Id: TestExecutorUtils.java,v 1.2 2002/11/22 22:52:40 bayard Exp $
  */
 public class TestExecutorUtils extends junit.framework.TestCase {
+
+    // JDK 1.2 compliancy
+    private static final Map EMPTY_MAP = Collections.unmodifiableMap(new HashMap());
 
     private static final Object cObject = new Object();
     private static final Object cString = "Hello";
@@ -413,7 +416,7 @@ public class TestExecutorUtils extends junit.framework.TestCase {
     
     public void testSwitchExecutorEx4() {
         try {
-            ExecutorUtils.switchExecutor(Collections.EMPTY_MAP);
+            ExecutorUtils.switchExecutor(EMPTY_MAP);
         } catch (IllegalArgumentException ex) {
             return;
         }
@@ -487,7 +490,7 @@ public class TestExecutorUtils extends junit.framework.TestCase {
     
     public void testSwitchMapExecutorEx2() {
         try {
-            ExecutorUtils.switchMapExecutor(Collections.EMPTY_MAP);
+            ExecutorUtils.switchMapExecutor(EMPTY_MAP);
         } catch (IllegalArgumentException ex) {
             return;
         }
