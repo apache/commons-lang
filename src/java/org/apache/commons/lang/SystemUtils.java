@@ -33,7 +33,7 @@ import java.io.File;
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.34 2004/08/30 21:19:52 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.35 2004/08/30 21:21:18 ggregory Exp $
  */
 public class SystemUtils {
 
@@ -1044,7 +1044,6 @@ public class SystemUtils {
      * @since 2.0
      */
     public static final boolean IS_OS_WINDOWS_XP = getOSMatches(OS_NAME_WINDOWS_PREFIX, "5.1");
-    // Windows XP returns 'Windows 2000' just for fun...
 
     //-----------------------------------------------------------------------    
     /**
