@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EqualsBuilderTest.java,v 1.1 2002/09/12 22:00:35 scolebourne Exp $
+ * @version $Id: EqualsBuilderTest.java,v 1.2 2002/12/08 21:10:11 scolebourne Exp $
  */
 public class EqualsBuilderTest extends TestCase {
 
@@ -128,6 +128,15 @@ public class EqualsBuilderTest extends TestCase {
         assertTrue(!EqualsBuilder.reflectionEquals(o1, null));
         assertTrue(!EqualsBuilder.reflectionEquals(null, o2));
         assertTrue(EqualsBuilder.reflectionEquals((Object) null, (Object) null));
+    }
+
+    public void testSuper() {
+        TestObject o1 = new TestObject(4);
+        TestObject o2 = new TestObject(5);
+        assertEquals(true, new EqualsBuilder().appendSuper(true).append(o1, o1).isEquals());
+        assertEquals(false, new EqualsBuilder().appendSuper(false).append(o1, o1).isEquals());
+        assertEquals(false, new EqualsBuilder().appendSuper(true).append(o1, o2).isEquals());
+        assertEquals(false, new EqualsBuilder().appendSuper(false).append(o1, o2).isEquals());
     }
 
     public void testObject() {
