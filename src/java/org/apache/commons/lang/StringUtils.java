@@ -73,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.18 2002/09/30 00:50:10 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.18.2.1 2002/11/23 01:06:56 bayard Exp $
  */
 public class StringUtils {
 
@@ -459,25 +459,24 @@ public class StringUtils {
 
         String[] list = new String[listSize];
         int i = 0;
+       int lastTokenBegin = 0;
+        int lastTokenEnd = 0;
         while (tok.hasMoreTokens()) {
             if (max > 0 && i == listSize - 1) {
                 // In the situation where we hit the max yet have
                 // tokens left over in our input, the last list
                 // element gets all remaining text.
-                StringBuffer buf = new StringBuffer((int) 1.2 * str.length() * (listSize - i) / listSize);
-                while (tok.hasMoreTokens()) {
-                    buf.append(tok.nextToken());
-                    if (tok.hasMoreTokens()) {
-                        buf.append(separator);
-                    }
-                }
-                list[i] = buf.toString();
+                String endToken = tok.nextToken();
+                lastTokenBegin = str.indexOf(endToken, lastTokenEnd);
+                list[i] = str.substring(lastTokenBegin);
                 break;
             } else {
                 list[i] = tok.nextToken();
+                lastTokenBegin = str.indexOf(list[i], lastTokenEnd);
+                lastTokenEnd = lastTokenBegin + list[i].length();
             }
             i++;
-        }
+        }  
         return list;
     }
 

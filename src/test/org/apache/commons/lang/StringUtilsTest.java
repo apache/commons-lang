@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtilsTest.java,v 1.5 2002/09/19 07:02:30 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.5.2.1 2002/11/23 01:06:56 bayard Exp $
  */
 public class StringUtilsTest extends TestCase
 {
@@ -183,6 +183,12 @@ public class StringUtilsTest extends TestCase
             assertEquals("split(Object[], String, int) failed", expected[i],
                          result[i]);
         }
+
+        result = StringUtils.split("one two three four five six", null, 3);
+        assertEquals("split(Object[], null, int)[0] failed", "one", result[0]);
+        assertEquals("split(Object[], null, int)[1] failed", "two", result[1]);
+        assertEquals("split(Object[], null, int)[2] failed", "three four five six", result[2]); 
+
     }
 
     public void testReplaceFunctions()
