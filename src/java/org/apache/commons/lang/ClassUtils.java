@@ -32,7 +32,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.27 2004/02/19 01:34:38 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.28 2004/02/24 06:01:28 ggregory Exp $
  */
 public class ClassUtils {
 
@@ -196,7 +196,7 @@ public class ClassUtils {
     /**
      * <p>Gets a <code>List</code> of superclasses for the given class.</p>
      * 
-     * @param cls  the class to look up, must not be <code>null</code>
+     * @param cls  the class to look up, may be <code>null</code>
      * @return the <code>List</code> of superclasses in order going up from this one
      *  <code>null</code> if null input
      */
@@ -222,7 +222,7 @@ public class ClassUtils {
      * superclass is considered in the same way. Later duplicates are ignored, 
      * so the order is maintained.</p>
      * 
-     * @param cls  the class to look up, must not be <code>null</code>
+     * @param cls  the class to look up, may be <code>null</code>
      * @return the <code>List</code> of interfaces in order,
      *  <code>null</code> if null input
      */
@@ -341,9 +341,9 @@ public class ClassUtils {
      * the returned list as <code>null</code>.</p>
      * 
      * @param classes  the classes to change
-     * @return a <code>List</code> of Class objects corresponding to the class names,
+     * @return a <code>List</code> of class names corresponding to the Class objects,
      *  <code>null</code> if null input
-     * @throws ClassCastException if classNames contains a non Class or null entry
+     * @throws ClassCastException if <code>classes</code> contains a non-<code>Class</code> entry
      */
     public static List convertClassesToClassNames(List classes) {
         if (classes == null) {
