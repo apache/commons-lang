@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,7 +74,7 @@ import org.apache.commons.lang.enum.ColorEnum;
  *
  * @author Stephen Colebourne
  * @author Gary D. Gregory
- * @version $Id: ClassUtilsTest.java,v 1.8 2004/02/15 00:51:37 ggregory Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.9 2004/02/16 23:40:47 ggregory Exp $
  */
 public class ClassUtilsTest extends TestCase {
 
