@@ -82,7 +82,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Gregor Raýman
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
- * @version $Id: MethodUtils.java,v 1.7 2002/11/21 18:53:32 rdonkin Exp $
+ * @version $Id: MethodUtils.java,v 1.8 2002/11/21 19:38:51 rdonkin Exp $
  */
 public class MethodUtils {
     
@@ -561,50 +561,31 @@ public class MethodUtils {
                 
                 // compare parameters
                 Class[] methodsParams = methods[i].getParameterTypes();
-                int methodParamSize = methodsParams.length;
-                if (methodParamSize == paramSize) {          
-                    boolean match = true;
-                    for (int n = 0 ; n < methodParamSize; n++) {
+                if (ReflectionUtils.isCompatible(parameterTypes, methodsParams)) {
+                    // get accessible version of method
+                    Method method = getAccessibleMethod(methods[i]);
+                    if (method != null) {
                         if (debug) {
-                            log("Param=" + parameterTypes[n].getName());
-                            log("Method=" + methodsParams[n].getName());
+                            log(method + " accessible version of " 
+                                        + methods[i]);
                         }
-                        if (!ReflectionUtils.isCompatible(parameterTypes[n], methodsParams[n])) {
-                            if (debug) {
-                                log(methodsParams[n] + " is not assignable from " 
-                                            + parameterTypes[n]);
-                            }    
-                            match = false;
-                            break;
+                        try {
+                            //
+                            // XXX Default access superclass workaround
+                            // (See above for more details.)
+                            //
+                            method.setAccessible(true);
+                            
+                        } catch (SecurityException se) {
+                            // log but continue just in case the method.invoke works anyway
+                            log(
+                            "Cannot setAccessible on method. Therefore cannot use jvm access bug workaround.", 
+                            se);
                         }
+                        return method;
                     }
                     
-                    if (match) {
-                        // get accessible version of method
-                        Method method = getAccessibleMethod(methods[i]);
-                        if (method != null) {
-                            if (debug) {
-                                log(method + " accessible version of " 
-                                            + methods[i]);
-                            }
-                            try {
-                                //
-                                // XXX Default access superclass workaround
-                                // (See above for more details.)
-                                //
-                                method.setAccessible(true);
-                                
-                            } catch (SecurityException se) {
-                                // log but continue just in case the method.invoke works anyway
-                                log(
-                                "Cannot setAccessible on method. Therefore cannot use jvm access bug workaround.", 
-                                se);
-                            }
-                            return method;
-                        }
-                        
-                        log("Couldn't find accessible method.");
-                    }
+                    log("Couldn't find accessible method.");
                 }
             }
         }
