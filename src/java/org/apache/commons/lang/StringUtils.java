@@ -71,8 +71,15 @@ import org.apache.commons.lang.math.NumberUtils;
  *  <li>whitespace - the characters defined by {@link Character#isWhitespace(char)}
  * </ul>
  * 
- * <p>The <code>StringUtils</code> class varies in its handling of
- * <code>null</code>. Each method should be consulted individually.</p>
+ * <p>The <code>StringUtils</code> tries to handle <code>null</code> input
+ * quietly. That is to say that a <code>null</code> will generally return a 
+ * sensible value rather than throw an exception.
+ * Typically, <code>null</code> in gives <code>null</code> out.
+ * Each method should be consulted individually for full details.</p>
+ * 
+ * <p>A side effect of the <code>null</code> handling is that a 
+ * NullPointerException should be considered a bug in <code>StringUtils</code>.
+ * (Except for deprecated methods).</p>
  *
  * @author <a href="http://jakarta.apache.org/turbine/">Apache Jakarta Turbine</a>
  * @author GenerationJavaCore
@@ -90,7 +97,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.60 2003/07/16 23:45:39 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.61 2003/07/16 23:56:45 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1626,25 +1633,27 @@ public class StringUtils {
      * new string.</p>
      *
      * <pre>
+     * StringUtils.repeat(null, 2) = null
      * StringUtils.repeat("", 0)   = ""
      * StringUtils.repeat("", 2)   = ""
      * StringUtils.repeat("a", 3)  = "aaa"
      * StringUtils.repeat("ab", 2) = "abab"
-     * StringUtils.repeat(null, 2) = NullPointerException
-     * StringUtils.repeat("a", -2) = NegativeArraySizeException
+     * StringUtils.repeat("a", -2) = ""
      * </pre>
      *
-     * @param str  the String to repeat, must not be null
-     * @param repeat  number of times to repeat str
-     * @return a new String consisting of the original String repeated
-     * @throws NegativeArraySizeException if <code>repeat &lt; 0</code>
-     * @throws NullPointerException if str is <code>null</code>
+     * @param str  the String to repeat, may be null
+     * @param repeat  number of times to repeat str, negative treated as zero
+     * @return a new String consisting of the original String repeated,
+     *  <code>null</code> if null string input
      */
     public static String repeat(String str, int repeat) {
-        int inputLength = str.length();
-        if (repeat == 0) {
+        if (str == null) {
+            return null;
+        }
+        if (repeat <= 0) {
             return "";
         }
+        int inputLength = str.length();
         if (inputLength == 1 && repeat <= PAD_LIMIT) {
            return padding(repeat, str.charAt(0));
         }
@@ -1904,8 +1913,8 @@ public class StringUtils {
      * StringUtils.leftPad("bat", 8, "yz")  = "yzyzybat"
      * StringUtils.leftPad("bat", 1, "yz")  = "bat"
      * StringUtils.leftPad("bat", -1, "yz") = "bat"
-     * StringUtils.leftPad("bat", 1, null)  = NullPointerException
-     * StringUtils.leftPad("bat", 1, "")    = ArithmeticException
+     * StringUtils.leftPad("bat", 1, null)  = IllegalArgumentException
+     * StringUtils.leftPad("bat", 1, "")    = IllegalArgumentException
      * </pre>
      *
      * @param str  the String to pad out, may be null
@@ -2841,7 +2850,7 @@ public class StringUtils {
     /**
      * <p>Find the Levenshtein distance between two Strings.</p>
      *
-     * <P>This is the number of changes needed to change one String into
+     * <p>This is the number of changes needed to change one String into
      * another. Where each change is a single character modification.</p>
      *
      * <p>This implemmentation of the levenshtein distance algorithm
