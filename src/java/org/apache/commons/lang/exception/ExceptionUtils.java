@@ -70,16 +70,18 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.SystemUtils;
 
 /**
- * <p><code>ExceptionUtils</code> provides utilities for manipulating 
+ * <p>Provides utilities for manipulating and examining 
  * <code>Throwable</code> objects.</p>
  *
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author Dmitri Plotnikov
  * @author Stephen Colebourne
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.23 2003/05/14 02:59:13 bayard Exp $
+ * @version $Id: ExceptionUtils.java,v 1.24 2003/05/31 17:16:11 ggregory Exp $
  */
 public class ExceptionUtils {
+    
     /**
      * Used when printing stack frames to denote the start of a
      * wrapped exception.  Package private for accessibility by test
@@ -223,7 +225,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * <p>Find a throwable by method name.</p>
+     * <p>Finds a <code>Throwable</code> by method name.</p>
      * 
      * @param throwable  the exception to examine
      * @param methodName  the name of the method to find and invoke
@@ -250,7 +252,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * <p>Find a throwable by field name.</p>
+     * <p>Finds a <code>Throwable</code> by field name.</p>
      * 
      * @param throwable  the exception to examine
      * @param fieldName  the name of the attribute to examine
@@ -370,14 +372,16 @@ public class ExceptionUtils {
     }
 
     /**
-     * Equivalent to printRootCauseStackTrace(t, System.err)
+     * Equivalent to <code>printRootCauseStackTrace(t, System.err);</code>
+     * 
+     * @see #printRootCauseStackTrace(Throwable,PrintWriter)
      */
     public static void printRootCauseStackTrace(Throwable t) {
         printRootCauseStackTrace(t, System.err);
     }
 
     /**
-     * Same as printRootCauseStackTrace(t, stream), except it takes
+     * Same as {@link #printRootCauseStackTrace(Throwable,java.io.PrintStream)}, except it takes
      * a PrintWriter as an argument.
      */
     public static void printRootCauseStackTrace(Throwable t, PrintWriter writer) {
@@ -390,9 +394,7 @@ public class ExceptionUtils {
 
     /**
      * Creates a compact stack trace for the root cause of the supplied 
-     * throwable.
-     *   
-     * See <code>printRootCauseStackTrace(Throwable t, PrintStream s)</code> 
+     * <code>Throwable</code>.
      */
     public static String[] getRootCauseStackTrace(Throwable t) {
         Throwable throwables[] = getThrowables(t);
@@ -418,7 +420,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Given two stack traces, removes common frames from the cause trace.
+     * Removes common frames from the cause trace given the two stack traces.
      * 
      * @param causeFrames   stack trace of a cause throwable
      * @param wrapperFrames stack trace of a wrapper throwable 
@@ -474,7 +476,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Whether an Throwable is considered nested or not.
+     * Returns whether a <code>Throwable </code> is considered nested or not.
      *
      * @param t The <code>Throwable</code>.
      * @return boolean true/false
@@ -581,6 +583,7 @@ public class ExceptionUtils {
             // ignore
         }
     }
+    
     /**
      * Checks if the Throwable class has a <code>getCause</code> method.
      */
