@@ -84,8 +84,9 @@ import org.apache.commons.lang.SystemUtils;
  *
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.19 2003/07/21 23:03:53 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.20 2003/07/21 23:30:42 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -201,9 +202,9 @@ public abstract class ToStringStyle implements Serializable {
     //----------------------------------------------------------------------------
 
     /**
-     * <p>Append the superclass toString.</p>
+     * <p>Append to the <code>toString</code> the superclass toString.</p>
      * 
-     * <p>A <code>null</code> <code>super.toString()</code> is ignored.</p>
+     * <p>A <code>null</code> <code>superToString</code> is ignored.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param superToString  the <code>super.toString()</code>
@@ -213,12 +214,12 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append a toString.</p>
+     * <p>Append to the <code>toString</code> another toString.</p>
      * 
-     * <p>A <code>null</code> <code>toString()</code> is ignored.</p>
+     * <p>A <code>null</code> <code>toString</code> is ignored.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
-     * @param toString  the <code>super.toString()</code>
+     * @param toString  the additional <code>toString</code>
      */
     public void appendToString(StringBuffer buffer, String toString) {
         if (toString != null) {
@@ -236,7 +237,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append the start of data indicator.</p>
+     * <p>Append to the <code>toString</code> the start of data indicator.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param object  the <code>Object</code> to build a
@@ -252,7 +253,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append the end of data indicator.</p>
+     * <p>Append to the <code>toString</code> the end of data indicator.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param object  the <code>Object</code> to build a
@@ -315,7 +316,7 @@ public abstract class ToStringStyle implements Serializable {
 
     /**
      * <p>Append to the <code>toString</code> an <code>Object</code>,
-     * correctly interpretting its type.</p>
+     * correctly interpreting its type.</p>
      *
      * <p>This method performs the main lookup by Class type to correctly
      * route arrays, <code>Collections</code>, <code>Maps</code> and
@@ -754,7 +755,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append to the <code>toString</code> the detail of an any array type.</p>
+     * <p>Append to the <code>toString</code> the detail of an array type.</p>
      *
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param fieldName  the field name, typically not used as already appended
@@ -1283,7 +1284,7 @@ public abstract class ToStringStyle implements Serializable {
     //----------------------------------------------------------------------------
 
     /**
-     * <p>Append the class name.</p>
+     * <p>Append to the <code>toString</code> the class name.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param object  the <code>Object</code> whose name to output
@@ -1312,7 +1313,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append the content start to the buffer.</p>
+     * <p>Append to the <code>toString</code> the content start.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      */
@@ -1321,7 +1322,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append the content end to the buffer.</p>
+     * <p>Append to the <code>toString</code> the content end.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      */
@@ -1330,7 +1331,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append an indicator for <code>null</code> to the buffer.</p>
+     * <p>Append to the <code>toString</code> an indicator for <code>null</code>.</p>
      *
      * <p>The default indicator is <code>'&lt;null&gt;'</code>.</p>
      * 
@@ -1342,7 +1343,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append the field separator to the buffer.</p>
+     * <p>Append to the <code>toString</code> the field separator.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      */
@@ -1351,7 +1352,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append the field start to the buffer.</p>
+     * <p>Append to the <code>toString</code> the field start.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param fieldName  the field name
@@ -1364,7 +1365,7 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Append the field end to the buffer.</p>
+     * <p>Append to the <code>toString<code> the field end.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param fieldName  the field name, typically not used as already appended
@@ -1572,8 +1573,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Sets the array start text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a emptry String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param arrayStart  the new array start text
      */
@@ -1598,8 +1599,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Sets the array end text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param arrayEnd  the new array end text
      */
@@ -1624,8 +1625,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Sets the array separator text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param arraySeparator  the new array separator text
      */
@@ -1650,8 +1651,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Sets the content start text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param contentStart  the new content start text
      */
@@ -1676,8 +1677,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Sets the content end text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param contentEnd  the new content end text
      */
@@ -1702,8 +1703,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Sets the field name value separator text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param fieldNameValueSeparator  the new field name value separator text
      */
@@ -1728,8 +1729,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Sets the field separator text.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param fieldSeparator  the new field separator text
      */
@@ -1798,8 +1799,8 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * <p>Sets the text to output when <code>null</code> found.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param nullText  the new text to output when null found
      */
@@ -1813,7 +1814,7 @@ public abstract class ToStringStyle implements Serializable {
     //---------------------------------------------------------------------
 
     /**
-     * <p>Gets the text to output when a <code>Collection</code>,
+     * <p>Gets the start text to output when a <code>Collection</code>,
      * <code>Map</code> or array size is output.</p>
      *
      * <p>This is output before the size value.</p>
@@ -1825,13 +1826,13 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Sets the text to output when a <code>Collection</code>,
+     * <p>Sets the start text to output when a <code>Collection</code>,
      * <code>Map</code> or array size is output.</p>
      *
      * <p>This is output before the size value.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param sizeStartText  the new start of size text
      */
@@ -1845,7 +1846,7 @@ public abstract class ToStringStyle implements Serializable {
     //---------------------------------------------------------------------
 
     /**
-     * <p>Gets the text to output when a <code>Collection</code>,
+     * <p>Gets the end text to output when a <code>Collection</code>,
      * <code>Map</code> or array size is output.</p>
      *
      * <p>This is output after the size value.</p>
@@ -1857,13 +1858,13 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Sets the text to output when a <code>Collection</code>,
+     * <p>Sets the end text to output when a <code>Collection</code>,
      * <code>Map</code> or array size is output.</p>
      *
      * <p>This is output after the size value.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param sizeEndText  the new end of size text
      */
@@ -1877,7 +1878,7 @@ public abstract class ToStringStyle implements Serializable {
     //---------------------------------------------------------------------
 
     /**
-     * <p>Gets the text to output when an <code>Object</code> is
+     * <p>Gets the start text to output when an <code>Object</code> is
      * output in summary mode.</p>
      *
      * <p>This is output before the size value.</p>
@@ -1889,13 +1890,13 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Sets the text to output when an <code>Object</code> is
+     * <p>Sets the start text to output when an <code>Object</code> is
      * output in summary mode.</p>
      *
      * <p>This is output before the size value.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param summaryObjectStartText  the new start of summary text
      */
@@ -1909,7 +1910,7 @@ public abstract class ToStringStyle implements Serializable {
     //---------------------------------------------------------------------
 
     /**
-     * <p>Gets the text to output when an <code>Object</code> is
+     * <p>Gets the end text to output when an <code>Object</code> is
      * output in summary mode.</p>
      *
      * <p>This is output after the size value.</p>
@@ -1921,13 +1922,13 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Sets the text to output when an <code>Object</code> is
+     * <p>Sets the end text to output when an <code>Object</code> is
      * output in summary mode.</p>
      *
      * <p>This is output after the size value.</p>
      *
-     * <p><code>Null</code> is accepted, but will be converted to
-     * a empty String.</p>
+     * <p><code>null</code> is accepted, but will be converted to
+     * an empty String.</p>
      *
      * @param summaryObjectEndText  the new end of summary text
      */

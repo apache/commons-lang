@@ -60,15 +60,15 @@ import java.lang.reflect.Modifier;
 /**
  * <p><code>HashCode</code> generation routines.</p>
  *
- * <p> This class enables a good hashcode to be built for any class. It
+ * <p> This class enables a good <code>hashCode</code> method to be built for any class. It
  * follows the rules laid out in the book
  * <a href="http://java.sun.com/docs/books/effective/index.html">Effective Java</a>
- * , by Joshua Bloch. Writing a good <code>hashCode</code> is actually quite
+ * by Joshua Bloch. Writing a good <code>hashCode</code> method is actually quite
  * difficult. This class aims to simplify the process.</p>
  *
  * <p>All relevant fields from the object should be included in the
- * <code>hashCode</code>. Derived fields may be excluded. In general, any
- * field used in the equals method must be used in the <code>hashCode</code>
+ * <code>hashCode</code> method. Derived fields may be excluded. In general, any
+ * field used in the <code>equals</code> method must be used in the <code>hashCode</code>
  * method.</p>
  *
  * <p>To use this class write code as follows:</p>
@@ -91,7 +91,8 @@ import java.lang.reflect.Modifier;
  * }
  * </pre>
  *
- * <p>If required, the superclass hashCode can be added using {@link #appendSuper}.</p>
+ * <p>If required, the superclass <code>hashCode()</code> can be added
+ * using {@link #appendSuper}.</p>
  *
  * <p>Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method,
@@ -109,8 +110,9 @@ import java.lang.reflect.Modifier;
  *
  * @author Stephen Colebourne
  * @author Gary Gregory
+ * @author Pete Gieser
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.15 2003/07/20 15:49:58 scolebourne Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.16 2003/07/21 23:30:42 scolebourne Exp $
  */
 public class HashCodeBuilder {
 
@@ -124,7 +126,7 @@ public class HashCodeBuilder {
     private int iTotal = 0;
 
     /**
-     * <p>Constructor for HashCodeBuilder.</p>
+     * <p>Constructor.</p>
      *
      * <p>This constructor uses two hard coded choices for the constants
      * needed to build a <code>hashCode</code>.</p>
@@ -136,7 +138,7 @@ public class HashCodeBuilder {
     }
 
     /**
-     * <p>Constructor for <code>HashCodeBuilder</code>.</p>
+     * <p>Constructor.</p>
      *
      * <p>Two randomly chosen, non-zero, odd numbers must be passed in.
      * Ideally these should be different for each class, however this is
@@ -176,7 +178,7 @@ public class HashCodeBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
-     * a security manger, if the permissions are not set up correctly. It is
+     * a security manager, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.</p>
      *
      * <p>Transient members will be not be used, as they are likely derived
@@ -200,7 +202,7 @@ public class HashCodeBuilder {
      *
      * <p> It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
-     * a security manger, if the permissions are not set up correctly. It is
+     * a security manager, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.</p>
      *
      * <P>If the TestTransients parameter is set to <code>true</code>, transient
@@ -223,7 +225,7 @@ public class HashCodeBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
-     * a security manger, if the permissions are not set up correctly. It is
+     * a security manager, if the permissions are not set up correctly. It is
      * also not as efficient as testing explicitly.</p>
      *
      * <p>Transient members will be not be used, as they are likely derived
@@ -252,7 +254,7 @@ public class HashCodeBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
-     * a security manger, if the permissions are not set up correctly. It is also
+     * a security manager, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly.</p>
      *
      * <p>If the TestTransients parameter is set to <code>true</code>, transient
@@ -284,7 +286,7 @@ public class HashCodeBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
-     * a security manger, if the permissions are not set up correctly. It is also
+     * a security manager, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly.</p>
      *
      * <p>If the TestTransients parameter is set to <code>true</code>, transient
@@ -492,9 +494,9 @@ public class HashCodeBuilder {
     }
 
     /**
-     * <p>Append a <code>hashCode</code> for a <code>long</code>.</p>
+     * <p>Append a <code>hashCode</code> for a <code>boolean</code>.</p>
      *
-     * @param value  the long to add to the <code>hashCode</code>
+     * @param value  the boolean to add to the <code>hashCode</code>
      * @return this
      */
     public HashCodeBuilder append(boolean value) {

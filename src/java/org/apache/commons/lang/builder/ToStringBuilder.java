@@ -57,7 +57,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 
 /**
- * <p>Builds <code>toString()</code> values.</p>
+ * <p><code>ToString</code> generation routines.</p>
  *
  * <p>This class enables a good and consistent <code>toString()</code> to be built for any
  * class or object. This class aims to simplify the process by:</p>
@@ -99,7 +99,7 @@ import org.apache.commons.lang.ObjectUtils;
  *
  * <p>Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method, 
- * <code>reflectionToString</code>, uses <code>Field.setAccessible</code> to
+ * <code>reflectionToString</code>, uses <code>AccessibleObject.setAccessible</code> to
  * change the visibility of the fields. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly. It is also
  * slower than testing explicitly.</p>
@@ -123,8 +123,9 @@ import org.apache.commons.lang.ObjectUtils;
  *
  * @author Stephen Colebourne
  * @author Gary Gregory
+ * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.25 2003/07/16 01:47:39 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.26 2003/07/21 23:30:41 scolebourne Exp $
  */
 public class ToStringBuilder {
 
@@ -288,7 +289,7 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
 
     /**
-     * <p>Append to the <code>toString</code> an <code>boolean</code>
+     * <p>Append to the <code>toString</code> a <code>boolean</code>
      * value.</p>
      *
      * @param value  the value to add to the <code>toString</code>
@@ -316,7 +317,7 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
 
     /**
-     * <p>Append to the <code>toString</code> an <code>byte</code>
+     * <p>Append to the <code>toString</code> a <code>byte</code>
      * value.</p>
      *
      * @param value  the value to add to the <code>toString</code>
@@ -344,7 +345,7 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
 
     /**
-     * <p>Append to the <code>toString</code> an <code>char</code>
+     * <p>Append to the <code>toString</code> a <code>char</code>
      * value.</p>
      *
      * @param value  the value to add to the <code>toString</code>
@@ -372,7 +373,7 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
 
     /**
-     * <p>Append to the <code>toString</code> an <code>double</code>
+     * <p>Append to the <code>toString</code> a <code>double</code>
      * value.</p>
      *
      * @param value  the value to add to the <code>toString</code>
@@ -400,7 +401,7 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
 
     /**
-     * <p>Append to the <code>toString</code> an <code>float</code>
+     * <p>Append to the <code>toString</code> a <code>float</code>
      * value.</p>
      *
      * @param value  the value to add to the <code>toString</code>
@@ -442,7 +443,7 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
 
     /**
-     * <p>Append to the <code>toString</code> a <code>int</code>
+     * <p>Append to the <code>toString</code> an <code>int</code>
      * array.</p>
      *
      * @param array  the array to add to the <code>toString</code>
@@ -512,7 +513,7 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
 
     /**
-     * <p>Append to the <code>toString</code> an <code>short</code>
+     * <p>Append to the <code>toString</code> a <code>short</code>
      * value.</p>
      *
      * @param value  the value to add to the <code>toString</code>
@@ -538,7 +539,7 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append to the <code>toString</code> an <code>boolean</code>
+     * <p>Append to the <code>toString</code> a <code>boolean</code>
      * value.</p>
      *
      * @param fieldName  the field name
@@ -551,7 +552,7 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append a <code>hashCode</code> for a <code>boolean</code>
+     * <p>Append to the <code>toString</code> a <code>boolean</code>
      * array.</p>
      *
      * @param fieldName  the field name
@@ -597,11 +598,10 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append a <code>hashCode</code> for a <code>byte</code>
-     * array.</p>
+     * <p>Append to the <code>toString</code> a <code>byte</code> array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the <code>hashCode</code>
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, byte[] array) {
@@ -630,7 +630,7 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append to the <code>toString</code> an <code>char</code>
+     * <p>Append to the <code>toString</code> a <code>char</code>
      * value.</p>
      *
      * @param fieldName  the field name
@@ -643,11 +643,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append a <code>hashCode</code> for a <code>char</code>
+     * <p>Append to the <code>toString</code> a <code>char</code>
      * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the <code>hashCode</code>
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, char[] array) {
@@ -676,7 +676,7 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append to the <code>toString</code> an <code>double</code>
+     * <p>Append to the <code>toString</code> a <code>double</code>
      * value.</p>
      *
      * @param fieldName  the field name
@@ -689,11 +689,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append a <code>hashCode</code> for a <code>double</code>
+     * <p>Append to the <code>toString</code> a <code>double</code>
      * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the <code>hashCode</code>
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, double[] array) {
@@ -735,11 +735,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append a <code>hashCode</code> for a <code>float</code>
+     * <p>Append to the <code>toString</code> a <code>float</code>
      * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the <code>hashCode</code>
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, float[] array) {
@@ -781,11 +781,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append a <code>hashCode</code> for an <code>int</code>
+     * <p>Append to the <code>toString</code> an <code>int</code>
      * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the <code>hashCode</code>
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, int[] array) {
@@ -827,11 +827,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append a <code>hashCode</code> for a <code>long</code>
+     * <p>Append to the <code>toString</code> a <code>long</code>
      * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the <code>hashCode</code>
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, long[] array) {
@@ -934,11 +934,11 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Append a <code>hashCode</code> for a <code>short</code>
+     * <p>Append to the <code>toString</code> a <code>short</code>
      * array.</p>
      *
      * @param fieldName  the field name
-     * @param array  the array to add to the <code>hashCode</code>
+     * @param array  the array to add to the <code>toString</code>
      * @return this
      */
     public ToStringBuilder append(String fieldName, short[] array) {
@@ -983,10 +983,10 @@ public class ToStringBuilder {
     /**
      * <p>Append the <code>toString</code> from the superclass.</p>
      * 
-     * <p>This method asumes that the superclass uses the same <code>ToStringStyle</code>
+     * <p>This method assumes that the superclass uses the same <code>ToStringStyle</code>
      * as this one.</p>
      * 
-     * <p>If the <code>superToString</code> is null, no change is made.</p>
+     * <p>If <code>superToString</code> is <code>null</code>, no change is made.</p>
      *
      * @param superToString  the result of <code>super.toString()</code>
      * @return this
@@ -1002,7 +1002,7 @@ public class ToStringBuilder {
      * <p>Append the <code>toString</code> from another object.</p>
      * 
      * <p>This method is useful where a class delegates most of the implementation of
-     * it's properties to another class. You can then call <code>toString()</code> on
+     * its properties to another class. You can then call <code>toString()</code> on
      * the other class and pass the result into this method.</p>
      * 
      * <pre>
@@ -1016,7 +1016,7 @@ public class ToStringBuilder {
      *       toString();
      *   }</pre>
      * 
-     * <p>This method asumes that the other object uses the same <code>ToStringStyle</code>
+     * <p>This method assumes that the other object uses the same <code>ToStringStyle</code>
      * as this one.</p>
      * 
      * <p>If the <code>toString</code> is <code>null</code>, no change is made.</p>
@@ -1054,7 +1054,7 @@ public class ToStringBuilder {
     /**
      * <p>Returns the built <code>toString</code>.</p>
      * 
-     * <p>This method appends the end of the buffer, and can only be called once.
+     * <p>This method appends the end of data indicator, and can only be called once.
      * Use {@link #getStringBuffer} to get the current string state.</p>
      * 
      * @return the String <code>toString</code>

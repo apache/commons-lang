@@ -68,8 +68,8 @@ import java.lang.reflect.Modifier;
  * <code>equals()</code> and <code>hashCode()</code> are consistent can be
  * difficult.</p>
  *
- * <p>Two Object that compare as equals must generate the same hash code.
- * But two Objects with the same hash code do not have to be equal.</p>
+ * <p>Two Objects that compare as equals must generate the same hash code,
+ * but two Objects with the same hash code do not have to be equal.</p>
  *
  * <p>All relevant fields should be included in the calculation of equals.
  * Derived fields may be ignored. In particular, any field used in
@@ -109,8 +109,9 @@ import java.lang.reflect.Modifier;
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author Stephen Colebourne
  * @author Gary Gregory
+ * @author Pete Gieser
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.16 2003/07/20 15:49:58 scolebourne Exp $
+ * @version $Id: EqualsBuilder.java,v 1.17 2003/07/21 23:30:42 scolebourne Exp $
  */
 public class EqualsBuilder {
     /**
@@ -122,7 +123,7 @@ public class EqualsBuilder {
      * <p>Constructor for EqualsBuilder.</p>
      *
      * <p>Starts off assuming that equals is <code>true</code>.</p>
-     * @see java.lang.Object#Object()
+     * @see java.lang.Object#equals
      */
     public EqualsBuilder() {
         super();
@@ -137,7 +138,7 @@ public class EqualsBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
-     * a security manger, if the permissions are not set up correctly. It is also
+     * a security manager, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly.</p>
      *
      * <p>Transient members will be not be tested, as they are likely derived
@@ -159,7 +160,7 @@ public class EqualsBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
-     * a security manger, if the permissions are not set up correctly. It is also
+     * a security manager, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly.</p>
      *
      * <p>If the TestTransients parameter is set to <code>true</code>, transient
@@ -183,7 +184,7 @@ public class EqualsBuilder {
      *
      * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
      * fields. This means that it will throw a security exception if run under
-     * a security manger, if the permissions are not set up correctly. It is also
+     * a security manager, if the permissions are not set up correctly. It is also
      * not as efficient as testing explicitly.</p>
      *
      * <p>If the testTransients parameter is set to <code>true</code>, transient
@@ -305,8 +306,8 @@ public class EqualsBuilder {
      * <p>Test if two <code>Object</code>s are equal using their
      * <code>equals</code> method.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand object
+     * @param rhs  the right hand object
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(Object lhs, Object rhs) {
@@ -352,10 +353,10 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Test if two <code>long</code>s are equal using ==.</p>
+     * <p>Test if two <code>long</code>s are equal.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>long</code>
+     * @param rhs  the right hand <code>long</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(long lhs, long rhs) {
@@ -367,10 +368,10 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Test if two <code>int</code>s are equal using ==.</p>
+     * <p>Test if two <code>int</code>s are equal.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>int</code>
+     * @param rhs  the right hand <code>int</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(int lhs, int rhs) {
@@ -382,10 +383,10 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Test if two <code>short</code>s are equal using ==.</p>
+     * <p>Test if two <code>short</code>s are equal.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>short</code>
+     * @param rhs  the right hand <code>short</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(short lhs, short rhs) {
@@ -397,10 +398,10 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Test if two <code>char</code>s are equal using ==.</p>
+     * <p>Test if two <code>char</code>s are equal.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>char</code>
+     * @param rhs  the right hand <code>char</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(char lhs, char rhs) {
@@ -412,10 +413,10 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Test if two <code>byte</code>s are equal using ==.</p>
+     * <p>Test if two <code>byte</code>s are equal.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>byte</code>
+     * @param rhs  the right hand <code>byte</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(byte lhs, byte rhs) {
@@ -435,8 +436,8 @@ public class EqualsBuilder {
      * <p>It is compatible with the hash code generated by
      * <code>HashCodeBuilder</code>.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>double</code>
+     * @param rhs  the right hand <code>double</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(double lhs, double rhs) {
@@ -455,8 +456,8 @@ public class EqualsBuilder {
      * <p>It is compatible with the hash code generated by
      * <code>HashCodeBuilder</code>.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>float</code>
+     * @param rhs  the right hand <code>float</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(float lhs, float rhs) {
@@ -467,10 +468,10 @@ public class EqualsBuilder {
     }
 
     /**
-     * <p>Test if two <code>booleans</code>s are equal using ==.</p>
+     * <p>Test if two <code>booleans</code>s are equal.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>boolean</code>
+     * @param rhs  the right hand <code>boolean</code>
      * @return EqualsBuilder - used to chain calls.
       */
     public EqualsBuilder append(boolean lhs, boolean rhs) {
@@ -487,8 +488,8 @@ public class EqualsBuilder {
      * <p>This also will be called for the top level of
      * multi-dimensional, ragged, and multi-typed arrays.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>Object[]</code>
+     * @param rhs  the right hand <code>Object[]</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(Object[] lhs, Object[] rhs) {
@@ -523,8 +524,8 @@ public class EqualsBuilder {
      *
      * <p>The method {@link #append(long, long)} is used.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>long[]</code>
+     * @param rhs  the right hand <code>long[]</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(long[] lhs, long[] rhs) {
@@ -554,8 +555,8 @@ public class EqualsBuilder {
      *
      * <p>The method {@link #append(int, int)} is used.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>int[]</code>
+     * @param rhs  the right hand <code>int[]</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(int[] lhs, int[] rhs) {
@@ -585,8 +586,8 @@ public class EqualsBuilder {
      *
      * <p>The method {@link #append(short, short)} is used.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>short[]</code>
+     * @param rhs  the right hand <code>short[]</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(short[] lhs, short[] rhs) {
@@ -616,8 +617,8 @@ public class EqualsBuilder {
      *
      * <p>The method {@link #append(char, char)} is used.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>char[]</code>
+     * @param rhs  the right hand <code>char[]</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(char[] lhs, char[] rhs) {
@@ -647,8 +648,8 @@ public class EqualsBuilder {
      *
      * <p>The method {@link #append(byte, byte)} is used.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>byte[]</code>
+     * @param rhs  the right hand <code>byte[]</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(byte[] lhs, byte[] rhs) {
@@ -678,8 +679,8 @@ public class EqualsBuilder {
      *
      * <p>The method {@link #append(double, double)} is used.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>double[]</code>
+     * @param rhs  the right hand <code>double[]</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(double[] lhs, double[] rhs) {
@@ -709,8 +710,8 @@ public class EqualsBuilder {
      *
      * <p>The method {@link #append(float, float)} is used.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>float[]</code>
+     * @param rhs  the right hand <code>float[]</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(float[] lhs, float[] rhs) {
@@ -740,8 +741,8 @@ public class EqualsBuilder {
      *
      * <p>The method {@link #append(boolean, boolean)} is used.</p>
      *
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
+     * @param lhs  the left hand <code>boolean[]</code>
+     * @param rhs  the right hand <code>boolean[]</code>
      * @return EqualsBuilder - used to chain calls.
      */
     public EqualsBuilder append(boolean[] lhs, boolean[] rhs) {
