@@ -74,7 +74,8 @@ import junit.textui.TestRunner;
  * @author Tim O'Brien
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Fredrik Westermarck
- * @version $Id: ArrayUtilsTest.java,v 1.20 2004/01/19 21:50:06 fredrik Exp $
+ * @author Gary Gregory
+ * @version $Id: ArrayUtilsTest.java,v 1.21 2004/01/19 22:55:05 ggregory Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -2297,6 +2298,7 @@ public class ArrayUtilsTest extends TestCase {
     public void testIsEmptyObject() {
         Object[] emptyArray = new Object[] {};
         Object[] notEmptyArray = new Object[] { new String("Value") };
+        assertEquals(true, ArrayUtils.isEmpty((Object[])null));
         assertEquals(true, ArrayUtils.isEmpty(emptyArray));
         assertEquals(false, ArrayUtils.isEmpty(notEmptyArray));
     }
@@ -2314,41 +2316,49 @@ public class ArrayUtilsTest extends TestCase {
     public void testIsEmptyPrimitives() {
         long[] emptyLongArray = new long[] {};
         long[] notEmptyLongArray = new long[] { 1L };
+        assertEquals(true, ArrayUtils.isEmpty((long[])null));
         assertEquals(true, ArrayUtils.isEmpty(emptyLongArray));
         assertEquals(false, ArrayUtils.isEmpty(notEmptyLongArray));
 
         int[] emptyIntArray = new int[] {};
         int[] notEmptyIntArray = new int[] { 1 };
+        assertEquals(true, ArrayUtils.isEmpty((int[])null));
         assertEquals(true, ArrayUtils.isEmpty(emptyIntArray));
         assertEquals(false, ArrayUtils.isEmpty(notEmptyIntArray));
 
         short[] emptyShortArray = new short[] {};
         short[] notEmptyShortArray = new short[] { 1 };
+        assertEquals(true, ArrayUtils.isEmpty((short[])null));
         assertEquals(true, ArrayUtils.isEmpty(emptyShortArray));
         assertEquals(false, ArrayUtils.isEmpty(notEmptyShortArray));
 
         char[] emptyCharArray = new char[] {};
         char[] notEmptyCharArray = new char[] { 1 };
+        assertEquals(true, ArrayUtils.isEmpty((char[])null));
         assertEquals(true, ArrayUtils.isEmpty(emptyCharArray));
         assertEquals(false, ArrayUtils.isEmpty(notEmptyCharArray));
 
         byte[] emptyByteArray = new byte[] {};
         byte[] notEmptyByteArray = new byte[] { 1 };
+        assertEquals(true, ArrayUtils.isEmpty((byte[])null));
         assertEquals(true, ArrayUtils.isEmpty(emptyByteArray));
         assertEquals(false, ArrayUtils.isEmpty(notEmptyByteArray));
 
         double[] emptyDoubleArray = new double[] {};
         double[] notEmptyDoubleArray = new double[] { 1.0 };
+        assertEquals(true, ArrayUtils.isEmpty((double[])null));
         assertEquals(true, ArrayUtils.isEmpty(emptyDoubleArray));
         assertEquals(false, ArrayUtils.isEmpty(notEmptyDoubleArray));
 
         float[] emptyFloatArray = new float[] {};
         float[] notEmptyFloatArray = new float[] { 1.0F };
+        assertEquals(true, ArrayUtils.isEmpty((float[])null));
         assertEquals(true, ArrayUtils.isEmpty(emptyFloatArray));
         assertEquals(false, ArrayUtils.isEmpty(notEmptyFloatArray));
 
         boolean[] emptyBooleanArray = new boolean[] {};
         boolean[] notEmptyBooleanArray = new boolean[] { true };
+        assertEquals(true, ArrayUtils.isEmpty((boolean[])null));
         assertEquals(true, ArrayUtils.isEmpty(emptyBooleanArray));
         assertEquals(false, ArrayUtils.isEmpty(notEmptyBooleanArray));
     }
