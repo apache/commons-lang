@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: LangTestSuite.java,v 1.11 2002/12/18 23:30:19 scolebourne Exp $
+ * @version $Id: LangTestSuite.java,v 1.12 2002/12/29 22:09:53 scolebourne Exp $
  */
 public class LangTestSuite extends TestCase {
     
@@ -100,7 +100,6 @@ public class LangTestSuite extends TestCase {
         suite.addTest(StringUtilsSubstringTest.suite());
         suite.addTest(StringUtilsEqualsIndexOfTest.suite());
         suite.addTest(StringUtilsIsTest.suite());
-        suite.addTest(ValidateTest.suite());
         return suite;
     }
 }
