@@ -171,16 +171,16 @@ public class MethodUtilsTestCase extends TestCase {
 
 
     /**
-     * <p> Test <code>invokeExactMethod</code>.
+     * <p> Test <code>invokeMethod</code>.
      */
-    public void testInvokeExactMethod() {
-        // test MethodUtils.invokeExactMethod
+    public void testinvokeMethod2() {
+        // test MethodUtils.invokeMethod
         // easy bit first - invoke a public method
         // METHOD ONE
         try {
 
             TestBean bean = new TestBean();
-            Object ret = MethodUtils.invokeExactMethod(bean, "setStringProperty", "TEST");
+            Object ret = MethodUtils.invokeMethod(bean, "setStringProperty", "TEST");
             // check that the return's right and that the properties been set
             assertNull(ret);
             assertEquals("Method ONE was invoked", "TEST", bean.getStringProperty());
@@ -194,7 +194,7 @@ public class MethodUtilsTestCase extends TestCase {
         // METHOD TWO FAILURE
         try {
 
-            Object ret = MethodUtils.invokeExactMethod(
+            Object ret = MethodUtils.invokeMethod(
                     privateBeanFactory.create(),
                     "methodBar",
                     "ANOTHER TEST");
@@ -212,7 +212,7 @@ public class MethodUtilsTestCase extends TestCase {
         // METHOD THREE
         try {
 
-            Object ret = MethodUtils.invokeExactMethod(
+            Object ret = MethodUtils.invokeMethod(
                     privateBeanFactory.createSubclass(),
                     "methodBaz",
                     "YET ANOTHER TEST");
@@ -301,8 +301,8 @@ public class MethodUtilsTestCase extends TestCase {
         
         MethodUtils.invokeMethod(parent, "getName", null);
         MethodUtils.invokeMethod(parent, "getName", null, null);
-        MethodUtils.invokeExactMethod(parent, "getName", null);
-        MethodUtils.invokeExactMethod(parent, "getName", null, null);        
+        MethodUtils.invokeMethod(parent, "getName", null);
+        MethodUtils.invokeMethod(parent, "getName", null, null);        
     }
 
     
@@ -407,7 +407,7 @@ public class MethodUtilsTestCase extends TestCase {
 
 
     /**
-     * Simple tests for accessing static methods via invokeExactMethod().
+     * Simple tests for accessing static methods via invokeMethod().
      */
     public void testSimpleStatic2() {
 
@@ -418,7 +418,7 @@ public class MethodUtilsTestCase extends TestCase {
         try {
 
             // Return initial value of the counter
-            value = MethodUtils.invokeExactMethod
+            value = MethodUtils.invokeMethod
                 (bean, "currentCounter", new Object[0], new Class[0]);
             assertNotNull("currentCounter exists", value);
             assertTrue("currentCounter type",
@@ -428,12 +428,12 @@ public class MethodUtilsTestCase extends TestCase {
                          ((Integer) value).intValue());
 
             // Increment via no-arguments version
-            MethodUtils.invokeExactMethod
+            MethodUtils.invokeMethod
                 (bean, "incrementCounter", new Object[0], new Class[0]);
 
             // Validate updated value
             current++;
-            value = MethodUtils.invokeExactMethod
+            value = MethodUtils.invokeMethod
                 (bean, "currentCounter", new Object[0], new Class[0]);
             assertNotNull("currentCounter exists", value);
             assertTrue("currentCounter type",
@@ -443,14 +443,14 @@ public class MethodUtilsTestCase extends TestCase {
                          ((Integer) value).intValue());
 
             // Increment via specified-argument version
-            MethodUtils.invokeExactMethod
+            MethodUtils.invokeMethod
                 (bean, "incrementCounter",
                  new Object[] { new Integer(5) },
                  new Class[] { Integer.TYPE });
 
             // Validate updated value
             current += 5;
-            value = MethodUtils.invokeExactMethod
+            value = MethodUtils.invokeMethod
                 (bean, "currentCounter", new Object[0], new Class[0]);
             assertNotNull("currentCounter exists", value);
             assertTrue("currentCounter type",

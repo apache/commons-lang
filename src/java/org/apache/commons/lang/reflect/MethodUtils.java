@@ -82,7 +82,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Gregor Raýman
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
- * @version $Id: MethodUtils.java,v 1.2 2002/11/14 18:51:57 rdonkin Exp $
+ * @version $Id: MethodUtils.java,v 1.3 2002/11/18 22:18:44 rdonkin Exp $
  */
 public class MethodUtils {
     
@@ -192,11 +192,6 @@ public class MethodUtils {
     /**
      * <p>Invoke a named method whose parameter type matches the object type.</p>
      *
-     * <p>The behaviour of this method is less deterministic 
-     * than {@link #invokeExactMethod}. 
-     * It loops through all methods with names that match
-     * and then executes the first it finds with compatable parameters.</p>
-     *
      * <p>This method supports calls to methods taking primitive parameters 
      * via passing in wrapping classes. So, for example, a <code>Boolean</code> class
      * would match a <code>boolean</code> primitive.</p>
@@ -240,11 +235,6 @@ public class MethodUtils {
 
     /**
      * <p>Invoke a named method whose parameter type matches the object type.</p>
-     *
-     * <p>The behaviour of this method is less deterministic 
-     * than {@link #invokeExactMethod(Object object,String methodName,Object [] args)}. 
-     * It loops through all methods with names that match
-     * and then executes the first it finds with compatable parameters.</p>
      *
      * <p>This method supports calls to methods taking primitive parameters 
      * via passing in wrapping classes. So, for example, a <code>Boolean</code> class
@@ -298,12 +288,6 @@ public class MethodUtils {
     /**
      * <p>Invoke a named method whose parameter type matches the object type.</p>
      *
-     * <p>The behaviour of this method is less deterministic 
-     * than {@link 
-     * #invokeExactMethod(Object object,String methodName,Object [] args,Class[] parameterTypes)}. 
-     * It loops through all methods with names that match
-     * and then executes the first it finds with compatable parameters.</p>
-     *
      * <p>This method supports calls to methods taking primitive parameters 
      * via passing in wrapping classes. So, for example, a <code>Boolean</code> class
      * would match a <code>boolean</code> primitive.</p>
@@ -337,7 +321,6 @@ public class MethodUtils {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }  
 
-//return null;
         Method method = getMatchingAccessibleMethod(
                 object.getClass(),
                 methodName,
@@ -347,126 +330,6 @@ public class MethodUtils {
                     methodName + "() on object: " + object.getClass().getName());
         return method.invoke(object, args);
     }
-
-
-    /**
-     * <p>Invoke a method whose parameter type matches exactly the object
-     * type.</p>
-     *
-     * <p> This is a convenient wrapper for
-     * {@link #invokeExactMethod(Object object,String methodName,Object [] args)}.
-     * </p>
-     *
-     * @param object invoke method on this object
-     * @param methodName get method with this name
-     * @param arg use this argument
-     *
-     * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the
-     *  method invoked
-     * @throws IllegalAccessException if the requested method is not accessible
-     *  via reflection
-     */
-    public static Object invokeExactMethod(
-            Object object,
-            String methodName,
-            Object arg)
-            throws
-            NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException {
-
-        Object[] args = {arg};
-        return invokeExactMethod(object, methodName, args);
-
-    }
-
-
-    /**
-     * <p>Invoke a method whose parameter types match exactly the object
-     * types.</p>
-     *
-     * <p> This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod}.</p>
-     *
-     * @param object invoke method on this object
-     * @param methodName get method with this name
-     * @param args use these arguments - treat null as empty array
-     *
-     * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the
-     *  method invoked
-     * @throws IllegalAccessException if the requested method is not accessible
-     *  via reflection
-     */
-    public static Object invokeExactMethod(
-            Object object,
-            String methodName,
-            Object[] args)
-            throws
-            NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException {
-        if (args == null) {
-            args = ArrayUtils.EMPTY_OBJECT_ARRAY;
-        }  
-        int arguments = args.length;
-        Class parameterTypes [] = new Class[arguments];
-        for (int i = 0; i < arguments; i++) {
-            parameterTypes[i] = args[i].getClass();
-        }
-        return invokeExactMethod(object, methodName, args, parameterTypes);
-
-    }
-
-
-    /**
-     * <p>Invoke a method whose parameter types match exactly the parameter
-     * types given.</p>
-     *
-     * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod}.</p>
-     *
-     * @param object invoke method on this object
-     * @param methodName get method with this name
-     * @param args use these arguments - treat null as empty array
-     * @param parameterTypes match these parameters - treat null as empty array
-     *
-     * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the
-     *  method invoked
-     * @throws IllegalAccessException if the requested method is not accessible
-     *  via reflection
-     */
-    public static Object invokeExactMethod(
-            Object object,
-            String methodName,
-            Object[] args,
-            Class[] parameterTypes)
-            throws
-            NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException {
-        
-        if (args == null) {
-            args = ArrayUtils.EMPTY_OBJECT_ARRAY;
-        }  
-                
-        if (parameterTypes == null) {
-            parameterTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
-        }
-
-        Method method = getAccessibleMethod(
-                object.getClass(),
-                methodName,
-                parameterTypes);
-        if (method == null)
-            throw new NoSuchMethodException("No such accessible method: " +
-                    methodName + "() on object: " + object.getClass().getName());
-        return method.invoke(object, args);
-
-    }
-
 
     /**
      * <p>Return an accessible method (that is, one that can be invoked via
