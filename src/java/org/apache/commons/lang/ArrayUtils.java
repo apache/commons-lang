@@ -81,7 +81,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Gary Gregory
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.30 2003/12/29 01:08:38 ggregory Exp $
+ * @version $Id: ArrayUtils.java,v 1.31 2004/01/08 17:50:40 fredrik Exp $
  */
 public class ArrayUtils {
 
@@ -226,8 +226,8 @@ public class ArrayUtils {
      * 
      * <p>Multi-dimensional primitive arrays are also handled correctly by this method.</p>
      * 
-     * @param array1  the array to get a hashCode for, may be <code>null</code>
-     * @param array2  the array to get a hashCode for, may be <code>null</code>
+     * @param array1  the left hand array to compare, may be <code>null</code>
+     * @param array2  the right hand array to compare, may be <code>null</code>
      * @return <code>true</code> if the arrays are equal
      */
     public static boolean isEquals(final Object array1, final Object array2) {
