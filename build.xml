@@ -16,7 +16,7 @@ limitations under the License.
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.28 2004/10/01 21:53:50 ggregory Exp $
+        $Id: build.xml,v 1.29 2004/10/01 22:32:53 ggregory Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
@@ -59,7 +59,7 @@ limitations under the License.
         	   destdir="${build.home}/classes"
         	   debug="${compile.debug}"
         	   deprecation="${compile.deprecation}"
-		   target="1.1"
+		       target="1.1"
         	   optimize="${compile.optimize}">
             <classpath refid="compile.classpath"/>
         </javac>
@@ -72,7 +72,7 @@ limitations under the License.
         	   destdir="${build.home}/tests"
         	   debug="${compile.debug}"
         	   deprecation="off"
-		   target="1.1"
+		       target="1.1"
         	   optimize="${compile.optimize}">
             <classpath refid="test.classpath"/>
         </javac>
