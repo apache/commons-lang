@@ -3,7 +3,7 @@
 
 <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.1 2002/07/19 03:35:53 bayard Exp $
+        $Id: build.xml,v 1.2 2002/08/11 23:20:09 scolebourne Exp $
 -->
 
 
@@ -153,7 +153,7 @@
 <!-- ========== Unit Test Targets ========================================= -->
 
 
-  <target name="test"  depends="compile.tests, test.exception"
+  <target name="test"  depends="compile.tests, test.exception, test.enum"
    description="Run all unit test cases">
     <echo message="Running tests ..."/>
     <java classname="${test.runner}" fork="yes"
@@ -223,6 +223,15 @@
     <java classname="${test.runner}" fork="yes"
         failonerror="${test.failonerror}">
       <arg value="org.apache.commons.lang.exception.ExceptionTestSuite"/>
+      <classpath refid="test.classpath"/>
+    </java>
+  </target>
+
+  <target name="test.enum" depends="compile.tests">
+    <echo message="Running enum package tests ..."/>
+    <java classname="${test.runner}" fork="yes"
+        failonerror="${test.failonerror}">
+      <arg value="org.apache.commons.lang.enum.EnumTestSuite"/>
       <classpath refid="test.classpath"/>
     </java>
   </target>
