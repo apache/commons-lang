@@ -93,6 +93,8 @@ import java.util.ListIterator;
  * @author Matthew Inger
  * @author Stephen Colebourne
  * @author Gary D. Gregory
+ * @since 2.1
+ * @version $Id: Tokenizer.java,v 1.3 2004/02/13 01:58:50 ggregory Exp $
  */
 public class Tokenizer implements ListIterator {
     // TODO: Constructors
