@@ -201,7 +201,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.13 2003/07/16 21:19:21 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.14 2003/07/19 21:55:04 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
     // After discussion, the default size for HashMaps is used, as the
@@ -251,7 +251,7 @@ public abstract class Enum implements Comparable, Serializable {
     protected Enum(String name) {
         super();
 
-        if (StringUtils.isEmptyOrNull(name)) {
+        if (StringUtils.isEmpty(name)) {
             throw new IllegalArgumentException("The Enum name must not be empty or null");
         }
         iName = name;

@@ -98,7 +98,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.65 2003/07/19 18:09:33 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.66 2003/07/19 21:55:05 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -314,11 +314,11 @@ public class StringUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Checks if a String is empty ("").
+     * <p>Checks if a String is empty ("") or null.
      * <code>null</code> returns <code>false</code></p>
      * 
      * <pre>
-     * StringUtils.isEmpty(null)      = false
+     * StringUtils.isEmpty(null)      = true
      * StringUtils.isEmpty("")        = true
      * StringUtils.isEmpty(" ")       = false
      * StringUtils.isEmpty("bob")     = false
@@ -326,165 +326,87 @@ public class StringUtils {
      * </pre>
      *
      * <p>NOTE: This method changed in version 2.0.
-     * It no longer trims the String, and null is no longer true.
-     * That functionality is available in isEmptyTrimmedOrNull().</p>
+     * It no longer trims the String.
+     * That functionality is available in isBlank().</p>
      * 
      * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is empty
+     * @return <code>true</code> if the String is empty or null
      */
     public static boolean isEmpty(String str) {
-        return (str != null && str.length() == 0);
+        return (str == null || str.length() == 0);
     }
 
     /**
-     * <p>Checks if a String is not empty ("").
-     * <code>null</code> returns <code>true</code></p>
+     * <p>Checks if a String is not empty ("") and not null.</p>
      * 
      * <pre>
-     * StringUtils.isNotEmpty(null)      = true
+     * StringUtils.isNotEmpty(null)      = false
      * StringUtils.isNotEmpty("")        = false
      * StringUtils.isNotEmpty(" ")       = true
      * StringUtils.isNotEmpty("bob")     = true
      * StringUtils.isNotEmpty("  bob  ") = true
      * </pre>
      *
-     * <p>NOTE: This method changed in version 2.0.
-     * It no longer returns false for null.
-     * That functionality is available in isNotEmptyOrNull().</p>
-     * 
      * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is not empty
+     * @return <code>true</code> if the String is not empty and not null
      */
     public static boolean isNotEmpty(String str) {
-        return (str == null || str.length() > 0);
-    }
-
-    /**
-     * <p>Checks if a String is empty ("") or <code>null</code>.</p>
-     * 
-     * <pre>
-     * StringUtils.isEmptyOrNull(null)      = true
-     * StringUtils.isEmptyOrNull("")        = true
-     * StringUtils.isEmptyOrNull(" ")       = false
-     * StringUtils.isEmptyOrNull("bob")     = false
-     * StringUtils.isEmptyOrNull("  bob  ") = false
-     * </pre>
-     *
-     * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is empty or null
-     */
-    public static boolean isEmptyOrNull(String str) {
-        return (str == null || str.length() == 0);
-    }
-
-    /**
-     * <p>Checks if a String is not not empty ("") and not <code>null</code>.</p>
-     * 
-     * <pre>
-     * StringUtils.isNotEmptyOrNull(null)      = false
-     * StringUtils.isNotEmptyOrNull("")        = false
-     * StringUtils.isNotEmptyOrNull(" ")       = true
-     * StringUtils.isNotEmptyOrNull("bob")     = true
-     * StringUtils.isNotEmptyOrNull("  bob  ") = true
-     * </pre>
-     *
-     * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is neither empty nor null
-     */
-    public static boolean isNotEmptyOrNull(String str) {
         return (str != null && str.length() > 0);
     }
 
     /**
-     * <p>Checks if a trimmed String is empty ("").
-     * <code>null</code> returns <code>false</code></p>
+     * <p>Checks if a String is whitespace, empty ("") or null.</p>
      * 
-     * <p>The String is trimmed using {@link String#trim()}.
-     * Trim removes start and end characters &lt;= 32.</p>
-     *
      * <pre>
-     * StringUtils.isEmptyTrimmed(null)      = false
-     * StringUtils.isEmptyTrimmed("")        = true
-     * StringUtils.isEmptyTrimmed(" ")       = true
-     * StringUtils.isEmptyTrimmed("bob")     = false
-     * StringUtils.isEmptyTrimmed("  bob  ") = false
+     * StringUtils.isBlank(null)      = true
+     * StringUtils.isBlank("")        = true
+     * StringUtils.isBlank(" ")       = true
+     * StringUtils.isBlank("bob")     = false
+     * StringUtils.isBlank("  bob  ") = false
      * </pre>
      *
-     * @see java.lang.String#trim()
      * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is empty after trim()
+     * @return <code>true</code> if the String is null, empty or whitespace
      */
-    public static boolean isEmptyTrimmed(String str) {
-        return (str != null && str.trim().length() == 0);
+    public static boolean isBlank(String str) {
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return true;
+        }
+        for (int i = 0; i < strLen; i++) {
+            if ((Character.isWhitespace(str.charAt(i)) == false) ) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
-     * <p>Checks if a trimmed String is not empty ("").</p>
-     * <code>null</code> returns <code>true</code></p>
+     * <p>Checks if a String is not empty ("") and not null.</p>
      * 
-     * <p>The String is trimmed using {@link String#trim()}.
-     * Trim removes start and end characters &lt;= 32.</p>
-     *
      * <pre>
-     * StringUtils.isNotEmptyTrimmed(null)      = true
-     * StringUtils.isNotEmptyTrimmed("")        = false
-     * StringUtils.isNotEmptyTrimmed(" ")       = false
-     * StringUtils.isNotEmptyTrimmed("bob")     = true
-     * StringUtils.isNotEmptyTrimmed("  bob  ") = true
+     * StringUtils.isNotBlank(null)      = false
+     * StringUtils.isNotBlank("")        = false
+     * StringUtils.isNotBlank(" ")       = false
+     * StringUtils.isNotBlank("bob")     = true
+     * StringUtils.isNotBlank("  bob  ") = true
      * </pre>
      *
-     * @see java.lang.String#trim()
      * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is not empty after trim()
+     * @return <code>true</code> if the String is 
+     *  not empty and not null and not whitespace
      */
-    public static boolean isNotEmptyTrimmed(String str) {
-        return (str == null || str.trim().length() > 0);
-    }
-
-    /**
-     * <p>Checks if a trimmed String is empty ("") or <code>null</code>.</p>
-     * 
-     * <p>The String is trimmed using {@link String#trim()}.
-     * Trim removes start and end characters &lt;= 32.</p>
-     *
-     * <pre>
-     * StringUtils.isEmptyTrimmedOrNull(null)      = true
-     * StringUtils.isEmptyTrimmedOrNull("")        = true
-     * StringUtils.isEmptyTrimmedOrNull(" ")       = true
-     * StringUtils.isEmptyTrimmedOrNull("bob")     = false
-     * StringUtils.isEmptyTrimmedOrNull("  bob  ") = false
-     * </pre>
-     *
-     * @see java.lang.String#trim()
-     * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is <code>null</code>
-     *  or empty after trim()
-     */
-    public static boolean isEmptyTrimmedOrNull(String str) {
-        return (str == null || str.trim().length() == 0);
-    }
-
-    /**
-     * <p>Checks if a trimmed String is not empty ("") and not <code>null</code>.</p>
-     * 
-     * <p>The String is trimmed using {@link String#trim()}.
-     * Trim removes start and end characters &lt;= 32.</p>
-     *
-     * <pre>
-     * StringUtils.isNotEmptyTrimmedOrNull(null)      = false
-     * StringUtils.isNotEmptyTrimmedOrNull("")        = false
-     * StringUtils.isNotEmptyTrimmedOrNull(" ")       = false
-     * StringUtils.isNotEmptyTrimmedOrNull("bob")     = true
-     * StringUtils.isNotEmptyTrimmedOrNull("  bob  ") = true
-     * </pre>
-     *
-     * @see java.lang.String#trim()
-     * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is not <code>null</code>
-     *  and not empty after trim()
-     */
-    public static boolean isNotEmptyTrimmedOrNull(String str) {
-        return (str != null && str.trim().length() > 0);
+    public static boolean isNotBlank(String str) {
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return false;
+        }
+        for (int i = 0; i < strLen; i++) {
+            if ((Character.isWhitespace(str.charAt(i)) == false) ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Equals
