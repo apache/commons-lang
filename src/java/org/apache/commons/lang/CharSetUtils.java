@@ -28,7 +28,7 @@ package org.apache.commons.lang;
  * @author Phil Steitz
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.32 2004/02/19 21:04:03 fredrik Exp $
+ * @version $Id: CharSetUtils.java,v 1.33 2004/03/10 23:31:53 scolebourne Exp $
  */
 public class CharSetUtils {
 
@@ -237,7 +237,7 @@ public class CharSetUtils {
      * <p>An example would be:</p>
      * <ul>
      *  <li>keep(&quot;hello&quot;, {&quot;c-f&quot;, &quot;o&quot;})
-     *   returns &quot;hll&quot;</li>
+     *   returns &quot;eo&quot;</li>
      * </ul>
      *
      * @see #evaluateSet(java.lang.String[]) for set-syntax.
@@ -267,8 +267,8 @@ public class CharSetUtils {
      * CharSetUtils.delete("", *)          = ""
      * CharSetUtils.delete(*, null)        = *
      * CharSetUtils.delete(*, "")          = *
-     * CharSetUtils.delete("hello", "hl")  = "hll"
-     * CharSetUtils.delete("hello", "le")  = "ell"
+     * CharSetUtils.delete("hello", "hl")  = "eo"
+     * CharSetUtils.delete("hello", "le")  = "ho"
      * </pre>
      *
      * @see #evaluateSet(java.lang.String[]) for set-syntax.
@@ -347,11 +347,14 @@ public class CharSetUtils {
      * @param searchChars   a set of characters to search for, must not be null
      * @param replaceChars  a set of characters to replace, must not be null or empty (&quot;&quot;)
      * @return translated String, <code>null</code> if null string input
-     * @throws NullPointerException if <code>with</code> or <code>repl</code> 
+     * @throws NullPointerException if <code>searchChars</code> or <code>replaceChars</code> 
      *  is <code>null</code>
-     * @throws ArrayIndexOutOfBoundsException if <code>with</code> is empty (&quot;&quot;)
+     * @throws ArrayIndexOutOfBoundsException if <code>replaceChars</code> is empty (&quot;&quot;)
      * @deprecated Use {@link StringUtils#replaceChars(String, String, String)}.
      *             Method will be removed in Commons Lang 3.0.
+     *  NOTE: StringUtils#replaceChars behaves differently when 'searchChars' is longer
+     *  than 'replaceChars'. CharSetUtils#translate will use the last char of the replacement
+     *  string whereas StringUtils#replaceChars will delete
      */
     public static String translate(String str, String searchChars, String replaceChars) {
         if (StringUtils.isEmpty(str)) {
