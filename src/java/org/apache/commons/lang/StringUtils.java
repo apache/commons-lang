@@ -148,7 +148,7 @@ import java.util.List;
  * @author Phil Steitz
  * @author Al Chou
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.123 2004/02/13 23:32:39 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.124 2004/02/16 23:48:10 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2324,12 +2324,12 @@ public class StringUtils {
                 ? 0
                 : arraySize
                     * ((array[0] == null ? 16 : array[0].toString().length())
-                        + ((separator != null) ? separator.length() : 0)));
+                        + separator.length()));
 
         StringBuffer buf = new StringBuffer(bufSize);
 
         for (int i = 0; i < arraySize; i++) {
-            if ((separator != null) && (i > 0)) {
+            if (i > 0) {
                 buf.append(separator);
             }
             if (array[i] != null) {
