@@ -119,7 +119,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.21 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: CompareToBuilder.java,v 1.22 2003/08/21 15:13:09 ggregory Exp $
  */
 public class CompareToBuilder {
     
@@ -232,6 +232,7 @@ public class CompareToBuilder {
      *  (but not both) is <code>null</code>
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
      *  with <code>lhs</code>
+     * @since 2.0
      */
     public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients, Class reflectUpToClass) {
         if (lhs == rhs) {
@@ -295,6 +296,7 @@ public class CompareToBuilder {
      *
      * @param superCompareTo  result of calling <code>super.compareTo(Object)</code>
      * @return this - used to chain append calls
+     * @since 2.0
      */
     public CompareToBuilder appendSuper(int superCompareTo) {
         if (comparison != 0) {
@@ -351,6 +353,7 @@ public class CompareToBuilder {
      * @return this - used to chain append calls
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
      *  with <code>lhs</code>
+     * @since 2.0
      */
     public CompareToBuilder append(Object lhs, Object rhs, Comparator comparator) {
         if (comparison != 0) {
@@ -594,8 +597,9 @@ public class CompareToBuilder {
      *  <code>null</code> means to treat <code>lhs</code> elements as <code>Comparable</code>.
      * @return this - used to chain append calls
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
-       *  with <code>lhs</code>
-       */
+     *  with <code>lhs</code>
+     * @since 2.0
+     */
     public CompareToBuilder append(Object[] lhs, Object[] rhs, Comparator comparator) {
         if (comparison != 0) {
             return this;
