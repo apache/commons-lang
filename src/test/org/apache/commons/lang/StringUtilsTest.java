@@ -74,7 +74,7 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.46 2003/08/13 23:08:06 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.47 2003/08/14 00:04:20 bayard Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -162,31 +162,31 @@ public class StringUtilsTest extends TestCase {
         assertEquals(null, StringUtils.upperCase(null));
         assertEquals(null, StringUtils.lowerCase(null));
         assertEquals(null, StringUtils.swapCase(null));
-        assertEquals(null, StringUtils.capitalise(null));
-        assertEquals(null, StringUtils.uncapitalise(null));
-        assertEquals(null, StringUtils.capitaliseAllWords(null));
-        assertEquals(null, StringUtils.uncapitaliseAllWords(null));
+        assertEquals(null, StringUtils.capitalize(null));
+        assertEquals(null, StringUtils.uncapitalize(null));
+        assertEquals(null, StringUtils.capitalizeAllWords(null));
+        assertEquals(null, StringUtils.uncapitalizeAllWords(null));
 
-        assertEquals("capitalise(String) failed",
-                     CAP_FOO, StringUtils.capitalise(FOO) );
-        assertEquals("capitalise(empty-string) failed",
-                     "", StringUtils.capitalise("") );
-        assertEquals("capitalise(single-char-string) failed",
-                     "X", StringUtils.capitalise("x") );
-        assertEquals("capitaliseAllWords(String) failed",
-                     "Foo Bar Baz", StringUtils.capitaliseAllWords(SENTENCE) );
-        assertEquals("capitaliseAllWords(empty-string) failed",
-                     "", StringUtils.capitaliseAllWords("") );
-        assertEquals("uncapitalise(String) failed",
-                     FOO, StringUtils.uncapitalise(CAP_FOO) );
-        assertEquals("uncapitalise(empty-string) failed",
-                     "", StringUtils.uncapitalise("") );
-        assertEquals("uncapitalise(single-char-string) failed",
-                     "x", StringUtils.uncapitalise("X") );
-        assertEquals("uncapitaliseAllWords(String) failed",
-                     SENTENCE, StringUtils.uncapitaliseAllWords("Foo Bar Baz") );
-        assertEquals("uncapitaliseAllWords(empty-string) failed",
-                     "", StringUtils.uncapitaliseAllWords("") );
+        assertEquals("capitalize(String) failed",
+                     CAP_FOO, StringUtils.capitalize(FOO) );
+        assertEquals("capitalize(empty-string) failed",
+                     "", StringUtils.capitalize("") );
+        assertEquals("capitalize(single-char-string) failed",
+                     "X", StringUtils.capitalize("x") );
+        assertEquals("capitalizeAllWords(String) failed",
+                     "Foo Bar Baz", StringUtils.capitalizeAllWords(SENTENCE) );
+        assertEquals("capitalizeAllWords(empty-string) failed",
+                     "", StringUtils.capitalizeAllWords("") );
+        assertEquals("uncapitalize(String) failed",
+                     FOO, StringUtils.uncapitalize(CAP_FOO) );
+        assertEquals("uncapitalize(empty-string) failed",
+                     "", StringUtils.uncapitalize("") );
+        assertEquals("uncapitalize(single-char-string) failed",
+                     "x", StringUtils.uncapitalize("X") );
+        assertEquals("uncapitalizeAllWords(String) failed",
+                     SENTENCE, StringUtils.uncapitalizeAllWords("Foo Bar Baz") );
+        assertEquals("uncapitalizeAllWords(empty-string) failed",
+                     "", StringUtils.uncapitalizeAllWords("") );
 
         assertEquals("upperCase(String) failed",
                      "FOO TEST THING", StringUtils.upperCase("fOo test THING") );
