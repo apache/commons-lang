@@ -64,14 +64,14 @@ import java.util.Map;
  * @see ValuedEnum
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: EnumUtils.java,v 1.7 2003/07/14 22:25:04 bayard Exp $
+ * @version $Id: EnumUtils.java,v 1.8 2003/07/30 23:21:39 scolebourne Exp $
  */
 public class EnumUtils {
 
     /**
-     * Restricted constructor.
+     * Public constructor. This class should not normally be instantiated.
      */
-    private EnumUtils() {
+    public EnumUtils() {
     }
 
     /**
