@@ -33,7 +33,7 @@ import java.io.File;
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.36 2004/10/08 00:10:59 scolebourne Exp $
+ * @version $Id: SystemUtils.java,v 1.37 2004/11/06 01:27:59 ggregory Exp $
  */
 public class SystemUtils {
 
@@ -595,7 +595,7 @@ public class SystemUtils {
 
     /**
      * <p>The <code>line.separator</code> System Property. Line separator
-     * (<code>&quot;\n<&quot;</code> on UNIX).</p>
+     * (<code>&quot;\n&quot;</code> on UNIX).</p>
      *
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
