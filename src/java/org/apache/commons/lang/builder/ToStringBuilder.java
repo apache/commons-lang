@@ -98,7 +98,7 @@ import java.lang.reflect.Modifier;
  * <code>reflectionToString</code>, uses <code>Field.setAccessible</code> to
  * change the visibility of the fields. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly. It is also
- * slower than testing explicitly and does not handle superclasses.</p>
+ * slower than testing explicitly.</p>
  *
  * <p>A typical invocation for this method would look like:</p>
  * <pre>
@@ -112,7 +112,7 @@ import java.lang.reflect.Modifier;
  *
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.10 2002/12/23 00:20:31 scolebourne Exp $
+ * @version $Id: ToStringBuilder.java,v 1.11 2002/12/31 20:17:53 scolebourne Exp $
  */
 public class ToStringBuilder {
     
@@ -243,14 +243,14 @@ public class ToStringBuilder {
      *
      * <p>Transient members will be not be included, as they are likely derived.</p>
      *
-     * <p>Static fields will be not be included.</p>
+     * <p>Static fields will not be included. Superclass fields will be appended.</p>
      *
      * @param object  the Object to be output
      * @return the String result
      * @throws IllegalArgumentException if the Object is <code>null</code>
      */
     public static String reflectionToString(Object object) {
-        return reflectionToString(object, null, false);
+        return reflectionToString(object, null, false, null);
     }
 
     /**
@@ -265,7 +265,7 @@ public class ToStringBuilder {
      * <p>Transient members will be not be included, as they are likely
      * derived.</p>
      *
-     * <p>Static fields will be not be included.</p>
+     * <p>Static fields will not be included. Superclass fields will be appended.</p>
      *
      * <p>If the style is <code>null</code>, the default
      * <code>ToStringStyle</code> is used.</p>
@@ -278,7 +278,7 @@ public class ToStringBuilder {
      *  <code>ToStringStyle</code> is <code>null</code>
      */
     public static String reflectionToString(Object object, ToStringStyle style) {
-        return reflectionToString(object, style, false);
+        return reflectionToString(object, style, false, null);
     }
 
     /**
@@ -295,7 +295,7 @@ public class ToStringBuilder {
      * as they are likely derived fields, and not part of the value of the
      * Object.</p>
      *
-     * <p>Static fields will not be tested.</p>
+     * <p>Static fields will not be included. Superclass fields will be appended.</p>
      *
      * <p>
      * If the style is <code>null</code>, the default
@@ -308,36 +308,85 @@ public class ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException if the Object is <code>null</code>
      */
-    public static String reflectionToString(Object object, ToStringStyle style, 
-            boolean outputTransients) {
+    public static String reflectionToString(Object object, ToStringStyle style, boolean outputTransients) {
+        return reflectionToString(object, style, outputTransients, null);
+    }
+
+    /**
+     * <p>This method uses reflection to build a suitable
+     * <code>toString</code>.</p>
+     *
+     * <p>It uses <code>Field.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run
+     * under a security manger, if the permissions are not set up correctly.
+     * It is also not as efficient as testing explicitly. </p>
+     *
+     * <p>If the <code>outputTransients</code> is <code>true</code>,
+     * transient members will be output, otherwise they are ignored,
+     * as they are likely derived fields, and not part of the value of the
+     * Object.</p>
+     *
+     * <p>Static fields will not be included. Superclass fields will be appended
+     * up to and including the specified superclass. A null superclass is treated
+     * as java.lang.Object.</p>
+     *
+     * <p>
+     * If the style is <code>null</code>, the default
+     * <code>ToStringStyle</code> is used.</p>
+     * 
+     * @param object  the Object to be output
+     * @param style  the style of the <code>toString</code> to create,
+     *  may be <code>null</code>
+     * @param outputTransients  whether to include transient fields
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive), may be null
+     * @return the String result
+     * @throws IllegalArgumentException if the Object is <code>null</code>
+     */
+    public static String reflectionToString(Object object, ToStringStyle style, boolean outputTransients, Class reflectUpToClass) {
         if (object == null) {
             throw new IllegalArgumentException("The object must not be null");
         }
         if (style == null) {
             style = getDefaultStyle();
         }
-        Field[] fields = object.getClass().getDeclaredFields();
-        Field.setAccessible(fields, true);
         ToStringBuilder builder = new ToStringBuilder(object, style);
+        Class clazz = object.getClass();
+        reflectionAppend(object, clazz, builder, outputTransients);
+        while (clazz.getSuperclass() != null && clazz != reflectUpToClass) {
+            clazz = clazz.getSuperclass();
+            reflectionAppend(object, clazz, builder, outputTransients);
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Appends the fields and values defined by the given object of the
+     * given Class.
+     * 
+     * @param object  the object to append details of
+     * @param clazz  the class to append details of
+     * @param builder  the builder to append to
+     * @param outputTransients  whether to output transient fields
+     */
+    private static void reflectionAppend(Object object, Class clazz, ToStringBuilder builder, boolean outputTransients) {
+        Field[] fields = clazz.getDeclaredFields();
+        Field.setAccessible(fields, true);
         for (int i = 0; i < fields.length; ++i) {
             Field f = fields[i];
             if (outputTransients || !Modifier.isTransient(f.getModifiers())) {
                 if (!Modifier.isStatic(f.getModifiers())) {
                     try {
                         builder.append(f.getName(), f.get(object));
-                        
                     } catch (IllegalAccessException ex) {
                         //this can't happen. Would get a Security exception instead
                         //throw a runtime exception in case the impossible happens.
-                        throw new InternalError("Unexpected IllegalAccessException");
                     }
                 }
             }
         }
-        return builder.toString();
-    }
-
-    //----------------------------------------------------------------------------
+     }
+     
+     //----------------------------------------------------------------------------
     
     /**
      * <p>Append the <code>toString</code> from the superclass.</p>
