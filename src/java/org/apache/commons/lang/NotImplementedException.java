@@ -27,7 +27,7 @@ import org.apache.commons.lang.exception.NestableDelegate;
  * @author Matthew Hawthorne
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: NotImplementedException.java,v 1.7 2004/03/04 00:13:38 scolebourne Exp $
+ * @version $Id: NotImplementedException.java,v 1.8 2004/03/16 22:42:58 scolebourne Exp $
  */
 public class NotImplementedException
         extends UnsupportedOperationException implements Nestable {
@@ -35,7 +35,7 @@ public class NotImplementedException
     /**
      * The exception helper to delegate nested exception handling to.
      */
-    protected NestableDelegate delegate = new NestableDelegate(this);
+    private NestableDelegate delegate = new NestableDelegate(this);
 
     /**
      * Holds the reference to the exception or error that caused
@@ -45,8 +45,9 @@ public class NotImplementedException
 
     //-----------------------------------------------------------------------
     /**
-     * Constructs a new <code>NotImplementedException</code> with default
-     * detail message.
+     * Constructs a new <code>NotImplementedException</code> with default message.
+     * 
+     * @since 2.1
      */
     public NotImplementedException() {
         super("Code is not implemented");
@@ -56,7 +57,7 @@ public class NotImplementedException
      * Constructs a new <code>NotImplementedException</code> with specified
      * detail message.
      *
-     * @param msg The error message.
+     * @param msg  the error message.
      */
     public NotImplementedException(String msg) {
         super(msg == null ? "Code is not implemented" : msg);
@@ -66,8 +67,8 @@ public class NotImplementedException
      * Constructs a new <code>NotImplementedException</code> with specified
      * nested <code>Throwable</code> and default message.
      *
-     * @param cause the exception or error that caused this exception to be
-     * thrown
+     * @param cause  the exception that caused this exception to be thrown
+     * @since 2.1
      */
     public NotImplementedException(Throwable cause) {
         super("Code is not implemented");
@@ -78,9 +79,9 @@ public class NotImplementedException
      * Constructs a new <code>NotImplementedException</code> with specified
      * detail message and nested <code>Throwable</code>.
      *
-     * @param msg    the error message
-     * @param cause  the exception or error that caused this exception to be
-     * thrown
+     * @param msg  the error message
+     * @param cause  the exception that caused this exception to be thrown
+     * @since 2.1
      */
     public NotImplementedException(String msg, Throwable cause) {
         super(msg == null ? "Code is not implemented" : msg);
@@ -100,14 +101,20 @@ public class NotImplementedException
     }
 
     //-----------------------------------------------------------------------
+    /**
+     * Gets the root cause of this exception.
+     * 
+     * @since 2.1
+     */
     public Throwable getCause() {
         return cause;
     }
 
     /**
-     * Returns the detail message string of this throwable. If it was
-     * created with a null message, returns the following:
-     * (cause==null ? null : cause.toString()).
+     * Gets the combined the error message of this and any nested errors.
+     *
+     * @return the error message
+     * @since 2.1
      */
     public String getMessage() {
         if (super.getMessage() != null) {
@@ -119,6 +126,17 @@ public class NotImplementedException
         }
     }
 
+    /**
+     * Returns the error message of the <code>Throwable</code> in the chain
+     * of <code>Throwable</code>s at the specified index, numbered from 0.
+     *
+     * @param index  the index of the <code>Throwable</code> in the chain
+     * @return the error message, or null if the <code>Throwable</code> at the
+     *  specified index in the chain does not contain a message
+     * @throws IndexOutOfBoundsException if the <code>index</code> argument is
+     *  negative or not less than the count of <code>Throwable</code>s in the chain
+     * @since 2.1
+     */
     public String getMessage(int index) {
         if (index == 0) {
             return super.getMessage();
@@ -127,42 +145,122 @@ public class NotImplementedException
         }
     }
 
+    /**
+     * Returns the error message of this and any nested <code>Throwable</code> objects.
+     * Each throwable returns a message, a null string is included in the array if
+     * there is no message for a particular <code>Throwable</code>.
+     *
+     * @return the error messages
+     * @since 2.1
+     */
     public String[] getMessages() {
         return delegate.getMessages();
     }
 
+    /**
+     * Returns the <code>Throwable</code> in the chain by index.
+     *
+     * @param index  the index to retrieve
+     * @return the <code>Throwable</code>
+     * @throws IndexOutOfBoundsException if the <code>index</code> argument is
+     *  negative or not less than the count of <code>Throwable</code>s in the chain
+     * @since 2.1
+     */
     public Throwable getThrowable(int index) {
         return delegate.getThrowable(index);
     }
 
+    /**
+     * Returns the number of nested <code>Throwable</code>s represented by
+     * this <code>Nestable</code>, including this <code>Nestable</code>.
+     *
+     * @return the throwable count
+     * @since 2.1
+     */
     public int getThrowableCount() {
         return delegate.getThrowableCount();
     }
 
+    /**
+     * Returns this <code>Nestable</code> and any nested <code>Throwable</code>s
+     * in an array of <code>Throwable</code>s, one element for each
+     * <code>Throwable</code>.
+     *
+     * @return the <code>Throwable</code>s
+     * @since 2.1
+     */
     public Throwable[] getThrowables() {
         return delegate.getThrowables();
     }
 
+    /**
+     * Returns the index of the first occurrence of the specified type.
+     * If there is no match, <code>-1</code> is returned.
+     *
+     * @param type  the type to search for
+     * @return index of the first occurrence of the type in the chain, or -1 if
+     *  the type is not found
+     * @since 2.1
+     */
     public int indexOfThrowable(Class type) {
         return delegate.indexOfThrowable(type, 0);
     }
 
+    /**
+     * Returns the index of the first occurrence of the specified type starting
+     * from the specified index. If there is no match, <code>-1</code> is returned.
+     *
+     * @param type  the type to search for
+     * @param fromIndex  the index of the starting position in the chain to be searched
+     * @return index of the first occurrence of the type in the chain, or -1 if
+     *  the type is not found
+     * @throws IndexOutOfBoundsException if the <code>fromIndex</code> argument
+     *  is negative or not less than the count of <code>Throwable</code>s in the chain
+     * @since 2.1
+     */
     public int indexOfThrowable(Class type, int fromIndex) {
         return delegate.indexOfThrowable(type, fromIndex);
     }
 
+    /**
+     * Prints the stack trace of this exception.
+     * Includes information from the exception, if any, which caused this exception.
+     * 
+     * @since 2.1
+     */
     public void printStackTrace() {
         delegate.printStackTrace();
     }
 
+    /**
+     * Prints the stack trace of this exception to the specified stream.
+     * Includes information from the exception, if any, which caused this exception.
+     *
+     * @param out  the stream to write to
+     * @since 2.1
+     */
     public void printStackTrace(PrintStream out) {
         delegate.printStackTrace(out);
     }
 
+    /**
+     * Prints the stack trace of this exception to the specified writer.
+     * Includes information from the exception, if any, which caused this exception.
+     *
+     * @param out  the writer to write to
+     * @since 2.1
+     */
     public void printStackTrace(PrintWriter out) {
         delegate.printStackTrace(out);
     }
 
+    /**
+     * Prints the stack trace for this exception only (root cause not included)
+     * using the specified writer.
+     * 
+     * @param out  the writer to write to
+     * @since 2.1
+     */
     public final void printPartialStackTrace(PrintWriter out) {
         super.printStackTrace(out);
     }
