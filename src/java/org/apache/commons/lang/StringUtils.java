@@ -60,6 +60,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
@@ -80,7 +81,7 @@ import java.util.Iterator;
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
- * @version $Id: StringUtils.java,v 1.5 2002/07/26 01:40:11 dlr Exp $
+ * @version $Id: StringUtils.java,v 1.6 2002/08/01 20:15:43 bayard Exp $
  */
 public class StringUtils {
 
@@ -1565,6 +1566,19 @@ public class StringUtils {
         // Step 7
         return d[n][m];
     }
+
+    /**
+     * Convenient method to retrieve the full stacktrace from a given exception.     * @param t the exception to get the stacktrace from.
+     * @return the stacktrace from the given exception.
+     */
+    public static String getStackTrace(Throwable t) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw, true);
+        t.printStackTrace(pw);
+        pw.flush();
+        pw.close();
+        return sw.toString();
+    }   
 
 // these are not really of use in the Java world. Only if you're a C afficionado
 //    public static String sprintf(String format, Object[] list);
