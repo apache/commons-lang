@@ -75,7 +75,8 @@ import junit.textui.TestRunner;
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: StringUtilsTest.java,v 1.55 2003/11/01 19:20:35 scolebourne Exp $
+ * @author Al Chou
+ * @version $Id: StringUtilsTest.java,v 1.56 2003/11/23 20:44:39 psteitz Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -280,14 +281,14 @@ public class StringUtilsTest extends TestCase {
     public void testSplit_String() {
         assertEquals(null, StringUtils.split(null));
         assertEquals(0, StringUtils.split("").length);
-
+        
         String str = "a b  .c";
         String[] res = StringUtils.split(str);
         assertEquals(3, res.length);
         assertEquals("a", res[0]);
         assertEquals("b", res[1]);
         assertEquals(".c", res[2]);
-            
+        
         str = " a ";
         res = StringUtils.split(str);
         assertEquals(1, res.length);
@@ -297,7 +298,7 @@ public class StringUtilsTest extends TestCase {
         res = StringUtils.split(str);
         assertEquals(2, res.length);
         assertEquals("a", res[0]);
-        assertEquals("b" + NON_WHITESPACE + "c", res[1]);
+        assertEquals("b" + NON_WHITESPACE + "c", res[1]);                       
     }
     
     public void testSplit_StringChar() {
@@ -339,6 +340,21 @@ public class StringUtilsTest extends TestCase {
                 innerTestSplit(WHITESPACE.charAt(i), null, NON_WHITESPACE.charAt(j));
                 innerTestSplit(WHITESPACE.charAt(i), String.valueOf(WHITESPACE.charAt(i)), NON_WHITESPACE.charAt(j));
             }
+        }
+        
+        String[] results = null;
+        String[] expectedResults = {"ab", "de fg"};
+        results = StringUtils.split("ab   de fg", null, 2);
+        assertEquals(expectedResults.length, results.length);
+        for (int i = 0; i < expectedResults.length; i++) {
+            assertEquals(expectedResults[i], results[i]);
+        }
+        
+        String[] expectedResults2 = {"ab", "cd:ef"};
+        results = StringUtils.split("ab:cd:ef",":", 2);
+        assertEquals(expectedResults2.length, results.length);
+        for (int i = 0; i < expectedResults2.length; i++) {
+            assertEquals(expectedResults2[i], results[i]);
         }
     }
     
