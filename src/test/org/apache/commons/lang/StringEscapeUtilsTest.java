@@ -67,7 +67,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.12 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.13 2004/01/10 02:58:36 ggregory Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
@@ -262,8 +262,23 @@ public class StringEscapeUtilsTest extends TestCase {
         }
         // \u00E7 is a cedilla (c with wiggle under)
         // note that the test string must be 7-bit-clean (unicode escaped) or else it will compile incorrectly
-        // on some locales
+        // on some locales        
         assertEquals("funny chars pass through OK", "Fran\u00E7ais", StringEscapeUtils.unescapeHtml("Fran\u00E7ais"));
+    }
+
+    public void testUnescapeHexCharsHtml() {
+        // Simple easy to grok test 
+        assertEquals("hex number unescape", "\u0080\u009F", StringEscapeUtils.unescapeHtml("&#x80;&#x9F;"));
+        assertEquals("hex number unescape", "\u0080\u009F", StringEscapeUtils.unescapeHtml("&#X80;&#X9F;"));
+        // Test all Character values:
+        for (char i = Character.MIN_VALUE; i < Character.MAX_VALUE; i++) {
+            Character c1 = new Character(i);
+            Character c2 = new Character((char)(i+1));
+            String expected = c1.toString() + c2.toString();
+            String escapedC1 = "&#x" + Integer.toHexString((int)(c1.charValue())) + ";";
+            String escapedC2 = "&#x" + Integer.toHexString((int)(c2.charValue())) + ";";
+            assertEquals("hex number unescape index " + (int)i, expected, StringEscapeUtils.unescapeHtml(escapedC1 + escapedC2));
+        }
     }
 
     public void testUnescapeUnknownEntity() throws Exception

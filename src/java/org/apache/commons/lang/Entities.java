@@ -69,7 +69,7 @@ import java.util.TreeMap;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.15 2003/09/13 03:11:29 psteitz Exp $
+ * @version $Id: Entities.java,v 1.16 2004/01/10 02:58:36 ggregory Exp $
  */
 class Entities {
 
@@ -687,7 +687,12 @@ class Entities {
                 String entityName = str.substring(i + 1, semi);
                 int entityValue;
                 if (entityName.charAt(0) == '#') {
-                    entityValue = Integer.parseInt(entityName.substring(1));
+                    char charAt1 = entityName.charAt(1);
+                    if (charAt1 == 'x' || charAt1=='X') {
+                        entityValue = Integer.valueOf(entityName.substring(2), 16).intValue();
+                    } else {
+                        entityValue = Integer.parseInt(entityName.substring(1));
+                    }
                 } else {
                     entityValue = this.entityValue(entityName);
                 }
