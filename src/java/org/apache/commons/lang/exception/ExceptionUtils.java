@@ -56,6 +56,7 @@ package org.apache.commons.lang.exception;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.SQLException;
 
 /**
  * Utility routines for manipulating <code>Throwable</code> objects.
@@ -109,6 +110,10 @@ public class ExceptionUtils
         else if (t instanceof NestableRuntimeException)
         {
             cause = ((NestableRuntimeException) t).getCause();
+        }
+        else if (t instanceof SQLException)
+        {
+            cause = ((SQLException) t).getNextException();
         }
         else
         {
