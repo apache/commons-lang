@@ -145,7 +145,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.103 2003/08/19 00:11:20 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.104 2003/08/21 05:57:21 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -166,6 +166,7 @@ public class StringUtils {
     
     /**
      * The empty String <code>""</code>.
+     * @since 2.0
      */
     public static final String EMPTY = "";
     
@@ -252,6 +253,7 @@ public class StringUtils {
      *
      * @param str  the String to check, may be null
      * @return <code>true</code> if the String is null, empty or whitespace
+     * @since 2.0
      */
     public static boolean isBlank(String str) {
         int strLen;
@@ -280,6 +282,7 @@ public class StringUtils {
      * @param str  the String to check, may be null
      * @return <code>true</code> if the String is 
      *  not empty and not null and not whitespace
+     * @since 2.0
      */
     public static boolean isNotBlank(String str) {
         int strLen;
@@ -366,6 +369,7 @@ public class StringUtils {
      * @param str  the String to be trimmed, may be null
      * @return the trimmed String, 
      *  <code>null</code> if only chars &lt;= 32, empty or null String input
+     * @since 2.0
      */
     public static String trimToNull(String str) {
         String ts = trim(str);
@@ -391,6 +395,7 @@ public class StringUtils {
      *  
      * @param str  the String to be trimmed, may be null
      * @return the trimmed String, or an empty String if <code>null</code> input
+     * @since 2.0
      */
     public static String trimToEmpty(String str) {
         return (str == null ? EMPTY : str.trim());
@@ -445,6 +450,7 @@ public class StringUtils {
      * @param str  the String to be stripped, may be null
      * @return the stripped String, 
      *  <code>null</code> if whitespace, empty or null String input
+     * @since 2.0
      */
     public static String stripToNull(String str) {
         if (str == null) {
@@ -474,6 +480,7 @@ public class StringUtils {
      *  
      * @param str  the String to be stripped, may be null
      * @return the trimmed String, or an empty String if <code>null</code> input
+     * @since 2.0
      */
     public static String stripToEmpty(String str) {
         return (str == null ? EMPTY : strip(str, null));
@@ -733,6 +740,7 @@ public class StringUtils {
      * @param searchChar  the character to find
      * @return the first index of the search character, 
      *  -1 if no match or <code>null</code> string input
+     * @since 2.0
      */
     public static int indexOf(String str, char searchChar) {
         if (str == null || str.length() == 0) {
@@ -764,6 +772,7 @@ public class StringUtils {
      * @param startPos  the start position, negative treated as zero
      * @return the first index of the search character, 
      *  -1 if no match or <code>null</code> string input
+     * @since 2.0
      */
     public static int indexOf(String str, char searchChar, int startPos) {
         if (str == null || str.length() == 0) {
@@ -792,6 +801,7 @@ public class StringUtils {
      * @param searchStr  the String to find, may be null
      * @return the first index of the search String,
      *  -1 if no match or <code>null</code> string input
+     * @since 2.0
      */
     public static int indexOf(String str, String searchStr) {
         if (str == null || searchStr == null) {
@@ -829,6 +839,7 @@ public class StringUtils {
      * @param startPos  the start position, negative treated as zero
      * @return the first index of the search String,
      *  -1 if no match or <code>null</code> string input
+     * @since 2.0
      */
     public static int indexOf(String str, String searchStr, int startPos) {
         if (str == null || searchStr == null) {
@@ -860,6 +871,7 @@ public class StringUtils {
      * @param searchChar  the character to find
      * @return the last index of the search character, 
      *  -1 if no match or <code>null</code> string input
+     * @since 2.0
      */
     public static int lastIndexOf(String str, char searchChar) {
         if (str == null || str.length() == 0) {
@@ -893,6 +905,7 @@ public class StringUtils {
      * @param startPos  the start position
      * @return the last index of the search character, 
      *  -1 if no match or <code>null</code> string input
+     * @since 2.0
      */
     public static int lastIndexOf(String str, char searchChar, int startPos) {
         if (str == null || str.length() == 0) {
@@ -921,6 +934,7 @@ public class StringUtils {
      * @param searchStr  the String to find, may be null
      * @return the last index of the search String,
      *  -1 if no match or <code>null</code> string input
+     * @since 2.0
      */
     public static int lastIndexOf(String str, String searchStr) {
         if (str == null || searchStr == null) {
@@ -955,6 +969,7 @@ public class StringUtils {
      * @param startPos  the start position, negative treated as zero
      * @return the first index of the search String,
      *  -1 if no match or <code>null</code> string input
+     * @since 2.0
      */
     public static int lastIndexOf(String str, String searchStr, int startPos) {
         if (str == null || searchStr == null) {
@@ -982,6 +997,7 @@ public class StringUtils {
      * @param searchChar  the character to find
      * @return true if the String contains the search character, 
      *  false if not or <code>null</code> string input
+     * @since 2.0
      */
     public static boolean contains(String str, char searchChar) {
         if (str == null || str.length() == 0) {
@@ -1009,6 +1025,7 @@ public class StringUtils {
      * @param searchStr  the String to find, may be null
      * @return true if the String contains the search character, 
      *  false if not or <code>null</code> string input
+     * @since 2.0
      */
     public static boolean contains(String str, String searchStr) {
         if (str == null || searchStr == null) {
@@ -1039,6 +1056,7 @@ public class StringUtils {
      * @param str  the String to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
+     * @since 2.0
      */
      public static int indexOfAny(String str, char[] searchChars) {
          if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
@@ -1075,6 +1093,7 @@ public class StringUtils {
      * @param str  the String to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
+     * @since 2.0
      */
     public static int indexOfAny(String str, String searchChars) {
         if (str == null || str.length() == 0 || searchChars == null || searchChars.length() == 0) {
@@ -1105,6 +1124,7 @@ public class StringUtils {
      * @param str  the String to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
+     * @since 2.0
      */
      public static int indexOfAnyBut(String str, char[] searchChars) {
          if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
@@ -1142,6 +1162,7 @@ public class StringUtils {
      * @param str  the String to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
+     * @since 2.0
      */
     public static int indexOfAnyBut(String str, String searchChars) {
         if (str == null || str.length() == 0 || searchChars == null || searchChars.length() == 0) {
@@ -1212,6 +1233,7 @@ public class StringUtils {
      * @param str  the String to check, may be null
      * @param validChars  a String of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
+     * @since 2.0
      */
     public static boolean containsOnly(String str, String validChars) {
         if (str == null || validChars == null) {
@@ -1242,6 +1264,7 @@ public class StringUtils {
      * @param str  the String to check, may be null
      * @param invalidChars  an array of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
+     * @since 2.0
      */
     public static boolean containsNone(String str, char[] invalidChars) {
         if (str == null || invalidChars == null) {
@@ -1280,6 +1303,7 @@ public class StringUtils {
      * @param str  the String to check, may be null
      * @param invalidChars  a String of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
+     * @since 2.0
      */
     public static boolean containsNone(String str, String invalidChars) {
         if (str == null || invalidChars == null) {
@@ -1639,6 +1663,7 @@ public class StringUtils {
      * @param separator  the String to search for, may be null
      * @return the substring before the first occurance of the separator,
      *  <code>null</code> if null String input
+     * @since 2.0
      */
     public static String substringBefore(String str, String separator) {
         if (str == null || separator == null || str.length() == 0) {
@@ -1678,6 +1703,7 @@ public class StringUtils {
      * @param separator  the String to search for, may be null
      * @return the substring after the first occurance of the separator,
      *  <code>null</code> if null String input
+     * @since 2.0
      */
     public static String substringAfter(String str, String separator) {
         if (str == null || str.length() == 0) {
@@ -1716,6 +1742,7 @@ public class StringUtils {
      * @param separator  the String to search for, may be null
      * @return the substring before the last occurance of the separator,
      *  <code>null</code> if null String input
+     * @since 2.0
      */
     public static String substringBeforeLast(String str, String separator) {
         if (str == null || separator == null || str.length() == 0 || separator.length() == 0) {
@@ -1753,6 +1780,7 @@ public class StringUtils {
      * @param separator  the String to search for, may be null
      * @return the substring after the last occurance of the separator,
      *  <code>null</code> if null String input
+     * @since 2.0
      */
     public static String substringAfterLast(String str, String separator) {
         if (str == null || str.length() == 0) {
@@ -1789,6 +1817,7 @@ public class StringUtils {
      * @param str  the String containing the substring, may be null
      * @param tag  the String before and after the substring, may be null
      * @return the substring, <code>null</code> if no match
+     * @since 2.0
      */
     public static String substringBetween(String str, String tag) {
         return substringBetween(str, tag, tag);
@@ -1817,6 +1846,7 @@ public class StringUtils {
      * @param open  the String before the substring, may be null
      * @param close  the String after the substring, may be null
      * @return the substring, <code>null</code> if no match
+     * @since 2.0
      */
     public static String substringBetween(String str, String open, String close) {
         if (str == null || open == null || close == null) {
@@ -1940,6 +1970,7 @@ public class StringUtils {
      * @param separatorChar  the character used as the delimiter,
      *  <code>null</code> splits on whitespace
      * @return an array of parsed Strings, <code>null</code> if null String input
+     * @since 2.0
      */
     public static String[] split(String str, char separatorChar) {
         // Performance tuned for 2.0 (JDK1.4)
@@ -2143,6 +2174,7 @@ public class StringUtils {
      * 
      * @param array  the array of values to join together, may be null
      * @return the joined String, <code>null</code> if null array input
+     * @since 2.0
      */
     public static String join(Object[] array) {
         return join(array, null);
@@ -2168,6 +2200,7 @@ public class StringUtils {
      * @param array  the array of values to join together, may be null
      * @param separator  the separator character to use
      * @return the joined String, <code>null</code> if null array input
+     * @since 2.0
      */
     public static String join(Object[] array, char separator) {
         if (array == null) {
@@ -2253,6 +2286,7 @@ public class StringUtils {
      * @param iterator  the <code>Iterator</code> of values to join together, may be null
      * @param separator  the separator character to use
      * @return the joined String, <code>null</code> if null iterator input
+     * @since 2.0
      */
     public static String join(Iterator iterator, char separator) {
         if (iterator == null) {
@@ -2483,6 +2517,7 @@ public class StringUtils {
      * @param searchChar  the character to search for, may be null
      * @param replaceChar  the character to replace, may be null
      * @return modified String, <code>null</code> if null string input
+     * @since 2.0
      */
     public static String replaceChars(String str, char searchChar, char replaceChar) {
         if (str == null) {
@@ -2525,6 +2560,7 @@ public class StringUtils {
      * @param searchChars  a set of characters to search for, may be null
      * @param replaceChars  a set of characters to replace, may be null
      * @return modified String, <code>null</code> if null string input
+     * @since 2.0
      */
     public static String replaceChars(String str, String searchChars, String replaceChars) {
         if (str == null || str.length() == 0 || searchChars == null || searchChars.length()== 0) {
@@ -2624,6 +2660,7 @@ public class StringUtils {
      * @param start  the position to start overlaying at
      * @param end  the position to stop overlaying before
      * @return overlayed String, <code>null</code> if null String input
+     * @since 2.0
      */
     public static String overlay(String str, String overlay, int start, int end) {
         if (str == null) {
@@ -3077,6 +3114,7 @@ public class StringUtils {
      * @param padChar  the character to pad with
      * @return right padded String or original String if no padding is necessary,
      *  <code>null</code> if null String input
+     * @since 2.0
      */
     public static String rightPad(String str, int size, char padChar) {
         if (str == null) {
@@ -3188,6 +3226,7 @@ public class StringUtils {
      * @param padChar  the character to pad with
      * @return left padded String or original String if no padding is necessary,
      *  <code>null</code> if null String input
+     * @since 2.0
      */
     public static String leftPad(String str, int size, char padChar) {
         if (str == null) {
@@ -3308,6 +3347,7 @@ public class StringUtils {
      * @param size  the int size of new String, negative treated as zero
      * @param padChar  the character to pad the new String with
      * @return centered String, <code>null</code> if null String input
+     * @since 2.0
      */
     public static String center(String str, int size, char padChar) {
         if (str == null || size <= 0) {
@@ -3428,6 +3468,7 @@ public class StringUtils {
      * @return the capitalized String, <code>null</code> if null String input
      * @see WordUtils#capitalize(String)
      * @see #uncapitalize(String)
+     * @since 2.0
      */
     public static String capitalize(String str) {
         int strLen;
@@ -3471,6 +3512,7 @@ public class StringUtils {
      * @return the uncapitalized String, <code>null</code> if null String input
      * @see WordUtils#uncapitalize(String)
      * @see #capitalize(String)
+     * @since 2.0
      */
     public static String uncapitalize(String str) {
         int strLen;
@@ -3819,6 +3861,7 @@ public class StringUtils {
      *
      * @param str  the String to check, may be null
      * @return <code>true</code> if only contains whitespace, and is non-null
+     * @since 2.0
      */
     public static boolean isWhitespace(String str) {
         if (str == null) {
@@ -3916,6 +3959,7 @@ public class StringUtils {
      * @param str  the String to reverse, may be null
      * @param separatorChar  the separator character to use
      * @return the reversed String, <code>null</code> if null String input
+     * @since 2.0
      */
     public static String reverseDelimited(String str, char separatorChar) {
         if (str == null) {
@@ -3996,6 +4040,7 @@ public class StringUtils {
      * @param maxWidth  maximum length of result String, must be at least 4
      * @return abbreviated String, <code>null</code> if null String input
      * @throws IllegalArgumentException if the width is too small
+     * @since 2.0
      */
     public static String abbreviate(String str, int maxWidth) {
         return abbreviate(str, 0, maxWidth);
@@ -4034,6 +4079,7 @@ public class StringUtils {
      * @param maxWidth  maximum length of result String, must be at least 4
      * @return abbreviated String, <code>null</code> if null String input
      * @throws IllegalArgumentException if the width is too small
+     * @since 2.0
      */
     public static String abbreviate(String str, int offset, int maxWidth) {
         if (str == null) {
@@ -4088,6 +4134,7 @@ public class StringUtils {
      * @param str2  the second String, may be null
      * @return the portion of str2 where it differs from str1; returns the 
      * empty String if they are equal
+     * @since 2.0
      */
     public static String difference(String str1, String str2) {
         if (str1 == null) {
@@ -4124,6 +4171,7 @@ public class StringUtils {
      * @param str1  the first String, may be null
      * @param str2  the second String, may be null
      * @return the index where str2 and str1 begin to differ; -1 if they are equal
+     * @since 2.0
      */
     public static int differenceAt(String str1, String str2) {
         if (str1 == str2) {
