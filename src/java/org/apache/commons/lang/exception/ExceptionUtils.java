@@ -65,8 +65,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
-
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 
 /**
@@ -78,20 +78,21 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.24 2003/05/31 17:16:11 ggregory Exp $
+ * @version $Id: ExceptionUtils.java,v 1.25 2003/07/14 22:22:46 bayard Exp $
  */
 public class ExceptionUtils {
     
     /**
-     * Used when printing stack frames to denote the start of a
-     * wrapped exception.  Package private for accessibility by test
-     * suite.
+     * <p>Used when printing stack frames to denote the start of a
+     * wrapped exception.</p>
+     *
+     * <p>Package private for accessibility by test suite.</p>
      */
     static final String WRAPPED_MARKER = " [wrapped] ";
 
     /**
-     * The names of methods commonly used to access a wrapped
-     * exception.
+     * <p>The names of methods commonly used to access a wrapped
+     * exception.</p>
      */
     protected static String[] CAUSE_METHOD_NAMES = {
         "getCause",
@@ -105,8 +106,8 @@ public class ExceptionUtils {
     };
 
     /**
-     * Constructs a new <code>ExceptionUtils</code>. Protected to
-     * discourage instantiation.
+     * <p>Constructs a new <code>ExceptionUtils</code>. Protected to
+     * discourage instantiation.</p>
      */
     protected ExceptionUtils() {
     }
@@ -115,10 +116,11 @@ public class ExceptionUtils {
      * <p>Adds to the list of method names used in the search for <code>Throwable</code>
      * objects.</p>
      * 
-     * @param methodName  the methodName to add to the list, null and empty strings are ignored
+     * @param methodName  the methodName to add to the list, <code>null</code>
+     *  and empty strings are ignored
      */
     public static void addCauseMethodName(String methodName) {
-        if (methodName != null && methodName.length() > 0) {
+      if(StringUtils.isNotEmpty(methodName)) {
             List list = new ArrayList(Arrays.asList(CAUSE_METHOD_NAMES));
             list.add(methodName);
             CAUSE_METHOD_NAMES = (String[]) list.toArray(new String[list.size()]);
@@ -132,17 +134,18 @@ public class ExceptionUtils {
      * <code>Throwable</code> object. This will pick up most wrapping exceptions,
      * including those from JDK 1.4, and
      * {@link org.apache.commons.lang.exception.NestableException NestableException}.
-     * The method names can be added to using {@link #addCauseMethodName(String)}.
-     * The default list searched for are:</p>
+     * The method names can be added to using {@link #addCauseMethodName(String)}.</p>
+     *
+     * <p>The default list searched for are:</p>
      * <ul>
-     * <li><code>getCause()</code>
-     * <li><code>getNextException()</code>
-     * <li><code>getTargetException()</code>
-     * <li><code>getException()</code>
-     * <li><code>getSourceException()</code>
-     * <li><code>getRootCause()</code>
-     * <li><code>getCausedByException()</code>
-     * <li><code>getNested()</code>
+     *  <li><code>getCause()</code></li>
+     *  <li><code>getNextException()</code></li>
+     *  <li><code>getTargetException()</code></li>
+     *  <li><code>getException()</code></li>
+     *  <li><code>getSourceException()</code></li>
+     *  <li><code>getRootCause()</code></li>
+     *  <li><code>getCausedByException()</code></li>
+     *  <li><code>getNested()</code></li>
      * </ul>
      * 
      * <p>In the absence of any such method, the object is inspected for a
@@ -152,7 +155,7 @@ public class ExceptionUtils {
      *
      * @param throwable The exception to introspect for a cause.
      * @return The cause of the <code>Throwable</code>.
-     * @throws NullPointerException if the throwable is null
+     * @throws NullPointerException if the throwable is <code>null</code>
      */
     public static Throwable getCause(Throwable throwable) {
         return getCause(throwable, CAUSE_METHOD_NAMES);
@@ -164,8 +167,9 @@ public class ExceptionUtils {
      *
      * @param throwable The exception to introspect for a cause.
      * @return The cause of the <code>Throwable</code>.
-     * @throws NullPointerException if the method names array is null or contains null
-     * @throws NullPointerException if the throwable is null
+     * @throws NullPointerException if the method names array is <code>null</code>
+     *  or contains <code>null</code>
+     * @throws NullPointerException if the throwable is <code>null</code>
      */
     public static Throwable getCause(Throwable throwable, String[] methodNames) {
         Throwable cause = getCauseUsingWellKnownTypes(throwable);
@@ -230,7 +234,7 @@ public class ExceptionUtils {
      * @param throwable  the exception to examine
      * @param methodName  the name of the method to find and invoke
      * @return The wrapped exception, or <code>null</code> if not
-     * found.
+     *  found.
      */
     private static Throwable getCauseUsingMethodName(Throwable throwable, String methodName) {
         Method method = null;
@@ -257,7 +261,7 @@ public class ExceptionUtils {
      * @param throwable  the exception to examine
      * @param fieldName  the name of the attribute to examine
      * @return The wrapped exception, or <code>null</code> if not
-     * found.
+     *  found.
      */
     private static Throwable getCauseUsingFieldName(Throwable throwable, String fieldName) {
         Field field = null;
@@ -354,14 +358,15 @@ public class ExceptionUtils {
     }
 
     /**
-     * Prints a compact stack trace for the root cause of a throwable.
-     * The compact stack trace starts with the root cause and prints
+     * <p>Prints a compact stack trace for the root cause of a throwable.</p>
+     *
+     * <p>The compact stack trace starts with the root cause and prints
      * stack frames up to the place where it was caught and wrapped.
      * Then it prints the wrapped exception and continues with stack frames
-     * until the wrapper exception is caught and wrapped again, etc.
-     * <p>
-     * The method is equivalent to t.printStackTrace() for throwables
-     * that don't have nested causes.
+     * until the wrapper exception is caught and wrapped again, etc.</p>
+     *
+     * <p>The method is equivalent to t.printStackTrace() for throwables
+     * that don't have nested causes.</p>
      */
     public static void printRootCauseStackTrace(Throwable t, PrintStream stream) {
         String trace[] = getRootCauseStackTrace(t);
@@ -372,7 +377,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * Equivalent to <code>printRootCauseStackTrace(t, System.err);</code>
+     * <p>Equivalent to <code>printRootCauseStackTrace(t, System.err);</code></p>
      * 
      * @see #printRootCauseStackTrace(Throwable,PrintWriter)
      */
@@ -381,8 +386,8 @@ public class ExceptionUtils {
     }
 
     /**
-     * Same as {@link #printRootCauseStackTrace(Throwable,java.io.PrintStream)}, except it takes
-     * a PrintWriter as an argument.
+     * <p>Same as {@link #printRootCauseStackTrace(Throwable,java.io.PrintStream)},
+     * except it takes a <code>PrintWriter</code> as an argument.</p>
      */
     public static void printRootCauseStackTrace(Throwable t, PrintWriter writer) {
         String trace[] = getRootCauseStackTrace(t);
@@ -393,8 +398,8 @@ public class ExceptionUtils {
     }
 
     /**
-     * Creates a compact stack trace for the root cause of the supplied 
-     * <code>Throwable</code>.
+     * <p>Creates a compact stack trace for the root cause of the supplied
+     * <code>Throwable</code>.</p>
      */
     public static String[] getRootCauseStackTrace(Throwable t) {
         Throwable throwables[] = getThrowables(t);
@@ -420,9 +425,9 @@ public class ExceptionUtils {
     }
 
     /**
-     * Removes common frames from the cause trace given the two stack traces.
+     * <p>Removes common frames from the cause trace given the two stack traces.</p>
      * 
-     * @param causeFrames   stack trace of a cause throwable
+     * @param causeFrames  stack trace of a cause throwable
      * @param wrapperFrames stack trace of a wrapper throwable 
      */
     public static void removeCommonFrames(List causeFrames, List wrapperFrames) {
@@ -442,12 +447,12 @@ public class ExceptionUtils {
     }
 
     /**
-     * A convenient way of extracting the stack trace from an
-     * exception.
+     * <p>A convenient way of extracting the stack trace from an
+     * exception.</p>
      *
      * @param t The <code>Throwable</code>.
      * @return The stack trace as generated by the exception's
-     * <code>printStackTrace(PrintWriter)</code> method.
+     *  <code>printStackTrace(PrintWriter)</code> method.
      */
     public static String getStackTrace(Throwable t) {
         StringWriter sw = new StringWriter();
@@ -457,7 +462,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * A way to get the entire nested stack-trace of an throwable.
+     * <p>A way to get the entire nested stack-trace of an throwable.</p>
      *
      * @param t The <code>Throwable</code>.
      * @return The nested stack trace, with the root cause first.
@@ -476,10 +481,11 @@ public class ExceptionUtils {
     }
 
     /**
-     * Returns whether a <code>Throwable </code> is considered nested or not.
+     * <p>Returns whether a <code>Throwable</code> is considered nested
+     * or not.</p>
      *
-     * @param t The <code>Throwable</code>.
-     * @return boolean true/false
+     * @param throwable  The <code>Throwable</code>.
+     * @return boolean <code>true</code> if nested otherwise <code>false</code>
      */
     public static boolean isNestedThrowable(Throwable throwable) {
         if(throwable == null) {
@@ -519,9 +525,9 @@ public class ExceptionUtils {
     }
 
     /**
-     * Captures the stack trace associated with the specified
+     * <p>Captures the stack trace associated with the specified
      * <code>Throwable</code> object, decomposing it into a list of
-     * stack frames.
+     * stack frames.</p>
      *
      * @param t The <code>Throwable</code>.
      * @return  An array of strings describing each stack frame.
@@ -531,10 +537,10 @@ public class ExceptionUtils {
     }
 
     /**
-     * Functionality shared between the
+     * <p>Functionality shared between the
      * <code>getStackFrames(Throwable)</code> methods of this and the
      * {@link org.apache.commons.lang.exception.NestableDelegate}
-     * classes.
+     * classes.</p>
      */
     static String[] getStackFrames(String stackTrace) {
         String linebreak = SystemUtils.LINE_SEPARATOR;
@@ -548,9 +554,12 @@ public class ExceptionUtils {
     }
 
     /**
-     * Produces a List of stack frames - the message is not included.
-     * This works in most cases - it will only fail if the exception message
-     * contains a line that starts with:  "   at".
+     * <p>Produces a <code>List</code> of stack frames - the message
+     * is not included.</p>
+     *
+     * <p>This works in most cases - it will only fail if the exception
+     * message contains a line that starts with:
+     * <code>&quot;&nbsp;&nbsp;&nbsp;at&quot;.</code></p>
      * 
      * @param t is any throwable
      * @return List of stack frames
@@ -585,7 +594,7 @@ public class ExceptionUtils {
     }
     
     /**
-     * Checks if the Throwable class has a <code>getCause</code> method.
+     * <p>Checks if the Throwable class has a <code>getCause</code> method.</p>
      */
     public static boolean isThrowableNested() {
         return (getCauseMethod != null);
