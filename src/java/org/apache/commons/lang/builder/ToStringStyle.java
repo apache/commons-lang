@@ -86,7 +86,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.27 2003/08/23 00:21:49 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.28 2003/11/25 00:53:55 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -94,31 +94,42 @@ public abstract class ToStringStyle implements Serializable {
      * The default toString style.
      */
     public static final ToStringStyle DEFAULT_STYLE = new DefaultToStringStyle();
+    
     /**
      * The multi line toString style.
      */
     public static final ToStringStyle MULTI_LINE_STYLE = new MultiLineToStringStyle();
+    
     /**
      * The no field names toString style.
      */
     public static final ToStringStyle NO_FIELD_NAMES_STYLE = new NoFieldNameToStringStyle();
+    
+    /**
+     * The short prefix toString style.
+     */
+    public static final ToStringStyle SHORT_PREFIX_STYLE = new ShortPrefixToStringStyle();
+
     /**
      * The simple toString style.
      */
     public static final ToStringStyle SIMPLE_STYLE = new SimpleToStringStyle();
-
+    
     /**
      * Whether to use the field names, the default is <code>true</code>.
      */
     private boolean useFieldNames = true;
+    
     /**
      * Whether to use the class name, the default is <code>true</code>.
      */
     private boolean useClassName = true;
+    
     /**
      * Whether to use short class names, the default is <code>false</code>.
      */
     private boolean useShortClassName = false;
+    
     /**
      * Whether to use the identity hash code, the default is <code>true</code>.
      */
@@ -128,63 +139,78 @@ public abstract class ToStringStyle implements Serializable {
      * The content start <code>'['</code>.
      */
     private String contentStart = "[";
+    
     /**
      * The content end <code>']'</code>.
      */
     private String contentEnd = "]";
+    
     /**
      * The field name value separator <code>'='</code>.
      */
     private String fieldNameValueSeparator = "=";
+    
     /**
      * Whether the field separator should be added before any other fields.
      */
     private boolean fieldSeparatorAtStart = false;
+    
     /**
      * Whether the field separator should be added after any other fields.
      */
     private boolean fieldSeparatorAtEnd = false;
+    
     /**
      * The field separator <code>','</code>.
      */
     private String fieldSeparator = ",";
+    
     /**
      * The array start <code>'{'</code>.
      */
     private String arrayStart = "{";
+    
     /**
      * The array separator <code>','</code>.
      */
     private String arraySeparator = ",";
+    
     /**
      * The detail for array content.
      */
     private boolean arrayContentDetail = true;
+    
     /**
      * The array end <code>'}'</code>.
      */
     private String arrayEnd = "}";
+    
     /**
      * The value to use when fullDetail is <code>null</code>,
      * the default value is <code>true</code>.
      */
     private boolean defaultFullDetail = true;
+    
     /**
      * The <code>null</code> text <code>'&lt;null&gt;'</code>.
      */
     private String nullText = "<null>";
+    
     /**
      * The summary size text start <code>'<size'</code>.
      */
     private String sizeStartText = "<size=";
+    
     /**
      * The summary size text start <code>'&gt;'</code>.
      */
     private String sizeEndText = ">";
+    
     /**
      * The summary object text start <code>'&lt;'</code>.
      */
     private String summaryObjectStartText = "<";
+    
     /**
      * The summary object text start <code>'&gt;'</code>.
      */
@@ -2029,6 +2055,36 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     //----------------------------------------------------------------------------
+    
+    /**
+     * <p><code>ToStringStyle</code> that prints out the short
+     * class name and no identity hashcode.</p>
+     *
+     * <p>This is an inner class rather than using
+     * <code>StandardToStringStyle</code> to ensure its immutability.</p>
+     */
+    private static final class ShortPrefixToStringStyle extends ToStringStyle {
+
+        /**
+         * <p>Constructor.</p>
+         *
+         * <p>Use the static constant rather than instantiating.</p>
+         */
+        private ShortPrefixToStringStyle() {
+            super();
+            this.setUseShortClassName(true);
+            this.setUseIdentityHashCode(false);
+        }
+
+        /**
+         * <p>Ensure <code>Singleton</ode> after serialization.</p>
+         * @return the singleton
+         */
+        private Object readResolve() {
+            return ToStringStyle.SHORT_PREFIX_STYLE;
+        }
+
+    }
 
     /**
      * <p><code>ToStringStyle</code> that does not print out the
