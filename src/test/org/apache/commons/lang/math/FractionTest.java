@@ -60,11 +60,11 @@ import junit.framework.TestSuite;
  * Test cases for the {@link Fraction} classes.
  *
  * @author Stephen Colebourne
- * @version $Id: FractionTest.java,v 1.1 2002/12/22 19:39:39 scolebourne Exp $
+ * @version $Id: FractionTest.java,v 1.2 2002/12/22 21:18:51 scolebourne Exp $
  */
 public class FractionTest extends TestCase {
     
-    private static final int SKIP = 10000;
+    private static final int SKIP = 17;
 
     public FractionTest(String name) {
         super(name);
