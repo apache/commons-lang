@@ -69,7 +69,7 @@ import org.apache.commons.lang.StringUtils;
  * reflection.
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ReflectionUtils.java,v 1.3 2002/11/20 21:45:47 rdonkin Exp $
+ * @version $Id: ReflectionUtils.java,v 1.4 2002/11/20 22:31:40 rdonkin Exp $
  */
 public class ReflectionUtils {
     
@@ -192,7 +192,7 @@ public class ReflectionUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Checks if the requested Class array is compatable with the specified
+     * Checks if the requested Class array is compatible with the specified
      * parameter array.
      * Primitive classes are handled correctly .
      * <p>
@@ -204,9 +204,9 @@ public class ReflectionUtils {
      *
      * @param requestedTypes  the class array requested
      * @param paramTypes  the actual class array for the method
-     * @return true if the parameters are compatable
+     * @return true if the parameters are compatible
      */
-    public static boolean isCompatable(Class[] requestedTypes, Class[] paramTypes) {
+    public static boolean isCompatible(Class[] requestedTypes, Class[] paramTypes) {
         if (ArrayUtils.isSameLength(requestedTypes, paramTypes) == false) {
             return false;
         }
@@ -217,7 +217,7 @@ public class ReflectionUtils {
             paramTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
         for (int i = 0; i < requestedTypes.length; i++) {
-            if (isCompatable(requestedTypes[i], paramTypes[i]) == false) {
+            if (isCompatible(requestedTypes[i], paramTypes[i]) == false) {
                 return false;
             }
         }
@@ -237,7 +237,7 @@ public class ReflectionUtils {
      *
      * @return true if the assignement is compatible.
      */
-    public static boolean isCompatable(Class requestedType, Class parameterType) {
+    public static boolean isCompatible(Class requestedType, Class parameterType) {
         // try plain assignment
         if (ClassUtils.isAssignable(requestedType, parameterType)) {
             return true;

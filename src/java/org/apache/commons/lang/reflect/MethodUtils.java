@@ -82,7 +82,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Gregor Raýman
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
- * @version $Id: MethodUtils.java,v 1.5 2002/11/20 21:45:47 rdonkin Exp $
+ * @version $Id: MethodUtils.java,v 1.6 2002/11/20 22:31:40 rdonkin Exp $
  */
 public class MethodUtils {
     
@@ -162,7 +162,7 @@ public class MethodUtils {
                     Method[] methods = acls.getDeclaredMethods();
                     for (int i = 0; i < methods.length; i++) {
                         if (methods[i].getName().equals(methodName) &&
-                            ReflectionUtils.isCompatable(paramTypes, methods[i].getParameterTypes())) {
+                            ReflectionUtils.isCompatible(paramTypes, methods[i].getParameterTypes())) {
                             if (Modifier.isPublic(methods[i].getModifiers())) {
                                 methods[i].setAccessible(true);
                             }
@@ -570,7 +570,7 @@ public class MethodUtils {
                             log("Param=" + parameterTypes[n].getName());
                             log("Method=" + methodsParams[n].getName());
                         }
-                        if (!ReflectionUtils.isCompatable(parameterTypes[n], methodsParams[n])) {
+                        if (!ReflectionUtils.isCompatible(parameterTypes[n], methodsParams[n])) {
                             if (debug) {
                                 log(methodsParams[n] + " is not assignable from " 
                                             + parameterTypes[n]);
