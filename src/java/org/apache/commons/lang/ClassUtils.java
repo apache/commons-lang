@@ -59,10 +59,13 @@ import java.util.List;
 /**
  * <p>Provides utility methods for working for classes without using reflection.</p>
  *
+ * <p>This class throws exceptions for invalid <code>null</code> inputs.
+ * Each method documents its behaviour in more detail.</p>
+ *
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.15 2003/07/16 21:19:22 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.16 2003/07/19 20:17:12 scolebourne Exp $
  */
 public class ClassUtils {
 

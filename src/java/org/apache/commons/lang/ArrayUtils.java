@@ -63,6 +63,11 @@ import org.apache.commons.lang.builder.ToStringStyle;
 /**
  * <p><code>ArrayUtils</code> contains utility methods for working with
  * arrays.</p>
+ * 
+ * <p>This class tries to handle <code>null</code> input gracefully.
+ * An exception will not be thrown for a <code>null</code>
+ * array input. However, an Object array that contains a <code>null</code>
+ * element may throw an exception. Each method documents its behaviour.</p>
  *
  * @author Stephen Colebourne
  * @author Moritz Petersen
@@ -70,7 +75,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.18 2003/07/14 22:25:02 bayard Exp $
+ * @version $Id: ArrayUtils.java,v 1.19 2003/07/19 20:17:12 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -172,7 +177,7 @@ public class ArrayUtils {
      * <p>The format is that of Java source code, for example <code>{a,b}</code>.</p>
      * 
      * @param array  the array to get a toString for, may be <code>null</code>
-     * @return a String representation of the array, '{}' if <code>null</code> passed in
+     * @return a String representation of the array, '{}' if null array input
      */
     public static String toString(final Object array) {
         return toString(array, "{}");
@@ -203,7 +208,7 @@ public class ArrayUtils {
      * <p>Multi-dimensional primitive arrays are also handled correctly by this method.</p>
      * 
      * @param array  the array to get a hashCode for, may be <code>null</code>
-     * @return a hashCode for the array
+     * @return a hashCode for the array, zero if null array input
      */
     public static int hashCode(final Object array) {
         return new HashCodeBuilder().append(array).toHashCode();
@@ -288,8 +293,7 @@ public class ArrayUtils {
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
      * @param array  the array to shallow clone, may be <code>null</code>
-     * @return the cloned array, or <code>null</code> if <code>null</code>
-     *  passed in
+     * @return the cloned array, <code>null</code> if <code>null</code> input
      */
     public static Object[] clone(final Object[] array) {
         if (array == null) {
@@ -305,8 +309,7 @@ public class ArrayUtils {
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
-     * @return the cloned array, or <code>null</code> if <code>null</code>
-     *  passed in
+     * @return the cloned array, <code>null</code> if <code>null</code> input
      */
     public static long[] clone(final long[] array) {
         if (array == null) {
@@ -322,8 +325,7 @@ public class ArrayUtils {
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
-     * @return the cloned array, or <code>null</code> if <code>null</code>
-     *  passed in
+     * @return the cloned array, <code>null</code> if <code>null</code> input
      */
     public static int[] clone(int[] array) {
         if (array == null) {
@@ -339,8 +341,7 @@ public class ArrayUtils {
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
-     * @return the cloned array, or <code>null</code> if <code>null</code>
-     *  passed in
+     * @return the cloned array, <code>null</code> if <code>null</code> input
      */
     public static short[] clone(final short[] array) {
         if (array == null) {
@@ -356,8 +357,7 @@ public class ArrayUtils {
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
-     * @return the cloned array, or <code>null</code> if <code>null</code>
-     *  passed in
+     * @return the cloned array, <code>null</code> if <code>null</code> input
      */
     public static char[] clone(final char[] array) {
         if (array == null) {
@@ -373,8 +373,7 @@ public class ArrayUtils {
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
-     * @return the cloned array, or <code>null</code> if <code>null</code>
-     *  passed in
+     * @return the cloned array, <code>null</code> if <code>null</code> input
      */
     public static byte[] clone(final byte[] array) {
         if (array == null) {
@@ -390,8 +389,7 @@ public class ArrayUtils {
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
-     * @return the cloned array, or <code>null</code> if <code>null</code>
-     *  passed in
+     * @return the cloned array, <code>null</code> if <code>null</code> input
      */
     public static double[] clone(final double[] array) {
         if (array == null) {
@@ -407,8 +405,7 @@ public class ArrayUtils {
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
-     * @return the cloned array, or <code>null</code> if <code>null</code>
-     *  passed in
+     * @return the cloned array, <code>null</code> if <code>null</code> input
      */
     public static float[] clone(final float[] array) {
         if (array == null) {
@@ -424,8 +421,7 @@ public class ArrayUtils {
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
-     * @return the cloned array, or <code>null</code> if <code>null</code>
-     *  passed in
+     * @return the cloned array, <code>null</code> if <code>null</code> input
      */
     public static boolean[] clone(final boolean[] array) {
         if (array == null) {
@@ -623,7 +619,7 @@ public class ArrayUtils {
      *
      * <p>There is no special handling for multi-dimensional arrays.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method does nothing if <code>null</code> array input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -646,7 +642,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method does nothing if <code>null</code> array input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -669,7 +665,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method does nothing if <code>null</code> array input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -692,7 +688,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method does nothing if <code>null</code> array input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -715,7 +711,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method does nothing if <code>null</code> array input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -738,7 +734,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method does nothing if <code>null</code> array input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -761,7 +757,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method does nothing if <code>null</code> array input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -784,7 +780,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method does nothing if <code>null</code> array input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -807,7 +803,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method does nothing if <code>null</code> array input.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -839,7 +835,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
-     * @return the index of the object within the array, or <code>-1</code> if not found
+     * @return the index of the object within the array, 
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final Object[] array, final Object objectToFind) {
         return indexOf(array, objectToFind, 0);
@@ -856,8 +853,8 @@ public class ArrayUtils {
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
      * @param startIndex  the index to start searching at
-     * @return the index of the object within the array starting at the
-     *  given index, or <code>-1</code> if not found
+     * @return the index of the object within the array starting at the index,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final Object[] array, final Object objectToFind, int startIndex) {
         if (array == null) {
@@ -889,7 +886,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
-     * @return the last index of the object to find, or <code>-1</code> if not found
+     * @return the last index of the object within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final Object[] array, final Object objectToFind) {
         return lastIndexOf(array, objectToFind, Integer.MAX_VALUE);
@@ -906,8 +904,8 @@ public class ArrayUtils {
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
      * @param startIndex  the start index to travers backwards from
-     * @return the last index of the object within the array starting at the given index,
-     *  or <code>-1</code> if not found
+     * @return the last index of the object within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final Object[] array, final Object objectToFind, int startIndex) {
         if (array == null) {
@@ -956,7 +954,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
-     * @return the index of the value within the array, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final long[] array, final long valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -973,8 +972,8 @@ public class ArrayUtils {
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
-     * @return the index of the value within the array starting at the
-     *  given index, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final long[] array, final long valueToFind, int startIndex) {
         if (array == null) {
@@ -998,7 +997,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
-     * @return the last index of the value to find, or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final long[] array, final long valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -1015,8 +1015,8 @@ public class ArrayUtils {
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
-     * @return the last index of the value within the array starting at the given index,
-     *  or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final long[] array, final long valueToFind, int startIndex) {
         if (array == null) {
@@ -1057,7 +1057,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
-     * @return the index of the value within the array, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final int[] array, final int valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -1074,8 +1075,8 @@ public class ArrayUtils {
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
-     * @return the index of the value within the array starting at the
-     *  given index, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final int[] array, final int valueToFind, int startIndex) {
         if (array == null) {
@@ -1099,7 +1100,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
-     * @return the last index of the value to find, or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final int[] array, final int valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -1116,8 +1118,8 @@ public class ArrayUtils {
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
-     * @return the last index of the value within the array starting at the given index,
-     *  or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final int[] array, final int valueToFind, int startIndex) {
         if (array == null) {
@@ -1158,7 +1160,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
-     * @return the index of the value within the array, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final short[] array, final short valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -1175,8 +1178,8 @@ public class ArrayUtils {
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
-     * @return the index of the value within the array starting at the
-     *  given index, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final short[] array, final short valueToFind, int startIndex) {
         if (array == null) {
@@ -1200,7 +1203,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
-     * @return the last index of the value to find, or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final short[] array, final short valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -1217,8 +1221,8 @@ public class ArrayUtils {
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
-     * @return the last index of the value within the array starting at the given index,
-     *  or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final short[] array, final short valueToFind, int startIndex) {
         if (array == null) {
@@ -1259,7 +1263,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
-     * @return the index of the value within the array, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final byte[] array, final byte valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -1276,8 +1281,8 @@ public class ArrayUtils {
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
-     * @return the index of the value within the array starting at the
-     *  given index, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final byte[] array, final byte valueToFind, int startIndex) {
         if (array == null) {
@@ -1301,7 +1306,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
-     * @return the last index of the value to find, or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final byte[] array, final byte valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -1318,8 +1324,8 @@ public class ArrayUtils {
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
-     * @return the last index of the value within the array starting at the given index,
-     *  or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final byte[] array, final byte valueToFind, int startIndex) {
         if (array == null) {
@@ -1360,7 +1366,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
-     * @return the index of the value within the array, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final double[] array, final double valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -1377,8 +1384,8 @@ public class ArrayUtils {
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
-     * @return the index of the value within the array starting at the
-     *  given index, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final double[] array, final double valueToFind, int startIndex) {
         if (array == null) {
@@ -1402,7 +1409,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
-     * @return the last index of the value to find, or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -1419,8 +1427,8 @@ public class ArrayUtils {
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
-     * @return the last index of the value within the array starting at the given index,
-     *  or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final double[] array, final double valueToFind, int startIndex) {
         if (array == null) {
@@ -1461,7 +1469,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
-     * @return the index of the value within the array, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final float[] array, final float valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -1478,8 +1487,8 @@ public class ArrayUtils {
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
-     * @return the index of the value within the array starting at the
-     *  given index, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final float[] array, final float valueToFind, int startIndex) {
         if (array == null) {
@@ -1503,7 +1512,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
-     * @return the last index of the value to find, or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final float[] array, final float valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -1520,8 +1530,8 @@ public class ArrayUtils {
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
-     * @return the last index of the value within the array starting at the given index,
-     *  or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final float[] array, final float valueToFind, int startIndex) {
         if (array == null) {
@@ -1562,7 +1572,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
-     * @return the index of the value within the array, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final boolean[] array, final boolean valueToFind) {
         return indexOf(array, valueToFind, 0);
@@ -1579,8 +1590,8 @@ public class ArrayUtils {
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
-     * @return the index of the value within the array starting at the
-     *  given index, or -1 if not found
+     * @return the index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int indexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
         if (array == null) {
@@ -1604,7 +1615,8 @@ public class ArrayUtils {
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
-     * @return the last index of the value to find, or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
@@ -1621,8 +1633,8 @@ public class ArrayUtils {
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
-     * @return the last index of the value within the array starting at the given index,
-     *  or -1 if not found
+     * @return the last index of the value within the array,
+     *  <code>-1</code> if not found or <code>null</code> array input
      */
     public static int lastIndexOf(final boolean[] array, final boolean valueToFind, int startIndex) {
         if (array == null) {
@@ -1657,278 +1669,6 @@ public class ArrayUtils {
     // Primitive/Object array converters
     // ----------------------------------------------------------------------
     
-    // Boolean array converters
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Converts an array of object Booleans to primitives.</p>
-     *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  a <code>Boolean</code> array, may be <code>null</code>
-     * @return a <code>boolean</code> array
-     * @throws NullPointerException if array content is <code>null</code>
-     */
-    public static boolean[] toPrimitive(final Boolean[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_BOOLEAN_ARRAY;
-        }
-        final boolean[] result = new boolean[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].booleanValue();
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of object Booleans to primitives handling <code>null</code>.</p>
-     * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  a <code>Boolean</code> array, may be <code>null</code>
-     * @param valueForNull  the value to insert if <code>null</code> found
-     * @return a <code>boolean</code> array
-     */
-    public static boolean[] toPrimitive(final Boolean[] array, final boolean valueForNull) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_BOOLEAN_ARRAY;
-        }
-        final boolean[] result = new boolean[array.length];
-        for (int i = 0; i < array.length; i++) {
-            Boolean b = array[i];
-            result[i] = (b == null ? valueForNull : b.booleanValue());
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of primitive booleans to objects.</p>
-     *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  a <code>boolean</code> array
-     * @return a <code>Boolean</code> array
-     */
-    public static Boolean[] toObject(final boolean[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_BOOLEAN_OBJECT_ARRAY;
-        }
-        final Boolean[] result = new Boolean[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = (array[i] ? Boolean.TRUE : Boolean.FALSE);
-        }
-        return result;
-    }
-
-    // Byte array converters
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Converts an array of object Bytes to primitives.</p>
-     *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  a <code>Byte</code> array, may be <code>null</code>
-     * @return a <code>byte</code> array
-     * @throws NullPointerException if array content is <code>null</code>
-     */
-    public static byte[] toPrimitive(final Byte[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_BYTE_ARRAY;
-        }
-        final byte[] result = new byte[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].byteValue();
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of object Bytes to primitives handling <code>null</code>.</p>
-     * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  a <code>Byte</code> array, may be <code>null</code>
-     * @param valueForNull  the value to insert if <code>null</code> found
-     * @return a <code>byte</code> array
-     */
-    public static byte[] toPrimitive(final Byte[] array, final byte valueForNull) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_BYTE_ARRAY;
-        }
-        final byte[] result = new byte[array.length];
-        for (int i = 0; i < array.length; i++) {
-            Byte b = array[i];
-            result[i] = (b == null ? valueForNull : b.byteValue());
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of primitive bytes to objects.</p>
-     *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  a <code>byte</code> array
-     * @return a <code>Byte</code> array
-     */
-    public static Byte[] toObject(final byte[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_BYTE_OBJECT_ARRAY;
-        }
-        final Byte[] result = new Byte[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = new Byte(array[i]);
-        }
-        return result;
-    }  
-    
-    // Short array converters
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Converts an array of object Shorts to primitives.</p>
-     *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  a <code>Short</code> array, may be <code>null</code>
-     * @return a <code>byte</code> array
-     * @throws NullPointerException if array content is <code>null</code>
-     */
-    public static short[] toPrimitive(final Short[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_SHORT_ARRAY;
-        }
-        final short[] result = new short[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].shortValue();
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of object Short to primitives handling <code>null</code>.</p>
-     * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  a <code>Short</code> array, may be <code>null</code>
-     * @param valueForNull  the value to insert if <code>null</code> found
-     * @return a <code>byte</code> array
-     */
-    public static short[] toPrimitive(final Short[] array, final short valueForNull) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_SHORT_ARRAY;
-        }
-        final short[] result = new short[array.length];
-        for (int i = 0; i < array.length; i++) {
-            Short b = array[i];
-            result[i] = (b == null ? valueForNull : b.shortValue());
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of primitive shorts to objects.</p>
-     *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  a <code>short</code> array
-     * @return a <code>Short</code> array
-     */
-    public static Short[] toObject(final short[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_SHORT_OBJECT_ARRAY;
-        }
-        final Short[] result = new Short[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = new Short(array[i]);
-        }
-        return result;
-    }    
-
-    // Int array converters
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Converts an array of object Integers to primitives.</p>
-     *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  a <code>Integer</code> array, may be <code>null</code>
-     * @return an <code>int</code> array
-     * @throws NullPointerException if array content is <code>null</code>
-     */
-    public static int[] toPrimitive(final Integer[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_INT_ARRAY;
-        }
-        final int[] result = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].intValue();
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of object Integer to primitives handling <code>null</code>.</p>
-     * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  a <code>Integer</code> array, may be <code>null</code>
-     * @param valueForNull  the value to insert if <code>null</code> found
-     * @return an <code>int</code> array
-     */
-    public static int[] toPrimitive(final Integer[] array, final int valueForNull) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_INT_ARRAY;
-        }
-        final int[] result = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
-            Integer b = array[i];
-            result[i] = (b == null ? valueForNull : b.intValue());
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of primitive ints to objects.</p>
-     *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
-     * 
-     * @param array  an <code>int</code> array
-     * @return an <code>Integer</code> array
-     */
-    public static Integer[] toObject(final int[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return EMPTY_INTEGER_OBJECT_ARRAY;
-        }
-        final Integer[] result = new Integer[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = new Integer(array[i]);
-        }
-        return result;
-    }
-    
     // Long array converters
     // ----------------------------------------------------------------------
     /**
@@ -1937,7 +1677,7 @@ public class ArrayUtils {
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
      * @param array  a <code>Long</code> array, may be <code>null</code>
-     * @return a <code>long</code> array
+     * @return a <code>long</code> array, <code>null</code> if null array input
      * @throws NullPointerException if array content is <code>null</code>
      */
     public static long[] toPrimitive(final Long[] array) {
@@ -1960,7 +1700,7 @@ public class ArrayUtils {
      * 
      * @param array  a <code>Long</code> array, may be <code>null</code>
      * @param valueForNull  the value to insert if <code>null</code> found
-     * @return a <code>long</code> array
+     * @return a <code>long</code> array, <code>null</code> if null array input
      */
     public static long[] toPrimitive(final Long[] array, final long valueForNull) {
         if (array == null) {
@@ -1981,8 +1721,8 @@ public class ArrayUtils {
      *
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
-     * @param array a <code>long</code> array
-     * @return a <code>Long</code> array
+     * @param array  a <code>long</code> array
+     * @return a <code>Long</code> array, <code>null</code> if null array input
      */
     public static Long[] toObject(final long[] array) {
         if (array == null) {
@@ -1997,74 +1737,210 @@ public class ArrayUtils {
         return result;
     }
 
-    //   Float array converters
+    // Int array converters
     // ----------------------------------------------------------------------
     /**
-     * <p>Converts an array of object Floats to primitives.</p>
+     * <p>Converts an array of object Integers to primitives.</p>
      *
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
-     * @param array  a <code>Float</code> array, may be <code>null</code>
-     * @return a <code>float</code> array
+     * @param array  a <code>Integer</code> array, may be <code>null</code>
+     * @return an <code>int</code> array, <code>null</code> if null array input
      * @throws NullPointerException if array content is <code>null</code>
      */
-    public static float[] toPrimitive(final Float[] array) {
+    public static int[] toPrimitive(final Integer[] array) {
         if (array == null) {
             return null;
         } else if (array.length == 0) {
-            return EMPTY_FLOAT_ARRAY;
+            return EMPTY_INT_ARRAY;
         }
-        final float[] result = new float[array.length];
+        final int[] result = new int[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].floatValue();
+            result[i] = array[i].intValue();
         }
         return result;
     }
 
     /**
-     * <p>Converts an array of object Floats to primitives handling <code>null</code>.</p>
+     * <p>Converts an array of object Integer to primitives handling <code>null</code>.</p>
      * 
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
-     * @param array  a <code>Float</code> array, may be <code>null</code>
+     * @param array  a <code>Integer</code> array, may be <code>null</code>
      * @param valueForNull  the value to insert if <code>null</code> found
-     * @return a <code>float</code> array
+     * @return an <code>int</code> array, <code>null</code> if null array input
      */
-    public static float[] toPrimitive(final Float[] array, final float valueForNull) {
+    public static int[] toPrimitive(final Integer[] array, final int valueForNull) {
         if (array == null) {
             return null;
         } else if (array.length == 0) {
-            return EMPTY_FLOAT_ARRAY;
+            return EMPTY_INT_ARRAY;
         }
-        final float[] result = new float[array.length];
+        final int[] result = new int[array.length];
         for (int i = 0; i < array.length; i++) {
-            Float b = array[i];
-            result[i] = (b == null ? valueForNull : b.floatValue());
+            Integer b = array[i];
+            result[i] = (b == null ? valueForNull : b.intValue());
         }
         return result;
     }
 
     /**
-     * <p>Converts an array of primitive floats to objects.</p>
+     * <p>Converts an array of primitive ints to objects.</p>
      *
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
-     * @param array a <code>float</code> array
-     * @return a <code>Float</code> array
+     * @param array  an <code>int</code> array
+     * @return an <code>Integer</code> array, <code>null</code> if null array input
      */
-    public static Float[] toObject(final float[] array) {
+    public static Integer[] toObject(final int[] array) {
         if (array == null) {
             return null;
         } else if (array.length == 0) {
-            return EMPTY_FLOAT_OBJECT_ARRAY;
+            return EMPTY_INTEGER_OBJECT_ARRAY;
         }
-        final Float[] result = new Float[array.length];
+        final Integer[] result = new Integer[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = new Float(array[i]);
+            result[i] = new Integer(array[i]);
+        }
+        return result;
+    }
+    
+    // Short array converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Shorts to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>Short</code> array, may be <code>null</code>
+     * @return a <code>byte</code> array, <code>null</code> if null array input
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static short[] toPrimitive(final Short[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_SHORT_ARRAY;
+        }
+        final short[] result = new short[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].shortValue();
         }
         return result;
     }
 
+    /**
+     * <p>Converts an array of object Short to primitives handling <code>null</code>.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>Short</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return a <code>byte</code> array, <code>null</code> if null array input
+     */
+    public static short[] toPrimitive(final Short[] array, final short valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_SHORT_ARRAY;
+        }
+        final short[] result = new short[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Short b = array[i];
+            result[i] = (b == null ? valueForNull : b.shortValue());
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of primitive shorts to objects.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>short</code> array
+     * @return a <code>Short</code> array, <code>null</code> if null array input
+     */
+    public static Short[] toObject(final short[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_SHORT_OBJECT_ARRAY;
+        }
+        final Short[] result = new Short[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = new Short(array[i]);
+        }
+        return result;
+    }    
+
+    // Byte array converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Bytes to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>Byte</code> array, may be <code>null</code>
+     * @return a <code>byte</code> array, <code>null</code> if null array input
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static byte[] toPrimitive(final Byte[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BYTE_ARRAY;
+        }
+        final byte[] result = new byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].byteValue();
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of object Bytes to primitives handling <code>null</code>.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>Byte</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return a <code>byte</code> array, <code>null</code> if null array input
+     */
+    public static byte[] toPrimitive(final Byte[] array, final byte valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BYTE_ARRAY;
+        }
+        final byte[] result = new byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Byte b = array[i];
+            result[i] = (b == null ? valueForNull : b.byteValue());
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of primitive bytes to objects.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>byte</code> array
+     * @return a <code>Byte</code> array, <code>null</code> if null array input
+     */
+    public static Byte[] toObject(final byte[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BYTE_OBJECT_ARRAY;
+        }
+        final Byte[] result = new Byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = new Byte(array[i]);
+        }
+        return result;
+    }  
+    
     // Double array converters
     // ----------------------------------------------------------------------
     /**
@@ -2073,7 +1949,7 @@ public class ArrayUtils {
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
      * @param array  a <code>Double</code> array, may be <code>null</code>
-     * @return a <code>double</code> array
+     * @return a <code>double</code> array, <code>null</code> if null array input
      * @throws NullPointerException if array content is <code>null</code>
      */
     public static double[] toPrimitive(final Double[] array) {
@@ -2096,7 +1972,7 @@ public class ArrayUtils {
      * 
      * @param array  a <code>Double</code> array, may be <code>null</code>
      * @param valueForNull  the value to insert if <code>null</code> found
-     * @return a <code>double</code> array
+     * @return a <code>double</code> array, <code>null</code> if null array input
      */
     public static double[] toPrimitive(final Double[] array, final double valueForNull) {
         if (array == null) {
@@ -2117,8 +1993,8 @@ public class ArrayUtils {
      *
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      * 
-     * @param array a <code>double</code> array
-     * @return a <code>Double</code> array
+     * @param array  a <code>double</code> array
+     * @return a <code>Double</code> array, <code>null</code> if null array input
      */
     public static Double[] toObject(final double[] array) {
         if (array == null) {
@@ -2129,6 +2005,142 @@ public class ArrayUtils {
         final Double[] result = new Double[array.length];
         for (int i = 0; i < array.length; i++) {
             result[i] = new Double(array[i]);
+        }
+        return result;
+    }
+
+    //   Float array converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Floats to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>Float</code> array, may be <code>null</code>
+     * @return a <code>float</code> array, <code>null</code> if null array input
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static float[] toPrimitive(final Float[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_FLOAT_ARRAY;
+        }
+        final float[] result = new float[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].floatValue();
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of object Floats to primitives handling <code>null</code>.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>Float</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return a <code>float</code> array, <code>null</code> if null array input
+     */
+    public static float[] toPrimitive(final Float[] array, final float valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_FLOAT_ARRAY;
+        }
+        final float[] result = new float[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Float b = array[i];
+            result[i] = (b == null ? valueForNull : b.floatValue());
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of primitive floats to objects.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>float</code> array
+     * @return a <code>Float</code> array, <code>null</code> if null array input
+     */
+    public static Float[] toObject(final float[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_FLOAT_OBJECT_ARRAY;
+        }
+        final Float[] result = new Float[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = new Float(array[i]);
+        }
+        return result;
+    }
+
+    // Boolean array converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Booleans to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>Boolean</code> array, may be <code>null</code>
+     * @return a <code>boolean</code> array, <code>null</code> if null array input
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static boolean[] toPrimitive(final Boolean[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BOOLEAN_ARRAY;
+        }
+        final boolean[] result = new boolean[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].booleanValue();
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of object Booleans to primitives handling <code>null</code>.</p>
+     * 
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>Boolean</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return a <code>boolean</code> array, <code>null</code> if null array input
+     */
+    public static boolean[] toPrimitive(final Boolean[] array, final boolean valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BOOLEAN_ARRAY;
+        }
+        final boolean[] result = new boolean[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Boolean b = array[i];
+            result[i] = (b == null ? valueForNull : b.booleanValue());
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of primitive booleans to objects.</p>
+     *
+     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * 
+     * @param array  a <code>boolean</code> array
+     * @return a <code>Boolean</code> array, <code>null</code> if null array input
+     */
+    public static Boolean[] toObject(final boolean[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_BOOLEAN_OBJECT_ARRAY;
+        }
+        final Boolean[] result = new Boolean[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = (array[i] ? Boolean.TRUE : Boolean.FALSE);
         }
         return result;
     }

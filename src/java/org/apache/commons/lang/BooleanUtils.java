@@ -59,10 +59,14 @@ import org.apache.commons.lang.math.NumberUtils;
  * <p><code>BooleanUtils</code> contains utility methods for working for
  * boolean and Boolean objects.</p>
  *
+ * <p>This class tries to handle <code>null</code> input gracefully.
+ * An exception will not be thrown for a <code>null</code> input.
+ * Each method documents its behaviour in more detail.</p>
+ * 
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.7 2003/07/14 22:25:02 bayard Exp $
+ * @version $Id: BooleanUtils.java,v 1.8 2003/07/19 20:17:12 scolebourne Exp $
  */
 public class BooleanUtils {
 
@@ -84,7 +88,7 @@ public class BooleanUtils {
      * <p>If <code>null</code> is passed in, <code>null</code> will be returned.</p>
      * 
      * @param bool  the Boolean to negate, may be null
-     * @return the negated Boolean, or <code>null</code> if <code>null</code> passed in
+     * @return the negated Boolean, or <code>null</code> if <code>null</code> input
      */
     public static Boolean negate(Boolean bool) {
         if (bool == null) {
@@ -112,7 +116,8 @@ public class BooleanUtils {
      * by returning <code>false</code>.</p>
      * 
      * @param bool  the boolean to convert
-     * @return <code>true</code> or <code>false</code>
+     * @return <code>true</code> or <code>false</code>, 
+     *  <code>null</code> returns <code>false</code>
      */
     public static boolean toBoolean(Boolean bool) {
         if (bool == null) {
@@ -169,7 +174,7 @@ public class BooleanUtils {
      * 
      * @param value  the Integer to convert
      * @return Boolean.TRUE if non-zero, Boolean.FALSE if zero,
-     *  <code>null</code> if <code>null</code>
+     *  <code>null</code> if <code>null</code> input
      */
     public static Boolean toBooleanObject(Integer value) {
         if (value == null) {
@@ -392,8 +397,8 @@ public class BooleanUtils {
      * Otherwise, <code>null</code> is returned.</p>
      *
      * @param str  the String to check
-     * @return the Boolean value of the string, <code>null</code>
-     *  if no match or <code>null</code> input
+     * @return the Boolean value of the string,
+     *  <code>null</code> if no match or <code>null</code> input
      */
     public static Boolean toBooleanObject(String str) {
         if ("true".equalsIgnoreCase(str)) {
@@ -423,8 +428,8 @@ public class BooleanUtils {
      *  (case sensitive), may be <code>null</code>
      * @param nullString  the String to match for <code>null</code>
      *  (case sensitive), may be <code>null</code>
-     * @return the Boolean value of the string, <code>null</code>
-     *  if no match or <code>null</code> input
+     * @return the Boolean value of the string,
+     *  <code>null</code> if no match or <code>null</code> input
      */
     public static Boolean toBooleanObject(String str, String trueString, String falseString, String nullString) {
         if (str == null) {
