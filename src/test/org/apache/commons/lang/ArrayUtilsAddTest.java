@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  * Tests ArrayUtils add methods.
  * 
  * @author Gary D. Gregory
- * @version $Id: ArrayUtilsAddTest.java,v 1.3 2004/03/16 01:40:57 ggregory Exp $
+ * @version $Id: ArrayUtilsAddTest.java,v 1.4 2004/10/09 11:55:51 scolebourne Exp $
  */
 public class ArrayUtilsAddTest extends TestCase {
     public static void main(String[] args) {
@@ -178,17 +178,35 @@ public class ArrayUtilsAddTest extends TestCase {
         newArray = ArrayUtils.add((Object[])null, null);
         assertTrue(Arrays.equals((new Object[]{null}), newArray));
         assertEquals(Object.class, newArray.getClass().getComponentType());
+        
         newArray = ArrayUtils.add((Object[])null, "a");
         assertTrue(Arrays.equals((new String[]{"a"}), newArray));
         assertTrue(Arrays.equals((new Object[]{"a"}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
+        
         String[] stringArray1 = new String[]{"a", "b", "c"};
         newArray = ArrayUtils.add(stringArray1, null);
         assertTrue(Arrays.equals((new String[]{"a", "b", "c", null}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
+        
         newArray = ArrayUtils.add(stringArray1, "d");
         assertTrue(Arrays.equals((new String[]{"a", "b", "c", "d"}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
+        
+        Number[] numberArray1 = new Number[]{new Integer(1), new Double(2)};
+        newArray = ArrayUtils.add(numberArray1, new Float(3));
+        assertTrue(Arrays.equals((new Number[]{new Integer(1), new Double(2), new Float(3)}), newArray));
+        assertEquals(Number.class, newArray.getClass().getComponentType());
+        
+        numberArray1 = null;
+        newArray = ArrayUtils.add(numberArray1, new Float(3));
+        assertTrue(Arrays.equals((new Float[]{new Float(3)}), newArray));
+        assertEquals(Float.class, newArray.getClass().getComponentType());
+        
+        numberArray1 = null;
+        newArray = ArrayUtils.add(numberArray1, null);
+        assertTrue(Arrays.equals((new Object[]{null}), newArray));
+        assertEquals(Object.class, newArray.getClass().getComponentType());
     }
     
     public void testAddObjectArrayToObjectArray() {
