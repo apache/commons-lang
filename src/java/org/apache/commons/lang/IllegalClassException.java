@@ -53,62 +53,42 @@
  */
 package org.apache.commons.lang;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 /**
- * Test suite for the Lang package.
- *
- * @author Stephen Colebourne
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
+ * Thrown when an object is an instance of an unexpected class.
+ * 
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.16 2003/05/15 04:05:11 bayard Exp $
+ * @version $Id: IllegalClassException.java,v 1.1 2003/05/15 04:05:11 bayard Exp $
  */
-public class LangTestSuite extends TestCase {
-    
+public class IllegalClassException extends IllegalArgumentException {
+
     /**
-     * Construct a new instance.
+     * Instantiates with the specified classes.
+     * @param expected the expected type
+     * @param actual the actual type
      */
-    public LangTestSuite(String name) {
-        super(name);
+    public IllegalClassException(Class expected, Class actual) {
+        super(
+            "Expected: "
+                + safeGetClassName(expected)
+                + ", Actual: "
+                + safeGetClassName(actual));
     }
 
     /**
-     * Command-line interface.
+     * Instantiates with the specified classes.
+     * @param message the exception message
      */
-    public static void main(String[] args) {
-        TestRunner.run(suite());
+    public IllegalClassException(String message) {
+        super(message);
     }
 
     /**
-     * Get the suite of tests
+     * Gets a classname without throwing an Exception.
+     * @param c a <code>Class</code>
+     * @return the name of <code>c</code>, or a <code>null</code> <code>String</code>
      */
-    public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(ArrayUtilsTest.suite());
-        suite.addTest(BooleanUtilsTest.suite());
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(ClassUtilsTest.suite());
-        suite.addTest(IllegalClassExceptionTest.suite());
-        suite.addTest(IncompleteArgumentExceptionTest.suite());
-        suite.addTest(NotImplementedExceptionTest.suite());
-        suite.addTest(NullArgumentExceptionTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
-        suite.addTest(StringEscapeUtilsTest.suite());
-        suite.addTest(UnhandledExceptionTest.suite());
-        suite.addTest(WordWrapUtilsTest.suite());
-        return suite;
+    private static final String safeGetClassName(Class c) {
+        return c == null ? null : c.getName();
     }
+
 }

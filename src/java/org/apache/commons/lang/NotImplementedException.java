@@ -53,62 +53,30 @@
  */
 package org.apache.commons.lang;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 /**
- * Test suite for the Lang package.
- *
- * @author Stephen Colebourne
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
+ * Thrown to indicate that a method has not been implemented.
+ * 
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.16 2003/05/15 04:05:11 bayard Exp $
+ * @version $Id: NotImplementedException.java,v 1.1 2003/05/15 04:05:11 bayard Exp $
  */
-public class LangTestSuite extends TestCase {
-    
+public class NotImplementedException extends UnsupportedOperationException {
+
     /**
-     * Construct a new instance.
+     * Instantites with the specified class.
+     * @param clazz the <code>Class</code> that has not implemented the method
      */
-    public LangTestSuite(String name) {
-        super(name);
+    public NotImplementedException(Class clazz) {
+        super(
+            "Method is not implemented in class "
+                + ((clazz == null) ? null : clazz.getName()));
     }
 
     /**
-     * Command-line interface.
+     * Instantites with the specified msg.
+     * @param msg the exception message.
      */
-    public static void main(String[] args) {
-        TestRunner.run(suite());
+    public NotImplementedException(String msg) {
+        super(msg);
     }
 
-    /**
-     * Get the suite of tests
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(ArrayUtilsTest.suite());
-        suite.addTest(BooleanUtilsTest.suite());
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(ClassUtilsTest.suite());
-        suite.addTest(IllegalClassExceptionTest.suite());
-        suite.addTest(IncompleteArgumentExceptionTest.suite());
-        suite.addTest(NotImplementedExceptionTest.suite());
-        suite.addTest(NullArgumentExceptionTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
-        suite.addTest(StringEscapeUtilsTest.suite());
-        suite.addTest(UnhandledExceptionTest.suite());
-        suite.addTest(WordWrapUtilsTest.suite());
-        return suite;
-    }
 }

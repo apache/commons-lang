@@ -59,56 +59,44 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Test suite for the Lang package.
- *
- * @author Stephen Colebourne
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
+ * JUnit tests.
+ * 
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.16 2003/05/15 04:05:11 bayard Exp $
+ * @version $Id: NullArgumentExceptionTest.java,v 1.1 2003/05/15 04:05:11 bayard Exp $
+ * @see NullArgumentException
  */
-public class LangTestSuite extends TestCase {
-    
-    /**
-     * Construct a new instance.
-     */
-    public LangTestSuite(String name) {
-        super(name);
-    }
+public class NullArgumentExceptionTest extends TestCase {
 
-    /**
-     * Command-line interface.
-     */
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
 
-    /**
-     * Get the suite of tests
-     */
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(ArrayUtilsTest.suite());
-        suite.addTest(BooleanUtilsTest.suite());
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(ClassUtilsTest.suite());
-        suite.addTest(IllegalClassExceptionTest.suite());
-        suite.addTest(IncompleteArgumentExceptionTest.suite());
-        suite.addTest(NotImplementedExceptionTest.suite());
-        suite.addTest(NullArgumentExceptionTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
-        suite.addTest(StringEscapeUtilsTest.suite());
-        suite.addTest(UnhandledExceptionTest.suite());
-        suite.addTest(WordWrapUtilsTest.suite());
-        return suite;
+        return new TestSuite(NullArgumentExceptionTest.class);
     }
-}
+
+    public NullArgumentExceptionTest(String testName) {
+        super(testName);
+    }
+
+    // testConstructor
+
+    public void testConstructor_nullInput() {
+        new NullArgumentException(null);
+    }
+
+    // testGetMessage
+
+    public void testGetMessage_nullConstructorInput() {
+        final Throwable t = new NullArgumentException(null);
+        assertEquals("null cannot be null.", t.getMessage());
+    }
+
+    public void testGetMessage_validConstructorInput() {
+        final String argName = "name";
+        final Throwable t = new NullArgumentException(argName);
+        assertEquals(argName + " cannot be null.", t.getMessage());
+    }
+
+} // NullArgumentExceptionTest
+

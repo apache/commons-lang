@@ -59,56 +59,70 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Test suite for the Lang package.
- *
- * @author Stephen Colebourne
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
+ * JUnit tests.
+ * 
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.16 2003/05/15 04:05:11 bayard Exp $
+ * @version $Id: IllegalClassExceptionTest.java,v 1.1 2003/05/15 04:05:11 bayard Exp $
+ * @see IllegalClassException
  */
-public class LangTestSuite extends TestCase {
-    
-    /**
-     * Construct a new instance.
-     */
-    public LangTestSuite(String name) {
-        super(name);
-    }
+public class IllegalClassExceptionTest extends TestCase {
 
-    /**
-     * Command-line interface.
-     */
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
 
-    /**
-     * Get the suite of tests
-     */
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(ArrayUtilsTest.suite());
-        suite.addTest(BooleanUtilsTest.suite());
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(ClassUtilsTest.suite());
-        suite.addTest(IllegalClassExceptionTest.suite());
-        suite.addTest(IncompleteArgumentExceptionTest.suite());
-        suite.addTest(NotImplementedExceptionTest.suite());
-        suite.addTest(NullArgumentExceptionTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
-        suite.addTest(StringEscapeUtilsTest.suite());
-        suite.addTest(UnhandledExceptionTest.suite());
-        suite.addTest(WordWrapUtilsTest.suite());
-        return suite;
+        return new TestSuite(IllegalClassExceptionTest.class);
     }
-}
+
+    public IllegalClassExceptionTest(String testName) {
+        super(testName);
+    }
+
+    // testConstructor_classArgs
+
+    public void testConstructor_classArgs_allNullInput() {
+        new IllegalClassException(null, null);
+    }
+
+    public void testConstructor_classArgs_nullExpected() {
+        new IllegalClassException(null, String.class);
+    }
+
+    public void testConstructor_classArgs_nullActual() {
+        new IllegalClassException(String.class, null);
+    }
+
+    //  testConstructor_stringArg
+
+    public void testConstructor_stringArg_nullInput() {
+        new IllegalClassException(null);
+    }
+
+    // testGetMessage
+
+    public void testGetMessage_classArgs_nullInput() {
+        final Throwable t = new IllegalClassException(null, null);
+        assertEquals("Expected: null, Actual: null", t.getMessage());
+    }
+
+    public void testGetMessage_classArgs_normalInput() {
+        final Throwable t =
+            new IllegalClassException(String.class, Integer.class);
+        assertEquals(
+            "Expected: java.lang.String, Actual: java.lang.Integer",
+            t.getMessage());
+    }
+
+    public void testGetMessage_stringArg_nullInput() {
+        final Throwable t = new IllegalClassException(null);
+        assertEquals(null, t.getMessage());
+    }
+
+    public void testGetMessage_stringArg_validInput() {
+        final String message = "message";
+        final Throwable t = new IllegalClassException(message);
+        assertEquals(message, t.getMessage());
+    }
+
+} // IllegalClassExceptionTest

@@ -53,62 +53,42 @@
  */
 package org.apache.commons.lang;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import java.util.Arrays;
 
 /**
- * Test suite for the Lang package.
- *
- * @author Stephen Colebourne
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
+ * Thrown to indicate an incomplete argument to a method.
+ * 
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.16 2003/05/15 04:05:11 bayard Exp $
+ * @version $Id: IncompleteArgumentException.java,v 1.1 2003/05/15 04:05:11 bayard Exp $
  */
-public class LangTestSuite extends TestCase {
-    
+public class IncompleteArgumentException extends IllegalArgumentException {
+
     /**
-     * Construct a new instance.
+     * Instantiates with the specified description.
+     * @param argName a description of the incomplete argument
      */
-    public LangTestSuite(String name) {
-        super(name);
+    public IncompleteArgumentException(String argName) {
+        super(argName + " is incomplete.");
     }
 
     /**
-     * Command-line interface.
+     * Instantiates with the specified description.
+     * @param item a description of the incomplete argument
      */
-    public static void main(String[] args) {
-        TestRunner.run(suite());
+    public IncompleteArgumentException(String argName, String[] items) {
+        super(
+            argName
+                + " is missing the following items: "
+                + safeArrayToString(items));
     }
 
     /**
-     * Get the suite of tests
+     * Converts an array to a string without throwing an exception.
+     * @param array an array
+     * @return the array as a string
      */
-    public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(ArrayUtilsTest.suite());
-        suite.addTest(BooleanUtilsTest.suite());
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(ClassUtilsTest.suite());
-        suite.addTest(IllegalClassExceptionTest.suite());
-        suite.addTest(IncompleteArgumentExceptionTest.suite());
-        suite.addTest(NotImplementedExceptionTest.suite());
-        suite.addTest(NullArgumentExceptionTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
-        suite.addTest(StringEscapeUtilsTest.suite());
-        suite.addTest(UnhandledExceptionTest.suite());
-        suite.addTest(WordWrapUtilsTest.suite());
-        return suite;
+    private static final String safeArrayToString(Object[] array) {
+        return array == null ? null : Arrays.asList(array).toString();
     }
+
 }
