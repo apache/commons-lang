@@ -71,7 +71,7 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.16 2003/09/23 17:02:10 fredrik Exp $
+ * @version $Id: NumberUtils.java,v 1.17 2003/11/04 20:26:14 fredrik Exp $
  */
 public class NumberUtils {
     
@@ -1314,7 +1314,7 @@ public class NumberUtils {
      * @return <code>true</code> if str contains only unicode numeric
      */
     public static boolean isDigits(String str) {
-        if ((str == null) || (str.length() == 0)) {
+        if (StringUtils.isEmpty(str)) {
             return false;
         }
         for (int i = 0; i < str.length(); i++) {
@@ -1339,7 +1339,7 @@ public class NumberUtils {
      * @return <code>true</code> if the string is a correctly formatted number
      */
     public static boolean isNumber(String str) {
-        if ((str == null) || (str.length() == 0)) {
+        if (StringUtils.isEmpty(str)) {
             return false;
         }
         char[] chars = str.toCharArray();
