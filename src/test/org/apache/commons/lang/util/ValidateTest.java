@@ -67,7 +67,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.util.Validate}.
  *
  * @author Stephen Colebourne
- * @version $Id: ValidateTest.java,v 1.1 2002/12/29 22:09:53 scolebourne Exp $
+ * @version $Id: ValidateTest.java,v 1.2 2003/08/04 19:51:00 scolebourne Exp $
  */
 public class ValidateTest extends TestCase {
 
@@ -98,6 +98,7 @@ public class ValidateTest extends TestCase {
         Validate.isTrue(true);
         try {
             Validate.isTrue(false);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated expression is false", ex.getMessage());
         }
@@ -108,6 +109,7 @@ public class ValidateTest extends TestCase {
         Validate.isTrue(true, "MSG");
         try {
             Validate.isTrue(false, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
@@ -118,6 +120,7 @@ public class ValidateTest extends TestCase {
         Validate.isTrue(true, "MSG", new Integer(6));
         try {
             Validate.isTrue(false, "MSG", new Integer(6));
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG6", ex.getMessage());
         }
@@ -128,6 +131,7 @@ public class ValidateTest extends TestCase {
         Validate.isTrue(true, "MSG", 7);
         try {
             Validate.isTrue(false, "MSG", 7);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG7", ex.getMessage());
         }
@@ -138,6 +142,7 @@ public class ValidateTest extends TestCase {
         Validate.isTrue(true, "MSG", 7.4d);
         try {
             Validate.isTrue(false, "MSG", 7.4d);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG7.4", ex.getMessage());
         }
@@ -148,6 +153,7 @@ public class ValidateTest extends TestCase {
         Validate.notNull(new Object());
         try {
             Validate.notNull(null);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated object is null", ex.getMessage());
         }
@@ -158,6 +164,7 @@ public class ValidateTest extends TestCase {
         Validate.notNull(new Object(), "MSG");
         try {
             Validate.notNull(null, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
@@ -168,11 +175,13 @@ public class ValidateTest extends TestCase {
         Validate.notEmpty(new Object[] {null});
         try {
             Validate.notEmpty((Object[]) null);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated array is empty", ex.getMessage());
         }
         try {
             Validate.notEmpty(new Object[0]);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated array is empty", ex.getMessage());
         }
@@ -183,11 +192,13 @@ public class ValidateTest extends TestCase {
         Validate.notEmpty(new Object[] {null}, "MSG");
         try {
             Validate.notEmpty((Object[]) null, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         try {
             Validate.notEmpty(new Object[0], "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
@@ -198,11 +209,13 @@ public class ValidateTest extends TestCase {
         Collection coll = new ArrayList();
         try {
             Validate.notEmpty((Collection) null);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated collection is empty", ex.getMessage());
         }
         try {
             Validate.notEmpty(coll);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated collection is empty", ex.getMessage());
         }
@@ -215,11 +228,13 @@ public class ValidateTest extends TestCase {
         Collection coll = new ArrayList();
         try {
             Validate.notEmpty((Collection) null, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         try {
             Validate.notEmpty(coll, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
@@ -232,11 +247,13 @@ public class ValidateTest extends TestCase {
         Map map = new HashMap();
         try {
             Validate.notEmpty((Map) null);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated map is empty", ex.getMessage());
         }
         try {
             Validate.notEmpty(map);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated map is empty", ex.getMessage());
         }
@@ -249,11 +266,13 @@ public class ValidateTest extends TestCase {
         Map map = new HashMap();
         try {
             Validate.notEmpty((Map) null, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         try {
             Validate.notEmpty(map, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
@@ -266,11 +285,13 @@ public class ValidateTest extends TestCase {
         Validate.notEmpty("hjl");
         try {
             Validate.notEmpty((String) null);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated string is empty", ex.getMessage());
         }
         try {
             Validate.notEmpty("");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated string is empty", ex.getMessage());
         }
@@ -278,14 +299,16 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testNotEmptyString2() {
-        Validate.notEmpty(new Object[] {null}, "MSG");
+        Validate.notEmpty("a", "MSG");
         try {
             Validate.notEmpty((String) null, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
         try {
             Validate.notEmpty("", "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
@@ -297,12 +320,14 @@ public class ValidateTest extends TestCase {
         Validate.noNullElements(array);
         try {
             Validate.noNullElements((Object[]) null);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated object is null", ex.getMessage());
         }
         array[1] = null;
         try {
-            Validate.notEmpty(array);
+            Validate.noNullElements(array);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated array contains null element at index: 1", ex.getMessage());
         }
@@ -314,12 +339,14 @@ public class ValidateTest extends TestCase {
         Validate.noNullElements(array, "MSG");
         try {
             Validate.noNullElements((Object[]) null, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated object is null", ex.getMessage());
         }
         array[1] = null;
         try {
-            Validate.notEmpty(array, "MSG");
+            Validate.noNullElements(array, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
@@ -333,12 +360,14 @@ public class ValidateTest extends TestCase {
         Validate.noNullElements(coll);
         try {
             Validate.noNullElements((Collection) null);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated object is null", ex.getMessage());
         }
         coll.set(1, null);
         try {
-            Validate.notEmpty(coll);
+            Validate.noNullElements(coll);
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated collection contains null element at index: 1", ex.getMessage());
         }
@@ -352,12 +381,14 @@ public class ValidateTest extends TestCase {
         Validate.noNullElements(coll, "MSG");
         try {
             Validate.noNullElements((Collection) null, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated object is null", ex.getMessage());
         }
         coll.set(1, null);
         try {
-            Validate.notEmpty(coll, "MSG");
+            Validate.noNullElements(coll, "MSG");
+            fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
