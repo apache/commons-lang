@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
- * @version $Id: StringUtilsTest.java,v 1.12 2003/01/19 18:15:38 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.13 2003/01/20 22:15:13 dlr Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -113,6 +113,8 @@ public class StringUtilsTest extends TestCase {
                      CAP_FOO, StringUtils.capitalise(FOO) );
         assertEquals("capitalise(empty-string) failed",
                      "", StringUtils.capitalise("") );
+        assertEquals("capitalise(single-char-string) failed",
+                     "X", StringUtils.capitalise("x") );
         assertEquals("capitaliseAllWords(String) failed",
                      "Foo Bar Baz", StringUtils.capitaliseAllWords(SENTENCE) );
         assertEquals("capitaliseAllWords(empty-string) failed",
@@ -121,6 +123,8 @@ public class StringUtilsTest extends TestCase {
                      FOO, StringUtils.uncapitalise(CAP_FOO) );
         assertEquals("uncapitalise(empty-string) failed",
                      "", StringUtils.uncapitalise("") );
+        assertEquals("uncapitalise(single-char-string) failed",
+                     "x", StringUtils.uncapitalise("X") );
         assertEquals("uncapitaliseAllWords(String) failed",
                      SENTENCE, StringUtils.uncapitaliseAllWords("Foo Bar Baz") );
         assertEquals("uncapitaliseAllWords(empty-string) failed",
