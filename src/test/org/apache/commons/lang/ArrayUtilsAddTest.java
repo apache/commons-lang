@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  * Tests ArrayUtils add methods.
  * 
  * @author Gary D. Gregory
- * @version $Id: ArrayUtilsAddTest.java,v 1.2 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: ArrayUtilsAddTest.java,v 1.3 2004/03/16 01:40:57 ggregory Exp $
  */
 public class ArrayUtilsAddTest extends TestCase {
     public static void main(String[] args) {
@@ -197,10 +197,12 @@ public class ArrayUtilsAddTest extends TestCase {
         String[] stringArray1 = new String[]{"a", "b", "c"};
         String[] stringArray2 = new String[]{"1", "2", "3"};
         newArray = ArrayUtils.addAll(stringArray1, null);
+        assertNotSame(stringArray1, newArray);
         assertTrue(Arrays.equals(stringArray1, newArray));
         assertTrue(Arrays.equals((new String[]{"a", "b", "c"}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         newArray = ArrayUtils.addAll(null, stringArray2);
+        assertNotSame(stringArray2, newArray);
         assertTrue(Arrays.equals(stringArray2, newArray));
         assertTrue(Arrays.equals((new String[]{"1", "2", "3"}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
