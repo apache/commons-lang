@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.9 2003/07/12 03:37:24 bayard Exp $
+$Id: RELEASE-NOTES.txt,v 1.10 2003/07/14 23:03:27 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -57,24 +57,26 @@ Since the release of the 1.0 package the following classes have been changed:
 
 lang:
     CharSetUtils:
-      added:
-        keep method:  keep any characters specified in the CharSet string
+        added keep method:  keep any characters specified in the CharSet string
     RandomStringUtils:
         random method:  overloaded to allow passing in of a Random class
     SerializationUtils:
         added empty constructor
     StringUtils:
-        defaultString method removed. 
-        Nineteen new methods. Eight methods deprecated.
+        defaultString(String) method changed to defaultString(Object). 
+        isEmpty() changed to not trim.
+        chomp() changed to be more like Perl.
+        Twenty-one new methods.
+        Eight methods deprecated.
     SystemUtils:
-        isJavaVersionAtLeast added. getJavaVersion deprecated.
+        isJavaVersionAtLeast(int) added. getJavaVersion() deprecated.
         host of new constants.
 
 enum:
     Enum:
         getEnumClass(Class) added
     EnumUtils:
-        Removed Comparable/Serializable interfaces.
+        Removed irrelevant Comparable/Serializable interfaces.
 
 exception:
     NestableDelegate:
@@ -247,6 +249,8 @@ org.apache.commons.lang.StringUtils
 --------------------
 >     public static java.lang.String trimToNull(java.lang.String);
 >     public static java.lang.String trimToEmpty(java.lang.String);
+>     public static boolean isEmptyTrimmed(java.lang.String);
+>     public static boolean isNotEmptyTrimmed(java.lang.String);
 >     public static java.lang.String join(java.lang.Object[], char);
 >     public static java.lang.String join(java.util.Iterator, char);
 >     public static java.lang.String slice(java.lang.String);
