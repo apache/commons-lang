@@ -82,7 +82,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Gregor Raýman
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
- * @version $Id: MethodUtils.java,v 1.4 2002/11/18 23:00:26 rdonkin Exp $
+ * @version $Id: MethodUtils.java,v 1.5 2002/11/20 21:45:47 rdonkin Exp $
  */
 public class MethodUtils {
     
@@ -570,7 +570,7 @@ public class MethodUtils {
                             log("Param=" + parameterTypes[n].getName());
                             log("Method=" + methodsParams[n].getName());
                         }
-                        if (!isAssignmentCompatible(methodsParams[n], parameterTypes[n])) {
+                        if (!ReflectionUtils.isCompatable(parameterTypes[n], methodsParams[n])) {
                             if (debug) {
                                 log(methodsParams[n] + " is not assignable from " 
                                             + parameterTypes[n]);
@@ -613,56 +613,7 @@ public class MethodUtils {
         // didn't find a match
         log("No match found.");
         return null;                                        
-    }
-
-
-    /**
-     * <p>Determine whether a type can be used as a parameter in a method invocation.
-     * This method handles primitive conversions correctly.</p>
-     *
-     * <p>In order words, it will match a <code>Boolean</code> to a <code>boolean</code>,
-     * a <code>Long</code> to a <code>long</code>,
-     * a <code>Float</code> to a <code>float</code>,
-     * a <code>Integer</code> to a <code>int</code>,
-     * and a <code>Double</code> to a <code>double</code>.
-     * Now logic widening matches are allowed.
-     * For example, a <code>Long</code> will not match a <code>int</code>.
-     *
-     * @param parameterType the type of parameter accepted by the method
-     * @param parameterization the type of parameter being tested 
-     *
-     * @return true if the assignement is compatible.
-     */
-    private static final boolean isAssignmentCompatible(Class parameterType, Class parameterization) {
-        // try plain assignment
-        if (parameterType.isAssignableFrom(parameterization)) {
-            return true;
-        }
-        
-        if (parameterType.isPrimitive()) {
-            // does anyone know a better strategy than comparing names?
-            // also, this method does *not* do widening - you must specify exactly
-            // is this the right behaviour?
-            if (boolean.class.equals(parameterType)) {
-                return Boolean.class.equals(parameterization);
-            }         
-            if (float.class.equals(parameterType)) {
-                return Float.class.equals(parameterization);
-            }     
-            if (long.class.equals(parameterType)) {
-                return Long.class.equals(parameterization);
-            }     
-            if (int.class.equals(parameterType)) {
-                return Integer.class.equals(parameterization);
-            }                
-            if (double.class.equals(parameterType)) {
-                return Double.class.equals(parameterization);
-            }               
-        }
-        
-        return false;
-    }
-    
+    }    
     
     private static void log(Object o) {
         if (debug) {

@@ -202,4 +202,87 @@ public class ReflectionUtilsTestCase extends TestCase {
         assertEquals("Static scope (method) [isPublicScope]", true, ReflectionUtils.isPublicScope(method));
         assertEquals("Static scope (method) [isStatic]", true, ReflectionUtils.isStatic(method));
     }
+    
+    public void testWidening() throws Exception
+    {
+        // test byte conversions
+        assertEquals("byte -> char", ReflectionUtils.isCompatable(Byte.class, char.class), false);
+        assertEquals("byte -> byte", ReflectionUtils.isCompatable(Byte.class, byte.class), true);
+        assertEquals("byte -> short", ReflectionUtils.isCompatable(Byte.class, short.class), true);
+        assertEquals("byte -> int", ReflectionUtils.isCompatable(Byte.class, int.class), true);
+        assertEquals("byte -> long", ReflectionUtils.isCompatable(Byte.class, long.class), true);
+        assertEquals("byte -> float", ReflectionUtils.isCompatable(Byte.class, float.class), true);
+        assertEquals("byte -> double", ReflectionUtils.isCompatable(Byte.class, double.class), true);
+        assertEquals("byte -> boolean", ReflectionUtils.isCompatable(Byte.class, boolean.class), false);
+        
+        // test short conversions
+        assertEquals("short -> char", ReflectionUtils.isCompatable(Short.class, char.class), false);
+        assertEquals("short -> byte", ReflectionUtils.isCompatable(Short.class, byte.class), false);
+        assertEquals("short -> short", ReflectionUtils.isCompatable(Short.class, short.class), true);
+        assertEquals("short -> int", ReflectionUtils.isCompatable(Short.class, int.class), true);
+        assertEquals("short -> long", ReflectionUtils.isCompatable(Short.class, long.class), true);
+        assertEquals("short -> float", ReflectionUtils.isCompatable(Short.class, float.class), true);
+        assertEquals("short -> double", ReflectionUtils.isCompatable(Short.class, double.class), true);
+        assertEquals("short -> boolean", ReflectionUtils.isCompatable(Short.class, boolean.class), false);
+        
+        // test char conversions
+        assertEquals("char -> char", ReflectionUtils.isCompatable(Character.class, char.class), true);
+        assertEquals("char -> byte", ReflectionUtils.isCompatable(Character.class, byte.class), false);
+        assertEquals("char -> short", ReflectionUtils.isCompatable(Character.class, short.class), false);
+        assertEquals("char -> int", ReflectionUtils.isCompatable(Character.class, int.class), true);
+        assertEquals("char -> long", ReflectionUtils.isCompatable(Character.class, long.class), true);
+        assertEquals("char -> float", ReflectionUtils.isCompatable(Character.class, float.class), true);
+        assertEquals("char -> double", ReflectionUtils.isCompatable(Character.class, double.class), true);
+        assertEquals("char -> boolean", ReflectionUtils.isCompatable(Character.class, boolean.class), false);
+        
+        // test int conversions
+        assertEquals("int -> char", ReflectionUtils.isCompatable(Integer.class, char.class), false);
+        assertEquals("int -> byte", ReflectionUtils.isCompatable(Integer.class, byte.class), false);
+        assertEquals("int -> short", ReflectionUtils.isCompatable(Integer.class, short.class), false);
+        assertEquals("int -> int", ReflectionUtils.isCompatable(Integer.class, int.class), true);
+        assertEquals("int -> long", ReflectionUtils.isCompatable(Integer.class, long.class), true);
+        assertEquals("int -> float", ReflectionUtils.isCompatable(Integer.class, float.class), true);
+        assertEquals("int -> double", ReflectionUtils.isCompatable(Integer.class, double.class), true);
+        assertEquals("int -> boolean", ReflectionUtils.isCompatable(Integer.class, boolean.class), false);
+ 
+        // test long conversions
+        assertEquals("long -> char", ReflectionUtils.isCompatable(Long.class, char.class), false);
+        assertEquals("long -> byte", ReflectionUtils.isCompatable(Long.class, byte.class), false);
+        assertEquals("long -> short", ReflectionUtils.isCompatable(Long.class, short.class), false);
+        assertEquals("long -> int", ReflectionUtils.isCompatable(Long.class, int.class), false);
+        assertEquals("long -> long", ReflectionUtils.isCompatable(Long.class, long.class), true);
+        assertEquals("long -> float", ReflectionUtils.isCompatable(Long.class, float.class), true);
+        assertEquals("long -> double", ReflectionUtils.isCompatable(Long.class, double.class), true);
+        assertEquals("long -> boolean", ReflectionUtils.isCompatable(Long.class, boolean.class), false);
+ 
+        // test float conversions
+        assertEquals("float -> char", ReflectionUtils.isCompatable(Float.class, char.class), false);
+        assertEquals("float -> byte", ReflectionUtils.isCompatable(Float.class, byte.class), false);
+        assertEquals("float -> short", ReflectionUtils.isCompatable(Float.class, short.class), false);
+        assertEquals("float -> int", ReflectionUtils.isCompatable(Float.class, int.class), false);
+        assertEquals("float -> long", ReflectionUtils.isCompatable(Float.class, long.class), false);
+        assertEquals("float -> float", ReflectionUtils.isCompatable(Float.class, float.class), true);
+        assertEquals("float -> double", ReflectionUtils.isCompatable(Float.class, double.class), true);
+        assertEquals("float -> boolean", ReflectionUtils.isCompatable(Float.class, boolean.class), false);
+        
+        // test float conversions
+        assertEquals("double -> char", ReflectionUtils.isCompatable(Double.class, char.class), false);
+        assertEquals("double -> byte", ReflectionUtils.isCompatable(Double.class, byte.class), false);
+        assertEquals("double -> short", ReflectionUtils.isCompatable(Double.class, short.class), false);
+        assertEquals("double -> int", ReflectionUtils.isCompatable(Double.class, int.class), false);
+        assertEquals("double -> long", ReflectionUtils.isCompatable(Double.class, long.class), false);
+        assertEquals("double -> float", ReflectionUtils.isCompatable(Double.class, float.class), false);
+        assertEquals("double -> double", ReflectionUtils.isCompatable(Double.class, double.class), true);
+        assertEquals("double -> boolean", ReflectionUtils.isCompatable(Double.class, boolean.class), false);
+        
+        // test float conversions
+        assertEquals("boolean -> char", ReflectionUtils.isCompatable(Boolean.class, char.class), false);
+        assertEquals("boolean -> byte", ReflectionUtils.isCompatable(Boolean.class, byte.class), false);
+        assertEquals("boolean -> short", ReflectionUtils.isCompatable(Boolean.class, short.class), false);
+        assertEquals("boolean -> int", ReflectionUtils.isCompatable(Boolean.class, int.class), false);
+        assertEquals("boolean -> long", ReflectionUtils.isCompatable(Boolean.class, long.class), false);
+        assertEquals("boolean -> float", ReflectionUtils.isCompatable(Boolean.class, float.class), false);
+        assertEquals("boolean -> double", ReflectionUtils.isCompatable(Boolean.class, double.class), false);
+        assertEquals("boolean -> boolean", ReflectionUtils.isCompatable(Boolean.class, boolean.class), true);
+    }
 }
