@@ -14,11 +14,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
-<!DOCTYPE project [
-<!ENTITY commons-nav SYSTEM "../../commons-build/incl_nav.xml">
-]>
-
+<!DOCTYPE org.apache.commons.menus SYSTEM '../../commons-build/menus/menus.dtd'>
 <project name="Lang">
 
   <title>Lang</title>
@@ -44,7 +40,7 @@ limitations under the License.
       <item name="Javadoc (CVS latest)" href="apidocs/index.html"/>
     </menu>
     
-    &commons-nav;
+    &common-menus;
 
   </body>
 </project>
