@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author Stephen Colebourne
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.23 2003/08/19 02:32:16 bayard Exp $
+ * @version $Id: LangTestSuite.java,v 1.24 2004/01/31 13:00:07 scolebourne Exp $
  */
 public class LangTestSuite extends TestCase {
     
@@ -94,6 +94,7 @@ public class LangTestSuite extends TestCase {
         suite.addTest(CharRangeTest.suite());
         suite.addTest(CharSetTest.suite());
         suite.addTest(CharSetUtilsTest.suite());
+        suite.addTest(CharUtilsTest.suite());
         suite.addTest(ClassUtilsTest.suite());
         suite.addTest(EntitiesTest.suite());
         suite.addTest(IllegalClassExceptionTest.suite());
