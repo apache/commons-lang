@@ -196,13 +196,12 @@ import org.apache.commons.lang.StringUtils;
  * }
  * </pre>
  *
- * <p><em>NOTE:</em> This class originated in the Jakarta Avalon project.</p>
- *
+ * @author Apache Avalon project
  * @author Stephen Colebourne
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.11 2003/07/14 22:20:20 bayard Exp $
+ * @version $Id: Enum.java,v 1.12 2003/07/14 22:58:31 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
     // After discussion, the default size for HashMaps is used, as the
