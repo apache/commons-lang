@@ -99,7 +99,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.63 2003/07/18 23:57:43 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.64 2003/07/19 00:22:50 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1954,6 +1954,7 @@ public class StringUtils {
      * StringUtils.rightPad("bat", -1, "yz") = "bat"
      * StringUtils.rightPad("bat", 1, null)  = IllegalArgumentException
      * StringUtils.rightPad("bat", 1, "")    = IllegalArgumentException
+     * StringUtils.rightPad(null, 1, "")     = IllegalArgumentException
      * </pre>
      *
      * @param str  the String to pad out, may be null
@@ -1964,12 +1965,12 @@ public class StringUtils {
      * @throws IllegalArgumentException if padStr is the empty String or null
      */
     public static String rightPad(String str, int size, String padStr) {
-        if (str == null) {
-            return null;
-        }
         int padLen;
         if (padStr == null || (padLen = padStr.length()) == 0) {
             throw new IllegalArgumentException("Pad String must not be null or empty");
+        }
+        if (str == null) {
+            return null;
         }
         int strLen = str.length();
         int pads = size - strLen;
@@ -2073,6 +2074,7 @@ public class StringUtils {
      * StringUtils.leftPad("bat", -1, "yz") = "bat"
      * StringUtils.leftPad("bat", 1, null)  = IllegalArgumentException
      * StringUtils.leftPad("bat", 1, "")    = IllegalArgumentException
+     * StringUtils.leftPad(null, 1, "")     = IllegalArgumentException
      * </pre>
      *
      * @param str  the String to pad out, may be null
@@ -2083,12 +2085,12 @@ public class StringUtils {
      * @throws IllegalArgumentException if padStr is the empty String or null
      */
     public static String leftPad(String str, int size, String padStr) {
-        if (str == null) {
-            return null;
-        }
         int padLen;
         if (padStr == null || (padLen = padStr.length()) == 0) {
             throw new IllegalArgumentException("Pad String must not be null or empty");
+        }
+        if (str == null) {
+            return null;
         }
         int strLen = str.length();
         int pads = size - strLen;
@@ -2129,6 +2131,7 @@ public class StringUtils {
      * <pre>
      * StringUtils.center(null, -1)  = null
      * StringUtils.center(null, 4)   = null
+     * StringUtils.center("ab", -1)  = "ab"
      * StringUtils.center("", 4)     = "    "
      * StringUtils.center("ab", 4)   = " ab "
      * StringUtils.center("abcd", 2) = "abcd"
@@ -2140,18 +2143,15 @@ public class StringUtils {
      * @return centered String, <code>null</code> if null String input
      */
     public static String center(String str, int size) {
-        if (str == null) {
-            return null;
-        }
-        if (size < 0) {
-            size = 0;
-        }
-        int sz = str.length();
-        int p = size - sz;
-        if (p < 1) {
+        if (str == null || size <= 0) {
             return str;
         }
-        str = leftPad(str, sz + p / 2, ' ');
+        int strLen = str.length();
+        int pads = size - strLen;
+        if (pads <= 0) {
+            return str;
+        }
+        str = leftPad(str, strLen + pads / 2, ' ');
         str = rightPad(str, size, ' ');
         return str;
     }
@@ -2167,6 +2167,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.center(null, -1, " ")  = null
+     * StringUtils.center("ab", -1, " ")  = "ab"
      * StringUtils.center(null, 4, " ")   = null
      * StringUtils.center("", 4, " ")     = "    "
      * StringUtils.center("ab", 4, " ")   = " ab"
@@ -2175,6 +2176,7 @@ public class StringUtils {
      * StringUtils.center("a", 4, "yz")    = "yayz"
      * StringUtils.center("abc", 4, null) = IllegalArgumentException
      * StringUtils.center("abc", 4, "")   = IllegalArgumentException
+     * StringUtils.center(null, 4, "")    = IllegalArgumentException
      * </pre>
      * 
      * @param str  the String to center, may be null
@@ -2184,21 +2186,18 @@ public class StringUtils {
      * @throws IllegalArgumentException if padStr is <code>null</code> or empty
      */
     public static String center(String str, int size, String padStr) {
-        if (str == null) {
-            return null;
-        }
         if (padStr == null || padStr.length() == 0) {
             throw new IllegalArgumentException("Pad String must not be null or empty");
         }
-        if (size < 0) {
-            size = 0;
-        }
-        int sz = str.length();
-        int p = size - sz;
-        if (p < 1) {
+        if (str == null || size <= 0) {
             return str;
         }
-        str = leftPad(str, sz + p / 2, padStr);
+        int strLen = str.length();
+        int pads = size - strLen;
+        if (pads <= 0) {
+            return str;
+        }
+        str = leftPad(str, strLen + pads / 2, padStr);
         str = rightPad(str, size, padStr);
         return str;
     }
@@ -2283,21 +2282,17 @@ public class StringUtils {
      * @return the stripped String, <code>null</code> if null String input
      */
     public static String stripStart(String str, String stripChars) {
-        if (str == null) {
-            return null;
-        }
-        int sz = str.length();
-        if (sz == 0) {
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
             return str;
         }
- 
         int start = 0;
         if (stripChars == null) {
-            while ((start != sz) && Character.isWhitespace(str.charAt(start))) {
+            while ((start != strLen) && Character.isWhitespace(str.charAt(start))) {
                 start++;
             }
         } else {
-            while ((start != sz) && (stripChars.indexOf(str.charAt(start)) != -1)) {
+            while ((start != strLen) && (stripChars.indexOf(str.charAt(start)) != -1)) {
                 start++;
             }
         }
@@ -2327,11 +2322,8 @@ public class StringUtils {
      * @return the stripped String, <code>null</code> if null String input
      */
     public static String stripEnd(String str, String stripChars) {
-        if (str == null) {
-            return null;
-        }
-        int end = str.length();
-        if (end == 0) {
+        int end;
+        if (str == null || (end = str.length()) == 0) {
             return str;
         }
  
@@ -2396,12 +2388,12 @@ public class StringUtils {
      * @return the stripped Strings, <code>null</code> if null array input
      */
     public static String[] stripAll(String[] strs, String stripChars) {
-        if ((strs == null) || (strs.length == 0)) {
+        int strsLen;
+        if (strs == null || (strsLen = strs.length) == 0) {
             return strs;
         }
-        int sz = strs.length;
-        String[] newArr = new String[sz];
-        for (int i = 0; i < sz; i++) {
+        String[] newArr = new String[strsLen];
+        for (int i = 0; i < strsLen; i++) {
             newArr[i] = strip(strs[i], stripChars);
         }
         return newArr;
@@ -2466,13 +2458,11 @@ public class StringUtils {
      * @return the capitalised String, <code>null</code> if null String input
      */
     public static String capitalise(String str) {
-        if (str == null) {
-            return null;
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
         }
-        if (str.length() == 0) {
-            return "";
-        }
-        return new StringBuffer(str.length())
+        return new StringBuffer(strLen)
             .append(Character.toTitleCase(str.charAt(0)))
             .append(str.substring(1))
             .toString();
@@ -2494,13 +2484,11 @@ public class StringUtils {
      * @return the uncapitalised String, <code>null</code> if null String input
      */
     public static String uncapitalise(String str) {
-        if (str == null) {
-            return null;
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
         }
-        if (str.length() == 0) {
-            return "";
-        }
-        return new StringBuffer(str.length())
+        return new StringBuffer(strLen)
             .append(Character.toLowerCase(str.charAt(0)))
             .append(str.substring(1))
             .toString();
@@ -2528,17 +2516,17 @@ public class StringUtils {
      * @return the changed String, <code>null</code> if null String input
      */
     public static String swapCase(String str) {
-        if (str == null) {
-            return null;
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
         }
-        int sz = str.length();
-        StringBuffer buffer = new StringBuffer(sz);
+        StringBuffer buffer = new StringBuffer(strLen);
 
         boolean whitespace = true;
         char ch = 0;
         char tmp = 0;
 
-        for (int i = 0; i < sz; i++) {
+        for (int i = 0; i < strLen; i++) {
             ch = str.charAt(i);
             if (Character.isUpperCase(ch)) {
                 tmp = Character.toLowerCase(ch);
@@ -2568,6 +2556,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.capitaliseAllWords(null)        = null
+     * StringUtils.capitaliseAllWords("")          = ""
      * StringUtils.capitaliseAllWords("i am FINE") = "I Am FINE"
      * </pre>
      * 
@@ -2575,14 +2564,15 @@ public class StringUtils {
      * @return capitalised String, <code>null</code> if null String input
      */
     public static String capitaliseAllWords(String str) {
-        if (str == null) {
-            return null;
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
         }
-        int sz = str.length();
-        StringBuffer buffer = new StringBuffer(sz);
+        StringBuffer buffer = new StringBuffer(strLen);
         boolean whitespace = true;
-        for (int i = 0; i < sz; i++) {
-            char ch = str.charAt(i);
+        char[] strChars = str.toCharArray();
+        for (int i = 0; i < strLen; i++) {
+            char ch = strChars[i];
             if (Character.isWhitespace(ch)) {
                 buffer.append(ch);
                 whitespace = true;
@@ -2605,6 +2595,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.uncapitaliseAllWords(null)        = null
+     * StringUtils.uncapitaliseAllWords("")          = ""
      * StringUtils.uncapitaliseAllWords("I Am FINE") = "i am fINE"
      * </pre>
      * 
@@ -2612,20 +2603,21 @@ public class StringUtils {
      * @return uncapitalised String, <code>null</code> if null String input
      */
     public static String uncapitaliseAllWords(String str) {
-        if (str == null) {
-            return null;
+        int strLen;
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
         }
-        int sz = str.length();
-        StringBuffer buffer = new StringBuffer(sz);
-        boolean space = true;
-        for (int i = 0; i < sz; i++) {
-            char ch = str.charAt(i);
+        StringBuffer buffer = new StringBuffer(strLen);
+        boolean whitespace = true;
+        char[] strChars = str.toCharArray();
+        for (int i = 0; i < strLen; i++) {
+            char ch = strChars[i];
             if (Character.isWhitespace(ch)) {
                 buffer.append(ch);
-                space = true;
-            } else if (space) {
+                whitespace = true;
+            } else if (whitespace) {
                 buffer.append(Character.toLowerCase(ch));
-                space = false;
+                whitespace = false;
             } else {
                 buffer.append(ch);
             }
