@@ -101,6 +101,11 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase
         assertTrue(ExceptionUtils.getRootCause(withCause) == withoutCause);
     }
 
+    public void testGetThrowableCount()
+    {
+        assertEquals(ExceptionUtils.getThrowableCount(null), 0);
+    }
+
     private static class ExceptionWithCause extends Exception
     {
         private Throwable cause;
