@@ -291,15 +291,10 @@ public class ExceptionUtils
     {
         // Count the number of throwables
         int count = 0;
-        if (t != null)
+        while (t != null)
         {
             count++;
             t = ExceptionUtils.getCause(t);
-            while (t != null)
-            {
-                count++;
-                t = ExceptionUtils.getCause(t);
-            }
         }
         return count;
     }
