@@ -74,7 +74,7 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.43 2003/08/01 23:01:52 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.44 2003/08/01 23:20:06 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -703,14 +703,8 @@ public class StringUtilsTest extends TestCase {
         assertEquals("abc-+", StringUtils.rightPad("abc", 5, "-+~"));
         assertEquals("abc", StringUtils.rightPad("abc", 2, " "));
         assertEquals("abc", StringUtils.rightPad("abc", -1, " "));
-        try {
-            StringUtils.rightPad("abc56", 6, null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            StringUtils.rightPad("abc56", 6, "");
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        assertEquals("abc  ", StringUtils.rightPad("abc", 5, null));
+        assertEquals("abc  ", StringUtils.rightPad("abc", 5, ""));
     }
         
     //-----------------------------------------------------------------------
@@ -741,14 +735,8 @@ public class StringUtilsTest extends TestCase {
         assertEquals("-+abc", StringUtils.leftPad("abc", 5, "-+~"));
         assertEquals("abc", StringUtils.leftPad("abc", 2, " "));
         assertEquals("abc", StringUtils.leftPad("abc", -1, " "));
-        try {
-            StringUtils.leftPad("abc56", 6, null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            StringUtils.leftPad("abc56", 6, "");
-            fail();
-        } catch (IllegalArgumentException ex) {}
+        assertEquals("  abc", StringUtils.leftPad("abc", 5, null));
+        assertEquals("  abc", StringUtils.leftPad("abc", 5, ""));
     }
 
     //-----------------------------------------------------------------------
@@ -795,16 +783,8 @@ public class StringUtilsTest extends TestCase {
         assertEquals(" a  ", StringUtils.center("a", 4, " "));
         assertEquals("yayz", StringUtils.center("a", 4, "yz"));
         assertEquals("yzyayzy", StringUtils.center("a", 7, "yz"));
-        try {
-            StringUtils.center("abc", 4, null);
-            fail();
-        } catch (IllegalArgumentException ex) {
-        }
-        try {
-            StringUtils.center("abc", 4, "");
-            fail();
-        } catch (IllegalArgumentException ex) {
-        }
+        assertEquals("  abc  ", StringUtils.center("abc", 7, null));
+        assertEquals("  abc  ", StringUtils.center("abc", 7, ""));
     }
 
     //-----------------------------------------------------------------------

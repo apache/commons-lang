@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.88 2003/08/01 23:11:55 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.89 2003/08/01 23:20:06 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3022,26 +3022,24 @@ public class StringUtils {
      * StringUtils.rightPad("bat", 8, "yz")  = "batyzyzy"
      * StringUtils.rightPad("bat", 1, "yz")  = "bat"
      * StringUtils.rightPad("bat", -1, "yz") = "bat"
-     * StringUtils.rightPad("bat", 1, null)  = IllegalArgumentException
-     * StringUtils.rightPad("bat", 1, "")    = IllegalArgumentException
-     * StringUtils.rightPad(null, 1, "")     = null
+     * StringUtils.rightPad("bat", 5, null)  = "bat  "
+     * StringUtils.rightPad("bat", 5, "")    = "bat  "
      * </pre>
      *
      * @param str  the String to pad out, may be null
      * @param size  the size to pad to
-     * @param padStr  the String to pad with, must not be null
+     * @param padStr  the String to pad with, null or empty treated as single space
      * @return right padded String or original String if no padding is necessary,
      *  <code>null</code> if null String input
-     * @throws IllegalArgumentException if padStr is the empty String or null
      */
     public static String rightPad(String str, int size, String padStr) {
         if (str == null) {
             return null;
         }
-        int padLen;
-        if (padStr == null || (padLen = padStr.length()) == 0) {
-            throw new IllegalArgumentException("Pad String must not be null or empty");
+        if (padStr == null || padStr.length() == 0) {
+            padStr = " ";
         }
+        int padLen = padStr.length();
         int strLen = str.length();
         int pads = size - strLen;
         if (pads <= 0) {
@@ -3135,26 +3133,24 @@ public class StringUtils {
      * StringUtils.leftPad("bat", 8, "yz")  = "yzyzybat"
      * StringUtils.leftPad("bat", 1, "yz")  = "bat"
      * StringUtils.leftPad("bat", -1, "yz") = "bat"
-     * StringUtils.leftPad("bat", 1, null)  = IllegalArgumentException
-     * StringUtils.leftPad("bat", 1, "")    = IllegalArgumentException
-     * StringUtils.leftPad(null, 1, "")     = null
+     * StringUtils.leftPad("bat", 5, null)  = "  bat"
+     * StringUtils.leftPad("bat", 5, "")    = "  bat"
      * </pre>
      *
      * @param str  the String to pad out, may be null
      * @param size  the size to pad to
-     * @param padStr  the String to pad with, must not be null
+     * @param padStr  the String to pad with, null or empty treated as single space
      * @return left padded String or original String if no padding is necessary,
      *  <code>null</code> if null String input
-     * @throws IllegalArgumentException if padStr is the empty String or null
      */
     public static String leftPad(String str, int size, String padStr) {
         if (str == null) {
             return null;
         }
-        int padLen;
-        if (padStr == null || (padLen = padStr.length()) == 0) {
-            throw new IllegalArgumentException("Pad String must not be null or empty");
+        if (padStr == null || padStr.length() == 0) {
+            padStr = " ";
         }
+        int padLen = padStr.length();
         int strLen = str.length();
         int pads = size - strLen;
         if (pads <= 0) {
@@ -3260,9 +3256,8 @@ public class StringUtils {
      * StringUtils.center("abcd", 2, " ") = "abcd"
      * StringUtils.center("a", 4, " ")    = " a  "
      * StringUtils.center("a", 4, "yz")   = "yayz"
-     * StringUtils.center("abc", 4, null) = IllegalArgumentException
-     * StringUtils.center("abc", 4, "")   = IllegalArgumentException
-     * StringUtils.center(null, 4, "")    = null
+     * StringUtils.center("abc", 7, null) = "  abc  "
+     * StringUtils.center("abc", 7, "")   = "  abc  "
      * </pre>
      * 
      * @param str  the String to center, may be null
@@ -3276,7 +3271,7 @@ public class StringUtils {
             return str;
         }
         if (padStr == null || padStr.length() == 0) {
-            throw new IllegalArgumentException("Pad String must not be null or empty");
+            padStr = " ";
         }
         int strLen = str.length();
         int pads = size - strLen;
