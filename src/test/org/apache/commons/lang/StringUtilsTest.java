@@ -74,7 +74,7 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.47 2003/08/14 00:04:20 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.48 2003/08/14 01:15:51 ggregory Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -119,11 +119,11 @@ public class StringUtilsTest extends TestCase {
     private static final String TEXT_LIST_CHAR = "foo;bar;baz";
     private static final String TEXT_LIST_NOSEP = "foobarbaz";
 
-    private static final String FOO = "foo";
-    private static final String BAR = "bar";
-    private static final String CAP_FOO = "Foo";
+    private static final String FOO_UNCAP = "foo";
+    private static final String FOO_CAP = "Foo";
 
-    private static final String SENTENCE = "foo bar baz";
+    private static final String SENTENCE_UNCAP = "foo bar baz";
+    private static final String SENTENCE_CAP = "Foo Bar Baz";
 
     public StringUtilsTest(String name) {
         super(name);
@@ -168,25 +168,45 @@ public class StringUtilsTest extends TestCase {
         assertEquals(null, StringUtils.uncapitalizeAllWords(null));
 
         assertEquals("capitalize(String) failed",
-                     CAP_FOO, StringUtils.capitalize(FOO) );
+                     FOO_CAP, StringUtils.capitalize(FOO_UNCAP) );
         assertEquals("capitalize(empty-string) failed",
                      "", StringUtils.capitalize("") );
         assertEquals("capitalize(single-char-string) failed",
                      "X", StringUtils.capitalize("x") );
         assertEquals("capitalizeAllWords(String) failed",
-                     "Foo Bar Baz", StringUtils.capitalizeAllWords(SENTENCE) );
+                     "Foo Bar Baz", StringUtils.capitalizeAllWords(SENTENCE_UNCAP) );
         assertEquals("capitalizeAllWords(empty-string) failed",
                      "", StringUtils.capitalizeAllWords("") );
         assertEquals("uncapitalize(String) failed",
-                     FOO, StringUtils.uncapitalize(CAP_FOO) );
+                     FOO_UNCAP, StringUtils.uncapitalize(FOO_CAP) );
         assertEquals("uncapitalize(empty-string) failed",
                      "", StringUtils.uncapitalize("") );
         assertEquals("uncapitalize(single-char-string) failed",
                      "x", StringUtils.uncapitalize("X") );
         assertEquals("uncapitalizeAllWords(String) failed",
-                     SENTENCE, StringUtils.uncapitalizeAllWords("Foo Bar Baz") );
+                     SENTENCE_UNCAP, StringUtils.uncapitalizeAllWords("Foo Bar Baz") );
         assertEquals("uncapitalizeAllWords(empty-string) failed",
                      "", StringUtils.uncapitalizeAllWords("") );
+                     
+        // reflection type of tests: Sentences.
+        assertEquals("uncapitalizeAllWords(capitalizeAllWords(String)) failed",
+                     SENTENCE_UNCAP, StringUtils.uncapitalizeAllWords(StringUtils.capitalizeAllWords(SENTENCE_UNCAP)) );
+        assertEquals("capitalizeAllWords(uncapitalizeAllWords(String)) failed",
+                     SENTENCE_CAP, StringUtils.capitalizeAllWords(StringUtils.uncapitalizeAllWords(SENTENCE_CAP)) );
+        assertEquals("uncapitalize(capitalize(String)) failed",
+                     SENTENCE_UNCAP, StringUtils.uncapitalize(StringUtils.capitalize(SENTENCE_UNCAP)) );
+        assertEquals("capitalize(uncapitalize(String)) failed",
+                     SENTENCE_CAP, StringUtils.capitalize(StringUtils.uncapitalize(SENTENCE_CAP)) );
+
+        // reflection type of tests: One word.
+        assertEquals("uncapitalizeAllWords(capitalizeAllWords(String)) failed",
+                     FOO_UNCAP, StringUtils.uncapitalizeAllWords(StringUtils.capitalizeAllWords(FOO_UNCAP)) );
+        assertEquals("capitalizeAllWords(uncapitalizeAllWords(String)) failed",
+                     FOO_CAP, StringUtils.capitalizeAllWords(StringUtils.uncapitalizeAllWords(FOO_CAP)) );
+        assertEquals("uncapitalize(capitalize(String)) failed",
+                    FOO_UNCAP, StringUtils.uncapitalize(StringUtils.capitalize(FOO_UNCAP)) );
+        assertEquals("capitalize(uncapitalize(String)) failed",
+                    FOO_CAP, StringUtils.capitalize(StringUtils.uncapitalize(FOO_CAP)) );
 
         assertEquals("upperCase(String) failed",
                      "FOO TEST THING", StringUtils.upperCase("fOo test THING") );
@@ -492,7 +512,7 @@ public class StringUtilsTest extends TestCase {
     
     public void testOverlayString_StringStringIntInt() {
         assertEquals("overlayString(String, String, int, int) failed",
-                     "foo foor baz", StringUtils.overlayString(SENTENCE, FOO, 4, 6) );
+                     "foo foor baz", StringUtils.overlayString(SENTENCE_UNCAP, FOO_UNCAP, 4, 6) );
         assertEquals("abef", StringUtils.overlayString("abcdef", "", 2, 4));
         assertEquals("abzzzzef", StringUtils.overlayString("abcdef", "zzzz", 2, 4));
         assertEquals("abcdzzzzcdef", StringUtils.overlayString("abcdef", "zzzz", 4, 2));
@@ -555,28 +575,28 @@ public class StringUtilsTest extends TestCase {
 
     public void testDeprecatedChompFunctions() {
         assertEquals("chompLast(String) failed",
-                     FOO, StringUtils.chompLast(FOO + "\n") );
+                     FOO_UNCAP, StringUtils.chompLast(FOO_UNCAP + "\n") );
 
         assertEquals("getChomp(String, String) failed",
-                     "\n" + FOO, StringUtils.getChomp(FOO + "\n" + FOO, "\n") );
+                     "\n" + FOO_UNCAP, StringUtils.getChomp(FOO_UNCAP + "\n" + FOO_UNCAP, "\n") );
 
         assertEquals("prechomp(String, String) failed",
-                     FOO, StringUtils.prechomp(FOO + "\n" + FOO, "\n") );
+                     FOO_UNCAP, StringUtils.prechomp(FOO_UNCAP + "\n" + FOO_UNCAP, "\n") );
 
         assertEquals("getPrechomp(String, String) failed",
-                     FOO + "\n", StringUtils.getPrechomp(FOO + "\n" + FOO, "\n") );
+                     FOO_UNCAP + "\n", StringUtils.getPrechomp(FOO_UNCAP + "\n" + FOO_UNCAP, "\n") );
 
         assertEquals("chopNewline(String, String) failed",
-                     FOO, StringUtils.chopNewline(FOO + "\r\n") );
+                     FOO_UNCAP, StringUtils.chopNewline(FOO_UNCAP + "\r\n") );
     }
 
     public void testChop() {
 
         String[][] chopCases = {
-            { FOO + "\r\n", FOO } ,
-            { FOO + "\n" , FOO } ,
-            { FOO + "\r", FOO },
-            { FOO + " \r", FOO + " " },
+            { FOO_UNCAP + "\r\n", FOO_UNCAP } ,
+            { FOO_UNCAP + "\n" , FOO_UNCAP } ,
+            { FOO_UNCAP + "\r", FOO_UNCAP },
+            { FOO_UNCAP + " \r", FOO_UNCAP + " " },
             { "foo", "fo"},
             { "foo\nfoo", "foo\nfo" },
             { "\n", "" },
@@ -597,13 +617,13 @@ public class StringUtilsTest extends TestCase {
     public void testChomp() {
 
         String[][] chompCases = {
-            { FOO + "\r\n", FOO },
-            { FOO + "\n" , FOO },
-            { FOO + "\r", FOO },
-            { FOO + " \r", FOO + " " },
-            { FOO, FOO },
-            { FOO + "\n\n", FOO + "\n"},
-            { FOO + "\r\n\r\n", FOO + "\r\n" },
+            { FOO_UNCAP + "\r\n", FOO_UNCAP },
+            { FOO_UNCAP + "\n" , FOO_UNCAP },
+            { FOO_UNCAP + "\r", FOO_UNCAP },
+            { FOO_UNCAP + " \r", FOO_UNCAP + " " },
+            { FOO_UNCAP, FOO_UNCAP },
+            { FOO_UNCAP + "\n\n", FOO_UNCAP + "\n"},
+            { FOO_UNCAP + "\r\n\r\n", FOO_UNCAP + "\r\n" },
             { "foo\nfoo", "foo\nfoo" },
             { "foo\n\rfoo", "foo\n\rfoo" },
             { "\n", "" },
@@ -612,7 +632,7 @@ public class StringUtilsTest extends TestCase {
             { "\r\n", "" },
             { "", "" },
             { null, null },
-            { FOO + "\n\r", FOO + "\n"}
+            { FOO_UNCAP + "\n\r", FOO_UNCAP + "\n"}
         };
         for (int i = 0; i < chompCases.length; i++) {
             String original = chompCases[i][0];
@@ -654,12 +674,12 @@ public class StringUtilsTest extends TestCase {
     public void testChopNewLine() {
 
         String[][] newLineCases = {
-            { FOO + "\r\n", FOO } ,
-            { FOO + "\n" , FOO } ,
-            { FOO + "\r", FOO + "\r" },
-            { FOO, FOO },
-            { FOO + "\n" + FOO , FOO + "\n" + FOO },
-            { FOO + "\n\n", FOO + "\n"},
+            { FOO_UNCAP + "\r\n", FOO_UNCAP } ,
+            { FOO_UNCAP + "\n" , FOO_UNCAP } ,
+            { FOO_UNCAP + "\r", FOO_UNCAP + "\r" },
+            { FOO_UNCAP, FOO_UNCAP },
+            { FOO_UNCAP + "\n" + FOO_UNCAP , FOO_UNCAP + "\n" + FOO_UNCAP },
+            { FOO_UNCAP + "\n\n", FOO_UNCAP + "\n"},
             { "\n", "" },
             { "", "" },
             { "\r\n", "" }
