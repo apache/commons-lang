@@ -24,13 +24,13 @@ package org.apache.commons.lang.time;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DurationFormatUtils.java,v 1.9 2004/02/18 22:56:42 ggregory Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.10 2004/08/02 02:16:21 bayard Exp $
  */
 class DurationFormatUtils {
     // TODO: Make class public once methods can fully select which fields to output
 
     /**
-     * <p>Pattern used with <code>FastDateFormat</code> and <code>SimpleDateFormat </code> for the ISO8601 
+     * <p>Pattern used with <code>FastDateFormat</code> and <code>SimpleDateFormat</code> for the ISO8601 
      * date time extended format used in durations.</p>
      * 
      * @see org.apache.commons.lang.time.FastDateFormat
