@@ -68,7 +68,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.12 2003/07/19 20:21:39 scolebourne Exp $
+ * @version $Id: ObjectUtils.java,v 1.13 2003/07/20 15:41:52 scolebourne Exp $
  */
 public class ObjectUtils {
     
@@ -101,8 +101,7 @@ public class ObjectUtils {
     public ObjectUtils() {
     }
 
-    //--------------------------------------------------------------------
-    
+    //-----------------------------------------------------------------------
     /**
      * <p>Returns a default value if the object passed is
      * <code>null</code>.</p>
@@ -133,6 +132,7 @@ public class ObjectUtils {
         return object1.equals(object2);
     }
     
+    //-----------------------------------------------------------------------
     /**
      * <p>Gets the toString that would be produced by <code>Object</code>
      * if a class did not override toString itself. <code>null</code>
@@ -172,6 +172,47 @@ public class ObjectUtils {
             .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets the <code>toString</code> of an <code>Object</code> returning
+     * an empty string ("") if <code>null</code> input,</p>
+     * 
+     * <pre>
+     * ObjectUtils.toString(null)         = ""
+     * ObjectUtils.toString("")           = ""
+     * ObjectUtils.toString("bat")        = "bat"
+     * ObjectUtils.toString(Boolean.TRUE) = "true"
+     * </pre>
+     * 
+     * @param obj  the Object to <code>toString</code>, may be null
+     * @param nullStr  the String to return if <code>null</code> input, may be null
+     * @return the passed in Object's toString, or nullStr if <code>null</code> input
+     */
+    public static String toString(Object obj) {
+        return (obj == null ? "" : obj.toString());
+    }
+
+    /**
+     * <p>Gets the <code>toString</code> of an <code>Object</code> returning
+     * an empty string ("") if <code>null</code> input,</p>
+     * 
+     * <pre>
+     * ObjectUtils.toString(null, null)           = null
+     * ObjectUtils.toString(null, "null")         = "null"
+     * ObjectUtils.toString("", "null")           = ""
+     * ObjectUtils.toString("bat", "null")        = "bat"
+     * ObjectUtils.toString(Boolean.TRUE, "null") = "true"
+     * </pre>
+     * 
+     * @param obj  the Object to <code>toString</code>, may be null
+     * @param nullStr  the String to return if <code>null</code> input, may be null
+     * @return the passed in Object's toString, or nullStr if <code>null</code> input
+     */
+    public static String toString(Object obj, String nullStr) {
+        return (obj == null ? nullStr : obj.toString());
+    }
+
+    //-----------------------------------------------------------------------
     /**
      * <p>Class used as a null placeholder where <code>null</code>
      * has another meaning.</p>

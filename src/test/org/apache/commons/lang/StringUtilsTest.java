@@ -72,7 +72,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.33 2003/07/20 14:47:29 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.34 2003/07/20 15:41:52 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -734,16 +734,6 @@ public class StringUtilsTest extends TestCase {
         assertEquals("abc", StringUtils.defaultString("abc", "xyz") );
     }
     
-    public void testDefault_Object() {
-        assertEquals("", StringUtils.defaultString((Object) null) );
-        assertEquals(Boolean.TRUE.toString(), StringUtils.defaultString(Boolean.TRUE) );
-    }
-            
-    public void testDefault_ObjectString() {
-        assertEquals(BAR, StringUtils.defaultString((Object) null, BAR) );
-        assertEquals(Boolean.TRUE.toString(), StringUtils.defaultString(Boolean.TRUE, BAR) );
-    }
-
     //-----------------------------------------------------------------------
     public void testEscapeFunctions_String() {
         assertEquals("", StringUtils.escape("") );

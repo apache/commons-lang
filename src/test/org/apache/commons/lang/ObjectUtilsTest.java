@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: ObjectUtilsTest.java,v 1.5 2003/07/16 01:47:40 ggregory Exp $
+ * @version $Id: ObjectUtilsTest.java,v 1.6 2003/07/20 15:41:52 scolebourne Exp $
  */
 public class ObjectUtilsTest extends TestCase {
     private static final String FOO = "foo";
@@ -130,6 +130,16 @@ public class ObjectUtilsTest extends TestCase {
             "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i)),
             ObjectUtils.appendIdentityToString(new StringBuffer(), i).toString());
         assertEquals(null, ObjectUtils.appendIdentityToString(new StringBuffer(), null));
+    }
+
+    public void testToString_Object() {
+        assertEquals("", ObjectUtils.toString((Object) null) );
+        assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE) );
+    }
+            
+    public void testToString_ObjectString() {
+        assertEquals(BAR, ObjectUtils.toString((Object) null, BAR) );
+        assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE, BAR) );
     }
 
     public void testNull() {

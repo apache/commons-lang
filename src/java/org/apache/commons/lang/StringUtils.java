@@ -142,7 +142,7 @@ import java.util.List;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.73 2003/07/20 15:29:44 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.74 2003/07/20 15:41:52 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3415,26 +3415,6 @@ public class StringUtils {
     }
 
     /**
-     * <p>Returns either the passed in <code>Object</code> as a String,
-     * or, if the <code>Object</code> is <code>null</code>,
-     * an empty String ("").</p>
-     * 
-     * <pre>
-     * StringUtils.defaultString(null)         = "null"
-     * StringUtils.defaultString("")           = ""
-     * StringUtils.defaultString("bat")        = "bat"
-     * StringUtils.defaultString(Boolean.TRUE) = "true"
-     * </pre>
-     * 
-     * @param obj  the Object to check, using <code>toString()</code>, may be null
-     * @return the passed in Object's toString, or the empty String if it
-     *  was <code>null</code>
-     */
-    public static String defaultString(Object obj) {
-        return (obj == null ? "" : obj.toString());
-    }
-
-    /**
      * <p>Returns either the passed in String, 
      * or if the String is <code>null</code>, an empty String ("").</p>
      * 
@@ -3451,27 +3431,6 @@ public class StringUtils {
      */
     public static String defaultString(String str, String defaultStr) {
         return (str == null ? defaultStr : str);
-    }
-
-    /**
-     * <p>Returns either the passed in <code>Object</code> as a String,
-     * or, if the <code>Object</code> is <code>null</code>, a passed
-     * in default String.</p>
-     * 
-     * <pre>
-     * StringUtils.defaultString(null, "null")         = "null"
-     * StringUtils.defaultString("", "null")           = ""
-     * StringUtils.defaultString("bat", "null")        = "bat"
-     * StringUtils.defaultString(Boolean.TRUE, "null") = "true"
-     * </pre>
-     * 
-     * @param obj  the Object to check, using <code>toString()</code>, may be null
-     * @param defaultStr  the default String to return 
-     *  if the input is <code>null</code>, may be null
-     * @return the passed in Object's toString, or the default if it was <code>null</code>
-     */
-    public static String defaultString(Object obj, String defaultStr) {
-        return (obj == null ? defaultStr : obj.toString());
     }
 
     // Reversing
