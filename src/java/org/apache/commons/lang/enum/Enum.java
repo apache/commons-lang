@@ -156,7 +156,7 @@ import java.util.Map;
  * @author Stephen Colebourne
  * @author Chris Webb
  * @since 1.0
- * @version $Id: Enum.java,v 1.6 2002/12/31 22:39:39 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.7 2003/02/04 16:56:08 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
     /**
@@ -421,6 +421,7 @@ public abstract class Enum implements Comparable, Serializable {
         if (pos != -1) {
             shortName = shortName.substring(pos + 1);
         }
+        shortName = shortName.replace('$', '.');
         return shortName + "[" + getName() + "]";
     }
 }
