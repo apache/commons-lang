@@ -72,7 +72,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.31 2003/07/20 00:17:29 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.32 2003/07/20 10:29:21 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -279,7 +279,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals("a", res[0]);
     }
     
-    public void testSplit() {
+    public void testSplit_StringString_StringStringInt() {
         assertEquals(null, StringUtils.split(null, "."));
         assertEquals(null, StringUtils.split(null, ".", 3));
         
@@ -298,47 +298,43 @@ public class StringUtilsTest extends TestCase {
     }
     
     private void innerTestSplit(char separator, String sepStr, char noMatch) {
-        try {
-            final String str = "a" + separator + "b" + separator + separator + noMatch + "c";
-            String[] res;
-            // (str, sepStr)
-            res = StringUtils.split(str, sepStr);
-            assertEquals(3, res.length);
-            assertEquals("a", res[0]);
-            assertEquals("b", res[1]);
-            assertEquals(noMatch + "c", res[2]);
-            
-            final String str2 = separator + "a" + separator;
-            res = StringUtils.split(str2, sepStr);
-            assertEquals(1, res.length);
-            assertEquals("a", res[0]);
+        String msg = "Failed on separator hex(" + Integer.toHexString(separator) +
+            "), noMatch hex(" + Integer.toHexString(noMatch) + "), sepStr(" + sepStr + ")";
+        
+        final String str = "a" + separator + "b" + separator + separator + noMatch + "c";
+        String[] res;
+        // (str, sepStr)
+        res = StringUtils.split(str, sepStr);
+        assertEquals(msg, 3, res.length);
+        assertEquals(msg, "a", res[0]);
+        assertEquals(msg, "b", res[1]);
+        assertEquals(msg, noMatch + "c", res[2]);
+        
+        final String str2 = separator + "a" + separator;
+        res = StringUtils.split(str2, sepStr);
+        assertEquals(msg, 1, res.length);
+        assertEquals(msg, "a", res[0]);
 
-            res = StringUtils.split(str, sepStr, -1);
-            assertEquals(3, res.length);
-            assertEquals("a", res[0]);
-            assertEquals("b", res[1]);
-            assertEquals(noMatch + "c", res[2]);
-            
-            res = StringUtils.split(str, sepStr, 0);
-            assertEquals(3, res.length);
-            assertEquals("a", res[0]);
-            assertEquals("b", res[1]);
-            assertEquals(noMatch + "c", res[2]);
-            
-            res = StringUtils.split(str, sepStr, 1);
-            assertEquals(1, res.length);
-            assertEquals(str, res[0]);
-            
-            res = StringUtils.split(str, sepStr, 2);
-            assertEquals(2, res.length);
-            assertEquals("a", res[0]);
-            assertEquals(str.substring(2), res[1]);
-            
-        } catch (AssertionFailedError ex) {
-            System.out.println("Failed on separator hex(" + Integer.toHexString(separator) +
-                 "), noMatch hex(" + Integer.toHexString(noMatch) + "), sepStr(" + sepStr + ")");
-            throw ex;
-        }
+        res = StringUtils.split(str, sepStr, -1);
+        assertEquals(msg, 3, res.length);
+        assertEquals(msg, "a", res[0]);
+        assertEquals(msg, "b", res[1]);
+        assertEquals(msg, noMatch + "c", res[2]);
+        
+        res = StringUtils.split(str, sepStr, 0);
+        assertEquals(msg, 3, res.length);
+        assertEquals(msg, "a", res[0]);
+        assertEquals(msg, "b", res[1]);
+        assertEquals(msg, noMatch + "c", res[2]);
+        
+        res = StringUtils.split(str, sepStr, 1);
+        assertEquals(msg, 1, res.length);
+        assertEquals(msg, str, res[0]);
+        
+        res = StringUtils.split(str, sepStr, 2);
+        assertEquals(msg, 2, res.length);
+        assertEquals(msg, "a", res[0]);
+        assertEquals(msg, str.substring(2), res[1]);
     }
 
     public void testDeleteSpace_String() {
@@ -433,53 +429,13 @@ public class StringUtilsTest extends TestCase {
         } catch (IndexOutOfBoundsException ex) {}
     }
 
-    public void testRepeat() {
+    public void testRepeat_StringInt() {
         assertEquals(null, StringUtils.repeat(null, 2));
         assertEquals("", StringUtils.repeat("ab", 0));
         assertEquals("", StringUtils.repeat("", 3));
         assertEquals("aaa", StringUtils.repeat("a", 3));
         assertEquals("ababab", StringUtils.repeat("ab", 3));
         assertEquals("abcabcabc", StringUtils.repeat("abc", 3));
-    }
-
-    public void testCenter() {
-        assertEquals(null, StringUtils.center(null, -1));
-        assertEquals(null, StringUtils.center(null, 4));
-        assertEquals("ab", StringUtils.center("ab", 0));
-        assertEquals("ab", StringUtils.center("ab", -1));
-        assertEquals("ab", StringUtils.center("ab", 1));
-        assertEquals("    ", StringUtils.center("", 4));
-        assertEquals(" ab ", StringUtils.center("ab", 4));
-        assertEquals("abcd", StringUtils.center("abcd", 2));
-        assertEquals(" a  ", StringUtils.center("a", 4));
-        assertEquals("  a  ", StringUtils.center("a", 5));
-
-        assertEquals(null, StringUtils.center(null, -1, " "));
-        assertEquals(null, StringUtils.center(null, 4, " "));
-        assertEquals("ab", StringUtils.center("ab", 0, " "));
-        assertEquals("ab", StringUtils.center("ab", -1, " "));
-        assertEquals("ab", StringUtils.center("ab", 1, " "));
-        assertEquals("    ", StringUtils.center("", 4, " "));
-        assertEquals(" ab ", StringUtils.center("ab", 4, " "));
-        assertEquals("abcd", StringUtils.center("abcd", 2, " "));
-        assertEquals(" a  ", StringUtils.center("a", 4, " "));
-        assertEquals("yayz", StringUtils.center("a", 4, "yz"));
-        assertEquals("yzyayzy", StringUtils.center("a", 7, "yz"));
-        try {
-            StringUtils.center(null, 4, null);
-            fail();
-        } catch (IllegalArgumentException ex) {
-        }
-        try {
-            StringUtils.center("abc", 4, null);
-            fail();
-        } catch (IllegalArgumentException ex) {
-        }
-        try {
-            StringUtils.center("abc", 4, "");
-            fail();
-        } catch (IllegalArgumentException ex) {
-        }
     }
 
     public void testDeprecatedChompFunctions() {
@@ -613,147 +569,213 @@ public class StringUtilsTest extends TestCase {
 
     }
 
-    public void testPadFunctions() {
-        assertEquals(null, StringUtils.rightPad (null, 8) );
-        assertEquals("1234    ", StringUtils.rightPad ("1234", 8) );
+    //-----------------------------------------------------------------------
+    public void testRightPad_StringInt() {
+        assertEquals(null, StringUtils.rightPad(null, 5));
+        assertEquals("     ", StringUtils.rightPad("", 5));
+        assertEquals("abc  ", StringUtils.rightPad("abc", 5));
+        assertEquals("abc", StringUtils.rightPad("abc", 2));
+        assertEquals("abc", StringUtils.rightPad("abc", -1));
+    }
+
+    public void testRightPad_StringIntChar() {
+        assertEquals(null, StringUtils.rightPad(null, 5, ' '));
+        assertEquals("     ", StringUtils.rightPad("", 5, ' '));
+        assertEquals("abc  ", StringUtils.rightPad("abc", 5, ' '));
+        assertEquals("abc", StringUtils.rightPad("abc", 2, ' '));
+        assertEquals("abc", StringUtils.rightPad("abc", -1, ' '));
+        assertEquals("abcxx", StringUtils.rightPad("abc", 5, 'x'));
+    }
+
+    public void testRightPad_StringIntString() {
+        assertEquals(null, StringUtils.rightPad(null, 5, "-+"));
+        assertEquals("     ", StringUtils.rightPad("", 5, " "));
+        assertEquals(null, StringUtils.rightPad(null, 8, null));
+        assertEquals("abc-+-+", StringUtils.rightPad("abc", 7, "-+"));
+        assertEquals("abc-+~", StringUtils.rightPad("abc", 6, "-+~"));
+        assertEquals("abc-+", StringUtils.rightPad("abc", 5, "-+~"));
+        assertEquals("abc", StringUtils.rightPad("abc", 2, " "));
+        assertEquals("abc", StringUtils.rightPad("abc", -1, " "));
+        try {
+            StringUtils.rightPad("abc56", 6, null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            StringUtils.rightPad("abc56", 6, "");
+            fail();
+        } catch (IllegalArgumentException ex) {}
+    }
         
-        assertEquals(null, StringUtils.rightPad (null, 8, "-+") );
-        assertEquals("1234-+-+", StringUtils.rightPad ("1234", 8, "-+") );
-        assertEquals("123456-+~", StringUtils.rightPad ("123456", 9, "-+~") );
-        assertEquals("123456-+", StringUtils.rightPad ("123456", 8, "-+~") );
-        try {
-            StringUtils.rightPad(null, 6, null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            StringUtils.rightPad("123456", 6, null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            StringUtils.rightPad("123456", 6, "");
-            fail();
-        } catch (IllegalArgumentException ex) {}
+    //-----------------------------------------------------------------------
+    public void testLeftPad_StringInt() {
+        assertEquals(null, StringUtils.leftPad(null, 5));
+        assertEquals("     ", StringUtils.leftPad("", 5));
+        assertEquals("  abc", StringUtils.leftPad("abc", 5));
+        assertEquals("abc", StringUtils.leftPad("abc", 2));
+    }
         
-        assertEquals(null, StringUtils.leftPad (null, 8) );
-        assertEquals("    1234", StringUtils.leftPad("1234", 8) );
+    public void testLeftPad_StringIntChar() {
+        assertEquals(null, StringUtils.leftPad(null, 5, ' '));
+        assertEquals("     ", StringUtils.leftPad("", 5, ' '));
+        assertEquals("  abc", StringUtils.leftPad("abc", 5, ' '));
+        assertEquals("xxabc", StringUtils.leftPad("abc", 5, 'x'));
+        assertEquals("abc", StringUtils.leftPad("abc", 2, ' '));
+    }
         
-        assertEquals(null, StringUtils.leftPad (null, 8, "-+") );
-        assertEquals("-+-+1234", StringUtils.leftPad("1234", 8, "-+") );
-        assertEquals("-+~123456", StringUtils.leftPad("123456", 9, "-+~") );
-        assertEquals("-+123456", StringUtils.leftPad("123456", 8, "-+~") );
+    public void testLeftPad_StringIntString() {
+        assertEquals(null, StringUtils.leftPad(null, 5, "-+"));
+        assertEquals(null, StringUtils.leftPad(null, 5, null));
+        assertEquals("     ", StringUtils.leftPad("", 5, " "));
+        assertEquals("-+-+abc", StringUtils.leftPad("abc", 7, "-+"));
+        assertEquals("-+~abc", StringUtils.leftPad("abc", 6, "-+~"));
+        assertEquals("-+abc", StringUtils.leftPad("abc", 5, "-+~"));
+        assertEquals("abc", StringUtils.leftPad("abc", 2, " "));
+        assertEquals("abc", StringUtils.leftPad("abc", -1, " "));
         try {
-            StringUtils.leftPad(null, 6, null);
+            StringUtils.leftPad("abc56", 6, null);
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
-            StringUtils.leftPad("123456", 6, null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            StringUtils.leftPad("123456", 6, "");
+            StringUtils.leftPad("abc56", 6, "");
             fail();
         } catch (IllegalArgumentException ex) {}
     }
 
-    public void testReverse() {
+    //-----------------------------------------------------------------------
+    public void testCenter_StringInt() {
+        assertEquals(null, StringUtils.center(null, -1));
+        assertEquals(null, StringUtils.center(null, 4));
+        assertEquals("    ", StringUtils.center("", 4));
+        assertEquals("ab", StringUtils.center("ab", 0));
+        assertEquals("ab", StringUtils.center("ab", -1));
+        assertEquals("ab", StringUtils.center("ab", 1));
+        assertEquals("    ", StringUtils.center("", 4));
+        assertEquals(" ab ", StringUtils.center("ab", 4));
+        assertEquals("abcd", StringUtils.center("abcd", 2));
+        assertEquals(" a  ", StringUtils.center("a", 4));
+        assertEquals("  a  ", StringUtils.center("a", 5));
+    }
+    
+    public void testCenter_StringIntChar() {
+        assertEquals(null, StringUtils.center(null, -1, ' '));
+        assertEquals(null, StringUtils.center(null, 4, ' '));
+        assertEquals("    ", StringUtils.center("", 4, ' '));
+        assertEquals("ab", StringUtils.center("ab", 0, ' '));
+        assertEquals("ab", StringUtils.center("ab", -1, ' '));
+        assertEquals("ab", StringUtils.center("ab", 1, ' '));
+        assertEquals("    ", StringUtils.center("", 4, ' '));
+        assertEquals(" ab ", StringUtils.center("ab", 4, ' '));
+        assertEquals("abcd", StringUtils.center("abcd", 2, ' '));
+        assertEquals(" a  ", StringUtils.center("a", 4, ' '));
+        assertEquals("  a  ", StringUtils.center("a", 5, ' '));
+        assertEquals("xxaxx", StringUtils.center("a", 5, 'x'));
+    }
+    
+    public void testCenter_StringIntString() {
+        assertEquals(null, StringUtils.center(null, 4, null));
+        assertEquals(null, StringUtils.center(null, -1, " "));
+        assertEquals(null, StringUtils.center(null, 4, " "));
+        assertEquals("    ", StringUtils.center("", 4, " "));
+        assertEquals("ab", StringUtils.center("ab", 0, " "));
+        assertEquals("ab", StringUtils.center("ab", -1, " "));
+        assertEquals("ab", StringUtils.center("ab", 1, " "));
+        assertEquals("    ", StringUtils.center("", 4, " "));
+        assertEquals(" ab ", StringUtils.center("ab", 4, " "));
+        assertEquals("abcd", StringUtils.center("abcd", 2, " "));
+        assertEquals(" a  ", StringUtils.center("a", 4, " "));
+        assertEquals("yayz", StringUtils.center("a", 4, "yz"));
+        assertEquals("yzyayzy", StringUtils.center("a", 7, "yz"));
+        try {
+            StringUtils.center("abc", 4, null);
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
+        try {
+            StringUtils.center("abc", 4, "");
+            fail();
+        } catch (IllegalArgumentException ex) {
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testReverse_String() {
         assertEquals(null, StringUtils.reverse(null) );
-        assertEquals("sdrawkcab", StringUtils.reverse("backwards") );
         assertEquals("", StringUtils.reverse("") );
+        assertEquals("sdrawkcab", StringUtils.reverse("backwards") );
     }
         
-    public void testReverseDelimitedString() {
+    public void testReverseDelimitedString_StringChar() {
         assertEquals(null, StringUtils.reverseDelimitedString(null, '.') );
+        assertEquals("", StringUtils.reverseDelimitedString("", '.') );
         assertEquals("c.b.a", StringUtils.reverseDelimitedString("a.b.c", '.') );
         assertEquals("a b c", StringUtils.reverseDelimitedString("a b c", '.') );
         assertEquals("", StringUtils.reverseDelimitedString("", '.') );
-
-        assertEquals(null, StringUtils.reverseDelimitedString(null, null) );
-        assertEquals("a.b.c", StringUtils.reverseDelimitedString("a.b.c", null) );
-        assertEquals("c b a", StringUtils.reverseDelimitedString("a b c", null) );
-        assertEquals("org.apache.test",
-                       StringUtils.reverseDelimitedString("test.apache.org", ".") );
-        assertEquals("reverseDelimitedString(empty-string,'.') failed",
-                     "",
-                       StringUtils.reverseDelimitedString("", ".") );
-        assertEquals("reverseDelimitedString(String,' ') failed",
-                     "once upon a time",
-                       StringUtils.reverseDelimitedString("time a upon once"," ") );
     }
 
-    public void testDefaultFunctions() {
+    public void testReverseDelimitedString_StringString() {
+        assertEquals(null, StringUtils.reverseDelimitedString(null, null) );
+        assertEquals("", StringUtils.reverseDelimitedString("", null) );
+        assertEquals("", StringUtils.reverseDelimitedString("", ".") );
+        assertEquals("a.b.c", StringUtils.reverseDelimitedString("a.b.c", null) );
+        assertEquals("c b a", StringUtils.reverseDelimitedString("a b c", null) );
+        assertEquals("c.b.a", StringUtils.reverseDelimitedString("a.b.c", ".") );
+    }
+
+    //-----------------------------------------------------------------------
+    public void testDefault_String() {
         assertEquals("", StringUtils.defaultString(null) );
         assertEquals("", StringUtils.defaultString("") );
-        assertEquals(FOO, StringUtils.defaultString(FOO) );
-        
-        assertEquals(BAR, StringUtils.defaultString(null, BAR) );
-        assertEquals("", StringUtils.defaultString("", BAR) );
-        assertEquals(FOO, StringUtils.defaultString(FOO, BAR) );
-
-        assertEquals("", StringUtils.defaultString((Object) "") );
-        assertEquals(FOO, StringUtils.defaultString((Object) FOO) );
+        assertEquals("abc", StringUtils.defaultString("abc") );
+    }
+            
+    public void testDefault_StringString() {
+        assertEquals("xyz", StringUtils.defaultString(null, "xyz") );
+        assertEquals("", StringUtils.defaultString("", "xyz") );
+        assertEquals("abc", StringUtils.defaultString("abc", "xyz") );
+    }
+    
+    public void testDefault_Object() {
         assertEquals("", StringUtils.defaultString((Object) null) );
-        
-        assertEquals("", StringUtils.defaultString((Object) "", BAR) );
-        assertEquals(FOO, StringUtils.defaultString((Object) FOO, BAR) );
+        assertEquals(Boolean.TRUE.toString(), StringUtils.defaultString(Boolean.TRUE) );
+    }
+            
+    public void testDefault_ObjectString() {
         assertEquals(BAR, StringUtils.defaultString((Object) null, BAR) );
         assertEquals(Boolean.TRUE.toString(), StringUtils.defaultString(Boolean.TRUE, BAR) );
     }
 
-    public void testEscapeFunctions() {
-        assertEquals("escape(empty-string) failed",
-                     "", StringUtils.escape("") );
-        assertEquals("escape(String) failed",
-                     FOO, StringUtils.escape(FOO) );
-        assertEquals("escape(String) failed",
-                     "\\t", StringUtils.escape("\t") );
-        assertEquals("escape(String) failed",
-                     "\\\\", StringUtils.escape("\\") );
-        assertEquals("escape(String) failed",
-                     "\\\\\\b\\t\\r", StringUtils.escape("\\\b\t\r") );
-        assertEquals("escape(String) failed",
-                     "\\u1234", StringUtils.escape("\u1234") );
-        assertEquals("escape(String) failed",
-                     "\\u0234", StringUtils.escape("\u0234") );
-        assertEquals("escape(String) failed",
-                     "\\u00FD", StringUtils.escape("\u00fd") );
+    //-----------------------------------------------------------------------
+    public void testEscapeFunctions_String() {
+        assertEquals("", StringUtils.escape("") );
+        assertEquals("abc", StringUtils.escape("abc") );
+        assertEquals("\\t", StringUtils.escape("\t") );
+        assertEquals("\\\\", StringUtils.escape("\\") );
+        assertEquals("\\\\\\b\\t\\r", StringUtils.escape("\\\b\t\r") );
+        assertEquals("\\u1234", StringUtils.escape("\u1234") );
+        assertEquals("\\u0234", StringUtils.escape("\u0234") );
+        assertEquals("\\u00FD", StringUtils.escape("\u00fd") );
     }
 
-    public void testGetLevenshteinDistance() {
-        assertEquals("getLevenshteinDistance(empty-string, empty-string) failed",
-                     0, StringUtils.getLevenshteinDistance("", "") );
-        assertEquals("getLevenshteinDistance(empty-string, String) failed",
-                     1, StringUtils.getLevenshteinDistance("", "a") );
-        assertEquals("getLevenshteinDistance(String, empty-string) failed",
-                     7, StringUtils.getLevenshteinDistance("aaapppp", "") );
-        assertEquals("getLevenshteinDistance(String, String) failed",
-                     1, StringUtils.getLevenshteinDistance("frog", "fog") );
-        assertEquals("getLevenshteinDistance(String, String) failed",
-                     3, StringUtils.getLevenshteinDistance("fly", "ant") );
-        assertEquals("getLevenshteinDistance(String, String) failed",
-                     7, StringUtils.getLevenshteinDistance("elephant", "hippo") );
-        assertEquals("getLevenshteinDistance(String, String) failed",
-                     7, StringUtils.getLevenshteinDistance("hippo", "elephant") );
-        assertEquals("getLevenshteinDistance(String, String) failed",
-                     1, StringUtils.getLevenshteinDistance("hello", "hallo") );
-    }
-
-    public void testAbbreviate() {
+    //-----------------------------------------------------------------------
+    public void testAbbreviate_StringInt() {
         assertEquals(null, StringUtils.abbreviate(null, 10));
-        assertEquals("abbreviate(String,int) failed",
-		     "short", StringUtils.abbreviate("short", 10));
-        assertEquals("abbreviate(String,int) failed",
-		     "Now is ...", StringUtils.abbreviate("Now is the time for all good men to come to the aid of their party.", 10));
+        assertEquals("", StringUtils.abbreviate("", 10));
+        assertEquals("short", StringUtils.abbreviate("short", 10));
+        assertEquals("Now is ...", StringUtils.abbreviate("Now is the time for all good men to come to the aid of their party.", 10));
 
         String raspberry = "raspberry peach";
-        assertEquals("abbreviate(String,int) failed (one past limit)",
-		     "raspberry p...", StringUtils.abbreviate(raspberry, 14));
-        assertEquals("abbreviate(String,int) (at limit)",
-		     "raspberry peach", StringUtils.abbreviate("raspberry peach", 15));
-        assertEquals("abbreviate(String,int) (one below limit)",
-		     "raspberry peach", StringUtils.abbreviate("raspberry peach", 16));
+        assertEquals("raspberry p...", StringUtils.abbreviate(raspberry, 14));
+        assertEquals("raspberry peach", StringUtils.abbreviate("raspberry peach", 15));
+        assertEquals("raspberry peach", StringUtils.abbreviate("raspberry peach", 16));
+    }
+    
+    public void testAbbreviate_StringIntInt() {
+        assertEquals(null, StringUtils.abbreviate(null, 10, 12));
+        assertEquals("", StringUtils.abbreviate("", 0, 10));
+        assertEquals("", StringUtils.abbreviate("", 2, 10));
 
-        assertEquals("abbreviate(String,int,int) failed",
-                "raspberry peach", StringUtils.abbreviate(raspberry, 11, 15));
+        String raspberry = "raspberry peach";
+        assertEquals("raspberry peach", StringUtils.abbreviate(raspberry, 11, 15));
 
         assertEquals(null, StringUtils.abbreviate(null, 7, 14));
         assertAbbreviateWithOffset("abcdefg...", -1, 10);
@@ -776,11 +798,9 @@ public class StringUtilsTest extends TestCase {
         assertAbbreviateWithOffset("...ijklmno", 15, 10);
         assertAbbreviateWithOffset("...ijklmno", 16, 10);
         assertAbbreviateWithOffset("...ijklmno", Integer.MAX_VALUE, 10);
-
     }
 
-    private void assertAbbreviateWithOffset(String expected, int offset, int maxWidth)
-    {
+    private void assertAbbreviateWithOffset(String expected, int offset, int maxWidth) {
         String abcdefghijklmno = "abcdefghijklmno";
         String message = "abbreviate(String,int,int) failed";
         String actual = StringUtils.abbreviate(abcdefghijklmno, offset, maxWidth);
@@ -793,22 +813,41 @@ public class StringUtilsTest extends TestCase {
         assertEquals(message, expected, actual);
     }
 
-    public void testDifference() {
+    //-----------------------------------------------------------------------
+    public void testDifference_StringString() {
         assertEquals(null, StringUtils.difference(null, null));
+        assertEquals("", StringUtils.difference("", ""));
+        assertEquals("abc", StringUtils.difference("", "abc"));
+        assertEquals("", StringUtils.difference("abc", ""));
         assertEquals("i am a robot", StringUtils.difference(null, "i am a robot"));
         assertEquals("i am a machine", StringUtils.difference("i am a machine", null));
         assertEquals("robot", StringUtils.difference("i am a machine", "i am a robot"));
-        assertEquals("", StringUtils.difference("foo", "foo"));
+        assertEquals("", StringUtils.difference("abc", "abc"));
         assertEquals("you are a robot", StringUtils.difference("i am a robot", "you are a robot"));
     }
 
-    public void testDifferenceAt() {
+    public void testDifferenceAt_StringString() {
         assertEquals(-1, StringUtils.differenceAt(null, null));
         assertEquals(0, StringUtils.differenceAt(null, "i am a robot"));
+        assertEquals(-1, StringUtils.differenceAt("", ""));
+        assertEquals(0, StringUtils.differenceAt("", "abc"));
+        assertEquals(0, StringUtils.differenceAt("abc", ""));
         assertEquals(0, StringUtils.differenceAt("i am a machine", null));
         assertEquals(7, StringUtils.differenceAt("i am a machine", "i am a robot"));
         assertEquals(-1, StringUtils.differenceAt("foo", "foo"));
         assertEquals(0, StringUtils.differenceAt("i am a robot", "you are a robot"));
+    }
+
+    //-----------------------------------------------------------------------
+    public void testGetLevenshteinDistance_StringString() {
+        assertEquals(0, StringUtils.getLevenshteinDistance("", "") );
+        assertEquals(1, StringUtils.getLevenshteinDistance("", "a") );
+        assertEquals(7, StringUtils.getLevenshteinDistance("aaapppp", "") );
+        assertEquals(1, StringUtils.getLevenshteinDistance("frog", "fog") );
+        assertEquals(3, StringUtils.getLevenshteinDistance("fly", "ant") );
+        assertEquals(7, StringUtils.getLevenshteinDistance("elephant", "hippo") );
+        assertEquals(7, StringUtils.getLevenshteinDistance("hippo", "elephant") );
+        assertEquals(1, StringUtils.getLevenshteinDistance("hello", "hallo") );
     }
 
 }
