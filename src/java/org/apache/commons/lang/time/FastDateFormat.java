@@ -89,7 +89,7 @@ import java.util.TimeZone;
  *
  * <p>In addition, the pattern <code>'ZZ'</code> has been made to represent
  * ISO8601 full format time zones (eg. <code>+08:00</code> or <code>-11:00</code>).
- * This introduces a minor incompatability with Java 1.4, but at a gain of
+ * This introduces a minor incompatibility with Java 1.4, but at a gain of
  * useful functionality.</p>
  *
  * @author TeaTrove project
@@ -98,7 +98,7 @@ import java.util.TimeZone;
  * @author Gary Gregory
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.15 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: FastDateFormat.java,v 1.16 2003/09/07 14:32:35 psteitz Exp $
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes
@@ -854,7 +854,7 @@ public class FastDateFormat extends Format {
     /**
      * <p>A suitable hashcode.</p>
      * 
-     * @return a hashcode compatable with equals
+     * @return a hashcode compatible with equals
      */
     public int hashCode() {
         int total = 0;

@@ -69,7 +69,7 @@ import java.util.TreeMap;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.13 2003/08/18 02:22:22 bayard Exp $
+ * @version $Id: Entities.java,v 1.14 2003/09/07 14:32:34 psteitz Exp $
  */
 class Entities {
 
@@ -283,9 +283,9 @@ class Entities {
         {"ni", "8715"}, //contains as member, U+220B ISOtech -->
 // <!-- should there be a more memorable name than 'ni'? -->
         {"prod", "8719"}, //n-ary product = product sign,U+220F ISOamsb -->
-// <!-- prod is NOT the same character as U+03A0 'greek capital letter pi' thoughthe same glyph might be used for both -->
-        {"sum", "8721"}, //n-ary sumation, U+2211 ISOamsb -->
-// <!-- sum is NOT the same character as U+03A3 'greek capital letter sigma'though the same glyph might be used for both -->
+// <!-- prod is NOT the same character as U+03A0 'greek capital letter pi' though the same glyph might be used for both -->
+        {"sum", "8721"}, //n-ary summation, U+2211 ISOamsb -->
+// <!-- sum is NOT the same character as U+03A3 'greek capital letter sigma' though the same glyph might be used for both -->
         {"minus", "8722"}, //minus sign, U+2212 ISOtech -->
         {"lowast", "8727"}, //asterisk operator, U+2217 ISOtech -->
         {"radic", "8730"}, //square root = radical sign,U+221A ISOtech -->

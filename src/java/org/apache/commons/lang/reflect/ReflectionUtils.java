@@ -65,7 +65,7 @@ import org.apache.commons.lang.StringUtils;
  * reflection.</p>
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ReflectionUtils.java,v 1.10 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: ReflectionUtils.java,v 1.11 2003/09/07 14:32:35 psteitz Exp $
  */
 public class ReflectionUtils {
     
@@ -234,7 +234,7 @@ public class ReflectionUtils {
      * @param parameterType the type of parameter accepted by the method
      * @param requestedType the type of parameter being requested 
      *
-     * @return <code>true</code> if the assignement is compatible.
+     * @return <code>true</code> if the assignment is compatible.
      */
     public static boolean isCompatible(Class requestedType, Class parameterType) {
         // try plain assignment

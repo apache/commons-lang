@@ -63,7 +63,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link RandomUtils} class.
  *
  * @author <a href="mailto:phil@steitz.com">Phil Steitz</a>
- * @version $Revision: 1.5 $ $Date: 2003/08/18 02:22:27 $
+ * @version $Revision: 1.6 $ $Date: 2003/09/07 14:32:35 $
  */
 
 public final class RandomUtilsTest extends TestCase {
@@ -319,7 +319,7 @@ public final class RandomUtilsTest extends TestCase {
     /**
      * Computes Chi-Square statistic given observed and expected counts
      * @param observed array of observed frequency counts
-     * @param expected array of exptected frequency counts
+     * @param expected array of expected frequency counts
      */
     private double chiSquare(int[] expected, int[] observed) {
         double sumSq = 0.0d;

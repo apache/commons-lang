@@ -78,7 +78,7 @@ package org.apache.commons.lang.time;
  * @author Henri Yandell
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: StopWatch.java,v 1.6 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: StopWatch.java,v 1.7 2003/09/07 14:32:35 psteitz Exp $
  */
 public class StopWatch {
     
@@ -130,7 +130,7 @@ public class StopWatch {
      * <p>Split the time.</p>
      * 
      * <p>This method sets the stop time of the watch to allow a time to be extracted.
-     * The start time is unaffected, enabling {@link #unsplit()} to contine the 
+     * The start time is unaffected, enabling {@link #unsplit()} to continue the 
      * timing from the original start point.</p>
      */
     public void split() {

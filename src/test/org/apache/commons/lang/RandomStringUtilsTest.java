@@ -67,7 +67,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: RandomStringUtilsTest.java,v 1.11 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: RandomStringUtilsTest.java,v 1.12 2003/09/07 14:32:35 psteitz Exp $
  */
 public class RandomStringUtilsTest extends junit.framework.TestCase {
     /**
@@ -342,7 +342,7 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
     /**
      * Computes Chi-Square statistic given observed and expected counts
      * @param observed array of observed frequency counts
-     * @param expected array of exptected frequency counts
+     * @param expected array of expected frequency counts
      */
     private double chiSquare(int[] expected, int[] observed) {
         double sumSq = 0.0d;

@@ -64,7 +64,7 @@ package org.apache.commons.lang;
  * @author Pete Gieser
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: BitField.java,v 1.2 2003/08/22 16:57:04 ggregory Exp $
+ * @version $Id: BitField.java,v 1.3 2003/09/07 14:32:34 psteitz Exp $
  */
 public class BitField {
     
@@ -187,7 +187,7 @@ public class BitField {
      * <p>Replaces the bits with new values.</p>
      *
      * @see #getValue
-     * @param holder the int data containint the bits we're
+     * @param holder the int data containing the bits we're
      *  interested in
      * @param value the new value for the specified bits
      * @return the value of holder with the bits from the value

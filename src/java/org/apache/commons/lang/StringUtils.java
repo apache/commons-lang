@@ -89,7 +89,7 @@ import java.util.List;
  *  <li><b>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</b>
  *      - changes the case of a String</li>
  *  <li><b>CountMatches</b>
- *      - counts the number of occurrances of one String in another</li>
+ *      - counts the number of occurrences of one String in another</li>
  *  <li><b>IsAlpha/IsNumeric/IsWhitespace</b>
  *      - checks the characters in a String</li>
  *  <li><b>DefaultString</b>
@@ -145,7 +145,7 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.108 2003/09/04 18:18:18 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.109 2003/09/07 14:32:34 psteitz Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1518,7 +1518,7 @@ public class StringUtils {
      * characters from the end of the String.</p>
      *
      * <p>The returned substring starts with the character in the <code>start</code>
-     * position and ends before the <code>end</code> position. All postion counting is 
+     * position and ends before the <code>end</code> position. All position counting is 
      * zero-based -- i.e., to start at the beginning of the string use 
      * <code>start = 0</code>. Negative start and end positions can be used to 
      * specify offsets relative to the end of the String.</p>
@@ -1693,7 +1693,7 @@ public class StringUtils {
     // SubStringAfter/SubStringBefore
     //-----------------------------------------------------------------------
     /**
-     * <p>Gets the substring before the first occurance of a separator.
+     * <p>Gets the substring before the first occurrence of a separator.
      * The separator is not returned.</p>
      *
      * <p>A <code>null</code> string input will return <code>null</code>.
@@ -1713,7 +1713,7 @@ public class StringUtils {
      *
      * @param str  the String to get a substring from, may be null
      * @param separator  the String to search for, may be null
-     * @return the substring before the first occurance of the separator,
+     * @return the substring before the first occurrence of the separator,
      *  <code>null</code> if null String input
      * @since 2.0
      */
@@ -1732,7 +1732,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Gets the substring after the first occurance of a separator.
+     * <p>Gets the substring after the first occurrence of a separator.
      * The separator is not returned.</p>
      *
      * <p>A <code>null</code> string input will return <code>null</code>.
@@ -1753,7 +1753,7 @@ public class StringUtils {
      *
      * @param str  the String to get a substring from, may be null
      * @param separator  the String to search for, may be null
-     * @return the substring after the first occurance of the separator,
+     * @return the substring after the first occurrence of the separator,
      *  <code>null</code> if null String input
      * @since 2.0
      */
@@ -1772,7 +1772,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Gets the substring before the last occurance of a separator.
+     * <p>Gets the substring before the last occurrence of a separator.
      * The separator is not returned.</p>
      *
      * <p>A <code>null</code> string input will return <code>null</code>.
@@ -1792,7 +1792,7 @@ public class StringUtils {
      *
      * @param str  the String to get a substring from, may be null
      * @param separator  the String to search for, may be null
-     * @return the substring before the last occurance of the separator,
+     * @return the substring before the last occurrence of the separator,
      *  <code>null</code> if null String input
      * @since 2.0
      */
@@ -1808,7 +1808,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Gets the substring after the last occurance of a separator.
+     * <p>Gets the substring after the last occurrence of a separator.
      * The separator is not returned.</p>
      *
      * <p>A <code>null</code> string input will return <code>null</code>.
@@ -1830,7 +1830,7 @@ public class StringUtils {
      *
      * @param str  the String to get a substring from, may be null
      * @param separator  the String to search for, may be null
-     * @return the substring after the last occurance of the separator,
+     * @return the substring after the last occurrence of the separator,
      *  <code>null</code> if null String input
      * @since 2.0
      */
@@ -2481,7 +2481,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Replaces all occurances of a String within another String.</p>
+     * <p>Replaces all occurrences of a String within another String.</p>
      *
      * <p>A <code>null</code> reference passed to this method is a no-op.</p>
      * 
@@ -2554,7 +2554,7 @@ public class StringUtils {
     // Replace, character based
     //-----------------------------------------------------------------------
     /**
-     * <p>Replaces all occurrances of a character in a String with another.
+     * <p>Replaces all occurrences of a character in a String with another.
      * This is a null-safe version of {@link String#replace(char, char)}.</p>
      *
      * <p>A <code>null</code> string input returns <code>null</code>.
@@ -3507,7 +3507,7 @@ public class StringUtils {
      * <p>Capitalizes a String changing the first letter to title case as
      * per {@link Character#toTitleCase(char)}. No other letters are changed.</p>
      * 
-     * <p>For a word based alorithm, see {@link WordUtils#capitalize(String)}.
+     * <p>For a word based algorithm, see {@link WordUtils#capitalize(String)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <pre>
@@ -3551,7 +3551,7 @@ public class StringUtils {
      * <p>Uncapitalizes a String changing the first letter to title case as
      * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
      * 
-     * <p>For a word based alorithm, see {@link WordUtils#uncapitalize(String)}.
+     * <p>For a word based algorithm, see {@link WordUtils#uncapitalize(String)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <pre>
@@ -3601,7 +3601,7 @@ public class StringUtils {
      *  <li>Lower case character converts to Upper case</li>
      * </ul>
      * 
-     * <p>For a word based alorithm, see {@link WordUtils#swapCase(String)}.
+     * <p>For a word based algorithm, see {@link WordUtils#swapCase(String)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <pre>
@@ -3611,7 +3611,7 @@ public class StringUtils {
      * </pre>
      * 
      * <p>NOTE: This method changed in Lang version 2.0.
-     * It no longer performs a word based alorithm.
+     * It no longer performs a word based algorithm.
      * If you only use ASCII, you will notice no change.
      * That functionality is available in WordUtils.</p>
      * 
@@ -3675,7 +3675,7 @@ public class StringUtils {
      *
      * @param str  the String to check, may be null
      * @param sub  the substring to count, may be null
-     * @return the number of occurances, 0 if either String is <code>null</code>
+     * @return the number of occurrences, 0 if either String is <code>null</code>
      */
     public static int countMatches(String str, String sub) {
         if (str == null || str.length() == 0 || sub == null || sub.length() == 0) {

@@ -220,11 +220,11 @@ import org.apache.commons.lang.StringUtils;
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.21 2003/08/21 15:52:55 ggregory Exp $
+ * @version $Id: Enum.java,v 1.22 2003/09/07 14:32:34 psteitz Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
 
-    /** Lang version 1.0.1 serial compatability */
+    /** Lang version 1.0.1 serial compatibility */
     private static final long serialVersionUID = -487045951170455942L;
     
     // After discussion, the default size for HashMaps is used, as the

@@ -71,7 +71,7 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.12 2003/09/05 15:55:09 psteitz Exp $
+ * @version $Id: NumberUtils.java,v 1.13 2003/09/07 14:32:35 psteitz Exp $
  */
 public class NumberUtils {
     
@@ -405,7 +405,7 @@ public class NumberUtils {
                         Float f = NumberUtils.createFloat(numeric);
                         if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
                             //If it's too big for a float or the float value = 0 and the string
-                            //has non-zeros in it, then float doens't have the presision we want
+                            //has non-zeros in it, then float does not have the precision we want
                             return f;
                         }
 
@@ -1097,7 +1097,7 @@ public class NumberUtils {
      *  <li>NaN
      *  <li>Positive infinity
      *  <li>Maximum double
-     *  <li>Normal positve numbers
+     *  <li>Normal positive numbers
      *  <li>+0.0
      *  <li>-0.0
      *  <li>Normal negative numbers
@@ -1146,7 +1146,7 @@ public class NumberUtils {
     /**
      * <p>Compares two floats for order.</p>
      *
-     * <p>This method is more comprhensive than the standard Java greater than,
+     * <p>This method is more comprehensive than the standard Java greater than,
      * less than and equals operators.</p>
      * <ul>
      *  <li>It returns <code>-1</code> if the first value is less than the second.
@@ -1159,7 +1159,7 @@ public class NumberUtils {
      * <li>NaN
      * <li>Positive infinity
      * <li>Maximum float
-     * <li>Normal positve numbers
+     * <li>Normal positive numbers
      * <li>+0.0
      * <li>-0.0
      * <li>Normal negative numbers
@@ -1325,7 +1325,7 @@ public class NumberUtils {
             }
             if (chars[i] == 'l'
                 || chars[i] == 'L') {
-                // not allowing L with an exponoent
+                // not allowing L with an exponent
                 return foundDigit && !hasExp;
             }
             // last character is illegal

@@ -68,7 +68,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.21 2003/08/22 17:25:33 ggregory Exp $
+ * @version $Id: ObjectUtils.java,v 1.22 2003/09/07 14:32:34 psteitz Exp $
  */
 public class ObjectUtils {
     
@@ -271,7 +271,7 @@ public class ObjectUtils {
      * cannot be stored.</p>
      */
     public static class Null implements Serializable {
-        // declare serialization compatability with Commons Lang 1.0
+        // declare serialization compatibility with Commons Lang 1.0
         private static final long serialVersionUID = 7092611880189329093L;
         
         /**

@@ -58,12 +58,12 @@ package org.apache.commons.lang;
  * 
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: NotImplementedException.java,v 1.4 2003/08/18 02:22:23 bayard Exp $
+ * @version $Id: NotImplementedException.java,v 1.5 2003/09/07 14:32:34 psteitz Exp $
  */
 public class NotImplementedException extends UnsupportedOperationException {
 
     /**
-     * <p>Constructes the exception with the specified class.</p>
+     * <p>Constructs the exception with the specified class.</p>
      * 
      * @param clazz  the <code>Class</code> that has not implemented the method
      */

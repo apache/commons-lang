@@ -104,7 +104,7 @@ import org.apache.commons.lang.ClassUtils;
  * @author Stephen Colebourne
  * @author Pete Gieser
  * @since 2.0
- * @version $Id: ReflectionToStringBuilder.java,v 1.10 2003/08/23 00:21:49 ggregory Exp $
+ * @version $Id: ReflectionToStringBuilder.java,v 1.11 2003/09/07 14:32:34 psteitz Exp $
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
 
@@ -525,7 +525,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>Unegisters this builder's source object to avoid infinite
+     * <p>Unregisters this builder's source object to avoid infinite
      * loops when processing circular object references.</p>
      */
     void unregisterObject() {

@@ -54,7 +54,7 @@
 package org.apache.commons.lang.time;
 
 /**
- * <p>Duration formatting utilites and constants.</p>
+ * <p>Duration formatting utilities and constants.</p>
  *
  * @author Apache Ant - DateUtils
  * @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
@@ -62,7 +62,7 @@ package org.apache.commons.lang.time;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DurationFormatUtils.java,v 1.5 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.6 2003/09/07 14:32:35 psteitz Exp $
  */
 class DurationFormatUtils {
     // TODO: Make class public once methods can fully select which fields to output

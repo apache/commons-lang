@@ -80,7 +80,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.34 2003/08/21 15:52:55 ggregory Exp $
+ * @version $Id: ExceptionUtils.java,v 1.35 2003/09/07 14:32:35 psteitz Exp $
  */
 public class ExceptionUtils {
     
@@ -656,7 +656,7 @@ public class ExceptionUtils {
      * <code>Throwable</code> object, decomposing it into a list of
      * stack frames.</p>
      *
-     * @param throwable  the <code>Throwable</code> to exaamine, may be null
+     * @param throwable  the <code>Throwable</code> to examine, may be null
      * @return an array of strings describing each stack frame, never null
      */
     public static String[] getStackFrames(Throwable throwable) {

@@ -66,7 +66,7 @@ package org.apache.commons.lang;
  * @author Phil Steitz
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.26 2003/08/22 17:25:33 ggregory Exp $
+ * @version $Id: CharSetUtils.java,v 1.27 2003/09/07 14:32:34 psteitz Exp $
  */
 public class CharSetUtils {
 
@@ -113,7 +113,7 @@ public class CharSetUtils {
     // Squeeze
     //-----------------------------------------------------------------------
     /**
-     * <p>Squeezes any repititions of a character that is mentioned in the
+     * <p>Squeezes any repetitions of a character that is mentioned in the
      * supplied set.</p>
      *
      * <pre>
@@ -140,7 +140,7 @@ public class CharSetUtils {
     }
 
     /**
-     * <p>Squeezes any repititions of a character that is mentioned in the
+     * <p>Squeezes any repetitions of a character that is mentioned in the
      * supplied set.</p>
      *
      * <p>An example is:</p>

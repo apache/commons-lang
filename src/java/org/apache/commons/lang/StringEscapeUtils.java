@@ -74,7 +74,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Phil Steitz
  * @author Pete Gieser
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.25 2003/08/18 02:22:23 bayard Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.26 2003/09/07 14:32:34 psteitz Exp $
  */
 public class StringEscapeUtils {
 
@@ -128,7 +128,7 @@ public class StringEscapeUtils {
      * @param out  Writer to write escaped string into
      * @param str  String to escape values in, may be null
      * @throws IllegalArgumentException if the Writer is <code>null</code>
-     * @throws IOException if error occurs on undelying Writer
+     * @throws IOException if error occurs on underlying Writer
      */
     public static void escapeJava(Writer out, String str) throws IOException {
         escapeJavaStyleString(out, str, false);
@@ -169,7 +169,7 @@ public class StringEscapeUtils {
      * @param out  Writer to write escaped string into
      * @param str  String to escape values in, may be null
      * @throws IllegalArgumentException if the Writer is <code>null</code>
-     * @throws IOException if error occurs on undelying Writer
+     * @throws IOException if error occurs on underlying Writer
      **/
     public static void escapeJavaScript(Writer out, String str) throws IOException {
         escapeJavaStyleString(out, str, true);
@@ -309,7 +309,7 @@ public class StringEscapeUtils {
      * @param out  the <code>Writer</code> used to output unescaped characters
      * @param str  the <code>String</code> to unescape, may be null
      * @throws IllegalArgumentException if the Writer is <code>null</code>
-     * @throws IOException if error occurs on undelying Writer
+     * @throws IOException if error occurs on underlying Writer
      */
     public static void unescapeJava(Writer out, String str) throws IOException {
         if (out == null) {
@@ -330,7 +330,7 @@ public class StringEscapeUtils {
                 unicode.append(ch);
                 if (unicode.length() == 4) {
                     // unicode now contains the four hex digits
-                    // which represents our unicode chacater
+                    // which represents our unicode character
                     try {
                         int value = Integer.parseInt(unicode.toString(), 16);
                         out.write((char) value);
@@ -424,7 +424,7 @@ public class StringEscapeUtils {
      * @param out  the <code>Writer</code> used to output unescaped characters
      * @param str  the <code>String</code> to unescape, may be null
      * @throws IllegalArgumentException if the Writer is <code>null</code>
-     * @throws IOException if error occurs on undelying Writer
+     * @throws IOException if error occurs on underlying Writer
      */
     public static void unescapeJavaScript(Writer out, String str) throws IOException {
         unescapeJava(out, str);

@@ -183,7 +183,7 @@ public class MethodUtilsTestCase extends TestCase {
 
         } catch (Throwable t) {
             // ONE
-            fail("Exception in method ONE prevented invokation: " + t.toString());
+            fail("Exception in method ONE prevented invocation: " + t.toString());
         }
 
         // trickier this one - find a method in a direct interface
@@ -200,7 +200,7 @@ public class MethodUtilsTestCase extends TestCase {
 
         } catch (Throwable t) {
             // METHOD TWO FAILURE
-            fail("Exception in method TWO prevented invokation: " + t.toString());
+            fail("Exception in method TWO prevented invocation: " + t.toString());
         }
 
 
@@ -220,7 +220,7 @@ public class MethodUtilsTestCase extends TestCase {
 
         } catch (Throwable t) {
             // METHOD THREE FAILURE
-            fail("Exception in method THREE prevented invokation: " + t.toString());
+            fail("Exception in method THREE prevented invocation: " + t.toString());
 
         }
     }
