@@ -93,7 +93,7 @@ import java.lang.reflect.Modifier;
  * passed into the constructor.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilder.java,v 1.3 2002/09/22 09:18:32 scolebourne Exp $
+ * @version $Id: ToStringBuilder.java,v 1.4 2002/09/28 10:44:51 scolebourne Exp $
  */
 public class ToStringBuilder {
     
@@ -156,7 +156,7 @@ public class ToStringBuilder {
             throw new IllegalArgumentException("The object to create a toString for must not be null");
         }
         if (style == null) {
-            style = ToStringStyle.DEFAULT_STYLE;
+            style = getDefaultStyle();
         }
         if (buffer == null) {
             buffer = new StringBuffer(512);
@@ -257,7 +257,7 @@ public class ToStringBuilder {
      * @param style  the style of the toString to create, may be null
      * @param outputTransients  whether to include transient fields
      * @return the String result
-     * @throws IllegalArgumentException if the object or style is null
+     * @throws IllegalArgumentException if the object is null
      */
     public static String reflectionToString(Object object, ToStringStyle style, 
             boolean outputTransients) {
