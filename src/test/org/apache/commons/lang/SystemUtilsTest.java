@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * Only limited testing can be performed.
  *
  * @author Stephen Colebourne
- * @version $Id: SystemUtilsTest.java,v 1.1 2003/05/24 12:11:02 scolebourne Exp $
+ * @version $Id: SystemUtilsTest.java,v 1.2 2003/05/24 14:34:14 scolebourne Exp $
  */
 public class SystemUtilsTest extends TestCase {
 
@@ -74,6 +74,22 @@ public class SystemUtilsTest extends TestCase {
 
     public static void main(String[] args) {
         TestRunner.run(suite());
+//        SystemUtils s = new SystemUtils();
+//        System.out.println(s.IS_OS_WINDOWS);
+//        System.out.println(s.IS_OS_WINDOWS_95);
+//        System.out.println(s.IS_OS_WINDOWS_98);
+//        java.util.Properties p = System.getProperties();
+//        java.util.Enumeration keys = p.keys();
+//        java.util.List list = new java.util.ArrayList();
+//        while( keys.hasMoreElements() ) {
+//            list.add(keys.nextElement());
+//        }
+//        java.util.Collections.sort(list);
+//        for (java.util.Iterator it = list.iterator(); it.hasNext();) {
+//            String key = (String) it.next();
+//            System.out.println(key + " " + p.getProperty(key));
+//        }
+    
     }
 
     public static Test suite() {
@@ -94,6 +110,9 @@ public class SystemUtilsTest extends TestCase {
     // COPIED FROM SystemUtils
     //-----------------------------------------------------------------------
     private String JAVA_VERSION;
+    private String OS_NAME;
+    private String OS_VERSION;
+    
     /**
      * Decides if the java version matches.
      * 
@@ -159,6 +178,33 @@ public class SystemUtilsTest extends TestCase {
         }
         return Integer.parseInt(str);
     }
+
+    /**
+     * Decides if the operating system matches.
+     * 
+     * @param osNamePrefix  the prefix for the os name
+     * @return true if matches, or false if not or can't determine
+     */
+    private boolean getOSMatches(String osNamePrefix) {
+        if (OS_NAME == null) {
+            return false;
+        }
+        return OS_NAME.startsWith(osNamePrefix);
+    }    
+
+    /**
+     * Decides if the operating system matches.
+     * 
+     * @param osNamePrefix  the prefix for the os name
+     * @param osVersionPrefix  the prefix for the version
+     * @return true if matches, or false if not or can't determine
+     */
+    private boolean getOSMatches(String osNamePrefix, String osVersionPrefix) {
+        if (OS_NAME == null || OS_VERSION == null) {
+            return false;
+        }
+        return OS_NAME.startsWith(osNamePrefix) && OS_VERSION.startsWith(osVersionPrefix);
+    }    
 
     //-----------------------------------------------------------------------
     public void testJavaVersionMatches() {
@@ -276,6 +322,38 @@ public class SystemUtilsTest extends TestCase {
         assertEquals(true, SystemUtils.isJavaVersionAtLeast(version));
         version += 20;
         assertEquals(false, SystemUtils.isJavaVersionAtLeast(version));
+    }
+    
+    public void testOSMatches() {
+        OS_NAME = null;
+        assertEquals(false, getOSMatches("Windows"));
+        OS_NAME = "Windows 95";
+        assertEquals(true, getOSMatches("Windows"));
+        OS_NAME = "Windows NT";
+        assertEquals(true, getOSMatches("Windows"));
+        OS_NAME = "OS/2";
+        assertEquals(false, getOSMatches("Windows"));
+    }
+    
+    public void testOSMatches2() {
+        OS_NAME = null;
+        OS_VERSION = null;
+        assertEquals(false, getOSMatches("Windows 9", "4.1"));
+        OS_NAME = "Windows 95";
+        OS_VERSION = "4.0";
+        assertEquals(false, getOSMatches("Windows 9", "4.1"));
+        OS_NAME = "Windows 95";
+        OS_VERSION = "4.1";
+        assertEquals(true, getOSMatches("Windows 9", "4.1"));
+        OS_NAME = "Windows 98";
+        OS_VERSION = "4.1";
+        assertEquals(true, getOSMatches("Windows 9", "4.1"));
+        OS_NAME = "Windows NT";
+        OS_VERSION = "4.0";
+        assertEquals(false, getOSMatches("Windows 9", "4.1"));
+        OS_NAME = "OS/2";
+        OS_VERSION = "4.0";
+        assertEquals(false, getOSMatches("Windows 9", "4.1"));
     }
     
 }
