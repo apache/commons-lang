@@ -53,6 +53,8 @@
  */
 package org.apache.commons.lang.time;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -86,6 +88,17 @@ public class DurationFormatUtilsTest extends TestCase {
         super(s);
     }
 
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new DurationFormatUtils());
+        Constructor[] cons = DurationFormatUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(false, Modifier.isPublic(DurationFormatUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(DurationFormatUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
     public void testFormatWords(){
         String text = null;
         

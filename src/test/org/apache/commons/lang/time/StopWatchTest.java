@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  * TestCase for StopWatch.
  *
  * @author Stephen Colebourne
- * @version $Id: StopWatchTest.java,v 1.4 2003/06/24 21:13:55 scolebourne Exp $
+ * @version $Id: StopWatchTest.java,v 1.5 2003/08/01 00:12:32 scolebourne Exp $
  */
 public class StopWatchTest extends TestCase {
 
@@ -80,10 +80,9 @@ public class StopWatchTest extends TestCase {
         super(s);
     }
 
+    //-----------------------------------------------------------------------
     public void testStopWatchSimple(){
         StopWatch watch = new StopWatch();
-        assertEquals(0, watch.getTime());
-        
         watch.start();
             try {Thread.sleep(550);} catch (InterruptedException ex) {}
         watch.stop();
@@ -95,6 +94,16 @@ public class StopWatchTest extends TestCase {
         
         watch.reset();
         assertEquals(0, watch.getTime());
+    }
+    
+    public void testStopWatchSimpleGet(){
+        StopWatch watch = new StopWatch();
+        assertEquals(0, watch.getTime());
+        assertEquals("0:00:00.000", watch.toString());
+        
+        watch.start();
+            try {Thread.sleep(500);} catch (InterruptedException ex) {}
+        assertTrue(watch.getTime() < 2000);
     }
     
     public void testStopWatchSplit(){
