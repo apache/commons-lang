@@ -56,13 +56,11 @@ package org.apache.commons.lang.util;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.apache.commons.lang.functor.Factory;
-import org.apache.commons.lang.functor.FactoryException;
 /**
  * Tests the org.apache.commons.lang.util.IdentifierUtils class.
  *
  * @author Stephen Colebourne
- * @version $Id: IdentifierUtilsTest.java,v 1.1 2002/12/29 21:35:03 scolebourne Exp $
+ * @version $Id: IdentifierUtilsTest.java,v 1.2 2003/05/16 22:07:38 scolebourne Exp $
  */
 public class IdentifierUtilsTest extends junit.framework.TestCase {
 
@@ -85,227 +83,227 @@ public class IdentifierUtilsTest extends junit.framework.TestCase {
     //--------------------------------------------------------------------------
 
     public void testLongIncrementing() {
-        Factory f = IdentifierUtils.LONG_IDENTIFIER_FACTORY;
-        assertEquals(new Long(0), f.create());
-        assertEquals(new Long(1), f.create());
-        assertEquals(new Long(2), f.create());
-        assertEquals(new Long(3), f.create());
+        LongIdentifierFactory f = IdentifierUtils.LONG_IDENTIFIER_FACTORY;
+        assertEquals(new Long(0), f.nextLongIdentifier());
+        assertEquals(new Long(1), f.nextLongIdentifier());
+        assertEquals(new Long(2), f.nextIdentifier());
+        assertEquals(new Long(3), f.nextLongIdentifier());
         assertEquals(new Long(4), IdentifierUtils.nextLongIdentifier());
-        assertEquals(new Long(5), f.create());
+        assertEquals(new Long(5), f.nextLongIdentifier());
         assertEquals(new Long(6), IdentifierUtils.nextLongIdentifier());
         assertEquals(new Long(7), IdentifierUtils.nextLongIdentifier());
     }
 
     public void testLongIncrementingNoArgs() {
-        Factory f = IdentifierUtils.longIdentifierFactory();
-        assertEquals(new Long(0), f.create());
-        assertEquals(new Long(1), f.create());
+        LongIdentifierFactory f = IdentifierUtils.longIdentifierFactory();
+        assertEquals(new Long(0), f.nextLongIdentifier());
+        assertEquals(new Long(1), f.nextLongIdentifier());
         assertTrue(f != IdentifierUtils.LONG_IDENTIFIER_FACTORY);
     }
 
     public void testLongIncrementingInit() {
-        Factory f = IdentifierUtils.longIdentifierFactory(true, 100);
-        assertEquals(new Long(100), f.create());
-        assertEquals(new Long(101), f.create());
+        LongIdentifierFactory f = IdentifierUtils.longIdentifierFactory(true, 100);
+        assertEquals(new Long(100), f.nextLongIdentifier());
+        assertEquals(new Long(101), f.nextLongIdentifier());
     }
 
     public void testLongIncrementingWrap() {
-        Factory f = IdentifierUtils.longIdentifierFactory(true, Long.MAX_VALUE);
-        assertEquals(new Long(Long.MAX_VALUE), f.create());
-        assertEquals(new Long(Long.MIN_VALUE), f.create());
+        LongIdentifierFactory f = IdentifierUtils.longIdentifierFactory(true, Long.MAX_VALUE);
+        assertEquals(new Long(Long.MAX_VALUE), f.nextLongIdentifier());
+        assertEquals(new Long(Long.MIN_VALUE), f.nextLongIdentifier());
     }
 
     public void testLongIncrementingNoWrap() {
-        Factory f = IdentifierUtils.longIdentifierFactory(false, Long.MAX_VALUE);
+        LongIdentifierFactory f = IdentifierUtils.longIdentifierFactory(false, Long.MAX_VALUE);
         try {
-            f.create();
+            f.nextLongIdentifier();
             fail();
-        } catch (FactoryException ex) {}
+        } catch (IllegalStateException ex) {}
     }
 
     //--------------------------------------------------------------------------
 
     public void testStringNumericLong() {
-        Factory f = IdentifierUtils.STRING_NUMERIC_IDENTIFIER_FACTORY;
-        assertEquals("0", f.create());
-        assertEquals("1", f.create());
-        assertEquals("2", f.create());
-        assertEquals("3", f.create());
+        StringIdentifierFactory f = IdentifierUtils.STRING_NUMERIC_IDENTIFIER_FACTORY;
+        assertEquals("0", f.nextStringIdentifier());
+        assertEquals("1", f.nextStringIdentifier());
+        assertEquals("2", f.nextIdentifier());
+        assertEquals("3", f.nextStringIdentifier());
         assertEquals("4", IdentifierUtils.nextStringNumericIdentifier());
-        assertEquals("5", f.create());
+        assertEquals("5", f.nextStringIdentifier());
         assertEquals("6", IdentifierUtils.nextStringNumericIdentifier());
         assertEquals("7", IdentifierUtils.nextStringNumericIdentifier());
     }
 
     public void testStringNumericNoArgs() {
-        Factory f = IdentifierUtils.stringNumericIdentifierFactory();
-        assertEquals("0", f.create());
-        assertEquals("1", f.create());
+        StringIdentifierFactory f = IdentifierUtils.stringNumericIdentifierFactory();
+        assertEquals("0", f.nextStringIdentifier());
+        assertEquals("1", f.nextStringIdentifier());
         assertTrue(f != IdentifierUtils.STRING_NUMERIC_IDENTIFIER_FACTORY);
     }
 
     public void testStringNumericInit() {
-        Factory f = IdentifierUtils.stringNumericIdentifierFactory(true, 100);
-        assertEquals("100", f.create());
-        assertEquals("101", f.create());
+        StringIdentifierFactory f = IdentifierUtils.stringNumericIdentifierFactory(true, 100);
+        assertEquals("100", f.nextStringIdentifier());
+        assertEquals("101", f.nextStringIdentifier());
     }
 
     public void testStringNumericWrap() {
-        Factory f = IdentifierUtils.stringNumericIdentifierFactory(true, Long.MAX_VALUE);
-        assertEquals(Long.toString(Long.MAX_VALUE), f.create());
-        assertEquals(Long.toString(Long.MIN_VALUE), f.create());
+        StringIdentifierFactory f = IdentifierUtils.stringNumericIdentifierFactory(true, Long.MAX_VALUE);
+        assertEquals(Long.toString(Long.MAX_VALUE), f.nextStringIdentifier());
+        assertEquals(Long.toString(Long.MIN_VALUE), f.nextStringIdentifier());
     }
 
     public void testStringNumericNoWrap() {
-        Factory f = IdentifierUtils.stringNumericIdentifierFactory(false, Long.MAX_VALUE);
+        StringIdentifierFactory f = IdentifierUtils.stringNumericIdentifierFactory(false, Long.MAX_VALUE);
         try {
-            f.create();
+            f.nextStringIdentifier();
             fail();
-        } catch (FactoryException ex) { }
+        } catch (IllegalStateException ex) { }
     }
 
     //--------------------------------------------------------------------------
 
     public void testStringAlphanumeric() {
-        Factory f = IdentifierUtils.STRING_ALPHANUMERIC_IDENTIFIER_FACTORY;
-        assertEquals("000000000000001", f.create());
-        assertEquals("000000000000002", f.create());
-        assertEquals("000000000000003", f.create());
-        assertEquals("000000000000004", f.create());
-        assertEquals("000000000000005", f.create());
-        assertEquals("000000000000006", f.create());
-        assertEquals("000000000000007", f.create());
-        assertEquals("000000000000008", f.create());
-        assertEquals("000000000000009", f.create());
-        assertEquals("00000000000000a", f.create());
-        assertEquals("00000000000000b", f.create());
-        assertEquals("00000000000000c", f.create());
+        StringIdentifierFactory f = IdentifierUtils.STRING_ALPHANUMERIC_IDENTIFIER_FACTORY;
+        assertEquals("000000000000001", f.nextStringIdentifier());
+        assertEquals("000000000000002", f.nextStringIdentifier());
+        assertEquals("000000000000003", f.nextStringIdentifier());
+        assertEquals("000000000000004", f.nextStringIdentifier());
+        assertEquals("000000000000005", f.nextStringIdentifier());
+        assertEquals("000000000000006", f.nextStringIdentifier());
+        assertEquals("000000000000007", f.nextStringIdentifier());
+        assertEquals("000000000000008", f.nextStringIdentifier());
+        assertEquals("000000000000009", f.nextStringIdentifier());
+        assertEquals("00000000000000a", f.nextStringIdentifier());
+        assertEquals("00000000000000b", f.nextStringIdentifier());
+        assertEquals("00000000000000c", f.nextStringIdentifier());
         assertEquals("00000000000000d", IdentifierUtils.nextStringAlphanumericIdentifier());
-        assertEquals("00000000000000e", f.create());
-        assertEquals("00000000000000f", f.create());
-        assertEquals("00000000000000g", f.create());
-        assertEquals("00000000000000h", f.create());
-        assertEquals("00000000000000i", f.create());
-        assertEquals("00000000000000j", f.create());
-        assertEquals("00000000000000k", f.create());
-        assertEquals("00000000000000l", f.create());
-        assertEquals("00000000000000m", f.create());
-        assertEquals("00000000000000n", f.create());
-        assertEquals("00000000000000o", f.create());
-        assertEquals("00000000000000p", f.create());
-        assertEquals("00000000000000q", f.create());
-        assertEquals("00000000000000r", f.create());
-        assertEquals("00000000000000s", f.create());
-        assertEquals("00000000000000t", f.create());
-        assertEquals("00000000000000u", f.create());
-        assertEquals("00000000000000v", f.create());
-        assertEquals("00000000000000w", f.create());
-        assertEquals("00000000000000x", f.create());
-        assertEquals("00000000000000y", f.create());
-        assertEquals("00000000000000z", f.create());
-        assertEquals("000000000000010", f.create());
-        assertEquals("000000000000011", f.create());
-        assertEquals("000000000000012", f.create());
-        assertEquals("000000000000013", f.create());
+        assertEquals("00000000000000e", f.nextStringIdentifier());
+        assertEquals("00000000000000f", f.nextStringIdentifier());
+        assertEquals("00000000000000g", f.nextStringIdentifier());
+        assertEquals("00000000000000h", f.nextStringIdentifier());
+        assertEquals("00000000000000i", f.nextStringIdentifier());
+        assertEquals("00000000000000j", f.nextStringIdentifier());
+        assertEquals("00000000000000k", f.nextStringIdentifier());
+        assertEquals("00000000000000l", f.nextStringIdentifier());
+        assertEquals("00000000000000m", f.nextStringIdentifier());
+        assertEquals("00000000000000n", f.nextStringIdentifier());
+        assertEquals("00000000000000o", f.nextStringIdentifier());
+        assertEquals("00000000000000p", f.nextStringIdentifier());
+        assertEquals("00000000000000q", f.nextStringIdentifier());
+        assertEquals("00000000000000r", f.nextStringIdentifier());
+        assertEquals("00000000000000s", f.nextStringIdentifier());
+        assertEquals("00000000000000t", f.nextStringIdentifier());
+        assertEquals("00000000000000u", f.nextStringIdentifier());
+        assertEquals("00000000000000v", f.nextStringIdentifier());
+        assertEquals("00000000000000w", f.nextStringIdentifier());
+        assertEquals("00000000000000x", f.nextStringIdentifier());
+        assertEquals("00000000000000y", f.nextStringIdentifier());
+        assertEquals("00000000000000z", f.nextStringIdentifier());
+        assertEquals("000000000000010", f.nextStringIdentifier());
+        assertEquals("000000000000011", f.nextStringIdentifier());
+        assertEquals("000000000000012", f.nextStringIdentifier());
+        assertEquals("000000000000013", f.nextStringIdentifier());
     }
 
     public void testLongAlphanumericNoArgs() {
-        Factory f = IdentifierUtils.stringAlphanumericIdentifierFactory();
-        assertEquals("000000000000001", f.create());
-        assertEquals("000000000000002", f.create());
+        StringIdentifierFactory f = IdentifierUtils.stringAlphanumericIdentifierFactory();
+        assertEquals("000000000000001", f.nextStringIdentifier());
+        assertEquals("000000000000002", f.nextStringIdentifier());
         assertTrue(f != IdentifierUtils.STRING_ALPHANUMERIC_IDENTIFIER_FACTORY);
     }
 
     public void testStringAlphanumericWrap() {
-        Factory f = IdentifierUtils.stringAlphanumericIdentifierFactory(true, 1);
-        assertEquals("1", f.create());
-        assertEquals("2", f.create());
-        assertEquals("3", f.create());
-        assertEquals("4", f.create());
-        assertEquals("5", f.create());
-        assertEquals("6", f.create());
-        assertEquals("7", f.create());
-        assertEquals("8", f.create());
-        assertEquals("9", f.create());
-        assertEquals("a", f.create());
-        assertEquals("b", f.create());
-        assertEquals("c", f.create());
-        assertEquals("d", f.create());
-        assertEquals("e", f.create());
-        assertEquals("f", f.create());
-        assertEquals("g", f.create());
-        assertEquals("h", f.create());
-        assertEquals("i", f.create());
-        assertEquals("j", f.create());
-        assertEquals("k", f.create());
-        assertEquals("l", f.create());
-        assertEquals("m", f.create());
-        assertEquals("n", f.create());
-        assertEquals("o", f.create());
-        assertEquals("p", f.create());
-        assertEquals("q", f.create());
-        assertEquals("r", f.create());
-        assertEquals("s", f.create());
-        assertEquals("t", f.create());
-        assertEquals("u", f.create());
-        assertEquals("v", f.create());
-        assertEquals("w", f.create());
-        assertEquals("x", f.create());
-        assertEquals("y", f.create());
-        assertEquals("z", f.create());
-        assertEquals("0", f.create());
+        StringIdentifierFactory f = IdentifierUtils.stringAlphanumericIdentifierFactory(true, 1);
+        assertEquals("1", f.nextStringIdentifier());
+        assertEquals("2", f.nextStringIdentifier());
+        assertEquals("3", f.nextStringIdentifier());
+        assertEquals("4", f.nextStringIdentifier());
+        assertEquals("5", f.nextStringIdentifier());
+        assertEquals("6", f.nextStringIdentifier());
+        assertEquals("7", f.nextStringIdentifier());
+        assertEquals("8", f.nextStringIdentifier());
+        assertEquals("9", f.nextStringIdentifier());
+        assertEquals("a", f.nextStringIdentifier());
+        assertEquals("b", f.nextStringIdentifier());
+        assertEquals("c", f.nextStringIdentifier());
+        assertEquals("d", f.nextStringIdentifier());
+        assertEquals("e", f.nextStringIdentifier());
+        assertEquals("f", f.nextStringIdentifier());
+        assertEquals("g", f.nextStringIdentifier());
+        assertEquals("h", f.nextStringIdentifier());
+        assertEquals("i", f.nextStringIdentifier());
+        assertEquals("j", f.nextStringIdentifier());
+        assertEquals("k", f.nextStringIdentifier());
+        assertEquals("l", f.nextStringIdentifier());
+        assertEquals("m", f.nextStringIdentifier());
+        assertEquals("n", f.nextStringIdentifier());
+        assertEquals("o", f.nextStringIdentifier());
+        assertEquals("p", f.nextStringIdentifier());
+        assertEquals("q", f.nextStringIdentifier());
+        assertEquals("r", f.nextStringIdentifier());
+        assertEquals("s", f.nextStringIdentifier());
+        assertEquals("t", f.nextStringIdentifier());
+        assertEquals("u", f.nextStringIdentifier());
+        assertEquals("v", f.nextStringIdentifier());
+        assertEquals("w", f.nextStringIdentifier());
+        assertEquals("x", f.nextStringIdentifier());
+        assertEquals("y", f.nextStringIdentifier());
+        assertEquals("z", f.nextStringIdentifier());
+        assertEquals("0", f.nextStringIdentifier());
     }
 
     public void testStringAlphanumericNoWrap() {
-        Factory f = IdentifierUtils.stringAlphanumericIdentifierFactory(false, 1);
-        assertEquals("1", f.create());
-        assertEquals("2", f.create());
-        assertEquals("3", f.create());
-        assertEquals("4", f.create());
-        assertEquals("5", f.create());
-        assertEquals("6", f.create());
-        assertEquals("7", f.create());
-        assertEquals("8", f.create());
-        assertEquals("9", f.create());
-        assertEquals("a", f.create());
-        assertEquals("b", f.create());
-        assertEquals("c", f.create());
-        assertEquals("d", f.create());
-        assertEquals("e", f.create());
-        assertEquals("f", f.create());
-        assertEquals("g", f.create());
-        assertEquals("h", f.create());
-        assertEquals("i", f.create());
-        assertEquals("j", f.create());
-        assertEquals("k", f.create());
-        assertEquals("l", f.create());
-        assertEquals("m", f.create());
-        assertEquals("n", f.create());
-        assertEquals("o", f.create());
-        assertEquals("p", f.create());
-        assertEquals("q", f.create());
-        assertEquals("r", f.create());
-        assertEquals("s", f.create());
-        assertEquals("t", f.create());
-        assertEquals("u", f.create());
-        assertEquals("v", f.create());
-        assertEquals("w", f.create());
-        assertEquals("x", f.create());
-        assertEquals("y", f.create());
-        assertEquals("z", f.create());
+        StringIdentifierFactory f = IdentifierUtils.stringAlphanumericIdentifierFactory(false, 1);
+        assertEquals("1", f.nextStringIdentifier());
+        assertEquals("2", f.nextStringIdentifier());
+        assertEquals("3", f.nextStringIdentifier());
+        assertEquals("4", f.nextStringIdentifier());
+        assertEquals("5", f.nextStringIdentifier());
+        assertEquals("6", f.nextStringIdentifier());
+        assertEquals("7", f.nextStringIdentifier());
+        assertEquals("8", f.nextStringIdentifier());
+        assertEquals("9", f.nextStringIdentifier());
+        assertEquals("a", f.nextStringIdentifier());
+        assertEquals("b", f.nextStringIdentifier());
+        assertEquals("c", f.nextStringIdentifier());
+        assertEquals("d", f.nextStringIdentifier());
+        assertEquals("e", f.nextStringIdentifier());
+        assertEquals("f", f.nextStringIdentifier());
+        assertEquals("g", f.nextStringIdentifier());
+        assertEquals("h", f.nextStringIdentifier());
+        assertEquals("i", f.nextStringIdentifier());
+        assertEquals("j", f.nextStringIdentifier());
+        assertEquals("k", f.nextStringIdentifier());
+        assertEquals("l", f.nextStringIdentifier());
+        assertEquals("m", f.nextStringIdentifier());
+        assertEquals("n", f.nextStringIdentifier());
+        assertEquals("o", f.nextStringIdentifier());
+        assertEquals("p", f.nextStringIdentifier());
+        assertEquals("q", f.nextStringIdentifier());
+        assertEquals("r", f.nextStringIdentifier());
+        assertEquals("s", f.nextStringIdentifier());
+        assertEquals("t", f.nextStringIdentifier());
+        assertEquals("u", f.nextStringIdentifier());
+        assertEquals("v", f.nextStringIdentifier());
+        assertEquals("w", f.nextStringIdentifier());
+        assertEquals("x", f.nextStringIdentifier());
+        assertEquals("y", f.nextStringIdentifier());
+        assertEquals("z", f.nextStringIdentifier());
         try {
-            f.create();
+            f.nextStringIdentifier();
             fail();
-        } catch (FactoryException ex) {}
+        } catch (IllegalStateException ex) {}
     }
 
     //--------------------------------------------------------------------------
 
     public void testStringSession() {
-        Factory f = IdentifierUtils.STRING_SESSION_IDENTIFIER_FACTORY;
+        StringIdentifierFactory f = IdentifierUtils.STRING_SESSION_IDENTIFIER_FACTORY;
         assertTrue(f != IdentifierUtils.stringSessionIdentifierFactory());
         
-        String a = (String) f.create();
+        String a = (String) f.nextStringIdentifier();
         String b = (String) IdentifierUtils.nextStringSessionIdentifier();
         assertTrue(a.length() >= 10);
         assertTrue(b.length() >= 10);
