@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.StringUtils} - Substring methods
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StringUtilsIsTest.java,v 1.5 2003/03/23 21:51:51 scolebourne Exp $
+ * @version $Id: StringUtilsIsTest.java,v 1.6 2003/07/19 18:10:30 scolebourne Exp $
  */
 public class StringUtilsIsTest extends TestCase {
 
@@ -129,6 +129,8 @@ public class StringUtilsIsTest extends TestCase {
         assertEquals(false, StringUtils.isWhitespace("a  "));
         assertEquals(false, StringUtils.isWhitespace("  a"));
         assertEquals(false, StringUtils.isWhitespace("aba"));
+        assertEquals(true, StringUtils.isWhitespace(StringUtilsTest.WHITESPACE));
+        assertEquals(false, StringUtils.isWhitespace(StringUtilsTest.NON_WHITESPACE));
     }
 
     public void testIsAlphaspace() {
