@@ -267,7 +267,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.24 2004/02/12 00:45:09 ggregory Exp $
+ * @version $Id: Enum.java,v 1.25 2004/02/12 00:48:30 ggregory Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
 
@@ -557,6 +557,9 @@ public abstract class Enum implements Comparable, Serializable {
      * <p>Two Enum objects are considered equal
      * if they have the same class names and the same names.
      * Identity is tested for first, so this method usually runs fast.</p>
+     * 
+     * <p>If the parameter is in a different class loader than this instance,
+     * reflection is used to compare the names.</p>
      *
      * @param other  the other object to compare for equality
      * @return <code>true</code> if the Enums are equal
