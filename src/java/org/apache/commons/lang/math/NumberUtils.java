@@ -69,7 +69,7 @@ import org.apache.commons.lang.NullArgumentException;
  * @author Phil Steitz
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.2 2003/06/28 18:42:03 scolebourne Exp $
+ * @version $Id: NumberUtils.java,v 1.3 2003/07/14 22:25:05 bayard Exp $
  */
 public final class NumberUtils {
     
@@ -443,7 +443,7 @@ public final class NumberUtils {
     // Min in array
     //--------------------------------------------------------------------
     /**
-     * Returns the minimum value in an array.
+     * <p>Returns the minimum value in an array.</p>
      * 
      * @param array  an array
      * @return the minimum value in the array
@@ -470,7 +470,7 @@ public final class NumberUtils {
     }
 
     /**
-     * Returns the minimum value in an array.
+     * <p>Returns the minimum value in an array.</p>
      * 
      * @param array  an array
      * @return the minimum value in the array
@@ -497,7 +497,7 @@ public final class NumberUtils {
     }
 
     /**
-     * Returns the minimum value in an array.
+     * <p>Returns the minimum value in an array.</p>
      * 
      * @param array  an array
      * @return the minimum value in the array
@@ -524,7 +524,7 @@ public final class NumberUtils {
     }
 
      /**
-     * Returns the minimum value in an array.
+     * <p>Returns the minimum value in an array.</p>
      * 
      * @param array  an array
      * @return the minimum value in the array
@@ -551,7 +551,7 @@ public final class NumberUtils {
     }
 
     /**
-     * Returns the minimum value in an array.
+     * <p>Returns the minimum value in an array.</p>
      * 
      * @param array  an array
      * @return the minimum value in the array
@@ -580,7 +580,7 @@ public final class NumberUtils {
     // Max in array
     //--------------------------------------------------------------------
     /**
-     * Returns the maximum value in an array.
+     * <p>Returns the maximum value in an array.</p>
      * 
      * @param array  an array
      * @return the minimum value in the array
@@ -607,7 +607,7 @@ public final class NumberUtils {
     }
 
     /**
-     * Returns the maximum value in an array.
+     * <p>Returns the maximum value in an array.</p>
      * 
      * @param array  an array
      * @return the minimum value in the array
@@ -634,7 +634,7 @@ public final class NumberUtils {
     }
 
     /**
-     * Returns the maximum value in an array.
+     * <p>Returns the maximum value in an array.</p>
      * 
      * @param array  an array
      * @return the minimum value in the array
@@ -661,7 +661,7 @@ public final class NumberUtils {
     }
 
     /**
-     * Returns the maximum value in an array.
+     * <p>Returns the maximum value in an array.</p>
      * 
      * @param array  an array
      * @return the minimum value in the array
@@ -688,7 +688,7 @@ public final class NumberUtils {
     }
 
     /**
-     * Returns the maximum value in an array.
+     * <p>Returns the maximum value in an array.</p>
      * 
      * @param array  an array
      * @return the minimum value in the array
@@ -791,7 +791,8 @@ public final class NumberUtils {
     /**
      * <p>Gets the minimum of three <code>double</code> values.</p>
      * 
-     * <p>If any value is NaN, NaN is returned. Infinity is handled.</p>
+     * <p>If any value is <code>NaN</code>, <code>NaN</code> is
+     * returned. Infinity is handled.</p>
      * 
      * @param a  value 1
      * @param b  value 2
@@ -805,8 +806,9 @@ public final class NumberUtils {
     /**
      * <p>Gets the minimum of three <code>float</code> values.</p>
      * 
-     * <p>If any value is NaN, NaN is returned. Infinity is handled.</p>
-     * 
+     * <p>If any value is <code>NaN</code>, <code>NaN</code> is
+     * returned. Infinity is handled.</p>
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -893,8 +895,9 @@ public final class NumberUtils {
     /**
      * <p>Gets the maximum of three <code>double</code> values.</p>
      * 
-     * <p>If any value is NaN, NaN is returned. Infinity is handled.</p>
-     * 
+     * <p>If any value is <code>NaN</code>, <code>NaN</code> is
+     * returned. Infinity is handled.</p>
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -907,8 +910,9 @@ public final class NumberUtils {
     /**
      * <p>Gets the maximum of three <code>float</code> values.</p>
      * 
-     * <p>If any value is NaN, NaN is returned. Infinity is handled.</p>
-     * 
+     * <p>If any value is <code>NaN</code>, <code>NaN</code> is
+     * returned. Infinity is handled.</p>
+     *
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
@@ -925,9 +929,9 @@ public final class NumberUtils {
      * <p>This method is more comprehensive than the standard Java greater
      * than, less than and equals operators.</p>
      * <ul>
-     *  <li>It returns <code>-1</code> if the first value is less than the second.
-     *  <li>It returns <code>+1</code> if the first value is greater than the second.
-     *  <li>It returns <code>0</code> if the values are equal.
+     *  <li>It returns <code>-1</code> if the first value is less than the second.</li>
+     *  <li>It returns <code>+1</code> if the first value is greater than the second.</li>
+     *  <li>It returns <code>0</code> if the values are equal.</li>
      * </ul>
      *
      * <p>
@@ -940,7 +944,7 @@ public final class NumberUtils {
      *  <li>+0.0
      *  <li>-0.0
      *  <li>Normal negative numbers
-     *  <li>Minimum double (-Double.MAX_VALUE)
+     *  <li>Minimum double (<code>-Double.MAX_VALUE</code>)
      *  <li>Negative infinity
      * </ul>
      * </p>
@@ -1002,7 +1006,7 @@ public final class NumberUtils {
      * <li>+0.0
      * <li>-0.0
      * <li>Normal negative numbers
-     * <li>Minimum float (-Float.MAX_VALUE)
+     * <li>Minimum float (<code>-Float.MAX_VALUE</code>)
      * <li>Negative infinity
      * </ul>
      *

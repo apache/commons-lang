@@ -62,27 +62,27 @@ import java.util.List;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.12 2003/05/29 21:02:53 ggregory Exp $
+ * @version $Id: ClassUtils.java,v 1.13 2003/07/14 22:25:02 bayard Exp $
  */
 public class ClassUtils {
 
     /**
-     * The package separator character: <code>&#x2e;</code>
+     * <p>The package separator character: <code>&#x2e;</code>.</p>
      */
     public static final char PACKAGE_SEPARATOR_CHAR = '.';
     
     /**
-     * The package separator String: <code>&#x2e;</code>
+     * <p>The package separator String: <code>&#x2e;</code>.</p>
      */
     public static final String PACKAGE_SEPARATOR = String.valueOf(PACKAGE_SEPARATOR_CHAR);
     
     /**
-     * The inner class separator character: <code>$</code>
+     * <p>The inner class separator character: <code>$</code>.</p>
      */
     public static final char INNER_CLASS_SEPARATOR_CHAR = '$';
     
     /**
-     * The inner class separator String: <code>$</code>
+     * <p>The inner class separator String: <code>$</code>.</p>
      */
     public static final String INNER_CLASS_SEPARATOR = String.valueOf(INNER_CLASS_SEPARATOR_CHAR);
     
@@ -319,9 +319,9 @@ public class ClassUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * <p>Given a <code>List</code> of class names, this method converts them into classes.     
+     * <p>Given a <code>List</code> of class names, this method converts them into classes.</p>
      *
-     * A new <code>List</code> is returned. If the class name cannot be found, <code>null</code>
+     * <p>A new <code>List</code> is returned. If the class name cannot be found, <code>null</code>
      * is stored in the <code>List</code>. If the class name in the <code>List</code> is
      * <code>null</code>, <code>null</code> is stored in the output <code>List</code>.</p>
      * 
@@ -348,8 +348,9 @@ public class ClassUtils {
     
     /**
      * <p>Given a <code>List</code> of <code>Class</code> objects, this method converts
-     * them into class names.
-     * A new <code>List</code> is returned. <code>null</code> objects will be copied into
+     * them into class names.</p>
+     *
+     * <p>A new <code>List</code> is returned. <code>null</code> objects will be copied into
      * the returned list as <code>null</code>.</p>
      * 
      * @param classes  the classes to change

@@ -60,24 +60,36 @@ import java.io.Serializable;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: LongRange.java,v 1.2 2003/03/23 17:51:15 scolebourne Exp $
+ * @version $Id: LongRange.java,v 1.3 2003/07/14 22:25:05 bayard Exp $
  */
 public final class LongRange extends Range implements Serializable {
     
     private static final long serialVersionUID = 71849363892720L;
 
-    /* The minimum number in this range (inclusive). */
+    /**
+     * The minimum number in this range (inclusive).
+     */
     private final long min;
-    /* The maximum number in this range (inclusive). */
+    /**
+     * The maximum number in this range (inclusive).
+     */
     private final long max;
     
-    /** Cached output minObject (class is immutable) */
+    /**
+     * Cached output minObject (class is immutable).
+     */
     private transient Long minObject = null;
-    /** Cached output maxObject (class is immutable) */
+    /**
+     * Cached output maxObject (class is immutable).
+     */
     private transient Long maxObject = null;
-    /** Cached output hashCode (class is immutable) */
+    /**
+     * Cached output hashCode (class is immutable).
+     */
     private transient int hashCode = 0;
-    /** Cached output toString (class is immutable) */
+    /**
+     * Cached output toString (class is immutable).
+     */
     private transient String toString = null;
     
     /**
@@ -96,7 +108,8 @@ public final class LongRange extends Range implements Serializable {
      * <p>Constructs a new <code>LongRange</code> using the specified
      * number as both the minimum and maximum in this range.</p>
      *
-     * @param number  the number to use for this range, must not be null
+     * @param number  the number to use for this range, must not
+     *  be <code>null</code>
      * @throws IllegalArgumentException if the number is <code>null</code>
      */
     public LongRange(Number number) {

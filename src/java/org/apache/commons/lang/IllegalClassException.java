@@ -54,17 +54,17 @@
 package org.apache.commons.lang;
 
 /**
- * Thrown when an object is an instance of an unexpected type (a class or interface).
+ * <p>Thrown when an object is an instance of an unexpected type (a class or interface).</p>
  * 
  * @author Matthew Hawthorne
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: IllegalClassException.java,v 1.3 2003/06/03 20:49:59 ggregory Exp $
+ * @version $Id: IllegalClassException.java,v 1.4 2003/07/14 22:25:02 bayard Exp $
  */
 public class IllegalClassException extends IllegalArgumentException {
 
     /**
-     * Instantiates with the specified types (classes or interfaces).
+     * <p>Instantiates with the specified types (classes or interfaces).</p>
      * 
      * @param expected  the expected type
      * @param actual  the actual type
@@ -78,7 +78,7 @@ public class IllegalClassException extends IllegalArgumentException {
     }
 
     /**
-     * Instantiates with the specified message.
+     * <p>Instantiates with the specified message.</p>
      * 
      * @param message  the exception message
      */
@@ -87,7 +87,8 @@ public class IllegalClassException extends IllegalArgumentException {
     }
 
     /**
-     * Returns the class name or <code>null</code> if the class is <code>null</code>.
+     * <p>Returns the class name or <code>null</code> if the class is
+     * <code>null</code>.</p>
      * 
      * @param cls  a <code>Class</code>
      * @return the name of <code>cls</code>, or <code>null</code> if if <code>cls</code> is <code>null</code>.

@@ -61,15 +61,16 @@ import org.apache.commons.lang.BooleanUtils;
  * <p>This class enables a good and consistent <code>toString()</code> to be built for any
  * class or object. This class aims to simplify the process by:</p>
  * <ul>
- * <li>allowing field names
- * <li>handling all types consistently
- * <li>handling nulls consistently
- * <li>outputting arrays and multi-dimensional arrays
- * <li>enabling the detail level to be controlled for Objects and Collections
- * <li>handling class hierarchies
+ *  <li>allowing field names</li>
+ *  <li>handling all types consistently</li>
+ *  <li>handling nulls consistently</li>
+ *  <li>outputting arrays and multi-dimensional arrays</li>
+ *  <li>enabling the detail level to be controlled for Objects and Collections</li>
+ *  <li>handling class hierarchies</li>
  * </ul>
  *
- * <p>To use this class write code as follows:
+ * <p>To use this class write code as follows:</p>
+ *
  * <pre>
  * public class Person {
  *   String name;
@@ -87,6 +88,7 @@ import org.apache.commons.lang.BooleanUtils;
  *   }
  * }
  * </pre>
+ *
  * <p>This will produce a toString of the format:
  * <code>Person@7f54[name=Stephen,age=29,smoker=false]</code></p>
  * 
@@ -102,6 +104,7 @@ import org.apache.commons.lang.BooleanUtils;
  * slower than testing explicitly.</p>
  *
  * <p>A typical invocation for this method would look like:</p>
+ *
  * <pre>
  * public String toString() {
  *   return ToStringBuilder.reflectionToString(this);
@@ -109,6 +112,7 @@ import org.apache.commons.lang.BooleanUtils;
  * </pre>
  *
  * <p>You can also use the builder to debug 3rd party objects:</p>
+ *
  * <pre>
  * System.out.println("An object: " + ToStringBuilder.reflectionToString(anObject));
  * </pre>
@@ -119,12 +123,12 @@ import org.apache.commons.lang.BooleanUtils;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.23 2003/06/23 17:04:39 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.24 2003/07/14 22:25:03 bayard Exp $
  */
 public class ToStringBuilder {
 
     /**
-     * The default style of output to use
+     * The default style of output to use.
      */
     private static ToStringStyle defaultStyle = ToStringStyle.DEFAULT_STYLE;
 
@@ -147,7 +151,7 @@ public class ToStringBuilder {
     }
 
     /**
-     * Forwards to ReflectionToStringBuilder.
+     * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
      * 
      * @see ReflectionToStringBuilder#toString(Object)
      */
@@ -156,7 +160,7 @@ public class ToStringBuilder {
     }
 
     /**
-     * Forwards to ReflectionToStringBuilder.
+     * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
      * 
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle)
      */
@@ -165,7 +169,7 @@ public class ToStringBuilder {
     }
 
     /**
-     * Forwards to ReflectionToStringBuilder.
+     * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
      * 
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean)
      */
@@ -174,7 +178,7 @@ public class ToStringBuilder {
     }
 
     /**
-     * Forwards to ReflectionToStringBuilder.
+     * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
      * 
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean,Class)
      */
@@ -997,8 +1001,8 @@ public class ToStringBuilder {
      * <p>Append the <code>toString</code> from another object.</p>
      * 
      * <p>This method is useful where a class delegates most of the implementation of
-     * it's properties to another class. You can then call toString() on the other 
-     * class and pass the result into this method.</p>
+     * it's properties to another class. You can then call <code>toString()</code> on
+     * the other class and pass the result into this method.</p>
      * 
      * <pre>
      *   private AnotherObject delegate;
@@ -1014,7 +1018,7 @@ public class ToStringBuilder {
      * <p>This method asumes that the other object uses the same <code>ToStringStyle</code>
      * as this one.</p>
      * 
-     * <p>If the <code>toString</code> is null, no change is made.</p>
+     * <p>If the <code>toString</code> is <code>null</code>, no change is made.</p>
      *
      * @param toString  the result of <code>toString()</code> on another object
      * @return this
@@ -1060,7 +1064,7 @@ public class ToStringBuilder {
     }
 
     /**
-     * Returns the object being output.
+     * <p>Returns the <code>Object</code> being output.</p>
      * 
      * @return The object being output.
      */

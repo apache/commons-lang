@@ -68,7 +68,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * {@link HashCodeBuilder}.</p>
  *
  * <p>Two object that compare equal using equals should normally compare 
- * equals using compareTo</p>.
+ * equals using <code>compareTo</code></p>.
  *
  * <p>All relevant fields should be included in the calculation of the
  * comparison. Derived fields may be ignored. The same fields, in the same
@@ -76,6 +76,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * <code>equals</code>.</p>
  *
  * <p>Typical use for the code is as follows:</p>
+ *
  * <pre>
  *  public int compareTo(Object o) {
  *    MyClass rhs = (MyClass) o;
@@ -106,7 +107,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.15 2003/06/24 21:14:50 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.16 2003/07/14 22:25:03 bayard Exp $
  */
 public class CompareToBuilder {
     
@@ -234,8 +235,8 @@ public class CompareToBuilder {
     }
 
     /**
-     * Appends the fields and values defined by the given object of the
-     * given Class.
+     * <p>Appends the fields and values defined by the given object of the
+     * given Class.</p>
      * 
      * @param lhs  the left hand object
      * @param rhs  the right hand object
@@ -287,14 +288,15 @@ public class CompareToBuilder {
     
     /**
      * <p>Comparison of two Object references.</p>
+     *
      * <ol>
-     * <li>Check if Objects are same using <code>==</code>
-     * <li>Check if either is null, a null object is less than a non-null
-     * <li>Check the object contents
+     *  <li>Check if Objects are same using <code>==</code></li>
+     *  <li>Check if either is null, a null object is less than a non-null</li>
+     *  <li>Check the object contents</li>
      * </ol>
      * 
      * <p>The first parameter to be compared must either be an array or implement
-     * Comparable.</p>
+     * <code>Comparable</code>.</p>
      *
      * @param lhs  the Object from <code>this</code> object
      * @param rhs  the Object from the other object
@@ -309,14 +311,14 @@ public class CompareToBuilder {
     /**
      * <p>Comparison of two Object references.</p>
      * <ol>
-     * <li>Check if Objects are same using <code>==</code>
-     * <li>Check if either is null, a null object is less than a non-null
-     * <li>Check the object contents
+     *  <li>Check if Objects are same using <code>==</code></li>
+     *  <li>Check if either is null, a null object is less than a non-null</li>
+     *  <li>Check the object contents</li>
      * </ol>
      * 
      * <p>If the first parameter to be compared is an array, the array methods will
      * be used. Otherwise the comparator will be used. If the comparator is null, 
-     * the <code>lhs</code> will be cast to Comparable.</p>
+     * the <code>lhs</code> will be cast to <code>Comparable</code>.</p>
      *
      * @param lhs  the Object from <code>this</code> object
      * @param rhs  the Object from the other object
@@ -379,7 +381,7 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>long</code>s are <, > or ==.</p>
+     * <p>Test if two <code>long</code>s are &lt;, &gt; or ==.</p>
      *
      * @param lhs  the <code>long</code> from <code>this</code> object
      * @param rhs  the <code>long</code> from the other object
@@ -394,7 +396,7 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>int</code>s are <, > or ==.</p>
+     * <p>Test if two <code>int</code>s are &lt;, &gt; or ==.</p>
      *
      * @param lhs  the <code>int</code> from <code>this</code> object
      * @param rhs  the <code>int</code> from the other object
@@ -409,7 +411,7 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>short</code>s are <, > or ==.</p>
+     * <p>Test if two <code>short</code>s are &lt;, &gt; or ==.</p>
      * 
      * @param lhs  the <code>short</code> from <code>this</code> object
      * @param rhs  the <code>short</code> from the other object
@@ -424,7 +426,7 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>char</code>s are <, > or ==.</p>
+     * <p>Test if two <code>char</code>s are &lt;, &gt; or ==.</p>
      *
      * @param lhs  the <code>char</code> from <code>this</code> object
      * @param rhs  the <code>char</code> from the other object
@@ -439,7 +441,7 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>byte</code>s are <, > or ==.</p>
+     * <p>Test if two <code>byte</code>s are &lt, &gt; or ==.</p>
      * 
      * @param lhs  the <code>byte</code> from <code>this</code> object
      * @param rhs  the <code>byte</code> from the other object
@@ -454,7 +456,7 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>double</code>s are <, > or ==.</p>
+     * <p>Test if two <code>double</code>s are &lt;, &gt; or ==.</p>
      *
      * <p>This handles NaNs, Infinties, and <code>-0.0</code>.</p>
      *
@@ -474,7 +476,7 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>float</code>s are <, > or ==.</p>
+     * <p>Test if two <code>float</code>s are &lt;, &gt; or ==.</p>
      *
      * <p>This handles NaNs, Infinties, and <code>-0.0</code>.</p>
      *
@@ -494,7 +496,7 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Test if two <code>booleans</code>s are <, > or ==.</p>
+     * <p>Test if two <code>booleans</code>s are &lt;, &gt; or ==.</p>
      *
      * @param lhs  the <code>boolean</code> from <code>this</code> object
      * @param rhs  the <code>boolean</code> from the other object
@@ -517,11 +519,12 @@ public class CompareToBuilder {
 
     /**
      * <p>Deep comparison of an <code>Object</code> array.</p>
+     *
      * <ol>
-     * <li>Check if arrays are same using <code>==</code>
-     * <li>Check if either is null, a null array is less than a non-null
-     * <li>Check array length, a short length array is less than a long length array
-     * <li>Check array contents element by element using {@link #append(long, long)}
+     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check array length, a short length array is less than a long length array</li>
+     *  <li>Check array contents element by element using {@link #append(long, long)}</li>
      * </ol>
      *
      * <p>This method will also will be called for the top level of multi-dimensional,
@@ -539,11 +542,12 @@ public class CompareToBuilder {
     
     /**
      * <p>Deep comparison of an <code>Object</code> array.</p>
+     *
      * <ol>
-     * <li>Check if arrays are same using <code>==</code>
-     * <li>Check if either is null, a null array is less than a non-null
-     * <li>Check array length, a shorter length array is less than a longer length array
-     * <li>Check array contents element by element using {@link #append(Object, Object, Comparator)}
+     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check array length, a shorter length array is less than a longer length array</li>
+     *  <li>Check array contents element by element using {@link #append(Object, Object, Comparator)}</li>
      * </ol>
      *
      * <p>This method will also will be called for the top level of multi-dimensional,
@@ -584,11 +588,12 @@ public class CompareToBuilder {
 
     /**
      * <p>Deep comparison of a <code>long</code> array.</p>
+     *
      * <ol>
-     * <li>Check if arrays are same using <code>==</code>
-     * <li>Check if either is null, a null array is less than a non-null
-     * <li>Check array length, a shorter length array is less than a longer length array
-     * <li>Check array contents element by element using {@link #append(long, long)}
+     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check array length, a shorter length array is less than a longer length array</li>
+     *  <li>Check array contents element by element using {@link #append(long, long)}</li>
      * </ol>
      *
      * @param lhs  array from <code>this</code> object
@@ -622,11 +627,12 @@ public class CompareToBuilder {
 
     /**
      * <p>Deep comparison of an <code>int</code> array.</p>
+     *
      * <ol>
-     * <li>Check if arrays are same using <code>==</code>
-     * <li>Check if either is null, a null array is less than a non-null
-     * <li>Check array length, a shorter length array is less than a longer length array
-     * <li>Check array contents element by element using {@link #append(int, int)}
+     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check array length, a shorter length array is less than a longer length array</li>
+     *  <li>Check array contents element by element using {@link #append(int, int)}</li>
      * </ol>
      *
      * @param lhs  array from <code>this</code> object
@@ -660,11 +666,12 @@ public class CompareToBuilder {
 
     /**
      * <p>Deep comparison of a <code>short</code> array.</p>
+     *
      * <ol>
-     * <li>Check if arrays are same using <code>==</code>
-     * <li>Check if either is null, a null array is less than a non-null
-     * <li>Check array length, a shorter length array is less than a longer length array
-     * <li>Check array contents element by element using {@link #append(short, short)}
+     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check array length, a shorter length array is less than a longer length array</li>
+     *  <li>Check array contents element by element using {@link #append(short, short)}</li>
      * </ol>
      *
      * @param lhs  array from <code>this</code> object
@@ -698,11 +705,12 @@ public class CompareToBuilder {
 
     /**
      * <p>Deep comparison of a <code>char</code> array.</p>
+     *
      * <ol>
-     * <li>Check if arrays are same using <code>==</code>
-     * <li>Check if either is null, a null array is less than a non-null
-     * <li>Check array length, a shorter length array is less than a longer length array
-     * <li>Check array contents element by element using {@link #append(char, char)}
+     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check array length, a shorter length array is less than a longer length array</li>
+     *  <li>Check array contents element by element using {@link #append(char, char)}</li>
      * </ol>
      *
      * @param lhs  array from <code>this</code> object
@@ -736,11 +744,12 @@ public class CompareToBuilder {
 
     /**
      * <p>Deep comparison of a <code>byte</code> array.</p>
+     *
      * <ol>
-     * <li>Check if arrays are same using <code>==</code>
-     * <li>Check if either is null, a null array is less than a non-null
-     * <li>Check array length, a shorter length array is less than a longer length array
-     * <li>Check array contents element by element using {@link #append(byte, byte)}
+     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check array length, a shorter length array is less than a longer length array</li>
+     *  <li>Check array contents element by element using {@link #append(byte, byte)}</li>
      * </ol>
      *
      * @param lhs  array from <code>this</code> object
@@ -774,11 +783,12 @@ public class CompareToBuilder {
 
     /**
      * <p>Deep comparison of a <code>double</code> array.</p>
+     *
      * <ol>
-     * <li>Check if arrays are same using <code>==</code>
-     * <li>Check if either is null, a null array is less than a non-null
-     * <li>Check array length, a shorter length array is less than a longer length array
-     * <li>Check array contents element by element using {@link #append(double, double)}
+     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check array length, a shorter length array is less than a longer length array</li>
+     *  <li>Check array contents element by element using {@link #append(double, double)}</li>
      * </ol>
      *
      * @param lhs  array from <code>this</code> object
@@ -812,11 +822,12 @@ public class CompareToBuilder {
 
     /**
      * <p>Deep comparison of a <code>float</code> array.</p>
+     *
      * <ol>
-     * <li>Check if arrays are same using <code>==</code>
-     * <li>Check if either is null, a null array is less than a non-null
-     * <li>Check array length, a shorter length array is less than a longer length array
-     * <li>Check array contents element by element using {@link #append(float, float)}
+     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check array length, a shorter length array is less than a longer length array</li>
+     *  <li>Check array contents element by element using {@link #append(float, float)}
      * </ol>
      *
      * @param lhs  array from <code>this</code> object
@@ -850,11 +861,12 @@ public class CompareToBuilder {
 
     /**
      * <p>Deep comparison of a <code>boolean/code> array.</p>
+     *
      * <ol>
-     * <li>Check if arrays are same using <code>==</code>
-     * <li>Check if either is null, a null array is less than a non-null
-     * <li>Check array length, a shorter length array is less than a longer length array
-     * <li>Check array contents element by element using {@link #append(boolean, boolean)}
+     *  <li>Check if arrays are same using <code>==</code></li>
+     *  <li>Check if either is <code>null</code>, a null array is less than a non-null</li>
+     *  <li>Check array length, a shorter length array is less than a longer length array</li>
+     *  <li>Check array contents element by element using {@link #append(boolean, boolean)}</li>
      * </ol>
      *
      * @param lhs  array from <code>this</code> object
@@ -887,9 +899,9 @@ public class CompareToBuilder {
     }
 
     /**
-     * <p>Return a negative integer if the Object is less than, a positive
-     * integer if the Object is greater than, or <code>0</code> if the
-     * Object is equal.
+     * <p>Return a negative integer if the <code>Object</code> is less
+     * than, a positive integer if the <code>Object</code> is greater than,
+     * or <code>0</code> if the <code>Object</code> is equal.</p>
      * 
      * @return int - a negative integer, zero, or a positive integer as this 
      *  Object is less than, equal to, or greater than the specified Object.

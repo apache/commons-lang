@@ -58,14 +58,15 @@
 package org.apache.commons.lang;
 
 /**
- * A hash map that uses primitive ints for the key rather than objects.
- * Note that this class is for internal optimization purposes only, and may
+ * <p>A hash map that uses primitive ints for the key rather than objects.</p>
+ *
+ * <p>Note that this class is for internal optimization purposes only, and may
  * not be supported in future releases of Jakarta Commons Lang.  Utilities of
- * this sort may be included in future releases of Jakarta Commons Collections.
+ * this sort may be included in future releases of Jakarta Commons Collections.</p>
  *
  * @author Justin Couch
  * @author Alex Chaffee (alex@apache.org)
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * @see java.util.HashMap
  */
 public class IntHashMap
@@ -96,8 +97,8 @@ public class IntHashMap
     private float loadFactor;
 
     /**
-     * Innerclass that acts as a datastructure to create a new entry in the
-     * table.
+     * <p>Innerclass that acts as a datastructure to create a new entry in the
+     * table.</p>
      */
     private static class Entry
     {
@@ -107,7 +108,7 @@ public class IntHashMap
         Entry next;
 
         /**
-         * Create a new entry with the given values.
+         * <p>Create a new entry with the given values.</p>
          *
          * @param hash The code used to hash the object with
          * @param key The key used to enter this in the table
@@ -124,8 +125,8 @@ public class IntHashMap
     }
 
     /**
-     * Constructs a new, empty hashtable with a default capacity and load
-     * factor, which is <tt>20</tt> and <tt>0.75</tt> respectively.
+     * <p>Constructs a new, empty hashtable with a default capacity and load
+     * factor, which is <code>20</code> and <code>0.75</code> respectively.</p>
      */
     public IntHashMap()
     {
@@ -133,8 +134,8 @@ public class IntHashMap
     }
 
     /**
-     * Constructs a new, empty hashtable with the specified initial capacity
-     * and default load factor, which is <tt>0.75</tt>.
+     * <p>Constructs a new, empty hashtable with the specified initial capacity
+     * and default load factor, which is <code>0.75</code>.</p>
      *
      * @param  initialCapacity the initial capacity of the hashtable.
      * @throws IllegalArgumentException if the initial capacity is less
@@ -146,8 +147,8 @@ public class IntHashMap
     }
 
     /**
-     * Constructs a new, empty hashtable with the specified initial
-     * capacity and the specified load factor.
+     * <p>Constructs a new, empty hashtable with the specified initial
+     * capacity and the specified load factor.</p>
      *
      * @param initialCapacity the initial capacity of the hashtable.
      * @param loadFactor the load factor of the hashtable.
@@ -171,7 +172,7 @@ public class IntHashMap
     }
 
     /**
-     * Returns the number of keys in this hashtable.
+     * <p>Returns the number of keys in this hashtable.</p>
      *
      * @return  the number of keys in this hashtable.
      */
@@ -181,7 +182,7 @@ public class IntHashMap
     }
 
     /**
-     * Tests if this hashtable maps no keys to values.
+     * <p>Tests if this hashtable maps no keys to values.</p>
      *
      * @return  <code>true</code> if this hashtable maps no keys to values;
      *          <code>false</code> otherwise.
@@ -192,12 +193,12 @@ public class IntHashMap
     }
 
     /**
-     * Tests if some key maps into the specified value in this hashtable.
+     * <p>Tests if some key maps into the specified value in this hashtable.
      * This operation is more expensive than the <code>containsKey</code>
-     * method.<p>
+     * method.</p>
      *
-     * Note that this method is identical in functionality to containsValue,
-     * (which is part of the Map interface in the collections framework).
+     * <p>Note that this method is identical in functionality to containsValue,
+     * (which is part of the Map interface in the collections framework).</p>
      *
      * @param      value   a value to search for.
      * @return     <code>true</code> if and only if some key maps to the
@@ -231,10 +232,11 @@ public class IntHashMap
     }
 
     /**
-     * Returns true if this HashMap maps one or more keys to this value.<p>
+     * <p>Returns <code>true</code> if this HashMap maps one or more keys
+     * to this value.</p>
      *
-     * Note that this method is identical in functionality to contains
-     * (which predates the Map interface).
+     * <p>Note that this method is identical in functionality to contains
+     * (which predates the Map interface).</p>
      *
      * @param value value whose presence in this HashMap is to be tested.
      * @see    java.util.Map
@@ -246,7 +248,7 @@ public class IntHashMap
     }
 
     /**
-     * Tests if the specified object is a key in this hashtable.
+     * <p>Tests if the specified object is a key in this hashtable.</p>
      *
      * @param  key  possible key.
      * @return <code>true</code> if and only if the specified object is a
@@ -270,7 +272,7 @@ public class IntHashMap
     }
 
     /**
-     * Returns the value to which the specified key is mapped in this map.
+     * <p>Returns the value to which the specified key is mapped in this map.</p>
      *
      * @param   key   a key in the hashtable.
      * @return  the value to which the key is mapped in this hashtable;
@@ -294,11 +296,13 @@ public class IntHashMap
     }
 
     /**
-     * Increases the capacity of and internally reorganizes this
+     * <p>Increases the capacity of and internally reorganizes this
      * hashtable, in order to accommodate and access its entries more
-     * efficiently.  This method is called automatically when the
-     * number of keys in the hashtable exceeds this hashtable's capacity
-     * and load factor.
+     * efficiently.</p>
+     *
+     * <p>This method is called automatically when the number of keys
+     * in the hashtable exceeds this hashtable's capacity and load
+     * factor.</p>
      */
     protected void rehash()
     {
@@ -326,12 +330,12 @@ public class IntHashMap
     }
 
     /**
-     * Maps the specified <code>key</code> to the specified
+     * <p>Maps the specified <code>key</code> to the specified
      * <code>value</code> in this hashtable. The key cannot be
-     * <code>null</code>. <p>
+     * <code>null</code>. </p>
      *
-     * The value can be retrieved by calling the <code>get</code> method
-     * with a key that is equal to the original key.
+     * <p>The value can be retrieved by calling the <code>get</code> method
+     * with a key that is equal to the original key.</p>
      *
      * @param key     the hashtable key.
      * @param value   the value.
@@ -373,8 +377,11 @@ public class IntHashMap
     }
 
     /**
-     * Removes the key (and its corresponding value) from this
-     * hashtable. This method does nothing if the key is not in the hashtable.
+     * <p>Removes the key (and its corresponding value) from this
+     * hashtable.</p>
+     *
+     * <p>This method does nothing if the key is not present in the
+     * hashtable.</p>
      *
      * @param   key   the key that needs to be removed.
      * @return  the value to which the key had been mapped in this hashtable,
@@ -407,7 +414,7 @@ public class IntHashMap
     }
 
     /**
-     * Clears this hashtable so that it contains no keys.
+     * <p>Clears this hashtable so that it contains no keys.</p>
      */
     public synchronized void clear()
     {

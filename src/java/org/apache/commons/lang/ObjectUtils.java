@@ -62,7 +62,7 @@ import java.io.Serializable;
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.8 2003/02/22 20:19:16 scolebourne Exp $
+ * @version $Id: ObjectUtils.java,v 1.9 2003/07/14 22:25:03 bayard Exp $
  */
 public class ObjectUtils {
     
@@ -149,7 +149,8 @@ public class ObjectUtils {
     }
 
     /**
-     * <p>Class used as a null placeholder where null has another meaning.</p>
+     * <p>Class used as a null placeholder where <code>null</code>
+     * has another meaning.</p>
      *
      * <p>For example, in a <code>HashMap</code> the
      * {@link java.util.HashMap#get(java.lang.Object)} method returns
@@ -166,7 +167,7 @@ public class ObjectUtils {
         private static final long serialVersionUID = 7092611880189329093L;
         
         /**
-         * Restricted constructor - singleton
+         * Restricted constructor - singleton.
          */
         Null() {
         }

@@ -63,7 +63,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Revision: 1.8 $ $Date: 2003/06/08 14:10:54 $
+ * @version $Revision: 1.9 $ $Date: 2003/07/14 22:25:03 $
  * 
  * @deprecated Use one of the Range classes in org.apache.commons.lang.math.
  *             Class will be removed in Commons Lang 3.0.
@@ -79,8 +79,9 @@ public final class NumberRange {
 
 
     /**
-     * <p>Constructs a new <code>NumberRange</code> using the specified
-     * number as both the minimum and maximum in this range.</p>
+     * <p>Constructs a new <code>NumberRange</code> using
+     * <code>number</code> as both the minimum and maximum in
+     * this range.</p>
      *
      * @param num the number to use for this range
      * @throws NullPointerException if the number is <code>null</code>
@@ -98,8 +99,8 @@ public final class NumberRange {
      * <p>Constructs a new <code>NumberRange</code> with the specified
      * minimum and maximum numbers.</p>
      * 
-     * <p>If the maximum is less than the minimum, the range will be constructed
-     * from the minimum value to the minimum value, not what you would expect!.</p>
+     * <p><em>If the maximum is less than the minimum, the range will be constructed
+     * from the minimum value to the minimum value, not what you would expect!.</em></p>
      *
      * @param min the minimum number in this range
      * @param max the maximum number in this range
@@ -190,8 +191,8 @@ public final class NumberRange {
     }
 
     /**
-     * <p>Indicates whether some other <code>Object</code> is "equal" to
-     * this one.</p>
+     * <p>Indicates whether some other <code>Object</code> is
+     * &quot;equal&quot; to this one.</p>
      *
      * @param obj the reference object with which to compare
      * @return <code>true</code> if this object is the same as the obj

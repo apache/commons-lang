@@ -62,14 +62,15 @@ package org.apache.commons.lang.time;
  * 
  * <p>To start the watch, call {@link #start()}. At this point you can:</p>
  * <ul>
- * <li>{@link #split()} the watch to get the time whilst the watch continues in the
- *  background. {@link #unsplit()} will remove the effect of the split. At this point,
- *  these three options are available again.
- * <li>{@link #suspend()} the watch to pause it. {@link #resume()} allows the watch
- *  to continue. Any time between the suspend and resume will not be counted in
- *  the total. At this point, these three options are available again.
- * <li>{@link #stop()} the watch to complete the timing session.
+ *  <li>{@link #split()} the watch to get the time whilst the watch continues in the
+ *   background. {@link #unsplit()} will remove the effect of the split. At this point,
+ *   these three options are available again.</li>
+ *  <li>{@link #suspend()} the watch to pause it. {@link #resume()} allows the watch
+ *   to continue. Any time between the suspend and resume will not be counted in
+ *   the total. At this point, these three options are available again.</li>
+ *  <li>{@link #stop()} the watch to complete the timing session.</li>
  * </ul>
+ *
  * <p>It is intended that the output methods {@link #toString()} and {@link #getTime()}
  * should only be called after stop, split or suspend, however a suitable result will
  * be returned at other points.</p>
@@ -77,13 +78,17 @@ package org.apache.commons.lang.time;
  * @author Henri Yandell
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: StopWatch.java,v 1.4 2003/06/08 23:14:23 scolebourne Exp $
+ * @version $Id: StopWatch.java,v 1.5 2003/07/14 22:25:05 bayard Exp $
  */
 public class StopWatch {
     
-    /** The start time */
+    /**
+     * The start time.
+     */
     private long startTime = -1;
-    /** The stop time */
+    /**
+     * The stop time.
+     */
     private long stopTime = -1;
 
     /**

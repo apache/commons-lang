@@ -70,7 +70,7 @@ import java.util.Map;
  * @author <a href="mailto:ola.berg@arkitema.se">Ola Berg</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: Validate.java,v 1.2 2003/03/23 17:52:25 scolebourne Exp $
+ * @version $Id: Validate.java,v 1.3 2003/07/14 22:25:06 bayard Exp $
  */
 public class Validate {
     
@@ -84,22 +84,25 @@ public class Validate {
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the test
-     * result is false.
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the test result is <code>false</code>.</p>
      * 
      * <p>This is used when validating according to an arbitrary boolean expression,
      * such as validating a primitive number or using your own custom validation 
-     * expression.
+     * expression.</p>
+     *
      * <pre>
      * Validate.isTrue( myObject.isOk(), "The object is not OK: ", myObject);
      * </pre>
+     *
      * <p>For performance reasons, the object is passed as a separate parameter and
-     * appended to the message string only in the case of an error.
+     * appended to the message string only in the case of an error.</p>
      * 
      * @param expression  a boolean expression
-     * @param message  the exception message you would like to see if the expression is false
+     * @param message  the exception message you would like to see if the
+     *  expression is <code>false</code>
      * @param value  the value to append to the message in case of error
-     * @throws IllegalArgumentException if expression is false
+     * @throws IllegalArgumentException if expression is <code>false</code>
      */
     public static void isTrue(boolean expression, String message, Object value) {
         if (expression == false) {
@@ -108,22 +111,24 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the test
-     * result is false.
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the test result is <code>false</code>.</p>
      * 
      * <p>This is used when validating according to an arbitrary boolean expression,
      * such as validating a primitive number or using your own custom validation 
-     * expression.
+     * expression.</p>
+     *
      * <pre>
      * Validate.isTrue( i > 0, "The value must be greater than zero: ", i);
      * </pre>
+     *
      * <p>For performance reasons, the object is passed as a separate parameter and
-     * appended to the message string only in the case of an error.
+     * appended to the message string only in the case of an error.</p>
      * 
      * @param expression  a boolean expression
-     * @param message  the exception message you would like to see if the expression is false
+     * @param message  the exception message you would like to see if the expression is <code>false</code>
      * @param value  the value to append to the message in case of error
-     * @throws IllegalArgumentException if expression is false
+     * @throws IllegalArgumentException if expression is <code>false</code>
      */
     public static void isTrue(boolean expression, String message, long value) {
         if (expression == false) {
@@ -132,22 +137,25 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the test
-     * result is false.
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the test result is <code>false</code>.</p>
      * 
      * <p>This is used when validating according to an arbitrary boolean expression,
      * such as validating a primitive number or using your own custom validation 
-     * expression.
+     * expression.</p>
+     *
      * <pre>
      * Validate.isTrue( d > 0.0, "The value must be greater than zero: ", d);
      * </pre>
+     *
      * <p>For performance reasons, the object is passed as a separate parameter and
-     * appended to the message string only in the case of an error.
+     * appended to the message string only in the case of an error.</p>
      * 
      * @param expression  a boolean expression
-     * @param message  the exception message you would like to see if the expression is false
+     * @param message  the exception message you would like to see if the expression
+     *  is <code>false</code>
      * @param value  the value to append to the message in case of error
-     * @throws IllegalArgumentException if expression is false
+     * @throws IllegalArgumentException if expression is <code>false</code>
      */
     public static void isTrue(boolean expression, String message, double value) {
         if (expression == false) {
@@ -156,22 +164,25 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the test
-     * result is false.
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the test result is <code>false</code>.</p>
      * 
      * <p>This is used when validating according to an arbitrary boolean expression,
      * such as validating a primitive number or using your own custom validation 
-     * expression.
+     * expression.</p>
+     *
      * <pre>
      * Validate.isTrue( (i > 0), "The value must be greater than zero");
      * Validate.isTrue( myObject.isOk(), "The object is not OK");
      * </pre>
+     *
      * <p>For performance reasons, the message string should not involve a string append,
-     * instead use the {@link #isTrue(boolean, String, Object)} method.
+     * instead use the {@link #isTrue(boolean, String, Object)} method.</p>
      * 
      * @param expression  a boolean expression
-     * @param message  the exception message you would like to see if the expression is false
-     * @throws IllegalArgumentException if expression is false
+     * @param message  the exception message you would like to see if the expression
+     *  is <code>false</code>
+     * @throws IllegalArgumentException if expression is <code>false</code>
      */
     public static void isTrue(boolean expression, String message) {
         if (expression == false) {
@@ -180,20 +191,22 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the test
-     * result is false.
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the test result is <code>false</code>.</p>
      * 
      * <p>This is used when validating according to an arbitrary boolean expression,
      * such as validating a primitive number or using your own custom validation 
-     * expression.
+     * expression.</p>
+     *
      * <pre>
      * Validate.isTrue( i > 0 );
      * Validate.isTrue( myObject.isOk() );
      * </pre>
-     * <p>The message in the exception is 'The validated expression is false'.
+     *
+     * <p>The message in the exception is 'The validated expression is false'.</p>
      * 
      * @param expression  a boolean expression
-     * @throws IllegalArgumentException if expression is false
+     * @throws IllegalArgumentException if expression is <code>false</code>
      */
     public static void isTrue(boolean expression) {
         if (expression == false) {
@@ -205,15 +218,17 @@ public class Validate {
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument is null.
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument is <code>null</code>.</p>
+     *
      * <pre>
      * Validate.notNull(myObject, "The object must not be null");
      * </pre>
      * 
-     * @param object  the object to check is not null
-     * @param message  the exception message you would like to see if the object is null
-     * @throws IllegalArgumentException if the object is null
+     * @param object  the object to check is not <code>null</code>
+     * @param message  the exception message you would like to see
+     *  if the object is <code>null</code>
+     * @throws IllegalArgumentException if the object is <code>null</code>
      */
     public static void notNull(Object object, String message) {
         if (object == null) {
@@ -222,15 +237,17 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument is null.
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument is <code>null</code>.</p>
+     *
      * <pre>
      * Validate.notNull(myObject);
      * </pre>
-     * <p>The message in the exception is 'The validated object is null'.
+     *
+     * <p>The message in the exception is 'The validated object is null'.</p>
      * 
-     * @param object  the object to check is not null
-     * @throws IllegalArgumentException if the object is null
+     * @param object  the object to check is not <code>null</code>
+     * @throws IllegalArgumentException if the object is <code>null</code>
      */
     public static void notNull(Object object) {
         if (object == null) {
@@ -242,8 +259,9 @@ public class Validate {
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument array is empty (null or no elements).
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument array is empty (<code>null</code> or no elements).</p>
+     *
      * <pre>
      * Validate.notEmpty(myArray, "The array must not be empty");
      * </pre>
@@ -259,11 +277,13 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument array is empty (null or no elements).
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument array is empty (<code>null</code> or no elements).</p>
+     *
      * <pre>
      * Validate.notEmpty(myArray);
      * </pre>
+     *
      * <p>The message in the exception is 'The validated array is empty'.
      * 
      * @param array  the array to check is not empty
@@ -279,8 +299,9 @@ public class Validate {
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument Collection is empty (null or no elements).
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument Collection is empty (<code>null</code> or no elements).</p>
+     *
      * <pre>
      * Validate.notEmpty(myCollection, "The collection must not be empty");
      * </pre>
@@ -296,12 +317,14 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument Collection is empty (null or no elements).
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument Collection is empty (<code>null</code> or no elements).</p>
+     *
      * <pre>
      * Validate.notEmpty(myCollection);
      * </pre>
-     * <p>The message in the exception is 'The validated collection is empty'.
+     *
+     * <p>The message in the exception is 'The validated collection is empty'.</p>
      * 
      * @param collection  the collection to check is not empty
      * @throws IllegalArgumentException if the collection is empty
@@ -316,8 +339,9 @@ public class Validate {
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument Map is empty (null or no elements).
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument Map is empty (<code>null</code> or no elements).</p>
+     *
      * <pre>
      * Validate.notEmpty(myMap, "The collection must not be empty");
      * </pre>
@@ -333,12 +357,14 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument Map is empty (null or no elements).
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument Map is empty (<code>null</code> or no elements).</p>
+     *
      * <pre>
      * Validate.notEmpty(myMap);
      * </pre>
-     * <p>The message in the exception is 'The validated map is empty'.
+     *
+     * <p>The message in the exception is 'The validated map is empty'.</p>
      * 
      * @param map  the map to check is not empty
      * @throws IllegalArgumentException if the map is empty
@@ -353,8 +379,9 @@ public class Validate {
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument String is empty (null or zero length).
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument String is empty (<code>null</code> or zero length).</p>
+     *
      * <pre>
      * Validate.notEmpty(myString, "The string must not be empty");
      * </pre>
@@ -370,12 +397,14 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument String is empty (null or zero length).
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument String is empty (<code>null</code> or zero length).</p>
+     *
      * <pre>
      * Validate.notEmpty(myString);
      * </pre>
-     * <p>The message in the exception is 'The validated string is empty'.
+     *
+     * <p>The message in the exception is 'The validated string is empty'.</p>
      * 
      * @param string  the string to check is not empty
      * @throws IllegalArgumentException if the string is empty
@@ -390,15 +419,19 @@ public class Validate {
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument array has null elements or is null.
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument array has <code>null</code> elements or is
+     * <code>null</code>.</p>
+     *
      * <pre>
      * Validate.notEmpty(myArray, "The array must not contain null elements");
      * </pre>
      * 
      * @param array  the array to check
-     * @param message  the exception message if the array has null elements
-     * @throws IllegalArgumentException if the array has null elements or is null
+     * @param message  the exception message if the array has
+     *  <code>null</code> elements
+     * @throws IllegalArgumentException if the array has <code>null</code>
+     *  elements or is <code>null</code>
      */
     public static void noNullElements(Object[] array, String message) {
         Validate.notNull(array);
@@ -410,15 +443,19 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument array has null elements or is null.
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument array has <code>null</code> elements or is
+     * <code>null</code>.</p>
+     *
      * <pre>
      * Validate.notEmpty(myArray);
      * </pre>
-     * <p>The message in the exception is 'The validated array contains null element at index: '.
+     *
+     * <p>The message in the exception is 'The validated array contains null element at index: '.</p>
      * 
      * @param array  the array to check
-     * @throws IllegalArgumentException if the array has null elements or is null
+     * @throws IllegalArgumentException if the array has <code>null</code>
+     *  elements or is <code>null</code>
      */
     public static void noNullElements(Object[] array) {
         Validate.notNull(array);
@@ -433,15 +470,19 @@ public class Validate {
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument collection has null elements or is null.
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument collection has <code>null</code> elements or is
+     * <code>null</code>.</p>
+     *
      * <pre>
      * Validate.notEmpty(myCollection, "The collection must not contain null elements");
      * </pre>
      * 
      * @param collection  the collection to check
-     * @param message  the exception message if the array has null elements
-     * @throws IllegalArgumentException if the collection has null elements or is null
+     * @param message  the exception message if the array has
+     *  <code>null</code> elements
+     * @throws IllegalArgumentException if the collection has
+     *  <code>null</code> elements or is <code>null</code>
      */
     public static void noNullElements(Collection collection, String message) {
         Validate.notNull(collection);
@@ -454,15 +495,19 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing IllegalArgumentException if the 
-     * argument collection has null elements or is null.
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument collection has <code>null</code> elements or is
+     * <code>null</code>.</p>
+     *
      * <pre>
      * Validate.notEmpty(myCollection);
      * </pre>
-     * <p>The message in the exception is 'The validated collection contains null element at index: '.
+     *
+     * <p>The message in the exception is 'The validated collection contains null element at index: '.</p>
      * 
      * @param collection  the collection to check
-     * @throws IllegalArgumentException if the collection has null elements or is null
+     * @throws IllegalArgumentException if the collection has
+     *  <code>null</code> elements or is <code>null</code>
      */
     public static void noNullElements(Collection collection) {
         Validate.notNull(collection);
