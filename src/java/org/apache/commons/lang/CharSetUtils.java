@@ -64,7 +64,7 @@ package org.apache.commons.lang;
  * @author Stephen Colebourne
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.21 2003/08/04 00:50:14 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.22 2003/08/06 00:02:15 stevencaswell Exp $
  */
 public class CharSetUtils {
 
@@ -97,7 +97,7 @@ public class CharSetUtils {
      * CharSetUtils.evaluateSet("abe-g") = CharSet matching a,b,e,f,g
      * </pre>
      *
-     * @param set  the set, may be null
+     * @param setStr  the set, may be null
      * @return a CharSet instance, <code>null</code> if null input
      * @deprecated Use {@link CharSet#getInstance(String)}.
      *             Method will be removed in Commons Lang 3.0.
