@@ -63,7 +63,7 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.14 2003/07/19 20:22:36 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.15 2003/07/30 00:08:38 scolebourne Exp $
  */
 public class CharSetUtils {
 
@@ -334,10 +334,11 @@ public class CharSetUtils {
      *
      * @param str  String to replace characters in, may be null
      * @param repl  String to find that will be replaced, must not be null
-     * @param with  String to put into the target String, must not be null
+     * @param with  String to put into the target String, must not be null or empty ("")
      * @return translated String, <code>null</code> if null string input
-     * @throws NullPointerException if <code>target</code>, <code>with</code>
-     *  or <code>repl</code> is <code>null</code>
+     * @throws NullPointerException if <code>with</code> or <code>repl</code> 
+     *  is <code>null</code>
+     * @throws ArrayIndexOutOfBoundsException if <code>with</code> is empty ("")
      */
     public static String translate(String str, String repl, String with) {
         if (str == null) {

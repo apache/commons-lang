@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Stephen Colebourne
- * @version $Id: CharSetUtilsTest.java,v 1.8 2003/07/19 20:22:36 scolebourne Exp $
+ * @version $Id: CharSetUtilsTest.java,v 1.9 2003/07/30 00:08:38 scolebourne Exp $
  */
 public class CharSetUtilsTest extends TestCase {
     
@@ -94,19 +94,27 @@ public class CharSetUtilsTest extends TestCase {
 
     public void testSqueeze() {
         assertEquals(null, CharSetUtils.squeeze(null, (String[]) null));
+        assertEquals(null, CharSetUtils.squeeze(null, (String) null));
         assertEquals(null, CharSetUtils.squeeze(null, new String[] { "el" }));
         assertEquals("helo", CharSetUtils.squeeze("hello", new String[] { "el" }));
+        assertEquals("hello", CharSetUtils.squeeze("hello", ""));
         assertEquals("", CharSetUtils.squeeze("", new String[] { "el" }));
         assertEquals("hello", CharSetUtils.squeeze("hello", new String[] { "e" }));
         assertEquals("fofof", CharSetUtils.squeeze("fooffooff", new String[] { "of" }));
         assertEquals("fof", CharSetUtils.squeeze("fooooff", new String[] { "fo" }));
         try {
             CharSetUtils.squeeze("hello", (String[]) null);
+            fail("Expecting NullPointerException");
+        } catch (NullPointerException ex) {}
+        try {
+            CharSetUtils.squeeze("hello", new String[] { "", null });
+            fail("Expecting NullPointerException");
         } catch (NullPointerException ex) {}
     }
 
     public void testCount() {
         assertEquals(0, CharSetUtils.count(null, (String[]) null));
+        assertEquals(0, CharSetUtils.count(null, (String) null));
         assertEquals(0, CharSetUtils.count(null, new String[] { "el" }));
         assertEquals(3, CharSetUtils.count("hello", new String[] { "el" }));
         assertEquals(0, CharSetUtils.count("", new String[] { "el" }));
@@ -114,37 +122,83 @@ public class CharSetUtilsTest extends TestCase {
         assertEquals(2, CharSetUtils.count("hello", new String[] { "e-i" }));
         assertEquals(5, CharSetUtils.count("hello", new String[] { "a-z" }));
         assertEquals(0, CharSetUtils.count("hello", new String[] { "" }));
+        assertEquals(0, CharSetUtils.count("hello", ""));
         try {
             CharSetUtils.count("hello", (String[]) null);
+            fail("Expecting NullPointerException");
+        } catch (NullPointerException ex) {}
+        try {
+            CharSetUtils.count("hello", new String[] { "", null });
+            fail("Expecting NullPointerException");
         } catch (NullPointerException ex) {}
     }
 
     public void testKeep() {
         assertEquals(null, CharSetUtils.keep(null, (String[]) null));
+        assertEquals(null, CharSetUtils.keep(null, (String) null));
         assertEquals(null, CharSetUtils.keep(null, new String[] { "el" }));
         assertEquals("ell", CharSetUtils.keep("hello", new String[] { "el" }));
         assertEquals("hello", CharSetUtils.keep("hello", new String[] { "elho" }));
         assertEquals("", CharSetUtils.keep("hello", new String[] { "" }));
+        assertEquals("", CharSetUtils.keep("hello", ""));
         assertEquals("hello", CharSetUtils.keep("hello", new String[] { "a-z" }));
         assertEquals("----", CharSetUtils.keep("----", new String[] { "-" }));
         assertEquals("ll", CharSetUtils.keep("hello", new String[] { "l" }));
         try {
             CharSetUtils.keep("hello", (String[]) null);
+            fail("Expecting NullPointerException");
+        } catch (NullPointerException ex) {}
+        try {
+            CharSetUtils.keep("hello", new String[] { "", null});
+            fail("Expecting NullPointerException");
         } catch (NullPointerException ex) {}
     }
 
     public void testDelete() {
         assertEquals(null, CharSetUtils.delete(null, (String[]) null));
+        assertEquals(null, CharSetUtils.delete(null,(String) null));
         assertEquals(null, CharSetUtils.delete(null, new String[] { "el" }));
         assertEquals("ho", CharSetUtils.delete("hello", new String[] { "el" }));
         assertEquals("", CharSetUtils.delete("hello", new String[] { "elho" }));
         assertEquals("hello", CharSetUtils.delete("hello", new String[] { "" }));
+        assertEquals("hello", CharSetUtils.delete("hello", ""));
         assertEquals("", CharSetUtils.delete("hello", new String[] { "a-z" }));
         assertEquals("", CharSetUtils.delete("----", new String[] { "-" }));
         assertEquals("heo", CharSetUtils.delete("hello", new String[] { "l" }));
         try {
             CharSetUtils.delete("hello", (String[]) null);
+            fail("Expecting NullPointerException");
+        } catch (NullPointerException ex) {}
+        try {
+            CharSetUtils.delete("hello",  new String[] { "-", null });
+            fail("Expecting NullPointerException");
         } catch (NullPointerException ex) {}
     }
     
+    public void testTranslate() {
+        assertEquals(null, CharSetUtils.translate(null, null, null));
+        assertEquals("", CharSetUtils.translate("","a", "b"));
+        assertEquals("jelly", CharSetUtils.translate("hello", "ho", "jy"));
+        assertEquals("jellj", CharSetUtils.translate("hello", "ho", "j"));
+        assertEquals("jelly", CharSetUtils.translate("hello", "ho", "jyx"));
+        assertEquals("\rhello\r", CharSetUtils.translate("\nhello\n", "\n", "\r"));
+        assertEquals("hello", CharSetUtils.translate("hello", "", "x"));
+        assertEquals("hello", CharSetUtils.translate("hello", "", ""));
+        try {
+            CharSetUtils.translate("hello", null, null);
+            fail("Expecting NullPointerException");
+        } catch (NullPointerException ex) {}
+        try {
+            CharSetUtils.translate("hello", "h", null);
+            fail("Expecting NullPointerException");
+        } catch (NullPointerException ex) {}
+        try {
+            CharSetUtils.translate("hello", null, "a");
+            fail("Expecting NullPointerException");
+        } catch (NullPointerException ex) {}
+        try {
+            CharSetUtils.translate("hello", "h", "");
+            fail("Expecting ArrayIndexOutOfBoundsException");
+        } catch (ArrayIndexOutOfBoundsException ex) {}
+    }         
 }
