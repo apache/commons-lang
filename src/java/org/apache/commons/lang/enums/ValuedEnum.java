@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.enum;
+package org.apache.commons.lang.enums;
 
 import java.util.Iterator;
 import java.util.List;
@@ -92,15 +92,10 @@ import org.apache.commons.lang.ClassUtils;
  * Unfortunately, Java restrictions require these to be coded as shown in each subclass.
  * An alternative choice is to use the {@link EnumUtils} class.</p>
  *
- * @deprecated Replaced by {@link org.apache.commons.lang.enums.ValuedEnum org.apache.commons.lang.enums.ValuedEnum}
- *          and will be removed in version 3.0. All classes in this package are deprecated and repackaged to 
- *          <a href="../enums/package-summary.html">org.apache.commons.lang.enums</a> since <code>enum</code> 
- *          is a Java 1.5 keyword. 
- * @see org.apache.commons.lang.enums.ValuedEnum
  * @author Apache Avalon project
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.16 2004/02/23 04:34:20 ggregory Exp $
+ * @version $Id: ValuedEnum.java,v 1.1 2004/02/23 04:34:20 ggregory Exp $
  */
 public abstract class ValuedEnum extends Enum {
     
