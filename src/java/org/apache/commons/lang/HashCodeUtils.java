@@ -86,11 +86,14 @@ package org.apache.commons.lang;
  * </code>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: HashCodeUtils.java,v 1.1 2002/08/10 12:12:49 scolebourne Exp $
+ * @version $Id: HashCodeUtils.java,v 1.2 2002/08/11 17:52:21 dlr Exp $
  */
 public class HashCodeUtils {
     
-    // According to Bloch, its a random odd prime
+    /**
+     * According to Bloch, the multiplier should be a random, odd
+     * prime.
+     */
     private static final int CONSTANT = 37;
     
     /**
