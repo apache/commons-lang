@@ -61,19 +61,20 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.StringUtils;
 /**
- * <code>ReflectionUtils</code> contains utility methods for working for
- * reflection.
+ * <p><code>ReflectionUtils</code> contains utility methods for working for
+ * reflection.</p>
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ReflectionUtils.java,v 1.6 2002/12/25 22:03:00 scolebourne Exp $
+ * @version $Id: ReflectionUtils.java,v 1.7 2003/07/14 22:28:48 bayard Exp $
  */
 public class ReflectionUtils {
     
     /**
-     * ReflectionUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>ReflectionUtils.getShortClassName(obj)</code>.
+     * <p>ReflectionUtils instances should NOT be constructed in standard programming.</p>
+     *
+     * <p>Instead, the class should be used as <code>ReflectionUtils.getShortClassName(obj)</code>.
      * This constructor is public to permit tools that require a JavaBean instance
-     * to operate.
+     * to operate.</p>
      */
     public ReflectionUtils() {
     }
@@ -81,11 +82,11 @@ public class ReflectionUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Tests whether the specified field or method is 
-     * <code>static</code>.
+     * <p>Tests whether the specified field or method is
+     * <code>static</code>.</p>
      * 
-     * @param member  the member to test, must not be null
-     * @return true if the member is static
+     * @param member  the member to test, must not be <code>null</code>
+     * @return <code>true</code> if the member is static
      */
     public static boolean isStatic(Member member) {
         if (member == null) {
@@ -95,11 +96,11 @@ public class ReflectionUtils {
     }
 
     /**
-     * Tests whether the specified field or method is 
-     * <code>final</code>.
+     * <p>Tests whether the specified field or method is
+     * <code>final</code>.</p>
      * 
-     * @param member  the member to test, must not be null
-     * @return true if the member is final
+     * @param member  the member to test, must not be <code>null</code>
+     * @return <code>true</code> if the member is final
      */
     public static boolean isFinal(Member member) {
         if (member == null) {
@@ -109,11 +110,11 @@ public class ReflectionUtils {
     }
 
     /**
-     * Tests whether the specified field, method or constructor is 
-     * <code>public</code>.
+     * <p>Tests whether the specified field, method or constructor is
+     * <code>public</code>.</p>
      * 
-     * @param member  the member to test, must not be null
-     * @return true if the member is public scoped
+     * @param member  the member to test, must not be <code>null</code>
+     * @return <code>true</code> if the member is public scoped
      */
     public static boolean isPublicScope(Member member) {
         if (member == null) {
@@ -123,11 +124,11 @@ public class ReflectionUtils {
     }
 
     /**
-     * Tests whether the specified field, method or constructor is 
-     * <code>protected</code>.
+     * <p>Tests whether the specified field, method or constructor is
+     * <code>protected</code>.</p>
      * 
-     * @param member  the member to test, must not be null
-     * @return true if the member is protected scoped
+     * @param member  the member to test, must not be <code>null</code>
+     * @return <code>true</code> if the member is protected scoped
      */
     public static boolean isProtectedScope(Member member) {
         if (member == null) {
@@ -137,22 +138,22 @@ public class ReflectionUtils {
     }
 
     /**
-     * Tests whether the specified field, method or constructor is 
-     * package (default) scoped.
+     * <p>Tests whether the specified field, method or constructor is
+     * package (default) scoped.</p>
      * 
-     * @param member  the member to test, must not be null
-     * @return true if the member is package scoped
+     * @param member  the member to test, must not be <code>null</code>
+     * @return <code>true</code> if the member is package scoped
      */
     public static boolean isPackageScope(Member member) {
         return !(isPublicScope(member) || isProtectedScope(member) || isPrivateScope(member));
     }
 
     /**
-     * Tests whether the specified field, method or constructor is 
-     * <code>private</code>.
+     * <p>Tests whether the specified field, method or constructor is
+     * <code>private</code>.</p>
      * 
-     * @param member  the member to test, must not be null
-     * @return true if the member is private scoped
+     * @param member  the member to test, must not be <code>null</code>
+     * @return <code>true</code> if the member is private scoped
      */
     public static boolean isPrivateScope(Member member) {
         if (member == null) {
@@ -164,7 +165,7 @@ public class ReflectionUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Gets a class object for the specified string.
+     * <p>Gets a class object for the specified string.</p>
      *
      * @param className  fully qualified class name to find, must not be empty
      * @return Class object for class
@@ -188,11 +189,12 @@ public class ReflectionUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Checks if the requested Class array is compatible with the specified
-     * parameter array.
-     * Primitive classes are handled correctly .
-     * <p>
-     * In other words, a <code>boolean</code> Class will be converted to 
+     * <p>Checks if the requested Class array is compatible with the specified
+     * parameter array.</p>
+     *
+     * <p>Primitive classes are handled correctly .</p>
+     *
+     * <p>In other words, a <code>boolean</code> Class will be converted to
      * a <code>Boolean</code> Class and so on.</p>
      *
      * <p>This method also handles widening for primitives as given in section 5.1.2 of the
@@ -200,7 +202,7 @@ public class ReflectionUtils {
      *
      * @param requestedTypes  the class array requested
      * @param paramTypes  the actual class array for the method
-     * @return true if the parameters are compatible
+     * @return <code>true</code> if the parameters are compatible
      */
     public static boolean isCompatible(Class[] requestedTypes, Class[] paramTypes) {
         if (ArrayUtils.isSameLength(requestedTypes, paramTypes) == false) {
@@ -231,7 +233,7 @@ public class ReflectionUtils {
      * @param parameterType the type of parameter accepted by the method
      * @param requestedType the type of parameter being requested 
      *
-     * @return true if the assignement is compatible.
+     * @return <code>true</code> if the assignement is compatible.
      */
     public static boolean isCompatible(Class requestedType, Class parameterType) {
         // try plain assignment
@@ -298,15 +300,15 @@ public class ReflectionUtils {
 
     
     /**
-     * Converts a primitive class to its matching object class.
-     * Non-primitive classes are unaffected.
-     * <p>
-     * In other words, a <code>boolean</code> Class will be converted to 
-     * a <code>Boolean</code> Class and so on.
+     * <p>Converts a primitive class to its matching object class.
+     * Non-primitive classes are unaffected.</p>
+     *
+     * <p>In other words, a <code>boolean</code> Class will be converted to
+     * a <code>Boolean</code> Class and so on.</p>
      *
      * @param cls  the class to convert
      * @return converted class
-     * @throws IllegalArgumentException if the class is null
+     * @throws IllegalArgumentException if the class is <code>null</code>
      */
     public static Class convertPrimitiveClass(Class cls) {
         if (cls == null) {
@@ -337,7 +339,8 @@ public class ReflectionUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * Produces nicely formatted informational error messages for reflection errors.
+     * <p>Produces nicely formatted informational error messages for reflection
+     * errors.</p>
      * 
      * @param th  the throwable
      * @param desc  the short description of the action, such as 'getting field'
@@ -392,7 +395,7 @@ public class ReflectionUtils {
         buf.append(desc);
         buf.append(" on Class '");
         buf.append(className);
-        buf.append("'");
+        buf.append('\'');
         if (types != null) {
             buf.append(" for types ");
             buf.append(ArrayUtils.toString(types));
@@ -400,7 +403,7 @@ public class ReflectionUtils {
         if (memberName != null) {
             buf.append(" for method '");
             buf.append(memberName);
-            buf.append("'");
+            buf.append('\'');
         }
         if (message != null) {
             buf.append(" - ");
