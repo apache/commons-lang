@@ -63,12 +63,13 @@ import java.util.StringTokenizer;
  * An exception will not be thrown for a <code>null</code> input.
  * Each method documents its behaviour in more detail.</p>
  * 
+ * @author Apache Jakarta Velocity
  * @author Henri Yandell
  * @author Stephen Colebourne
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: WordWrapUtils.java,v 1.9 2003/08/13 23:47:39 scolebourne Exp $
+ * @version $Id: WordWrapUtils.java,v 1.10 2003/08/16 12:45:38 scolebourne Exp $
  */
 public class WordWrapUtils {
 
@@ -85,23 +86,49 @@ public class WordWrapUtils {
 
     // Wrapping
     //--------------------------------------------------------------------------
+//    /**
+//     * <p>Wraps a block of text to a specified line length using '\n' as
+//     * a newline.</p>
+//     *
+//     * <p>This method takes a block of text, which might have long lines in it
+//     * and wraps the long lines based on the supplied lineLength parameter.</p>
+//     * 
+//     * <p>If a single word is longer than the line length (eg. a URL), it will
+//     * not be broken, and will display beyond the expected width.</p>
+//     * 
+//     * <p>If there are tabs in inString, you are going to get results that are
+//     * a bit strange. Tabs are a single character but are displayed as 4 or 8
+//     * spaces. Remove the tabs.</p>
+//     *
+//     * @param str  text which is in need of word-wrapping, may be null
+//     * @param lineLength  the column to wrap the words at
+//     * @return the text with all the long lines word-wrapped
+//     *  <code>null</code> if null string input
+//     */
+//    public static String wrapText(String str, int lineLength) {
+//        return wrap(str, null, lineLength);
+//    }
+    
     /**
      * <p>Wraps a block of text to a specified line length.</p>
      *
      * <p>This method takes a block of text, which might have long lines in it
-     * and wraps the long lines based on the supplied wrapColumn parameter. 
-     * It was initially implemented for use by VelocityEmail. If there are tabs
-     * in inString, you are going to get results that are a bit strange,
-     * since tabs are a single character but are displayed as 4 or 8
+     * and wraps the long lines based on the supplied lineLength parameter.</p>
+     * 
+     * <p>If a single word is longer than the wrapColumn (eg. a URL), it will
+     * not be broken, and will display beyond the expected width.</p>
+     * 
+     * <p>If there are tabs in inString, you are going to get results that are
+     * a bit strange. Tabs are a single character but are displayed as 4 or 8
      * spaces. Remove the tabs.</p>
      *
      * @param str  text which is in need of word-wrapping, may be null
      * @param newLineChars  the characters that define a newline, null treated as \n
-     * @param wrapColumn  the column to wrap the words at
-     * @return the text with all the long lines word-wrapped,
+     * @param lineLength  the column to wrap the words at
+     * @return the text with all the long lines word-wrapped
      *  <code>null</code> if null string input
      */
-    public static String wrapText(String str, String newLineChars, int wrapColumn) {
+    public static String wrapText(String str, String newLineChars, int lineLength) {
         if (str == null) {
             return null;
         }
@@ -115,9 +142,9 @@ public class WordWrapUtils {
             try {
                 String nextLine = lineTokenizer.nextToken();
 
-                if (nextLine.length() > wrapColumn) {
+                if (nextLine.length() > lineLength) {
                     // This line is long enough to be wrapped.
-                    nextLine = wrapLine(nextLine, newLineChars, wrapColumn);
+                    nextLine = wrapLine(nextLine, newLineChars, lineLength);
                 }
 
                 stringBuffer.append(nextLine);
@@ -137,14 +164,14 @@ public class WordWrapUtils {
      *
      * @param line  a line which is in need of word-wrapping
      * @param newline  the characters that define a newline
-     * @param wrapColumn  the column to wrap the words at
+     * @param lineLength  the column to wrap the words at
      * @return a line with newlines inserted
      */
-    private static String wrapLine(String line, String newline, int wrapColumn) {
+    private static String wrapLine(String line, String newline, int lineLength) {
         StringBuffer wrappedLine = new StringBuffer();
 
-        while (line.length() > wrapColumn) {
-            int spaceToWrapAt = line.lastIndexOf(' ', wrapColumn);
+        while (line.length() > lineLength) {
+            int spaceToWrapAt = line.lastIndexOf(' ', lineLength);
 
             if (spaceToWrapAt >= 0) {
                 wrappedLine.append(line.substring(0, spaceToWrapAt));
@@ -158,7 +185,7 @@ public class WordWrapUtils {
             // dependent on a parameter for those situations when
             // someone wants long words broken at line length.
             else {
-                spaceToWrapAt = line.indexOf(' ', wrapColumn);
+                spaceToWrapAt = line.indexOf(' ', lineLength);
 
                 if (spaceToWrapAt >= 0) {
                     wrappedLine.append(line.substring(0, spaceToWrapAt));
