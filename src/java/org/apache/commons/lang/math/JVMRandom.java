@@ -62,10 +62,15 @@ import java.util.Random;
  * 
  * @author Henri Yandell
  * @since 2.0
- * @version $Id: JVMRandom.java,v 1.1 2003/05/07 15:09:19 bayard Exp $
+ * @version $Id: JVMRandom.java,v 1.2 2003/05/07 19:14:01 bayard Exp $
  */
 public final class JVMRandom extends Random {
 
+    // important to not call super() as this will 
+    // call setSeed with the current Time
+    public JVMRandom() {
+    }
+    
     public synchronized void setSeed(long seed) {
         throw new UnsupportedOperationException();
     }
