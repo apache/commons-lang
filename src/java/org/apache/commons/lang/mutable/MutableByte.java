@@ -19,25 +19,49 @@ package org.apache.commons.lang.mutable;
  * A mutable <code>Byte</code>.
  * 
  * @since 2.1
- * @version $Id: MutableByte.java,v 1.2 2004/06/13 06:18:49 bayard Exp $
+ * @version $Id: MutableByte.java,v 1.3 2004/06/24 04:20:46 bayard Exp $
  */
 public class MutableByte extends MutableNumber {
 
+    /**
+     * Internal value.
+     */
+    private byte value;
+    
     /**
      * Instantiates with the specified value
      * @param value a value.
      */
     public MutableByte(byte value) {
         super();
-        setValue(new Byte(value));
+        this.value = value;
     }
 
     public void setValue(byte value) {
-        setValue(new Byte(value));
+        this.value = value;
+    }
+
+    public long longValue() {
+        return this.value;
+    }
+
+    public double doubleValue() {
+        return this.value;
+    }
+
+    public int intValue() {
+        return this.value;
     }
 
     /**
-     * @param value a <code>Number</code>
+     * @return a <code>Byte</code>
+     */
+    public Object getValue() {
+        return new Byte(this.value);
+    }
+
+    /**
+     * @param value a <code>Byte</code>
      */
     public void setValue(Object value) {
         setValue(((Number)value).byteValue());

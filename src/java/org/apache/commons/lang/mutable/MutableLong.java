@@ -16,12 +16,17 @@
 package org.apache.commons.lang.mutable;
 
 /**
- * A mutable <code>Long</code>.
+ * A mutable <code>Long</code>
  * 
  * @since 2.1
- * @version $Id: MutableLong.java,v 1.2 2004/06/13 06:18:49 bayard Exp $
+ * @version $Id: MutableLong.java,v 1.3 2004/06/24 04:20:46 bayard Exp $
  */
 public class MutableLong extends MutableNumber {
+
+    /**
+     * Internal value.
+     */
+    private long value;
 
     /**
      * Instantiates with the specified value
@@ -29,16 +34,29 @@ public class MutableLong extends MutableNumber {
      */
     public MutableLong(long value) {
         super();
-        setValue(new Long(value));
+        setValue(value);
     }
 
     public void setValue(long value) {
-        setValue(new Long(value));
+        this.value = value;
     }
 
-    /**
-     * @param value a <code>Number</code>
-     */
+    public double doubleValue() {
+        return this.value;
+    }
+
+    public long longValue() {
+        return this.value;
+    }
+
+    public int intValue() {
+        return (int)this.value;
+    }
+
+    public Object getValue() {
+        return new Long(this.value);
+    }
+
     public void setValue(Object value) {
         setValue(((Number)value).longValue());
     }
