@@ -69,7 +69,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.18 2003/04/09 18:45:29 alex Exp $
+ * @version $Id: StringUtilsTest.java,v 1.19 2003/04/16 04:37:33 bayard Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -562,6 +562,31 @@ public class StringUtilsTest extends TestCase {
         assertEquals("containsNone(str3, chars1)", false, StringUtils.containsNone(str3, chars1));
         assertEquals("containsNone(str3, chars2)", false, StringUtils.containsNone(str3, chars2));
         assertEquals("containsNone(str3, chars3)", true, StringUtils.containsNone(str3, chars3));
+    }
+
+    public void testIndexOfAnyBut() {
+        String str1 = "a";
+        String str2 = "b";
+        String str3 = "ab";
+        String chars1= "b";
+        String chars2= "a";
+        String chars3= "ab";
+        String emptyChars = "";
+        assertEquals("indexOfAnyBut(null, null)", -1, StringUtils.indexOfAnyBut(null, (String) null));
+        assertEquals("indexOfAnyBut(empty-string, null)", -1, StringUtils.indexOfAnyBut("", (String) null));
+        assertEquals("indexOfAnyBut(null, empty-string)", -1, StringUtils.indexOfAnyBut(null, emptyChars));
+        assertEquals("indexOfAnyBut(str1, empty-char-array)", 0, StringUtils.indexOfAnyBut(str1, emptyChars));
+        assertEquals("indexOfAnyBut(empty-string, empty-char-array)", -1, StringUtils.indexOfAnyBut("", emptyChars));
+        assertEquals("indexOfAnyBut(empty-string, chars1)", -1, StringUtils.indexOfAnyBut("", chars1));
+        assertEquals("indexOfAnyBut(str1, chars1)", 0, StringUtils.indexOfAnyBut(str1, chars1));
+        assertEquals("indexOfAnyBut(str1, chars2)", -1, StringUtils.indexOfAnyBut(str1, chars2));
+        assertEquals("indexOfAnyBut(str1, chars3)", -1, StringUtils.indexOfAnyBut(str1, chars3));
+        assertEquals("indexOfAnyBut(str2, chars1)", -1, StringUtils.indexOfAnyBut(str2, chars1));
+        assertEquals("indexOfAnyBut(str2, chars2)", 0, StringUtils.indexOfAnyBut(str2, chars2));
+        assertEquals("indexOfAnyBut(str2, chars3)", -1, StringUtils.indexOfAnyBut(str2, chars3));
+        assertEquals("indexOfAnyBut(String3, chars1)", 0, StringUtils.indexOfAnyBut(str3, chars1));
+        assertEquals("indexOfAnyBut(String3, chars2)", 1, StringUtils.indexOfAnyBut(str3, chars2));
+        assertEquals("indexOfAnyBut(String3, chars3)", -1, StringUtils.indexOfAnyBut(str3, chars3));
     }
 
     public void testAbbreviate()

@@ -76,9 +76,29 @@ import java.util.StringTokenizer;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Arun Mammen Thomas
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.43 2003/04/10 00:01:21 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.44 2003/04/16 04:37:33 bayard Exp $
  */
 public class StringUtils {
+
+    /**
+     * <p>The maximum size to which the padding constant(s) can expand.</p>
+     */
+    private static int PAD_LIMIT = 8192;
+
+    /**
+     * <p>A <code>String</code> containing all blank characters.</p>
+     *
+     * <p>Used for efficient blank padding.  The length of the string expands as needed.</p>
+     */
+    private static String blanks = new String(" ");
+
+    /**
+     * <p>An array of <code>String</code>s used for padding.</p>
+     *
+     * <p>Used for efficient blank padding.  The length of each string expands as needed.</p>
+     */
+    private final static String[] padding = new String[Character.MAX_VALUE];
+       // String.concat about twice as fast as StringBuffer.append
 
     /**
      * <p><code>StringUtils<code> instances should NOT be constructed in
@@ -1178,6 +1198,10 @@ public class StringUtils {
      * @throws NullPointerException if str is <code>null</code>
      */
     public static String repeat(String str, int repeat) {
+        if (str.length() == 1 && repeat <= PAD_LIMIT) {
+           return padding(repeat, str.charAt(0));
+        }
+
         StringBuffer buffer = new StringBuffer(repeat * str.length());
         for (int i = 0; i < repeat; i++) {
             buffer.append(str);
@@ -1186,19 +1210,83 @@ public class StringUtils {
     }
 
     /**
+     * <p>Returns blank padding with a given length.</p>
+     *
+     * @param repeat number of times to repeat a blank
+     * @return String with repeated character
+     * @throws IndexOutOfBoundsException if repeat < 0
+     */
+    private static String padding(int repeat) {
+        while (blanks.length() < repeat)  {
+            blanks = blanks.concat(blanks);
+        }
+        return blanks.substring(0, repeat);
+    }
+
+    /**
+     * <p>Returns padding using the specified delimiter repeated to a given length.
+     * </p>
+     *
+     * @param repeat number of times to repeat delim
+     * @param delim character to repeat
+     * @return String with repeated character
+     * @throws NullPointerException if delim is <code>null</code>
+     * @throws IndexOutOfBoundsException if repeat < 0
+     */
+
+    private static String padding(int repeat, char delim) {
+        if (padding[delim] == null) {
+            padding[delim] = String.valueOf(delim);
+        }
+        while (padding[delim].length() < repeat) {
+            padding[delim] = padding[delim].concat(padding[delim]);
+        }
+        return padding[delim].substring(0, repeat);
+    }
+
+    /**
      * <p>Right pad a String with spaces.</p>
      *
      * <p>The String is padded to the size of <code>n</code>.</p>
      * 
-     * @param str String to repeat
+     * @param str String to pad out
      * @param size number of times to repeat str
-     * @return right padded String
+     * @return right padded String or original String if no padding is necessary
      * @throws NullPointerException if str is <code>null</code>
      */
     public static String rightPad(String str, int size) {
-        return rightPad(str, size, " ");
+        int pads = size - str.length();
+        if (pads <= 0) {
+            return str; // returns original string when possible
+        }
+        if (pads > PAD_LIMIT) {
+            return rightPad(str, size, " ");
+        }
+        return str + padding(pads);
     }
-    
+
+    /**
+     * <p>Right pad a String with a specified character.</p>
+     *
+     * <p>The String is padded to the size of <code>n</code>.</p>
+     *
+     * @param str String to pad out
+     * @param size size to pad to
+     * @param delim character to pad with
+     * @return right padded String or original String if no padding is necessary
+     * @throws NullPointerException if str or delim is <code>null<code>
+     */
+    public static String rightPad(String str, int size, char delim) {
+        int pads = size - str.length();
+        if (pads <= 0) {
+            return str; // returns original string when possible
+        }
+        if (pads > PAD_LIMIT) {
+            return rightPad(str, size, String.valueOf(delim));
+        }
+        return str + padding(pads, delim);
+    }
+
     /**
      * <p>Right pad a String with a specified string.</p>
      *
@@ -1207,11 +1295,15 @@ public class StringUtils {
      * @param str String to pad out
      * @param size size to pad to
      * @param delim String to pad with
-     * @return right padded String
+     * @return right padded String or original String if no padding is necessary
      * @throws NullPointerException if str or delim is <code>null<code>
      * @throws ArithmeticException if delim is the empty String
      */
     public static String rightPad(String str, int size, String delim) {
+        if (delim.length() == 1 && size - str.length() <= PAD_LIMIT) {
+           return rightPad(str, size, delim.charAt(0));
+        }
+
         size = (size - str.length()) / delim.length();
         if (size > 0) {
             str += repeat(delim, size);
@@ -1226,23 +1318,53 @@ public class StringUtils {
      *
      * @param str String to pad out
      * @param size size to pad to
-     * @return left padded String
+     * @return left padded String or original String if no padding is necessary
      * @throws NullPointerException if str or delim is <code>null<code>
      */
     public static String leftPad(String str, int size) {
-        return leftPad(str, size, " ");
+        int pads = size - str.length();
+        if (pads <= 0) { 
+            return str; // returns original string when possible
+        }
+        if (pads > PAD_LIMIT) {
+            return leftPad(str, size, " ");
+        }
+        return padding(pads).concat(str);
     }
+
+    /**
+     * Left pad a String with a specified character. Pad to a size of n.
+     *
+     * @param str String to pad out
+     * @param size size to pad to
+     * @param delim character to pad with
+     * @return left padded String or original String if no padding is necessary
+     * @throws NullPointerException if str or delim is <code>null</code>
+     */
+    public static String leftPad(String str, int size, char delim) {
+        int pads = size - str.length();
+        if (pads <= 0) {
+            return str; // returns original string when possible
+        }
+        if (pads > PAD_LIMIT) {
+            return leftPad(str, size, " ");
+        }
+        return padding(pads, delim).concat(str);
+    }
+
     /**
      * Left pad a String with a specified string. Pad to a size of n.
      *
      * @param str String to pad out
      * @param size size to pad to
      * @param delim String to pad with
-     * @return left padded String
+     * @return left padded String or original String if no padding is necessary
      * @throws NullPointerException if str or delim is null
      * @throws ArithmeticException if delim is the empty string
      */
     public static String leftPad(String str, int size, String delim) {
+        if (delim.length() == 1 && size - str.length() <= PAD_LIMIT)
+           return leftPad(str, size, delim.charAt(0));
         size = (size - str.length()) / delim.length();
         if (size > 0) {
             str = repeat(delim, size) + str;
@@ -1813,6 +1935,7 @@ public class StringUtils {
      * @param validChars an array of valid chars
      * @return true if it only contains valid chars and is non-null
      */
+     /* rewritten
     public static boolean containsOnly(String str, char[] validChars) {
         if (str == null || validChars == null) {
             return false;
@@ -1834,6 +1957,7 @@ public class StringUtils {
         }
         return true;
     }
+    */
 
     /**
      * <p>Checks that the String does not contain certain chars.</p>
@@ -1871,6 +1995,66 @@ public class StringUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * <p>Checks if the String contains only certain chars.</p>
+     *
+     * @param str the String to check
+     * @param valid an array of valid chars
+     * @return true if it only contains valid chars and is non-null
+     */
+    public static boolean containsOnly(String str, char[] valid) {
+        // All these pre-checks are to maintain API with an older version
+        if( (valid == null) || (str == null) ) {
+            return false;
+        }
+        if(str.length() == 0) {
+            return true;
+        }
+        if(valid.length == 0) {
+            return false;
+        }
+        return indexOfAnyBut(str, valid) == -1;
+    }
+
+    /**
+     * <p>Search a String to find the first index of any
+     * character not in the given set of characters.</p>
+     * 
+     * @param str  the String to check
+     * @param searchChars  the chars to search for
+     * @return the index of any of the chars
+     * @throws NullPointerException if either str or searchChars is <code>null</code>
+     */
+     public static int indexOfAnyBut(String str, char[] searchChars) {
+         if(searchChars == null) {
+             return -1;
+         }
+         return indexOfAnyBut(str, new String(searchChars));
+     }
+
+    /**
+     * <p>Search a String to find the first index of any
+     * character not in the given set of characters.</p>
+     * 
+     * @param str  the String to check
+     * @param searchChars  a String containing the chars to search for
+     * @return the last index of any of the chars
+     * @throws NullPointerException if either str or searchChars is <code>null</code>
+     */
+    public static int indexOfAnyBut(String str, String searchChars) {
+        if (str == null || searchChars == null) {
+            return -1;
+        }
+
+        for (int i = 0; i < str.length(); i ++) {
+           if (searchChars.indexOf(str.charAt(i)) < 0) {
+               return i;
+           }
+        }
+
+        return -1;
     }
 
     // Defaults
@@ -1955,7 +2139,7 @@ public class StringUtils {
      * In no case will it return a string of length greater than maxWidth.
      *
      * @param maxWidth maximum length of result string
-     **/
+     */
     public static String abbreviate(String s, int maxWidth) {
         return abbreviate(s, 0, maxWidth);
     }
@@ -1971,7 +2155,7 @@ public class StringUtils {
      *
      * @param offset left edge of source string
      * @param maxWidth maximum length of result string
-     **/
+     */
     public static String abbreviate(String s, int offset, int maxWidth) {
         if (maxWidth < 4)
             throw new IllegalArgumentException("Minimum abbreviation width is 4");
@@ -2103,3 +2287,4 @@ public class StringUtils {
     }
 
 }
+
