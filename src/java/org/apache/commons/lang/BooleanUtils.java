@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,7 @@ package org.apache.commons.lang;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.3 2002/12/23 00:32:24 scolebourne Exp $
+ * @version $Id: BooleanUtils.java,v 1.4 2003/02/04 22:50:31 scolebourne Exp $
  */
 public class BooleanUtils {
 
@@ -311,7 +311,6 @@ public class BooleanUtils {
      * @param bool  the to convert
      * @param trueValue  the value to return if true
      * @param falseValue  the value to return if false
-     * @param nullValue  the value to return if null
      * @return the appropriate value
      */
     public static int toInteger(boolean bool, int trueValue, int falseValue) {
@@ -340,7 +339,6 @@ public class BooleanUtils {
      * @param bool  the to convert
      * @param trueValue  the value to return if true, may be null
      * @param falseValue  the value to return if false, may be null
-     * @param nullValue  the value to return if null, may be null
      * @return the appropriate value
      */
     public static Integer toIntegerObject(boolean bool, Integer trueValue, Integer falseValue) {
