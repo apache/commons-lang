@@ -33,10 +33,15 @@ import java.io.File;
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.33 2004/02/25 00:25:29 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.34 2004/08/30 21:19:52 ggregory Exp $
  */
 public class SystemUtils {
 
+    /**
+     * The prefix String for all Windows OS.
+     */
+    private static final String OS_NAME_WINDOWS_PREFIX = "Windows";
+    
     // System property constants
     //-----------------------------------------------------------------------
     // These MUST be declared first. Other constants depend on this.
@@ -974,7 +979,7 @@ public class SystemUtils {
      * 
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS = getOSMatches("Windows");
+    public static final boolean IS_OS_WINDOWS = getOSMatches(OS_NAME_WINDOWS_PREFIX);
 
     /**
      * <p>Is <code>true</code> if this is Windows 2000.</p>
@@ -984,7 +989,7 @@ public class SystemUtils {
      * 
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_2000 = getOSMatches("Windows", "5.0");
+    public static final boolean IS_OS_WINDOWS_2000 = getOSMatches(OS_NAME_WINDOWS_PREFIX, "5.0");
 
     /**
      * <p>Is <code>true</code> if this is Windows 95.</p>
@@ -994,7 +999,7 @@ public class SystemUtils {
      * 
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_95 = getOSMatches("Windows 9", "4.0");
+    public static final boolean IS_OS_WINDOWS_95 = getOSMatches(OS_NAME_WINDOWS_PREFIX + " 9", "4.0");
     // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
 
     /**
@@ -1005,7 +1010,7 @@ public class SystemUtils {
      * 
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_98 = getOSMatches("Windows 9", "4.1");
+    public static final boolean IS_OS_WINDOWS_98 = getOSMatches(OS_NAME_WINDOWS_PREFIX + " 9", "4.1");
     // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
 
     /**
@@ -1016,7 +1021,7 @@ public class SystemUtils {
      * 
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_ME = getOSMatches("Windows", "4.9");
+    public static final boolean IS_OS_WINDOWS_ME = getOSMatches(OS_NAME_WINDOWS_PREFIX, "4.9");
     // JDK 1.2 running on WindowsME may return 'Windows 95', hence the above
 
     /**
@@ -1027,7 +1032,7 @@ public class SystemUtils {
      * 
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_NT = getOSMatches("Windows NT");
+    public static final boolean IS_OS_WINDOWS_NT = getOSMatches(OS_NAME_WINDOWS_PREFIX + " NT");
     // Windows 2000 returns 'Windows 2000' but may suffer from same JDK1.2 problem
 
     /**
@@ -1038,7 +1043,7 @@ public class SystemUtils {
      * 
      * @since 2.0
      */
-    public static final boolean IS_OS_WINDOWS_XP = getOSMatches("Windows", "5.1");
+    public static final boolean IS_OS_WINDOWS_XP = getOSMatches(OS_NAME_WINDOWS_PREFIX, "5.1");
     // Windows XP returns 'Windows 2000' just for fun...
 
     //-----------------------------------------------------------------------    
