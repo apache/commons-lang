@@ -3,7 +3,7 @@
 
 <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.9 2003/01/07 19:56:40 bayard Exp $
+        $Id: build.xml,v 1.10 2003/05/16 22:17:01 scolebourne Exp $
 -->
 
 
@@ -155,15 +155,14 @@
 
   <target name="test"  depends="
                                 compile.tests, 
-                                test.lang, 
-                                test.builder, 
-                                test.exception, 
-                                test.functor,
+                                test.lang,
+                                test.builder,
+                                test.enum,
+                                test.exception,
                                 test.math,
                                 test.reflect,
                                 test.time,
-                                test.util,
-                                test.enum" 
+                                test.util" 
                                 
    description="Run all unit test cases">
     <echo message="Running tests ..."/>
@@ -178,11 +177,11 @@
     </java>
   </target>
 
-  <target name="test.exception" depends="compile.tests">
-    <echo message="Running exception package tests ..."/>
+  <target name="test.builder" depends="compile.tests">
+    <echo message="Running builder package tests ..."/>
     <java classname="${test.runner}" fork="yes"
         failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.lang.exception.ExceptionTestSuite"/>
+      <arg value="org.apache.commons.lang.builder.BuilderTestSuite"/>
       <classpath refid="test.classpath"/>
     </java>
   </target>
@@ -196,20 +195,11 @@
     </java>
   </target>
 
-  <target name="test.builder" depends="compile.tests">
-    <echo message="Running builder package tests ..."/>
+  <target name="test.exception" depends="compile.tests">
+    <echo message="Running exception package tests ..."/>
     <java classname="${test.runner}" fork="yes"
         failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.lang.builder.BuilderTestSuite"/>
-      <classpath refid="test.classpath"/>
-    </java>
-  </target>
-
-  <target name="test.functor" depends="compile.tests">
-    <echo message="Running functor package tests ..."/>
-    <java classname="${test.runner}" fork="yes"
-        failonerror="${test.failonerror}">
-      <arg value="org.apache.commons.lang.functor.FunctorTestSuite"/>
+      <arg value="org.apache.commons.lang.exception.ExceptionTestSuite"/>
       <classpath refid="test.classpath"/>
     </java>
   </target>
