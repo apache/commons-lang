@@ -56,7 +56,8 @@ package org.apache.commons.lang.enum;
 import java.util.Iterator;
 import java.util.List;
 /**
- * Abstract superclass for type-safe enums with integer values.
+ * Abstract superclass for type-safe enums with integer values suitable
+ * for use in <code>switch</code> statements.
  * <p>
  * <em>NOTE:</em>Due to the way in which Java ClassLoaders work, comparing Enum objects
  * should always be done using the equals() method, not ==. The equals() method will
@@ -65,7 +66,7 @@ import java.util.List;
  * To use this class, it must be subclassed. For example:
  *
  * <pre>
- * public final class JavaVersion extends ValuedEnum {
+ * public final class JavaVersionEnum extends ValuedEnum {
  *   //standard enums for version of JVM
  *   public static final int  JAVA1_0_VALUE  = 100;
  *   public static final int  JAVA1_1_VALUE  = 110;
@@ -128,7 +129,7 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ValuedEnum.java,v 1.1 2002/08/11 23:17:54 scolebourne Exp $
+ * @version $Id: ValuedEnum.java,v 1.2 2002/11/14 21:52:14 scolebourne Exp $
  */
 public abstract class ValuedEnum extends Enum {
     /**
