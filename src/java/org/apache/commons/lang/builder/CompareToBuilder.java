@@ -59,7 +59,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * }
  * </pre>
  *
- * <p>Alternatively, there is a method {@link #reflectionCompare reflectionCompare} that uses
+ * <p>Alternatively, there is are {@link #reflectionCompare reflectionCompare} method that uses
  * reflection to determine the fields to append. Because fields can be private,
  * <code>reflectionCompare</code> uses {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} to
  * bypass normal access control checks. This will fail under a security manager,
@@ -85,7 +85,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.25 2004/02/18 22:53:24 ggregory Exp $
+ * @version $Id: CompareToBuilder.java,v 1.26 2004/07/01 17:52:07 ggregory Exp $
  */
 public class CompareToBuilder {
     
