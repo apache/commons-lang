@@ -69,8 +69,10 @@ import java.io.StringWriter;
  *
  * @author Alex Chaffee
  * @author Scott Stanchfield
- **/
-public class StringPrintWriter extends PrintWriter {
+ * @since 2.0
+ */
+class StringPrintWriter extends PrintWriter {
+    
     public StringPrintWriter() {
         super(new StringWriter());
     }
@@ -90,5 +92,6 @@ public class StringPrintWriter extends PrintWriter {
         flush();
         return ((StringWriter) out).toString();
     }
+    
 }
 
