@@ -36,10 +36,12 @@ import java.util.ArrayList;
  * support any "format" operations applied to the objects before substitution 
  * into the target string.
  *
+ * Originally org.apache.commons.digester.substitution.MultiVariableExpander
+ *
  * @since 2.1
  */
-
 public class MappedMessageFormat {
+
     private int nEntries = 0;
     private ArrayList markers = new ArrayList(2);
     private ArrayList sources = new ArrayList(2);
@@ -52,7 +54,7 @@ public class MappedMessageFormat {
      * strings passed to the "format" methods.
      */
     public void addSource(String marker, Map source) {
-        ++nEntries;
+        nEntries++;
         markers.add(marker);
         sources.add(source);
     }
@@ -65,11 +67,8 @@ public class MappedMessageFormat {
      * a variable which is not known to the specified source.
      */
     public String format(String param) {
-        for(int i=0; i<nEntries; ++i) {
-            param = format(
-                param, 
-                (String) markers.get(i), 
-                (Map) sources.get(i));
+        for(int i=0; i<nEntries; i++) {
+            param = format( param, (String) markers.get(i), (Map) sources.get(i));
         }
         return param;
     }
@@ -94,33 +93,26 @@ public class MappedMessageFormat {
         int markLen = startMark.length();
         
         int index = 0;
-        for(;;)
-        {
+        while(true) {
             index = str.indexOf(startMark, index);
-            if (index == -1)
-            {
+            if (index == -1) {
                 return str;
             }
             
             int startIndex = index + markLen;
-            if (startIndex > str.length())
-            {
-                throw new IllegalArgumentException(
-                    "var expression starts at end of string");
+            if (startIndex > str.length()) {
+                throw new IllegalArgumentException("var expression starts at end of string");
             }
             
             int endIndex = str.indexOf("}", index + markLen);
-            if (endIndex == -1)
-            {
-                throw new IllegalArgumentException(
-                    "var expression starts but does not end");
+            if (endIndex == -1) {
+                throw new IllegalArgumentException("var expression starts but does not end");
             }
             
             String key = str.substring(index+markLen, endIndex);
             Object value =  source.get(key);
             if (value == null) {
-                throw new IllegalArgumentException(
-                    "parameter [" + key + "] is not defined.");
+                throw new IllegalArgumentException("parameter [" + key + "] is not defined.");
             }
             String varValue = value.toString();
             
