@@ -81,7 +81,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Jeff Varszegi
  * @since 1.0
- * @version $Id: SerializationUtils.java,v 1.7 2003/07/19 20:22:36 scolebourne Exp $
+ * @version $Id: SerializationUtils.java,v 1.8 2003/07/31 23:45:28 scolebourne Exp $
  */
 public class SerializationUtils {
     
@@ -130,7 +130,7 @@ public class SerializationUtils {
      */
     public static void serialize(Serializable obj, OutputStream outputStream) {
         if (outputStream == null) {
-            throw new NullArgumentException("OutputStream");
+            throw new IllegalArgumentException("The OutputStream must not be null");
         }
         ObjectOutputStream out = null;
         try {
@@ -182,7 +182,7 @@ public class SerializationUtils {
      */
     public static Object deserialize(InputStream inputStream) {
         if (inputStream == null) {
-            throw new NullArgumentException("InputStream");
+            throw new IllegalArgumentException("The InputStream must not be null");
         }
         ObjectInputStream in = null;
         try {
@@ -215,7 +215,7 @@ public class SerializationUtils {
      */
     public static Object deserialize(byte[] objectData) {
         if (objectData == null) {
-            throw new NullArgumentException("byte[]");
+            throw new IllegalArgumentException("The byte[] must not be null");
         }
         ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
         return deserialize(bais);

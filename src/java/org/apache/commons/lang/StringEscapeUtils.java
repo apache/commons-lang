@@ -73,7 +73,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.21 2003/07/28 16:17:57 ggregory Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.22 2003/07/31 23:45:28 scolebourne Exp $
  */
 public class StringEscapeUtils {
 
@@ -191,7 +191,7 @@ public class StringEscapeUtils {
 
     private static void escapeJavaStyleString(Writer out, String str, boolean escapeSingleQuote) throws IOException {
         if (out == null) {
-            throw new NullArgumentException("Writer");
+            throw new IllegalArgumentException("The Writer must not be null");
         }
         if (str == null) {
             return;
@@ -311,7 +311,7 @@ public class StringEscapeUtils {
      */
     public static void unescapeJava(Writer out, String str) throws IOException {
         if (out == null) {
-            throw new NullArgumentException("Writer");
+            throw new IllegalArgumentException("The Writer must not be null");
         }
         if (str == null) {
             return;

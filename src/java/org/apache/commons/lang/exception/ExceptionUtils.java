@@ -67,7 +67,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.NullArgumentException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 
@@ -80,7 +79,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.30 2003/07/26 14:22:21 scolebourne Exp $
+ * @version $Id: ExceptionUtils.java,v 1.31 2003/07/31 23:45:28 scolebourne Exp $
  */
 public class ExceptionUtils {
     
@@ -509,7 +508,7 @@ public class ExceptionUtils {
             return;
         }
         if (stream == null) {
-            throw new NullArgumentException("PrintStream");
+            throw new IllegalArgumentException("The PrintStream must not be null");
         }
         String trace[] = getRootCauseStackTrace(throwable);
         for (int i = 0; i < trace.length; i++) {
@@ -538,7 +537,7 @@ public class ExceptionUtils {
             return;
         }
         if (writer == null) {
-            throw new NullArgumentException("PrintWriter");
+            throw new IllegalArgumentException("The PrintWriter must not be null");
         }
         String trace[] = getRootCauseStackTrace(throwable);
         for (int i = 0; i < trace.length; i++) {
@@ -590,7 +589,7 @@ public class ExceptionUtils {
      */
     public static void removeCommonFrames(List causeFrames, List wrapperFrames) {
         if (causeFrames == null || wrapperFrames == null) {
-            throw new NullArgumentException("List");
+            throw new IllegalArgumentException("The List must not be null");
         }
         int causeFrameIndex = causeFrames.size() - 1;
         int wrapperFrameIndex = wrapperFrames.size() - 1;
