@@ -59,15 +59,13 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.LinkedList;
-import java.util.StringTokenizer;
 
 /**
  * @author <a href="mailto:Rafal.Krzewski@e-point.pl">Rafal Krzewski</a>
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableDelegate.java,v 1.5 2002/08/21 23:52:02 dlr Exp $
+ * @version $Id: NestableDelegate.java,v 1.6 2002/08/24 19:18:50 dlr Exp $
  */
 public class NestableDelegate
 {
@@ -258,16 +256,15 @@ public class NestableDelegate
      */
     public void printStackTrace()
     {
-        synchronized (System.err)
-        {
-            printStackTrace(System.err);
-        }
+        printStackTrace(System.err);
     }
 
     /**
-     * Prints the stack trace of this exception to the specified print stream.
+     * Prints the stack trace of this exception to the specified
+     * stream.
      *
      * @param out <code>PrintStream</code> to use for output.
+     * @see #printStackTrace(PrintWriter)
      */
     public void printStackTrace(PrintStream out)
     {
@@ -281,7 +278,8 @@ public class NestableDelegate
     }
 
     /**
-     * Prints the stack trace of this exception to the specified print writer.
+     * Prints the stack trace of this exception to the specified
+     * writer.
      *
      * @param out <code>PrintWriter</code> to use for output.
      */
@@ -289,7 +287,7 @@ public class NestableDelegate
     {
         synchronized (out)
         {
-            String[] st = decompose(this.cause);
+            String[] st = getStackFrames(this.cause);
             Throwable nestedCause = ExceptionUtils.getCause(this.cause);
             if (nestedCause != null)
             {
@@ -300,7 +298,7 @@ public class NestableDelegate
                 }
                 else
                 {
-                    String[] nst = decompose(nestedCause);
+                    String[] nst = getStackFrames(nestedCause);
                     for (int i = 0; i < nst.length; i++)
                     {
                         out.println(nst[i]);
@@ -318,13 +316,14 @@ public class NestableDelegate
     }
 
     /**
-     * Captures the stack trace associated with a <code>Throwable</code>
-     * object, decomposing it into a list of stack frames.
+     * Captures the stack trace associated with the specified
+     * <code>Throwable</code> object, decomposing it into a list of
+     * stack frames.
      *
      * @param t The <code>Throwable</code>.
      * @return  An array of strings describing each stack frame.
      */
-    private String[] decompose(Throwable t)
+    private String[] getStackFrames(Throwable t)
     {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw, true);
@@ -338,15 +337,6 @@ public class NestableDelegate
         {
             t.printStackTrace(pw);
         }
-
-        String linebreak = System.getProperty("line.separator");
-        StringTokenizer st = new StringTokenizer(sw.getBuffer().toString(),
-                                                 linebreak);
-        LinkedList list = new LinkedList();
-        while (st.hasMoreTokens())
-        {
-            list.add(st.nextToken());
-        }
-        return (String []) list.toArray(new String[] {});
+        return ExceptionUtils.getStackFrames(sw.getBuffer().toString());
     }
 }
