@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.30 2004/09/27 03:14:15 bayard Exp $
+ * @version $Id: DateUtils.java,v 1.31 2004/10/08 00:09:01 scolebourne Exp $
  */
 public class DateUtils {
     
@@ -41,18 +41,22 @@ public class DateUtils {
     public static final TimeZone UTC_TIME_ZONE = TimeZone.getTimeZone("GMT");
     /**
      * Number of milliseconds in a standard second.
+     * @since 2.1
      */
     public static final long MILLIS_PER_SECOND = 1000;
     /**
      * Number of milliseconds in a standard minute.
+     * @since 2.1
      */
     public static final long MILLIS_PER_MINUTE = 60 * MILLIS_PER_SECOND;
     /**
      * Number of milliseconds in a standard hour.
+     * @since 2.1
      */
     public static final long MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE;
     /**
      * Number of milliseconds in a standard day.
+     * @since 2.1
      */
     public static final long MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
 
@@ -125,6 +129,7 @@ public class DateUtils {
      * @param cal2  the second calendar, not null
      * @return true if they represent the same day
      * @throws IllegalArgumentException if either calendar is <code>null</code>
+     * @since 2.1
      */
     public static boolean isSameDay(Calendar cal1, Calendar cal2) {
         if (cal1 == null || cal2 == null) {

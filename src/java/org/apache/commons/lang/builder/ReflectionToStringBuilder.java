@@ -25,7 +25,7 @@ import org.apache.commons.lang.ClassUtils;
 
 /**
  * <p>
- * Assists in implementing {@link Object#toString()}methods using reflection.
+ * Assists in implementing {@link Object#toString()} methods using reflection.
  * </p>
  * 
  * <p>
@@ -294,6 +294,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *                  if the Object is <code>null</code>
+     * @since 2.1
      */
     public static String toString(Object object, ToStringStyle style, boolean outputTransients, boolean outputStatics) {
         return toString(object, style, outputTransients, outputStatics, null);
@@ -346,6 +347,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *                  if the Object is <code>null</code>
+     * @since 2.1
      */
     public static String toString(Object object, ToStringStyle style, boolean outputTransients, boolean outputStatics,
             Class reflectUpToClass) {
@@ -397,6 +399,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *                  if the Object is <code>null</code>
+     * @since 2.1
      */
     public static String toString(Object object, ToStringStyle style, boolean outputTransients, Class reflectUpToClass) {
         return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients).toString();
@@ -542,6 +545,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *                  whether to include transient fields
      * @param outputStatics
      *                  whether to include static fields
+     * @since 2.1
      */
     public ReflectionToStringBuilder(Object object, ToStringStyle style, StringBuffer buffer, Class reflectUpToClass,
             boolean outputTransients, boolean outputStatics) {
@@ -690,6 +694,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * </p>
      * 
      * @return Whether or not to append static fields.
+     * @since 2.1
      */
     public boolean isAppendStatics() {
         return this.appendStatics;
@@ -737,6 +742,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * 
      * @param appendStatics
      *                  Whether or not to append static fields.
+     * @since 2.1
      */
     public void setAppendStatics(boolean appendStatics) {
         this.appendStatics = appendStatics;

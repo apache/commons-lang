@@ -46,7 +46,7 @@ package org.apache.commons.lang.time;
  * @author Henri Yandell
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: StopWatch.java,v 1.9 2004/07/25 07:31:36 bayard Exp $
+ * @version $Id: StopWatch.java,v 1.10 2004/10/08 00:09:01 scolebourne Exp $
  */
 public class StopWatch {
 
@@ -226,6 +226,7 @@ public class StopWatch {
      * @return the split time in milliseconds
      *
      * @throws IllegalStateException if the StopWatch has not yet been split.
+     * @since 2.1
      */
     public long getSplitTime() {
         if(this.splitState != STATE_SPLIT) {
@@ -253,6 +254,7 @@ public class StopWatch {
      * <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.</p>
      * 
      * @return the split time as a String
+     * @since 2.1
      */
     public String toSplitString() {
         return DurationFormatUtils.formatISO(getSplitTime());

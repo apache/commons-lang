@@ -33,7 +33,7 @@ import java.io.File;
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.35 2004/08/30 21:21:18 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.36 2004/10/08 00:10:59 scolebourne Exp $
  */
 public class SystemUtils {
 
@@ -1249,6 +1249,7 @@ public class SystemUtils {
      *             <code>checkPropertyAccess</code> method doesn't allow
      *              access to the specified system property.
      * @see System#getProperty(String)
+     * @since 2.1
      */
     public static File getJavaHome() {
         return new File(System.getProperty(JAVA_HOME_KEY));
@@ -1262,6 +1263,7 @@ public class SystemUtils {
      *             <code>checkPropertyAccess</code> method doesn't allow
      *              access to the specified system property.
      * @see System#getProperty(String)
+     * @since 2.1
      */
     public static File getJavaIoTmpDir() {
         return new File(System.getProperty(JAVA_IO_TMPDIR_KEY));
@@ -1275,6 +1277,7 @@ public class SystemUtils {
      *             <code>checkPropertyAccess</code> method doesn't allow
      *              access to the specified system property.
      * @see System#getProperty(String)
+     * @since 2.1
      */
     public static File getUserDir() {
         return new File(System.getProperty(USER_DIR_KEY));
@@ -1288,6 +1291,7 @@ public class SystemUtils {
      *             <code>checkPropertyAccess</code> method doesn't allow
      *              access to the specified system property.
      * @see System#getProperty(String)
+     * @since 2.1
      */
     public static File getUserHome() {
         return new File(System.getProperty(USER_HOME_KEY));
