@@ -63,6 +63,15 @@
         <role>Java Developer</role>
       </roles>
     </contributor>
+    <contributor>
+      <name>Steve Downey</name>
+      <id></id>
+      <email>steve.downey@netfolio.com</email>
+      <organization></organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </contributor>
   </contributors>
   
   <!-- Lang should depend on very little -->
