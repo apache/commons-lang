@@ -23,7 +23,7 @@ import junit.textui.TestRunner;
 /**
  * JUnit tests.
  * 
- * @version $Id: MutableObjectTest.java,v 1.1 2004/07/08 00:02:35 scolebourne Exp $
+ * @version $Id: MutableObjectTest.java,v 1.2 2004/12/26 02:35:47 bayard Exp $
  * @see MutableShort
  */
 public class MutableObjectTest extends TestCase {
@@ -99,6 +99,7 @@ public class MutableObjectTest extends TestCase {
     public void testToString() {
         assertEquals("HI", new MutableObject("HI").toString());
         assertEquals("10.0", new MutableObject(new Double(10)).toString());
+        assertEquals("null", new MutableObject(null).toString());
     }
 
 }

@@ -23,7 +23,7 @@ import junit.textui.TestRunner;
 /**
  * JUnit tests.
  * 
- * @version $Id: MutableLongTest.java,v 1.2 2004/07/07 23:50:28 scolebourne Exp $
+ * @version $Id: MutableLongTest.java,v 1.3 2004/12/26 02:35:47 bayard Exp $
  * @see MutableLong
  */
 public class MutableLongTest extends TestCase {
@@ -126,6 +126,13 @@ public class MutableLongTest extends TestCase {
             mutNum.compareTo("0");
             fail();
         } catch (ClassCastException ex) {}
+    }
+
+    public void testPrimitiveValues() {
+        MutableLong mutNum = new MutableLong(1L);
+
+        assertEquals( 1.0F, mutNum.floatValue(), 0 );
+        assertEquals( 1.0, mutNum.doubleValue(), 0 );
     }
 
     public void testToString() {

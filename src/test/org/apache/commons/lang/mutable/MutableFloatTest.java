@@ -23,7 +23,7 @@ import junit.textui.TestRunner;
 /**
  * JUnit tests.
  * 
- * @version $Id: MutableFloatTest.java,v 1.2 2004/07/07 23:50:28 scolebourne Exp $
+ * @version $Id: MutableFloatTest.java,v 1.3 2004/12/26 02:35:47 bayard Exp $
  * @see MutableFloat
  */
 public class MutableFloatTest extends TestCase {
@@ -137,6 +137,14 @@ public class MutableFloatTest extends TestCase {
             mutNum.compareTo("0");
             fail();
         } catch (ClassCastException ex) {}
+    }
+
+    public void testPrimitiveValues() {
+        MutableFloat mutNum = new MutableFloat(1.7F);
+        
+        assertEquals( 1, mutNum.intValue() );
+        assertEquals( 1.7, mutNum.doubleValue(), 0.00001 );
+        assertEquals( 1L, mutNum.longValue() );
     }
 
     public void testToString() {
