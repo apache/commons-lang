@@ -61,7 +61,7 @@ import java.util.TimeZone;
  * @author Stephen Colebourne
  * @author Nikolay Metchev
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.19 2004/02/18 22:56:42 ggregory Exp $
+ * @version $Id: FastDateFormat.java,v 1.20 2004/07/05 22:37:40 scolebourne Exp $
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes
@@ -761,8 +761,8 @@ public class FastDateFormat extends Format {
     // Format methods
     //-----------------------------------------------------------------------
     /**
-     * <p>Format either a <code>Date</code> or a
-     * <code>Calendar</code> object.</p>
+     * <p>Formats a <code>Date</code>, <code>Calendar</code> or
+     * <code>Long</code> (milliseconds) object.</p>
      * 
      * @param obj  the object to format
      * @param toAppendTo  the buffer to append to
@@ -774,10 +774,22 @@ public class FastDateFormat extends Format {
             return format((Date) obj, toAppendTo);
         } else if (obj instanceof Calendar) {
             return format((Calendar) obj, toAppendTo);
+        } else if (obj instanceof Long) {
+            return format(((Long) obj).longValue(), toAppendTo);
         } else {
             throw new IllegalArgumentException("Unknown class: " +
                 (obj == null ? "<null>" : obj.getClass().getName()));
         }
+    }
+
+    /**
+     * <p>Formats a millisecond <code>long</code> value.</p>
+     * 
+     * @param millis  the millisecond value to format
+     * @return the formatted string
+     */
+    public String format(long millis) {
+        return format(new Date(millis));
     }
 
     /**
@@ -800,6 +812,18 @@ public class FastDateFormat extends Format {
      */
     public String format(Calendar calendar) {
         return format(calendar, new StringBuffer(mMaxLengthEstimate)).toString();
+    }
+
+    /**
+     * <p>Formats a milliseond <code>long</code> value into the
+     * supplied <code>StringBuffer</code>.</p>
+     * 
+     * @param millis  the millisecond value to format
+     * @param buf  the buffer to format into
+     * @return the specified string buffer
+     */
+    public StringBuffer format(long millis, StringBuffer buf) {
+        return format(new Date(millis), buf);
     }
 
     /**
