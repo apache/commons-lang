@@ -77,7 +77,7 @@ import java.util.StringTokenizer;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.45 2003/05/30 01:00:24 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.46 2003/06/08 14:10:54 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -132,6 +132,7 @@ public class StringUtils {
      * @param str the String to check
      * @return the trimmed text (never <code>null</code>)
      * @deprecated Use the clearer named {@link #trimToEmpty(String)}.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String clean(String str) {
         return (str == null ? "" : str.trim());
@@ -913,6 +914,7 @@ public class StringUtils {
      * @return String without chomped ending
      * @throws NullPointerException if str is <code>null</code>
      * @deprecated Use {@link #chomp(String)} instead.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String chompLast(String str) {
         return chompLast(str, "\n");
@@ -926,6 +928,7 @@ public class StringUtils {
      * @return String without chomped ending
      * @throws NullPointerException if str or sep is <code>null</code>
      * @deprecated Use {@link #chomp(String,String)} instead.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String chompLast(String str, String sep) {
         if (str.length() == 0) {
@@ -949,6 +952,7 @@ public class StringUtils {
      * @return String chomped
      * @throws NullPointerException if str or sep is <code>null</code>
      * @deprecated Use {@link #sliceRemainder(String,String)} instead.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String getChomp(String str, String sep) {
         int idx = str.lastIndexOf(sep);
@@ -970,6 +974,7 @@ public class StringUtils {
      * @return String without chomped beginning
      * @throws NullPointerException if str or sep is <code>null</code>
      * @deprecated Use {@link #sliceFirstRemainder(String,String)} instead.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String prechomp(String str, String sep) {
         int idx = str.indexOf(sep);
@@ -989,6 +994,7 @@ public class StringUtils {
      * @return String prechomped
      * @throws NullPointerException if str or sep is <code>null</code>
      * @deprecated Use {@link #sliceFirst(String,String)} instead.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String getPrechomp(String str, String sep) {
         int idx = str.indexOf(sep);
@@ -1038,6 +1044,7 @@ public class StringUtils {
      * @return String without newline
      * @throws NullPointerException if str is <code>null</code>
      * @deprecated Use {@link #chomp(String)} instead.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String chopNewline(String str) {
         int lastIdx = str.length() - 1;

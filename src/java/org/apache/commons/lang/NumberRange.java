@@ -63,9 +63,11 @@ package org.apache.commons.lang;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Revision: 1.7 $ $Date: 2003/04/09 00:07:50 $
+ * @version $Revision: 1.8 $ $Date: 2003/06/08 14:10:54 $
  * 
- * @deprecated Use one of the Range classes in org.apache.commons.lang.math
+ * @deprecated Use one of the Range classes in org.apache.commons.lang.math.
+ *             Class will be removed in Commons Lang 3.0.
+ * 
  */
 public final class NumberRange {
 
