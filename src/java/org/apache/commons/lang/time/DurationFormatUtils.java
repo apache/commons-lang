@@ -25,8 +25,9 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @since 2.0
- * @version $Id: DurationFormatUtils.java,v 1.13 2004/09/01 17:40:55 ggregory Exp $
+ * @author Henri Yandell
+ * @since 2.1
+ * @version $Id: DurationFormatUtils.java,v 1.14 2004/09/26 05:45:33 bayard Exp $
  */
 public class DurationFormatUtils {
 
@@ -64,8 +65,8 @@ public class DurationFormatUtils {
      * @see #ISO_EXTENDED_FORMAT_PATTERN
      * @see <a href="http://www.w3.org/TR/xmlschema-2/#duration">http://www.w3.org/TR/xmlschema-2/#duration</a>
      */
-    public static final FastDateFormat ISO_EXTENDED_FORMAT =
-        FastDateFormat.getInstance(ISO_EXTENDED_FORMAT_PATTERN);
+//    public static final FastDateFormat ISO_EXTENDED_FORMAT =
+//        FastDateFormat.getInstance(ISO_EXTENDED_FORMAT_PATTERN);
 
     /**
      * <p>Get the time gap as a string.</p>
@@ -97,6 +98,9 @@ public class DurationFormatUtils {
      * @return the time as a String
      */
     public static String format(long millis, String format) {
+        return format(millis, format, true);
+    }
+    public static String format(long millis, String format, boolean padWithZeros) {
         StringBuffer buffer = new StringBuffer();
         Token[] tokens = lexx(format);
         int sz = tokens.length;
@@ -151,25 +155,25 @@ public class DurationFormatUtils {
                 buffer.append(value.toString());
             } else {
                 if(value == y) {
-                    buffer.append( StringUtils.leftPad(""+years, count, "0") ); 
+                    buffer.append( padWithZeros ? StringUtils.leftPad(""+years, count, "0") : ""+years ); 
                 } else
                 if(value == M) {
-                    buffer.append( StringUtils.leftPad(""+months, count, "0") ); 
+                    buffer.append( padWithZeros ? StringUtils.leftPad(""+months, count, "0") : ""+months ); 
                 } else
                 if(value == d) {
-                    buffer.append( StringUtils.leftPad(""+days, count, "0") ); 
+                    buffer.append( padWithZeros ? StringUtils.leftPad(""+days, count, "0") : ""+days ); 
                 } else
                 if(value == H) {
-                    buffer.append( StringUtils.leftPad(""+hours, count, "0") ); 
+                    buffer.append( padWithZeros ? StringUtils.leftPad(""+hours, count, "0") : ""+hours ); 
                 } else
                 if(value == m) {
-                    buffer.append( StringUtils.leftPad(""+minutes, count, "0") ); 
+                    buffer.append( padWithZeros ? StringUtils.leftPad(""+minutes, count, "0") : ""+minutes ); 
                 } else
                 if(value == s) {
-                    buffer.append( StringUtils.leftPad(""+seconds, count, "0") ); 
+                    buffer.append( padWithZeros ? StringUtils.leftPad(""+seconds, count, "0") : ""+seconds ); 
                 } else
                 if(value == S) {
-                    buffer.append( StringUtils.leftPad(""+milliseconds, count, "0") ); 
+                    buffer.append( padWithZeros ? StringUtils.leftPad(""+milliseconds, count, "0") : ""+milliseconds ); 
                 }
             }
         }
