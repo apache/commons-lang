@@ -73,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.13 2002/09/25 03:30:19 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.14 2002/09/27 05:53:37 bayard Exp $
  */
 public class StringUtils {
 
@@ -95,8 +95,8 @@ public class StringUtils {
     //--------------------------------------------------------------------------
 
     /**
-     * Removes white space from both ends of this string, handling null
-     * by returning an empty string.
+     * Removes control characters, including whitespace,  from both ends of this 
+     * string, handling null by returning an empty string.
      *
      * @see java.lang.String#trim()
      * @param str  the string to check
@@ -107,8 +107,8 @@ public class StringUtils {
     }
 
     /**
-     * Removes white space from both ends of this string, handling null
-     * by returning null.
+     * Removes control characters,  including whitespace, from both ends of this
+     * string, handling null by returning null. 
      *
      * @see java.lang.String#trim()
      * @param str  the string to check
@@ -120,9 +120,11 @@ public class StringUtils {
 
     /**
      * Deletes all whitespace from a String.
+     * Whitespace is defined as {' ', '\t', '\r', '\n', '\b'}
      *
      * @param str  String target to delete whitespace from
      * @return the text without whitespace
+     * @throws NullPointerException
      */
     public static String deleteWhitespace(String str) {
         return CharSetUtils.delete(str, " \t\r\n\b");
@@ -156,6 +158,7 @@ public class StringUtils {
      * Nulls are handled without exceptions. Two <code>null</code>
      * references are considered equal. Comparison is case sensitive.
      *
+     * @see java.lang.String#equals(String)
      * @param str1  the first string
      * @param str2  the second string
      * @return true if the Strings are equal, case sensitive, or both null
@@ -168,7 +171,7 @@ public class StringUtils {
      * Compares two Strings, returning true if they are equal ignoring case.
      * Nulls are handled without exceptions. Two <code>null</code>
      * references are considered equal. Comparison is case insensitive.
-     *
+     * @see java.lang.String#equalsIgnoreCase(String)
      * @param str1  the first string
      * @param str2  the second string
      * @return true if the Strings are equal, case insensitive, or both null
@@ -184,6 +187,7 @@ public class StringUtils {
      * @param str  the string to check
      * @param searchStrs  the strings to search for
      * @return the earliest index of any of the strings
+     * @throws NullPointerException if any of searchStrs[i] is null
      */
     public static int indexOfAny(String str, String[] searchStrs) {
         if ((str == null) || (searchStrs == null)) {
@@ -216,6 +220,7 @@ public class StringUtils {
      * @param str  the string to check
      * @param searchStrs  the strings to search for
      * @return the last index of any of the strings
+     * @throws NullPointerException if any of searchStrs[i] is null
      */
     public static int lastIndexOfAny(String str, String[] searchStrs) {
         if ((str == null) || (searchStrs == null)) {
@@ -569,6 +574,7 @@ public class StringUtils {
      * @param max  maximum number of values to replace, or
      * <code>-1</code> if no maximum
      * @return the text with any replacements processed
+     * @throws NullPointerException if repl is null
      */
     public static String replace(String text, String repl, String with,
                                  int max) {
@@ -598,6 +604,7 @@ public class StringUtils {
      * @param start int to start overlaying at
      * @param end   int to stop overlaying before
      * @return String with overlayed text
+     * @throws NullPointerException if text or overlay is null
      */
     public static String overlayString(String text, String overlay, int start, int end) {
         return new StringBuffer(start + overlay.length() + text.length() - end + 1)
@@ -612,11 +619,13 @@ public class StringUtils {
     
     /**
      * Center a string in a larger string of size n.
-     * Uses spaces as the value to buffer the string with..
+     * Uses spaces as the value to buffer the string with.
+     * Equivalent to <code>center(str, size, "")</code>
      *
      * @param str  String to center
      * @param size  int size of new String
      * @return String containing centered String
+     * @throws NullPointerException if str is null
      */
     public static String center(String str, int size) {
         return center(str, size, " ");
@@ -630,6 +639,8 @@ public class StringUtils {
      * @param size  int size of new String
      * @param delim  String to buffer the new String with
      * @return String containing centered String
+     * @throws NullPointerException if str or delim is null
+     * @throws ArithmeticException if delim is the empty string
      */
     public static String center(String str, int size, String delim) {
         int sz = str.length();
@@ -650,6 +661,7 @@ public class StringUtils {
      *
      * @param str  String to chomp the newline from
      * @return String without chomped newline
+     * @throws NullPointerException if str is null
      */
     public static String chomp(String str) {
         return chomp(str, "\n");
@@ -662,6 +674,7 @@ public class StringUtils {
      * @param str  String to chomp from
      * @param sep  String to chomp
      * @return String without chomped ending
+     * @throws NullPointerException if str or sep is null
      */
     public static String chomp(String str, String sep) {
         int idx = str.lastIndexOf(sep);
@@ -678,6 +691,7 @@ public class StringUtils {
      * 
      * @param str  String to chomp from
      * @return String without chomped ending
+     * @throws NullPointerException if str is null
      */
     public static String chompLast(String str) {
         return chompLast(str, "\n");
@@ -689,6 +703,7 @@ public class StringUtils {
      * @param str  String to chomp from
      * @param sep  String to chomp
      * @return String without chomped ending
+     * @throws NullPointerException if str or sep is null
      */
     public static String chompLast(String str, String sep) {
         if (str.length() == 0) {
@@ -709,6 +724,7 @@ public class StringUtils {
      * @param str String to chomp from
      * @param sep String to chomp
      * @return String chomped
+     * @throws NullPointerException if str or sep is null
      */
     public static String getChomp(String str, String sep) {
         int idx = str.lastIndexOf(sep);
@@ -728,6 +744,7 @@ public class StringUtils {
      * @param str String to chomp from
      * @param sep String to chomp
      * @return String without chomped beginning
+     * @throws NullPointerException if str or sep is null
      */
     public static String prechomp(String str, String sep) {
         int idx = str.indexOf(sep);
@@ -745,6 +762,7 @@ public class StringUtils {
      * @param str String to chomp from
      * @param sep String to chomp
      * @return String prechomped
+     * @throws NullPointerException if str or sep is null
      */
     public static String getPrechomp(String str, String sep) {
         int idx = str.indexOf(sep);
@@ -764,6 +782,7 @@ public class StringUtils {
      *
      * @param str String to chop last character from
      * @return String without last character
+     * @throws NullPointerException if str is null
      */
     public static String chop(String str) {
         if ("".equals(str)) {
@@ -789,6 +808,7 @@ public class StringUtils {
      *
      * @param str String to chop a newline from
      * @return String without newline
+     * @throws NullPointerException if str is null
      */
     public static String chopNewline(String str) {
         int lastIdx = str.length() - 1;
@@ -815,6 +835,7 @@ public class StringUtils {
      * @param str String to escape values in
      *
      * @return String with escaped values
+     * @throws NullPointerException if str is null
      */
     public static String escape(String str) {
         // improved with code from  cybertiger@cyberiantiger.org
@@ -893,6 +914,8 @@ public class StringUtils {
      * @param str  String to repeat
      * @param repeat  int number of times to repeat
      * @return String with repeated string
+     * @throws NegativeArraySizeException if repeat < 0
+     * @throws NullPointerException if str is null
      */
     public static String repeat(String str, int repeat) {
         StringBuffer buffer = new StringBuffer(repeat * str.length());
@@ -908,6 +931,7 @@ public class StringUtils {
      * @param str  String to repeat
      * @param size  int number of times to repeat
      * @return right padded String
+     * @throws NullPointerException if str is null
      */
     public static String rightPad(String str, int size) {
         return rightPad(str, size, " ");
@@ -920,6 +944,8 @@ public class StringUtils {
      * @param size  int size to pad to
      * @param delim  String to pad with
      * @return right padded String
+     * @throws NullPointerException if str or delim is null
+     * @throws ArithmeticException if delim is the empty string
      */
     public static String rightPad(String str, int size, String delim) {
         size = (size - str.length()) / delim.length();
@@ -935,6 +961,7 @@ public class StringUtils {
      * @param str  String to pad out
      * @param size  int size to pad to
      * @return left padded String
+     * @throws NullPointerException if str or delim is null
      */
     public static String leftPad(String str, int size) {
         return leftPad(str, size, " ");
@@ -946,6 +973,8 @@ public class StringUtils {
      * @param size  int size to pad to
      * @param delim  String to pad with
      * @return left padded String
+     * @throws NullPointerException if str or delim is null
+     * @throws ArithmeticException if delim is the empty string
      */
     public static String leftPad(String str, int size, String delim) {
         size = (size - str.length()) / delim.length();
@@ -1212,11 +1241,12 @@ public class StringUtils {
     
     /**
      * Get the String that is nested in between two instances of the 
-     * same String.
+     * same String. If str is null, will return null
      *
      * @param str  the string containing nested-string
      * @param tag  the string before and after nested-string
      * @return the string that was nested, or null
+     * @throws NullPointerException if tag is null
      */
     public static String getNestedString(String str, String tag) {
         return getNestedString(str, tag, tag);
@@ -1229,6 +1259,7 @@ public class StringUtils {
      * @param open  the string before nested-string
      * @param close  the string after nested-string
      * @return the string that was nested, or null
+     * @throws NullPointerException if open or close  is null
      */
     public static String getNestedString(String str, String open, String close) {
         if (str == null) {
@@ -1251,6 +1282,7 @@ public class StringUtils {
      * @param str  the string to check
      * @param sub  the substring to count
      * @return the number of occurances, 0 if the string is null
+     * @throws NullPointerException if sub is null
      */
     public static int countMatches(String str, String sub) {
         if (str == null) {
@@ -1270,7 +1302,7 @@ public class StringUtils {
     
     /**
      * Checks if the string contains only unicode letters.
-     * Null will return null.
+     * Null will return false. The empty string will return true.
      * 
      * @param str  the string to check
      * @return true if only contains letters, and is non-null
@@ -1290,7 +1322,7 @@ public class StringUtils {
 
     /**
      * Checks if the string contains only unicode letters and space (' ').
-     * Null will return null.
+     * Null will return false.  The empty string will return true.
      * 
      * @param str  the string to check
      * @return true if only contains letters and space, and is non-null
@@ -1311,7 +1343,7 @@ public class StringUtils {
 
     /**
      * Checks if the string contains only unicode letters or digits.
-     * Null will return null.
+     * Null will return false. The empty string will return true.
      * 
      * @param str  the string to check
      * @return true if only contains letters or digits, and is non-null
@@ -1331,7 +1363,7 @@ public class StringUtils {
 
     /**
      * Checks if the string contains only unicode letters, digits or space (' ').
-     * Null will return null.
+     * Null will return false. The empty string will return true.
      * 
      * @param str  the string to check
      * @return true if only contains letters, digits or space, and is non-null
@@ -1352,7 +1384,7 @@ public class StringUtils {
 
     /**
      * Checks if the string contains only unicode digits.
-     * Null will return null.
+     * Null will return false. The empty string will return true.
      * 
      * @param str  the string to check
      * @return true if only contains digits, and is non-null
@@ -1372,7 +1404,7 @@ public class StringUtils {
 
     /**
      * Checks if the string contains only unicode digits or space (' ').
-     * Null will return null.
+     * Null will return false. The empty string will return true.
      * 
      * @param str  the string to check
      * @return true if only contains digits or space, and is non-null
@@ -1484,6 +1516,7 @@ public class StringUtils {
      * @param s  the first String
      * @param t  the second String
      * @return int result distance
+     * @throws NullPointerException if s or t is null
      */
     public static int getLevenshteinDistance(String s, String t) {
         int d[][]; // matrix
