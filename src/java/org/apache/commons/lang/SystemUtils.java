@@ -1,5 +1,3 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 /**
  * <p>Common <code>System</code> class helpers.</p>
@@ -61,12 +60,12 @@ package org.apache.commons.lang;
  * @author Based on code from Lucene
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
- * @version $Id: SystemUtils.java,v 1.5 2002/11/22 23:32:45 bayard Exp $
+ * @version $Id: SystemUtils.java,v 1.6 2002/12/08 16:18:39 scolebourne Exp $
  */
 public class SystemUtils {
     
     /**
-     * <P>SystemUtils instances should NOT be constructed in standard
+     * <p>SystemUtils instances should NOT be constructed in standard
      * programming. Instead, the class should be used as
      * <code>SystemUtils.FILE_SEPARATOR</code>.</p>
      *
@@ -77,237 +76,247 @@ public class SystemUtils {
     }
 
     /**
-     * System Property: file.separator
+     * System Property - file.separator.
      * File separator ("/" on UNIX).
-     * First in version: 1.1
+     * First in JDK version 1.1.
      */
     public static final String FILE_SEPARATOR = System.getProperty("file.separator");
     
 
     /**
-     * System Property: java.class.path
+     * System Property - java.class.path.
      * Java class path.
-     * First in version: 1.1
+     * First in JDK version 1.1.
      */
     public static final String JAVA_CLASS_PATH = System.getProperty("java.class.path");
     
 
     /**
-     * System Property: java.class.version
+     * System Property - java.class.version.
      * Java class format version number.
-     * First in version: 1.1
+     * First in JDK version 1.1.
      */
     public static final String JAVA_CLASS_VERSION = System.getProperty("java.class.version");
     
 
     /**
-     * System Property: java.compiler
+     * System Property - java.compiler.
      * Name of JIT compiler to use.
-     * First in version: 1.4 
+     * First in JDK version 1.4.
      */
     public static final String JAVA_COMPILER = System.getProperty("java.compiler");
     
 
     /**
-     * System Property: java.ext.dirs
+     * System Property - java.ext.dirs.
      * Path of extension directory or directories.
-     * First in version: 1.3 
+     * First in JDK version 1.3.
      */
     public static final String JAVA_EXT_DIRS = System.getProperty("java.ext.dirs");
     
 
     /**
-     * System Property: java.home
+     * System Property - java.home.
      * Java installation directory.
-     * First in version: 1.1 
+     * First in JDK version 1.1.
      */
     public static final String JAVA_HOME = System.getProperty("java.home");
     
 
     /**
-     * System Property: java.io.tmpdir
+     * System Property - java.io.tmpdir.
      * Default temp file path.
-     * First in version: 1.4 
+     * First in JDK version 1.4.
      */
     public static final String JAVA_IO_TMPDIR = System.getProperty("java.io.tmpdir");
     
 
     /**
-     * System Property: java.library.path
+     * System Property - java.library.path.
      * List of paths to search when loading libraries.
-     * First in version: 1.4 
+     * First in JDK version 1.4.
      */
     public static final String JAVA_LIBRARY_PATH = System.getProperty("java.library.path");
     
 
     /**
-     * System Property: java.specification.name
+     * System Property - java.specification.name.
      * Java Runtime Environment specification name.
-     * First in version: 1.2 
+     * First in JDK version 1.2.
      */
     public static final String JAVA_SPECIFICATION_NAME = System.getProperty("java.specification.name");
     
 
     /**
-     * System Property: java.specification.vendor
+     * System Property - java.specification.vendor.
      * Java Runtime Environment specification vendor.
-     * First in version: 1.2 
+     * First in JDK version 1.2.
      */
     public static final String JAVA_SPECIFICATION_VENDOR = System.getProperty("java.specification.vendor");
     
 
     /**
-     * System Property: java.specification.version
+     * System Property - java.specification.version.
      * Java Runtime Environment specification version.
-     * First in version: 1.2 
+     * First in JDK version 1.2.
      */
     public static final String JAVA_SPECIFICATION_VERSION = System.getProperty("java.specification.version");
     
 
     /**
-     * System Property: java.vendor
+     * System Property - java.vendor.
      * Java vendor-specific string.
-     * First in version: 1.1 
+     * First in JDK version 1.1.
      */
     public static final String JAVA_VENDOR = System.getProperty("java.vendor");
     
 
     /**
-     * System Property: java.vendor.url
+     * System Property - java.vendor.url.
      * Java vendor URL.
-     * First in version: 1.1 
+     * First in JDK version 1.1. 
      */
     public static final String JAVA_VENDOR_URL = System.getProperty("java.vendor.url");
     
 
     /**
-     * System Property: java.version
+     * System Property - java.version.
      * Java version number.
-     * First in version: 1.1 
+     * First in JDK version 1.1. 
      */
     public static final String JAVA_VERSION = System.getProperty("java.version");
     
 
     /**
-     * System Property: java.vm.name
+     * System Property - java.vm.name.
      * Java Virtual Machine implementation name.
-     * First in version: 1.2 
+     * First in JDK version 1.2.
      */
     public static final String JAVA_VM_NAME = System.getProperty("java.vm.name");
     
 
     /**
-     * System Property: java.vm.specification.name
+     * System Property - java.vm.specification.name.
      * Java Virtual Machine specification name.
-     * First in version: 1.2 
+     * First in JDK version 1.2.
      */
     public static final String JAVA_VM_SPECIFICATION_NAME = System.getProperty("java.vm.specification.name");
     
 
     /**
-     * System Property: java.vm.specification.vendor
+     * System Property - java.vm.specification.vendor.
      * Java Virtual Machine specification vendor.
-     * First in version: 1.2 
+     * First in JDK version 1.2.
      */
     public static final String JAVA_VM_SPECIFICATION_VENDOR = System.getProperty("java.vm.specification.vendor");
     
 
     /**
-     * System Property: java.vm.specification.version
+     * System Property - java.vm.specification.version.
      * Java Virtual Machine specification version.
-     * First in version: 1.2 
+     * First in JDK version 1.2.
      */
     public static final String JAVA_VM_SPECIFICATION_VERSION = System.getProperty("java.vm.specification.version");
     
 
     /**
-     * System Property: java.vm.vendor
+     * System Property - java.vm.vendor.
      * Java Virtual Machine implementation vendor.
-     * First in version: 1.2 
+     * First in JDK version 1.2.
      */
     public static final String JAVA_VM_VENDOR = System.getProperty("java.vm.vendor");
     
 
     /**
-     * System Property: java.vm.version
+     * System Property - java.vm.version.
      * Java Virtual Machine implementation version.
-     * First in version: 1.2 
+     * First in JDK version 1.2.
      */
     public static final String JAVA_VM_VERSION = System.getProperty("java.vm.version");
     
 
     /**
-     * System Property: line.separator
+     * System Property - line.separator.
      * Line separator ("\n" on UNIX).
-     * First in version: 1.1 
+     * First in JDK version 1.1. 
      */
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     
 
     /**
-     * System Property: os.arch
+     * System Property - os.arch.
      * Operating system architecture.
-     * First in version: 1.1 
+     * First in JDK version 1.1. 
      */
     public static final String OS_ARCH = System.getProperty("os.arch");
     
 
     /**
-     * System Property: os.name
+     * System Property - os.name.
      * Operating system name.
-     * First in version: 1.1 
+     * First in JDK version 1.1. 
      */
     public static final String OS_NAME = System.getProperty("os.name");
     
 
     /**
-     * System Property: os.version
+     * System Property - os.version.
      * Operating system version.
-     * First in version: 1.1 
+     * First in JDK version 1.1. 
      */
     public static final String OS_VERSION = System.getProperty("os.version");
     
 
     /**
-     * System Property: path.separator
+     * System Property - path.separator.
      * Path separator (":" on UNIX).
-     * First in version: 1.1 
+     * First in JDK version 1.1. 
      */
     public static final String PATH_SEPARATOR = System.getProperty("path.separator");
     
 
     /**
-     * System Property: user.dir
+     * System Property - user.dir.
      * User's current working directory.
-     * First in version: 1.1 
+     * First in JDK version 1.1. 
      */
     public static final String USER_DIR = System.getProperty("user.dir");
     
 
     /**
-     * System Property: user.home
+     * System Property - user.home.
      * User's home directory.
-     * First in version: 1.1 
+     * First in JDK version 1.1. 
      */
     public static final String USER_HOME = System.getProperty("user.home");
     
 
     /**
-     * System Property: user.name
+     * System Property - user.name.
      * User's account name.
-     * First in version: 1.1 
+     * First in JDK version 1.1. 
      */
     public static final String USER_NAME = System.getProperty("user.name");
     
-    /** True iff this is Java version 1.1. */
+    /** 
+     * True iff this is Java version 1.1. 
+     */
     public static final boolean IS_JAVA_1_1 = JAVA_VERSION.startsWith("1.1.");
-    /** True iff this is Java version 1.2. */
+    /** 
+     * True iff this is Java version 1.2. 
+     */
     public static final boolean IS_JAVA_1_2 = JAVA_VERSION.startsWith("1.2.");
-    /** True iff this is Java version 1.3. */
+    /** 
+     * True iff this is Java version 1.3. 
+     */
     public static final boolean IS_JAVA_1_3 = JAVA_VERSION.startsWith("1.3.");
-    /** True iff this is Java version 1.4. */
+    /** 
+     * True iff this is Java version 1.4. 
+     */
     public static final boolean IS_JAVA_1_4 = JAVA_VERSION.startsWith("1.4.");
-    /** True iff this is Java version 1.5. */
+    /** 
+     * True iff this is Java version 1.5. 
+     */
     public static final boolean IS_JAVA_1_5 = JAVA_VERSION.startsWith("1.5.");
 
 
