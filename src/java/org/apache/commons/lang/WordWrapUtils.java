@@ -67,7 +67,8 @@ import java.util.StringTokenizer;
  * @author Stephen Colebourne
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: WordWrapUtils.java,v 1.8 2003/08/01 20:45:17 scolebourne Exp $
+ * @since 2.0
+ * @version $Id: WordWrapUtils.java,v 1.9 2003/08/13 23:47:39 scolebourne Exp $
  */
 public class WordWrapUtils {
 

@@ -68,7 +68,8 @@ package org.apache.commons.lang;
  * @author Justin Couch
  * @author Alex Chaffee (alex@apache.org)
  * @author Stephen Colebourne
- * @version $Revision: 1.3 $
+ * @since 2.0
+ * @version $Revision: 1.4 $
  * @see java.util.HashMap
  */
 class IntHashMap {
