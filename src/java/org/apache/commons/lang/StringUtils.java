@@ -79,7 +79,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.54 2003/07/14 22:26:51 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.55 2003/07/14 23:02:08 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1005,9 +1005,9 @@ public class StringUtils {
      * otherwise leave it alone.  A newline is &quot;<code>\n</code>&quot;,
      * &quot;<code>\r</code>&quot;, or &quot;<code>\r\n</code>&quot;.</p>
      *
-     * <p>Note that this behavior has changed from 1.0.  It
-     * now more closely matches Perl chomp.  For the previous behavior,
-     * use {@link #slice(String)}.</p>
+     * <p>NOTE: This method changed in 2.0.
+     * It now more closely matches Perl chomp.
+     * For the previous behavior, use {@link #slice(String)}.</p>
      *
      * @param str String to chomp a newline from
      * @return String without newline
@@ -1046,9 +1046,9 @@ public class StringUtils {
      * <p>Remove <code>separator</code> from the end of
      * <code>str</code> if it's there, otherwise leave it alone.</p>
      *
-     * <p>Note that this behavior has changed from 1.0.  It
-     * now more closely matches Perl chomp.  For the previous behavior,
-     * use {@link #slice(String,String)}.</p>
+     * <p>NOTE: This method changed in version 2.0.
+     * It now more closely matches Perl chomp.
+     * For the previous behavior, use {@link #slice(String,String)}.</p>
      *
      * @param str string to chomp from
      * @param separator separator string
