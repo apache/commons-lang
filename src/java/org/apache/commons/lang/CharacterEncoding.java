@@ -35,13 +35,13 @@ import java.io.UnsupportedEncodingException;
  *          names </a>
  * @author Apache Software Foundation
  * @since 2.1
- * @version $Id: CharacterEncoding.java,v 1.1 2004/08/03 17:15:32 ggregory Exp $
+ * @version $Id: CharacterEncoding.java,v 1.2 2004/08/26 18:54:04 ggregory Exp $
  */
 public class CharacterEncoding {
 
     /**
      * <p>
-     * ISO Latin Alphabet No. 1, a.k.a. ISO-LATIN-1.
+     * ISO Latin Alphabet #1, also known as ISO-LATIN-1.
      * </p>
      * <p>
      * Every implementation of the Java platform is required to support this character encoding.
