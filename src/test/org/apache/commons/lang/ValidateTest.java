@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Norm Deane
- * @version $Id: ValidateTest.java,v 1.5 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: ValidateTest.java,v 1.6 2004/10/08 21:44:41 scolebourne Exp $
  */
 public class ValidateTest extends TestCase {
 
@@ -358,23 +358,41 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-    public void testAllElementsOfClass() {
+    public void testAllElementsOfType() {
     	List coll = new ArrayList();
     	coll.add("a");
     	coll.add("b");
-    	Validate.allElementsOfClass(coll, String.class, "MSG");
+    	Validate.allElementsOfType(coll, String.class, "MSG");
     	try {
-    		Validate.allElementsOfClass(coll, Integer.class, "MSG");
+    		Validate.allElementsOfType(coll, Integer.class, "MSG");
     		fail("Expecting IllegalArgumentException");
     	} catch (IllegalArgumentException ex) {
     		assertEquals("MSG", ex.getMessage());
     	}
     	coll.set(1, Boolean.FALSE);
     	try {
-    		Validate.allElementsOfClass(coll, String.class);
+    		Validate.allElementsOfType(coll, String.class);
     		fail("Expecting IllegalArgumentException");
     	} catch (IllegalArgumentException ex) {
     		assertEquals("The validated collection contains an element not of type java.lang.String at index: 1", ex.getMessage());
     	}
+        
+        coll = new ArrayList();
+        coll.add(new Integer(5));
+        coll.add(new Double(2.0d));
+        Validate.allElementsOfType(coll, Number.class, "MSG");
+        try {
+            Validate.allElementsOfType(coll, Integer.class, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
+        try {
+            Validate.allElementsOfType(coll, Double.class, "MSG");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("MSG", ex.getMessage());
+        }
     }
+
 }
