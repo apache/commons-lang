@@ -81,8 +81,9 @@ import org.apache.commons.lang.SystemUtils;
  * the array length.</p>
  *
  * @author Stephen Colebourne
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.13 2003/04/18 04:57:19 bayard Exp $
+ * @version $Id: ToStringStyle.java,v 1.14 2003/06/03 03:51:56 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -153,7 +154,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     private String arraySeparator = ",";
     /**
-     * The detail for array content
+     * The detail for array content.
      */
     private boolean arrayContentDetail = true;
     /**
@@ -329,7 +330,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param detail  output detail or not
      */
     protected void appendInternal(StringBuffer buffer, String fieldName, Object value, boolean detail) {
-        if (ToStringBuilder.isRegistered(value) 
+        if (ReflectionToStringBuilder.isRegistered(value) 
                 && !(value instanceof Number || value instanceof Boolean || value instanceof Character)) {
             appendAsObjectToString(buffer, value);
             
