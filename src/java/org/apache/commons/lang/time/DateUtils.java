@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.28 2004/09/21 02:11:06 ggregory Exp $
+ * @version $Id: DateUtils.java,v 1.29 2004/09/26 05:45:33 bayard Exp $
  */
 public class DateUtils {
     
@@ -57,7 +57,7 @@ public class DateUtils {
     public static final long MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
 
     // hmm. not very accurate. used by DurationFormatUtils
-    static final long MILLIS_PER_YEAR = 365 * MILLIS_PER_DAY;
+    static final long MILLIS_PER_YEAR = 365 * MILLIS_PER_DAY + 6 * MILLIS_PER_HOUR;
     static final long MILLIS_PER_MONTH = MILLIS_PER_YEAR / 12;
 
     /**
