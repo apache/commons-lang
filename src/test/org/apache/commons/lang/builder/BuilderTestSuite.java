@@ -51,25 +51,24 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.lang;
+package org.apache.commons.lang.builder;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 /**
- * Test suite for the Lang package.
+ * Test suite for the Lang Builder package.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: LangTestSuite.java,v 1.4 2002/09/12 22:01:25 scolebourne Exp $
+ * @version $Id: BuilderTestSuite.java,v 1.1 2002/09/12 22:01:24 scolebourne Exp $
  */
-public class LangTestSuite extends TestCase {
+public class BuilderTestSuite extends TestCase {
     
     /**
      * Construct a new instance.
      */
-    public LangTestSuite(String name) {
+    public BuilderTestSuite(String name) {
         super(name);
     }
 
@@ -85,18 +84,9 @@ public class LangTestSuite extends TestCase {
      */
     public static Test suite() {
         TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
+        suite.setName("Commons-Lang-Builder Tests");
+        suite.addTest(EqualsBuilderTest.suite());
+        suite.addTest(HashCodeBuilderTest.suite());
         return suite;
     }
 }
