@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.22 2004/07/11 18:40:04 stevencaswell Exp $
+ * @version $Id: DateUtils.java,v 1.23 2004/07/12 00:04:32 stevencaswell Exp $
  */
 public class DateUtils {
     
@@ -367,10 +367,10 @@ public class DateUtils {
                     }
                     break;
                 case Calendar.AM_PM:
-                    if (fields[i][0] == Calendar.HOUR) {
+                    if (fields[i][0] == Calendar.HOUR_OF_DAY) {
                         //If we're going to drop the HOUR field's value,
                         //  we want to do this our own way.
-                        offset = val.get(Calendar.HOUR);
+                        offset = val.get(Calendar.HOUR_OF_DAY);
                         if (offset >= 12) {
                             offset -= 12;
                         }
