@@ -36,7 +36,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Phil Steitz
  * @author Pete Gieser
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.29 2004/09/05 20:09:33 bayard Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.30 2004/10/07 22:45:27 scolebourne Exp $
  */
 public class StringEscapeUtils {
 
@@ -454,7 +454,7 @@ public class StringEscapeUtils {
      * <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
      * </p>
      *
-     * <p>Supports only the four basic XML entities (gt, lt, quot, amp).
+     * <p>Supports only the five basic XML entities (gt, lt, quot, amp, apos).
      * Does not support DTDs or external entities.</p>
      *
      * @param str  the <code>String</code> to escape, may be null
@@ -473,7 +473,7 @@ public class StringEscapeUtils {
      * containing the actual Unicode characters corresponding to the
      * escapes.</p>
      *
-     * <p>Supports only the four basic XML entities (gt, lt, quot, amp).
+     * <p>Supports only the five basic XML entities (gt, lt, quot, amp, apos).
      * Does not support DTDs or external entities.</p>
      *
      * @param str  the <code>String</code> to unescape, may be null
