@@ -56,6 +56,8 @@ package org.apache.commons.lang.enum;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.ClassUtils;
+
 /**
  * <p>Abstract superclass for type-safe enums with integer values suitable
  * for use in <code>switch</code> statements.</p>
@@ -131,7 +133,7 @@ import java.util.List;
  * @author Apache Avalon project
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.8 2003/07/20 15:49:58 scolebourne Exp $
+ * @version $Id: ValuedEnum.java,v 1.9 2003/07/30 23:13:09 scolebourne Exp $
  */
 public abstract class ValuedEnum extends Enum {
     /**
@@ -205,19 +207,16 @@ public abstract class ValuedEnum extends Enum {
     /**
      * <p>Human readable description of this <code>Enum</code> item.</p>
      *
-     * <p>For use when debugging.</p>
-     * 
      * @return String in the form <code>type[name=value]</code>, for example:
      *  <code>JavaVersion[Java 1.0=100]</code>. Note that the package name is
      *  stripped from the type name.
      */
     public String toString() {
-        String shortName = Enum.getEnumClass(getClass()).getName();
-        int pos = shortName.lastIndexOf('.');
-        if (pos != -1) {
-            shortName = shortName.substring(pos + 1);
+        if (iToString == null) {
+            Class cls = Enum.getEnumClass(getClass());
+            String shortName = ClassUtils.getShortClassName(cls);
+            iToString = shortName + "[" + getName() + "=" + getValue() + "]";
         }
-        shortName = shortName.replace('$', '.');
-        return shortName + "[" + getName() + "=" + getValue() + "]";
+        return iToString;
     }
 }

@@ -67,7 +67,7 @@ import org.apache.commons.lang.SerializationUtils;
  * Test cases for the {@link Enum} class.
  *
  * @author Stephen Colebourne
- * @version $Id: EnumTest.java,v 1.7 2003/05/22 22:00:06 scolebourne Exp $
+ * @version $Id: EnumTest.java,v 1.8 2003/07/30 23:13:09 scolebourne Exp $
  */
 
 public final class EnumTest extends TestCase {
@@ -95,11 +95,27 @@ public final class EnumTest extends TestCase {
         assertTrue(ColorEnum.BLUE.compareTo(ColorEnum.BLUE) == 0);
         assertTrue(ColorEnum.RED.compareTo(ColorEnum.BLUE) > 0);
         assertTrue(ColorEnum.BLUE.compareTo(ColorEnum.RED) < 0);
+        try {
+            ColorEnum.RED.compareTo(null);
+            fail();
+        } catch (NullPointerException ex) {}
+        try {
+            ColorEnum.RED.compareTo(new Object());
+            fail();
+        } catch (ClassCastException ex) {}
     }
 
     public void testEquals() {
         assertSame(ColorEnum.RED, ColorEnum.RED);
         assertSame(ColorEnum.getEnum("Red"), ColorEnum.RED);
+        assertEquals(false, ColorEnum.RED.equals(null));
+        assertEquals(true, ColorEnum.RED.equals(ColorEnum.RED));
+        assertEquals(true, ColorEnum.RED.equals(ColorEnum.getEnum("Red")));
+    }
+
+    public void testHashCode() {
+        assertEquals(ColorEnum.RED.hashCode(), ColorEnum.RED.hashCode());
+        assertEquals(7 + ColorEnum.class.hashCode() + 3 * "Red".hashCode(), ColorEnum.RED.hashCode());
     }
 
     public void testToString() {
@@ -151,7 +167,9 @@ public final class EnumTest extends TestCase {
     }
 
     public void testSerialization() {
+        int hashCode = ColorEnum.RED.hashCode();
         assertSame(ColorEnum.RED, SerializationUtils.clone(ColorEnum.RED));
+        assertEquals(hashCode, SerializationUtils.clone(ColorEnum.RED).hashCode());
         assertSame(ColorEnum.GREEN, SerializationUtils.clone(ColorEnum.GREEN));
         assertSame(ColorEnum.BLUE, SerializationUtils.clone(ColorEnum.BLUE));
     }
