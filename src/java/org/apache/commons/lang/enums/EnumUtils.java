@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.enum;
+package org.apache.commons.lang.enums;
 
 import java.util.Iterator;
 import java.util.List;
@@ -22,17 +22,12 @@ import java.util.Map;
 /**
  * <p>Utility class for accessing and manipulating {@link Enum}s.</p>
  *
- * @deprecated Replaced by {@link org.apache.commons.lang.enums.EnumUtils org.apache.commons.lang.enums.EnumUtils} 
- *          and will be removed in version 3.0. All classes in this package are deprecated and repackaged to 
- *          <a href="../enums/package-summary.html">org.apache.commons.lang.enums</a> since <code>enum</code> 
- *          is a Java 1.5 keyword. 
- * @see org.apache.commons.lang.enums.EnumUtils
  * @see Enum
  * @see ValuedEnum
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: EnumUtils.java,v 1.12 2004/02/23 04:34:20 ggregory Exp $
+ * @version $Id: EnumUtils.java,v 1.1 2004/02/23 04:34:20 ggregory Exp $
  */
 public class EnumUtils {
 
