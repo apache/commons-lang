@@ -61,8 +61,9 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @author Pete Gieser
+ * @author Masato Tezuka
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.35 2004/10/16 18:20:46 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.36 2004/12/28 23:13:03 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -1632,8 +1633,8 @@ public abstract class ToStringStyle implements Serializable {
      * @param arrayEnd  the new array end text
      */
     protected void setArrayEnd(String arrayEnd) {
-        if (arrayStart == null) {
-            arrayStart = "";
+        if (arrayEnd == null) {
+            arrayEnd = "";
         }
         this.arrayEnd = arrayEnd;
     }

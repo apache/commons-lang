@@ -22,8 +22,8 @@ import junit.textui.TestRunner;
 /**
  * Test suite for the Lang Builder package.
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: BuilderTestSuite.java,v 1.7 2004/02/18 23:00:51 ggregory Exp $
+ * @author Stephen Colebourne
+ * @version $Id: BuilderTestSuite.java,v 1.8 2004/12/28 23:13:03 scolebourne Exp $
  */
 public class BuilderTestSuite extends TestCase {
     
@@ -57,6 +57,7 @@ public class BuilderTestSuite extends TestCase {
         suite.addTest(MultiLineToStringStyleTest.suite());
         suite.addTest(SimpleToStringStyleTest.suite());
         suite.addTest(StandardToStringStyleTest.suite());
+        suite.addTest(ToStringStyleTest.suite());
         return suite;
     }
 }
