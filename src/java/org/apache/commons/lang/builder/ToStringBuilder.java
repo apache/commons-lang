@@ -111,8 +111,9 @@ import java.lang.reflect.Modifier;
  * the {@link ToStringStyle} passed into the constructor.</p>
  *
  * @author Stephen Colebourne
+ * @author Gary Gregory
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.11 2002/12/31 20:17:53 scolebourne Exp $
+ * @version $Id: ToStringBuilder.java,v 1.12 2002/12/31 20:21:34 scolebourne Exp $
  */
 public class ToStringBuilder {
     
