@@ -59,7 +59,7 @@ import junit.framework.TestCase;
  * Test cases for the {@link Range} classes.
  *
  * @author Stephen Colebourne
- * @version $Id: AbstractRangeTest.java,v 1.3 2003/08/04 01:14:02 scolebourne Exp $
+ * @version $Id: AbstractRangeTest.java,v 1.4 2003/08/04 02:01:53 scolebourne Exp $
  */
 public abstract class AbstractRangeTest extends TestCase {
 
@@ -296,6 +296,7 @@ public abstract class AbstractRangeTest extends TestCase {
     //--------------------------------------------------------------------------
 
     public void testContainsRange() {
+        assertEquals(false, tenToTwenty.containsRange(null));
         assertEquals(false, tenToTwenty.containsRange(createRange(five, five)));
         assertEquals(false, tenToTwenty.containsRange(createRange(five, ten)));
         assertEquals(false, tenToTwenty.containsRange(createRange(five, twelve)));
@@ -325,6 +326,7 @@ public abstract class AbstractRangeTest extends TestCase {
     }
 
     public void testOverlapsRange() {
+        assertEquals(false, tenToTwenty.overlapsRange(null));
         assertEquals(false, tenToTwenty.overlapsRange(createRange(five, five)));
         assertEquals(true, tenToTwenty.overlapsRange(createRange(five, ten)));
         assertEquals(true, tenToTwenty.overlapsRange(createRange(five, twelve)));
@@ -365,6 +367,7 @@ public abstract class AbstractRangeTest extends TestCase {
         assertEquals(false, tenToTwenty.equals(createRange(five, ten)));
         assertEquals(false, tenToTwenty.equals(createRange(ten)));
 
+        assertEquals(true, tenToTwenty.equals(tenToTwenty));
         assertEquals(true, tenToTwenty.equals(createRange(ten, twenty)));
         assertEquals(true, tenToTwenty.equals(createRange(twenty, ten)));
         
@@ -379,7 +382,9 @@ public abstract class AbstractRangeTest extends TestCase {
     }
     
     public void testToString() {
-        assertEquals("Range[10,20]", tenToTwenty.toString());
+        String str = tenToTwenty.toString();
+        assertEquals("Range[10,20]", str);
+        assertSame(str, tenToTwenty.toString());
         assertEquals("Range[-20,-10]", createRange(new Integer(-20), new Integer(-10)).toString());
     }
 

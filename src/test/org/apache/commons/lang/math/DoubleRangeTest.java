@@ -60,7 +60,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link DoubleRange} class.
  *
  * @author Stephen Colebourne
- * @version $Id: DoubleRangeTest.java,v 1.3 2003/08/04 01:14:02 scolebourne Exp $
+ * @version $Id: DoubleRangeTest.java,v 1.4 2003/08/04 02:01:53 scolebourne Exp $
  */
 public final class DoubleRangeTest extends AbstractRangeTest {
 
@@ -197,7 +197,9 @@ public final class DoubleRangeTest extends AbstractRangeTest {
     }
 
     public void testToString() {
-        assertEquals("Range[10.0,20.0]", tenToTwenty.toString());
+        String str = tenToTwenty.toString();
+        assertEquals("Range[10.0,20.0]", str);
+        assertSame(str, tenToTwenty.toString());
         assertEquals("Range[-20.0,-10.0]", createRange(new Integer(-20), new Integer(-10)).toString());
     }
     
