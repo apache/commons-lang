@@ -24,7 +24,7 @@ package org.apache.commons.lang;
  * 
  * @author Stephen Colebourne
  * @since 2.1
- * @version $Id: CharUtils.java,v 1.7 2004/03/10 22:59:45 scolebourne Exp $
+ * @version $Id: CharUtils.java,v 1.8 2004/03/10 23:23:46 scolebourne Exp $
  */
 public class CharUtils {
     
@@ -89,21 +89,45 @@ public class CharUtils {
         }
     }
     
+    /**
+     * <p>Converts the String to a Character using the first character, returning
+     * null for empty Strings.</p>
+     * 
+     * <p>For ASCII 7 bit characters, this uses a cache that will return the
+     * same Character object each time.</p>
+     * 
+     * <pre>
+     *   CharUtils.toCharacterObject(null) = null
+     *   CharUtils.toCharacterObject("")   = null
+     *   CharUtils.toCharacterObject("A")  = 'A'
+     *   CharUtils.toCharacterObject("BA") = 'B'
+     * </pre>
+     *
+     * @param str  the character to convert
+     * @return the Character value of the first letter of the String
+     */
+    public static Character toCharacterObject(String str) {
+        if (StringUtils.isEmpty(str)) {
+            return null;
+        }
+        return toCharacterObject(str.charAt(0));
+    }
+    
     //-----------------------------------------------------------------------
     /**
      * <p>Converts the Character to a char throwing an exception for <code>null</code>.</p>
      * 
      * <pre>
-     *   CharUtils.toCharacter(null) = IllegalArgumentException
-     *   CharUtils.toCharacter(' ')  = ' '
-     *   CharUtils.toCharacter('A')  = 'A'
+     *   CharUtils.toChar(null) = IllegalArgumentException
+     *   CharUtils.toChar(' ')  = ' '
+     *   CharUtils.toChar('A')  = 'A'
      * </pre>
      *
      * @param ch  the character to convert
      * @return the char value of the Character
      * @throws IllegalArgumentException if the Character is null
      */
-    public static char toCharacter(Character ch) {
+    public static char toChar(Character ch) {
         if (ch == null) {
             throw new IllegalArgumentException("The Character must not be null");
         }
@@ -114,16 +138,16 @@ public class CharUtils {
      * <p>Converts the Character to a char handling <code>null</code>.</p>
      * 
      * <pre>
-     *   CharUtils.toCharacter(null, 'X') = 'X'
-     *   CharUtils.toCharacter(' ', 'X')  = ' '
-     *   CharUtils.toCharacter('A', 'X')  = 'A'
+     *   CharUtils.toChar(null, 'X') = 'X'
+     *   CharUtils.toChar(' ', 'X')  = ' '
+     *   CharUtils.toChar('A', 'X')  = 'A'
      * </pre>
      *
      * @param ch  the character to convert
      * @param defaultValue  the value to use if the  Character is null
      * @return the char value of the Character or the default if null
      */
-    public static char toCharacter(Character ch, char defaultValue) {
+    public static char toChar(Character ch, char defaultValue) {
         if (ch == null) {
             return defaultValue;
         }
@@ -132,21 +156,21 @@ public class CharUtils {
     
     //-----------------------------------------------------------------------
     /**
-     * <p>Converts the String to a char using the first character throwing
+     * <p>Converts the String to a char using the first character, throwing
      * an exception on empty Strings.</p>
      * 
      * <pre>
-     *   CharUtils.toCharacter(null) = IllegalArgumentException
-     *   CharUtils.toCharacter("")   = IllegalArgumentException
-     *   CharUtils.toCharacter("A")  = 'A'
-     *   CharUtils.toCharacter("BA") = 'B'
+     *   CharUtils.toChar(null) = IllegalArgumentException
+     *   CharUtils.toChar("")   = IllegalArgumentException
+     *   CharUtils.toChar("A")  = 'A'
+     *   CharUtils.toChar("BA") = 'B'
      * </pre>
      *
      * @param str  the character to convert
-     * @return the char value of the Character
+     * @return the char value of the first letter of the String
      * @throws IllegalArgumentException if the String is empty
      */
-    public static char toCharacter(String str) {
+    public static char toChar(String str) {
         if (StringUtils.isEmpty(str)) {
             throw new IllegalArgumentException("The String must not be empty");
         }
@@ -154,21 +178,21 @@ public class CharUtils {
     }
     
     /**
-     * <p>Converts the String to a char using the first character defaulting
+     * <p>Converts the String to a char using the first character, defaulting
      * the value on empty Strings.</p>
      * 
      * <pre>
-     *   CharUtils.toCharacter(null, 'X') = 'X'
-     *   CharUtils.toCharacter("", 'X')   = 'X'
-     *   CharUtils.toCharacter("A", 'X')  = 'A'
-     *   CharUtils.toCharacter("BA", 'X') = 'B'
+     *   CharUtils.toChar(null, 'X') = 'X'
+     *   CharUtils.toChar("", 'X')   = 'X'
+     *   CharUtils.toChar("A", 'X')  = 'A'
+     *   CharUtils.toChar("BA", 'X') = 'B'
      * </pre>
      *
      * @param str  the character to convert
      * @param defaultValue  the value to use if the  Character is null
-     * @return the char value of the Character or the default if null
+     * @return the char value of the first letter of the String or the default if null
      */
-    public static char toCharacter(String str, char defaultValue) {
+    public static char toChar(String str, char defaultValue) {
         if (StringUtils.isEmpty(str)) {
             return defaultValue;
         }
@@ -183,15 +207,15 @@ public class CharUtils {
      * <p>This method coverts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
-     *   CharUtils.toInteger('3')  = 3
-     *   CharUtils.toInteger('A')  = IllegalArgumentException
+     *   CharUtils.toIntValue('3')  = 3
+     *   CharUtils.toIntValue('A')  = IllegalArgumentException
      * </pre>
      *
      * @param ch  the character to convert
      * @return the int value of the character
      * @throws IllegalArgumentException if the character is not ASCII numeric
      */
-    public static int toInteger(char ch) {
+    public static int toIntValue(char ch) {
         if (isAsciiNumeric(ch) == false) {
             throw new IllegalArgumentException("The character " + ch + " is not in the range '0' - '9'");
         }
@@ -205,15 +229,15 @@ public class CharUtils {
      * <p>This method coverts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
-     *   CharUtils.toInteger('3', -1)  = 3
-     *   CharUtils.toInteger('A', -1)  = -1
+     *   CharUtils.toIntValue('3', -1)  = 3
+     *   CharUtils.toIntValue('A', -1)  = -1
      * </pre>
      *
      * @param ch  the character to convert
      * @param defaultValue  the default value to use if the character is not numeric
      * @return the int value of the character
      */
-    public static int toInteger(char ch, int defaultValue) {
+    public static int toIntValue(char ch, int defaultValue) {
         if (isAsciiNumeric(ch) == false) {
             return defaultValue;
         }
@@ -227,20 +251,20 @@ public class CharUtils {
      * <p>This method coverts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
-     *   CharUtils.toInteger(null) = IllegalArgumentException
-     *   CharUtils.toInteger('3')  = 3
-     *   CharUtils.toInteger('A')  = IllegalArgumentException
+     *   CharUtils.toIntValue(null) = IllegalArgumentException
+     *   CharUtils.toIntValue('3')  = 3
+     *   CharUtils.toIntValue('A')  = IllegalArgumentException
      * </pre>
      *
      * @param ch  the character to convert, not null
      * @return the int value of the character
      * @throws IllegalArgumentException if the Character is not ASCII numeric or is null
      */
-    public static int toInteger(Character ch) {
+    public static int toIntValue(Character ch) {
         if (ch == null) {
             throw new IllegalArgumentException("The character must not be null");
         }
-        return toInteger(ch.charValue());
+        return toIntValue(ch.charValue());
     }
     
     /**
@@ -250,20 +274,20 @@ public class CharUtils {
      * <p>This method coverts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
-     *   CharUtils.toInteger(null, -1) = -1
-     *   CharUtils.toInteger('3', -1)  = 3
-     *   CharUtils.toInteger('A', -1)  = -1
+     *   CharUtils.toIntValue(null, -1) = -1
+     *   CharUtils.toIntValue('3', -1)  = 3
+     *   CharUtils.toIntValue('A', -1)  = -1
      * </pre>
      *
      * @param ch  the character to convert
      * @param defaultValue  the default value to use if the character is not numeric
      * @return the int value of the character
      */
-    public static int toInteger(Character ch, int defaultValue) {
+    public static int toIntValue(Character ch, int defaultValue) {
         if (ch == null) {
             return defaultValue;
         }
-        return toInteger(ch.charValue(), defaultValue);
+        return toIntValue(ch.charValue(), defaultValue);
     }
     
     //-----------------------------------------------------------------------

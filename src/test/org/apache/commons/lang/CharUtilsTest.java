@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.CharUtils}.
  *
  * @author Stephen Colebourne
- * @version $Id: CharUtilsTest.java,v 1.3 2004/02/24 22:22:51 fredrik Exp $
+ * @version $Id: CharUtilsTest.java,v 1.4 2004/03/10 23:23:46 scolebourne Exp $
  */
 public class CharUtilsTest extends TestCase {
 
@@ -88,80 +88,89 @@ public class CharUtilsTest extends TestCase {
         }
     }
     
-    //-----------------------------------------------------------------------
-    public void testToCharacter_Character() {
-        assertEquals('A', CharUtils.toCharacter(CHARACTER_A));
-        assertEquals('B', CharUtils.toCharacter(CHARACTER_B));
-        try {
-            CharUtils.toCharacter((Character) null);
-        } catch (IllegalArgumentException ex) {}
-    }
-    
-    public void testToCharacter_Character_char() {
-        assertEquals('A', CharUtils.toCharacter(CHARACTER_A, 'X'));
-        assertEquals('B', CharUtils.toCharacter(CHARACTER_B, 'X'));
-        assertEquals('X', CharUtils.toCharacter((Character) null, 'X'));
+    public void testToCharacterObject_String() {
+        assertEquals(null, CharUtils.toCharacterObject(null));
+        assertEquals(null, CharUtils.toCharacterObject(""));
+        assertEquals(new Character('a'), CharUtils.toCharacterObject("a"));
+        assertEquals(new Character('a'), CharUtils.toCharacterObject("abc"));
+        assertSame(CharUtils.toCharacterObject("a"), CharUtils.toCharacterObject("a"));
+        assertSame(CharUtils.toCharacterObject("a"), CharUtils.toCharacterObject('a'));
     }
     
     //-----------------------------------------------------------------------
-    public void testToCharacter_String() {
-        assertEquals('A', CharUtils.toCharacter("A"));
-        assertEquals('B', CharUtils.toCharacter("BA"));
+    public void testToChar_Character() {
+        assertEquals('A', CharUtils.toChar(CHARACTER_A));
+        assertEquals('B', CharUtils.toChar(CHARACTER_B));
         try {
-            CharUtils.toCharacter((String) null);
-        } catch (IllegalArgumentException ex) {}
-        try {
-            CharUtils.toCharacter("");
+            CharUtils.toChar((Character) null);
         } catch (IllegalArgumentException ex) {}
     }
     
-    public void testToCharacter_String_char() {
-        assertEquals('A', CharUtils.toCharacter("A", 'X'));
-        assertEquals('B', CharUtils.toCharacter("BA", 'X'));
-        assertEquals('X', CharUtils.toCharacter("", 'X'));
-        assertEquals('X', CharUtils.toCharacter((String) null, 'X'));
+    public void testToChar_Character_char() {
+        assertEquals('A', CharUtils.toChar(CHARACTER_A, 'X'));
+        assertEquals('B', CharUtils.toChar(CHARACTER_B, 'X'));
+        assertEquals('X', CharUtils.toChar((Character) null, 'X'));
     }
     
     //-----------------------------------------------------------------------
-    public void testToInteger_char() {
-        assertEquals(0, CharUtils.toInteger('0'));
-        assertEquals(1, CharUtils.toInteger('1'));
-        assertEquals(2, CharUtils.toInteger('2'));
-        assertEquals(3, CharUtils.toInteger('3'));
-        assertEquals(4, CharUtils.toInteger('4'));
-        assertEquals(5, CharUtils.toInteger('5'));
-        assertEquals(6, CharUtils.toInteger('6'));
-        assertEquals(7, CharUtils.toInteger('7'));
-        assertEquals(8, CharUtils.toInteger('8'));
-        assertEquals(9, CharUtils.toInteger('9'));
+    public void testToChar_String() {
+        assertEquals('A', CharUtils.toChar("A"));
+        assertEquals('B', CharUtils.toChar("BA"));
         try {
-            CharUtils.toInteger('a');
+            CharUtils.toChar((String) null);
+        } catch (IllegalArgumentException ex) {}
+        try {
+            CharUtils.toChar("");
         } catch (IllegalArgumentException ex) {}
     }
     
-    public void testToInteger_char_int() {
-        assertEquals(0, CharUtils.toInteger('0', -1));
-        assertEquals(3, CharUtils.toInteger('3', -1));
-        assertEquals(-1, CharUtils.toInteger('a', -1));
+    public void testToChar_String_char() {
+        assertEquals('A', CharUtils.toChar("A", 'X'));
+        assertEquals('B', CharUtils.toChar("BA", 'X'));
+        assertEquals('X', CharUtils.toChar("", 'X'));
+        assertEquals('X', CharUtils.toChar((String) null, 'X'));
     }
     
     //-----------------------------------------------------------------------
-    public void testToInteger_Character() {
-        assertEquals(0, CharUtils.toInteger(new Character('0')));
-        assertEquals(3, CharUtils.toInteger(new Character('3')));
+    public void testToIntValue_char() {
+        assertEquals(0, CharUtils.toIntValue('0'));
+        assertEquals(1, CharUtils.toIntValue('1'));
+        assertEquals(2, CharUtils.toIntValue('2'));
+        assertEquals(3, CharUtils.toIntValue('3'));
+        assertEquals(4, CharUtils.toIntValue('4'));
+        assertEquals(5, CharUtils.toIntValue('5'));
+        assertEquals(6, CharUtils.toIntValue('6'));
+        assertEquals(7, CharUtils.toIntValue('7'));
+        assertEquals(8, CharUtils.toIntValue('8'));
+        assertEquals(9, CharUtils.toIntValue('9'));
         try {
-            CharUtils.toInteger(null);
-        } catch (IllegalArgumentException ex) {}
-        try {
-            CharUtils.toInteger(CHARACTER_A);
+            CharUtils.toIntValue('a');
         } catch (IllegalArgumentException ex) {}
     }
     
-    public void testToInteger_Character_int() {
-        assertEquals(0, CharUtils.toInteger(new Character('0'), -1));
-        assertEquals(3, CharUtils.toInteger(new Character('3'), -1));
-        assertEquals(-1, CharUtils.toInteger(new Character('A'), -1));
-        assertEquals(-1, CharUtils.toInteger(null, -1));
+    public void testToIntValue_char_int() {
+        assertEquals(0, CharUtils.toIntValue('0', -1));
+        assertEquals(3, CharUtils.toIntValue('3', -1));
+        assertEquals(-1, CharUtils.toIntValue('a', -1));
+    }
+    
+    //-----------------------------------------------------------------------
+    public void testToIntValue_Character() {
+        assertEquals(0, CharUtils.toIntValue(new Character('0')));
+        assertEquals(3, CharUtils.toIntValue(new Character('3')));
+        try {
+            CharUtils.toIntValue(null);
+        } catch (IllegalArgumentException ex) {}
+        try {
+            CharUtils.toIntValue(CHARACTER_A);
+        } catch (IllegalArgumentException ex) {}
+    }
+    
+    public void testToIntValue_Character_int() {
+        assertEquals(0, CharUtils.toIntValue(new Character('0'), -1));
+        assertEquals(3, CharUtils.toIntValue(new Character('3'), -1));
+        assertEquals(-1, CharUtils.toIntValue(new Character('A'), -1));
+        assertEquals(-1, CharUtils.toIntValue(null, -1));
     }
     
     //-----------------------------------------------------------------------
