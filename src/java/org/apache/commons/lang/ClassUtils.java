@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 /**
  * <p>Operates on classes without using reflection.</p>
  *
@@ -31,7 +32,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.26 2004/02/19 01:24:50 ggregory Exp $
+ * @version $Id: ClassUtils.java,v 1.27 2004/02/19 01:34:38 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -527,10 +528,11 @@ public class ClassUtils {
         return (cls.getName().indexOf(INNER_CLASS_SEPARATOR_CHAR) >= 0);
     }
     
+    //-----------------------------------------------------------------------
     /**
      * Compares two <code>Class</code>s by name.
      */
-    public static class ClassNameCompartor implements Comparator {
+    private static class ClassNameComparator implements Comparator {
         /**
          * Compares two <code>Class</code>s by name.
          * 
@@ -554,12 +556,12 @@ public class ClassUtils {
     /**
      * Compares two <code>Class</code>s by name.
      */
-    public static final Comparator CLASS_NAME_COMPARATOR = new ClassNameCompartor();
+    public static final Comparator CLASS_NAME_COMPARATOR = new ClassNameComparator();
 
     /**
      * Compares two <code>Package</code>s by name.
      */
-    public static class PackageNameCompartor implements Comparator {
+    private static class PackageNameComparator implements Comparator {
 
         /**
          * Compares two <code>Package</code>s by name.
@@ -584,6 +586,6 @@ public class ClassUtils {
     /**
      * Compares two <code>Package</code>s by name.
      */
-    public static final Comparator PACKAGE_NAME_COMPARATOR = new PackageNameCompartor();
+    public static final Comparator PACKAGE_NAME_COMPARATOR = new PackageNameComparator();
     
 }
