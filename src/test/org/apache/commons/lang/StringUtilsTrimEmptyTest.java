@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTrimEmptyTest.java,v 1.3 2002/07/19 04:05:57 bayard Exp $
+ * @version $Id: StringUtilsTrimEmptyTest.java,v 1.4 2002/07/21 20:19:50 bayard Exp $
  */
 public class StringUtilsTrimEmptyTest extends TestCase {
     private static final String FOO = "foo";
@@ -120,6 +120,15 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(true, StringUtils.isEmpty(" "));
         assertEquals(true, StringUtils.isEmpty(""));
         assertEquals(true, StringUtils.isEmpty(null));
+    }
+
+    public void testDeleteWhitespace() {
+        assertEquals("deleteWhitespace(String) failed",
+                     "", StringUtils.deleteWhitespace(""));
+        assertEquals("deleteWhitespace(String) failed",
+                     "", StringUtils.deleteWhitespace("    \t\t\n\n   "));
+        assertEquals("deleteWhitespace(String) failed",
+                     "test", StringUtils.deleteWhitespace("t  \t\ne\rs\n\n   \tt"));
     }
 
     public void testStrip() {

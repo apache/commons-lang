@@ -80,7 +80,7 @@ import java.util.Iterator;
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
- * @version $Id: StringUtils.java,v 1.2 2002/07/19 04:04:45 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.3 2002/07/21 20:19:50 bayard Exp $
  */
 public class StringUtils {
 
@@ -120,6 +120,15 @@ public class StringUtils {
      */
     public static String trim(String str) {
         return (str == null ? null : str.trim());
+    }
+
+    /**
+     * Deletes all whitespace from a String.
+     *
+     * @param str  String target to delete whitespace from
+     */
+    public static String deleteWhitespace(String str) {
+        return CharSetUtils.delete(str, " \t\r\n\b" );
     }
 
     /**
