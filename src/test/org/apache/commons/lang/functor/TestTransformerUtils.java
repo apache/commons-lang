@@ -66,8 +66,8 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.apache.commons.lang.SerializationException;
-import org.apache.commons.lang.functor.Closure;
-import org.apache.commons.lang.functor.ClosureUtils;
+import org.apache.commons.lang.functor.Executor;
+import org.apache.commons.lang.functor.ExecutorUtils;
 import org.apache.commons.lang.functor.Factory;
 import org.apache.commons.lang.functor.FactoryUtils;
 import org.apache.commons.lang.functor.Predicate;
@@ -76,7 +76,7 @@ import org.apache.commons.lang.functor.PredicateUtils;
  * Tests the org.apache.commons.lang.functor.TransformerUtils class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: TestTransformerUtils.java,v 1.1 2002/11/05 16:45:13 bayard Exp $
+ * @version $Id: TestTransformerUtils.java,v 1.2 2002/11/06 19:16:15 bayard Exp $
  */
 public class TestTransformerUtils extends junit.framework.TestCase {
 
@@ -194,13 +194,13 @@ public class TestTransformerUtils extends junit.framework.TestCase {
     // commandTransformer
     //------------------------------------------------------------------
 
-    public void testClosureTransformer() {
-        assertEquals(null, TransformerUtils.asTransformer(ClosureUtils.nopClosure()).transform(null));
-        assertEquals(cObject, TransformerUtils.asTransformer(ClosureUtils.nopClosure()).transform(cObject));
-        assertEquals(cString, TransformerUtils.asTransformer(ClosureUtils.nopClosure()).transform(cString));
-        assertEquals(cInteger, TransformerUtils.asTransformer(ClosureUtils.nopClosure()).transform(cInteger));
+    public void testExecutorTransformer() {
+        assertEquals(null, TransformerUtils.asTransformer(ExecutorUtils.nopExecutor()).transform(null));
+        assertEquals(cObject, TransformerUtils.asTransformer(ExecutorUtils.nopExecutor()).transform(cObject));
+        assertEquals(cString, TransformerUtils.asTransformer(ExecutorUtils.nopExecutor()).transform(cString));
+        assertEquals(cInteger, TransformerUtils.asTransformer(ExecutorUtils.nopExecutor()).transform(cInteger));
         try {
-            TransformerUtils.asTransformer((Closure) null);
+            TransformerUtils.asTransformer((Executor) null);
         } catch (IllegalArgumentException ex) {
             return;
         }

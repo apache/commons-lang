@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  * Test suite for the Pattern packages.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: FunctorTestSuite.java,v 1.1 2002/11/05 16:45:13 bayard Exp $
+ * @version $Id: FunctorTestSuite.java,v 1.2 2002/11/06 19:16:15 bayard Exp $
  */
 public class FunctorTestSuite extends TestCase {
     
@@ -74,7 +74,7 @@ public class FunctorTestSuite extends TestCase {
     }
 
     /**
-     * Closure-line interface.
+     * Executor-line interface.
      */
     public static void main(String[] args) {
         TestRunner.run(suite());
@@ -85,7 +85,7 @@ public class FunctorTestSuite extends TestCase {
      */
     public static Test suite() {
         TestSuite suite = new TestSuite();
-        suite.addTest(TestClosureUtils.suite());
+        suite.addTest(TestExecutorUtils.suite());
         suite.addTest(TestFactoryUtils.suite());
         suite.addTest(TestPredicateUtils.suite());
         suite.addTest(TestTransformerUtils.suite());

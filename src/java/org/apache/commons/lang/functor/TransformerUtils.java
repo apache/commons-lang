@@ -67,7 +67,7 @@ import java.util.Map;
  * <li>Invoker - returns the result of a method call on the input object
  * <li>Clone - returns a clone of the input object
  * <li>Constant - always returns the same object
- * <li>Closure - performs a Closure and returns the input object
+ * <li>Executor - performs a Executor and returns the input object
  * <li>Predicate - returns the result of the predicate as a Boolean
  * <li>Factory - returns a new object from a factory
  * <li>Chained - chains two or more transformers together
@@ -82,7 +82,7 @@ import java.util.Map;
  * All the supplied transformers are Serializable.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: TransformerUtils.java,v 1.1 2002/11/05 16:44:28 bayard Exp $
+ * @version $Id: TransformerUtils.java,v 1.2 2002/11/06 19:16:33 bayard Exp $
  */
 public class TransformerUtils {
 
@@ -172,17 +172,17 @@ public class TransformerUtils {
     }
 
     /**
-     * Creates a Transformer that calls a Closure each time the transformer is used.
+     * Creates a Transformer that calls a Executor each time the transformer is used.
      * The transformer returns the input object.
      *
      * @param command  the command to run each time in the transformer
      * @return the transformer.
      */
-    public static Transformer asTransformer(Closure command) {
+    public static Transformer asTransformer(Executor command) {
         if (command == null) {
-            throw new IllegalArgumentException("ClosureTransformer: The command must not be null");
+            throw new IllegalArgumentException("ExecutorTransformer: The command must not be null");
         }
-        return new ClosureTransformer(command);
+        return new ExecutorTransformer(command);
     }
 
     /**
@@ -655,22 +655,22 @@ public class TransformerUtils {
         }
     }
 
-    // ClosureTransformer
+    // ExecutorTransformer
     //----------------------------------------------------------------------------------
 
     /**
-     * ClosureTransformer executes a Closure object.
+     * ExecutorTransformer executes a Executor object.
      */
-    private static class ClosureTransformer implements Transformer, Serializable {
+    private static class ExecutorTransformer implements Transformer, Serializable {
 
-        private final Closure iClosure;
+        private final Executor iExecutor;
 
         /**
          * Constructor to store command
          */
-        private ClosureTransformer(Closure command) {
+        private ExecutorTransformer(Executor command) {
             super();
-            iClosure = command;
+            iExecutor = command;
         }
 
         /**
@@ -678,11 +678,11 @@ public class TransformerUtils {
          */
         public Object transform(Object input) {
             try {
-                iClosure.execute(input);
+                iExecutor.execute(input);
                 return input;
 
-            } catch (ClosureException ex) {
-                throw new TransformerException("ClosureTransformer: " + ex.getMessage(), ex);
+            } catch (ExecutorException ex) {
+                throw new TransformerException("ExecutorTransformer: " + ex.getMessage(), ex);
             }
         }
     }
