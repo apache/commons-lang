@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsEqualsIndexOfTest.java,v 1.8 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: StringUtilsEqualsIndexOfTest.java,v 1.9 2003/09/04 18:18:18 ggregory Exp $
  */
 public class StringUtilsEqualsIndexOfTest extends TestCase {
     private static final String FOO = "foo";
@@ -144,6 +144,68 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(2, StringUtils.indexOf("aabaabaa", "b"));
         assertEquals(1, StringUtils.indexOf("aabaabaa", "ab"));
         assertEquals(0, StringUtils.indexOf("aabaabaa", ""));
+    }
+
+    public void testOrdinalIndexOf() {
+        assertEquals(-1, StringUtils.ordinalIndexOf(null, null, Integer.MIN_VALUE));
+        assertEquals(-1, StringUtils.ordinalIndexOf("", null, Integer.MIN_VALUE));
+        assertEquals(-1, StringUtils.ordinalIndexOf("", "", Integer.MIN_VALUE));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "a", Integer.MIN_VALUE));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "b", Integer.MIN_VALUE));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "ab", Integer.MIN_VALUE));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "", Integer.MIN_VALUE));
+        
+        assertEquals(-1, StringUtils.ordinalIndexOf(null, null, -1));
+        assertEquals(-1, StringUtils.ordinalIndexOf("", null, -1));
+        assertEquals(-1, StringUtils.ordinalIndexOf("", "", -1));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "a", -1));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "b", -1));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "ab", -1));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "", -1));
+
+        assertEquals(-1, StringUtils.ordinalIndexOf(null, null, 0));
+        assertEquals(-1, StringUtils.ordinalIndexOf("", null, 0));
+        assertEquals(-1, StringUtils.ordinalIndexOf("", "", 0));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "a", 0));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "b", 0));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "ab", 0));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "", 0));
+
+        assertEquals(-1, StringUtils.ordinalIndexOf(null, null, 1));
+        assertEquals(-1, StringUtils.ordinalIndexOf("", null, 1));
+        assertEquals(0, StringUtils.ordinalIndexOf("", "", 1));
+        assertEquals(0, StringUtils.ordinalIndexOf("aabaabaa", "a", 1));
+        assertEquals(2, StringUtils.ordinalIndexOf("aabaabaa", "b", 1));
+        assertEquals(1, StringUtils.ordinalIndexOf("aabaabaa", "ab", 1));
+        assertEquals(0, StringUtils.ordinalIndexOf("aabaabaa", "", 1));
+
+        assertEquals(-1, StringUtils.ordinalIndexOf(null, null, 2));
+        assertEquals(-1, StringUtils.ordinalIndexOf("", null, 2));
+        assertEquals(0, StringUtils.ordinalIndexOf("", "", 2));
+        assertEquals(1, StringUtils.ordinalIndexOf("aabaabaa", "a", 2));
+        assertEquals(5, StringUtils.ordinalIndexOf("aabaabaa", "b", 2));
+        assertEquals(4, StringUtils.ordinalIndexOf("aabaabaa", "ab", 2));
+        assertEquals(0, StringUtils.ordinalIndexOf("aabaabaa", "", 2));
+        
+        assertEquals(-1, StringUtils.ordinalIndexOf(null, null, Integer.MAX_VALUE));
+        assertEquals(-1, StringUtils.ordinalIndexOf("", null, Integer.MAX_VALUE));
+        assertEquals(0, StringUtils.ordinalIndexOf("", "", Integer.MAX_VALUE));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "a", Integer.MAX_VALUE));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "b", Integer.MAX_VALUE));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aabaabaa", "ab", Integer.MAX_VALUE));
+        assertEquals(0, StringUtils.ordinalIndexOf("aabaabaa", "", Integer.MAX_VALUE));
+        
+        assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 0));
+        assertEquals(0, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 1));
+        assertEquals(1, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 2));
+        assertEquals(2, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 3));
+        assertEquals(3, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 4));
+        assertEquals(4, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 5));
+        assertEquals(5, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 6));
+        assertEquals(6, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 7));
+        assertEquals(7, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 8));
+        assertEquals(8, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 9));
+        assertEquals(-1, StringUtils.ordinalIndexOf("aaaaaaaaa", "a", 10));
     }
 
     public void testIndexOf_StringInt() {
