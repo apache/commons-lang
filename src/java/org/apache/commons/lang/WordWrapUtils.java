@@ -63,14 +63,14 @@ import java.util.StringTokenizer;
  * @author Stephen Colebourne
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: WordWrapUtils.java,v 1.3 2003/05/20 21:11:07 ggregory Exp $
+ * @version $Id: WordWrapUtils.java,v 1.4 2003/06/08 23:27:26 scolebourne Exp $
  */
 public class WordWrapUtils {
 
     /**
      * <p><code>WordWrapUtils</code> instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
-     * <code>WordWrapUtils.woodWrap("foo bar");</code>.</p>
+     * <code>WordWrapUtils.wordWrap("foo bar");</code>.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
