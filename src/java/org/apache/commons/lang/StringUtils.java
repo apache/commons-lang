@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.89 2003/08/01 23:20:06 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.90 2003/08/01 23:54:41 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1011,7 +1011,7 @@ public class StringUtils {
         return (str.indexOf(searchStr) >= 0);
     }
     
-    // IndexOfAny
+    // IndexOfAny strings
     //-----------------------------------------------------------------------
     /**
      * <p>Find the first index of any of a set of potential substrings.</p>
@@ -1112,7 +1112,73 @@ public class StringUtils {
         return ret;
     }
 
-    // IndexOfAnyBut
+    // IndexOfAny chars
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Search a String to find the first index of any
+     * character in the given set of characters.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.
+     * A <code>null</code> or zero length search array will return <code>-1</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.indexOfAny(null, *)                = -1
+     * StringUtils.indexOfAny("", *)                  = -1
+     * StringUtils.indexOfAny(*, null)                = -1
+     * StringUtils.indexOfAny(*, [])                  = -1
+     * StringUtils.indexOfAny("zzabyycdxx",['z','a']) = 0
+     * StringUtils.indexOfAny("zzabyycdxx",['b','y']) = 3
+     * StringUtils.indexOfAny("aba", ['z'])           = -1
+     * </pre>
+     * 
+     * @param str  the String to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the index of any of the chars, -1 if no match or null input
+     */
+     public static int indexOfAny(String str, char[] searchChars) {
+         if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
+             return -1;
+         }
+         for (int i = 0; i < str.length(); i ++) {
+             char ch = str.charAt(i);
+             for (int j = 0; j < searchChars.length; j++) {
+                 if (searchChars[j] == ch) {
+                     return i;
+                 }
+             }
+         }
+         return -1;
+     }
+
+    /**
+     * <p>Search a String to find the first index of any
+     * character in the given set of characters.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.
+     * A <code>null</code> search string will return <code>-1</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.indexOfAny(null, *)            = -1
+     * StringUtils.indexOfAny("", *)              = -1
+     * StringUtils.indexOfAny(*, null)            = -1
+     * StringUtils.indexOfAny(*, "")              = -1
+     * StringUtils.indexOfAny("zzabyycdxx", "za") = 0
+     * StringUtils.indexOfAny("zzabyycdxx", "by") = 3
+     * StringUtils.indexOfAny("aba","z")          = -1
+     * </pre>
+     *  
+     * @param str  the String to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the index of any of the chars, -1 if no match or null input
+     */
+    public static int indexOfAny(String str, String searchChars) {
+        if (str == null || str.length() == 0 || searchChars == null || searchChars.length() == 0) {
+            return -1;
+        }
+        return indexOfAny(str, searchChars.toCharArray());
+    }
+
+    // IndexOfAnyBut chars
     //-----------------------------------------------------------------------
     /**
      * <p>Search a String to find the first index of any
@@ -1123,7 +1189,9 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.indexOfAnyBut(null, *)           = -1
+     * StringUtils.indexOfAnyBut("", *)             = -1
      * StringUtils.indexOfAnyBut(*, null)           = -1
+     * StringUtils.indexOfAnyBut(*, [])             = -1
      * StringUtils.indexOfAnyBut("zzabyycdxx",'za') = 3
      * StringUtils.indexOfAnyBut("zzabyycdxx", '')  = 0
      * StringUtils.indexOfAnyBut("aba", 'ab')       = -1
@@ -1134,10 +1202,19 @@ public class StringUtils {
      * @return the index of any of the chars, -1 if no match or null input
      */
      public static int indexOfAnyBut(String str, char[] searchChars) {
-         if (searchChars == null) {
+         if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
              return -1;
          }
-         return indexOfAnyBut(str, new String(searchChars));
+         outer: for (int i = 0; i < str.length(); i ++) {
+             char ch = str.charAt(i);
+             for (int j = 0; j < searchChars.length; j++) {
+                 if (searchChars[j] == ch) {
+                     continue outer;
+                 }
+             }
+             return i;
+         }
+         return -1;
      }
 
     /**
@@ -1149,7 +1226,9 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.indexOfAnyBut(null, *)            = -1
+     * StringUtils.indexOfAnyBut("", *)              = -1
      * StringUtils.indexOfAnyBut(*, null)            = -1
+     * StringUtils.indexOfAnyBut(*, "")              = -1
      * StringUtils.indexOfAnyBut("zzabyycdxx", "za") = 3
      * StringUtils.indexOfAnyBut("zzabyycdxx", "")   = 0
      * StringUtils.indexOfAnyBut("aba","ab")         = -1
@@ -1160,16 +1239,14 @@ public class StringUtils {
      * @return the index of any of the chars, -1 if no match or null input
      */
     public static int indexOfAnyBut(String str, String searchChars) {
-        if (str == null || searchChars == null) {
+        if (str == null || str.length() == 0 || searchChars == null || searchChars.length() == 0) {
             return -1;
         }
-
-        for (int i = 0; i < str.length(); i ++) {
-           if (searchChars.indexOf(str.charAt(i)) < 0) {
-               return i;
-           }
+        for (int i = 0; i < str.length(); i++) {
+            if (searchChars.indexOf(str.charAt(i)) < 0) {
+                return i;
+            }
         }
-
         return -1;
     }
 
