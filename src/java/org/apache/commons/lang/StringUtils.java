@@ -146,7 +146,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.82 2003/07/30 22:17:49 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.83 2003/07/31 20:38:26 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2261,6 +2261,109 @@ public class StringUtils {
         buf.append(text.substring(start));
         return buf.toString();
     }
+    
+    // Replace, character based
+    //-----------------------------------------------------------------------
+
+    /**
+     * <p>Replaces all occurrances of a character in a String with another.
+     * This is a null-safe version of {@link String#replace(char, char)}.</p>
+     *
+     * <p>A <code>null</code> string input returns <code>null</code>.
+     * An empty ("") string input returns an empty string.</p>
+     * 
+     * <pre>
+     * StringUtils.replaceChars(null, *, *)        = null
+     * StringUtils.replaceChars("", *, *)          = ""
+     * StringUtils.replaceChars("abcba", 'b', 'y') = "aycya"
+     * StringUtils.replaceChars("abcba", 'z', 'y') = "abcba"
+     * </pre>
+     * 
+     * @param str  String to replace characters in, may be null
+     * @param searchChar  the character to search for, may be null
+     * @param replaceChar  the character to replace, may be null
+     * @return modified String, <code>null</code> if null string input
+     */
+    public static String replaceChars(String str, char searchChar, char replaceChar) {
+        if (str == null) {
+            return null;
+        }
+        return str.replace(searchChar, replaceChar);
+    }
+    
+    /**
+     * <p>Replaces multiple characters in a String in one go.
+     * This method can also be used to delete characters.</p>
+     *
+     * <p>For example:<br />
+     * <code>replaceChars(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;) = jelly</code>.</p>
+     * 
+     * <p>A <code>null</code> string input returns <code>null</code>.
+     * An empty ("") string input returns an empty string.
+     * A null or empty set of search characters returns the input string.</p>
+     * 
+     * <p>The length of the search characters should normally equal the length
+     * of the replace characters.
+     * If the search characters is longer, then the extra search characters
+     * are deleted.
+     * If the search characters is shorter, then the extra replace characters
+     * are ignored.</p>
+     * 
+     * <pre>
+     * StringUtils.replaceChars(null, *, *)           = null
+     * StringUtils.replaceChars("", *, *)             = ""
+     * StringUtils.replaceChars("abc", null, *)       = "abc"
+     * StringUtils.replaceChars("abc", "", *)         = "abc"
+     * StringUtils.replaceChars("abc", "b", null)     = "ac"
+     * StringUtils.replaceChars("abc", "b", "")       = "ac"
+     * StringUtils.replaceChars("abcba", "bc", "yz")  = "ayzya"
+     * StringUtils.replaceChars("abcba", "bc", "y")   = "ayya"
+     * StringUtils.replaceChars("abcba", "bc", "yzx") = "ayzya"
+     * </pre>
+     * 
+     * @param str  String to replace characters in, may be null
+     * @param searchChars  a set of characters to search for, may be null
+     * @param replaceChars  a set of characters to replace, may be null
+     * @return modified String, <code>null</code> if null string input
+     */
+    public static String replaceChars(String str, String searchChars, String replaceChars) {
+        if (str == null || str.length() == 0 || searchChars == null || searchChars.length()== 0) {
+            return str;
+        }
+        char[] chars = str.toCharArray();
+        int len = chars.length;
+        boolean modified = false;
+        for (int i = 0, isize = searchChars.length(); i < isize; i++) {
+            char searchChar = searchChars.charAt(i);
+            if (replaceChars == null || i >= replaceChars.length()) {
+                // delete
+                int pos = 0;
+                for (int j = 0; j < len; j++) {
+                    if (chars[j] != searchChar) {
+                        chars[pos++] = chars[j];
+                    } else {
+                        modified = true;
+                    }
+                }
+                len = pos;
+            } else {
+                // replace
+                for (int j = 0; j < len; j++) {
+                    if (chars[j] == searchChar) {
+                        chars[j] = replaceChars.charAt(i);
+                        modified = true;
+                    }
+                }
+            }
+        }
+        if (modified == false) {
+            return str;
+        }
+        return new String(chars, 0, len);
+    }
+
+    // Overlay
+    //-----------------------------------------------------------------------
 
     /**
      * <p>Overlays part of a String with another String.</p>

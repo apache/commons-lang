@@ -74,7 +74,7 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.40 2003/07/30 22:21:39 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.41 2003/07/31 20:38:26 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -439,6 +439,47 @@ public class StringUtilsTest extends TestCase {
         assertEquals("foofoo", StringUtils.replaceOnce("foofoofoo", "foo", ""));
     }
 
+    public void testReplaceChars_StringCharChar() {
+        assertEquals(null, StringUtils.replaceChars(null, 'b', 'z'));
+        assertEquals("", StringUtils.replaceChars("", 'b', 'z'));
+        assertEquals("azcza", StringUtils.replaceChars("abcba", 'b', 'z'));
+        assertEquals("abcba", StringUtils.replaceChars("abcba", 'x', 'z'));
+    }
+    
+    public void testReplaceChars_StringStringString() {
+        assertEquals("jelly", StringUtils.replaceChars("hello", "ho", "jy"));
+
+        assertEquals(null, StringUtils.replaceChars(null, null, null));
+        assertEquals(null, StringUtils.replaceChars(null, "", null));
+        assertEquals(null, StringUtils.replaceChars(null, "a", null));
+        assertEquals(null, StringUtils.replaceChars(null, null, ""));
+        assertEquals(null, StringUtils.replaceChars(null, null, "x"));
+        
+        assertEquals("", StringUtils.replaceChars("", null, null));
+        assertEquals("", StringUtils.replaceChars("", "", null));
+        assertEquals("", StringUtils.replaceChars("", "a", null));
+        assertEquals("", StringUtils.replaceChars("", null, ""));
+        assertEquals("", StringUtils.replaceChars("", null, "x"));
+
+        assertEquals("abc", StringUtils.replaceChars("abc", null, null));
+        assertEquals("abc", StringUtils.replaceChars("abc", null, ""));
+        assertEquals("abc", StringUtils.replaceChars("abc", null, "x"));
+        
+        assertEquals("abc", StringUtils.replaceChars("abc", "", null));
+        assertEquals("abc", StringUtils.replaceChars("abc", "", ""));
+        assertEquals("abc", StringUtils.replaceChars("abc", "", "x"));
+        
+        assertEquals("ac", StringUtils.replaceChars("abc", "b", null));
+        assertEquals("ac", StringUtils.replaceChars("abc", "b", ""));
+        assertEquals("axc", StringUtils.replaceChars("abc", "b", "x"));
+        
+        assertEquals("ayzya", StringUtils.replaceChars("abcba", "bc", "yz"));
+        assertEquals("ayya", StringUtils.replaceChars("abcba", "bc", "y"));
+        assertEquals("ayzya", StringUtils.replaceChars("abcba", "bc", "yzx"));
+        
+        assertSame("abcba", StringUtils.replaceChars("abcba", "z", "w"));
+    }
+    
     public void testOverlayString() {
         assertEquals("overlayString(String, String, int, int) failed",
                      "foo foor baz", StringUtils.overlayString(SENTENCE, FOO, 4, 6) );
