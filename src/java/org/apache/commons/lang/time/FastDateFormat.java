@@ -61,7 +61,7 @@ import java.util.TimeZone;
  * @author Stephen Colebourne
  * @author Nikolay Metchev
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.20 2004/07/05 22:37:40 scolebourne Exp $
+ * @version $Id: FastDateFormat.java,v 1.21 2004/09/12 05:03:26 bayard Exp $
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes
@@ -591,7 +591,7 @@ public class FastDateFormat extends Format {
                 break;
             case 'y': // year (number)
                 if (tokenLen >= 4) {
-                    rule = UnpaddedNumberField.INSTANCE_YEAR;
+                    rule = selectNumberRule(Calendar.YEAR, tokenLen);
                 } else {
                     rule = TwoDigitYearField.INSTANCE;
                 }

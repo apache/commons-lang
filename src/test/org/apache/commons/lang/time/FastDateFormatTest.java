@@ -34,7 +34,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Fredrik Westermarck
  * @since 2.0
- * @version $Id: FastDateFormatTest.java,v 1.9 2004/07/05 22:37:40 scolebourne Exp $
+ * @version $Id: FastDateFormatTest.java,v 1.10 2004/09/12 05:03:26 bayard Exp $
  */
 public class FastDateFormatTest extends TestCase {
 
@@ -233,4 +233,37 @@ public class FastDateFormatTest extends TestCase {
         assertEquals("2004-02-03", fdf.format(cal));
 
     }
+
+    /**
+     * Tests that pre-1000AD years get padded with yyyy
+     */
+    public void testLowYearPadding() {
+        Calendar cal = Calendar.getInstance();
+        FastDateFormat format = FastDateFormat.getInstance("yyyy/MM/DD");
+
+        cal.set(1,0,1);
+        assertEquals("0001/01/01", format.format(cal));
+        cal.set(10,0,1);
+        assertEquals("0010/01/01", format.format(cal));
+        cal.set(100,0,1);
+        assertEquals("0100/01/01", format.format(cal));
+        cal.set(999,0,1);
+        assertEquals("0999/01/01", format.format(cal));
+    }
+    /**
+     * testLowYearPadding showed that the date was buggy
+     * This test confirms it, getting 366 back as a date
+     // TODO: Fix this problem
+    public void testSimpleDate() {
+        Calendar cal = Calendar.getInstance();
+        FastDateFormat format = FastDateFormat.getInstance("yyyy/MM/DD");
+
+        cal.set(2004,11,31);
+        assertEquals("2004/12/31", format.format(cal));
+        cal.set(999,11,31);
+        assertEquals("0999/12/31", format.format(cal));
+        cal.set(1,2,2);
+        assertEquals("0001/03/02", format.format(cal));
+    }
+    */
 }
