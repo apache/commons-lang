@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.24 2003/08/18 02:35:16 bayard Exp $
+$Id: RELEASE-NOTES.txt,v 1.25 2003/08/19 00:21:46 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -524,7 +524,6 @@ org.apache.commons.lang.CharSet
 
 org.apache.commons.lang.CharSetUtils
 --------------------
->     public static org.apache.commons.lang.CharSet evaluateSet(java.lang.String);
 >     public static java.lang.String keep(java.lang.String, java.lang.String);
 >     public static java.lang.String keep(java.lang.String, java.lang.String[]);
 
