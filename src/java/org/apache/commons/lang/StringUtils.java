@@ -80,7 +80,7 @@ import java.util.Iterator;
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
- * @version $Id: StringUtils.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.2 2002/07/19 04:04:45 bayard Exp $
  */
 public class StringUtils {
 
@@ -1001,7 +1001,7 @@ public class StringUtils {
     }   
 
     /**
-     * Strip any of a supplied string (first letter) from the end of a String..
+     * Strip any of a supplied string from the end of a String..
      * If the strip string is null, whitespace is stripped.
      * 
      * @param str  the string to remove characters from
@@ -1019,8 +1019,7 @@ public class StringUtils {
                 end--;
             }
         } else {
-            char chr = strip.charAt(0);
-            while ((end != 0) && (str.charAt(end - 1) == chr)) {
+            while ((end != 0) && (strip.indexOf(str.charAt(end - 1)) != -1)) {
                 end--;
             }
         }
@@ -1028,7 +1027,7 @@ public class StringUtils {
     }
 
     /**
-     * Strip any of a supplied string (first letter) from the start of a String.
+     * Strip any of a supplied string from the start of a String.
      * If the strip string is null, whitespace is stripped.
      * 
      * @param str  the string to remove characters from
@@ -1050,7 +1049,7 @@ public class StringUtils {
             }
         } else {
             char chr = strip.charAt(0);
-            while ((start != sz) && (str.charAt(start) == chr)) {
+            while ((start != sz) && (strip.indexOf(str.charAt(start)) != -1)) {
                 start++;
             }
         }
