@@ -35,7 +35,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: Validate.java,v 1.12 2004/06/01 21:25:35 scolebourne Exp $
+ * @version $Id: Validate.java,v 1.13 2004/10/08 21:44:41 scolebourne Exp $
  */
 public class Validate {
     // Validate has no dependencies on other classes in Commons Lang at present
@@ -492,52 +492,54 @@ public class Validate {
             }
         }
     }
-    
+
     /**
      * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
      * if the argument collection  is <code>null</code> or has elements that
-     * are not of type <code>clazz</code>.</p>
+     * are not of type <code>clazz</code> or a subclass.</p>
      *
      * <pre>
-     * Validate.allElementsOfClass(collection, String.class, "Collection has invalid elements");
+     * Validate.allElementsOfType(collection, String.class, "Collection has invalid elements");
      * </pre>
      *
-     * @param collection  the collection to check
-     * @param clazz  the <code>Class</code> which the collection's elements are expected to be
+     * @param collection  the collection to check, not null
+     * @param clazz  the <code>Class</code> which the collection's elements are expected to be, not null
      * @param message  the exception message if the <code>Collection</code> has elements not of type <code>clazz</code>
      * @since 2.1
      */
-    public static void allElementsOfClass(Collection collection, Class clazz, String message) {
+    public static void allElementsOfType(Collection collection, Class clazz, String message) {
     	Validate.notNull(collection);
+        Validate.notNull(clazz);
     	for (Iterator it = collection.iterator(); it.hasNext(); ) {
-    		if ((it.next().getClass().equals(clazz)) == false) {
+    		if (clazz.isInstance(it.next()) == false) {
     			throw new IllegalArgumentException(message);
     		}
     	}
-    }   
-    
+    }
+
     /**
      * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
      * if the argument collection  is <code>null</code> or has elements that are not of 
-     * type <code>clazz</code>.</p>
+     * type <code>clazz</code> or a subclass.</p>
      *
      * <pre>
-     * Validate.allElementsOfClass(collection, String.class);
+     * Validate.allElementsOfType(collection, String.class);
      * </pre>
      *
      * <p>The message in the exception is 'The validated collection contains an element not of type clazz at index: '.</p>
      * 
-     * @param collection  the collection to check
-     * @param clazz the <code>Class</code> which the collection's elements are expected to be
+     * @param collection  the collection to check, not null
+     * @param clazz the <code>Class</code> which the collection's elements are expected to be, not null
      * @since 2.1
      */
-    public static void allElementsOfClass(Collection collection, Class clazz) {
+    public static void allElementsOfType(Collection collection, Class clazz) {
     	Validate.notNull(collection);
+        Validate.notNull(clazz);
     	int i = 0;
     	for (Iterator it = collection.iterator(); it.hasNext(); i++) {
-    		if ((it.next().getClass().equals(clazz)) == false) {
+            if (clazz.isInstance(it.next()) == false) {
     			throw new IllegalArgumentException("The validated collection contains an element not of type "
-                    + (clazz == null ? "null" : clazz.getName()) + " at index: " + i);
+                    + clazz.getName() + " at index: " + i);
     		}
     	}
     }
