@@ -59,7 +59,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * <p><code>toString()</code> generation routines.</p>
+ * <p>Builds <code>toString()</code> values.</p>
  *
  * <p>This class enables a good and consistent <code>toString()</code> to be built for any
  * class or object. This class aims to simplify the process by:</p>
@@ -122,7 +122,7 @@ import java.util.Set;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.19 2003/04/08 22:35:40 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.20 2003/04/18 07:01:47 ggregory Exp $
  */
 public class ToStringBuilder {
 
@@ -141,14 +141,17 @@ public class ToStringBuilder {
      * The default style of output to use
      */
     private static ToStringStyle defaultStyle = ToStringStyle.DEFAULT_STYLE;
+    
     /**
      * Current toString buffer
      */
     private final StringBuffer buffer;
+    
     /**
      * The style of output to use
      */
     private final ToStringStyle style;
+    
     /**
      * The object being output
      */
@@ -166,6 +169,8 @@ public class ToStringBuilder {
     /**
      * Returns <code>true</code> if the registry contains the given object.
      * Used by the reflection methods to avoid infinite loops.
+     * 
+     * @param value The object to lookup in the registry.
      * @return boolean <code>true</code> if the registry contains the given object.
      */
     static boolean isRegistered(Object value) {
@@ -175,6 +180,8 @@ public class ToStringBuilder {
     /**
      * Registers the given object.
      * Used by the reflection methods to avoid infinite loops.
+     * 
+     * @param value The object to register.
      */
     static void register(Object value) {
         getReflectionRegistry().add(value);
@@ -183,6 +190,8 @@ public class ToStringBuilder {
     /**
      * Unregisters the given object.
      * Used by the reflection methods to avoid infinite loops.
+     * 
+     * @param value The object to unregister.
      */
     static void unregister(Object value) {
         getReflectionRegistry().remove(value);
@@ -396,7 +405,11 @@ public class ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException if the Object is <code>null</code>
      */
-    public static String reflectionToString(Object object, ToStringStyle style, boolean outputTransients, Class reflectUpToClass) {
+    public static String reflectionToString(
+        Object object,
+        ToStringStyle style,
+        boolean outputTransients,
+        Class reflectUpToClass) {
         if (style == null) {
             style = getDefaultStyle();
         }
@@ -454,7 +467,9 @@ public class ToStringBuilder {
                             // append a simple Object.toString style string.
                             builder.getStyle().appendFieldStart(builder.getStringBuffer(), fieldName);
                             builder.appendAsObjectToString(fieldValue);
-                            // The recursion out of "builder.append(fieldName, fieldValue);" below will append the field 
+                            // The recursion out of 
+                            //    builder.append(fieldName, fieldValue); 
+                            // below will append the field 
                             // end marker.
                         } else {
                             try {
