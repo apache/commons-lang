@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.30 2004/10/16 17:43:05 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.31 2004/10/16 17:47:48 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.1
@@ -100,6 +100,7 @@ BUG FIXES:
 26699  Tokenizer Enhancements: reset input string, static CSV
 26734  NullPointerException in EqualsBuilder.append(Object[], Object[])
 26877  Add SystemUtils.AWT_TOOLKIT and others.
+26922  public static boolean DateUtils.equals(Date dt1, Date dt2)
 27592  WordUtils capitalize improvement
 27876  ReflectionToStringBuilder.toString(null) throws exception by design
 27877  Make ClassUtils methods null-safe and not throw an IAE.
@@ -112,7 +113,7 @@ BUG FIXES:
 30328  HashCodeBuilder does not use the same values as Boolean (fixed as documentation)
 30334  New class proposal: CharacterEncoding
 30815  ArrayUtils.isEquals() throws ClassCastException when array1
+30929  Nestable.indexOfThrowable(Class)  uses Class.equals() to match
+31395  DateUtils.truncate oddity at the far end of the Date spectrum
 31478  Compile error with JDK 5 "enum" is a keyword
 31572  o.a.c.lang.enum.ValuedEnum: 'enum'is a keyword in JDK1.5.0
-26922  public static boolean DateUtils.equals(Date dt1, Date dt2)
-31395  DateUtils.truncate oddity at the far end of the Date spectrum
