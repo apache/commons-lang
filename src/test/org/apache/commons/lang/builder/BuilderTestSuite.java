@@ -61,7 +61,7 @@ import junit.textui.TestRunner;
  * Test suite for the Lang Builder package.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: BuilderTestSuite.java,v 1.1 2002/09/12 22:01:24 scolebourne Exp $
+ * @version $Id: BuilderTestSuite.java,v 1.2 2002/09/15 10:27:06 scolebourne Exp $
  */
 public class BuilderTestSuite extends TestCase {
     
@@ -85,6 +85,7 @@ public class BuilderTestSuite extends TestCase {
     public static Test suite() {
         TestSuite suite = new TestSuite();
         suite.setName("Commons-Lang-Builder Tests");
+        suite.addTest(CompareToBuilderTest.suite());
         suite.addTest(EqualsBuilderTest.suite());
         suite.addTest(HashCodeBuilderTest.suite());
         return suite;
