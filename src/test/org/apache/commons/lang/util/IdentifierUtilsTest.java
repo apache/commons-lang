@@ -53,6 +53,10 @@
  */
 package org.apache.commons.lang.util;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
+import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -60,7 +64,7 @@ import junit.framework.TestSuite;
  * Tests the org.apache.commons.lang.util.IdentifierUtils class.
  *
  * @author Stephen Colebourne
- * @version $Id: IdentifierUtilsTest.java,v 1.2 2003/05/16 22:07:38 scolebourne Exp $
+ * @version $Id: IdentifierUtilsTest.java,v 1.3 2003/07/31 23:03:46 scolebourne Exp $
  */
 public class IdentifierUtilsTest extends junit.framework.TestCase {
 
@@ -80,6 +84,16 @@ public class IdentifierUtilsTest extends junit.framework.TestCase {
         return suite;
     }
 
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new IdentifierUtils());
+        Constructor[] cons = IdentifierUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(IdentifierUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(IdentifierUtils.class.getModifiers()));
+    }
+    
     //--------------------------------------------------------------------------
 
     public void testLongIncrementing() {
@@ -108,7 +122,8 @@ public class IdentifierUtilsTest extends junit.framework.TestCase {
     }
 
     public void testLongIncrementingWrap() {
-        LongIdentifierFactory f = IdentifierUtils.longIdentifierFactory(true, Long.MAX_VALUE);
+        LongIdentifierFactory f = IdentifierUtils.longIdentifierFactory(true, Long.MAX_VALUE - 1);
+        assertEquals(new Long(Long.MAX_VALUE - 1), f.nextLongIdentifier());
         assertEquals(new Long(Long.MAX_VALUE), f.nextLongIdentifier());
         assertEquals(new Long(Long.MIN_VALUE), f.nextLongIdentifier());
     }
@@ -149,7 +164,8 @@ public class IdentifierUtilsTest extends junit.framework.TestCase {
     }
 
     public void testStringNumericWrap() {
-        StringIdentifierFactory f = IdentifierUtils.stringNumericIdentifierFactory(true, Long.MAX_VALUE);
+        StringIdentifierFactory f = IdentifierUtils.stringNumericIdentifierFactory(true, Long.MAX_VALUE - 1);
+        assertEquals(Long.toString(Long.MAX_VALUE - 1), f.nextStringIdentifier());
         assertEquals(Long.toString(Long.MAX_VALUE), f.nextStringIdentifier());
         assertEquals(Long.toString(Long.MIN_VALUE), f.nextStringIdentifier());
     }
@@ -167,7 +183,7 @@ public class IdentifierUtilsTest extends junit.framework.TestCase {
     public void testStringAlphanumeric() {
         StringIdentifierFactory f = IdentifierUtils.STRING_ALPHANUMERIC_IDENTIFIER_FACTORY;
         assertEquals("000000000000001", f.nextStringIdentifier());
-        assertEquals("000000000000002", f.nextStringIdentifier());
+        assertEquals("000000000000002", f.nextIdentifier());
         assertEquals("000000000000003", f.nextStringIdentifier());
         assertEquals("000000000000004", f.nextStringIdentifier());
         assertEquals("000000000000005", f.nextStringIdentifier());
@@ -215,6 +231,11 @@ public class IdentifierUtilsTest extends junit.framework.TestCase {
     }
 
     public void testStringAlphanumericWrap() {
+        try {
+            IdentifierUtils.stringAlphanumericIdentifierFactory(true, -1);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        
         StringIdentifierFactory f = IdentifierUtils.stringAlphanumericIdentifierFactory(true, 1);
         assertEquals("1", f.nextStringIdentifier());
         assertEquals("2", f.nextStringIdentifier());
@@ -255,6 +276,11 @@ public class IdentifierUtilsTest extends junit.framework.TestCase {
     }
 
     public void testStringAlphanumericNoWrap() {
+        try {
+            IdentifierUtils.stringAlphanumericIdentifierFactory(false, -1);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        
         StringIdentifierFactory f = IdentifierUtils.stringAlphanumericIdentifierFactory(false, 1);
         assertEquals("1", f.nextStringIdentifier());
         assertEquals("2", f.nextStringIdentifier());
@@ -305,12 +331,25 @@ public class IdentifierUtilsTest extends junit.framework.TestCase {
         
         String a = (String) f.nextStringIdentifier();
         String b = (String) IdentifierUtils.nextStringSessionIdentifier();
+        String c = (String) f.nextIdentifier();
         assertTrue(a.length() >= 10);
         assertTrue(b.length() >= 10);
-        // could fail, but unlikely
-        assertTrue(a.substring(6, 9) != b.substring(6, 9));
+        assertTrue(c.length() >= 10);
+        try {
+            // could fail, but unlikely
+            assertTrue(a.substring(6, 9).equals(b.substring(6, 9)));
+            assertTrue(a.substring(6, 9).equals(c.substring(6, 9)));
+        } catch (AssertionFailedError ex) {
+            // try again to make test more robust
+            a = (String) f.nextStringIdentifier();
+            b = (String) IdentifierUtils.nextStringSessionIdentifier();
+            c = (String) f.nextIdentifier();
+            assertTrue(a.substring(6, 9).equals(b.substring(6, 9)));
+            assertTrue(a.substring(6, 9).equals(c.substring(6, 9)));
+        }
         assertEquals("0", a.substring(9));
         assertEquals("1", b.substring(9));
+        assertEquals("2", c.substring(9));
     }
 
     //--------------------------------------------------------------------------
