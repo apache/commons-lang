@@ -67,7 +67,7 @@ import java.util.StringTokenizer;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableDelegate.java,v 1.2 2002/07/26 20:30:10 stevencaswell Exp $
+ * @version $Id: NestableDelegate.java,v 1.3 2002/08/21 07:22:47 dlr Exp $
  */
 public class NestableDelegate
 {
@@ -79,10 +79,10 @@ public class NestableDelegate
         + "constructor must extend java.lang.Throwable";
 
     /**
-     * Holds the reference to the exception or error that caused
-     * this exception to be thrown.
+     * Holds the reference to the exception or error that caused this
+     * exception to be thrown.
      */
-    private Nestable cause = null;
+    private Throwable cause = null;
 
     /**
      * Constructs a new <code>NestableDelegate</code> instance to manage the
@@ -95,7 +95,7 @@ public class NestableDelegate
     {
         if (cause instanceof Throwable)
         {
-            this.cause = cause;
+            this.cause = (Throwable) cause;
         }
         else
         {
@@ -148,7 +148,7 @@ public class NestableDelegate
             msg.append(baseMsg);
         }
 
-        Throwable nestedCause = cause.getCause();
+        Throwable nestedCause = ExceptionUtils.getCause(this.cause);
         if (nestedCause != null)
         {
             String causeMsg = nestedCause.getMessage();
@@ -177,7 +177,7 @@ public class NestableDelegate
      */
     String[] getMessages() // package
     {
-        Throwable throwables[] = this.getThrowables();
+        Throwable[] throwables = this.getThrowables();
         String[] msgs = new String[throwables.length];
         for(int i = 0; i < throwables.length; i++)
         {
@@ -201,7 +201,7 @@ public class NestableDelegate
     {
         if(index == 0)
         {
-            return (Throwable) this.cause;
+            return this.cause;
         }
         Throwable[] throwables = this.getThrowables();
         return throwables[index];
@@ -218,22 +218,11 @@ public class NestableDelegate
         // Count the number of throwables
         int count = 1;
         String msg = null;
-        if(this.cause.getCause() == null)
-        {
-            return count;
-        }
-        Throwable t = this.cause.getCause();
-        while(t != null)
+        Throwable t = ExceptionUtils.getCause(this.cause);
+        while (t != null)
         {
             ++count;
-            if(Nestable.class.isInstance(t))
-            {
-                t = ((Nestable) t).getCause();
-            }
-            else
-            {
-                t = null;
-            }
+            t = ExceptionUtils.getCause(t);
         }
         return count;
     }
@@ -253,19 +242,12 @@ public class NestableDelegate
         count = 0;
         if(cause != null)
         {
-            throwables[count++] = (Throwable) this.cause;
-            Throwable t = this.cause.getCause();
+            throwables[count++] = this.cause;
+            Throwable t = ExceptionUtils.getCause(this.cause);
             while(t != null)
             {
                 throwables[count++] = t;
-                if(Nestable.class.isInstance(t))
-                {
-                    t = ((Nestable) t).getCause();
-                }
-                else
-                {
-                    t = null;
-                }
+                t = ExceptionUtils.getCause(t);
             }
         }
         return throwables;
@@ -344,8 +326,8 @@ public class NestableDelegate
     {
         synchronized (out)
         {
-            String[] st = decompose((Throwable) cause);
-            Throwable nestedCause = cause.getCause();
+            String[] st = decompose(this.cause);
+            Throwable nestedCause = ExceptionUtils.getCause(this.cause);
             if (nestedCause != null)
             {
                 if (nestedCause instanceof Nestable)
