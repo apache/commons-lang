@@ -82,7 +82,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Fredrik Westermarck
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.33 2004/01/19 23:24:07 fredrik Exp $
+ * @version $Id: ArrayUtils.java,v 1.34 2004/01/25 00:09:10 tobrien Exp $
  */
 public class ArrayUtils {
 
@@ -295,7 +295,7 @@ public class ArrayUtils {
      * <p>Shallow clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>The objecs in the array are not cloned, thus there is no special
+     * <p>The objects in the array are not cloned, thus there is no special
      * handling for multi-dimensional arrays.</p>
      * 
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
