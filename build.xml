@@ -3,7 +3,7 @@
 
 <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.6 2002/11/14 18:53:36 rdonkin Exp $
+        $Id: build.xml,v 1.7 2002/12/18 23:30:20 scolebourne Exp $
 -->
 
 
@@ -156,11 +156,13 @@
   <target name="test"  depends="
                                 compile.tests, 
                                 test.lang, 
-                                test.exception, 
-                                test.enum, 
                                 test.builder, 
+                                test.enum, 
+                                test.exception, 
                                 test.functor, 
-                                test.reflect"
+                                test.reflect,
+                                test.time,
+                                test.util"
                                 
    description="Run all unit test cases">
     <echo message="Running tests ..."/>
@@ -219,4 +221,23 @@
       <classpath refid="test.classpath"/>
     </java>
   </target>
+  
+  <target name="test.time" depends="compile.tests">
+    <echo message="Running time package tests ..."/>
+    <java classname="${test.runner}" fork="yes"
+        failonerror="${test.failonerror}">
+      <arg value="org.apache.commons.lang.time.TimeTestSuite"/>
+      <classpath refid="test.classpath"/>
+    </java>
+  </target>
+
+  <target name="test.util" depends="compile.tests">
+    <echo message="Running util package tests ..."/>
+    <java classname="${test.runner}" fork="yes"
+        failonerror="${test.failonerror}">
+      <arg value="org.apache.commons.lang.util.UtilTestSuite"/>
+      <classpath refid="test.classpath"/>
+    </java>
+  </target>
+
 </project>

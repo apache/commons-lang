@@ -1,4 +1,4 @@
-package org.apache.commons.lang;
+package org.apache.commons.lang.time;
 
 /* ====================================================================
  * The Apache Software License, Version 1.1
