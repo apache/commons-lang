@@ -21,7 +21,18 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 /**
- * <p>Duration formatting utilities and constants.</p>
+ * <p>Duration formatting utilities and constants. The following table describes the tokens 
+ * used in the pattern language for formatting. </p>
+ * <table border="1">
+ *  <tr><th>character</th><th>duration element</th></tr>
+ *  <tr><td>y</td><td>years</td></tr>
+ *  <tr><td>M</td><td>months</td></tr>
+ *  <tr><td>d</td><td>days</td></tr>
+ *  <tr><td>H</td><td>hours</td></tr>
+ *  <tr><td>m</td><td>minutes</td></tr>
+ *  <tr><td>s</td><td>seconds</td></tr>
+ *  <tr><td>S</td><td>milliseconds</td></tr>
+ * </table>
  *
  * @author Apache Ant - DateUtils
  * @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
@@ -30,7 +41,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Henri Yandell
  * @since 2.1
- * @version $Id: DurationFormatUtils.java,v 1.15 2004/09/27 03:14:15 bayard Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.16 2004/09/27 03:30:10 bayard Exp $
  */
 public class DurationFormatUtils {
 
@@ -83,29 +94,29 @@ public class DurationFormatUtils {
     public static String formatISO(long millis) {
         return format(millis, "H:mm:ss.SSS");
     }
+
     /**
-     * <p>Get the time gap as a string, using the specified format.</p>
-     * <table border="1">
-     *  <tr><th>character</th><th>duration element</th></tr>
-     *  <tr><td>y</td><td>years (aka 365 days)</td></tr>
-     *  <tr><td>M</td><td>months (aka year/12)</td></tr>
-     *  <tr><td>d</td><td>days</td></tr>
-     *  <tr><td>H</td><td>hours</td></tr>
-     *  <tr><td>m</td><td>minutes</td></tr>
-     *  <tr><td>s</td><td>seconds</td></tr>
-     *  <tr><td>S</td><td>milliseconds</td></tr>
-     * </table>
+     * <p>Get the time gap as a string, using the specified format, and padding with zeros and 
+     * using the default timezone.</p>
      * 
      * @param millis  the duration to format
-     * @param format  the way iin which to format the duration
+     * @param format  the way in which to format the duration
      * @return the time as a String
      */
     public static String format(long millis, String format) {
         return format(millis, format, true);
     }
-    public static String format(long millis, String format, boolean padWithZeros) {
-        return format(millis, format, padWithZeros, TimeZone.getDefault());
-    }
+    /**
+     * <p>Get the time gap as a string, using the specified format.
+     * Padding the left hand side of numbers with zeroes is optional and 
+     * the timezone may be specified. 
+     * 
+     * @param millis  the duration to format
+     * @param format  the way in which to format the duration
+     * @param padWithZeros whether to pad the left hand side of numbers with 0's
+     * @param timezone the millis are defined in
+     * @return the time as a String
+     */
     public static String format(long millis, String format, boolean padWithZeros, TimeZone timezone) {
 
         if(millis > 28 * DateUtils.MILLIS_PER_DAY) {
@@ -164,8 +175,8 @@ public class DurationFormatUtils {
     }
 
 
-    private static String formatDuration(Token[] tokens, int years, int months, int days, int hours, 
-                                         int minutes, int seconds, int milliseconds, boolean padWithZeros) 
+    static String formatDuration(Token[] tokens, int years, int months, int days, int hours, 
+                                 int minutes, int seconds, int milliseconds, boolean padWithZeros) 
     { 
         StringBuffer buffer = new StringBuffer();
         int sz = tokens.length;
@@ -203,10 +214,31 @@ public class DurationFormatUtils {
         return buffer.toString();
     }
 
-    // slower than the above I presume
+    /**
+     * <p>Get the time gap as a string, using the specified format.
+     * Padding the left hand side of numbers with zeroes is optional.
+     * 
+     * @param startMillis  the start of the duration
+     * @param endMillis  the end of the duration
+     * @param format  the way in which to format the duration
+     * @param padWithZeros whether to pad the left hand side of numbers with 0's
+     * @return the time as a String
+     */
     public static String format(long startMillis, long endMillis, String format, boolean padWithZeros) {
         return format(startMillis, endMillis, format, padWithZeros, TimeZone.getDefault());
     }
+    /**
+     * <p>Get the time gap as a string, using the specified format.
+     * Padding the left hand side of numbers with zeroes is optional and 
+     * the timezone may be specified. 
+     * 
+     * @param startMillis  the start of the duration
+     * @param endMillis  the end of the duration
+     * @param format  the way in which to format the duration
+     * @param padWithZeros whether to pad the left hand side of numbers with 0's
+     * @param timezone the millis are defined in
+     * @return the time as a String
+     */
     public static String format(long startMillis, long endMillis, String format, boolean padWithZeros, TimeZone timezone) {
 
         long millis = endMillis - startMillis;
@@ -271,7 +303,7 @@ public class DurationFormatUtils {
 
     // Reduces by difference, then if it overshot, calculates the overshot amount and 
     // fixes and returns the amount to change by
-    private static int reduceAndCorrect(Calendar start, Calendar end, int field, int difference) {
+    static int reduceAndCorrect(Calendar start, Calendar end, int field, int difference) {
         end.add( field, -1 * difference );
         int endValue = end.get(field);
         int startValue = start.get(field);
