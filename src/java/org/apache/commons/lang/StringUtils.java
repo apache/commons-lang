@@ -81,7 +81,7 @@ import java.util.Iterator;
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
- * @version $Id: StringUtils.java,v 1.6 2002/08/01 20:15:43 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.7 2002/08/23 08:00:26 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -91,9 +91,12 @@ public class StringUtils {
     public static int CHAR_BUFFER_SIZE = 4 * 1024;
     
     /**
-     * Prevent construction of StringUtils instances
+     * StringUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as <code>StringUtils.trim(" foo ");</code>.
+     * This constructor is public to permit tools that require a JavaBean instance
+     * to operate.
      */
-    private StringUtils() {
+    public StringUtils() {
     }
 
     // Empty
