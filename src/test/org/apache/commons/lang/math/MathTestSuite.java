@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,7 +61,7 @@ import junit.textui.TestRunner;
  * Test suite for the Math package.
  *
  * @author Stephen Colebourne
- * @version $Id: MathTestSuite.java,v 1.3 2003/05/14 02:41:26 bayard Exp $
+ * @version $Id: MathTestSuite.java,v 1.4 2003/06/24 21:14:51 scolebourne Exp $
  */
 public class MathTestSuite extends TestCase {
     
@@ -91,6 +91,7 @@ public class MathTestSuite extends TestCase {
         suite.addTest(IntRangeTest.suite());
         suite.addTest(LongRangeTest.suite());
         suite.addTest(NumberRangeTest.suite());
+        suite.addTest(NumberUtilsTest.suite());
         suite.addTest(RandomUtilsTest.suite());
         return suite;
     }

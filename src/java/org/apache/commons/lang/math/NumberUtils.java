@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.lang;
+package org.apache.commons.lang.math;
 
 import java.math.BigInteger;
 import java.math.BigDecimal;
@@ -66,14 +66,47 @@ import java.math.BigDecimal;
  * @author Eric Pugh
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: NumberUtils.java,v 1.11 2003/06/24 21:14:50 scolebourne Exp $
- * 
- * @deprecated Moved to org.apache.commons.lang.math.
- *             Class will be removed in Commons Lang 3.0.
+ * @version $Id: NumberUtils.java,v 1.1 2003/06/24 21:14:50 scolebourne Exp $
  */
 public final class NumberUtils {
-    // DEPRECATED CLASS !!!
     
+    /** Reusable Long constant for zero. */
+    public static final Long LONG_ZERO = new Long(0L);
+    /** Reusable Long constant for one. */
+    public static final Long LONG_ONE = new Long(1L);
+    /** Reusable Long constant for minus one. */
+    public static final Long LONG_MINUS_ONE = new Long(-1L);
+    /** Reusable Integer constant for zero. */
+    public static final Integer INTEGER_ZERO = new Integer(0);
+    /** Reusable Integer constant for one. */
+    public static final Integer INTEGER_ONE = new Integer(1);
+    /** Reusable Integer constant for minus one. */
+    public static final Integer INTEGER_MINUS_ONE = new Integer(-1);
+    /** Reusable Short constant for zero. */
+    public static final Short SHORT_ZERO = new Short((short) 0);
+    /** Reusable Short constant for one. */
+    public static final Short SHORT_ONE = new Short((short) 1);
+    /** Reusable Short constant for minus one. */
+    public static final Short SHORT_MINUS_ONE = new Short((short) -1);
+    /** Reusable Byte constant for zero. */
+    public static final Byte BYTE_ZERO = new Byte((byte) 0);
+    /** Reusable Byte constant for one. */
+    public static final Byte BYTE_ONE = new Byte((byte) 1);
+    /** Reusable Byte constant for minus one. */
+    public static final Byte BYTE_MINUS_ONE = new Byte((byte) -1);
+    /** Reusable Double constant for zero. */
+    public static final Double DOUBLE_ZERO = new Double(0.0d);
+    /** Reusable Double constant for one. */
+    public static final Double DOUBLE_ONE = new Double(1.0d);
+    /** Reusable Double constant for minus one. */
+    public static final Double DOUBLE_MINUS_ONE = new Double(-1.0d);
+    /** Reusable Float constant for zero. */
+    public static final Float FLOAT_ZERO = new Float(0.0f);
+    /** Reusable Float constant for one. */
+    public static final Float FLOAT_ONE = new Float(1.0f);
+    /** Reusable Float constant for minus one. */
+    public static final Float FLOAT_MINUS_ONE = new Float(-1.0f);
+
     /**
      * <p><code>NumberUtils</code> instances should NOT be constructed in standard programming.
      * Instead, the class should be used as <code>NumberUtils.stringToInt("6");</code>.</p>
@@ -84,8 +117,7 @@ public final class NumberUtils {
     public NumberUtils() {
     }
 
-    //--------------------------------------------------------------------
-    
+    //-----------------------------------------------------------------------
     /**
      * <p>Convert a <code>String</code> to an <code>int</code>, returning
      * <code>zero</code> if the conversion fails.</p>
@@ -114,8 +146,7 @@ public final class NumberUtils {
         }
     }
 
-    //--------------------------------------------------------------------
-    
+    //-----------------------------------------------------------------------
     // must handle Long, Float, Integer, Float, Short,
     //                  BigDecimal, BigInteger and Byte
     // useful methods:
@@ -312,7 +343,6 @@ public final class NumberUtils {
                 return createBigDecimal(val);
 
             }
-
         }
     }
 
@@ -336,8 +366,7 @@ public final class NumberUtils {
         return s.length() > 0;
     }
 
-    //--------------------------------------------------------------------
-    
+    //-----------------------------------------------------------------------
     /**
      * <p>Convert a <code>String</code> to a <code>Float</code>.</p>
      * 
@@ -408,17 +437,16 @@ public final class NumberUtils {
         return bd;
     }
 
-    //--------------------------------------------------------------------
-    
+    //-----------------------------------------------------------------------
     /**
      * <p>Gets the minimum of three <code>long</code> values.</p>
      * 
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
-     * @return  the largest of the values
+     * @return  the smallest of the values
      */
-    public static long minimum(long a, long b, long c) {
+    public static long min(long a, long b, long c) {
         if (b < a) {
             a = b;
         }
@@ -434,9 +462,9 @@ public final class NumberUtils {
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
-     * @return  the largest of the values
+     * @return  the smallest of the values
      */
-    public static int minimum(int a, int b, int c) {
+    public static int min(int a, int b, int c) {
         if (b < a) {
             a = b;
         }
@@ -447,6 +475,71 @@ public final class NumberUtils {
     }
 
     /**
+     * <p>Gets the minimum of three <code>short</code> values.</p>
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static short min(short a, short b, short c) {
+        if (b < a) {
+            a = b;
+        }
+        if (c < a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the minimum of three <code>byte</code> values.</p>
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static byte min(byte a, byte b, byte c) {
+        if (b < a) {
+            a = b;
+        }
+        if (c < a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the minimum of three <code>double</code> values.</p>
+     * 
+     * <p>If any value is NaN, NaN is returned. Infinity is handled.</p>
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static double min(double a, double b, double c) {
+        return Math.min(Math.min(a, b), c);
+    }
+
+    /**
+     * <p>Gets the minimum of three <code>float</code> values.</p>
+     * 
+     * <p>If any value is NaN, NaN is returned. Infinity is handled.</p>
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the smallest of the values
+     */
+    public static float min(float a, float b, float c) {
+        return Math.min(Math.min(a, b), c);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * <p>Gets the maximum of three <code>long</code> values.</p>
      * 
      * @param a  value 1
@@ -454,7 +547,7 @@ public final class NumberUtils {
      * @param c  value 3
      * @return  the largest of the values
      */
-    public static long maximum(long a, long b, long c) {
+    public static long max(long a, long b, long c) {
         if (b > a) {
             a = b;
         }
@@ -472,7 +565,7 @@ public final class NumberUtils {
      * @param c  value 3
      * @return  the largest of the values
      */
-    public static int maximum(int a, int b, int c) {
+    public static int max(int a, int b, int c) {
         if (b > a) {
             a = b;
         }
@@ -482,8 +575,71 @@ public final class NumberUtils {
         return a;
     }
 
-    //--------------------------------------------------------------------
-    
+    /**
+     * <p>Gets the maximum of three <code>short</code> values.</p>
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static short max(short a, short b, short c) {
+        if (b > a) {
+            a = b;
+        }
+        if (c > a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the maximum of three <code>byte</code> values.</p>
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static byte max(byte a, byte b, byte c) {
+        if (b > a) {
+            a = b;
+        }
+        if (c > a) {
+            a = c;
+        }
+        return a;
+    }
+
+    /**
+     * <p>Gets the maximum of three <code>double</code> values.</p>
+     * 
+     * <p>If any value is NaN, NaN is returned. Infinity is handled.</p>
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static double max(double a, double b, double c) {
+        return Math.max(Math.max(a, b), c);
+    }
+
+    /**
+     * <p>Gets the maximum of three <code>float</code> values.</p>
+     * 
+     * <p>If any value is NaN, NaN is returned. Infinity is handled.</p>
+     * 
+     * @param a  value 1
+     * @param b  value 2
+     * @param c  value 3
+     * @return  the largest of the values
+     */
+    public static float max(float a, float b, float c) {
+        return Math.max(Math.max(a, b), c);
+    }
+
+    //-----------------------------------------------------------------------
     /**
      * <p>Compares two <code>doubles</code> for order.</p>
      *
@@ -608,8 +764,7 @@ public final class NumberUtils {
         }
     }
     
-    //--------------------------------------------------------------------
-    
+    //-----------------------------------------------------------------------
     /**
      * <p>Checks whether the <code>String</code> contains only
      * digit characters.</p>
@@ -740,4 +895,5 @@ public final class NumberUtils {
         // found digit it to make sure weird stuff like '.' and '1E-' doesn't pass
         return !allowSigns && foundDigit;
     }
+    
 }
