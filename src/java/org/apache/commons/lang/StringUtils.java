@@ -145,7 +145,7 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.111 2003/10/23 20:40:36 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.112 2003/10/23 20:49:22 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1059,7 +1059,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Find the first index within a String, handling <code>null</code>.
+     * <p>Checks if String contains a search String, handling <code>null</code>.
      * This method uses {@link String#indexOf(int)}.</p>
      *
      * <p>A <code>null</code> String will return <code>false</code>.</p>
@@ -1075,7 +1075,7 @@ public class StringUtils {
      * 
      * @param str  the String to check, may be null
      * @param searchStr  the String to find, may be null
-     * @return true if the String contains the search character, 
+     * @return true if the String contains the search String, 
      *  false if not or <code>null</code> string input
      * @since 2.0
      */
