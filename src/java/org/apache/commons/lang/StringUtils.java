@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -77,7 +77,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.35 2003/03/23 05:26:23 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.36 2003/03/23 18:05:44 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1769,7 +1769,7 @@ public class StringUtils {
         // could implement manually, but simple way is to reuse other, 
         // probably slower, methods.
         String[] strs = split(str, delimiter);
-        ArrayUtils.reverseArray(strs);
+        ArrayUtils.reverse(strs);
         return join(strs, delimiter);
     }
 
@@ -1830,26 +1830,26 @@ public class StringUtils {
      * (More precisely, return the remainder of the second string,
      * starting from where it's different from the first.)
      * <p>
-     * E.g. strdiff("i am a machine", "i am a robot") -> "robot"
+     * For example, <code>difference("i am a machine", "i am a robot") -> "robot"</code>
      *
      * @return the portion of s2 where it differs from s1; returns the empty string ("") if they are equal
-     **/
+     */
     public static String difference(String s1, String s2) {
         int at = differenceAt(s1, s2);
-        if (at == -1)
+        if (at == -1) {
             return "";
+        }
         return s2.substring(at);
     }
 
     /**
      * Compare two strings, and return the index at which the strings begin to differ
      * <p>
-     * E.g. strdiff("i am a machine", "i am a robot") -> 7
+     * For example, <code>differenceAt("i am a machine", "i am a robot") -> 7</code>
      *
      * @return the index where s2 and s1 begin to differ; -1 if they are equal
-     **/
-    public static int differenceAt(String s1, String s2)
-    {
+     */
+    public static int differenceAt(String s1, String s2) {
         int i;
         for (i=0; i<s1.length() && i<s2.length(); ++i) {
             if (s1.charAt(i) != s2.charAt(i)) {
