@@ -59,7 +59,7 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.12 2003/07/14 22:25:02 bayard Exp $
+ * @version $Id: CharSetUtils.java,v 1.13 2003/07/16 00:39:05 scolebourne Exp $
  */
 public class CharSetUtils {
 
@@ -104,6 +104,8 @@ public class CharSetUtils {
      *
      * @param str  the string to work from
      * @param set  the character set to use for manipulation
+     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @throws NullPointerException if <code>set</code> is <code>null</code>
      */
     public static String squeeze(String str, String set) {
         String[] strs = new String[1];
@@ -123,8 +125,9 @@ public class CharSetUtils {
      * 
      * @param str  the string to work from
      * @param set  the character set to use for manipulation
-     * @throws NullPointerException if <code>str</code> is
-     *  <code>null</code>
+     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @throws NullPointerException if <code>set</code> is <code>null</code>
+     *  or any element is <code>null</code>
      */
     public static String squeeze(String str, String[] set) {
         CharSet chars = evaluateSet(set);
@@ -157,6 +160,8 @@ public class CharSetUtils {
      *
      * @param str  String target to count characters in
      * @param set  String set of characters to count
+     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @throws NullPointerException if <code>set</code> is <code>null</code>
      */
     public static int count(String str, String set) {
         String[] strs = new String[1];
@@ -175,6 +180,9 @@ public class CharSetUtils {
      *
      * @param str  String target to count characters in
      * @param set  String[] set of characters to count
+     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @throws NullPointerException if <code>set</code> is <code>null</code>
+     *  or any element is <code>null</code>
      */
     public static int count(String str, String[] set) {
         CharSet chars = evaluateSet(set);
@@ -200,6 +208,8 @@ public class CharSetUtils {
      *
      * @param str  String target to keep characters from
      * @param set  String set of characters to keep
+     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @throws NullPointerException if <code>set</code> is <code>null</code>
      */
     public static String keep(String str, String set) {
         String[] strs = new String[1];
@@ -219,8 +229,9 @@ public class CharSetUtils {
      *
      * @param str  String target to keep characters from
      * @param set  String[] set of characters to keep
-     * @throws NullPointerException of <code>str</code> is
-     *  <code>null</code>
+     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @throws NullPointerException if <code>set</code> is <code>null</code>
+     *  or any element is <code>null</code>
      */
     public static String keep(String str, String[] set) {
         return modify(str, set, true);
@@ -237,6 +248,8 @@ public class CharSetUtils {
      *
      * @param str  String target to delete characters from
      * @param set  String set of characters to delete
+     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @throws NullPointerException if <code>set</code> is <code>null</code>
      */
     public static String delete(String str, String set) {
         String[] strs = new String[1];
@@ -256,8 +269,9 @@ public class CharSetUtils {
      *
      * @param str  String target to delete characters from
      * @param set  String[] set of characters to delete
-     * @throws NullPointerException of <code>str</code> is
-     *  <code>null</code>
+     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @throws NullPointerException if <code>set</code> is <code>null</code>
+     *  or any element is <code>null</code>
      */
     public static String delete(String str, String[] set) {
         return modify(str, set, false);

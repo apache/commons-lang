@@ -62,7 +62,7 @@ import java.util.List;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.13 2003/07/14 22:25:02 bayard Exp $
+ * @version $Id: ClassUtils.java,v 1.14 2003/07/16 00:39:05 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -102,7 +102,7 @@ public class ClassUtils {
     /**
      * <p>Gets the class name minus the package name for an <code>Object</code>.</p>
      * 
-     * @param object  the class to get the short name for
+     * @param object  the class to get the short name for, may be null
      * @param valueIfNull  the value to return if null
      * @return the class name of the object without the package name, or the null value
      */
@@ -158,7 +158,7 @@ public class ClassUtils {
     /**
      * <p>Gets the package name of an <code>Object</code>.</p>
      * 
-     * @param object  the class to get the package name for
+     * @param object  the class to get the package name for, may be null
      * @param valueIfNull  the value to return if null
      * @return the package name of the object, or the null value
      */

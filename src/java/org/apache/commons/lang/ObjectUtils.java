@@ -62,7 +62,7 @@ import java.io.Serializable;
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.9 2003/07/14 22:25:03 bayard Exp $
+ * @version $Id: ObjectUtils.java,v 1.10 2003/07/16 00:39:05 scolebourne Exp $
  */
 public class ObjectUtils {
     
@@ -101,8 +101,8 @@ public class ObjectUtils {
      * <p>Returns a default value if the object passed is
      * <code>null</code>.</p>
      *
-     * @param object  the <code>Object</code> to test
-     * @param defaultValue  the default value to return
+     * @param object  the <code>Object</code> to test, may be <code>null</code>
+     * @param defaultValue  the default value to return, may be <code>null</code>
      * @return <code>object</code> if it is not <code>null</code>, defaultValue otherwise
      */
     public static Object defaultIfNull(Object object, Object defaultValue) {
@@ -113,8 +113,8 @@ public class ObjectUtils {
      * <p>Compares two objects for equality, where either one or both
      * objects may be <code>null</code>.</p>
      *
-     * @param object1  the first object
-     * @param object2  the second object
+     * @param object1  the first object, may be <code>null</code>
+     * @param object2  the second object, may be <code>null</code>
      * @return <code>true</code> if the values of both objects are the same
      */
     public static boolean equals(Object object1, Object object2) {
