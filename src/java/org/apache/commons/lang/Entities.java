@@ -69,7 +69,7 @@ import java.util.TreeMap;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.10 2003/07/14 22:21:11 bayard Exp $
+ * @version $Id: Entities.java,v 1.11 2003/07/26 00:32:19 ggregory Exp $
  */
 class Entities {
 
@@ -639,8 +639,8 @@ class Entities {
             char ch = str.charAt(i);
             String entityName = this.entityName(ch);
             if (entityName == null) {
-                if (((int) ch) > 0x7F) {
-                    int intValue = ((int) ch);
+                if (ch > 0x7F) {
+                    int intValue = ch;
                     buf.append("&#");
                     buf.append(intValue);
                     buf.append(';');
