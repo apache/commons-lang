@@ -3,7 +3,7 @@
 
 <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.4 2002/09/12 21:58:15 scolebourne Exp $
+        $Id: build.xml,v 1.5 2002/11/05 16:45:45 bayard Exp $
 -->
 
 
@@ -153,7 +153,7 @@
 <!-- ========== Unit Test Targets ========================================= -->
 
 
-  <target name="test"  depends="compile.tests, test.lang, test.exception, test.enum, test.builder"
+  <target name="test"  depends="compile.tests, test.lang, test.exception, test.enum, test.builder, test.functor"
    description="Run all unit test cases">
     <echo message="Running tests ..."/>
   </target>
@@ -190,6 +190,15 @@
     <java classname="${test.runner}" fork="yes"
         failonerror="${test.failonerror}">
       <arg value="org.apache.commons.lang.builder.BuilderTestSuite"/>
+      <classpath refid="test.classpath"/>
+    </java>
+  </target>
+
+  <target name="test.functor" depends="compile.tests">
+    <echo message="Running functor package tests ..."/>
+    <java classname="${test.runner}" fork="yes"
+        failonerror="${test.failonerror}">
+      <arg value="org.apache.commons.lang.functor.FunctorTestSuite"/>
       <classpath refid="test.classpath"/>
     </java>
   </target>
