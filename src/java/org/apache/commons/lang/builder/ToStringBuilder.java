@@ -93,14 +93,14 @@ import java.lang.reflect.Modifier;
  * passed into the constructor.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilder.java,v 1.4 2002/09/28 10:44:51 scolebourne Exp $
+ * @version $Id: ToStringBuilder.java,v 1.5 2002/09/29 08:26:05 bayard Exp $
  */
 public class ToStringBuilder {
     
     /**
      * The default style of output to use
      */
-    private static ToStringStyle defaultStyle;
+    private static ToStringStyle defaultStyle = ToStringStyle.DEFAULT_STYLE;
     /**
      * Current toString buffer
      */
