@@ -58,7 +58,6 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -75,7 +74,7 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.45 2003/08/13 21:32:27 ggregory Exp $
+ * @version $Id: StringUtilsTest.java,v 1.46 2003/08/13 23:08:06 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -975,8 +974,8 @@ public class StringUtilsTest extends TestCase {
      * A sanity check for {@link StringUtils.EMPTY}.
      */
     public void testEMPTY() {
-        Assert.assertNotNull(StringUtils.EMPTY);
-        Assert.assertEquals("", StringUtils.EMPTY);
+        assertNotNull(StringUtils.EMPTY);
+        assertEquals("", StringUtils.EMPTY);
     }
 }
 
