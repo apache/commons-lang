@@ -17,6 +17,7 @@ package org.apache.commons.lang.exception;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintStream;
@@ -29,7 +30,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableExceptionTestCase.java,v 1.11 2004/02/18 23:02:15 ggregory Exp $
+ * @version $Id: NestableExceptionTestCase.java,v 1.12 2004/10/09 10:45:24 scolebourne Exp $
  */
 public class NestableExceptionTestCase extends AbstractNestableTestCase {
     
@@ -195,7 +196,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
      */
     public Throwable getThrowable(String msg)
     {
-        return new Exception(msg);
+        return new EOFException(msg);
     }
     
     /**
@@ -203,9 +204,17 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
      */
     public Class getThrowableClass()
     {
-        return Exception.class;
+        return EOFException.class;
     }
 
+    /**
+     * @see AbstractNestableTestCase#getBaseThrowableClass()
+     */
+    public Class getBaseThrowableClass()
+    {
+        return Exception.class;
+    }
+    
     public void testSpecificPrintStackTrace()
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -16,6 +16,8 @@
 package org.apache.commons.lang.exception;
 
 import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
@@ -28,7 +30,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
- * @version $Id: NestableDelegateTestCase.java,v 1.8 2004/02/18 23:02:15 ggregory Exp $
+ * @version $Id: NestableDelegateTestCase.java,v 1.9 2004/10/09 10:45:24 scolebourne Exp $
  */
 public class NestableDelegateTestCase extends junit.framework.TestCase {
     private static final String CONSTRUCTOR_FAILED_MSG = 
@@ -422,13 +424,13 @@ public class NestableDelegateTestCase extends junit.framework.TestCase {
         throwables[1] = NestableDelegateTester2.class;
         throwables[2] = NestableDelegateTester1.class;
         throwables[3] = NestableDelegateTester2.class;
-        throwables[4] = Exception.class;
+        throwables[4] = EOFException.class;
         int[] indexes = {0, 1, 0, 1, 4};
         n = new NestableDelegateTester1(msgs[0], 
                 new NestableDelegateTester2(msgs[1], 
                     new NestableDelegateTester1(
                         new NestableDelegateTester2(msgs[3], 
-                            new Exception(msgs[4])
+                            new EOFException(msgs[4])
                         )
                     )
                 )
@@ -442,8 +444,12 @@ public class NestableDelegateTestCase extends junit.framework.TestCase {
         doNestableDelegateIndexOfThrowable(d, NestableDelegateTester1.class, 1, 2, msgs[2]);
         doNestableDelegateIndexOfThrowable(d, NestableDelegateTester1.class, 3, -1, null);
         doNestableDelegateIndexOfThrowable(d, NestableDelegateTester1.class, 4, -1, null);
-        doNestableDelegateIndexOfThrowable(d, Exception.class, 2, 4, msgs[4]);
+        doNestableDelegateIndexOfThrowable(d, EOFException.class, 2, 4, msgs[4]);
+        doNestableDelegateIndexOfThrowable(d, IOException.class, 2, 4, msgs[4]);
+        doNestableDelegateIndexOfThrowable(d, Exception.class, 2, 2, msgs[2]);
+        doNestableDelegateIndexOfThrowable(d, Exception.class, 0, 0, msgs[0]);
         doNestableDelegateIndexOfThrowable(d, java.util.Date.class, 0, -1, null);
+        doNestableDelegateIndexOfThrowable(d, null, 0, -1, null);
         
         // Test for index out of bounds
         try
@@ -469,7 +475,7 @@ public class NestableDelegateTestCase extends junit.framework.TestCase {
         Throwable t = null;
         
         int index = d.indexOfThrowable(type, fromIndex);
-        assertEquals("index of throwable " + type.getName(), expectedIndex, index);
+        assertEquals("index of throwable " + (type == null ? "null" : type.getName()), expectedIndex, index);
         if(expectedIndex > -1)
         {
             t = d.getThrowable(index);

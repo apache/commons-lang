@@ -16,6 +16,7 @@
 package org.apache.commons.lang.exception;
 
 import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
 import java.io.PrintStream;
 
 import junit.framework.Test;
@@ -26,7 +27,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableRuntimeException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.11 2004/02/18 23:22:29 ggregory Exp $
+ * @version $Id: NestableRuntimeExceptionTestCase.java,v 1.12 2004/10/09 10:45:24 scolebourne Exp $
  */
 public class NestableRuntimeExceptionTestCase extends AbstractNestableTestCase {
     
@@ -192,13 +193,21 @@ public class NestableRuntimeExceptionTestCase extends AbstractNestableTestCase {
      */
     public Throwable getThrowable(String msg)
     {
-        return new RuntimeException(msg);
+        return new EOFException(msg);
     }
     
     /**
      * @see AbstractNestableTestCase#getThrowableClass()
      */
     public Class getThrowableClass()
+    {
+        return EOFException.class;
+    }
+    
+    /**
+     * @see AbstractNestableTestCase#getBaseThrowableClass()
+     */
+    public Class getBaseThrowableClass()
     {
         return RuntimeException.class;
     }
