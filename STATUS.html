@@ -7,7 +7,7 @@
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Component</h1>
-$Id: STATUS.html,v 1.25 2002/11/07 19:13:26 rdonkin Exp $<br />
+$Id: STATUS.html,v 1.26 2002/11/14 22:01:27 scolebourne Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#Dependencies">[Dependencies]</a>
 <a href="#Release Info">[Release Info]</a>
@@ -85,7 +85,9 @@ still under discussion, so please mail the list before actioning.</p>
 <li>Reflection utilities - new sub-package to deal with reflection</li>
 <li>Operating system information - maybe part of SystemUtils, maybe another project</li>
 <li>MathUtils - possible addition of mathmatics helper. Could go in NumberUtils</li>
+<li>Fractions</li>
 <li>CalendarUtils - possible addition of a calendar utility class (from Serge Knystautas)</li>
+<li>DateRange</li>
 <li>CloneUtils - utility class to enable cloning via various different mechanisms. This code exists in [pattern] at present.</li>
 <li>StringUtils truncateNicely method - A substring with some extra power to choose where to cut off. It was in Avalon and was added separately to String Taglib from a code submission. This suggests it may have some commonality. [CODED]</li>
 <li>StringUtils unescape method - String Taglib has shown that this method is missing from StringUtils. It would take a String with "\n" in and convert it to the Java character. unescape and escape should be symmetric. </li>
@@ -94,6 +96,8 @@ still under discussion, so please mail the list before actioning.</p>
 <li>CharUtils - Utilities to work on a char[] in the same way as a String
 <li>AStringBuffer - A StringBuffer implementation with additional methods from StringUtils
 <li>O(n) - Document all algorithm-implementing methods with the order. Possibly with an O(n) on the end of each parameterm or with an @order tag.</li>
+<li>Money and Currency</li>
+<li>ExceptionUtils - truncated stack trace, from Dmitri</li>
 </ul>
 
 
