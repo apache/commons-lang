@@ -63,7 +63,7 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.19 2003/08/01 20:45:17 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.20 2003/08/02 18:18:33 scolebourne Exp $
  */
 public class CharSetUtils {
 
@@ -98,12 +98,14 @@ public class CharSetUtils {
      *
      * @param set  the set, may be null
      * @return a CharSet instance, <code>null</code> if null input
+     * @deprecated Use {@link CharSet#getInstance(String)}.
+     *             Method will be removed in Commons Lang 3.0.
      */
-    public static CharSet evaluateSet(String set) {
-        if (set == null) {
+    public static CharSet evaluateSet(String setStr) {
+        if (setStr == null) {
             return null;
         }
-        return new CharSet(new String[] {set}); 
+        return CharSet.getInstance(setStr); 
     }
 
     /**
@@ -125,6 +127,8 @@ public class CharSetUtils {
      *
      * @param set  the set, may be null
      * @return a CharSet instance, <code>null</code> if null input
+     * @deprecated Use {@link CharSet#getInstance(String)}.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static CharSet evaluateSet(String[] set) {
         if (set == null) {
