@@ -25,13 +25,14 @@ import org.apache.commons.lang.enums.EnumTestSuite;
 import org.apache.commons.lang.exception.ExceptionTestSuite;
 import org.apache.commons.lang.math.MathTestSuite;
 import org.apache.commons.lang.mutable.MutableTestSuite;
+import org.apache.commons.lang.text.TextTestSuite;
 import org.apache.commons.lang.time.TimeTestSuite;
 
 /**
  * Test suite for [lang].
  *
  * @author Stephen Colebourne
- * @version $Id: AllLangTestSuite.java,v 1.7 2004/07/07 23:50:28 scolebourne Exp $
+ * @version $Id: AllLangTestSuite.java,v 1.8 2004/09/05 01:42:37 bayard Exp $
  */
 public class AllLangTestSuite extends TestCase {
     
@@ -62,6 +63,7 @@ public class AllLangTestSuite extends TestCase {
         suite.addTest(ExceptionTestSuite.suite());
         suite.addTest(MathTestSuite.suite());
         suite.addTest(MutableTestSuite.suite());
+        suite.addTest(TextTestSuite.suite());
         suite.addTest(TimeTestSuite.suite());
         return suite;
     }
