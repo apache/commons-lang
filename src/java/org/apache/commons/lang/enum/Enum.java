@@ -115,7 +115,7 @@ import java.util.Map;
  * </p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: Enum.java,v 1.3 2002/10/30 21:58:18 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.4 2002/11/02 13:16:30 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
     /**
@@ -163,6 +163,9 @@ public abstract class Enum implements Comparable, Serializable {
         if (entry == null) {
             entry = new Entry();
             cEnumClasses.put(getClass().getName(), entry);
+        }
+        if (entry.map.containsKey(name)) {
+            throw new IllegalArgumentException("The Enum name must be unique, '" + name + "' has already been added");
         }
         entry.map.put(name, this);
         entry.list.add(this);
