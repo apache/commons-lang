@@ -1,5 +1,3 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 import java.util.Arrays;
 
@@ -65,13 +64,14 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Stephen Colebourne
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtilsTest.java,v 1.11 2002/12/07 21:50:30 bayard Exp $
+ * @author Holger Krauth
+ * @version $Id: StringUtilsTest.java,v 1.12 2003/01/19 18:15:38 scolebourne Exp $
  */
-public class StringUtilsTest extends TestCase
-{
+public class StringUtilsTest extends TestCase {
+
     private static final String[] ARRAY_LIST = { "foo", "bar", "baz" };
 
     private static final String SEPARATOR = ",";
@@ -108,8 +108,7 @@ public class StringUtilsTest extends TestCase
 
     //-----------------------------------------------------------------------
 
-    public void testCaseFunctions()
-    {
+    public void testCaseFunctions() {
         assertEquals("capitalise(String) failed",
                      CAP_FOO, StringUtils.capitalise(FOO) );
         assertEquals("capitalise(empty-string) failed",
@@ -144,8 +143,7 @@ public class StringUtilsTest extends TestCase
                      "Hello aPACHE", StringUtils.swapCase("hELLO Apache") );
     }
 
-    public void testJoin()
-    {
+    public void testJoin() {
         assertEquals("concatenate(Object[]) failed", 
                      "foobarbaz", StringUtils.concatenate(ARRAY_LIST));
         assertEquals("join(Object[], String) failed", TEXT_LIST,
@@ -155,8 +153,7 @@ public class StringUtilsTest extends TestCase
                                       SEPARATOR));
     }
 
-    public void testSplit()
-    {
+    public void testSplit() {
         String[] result = StringUtils.split(TEXT_LIST, SEPARATOR, 2);
         String[] expected = { "foo", "bar,baz" };
         assertEquals("split(Object[], String, int) yielded unexpected length",
@@ -193,8 +190,7 @@ public class StringUtilsTest extends TestCase
         assertEquals("split(Object[], null, int)[2] failed", "three four five six", result[2]);
     }
 
-    public void testReplaceFunctions()
-    {
+    public void testReplaceFunctions() {
         assertEquals("replace(String, String, String, int) failed",
                      FOO, StringUtils.replace("oo" + FOO, "o", "", 2));
         assertEquals("replace(String, String, String) failed",
@@ -203,29 +199,35 @@ public class StringUtilsTest extends TestCase
                      FOO, StringUtils.replaceOnce(FOO + FOO, FOO, ""));
         assertEquals("carriage-return replace(String,String,String) failed",
                      "test123", StringUtils.replace("test\r1\r2\r3", "\r", ""));
+
+        assertEquals("replace(String, String, String) failed",
+            "FOO", StringUtils.replace("FOO", "", "any"));
+        assertEquals("replace(String, String, String) failed",
+            "FOO", StringUtils.replace("FOO", null, "any"));
+        assertEquals("replace(String, String, String) failed",
+            "FOO", StringUtils.replace("FOO", "F", null));
+        assertEquals("replace(String, String, String) failed",
+            "FOO", StringUtils.replace("FOO", null, null));
+        assertEquals("replace(String, String, String) failed",
+            null, StringUtils.replace(null, "", "any"));
     }
 
-    public void testOverlayString()
-    {
+    public void testOverlayString() {
         assertEquals("overlayString(String, String, int, int) failed",
                      "foo foor baz", StringUtils.overlayString(SENTENCE, FOO, 4, 6) );
     }
 
-    public void testRepeat()
-    {
+    public void testRepeat() {
         assertEquals("repeat(String, int) failed",
                      FOO + FOO + FOO, StringUtils.repeat(FOO, 3) );
     }
 
-    public void testCenter()
-    {
+    public void testCenter() {
         assertEquals("center(String, int) failed",
                      "   "+FOO+"   ", StringUtils.center(FOO, 9) );
     }
 
-    public void testChompFunctions()
-    {
-
+    public void testChompFunctions() {
         assertEquals("chomp(String) failed",
                      FOO, StringUtils.chomp(FOO + "\n" + FOO) );
 
@@ -248,8 +250,7 @@ public class StringUtilsTest extends TestCase
                      FOO, StringUtils.chopNewline(FOO + "\r\n") );
     }
 
-    public void testPadFunctions()
-    {
+    public void testPadFunctions() {
         assertEquals("rightPad(String, int) failed",
                      "1234    ", StringUtils.rightPad ("1234", 8) );
 
