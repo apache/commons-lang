@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.9 2003/07/19 20:22:36 scolebourne Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.10 2003/07/30 00:08:38 scolebourne Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
@@ -153,11 +153,18 @@ public class StringEscapeUtilsTest extends TestCase {
             fail();
         } catch (IllegalArgumentException ex) {
         }
+        try {
+            String str = StringEscapeUtils.unescapeJava("\\u02-3");
+            fail();
+        } catch (RuntimeException ex) {
+        }
         
         assertUnescapeJava("", "");
         assertUnescapeJava("test", "test");
         assertUnescapeJava("\ntest\b", "\\ntest\\b");
         assertUnescapeJava("\u123425foo\ntest\b", "\\u123425foo\\ntest\\b");
+        assertUnescapeJava("'\foo\teste\r", "\\'\\foo\\teste\\r");
+        assertUnescapeJava("\\", "\\");
         //foo
         assertUnescapeJava("lowercase unicode", "\uABCDx", "\\uabcdx");
         assertUnescapeJava("uppercase unicode", "\uABCDx", "\\uABCDx");
@@ -174,9 +181,9 @@ public class StringEscapeUtilsTest extends TestCase {
 
         assertEquals("unescape(String) failed" +
                 (message == null ? "" : (": " + message)) +
-                ": expected '" + StringUtils.escape(expected) +
+                ": expected '" + StringEscapeUtils.escapeJava(expected) +
                 // we escape this so we can see it in the error message
-                "' actual '" + StringUtils.escape(actual) + "'",
+                "' actual '" + StringEscapeUtils.escapeJava(actual) + "'",
                 expected, actual);
 
         StringPrintWriter writer = new StringPrintWriter();
@@ -213,6 +220,7 @@ public class StringEscapeUtilsTest extends TestCase {
         {"no escaping", "plain text", "plain text"},
         {"no escaping", "plain text", "plain text"},
         {"empty string", "", ""},
+        {"null", null, null},
         {"ampersand", "bread &amp; butter", "bread & butter"},
         {"quotes", "&quot;bread&quot; &amp; butter", "\"bread\" & butter"},
         {"final character only", "greater than &gt;", "greater than >"},
@@ -241,7 +249,7 @@ public class StringEscapeUtilsTest extends TestCase {
             assertEquals(htmlEscapes[i][0], htmlEscapes[i][2], StringEscapeUtils.unescapeHtml(htmlEscapes[i][1]));
             // todo: add test for (and implement) Writer-based version
         }
-        // \u00E7 is a cedilla (ç)
+        // \u00E7 is a cedilla (c with wiggle under)
         // note that the test string must be 7-bit-clean (unicode escaped) or else it will compile incorrectly
         // on some locales
         assertEquals("funny chars pass through OK", "Fran\u00E7ais", StringEscapeUtils.unescapeHtml("Fran\u00E7ais"));
@@ -272,6 +280,9 @@ public class StringEscapeUtilsTest extends TestCase {
 
         assertEquals("ain't", StringEscapeUtils.unescapeXml("ain&apos;t"));
         assertEquals("ain&apos;t", StringEscapeUtils.escapeXml("ain't"));
+        assertEquals("", StringEscapeUtils.escapeXml(""));
+        assertEquals(null, StringEscapeUtils.escapeXml(null));
+        assertEquals(null, StringEscapeUtils.unescapeXml(null));
     }
 
     // SQL
@@ -281,6 +292,8 @@ public class StringEscapeUtilsTest extends TestCase {
     public void testEscapeSql() throws Exception
     {
         assertEquals("don''t stop", StringEscapeUtils.escapeSql("don't stop"));
+        assertEquals("", StringEscapeUtils.escapeSql(""));
+        assertEquals(null, StringEscapeUtils.escapeSql(null));
     }
 }
 
