@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.mutable;
 
-import java.io.Serializable;
+package org.apache.commons.lang.mutable;
 
 import org.apache.commons.lang.math.NumberUtils;
 
 /**
- * A mutable <code>float</code>.
+ * A mutable <code>float</code> wrapper.
  * 
+ * @see Float
  * @since 2.1
- * @version $Id: MutableFloat.java,v 1.5 2004/10/01 17:12:29 ggregory Exp $
+ * @version $Id: MutableFloat.java,v 1.6 2004/10/08 19:45:46 ggregory Exp $
  */
-public class MutableFloat extends Number
-        implements Comparable, Mutable, Serializable {
+public class MutableFloat extends Number implements Comparable, Mutable {
 
     /** Serialization lock. */
     private static final long serialVersionUID = 5787169186L;
@@ -44,7 +43,8 @@ public class MutableFloat extends Number
     /**
      * Constructs a new MutableFloat with the specified value.
      * 
-     * @param value a value.
+     * @param value
+     *            a value.
      */
     public MutableFloat(float value) {
         super();
@@ -54,8 +54,10 @@ public class MutableFloat extends Number
     /**
      * Constructs a new MutableFloat with the specified value.
      * 
-     * @param value a value.
-     * @throws NullPointerException if the object is null
+     * @param value
+     *            a value.
+     * @throws NullPointerException
+     *             if the object is null
      */
     public MutableFloat(Number value) {
         super();
@@ -75,7 +77,8 @@ public class MutableFloat extends Number
     /**
      * Sets the value.
      * 
-     * @param value  the value to set
+     * @param value
+     *            the value to set
      */
     public void setValue(float value) {
         this.value = value;
@@ -84,9 +87,12 @@ public class MutableFloat extends Number
     /**
      * Sets the value from any Number instance.
      * 
-     * @param value  the value to set
-     * @throws NullPointerException if the object is null
-     * @throws ClassCastException if the type is invalid
+     * @param value
+     *            the value to set
+     * @throws NullPointerException
+     *             if the object is null
+     * @throws ClassCastException
+     *             if the type is not a {@link Number}
      */
     public void setValue(Object value) {
         setValue(((Number) value).floatValue());
@@ -111,7 +117,7 @@ public class MutableFloat extends Number
 
     /**
      * Checks whether the float value is the special NaN value.
-     *
+     * 
      * @return true if NaN
      */
     public boolean isNaN() {
@@ -120,11 +126,49 @@ public class MutableFloat extends Number
 
     /**
      * Checks whether the float value is infinite.
-     *
+     * 
      * @return true if infinite
      */
     public boolean isInfinite() {
         return Float.isInfinite(value);
+    }
+
+    /**
+     * Compares this object against some other object. The result is <code>true</code> if and only if the argument is
+     * not <code>null</code> and is a <code>Float</code> object that represents a <code>float</code> that has the
+     * identical bit pattern to the bit pattern of the <code>float</code> represented by this object. For this
+     * purpose, two float values are considered to be the same if and only if the method
+     * {@link Float#floatToIntBits(float)}returns the same int value when applied to each.
+     * <p>
+     * Note that in most cases, for two instances of class <code>Float</code>,<code>f1</code> and <code>f2</code>,
+     * the value of <code>f1.equals(f2)</code> is <code>true</code> if and only if <blockquote>
+     * 
+     * <pre>
+     *   f1.floatValue() == f2.floatValue()
+     * </pre>
+     * 
+     * </blockquote>
+     * <p>
+     * also has the value <code>true</code>. However, there are two exceptions:
+     * <ul>
+     * <li>If <code>f1</code> and <code>f2</code> both represent <code>Float.NaN</code>, then the
+     * <code>equals</code> method returns <code>true</code>, even though <code>Float.NaN==Float.NaN</code> has
+     * the value <code>false</code>.
+     * <li>If <code>f1</code> represents <code>+0.0f</code> while <code>f2</code> represents <code>-0.0f</code>,
+     * or vice versa, the <code>equal</code> test has the value <code>false</code>, even though
+     * <code>0.0f==-0.0f</code> has the value <code>true</code>.
+     * </ul>
+     * This definition allows hashtables to operate properly.
+     * 
+     * @param obj
+     *            the object to be compared
+     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @throws ClassCastException if the argument is not a MutableFloat
+     * @see java.lang.Float#floatToIntBits(float)
+     */
+    public boolean equals(Object obj) {
+        return (obj instanceof MutableFloat)
+            && (Float.floatToIntBits(((MutableFloat) obj).value) == Float.floatToIntBits(value));
     }
 
     //-----------------------------------------------------------------------
@@ -132,21 +176,21 @@ public class MutableFloat extends Number
      * Checks if this object equals the specified object.
      * <p>
      * The object must be a MutableFloat with the same value to be equal.
-     *
-     * @param obj  the object to compare to
+     * 
+     * @param obj
+     *            the object to compare to
      * @return true if equal
      */
-    public boolean equals(Object obj) {
-        if (obj instanceof MutableFloat) {
-            float other = ((MutableFloat) obj).value;
-            return (Float.floatToIntBits(other) == Float.floatToIntBits(value));
-        }
-        return false;
-    }
-
+    //    public boolean equals(Object obj) {
+    //        if (obj instanceof MutableFloat) {
+    //            float other = ((MutableFloat) obj).value;
+    //            return (Float.floatToIntBits(other) == Float.floatToIntBits(value));
+    //        }
+    //        return false;
+    //    }
     /**
      * Returns a suitable hashcode for this mutable.
-     *
+     * 
      * @return a suitable hashcode
      */
     public int hashCode() {
@@ -155,8 +199,9 @@ public class MutableFloat extends Number
 
     /**
      * Compares this mutable to another in ascending order.
-     *
-     * @param obj  the mutable to compare to
+     * 
+     * @param obj
+     *            the mutable to compare to
      * @return negative if this is less, zero if equal, positive if greater
      */
     public int compareTo(Object obj) {
@@ -167,7 +212,7 @@ public class MutableFloat extends Number
 
     /**
      * Returns the String value of this mutable.
-     *
+     * 
      * @return the mutable value as a string
      */
     public String toString() {

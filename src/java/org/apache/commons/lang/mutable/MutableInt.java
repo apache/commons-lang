@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang.mutable;
 
-import java.io.Serializable;
-
 /**
- * A mutable <code>int</code>.
+ * A mutable <code>int</code> wrapper.
  * 
+ * @see Integer
  * @since 2.1
- * @version $Id: MutableInt.java,v 1.3 2004/10/01 17:12:29 ggregory Exp $
+ * @version $Id: MutableInt.java,v 1.4 2004/10/08 19:45:46 ggregory Exp $
  */
-public class MutableInt extends Number
-        implements Comparable, Mutable, Serializable {
+public class MutableInt extends Number implements Comparable, Mutable {
 
     /** Serialization lock. */
     private static final long serialVersionUID = 512176391864L;
@@ -42,7 +41,8 @@ public class MutableInt extends Number
     /**
      * Constructs a new MutableInt with the specified value.
      * 
-     * @param value a value.
+     * @param value
+     *                  a value.
      */
     public MutableInt(int value) {
         super();
@@ -52,8 +52,10 @@ public class MutableInt extends Number
     /**
      * Constructs a new MutableInt with the specified value.
      * 
-     * @param value a value.
-     * @throws NullPointerException if the object is null
+     * @param value
+     *                  a value.
+     * @throws NullPointerException
+     *                  if the object is null
      */
     public MutableInt(Number value) {
         super();
@@ -73,7 +75,8 @@ public class MutableInt extends Number
     /**
      * Sets the value.
      * 
-     * @param value  the value to set
+     * @param value
+     *                  the value to set
      */
     public void setValue(int value) {
         this.value = value;
@@ -82,9 +85,12 @@ public class MutableInt extends Number
     /**
      * Sets the value from any Number instance.
      * 
-     * @param value  the value to set
-     * @throws NullPointerException if the object is null
-     * @throws ClassCastException if the type is invalid
+     * @param value
+     *                  the value to set
+     * @throws NullPointerException
+     *                  if the object is null
+     * @throws ClassCastException
+     *                  if the type is not a {@link Number}
      */
     public void setValue(Object value) {
         setValue(((Number) value).intValue());
@@ -109,23 +115,24 @@ public class MutableInt extends Number
 
     //-----------------------------------------------------------------------
     /**
-     * Checks if this object equals the specified object.
-     * <p>
-     * The object must be a MutableInt with the same value to be equal.
-     *
-     * @param obj  the object to compare to
-     * @return true if equal
+     * Compares this object to the specified object. The result is <code>true</code> if and only if the argument is
+     * not <code>null</code> and is an <code>MutableInt</code> object that contains the same <code>int</code> value
+     * as this object.
+     * 
+     * @param obj
+     *                  the object to compare with.
+     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
     public boolean equals(Object obj) {
         if (obj instanceof MutableInt) {
-            return (value == ((MutableInt) obj).value);
+            return (value == ((MutableInt) obj).intValue());
         }
         return false;
     }
 
     /**
      * Returns a suitable hashcode for this mutable.
-     *
+     * 
      * @return a suitable hashcode
      */
     public int hashCode() {
@@ -134,9 +141,11 @@ public class MutableInt extends Number
 
     /**
      * Compares this mutable to another in ascending order.
-     *
-     * @param obj  the mutable to compare to
+     * 
+     * @param obj
+     *                  the mutable to compare to
      * @return negative if this is less, zero if equal, positive if greater
+     * @throws ClassCastException if the argument is not a MutableInt
      */
     public int compareTo(Object obj) {
         MutableInt other = (MutableInt) obj;
@@ -146,7 +155,7 @@ public class MutableInt extends Number
 
     /**
      * Returns the String value of this mutable.
-     *
+     * 
      * @return the mutable value as a string
      */
     public String toString() {

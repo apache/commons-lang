@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang.mutable;
 
 import java.io.Serializable;
 
 /**
- * A mutable <code>Object</code>.
+ * A mutable <code>Object</code> wrapper.
  * 
  * @since 2.1
- * @version $Id: MutableObject.java,v 1.2 2004/09/01 17:42:56 ggregory Exp $
+ * @version $Id: MutableObject.java,v 1.3 2004/10/08 19:45:46 ggregory Exp $
  */
-public class MutableObject
-        implements Mutable, Serializable {
+public class MutableObject implements Mutable, Serializable {
 
     /** Serialization lock. */
     private static final long serialVersionUID = 86241875189L;
@@ -42,7 +42,8 @@ public class MutableObject
     /**
      * Constructs a new MutableObject with the specified value.
      * 
-     * @param value a value.
+     * @param value
+     *            a value.
      */
     public MutableObject(Object value) {
         super();
@@ -62,7 +63,8 @@ public class MutableObject
     /**
      * Sets the value.
      * 
-     * @param value  the value to set
+     * @param value
+     *            the value to set
      */
     public void setValue(Object value) {
         this.value = value;
@@ -70,12 +72,14 @@ public class MutableObject
 
     //-----------------------------------------------------------------------
     /**
-     * Checks if this object equals the specified object.
-     * <p>
-     * The object must be a MutableObject with an equal value to be equal.
-     *
-     * @param obj  the object to compare to
-     * @return true if equal
+     * Compares this object against the specified object. The result is <code>true</code> if and only if the argument
+     * is not <code>null</code> and is a <code>MutableObject</code> object that contains the same <code>Object</code>
+     * value as this object.
+     * 
+     * @param obj
+     *            the object to compare with.
+     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @throws ClassCastException if the argument is not a MutableObject
      */
     public boolean equals(Object obj) {
         if (obj instanceof MutableObject) {
@@ -87,7 +91,7 @@ public class MutableObject
 
     /**
      * Returns a suitable hashcode for this mutable.
-     *
+     * 
      * @return a suitable hashcode
      */
     public int hashCode() {
@@ -96,7 +100,7 @@ public class MutableObject
 
     /**
      * Returns the String value of this mutable.
-     *
+     * 
      * @return the mutable value as a string
      */
     public String toString() {

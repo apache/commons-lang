@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.mutable;
 
-import java.io.Serializable;
+package org.apache.commons.lang.mutable;
 
 import org.apache.commons.lang.math.NumberUtils;
 
 /**
- * A mutable <code>double</code>.
+ * A mutable <code>double</code> wrapper.
  * 
+ * @see Double
  * @since 2.1
- * @version $Id: MutableDouble.java,v 1.4 2004/07/07 23:50:28 scolebourne Exp $
+ * @version $Id: MutableDouble.java,v 1.5 2004/10/08 19:45:46 ggregory Exp $
  */
-public class MutableDouble extends Number
-        implements Comparable, Mutable, Serializable {
+public class MutableDouble extends Number implements Comparable, Mutable {
 
     /** Serialization lock. */
     private static final long serialVersionUID = 1587163916L;
@@ -44,7 +43,8 @@ public class MutableDouble extends Number
     /**
      * Constructs a new MutableDouble with the specified value.
      * 
-     * @param value a value.
+     * @param value
+     *            a value.
      */
     public MutableDouble(double value) {
         super();
@@ -54,8 +54,10 @@ public class MutableDouble extends Number
     /**
      * Constructs a new MutableDouble with the specified value.
      * 
-     * @param value a value.
-     * @throws NullPointerException if the object is null
+     * @param value
+     *            a value.
+     * @throws NullPointerException
+     *             if the object is null
      */
     public MutableDouble(Number value) {
         super();
@@ -75,7 +77,8 @@ public class MutableDouble extends Number
     /**
      * Sets the value.
      * 
-     * @param value  the value to set
+     * @param value
+     *            the value to set
      */
     public void setValue(double value) {
         this.value = value;
@@ -84,9 +87,12 @@ public class MutableDouble extends Number
     /**
      * Sets the value from any Number instance.
      * 
-     * @param value  the value to set
-     * @throws NullPointerException if the object is null
-     * @throws ClassCastException if the type is invalid
+     * @param value
+     *            the value to set
+     * @throws NullPointerException
+     *             if the object is null
+     * @throws ClassCastException
+     *             if the type is not a {@link Number}
      */
     public void setValue(Object value) {
         setValue(((Number) value).doubleValue());
@@ -111,7 +117,7 @@ public class MutableDouble extends Number
 
     /**
      * Checks whether the double value is the special NaN value.
-     *
+     * 
      * @return true if NaN
      */
     public boolean isNaN() {
@@ -120,7 +126,7 @@ public class MutableDouble extends Number
 
     /**
      * Checks whether the double value is infinite.
-     *
+     * 
      * @return true if infinite
      */
     public boolean isInfinite() {
@@ -129,36 +135,57 @@ public class MutableDouble extends Number
 
     //-----------------------------------------------------------------------
     /**
-     * Checks if this object equals the specified object.
+     * Compares this object against the specified object. The result is <code>true</code> if and only if the argument
+     * is not <code>null</code> and is a <code>Double</code> object that represents a double that has the identical
+     * bit pattern to the bit pattern of the double represented by this object. For this purpose, two
+     * <code>double</code> values are considered to be the same if and only if the method
+     * {@link Double#doubleToLongBits(double)}returns the same long value when applied to each.
      * <p>
-     * The object must be a MutableDouble with the same value to be equal.
-     *
-     * @param obj  the object to compare to
-     * @return true if equal
+     * Note that in most cases, for two instances of class <code>Double</code>,<code>d1</code> and <code>d2</code>,
+     * the value of <code>d1.equals(d2)</code> is <code>true</code> if and only if <blockquote>
+     * 
+     * <pre>
+     *   d1.doubleValue()&nbsp;== d2.doubleValue()
+     * </pre>
+     * 
+     * </blockquote>
+     * <p>
+     * also has the value <code>true</code>. However, there are two exceptions:
+     * <ul>
+     * <li>If <code>d1</code> and <code>d2</code> both represent <code>Double.NaN</code>, then the
+     * <code>equals</code> method returns <code>true</code>, even though <code>Double.NaN==Double.NaN</code> has
+     * the value <code>false</code>.
+     * <li>If <code>d1</code> represents <code>+0.0</code> while <code>d2</code> represents <code>-0.0</code>,
+     * or vice versa, the <code>equal</code> test has the value <code>false</code>, even though
+     * <code>+0.0==-0.0</code> has the value <code>true</code>. This allows hashtables to operate properly.
+     * </ul>
+     * 
+     * @param obj
+     *            the object to compare with.
+     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
     public boolean equals(Object obj) {
-        if (obj instanceof MutableDouble) {
-            double other = ((MutableDouble) obj).value;
-            return (Double.doubleToLongBits(other) == Double.doubleToLongBits(value));
-        }
-        return false;
+        return (obj instanceof MutableDouble)
+            && (Double.doubleToLongBits(((MutableDouble) obj).value) == Double.doubleToLongBits(value));
     }
 
     /**
      * Returns a suitable hashcode for this mutable.
-     *
+     * 
      * @return a suitable hashcode
      */
     public int hashCode() {
         long bits = Double.doubleToLongBits(value);
-        return (int)(bits ^ (bits >>> 32));
+        return (int) (bits ^ (bits >>> 32));
     }
 
     /**
      * Compares this mutable to another in ascending order.
-     *
-     * @param obj  the mutable to compare to
+     * 
+     * @param obj
+     *            the mutable to compare to
      * @return negative if this is less, zero if equal, positive if greater
+     * @throws ClassCastException if the argument is not a MutableDouble
      */
     public int compareTo(Object obj) {
         MutableDouble other = (MutableDouble) obj;
@@ -168,7 +195,7 @@ public class MutableDouble extends Number
 
     /**
      * Returns the String value of this mutable.
-     *
+     * 
      * @return the mutable value as a string
      */
     public String toString() {
