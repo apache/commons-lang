@@ -58,7 +58,7 @@ package org.apache.commons.lang;
  * boolean and Boolean objects.</p>
  *
  * @author Stephen Colebourne
- * @version $Id: BooleanUtils.java,v 1.1 2002/12/15 16:55:32 scolebourne Exp $
+ * @version $Id: BooleanUtils.java,v 1.2 2002/12/22 21:33:12 scolebourne Exp $
  */
 public class BooleanUtils {
 
@@ -72,6 +72,24 @@ public class BooleanUtils {
     public BooleanUtils() {
     }
 
+    // Boolean utilities
+    //--------------------------------------------------------------------------
+    
+    /**
+     * <p>Negates the specified boolean.</p>
+     * 
+     * <p>If <code>null</code> is passed in, <code>null</code> will be returned.</p>
+     * 
+     * @param bool  the Boolean to negate, may be null
+     * @return the negated Boolean, or <code>null</code> if <code>null</code> passed in
+     */
+    public static Boolean negate(Boolean bool) {
+        if (bool == null) {
+            return null;
+        }
+        return (bool.booleanValue() ? Boolean.FALSE : Boolean.TRUE);
+    }
+    
     // boolean Boolean methods
     //--------------------------------------------------------------------------
     

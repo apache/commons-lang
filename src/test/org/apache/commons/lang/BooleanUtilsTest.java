@@ -61,7 +61,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.BooleanUtils}.
  *
  * @author Stephen Colebourne
- * @version $Id: BooleanUtilsTest.java,v 1.1 2002/12/15 16:55:32 scolebourne Exp $
+ * @version $Id: BooleanUtilsTest.java,v 1.2 2002/12/22 21:33:12 scolebourne Exp $
  */
 public class BooleanUtilsTest extends TestCase {
 
@@ -85,6 +85,13 @@ public class BooleanUtilsTest extends TestCase {
 
     protected void tearDown() throws Exception {
         super.tearDown();
+    }
+
+    //-----------------------------------------------------------------------
+    public void test_negate_Boolean() {
+        assertSame(null, BooleanUtils.negate(null));
+        assertSame(Boolean.TRUE, BooleanUtils.negate(Boolean.FALSE));
+        assertSame(Boolean.FALSE, BooleanUtils.negate(Boolean.TRUE));
     }
 
     //-----------------------------------------------------------------------
