@@ -63,7 +63,7 @@ import java.util.Random;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.9 2003/03/23 18:00:59 scolebourne Exp $
+ * @version $Id: RandomStringUtils.java,v 1.10 2003/04/09 14:13:03 bayard Exp $
  */
 public class RandomStringUtils {
 
@@ -246,8 +246,14 @@ public class RandomStringUtils {
      * @return the random string
      * @throws ArrayIndexOutOfBoundsException if there are not
      *  <code>(end - start) + 1</code> characters in the set array.
+     * @throws IllegalArgumentException if <code>count</code> &lt; 0.
      */
     public static String random(int count, int start, int end, boolean letters, boolean numbers, char[] set, Random random) {
+        if( count == 0 ) {
+            return "";
+        } else if( count < 0 ) {
+            throw new IllegalArgumentException("Requested random string length " + count + " is less than 0.");
+        }
         if( (start == 0) && (end == 0) ) {
             end = (int)'z';
             start = (int)' ';
