@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -75,8 +75,9 @@ import java.text.SimpleDateFormat;
  *
  * @author Brian S O'Neill
  * @author Sean Schofield
+ * @author Gary Gregory
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.2 2003/01/07 21:21:42 bayard Exp $
+ * @version $Id: FastDateFormat.java,v 1.3 2003/02/04 22:12:08 scolebourne Exp $
  */
 public class FastDateFormat {
     /** Style pattern */
@@ -86,7 +87,8 @@ public class FastDateFormat {
         MEDIUM = new Integer(SimpleDateFormat.MEDIUM),
         SHORT = new Integer(SimpleDateFormat.SHORT);
 
-    private static final double LOG_10 = Math.log(10);
+    // package scoped as used by inner class
+    static final double LOG_10 = Math.log(10);
 
     private static String cDefaultPattern;
     private static TimeZone cDefaultTimeZone = TimeZone.getDefault();
