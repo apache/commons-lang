@@ -153,62 +153,104 @@ public class DateUtilsTest extends TestCase {
         assertEquals("round second-2 failed",
                 dateTimeParser.parse("November 18, 2001 1:23:11.000"),
                 DateUtils.round(date2, Calendar.SECOND));
+                
+        try {
+            DateUtils.round((Date) null, Calendar.SECOND);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.round((Calendar) null, Calendar.SECOND);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.round((Object) null, Calendar.SECOND);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.round("", Calendar.SECOND);
+            fail();
+        } catch (ClassCastException ex) {}
     }
 
     /**
      * Tests various values with the trunc method
      */
-    public void testTrunc() throws Exception {
-        assertEquals("trunc year-1 failed",
+    public void testTruncate() throws Exception {
+        assertEquals("truncate year-1 failed",
                 dateParser.parse("January 1, 2002"),
-                DateUtils.trunc(date1, Calendar.YEAR));
-        assertEquals("trunc year-2 failed",
+                DateUtils.truncate(date1, Calendar.YEAR));
+        assertEquals("truncate year-2 failed",
                 dateParser.parse("January 1, 2001"),
-                DateUtils.trunc(date2, Calendar.YEAR));
-        assertEquals("trunc month-1 failed",
+                DateUtils.truncate(date2, Calendar.YEAR));
+        assertEquals("truncate month-1 failed",
                 dateParser.parse("February 1, 2002"),
-                DateUtils.trunc(date1, Calendar.MONTH));
-        assertEquals("trunc month-2 failed",
+                DateUtils.truncate(date1, Calendar.MONTH));
+        assertEquals("truncate month-2 failed",
                 dateParser.parse("November 1, 2001"),
-                DateUtils.trunc(date2, Calendar.MONTH));
-        assertEquals("trunc semimonth-1 failed",
+                DateUtils.truncate(date2, Calendar.MONTH));
+        assertEquals("truncate semimonth-1 failed",
                 dateParser.parse("February 1, 2002"),
-                DateUtils.trunc(date1, DateUtils.SEMI_MONTH));
-        assertEquals("trunc semimonth-2 failed",
+                DateUtils.truncate(date1, DateUtils.SEMI_MONTH));
+        assertEquals("truncate semimonth-2 failed",
                 dateParser.parse("November 16, 2001"),
-                DateUtils.trunc(date2, DateUtils.SEMI_MONTH));
-        assertEquals("trunc date-1 failed",
+                DateUtils.truncate(date2, DateUtils.SEMI_MONTH));
+        assertEquals("truncate date-1 failed",
                 dateParser.parse("February 12, 2002"),
-                DateUtils.trunc(date1, Calendar.DATE));
-        assertEquals("trunc date-2 failed",
+                DateUtils.truncate(date1, Calendar.DATE));
+        assertEquals("truncate date-2 failed",
                 dateParser.parse("November 18, 2001"),
-                DateUtils.trunc(date2, Calendar.DATE));
-        assertEquals("trunc hour-1 failed",
+                DateUtils.truncate(date2, Calendar.DATE));
+        assertEquals("truncate hour-1 failed",
                 dateTimeParser.parse("February 12, 2002 12:00:00.000"),
-                DateUtils.trunc(date1, Calendar.HOUR));
-        assertEquals("trunc hour-2 failed",
+                DateUtils.truncate(date1, Calendar.HOUR));
+        assertEquals("truncate hour-2 failed",
                 dateTimeParser.parse("November 18, 2001 1:00:00.000"),
-                DateUtils.trunc(date2, Calendar.HOUR));
-        assertEquals("trunc minute-1 failed",
+                DateUtils.truncate(date2, Calendar.HOUR));
+        assertEquals("truncate minute-1 failed",
                 dateTimeParser.parse("February 12, 2002 12:34:00.000"),
-                DateUtils.trunc(date1, Calendar.MINUTE));
-        assertEquals("trunc minute-2 failed",
+                DateUtils.truncate(date1, Calendar.MINUTE));
+        assertEquals("truncate minute-2 failed",
                 dateTimeParser.parse("November 18, 2001 1:23:00.000"),
-                DateUtils.trunc(date2, Calendar.MINUTE));
-        assertEquals("trunc second-1 failed",
+                DateUtils.truncate(date2, Calendar.MINUTE));
+        assertEquals("truncate second-1 failed",
                 dateTimeParser.parse("February 12, 2002 12:34:56.000"),
-                DateUtils.trunc(date1, Calendar.SECOND));
-        assertEquals("trunc second-2 failed",
+                DateUtils.truncate(date1, Calendar.SECOND));
+        assertEquals("truncate second-2 failed",
                 dateTimeParser.parse("November 18, 2001 1:23:11.000"),
-                DateUtils.trunc(date2, Calendar.SECOND));
+                DateUtils.truncate(date2, Calendar.SECOND));
 
+        try {
+            DateUtils.truncate((Date) null, Calendar.SECOND);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.truncate((Calendar) null, Calendar.SECOND);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.truncate((Object) null, Calendar.SECOND);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.truncate("", Calendar.SECOND);
+            fail();
+        } catch (ClassCastException ex) {}
     }
 
     /**
      * Tests the parse method, which is supposed to handle various strings
      * as flexibly as CVS supports.
      */
-    public void testParse() throws Exception {
+    public void testParseCVS() throws Exception {
+        try {
+            DateUtils.parseCVS(null);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.parseCVS("gobbledegook");
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        
         //This is difficult to test since the "now" used in the
         //  parse function cannot be controlled.  We could possibly control
         //  it by trying before and after and making sure the value we expect
@@ -219,22 +261,22 @@ public class DateUtilsTest extends TestCase {
 
         now = Calendar.getInstance();
         now.add(Calendar.MINUTE, -1);
-        assertEquals("parse 1 minute ago",
-                now, DateUtils.parse("1 minute ago"), 50);
+        assertEquals("parseCVS 1 minute ago",
+                now, DateUtils.parseCVS("1 minute ago"), 50);
         now = Calendar.getInstance();
         now.add(Calendar.MINUTE, -8);
-        assertEquals("parse 8 minutes ago",
-                now, DateUtils.parse("8 minutes ago"), 50);
+        assertEquals("parseCVS 8 minutes ago",
+                now, DateUtils.parseCVS("8 minutes ago"), 50);
 
         now = Calendar.getInstance();
         now.add(Calendar.DATE, -1);
-        assertEquals("parse yesterday",
-                now, DateUtils.parse("yesterday"), 50);
+        assertEquals("parseCVS yesterday",
+                now, DateUtils.parseCVS("yesterday"), 50);
 
         now = Calendar.getInstance();
         now.add(Calendar.DATE, 1);
-        assertEquals("parse tomorrow",
-                now, DateUtils.parse("tomorrow"), 50);
+        assertEquals("parseCVS tomorrow",
+                now, DateUtils.parseCVS("tomorrow"), 50);
 
         now = Calendar.getInstance();
         //Sunday would be 1, Saturday would be 7, so we walk back up to 6 days.
@@ -244,13 +286,13 @@ public class DateUtilsTest extends TestCase {
         } else {
             now.add(Calendar.DATE, 1 - now.get(Calendar.DAY_OF_WEEK));
         }
-        assertEquals("parse last Sunday",
-                now, DateUtils.parse("last Sunday"), 50);
+        assertEquals("parseCVS last Sunday",
+                now, DateUtils.parseCVS("last Sunday"), 50);
 
         now = Calendar.getInstance();
         now.add(Calendar.DATE, -7);
-        assertEquals("parse last week",
-                now, DateUtils.parse("last week"), 50);
+        assertEquals("parseCVS last week",
+                now, DateUtils.parseCVS("last week"), 50);
 
         now = Calendar.getInstance();
         //January would be 0, December would be 11, so we walk back up to 11 months
@@ -260,8 +302,30 @@ public class DateUtilsTest extends TestCase {
         } else {
             now.add(Calendar.MONTH, 0 - now.get(Calendar.MONTH));
         }
-        assertEquals("parse last January",
-                now, DateUtils.parse("last January"), 50);
+        assertEquals("parseCVS last January",
+                now, DateUtils.parseCVS("last January"), 50);
+    }
+
+    /**
+     * Tests the iterator exceptions
+     */
+    public void testIteratorEx() throws Exception {
+        try {
+            DateUtils.iterator((Date) null, DateUtils.RANGE_WEEK_CENTER);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.iterator((Calendar) null, DateUtils.RANGE_WEEK_CENTER);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.iterator((Object) null, DateUtils.RANGE_WEEK_CENTER);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.iterator("", DateUtils.RANGE_WEEK_CENTER);
+            fail();
+        } catch (ClassCastException ex) {}
     }
 
     /**
@@ -270,51 +334,51 @@ public class DateUtilsTest extends TestCase {
     public void testWeekIterator() throws Exception {
         Calendar now = Calendar.getInstance();
         for (int i = 0; i< 7; i++) {
-            Calendar today = DateUtils.trunc(now, Calendar.DATE);
-            Calendar sunday = DateUtils.trunc(now, Calendar.DATE);
+            Calendar today = DateUtils.truncate(now, Calendar.DATE);
+            Calendar sunday = DateUtils.truncate(now, Calendar.DATE);
             sunday.add(Calendar.DATE, 1 - sunday.get(Calendar.DAY_OF_WEEK));
-            Calendar monday = DateUtils.trunc(now, Calendar.DATE);
+            Calendar monday = DateUtils.truncate(now, Calendar.DATE);
             if (monday.get(Calendar.DAY_OF_WEEK) == 1) {
                 //This is sunday... roll back 6 days
                 monday.add(Calendar.DATE, -6);
             } else {
                 monday.add(Calendar.DATE, 2 - monday.get(Calendar.DAY_OF_WEEK));
             }
-            Calendar centered = DateUtils.trunc(now, Calendar.DATE);
+            Calendar centered = DateUtils.truncate(now, Calendar.DATE);
             centered.add(Calendar.DATE, -3);
             
-            Iterator it = DateUtils.getCalendarIterator(now, DateUtils.RANGE_WEEK_SUNDAY);
+            Iterator it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_SUNDAY);
             assertWeekIterator(it, sunday);
-            it = DateUtils.getCalendarIterator(now, DateUtils.RANGE_WEEK_MONDAY);
+            it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_MONDAY);
             assertWeekIterator(it, monday);
-            it = DateUtils.getCalendarIterator(now, DateUtils.RANGE_WEEK_RELATIVE);
+            it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_RELATIVE);
             assertWeekIterator(it, today);
-            it = DateUtils.getCalendarIterator(now, DateUtils.RANGE_WEEK_CENTER);
+            it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_CENTER);
             assertWeekIterator(it, centered);
             now.add(Calendar.DATE,1);
         }
     }
-
+            
     /**
      * Tests the calendar iterator for month-based ranges
      */
     public void testMonthIterator() throws Exception {
-        Iterator it = DateUtils.getCalendarIterator(date1, DateUtils.RANGE_MONTH_SUNDAY);
+        Iterator it = DateUtils.iterator(date1, DateUtils.RANGE_MONTH_SUNDAY);
         assertWeekIterator(it,
                 dateParser.parse("January 27, 2002"),
                 dateParser.parse("March 2, 2002"));
 
-        it = DateUtils.getCalendarIterator(date1, DateUtils.RANGE_MONTH_MONDAY);
+        it = DateUtils.iterator(date1, DateUtils.RANGE_MONTH_MONDAY);
         assertWeekIterator(it,
                 dateParser.parse("January 28, 2002"),
                 dateParser.parse("March 3, 2002"));
 
-        it = DateUtils.getCalendarIterator(date2, DateUtils.RANGE_MONTH_SUNDAY);
+        it = DateUtils.iterator(date2, DateUtils.RANGE_MONTH_SUNDAY);
         assertWeekIterator(it,
                 dateParser.parse("October 28, 2001"),
                 dateParser.parse("December 1, 2001"));
 
-        it = DateUtils.getCalendarIterator(date2, DateUtils.RANGE_MONTH_MONDAY);
+        it = DateUtils.iterator(date2, DateUtils.RANGE_MONTH_MONDAY);
         assertWeekIterator(it,
                 dateParser.parse("October 29, 2001"),
                 dateParser.parse("December 2, 2001"));
@@ -355,7 +419,7 @@ public class DateUtilsTest extends TestCase {
         int count = 1;
         while (it.hasNext()) {
             //Check this is just a date (no time component)
-            assertEquals("", cal, DateUtils.trunc(cal, Calendar.DATE), 0);
+            assertEquals("", cal, DateUtils.truncate(cal, Calendar.DATE), 0);
 
             last = cal;
             cal = (Calendar) it.next();
