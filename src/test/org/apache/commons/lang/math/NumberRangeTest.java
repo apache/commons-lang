@@ -24,7 +24,7 @@ import junit.framework.TestSuite;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Stephen Colebourne
- * @version $Id: NumberRangeTest.java,v 1.5 2004/02/18 23:02:38 ggregory Exp $
+ * @version $Id$
  */
 public final class NumberRangeTest extends AbstractRangeTest {
 

@@ -28,7 +28,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Matthew Hawthorne
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.19 2004/10/08 21:27:00 scolebourne Exp $
+ * @version $Id$
  */
 public class BooleanUtils {
 

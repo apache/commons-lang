@@ -25,7 +25,7 @@ import junit.textui.TestRunner;
  * 
  * @author Matthew Hawthorne
  * @author Stephen Colebourne
- * @version $Id: NullArgumentExceptionTest.java,v 1.5 2004/10/15 23:10:33 scolebourne Exp $
+ * @version $Id$
  * @see NullArgumentException
  */
 public class NullArgumentExceptionTest extends TestCase {

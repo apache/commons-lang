@@ -31,7 +31,7 @@ import java.math.BigInteger;
  * @author Pete Gieser
  * @author C. Scott Ananian
  * @since 2.0
- * @version $Id: Fraction.java,v 1.14 2004/07/11 23:20:17 psteitz Exp $
+ * @version $Id$
  */
 public final class Fraction extends Number implements Serializable, Comparable {
 

@@ -29,7 +29,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link Enum} class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumUtilsTest.java,v 1.7 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id$
  */
 
 public final class EnumUtilsTest extends TestCase {

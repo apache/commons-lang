@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  * Tests ArrayUtils remove and removeElement methods.
  * 
  * @author Maarten Coene
- * @version $Id: ArrayUtilsRemoveTest.java,v 1.1 2004/06/06 03:53:24 bayard Exp $
+ * @version $Id$
  */
 public class ArrayUtilsRemoveTest extends TestCase {
     public static void main(String[] args) {

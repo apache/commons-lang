@@ -63,7 +63,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Pete Gieser
  * @author Masato Tezuka
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.36 2004/12/28 23:13:03 scolebourne Exp $
+ * @version $Id$
  */
 public abstract class ToStringStyle implements Serializable {
 

@@ -26,7 +26,7 @@ import java.util.Map;
  * See NestedLinked for an alternative.
  *
  * @author Stephen Colebourne
- * @version $Id: NestReferenced.java,v 1.2 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id$
  */
 
 public final class NestReferenced {

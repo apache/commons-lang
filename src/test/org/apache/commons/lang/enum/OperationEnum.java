@@ -23,7 +23,7 @@ import java.util.Map;
  * Operator enumeration.
  *
  * @author Stephen Colebourne
- * @version $Id: OperationEnum.java,v 1.7 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id$
  */
 public abstract class OperationEnum extends Enum {
     // This syntax works for JDK 1.3 and upwards:

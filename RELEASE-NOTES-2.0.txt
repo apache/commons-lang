@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES-2.0.txt,v 1.1 2004/02/23 04:36:06 ggregory Exp $
+$Id$
 
                         Commons Lang Package
                             Version 2.0

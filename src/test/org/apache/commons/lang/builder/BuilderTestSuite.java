@@ -23,7 +23,7 @@ import junit.textui.TestRunner;
  * Test suite for the Lang Builder package.
  *
  * @author Stephen Colebourne
- * @version $Id: BuilderTestSuite.java,v 1.8 2004/12/28 23:13:03 scolebourne Exp $
+ * @version $Id$
  */
 public class BuilderTestSuite extends TestCase {
     

@@ -24,7 +24,7 @@ import junit.framework.TestSuite;
  *
  * @author Stephen Colebourne
  * @author C. Scott Ananian
- * @version $Id: FractionTest.java,v 1.8 2004/12/25 19:43:51 bayard Exp $
+ * @version $Id$
  */
 public class FractionTest extends TestCase {
     

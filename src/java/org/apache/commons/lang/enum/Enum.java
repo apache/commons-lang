@@ -233,7 +233,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.30 2004/12/12 22:36:20 ggregory Exp $
+ * @version $Id$
  */
 public abstract class Enum implements Comparable, Serializable {
 

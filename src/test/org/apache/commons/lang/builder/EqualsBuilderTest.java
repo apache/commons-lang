@@ -29,7 +29,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Maarten Coene
- * @version $Id: EqualsBuilderTest.java,v 1.13 2005/01/17 01:59:52 ggregory Exp $
+ * @version $Id$
  */
 public class EqualsBuilderTest extends TestCase {
 

@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * Test suite for the Text package.
  *
  * @author Stephen Colebourne
- * @version $Id: TextTestSuite.java,v 1.2 2004/10/06 22:29:24 scolebourne Exp $
+ * @version $Id$
  */
 public class TextTestSuite extends TestCase {
     

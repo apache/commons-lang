@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * JUnit tests.
  * 
  * @author Matthew Hawthorne
- * @version $Id: IncompleteArgumentExceptionTest.java,v 1.3 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  * @see IncompleteArgumentException
  */
 public class IncompleteArgumentExceptionTest extends TestCase {

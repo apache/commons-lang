@@ -24,7 +24,7 @@ import java.io.Serializable;
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author Stephen Colebourne
  * @since 2.0 (previously in org.apache.commons.lang)
- * @version $Id: NumberRange.java,v 1.7 2004/02/18 22:56:13 ggregory Exp $
+ * @version $Id$
  */
 public final class NumberRange extends Range implements Serializable {
     

@@ -23,7 +23,7 @@ import java.util.Map;
  * Broken Operator enumeration, getEnumClass() is not an Enum class.
  *
  * @author Stephen Colebourne
- * @version $Id: Broken5OperationEnum.java,v 1.3 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id$
  */
 public abstract class Broken5OperationEnum extends Enum {
     // This syntax works for JDK 1.3 and upwards:

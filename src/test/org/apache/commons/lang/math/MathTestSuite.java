@@ -23,7 +23,7 @@ import junit.textui.TestRunner;
  * Test suite for the Math package.
  *
  * @author Stephen Colebourne
- * @version $Id: MathTestSuite.java,v 1.6 2004/02/18 23:02:38 ggregory Exp $
+ * @version $Id$
  */
 public class MathTestSuite extends TestCase {
     

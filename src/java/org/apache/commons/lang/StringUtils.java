@@ -111,7 +111,7 @@ import java.util.List;
  * @author Al Chou
  * @author Michael Davey
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.137 2004/12/18 02:48:01 bayard Exp $
+ * @version $Id$
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)

@@ -39,7 +39,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  *
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: UnhandledException.java,v 1.6 2004/10/15 20:55:01 scolebourne Exp $
+ * @version $Id$
  */
 public class UnhandledException extends NestableRuntimeException {
 

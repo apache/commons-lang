@@ -61,7 +61,7 @@ import java.util.TimeZone;
  * @author Stephen Colebourne
  * @author Nikolay Metchev
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.22 2004/10/08 00:09:01 scolebourne Exp $
+ * @version $Id$
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes

@@ -30,7 +30,7 @@ import java.io.UnsupportedEncodingException;
  * @see <a href="http://java.sun.com/j2se/1.3/docs/api/java/lang/package-summary.html#charenc">JRE character encoding names</a>
  * @author Apache Software Foundation
  * @since 2.1
- * @version $Id: CharEncoding.java,v 1.2 2004/10/06 21:40:09 scolebourne Exp $
+ * @version $Id$
  */
 public class CharEncoding {
 

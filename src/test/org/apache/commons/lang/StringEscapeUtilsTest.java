@@ -29,7 +29,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.15 2004/10/16 18:52:21 scolebourne Exp $
+ * @version $Id$
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";

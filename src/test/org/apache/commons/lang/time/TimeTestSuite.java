@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * Test suite for the Time package.
  *
  * @author Stephen Colebourne
- * @version $Id: TimeTestSuite.java,v 1.6 2004/02/18 23:03:03 ggregory Exp $
+ * @version $Id$
  */
 public class TimeTestSuite extends TestCase {
     

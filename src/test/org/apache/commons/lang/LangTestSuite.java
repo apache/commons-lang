@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
  * @author Stephen Colebourne
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.29 2004/10/02 01:46:30 bayard Exp $
+ * @version $Id$
  */
 public class LangTestSuite extends TestCase {
     

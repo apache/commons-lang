@@ -42,7 +42,7 @@ import java.util.Arrays;
  * 
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: IncompleteArgumentException.java,v 1.7 2004/10/15 20:55:01 scolebourne Exp $
+ * @version $Id$
  */
 public class IncompleteArgumentException extends IllegalArgumentException {
 

@@ -40,7 +40,7 @@ package org.apache.commons.lang;
  * @author Matthew Hawthorne
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: NullArgumentException.java,v 1.8 2004/10/15 20:55:01 scolebourne Exp $
+ * @version $Id$
  */
 public class NullArgumentException extends IllegalArgumentException {
 

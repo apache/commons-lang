@@ -27,7 +27,7 @@ import java.io.Serializable;
  * @author Chris Feldhacker
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharRange.java,v 1.17 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id$
  */
 public final class CharRange implements Serializable {
 

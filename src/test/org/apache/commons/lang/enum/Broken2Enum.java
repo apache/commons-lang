@@ -23,7 +23,7 @@ import java.util.Map;
  * Broken color enumeration.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: Broken2Enum.java,v 1.4 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id$
  */
 public final class Broken2Enum extends Enum {
     public static final Broken2Enum RED = new Broken2Enum("Red");

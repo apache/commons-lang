@@ -28,7 +28,7 @@ import java.util.Map;
  * referenced.
  *
  * @author Stephen Colebourne
- * @version $Id: NestBroken.java,v 1.2 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id$
  */
 
 public final class NestBroken {

@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * JUnit tests.
  * 
  * @author Matthew Hawthorne
- * @version $Id: IllegalClassExceptionTest.java,v 1.4 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  * @see IllegalClassException
  */
 public class IllegalClassExceptionTest extends TestCase {

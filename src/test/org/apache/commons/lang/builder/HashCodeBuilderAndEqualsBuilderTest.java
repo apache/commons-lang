@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
  * objects must have equal hash codes.
  * 
  * @author Gary Gregory
- * @version $Id: HashCodeBuilderAndEqualsBuilderTest.java,v 1.5 2004/02/18 23:00:51 ggregory Exp $
+ * @version $Id$
  */
 public class HashCodeBuilderAndEqualsBuilderTest extends TestCase {
 

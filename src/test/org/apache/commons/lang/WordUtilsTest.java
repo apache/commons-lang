@@ -28,7 +28,7 @@ import junit.framework.TestSuite;
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Henri Yandell
  * @author Stephen Colebourne
- * @version $Id: WordUtilsTest.java,v 1.8 2004/10/08 22:10:23 scolebourne Exp $
+ * @version $Id$
  */
 public class WordUtilsTest extends TestCase {
 

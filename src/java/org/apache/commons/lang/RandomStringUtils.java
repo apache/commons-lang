@@ -26,7 +26,7 @@ import java.util.Random;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.27 2004/02/18 22:59:49 ggregory Exp $
+ * @version $Id$
  */
 public class RandomStringUtils {
 

@@ -33,7 +33,7 @@ import java.util.Set;
  * @author Pete Gieser
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSet.java,v 1.22 2004/02/18 22:59:49 ggregory Exp $
+ * @version $Id$
  */
 public class CharSet implements Serializable {
 

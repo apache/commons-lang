@@ -39,7 +39,7 @@ package org.apache.commons.lang;
  * @author Gary Gregory
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: IllegalClassException.java,v 1.7 2004/10/15 20:55:01 scolebourne Exp $
+ * @version $Id$
  */
 public class IllegalClassException extends IllegalArgumentException {
 

@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * Test case for ToStringStyle.
  * 
  * @author Masato Tezuka
- * @version $Id: ToStringStyleTest.java,v 1.1 2004/12/28 23:13:03 scolebourne Exp $
+ * @version $Id$
  */
 public class ToStringStyleTest extends TestCase {
 

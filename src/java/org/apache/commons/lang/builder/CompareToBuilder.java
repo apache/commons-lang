@@ -85,7 +85,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.26 2004/07/01 17:52:07 ggregory Exp $
+ * @version $Id$
  */
 public class CompareToBuilder {
     

@@ -36,7 +36,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Phil Steitz
  * @author Pete Gieser
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.30 2004/10/07 22:45:27 scolebourne Exp $
+ * @version $Id$
  */
 public class StringEscapeUtils {
 

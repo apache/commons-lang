@@ -77,7 +77,7 @@ import java.lang.reflect.Modifier;
  * @author Pete Gieser
  * @author Arun Mammen Thomas
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.28 2004/10/16 17:27:11 scolebourne Exp $
+ * @version $Id$
  */
 public class EqualsBuilder {
     

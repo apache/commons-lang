@@ -30,7 +30,7 @@ import java.util.Map;
  * class load of the outer class, which is needed to initialise the enums.
  *
  * @author Stephen Colebourne
- * @version $Id: NestLinked.java,v 1.2 2004/02/18 23:01:51 ggregory Exp $
+ * @version $Id$
  */
 
 public final class NestLinked {

@@ -50,7 +50,7 @@ import java.util.Iterator;
  *
  * @author Stephen Colebourne
  * @since 2.1
- * @version $Id: StrBuilder.java,v 1.1 2004/10/16 15:09:52 scolebourne Exp $
+ * @version $Id$
  */
 public class StrBuilder implements Cloneable {
 

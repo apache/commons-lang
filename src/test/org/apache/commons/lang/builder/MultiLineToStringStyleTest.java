@@ -28,7 +28,7 @@ import org.apache.commons.lang.SystemUtils;
  * Unit tests {@link org.apache.commons.lang.builder.MultiLineToStringStyleTest}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: MultiLineToStringStyleTest.java,v 1.8 2004/02/18 23:22:30 ggregory Exp $
+ * @version $Id$
  */
 public class MultiLineToStringStyleTest extends TestCase {
 

@@ -32,7 +32,7 @@ import org.apache.commons.lang.time.TimeTestSuite;
  * Test suite for [lang].
  *
  * @author Stephen Colebourne
- * @version $Id: AllLangTestSuite.java,v 1.8 2004/09/05 01:42:37 bayard Exp $
+ * @version $Id$
  */
 public class AllLangTestSuite extends TestCase {
     

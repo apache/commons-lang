@@ -25,7 +25,7 @@ import junit.framework.TestCase;
  * interface.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: AbstractNestableTestCase.java,v 1.7 2004/10/09 10:45:24 scolebourne Exp $
+ * @version $Id$
  */
 public abstract class AbstractNestableTestCase extends TestCase
 {

@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: EntitiesTest.java,v 1.9 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id$
  */
 public class EntitiesTest extends TestCase
 {
