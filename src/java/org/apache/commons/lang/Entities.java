@@ -67,7 +67,7 @@ import java.util.*;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.8 2003/05/24 15:28:38 alex Exp $
+ * @version $Id: Entities.java,v 1.9 2003/06/29 03:02:29 alex Exp $
  */
 class Entities {
 
@@ -81,6 +81,8 @@ class Entities {
     static String[][] apos = {
         {"apos", "39"}, // XML apostrophe
     };
+
+    //todo: load these from a DTD file
 
     static String[][] iso8859_1 = {
         {"nbsp", "160"}, // non-breaking space
@@ -366,8 +368,19 @@ class Entities {
         {"euro", "8364"}, //  -- euro sign, U+20AC NEW -->
     };
 
+    /**
+     * The set of entities supported by standard XML
+     */
     public static final Entities XML;
+
+    /**
+     * The set of entities supported by HTML 3.2
+     */
     public static final Entities HTML32;
+
+    /**
+     * The set of entities supported by HTML 4.0
+     */
     public static final Entities HTML40;
 
     static {
@@ -393,7 +406,7 @@ class Entities {
         entities.addEntities(html40);
     }
 
-    static interface IntMap {
+    static interface EntityMap {
         void add(String name, int value);
 
         String name(int value);
@@ -401,7 +414,29 @@ class Entities {
         int value(String name);
     }
 
-    static abstract class MapIntMap implements IntMap {
+    static class PrimitiveEntityMap implements EntityMap {
+        private Map mapNameToValue = new HashMap();
+        private IntHashMap mapValueToName = new IntHashMap();
+
+        public void add(String name, int value) {
+            mapNameToValue.put(name, new Integer(value));
+            mapValueToName.put(value, name);
+        }
+
+        public String name(int value) {
+            return (String) mapValueToName.get(value);
+        }
+
+        public int value(String name) {
+            Object value = mapNameToValue.get(name);
+            if (value == null)
+                return -1;
+            return ((Integer) value).intValue();
+        }
+    }
+
+
+    static abstract class MapIntMap implements Entities.EntityMap {
         protected Map mapNameToValue;
         protected Map mapValueToName;
 
@@ -422,32 +457,58 @@ class Entities {
         }
     }
 
-    static class HashIntMap extends MapIntMap {
-        public HashIntMap() {
+    static class HashEntityMap extends MapIntMap {
+        public HashEntityMap() {
             mapNameToValue = new HashMap();
             mapValueToName = new HashMap();
         }
     }
 
-    static class TreeIntMap extends MapIntMap {
-        public TreeIntMap() {
+    static class TreeEntityMap extends MapIntMap {
+        public TreeEntityMap() {
             mapNameToValue = new TreeMap();
             mapValueToName = new TreeMap();
         }
     }
 
-    static class ArrayIntMap implements IntMap {
+    static class LookupEntityMap extends PrimitiveEntityMap {
+        private String[] lookupTable;
+        private int LOOKUP_TABLE_SIZE = 256;
+
+        public String name(int value) {
+            if (value < LOOKUP_TABLE_SIZE) {
+                return lookupTable()[value];
+            }
+            return super.name(value);
+        }
+
+        private String[] lookupTable() {
+            if (lookupTable == null) {
+                createLookupTable();
+            }
+            return lookupTable;
+        }
+
+        private void createLookupTable() {
+            lookupTable = new String[LOOKUP_TABLE_SIZE];
+            for (int i = 0; i < LOOKUP_TABLE_SIZE; ++i) {
+                lookupTable[i] = super.name(i);
+            }
+        }
+    }
+
+    static class ArrayEntityMap implements EntityMap {
         protected int growBy = 100;
         protected int size = 0;
         protected String[] names;
         protected int[] values;
 
-        public ArrayIntMap() {
+        public ArrayEntityMap() {
             names = new String[growBy];
             values = new int[growBy];
         }
 
-        public ArrayIntMap(int growBy) {
+        public ArrayEntityMap(int growBy) {
             this.growBy = growBy;
             names = new String[growBy];
             values = new int[growBy];
@@ -491,12 +552,12 @@ class Entities {
         }
     }
 
-    static class BinaryIntMap extends ArrayIntMap {
+    static class BinaryEntityMap extends ArrayEntityMap {
 
-        public BinaryIntMap() {
+        public BinaryEntityMap() {
         }
 
-        public BinaryIntMap(int growBy) {
+        public BinaryEntityMap(int growBy) {
             super(growBy);
         }
 
@@ -538,7 +599,7 @@ class Entities {
         }
     }
 
-    IntMap map = new BinaryIntMap();
+    EntityMap map = new Entities.LookupEntityMap();
 
     public void addEntities(String[][] entityArray) {
         for (int i = 0; i < entityArray.length; ++i) {
@@ -568,6 +629,7 @@ class Entities {
      * @return A new escaped <code>String</code>.
      */
     public String escape(String str) {
+        //todo: rewrite to use a Writer
         StringBuffer buf = new StringBuffer(str.length() * 2);
         int i;
         for (i = 0; i < str.length(); ++i) {
