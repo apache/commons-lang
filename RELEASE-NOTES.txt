@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.18 2003/08/02 18:28:19 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.19 2003/08/16 02:31:36 bayard Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -167,6 +167,14 @@ ID Sev Pri Plt Owner State Result Summary
 21809  [lang] maven-beta10 checkstyle problem
 21904  NumberUtils.createBigDecimal("") NPE in Sun 1.3.1_08
 21952  [lang] Improved tests, javadoc for CharSetUtils, StringEscapeUtils
+22091  Adding tolerance to double[] search methods in ArrayUtils
+22094  A small, but important javadoc fix for Fraction proper whole/numerator
+22095  [lang] Javadoc, tests improvements for CharSet, CharSetUtils
+22098  [lang] Improve util.Validate tests
+22245  [lang] test.time fails in Japanese (non-us) locale.
+22286  [lang] Missing @since tags
+22367  Typo in documentation
+22386  [lang] Improve javadoc and overflow behavior of Fraction
 
 
 DEPRECATIONS:
