@@ -48,7 +48,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.30 2004/06/30 18:21:49 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.31 2004/07/01 17:10:47 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -230,8 +230,7 @@ public abstract class ToStringStyle implements Serializable {
      * <p>Append to the <code>toString</code> the start of data indicator.</p>
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
-     * @param object  the <code>Object</code> to build a
-     *  <code>toString</code> for, must not be <code>null</code>
+     * @param object  the <code>Object</code> to build a <code>toString</code> for
      */
     public void appendStart(StringBuffer buffer, Object object) {
         if (object != null) {
