@@ -94,13 +94,12 @@ import org.apache.commons.lang.ClassUtils;
  *
  * @deprecated Replaced by {@link org.apache.commons.lang.enums.ValuedEnum org.apache.commons.lang.enums.ValuedEnum}
  *          and will be removed in version 3.0. All classes in this package are deprecated and repackaged to 
- *          <a href="../enums/package-summary.html">org.apache.commons.lang.enums</a> since <code>enum</code> 
- *          is a Java 1.5 keyword. 
+ *          {@link org.apache.commons.lang.enums} since <code>enum</code> is a Java 1.5 keyword. 
  * @see org.apache.commons.lang.enums.ValuedEnum
  * @author Apache Avalon project
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.16 2004/02/23 04:34:20 ggregory Exp $
+ * @version $Id: ValuedEnum.java,v 1.17 2004/09/30 17:24:47 ggregory Exp $
  */
 public abstract class ValuedEnum extends Enum {
     

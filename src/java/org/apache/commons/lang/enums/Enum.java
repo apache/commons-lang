@@ -37,7 +37,7 @@ import org.apache.commons.lang.StringUtils;
  * however that a more robust type-safe class-based solution can be designed. This
  * class follows the basic Java type-safe enumeration pattern.</p>
  *
- * <p><em>NOTE:</em>Due to the way in which Java ClassLoaders work, comparing
+ * <p><em>NOTE:</em> Due to the way in which Java ClassLoaders work, comparing
  * Enum objects should always be done using <code>equals()</code>, not <code>==</code>.
  * The equals() method will try == first so in most cases the effect is the same.</p>
  * 
@@ -230,7 +230,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Mike Bowler
  * @author Matthias Eichel
  * @since 2.1 (class existed in enum package from v1.0)
- * @version $Id: Enum.java,v 1.2 2004/06/01 20:54:57 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.3 2004/09/30 17:24:47 ggregory Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
 
