@@ -65,7 +65,7 @@ import java.io.Writer;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableDelegate.java,v 1.7 2002/08/25 19:02:49 dlr Exp $
+ * @version $Id: NestableDelegate.java,v 1.8 2002/08/25 19:09:38 dlr Exp $
  */
 public class NestableDelegate
 {
@@ -77,23 +77,24 @@ public class NestableDelegate
         + "constructor must extend java.lang.Throwable";
 
     /**
-     * Holds the reference to the exception or error that caused this
-     * exception to be thrown.
+     * Holds the reference to the exception or error that we're
+     * wrapping (which must be a {@link
+     * org.apache.commons.lang.exception.Nestable} implementation).
      */
-    private Throwable cause = null;
+    private Throwable nestable = null;
 
     /**
      * Constructs a new <code>NestableDelegate</code> instance to manage the
      * specified <code>Nestable</code>.
      *
-     * @param cause the Nestable implementation (<i>must</i> extend
+     * @param nestable the Nestable implementation (<i>must</i> extend
      * {@link java.lang.Throwable})
      */
-    NestableDelegate(Nestable cause) // package
+    NestableDelegate(Nestable nestable) // package
     {
-        if (cause instanceof Throwable)
+        if (nestable instanceof Throwable)
         {
-            this.cause = (Throwable) cause;
+            this.nestable = (Throwable) nestable;
         }
         else
         {
@@ -146,7 +147,7 @@ public class NestableDelegate
             msg.append(baseMsg);
         }
 
-        Throwable nestedCause = ExceptionUtils.getCause(this.cause);
+        Throwable nestedCause = ExceptionUtils.getCause(this.nestable);
         if (nestedCause != null)
         {
             String causeMsg = nestedCause.getMessage();
@@ -201,7 +202,7 @@ public class NestableDelegate
     {
         if(index == 0)
         {
-            return this.cause;
+            return this.nestable;
         }
         Throwable[] throwables = this.getThrowables();
         return throwables[index];
@@ -215,7 +216,7 @@ public class NestableDelegate
      */
     int getThrowableCount() // package
     {
-        return ExceptionUtils.getThrowableCount(this.cause);
+        return ExceptionUtils.getThrowableCount(this.nestable);
     }
     
     /**
@@ -227,7 +228,7 @@ public class NestableDelegate
      */
     Throwable[] getThrowables() // package
     {
-        return ExceptionUtils.getThrowables(this.cause);
+        return ExceptionUtils.getThrowables(this.nestable);
     }
 
     /**
@@ -247,7 +248,7 @@ public class NestableDelegate
      */
     int indexOfThrowable(Class type, int fromIndex) // package
     {
-        return ExceptionUtils.indexOfThrowable(this.cause, type, fromIndex);
+        return ExceptionUtils.indexOfThrowable(this.nestable, type, fromIndex);
     }
     
     /**
@@ -287,8 +288,8 @@ public class NestableDelegate
     {
         synchronized (out)
         {
-            String[] st = getStackFrames(this.cause);
-            Throwable nestedCause = ExceptionUtils.getCause(this.cause);
+            String[] st = getStackFrames(this.nestable);
+            Throwable nestedCause = ExceptionUtils.getCause(this.nestable);
             if (nestedCause != null)
             {
                 if (nestedCause instanceof Nestable)
