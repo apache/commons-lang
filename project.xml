@@ -3,7 +3,7 @@
   <extend>../project.xml</extend>
   <id>commons-lang</id>
   <name>Lang</name>
-  <currentVersion>2.0</currentVersion>
+  <currentVersion>2.1-dev</currentVersion>
 
   <organization>
     <name>Apache Software Foundation</name>
@@ -38,6 +38,7 @@
       <id>scolebourne</id>
       <email>scolebourne@joda.org</email>
       <organization>SITA ATS Ltd</organization>
+      <timezone>00:00</timezone>
       <roles>
         <role>Java Developer</role>
       </roles>
@@ -74,7 +75,7 @@
       <id>ggregory</id>
       <email>ggregory@seagullsw.com</email>
       <organization>Seagull Software</organization>
-      <timezone>-8</timezone>
+      <timezone>-08:00</timezone>
       <roles>
         <role>Java Developer</role>
       </roles>
