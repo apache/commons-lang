@@ -76,7 +76,7 @@ import java.lang.reflect.Modifier;
  *   int age;
  *   boolean isSmoker;
  *   ...
- * 
+ *
  *   public int hashCode() {
  *     // you pick a hard-coded, randomly chosen, non-zero, odd number
  *     // ideally different for each class
@@ -88,29 +88,29 @@ import java.lang.reflect.Modifier;
  *   }
  * }
  * </pre>
- * 
+ *
  * <p>If required, the superclass hashCode can be added using {@link #appendSuper}.</p>
  *
  * <p>Alternatively, there is a method that uses reflection to determine
- * the fields to test. Because these fields are usually private, the method, 
+ * the fields to test. Because these fields are usually private, the method,
  * <code>reflectionHashCode</code>, uses <code>Field.setAccessible</code> to
- * change the visibility of the fields. This will fail under a security manager, 
+ * change the visibility of the fields. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly. It is also slower
  * than testing explicitly.</p>
  *
  * <p>A typical invocation for this method would look like:</p>
  * <pre>
- * public boolean hashCode(Object o) {
+ * public int hashCode() {
  *   return HashCodeBuilder.reflectionHashCode(this);
  * }
  * </pre>
- * 
+ *
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.7 2002/12/23 00:20:31 scolebourne Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.8 2003/01/15 20:51:57 bayard Exp $
  */
 public class HashCodeBuilder {
-    
+
     /**
      * Constant to use in building the hashCode
      */
@@ -119,7 +119,7 @@ public class HashCodeBuilder {
      * Running total of the hashCode
      */
     private int iTotal = 0;
-    
+
     /**
      * <p>Constructor for HashCodeBuilder.</p>
      *
@@ -131,7 +131,7 @@ public class HashCodeBuilder {
         iConstant = 37;
         iTotal = 17;
     }
-    
+
     /**
      * <p>Constructor for <code>HashCodeBuilder</code>.</p>
      *
@@ -140,7 +140,7 @@ public class HashCodeBuilder {
      * not vital.</p>
      *
      * <p>Prime numbers are preferred, especially for the multiplier.</p>
-     * 
+     *
      * @param initialNonZeroOddNumber  a non-zero, odd number used as the initial value
      * @param multiplierNonZeroOddNumber  a non-zero, odd number used as the multiplier
      * @throws IllegalArgumentException if the number is zero or even
@@ -164,7 +164,7 @@ public class HashCodeBuilder {
     }
 
     //-------------------------------------------------------------------------
-    
+
     /**
      * <p>This method uses reflection to build a valid hash code.</p>
      *
@@ -214,7 +214,7 @@ public class HashCodeBuilder {
     public static int reflectionHashCode(Object object, boolean testTransients) {
         return reflectionHashCode(17, 37, object, testTransients);
     }
-        
+
     /**
      * <p>This method uses reflection to build a valid hash code.</p>
      *
@@ -231,7 +231,7 @@ public class HashCodeBuilder {
      * <p>Two randomly chosen, non-zero, odd numbers must be passed in. Ideally
      * these should be different for each class, however this is not vital.
      * Prime numbers are preferred, especially for the multiplier.</p>
-     * 
+     *
      * @param initialNonZeroOddNumber  a non-zero, odd number used as the initial value
      * @param multiplierNonZeroOddNumber  a non-zero, odd number used as the multiplier
      * @param object  the Object to create a <code>hashCode</code> for
@@ -240,11 +240,11 @@ public class HashCodeBuilder {
      * @throws IllegalArgumentException if the number is zero or even
      */
     public static int reflectionHashCode(
-            int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, 
+            int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
             Object object) {
         return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, false);
     }
-    
+
     /**
      * <p>This method uses reflection to build a valid hash code.</p>
      *
@@ -262,7 +262,7 @@ public class HashCodeBuilder {
      * <p>Two randomly chosen, non-zero, odd numbers must be passed in. Ideally
      * these should be different for each class, however this is not vital.
      * Prime numbers are preferred, especially for the multiplier.</p>
-     * 
+     *
      * @param initialNonZeroOddNumber
      * @param multiplierNonZeroOddNumber
      * @param object  the Object to create a <code>hashCode</code> for
@@ -274,7 +274,7 @@ public class HashCodeBuilder {
     public static int reflectionHashCode(
             int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
             Object object, boolean testTransients) {
-                
+
         if (object == null) {
             throw new IllegalArgumentException("The object to build a hash code for must not be null");
         }
@@ -299,7 +299,7 @@ public class HashCodeBuilder {
     }
 
     //-------------------------------------------------------------------------
-    
+
     /**
      * <p>Adds the result of super.hashCode() to this builder.</p>
      *
@@ -310,9 +310,9 @@ public class HashCodeBuilder {
         iTotal = iTotal * iConstant + superHashCode;
         return this;
     }
-    
+
     //-------------------------------------------------------------------------
-    
+
     /**
      * <p>Append a <code>hashCode</code> for an <code>Object</code>.</p>
      *
@@ -322,12 +322,12 @@ public class HashCodeBuilder {
     public HashCodeBuilder append(Object object) {
         if (object == null) {
             iTotal = iTotal * iConstant;
-            
+
         } else {
             if (object.getClass().isArray() == false) {
-                //the simple case, not an array, just the element 
+                //the simple case, not an array, just the element
                 iTotal = iTotal * iConstant + object.hashCode();
-                
+
             } else {
                 //'Switch' on type of array, to dispatch to the correct handler
                 // This handles multi dimensional arrays
@@ -347,7 +347,7 @@ public class HashCodeBuilder {
                     append((float[]) object);
                 } else if (object instanceof boolean[]) {
                     append((boolean[]) object);
-                } else { 
+                } else {
                     // Not an array of primitives
                     append((Object[]) object);
                 }
@@ -598,9 +598,9 @@ public class HashCodeBuilder {
 
     /**
      * <p>Return the computed <code>hashCode</code>.</p>
-     * 
+     *
      * @return <code>hashCode</code> based on the fields appended
-     */    
+     */
     public int toHashCode() {
         return iTotal;
     }
