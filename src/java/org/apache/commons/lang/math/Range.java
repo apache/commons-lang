@@ -53,8 +53,6 @@
  */
 package org.apache.commons.lang.math;
 
-import org.apache.commons.lang.NumberUtils;
-
 /**
  * <p><code>Range</code> represents a range of numbers of the same type.</p>
  * 
@@ -64,7 +62,7 @@ import org.apache.commons.lang.NumberUtils;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: Range.java,v 1.2 2003/03/23 17:51:15 scolebourne Exp $
+ * @version $Id: Range.java,v 1.3 2003/06/24 21:14:50 scolebourne Exp $
  */
 public abstract class Range {
 

@@ -53,13 +53,15 @@
  */
 package org.apache.commons.lang;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 /**
  * <p><code>BooleanUtils</code> contains utility methods for working for
  * boolean and Boolean objects.</p>
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.4 2003/02/04 22:50:31 scolebourne Exp $
+ * @version $Id: BooleanUtils.java,v 1.5 2003/06/24 21:14:50 scolebourne Exp $
  */
 public class BooleanUtils {
 

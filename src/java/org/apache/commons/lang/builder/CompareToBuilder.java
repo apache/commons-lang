@@ -57,7 +57,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Comparator;
 
-import org.apache.commons.lang.NumberUtils;
+import org.apache.commons.lang.math.NumberUtils;
+
 /** 
  * <p><code>CompareTo</code> generation routines.</p>
  *
@@ -105,7 +106,7 @@ import org.apache.commons.lang.NumberUtils;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.14 2003/04/18 09:12:16 ggregory Exp $
+ * @version $Id: CompareToBuilder.java,v 1.15 2003/06/24 21:14:50 scolebourne Exp $
  */
 public class CompareToBuilder {
     

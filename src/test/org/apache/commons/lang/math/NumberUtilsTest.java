@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.lang;
+package org.apache.commons.lang.math;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -60,15 +60,17 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.commons.lang.SystemUtils;
+
 /**
- * Unit tests {@link org.apache.commons.lang.NumberUtils}.
+ * Unit tests {@link org.apache.commons.lang.math.NumberUtils}.
  *
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Eric Pugh
  * @author Phil Steitz
  * @author Stephen Colebourne
- * @version $Id: NumberUtilsTest.java,v 1.8 2003/06/24 21:14:51 scolebourne Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.1 2003/06/24 21:14:51 scolebourne Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -161,39 +163,75 @@ public class NumberUtilsTest extends TestCase {
     }
 
     public void testMinimumLong() {
-        assertEquals("minimum(long,long,long) 1 failed", 12345L, NumberUtils.minimum(12345L, 12345L + 1L, 12345L + 2L));
-        assertEquals("minimum(long,long,long) 2 failed", 12345L, NumberUtils.minimum(12345L + 1L, 12345L, 12345 + 2L));
-        assertEquals("minimum(long,long,long) 3 failed", 12345L, NumberUtils.minimum(12345L + 1L, 12345L + 2L, 12345L));
-        assertEquals("minimum(long,long,long) 4 failed", 12345L, NumberUtils.minimum(12345L + 1L, 12345L, 12345L));
-        assertEquals("minimum(long,long,long) 5 failed", 12345L, NumberUtils.minimum(12345L, 12345L, 12345L));
-
+        assertEquals("minimum(long,long,long) 1 failed", 12345L, NumberUtils.min(12345L, 12345L + 1L, 12345L + 2L));
+        assertEquals("minimum(long,long,long) 2 failed", 12345L, NumberUtils.min(12345L + 1L, 12345L, 12345 + 2L));
+        assertEquals("minimum(long,long,long) 3 failed", 12345L, NumberUtils.min(12345L + 1L, 12345L + 2L, 12345L));
+        assertEquals("minimum(long,long,long) 4 failed", 12345L, NumberUtils.min(12345L + 1L, 12345L, 12345L));
+        assertEquals("minimum(long,long,long) 5 failed", 12345L, NumberUtils.min(12345L, 12345L, 12345L));
     }
 
     public void testMinimumInt() {
-        assertEquals("minimum(int,int,int) 1 failed", 12345, NumberUtils.minimum(12345, 12345 + 1, 12345 + 2));
-        assertEquals("minimum(int,int,int) 2 failed", 12345, NumberUtils.minimum(12345 + 1, 12345, 12345 + 2));
-        assertEquals("minimum(int,int,int) 3 failed", 12345, NumberUtils.minimum(12345 + 1, 12345 + 2, 12345));
-        assertEquals("minimum(int,int,int) 4 failed", 12345, NumberUtils.minimum(12345 + 1, 12345, 12345));
-        assertEquals("minimum(int,int,int) 5 failed", 12345, NumberUtils.minimum(12345, 12345, 12345));
+        assertEquals("minimum(int,int,int) 1 failed", 12345, NumberUtils.min(12345, 12345 + 1, 12345 + 2));
+        assertEquals("minimum(int,int,int) 2 failed", 12345, NumberUtils.min(12345 + 1, 12345, 12345 + 2));
+        assertEquals("minimum(int,int,int) 3 failed", 12345, NumberUtils.min(12345 + 1, 12345 + 2, 12345));
+        assertEquals("minimum(int,int,int) 4 failed", 12345, NumberUtils.min(12345 + 1, 12345, 12345));
+        assertEquals("minimum(int,int,int) 5 failed", 12345, NumberUtils.min(12345, 12345, 12345));
+    }
 
+    public void testMinimumShort() {
+        short low = 1234;
+        short mid = 1234 + 1;
+        short high = 1234 + 2;
+        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(low, mid, high));
+        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(mid, low, high));
+        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(mid, high, low));
+        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(low, mid, low));
+    }
+
+    public void testMinimumByte() {
+        byte low = 123;
+        byte mid = 123 + 1;
+        byte high = 123 + 2;
+        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(low, mid, high));
+        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(mid, low, high));
+        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(mid, high, low));
+        assertEquals("minimum(int,int,int) 1 failed", low, NumberUtils.min(low, mid, low));
     }
 
     public void testMaximumLong() {
-        assertEquals("maximum(long,long,long) 1 failed", 12345L, NumberUtils.maximum(12345L, 12345L - 1L, 12345L - 2L));
-        assertEquals("maximum(long,long,long) 2 failed", 12345L, NumberUtils.maximum(12345L - 1L, 12345L, 12345L - 2L));
-        assertEquals("maximum(long,long,long) 3 failed", 12345L, NumberUtils.maximum(12345L - 1L, 12345L - 2L, 12345L));
-        assertEquals("maximum(long,long,long) 4 failed", 12345L, NumberUtils.maximum(12345L - 1L, 12345L, 12345L));
-        assertEquals("maximum(long,long,long) 5 failed", 12345L, NumberUtils.maximum(12345L, 12345L, 12345L));
-
+        assertEquals("maximum(long,long,long) 1 failed", 12345L, NumberUtils.max(12345L, 12345L - 1L, 12345L - 2L));
+        assertEquals("maximum(long,long,long) 2 failed", 12345L, NumberUtils.max(12345L - 1L, 12345L, 12345L - 2L));
+        assertEquals("maximum(long,long,long) 3 failed", 12345L, NumberUtils.max(12345L - 1L, 12345L - 2L, 12345L));
+        assertEquals("maximum(long,long,long) 4 failed", 12345L, NumberUtils.max(12345L - 1L, 12345L, 12345L));
+        assertEquals("maximum(long,long,long) 5 failed", 12345L, NumberUtils.max(12345L, 12345L, 12345L));
     }
 
     public void testMaximumInt() {
-        assertEquals("maximum(int,int,int) 1 failed", 12345, NumberUtils.maximum(12345, 12345 - 1, 12345 - 2));
-        assertEquals("maximum(int,int,int) 2 failed", 12345, NumberUtils.maximum(12345 - 1, 12345, 12345 - 2));
-        assertEquals("maximum(int,int,int) 3 failed", 12345, NumberUtils.maximum(12345 - 1, 12345 - 2, 12345));
-        assertEquals("maximum(int,int,int) 4 failed", 12345, NumberUtils.maximum(12345 - 1, 12345, 12345));
-        assertEquals("maximum(int,int,int) 5 failed", 12345, NumberUtils.maximum(12345, 12345, 12345));
+        assertEquals("maximum(int,int,int) 1 failed", 12345, NumberUtils.max(12345, 12345 - 1, 12345 - 2));
+        assertEquals("maximum(int,int,int) 2 failed", 12345, NumberUtils.max(12345 - 1, 12345, 12345 - 2));
+        assertEquals("maximum(int,int,int) 3 failed", 12345, NumberUtils.max(12345 - 1, 12345 - 2, 12345));
+        assertEquals("maximum(int,int,int) 4 failed", 12345, NumberUtils.max(12345 - 1, 12345, 12345));
+        assertEquals("maximum(int,int,int) 5 failed", 12345, NumberUtils.max(12345, 12345, 12345));
+    }
 
+    public void testMaximumShort() {
+        short low = 1234;
+        short mid = 1234 + 1;
+        short high = 1234 + 2;
+        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(low, mid, high));
+        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(mid, low, high));
+        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(mid, high, low));
+        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(high, mid, high));
+    }
+
+    public void testMaximumByte() {
+        byte low = 123;
+        byte mid = 123 + 1;
+        byte high = 123 + 2;
+        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(low, mid, high));
+        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(mid, low, high));
+        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(mid, high, low));
+        assertEquals("minimum(int,int,int) 1 failed", high, NumberUtils.max(high, mid, high));
     }
 
     public void testCompareDouble() {
@@ -534,4 +572,44 @@ public class NumberUtilsTest extends TestCase {
         }
     }
 
+    public void testConstants() {
+        assertTrue(NumberUtils.LONG_ZERO instanceof Long);
+        assertTrue(NumberUtils.LONG_ONE instanceof Long);
+        assertTrue(NumberUtils.LONG_MINUS_ONE instanceof Long);
+        assertTrue(NumberUtils.INTEGER_ZERO instanceof Integer);
+        assertTrue(NumberUtils.INTEGER_ONE instanceof Integer);
+        assertTrue(NumberUtils.INTEGER_MINUS_ONE instanceof Integer);
+        assertTrue(NumberUtils.SHORT_ZERO instanceof Short);
+        assertTrue(NumberUtils.SHORT_ONE instanceof Short);
+        assertTrue(NumberUtils.SHORT_MINUS_ONE instanceof Short);
+        assertTrue(NumberUtils.BYTE_ZERO instanceof Byte);
+        assertTrue(NumberUtils.BYTE_ONE instanceof Byte);
+        assertTrue(NumberUtils.BYTE_MINUS_ONE instanceof Byte);
+        assertTrue(NumberUtils.DOUBLE_ZERO instanceof Double);
+        assertTrue(NumberUtils.DOUBLE_ONE instanceof Double);
+        assertTrue(NumberUtils.DOUBLE_MINUS_ONE instanceof Double);
+        assertTrue(NumberUtils.FLOAT_ZERO instanceof Float);
+        assertTrue(NumberUtils.FLOAT_ONE instanceof Float);
+        assertTrue(NumberUtils.FLOAT_MINUS_ONE instanceof Float);
+        
+        assertTrue(NumberUtils.LONG_ZERO.longValue() == 0);
+        assertTrue(NumberUtils.LONG_ONE.longValue() == 1);
+        assertTrue(NumberUtils.LONG_MINUS_ONE.longValue() == -1);
+        assertTrue(NumberUtils.INTEGER_ZERO.intValue() == 0);
+        assertTrue(NumberUtils.INTEGER_ONE.intValue() == 1);
+        assertTrue(NumberUtils.INTEGER_MINUS_ONE.intValue() == -1);
+        assertTrue(NumberUtils.SHORT_ZERO.shortValue() == 0);
+        assertTrue(NumberUtils.SHORT_ONE.shortValue() == 1);
+        assertTrue(NumberUtils.SHORT_MINUS_ONE.shortValue() == -1);
+        assertTrue(NumberUtils.BYTE_ZERO.byteValue() == 0);
+        assertTrue(NumberUtils.BYTE_ONE.byteValue() == 1);
+        assertTrue(NumberUtils.BYTE_MINUS_ONE.byteValue() == -1);
+        assertTrue(NumberUtils.DOUBLE_ZERO.doubleValue() == 0.0d);
+        assertTrue(NumberUtils.DOUBLE_ONE.doubleValue() == 1.0d);
+        assertTrue(NumberUtils.DOUBLE_MINUS_ONE.doubleValue() == -1.0d);
+        assertTrue(NumberUtils.FLOAT_ZERO.floatValue() == 0.0f);
+        assertTrue(NumberUtils.FLOAT_ONE.floatValue() == 1.0f);
+        assertTrue(NumberUtils.FLOAT_MINUS_ONE.floatValue() == -1.0f);
+    }
+    
 }

@@ -56,6 +56,8 @@ package org.apache.commons.lang;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 /**
  * <p>Common <code>String</code> manipulation routines.</p>
  *
@@ -77,7 +79,7 @@ import java.util.StringTokenizer;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.50 2003/06/24 08:15:15 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.51 2003/06/24 21:14:50 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -2292,7 +2294,7 @@ public class StringUtils {
                 }
 
                 // Step 6
-                d[i][j] = NumberUtils.minimum(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
+                d[i][j] = NumberUtils.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
             }
         }
 
