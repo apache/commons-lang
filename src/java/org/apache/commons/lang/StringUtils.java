@@ -73,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.20 2002/10/27 19:42:04 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.21 2002/10/28 04:33:29 bayard Exp $
  */
 public class StringUtils {
 
@@ -1255,6 +1255,36 @@ public class StringUtils {
         return buffer.toString();
     }
 
+    /**
+     * Uncapitalise all the words in a string. Uses
+     * Character.isWhitespace
+     * as a separator between words. Null will return null.
+     *
+     * @param str  the string to uncapitalise
+     * @return uncapitalised string
+     */
+    public static String uncapitaliseAllWords(String str) {
+        if (str == null) {
+            return null;
+        }
+        int sz = str.length();
+        StringBuffer buffer = new StringBuffer(sz);
+        boolean space = true;
+        for (int i = 0; i < sz; i++) {
+            char ch = str.charAt(i);
+            if (Character.isWhitespace(ch)) {
+                buffer.append(ch);
+                space = true;
+            } else if (space) {
+                buffer.append(Character.toLowerCase(ch));
+                space = false;
+            } else {
+                buffer.append(ch);
+            }
+        }
+        return buffer.toString();
+    }
+
     // Nested extraction
     //--------------------------------------------------------------------------
     
@@ -1335,6 +1365,27 @@ public class StringUtils {
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
             if (Character.isLetter(str.charAt(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the String contains only whitespace.
+     * <code>null</code> will return <code>false</code>.  The empty String
+     * will return <code>true</code>.
+     * 
+     * @param str the String to check
+     * @return true if only contains whitespace, and is non-null
+     */
+    public static boolean isWhitespace(String str) {
+        if (str == null) {
+            return false;
+        }
+        int sz = str.length();
+        for (int i = 0; i < sz; i++) {
+            if ((Character.isWhitespace(str.charAt(i)) == false) ) {
                 return false;
             }
         }
@@ -1447,6 +1498,26 @@ public class StringUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * Checks if the String contains a 'true' value. These are defined 
+     * as the words 'true', 'on' and 'yes'.
+     *
+     * @param str the String to check
+     * @return true if the string is 'true|on|yes'
+     */
+    public static boolean isTrue(String str) {
+        if("true".equals(str)) {
+            return true;
+        } else
+        if("on".equals(str)) {
+            return true;
+        } else
+        if("yes".equals(str)) {
+            return true;
+        }
+        return false;
     }
 
     // Defaults

@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtilsTest.java,v 1.5 2002/09/19 07:02:30 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.6 2002/10/28 04:33:29 bayard Exp $
  */
 public class StringUtilsTest extends TestCase
 {
@@ -123,6 +123,10 @@ public class StringUtilsTest extends TestCase
                      FOO, StringUtils.uncapitalise(CAP_FOO) );
         assertEquals("uncapitalise(empty-string) failed",
                      "", StringUtils.uncapitalise("") );
+        assertEquals("uncapitaliseAllWords(String) failed",
+                     SENTENCE, StringUtils.uncapitaliseAllWords("Foo Bar Baz") );
+        assertEquals("uncapitaliseAllWords(empty-string) failed",
+                     "", StringUtils.uncapitaliseAllWords("") );
 
         assertEquals("upperCase(String) failed",
                      "FOO TEST THING", StringUtils.upperCase("fOo test THING") );
