@@ -34,7 +34,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Fredrik Westermarck
  * @since 2.0
- * @version $Id: FastDateFormatTest.java,v 1.10 2004/09/12 05:03:26 bayard Exp $
+ * @version $Id: FastDateFormatTest.java,v 1.11 2004/09/30 06:12:17 bayard Exp $
  */
 public class FastDateFormatTest extends TestCase {
 
@@ -253,10 +253,11 @@ public class FastDateFormatTest extends TestCase {
     /**
      * testLowYearPadding showed that the date was buggy
      * This test confirms it, getting 366 back as a date
+     */
      // TODO: Fix this problem
     public void testSimpleDate() {
         Calendar cal = Calendar.getInstance();
-        FastDateFormat format = FastDateFormat.getInstance("yyyy/MM/DD");
+        FastDateFormat format = FastDateFormat.getInstance("yyyy/MM/dd");
 
         cal.set(2004,11,31);
         assertEquals("2004/12/31", format.format(cal));
@@ -265,5 +266,4 @@ public class FastDateFormatTest extends TestCase {
         cal.set(1,2,2);
         assertEquals("0001/03/02", format.format(cal));
     }
-    */
 }
