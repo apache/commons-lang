@@ -74,7 +74,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Phil Steitz
  * @author Pete Gieser
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.26 2003/09/07 14:32:34 psteitz Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.27 2003/09/13 03:23:24 psteitz Exp $
  */
 public class StringEscapeUtils {
 
@@ -242,7 +242,9 @@ public class StringEscapeUtils {
             } else {
                 switch (ch) {
                     case '\'':
-                        if (escapeSingleQuote) out.write('\\');
+                        if (escapeSingleQuote) {
+                          out.write('\\');
+                        }
                         out.write('\'');
                         break;
                     case '"':
