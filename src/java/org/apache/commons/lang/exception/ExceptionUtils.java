@@ -54,6 +54,7 @@ package org.apache.commons.lang.exception;
  * <http://www.apache.org/>.
  */
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
@@ -69,7 +70,13 @@ public class ExceptionUtils
     /**
      * The name of the <code>getCause()</code> method.
      */
-    protected static final String CAUSE_METHOD_NAME = "getCause";
+    protected static final String[] CAUSE_METHOD_NAMES =
+    {
+        "getCause",
+        "getNextException",
+        "getTargetException",
+        "getException"
+    };
 
     /**
      * The parameters of the <code>getCause()</code> method.
@@ -86,25 +93,50 @@ public class ExceptionUtils
     
     /**
      * Introspects the specified <code>Throwable</code> for a
-     * <code>getCause()</code> method which returns a
+     * <code>getCause()</code>, <code>getNextException()</code>,
+     * <code>getTargetException()</code>, or
+     * <code>getException()</code> method which returns a
      * <code>Throwable</code> object (standard as of JDK 1.4, and part
      * of the {@link
      * org.apache.commons.lang.exception.NestableException} API),
-     * extracting and returning the cause of the exception.
-     * Otherwise, returns <code>null</code>.
-     *
-     * <p>TODO: Examine for a "detail" public member attribute from
-     * java.rmi.RemoteException.
+     * extracting and returning the cause of the exception.  In the
+     * absence of any such method, the object is inspected for a
+     * <code>detail</code> field assignable to a
+     * <code>Throwable</code>.  If none of the above is found, returns
+     * <code>null</code>.
      *
      * @param t The exception to introspect for a cause.
      * @return The cause of the <code>Throwable</code>.
      */
     public static Throwable getCause(Throwable t)
     {
+        return getCause(t, CAUSE_METHOD_NAMES);
+    }
+    
+    /**
+     * Extends the API of {@link #getCause(Throwable)} by
+     * introspecting for only user-specified method names.
+     *
+     * @see #getCause(Throwable)
+     */
+    public static Throwable getCause(Throwable t, String[] methodNames)
+    {
         Throwable cause = getCauseUsingWellKnownTypes(t);
         if (cause == null)
         {
-            cause = getCauseUsingMethodName(CAUSE_METHOD_NAME, t);
+            for (int i = 0; i < methodNames.length; i++)
+            {
+                cause = getCauseUsingMethodName(t, methodNames[i]);
+                if (cause != null)
+                {
+                    break;
+                }
+            }
+
+            if (cause == null)
+            {
+                cause = getCauseUsingFieldName(t, "detail");
+            }
         }
         return cause;
     }
@@ -165,13 +197,13 @@ public class ExceptionUtils
     }
 
     /**
-     * @param methodName The name of the method to find and invoke.
      * @param t The exception to examine.
+     * @param methodName The name of the method to find and invoke.
      * @return The wrapped exception, or <code>null</code> if not
      * found.
      */
-    private static Throwable getCauseUsingMethodName(String methodName,
-                                                     Throwable t)
+    private static Throwable getCauseUsingMethodName(Throwable t,
+                                                     String methodName)
     {
         Method method = null;
         try
@@ -199,6 +231,44 @@ public class ExceptionUtils
             {
             }
             catch (InvocationTargetException ignored)
+            {
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @param t The exception to examine.
+     * @param fieldName The name of the attribute to examine.
+     * @return The wrapped exception, or <code>null</code> if not
+     * found.
+     */
+    private static Throwable getCauseUsingFieldName(Throwable t,
+                                                    String fieldName)
+    {
+        Field field = null;
+        try
+        {
+            field = t.getClass().getField(fieldName);
+        }
+        catch (NoSuchFieldException ignored)
+        {
+        }
+        catch (SecurityException ignored)
+        {
+        }
+
+        if (field != null &&
+            Throwable.class.isAssignableFrom(field.getType()))
+        {
+            try
+            {
+                return (Throwable) field.get(t);
+            }
+            catch (IllegalAccessException ignored)
+            {
+            }
+            catch (IllegalArgumentException ignored)
             {
             }
         }
