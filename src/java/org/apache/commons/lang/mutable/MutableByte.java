@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2004 The Apache Software Foundation.
+ * Copyright 2004 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,33 @@
  */
 package org.apache.commons.lang.mutable;
 
+import java.io.Serializable;
+
 /**
- * A mutable <code>Byte</code>.
+ * A mutable <code>byte</code>.
  * 
  * @since 2.1
- * @version $Id: MutableByte.java,v 1.3 2004/06/24 04:20:46 bayard Exp $
+ * @version $Id: MutableByte.java,v 1.4 2004/07/07 23:50:28 scolebourne Exp $
  */
-public class MutableByte extends MutableNumber {
+public class MutableByte extends Number
+        implements Comparable, Mutable, Serializable {
+
+    /** Serialization lock. */
+    private static final long serialVersionUID = -1585823265L;
+
+    /** The mutable value. */
+    private byte value;
 
     /**
-     * Internal value.
+     * Constructs a new MutableByte with the default value of zero.
      */
-    private byte value;
-    
+    public MutableByte() {
+        super();
+    }
+
     /**
-     * Instantiates with the specified value
+     * Constructs a new MutableByte with the specified value.
+     * 
      * @param value a value.
      */
     public MutableByte(byte value) {
@@ -37,34 +49,112 @@ public class MutableByte extends MutableNumber {
         this.value = value;
     }
 
-    public void setValue(byte value) {
-        this.value = value;
-    }
-
-    public long longValue() {
-        return this.value;
-    }
-
-    public double doubleValue() {
-        return this.value;
-    }
-
-    public int intValue() {
-        return this.value;
-    }
-
     /**
-     * @return a <code>Byte</code>
+     * Constructs a new MutableByte with the specified value.
+     * 
+     * @param value a value.
+     * @throws NullPointerException if the object is null
+     */
+    public MutableByte(Number value) {
+        super();
+        this.value = value.byteValue();
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Gets the value as a Byte instance.
+     * 
+     * @return the value as a Byte
      */
     public Object getValue() {
         return new Byte(this.value);
     }
 
     /**
-     * @param value a <code>Byte</code>
+     * Sets the value.
+     * 
+     * @param value  the value to set
+     */
+    public void setValue(byte value) {
+        this.value = value;
+    }
+
+    /**
+     * Sets the value from any Number instance.
+     * 
+     * @param value  the value to set
+     * @throws NullPointerException if the object is null
+     * @throws ClassCastException if the type is invalid
      */
     public void setValue(Object value) {
-        setValue(((Number)value).byteValue());
+        setValue(((Number) value).byteValue());
+    }
+
+    //-----------------------------------------------------------------------
+    public byte byteValue() {
+        return value;
+    }
+
+    public int intValue() {
+        return (int) value;
+    }
+
+    public long longValue() {
+        return (long) value;
+    }
+
+    public float floatValue() {
+        return (float) value;
+    }
+
+    public double doubleValue() {
+        return (double) value;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Checks if this object equals the specified object.
+     * <p>
+     * The object must be a MutableByte with the same value to be equal.
+     *
+     * @param obj  the object to compare to
+     * @return true if equal
+     */
+    public boolean equals(Object obj) {
+        if (obj instanceof MutableByte) {
+            return (value == ((MutableByte) obj).value);
+        }
+        return false;
+    }
+
+    /**
+     * Returns a suitable hashcode for this mutable.
+     *
+     * @return a suitable hashcode
+     */
+    public int hashCode() {
+        return (int) value;
+    }
+
+    /**
+     * Compares this mutable to another in ascending order.
+     *
+     * @param obj  the mutable to compare to
+     * @return negative if this is less, zero if equal, positive if greater
+     */
+    public int compareTo(Object obj) {
+        MutableByte other = (MutableByte) obj;
+        byte anotherVal = other.value;
+        return (value < anotherVal ? -1 : (value == anotherVal ? 0 : 1));
+    }
+
+    /**
+     * Returns the String value of this mutable.
+     *
+     * @return the mutable value as a string
+     */
+    public String toString() {
+        return String.valueOf((int) value);
     }
 
 }

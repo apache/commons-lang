@@ -16,58 +16,133 @@
 package org.apache.commons.lang.mutable;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
  * JUnit tests.
  * 
- * @version $Id: MutableDoubleTest.java,v 1.1 2004/06/11 02:26:32 matth Exp $
+ * @version $Id: MutableDoubleTest.java,v 1.2 2004/07/07 23:50:28 scolebourne Exp $
  * @see MutableDouble
  */
-public class MutableDoubleTest extends MutableNumberTest {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-    
-    public static Test suite() {
-        return new TestSuite(MutableDoubleTest.class);
-    }
+public class MutableDoubleTest extends TestCase {
 
     public MutableDoubleTest(String testName) {
         super(testName);
     }
 
-    public MutableNumber getMutableNumber(double value) {
-        return new MutableDouble(value);
+    public static void main(String[] args) {
+        TestRunner.run(suite());
     }
 
-    // Converters
+    public static Test suite() {
+        return new TestSuite(MutableDoubleTest.class);
+    }
+
     // ----------------------------------------------------------------
-    
-    public byte byteValue(double value) {
-        return (byte)value;
+    public void testConstructors() {
+        assertEquals(0d, new MutableDouble().doubleValue(), 0.0001d);
+        
+        assertEquals(1d, new MutableDouble(1d).doubleValue(), 0.0001d);
+        
+        assertEquals(2d, new MutableDouble(new Double(2d)).doubleValue(), 0.0001d);
+        assertEquals(3d, new MutableDouble(new MutableDouble(3d)).doubleValue(), 0.0001d);
+        try {
+            new MutableDouble(null);
+            fail();
+        } catch (NullPointerException ex) {}
     }
 
-    public short shortValue(double value) {
-        return (short)value;
+    public void testGetSet() {
+        final MutableDouble mutNum = new MutableDouble(0d);
+        assertEquals(0d, new MutableDouble().doubleValue(), 0.0001d);
+        assertEquals(new Double(0), new MutableDouble().getValue());
+        
+        mutNum.setValue(1);
+        assertEquals(1d, mutNum.doubleValue(), 0.0001d);
+        assertEquals(new Double(1d), mutNum.getValue());
+        
+        mutNum.setValue(new Double(2d));
+        assertEquals(2d, mutNum.doubleValue(), 0.0001d);
+        assertEquals(new Double(2d), mutNum.getValue());
+        
+        mutNum.setValue(new MutableDouble(3d));
+        assertEquals(3d, mutNum.doubleValue(), 0.0001d);
+        assertEquals(new Double(3d), mutNum.getValue());
+        try {
+            mutNum.setValue(null);
+            fail();
+        } catch (NullPointerException ex) {}
+        try {
+            mutNum.setValue("0");
+            fail();
+        } catch (ClassCastException ex) {}
     }
 
-    public int intValue(double value) {
-        return (int)value;
+    public void testNanInfinite() {
+        MutableDouble mutNum = new MutableDouble(Double.NaN);
+        assertEquals(true, mutNum.isNaN());
+        
+        mutNum = new MutableDouble(Double.POSITIVE_INFINITY);
+        assertEquals(true, mutNum.isInfinite());
+        
+        mutNum = new MutableDouble(Double.NEGATIVE_INFINITY);
+        assertEquals(true, mutNum.isInfinite());
     }
 
-    public long longValue(double value) {
-        return (long)value;
+    public void testEquals() {
+        final MutableDouble mutNumA = new MutableDouble(0d);
+        final MutableDouble mutNumB = new MutableDouble(0d);
+        final MutableDouble mutNumC = new MutableDouble(1d);
+
+        assertEquals(true, mutNumA.equals(mutNumA));
+        assertEquals(true, mutNumA.equals(mutNumB));
+        assertEquals(true, mutNumB.equals(mutNumA));
+        assertEquals(true, mutNumB.equals(mutNumB));
+        assertEquals(false, mutNumA.equals(mutNumC));
+        assertEquals(false, mutNumB.equals(mutNumC));
+        assertEquals(true, mutNumC.equals(mutNumC));
+        assertEquals(false, mutNumA.equals(null));
+        assertEquals(false, mutNumA.equals(new Double(0d)));
+        assertEquals(false, mutNumA.equals("0"));
     }
 
-    public float floatValue(double value) {
-        return (float)value;
+    public void testHashCode() {
+        final MutableDouble mutNumA = new MutableDouble(0d);
+        final MutableDouble mutNumB = new MutableDouble(0d);
+        final MutableDouble mutNumC = new MutableDouble(1d);
+
+        assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
+        assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
+        assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
+        assertEquals(true, mutNumA.hashCode() == new Double(0d).hashCode());
     }
 
-    public double doubleValue(double value) {
-        return value;
+    public void testCompareTo() {
+        final MutableDouble mutNum = new MutableDouble(0d);
+
+        assertEquals(0, mutNum.compareTo(new MutableDouble(0d)));
+        assertEquals(+1, mutNum.compareTo(new MutableDouble(-1d)));
+        assertEquals(-1, mutNum.compareTo(new MutableDouble(1d)));
+        try {
+            mutNum.compareTo(null);
+            fail();
+        } catch (NullPointerException ex) {}
+        try {
+            mutNum.compareTo(new Double(0d));
+            fail();
+        } catch (ClassCastException ex) {}
+        try {
+            mutNum.compareTo("0");
+            fail();
+        } catch (ClassCastException ex) {}
+    }
+
+    public void testToString() {
+        assertEquals("0.0", new MutableDouble(0d).toString());
+        assertEquals("10.0", new MutableDouble(10d).toString());
+        assertEquals("-123.0", new MutableDouble(-123d).toString());
     }
 
 }
