@@ -75,7 +75,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.13 2003/06/29 03:03:15 alex Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.14 2003/07/05 19:04:31 bayard Exp $
  */
 public class StringEscapeUtils {
 
@@ -485,7 +485,7 @@ public class StringEscapeUtils {
      * It does not handle the cases of percent (%) or underscore (_) for use in LIKE clauses.
      * see http://www.jguru.com/faq/view.jsp?EID=8881
      * @param s
-     * @return
+     * @return A new String, escaped for SQL
      */
     public static String escapeSql(String s)
     {
