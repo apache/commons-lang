@@ -61,7 +61,7 @@ package org.apache.commons.lang;
  * @author Based on code from Lucene
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
- * @version $Id: SystemUtils.java,v 1.2 2002/08/25 22:17:53 scolebourne Exp $
+ * @version $Id: SystemUtils.java,v 1.3 2002/10/29 19:47:02 bayard Exp $
  */
 public class SystemUtils {
     
@@ -305,7 +305,7 @@ public class SystemUtils {
     public static final boolean IS_JAVA_1_3 = JAVA_VERSION.startsWith("1.3.");
     /** True iff this is Java version 1.4. */
     public static final boolean IS_JAVA_1_4 = JAVA_VERSION.startsWith("1.4.");
-    /** True iff this is Java version 1.3. */
+    /** True iff this is Java version 1.5. */
     public static final boolean IS_JAVA_1_5 = JAVA_VERSION.startsWith("1.5.");
 
 
