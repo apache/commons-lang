@@ -200,17 +200,20 @@ import java.util.Map;
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.9 2003/02/04 18:42:50 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.10 2003/02/06 20:13:07 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
+    // After discussion, the default size for HashMaps is used, as the
+    // sizing algorithm changes across the JDK versions
+    
     /**
      * An empty map, as JDK1.2 didn't have an empty map
      */
-    private static final Map EMPTY_MAP = Collections.unmodifiableMap(new HashMap(1));
+    private static final Map EMPTY_MAP = Collections.unmodifiableMap(new HashMap(0));
     /**
      * Map, key of class name, value of Entry.
      */
-    private static final Map cEnumClasses = new HashMap(61);
+    private static final Map cEnumClasses = new HashMap();
     /**
      * The string representation of the Enum.
      */
@@ -221,7 +224,7 @@ public abstract class Enum implements Comparable, Serializable {
      */
     private static class Entry {
         /** Map of Enum name to Enum */
-        final Map map = new HashMap(61);
+        final Map map = new HashMap();
         /** List of Enums in source code order */
         final List list = new ArrayList(25);
 
