@@ -62,8 +62,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * <p><code>ArrayUtils</code> contains utility methods for working with
- * arrays.</p>
+ * <p>Operations on arrays, primitive arrays (like <code>int[]</code>) and primitive wrapper arrays 
+ * (like <code>Integer[]</code>).</p>
  * 
  * <p>This class tries to handle <code>null</code> input gracefully.
  * An exception will not be thrown for a <code>null</code>
@@ -77,8 +77,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Matthew Hawthorne
  * @author Tim O'Brien
  * @author Pete Gieser
+ * @author Gary Gregory
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.24 2003/08/18 02:22:22 bayard Exp $
+ * @version $Id: ArrayUtils.java,v 1.25 2003/08/22 17:25:33 ggregory Exp $
  */
 public class ArrayUtils {
 

@@ -54,7 +54,7 @@
 package org.apache.commons.lang;
 
 /**
- * <p><code>WordUtils</code> is a utility class to assist with word wrapping.</p>
+ * <p>Assists with word wrapping.</p>
  * 
  * <p>This class tries to handle <code>null</code> input gracefully.
  * An exception will not be thrown for a <code>null</code> input.
@@ -64,9 +64,9 @@ package org.apache.commons.lang;
  * @author Henri Yandell
  * @author Stephen Colebourne
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Gary Gregory
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.6 2003/08/19 00:11:20 scolebourne Exp $
+ * @version $Id: WordUtils.java,v 1.7 2003/08/22 17:25:33 ggregory Exp $
  */
 public class WordUtils {
 

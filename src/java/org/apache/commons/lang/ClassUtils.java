@@ -57,15 +57,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 /**
- * <p>Provides utility methods for working for classes without using reflection.</p>
+ * <p>Operates on classes without using reflection.</p>
  *
  * <p>This class handles invalid <code>null</code> inputs as best it can.
  * Each method documents its behaviour in more detail.</p>
  *
  * @author Stephen Colebourne
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Gary Gregory
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.20 2003/08/18 02:22:22 bayard Exp $
+ * @version $Id: ClassUtils.java,v 1.21 2003/08/22 17:25:33 ggregory Exp $
  */
 public class ClassUtils {
 

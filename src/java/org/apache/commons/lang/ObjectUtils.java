@@ -56,7 +56,7 @@ package org.apache.commons.lang;
 import java.io.Serializable;
 
 /**
- * <p>Common <code>Object</code> manipulation routines.</p>
+ * <p>Operations on <code>Object</code>.</p>
  * 
  * <p>This class tries to handle <code>null</code> input gracefully.
  * An exception will generally not be thrown for a <code>null</code> input.
@@ -66,9 +66,9 @@ import java.io.Serializable;
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author Stephen Colebourne
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Gary Gregory
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.20 2003/08/21 15:52:54 ggregory Exp $
+ * @version $Id: ObjectUtils.java,v 1.21 2003/08/22 17:25:33 ggregory Exp $
  */
 public class ObjectUtils {
     

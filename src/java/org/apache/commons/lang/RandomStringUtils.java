@@ -55,16 +55,16 @@ package org.apache.commons.lang;
 
 import java.util.Random;
 /**
- * <p>Common random <code>String</code> manipulation routines.</p>
+ * <p>Operations for random <code>String</code>s.</p>
  *
  * @author GenerationJava Core library
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Stephen Colebourne
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.23 2003/08/21 15:52:54 ggregory Exp $
+ * @version $Id: RandomStringUtils.java,v 1.24 2003/08/22 17:25:33 ggregory Exp $
  */
 public class RandomStringUtils {
 

@@ -57,10 +57,10 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 /**
- * <p>Validate is a static utility class for validating arguments.
+ * <p>Assists in alidating arguments.</p>
  * 
  * <p>The class is based along the lines of JUnit. If an argument value is 
- * deemed invalid, an IllegalArgumentException is thrown. For example:
+ * deemed invalid, an IllegalArgumentException is thrown. For example:</p>
  * 
  * <pre>
  * Validate.isTrue( i > 0, "The value must be greater than zero: ", i);
@@ -69,8 +69,9 @@ import java.util.Map;
  *
  * @author <a href="mailto:ola.berg@arkitema.se">Ola Berg</a>
  * @author Stephen Colebourne
+ * @author Gary Gregory
  * @since 2.0
- * @version $Id: Validate.java,v 1.4 2003/08/19 02:32:15 bayard Exp $
+ * @version $Id: Validate.java,v 1.5 2003/08/22 17:25:33 ggregory Exp $
  */
 public class Validate {
     
