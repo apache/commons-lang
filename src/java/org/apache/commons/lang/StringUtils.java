@@ -111,7 +111,7 @@ import java.util.List;
  * @author Al Chou
  * @author Michael Davey
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.134 2004/08/22 03:40:27 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.135 2004/09/02 19:16:18 fredrik Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -4424,7 +4424,7 @@ public class StringUtils {
     /**
      * <p>Reverses a String as per {@link StringBuffer#reverse()}.</p>
      *
-     * <p><A code>null</code> String returns <code>null</code>.</p>
+     * <p>A <code>null</code> String returns <code>null</code>.</p>
      *
      * <pre>
      * StringUtils.reverse(null)  = null
