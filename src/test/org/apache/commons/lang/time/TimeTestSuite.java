@@ -61,7 +61,7 @@ import junit.textui.TestRunner;
  * Test suite for the Time package.
  *
  * @author Stephen Colebourne
- * @version $Id: TimeTestSuite.java,v 1.2 2002/12/22 22:59:58 scolebourne Exp $
+ * @version $Id: TimeTestSuite.java,v 1.3 2003/01/10 03:55:01 bayard Exp $
  */
 public class TimeTestSuite extends TestCase {
     
@@ -88,6 +88,7 @@ public class TimeTestSuite extends TestCase {
         suite.addTest(CalendarUtilsTest.suite());
         suite.addTest(DateUtilsTest.suite());
         suite.addTest(StopWatchTest.suite());
+        suite.addTest(FastDateFormatTest.suite());
         return suite;
     }
 }
