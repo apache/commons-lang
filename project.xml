@@ -69,20 +69,12 @@
         <role>Java Developer</role>
       </roles>
       </developer>
-      <developer>
-      <name>Phil Steitz</name>
-      <id>psteitz</id>
-      <email>phil@steitz.com</email>
-      <organization></organization>
-      <roles>
-        <role>Java Developer</role>
-      </roles>
-      </developer>
   </developers>
 
   <contributors>
     <contributor>
       <name>Ringo De Smet</name>
+      <id></id>
       <email>ringods@yahoo.co.uk</email>
       <organization></organization>
       <roles>
@@ -91,6 +83,7 @@
     </contributor>
     <contributor>
       <name>Steve Downey</name>
+      <id></id>
       <email>steve.downey@netfolio.com</email>
       <organization></organization>
       <roles>
@@ -110,30 +103,15 @@
   <build>
     <unitTest>
       <includes>
-        <include>**/*TestSuite.java</include>
+        <include>**/*Test.java</include>
+        <include>**/*TestCase.java</include>
       </includes>
       <excludes>
-        <exclude>**/AllLangTestSuite.java</exclude>
+        <exclude>**/Abstract*.java</exclude>
+        <exclude>**/*CalendarUtils*.java</exclude>
       </excludes>
-    </unitTest> 
+    </unitTest>
   </build>
-  
-  <reports>
-     <!-- <report>maven-changelog-plugin</report> -->
-     <!-- <report>maven-changes-plugin</report> -->
-     <report>maven-checkstyle-plugin</report>
-     <!-- <report>maven-clover-plugin</report> -->
-     <!-- <report>maven-developer-activity-plugin</report> -->
-     <!-- <report>maven-file-activity-plugin</report> -->
-     <report>maven-javadoc-plugin</report>
-     <!-- <report>maven-jellydoc-plugin</report> -->
-     <report>maven-junit-report-plugin</report>
-     <report>maven-jxr-plugin</report>
-     <report>maven-license-plugin</report>
-     <!-- <report>maven-linkcheck-plugin</report> -->
-     <!-- <report>maven-statcvs-plugin</report> -->
-     <report>maven-tasklist-plugin</report> 
-  </reports>
 
 </project>
 
