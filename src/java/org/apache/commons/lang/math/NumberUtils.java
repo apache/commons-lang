@@ -69,7 +69,7 @@ import org.apache.commons.lang.NullArgumentException;
  * @author Phil Steitz
  * @author Matthew Hawthorne
  * @since 2.0
- * @version $Id: NumberUtils.java,v 1.3 2003/07/14 22:25:05 bayard Exp $
+ * @version $Id: NumberUtils.java,v 1.4 2003/07/20 16:03:21 scolebourne Exp $
  */
 public final class NumberUtils {
     
@@ -124,8 +124,10 @@ public final class NumberUtils {
     /**
      * <p>Convert a <code>String</code> to an <code>int</code>, returning
      * <code>zero</code> if the conversion fails.</p>
+     *
+     * <p>If the string is <code>null</code>, <code>zero</code> is returned.</p>
      * 
-     * @param str  the string to convert
+     * @param str  the string to convert, may be null
      * @return the int represented by the string, or <code>zero</code> if
      *  conversion fails
      */
@@ -136,8 +138,10 @@ public final class NumberUtils {
     /**
      * <p>Convert a <code>String</code> to an <code>int</code>, returning a
      * default value if the conversion fails.</p>
+     *
+     * <p>If the string is <code>null</code>, the default value is returned.</p>
      * 
-     * @param str  the string to convert
+     * @param str  the string to convert, may be null
      * @param defaultValue  the default value
      * @return the int represented by the string, or the default if conversion fails
      */
@@ -190,8 +194,8 @@ public final class NumberUtils {
      *
      * <p>First, the value is examined for a type qualifier on the end
      * (<code>'f','F','d','D','l','L'</code>).  If it is found, it starts 
-     * trying to create succissively larger types from the type specified
-     * until one is found that can hold the value.</p>
+     * trying to create successively larger types from the type specified
+     * until one is found that can represent the value.</p>
      *
      * <p>If a type specifier is not found, it will check for a decimal point
      * and then try successively larger types from <code>Integer</code> to
@@ -202,61 +206,66 @@ public final class NumberUtils {
      * will be interpreted as a hexadecimal integer.  Values with leading
      * <code>0</code>'s will not be interpreted as octal.</p>
      *
-     * @param val String containing a number
+     * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
+     *
+     * <p>This method does not trim the input string, i.e., strings with leading
+     * or trailing spaces will generate NumberFormatExceptions.</p>
+     *
+     * @param str  String containing a number, may be null
      * @return Number created from the string
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Number createNumber(String val) throws NumberFormatException {
-        if (val == null) {
+    public static Number createNumber(String str) throws NumberFormatException {
+        if (str == null) {
             return null;
         }
-        if (val.length() == 0) {
+        if (str.length() == 0) {
             throw new NumberFormatException("\"\" is not a valid number.");
         }
-        if (val.startsWith("--")) {
+        if (str.startsWith("--")) {
             // this is protection for poorness in java.lang.BigDecimal.
             // it accepts this as a legal value, but it does not appear 
             // to be in specification of class. OS X Java parses it to 
             // a wrong value.
             return null;
         }
-        if (val.startsWith("0x") || val.startsWith("-0x")) {
-            return createInteger(val);
+        if (str.startsWith("0x") || str.startsWith("-0x")) {
+            return createInteger(str);
         }   
-        char lastChar = val.charAt(val.length() - 1);
+        char lastChar = str.charAt(str.length() - 1);
         String mant;
         String dec;
         String exp;
-        int decPos = val.indexOf('.');
-        int expPos = val.indexOf('e') + val.indexOf('E') + 1;
+        int decPos = str.indexOf('.');
+        int expPos = str.indexOf('e') + str.indexOf('E') + 1;
 
         if (decPos > -1) {
 
             if (expPos > -1) {
                 if (expPos < decPos) {
-                    throw new NumberFormatException(val + " is not a valid number.");
+                    throw new NumberFormatException(str + " is not a valid number.");
                 }
-                dec = val.substring(decPos + 1, expPos);
+                dec = str.substring(decPos + 1, expPos);
             } else {
-                dec = val.substring(decPos + 1);
+                dec = str.substring(decPos + 1);
             }
-            mant = val.substring(0, decPos);
+            mant = str.substring(0, decPos);
         } else {
             if (expPos > -1) {
-                mant = val.substring(0, expPos);
+                mant = str.substring(0, expPos);
             } else {
-                mant = val;
+                mant = str;
             }
             dec = null;
         }
         if (!Character.isDigit(lastChar)) {
-            if (expPos > -1 && expPos < val.length() - 1) {
-                exp = val.substring(expPos + 1, val.length() - 1);
+            if (expPos > -1 && expPos < str.length() - 1) {
+                exp = str.substring(expPos + 1, str.length() - 1);
             } else {
                 exp = null;
             }
             //Requesting a specific type..
-            String numeric = val.substring(0, val.length() - 1);
+            String numeric = str.substring(0, str.length() - 1);
             boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
             switch (lastChar) {
                 case 'l' :
@@ -273,7 +282,7 @@ public final class NumberUtils {
                         return createBigInteger(numeric);
 
                     }
-                    throw new NumberFormatException(val + " is not a valid number.");
+                    throw new NumberFormatException(str + " is not a valid number.");
                 case 'f' :
                 case 'F' :
                     try {
@@ -302,48 +311,48 @@ public final class NumberUtils {
                     }
                     //Fall through
                 default :
-                    throw new NumberFormatException(val + " is not a valid number.");
+                    throw new NumberFormatException(str + " is not a valid number.");
 
             }
         } else {
             //User doesn't have a preference on the return type, so let's start
             //small and go from there...
-            if (expPos > -1 && expPos < val.length() - 1) {
-                exp = val.substring(expPos + 1, val.length());
+            if (expPos > -1 && expPos < str.length() - 1) {
+                exp = str.substring(expPos + 1, str.length());
             } else {
                 exp = null;
             }
             if (dec == null && exp == null) {
                 //Must be an int,long,bigint
                 try {
-                    return createInteger(val);
+                    return createInteger(str);
                 } catch (NumberFormatException nfe) {
                 }
                 try {
-                    return createLong(val);
+                    return createLong(str);
                 } catch (NumberFormatException nfe) {
                 }
-                return createBigInteger(val);
+                return createBigInteger(str);
 
             } else {
                 //Must be a float,double,BigDec
                 boolean allZeros = isAllZeros(mant) && isAllZeros(exp);
                 try {
-                    Float f = createFloat(val);
+                    Float f = createFloat(str);
                     if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
                         return f;
                     }
                 } catch (NumberFormatException nfe) {
                 }
                 try {
-                    Double d = createDouble(val);
+                    Double d = createDouble(str);
                     if (!(d.isInfinite() || (d.doubleValue() == 0.0D && !allZeros))) {
                         return d;
                     }
                 } catch (NumberFormatException nfe) {
                 }
 
-                return createBigDecimal(val);
+                return createBigDecimal(str);
 
             }
         }
@@ -354,89 +363,119 @@ public final class NumberUtils {
      *
      * <p>Returns <code>true</code> if s is <code>null</code>.</p>
      * 
-     * @param s the String to check
+     * @param str  the String to check
      * @return if it is all zeros or <code>null</code>
      */
-    private static boolean isAllZeros(String s) {
-        if (s == null) {
+    private static boolean isAllZeros(String str) {
+        if (str == null) {
             return true;
         }
-        for (int i = s.length() - 1; i >= 0; i--) {
-            if (s.charAt(i) != '0') {
+        for (int i = str.length() - 1; i >= 0; i--) {
+            if (str.charAt(i) != '0') {
                 return false;
             }
         }
-        return s.length() > 0;
+        return str.length() > 0;
     }
 
     //-----------------------------------------------------------------------
     /**
      * <p>Convert a <code>String</code> to a <code>Float</code>.</p>
+     *
+     * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      * 
-     * @param val  a <code>String</code> to convert
+     * @param str  a <code>String</code> to convert, may be null
      * @return converted <code>Float</code>
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Float createFloat(String val) {
-        return Float.valueOf(val);
+    public static Float createFloat(String str) {
+        if (str == null) {
+            return null;
+        }
+        return Float.valueOf(str);
     }
 
     /**
      * <p>Convert a <code>String</code> to a <code>Double</code>.</p>
      * 
-     * @param val  a <code>String</code> to convert
+     * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
+     *
+     * @param str  a <code>String</code> to convert, may be null
      * @return converted <code>Double</code>
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Double createDouble(String val) {
-        return Double.valueOf(val);
+    public static Double createDouble(String str) {
+        if (str == null) {
+            return null;
+        }
+        return Double.valueOf(str);
     }
 
     /**
      * <p>Convert a <code>String</code> to a <code>Integer</code>, handling
      * hex and octal notations.</p>
+     *
+     * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      * 
-     * @param val  a <code>String</code> to convert
+     * @param str  a <code>String</code> to convert, may be null
      * @return converted <code>Integer</code>
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Integer createInteger(String val) {
+    public static Integer createInteger(String str) {
         // decode() handles 0xAABD and 0777 (hex and octal) as well.
-        return Integer.decode(val);
+        if (str == null) {
+            return null;
+        }
+        return Integer.decode(str);
     }
 
     /**
      * <p>Convert a <code>String</code> to a <code>Long</code>.</p>
      * 
-     * @param val  a <code>String</code> to convert
+     * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
+     *
+     * @param str  a <code>String</code> to convert, may be null
      * @return converted <code>Long</code>
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static Long createLong(String val) {
-        return Long.valueOf(val);
+    public static Long createLong(String str) {
+        if (str == null) {
+            return null;
+        }
+        return Long.valueOf(str);
     }
 
     /**
      * <p>Convert a <code>String</code> to a <code>BigInteger</code>.</p>
+     *
+     * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
      * 
-     * @param val  a <code>String</code> to convert
+     * @param str  a <code>String</code> to convert, may be null
      * @return converted <code>BigInteger</code>
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static BigInteger createBigInteger(String val) {
-        BigInteger bi = new BigInteger(val);
+    public static BigInteger createBigInteger(String str) {
+        if (str == null) {
+            return null;
+        }
+        BigInteger bi = new BigInteger(str);
         return bi;
     }
 
     /**
      * <p>Convert a <code>String</code> to a <code>BigDecimal</code>.</p>
      * 
-     * @param val  a <code>String</code> to convert
+     * <p>Returns <code>null</code> if the string is <code>null</code>.</p>
+     *
+     * @param str  a <code>String</code> to convert, may be null
      * @return converted <code>BigDecimal</code>
      * @throws NumberFormatException if the value cannot be converted
      */
-    public static BigDecimal createBigDecimal(String val) {
-        BigDecimal bd = new BigDecimal(val);
+    public static BigDecimal createBigDecimal(String str) {
+        if (str == null) {
+            return null;
+        }
+        BigDecimal bd = new BigDecimal(str);
         return bd;
     }
 
@@ -445,7 +484,7 @@ public final class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param array  an array
+     * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws NullArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
@@ -472,7 +511,7 @@ public final class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param array  an array
+     * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws NullArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
@@ -499,7 +538,7 @@ public final class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param array  an array
+     * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws NullArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
@@ -526,7 +565,7 @@ public final class NumberUtils {
      /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param array  an array
+     * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws NullArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
@@ -553,7 +592,7 @@ public final class NumberUtils {
     /**
      * <p>Returns the minimum value in an array.</p>
      * 
-     * @param array  an array
+     * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws NullArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
@@ -582,7 +621,7 @@ public final class NumberUtils {
     /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array
+     * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws NullArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
@@ -609,7 +648,7 @@ public final class NumberUtils {
     /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array
+     * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws NullArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
@@ -636,7 +675,7 @@ public final class NumberUtils {
     /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array
+     * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws NullArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
@@ -663,7 +702,7 @@ public final class NumberUtils {
     /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array
+     * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws NullArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
@@ -690,7 +729,7 @@ public final class NumberUtils {
     /**
      * <p>Returns the maximum value in an array.</p>
      * 
-     * @param array  an array
+     * @param array  an array, must not be null or empty
      * @return the minimum value in the array
      * @throws NullArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty
