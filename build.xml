@@ -3,7 +3,7 @@
 
 <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.10 2003/05/16 22:17:01 scolebourne Exp $
+        $Id: build.xml,v 1.11 2003/05/23 03:52:09 ggregory Exp $
 -->
 
 
@@ -111,7 +111,7 @@
                 version="true"
                doctitle="&lt;h1&gt;${component.title}&lt;/h1&gt;"
             windowtitle="${component.title} (Version ${component.version})"
-                 bottom="Copyright (c) 2001-2002 - Apache Software Foundation">
+                 bottom="Copyright (c) 2001-2003 - Apache Software Foundation">
       <classpath refid="compile.classpath"/>
     </javadoc>
   </target>
