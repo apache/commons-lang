@@ -44,7 +44,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Maarten Coene
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.51 2005/01/27 06:43:20 bayard Exp $
+ * @version $Id$
  */
 public class ArrayUtils {
 
@@ -3683,6 +3683,17 @@ public class ArrayUtils {
         return (double[]) add( (Object) array, index, new Double(element), Double.TYPE );
     }
     
+    /**
+     * Underlying implementation of add(array, index, element) methods. 
+     * The last parameter is the class, which may not equal element.getClass 
+     * for primitives.
+     *
+     * @param array  the array to add the element to, may be <code>null</code>
+     * @param index  the position of the new object
+     * @param element  the object to add
+     * @param clss the type of the element being added
+     * @return A new array containing the existing elements and the new element
+     */
     private static Object add(Object array, int index, Object element, Class clss) {
         if (array == null) {
             if (index != 0) {
