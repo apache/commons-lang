@@ -64,7 +64,7 @@ import junit.framework.TestSuite;
  *
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Revision: 1.2 $ $Date: 2002/10/08 19:14:20 $
+ * @version $Revision: 1.3 $ $Date: 2002/11/07 16:59:44 $
  */
 
 public final class NumberRangeTest extends TestCase {
@@ -100,6 +100,15 @@ public final class NumberRangeTest extends TestCase {
         return suite;
     }
 
+    public void testMaxMin() {
+        boolean expected = true;
+        boolean result = tenToTwenty.getMaximum().equals(twenty);
+        assertEquals(expected, result);
+
+        expected = true;
+        result = tenToTwenty.getMinimum().equals(ten);
+        assertEquals(expected, result);
+    }
 
     public void testEquals() {
         boolean expected = false;
