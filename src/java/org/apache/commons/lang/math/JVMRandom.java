@@ -62,7 +62,7 @@ import java.util.Random;
  * 
  * @author Henri Yandell
  * @since 2.0
- * @version $Id: JVMRandom.java,v 1.2 2003/05/07 19:14:01 bayard Exp $
+ * @version $Id: JVMRandom.java,v 1.3 2003/05/12 04:29:26 bayard Exp $
  */
 public final class JVMRandom extends Random {
 
@@ -103,7 +103,7 @@ public final class JVMRandom extends Random {
      */
     public int nextInt(int n) {
         // check this cannot return 'n'
-        return (int)Math.random() * n;
+        return (int)(Math.random() * n);
     }
     /**
      * Returns the next pseudorandom, uniformly distributed long value 
@@ -113,7 +113,7 @@ public final class JVMRandom extends Random {
      */
     public long nextLong() {
         // possible loss of precision?
-        return (long)Math.random() * Long.MAX_VALUE;
+        return (long)(Math.random() * Long.MAX_VALUE);
     }
     /**
      * Returns the next pseudorandom, uniformly distributed boolean value 
