@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.31 2004/10/08 00:09:01 scolebourne Exp $
+ * @version $Id: DateUtils.java,v 1.32 2004/10/13 21:48:00 scolebourne Exp $
  */
 public class DateUtils {
     
@@ -115,6 +115,31 @@ public class DateUtils {
      * instance to operate.</p>
      */
     public DateUtils() {
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Checks if two date objects are on the same day ignoring time.</p>
+     *
+     * <p>28 Mar 2002 13:45 and 28 Mar 2002 06:01 would return true.
+     * 28 Mar 2002 13:45 and 12 Mar 2002 13:45 would return false.
+     * </p>
+     * 
+     * @param date1  the first date, not null
+     * @param date2  the second date, not null
+     * @return true if they represent the same day
+     * @throws IllegalArgumentException if either date is <code>null</code>
+     * @since 2.1
+     */
+    public static boolean isSameDay(Date date1, Date date2) {
+        if (date1 == null || date2 == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+        return isSameDay(cal1, cal2);
     }
 
     //-----------------------------------------------------------------------
