@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.StringUtils} - Substring methods
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StringUtilsIsTest.java,v 1.2 2002/10/28 04:33:29 bayard Exp $
+ * @version $Id: StringUtilsIsTest.java,v 1.3 2002/11/15 00:06:40 scolebourne Exp $
  */
 public class StringUtilsIsTest extends TestCase {
 
@@ -139,6 +139,10 @@ public class StringUtilsIsTest extends TestCase {
         assertEquals(true, StringUtils.isTrue("true"));
         assertEquals(true, StringUtils.isTrue("yes"));
         assertEquals(true, StringUtils.isTrue("on"));
+        assertEquals(true, StringUtils.isTrue("TRUE"));
+        assertEquals(true, StringUtils.isTrue("ON"));
+        assertEquals(true, StringUtils.isTrue("YES"));
+        assertEquals(true, StringUtils.isTrue("TruE"));
     }
 
     public void testIsAlphaspace() {
