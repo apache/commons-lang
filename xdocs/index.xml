@@ -9,7 +9,7 @@
 
  <body>
 
-<section name="The Lang Component">
+<section name="Commons Lang">
 
 <p>
 The standard Java libraries fail to provide enough methods for
