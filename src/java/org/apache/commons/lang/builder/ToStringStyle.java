@@ -86,7 +86,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.20 2003/07/21 23:30:42 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.21 2003/07/25 23:04:24 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -417,9 +417,9 @@ public abstract class ToStringStyle implements Serializable {
 
         } else {
             if (detail) {
-                appendDetail(buffer, fieldName, (Object) value);
+                appendDetail(buffer, fieldName, value);
             } else {
-                appendSummary(buffer, fieldName, (Object) value);
+                appendSummary(buffer, fieldName, value);
             }
         }
     }
