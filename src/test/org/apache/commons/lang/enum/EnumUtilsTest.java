@@ -61,12 +61,11 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.apache.commons.lang.SerializationUtils;
 /**
  * Test cases for the {@link Enum} class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumUtilsTest.java,v 1.1 2002/08/11 23:17:54 scolebourne Exp $
+ * @version $Id: EnumUtilsTest.java,v 1.2 2003/04/08 23:45:16 ggregory Exp $
  */
 
 public final class EnumUtilsTest extends TestCase {
