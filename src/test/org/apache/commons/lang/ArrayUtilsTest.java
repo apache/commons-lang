@@ -71,7 +71,7 @@ import junit.textui.TestRunner;
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
  * @author Tim O'Brien
- * @version $Id: ArrayUtilsTest.java,v 1.14 2003/10/11 19:58:40 tobrien Exp $
+ * @version $Id: ArrayUtilsTest.java,v 1.15 2003/11/29 12:56:16 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 
@@ -269,6 +269,49 @@ public class ArrayUtilsTest extends TestCase {
         float[] cloned = ArrayUtils.clone(original);
         assertTrue(Arrays.equals(original, cloned));
         assertTrue(original != cloned);
+    }
+
+    //-----------------------------------------------------------------------
+
+    public void testSubArray() {
+        Object[] inarray = { "a", "b", "c", "d", "e", "f"};
+
+        assertEquals("0 start, mid end", "abcd",
+            StringUtils.join(ArrayUtils.subArray(inarray, 0, 4)));
+        assertEquals("0 start, length end", "abcdef",
+            StringUtils.join(ArrayUtils.subArray(inarray, 0, inarray.length)));
+        assertEquals("mid start, mid end", "bcd",
+            StringUtils.join(ArrayUtils.subArray(inarray, 1, 4)));
+        assertEquals("mid start, length end", "bcdef",
+            StringUtils.join(ArrayUtils.subArray(inarray, 1, inarray.length)));
+
+        assertNull("null input", ArrayUtils.subArray(null, 0, 3));
+        assertEquals("empty array", "",
+            StringUtils.join(ArrayUtils.subArray(ArrayUtils.EMPTY_OBJECT_ARRAY, 1, 2)));
+        assertEquals("start > end", "",
+            StringUtils.join(ArrayUtils.subArray(inarray, 4, 2)));
+        assertEquals("start == end", "",
+            StringUtils.join(ArrayUtils.subArray(inarray, 3, 3)));
+        assertEquals("start undershoot, normal end", "abcd",
+            StringUtils.join(ArrayUtils.subArray(inarray, -2, 4)));
+        assertEquals("start overshoot, any end", "",
+            StringUtils.join(ArrayUtils.subArray(inarray, 33, 4)));
+        assertEquals("normal start, end overshoot", "cdef",
+            StringUtils.join(ArrayUtils.subArray(inarray, 2, 33)));
+        assertEquals("start undershoot, end overshoot", "abcdef",
+            StringUtils.join(ArrayUtils.subArray(inarray, -2, 12)));
+            
+        // object-level tests
+        assertSame("empty array, object test", ArrayUtils.EMPTY_OBJECT_ARRAY,
+            ArrayUtils.subArray(ArrayUtils.EMPTY_OBJECT_ARRAY, 1, 2));
+        assertSame("start > end, object test", ArrayUtils.EMPTY_OBJECT_ARRAY,
+            ArrayUtils.subArray(inarray, 4, 1));
+        assertSame("start > end, object test", ArrayUtils.EMPTY_OBJECT_ARRAY,
+            ArrayUtils.subArray(inarray, 33, 1));
+        assertSame("start == end, object test", ArrayUtils.EMPTY_OBJECT_ARRAY,
+            ArrayUtils.subArray(inarray, 3, 3));
+        assertSame("start overshoot, any end, object test", ArrayUtils.EMPTY_OBJECT_ARRAY,
+            ArrayUtils.subArray(inarray, 8733, 4));
     }
 
     //-----------------------------------------------------------------------

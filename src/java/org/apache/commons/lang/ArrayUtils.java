@@ -62,7 +62,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * <p>Operations on arrays, primitive arrays (like <code>int[]</code>) and primitive wrapper arrays 
+ * <p>Operations on arrays, primitive arrays (like <code>int[]</code>) and primitive wrapper arrays
  * (like <code>Integer[]</code>).</p>
  * 
  * <p>This class tries to handle <code>null</code> input gracefully.
@@ -78,8 +78,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Tim O'Brien
  * @author Pete Gieser
  * @author Gary Gregory
+ * @author Ash
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.25 2003/08/22 17:25:33 ggregory Exp $
+ * @version $Id: ArrayUtils.java,v 1.26 2003/11/29 12:56:15 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -251,7 +252,7 @@ public class ArrayUtils {
      * 
      * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
      *
-     * @param array  an array whose elements are either a {@link java.util.Map.Entry} or 
+     * @param array  an array whose elements are either a {@link java.util.Map.Entry} or
      *  an Array containing at least two elements, may be <code>null</code>
      * @return a <code>Map</code> that was created from the array
      * @throws IllegalArgumentException  if one element of this Array is
@@ -272,13 +273,13 @@ public class ArrayUtils {
             } else if (object instanceof Object[]) {
                 Object[] entry = (Object[]) object;
                 if (entry.length < 2) {
-                    throw new IllegalArgumentException("Array element " + i + ", '" 
+                    throw new IllegalArgumentException("Array element " + i + ", '"
                         + object
                         + "', has a length less than 2");
                 }
                 map.put(entry[0], entry[1]);
             } else {
-                throw new IllegalArgumentException("Array element " + i + ", '" 
+                throw new IllegalArgumentException("Array element " + i + ", '"
                         + object
                         + "', is neither of type Map.Entry nor an Array");
             }
@@ -433,6 +434,44 @@ public class ArrayUtils {
             return null;
         }
         return (boolean[]) array.clone();
+    }
+
+    // Subarrays
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Produces a new array containing the elements between
+     * the start and end indices.</p>
+     * 
+     * <p>The start index is inclusive, the end index exclusive.
+     * Null array input produces null output.
+     * The result is always an <code>Object[]</code> instance</p>
+     *
+     * @param array  the array
+     * @param startIndex  the starting index. Undervalue (&lt;0)
+     *      is promoted to 0, overvalue (&gt;array.length) results
+     *      in an empty array.
+     * @param endIndex  elements upto endIndex-1 are present in the
+     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      empty array, overvalue (&gt;array.length) is demoted to
+     *      array length.
+     */
+    public static Object[] subArray(Object[] array, int startIndexInclusive, int endIndexExclusive) {
+        if (array == null) {
+            return null;
+        }
+        if (startIndexInclusive < 0) {
+            startIndexInclusive = 0;
+        }
+        if (endIndexExclusive > array.length) {
+            endIndexExclusive = array.length;
+        }
+        int newSize = endIndexExclusive - startIndexInclusive;
+        if (newSize <= 0) {
+            return EMPTY_OBJECT_ARRAY;
+        }
+        Object[] subArray = new Object[newSize];
+        System.arraycopy(array, startIndexInclusive, subArray, 0, newSize);
+        return subArray;
     }
 
     // Is same length
