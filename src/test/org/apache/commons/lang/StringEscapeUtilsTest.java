@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.7 2003/05/24 04:35:07 alex Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.8 2003/06/29 03:05:45 alex Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
@@ -177,8 +177,14 @@ public class StringEscapeUtilsTest extends TestCase {
 
     public void testEscapeHtml() {
         for (int i = 0; i < htmlEscapes.length; ++i) {
-            assertEquals(htmlEscapes[i][0], htmlEscapes[i][1], StringEscapeUtils.escapeHtml(htmlEscapes[i][2]));
-            // todo: add test for (and implement) Writer-based version
+            String message = htmlEscapes[i][0];
+            String expected = htmlEscapes[i][1];
+            String original = htmlEscapes[i][2];
+            assertEquals(message, expected, StringEscapeUtils.escapeHtml(original));
+            // todo: add test for (and implement) Writer-based version, something like this:
+//            StringPrintWriter sw = new StringPrintWriter();
+//            StringEscapeUtils.escapeHtml(sw, original);
+//            assertEquals(expected, sw.getString());
         }
     }
 
@@ -223,7 +229,10 @@ public class StringEscapeUtilsTest extends TestCase {
     // SQL
     // see http://www.jguru.com/faq/view.jsp?EID=8881
     //--------------------
-    // sql doubles-up single-quotes
-    //}
+
+    public void testEscapeSql() throws Exception
+    {
+        assertEquals("don''t stop", StringEscapeUtils.escapeSql("don't stop"));
+    }
 }
 
