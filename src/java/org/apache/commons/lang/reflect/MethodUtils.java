@@ -76,7 +76,7 @@ import org.apache.commons.lang.ArrayUtils;
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
  * @author Gary Gregory
- * @version $Id: MethodUtils.java,v 1.16 2003/09/07 14:32:35 psteitz Exp $
+ * @version $Id: MethodUtils.java,v 1.17 2003/09/13 03:11:30 psteitz Exp $
  */
 public class MethodUtils {
 
@@ -400,10 +400,11 @@ public class MethodUtils {
                 object.getClass(),
                 methodName,
                 parameterTypes);
-        if (method == null)
+        if (method == null) {
             throw new ReflectionException("No such accessible method: " +
                     methodName + "() on object: " + object.getClass().getName());
-        
+        }
+
         try {
         
             return method.invoke(object, args);
@@ -491,8 +492,9 @@ public class MethodUtils {
             for (int i = 0; i < interfaces.length; i++) {
 
                 // Is this interface public?
-                if (!Modifier.isPublic(interfaces[i].getModifiers()))
+                if (!Modifier.isPublic(interfaces[i].getModifiers())) {
                     continue;
+                }
 
                 // Does the method exist on this interface?
                 try {
@@ -501,16 +503,18 @@ public class MethodUtils {
                 } catch (NoSuchMethodException e) {
                     // empty
                 }
-                if (method != null)
+                if (method != null) {
                     break;
+                }
 
                 // Recursively check our parent interfaces
                 method =
                         getAccessibleMethodFromInterfaceNest(interfaces[i],
                                 methodName,
                                 parameterTypes);
-                if (method != null)
+                if (method != null) {
                     break;
+                }
 
             }
 

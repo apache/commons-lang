@@ -69,7 +69,7 @@ import java.util.TreeMap;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: Entities.java,v 1.14 2003/09/07 14:32:34 psteitz Exp $
+ * @version $Id: Entities.java,v 1.15 2003/09/13 03:11:29 psteitz Exp $
  */
 class Entities {
 
@@ -431,8 +431,9 @@ class Entities {
 
         public int value(String name) {
             Object value = mapNameToValue.get(name);
-            if (value == null)
+            if (value == null) {
                 return -1;
+            }
             return ((Integer) value).intValue();
         }
     }
@@ -453,8 +454,9 @@ class Entities {
 
         public int value(String name) {
             Object value = mapNameToValue.get(name);
-            if (value == null)
+            if (value == null) {
                 return -1;
+            }
             return ((Integer) value).intValue();
         }
     }
@@ -572,12 +574,13 @@ class Entities {
                 int mid = (low + high) >> 1;
                 int midVal = values[mid];
 
-                if (midVal < key)
+                if (midVal < key) {
                     low = mid + 1;
-                else if (midVal > key)
+                } else if (midVal > key) {
                     high = mid - 1;
-                else
+                } else {
                     return mid; // key found
+                }
             }
             return -(low + 1);  // key not found.
         }
@@ -585,7 +588,9 @@ class Entities {
         public void add(String name, int value) {
             ensureCapacity(size + 1);
             int insertAt = binarySearch(value);
-            if (insertAt > 0) return;    // note: this means you can't insert the same value twice
+            if (insertAt > 0) {
+                return;    // note: this means you can't insert the same value twice
+            }
             insertAt = -(insertAt + 1);  // binarySearch returns it negative and off-by-one
             System.arraycopy(values, insertAt, values, insertAt + 1, size - insertAt);
             values[insertAt] = value;
@@ -596,7 +601,9 @@ class Entities {
 
         public String name(int value) {
             int index = binarySearch(value);
-            if (index < 0) return null;
+            if (index < 0) {
+                return null;
+            }
             return names[index];
         }
     }

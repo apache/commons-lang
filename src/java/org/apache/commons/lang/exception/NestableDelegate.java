@@ -79,7 +79,7 @@ import java.util.List;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.21 2003/09/07 14:32:35 psteitz Exp $
+ * @version $Id: NestableDelegate.java,v 1.22 2003/09/13 03:11:30 psteitz Exp $
  */
 public class NestableDelegate implements Serializable {
 
@@ -344,7 +344,9 @@ public class NestableDelegate implements Serializable {
         }
 
         // Remove the repeated lines in the stack
-        if (trimStackFrames) trimStackFrames(stacks);
+        if (trimStackFrames) {
+          trimStackFrames(stacks);
+        }
 
         synchronized (out) {
             for (Iterator iter=stacks.iterator(); iter.hasNext();) {
@@ -352,8 +354,9 @@ public class NestableDelegate implements Serializable {
                 for (int i=0, len=st.length; i < len; i++) {
                     out.println(st[i]);
                 }
-                if (iter.hasNext())
+                if (iter.hasNext()) {
                     out.print(separatorLine);
+                }
             }
         }
     }
