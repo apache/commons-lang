@@ -115,9 +115,13 @@ import java.util.Map;
  * </p>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: Enum.java,v 1.2 2002/08/31 10:51:02 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.3 2002/10/30 21:58:18 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
+    /**
+     * An empty map, as JDK1.2 didn't have an empty map
+     */
+    private static final Map EMPTY_MAP = Collections.unmodifiableMap(new HashMap());
     /**
      * Map, key of class name, value of Entry.
      */
@@ -210,7 +214,7 @@ public abstract class Enum implements Comparable, Serializable {
         }
         Entry entry = (Entry) cEnumClasses.get(enumClass.getName());
         if (entry == null) {
-            return Collections.EMPTY_MAP;
+            return EMPTY_MAP;
         }
         return Collections.unmodifiableMap(entry.map);
     }
