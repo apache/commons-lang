@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2003-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,9 +62,9 @@ import java.util.ListIterator;
  * Tokenizes a string based based on delimiters (separators)
  * and supporting quoting and ignored character concepts.
  * <p>
- * This class can split a String into many smaller strings. It aims to do a
- * similar job to java util StringTokenizer, however it offers much more
- * control and flexibility.
+ * This class can split a String into many smaller strings.
+ * It aims to do a similar job to java util StringTokenizer, however it offers
+ * much more control and flexibility. By default, it is setup like StringTokenizer.
  * <p>
  * The input String is split into a number of <i>tokens</i>.
  * Each token is separated from the next String by a <i>delimiter</i>.
@@ -73,39 +73,66 @@ import java.util.ListIterator;
  * The processing then strips all the <i>ignored</i> characters from each side of the token.
  * The token may also have <i>quotes</i> to mark an area not to be stripped or tokenized.
  * Empty tokens may be removed or returned as null.
+ * This example is based on the CSV tokenizer.
  * <pre>
- * "a,b,c"       - Three tokens "a","b","c" (comma delimiter)
- * "a, b , c"    - Three tokens "a","b","c" (ignored space characters stripped)
+ * "a,b,c"       - Three tokens "a","b","c"   (comma delimiter)
+ * "a, b , c"    - Three tokens "a","b","c"   (ignored space characters stripped)
  * "a, " b ", c" - Three tokens "a"," b ","c" (quoted text untouched)
  * </pre>
  * <p>
- * By default, this tokenizer has the following properties:
- * <pre>
- * Property                     Default
- * ---------                    -------
- * delimiter                    ,  (comma)
- * quote                        "  (double quote)
- * ignored                      char &lt;= 32 (as per trim)
- * emptyTokenAsNull             false
- * ignoreEmptyTokens            false
- * </pre>
+ *
+ * This tokenizer has the following properties and options:
+ *
+ * <table>
+ *  <tr>
+ *   <th>Property</th><th>Type</th><th>Default</th>
+ *  </tr>
+ *  <tr>
+ *   <td>delim</td><td>CharSetMatcher</td><td>{ \t\n\r\f}</td>
+ *  </tr>
+ *  <tr>
+ *   <td>quote</td><td>NoneMatcher</td><td>{}</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ignore</td><td>NoneMatcher</td><td>{}</td>
+ *  </tr>
+ *  <tr>
+ *   <td>emptyTokenAsNull</td><td>boolean</td><td>false</td>
+ *  </tr>
+ *  <tr>
+ *   <td>ignoreEmptyTokens</td><td>boolean</td><td>true</td>
+ *  </tr>
+ * </table>
  *
  * @author Matthew Inger
  * @author Stephen Colebourne
  * @author Gary D. Gregory
  * @since 2.1
- * @version $Id: Tokenizer.java,v 1.3 2004/02/13 01:58:50 ggregory Exp $
+ * @version $Id: Tokenizer.java,v 1.4 2004/02/14 00:31:55 scolebourne Exp $
  */
-public class Tokenizer implements ListIterator {
-    // TODO: Constructors
-    // TODO: Tests
-    // TODO: Static factories CSV/StringTokenizer
-    
+public class Tokenizer implements ListIterator, Cloneable {
+
     /**
      * A Matcher which matches the comma character.
      * Best used for <code>delimiter</code>.
      */
     public static final Matcher COMMA_MATCHER = new CharMatcher(',');
+    /**
+     * A Matcher which matches the tab character.
+     * Best used for <code>delimiter</code>.
+     */
+    public static final Matcher TAB_MATCHER = new CharMatcher('\t');
+    /**
+     * A Matcher which matches the space character.
+     * Best used for <code>delimiter</code>.
+     */
+    public static final Matcher SPACE_MATCHER = new CharMatcher(' ');
+    /**
+     * A Matcher which matches the same characters as StringTokenizer,
+     * namely space, tab, newline, formfeed.
+     * Best used for <code>delimiter</code>.
+     */
+    public static final Matcher SPLIT_MATCHER = new CharSetMatcher(" \t\n\r\f");
     /**
      * A Matcher which matches the double quote character.
      * Best used for <code>quote</code>.
@@ -115,98 +142,199 @@ public class Tokenizer implements ListIterator {
      * A Matcher which matches the String trim() whitespace characters.
      * Best used for <code>ignored</code>.
      */
-    public static final Matcher SPACES_MATCHER = new TrimMatcher();
+    public static final Matcher TRIM_MATCHER = new TrimMatcher();
     /**
      * A Matcher that matches no characters. Don't use this for delimiters!
      * Best used for <code>ignored</code>.
      */
     public static final Matcher NONE_MATCHER = new NoMatcher();
+    
+    private static final Tokenizer CSV_TOKENIZER_PROTOTYPE;
+    private static final Tokenizer TSV_TOKENIZER_PROTOTYPE;
+
+    static {
+        CSV_TOKENIZER_PROTOTYPE = new Tokenizer(StringUtils.EMPTY);
+        CSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(COMMA_MATCHER);
+        CSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(DOUBLE_QUOTE_MATCHER);
+        CSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(TRIM_MATCHER);
+        CSV_TOKENIZER_PROTOTYPE.setEmptyTokenAsNull(false);
+        CSV_TOKENIZER_PROTOTYPE.setIgnoreEmptyTokens(false);
+
+        TSV_TOKENIZER_PROTOTYPE = new Tokenizer(StringUtils.EMPTY);
+        TSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(TAB_MATCHER);
+        TSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(DOUBLE_QUOTE_MATCHER);
+        TSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(TRIM_MATCHER);
+        TSV_TOKENIZER_PROTOTYPE.setEmptyTokenAsNull(false);
+        TSV_TOKENIZER_PROTOTYPE.setIgnoreEmptyTokens(false);
+    }
 
     /** The text to work on */
     private char chars[];
+    /** The input text, null if char[] input */
+    private String text;
     /** The parsed tokens */
     private String tokens[];
     /** The current iteration position */
     private int tokenPos;
 
     /** The delimiter matcher */
-    private Matcher delim = COMMA_MATCHER;
+    private Matcher delim = SPLIT_MATCHER;
     /** The quote matcher */
-    private Matcher quote = DOUBLE_QUOTE_MATCHER;
+    private Matcher quote = NONE_MATCHER;
     /** The ignored matcher */
-    private Matcher ignored = SPACES_MATCHER;
+    private Matcher ignored = NONE_MATCHER;
     /** Whether to return empty tokens as null */
     private boolean emptyAsNull = false;
     /** Whether to ignore empty tokens */
-    private boolean ignoreEmptyTokens = false;
+    private boolean ignoreEmptyTokens = true;
 
     //-----------------------------------------------------------------------
     /**
-     * Constructor.
+     * Get a tokenizer instance which parses Comma Seperated Value
+     * strings.  You must call a "reset" method to set the string which
+     * you want to parse.
+     */
+    public static final Tokenizer getCSVInstance() {
+        return (Tokenizer)(CSV_TOKENIZER_PROTOTYPE.clone());
+    }
+
+    /**
+     * Get a tokenizer instance which parses Comma Seperated Value
+     * strings, initializing it with the given input.
+     * 
+     * @param input  the string to parse
+     */
+    public static final Tokenizer getCSVInstance(String input) {
+        Tokenizer tok = (Tokenizer)(CSV_TOKENIZER_PROTOTYPE.clone());
+        tok.reset(input);
+        return tok;
+    }
+
+    /**
+     * Get a tokenizer instance which parses Comma Seperated Value
+     * strings, initializing it with the given input.
+     * 
+     * @param input  the text to parse
+     */
+    public static final Tokenizer getCSVInstance(char[] input) {
+        Tokenizer tok = (Tokenizer)(CSV_TOKENIZER_PROTOTYPE.clone());
+        tok.reset(input);
+        return tok;
+    }
+
+    /**
+     * Get a tokenizer instance which parses Tab Seperated Value
+     * strings.  You must call a "reset" method to set the string which
+     * you want to parse.
+     */
+    public static final Tokenizer getTSVInstance() {
+        return (Tokenizer)(TSV_TOKENIZER_PROTOTYPE.clone());
+    }
+
+    /**
+     * Get a tokenizer instance which parses Tab Seperated Value
+     * strings, initializing it with the given input.
+     * 
+     * @param input  the string to parse
+     */
+    public static final Tokenizer getTSVInstance(String input) {
+        Tokenizer tok = (Tokenizer)(TSV_TOKENIZER_PROTOTYPE.clone());
+        tok.reset(input);
+        return tok;
+    }
+
+    /**
+     * Get a tokenizer instance which parses Tab Seperated Value
+     * strings, initializing it with the given input.
+     * 
+     * @param input  the text to parse
+     */
+    public static final Tokenizer getTSVInstance(char[] input) {
+        Tokenizer tok = (Tokenizer)(TSV_TOKENIZER_PROTOTYPE.clone());
+        tok.reset(input);
+        return tok;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Constructs a tokenizer splitting on space, tab, newline and formfeed
+     * as per StringTokenizer.
      * 
      * @param input  the string which is to be parsed
      */
     public Tokenizer(String input) {
-        this(input.toCharArray());
+        super();
+        this.text = input;
+        this.chars = input.toCharArray();  // no clone as toCharArray() clones
     }
 
     /**
-     * Constructor.
+     * Constructs a tokenizer splitting on space, tab, newline and formfeed
+     * as per StringTokenizer.
      * 
      * @param input  the string which is to be parsed
      * @param delim  the field delimiter character
      */
     public Tokenizer(String input, char delim) {
-        this(input.toCharArray(), delim);
+        this(input);
+        setDelimiterChar(delim);
     }
 
     /**
-     * Constructor.
+     * Constructs a tokenizer splitting on space, tab, newline and formfeed
+     * as per StringTokenizer.
      * 
      * @param input  the string which is to be parsed
      * @param delim  the field delimiter character
      */
     public Tokenizer(String input, CharSetMatcher delim) {
-        this(input.toCharArray(), delim);
+        this(input);
+        setDelimiterMatcher(delim);
     }
 
     /**
-     * Constructor.
+     * Constructs a tokenizer splitting on space, tab, newline and formfeed
+     * as per StringTokenizer.
      * 
      * @param input  the string which is to be parsed
      * @param delim  the field delimiter character
      * @param quote  the field quoted string character
      */
     public Tokenizer(String input, char delim, char quote) {
-        this(input.toCharArray(), delim, quote);
+        this(input, delim);
+        setQuoteChar(quote);
     }
 
     /**
-     * Constructor.
+     * Constructs a tokenizer splitting on space, tab, newline and formfeed
+     * as per StringTokenizer.
      * 
      * @param input  the string which is to be parsed
      * @param delim  the field delimiter character
      * @param quote  the field quoted string character
      */
     public Tokenizer(String input, CharSetMatcher delim, CharSetMatcher quote) {
-        this(input.toCharArray(), delim, quote);
+        this(input, delim);
+        setQuoteMatcher(quote);
     }
 
     /**
-     * Constructor.
+     * Constructs a tokenizer splitting on space, tab, newline and formfeed
+     * as per StringTokenizer.
      * 
-     * @param input  the string which is to be parsed
+     * @param input  the string which is to be parsed, cloned
      */
     public Tokenizer(char[] input) {
         super();
+        this.text = null;
         this.chars = (char[]) input.clone();
-        this.tokenPos = 0;
     }
 
     /**
-     * Constructor.
+     * Constructs a tokenizer splitting on space, tab, newline and formfeed
+     * as per StringTokenizer.
      * 
-     * @param input  the string which is to be parsed
+     * @param input  the string which is to be parsed, cloned
      * @param delim the field delimiter character
      */
     public Tokenizer(char[] input, char delim) {
@@ -215,9 +343,10 @@ public class Tokenizer implements ListIterator {
     }
 
     /**
-     * Constructor.
+     * Constructs a tokenizer splitting on space, tab, newline and formfeed
+     * as per StringTokenizer.
      * 
-     * @param input  the string which is to be parsed
+     * @param input  the string which is to be parsed, cloned
      * @param delim  the field delimiter character
      */
     public Tokenizer(char[] input, CharSetMatcher delim) {
@@ -226,9 +355,10 @@ public class Tokenizer implements ListIterator {
     }
 
     /**
-     * Constructor.
+     * Constructs a tokenizer splitting on space, tab, newline and formfeed
+     * as per StringTokenizer.
      * 
-     * @param input  the string which is to be parsed
+     * @param input  the string which is to be parsed, cloned
      * @param delim  the field delimiter character
      * @param quote  the field quoted string character
      */
@@ -238,9 +368,10 @@ public class Tokenizer implements ListIterator {
     }
 
     /**
-     * Constructor.
+     * Constructs a tokenizer splitting on space, tab, newline and formfeed
+     * as per StringTokenizer.
      * 
-     * @param input  the string which is to be parsed
+     * @param input  the string which is to be parsed, cloned
      * @param delim  the field delimiter character
      * @param quote  the field quoted string character
      */
@@ -305,6 +436,32 @@ public class Tokenizer implements ListIterator {
     public void reset() {
         tokenPos = 0;
         tokens = null;
+    }
+
+    /**
+     * Reset this tokenizer, giving it a new input string to parse.
+     * In this manner you can re-use a tokenizer with the same settings
+     * on multiple input lines.
+     * 
+     * @param input  the new string to tokenize
+     */
+    public void reset(String input) {
+        reset();
+        this.text = input;
+        chars = input.toCharArray();  // no clone as toCharArray() clones
+    }
+
+    /**
+     * Reset this tokenizer, giving it a new input string to parse.
+     * In this manner you can re-use a tokenizer with the same settings
+     * on multiple input lines.
+     * 
+     * @param input  the new character array to tokenize, cloned
+     */
+    public void reset(char [] input) {
+        reset();
+        this.text = null;
+        chars = (char[]) input.clone();
     }
 
     // ListIterator
@@ -473,14 +630,17 @@ public class Tokenizer implements ListIterator {
         token.setLength(0);
         int len = chars.length;
 
-        // skip all leading whitespace, unless it is the
+        // Skip all leading whitespace, unless it is the
         // field delimiter or the quote character
-        while (start < len &&
-                ignored.isMatch(chars[start]) &&
-                !delim.isMatch(chars[start]) &&
-                !quote.isMatch(chars[start])) {
-            start++;
+        int current = start;
+        while (current < len &&
+                ignored.isMatch(chars[current]) &&
+                !delim.isMatch(chars[current]) &&
+                !quote.isMatch(chars[current])) {
+            current++;
         }
+
+        start = current;
 
         // Read the token depending on what the first
         // character is like
@@ -763,6 +923,36 @@ public class Tokenizer implements ListIterator {
         this.ignoreEmptyTokens = ignoreEmptyTokens;
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * Gets the String content that the tokenizer is parsing.
+     * 
+     * @return the string content being parsed
+     */
+    public String getContent() {
+        if (text == null) {
+            text = new String(chars);
+        }
+        return text;
+    }
+    
+    //-----------------------------------------------------------------------
+    /**
+     * Create a new instance of this Tokenizer.
+     * The new instance is reset so that it will be at the start of the token list.
+     */
+    public Object clone() {
+        try {
+            Tokenizer cloned = (Tokenizer) super.clone();
+            // chars[] does not need additional clone as it is treated as immutable
+            cloned.reset();
+            return cloned;
+            
+        } catch (CloneNotSupportedException ex) {
+            return null;
+        }
+    }
+
     //-----------------------------------------------------------------------    
     /**
      * Class used to define a set of characters for matching purposes.
@@ -801,7 +991,9 @@ public class Tokenizer implements ListIterator {
          * @param chars  the characters to match, must not be null
          */
         public CharSetMatcher(String chars) {
-            this(chars.toCharArray());
+            super();
+            this.chars = chars.toCharArray();
+            Arrays.sort(this.chars);
         }
 
         /**
