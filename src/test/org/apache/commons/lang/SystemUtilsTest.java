@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Tetsuya Kaneuchi
- * @version $Id: SystemUtilsTest.java,v 1.6 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: SystemUtilsTest.java,v 1.7 2003/10/07 20:59:46 scolebourne Exp $
  */
 public class SystemUtilsTest extends TestCase {
 
@@ -363,21 +363,33 @@ public class SystemUtilsTest extends TestCase {
         String osName = System.getProperty("os.name");
         if (osName == null) {
             assertEquals(false, SystemUtils.IS_OS_WINDOWS);
+            assertEquals(false, SystemUtils.IS_OS_UNIX);
             assertEquals(false, SystemUtils.IS_OS_SOLARIS);
             assertEquals(false, SystemUtils.IS_OS_LINUX);
             assertEquals(false, SystemUtils.IS_OS_MAC_OSX);
         } else if (osName.startsWith("Windows")) {
-            assertTrue(SystemUtils.IS_OS_WINDOWS);
+            assertEquals(false, SystemUtils.IS_OS_UNIX);
+            assertEquals(true, SystemUtils.IS_OS_WINDOWS);
         } else if (osName.startsWith("Solaris")) {
-            assertTrue(SystemUtils.IS_OS_SOLARIS);
+            assertEquals(true, SystemUtils.IS_OS_SOLARIS);
+            assertEquals(true, SystemUtils.IS_OS_UNIX);
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
         } else if (osName.toLowerCase().startsWith("linux")) {
-            assertTrue(SystemUtils.IS_OS_LINUX);
+            assertEquals(true, SystemUtils.IS_OS_LINUX);
+            assertEquals(true, SystemUtils.IS_OS_UNIX);
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
         } else if (osName.startsWith("Mac OS X")) {
-            assertTrue(SystemUtils.IS_OS_MAC_OSX);
+            assertEquals(true, SystemUtils.IS_OS_MAC_OSX);
+            assertEquals(true, SystemUtils.IS_OS_UNIX);
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
         } else if (osName.startsWith("OS/2")) {
-            assertTrue(SystemUtils.IS_OS_OS2);
+            assertEquals(true, SystemUtils.IS_OS_OS2);
+            assertEquals(false, SystemUtils.IS_OS_UNIX);
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
         } else if (osName.startsWith("SunOS")) {
-            assertTrue(SystemUtils.IS_OS_SUN_OS);
+            assertEquals(true, SystemUtils.IS_OS_SUN_OS);
+            assertEquals(true, SystemUtils.IS_OS_UNIX);
+            assertEquals(false, SystemUtils.IS_OS_WINDOWS);
         } else {
             System.out.println("Can't test IS_OS value");
         }
