@@ -55,7 +55,6 @@ package org.apache.commons.lang.enum;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -66,14 +65,15 @@ import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
+import org.apache.commons.lang.ClassUtilsTest;
 import org.apache.commons.lang.SerializationUtils;
 
 /**
  * Test cases for the {@link Enum} class.
  *
  * @author Stephen Colebourne
- * @version $Id: EnumTest.java,v 1.15 2004/02/13 23:17:45 scolebourne Exp $
+ * @author Gary D. Gregory
+ * @version $Id: EnumTest.java,v 1.16 2004/02/15 00:51:38 ggregory Exp $
  */
 
 public final class EnumTest extends TestCase {
@@ -473,18 +473,50 @@ public final class EnumTest extends TestCase {
         // the SAME class as the getEnumList(). The references in the outer class
         // are just extra references.
     }
+    
+    public void testColorEnumEqualsWithDifferentClassLoaders() throws SecurityException, IllegalArgumentException,
+            ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        this.testEqualsTrueWithDifferentClassLoaders(ColorEnum.BLUE);
+        this.testEqualsTrueWithDifferentClassLoaders(ColorEnum.GREEN);
+        this.testEqualsTrueWithDifferentClassLoaders(ColorEnum.RED);
+    }
 
-    public void testEqualsWithDifferentClassLoaders() throws ClassNotFoundException, SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    void testEqualsTrueWithDifferentClassLoaders(ColorEnum colorEnum) throws ClassNotFoundException, SecurityException,
+            NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+        // Sanity checks:
+        assertTrue(colorEnum.equals(colorEnum));
+        assertNotNull(ColorEnum.class.getClassLoader());
+        // set up:
+        ClassLoader classLoader = ClassUtilsTest.newSystemClassLoader();
+        Object enumObjectFromOtherClassLoader = this.getColorEnum(classLoader, colorEnum.getName());
+        // the real test, part 1.
+        try {
+            ColorEnum testCase = (ColorEnum) enumObjectFromOtherClassLoader;
+            fail("Should have thrown a ClassCastException for " + testCase);
+        } catch (ClassCastException e) {
+            // normal.
+        }
+        // the real test, part 2.
+        assertEquals("The two objects should match even though they are from different class loaders", colorEnum,
+                enumObjectFromOtherClassLoader);
+        // the real test, part 3.
+        int falseCount = 0;
+        for (Iterator iter = ColorEnum.iterator(); iter.hasNext();) {
+            ColorEnum element = (ColorEnum) iter.next();
+            if (!colorEnum.equals(element)) {
+                falseCount++;
+                assertFalse(enumObjectFromOtherClassLoader.equals(element));
+            }
+        }
+        assertEquals(ColorEnum.getEnumList().size() - 1, falseCount);
+    }
+
+    Object getColorEnum(ClassLoader classLoader, String color) throws ClassNotFoundException, SecurityException,
+            NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         // Sanity check:
         ColorEnum.RED.equals(ColorEnum.RED);
         assertNotNull(ColorEnum.class.getClassLoader());
         // set up:
-        ClassLoader scl = ClassLoader.getSystemClassLoader();
-        if (!(scl instanceof URLClassLoader)) {
-            fail("Need a better test set up.");
-        }
-        URLClassLoader urlScl = (URLClassLoader)scl;
-        ClassLoader classLoader = URLClassLoader.newInstance(urlScl.getURLs(), null);
         assertNotNull(classLoader);
         assertFalse(classLoader.equals(ColorEnum.class.getClassLoader()));
         Class otherColorEnumClass = classLoader.loadClass("org.apache.commons.lang.enum.ColorEnum");
@@ -492,24 +524,31 @@ public final class EnumTest extends TestCase {
         assertNotNull(otherColorEnumClass.getClassLoader());
         assertTrue(classLoader.equals(otherColorEnumClass.getClassLoader()));
         assertFalse(otherColorEnumClass.getClassLoader().equals(ColorEnum.class.getClassLoader()));
-        Method method = otherColorEnumClass.getMethod("getEnum", new Class[]{String.class});        
-        Object enumObject = method.invoke(otherColorEnumClass, new Object[]{"Red"});
+        Method method = otherColorEnumClass.getMethod("getEnum", new Class[]{String.class});
+        Object enumObject = method.invoke(otherColorEnumClass, new Object[]{color});
         assertNotNull(enumObject);
-        // the real test, part 1.
-        try {
-            ColorEnum testCase = (ColorEnum)enumObject;
-            fail("Should have thrown a ClassCastException");
-        } catch (ClassCastException e) {
-            // normal.
-        }
-        // the real test, part 2.
-        assertEquals("The two objects should match even though they are from different class loaders", ColorEnum.RED, enumObject);
+        assertFalse(ColorEnum.class.equals(enumObject.getClass()));
+        assertFalse(ColorEnum.class == enumObject.getClass());
+        return enumObject;
     }
-    
+
     public void testEqualsToWrongInstance() {
-        assertEquals(false, ColorEnum.RED.equals("test"));
-        assertEquals(false, ColorEnum.RED.equals(new Integer(1)));
-        assertEquals(false, ColorEnum.RED.equals(new Boolean(true)));
-        assertEquals(false, ColorEnum.RED.equals(new StringBuffer("test")));
+        for (Iterator iter = ColorEnum.iterator(); iter.hasNext();) {
+            ColorEnum element = (ColorEnum) iter.next();
+            this.testEqualsToWrongInstance(element);
+        }
+    }
+
+    void testEqualsToWrongInstance(ColorEnum colorEnum) {
+        assertEquals(false, colorEnum.equals("test"));
+        assertEquals(false, colorEnum.equals(new Integer(1)));
+        assertEquals(false, colorEnum.equals(new Boolean(true)));
+        assertEquals(false, colorEnum.equals(new StringBuffer("test")));
+        assertEquals(false, colorEnum.equals(new Object()));
+        assertEquals(false, colorEnum.equals(null));
+        assertEquals(false, colorEnum.equals(""));
+        assertEquals(false, colorEnum.equals(ColorEnum.getEnum(null)));
+        assertEquals(false, colorEnum.equals(ColorEnum.getEnum("")));
+        assertEquals(false, colorEnum.equals(ColorEnum.getEnum("This ColorEnum does not exist.")));
     }
 }

@@ -54,6 +54,7 @@
 package org.apache.commons.lang;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -68,27 +69,27 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.23 2003/10/23 21:03:43 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.24 2004/02/15 00:51:38 ggregory Exp $
  */
 public class ClassUtils {
 
     /**
-     * <p>The package separator character: <code>&#x2e;</code>.</p>
+     * <p>The package separator character: <code>'&#x2e;' == {@value}</code>.</p>
      */
     public static final char PACKAGE_SEPARATOR_CHAR = '.';
     
     /**
-     * <p>The package separator String: <code>&#x2e;</code>.</p>
+     * <p>The package separator String: <code>"&#x2e;"</code>.</p>
      */
     public static final String PACKAGE_SEPARATOR = String.valueOf(PACKAGE_SEPARATOR_CHAR);
     
     /**
-     * <p>The inner class separator character: <code>$</code>.</p>
+     * <p>The inner class separator character: <code>'$' == {@value}</code>.</p>
      */
     public static final char INNER_CLASS_SEPARATOR_CHAR = '$';
     
     /**
-     * <p>The inner class separator String: <code>$</code>.</p>
+     * <p>The inner class separator String: <code>"$"</code>.</p>
      */
     public static final String INNER_CLASS_SEPARATOR = String.valueOf(INNER_CLASS_SEPARATOR_CHAR);
     
@@ -563,5 +564,53 @@ public class ClassUtils {
         }
         return (cls.getName().indexOf(INNER_CLASS_SEPARATOR_CHAR) >= 0);
     }
+    
+    /**
+     * Compares two <code>Class</code>s by name.
+     */
+    public static final Comparator CLASS_NAME_COMPARATOR = new Comparator() {
+        /**
+         * Compares two <code>Class</code>s by name.
+         * 
+         * @throws ClassCastException
+         *                  If <code>o1</code> or <code>o2</code> are not <code>Class</code>
+         *                  instances.
+         */
+        public int compare(Object o1, Object o2) {
+            Class class1 = (Class) o1;
+            Class class2 = (Class) o2;
+            if (class1 == null) {
+                return class2 == null ? 0 : -1;
+            }
+            if (class2 == null) {
+                return 1;
+            }
+            return class1.getName().compareTo(class2.getName());
+        }
+    };
+
+    /**
+     * Compares two <code>Package</code>s by name.
+     */
+    public static final Comparator PACKAGE_NAME_COMPARATOR = new Comparator() {
+        /**
+         * Compares two <code>Package</code>s by name.
+         * 
+         * @throws ClassCastException
+         *                  If <code>o1</code> or <code>o2</code> are not <code>Package</code>
+         *                  instances.
+         */
+        public int compare(Object o1, Object o2) {
+            Package package1 = (Package) o1;
+            Package package2 = (Package) o2;
+            if (package1 == null) {
+                return package2 == null ? 0 : -1;
+            }
+            if (package2 == null) {
+                return 1;
+            }
+            return package1.getName().compareTo(package2.getName());
+        }
+    };
     
 }
