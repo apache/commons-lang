@@ -7,7 +7,7 @@
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Component</h1>
-$Id: STATUS.html,v 1.27 2002/11/15 00:07:26 scolebourne Exp $<br />
+$Id: STATUS.html,v 1.28 2002/12/07 21:50:29 bayard Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#Dependencies">[Dependencies]</a>
 <a href="#Release Info">[Release Info]</a>
@@ -72,6 +72,7 @@ A 2.0 will be released after a undefined period of development.
 <ul>
 <li>CharRange.UNSET - will have problems if we introduce reverse ranges that go down to \u0000.</lI>
 <li>Null effects - the classes are not standardised in how they handle null.</li>
+<li>When running the TestFactoryUtils test, sometimes the CPU speed is not quick enough and 'assertEquals((double) System.currentTimeMillis(), (double) ((Date) created).getTime(), 0.01d);' fails. </li>
 </ul>
 </p>
 
@@ -90,7 +91,7 @@ still under discussion, so please mail the list before actioning.</p>
 <li>DateRange</li>
 <li>CloneUtils - utility class to enable cloning via various different mechanisms. This code exists in [pattern] at present.</li>
 <li>StringUtils truncateNicely method - A substring with some extra power to choose where to cut off. It was in Avalon and was added separately to String Taglib from a code submission. This suggests it may have some commonality. [CODED]</li>
-<li>StringUtils unescape method - String Taglib has shown that this method is missing from StringUtils. It would take a String with "\n" in and convert it to the Java character. unescape and escape should be symmetric. </li>
+<li>StringUtils unescape method - String Taglib has shown that this method is missing from StringUtils. It would take a String with "\n" in and convert it to the Java character. unescape and escape should be symmetric - [DONE. Test symmetry] </li>
 <li>ArrayUtils - opinion seems to be that this belongs with [lang] and not [collections]
 <li>GUID and other Identifier generators - these may belong in [util], some code exists in [pattern] at the moment
 <li>CharUtils - Utilities to work on a char[] in the same way as a String

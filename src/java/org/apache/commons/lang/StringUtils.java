@@ -55,8 +55,9 @@ package org.apache.commons.lang;
  */
 
 import java.util.StringTokenizer;
-
 import java.util.Iterator;
+
+import org.apache.commons.lang.exception.NestableRuntimeException;
 
 /**
  * <p>Common <code>String</code> manipulation routines.</p>
@@ -73,7 +74,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.27 2002/11/27 22:54:29 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.28 2002/12/07 21:50:29 bayard Exp $
  */
 public class StringUtils {
 
@@ -952,6 +953,77 @@ public class StringUtils {
                         break;
                 }
             }
+        }
+        return buffer.toString();
+    }
+
+    /**
+     * Unescapes any Java literals found in the String. For example, 
+     * it will turn a sequence of '\' and 'n' into a newline character, 
+     * unless the '\' is preceded by another '\'.
+     */
+    public static String unescape(String str) {
+        int sz = str.length();
+        StringBuffer buffer = new StringBuffer(sz);
+        StringBuffer unicode = new StringBuffer(4);
+        boolean hadSlash = false;
+        boolean inUnicode = false;
+        for (int i = 0; i < sz; i++) {
+            char ch = str.charAt(i);
+            if(inUnicode) {
+                // if in unicode, then we're reading unicode 
+                // values in somehow
+                if(unicode.length() == 4) {
+                    // unicode now contains the four hex digits 
+                    // which represents our unicode chacater
+                    try {
+                        int value = Integer.parseInt(unicode.toString(), 16);
+                        buffer.append( (char)value );
+                        unicode.setLength(0);
+                        unicode.setLength(4);
+                        inUnicode = false;
+                        hadSlash = false;
+                    } catch(NumberFormatException nfe) {
+                        throw new NestableRuntimeException("Unable to parse unicode value: "+unicode, nfe);
+                    }
+                } else {
+                    unicode.append(ch);
+                    continue;
+                }
+            }
+            if(hadSlash) {
+                // handle an escaped value
+                hadSlash = false;
+                switch(ch) {
+                    case '\\': buffer.append('\\'); break;
+                    case '\'': buffer.append('\''); break;
+                    case '\"': buffer.append('"'); break;
+                    case 'r':  buffer.append('\r'); break;
+                    case 'f':  buffer.append('\f'); break;
+                    case 't':  buffer.append('\t'); break;
+                    case 'n':  buffer.append('\n'); break;
+                    case 'b':  buffer.append('\b'); break;
+                    case 'u':  {
+                        // uh-oh, we're in unicode country....
+                        inUnicode=true;
+                        break;
+                    }
+                    default :
+                        buffer.append(ch);
+                        break;
+                }
+                continue;
+            } else
+            if(ch == '\\') {
+                hadSlash = true;
+                continue;
+            } 
+            buffer.append(ch);
+        }
+        if(hadSlash) {
+            // then we're in the weird case of a \ at the end of the 
+            // string, let's output it anyway.
+            buffer.append('\\');
         }
         return buffer.toString();
     }
