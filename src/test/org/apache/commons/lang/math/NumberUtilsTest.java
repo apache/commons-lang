@@ -72,7 +72,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Phil Steitz
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
- * @version $Id: NumberUtilsTest.java,v 1.2 2003/06/28 18:42:04 scolebourne Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.3 2003/07/20 16:03:21 scolebourne Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -98,6 +98,8 @@ public class NumberUtilsTest extends TestCase {
     public void testStringToIntString() {
         assertTrue("stringToInt(String) 1 failed", NumberUtils.stringToInt("12345") == 12345);
         assertTrue("stringToInt(String) 2 failed", NumberUtils.stringToInt("abc") == 0);
+        assertTrue("stringToInt(empty) failed", NumberUtils.stringToInt("") == 0);
+        assertTrue("stringToInt(null) failed", NumberUtils.stringToInt(null) == 0);
     }
 
     /**
@@ -124,7 +126,8 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("createNumber(String) 12 failed", new Float("1.1E20"), NumberUtils.createNumber("1.1E20"));
         assertEquals("createNumber(String) 13 failed", new Double("-1.1E200"), NumberUtils.createNumber("-1.1E200"));
         assertEquals("createNumber(String) 14 failed", new Double("1.1E-200"), NumberUtils.createNumber("1.1E-200"));
-
+        assertEquals("createNumber(null) failed", null, NumberUtils.createNumber(null));
+        
         // jdk 1.2 doesn't support this. unsure about jdk 1.2.2
         if(SystemUtils.isJavaVersionAtLeast(1.3f)) { 
             assertEquals("createNumber(String) 15 failed", new BigDecimal("1.1E-700"), NumberUtils.createNumber("1.1E-700F"));
@@ -146,26 +149,68 @@ public class NumberUtilsTest extends TestCase {
 
     public void testCreateFloat() {
         assertEquals("createFloat(String) failed", new Float("1234.5"), NumberUtils.createFloat("1234.5"));
+        assertEquals("createFloat(null) failed", null, NumberUtils.createFloat(null));
+        try {
+            Float f = NumberUtils.createFloat("");
+            fail("createFloat(empty) failed");
+        } catch (NumberFormatException ex) {
+            ;
+        }
     }
 
     public void testCreateDouble() {
         assertEquals("createDouble(String) failed", new Double("1234.5"), NumberUtils.createDouble("1234.5"));
+        assertEquals("createDouble(null) failed", null, NumberUtils.createDouble(null));
+        try {
+            Double d = NumberUtils.createDouble("");
+            fail("createDouble(empty) failed");
+        } catch (NumberFormatException ex) {
+            ;
+        }
     }
 
     public void testCreateInteger() {
         assertEquals("createInteger(String) failed", new Integer("12345"), NumberUtils.createInteger("12345"));
+        assertEquals("createInteger(null) failed", null, NumberUtils.createInteger(null));
+        try {
+            Integer i = NumberUtils.createInteger("");
+            fail("createInteger(empty) failed");
+        } catch (NumberFormatException ex) {
+            ;
+        }
     }
 
     public void testCreateLong() {
-        assertEquals("createInteger(String) failed", new Long("12345"), NumberUtils.createLong("12345"));
+        assertEquals("createLong(String) failed", new Long("12345"), NumberUtils.createLong("12345"));
+        assertEquals("createLong(null) failed", null, NumberUtils.createLong(null));
+        try {
+            Long l = NumberUtils.createLong("");
+            fail("createLong(empty) failed");
+        } catch (NumberFormatException ex) {
+            ;
+        }
     }
 
     public void testCreateBigInteger() {
         assertEquals("createBigInteger(String) failed", new BigInteger("12345"), NumberUtils.createBigInteger("12345"));
+        assertEquals("createBigInteger(null) failed", null, NumberUtils.createBigInteger(null));
+        try {
+            BigInteger i = NumberUtils.createBigInteger("");
+            fail("createBigInteger(empty) failed");
+        } catch (NumberFormatException ex) {
+            ;
+        }
     }
 
     public void testCreateBigDecimal() {
         assertEquals("createBigDecimal(String) failed", new BigDecimal("1234.5"), NumberUtils.createBigDecimal("1234.5"));
+        assertEquals("createBigDecimal(null) failed", null, NumberUtils.createBigDecimal(null));
+        try {
+            BigDecimal d = NumberUtils.createBigDecimal("");
+            fail("createBigDecimal(empty) failed");
+        } catch (NumberFormatException ex) {
+            ;
+        }
     }
 
     // min/max tests
@@ -855,6 +900,15 @@ public class NumberUtilsTest extends TestCase {
         val = "11d11";
         assertTrue("isNumber(String) 21 Neg failed", !NumberUtils.isNumber(val));
         assertTrue("isNumber(String)/createNumber(String) 21 Neg failed", !checkCreateNumber(val)); 
+        val = "11 11";
+        assertTrue("isNumber(String) 22 Neg failed", !NumberUtils.isNumber(val));
+        assertTrue("isNumber(String)/createNumber(String) 22 Neg failed", !checkCreateNumber(val));
+        val = " 1111";
+        assertTrue("isNumber(String) 23 Neg failed", !NumberUtils.isNumber(val));
+        assertTrue("isNumber(String)/createNumber(String) 23 Neg failed", !checkCreateNumber(val));
+        val = "1111 ";
+        assertTrue("isNumber(String) 24 Neg failed", !NumberUtils.isNumber(val));
+        assertTrue("isNumber(String)/createNumber(String) 24 Neg failed", !checkCreateNumber(val));
 
     }
 
@@ -867,9 +921,7 @@ public class NumberUtilsTest extends TestCase {
             return true;
         } catch (NumberFormatException e) {
             return false;
-        } catch (NullPointerException e) {
-            return false;
-        }
+       }
     }
 
     public void testConstants() {
