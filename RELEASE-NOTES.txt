@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.15 2003/07/20 16:14:51 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.16 2003/07/30 03:21:42 bayard Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -23,7 +23,7 @@ Check your code before implementing this release.
 
 NEW FEATURES:
 
-Since the release of the 1.0 package the following classes have been added:
+Since the release of the 1.0.1 package the following classes have been added:
 
 lang package:
     ArrayUtils
@@ -151,6 +151,14 @@ ID Sev Pri Plt Owner State Result Summary
 21021  [PATCH] reduce object creation in ToStringBuilder  
 21068  [lang] [PATCH] NumberUtils min/max, BooleanUtils.xor, and Ar  
 21099  [lang][PATCH] Unused field 'startFinal' in DateIterator  
+21715  The javadoc says "Mac" instead of "OS/2"
+21734  [PATCH] all NumberUtils.createXXX(String) methods handle null
+21750  [lang] StringUtils javadoc and test enhancements
+21758  [lang] lang.builder classes javadoc edits (mostly typo fixes)
+21797  [lang] Add javadoc examples and tests for StringUtils
+21809  [lang] maven-beta10 checkstyle problem
+21904  NumberUtils.createBigDecimal("") NPE in Sun 1.3.1_08
+21952  [lang] Improved tests, javadoc for CharSetUtils, StringEscapeUtils
 
 
 DEPRECATIONS:
