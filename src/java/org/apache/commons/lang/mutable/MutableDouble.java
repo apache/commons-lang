@@ -16,12 +16,17 @@
 package org.apache.commons.lang.mutable;
 
 /**
- * A mutable <code>Double</code>.
+ * A mutable <code>Double</code>
  * 
  * @since 2.1
- * @version $Id: MutableDouble.java,v 1.2 2004/06/13 06:18:49 bayard Exp $
+ * @version $Id: MutableDouble.java,v 1.3 2004/06/24 04:20:46 bayard Exp $
  */
 public class MutableDouble extends MutableNumber {
+
+    /**
+     * Internal value.
+     */
+    private double value;
 
     /**
      * Instantiates with the specified value
@@ -29,16 +34,29 @@ public class MutableDouble extends MutableNumber {
      */
     public MutableDouble(double value) {
         super();
-        setValue(new Double(value));
+        this.value = value;
     }
 
     public void setValue(double value) {
-        setValue(new Double(value));
+        this.value = value;
     }
 
-    /**
-     * @param value a <code>Number</code>
-     */
+    public double doubleValue() {
+        return this.value;
+    }
+
+    public long longValue() {
+        return (long)this.value;
+    }
+
+    public int intValue() {
+        return (int)this.value;
+    }
+
+    public Object getValue() {
+        return new Double(this.value);
+    }
+
     public void setValue(Object value) {
         setValue(((Number)value).doubleValue());
     }
