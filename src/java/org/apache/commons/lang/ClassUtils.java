@@ -54,8 +54,10 @@
 package org.apache.commons.lang;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 /**
  * <p>Operates on classes without using reflection.</p>
  *
@@ -64,8 +66,9 @@ import java.util.List;
  *
  * @author Stephen Colebourne
  * @author Gary Gregory
+ * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.22 2003/09/07 14:32:34 psteitz Exp $
+ * @version $Id: ClassUtils.java,v 1.23 2003/10/23 21:03:43 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -88,6 +91,21 @@ public class ClassUtils {
      * <p>The inner class separator String: <code>$</code>.</p>
      */
     public static final String INNER_CLASS_SEPARATOR = String.valueOf(INNER_CLASS_SEPARATOR_CHAR);
+    
+    /** 
+     * Maps primitive <code>Class</code>es to their corresponding wrapper <code>Class</code>. 
+     */
+    private static Map  primitiveWrapperMap = new HashMap();
+    static {
+         primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
+         primitiveWrapperMap.put(Byte.TYPE, Byte.class);
+         primitiveWrapperMap.put(Character.TYPE, Character.class);
+         primitiveWrapperMap.put(Short.TYPE, Short.class);
+         primitiveWrapperMap.put(Integer.TYPE, Integer.class);
+         primitiveWrapperMap.put(Long.TYPE, Long.class);
+         primitiveWrapperMap.put(Double.TYPE, Double.class);
+         primitiveWrapperMap.put(Float.TYPE, Float.class);
+    }
     
     /**
      * <p>ClassUtils instances should NOT be constructed in standard programming.
@@ -514,12 +532,28 @@ public class ClassUtils {
         return toClass.isAssignableFrom(cls);
     }
     
+    /**
+     * <p>Converts the specified primitive Class object to its corresponding
+     * wrapper Class object.</p>
+     *
+     * @param cls  the class to convert, may be null
+     * @return the wrapper class for <code>cls</code> or <code>cls</code> if
+     * <code>cls</code> is not a primitive. <code>null</code> if null input.
+     */
+    public static Class primitiveToWrapper(Class cls) {
+        Class convertedClass = cls;
+        if (cls != null && cls.isPrimitive()) {
+            convertedClass = (Class) primitiveWrapperMap.get(cls);
+        }   
+        return convertedClass;
+    }
+    
     // Inner class
     // ----------------------------------------------------------------------
     /**
      * <p>Is the specified class an inner class or static nested class.</p>
      * 
-     * @param cls  the class to check
+     * @param cls  the class to check, may be null
      * @return <code>true</code> if the class is an inner or static nested class,
      *  false if not or <code>null</code>
      */
