@@ -71,7 +71,7 @@ import java.io.File;
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.28 2004/01/15 21:17:33 scolebourne Exp $
+ * @version $Id: SystemUtils.java,v 1.29 2004/01/15 21:20:12 scolebourne Exp $
  */
 public class SystemUtils {
 
@@ -82,22 +82,22 @@ public class SystemUtils {
     /**
      * The System property key for the user home directory.
      */
-    public static final String USER_HOME_KEY = "user.home";
+    private static final String USER_HOME_KEY = "user.home";
 
     /**
      * The System property key for the user directory.
      */
-    public static final String USER_DIR_KEY = "user.dir";
+    private static final String USER_DIR_KEY = "user.dir";
     
     /**
-     * The System property key for the Java IO tenmporary directory.
+     * The System property key for the Java IO temporary directory.
      */
-    public static final String JAVA_IO_TMPDIR_KEY = "java.io.tmpdir";
+    private static final String JAVA_IO_TMPDIR_KEY = "java.io.tmpdir";
     
     /**
      * The System property key for the Java home directory.
      */
-    public static final String JAVA_HOME_KEY = "java.home";
+    private static final String JAVA_HOME_KEY = "java.home";
     
     /**
      * <p>The <code>file.encoding</code> System Property.</p>
@@ -932,7 +932,7 @@ public class SystemUtils {
     }
     
     /**
-     * <p>Gets the Java home directory.</p>
+     * <p>Gets the Java home directory as a <code>File</code>.</p>
      * 
      * @return a directory
      * @throws  SecurityException  if a security manager exists and its  
@@ -945,7 +945,7 @@ public class SystemUtils {
     }
 
     /**
-     * <p>Gets the Java IO temporary directory.</p>
+     * <p>Gets the Java IO temporary directory as a <code>File</code>.</p>
      * 
      * @return a directory
      * @throws  SecurityException  if a security manager exists and its  
@@ -958,7 +958,7 @@ public class SystemUtils {
     }
 
     /**
-     * <p>Gets the user directory.</p>
+     * <p>Gets the user directory as a <code>File</code>.</p>
      * 
      * @return a directory
      * @throws  SecurityException  if a security manager exists and its  
@@ -971,7 +971,7 @@ public class SystemUtils {
     }
 
     /**
-     * <p>Gets the user home directory.</p>
+     * <p>Gets the user home directory as a <code>File</code>.</p>
      * 
      * @return a directory
      * @throws  SecurityException  if a security manager exists and its  
