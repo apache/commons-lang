@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:bayard@apache.org">Henri Yandell</a>
  * @author Stephen Colebourne
- * @version $Id: UtilTestSuite.java,v 1.4 2003/08/18 02:22:28 bayard Exp $
+ * @version $Id: UtilTestSuite.java,v 1.5 2003/08/19 02:32:16 bayard Exp $
  */
 public class UtilTestSuite extends TestCase {
     
@@ -86,9 +86,7 @@ public class UtilTestSuite extends TestCase {
     public static Test suite() {
         TestSuite suite = new TestSuite();
         suite.setName("Commons-Lang-Util Tests");
-        suite.addTest(BitFieldTest.suite());
         suite.addTest(IdentifierUtilsTest.suite());
-        suite.addTest(ValidateTest.suite());
         return suite;
     }
 }

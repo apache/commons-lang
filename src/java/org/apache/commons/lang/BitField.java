@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.lang.util;
+package org.apache.commons.lang;
 
 /**
  * <p>Manage operations dealing with bit-mapped fields.</p>
@@ -63,7 +63,7 @@ package org.apache.commons.lang.util;
  * @author Stephen Colebourne
  * @author Pete Gieser
  * @since 2.0
- * @version $Id: BitField.java,v 1.8 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: BitField.java,v 1.1 2003/08/19 02:32:15 bayard Exp $
  */
 public class BitField {
     

@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.lang.util;
+package org.apache.commons.lang;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -70,7 +70,7 @@ import java.util.Map;
  * @author <a href="mailto:ola.berg@arkitema.se">Ola Berg</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: Validate.java,v 1.4 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: Validate.java,v 1.4 2003/08/19 02:32:15 bayard Exp $
  */
 public class Validate {
     

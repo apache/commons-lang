@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//lang/src/test/org/apache/commons/lang/util/Attic/BitFieldTest.java,v 1.2 2003/08/18 02:22:28 bayard Exp $
- * $Revision: 1.2 $
- * $Date: 2003/08/18 02:22:28 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//lang/src/test/org/apache/commons/lang/BitFieldTest.java,v 1.1 2003/08/19 02:32:16 bayard Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/08/19 02:32:16 $
  *
  * ====================================================================
  *
@@ -59,7 +59,7 @@
  *
  */
 
-package org.apache.commons.lang.util;
+package org.apache.commons.lang;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -72,7 +72,7 @@ import junit.textui.TestRunner;
  * @author Scott Sanders (sanders at apache dot org)
  * @author Marc Johnson
  * @author Glen Stampoultzis (gstamp@iprimus.com.au)
- * @version $Id: BitFieldTest.java,v 1.2 2003/08/18 02:22:28 bayard Exp $
+ * @version $Id: BitFieldTest.java,v 1.1 2003/08/19 02:32:16 bayard Exp $
  */
 
 public class BitFieldTest
