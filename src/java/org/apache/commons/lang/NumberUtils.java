@@ -66,7 +66,7 @@ import java.math.BigDecimal;
  * @author Eric Pugh
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: NumberUtils.java,v 1.11 2003/06/24 21:14:50 scolebourne Exp $
+ * @version $Id: NumberUtils.java,v 1.12 2003/07/20 10:24:49 scolebourne Exp $
  * 
  * @deprecated Moved to org.apache.commons.lang.math.
  *             Class will be removed in Commons Lang 3.0.
@@ -416,7 +416,7 @@ public final class NumberUtils {
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
-     * @return  the largest of the values
+     * @return  the smallest of the values
      */
     public static long minimum(long a, long b, long c) {
         if (b < a) {
@@ -434,7 +434,7 @@ public final class NumberUtils {
      * @param a  value 1
      * @param b  value 2
      * @param c  value 3
-     * @return  the largest of the values
+     * @return  the smallest of the values
      */
     public static int minimum(int a, int b, int c) {
         if (b < a) {
