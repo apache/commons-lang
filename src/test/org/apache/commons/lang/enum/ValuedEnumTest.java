@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,11 +62,12 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.apache.commons.lang.SerializationUtils;
+
 /**
  * Test cases for the {@link Enum} class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ValuedEnumTest.java,v 1.2 2002/10/13 18:42:06 sullis Exp $
+ * @version $Id: ValuedEnumTest.java,v 1.3 2003/05/22 22:00:06 scolebourne Exp $
  */
 
 public final class ValuedEnumTest extends TestCase {

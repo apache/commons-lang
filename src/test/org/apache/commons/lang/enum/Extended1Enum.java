@@ -56,11 +56,12 @@ package org.apache.commons.lang.enum;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 /**
  * Base extended enumeration.
  *
  * @author Stephen Colebourne
- * @version $Id: Extended1Enum.java,v 1.1 2003/02/04 18:30:08 scolebourne Exp $
+ * @version $Id: Extended1Enum.java,v 1.2 2003/05/22 22:00:06 scolebourne Exp $
  */
 public class Extended1Enum extends Enum {
     public static final Extended1Enum ALPHA = new Extended1Enum("Alpha");
