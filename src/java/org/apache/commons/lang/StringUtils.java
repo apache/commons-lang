@@ -98,7 +98,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.68 2003/07/20 00:04:12 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.69 2003/07/20 00:17:29 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -250,66 +250,6 @@ public class StringUtils {
         return (str == null ? "" : str.trim());
     }
     
-    // Delete
-    //-----------------------------------------------------------------------
-
-    /**
-     * <p>Deletes all 'space' characters from a String as defined by
-     * {@link Character#isSpace(char)}.</p>
-     * 
-     * <p>This is the only StringUtils method that uses the 
-     * <code>isSpace</code> definition. You are advised to use
-     * {@link #deleteWhitespace(String)} instead as whitespace is much
-     * better localized.</p>
-     *
-     * <pre>
-     * StringUtils.deleteSpaces(null)           = null
-     * StringUtils.deleteSpaces("abc")          = "abc"
-     * StringUtils.deleteSpaces(" \t  abc \n ") = "abc"
-     * StringUtils.deleteSpaces("ab  c")        = "abc"
-     * StringUtils.deleteSpaces("a\nb\tc     ") = "abc"
-     * </pre>
-     *  
-     * <p>Spaces are defined as <code>{' ', '\t', '\r', '\n', '\b'}</code>
-     * in line with the deprecated <code>isSpace</code> method.</p>
-     *
-     * @param str  the String to delete spaces from, may be null
-     * @return the String without 'spaces', <code>null</code> if null String input
-     */
-    public static String deleteSpaces(String str) {
-        if (str == null) {
-            return null;
-        }
-        return CharSetUtils.delete(str, " \t\r\n\b");
-    }
-
-    /**
-     * <p>Deletes all whitespaces from a String as defined by
-     * {@link Character#isWhitespace(char)}.</p>
-     *
-     * <pre>
-     * StringUtils.deleteWhitespace(null)        = null
-     * StringUtils.deleteWhitespace("abc")       = "abc"
-     * StringUtils.deleteWhitespace("   abc  ")  = "abc"
-     * </pre>
-     *  
-     * @param str  the String to delete whitespace from, may be null
-     * @return the String without whitespaces, <code>null</code> if null String input
-     */
-    public static String deleteWhitespace(String str) {
-        if (str == null) {
-            return null;
-        }
-        int sz = str.length();
-        StringBuffer buffer = new StringBuffer(sz);
-        for (int i = 0; i < sz; i++) {
-            if (!Character.isWhitespace(str.charAt(i))) {
-                buffer.append(str.charAt(i));
-            }
-        }
-        return buffer.toString();
-    }
-
     // Empty checks
     //-----------------------------------------------------------------------
 
@@ -1577,11 +1517,73 @@ public class StringUtils {
         return buf.toString();
     }
 
+    // Delete
+    //-----------------------------------------------------------------------
+
+    /**
+     * <p>Deletes all 'space' characters from a String as defined by
+     * {@link Character#isSpace(char)}.</p>
+     * 
+     * <p>This is the only StringUtils method that uses the 
+     * <code>isSpace</code> definition. You are advised to use
+     * {@link #deleteWhitespace(String)} instead as whitespace is much
+     * better localized.</p>
+     *
+     * <pre>
+     * StringUtils.deleteSpaces(null)           = null
+     * StringUtils.deleteSpaces("abc")          = "abc"
+     * StringUtils.deleteSpaces(" \t  abc \n ") = "abc"
+     * StringUtils.deleteSpaces("ab  c")        = "abc"
+     * StringUtils.deleteSpaces("a\nb\tc     ") = "abc"
+     * </pre>
+     *  
+     * <p>Spaces are defined as <code>{' ', '\t', '\r', '\n', '\b'}</code>
+     * in line with the deprecated <code>isSpace</code> method.</p>
+     *
+     * @param str  the String to delete spaces from, may be null
+     * @return the String without 'spaces', <code>null</code> if null String input
+     * @deprecated Use the better localized {@link #deleteWhitespace(String)}.
+     *             Method will be removed in Commons Lang 3.0.
+     */
+    public static String deleteSpaces(String str) {
+        if (str == null) {
+            return null;
+        }
+        return CharSetUtils.delete(str, " \t\r\n\b");
+    }
+
+    /**
+     * <p>Deletes all whitespaces from a String as defined by
+     * {@link Character#isWhitespace(char)}.</p>
+     *
+     * <pre>
+     * StringUtils.deleteWhitespace(null)        = null
+     * StringUtils.deleteWhitespace("abc")       = "abc"
+     * StringUtils.deleteWhitespace("   abc  ")  = "abc"
+     * </pre>
+     *  
+     * @param str  the String to delete whitespace from, may be null
+     * @return the String without whitespaces, <code>null</code> if null String input
+     */
+    public static String deleteWhitespace(String str) {
+        if (str == null) {
+            return null;
+        }
+        int sz = str.length();
+        StringBuffer buffer = new StringBuffer(sz);
+        for (int i = 0; i < sz; i++) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                buffer.append(str.charAt(i));
+            }
+        }
+        return buffer.toString();
+    }
+
     // Replacing
     //-----------------------------------------------------------------------
     
     /**
-     * <p>Replace a String with another String inside a larger String, once.</p>
+     * <p>Replaces a String with another String inside a larger String, once.</p>
      * 
      * <p>A <code>null</code> reference passed to this method is a no-op.</p>
      * 
@@ -1606,7 +1608,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Replace all occurances of a String within another String.</p>
+     * <p>Replaces all occurances of a String within another String.</p>
      *
      * <p>A <code>null</code> reference passed to this method is a no-op.</p>
      * 
@@ -1631,7 +1633,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Replace a String with another String inside a larger String,
+     * <p>Replaces a String with another String inside a larger String,
      * for the first <code>max</code> values of the search String.</p>
      *
      * <p>A <code>null</code> reference passed to this method is a no-op.</p>

@@ -72,7 +72,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.30 2003/07/19 23:28:23 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.31 2003/07/20 00:17:29 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -341,26 +341,78 @@ public class StringUtilsTest extends TestCase {
         }
     }
 
-    public void testReplaceFunctions() {
-        assertEquals("replace(String, String, String, int) failed",
-                     FOO, StringUtils.replace("oo" + FOO, "o", "", 2));
-        assertEquals("replace(String, String, String) failed",
-                     "", StringUtils.replace(FOO + FOO + FOO, FOO, ""));
-        assertEquals("replaceOnce(String, String, String) failed",
-                     FOO, StringUtils.replaceOnce(FOO + FOO, FOO, ""));
-        assertEquals("carriage-return replace(String,String,String) failed",
-                     "test123", StringUtils.replace("test\r1\r2\r3", "\r", ""));
+    public void testDeleteSpace_String() {
+        assertEquals(null, StringUtils.deleteSpaces(null));
+        assertEquals("", StringUtils.deleteSpaces(""));
+        assertEquals("", StringUtils.deleteSpaces("    \t\t\n\n   "));
+        assertEquals("test", StringUtils.deleteSpaces("t  \t\ne\rs\n\n   \tt"));
+    }
+    
+    public void testDeleteWhitespace_String() {
+        assertEquals(null, StringUtils.deleteWhitespace(null));
+        assertEquals("", StringUtils.deleteWhitespace(""));
+        assertEquals("", StringUtils.deleteWhitespace("  \u000C  \t\t\u001F\n\n \u000B  "));
+        assertEquals("", StringUtils.deleteWhitespace(StringUtilsTest.WHITESPACE));
+        assertEquals(StringUtilsTest.NON_WHITESPACE, StringUtils.deleteWhitespace(StringUtilsTest.NON_WHITESPACE));
+        // Note: u-2007 and u-000A both cause problems in the source code
+        // it should ignore 2007 but delete 000A
+        assertEquals("\u00A0\u202F", StringUtils.deleteWhitespace("  \u00A0  \t\t\n\n \u202F  "));
+        assertEquals("\u00A0\u202F", StringUtils.deleteWhitespace("\u00A0\u202F"));
+        assertEquals("test", StringUtils.deleteWhitespace("\u000Bt  \t\n\u0009e\rs\n\n   \tt"));
+    }
 
-        assertEquals("replace(String, String, String) failed",
-            "FOO", StringUtils.replace("FOO", "", "any"));
-        assertEquals("replace(String, String, String) failed",
-            "FOO", StringUtils.replace("FOO", null, "any"));
-        assertEquals("replace(String, String, String) failed",
-            "FOO", StringUtils.replace("FOO", "F", null));
-        assertEquals("replace(String, String, String) failed",
-            "FOO", StringUtils.replace("FOO", null, null));
-        assertEquals("replace(String, String, String) failed",
-            null, StringUtils.replace(null, "", "any"));
+    public void testReplace_StringStringString() {
+        assertEquals(null, StringUtils.replace(null, null, null));
+        assertEquals(null, StringUtils.replace(null, null, "any"));
+        assertEquals(null, StringUtils.replace(null, "any", null));
+        assertEquals(null, StringUtils.replace(null, "any", "any"));
+
+        assertEquals("", StringUtils.replace("", null, null));
+        assertEquals("", StringUtils.replace("", null, "any"));
+        assertEquals("", StringUtils.replace("", "any", null));
+        assertEquals("", StringUtils.replace("", "any", "any"));
+
+        assertEquals("FOO", StringUtils.replace("FOO", "", "any"));
+        assertEquals("FOO", StringUtils.replace("FOO", null, "any"));
+        assertEquals("FOO", StringUtils.replace("FOO", "F", null));
+        assertEquals("FOO", StringUtils.replace("FOO", null, null));
+
+        assertEquals("", StringUtils.replace("foofoofoo", "foo", ""));
+        assertEquals("barbarbar", StringUtils.replace("foofoofoo", "foo", "bar"));
+        assertEquals("farfarfar", StringUtils.replace("foofoofoo", "oo", "ar"));
+    }
+    
+    public void testReplace_StringStringStringInt() {
+        assertEquals(null, StringUtils.replace(null, null, null, 2));
+        assertEquals(null, StringUtils.replace(null, null, "any", 2));
+        assertEquals(null, StringUtils.replace(null, "any", null, 2));
+        assertEquals(null, StringUtils.replace(null, "any", "any", 2));
+
+        assertEquals("f", StringUtils.replace("oofoo", "o", "", -1));
+        assertEquals("oofoo", StringUtils.replace("oofoo", "o", "", 0));
+        assertEquals("ofoo", StringUtils.replace("oofoo", "o", "", 1));
+        assertEquals("foo", StringUtils.replace("oofoo", "o", "", 2));
+        assertEquals("fo", StringUtils.replace("oofoo", "o", "", 3));
+        assertEquals("f", StringUtils.replace("oofoo", "o", "", 4));
+    }
+    
+    public void testReplaceOnce_StringStringString() {
+        assertEquals(null, StringUtils.replaceOnce(null, null, null));
+        assertEquals(null, StringUtils.replaceOnce(null, null, "any"));
+        assertEquals(null, StringUtils.replaceOnce(null, "any", null));
+        assertEquals(null, StringUtils.replaceOnce(null, "any", "any"));
+
+        assertEquals("", StringUtils.replaceOnce("", null, null));
+        assertEquals("", StringUtils.replaceOnce("", null, "any"));
+        assertEquals("", StringUtils.replaceOnce("", "any", null));
+        assertEquals("", StringUtils.replaceOnce("", "any", "any"));
+
+        assertEquals("FOO", StringUtils.replaceOnce("FOO", "", "any"));
+        assertEquals("FOO", StringUtils.replaceOnce("FOO", null, "any"));
+        assertEquals("FOO", StringUtils.replaceOnce("FOO", "F", null));
+        assertEquals("FOO", StringUtils.replaceOnce("FOO", null, null));
+
+        assertEquals("foofoo", StringUtils.replaceOnce("foofoofoo", "foo", ""));
     }
 
     public void testOverlayString() {
