@@ -55,6 +55,7 @@ package org.apache.commons.lang.exception;
  */
 
 import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -132,12 +133,21 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase
     }
 
     public void testPrintThrowables()
+        throws Exception
     {
+        StringWriter writer = new StringWriter(1024);
         Throwable withCause = createExceptionWithCause();
         ExceptionUtils.printRootCauseStackTrace(withCause, 
-            new PrintWriter(System.out));
+            new PrintWriter(writer));
+        String stackTrace = writer.toString();
+        assertTrue("printRootCauseStackTrace(Throwable, PrintWriter) failed",
+                   stackTrace.indexOf(ExceptionUtils.WRAPPED_MARKER) != -1);
+        writer = new StringWriter(1024);
         ExceptionUtils.printRootCauseStackTrace(withoutCause, 
-            System.out);
+            new PrintWriter(writer));
+        stackTrace = writer.toString();
+        assertTrue("printRootCauseStackTrace(Throwable, PrintWriter) failed",
+                   stackTrace.indexOf(ExceptionUtils.WRAPPED_MARKER) == -1);
     }
     
     /**

@@ -77,9 +77,16 @@ import org.apache.commons.lang.SystemUtils;
  * @author Dmitri Plotnikov
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.19 2002/12/23 00:03:47 scolebourne Exp $
+ * @version $Id: ExceptionUtils.java,v 1.20 2003/01/20 23:04:19 dlr Exp $
  */
 public class ExceptionUtils {
+    /**
+     * Used when printing stack frames to denote the start of a
+     * wrapped exception.  Package private for accessibility by test
+     * suite.
+     */
+    static final String WRAPPED_MARKER = " [wrapped] ";
+
     /**
      * The names of methods commonly used to access a wrapped
      * exception.
@@ -401,7 +408,7 @@ public class ExceptionUtils {
             if (i == count - 1) {
                 frames.add(throwables[i].toString());
             } else {
-                frames.add(" [wrapped] " + throwables[i].toString());
+                frames.add(WRAPPED_MARKER + throwables[i].toString());
             }
             for (int j = 0; j < trace.size(); j++) {
                 frames.add(trace.get(j));
