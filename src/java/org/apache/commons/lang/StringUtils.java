@@ -148,7 +148,7 @@ import java.util.List;
  * @author Phil Steitz
  * @author Al Chou
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.120 2003/11/29 13:24:33 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.121 2003/12/15 01:51:36 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2699,39 +2699,25 @@ public class StringUtils {
      * @since 2.0
      */
     public static String replaceChars(String str, String searchChars, String replaceChars) {
-        if (str == null || str.length() == 0 || searchChars == null || searchChars.length() == 0) {
+        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(searchChars)) {
             return str;
         }
-        char[] chars = str.toCharArray();
-        int len = chars.length;
-        boolean modified = false;
-        for (int i = 0, isize = searchChars.length(); i < isize; i++) {
-            char searchChar = searchChars.charAt(i);
-            if (replaceChars == null || i >= replaceChars.length()) {
-                // delete
-                int pos = 0;
-                for (int j = 0; j < len; j++) {
-                    if (chars[j] != searchChar) {
-                        chars[pos++] = chars[j];
-                    } else {
-                        modified = true;
-                    }
+        if (replaceChars == null) {
+            replaceChars = "";
+        }
+        StringBuffer buffer = new StringBuffer(str.length());
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            int index = searchChars.indexOf(ch);
+            if (index >= 0) {
+                if (index < replaceChars.length()) {
+                    buffer.append(replaceChars.charAt(index));
                 }
-                len = pos;
             } else {
-                // replace
-                for (int j = 0; j < len; j++) {
-                    if (chars[j] == searchChar) {
-                        chars[j] = replaceChars.charAt(i);
-                        modified = true;
-                    }
-                }
+                buffer.append(ch);
             }
         }
-        if (modified == false) {
-            return str;
-        }
-        return new String(chars, 0, len);
+        return buffer.toString();
     }
 
     // Overlay
