@@ -70,7 +70,7 @@ import java.util.ListIterator;
  * @author Stephen Colebourne
  * @author Gary D. Gregory
  * @since 2.1
- * @version $Id: Tokenizer.java,v 1.6 2004/02/19 21:04:03 fredrik Exp $
+ * @version $Id: Tokenizer.java,v 1.7 2004/08/28 09:14:21 scolebourne Exp $
  */
 public class Tokenizer implements ListIterator, Cloneable {
 
@@ -152,17 +152,16 @@ public class Tokenizer implements ListIterator, Cloneable {
 
     //-----------------------------------------------------------------------
     /**
-     * Get a tokenizer instance which parses Comma Seperated Value
-     * strings.  You must call a "reset" method to set the string which
-     * you want to parse.
+     * Gets a new tokenizer instance which parses Comma Seperated Value strings.
+     * You must call a "reset" method to set the string which you want to parse.
      */
     public static final Tokenizer getCSVInstance() {
         return (Tokenizer)(CSV_TOKENIZER_PROTOTYPE.clone());
     }
 
     /**
-     * Get a tokenizer instance which parses Comma Seperated Value
-     * strings, initializing it with the given input.
+     * Gets a new tokenizer instance which parses Comma Seperated Value strings
+     * initializing it with the given input.
      * 
      * @param input  the string to parse
      */
@@ -173,8 +172,8 @@ public class Tokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Get a tokenizer instance which parses Comma Seperated Value
-     * strings, initializing it with the given input.
+     * Gets a new tokenizer instance which parses Comma Seperated Value strings
+     * initializing it with the given input.
      * 
      * @param input  the text to parse
      */
@@ -185,17 +184,16 @@ public class Tokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Get a tokenizer instance which parses Tab Seperated Value
-     * strings.  You must call a "reset" method to set the string which
-     * you want to parse.
+     * Gets a new tokenizer instance which parses Tab Seperated Value strings.
+     * You must call a "reset" method to set the string which you want to parse.
      */
     public static final Tokenizer getTSVInstance() {
         return (Tokenizer)(TSV_TOKENIZER_PROTOTYPE.clone());
     }
 
     /**
-     * Get a tokenizer instance which parses Tab Seperated Value
-     * strings, initializing it with the given input.
+     * Gets a new tokenizer instance which parses Tab Seperated Value strings
+     * initializing it with the given input.
      * 
      * @param input  the string to parse
      */
@@ -206,8 +204,8 @@ public class Tokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Get a tokenizer instance which parses Tab Seperated Value
-     * strings, initializing it with the given input.
+     * Gets a new tokenizer instance which parses Tab Seperated Value strings
+     * initializing it with the given input.
      * 
      * @param input  the text to parse
      */
@@ -243,20 +241,19 @@ public class Tokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Constructs a tokenizer splitting on space, tab, newline and formfeed
-     * as per StringTokenizer.
+     * Constructs a tokenizer splitting using the specified delimiter matcher.
      * 
      * @param input  the string which is to be parsed
-     * @param delim  the field delimiter character
+     * @param delim  the field delimiter matcher
      */
-    public Tokenizer(String input, CharSetMatcher delim) {
+    public Tokenizer(String input, Matcher delim) {
         this(input);
         setDelimiterMatcher(delim);
     }
 
     /**
-     * Constructs a tokenizer splitting on space, tab, newline and formfeed
-     * as per StringTokenizer.
+     * Constructs a tokenizer splitting on the specified delimiter character
+     * and handling quotes using the specified quote character.
      * 
      * @param input  the string which is to be parsed
      * @param delim  the field delimiter character
@@ -268,14 +265,14 @@ public class Tokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Constructs a tokenizer splitting on space, tab, newline and formfeed
-     * as per StringTokenizer.
+     * Constructs a tokenizer splitting using the specified delimiter matcher
+     * and handling quotes using the specified quote matcher.
      * 
      * @param input  the string which is to be parsed
-     * @param delim  the field delimiter character
-     * @param quote  the field quoted string character
+     * @param delim  the field delimiter matcher
+     * @param quote  the field quoted string matcher
      */
-    public Tokenizer(String input, CharSetMatcher delim, CharSetMatcher quote) {
+    public Tokenizer(String input, Matcher delim, Matcher quote) {
         this(input, delim);
         setQuoteMatcher(quote);
     }
@@ -305,20 +302,19 @@ public class Tokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Constructs a tokenizer splitting on space, tab, newline and formfeed
-     * as per StringTokenizer.
+     * Constructs a tokenizer splitting using the specified delimiter matcher.
      * 
      * @param input  the string which is to be parsed, cloned
-     * @param delim  the field delimiter character
+     * @param delim  the field delimiter matcher
      */
-    public Tokenizer(char[] input, CharSetMatcher delim) {
+    public Tokenizer(char[] input, Matcher delim) {
         this(input);
         setDelimiterMatcher(delim);
     }
 
     /**
-     * Constructs a tokenizer splitting on space, tab, newline and formfeed
-     * as per StringTokenizer.
+     * Constructs a tokenizer splitting on the specified delimiter character
+     * and handling quotes using the specified quote character.
      * 
      * @param input  the string which is to be parsed, cloned
      * @param delim  the field delimiter character
@@ -330,14 +326,14 @@ public class Tokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Constructs a tokenizer splitting on space, tab, newline and formfeed
-     * as per StringTokenizer.
+     * Constructs a tokenizer splitting using the specified delimiter matcher
+     * and handling quotes using the specified quote matcher.
      * 
      * @param input  the string which is to be parsed, cloned
      * @param delim  the field delimiter character
      * @param quote  the field quoted string character
      */
-    public Tokenizer(char[] input, CharSetMatcher delim, CharSetMatcher quote) {
+    public Tokenizer(char[] input, Matcher delim, Matcher quote) {
         this(input, delim);
         setQuoteMatcher(quote);
     }
@@ -642,7 +638,7 @@ public class Tokenizer implements ListIterator, Cloneable {
             // Quoting mode can occur several times throughout
             // a given string, so must switch between quoting
             // and non-quoting until we encounter a non-quoted
-            // delimiter, or end of string, which inidicates end
+            // delimiter, or end of string, which indicates end
             // of token.
             if (quoting) {
                 // If we've found a quote character, see if it's
