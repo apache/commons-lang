@@ -79,7 +79,7 @@ import java.util.List;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.20 2003/08/23 00:41:29 ggregory Exp $
+ * @version $Id: NestableDelegate.java,v 1.21 2003/09/07 14:32:35 psteitz Exp $
  */
 public class NestableDelegate implements Serializable {
 
@@ -129,7 +129,7 @@ public class NestableDelegate implements Serializable {
 
     /**
      * Returns the error message of the <code>Throwable</code> in the chain
-     * of <code>Throwable</code>s at the specified index, numbererd from 0.
+     * of <code>Throwable</code>s at the specified index, numbered from 0.
      *
      * @param index the index of the <code>Throwable</code> in the chain of
      * <code>Throwable</code>s
@@ -207,7 +207,7 @@ public class NestableDelegate implements Serializable {
 
     /**
      * Returns the <code>Throwable</code> in the chain of
-     * <code>Throwable</code>s at the specified index, numbererd from 0.
+     * <code>Throwable</code>s at the specified index, numbered from 0.
      *
      * @param index the index, numbered from 0, of the <code>Throwable</code> in
      * the chain of <code>Throwable</code>s

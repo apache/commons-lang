@@ -58,7 +58,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * <p>Date and time formatting utilites and constants.</p>
+ * <p>Date and time formatting utilities and constants.</p>
  *
  * <p>Formatting is performed using the
  * {@link org.apache.commons.lang.time.FastDateFormat} class.</p>
@@ -69,12 +69,12 @@ import java.util.TimeZone;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DateFormatUtils.java,v 1.7 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: DateFormatUtils.java,v 1.8 2003/09/07 14:32:35 psteitz Exp $
  */
 public class DateFormatUtils {
 
     /**
-     * ISO8601 formatter for date-time witout time zone.
+     * ISO8601 formatter for date-time without time zone.
      * The format used is <tt>yyyy-MM-dd'T'HH:mm:ss</tt>.
      */
     public static final FastDateFormat ISO_DATETIME_FORMAT

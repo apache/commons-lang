@@ -67,7 +67,7 @@ import java.io.Serializable;
  * @author Tim O'Brien
  * @author Pete Gieser
  * @since 2.0
- * @version $Id: Fraction.java,v 1.11 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: Fraction.java,v 1.12 2003/09/07 14:32:35 psteitz Exp $
  */
 public final class Fraction extends Number implements Serializable, Comparable {
 
@@ -625,7 +625,7 @@ public final class Fraction extends Number implements Serializable, Comparable {
      * <p>Multiplies the value of this fraction by another, returning the result 
      * in reduced form.</p>
      *
-     * @param fraction  the fraction to multipy by, must not be <code>null</code>
+     * @param fraction  the fraction to multiply by, must not be <code>null</code>
      * @return a <code>Fraction</code> instance with the resulting values
      * @throws IllegalArgumentException if the fraction is <code>null</code>
      * @throws ArithmeticException if the resulting numerator or denominator exceeds

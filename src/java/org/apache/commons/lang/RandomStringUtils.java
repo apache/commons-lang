@@ -64,7 +64,7 @@ import java.util.Random;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.24 2003/08/22 17:25:33 ggregory Exp $
+ * @version $Id: RandomStringUtils.java,v 1.25 2003/09/07 14:32:34 psteitz Exp $
  */
 public class RandomStringUtils {
 
@@ -167,7 +167,7 @@ public class RandomStringUtils {
      * @param count  the length of random string to create
      * @param letters  if <code>true</code>, generated string will include
      *  alphabetic characters
-     * @param numbers  if <code>true</code>, generatd string will include
+     * @param numbers  if <code>true</code>, generated string will include
      *  numeric characters
      * @return the random string
      */

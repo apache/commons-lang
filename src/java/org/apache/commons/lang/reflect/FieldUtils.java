@@ -64,7 +64,7 @@ import java.lang.reflect.Modifier;
  * facility should be used with care.</p>
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: FieldUtils.java,v 1.3 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: FieldUtils.java,v 1.4 2003/09/07 14:32:35 psteitz Exp $
  */
 public class FieldUtils {
     
@@ -86,7 +86,7 @@ public class FieldUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * <p>Gets an accessible <code>Field</code> by name repecting scope.
+     * <p>Gets an accessible <code>Field</code> by name respecting scope.
      * Superclasses/interfaces will be considered.</p>
      *
      * @param cls  the class to reflect, must not be <code>null</code>

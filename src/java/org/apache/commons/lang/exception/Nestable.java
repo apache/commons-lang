@@ -66,7 +66,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: Nestable.java,v 1.9 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: Nestable.java,v 1.10 2003/09/07 14:32:35 psteitz Exp $
  */
 public interface Nestable {
     
@@ -88,7 +88,7 @@ public interface Nestable {
 
     /**
      * Returns the error message of the <code>Throwable</code> in the chain
-     * of <code>Throwable</code>s at the specified index, numbererd from 0.
+     * of <code>Throwable</code>s at the specified index, numbered from 0.
      *
      * @param index the index of the <code>Throwable</code> in the chain of
      * <code>Throwable</code>s
@@ -114,7 +114,7 @@ public interface Nestable {
 
     /**
      * Returns the <code>Throwable</code> in the chain of
-     * <code>Throwable</code>s at the specified index, numbererd from 0.
+     * <code>Throwable</code>s at the specified index, numbered from 0.
      *
      * @param index the index, numbered from 0, of the <code>Throwable</code> in
      * the chain of <code>Throwable</code>s
@@ -181,7 +181,7 @@ public interface Nestable {
 
     /**
      * Prints the stack trace of this exception to the specified print
-     * stream.  Includes inforamation from the exception, if any,
+     * stream.  Includes information from the exception, if any,
      * which caused this exception.
      *
      * @param out <code>PrintStream</code> to use for output.

@@ -66,7 +66,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Matthew Hawthorne
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: BooleanUtils.java,v 1.14 2003/08/22 17:25:33 ggregory Exp $
+ * @version $Id: BooleanUtils.java,v 1.15 2003/09/07 14:32:34 psteitz Exp $
  */
 public class BooleanUtils {
 
@@ -668,7 +668,7 @@ public class BooleanUtils {
         try {
             primitive = ArrayUtils.toPrimitive(array);
         } catch (NullPointerException ex) {
-            throw new IllegalArgumentException("The array must not conatin any null elements");
+            throw new IllegalArgumentException("The array must not contain any null elements");
         }
         return (xor(primitive) ? Boolean.TRUE : Boolean.FALSE);
     }

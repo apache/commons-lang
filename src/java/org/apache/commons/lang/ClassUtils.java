@@ -65,7 +65,7 @@ import java.util.List;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.21 2003/08/22 17:25:33 ggregory Exp $
+ * @version $Id: ClassUtils.java,v 1.22 2003/09/07 14:32:34 psteitz Exp $
  */
 public class ClassUtils {
 
@@ -236,7 +236,7 @@ public class ClassUtils {
      * class and its superclasses.</p>
      *
      * <p>The order is determined by looking through each interface in turn as
-     * declared in the source file and following its hieracrchy up. Then each 
+     * declared in the source file and following its hierarchy up. Then each 
      * superclass is considered in the same way. Later duplicates are ignored, 
      * so the order is maintained.</p>
      * 
@@ -386,7 +386,7 @@ public class ClassUtils {
      *
      * <p>This method calls {@link #isAssignable(Class, Class) isAssignable} for each
      * Class pair in the input arrays. It can be used to check if a set of arguments
-     * (the first parameter) are suitably compatable with a set of method parameter types
+     * (the first parameter) are suitably compatible with a set of method parameter types
      * (the second parameter).</p>
      *
      * <p>Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this

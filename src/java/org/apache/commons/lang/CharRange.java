@@ -65,7 +65,7 @@ import java.io.Serializable;
  * @author Chris Feldhacker
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharRange.java,v 1.15 2003/08/22 17:25:33 ggregory Exp $
+ * @version $Id: CharRange.java,v 1.16 2003/09/07 14:32:34 psteitz Exp $
  */
 public final class CharRange implements Serializable {
 
@@ -234,7 +234,7 @@ public final class CharRange implements Serializable {
     }
 
     /**
-     * <p>Gets a hashCode compatable with the equals method.</p>
+     * <p>Gets a hashCode compatible with the equals method.</p>
      * 
      * @return a suitable hashCode
      */

@@ -71,7 +71,7 @@ import java.util.Set;
  * @author Pete Gieser
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSet.java,v 1.20 2003/08/22 17:25:33 ggregory Exp $
+ * @version $Id: CharSet.java,v 1.21 2003/09/07 14:32:34 psteitz Exp $
  */
 public class CharSet implements Serializable {
 
@@ -296,7 +296,7 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * <p>Gets a hashCode compatable with the equals method.</p>
+     * <p>Gets a hashCode compatible with the equals method.</p>
      *
      * @return a suitable hashCode
      * @since 2.0

@@ -63,7 +63,7 @@ import java.io.PrintWriter;
  * about the exception which was caught and provoked throwing the
  * current exception. Catching and rethrowing may occur multiple
  * times, and provided that all exceptions except the first one
- * are descendands of <code>NestedException</code>, when the
+ * are descendants of <code>NestedException</code>, when the
  * exception is finally printed out using any of the <code>
  * printStackTrace()</code> methods, the stacktrace will contain
  * the information about all exceptions thrown and caught on
@@ -122,7 +122,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @since 1.0
- * @version $Id: NestableException.java,v 1.9 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: NestableException.java,v 1.10 2003/09/07 14:32:35 psteitz Exp $
  */
 public class NestableException extends Exception implements Nestable {
     

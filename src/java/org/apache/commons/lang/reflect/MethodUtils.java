@@ -76,7 +76,7 @@ import org.apache.commons.lang.ArrayUtils;
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
  * @author Gary Gregory
- * @version $Id: MethodUtils.java,v 1.15 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: MethodUtils.java,v 1.16 2003/09/07 14:32:35 psteitz Exp $
  */
 public class MethodUtils {
 
@@ -252,9 +252,9 @@ public class MethodUtils {
                 // modifer is public.
                 //
                 // The following workaround solves the problem but will only
-                // work from sufficiently privilages code. 
+                // work from sufficiently privileges code. 
                 //
-                // Better workarounds would be greatfully accepted.
+                // Better workarounds would be gratefully accepted.
                 //
                 if (ReflectionUtils.isPublicScope(method)) {
                     method.setAccessible(true);
