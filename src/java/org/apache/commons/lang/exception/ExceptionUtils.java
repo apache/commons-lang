@@ -42,7 +42,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.42 2004/10/09 10:04:04 scolebourne Exp $
+ * @version $Id: ExceptionUtils.java,v 1.43 2004/10/21 01:18:33 ggregory Exp $
  */
 public class ExceptionUtils {
     
@@ -695,10 +695,15 @@ public class ExceptionUtils {
     }
 
     /**
+     * <p>Returns an array where each element is a line from the argument.</p>
+     * <p>The end of line is determined by the value of {@link SystemUtils#LINE_SEPARATOR}.</p>
+     *  
      * <p>Functionality shared between the
      * <code>getStackFrames(Throwable)</code> methods of this and the
      * {@link org.apache.commons.lang.exception.NestableDelegate}
      * classes.</p>
+     * @param stackTrace A stack trace String.
+     * @return an array where each element is a line from the argument.
      */
     static String[] getStackFrames(String stackTrace) {
         String linebreak = SystemUtils.LINE_SEPARATOR;

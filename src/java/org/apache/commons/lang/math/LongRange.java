@@ -22,7 +22,7 @@ import java.io.Serializable;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: LongRange.java,v 1.7 2004/02/18 22:56:13 ggregory Exp $
+ * @version $Id: LongRange.java,v 1.8 2004/10/21 01:18:33 ggregory Exp $
  */
 public final class LongRange extends Range implements Serializable {
     
@@ -240,6 +240,8 @@ public final class LongRange extends Range implements Serializable {
      * <p>Gets the maximum number in this range as a <code>double</code>.</p>
      * 
      * <p>This conversion can lose information for large values.</p>
+     * 
+     * @return The maximum number in this range as a <code>double</code>.
      */
     public double getMaximumDouble() {
         return max;
@@ -249,6 +251,8 @@ public final class LongRange extends Range implements Serializable {
      * <p>Gets the maximum number in this range as a <code>float</code>.</p>
      * 
      * <p>This conversion can lose information for large values.</p>
+     * 
+     * @return The maximum number in this range as a <code>float</code>.
      */
     public float getMaximumFloat() {
         return max;

@@ -34,7 +34,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.35 2004/10/16 21:06:18 scolebourne Exp $
+ * @version $Id: DateUtils.java,v 1.36 2004/10/21 01:18:33 ggregory Exp $
  */
 public class DateUtils {
     
@@ -739,6 +739,12 @@ public class DateUtils {
             return spot.clone();
         }
 
+        /**
+         * Always throws UnsupportedOperationException.
+         * 
+         * @throws UnsupportedOperationException
+         * @see java.util.Iterator#remove()
+         */
         public void remove() {
             throw new UnsupportedOperationException();
         }
