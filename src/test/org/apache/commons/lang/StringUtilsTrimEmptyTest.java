@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTrimEmptyTest.java,v 1.6 2003/03/23 21:51:19 scolebourne Exp $
+ * @version $Id: StringUtilsTrimEmptyTest.java,v 1.7 2003/03/24 00:47:02 scolebourne Exp $
  */
 public class StringUtilsTrimEmptyTest extends TestCase {
     private static final String FOO = "foo";
@@ -97,6 +97,8 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(FOO, StringUtils.clean(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.clean(" " + FOO));
         assertEquals(FOO, StringUtils.clean(FOO + ""));
+        assertEquals("", StringUtils.clean(" \t\r\n\b "));
+        assertEquals("", StringUtils.clean(""));
         assertEquals("", StringUtils.clean(null));
     }
 
@@ -105,7 +107,29 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals(FOO, StringUtils.trim(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.trim(" " + FOO));
         assertEquals(FOO, StringUtils.trim(FOO + ""));
+        assertEquals("", StringUtils.trim(" \t\r\n\b "));
+        assertEquals("", StringUtils.trim(""));
         assertEquals(null, StringUtils.trim(null));
+    }
+
+    public void testTrimToNull() {
+        assertEquals(FOO, StringUtils.trimToNull(FOO + "  "));
+        assertEquals(FOO, StringUtils.trimToNull(" " + FOO + "  "));
+        assertEquals(FOO, StringUtils.trimToNull(" " + FOO));
+        assertEquals(FOO, StringUtils.trimToNull(FOO + ""));
+        assertEquals(null, StringUtils.trimToNull(" \t\r\n\b "));
+        assertEquals(null, StringUtils.trimToNull(""));
+        assertEquals(null, StringUtils.trimToNull(null));
+    }
+
+    public void testTrimToEmpty() {
+        assertEquals(FOO, StringUtils.trimToEmpty(FOO + "  "));
+        assertEquals(FOO, StringUtils.trimToEmpty(" " + FOO + "  "));
+        assertEquals(FOO, StringUtils.trimToEmpty(" " + FOO));
+        assertEquals(FOO, StringUtils.trimToEmpty(FOO + ""));
+        assertEquals("", StringUtils.trimToEmpty(" \t\r\n\b "));
+        assertEquals("", StringUtils.trimToEmpty(""));
+        assertEquals("", StringUtils.trimToEmpty(null));
     }
 
     public void testIsNotEmpty() {
