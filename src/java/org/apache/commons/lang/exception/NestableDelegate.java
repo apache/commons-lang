@@ -67,7 +67,7 @@ import java.util.StringTokenizer;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableDelegate.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @version $Id: NestableDelegate.java,v 1.2 2002/07/26 20:30:10 stevencaswell Exp $
  */
 public class NestableDelegate
 {
@@ -85,8 +85,11 @@ public class NestableDelegate
     private Nestable cause = null;
 
     /**
-     * @param cause The Nestable implementation to get a stack trace for
-     * (<i>must</i> extend {@link java.lang.Throwable}).
+     * Constructs a new <code>NestableDelegate</code> instance to manage the
+     * specified <code>Nestable</code>.
+     *
+     * @param cause the Nestable implementation (<i>must</i> extend
+     * {@link java.lang.Throwable})
      */
     NestableDelegate(Nestable cause) // package
     {
@@ -101,42 +104,41 @@ public class NestableDelegate
     }
 
     /**
-     * Returns the number of <code>Throwable</code>s contained in the
-     * <code>Nestable</code> contained by this delegate.
+     * Returns the error message of the <code>Throwable</code> in the chain
+     * of <code>Throwable</code>s at the specified index, numbererd from 0.
+     *
+     * @param index the index of the <code>Throwable</code> in the chain of
+     * <code>Throwable</code>s
+     * @return the error message, or null if the <code>Throwable</code> at the
+     * specified index in the chain does not contain a message
+     * @throws IndexOutOfBoundsException if the <code>index</code> argument is
+     * negative or not less than the count of <code>Throwable</code>s in the
+     * chain
      */
-    int getLength() // package
+    String getMessage(int index)
     {
-        // Count the number of throwables
-        int count = 1;
-        String msg = null;
-        if(this.cause.getCause() == null)
+        Throwable t = this.getThrowable(index);
+        if(Nestable.class.isInstance(t))
         {
-            return count;
+            return ((Nestable) t).getMessage(0);
         }
-        Throwable t = this.cause.getCause();
-        while(t != null)
+        else
         {
-            ++count;
-            if(Nestable.class.isInstance(t))
-            {
-                t = ((Nestable) t).getCause();
-            }
-            else
-            {
-                t = null;
-            }
+            return t.getMessage();
         }
-        return count;
     }
     
     /**
-     * @param baseMsg The base message to use when creating the full
-     * message.  Should be generally be called via
+     * Returns the full message contains by the <code>Nestable</code> and any
+     * nested <code>Throwable</code>s.
+     *
+     * @param baseMsg the base message to use when creating the full
+     * message. Should be generally be called via
      * <code>nestableHelper.getMessage(super.getMessage())</code>,
      * where <code>super</code> is an instance of {@link
      * java.lang.Throwable}.
      * @return The concatenated message for this and all nested
-     * exceptions.
+     * <code>Throwable</code>s
      */
     String getMessage(String baseMsg) // package
     {
@@ -163,40 +165,89 @@ public class NestableDelegate
         return (msg.length() > 0 ? msg.toString() : null);
     }
 
-    String getMessage(int index)
+    /**
+     * Returns the error message of this and any nested <code>Throwable</code>s
+     * in an array of Strings, one element for each message. Any
+     * <code>Throwable</code> not containing a message is represented in the
+     * array by a null. This has the effect of cause the length of the returned
+     * array to be equal to the result of the {@link #getThrowableCount()}
+     * operation.
+     *
+     * @return the error messages
+     */
+    String[] getMessages() // package
     {
-        Throwable t = this.getThrowable(index);
-        if(Nestable.class.isInstance(t))
+        Throwable throwables[] = this.getThrowables();
+        String[] msgs = new String[throwables.length];
+        for(int i = 0; i < throwables.length; i++)
         {
-            return ((Nestable) t).getMessage(0);
+            msgs[i] = (Nestable.class.isInstance(throwables[i]) ? ((Nestable) throwables[i]).getMessage(0) : throwables[i].getMessage());
         }
-        else
-        {
-            return t.getMessage();
-        }
+        return msgs;
     }
-    
+
+    /**
+     * Returns the <code>Throwable</code> in the chain of
+     * <code>Throwable</code>s at the specified index, numbererd from 0.
+     *
+     * @param index the index, numbered from 0, of the <code>Throwable</code> in
+     * the chain of <code>Throwable</code>s
+     * @return the <code>Throwable</code>
+     * @throws IndexOutOfBoundsException if the <code>index</code> argument is
+     * negative or not less than the count of <code>Throwable</code>s in the
+     * chain
+     */
     Throwable getThrowable(int index)
     {
-        Throwable[] throwables = this.getThrowables();
-        if(index < 0)
-        {
-            index = 0;
-        }
         if(index == 0)
         {
             return (Throwable) this.cause;
         }
-        if(index >= throwables.length)
-        {
-            index = throwables.length - 1;
-        }
+        Throwable[] throwables = this.getThrowables();
         return throwables[index];
     }
     
+    /**
+     * Returns the number of <code>Throwable</code>s contained in the
+     * <code>Nestable</code> contained by this delegate.
+     *
+     * @return the throwable count
+     */
+    int getThrowableCount() // package
+    {
+        // Count the number of throwables
+        int count = 1;
+        String msg = null;
+        if(this.cause.getCause() == null)
+        {
+            return count;
+        }
+        Throwable t = this.cause.getCause();
+        while(t != null)
+        {
+            ++count;
+            if(Nestable.class.isInstance(t))
+            {
+                t = ((Nestable) t).getCause();
+            }
+            else
+            {
+                t = null;
+            }
+        }
+        return count;
+    }
+    
+    /**
+     * Returns this delegate's <code>Nestable</code> and any nested
+     * <code>Throwable</code>s in an array of <code>Throwable</code>s, one
+     * element for each <code>Throwable</code>.
+     *
+     * @return the <code>Throwable</code>s
+     */
     Throwable[] getThrowables() // package
     {
-        int count = this.getLength();
+        int count = this.getThrowableCount();
         // Allocate an array to hold the messages
         Throwable[] throwables = new Throwable[count];
         count = 0;
@@ -220,23 +271,33 @@ public class NestableDelegate
         return throwables;
     }
 
-    String[] getMessages() // package
+    /**
+     * Returns the index, numbered from 0, of the first <code>Throwable</code>
+     * that matches the specified type in the chain of <code>Throwable</code>s
+     * held in this delegate's <code>Nestable</code> with an index greater than
+     * or equal to the specified index, or -1 if the type is not found.
+     *
+     * @param type <code>Class</code> to be found
+     * @param fromIndex the index, numbered from 0, of the starting position in
+     * the chain to be searched
+     * @return index of the first occurrence of the type in the chain, or -1 if
+     * the type is not found
+     * @throws IndexOutOfBoundsException if the <code>fromIndex</code> argument
+     * is negative or not less than the count of <code>Throwable</code>s in the
+     * chain
+     */
+    int indexOfThrowable(Class type, int fromIndex) // package
     {
-        Throwable throwables[] = this.getThrowables();
-        String[] msgs = new String[throwables.length];
-        for(int i = 0; i < throwables.length; i++)
+        if(fromIndex < 0)
         {
-            msgs[i] = (Nestable.class.isInstance(throwables[i]) ? ((Nestable) throwables[i]).getMessage(0) : throwables[i].getMessage());
+            throw new IndexOutOfBoundsException("Throwable index out of range: " + fromIndex);
         }
-        return msgs;
-    }
-
-    int indexOfThrowable(int pos, Class type) // package
-    {
-        pos = (pos < 0) ? 0 : pos;
         Throwable throwables[] = this.getThrowables();
-        pos = (pos >= throwables.length) ? throwables.length - 1 : pos;
-        for(int i = pos; i < throwables.length; i++)
+        if(fromIndex >= throwables.length)
+        {
+            throw new IndexOutOfBoundsException("Throwable index out of range: " + fromIndex);
+        }
+        for(int i = fromIndex; i < throwables.length; i++)
         {
             if(throwables[i].getClass().equals(type))
             {
