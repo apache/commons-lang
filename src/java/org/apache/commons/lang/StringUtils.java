@@ -147,7 +147,7 @@ import java.util.List;
  * @author Gary Gregory
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.117 2003/11/04 21:00:22 fredrik Exp $
+ * @version $Id: StringUtils.java,v 1.118 2003/11/23 20:44:39 psteitz Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2087,22 +2087,26 @@ public class StringUtils {
     }
 
     /**
-     * <p>Splits the provided text into an array, separators specified.
-     * This is an alternative to using StringTokenizer.</p>
+     * <p>Splits the provided text into an array with a maximum length, 
+     * separators specified.</p>
      *
      * <p>The separator is not included in the returned String array.
      * Adjacent separators are treated as one separator.</p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> separatorChars splits on whitespace.</p>
-     * 
+     *
+     * <p>If more than <code>max</code> delimited substrings are found, the last 
+     * returned string includes all characters after the first <code>max - 1</code>
+     * returned strings (including separator characters).</p>
+     *
      * <pre>
      * StringUtils.split(null, *, *)            = null
      * StringUtils.split("", *, *)              = []
      * StringUtils.split("ab de fg", null, 0)   = ["ab", "cd", "ef"]
      * StringUtils.split("ab   de fg", null, 0) = ["ab", "cd", "ef"]
      * StringUtils.split("ab:cd:ef", ":", 0)    = ["ab", "cd", "ef"]
-     * StringUtils.split("ab:cd:ef", ":", 2)    = ["ab", "cdef"]
+     * StringUtils.split("ab:cd:ef", ":", 2)    = ["ab", "cd:ef"]
      * </pre>
      * 
      * @param str  the String to parse, may be null
