@@ -56,10 +56,14 @@ package org.apache.commons.lang;
 /**
  * <p>Numerous routines to manipulate a <code>CharSet</code>.</p>
  *
+ * <p>This class tries to handle <code>null</code> input gracefully.
+ * An exception will generally not be thrown for a <code>null</code> input.
+ * Each method documents its behaviour in more detail.</p>
+ * 
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.13 2003/07/16 00:39:05 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.14 2003/07/19 20:22:36 scolebourne Exp $
  */
 public class CharSetUtils {
 
@@ -84,8 +88,8 @@ public class CharSetUtils {
      *  <li>&quot;ej-m&quot; implies e,j->m. e,j,k,l,m.</li>
      * </ul>
      *
-     * @param set
-     * @return CharSet
+     * @param set  the set, must not be null
+     * @return a CharSet instance
      * @throws NullPointerException if any of set[i] is null or if set is null
      */
     public static CharSet evaluateSet(String[] set) {
@@ -102,12 +106,15 @@ public class CharSetUtils {
      * </ul>
      * @see #evaluateSet(java.lang.String[]) for set-syntax.
      *
-     * @param str  the string to work from
-     * @param set  the character set to use for manipulation
-     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @param str  the string to squeeze, may be null
+     * @param set  the character set to use for manipulation, must not be null
+     * @return modified String, <code>null</code> if null string input
      * @throws NullPointerException if <code>set</code> is <code>null</code>
      */
     public static String squeeze(String str, String set) {
+        if (str == null) {
+            return null;
+        }
         String[] strs = new String[1];
         strs[0] = set;
         return squeeze(str, strs);
@@ -123,13 +130,16 @@ public class CharSetUtils {
      * </ul>
      * @see #evaluateSet(java.lang.String[]) for set-syntax.
      * 
-     * @param str  the string to work from
-     * @param set  the character set to use for manipulation
-     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @param str  the string to squeeze, may be null
+     * @param set  the character set to use for manipulation, must not be null
+     * @return modified String, <code>null</code> if null string input
      * @throws NullPointerException if <code>set</code> is <code>null</code>
      *  or any element is <code>null</code>
      */
     public static String squeeze(String str, String[] set) {
+        if (str == null) {
+            return null;
+        }
         CharSet chars = evaluateSet(set);
         StringBuffer buffer = new StringBuffer(str.length());
         char[] chrs = str.toCharArray();
@@ -158,12 +168,15 @@ public class CharSetUtils {
      *   <li>count(&quot;hello&quot;, {&quot;c-f&quot;, &quot;o&quot;}) returns 2.</li>
      * </ul>
      *
-     * @param str  String target to count characters in
-     * @param set  String set of characters to count
-     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @param str  String to count characters in, may be null
+     * @param set  String set of characters to count, must not be null
+     * @return character count, zero if null string input
      * @throws NullPointerException if <code>set</code> is <code>null</code>
      */
     public static int count(String str, String set) {
+        if (str == null) {
+            return 0;
+        }
         String[] strs = new String[1];
         strs[0] = set;
         return count(str, strs);
@@ -178,13 +191,16 @@ public class CharSetUtils {
      *  <li>count(&quot;hello&quot;, {&quot;c-f&quot;, &quot;o&quot;}) returns 2.</li>
      * </ul>
      *
-     * @param str  String target to count characters in
-     * @param set  String[] set of characters to count
-     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @param str  String to count characters in, may be null
+     * @param set  String[] set of characters to count, must not be null
+     * @return character count, zero if null string input
      * @throws NullPointerException if <code>set</code> is <code>null</code>
      *  or any element is <code>null</code>
      */
     public static int count(String str, String[] set) {
+        if (str == null) {
+            return 0;
+        }
         CharSet chars = evaluateSet(set);
         int count = 0;
         char[] chrs = str.toCharArray();
@@ -206,12 +222,15 @@ public class CharSetUtils {
      *   <li>keep(&quot;hello&quot;, {&quot;c-fo&quot;}) returns &quot;hll&quot;</li>
      * </ul>
      *
-     * @param str  String target to keep characters from
-     * @param set  String set of characters to keep
-     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @param str  String to keep characters from, may be null
+     * @param set  String set of characters to keep, must not be null
+     * @return modified String, <code>null</code> if null string input
      * @throws NullPointerException if <code>set</code> is <code>null</code>
      */
     public static String keep(String str, String set) {
+        if (str == null) {
+            return null;
+        }
         String[] strs = new String[1];
         strs[0] = set;
         return keep(str, strs);
@@ -227,13 +246,16 @@ public class CharSetUtils {
      *   returns &quot;hll&quot;</li>
      * </ul>
      *
-     * @param str  String target to keep characters from
-     * @param set  String[] set of characters to keep
-     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @param str  String to keep characters from, may be null
+     * @param set  String[] set of characters to keep, must not be null
+     * @return modified String, <code>null</code> if null string input
      * @throws NullPointerException if <code>set</code> is <code>null</code>
      *  or any element is <code>null</code>
      */
     public static String keep(String str, String[] set) {
+        if (str == null) {
+            return null;
+        }
         return modify(str, set, true);
     }
 
@@ -246,12 +268,15 @@ public class CharSetUtils {
      *   <li>delete(&quot;hello&quot;, {&quot;c-fo&quot;}) returns &quot;hll&quot;</li>
      * </ul>
      *
-     * @param str  String target to delete characters from
-     * @param set  String set of characters to delete
-     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @param str  String to delete characters from, may be null
+     * @param set  String set of characters to delete, must not be null
+     * @return modified String, <code>null</code> if null string input
      * @throws NullPointerException if <code>set</code> is <code>null</code>
      */
     public static String delete(String str, String set) {
+        if (str == null) {
+            return null;
+        }
         String[] strs = new String[1];
         strs[0] = set;
         return delete(str, strs);
@@ -267,13 +292,16 @@ public class CharSetUtils {
      *   &quot;hll&quot;</li>
      * </ul>
      *
-     * @param str  String target to delete characters from
-     * @param set  String[] set of characters to delete
-     * @throws NullPointerException if <code>str</code> is <code>null</code>
+     * @param str  String to delete characters from, may be null
+     * @param set  String[] set of characters to delete, must not be null
+     * @return modified String, <code>null</code> if null string input
      * @throws NullPointerException if <code>set</code> is <code>null</code>
      *  or any element is <code>null</code>
      */
     public static String delete(String str, String[] set) {
+        if (str == null) {
+            return null;
+        }
         return modify(str, set, false);
     }
 
@@ -304,15 +332,19 @@ public class CharSetUtils {
      * length of characters to replace, then the last character is 
      * used.</p>
      *
-     * @param target String to replace characters in
-     * @param repl String to find that will be replaced
-     * @param with String to put into the target String
-     * @throws NullPointerException if <code>target</code>, with
+     * @param str  String to replace characters in, may be null
+     * @param repl  String to find that will be replaced, must not be null
+     * @param with  String to put into the target String, must not be null
+     * @return translated String, <code>null</code> if null string input
+     * @throws NullPointerException if <code>target</code>, <code>with</code>
      *  or <code>repl</code> is <code>null</code>
      */
-    public static String translate(String target, String repl, String with) {
-        StringBuffer buffer = new StringBuffer(target.length());
-        char[] chrs = target.toCharArray();
+    public static String translate(String str, String repl, String with) {
+        if (str == null) {
+            return null;
+        }
+        StringBuffer buffer = new StringBuffer(str.length());
+        char[] chrs = str.toCharArray();
         char[] withChrs = with.toCharArray();
         int sz = chrs.length;
         int withMax = with.length() - 1;

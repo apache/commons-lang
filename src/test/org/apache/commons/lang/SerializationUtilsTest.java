@@ -69,7 +69,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: SerializationUtilsTest.java,v 1.2 2003/03/23 21:50:58 scolebourne Exp $
+ * @version $Id: SerializationUtilsTest.java,v 1.3 2003/07/19 20:22:36 scolebourne Exp $
  */
 public class SerializationUtilsTest extends TestCase {
     private String iString;
@@ -157,7 +157,7 @@ public class SerializationUtilsTest extends TestCase {
         ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         try {
             SerializationUtils.serialize(iMap, null);
-        } catch (NullPointerException ex) {
+        } catch (IllegalArgumentException ex) {
             return;
         }
         fail();
@@ -167,7 +167,7 @@ public class SerializationUtilsTest extends TestCase {
         ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         try {
             SerializationUtils.serialize(null, null);
-        } catch (NullPointerException ex) {
+        } catch (IllegalArgumentException ex) {
             return;
         }
         fail();
@@ -210,7 +210,7 @@ public class SerializationUtilsTest extends TestCase {
     public void testDeserializeStreamNull() throws Exception {
         try {
             SerializationUtils.deserialize((InputStream) null);
-        } catch (NullPointerException ex) {
+        } catch (IllegalArgumentException ex) {
             return;
         }
         fail();
@@ -304,7 +304,7 @@ public class SerializationUtilsTest extends TestCase {
     public void testDeserializeBytesNull() throws Exception {
         try {
             SerializationUtils.deserialize((byte[]) null);
-        } catch (NullPointerException ex) {
+        } catch (IllegalArgumentException ex) {
             return;
         }
         fail();

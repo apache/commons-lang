@@ -57,13 +57,17 @@ import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 /**
- * <code>WordWrapUtils</code> is a utility class to assist with word wrapping.
+ * <p><code>WordWrapUtils</code> is a utility class to assist with word wrapping.</p>
+ * 
+ * <p>This class tries to handle <code>null</code> input gracefully.
+ * An exception will not be thrown for a <code>null</code> input.
+ * Each method documents its behaviour in more detail.</p>
  * 
  * @author Henri Yandell
  * @author Stephen Colebourne
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: WordWrapUtils.java,v 1.6 2003/07/12 03:06:23 bayard Exp $
+ * @version $Id: WordWrapUtils.java,v 1.7 2003/07/19 20:22:36 scolebourne Exp $
  */
 public class WordWrapUtils {
 
@@ -91,13 +95,20 @@ public class WordWrapUtils {
      * since tabs are a single character but are displayed as 4 or 8
      * spaces. Remove the tabs.</p>
      *
-     * @param str  text which is in need of word-wrapping
-     * @param newline  the characters that define a newline
+     * @param str  text which is in need of word-wrapping, may be null
+     * @param newLineChars  the characters that define a newline, null treated as \n
      * @param wrapColumn  the column to wrap the words at
-     * @return the text with all the long lines word-wrapped
+     * @return the text with all the long lines word-wrapped,
+     *  <code>null</code> if null string input
      */
-    public static String wrapText(String str, String newline, int wrapColumn) {
-        StringTokenizer lineTokenizer = new StringTokenizer(str, newline, true);
+    public static String wrapText(String str, String newLineChars, int wrapColumn) {
+        if (str == null) {
+            return null;
+        }
+        if (newLineChars == null) {
+            newLineChars = "\n";
+        }
+        StringTokenizer lineTokenizer = new StringTokenizer(str, newLineChars, true);
         StringBuffer stringBuffer = new StringBuffer();
 
         while (lineTokenizer.hasMoreTokens()) {
@@ -106,7 +117,7 @@ public class WordWrapUtils {
 
                 if (nextLine.length() > wrapColumn) {
                     // This line is long enough to be wrapped.
-                    nextLine = wrapLine(nextLine, newline, wrapColumn);
+                    nextLine = wrapLine(nextLine, newLineChars, wrapColumn);
                 }
 
                 stringBuffer.append(nextLine);
