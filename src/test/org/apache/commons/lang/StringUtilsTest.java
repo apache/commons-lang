@@ -69,7 +69,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.21 2003/06/23 03:51:13 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.22 2003/07/15 23:41:54 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -259,8 +259,16 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testRepeat() {
-        assertEquals("repeat(String, int) failed",
-                     FOO + FOO + FOO, StringUtils.repeat(FOO, 3) );
+        assertEquals("", StringUtils.repeat("ab", 0));
+        assertEquals("", StringUtils.repeat("", 3));
+        assertEquals("aaa", StringUtils.repeat("a", 3));
+        assertEquals("ababab", StringUtils.repeat("ab", 3));
+        assertEquals("abcabcabc", StringUtils.repeat("abc", 3));
+        try {
+            StringUtils.repeat(null, 0);
+            fail();
+        } catch (NullPointerException ex) {
+        }
     }
 
     public void testCenter() {
@@ -436,6 +444,21 @@ public class StringUtilsTest extends TestCase {
                      FOO, StringUtils.defaultString(FOO, BAR) );
         assertEquals("defaultString(null,String) failed",
                      BAR, StringUtils.defaultString(null, BAR) );
+
+        assertEquals("defaultString((Object) empty-string) failed",
+                     "", StringUtils.defaultString((Object) "") );
+        assertEquals("defaultString((Object) String) failed",
+                     FOO, StringUtils.defaultString((Object) FOO) );
+        assertEquals("defaultString((Object) null) failed",
+                     "", StringUtils.defaultString((Object) null) );
+        assertEquals("defaultString((Object) empty-string,String) failed",
+                     "", StringUtils.defaultString((Object) "", BAR) );
+        assertEquals("defaultString((Object) String,String) failed",
+                     FOO, StringUtils.defaultString((Object) FOO, BAR) );
+        assertEquals("defaultString((Object) null,String) failed",
+                     BAR, StringUtils.defaultString((Object) null, BAR) );
+        assertEquals("defaultString(Boolean.TRUE,String) failed",
+                     Boolean.TRUE.toString(), StringUtils.defaultString(Boolean.TRUE, BAR) );
     }
 
     public void testEscapeFunctions() {

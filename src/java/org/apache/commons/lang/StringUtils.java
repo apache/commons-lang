@@ -61,10 +61,21 @@ import org.apache.commons.lang.math.NumberUtils;
 /**
  * <p>Common <code>String</code> manipulation routines.</p>
  *
- * <p>Originally from 
- * <a href="http://jakarta.apache.org/turbine/">Turbine</a> and the
- * GenerationJavaCore library.</p>
+ * <p>The <code>StringUtils</code> class defines certain words related to
+ * String handling.</p>
+ * 
+ * <ul>
+ *  <li>null - <code>null</code>
+ *  <li>empty - a zero-length string (<code>""</code>)
+ *  <li>space - the space character (<code>' '</code>)(32)
+ *  <li>whitespace - the characters defined by {@link Character#isWhitespace(char)}
+ * </ul>
+ * 
+ * <p>The <code>StringUtils</code> class varies in its handling of
+ * <code>null</code>. Each method should be consulted individually.</p>
  *
+ * @author <a href="http://jakarta.apache.org/turbine/">Apache Jakarta Turbine</a>
+ * @author GenerationJavaCore
  * @author <a href="mailto:jon@latchkey.com">Jon S. Stevens</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author <a href="mailto:gcoladonato@yahoo.com">Greg Coladonato</a>
@@ -79,7 +90,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.55 2003/07/14 23:02:08 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.56 2003/07/15 23:41:54 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -89,16 +100,16 @@ public class StringUtils {
     private static int PAD_LIMIT = 8192;
 
     /**
-     * <p>A <code>String</code> containing all blank characters.</p>
+     * <p>A <code>String</code> containing all space characters (' ').</p>
      *
-     * <p>Used for efficient blank padding.  The length of the string expands as needed.</p>
+     * <p>Used for efficient space padding.  The length of the string expands as needed.</p>
      */
-    private static String blanks = new String(" ");
+    private static String spaces = new String(" ");
 
     /**
      * <p>An array of <code>String</code>s used for padding.</p>
      *
-     * <p>Used for efficient blank padding. The length of each string expands as needed.</p>
+     * <p>Used for efficient space padding. The length of each string expands as needed.</p>
      */
     private final static String[] padding = new String[Character.MAX_VALUE];
        // String.concat about twice as fast as StringBuffer.append
@@ -120,7 +131,7 @@ public class StringUtils {
     /**
      * <p>Removes control characters, including whitespace, from both
      * ends of this String, handling <code>null</code> by returning
-     * an empty String.</p>
+     * an empty String ("").</p>
      * 
      * <pre>
      * StringUtils.clean("abc")         = "abc"
@@ -167,7 +178,7 @@ public class StringUtils {
     /** 
      * <p>Removes control characters, including whitespace, from both  
      * ends of this string returning <code>null</code> if the string is 
-     * empty after the trim or if it is <code>null</code>.
+     * empty ("") after the trim or if it is <code>null</code>.
      * 
      * <p>The string is trimmed using {@link String#trim()}.</p>
      * 
@@ -192,7 +203,7 @@ public class StringUtils {
     /** 
      * <p>Removes control characters, including whitespace, from both 
      * ends of this string returning an empty string ("") if the string
-     * is empty after the trim or if it is <code>null</code>.
+     * is empty ("") after the trim or if it is <code>null</code>.
      * 
      * <p>The string is trimmed using {@link String#trim()}.</p>
      * 
@@ -213,10 +224,11 @@ public class StringUtils {
     }
 
     /**
-     * <p>Deletes all 'space' characters from a String.</p>
+     * <p>Deletes all 'space' characters from a String as defined by
+     * {@link Character#isSpace(char)}.</p>
      *
      * <p>Spaces are defined as <code>{' ', '\t', '\r', '\n', '\b'}</code>
-     * in line with the deprecated {@link Character#isSpace(char)}.</p>
+     * in line with the deprecated <code>isSpace</code> method.</p>
      *
      * @param str  the String to delete spaces from, may be null
      * @return the String without spaces, <code>null</code> if null string input
@@ -229,9 +241,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Deletes all whitespaces from a String.</p>
-     *
-     * <p>Whitespace is defined by
+     * <p>Deletes all whitespaces from a String as defined by
      * {@link Character#isWhitespace(char)}.</p>
      *
      * @param str  the String to delete whitespace from, may be null
@@ -776,8 +786,8 @@ public class StringUtils {
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
      *
-     * <p>No delimiter is added before or after the list. A
-     * <code>null</code> separator is the same as a blank String.</p>
+     * <p>No delimiter is added before or after the list.
+     * A <code>null</code> separator is the same as an empty String ("").</p>
      *
      * @param array the array of values to join together
      * @param separator the separator character to use
@@ -833,8 +843,8 @@ public class StringUtils {
      * <p>Joins the elements of the provided <code>Iterator</code> into
      * a single String containing the provided elements.</p>
      *
-     * <p>No delimiter is added before or after the list. A
-     * <code>null</code> separator is the same as a blank String.</p>
+     * <p>No delimiter is added before or after the list.
+     * A <code>null</code> separator is the same as an empty String ("").</p>
      *
      * @param iterator the <code>Iterator</code> of values to join together
      * @param separator  the separator character to use
@@ -960,40 +970,47 @@ public class StringUtils {
     //--------------------------------------------------------------------------
     
     /**
-     * <p>Center a String in a larger String of size <code>n</code>.<p>
+     * <p>Center a String in a larger String of size <code>size</code>
+     * using the space character (' ').<p>
      *
-     * <p>Uses spaces as the value to buffer the String with.
-     * Equivalent to <code>center(str, size, " ")</code>.</p>
+     * <p>Equivalent to <code>center(str, size, " ")</code>.</p>
      *
-     * @param str String to center
-     * @param size int size of new String
+     * @param str  the String to center, must not be null
+     * @param size  the int size of new String
      * @return String containing centered String
      * @throws NullPointerException if str is <code>null</code>
      */
     public static String center(String str, int size) {
-        return center(str, size, " ");
-    }
-
-    /**
-     * <p>Center a String in a larger String of size <code>n</code>.</p>
-     *
-     * <p>Uses a supplied String as the value to buffer the String with.</p>
-     *
-     * @param str String to center
-     * @param size int size of new String
-     * @param delim String to buffer the new String with
-     * @return String containing centered String
-     * @throws NullPointerException if str or delim is <code>null</code>
-     * @throws ArithmeticException if delim is the empty String
-     */
-    public static String center(String str, int size, String delim) {
         int sz = str.length();
         int p = size - sz;
         if (p < 1) {
             return str;
         }
-        str = leftPad(str, sz + p / 2, delim);
-        str = rightPad(str, size, delim);
+        str = leftPad(str, sz + p / 2, ' ');
+        str = rightPad(str, size, ' ');
+        return str;
+    }
+
+    /**
+     * <p>Center a String in a larger String of size <code>size</code>.</p>
+     *
+     * <p>Uses a supplied String as the value to pad the String with.</p>
+     *
+     * @param str  the String to center, must not be null
+     * @param size  the int size of new String
+     * @param padStr  the String to pad the new String with, must not be null
+     * @return String containing centered String
+     * @throws NullPointerException if str or padStr is <code>null</code>
+     * @throws ArithmeticException if padStr is the empty String
+     */
+    public static String center(String str, int size, String padStr) {
+        int sz = str.length();
+        int p = size - sz;
+        if (p < 1) {
+            return str;
+        }
+        str = leftPad(str, sz + p / 2, padStr);
+        str = rightPad(str, size, padStr);
         return str;
     }
 
@@ -1367,69 +1384,120 @@ public class StringUtils {
     //--------------------------------------------------------------------------
     
     /**
-     * <p>Repeat a String <code>n</code> times to form a
+     * <p>Repeat a String <code>repeat</code> times to form a
      * new string.</p>
      *
-     * @param str String to repeat
-     * @param repeat number of times to repeat str
-     * @return String with repeated String
-     * @throws NegativeArraySizeException if <code>repeat < 0</code>
+     * <pre>
+     * StringUtils.repeat("", 0)   = ""
+     * StringUtils.repeat("", 2)   = ""
+     * StringUtils.repeat("a", 3)  = "aaa"
+     * StringUtils.repeat("ab", 2) = "abab"
+     * StringUtils.repeat(null, 2) = NullPointerException
+     * StringUtils.repeat("a", -2) = NegativeArraySizeException
+     * </pre>
+     *
+     * @param str  the String to repeat, must not be null
+     * @param repeat  number of times to repeat str
+     * @return a new String consisting of the original String repeated
+     * @throws NegativeArraySizeException if <code>repeat &lt; 0</code>
      * @throws NullPointerException if str is <code>null</code>
      */
     public static String repeat(String str, int repeat) {
-        if (str.length() == 1 && repeat <= PAD_LIMIT) {
+        int inputLength = str.length();
+        if (repeat == 0) {
+            return "";
+        }
+        if (inputLength == 1 && repeat <= PAD_LIMIT) {
            return padding(repeat, str.charAt(0));
         }
 
-        StringBuffer buffer = new StringBuffer(repeat * str.length());
-        for (int i = 0; i < repeat; i++) {
-            buffer.append(str);
+        char[] input = str.toCharArray();
+        char[] output = new char[repeat * inputLength];
+        switch (inputLength) {
+            case 1:
+                char ch = input[0];
+                for (int i = repeat - 1; i >= 0; i--) {
+                    output[i] = ch;
+                }
+                break;
+            case 2:
+                char ch0 = input[0];
+                char ch1 = input[1];
+                for (int i = repeat * 2 - 2; i >= 0; i--,i--) {
+                    output[i] = ch0;
+                    output[i + 1] = ch1;
+                }
+                break;
+            default:
+                for (int i = repeat - 1; i >= 0; i--) {
+                    System.arraycopy(input, 0, output, i * inputLength, inputLength);
+                }
+                break;            
         }
-        return buffer.toString();
+        return new String(output);
     }
 
     /**
-     * <p>Returns blank padding with a given length.</p>
+     * <p>Returns a string containing the requested number of 
+     * space characters (' ').</p>
+     * 
+     * <pre>
+     * StringUtils.padding(0)  = ""
+     * StringUtils.padding(3)  = "   "
+     * StringUtils.padding(-2) = IndexOutOfBoundsException
+     * </pre>
      *
-     * @param repeat number of times to repeat a blank
-     * @return String with repeated character
-     * @throws IndexOutOfBoundsException if repeat < 0
+     * @param repeat  number of times to repeat space
+     * @return a String with <code>repeat</code> spaces
+     * @throws IndexOutOfBoundsException if <code>repeat &lt; 0</code>
      */
     private static String padding(int repeat) {
-        while (blanks.length() < repeat)  {
-            blanks = blanks.concat(blanks);
+        while (spaces.length() < repeat)  {
+            spaces = spaces.concat(spaces);
         }
-        return blanks.substring(0, repeat);
+        return spaces.substring(0, repeat);
     }
 
     /**
      * <p>Returns padding using the specified delimiter repeated
      * to a given length.</p>
      *
-     * @param repeat number of times to repeat delim
-     * @param delim character to repeat
+     * <pre>
+     * StringUtils.padding(0, 'e')  = ""
+     * StringUtils.padding(3, 'e')  = "eee"
+     * StringUtils.padding(-2, 'e') = IndexOutOfBoundsException
+     * </pre>
+     *
+     * @param repeat  number of times to repeat delim
+     * @param padChar  character to repeat
      * @return String with repeated character
-     * @throws NullPointerException if delim is <code>null</code>
-     * @throws IndexOutOfBoundsException if repeat < 0
+     * @throws IndexOutOfBoundsException if <code>repeat &lt; 0</code>
      */
-
-    private static String padding(int repeat, char delim) {
-        if (padding[delim] == null) {
-            padding[delim] = String.valueOf(delim);
+    private static String padding(int repeat, char padChar) {
+        if (padding[padChar] == null) {
+            padding[padChar] = String.valueOf(padChar);
         }
-        while (padding[delim].length() < repeat) {
-            padding[delim] = padding[delim].concat(padding[delim]);
+        while (padding[padChar].length() < repeat) {
+            padding[padChar] = padding[padChar].concat(padding[padChar]);
         }
-        return padding[delim].substring(0, repeat);
+        return padding[padChar].substring(0, repeat);
     }
 
     /**
-     * <p>Right pad a String with spaces.</p>
+     * <p>Right pad a String with spaces (' ').</p>
      *
-     * <p>The String is padded to the size of <code>n</code>.</p>
+     * <p>The String is padded to the size of <code>size</code>.</p>
      * 
-     * @param str String to pad out
-     * @param size number of times to repeat str
+     * <pre>
+     * StringUtils.rightPad("bat", 3)  = "bat"
+     * StringUtils.rightPad("bat", 5)  = "bat  "
+     * StringUtils.rightPad("bat", 1)  = "bat"
+     * StringUtils.rightPad("bat", -1) = "bat"
+     * StringUtils.rightPad(null, 1)   = NullPointerException
+     * </pre>
+     *
+     * @param str  the String to pad out, must not be null
+     * @param size  the size of the returned string, padded on the right
      * @return right padded String or original String if no padding is necessary
      * @throws NullPointerException if str is <code>null</code>
      */
@@ -1441,64 +1509,91 @@ public class StringUtils {
         if (pads > PAD_LIMIT) {
             return rightPad(str, size, ' ');
         }
-        return str + padding(pads);
+        return str.concat(padding(pads));
     }
 
     /**
      * <p>Right pad a String with a specified character.</p>
      *
-     * <p>The String is padded to the size of <code>n</code>.</p>
+     * <p>The String is padded to the size of <code>size</code>.</p>
      *
-     * @param str String to pad out
-     * @param size size to pad to
-     * @param delim character to pad with
+     * <pre>
+     * StringUtils.rightPad("bat", 3, 'z')  = "bat"
+     * StringUtils.rightPad("bat", 5, 'z')  = "batzz"
+     * StringUtils.rightPad("bat", 1, 'z')  = "bat"
+     * StringUtils.rightPad("bat", -1, 'z') = "bat"
+     * StringUtils.rightPad(null, 1, 'z')   = NullPointerException
+     * </pre>
+     *
+     * @param str  the String to pad out, must not be null
+     * @param size  the size to pad to
+     * @param padChar  the character to pad with
      * @return right padded String or original String if no padding is necessary
-     * @throws NullPointerException if str or delim is <code>null<code>
+     * @throws NullPointerException if str is <code>null<code>
      */
-    public static String rightPad(String str, int size, char delim) {
+    public static String rightPad(String str, int size, char padChar) {
         int pads = size - str.length();
         if (pads <= 0) {
             return str; // returns original string when possible
         }
         if (pads > PAD_LIMIT) {
-            return rightPad(str, size, String.valueOf(delim));
+            return rightPad(str, size, String.valueOf(padChar));
         }
-        return str + padding(pads, delim);
+        return str.concat(padding(pads, padChar));
     }
 
     /**
      * <p>Right pad a String with a specified string.</p>
      *
-     * <p>The String is padded to the size of <code>n</code>.</p>
+     * <p>The String is padded to the size of <code>size</code>.</p>
      *
-     * @param str String to pad out
-     * @param size size to pad to
-     * @param delim String to pad with
+     * <pre>
+     * StringUtils.rightPad("bat", 3, "yz")  = "bat"
+     * StringUtils.rightPad("bat", 5, "yz")  = "batyz"
+     * StringUtils.rightPad("bat", 8, "yz")  = "batyzyzy"
+     * StringUtils.rightPad("bat", 1, "yz")  = "bat"
+     * StringUtils.rightPad("bat", -1, "yz") = "bat"
+     * StringUtils.rightPad(null, 1, "yz")   = NullPointerException
+     * StringUtils.rightPad("bat", 1, null)  = NullPointerException
+     * StringUtils.rightPad("bat", 1, "")    = ArithmeticException
+     * </pre>
+     *
+     * @param str  the String to pad out, must not be null
+     * @param size  the size to pad to
+     * @param padStr  the String to pad with, must not be null
      * @return right padded String or original String if no padding is necessary
-     * @throws NullPointerException if str or delim is <code>null<code>
-     * @throws ArithmeticException if delim is the empty String
+     * @throws NullPointerException if str or padStr is <code>null<code>
+     * @throws ArithmeticException if padStr is the empty String
      */
-    public static String rightPad(String str, int size, String delim) {
-        if (delim.length() == 1 && size - str.length() <= PAD_LIMIT) {
-           return rightPad(str, size, delim.charAt(0));
+    public static String rightPad(String str, int size, String padStr) {
+        if (padStr.length() == 1 && size - str.length() <= PAD_LIMIT) {
+           return rightPad(str, size, padStr.charAt(0));
         }
 
-        size = (size - str.length()) / delim.length();
+        size = (size - str.length()) / padStr.length();
         if (size > 0) {
-            str += repeat(delim, size);
+            str += repeat(padStr, size);
         }
         return str;
     }
 
     /**
-     * <p>Left pad a String with spaces.</p>
+     * <p>Left pad a String with spaces (' ').</p>
      *
-     * <p>The String is padded to the size of <code>n<code>.</p>
+     * <p>The String is padded to the size of <code>size<code>.</p>
      *
-     * @param str String to pad out
-     * @param size size to pad to
+     * <pre>
+     * StringUtils.leftPad("bat", 3)  = "bat"
+     * StringUtils.leftPad("bat", 5)  = "  bat"
+     * StringUtils.leftPad("bat", 1)  = "bat"
+     * StringUtils.leftPad("bat", -1) = "bat"
+     * StringUtils.leftPad(null, 1)   = NullPointerException
+     * </pre>
+     *
+     * @param str  the String to pad out, must not be null
+     * @param size  the size to pad to
      * @return left padded String or original String if no padding is necessary
-     * @throws NullPointerException if str or delim is <code>null<code>
+     * @throws NullPointerException if str is <code>null<code>
      */
     public static String leftPad(String str, int size) {
         int pads = size - str.length();
@@ -1514,15 +1609,23 @@ public class StringUtils {
     /**
      * <p>Left pad a String with a specified character.</p>
      *
-     * <p>Pad to a size of <code>n</code>.</p>
+     * <p>Pad to a size of <code>size</code>.</p>
      *
-     * @param str String to pad out
-     * @param size size to pad to
-     * @param delim character to pad with
+     * <pre>
+     * StringUtils.leftPad("bat", 3, 'z')  = "bat"
+     * StringUtils.leftPad("bat", 5, 'z')  = "zzbat"
+     * StringUtils.leftPad("bat", 1, 'z')  = "bat"
+     * StringUtils.leftPad("bat", -1, 'z') = "bat"
+     * StringUtils.leftPad(null, 1, 'z')   = NullPointerException
+     * </pre>
+     *
+     * @param str  the String to pad out, must not be null
+     * @param size  the size to pad to
+     * @param padChar  the character to pad with
      * @return left padded String or original String if no padding is necessary
      * @throws NullPointerException if str or delim is <code>null</code>
      */
-    public static String leftPad(String str, int size, char delim) {
+    public static String leftPad(String str, int size, char padChar) {
         int pads = size - str.length();
         if (pads <= 0) {
             return str; // returns original string when possible
@@ -1530,27 +1633,38 @@ public class StringUtils {
         if (pads > PAD_LIMIT) {
             return leftPad(str, size, ' ');
         }
-        return padding(pads, delim).concat(str);
+        return padding(pads, padChar).concat(str);
     }
 
     /**
      * <p>Left pad a String with a specified string.</p>
      *
-     * <p>Pad to a size of <code>n</code>.</p>
+     * <p>Pad to a size of <code>size</code>.</p>
      *
-     * @param str String to pad out
-     * @param size size to pad to
-     * @param delim String to pad with
+     * <pre>
+     * StringUtils.leftPad("bat", 3, "yz")  = "bat"
+     * StringUtils.leftPad("bat", 5, "yz")  = "yzbat"
+     * StringUtils.leftPad("bat", 8, "yz")  = "yzyzybat"
+     * StringUtils.leftPad("bat", 1, "yz")  = "bat"
+     * StringUtils.leftPad("bat", -1, "yz") = "bat"
+     * StringUtils.leftPad(null, 1, "yz")   = NullPointerException
+     * StringUtils.leftPad("bat", 1, null)  = NullPointerException
+     * StringUtils.leftPad("bat", 1, "")    = ArithmeticException
+     * </pre>
+     *
+     * @param str  the String to pad out, must not be null
+     * @param size  the size to pad to
+     * @param padStr  the String to pad with
      * @return left padded String or original String if no padding is necessary
      * @throws NullPointerException if str or delim is null
      * @throws ArithmeticException if delim is the empty string
      */
-    public static String leftPad(String str, int size, String delim) {
-        if (delim.length() == 1 && size - str.length() <= PAD_LIMIT)
-           return leftPad(str, size, delim.charAt(0));
-        size = (size - str.length()) / delim.length();
+    public static String leftPad(String str, int size, String padStr) {
+        if (padStr.length() == 1 && size - str.length() <= PAD_LIMIT)
+           return leftPad(str, size, padStr.charAt(0));
+        size = (size - str.length()) / padStr.length();
         if (size > 0) {
-            str = repeat(delim, size) + str;
+            str = repeat(padStr, size) + str;
         }
         return str;
     }
@@ -1937,7 +2051,7 @@ public class StringUtils {
      * <p>Checks if the String contains only unicode letters.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String will return <code>true</code>.</p>
+     * An empty String ("") will return <code>true</code>.</p>
      * 
      * @param str the String to check
      * @return <code>true</code> if only contains letters, and is non-null
@@ -1958,8 +2072,8 @@ public class StringUtils {
     /**
      * <p>Checks if the String contains only whitespace.</p>
      *
-     * <p><code>null</code> will return <code>false</code>. An
-     * empty String will return <code>true</code>.</p>
+     * <p><code>null</code> will return <code>false</code>.
+     * An empty String ("") will return <code>true</code>.</p>
      * 
      * @param str the String to check
      * @return <code>true</code> if only contains whitespace, and is non-null
@@ -1979,10 +2093,10 @@ public class StringUtils {
 
     /**
      * <p>Checks if the String contains only unicode letters and
-     * space (<code>' '</code>).</p>
+     * space (' ').</p>
      *
-     * <p><code>null</code> will return <code>false</code>. An
-     * empty String will return <code>true</code>.</p>
+     * <p><code>null</code> will return <code>false</code>
+     * An empty String ("") will return <code>true</code>.</p>
      * 
      * @param str the String to check
      * @return <code>true</code> if only contains letters and space,
@@ -2005,8 +2119,8 @@ public class StringUtils {
     /**
      * <p>Checks if the String contains only unicode letters or digits.</p>
      *
-     * <p><code>null</code> will return <code>false</code>. An empty
-     * String will return <code>true</code>.</p>
+     * <p><code>null</code> will return <code>false</code>.
+     * An empty String ("") will return <code>true</code>.</p>
      * 
      * @param str the String to check
      * @return <code>true</code> if only contains letters or digits,
@@ -2029,8 +2143,8 @@ public class StringUtils {
      * <p>Checks if the String contains only unicode letters, digits
      * or space (<code>' '</code>).</p>
      *
-     * <p><code>null</code> will return <code>false</code>. An empty
-     * String will return <code>true</code>.</p>
+     * <p><code>null</code> will return <code>false</code>.
+     * An empty String ("") will return <code>true</code>.</p>
      * 
      * @param str the String to check
      * @return <code>true</code> if only contains letters, digits or space,
@@ -2054,7 +2168,7 @@ public class StringUtils {
      * <p>Checks if the String contains only unicode digits.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String will return <code>true</code>.</p>
+     * An empty String ("") will return <code>true</code>.</p>
      * 
      * @param str the String to check
      * @return <code>true</code> if only contains digits, and is non-null
@@ -2076,8 +2190,8 @@ public class StringUtils {
      * <p>Checks if the String contains only unicode digits or space
      * (<code>' '</code>).</p>
      *
-     * <p><code>null</code> will return <code>false</code>. An empty
-     * String will return <code>true</code>.</p>
+     * <p><code>null</code> will return <code>false</code>.
+     * An empty String ("") will return <code>true</code>.</p>
      * 
      * @param str the String to check
      * @return <code>true</code> if only contains digits or space,
@@ -2244,16 +2358,60 @@ public class StringUtils {
     //--------------------------------------------------------------------------
     
     /**
-     * <p>Returns either the passed in <code>Object</code> as a String,
-     * or, if the <code>Object</code> is <code>null</code>, an empty
-     * String.</p>
+     * <p>Returns either the passed in String, 
+     * or if the String is <code>null</code>, an empty String ("").</p>
      * 
-     * @param obj the Object to check
-     * @return the passed in Object's toString, or blank if it was
-     *  <code>null</code>
+     * <pre>
+     * StringUtils.defaultString(null)  = ""
+     * StringUtils.defaultString("")    = ""
+     * StringUtils.defaultString("bat") = "bat"
+     * </pre>
+     * 
+     * @param str  the String to check, may be null
+     * @return the passed in String, or the empty string if it
+     *  was <code>null</code>
+     */
+    public static String defaultString(String str) {
+        return (str == null ? "" : str);
+    }
+
+    /**
+     * <p>Returns either the passed in <code>Object</code> as a String,
+     * or, if the <code>Object</code> is <code>null</code>,
+     * an empty String ("").</p>
+     * 
+     * <pre>
+     * StringUtils.defaultString(null)         = "null"
+     * StringUtils.defaultString("")           = ""
+     * StringUtils.defaultString("bat")        = "bat"
+     * StringUtils.defaultString(Boolean.TRUE) = "true"
+     * </pre>
+     * 
+     * @param obj  the Object to check, using <code>toString()</code>, may be null
+     * @return the passed in Object's toString, or the empty string if it
+     *  was <code>null</code>
      */
     public static String defaultString(Object obj) {
-        return defaultString(obj, "");
+        return (obj == null ? "" : obj.toString());
+    }
+
+    /**
+     * <p>Returns either the passed in String, 
+     * or if the String is <code>null</code>, an empty String ("").</p>
+     * 
+     * <pre>
+     * StringUtils.defaultString(null, "null")  = "null"
+     * StringUtils.defaultString("", "null")    = ""
+     * StringUtils.defaultString("bat", "null") = "bat"
+     * </pre>
+     * 
+     * @param str  the String to check, may be null
+     * @param defaultStr  the default String to return 
+     *  if the input is <code>null</code>, may be null
+     * @return the passed in String, or the default if it was <code>null</code>
+     */
+    public static String defaultString(String str, String defaultStr) {
+        return (str == null ? defaultStr : str);
     }
 
     /**
@@ -2261,14 +2419,20 @@ public class StringUtils {
      * or, if the <code>Object</code> is <code>null</code>, a passed
      * in default String.</p>
      * 
-     * @param obj the Object to check
-     * @param defaultString  the default String to return if str is
-     *  <code>null</code>
-     * @return the passed in string, or the default if it was
-     *  <code>null</code>
+     * <pre>
+     * StringUtils.defaultString(null, "null")         = "null"
+     * StringUtils.defaultString("", "null")           = ""
+     * StringUtils.defaultString("bat", "null")        = "bat"
+     * StringUtils.defaultString(Boolean.TRUE, "null") = "true"
+     * </pre>
+     * 
+     * @param obj  the Object to check, using <code>toString()</code>, may be null
+     * @param defaultStr  the default String to return 
+     *  if the input is <code>null</code>, may be null
+     * @return the passed in Object's toString, or the default if it was <code>null</code>
      */
-    public static String defaultString(Object obj, String defaultString) {
-        return (obj == null) ? defaultString : obj.toString();
+    public static String defaultString(Object obj, String defaultStr) {
+        return (obj == null ? defaultStr : obj.toString());
     }
 
     // Reversing
@@ -2279,8 +2443,14 @@ public class StringUtils {
      *
      * <p><code>null</code> String returns <code>null</code>.</p>
      * 
-     * @param str the String to reverse
-     * @return the reversed String
+     * <pre>
+     * StringUtils.reverse(null)  = null
+     * StringUtils.reverse("")    = ""
+     * StringUtils.reverse("bat") = "tab"
+     * </pre>
+     * 
+     * @param str  the String to reverse, may be null
+     * @return the reversed String, <code>null</code> if null string input
      */
     public static String reverse(String str) {
         if (str == null) {
@@ -2296,8 +2466,8 @@ public class StringUtils {
      * Thus java.lang.String becomes String.lang.java (if the delimiter
      * is <code>'.'</code>).</p>
      * 
-     * @param str the String to reverse
-     * @param delimiter the delimiter to use
+     * @param str  the String to reverse
+     * @param delimiter  the delimiter to use
      * @return the reversed String
      */
     public static String reverseDelimitedString(String str, String delimiter) {
@@ -2372,10 +2542,11 @@ public class StringUtils {
      * (More precisely, return the remainder of the second string,
      * starting from where it's different from the first.)</p>
      *
-     * <p>
-     * For example, <code>difference("i am a machine", "i am a robot") -> "robot"</code>
+     * <p>For example,
+     * <code>difference("i am a machine", "i am a robot") -> "robot"</code>.</p>
      *
-     * @return the portion of s2 where it differs from s1; returns the empty string ("") if they are equal
+     * @return the portion of s2 where it differs from s1; returns the 
+     * empty string if they are equal
      */
     public static String difference(String s1, String s2) {
         int at = differenceAt(s1, s2);
@@ -2386,9 +2557,11 @@ public class StringUtils {
     }
 
     /**
-     * <p>Compare two strings, and return the index at which the strings begin to differ.</p>
+     * <p>Compare two strings, and return the index at which the
+     * strings begin to differ.</p>
      * 
-     * <p>For example, <code>differenceAt("i am a machine", "i am a robot") -> 7</code></p>
+     * <p>For example, 
+     * <code>differenceAt("i am a machine", "i am a robot") -> 7</code></p>
      *
      * @return the index where s2 and s1 begin to differ; -1 if they are equal
      */
