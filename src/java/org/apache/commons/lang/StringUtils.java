@@ -148,7 +148,7 @@ import java.util.List;
  * @author Phil Steitz
  * @author Al Chou
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.121 2003/12/15 01:51:36 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.122 2003/12/24 01:33:30 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2544,10 +2544,11 @@ public class StringUtils {
      * <pre>
      * StringUtils.replaceOnce(null, *, *)        = null
      * StringUtils.replaceOnce("", *, *)          = ""
-     * StringUtils.replaceOnce("aba", null, null) = "aba"
-     * StringUtils.replaceOnce("aba", null, null) = "aba"
+     * StringUtils.replaceOnce("any", null, *)    = "any"
+     * StringUtils.replaceOnce("any", *, null)    = "any"
+     * StringUtils.replaceOnce("any", "", *)      = "any"
      * StringUtils.replaceOnce("aba", "a", null)  = "aba"
-     * StringUtils.replaceOnce("aba", "a", "")    = "aba"
+     * StringUtils.replaceOnce("aba", "a", "")    = "ba"
      * StringUtils.replaceOnce("aba", "a", "z")   = "zba"
      * </pre>
      *
@@ -2570,8 +2571,9 @@ public class StringUtils {
      * <pre>
      * StringUtils.replace(null, *, *)        = null
      * StringUtils.replace("", *, *)          = ""
-     * StringUtils.replace("aba", null, null) = "aba"
-     * StringUtils.replace("aba", null, null) = "aba"
+     * StringUtils.replace("any", null, *)    = "any"
+     * StringUtils.replace("any", *, null)    = "any"
+     * StringUtils.replace("any", "", *)      = "any"
      * StringUtils.replace("aba", "a", null)  = "aba"
      * StringUtils.replace("aba", "a", "")    = "b"
      * StringUtils.replace("aba", "a", "z")   = "zbz"
@@ -2597,10 +2599,12 @@ public class StringUtils {
      * <pre>
      * StringUtils.replace(null, *, *, *)         = null
      * StringUtils.replace("", *, *, *)           = ""
-     * StringUtils.replace("abaa", null, null, 1) = "abaa"
-     * StringUtils.replace("abaa", null, null, 1) = "abaa"
-     * StringUtils.replace("abaa", "a", null, 1)  = "abaa"
-     * StringUtils.replace("abaa", "a", "", 1)    = "abaa"
+     * StringUtils.replace("any", null, *, *)     = "any"
+     * StringUtils.replace("any", *, null, *)     = "any"
+     * StringUtils.replace("any", "", *, *)       = "any"
+     * StringUtils.replace("any", *, *, 0)        = "any"
+     * StringUtils.replace("abaa", "a", null, -1) = "abaa"
+     * StringUtils.replace("abaa", "a", "", -1)   = "b"
      * StringUtils.replace("abaa", "a", "z", 0)   = "abaa"
      * StringUtils.replace("abaa", "a", "z", 1)   = "zbaa"
      * StringUtils.replace("abaa", "a", "z", 2)   = "zbza"
