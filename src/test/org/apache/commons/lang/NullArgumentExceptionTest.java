@@ -25,7 +25,7 @@ import junit.textui.TestRunner;
  * 
  * @author Matthew Hawthorne
  * @author Stephen Colebourne
- * @version $Id: NullArgumentExceptionTest.java,v 1.4 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: NullArgumentExceptionTest.java,v 1.5 2004/10/15 23:10:33 scolebourne Exp $
  * @see NullArgumentException
  */
 public class NullArgumentExceptionTest extends TestCase {
@@ -52,7 +52,7 @@ public class NullArgumentExceptionTest extends TestCase {
 
     public void testGetMessage_nullConstructorInput() {
         final Throwable t = new NullArgumentException(null);
-        assertEquals("null must not be null.", t.getMessage());
+        assertEquals("Argument must not be null.", t.getMessage());
     }
 
     public void testGetMessage_validConstructorInput() {
