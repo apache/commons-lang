@@ -62,7 +62,7 @@ import junit.textui.TestRunner;
 /**
  * Test manager for the org.apache.commons.lang.exception classes.
  *
- * @author <a href="mailto:stevencaswell@yahoo.com">Steven Caswell</a>
+ * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  */
 public class ExceptionTestSuite extends TestCase
 {
