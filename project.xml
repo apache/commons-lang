@@ -379,15 +379,6 @@ limitations under the License.
             </resources>
    		</unitTest>
 
-    	<!-- Integration unit test classes -->
-    	<integrationUnitTestPatterns></integrationUnitTestPatterns>
-    
-    	<resources>
-      		<includes>
-       			<include>**/*.properties</include>
-      		</includes>
-    	</resources>
-    	<jars/>
   	</build>
   	
   
