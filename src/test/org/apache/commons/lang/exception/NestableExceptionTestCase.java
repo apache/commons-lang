@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableExceptionTestCase.java,v 1.6 2002/10/09 05:28:53 sullis Exp $
+ * @version $Id: NestableExceptionTestCase.java,v 1.7 2002/10/09 17:20:44 sullis Exp $
  */
 public class NestableExceptionTestCase extends AbstractNestableTestCase
 {
@@ -247,6 +247,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase
     }
     
     public void testSerialization()
+    	throws java.io.IOException, ClassNotFoundException
     {
     	RuntimeException nestedEx = new RuntimeException("nested exception message");
     	NestableExceptionTester1 ex = new NestableExceptionTester1("serialization test", nestedEx);
@@ -259,9 +260,9 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase
 		ByteArrayInputStream bais = null;
 		ObjectOutputStream oos = null;
 		ObjectInputStream ois = null;
-		
+
 		try
-		{
+		{		
 			oos = new ObjectOutputStream(baos);
 			oos.writeObject(ex);
 			oos.flush();
@@ -285,11 +286,6 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase
 					t.getMessage(),
 					deserializedThrowable.getMessage());
 			}
-		}
-		catch (Exception caughtEx)
-		{
-			fail("an unexpected exception occurred: "
-					+ caughtEx.toString());
 		}
 		finally
 		{
