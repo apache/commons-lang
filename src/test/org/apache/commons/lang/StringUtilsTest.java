@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtilsTest.java,v 1.9 2002/11/23 00:41:19 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.10 2002/11/23 00:51:34 bayard Exp $
  */
 public class StringUtilsTest extends TestCase
 {
@@ -187,7 +187,7 @@ public class StringUtilsTest extends TestCase
                          result[i]);
         }
 
-        result = StringUtils.split("one two three four five six", null, 2);
+        result = StringUtils.split("one two three four five six", null, 3);
         assertEquals("split(Object[], null, int)[0] failed", "one", result[0]);
         assertEquals("split(Object[], null, int)[1] failed", "two", result[1]);
         assertEquals("split(Object[], null, int)[2] failed", "three four five six", result[2]);
