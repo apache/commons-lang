@@ -29,8 +29,9 @@ import java.io.Serializable;
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author Stephen Colebourne
  * @author Gary Gregory
+ * @author Mario Winterer
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.23 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: ObjectUtils.java,v 1.24 2004/06/01 21:08:48 scolebourne Exp $
  */
 public class ObjectUtils {
     
@@ -113,7 +114,24 @@ public class ObjectUtils {
         }
         return object1.equals(object2);
     }
-    
+
+    /**
+     * <p>Gets the hash code of an object returning zero when the
+     * object is <code>null</code>.</p>
+     *
+     * <pre>
+     * ObjectUtils.hashCode(null)   = 0
+     * ObjectUtils.hashCode(obj)    = obj.hashCode()
+     * </pre>
+     *
+     * @param obj  the object to obtain the hash code of, may be <code>null</code>
+     * @return the hash code of the object, or zero if null
+     * @since 2.1
+     */
+    public static int hashCode(Object obj) {
+        return ((obj == null) ? 0 : obj.hashCode());
+    }
+
     // Identity ToString
     //-----------------------------------------------------------------------
     /**

@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: ObjectUtilsTest.java,v 1.12 2004/02/18 23:06:19 ggregory Exp $
+ * @version $Id: ObjectUtilsTest.java,v 1.13 2004/06/01 21:08:48 scolebourne Exp $
  */
 public class ObjectUtilsTest extends TestCase {
     private static final String FOO = "foo";
@@ -84,46 +84,51 @@ public class ObjectUtilsTest extends TestCase {
         assertTrue("ObjectUtils.equals(\"foo\", \"foo\") returned false", ObjectUtils.equals(FOO, FOO));
     }
 
-    /**
-     * Show that java.util.Date and java.sql.Timestamp are apples and oranges.
-     * Prompted by an email discussion. 
-     * 
-     * The behavior is different b/w Sun Java 1.3.1_10 and 1.4.2_03.
-     */
-    public void testDateEqualsJava() {
-        long now = 1076957313284L; // Feb 16, 2004 10:49... PST
-        java.util.Date date = new java.util.Date(now);
-        java.sql.Timestamp realTimestamp = new java.sql.Timestamp(now);
-        java.util.Date timestamp = realTimestamp;
-        // sanity check 1:
-        assertEquals(284000000, realTimestamp.getNanos());
-        assertEquals(1076957313284L, date.getTime());
-        //
-        // On Sun 1.3.1_10:
-        //junit.framework.AssertionFailedError: expected:<1076957313284> but was:<1076957313000>
-        //
-        //assertEquals(1076957313284L, timestamp.getTime());
-        //
-        //junit.framework.AssertionFailedError: expected:<1076957313284> but was:<1076957313000>
-        //
-        //assertEquals(1076957313284L, realTimestamp.getTime());
-        // sanity check 2:        
-        assertEquals(date.getDay(), realTimestamp.getDay());
-        assertEquals(date.getHours(), realTimestamp.getHours());
-        assertEquals(date.getMinutes(), realTimestamp.getMinutes());
-        assertEquals(date.getMonth(), realTimestamp.getMonth());
-        assertEquals(date.getSeconds(), realTimestamp.getSeconds());
-        assertEquals(date.getTimezoneOffset(), realTimestamp.getTimezoneOffset());
-        assertEquals(date.getYear(), realTimestamp.getYear());
-        //
-        // Time values are == and equals() on Sun 1.4.2_03 but NOT on Sun 1.3.1_10:
-        //
-        //assertFalse("Sanity check failed: date.getTime() == timestamp.getTime()", date.getTime() == timestamp.getTime());
-        //assertFalse("Sanity check failed: timestamp.equals(date)", timestamp.equals(date));
-        //assertFalse("Sanity check failed: date.equals(timestamp)", date.equals(timestamp));
-        // real test:
-        //assertFalse("java.util.Date and java.sql.Timestamp should be equal", ObjectUtils.equals(date, timestamp));
+    public void testHashCode() {
+        assertEquals(0, ObjectUtils.hashCode(null));
+        assertEquals("a".hashCode(), ObjectUtils.hashCode("a"));
     }
+
+//    /**
+//     * Show that java.util.Date and java.sql.Timestamp are apples and oranges.
+//     * Prompted by an email discussion. 
+//     * 
+//     * The behavior is different b/w Sun Java 1.3.1_10 and 1.4.2_03.
+//     */
+//    public void testDateEqualsJava() {
+//        long now = 1076957313284L; // Feb 16, 2004 10:49... PST
+//        java.util.Date date = new java.util.Date(now);
+//        java.sql.Timestamp realTimestamp = new java.sql.Timestamp(now);
+//        java.util.Date timestamp = realTimestamp;
+//        // sanity check 1:
+//        assertEquals(284000000, realTimestamp.getNanos());
+//        assertEquals(1076957313284L, date.getTime());
+//        //
+//        // On Sun 1.3.1_10:
+//        //junit.framework.AssertionFailedError: expected:<1076957313284> but was:<1076957313000>
+//        //
+//        //assertEquals(1076957313284L, timestamp.getTime());
+//        //
+//        //junit.framework.AssertionFailedError: expected:<1076957313284> but was:<1076957313000>
+//        //
+//        //assertEquals(1076957313284L, realTimestamp.getTime());
+//        // sanity check 2:        
+//        assertEquals(date.getDay(), realTimestamp.getDay());
+//        assertEquals(date.getHours(), realTimestamp.getHours());
+//        assertEquals(date.getMinutes(), realTimestamp.getMinutes());
+//        assertEquals(date.getMonth(), realTimestamp.getMonth());
+//        assertEquals(date.getSeconds(), realTimestamp.getSeconds());
+//        assertEquals(date.getTimezoneOffset(), realTimestamp.getTimezoneOffset());
+//        assertEquals(date.getYear(), realTimestamp.getYear());
+//        //
+//        // Time values are == and equals() on Sun 1.4.2_03 but NOT on Sun 1.3.1_10:
+//        //
+//        //assertFalse("Sanity check failed: date.getTime() == timestamp.getTime()", date.getTime() == timestamp.getTime());
+//        //assertFalse("Sanity check failed: timestamp.equals(date)", timestamp.equals(date));
+//        //assertFalse("Sanity check failed: date.equals(timestamp)", date.equals(timestamp));
+//        // real test:
+//        //assertFalse("java.util.Date and java.sql.Timestamp should be equal", ObjectUtils.equals(date, timestamp));
+//    }
     
     public void testIdentityToString() {
         assertEquals(null, ObjectUtils.identityToString(null));
