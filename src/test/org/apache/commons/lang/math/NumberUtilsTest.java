@@ -59,6 +59,7 @@ import java.math.BigInteger;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
 import org.apache.commons.lang.SystemUtils;
 
@@ -70,7 +71,8 @@ import org.apache.commons.lang.SystemUtils;
  * @author Eric Pugh
  * @author Phil Steitz
  * @author Stephen Colebourne
- * @version $Id: NumberUtilsTest.java,v 1.1 2003/06/24 21:14:51 scolebourne Exp $
+ * @author Matthew Hawthorne
+ * @version $Id: NumberUtilsTest.java,v 1.2 2003/06/28 18:42:04 scolebourne Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -78,6 +80,10 @@ public class NumberUtilsTest extends TestCase {
         super(name);
     }
 
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
+    
     public static Test suite() {
         TestSuite suite = new TestSuite(NumberUtilsTest.class);
         suite.setName("NumberUtils Tests");
@@ -160,6 +166,300 @@ public class NumberUtilsTest extends TestCase {
 
     public void testCreateBigDecimal() {
         assertEquals("createBigDecimal(String) failed", new BigDecimal("1234.5"), NumberUtils.createBigDecimal("1234.5"));
+    }
+
+    // min/max tests
+    // ----------------------------------------------------------------------
+    public void testMinLong() {
+        final long[] l = null;
+        try {
+            NumberUtils.min(l);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.min(new long[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "min(long[]) failed for array length 1",
+            5,
+            NumberUtils.min(new long[] { 5 }));
+
+        assertEquals(
+            "min(long[]) failed for array length 2",
+            6,
+            NumberUtils.min(new long[] { 6, 9 }));
+
+        assertEquals(
+            "min(long[]) failed for array length 5",
+            -10,
+            NumberUtils.min(new long[] { -10, -5, 0, 5, 10 }));
+    }
+
+    public void testMinInt() {
+        final int[] i = null;
+        try {
+            NumberUtils.min(i);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.min(new int[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "min(int[]) failed for array length 1",
+            5,
+            NumberUtils.min(new int[] { 5 }));
+
+        assertEquals(
+            "min(int[]) failed for array length 2",
+            6,
+            NumberUtils.min(new int[] { 6, 9 }));
+
+        assertEquals(
+            "min(int[]) failed for array length 5",
+            -10,
+            NumberUtils.min(new int[] { -10, -5, 0, 5, 10 }));
+    }
+
+    public void testMinShort() {
+        final short[] s = null;
+        try {
+            NumberUtils.min(s);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.min(new short[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "min(short[]) failed for array length 1",
+            5,
+            NumberUtils.min(new short[] { 5 }));
+
+        assertEquals(
+            "min(short[]) failed for array length 2",
+            6,
+            NumberUtils.min(new short[] { 6, 9 }));
+
+        assertEquals(
+            "min(short[]) failed for array length 5",
+            -10,
+            NumberUtils.min(new short[] { -10, -5, 0, 5, 10 }));
+    }
+
+    public void testMinDouble() {
+        final double[] d = null;
+        try {
+            NumberUtils.min(d);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.min(new double[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "min(double[]) failed for array length 1",
+            5.12,
+            NumberUtils.min(new double[] { 5.12 }),
+            0);
+
+        assertEquals(
+            "min(double[]) failed for array length 2",
+            6.23,
+            NumberUtils.min(new double[] { 6.23, 9.34 }),
+            0);
+
+        assertEquals(
+            "min(double[]) failed for array length 5",
+            -10.45,
+            NumberUtils.min(new double[] { -10.45, -5.56, 0, 5.67, 10.78 }),
+            0);
+    }
+
+    public void testMinFloat() {
+        final float[] f = null;
+        try {
+            NumberUtils.min(f);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.min(new float[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "min(float[]) failed for array length 1",
+            5.9f,
+            NumberUtils.min(new float[] { 5.9f }),
+            0);
+
+        assertEquals(
+            "min(float[]) failed for array length 2",
+            6.8f,
+            NumberUtils.min(new float[] { 6.8f, 9.7f }),
+            0);
+
+        assertEquals(
+            "min(float[]) failed for array length 5",
+            -10.6f,
+            NumberUtils.min(new float[] { -10.6f, -5.5f, 0, 5.4f, 10.3f }),
+            0);
+    }
+
+    public void testMaxLong() {
+        final long[] l = null;
+        try {
+            NumberUtils.max(l);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.max(new long[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "max(long[]) failed for array length 1",
+            5,
+            NumberUtils.max(new long[] { 5 }));
+
+        assertEquals(
+            "max(long[]) failed for array length 2",
+            9,
+            NumberUtils.max(new long[] { 6, 9 }));
+
+        assertEquals(
+            "max(long[]) failed for array length 5",
+            10,
+            NumberUtils.max(new long[] { -10, -5, 0, 5, 10 }));
+    }
+
+    public void testMaxInt() {
+        final int[] i = null;
+        try {
+            NumberUtils.max(i);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.max(new int[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "max(int[]) failed for array length 1",
+            5,
+            NumberUtils.max(new int[] { 5 }));
+
+        assertEquals(
+            "max(int[]) failed for array length 2",
+            9,
+            NumberUtils.max(new int[] { 6, 9 }));
+
+        assertEquals(
+            "max(int[]) failed for array length 5",
+            10,
+            NumberUtils.max(new int[] { -10, -5, 0, 5, 10 }));
+    }
+
+    public void testMaxShort() {
+        final short[] s = null;
+        try {
+            NumberUtils.max(s);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.max(new short[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "max(short[]) failed for array length 1",
+            5,
+            NumberUtils.max(new short[] { 5 }));
+
+        assertEquals(
+            "max(short[]) failed for array length 2",
+            9,
+            NumberUtils.max(new short[] { 6, 9 }));
+
+        assertEquals(
+            "max(short[]) failed for array length 5",
+            10,
+            NumberUtils.max(new short[] { -10, -5, 0, 5, 10 }));
+    }
+
+    public void testMaxDouble() {
+        final double[] d = null;
+        try {
+            NumberUtils.max(d);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.max(new double[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "max(double[]) failed for array length 1",
+            5.1f,
+            NumberUtils.max(new double[] { 5.1f }),
+            0);
+
+        assertEquals(
+            "max(double[]) failed for array length 2",
+            9.2f,
+            NumberUtils.max(new double[] { 6.3f, 9.2f }),
+            0);
+
+        assertEquals(
+            "max(double[]) failed for float length 5",
+            10.4f,
+            NumberUtils.max(new double[] { -10.5f, -5.6f, 0, 5.7f, 10.4f }),
+            0);
+    }
+ 
+    public void testMaxFloat() {
+        final float[] f = null;
+        try {
+            NumberUtils.max(f);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.max(new float[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "max(float[]) failed for array length 1",
+            5.1f,
+            NumberUtils.max(new float[] { 5.1f }),
+            0);
+
+        assertEquals(
+            "max(float[]) failed for array length 2",
+            9.2f,
+            NumberUtils.max(new float[] { 6.3f, 9.2f }),
+            0);
+
+        assertEquals(
+            "max(float[]) failed for float length 5",
+            10.4f,
+            NumberUtils.max(new float[] { -10.5f, -5.6f, 0, 5.7f, 10.4f }),
+            0);
     }
 
     public void testMinimumLong() {
