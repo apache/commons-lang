@@ -24,7 +24,7 @@ package org.apache.commons.lang;
  * 
  * @author Stephen Colebourne
  * @since 2.1
- * @version $Id: CharUtils.java,v 1.4 2004/02/19 21:04:03 fredrik Exp $
+ * @version $Id: CharUtils.java,v 1.5 2004/02/24 22:22:51 fredrik Exp $
  */
 public class CharUtils {
     
@@ -192,7 +192,7 @@ public class CharUtils {
      * @throws IllegalArgumentException if the character is not ASCII numeric
      */
     public static int toInteger(char ch) {
-        if (isASCIINumeric(ch) == false) {
+        if (isAsciiNumeric(ch) == false) {
             throw new IllegalArgumentException("The character " + ch + " is not in the range '0' - '9'");
         }
         return (ch - 48);
@@ -214,7 +214,7 @@ public class CharUtils {
      * @return the int value of the character
      */
     public static int toInteger(char ch, int defaultValue) {
-        if (isASCIINumeric(ch) == false) {
+        if (isAsciiNumeric(ch) == false) {
             return defaultValue;
         }
         return (ch - 48);
@@ -367,18 +367,18 @@ public class CharUtils {
      * <p>Checks whether the character is ASCII 7 bit.</p>
      *
      * <pre>
-     *   CharUtils.isASCII('a')  = true
-     *   CharUtils.isASCII('A')  = true
-     *   CharUtils.isASCII('3')  = true
-     *   CharUtils.isASCII('-')  = true
-     *   CharUtils.isASCII('\n') = true
-     *   CharUtils.isASCII('&copy;') = false
+     *   CharUtils.isAscii('a')  = true
+     *   CharUtils.isAscii('A')  = true
+     *   CharUtils.isAscii('3')  = true
+     *   CharUtils.isAscii('-')  = true
+     *   CharUtils.isAscii('\n') = true
+     *   CharUtils.isAscii('&copy;') = false
      * </pre>
      * 
      * @param ch  the character to check
      * @return true if less than 128
      */
-    public static boolean isASCII(char ch) {
+    public static boolean isAscii(char ch) {
         return (ch < 128);
     }
     
@@ -386,18 +386,18 @@ public class CharUtils {
      * <p>Checks whether the character is ASCII 7 bit printable.</p>
      *
      * <pre>
-     *   CharUtils.isASCIIPrintable('a')  = true
-     *   CharUtils.isASCIIPrintable('A')  = true
-     *   CharUtils.isASCIIPrintable('3')  = true
-     *   CharUtils.isASCIIPrintable('-')  = true
-     *   CharUtils.isASCIIPrintable('\n') = false
-     *   CharUtils.isASCIIPrintable('&copy;') = false
+     *   CharUtils.isAsciiPrintable('a')  = true
+     *   CharUtils.isAsciiPrintable('A')  = true
+     *   CharUtils.isAsciiPrintable('3')  = true
+     *   CharUtils.isAsciiPrintable('-')  = true
+     *   CharUtils.isAsciiPrintable('\n') = false
+     *   CharUtils.isAsciiPrintable('&copy;') = false
      * </pre>
      * 
      * @param ch  the character to check
      * @return true if between 32 and 126 inclusive
      */
-    public static boolean isASCIIPrintable(char ch) {
+    public static boolean isAsciiPrintable(char ch) {
         return (ch >= 32 && ch < 127);
     }
     
@@ -405,18 +405,18 @@ public class CharUtils {
      * <p>Checks whether the character is ASCII 7 bit control.</p>
      *
      * <pre>
-     *   CharUtils.isASCIIControl('a')  = false
-     *   CharUtils.isASCIIControl('A')  = false
-     *   CharUtils.isASCIIControl('3')  = false
-     *   CharUtils.isASCIIControl('-')  = false
-     *   CharUtils.isASCIIControl('\n') = true
-     *   CharUtils.isASCIIControl('&copy;') = false
+     *   CharUtils.isAsciiControl('a')  = false
+     *   CharUtils.isAsciiControl('A')  = false
+     *   CharUtils.isAsciiControl('3')  = false
+     *   CharUtils.isAsciiControl('-')  = false
+     *   CharUtils.isAsciiControl('\n') = true
+     *   CharUtils.isAsciiControl('&copy;') = false
      * </pre>
      * 
      * @param ch  the character to check
      * @return true if less than 32 or equals 127
      */
-    public static boolean isASCIIControl(char ch) {
+    public static boolean isAsciiControl(char ch) {
         return (ch < 32 || ch == 127);
     }
     
@@ -424,18 +424,18 @@ public class CharUtils {
      * <p>Checks whether the character is ASCII 7 bit alphabetic.</p>
      *
      * <pre>
-     *   CharUtils.isASCIIAlpha('a')  = true
-     *   CharUtils.isASCIIAlpha('A')  = true
-     *   CharUtils.isASCIIAlpha('3')  = false
-     *   CharUtils.isASCIIAlpha('-')  = false
-     *   CharUtils.isASCIIAlpha('\n') = false
-     *   CharUtils.isASCIIAlpha('&copy;') = false
+     *   CharUtils.isAsciiAlpha('a')  = true
+     *   CharUtils.isAsciiAlpha('A')  = true
+     *   CharUtils.isAsciiAlpha('3')  = false
+     *   CharUtils.isAsciiAlpha('-')  = false
+     *   CharUtils.isAsciiAlpha('\n') = false
+     *   CharUtils.isAsciiAlpha('&copy;') = false
      * </pre>
      * 
      * @param ch  the character to check
      * @return true if between 65 and 90 or 97 and 122 inclusive
      */
-    public static boolean isASCIIAlpha(char ch) {
+    public static boolean isAsciiAlpha(char ch) {
         return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z');
     }
     
@@ -443,18 +443,18 @@ public class CharUtils {
      * <p>Checks whether the character is ASCII 7 bit alphabetic upper case.</p>
      *
      * <pre>
-     *   CharUtils.isASCIIAlphaUpper('a')  = false
-     *   CharUtils.isASCIIAlphaUpper('A')  = true
-     *   CharUtils.isASCIIAlphaUpper('3')  = false
-     *   CharUtils.isASCIIAlphaUpper('-')  = false
-     *   CharUtils.isASCIIAlphaUpper('\n') = false
-     *   CharUtils.isASCIIAlphaUpper('&copy;') = false
+     *   CharUtils.isAsciiAlphaUpper('a')  = false
+     *   CharUtils.isAsciiAlphaUpper('A')  = true
+     *   CharUtils.isAsciiAlphaUpper('3')  = false
+     *   CharUtils.isAsciiAlphaUpper('-')  = false
+     *   CharUtils.isAsciiAlphaUpper('\n') = false
+     *   CharUtils.isAsciiAlphaUpper('&copy;') = false
      * </pre>
      * 
      * @param ch  the character to check
      * @return true if between 65 and 90 inclusive
      */
-    public static boolean isASCIIAlphaUpper(char ch) {
+    public static boolean isAsciiAlphaUpper(char ch) {
         return (ch >= 'A' && ch <= 'Z');
     }
     
@@ -462,18 +462,18 @@ public class CharUtils {
      * <p>Checks whether the character is ASCII 7 bit alphabetic lower case.</p>
      *
      * <pre>
-     *   CharUtils.isASCIIAlphaLower('a')  = true
-     *   CharUtils.isASCIIAlphaLower('A')  = false
-     *   CharUtils.isASCIIAlphaLower('3')  = false
-     *   CharUtils.isASCIIAlphaLower('-')  = false
-     *   CharUtils.isASCIIAlphaLower('\n') = false
-     *   CharUtils.isASCIIAlphaLower('&copy;') = false
+     *   CharUtils.isAsciiAlphaLower('a')  = true
+     *   CharUtils.isAsciiAlphaLower('A')  = false
+     *   CharUtils.isAsciiAlphaLower('3')  = false
+     *   CharUtils.isAsciiAlphaLower('-')  = false
+     *   CharUtils.isAsciiAlphaLower('\n') = false
+     *   CharUtils.isAsciiAlphaLower('&copy;') = false
      * </pre>
      * 
      * @param ch  the character to check
      * @return true if between 97 and 122 inclusive
      */
-    public static boolean isASCIIAlphaLower(char ch) {
+    public static boolean isAsciiAlphaLower(char ch) {
         return (ch >= 'a' && ch <= 'z');
     }
     
@@ -481,18 +481,18 @@ public class CharUtils {
      * <p>Checks whether the character is ASCII 7 bit numeric.</p>
      *
      * <pre>
-     *   CharUtils.isASCIINumeric('a')  = false
-     *   CharUtils.isASCIINumeric('A')  = false
-     *   CharUtils.isASCIINumeric('3')  = true
-     *   CharUtils.isASCIINumeric('-')  = false
-     *   CharUtils.isASCIINumeric('\n') = false
-     *   CharUtils.isASCIINumeric('&copy;') = false
+     *   CharUtils.isAsciiNumeric('a')  = false
+     *   CharUtils.isAsciiNumeric('A')  = false
+     *   CharUtils.isAsciiNumeric('3')  = true
+     *   CharUtils.isAsciiNumeric('-')  = false
+     *   CharUtils.isAsciiNumeric('\n') = false
+     *   CharUtils.isAsciiNumeric('&copy;') = false
      * </pre>
      * 
      * @param ch  the character to check
      * @return true if between 48 and 57 inclusive
      */
-    public static boolean isASCIINumeric(char ch) {
+    public static boolean isAsciiNumeric(char ch) {
         return (ch >= '0' && ch <= '9');
     }
     
@@ -500,18 +500,18 @@ public class CharUtils {
      * <p>Checks whether the character is ASCII 7 bit numeric.</p>
      *
      * <pre>
-     *   CharUtils.isASCIIAlphanumeric('a')  = true
-     *   CharUtils.isASCIIAlphanumeric('A')  = true
-     *   CharUtils.isASCIIAlphanumeric('3')  = true
-     *   CharUtils.isASCIIAlphanumeric('-')  = false
-     *   CharUtils.isASCIIAlphanumeric('\n') = false
-     *   CharUtils.isASCIIAlphanumeric('&copy;') = false
+     *   CharUtils.isAsciiAlphanumeric('a')  = true
+     *   CharUtils.isAsciiAlphanumeric('A')  = true
+     *   CharUtils.isAsciiAlphanumeric('3')  = true
+     *   CharUtils.isAsciiAlphanumeric('-')  = false
+     *   CharUtils.isAsciiAlphanumeric('\n') = false
+     *   CharUtils.isAsciiAlphanumeric('&copy;') = false
      * </pre>
      * 
      * @param ch  the character to check
      * @return true if between 48 and 57 or 65 and 90 or 97 and 122 inclusive
      */
-    public static boolean isASCIIAlphanumeric(char ch) {
+    public static boolean isAsciiAlphanumeric(char ch) {
         return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9');
     }
     
