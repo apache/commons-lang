@@ -3,7 +3,7 @@
 
 <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.5 2002/11/05 16:45:45 bayard Exp $
+        $Id: build.xml,v 1.6 2002/11/14 18:53:36 rdonkin Exp $
 -->
 
 
@@ -153,7 +153,15 @@
 <!-- ========== Unit Test Targets ========================================= -->
 
 
-  <target name="test"  depends="compile.tests, test.lang, test.exception, test.enum, test.builder, test.functor"
+  <target name="test"  depends="
+                                compile.tests, 
+                                test.lang, 
+                                test.exception, 
+                                test.enum, 
+                                test.builder, 
+                                test.functor, 
+                                test.reflect"
+                                
    description="Run all unit test cases">
     <echo message="Running tests ..."/>
   </target>
@@ -203,4 +211,12 @@
     </java>
   </target>
 
+  <target name="test.reflect" depends="compile.tests">
+    <echo message="Running reflect package tests ..."/>
+    <java classname="${test.runner}" fork="yes"
+        failonerror="${test.failonerror}">
+      <arg value="org.apache.commons.lang.reflect.ReflectTestSuite"/>
+      <classpath refid="test.classpath"/>
+    </java>
+  </target>
 </project>
