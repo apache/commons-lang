@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.96 2003/08/14 00:59:39 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.97 2003/08/14 01:21:36 bayard Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3439,6 +3439,11 @@ public class StringUtils {
     }
 
     /**
+     * <p>Capitalizes a String changing the first letter to title case as
+     * per {@link Character#toTitleCase(char)}. No other letters are changed.</p>
+     * 
+     * @param str  the String to capitalize, may be null
+     * @return the capitalized String, <code>null</code> if null String input
      * @deprecated Use the standardly named {@link #capitalize(String)}.
      *             Method will be removed in Commons Lang 3.0.
      */
@@ -3476,6 +3481,11 @@ public class StringUtils {
     }
 
     /**
+     * <p>Uncapitalizes a String changing the first letter to title case as
+     * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
+     * 
+     * @param str  the String to uncapitalize, may be null
+     * @return the uncapitalized String, <code>null</code> if null String input
      * @deprecated Use the standardly named {@link #uncapitalize(String)}.
      *             Method will be removed in Commons Lang 3.0.
      */
@@ -3578,6 +3588,14 @@ public class StringUtils {
     }
 
     /**
+     * <p>Capitalizes all the whitespace separated words in a String.
+     * Only the first letter of each word is changed.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A <code>null</code> input String returns <code>null</code>.</p>
+     *
+     * @param str  the String to capitalize, may be null
+     * @return capitalized String, <code>null</code> if null String input
      * @deprecated Use the standardly named {@link #capitalizeAllWords(String)}.
      *             Method will be removed in Commons Lang 3.0.
      */
@@ -3626,6 +3644,14 @@ public class StringUtils {
     }
 
     /**
+     * <p>Uncapitalizes all the whitespace separated words in a String.
+     * Only the first letter of each word is changed.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A <code>null</code> input String returns <code>null</code>.</p>
+     *
+     * @param str  the String to uncapitalize, may be null
+     * @return uncapitalized String, <code>null</code> if null String input
      * @deprecated Use the standardly named {@link #uncapitalizeAllWords(String)}.
      *             Method will be removed in Commons Lang 3.0.
      */
