@@ -309,15 +309,10 @@ public class ExceptionUtils
     public static Throwable[] getThrowables(Throwable t)
     {
         ArrayList list = new ArrayList();
-        if (t != null)
+        while (t != null)
         {
             list.add(t);
             t = ExceptionUtils.getCause(t);
-            while (t != null)
-            {
-                list.add(t);
-                t = ExceptionUtils.getCause(t);
-            }
         }
         return (Throwable []) list.toArray(new Throwable[list.size()]);
     }
