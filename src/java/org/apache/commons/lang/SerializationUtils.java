@@ -76,7 +76,7 @@ import java.io.Serializable;
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: SerializationUtils.java,v 1.1 2002/07/19 03:35:54 bayard Exp $
+ * @version $Id: SerializationUtils.java,v 1.2 2002/08/31 11:09:45 scolebourne Exp $
  */
 public class SerializationUtils {
     
@@ -101,7 +101,7 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static Object clone(Serializable object) {
-        return deserialize( serialize(object) );
+        return deserialize(serialize(object));
     }
     
     /**
@@ -138,7 +138,7 @@ public class SerializationUtils {
      * Serializes an object to a byte array for storage/serialization.
      *
      * @param obj  the object to serialize to bytes
-     * @return a byte[] with the converted Serializable.
+     * @return a byte[] with the converted Serializable
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static byte[] serialize(Serializable obj) {
@@ -153,7 +153,7 @@ public class SerializationUtils {
      * a finally clause, and maybe also exception handling, in the
      * application code.
      *
-     * @param objectData  the serialized object.
+     * @param inputStream  the serialized object input stream
      * @return the deserialized object
      * @throws SerializationException (runtime) if the serialization fails
      */
@@ -182,7 +182,7 @@ public class SerializationUtils {
     /**
      * Deserializes a single object from an array of bytes.
      *
-     * @param objectData  the serialized object.
+     * @param objectData  the serialized object
      * @return the deserialized object
      * @throws SerializationException (runtime) if the serialization fails
      */

@@ -81,7 +81,7 @@ import java.util.Iterator;
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
- * @version $Id: StringUtils.java,v 1.8 2002/08/30 02:52:54 dlr Exp $
+ * @version $Id: StringUtils.java,v 1.9 2002/08/31 11:07:08 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -130,9 +130,10 @@ public class StringUtils {
      * Deletes all whitespace from a String.
      *
      * @param str  String target to delete whitespace from
+     * @return the text without whitespace
      */
     public static String deleteWhitespace(String str) {
-        return CharSetUtils.delete(str, " \t\r\n\b" );
+        return CharSetUtils.delete(str, " \t\r\n\b");
     }
 
     /**
@@ -401,8 +402,8 @@ public class StringUtils {
      * @param str  the string to parse
      * @return an array of parsed Strings 
      */
-    public static String[] split(String text) {
-        return split(text, null, -1);
+    public static String[] split(String str) {
+        return split(str, null, -1);
     }
 
     /**
@@ -429,14 +430,14 @@ public class StringUtils {
      * list.  A zero or negative value implies no limit.
      * @return an array of parsed Strings 
      */
-    public static String[] split(String text, String separator, int max) {
+    public static String[] split(String str, String separator, int max) {
         StringTokenizer tok = null;
         if (separator == null) {
             // Null separator means we're using StringTokenizer's default
             // delimiter, which comprises all whitespace characters.
-            tok = new StringTokenizer(text);
+            tok = new StringTokenizer(str);
         } else {
-            tok = new StringTokenizer(text, separator);
+            tok = new StringTokenizer(str, separator);
         }
 
         int listSize = tok.countTokens();
@@ -451,7 +452,7 @@ public class StringUtils {
                 // In the situation where we hit the max yet have
                 // tokens left over in our input, the last list
                 // element gets all remaining text.
-                StringBuffer buf = new StringBuffer((int) 1.2 * text.length() * (listSize - i) / listSize);
+                StringBuffer buf = new StringBuffer((int) 1.2 * str.length() * (listSize - i) / listSize);
                 while (tok.hasMoreTokens()) {
                     buf.append(tok.nextToken());
                     if (tok.hasMoreTokens()) {
@@ -585,7 +586,7 @@ public class StringUtils {
 
         StringBuffer buf = new StringBuffer(text.length());
         int start = 0, end = 0;
-        while ( (end = text.indexOf(repl, start)) != -1 ) {
+        while ((end = text.indexOf(repl, start)) != -1) {
             buf.append(text.substring(start, end)).append(with);
             start = end + repl.length();
 
@@ -608,10 +609,10 @@ public class StringUtils {
      */
     public static String overlayString(String text, String overlay, int start, int end) {
         return new StringBuffer(start + overlay.length() + text.length() - end + 1)
-			.append(text.substring(0, start))
-			.append(overlay)
-			.append(text.substring(end))
-			.toString();
+            .append(text.substring(0, start))
+            .append(overlay)
+            .append(text.substring(end))
+            .toString();
     }
 
     // Centering
@@ -673,7 +674,7 @@ public class StringUtils {
     public static String chomp(String str, String sep) {
         int idx = str.lastIndexOf(sep);
         if (idx != -1) {
-            return str.substring(0,idx);
+            return str.substring(0, idx);
         } else {
             return str;
         }
@@ -795,20 +796,19 @@ public class StringUtils {
      * If a \r precedes it, then remove that too.
      *
      * @param str String to chop a newline from
-     * @param String without newline on end
      * @return String without newline
      */
     public static String chopNewline(String str) {
-        int lastIdx = str.length()-1;
+        int lastIdx = str.length() - 1;
         char last = str.charAt(lastIdx);
-        if(last == '\n') {
-            if(str.charAt(lastIdx-1) == '\r') {
-                lastIdx --;
+        if (last == '\n') {
+            if (str.charAt(lastIdx - 1) == '\r') {
+                lastIdx--;
             }
         } else {
             lastIdx++;
         }
-        return str.substring(0,lastIdx);
+        return str.substring(0, lastIdx);
     }
 
 
@@ -824,65 +824,62 @@ public class StringUtils {
      *
      * @return String with escaped values
      */
-    // improved with code from  cybertiger@cyberiantiger.org
-    // unicode from him, and defaul for < 32's.
     public static String escape(String str) {
+        // improved with code from  cybertiger@cyberiantiger.org
+        // unicode from him, and defaul for < 32's.
         int sz = str.length();
-        StringBuffer buffer = new StringBuffer(2*sz);
-        for(int i=0; i<sz; i++) {
+        StringBuffer buffer = new StringBuffer(2 * sz);
+        for (int i = 0; i < sz; i++) {
             char ch = str.charAt(i);
 
             // handle unicode
-            if(ch > 0xfff) {
-                buffer.append("\\u"+Integer.toHexString(ch));
-            } else 
-            if(ch > 0xff) {
-                buffer.append("\\u0"+Integer.toHexString(ch));
-            } else 
-            if(ch > 0x7f) {
-                buffer.append("\\u00"+Integer.toHexString(ch));
-            } else 
-            if(ch < 32) {
-                switch(ch) {
-                    case '\b' : 
+            if (ch > 0xfff) {
+                buffer.append("\\u" + Integer.toHexString(ch));
+            } else if (ch > 0xff) {
+                buffer.append("\\u0" + Integer.toHexString(ch));
+            } else if (ch > 0x7f) {
+                buffer.append("\\u00" + Integer.toHexString(ch));
+            } else if (ch < 32) {
+                switch (ch) {
+                    case '\b' :
                         buffer.append('\\');
                         buffer.append('b');
                         break;
-                    case '\n' : 
+                    case '\n' :
                         buffer.append('\\');
                         buffer.append('n');
                         break;
-                    case '\t' : 
+                    case '\t' :
                         buffer.append('\\');
                         buffer.append('t');
                         break;
-                    case '\f' : 
+                    case '\f' :
                         buffer.append('\\');
                         buffer.append('f');
                         break;
-                    case '\r' : 
+                    case '\r' :
                         buffer.append('\\');
                         buffer.append('r');
                         break;
                     default :
-                        if( ch > 0xf ) {
-                            buffer.append("\\u00"+Integer.toHexString(ch));
+                        if (ch > 0xf) {
+                            buffer.append("\\u00" + Integer.toHexString(ch));
                         } else {
-                            buffer.append("\\u000"+Integer.toHexString(ch));
+                            buffer.append("\\u000" + Integer.toHexString(ch));
                         }
                         break;
                 }
             } else {
-                switch(ch) {
-                    case '\'' : 
+                switch (ch) {
+                    case '\'' :
                         buffer.append('\\');
                         buffer.append('\'');
                         break;
-                    case '"' : 
+                    case '"' :
                         buffer.append('\\');
                         buffer.append('"');
                         break;
-                    case '\\' : 
+                    case '\\' :
                         buffer.append('\\');
                         buffer.append('\\');
                         break;
@@ -918,7 +915,7 @@ public class StringUtils {
      * 
      * @param str  String to repeat
      * @param size  int number of times to repeat
-     * @return String with repeated string
+     * @return right padded String
      */
     public static String rightPad(String str, int size) {
         return rightPad(str, size, " ");
@@ -930,6 +927,7 @@ public class StringUtils {
      * @param str  String to pad out
      * @param size  int size to pad to
      * @param delim  String to pad with
+     * @return right padded String
      */
     public static String rightPad(String str, int size, String delim) {
         size = (size - str.length()) / delim.length();
@@ -944,6 +942,7 @@ public class StringUtils {
      *
      * @param str  String to pad out
      * @param size  int size to pad to
+     * @return left padded String
      */
     public static String leftPad(String str, int size) {
         return leftPad(str, size, " ");
@@ -954,6 +953,7 @@ public class StringUtils {
      * @param str  String to pad out
      * @param size  int size to pad to
      * @param delim  String to pad with
+     * @return left padded String
      */
     public static String leftPad(String str, int size, String delim) {
         size = (size - str.length()) / delim.length();
@@ -1005,7 +1005,7 @@ public class StringUtils {
      * every String in the array.
      * 
      * @param strs  the strings to remove a string from
-     * @param delim  the string to remove at start and end
+     * @param delimiter  the string to remove at start and end
      * @return the stripped strings
      */
     public static String[] stripAll(String[] strs, String delimiter) {
@@ -1164,16 +1164,14 @@ public class StringUtils {
         char ch = 0;
         char tmp = 0;
 
-        for(int i=0; i<sz; i++) {
+        for (int i = 0; i < sz; i++) {
             ch = str.charAt(i);
-            if(Character.isUpperCase(ch)) {
+            if (Character.isUpperCase(ch)) {
                 tmp = Character.toLowerCase(ch);
-            } else
-            if(Character.isTitleCase(ch)) {
+            } else if (Character.isTitleCase(ch)) {
                 tmp = Character.toLowerCase(ch);
-            } else
-            if(Character.isLowerCase(ch)) {
-                if(whitespace) {
+            } else if (Character.isLowerCase(ch)) {
+                if (whitespace) {
                     tmp = Character.toTitleCase(ch);
                 } else {
                     tmp = Character.toUpperCase(ch);
@@ -1202,13 +1200,12 @@ public class StringUtils {
         int sz = str.length();
         StringBuffer buffer = new StringBuffer(sz);
         boolean space = true;
-        for(int i=0; i<sz; i++) {
+        for (int i = 0; i < sz; i++) {
             char ch = str.charAt(i);
-            if(Character.isWhitespace(ch)) {
+            if (Character.isWhitespace(ch)) {
                 buffer.append(ch);
                 space = true;
-            } else
-            if(space) {
+            } else if (space) {
                 buffer.append(Character.toTitleCase(ch));
                 space = false;
             } else {
@@ -1260,6 +1257,7 @@ public class StringUtils {
      * Null returns 0.
      * 
      * @param str  the string to check
+     * @param sub  the substring to count
      * @return the number of occurances, 0 if the string is null
      */
     public static int countMatches(String str, String sub) {
@@ -1463,6 +1461,7 @@ public class StringUtils {
     /**
      * Reverses an array. 
      * TAKEN FROM CollectionsUtils.
+     * @param array  the array to reverse
      */
     private static void reverseArray(Object[] array) {
         int i = 0;
@@ -1496,7 +1495,7 @@ public class StringUtils {
         try {
             // And show the Error Screen.
             ByteArrayOutputStream buf = new ByteArrayOutputStream();
-            throwable.printStackTrace( new PrintWriter(buf, true) );
+            throwable.printStackTrace(new PrintWriter(buf, true));
             trace = buf.toString();
             
         } catch (Exception ex) {
@@ -1512,6 +1511,10 @@ public class StringUtils {
      *
      * This implemmentation of the levenshtein distance algorithm 
      * is from http://www.merriampark.com/ld.htm
+     * 
+     * @param s  the first String
+     * @param t  the second String
+     * @param result distance
      */
     public static int getLevenshteinDistance(String s, String t) {
         int d[][]; // matrix
@@ -1524,15 +1527,15 @@ public class StringUtils {
         int cost; // cost
 
         // Step 1
-        n = s.length ();
-        m = t.length ();
+        n = s.length();
+        m = t.length();
         if (n == 0) {
             return m;
         }
         if (m == 0) {
             return n;
         }
-        d = new int[n+1][m+1];
+        d = new int[n + 1][m + 1];
 
         // Step 2
         for (i = 0; i <= n; i++) {
@@ -1545,11 +1548,11 @@ public class StringUtils {
 
         // Step 3
         for (i = 1; i <= n; i++) {
-            s_i = s.charAt (i - 1);
+            s_i = s.charAt(i - 1);
 
             // Step 4
             for (j = 1; j <= m; j++) {
-                t_j = t.charAt (j - 1);
+                t_j = t.charAt(j - 1);
 
                 // Step 5
                 if (s_i == t_j) {
@@ -1559,7 +1562,7 @@ public class StringUtils {
                 }
 
                 // Step 6
-                d[i][j] = NumberUtils.minimum(d[i-1][j]+1, d[i][j-1]+1, d[i-1][j-1] + cost);
+                d[i][j] = NumberUtils.minimum(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
             }
         }
 
@@ -1568,7 +1571,9 @@ public class StringUtils {
     }
 
     /**
-     * Convenient method to retrieve the full stacktrace from a given exception.     * @param t the exception to get the stacktrace from.
+     * Convenient method to retrieve the full stacktrace from a given exception.
+     * 
+     * @param t the exception to get the stacktrace from.
      * @return the stacktrace from the given exception.
      */
     public static String getStackTrace(Throwable t) {
