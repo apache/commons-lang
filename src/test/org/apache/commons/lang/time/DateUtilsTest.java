@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,7 +70,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.CalendarUtils}.
+ * Unit tests {@link org.apache.commons.lang.time.DateUtils}.
  *
  * @author <a href="mailto:sergek@lokitech.com">Serge Knystautas</a>
  * @author <a href="mailto:steve@mungoknotwise.com">Steven Caswell</a>
@@ -93,7 +93,7 @@ public class DateUtilsTest extends TestCase {
 
     public static Test suite() {
     	TestSuite suite = new TestSuite(DateUtilsTest.class);
-    	suite.setName("CalendarUtilsTest Tests");
+    	suite.setName("DateUtils Tests");
         return suite;
     }
 
