@@ -91,9 +91,12 @@ import java.util.Map;
  * </code>
  * This will produce a toString of the format:
  * <code>Person@7f54[name=Stephen,age=29,smoker=false]</code>
+ * <p>
+ * The exact format of the toString is determined by the {@link ToStringStyle}
+ * passed into the constructor.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringBuilder.java,v 1.1 2002/09/17 22:07:20 scolebourne Exp $
+ * @version $Id: ToStringBuilder.java,v 1.2 2002/09/19 19:42:59 scolebourne Exp $
  */
 public class ToStringBuilder {
     
