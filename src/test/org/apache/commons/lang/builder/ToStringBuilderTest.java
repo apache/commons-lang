@@ -51,9 +51,8 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-// package org.apache.commons.lang.builder
-
 package org.apache.commons.lang.builder;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,13 +61,14 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
- * Unit tests for {@link org.apache.commons.lang.ToStringBuilder}.
+ * Unit tests for {@link org.apache.commons.lang.builder.ToStringBuilder}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:alex@apache.org">Alex Chaffee</a>
- * @version $Id: ToStringBuilderTest.java,v 1.8 2003/06/03 20:15:32 ggregory Exp $
+ * @version $Id: ToStringBuilderTest.java,v 1.9 2003/08/16 13:02:14 scolebourne Exp $
  */
 public class ToStringBuilderTest extends TestCase {
 
