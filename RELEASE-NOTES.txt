@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.5 2003/07/08 05:50:42 bayard Exp $
+$Id: RELEASE-NOTES.txt,v 1.6 2003/07/08 22:05:14 scolebourne Exp $
 
                         Commons Lang Package
                            Version 2.0
@@ -43,7 +43,6 @@ math sub-package.
     RandomUtils
 
 time sub-package: 
-    DurationFormatUtils
     DateFormatUtils
     FastDateFormat
     DateUtils
@@ -96,9 +95,9 @@ DEPRECATIONS:
 
 lang.
     NumberRange:
-        now deprecated
+        now deprecated, see math subpackage
     NumberUtils:
-        now deprecated
+        now deprecated, see math subpackage
 
 CHANGES:   [In 'diff' format]
 
