@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.19 2003/08/16 02:31:36 bayard Exp $
+$Id: RELEASE-NOTES.txt,v 1.20 2003/08/16 02:41:18 bayard Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -235,15 +235,11 @@ Jar changes
 > org.apache.commons.lang.util.IdentifierFactory
 > org.apache.commons.lang.util.BitField
 > org.apache.commons.lang.Entities
-> org.apache.commons.lang.reflect.MethodUtils
-> org.apache.commons.lang.reflect.ReflectionException
-> org.apache.commons.lang.reflect.ConstructorUtils
-> org.apache.commons.lang.reflect.ReflectionUtils
-> org.apache.commons.lang.reflect.FieldUtils
 > org.apache.commons.lang.Entities$LookupEntityMap
 > org.apache.commons.lang.NotImplementedException
 > org.apache.commons.lang.NullArgumentException
 < org.apache.commons.lang.ObjectUtils$1
+---
 > org.apache.commons.lang.StringPrintWriter
 > org.apache.commons.lang.UnhandledException
 > org.apache.commons.lang.Entities$HashEntityMap
@@ -273,51 +269,121 @@ org.apache.commons.lang.enum.EnumUtils
 < public abstract class org.apache.commons.lang.enum.EnumUtils extends java.lang.Object implements java.lang.Comparable, java.io.Serializable {
 ---
 > public class org.apache.commons.lang.enum.EnumUtils extends java.lang.Object {
+>     public org.apache.commons.lang.enum.EnumUtils();
 
+org.apache.commons.lang.enum.Enum$Entry
+--------------------
+>     final java.util.Map unmodifiableMap;
+>     final java.util.List unmodifiableList;
 
 org.apache.commons.lang.enum.Enum
 --------------------
+>     protected transient java.lang.String iToString;
 >     static java.lang.Class class$org$apache$commons$lang$enum$ValuedEnum;
->     protected static java.lang.Class getEnumClass(java.lang.Class);
+>     public java.lang.Class getEnumClass();
+
+org.apache.commons.lang.enum.ValuedEnum
+--------------------
+>     static {};
 
 org.apache.commons.lang.StringUtils
 --------------------
+>     public static final java.lang.String EMPTY;
+>     public static boolean isEmpty(java.lang.String);
+>     public static boolean isNotEmpty(java.lang.String);
+>     public static boolean isBlank(java.lang.String);
+>     public static boolean isNotBlank(java.lang.String);
+<     public static java.lang.String deleteSpaces(java.lang.String);
+<     public static java.lang.String deleteWhitespace(java.lang.String);
+<     public static boolean isNotEmpty(java.lang.String);
+<     public static boolean isEmpty(java.lang.String);
+---
 >     public static java.lang.String trimToNull(java.lang.String);
 >     public static java.lang.String trimToEmpty(java.lang.String);
->     public static boolean isEmptyOrNull(java.lang.String);
->     public static boolean isNotEmptyOrNull(java.lang.String);
->     public static boolean isEmptyTrimmed(java.lang.String);
->     public static boolean isNotEmptyTrimmed(java.lang.String);
->     public static boolean isEmptyTrimmedOrNull(java.lang.String);
->     public static boolean isNotEmptyTrimmedOrNull(java.lang.String);
->     public static java.lang.String join(java.lang.Object[], char);
->     public static java.lang.String join(java.util.Iterator, char);
->     public static java.lang.String slice(java.lang.String);
->     public static java.lang.String slice(java.lang.String, java.lang.String);
->     public static java.lang.String sliceRemainder(java.lang.String, java.lang.String);
->     public static java.lang.String sliceFirstRemainder(java.lang.String, java.lang.String);
->     public static java.lang.String sliceFirst(java.lang.String, java.lang.String);
->     public static java.lang.String rightPad(java.lang.String, int, char);
->     public static java.lang.String leftPad(java.lang.String, int, char);
->     public static java.lang.String uncapitaliseAllWords(java.lang.String);
->     public static boolean isWhitespace(java.lang.String);
->     public static java.lang.String defaultString(java.lang.Object);
->     public static java.lang.String defaultString(java.lang.Object, java.lang.String);
----
->     public static boolean containsOnly(java.lang.String, java.lang.String);
->     public static boolean containsNone(java.lang.String, java.lang.String);
->     public static boolean containsNone(java.lang.String, char[]);
+>     public static java.lang.String strip(java.lang.String);
+>     public static java.lang.String stripToNull(java.lang.String);
+>     public static java.lang.String stripToEmpty(java.lang.String);
+>     public static java.lang.String strip(java.lang.String, java.lang.String);
+>     public static java.lang.String stripStart(java.lang.String, java.lang.String);
+>     public static java.lang.String stripEnd(java.lang.String, java.lang.String);
+>     public static java.lang.String stripAll(java.lang.String[])[];
+>     public static java.lang.String stripAll(java.lang.String[], java.lang.String)[];
+>     public static int indexOf(java.lang.String, char);
+>     public static int indexOf(java.lang.String, char, int);
+>     public static int indexOf(java.lang.String, java.lang.String);
+>     public static int indexOf(java.lang.String, java.lang.String, int);
+>     public static int lastIndexOf(java.lang.String, char);
+>     public static int lastIndexOf(java.lang.String, char, int);
+>     public static int lastIndexOf(java.lang.String, java.lang.String);
+>     public static int lastIndexOf(java.lang.String, java.lang.String, int);
+>     public static boolean contains(java.lang.String, char);
+>     public static boolean contains(java.lang.String, java.lang.String);
+>     public static int indexOfAny(java.lang.String, char[]);
+>     public static int indexOfAny(java.lang.String, java.lang.String);
 >     public static int indexOfAnyBut(java.lang.String, char[]);
 >     public static int indexOfAnyBut(java.lang.String, java.lang.String);
+>     public static boolean containsOnly(java.lang.String, char[]);
+>     public static boolean containsOnly(java.lang.String, java.lang.String);
+>     public static boolean containsNone(java.lang.String, char[]);
+>     public static boolean containsNone(java.lang.String, java.lang.String);
+>     public static java.lang.String substringBefore(java.lang.String, java.lang.String);
+>     public static java.lang.String substringAfter(java.lang.String, java.lang.String);
+>     public static java.lang.String substringBeforeLast(java.lang.String, java.lang.String);
+>     public static java.lang.String substringAfterLast(java.lang.String, java.lang.String);
+>     public static java.lang.String substringBetween(java.lang.String, java.lang.String);
+>     public static java.lang.String substringBetween(java.lang.String, java.lang.String, java.lang.String);
+>     public static java.lang.String getNestedString(java.lang.String, java.lang.String);
+>     public static java.lang.String getNestedString(java.lang.String, java.lang.String, java.lang.String);
+>     public static java.lang.String split(java.lang.String, char)[];
+>     public static java.lang.String join(java.lang.Object[]);
+>     public static java.lang.String join(java.lang.Object[], char);
+>     public static java.lang.String join(java.util.Iterator, char);
+>     public static java.lang.String deleteSpaces(java.lang.String);
+>     public static java.lang.String deleteWhitespace(java.lang.String);
+>     public static java.lang.String replaceChars(java.lang.String, char, char);
+>     public static java.lang.String replaceChars(java.lang.String, java.lang.String, java.lang.String);
+<     public static java.lang.String center(java.lang.String, int);
+<     public static java.lang.String center(java.lang.String, int, java.lang.String);
+---
+>     public static java.lang.String overlay(java.lang.String, java.lang.String, int, int);
+>     public static java.lang.String rightPad(java.lang.String, int, char);
+>     public static java.lang.String leftPad(java.lang.String, int, char);
+<     public static java.lang.String strip(java.lang.String);
+<     public static java.lang.String strip(java.lang.String, java.lang.String);
+<     public static java.lang.String stripAll(java.lang.String[])[];
+<     public static java.lang.String stripAll(java.lang.String[], java.lang.String)[];
+<     public static java.lang.String stripEnd(java.lang.String, java.lang.String);
+<     public static java.lang.String stripStart(java.lang.String, java.lang.String);
+---
+>     public static java.lang.String center(java.lang.String, int);
+>     public static java.lang.String center(java.lang.String, int, char);
+>     public static java.lang.String center(java.lang.String, int, java.lang.String);
+<     public static java.lang.String uncapitalise(java.lang.String);
+---
+>     public static java.lang.String capitalize(java.lang.String);
+>     public static java.lang.String uncapitalize(java.lang.String);
+>     public static java.lang.String uncapitalise(java.lang.String);
+>     public static java.lang.String capitalizeAllWords(java.lang.String);
+<     public static java.lang.String getNestedString(java.lang.String, java.lang.String);
+<     public static java.lang.String getNestedString(java.lang.String, java.lang.String, java.lang.String);
+---
+>     public static java.lang.String uncapitalizeAllWords(java.lang.String);
+>     public static java.lang.String uncapitaliseAllWords(java.lang.String);
+>     public static boolean isWhitespace(java.lang.String);
+>     public static java.lang.String reverseDelimited(java.lang.String, char);
 >     public static java.lang.String abbreviate(java.lang.String, int);
 >     public static java.lang.String abbreviate(java.lang.String, int, int);
 >     public static java.lang.String difference(java.lang.String, java.lang.String);
 >     public static int differenceAt(java.lang.String, java.lang.String);
+<     public static boolean containsOnly(java.lang.String, char[]);
 ---
 >     static {};
 
 org.apache.commons.lang.ObjectUtils
 --------------------
+>     public static java.lang.StringBuffer appendIdentityToString(java.lang.StringBuffer, java.lang.Object);
+>     public static java.lang.String toString(java.lang.Object);
+>     public static java.lang.String toString(java.lang.Object, java.lang.String);
 <         org.apache.commons.lang.ObjectUtils.Null(org.apache.commons.lang.ObjectUtils$1);
 ---
 >         org.apache.commons.lang.ObjectUtils.Null();
@@ -353,17 +419,40 @@ org.apache.commons.lang.exception.ExceptionUtils
 <     protected static final java.lang.Object CAUSE_METHOD_PARAMS[];
 ---
 >     static final java.lang.String WRAPPED_MARKER;
->     protected static java.lang.String CAUSE_METHOD_NAMES[];
+<     protected org.apache.commons.lang.exception.ExceptionUtils();
+---
+>     public org.apache.commons.lang.exception.ExceptionUtils();
 >     public static void addCauseMethodName(java.lang.String);
->     public static void printRootCauseStackTrace(java.lang.Throwable, java.io.PrintStream);
+>     public static boolean isThrowableNested();
+>     public static boolean isNestedThrowable(java.lang.Throwable);
 >     public static void printRootCauseStackTrace(java.lang.Throwable);
+>     public static void printRootCauseStackTrace(java.lang.Throwable, java.io.PrintStream);
 >     public static void printRootCauseStackTrace(java.lang.Throwable, java.io.PrintWriter);
 >     public static java.lang.String getRootCauseStackTrace(java.lang.Throwable)[];
 >     public static void removeCommonFrames(java.util.List, java.util.List);
 >     public static java.lang.String getFullStackTrace(java.lang.Throwable);
->     public static boolean isNestedThrowable(java.lang.Throwable);
 >     static java.util.List getStackFrameList(java.lang.Throwable);
->     public static boolean isThrowableNested();
+
+org.apache.commons.lang.CharRange
+--------------------
+< class org.apache.commons.lang.CharRange extends java.lang.Object {
+---
+> public final class org.apache.commons.lang.CharRange extends java.lang.Object implements java.io.Serializable {
+>     public org.apache.commons.lang.CharRange(char,boolean);
+<     public org.apache.commons.lang.CharRange(java.lang.String,java.lang.String);
+---
+>     public org.apache.commons.lang.CharRange(char,char,boolean);
+<     public void setStart(char);
+<     public void setEnd(char);
+<     public boolean isRange();
+<     public boolean inRange(char);
+<     public void setNegated(boolean);
+---
+>     public boolean contains(char);
+>     public boolean contains(org.apache.commons.lang.CharRange);
+>     public boolean equals(java.lang.Object);
+>     public int hashCode();
+>     static {};
 
 org.apache.commons.lang.ObjectUtils$1
 --------------------
@@ -383,11 +472,13 @@ org.apache.commons.lang.ObjectUtils$Null
 org.apache.commons.lang.SystemUtils
 --------------------
 >     public static final java.lang.String FILE_ENCODING;
->     public static final boolean IS_JAVA_1_1;
->     public static final boolean IS_JAVA_1_2;
->     public static final boolean IS_JAVA_1_3;
->     public static final boolean IS_JAVA_1_4;
->     public static final boolean IS_JAVA_1_5;
+>     public static final java.lang.String JAVA_RUNTIME_NAME;
+>     public static final java.lang.String JAVA_RUNTIME_VERSION;
+>     public static final java.lang.String JAVA_VM_INFO;
+>     public static final java.lang.String USER_COUNTRY;
+>     public static final java.lang.String USER_LANGUAGE;
+>     public static final float JAVA_VERSION_FLOAT;
+>     public static final int JAVA_VERSION_INT;
 >     public static final boolean IS_OS_AIX;
 >     public static final boolean IS_OS_HP_UX;
 >     public static final boolean IS_OS_IRIX;
@@ -404,21 +495,7 @@ org.apache.commons.lang.SystemUtils
 >     public static final boolean IS_OS_WINDOWS_ME;
 >     public static final boolean IS_OS_WINDOWS_NT;
 >     public static final boolean IS_OS_WINDOWS_XP;
->     public static final java.lang.String JAVA_RUNTIME_NAME;
->     public static final java.lang.String JAVA_RUNTIME_VERSION;
->     public static final float JAVA_VERSION_FLOAT;
->     public static final int JAVA_VERSION_INT;
->     public static final java.lang.String JAVA_VM_INFO;
->     public static final java.lang.String USER_COUNTRY;
->     public static final java.lang.String USER_LANGUAGE;
-<     public static final boolean IS_JAVA_1_1;
-<     public static final boolean IS_JAVA_1_2;
-<     public static final boolean IS_JAVA_1_3;
-<     public static final boolean IS_JAVA_1_4;
-<     public static final boolean IS_JAVA_1_5;
-<     public org.apache.commons.lang.SystemUtils();
 >     public static boolean isJavaVersionAtLeast(int);
->     public org.apache.commons.lang.SystemUtils();
 
 org.apache.commons.lang.SerializationUtils
 --------------------
@@ -428,8 +505,29 @@ org.apache.commons.lang.RandomStringUtils
 --------------------
 >     public static java.lang.String random(int, int, int, boolean, boolean, char[], java.util.Random);
 
+org.apache.commons.lang.CharSet
+--------------------
+< public class org.apache.commons.lang.CharSet extends java.lang.Object {
+---
+> public class org.apache.commons.lang.CharSet extends java.lang.Object implements java.io.Serializable {
+>     public static final org.apache.commons.lang.CharSet EMPTY;
+>     public static final org.apache.commons.lang.CharSet ASCII_ALPHA;
+>     public static final org.apache.commons.lang.CharSet ASCII_ALPHA_LOWER;
+>     public static final org.apache.commons.lang.CharSet ASCII_ALPHA_UPPER;
+>     public static final org.apache.commons.lang.CharSet ASCII_NUMERIC;
+>     protected static final java.util.Map COMMON;
+>     public static org.apache.commons.lang.CharSet getInstance(java.lang.String);
+>     protected org.apache.commons.lang.CharSet(java.lang.String);
+<     public boolean contains(char);
+>     public org.apache.commons.lang.CharRange getCharRanges()[];
+>     public boolean contains(char);
+>     public boolean equals(java.lang.Object);
+>     public int hashCode();
+>     static {};
+
 org.apache.commons.lang.CharSetUtils
 --------------------
+>     public static org.apache.commons.lang.CharSet evaluateSet(java.lang.String);
 >     public static java.lang.String keep(java.lang.String, java.lang.String);
 >     public static java.lang.String keep(java.lang.String, java.lang.String[]);
 
@@ -542,7 +640,6 @@ org.apache.commons.lang.builder.ToStringStyle
 >     public void appendToString(java.lang.StringBuffer, java.lang.String);
 >     protected void removeLastFieldSeparator(java.lang.StringBuffer);
 >     protected void reflectionAppendArrayDetail(java.lang.StringBuffer, java.lang.String, java.lang.Object);
->     protected void appendAsObjectToString(java.lang.StringBuffer, java.lang.Object);
 >     protected boolean isFieldSeparatorAtStart();
 >     protected void setFieldSeparatorAtStart(boolean);
 >     protected boolean isFieldSeparatorAtEnd();
