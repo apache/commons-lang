@@ -73,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.17 2002/09/30 00:47:45 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.18 2002/09/30 00:50:10 bayard Exp $
  */
 public class StringUtils {
 
@@ -1104,7 +1104,6 @@ public class StringUtils {
                 start++;
             }
         } else {
-            char chr = strip.charAt(0);
             while ((start != sz) && (strip.indexOf(str.charAt(start)) != -1)) {
                 start++;
             }
