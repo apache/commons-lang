@@ -16,7 +16,7 @@
 package org.apache.commons.lang;
 
 /**
- * <p>Operations on char primitives and Char objects.</p>
+ * <p>Operations on char primitives and Character objects.</p>
  *
  * <p>This class tries to handle <code>null</code> input gracefully.
  * An exception will not be thrown for a <code>null</code> input.
@@ -24,7 +24,7 @@ package org.apache.commons.lang;
  * 
  * @author Stephen Colebourne
  * @since 2.1
- * @version $Id: CharUtils.java,v 1.9 2004/05/24 00:10:15 ggregory Exp $
+ * @version $Id: CharUtils.java,v 1.10 2004/09/05 20:38:36 bayard Exp $
  */
 public class CharUtils {
     
