@@ -56,7 +56,7 @@ public class DurationFormatUtilsTest extends TestCase {
         Constructor[] cons = DurationFormatUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
-        assertEquals(false, Modifier.isPublic(DurationFormatUtils.class.getModifiers()));
+        assertEquals(true, Modifier.isPublic(DurationFormatUtils.class.getModifiers()));
         assertEquals(false, Modifier.isFinal(DurationFormatUtils.class.getModifiers()));
     }
     
@@ -165,6 +165,62 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEquals("P1Y2M3DT10H30M0.0S", text);
         // want a way to say 'don't print the seconds in format()' or other fields for that matter:
         //assertEquals("P1Y2M3DT10H30M", text);
+    }
+
+    public void testLexx() {
+        // tests each constant
+        assertArrayEquals( 
+          new Token[] { 
+            new Token( DurationFormatUtils.y, 1),
+            new Token( DurationFormatUtils.M, 1),
+            new Token( DurationFormatUtils.d, 1),
+            new Token( DurationFormatUtils.H, 1),
+            new Token( DurationFormatUtils.m, 1),
+            new Token( DurationFormatUtils.s, 1),
+            new Token( DurationFormatUtils.S, 1)
+          }, DurationFormatUtils.lexx("yMdHmsS") 
+        );
+
+        // tests the ISO8601-like
+        assertArrayEquals( 
+          new Token[] { 
+            new Token( DurationFormatUtils.H, 1),
+            new Token( new StringBuffer(":"), 1),
+            new Token( DurationFormatUtils.m, 2),
+            new Token( new StringBuffer(":"), 1),
+            new Token( DurationFormatUtils.s, 2),
+            new Token( new StringBuffer("."), 1),
+            new Token( DurationFormatUtils.S, 3)
+          }, DurationFormatUtils.lexx("H:mm:ss.SSS")
+        );
+
+        // test the iso extended format
+        assertArrayEquals( 
+          new Token[] { 
+            new Token( new StringBuffer("P"), 1),
+            new Token( DurationFormatUtils.y, 4),
+            new Token( new StringBuffer("Y"), 1),
+            new Token( DurationFormatUtils.M, 1),
+            new Token( new StringBuffer("M"), 1),
+            new Token( DurationFormatUtils.d, 1),
+            new Token( new StringBuffer("DT"), 1),
+            new Token( DurationFormatUtils.H, 1),
+            new Token( new StringBuffer("H"), 1),
+            new Token( DurationFormatUtils.m, 1),
+            new Token( new StringBuffer("M"), 1),
+            new Token( DurationFormatUtils.s, 1),
+            new Token( new StringBuffer("."), 1),
+            new Token( DurationFormatUtils.S, 1),
+            new Token( new StringBuffer("S"), 1)
+          }, 
+          DurationFormatUtils.lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN)
+        );
+    }
+    private void assertArrayEquals(Token[] obj1, Token[] obj2) {
+        assertEquals( "Arrays are unequal length. ", obj1.length, obj2.length );
+        for(int i=0; i<obj1.length; i++) {
+            assertTrue( "Index " + i + " not equal, " + obj1[i] + " vs " + obj2, obj1[i].equals(obj2[i]));
+        }
     }
 
     

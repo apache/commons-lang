@@ -15,6 +15,10 @@
  */
 package org.apache.commons.lang.time;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.mutable.MutableInt;
+
 /**
  * <p>Duration formatting utilities and constants.</p>
  *
@@ -24,10 +28,18 @@ package org.apache.commons.lang.time;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DurationFormatUtils.java,v 1.10 2004/08/02 02:16:21 bayard Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.11 2004/08/27 06:45:25 bayard Exp $
  */
-class DurationFormatUtils {
-    // TODO: Make class public once methods can fully select which fields to output
+public class DurationFormatUtils {
+
+    /**
+     * <p>DurationFormatUtils instances should NOT be constructed in standard programming.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
+     */
+    public DurationFormatUtils() {
+    }
 
     /**
      * <p>Pattern used with <code>FastDateFormat</code> and <code>SimpleDateFormat</code> for the ISO8601 
@@ -61,37 +73,105 @@ class DurationFormatUtils {
      * <p>Get the time gap as a string.</p>
      * 
      * <p>The format used is ISO8601-like:
-     * <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.</p>
+     * <i>H</i>:<i>m</i>:<i>s</i>.<i>S</i>.</p>
      * 
      * @param millis  the duration to format
      * @return the time as a String
      */
     public static String formatISO(long millis) {
-        int hours, minutes, seconds, milliseconds;
-        hours = (int) (millis / DateUtils.MILLIS_PER_HOUR);
-        millis = millis - (hours * DateUtils.MILLIS_PER_HOUR);
-        minutes = (int) (millis / DateUtils.MILLIS_PER_MINUTE);
-        millis = millis - (minutes * DateUtils.MILLIS_PER_MINUTE);
-        seconds = (int) (millis / DateUtils.MILLIS_PER_SECOND);
-        millis = millis - (seconds * DateUtils.MILLIS_PER_SECOND);
-        milliseconds = (int) millis;
+        return format(millis, "H:mm:ss.SSS");
+    }
+    /**
+     * <p>Get the time gap as a string, using the specified format.</p>
+     * <table border="1">
+     *  <tr><th>character</th><th>duration element</th></tr>
+     *  <tr><td>y</td><td>years (aka 365 days)</td></tr>
+     *  <tr><td>M</td><td>months (aka year/12)</td></tr>
+     *  <tr><td>d</td><td>days</td></tr>
+     *  <tr><td>H</td><td>hours</td></tr>
+     *  <tr><td>m</td><td>minutes</td></tr>
+     *  <tr><td>s</td><td>seconds</td></tr>
+     *  <tr><td>S</td><td>milliseconds</td></tr>
+     * </table>
+     * 
+     * @param millis  the duration to format
+     * @param format  the way iin which to format the duration
+     * @return the time as a String
+     */
+    public static String format(long millis, String format) {
+        StringBuffer buffer = new StringBuffer();
+        Token[] tokens = lexx(format);
+        int sz = tokens.length;
 
-        StringBuffer buf = new StringBuffer(32);
-        buf.append(hours);
-        buf.append(':');
-        buf.append((char) (minutes / 10 + '0'));
-        buf.append((char) (minutes % 10 + '0'));
-        buf.append(':');
-        buf.append((char) (seconds / 10 + '0'));
-        buf.append((char) (seconds % 10 + '0'));
-        buf.append('.');
-        if (milliseconds < 10) {
-            buf.append('0').append('0');
-        } else if (milliseconds < 100) {
-            buf.append('0');
+        int years        = 0;
+        int months       = 0;
+        int days         = 0;
+        int hours        = 0;
+        int minutes      = 0;
+        int seconds      = 0;
+        int milliseconds = 0;
+
+        if(Token.containsTokenWithValue(tokens, y) ) {
+            years = (int) (millis / DateUtils.MILLIS_PER_YEAR);
+            millis = millis - (years * DateUtils.MILLIS_PER_YEAR);
         }
-        buf.append(milliseconds);
-        return buf.toString();
+        if(Token.containsTokenWithValue(tokens, M) ) {
+            months = (int) (millis / DateUtils.MILLIS_PER_MONTH);
+            millis = millis - (months * DateUtils.MILLIS_PER_MONTH);
+        }
+        if(Token.containsTokenWithValue(tokens, d) ) {
+            days = (int) (millis / DateUtils.MILLIS_PER_DAY);
+            millis = millis - (days * DateUtils.MILLIS_PER_DAY);
+        }
+        if(Token.containsTokenWithValue(tokens, H) ) {
+            hours = (int) (millis / DateUtils.MILLIS_PER_HOUR);
+            millis = millis - (hours * DateUtils.MILLIS_PER_HOUR);
+        }
+        if(Token.containsTokenWithValue(tokens, m) ) {
+            minutes = (int) (millis / DateUtils.MILLIS_PER_MINUTE);
+            millis = millis - (minutes * DateUtils.MILLIS_PER_MINUTE);
+        }
+        if(Token.containsTokenWithValue(tokens, s) ) {
+            seconds = (int) (millis / DateUtils.MILLIS_PER_SECOND);
+            millis = millis - (seconds * DateUtils.MILLIS_PER_SECOND);
+        }
+        if(Token.containsTokenWithValue(tokens, S) ) {
+            milliseconds = (int) millis;
+        }
+
+
+        for(int i=0; i<sz; i++) {
+            Token token = tokens[i];
+            Object value = token.getValue();
+            int count = token.getCount();
+            if(value instanceof StringBuffer) {
+                buffer.append(value.toString());
+            } else {
+                if(value == y) {
+                    buffer.append( StringUtils.leftPad(""+years, count, "0") ); 
+                } else
+                if(value == M) {
+                    buffer.append( StringUtils.leftPad(""+months, count, "0") ); 
+                } else
+                if(value == d) {
+                    buffer.append( StringUtils.leftPad(""+days, count, "0") ); 
+                } else
+                if(value == H) {
+                    buffer.append( StringUtils.leftPad(""+hours, count, "0") ); 
+                } else
+                if(value == m) {
+                    buffer.append( StringUtils.leftPad(""+minutes, count, "0") ); 
+                } else
+                if(value == s) {
+                    buffer.append( StringUtils.leftPad(""+seconds, count, "0") ); 
+                } else
+                if(value == S) {
+                    buffer.append( StringUtils.leftPad(""+milliseconds, count, "0") ); 
+                }
+            }
+        }
+        
+        return buffer.toString();
     }
 
     /**
@@ -106,51 +186,183 @@ class DurationFormatUtils {
         long millis,
         boolean suppressLeadingZeroElements,
         boolean suppressTrailingZeroElements) {
-        long[] values = new long[4];
-        values[0] = millis / DateUtils.MILLIS_PER_DAY;
-        values[1] = (millis / DateUtils.MILLIS_PER_HOUR) % 24;
-        values[2] = (millis / DateUtils.MILLIS_PER_MINUTE) % 60;
-        values[3] = (millis / DateUtils.MILLIS_PER_SECOND) % 60;
-        String[] fieldsOne = { " day ", " hour ", " minute ", " second" };
-        String[] fieldsPlural = { " days ", " hours ", " minutes ", " seconds" };
 
-        StringBuffer buf = new StringBuffer(64);
-        boolean valueOutput = false;
-
-        for (int i = 0; i < 4; i++) {
-            long value = values[i];
-            if (value == 0) {
-                // handle zero
-                if (valueOutput) {
-                    if (suppressTrailingZeroElements == false) {
-                        buf.append('0').append(fieldsPlural[i]);
-                    }
-                } else {
-                    if (suppressLeadingZeroElements == false) {
-                        buf.append('0').append(fieldsPlural[i]);
+        // This method is generally replacable by the format method, but 
+        // there are a series of tweaks and special cases that require 
+        // trickery to replicate.
+        String duration = format(millis, "d' days 'H' hours 'm' minutes 's' seconds'");
+        if(suppressLeadingZeroElements) {
+            // this is a temporary marker on the front. Like ^ in regexp.
+            duration = " " + duration;
+            String tmp = StringUtils.replaceOnce(duration, " 0 days", "");
+            if(tmp.length() != duration.length()) {
+                duration = tmp;
+                tmp = StringUtils.replaceOnce(duration, " 0 hours", "");
+                if(tmp.length() != duration.length()) {
+                    duration = tmp;
+                    tmp = StringUtils.replaceOnce(duration, " 0 minutes", "");
+                    duration = tmp;
+                    if(tmp.length() != duration.length()) {
+                        duration = StringUtils.replaceOnce(tmp, " 0 seconds", "");
                     }
                 }
-            } else if (value == 1) {
-                // one
-                valueOutput = true;
-                buf.append('1').append(fieldsOne[i]);
-            } else {
-                // other
-                valueOutput = true;
-                buf.append(value).append(fieldsPlural[i]);
+            }
+            if(duration.length() != 0) {
+                // strip the space off again
+                duration = duration.substring(1);
             }
         }
-
-        return buf.toString().trim();
+        if(suppressTrailingZeroElements) {
+            String tmp = StringUtils.replaceOnce(duration, " 0 seconds", "");
+            if(tmp.length() != duration.length()) {
+                duration = tmp;
+                tmp = StringUtils.replaceOnce(duration, " 0 minutes", "");
+                if(tmp.length() != duration.length()) {
+                    duration = tmp;
+                    tmp = StringUtils.replaceOnce(duration, " 0 hours", "");
+                    if(tmp.length() != duration.length()) {
+                        duration = StringUtils.replaceOnce(tmp, " 0 days", "");
+                    }
+                }
+            }
+        }
+        // handle plurals
+        duration = StringUtils.replaceOnce(duration, "1 seconds", "1 second");
+        duration = StringUtils.replaceOnce(duration, "1 minutes", "1 minute");
+        duration = StringUtils.replaceOnce(duration, "1 hours", "1 hour");
+        duration = StringUtils.replaceOnce(duration, "1 days", "1 day");
+        return duration;
     }
 
-    /**
-     * <p>DurationFormatUtils instances should NOT be constructed in standard programming.</p>
-     *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
-     */
-    public DurationFormatUtils() {
+    static final Object y = "y";
+    static final Object M = "M";
+    static final Object d = "d";
+    static final Object H = "H";
+    static final Object m = "m";
+    static final Object s = "s";
+    static final Object S = "S";
+    
+    static Token[] lexx(String format) {
+        char[] array = format.toCharArray();
+        java.util.ArrayList list = new java.util.ArrayList(array.length);
+
+        boolean inLiteral = false;
+        StringBuffer buffer = null;
+        Token previous = null;
+        int sz = array.length;
+        for(int i=0; i<sz; i++) {
+            char ch = array[i];
+            if(inLiteral && ch != '\'') {
+                buffer.append(ch);
+                continue;
+            }
+            Object value = null;
+            switch(ch) {
+                // TODO: Need to handle escaping of '
+                case '\'' : 
+                  if(inLiteral) {
+                      buffer = null;
+                      inLiteral = false;
+                  } else {
+                      buffer = new StringBuffer();
+                      list.add(new Token(buffer));
+                      inLiteral = true;
+                  }
+                  break;
+                case 'y'  : value = y; break;
+                case 'M'  : value = M; break;
+                case 'd'  : value = d; break;
+                case 'H'  : value = H; break;
+                case 'm'  : value = m; break;
+                case 's'  : value = s; break;
+                case 'S'  : value = S; break;
+                default   : 
+                  if(buffer == null) {
+                      buffer = new StringBuffer();
+                      list.add(new Token(buffer));
+                  }
+                  buffer.append(ch);
+            }
+
+            if(value != null) {
+                if(previous != null && previous.getValue() == value) {
+                    previous.increment();
+                } else {
+                    Token token = new Token(value);
+                    list.add(token); 
+                    previous = token;
+                }
+                buffer = null; 
+            }
+        }
+        return (Token[]) list.toArray( new Token[0] );
+    }
+
+}
+
+// Represents an element of the format-mini-language.
+class Token {
+
+    // will only work for the tokens, not for stringbuffers/numbers
+    static boolean containsTokenWithValue(Token[] tokens, Object value) {
+        int sz = tokens.length;
+        for(int i=0; i<sz; i++) {
+            if(tokens[i].getValue() == value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Object value;
+    private int count;
+
+    public Token(Object value) {
+        this.value = value;
+        this.count = 1;
+    }
+
+    Token(Object value, int count) {
+        this.value = value;
+        this.count = count;
+    }
+
+    public void increment() { 
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public boolean equals(Object obj2) {
+        if(obj2 instanceof Token) {
+            Token tok2 = (Token) obj2;
+            if(this.value.getClass() != tok2.value.getClass()) {
+                return false;
+            }
+            if(this.count != tok2.count) {
+                return false;
+            }
+            if(this.value instanceof StringBuffer) {
+                return this.value.toString().equals(tok2.value.toString());
+            } else
+            if(this.value instanceof Number) {
+                return this.value.equals(tok2.value);
+            } else {
+                return this.value == tok2.value;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public String toString() {
+        return StringUtils.repeat(this.value.toString(), this.count);
     }
 
 }
