@@ -32,7 +32,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.31 2004/10/08 00:10:59 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.32 2004/10/15 20:57:18 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -246,59 +246,6 @@ public class ClassUtils {
         return list;
     }
     
-//    /**
-//     * <p>Gets a <code>List</code> of subclasses of the specified class.</p>
-//     *
-//     * <p>This method searches the classpath to find all the subclasses
-//     * of a particular class available. No classes are loaded, the 
-//     * returned list contains class names, not classes.</p>
-//     *
-//     * @param cls  the class to find subclasses for
-//     * @return the <code>List</code> of subclass String class names
-//     * @throws IllegalArgumentException if the class is <code>null</code>
-//     */
-//    public static List getAllSubclassNames(Class cls) {
-//        if (cls == null) {
-//            throw new IllegalArgumentException("The class must not be null");
-//        }
-//        // TODO Use JavaWorld tip for searching the classpath
-//        return null;
-//    }
-
-//    /**
-//     * <p>Gets a <code>List</code> of subclasses of the specified class.</p>
-//     *
-//     * <p>This method searches the classpath to find all the subclasses
-//     * of a particular class available.</p>
-//     *
-//     * @param cls  the class to find subclasses for
-//     * @return the <code>List</code> of subclasses
-//     * @throws IllegalArgumentException if the class is <code>null</code>
-//     */
-//    public static List getAllSubclasses(Class cls) {
-//        List names = getAllSubclassNames(cls);
-//        return convertClassNamesToClasses(names);
-//    }
-
-//    /**
-//     * <p>Gets a <code>List</code> of implementations of the specified interface.</p>
-//     *
-//     * <p>This method searches the classpath to find all the implementations
-//     * of a particular interface available. No classes are loaded, the 
-//     * returned list contains class names, not classes.</p>
-//     *
-//     * @param cls  the class to find sub classes for
-//     * @return the <code>List</code> of implementation String class names
-//     * @throws IllegalArgumentException if the class is <code>null</code>
-//     */
-//    public static List getAllImplementationClassNames(Class cls) {
-//        if (cls == null) {
-//            throw new IllegalArgumentException("The class must not be null");
-//        }
-//        // TODO Use JavaWorld tip for searching the classpath
-//        return null;
-//    }
-
     // Convert list
     // ----------------------------------------------------------------------
     /**
