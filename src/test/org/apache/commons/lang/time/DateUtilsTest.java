@@ -60,6 +60,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 
 import junit.framework.AssertionFailedError;
@@ -99,8 +100,8 @@ public class DateUtilsTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        dateParser = new SimpleDateFormat("MMM dd, yyyy");
-        dateTimeParser = new SimpleDateFormat("MMM dd, yyyy H:mm:ss.SSS");
+        dateParser = new SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH);
+        dateTimeParser = new SimpleDateFormat("MMM dd, yyyy H:mm:ss.SSS", Locale.ENGLISH);
 
         date1 = dateTimeParser.parse("February 12, 2002 12:34:56.789");
         date2 = dateTimeParser.parse("November 18, 2001 1:23:11.321");
