@@ -59,7 +59,7 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.10 2003/03/23 17:59:09 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.11 2003/04/09 00:07:50 ggregory Exp $
  */
 public class CharSetUtils {
 
@@ -74,9 +74,9 @@ public class CharSetUtils {
     }
 
     /**
-     * <p>Creates a CharSetUtils object which allows a certain amount of
-     * set logic to be performed upon the following syntax:</p>
-     *
+     * <p>Creates a <code>CharSetUtils</code> object which allows a certain amount of
+     * set logic to be performed.</p>
+     * <p>The syntax is:</p>
      * <ul>
      *  <li>"aeio" which implies 'a','e',..
      *  <li>"^e" implies not e. However it only negates, it's not

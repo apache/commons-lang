@@ -78,7 +78,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Arun Mammen Thomas
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.40 2003/03/29 16:17:21 alex Exp $
+ * @version $Id: StringUtils.java,v 1.41 2003/04/09 00:07:50 ggregory Exp $
  */
 public class StringUtils {
 
@@ -2130,9 +2130,9 @@ public class StringUtils {
     }
 
     /**
-     * Compare two strings, and return the index at which the strings begin to differ
-     * <p>
-     * For example, <code>differenceAt("i am a machine", "i am a robot") -> 7</code>
+     * <p>Compare two strings, and return the index at which the strings begin to differ.</p>
+     * 
+     * <p>For example, <code>differenceAt("i am a machine", "i am a robot") -> 7</code></p>
      *
      * @return the index where s2 and s1 begin to differ; -1 if they are equal
      */

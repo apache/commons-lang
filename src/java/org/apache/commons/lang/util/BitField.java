@@ -63,7 +63,7 @@ package org.apache.commons.lang.util;
  * @author Andrew C. Oliver (acoliver at apache dot org)
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: BitField.java,v 1.4 2003/03/23 17:52:25 scolebourne Exp $
+ * @version $Id: BitField.java,v 1.5 2003/04/09 00:07:49 ggregory Exp $
  */
 public class BitField {
     
@@ -148,7 +148,7 @@ public class BitField {
     }
 
     /**
-     * Is the field set or not? This is most commonly used for a
+     * Returns whether the field is set or not. This is most commonly used for a
      * single-bit field, which is often used to represent a boolean
      * value; the results of using it for a multi-bit field is to
      * determine whether *any* of its bits are set
@@ -163,7 +163,7 @@ public class BitField {
     }
 
     /**
-     * Are all of the bits set or not? This is a stricter test than
+     * Returns whether all of the bits are set or not. This is a stricter test than
      * isSet, in that all of the bits in a multi-bit set must be set
      * for this method to return true
      *

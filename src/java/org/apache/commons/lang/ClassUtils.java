@@ -62,7 +62,7 @@ import java.util.List;
  *
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.9 2003/03/23 17:59:09 scolebourne Exp $
+ * @version $Id: ClassUtils.java,v 1.10 2003/04/09 00:07:50 ggregory Exp $
  */
 public class ClassUtils {
 
@@ -299,7 +299,8 @@ public class ClassUtils {
     // -------------------------------------------------------------------------
     
     /**
-     * <p>Given a <code>List</code> of class names, this method converts them into classes.     *
+     * <p>Given a <code>List</code> of class names, this method converts them into classes.     
+     *
      * A new <code>List</code> is returned. If the class name cannot be found, <code>null</code>
      * is stored in the <code>List</code>. If the class name in the <code>List</code> is
      * <code>null</code>, <code>null</code> is stored in the output <code>List</code>.</p>
