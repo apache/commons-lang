@@ -71,7 +71,8 @@ import junit.textui.TestRunner;
  * @author Nikolay Metchev
  * @author Matthew Hawthorne
  * @author Tim O'Brien
- * @version $Id: ArrayUtilsTest.java,v 1.15 2003/11/29 12:56:16 scolebourne Exp $
+ * @author Ashwin Suresh
+ * @version $Id: ArrayUtilsTest.java,v 1.16 2003/11/29 13:24:33 scolebourne Exp $
  */
 public class ArrayUtilsTest extends TestCase {
 

@@ -78,9 +78,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Tim O'Brien
  * @author Pete Gieser
  * @author Gary Gregory
- * @author Ash
+ * @author Ashwin Suresh
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.26 2003/11/29 12:56:15 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.27 2003/11/29 13:24:33 scolebourne Exp $
  */
 public class ArrayUtils {
 
