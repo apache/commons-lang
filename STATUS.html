@@ -7,7 +7,7 @@
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Component</h1>
-$Id: STATUS.html,v 1.17 2002/09/18 20:12:43 scolebourne Exp $<br />
+$Id: STATUS.html,v 1.18 2002/09/19 07:02:30 bayard Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#Dependencies">[Dependencies]</a>
 <a href="#Release Info">[Release Info]</a>
@@ -85,10 +85,9 @@ still under discussion, so please mail the list before actioning.</p>
 <li>MathUtils - possible addition of mathmatics helper. Could go in NumberUtils</li>
 <li>CalendarUtils - possible addition of a calendar utility class (from Serge Knystautas)</li>
 <li>CloneUtils - utility class to enable cloning via various different mechanisms</li>
-<li>StringUtils containsOnly method - proposed new method to check if a string contains only certain chars</li>
-<li>StringUtils truncateNicely method - A substring with some extra power to choose where to cut off. It was in Avalon and was added separately to String Taglib from a code submission. This suggests it may have some comonality</li>
-<li>StringUtils parseBoolean method - This method is in OSCore's TextUtils and seems very reusable. It could go in a BooleanUtils if such a need was seen</li>
-<li>StringUtils uncapitaliseAllWords method - String Taglib has shown that this method is missing from StringUtils. </li>
+<li>StringUtils truncateNicely method - A substring with some extra power to choose where to cut off. It was in Avalon and was added separately to String Taglib from a code submission. This suggests it may have some commonality. [CODED]</li>
+<li>StringUtils parseBoolean method - This method is in OSCore's TextUtils and seems very reusable. It could go in a BooleanUtils if such a need was seen. [CODED]</li>
+<li>StringUtils uncapitaliseAllWords method - String Taglib has shown that this method is missing from StringUtils. [CODED]</li>
 <li>StringUtils unescape method - String Taglib has shown that this method is missing from StringUtils. It would take a String with "\n" in and convert it to the Java character. unescape and escape should be symmetric. </li>
 <li>ArrayUtils - opinion seems to be that this belongs with [lang] and not [collections]
 </ul>
