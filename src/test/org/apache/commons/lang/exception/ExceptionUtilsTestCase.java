@@ -107,6 +107,11 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase
         assertEquals(ExceptionUtils.getThrowableCount(null), 0);
     }
 
+    /**
+     * Provides a method with a well known chained/nested exception
+     * name which matches the full signature (e.g. has a return value
+     * of <code>Throwable</code>.
+     */
     private static class ExceptionWithCause extends Exception
     {
         private Throwable cause;
@@ -122,11 +127,15 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase
         }
     }
 
+    /**
+     * Provides a method with a well known chained/nested exception
+     * name which does not match the full signature (e.g. lacks a
+     * return value of <code>Throwable</code>.
+     */
     private static class ExceptionWithoutCause extends Exception
     {
-        public Throwable getCause()
+        public void getTargetException()
         {
-            return null;
         }
     }
 }
