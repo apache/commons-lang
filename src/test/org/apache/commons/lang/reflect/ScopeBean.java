@@ -53,42 +53,75 @@
  */
 package org.apache.commons.lang.reflect;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 
 /**
- * Test suite for the Reflect packages.
- *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a> (of original copied from)
- * @author Robert Burrell Donkin
- * @version $Id: ReflectTestSuite.java,v 1.2 2002/11/18 23:01:36 rdonkin Exp $
+ * Bean with examples of different scoped fields and methods.
  */
-public class ReflectTestSuite extends TestCase {
+public class ScopeBean {
+
+    private int privateField;
+    int packageField;
+    protected int protectedField;
+    public int publicField;
+    public static int staticField;
+    public final int finalField = 42;
     
-    /**
-     * Construct a new instance.
-     */
-    public ReflectTestSuite(String name) {
-        super(name);
+    public ScopeBean() {}
+    
+    private void privateMethod() {}
+    protected void protectedMethod() {}
+    void packageMethod() {}
+    public void publicMethod() {}
+    public static void staticMethod() {}
+    public final void finalMethod() {}
+    
+    public Field getPrivateField() throws NoSuchFieldException {
+        return ScopeBean.class.getDeclaredField("privateField");
     }
+    
+    public Field getProtectedField() throws NoSuchFieldException {
+        return ScopeBean.class.getDeclaredField("protectedField");
+    }    
+    
+    public Field getPackageField() throws NoSuchFieldException {
+        return ScopeBean.class.getDeclaredField("packageField");
+    }    
 
-    /**
-     * Executor-line interface.
-     */
-    public static void main(String[] args) {
-        TestRunner.run(suite());
+    public Field getPublicField() throws NoSuchFieldException {
+        return ScopeBean.class.getDeclaredField("publicField");
+    }    
+
+    public Field getStaticField() throws NoSuchFieldException {
+        return ScopeBean.class.getDeclaredField("staticField");
+    }    
+
+    public Field getFinalField() throws NoSuchFieldException {
+        return ScopeBean.class.getDeclaredField("finalField");
+    }   
+    
+    public Method getPrivateMethod() throws NoSuchMethodException {
+        return ScopeBean.class.getDeclaredMethod("privateMethod", null);
     }
+    
+    public Method getProtectedMethod() throws NoSuchMethodException {
+        return ScopeBean.class.getDeclaredMethod("protectedMethod", null);
+    }    
+    
+    public Method getPackageMethod() throws NoSuchMethodException {
+        return ScopeBean.class.getDeclaredMethod("packageMethod", null);
+    }    
 
-    /**
-     * Get the suite of tests
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.addTest(MethodUtilsTestCase.suite());
-        suite.addTest(ReflectionUtilsTestCase.suite());
-        return suite;
-    }
+    public Method getPublicMethod() throws NoSuchMethodException {
+        return ScopeBean.class.getDeclaredMethod("publicMethod", null);
+    }    
 
+    public Method getStaticMethod() throws NoSuchMethodException {
+        return ScopeBean.class.getDeclaredMethod("staticMethod", null);
+    }    
+
+    public Method getFinalMethod() throws NoSuchMethodException {
+        return ScopeBean.class.getDeclaredMethod("finalMethod", null);
+    }  
 }
