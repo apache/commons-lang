@@ -63,8 +63,9 @@ import java.util.Random;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Phil Steitz
  * @since 1.0
- * @version $Id: RandomStringUtils.java,v 1.12 2003/05/20 21:15:19 ggregory Exp $
+ * @version $Id: RandomStringUtils.java,v 1.13 2003/06/09 21:36:02 scolebourne Exp $
  */
 public class RandomStringUtils {
 
@@ -104,7 +105,7 @@ public class RandomStringUtils {
      * specified.</p>
      *
      * <p>Characters will be chosen from the set of characters whose
-     * ASCII value is between <code>32</code> and <code>127</code>.</p>
+     * ASCII value is between <code>32</code> and <code>126</code> (inclusive).</p>
      *
      * @param count length of random string to create
      * @return the random string
@@ -199,9 +200,8 @@ public class RandomStringUtils {
      *
      * This method has exactly the same semantics as {@link
      * #random(int,int,int,boolean,boolean,char[],Random)}, but
-     * instead of depending on internal source of randomness ({@link
-     * #RANDOM}) it uses externally supplied instance of {@link
-     * Random} class.
+     * instead of using an externally supplied source of randomness, it uses
+     * the internal static {@link Random} instance ({@link #RANDOM}).
      *
      * @param count length of random string to create
      * @param start position in set of chars to start at
@@ -256,7 +256,7 @@ public class RandomStringUtils {
             throw new IllegalArgumentException("Requested random string length " + count + " is less than 0.");
         }
         if( (start == 0) && (end == 0) ) {
-            end = (int)'z';
+            end = (int)'z' + 1;
             start = (int)' ';
             if(!letters && !numbers) {
                 start = 0;

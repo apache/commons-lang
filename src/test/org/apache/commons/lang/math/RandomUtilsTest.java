@@ -63,7 +63,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link RandomUtils} class.
  *
  * @author <a href="mailto:phil@steitz.com">Phil Steitz</a>
- * @version $Revision: 1.2 $ $Date: 2003/06/08 14:19:43 $
+ * @version $Revision: 1.3 $ $Date: 2003/06/09 21:36:03 $
  */
 
 public final class RandomUtilsTest extends TestCase {
@@ -126,12 +126,12 @@ public final class RandomUtilsTest extends TestCase {
             assertTrue(result >= 0);
             observed[result]++;
         } 
-        /* Use ChiSquare dist with df = 4-1 = 3, alpha = .01
-         * Change to 16.27 for alpha = .001
+        /* Use ChiSquare dist with df = 4-1 = 3, alpha = .001
+         * Change to 11.34 for alpha = .01   
          */
         assertTrue(
-            "chi-square test -- will fail about 1 in 100 times",
-            chiSquare(expected,observed) < 11.34);                                                            
+            "chi-square test -- will fail about 1 in 1000 times",
+            chiSquare(expected,observed) < 16.27);                                                            
     }  
     
     /** test distribution of nextLong() */
@@ -171,12 +171,12 @@ public final class RandomUtilsTest extends TestCase {
                 observed[1]++;
             }
         }
-        /* Use ChiSquare dist with df = 2-1 = 1, alpha = .01
-         * Change to 10.83 for alpha = .001 
+        /* Use ChiSquare dist with df = 2-1 = 1, alpha = .001
+         * Change to 6.64 for alpha = .01  
          */ 
         assertTrue(
-            "chi-square test -- will fail about 1 in 100 times",
-            chiSquare(expected,observed) < 6.64); 
+            "chi-square test -- will fail about 1 in 1000 times",
+            chiSquare(expected,observed) < 10.83); 
     }
         
     
@@ -214,12 +214,12 @@ public final class RandomUtilsTest extends TestCase {
                 observed[1]++;
             }
         }
-        /* Use ChiSquare dist with df = 2-1 = 1, alpha = .01
-         * Change to 10.83 for alpha = .001
+        /* Use ChiSquare dist with df = 2-1 = 1, alpha = .001
+         * Change to 6.64 for alpha = .01 
          */
         assertTrue(
-            "chi-square test -- will fail about 1 in 100 times",
-            chiSquare(expected,observed) < 6.64);  
+            "chi-square test -- will fail about 1 in 1000 times",
+            chiSquare(expected,observed) < 10.83 );  
     }
     
     /** test distribution of nextFloat() */
@@ -256,12 +256,12 @@ public final class RandomUtilsTest extends TestCase {
                 observed[1]++;
             }
         }
-        /* Use ChiSquare dist with df = 2-1 = 1, alpha = .01
-         * Change to 10.83 for alpha = .001
+        /* Use ChiSquare dist with df = 2-1 = 1, alpha = .001
+         * Change to 6.64 for alpha = .01 
          */
         assertTrue(
-            "chi-square test -- will fail about 1 in 100 times",
-            chiSquare(expected,observed) < 6.64);  
+            "chi-square test -- will fail about 1 in 1000 times",
+            chiSquare(expected,observed) < 10.83);  
     }
     
     /** test distribution of nextDouble() */
@@ -298,12 +298,12 @@ public final class RandomUtilsTest extends TestCase {
                 observed[1]++;
             }
         }
-        /* Use ChiSquare dist with df = 2-1 = 1, alpha = .01
-         * Change to 10.83 for alpha = .001
+        /* Use ChiSquare dist with df = 2-1 = 1, alpha = .001
+         * Change to 6.64 for alpha = .01 
          */
         assertTrue(
-            "chi-square test -- will fail about 1 in 100 times",
-            chiSquare(expected,observed) < 6.64);  
+            "chi-square test -- will fail about 1 in 1000 times",
+            chiSquare(expected,observed) < 10.83);  
     }
     
     /** make sure that setSeed fails */
