@@ -51,7 +51,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-package org.apache.commons.lang.util;
+package org.apache.commons.lang;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,7 +67,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.util.Validate}.
  *
  * @author Stephen Colebourne
- * @version $Id: ValidateTest.java,v 1.3 2003/08/18 02:22:28 bayard Exp $
+ * @version $Id: ValidateTest.java,v 1.3 2003/08/19 02:32:16 bayard Exp $
  */
 public class ValidateTest extends TestCase {
 
