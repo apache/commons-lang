@@ -53,8 +53,8 @@
  */
 package org.apache.commons.lang.reflect;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Bean with examples of different scoped fields and methods.
