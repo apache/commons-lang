@@ -79,7 +79,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.51 2003/06/24 21:14:50 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.52 2003/07/08 05:59:58 bayard Exp $
  */
 public class StringUtils {
 
@@ -98,7 +98,7 @@ public class StringUtils {
     /**
      * <p>An array of <code>String</code>s used for padding.</p>
      *
-     * <p>Used for efficient blank padding.  The length of each string expands as needed.</p>
+     * <p>Used for efficient blank padding. The length of each string expands as needed.</p>
      */
     private final static String[] padding = new String[Character.MAX_VALUE];
        // String.concat about twice as fast as StringBuffer.append
@@ -845,11 +845,12 @@ public class StringUtils {
 
     /**
      * <p>Remove one newline from end of a String if it's there,
-     * otherwise leave it alone.  A newline is "\n", "\r", or "\r\n".
-     * <p>
-     * Note that this behavior has changed from 1.0.  It
+     * otherwise leave it alone.  A newline is &quot;<code>\n</code>&quot;,
+     * &quot;<code>\r</code>&quot;, or &quot;<code>\r\n</code>&quot;.</p>
+     *
+     * <p>Note that this behavior has changed from 1.0.  It
      * now more closely matches Perl chomp.  For the previous behavior,
-     * use slice(String).
+     * use {@link #slice(String)}.</p>
      *
      * @param str String to chomp a newline from
      * @return String without newline
@@ -885,13 +886,12 @@ public class StringUtils {
     }
 
     /**
-     * <p>Remove one string (the separator) from the end of another
-     * string if it's there, otherwise leave it alone.
-     * <p>
+     * <p>Remove <code>separator</code> from the end of
+     * <code>str</code> if it's there, otherwise leave it alone.</p>
      *
-     * Note that this behavior has changed from 1.0.  It
+     * <p>Note that this behavior has changed from 1.0.  It
      * now more closely matches Perl chomp.  For the previous behavior,
-     * use {@link #slice(String,String)}.
+     * use {@link #slice(String,String)}.</p>
      *
      * @param str string to chomp from
      * @param separator separator string
@@ -909,7 +909,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Remove a newline if and only if it is at the end
+     * <p>Remove any &quot;\n&quot; if and only if it is at the end
      * of the supplied String.</p>
      * 
      * @param str String to chomp from
@@ -1070,7 +1070,8 @@ public class StringUtils {
 
     /**
      * <p>Remove the last newline, and everything after it from a String.</p>
-     * (This method was formerly named chomp or chopNewline.)
+     *
+     * <p><em>(This method was formerly named chomp or chopNewline.)</em></p>
      *
      * @param str String to slice the newline from
      * @return String without sliced newline
@@ -1083,7 +1084,8 @@ public class StringUtils {
     /**
      * <p>Find the last occurence of a separator String;
      * remove it and everything after it.</p>
-     * (This method was formerly named chomp.)
+     *
+     * <p><em>(This method was formerly named chomp.)</em></p>
      *
      * @param str String to slice from
      * @param sep String to slice
@@ -1102,8 +1104,9 @@ public class StringUtils {
     /**
      * <p>Find the last occurence of a separator String, and return
      * everything after it.</p>
-     * (This method was formerly named getchomp. Also, now it does not
-     * include the separator in the return value.)
+     *
+     * <p><em>(This method was formerly named getchomp. Also, now it does not
+     * include the separator in the return value.)</em></p>
      *
      * @param str String to slice from
      * @param sep String to slice
@@ -1124,8 +1127,9 @@ public class StringUtils {
     /**
      * <p>Find the first occurence of a separator String, and return
      * everything after it.</p>
-     * (This method was formerly named prechomp.  Also, previously
-     * it included the separator in the return value; now it does not.)
+     *
+     * <p><em>(This method was formerly named prechomp.  Also, previously
+     * it included the separator in the return value; now it does not.)</em></p>
      *
      * @param str String to slice from
      * @param sep String to slice
@@ -1144,8 +1148,9 @@ public class StringUtils {
     /**
      * <p>Find the first occurence of a separator string;
      * return everything before it (but not including the separator).</p>
-     * (This method was formerly named getPrechomp.  Also, it used to
-     * include the separator, but now it does not.)
+     *
+     * <p><em>(This method was formerly named getPrechomp.  Also, it used to
+     * include the separator, but now it does not.)</em></p>
      *
      * @param str String to slice from
      * @param sep String to slice
@@ -1185,13 +1190,14 @@ public class StringUtils {
     }
 
     /**
-     * Unescapes any Java literals found in the String. For example, 
-     * it will turn a sequence of '\' and 'n' into a newline character, 
-     * unless the '\' is preceded by another '\'.
-     * <p>
-     * As of Lang 2.0, this calls {@link StringEscapeUtils#unescapeJava(java.lang.String)}
-     * behind the scenes. 
-     * <p>
+     * <p>Unescapes any Java literals found in the String. For example,
+     * it will turn a sequence of <code>'\'</code> and <code>'n'</code>
+     * into a newline character, unless the <code>'\'</code> is preceded
+     * by another <code>'\'</code>.</p>
+     *
+     * <p>As of Lang 2.0, this calls {@link StringEscapeUtils#unescapeJava(java.lang.String)}
+     * behind the scenes.</p>
+     *
      * @see StringEscapeUtils#unescapeJava(java.lang.String)
      * @deprecated Use {@link StringEscapeUtils#unescapeJava(java.lang.String)}
      *             This method will be removed in Commons Lang 3.0
@@ -1240,8 +1246,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Returns padding using the specified delimiter repeated to a given length.
-     * </p>
+     * <p>Returns padding using the specified delimiter repeated
+     * to a given length.</p>
      *
      * @param repeat number of times to repeat delim
      * @param delim character to repeat
@@ -1276,7 +1282,7 @@ public class StringUtils {
             return str; // returns original string when possible
         }
         if (pads > PAD_LIMIT) {
-            return rightPad(str, size, " ");
+            return rightPad(str, size, ' ');
         }
         return str + padding(pads);
     }
@@ -1343,13 +1349,15 @@ public class StringUtils {
             return str; // returns original string when possible
         }
         if (pads > PAD_LIMIT) {
-            return leftPad(str, size, " ");
+            return leftPad(str, size, ' ');
         }
         return padding(pads).concat(str);
     }
 
     /**
-     * Left pad a String with a specified character. Pad to a size of n.
+     * <p>Left pad a String with a specified character.</p>
+     *
+     * <p>Pad to a size of <code>n</code>.</p>
      *
      * @param str String to pad out
      * @param size size to pad to
@@ -1363,13 +1371,15 @@ public class StringUtils {
             return str; // returns original string when possible
         }
         if (pads > PAD_LIMIT) {
-            return leftPad(str, size, " ");
+            return leftPad(str, size, ' ');
         }
         return padding(pads, delim).concat(str);
     }
 
     /**
-     * Left pad a String with a specified string. Pad to a size of n.
+     * <p>Left pad a String with a specified string.</p>
+     *
+     * <p>Pad to a size of <code>n</code>.</p>
      *
      * @param str String to pad out
      * @param size size to pad to
@@ -2145,14 +2155,19 @@ public class StringUtils {
     //--------------------------------------------------------------------------
 
     /**
-     * Turn "Now is the time for all good men" into "Now is the time for..."
-     * <p>
-     * Specifically:
-     * <p>
-     * If str is less than max characters long, return it.
-     * Else abbreviate it to (substring(str, 0, max-3) + "...").
-     * If maxWidth is less than 3, throw an IllegalArgumentException.
-     * In no case will it return a string of length greater than maxWidth.
+     * <p>Turn "Now is the time for all good men" into "Now is the time for..."</p>
+     *
+     * <p>Specifically:
+     * <ul>
+     *   <li>If <code>str</code> is less than <code>maxWidth</code> characters
+     *       long, return it.</li>
+     *   <li>Else abbreviate it to <code>(substring(str, 0, max-3) + "...")</code>.</li>
+     *   <li>If <code>maxWidth</code> is less than </code>3, throw an
+     *       <code>IllegalArgumentException</code>.</li>
+     *   <li>In no case will it return a string of length greater than
+     *       <code>maxWidth</code>.</li>
+     * </ul>
+     * </p>
      *
      * @param maxWidth maximum length of result string
      */
@@ -2161,13 +2176,15 @@ public class StringUtils {
     }
 
     /**
-     * Turn "Now is the time for all good men" into "...is the time for..."
-     * <p>
-     * Works like abbreviate(String, int), but allows you to specify a "left edge"
-     * offset.  Note that this left edge is not necessarily going to be the leftmost
-     * character in the result, or the first
-     * character following the ellipses, but it will appear somewhere in the result.
-     * In no case will it return a string of length greater than maxWidth.
+     * <p>Turn "Now is the time for all good men" into "...is the time for..."</p>
+     *
+     * <p>Works like <code>abbreviate(String, int)</code>, but allows you to specify
+     * a "left edge" offset.  Note that this left edge is not necessarily going to
+     * be the leftmost character in the result, or the first character following the
+     * ellipses, but it will appear somewhere in the result.
+     *
+     * <p>In no case will it return a string of length greater than
+     * <code>maxWidth</code>.</p>
      *
      * @param offset left edge of source string
      * @param maxWidth maximum length of result string
@@ -2194,9 +2211,10 @@ public class StringUtils {
     //--------------------------------------------------------------------------
 
     /**
-     * Compare two strings, and return the portion where they differ.
+     * <p>Compare two strings, and return the portion where they differ.
      * (More precisely, return the remainder of the second string,
-     * starting from where it's different from the first.)
+     * starting from where it's different from the first.)</p>
+     *
      * <p>
      * For example, <code>difference("i am a machine", "i am a robot") -> "robot"</code>
      *

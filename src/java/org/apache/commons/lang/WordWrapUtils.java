@@ -63,7 +63,7 @@ import java.util.StringTokenizer;
  * @author Stephen Colebourne
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: WordWrapUtils.java,v 1.4 2003/06/08 23:27:26 scolebourne Exp $
+ * @version $Id: WordWrapUtils.java,v 1.5 2003/07/08 05:59:58 bayard Exp $
  */
 public class WordWrapUtils {
 
@@ -82,14 +82,14 @@ public class WordWrapUtils {
     //--------------------------------------------------------------------------
 
     /**
-     * Wraps a block of text to a specified line length.
-     * <p>
-     * This method takes a block of text, which might have long lines in it
+     * <p>Wraps a block of text to a specified line length.</p>
+     *
+     * <p>This method takes a block of text, which might have long lines in it
      * and wraps the long lines based on the supplied wrapColumn parameter. 
      * It was initially implemented for use by VelocityEmail. If there are tabs
      * in inString, you are going to get results that are a bit strange,
      * since tabs are a single character but are displayed as 4 or 8
-     * spaces. Remove the tabs.
+     * spaces. Remove the tabs.</p>
      *
      * @param str  text which is in need of word-wrapping
      * @param newline  the characters that define a newline
@@ -121,8 +121,8 @@ public class WordWrapUtils {
     }
 
     /**
-     * Wraps a single line of text. 
-     * Called by wrapText() to do the real work of wrapping.
+     * <p>Wraps a single line of text. Called by wrapText() to do the real
+     * work of wrapping.</p>
      *
      * @param line  a line which is in need of word-wrapping
      * @param newline  the characters that define a newline
@@ -170,23 +170,23 @@ public class WordWrapUtils {
     //--------------------------------------------------------------------------
 
     /**
-     * Create a word-wrapped version of a String. Wrap at 80 characters and 
+     * <p>Create a word-wrapped version of a String. Wrap at 80 characters and
      * use newlines as the delimiter. If a word is over 80 characters long 
-     * use a - sign to split it.
+     * use a - sign to split it.</p>
      */
     public static String wordWrap(String str) {
         return wordWrap(str, 80, "\n", "-");
     }
     /**
-     * Create a word-wrapped version of a String. Wrap at a specified width and 
+     * <p>Create a word-wrapped version of a String. Wrap at a specified width and
      * use newlines as the delimiter. If a word is over the width in lenght 
-     * use a - sign to split it.
+     * use a - sign to split it.</p>
      */
     public static String wordWrap(String str, int width) {
         return wordWrap(str, width, "\n", "-");
     }
     /**
-     * Word-wrap a string.
+     * <p>Word-wrap a string.</p>
      *
      * @param str   String to word-wrap
      * @param width int to wrap at
