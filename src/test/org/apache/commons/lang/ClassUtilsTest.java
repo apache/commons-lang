@@ -19,7 +19,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +32,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Gary D. Gregory
- * @version $Id: ClassUtilsTest.java,v 1.13 2004/06/30 18:33:58 ggregory Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.14 2004/12/19 22:35:38 scolebourne Exp $
  */
 public class ClassUtilsTest extends TestCase {
 
@@ -389,102 +388,14 @@ public class ClassUtilsTest extends TestCase {
         // This used to return the exact same array, but no longer does.
         assertNotSame("unmodified", noPrimitives, ClassUtils.primitivesToWrappers(noPrimitives));
     }
-    
-    public void testClassComparator() {
-    	Comparator comparator = ClassUtils.CLASS_NAME_COMPARATOR;
-    	Class smallClass = java.lang.Boolean.class;
-    	Class bigClass =  java.util.Set.class;
-    	
-		assertTrue(comparator.compare(smallClass, smallClass) == 0);
-		assertTrue(comparator.compare(bigClass, smallClass) > 0);
-		assertTrue(comparator.compare(smallClass, bigClass) < 0);
-		
-		assertTrue(comparator.compare(smallClass, null) > 0);
-		assertTrue(comparator.compare(null, smallClass) < 0);
-
-        assertComparatorContract(comparator, smallClass, smallClass);
-        assertComparatorContract(comparator, bigClass, bigClass);
-        assertComparatorContract(comparator, smallClass, bigClass);
-    }
-
-    public void testPackageComparator() {
-        Comparator comparator = ClassUtils.PACKAGE_NAME_COMPARATOR;
-        Package smallPackage = java.lang.Boolean.class.getPackage();
-        Package bigPackage =  java.util.Set.class.getPackage();
-        
-        assertTrue(comparator.compare(smallPackage, smallPackage) == 0);
-        assertTrue(comparator.compare(bigPackage, smallPackage) > 0);
-        assertTrue(comparator.compare(smallPackage, bigPackage) < 0);
-        
-        assertTrue(comparator.compare(smallPackage, null) > 0);
-        assertTrue(comparator.compare(null, smallPackage) < 0);
-
-        assertComparatorContract(comparator, smallPackage, smallPackage);
-        assertComparatorContract(comparator, bigPackage, bigPackage);
-        assertComparatorContract(comparator, smallPackage, bigPackage);
-    }
-
-    public void testPackageNameComparatorWithDifferentClassLoaders() throws SecurityException, IllegalArgumentException, ClassNotFoundException {
-        Comparator comparator = ClassUtils.PACKAGE_NAME_COMPARATOR;
-        Package p1 = java.lang.Boolean.class.getPackage();
-        Package p2 = java.util.Set.class.getPackage();
-        ClassLoader classLoader = newSystemClassLoader();
-        Object p1Other = this.getPackage(classLoader, "java.lang.Boolean");
-        Object p2Other = this.getPackage(classLoader, "java.util.Set");
-        // all here
-        assertComparatorContract(comparator, p1, p1);
-        assertComparatorContract(comparator, p2, p2);
-        assertComparatorContract(comparator, p1, p2);
-        // all other
-        assertComparatorContract(comparator, p1Other, p1Other);
-        assertComparatorContract(comparator, p2Other, p2Other);
-        assertComparatorContract(comparator, p1Other, p2Other);
-        // p1 and p1Other
-        assertComparatorContract(comparator, p1, p1Other);
-        assertComparatorContract(comparator, p2, p2);
-        assertComparatorContract(comparator, p1Other, p2);
-        // p2 and p2Other
-        assertComparatorContract(comparator, p1, p1);
-        assertComparatorContract(comparator, p2, p2Other);
-        assertComparatorContract(comparator, p1, p2Other);
-    }
-    
-    Object getPackage(ClassLoader classLoader, String className) throws ClassNotFoundException, SecurityException,
-            IllegalArgumentException {
-        // Sanity check:
-        assertNotNull(Package.getPackage("java.lang"));
-        Package.getPackage("java.lang").equals(Package.getPackage("java.lang"));
-        // set up:
-        assertNotNull(classLoader);
-        Class otherClass = classLoader.loadClass(className);
-        assertNotNull(otherClass);
-        Object otherPackage = otherClass.getPackage();
-        assertNotNull(otherPackage);
-        return otherPackage;
-    }
-
-    /**
-     * The ordering imposed by a Comparator c on a set of elements S is said to
-     * be consistent with equals if and only if (compare((Object)e1,
-     * (Object)e2)==0) has the same boolean value as e1.equals((Object)e2) for
-     * every e1 and e2 in S.
-     * 
-     * http://java.sun.com/j2se/1.3/docs/api/java/util/Comparator.html
-     */
-    public void assertComparatorContract(Comparator comparator, Object e1, Object e2) {
-        assertEquals(comparator.compare(e1, e2) == 0, e1.equals(e2));
-    }
 
     public static ClassLoader newSystemClassLoader() throws  SecurityException, IllegalArgumentException {
-        ClassLoader scl = ClassLoader.getSystemClassLoader();
-        if (!(scl instanceof URLClassLoader)) {
-            fail("Need a better test set up.");
-        }
-        URLClassLoader urlScl = (URLClassLoader)scl;
-        return URLClassLoader.newInstance(urlScl.getURLs(), null);
+    	ClassLoader scl = ClassLoader.getSystemClassLoader();
+    	if (!(scl instanceof URLClassLoader)) {
+    		fail("Need a better test set up.");
+    	}
+    	URLClassLoader urlScl = (URLClassLoader)scl;
+    	return URLClassLoader.newInstance(urlScl.getURLs(), null);
     }
-    
-//    public static List getAssignableFrom(List classes, Class superclass) {
-//    public static boolean isAssignable(Class[] classArray, Class[] toClassArray) {
-//    public static boolean isAssignable(Class cls, Class toClass) {
+
 }

@@ -16,7 +16,6 @@
 package org.apache.commons.lang;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,7 +31,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.33 2004/10/21 01:18:33 ggregory Exp $
+ * @version $Id: ClassUtils.java,v 1.34 2004/12/19 22:35:38 scolebourne Exp $
  */
 public class ClassUtils {
 
@@ -497,71 +496,5 @@ public class ClassUtils {
         }
         return (cls.getName().indexOf(INNER_CLASS_SEPARATOR_CHAR) >= 0);
     }
-    
-    //-----------------------------------------------------------------------
-    /**
-     * Compares two <code>Class</code>s by name.
-     */
-    private static class ClassNameComparator implements Comparator {
-        /**
-         * Compares two <code>Class</code>s by name.
-         * @param o1 The receiver of the comparison call to {@link String#compareTo(String)}.
-         * @param o2 The argument of the comparison call to {@link String#compareTo(String)}.
-         * @return The return value from {@link String#compareTo(String)}
-         * 
-         * @throws ClassCastException
-         *                  If <code>o1</code> or <code>o2</code> are not <code>Class</code>
-         *                  instances.
-         */
-        public int compare(Object o1, Object o2) {
-            Class class1 = (Class) o1;
-            Class class2 = (Class) o2;
-            if (class1 == null) {
-                return class2 == null ? 0 : -1;
-            }
-            if (class2 == null) {
-                return 1;
-            }
-            return class1.getName().compareTo(class2.getName());
-        }
-    }
-    
-    /**
-     * Compares two <code>Class</code>s by name.
-     */
-    public static final Comparator CLASS_NAME_COMPARATOR = new ClassNameComparator();
 
-    /**
-     * Compares two <code>Package</code>s by name.
-     */
-    private static class PackageNameComparator implements Comparator {
-
-        /**
-         * Compares two <code>Package</code>s by name.
-         * 
-         * @param o1 The receiver of the comparison call to {@link String#compareTo(String)}.
-         * @param o2 The argument of the comparison call to {@link String#compareTo(String)}.
-         * @return The return value from {@link String#compareTo(String)}
-         * @throws ClassCastException
-         *                  If <code>o1</code> or <code>o2</code> are not <code>Package</code>
-         *                  instances.
-         */
-        public int compare(Object o1, Object o2) {
-            Package package1 = (Package) o1;
-            Package package2 = (Package) o2;
-            if (package1 == null) {
-                return package2 == null ? 0 : -1;
-            }
-            if (package2 == null) {
-                return 1;
-            }
-            return package1.getName().compareTo(package2.getName());
-        }        
-    }
-    
-    /**
-     * Compares two <code>Package</code>s by name.
-     */
-    public static final Comparator PACKAGE_NAME_COMPARATOR = new PackageNameComparator();
-    
 }
