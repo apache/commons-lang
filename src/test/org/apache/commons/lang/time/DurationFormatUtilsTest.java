@@ -318,6 +318,18 @@ public class DurationFormatUtilsTest extends TestCase {
           }, 
           DurationFormatUtils.lexx(DurationFormatUtils.ISO_EXTENDED_FORMAT_PATTERN)
         );
+
+        // test failures in equals
+        DurationFormatUtils.Token token = new DurationFormatUtils.Token( DurationFormatUtils.y, 4 );
+        assertFalse( "Token equal to non-Token class. ", token.equals(new Object()) );
+        assertFalse( "Token equal to Token with wrong value class. ", token.equals(
+            new DurationFormatUtils.Token( new Object() )
+        ) );
+        assertFalse( "Token equal to Token with different count. ", token.equals(
+            new DurationFormatUtils.Token( new Object(), 1 )
+        ) );
+        DurationFormatUtils.Token numToken = new DurationFormatUtils.Token( new Integer(1), 4 );
+        assertTrue( "Token with Number value not equal to itself. ", numToken.equals( numToken ) );
     }
     private void assertArrayEquals(DurationFormatUtils.Token[] obj1, DurationFormatUtils.Token[] obj2) {
         assertEquals( "Arrays are unequal length. ", obj1.length, obj2.length );
