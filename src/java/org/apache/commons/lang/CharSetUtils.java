@@ -66,7 +66,7 @@ package org.apache.commons.lang;
  * @author Phil Steitz
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.28 2003/09/24 20:22:33 fredrik Exp $
+ * @version $Id: CharSetUtils.java,v 1.29 2003/11/04 21:16:34 fredrik Exp $
  */
 public class CharSetUtils {
 
@@ -89,7 +89,7 @@ public class CharSetUtils {
      * <ul>
      *  <li>&quot;aeio&quot; which implies 'a','e',..</li>
      *  <li>&quot;^e&quot; implies not e.</li>
-     *  <li>&quot;ej-m&quot; implies e,j->m. e,j,k,l,m.</li>
+     *  <li>&quot;ej-m&quot; implies e,j-&gt;m. e,j,k,l,m.</li>
      * </ul>
      * 
      * <pre>
@@ -246,8 +246,8 @@ public class CharSetUtils {
      * CharSetUtils.keep("", *)          = ""
      * CharSetUtils.keep(*, null)        = ""
      * CharSetUtils.keep(*, "")          = ""
-     * CharSetUtils.keep("hello", "hl") = "hll"
-     * CharSetUtils.keep("hello", "le") = "ell"
+     * CharSetUtils.keep("hello", "hl")  = "hll"
+     * CharSetUtils.keep("hello", "le")  = "ell"
      * </pre>
      *
      * @see #evaluateSet(java.lang.String[]) for set-syntax.
@@ -305,8 +305,8 @@ public class CharSetUtils {
      * CharSetUtils.delete("", *)          = ""
      * CharSetUtils.delete(*, null)        = *
      * CharSetUtils.delete(*, "")          = *
-     * CharSetUtils.delete("hello", "hl") = "hll"
-     * CharSetUtils.delete("hello", "le") = "ell"
+     * CharSetUtils.delete("hello", "hl")  = "hll"
+     * CharSetUtils.delete("hello", "le")  = "ell"
      * </pre>
      *
      * @see #evaluateSet(java.lang.String[]) for set-syntax.
@@ -369,7 +369,7 @@ public class CharSetUtils {
      * <p>An example is:</p>
      * <ul>
      *   <li>translate(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;)
-     *    => jelly</li>
+     *    =&gt; jelly</li>
      * </ul>
      *
      * <p>If the length of characters to search for is greater than the
@@ -378,16 +378,16 @@ public class CharSetUtils {
      * 
      * <pre>
      * CharSetUtils.translate(null, *, *) = null
-     * CharSetUtils.translate("", *, *) = ""
+     * CharSetUtils.translate("", *, *)   = ""
      * </pre>
      *
      * @param str  String to replace characters in, may be null
      * @param searchChars   a set of characters to search for, must not be null
-     * @param replaceChars  a set of characters to replace, must not be null or empty ("")
+     * @param replaceChars  a set of characters to replace, must not be null or empty (&quot;&quot;)
      * @return translated String, <code>null</code> if null string input
      * @throws NullPointerException if <code>with</code> or <code>repl</code> 
      *  is <code>null</code>
-     * @throws ArrayIndexOutOfBoundsException if <code>with</code> is empty ("")
+     * @throws ArrayIndexOutOfBoundsException if <code>with</code> is empty (&quot;&quot;)
      * @deprecated Use {@link StringUtils#replaceChars(String, String, String)}.
      *             Method will be removed in Commons Lang 3.0.
      */
