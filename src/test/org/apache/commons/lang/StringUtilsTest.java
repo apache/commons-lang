@@ -72,7 +72,7 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.37 2003/07/22 23:36:39 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.38 2003/07/25 00:50:00 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -649,13 +649,12 @@ public class StringUtilsTest extends TestCase {
         assertEquals("", StringUtils.sliceFirst("", "XX"));
         
         assertEquals("foo", StringUtils.sliceFirst("foo", null));
-        assertEquals("", StringUtils.sliceFirst("foo", "b"));
+        assertEquals("foo", StringUtils.sliceFirst("foo", "b"));
         assertEquals("f", StringUtils.sliceFirst("foot", "o"));
         assertEquals("", StringUtils.sliceFirst("abc", "a"));
         assertEquals("a", StringUtils.sliceFirst("abcba", "b"));
         assertEquals("ab", StringUtils.sliceFirst("abc", "c"));
-        assertEquals("abc", StringUtils.sliceFirst("abc", ""));
-        assertEquals("", StringUtils.sliceFirst("abc", "d"));
+        assertEquals("", StringUtils.sliceFirst("abc", ""));
     }
     
     public void testSliceFirstRemainder_StringString() {
@@ -669,13 +668,12 @@ public class StringUtilsTest extends TestCase {
         assertEquals("", StringUtils.sliceFirstRemainder("", "XX"));
         
         assertEquals("", StringUtils.sliceFirstRemainder("foo", null));
-        assertEquals("foo", StringUtils.sliceFirstRemainder("foo", "b"));
         assertEquals("ot", StringUtils.sliceFirstRemainder("foot", "o"));
         assertEquals("bc", StringUtils.sliceFirstRemainder("abc", "a"));
         assertEquals("cba", StringUtils.sliceFirstRemainder("abcba", "b"));
         assertEquals("", StringUtils.sliceFirstRemainder("abc", "c"));
-        assertEquals("", StringUtils.sliceFirstRemainder("abc", ""));
-        assertEquals("abc", StringUtils.sliceFirstRemainder("abc", "d"));
+        assertEquals("abc", StringUtils.sliceFirstRemainder("abc", ""));
+        assertEquals("", StringUtils.sliceFirstRemainder("abc", "d"));
     }
 
     //-----------------------------------------------------------------------
