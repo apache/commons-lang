@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
- * @version $Id: BooleanUtilsTest.java,v 1.7 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: BooleanUtilsTest.java,v 1.8 2003/10/21 23:23:06 scolebourne Exp $
  */
 public class BooleanUtilsTest extends TestCase {
 
@@ -308,13 +308,39 @@ public class BooleanUtilsTest extends TestCase {
         assertEquals(false, BooleanUtils.toBoolean(""));
         assertEquals(false, BooleanUtils.toBoolean("off"));
         assertEquals(false, BooleanUtils.toBoolean("oof"));
-        assertEquals(true, BooleanUtils.toBoolean("true"));
-        assertEquals(true, BooleanUtils.toBoolean("yes"));
-        assertEquals(true, BooleanUtils.toBoolean("on"));
+        assertEquals(false, BooleanUtils.toBoolean("yep"));
+        assertEquals(false, BooleanUtils.toBoolean("trux"));
+        assertEquals(false, BooleanUtils.toBoolean("false"));
+        assertEquals(false, BooleanUtils.toBoolean("a"));
+        assertEquals(true, BooleanUtils.toBoolean("true")); // interned handled differently
+        assertEquals(true, BooleanUtils.toBoolean(new StringBuffer("tr").append("ue").toString()));
+        assertEquals(true, BooleanUtils.toBoolean("truE"));
+        assertEquals(true, BooleanUtils.toBoolean("trUe"));
+        assertEquals(true, BooleanUtils.toBoolean("trUE"));
+        assertEquals(true, BooleanUtils.toBoolean("tRue"));
+        assertEquals(true, BooleanUtils.toBoolean("tRuE"));
+        assertEquals(true, BooleanUtils.toBoolean("tRUe"));
+        assertEquals(true, BooleanUtils.toBoolean("tRUE"));
         assertEquals(true, BooleanUtils.toBoolean("TRUE"));
-        assertEquals(true, BooleanUtils.toBoolean("ON"));
-        assertEquals(true, BooleanUtils.toBoolean("YES"));
+        assertEquals(true, BooleanUtils.toBoolean("TRUe"));
+        assertEquals(true, BooleanUtils.toBoolean("TRuE"));
+        assertEquals(true, BooleanUtils.toBoolean("TRue"));
+        assertEquals(true, BooleanUtils.toBoolean("TrUE"));
+        assertEquals(true, BooleanUtils.toBoolean("TrUe"));
         assertEquals(true, BooleanUtils.toBoolean("TruE"));
+        assertEquals(true, BooleanUtils.toBoolean("True"));
+        assertEquals(true, BooleanUtils.toBoolean("on"));
+        assertEquals(true, BooleanUtils.toBoolean("oN"));
+        assertEquals(true, BooleanUtils.toBoolean("On"));
+        assertEquals(true, BooleanUtils.toBoolean("ON"));
+        assertEquals(true, BooleanUtils.toBoolean("yes"));
+        assertEquals(true, BooleanUtils.toBoolean("yeS"));
+        assertEquals(true, BooleanUtils.toBoolean("yEs"));
+        assertEquals(true, BooleanUtils.toBoolean("yES"));
+        assertEquals(true, BooleanUtils.toBoolean("Yes"));
+        assertEquals(true, BooleanUtils.toBoolean("YeS"));
+        assertEquals(true, BooleanUtils.toBoolean("YEs"));
+        assertEquals(true, BooleanUtils.toBoolean("YES"));
     }
 
     public void test_toBoolean_String_String_String() {
