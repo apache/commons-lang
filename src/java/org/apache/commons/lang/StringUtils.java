@@ -142,7 +142,7 @@ import java.util.List;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.72 2003/07/20 14:47:29 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.73 2003/07/20 15:29:44 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -297,10 +297,10 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.clean(null)          = ""
+     * StringUtils.clean("")            = ""
      * StringUtils.clean("abc")         = "abc"
      * StringUtils.clean("    abc    ") = "abc"
      * StringUtils.clean("     ")       = ""
-     * StringUtils.clean("")            = ""
      * </pre>
      *
      * @see java.lang.String#trim()
@@ -327,10 +327,10 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.trim(null)          = null
+     * StringUtils.trim("")            = ""
+     * StringUtils.trim("     ")       = ""
      * StringUtils.trim("abc")         = "abc"
      * StringUtils.trim("    abc    ") = "abc"
-     * StringUtils.trim("     ")       = ""
-     * StringUtils.trim("")            = ""
      * </pre>
      *
      * @param str  the String to be trimmed, may be null
@@ -351,10 +351,10 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.trimToNull(null)          = null
+     * StringUtils.trimToNull("")            = null
+     * StringUtils.trimToNull("     ")       = null
      * StringUtils.trimToNull("abc")         = "abc"
      * StringUtils.trimToNull("    abc    ") = "abc"
-     * StringUtils.trimToNull("     ")       = null
-     * StringUtils.trimToNull("")            = null
      * </pre>
      *  
      * @param str  the String to be trimmed, may be null
@@ -377,10 +377,10 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.trimToEmpty(null)          = ""
+     * StringUtils.trimToEmpty("")            = ""
+     * StringUtils.trimToEmpty("     ")       = ""
      * StringUtils.trimToEmpty("abc")         = "abc"
      * StringUtils.trimToEmpty("    abc    ") = "abc"
-     * StringUtils.trimToEmpty("     ")       = ""
-     * StringUtils.trimToEmpty("")            = ""
      * </pre>
      *  
      * @param str  the String to be trimmed, may be null
@@ -487,6 +487,7 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.strip(null, null)       = null
+     * StringUtils.strip("", null)         = ""
      * StringUtils.strip("abc", null)      = "abc"
      * StringUtils.strip("  abc", null)    = "abc"
      * StringUtils.strip("abc  ", null)    = "abc"
@@ -515,12 +516,14 @@ public class StringUtils {
      * stripped as defined by {@link Character#isWhitespace(char)}.</p>
      * 
      * <pre>
-     * StringUtils.strip(null, null)       = null
-     * StringUtils.strip("abc", null)      = "abc"
-     * StringUtils.strip("  abc", null)    = "abc"
-     * StringUtils.strip("abc  ", null)    = "abc  "
-     * StringUtils.strip(" abc ", null)    = "abc "
-     * StringUtils.strip("yxabc  ", "xyz") = "abc  "
+     * StringUtils.stripStart(null, null)       = null
+     * StringUtils.stripStart("", null)         = ""
+     * StringUtils.stripStart("abc", "")        = "abc"
+     * StringUtils.stripStart("abc", null)      = "abc"
+     * StringUtils.stripStart("  abc", null)    = "abc"
+     * StringUtils.stripStart("abc  ", null)    = "abc  "
+     * StringUtils.stripStart(" abc ", null)    = "abc "
+     * StringUtils.stripStart("yxabc  ", "xyz") = "abc  "
      * </pre>
      * 
      * @param str  the String to remove characters from, may be null
@@ -537,6 +540,8 @@ public class StringUtils {
             while ((start != strLen) && Character.isWhitespace(str.charAt(start))) {
                 start++;
             }
+        } else if (stripChars.length() == 0) {
+            return str;
         } else {
             while ((start != strLen) && (stripChars.indexOf(str.charAt(start)) != -1)) {
                 start++;
@@ -554,12 +559,14 @@ public class StringUtils {
      * stripped as defined by {@link Character#isWhitespace(char)}.</p>
      * 
      * <pre>
-     * StringUtils.strip(null, null)       = null
-     * StringUtils.strip("abc", null)      = "abc"
-     * StringUtils.strip("  abc", null)    = "  abc"
-     * StringUtils.strip("abc  ", null)    = "abc"
-     * StringUtils.strip(" abc ", null)    = " abc"
-     * StringUtils.strip("  abcyx", "xyz") = "  abc"
+     * StringUtils.stripEnd(null, null)       = null
+     * StringUtils.stripEnd("", null)         = ""
+     * StringUtils.stripEnd("abc", "")        = "abc"
+     * StringUtils.stripEnd("abc", null)      = "abc"
+     * StringUtils.stripEnd("  abc", null)    = "  abc"
+     * StringUtils.stripEnd("abc  ", null)    = "abc"
+     * StringUtils.stripEnd(" abc ", null)    = " abc"
+     * StringUtils.stripEnd("  abcyx", "xyz") = "  abc"
      * </pre>
      * 
      * @param str  the String to remove characters from, may be null
@@ -576,6 +583,8 @@ public class StringUtils {
             while ((end != 0) && Character.isWhitespace(str.charAt(end - 1))) {
                 end--;
             }
+        } else if (stripChars.length() == 0) {
+            return str;
         } else {
             while ((end != 0) && (stripChars.indexOf(str.charAt(end - 1)) != -1)) {
                 end--;
@@ -1016,6 +1025,8 @@ public class StringUtils {
      * <pre>
      * StringUtils.indexOfAny(null, null)                = -1
      * StringUtils.indexOfAny(null, ["ab","cd"])         = -1
+     * StringUtils.indexOfAny("", null)                  = -1
+     * StringUtils.indexOfAny("", ["ab","cd"])           = -1
      * StringUtils.indexOfAny("zzabyycdxx", null)        = -1
      * StringUtils.indexOfAny("zzabyycdxx", [])          = -1
      * StringUtils.indexOfAny("zzabyycdxx", ["ab","cd"]) = 2
@@ -1065,6 +1076,8 @@ public class StringUtils {
      * <pre>
      * StringUtils.lastIndexOfAny(null, null)                = -1
      * StringUtils.lastIndexOfAny(null, ["ab","cd"])         = -1
+     * StringUtils.lastIndexOfAny("", null)                  = -1
+     * StringUtils.lastIndexOfAny("", ["ab","cd"])           = -1
      * StringUtils.lastIndexOfAny("zzabyycdxx", null)        = -1
      * StringUtils.lastIndexOfAny("zzabyycdxx", [])          = -1
      * StringUtils.lastIndexOfAny("zzabyycdxx", ["ab","cd"]) = 6
@@ -1270,6 +1283,7 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.substring(null, 0)   = null
+     * StringUtils.substring("", 0)     = ""
      * StringUtils.substring("abc", 0)  = "abc"
      * StringUtils.substring("abc", 2)  = "c"
      * StringUtils.substring("abc", 4)  = ""
@@ -1310,6 +1324,7 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.substring(null, 0, 2)    = null
+     * StringUtils.substring("", 0, 2)      = ""
      * StringUtils.substring("abc", 0, 2)   = "ab"
      * StringUtils.substring("abc", 2, 0)   = ""
      * StringUtils.substring("abc", 2, 4)   = "c"
@@ -1341,7 +1356,6 @@ public class StringUtils {
 
         // check length next
         if (end > str.length()) {
-            // check this works.
             end = str.length();
         }
 
@@ -1372,6 +1386,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.left(null, 0)    = null
+     * StringUtils.left("", 2)      = ""
      * StringUtils.left("abc", 0)   = ""
      * StringUtils.left("abc", 2)   = "ab"
      * StringUtils.left("abc", 4)   = "abc"
@@ -1403,6 +1418,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.right(null, 0)    = null
+     * StringUtils.right("", 2)      = ""
      * StringUtils.right("abc", 0)   = ""
      * StringUtils.right("abc", 2)   = "bc"
      * StringUtils.right("abc", 4)   = "abc"
@@ -1434,6 +1450,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.mid(null, 0, 0)    = null
+     * StringUtils.mid("", 0, 4)      = ""
      * StringUtils.mid("abc", 0, 2)   = "ab"
      * StringUtils.mid("abc", 0, 4)   = "abc"
      * StringUtils.mid("abc", 2, 4)   = "c"
@@ -1829,6 +1846,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.deleteSpaces(null)           = null
+     * StringUtils.deleteSpaces("")             = ""
      * StringUtils.deleteSpaces("abc")          = "abc"
      * StringUtils.deleteSpaces(" \t  abc \n ") = "abc"
      * StringUtils.deleteSpaces("ab  c")        = "abc"
@@ -1855,9 +1873,10 @@ public class StringUtils {
      * {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * StringUtils.deleteWhitespace(null)        = null
-     * StringUtils.deleteWhitespace("abc")       = "abc"
-     * StringUtils.deleteWhitespace("   abc  ")  = "abc"
+     * StringUtils.deleteWhitespace(null)         = null
+     * StringUtils.deleteWhitespace("")           = ""
+     * StringUtils.deleteWhitespace("abc")        = "abc"
+     * StringUtils.deleteWhitespace("   ab  c  ") = "abc"
      * </pre>
      *  
      * @param str  the String to delete whitespace from, may be null
@@ -1887,6 +1906,7 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.replaceOnce(null, null, null)  = null
+     * StringUtils.replaceOnce("", null, null)    = ""
      * StringUtils.replaceOnce("aba", null, null) = "aba"
      * StringUtils.replaceOnce("aba", null, null) = "aba"
      * StringUtils.replaceOnce("aba", "a", null)  = "aba"
@@ -1912,6 +1932,7 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.replace(null, null, null)  = null
+     * StringUtils.replace("", null, null)    = ""
      * StringUtils.replace("aba", null, null) = "aba"
      * StringUtils.replace("aba", null, null) = "aba"
      * StringUtils.replace("aba", "a", null)  = "aba"
@@ -1938,6 +1959,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.replace(null, null, null, 1)   = null
+     * StringUtils.replace("", null, null, 1)     = ""
      * StringUtils.replace("abaa", null, null, 1) = "abaa"
      * StringUtils.replace("abaa", null, null, 1) = "abaa"
      * StringUtils.replace("abaa", "a", null, 1)  = "abaa"
@@ -1979,6 +2001,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.overlayString(null, null, 2, 4)        = null
+     * StringUtils.overlayString("", "abc", 0, 0)         = "abc"
      * StringUtils.overlayString("abcdef", null, 2, 4)    = "abef"
      * StringUtils.overlayString("abcdef", "", 2, 4)      = "abef"
      * StringUtils.overlayString("abcdef", "zzzz", 2, 4)  = "abzzzzef"
@@ -2465,6 +2488,7 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.rightPad(null, 1)   = null
+     * StringUtils.rightPad("", 3)     = "   "
      * StringUtils.rightPad("bat", 3)  = "bat"
      * StringUtils.rightPad("bat", 5)  = "bat  "
      * StringUtils.rightPad("bat", 1)  = "bat"
@@ -2487,6 +2511,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.rightPad(null, 1, 'z')   = null
+     * StringUtils.rightPad("", 3, 'z')     = "zzz"
      * StringUtils.rightPad("bat", 3, 'z')  = "bat"
      * StringUtils.rightPad("bat", 5, 'z')  = "batzz"
      * StringUtils.rightPad("bat", 1, 'z')  = "bat"
@@ -2520,6 +2545,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.rightPad(null, 1, "yz")   = null
+     * StringUtils.rightPad("", 3, "z")      = "zzz"
      * StringUtils.rightPad("bat", 3, "yz")  = "bat"
      * StringUtils.rightPad("bat", 5, "yz")  = "batyz"
      * StringUtils.rightPad("bat", 8, "yz")  = "batyzyzy"
@@ -2575,6 +2601,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.leftPad(null, 1)   = null
+     * StringUtils.leftPad("", 3)     = "   "
      * StringUtils.leftPad("bat", 3)  = "bat"
      * StringUtils.leftPad("bat", 5)  = "  bat"
      * StringUtils.leftPad("bat", 1)  = "bat"
@@ -2597,6 +2624,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.leftPad(null, 1, 'z')   = null
+     * StringUtils.leftPad("", 3, 'z')     = "zzz"
      * StringUtils.leftPad("bat", 3, 'z')  = "bat"
      * StringUtils.leftPad("bat", 5, 'z')  = "zzbat"
      * StringUtils.leftPad("bat", 1, 'z')  = "bat"
@@ -2630,6 +2658,7 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.leftPad(null, 1, "yz")   = null
+     * StringUtils.leftPad("", 3, "z")      = "zzz"
      * StringUtils.leftPad("bat", 3, "yz")  = "bat"
      * StringUtils.leftPad("bat", 5, "yz")  = "yzbat"
      * StringUtils.leftPad("bat", 8, "yz")  = "yzyzybat"
@@ -2694,8 +2723,8 @@ public class StringUtils {
      * <pre>
      * StringUtils.center(null, -1)  = null
      * StringUtils.center(null, 4)   = null
-     * StringUtils.center("ab", -1)  = "ab"
      * StringUtils.center("", 4)     = "    "
+     * StringUtils.center("ab", -1)  = "ab"
      * StringUtils.center("ab", 4)   = " ab "
      * StringUtils.center("abcd", 2) = "abcd"
      * StringUtils.center("a", 4)    = " a  "
@@ -2719,9 +2748,9 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.center(null, -1, ' ')  = null
-     * StringUtils.center("ab", -1, ' ')  = "ab"
      * StringUtils.center(null, 4, ' ')   = null
      * StringUtils.center("", 4, ' ')     = "    "
+     * StringUtils.center("ab", -1, ' ')  = "ab"
      * StringUtils.center("ab", 4, ' ')   = " ab"
      * StringUtils.center("abcd", 2, ' ') = "abcd"
      * StringUtils.center("a", 4, ' ')    = " a  "
@@ -2757,9 +2786,9 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.center(null, -1, " ")  = null
-     * StringUtils.center("ab", -1, " ")  = "ab"
      * StringUtils.center(null, 4, " ")   = null
      * StringUtils.center("", 4, " ")     = "    "
+     * StringUtils.center("ab", -1, " ")  = "ab"
      * StringUtils.center("ab", 4, " ")   = " ab"
      * StringUtils.center("abcd", 2, " ") = "abcd"
      * StringUtils.center("a", 4, " ")    = " a  "
@@ -2802,6 +2831,7 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.upperCase(null)  = null
+     * StringUtils.upperCase("")    = ""
      * StringUtils.upperCase("aBc") = "ABC"
      * </pre>
      * 
@@ -2822,6 +2852,7 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.lowerCase(null)  = null
+     * StringUtils.lowerCase("")    = ""
      * StringUtils.lowerCase("aBc") = "abc"
      * </pre>
      * 
@@ -2843,6 +2874,7 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.capitalise(null)  = null
+     * StringUtils.capitalise("")    = ""
      * StringUtils.capitalise("cat") = "Cat"
      * StringUtils.capitalise("cAt") = "CAt"
      * </pre>
@@ -2869,6 +2901,7 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.uncapitalise(null)  = null
+     * StringUtils.uncapitalise("")    = ""
      * StringUtils.uncapitalise("Cat") = "cat"
      * StringUtils.uncapitalise("CAT") = "cAT"
      * </pre>
@@ -2902,6 +2935,7 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.swapCase(null)                 = null
+     * StringUtils.swapCase("")                   = ""
      * StringUtils.swapCase("The dog has a BONE") = "tHE DOG HAS A bone"
      * </pre>
      * 
@@ -3028,6 +3062,8 @@ public class StringUtils {
      * 
      * <pre>
      * StringUtils.getNestedString(null, "tag")        = null
+     * StringUtils.getNestedString("", "")             = ""
+     * StringUtils.getNestedString("", "tag")          = null
      * StringUtils.getNestedString("tagabctag", null)  = null
      * StringUtils.getNestedString("tagabctag", "")    = ""
      * StringUtils.getNestedString("tagabctag", "tag") = "abc"
@@ -3051,6 +3087,9 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.getNestedString(null, "y", "z")      = null
+     * StringUtils.getNestedString("", "", "")          = ""
+     * StringUtils.getNestedString("", "", "tag")       = null
+     * StringUtils.getNestedString("", "tag", "tag")    = null
      * StringUtils.getNestedString("yabcz", null, null) = null
      * StringUtils.getNestedString("yabcz", "", "")     = ""
      * StringUtils.getNestedString("yabcz", "y", "z")   = "abc"
@@ -3082,8 +3121,22 @@ public class StringUtils {
     /**
      * <p>How many times is the substring in the larger String.</p>
      *
-     * <p><code>null</code> returns <code>0</code>.</p>
+     * <p>A <code>null</code> String input returns <code>0</code>.</p>
      * 
+     * <pre>
+     * StringUtils.countMatches(null, null)    = 0
+     * StringUtils.countMatches(null, "")      = 0
+     * StringUtils.countMatches(null, "a")     = 0
+     * StringUtils.countMatches("", null)      = 0
+     * StringUtils.countMatches("", "")        = 0
+     * StringUtils.countMatches("", "a")       = 0
+     * StringUtils.countMatches("abba", null)  = 0
+     * StringUtils.countMatches("abba", "")    = 0
+     * StringUtils.countMatches("abba", "a")   = 2
+     * StringUtils.countMatches("abba", "ab")  = 1
+     * StringUtils.countMatches("abba", "xxx") = 0
+     * </pre>
+     *
      * @param str  the String to check, may be null
      * @param sub  the substring to count, may be null
      * @return the number of occurances, 0 if either String is <code>null</code>
@@ -3110,6 +3163,15 @@ public class StringUtils {
      * <p><code>null</code> will return <code>false</code>.
      * An empty String ("") will return <code>true</code>.</p>
      * 
+     * <pre>
+     * StringUtils.isAlpha(null)   = false
+     * StringUtils.isAlpha("")     = true
+     * StringUtils.isAlpha("  ")   = false
+     * StringUtils.isAlpha("abc")  = true
+     * StringUtils.isAlpha("ab2c") = false
+     * StringUtils.isAlpha("ab-c") = false
+     * </pre>
+     *
      * @param str  the String to check, may be null
      * @return <code>true</code> if only contains letters, and is non-null
      */
@@ -3127,34 +3189,22 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the String contains only whitespace.</p>
-     *
-     * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
-     * 
-     * @param str  the String to check, may be null
-     * @return <code>true</code> if only contains whitespace, and is non-null
-     */
-    public static boolean isWhitespace(String str) {
-        if (str == null) {
-            return false;
-        }
-        int sz = str.length();
-        for (int i = 0; i < sz; i++) {
-            if ((Character.isWhitespace(str.charAt(i)) == false) ) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * <p>Checks if the String contains only unicode letters and
      * space (' ').</p>
      *
      * <p><code>null</code> will return <code>false</code>
      * An empty String ("") will return <code>true</code>.</p>
      * 
+     * <pre>
+     * StringUtils.isAlphaSpace(null)   = false
+     * StringUtils.isAlphaSpace("")     = true
+     * StringUtils.isAlphaSpace("  ")   = true
+     * StringUtils.isAlphaSpace("abc")  = true
+     * StringUtils.isAlphaSpace("ab c") = true
+     * StringUtils.isAlphaSpace("ab2c") = false
+     * StringUtils.isAlphaSpace("ab-c") = false
+     * </pre>
+     *
      * @param str  the String to check, may be null
      * @return <code>true</code> if only contains letters and space,
      *  and is non-null
@@ -3179,6 +3229,16 @@ public class StringUtils {
      * <p><code>null</code> will return <code>false</code>.
      * An empty String ("") will return <code>true</code>.</p>
      * 
+     * <pre>
+     * StringUtils.isAlphanumeric(null)   = false
+     * StringUtils.isAlphanumeric("")     = true
+     * StringUtils.isAlphanumeric("  ")   = false
+     * StringUtils.isAlphanumeric("abc")  = true
+     * StringUtils.isAlphanumeric("ab c") = false
+     * StringUtils.isAlphanumeric("ab2c") = true
+     * StringUtils.isAlphanumeric("ab-c") = false
+     * </pre>
+     *
      * @param str  the String to check, may be null
      * @return <code>true</code> if only contains letters or digits,
      *  and is non-null
@@ -3203,6 +3263,16 @@ public class StringUtils {
      * <p><code>null</code> will return <code>false</code>.
      * An empty String ("") will return <code>true</code>.</p>
      * 
+     * <pre>
+     * StringUtils.isAlphanumeric(null)   = false
+     * StringUtils.isAlphanumeric("")     = true
+     * StringUtils.isAlphanumeric("  ")   = true
+     * StringUtils.isAlphanumeric("abc")  = true
+     * StringUtils.isAlphanumeric("ab c") = true
+     * StringUtils.isAlphanumeric("ab2c") = true
+     * StringUtils.isAlphanumeric("ab-c") = false
+     * </pre>
+     *
      * @param str  the String to check, may be null
      * @return <code>true</code> if only contains letters, digits or space,
      *  and is non-null
@@ -3222,11 +3292,23 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the String contains only unicode digits.</p>
+     * <p>Checks if the String contains only unicode digits.
+     * A decimal point is not a unicode digit and returns false.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
      * An empty String ("") will return <code>true</code>.</p>
      * 
+     * <pre>
+     * StringUtils.isNumeric(null)   = false
+     * StringUtils.isNumeric("")     = true
+     * StringUtils.isNumeric("  ")   = false
+     * StringUtils.isNumeric("123")  = true
+     * StringUtils.isNumeric("12 3") = false
+     * StringUtils.isNumeric("ab2c") = false
+     * StringUtils.isNumeric("12-3") = false
+     * StringUtils.isNumeric("12.3") = false
+     * </pre>
+     *
      * @param str  the String to check, may be null
      * @return <code>true</code> if only contains digits, and is non-null
      */
@@ -3245,11 +3327,23 @@ public class StringUtils {
 
     /**
      * <p>Checks if the String contains only unicode digits or space
-     * (<code>' '</code>).</p>
+     * (<code>' '</code>).
+     * A decimal point is not a unicode digit and returns false.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
      * An empty String ("") will return <code>true</code>.</p>
      * 
+     * <pre>
+     * StringUtils.isNumeric(null)   = false
+     * StringUtils.isNumeric("")     = true
+     * StringUtils.isNumeric("  ")   = true
+     * StringUtils.isNumeric("123")  = true
+     * StringUtils.isNumeric("12 3") = true
+     * StringUtils.isNumeric("ab2c") = false
+     * StringUtils.isNumeric("12-3") = false
+     * StringUtils.isNumeric("12.3") = false
+     * </pre>
+     *
      * @param str  the String to check, may be null
      * @return <code>true</code> if only contains digits or space,
      *  and is non-null
@@ -3262,6 +3356,37 @@ public class StringUtils {
         for (int i = 0; i < sz; i++) {
             if ((Character.isDigit(str.charAt(i)) == false) &&
                 (str.charAt(i) != ' ')) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * <p>Checks if the String contains only whitespace.</p>
+     *
+     * <p><code>null</code> will return <code>false</code>.
+     * An empty String ("") will return <code>true</code>.</p>
+     * 
+     * <pre>
+     * StringUtils.isWhitespace(null)   = false
+     * StringUtils.isWhitespace("")     = true
+     * StringUtils.isWhitespace("  ")   = true
+     * StringUtils.isWhitespace("abc")  = false
+     * StringUtils.isWhitespace("ab2c") = false
+     * StringUtils.isWhitespace("ab-c") = false
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @return <code>true</code> if only contains whitespace, and is non-null
+     */
+    public static boolean isWhitespace(String str) {
+        if (str == null) {
+            return false;
+        }
+        int sz = str.length();
+        for (int i = 0; i < sz; i++) {
+            if ((Character.isWhitespace(str.charAt(i)) == false) ) {
                 return false;
             }
         }
