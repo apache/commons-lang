@@ -72,7 +72,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.29 2003/07/19 18:10:30 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.30 2003/07/19 23:28:23 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -683,131 +683,6 @@ public class StringUtilsTest extends TestCase {
                      7, StringUtils.getLevenshteinDistance("hippo", "elephant") );
         assertEquals("getLevenshteinDistance(String, String) failed",
                      1, StringUtils.getLevenshteinDistance("hello", "hallo") );
-    }
-
-    public void testContainsOnlyString() {
-        String str1 = "a";
-        String str2 = "b";
-        String str3 = "ab";
-        String chars1= "b";
-        String chars2= "a";
-        String chars3= "ab";
-        String emptyChars = "";
-        assertEquals("containsOnly(null, null) failed", false, StringUtils.containsOnly(null, (String) null));
-        assertEquals("containsOnly(empty-string, null) failed", false, StringUtils.containsOnly("", (String) null));
-        assertEquals("containsOnly(null, empty-string) failed", false, StringUtils.containsOnly(null, emptyChars));
-        assertEquals("containsOnly(str1, empty-char-array) failed", false, StringUtils.containsOnly(str1, emptyChars));
-        assertEquals("containsOnly(empty-string, empty-char-array) failed", true, StringUtils.containsOnly("", emptyChars));
-        assertEquals("containsOnly(empty-string, chars1) failed", true, StringUtils.containsOnly("", chars1));
-        assertEquals("containsOnly(str1, chars1) failed", false, StringUtils.containsOnly(str1, chars1));
-        assertEquals("containsOnly(str1, chars2) success", true, StringUtils.containsOnly(str1, chars2));
-        assertEquals("containsOnly(str1, chars3) success", true, StringUtils.containsOnly(str1, chars3));
-        assertEquals("containsOnly(str2, chars1) success", true, StringUtils.containsOnly(str2, chars1));
-        assertEquals("containsOnly(str2, chars2) failed", false, StringUtils.containsOnly(str2, chars2));
-        assertEquals("containsOnly(str2, chars3) success", true, StringUtils.containsOnly(str2, chars3));
-        assertEquals("containsOnly(String3, chars1) failed", false, StringUtils.containsOnly(str3, chars1));
-        assertEquals("containsOnly(String3, chars2) failed", false, StringUtils.containsOnly(str3, chars2));
-        assertEquals("containsOnly(String3, chars3) success", true, StringUtils.containsOnly(str3, chars3));
-    }
-
-    public void testContainsOnlyCharArray() {
-        String str1 = "a";
-        String str2 = "b";
-        String str3 = "ab";
-        char[] chars1= {'b'};
-        char[] chars2= {'a'};
-        char[] chars3= {'a', 'b'};
-        char[] emptyChars = new char[0];
-        assertEquals("containsOnly(null, null) failed", false, StringUtils.containsOnly(null, (char[]) null));
-        assertEquals("containsOnly(empty-string, null) failed", false, StringUtils.containsOnly("", (char[]) null));
-        assertEquals("containsOnly(null, empty-string) failed", false, StringUtils.containsOnly(null, emptyChars));
-        assertEquals("containsOnly(str1, empty-char-array) failed", false, StringUtils.containsOnly(str1, emptyChars));
-        assertEquals("containsOnly(empty-string, empty-char-array) failed", true, StringUtils.containsOnly("", emptyChars));
-        assertEquals("containsOnly(empty-string, chars1) failed", true, StringUtils.containsOnly("", chars1));
-        assertEquals("containsOnly(str1, chars1) failed", false, StringUtils.containsOnly(str1, chars1));
-        assertEquals("containsOnly(str1, chars2) success", true, StringUtils.containsOnly(str1, chars2));
-        assertEquals("containsOnly(str1, chars3) success", true, StringUtils.containsOnly(str1, chars3));
-        assertEquals("containsOnly(str2, chars1) success", true, StringUtils.containsOnly(str2, chars1));
-        assertEquals("containsOnly(str2, chars2) failed", false, StringUtils.containsOnly(str2, chars2));
-        assertEquals("containsOnly(str2, chars3) success", true, StringUtils.containsOnly(str2, chars3));
-        assertEquals("containsOnly(String3, chars1) failed", false, StringUtils.containsOnly(str3, chars1));
-        assertEquals("containsOnly(String3, chars2) failed", false, StringUtils.containsOnly(str3, chars2));
-        assertEquals("containsOnly(String3, chars3) success", true, StringUtils.containsOnly(str3, chars3));
-    }
-
-    public void testContainsNoneString() {
-        String str1 = "a";
-        String str2 = "b";
-        String str3 = "ab.";
-        String chars1= "b";
-        String chars2= ".";
-        String chars3= "cd";
-        String emptyChars = "";
-        assertEquals("containsNone(null, null) failed", true, StringUtils.containsNone(null, (String) null));
-        assertEquals("containsNone(empty-string, null) failed", true, StringUtils.containsNone("", (String) null));
-        assertEquals("containsNone(null, empty-string) failed", true, StringUtils.containsNone(null, emptyChars));
-        assertEquals("containsNone(str1, empty-char-array) failed", true, StringUtils.containsNone(str1, emptyChars));
-        assertEquals("containsNone(empty-string, empty-char-array) failed", true, StringUtils.containsNone("", emptyChars));
-        assertEquals("containsNone(empty-string, chars1) failed", true, StringUtils.containsNone("", chars1));
-        assertEquals("containsNone(str1, chars1)", true, StringUtils.containsNone(str1, chars1));
-        assertEquals("containsNone(str1, chars2)", true, StringUtils.containsNone(str1, chars2));
-        assertEquals("containsNone(str1, chars3)", true, StringUtils.containsNone(str1, chars3));
-        assertEquals("containsNone(str2, chars1)", false, StringUtils.containsNone(str2, chars1));
-        assertEquals("containsNone(str2, chars2)", true, StringUtils.containsNone(str2, chars2));
-        assertEquals("containsNone(str2, chars3)", true, StringUtils.containsNone(str2, chars3));
-        assertEquals("containsNone(str3, chars1)", false, StringUtils.containsNone(str3, chars1));
-        assertEquals("containsNone(str3, chars2)", false, StringUtils.containsNone(str3, chars2));
-        assertEquals("containsNone(str3, chars3)", true, StringUtils.containsNone(str3, chars3));
-    }
-
-    public void testContainsNoneCharArray() {
-        String str1 = "a";
-        String str2 = "b";
-        String str3 = "ab.";
-        char[] chars1= {'b'};
-        char[] chars2= {'.'};
-        char[] chars3= {'c', 'd'};
-        char[] emptyChars = new char[0];
-        assertEquals("containsNone(null, null) failed", true, StringUtils.containsNone(null, (char[]) null));
-        assertEquals("containsNone(empty-string, null) failed", true, StringUtils.containsNone("", (char[]) null));
-        assertEquals("containsNone(null, empty-string) failed", true, StringUtils.containsNone(null, emptyChars));
-        assertEquals("containsNone(str1, empty-char-array) failed", true, StringUtils.containsNone(str1, emptyChars));
-        assertEquals("containsNone(empty-string, empty-char-array) failed", true, StringUtils.containsNone("", emptyChars));
-        assertEquals("containsNone(empty-string, chars1) failed", true, StringUtils.containsNone("", chars1));
-        assertEquals("containsNone(str1, chars1)", true, StringUtils.containsNone(str1, chars1));
-        assertEquals("containsNone(str1, chars2)", true, StringUtils.containsNone(str1, chars2));
-        assertEquals("containsNone(str1, chars3)", true, StringUtils.containsNone(str1, chars3));
-        assertEquals("containsNone(str2, chars1)", false, StringUtils.containsNone(str2, chars1));
-        assertEquals("containsNone(str2, chars2)", true, StringUtils.containsNone(str2, chars2));
-        assertEquals("containsNone(str2, chars3)", true, StringUtils.containsNone(str2, chars3));
-        assertEquals("containsNone(str3, chars1)", false, StringUtils.containsNone(str3, chars1));
-        assertEquals("containsNone(str3, chars2)", false, StringUtils.containsNone(str3, chars2));
-        assertEquals("containsNone(str3, chars3)", true, StringUtils.containsNone(str3, chars3));
-    }
-
-    public void testIndexOfAnyBut() {
-        String str1 = "a";
-        String str2 = "b";
-        String str3 = "ab";
-        String chars1= "b";
-        String chars2= "a";
-        String chars3= "ab";
-        String emptyChars = "";
-        assertEquals("indexOfAnyBut(null, null)", -1, StringUtils.indexOfAnyBut(null, (String) null));
-        assertEquals("indexOfAnyBut(empty-string, null)", -1, StringUtils.indexOfAnyBut("", (String) null));
-        assertEquals("indexOfAnyBut(null, empty-string)", -1, StringUtils.indexOfAnyBut(null, emptyChars));
-        assertEquals("indexOfAnyBut(str1, empty-char-array)", 0, StringUtils.indexOfAnyBut(str1, emptyChars));
-        assertEquals("indexOfAnyBut(empty-string, empty-char-array)", -1, StringUtils.indexOfAnyBut("", emptyChars));
-        assertEquals("indexOfAnyBut(empty-string, chars1)", -1, StringUtils.indexOfAnyBut("", chars1));
-        assertEquals("indexOfAnyBut(str1, chars1)", 0, StringUtils.indexOfAnyBut(str1, chars1));
-        assertEquals("indexOfAnyBut(str1, chars2)", -1, StringUtils.indexOfAnyBut(str1, chars2));
-        assertEquals("indexOfAnyBut(str1, chars3)", -1, StringUtils.indexOfAnyBut(str1, chars3));
-        assertEquals("indexOfAnyBut(str2, chars1)", -1, StringUtils.indexOfAnyBut(str2, chars1));
-        assertEquals("indexOfAnyBut(str2, chars2)", 0, StringUtils.indexOfAnyBut(str2, chars2));
-        assertEquals("indexOfAnyBut(str2, chars3)", -1, StringUtils.indexOfAnyBut(str2, chars3));
-        assertEquals("indexOfAnyBut(String3, chars1)", 0, StringUtils.indexOfAnyBut(str3, chars1));
-        assertEquals("indexOfAnyBut(String3, chars2)", 1, StringUtils.indexOfAnyBut(str3, chars2));
-        assertEquals("indexOfAnyBut(String3, chars3)", -1, StringUtils.indexOfAnyBut(str3, chars3));
     }
 
     public void testAbbreviate() {
