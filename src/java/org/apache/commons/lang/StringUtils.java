@@ -1,5 +1,3 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 import java.util.StringTokenizer;
 import java.util.Iterator;
@@ -72,9 +71,10 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Stephen Colebourne
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.29 2002/12/15 16:54:23 scolebourne Exp $
+ * @since 1.0
+ * @version $Id: StringUtils.java,v 1.30 2002/12/23 00:32:24 scolebourne Exp $
  */
 public class StringUtils {
 

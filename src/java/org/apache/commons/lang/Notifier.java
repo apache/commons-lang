@@ -70,6 +70,10 @@ import java.lang.reflect.InvocationTargetException;
  * <p>Alternate strategies are usable. For example this class currently
  * does not enforce a particular interface, which means it cannot 
  * cache that method. Doing this probably makes a lot of sense.</p>
+ * 
+ * @author Henri Yandell
+ * @since 2.0
+ * @version $Id: Notifier.java,v 1.5 2002/12/23 00:32:24 scolebourne Exp $
  */
 public class Notifier {
 

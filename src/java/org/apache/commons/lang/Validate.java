@@ -69,7 +69,8 @@ import java.util.Map;
  *
  * @author <a href="mailto:ola.berg@arkitema.se">Ola Berg</a>
  * @author Stephen Colebourne
- * @version $Id: Validate.java,v 1.1 2002/12/13 17:21:56 scolebourne Exp $
+ * @since 2.0
+ * @version $Id: Validate.java,v 1.2 2002/12/23 00:32:24 scolebourne Exp $
  */
 public class Validate {
     

@@ -60,8 +60,9 @@ import java.util.List;
  * <p><code>ClassUtils</code> contains utility methods for working for
  * classes without using reflection.</p>
  *
- * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ClassUtils.java,v 1.6 2002/12/15 19:36:08 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 2.0
+ * @version $Id: ClassUtils.java,v 1.7 2002/12/23 00:32:24 scolebourne Exp $
  */
 public class ClassUtils {
 

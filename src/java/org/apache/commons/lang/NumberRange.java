@@ -62,7 +62,10 @@ package org.apache.commons.lang;
  *
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author Stephen Colebourne
- * @version $Revision: 1.4 $ $Date: 2002/12/21 14:22:11 $
+ * @since 1.0
+ * @version $Revision: 1.5 $ $Date: 2002/12/23 00:32:24 $
+ * 
+ * @deprecated Use one of the Range classes in org.apache.commons.lang.math
  */
 public final class NumberRange {
 

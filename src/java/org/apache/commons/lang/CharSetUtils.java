@@ -1,5 +1,3 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,13 +51,15 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 /**
  * <p>Numerous routines to manipulate a <code>CharSet</code>.</p>
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharSetUtils.java,v 1.7 2002/11/16 10:41:03 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @since 1.0
+ * @version $Id: CharSetUtils.java,v 1.8 2002/12/23 00:32:24 scolebourne Exp $
  */
 public class CharSetUtils {
 

@@ -58,7 +58,8 @@ package org.apache.commons.lang;
  * boolean and Boolean objects.</p>
  *
  * @author Stephen Colebourne
- * @version $Id: BooleanUtils.java,v 1.2 2002/12/22 21:33:12 scolebourne Exp $
+ * @since 2.0
+ * @version $Id: BooleanUtils.java,v 1.3 2002/12/23 00:32:24 scolebourne Exp $
  */
 public class BooleanUtils {
 
