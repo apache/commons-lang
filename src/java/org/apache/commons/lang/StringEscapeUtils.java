@@ -74,7 +74,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.10 2003/05/16 19:00:07 ggregory Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.11 2003/05/18 00:10:38 ggregory Exp $
  */
 public class StringEscapeUtils {
 
@@ -477,12 +477,16 @@ public class StringEscapeUtils {
             if (entity == null) {
                 if (((int) ch) > 0x7F) {
                     int intValue = ((int) ch);
-                    buf.append("&#" + intValue + ";");
+                    buf.append("&#");
+                    buf.append(intValue);
+                    buf.append(';');
                 } else {
                     buf.append(ch);
                 }
             } else {
-                buf.append("&" + entity + ";");
+                buf.append('&');
+                buf.append(entity);
+                buf.append(';');
             }
         }
         return buf.toString();
@@ -507,7 +511,9 @@ public class StringEscapeUtils {
                     iso = entities.entityValue(entity);
                 }
                 if (iso == null) {
-                    buf.append("&" + entity + ";");
+                    buf.append('&');
+                    buf.append(entity);
+                    buf.append(';');
                 } else {
                     buf.append((char) (iso.intValue()));
                 }
