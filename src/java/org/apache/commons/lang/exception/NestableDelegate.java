@@ -57,7 +57,11 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * <code>NestableDelegate</code> is a shared implementation of the nestable
@@ -75,7 +79,7 @@ import java.util.*;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.14 2003/06/10 06:16:54 scolebourne Exp $
+ * @version $Id: NestableDelegate.java,v 1.15 2003/07/20 15:49:58 scolebourne Exp $
  */
 public class NestableDelegate implements Serializable {
 

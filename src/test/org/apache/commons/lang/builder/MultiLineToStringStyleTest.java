@@ -57,17 +57,18 @@ package org.apache.commons.lang.builder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.lang.SystemUtils;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
+import org.apache.commons.lang.SystemUtils;
+
 /**
  * Unit tests {@link org.apache.commons.lang.ToStringStyle}.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: MultiLineToStringStyleTest.java,v 1.3 2003/05/21 23:49:15 scolebourne Exp $
+ * @version $Id: MultiLineToStringStyleTest.java,v 1.4 2003/07/20 15:49:57 scolebourne Exp $
  */
 public class MultiLineToStringStyleTest extends TestCase {
 

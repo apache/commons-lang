@@ -53,8 +53,8 @@
  */
 package org.apache.commons.lang;
 
-import java.math.BigInteger;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
  * <p>Provides extra functionality for Java Number classes.</p>
@@ -66,7 +66,7 @@ import java.math.BigDecimal;
  * @author Eric Pugh
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: NumberUtils.java,v 1.12 2003/07/20 10:24:49 scolebourne Exp $
+ * @version $Id: NumberUtils.java,v 1.13 2003/07/20 15:49:58 scolebourne Exp $
  * 
  * @deprecated Moved to org.apache.commons.lang.math.
  *             Class will be removed in Commons Lang 3.0.

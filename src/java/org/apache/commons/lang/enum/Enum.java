@@ -62,7 +62,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
+
 /**
  * <p>Abstract superclass for type-safe enums.</p>
  *
@@ -201,7 +203,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.14 2003/07/19 21:55:04 scolebourne Exp $
+ * @version $Id: Enum.java,v 1.15 2003/07/20 15:49:58 scolebourne Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
     // After discussion, the default size for HashMaps is used, as the

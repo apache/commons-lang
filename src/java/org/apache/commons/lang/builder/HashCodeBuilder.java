@@ -56,6 +56,7 @@ package org.apache.commons.lang.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+
 /**
  * <p><code>HashCode</code> generation routines.</p>
  *
@@ -109,7 +110,7 @@ import java.lang.reflect.Modifier;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.14 2003/07/20 01:12:32 ggregory Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.15 2003/07/20 15:49:58 scolebourne Exp $
  */
 public class HashCodeBuilder {
 
