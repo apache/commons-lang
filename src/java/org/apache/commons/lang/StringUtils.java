@@ -146,7 +146,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.77 2003/07/22 23:36:40 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.78 2003/07/25 00:50:00 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -2438,8 +2438,6 @@ public class StringUtils {
      * <p>A <code>null</code> string input will return <code>null</code>.
      * An empty ("") string input will return the empty string.
      * An empty or <code>null</code> separator will return the input string.</p>
-     *
-     * <p>This method is the opposite of {@link #sliceRemainder(String, String)}.</p>
      * 
      * <pre>
      * StringUtils.slice(null, *)      = null
@@ -2462,12 +2460,11 @@ public class StringUtils {
         if (str == null || separator == null || str.length() == 0 || separator.length() == 0) {
             return str;
         }
-        int idx = str.lastIndexOf(separator);
-        if (idx != -1) {
-            return str.substring(0, idx);
-        } else {
+        int pos = str.lastIndexOf(separator);
+        if (pos == -1) {
             return str;
         }
+        return str.substring(0, pos);
     }
 
     /**
@@ -2476,9 +2473,8 @@ public class StringUtils {
      *
      * <p>A <code>null</code> string input will return <code>null</code>.
      * An empty ("") string input will return the empty string.
-     * An empty or <code>null</code> separator will return the empty string.</p>
-     * 
-     * <p>This method is the opposite of {@link #slice(String, String)}.</p>
+     * An empty or <code>null</code> separator will return the empty string if
+     * the input string is not <code>null</code>.</p>
      *
      * <pre>
      * StringUtils.sliceRemainder(null, *)         = null
@@ -2506,14 +2502,11 @@ public class StringUtils {
         if (separator == null || separator.length() == 0) {
             return "";
         }
-        int idx = str.lastIndexOf(separator);
-        if (idx == str.length() - separator.length()) {
-            return "";
-        } else if (idx != -1) {
-            return str.substring(idx + separator.length());
-        } else {
+        int pos = str.lastIndexOf(separator);
+        if (pos == -1 || pos == (str.length() - separator.length())) {
             return "";
         }
+        return str.substring(pos + separator.length());
     }
 
     /**
@@ -2522,9 +2515,7 @@ public class StringUtils {
      *
      * <p>A <code>null</code> string input will return <code>null</code>.
      * An empty ("") string input will return the empty string.
-     * An empty or <code>null</code> separator will return the input string.</p>
-     * 
-     * <p>This method is the opposite of {@link #sliceFirst(String, String)}.</p>
+     * A <code>null</code> separator will return the input string.</p>
      *
      * <pre>
      * StringUtils.sliceFirst(null, *)         = null
@@ -2532,8 +2523,8 @@ public class StringUtils {
      * StringUtils.sliceFirst("abc", "a")      = ""
      * StringUtils.sliceFirst("abcba", "b")    = "a"
      * StringUtils.sliceFirst("abc", "c")      = "ab"
-     * StringUtils.sliceFirst("abc", "d")      = ""
-     * StringUtils.sliceFirst("abc", "")       = "abc"
+     * StringUtils.sliceFirst("abc", "d")      = "abc"
+     * StringUtils.sliceFirst("abc", "")       = ""
      * StringUtils.sliceFirst("abc", null)     = "abc"
      * </pre>
      *
@@ -2545,15 +2536,17 @@ public class StringUtils {
      * @return sliced String, <code>null</code> if null String input
      */
     public static String sliceFirst(String str, String separator) {
-        if (str == null || separator == null || str.length() == 0 || separator.length() == 0) {
+        if (str == null || separator == null || str.length() == 0) {
             return str;
         }
-        int idx = str.indexOf(separator);
-        if (idx != -1) {
-            return str.substring(0, idx);
-        } else {
+        if (separator.length() == 0) {
             return "";
         }
+        int pos = str.indexOf(separator);
+        if (pos == -1) {
+            return str;
+        }
+        return str.substring(0, pos);
     }
 
     /**
@@ -2562,19 +2555,18 @@ public class StringUtils {
      *
      * <p>A <code>null</code> string input will return <code>null</code>.
      * An empty ("") string input will return the empty string.
-     * An empty or <code>null</code> separator will return the empty string.</p>
+     * A <code>null</code> separator will return the empty string if the
+     * input string is not <code>null</code>.</p>
      * 
-     * <p>This method is the opposite of {@link #sliceFirst(String, String)}.</p>
-     *
      * <pre>
-     * StringUtils.sliceFirstRemainder(null, *)         = null
-     * StringUtils.sliceFirstRemainder("", *)           = ""
-     * StringUtils.sliceFirstRemainder(*, "")           = ""
-     * StringUtils.sliceFirstRemainder(*, null)         = ""
-     * StringUtils.sliceFirstRemainder("abc", "a")      = "bc"
-     * StringUtils.sliceFirstRemainder("abcba", "b")    = "cba"
-     * StringUtils.sliceFirstRemainder("abc", "c")      = ""
-     * StringUtils.sliceFirstRemainder("abc", "d")      = "abc"
+     * StringUtils.sliceFirstRemainder(null, *)      = null
+     * StringUtils.sliceFirstRemainder("", *)        = ""
+     * StringUtils.sliceFirstRemainder(*, null)      = ""
+     * StringUtils.sliceFirstRemainder("abc", "a")   = "bc"
+     * StringUtils.sliceFirstRemainder("abcba", "b") = "cba"
+     * StringUtils.sliceFirstRemainder("abc", "c")   = ""
+     * StringUtils.sliceFirstRemainder("abc", "d")   = ""
+     * StringUtils.sliceFirstRemainder("abc", "")    = "abc"
      * </pre>
      *
      * <p><em>(This method was formerly named prechomp.  Also, previously
@@ -2588,15 +2580,14 @@ public class StringUtils {
         if (str == null || str.length() == 0) {
             return str;
         }
-        if (separator == null || separator.length() == 0) {
+        if (separator == null) {
             return "";
         }
-        int idx = str.indexOf(separator);
-        if (idx != -1) {
-            return str.substring(idx + separator.length());
-        } else {
-            return str;
+        int pos = str.indexOf(separator);
+        if (pos == -1) {
+            return "";
         }
+        return str.substring(pos + separator.length());
     }
 
     // Conversion
