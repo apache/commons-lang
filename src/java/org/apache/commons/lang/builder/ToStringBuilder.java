@@ -54,6 +54,7 @@
 package org.apache.commons.lang.builder;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.ObjectUtils;
 
 /**
  * <p>Builds <code>toString()</code> values.</p>
@@ -123,7 +124,7 @@ import org.apache.commons.lang.BooleanUtils;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.24 2003/07/14 22:25:03 bayard Exp $
+ * @version $Id: ToStringBuilder.java,v 1.25 2003/07/16 01:47:39 ggregory Exp $
  */
 public class ToStringBuilder {
 
@@ -973,7 +974,7 @@ public class ToStringBuilder {
      * @param object  the <code>Object</code> whose class name and id to output
      */
     public ToStringBuilder appendAsObjectToString(Object object) {
-        this.getStyle().appendAsObjectToString(this.getStringBuffer(), object);
+        ObjectUtils.appendIdentityToString(this.getStringBuffer(), object);
         return this;
     }
 
