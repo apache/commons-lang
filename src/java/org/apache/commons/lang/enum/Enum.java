@@ -267,7 +267,7 @@ import org.apache.commons.lang.StringUtils;
  * @author Chris Webb
  * @author Mike Bowler
  * @since 1.0
- * @version $Id: Enum.java,v 1.25 2004/02/12 00:48:30 ggregory Exp $
+ * @version $Id: Enum.java,v 1.26 2004/02/12 00:49:30 ggregory Exp $
  */
 public abstract class Enum implements Comparable, Serializable {
 
@@ -580,11 +580,11 @@ public abstract class Enum implements Comparable, Serializable {
                 Method mth = other.getClass().getMethod("getName", null);
                 String name = (String) mth.invoke(other, null);
                 return iName.equals(name);
-            } catch (NoSuchMethodException ex2) {
+            } catch (NoSuchMethodException e) {
                 // ignore - should never happen
-            } catch (IllegalAccessException ex2) {
+            } catch (IllegalAccessException e) {
                 // ignore - should never happen
-            } catch (InvocationTargetException ex2) {
+            } catch (InvocationTargetException e) {
                 // ignore - should never happen
             }
             return false;
