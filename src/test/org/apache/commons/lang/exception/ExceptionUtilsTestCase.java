@@ -149,6 +149,19 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase
         assertTrue("printRootCauseStackTrace(Throwable, PrintWriter) failed",
                    stackTrace.indexOf(ExceptionUtils.WRAPPED_MARKER) == -1);
     }
+
+    public void testIsNestedThrowable() {
+        assertTrue("SQLException not nested", 
+                   ExceptionUtils.isNestedThrowable(new java.sql.SQLException() ) );
+        assertTrue("InvocationTargetException not nested", 
+                   ExceptionUtils.isNestedThrowable(new java.lang.reflect.InvocationTargetException( new Exception() ) ) );
+        assertTrue("NestableRuntimeException not nested", 
+                   ExceptionUtils.isNestedThrowable(new NestableRuntimeException() ) );
+                   
+        // TODO: Come up with a way to test if java.lang.Throwable is nested.
+        // bearing in mind that in JDK 1.4 it is, and in 1.3 and previous 
+        // it isn't.
+    }
     
     /**
      * Provides a method with a well known chained/nested exception
