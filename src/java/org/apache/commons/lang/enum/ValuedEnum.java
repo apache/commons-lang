@@ -130,7 +130,7 @@ import java.util.List;
  *
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.3 2002/12/23 00:17:06 scolebourne Exp $
+ * @version $Id: ValuedEnum.java,v 1.4 2002/12/31 22:39:39 scolebourne Exp $
  */
 public abstract class ValuedEnum extends Enum {
     /**
@@ -204,7 +204,7 @@ public abstract class ValuedEnum extends Enum {
      * stripped from the type name.
      */
     public String toString() {
-        String shortName = getClass().getName();
+        String shortName = Enum.getEnumClassName(getClass());
         int pos = shortName.lastIndexOf('.');
         if (pos != -1) {
             shortName = shortName.substring(pos + 1);

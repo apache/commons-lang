@@ -65,8 +65,8 @@ import org.apache.commons.lang.SerializationUtils;
 /**
  * Test cases for the {@link Enum} class.
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumTest.java,v 1.4 2002/11/06 19:14:43 bayard Exp $
+ * @author Stephen Colebourne
+ * @version $Id: EnumTest.java,v 1.5 2002/12/31 22:39:39 scolebourne Exp $
  */
 
 public final class EnumTest extends TestCase {
@@ -180,6 +180,48 @@ public final class EnumTest extends TestCase {
         } catch (ExceptionInInitializerError ex) {
             assertTrue(ex.getException() instanceof IllegalArgumentException);
         }
+    }
+
+    public void testOperationGet() {
+        assertSame(OperationEnum.PLUS, OperationEnum.getEnum("Plus"));
+        assertSame(OperationEnum.MINUS, OperationEnum.getEnum("Minus"));
+        assertSame(null, OperationEnum.getEnum("Pink"));
+    }
+
+    public void testOperationSerialization() {
+        assertSame(OperationEnum.PLUS, SerializationUtils.clone(OperationEnum.PLUS));
+        assertSame(OperationEnum.MINUS, SerializationUtils.clone(OperationEnum.MINUS));
+    }
+
+    public void testOperationToString() {
+        assertEquals("OperationEnum[Plus]", OperationEnum.PLUS.toString());
+    }
+
+    public void testOperationList() {
+        List list = OperationEnum.getEnumList();
+        assertNotNull(list);
+        assertEquals(2, list.size());
+        assertEquals(list.size(), OperationEnum.getEnumMap().keySet().size());
+        
+        Iterator it = list.iterator();
+        assertSame(OperationEnum.PLUS, it.next());
+        assertSame(OperationEnum.MINUS, it.next());
+    }
+
+    public void testOperationMap() {
+        Map map = OperationEnum.getEnumMap();
+        assertNotNull(map);
+        assertEquals(map.keySet().size(), OperationEnum.getEnumList().size());
+        
+        assertTrue(map.containsValue(OperationEnum.PLUS));
+        assertTrue(map.containsValue(OperationEnum.MINUS));
+        assertSame(OperationEnum.PLUS, map.get("Plus"));
+        assertSame(OperationEnum.MINUS, map.get("Minus"));
+    }
+
+    public void testOperationCalculation() {
+        assertEquals(3, OperationEnum.PLUS.eval(1, 2));
+        assertEquals(-1, OperationEnum.MINUS.eval(1, 2));
     }
 
 }
