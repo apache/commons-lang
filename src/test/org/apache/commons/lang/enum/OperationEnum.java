@@ -61,19 +61,24 @@ import java.util.Map;
  * Operator enumeration.
  *
  * @author Stephen Colebourne
- * @version $Id: OperationEnum.java,v 1.2 2003/05/22 22:00:06 scolebourne Exp $
+ * @version $Id: OperationEnum.java,v 1.3 2003/08/02 18:38:36 scolebourne Exp $
  */
 public abstract class OperationEnum extends Enum {
-    public static final OperationEnum PLUS = new OperationEnum("Plus") {
-        public int eval(int a, int b) {
-            return (a + b);
-        }
-    };
-    public static final OperationEnum MINUS = new OperationEnum("Minus") {
-        public int eval(int a, int b) {
-            return (a - b);
-        }
-    };
+    public static final OperationEnum PLUS;
+    public static final OperationEnum MINUS;
+    static {
+        // Get around JDK Linux bug
+        PLUS = new OperationEnum("Plus") {
+            public int eval(int a, int b) {
+                return (a + b);
+            }
+        };
+        MINUS = new OperationEnum("Minus") {
+            public int eval(int a, int b) {
+                return (a - b);
+            }
+        };
+    }
 
     private OperationEnum(String name) {
         super(name);
