@@ -7,7 +7,7 @@
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Component</h1>
-$Id: STATUS.html,v 1.32 2002/12/29 22:07:55 scolebourne Exp $<br />
+$Id: STATUS.html,v 1.33 2003/02/02 09:10:24 bayard Exp $<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#Dependencies">[Dependencies]</a>
 <a href="#Release Info">[Release Info]</a>
@@ -129,8 +129,7 @@ A 2.0 will be released after a undefined period of development.
 <a name="Action Items"></a>
 <h3>5.  ACTION ITEMS</h3>
 
-<p>Want to help?  Here's some "to do" items the team has identified. Note that all are
-still under discussion, so please mail the list before actioning.</p>
+<p>Want to help?  Here's some "to do" items the team has identified as possibly being in scope for Lang. Note that all are still under discussion, so please mail the list before actioning.</p>
 <ul>
 <li>Reflection utilities - work underway in reflect package.</li>
 <li>Operating system information - maybe part of SystemUtils, maybe another project</li>
@@ -140,6 +139,8 @@ still under discussion, so please mail the list before actioning.</p>
 <li>CloneUtils - utility class to enable cloning via various different mechanisms. This code exists in [pattern] at present.</li>
 <li>StringUtils truncateNicely method - A substring with some extra power to choose where to cut off. It was in Avalon and was added separately to String Taglib from a code submission. This suggests it may have some commonality. [CODED]</li>
 <li>StringUtils unescape method - String Taglib has shown that this method is missing from StringUtils. It would take a String with "\n" in and convert it to the Java character. unescape and escape should be symmetric - [DONE. Test symmetry] </li>
+<li>StringUtils performance improvements. </li>
+<li>StringUtils.reverseSplit(String, String delim, int count). Should basically be a 'reverseArray(reverseDelimitedString(split(txt, delim, count)))</li>
 <li>CharUtils - Utilities to work on a char[] in the same way as a String
 <li>AStringBuffer - A StringBuffer implementation with additional methods from StringUtils
 <li>O(n) - Document all algorithm-implementing methods with the order. Possibly with an O(n) on the end of each parameterm or with an @order tag.</li>
