@@ -54,15 +54,6 @@ package org.apache.commons.lang;
  * <http://www.apache.org/>.
  */
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.IOException;
-import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import java.util.Iterator;
@@ -82,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.11 2002/09/19 06:58:13 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.12 2002/09/21 05:02:43 bayard Exp $
  */
 public class StringUtils {
 
