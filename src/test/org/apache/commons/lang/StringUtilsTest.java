@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @version $Id: StringUtilsTest.java,v 1.4 2002/09/19 06:58:13 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.5 2002/09/19 07:02:30 bayard Exp $
  */
 public class StringUtilsTest extends TestCase
 {
@@ -340,6 +340,7 @@ public class StringUtilsTest extends TestCase
         assertEquals("containsOnly(empty-string, null) failed", false, StringUtils.containsOnly("", null));
         assertEquals("containsOnly(null, empty-string) failed", false, StringUtils.containsOnly(null, emptyChars));
         assertEquals("containsOnly(str1, empty-char-array) failed", false, StringUtils.containsOnly(str1, emptyChars));
+        assertEquals("containsOnly(empty-string, empty-char-array) failed", true, StringUtils.containsOnly("", emptyChars));
         assertEquals("containsOnly(empty-string, chars1) failed", true, StringUtils.containsOnly("", chars1));
         assertEquals("containsOnly(str1, chars1) failed", false, StringUtils.containsOnly(str1, chars1));
         assertEquals("containsOnly(str1, chars1) failed", false, StringUtils.containsOnly(str1, chars1));
