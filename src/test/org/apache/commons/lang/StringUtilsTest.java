@@ -75,7 +75,7 @@ import junit.textui.TestRunner;
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: StringUtilsTest.java,v 1.49 2003/08/14 01:16:30 ggregory Exp $
+ * @version $Id: StringUtilsTest.java,v 1.50 2003/08/17 22:56:11 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -162,11 +162,8 @@ public class StringUtilsTest extends TestCase {
     public void testCaseFunctions() {
         assertEquals(null, StringUtils.upperCase(null));
         assertEquals(null, StringUtils.lowerCase(null));
-        assertEquals(null, StringUtils.swapCase(null));
         assertEquals(null, StringUtils.capitalize(null));
         assertEquals(null, StringUtils.uncapitalize(null));
-        assertEquals(null, StringUtils.capitalizeAllWords(null));
-        assertEquals(null, StringUtils.uncapitalizeAllWords(null));
 
         assertEquals("capitalize(String) failed",
                      FOO_CAP, StringUtils.capitalize(FOO_UNCAP) );
@@ -174,36 +171,20 @@ public class StringUtilsTest extends TestCase {
                      "", StringUtils.capitalize("") );
         assertEquals("capitalize(single-char-string) failed",
                      "X", StringUtils.capitalize("x") );
-        assertEquals("capitalizeAllWords(String) failed",
-                     "Foo Bar Baz", StringUtils.capitalizeAllWords(SENTENCE_UNCAP) );
-        assertEquals("capitalizeAllWords(empty-string) failed",
-                     "", StringUtils.capitalizeAllWords("") );
         assertEquals("uncapitalize(String) failed",
                      FOO_UNCAP, StringUtils.uncapitalize(FOO_CAP) );
         assertEquals("uncapitalize(empty-string) failed",
                      "", StringUtils.uncapitalize("") );
         assertEquals("uncapitalize(single-char-string) failed",
                      "x", StringUtils.uncapitalize("X") );
-        assertEquals("uncapitalizeAllWords(String) failed",
-                     SENTENCE_UNCAP, StringUtils.uncapitalizeAllWords("Foo Bar Baz") );
-        assertEquals("uncapitalizeAllWords(empty-string) failed",
-                     "", StringUtils.uncapitalizeAllWords("") );
                      
         // reflection type of tests: Sentences.
-        assertEquals("uncapitalizeAllWords(capitalizeAllWords(String)) failed",
-                     SENTENCE_UNCAP, StringUtils.uncapitalizeAllWords(StringUtils.capitalizeAllWords(SENTENCE_UNCAP)) );
-        assertEquals("capitalizeAllWords(uncapitalizeAllWords(String)) failed",
-                     SENTENCE_CAP, StringUtils.capitalizeAllWords(StringUtils.uncapitalizeAllWords(SENTENCE_CAP)) );
         assertEquals("uncapitalize(capitalize(String)) failed",
                      SENTENCE_UNCAP, StringUtils.uncapitalize(StringUtils.capitalize(SENTENCE_UNCAP)) );
         assertEquals("capitalize(uncapitalize(String)) failed",
                      SENTENCE_CAP, StringUtils.capitalize(StringUtils.uncapitalize(SENTENCE_CAP)) );
 
         // reflection type of tests: One word.
-        assertEquals("uncapitalizeAllWords(capitalizeAllWords(String)) failed",
-                     FOO_UNCAP, StringUtils.uncapitalizeAllWords(StringUtils.capitalizeAllWords(FOO_UNCAP)) );
-        assertEquals("capitalizeAllWords(uncapitalizeAllWords(String)) failed",
-                     FOO_CAP, StringUtils.capitalizeAllWords(StringUtils.uncapitalizeAllWords(FOO_CAP)) );
         assertEquals("uncapitalize(capitalize(String)) failed",
                     FOO_UNCAP, StringUtils.uncapitalize(StringUtils.capitalize(FOO_UNCAP)) );
         assertEquals("capitalize(uncapitalize(String)) failed",
@@ -217,15 +198,22 @@ public class StringUtilsTest extends TestCase {
                      "foo test thing", StringUtils.lowerCase("fOo test THING") );
         assertEquals("lowerCase(empty-string) failed",
                      "", StringUtils.lowerCase("") );
-
-        assertEquals("swapCase(empty-string) failed",
-                     "", StringUtils.swapCase("") );
-        assertEquals("swapCase(String-with-numbers) failed",
-                     "a123RgYu", StringUtils.swapCase("A123rGyU") );
-        assertEquals("swapCase(String) failed",
-                     "Hello aPACHE", StringUtils.swapCase("hELLO Apache") );
     }
 
+    public void testSwapCase_String() {
+        assertEquals(null, StringUtils.swapCase(null));
+        assertEquals("", StringUtils.swapCase(""));
+        assertEquals("  ", StringUtils.swapCase("  "));
+        
+        assertEquals("i", WordUtils.swapCase("I") );
+        assertEquals("I", WordUtils.swapCase("i") );
+        assertEquals("I AM HERE 123", StringUtils.swapCase("i am here 123") );
+        assertEquals("i aM hERE 123", StringUtils.swapCase("I Am Here 123") );
+        assertEquals("I AM here 123", StringUtils.swapCase("i am HERE 123") );
+        assertEquals("i am here 123", StringUtils.swapCase("I AM HERE 123") );
+    }
+
+    //-----------------------------------------------------------------------
     public void testJoin_Objectarray() {
         assertEquals(null, StringUtils.join(null));
         assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST));

@@ -145,7 +145,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.100 2003/08/16 10:36:00 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.101 2003/08/17 22:56:11 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3414,7 +3414,8 @@ public class StringUtils {
      * <p>Capitalizes a String changing the first letter to title case as
      * per {@link Character#toTitleCase(char)}. No other letters are changed.</p>
      * 
-     * <p>A <code>null</code> input String returns <code>null</code>.</p>
+     * <p>For a word based alorithm, see {@link WordUtils#capitalize(String)}.
+     * A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <pre>
      * StringUtils.capitalize(null)  = null
@@ -3425,7 +3426,7 @@ public class StringUtils {
      * 
      * @param str  the String to capitalize, may be null
      * @return the capitalized String, <code>null</code> if null String input
-     * @see #capitalizeAllWords(String)
+     * @see WordUtils#capitalize(String)
      * @see #uncapitalize(String)
      */
     public static String capitalize(String str) {
@@ -3456,7 +3457,8 @@ public class StringUtils {
      * <p>Uncapitalizes a String changing the first letter to title case as
      * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
      * 
-     * <p>A <code>null</code> input String returns <code>null</code>.</p>
+     * <p>For a word based alorithm, see {@link WordUtils#uncapitalize(String)}.
+     * A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <pre>
      * StringUtils.uncapitalize(null)  = null
@@ -3467,7 +3469,7 @@ public class StringUtils {
      * 
      * @param str  the String to uncapitalize, may be null
      * @return the uncapitalized String, <code>null</code> if null String input
-     * @see #uncapitalizeAllWords(String)
+     * @see WordUtils#uncapitalize(String)
      * @see #capitalize(String)
      */
     public static String uncapitalize(String str) {
@@ -3495,16 +3497,16 @@ public class StringUtils {
     }
 
     /**
-     * <p>Swaps the case of a String using a word based algorithm.</p>
+     * <p>Swaps the case of a String changing upper and title case to
+     * lower case, and lower case to upper case.</p>
      * 
      * <ul>
      *  <li>Upper case character converts to Lower case</li>
      *  <li>Title case character converts to Lower case</li>
-     *  <li>Lower case character after Whitespace or at start converts to Title case</li>
-     *  <li>Other Lower case character converts to Upper case</li>
+     *  <li>Lower case character converts to Upper case</li>
      * </ul>
      * 
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * <p>For a word based alorithm, see {@link WordUtils#swapCase(String)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <pre>
@@ -3512,6 +3514,11 @@ public class StringUtils {
      * StringUtils.swapCase("")                   = ""
      * StringUtils.swapCase("The dog has a BONE") = "tHE DOG HAS A bone"
      * </pre>
+     * 
+     * <p>NOTE: This method changed in Lang version 2.0.
+     * It no longer performs a word based alorithm.
+     * If you only use ASCII, you will notice no change.
+     * That functionality is available in WordUtils.</p>
      * 
      * @param str  the String to swap case, may be null
      * @return the changed String, <code>null</code> if null String input
@@ -3523,67 +3530,17 @@ public class StringUtils {
         }
         StringBuffer buffer = new StringBuffer(strLen);
 
-        boolean whitespace = true;
         char ch = 0;
-        char tmp = 0;
-
         for (int i = 0; i < strLen; i++) {
             ch = str.charAt(i);
             if (Character.isUpperCase(ch)) {
-                tmp = Character.toLowerCase(ch);
+                ch = Character.toLowerCase(ch);
             } else if (Character.isTitleCase(ch)) {
-                tmp = Character.toLowerCase(ch);
+                ch = Character.toLowerCase(ch);
             } else if (Character.isLowerCase(ch)) {
-                if (whitespace) {
-                    tmp = Character.toTitleCase(ch);
-                } else {
-                    tmp = Character.toUpperCase(ch);
-                }
-            } else {
-                tmp = ch;
+                ch = Character.toUpperCase(ch);
             }
-            buffer.append(tmp);
-            whitespace = Character.isWhitespace(ch);
-        }
-        return buffer.toString();
-    }
-
-    /**
-     * <p>Capitalizes all the whitespace separated words in a String.
-     * Only the first letter of each word is changed.</p>
-     *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
-     * A <code>null</code> input String returns <code>null</code>.</p>
-     *
-     * <pre>
-     * StringUtils.capitalizeAllWords(null)        = null
-     * StringUtils.capitalizeAllWords("")          = ""
-     * StringUtils.capitalizeAllWords("i am FINE") = "I Am FINE"
-     * </pre>
-     * 
-     * @param str  the String to capitalize, may be null
-     * @return capitalized String, <code>null</code> if null String input
-     * @see #capitalize(String)
-     * @see #uncapitalizeAllWords(String)
-     */
-    public static String capitalizeAllWords(String str) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
-            return str;
-        }
-        StringBuffer buffer = new StringBuffer(strLen);
-        boolean whitespace = true;
-        for (int i = 0; i < strLen; i++) {
-            char ch = str.charAt(i);
-            if (Character.isWhitespace(ch)) {
-                buffer.append(ch);
-                whitespace = true;
-            } else if (whitespace) {
-                buffer.append(Character.toTitleCase(ch));
-                whitespace = false;
-            } else {
-                buffer.append(ch);
-            }
+            buffer.append(ch);
         }
         return buffer.toString();
     }
@@ -3597,51 +3554,11 @@ public class StringUtils {
      *
      * @param str  the String to capitalize, may be null
      * @return capitalized String, <code>null</code> if null String input
-     * @deprecated Use the standardly named {@link #capitalizeAllWords(String)}.
+     * @deprecated Use the relocated {@link WordUtils#capitalize(String)}.
      *             Method will be removed in Commons Lang 3.0.
      */
     public static String capitaliseAllWords(String str) {
-        return capitalizeAllWords(str);
-    }
-
-    /**
-     * <p>Uncapitalizes all the whitespace separated words in a String.
-     * Only the first letter of each word is changed.</p>
-     *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
-     * A <code>null</code> input String returns <code>null</code>.</p>
-     *
-     * <pre>
-     * StringUtils.uncapitalizeAllWords(null)        = null
-     * StringUtils.uncapitalizeAllWords("")          = ""
-     * StringUtils.uncapitalizeAllWords("I Am FINE") = "i am fINE"
-     * </pre>
-     * 
-     * @param str  the String to uncapitalize, may be null
-     * @return uncapitalized String, <code>null</code> if null String input
-     * @see #uncapitalize(String)
-     * @see #capitalizeAllWords(String)
-     */
-    public static String uncapitalizeAllWords(String str) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
-            return str;
-        }
-        StringBuffer buffer = new StringBuffer(strLen);
-        boolean whitespace = true;
-        for (int i = 0; i < strLen; i++) {
-            char ch = str.charAt(i);
-            if (Character.isWhitespace(ch)) {
-                buffer.append(ch);
-                whitespace = true;
-            } else if (whitespace) {
-                buffer.append(Character.toLowerCase(ch));
-                whitespace = false;
-            } else {
-                buffer.append(ch);
-            }
-        }
-        return buffer.toString();
+        return WordUtils.capitalize(str);
     }
 
     // Count matches

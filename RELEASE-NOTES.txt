@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.22 2003/08/17 22:01:04 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.23 2003/08/17 22:59:28 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -21,6 +21,7 @@ Some StringUtils methods have changed functionality from 1.0:
     isEmpty()
     chomp(String)
     chomp(String,String)
+    swapCase(String)
 Numerous other methods have changed null handling to accept nulls gracefully.
 As with all major version releases, check your code for incompatibilities.
 
@@ -82,6 +83,7 @@ lang:
     StringUtils:
         isEmpty() changed to not trim
         chomp() changed to be more like Perl.
+        swapCase() no longer word based, but no difference if you pass in ASCII
         Various methods changed in the handling of null (less exceptions).
         Many new methods.
         Various methods deprecated.
@@ -362,12 +364,9 @@ org.apache.commons.lang.StringUtils
 >     public static java.lang.String capitalize(java.lang.String);
 >     public static java.lang.String uncapitalize(java.lang.String);
 >     public static java.lang.String uncapitalise(java.lang.String);
->     public static java.lang.String capitalizeAllWords(java.lang.String);
 <     public static java.lang.String getNestedString(java.lang.String, java.lang.String);
 <     public static java.lang.String getNestedString(java.lang.String, java.lang.String, java.lang.String);
 ---
->     public static java.lang.String uncapitalizeAllWords(java.lang.String);
->     public static java.lang.String uncapitaliseAllWords(java.lang.String);
 >     public static boolean isWhitespace(java.lang.String);
 >     public static java.lang.String reverseDelimited(java.lang.String, char);
 >     public static java.lang.String abbreviate(java.lang.String, int);
