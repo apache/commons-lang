@@ -69,7 +69,7 @@ import org.apache.commons.lang.StringUtils;
  * reflection.
  *
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
- * @version $Id: ReflectionUtils.java,v 1.1 2002/10/24 23:12:54 scolebourne Exp $
+ * @version $Id: ReflectionUtils.java,v 1.2 2002/11/18 23:01:36 rdonkin Exp $
  */
 public class ReflectionUtils {
     
@@ -100,7 +100,7 @@ public class ReflectionUtils {
 
     /**
      * Tests whether the specified field or method is 
-     * <code>static</code>.
+     * <code>final</code>.
      * 
      * @param member  the member to test, must not be null
      * @return true if the member is final
@@ -123,7 +123,7 @@ public class ReflectionUtils {
         if (member == null) {
             throw new IllegalArgumentException("The member must not be null");
         }    
-        return Modifier.isStatic(member.getModifiers());
+        return Modifier.isPublic(member.getModifiers());
     }
 
     /**
