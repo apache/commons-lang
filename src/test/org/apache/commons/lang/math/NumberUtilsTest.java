@@ -72,7 +72,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Phil Steitz
  * @author Stephen Colebourne
  * @author Matthew Hawthorne
- * @version $Id: NumberUtilsTest.java,v 1.3 2003/07/20 16:03:21 scolebourne Exp $
+ * @version $Id: NumberUtilsTest.java,v 1.4 2003/07/21 19:42:12 ggregory Exp $
  */
 public class NumberUtilsTest extends TestCase {
 
@@ -154,7 +154,7 @@ public class NumberUtilsTest extends TestCase {
             Float f = NumberUtils.createFloat("");
             fail("createFloat(empty) failed");
         } catch (NumberFormatException ex) {
-            ;
+            // empty
         }
     }
 
@@ -165,7 +165,7 @@ public class NumberUtilsTest extends TestCase {
             Double d = NumberUtils.createDouble("");
             fail("createDouble(empty) failed");
         } catch (NumberFormatException ex) {
-            ;
+            // empty
         }
     }
 
@@ -176,7 +176,7 @@ public class NumberUtilsTest extends TestCase {
             Integer i = NumberUtils.createInteger("");
             fail("createInteger(empty) failed");
         } catch (NumberFormatException ex) {
-            ;
+            // empty
         }
     }
 
@@ -187,7 +187,7 @@ public class NumberUtilsTest extends TestCase {
             Long l = NumberUtils.createLong("");
             fail("createLong(empty) failed");
         } catch (NumberFormatException ex) {
-            ;
+            // empty
         }
     }
 
@@ -198,7 +198,7 @@ public class NumberUtilsTest extends TestCase {
             BigInteger i = NumberUtils.createBigInteger("");
             fail("createBigInteger(empty) failed");
         } catch (NumberFormatException ex) {
-            ;
+            // empty
         }
     }
 
@@ -209,7 +209,7 @@ public class NumberUtilsTest extends TestCase {
             BigDecimal d = NumberUtils.createBigDecimal("");
             fail("createBigDecimal(empty) failed");
         } catch (NumberFormatException ex) {
-            ;
+            // empty
         }
     }
 
