@@ -60,19 +60,22 @@ import java.util.Map;
 import org.apache.commons.lang.SystemUtils;
 /**
  * <code>ToStringStyle</code> works with ToStringBuilder to create a
- * toString.
+ * toString. The main public interface is always via ToStringBuilder.
  * <p>
  * These classes are intended to be used as singletons. There is no need 
- * to instantiate a new style each time. A prohram will generally use one
+ * to instantiate a new style each time. A program will generally use one
  * of the predefined constants on this class. Alternatively, the 
  * {@link StandardToStringStyle} class can be used to set the individual
- * settings.
- * <P>
- * If necessary, this class can be subclassed to provide specific toString
- * designs. The main public interface is always via ToStringBuilder however.
+ * settings. Thus most styles can be achieved without subclassing.
+ * <p>
+ * If required, a subclass can override as many or as few of the methods as 
+ * it requires.Each object type (from boolean to long to Object to int[]) has 
+ * its own methods to output it. Most have two versions, detail and summary. For
+ * example, the detail version of the array based methods will output the
+ * whole array, whereas the summary method will just output the array length.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ToStringStyle.java,v 1.2 2002/09/17 22:09:11 scolebourne Exp $
+ * @version $Id: ToStringStyle.java,v 1.3 2002/09/19 19:44:10 scolebourne Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -96,76 +99,76 @@ public abstract class ToStringStyle implements Serializable {
     /**
      * Whether to use the field names 'true'
      */
-    protected boolean useFieldNames = true;
+    private boolean useFieldNames = true;
     /**
      * Whether to use the class name 'true'
      */
-    protected boolean useClassName = true;
+    private boolean useClassName = true;
     /**
      * Whether to use short class names 'false'
      */
-    protected boolean useShortClassName = false;
+    private boolean useShortClassName = false;
     /**
      * Whether to use the identity hash code 'true'
      */
-    protected boolean useIdentityHashCode = true;
+    private boolean useIdentityHashCode = true;
     
     /**
      * The content start '['
      */
-    protected String contentStart = "[";
+    private String contentStart = "[";
     /**
      * The content end ']'
      */
-    protected String contentEnd = "]";
+    private String contentEnd = "]";
     /**
      * The field name value separator '='
      */
-    protected String fieldNameValueSeparator = "=";
+    private String fieldNameValueSeparator = "=";
     /**
      * The field separator ','
      */
-    protected String fieldSeparator = ",";
+    private String fieldSeparator = ",";
     /**
      * The array start '{'
      */
-    protected String arrayStart = "{";
+    private String arrayStart = "{";
     /**
      * The array separator ','
      */
-    protected String arraySeparator = ",";
+    private String arraySeparator = ",";
     /**
      * The detail for array content
      */
-    protected boolean arrayContentDetail = true;
+    private boolean arrayContentDetail = true;
     /**
      * The array end '}'
      */
-    protected String arrayEnd = "}";
+    private String arrayEnd = "}";
     /**
      * The value to use when fullDetail is null 'true'
      */
-    protected boolean defaultFullDetail = true;
+    private boolean defaultFullDetail = true;
     /**
      * The null text '<null>'
      */
-    protected String nullText = "<null>";
+    private String nullText = "<null>";
     /**
      * The summary size text start '<size'
      */
-    protected String sizeStartText = "<size=";
+    private String sizeStartText = "<size=";
     /**
      * The summary size text start '>'
      */
-    protected String sizeEndText = ">";
+    private String sizeEndText = ">";
     /**
      * The summary object text start '<'
      */
-    protected String summaryObjectStartText = "<";
+    private String summaryObjectStartText = "<";
     /**
      * The summary object text start '>'
      */
-    protected String summaryObjectEndText = ">";
+    private String summaryObjectEndText = ">";
     
     //----------------------------------------------------------------------------
     
@@ -226,6 +229,10 @@ public abstract class ToStringStyle implements Serializable {
     
     /**
      * Append to the toString an Object, correctly interpretting its type.
+     * <p>
+     * This method performs the main lookup by Class type to correctly route
+     * arrays, collections, maps and objects to the appropriate method. Either
+     * detail or summary views can be specified.
      *
      * @param buffer  the StringBuffer to populate
      * @param fieldName  the field name, typically not used as already appended
@@ -1171,6 +1178,10 @@ public abstract class ToStringStyle implements Serializable {
     
     /**
      * Append to the toString a size summary.
+     * <p>
+     * The size summary is used to summarize the contents of collections, maps 
+     * and arrays. The text output is a prefix, the size (passed in) and a suffix.
+     * The default format is '&lt;size=n&gt;'.
      *
      * @param buffer  the StringBuffer to populate
      * @param fieldName  the field name, typically not used as already appended
@@ -1184,6 +1195,11 @@ public abstract class ToStringStyle implements Serializable {
 
     /**
      * Is this field to be output in full detail.
+     * <p>
+     * This method converts a detail request into a detail level. The calling code
+     * may request full detail (true), but a subclass might ignore that and always 
+     * return false. The calling code may pass in null indicating that it doesn't
+     * care about the detail level. In this case the default detail level is used.
      * 
      * @param fullDetail  the detail level requested
      * @return whether full detail is to be shown
@@ -1197,6 +1213,8 @@ public abstract class ToStringStyle implements Serializable {
     
     /**
      * Gets the short class name for a class.
+     * <p>
+     * The short class name is the name excluding the package name.
      *
      * @param cls  the class to get the short name of
      * @return the short name
@@ -1210,6 +1228,391 @@ public abstract class ToStringStyle implements Serializable {
         return name.substring(pos + 1);
     }
 
+    // Setters and getters for the customizable parts of the style
+    // These methods are not expected to be overridden, except to make public
+    // (They are not public so that immutable subclasses can be written)
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets whether to use the class name.
+     * @return the current useClassName flag
+     */
+    protected boolean isUseClassName() {
+        return useClassName;
+    }
+
+    /**
+     * Sets whether to use the class name.
+     * @param useClassName  the new useClassName flag
+     */
+    protected void setUseClassName(boolean useClassName) {
+        this.useClassName = useClassName;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets whether to output short or long class names.
+     * @return the current shortClassName flag
+     */
+    protected boolean isShortClassName() {
+        return useShortClassName;
+    }
+
+    /**
+     * Sets whether to output short or long class names.
+     * @param shortClassName  the new shortClassName flag
+     */
+    protected void setShortClassName(boolean shortClassName) {
+        this.useShortClassName = shortClassName;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets whether to use the identity hash code.
+     * @return the current useIdentityHashCode flag
+     */
+    protected boolean isUseIdentityHashCode() {
+        return useIdentityHashCode;
+    }
+
+    /**
+     * Sets whether to use the identity hash code.
+     * @param useFieldNames  the new useIdentityHashCode flag
+     */
+    protected void setUseIdentityHashCode(boolean useIdentityHashCode) {
+        this.useIdentityHashCode = useIdentityHashCode;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets whether to use the field names passed in.
+     * @return the current useFieldNames flag
+     */
+    protected boolean isUseFieldNames() {
+        return useFieldNames;
+    }
+
+    /**
+     * Sets whether to use the field names passed in.
+     * @param useFieldNames  the new useFieldNames flag
+     */
+    protected void setUseFieldNames(boolean useFieldNames) {
+        this.useFieldNames = useFieldNames;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets whether to use full detail when the caller doesn't specify.
+     * @return the current defaultFullDetail flag
+     */
+    protected boolean isDefaultFullDetail() {
+        return defaultFullDetail;
+    }
+
+    /**
+     * Sets whether to use full detail when the caller doesn't specify.
+     * @param defaultFullDetail  the new defaultFullDetail flag
+     */
+    protected void setDefaultFullDetail(boolean defaultFullDetail) {
+        this.defaultFullDetail = defaultFullDetail;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets whether to output array content detail.
+     * @return the current array content detail setting
+     */
+    protected boolean isArrayContentDetail() {
+        return arrayContentDetail;
+    }
+    
+    /**
+     * Sets whether to output array content detail.
+     * @param arrayContentDetail  the new arrayContentDetail flag
+     */
+    protected void setArrayContentDetail(boolean arrayContentDetail) {
+        this.arrayContentDetail = arrayContentDetail;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the array start text.
+     * @return the current array start text
+     */
+    protected String getArrayStart() {
+        return arrayStart;
+    }
+
+    /**
+     * Sets the array start text.
+     * Null is accepted, but will be converted to a blank string.
+     * @param arrayStart  the new array start text
+     */
+    protected void setArrayStart(String arrayStart) {
+        if (arrayStart == null) {
+            arrayStart = "";
+        }
+        this.arrayStart = arrayStart;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the array end text.
+     * @return the current array end text
+     */
+    protected String getArrayEnd() {
+        return arrayEnd;
+    }
+
+    /**
+     * Sets the array end text.
+     * Null is accepted, but will be converted to a blank string.
+     * @param arrayEnd  the new array end text
+     */
+    protected void setArrayEnd(String arrayEnd) {
+        if (arrayStart == null) {
+            arrayStart = "";
+        }
+        this.arrayEnd = arrayEnd;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the array separator text.
+     * @return the current array separator text
+     */
+    protected String getArraySeparator() {
+        return arraySeparator;
+    }
+
+    /**
+     * Sets the array separator text.
+     * Null is accepted, but will be converted to a blank string.
+     * @param arraySeparator  the new array separator text
+     */
+    protected void setArraySeparator(String arraySeparator) {
+        if (arraySeparator == null) {
+            arraySeparator = "";
+        }
+        this.arraySeparator = arraySeparator;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the content start text.
+     * @return the current content start text
+     */
+    protected String getContentStart() {
+        return contentStart;
+    }
+
+    /**
+     * Sets the content start text.
+     * Null is accepted, but will be converted to a blank string.
+     * @param contentStart  the new content start text
+     */
+    protected void setContentStart(String contentStart) {
+        if (contentStart == null) {
+            contentStart = "";
+        }
+        this.contentStart = contentStart;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the content end text.
+     * @return the current content end text
+     */
+    protected String getContentEnd() {
+        return contentEnd;
+    }
+
+    /**
+     * Sets the content end text.
+     * Null is accepted, but will be converted to a blank string.
+     * @param contentEnd  the new content end text
+     */
+    protected void setContentEnd(String contentEnd) {
+        if (contentEnd == null) {
+            contentEnd = "";
+        }
+        this.contentEnd = contentEnd;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the field name value separator text.
+     * @return the current field name value separator text
+     */
+    protected String getFieldNameValueSeparator() {
+        return fieldNameValueSeparator;
+    }
+
+    /**
+     * Sets the field name value separator text.
+     * Null is accepted, but will be converted to a blank string.
+     * @param fieldNameValueSeparator  the new field name value separator text
+     */
+    protected void setFieldNameValueSeparator(String fieldNameValueSeparator) {
+        if (fieldNameValueSeparator == null) {
+            fieldNameValueSeparator = "";
+        }
+        this.fieldNameValueSeparator = fieldNameValueSeparator;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the field separator text.
+     * @return the current field separator text
+     */
+    protected String getFieldSeparator() {
+        return fieldSeparator;
+    }
+
+    /**
+     * Sets the field separator text.
+     * Null is accepted, but will be converted to a blank string.
+     * @param fieldSeparator  the new field separator text
+     */
+    protected void setFieldSeparator(String fieldSeparator) {
+        if (fieldSeparator == null) {
+            fieldSeparator = "";
+        }
+        this.fieldSeparator = fieldSeparator;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the text to output when null found.
+     * @return the current text to output when null found
+     */
+    protected String getNullText() {
+        return nullText;
+    }
+
+    /**
+     * Sets the text to output when null found.
+     * Null is accepted, but will be converted to a blank string.
+     * @param nullText  the new text to output when null found
+     */
+    protected void setNullText(String nullText) {
+        if (nullText == null) {
+            nullText = "";
+        }
+        this.nullText = nullText;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the text to output when a Collection, Map or Array size is output.
+     * This is output before the size value.
+     * @return the current start of size text
+     */
+    protected String getSizeStartText() {
+        return sizeStartText;
+    }
+
+    /**
+     * Sets the text to output when a Collection, Map or Array size is output.
+     * This is output before the size value.
+     * Null is accepted, but will be converted to a blank string.
+     * @param sizeStartText  the new start of size text
+     */
+    protected void setSizeStartText(String sizeStartText) {
+        if (sizeStartText == null) {
+            sizeStartText = "";
+        }
+        this.sizeStartText = sizeStartText;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the text to output when a Collection, Map or Array size is output.
+     * This is output after the size value.
+     * @return the current end of size text
+     */
+    protected String getSizeEndText() {
+        return sizeEndText;
+    }
+
+    /**
+     * Sets the text to output when a Collection, Map or Array size is output.
+     * This is output after the size value.
+     * Null is accepted, but will be converted to a blank string.
+     * @param sizeEndText  the new end of size text
+     */
+    protected void setSizeEndText(String sizeEndText) {
+        if (sizeEndText == null) {
+            sizeEndText = "";
+        }
+        this.sizeEndText = sizeEndText;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the text to output when an Object is output in summary mode.
+     * This is output before the size value.
+     * @return the current start of summary text
+     */
+    protected String getSummaryObjectStartText() {
+        return summaryObjectStartText;
+    }
+
+    /**
+     * Sets the text to output when an Object is output in summary mode.
+     * This is output before the size value.
+     * Null is accepted, but will be converted to a blank string.
+     * @param summaryObjectStartText  the new start of summary text
+     */
+    protected void setSummaryObjectStartText(String summaryObjectStartText) {
+        if (summaryObjectStartText == null) {
+            summaryObjectStartText = "";
+        }
+        this.summaryObjectStartText = summaryObjectStartText;
+    }
+
+    //---------------------------------------------------------------------
+    
+    /**
+     * Gets the text to output when an Object is output in summary mode.
+     * This is output after the size value.
+     * @return the current end of summary text
+     */
+    protected String getSummaryObjectEndText() {
+        return summaryObjectEndText;
+    }
+
+    /**
+     * Sets the text to output when an Object is output in summary mode.
+     * This is output after the size value.
+     * Null is accepted, but will be converted to a blank string.
+     * @param summaryObjectEndText  the new end of summary text
+     */
+    protected void setSummaryObjectEndText(String summaryObjectEndText) {
+        if (summaryObjectEndText == null) {
+            summaryObjectEndText = "";
+        }
+        this.summaryObjectEndText = summaryObjectEndText;
+    }
+
+    //---------------------------------------------------------------------
+    
     //----------------------------------------------------------------------------
     
     /**
@@ -1217,7 +1620,7 @@ public abstract class ToStringStyle implements Serializable {
      * This is an inner class rather than using StandardToStringStyle to
      * ensure its immutability.
      */
-    private static class DefaultToStringStyle extends ToStringStyle {
+    private static final class DefaultToStringStyle extends ToStringStyle {
         
         /**
          * Constructor - use the static constant rather than instantiating.
@@ -1242,14 +1645,14 @@ public abstract class ToStringStyle implements Serializable {
      * This is an inner class rather than using StandardToStringStyle to
      * ensure its immutability.
      */
-    private static class NoFieldNameToStringStyle extends ToStringStyle {
+    private static final class NoFieldNameToStringStyle extends ToStringStyle {
         
         /**
          * Constructor - use the static constant rather than instantiating.
          */
         private NoFieldNameToStringStyle() {
             super();
-            useFieldNames = false;
+            setUseFieldNames(false);
         }
         
         /**
@@ -1269,18 +1672,18 @@ public abstract class ToStringStyle implements Serializable {
      * This is an inner class rather than using StandardToStringStyle to
      * ensure its immutability.
      */
-    private static class SimpleToStringStyle extends ToStringStyle {
+    private static final class SimpleToStringStyle extends ToStringStyle {
         
         /**
          * Constructor - use the static constant rather than instantiating.
          */
         private SimpleToStringStyle() {
             super();
-            useClassName = false;
-            useIdentityHashCode = false;
-            useFieldNames = false;
-            contentStart = "";
-            contentEnd = "";
+            setUseClassName(false);
+            setUseIdentityHashCode(false);
+            setUseFieldNames(false);
+            setContentStart("");
+            setContentEnd("");
         }
         
         /**
@@ -1299,16 +1702,16 @@ public abstract class ToStringStyle implements Serializable {
      * This is an inner class rather than using StandardToStringStyle to
      * ensure its immutability.
      */
-    private static class MultiLineToStringStyle extends ToStringStyle {
+    private static final class MultiLineToStringStyle extends ToStringStyle {
 
         /**
          * Constructor - use the static constant rather than instantiating.
          */
         private MultiLineToStringStyle() {
             super();
-            contentStart = "[" + SystemUtils.LINE_SEPARATOR + "  ";
-            fieldSeparator = SystemUtils.LINE_SEPARATOR + "  ";
-            contentEnd = SystemUtils.LINE_SEPARATOR + "]";
+            setContentStart("[" + SystemUtils.LINE_SEPARATOR + "  ");
+            setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
+            setContentEnd(SystemUtils.LINE_SEPARATOR + "]");
         }
         
         /**
