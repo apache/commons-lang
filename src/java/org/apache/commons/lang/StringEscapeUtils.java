@@ -55,6 +55,7 @@ package org.apache.commons.lang;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.io.PrintWriter;
 
 import org.apache.commons.lang.exception.NestableRuntimeException;
 
@@ -74,7 +75,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.12 2003/05/24 04:35:06 alex Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.13 2003/06/29 03:03:15 alex Exp $
  */
 public class StringEscapeUtils {
 
@@ -368,6 +369,12 @@ public class StringEscapeUtils {
     }
 
     /**
+     * Unescapes any JavaScript literals found in the <code>String</code>.
+     * For example, it will turn a sequence of '\' and 'n' into a newline character,
+     * unless the '\' is preceded by another '\'.
+     *
+     * @param str The <code>String</code> to unescape.
+     * @return A new unescaped <code>String</code>.
      * @see #unescapeJava(String)
      */
     public static String unescapeJavaScript(String str) {
@@ -375,6 +382,13 @@ public class StringEscapeUtils {
     }
 
     /**
+     * Unescapes any JavaScript literals found in the <code>String</code> to a <code>Writer</code>.
+     * For example, it will turn a sequence of '\' and 'n' into a newline character,
+     * unless the '\' is preceded by another '\'.
+     *
+     * @param out The <code>Writer</code> used to output unescaped characters.
+     * @param str The <code>String</code> to unescape.
+
      * @see #unescapeJava(Writer,String)
      */
     public static void unescapeJavaScript(Writer out, String str) throws IOException {
@@ -404,7 +418,9 @@ public class StringEscapeUtils {
      * @see </br><a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
      **/
     public static String escapeHtml(String str) {
-        return escapeEntities(str, Entities.HTML40);
+        //todo: add a version that takes a Writer
+        //todo: rewrite underlying method to use a Writer instead of a StringBuffer
+        return Entities.HTML40.escape(str);
     }
 
     /**
@@ -422,7 +438,7 @@ public class StringEscapeUtils {
      * @see #escapeHtml(String)
      **/
     public static String unescapeHtml(String str) {
-        return unescapeEntities(str, Entities.HTML40);
+        return Entities.HTML40.unescape(str);
     }
 
     /**
@@ -440,7 +456,7 @@ public class StringEscapeUtils {
      * @see #unescapeXml(java.lang.String)
      **/
     public static String escapeXml(String str) {
-        return escapeEntities(str, Entities.XML);
+        return Entities.XML.escape(str);
     }
 
     /**
@@ -458,15 +474,22 @@ public class StringEscapeUtils {
      * @see #escapeXml(String)
      **/
     public static String unescapeXml(String str) {
-        return unescapeEntities(str, Entities.XML);
+        return Entities.XML.unescape(str);
     }
 
-    private static String escapeEntities(String str, Entities entities) {
-        return entities.escape(str);
-    }
-
-    private static String unescapeEntities(String str, Entities entities) {
-        return entities.unescape(str);
+    /**
+     * Escapes the characters in a <code>String</code> to be suitable to pass to
+     * an SQL query.  For example,
+     * <code>statement.executeQuery("SELECT * FROM MOVIES WHERE TITLE='" + StringEscapeUtils.escapeSql("McHale's Navy") + "'");</code>
+     * Presently, this method only turns single-quotes into doubled single-quotes.
+     * It does not handle the cases of percent (%) or underscore (_) for use in LIKE clauses.
+     * see http://www.jguru.com/faq/view.jsp?EID=8881
+     * @param s
+     * @return
+     */
+    public static String escapeSql(String s)
+    {
+        return StringUtils.replace(s, "'", "''");
     }
 
 }
