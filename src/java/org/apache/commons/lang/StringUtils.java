@@ -99,7 +99,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.62 2003/07/18 02:06:24 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.63 2003/07/18 23:57:43 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1967,18 +1967,31 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        if (padStr == null || padStr.length() == 0) {
+        int padLen;
+        if (padStr == null || (padLen = padStr.length()) == 0) {
             throw new IllegalArgumentException("Pad String must not be null or empty");
         }
-        if (padStr.length() == 1 && size - str.length() <= PAD_LIMIT) {
-           return rightPad(str, size, padStr.charAt(0));
+        int strLen = str.length();
+        int pads = size - strLen;
+        if (padLen == 1 && pads <= PAD_LIMIT) {
+            return rightPad(str, size, padStr.charAt(0));
         }
-
-        size = (size - str.length()) / padStr.length();
-        if (size > 0) {
-            str += repeat(padStr, size);
+        
+        if (pads <= 0) {
+            return str; // returns original String when possible
         }
-        return str;
+        if (pads == padLen) {
+            return str.concat(padStr);
+        } else if (pads < padLen) {
+            return str.concat(padStr.substring(0, pads));
+        } else {
+            char[] padding = new char[pads];
+            char[] padChars = padStr.toCharArray();
+            for (int i = 0; i < pads; i++) {
+                padding[i] = padChars[i % padLen];
+            }
+            return str.concat(new String(padding));
+        }
     }
 
     /**
@@ -2041,7 +2054,7 @@ public class StringUtils {
             return str; // returns original String when possible
         }
         if (pads > PAD_LIMIT) {
-            return leftPad(str, size, ' ');
+            return leftPad(str, size, String.valueOf(padChar));
         }
         return padding(pads, padChar).concat(str);
     }
@@ -2073,17 +2086,31 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        if (padStr == null || padStr.length() == 0) {
+        int padLen;
+        if (padStr == null || (padLen = padStr.length()) == 0) {
             throw new IllegalArgumentException("Pad String must not be null or empty");
         }
-        if (padStr.length() == 1 && size - str.length() <= PAD_LIMIT) {
+        int strLen = str.length();
+        int pads = size - strLen;
+        if (padLen == 1 && pads <= PAD_LIMIT) {
             return leftPad(str, size, padStr.charAt(0));
         }
-        size = (size - str.length()) / padStr.length();
-        if (size > 0) {
-            str = repeat(padStr, size) + str;
+        
+        if (pads <= 0) {
+            return str; // returns original String when possible
         }
-        return str;
+        if (pads == padLen) {
+            return padStr.concat(str);
+        } else if (pads < padLen) {
+            return padStr.substring(0, pads).concat(str);
+        } else {
+            char[] padding = new char[pads];
+            char[] padChars = padStr.toCharArray();
+            for (int i = 0; i < pads; i++) {
+                padding[i] = padChars[i % padLen];
+            }
+            return new String(padding).concat(str);
+        }
     }
 
     // Centering

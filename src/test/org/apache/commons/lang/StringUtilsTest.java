@@ -71,7 +71,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.26 2003/07/18 02:06:23 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.27 2003/07/18 23:57:43 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -315,6 +315,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals(" ab ", StringUtils.center("ab", 4));
         assertEquals("abcd", StringUtils.center("abcd", 2));
         assertEquals(" a  ", StringUtils.center("a", 4));
+        assertEquals("  a  ", StringUtils.center("a", 5));
 
         assertEquals(null, StringUtils.center(null, -1, " "));
         assertEquals(null, StringUtils.center(null, 4, " "));
@@ -323,6 +324,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals("abcd", StringUtils.center("abcd", 2, " "));
         assertEquals(" a  ", StringUtils.center("a", 4, " "));
         assertEquals("yayz", StringUtils.center("a", 4, "yz"));
+        assertEquals("yzyayzy", StringUtils.center("a", 7, "yz"));
         try {
             StringUtils.center("abc", 4, null);
             fail();
