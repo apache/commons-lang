@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.91 2003/08/01 23:58:30 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.92 2003/08/13 21:32:10 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -162,6 +162,11 @@ public class StringUtils {
     // Append:
     // String.concat about twice as fast as StringBuffer.append
     // (not sure who tested this)
+    
+    /**
+     * The empty String <code>""</code>.
+     */
+    public static final String EMPTY = "";
     
     /**
      * <p>The maximum size to which the padding constant(s) can expand.</p>
@@ -310,7 +315,7 @@ public class StringUtils {
      *             Method will be removed in Commons Lang 3.0.
      */
     public static String clean(String str) {
-        return (str == null ? "" : str.trim());
+        return (str == null ? EMPTY : str.trim());
     }
 
     /**
@@ -387,7 +392,7 @@ public class StringUtils {
      * @return the trimmed String, or an empty String if <code>null</code> input
      */
     public static String trimToEmpty(String str) {
-        return (str == null ? "" : str.trim());
+        return (str == null ? EMPTY : str.trim());
     }
     
     // Stripping
@@ -470,7 +475,7 @@ public class StringUtils {
      * @return the trimmed String, or an empty String if <code>null</code> input
      */
     public static String stripToEmpty(String str) {
-        return (str == null ? "" : strip(str, null));
+        return (str == null ? EMPTY : strip(str, null));
     }
     
     /**
@@ -1423,7 +1428,7 @@ public class StringUtils {
             start = 0;
         }
         if (start > str.length()) {
-            return "";
+            return EMPTY;
         }
 
         return str.substring(start);
@@ -1484,7 +1489,7 @@ public class StringUtils {
 
         // if start is greater than end, return ""
         if (start > end) {
-            return "";
+            return EMPTY;
         }
 
         if (start < 0) {
@@ -1524,7 +1529,7 @@ public class StringUtils {
             return null;
         }
         if (len < 0) {
-            return "";
+            return EMPTY;
         }
         if (str.length() <= len) {
             return str;
@@ -1558,7 +1563,7 @@ public class StringUtils {
             return null;
         }
         if (len < 0) {
-            return "";
+            return EMPTY;
         }
         if (str.length() <= len) {
             return str;
@@ -1596,7 +1601,7 @@ public class StringUtils {
             return null;
         }
         if (len < 0 || pos > str.length()) {
-            return "";
+            return EMPTY;
         }
         if (pos < 0) {
             pos = 0;
@@ -1639,7 +1644,7 @@ public class StringUtils {
             return str;
         }
         if (separator.length() == 0) {
-            return "";
+            return EMPTY;
         }
         int pos = str.indexOf(separator);
         if (pos == -1) {
@@ -1678,11 +1683,11 @@ public class StringUtils {
             return str;
         }
         if (separator == null) {
-            return "";
+            return EMPTY;
         }
         int pos = str.indexOf(separator);
         if (pos == -1) {
-            return "";
+            return EMPTY;
         }
         return str.substring(pos + separator.length());
     }
@@ -1753,11 +1758,11 @@ public class StringUtils {
             return str;
         }
         if (separator == null || separator.length() == 0) {
-            return "";
+            return EMPTY;
         }
         int pos = str.lastIndexOf(separator);
         if (pos == -1 || pos == (str.length() - separator.length())) {
-            return "";
+            return EMPTY;
         }
         return str.substring(pos + separator.length());
     }
@@ -2210,7 +2215,7 @@ public class StringUtils {
             return null;
         }
         if (separator == null) {
-            separator = "";
+            separator = EMPTY;
         }
         int arraySize = array.length;
 
@@ -2624,7 +2629,7 @@ public class StringUtils {
             return null;
         }
         if (overlay == null) {
-            overlay = "";
+            overlay = EMPTY;
         }
         int len = str.length();
         if (start < 0) {
@@ -2686,7 +2691,7 @@ public class StringUtils {
         if (str.length() == 1) {
             char ch = str.charAt(0);
             if (ch == '\r' || ch == '\n') {
-                return "";
+                return EMPTY;
             } else {
                 return str;
             }
@@ -2798,7 +2803,7 @@ public class StringUtils {
         } else if (idx != -1) {
             return str.substring(idx);
         } else {
-            return "";
+            return EMPTY;
         }
     }
 
@@ -2839,7 +2844,7 @@ public class StringUtils {
         if (idx != -1) {
             return str.substring(0, idx + sep.length());
         } else {
-            return "";
+            return EMPTY;
         }
     }
 
@@ -2874,7 +2879,7 @@ public class StringUtils {
         }
         int strLen = str.length();
         if (strLen < 2) {
-            return "";
+            return EMPTY;
         }
         int lastIdx = strLen - 1;
         String ret = str.substring(0, lastIdx);
@@ -2900,7 +2905,7 @@ public class StringUtils {
     public static String chopNewline(String str) {
         int lastIdx = str.length() - 1;
         if (lastIdx <= 0) {
-            return "";
+            return EMPTY;
         }
         char last = str.charAt(lastIdx);
         if (last == '\n') {
@@ -2963,7 +2968,7 @@ public class StringUtils {
             return null;
         }
         if (repeat <= 0) {
-            return "";
+            return EMPTY;
         }
         int inputLength = str.length();
         if (repeat == 1 || inputLength == 0) {
@@ -3877,7 +3882,7 @@ public class StringUtils {
      *  was <code>null</code>
      */
     public static String defaultString(String str) {
-        return (str == null ? "" : str);
+        return (str == null ? EMPTY : str);
     }
 
     /**
@@ -4121,7 +4126,7 @@ public class StringUtils {
         }
         int at = differenceAt(str1, str2);
         if (at == -1) {
-            return "";
+            return EMPTY;
         }
         return str2.substring(at);
     }
