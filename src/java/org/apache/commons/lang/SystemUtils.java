@@ -68,7 +68,7 @@ package org.apache.commons.lang;
  * @author Michael Becke
  * @author Tetsuya Kaneuchi
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.22 2003/08/22 03:06:36 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.23 2003/08/22 16:34:06 ggregory Exp $
  */
 public class SystemUtils {
 
@@ -853,8 +853,8 @@ public class SystemUtils {
      *
      * <p>Example input:</p>
      * <ul>
-     *  <li><code>1.2f</code> to test for JDK 1.2
-     *  <li><code>1.31f</code> to test for JDK 1.3.1
+     *  <li><code>1.2f</code> to test for JDK 1.2</li>
+     *  <li><code>1.31f</code> to test for JDK 1.3.1</li>
      * </ul>
      * 
      * @param requiredVersion  the required version, for example 1.31f
@@ -870,8 +870,8 @@ public class SystemUtils {
      *
      * <p>Example input:</p>
      * <ul>
-     *  <li><code>120</code> to test for JDK 1.2 or greater
-     *  <li><code>131</code> to test for JDK 1.3.1 or greater
+     *  <li><code>120</code> to test for JDK 1.2 or greater</li>
+     *  <li><code>131</code> to test for JDK 1.3.1 or greater</li>
      * </ul>
      * 
      * @param requiredVersion  the required version, for example 131
