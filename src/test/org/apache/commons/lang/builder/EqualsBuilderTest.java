@@ -62,7 +62,8 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EqualsBuilderTest.java,v 1.3 2003/01/19 17:35:20 scolebourne Exp $
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @version $Id: EqualsBuilderTest.java,v 1.4 2003/03/20 05:41:23 ggregory Exp $
  */
 public class EqualsBuilderTest extends TestCase {
 
@@ -720,8 +721,6 @@ public class EqualsBuilderTest extends TestCase {
             array1[i] = new long[2];
             array2[i] = new long[2];
             for (int j = 0; j < 2; ++j) {
-                TestObject obj1 = new TestObject((i + 1) * (j + 1));
-                TestObject obj2 = new TestObject((i + 1) * (j + 1));
                 ((long[]) array1[i])[j] = (i + 1) * (j + 1);
                 ((long[]) array2[i])[j] = (i + 1) * (j + 1);
             }
