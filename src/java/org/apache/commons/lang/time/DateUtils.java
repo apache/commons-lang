@@ -34,7 +34,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.36 2004/10/21 01:18:33 ggregory Exp $
+ * @version $Id$
  */
 public class DateUtils {
     
@@ -74,7 +74,9 @@ public class DateUtils {
             {Calendar.SECOND},
             {Calendar.MINUTE},
             {Calendar.HOUR_OF_DAY, Calendar.HOUR},
-            {Calendar.DATE, Calendar.DAY_OF_MONTH, Calendar.AM_PM /* Calendar.DAY_OF_YEAR, Calendar.DAY_OF_WEEK, Calendar.DAY_OF_WEEK_IN_MONTH */},
+            {Calendar.DATE, Calendar.DAY_OF_MONTH, Calendar.AM_PM 
+                /* Calendar.DAY_OF_YEAR, Calendar.DAY_OF_WEEK, Calendar.DAY_OF_WEEK_IN_MONTH */
+            },
             {Calendar.MONTH, DateUtils.SEMI_MONTH},
             {Calendar.YEAR},
             {Calendar.ERA}};
@@ -720,6 +722,12 @@ public class DateUtils {
         private final Calendar endFinal;
         private final Calendar spot;
         
+        /**
+         * Constructs a DateIterator that ranges from one date to another. 
+         *
+         * @param startFinal start date (inclusive)
+         * @param endFinal end date (not inclusive)
+         */
         DateIterator(Calendar startFinal, Calendar endFinal) {
             super();
             this.endFinal = endFinal;
@@ -727,10 +735,20 @@ public class DateUtils {
             spot.add(Calendar.DATE, -1);
         }
 
+        /**
+         * Has the iterator not reached the end date yet?
+         *
+         * @return <code>true</code> if the iterator has yet to reach the end date
+         */
         public boolean hasNext() {
             return spot.before(endFinal);
         }
 
+        /**
+         * Return the next calendar in the iteration
+         *
+         * @return Object calendar for the next date
+         */
         public Object next() {
             if (spot.equals(endFinal)) {
                 throw new NoSuchElementException();
