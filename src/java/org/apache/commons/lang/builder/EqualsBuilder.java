@@ -82,6 +82,7 @@ import java.lang.reflect.Modifier;
  *   }
  *  MyClass rhs = (MyClass) o;
  *  return new EqualsBuilder()
+ *                 .appendSuper(super.equals(o))
  *                 .append(field1, rhs.field1)
  *                 .append(field2, rhs.field2)
  *                 .append(field3, rhs.field3)
@@ -105,7 +106,7 @@ import java.lang.reflect.Modifier;
  * 
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EqualsBuilder.java,v 1.6 2002/11/17 21:46:42 scolebourne Exp $
+ * @version $Id: EqualsBuilder.java,v 1.7 2002/12/08 21:10:42 scolebourne Exp $
  */
 public class EqualsBuilder {
     /**
@@ -198,6 +199,22 @@ public class EqualsBuilder {
         return equalsBuilder.isEquals();
     }
 
+    //-------------------------------------------------------------------------
+    
+    /**
+     * <p>Adds the result of super.equals() to this builder.</p>
+     *
+     * @param superEquals  the result of calling <code>super.equals()</code>
+     * @return EqualsBuilder - used to chain calls.
+     */
+    public EqualsBuilder appendSuper(boolean superEquals) {
+        if (isEquals == false) {
+            return this;
+        }
+        isEquals = superEquals;
+        return this;
+    }
+    
     //-------------------------------------------------------------------------
     
     /**
