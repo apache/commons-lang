@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
  * Tests ArrayUtils add methods.
  * 
  * @author Gary D. Gregory
- * @version $Id: ArrayUtilsAddTest.java,v 1.4 2004/10/09 11:55:51 scolebourne Exp $
+ * @version $Id: ArrayUtilsAddTest.java,v 1.5 2005/01/22 04:22:12 bayard Exp $
  */
 public class ArrayUtilsAddTest extends TestCase {
     public static void main(String[] args) {
@@ -285,6 +285,88 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals("2", result2[1]);
         assertEquals("4", result2[2]);
         assertEquals("5", result2[3]);
+
+        // boolean tests
+        boolean[] booleanArray = ArrayUtils.add( null, 0, true );
+        assertTrue( Arrays.equals( new boolean[] { true }, booleanArray ) );
+        booleanArray = ArrayUtils.add( new boolean[] { true }, 0, false);
+        assertTrue( Arrays.equals( new boolean[] { false, true }, booleanArray ) );
+        booleanArray = ArrayUtils.add( new boolean[] { false }, 1, true);
+        assertTrue( Arrays.equals( new boolean[] { false, true }, booleanArray ) );
+        booleanArray = ArrayUtils.add( new boolean[] { true, false }, 1, true);
+        assertTrue( Arrays.equals( new boolean[] { true, true, false }, booleanArray ) );
+
+        // char tests
+        char[] charArray = ArrayUtils.add( (char[]) null, 0, 'a' );
+        assertTrue( Arrays.equals( new char[] { 'a' }, charArray ) );
+        charArray = ArrayUtils.add( new char[] { 'a' }, 0, 'b');
+        assertTrue( Arrays.equals( new char[] { 'b', 'a' }, charArray ) );
+        charArray = ArrayUtils.add( new char[] { 'a', 'b' }, 0, 'c');
+        assertTrue( Arrays.equals( new char[] { 'c', 'a', 'b' }, charArray ) );
+        charArray = ArrayUtils.add( new char[] { 'a', 'b' }, 1, 'k');
+        assertTrue( Arrays.equals( new char[] { 'a', 'k', 'b' }, charArray ) );
+        charArray = ArrayUtils.add( new char[] { 'a', 'b', 'c' }, 1, 't');
+        assertTrue( Arrays.equals( new char[] { 'a', 't', 'b', 'c' }, charArray ) );
+
+        // short tests
+        short[] shortArray = ArrayUtils.add( new short[] { 1 }, 0, (short) 2);
+        assertTrue( Arrays.equals( new short[] { 2, 1 }, shortArray ) );
+        shortArray = ArrayUtils.add( new short[] { 2, 6 }, 2, (short) 10);
+        assertTrue( Arrays.equals( new short[] { 2, 6, 10 }, shortArray ) );
+        shortArray = ArrayUtils.add( new short[] { 2, 6 }, 0, (short) -4);
+        assertTrue( Arrays.equals( new short[] { -4, 2, 6 }, shortArray ) );
+        shortArray = ArrayUtils.add( new short[] { 2, 6, 3 }, 2, (short) 1);
+        assertTrue( Arrays.equals( new short[] { 2, 6, 1, 3 }, shortArray ) );
+
+        // byte tests
+        byte[] byteArray = ArrayUtils.add( new byte[] { 1 }, 0, (byte) 2);
+        assertTrue( Arrays.equals( new byte[] { 2, 1 }, byteArray ) );
+        byteArray = ArrayUtils.add( new byte[] { 2, 6 }, 2, (byte) 3);
+        assertTrue( Arrays.equals( new byte[] { 2, 6, 3 }, byteArray ) );
+        byteArray = ArrayUtils.add( new byte[] { 2, 6 }, 0, (byte) 1);
+        assertTrue( Arrays.equals( new byte[] { 1, 2, 6 }, byteArray ) );
+        byteArray = ArrayUtils.add( new byte[] { 2, 6, 3 }, 2, (byte) 1);
+        assertTrue( Arrays.equals( new byte[] { 2, 6, 1, 3 }, byteArray ) );
+
+        // int tests
+        int[] intArray = ArrayUtils.add( new int[] { 1 }, 0, 2);
+        assertTrue( Arrays.equals( new int[] { 2, 1 }, intArray ) );
+        intArray = ArrayUtils.add( new int[] { 2, 6 }, 2, 10);
+        assertTrue( Arrays.equals( new int[] { 2, 6, 10 }, intArray ) );
+        intArray = ArrayUtils.add( new int[] { 2, 6 }, 0, -4);
+        assertTrue( Arrays.equals( new int[] { -4, 2, 6 }, intArray ) );
+        intArray = ArrayUtils.add( new int[] { 2, 6, 3 }, 2, 1);
+        assertTrue( Arrays.equals( new int[] { 2, 6, 1, 3 }, intArray ) );
+
+        // long tests
+        long[] longArray = ArrayUtils.add( new long[] { 1L }, 0, 2L);
+        assertTrue( Arrays.equals( new long[] { 2L, 1L }, longArray ) );
+        longArray = ArrayUtils.add( new long[] { 2L, 6L }, 2, 10L);
+        assertTrue( Arrays.equals( new long[] { 2L, 6L, 10L }, longArray ) );
+        longArray = ArrayUtils.add( new long[] { 2L, 6L }, 0, -4L);
+        assertTrue( Arrays.equals( new long[] { -4L, 2L, 6L }, longArray ) );
+        longArray = ArrayUtils.add( new long[] { 2L, 6L, 3L }, 2, 1L);
+        assertTrue( Arrays.equals( new long[] { 2L, 6L, 1L, 3L }, longArray ) );
+
+        // float tests
+        float[] floatArray = ArrayUtils.add( new float[] { 1.1f }, 0, 2.2f);
+        assertTrue( Arrays.equals( new float[] { 2.2f, 1.1f }, floatArray ) );
+        floatArray = ArrayUtils.add( new float[] { 2.3f, 6.4f }, 2, 10.5f);
+        assertTrue( Arrays.equals( new float[] { 2.3f, 6.4f, 10.5f }, floatArray ) );
+        floatArray = ArrayUtils.add( new float[] { 2.6f, 6.7f }, 0, -4.8f);
+        assertTrue( Arrays.equals( new float[] { -4.8f, 2.6f, 6.7f }, floatArray ) );
+        floatArray = ArrayUtils.add( new float[] { 2.9f, 6.0f, 0.3f }, 2, 1.0f);
+        assertTrue( Arrays.equals( new float[] { 2.9f, 6.0f, 1.0f, 0.3f }, floatArray ) );
+
+        // double tests
+        double[] doubleArray = ArrayUtils.add( new double[] { 1.1 }, 0, 2.2);
+        assertTrue( Arrays.equals( new double[] { 2.2, 1.1 }, doubleArray ) );
+        doubleArray = ArrayUtils.add( new double[] { 2.3, 6.4 }, 2, 10.5);
+        assertTrue( Arrays.equals( new double[] { 2.3, 6.4, 10.5 }, doubleArray ) );
+        doubleArray = ArrayUtils.add( new double[] { 2.6, 6.7 }, 0, -4.8);
+        assertTrue( Arrays.equals( new double[] { -4.8, 2.6, 6.7 }, doubleArray ) );
+        doubleArray = ArrayUtils.add( new double[] { 2.9, 6.0, 0.3 }, 2, 1.0);
+        assertTrue( Arrays.equals( new double[] { 2.9, 6.0, 1.0, 0.3 }, doubleArray ) );
     }
     
 }

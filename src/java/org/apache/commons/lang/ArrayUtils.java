@@ -44,7 +44,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Maarten Coene
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.49 2004/10/10 18:56:16 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.50 2005/01/22 04:22:12 bayard Exp $
  */
 public class ArrayUtils {
 
@@ -3191,25 +3191,287 @@ public class ArrayUtils {
      * (index < 0 || index > array.length).
      */
     public static Object[] add(Object[] array, int index, Object element) {
+        Class clss = null;
+        if(array != null) {
+            clss = array.getClass().getComponentType();
+        } else
+        if(element != null) {
+            clss = element.getClass();
+        } else {
+            return new Object[] { null };
+        }
+        return (Object[]) add( (Object) array, index, element, clss );
+    }
+    
+    /**
+     * <p>Inserts the specified element at the specified position in the array. 
+     * Shifts the element currently at that position (if any) and any subsequent
+     * elements to the right (adds one to their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array plus the given element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, 0, true)          = [true]
+     * ArrayUtils.add([true], 0, false)       = [false, true]
+     * ArrayUtils.add([false], 1, true)       = [false, true]
+     * ArrayUtils.add([true, false], 1, true) = [true, true, false]
+     * </pre>
+     * 
+     * @param array  the array to add the element to, may be <code>null</code>
+     * @param index  the position of the new object
+     * @param element  the object to add
+     * @return A new array containing the existing elements and the new element
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index > array.length).
+     */
+    public static boolean[] add(boolean[] array, int index, boolean element) {
+        return (boolean[]) add( (Object) array, index, new Boolean(element), Boolean.TYPE );
+    }
+    
+    /**
+     * <p>Inserts the specified element at the specified position in the array. 
+     * Shifts the element currently at that position (if any) and any subsequent
+     * elements to the right (adds one to their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array plus the given element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, 0, 'a')            = ['a']
+     * ArrayUtils.add(['a'], 0, 'b')           = ['b', 'a']
+     * ArrayUtils.add(['a', 'b'], 0, 'c')      = ['c', 'a', 'b']
+     * ArrayUtils.add(['a', 'b'], 1, 'k')      = ['a', 'k', 'b']
+     * ArrayUtils.add(['a', 'b', 'c'], 1, 't') = ['a', 't', 'b', 'c']
+     * </pre>
+     * 
+     * @param array  the array to add the element to, may be <code>null</code>
+     * @param index  the position of the new object
+     * @param element  the object to add
+     * @return A new array containing the existing elements and the new element
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index > array.length).
+     */
+    public static char[] add(char[] array, int index, char element) {
+        return (char[]) add( (Object) array, index, new Character(element), Character.TYPE );
+    }
+    
+    /**
+     * <p>Inserts the specified element at the specified position in the array. 
+     * Shifts the element currently at that position (if any) and any subsequent
+     * elements to the right (adds one to their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array plus the given element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add([1], 0, 2)         = [2, 1]
+     * ArrayUtils.add([2, 6], 2, 3)      = [2, 6, 3]
+     * ArrayUtils.add([2, 6], 0, 1)      = [1, 2, 6]
+     * ArrayUtils.add([2, 6, 3], 2, 1)   = [2, 6, 1, 3]
+     * </pre>
+     * 
+     * @param array  the array to add the element to, may be <code>null</code>
+     * @param index  the position of the new object
+     * @param element  the object to add
+     * @return A new array containing the existing elements and the new element
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index > array.length).
+     */
+    public static byte[] add(byte[] array, int index, byte element) {
+        return (byte[]) add( (Object) array, index, new Byte(element), Byte.TYPE );
+    }
+    
+    /**
+     * <p>Inserts the specified element at the specified position in the array. 
+     * Shifts the element currently at that position (if any) and any subsequent
+     * elements to the right (adds one to their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array plus the given element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add([1], 0, 2)         = [2, 1]
+     * ArrayUtils.add([2, 6], 2, 10)     = [2, 6, 10]
+     * ArrayUtils.add([2, 6], 0, -4)     = [-4, 2, 6]
+     * ArrayUtils.add([2, 6, 3], 2, 1)   = [2, 6, 1, 3]
+     * </pre>
+     * 
+     * @param array  the array to add the element to, may be <code>null</code>
+     * @param index  the position of the new object
+     * @param element  the object to add
+     * @return A new array containing the existing elements and the new element
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index > array.length).
+     */
+    public static short[] add(short[] array, int index, short element) {
+        return (short[]) add( (Object) array, index, new Short(element), Short.TYPE );
+    }
+    
+    /**
+     * <p>Inserts the specified element at the specified position in the array. 
+     * Shifts the element currently at that position (if any) and any subsequent
+     * elements to the right (adds one to their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array plus the given element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add([1], 0, 2)         = [2, 1]
+     * ArrayUtils.add([2, 6], 2, 10)     = [2, 6, 10]
+     * ArrayUtils.add([2, 6], 0, -4)     = [-4, 2, 6]
+     * ArrayUtils.add([2, 6, 3], 2, 1)   = [2, 6, 1, 3]
+     * </pre>
+     * 
+     * @param array  the array to add the element to, may be <code>null</code>
+     * @param index  the position of the new object
+     * @param element  the object to add
+     * @return A new array containing the existing elements and the new element
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index > array.length).
+     */
+    public static int[] add(int[] array, int index, int element) {
+        return (int[]) add( (Object) array, index, new Integer(element), Integer.TYPE );
+    }
+    
+    /**
+     * <p>Inserts the specified element at the specified position in the array. 
+     * Shifts the element currently at that position (if any) and any subsequent
+     * elements to the right (adds one to their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array plus the given element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add([1L], 0, 2L)           = [2L, 1L]
+     * ArrayUtils.add([2L, 6L], 2, 10L)      = [2L, 6L, 10L]
+     * ArrayUtils.add([2L, 6L], 0, -4L)      = [-4L, 2L, 6L]
+     * ArrayUtils.add([2L, 6L, 3L], 2, 1L)   = [2L, 6L, 1L, 3L]
+     * </pre>
+     * 
+     * @param array  the array to add the element to, may be <code>null</code>
+     * @param index  the position of the new object
+     * @param element  the object to add
+     * @return A new array containing the existing elements and the new element
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index > array.length).
+     */
+    public static long[] add(long[] array, int index, long element) {
+        return (long[]) add( (Object) array, index, new Long(element), Long.TYPE );
+    }
+    
+    /**
+     * <p>Inserts the specified element at the specified position in the array. 
+     * Shifts the element currently at that position (if any) and any subsequent
+     * elements to the right (adds one to their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array plus the given element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add([1.1f], 0, 2.2f)               = [2.2f, 1.1f]
+     * ArrayUtils.add([2.3f, 6.4f], 2, 10.5f)        = [2.3f, 6.4f, 10.5f]
+     * ArrayUtils.add([2.6f, 6.7f], 0, -4.8f)        = [-4.8f, 2.6f, 6.7f]
+     * ArrayUtils.add([2.9f, 6.0f, 0.3f], 2, 1.0f)   = [2.9f, 6.0f, 1.0f, 0.3f]
+     * </pre>
+     * 
+     * @param array  the array to add the element to, may be <code>null</code>
+     * @param index  the position of the new object
+     * @param element  the object to add
+     * @return A new array containing the existing elements and the new element
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index > array.length).
+     */
+    public static float[] add(float[] array, int index, float element) {
+        return (float[]) add( (Object) array, index, new Float(element), Float.TYPE );
+    }
+    
+    /**
+     * <p>Inserts the specified element at the specified position in the array. 
+     * Shifts the element currently at that position (if any) and any subsequent
+     * elements to the right (adds one to their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array plus the given element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add([1.1], 0, 2.2)              = [2.2, 1.1]
+     * ArrayUtils.add([2.3, 6.4], 2, 10.5)        = [2.3, 6.4, 10.5]
+     * ArrayUtils.add([2.6, 6.7], 0, -4.8)        = [-4.8, 2.6, 6.7]
+     * ArrayUtils.add([2.9, 6.0, 0.3], 2, 1.0)    = [2.9, 6.0, 1.0, 0.3]
+     * </pre>
+     * 
+     * @param array  the array to add the element to, may be <code>null</code>
+     * @param index  the position of the new object
+     * @param element  the object to add
+     * @return A new array containing the existing elements and the new element
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index > array.length).
+     */
+    public static double[] add(double[] array, int index, double element) {
+        return (double[]) add( (Object) array, index, new Double(element), Double.TYPE );
+    }
+    
+    private static Object add(Object array, int index, Object element, Class clss) {
         if (array == null) {
             if (index != 0) {
                 throw new IndexOutOfBoundsException("Index: " + index + ", Length: 0");
             }
-            Object joinedArray = Array.newInstance(element != null ? element.getClass() : Object.class, 1);
+            Object joinedArray = Array.newInstance(clss, 1);
             Array.set(joinedArray, 0, element);
-            return (Object[]) joinedArray;
+            return joinedArray;
         }
-        int length = array.length;
+        int length = Array.getLength(array);
         if (index > length || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + length);
         }
-        Object result = Array.newInstance(array.getClass().getComponentType(), length + 1);
+        Object result = Array.newInstance(clss, length + 1);
         System.arraycopy(array, 0, result, 0, index);
         Array.set(result, index, element);
         if (index < length) {
             System.arraycopy(array, index, result, index + 1, length - index);
         }
-        return (Object[]) result;
+        return result;
     }
     
     /**
