@@ -74,7 +74,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.28 2002/12/07 21:50:29 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.29 2002/12/15 16:54:23 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1650,28 +1650,6 @@ public class StringUtils {
             }
         }
         return true;
-    }
-
-    /**
-     * <p>Checks if the String contains a 'true' value.</p>
-     *
-     * <p>These values are defined as the words
-     * <code>'true'</code>, <code>'on'</code> and
-     * <code>'yes'</code>, case insensitive.</p>
-     *
-     * @param str the String to check
-     * @return <code>true</code> if the string is 'true|on|yes' case
-     *  insensitive
-     */
-    public static boolean isTrue(String str) {
-        if ("true".equalsIgnoreCase(str)) {
-            return true;
-        } else if ("on".equalsIgnoreCase(str)) {
-            return true;
-        } else if ("yes".equalsIgnoreCase(str)) {
-            return true;
-        }
-        return false;
     }
 
     // Defaults
