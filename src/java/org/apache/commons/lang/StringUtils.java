@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.90 2003/08/01 23:54:41 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.91 2003/08/01 23:58:30 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1011,107 +1011,6 @@ public class StringUtils {
         return (str.indexOf(searchStr) >= 0);
     }
     
-    // IndexOfAny strings
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Find the first index of any of a set of potential substrings.</p>
-     *
-     * <p>A <code>null</code> String will return <code>-1</code>.
-     * A <code>null</code> or zero length search array will return <code>-1</code>.
-     * A <code>null</code> search array entry will be ignored, but a search
-     * array containing "" will return <code>0</code> if <code>str</code> is not
-     * null. This method uses {@link String#indexOf(String)}.</p>
-     * 
-     * <pre>
-     * StringUtils.indexOfAny(null, *)                     = -1
-     * StringUtils.indexOfAny(*, null)                     = -1
-     * StringUtils.indexOfAny(*, [])                       = -1
-     * StringUtils.indexOfAny("zzabyycdxx", ["ab","cd"])   = 2
-     * StringUtils.indexOfAny("zzabyycdxx", ["cd","ab"])   = 2
-     * StringUtils.indexOfAny("zzabyycdxx", ["mn","op"])   = -1
-     * StringUtils.indexOfAny("zzabyycdxx", ["zab","aby"]) = 1
-     * StringUtils.indexOfAny("zzabyycdxx", [""])          = 0
-     * StringUtils.indexOfAny("", [""])                    = 0
-     * StringUtils.indexOfAny("", ["a"])                   = -1
-     * </pre>
-     * 
-     * @param str  the String to check, may be null
-     * @param searchStrs  the Strings to search for, may be null
-     * @return the first index of any of the searchStrs in str, -1 if no match
-     */
-    public static int indexOfAny(String str, String[] searchStrs) {
-        if ((str == null) || (searchStrs == null)) {
-            return -1;
-        }
-        int sz = searchStrs.length;
-
-        // String's can't have a MAX_VALUEth index.
-        int ret = Integer.MAX_VALUE;
-
-        int tmp = 0;
-        for (int i = 0; i < sz; i++) {
-            String search = searchStrs[i];
-            if (search == null) {
-                continue;
-            }
-            tmp = str.indexOf(search);
-            if (tmp == -1) {
-                continue;
-            }
-
-            if (tmp < ret) {
-                ret = tmp;
-            }
-        }
-
-        return (ret == Integer.MAX_VALUE) ? -1 : ret;
-    }
-
-    /**
-     * <p>Find the latest index of any of a set of potential substrings.</p>
-     *
-     * <p>A <code>null</code> String will return <code>-1</code>.
-     * A <code>null</code> search array will return <code>-1</code>.
-     * A <code>null</code> or zero length search array entry will be ignored,
-     * but a search array containing "" will return the length of <code>str</code> 
-     * if <code>str</code> is not null. This method uses {@link String#indexOf(String)}</p>
-     * 
-     * <pre>
-     * StringUtils.lastIndexOfAny(null, *)                   = -1
-     * StringUtils.lastIndexOfAny(*, null)                   = -1
-     * StringUtils.lastIndexOfAny(*, [])                     = -1
-     * StringUtils.lastIndexOfAny(*, [null])                 = -1
-     * StringUtils.lastIndexOfAny("zzabyycdxx", ["ab","cd"]) = 6
-     * StringUtils.lastIndexOfAny("zzabyycdxx", ["cd","ab"]) = 6
-     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn","op"]) = -1
-     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn","op"]) = -1
-     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn",""])   = 10
-     * </pre>
-     * 
-     * @param str  the String to check, may be null
-     * @param searchStrs  the Strings to search for, may be null
-     * @return the last index of any of the Strings, -1 if no match
-     */
-    public static int lastIndexOfAny(String str, String[] searchStrs) {
-        if ((str == null) || (searchStrs == null)) {
-            return -1;
-        }
-        int sz = searchStrs.length;
-        int ret = -1;
-        int tmp = 0;
-        for (int i = 0; i < sz; i++) {
-            String search = searchStrs[i];
-            if (search == null) {
-                continue;
-            }
-            tmp = str.lastIndexOf(search);
-            if (tmp > ret) {
-                ret = tmp;
-            }
-        }
-        return ret;
-    }
-
     // IndexOfAny chars
     //-----------------------------------------------------------------------
     /**
@@ -1383,6 +1282,107 @@ public class StringUtils {
         return containsNone(str, invalidChars.toCharArray());
     }
     
+    // IndexOfAny strings
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Find the first index of any of a set of potential substrings.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.
+     * A <code>null</code> or zero length search array will return <code>-1</code>.
+     * A <code>null</code> search array entry will be ignored, but a search
+     * array containing "" will return <code>0</code> if <code>str</code> is not
+     * null. This method uses {@link String#indexOf(String)}.</p>
+     * 
+     * <pre>
+     * StringUtils.indexOfAny(null, *)                     = -1
+     * StringUtils.indexOfAny(*, null)                     = -1
+     * StringUtils.indexOfAny(*, [])                       = -1
+     * StringUtils.indexOfAny("zzabyycdxx", ["ab","cd"])   = 2
+     * StringUtils.indexOfAny("zzabyycdxx", ["cd","ab"])   = 2
+     * StringUtils.indexOfAny("zzabyycdxx", ["mn","op"])   = -1
+     * StringUtils.indexOfAny("zzabyycdxx", ["zab","aby"]) = 1
+     * StringUtils.indexOfAny("zzabyycdxx", [""])          = 0
+     * StringUtils.indexOfAny("", [""])                    = 0
+     * StringUtils.indexOfAny("", ["a"])                   = -1
+     * </pre>
+     * 
+     * @param str  the String to check, may be null
+     * @param searchStrs  the Strings to search for, may be null
+     * @return the first index of any of the searchStrs in str, -1 if no match
+     */
+    public static int indexOfAny(String str, String[] searchStrs) {
+        if ((str == null) || (searchStrs == null)) {
+            return -1;
+        }
+        int sz = searchStrs.length;
+
+        // String's can't have a MAX_VALUEth index.
+        int ret = Integer.MAX_VALUE;
+
+        int tmp = 0;
+        for (int i = 0; i < sz; i++) {
+            String search = searchStrs[i];
+            if (search == null) {
+                continue;
+            }
+            tmp = str.indexOf(search);
+            if (tmp == -1) {
+                continue;
+            }
+
+            if (tmp < ret) {
+                ret = tmp;
+            }
+        }
+
+        return (ret == Integer.MAX_VALUE) ? -1 : ret;
+    }
+
+    /**
+     * <p>Find the latest index of any of a set of potential substrings.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.
+     * A <code>null</code> search array will return <code>-1</code>.
+     * A <code>null</code> or zero length search array entry will be ignored,
+     * but a search array containing "" will return the length of <code>str</code> 
+     * if <code>str</code> is not null. This method uses {@link String#indexOf(String)}</p>
+     * 
+     * <pre>
+     * StringUtils.lastIndexOfAny(null, *)                   = -1
+     * StringUtils.lastIndexOfAny(*, null)                   = -1
+     * StringUtils.lastIndexOfAny(*, [])                     = -1
+     * StringUtils.lastIndexOfAny(*, [null])                 = -1
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["ab","cd"]) = 6
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["cd","ab"]) = 6
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn","op"]) = -1
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn","op"]) = -1
+     * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn",""])   = 10
+     * </pre>
+     * 
+     * @param str  the String to check, may be null
+     * @param searchStrs  the Strings to search for, may be null
+     * @return the last index of any of the Strings, -1 if no match
+     */
+    public static int lastIndexOfAny(String str, String[] searchStrs) {
+        if ((str == null) || (searchStrs == null)) {
+            return -1;
+        }
+        int sz = searchStrs.length;
+        int ret = -1;
+        int tmp = 0;
+        for (int i = 0; i < sz; i++) {
+            String search = searchStrs[i];
+            if (search == null) {
+                continue;
+            }
+            tmp = str.lastIndexOf(search);
+            if (tmp > ret) {
+                ret = tmp;
+            }
+        }
+        return ret;
+    }
+
     // Substring
     //-----------------------------------------------------------------------
     /**
