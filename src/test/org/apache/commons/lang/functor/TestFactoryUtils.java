@@ -65,7 +65,7 @@ import org.apache.commons.lang.SerializationException;
  * Tests the org.apache.commons.lang.functor.FactoryUtils class.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: TestFactoryUtils.java,v 1.1 2002/11/05 16:45:13 bayard Exp $
+ * @version $Id: TestFactoryUtils.java,v 1.2 2002/12/15 17:03:41 scolebourne Exp $
  */
 public class TestFactoryUtils extends junit.framework.TestCase {
 
@@ -257,7 +257,7 @@ public class TestFactoryUtils extends junit.framework.TestCase {
         assertNotNull(factory);
         Object created = factory.create();
         assertTrue(created instanceof Date);
-        assertEquals((double) System.currentTimeMillis(), (double) ((Date) created).getTime(), 0.01d);
+        assertEquals((double) System.currentTimeMillis(), (double) ((Date) created).getTime(), 0.05d);
     }
 
     public void testReflectionFactoryMismatch() {
