@@ -67,7 +67,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:scolebourne@apache.org">Stephen Colebourne</a>
  * @author Moritz Petersen
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: ArrayUtils.java,v 1.5 2002/11/16 12:56:43 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.6 2002/11/24 16:50:38 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -679,4 +679,213 @@ public class ArrayUtils {
         return array1.getClass().getName().equals(array2.getClass().getName());
     }
     
+    /** 
+     * Reverses the order of the given array.
+     * <p>
+     * There is no special handling for multi-dimensional arrays.
+     * <p>
+     * The method does nothing if <code>null</code> is passed in.
+     * 
+     * @param array  the array to reverse
+     */
+    public static void reverse(Object[] array) {
+        if (array == null) {
+            return;
+        }
+        int i = 0;
+        int j = array.length - 1;
+        Object tmp;
+        while (j > i) {
+            tmp = array[j];
+            array[j] = array[i];
+            array[i] = tmp;
+            j--;
+            i++;
+        }
+    }
+
+    /**
+     * Reverses the order of the given array.
+     * <p>
+     * The method does nothing if <code>null</code> is passed in.
+     * 
+     * @param array  the array to reverse
+     */
+    public static void reverse(long[] array) {
+        if (array == null) {
+            return;
+        }
+        int i = 0;
+        int j = array.length - 1;
+        long tmp;
+        while (j > i) {
+            tmp = array[j];
+            array[j] = array[i];
+            array[i] = tmp;
+            j--;
+            i++;
+        }
+    }
+
+    /**
+     * Reverses the order of the given array.
+     * <p>
+     * The method does nothing if <code>null</code> is passed in.
+     * 
+     * @param array  the array to reverse
+     */
+    public static void reverse(int[] array) {
+        if (array == null) {
+            return;
+        }
+        int i = 0;
+        int j = array.length - 1;
+        int tmp;
+        while (j > i) {
+            tmp = array[j];
+            array[j] = array[i];
+            array[i] = tmp;
+            j--;
+            i++;
+        }
+    }
+
+    /**
+     * Reverses the order of the given array.
+     * <p>
+     * There is no special handling for multi-dimensional arrays.
+     * 
+     * @param array  the array to reverse
+     */
+    public static void reverse(short[] array) {
+        if (array == null) {
+            return;
+        }
+        int i = 0;
+        int j = array.length - 1;
+        short tmp;
+        while (j > i) {
+            tmp = array[j];
+            array[j] = array[i];
+            array[i] = tmp;
+            j--;
+            i++;
+        }
+    }
+
+    /**
+     * Reverses the order of the given array.
+     * <p>
+     * The method does nothing if <code>null</code> is passed in.
+     * 
+     * @param array  the array to reverse
+     */
+    public static void reverse(char[] array) {
+        if (array == null) {
+            return;
+        }
+        int i = 0;
+        int j = array.length - 1;
+        char tmp;
+        while (j > i) {
+            tmp = array[j];
+            array[j] = array[i];
+            array[i] = tmp;
+            j--;
+            i++;
+        }
+    }
+
+    /**
+     * Reverses the order of the given array.
+     * <p>
+     * The method does nothing if <code>null</code> is passed in.
+     * 
+     * @param array  the array to reverse
+     */
+    public static void reverse(byte[] array) {
+        if (array == null) {
+            return;
+        }
+        int i = 0;
+        int j = array.length - 1;
+        byte tmp;
+        while (j > i) {
+            tmp = array[j];
+            array[j] = array[i];
+            array[i] = tmp;
+            j--;
+            i++;
+        }
+    }
+
+    /**
+     * Reverses the order of the given array.
+     * <p>
+     * The method does nothing if <code>null</code> is passed in.
+     * 
+     * @param array  the array to reverse
+     */
+    public static void reverse(double[] array) {
+        if (array == null) {
+            return;
+        }
+        int i = 0;
+        int j = array.length - 1;
+        double tmp;
+        while (j > i) {
+            tmp = array[j];
+            array[j] = array[i];
+            array[i] = tmp;
+            j--;
+            i++;
+        }
+    }
+
+    /**
+     * Reverses the order of the given array.
+     * <p>
+     * The method does nothing if <code>null</code> is passed in.
+     * 
+     * @param array  the array to reverse
+     */
+    public static void reverse(float[] array) {
+        if (array == null) {
+            return;
+        }
+        int i = 0;
+        int j = array.length - 1;
+        float tmp;
+        while (j > i) {
+            tmp = array[j];
+            array[j] = array[i];
+            array[i] = tmp;
+            j--;
+            i++;
+        }
+    }
+
+    /**
+     * Reverses the order of the given array.
+     * <p>
+     * The method does nothing if <code>null</code> is passed in.
+     * 
+     * @param array  the array to reverse
+     */
+    public static void reverse(boolean[] array) {
+        if (array == null) {
+            return;
+        }
+        int i = 0;
+        int j = array.length - 1;
+        boolean tmp;
+        while (j > i) {
+            tmp = array[j];
+            array[j] = array[i];
+            array[i] = tmp;
+            j--;
+            i++;
+        }
+    }
+
 }
