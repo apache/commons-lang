@@ -28,7 +28,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.15 2004/10/08 22:10:37 scolebourne Exp $
+ * @version $Id: WordUtils.java,v 1.16 2004/10/16 15:20:30 scolebourne Exp $
  */
 public class WordUtils {
 
@@ -267,6 +267,7 @@ public class WordUtils {
      * @return capitalized String, <code>null</code> if null String input
      * @see #uncapitalize(String)
      * @see #capitalizeFully(String)
+     * @since 2.1
      */
     public static String capitalize(String str, char[] delimiters) {
         if (str == null || str.length() == 0) {
@@ -354,6 +355,7 @@ public class WordUtils {
      * @param str  the String to capitalize, may be null
      * @param delimiters  set of characters to determine capitalization, null means whitespace
      * @return capitalized String, <code>null</code> if null String input
+     * @since 2.1
      */
     public static String capitalizeFully(String str, char[] delimiters) {
         if (str == null || str.length() == 0) {
@@ -407,6 +409,7 @@ public class WordUtils {
      * @param delimiters  set of characters to determine uncapitalization, null means whitespace
      * @return uncapitalized String, <code>null</code> if null String input
      * @see #capitalize(String)
+     * @since 2.1
      */
     public static String uncapitalize(String str, char[] delimiters) {
         if (str == null || str.length() == 0) {
