@@ -38,7 +38,7 @@ import junit.textui.TestRunner;
  * @author Phil Steitz
  * @author Gary D. Gregory
  * @author Al Chou
- * @version $Id: StringUtilsTest.java,v 1.61 2004/08/15 23:47:05 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.62 2004/08/22 03:40:27 bayard Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -360,6 +360,57 @@ public class StringUtilsTest extends TestCase {
         assertEquals(msg, str.substring(2), res[1]);
     }
 
+    public void testSplitByWholeString_StringStringBoolean() {
+        assertEquals( null, StringUtils.splitByWholeSeparator( null, "." ) ) ;
+
+        assertEquals( 0, StringUtils.splitByWholeSeparator( "", "." ).length ) ;
+
+        String stringToSplitOnNulls = "ab   de fg" ;
+        String[] splitOnNullExpectedResults = { "ab", "de", "fg" } ;
+
+        String[] splitOnNullResults = StringUtils.splitByWholeSeparator( "ab   de fg", null ) ;
+        assertEquals( splitOnNullExpectedResults.length, splitOnNullResults.length ) ;
+        for ( int i = 0 ; i < splitOnNullExpectedResults.length ; i+= 1 ) {
+            assertEquals( splitOnNullExpectedResults[i], splitOnNullResults[i] ) ;
+        }
+
+        String stringToSplitOnCharactersAndString = "abstemiouslyaeiouyabstemiously" ;
+
+        String[] splitOnStringExpectedResults = { "abstemiously", "abstemiously" } ;
+        String[] splitOnStringResults = StringUtils.splitByWholeSeparator( stringToSplitOnCharactersAndString, "aeiouy" ) ;
+        assertEquals( splitOnStringExpectedResults.length, splitOnStringResults.length ) ;
+        for ( int i = 0 ; i < splitOnStringExpectedResults.length ; i+= 1 ) {
+            assertEquals( splitOnStringExpectedResults[i], splitOnStringResults[i] ) ;
+        }
+    }
+
+    public void testSplitByWholeString_StringStringBooleanInt() {
+        assertEquals( null, StringUtils.splitByWholeSeparator( null, ".", 3 ) ) ;
+
+        assertEquals( 0, StringUtils.splitByWholeSeparator( "", ".", 3 ).length ) ;
+
+        String stringToSplitOnNulls = "ab   de fg" ;
+        String[] splitOnNullExpectedResults = { "ab", "de fg" } ;
+        //String[] splitOnNullExpectedResults = { "ab", "de" } ;
+
+        String[] splitOnNullResults = StringUtils.splitByWholeSeparator( stringToSplitOnNulls, null, 2 ) ;
+        assertEquals( splitOnNullExpectedResults.length, splitOnNullResults.length ) ;
+        for ( int i = 0 ; i < splitOnNullExpectedResults.length ; i+= 1 ) {
+            assertEquals( splitOnNullExpectedResults[i], splitOnNullResults[i] ) ;
+        }
+
+        String stringToSplitOnCharactersAndString = "abstemiouslyaeiouyabstemiouslyaeiouyabstemiously" ;
+
+        String[] splitOnStringExpectedResults = { "abstemiously", "abstemiouslyaeiouyabstemiously" } ;
+        //String[] splitOnStringExpectedResults = { "abstemiously", "abstemiously" } ;
+        String[] splitOnStringResults = StringUtils.splitByWholeSeparator( stringToSplitOnCharactersAndString, "aeiouy", 2 ) ;
+        assertEquals( splitOnStringExpectedResults.length, splitOnStringResults.length ) ;
+        for ( int i = 0 ; i < splitOnStringExpectedResults.length ; i++ ) {
+            assertEquals( splitOnStringExpectedResults[i], splitOnStringResults[i] ) ;
+        }
+    }
+
+    
     public void testSplitPreserveAllTokens_String() {
         assertEquals(null, StringUtils.splitPreserveAllTokens(null));
         assertEquals(0, StringUtils.splitPreserveAllTokens("").length);
