@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE project [
+<!ENTITY commons-nav SYSTEM "../../incl_nav.xml">
+]>
+
+<project name="Lang">
+
+  <title>Lang</title>
+  <organizationLogo href="/images/jakarta-logo-blue.gif">
+   Jakarta
+  </organizationLogo>
+
+  <body>
+    <menu name="Commons Lang">
+      <item name="Overview"
+            href="/index.html"/>
+          
+    </menu>
+    
+    &commons-nav;
+
+  </body>
+</project>

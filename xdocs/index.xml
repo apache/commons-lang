@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<document>
+
+ <properties>
+  <title>Commons</title>
+  <author email="commons-dev@jakarta.apache.org">Commons Documentation Team</author>
+ </properties>
+
+ <body>
+
+<section name="The Lang Component">
+
+<p>
+The standard Java libraries fail to provide enough methods for
+manipulation of its core classes. The <em>Lang</em> Component provides
+these extra methods. 
+</p>
+
+<p>
+The <em>Lang</em> Component provides a host of helper utilities for the java.lang API, notably 
+String manipulation methods, basic numerical methods, object reflection, creation and serialization, 
+and System properties. Additionally it contains an inheritable enum type, an exception structure that 
+supports multiple types of nested-Exceptions, basic enhancements to java.util.Date and a series of utlities dedicated to help with 
+building methods, such as hashCode, toString and equals.
+</p>
+</section>
+
+<section name="Latest Release">
+<p>The latest release of Apache Jakarta Commons Lang is version 2.0. It is available (from mirrors) in <a href="http://jakarta.apache.org/site/binindex.cgi">binary</a> and <a href="http://jakarta.apache.org/site/sourceindex.cgi">source</a> downloads. The <a href="http://www.apache.org/dist/jakarta/commons/lang/RELEASE-NOTES.txt">release notes</a> explain all of the changes and bugs that were fixed between 1.0.1 and 2.0. In addition, <a href="http://jdiff.sourceforge.net/">JDiff</a> has been used to create a <a href="http://jakarta.apache.org/commons/lang/Commons-Lang-1.0.1-to-2.0/changes.html">report</a> on the differences between 1.0.1 and 2.0. </p>
+</section>
+
+<section name="Documentation">
+<p>
+An alphabetical list of the packages may be found in the <a href="http://cvs.apache.org/viewcvs/~checkout~/jakarta-commons/lang/STATUS.html">lang status document</a>.
+</p>
+
+<p>
+The <a href="http://jakarta.apache.org/commons/lang/api/index.html">JavaDoc API documents</a> are available online.
+</p>
+</section>
+
+<section name="Bugs">
+<p>
+Bugs may be reported via the Bugzilla Management system. The following links may prove useful:
+</p>
+<ul>
+ <li><a href="http://issues.apache.org/bugzilla/createaccount.cgi">Create a Bugzilla account</a></li>
+ <li><a href="http://issues.apache.org/bugzilla/enter_bug.cgi?product=Commons">Submit a bug report</a></li>
+ <li><a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=UNCONFIRMED&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;bug_status=RESOLVED&amp;bug_status=VERIFIED&amp;bug_status=CLOSED&amp;email1=&amp;emailtype1=substring&amp;emailassigned_to1=1&amp;email2=&amp;emailtype2=substring&amp;emailreporter2=1&amp;bugidtype=include&amp;bug_id=&amp;changedin=&amp;votes=&amp;chfieldfrom=&amp;chfieldto=Now&amp;chfieldvalue=&amp;product=Commons&amp;component=Lang&amp;short_desc=&amp;short_desc_type=allwordssubstr&amp;long_desc=&amp;long_desc_type=allwordssubstr&amp;bug_file_loc=&amp;bug_file_loc_type=allwordssubstr&amp;keywords=&amp;keywords_type=anywords&amp;field0-0-0=noop&amp;type0-0-0=noop&amp;value0-0-0=&amp;cmdtype=doit&amp;newqueryname=&amp;order=Reuse+same+sort+as+last+time">All Lang bugs</a></li>
+ <li><a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;email1=&amp;emailtype1=substring&amp;emailassigned_to1=1&amp;email2=&amp;emailtype2=substring&amp;emailreporter2=1&amp;bugidtype=include&amp;bug_id=&amp;changedin=&amp;votes=&amp;chfieldfrom=&amp;chfieldto=Now&amp;chfieldvalue=&amp;product=Commons&amp;component=Lang&amp;short_desc=&amp;short_desc_type=allwordssubstr&amp;long_desc=&amp;long_desc_type=allwordssubstr&amp;bug_file_loc=&amp;bug_file_loc_type=allwordssubstr&amp;keywords=&amp;keywords_type=anywords&amp;field0-0-0=noop&amp;type0-0-0=noop&amp;value0-0-0=&amp;cmdtype=doit&amp;newqueryname=&amp;order=Reuse+same+sort+as+last+time">All open Lang bugs</a></li>
+</ul>
+</section>
+
+<section name="Releases">
+<ul>
+<li><a href="http://www.apache.org/dist/jakarta/commons/lang/">Version 2.0</a></li>
+<li><a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-lang/v1.0.1/">Version 1.0.1</a></li>
+<li><a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-lang/v1.0/">Version 1.0</a></li>
+<li><a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-lang/v1.0-b1/">Version 1.0-b1</a></li>
+</ul>
+</section>
+
+<section name="Repository">
+<ul>
+<li>
+<a href="http://cvs.apache.org/viewcvs/jakarta-commons/lang/">CVS Repository</a>
+</li>
+</ul>
+</section>
+
+<section name="Resources">
+<ul>
+<li>
+Oct 17, 2003 - <a href="http://www.builder.com/">Builder.com</a> has an article on Commons Lang v1.0 entitled <a href="http://builder.com.com/article.jhtml?id=u00320021017yan01.htm&amp;page=1&amp;vf=tt">Jakarta Commons Lang project offers centralized utility functions</a> [and in <a href="http://www.zdnet.com.cn/developer/tech/story/0,2000081602,39077840,00.htm">chinese</a>, and in <a href="http://www.zdnet.de/builder/artikel/architect/200212/jakarta_utility_01-wc.html">german</a>].
+</li>
+<li>
+<a href="http://maven.apache.org">Maven</a>, <a href="http://jdiff.sourceforge.net/">JDiff</a>, <a href="http://pmd.sourceforge.net/">PMD</a>, <a href="http://www.cs.umd.edu/~pugh/java/bugs/">FindBugs</a> and <a href="http://www.thecortex.net/clover/">Clover</a> have all been of use in the latest release of Commons Lang. 
+</li>
+</ul>
+</section>
+
+</body>
+</document>
+
