@@ -17,7 +17,6 @@ package org.apache.commons.lang.time;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.TimeZone;
@@ -32,7 +31,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.18 2004/02/18 22:56:42 ggregory Exp $
+ * @version $Id: DateUtils.java,v 1.19 2004/06/27 06:29:29 bayard Exp $
  */
 public class DateUtils {
     
@@ -134,7 +133,7 @@ public class DateUtils {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        GregorianCalendar gval = new GregorianCalendar();
+        Calendar gval = Calendar.getInstance();
         gval.setTime(date);
         modify(gval, field, true);
         return gval.getTime();
@@ -214,7 +213,7 @@ public class DateUtils {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        GregorianCalendar gval = new GregorianCalendar();
+        Calendar gval = Calendar.getInstance();
         gval.setTime(date);
         modify(gval, field, false);
         return gval.getTime();
@@ -502,7 +501,7 @@ public class DateUtils {
         if (focus == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        GregorianCalendar gval = new GregorianCalendar();
+        Calendar gval = Calendar.getInstance();
         gval.setTime(focus);
         return iterator(gval, rangeStyle);
     }
