@@ -1,5 +1,3 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,6 +51,7 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -64,8 +63,8 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 /**
- * <p>Methods that assist with the serialization process, or perform
- * additional functionality based on serialization.</p>
+ * <p><code>SerializationUtils</code> provides methods that assist with the 
+ * serialization process, or perform additional functionality based on serialization.</p>
  * <ul>
  * <li>Deep clone using serialization
  * <li>Serialize managing finally and IOException
@@ -75,15 +74,21 @@ import java.io.Serializable;
  * @author <a href="mailto:nissim@nksystems.com">Nissim Karpenstein</a>
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: SerializationUtils.java,v 1.3 2002/11/16 10:41:03 scolebourne Exp $
+ * @author Stephen Colebourne
+ * @author Jeff Varszegi
+ * @since 1.0
+ * @version $Id: SerializationUtils.java,v 1.4 2002/12/22 19:55:30 scolebourne Exp $
  */
 public class SerializationUtils {
     
     /**
-     * <p>Constructor for SerializationUtils is private.</p>
+     * <p>SerializationUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as <code>SerializationUtils.clone(object)</code>.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean instance
+     * to operate.</p>
      */
-    private SerializationUtils() {
+    public SerializationUtils() {
         super();
     }
 
@@ -110,6 +115,9 @@ public class SerializationUtils {
      * <p>The stream will be closed once the object is written.
      * This avoids the need for a finally clause, and maybe also exception
      * handling, in the application code.</p>
+     * 
+     * <p>The stream passed in is not buffered internally within this method.
+     * This is the responsibility of your application if desired.</p>
      *
      * @param obj  the object to serialize to bytes
      * @param outputStream  the stream to write to
@@ -144,7 +152,7 @@ public class SerializationUtils {
      * @throws SerializationException (runtime) if the serialization fails
      */
     public static byte[] serialize(Serializable obj) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(512);
         serialize(obj, baos);
         return baos.toByteArray();
     }
@@ -155,6 +163,9 @@ public class SerializationUtils {
      * <p>The stream will be closed once the object is written. This
      * avoids the need for a finally clause, and maybe also exception
      * handling, in the application code.</p>
+     * 
+     * <p>The stream passed in is not buffered internally within this method.
+     * This is the responsibility of your application if desired.</p>
      *
      * @param inputStream  the serialized object input stream
      * @return the deserialized object
