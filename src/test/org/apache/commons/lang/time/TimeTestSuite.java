@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,11 +57,12 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
 /**
  * Test suite for the Time package.
  *
  * @author Stephen Colebourne
- * @version $Id: TimeTestSuite.java,v 1.3 2003/01/10 03:55:01 bayard Exp $
+ * @version $Id: TimeTestSuite.java,v 1.4 2003/06/08 23:14:23 scolebourne Exp $
  */
 public class TimeTestSuite extends TestCase {
     
@@ -85,8 +86,9 @@ public class TimeTestSuite extends TestCase {
     public static Test suite() {
         TestSuite suite = new TestSuite();
         suite.setName("Commons-Lang-Time Tests");
-        suite.addTest(CalendarUtilsTest.suite());
         suite.addTest(DateUtilsTest.suite());
+        suite.addTest(DateFormatUtilsTest.suite());
+        suite.addTest(DurationFormatUtilsTest.suite());
         suite.addTest(StopWatchTest.suite());
         suite.addTest(FastDateFormatTest.suite());
         return suite;

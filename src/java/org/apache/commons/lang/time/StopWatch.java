@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -77,13 +77,10 @@ package org.apache.commons.lang.time;
  * @author Henri Yandell
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: StopWatch.java,v 1.3 2003/05/21 23:37:20 scolebourne Exp $
+ * @version $Id: StopWatch.java,v 1.4 2003/06/08 23:14:23 scolebourne Exp $
  */
 public class StopWatch {
     
-    private static final int MILLIS_IN_HOUR = 60 * 60 * 1000;
-    private static final int MILLIS_IN_MINUTE = 60 * 1000;
-
     /** The start time */
     private long startTime = -1;
     /** The stop time */
@@ -187,53 +184,13 @@ public class StopWatch {
     /**
      * <p>Gets a summary of the time that the stopwatch recorded as a string.</p>
      * 
-     * <p>The format used is ISO8601,
+     * <p>The format used is ISO8601-like,
      * <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.</p>
      * 
      * @return the time as a String
      */
     public String toString() {
-        return StopWatch.toString(getTime());
-    }
-
-    /**
-     * <p>Get the time gap as a string.</p>
-     * 
-     * <p>The format used is ISO8601,
-     * <i>hours</i>:<i>minutes</i>:<i>seconds</i>.<i>milliseconds</i>.</p>
-     * 
-     * @return the time as a String
-     */
-    public static String toString(long time) {
-        int hours, minutes, seconds, milliseconds;
-        hours = (int) (time / MILLIS_IN_HOUR);
-        time = time - (hours * MILLIS_IN_HOUR);
-        minutes = (int) (time / MILLIS_IN_MINUTE);
-        time = time - (minutes * MILLIS_IN_MINUTE);
-        seconds = (int) (time / 1000);
-        time = time - (seconds * 1000);
-        milliseconds = (int) time;
-
-        StringBuffer buf = new StringBuffer(32);
-        buf.append(hours);
-        buf.append(':');
-        if (minutes < 10) {
-            buf.append('0');
-        }
-        buf.append(minutes);
-        buf.append(':');
-        if (seconds < 10) {
-            buf.append('0');
-        }
-        buf.append(seconds);
-        buf.append('.');
-        if (milliseconds < 10) {
-            buf.append("00");
-        } else if (milliseconds < 100) {
-            buf.append('0');
-        }
-        buf.append(milliseconds);
-        return buf.toString();
+        return DurationFormatUtils.formatISO(getTime());
     }
 
 }
