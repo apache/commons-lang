@@ -73,7 +73,7 @@ import java.util.Iterator;
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @version $Id: StringUtils.java,v 1.23 2002/11/15 00:06:40 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.24 2002/11/15 00:25:45 scolebourne Exp $
  */
 public class StringUtils {
 
@@ -1525,7 +1525,7 @@ public class StringUtils {
      * Returns either the passed in Object as a String, or,
      * if the Object is <code>null</code>, an empty String.
      * 
-     * @param str the Object to check
+     * @param obj the Object to check
      * @return the passed in Object's toString, or blank if it was null
      */
     public static String defaultString(Object obj) {
