@@ -125,7 +125,7 @@ import org.apache.commons.lang.ObjectUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.27 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: ToStringBuilder.java,v 1.28 2003/08/21 15:52:54 ggregory Exp $
  */
 public class ToStringBuilder {
 
@@ -183,6 +183,7 @@ public class ToStringBuilder {
      * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
      * 
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean,Class)
+     * @since 2.0
      */
     public static String reflectionToString(
         Object object,
@@ -972,6 +973,7 @@ public class ToStringBuilder {
      * {@link System#identityHashCode(java.lang.Object)}.</p>
      * 
      * @param object  the <code>Object</code> whose class name and id to output
+     * @since 2.0
      */
     public ToStringBuilder appendAsObjectToString(Object object) {
         ObjectUtils.appendIdentityToString(this.getStringBuffer(), object);
@@ -990,6 +992,7 @@ public class ToStringBuilder {
      *
      * @param superToString  the result of <code>super.toString()</code>
      * @return this
+     * @since 2.0
      */
     public ToStringBuilder appendSuper(String superToString) {
         if (superToString != null) {
@@ -1023,6 +1026,7 @@ public class ToStringBuilder {
      *
      * @param toString  the result of <code>toString()</code> on another object
      * @return this
+     * @since 2.0
      */
     public ToStringBuilder appendToString(String toString) {
         if (toString != null) {
@@ -1046,6 +1050,7 @@ public class ToStringBuilder {
      * <p>Gets the <code>ToStringStyle</code> being used.</p>
      * 
      * @return the <code>ToStringStyle</code> being used
+     * @since 2.0
      */
     public ToStringStyle getStyle() {
         return style;
@@ -1068,6 +1073,7 @@ public class ToStringBuilder {
      * <p>Returns the <code>Object</code> being output.</p>
      * 
      * @return The object being output.
+     * @since 2.0
      */
     public Object getObject() {
         return object;

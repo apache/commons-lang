@@ -68,7 +68,7 @@ package org.apache.commons.lang;
  * @author Michael Becke
  * @author Tetsuya Kaneuchi
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.20 2003/08/18 02:22:23 bayard Exp $
+ * @version $Id: SystemUtils.java,v 1.21 2003/08/21 15:52:54 ggregory Exp $
  */
 public class SystemUtils {
 
@@ -83,7 +83,8 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
-     * @since Java version 1.2.
+     * @since 2.0
+     * @since Java 1.2.
      */
     public static final String FILE_ENCODING = getSystemProperty("file.encoding");
 
@@ -94,7 +95,7 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
-     * @since Java version 1.1.
+     * @since Java 1.1.
      */
     public static final String FILE_SEPARATOR = getSystemProperty("file.separator");
 
@@ -104,7 +105,7 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
-     * @since Java version 1.1.
+     * @since Java 1.1.
      */
     public static final String JAVA_CLASS_PATH = getSystemProperty("java.class.path");
 
@@ -115,7 +116,7 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
-     * @since Java version 1.1.
+     * @since Java 1.1.
      */
     public static final String JAVA_CLASS_VERSION = getSystemProperty("java.class.version");
 
@@ -126,7 +127,7 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
-     * @since Java version 1.2. Not used in Sun versions after 1.2.
+     * @since Java 1.2. Not used in Sun versions after 1.2.
      */
     public static final String JAVA_COMPILER = getSystemProperty("java.compiler");
 
@@ -179,6 +180,7 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * @since 2.0
      * @since Java 1.3
      */
     public static final String JAVA_RUNTIME_NAME = getSystemProperty("java.runtime.name");
@@ -190,6 +192,7 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * @since 2.0
      * @since Java 1.3
      */
     public static final String JAVA_RUNTIME_VERSION = getSystemProperty("java.runtime.version");
@@ -264,6 +267,7 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * @since 2.0
      * @since Java 1.2
      */
     public static final String JAVA_VM_INFO = getSystemProperty("java.vm.info");
@@ -394,6 +398,7 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * @since 2.0
      * @since Java 1.2
      */
     public static final String USER_COUNTRY = 
@@ -428,6 +433,7 @@ public class SystemUtils {
      * <p>Defaults to <code>null</code> if the runtime does not have
      * security access to read this property or the property does not exist.</p>
      * 
+     * @since 2.0
      * @since Java 1.2
      */
     public static final String USER_LANGUAGE = getSystemProperty("user.language");
@@ -531,6 +537,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_AIX = getOSMatches("AIX");
 
@@ -539,6 +547,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_HP_UX = getOSMatches("HP-UX");
 
@@ -547,6 +557,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_IRIX = getOSMatches("Irix");
 
@@ -555,6 +567,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_LINUX = getOSMatches("Linux") || getOSMatches("LINUX");
 
@@ -563,6 +577,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_MAC = getOSMatches("Mac");
 
@@ -571,6 +587,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_MAC_OSX = getOSMatches("Mac OS X");
 
@@ -579,6 +597,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_OS2 = getOSMatches("OS/2");
 
@@ -587,6 +607,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_SOLARIS = getOSMatches("Solaris");
 
@@ -595,6 +617,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_SUN_OS = getOSMatches("SunOS");
 
@@ -603,6 +627,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_WINDOWS = getOSMatches("Windows");
 
@@ -611,6 +637,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_WINDOWS_2000 = getOSMatches("Windows", "5.0");
 
@@ -619,6 +647,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_WINDOWS_95 = getOSMatches("Windows 9", "4.0");
     // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
@@ -628,6 +658,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_WINDOWS_98 = getOSMatches("Windows 9", "4.1");
     // JDK 1.2 running on Windows98 returns 'Windows 95', hence the above
@@ -637,6 +669,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_WINDOWS_ME = getOSMatches("Windows", "4.9");
     // JDK 1.2 running on WindowsME may return 'Windows 95', hence the above
@@ -646,6 +680,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_WINDOWS_NT = getOSMatches("Windows NT");
     // Windows 2000 returns 'Windows 2000' but may suffer from same JDK1.2 problem
@@ -655,6 +691,8 @@ public class SystemUtils {
      *
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final boolean IS_OS_WINDOWS_XP = getOSMatches("Windows", "5.1");
     // Windows XP returns 'Windows 2000' just for fun...
@@ -835,6 +873,7 @@ public class SystemUtils {
      * @param requiredVersion  the required version, for example 131
      * @return <code>true</code> if the actual version is equal or greater
      *  than the required version
+     * @since 2.0
      */
     public static boolean isJavaVersionAtLeast(int requiredVersion) {
         return (JAVA_VERSION_INT >= requiredVersion);

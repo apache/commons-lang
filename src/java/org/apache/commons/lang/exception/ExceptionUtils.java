@@ -80,7 +80,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.33 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: ExceptionUtils.java,v 1.34 2003/08/21 15:52:55 ggregory Exp $
  */
 public class ExceptionUtils {
     
@@ -134,6 +134,7 @@ public class ExceptionUtils {
      * 
      * @param methodName  the methodName to add to the list, <code>null</code>
      *  and empty strings are ignored
+     * @since 2.0
      */
     public static void addCauseMethodName(String methodName) {
         if (StringUtils.isNotEmpty(methodName)) {
@@ -322,6 +323,7 @@ public class ExceptionUtils {
      * <p>This is true for JDK 1.4 and above.</p>
      * 
      * @return true if Throwable is nestable
+     * @since 2.0
      */
     public static boolean isThrowableNested() {
         return (THROWABLE_CAUSE_METHOD != null);
@@ -334,6 +336,7 @@ public class ExceptionUtils {
      *
      * @param throwable  the <code>Throwable</code> to examine, may be null
      * @return boolean <code>true</code> if nested otherwise <code>false</code>
+     * @since 2.0
      */
     public static boolean isNestedThrowable(Throwable throwable) {
         if (throwable == null) {
@@ -484,6 +487,7 @@ public class ExceptionUtils {
      * that don't have nested causes.</p>
      * 
      * @param throwable  the throwable to output
+     * @since 2.0
      */
     public static void printRootCauseStackTrace(Throwable throwable) {
         printRootCauseStackTrace(throwable, System.err);
@@ -503,6 +507,7 @@ public class ExceptionUtils {
      * @param throwable  the throwable to output, may be null
      * @param stream  the stream to output to, may not be null
      * @throws IllegalArgumentException if the stream is <code>null</code>
+     * @since 2.0
      */
     public static void printRootCauseStackTrace(Throwable throwable, PrintStream stream) {
         if (throwable == null) {
@@ -532,6 +537,7 @@ public class ExceptionUtils {
      * @param throwable  the throwable to output, may be null
      * @param writer  the writer to output to, may not be null
      * @throws IllegalArgumentException if the writer is <code>null</code>
+     * @since 2.0
      */
     public static void printRootCauseStackTrace(Throwable throwable, PrintWriter writer) {
         if (throwable == null) {
@@ -554,6 +560,7 @@ public class ExceptionUtils {
      * 
      * @param throwable  the throwable to examine, may be null
      * @return an array of stack trace frames, never null
+     * @since 2.0
      */
     public static String[] getRootCauseStackTrace(Throwable throwable) {
         if (throwable == null) {
@@ -587,6 +594,7 @@ public class ExceptionUtils {
      * @param causeFrames  stack trace of a cause throwable
      * @param wrapperFrames  stack trace of a wrapper throwable
      * @throws IllegalArgumentException if either argument is null
+     * @since 2.0
      */
     public static void removeCommonFrames(List causeFrames, List wrapperFrames) {
         if (causeFrames == null || wrapperFrames == null) {
@@ -627,6 +635,7 @@ public class ExceptionUtils {
      *
      * @param throwable  the <code>Throwable</code> to be examined
      * @return the nested stack trace, with the root cause first
+     * @since 2.0
      */
     public static String getFullStackTrace(Throwable throwable) {
         StringWriter sw = new StringWriter();

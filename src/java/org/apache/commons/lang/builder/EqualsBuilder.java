@@ -111,7 +111,7 @@ import java.lang.reflect.Modifier;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: EqualsBuilder.java,v 1.18 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: EqualsBuilder.java,v 1.19 2003/08/21 15:52:54 ggregory Exp $
  */
 public class EqualsBuilder {
     /**
@@ -201,6 +201,7 @@ public class EqualsBuilder {
      * @param reflectUpToClass  the superclass to reflect up to (inclusive),
      *  may be <code>null</code>
      * @return <code>true</code> if the two Objects have tested equals.
+     * @since 2.0
      */
     public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients, Class reflectUpToClass) {
         if (lhs == rhs) {
@@ -291,6 +292,7 @@ public class EqualsBuilder {
      *
      * @param superEquals  the result of calling <code>super.equals()</code>
      * @return EqualsBuilder - used to chain calls.
+     * @since 2.0
      */
     public EqualsBuilder appendSuper(boolean superEquals) {
         if (isEquals == false) {

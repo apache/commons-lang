@@ -112,7 +112,7 @@ import java.lang.reflect.Modifier;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: HashCodeBuilder.java,v 1.18 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.19 2003/08/21 15:52:54 ggregory Exp $
  */
 public class HashCodeBuilder {
 
@@ -310,6 +310,7 @@ public class HashCodeBuilder {
      * @return int hash code
      * @throws IllegalArgumentException if the Object is <code>null</code>
      * @throws IllegalArgumentException if the number is zero or even
+     * @since 2.0
      */
     public static int reflectionHashCode(
         int initialNonZeroOddNumber,
@@ -366,6 +367,7 @@ public class HashCodeBuilder {
      *
      * @param superHashCode  the result of calling <code>super.hashCode()</code>
      * @return this HashCodeBuilder, used to chain calls.
+     * @since 2.0
      */
     public HashCodeBuilder appendSuper(int superHashCode) {
         iTotal = iTotal * iConstant + superHashCode;

@@ -66,7 +66,7 @@ package org.apache.commons.lang.builder;
  * @author Stephen Colebourne
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: StandardToStringStyle.java,v 1.13 2003/08/18 02:22:24 bayard Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.14 2003/08/21 15:52:54 ggregory Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
@@ -103,6 +103,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * <p>Gets whether to output short or long class names.</p>
      *
      * @return the current useShortClassName flag
+     * @since 2.0
      */
     public boolean isUseShortClassName() {
         return super.isUseShortClassName();
@@ -123,6 +124,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * <p>Sets whether to output short or long class names.</p>
      *
      * @param useShortClassName  the new useShortClassName flag
+     * @since 2.0
      */
     public void setUseShortClassName(boolean useShortClassName) {
         super.setUseShortClassName(useShortClassName);
@@ -398,6 +400,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * of each buffer.</p>
      * 
      * @param fieldSeparatorAtStart  the fieldSeparatorAtStart flag
+     * @since 2.0
      */
     public void setFieldSeparatorAtStart(boolean fieldSeparatorAtStart) {
         super.setFieldSeparatorAtStart(fieldSeparatorAtStart);
@@ -410,6 +413,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * of each buffer.</p>
      * 
      * @return fieldSeparatorAtEnd flag
+     * @since 2.0
      */
     public boolean isFieldSeparatorAtEnd() {
         return super.isFieldSeparatorAtEnd();
@@ -420,6 +424,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * of each buffer.</p>
      * 
      * @param fieldSeparatorAtEnd  the fieldSeparatorAtEnd flag
+     * @since 2.0
      */
     public void setFieldSeparatorAtEnd(boolean fieldSeparatorAtEnd) {
         super.setFieldSeparatorAtEnd(fieldSeparatorAtEnd);
