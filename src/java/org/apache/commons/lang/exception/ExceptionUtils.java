@@ -68,7 +68,8 @@ import java.sql.SQLException;
 public class ExceptionUtils
 {
     /**
-     * The name of the <code>getCause()</code> method.
+     * The names of methods commonly used to access a wrapped
+     * exception.
      */
     protected static final String[] CAUSE_METHOD_NAMES =
     {
