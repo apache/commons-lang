@@ -98,7 +98,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @author Arun Mammen Thomas
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.67 2003/07/19 23:29:06 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.68 2003/07/20 00:04:12 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -179,7 +179,8 @@ public class StringUtils {
      * <code>null</code>.</p>
      * 
      * <p>The String is trimmed using {@link String#trim()}.
-     * Trim removes start and end characters &lt;= 32.</p>
+     * Trim removes start and end characters &lt;= 32.
+     * To strip whitespace use {@link #strip(String)}.</p>
      * 
      * <p>To trim your choice of characters, use the
      * {@link #strip(String, String)} methods.</p>
@@ -192,7 +193,6 @@ public class StringUtils {
      * StringUtils.trim("")            = ""
      * </pre>
      *
-     * @see java.lang.String#trim()
      * @param str  the String to be trimmed, may be null
      * @return the trimmed string, <code>null</code> if null String input
      */
@@ -206,7 +206,8 @@ public class StringUtils {
      * empty ("") after the trim or if it is <code>null</code>.
      * 
      * <p>The String is trimmed using {@link String#trim()}.
-     * Trim removes start and end characters &lt;= 32.</p>
+     * Trim removes start and end characters &lt;= 32.
+     * To strip whitespace use {@link #stripToNull(String)}.</p>
      * 
      * <pre>
      * StringUtils.trimToNull(null)          = null
@@ -216,7 +217,6 @@ public class StringUtils {
      * StringUtils.trimToNull("")            = null
      * </pre>
      *  
-     * @see java.lang.String#trim()
      * @param str  the String to be trimmed, may be null
      * @return the trimmed String, 
      *  <code>null</code> if only chars &lt;= 32, empty or null String input
@@ -232,7 +232,8 @@ public class StringUtils {
      * is empty ("") after the trim or if it is <code>null</code>.
      * 
      * <p>The String is trimmed using {@link String#trim()}.
-     * Trim removes start and end characters &lt;= 32.</p>
+     * Trim removes start and end characters &lt;= 32.
+     * To strip whitespace use {@link #stripToEmpty(String)}.</p>
      * 
      * <pre>
      * StringUtils.trimToEmpty(null)          = ""
@@ -242,7 +243,6 @@ public class StringUtils {
      * StringUtils.trimToEmpty("")            = ""
      * </pre>
      *  
-     * @see java.lang.String#trim()
      * @param str  the String to be trimmed, may be null
      * @return the trimmed String, or an empty String if <code>null</code> input
      */
@@ -2510,14 +2510,17 @@ public class StringUtils {
     //-----------------------------------------------------------------------
     
     /**
-     * <p>Strips whitespace from the start and end of a String.
-     * This is similar to {@link String#trim()} but instead removes whitespace.
+     * <p>Strips whitespace from the start and end of a String.</p>
+     * 
+     * <p>This is similar to {@link String#trim()} but instead removes whitespace.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      * 
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      * 
      * <pre>
      * StringUtils.strip(null)     = null
+     * StringUtils.strip("")       = ""
+     * StringUtils.strip("   ")    = ""
      * StringUtils.strip("abc")    = "abc"
      * StringUtils.strip("  abc")  = "abc"
      * StringUtils.strip("abc  ")  = "abc"
@@ -2530,6 +2533,61 @@ public class StringUtils {
      */
     public static String strip(String str) {
         return strip(str, null);
+    }
+    
+    /** 
+     * <p>Strips whitespace from the start and end of a String  returning
+     * <code>null</code> if the String is empty ("") after the strip.</p>
+     * 
+     * <p>This is similar to {@link #trimToNull()} but instead removes whitespace.
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * 
+     * <pre>
+     * StringUtils.strip(null)     = null
+     * StringUtils.strip("")       = null
+     * StringUtils.strip("   ")    = null
+     * StringUtils.strip("abc")    = "abc"
+     * StringUtils.strip("  abc")  = "abc"
+     * StringUtils.strip("abc  ")  = "abc"
+     * StringUtils.strip(" abc ")  = "abc"
+     * StringUtils.strip(" ab c ") = "ab c"
+     * </pre>
+     *  
+     * @param str  the String to be stripped, may be null
+     * @return the stripped String, 
+     *  <code>null</code> if whitespace, empty or null String input
+     */
+    public static String stripToNull(String str) {
+        if (str == null) {
+            return null;
+        }
+        str = strip(str, null);
+        return (str.length() == 0 ? null : str);
+    }
+
+    /** 
+     * <p>Strips whitespace from the start and end of a String  returning
+     * an empty String if <code>null</code> input.</p>
+     * 
+     * <p>This is similar to {@link #trimToEmpty()} but instead removes whitespace.
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * 
+     * <pre>
+     * StringUtils.strip(null)     = ""
+     * StringUtils.strip("")       = ""
+     * StringUtils.strip("   ")    = ""
+     * StringUtils.strip("abc")    = "abc"
+     * StringUtils.strip("  abc")  = "abc"
+     * StringUtils.strip("abc  ")  = "abc"
+     * StringUtils.strip(" abc ")  = "abc"
+     * StringUtils.strip(" ab c ") = "ab c"
+     * </pre>
+     *  
+     * @param str  the String to be stripped, may be null
+     * @return the trimmed String, or an empty String if <code>null</code> input
+     */
+    public static String stripToEmpty(String str) {
+        return (str == null ? "" : strip(str, null));
     }
     
     /**
@@ -2557,6 +2615,9 @@ public class StringUtils {
      * @return the stripped String, <code>null</code> if null String input
      */
     public static String strip(String str, String stripChars) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
         str = stripStart(str, stripChars);
         return stripEnd(str, stripChars);
     }
