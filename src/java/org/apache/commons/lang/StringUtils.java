@@ -111,7 +111,7 @@ import java.util.List;
  * @author Al Chou
  * @author Michael Davey
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.136 2004/10/08 00:11:22 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.137 2004/12/18 02:48:01 bayard Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -3233,7 +3233,7 @@ public class StringUtils {
      * StringUtils.chomp("foobar", "bar") = "foo"
      * StringUtils.chomp("foobar", "baz") = "foobar"
      * StringUtils.chomp("foo", "foo")    = ""
-     * StringUtils.chomp("foo ", "foo")   = "foo"
+     * StringUtils.chomp("foo ", "foo")   = "foo "
      * StringUtils.chomp(" foo", "foo")   = " "
      * StringUtils.chomp("foo", "foooo")  = "foo"
      * StringUtils.chomp("foo", "")       = "foo"
