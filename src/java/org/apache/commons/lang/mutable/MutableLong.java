@@ -21,7 +21,7 @@ package org.apache.commons.lang.mutable;
  * 
  * @see Long
  * @since 2.1
- * @version $Id: MutableLong.java,v 1.6 2004/10/08 19:45:46 ggregory Exp $
+ * @version $Id$
  */
 public class MutableLong extends Number implements Comparable, Mutable {
 
@@ -97,18 +97,39 @@ public class MutableLong extends Number implements Comparable, Mutable {
     }
 
     //-----------------------------------------------------------------------
+    // shortValue and bytValue rely on Number implementation
+    /**
+     * Returns the value of this MutableLong as a int.
+     *
+     * @return the numeric value represented by this object after conversion to type int.
+     */
     public int intValue() {
         return (int) value;
     }
 
+    /**
+     * Returns the value of this MutableLong as a long.
+     *
+     * @return the numeric value represented by this object after conversion to type long.
+     */
     public long longValue() {
         return value;
     }
 
+    /**
+     * Returns the value of this MutableLong as a float.
+     *
+     * @return the numeric value represented by this object after conversion to type float.
+     */
     public float floatValue() {
         return value;
     }
 
+    /**
+     * Returns the value of this MutableLong as a double.
+     *
+     * @return the numeric value represented by this object after conversion to type double.
+     */
     public double doubleValue() {
         return value;
     }

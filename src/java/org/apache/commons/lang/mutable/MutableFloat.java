@@ -23,7 +23,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * 
  * @see Float
  * @since 2.1
- * @version $Id: MutableFloat.java,v 1.7 2004/10/08 21:33:03 scolebourne Exp $
+ * @version $Id$
  */
 public class MutableFloat extends Number implements Comparable, Mutable {
 
@@ -99,18 +99,39 @@ public class MutableFloat extends Number implements Comparable, Mutable {
     }
 
     //-----------------------------------------------------------------------
+    // shortValue and bytValue rely on Number implementation
+    /**
+     * Returns the value of this MutableFloat as a int.
+     *
+     * @return the numeric value represented by this object after conversion to type int.
+     */
     public int intValue() {
         return (int) value;
     }
 
+    /**
+     * Returns the value of this MutableFloat as a long.
+     *
+     * @return the numeric value represented by this object after conversion to type long.
+     */
     public long longValue() {
         return (long) value;
     }
 
+    /**
+     * Returns the value of this MutableFloat as a float.
+     *
+     * @return the numeric value represented by this object after conversion to type float.
+     */
     public float floatValue() {
         return value;
     }
 
+    /**
+     * Returns the value of this MutableFloat as a double.
+     *
+     * @return the numeric value represented by this object after conversion to type double.
+     */
     public double doubleValue() {
         return value;
     }

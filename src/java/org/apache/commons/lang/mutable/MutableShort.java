@@ -21,7 +21,7 @@ package org.apache.commons.lang.mutable;
  * 
  * @see Short
  * @since 2.1
- * @version $Id: MutableShort.java,v 1.6 2004/10/08 19:45:46 ggregory Exp $
+ * @version $Id$
  */
 public class MutableShort extends Number implements Comparable, Mutable {
 
@@ -97,22 +97,48 @@ public class MutableShort extends Number implements Comparable, Mutable {
     }
 
     //-----------------------------------------------------------------------
+    // bytValue relies on Number implementation
+    /**
+     * Returns the value of this MutableShort as a short.
+     *
+     * @return the numeric value represented by this object after conversion to type short.
+     */
     public short shortValue() {
         return value;
     }
 
+    /**
+     * Returns the value of this MutableShort as a int.
+     *
+     * @return the numeric value represented by this object after conversion to type int.
+     */
     public int intValue() {
         return value;
     }
 
+    /**
+     * Returns the value of this MutableShort as a long.
+     *
+     * @return the numeric value represented by this object after conversion to type long.
+     */
     public long longValue() {
         return value;
     }
 
+    /**
+     * Returns the value of this MutableShort as a float.
+     *
+     * @return the numeric value represented by this object after conversion to type float.
+     */
     public float floatValue() {
         return value;
     }
 
+    /**
+     * Returns the value of this MutableShort as a double.
+     *
+     * @return the numeric value represented by this object after conversion to type double.
+     */
     public double doubleValue() {
         return value;
     }
