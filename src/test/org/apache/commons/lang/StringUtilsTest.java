@@ -69,7 +69,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @version $Id: StringUtilsTest.java,v 1.22 2003/07/15 23:41:54 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.23 2003/07/16 21:23:50 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
 
@@ -478,16 +478,6 @@ public class StringUtilsTest extends TestCase {
                      "\\u0234", StringUtils.escape("\u0234") );
         assertEquals("escape(String) failed",
                      "\\u00FD", StringUtils.escape("\u00fd") );
-        assertEquals("unescape(String) failed",
-                     "", StringUtils.unescape("") );
-        assertEquals("unescape(String) failed",
-                     "test", StringUtils.unescape("test") );
-        assertEquals("unescape(String) failed",
-                     "\ntest\b", StringUtils.unescape("\\ntest\\b") );
-        assertEquals("unescape(String) failed",
-                     "\u123425foo\ntest\b", StringUtils.unescape("\\u123425foo\\ntest\\b") );
-        assertEquals("unescape(String) failed with unicode as final char",
-                     "\u1234", StringUtils.unescape("\\u1234") );
     }
 
     public void testGetLevenshteinDistance() {

@@ -1,4 +1,4 @@
-$Id: RELEASE-NOTES.txt,v 1.12 2003/07/16 21:19:22 scolebourne Exp $
+$Id: RELEASE-NOTES.txt,v 1.13 2003/07/16 21:23:50 scolebourne Exp $
 
                         Commons Lang Package
                             Version 2.0
@@ -77,8 +77,8 @@ lang:
         isNotEmpty() changed return true for null.
         chomp() changed to be more like Perl.
         Various methods changed in the handling of null (less exceptions).
-        Thirty-one new methods.
-        Eight methods deprecated.
+        Thirty new methods.
+        Seven methods deprecated.
     SystemUtils:
         isJavaVersionAtLeast(int) added. getJavaVersion() deprecated.
         host of new constants.
@@ -274,7 +274,6 @@ org.apache.commons.lang.StringUtils
 >     public static java.lang.String sliceRemainder(java.lang.String, java.lang.String);
 >     public static java.lang.String sliceFirstRemainder(java.lang.String, java.lang.String);
 >     public static java.lang.String sliceFirst(java.lang.String, java.lang.String);
->     public static java.lang.String unescape(java.lang.String);
 >     public static java.lang.String rightPad(java.lang.String, int, char);
 >     public static java.lang.String leftPad(java.lang.String, int, char);
 >     public static java.lang.String uncapitaliseAllWords(java.lang.String);
