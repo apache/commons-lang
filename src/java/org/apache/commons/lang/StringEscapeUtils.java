@@ -63,7 +63,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
 /**
  * <p>Common <code>String</code> escaping routines.</p>
  *
- * <p>Originally from 
+ * <p>Originally from
  * <a href="http://jakarta.apache.org/turbine/">Turbine</a> and the
  * GenerationJavaCore library and from
  * <a href="http://www.purpletech.com/code/">Purple Technology</a>
@@ -75,7 +75,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author Helge Tesgaard
  * @author <a href="sean@boohai.com">Sean Brown</a>
  * @since 2.0
- * @version $Id: StringEscapeUtils.java,v 1.2 2003/04/01 17:19:28 bayard Exp $
+ * @version $Id: StringEscapeUtils.java,v 1.3 2003/04/02 06:14:46 alex Exp $
  */
 public class StringEscapeUtils {
 
@@ -169,8 +169,7 @@ public class StringEscapeUtils {
             StringPrintWriter writer = new StringPrintWriter(str.length() * 2);
             escapeJavaStyleString(writer, str, escapeSingleQuotes);
             return writer.getString();
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             // this should never ever happen while writing to a StringWriter
             ioe.printStackTrace();
             return null;
@@ -192,23 +191,23 @@ public class StringEscapeUtils {
                 out.write("\\u00" + Integer.toHexString(ch));
             } else if (ch < 32) {
                 switch (ch) {
-                    case '\b' :
+                    case '\b':
                         out.write('\\');
                         out.write('b');
                         break;
-                    case '\n' :
+                    case '\n':
                         out.write('\\');
                         out.write('n');
                         break;
-                    case '\t' :
+                    case '\t':
                         out.write('\\');
                         out.write('t');
                         break;
-                    case '\f' :
+                    case '\f':
                         out.write('\\');
                         out.write('f');
                         break;
-                    case '\r' :
+                    case '\r':
                         out.write('\\');
                         out.write('r');
                         break;
@@ -222,15 +221,15 @@ public class StringEscapeUtils {
                 }
             } else {
                 switch (ch) {
-                    case '\'' :
+                    case '\'':
                         if (escapeSingleQuote) out.write('\\');
                         out.write('\'');
                         break;
-                    case '"' :
+                    case '"':
                         out.write('\\');
                         out.write('"');
                         break;
-                    case '\\' :
+                    case '\\':
                         out.write('\\');
                         out.write('\\');
                         break;
@@ -243,8 +242,8 @@ public class StringEscapeUtils {
     }
 
     /**
-     * Unescapes any Java literals found in the String. For example, 
-     * it will turn a sequence of '\' and 'n' into a newline character, 
+     * Unescapes any Java literals found in the String. For example,
+     * it will turn a sequence of '\' and 'n' into a newline character,
      * unless the '\' is preceded by another '\'.
      */
     public static String unescapeJava(String str) {
@@ -252,8 +251,7 @@ public class StringEscapeUtils {
             StringPrintWriter writer = new StringPrintWriter(str.length());
             unescapeJava(writer, str);
             return writer.getString();
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             // this should never ever happen while writing to a StringWriter
             ioe.printStackTrace();
             return null;
@@ -267,58 +265,74 @@ public class StringEscapeUtils {
         boolean inUnicode = false;
         for (int i = 0; i < sz; i++) {
             char ch = str.charAt(i);
-            if(inUnicode) {
-                // if in unicode, then we're reading unicode 
+            if (inUnicode) {
+                // if in unicode, then we're reading unicode
                 // values in somehow
-                if(unicode.length() == 4) {
-                    // unicode now contains the four hex digits 
+                if (unicode.length() == 4) {
+                    // unicode now contains the four hex digits
                     // which represents our unicode chacater
                     try {
                         int value = Integer.parseInt(unicode.toString(), 16);
-                        out.write( (char)value );
+                        out.write((char) value);
                         unicode.setLength(0);
                         unicode.setLength(4);
                         inUnicode = false;
                         hadSlash = false;
-                    } catch(NumberFormatException nfe) {
-                        throw new NestableRuntimeException("Unable to parse unicode value: "+unicode, nfe);
+                    } catch (NumberFormatException nfe) {
+                        throw new NestableRuntimeException("Unable to parse unicode value: " + unicode, nfe);
                     }
                 } else {
                     unicode.append(ch);
                     continue;
                 }
             }
-            if(hadSlash) {
+            if (hadSlash) {
                 // handle an escaped value
                 hadSlash = false;
-                switch(ch) {
-                    case '\\': out.write('\\'); break;
-                    case '\'': out.write('\''); break;
-                    case '\"': out.write('"'); break;
-                    case 'r':  out.write('\r'); break;
-                    case 'f':  out.write('\f'); break;
-                    case 't':  out.write('\t'); break;
-                    case 'n':  out.write('\n'); break;
-                    case 'b':  out.write('\b'); break;
-                    case 'u':  {
-                        // uh-oh, we're in unicode country....
-                        inUnicode=true;
+                switch (ch) {
+                    case '\\':
+                        out.write('\\');
                         break;
-                    }
+                    case '\'':
+                        out.write('\'');
+                        break;
+                    case '\"':
+                        out.write('"');
+                        break;
+                    case 'r':
+                        out.write('\r');
+                        break;
+                    case 'f':
+                        out.write('\f');
+                        break;
+                    case 't':
+                        out.write('\t');
+                        break;
+                    case 'n':
+                        out.write('\n');
+                        break;
+                    case 'b':
+                        out.write('\b');
+                        break;
+                    case 'u':
+                        {
+                            // uh-oh, we're in unicode country....
+                            inUnicode = true;
+                            break;
+                        }
                     default :
                         out.write(ch);
                         break;
                 }
                 continue;
-            } else
-            if(ch == '\\') {
+            } else if (ch == '\\') {
                 hadSlash = true;
                 continue;
-            } 
+            }
             out.write(ch);
         }
-        if(hadSlash) {
-            // then we're in the weird case of a \ at the end of the 
+        if (hadSlash) {
+            // then we're in the weird case of a \ at the end of the
             // string, let's output it anyway.
             out.write('\\');
         }
@@ -329,98 +343,156 @@ public class StringEscapeUtils {
     }
 
     public static void unescapeJavaScript(Writer out, String str) throws IOException {
-        unescapeJava(out,str);
+        unescapeJava(out, str);
     }
 
     // HTML and XML
     //--------------------------------------------------------------------------
-    
-    // see http://hotwired.lycos.com/webmonkey/reference/special_characters/
-    //todo: initialize these lazily (on first request, rather than at classload time)
-    static Object[][] entities = {
-       // {"#39", new Integer(39)},       // ' - apostrophe
-        {"quot", new Integer(34)},      // " - double-quote
-        {"amp", new Integer(38)},       // & - ampersand
-        {"lt", new Integer(60)},        // < - less-than
-        {"gt", new Integer(62)},        // > - greater-than
-        {"nbsp", new Integer(160)},     // non-breaking space
-        {"copy", new Integer(169)},     // © - copyright
-        {"reg", new Integer(174)},      // ® - registered trademark
-        {"Agrave", new Integer(192)},   // À - uppercase A, grave accent
-        {"Aacute", new Integer(193)},   // Á - uppercase A, acute accent
-        {"Acirc", new Integer(194)},    // Â - uppercase A, circumflex accent
-        {"Atilde", new Integer(195)},   // Ã - uppercase A, tilde
-        {"Auml", new Integer(196)},     // Ä - uppercase A, umlaut
-        {"Aring", new Integer(197)},    // Å - uppercase A, ring
-        {"AElig", new Integer(198)},    // Æ - uppercase AE
-        {"Ccedil", new Integer(199)},   // Ç - uppercase C, cedilla
-        {"Egrave", new Integer(200)},   // È - uppercase E, grave accent
-        {"Eacute", new Integer(201)},   // É - uppercase E, acute accent
-        {"Ecirc", new Integer(202)},    // Ê - uppercase E, circumflex accent
-        {"Euml", new Integer(203)},     // Ë - uppercase E, umlaut
-        {"Igrave", new Integer(204)},   // Ì - uppercase I, grave accent
-        {"Iacute", new Integer(205)},   // Í - uppercase I, acute accent
-        {"Icirc", new Integer(206)},    // Î - uppercase I, circumflex accent
-        {"Iuml", new Integer(207)},     // Ï - uppercase I, umlaut
-        {"ETH", new Integer(208)},      // Ð - uppercase Eth, Icelandic
-        {"Ntilde", new Integer(209)},   // Ñ - uppercase N, tilde
-        {"Ograve", new Integer(210)},   // Ò - uppercase O, grave accent
-        {"Oacute", new Integer(211)},   // Ó - uppercase O, acute accent
-        {"Ocirc", new Integer(212)},    // Ô - uppercase O, circumflex accent
-        {"Otilde", new Integer(213)},   // Õ - uppercase O, tilde
-        {"Ouml", new Integer(214)},     // Ö - uppercase O, umlaut
-        {"Oslash", new Integer(216)},   // Ø - uppercase O, slash
-        {"Ugrave", new Integer(217)},   // Ù - uppercase U, grave accent
-        {"Uacute", new Integer(218)},   // Ú - uppercase U, acute accent
-        {"Ucirc", new Integer(219)},    // Û - uppercase U, circumflex accent
-        {"Uuml", new Integer(220)},     // Ü - uppercase U, umlaut
-        {"Yacute", new Integer(221)},   // Ý - uppercase Y, acute accent
-        {"THORN", new Integer(222)},    // Þ - uppercase THORN, Icelandic
-        {"szlig", new Integer(223)},    // ß - lowercase sharps, German
-        {"agrave", new Integer(224)},   // à - lowercase a, grave accent
-        {"aacute", new Integer(225)},   // á - lowercase a, acute accent
-        {"acirc", new Integer(226)},    // â - lowercase a, circumflex accent
-        {"atilde", new Integer(227)},   // ã - lowercase a, tilde
-        {"auml", new Integer(228)},     // ä - lowercase a, umlaut
-        {"aring", new Integer(229)},    // å - lowercase a, ring
-        {"aelig", new Integer(230)},    // æ - lowercase ae
-        {"ccedil", new Integer(231)},   // ç - lowercase c, cedilla
-        {"egrave", new Integer(232)},   // è - lowercase e, grave accent
-        {"eacute", new Integer(233)},   // é - lowercase e, acute accent
-        {"ecirc", new Integer(234)},    // ê - lowercase e, circumflex accent
-        {"euml", new Integer(235)},     // ë - lowercase e, umlaut
-        {"igrave", new Integer(236)},   // ì - lowercase i, grave accent
-        {"iacute", new Integer(237)},   // í - lowercase i, acute accent
-        {"icirc", new Integer(238)},    // î - lowercase i, circumflex accent
-        {"iuml", new Integer(239)},     // ï - lowercase i, umlaut
-        {"igrave", new Integer(236)},   // ì - lowercase i, grave accent
-        {"iacute", new Integer(237)},   // í - lowercase i, acute accent
-        {"icirc", new Integer(238)},    // î - lowercase i, circumflex accent
-        {"iuml", new Integer(239)},     // ï - lowercase i, umlaut
-        {"eth", new Integer(240)},      // ð - lowercase eth, Icelandic
-        {"ntilde", new Integer(241)},   // ñ - lowercase n, tilde
-        {"ograve", new Integer(242)},   // ò - lowercase o, grave accent
-        {"oacute", new Integer(243)},   // ó - lowercase o, acute accent
-        {"ocirc", new Integer(244)},    // ô - lowercase o, circumflex accent
-        {"otilde", new Integer(245)},   // õ - lowercase o, tilde
-        {"ouml", new Integer(246)},     // ö - lowercase o, umlaut
-        {"oslash", new Integer(248)},   // ø - lowercase o, slash
-        {"ugrave", new Integer(249)},   // ù - lowercase u, grave accent
-        {"uacute", new Integer(250)},   // ú - lowercase u, acute accent
-        {"ucirc", new Integer(251)},    // û - lowercase u, circumflex accent
-        {"uuml", new Integer(252)},     // ü - lowercase u, umlaut
-        {"yacute", new Integer(253)},   // ý - lowercase y, acute accent
-        {"thorn", new Integer(254)},    // þ - lowercase thorn, Icelandic
-        {"yuml", new Integer(255)},     // ÿ - lowercase y, umlaut
-        {"euro", new Integer(8364)},    // Euro symbol
-    };
-    static Map e2i = new HashMap();
-    static Map i2e = new HashMap();
-    static {
-        for (int i=0; i<entities.length; ++i) {
-            e2i.put(entities[i][0], entities[i][1]);
-            i2e.put(entities[i][1], entities[i][0]);
+
+    private static class Entities {
+        // see http://hotwired.lycos.com/webmonkey/reference/special_characters/
+        // see http://www.w3.org/TR/REC-html40/sgml/entities.html
+        static Object[][] entities = {
+            // {"#39", new Integer(39)},       // ' - apostrophe
+            {"quot", new Integer(34)}, // " - double-quote
+            {"amp", new Integer(38)}, // & - ampersand
+            {"lt", new Integer(60)}, // < - less-than
+            {"gt", new Integer(62)}, // > - greater-than
+            {"nbsp", new Integer(160)}, // non-breaking space
+            {"iexcl", new Integer(161)}, //inverted exclamation mark
+            {"cent", new Integer(162)}, //cent sign
+            {"pound", new Integer(163)}, //pound sign
+            {"curren", new Integer(164)}, //currency sign
+            {"yen", new Integer(165)}, //yen sign = yuan sign
+            {"brvbar", new Integer(166)}, //broken bar = broken vertical bar
+            {"sect", new Integer(167)}, //section sign
+            {"uml", new Integer(168)}, //diaeresis = spacing diaeresis
+            {"copy", new Integer(169)}, // © - copyright sign
+            {"ordf", new Integer(170)}, //feminine ordinal indicator
+            {"laquo", new Integer(171)}, //left-pointing double angle quotation mark = left pointing guillemet
+            {"not", new Integer(172)}, //not sign
+            {"shy", new Integer(173)}, //soft hyphen = discretionary hyphen
+            {"reg", new Integer(174)}, // ® - registered trademark sign
+            {"macr", new Integer(175)}, //macron = spacing macron = overline = APL overbar
+            {"deg", new Integer(176)}, //degree sign
+            {"plusmn", new Integer(177)}, //plus-minus sign = plus-or-minus sign
+            {"sup2", new Integer(178)}, //superscript two = superscript digit two = squared
+            {"sup3", new Integer(179)}, //superscript three = superscript digit three = cubed
+            {"acute", new Integer(180)}, //acute accent = spacing acute
+            {"micro", new Integer(181)}, //micro sign
+            {"para", new Integer(182)}, //pilcrow sign = paragraph sign
+            {"middot", new Integer(183)}, //middle dot = Georgian comma = Greek middle dot
+            {"cedil", new Integer(184)}, //cedilla = spacing cedilla
+            {"sup1", new Integer(185)}, //superscript one = superscript digit one
+            {"ordm", new Integer(186)}, //masculine ordinal indicator
+            {"raquo", new Integer(187)}, //right-pointing double angle quotation mark = right pointing guillemet
+            {"frac14", new Integer(188)}, //vulgar fraction one quarter = fraction one quarter
+            {"frac12", new Integer(189)}, //vulgar fraction one half = fraction one half
+            {"frac34", new Integer(190)}, //vulgar fraction three quarters = fraction three quarters
+            {"iquest", new Integer(191)}, //inverted question mark = turned question mark
+            {"Agrave", new Integer(192)}, // À - uppercase A, grave accent
+            {"Aacute", new Integer(193)}, // Á - uppercase A, acute accent
+            {"Acirc", new Integer(194)}, // Â - uppercase A, circumflex accent
+            {"Atilde", new Integer(195)}, // Ã - uppercase A, tilde
+            {"Auml", new Integer(196)}, // Ä - uppercase A, umlaut
+            {"Aring", new Integer(197)}, // Å - uppercase A, ring
+            {"AElig", new Integer(198)}, // Æ - uppercase AE
+            {"Ccedil", new Integer(199)}, // Ç - uppercase C, cedilla
+            {"Egrave", new Integer(200)}, // È - uppercase E, grave accent
+            {"Eacute", new Integer(201)}, // É - uppercase E, acute accent
+            {"Ecirc", new Integer(202)}, // Ê - uppercase E, circumflex accent
+            {"Euml", new Integer(203)}, // Ë - uppercase E, umlaut
+            {"Igrave", new Integer(204)}, // Ì - uppercase I, grave accent
+            {"Iacute", new Integer(205)}, // Í - uppercase I, acute accent
+            {"Icirc", new Integer(206)}, // Î - uppercase I, circumflex accent
+            {"Iuml", new Integer(207)}, // Ï - uppercase I, umlaut
+            {"ETH", new Integer(208)}, // Ð - uppercase Eth, Icelandic
+            {"Ntilde", new Integer(209)}, // Ñ - uppercase N, tilde
+            {"Ograve", new Integer(210)}, // Ò - uppercase O, grave accent
+            {"Oacute", new Integer(211)}, // Ó - uppercase O, acute accent
+            {"Ocirc", new Integer(212)}, // Ô - uppercase O, circumflex accent
+            {"Otilde", new Integer(213)}, // Õ - uppercase O, tilde
+            {"Ouml", new Integer(214)}, // Ö - uppercase O, umlaut
+            {"times", new Integer(215)}, //multiplication sign
+            {"Oslash", new Integer(216)}, // Ø - uppercase O, slash
+            {"Ugrave", new Integer(217)}, // Ù - uppercase U, grave accent
+            {"Uacute", new Integer(218)}, // Ú - uppercase U, acute accent
+            {"Ucirc", new Integer(219)}, // Û - uppercase U, circumflex accent
+            {"Uuml", new Integer(220)}, // Ü - uppercase U, umlaut
+            {"Yacute", new Integer(221)}, // Ý - uppercase Y, acute accent
+            {"THORN", new Integer(222)}, // Þ - uppercase THORN, Icelandic
+            {"szlig", new Integer(223)}, // ß - lowercase sharps, German
+            {"agrave", new Integer(224)}, // à - lowercase a, grave accent
+            {"aacute", new Integer(225)}, // á - lowercase a, acute accent
+            {"acirc", new Integer(226)}, // â - lowercase a, circumflex accent
+            {"atilde", new Integer(227)}, // ã - lowercase a, tilde
+            {"auml", new Integer(228)}, // ä - lowercase a, umlaut
+            {"aring", new Integer(229)}, // å - lowercase a, ring
+            {"aelig", new Integer(230)}, // æ - lowercase ae
+            {"ccedil", new Integer(231)}, // ç - lowercase c, cedilla
+            {"egrave", new Integer(232)}, // è - lowercase e, grave accent
+            {"eacute", new Integer(233)}, // é - lowercase e, acute accent
+            {"ecirc", new Integer(234)}, // ê - lowercase e, circumflex accent
+            {"euml", new Integer(235)}, // ë - lowercase e, umlaut
+            {"igrave", new Integer(236)}, // ì - lowercase i, grave accent
+            {"iacute", new Integer(237)}, // í - lowercase i, acute accent
+            {"icirc", new Integer(238)}, // î - lowercase i, circumflex accent
+            {"iuml", new Integer(239)}, // ï - lowercase i, umlaut
+            {"eth", new Integer(240)}, // ð - lowercase eth, Icelandic
+            {"ntilde", new Integer(241)}, // ñ - lowercase n, tilde
+            {"ograve", new Integer(242)}, // ò - lowercase o, grave accent
+            {"oacute", new Integer(243)}, // ó - lowercase o, acute accent
+            {"ocirc", new Integer(244)}, // ô - lowercase o, circumflex accent
+            {"otilde", new Integer(245)}, // õ - lowercase o, tilde
+            {"ouml", new Integer(246)}, // ö - lowercase o, umlaut
+            {"divide", new Integer(247)}, // division sign
+            {"oslash", new Integer(248)}, // ø - lowercase o, slash
+            {"ugrave", new Integer(249)}, // ù - lowercase u, grave accent
+            {"uacute", new Integer(250)}, // ú - lowercase u, acute accent
+            {"ucirc", new Integer(251)}, // û - lowercase u, circumflex accent
+            {"uuml", new Integer(252)}, // ü - lowercase u, umlaut
+            {"yacute", new Integer(253)}, // ý - lowercase y, acute accent
+            {"thorn", new Integer(254)}, // þ - lowercase thorn, Icelandic
+            {"yuml", new Integer(255)}, // ÿ - lowercase y, umlaut
+            {"euro", new Integer(8364)}, // Euro symbol
+        };
+
+        private Map mapNameToValue;
+        private Map mapValueToName;
+
+        public Entities() {
+            mapNameToValue = new HashMap();
+            mapValueToName = new HashMap();
+            for (int i = 0; i < entities.length; ++i) {
+                mapNameToValue.put(entities[i][0], entities[i][1]);
+                mapValueToName.put(entities[i][1], entities[i][0]);
+            }
         }
+
+        public String entityName(int value) {
+            return (String) mapValueToName.get(new Integer(value));
+        }
+
+        public Integer entityValue(String name) {
+            return (Integer) mapNameToValue.get(name);
+        }
+    }
+
+    private static Entities entities;
+
+    private static void initEntities() {
+        if (entities == null)
+            entities = new Entities();
+    }
+
+    private static String entityName(char ch) {
+        initEntities();
+        return entities.entityName(ch);
+    }
+
+    private static Integer entityValue(String entity) {
+        initEntities();
+        return entities.entityValue(entity);
     }
 
     /**
@@ -430,23 +502,20 @@ public class StringEscapeUtils {
      * see http://hotwired.lycos.com/webmonkey/reference/special_characters/
      * @see #unescapeHtml(String)
      **/
-    public static String escapeHtml(String str)
-    {
+    public static String escapeHtml(String str) {
         StringBuffer buf = new StringBuffer(str.length() * 2);
         int i;
-        for (i=0; i<str.length(); ++i) {
+        for (i = 0; i < str.length(); ++i) {
             char ch = str.charAt(i);
-            String entity = (String)i2e.get( new Integer((int)ch) );
+            String entity = entityName(ch);
             if (entity == null) {
-                if (((int)ch) > 128) {
-                    int intValue = ((int)ch);
+                if (((int) ch) > 128) {   // should this be 127 or 128?
+                    int intValue = ((int) ch);
                     buf.append("&#" + intValue + ";");
-                }
-                else {
+                } else {
                     buf.append(ch);
                 }
-            }
-            else {
+            } else {
                 buf.append("&" + entity + ";");
             }
         }
@@ -463,35 +532,33 @@ public class StringEscapeUtils {
     public static String unescapeHtml(String str) {
         StringBuffer buf = new StringBuffer(str.length());
         int i;
-        for (i=0; i<str.length(); ++i) {
+        for (i = 0; i < str.length(); ++i) {
             char ch = str.charAt(i);
             if (ch == '&') {
-                int semi = str.indexOf(';', i+1);
+                int semi = str.indexOf(';', i + 1);
                 if (semi == -1) {
                     buf.append(ch);
                     continue;
                 }
-                String entity = str.substring(i+1, semi);
+                String entity = str.substring(i + 1, semi);
                 Integer iso;
                 if (entity.charAt(0) == '#') {
                     iso = new Integer(entity.substring(1));
-                }
-                else {
-                    iso = (Integer)e2i.get(entity);
+                } else {
+                    iso = entityValue(entity);
                 }
                 if (iso == null) {
                     buf.append("&" + entity + ";");
-                }
-                else {
-                    buf.append((char)(iso.intValue()));
+                } else {
+                    buf.append((char) (iso.intValue()));
                 }
                 i = semi;
-            }
-            else {
+            } else {
                 buf.append(ch);
             }
         }
         return buf.toString();
     }
+
 }
 
