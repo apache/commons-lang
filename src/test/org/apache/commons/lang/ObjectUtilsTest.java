@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: ObjectUtilsTest.java,v 1.6 2003/07/20 15:41:52 scolebourne Exp $
+ * @version $Id: ObjectUtilsTest.java,v 1.7 2003/07/25 22:37:59 scolebourne Exp $
  */
 public class ObjectUtilsTest extends TestCase {
     private static final String FOO = "foo";
@@ -111,6 +111,7 @@ public class ObjectUtilsTest extends TestCase {
     }
 
     public void testIdentityToString() {
+        assertEquals(null, ObjectUtils.identityToString(null));
         assertEquals(
             "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
             ObjectUtils.identityToString(FOO));
@@ -118,18 +119,24 @@ public class ObjectUtilsTest extends TestCase {
         assertEquals(
             "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i)),
             ObjectUtils.identityToString(i));
-        assertEquals(null, ObjectUtils.identityToString(null));
     }
 
     public void testAppendIdentityToString() {
+        assertEquals(null, ObjectUtils.appendIdentityToString(null, null));
+        assertEquals(null, ObjectUtils.appendIdentityToString(new StringBuffer(), null));
+        assertEquals(
+            "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
+            ObjectUtils.appendIdentityToString(null, FOO).toString());
         assertEquals(
             "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
             ObjectUtils.appendIdentityToString(new StringBuffer(), FOO).toString());
-        Integer i = new Integer(90);
+        Integer val = new Integer(90);
         assertEquals(
-            "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(i)),
-            ObjectUtils.appendIdentityToString(new StringBuffer(), i).toString());
-        assertEquals(null, ObjectUtils.appendIdentityToString(new StringBuffer(), null));
+            "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(val)),
+            ObjectUtils.appendIdentityToString(null, val).toString());
+        assertEquals(
+            "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(val)),
+            ObjectUtils.appendIdentityToString(new StringBuffer(), val).toString());
     }
 
     public void testToString_Object() {
