@@ -54,6 +54,7 @@ package org.apache.commons.lang.exception;
  * <http://www.apache.org/>.
  */
 
+import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
@@ -64,7 +65,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: Nestable.java,v 1.3 2002/08/25 13:20:59 stevencaswell Exp $
+ * @version $Id: Nestable.java,v 1.4 2002/09/12 01:20:25 stevencaswell Exp $
  */
 public interface Nestable
 {
@@ -174,6 +175,15 @@ public interface Nestable
      * @param out <code>PrintWriter</code> to use for output.
      */
     public void printStackTrace(PrintWriter out);
+
+    /**
+     * Prints the stack trace of this exception to the specified print
+     * stream.  Includes inforamation from the exception--if
+     * any--which caused this exception.
+     *
+     * @param out <code>PrintStream</code> to use for output.
+     */
+    public void printStackTrace(PrintStream out);
 
     /**
      * Prints the stack trace for this exception only--root cause not
