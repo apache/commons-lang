@@ -78,7 +78,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Arun Mammen Thomas
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.41 2003/04/09 00:07:50 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.42 2003/04/09 18:45:29 alex Exp $
  */
 public class StringUtils {
 
@@ -1140,147 +1140,30 @@ public class StringUtils {
      * <p>So a tab becomes the characters <code>'\\'</code> and
      * <code>'t'</code>.</p>
      *
+     * <p>As of Lang 2.0, this calls {@link StringEscapeUtils#escapeJava(java.lang.String)}
+     * behind the scenes.  For convenience, this method is not deprecated.
+     * </p>
+     * @see StringEscapeUtils#escapeJava(java.lang.String)
      * @param str String to escape values in
      * @return String with escaped values
      * @throws NullPointerException if str is <code>null</code>
      */
     public static String escape(String str) {
-        // improved with code from  cybertiger@cyberiantiger.org
-        // unicode from him, and defaul for < 32's.
-        int sz = str.length();
-        StringBuffer buffer = new StringBuffer(2 * sz);
-        for (int i = 0; i < sz; i++) {
-            char ch = str.charAt(i);
-
-            // handle unicode
-            if (ch > 0xfff) {
-                buffer.append("\\u" + Integer.toHexString(ch));
-            } else if (ch > 0xff) {
-                buffer.append("\\u0" + Integer.toHexString(ch));
-            } else if (ch > 0x7f) {
-                buffer.append("\\u00" + Integer.toHexString(ch));
-            } else if (ch < 32) {
-                switch (ch) {
-                    case '\b' :
-                        buffer.append('\\');
-                        buffer.append('b');
-                        break;
-                    case '\n' :
-                        buffer.append('\\');
-                        buffer.append('n');
-                        break;
-                    case '\t' :
-                        buffer.append('\\');
-                        buffer.append('t');
-                        break;
-                    case '\f' :
-                        buffer.append('\\');
-                        buffer.append('f');
-                        break;
-                    case '\r' :
-                        buffer.append('\\');
-                        buffer.append('r');
-                        break;
-                    default :
-                        if (ch > 0xf) {
-                            buffer.append("\\u00" + Integer.toHexString(ch));
-                        } else {
-                            buffer.append("\\u000" + Integer.toHexString(ch));
-                        }
-                        break;
-                }
-            } else {
-                switch (ch) {
-                    case '\'' :
-                        buffer.append('\\');
-                        buffer.append('\'');
-                        break;
-                    case '"' :
-                        buffer.append('\\');
-                        buffer.append('"');
-                        break;
-                    case '\\' :
-                        buffer.append('\\');
-                        buffer.append('\\');
-                        break;
-                    default :
-                        buffer.append(ch);
-                        break;
-                }
-            }
-        }
-        return buffer.toString();
+        return StringEscapeUtils.escapeJava(str);
     }
 
     /**
      * Unescapes any Java literals found in the String. For example, 
      * it will turn a sequence of '\' and 'n' into a newline character, 
      * unless the '\' is preceded by another '\'.
+     * <p>
+     * As of Lang 2.0, this calls {@link StringEscapeUtils#unescapeJava(java.lang.String)}
+     * behind the scenes.  For convenience, this method is not deprecated.
+     * <p>
+     * @see StringEscapeUtils#unescapeJava(java.lang.String)
      */
     public static String unescape(String str) {
-        int sz = str.length();
-        StringBuffer buffer = new StringBuffer(sz);
-        StringBuffer unicode = new StringBuffer(4);
-        boolean hadSlash = false;
-        boolean inUnicode = false;
-        for (int i = 0; i < sz; i++) {
-            char ch = str.charAt(i);
-            if(inUnicode) {
-                // if in unicode, then we're reading unicode 
-                // values in somehow
-                if(unicode.length() == 4) {
-                    // unicode now contains the four hex digits 
-                    // which represents our unicode chacater
-                    try {
-                        int value = Integer.parseInt(unicode.toString(), 16);
-                        buffer.append( (char)value );
-                        unicode.setLength(0);
-                        unicode.setLength(4);
-                        inUnicode = false;
-                        hadSlash = false;
-                    } catch(NumberFormatException nfe) {
-                        throw new NestableRuntimeException("Unable to parse unicode value: "+unicode, nfe);
-                    }
-                } else {
-                    unicode.append(ch);
-                    continue;
-                }
-            }
-            if(hadSlash) {
-                // handle an escaped value
-                hadSlash = false;
-                switch(ch) {
-                    case '\\': buffer.append('\\'); break;
-                    case '\'': buffer.append('\''); break;
-                    case '\"': buffer.append('"'); break;
-                    case 'r':  buffer.append('\r'); break;
-                    case 'f':  buffer.append('\f'); break;
-                    case 't':  buffer.append('\t'); break;
-                    case 'n':  buffer.append('\n'); break;
-                    case 'b':  buffer.append('\b'); break;
-                    case 'u':  {
-                        // uh-oh, we're in unicode country....
-                        inUnicode=true;
-                        break;
-                    }
-                    default :
-                        buffer.append(ch);
-                        break;
-                }
-                continue;
-            } else
-            if(ch == '\\') {
-                hadSlash = true;
-                continue;
-            } 
-            buffer.append(ch);
-        }
-        if(hadSlash) {
-            // then we're in the weird case of a \ at the end of the 
-            // string, let's output it anyway.
-            buffer.append('\\');
-        }
-        return buffer.toString();
+        return StringEscapeUtils.unescapeJava(str);
     }
 
     // Padding

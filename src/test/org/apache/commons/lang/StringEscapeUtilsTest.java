@@ -62,11 +62,11 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link StringUtils}.
+ * Unit tests for {@link StringEscapeUtils}.
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.2 2003/04/09 17:30:29 alex Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.3 2003/04/09 18:45:29 alex Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
@@ -96,13 +96,15 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEscapeJava("\\\\\\b\\t\\r", "\\\b\t\r");
         assertEscapeJava("\\u1234", "\u1234");
         assertEscapeJava("\\u0234", "\u0234");
-        assertEscapeJava("\\u00fd", "\u00fd");
+        assertEscapeJava("\\u00EF", "\u00ef");
+        assertEscapeJava("\\u0001", "\u0001");
+        assertEscapeJava("Should use capitalized unicode hex", "\\uABCD", "\uabcd");
 
         assertEscapeJava("He didn't say, \\\"stop!\\\"",
                 "He didn't say, \"stop!\"");
-        assertEscapeJava("non-breaking space", "This space is non-breaking:" + "\\u00a0",
+        assertEscapeJava("non-breaking space", "This space is non-breaking:" + "\\u00A0",
                 "This space is non-breaking:\u00a0");
-        assertEscapeJava("\\uabcd\\u1234\\u012c",
+        assertEscapeJava("\\uABCD\\u1234\\u012C",
                 "\uABCD\u1234\u012C");
     }
 
@@ -125,11 +127,26 @@ public class StringEscapeUtilsTest extends TestCase {
         assertUnescapeJava("test", "test");
         assertUnescapeJava("\ntest\b", "\\ntest\\b");
         assertUnescapeJava("\u123425foo\ntest\b", "\\u123425foo\\ntest\\b");
+        //foo
+        assertUnescapeJava("lowercase unicode", "\uABCDx", "\\uabcdx");
+        assertUnescapeJava("uppercase unicode", "\uABCDx", "\\uABCDx");
+        assertUnescapeJava("unicode as final character", "\uABCD", "\\uabcd");
     }
 
     private void assertUnescapeJava(String unescaped, String original) throws IOException {
-        assertEquals("unescape(String) failed",
-                unescaped, StringUtils.unescape(original));
+        assertUnescapeJava(null, unescaped, original);
+    }
+
+    private void assertUnescapeJava(String message, String unescaped, String original) throws IOException {
+        String expected = unescaped;
+        String actual = StringEscapeUtils.unescapeJava(original);
+
+        assertEquals("unescape(String) failed" +
+                (message == null ? "" : (": " + message)) +
+                // we escape this so we can see it in the error message
+                ": expected '" + StringUtils.escape(expected) +
+                "' actual '" + StringUtils.escape(actual) + "'",
+                expected, actual);
 
         StringPrintWriter writer = new StringPrintWriter();
         StringEscapeUtils.unescapeJava(writer, original);
