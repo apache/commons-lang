@@ -148,7 +148,7 @@ import java.util.List;
  * @author Phil Steitz
  * @author Al Chou
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.122 2003/12/24 01:33:30 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.123 2004/02/13 23:32:39 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1984,7 +1984,8 @@ public class StringUtils {
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as one separator.</p>
+     * Adjacent separators are treated as one separator.
+     * For more control over the split use the Tokenizer class.</p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
@@ -2008,7 +2009,8 @@ public class StringUtils {
      * This is an alternative to using StringTokenizer.</p>
      *
      * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as one separator.</p>
+     * Adjacent separators are treated as one separator.
+     * For more control over the split use the Tokenizer class.</p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
@@ -2064,7 +2066,8 @@ public class StringUtils {
      * This is an alternative to using StringTokenizer.</p>
      *
      * <p>The separator is not included in the returned String array.
-     * Adjacent separators are treated as one separator.</p>
+     * Adjacent separators are treated as one separator.
+     * For more control over the split use the Tokenizer class.</p>
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> separatorChars splits on whitespace.</p>
