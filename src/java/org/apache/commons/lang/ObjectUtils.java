@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ import java.io.Serializable;
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.7 2003/02/02 04:12:32 bayard Exp $
+ * @version $Id: ObjectUtils.java,v 1.8 2003/02/22 20:19:16 scolebourne Exp $
  */
 public class ObjectUtils {
     
@@ -162,10 +162,13 @@ public class ObjectUtils {
      * cannot be stored.</p>
      */
     public static class Null implements Serializable {
+        // declare serialization compatability with Commons Lang 1.0
+        private static final long serialVersionUID = 7092611880189329093L;
+        
         /**
          * Restricted constructor - singleton
          */
-        private Null() {
+        Null() {
         }
         
         /**
