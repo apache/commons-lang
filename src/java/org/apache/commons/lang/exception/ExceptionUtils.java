@@ -42,7 +42,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ExceptionUtils.java,v 1.37 2004/02/18 22:54:04 ggregory Exp $
+ * @version $Id: ExceptionUtils.java,v 1.38 2004/06/01 21:15:27 scolebourne Exp $
  */
 public class ExceptionUtils {
     
@@ -65,7 +65,10 @@ public class ExceptionUtils {
         "getSourceException",
         "getRootCause",
         "getCausedByException",
-        "getNested"
+        "getNested",
+        "getLinkedException",
+        "getNestedException",
+        "getLinkedCause",
     };
 
     /**
