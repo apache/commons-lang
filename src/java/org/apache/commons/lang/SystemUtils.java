@@ -71,7 +71,7 @@ import java.io.File;
  * @author Tetsuya Kaneuchi
  * @author Rafal Krupinski
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.27 2003/12/31 22:00:31 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.28 2004/01/15 21:17:33 scolebourne Exp $
  */
 public class SystemUtils {
 
@@ -935,7 +935,7 @@ public class SystemUtils {
      * <p>Gets the Java home directory.</p>
      * 
      * @return a directory
-     * @exception  SecurityException  if a security manager exists and its  
+     * @throws  SecurityException  if a security manager exists and its  
      *             <code>checkPropertyAccess</code> method doesn't allow
      *              access to the specified system property.
      * @see System#getProperty(String)
@@ -948,7 +948,7 @@ public class SystemUtils {
      * <p>Gets the Java IO temporary directory.</p>
      * 
      * @return a directory
-     * @exception  SecurityException  if a security manager exists and its  
+     * @throws  SecurityException  if a security manager exists and its  
      *             <code>checkPropertyAccess</code> method doesn't allow
      *              access to the specified system property.
      * @see System#getProperty(String)
@@ -961,7 +961,7 @@ public class SystemUtils {
      * <p>Gets the user directory.</p>
      * 
      * @return a directory
-     * @exception  SecurityException  if a security manager exists and its  
+     * @throws  SecurityException  if a security manager exists and its  
      *             <code>checkPropertyAccess</code> method doesn't allow
      *              access to the specified system property.
      * @see System#getProperty(String)
@@ -974,7 +974,7 @@ public class SystemUtils {
      * <p>Gets the user home directory.</p>
      * 
      * @return a directory
-     * @exception  SecurityException  if a security manager exists and its  
+     * @throws  SecurityException  if a security manager exists and its  
      *             <code>checkPropertyAccess</code> method doesn't allow
      *              access to the specified system property.
      * @see System#getProperty(String)
