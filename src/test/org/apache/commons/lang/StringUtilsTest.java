@@ -72,7 +72,7 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.36 2003/07/20 23:57:26 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.37 2003/07/22 23:36:39 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -106,6 +106,9 @@ public class StringUtilsTest extends TestCase {
 
     private static final String[] ARRAY_LIST = { "foo", "bar", "baz" };
     private static final String[] EMPTY_ARRAY_LIST = {};
+    private static final String[] NULL_ARRAY_LIST = {null};
+    private static final String[] MIXED_ARRAY_LIST = {null, "", "foo"};
+    private static final Object[] MIXED_TYPE_LIST = {new String("foo"), new Long(2)};
 
     private static final String SEPARATOR = ",";
     private static final char   SEPARATOR_CHAR = ';';
@@ -191,53 +194,59 @@ public class StringUtilsTest extends TestCase {
                      "Hello aPACHE", StringUtils.swapCase("hELLO Apache") );
     }
 
-    public void testJoin() {
-        assertEquals(null, StringUtils.concatenate(null));
-        assertEquals(null, StringUtils.join((Object[]) null, null));
+    public void testJoin_ArrayChar() {
         assertEquals(null, StringUtils.join((Object[]) null, ','));
-        assertEquals(null, StringUtils.join((Iterator) null, null));
-        assertEquals(null, StringUtils.join((Iterator) null, ','));
-        
-        assertEquals("concatenate(Object[]) failed",
-                     TEXT_LIST_NOSEP, StringUtils.concatenate(ARRAY_LIST));
-        assertEquals("join(Object[], String) failed", TEXT_LIST,
-                     StringUtils.join(ARRAY_LIST, SEPARATOR));
-        assertEquals("join(Iterator, String) failed", TEXT_LIST,
-                     StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(),
-                                      SEPARATOR));
-
-        assertEquals("join(Object[], char) failed", TEXT_LIST_CHAR,
-                     StringUtils.join(ARRAY_LIST, SEPARATOR_CHAR));
-        assertEquals("join(Iterator, char) failed", TEXT_LIST_CHAR,
-                     StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(),
-                                      SEPARATOR_CHAR));
-
-        assertEquals("join(Object[], null) failed", TEXT_LIST_NOSEP,
-                     StringUtils.join(ARRAY_LIST, null));
-        assertEquals("join(Iterator, null) failed", TEXT_LIST_NOSEP,
-                     StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(),
-                                      null));
-
-        assertEquals("concatenate(Object[]) failed",
-                     "", StringUtils.concatenate(EMPTY_ARRAY_LIST));
-        assertEquals("join(Object[], String) failed", "",
-                     StringUtils.join(EMPTY_ARRAY_LIST, SEPARATOR));
-        assertEquals("join(Iterator, String) failed", "",
-                     StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(),
-                                      SEPARATOR));
-
-        assertEquals("join(Object[], char) failed", "",
-                     StringUtils.join(EMPTY_ARRAY_LIST, SEPARATOR_CHAR));
-        assertEquals("join(Iterator, char) failed", "",
-                     StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(),
-                                      SEPARATOR_CHAR));
-
-        assertEquals("join(Object[], null) failed", "",
-                     StringUtils.join(EMPTY_ARRAY_LIST, null));
-        assertEquals("join(Iterator, null) failed", "",
-                     StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(),
-                                      null));
+        assertEquals(TEXT_LIST_CHAR, StringUtils.join(ARRAY_LIST, SEPARATOR_CHAR));
+        assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, SEPARATOR_CHAR));
+        assertEquals(";;foo", StringUtils.join(MIXED_ARRAY_LIST, SEPARATOR_CHAR));
+        assertEquals("foo;2", StringUtils.join(MIXED_TYPE_LIST, SEPARATOR_CHAR));
     }
+    
+    public void testJoin_ArrayString() {
+        assertEquals(null, StringUtils.join((Object[]) null, null));
+        assertEquals(TEXT_LIST_NOSEP, StringUtils.join(ARRAY_LIST, null));
+        assertEquals(TEXT_LIST_NOSEP, StringUtils.join(ARRAY_LIST, ""));
+        
+        assertEquals("", StringUtils.join(NULL_ARRAY_LIST, null));
+        
+        assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, null));
+        assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, ""));
+        assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, SEPARATOR));
+
+        assertEquals(TEXT_LIST, StringUtils.join(ARRAY_LIST, SEPARATOR));
+        assertEquals(",,foo", StringUtils.join(MIXED_ARRAY_LIST, SEPARATOR));
+        assertEquals("foo,2", StringUtils.join(MIXED_TYPE_LIST, SEPARATOR));
+    }
+    
+    public void testJoin_IteratorChar() {
+        assertEquals(null, StringUtils.join((Iterator) null, ','));
+        assertEquals(TEXT_LIST_CHAR, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), SEPARATOR_CHAR));
+        assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(), SEPARATOR_CHAR));
+    }
+    
+    public void testJoin_IteratorString() {
+        assertEquals(null, StringUtils.join((Iterator) null, null));
+        assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), null));
+        assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), ""));
+        
+        assertEquals("", StringUtils.join(Arrays.asList(NULL_ARRAY_LIST).iterator(), null));
+        
+        assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(), null));
+        assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(), ""));
+        assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(), SEPARATOR));
+        
+        assertEquals(TEXT_LIST, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), SEPARATOR));
+    }
+    
+    public void testConcatenate_Array() {
+        assertEquals(null, StringUtils.concatenate(null));
+        assertEquals("", StringUtils.concatenate(EMPTY_ARRAY_LIST));
+        assertEquals("", StringUtils.concatenate(NULL_ARRAY_LIST));
+        assertEquals("foo", StringUtils.concatenate(MIXED_ARRAY_LIST));
+        assertEquals("foo2", StringUtils.concatenate(MIXED_TYPE_LIST));
+    }
+        
+        
 
     public void testSplit_String() {
         assertEquals(null, StringUtils.split(null));
@@ -468,6 +477,7 @@ public class StringUtilsTest extends TestCase {
             { FOO + "\r\n", FOO } ,
             { FOO + "\n" , FOO } ,
             { FOO + "\r", FOO },
+            { FOO + " \r", FOO + " " },
             { "foo", "fo"},
             { "foo\nfoo", "foo\nfo" },
             { "\n", "" },
@@ -488,15 +498,21 @@ public class StringUtilsTest extends TestCase {
     public void testChomp() {
 
         String[][] chompCases = {
-            { FOO + "\r\n", FOO } ,
-            { FOO + "\n" , FOO } ,
+            { FOO + "\r\n", FOO },
+            { FOO + "\n" , FOO },
             { FOO + "\r", FOO },
+            { FOO + " \r", FOO + " " },
             { FOO, FOO },
             { FOO + "\n\n", FOO + "\n"},
+            { FOO + "\r\n\r\n", FOO + "\r\n" },
             { "foo\nfoo", "foo\nfoo" },
+            { "foo\n\rfoo", "foo\n\rfoo" },
             { "\n", "" },
             { "\r", "" },
             { "\r\n", "" },
+            { "", "" },
+            { null, null },
+            { FOO + "\n\r", FOO + "\n"}
         };
         for (int i = 0; i < chompCases.length; i++) {
             String original = chompCases[i][0];
@@ -511,6 +527,28 @@ public class StringUtilsTest extends TestCase {
                 "foobar", StringUtils.chomp("foobar", "baz"));
         assertEquals("chomp(String, String) failed",
                 "foo", StringUtils.chomp("foo", "foooo"));
+        assertEquals("chomp(String, String) failed",
+                "foobar", StringUtils.chomp("foobar", ""));
+        assertEquals("chomp(String, String) failed",
+                "foobar", StringUtils.chomp("foobar", null));
+        assertEquals("chomp(String, String) failed",
+                "", StringUtils.chomp("", "foo"));
+        assertEquals("chomp(String, String) failed",
+                "", StringUtils.chomp("", null));
+        assertEquals("chomp(String, String) failed",
+                "", StringUtils.chomp("", ""));
+        assertEquals("chomp(String, String) failed",
+                null, StringUtils.chomp(null, "foo"));
+        assertEquals("chomp(String, String) failed",
+                null, StringUtils.chomp(null, null));
+        assertEquals("chomp(String, String) failed",
+                null, StringUtils.chomp(null, ""));
+        assertEquals("chomp(String, String) failed",
+                "", StringUtils.chomp("foo", "foo"));
+        assertEquals("chomp(String, String) failed",
+                " ", StringUtils.chomp(" foo", "foo"));
+        assertEquals("chomp(String, String) failed",
+                "foo ", StringUtils.chomp("foo ", "foo"));
     }
 
     public void testChopNewLine() {
@@ -544,6 +582,9 @@ public class StringUtilsTest extends TestCase {
             {"foo\nbar\nbaz", "foo\nbar"},
             {null, null},
             {"", ""},
+            {"\n", ""},
+            {"abc \n", "abc "},
+            {"abc\r\n", "abc\r"},
             {"foo", "foo"},
         };
         for (int i = 0; i < sliceCases.length; i++) {
@@ -552,28 +593,89 @@ public class StringUtilsTest extends TestCase {
             assertEquals("slice(String) failed",
                     expectedResult, StringUtils.slice(original));
         }
+    }
+    
+    public void testSlice_StringString() {
+        assertEquals("fooXXbar", StringUtils.slice("fooXXbarXXbaz", "XX"));
 
-        String original = "fooXXbarXXbaz";
-        String sep = "XX";
+        assertEquals(null, StringUtils.slice(null, null));
+        assertEquals(null, StringUtils.slice(null, ""));
+        assertEquals(null, StringUtils.slice(null, "XX"));
+        assertEquals("", StringUtils.slice("", null));
+        assertEquals("", StringUtils.slice("", ""));
+        assertEquals("", StringUtils.slice("", "XX"));
 
-        assertEquals("fooXXbar", StringUtils.slice(original, sep) );
-        assertEquals(null, StringUtils.slice(null, sep) );
-        assertEquals(null, StringUtils.slice(null, null) );
-        assertEquals("foo", StringUtils.slice("foo", null) );
-        assertEquals("foo", StringUtils.slice("foo", "b") );
-        assertEquals("fo", StringUtils.slice("foo", "o") );
+        assertEquals("foo", StringUtils.slice("foo", null));
+        assertEquals("foo", StringUtils.slice("foo", "b"));
+        assertEquals("fo", StringUtils.slice("foo", "o"));
+        assertEquals("abc\r\n", StringUtils.slice("abc\r\n", "d"));
+        assertEquals("abc", StringUtils.slice("abcdabc", "d"));
+        assertEquals("abcdabc", StringUtils.slice("abcdabcd", "d"));
+        assertEquals("a", StringUtils.slice("abc", "b"));
+        assertEquals("abc ", StringUtils.slice("abc \n", "\n"));
+        assertEquals("a", StringUtils.slice("a", null));
+        assertEquals("a", StringUtils.slice("a", ""));
+        assertEquals("", StringUtils.slice("a", "a"));
+    }
+    
+    public void testSliceRemainder_StringString() {
+        assertEquals("baz", StringUtils.sliceRemainder("fooXXbarXXbaz", "XX"));
 
-        assertEquals("baz", StringUtils.sliceRemainder(original, sep) );
-        assertEquals(null, StringUtils.sliceRemainder(null, sep) );
-        assertEquals(null, StringUtils.sliceRemainder(null, null) );
-        assertEquals("", StringUtils.sliceRemainder("foo", null) );
-        assertEquals("", StringUtils.sliceRemainder("foo", "b") );
-        assertEquals("t", StringUtils.sliceRemainder("foot", "o") );
+        assertEquals(null, StringUtils.sliceRemainder(null, null));
+        assertEquals(null, StringUtils.sliceRemainder(null, ""));
+        assertEquals(null, StringUtils.sliceRemainder(null, "XX"));
+        assertEquals("", StringUtils.sliceRemainder("", null));
+        assertEquals("", StringUtils.sliceRemainder("", ""));
+        assertEquals("", StringUtils.sliceRemainder("", "a"));
 
-        assertEquals("foo", StringUtils.sliceFirst(original, sep) );
+        assertEquals("", StringUtils.sliceRemainder("foo", null));
+        assertEquals("", StringUtils.sliceRemainder("foo", "b"));
+        assertEquals("t", StringUtils.sliceRemainder("foot", "o"));
+        assertEquals("bc", StringUtils.sliceRemainder("abc", "a"));
+        assertEquals("a", StringUtils.sliceRemainder("abcba", "b"));
+        assertEquals("", StringUtils.sliceRemainder("abc", "c"));
+        assertEquals("", StringUtils.sliceRemainder("", "d"));
+        assertEquals("", StringUtils.sliceRemainder("abc", ""));
+    }        
+        
+    public void testSliceFirst_StringString() {
+        assertEquals("foo", StringUtils.sliceFirst("fooXXbarXXbaz", "XX"));
 
-        assertEquals("barXXbaz", StringUtils.sliceFirstRemainder(original, sep) );
-
+        assertEquals(null, StringUtils.sliceFirst(null, null));
+        assertEquals(null, StringUtils.sliceFirst(null, ""));
+        assertEquals(null, StringUtils.sliceFirst(null, "XX"));
+        assertEquals("", StringUtils.sliceFirst("", null));
+        assertEquals("", StringUtils.sliceFirst("", ""));
+        assertEquals("", StringUtils.sliceFirst("", "XX"));
+        
+        assertEquals("foo", StringUtils.sliceFirst("foo", null));
+        assertEquals("", StringUtils.sliceFirst("foo", "b"));
+        assertEquals("f", StringUtils.sliceFirst("foot", "o"));
+        assertEquals("", StringUtils.sliceFirst("abc", "a"));
+        assertEquals("a", StringUtils.sliceFirst("abcba", "b"));
+        assertEquals("ab", StringUtils.sliceFirst("abc", "c"));
+        assertEquals("abc", StringUtils.sliceFirst("abc", ""));
+        assertEquals("", StringUtils.sliceFirst("abc", "d"));
+    }
+    
+    public void testSliceFirstRemainder_StringString() {
+        assertEquals("barXXbaz", StringUtils.sliceFirstRemainder("fooXXbarXXbaz", "XX"));
+        
+        assertEquals(null, StringUtils.sliceFirstRemainder(null, null));
+        assertEquals(null, StringUtils.sliceFirstRemainder(null, ""));
+        assertEquals(null, StringUtils.sliceFirstRemainder(null, "XX"));
+        assertEquals("", StringUtils.sliceFirstRemainder("", null));
+        assertEquals("", StringUtils.sliceFirstRemainder("", ""));
+        assertEquals("", StringUtils.sliceFirstRemainder("", "XX"));
+        
+        assertEquals("", StringUtils.sliceFirstRemainder("foo", null));
+        assertEquals("foo", StringUtils.sliceFirstRemainder("foo", "b"));
+        assertEquals("ot", StringUtils.sliceFirstRemainder("foot", "o"));
+        assertEquals("bc", StringUtils.sliceFirstRemainder("abc", "a"));
+        assertEquals("cba", StringUtils.sliceFirstRemainder("abcba", "b"));
+        assertEquals("", StringUtils.sliceFirstRemainder("abc", "c"));
+        assertEquals("", StringUtils.sliceFirstRemainder("abc", ""));
+        assertEquals("abc", StringUtils.sliceFirstRemainder("abc", "d"));
     }
 
     //-----------------------------------------------------------------------
@@ -764,12 +866,38 @@ public class StringUtilsTest extends TestCase {
         assertEquals("raspberry p...", StringUtils.abbreviate(raspberry, 14));
         assertEquals("raspberry peach", StringUtils.abbreviate("raspberry peach", 15));
         assertEquals("raspberry peach", StringUtils.abbreviate("raspberry peach", 16));
+        assertEquals("abc...", StringUtils.abbreviate("abcdefg", 6));
+        assertEquals("abcdefg", StringUtils.abbreviate("abcdefg", 7));
+        assertEquals("abcdefg", StringUtils.abbreviate("abcdefg", 8));
+        assertEquals("a...", StringUtils.abbreviate("abcdefg", 4));
+        assertEquals("", StringUtils.abbreviate("", 4));
+        
+        try {
+            String res = StringUtils.abbreviate("abc", 3);
+            fail("StringUtils.abbreviate expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+                // empty
+        }              
     }
     
     public void testAbbreviate_StringIntInt() {
         assertEquals(null, StringUtils.abbreviate(null, 10, 12));
         assertEquals("", StringUtils.abbreviate("", 0, 10));
         assertEquals("", StringUtils.abbreviate("", 2, 10));
+        
+        try {
+            String res = StringUtils.abbreviate("abcdefghij", 0, 3);
+            fail("StringUtils.abbreviate expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+                // empty
+        }      
+        try {
+            String res = StringUtils.abbreviate("abcdefghij", 5, 6);
+            fail("StringUtils.abbreviate expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+                // empty
+        }      
+        
 
         String raspberry = "raspberry peach";
         assertEquals("raspberry peach", StringUtils.abbreviate(raspberry, 11, 15));
@@ -844,7 +972,21 @@ public class StringUtilsTest extends TestCase {
         assertEquals(3, StringUtils.getLevenshteinDistance("fly", "ant") );
         assertEquals(7, StringUtils.getLevenshteinDistance("elephant", "hippo") );
         assertEquals(7, StringUtils.getLevenshteinDistance("hippo", "elephant") );
+        assertEquals(8, StringUtils.getLevenshteinDistance("hippo", "zzzzzzzz") );
+        assertEquals(8, StringUtils.getLevenshteinDistance("zzzzzzzz", "hippo") );
         assertEquals(1, StringUtils.getLevenshteinDistance("hello", "hallo") );
+        try {
+            int d = StringUtils.getLevenshteinDistance("a", null);
+            fail("expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            // empty
+        }
+        try {
+            int d = StringUtils.getLevenshteinDistance(null, "a");
+            fail("expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            // empty
+        }
     }
 
 }
