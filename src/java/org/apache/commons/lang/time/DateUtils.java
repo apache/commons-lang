@@ -73,7 +73,7 @@ import java.util.TimeZone;
  * @author Stephen Colebourne
  * @author Janek Bogucki
  * @since 2.0
- * @version $Id: DateUtils.java,v 1.6 2003/07/14 22:25:05 bayard Exp $
+ * @version $Id: DateUtils.java,v 1.7 2003/08/04 00:19:43 stevencaswell Exp $
  */
 public class DateUtils {
     
@@ -516,6 +516,7 @@ public class DateUtils {
                 now.add(Calendar.DATE, -7);
                 return now;
             }
+            throw new IllegalArgumentException("We do not understand that last units");
         } else if (value.equals("yesterday")) {
             now.add(Calendar.DATE, -1);
             return now;
@@ -550,9 +551,12 @@ public class DateUtils {
      * 2002 and ends with Saturday, August 3, 2002.
      * 
      * @param focus  the date to work with
-     * @param rangeStyle  the style constant to use
+     * @param rangeStyle  the style constant to use. Must be one of the range
+     * styles listed for the {@link #iterator(Calendar, int) method.
+     *
      * @return the date iterator
-     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the date is <code>null</code> or if
+     * the rangeStyle is not 
      */
     public static Iterator iterator(Date focus, int rangeStyle) {
         if (focus == null) {
@@ -574,7 +578,13 @@ public class DateUtils {
      * 2002 and ends with Saturday, August 3, 2002.
      * 
      * @param focus  the date to work with
-     * @param rangeStyle  the style constant to use
+     * @param rangeStyle  the style constant to use. Must be one of
+     * {@link DateUtils.RANGE_MONTH_SUNDAY}, 
+     * {@link DateUtils.RANGE_MONTH_MONDAY},
+     * {@link DateUtils.RANGE_WEEK_SUNDAY},
+     * {@link DateUtils.RANGE_WEEK_MONDAY},
+     * {@link DateUtils.RANGE_WEEK_RELATIVE},
+     * {@link DateUtils.RANGE_WEEK_CENTER}
      * @return the date iterator
      * @throws IllegalArgumentException if the date is <code>null</code>
      */
@@ -662,7 +672,8 @@ public class DateUtils {
      * 
      * @param focus  the date to work with, either
      *  <code>Date</code> or <code>Calendar</code>
-     * @param rangeStyle  the style constant to use
+     * @param rangeStyle  the style constant to use. Must be one of the range
+     * styles listed for the {@link #iterator(Calendar, int) method.
      * @return the date iterator
      * @throws IllegalArgumentException if the date
      *  is <code>null</code>
