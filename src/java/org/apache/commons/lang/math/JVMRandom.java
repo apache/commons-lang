@@ -56,22 +56,27 @@ package org.apache.commons.lang.math;
 import java.util.Random;
 
 /**
- * <p><code>RandomUtils</code> is a wrapper that supports all possible 
+ * <p><code>JVMRandom</code> is a wrapper that supports all possible 
  * Random methods via the java.lang.Math.random() method and its system-wide 
  * Random object.
  * 
  * @author Henri Yandell
  * @since 2.0
- * @version $Id: RandomUtils.java,v 1.2 2003/05/07 15:09:19 bayard Exp $
+ * @version $Id: JVMRandom.java,v 1.1 2003/05/07 15:09:19 bayard Exp $
  */
-public final class RandomUtils {
+public final class JVMRandom extends Random {
 
-    public static Random JVM_RANDOM = new JVMRandom();
+    public synchronized void setSeed(long seed) {
+        throw new UnsupportedOperationException();
+    }
 
-// should be possible for JVM_RANDOM?
-//    public static void nextBytes(byte[]) {
-//    public synchronized double nextGaussian();
-//    }
+    public synchronized double nextGaussian() {
+        throw new UnsupportedOperationException();
+    }
+
+    public void nextBytes(byte[] byteArray) {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Returns the next pseudorandom, uniformly distributed int value 
@@ -79,11 +84,8 @@ public final class RandomUtils {
      *
      * @return the random int
      */
-    public static int nextInt() {
-        return nextInt(JVM_RANDOM);
-    }
-    public static int nextInt(Random rnd) {
-        return rnd.nextInt();
+    public int nextInt() {
+        return nextInt(Integer.MAX_VALUE);
     }
     /**
      * Returns a pseudorandom, uniformly distributed int value between 0 
@@ -94,12 +96,9 @@ public final class RandomUtils {
      *
      * @return the random int
      */
-    public static int nextInt(int n) {
-        return nextInt(JVM_RANDOM, n);
-    }
-    public static int nextInt(Random rnd, int n) {
+    public int nextInt(int n) {
         // check this cannot return 'n'
-        return rnd.nextInt(n);
+        return (int)Math.random() * n;
     }
     /**
      * Returns the next pseudorandom, uniformly distributed long value 
@@ -107,11 +106,9 @@ public final class RandomUtils {
      *
      * @return the random long
      */
-    public static long nextLong() {
-        return nextLong(JVM_RANDOM);
-    }
-    public static long nextLong(Random rnd) {
-        return rnd.nextLong();
+    public long nextLong() {
+        // possible loss of precision?
+        return (long)Math.random() * Long.MAX_VALUE;
     }
     /**
      * Returns the next pseudorandom, uniformly distributed boolean value 
@@ -119,11 +116,8 @@ public final class RandomUtils {
      *
      * @return the random boolean
      */
-    public static boolean nextBoolean() {
-        return nextBoolean(JVM_RANDOM);
-    }
-    public static boolean nextBoolean(Random rnd) {
-        return rnd.nextBoolean();
+    public boolean nextBoolean() {
+        return (Math.random() > 0.5);
     }
     /**
      * Returns the next pseudorandom, uniformly distributed float value 
@@ -131,22 +125,16 @@ public final class RandomUtils {
      *
      * @return the random float
      */
-    public static float nextFloat() {
-        return nextFloat(JVM_RANDOM);
-    }
-    public static float nextFloat(Random rnd) {
-        return rnd.nextFloat();
+    public float nextFloat() {
+        return (float)Math.random();
     }
     /**
      * Synonymous to the Math.random() call.
      *
      * @return the random double
      */
-    public static double nextDouble() {
-        return nextDouble(JVM_RANDOM);
-    }
-    public static double nextDouble(Random rnd) {
-        return rnd.nextDouble();
+    public double nextDouble() {
+        return Math.random();
     }
     
 }
