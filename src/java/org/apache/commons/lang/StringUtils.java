@@ -145,7 +145,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.104 2003/08/21 05:57:21 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.105 2003/08/21 22:13:24 ggregory Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -4143,7 +4143,7 @@ public class StringUtils {
         if (str2 == null) {
             return str1;
         }
-        int at = differenceAt(str1, str2);
+        int at = indexOfDifference(str1, str2);
         if (at == -1) {
             return EMPTY;
         }
@@ -4158,14 +4158,14 @@ public class StringUtils {
      * <code>differenceAt("i am a machine", "i am a robot") -> 7</code></p>
      *
      * <pre>
-     * StringUtils.differenceAt(null, null) = -1
-     * StringUtils.differenceAt("", "") = -1
-     * StringUtils.differenceAt("", "abc") = 0
-     * StringUtils.differenceAt("abc", "") = 0
-     * StringUtils.differenceAt("abc", "abc") = -1
-     * StringUtils.differenceAt("ab", "abxyz") = 2
-     * StringUtils.differenceAt("abcde", "abxyz") = 2
-     * StringUtils.differenceAt("abcde", "xyz") = 0
+     * StringUtils.indexOfDifference(null, null) = -1
+     * StringUtils.indexOfDifference("", "") = -1
+     * StringUtils.indexOfDifference("", "abc") = 0
+     * StringUtils.indexOfDifference("abc", "") = 0
+     * StringUtils.indexOfDifference("abc", "abc") = -1
+     * StringUtils.indexOfDifference("ab", "abxyz") = 2
+     * StringUtils.indexOfDifference("abcde", "abxyz") = 2
+     * StringUtils.indexOfDifference("abcde", "xyz") = 0
      * </pre>
      *
      * @param str1  the first String, may be null
@@ -4173,7 +4173,7 @@ public class StringUtils {
      * @return the index where str2 and str1 begin to differ; -1 if they are equal
      * @since 2.0
      */
-    public static int differenceAt(String str1, String str2) {
+    public static int indexOfDifference(String str1, String str2) {
         if (str1 == str2) {
             return -1;
         }

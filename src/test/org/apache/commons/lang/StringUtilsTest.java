@@ -75,7 +75,7 @@ import junit.textui.TestRunner;
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: StringUtilsTest.java,v 1.51 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: StringUtilsTest.java,v 1.52 2003/08/21 22:13:24 ggregory Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -942,15 +942,15 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testDifferenceAt_StringString() {
-        assertEquals(-1, StringUtils.differenceAt(null, null));
-        assertEquals(0, StringUtils.differenceAt(null, "i am a robot"));
-        assertEquals(-1, StringUtils.differenceAt("", ""));
-        assertEquals(0, StringUtils.differenceAt("", "abc"));
-        assertEquals(0, StringUtils.differenceAt("abc", ""));
-        assertEquals(0, StringUtils.differenceAt("i am a machine", null));
-        assertEquals(7, StringUtils.differenceAt("i am a machine", "i am a robot"));
-        assertEquals(-1, StringUtils.differenceAt("foo", "foo"));
-        assertEquals(0, StringUtils.differenceAt("i am a robot", "you are a robot"));
+        assertEquals(-1, StringUtils.indexOfDifference(null, null));
+        assertEquals(0, StringUtils.indexOfDifference(null, "i am a robot"));
+        assertEquals(-1, StringUtils.indexOfDifference("", ""));
+        assertEquals(0, StringUtils.indexOfDifference("", "abc"));
+        assertEquals(0, StringUtils.indexOfDifference("abc", ""));
+        assertEquals(0, StringUtils.indexOfDifference("i am a machine", null));
+        assertEquals(7, StringUtils.indexOfDifference("i am a machine", "i am a robot"));
+        assertEquals(-1, StringUtils.indexOfDifference("foo", "foo"));
+        assertEquals(0, StringUtils.indexOfDifference("i am a robot", "you are a robot"));
     }
 
     //-----------------------------------------------------------------------
