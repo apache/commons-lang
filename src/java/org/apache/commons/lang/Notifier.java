@@ -54,8 +54,10 @@
 package org.apache.commons.lang;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EventObject;
 import java.util.Iterator;
+import java.util.List;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
@@ -76,10 +78,11 @@ public class Notifier {
     private String methodName;
     private Class clss;
 
-    public Notifier() {
-    }
-
     public Notifier(Class listener) {
+        if(listener == null) {
+            throw new IllegalArgumentException("Illegal to have a null listener Class. ");
+        }
+        
         this.clss = clss;
         // now we check methods, if only one of them, then 
         // let's set it
@@ -90,18 +93,24 @@ public class Notifier {
     }
 
     /**
-     * Set the name of the method to call upon the listeners.
+     * Construct with the class and the name of the method to 
+     * call upon the listeners.
      */
-    public void setListenerMethod(String name) {
+    public Notifier(Class clss, String name) {
+        if(clss == null) {
+            throw new IllegalArgumentException("Illegal to have a null Listener Class. ");
+        }
+        if(name == null) {
+            throw new IllegalArgumentException("Illegal to have a null method name. ");
+        }
+        this.clss = clss;
         this.methodName = name;
-        if(this.clss != null) {
-            try {
-                // then we get the Method object
-                this.listenerMethod = this.clss.getDeclaredMethod(name, new Class[] { EventObject.class} );
-            } catch(NoSuchMethodException nsme) {
-//                nsme.printStackTrace();
-                throw new IllegalArgumentException("Method not on Class. ");
-            }
+        try {
+            // then we get the Method object
+            this.listenerMethod = this.clss.getDeclaredMethod(name, new Class[] { EventObject.class} );
+        } catch(NoSuchMethodException nsme) {
+//            nsme.printStackTrace();
+        throw new IllegalArgumentException("Method not on Class. ");
         }
     }
 
@@ -113,10 +122,9 @@ public class Notifier {
         this.listeners.remove(not);
     }
 
-    public ArrayList getListeners() {
-        ArrayList cloned = new ArrayList();
-        cloned.addAll(listeners);
-        return cloned;
+    public List getListeners() {
+        ArrayList cloned = new ArrayList(listeners);
+        return Collections.unmodifiableList(cloned);
     }
 
     /**
@@ -138,7 +146,7 @@ public class Notifier {
      * This is usable when a Listener has more than one method and 
      * a single Notifier wants to be shared.
      */
-    public void notify(Method listenerMethod, EventObject event) throws NotifierException {
+    private void notify(Method listenerMethod, EventObject event) throws NotifierException {
         Iterator itr = getListeners().iterator();
         while(itr.hasNext()) {
             try {
