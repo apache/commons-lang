@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsSubstringTest.java,v 1.7 2003/07/20 23:57:26 scolebourne Exp $
+ * @version $Id: StringUtilsSubstringTest.java,v 1.8 2003/07/21 00:41:13 scolebourne Exp $
  */
 public class StringUtilsSubstringTest extends TestCase {
     private static final String FOO = "foo";
@@ -127,7 +127,8 @@ public class StringUtilsSubstringTest extends TestCase {
         assertEquals(null, StringUtils.substring(null,1,2));
     }
            
-    public void testLeft() {
+    public void testLeft_String() {
+        assertSame(null, StringUtils.left(null, -1));
         assertSame(null, StringUtils.left(null, 0));
         assertSame(null, StringUtils.left(null, 2));
         assertSame("", StringUtils.left("", 0));
@@ -135,18 +136,14 @@ public class StringUtilsSubstringTest extends TestCase {
         assertEquals("", StringUtils.left(FOOBAR, 0));
         assertEquals(FOO, StringUtils.left(FOOBAR, 3));
         assertSame(FOOBAR, StringUtils.left(FOOBAR, 80));
-    }
-    
-    public void testLeftEx() {
         try {
             StringUtils.left(FOOBAR, -1);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
-
-    public void testRight() {
+    
+    public void testRight_String() {
+        assertSame(null, StringUtils.right(null, -1));
         assertSame(null, StringUtils.right(null, 0));
         assertSame(null, StringUtils.right(null, 2));
         assertSame("", StringUtils.right("", 0));
@@ -154,18 +151,15 @@ public class StringUtilsSubstringTest extends TestCase {
         assertEquals("", StringUtils.right(FOOBAR, 0));
         assertEquals(BAR, StringUtils.right(FOOBAR, 3));
         assertSame(FOOBAR, StringUtils.right(FOOBAR, 80));
-    }
-    
-    public void testRightEx() {
         try {
             StringUtils.right(FOOBAR, -1);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
-
-    public void testMid() {
+    
+    public void testMid_String() {
+        assertSame(null, StringUtils.mid(null, -1, 0));
+        assertSame(null, StringUtils.mid(null, 0, -1));
         assertSame(null, StringUtils.mid(null, 3, 0));
         assertSame(null, StringUtils.mid(null, 3, 2));
         assertSame("", StringUtils.mid("", 0, 0));
@@ -176,36 +170,15 @@ public class StringUtilsSubstringTest extends TestCase {
         assertEquals(BAR, StringUtils.mid(FOOBAR, 3, 3));
         assertEquals(FOOBAR, StringUtils.mid(FOOBAR, 0, 80));
         assertEquals(BAR, StringUtils.mid(FOOBAR, 3, 80));
-    }
-    
-    public void testMidEx1() {
+        assertEquals("", StringUtils.mid(FOOBAR, 9, 3));
+        assertEquals(FOO, StringUtils.mid(FOOBAR, -1, 3));
         try {
             StringUtils.mid(FOOBAR, 0, -1);
-        } catch (IllegalArgumentException ex) {
-            return;
-        }
-        fail();
+            fail();
+        } catch (IllegalArgumentException ex) {}
     }
-
-    public void testMidEx2() {
-        try {
-            StringUtils.mid(FOOBAR, -1, 3);
-        } catch (IndexOutOfBoundsException ex) {
-            return;
-        }
-        fail();
-    }
-
-    public void testMidEx3() {
-        try {
-            StringUtils.mid(FOOBAR, 7, 3);
-        } catch (IndexOutOfBoundsException ex) {
-            return;
-        }
-        fail();
-    }
-
-    public void testCountMatches() {
+    
+    public void testCountMatches_String() {
         assertEquals(0, StringUtils.countMatches(null, null));
         assertEquals(0, StringUtils.countMatches("blah", null));
         assertEquals(0, StringUtils.countMatches(null, "DD"));

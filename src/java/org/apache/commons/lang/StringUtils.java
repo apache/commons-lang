@@ -125,6 +125,9 @@ import java.util.List;
  * <p>A side effect of the <code>null</code> handling is that a 
  * NullPointerException should be considered a bug in <code>StringUtils</code>.
  * (Except for deprecated methods).</p>
+ * 
+ * <p>Methods in this class give sample code to explain their operation.
+ * The symbol <code>*</code> is used to indicate any input including <code>null</code>.</p>
  *
  * @author <a href="http://jakarta.apache.org/turbine/">Apache Jakarta Turbine</a>
  * @author GenerationJavaCore
@@ -143,7 +146,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.75 2003/07/20 23:57:26 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.76 2003/07/21 00:41:13 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -479,15 +482,16 @@ public class StringUtils {
      * This is similar to {@link String#trim()} but allows the characters
      * to be stripped to be controlled.</p>
      *
-     * <p>A <code>null</code> input String returns <code>null</code>.</p>
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * An empty string ("") input returns the empty string.</p>
      * 
      * <p>If the stripChars String is <code>null</code>, whitespace is
      * stripped as defined by {@link Character#isWhitespace(char)}.
      * Alternatively use {@link #strip(String)}.</p>
      * 
      * <pre>
-     * StringUtils.strip(null, null)       = null
-     * StringUtils.strip("", null)         = ""
+     * StringUtils.strip(null, *)          = null
+     * StringUtils.strip("", *)            = ""
      * StringUtils.strip("abc", null)      = "abc"
      * StringUtils.strip("  abc", null)    = "abc"
      * StringUtils.strip("abc  ", null)    = "abc"
@@ -510,14 +514,15 @@ public class StringUtils {
     /**
      * <p>Strips any of a set of characters from the start of a String.</p>
      *
-     * <p>A <code>null</code> input String returns <code>null</code>.</p>
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * An empty string ("") input returns the empty string.</p>
      * 
      * <p>If the stripChars String is <code>null</code>, whitespace is
      * stripped as defined by {@link Character#isWhitespace(char)}.</p>
      * 
      * <pre>
-     * StringUtils.stripStart(null, null)       = null
-     * StringUtils.stripStart("", null)         = ""
+     * StringUtils.stripStart(null, *)          = null
+     * StringUtils.stripStart("", *)            = ""
      * StringUtils.stripStart("abc", "")        = "abc"
      * StringUtils.stripStart("abc", null)      = "abc"
      * StringUtils.stripStart("  abc", null)    = "abc"
@@ -553,14 +558,15 @@ public class StringUtils {
     /**
      * <p>Strips any of a set of characters from the end of a String.</p>
      *
-     * <p>A <code>null</code> input String returns <code>null</code>.</p>
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * An empty string ("") input returns the empty string.</p>
      * 
      * <p>If the stripChars String is <code>null</code>, whitespace is
      * stripped as defined by {@link Character#isWhitespace(char)}.</p>
      * 
      * <pre>
-     * StringUtils.stripEnd(null, null)       = null
-     * StringUtils.stripEnd("", null)         = ""
+     * StringUtils.stripEnd(null, *)          = null
+     * StringUtils.stripEnd("", *)            = ""
      * StringUtils.stripEnd("abc", "")        = "abc"
      * StringUtils.stripEnd("abc", null)      = "abc"
      * StringUtils.stripEnd("  abc", null)    = "  abc"
@@ -632,8 +638,8 @@ public class StringUtils {
      * {@link Character#isWhitespace(char)}.</p>
      * 
      * <pre>
-     * StringUtils.stripAll(null, null)             = null
-     * StringUtils.stripAll([], null)               = []
+     * StringUtils.stripAll(null, *)                = null
+     * StringUtils.stripAll([], *)                  = []
      * StringUtils.stripAll(["abc", "  abc"], null) = ["abc", "abc"]
      * StringUtils.stripAll(["abc  ", null], null)  = ["abc", null]
      * StringUtils.stripAll(["abc  ", null], "yz")  = ["abc  ", null]
@@ -1122,11 +1128,11 @@ public class StringUtils {
      * A <code>null</code> or zero length search array will return <code>-1</code>.</p>
      * 
      * <pre>
-     * StringUtils.indexOfAnyBut(null, *)                     = -1
-     * StringUtils.indexOfAnyBut(*, null)                     = -1
-     * StringUtils.indexOfAnyBut("zzabyycdxx",'za')           = 3
-     * StringUtils.indexOfAnyBut("zzabyycdxx", '')            = 0
-     * StringUtils.indexOfAnyBut("aba", 'ab')                 = -1
+     * StringUtils.indexOfAnyBut(null, *)           = -1
+     * StringUtils.indexOfAnyBut(*, null)           = -1
+     * StringUtils.indexOfAnyBut("zzabyycdxx",'za') = 3
+     * StringUtils.indexOfAnyBut("zzabyycdxx", '')  = 0
+     * StringUtils.indexOfAnyBut("aba", 'ab')       = -1
      * </pre>
      * 
      * @param str  the String to check, may be null
@@ -1148,11 +1154,11 @@ public class StringUtils {
      * A <code>null</code> search string will return <code>-1</code>.</p>
      * 
      * <pre>
-     * StringUtils.indexOfAnyBut(null, *)                     = -1
-     * StringUtils.indexOfAnyBut(*, null)                     = -1
-     * StringUtils.indexOfAnyBut("zzabyycdxx", "za")          = 3
-     * StringUtils.indexOfAnyBut("zzabyycdxx", "")            = 0
-     * StringUtils.indexOfAnyBut("aba","ab")                  = -1
+     * StringUtils.indexOfAnyBut(null, *)            = -1
+     * StringUtils.indexOfAnyBut(*, null)            = -1
+     * StringUtils.indexOfAnyBut("zzabyycdxx", "za") = 3
+     * StringUtils.indexOfAnyBut("zzabyycdxx", "")   = 0
+     * StringUtils.indexOfAnyBut("aba","ab")         = -1
      * </pre>
      *  
      * @param str  the String to check, may be null
@@ -1431,15 +1437,15 @@ public class StringUtils {
      *
      * <p>If <code>len</code> characters are not available, or the
      * String is <code>null</code>, the String will be returned without
-     * an exception.</p>
+     * an exception. An exception is thrown if len is negative.</p>
      *
      * <pre>
-     * StringUtils.left(null, 0)    = null
-     * StringUtils.left("", 2)      = ""
+     * StringUtils.left(null, *)    = null
+     * StringUtils.left(*, -ve)     = IllegalArgumentException
+     * StringUtils.left("", *)      = ""
      * StringUtils.left("abc", 0)   = ""
      * StringUtils.left("abc", 2)   = "ab"
      * StringUtils.left("abc", 4)   = "abc"
-     * StringUtils.left("abc", -2)  = IllegalArgumentException
      * </pre>
      * 
      * @param str  the String to get the leftmost characters from, may be null
@@ -1448,10 +1454,13 @@ public class StringUtils {
      * @throws IllegalArgumentException if len is less than zero
      */
     public static String left(String str, int len) {
+        if (str == null) {
+            return null;
+        }
         if (len < 0) {
             throw new IllegalArgumentException("Requested String length " + len + " is less than zero");
         }
-        if ((str == null) || (str.length() <= len)) {
+        if (str.length() <= len) {
             return str;
         } else {
             return str.substring(0, len);
@@ -1463,15 +1472,15 @@ public class StringUtils {
      *
      * <p>If <code>len</code> characters are not available, or the String
      * is <code>null</code>, the String will be returned without an
-     * exception.</p>
+     * an exception. An exception is thrown if len is negative.</p>
      *
      * <pre>
-     * StringUtils.right(null, 0)    = null
-     * StringUtils.right("", 2)      = ""
+     * StringUtils.right(null, *)    = null
+     * StringUtils.right(*, -ve)     = IllegalArgumentException
+     * StringUtils.right("", *)      = ""
      * StringUtils.right("abc", 0)   = ""
      * StringUtils.right("abc", 2)   = "bc"
      * StringUtils.right("abc", 4)   = "abc"
-     * StringUtils.right("abc", -2)  = IllegalArgumentException
      * </pre>
      * 
      * @param str  the String to get the rightmost characters from, may be null
@@ -1480,10 +1489,13 @@ public class StringUtils {
      * @throws IllegalArgumentException if len is less than zero
      */
     public static String right(String str, int len) {
+        if (str == null) {
+            return null;
+        }
         if (len < 0) {
             throw new IllegalArgumentException("Requested String length " + len + " is less than zero");
         }
-        if ((str == null) || (str.length() <= len)) {
+        if (str.length() <= len) {
             return str;
         } else {
             return str.substring(str.length() - len);
@@ -1495,36 +1507,38 @@ public class StringUtils {
      *
      * <p>If <code>len</code> characters are not available, the remainder
      * of the String will be returned without an exception. If the
-     * String is <code>null</code>, <code>null</code> will be returned.</p>
+     * String is <code>null</code>, <code>null</code> will be returned.
+     * An exception is thrown if len is negative.</p>
      *
      * <pre>
-     * StringUtils.mid(null, 0, 0)    = null
-     * StringUtils.mid("", 0, 4)      = ""
+     * StringUtils.mid(null, *, *)    = null
+     * StringUtils.mid(*, *, -ve)     = IllegalArgumentException
+     * StringUtils.mid("", 0, *)      = ""
      * StringUtils.mid("abc", 0, 2)   = "ab"
      * StringUtils.mid("abc", 0, 4)   = "abc"
      * StringUtils.mid("abc", 2, 4)   = "c"
-     * StringUtils.mid("abc", 4, 2)   = StringIndexOutOfBoundsException
-     * StringUtils.mid("abc", -2, -2) = StringIndexOutOfBoundsException
-     * StringUtils.mid("abc", 0, -2)  = IllegalArgumentException
+     * StringUtils.mid("abc", 4, 2)   = ""
+     * StringUtils.mid("abc", -2, 2)  = "ab"
      * </pre>
      * 
      * @param str  the String to get the characters from, may be null
-     * @param pos  the position to start from, must be valid
+     * @param pos  the position to start from, negative treated as zero
      * @param len  the length of the required String, must be zero or positive
      * @return the middle characters, <code>null</code> if null String input
-     * @throws IndexOutOfBoundsException if pos is out of bounds
      * @throws IllegalArgumentException if len is less than zero
      */
     public static String mid(String str, int pos, int len) {
-        if ((pos < 0) ||
-            (str != null && pos > str.length())) {
-            throw new StringIndexOutOfBoundsException("String index " + pos + " is out of bounds");
+        if (str == null) {
+            return null;
+        }
+        if (pos > str.length()) {
+            return "";
+        }
+        if (pos < 0) {
+            pos = 0;
         }
         if (len < 0) {
             throw new IllegalArgumentException("Requested String length " + len + " is less than zero");
-        }
-        if (str == null) {
-            return null;
         }
         if (str.length() <= (pos + len)) {
             return str.substring(pos);
@@ -1571,8 +1585,8 @@ public class StringUtils {
      * <p>A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
-     * StringUtils.split(null, '.')       = null
-     * StringUtils.split("", '.')         = []
+     * StringUtils.split(null, *)         = null
+     * StringUtils.split("", *)           = []
      * StringUtils.split("a.b.c", '.')    = ["a", "b", "c"]
      * StringUtils.split("a..b.c", '.')   = ["a", "b", "c"]
      * StringUtils.split("a:b:c", '.')    = ["a:b:c"]
@@ -1627,8 +1641,8 @@ public class StringUtils {
      * A <code>null</code> separatorChars splits on whitespace.</p>
      *
      * <pre>
-     * StringUtils.split(null, null)      = null
-     * StringUtils.split("", null)        = []
+     * StringUtils.split(null, *)         = null
+     * StringUtils.split("", *)           = []
      * StringUtils.split("abc def", null) = ["abc", "def"]
      * StringUtils.split("abc def", " ")  = ["abc", "def"]
      * StringUtils.split("abc  def", " ") = ["abc", "def"]
@@ -1655,8 +1669,8 @@ public class StringUtils {
      * A <code>null</code> separatorChars splits on whitespace.</p>
      * 
      * <pre>
-     * StringUtils.split(null, null, 0)         = null
-     * StringUtils.split("", null, 0)           = []
+     * StringUtils.split(null, *, *)            = null
+     * StringUtils.split("", *, *)              = []
      * StringUtils.split("ab de fg", null, 0)   = ["ab", "cd", "ef"]
      * StringUtils.split("ab   de fg", null, 0) = ["ab", "cd", "ef"]
      * StringUtils.split("ab:cd:ef", ":", 0)    = ["ab", "cd", "ef"]
@@ -1957,8 +1971,8 @@ public class StringUtils {
      * <p>A <code>null</code> reference passed to this method is a no-op.</p>
      * 
      * <pre>
-     * StringUtils.replaceOnce(null, null, null)  = null
-     * StringUtils.replaceOnce("", null, null)    = ""
+     * StringUtils.replaceOnce(null, *, *)        = null
+     * StringUtils.replaceOnce("", *, *)          = ""
      * StringUtils.replaceOnce("aba", null, null) = "aba"
      * StringUtils.replaceOnce("aba", null, null) = "aba"
      * StringUtils.replaceOnce("aba", "a", null)  = "aba"
@@ -1983,8 +1997,8 @@ public class StringUtils {
      * <p>A <code>null</code> reference passed to this method is a no-op.</p>
      * 
      * <pre>
-     * StringUtils.replace(null, null, null)  = null
-     * StringUtils.replace("", null, null)    = ""
+     * StringUtils.replace(null, *, *)        = null
+     * StringUtils.replace("", *, *)          = ""
      * StringUtils.replace("aba", null, null) = "aba"
      * StringUtils.replace("aba", null, null) = "aba"
      * StringUtils.replace("aba", "a", null)  = "aba"
@@ -2010,8 +2024,8 @@ public class StringUtils {
      * <p>A <code>null</code> reference passed to this method is a no-op.</p>
      *
      * <pre>
-     * StringUtils.replace(null, null, null, 1)   = null
-     * StringUtils.replace("", null, null, 1)     = ""
+     * StringUtils.replace(null, *, *, *)         = null
+     * StringUtils.replace("", *, *, *)           = ""
      * StringUtils.replace("abaa", null, null, 1) = "abaa"
      * StringUtils.replace("abaa", null, null, 1) = "abaa"
      * StringUtils.replace("abaa", "a", null, 1)  = "abaa"
@@ -2052,7 +2066,7 @@ public class StringUtils {
      * <p>Overlay a part of a String with another String.</p>
      *
      * <pre>
-     * StringUtils.overlayString(null, null, 2, 4)        = null
+     * StringUtils.overlayString(null, *, *, *)           = null
      * StringUtils.overlayString("", "abc", 0, 0)         = "abc"
      * StringUtils.overlayString("abcdef", null, 2, 4)    = "abef"
      * StringUtils.overlayString("abcdef", "", 2, 4)      = "abef"
@@ -2539,7 +2553,7 @@ public class StringUtils {
      * <p>The String is padded to the size of <code>size</code>.</p>
      * 
      * <pre>
-     * StringUtils.rightPad(null, 1)   = null
+     * StringUtils.rightPad(null, *)   = null
      * StringUtils.rightPad("", 3)     = "   "
      * StringUtils.rightPad("bat", 3)  = "bat"
      * StringUtils.rightPad("bat", 5)  = "bat  "
@@ -2562,7 +2576,7 @@ public class StringUtils {
      * <p>The String is padded to the size of <code>size</code>.</p>
      *
      * <pre>
-     * StringUtils.rightPad(null, 1, 'z')   = null
+     * StringUtils.rightPad(null, *, *)     = null
      * StringUtils.rightPad("", 3, 'z')     = "zzz"
      * StringUtils.rightPad("bat", 3, 'z')  = "bat"
      * StringUtils.rightPad("bat", 5, 'z')  = "batzz"
@@ -2596,7 +2610,7 @@ public class StringUtils {
      * <p>The String is padded to the size of <code>size</code>.</p>
      *
      * <pre>
-     * StringUtils.rightPad(null, 1, "yz")   = null
+     * StringUtils.rightPad(null, *, *)      = null
      * StringUtils.rightPad("", 3, "z")      = "zzz"
      * StringUtils.rightPad("bat", 3, "yz")  = "bat"
      * StringUtils.rightPad("bat", 5, "yz")  = "batyz"
@@ -2652,7 +2666,7 @@ public class StringUtils {
      * <p>The String is padded to the size of <code>size<code>.</p>
      *
      * <pre>
-     * StringUtils.leftPad(null, 1)   = null
+     * StringUtils.leftPad(null, *)   = null
      * StringUtils.leftPad("", 3)     = "   "
      * StringUtils.leftPad("bat", 3)  = "bat"
      * StringUtils.leftPad("bat", 5)  = "  bat"
@@ -2675,7 +2689,7 @@ public class StringUtils {
      * <p>Pad to a size of <code>size</code>.</p>
      *
      * <pre>
-     * StringUtils.leftPad(null, 1, 'z')   = null
+     * StringUtils.leftPad(null, *, *)     = null
      * StringUtils.leftPad("", 3, 'z')     = "zzz"
      * StringUtils.leftPad("bat", 3, 'z')  = "bat"
      * StringUtils.leftPad("bat", 5, 'z')  = "zzbat"
@@ -2709,7 +2723,7 @@ public class StringUtils {
      * <p>Pad to a size of <code>size</code>.</p>
      *
      * <pre>
-     * StringUtils.leftPad(null, 1, "yz")   = null
+     * StringUtils.leftPad(null, *, *)      = null
      * StringUtils.leftPad("", 3, "z")      = "zzz"
      * StringUtils.leftPad("bat", 3, "yz")  = "bat"
      * StringUtils.leftPad("bat", 5, "yz")  = "yzbat"
@@ -2773,8 +2787,7 @@ public class StringUtils {
      * <p>Equivalent to <code>center(str, size, " ")</code>.</p>
      *
      * <pre>
-     * StringUtils.center(null, -1)  = null
-     * StringUtils.center(null, 4)   = null
+     * StringUtils.center(null, *)   = null
      * StringUtils.center("", 4)     = "    "
      * StringUtils.center("ab", -1)  = "ab"
      * StringUtils.center("ab", 4)   = " ab "
@@ -2799,8 +2812,7 @@ public class StringUtils {
      * A negative size is treated as zero.</p>
      *
      * <pre>
-     * StringUtils.center(null, -1, ' ')  = null
-     * StringUtils.center(null, 4, ' ')   = null
+     * StringUtils.center(null, *, *)     = null
      * StringUtils.center("", 4, ' ')     = "    "
      * StringUtils.center("ab", -1, ' ')  = "ab"
      * StringUtils.center("ab", 4, ' ')   = " ab"
@@ -2837,8 +2849,7 @@ public class StringUtils {
      * A negative size is treated as zero.</p>
      *
      * <pre>
-     * StringUtils.center(null, -1, " ")  = null
-     * StringUtils.center(null, 4, " ")   = null
+     * StringUtils.center(null, *, *)     = null
      * StringUtils.center("", 4, " ")     = "    "
      * StringUtils.center("ab", -1, " ")  = "ab"
      * StringUtils.center("ab", 4, " ")   = " ab"
@@ -3113,7 +3124,7 @@ public class StringUtils {
      * A <code>null</code> tag returns <code>null</code>.</p>
      * 
      * <pre>
-     * StringUtils.getNestedString(null, "tag")        = null
+     * StringUtils.getNestedString(null, *)            = null
      * StringUtils.getNestedString("", "")             = ""
      * StringUtils.getNestedString("", "tag")          = null
      * StringUtils.getNestedString("tagabctag", null)  = null
@@ -3138,7 +3149,7 @@ public class StringUtils {
      * An empty ("") open/close returns an empty string.</p>
      *
      * <pre>
-     * StringUtils.getNestedString(null, "y", "z")      = null
+     * StringUtils.getNestedString(null, *, *)          = null
      * StringUtils.getNestedString("", "", "")          = ""
      * StringUtils.getNestedString("", "", "tag")       = null
      * StringUtils.getNestedString("", "tag", "tag")    = null
@@ -3176,12 +3187,8 @@ public class StringUtils {
      * <p>A <code>null</code> String input returns <code>0</code>.</p>
      * 
      * <pre>
-     * StringUtils.countMatches(null, null)    = 0
-     * StringUtils.countMatches(null, "")      = 0
-     * StringUtils.countMatches(null, "a")     = 0
-     * StringUtils.countMatches("", null)      = 0
-     * StringUtils.countMatches("", "")        = 0
-     * StringUtils.countMatches("", "a")       = 0
+     * StringUtils.countMatches(null, *)       = 0
+     * StringUtils.countMatches("", *)         = 0
      * StringUtils.countMatches("abba", null)  = 0
      * StringUtils.countMatches("abba", "")    = 0
      * StringUtils.countMatches("abba", "a")   = 2
@@ -3517,8 +3524,8 @@ public class StringUtils {
      * is <code>'.'</code>).</p>
      * 
      * <pre>
-     * StringUtils.reverseDelimited(null, '.')    = null
-     * StringUtils.reverseDelimited("", '.')      = ""
+     * StringUtils.reverseDelimited(null, *)      = null
+     * StringUtils.reverseDelimited("", *)        = ""
      * StringUtils.reverseDelimited("a.b.c", 'x') = "a.b.c"
      * StringUtils.reverseDelimited("a.b.c", ".") = "c.b.a"
      * </pre>
@@ -3546,8 +3553,8 @@ public class StringUtils {
      * is <code>"."</code>).</p>
      * 
      * <pre>
-     * StringUtils.reverseDelimitedString(null, null)    = null
-     * StringUtils.reverseDelimitedString("", null)      = ""
+     * StringUtils.reverseDelimitedString(null, *)       = null
+     * StringUtils.reverseDelimitedString("",*)          = ""
      * StringUtils.reverseDelimitedString("a.b.c", null) = "a.b.c"
      * StringUtils.reverseDelimitedString("a.b.c", ".")  = "c.b.a"
      * </pre>
