@@ -72,7 +72,7 @@ import junit.textui.TestRunner;
  * @author Holger Krauth
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
- * @version $Id: StringUtilsTest.java,v 1.38 2003/07/25 00:50:00 scolebourne Exp $
+ * @version $Id: StringUtilsTest.java,v 1.39 2003/07/25 22:22:30 scolebourne Exp $
  */
 public class StringUtilsTest extends TestCase {
     
@@ -571,109 +571,6 @@ public class StringUtilsTest extends TestCase {
           assertEquals("chopNewline(String) failed",
                   expectedResult, StringUtils.chopNewline(original));
       }
-    }
-
-    public void testSliceFunctions() {
-
-        String[][] sliceCases = {
-            {"foo\n", "foo"},
-            {"foo\nbar", "foo"},
-            {"foo\nbar\n", "foo\nbar"},
-            {"foo\nbar\nbaz", "foo\nbar"},
-            {null, null},
-            {"", ""},
-            {"\n", ""},
-            {"abc \n", "abc "},
-            {"abc\r\n", "abc\r"},
-            {"foo", "foo"},
-        };
-        for (int i = 0; i < sliceCases.length; i++) {
-            String original = sliceCases[i][0];
-            String expectedResult = sliceCases[i][1];
-            assertEquals("slice(String) failed",
-                    expectedResult, StringUtils.slice(original));
-        }
-    }
-    
-    public void testSlice_StringString() {
-        assertEquals("fooXXbar", StringUtils.slice("fooXXbarXXbaz", "XX"));
-
-        assertEquals(null, StringUtils.slice(null, null));
-        assertEquals(null, StringUtils.slice(null, ""));
-        assertEquals(null, StringUtils.slice(null, "XX"));
-        assertEquals("", StringUtils.slice("", null));
-        assertEquals("", StringUtils.slice("", ""));
-        assertEquals("", StringUtils.slice("", "XX"));
-
-        assertEquals("foo", StringUtils.slice("foo", null));
-        assertEquals("foo", StringUtils.slice("foo", "b"));
-        assertEquals("fo", StringUtils.slice("foo", "o"));
-        assertEquals("abc\r\n", StringUtils.slice("abc\r\n", "d"));
-        assertEquals("abc", StringUtils.slice("abcdabc", "d"));
-        assertEquals("abcdabc", StringUtils.slice("abcdabcd", "d"));
-        assertEquals("a", StringUtils.slice("abc", "b"));
-        assertEquals("abc ", StringUtils.slice("abc \n", "\n"));
-        assertEquals("a", StringUtils.slice("a", null));
-        assertEquals("a", StringUtils.slice("a", ""));
-        assertEquals("", StringUtils.slice("a", "a"));
-    }
-    
-    public void testSliceRemainder_StringString() {
-        assertEquals("baz", StringUtils.sliceRemainder("fooXXbarXXbaz", "XX"));
-
-        assertEquals(null, StringUtils.sliceRemainder(null, null));
-        assertEquals(null, StringUtils.sliceRemainder(null, ""));
-        assertEquals(null, StringUtils.sliceRemainder(null, "XX"));
-        assertEquals("", StringUtils.sliceRemainder("", null));
-        assertEquals("", StringUtils.sliceRemainder("", ""));
-        assertEquals("", StringUtils.sliceRemainder("", "a"));
-
-        assertEquals("", StringUtils.sliceRemainder("foo", null));
-        assertEquals("", StringUtils.sliceRemainder("foo", "b"));
-        assertEquals("t", StringUtils.sliceRemainder("foot", "o"));
-        assertEquals("bc", StringUtils.sliceRemainder("abc", "a"));
-        assertEquals("a", StringUtils.sliceRemainder("abcba", "b"));
-        assertEquals("", StringUtils.sliceRemainder("abc", "c"));
-        assertEquals("", StringUtils.sliceRemainder("", "d"));
-        assertEquals("", StringUtils.sliceRemainder("abc", ""));
-    }        
-        
-    public void testSliceFirst_StringString() {
-        assertEquals("foo", StringUtils.sliceFirst("fooXXbarXXbaz", "XX"));
-
-        assertEquals(null, StringUtils.sliceFirst(null, null));
-        assertEquals(null, StringUtils.sliceFirst(null, ""));
-        assertEquals(null, StringUtils.sliceFirst(null, "XX"));
-        assertEquals("", StringUtils.sliceFirst("", null));
-        assertEquals("", StringUtils.sliceFirst("", ""));
-        assertEquals("", StringUtils.sliceFirst("", "XX"));
-        
-        assertEquals("foo", StringUtils.sliceFirst("foo", null));
-        assertEquals("foo", StringUtils.sliceFirst("foo", "b"));
-        assertEquals("f", StringUtils.sliceFirst("foot", "o"));
-        assertEquals("", StringUtils.sliceFirst("abc", "a"));
-        assertEquals("a", StringUtils.sliceFirst("abcba", "b"));
-        assertEquals("ab", StringUtils.sliceFirst("abc", "c"));
-        assertEquals("", StringUtils.sliceFirst("abc", ""));
-    }
-    
-    public void testSliceFirstRemainder_StringString() {
-        assertEquals("barXXbaz", StringUtils.sliceFirstRemainder("fooXXbarXXbaz", "XX"));
-        
-        assertEquals(null, StringUtils.sliceFirstRemainder(null, null));
-        assertEquals(null, StringUtils.sliceFirstRemainder(null, ""));
-        assertEquals(null, StringUtils.sliceFirstRemainder(null, "XX"));
-        assertEquals("", StringUtils.sliceFirstRemainder("", null));
-        assertEquals("", StringUtils.sliceFirstRemainder("", ""));
-        assertEquals("", StringUtils.sliceFirstRemainder("", "XX"));
-        
-        assertEquals("", StringUtils.sliceFirstRemainder("foo", null));
-        assertEquals("ot", StringUtils.sliceFirstRemainder("foot", "o"));
-        assertEquals("bc", StringUtils.sliceFirstRemainder("abc", "a"));
-        assertEquals("cba", StringUtils.sliceFirstRemainder("abcba", "b"));
-        assertEquals("", StringUtils.sliceFirstRemainder("abc", "c"));
-        assertEquals("abc", StringUtils.sliceFirstRemainder("abc", ""));
-        assertEquals("", StringUtils.sliceFirstRemainder("abc", "d"));
     }
 
     //-----------------------------------------------------------------------
