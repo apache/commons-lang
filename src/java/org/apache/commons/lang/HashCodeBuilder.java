@@ -1,5 +1,7 @@
 package org.apache.commons.lang;
 
+
+
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -76,295 +78,332 @@ package org.apache.commons.lang;
  *   ...
  * 
  *   public int hashCode() {
- *     int total = 17;  // you pick a random, non-zero, odd number
- *     total = HashCodeUtils.buildHashCode(total, name);
- *     total = HashCodeUtils.buildHashCode(total, age);
- *     total = HashCodeUtils.buildHashCode(total, isSmoker);
- *     return total;
+ *     // you pick a hard-coded, randomly chosen, non-zero, odd number
+ *     // ideally different for each class
+ *     return new HashCodeBuilder(17).   
+ *       append(name).
+ *       append(age).
+ *       append(smoker).
+ *       toHashCode();
  *   }
  * }
  * </code>
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: HashCodeUtils.java,v 1.2 2002/08/11 17:52:21 dlr Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.1 2002/08/15 22:37:29 scolebourne Exp $
  */
-public class HashCodeUtils {
+public class HashCodeBuilder {
     
     /**
-     * According to Bloch, the multiplier should be a random, odd
-     * prime.
+     * Constant to use in building the hashCode
      */
-    private static final int CONSTANT = 37;
+    private final int iConstant;
+    /**
+     * Running total of the hashCode
+     */
+    private int iTotal = 0;
     
     /**
-     * Prevent construction of HashCodeUtils instances
+     * Constructor for HashCodeBuilder.
+     * This constructor uses two hard coded choices for the constants needed
+     * to build a hashCode.
      */
-    private HashCodeUtils() {
+    public HashCodeBuilder() {
+        super();
+        iConstant = 37;
+        iTotal = 17;
+    }
+    
+    /**
+     * Constructor for HashCodeBuilder.
+     * Two randomly chosen, non-zero, odd numbers must be passed in. Ideally
+     * these should be different for each class, however this is not vital.
+     * Prime numbers are preferred, especially for the multiplier.
+     * 
+     * @param initialNonZeroOddNumber
+     * @param multiplierNonZeroOddNumber
+     * @throws IllegalArgumentException if the number is zero or even
+     */
+    public HashCodeBuilder(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber) {
+        super();
+        if (initialNonZeroOddNumber == 0) {
+            throw new IllegalArgumentException("HashCodeBuilder requires a non zero initial value");
+        }
+        if (initialNonZeroOddNumber % 2 == 0) {
+            throw new IllegalArgumentException("HashCodeBuilder requires an odd initial value");
+        }
+        if (multiplierNonZeroOddNumber == 0) {
+            throw new IllegalArgumentException("HashCodeBuilder requires a non zero multiplier");
+        }
+        if (multiplierNonZeroOddNumber % 2 == 0) {
+            throw new IllegalArgumentException("HashCodeBuilder requires an odd multiplier");
+        }
+        iConstant = multiplierNonZeroOddNumber;
+        iTotal = initialNonZeroOddNumber;
     }
 
     /**
-     * Build a hashCode for an Object.
+     * Append a hashCode for an Object.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param object  the object to add to the hashCode
      * @return updated totalSoFar
      */
-    public static int buildHashCode(int totalSoFar, Object object) {
+    public HashCodeBuilder append(Object object) {
         if (object == null) {
-            return totalSoFar * CONSTANT;
+            iTotal = iTotal * iConstant;
         } else {
-            return totalSoFar * CONSTANT + object.hashCode();
+            iTotal = iTotal * iConstant + object.hashCode();
         }
+        return this;
     }
 
     /**
-     * Build a hashCode for a long.
+     * Append a hashCode for a long.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param value  the long to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, long value) {
-        return totalSoFar * CONSTANT + ((int) (value ^ (value >> 32)));
+    public HashCodeBuilder append(long value) {
+        iTotal = iTotal * iConstant + ((int) (value ^ (value >> 32)));
+        return this;
     }
 
     /**
-     * Build a hashCode for an int.
+     * Append a hashCode for an int.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param value  the int to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, int value) {
-        return totalSoFar * CONSTANT + value;
+    public HashCodeBuilder append(int value) {
+        iTotal = iTotal * iConstant + value;
+        return this;
     }
 
     /**
-     * Build a hashCode for a short.
+     * Append a hashCode for a short.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param value  the short to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, short value) {
-        return totalSoFar * CONSTANT + (int) value;
+    public HashCodeBuilder append(short value) {
+        iTotal = iTotal * iConstant + (int) value;
+        return this;
     }
 
     /**
-     * Build a hashCode for a char.
+     * Append a hashCode for a char.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param value  the char to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, char value) {
-        return totalSoFar * CONSTANT + (int) value;
+    public HashCodeBuilder append(char value) {
+        iTotal = iTotal * iConstant + (int) value;
+        return this;
     }
 
     /**
-     * Build a hashCode for a byte.
+     * Append a hashCode for a byte.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param value  the byte to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, byte value) {
-        return totalSoFar * CONSTANT + (int) value;
+    public HashCodeBuilder append(byte value) {
+        iTotal = iTotal * iConstant + (int) value;
+        return this;
     }
 
     /**
-     * Build a hashCode for a double.
+     * Append a hashCode for a double.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param value  the double to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, double value) {
-        return buildHashCode(totalSoFar, Double.doubleToLongBits(value));
+    public HashCodeBuilder append(double value) {
+        return append(Double.doubleToLongBits(value));
     }
 
     /**
-     * Build a hashCode for a float.
+     * Append a hashCode for a float.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param value  the float to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, float value) {
-        return totalSoFar * CONSTANT + Float.floatToIntBits(value);
+    public HashCodeBuilder append(float value) {
+        iTotal = iTotal * iConstant + Float.floatToIntBits(value);
+        return this;
     }
 
     /**
-     * Build a hashCode for a long.
+     * Append a hashCode for a long.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param value  the long to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, boolean value) {
-        return totalSoFar * CONSTANT + (value ? 0 : 1);
+    public HashCodeBuilder append(boolean value) {
+        iTotal = iTotal * iConstant + (value ? 0 : 1);
+        return this;
     }
 
     /**
-     * Build a hashCode for an Object array.
+     * Append a hashCode for an Object array.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param array  the array to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, Object[] array) {
+    public HashCodeBuilder append(Object[] array) {
         if (array == null) {
-            return totalSoFar * CONSTANT;
+            iTotal = iTotal * iConstant;
         } else {
             for (int i = 0; i < array.length; i++) {
-                totalSoFar = buildHashCode(totalSoFar, array[i]);
+                append(array[i]);
             }
-            return totalSoFar;
         }
+        return this;
     }
 
     /**
-     * Build a hashCode for a long array.
+     * Append a hashCode for a long array.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param array  the array to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, long[] array) {
+    public HashCodeBuilder append(long[] array) {
         if (array == null) {
-            return totalSoFar * CONSTANT;
+            iTotal = iTotal * iConstant;
         } else {
             for (int i = 0; i < array.length; i++) {
-                totalSoFar = buildHashCode(totalSoFar, array[i]);
+                append(array[i]);
             }
-            return totalSoFar;
         }
+        return this;
     }
 
     /**
-     * Build a hashCode for an int array.
+     * Append a hashCode for an int array.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param array  the array to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, int[] array) {
+    public HashCodeBuilder append(int[] array) {
         if (array == null) {
-            return totalSoFar * CONSTANT;
+            iTotal = iTotal * iConstant;
         } else {
             for (int i = 0; i < array.length; i++) {
-                totalSoFar = buildHashCode(totalSoFar, array[i]);
+                append(array[i]);
             }
-            return totalSoFar;
         }
+        return this;
     }
 
     /**
-     * Build a hashCode for a short array.
+     * Append a hashCode for a short array.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param array  the array to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, short[] array) {
+    public HashCodeBuilder append(short[] array) {
         if (array == null) {
-            return totalSoFar * CONSTANT;
+            iTotal = iTotal * iConstant;
         } else {
             for (int i = 0; i < array.length; i++) {
-                totalSoFar = buildHashCode(totalSoFar, array[i]);
+                append(array[i]);
             }
-            return totalSoFar;
         }
+        return this;
     }
 
     /**
-     * Build a hashCode for a char array.
+     * Append a hashCode for a char array.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param array  the array to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, char[] array) {
+    public HashCodeBuilder append(char[] array) {
         if (array == null) {
-            return totalSoFar * CONSTANT;
+            iTotal = iTotal * iConstant;
         } else {
             for (int i = 0; i < array.length; i++) {
-                totalSoFar = buildHashCode(totalSoFar, array[i]);
+                append(array[i]);
             }
-            return totalSoFar;
         }
+        return this;
     }
 
     /**
-     * Build a hashCode for a byte array.
+     * Append a hashCode for a byte array.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param array  the array to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, byte[] array) {
+    public HashCodeBuilder append(byte[] array) {
         if (array == null) {
-            return totalSoFar * CONSTANT;
+            iTotal = iTotal * iConstant;
         } else {
             for (int i = 0; i < array.length; i++) {
-                totalSoFar = buildHashCode(totalSoFar, array[i]);
+                append(array[i]);
             }
-            return totalSoFar;
         }
+        return this;
     }
 
     /**
-     * Build a hashCode for a double array.
+     * Append a hashCode for a double array.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param array  the array to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, double[] array) {
+    public HashCodeBuilder append(double[] array) {
         if (array == null) {
-            return totalSoFar * CONSTANT;
+            iTotal = iTotal * iConstant;
         } else {
             for (int i = 0; i < array.length; i++) {
-                totalSoFar = buildHashCode(totalSoFar, array[i]);
+                append(array[i]);
             }
-            return totalSoFar;
         }
+        return this;
     }
 
     /**
-     * Build a hashCode for a float array.
+     * Append a hashCode for a float array.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param array  the array to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, float[] array) {
+    public HashCodeBuilder append(float[] array) {
         if (array == null) {
-            return totalSoFar * CONSTANT;
+            iTotal = iTotal * iConstant;
         } else {
             for (int i = 0; i < array.length; i++) {
-                totalSoFar = buildHashCode(totalSoFar, array[i]);
+                append(array[i]);
             }
-            return totalSoFar;
         }
+        return this;
     }
 
     /**
-     * Build a hashCode for a boolean array.
+     * Append a hashCode for a boolean array.
      *
-     * @param totalSoFar  the hashCode total so far
      * @param array  the array to add to the hashCode
-     * @return updated totalSoFar
+     * @return this
      */
-    public static int buildHashCode(int totalSoFar, boolean[] array) {
+    public HashCodeBuilder append(boolean[] array) {
         if (array == null) {
-            return totalSoFar * CONSTANT;
+            iTotal = iTotal * iConstant;
         } else {
             for (int i = 0; i < array.length; i++) {
-                totalSoFar = buildHashCode(totalSoFar, array[i]);
+                append(array[i]);
             }
-            return totalSoFar;
         }
+        return this;
+    }
+
+    /**
+     * Return the computed hashCode
+     * 
+     * @return int hashCode based on the fields appended
+     */    
+    public int toHashCode() {
+        return iTotal;
     }
 
 }
