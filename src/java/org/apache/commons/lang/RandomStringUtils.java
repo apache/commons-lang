@@ -63,7 +63,7 @@ import java.util.Random;
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: RandomStringUtils.java,v 1.2 2002/07/26 14:05:04 bayard Exp $
+ * @version $Id: RandomStringUtils.java,v 1.3 2002/09/18 19:52:26 bayard Exp $
  */
 public class RandomStringUtils {
 
@@ -77,7 +77,7 @@ public class RandomStringUtils {
     /**
      * Prevent construction of RandomStringUtils instances
      */
-    private RandomStringUtils() {
+    public RandomStringUtils() {
     }
 
     /**
