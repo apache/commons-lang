@@ -17,6 +17,9 @@ package org.apache.commons.lang.time;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 /**
  * <p>Duration formatting utilities and constants.</p>
  *
@@ -27,7 +30,7 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Henri Yandell
  * @since 2.1
- * @version $Id: DurationFormatUtils.java,v 1.14 2004/09/26 05:45:33 bayard Exp $
+ * @version $Id: DurationFormatUtils.java,v 1.15 2004/09/27 03:14:15 bayard Exp $
  */
 public class DurationFormatUtils {
 
@@ -101,9 +104,18 @@ public class DurationFormatUtils {
         return format(millis, format, true);
     }
     public static String format(long millis, String format, boolean padWithZeros) {
-        StringBuffer buffer = new StringBuffer();
+        return format(millis, format, padWithZeros, TimeZone.getDefault());
+    }
+    public static String format(long millis, String format, boolean padWithZeros, TimeZone timezone) {
+
+        if(millis > 28 * DateUtils.MILLIS_PER_DAY) {
+            Calendar c = Calendar.getInstance(timezone);
+            c.set(1970, 0, 1, 0, 0, 0);
+            c.set(Calendar.MILLISECOND, 0);
+            return format(c.getTime().getTime(), millis, format, padWithZeros, timezone);
+        }
+
         Token[] tokens = lexx(format);
-        int sz = tokens.length;
 
         int years        = 0;
         int months       = 0;
@@ -113,6 +125,7 @@ public class DurationFormatUtils {
         int seconds      = 0;
         int milliseconds = 0;
 
+        /*  This will never be evaluated
         if(Token.containsTokenWithValue(tokens, y) ) {
             years = (int) (millis / DateUtils.MILLIS_PER_YEAR);
             millis = millis - (years * DateUtils.MILLIS_PER_YEAR);
@@ -126,6 +139,7 @@ public class DurationFormatUtils {
                 months = 0;
             }
         }
+        */
         if(Token.containsTokenWithValue(tokens, d) ) {
             days = (int) (millis / DateUtils.MILLIS_PER_DAY);
             millis = millis - (days * DateUtils.MILLIS_PER_DAY);
@@ -146,7 +160,15 @@ public class DurationFormatUtils {
             milliseconds = (int) millis;
         }
 
+        return formatDuration(tokens, years, months, days, hours, minutes, seconds, milliseconds, padWithZeros);
+    }
 
+
+    private static String formatDuration(Token[] tokens, int years, int months, int days, int hours, 
+                                         int minutes, int seconds, int milliseconds, boolean padWithZeros) 
+    { 
+        StringBuffer buffer = new StringBuffer();
+        int sz = tokens.length;
         for(int i=0; i<sz; i++) {
             Token token = tokens[i];
             Object value = token.getValue();
@@ -179,6 +201,87 @@ public class DurationFormatUtils {
         }
         
         return buffer.toString();
+    }
+
+    // slower than the above I presume
+    public static String format(long startMillis, long endMillis, String format, boolean padWithZeros) {
+        return format(startMillis, endMillis, format, padWithZeros, TimeZone.getDefault());
+    }
+    public static String format(long startMillis, long endMillis, String format, boolean padWithZeros, TimeZone timezone) {
+
+        long millis = endMillis - startMillis;
+        if(millis < 28 * DateUtils.MILLIS_PER_DAY) {
+            return format(millis, format, padWithZeros, timezone);
+        }
+
+        Token[] tokens = lexx(format);
+
+        // timezones get funky around 0, so normalizing everything to GMT 
+        // stops the hours being off
+        Calendar start = Calendar.getInstance(timezone);
+        start.setTimeInMillis(startMillis);
+        Calendar end = Calendar.getInstance(timezone);
+        end.setTimeInMillis(endMillis);
+
+        // initial estimates
+        int years = end.get(Calendar.YEAR) - start.get(Calendar.YEAR);
+        int months = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
+        // each initial estimate is adjusted in case it is under 0
+        while(months < 0) {
+            months += 12;
+            years -= 1;
+        }
+        int days = end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);
+        while(days < 0) {
+            days += 31;  // such overshooting is taken care of later on
+            days -= 1;
+        }
+        int hours = end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY);
+        while(hours < 0) {
+            hours += 24;
+            days -= 1;
+        }
+        int minutes = end.get(Calendar.MINUTE) - start.get(Calendar.MINUTE);
+        while(minutes < 0) {
+            minutes += 60;
+            hours -= 1;
+        }
+        int seconds = end.get(Calendar.SECOND) - start.get(Calendar.SECOND);
+        while(seconds < 0) {
+            seconds += 60;
+            minutes -= 1;
+        }
+        int milliseconds = end.get(Calendar.MILLISECOND) - start.get(Calendar.MILLISECOND);
+        while(milliseconds < 0) {
+            milliseconds += 1000;
+            seconds -= 1;
+        }
+
+        // take estimates off of end to see if we can equal start, when it overshoots recalculate
+        milliseconds -= reduceAndCorrect( start, end, Calendar.MILLISECOND, milliseconds );
+        seconds -= reduceAndCorrect( start, end, Calendar.SECOND, seconds );
+        minutes -= reduceAndCorrect( start, end, Calendar.MINUTE, minutes );
+        hours -= reduceAndCorrect( start, end, Calendar.HOUR_OF_DAY, hours );
+        days -= reduceAndCorrect( start, end, Calendar.DAY_OF_MONTH, days );
+        months -= reduceAndCorrect( start, end, Calendar.MONTH, months );
+        years -= reduceAndCorrect( start, end, Calendar.YEAR, years );
+
+        return formatDuration(tokens, years, months, days, hours, minutes, seconds, milliseconds, padWithZeros);
+    }
+
+    // Reduces by difference, then if it overshot, calculates the overshot amount and 
+    // fixes and returns the amount to change by
+    private static int reduceAndCorrect(Calendar start, Calendar end, int field, int difference) {
+        end.add( field, -1 * difference );
+        int endValue = end.get(field);
+        int startValue = start.get(field);
+        if(endValue < startValue) {
+            int newdiff = startValue - endValue;
+            end.add( field, newdiff );
+            return newdiff;
+        } else {
+            return 0;
+        }
     }
 
     /**
