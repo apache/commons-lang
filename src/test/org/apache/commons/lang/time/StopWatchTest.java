@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
  * TestCase for StopWatch.
  *
  * @author Stephen Colebourne
- * @version $Id: StopWatchTest.java,v 1.8 2004/09/05 19:55:29 bayard Exp $
+ * @version $Id$
  */
 public class StopWatchTest extends TestCase {
 
@@ -129,6 +129,13 @@ public class StopWatchTest extends TestCase {
         }
 
         try {
+            watch.split();
+            fail("Calling split on a non-running StopWatch should throw an exception. ");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
+        try {
             watch.unsplit();
             fail("Calling unsplit on an unsplit StopWatch should throw an exception. ");
         } catch(IllegalStateException ise) {
@@ -146,7 +153,7 @@ public class StopWatchTest extends TestCase {
 
         try {
             watch.start();
-            fail("Calling start on an started StopWatch should throw an exception. ");
+            fail("Calling start on a started StopWatch should throw an exception. ");
         } catch(IllegalStateException ise) {
             // expected
         }
@@ -168,6 +175,15 @@ public class StopWatchTest extends TestCase {
         try {
             watch.resume();
             fail("Calling resume on an unsuspended StopWatch should throw an exception. ");
+        } catch(IllegalStateException ise) {
+            // expected
+        }
+
+        watch.stop();
+
+        try {
+            watch.start();
+            fail("Calling start on a stopped StopWatch should throw an exception as it needs to be reset. ");
         } catch(IllegalStateException ise) {
             // expected
         }
