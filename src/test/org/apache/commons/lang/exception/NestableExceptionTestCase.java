@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * Tests the org.apache.commons.lang.exception.NestableException class.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: NestableExceptionTestCase.java,v 1.2 2002/07/26 20:30:58 stevencaswell Exp $
+ * @version $Id: NestableExceptionTestCase.java,v 1.3 2002/08/25 13:21:24 stevencaswell Exp $
  */
 public class NestableExceptionTestCase extends junit.framework.TestCase
 {
@@ -126,34 +126,6 @@ public class NestableExceptionTestCase extends junit.framework.TestCase
             ne6.getCause()); 
     }
 
-    public void testGetLength()
-    {
-        // test the deprecated method
-        NestableException ne1 = new NestableException();
-        assertEquals("ne1 length", 1, ne1.getLength());
-
-        NestableException ne2 = new NestableException("ne2");
-        assertEquals("ne2 length", 1, ne2.getLength());
-        
-        NestableException ne3 = new NestableException(new Exception("ne3 exception"));
-        assertEquals("ne3 length", 2, ne3.getLength());
-        
-        NestableException ne4 = new NestableException("ne4", new Exception("ne4 exception"));
-        assertEquals("ne4 length", 2, ne4.getLength());
-        
-        NestableException ne5 = new NestableException("ne5", null);
-        assertEquals("ne 5 length", 1, ne5.getLength());
-        
-        NestableException ne6 = new NestableException(null, new Exception("ne6 exception"));
-        assertEquals("ne 6 length", 2, ne6.getLength());
-        
-        NestableException ne7 = new NestableException("ne7o", new NestableException("ne7i", new Exception("ne7 exception")));
-        assertEquals("ne 7 length", 3, ne7.getLength());
-
-        NestableException ne8 = new NestableException("level 1", new NestableException("level 2", new NestableException(new NestableException("level 4", new Exception("level 5")))));
-        assertEquals("ne 8 length", 5, ne8.getLength());
-    }
-    
     public void testGetThrowableCount()
     {
         NestableException ne1 = new NestableException();
@@ -493,11 +465,6 @@ public class NestableExceptionTestCase extends junit.framework.TestCase
         {
         }
         
-        // test the deprecated method
-        int index = n.indexOfThrowable(-1, NestableExceptionTester1.class);
-        assertEquals("deprecated method index", 0, index);
-        index = n.indexOfThrowable(999, Exception.class);
-        assertEquals("deprecated method index", 4, index);
     }
 
     private void doNestableExceptionIndexOfThrowableI(Nestable n, Class type, int fromIndex, int expectedIndex, String expectedMsg)
@@ -524,26 +491,6 @@ public class NestableExceptionTestCase extends junit.framework.TestCase
             }
         }
         
-        // test the deprecated method
-        int index1 = n.indexOfThrowable(fromIndex, type);
-        assertEquals("index of throwable " + type.getName(), expectedIndex, index);
-        if(expectedIndex > -1)
-        {
-            t = n.getThrowable(index1);
-            if(expectedMsg != null)
-            {
-                String msg = null;
-                if(Nestable.class.isInstance(t))
-                {
-                    msg = ((Nestable) t).getMessage(0);
-                }
-                else
-                {
-                    msg = t.getMessage();
-                }
-                assertEquals("message of indexed throwable", expectedMsg, msg);
-            }
-        }
     }
     
     public void testPrintPartialStackTrace()
