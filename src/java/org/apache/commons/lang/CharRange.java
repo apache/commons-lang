@@ -64,7 +64,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Chris Feldhacker
  * @since 1.0
- * @version $Id: CharRange.java,v 1.10 2003/08/02 18:18:33 scolebourne Exp $
+ * @version $Id: CharRange.java,v 1.11 2003/08/04 00:46:24 scolebourne Exp $
  */
 public final class CharRange implements Serializable {
 
@@ -89,6 +89,19 @@ public final class CharRange implements Serializable {
      */
     public CharRange(char ch) {
         this(ch, ch, false);
+    }
+
+    /**
+     * <p>Constructs a <code>CharRange</code> over a single character,
+     * optionally negating the range.</p>
+     *
+     * <p>A negated range includes everything except the specified char.</p>
+     *
+     * @param ch  only character in this range
+     * @param negated  true to express everything except the range
+     */
+    public CharRange(char ch, boolean negated) {
+        this(ch, ch, negated);
     }
 
     /**

@@ -64,7 +64,7 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.CharRange}.
  *
  * @author Stephen Colebourne
- * @version $Id: CharRangeTest.java,v 1.1 2003/08/02 18:18:33 scolebourne Exp $
+ * @version $Id: CharRangeTest.java,v 1.2 2003/08/04 00:46:47 scolebourne Exp $
  */
 public class CharRangeTest extends TestCase {
     
@@ -99,11 +99,26 @@ public class CharRangeTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testConstructorAccessors_Char() {
         CharRange rangea = new CharRange('a');
-        CharRange rangeb = new CharRange('b');
         assertEquals('a', rangea.getStart());
         assertEquals('a', rangea.getEnd());
         assertEquals(false, rangea.isNegated());
         assertEquals("a", rangea.toString());
+    }
+    
+    public void testConstructorAccessors_CharBoolean_Normal() {
+        CharRange rangea = new CharRange('a');
+        assertEquals('a', rangea.getStart());
+        assertEquals('a', rangea.getEnd());
+        assertEquals(false, rangea.isNegated());
+        assertEquals("a", rangea.toString());
+    }
+    
+    public void testConstructorAccessors_CharBoolean_Negated() {
+        CharRange rangea = new CharRange('a', true);
+        assertEquals('a', rangea.getStart());
+        assertEquals('a', rangea.getEnd());
+        assertEquals(true, rangea.isNegated());
+        assertEquals("^a", rangea.toString());
     }
     
     public void testConstructorAccessors_CharChar_Same() {
