@@ -41,13 +41,13 @@ import org.apache.commons.lang.ClassUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: ReflectionToStringBuilder.java,v 1.2 2003/07/14 22:25:03 bayard Exp $
+ * @version $Id: ReflectionToStringBuilder.java,v 1.3 2003/07/14 23:02:27 scolebourne Exp $
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
-     * A registry of objects used by <code>reflectionToString</code> methods to detect
-     * cyclical object references and avoid infinite loops.
+     * <p>A registry of objects used by <code>reflectionToString</code> methods
+     * to detect cyclical object references and avoid infinite loops.</p>
      */
     private static ThreadLocal registry = new ThreadLocal() {
         protected synchronized Object initialValue() {
@@ -79,8 +79,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Registers the given object.
-     * Used by the reflection methods to avoid infinite loops.
+     * <p>Registers the given object.
+     * Used by the reflection methods to avoid infinite loops.</p>
      * 
      * @param value The object to register.
      */
