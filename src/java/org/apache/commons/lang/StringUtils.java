@@ -77,7 +77,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.34 2003/03/23 04:58:47 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.35 2003/03/23 05:26:23 bayard Exp $
  */
 public class StringUtils {
 
@@ -523,7 +523,7 @@ public class StringUtils {
      * @return the concatenated string.
      */
     public static String concatenate(Object[] array) {
-        return join(array, "");
+        return join(array, null);
     }
     
     /**
@@ -538,12 +538,40 @@ public class StringUtils {
      * @return the joined String
      */
     public static String join(Object[] array, String separator) {
-        if (separator == null) {
-            separator = "";
-        }
         int arraySize = array.length;
-        int bufSize = (arraySize == 0 ? 0 : (array[0].toString().length() +
-                                 separator.length()) * arraySize);
+
+        // ArraySize ==  0: Len = 0
+        // ArraySize > 0:   Len = NofStrings *(len(firstString) + len(separator))
+        //           (Assuming that all strings are roughly equally long)
+        int bufSize 
+            = ((arraySize == 0) ? 0 
+                : arraySize * (array[0].toString().length() 
+                    + ((separator != null) ? separator.length(): 0)));
+
+        StringBuffer buf = new StringBuffer(bufSize);
+
+        for (int i = 0; i < arraySize; i++) {
+            if ((separator != null) && (i > 0)) {
+                buf.append(separator);
+         }
+            buf.append(array[i]);
+        }
+        return buf.toString();
+    }
+
+    /**
+     * <p>Joins the elements of the provided array into a single String
+     * containing the provided list of elements.</p>
+     *
+     * <p>No delimiter is added before or after the list. A
+     *
+     * @param array the array of values to join together
+     * @param separator the separator character to use
+     * @return the joined String
+     */
+    public static String join(Object[] array, char separator) {
+        int arraySize = array.length;
+        int bufSize = (arraySize == 0 ? 0 : (array[0].toString().length() + 1) * arraySize);
         StringBuffer buf = new StringBuffer(bufSize);
 
         for (int i = 0; i < arraySize; i++) {
@@ -567,9 +595,27 @@ public class StringUtils {
      * @return the joined String
      */
     public static String join(Iterator iterator, String separator) {
-        if (separator == null) {
-            separator = "";
-        }
+        StringBuffer buf = new StringBuffer(256);  // Java default is 16, probably too small
+        while (iterator.hasNext()) {
+            buf.append(iterator.next());
+            if ((separator != null) && iterator.hasNext()) {
+                buf.append(separator);
+            }
+         }
+        return buf.toString();
+    }
+
+    /**
+     * <p>Joins the elements of the provided <code>Iterator</code> into
+     * a single String containing the provided elements.</p>
+     *
+     * <p>No delimiter is added before or after the list. A
+     *
+     * @param iterator the <code>Iterator</code> of values to join together
+     * @param separator  the separator character to use
+     * @return the joined String
+     */
+    public static String join(Iterator iterator, char separator) {
         StringBuffer buf = new StringBuffer(256);  // Java default is 16, probably too small
         while (iterator.hasNext()) {
             buf.append(iterator.next());
