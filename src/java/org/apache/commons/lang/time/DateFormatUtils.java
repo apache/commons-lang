@@ -67,8 +67,9 @@ import java.util.TimeZone;
  * @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author Stephen Colebourne
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: DateFormatUtils.java,v 1.5 2003/08/06 02:48:23 ggregory Exp $
+ * @version $Id: DateFormatUtils.java,v 1.6 2003/08/06 21:13:39 ggregory Exp $
  */
 public class DateFormatUtils {
 
@@ -83,7 +84,7 @@ public class DateFormatUtils {
      * ISO8601 formatter for date-time with time zone.
      * The format used is <tt>yyyy-MM-dd'T'HH:mm:ssZZ</tt>.
      */
-    public static final FastDateFormat ISO_DATETIME_TIMEZONE_FORMAT
+    public static final FastDateFormat ISO_DATETIME_TIME_ZONE_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-dd'T'HH:mm:ssZZ");
 
     /**
@@ -99,7 +100,7 @@ public class DateFormatUtils {
      * This pattern does not comply with the formal ISO8601 specification
      * as the standard does not allow a time zone  without a time.
      */
-    public static final FastDateFormat ISO_DATE_TIMEZONE_FORMAT
+    public static final FastDateFormat ISO_DATE_TIME_ZONE_FORMAT
             = FastDateFormat.getInstance("yyyy-MM-ddZZ");
 
     /**
@@ -113,7 +114,7 @@ public class DateFormatUtils {
      * ISO8601 formatter for time with time zone.
      * The format used is <tt>'T'HH:mm:ssZZ</tt>.
      */
-    public static final FastDateFormat ISO_TIME_TIMEZONE_FORMAT
+    public static final FastDateFormat ISO_TIME_TIME_ZONE_FORMAT
             = FastDateFormat.getInstance("'T'HH:mm:ssZZ");
 
     /**
@@ -131,7 +132,7 @@ public class DateFormatUtils {
      * This pattern does not comply with the formal ISO8601 specification
      * as the standard requires the 'T' prefix for times.
      */
-    public static final FastDateFormat ISO_TIME_NO_T_TIMEZONE_FORMAT
+    public static final FastDateFormat ISO_TIME_NO_T_TIME_ZONE_FORMAT
             = FastDateFormat.getInstance("HH:mm:ssZZ");
 
     /**
@@ -159,7 +160,7 @@ public class DateFormatUtils {
      * @return the formatted date
      */
     public static String formatUTC(long millis, String pattern) {
-        return format(new Date(millis), pattern, DateUtils.UTC_TIMEZONE, null);
+        return format(new Date(millis), pattern, DateUtils.UTC_TIME_ZONE, null);
     }
 
     /**
@@ -170,7 +171,7 @@ public class DateFormatUtils {
      * @return the formatted date
      */
     public static String formatUTC(Date date, String pattern) {
-        return format(date, pattern, DateUtils.UTC_TIMEZONE, null);
+        return format(date, pattern, DateUtils.UTC_TIME_ZONE, null);
     }
     
     /**
@@ -182,7 +183,7 @@ public class DateFormatUtils {
      * @return the formatted date
      */
     public static String formatUTC(long millis, String pattern, Locale locale) {
-        return format(new Date(millis), pattern, DateUtils.UTC_TIMEZONE, locale);
+        return format(new Date(millis), pattern, DateUtils.UTC_TIME_ZONE, locale);
     }
 
     /**
@@ -194,7 +195,7 @@ public class DateFormatUtils {
      * @return the formatted date
      */
     public static String formatUTC(Date date, String pattern, Locale locale) {
-        return format(date, pattern, DateUtils.UTC_TIMEZONE, locale);
+        return format(date, pattern, DateUtils.UTC_TIME_ZONE, locale);
     }
     
     /**
