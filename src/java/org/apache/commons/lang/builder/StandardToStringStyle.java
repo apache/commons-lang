@@ -1,4 +1,3 @@
-package org.apache.commons.lang.builder;
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -52,7 +51,7 @@ package org.apache.commons.lang.builder;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
-// package org.apache.commons.lang.builder
+package org.apache.commons.lang.builder;
 
 /**
  * <code>StandardToStringStyle</code> works with ToStringBuilder to create a
@@ -64,7 +63,7 @@ package org.apache.commons.lang.builder;
  * public static final variable for the rest of the program to access.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: StandardToStringStyle.java,v 1.1 2002/09/17 22:07:20 scolebourne Exp $
+ * @version $Id: StandardToStringStyle.java,v 1.2 2002/09/17 22:09:11 scolebourne Exp $
  */
 public class StandardToStringStyle extends ToStringStyle {
     
