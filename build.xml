@@ -1,7 +1,7 @@
 <project name="Lang" default="compile" basedir=".">
     <!--
         "Lang" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.22 2003/08/23 05:27:30 bayard Exp $
+        $Id: build.xml,v 1.23 2003/09/20 10:18:56 scolebourne Exp $
     -->
     <!-- ========== Initialize Properties ===================================== -->
     <property file="${user.home}/${component.name}.build.properties"/>
@@ -161,13 +161,6 @@
         <echo message="Running math package tests ..."/>
         <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
             <arg value="org.apache.commons.lang.math.MathTestSuite"/>
-            <classpath refid="test.classpath"/>
-        </java>
-    </target>
-    <target name="test.reflect" depends="compile.tests">
-        <echo message="Running reflect package tests ..."/>
-        <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
-            <arg value="org.apache.commons.lang.reflect.ReflectTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
     </target>
