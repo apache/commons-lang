@@ -21,7 +21,7 @@ import java.io.Serializable;
  * A mutable <code>Object</code>.
  * 
  * @since 2.1
- * @version $Id: MutableObject.java,v 1.1 2004/07/08 00:02:35 scolebourne Exp $
+ * @version $Id: MutableObject.java,v 1.2 2004/09/01 17:42:56 ggregory Exp $
  */
 public class MutableObject
         implements Mutable, Serializable {
@@ -65,7 +65,7 @@ public class MutableObject
      * @param value  the value to set
      */
     public void setValue(Object value) {
-        this.value = value;;
+        this.value = value;
     }
 
     //-----------------------------------------------------------------------
