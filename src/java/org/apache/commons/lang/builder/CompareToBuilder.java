@@ -61,10 +61,9 @@ import java.util.Comparator;
 import org.apache.commons.lang.math.NumberUtils;
 
 /** 
- * <p><code>CompareTo</code> generation routines.</p>
+ * Assists in implementing {@link java.lang.Comparable#compareTo(Object)} methods.
  *
- * <p>This class provides methods to assist in building a quality
- * <code>compareTo(Object)</code>.  It is consistent with <code>equals(Object)</code> and
+ * It is consistent with <code>equals(Object)</code> and
  * <code>hashcode()</code> built with {@link EqualsBuilder} and
  * {@link HashCodeBuilder}.</p>
  *
@@ -100,7 +99,7 @@ import org.apache.commons.lang.math.NumberUtils;
  *
  * <p>Alternatively, there is a method {@link #reflectionCompare reflectionCompare} that uses
  * reflection to determine the fields to append. Because fields can be private,
- * <code>reflectionCompare</code> uses <code>AccessibleObject.setAccessible</code> to
+ * <code>reflectionCompare</code> uses {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} to
  * bypass normal access control checks. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly. It is also
  * slower than appending explicitly.</p>
@@ -114,12 +113,17 @@ import org.apache.commons.lang.math.NumberUtils;
  * }
  * </pre>
  *
+ * @see java.lang.Comparable
+ * @see java.lang.Object#equals(Object)
+ * @see java.lang.Object#hashCode()
+ * @see EqualsBuilder
+ * @see HashCodeBuilder
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: CompareToBuilder.java,v 1.22 2003/08/21 15:13:09 ggregory Exp $
+ * @version $Id: CompareToBuilder.java,v 1.23 2003/08/23 00:21:49 ggregory Exp $
  */
 public class CompareToBuilder {
     

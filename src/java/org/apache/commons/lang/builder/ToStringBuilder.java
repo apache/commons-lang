@@ -57,7 +57,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 
 /**
- * <p><code>ToString</code> generation routines.</p>
+ * <p>Assists in implementing {@link Object#toString()} methods.</p>
  *
  * <p>This class enables a good and consistent <code>toString()</code> to be built for any
  * class or object. This class aims to simplify the process by:</p>
@@ -125,7 +125,7 @@ import org.apache.commons.lang.ObjectUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.28 2003/08/21 15:52:54 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.29 2003/08/23 00:21:49 ggregory Exp $
  */
 public class ToStringBuilder {
 
