@@ -67,7 +67,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Michael Becke
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.15 2003/05/31 01:02:33 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.16 2003/06/08 14:10:54 scolebourne Exp $
  */
 public class SystemUtils {
 
@@ -645,7 +645,7 @@ public class SystemUtils {
      * </ul>
      * 
      * @deprecated Use {@link #JAVA_VERSION_FLOAT} instead.
-     *             Will be removed in Commons Lang 3.0.
+     *             Method will be removed in Commons Lang 3.0.
      * @return the version, for example 1.31f for JDK 1.3.1
      */
     public static float getJavaVersion() {
