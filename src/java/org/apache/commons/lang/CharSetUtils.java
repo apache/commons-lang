@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -66,7 +66,7 @@ package org.apache.commons.lang;
  * @author Phil Steitz
  * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.29 2003/11/04 21:16:34 fredrik Exp $
+ * @version $Id: CharSetUtils.java,v 1.30 2004/01/19 23:24:07 fredrik Exp $
  */
 public class CharSetUtils {
 
@@ -154,7 +154,7 @@ public class CharSetUtils {
      * @return modified String, <code>null</code> if null string input
      */
     public static String squeeze(String str, String[] set) {
-        if (StringUtils.isEmpty(str) || set == null || set.length == 0) {
+        if (StringUtils.isEmpty(str) || ArrayUtils.isEmpty(set)) {
             return str;
         }
         CharSet chars = evaluateSet(set);
@@ -220,7 +220,7 @@ public class CharSetUtils {
      * @return character count, zero if null string input
      */
     public static int count(String str, String[] set) {
-        if (StringUtils.isEmpty(str) || set == null || set.length == 0) {
+        if (StringUtils.isEmpty(str) || ArrayUtils.isEmpty(set)) {
             return 0;
         }
         CharSet chars = evaluateSet(set);
@@ -288,7 +288,7 @@ public class CharSetUtils {
         if (str == null) {
             return null;
         }
-        if (str.length() == 0 || set == null || set.length == 0) {
+        if (str.length() == 0 || ArrayUtils.isEmpty(set)) {
             return "";
         }
         return modify(str, set, true);
@@ -339,7 +339,7 @@ public class CharSetUtils {
      * @return modified String, <code>null</code> if null string input
      */
     public static String delete(String str, String[] set) {
-        if (StringUtils.isEmpty(str) || set == null || set.length == 0) {
+        if (StringUtils.isEmpty(str) || ArrayUtils.isEmpty(set)) {
             return str;
         }
         return modify(str, set, false);
