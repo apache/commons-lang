@@ -125,7 +125,7 @@ import org.apache.commons.lang.ObjectUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.30 2003/10/23 22:25:16 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.31 2003/12/29 01:30:10 ggregory Exp $
  */
 public class ToStringBuilder {
 
@@ -973,6 +973,7 @@ public class ToStringBuilder {
      * {@link System#identityHashCode(java.lang.Object)}.</p>
      * 
      * @param object  the <code>Object</code> whose class name and id to output
+     * @return this
      * @since 2.0
      */
     public ToStringBuilder appendAsObjectToString(Object object) {
