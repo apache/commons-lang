@@ -41,7 +41,7 @@ import java.util.List;
  * @author Sean C. Sullivan
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: NestableDelegate.java,v 1.24 2004/09/30 06:21:40 bayard Exp $
+ * @version $Id: NestableDelegate.java,v 1.25 2004/09/30 07:03:25 bayard Exp $
  */
 public class NestableDelegate implements Serializable {
 
@@ -236,7 +236,9 @@ public class NestableDelegate implements Serializable {
                 + fromIndex + " >= " + throwables.length);
         }
         for (int i = fromIndex; i < throwables.length; i++) {
-            if (type.isAssignableFrom(throwables[i].getClass())) {
+// TODO: decide on whether to include this
+//            if (type.isAssignableFrom(throwables[i].getClass())) {
+            if (throwables[i].getClass().equals(type)) {
                 return i;
             }
         }
