@@ -65,7 +65,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
- * @version $Id: NestableDelegateTestCase.java,v 1.1 2002/07/19 03:35:55 bayard Exp $
+ * @version $Id: NestableDelegateTestCase.java,v 1.2 2002/07/26 20:30:58 stevencaswell Exp $
  */
 public class NestableDelegateTestCase extends junit.framework.TestCase
 {
@@ -153,36 +153,36 @@ public class NestableDelegateTestCase extends junit.framework.TestCase
             nd2.getMessage("base").equals("base: " + ne2.getCause().getMessage()));
     }
 
-    public void testNestableDelegateGetLength()
+    public void testNestableDelegateGetThrowableCount()
     {
         Nestable n = null;
         NestableDelegate d = null;
         
         n = new NestableDelegateTester1();
         d = new NestableDelegate(n);
-        doNestableDelegateGetLength(d, 1);
+        doNestableDelegateGetThrowableCount(d, 1);
         
         n = new NestableDelegateTester1("level 1");
         d = new NestableDelegate(n);
-        doNestableDelegateGetLength(d, 1);
+        doNestableDelegateGetThrowableCount(d, 1);
         
         n = new NestableDelegateTester1(new Exception());
         d = new NestableDelegate(n);
-        doNestableDelegateGetLength(d, 2);
+        doNestableDelegateGetThrowableCount(d, 2);
         
         n = new NestableDelegateTester1(new Exception("level 2"));
         d = new NestableDelegate(n);
-        doNestableDelegateGetLength(d, 2);
+        doNestableDelegateGetThrowableCount(d, 2);
         
         n = new NestableDelegateTester1("level 1", new NestableDelegateTester2("level 2", new NestableDelegateTester1(new NestableDelegateTester2("level 4", new Exception("level 5")))));
         d = new NestableDelegate(n);
-        doNestableDelegateGetLength(d, 5);
+        doNestableDelegateGetThrowableCount(d, 5);
     }
 
-    private void doNestableDelegateGetLength(NestableDelegate d, int len)
+    private void doNestableDelegateGetThrowableCount(NestableDelegate d, int len)
     {
         // Compare the lengths
-        assertEquals("delegate length", len, d.getLength());
+        assertEquals("delegate length", len, d.getThrowableCount());
     }
     
     public void testNestableDelegateGetMessages()
@@ -252,11 +252,27 @@ public class NestableDelegateTestCase extends junit.framework.TestCase
         {
             assertEquals("message " + i, msgs[i], d.getMessage(i));
         }
-        assertEquals("message -1", msgs[0], d.getMessage(-1));
-        assertEquals("message -1", msgs[msgs.length - 1], d.getMessage(msgs.length + 100));
+        
+        // Test for index out of bounds
+        try
+        {
+            String msg = d.getMessage(-1);
+            fail("getMessage(-1) should have thrown IndexOutOfBoundsException");
+        }
+        catch(IndexOutOfBoundsException ioode)
+        {
+        }
+        try
+        {
+            String msg = d.getMessage(msgs.length + 100);
+            fail("getMessage(999) should have thrown IndexOutOfBoundsException");
+        }
+        catch(IndexOutOfBoundsException ioode)
+        {
+        }
     }
 
-    public void testNestableDelegateGetThrowable()
+    public void testNestableDelegateGetThrowableN()
     {
         Nestable n = null;
         NestableDelegate d = null;
@@ -271,7 +287,7 @@ public class NestableDelegateTestCase extends junit.framework.TestCase
         throwables[1] = Exception.class;
         n = new NestableDelegateTester1(new Exception(msgs[1]));
         d = new NestableDelegate(n);
-        doNestableDelegateGetThrowable(d, throwables, msgs);
+        doNestableDelegateGetThrowableN(d, throwables, msgs);
  
         msgs = new String[5];
         msgs[0] = "level 1";
@@ -287,10 +303,10 @@ public class NestableDelegateTestCase extends junit.framework.TestCase
         throwables[4] = Exception.class;        
         n = new NestableDelegateTester1(msgs[0], new NestableDelegateTester2(msgs[1], new NestableDelegateTester1(new NestableDelegateTester2(msgs[3], new Exception(msgs[4])))));
         d = new NestableDelegate(n);
-        doNestableDelegateGetThrowable(d, throwables, msgs);
+        doNestableDelegateGetThrowableN(d, throwables, msgs);
     }
 
-    private void doNestableDelegateGetThrowable(NestableDelegate d, Class[] classes, String[] msgs)
+    private void doNestableDelegateGetThrowableN(NestableDelegate d, Class[] classes, String[] msgs)
     {
         Throwable t = null;
         String msg = null;
@@ -309,28 +325,24 @@ public class NestableDelegateTestCase extends junit.framework.TestCase
             }
             assertEquals("throwable message", msgs[i], msg);
         }
-        t = d.getThrowable(-1);
-        assertEquals("throwable(-1)", classes[0], t.getClass());
-        if(Nestable.class.isInstance(t))
+        
+        // Test for index out of bounds
+        try
         {
-            msg = ((Nestable) t).getMessage(0);
+            t = d.getThrowable(-1);
+            fail("getThrowable(-1) should have thrown IndexOutOfBoundsException");
         }
-        else
+        catch(IndexOutOfBoundsException ioobe)
         {
-            msg = t.getMessage();
         }
-        assertEquals("throwable message", msgs[0], msg);
-        t = d.getThrowable(999);
-        assertEquals("throwable(999)", classes[classes.length - 1], t.getClass());
-        if(Nestable.class.isInstance(t))
+        try
         {
-            msg = ((Nestable) t).getMessage(0);
+            t = d.getThrowable(999);
+            fail("getThrowable(999) should have thrown IndexOutOfBoundsException");
         }
-        else
+        catch(IndexOutOfBoundsException ioobe)
         {
-            msg = t.getMessage();
         }
-        assertEquals("throwable message", msgs[msgs.length - 1], msg);
     }
 
     public void testNestableDelegateGetThrowables()
@@ -418,28 +430,52 @@ public class NestableDelegateTestCase extends junit.framework.TestCase
         }
         doNestableDelegateIndexOfThrowable(d, NestableDelegateTester2.class, 2, 3, msgs[3]);
         doNestableDelegateIndexOfThrowable(d, NestableDelegateTester1.class, 1, 2, msgs[2]);
+        doNestableDelegateIndexOfThrowable(d, NestableDelegateTester1.class, 3, -1, null);
+        doNestableDelegateIndexOfThrowable(d, NestableDelegateTester1.class, 4, -1, null);
+        doNestableDelegateIndexOfThrowable(d, Exception.class, 2, 4, msgs[4]);
         doNestableDelegateIndexOfThrowable(d, java.util.Date.class, 0, -1, null);
+        
+        // Test for index out of bounds
+        try
+        {
+            int index = d.indexOfThrowable(NestableDelegateTester1.class, -1);
+            fail("method should have thrown IndexOutOfBoundsException");
+        }
+        catch(IndexOutOfBoundsException iooob)
+        {
+        }
+        try
+        {
+            int index = d.indexOfThrowable(NestableDelegateTester1.class, 5);
+            fail("method should have thrown IndexOutOfBoundsException");
+        }
+        catch(IndexOutOfBoundsException iooob)
+        {
+        }
     }
 
-    private void doNestableDelegateIndexOfThrowable(NestableDelegate d, Class type, int pos, int expectedIndex, String expectedMsg)
+    private void doNestableDelegateIndexOfThrowable(NestableDelegate d, Class type, int fromIndex, int expectedIndex, String expectedMsg)
     {
         Throwable t = null;
         
-        int index = d.indexOfThrowable(pos, type);
+        int index = d.indexOfThrowable(type, fromIndex);
         assertEquals("index of throwable " + type.getName(), expectedIndex, index);
-        t = d.getThrowable(index);
-        if(expectedMsg != null)
+        if(expectedIndex > -1)
         {
-            String msg = null;
-            if(Nestable.class.isInstance(t))
+            t = d.getThrowable(index);
+            if(expectedMsg != null)
             {
-                msg = ((Nestable) t).getMessage(0);
+                String msg = null;
+                if(Nestable.class.isInstance(t))
+                {
+                    msg = ((Nestable) t).getMessage(0);
+                }
+                else
+                {
+                    msg = t.getMessage();
+                }
+                assertEquals("message of indexed throwable", expectedMsg, msg);
             }
-            else
-            {
-                msg = t.getMessage();
-            }
-            assertEquals("message of indexed throwable", expectedMsg, msg);
         }
     }
     
@@ -571,7 +607,7 @@ class NestableDelegateTester1 extends Exception implements Nestable
      * Returns the number of nested <code>Throwable</code>s represented by
      * this <code>Nestable</code>, including this <code>Nestable</code>.
      */
-    public int getLength()
+    public int getThrowableCount()
     {
         return 1;
     }
@@ -638,6 +674,36 @@ class NestableDelegateTester1 extends Exception implements Nestable
      *
      * @return index of the first occurrence of the type in the chain, or -1 if
      * the type is not found
+     */
+    public int indexOfThrowable(Class type, int fromIndex)
+    {
+        return -1;
+    }
+    
+    /** Returns the number of nested <code>Throwable</code>s represented by
+     * this <code>Nestable</code>, including this <code>Nestable</code>.
+     * @deprecated
+     */
+    public int getLength()
+    {
+        return 1;
+    }
+    
+    /** Returns the index, numbered from 0, of the first <code>Throwable</code>
+     * that matches the specified type in the chain of <code>Throwable</code>s
+     * with an index greater than or equal to the specified position, or -1 if
+     * the type is not found. If <code>pos</code> is negative, the effect is the
+     * same as if it were 0. If <code>pos</code> is greater than or equal to the
+     * length of the chain, the effect is the same as if it were the index of
+     * the last element in the chain.
+     *
+     * @param pos index, numbered from 0, of the starting position in the chain
+     * to be searched
+     * @param type <code>Class</code> to be found
+     *
+     * @return index of the first occurrence of the type in the chain, or -1 if
+     * the type is not found
+     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
      */
     public int indexOfThrowable(int pos, Class type)
     {
@@ -735,7 +801,7 @@ class NestableDelegateTester2 extends Throwable implements Nestable
      * Returns the number of nested <code>Throwable</code>s represented by
      * this <code>Nestable</code>, including this <code>Nestable</code>.
      */
-    public int getLength()
+    public int getThrowableCount()
     {
         return 1;
     }
@@ -803,6 +869,36 @@ class NestableDelegateTester2 extends Throwable implements Nestable
      * @return index of the first occurrence of the type in the chain, or -1 if
      * the type is not found
      */
+    public int indexOfThrowable(Class type, int fromIndex)
+    {
+        return -1;
+    }
+    
+    /** Returns the number of nested <code>Throwable</code>s represented by
+     * this <code>Nestable</code>, including this <code>Nestable</code>.
+     * @deprecated
+     */
+    public int getLength()
+    {
+        return 1;
+    }
+    
+    /** Returns the index, numbered from 0, of the first <code>Throwable</code>
+     * that matches the specified type in the chain of <code>Throwable</code>s
+     * with an index greater than or equal to the specified position, or -1 if
+     * the type is not found. If <code>pos</code> is negative, the effect is the
+     * same as if it were 0. If <code>pos</code> is greater than or equal to the
+     * length of the chain, the effect is the same as if it were the index of
+     * the last element in the chain.
+     *
+     * @param pos index, numbered from 0, of the starting position in the chain
+     * to be searched
+     * @param type <code>Class</code> to be found
+     *
+     * @return index of the first occurrence of the type in the chain, or -1 if
+     * the type is not found
+     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
+     */
     public int indexOfThrowable(int pos, Class type)
     {
         return -1;
@@ -818,7 +914,7 @@ class ThrowableNestable extends Throwable implements Nestable
      * Returns the number of nested <code>Throwable</code>s represented by
      * this <code>Nestable</code>, including this <code>Nestable</code>.
      */
-    public int getLength()
+    public int getThrowableCount()
     {
         return 1;
     }
@@ -929,6 +1025,36 @@ class ThrowableNestable extends Throwable implements Nestable
      * @return index of the first occurrence of the type in the chain, or -1 if
      * the type is not found
      */
+    public int indexOfThrowable(Class type, int fromIndex)
+    {
+        return indexOfThrowable(type);
+    }
+    
+    /** Returns the number of nested <code>Throwable</code>s represented by
+     * this <code>Nestable</code>, including this <code>Nestable</code>.
+     * @deprecated
+     */
+    public int getLength()
+    {
+        return 1;
+    }
+    
+    /** Returns the index, numbered from 0, of the first <code>Throwable</code>
+     * that matches the specified type in the chain of <code>Throwable</code>s
+     * with an index greater than or equal to the specified position, or -1 if
+     * the type is not found. If <code>pos</code> is negative, the effect is the
+     * same as if it were 0. If <code>pos</code> is greater than or equal to the
+     * length of the chain, the effect is the same as if it were the index of
+     * the last element in the chain.
+     *
+     * @param pos index, numbered from 0, of the starting position in the chain
+     * to be searched
+     * @param type <code>Class</code> to be found
+     *
+     * @return index of the first occurrence of the type in the chain, or -1 if
+     * the type is not found
+     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
+     */
     public int indexOfThrowable(int pos, Class type)
     {
         return indexOfThrowable(type);
@@ -945,7 +1071,7 @@ class ThrowableNestedNestable extends Throwable implements Nestable
         this.cause = cause;
     }
     
-    public int getLength()
+    public int getThrowableCount()
     {
         return 1;
     }
@@ -1046,6 +1172,36 @@ class ThrowableNestedNestable extends Throwable implements Nestable
      * @return index of the first occurrence of the type in the chain, or -1 if
      * the type is not found
      */
+    public int indexOfThrowable(Class type, int fromIndex)
+    {
+        return indexOfThrowable(type);
+    }
+    
+    /** Returns the number of nested <code>Throwable</code>s represented by
+     * this <code>Nestable</code>, including this <code>Nestable</code>.
+     * @deprecated
+     */
+    public int getLength()
+    {
+        return 1;
+    }
+    
+    /** Returns the index, numbered from 0, of the first <code>Throwable</code>
+     * that matches the specified type in the chain of <code>Throwable</code>s
+     * with an index greater than or equal to the specified position, or -1 if
+     * the type is not found. If <code>pos</code> is negative, the effect is the
+     * same as if it were 0. If <code>pos</code> is greater than or equal to the
+     * length of the chain, the effect is the same as if it were the index of
+     * the last element in the chain.
+     *
+     * @param pos index, numbered from 0, of the starting position in the chain
+     * to be searched
+     * @param type <code>Class</code> to be found
+     *
+     * @return index of the first occurrence of the type in the chain, or -1 if
+     * the type is not found
+     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
+     */
     public int indexOfThrowable(int pos, Class type)
     {
         return indexOfThrowable(type);
@@ -1055,7 +1211,7 @@ class ThrowableNestedNestable extends Throwable implements Nestable
 
 class NonThrowableNestable implements Nestable
 {
-    public int getLength()
+    public int getThrowableCount()
     {
         return 1;
     }
@@ -1147,6 +1303,36 @@ class NonThrowableNestable implements Nestable
      * @param pos
      * @return index of the first occurrence of the type in the chain, or -1 if
      * the type is not found
+     */
+    public int indexOfThrowable(Class type, int fromIndex)
+    {
+        return -1;
+    }
+    
+    /** Returns the number of nested <code>Throwable</code>s represented by
+     * this <code>Nestable</code>, including this <code>Nestable</code>.
+     * @deprecated
+     */
+    public int getLength()
+    {
+        return 1;
+    }
+    
+    /** Returns the index, numbered from 0, of the first <code>Throwable</code>
+     * that matches the specified type in the chain of <code>Throwable</code>s
+     * with an index greater than or equal to the specified position, or -1 if
+     * the type is not found. If <code>pos</code> is negative, the effect is the
+     * same as if it were 0. If <code>pos</code> is greater than or equal to the
+     * length of the chain, the effect is the same as if it were the index of
+     * the last element in the chain.
+     *
+     * @param pos index, numbered from 0, of the starting position in the chain
+     * to be searched
+     * @param type <code>Class</code> to be found
+     *
+     * @return index of the first occurrence of the type in the chain, or -1 if
+     * the type is not found
+     * @deprecated replaced by {@link #indexOfThrowable(Class, int)}
      */
     public int indexOfThrowable(int pos, Class type)
     {
