@@ -125,7 +125,7 @@ import org.apache.commons.lang.ObjectUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringBuilder.java,v 1.29 2003/08/23 00:21:49 ggregory Exp $
+ * @version $Id: ToStringBuilder.java,v 1.30 2003/10/23 22:25:16 ggregory Exp $
  */
 public class ToStringBuilder {
 
@@ -176,7 +176,7 @@ public class ToStringBuilder {
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean)
      */
     public static String reflectionToString(Object object, ToStringStyle style, boolean outputTransients) {
-        return ReflectionToStringBuilder.toString(object, style, outputTransients, null);
+        return ReflectionToStringBuilder.toString(object, style, outputTransients, false, null);
     }
 
     /**
@@ -190,7 +190,7 @@ public class ToStringBuilder {
         ToStringStyle style,
         boolean outputTransients,
         Class reflectUpToClass) {
-        return ReflectionToStringBuilder.toString(object, style, outputTransients, reflectUpToClass);
+        return ReflectionToStringBuilder.toString(object, style, outputTransients, false, reflectUpToClass);
     }
 
     /**
@@ -1036,6 +1036,16 @@ public class ToStringBuilder {
     }
 
     /**
+     * <p>Returns the <code>Object</code> being output.</p>
+     * 
+     * @return The object being output.
+     * @since 2.0
+     */
+    public Object getObject() {
+        return object;
+    }
+
+    /**
      * <p>Gets the <code>StringBuffer</code> being populated.</p>
      * 
      * @return the <code>StringBuffer</code> being populated
@@ -1067,16 +1077,6 @@ public class ToStringBuilder {
     public String toString() {
         style.appendEnd(buffer, object);
         return buffer.toString();
-    }
-
-    /**
-     * <p>Returns the <code>Object</code> being output.</p>
-     * 
-     * @return The object being output.
-     * @since 2.0
-     */
-    public Object getObject() {
-        return object;
     }
 
 }
