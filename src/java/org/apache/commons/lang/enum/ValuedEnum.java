@@ -133,9 +133,13 @@ import org.apache.commons.lang.ClassUtils;
  * @author Apache Avalon project
  * @author Stephen Colebourne
  * @since 1.0
- * @version $Id: ValuedEnum.java,v 1.9 2003/07/30 23:13:09 scolebourne Exp $
+ * @version $Id: ValuedEnum.java,v 1.10 2003/07/30 23:17:23 scolebourne Exp $
  */
 public abstract class ValuedEnum extends Enum {
+    
+    /** Lang version 1.0.1 serial compatability */
+    static final long serialVersionUID = -7129650521543789085L;
+    
     /**
      * The value contained in enum.
      */
