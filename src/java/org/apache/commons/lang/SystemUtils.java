@@ -64,11 +64,11 @@ package org.apache.commons.lang;
  * @author Based on code from Lucene
  * @author Stephen Colebourne
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Gary Gregory
  * @author Michael Becke
  * @author Tetsuya Kaneuchi
  * @since 1.0
- * @version $Id: SystemUtils.java,v 1.21 2003/08/21 15:52:54 ggregory Exp $
+ * @version $Id: SystemUtils.java,v 1.22 2003/08/22 03:06:36 ggregory Exp $
  */
 public class SystemUtils {
 
@@ -463,6 +463,8 @@ public class SystemUtils {
      * </ul>
      *
      * <p>The field will return zero if {@link #JAVA_VERSION} is <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final float JAVA_VERSION_FLOAT = getJavaVersionAsFloat();
 
@@ -476,6 +478,8 @@ public class SystemUtils {
      * </ul>
      *
      * <p>The field will return zero if {@link #JAVA_VERSION} is <code>null</code>.</p>
+     * 
+     * @since 2.0
      */
     public static final int JAVA_VERSION_INT = getJavaVersionAsInt();
 

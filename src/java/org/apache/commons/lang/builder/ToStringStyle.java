@@ -84,10 +84,10 @@ import org.apache.commons.lang.SystemUtils;
  * the array length.</p>
  *
  * @author Stephen Colebourne
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+ * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.25 2003/08/21 15:52:54 ggregory Exp $
+ * @version $Id: ToStringStyle.java,v 1.26 2003/08/22 03:06:36 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
 
@@ -209,6 +209,7 @@ public abstract class ToStringStyle implements Serializable {
      * 
      * @param buffer  the <code>StringBuffer</code> to populate
      * @param superToString  the <code>super.toString()</code>
+     * @since 2.0
      */
     public void appendSuper(StringBuffer buffer, String superToString) {
         appendToString(buffer, superToString);

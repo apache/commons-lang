@@ -63,8 +63,9 @@ package org.apache.commons.lang;
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @author Phil Steitz
+ * @author Gary Gregory
  * @since 1.0
- * @version $Id: CharSetUtils.java,v 1.24 2003/08/19 00:21:46 scolebourne Exp $
+ * @version $Id: CharSetUtils.java,v 1.25 2003/08/22 03:06:36 ggregory Exp $
  */
 public class CharSetUtils {
 
@@ -252,6 +253,7 @@ public class CharSetUtils {
      * @param str  String to keep characters from, may be null
      * @param set  String set of characters to keep, may be null
      * @return modified String, <code>null</code> if null string input
+     * @since 2.0
      */
     public static String keep(String str, String set) {
         if (str == null) {
@@ -279,6 +281,7 @@ public class CharSetUtils {
      * @param str  String to keep characters from, may be null
      * @param set  String[] set of characters to keep, may be null
      * @return modified String, <code>null</code> if null string input
+     * @since 2.0
      */
     public static String keep(String str, String[] set) {
         if (str == null) {
