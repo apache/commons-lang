@@ -631,6 +631,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
                             // append a simple Object.toString style string.
                             this.getStyle().appendFieldStart(this.getStringBuffer(), fieldName);
                             this.appendAsObjectToString(fieldValue);
+                            this.getStyle().appendFieldEnd(this.getStringBuffer(), fieldName);
                             // The recursion out of
                             //    builder.append(fieldName, fieldValue);
                             // below will append the field
