@@ -82,7 +82,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Fredrik Westermarck
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.34 2004/01/25 00:09:10 tobrien Exp $
+ * @version $Id: ArrayUtils.java,v 1.35 2004/01/30 01:39:58 ggregory Exp $
  */
 public class ArrayUtils {
 
@@ -2751,5 +2751,128 @@ public class ArrayUtils {
             return true;
         }
         return false;
+    }
+
+    /**
+     * <p>Joins the elements of the provided arrays into a single new array.</p>
+     * <p>The new array contains all of the element of the first array followed
+     * by all of the elements from the second array.</p>
+     *
+     * <pre>
+     * ArrayUtils.join(null, null)     = null
+     * ArrayUtils.join(array1, null)   = array1
+     * ArrayUtils.join(null, array2)   = array2
+     * ArrayUtils.join([], [])         = []
+     * ArrayUtils.join([null], [null]) = [null, null]
+     * ArrayUtils.join(["a", "b", "c"], ["1", "2", "3"]) = ["a", "b", "c", "1", "2", "3"]
+     * </pre>
+     *
+     * @param array1  the first array of values to join together, may be null
+     * @param array2  the second array of values to join together, may be null
+     * @return The new joined array, <code>null</code> if null array inputs. 
+     *      The type of the joined array is the type of the first array.
+     * @since 2.1
+     */
+    public static Object[] join(Object[] array1, Object[] array2) {
+        if (array1 == null) {
+            return array2;
+        } else if (array2 == null) {
+            return array1;
+        } else {
+            Object[] joinedArray = (Object[]) Array.newInstance(array1.getClass().getComponentType(), array1.length
+                + array2.length);
+            System.arraycopy(array1, 0, joinedArray, 0, array1.length);
+            System.arraycopy(array2, 0, joinedArray, array1.length, array2.length);
+            return joinedArray;
+        }
+    }
+
+    /**
+     * <p>Adds the element to the end of the array.</p>
+     *
+     * <p>The new array contains the same elements of the input
+     * array plus the given element in the last position. The component type of 
+     * the new array is  the same as that of the input array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, null)      = [null]
+     * ArrayUtils.add(null, "a")       = ["a"]
+     * ArrayUtils.add(["a"], null)     = ["a", null]
+     * ArrayUtils.add(["a"], "b")      = ["a", "b"]
+     * ArrayUtils.add(["a", "b"], "c") = ["a", "b", "c"]
+     * </pre>
+     * 
+     * @param array  the array to "add" the element to, may be <code>null</code>
+     * @param element  the object to add
+     * @return A new array containing the existing elements and the new element
+     * @since 2.1
+     */
+    public static Object[] add(Object[] array, Object element) {
+        Object joinedArray;
+        int elementPos;
+        if (array != null) {
+            joinedArray = Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+            System.arraycopy(array, 0, joinedArray, 0, array.length);
+            elementPos = array.length;
+        } else {
+            // null input array, use the element type
+            joinedArray = Array.newInstance(element != null ? element.getClass() : Object.class, 1);
+            elementPos = 0;
+        }
+        Array.set(joinedArray, elementPos, element);
+        return (Object[]) joinedArray;
+    }
+
+    /**
+     * <p>Inserts the specified element at the specified position in the array. 
+     * Shifts the element currently at that position (if any) and any subsequent
+     * elements to the right (adds one to their indices).</p>
+     *
+     * <p>This method returns a new array with the same elements of the input
+     * array plus the given element on the specified position. The component 
+     * type of the returned array is always the same as that of the input 
+     * array.</p>
+     *
+     * <p>If the input array is <code>null</code>, a new one element array is returned
+     *  whose component type is the same as the element.</p>
+     * 
+     * <pre>
+     * ArrayUtils.add(null, 0, null)      = [null]
+     * ArrayUtils.add(null, 0, "a")       = ["a"]
+     * ArrayUtils.add(["a"], 1, null)     = ["a", null]
+     * ArrayUtils.add(["a"], 1, "b")      = ["a", "b"]
+     * ArrayUtils.add(["a", "b"], 3, "c") = ["a", "b", "c"]
+     * </pre>
+     * 
+     * @param array  the array to add the element to, may be <code>null</code>
+     * @param index  the position of the new object
+     * @param element  the object to add
+     * @return A new array containing the existing elements and the new element
+     * @throws IndexOutOfBoundsException if the index is out of range 
+     * (index < 0 || index > array.length).
+     */
+    public static Object[] add(final Object[] array, final int index, final Object element) {
+        if (array == null) {
+            if (index != 0) {
+                throw new IndexOutOfBoundsException("Index: " + index + ", Length: 0");
+            }
+            Object joinedArray = Array.newInstance(element != null ? element.getClass() : Object.class, 1);
+            Array.set(joinedArray, 0, element);
+            return (Object[]) joinedArray;
+        }
+        int length = array.length;
+        if (index > length || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + length);
+        }
+        Object result = Array.newInstance(array.getClass().getComponentType(), length + 1);
+        System.arraycopy(array, 0, result, 0, index);
+        Array.set(result, index, element);
+        if (index < length) {
+            System.arraycopy(array, index, result, index + 1, length - index);
+        }
+        return (Object[]) result;
     }
 }
