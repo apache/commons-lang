@@ -27,8 +27,8 @@
     <developer>
       <name>Stephen Colebourne</name>
       <id>scolebourne</id>
-      <email>scolebourne@btopenworld.com</email>
-      <organization></organization>
+      <email>scolebourne@joda.org</email>
+      <organization>SITA ATS Ltd</organization>
       <roles>
         <role>Java Developer</role>
       </roles>
