@@ -98,7 +98,7 @@ import java.util.TimeZone;
  * @author Gary Gregory
  * @author Stephen Colebourne
  * @since 2.0
- * @version $Id: FastDateFormat.java,v 1.11 2003/07/22 00:09:14 scolebourne Exp $
+ * @version $Id: FastDateFormat.java,v 1.12 2003/07/25 22:53:49 scolebourne Exp $
  */
 public class FastDateFormat extends Format {
     // A lot of the speed in this class comes from caching, but some comes
@@ -572,7 +572,7 @@ public class FastDateFormat extends Format {
                 if (sub.length() == 1) {
                     rule = new CharacterLiteral(sub.charAt(0));
                 } else {
-                    rule = new StringLiteral(new String(sub));
+                    rule = new StringLiteral(sub);
                 }
                 break;
             default:
