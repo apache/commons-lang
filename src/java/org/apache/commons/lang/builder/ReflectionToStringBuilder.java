@@ -104,7 +104,7 @@ import org.apache.commons.lang.ClassUtils;
  * @author Stephen Colebourne
  * @author Pete Gieser
  * @since 2.0
- * @version $Id: ReflectionToStringBuilder.java,v 1.14 2003/11/03 00:21:19 ggregory Exp $
+ * @version $Id: ReflectionToStringBuilder.java,v 1.15 2003/12/02 19:11:58 ggregory Exp $
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
 
@@ -564,9 +564,13 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     /**
      * <p>Calls <code>java.lang.reflect.Field.get(Object)</code>.</p>
      *
-     * @see java.lang.reflect.Field#get(Object)
+     * @param field The Field to query.
+     * @return The Object from the given Field.
+     * 
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
+     * 
+     * @see java.lang.reflect.Field#get(Object)
      */
     protected Object getValue(Field field) throws IllegalArgumentException, IllegalAccessException {
         return field.get(this.getObject());
