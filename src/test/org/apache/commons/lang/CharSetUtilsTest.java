@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: CharSetUtilsTest.java,v 1.5 2003/03/20 02:50:42 ggregory Exp $
+ * @version $Id: CharSetUtilsTest.java,v 1.6 2003/03/23 05:50:51 bayard Exp $
  */
 public class CharSetUtilsTest extends TestCase
 {
@@ -119,6 +119,22 @@ public class CharSetUtilsTest extends TestCase
                      5, CharSetUtils.count("hello", new String[] {"a-z"}));
         assertEquals("count(String,String[]) failed",
                      0, CharSetUtils.count("hello", new String[] {""}));
+    }
+
+    public void testKeep()
+    {
+        assertEquals("keep(String,String[]) failed",
+                     "ell", CharSetUtils.keep("hello", new String[] {"el"}));
+        assertEquals("keep(String,String[]) failed",
+                     "hello", CharSetUtils.keep("hello", new String[] {"elho"}));
+        assertEquals("keep(String,String[]) failed",
+                     "", CharSetUtils.keep("hello", new String[] {""}));
+        assertEquals("keep(String,String[]) failed",
+                     "hello", CharSetUtils.keep("hello", new String[] {"a-z"}));
+        assertEquals("keep(String,String[]) failed",
+                     "----", CharSetUtils.keep("----", new String[] {"-"}));
+        assertEquals("keep(String,String[]) failed",
+                     "ll", CharSetUtils.keep("hello", new String[] {"l"}));
     }
 
     public void testDelete()
