@@ -110,7 +110,7 @@ import java.util.List;
  * @author Phil Steitz
  * @author Al Chou
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.126 2004/02/18 22:59:50 ggregory Exp $
+ * @version $Id: StringUtils.java,v 1.127 2004/02/19 21:31:19 fredrik Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1077,7 +1077,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int indexOfAny(String str, char[] searchChars) {
-        if (isEmpty(str) || searchChars == null || searchChars.length == 0) {
+        if (isEmpty(str) || ArrayUtils.isEmpty(searchChars)) {
             return -1;
         }
         for (int i = 0; i < str.length(); i++) {
@@ -1145,7 +1145,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static int indexOfAnyBut(String str, char[] searchChars) {
-        if (isEmpty(str) || searchChars == null || searchChars.length == 0) {
+        if (isEmpty(str) || ArrayUtils.isEmpty(searchChars)) {
             return -1;
         }
         outer : for (int i = 0; i < str.length(); i++) {
