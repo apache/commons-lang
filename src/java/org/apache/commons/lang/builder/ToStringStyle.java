@@ -58,6 +58,7 @@ import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.SystemUtils;
 /**
  * <p><code>ToStringStyle</code> works with <code>ToStringBuilder</code>
@@ -83,7 +84,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ToStringStyle.java,v 1.15 2003/07/14 22:25:04 bayard Exp $
+ * @version $Id: ToStringStyle.java,v 1.16 2003/07/16 01:47:39 ggregory Exp $
  */
 public abstract class ToStringStyle implements Serializable {
     
@@ -333,7 +334,7 @@ public abstract class ToStringStyle implements Serializable {
     protected void appendInternal(StringBuffer buffer, String fieldName, Object value, boolean detail) {
         if (ReflectionToStringBuilder.isRegistered(value) 
                 && !(value instanceof Number || value instanceof Boolean || value instanceof Character)) {
-            appendAsObjectToString(buffer, value);
+                ObjectUtils.appendIdentityToString(buffer, value);
             
         } else if (value instanceof Collection) {
             if (detail) {
@@ -1307,19 +1308,6 @@ public abstract class ToStringStyle implements Serializable {
             buffer.append('@');
             buffer.append(Integer.toHexString(System.identityHashCode(object)));
         }
-    }
-
-    /**
-     * <p>Appends with the same format as the default <code>Object toString()
-     * </code> method. Appends the class name followed by 
-     * {@link System#identityHashCode(java.lang.Object)}.</p>
-     * 
-     * @param buffer  the <code>StringBuffer</code> to populate
-     * @param object  the <code>Object</code> whose class name and id to output
-     */
-    protected void appendAsObjectToString(StringBuffer buffer, Object object) {
-        this.appendClassName(buffer, object);
-        this.appendIdentityHashCode(buffer, object);
     }
 
     /**

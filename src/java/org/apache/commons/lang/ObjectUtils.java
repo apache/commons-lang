@@ -61,8 +61,9 @@ import java.io.Serializable;
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author Stephen Colebourne
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
- * @version $Id: ObjectUtils.java,v 1.10 2003/07/16 00:39:05 scolebourne Exp $
+ * @version $Id: ObjectUtils.java,v 1.11 2003/07/16 01:47:39 ggregory Exp $
  */
 public class ObjectUtils {
     
@@ -141,11 +142,29 @@ public class ObjectUtils {
         if (object == null) {
             return null;
         }
-        return new StringBuffer()
+        return appendIdentityToString(new StringBuffer(), object).toString();
+    }
+
+    /**
+     * <p>Appends the toString that would be produced by <code>Object</code>
+     * if a class did not override toString itself. <code>Null</code>
+     * will return <code>null</code>.</p>
+     *
+     * @param buffer  the buffer to append to, may not be
+     *  <code>null</code>
+     * @param object  the object to create a toString for, may be
+     *  <code>null</code>
+     * @return the default toString text, or <code>null</code> if
+     *  <code>null</code> passed in
+     */
+    public static StringBuffer appendIdentityToString(StringBuffer buffer, Object object) {
+        if (object == null) {
+            return null;
+        }
+        return buffer
             .append(object.getClass().getName())
             .append('@')
-            .append(Integer.toHexString(System.identityHashCode(object)))
-            .toString();
+            .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
     /**
