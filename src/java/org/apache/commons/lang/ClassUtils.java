@@ -57,15 +57,35 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 /**
- * <p><code>ClassUtils</code> contains utility methods for working for
- * classes without using reflection.</p>
+ * <p>Provides utility methods for working for classes without using reflection.</p>
  *
  * @author Stephen Colebourne
+ * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
- * @version $Id: ClassUtils.java,v 1.10 2003/04/09 00:07:50 ggregory Exp $
+ * @version $Id: ClassUtils.java,v 1.11 2003/05/28 16:20:31 ggregory Exp $
  */
 public class ClassUtils {
 
+    /**
+     * The package separator character: <code>.</code>
+     */
+    public static final char PACKAGE_SEPARATOR_CHAR = '.';
+    
+    /**
+     * The package separator String: <code>.</code>
+     */
+    public static final String PACKAGE_SEPARATOR = String.valueOf(PACKAGE_SEPARATOR_CHAR);
+    
+    /**
+     * The inner class separator character: <code>$</code>
+     */
+    public static final char INNER_CLASS_SEPARATOR_CHAR = '$';
+    
+    /**
+     * The inner class separator String: <code>$</code>
+     */
+    public static final String INNER_CLASS_SEPARATOR = String.valueOf(INNER_CLASS_SEPARATOR_CHAR);
+    
     /**
      * <p>ClassUtils instances should NOT be constructed in standard programming.
      * Instead, the class should be used as
@@ -124,10 +144,10 @@ public class ClassUtils {
         char[] chars = className.toCharArray();
         int lastDot = 0;
         for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == '.') {
+            if (chars[i] == PACKAGE_SEPARATOR_CHAR) {
                 lastDot = i + 1;
-            } else if (chars[i] == '$') {  // handle inner classes
-                chars[i] = '.';
+            } else if (chars[i] == INNER_CLASS_SEPARATOR_CHAR) {  // handle inner classes
+                chars[i] = PACKAGE_SEPARATOR_CHAR;
             }
         }
         return new String(chars, lastDot, chars.length - lastDot);
@@ -177,7 +197,7 @@ public class ClassUtils {
         if (StringUtils.isEmpty(className)) {
             throw new IllegalArgumentException("The class name must not be empty");
         }
-        int i = className.lastIndexOf('.');
+        int i = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
         if (i == -1) {
             return "";
         }
@@ -500,7 +520,7 @@ public class ClassUtils {
         if (cls == null) {
             throw new IllegalArgumentException("The class must not be null");
         }
-        return (cls.getName().indexOf('$') >= 0);
+        return (cls.getName().indexOf(INNER_CLASS_SEPARATOR_CHAR) >= 0);
     }
     
 }
