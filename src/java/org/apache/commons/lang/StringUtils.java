@@ -75,8 +75,9 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
+ * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.33 2003/03/17 05:28:36 alex Exp $
+ * @version $Id: StringUtils.java,v 1.34 2003/03/23 04:58:47 bayard Exp $
  */
 public class StringUtils {
 
@@ -1722,29 +1723,8 @@ public class StringUtils {
         // could implement manually, but simple way is to reuse other, 
         // probably slower, methods.
         String[] strs = split(str, delimiter);
-        reverseArray(strs);
+        ArrayUtils.reverseArray(strs);
         return join(strs, delimiter);
-    }
-
-    /**
-     * <p>Reverses an array.</p>
-     *
-     * <p>TAKEN FROM CollectionsUtils.</p>
-     *
-     * @param array  the array to reverse
-     */
-    private static void reverseArray(Object[] array) {
-        int i = 0;
-        int j = array.length - 1;
-        Object tmp;
-
-        while (j > i) {
-            tmp = array[j];
-            array[j] = array[i];
-            array[i] = tmp;
-            j--;
-            i++;
-        }
     }
 
     // Abbreviating
