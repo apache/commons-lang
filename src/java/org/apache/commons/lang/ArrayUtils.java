@@ -53,6 +53,7 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,8 +63,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * <p>Operations on arrays, primitive arrays (like <code>int[]</code>) and primitive wrapper arrays
- * (like <code>Integer[]</code>).</p>
+ * <p>Operations on arrays, primitive arrays (like <code>int[]</code>) and
+ * primitive wrapper arrays (like <code>Integer[]</code>).</p>
  * 
  * <p>This class tries to handle <code>null</code> input gracefully.
  * An exception will not be thrown for a <code>null</code>
@@ -80,7 +81,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Gary Gregory
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @since 2.0
- * @version $Id: ArrayUtils.java,v 1.28 2003/11/30 13:36:08 scolebourne Exp $
+ * @version $Id: ArrayUtils.java,v 1.29 2003/12/05 23:37:18 scolebourne Exp $
  */
 public class ArrayUtils {
 
@@ -441,21 +442,64 @@ public class ArrayUtils {
     /**
      * <p>Produces a new array containing the elements between
      * the start and end indices.</p>
-     * 
+     *
      * <p>The start index is inclusive, the end index exclusive.
-     * Null array input produces null output.
-     * The result is always an <code>Object[]</code> instance</p>
+     * Null array input produces null output.</p>
+     *
+     * <p>The component type of the subarray is always the same as
+     * that of the input array. Thus, if the input is an array of type
+     * <code>Date</code>, the following usage is envisaged:</p>
+     *
+     * <pre>
+     * Date[] someDates = (Date[])ArrayUtils.subarray(allDates, 2, 5);
+     * </pre>
      *
      * @param array  the array
-     * @param startIndex  the starting index. Undervalue (&lt;0)
+     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
      *      is promoted to 0, overvalue (&gt;array.length) results
      *      in an empty array.
-     * @param endIndex  elements upto endIndex-1 are present in the
+     * @param endIndexExclusive  elements up to endIndex-1 are present in the
      *      returned subarray. Undervalue (&lt; startIndex) produces
      *      empty array, overvalue (&gt;array.length) is demoted to
      *      array length.
      */
-    public static Object[] subArray(Object[] array, int startIndexInclusive, int endIndexExclusive) {
+    public static Object[] subarray(Object[] array, int startIndexInclusive, int endIndexExclusive) {
+        if (array == null) {
+            return null;
+        }
+        if (startIndexInclusive < 0) {
+            startIndexInclusive = 0;
+        }
+        if (endIndexExclusive > array.length) {
+            endIndexExclusive = array.length;
+        }
+        int newSize = endIndexExclusive - startIndexInclusive;
+        Class type = array.getClass().getComponentType();
+        if (newSize <= 0) {
+            return (Object[]) Array.newInstance(type, 0);
+        }
+        Object[] subarray = (Object[]) Array.newInstance(type, newSize);
+        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
+        return subarray;
+    }
+
+    /**
+     * <p>Produces a new <code>long</code> array containing the elements
+     * between the start and end indices.</p>
+     *
+     * <p>The start index is inclusive, the end index exclusive.
+     * Null array input produces null output.</p>
+     *
+     * @param array  the array
+     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
+     *      is promoted to 0, overvalue (&gt;array.length) results
+     *      in an empty array.
+     * @param endIndexExclusive  elements up to endIndex-1 are present in the
+     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      empty array, overvalue (&gt;array.length) is demoted to
+     *      array length.
+     */
+    public static long[] subarray(long[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
             return null;
         }
@@ -467,11 +511,264 @@ public class ArrayUtils {
         }
         int newSize = endIndexExclusive - startIndexInclusive;
         if (newSize <= 0) {
-            return EMPTY_OBJECT_ARRAY;
+            return EMPTY_LONG_ARRAY;
         }
-        Object[] subArray = new Object[newSize];
-        System.arraycopy(array, startIndexInclusive, subArray, 0, newSize);
-        return subArray;
+
+        long[] subarray = new long[newSize];
+        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
+        return subarray;
+    }
+
+    /**
+     * <p>Produces a new <code>int</code> array containing the elements
+     * between the start and end indices.</p>
+     *
+     * <p>The start index is inclusive, the end index exclusive.
+     * Null array input produces null output.</p>
+     *
+     * @param array  the array
+     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
+     *      is promoted to 0, overvalue (&gt;array.length) results
+     *      in an empty array.
+     * @param endIndexExclusive  elements up to endIndex-1 are present in the
+     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      empty array, overvalue (&gt;array.length) is demoted to
+     *      array length.
+     */
+    public static int[] subarray(int[] array, int startIndexInclusive, int endIndexExclusive) {
+        if (array == null) {
+            return null;
+        }
+        if (startIndexInclusive < 0) {
+            startIndexInclusive = 0;
+        }
+        if (endIndexExclusive > array.length) {
+            endIndexExclusive = array.length;
+        }
+        int newSize = endIndexExclusive - startIndexInclusive;
+        if (newSize <= 0) {
+            return EMPTY_INT_ARRAY;
+        }
+
+        int[] subarray = new int[newSize];
+        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
+        return subarray;
+    }
+
+    /**
+     * <p>Produces a new <code>short</code> array containing the elements
+     * between the start and end indices.</p>
+     *
+     * <p>The start index is inclusive, the end index exclusive.
+     * Null array input produces null output.</p>
+     *
+     * @param array  the array
+     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
+     *      is promoted to 0, overvalue (&gt;array.length) results
+     *      in an empty array.
+     * @param endIndexExclusive  elements up to endIndex-1 are present in the
+     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      empty array, overvalue (&gt;array.length) is demoted to
+     *      array length.
+     */
+    public static short[] subarray(short[] array, int startIndexInclusive, int endIndexExclusive) {
+        if (array == null) {
+            return null;
+        }
+        if (startIndexInclusive < 0) {
+            startIndexInclusive = 0;
+        }
+        if (endIndexExclusive > array.length) {
+            endIndexExclusive = array.length;
+        }
+        int newSize = endIndexExclusive - startIndexInclusive;
+        if (newSize <= 0) {
+            return EMPTY_SHORT_ARRAY;
+        }
+
+        short[] subarray = new short[newSize];
+        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
+        return subarray;
+    }
+
+    /**
+     * <p>Produces a new <code>char</code> array containing the elements
+     * between the start and end indices.</p>
+     *
+     * <p>The start index is inclusive, the end index exclusive.
+     * Null array input produces null output.</p>
+     *
+     * @param array  the array
+     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
+     *      is promoted to 0, overvalue (&gt;array.length) results
+     *      in an empty array.
+     * @param endIndexExclusive  elements up to endIndex-1 are present in the
+     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      empty array, overvalue (&gt;array.length) is demoted to
+     *      array length.
+     */
+    public static char[] subarray(char[] array, int startIndexInclusive, int endIndexExclusive) {
+        if (array == null) {
+            return null;
+        }
+        if (startIndexInclusive < 0) {
+            startIndexInclusive = 0;
+        }
+        if (endIndexExclusive > array.length) {
+            endIndexExclusive = array.length;
+        }
+        int newSize = endIndexExclusive - startIndexInclusive;
+        if (newSize <= 0) {
+            return EMPTY_CHAR_ARRAY;
+        }
+
+        char[] subarray = new char[newSize];
+        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
+        return subarray;
+    }
+
+    /**
+     * <p>Produces a new <code>byte</code> array containing the elements
+     * between the start and end indices.</p>
+     *
+     * <p>The start index is inclusive, the end index exclusive.
+     * Null array input produces null output.</p>
+     *
+     * @param array  the array
+     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
+     *      is promoted to 0, overvalue (&gt;array.length) results
+     *      in an empty array.
+     * @param endIndexExclusive  elements up to endIndex-1 are present in the
+     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      empty array, overvalue (&gt;array.length) is demoted to
+     *      array length.
+     */
+    public static byte[] subarray(byte[] array, int startIndexInclusive, int endIndexExclusive) {
+        if (array == null) {
+            return null;
+        }
+        if (startIndexInclusive < 0) {
+            startIndexInclusive = 0;
+        }
+        if (endIndexExclusive > array.length) {
+            endIndexExclusive = array.length;
+        }
+        int newSize = endIndexExclusive - startIndexInclusive;
+        if (newSize <= 0) {
+            return EMPTY_BYTE_ARRAY;
+        }
+
+        byte[] subarray = new byte[newSize];
+        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
+        return subarray;
+    }
+
+    /**
+     * <p>Produces a new <code>double</code> array containing the elements
+     * between the start and end indices.</p>
+     *
+     * <p>The start index is inclusive, the end index exclusive.
+     * Null array input produces null output.</p>
+     *
+     * @param array  the array
+     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
+     *      is promoted to 0, overvalue (&gt;array.length) results
+     *      in an empty array.
+     * @param endIndexExclusive  elements up to endIndex-1 are present in the
+     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      empty array, overvalue (&gt;array.length) is demoted to
+     *      array length.
+     */
+    public static double[] subarray(double[] array, int startIndexInclusive, int endIndexExclusive) {
+        if (array == null) {
+            return null;
+        }
+        if (startIndexInclusive < 0) {
+            startIndexInclusive = 0;
+        }
+        if (endIndexExclusive > array.length) {
+            endIndexExclusive = array.length;
+        }
+        int newSize = endIndexExclusive - startIndexInclusive;
+        if (newSize <= 0) {
+            return EMPTY_DOUBLE_ARRAY;
+        }
+
+        double[] subarray = new double[newSize];
+        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
+        return subarray;
+    }
+
+    /**
+     * <p>Produces a new <code>float</code> array containing the elements
+     * between the start and end indices.</p>
+     *
+     * <p>The start index is inclusive, the end index exclusive.
+     * Null array input produces null output.</p>
+     *
+     * @param array  the array
+     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
+     *      is promoted to 0, overvalue (&gt;array.length) results
+     *      in an empty array.
+     * @param endIndexExclusive  elements up to endIndex-1 are present in the
+     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      empty array, overvalue (&gt;array.length) is demoted to
+     *      array length.
+     */
+    public static float[] subarray(float[] array, int startIndexInclusive, int endIndexExclusive) {
+        if (array == null) {
+            return null;
+        }
+        if (startIndexInclusive < 0) {
+            startIndexInclusive = 0;
+        }
+        if (endIndexExclusive > array.length) {
+            endIndexExclusive = array.length;
+        }
+        int newSize = endIndexExclusive - startIndexInclusive;
+        if (newSize <= 0) {
+            return EMPTY_FLOAT_ARRAY;
+        }
+
+        float[] subarray = new float[newSize];
+        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
+        return subarray;
+    }
+
+    /**
+     * <p>Produces a new <code>boolean</code> array containing the elements
+     * between the start and end indices.</p>
+     *
+     * <p>The start index is inclusive, the end index exclusive.
+     * Null array input produces null output.</p>
+     *
+     * @param array  the array
+     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
+     *      is promoted to 0, overvalue (&gt;array.length) results
+     *      in an empty array.
+     * @param endIndexExclusive  elements up to endIndex-1 are present in the
+     *      returned subarray. Undervalue (&lt; startIndex) produces
+     *      empty array, overvalue (&gt;array.length) is demoted to
+     *      array length.
+     */
+    public static boolean[] subarray(boolean[] array, int startIndexInclusive, int endIndexExclusive) {
+        if (array == null) {
+            return null;
+        }
+        if (startIndexInclusive < 0) {
+            startIndexInclusive = 0;
+        }
+        if (endIndexExclusive > array.length) {
+            endIndexExclusive = array.length;
+        }
+        int newSize = endIndexExclusive - startIndexInclusive;
+        if (newSize <= 0) {
+            return EMPTY_BOOLEAN_ARRAY;
+        }
+
+        boolean[] subarray = new boolean[newSize];
+        System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
+        return subarray;
     }
 
     // Is same length
