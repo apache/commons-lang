@@ -144,7 +144,7 @@ import java.util.List;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @since 1.0
- * @version $Id: StringUtils.java,v 1.84 2003/08/01 20:45:17 scolebourne Exp $
+ * @version $Id: StringUtils.java,v 1.85 2003/08/01 21:02:16 scolebourne Exp $
  */
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
@@ -1909,9 +1909,6 @@ public class StringUtils {
      * Null objects or empty strings within the array are represented by 
      * empty strings.</p>
      *
-     * <p>The difference from join is that concatenate has no delimiter -- i.e., <br>
-     * <code>StringUtils.concatenate(array) = StringUtils.join(array, null)</code>.</p>
-     *
      * <pre>
      * StringUtils.concatenate(null)            = null
      * StringUtils.concatenate([])              = ""
@@ -1922,8 +1919,33 @@ public class StringUtils {
      * 
      * @param array  the array of values to concatenate, may be null
      * @return the concatenated String, <code>null</code> if null array input
+     * @deprecated Use the better named {@link #join(Object[])} instead.
+     *             Method will be removed in Commons Lang 3.0.
      */
     public static String concatenate(Object[] array) {
+        return join(array, null);
+    }
+    
+    /**
+     * <p>Joins the elements of the provided array into a single String
+     * containing the provided list of elements.</p>
+     *
+     * <p>No separator is added to the joined String.
+     * Null objects or empty strings within the array are represented by 
+     * empty strings.</p>
+     * 
+     * <pre>
+     * StringUtils.join(null)            = null
+     * StringUtils.join([])              = ""
+     * StringUtils.join([null])          = ""
+     * StringUtils.join(["a", "b", "c"]) = "abc"
+     * StringUtils.join([null, "", "a"]) = "a"
+     * </pre>
+     * 
+     * @param array  the array of values to join together, may be null
+     * @return the joined String, <code>null</code> if null array input
+     */
+    public static String join(Object[] array) {
         return join(array, null);
     }
     
