@@ -1,5 +1,3 @@
-package org.apache.commons.lang;
-
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
@@ -53,16 +51,20 @@ package org.apache.commons.lang;
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  */
+package org.apache.commons.lang;
 
 /**
  * <p>Represents a range of {@link Number} objects.</p>
+ * 
+ * <p>This class uses <code>double</code> comparisons. This means that it
+ * is unsuitable for dealing with large <code>Long</code>, <code>BigDecimal</code>
+ * or <code>BigInteger</code> numbers.</p>
  *
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Revision: 1.3 $ $Date: 2002/11/16 10:41:03 $
+ * @author Stephen Colebourne
+ * @version $Revision: 1.4 $ $Date: 2002/12/21 14:22:11 $
  */
 public final class NumberRange {
-
 
     /* The minimum number in this range. */
     private final Number min;
@@ -80,7 +82,7 @@ public final class NumberRange {
      */
     public NumberRange(Number num) {
         if (num == null) {
-            throw new NullPointerException("num cannot be null");
+            throw new NullPointerException("The number must not be null");
         }
 
         this.min = num;
@@ -90,6 +92,9 @@ public final class NumberRange {
     /**
      * <p>Constructs a new <code>NumberRange</code> with the specified
      * minimum and maximum numbers.</p>
+     * 
+     * <p>If the maximum is less than the minimum, the range will be constructed
+     * from the minimum value to the minimum value, not what you would expect!.</p>
      *
      * @param min the minimum number in this range
      * @param max the maximum number in this range
@@ -98,9 +103,9 @@ public final class NumberRange {
      */
     public NumberRange(Number min, Number max) {
         if (min == null) {
-            throw new NullPointerException("min cannot be null");
+            throw new NullPointerException("The minimum value must not be null");
         } else if (max == null) {
-            throw new NullPointerException("max cannot be null");
+            throw new NullPointerException("The maximum value must not be null");
         }
 
         if (max.doubleValue() < min.doubleValue()) {
@@ -131,7 +136,7 @@ public final class NumberRange {
 
     /**
      * <p>Tests whether the specified <code>number</code> occurs within
-     * this range.</p>
+     * this range using <code>double</code> comparison.</p>
      *
      * @param number the number to test
      * @return <code>true</code> if the specified number occurs within this
@@ -148,7 +153,7 @@ public final class NumberRange {
 
     /**
      * <p>Tests whether the specified range occurs entirely within this
-     * range.</p>
+     * range using <code>double</code> comparison.</p>
      *
      * @param range the range to test
      * @return <code>true</code> if the specified range occurs entirely within
@@ -163,7 +168,8 @@ public final class NumberRange {
     }
 
     /**
-     * <p>Tests whether the specified range overlaps with this range.</p>
+     * <p>Tests whether the specified range overlaps with this range
+     * using <code>double</code> comparison.</p>
      *
      * @param range the range to test
      * @return <code>true</code> if the specified range overlaps with this
@@ -221,7 +227,7 @@ public final class NumberRange {
     public String toString() {
         StringBuffer sb = new StringBuffer();
 
-        if (min.intValue() < 0) {
+        if (min.doubleValue() < 0) {
             sb.append('(')
                 .append(min)
                 .append(')');
@@ -231,7 +237,7 @@ public final class NumberRange {
 
         sb.append('-');
 
-        if (max.intValue() < 0) {
+        if (max.doubleValue() < 0) {
             sb.append('(')
                 .append(max)
                 .append(')');
