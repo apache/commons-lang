@@ -63,7 +63,7 @@ import junit.framework.TestSuite;
  * Test cases for the {@link RandomUtils} class.
  *
  * @author <a href="mailto:phil@steitz.com">Phil Steitz</a>
- * @version $Revision: 1.3 $ $Date: 2003/06/09 21:36:03 $
+ * @version $Revision: 1.4 $ $Date: 2003/07/20 18:58:46 $
  */
 
 public final class RandomUtilsTest extends TestCase {
@@ -312,7 +312,7 @@ public final class RandomUtilsTest extends TestCase {
             RandomUtils.JVM_RANDOM.setSeed(1000);
             fail("expecting UnsupportedOperationException");
         } catch (UnsupportedOperationException ex) {
-            ;
+            // empty
         }
     }
     
