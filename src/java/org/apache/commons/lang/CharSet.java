@@ -63,7 +63,7 @@ import java.util.LinkedList;
  *
  * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CharSet.java,v 1.2 2002/09/28 10:34:54 scolebourne Exp $
+ * @version $Id: CharSet.java,v 1.3 2002/09/29 07:15:12 bayard Exp $
  */
 public class CharSet {
 
@@ -116,7 +116,7 @@ public class CharSet {
         CharRange range = null;
 
         if("-".equals(str)) {
-            range = new CharRange('_');
+            range = new CharRange('-');
             set.add(range);
             return;
         } 
