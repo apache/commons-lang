@@ -80,7 +80,7 @@ import java.lang.reflect.Modifier;
  *   public int hashCode() {
  *     // you pick a hard-coded, randomly chosen, non-zero, odd number
  *     // ideally different for each class
- *     return new HashCodeBuilder(17, 37).   
+ *     return new HashCodeBuilder(17, 37).
  *       append(name).
  *       append(age).
  *       append(smoker).
@@ -88,6 +88,8 @@ import java.lang.reflect.Modifier;
  *   }
  * }
  * </pre>
+ * 
+ * <p>If required, the superclass hashCode can be added using {@link #appendSuper}.</p>
  *
  * <p>Alternatively, there is a method that uses reflection to determine
  * the fields to test. Because these fields are usually private, the method, 
@@ -104,7 +106,7 @@ import java.lang.reflect.Modifier;
  * </pre>
  * 
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: HashCodeBuilder.java,v 1.5 2002/11/17 21:46:42 scolebourne Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.6 2002/12/08 21:22:07 scolebourne Exp $
  */
 public class HashCodeBuilder {
     
@@ -295,6 +297,19 @@ public class HashCodeBuilder {
         return hashCodeBuilder.toHashCode();
     }
 
+    //-------------------------------------------------------------------------
+    
+    /**
+     * <p>Adds the result of super.hashCode() to this builder.</p>
+     *
+     * @param superHashCode  the result of calling <code>super.hashCode()</code>
+     * @return this HashCodeBuilder, used to chain calls.
+     */
+    public HashCodeBuilder appendSuper(int superHashCode) {
+        iTotal = iTotal * iConstant + superHashCode;
+        return this;
+    }
+    
     //-------------------------------------------------------------------------
     
     /**
