@@ -102,7 +102,7 @@ import java.lang.reflect.Modifier;
  * </code>
  * 
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: HashCodeBuilder.java,v 1.1 2002/09/12 21:59:01 scolebourne Exp $
+ * @version $Id: HashCodeBuilder.java,v 1.2 2002/09/17 22:06:38 scolebourne Exp $
  */
 public class HashCodeBuilder {
     
@@ -165,6 +165,7 @@ public class HashCodeBuilder {
      * It is also not as efficient as testing explicitly. 
      * Transient members will be not be used, as they are likely derived 
      * fields, and not part of the value of the object. 
+     * Static fields will not be tested.
      * This constructor uses two hard coded choices for the constants needed
      * to build a hash code.
      * 
@@ -183,36 +184,10 @@ public class HashCodeBuilder {
      * that it will throw a security exception if run under a security manger, if
      * the permissions are not set up.
      * It is also not as efficient as testing explicitly. 
-     * Transient members will be not be used, as they are likely derived 
-     * fields, and not part of the value of the object. 
-     * <p>
-     * Two randomly chosen, non-zero, odd numbers must be passed in. Ideally
-     * these should be different for each class, however this is not vital.
-     * Prime numbers are preferred, especially for the multiplier.
-     * 
-     * @param initialNonZeroOddNumber
-     * @param multiplierNonZeroOddNumber
-     * @param object  the object to create a hash code for
-     * @return int hash code
-     * @throws IllegalArgumentException if the object is null
-     * @throws IllegalArgumentException if the number is zero or even
-     */
-    public static int reflectionHashCode(
-            int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
-            Object object) {
-        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object);
-    }
-    
-    /**
-     * This method uses reflection to build a valid hash code. 
-     * <p>
-     * It uses Field.setAccessible to gain access to private fields. This means
-     * that it will throw a security exception if run under a security manger, if
-     * the permissions are not set up.
-     * It is also not as efficient as testing explicitly. 
      * If the TestTransients parameter is set to true, transient members will be
      * tested, otherwise they are ignored, as they are likely derived fields, and
      * not part of the value of the object. 
+     * Static fields will not be tested.
      * This constructor uses two hard coded choices for the constants needed
      * to build a hash code.
      * 
@@ -232,9 +207,38 @@ public class HashCodeBuilder {
      * that it will throw a security exception if run under a security manger, if
      * the permissions are not set up.
      * It is also not as efficient as testing explicitly. 
+     * Transient members will be not be used, as they are likely derived 
+     * fields, and not part of the value of the object. 
+     * Static fields will not be tested.
+     * <p>
+     * Two randomly chosen, non-zero, odd numbers must be passed in. Ideally
+     * these should be different for each class, however this is not vital.
+     * Prime numbers are preferred, especially for the multiplier.
+     * 
+     * @param initialNonZeroOddNumber
+     * @param multiplierNonZeroOddNumber
+     * @param object  the object to create a hash code for
+     * @return int hash code
+     * @throws IllegalArgumentException if the object is null
+     * @throws IllegalArgumentException if the number is zero or even
+     */
+    public static int reflectionHashCode(
+            int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
+            Object object) {
+        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, false);
+    }
+    
+    /**
+     * This method uses reflection to build a valid hash code. 
+     * <p>
+     * It uses Field.setAccessible to gain access to private fields. This means
+     * that it will throw a security exception if run under a security manger, if
+     * the permissions are not set up.
+     * It is also not as efficient as testing explicitly. 
      * If the TestTransients parameter is set to true, transient members will be
      * tested, otherwise they are ignored, as they are likely derived fields, and
      * not part of the value of the object. 
+     * Static fields will not be tested.
      * <p>
      * Two randomly chosen, non-zero, odd numbers must be passed in. Ideally
      * these should be different for each class, however this is not vital.
@@ -261,12 +265,14 @@ public class HashCodeBuilder {
         for (int i = 0; i < fields.length; ++i) {
             Field f = fields[i];
             if (testTransients || !Modifier.isTransient(f.getModifiers())) {
-                try {
-                    hashCodeBuilder.append(f.get(object));
-                } catch (IllegalAccessException e) {
-                    //this can't happen. Would get a Security exception instead
-                    //throw a runtime exception in case the impossible happens.
-                    throw new InternalError("Unexpected IllegalAccessException");
+                if (!Modifier.isStatic(f.getModifiers())) {
+                    try {
+                        hashCodeBuilder.append(f.get(object));
+                    } catch (IllegalAccessException e) {
+                        //this can't happen. Would get a Security exception instead
+                        //throw a runtime exception in case the impossible happens.
+                        throw new InternalError("Unexpected IllegalAccessException");
+                    }
                 }
             }
         }

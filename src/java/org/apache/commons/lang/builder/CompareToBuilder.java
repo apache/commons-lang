@@ -99,7 +99,7 @@ import org.apache.commons.lang.NumberUtils;
  * </pre>
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: CompareToBuilder.java,v 1.1 2002/09/15 10:25:22 scolebourne Exp $
+ * @version $Id: CompareToBuilder.java,v 1.2 2002/09/17 22:06:37 scolebourne Exp $
  */
 public class CompareToBuilder {
     /**
@@ -128,9 +128,10 @@ public class CompareToBuilder {
      * It is also not as efficient as testing explicitly.
      * Transient members will be not be tested, as they are likely derived
      * fields, and not part of the value of the object.
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
-     * @return int - a negative integer, zero, or a positive integer as this 
+     * Static fields will not be tested.
+     * @param lhs  Left Hand Side
+     * @param rhs  Right Hand Side
+     * @return int  a negative integer, zero, or a positive integer as this 
      * object is less than, equal to, or greater than the specified object.
      * @throws ClassCastException - if the specified object's type prevents it 
      * from being compared to this Object.
@@ -149,16 +150,18 @@ public class CompareToBuilder {
      * If the TestTransients parameter is set to true, transient members will be
      * tested, otherwise they are ignored, as they are likely derived fields, and
      * not part of the value of the object. 
+     * Static fields will not be tested.
      * 
-     * @param lhs - Left Hand Side
-     * @param rhs - Right Hand Side
-     * @param testTransients - whether to include transient fields
+     * @param lhs  Left Hand Side
+     * @param rhs  Right Hand Side
+     * @param testTransients  whether to include transient fields
      * @return int - a negative integer, zero, or a positive integer as this 
      * object is less than, equal to, or greater than the specified object.
      * @throws ClassCastException - if the specified object's type prevents it 
      * from being compared to this Object.
      */
-    public static int reflectionCompare(Object lhs, Object rhs, boolean testTransients) {
+    public static int reflectionCompare(Object lhs, Object rhs, 
+            boolean testTransients) {
         if (lhs == rhs) {
             return 0;
         }
@@ -175,12 +178,14 @@ public class CompareToBuilder {
         for (int i = 0; i < fields.length && compareToBuilder.comparison == 0; ++i) {
             Field f = fields[i];
             if (testTransients || !Modifier.isTransient(f.getModifiers())) {
-                try {
-                    compareToBuilder.append(f.get(lhs), f.get(rhs));
-                } catch (IllegalAccessException e) {
-                    //this can't happen. Would get a Security exception instead
-                    //throw a runtime exception in case the impossible happens.
-                    throw new InternalError("Unexpected IllegalAccessException");
+                if ( !Modifier.isStatic(f.getModifiers())) {
+                    try {
+                        compareToBuilder.append(f.get(lhs), f.get(rhs));
+                    } catch (IllegalAccessException e) {
+                        //this can't happen. Would get a Security exception instead
+                        //throw a runtime exception in case the impossible happens.
+                        throw new InternalError("Unexpected IllegalAccessException");
+                    }
                 }
             }
         }
