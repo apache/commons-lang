@@ -61,10 +61,9 @@ import java.util.Map;
  * Utility class for accessing and manipulating Enums.
  *
  * @see Enum
- * @see ExtensibleEnum
  * @see ValuedEnum
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: EnumUtils.java,v 1.1 2002/08/11 23:17:54 scolebourne Exp $
+ * @version $Id: EnumUtils.java,v 1.2 2002/09/17 09:33:28 bayard Exp $
  */
 public abstract class EnumUtils implements Comparable, Serializable {
 
