@@ -58,57 +58,54 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-/**
- * Test suite for the Lang package.
- *
- * @author Stephen Colebourne
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.16 2003/05/15 04:05:11 bayard Exp $
- */
-public class LangTestSuite extends TestCase {
-    
-    /**
-     * Construct a new instance.
-     */
-    public LangTestSuite(String name) {
-        super(name);
-    }
+import org.apache.commons.lang.exception.Nestable;
 
-    /**
-     * Command-line interface.
-     */
+/**
+ * JUnit tests.
+ * 
+ * @author Matthew Hawthorne
+ * @version $Id: UnhandledExceptionTest.java,v 1.1 2003/05/15 04:05:11 bayard Exp $
+ * @see UnhandledException
+ */
+public class UnhandledExceptionTest extends TestCase {
+
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
 
-    /**
-     * Get the suite of tests
-     */
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(ArrayUtilsTest.suite());
-        suite.addTest(BooleanUtilsTest.suite());
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(ClassUtilsTest.suite());
-        suite.addTest(IllegalClassExceptionTest.suite());
-        suite.addTest(IncompleteArgumentExceptionTest.suite());
-        suite.addTest(NotImplementedExceptionTest.suite());
-        suite.addTest(NullArgumentExceptionTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
-        suite.addTest(StringEscapeUtilsTest.suite());
-        suite.addTest(UnhandledExceptionTest.suite());
-        suite.addTest(WordWrapUtilsTest.suite());
-        return suite;
+        return new TestSuite(UnhandledExceptionTest.class);
     }
-}
+
+    public UnhandledExceptionTest(String testName) {
+        super(testName);
+    }
+
+    // testConstructor
+
+    public void testConstructor_throwable_nullInput() {
+        final Throwable t = null;
+        new UnhandledException(t);
+    }
+
+    public void testConstructor_stringAndThrowable_nullInput() {
+        new UnhandledException(null, null);
+    }
+
+    // testGetCause
+
+    public void testGetCause() {
+        final Throwable t = new NullPointerException();
+        final Nestable n = new UnhandledException(t);
+        assertEquals(t, n.getCause());
+    }
+
+    public void testGetCauseAndGetMessage() {
+        final Throwable t = new NullPointerException();
+        final String msg = "nullArg";
+        final Nestable n = new UnhandledException(msg, t);
+        assertEquals(t, n.getCause());
+        assertEquals(msg, n.getMessage());
+    }
+
+} // UnhandledExceptionTest

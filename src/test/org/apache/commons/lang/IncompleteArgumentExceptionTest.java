@@ -59,56 +59,73 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Test suite for the Lang package.
- *
- * @author Stephen Colebourne
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
+ * JUnit tests.
+ * 
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.16 2003/05/15 04:05:11 bayard Exp $
+ * @version $Id: IncompleteArgumentExceptionTest.java,v 1.1 2003/05/15 04:05:11 bayard Exp $
+ * @see IncompleteArgumentException
  */
-public class LangTestSuite extends TestCase {
-    
-    /**
-     * Construct a new instance.
-     */
-    public LangTestSuite(String name) {
-        super(name);
-    }
+public class IncompleteArgumentExceptionTest extends TestCase {
 
-    /**
-     * Command-line interface.
-     */
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
 
-    /**
-     * Get the suite of tests
-     */
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(ArrayUtilsTest.suite());
-        suite.addTest(BooleanUtilsTest.suite());
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(ClassUtilsTest.suite());
-        suite.addTest(IllegalClassExceptionTest.suite());
-        suite.addTest(IncompleteArgumentExceptionTest.suite());
-        suite.addTest(NotImplementedExceptionTest.suite());
-        suite.addTest(NullArgumentExceptionTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
-        suite.addTest(StringEscapeUtilsTest.suite());
-        suite.addTest(UnhandledExceptionTest.suite());
-        suite.addTest(WordWrapUtilsTest.suite());
-        return suite;
+        return new TestSuite(IncompleteArgumentExceptionTest.class);
     }
-}
+
+    public IncompleteArgumentExceptionTest(String testName) {
+        super(testName);
+    }
+
+    // testConstructor
+
+    public void test1arg_nullInput() {
+        final Throwable t = new IncompleteArgumentException(null);
+        assertEquals("null is incomplete.", t.getMessage());
+    }
+
+    public void test1arg_validInput() {
+        final String name = "argument";
+        final Throwable t = new IncompleteArgumentException(name);
+        assertEquals(name + " is incomplete.", t.getMessage());
+    }
+
+    public void test2arg_allNullInput() {
+        final Throwable t = new IncompleteArgumentException(null, null);
+        assertEquals(
+            "null is missing the following items: null",
+            t.getMessage());
+    }
+
+    public void test2arg_nullString() {
+        final Throwable t =
+            new IncompleteArgumentException(
+                null,
+                new String[] { "one", "two" });
+        assertEquals(
+            "null is missing the following items: [one, two]",
+            t.getMessage());
+    }
+
+    public void test2arg_nullArray() {
+        final String name = "one";
+        final Throwable t = new IncompleteArgumentException(name, null);
+        assertEquals(
+            name + " is missing the following items: null",
+            t.getMessage());
+    }
+
+    public void test2arg_validInput() {
+        final String name = "input";
+        final Throwable t =
+            new IncompleteArgumentException(
+                name,
+                new String[] { "one", "two" });
+        assertEquals(
+            name + " is missing the following items: [one, two]",
+            t.getMessage());
+    }
+
+} // IncompleteArgumentExceptionTest

@@ -59,56 +59,63 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Test suite for the Lang package.
- *
- * @author Stephen Colebourne
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
+ * JUnit tests.
+ * 
  * @author Matthew Hawthorne
- * @version $Id: LangTestSuite.java,v 1.16 2003/05/15 04:05:11 bayard Exp $
+ * @version $Id: NotImplementedExceptionTest.java,v 1.1 2003/05/15 04:05:11 bayard Exp $
+ * @see NotImplementedException
  */
-public class LangTestSuite extends TestCase {
-    
-    /**
-     * Construct a new instance.
-     */
-    public LangTestSuite(String name) {
-        super(name);
-    }
+public class NotImplementedExceptionTest extends TestCase {
 
-    /**
-     * Command-line interface.
-     */
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
 
-    /**
-     * Get the suite of tests
-     */
     public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(ArrayUtilsTest.suite());
-        suite.addTest(BooleanUtilsTest.suite());
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(ClassUtilsTest.suite());
-        suite.addTest(IllegalClassExceptionTest.suite());
-        suite.addTest(IncompleteArgumentExceptionTest.suite());
-        suite.addTest(NotImplementedExceptionTest.suite());
-        suite.addTest(NullArgumentExceptionTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
-        suite.addTest(StringEscapeUtilsTest.suite());
-        suite.addTest(UnhandledExceptionTest.suite());
-        suite.addTest(WordWrapUtilsTest.suite());
-        return suite;
+        return new TestSuite(NotImplementedExceptionTest.class);
     }
-}
+
+    public NotImplementedExceptionTest(String testName) {
+        super(testName);
+    }
+
+    // testConstructor
+
+    public void testConstructor_classArg_nullInput() {
+        final Class c = null;
+        new NotImplementedException(c);
+    }
+
+    public void testConstructor_stringArg_nullInput() {
+        final String s = null;
+        new NotImplementedException(s);
+    }
+
+    // testGetMessage
+
+    public void testGetMessage_classArg_nullInput() {
+        final Class c = null;
+        final Throwable t = new NotImplementedException(c);
+        assertEquals("Method is not implemented in class null", t.getMessage());
+    }
+
+    public void testGetMessage_classArg_validInput() {
+        final Throwable t = new NotImplementedException(String.class);
+        assertEquals(
+            "Method is not implemented in class java.lang.String",
+            t.getMessage());
+    }
+
+    public void testGetMessage_stringArg_nullInput() {
+        final String s = null;
+        final Throwable t = new NotImplementedException(s);
+        assertEquals(null, t.getMessage());
+    }
+
+    public void testGetMessage_stringArg_validInput() {
+        final String msg = "message";
+        final Throwable t = new NotImplementedException(msg);
+        assertEquals(msg, t.getMessage());
+    }
+
+} // NotImplementedExceptionTest
