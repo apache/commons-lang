@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  * interface.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @version $Id: AbstractNestableTestCase.java,v 1.2 2002/09/11 19:40:14 stevencaswell Exp $
+ * @version $Id: AbstractNestableTestCase.java,v 1.3 2003/05/14 02:59:13 bayard Exp $
  */
 public abstract class AbstractNestableTestCase extends TestCase
 {
@@ -152,33 +152,40 @@ public abstract class AbstractNestableTestCase extends TestCase
 
         Nestable ne2 = getNestable("ne2");
         assertNotNull("nestable exception(\"ne2\") message is not null", ne2.getMessage());
-        assertTrue("nestable exception(\"ne2\") message == ne2", ne2.getMessage().equals("ne2"));
+        assertEquals("nestable exception(\"ne2\") message == ne2", ne2.getMessage(), "ne2");
         
         Nestable ne3 = getNestable(getThrowable("ne3 exception"));
         assertNotNull("nestable exception(Throwable(\"ne3 exception\") message is not null",
             ne3.getMessage()); 
-        assertTrue("nestable exception(Throwable(\"ne3 exception\") message == cause message",
-            ne3.getMessage().equals(ne3.getCause().getMessage())); 
+        assertEquals("nestable exception(Throwable(\"ne3 exception\") message equals cause.toString()",
+            ne3.getMessage(), ne3.getCause().toString()); 
         
         Nestable ne4 = getNestable("ne4", getThrowable("ne4 exception"));
         assertNotNull("nestable exception(\"ne4\", Throwable(\"ne4 exception\") message is not null", 
             ne4.getMessage()); 
-        assertTrue("nestable exception(\"ne4\", Throwable(\"ne4 exception\") message == ne4: ne4 exception", 
-            ne4.getMessage().equals("ne4: ne4 exception")); 
+        assertEquals("nestable exception(\"ne4\", Throwable(\"ne4 exception\") message == ne4", 
+            ne4.getMessage(), "ne4"); 
         
         Nestable ne5 = getNestable("ne5", (Throwable) null);
         assertNotNull("nestable exception(\"ne5\", null) message is not null", 
             ne5.getMessage()); 
-        assertTrue("nestable exception(\"ne5\", null) message == ne5", 
-            ne5.getMessage().equals("ne5")); 
+        assertEquals("nestable exception(\"ne5\", null) message == ne5", 
+            ne5.getMessage(), "ne5"); 
         
-        Nestable ne6 = getNestable(null, getThrowable("ne6 exception"));
-        assertTrue("nestable exception(null, Throwable(\"ne6 exception\") cause == ne6 exception", 
-            ne6.getMessage().equals("ne6 exception")); 
+        Throwable t6 = getThrowable("ne6 exception");
+        Nestable ne6 = getNestable(null, t6);
+        assertNotNull("nestable exception(null, Throwable(\"ne6 exception\") message is not null",
+            ne6.getMessage()); 
+        assertEquals("nestable exception(null, Throwable(\"ne6 exception\") message equals cause.toString()",
+            ne6.getMessage(), ne6.getCause().toString()); 
         
         Nestable ne7 = getNestable("ne7o", getNestable("ne7i", getThrowable("ne7 exception")));
-        assertTrue("nextable exception(\"ne7o\", getNestable(\"ne7i\", Throwable(\"ne7 exception\"))) message is ne7o: ne7i: ne7 exception",
-            ne7.getMessage().equals("ne7o: ne7i: ne7 exception"));
+        assertEquals("nestable exception(\"ne7o\", getNestable(\"ne7i\", Throwable(\"ne7 exception\"))) message is ne7o: ne7i: ne7 exception",
+            ne7.getMessage(), "ne7o");
+
+        Nestable ne8 = getNestable();
+        assertNull("nestable exception() message is null",
+            ne8.getMessage());
 
     }
 
@@ -513,7 +520,7 @@ public abstract class AbstractNestableTestCase extends TestCase
         PrintWriter pw2 = new PrintWriter(ps2, true);
         ne9.printPartialStackTrace(pw2);
         String stack2 = baos2.toString();
-        String startsWith = ne9.getClass().getName() + ": ne9: ne9 exception";
+        String startsWith = ne9.getClass().getName() + ": ne9";
         assertTrue("stack trace startsWith == " + startsWith,
             stack2.startsWith(startsWith));
         assertEquals("stack trace indexOf rethrown == -1",
@@ -529,12 +536,12 @@ public abstract class AbstractNestableTestCase extends TestCase
         ByteArrayOutputStream baos1 = new ByteArrayOutputStream();
         PrintStream ps1 = new PrintStream(baos1);
         PrintWriter pw1 = new PrintWriter(ps1, true);
-        ne8.printStackTrace(ps1);
+        ne8.printStackTrace(pw1);
         String stack1 = baos1.toString();
-        String startsWith = getThrowableClass().getName() + ": ne8 exception";
+        String startsWith = ne8.getClass().getName() + ": ne8";
         assertTrue("stack trace startsWith == " + startsWith,
             stack1.startsWith(startsWith));
-        String indexOf = ne8.getClass().getName() + ": ne8: ne8 exception";
+        String indexOf = getThrowableClass().getName() + ": ne8 exception";
         assertTrue("stack trace indexOf " + indexOf + " > -1",
             stack1.indexOf(indexOf) > -1); 
     }
