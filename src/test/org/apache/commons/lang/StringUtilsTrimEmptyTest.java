@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTrimEmptyTest.java,v 1.12 2003/07/19 21:55:05 scolebourne Exp $
+ * @version $Id: StringUtilsTrimEmptyTest.java,v 1.13 2003/07/20 00:04:12 scolebourne Exp $
  */
 public class StringUtilsTrimEmptyTest extends TestCase {
     private static final String FOO = "foo";
@@ -197,6 +197,26 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals("abc", StringUtils.strip("  abc  "));
         assertEquals(StringUtilsTest.NON_WHITESPACE, 
             StringUtils.strip(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE));
+    }
+    
+    public void testStripToNull_String() {
+        assertEquals(null, StringUtils.stripToNull(null));
+        assertEquals(null, StringUtils.stripToNull(""));
+        assertEquals(null, StringUtils.stripToNull("        "));
+        assertEquals(null, StringUtils.stripToNull(StringUtilsTest.WHITESPACE));
+        assertEquals("ab c", StringUtils.stripToNull("  ab c  "));
+        assertEquals(StringUtilsTest.NON_WHITESPACE, 
+            StringUtils.stripToNull(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE));
+    }
+    
+    public void testStripToEmpty_String() {
+        assertEquals("", StringUtils.stripToEmpty(null));
+        assertEquals("", StringUtils.stripToEmpty(""));
+        assertEquals("", StringUtils.stripToEmpty("        "));
+        assertEquals("", StringUtils.stripToEmpty(StringUtilsTest.WHITESPACE));
+        assertEquals("ab c", StringUtils.stripToEmpty("  ab c  "));
+        assertEquals(StringUtilsTest.NON_WHITESPACE, 
+            StringUtils.stripToEmpty(StringUtilsTest.WHITESPACE + StringUtilsTest.NON_WHITESPACE + StringUtilsTest.WHITESPACE));
     }
     
     public void testStrip_StringString() {
