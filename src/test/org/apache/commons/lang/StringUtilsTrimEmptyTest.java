@@ -63,7 +63,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: StringUtilsTrimEmptyTest.java,v 1.7 2003/03/24 00:47:02 scolebourne Exp $
+ * @version $Id: StringUtilsTrimEmptyTest.java,v 1.8 2003/07/14 22:26:22 scolebourne Exp $
  */
 public class StringUtilsTrimEmptyTest extends TestCase {
     private static final String FOO = "foo";
@@ -132,18 +132,36 @@ public class StringUtilsTrimEmptyTest extends TestCase {
         assertEquals("", StringUtils.trimToEmpty(null));
     }
 
+    public void testIsEmpty() {
+        assertEquals(false, StringUtils.isEmpty("foo"));
+        assertEquals(false, StringUtils.isEmpty("  foo  "));
+        assertEquals(false, StringUtils.isEmpty(" "));
+        assertEquals(true, StringUtils.isEmpty(""));
+        assertEquals(true, StringUtils.isEmpty(null));
+    }
+
     public void testIsNotEmpty() {
-        assertEquals(true, StringUtils.isNotEmpty(FOO));
+        assertEquals(true, StringUtils.isNotEmpty("foo"));
+        assertEquals(true, StringUtils.isNotEmpty("  foo  "));
         assertEquals(true, StringUtils.isNotEmpty(" "));
         assertEquals(false, StringUtils.isNotEmpty(""));
         assertEquals(false, StringUtils.isNotEmpty(null));
     }
 
-    public void testIsEmpty() {
-        assertEquals(false, StringUtils.isEmpty(FOO));
-        assertEquals(true, StringUtils.isEmpty(" "));
-        assertEquals(true, StringUtils.isEmpty(""));
-        assertEquals(true, StringUtils.isEmpty(null));
+    public void testIsEmptyTrimmed() {
+        assertEquals(false, StringUtils.isEmptyTrimmed("foo"));
+        assertEquals(false, StringUtils.isEmptyTrimmed("  foo  "));
+        assertEquals(true, StringUtils.isEmptyTrimmed(" "));
+        assertEquals(true, StringUtils.isEmptyTrimmed(""));
+        assertEquals(true, StringUtils.isEmptyTrimmed(null));
+    }
+
+    public void testIsNotEmptyTrimmed() {
+        assertEquals(true, StringUtils.isNotEmptyTrimmed("foo"));
+        assertEquals(true, StringUtils.isNotEmptyTrimmed("  foo  "));
+        assertEquals(false, StringUtils.isNotEmptyTrimmed(" "));
+        assertEquals(false, StringUtils.isNotEmptyTrimmed(""));
+        assertEquals(false, StringUtils.isNotEmptyTrimmed(null));
     }
 
     public void testDeleteSpace() {
