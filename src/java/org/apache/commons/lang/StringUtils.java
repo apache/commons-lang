@@ -80,7 +80,7 @@ import java.util.Iterator;
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com>Rand McNeely</a>
  * @author <a href="mailto:scolebourne@joda.org>Stephen Colebourne</a>
- * @version $Id: StringUtils.java,v 1.3 2002/07/21 20:19:50 bayard Exp $
+ * @version $Id: StringUtils.java,v 1.4 2002/07/23 05:21:28 bayard Exp $
  */
 public class StringUtils {
 
@@ -469,6 +469,16 @@ public class StringUtils {
 
     // Joining
     //--------------------------------------------------------------------------
+    /**
+     * Concatenates elements of an array into a single string.
+     * The difference from join is that concatenate has no delimiter.
+     * 
+     * @param array  the array of values to concatenate.
+     * @return the concatenated string.
+     */
+    public static String concatenate(Object[] array) {
+        return join(array, "");
+    }
     
     /**
      * Joins the elements of the provided array into a single string
