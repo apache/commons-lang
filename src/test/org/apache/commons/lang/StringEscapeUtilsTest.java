@@ -66,7 +66,7 @@ import junit.textui.TestRunner;
  *
  * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @version $Id: StringEscapeUtilsTest.java,v 1.1 2003/03/31 03:53:52 alex Exp $
+ * @version $Id: StringEscapeUtilsTest.java,v 1.2 2003/04/09 17:30:29 alex Exp $
  */
 public class StringEscapeUtilsTest extends TestCase {
     private final static String FOO = "foo";
@@ -153,7 +153,7 @@ public class StringEscapeUtilsTest extends TestCase {
         {"final character only", "greater than &gt;", "greater than >"},
         {"first character only", "&lt; less than", "< less than"},
         {"apostrophe", "Huntington's chorea", "Huntington's chorea"},
-        {"languages", "English,Fran&ccedil;ais,&#26085;&#26412;&#35486; (nihongo)", "English,Français,\u65E5\u672C\u8A9E (nihongo)"},
+        {"languages", "English,Fran&ccedil;ais,&#26085;&#26412;&#35486; (nihongo)", "English,Fran\u00E7ais,\u65E5\u672C\u8A9E (nihongo)"},
     };
 
     public void testEscapeHtml() {
@@ -168,8 +168,10 @@ public class StringEscapeUtilsTest extends TestCase {
             assertEquals(htmlEscapes[i][0], htmlEscapes[i][2], StringEscapeUtils.unescapeHtml(htmlEscapes[i][1]));
             // todo: add test for (and implement) Writer-based version
         }
-        // should we unicode-escape the cedilla here, for 7-bit cleanliness?
-        assertEquals("funny chars pass through OK", "Français", StringEscapeUtils.unescapeHtml("Français"));
+        // \u00E7 is a cedilla (ç)
+        // note that the test string must be 7-bit-clean (unicode escaped) or else it will compile incorrectly
+        // on some locales
+        assertEquals("funny chars pass through OK", "Fran\u00E7ais", StringEscapeUtils.unescapeHtml("Fran\u00E7ais"));
     }
 
     // SQL
