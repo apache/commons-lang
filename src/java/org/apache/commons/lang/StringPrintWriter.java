@@ -53,55 +53,36 @@
  */
 package org.apache.commons.lang;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import java.io.*;
 
 /**
- * Test suite for the Lang package.
- *
- * @author Stephen Colebourne
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @version $Id: LangTestSuite.java,v 1.14 2003/03/31 03:53:52 alex Exp $
- */
-public class LangTestSuite extends TestCase {
-    
-    /**
-     * Construct a new instance.
-     */
-    public LangTestSuite(String name) {
-        super(name);
+ * A PrintWriter that maintains a String as its backing store.
+ * Usage: <pre>
+ * StringPrintWriter out = new StringPrintWriter();
+ * printTo(out);
+ * System.out.println( out.getString() );
+ * </pre>
+ * @author Alex Chaffee
+ * @author Scott Stanchfield
+ **/
+public class StringPrintWriter extends PrintWriter {
+    public StringPrintWriter() {
+        super(new StringWriter());
+    }
+
+    public StringPrintWriter(int initialSize) {
+        super(new StringWriter(initialSize));
     }
 
     /**
-     * Command-line interface.
+     * Since toString() returns information *about* this object, we
+     * want a separate method to extract just the contents of the
+     * internal buffer as a String.
+     * @return the contents of the internal string buffer
      */
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    /**
-     * Get the suite of tests
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang Tests");
-        suite.addTest(ArrayUtilsTest.suite());
-        suite.addTest(BooleanUtilsTest.suite());
-        suite.addTest(CharSetUtilsTest.suite());
-        suite.addTest(ClassUtilsTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(ObjectUtilsTest.suite());
-        suite.addTest(RandomStringUtilsTest.suite());
-        suite.addTest(SerializationUtilsTest.suite());
-        suite.addTest(StringUtilsTest.suite());
-        suite.addTest(StringUtilsTrimEmptyTest.suite());
-        suite.addTest(StringUtilsSubstringTest.suite());
-        suite.addTest(StringUtilsEqualsIndexOfTest.suite());
-        suite.addTest(StringUtilsIsTest.suite());
-        suite.addTest(StringEscapeUtilsTest.suite());
-        return suite;
+    public String getString() {
+        flush();
+        return ((StringWriter) out).toString();
     }
 }
+
