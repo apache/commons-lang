@@ -284,17 +284,22 @@ public class ExceptionUtils
      * Returns the number of <code>Throwable</code> objects in the
      * exception chain.
      *
+     * @param t The exception to inspect.
      * @return The throwable count.
      */
     public static int getThrowableCount(Throwable t)
     {
         // Count the number of throwables
-        int count = 1;
-        t = ExceptionUtils.getCause(t);
-        while (t != null)
+        int count = 0;
+        if (t != null)
         {
             count++;
             t = ExceptionUtils.getCause(t);
+            while (t != null)
+            {
+                count++;
+                t = ExceptionUtils.getCause(t);
+            }
         }
         return count;
     }
@@ -303,6 +308,7 @@ public class ExceptionUtils
      * Returns the list of <code>Throwable</code> objects in the
      * exception chain.
      *
+     * @param t The exception to inspect.
      * @return The list of <code>Throwable</code> objects.
      */
     public static Throwable[] getThrowables(Throwable t)
@@ -339,6 +345,7 @@ public class ExceptionUtils
      * greater than or equal to the specified index, or
      * <code>-1</code> if the type is not found.
      *
+     * @param t The exception to inspect.
      * @param type <code>Class</code> to look for.
      * @param fromIndex The (zero based) index of the starting
      * position in the chain to be searched.
