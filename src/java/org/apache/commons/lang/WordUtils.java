@@ -28,7 +28,7 @@ package org.apache.commons.lang;
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Gary Gregory
  * @since 2.0
- * @version $Id: WordUtils.java,v 1.11 2004/06/03 03:40:28 bayard Exp $
+ * @version $Id: WordUtils.java,v 1.12 2004/06/03 03:49:47 bayard Exp $
  */
 public class WordUtils {
 
@@ -369,20 +369,43 @@ public class WordUtils {
      * @see #capitalize(String)
      */
     public static String uncapitalize(String str) {
-        int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        return uncapitalize(str, null);
+    }
+
+    public static String uncapitalize(String str, char[] delimiters) {
+        if (str == null || str.length() == 0) {
             return str;
         }
+        int strLen = str.length();
+
+        int delimitersLen = 0;
+        if(delimiters != null) {
+            delimitersLen = delimiters.length;
+        }
+
         StringBuffer buffer = new StringBuffer(strLen);
-        boolean whitespace = true;
+        boolean uncapitalizeNext = true;
         for (int i = 0; i < strLen; i++) {
             char ch = str.charAt(i);
-            if (Character.isWhitespace(ch)) {
+
+            boolean isDelimiter = false;
+            if(delimiters == null) {
+                isDelimiter = Character.isWhitespace(ch);
+            } else {
+                for(int j=0; j < delimitersLen; j++) {
+                    if(ch == delimiters[j]) {
+                        isDelimiter = true;
+                        break;
+                    }
+                }
+            }
+
+            if (isDelimiter) {
                 buffer.append(ch);
-                whitespace = true;
-            } else if (whitespace) {
+                uncapitalizeNext = true;
+            } else if (uncapitalizeNext) {
                 buffer.append(Character.toLowerCase(ch));
-                whitespace = false;
+                uncapitalizeNext = false;
             } else {
                 buffer.append(ch);
             }
