@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<project>
+  
+  <pomVersion>3</pomVersion>
+  <id>commons-lang</id>
+  <name>commons-lang</name>
+  <currentVersion>1.0-dev</currentVersion>
+  <organization>
+    <name>Apache Software Foundation</name>
+    <url>http://jakarta.apache.org/</url>
+    <logo>/images/jakarta-logo-blue.gif</logo>
+  </organization>
+  <inceptionYear>2001</inceptionYear>
+  <package>org.apache.commons.lang</package>
+  <logo>http://jakarta.apache.org/commons/images/logo.jpg</logo>
+  
+  <!-- Gump integration -->
+  <gumpRepositoryId>jakarta</gumpRepositoryId>
+
+  <description>
+  Commons.Lang, a package of Java utility classes for the
+  classes that are in java.lang's hierarchy, or are considered to be so
+  standard as to justify existence in java.lang.
+  </description>
+  
+  <shortDescription>Java Common Components</shortDescription>
+
+  <url>http://jakarta.apache.org/commons/lang.html</url>
+  <issueTrackingUrl>http://nagoya.apache.org/scarab/servlet/scarab/</issueTrackingUrl>
+  <siteAddress>jakarta.apache.org</siteAddress>
+  <siteDirectory>/www/jakarta.apache.org/commons/lang/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/</distributionDirectory>
+
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons</connection>
+    <password>anoncvs</password>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/</url>
+  </repository>
+
+  <branches>
+  </branches>
+
+  <mailingLists>
+    <mailingList>
+      <name>Commons User List</name>
+      <subscribe>commons-user-subscribe@jakarta.apache.org</subscribe>
+      <unsubscribe>commons-user-unsubscribe@jakarta.apache.org</unsubscribe>
+      <!-- Using mail-archive until there is something in nagoya's eyebrowse...
+      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-user@jakarta.apache.org</archive>
+      -->
+      <archive>http://www.mail-archive.com/commons-user@jakarta.apache.org/</archive>
+    </mailingList>
+    <mailingList>
+      <name>Commons Developer List</name>
+      <subscribe>commons-dev-subscribe@jakarta.apache.org</subscribe>
+      <unsubscribe>commons-dev-unsubscribe@jakarta.apache.org</unsubscribe>
+      <!-- Using mail-archive until there is something in nagoya's eyebrowse...
+      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-dev@jakarta.apache.org</archive>
+      -->
+      <archive>http://www.mail-archive.com/commons-dev@jakarta.apache.org/</archive>
+    </mailingList>
+  </mailingLists>
+
+<developers>
+    <developer>
+      <name>Daniel Rall</name>
+      <id>dlr</id>
+      <email>dlr@finemaltcoding.com</email>
+      <organization>CollabNet, Inc.</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Stephen Colebourne</name>
+      <id>scolebourne</id>
+      <email>scolebourne@btopenworld.com</email>
+      <organization></organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Henri Yandell</name>
+      <id>bayard</id>
+      <email>bayard@generationjava.com</email>
+      <organization></organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Steven Caswell</name>
+      <id></id>
+      <email>steven@caswell.name</email>
+      <organization></organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+
+</developers>
+
+  <contributors>
+    <contributor>
+      <name>Ringo De Smet</name>
+      <id></id>
+      <email>ringods@yahoo.co.uk</email>
+      <organization></organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </contributor>
+  </contributors>
+  
+  <!-- Lang should depend on very little -->
+  <dependencies>
+  </dependencies>
+
+  <build>
+
+    <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
+
+    <sourceDirectory>src/java</sourceDirectory>
+
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <integrationUnitTestSourceDirectory/>
+
+    <aspectSourceDirectory></aspectSourceDirectory>
+
+    <!-- Unit test classes -->
+    <unitTestPatterns>
+      <unitTestPattern>include = **/*Test.java</unitTestPattern>
+    </unitTestPatterns>
+
+    <!-- Integration unit test classes -->
+    <integrationUnitTestPatterns>
+    </integrationUnitTestPatterns>
+
+    <!-- J A R  R E S O U R C E S -->
+    <!-- Resources that are packaged up inside the JAR file -->
+
+    <jarResources>
+        <jarResource>include = log4j.properties</jarResource>
+    </jarResources>
+
+    <jars>
+    </jars>
+  </build>
+</project>
+
