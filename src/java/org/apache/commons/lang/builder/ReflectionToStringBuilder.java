@@ -104,7 +104,7 @@ import org.apache.commons.lang.ClassUtils;
  * @author Stephen Colebourne
  * @author Pete Gieser
  * @since 2.0
- * @version $Id: ReflectionToStringBuilder.java,v 1.12 2003/10/23 22:25:16 ggregory Exp $
+ * @version $Id: ReflectionToStringBuilder.java,v 1.13 2003/10/23 22:27:45 ggregory Exp $
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
 
@@ -354,8 +354,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * <p>The default <code>ToStringStyle</code> is used.</p>
      * 
      * @param object  the Object to be output
-     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
-     *  may be <code>null</code>
      * @return the String result
      * @throws IllegalArgumentException if the Object is <code>null</code>
      */
@@ -418,8 +416,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException if the Object is <code>null</code>
      */
-    public static Object toStringWithStatics(Object object, ToStringStyle toStringStyle, Class reflectUpToClass) {
-        return toString(object, toStringStyle, false, true, reflectUpToClass);
+    public static Object toStringWithStatics(Object object, ToStringStyle style, Class reflectUpToClass) {
+        return toString(object, style, false, true, reflectUpToClass);
     }
 
     /**
