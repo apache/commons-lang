@@ -1,7 +1,7 @@
 /* ====================================================================
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 2002-2003 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002-2004 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,6 +60,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+import org.apache.commons.lang.time.DateUtils;
 
 /**
  * Unit tests {@link org.apache.commons.lang.ObjectUtils}.
@@ -68,7 +69,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @version $Id: ObjectUtilsTest.java,v 1.9 2003/08/18 02:22:25 bayard Exp $
+ * @version $Id: ObjectUtilsTest.java,v 1.10 2004/02/16 23:39:03 ggregory Exp $
  */
 public class ObjectUtilsTest extends TestCase {
     private static final String FOO = "foo";
@@ -122,6 +123,21 @@ public class ObjectUtilsTest extends TestCase {
         assertTrue("ObjectUtils.equals(\"foo\", \"foo\") returned false", ObjectUtils.equals(FOO, FOO));
     }
 
+    /**
+     * Show that java.util.Date and java.sql.Timestamp are apples and oranges.
+     * Prompted by an email discussion.
+     */
+    public void testDateEquals() {
+        long now = 1076957313284L; // Feb 16, 2004 10:49... PST
+        java.util.Date date = new java.util.Date(now);
+        java.util.Date timestamp = new java.sql.Timestamp(now);
+        // sanity check:
+        assertFalse(date.getTime() == timestamp.getTime());
+        assertFalse(timestamp.equals(date));
+        // real test:
+        assertFalse(ObjectUtils.equals(date, timestamp));
+    }
+    
     public void testIdentityToString() {
         assertEquals(null, ObjectUtils.identityToString(null));
         assertEquals(
