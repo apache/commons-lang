@@ -68,7 +68,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:alex@apache.org">Alex Chaffee</a>
- * @version $Id: ToStringBuilderTest.java,v 1.11 2003/10/23 22:26:00 ggregory Exp $
+ * @version $Id: ToStringBuilderTest.java,v 1.12 2003/11/03 00:20:55 ggregory Exp $
  */
 public class ToStringBuilderTest extends TestCase {
 
@@ -850,10 +850,10 @@ public class ToStringBuilderTest extends TestCase {
             ReflectionToStringBuilder.toString(instance1, null, true, true, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
             this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345]",
-            ReflectionToStringBuilder.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
+            this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
             this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345]",
-            ReflectionToStringBuilder.toStringWithStatics(instance1, SimpleReflectionStaticFieldsFixture.class));
+            this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
     }
 
     /**
@@ -869,10 +869,10 @@ public class ToStringBuilderTest extends TestCase {
             ReflectionToStringBuilder.toString(instance1, null, true, true, ReflectionStaticFieldsFixture.class));
         assertEquals(
             this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345,instanceString=instanceString,instanceInt=67890]",
-            ReflectionToStringBuilder.toStringWithStatics(instance1, null, ReflectionStaticFieldsFixture.class));
+            this.toStringWithStatics(instance1, null, ReflectionStaticFieldsFixture.class));
         assertEquals(
             this.toBaseString(instance1) + "[staticString=staticString,staticInt=12345,instanceString=instanceString,instanceInt=67890]",
-            ReflectionToStringBuilder.toStringWithStatics(instance1, ReflectionStaticFieldsFixture.class));
+            this.toStringWithStatics(instance1, null, ReflectionStaticFieldsFixture.class));
     }
 
     /**
@@ -888,10 +888,39 @@ public class ToStringBuilderTest extends TestCase {
             ReflectionToStringBuilder.toString(instance1, null, false, true, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
             this.toBaseString(instance1) + "[staticString2=staticString2,staticInt2=67890,staticString=staticString,staticInt=12345]",
-            ReflectionToStringBuilder.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
+            this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
         assertEquals(
             this.toBaseString(instance1) + "[staticString2=staticString2,staticInt2=67890,staticString=staticString,staticInt=12345]",
-            ReflectionToStringBuilder.toStringWithStatics(instance1, SimpleReflectionStaticFieldsFixture.class));
+            this.toStringWithStatics(instance1, null, SimpleReflectionStaticFieldsFixture.class));
+    }
+
+    /**
+     * <p>This method uses reflection to build a suitable
+     * <code>toString</code> value which includes static fields.</p>
+     *
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run
+     * under a security manager, if the permissions are not set up correctly.
+     * It is also not as efficient as testing explicitly. </p>
+     *
+     * <p>Transient fields are not output.</p>
+     *
+     * <p>Superclass fields will be appended up to and including the specified superclass. 
+     * A null superclass is treated as <code>java.lang.Object</code>.</p>
+     *
+     * <p>If the style is <code>null</code>, the default
+     * <code>ToStringStyle</code> is used.</p>
+     * 
+     * @param object  the Object to be output
+     * @param style  the style of the <code>toString</code> to create,
+     *  may be <code>null</code>
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
+     *  may be <code>null</code>
+     * @return the String result
+     * @throws IllegalArgumentException if the Object is <code>null</code>
+     */
+    public Object toStringWithStatics(Object object, ToStringStyle style, Class reflectUpToClass) {
+        return ReflectionToStringBuilder.toString(object, style, false, true, reflectUpToClass);
     }
 
     /**
