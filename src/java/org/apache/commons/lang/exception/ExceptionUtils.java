@@ -65,6 +65,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.SystemUtils;
+
 /**
  * Utility routines for manipulating <code>Throwable</code> objects.
  *
@@ -83,7 +85,9 @@ public class ExceptionUtils
         "getNextException",
         "getTargetException",
         "getException",
-        "getSourceException"
+        "getSourceException",
+        "getRootCause",
+        "getCausedByException"
     };
 
     /**
@@ -405,8 +409,7 @@ public class ExceptionUtils
      */
     static String[] getStackFrames(String stackTrace)
     {
-        // TODO: Use constant from org.apache.commons.lang.SystemUtils.
-        String linebreak = System.getProperty("line.separator");
+        String linebreak = SystemUtils.LINE_SEPARATOR;
         StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
         List list = new LinkedList();
         while (frames.hasMoreTokens())
