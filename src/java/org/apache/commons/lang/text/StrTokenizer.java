@@ -73,7 +73,7 @@ import java.util.ListIterator;
  * @author Stephen Colebourne
  * @author Gary D. Gregory
  * @since 2.1
- * @version $Id: StrTokenizer.java,v 1.5 2004/12/25 20:42:48 bayard Exp $
+ * @version $Id: StrTokenizer.java,v 1.6 2004/12/25 21:02:20 bayard Exp $
  */
 public class StrTokenizer implements ListIterator, Cloneable {
 
@@ -155,7 +155,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
     /** The ignored matcher */
     private Matcher ignored = NONE_MATCHER;
     /** The trimmer matcher */
-    private Matcher trimmer = TRIM_MATCHER;
+    private Matcher trimmer = NONE_MATCHER;
 
     /** Whether to return empty tokens as null */
     private boolean emptyAsNull = false;
