@@ -1173,17 +1173,23 @@ public class StringUtilsTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testDefault_String() {
-        assertEquals("", StringUtils.defaultString(null) );
-        assertEquals("", StringUtils.defaultString("") );
-        assertEquals("abc", StringUtils.defaultString("abc") );
+        assertEquals("", StringUtils.defaultString(null));
+        assertEquals("", StringUtils.defaultString(""));
+        assertEquals("abc", StringUtils.defaultString("abc"));
     }
-            
+
     public void testDefault_StringString() {
-        assertEquals("xyz", StringUtils.defaultString(null, "xyz") );
-        assertEquals("", StringUtils.defaultString("", "xyz") );
-        assertEquals("abc", StringUtils.defaultString("abc", "xyz") );
+        assertEquals("NULL", StringUtils.defaultString(null, "NULL"));
+        assertEquals("", StringUtils.defaultString("", "NULL"));
+        assertEquals("abc", StringUtils.defaultString("abc", "NULL"));
     }
-    
+
+    public void testDefaultIfEmpty_StringString() {
+        assertEquals("NULL", StringUtils.defaultIfEmpty(null, "NULL"));
+        assertEquals("NULL", StringUtils.defaultIfEmpty("", "NULL"));
+        assertEquals("abc", StringUtils.defaultIfEmpty("abc", "NULL"));
+    }
+
     //-----------------------------------------------------------------------
     public void testEscapeFunctions_String() {
         assertEquals("", StringUtils.escape("") );

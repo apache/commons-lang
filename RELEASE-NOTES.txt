@@ -60,6 +60,7 @@ Updated:
              -- ordinalIndexOf to find the nth index of a string
              -- various remove methods to remove parts of a string
              -- various split methods to provide more control over splitting a string
+             -- defaultIfEmpty to default a string if null or empty
 - SystemUtils - methods to get system properties as File objects
              -- extra constants representing system properties
 - Validate - new methods to check whether all elements in a collection are of a specific type
