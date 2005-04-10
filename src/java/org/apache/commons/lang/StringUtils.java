@@ -4405,9 +4405,9 @@ public class StringUtils {
      * <code>null</code>, the value of <code>defaultStr</code>.</p>
      *
      * <pre>
-     * StringUtils.defaultString(null, "null")  = "null"
-     * StringUtils.defaultString("", "null")    = ""
-     * StringUtils.defaultString("bat", "null") = "bat"
+     * StringUtils.defaultString(null, "NULL")  = "NULL"
+     * StringUtils.defaultString("", "NULL")    = ""
+     * StringUtils.defaultString("bat", "NULL") = "bat"
      * </pre>
      *
      * @see ObjectUtils#toString(Object,String)
@@ -4419,6 +4419,26 @@ public class StringUtils {
      */
     public static String defaultString(String str, String defaultStr) {
         return str == null ? defaultStr : str;
+    }
+
+    /**
+     * <p>Returns either the passed in String, or if the String is
+     * empty or <code>null</code>, the value of <code>defaultStr</code>.</p>
+     *
+     * <pre>
+     * StringUtils.defaultIfEmpty(null, "NULL")  = "NULL"
+     * StringUtils.defaultIfEmpty("", "NULL")    = "NULL"
+     * StringUtils.defaultIfEmpty("bat", "NULL") = "bat"
+     * </pre>
+     *
+     * @see StringUtils#defaultString(String, String)
+     * @param str  the String to check, may be null
+     * @param defaultStr  the default String to return
+     *  if the input is empty ("") or <code>null</code>, may be null
+     * @return the passed in String, or the default
+     */
+    public static String defaultIfEmpty(String str, String defaultStr) {
+        return StringUtils.isEmpty(str) ? defaultStr : str;
     }
 
     // Reversing
