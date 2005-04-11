@@ -33,7 +33,7 @@ public class Interpolation {
     }
 
     /**
-     * <p>Interpolates a String to replace variables of the form <code>${...}</code>.</p>
+     * <p>Interpolates a String to replace variables of the form <code>${variable}</code>.</p>
      * 
      * <p>This method is useful for enabling simple strings to be modified based
      * on a map of data. A typical use case might be to add data from configuration
@@ -110,7 +110,7 @@ public class Interpolation {
     }
 
     /**
-     * <p>Interpolates a String to replace variables of the form <code>${...}</code>
+     * <p>Interpolates a String to replace variables of the form <code>${variable}</code>
      * where the replace strings may also contain variables to interpolate.</p>
      * 
      * <p>This method is useful for enabling simple strings to be modified based

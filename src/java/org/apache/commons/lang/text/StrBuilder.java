@@ -54,6 +54,11 @@ import java.util.Iterator;
  */
 public class StrBuilder implements Cloneable {
 
+    /**
+     * The extra capacity for new builders.
+     */
+    static final int CAPACITY = 32;
+
     /** Serialization lock. */
     private static final long serialVersionUID = 7628716375283629643L;
 
@@ -80,7 +85,7 @@ public class StrBuilder implements Cloneable {
     public StrBuilder(int initialCapacity) {
         super();
         if (initialCapacity <= 0) {
-            initialCapacity = 32;
+            initialCapacity = CAPACITY;
         }
         buf = new char[initialCapacity];
     }
@@ -209,7 +214,7 @@ public class StrBuilder implements Cloneable {
     /**
      * Clears the string builder (convenience Collections API style method).
      * <p>
-     * This method is the same as {@link #setLength(0)} and is provided to match the
+     * This method is the same as {@link #setLength(int)} and is provided to match the
      * API of Collections.
      */
     public void clear() {
@@ -221,9 +226,10 @@ public class StrBuilder implements Cloneable {
      * <p>
      * This method is the same as checking {@link #length()} and is provided to match the
      * API of Collections.
+     * @return <code>true</code> if the size is <code>0</code>.
      */
     public boolean isEmpty() {
-        return (size == 0);
+        return size == 0;
     }
 
     //-----------------------------------------------------------------------
@@ -324,7 +330,6 @@ public class StrBuilder implements Cloneable {
     /**
      * Appends the text representing <code>null</code> to the string builder.
      *
-     * @param obj  the object to append
      * @return this, to enable chaining
      */
     public StrBuilder appendNull() {
@@ -491,7 +496,7 @@ public class StrBuilder implements Cloneable {
     /**
      * Appends a char value to the string builder.
      *
-     * @param value  the value to append
+     * @param ch  the value to append
      * @return this, to enable chaining
      */
     public StrBuilder append(char ch) {
@@ -1090,7 +1095,7 @@ public class StrBuilder implements Cloneable {
     /**
      * Extracts a portion of this string builder as a string.
      * 
-     * @param startIndex  the start index, inclusive, must be valid
+     * @param start  the start index, inclusive, must be valid
      * @return the new string
      * @throws StringIndexOutOfBoundsException if the index is invalid
      */
@@ -1214,7 +1219,7 @@ public class StrBuilder implements Cloneable {
      * @return true if the builder contains the string
      */
     public boolean contains(String str) {
-        return (indexOf(str, 0) >= 0);
+        return indexOf(str, 0) >= 0;
     }
 
     //-----------------------------------------------------------------------
