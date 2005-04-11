@@ -399,7 +399,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return the String result
      * @throws IllegalArgumentException
      *                  if the Object is <code>null</code>
-     * @since 2.1
+     * @since 2.0
      */
     public static String toString(Object object, ToStringStyle style, boolean outputTransients, Class reflectUpToClass) {
         return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients).toString();
