@@ -52,6 +52,7 @@ public class MappedMessageFormat {
      * Constructs a new instance.
      */
     public MappedMessageFormat() {
+        // no initialization.
     }
     
     /**
