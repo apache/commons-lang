@@ -84,7 +84,7 @@ public class BooleanUtils {
         if (bool == null) {
             return false;
         }
-        return (bool.booleanValue() ? true : false);
+        return bool.booleanValue() ? true : false;
     }
 
     /**
@@ -104,7 +104,7 @@ public class BooleanUtils {
         if (bool == null) {
             return false;
         }
-        return (bool.booleanValue() ? false : true);
+        return bool.booleanValue() ? false : true;
     }
 
     /**
@@ -121,7 +121,7 @@ public class BooleanUtils {
      * @return Boolean.TRUE or Boolean.FALSE as appropriate
      */
     public static Boolean toBooleanObject(boolean bool) {
-        return (bool ? Boolean.TRUE : Boolean.FALSE);
+        return bool ? Boolean.TRUE : Boolean.FALSE;
     }
     
     /**
@@ -142,7 +142,7 @@ public class BooleanUtils {
         if (bool == null) {
             return false;
         }
-        return (bool.booleanValue() ? true : false);
+        return bool.booleanValue() ? true : false;
     }
     
     /**
@@ -162,7 +162,7 @@ public class BooleanUtils {
         if (bool == null) {
             return valueIfNull;
         }
-        return (bool.booleanValue() ? true : false);
+        return bool.booleanValue() ? true : false;
     }
     
     // Integer to Boolean methods
@@ -182,7 +182,7 @@ public class BooleanUtils {
      *  if zero
      */
     public static boolean toBoolean(int value) {
-        return (value == 0 ? false : true);
+        return value == 0 ? false : true;
     }
     
     /**
@@ -200,7 +200,7 @@ public class BooleanUtils {
      *  <code>null</code> if <code>null</code>
      */
     public static Boolean toBooleanObject(int value) {
-        return (value == 0 ? Boolean.FALSE : Boolean.TRUE);
+        return value == 0 ? Boolean.FALSE : Boolean.TRUE;
     }
     
     /**
@@ -223,7 +223,7 @@ public class BooleanUtils {
         if (value == null) {
             return null;
         }
-        return (value.intValue() == 0 ? Boolean.FALSE : Boolean.TRUE);
+        return value.intValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
     }
     
     /**
@@ -369,7 +369,7 @@ public class BooleanUtils {
      * @return one if <code>true</code>, zero if <code>false</code>
      */
     public static int toInteger(boolean bool) {
-        return (bool ? 1 : 0);
+        return bool ? 1 : 0;
     }
     
     /**
@@ -385,7 +385,7 @@ public class BooleanUtils {
      * @return one if <code>true</code>, zero if <code>false</code>
      */
     public static Integer toIntegerObject(boolean bool) {
-        return (bool ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO);
+        return bool ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO;
     }
     
     /**
@@ -406,7 +406,7 @@ public class BooleanUtils {
         if (bool == null) {
             return null;
         }
-        return (bool.booleanValue() ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO);
+        return bool.booleanValue() ? NumberUtils.INTEGER_ONE : NumberUtils.INTEGER_ZERO;
     }
     
     /**
@@ -423,7 +423,7 @@ public class BooleanUtils {
      * @return the appropriate value
      */
     public static int toInteger(boolean bool, int trueValue, int falseValue) {
-        return (bool ? trueValue : falseValue);
+        return bool ? trueValue : falseValue;
     }
     
     /**
@@ -445,7 +445,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullValue;
         }
-        return (bool.booleanValue() ? trueValue : falseValue);
+        return bool.booleanValue() ? trueValue : falseValue;
     }
     
     /**
@@ -464,7 +464,7 @@ public class BooleanUtils {
      * @return the appropriate value
      */
     public static Integer toIntegerObject(boolean bool, Integer trueValue, Integer falseValue) {
-        return (bool ? trueValue : falseValue);
+        return bool ? trueValue : falseValue;
     }
     
     /**
@@ -489,7 +489,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullValue;
         }
-        return (bool.booleanValue() ? trueValue : falseValue);
+        return bool.booleanValue() ? trueValue : falseValue;
     }
     
     // String to Boolean methods
@@ -778,7 +778,7 @@ public class BooleanUtils {
         if (bool == null) {
             return nullString;
         }
-        return (bool.booleanValue() ? trueString : falseString);
+        return bool.booleanValue() ? trueString : falseString;
     }
     
     // boolean to String methods
@@ -850,7 +850,7 @@ public class BooleanUtils {
      * @return one of the two input Strings
      */
     public static String toString(boolean bool, String trueString, String falseString) {
-        return (bool ? trueString : falseString);
+        return bool ? trueString : falseString;
     }
     
     // xor methods
@@ -922,7 +922,7 @@ public class BooleanUtils {
         } catch (NullPointerException ex) {
             throw new IllegalArgumentException("The array must not contain any null elements");
         }
-        return (xor(primitive) ? Boolean.TRUE : Boolean.FALSE);
+        return xor(primitive) ? Boolean.TRUE : Boolean.FALSE;
     }
 
 }

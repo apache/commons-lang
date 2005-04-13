@@ -1239,7 +1239,7 @@ public class SystemUtils {
      *  than the required version
      */
     public static boolean isJavaVersionAtLeast(float requiredVersion) {
-        return (JAVA_VERSION_FLOAT >= requiredVersion);
+        return JAVA_VERSION_FLOAT >= requiredVersion;
     }
     
     /**
@@ -1257,7 +1257,7 @@ public class SystemUtils {
      * @since 2.0
      */
     public static boolean isJavaVersionAtLeast(int requiredVersion) {
-        return (JAVA_VERSION_INT >= requiredVersion);
+        return JAVA_VERSION_INT >= requiredVersion;
     }
 
     /**

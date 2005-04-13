@@ -342,7 +342,7 @@ public class ExceptionUtils {
      * @since 2.0
      */
     public static boolean isThrowableNested() {
-        return (THROWABLE_CAUSE_METHOD != null);
+        return THROWABLE_CAUSE_METHOD != null;
     }
     
     /**

@@ -171,7 +171,7 @@ public class MutableLong extends Number implements Comparable, Mutable {
     public int compareTo(Object obj) {
         MutableLong other = (MutableLong) obj;
         long anotherVal = other.value;
-        return (value < anotherVal ? -1 : (value == anotherVal ? 0 : 1));
+        return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }
 
     /**

@@ -155,7 +155,7 @@ public class MutableShort extends Number implements Comparable, Mutable {
      */
     public boolean equals(Object obj) {
         if (obj instanceof MutableShort) {
-            return (value == ((MutableShort) obj).shortValue());
+            return value == ((MutableShort) obj).shortValue();
         }
         return false;
     }
@@ -180,7 +180,7 @@ public class MutableShort extends Number implements Comparable, Mutable {
     public int compareTo(Object obj) {
         MutableShort other = (MutableShort) obj;
         short anotherVal = other.value;
-        return (value < anotherVal ? -1 : (value == anotherVal ? 0 : 1));
+        return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }
 
     /**

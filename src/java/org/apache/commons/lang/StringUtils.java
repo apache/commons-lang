@@ -430,7 +430,7 @@ public class StringUtils {
             return null;
         }
         str = strip(str, null);
-        return (str.length() == 0 ? null : str);
+        return str.length() == 0 ? null : str;
     }
 
     /**
@@ -456,7 +456,7 @@ public class StringUtils {
      * @since 2.0
      */
     public static String stripToEmpty(String str) {
-        return (str == null ? EMPTY : strip(str, null));
+        return str == null ? EMPTY : strip(str, null);
     }
 
     /**
@@ -666,7 +666,7 @@ public class StringUtils {
      *  both <code>null</code>
      */
     public static boolean equals(String str1, String str2) {
-        return (str1 == null ? str2 == null : str1.equals(str2));
+        return str1 == null ? str2 == null : str1.equals(str2);
     }
 
     /**
@@ -691,7 +691,7 @@ public class StringUtils {
      *  both <code>null</code>
      */
     public static boolean equalsIgnoreCase(String str1, String str2) {
-        return (str1 == null ? str2 == null : str1.equalsIgnoreCase(str2));
+        return str1 == null ? str2 == null : str1.equalsIgnoreCase(str2);
     }
 
     // IndexOf
@@ -1022,7 +1022,7 @@ public class StringUtils {
         if (isEmpty(str)) {
             return false;
         }
-        return (str.indexOf(searchChar) >= 0);
+        return str.indexOf(searchChar) >= 0;
     }
 
     /**
@@ -1050,7 +1050,7 @@ public class StringUtils {
         if (str == null || searchStr == null) {
             return false;
         }
-        return (str.indexOf(searchStr) >= 0);
+        return str.indexOf(searchStr) >= 0;
     }
 
     // IndexOfAny chars

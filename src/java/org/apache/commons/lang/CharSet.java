@@ -254,7 +254,7 @@ public class CharSet implements Serializable {
             return false;
         }
         CharSet other = (CharSet) obj;
-        return (set.equals(other.set));
+        return set.equals(other.set);
     }
 
     /**

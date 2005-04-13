@@ -134,7 +134,7 @@ import org.apache.commons.lang.StringUtils;
  *       super("Plus");
  *     }
  *     public int eval(int a, int b) {
- *       return (a + b);
+ *       return a + b;
  *     }
  *   }
  *   public static final OperationEnum MINUS = new MinusOperation();
@@ -143,7 +143,7 @@ import org.apache.commons.lang.StringUtils;
  *       super("Minus");
  *     }
  *     public int eval(int a, int b) {
- *       return (a - b);
+ *       return a - b;
  *     }
  *   }
  *

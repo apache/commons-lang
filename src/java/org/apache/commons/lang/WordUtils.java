@@ -114,7 +114,7 @@ public class WordUtils {
 //            }
 //        }
 //
-//        return (stringBuffer.toString());
+//        return stringBuffer.toString();
 //    }
 
     // Wrapping

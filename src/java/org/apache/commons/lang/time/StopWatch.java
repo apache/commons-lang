@@ -207,13 +207,13 @@ public class StopWatch {
      */
     public long getTime() {
         if(this.runningState == STATE_STOPPED || this.runningState == STATE_SUSPENDED) {
-            return (this.stopTime - this.startTime);
+            return this.stopTime - this.startTime;
         } else
         if(this.runningState == STATE_UNSTARTED) {
             return 0;
         } else
         if(this.runningState == STATE_RUNNING) {
-            return (System.currentTimeMillis() - this.startTime);
+            return System.currentTimeMillis() - this.startTime;
         }
         throw new RuntimeException("Illegal running state has occured. ");
     }
@@ -232,7 +232,7 @@ public class StopWatch {
         if(this.splitState != STATE_SPLIT) {
             throw new IllegalStateException("Stopwatch must be split to get the split time. ");
         }
-        return (this.stopTime - this.startTime);
+        return this.stopTime - this.startTime;
     }
 
     /**

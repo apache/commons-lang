@@ -83,7 +83,7 @@ public class ObjectUtils {
      * @return <code>object</code> if it is not <code>null</code>, defaultValue otherwise
      */
     public static Object defaultIfNull(Object object, Object defaultValue) {
-        return (object != null ? object : defaultValue);
+        return object != null ? object : defaultValue;
     }
 
     /**
@@ -129,7 +129,7 @@ public class ObjectUtils {
      * @since 2.1
      */
     public static int hashCode(Object obj) {
-        return ((obj == null) ? 0 : obj.hashCode());
+        return (obj == null) ? 0 : obj.hashCode();
     }
 
     // Identity ToString
@@ -208,7 +208,7 @@ public class ObjectUtils {
      * @since 2.0
      */
     public static String toString(Object obj) {
-        return (obj == null ? "" : obj.toString());
+        return obj == null ? "" : obj.toString();
     }
 
     /**
@@ -231,7 +231,7 @@ public class ObjectUtils {
      * @since 2.0
      */
     public static String toString(Object obj, String nullStr) {
-        return (obj == null ? nullStr : obj.toString());
+        return obj == null ? nullStr : obj.toString();
     }
 
     // Null
