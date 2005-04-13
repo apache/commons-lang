@@ -157,7 +157,7 @@ public class NestableDelegate implements Serializable {
             }
 
         }
-        return (msg.length() > 0 ? msg.toString() : null);
+        return msg.length() > 0 ? msg.toString() : null;
     }
 
     /**

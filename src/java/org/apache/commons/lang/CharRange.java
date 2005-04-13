@@ -145,7 +145,7 @@ public final class CharRange implements Serializable {
      * @return <code>true</code> if this range contains the input character
      */
     public boolean contains(char ch) {
-        return ((ch >= start && ch <= end) != negated);
+        return (ch >= start && ch <= end) != negated;
     }
 
     /**
@@ -162,15 +162,15 @@ public final class CharRange implements Serializable {
         }
         if (negated) {
             if (range.negated) {
-                return (start >= range.start && end <= range.end);
+                return start >= range.start && end <= range.end;
             } else {
-                return (range.end < start || range.start > end);
+                return range.end < start || range.start > end;
             }
         } else {
             if (range.negated) {
-                return (start == 0 && end == Character.MAX_VALUE);
+                return start == 0 && end == Character.MAX_VALUE;
             } else {
-                return (start <= range.start && end >= range.end);
+                return start <= range.start && end >= range.end;
             }
         }
     }
@@ -192,7 +192,7 @@ public final class CharRange implements Serializable {
             return false;
         }
         CharRange other = (CharRange) obj;
-        return (start == other.start && end == other.end && negated == other.negated);
+        return start == other.start && end == other.end && negated == other.negated;
     }
 
     /**

@@ -276,7 +276,7 @@ public final class IntRange extends Range implements Serializable {
      *  range by <code>int</code> comparison
      */
     public boolean containsInteger(int value) {
-        return (value >= min && value <= max);
+        return value >= min && value <= max;
     }
 
     // Range tests
@@ -337,7 +337,7 @@ public final class IntRange extends Range implements Serializable {
             return false;
         }
         IntRange range = (IntRange) obj;
-        return (min == range.min && max == range.max);
+        return min == range.min && max == range.max;
     }
 
     /**

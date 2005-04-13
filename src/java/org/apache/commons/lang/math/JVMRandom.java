@@ -136,7 +136,7 @@ public final class JVMRandom extends Random {
      * @return the random boolean
      */
     public boolean nextBoolean() {
-        return (Math.random() > 0.5);
+        return Math.random() > 0.5;
     }
     /**
      * <p>Returns the next pseudorandom, uniformly distributed float value

@@ -83,7 +83,7 @@ public class MutableObject implements Mutable, Serializable {
     public boolean equals(Object obj) {
         if (obj instanceof MutableObject) {
             Object other = ((MutableObject) obj).value;
-            return (value == other || (value != null && value.equals(other)));
+            return value == other || (value != null && value.equals(other));
         }
         return false;
     }
@@ -94,7 +94,7 @@ public class MutableObject implements Mutable, Serializable {
      * @return the value's hash code or <code>0</code> if the value is <code>null</code>.
      */
     public int hashCode() {
-        return (value == null ? 0 : value.hashCode());
+        return value == null ? 0 : value.hashCode();
     }
 
     /**
@@ -103,7 +103,7 @@ public class MutableObject implements Mutable, Serializable {
      * @return the mutable value as a string
      */
     public String toString() {
-        return (value == null ? "null" : value.toString());
+        return value == null ? "null" : value.toString();
     }
 
 }

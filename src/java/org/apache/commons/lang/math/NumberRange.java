@@ -169,7 +169,7 @@ public final class NumberRange extends Range implements Serializable {
         }
         int compareMin = ((Comparable) min).compareTo(number);
         int compareMax = ((Comparable) max).compareTo(number);
-        return (compareMin <= 0 && compareMax >= 0);
+        return compareMin <= 0 && compareMax >= 0;
     }
 
     // Range tests

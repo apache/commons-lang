@@ -305,7 +305,7 @@ public final class DoubleRange extends Range implements Serializable {
      *  range by <code>double</code> comparison
      */
     public boolean containsDouble(double value) {
-        return (value >= min && value <= max);
+        return value >= min && value <= max;
     }
 
     // Range tests

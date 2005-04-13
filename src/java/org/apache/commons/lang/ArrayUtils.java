@@ -1302,7 +1302,7 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(Object[] array, Object objectToFind) {
-        return (indexOf(array, objectToFind) != -1);
+        return indexOf(array, objectToFind) != -1;
     }
 
     // long IndexOf
@@ -1405,7 +1405,7 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(long[] array, long valueToFind) {
-        return (indexOf(array, valueToFind) != -1);
+        return indexOf(array, valueToFind) != -1;
     }
 
     // int IndexOf
@@ -1508,7 +1508,7 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(int[] array, int valueToFind) {
-        return (indexOf(array, valueToFind) != -1);
+        return indexOf(array, valueToFind) != -1;
     }
 
     // short IndexOf
@@ -1611,7 +1611,7 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(short[] array, short valueToFind) {
-        return (indexOf(array, valueToFind) != -1);
+        return indexOf(array, valueToFind) != -1;
     }
 
     // char IndexOf
@@ -1719,7 +1719,7 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean contains(char[] array, char valueToFind) {
-        return (indexOf(array, valueToFind) != -1);
+        return indexOf(array, valueToFind) != -1;
     }
 
     // byte IndexOf
@@ -1822,7 +1822,7 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(byte[] array, byte valueToFind) {
-        return (indexOf(array, valueToFind) != -1);
+        return indexOf(array, valueToFind) != -1;
     }
 
     // double IndexOf
@@ -2029,7 +2029,7 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(double[] array, double valueToFind) {
-        return (indexOf(array, valueToFind) != -1);
+        return indexOf(array, valueToFind) != -1;
     }
 
     /**
@@ -2046,7 +2046,7 @@ public class ArrayUtils {
      * @return true if value falling within tolerance is in array
      */
     public static boolean contains(double[] array, double valueToFind, double tolerance) {
-        return (indexOf(array, valueToFind, 0, tolerance) != -1);
+        return indexOf(array, valueToFind, 0, tolerance) != -1;
     }
 
     // float IndexOf
@@ -2149,7 +2149,7 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(float[] array, float valueToFind) {
-        return (indexOf(array, valueToFind) != -1);
+        return indexOf(array, valueToFind) != -1;
     }
 
     // boolean IndexOf
@@ -2252,7 +2252,7 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(boolean[] array, boolean valueToFind) {
-        return (indexOf(array, valueToFind) != -1);
+        return indexOf(array, valueToFind) != -1;
     }
 
     // Primitive/Object array converters

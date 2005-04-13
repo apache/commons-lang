@@ -146,7 +146,7 @@ public class MutableInt extends Number implements Comparable, Mutable {
      */
     public boolean equals(Object obj) {
         if (obj instanceof MutableInt) {
-            return (value == ((MutableInt) obj).intValue());
+            return value == ((MutableInt) obj).intValue();
         }
         return false;
     }
@@ -171,7 +171,7 @@ public class MutableInt extends Number implements Comparable, Mutable {
     public int compareTo(Object obj) {
         MutableInt other = (MutableInt) obj;
         int anotherVal = other.value;
-        return (value < anotherVal ? -1 : (value == anotherVal ? 0 : 1));
+        return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }
 
     /**

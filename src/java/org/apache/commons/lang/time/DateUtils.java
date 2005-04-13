@@ -185,7 +185,7 @@ public class DateUtils {
         if (date1 == null || date2 == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        return (date1.getTime() == date2.getTime());
+        return date1.getTime() == date2.getTime();
     }
 
     /**
@@ -203,7 +203,7 @@ public class DateUtils {
         if (cal1 == null || cal2 == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-        return (cal1.getTime().getTime() == cal2.getTime().getTime());
+        return cal1.getTime().getTime() == cal2.getTime().getTime();
     }
 
     //-----------------------------------------------------------------------

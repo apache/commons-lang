@@ -219,7 +219,7 @@ public class CharUtils {
         if (isAsciiNumeric(ch) == false) {
             throw new IllegalArgumentException("The character " + ch + " is not in the range '0' - '9'");
         }
-        return (ch - 48);
+        return ch - 48;
     }
     
     /**
@@ -241,7 +241,7 @@ public class CharUtils {
         if (isAsciiNumeric(ch) == false) {
             return defaultValue;
         }
-        return (ch - 48);
+        return ch - 48;
     }
     
     /**
@@ -403,7 +403,7 @@ public class CharUtils {
      * @return true if less than 128
      */
     public static boolean isAscii(char ch) {
-        return (ch < 128);
+        return ch < 128;
     }
     
     /**
@@ -422,7 +422,7 @@ public class CharUtils {
      * @return true if between 32 and 126 inclusive
      */
     public static boolean isAsciiPrintable(char ch) {
-        return (ch >= 32 && ch < 127);
+        return ch >= 32 && ch < 127;
     }
     
     /**
@@ -441,7 +441,7 @@ public class CharUtils {
      * @return true if less than 32 or equals 127
      */
     public static boolean isAsciiControl(char ch) {
-        return (ch < 32 || ch == 127);
+        return ch < 32 || ch == 127;
     }
     
     /**
@@ -479,7 +479,7 @@ public class CharUtils {
      * @return true if between 65 and 90 inclusive
      */
     public static boolean isAsciiAlphaUpper(char ch) {
-        return (ch >= 'A' && ch <= 'Z');
+        return ch >= 'A' && ch <= 'Z';
     }
     
     /**
@@ -498,7 +498,7 @@ public class CharUtils {
      * @return true if between 97 and 122 inclusive
      */
     public static boolean isAsciiAlphaLower(char ch) {
-        return (ch >= 'a' && ch <= 'z');
+        return ch >= 'a' && ch <= 'z';
     }
     
     /**
@@ -517,7 +517,7 @@ public class CharUtils {
      * @return true if between 48 and 57 inclusive
      */
     public static boolean isAsciiNumeric(char ch) {
-        return (ch >= '0' && ch <= '9');
+        return ch >= '0' && ch <= '9';
     }
     
     /**

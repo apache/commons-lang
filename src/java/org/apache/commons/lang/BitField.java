@@ -98,7 +98,7 @@ public class BitField {
      * @return the selected bits
      */
     public int getRawValue(int holder) {
-        return (holder & _mask);
+        return holder & _mask;
     }
 
     /**

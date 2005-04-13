@@ -289,7 +289,7 @@ public final class LongRange extends Range implements Serializable {
      *  range by <code>long</code> comparison
      */
     public boolean containsLong(long value) {
-        return (value >= min && value <= max);
+        return value >= min && value <= max;
     }
 
     // Range tests
@@ -350,7 +350,7 @@ public final class LongRange extends Range implements Serializable {
             return false;
         }
         LongRange range = (LongRange) obj;
-        return (min == range.min && max == range.max);
+        return min == range.min && max == range.max;
     }
 
     /**

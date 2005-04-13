@@ -198,7 +198,7 @@ public abstract class Range {
      *  range by <code>long</code> comparison
      */
     public boolean containsLong(long value) {
-        return (value >= getMinimumLong() && value <= getMaximumLong());
+        return value >= getMinimumLong() && value <= getMaximumLong();
     }
 
     /**
@@ -232,7 +232,7 @@ public abstract class Range {
      *  range by <code>int</code> comparison
      */
     public boolean containsInteger(int value) {
-        return (value >= getMinimumInteger() && value <= getMaximumInteger());
+        return value >= getMinimumInteger() && value <= getMaximumInteger();
     }
 
     /**
@@ -268,7 +268,7 @@ public abstract class Range {
     public boolean containsDouble(double value) {
         int compareMin = NumberUtils.compare(getMinimumDouble(), value);
         int compareMax = NumberUtils.compare(getMaximumDouble(), value);
-        return (compareMin <= 0 && compareMax >= 0);
+        return compareMin <= 0 && compareMax >= 0;
     }
 
     /**
@@ -304,7 +304,7 @@ public abstract class Range {
     public boolean containsFloat(float value) {
         int compareMin = NumberUtils.compare(getMinimumFloat(), value);
         int compareMax = NumberUtils.compare(getMaximumFloat(), value);
-        return (compareMin <= 0 && compareMax >= 0);
+        return compareMin <= 0 && compareMax >= 0;
     }
 
     // Range tests

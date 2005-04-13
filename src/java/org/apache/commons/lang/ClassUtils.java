@@ -494,7 +494,7 @@ public class ClassUtils {
         if (cls == null) {
             return false;
         }
-        return (cls.getName().indexOf(INNER_CLASS_SEPARATOR_CHAR) >= 0);
+        return cls.getName().indexOf(INNER_CLASS_SEPARATOR_CHAR) >= 0;
     }
 
 }

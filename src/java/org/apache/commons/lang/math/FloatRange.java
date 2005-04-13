@@ -301,7 +301,7 @@ public final class FloatRange extends Range implements Serializable {
      *  range by <code>float</code> comparison
      */
     public boolean containsFloat(float value) {
-        return (value >= min && value <= max);
+        return value >= min && value <= max;
     }
 
     // Range tests

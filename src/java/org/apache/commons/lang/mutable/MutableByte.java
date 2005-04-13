@@ -180,7 +180,7 @@ public class MutableByte extends Number implements Comparable, Mutable {
     public int compareTo(Object obj) {
         MutableByte other = (MutableByte) obj;
         byte anotherVal = other.value;
-        return (value < anotherVal ? -1 : (value == anotherVal ? 0 : 1));
+        return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }
 
     /**
