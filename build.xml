@@ -99,7 +99,7 @@ limitations under the License.
 	        	 version="true"
 	        	 doctitle="&lt;h1&gt;${component.title}&lt;/h1&gt;"
 	        	 windowtitle="${component.title} (Version ${component.version})"
-	        	 bottom="Copyright &amp;copy; 2001-2003 - Apache Software Foundation"
+	        	 bottom="Copyright &amp;copy; 2001-${copyright.end} - Apache Software Foundation"
 	        	 use="true"
 	        	 link="${jdk.javadoc}"
                  source="${compile.source}">
