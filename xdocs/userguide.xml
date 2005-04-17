@@ -179,6 +179,8 @@ public final class ColorEnum extends Enum {
    MutableObject
    MutableShort
    -->
+    <p>New in 2.1, the mutable package provides mutable wrappers for primitive values (such as int, long, etc.) and Object. These wrappers are simiar to the wrappers provided by the Java API, but allow the wrapped value to be changed without needing to create a separate wrapper object.
+    </p>
    </section>
 
    <section name="lang.time.*">
@@ -190,6 +192,7 @@ public final class ColorEnum extends Enum {
    StopWatch
    -->
     <p>Lang 2.0 saw the arrival of a time package. It contains some basic utilities for manipulating time (a delorean, police box and grandfather clock?). These include a StopWatch for simple performance measurements and an optimised FastDateFormat class. </p>
+    <p>New in Lang 2.1 is the DurationFormatUtils class, which provides various methods for formatting durations. </p>
    </section>
 
    <section name="lang.text.*">
@@ -200,7 +203,7 @@ public final class ColorEnum extends Enum {
    </section>
 
    <section name="Next version of Lang">
-    <p>The next version of Lang will be 2.1. The most notable addition is a mutable package, but there are also new classes such as DurationFormatUtils [and ...]. </p>
+    <p>The next version of Lang is a work in progress. </p>
    </section>
 
 </body>
