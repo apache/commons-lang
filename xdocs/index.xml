@@ -42,7 +42,7 @@ building methods, such as hashCode, toString and equals.
 </section>
 
 <section name="Latest Release">
-<p>The latest release of Apache Jakarta Commons Lang is version 2.0. It is available (from mirrors) in <a href="http://jakarta.apache.org/site/binindex.cgi">binary</a> and <a href="http://jakarta.apache.org/site/sourceindex.cgi">source</a> downloads. The <a href="http://www.apache.org/dist/jakarta/commons/lang/RELEASE-NOTES.txt">release notes</a> explain all of the changes and bugs that were fixed between 1.0.1 and 2.0. In addition, <a href="http://jdiff.sourceforge.net/">JDiff</a> has been used to create a <a href="http://jakarta.apache.org/commons/lang/Commons-Lang-1.0.1-to-2.0/changes.html">report</a> on the differences between 1.0.1 and 2.0. </p>
+<p>The latest release of Apache Jakarta Commons Lang is version 2.1. It is available (from mirrors) in <a href="http://jakarta.apache.org/site/binindex.cgi">binary</a> and <a href="http://jakarta.apache.org/site/sourceindex.cgi">source</a> downloads. The <a href="http://www.apache.org/dist/jakarta/commons/lang/RELEASE-NOTES.txt">release notes</a> explain all of the changes and bugs that were fixed between 2.0 and 2.1. In addition, <a href="http://jdiff.sourceforge.net/">JDiff</a> has been used to create a <a href="http://jakarta.apache.org/commons/lang/Commons-Lang-2.0-to-2.1/changes.html">report</a> on the differences between 2.0 and 2.1. </p>
 </section>
 
 <section name="Documentation">
@@ -69,7 +69,8 @@ Bugs may be reported via the Bugzilla Management system. The following links may
 
 <section name="Releases">
 <ul>
-<li><a href="http://www.apache.org/dist/jakarta/commons/lang/">Version 2.0</a></li>
+<li><a href="http://www.apache.org/dist/jakarta/commons/lang/">Version 2.1</a></li>
+<li><a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-lang/v2.0/">Version 2.0</a></li>
 <li><a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-lang/v1.0.1/">Version 1.0.1</a></li>
 <li><a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-lang/v1.0/">Version 1.0</a></li>
 <li><a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-lang/v1.0-b1/">Version 1.0-b1</a></li>
