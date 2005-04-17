@@ -33,9 +33,9 @@ package org.apache.commons.lang;
 public class WordUtils {
 
     /**
-     * <p><code>WordWrapUtils</code> instances should NOT be constructed in
+     * <p><code>WordUtils</code> instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
-     * <code>WordWrapUtils.wrap("foo bar", 20);</code>.</p>
+     * <code>WordUtils.wrap("foo bar", 20);</code>.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
