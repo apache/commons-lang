@@ -31,6 +31,7 @@ $Id$<br />
 <a href="#PackageStructure">[Package Structure]</a>
 <a href="#UtilityClasses">[Utility Classes]</a>
 <a href="#Javadoc">[Javadoc]</a>
+<a href="#Building">[Building]</a>
 <br /><br />
 </div>
 
@@ -135,6 +136,21 @@ To avoid misplaced jeers of 'americanisation', the people making this decision l
 However, it's not something to get worked up about.
 Lots of spelling differences will creep in all over.</p>
 
+<a name="Building"></a>
+<h3>5.BUILDING</h3>
+<h4>Site Generation</h4>
+<p>Site generation via maven includes Clover report generation. Since Clover
+requires a license, the proper license file must be placed where the maven
+Clover plugin can find it. This can be done as follows:
+<ul>
+<li>Obtain the license file from the committers svn repository (clover.license)</li>
+<li>Copy clover.license to the lang base directory (the top level directory where project.xml, maven.xml, etc. reside).</li>
+<li>Copy clover.license to your maven repository Clover licenses directory, named clover-[version].license, where [version] is the version specified in the
+project.properties <b>maven.jar.clover</b> property. For example, if
+<b>maven.jar.clover</b> is set to <b>1.3.2</b>, then the clover license file
+name should be <b>clover-1.3.2.license</b>.</li>
+</ul>
+</p>
 </section>
 </body>
 </document>
