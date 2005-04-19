@@ -19,7 +19,7 @@ limitations under the License.
   
   <id>commons-lang</id>
   <name>Lang</name>
-  <currentVersion>2.1-dev</currentVersion>
+  <currentVersion>2.1-RC2</currentVersion>
   <inceptionYear>2001</inceptionYear>
   <shortDescription>Java Common Components</shortDescription>
   <description>
@@ -55,7 +55,7 @@ limitations under the License.
   
   <repository>
     <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/${pom.artifactId.substring(8)}/trunk</connection>
-    <url>http://svn.apache.org/repos/asf/jakarta/commons/proper/${pom.artifactId.substring(8)}/trunk</url>
+    <url>http://svn.apache.org/viewcvs/jakarta/commons/proper/${pom.artifactId.substring(8)}/trunk</url>
   </repository>
   
   <mailingLists>
@@ -89,7 +89,7 @@ limitations under the License.
       <id>scolebourne</id>
       <email>scolebourne@joda.org</email>
       <organization>SITA ATS Ltd</organization>
-      <timezone>00:00</timezone>
+      <timezone>0</timezone>
       <roles>
         <role>Java Developer</role>
       </roles>
@@ -106,11 +106,12 @@ limitations under the License.
     <developer>
       <name>Steven Caswell</name>
       <id>scaswell</id>
-      <email>steven@caswell.name</email>
+      <email>steven.caswell@gmail.com</email>
       <organization></organization>
       <roles>
         <role>Java Developer</role>
       </roles>
+      <timezone>-5</timezone>
     </developer>
     <developer>
       <name>Robert Burrell Donkin</name>
@@ -126,7 +127,7 @@ limitations under the License.
       <id>ggregory</id>
       <email>ggregory@seagullsw.com</email>
       <organization>Seagull Software</organization>
-      <timezone>-08:00</timezone>
+      <timezone>-8</timezone>
       <roles>
         <role>Java Developer</role>
       </roles>
