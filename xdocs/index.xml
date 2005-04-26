@@ -47,7 +47,7 @@ building methods, such as hashCode, toString and equals.
 
 <section name="Documentation">
 <p>
-An alphabetical list of the packages may be found in the <a href="http://cvs.apache.org/viewcvs/~checkout~/jakarta-commons/lang/STATUS.html">lang status document</a>.
+An alphabetical list of the packages may be found in the <a href="http://svn.apache.org/viewcvs.cgi/*checkout*/jakarta/commons/proper/lang/trunk/STATUS.html">lang status document</a>.
 </p>
 
 <p>
@@ -80,7 +80,7 @@ Bugs may be reported via the Bugzilla Management system. The following links may
 <section name="Repository">
 <ul>
 <li>
-<a href="http://cvs.apache.org/viewcvs/jakarta-commons/lang/">CVS Repository</a>
+<a href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/lang/trunk/">Subversion Repository</a>
 </li>
 </ul>
 </section>
