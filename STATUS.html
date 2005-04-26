@@ -45,8 +45,11 @@ The following principal classes are included:</p>
  <li><strong>ArrayUtils</strong> - Helper for manipulating arrays.</li>
  <li><strong>BitField</strong> - A class to assist with manipulating bits.</li>
  <li><strong>BooleanUtils</strong> - Helper for boolean and java.lang.Boolean.</li>
+ <li><strong>CharEncoding</strong> - Character encoding names required of every implementation of the Java platform.</li>
  <li><strong>CharRange</strong> - A range of characters.</li>
+ <li><strong>CharSet</strong> - A set of characters.</li>
  <li><strong>CharSetUtils</strong> - Methods for dealing with CharSets, which are sets of characters such as [a-z] and [abcdez].</li>
+ <li><strong>CharUtils</strong> - Helper for operations on char primities and Character objects.</li>
  <li><strong>ClassUtils</strong> - Helper for manipulating java.lang.Class objects.</li>
  <li><strong>ObjectUtils</strong> - Helper for java.lang.Object.</li>
  <li><strong>RandomStringUtils</strong> - Helper for creating randomised Strings.</li>
@@ -54,8 +57,8 @@ The following principal classes are included:</p>
  <li><strong>StringEscapeUtils</strong> - Utility for escaping and unescaping Strings.</li>
  <li><strong>StringUtils</strong> - Helper for java.lang.String.</li>
  <li><strong>SystemUtils</strong> - Utility class defining the Java system properties.</li>
- <li><strong>WordUtils</strong> - Utility for working with words.</li>
  <li><strong>Validate</strong> - A class to simplify method argument validation.</li>
+ <li><strong>WordUtils</strong> - Utility for working with words.</li>
 </ul></li>
 
 <li><strong>Builder package</strong> - A package for the creation of equals, hashCode, compareTo and toString methods.
@@ -64,9 +67,12 @@ The following principal classes are included:</p>
  <li><strong>EqualsBuilder</strong> - Helper for building equals methods.</li>
  <li><strong>HashCodeBuilder</strong> - Helper for building hashCode methods.</li>
  <li><strong>CompareToBuilder</strong> - Helper for building compareTo methods.</li>
+ <li><strong>ReflectionToStringBuilder</strong> - Helper for building toString methods using reflection.</li>
+ <li><strong>ToStringStyle</strong> - Controls string formatting for <strong>ToStringBuilder</strong>.</li>
+ <li><strong>StandardToStringStyle</strong> - Works with <strong>ToStringBuilder</strong> to create a toString.</li>
 </ul></li>
 
-<li><strong>Enum package</strong> - A package for the creation of enumerated types.
+<li><strong>Enums package</strong> - A package for the creation of enumerated types. Note: The package was previously named <strong>Enum</strong>.
 <ul>
  <li><strong>EnumUtils</strong> - Helper for manipulating enumerated types.</li>
  <li><strong>Enum</strong> - Abstract superclass for enumerated types to extend.</li>
@@ -77,24 +83,48 @@ The following principal classes are included:</p>
 <ul>
  <li><strong>ExceptionUtils</strong> - Helper for manipulating exceptions.</li>
  <li><strong>NestableException</strong> - An exception that supports a nested exception.</li>
- <li><strong>NestedRuntimeException</strong> - An exception that supports a nested exception.</li>
- <li><strong>NestedError</strong> - An exception that supports a nested exception.</li>
+ <li><strong>NestableRuntimeException</strong> - An exception that supports a nested exception.</li>
+ <li><strong>NestableError</strong> - An exception that supports a nested exception.</li>
 </ul></li>
 
 <li><strong>Math package</strong> - A package for simple business (not scientific) maths classes.
 <ul>
+ <li><strong>DoubleRange</strong> - Represents an inclusive range of doubles.</li>
+ <li><strong>FloatRange</strong> - Represents an inclusive range of floats.</li>
  <li><strong>Fraction</strong> - A fraction.</li>
+ <li><strong>IntRange</strong> - Represents an inclusive range of ints.</li>
  <li><strong>JVMRandom</strong> - An implementation of Random that does its best to appear to sit on top of java.lang.Math's private Random class.</li>
+ <li><strong>LongRange</strong> - Represents an inclusive range of longs.</li>
+ <li><strong>NumberRange</strong> - Represents an inclusive range of <strong>Number</strong> objects of the same type.</li>
  <li><strong>NumberUtils</strong> - Helper for java.lang.Number and its subclasses.</li>
- <li><strong>Range</strong> - A range of numbers, of which there are classes representing Numbers, ints, doubles, longs and floats.</li>
  <li><strong>RandomUtils</strong> - A utility class for working with random numbers.</li>
+ <li><strong>Range</strong> - A range of numbers, of which there are classes representing Numbers, ints, doubles, longs and floats.</li>
+</ul></li>
+
+<li><strong>Mutable package</strong> - A package for typed mutable wrappers to primitive values and Object.
+<ul>
+ <li><strong>MutableByte</strong> - A mutable byte wrapper.</li>
+ <li><strong>MutableDouble</strong> - A mutable double wrapper.</li>
+ <li><strong>MutableFloat</strong> - A mutable float wrapper.</li>
+ <li><strong>MutableInt</strong> - A mutable int wrapper.</li>
+ <li><strong>MutableLong</strong> - A mutable long wrapper.</li>
+ <li><strong>MutableObject</strong> - A mutable Object wrapper.</li>
+ <li><strong>MutableShort</strong> - A mutable short wrapper.</li>
+</ul></li>
+
+<li><strong>Text package</strong> - A package providing classes for handling and manipulating text.
+<ul>
+ <li><strong>Interpolation</strong> - Performs basic variable interpolation on a String for variables within a Map.</li>
+ <li><strong>MappedMessageFormat</strong> - Substitutes values from one or more maps into designated places within a String.</li>
+ <li><strong>StrBuilder</strong> - Builds a String from constituant parts providing a more flexible and powerful API than StringBuilder.</li>
+ <li><strong>StrTokenizer</strong> - Tokenizes a String based on delimiters and supporting quoting and ignored character concepts.</li>
 </ul></li>
 
 <li><strong>Time package</strong> - A package for date/time related utilities.
 <ul>
  <li><strong>DateFormatUtils</strong> - Aids in formatting Dates.</li>
  <li><strong>DateUtils</strong> - Aids in manipulating Dates.</li>
- <!--li><strong>DurationFormatUtils</strong> - Formats durations, represented by milliseconds.</li-->
+ <li><strong>DurationFormatUtils</strong> - Duration formatting utilities and constants.</li>
  <li><strong>FastDateFormat</strong> - Optimised version of SimpleDateFormat.</li>
  <li><strong>StopWatch</strong> - Records durations, represented by milliseconds.</li>
 </ul></li>
@@ -120,11 +150,11 @@ components for development and use:</p>
 <h3>3.  RELEASE INFO</h3>
 
 <p>Current Release: 
-<a href="http://www.apache.org/dist/jakarta/commons/lang/">Version 2.0</a>
+<a href="http://www.apache.org/dist/jakarta/commons/lang/">Version 2.1</a>
 </p>
 
 <p>Planned Next Release:  
-Version 2.1
+Undetermined
 </p>
 
 
@@ -143,18 +173,13 @@ Version 2.1
 Note that all are still under discussion, so please mail the list before actioning.</p>
 <ul>
 <li>DateRange/Duration class.</li>
-<li>DurationFormatUtils to be completed and made public.</li>
 <li>CloneUtils - utility class to enable cloning via various different mechanisms.</li>
 <li>StringUtils.reverseSplit(String, String delim, int count). Should basically be a 'reverseArray(reverseDelimitedString(split(txt, delim, count)))'.</li>
-<li>CharUtils - Utilities to work on a char[] in the same way as a String.</li>
 <li>AStringBuffer - A StringBuffer implementation with additional methods from StringUtils.</li>
 <li>O(n) - Document all algorithm-implementing methods with the order. Possibly with an O(n) on the end of each parameterm or with an @order tag.</li>
 <li>Money and Currency. Maybe separate project.</li>
 <li>Code examples - Document as many static methods as possible with example usage.</li>
-<li>Faster StringTokeniser - Is Java's slow?</li>
-<li>Mutable Number classes - like Integer/Double but mutable.</li>
 <li>StringUtilsNPE - A StringUtils that doesn't like nulls.</li>
-<li>CharSetUtils - refactor methods onto CharSet class.</li>
 </ul>
 
 
