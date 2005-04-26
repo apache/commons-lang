@@ -151,6 +151,20 @@ project.properties <b>maven.jar.clover</b> property. For example, if
 name should be <b>clover-1.3.2.license</b>.</li>
 </ul>
 </p>
+<h4>Building a Release</h4>
+<p>
+Commons Lang is intented to interoperate with Java version 1.2 and higher. To
+achieve this, the distribution must be built with JDK 1.2. Why? Over time the 
+base JDK has changed. Building with JDK 1.4 would make some things in Commons
+Lang not run with prior libraries. For example, new StringBuffer(StringBuffer) 
+was added after JDK1.2, but compiling under 1.4 could link to it. Run the code 
+under 1.2 and you get a NoSuchMethodError.
+</p>
+<p>
+To build a release, the distribution should be build with Ant using JDK 1.2.
+The Ant target <b>dist-build</b> in build.xml can be used to do this. The
+site can be build with Maven.
+</p>
 </section>
 </body>
 </document>
