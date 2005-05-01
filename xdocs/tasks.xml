@@ -31,7 +31,6 @@ The following tasks are on the TODO list:
 </p>
 
 <ul>
-<li>Write user guide</li>
 <li>Improve maven script to generate previous version javadoc as per collections</li>
 <li>DateRange/Duration class</li>
 <li>CloneUtils - utility class to enable cloning via various different mechanisms</li>
