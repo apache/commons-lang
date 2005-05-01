@@ -113,7 +113,7 @@ in &lt;code&gt;&lt;/code&gt;.</p>
 enclose with &lt;p&gt;&lt;/p&gt;.</p>
 
 <p>A longer description about what the class/interface/method is used for 
-and if it is needed how it is done. If it is nessesary include 
+and if it is needed how it is done. If it is necessary include 
 description of the parameters, what they are used for and how. Enclose 
 with &lt;p&gt;&lt;/p&gt; where it is needed, try to divide into smaller parts (not 
 to small!) to enhance readability of the generated Javadoc.</p>
