@@ -78,43 +78,43 @@ import java.util.ListIterator;
 public class StrTokenizer implements ListIterator, Cloneable {
 
     /**
-     * A Matcher which matches the comma character.
+     * Matches the comma character.
      * Best used for <code>delimiter</code>.
      */
     public static final Matcher COMMA_MATCHER = new CharMatcher(',');
     /**
-     * A Matcher which matches the tab character.
+     * Matches the tab character.
      * Best used for <code>delimiter</code>.
      */
     public static final Matcher TAB_MATCHER = new CharMatcher('\t');
     /**
-     * A Matcher which matches the space character.
+     * Matches the space character.
      * Best used for <code>delimiter</code>.
      */
     public static final Matcher SPACE_MATCHER = new CharMatcher(' ');
     /**
-     * A Matcher which matches the same characters as StringTokenizer,
+     * Matches the same characters as StringTokenizer,
      * namely space, tab, newline, formfeed.
      * Best used for <code>delimiter</code>.
      */
     public static final Matcher SPLIT_MATCHER = createCharSetMatcher(" \t\n\r\f");
     /**
-     * A Matcher which matches the double quote character.
+     * Matches the double quote character.
      * Best used for <code>quote</code>.
      */
     public static final Matcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
     /**
-     * A Matcher which matches the double quote character.
+     * Matches the double quote character.
      * Best used for <code>quote</code>.
      */
     public static final Matcher DOUBLE_QUOTE_MATCHER = new CharMatcher('"');
     /**
-     * A Matcher which matches the String trim() whitespace characters.
+     * Matches the String trim() whitespace characters.
      * Best used for <code>trimmer</code>.
      */
     public static final Matcher TRIM_MATCHER = new TrimMatcher();
     /**
-     * A Matcher that matches no characters. Don't use this for delimiters!
+     * Matches no characters. Don't use this for delimiters!
      * Best used for <code>trimmer</code>.
      */
     public static final Matcher NONE_MATCHER = new NoMatcher();
