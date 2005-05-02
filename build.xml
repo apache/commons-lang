@@ -148,7 +148,8 @@ limitations under the License.
                                 test.exception,
                                 test.math,
                                 test.mutable,
-                                test.time"
+                                test.text,
+						        test.time"
                                 description="Run all unit test cases">
         <echo message="Running tests ..."/>
     </target>
@@ -191,6 +192,13 @@ limitations under the License.
         <echo message="Running mutable package tests ..."/>
         <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
             <arg value="org.apache.commons.lang.mutable.MutableTestSuite"/>
+            <classpath refid="test.classpath"/>
+        </java>
+    </target>
+    <target name="test.text" depends="compile.tests">
+        <echo message="Running text package tests ..."/>
+        <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
+            <arg value="org.apache.commons.lang.text.TextTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
     </target>
