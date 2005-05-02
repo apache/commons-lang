@@ -49,6 +49,7 @@ public class TextTestSuite extends TestCase {
         TestSuite suite = new TestSuite();
         suite.setName("Commons-Lang-Text Tests");
         suite.addTest(InterpolationTest.suite());
+        suite.addTest(StrBuilderTest.suite());
         suite.addTest(StrTokenizerTest.suite());
         return suite;
     }
