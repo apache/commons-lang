@@ -1108,7 +1108,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     public static interface Matcher {
         /**
-         * Returns true if the specified character position matches.
+         * Returns <code>true</code> if the specified character position matches.
          * <p>
          * This method is called to check for a match.
          * The parameter <code>pos</code> represents the current position to be
