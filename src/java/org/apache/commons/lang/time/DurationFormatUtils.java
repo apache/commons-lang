@@ -229,7 +229,7 @@ public class DurationFormatUtils {
      * @return the time as a String
      */
     public static String formatPeriodISO(long startMillis, long endMillis) {
-        return formatPeriod(startMillis, endMillis, ISO_EXTENDED_FORMAT_PATTERN, false, TimeZone.getDefault() );
+        return formatPeriod(startMillis, endMillis, ISO_EXTENDED_FORMAT_PATTERN, false, TimeZone.getDefault());
     }
 
     /**
@@ -257,7 +257,8 @@ public class DurationFormatUtils {
      * @param timezone the millis are defined in
      * @return the time as a String
      */
-    public static String formatPeriod(long startMillis, long endMillis, String format, boolean padWithZeros, TimeZone timezone) {
+    public static String formatPeriod(long startMillis, long endMillis, String format, boolean padWithZeros, 
+            TimeZone timezone) {
 
         long millis = endMillis - startMillis;
         if (millis < 28 * DateUtils.MILLIS_PER_DAY) {
@@ -368,9 +369,8 @@ public class DurationFormatUtils {
      * @param padWithZeros  whether to pad
      * @return the formetted string
      */
-    static String format(Token[] tokens, int years, int months, int days, int hours, 
-                                 int minutes, int seconds, int milliseconds, boolean padWithZeros) 
-    { 
+    static String format(Token[] tokens, int years, int months, int days, int hours, int minutes, int seconds,
+            int milliseconds, boolean padWithZeros) {
         StringBuffer buffer = new StringBuffer();
         boolean lastOutputSeconds = false;
         int sz = tokens.length;
@@ -378,40 +378,49 @@ public class DurationFormatUtils {
             Token token = tokens[i];
             Object value = token.getValue();
             int count = token.getCount();
-            if(value instanceof StringBuffer) {
+            if (value instanceof StringBuffer) {
                 buffer.append(value.toString());
             } else {
                 if (value == y) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(years), count, '0') : Integer.toString(years));
+                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(years), count, '0') : Integer
+                            .toString(years));
                     lastOutputSeconds = false;
                 } else if (value == M) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(months), count, '0') : Integer.toString(months));
+                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(months), count, '0') : Integer
+                            .toString(months));
                     lastOutputSeconds = false;
                 } else if (value == d) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(days), count, '0') : Integer.toString(days));
+                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(days), count, '0') : Integer
+                            .toString(days));
                     lastOutputSeconds = false;
                 } else if (value == H) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(hours), count, '0') : Integer.toString(hours));
+                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(hours), count, '0') : Integer
+                            .toString(hours));
                     lastOutputSeconds = false;
                 } else if (value == m) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(minutes), count, '0') : Integer.toString(minutes));
+                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(minutes), count, '0') : Integer
+                            .toString(minutes));
                     lastOutputSeconds = false;
                 } else if (value == s) {
-                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(seconds), count, '0') : Integer.toString(seconds));
+                    buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(seconds), count, '0') : Integer
+                            .toString(seconds));
                     lastOutputSeconds = true;
                 } else if (value == S) {
                     if (lastOutputSeconds) {
                         milliseconds += 1000;
-                        String str = padWithZeros ? StringUtils.leftPad(Integer.toString(milliseconds), count, '0') : Integer.toString(milliseconds);
+                        String str = padWithZeros
+                                ? StringUtils.leftPad(Integer.toString(milliseconds), count, '0')
+                                : Integer.toString(milliseconds);
                         buffer.append(str.substring(1));
                     } else {
-                        buffer.append(padWithZeros ? StringUtils.leftPad(Integer.toString(milliseconds), count, '0') : Integer.toString(milliseconds));
+                        buffer.append(padWithZeros
+                                ? StringUtils.leftPad(Integer.toString(milliseconds), count, '0')
+                                : Integer.toString(milliseconds));
                     }
                     lastOutputSeconds = false;
                 }
             }
         }
-        
         return buffer.toString();
     }
 

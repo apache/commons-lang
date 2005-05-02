@@ -518,18 +518,23 @@ public class Validate {
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument collection  is <code>null</code> or has elements that are not of 
-     * type <code>clazz</code> or a subclass.</p>
-     *
+     * <p>
+     * Validate an argument, throwing <code>IllegalArgumentException</code> if the argument collection is
+     * <code>null</code> or has elements that are not of type <code>clazz</code> or a subclass.
+     * </p>
+     * 
      * <pre>
      * Validate.allElementsOfType(collection, String.class);
      * </pre>
-     *
-     * <p>The message in the exception is 'The validated collection contains an element not of type clazz at index: '.</p>
      * 
-     * @param collection  the collection to check, not null
-     * @param clazz the <code>Class</code> which the collection's elements are expected to be, not null
+     * <p>
+     * The message in the exception is 'The validated collection contains an element not of type clazz at index: '.
+     * </p>
+     * 
+     * @param collection
+     *            the collection to check, not null
+     * @param clazz
+     *            the <code>Class</code> which the collection's elements are expected to be, not null
      * @since 2.1
      */
     public static void allElementsOfType(Collection collection, Class clazz) {

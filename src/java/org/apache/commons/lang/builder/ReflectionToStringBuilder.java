@@ -401,7 +401,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *                  if the Object is <code>null</code>
      * @since 2.0
      */
-    public static String toString(Object object, ToStringStyle style, boolean outputTransients, Class reflectUpToClass) {
+    public static String toString(Object object, ToStringStyle style, boolean outputTransients, 
+            Class reflectUpToClass) {
         return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients).toString();
     }
 

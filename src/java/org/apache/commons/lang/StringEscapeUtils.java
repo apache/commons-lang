@@ -400,7 +400,12 @@ public class StringEscapeUtils {
      * <p>Escapes the characters in a <code>String</code> using HTML entities.</p>
      *
      * <p>
-     * For example: <tt>"bread" & "butter"</tt> => <tt>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</tt>.
+     * For example:
+     * </p> 
+     * <p><code>"bread" & "butter"</code></p>
+     * becomes:
+     * <p>
+     * <code>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</code>.
      * </p>
      *
      * <p>Supports all known HTML 4.0 entities, including funky accents.</p>

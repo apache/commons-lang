@@ -424,7 +424,8 @@ public class SystemUtils {
      * @since 2.1
      * @since Java 1.4
      */
-    public static final String JAVA_UTIL_PREFS_PREFERENCES_FACTORY = getSystemProperty("java.util.prefs.PreferencesFactory");
+    public static final String JAVA_UTIL_PREFS_PREFERENCES_FACTORY = 
+        getSystemProperty("java.util.prefs.PreferencesFactory");
 
     /**
      * <p>The <code>java.vendor</code> System Property. Java vendor-specific string.</p>
