@@ -19,7 +19,7 @@ limitations under the License.
   
   <id>commons-lang</id>
   <name>Lang</name>
-  <currentVersion>2.1-RC4</currentVersion>
+  <currentVersion>2.1-RC5</currentVersion>
   <inceptionYear>2001</inceptionYear>
   <shortDescription>Java Common Components</shortDescription>
   <description>
@@ -106,7 +106,7 @@ limitations under the License.
     <developer>
       <name>Steven Caswell</name>
       <id>scaswell</id>
-      <email>steven.caswell@gmail.com</email>
+      <email>stevencaswell@apache.org</email>
       <organization></organization>
       <roles>
         <role>Java Developer</role>
@@ -364,6 +364,15 @@ limitations under the License.
   <build>
     	<nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
     	<sourceDirectory>src/java</sourceDirectory>
+        <sourceModifications>
+          <sourceModification>
+            <className>FakeClass</className>
+            <excludes>
+		<!-- text package excluded for the 2.1 release -->
+                <exclude>org/apache/commons/lang/text/**/*.java</exclude>
+            </excludes>
+          </sourceModification>
+        </sourceModifications>
     	<unitTestSourceDirectory>src/test</unitTestSourceDirectory>
     	<integrationUnitTestSourceDirectory/>
     	<aspectSourceDirectory/>
@@ -375,6 +384,8 @@ limitations under the License.
       		</includes>
       		<excludes>
         		<exclude>**/AllLangTestSuite.java</exclude>
+		        <!-- text package excluded for the 2.1 release -->
+			<exclude>org/apache/commons/lang/text/**/*.java</exclude>
       		</excludes>
             <resources>
                 <resource>
