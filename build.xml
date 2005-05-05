@@ -61,6 +61,7 @@ limitations under the License.
                deprecation="${compile.deprecation}"
                target="${compile.target}"
                source="${compile.source}"
+	       excludes="${compile.excludes}"
                optimize="${compile.optimize}">
             <classpath refid="compile.classpath"/>
         </javac>
@@ -95,6 +96,7 @@ limitations under the License.
 	        	 destdir="${dist.home}/docs/api"
 	        	 overview="${source.home}/org/apache/commons/lang/overview.html"
 	        	 packagenames="org.apache.commons.*"
+			 excludepackagenames="${javadoc.excludepackagenames}"
 	        	 author="true"
 	        	 version="true"
 	        	 doctitle="&lt;h1&gt;${component.title}&lt;/h1&gt;"
@@ -112,6 +114,10 @@ limitations under the License.
         <copy file="NOTICE.txt" todir="${dist.home}"/>
         <copy file="RELEASE-NOTES.txt" todir="${dist.home}"/>
         <antcall target="jar"/>
+    </target>
+    <target name="dist-build-2.1" description="Build binary distribution files excluding the text package">
+        <delete dir="src/java/org/apache/commons/lang/text"/>
+        <antcall target="dist-build"/>
     </target>
     <target name="dist-build" depends="clean,dist" description="Build binary distribution files">
         <mkdir dir="${final.name}"/>
