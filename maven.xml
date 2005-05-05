@@ -52,6 +52,10 @@ limitations under the License.
     <copy todir="${maven.dist.src.assembly.dir}/xdocs">
       <fileset dir="xdocs" />
     </copy>
+
+    <!-- remove text package for the 2.1 release -->
+    <delete dir="${maven.dist.src.assembly.dir}/src/java/org/apache/commons/lang/text"/>
+    <delete dir="${maven.dist.src.assembly.dir}/src/test/org/apache/commons/lang/text"/>
     
   </postGoal>
   
