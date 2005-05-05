@@ -37,7 +37,6 @@ $Id$<br />
       <a href="#lang.math.*">[lang.math.*]</a>
       <a href="#lang.mutable.*">[lang.mutable.*]</a>
       <a href="#lang.time.*">[lang.time.*]</a>
-      <a href="#lang.text.*">[lang.text.*]</a>
       <br /><br />
     </div>
   </section>
@@ -221,7 +220,6 @@ public final class ColorEnum extends Enum {
     <p>New in Lang 2.1 is the DurationFormatUtils class, which provides various methods for formatting durations. </p>
    </section>
 
-   <a name="lang.text.*"></a>
    <section name="lang.text.*">
    <!--
    Interpolation
