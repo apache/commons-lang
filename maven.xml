@@ -40,7 +40,7 @@ limitations under the License.
     <!-- Copy Files -->
     <copy todir="${maven.dist.src.assembly.dir}">
       <fileset dir=".">
-        <include name="RELEASE-NOTES.html"/>
+        <include name="RELEASE-NOTES.txt"/>
         <include name="NOTICE.txt"/>
         <include name="PROPOSAL.html"/>
         <include name="STATUS.html"/>
