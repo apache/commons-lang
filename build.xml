@@ -117,6 +117,7 @@ limitations under the License.
     </target>
     <target name="dist-build-2.1" description="Build binary distribution files excluding the text package">
         <delete dir="src/java/org/apache/commons/lang/text"/>
+        <delete dir="src/test/org/apache/commons/lang/text"/>
         <antcall target="dist-build"/>
     </target>
     <target name="dist-build" depends="clean,dist" description="Build binary distribution files">
@@ -146,6 +147,8 @@ limitations under the License.
         </copy>
     </target>
     <!-- ========== Unit Test Targets ========================================= -->
+<!-- removed test.text target from the depends list for the 2.1 release. It
+     should be reinstated when the text package is included -->
     <target name="test" depends="
                                 compile.tests, 
                                 test.lang,
@@ -154,7 +157,6 @@ limitations under the License.
                                 test.exception,
                                 test.math,
                                 test.mutable,
-                                test.text,
 						        test.time"
                                 description="Run all unit test cases">
         <echo message="Running tests ..."/>
