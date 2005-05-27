@@ -163,63 +163,63 @@ limitations under the License.
     </target>
     <target name="test.lang" depends="compile.tests">
         <echo message="Running lang package tests ..."/>
-        <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
+        <java classname="${test.runner}" fork="${test.fork}" failonerror="${test.failonerror}">
             <arg value="org.apache.commons.lang.LangTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
     </target>
     <target name="test.builder" depends="compile.tests">
         <echo message="Running builder package tests ..."/>
-        <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
+        <java classname="${test.runner}" fork="${test.fork}" failonerror="${test.failonerror}">
             <arg value="org.apache.commons.lang.builder.BuilderTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
     </target>
     <target name="test.enum" depends="compile.tests">
         <echo message="Running enum package tests ..."/>
-        <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
+        <java classname="${test.runner}" fork="${test.fork}" failonerror="${test.failonerror}">
             <arg value="org.apache.commons.lang.enum.EnumTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
     </target>
     <target name="test.exception" depends="compile.tests">
         <echo message="Running exception package tests ..."/>
-        <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
+        <java classname="${test.runner}" fork="${test.fork}" failonerror="${test.failonerror}">
             <arg value="org.apache.commons.lang.exception.ExceptionTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
     </target>
     <target name="test.math" depends="compile.tests">
         <echo message="Running math package tests ..."/>
-        <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
+        <java classname="${test.runner}" fork="${test.fork}" failonerror="${test.failonerror}">
             <arg value="org.apache.commons.lang.math.MathTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
     </target>
     <target name="test.mutable" depends="compile.tests">
         <echo message="Running mutable package tests ..."/>
-        <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
+        <java classname="${test.runner}" fork="${test.fork}" failonerror="${test.failonerror}">
             <arg value="org.apache.commons.lang.mutable.MutableTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
     </target>
     <target name="test.text" depends="compile.tests">
         <echo message="Running text package tests ..."/>
-        <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
+        <java classname="${test.runner}" fork="${test.fork}" failonerror="${test.failonerror}">
             <arg value="org.apache.commons.lang.text.TextTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
     </target>
     <target name="test.time" depends="compile.tests">
         <echo message="Running time package tests ..."/>
-        <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
+        <java classname="${test.runner}" fork="${test.fork}" failonerror="${test.failonerror}">
             <arg value="org.apache.commons.lang.time.TimeTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
     </target>
     <target name="test.util" depends="compile.tests">
         <echo message="Running util package tests ..."/>
-        <java classname="${test.runner}" fork="yes" failonerror="${test.failonerror}">
+        <java classname="${test.runner}" fork="${test.fork}" failonerror="${test.failonerror}">
             <arg value="org.apache.commons.lang.util.UtilTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
