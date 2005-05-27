@@ -178,6 +178,7 @@ limitations under the License.
     <target name="test.enum" depends="compile.tests">
         <echo message="Running enum package tests ..."/>
         <java classname="${test.runner}" fork="${test.fork}" failonerror="${test.failonerror}">
+            <arg value="org.apache.commons.lang.enums.EnumTestSuite"/>
             <arg value="org.apache.commons.lang.enum.EnumTestSuite"/>
             <classpath refid="test.classpath"/>
         </java>
