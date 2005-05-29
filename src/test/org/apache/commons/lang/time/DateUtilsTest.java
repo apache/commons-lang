@@ -34,6 +34,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
+import org.apache.commons.lang.SystemUtils;
+
 /**
  * Unit tests {@link org.apache.commons.lang.time.DateUtils}.
  *
@@ -469,24 +471,28 @@ public class DateUtilsTest extends TestCase {
         assertEquals("round MET date across DST change-over",
                 dateTimeParser.parse("March 30, 2003 01:00:00.000"),
                 DateUtils.round((Object) cal4, Calendar.HOUR_OF_DAY));
-        assertEquals("round MET date across DST change-over",
-                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                DateUtils.round(date5, Calendar.HOUR_OF_DAY));
-        assertEquals("round MET date across DST change-over",
-                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                DateUtils.round((Object) cal5, Calendar.HOUR_OF_DAY));
-        assertEquals("round MET date across DST change-over",
-                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                DateUtils.round(date6, Calendar.HOUR_OF_DAY));
-        assertEquals("round MET date across DST change-over",
-                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                DateUtils.round((Object) cal6, Calendar.HOUR_OF_DAY));
-        assertEquals("round MET date across DST change-over",
-                dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                DateUtils.round(date7, Calendar.HOUR_OF_DAY));
-        assertEquals("round MET date across DST change-over",
-                dateTimeParser.parse("March 30, 2003 04:00:00.000"),
-                DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY));
+        if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
+            assertEquals("round MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                    DateUtils.round(date5, Calendar.HOUR_OF_DAY));
+            assertEquals("round MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                    DateUtils.round((Object) cal5, Calendar.HOUR_OF_DAY));
+            assertEquals("round MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                    DateUtils.round(date6, Calendar.HOUR_OF_DAY));
+            assertEquals("round MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                    DateUtils.round((Object) cal6, Calendar.HOUR_OF_DAY));
+            assertEquals("round MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                    DateUtils.round(date7, Calendar.HOUR_OF_DAY));
+            assertEquals("round MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                    DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY));
+        } else {
+            this.warn("Some date rounding tests not run since the current version is " + SystemUtils.JAVA_VERSION);
+        }
         TimeZone.setDefault(defaultZone);
         dateTimeParser.setTimeZone(defaultZone);
     }
@@ -838,6 +844,10 @@ public class DateUtilsTest extends TestCase {
             throw new AssertionFailedError(
                     message + " expected " + cal1.getTime() + " but got " + cal2.getTime());
         }
+    }
+
+    void warn(String msg) {
+        System.err.println(msg);
     }
 }
 
