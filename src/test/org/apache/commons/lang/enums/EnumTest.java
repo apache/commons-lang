@@ -17,6 +17,8 @@ package org.apache.commons.lang.enums;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -29,6 +31,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.apache.commons.lang.ClassUtilsTest;
 import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang.enum.ColorEnum;
 
 /**
  * Test cases for the {@link Enum} class.
@@ -39,6 +42,8 @@ import org.apache.commons.lang.SerializationUtils;
  */
 
 public final class EnumTest extends TestCase {
+
+    private static final String ENUMS_CLASS_NAME = "org.apache.commons.lang.enums.ColorEnum";
 
     public EnumTest(String name) {
         super(name);
@@ -481,7 +486,21 @@ public final class EnumTest extends TestCase {
         // set up:
         assertNotNull(classLoader);
         assertFalse(classLoader.equals(ColorEnum.class.getClassLoader()));
-        Class otherColorEnumClass = classLoader.loadClass("org.apache.commons.lang.enums.ColorEnum");
+        Class otherColorEnumClass = null;
+        try {
+            otherColorEnumClass = classLoader.loadClass(ENUMS_CLASS_NAME);
+        } catch (ClassNotFoundException e) {
+            // Dump some information to help debug class loader issues under different JREs, Ant, Eclipse.
+            System.err.println("Could not load " + ENUMS_CLASS_NAME + " from the class loader " + classLoader);
+            URLClassLoader urlCl = (URLClassLoader) classLoader;
+            URL[] urls = urlCl.getURLs();
+            System.err.println("Class loader has " + urls.length + " URLs:");
+            for (int i = 0; i < urls.length; i++) {
+                System.err.println("URL[" + i + "] = " + urls[i]);
+            }
+            e.printStackTrace();
+            throw e;
+        }
         assertNotNull(otherColorEnumClass);
         assertNotNull(otherColorEnumClass.getClassLoader());
         assertTrue(classLoader.equals(otherColorEnumClass.getClassLoader()));

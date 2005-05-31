@@ -399,11 +399,18 @@ public class ClassUtilsTest extends TestCase {
      * @return the resulting class loader
      */
     public static ClassLoader newSystemClassLoader() throws SecurityException, IllegalArgumentException {
-        ClassLoader scl = ClassLoader.getSystemClassLoader();
-        if (!(scl instanceof URLClassLoader)) {
+        ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
+        ClassLoader myClassLoader = ClassUtilsTest.class.getClassLoader();
+        if (!(myClassLoader instanceof URLClassLoader)) {
             fail("Need a better test set up.");
         }
-        URLClassLoader urlScl = (URLClassLoader) scl;
+        if (!(systemClassLoader instanceof URLClassLoader)) {
+            fail("Need a better test set up.");
+        }
+        if (!myClassLoader.equals(systemClassLoader)) {
+            fail("Need a better test set up?");            
+        }
+        URLClassLoader urlScl = (URLClassLoader) myClassLoader;
         return URLClassLoader.newInstance(urlScl.getURLs(), null);
     }
 
