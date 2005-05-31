@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang.enum;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,18 +30,21 @@ import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
 import org.apache.commons.lang.ClassUtilsTest;
 import org.apache.commons.lang.SerializationUtils;
 
 /**
  * Test cases for the {@link Enum} class.
- *
+ * 
  * @author Stephen Colebourne
  * @author Gary D. Gregory
  * @version $Id$
  */
 
 public final class EnumTest extends TestCase {
+
+    private static final String ENUM_CLASS_NAME = "org.apache.commons.lang.enum.ColorEnum";
 
     public EnumTest(String name) {
         super(name);
@@ -66,11 +72,13 @@ public final class EnumTest extends TestCase {
         try {
             ColorEnum.RED.compareTo(null);
             fail();
-        } catch (NullPointerException ex) {}
+        } catch (NullPointerException ex) {
+        }
         try {
             ColorEnum.RED.compareTo(new Object());
             fail();
-        } catch (ClassCastException ex) {}
+        } catch (ClassCastException ex) {
+        }
     }
 
     public void testEquals() {
@@ -101,12 +109,11 @@ public final class EnumTest extends TestCase {
 
     public void testList() {
         List list = new ArrayList(ColorEnum.getEnumList());
-        
+
         assertNotNull(list);
-        
-        assertEquals( list.size(),
-                        ColorEnum.getEnumMap().keySet().size());
-        
+
+        assertEquals(list.size(), ColorEnum.getEnumMap().keySet().size());
+
         Iterator it = list.iterator();
         assertSame(ColorEnum.RED, it.next());
         assertSame(ColorEnum.GREEN, it.next());
@@ -115,7 +122,7 @@ public final class EnumTest extends TestCase {
 
     public void testMap() {
         Map map = new HashMap(ColorEnum.getEnumMap());
-        
+
         assertNotNull(map);
         assertTrue(map.containsValue(ColorEnum.RED));
         assertTrue(map.containsValue(ColorEnum.GREEN));
@@ -123,8 +130,7 @@ public final class EnumTest extends TestCase {
         assertSame(ColorEnum.RED, map.get("Red"));
         assertSame(ColorEnum.GREEN, map.get("Green"));
         assertSame(ColorEnum.BLUE, map.get("Blue"));
-        assertEquals( map.keySet().size(),
-                        ColorEnum.getEnumList().size());
+        assertEquals(map.keySet().size(), ColorEnum.getEnumList().size());
     }
 
     public void testGet() {
@@ -234,7 +240,7 @@ public final class EnumTest extends TestCase {
         assertNotNull(list);
         assertEquals(2, list.size());
         assertEquals(list.size(), OperationEnum.getEnumMap().keySet().size());
-        
+
         Iterator it = list.iterator();
         assertSame(OperationEnum.PLUS, it.next());
         assertSame(OperationEnum.MINUS, it.next());
@@ -244,7 +250,7 @@ public final class EnumTest extends TestCase {
         Map map = OperationEnum.getEnumMap();
         assertNotNull(map);
         assertEquals(map.keySet().size(), OperationEnum.getEnumList().size());
-        
+
         assertTrue(map.containsValue(OperationEnum.PLUS));
         assertTrue(map.containsValue(OperationEnum.MINUS));
         assertSame(OperationEnum.PLUS, map.get("Plus"));
@@ -255,19 +261,19 @@ public final class EnumTest extends TestCase {
         assertEquals(3, OperationEnum.PLUS.eval(1, 2));
         assertEquals(-1, OperationEnum.MINUS.eval(1, 2));
     }
-    
-    //-----------------------------------------------------------------------
+
+    // -----------------------------------------------------------------------
     public void testExtended1Get() {
         assertSame(Extended1Enum.ALPHA, Extended1Enum.getEnum("Alpha"));
         assertSame(Extended1Enum.BETA, Extended1Enum.getEnum("Beta"));
         assertSame(null, Extended1Enum.getEnum("Gamma"));
         assertSame(null, Extended1Enum.getEnum("Delta"));
     }
-            
+
     public void testExtended2Get() {
         assertSame(Extended1Enum.ALPHA, Extended2Enum.ALPHA);
         assertSame(Extended1Enum.BETA, Extended2Enum.BETA);
-        
+
         assertSame(Extended2Enum.ALPHA, Extended2Enum.getEnum("Alpha"));
         assertSame(Extended2Enum.BETA, Extended2Enum.getEnum("Beta"));
         assertSame(Extended2Enum.GAMMA, Extended2Enum.getEnum("Gamma"));
@@ -278,7 +284,7 @@ public final class EnumTest extends TestCase {
         assertSame(Extended2Enum.ALPHA, Extended3Enum.ALPHA);
         assertSame(Extended2Enum.BETA, Extended3Enum.BETA);
         assertSame(Extended2Enum.GAMMA, Extended3Enum.GAMMA);
-        
+
         assertSame(Extended3Enum.ALPHA, Extended3Enum.getEnum("Alpha"));
         assertSame(Extended3Enum.BETA, Extended3Enum.getEnum("Beta"));
         assertSame(Extended3Enum.GAMMA, Extended3Enum.getEnum("Gamma"));
@@ -295,11 +301,11 @@ public final class EnumTest extends TestCase {
     public void testExtendedToString() {
         assertEquals("Extended1Enum[Alpha]", Extended1Enum.ALPHA.toString());
         assertEquals("Extended1Enum[Beta]", Extended1Enum.BETA.toString());
-        
+
         assertEquals("Extended1Enum[Alpha]", Extended2Enum.ALPHA.toString());
         assertEquals("Extended1Enum[Beta]", Extended2Enum.BETA.toString());
         assertEquals("Extended2Enum[Gamma]", Extended2Enum.GAMMA.toString());
-        
+
         assertEquals("Extended1Enum[Alpha]", Extended3Enum.ALPHA.toString());
         assertEquals("Extended1Enum[Beta]", Extended3Enum.BETA.toString());
         assertEquals("Extended2Enum[Gamma]", Extended3Enum.GAMMA.toString());
@@ -311,7 +317,7 @@ public final class EnumTest extends TestCase {
         assertNotNull(list);
         assertEquals(2, list.size());
         assertEquals(list.size(), Extended1Enum.getEnumMap().keySet().size());
-        
+
         Iterator it = list.iterator();
         assertSame(Extended1Enum.ALPHA, it.next());
         assertSame(Extended1Enum.BETA, it.next());
@@ -322,7 +328,7 @@ public final class EnumTest extends TestCase {
         assertNotNull(list);
         assertEquals(3, list.size());
         assertEquals(list.size(), Extended2Enum.getEnumMap().keySet().size());
-        
+
         Iterator it = list.iterator();
         assertSame(Extended2Enum.ALPHA, it.next());
         assertSame(Extended2Enum.BETA, it.next());
@@ -334,7 +340,7 @@ public final class EnumTest extends TestCase {
         assertNotNull(list);
         assertEquals(4, list.size());
         assertEquals(list.size(), Extended3Enum.getEnumMap().keySet().size());
-        
+
         Iterator it = list.iterator();
         assertSame(Extended3Enum.ALPHA, it.next());
         assertSame(Extended3Enum.BETA, it.next());
@@ -346,7 +352,7 @@ public final class EnumTest extends TestCase {
         Map map = Extended1Enum.getEnumMap();
         assertNotNull(map);
         assertEquals(map.keySet().size(), Extended1Enum.getEnumList().size());
-        
+
         assertTrue(map.containsValue(Extended1Enum.ALPHA));
         assertTrue(map.containsValue(Extended1Enum.BETA));
         assertSame(Extended1Enum.ALPHA, map.get("Alpha"));
@@ -357,7 +363,7 @@ public final class EnumTest extends TestCase {
         Map map = Extended2Enum.getEnumMap();
         assertNotNull(map);
         assertEquals(map.keySet().size(), Extended2Enum.getEnumList().size());
-        
+
         assertTrue(map.containsValue(Extended2Enum.ALPHA));
         assertTrue(map.containsValue(Extended2Enum.BETA));
         assertTrue(map.containsValue(Extended2Enum.GAMMA));
@@ -370,7 +376,7 @@ public final class EnumTest extends TestCase {
         Map map = Extended3Enum.getEnumMap();
         assertNotNull(map);
         assertEquals(map.keySet().size(), Extended3Enum.getEnumList().size());
-        
+
         assertTrue(map.containsValue(Extended3Enum.ALPHA));
         assertTrue(map.containsValue(Extended3Enum.BETA));
         assertTrue(map.containsValue(Extended3Enum.GAMMA));
@@ -381,10 +387,10 @@ public final class EnumTest extends TestCase {
         assertSame(Extended3Enum.DELTA, map.get("Delta"));
     }
 
-    //-----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
     public void testNested() {
         List list = new ArrayList(Nest.ColorEnum.getEnumList());
-        assertEquals(3, list.size());  // all is well
+        assertEquals(3, list.size()); // all is well
         Iterator it = list.iterator();
         assertSame(Nest.ColorEnum.RED, it.next());
         assertSame(Nest.ColorEnum.GREEN, it.next());
@@ -396,7 +402,7 @@ public final class EnumTest extends TestCase {
     public void testNestedBroken() {
         List list = new ArrayList(NestBroken.ColorEnum.getEnumList());
         try {
-            assertEquals(0, list.size());  // no enums!!! 
+            assertEquals(0, list.size()); // no enums!!!
             // this is BROKEN because the enum constants are defined in a DIFFERENT
             // class from getEnumList(). Once NestBroken class is referenced,
             // and thus class loaded with its enum constants, the getEnumList works:
@@ -406,7 +412,7 @@ public final class EnumTest extends TestCase {
         }
         new NestBroken();
         list = new ArrayList(NestBroken.ColorEnum.getEnumList());
-        assertEquals(3, list.size());  // all is well!!!
+        assertEquals(3, list.size()); // all is well!!!
         Iterator it = list.iterator();
         assertSame(NestBroken.RED, it.next());
         assertSame(NestBroken.GREEN, it.next());
@@ -415,7 +421,7 @@ public final class EnumTest extends TestCase {
 
     public void testNestedLinked() {
         List list = new ArrayList(NestLinked.ColorEnum.getEnumList());
-        assertEquals(3, list.size());  // all is well
+        assertEquals(3, list.size()); // all is well
         Iterator it = list.iterator();
         assertSame(NestLinked.RED, it.next());
         assertSame(NestLinked.GREEN, it.next());
@@ -426,7 +432,7 @@ public final class EnumTest extends TestCase {
 
     public void testNestedReferenced() {
         List list = new ArrayList(NestReferenced.ColorEnum.getEnumList());
-        assertEquals(3, list.size());  // all is well
+        assertEquals(3, list.size()); // all is well
         Iterator it = list.iterator();
         assertSame(NestReferenced.RED, it.next());
         assertSame(NestReferenced.GREEN, it.next());
@@ -435,7 +441,7 @@ public final class EnumTest extends TestCase {
         // the SAME class as the getEnumList(). The references in the outer class
         // are just extra references.
     }
-    
+
     public void testColorEnumEqualsWithDifferentClassLoaders() throws SecurityException, IllegalArgumentException,
             ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         this.testEqualsTrueWithDifferentClassLoaders(ColorEnum.BLUE);
@@ -481,7 +487,21 @@ public final class EnumTest extends TestCase {
         // set up:
         assertNotNull(classLoader);
         assertFalse(classLoader.equals(ColorEnum.class.getClassLoader()));
-        Class otherColorEnumClass = classLoader.loadClass("org.apache.commons.lang.enum.ColorEnum");
+        Class otherColorEnumClass = null;
+        try {
+            otherColorEnumClass = classLoader.loadClass(ENUM_CLASS_NAME);
+        } catch (ClassNotFoundException e) {
+            // Dump some information to help debug class loader issues under different JREs, Ant, Eclipse.
+            System.err.println("Could not load " + ENUM_CLASS_NAME + " from the class loader " + classLoader);
+            URLClassLoader urlCl = (URLClassLoader) classLoader;
+            URL[] urls = urlCl.getURLs();
+            System.err.println("Class loader has " + urls.length + " URLs:");
+            for (int i = 0; i < urls.length; i++) {
+                System.err.println("URL[" + i + "] = " + urls[i]);
+            }
+            e.printStackTrace();
+            throw e;
+        }
         assertNotNull(otherColorEnumClass);
         assertNotNull(otherColorEnumClass.getClassLoader());
         assertTrue(classLoader.equals(otherColorEnumClass.getClassLoader()));
