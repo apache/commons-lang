@@ -17,6 +17,7 @@ package org.apache.commons.lang;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
@@ -389,12 +390,20 @@ public class ClassUtilsTest extends TestCase {
         assertNotSame("unmodified", noPrimitives, ClassUtils.primitivesToWrappers(noPrimitives));
     }
 
-    public static ClassLoader newSystemClassLoader() throws  SecurityException, IllegalArgumentException {
+    /**
+     * Creates a new instance of URLClassLoader with the system class loader's URLs and a <code>null</code> parent
+     * class loader.
+     * 
+     * @see ClassLoader#getSystemClassLoader()
+     * @see URLClassLoader#newInstance(URL[], ClassLoader)
+     * @return the resulting class loader
+     */
+    public static ClassLoader newSystemClassLoader() throws SecurityException, IllegalArgumentException {
         ClassLoader scl = ClassLoader.getSystemClassLoader();
         if (!(scl instanceof URLClassLoader)) {
             fail("Need a better test set up.");
         }
-        URLClassLoader urlScl = (URLClassLoader)scl;
+        URLClassLoader urlScl = (URLClassLoader) scl;
         return URLClassLoader.newInstance(urlScl.getURLs(), null);
     }
 
