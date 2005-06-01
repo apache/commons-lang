@@ -42,6 +42,14 @@ The following tasks are on the TODO list:
 </ul>
 
 <p>
+Post-2.1 release tasks TODO:
+</p>
+<ul>
+<li>Clean up checkstyle errors</li>
+<li>Remove checkstyle.properties from the repository since it appears to no longer be used</li>
+</ul>
+
+<p>
 Would you like to Volunteer? If so, contact the <a href="mail-lists.html">mailing lists</a>.
 </p>
 </section>
