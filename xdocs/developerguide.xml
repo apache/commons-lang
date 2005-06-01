@@ -164,6 +164,12 @@ under 1.2 and you get a NoSuchMethodError.
 To build a release, the distribution should be build with Ant using JDK 1.2.
 The Ant target <b>dist-build</b> in build.xml can be used to do this. The
 site can be build with Maven.
+<br/><br/>
+Ant 1.6 or higher is required for building the distribution due to the way the 
+build.xml script invokes test cases. It uses the more modern &lt;junit&gt; 
+optional Ant task, rather than the more messy technique of invoking Java with 
+the &lt;java&gt; tag to run the test runner. For this to work, junit.jar must 
+be copied to the Ant home library directory.
 </p>
 </section>
 </body>
