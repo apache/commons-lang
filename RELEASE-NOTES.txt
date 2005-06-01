@@ -26,6 +26,9 @@ However, we don't recommend that as a long-term solution.)
 - The StopWatch class has had much extra validation added.
 If your code previously relied on unusual aspects, it may no longer work.
 
+- Starting with version 2.1, Ant version 1.6.x is required to build. Copy 
+junit.jar to ANT_HOME/lib. You can get JUnit from http://www.junit.org.
+
 
 DEPRECATIONS:
 
