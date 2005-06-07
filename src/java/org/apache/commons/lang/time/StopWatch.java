@@ -18,10 +18,6 @@ package org.apache.commons.lang.time;
 /**
  * <p><code>StopWatch</code> provides a convenient API for timings.</p>
  * 
- * <p>The methods do <b>not</b> protect against inappropriate calls. Thus you
- * can call stop before start, resume before suspend or unsplit before split.
- * The results are indeterminate in these cases.</p>
- * 
  * <p>To start the watch, call {@link #start()}. At this point you can:</p>
  * <ul>
  *  <li>{@link #split()} the watch to get the time whilst the watch continues in the
@@ -36,12 +32,15 @@ package org.apache.commons.lang.time;
  * <p>It is intended that the output methods {@link #toString()} and {@link #getTime()}
  * should only be called after stop, split or suspend, however a suitable result will
  * be returned at other points.</p>
-
-1. split(), suspend(), or stop() cannot be invoked twice.
-2. unsplit() may only be called if the watch has been split()
-3. resume() may only be called if the watch has been suspend()
-4. start() cannot be called twice.
- 
+ *
+ * <p>NOTE: As from v2.1, the methods protect against inappropriate calls.
+ * Thus you cannot now call stop before start, resume before suspend or
+ * unsplit before split.</p>
+ *
+ * <p>1. split(), suspend(), or stop() cannot be invoked twice<br />
+ * 2. unsplit() may only be called if the watch has been split()<br />
+ * 3. resume() may only be called if the watch has been suspend()<br />
+ * 4. start() cannot be called twice without calling reset()</p>
  *
  * @author Henri Yandell
  * @author Stephen Colebourne
