@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
  *
  * @author Ken Fitzpatrick
  * @author Henri Yandell
- * @since 2.1
+ * @since 2.2
  * @version $Id$
  */
 public class Interpolation {

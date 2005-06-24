@@ -40,7 +40,8 @@ import java.util.ArrayList;
  * Originally org.apache.commons.digester.substitution.MultiVariableExpander.
  * </p>
  *
- * @since 2.1
+ * @since 2.2
+ * @version $Id$
  */
 public class MappedMessageFormat {
 

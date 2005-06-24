@@ -72,7 +72,7 @@ import java.util.ListIterator;
  * @author Matthew Inger
  * @author Stephen Colebourne
  * @author Gary D. Gregory
- * @since 2.1
+ * @since 2.2
  * @version $Id$
  */
 public class StrTokenizer implements ListIterator, Cloneable {
