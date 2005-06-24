@@ -49,7 +49,7 @@ import java.util.Iterator;
  * 'null'. This can be controlled by a property, {@link #setNullText(String)}.
  *
  * @author Stephen Colebourne
- * @since 2.1
+ * @since 2.2
  * @version $Id$
  */
 public class StrBuilder implements Cloneable {
