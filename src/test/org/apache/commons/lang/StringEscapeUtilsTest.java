@@ -210,17 +210,30 @@ public class StringEscapeUtilsTest extends TestCase {
             String expected = htmlEscapes[i][1];
             String original = htmlEscapes[i][2];
             assertEquals(message, expected, StringEscapeUtils.escapeHtml(original));
-            // todo: add test for (and implement) Writer-based version, something like this:
-//            StringPrintWriter sw = new StringPrintWriter();
-//            StringEscapeUtils.escapeHtml(sw, original);
-//            assertEquals(expected, sw.getString());
+            StringPrintWriter sw = new StringPrintWriter();
+            try {
+            StringEscapeUtils.escapeHtml(sw, original);
+            } catch (IOException e) {
+            }
+            String actual = original == null ? null : sw.getString();
+            assertEquals(message, expected, actual);
         }
     }
 
     public void testUnescapeHtml() {
         for (int i = 0; i < htmlEscapes.length; ++i) {
-            assertEquals(htmlEscapes[i][0], htmlEscapes[i][2], StringEscapeUtils.unescapeHtml(htmlEscapes[i][1]));
-            // todo: add test for (and implement) Writer-based version
+            String message = htmlEscapes[i][0];
+            String expected = htmlEscapes[i][2];
+            String original = htmlEscapes[i][1];
+            assertEquals(message, expected, StringEscapeUtils.unescapeHtml(original));
+            
+            StringPrintWriter sw = new StringPrintWriter();
+            try {
+            StringEscapeUtils.unescapeHtml(sw, original);
+            } catch (IOException e) {
+            }
+            String actual = original == null ? null : sw.getString();
+            assertEquals(message, expected, actual);
         }
         // \u00E7 is a cedilla (c with wiggle under)
         // note that the test string must be 7-bit-clean (unicode escaped) or else it will compile incorrectly

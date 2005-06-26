@@ -414,19 +414,66 @@ public class StringEscapeUtils {
      * @return a new escaped <code>String</code>, <code>null</code> if null string input
      * 
      * @see #unescapeHtml(String)
-     * @see </br><a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
-     * @see </br><a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
-     * @see </br><a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
-     * @see </br><a href="http://www.w3.org/TR/html401/charset.html#h-5.3">HTML 4.01 Character References</a>
-     * @see </br><a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
+     * @see <a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
+     * @see <a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
+     * @see <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
+     * @see <a href="http://www.w3.org/TR/html401/charset.html#h-5.3">HTML 4.01 Character References</a>
+     * @see <a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
      **/
     public static String escapeHtml(String str) {
         if (str == null) {
             return null;
         }
-        //todo: add a version that takes a Writer
-        //todo: rewrite underlying method to use a Writer instead of a StringBuffer
-        return Entities.HTML40.escape(str);
+        
+        try {
+            StringPrintWriter writer = new StringPrintWriter ((int)(str.length() * 1.5));
+            escapeHtml(writer, str);
+            return writer.getString();
+        } catch (IOException e) {
+            //assert false;
+            //should be impossible
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    /**
+     * <p>Escapes the characters in a <code>String</code> using HTML entities and writes
+     * them to a <code>Writer</code>.</p>
+     *
+     * <p>
+     * For example:
+     * </p> 
+     * <code>"bread" & "butter"</code>
+     * <p>becomes:</p>
+     * <code>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</code>.
+     * 
+     * <p>Supports all known HTML 4.0 entities, including funky accents.</p>
+     * 
+     * @param writer The <code>Writer</code> to write the result to. This must not be <code>null</code>.
+     * @param string  The <code>String</code> to escape. This may be <code>null</code>.
+     * 
+     * @throws IOException when <code>Writer</code> passed throws the exception from
+     *                                       calls to the {@link Writer#write(int)} methods.
+     * 
+     * @see #escapeHtml(String)
+     * @see #unescapeHtml(String)
+     * @see <a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
+     * @see <a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
+     * @see <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
+     * @see <a href="http://www.w3.org/TR/html401/charset.html#h-5.3">HTML 4.01 Character References</a>
+     * @see <a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
+     */
+    public static void escapeHtml(Writer writer, String string) throws IOException {
+        if (writer == null ) {
+            throw new IllegalArgumentException ("The Writer must not be null.");
+        }
+        
+        if (string == null) {
+            return;
+        }
+        
+        Entities.HTML40.escape(writer, string);
     }
 
     /**
@@ -449,7 +496,29 @@ public class StringEscapeUtils {
         if (str == null) {
             return null;
         }
-        return Entities.HTML40.unescape(str);
+        
+        try {
+            StringPrintWriter writer = new StringPrintWriter ((int)(str.length() * 1.5));
+            unescapeHtml(writer, str);
+            return writer.getString();
+        } catch (IOException e) {
+            //assert false;
+            //should be impossible
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static void unescapeHtml(Writer writer, String string) throws IOException {
+        if (writer == null ) {
+            throw new IllegalArgumentException ("The Writer must not be null.");
+        }
+        
+        if (string == null) {
+            return;
+        }
+        
+        Entities.HTML40.unescape(writer, string);
     }
 
     /**
