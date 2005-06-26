@@ -36,6 +36,7 @@ public class EnumUtils {
      * @since 2.0
      */
     public EnumUtils() {
+      ; // empty constructor
     }
 
     /**
