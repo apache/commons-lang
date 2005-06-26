@@ -15,6 +15,8 @@
  */
 package org.apache.commons.lang;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -219,7 +221,8 @@ class Entities {
         {"real", "8476"}, //blackletter capital R = real part symbol,U+211C ISOamso -->
         {"trade", "8482"}, //trade mark sign, U+2122 ISOnum -->
         {"alefsym", "8501"}, //alef symbol = first transfinite cardinal,U+2135 NEW -->
-// <!-- alef symbol is NOT the same as hebrew letter alef,U+05D0 although the same glyph could be used to depict both characters -->
+// <!-- alef symbol is NOT the same as hebrew letter alef,U+05D0 although the 
+//      same glyph could be used to depict both characters -->
 // <!-- Arrows -->
         {"larr", "8592"}, //leftwards arrow, U+2190 ISOnum -->
         {"uarr", "8593"}, //upwards arrow, U+2191 ISOnum-->
@@ -228,10 +231,14 @@ class Entities {
         {"harr", "8596"}, //left right arrow, U+2194 ISOamsa -->
         {"crarr", "8629"}, //downwards arrow with corner leftwards= carriage return, U+21B5 NEW -->
         {"lArr", "8656"}, //leftwards double arrow, U+21D0 ISOtech -->
-// <!-- ISO 10646 does not say that lArr is the same as the 'is implied by' arrowbut also does not have any other character for that function. So ? lArr canbe used for 'is implied by' as ISOtech suggests -->
+// <!-- ISO 10646 does not say that lArr is the same as the 'is implied by' 
+//      arrow but also does not have any other character for that function. 
+//      So ? lArr canbe used for 'is implied by' as ISOtech suggests -->
         {"uArr", "8657"}, //upwards double arrow, U+21D1 ISOamsa -->
         {"rArr", "8658"}, //rightwards double arrow,U+21D2 ISOtech -->
-// <!-- ISO 10646 does not say this is the 'implies' character but does not have another character with this function so ?rArr can be used for 'implies' as ISOtech suggests -->
+// <!-- ISO 10646 does not say this is the 'implies' character but does not
+//      have another character with this function so ?rArr can be used for
+//      'implies' as ISOtech suggests -->
         {"dArr", "8659"}, //downwards double arrow, U+21D3 ISOamsa -->
         {"hArr", "8660"}, //left right double arrow,U+21D4 ISOamsa -->
 // <!-- Mathematical Operators -->
@@ -245,9 +252,11 @@ class Entities {
         {"ni", "8715"}, //contains as member, U+220B ISOtech -->
 // <!-- should there be a more memorable name than 'ni'? -->
         {"prod", "8719"}, //n-ary product = product sign,U+220F ISOamsb -->
-// <!-- prod is NOT the same character as U+03A0 'greek capital letter pi' though the same glyph might be used for both -->
+// <!-- prod is NOT the same character as U+03A0 'greek capital letter pi' 
+//      though the same glyph might be used for both -->
         {"sum", "8721"}, //n-ary summation, U+2211 ISOamsb -->
-// <!-- sum is NOT the same character as U+03A3 'greek capital letter sigma' though the same glyph might be used for both -->
+// <!-- sum is NOT the same character as U+03A3 'greek capital letter sigma'
+//      though the same glyph might be used for both -->
         {"minus", "8722"}, //minus sign, U+2212 ISOtech -->
         {"lowast", "8727"}, //asterisk operator, U+2217 ISOtech -->
         {"radic", "8730"}, //square root = radical sign,U+221A ISOtech -->
@@ -261,7 +270,8 @@ class Entities {
         {"int", "8747"}, //integral, U+222B ISOtech -->
         {"there4", "8756"}, //therefore, U+2234 ISOtech -->
         {"sim", "8764"}, //tilde operator = varies with = similar to,U+223C ISOtech -->
-// <!-- tilde operator is NOT the same character as the tilde, U+007E,although the same glyph might be used to represent both  -->
+// <!-- tilde operator is NOT the same character as the tilde, U+007E,although
+//      the same glyph might be used to represent both  -->
         {"cong", "8773"}, //approximately equal to, U+2245 ISOtech -->
         {"asymp", "8776"}, //almost equal to = asymptotic to,U+2248 ISOamsr -->
         {"ne", "8800"}, //not equal to, U+2260 ISOtech -->
@@ -270,7 +280,10 @@ class Entities {
         {"ge", "8805"}, //greater-than or equal to,U+2265 ISOtech -->
         {"sub", "8834"}, //subset of, U+2282 ISOtech -->
         {"sup", "8835"}, //superset of, U+2283 ISOtech -->
-// <!-- note that nsup, 'not a superset of, U+2283' is not covered by the Symbol font encoding and is not included. Should it be, for symmetry?It is in ISOamsn  --> <!ENTITY nsub", "8836"},  //not a subset of, U+2284 ISOamsn -->
+// <!-- note that nsup, 'not a superset of, U+2283' is not covered by the
+//      Symbol font encoding and is not included. Should it be, for symmetry?
+//      It is in ISOamsn  --> <!ENTITY nsub", "8836"},  
+//      not a subset of, U+2284 ISOamsn -->
         {"sube", "8838"}, //subset of or equal to, U+2286 ISOtech -->
         {"supe", "8839"}, //superset of or equal to,U+2287 ISOtech -->
         {"oplus", "8853"}, //circled plus = direct sum,U+2295 ISOamsb -->
@@ -286,7 +299,8 @@ class Entities {
         {"lang", "9001"}, //left-pointing angle bracket = bra,U+2329 ISOtech -->
 // <!-- lang is NOT the same character as U+003C 'less than' or U+2039 'single left-pointing angle quotation mark' -->
         {"rang", "9002"}, //right-pointing angle bracket = ket,U+232A ISOtech -->
-// <!-- rang is NOT the same character as U+003E 'greater than' or U+203A 'single right-pointing angle quotation mark' -->
+// <!-- rang is NOT the same character as U+003E 'greater than' or U+203A 
+//      'single right-pointing angle quotation mark' -->
 // <!-- Geometric Shapes -->
         {"loz", "9674"}, //lozenge, U+25CA ISOpub -->
 // <!-- Miscellaneous Symbols -->
@@ -364,6 +378,11 @@ class Entities {
         fillWithHtml40Entities(HTML40);
     }
 
+    /**
+     * <p>Fills the specified entities instance with HTML 40 entities.</p>
+     * 
+     * @param entities the instance to be filled.
+     */
     static void fillWithHtml40Entities(Entities entities) {
         entities.addEntities(BASIC_ARRAY);
         entities.addEntities(ISO8859_1_ARRAY);
@@ -371,10 +390,28 @@ class Entities {
     }
 
     static interface EntityMap {
+        /**
+         * <p>Add an entry to this entity map.</p>
+         * 
+         * @param name the entity name
+         * @param value the entity value
+         */
         void add(String name, int value);
 
+        /**
+         * <p>Returns the name of the entity identified by the specified value.</p>
+         * 
+         * @param value the value to locate
+         * @return entity name associated with the specified value
+         */
         String name(int value);
 
+        /**
+         * <p>Returns the value of the entity identified by the specified name.</p>
+         * 
+         * @param name the name to locate
+         * @return entity value associated with the specified name
+         */
         int value(String name);
     }
 
@@ -382,15 +419,24 @@ class Entities {
         private Map mapNameToValue = new HashMap();
         private IntHashMap mapValueToName = new IntHashMap();
 
+        /**
+         * {@inheritDoc}
+         */
         public void add(String name, int value) {
             mapNameToValue.put(name, new Integer(value));
             mapValueToName.put(value, name);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public String name(int value) {
             return (String) mapValueToName.get(value);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int value(String name) {
             Object value = mapNameToValue.get(name);
             if (value == null) {
@@ -405,15 +451,24 @@ class Entities {
         protected Map mapNameToValue;
         protected Map mapValueToName;
 
+        /**
+         * {@inheritDoc}
+         */
         public void add(String name, int value) {
             mapNameToValue.put(name, new Integer(value));
             mapValueToName.put(new Integer(value), name);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public String name(int value) {
             return (String) mapValueToName.get(new Integer(value));
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int value(String name) {
             Object value = mapNameToValue.get(name);
             if (value == null) {
@@ -424,6 +479,9 @@ class Entities {
     }
 
     static class HashEntityMap extends MapIntMap {
+        /**
+         * Constructs a new instance of <code>HashEntityMap</code>.
+         */
         public HashEntityMap() {
             mapNameToValue = new HashMap();
             mapValueToName = new HashMap();
@@ -431,6 +489,9 @@ class Entities {
     }
 
     static class TreeEntityMap extends MapIntMap {
+      /**
+       * Constructs a new instance of <code>TreeEntityMap</code>.
+       */
         public TreeEntityMap() {
             mapNameToValue = new TreeMap();
             mapValueToName = new TreeMap();
@@ -441,6 +502,9 @@ class Entities {
         private String[] lookupTable;
         private int LOOKUP_TABLE_SIZE = 256;
 
+        /**
+         * {@inheritDoc}
+         */
         public String name(int value) {
             if (value < LOOKUP_TABLE_SIZE) {
                 return lookupTable()[value];
@@ -448,6 +512,12 @@ class Entities {
             return super.name(value);
         }
 
+        /**
+         * <p>Returns the lookup table for this entity map. The lookup table is created if it has not been 
+         * previously.</p>
+         * 
+         * @return the lookup table
+         */
         private String[] lookupTable() {
             if (lookupTable == null) {
                 createLookupTable();
@@ -455,6 +525,9 @@ class Entities {
             return lookupTable;
         }
 
+        /**
+         * <p>Creates an entity lookup table of LOOKUP_TABLE_SIZE elements, initialized with entity names.</p>
+         */
         private void createLookupTable() {
             lookupTable = new String[LOOKUP_TABLE_SIZE];
             for (int i = 0; i < LOOKUP_TABLE_SIZE; ++i) {
@@ -469,17 +542,29 @@ class Entities {
         protected String[] names;
         protected int[] values;
 
+        /**
+         * Constructs a new instance of <code>ArrayEntityMap</code>.
+         */
         public ArrayEntityMap() {
             names = new String[growBy];
             values = new int[growBy];
         }
 
+        /**
+         * Constructs a new instance of <code>ArrayEntityMap</code>
+         * specifying the size by which the array should grow.
+         * 
+         * @param growBy array will be initialized to and will grow by this amount
+         */
         public ArrayEntityMap(int growBy) {
             this.growBy = growBy;
             names = new String[growBy];
             values = new int[growBy];
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void add(String name, int value) {
             ensureCapacity(size + 1);
             names[size] = name;
@@ -487,6 +572,11 @@ class Entities {
             size++;
         }
 
+        /**
+         * Verifies the capacity of the entity array, adjusting the size if necessary.
+         * 
+         * @param capacity size the array should be
+         */
         protected void ensureCapacity(int capacity) {
             if (capacity > names.length) {
                 int newSize = Math.max(capacity, size + growBy);
@@ -499,6 +589,9 @@ class Entities {
             }
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public String name(int value) {
             for (int i = 0; i < size; ++i) {
                 if (values[i] == value) {
@@ -508,6 +601,9 @@ class Entities {
             return null;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int value(String name) {
             for (int i = 0; i < size; ++i) {
                 if (names[i].equals(name)) {
@@ -520,14 +616,30 @@ class Entities {
 
     static class BinaryEntityMap extends ArrayEntityMap {
 
+        /**
+         * Constructs a new instance of <code>BinaryEntityMap</code>.
+         */
         public BinaryEntityMap() {
+          ; // empty constructor
         }
 
+        /**
+         * Constructs a new instance of <code>ArrayEntityMap</code>
+         * specifying the size by which the underlying array should grow.
+         * 
+         * @param growBy array will be initialized to and will grow by this amount
+         */
         public BinaryEntityMap(int growBy) {
             super(growBy);
         }
 
-        // based on code in java.util.Arrays
+        /**
+         * Performs a binary search of the entity array for the specified key.
+         * This method is based on code in {@link java.util.Arrays}.
+         * 
+         * @param key the key to be found
+         * @return the index of the entity array matching the specified key
+         */
         private int binarySearch(int key) {
             int low = 0;
             int high = size - 1;
@@ -547,6 +659,9 @@ class Entities {
             return -(low + 1);  // key not found.
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void add(String name, int value) {
             ensureCapacity(size + 1);
             int insertAt = binarySearch(value);
@@ -561,6 +676,9 @@ class Entities {
             size++;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public String name(int value) {
             int index = binarySearch(value);
             if (index < 0) {
@@ -573,21 +691,43 @@ class Entities {
     // package scoped for testing
     EntityMap map = new Entities.LookupEntityMap();
 
+    /**
+     * <p>Adds entities to this entity.</p>
+     * 
+     * @param entityArray array of entities to be added
+     */
     public void addEntities(String[][] entityArray) {
         for (int i = 0; i < entityArray.length; ++i) {
             addEntity(entityArray[i][0], Integer.parseInt(entityArray[i][1]));
         }
     }
 
+    /**
+     * <p>Add an entity to this entity.</p>
+     * 
+     * @param name name of the entity
+     * @param value vale of the entity
+     */
     public void addEntity(String name, int value) {
         map.add(name, value);
     }
 
+    /**
+     * <p>Returns the name of the entity identified by the specified value.</p>
+     * 
+     * @param value the value to locate
+     * @return entity name associated with the specified value
+     */
     public String entityName(int value) {
         return map.name(value);
     }
 
-
+    /**
+     * <p>Returns the value of the entity identified by the specified name.</p>
+     * 
+     * @param name the name to locate
+     * @return entity value associated with the specified name
+     */
     public int entityValue(String name) {
         return map.value(name);
     }
@@ -626,6 +766,40 @@ class Entities {
         return buf.toString();
     }
 
+    /**
+     * <p>Escapes the characters in the <code>String</code> passed and writes the result
+     * to the <code>Writer</code> passed. </p>
+     * 
+     * @param writer The <code>Writer</code> to write the results of the escaping to.
+     *                            Assumed to be a non-null value.
+     * @param str The <code>String</code> to escape. Assumed to be a non-null value.
+     * @throws IOException when <code>Writer</code> passed throws the exception from
+     *                                       calls to the {@link Writer#write(int)} methods.
+     *                                       
+     * @see #escape(String)
+     * @see Writer
+     */
+    public void escape(Writer writer, String str) throws IOException {
+        int len = str.length();
+        for (int i = 0; i < len; i++) {
+            char c = str.charAt(i);
+            String entityName = this.entityName(c);
+            if (entityName == null) {
+                if (c > 0x7F) {
+                    writer.write("&#");
+                    writer.write(Integer.toString(c, 10));
+                    writer.write(';');
+                } else {
+                    writer.write(c);
+                }
+            } else {
+                writer.write('&');
+                writer.write(entityName);
+                writer.write(';');
+            }
+        }
+    }
+    
     /**
      * <p>Unescapes the entities in a <code>String</code>.</p>
      *
@@ -683,4 +857,69 @@ class Entities {
         return buf.toString();
     }
 
+    /**
+     * <p>Unescapes the escaped entities in the <code>String</code> passed and
+     * writes the result to the <code>Writer</code> passed.</p>
+     * 
+     * @param writer The <code>Writer</code> to write the results to; assumed to be non-null.
+     * @param string The <code>String</code> to write the results to; assumed to be non-null.
+     * @throws IOException when <code>Writer</code> passed throws the exception from
+     *                                       calls to the {@link Writer#write(int)} methods.
+     *                                       
+     * @see #escape(String)
+     * @see Writer
+     */
+    public void unescape(Writer writer, String string) throws IOException {
+        int len = string.length();
+        if (len == 0) {
+            return;
+        }
+        for (int i = 0; i < len; i++) {
+            char c = string.charAt(i);
+            if (c == '&') {
+                int nextIdx = i+1;
+                int semiColonIdx = string.indexOf(';', nextIdx);
+                if (semiColonIdx == -1) {
+                    writer.write(c);
+                    continue;
+                }
+                String entityContent = string.substring(nextIdx, semiColonIdx);
+                int entityValue = -1;
+                int entityContentLen = entityContent.length();
+                if (entityContentLen > 0) {
+                    if (entityContent.charAt(0) == '#') { //escaped value content is an integer (decimal or hexidecimal)
+                        if (entityContentLen > 1) {  
+                            char isHexChar = entityContent.charAt(1);
+                            try {
+                                switch (isHexChar) {
+                                    case 'X' :
+                                    case 'x' : {
+                                        entityValue = Integer.parseInt(entityContent.substring(2), 16);
+                                    }
+                                    default : {
+                                        entityValue = Integer.parseInt(entityContent.substring(1), 10);
+                                    }
+                                }
+                            } catch (NumberFormatException e) {
+                            }
+                        }
+                    } else { //escaped value content is an entity name
+                        entityValue = this.entityValue(entityContent);
+                    }
+                }
+                
+                if (entityValue == -1) {
+                    writer.write('&');
+                    writer.write(entityContent);
+                    writer.write(';');
+                } else {
+                    writer.write(entityValue);
+                }
+                i = semiColonIdx; //move index up to the semi-colon                
+            } else {
+                writer.write(c);
+            }
+        }
+    }
+    
 }
