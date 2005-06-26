@@ -62,6 +62,7 @@ public class ObjectUtils {
      * to operate.</p>
      */
     public ObjectUtils() {
+      ; // empty constructor
     }
 
     // Defaulting
@@ -258,6 +259,7 @@ public class ObjectUtils {
          * Restricted constructor - singleton.
          */
         Null() {
+          ; // empty constructor
         }
         
         /**

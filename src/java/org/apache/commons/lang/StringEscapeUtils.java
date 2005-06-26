@@ -51,6 +51,7 @@ public class StringEscapeUtils {
      * instance to operate.</p>
      */
     public StringEscapeUtils() {
+      ; // empty constructor
     }
 
     // Java and JavaScript
@@ -137,6 +138,13 @@ public class StringEscapeUtils {
         escapeJavaStyleString(out, str, true);
     }
 
+    /**
+     * <p>Worker method for the {@link escapeJavaScript(String) method.</p>
+     * 
+     * @param str String to escape values in, may be null
+     * @param escapeSingleQuotes escapes single quotes if <code>true</code>
+     * @return the escaped string
+     */
     private static String escapeJavaStyleString(String str, boolean escapeSingleQuotes) {
         if (str == null) {
             return null;
@@ -152,6 +160,14 @@ public class StringEscapeUtils {
         }
     }
 
+    /**
+     * <p>Worker method for the {@link escapeJavaScript(String) method.</p>
+     * 
+     * @param out write to receieve the escaped string
+     * @param str String to escape values in, may be null
+     * @param escapeSingleQuote escapes single quotes if <code>true</code>
+     * @throws IOException if an IOException occurs
+     */
     private static void escapeJavaStyleString(Writer out, String str, boolean escapeSingleQuote) throws IOException {
         if (out == null) {
             throw new IllegalArgumentException("The Writer must not be null");
@@ -490,7 +506,7 @@ public class StringEscapeUtils {
      *
      * @param str  the <code>String</code> to unescape, may be null
      * @return a new unescaped <code>String</code>, <code>null</code> if null string input
-     * @see #escapeHtml(String)
+     * @see #escapeHtml(Writer, String)
      **/
     public static String unescapeHtml(String str) {
         if (str == null) {
@@ -509,6 +525,23 @@ public class StringEscapeUtils {
         }
     }
     
+    /**
+     * <p>Unescapes a string containing entity escapes to a string
+     * containing the actual Unicode characters corresponding to the
+     * escapes. Supports HTML 4.0 entities.</p>
+     *
+     * <p>For example, the string "&amp;lt;Fran&amp;ccedil;ais&amp;gt;"
+     * will become "&lt;Fran&ccedil;ais&gt;"</p>
+     *
+     * <p>If an entity is unrecognized, it is left alone, and inserted
+     * verbatim into the result string. e.g. "&amp;gt;&amp;zzzz;x" will
+     * become "&gt;&amp;zzzz;x".</p>
+     *
+     * @param writer writer receiving the unescaped string
+     * @param string  the <code>String</code> to unescape, may be null
+     * @throws IOException if an IOException occurs
+     * @see #escapeHtml(String)
+     **/
     public static void unescapeHtml(Writer writer, String string) throws IOException {
         if (writer == null ) {
             throw new IllegalArgumentException ("The Writer must not be null.");

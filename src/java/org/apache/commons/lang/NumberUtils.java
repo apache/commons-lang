@@ -44,6 +44,7 @@ public final class NumberUtils {
      * to operate.</p>
      */
     public NumberUtils() {
+      ; // empty constructor
     }
 
     //--------------------------------------------------------------------
@@ -213,6 +214,7 @@ public final class NumberUtils {
                         }
 
                     } catch (NumberFormatException nfe) {
+                      ; // empty catch
                     }
                     //Fall through
                 case 'd' :
@@ -223,10 +225,12 @@ public final class NumberUtils {
                             return d;
                         }
                     } catch (NumberFormatException nfe) {
+                      ; // empty catch
                     }
                     try {
                         return createBigDecimal(numeric);
                     } catch (NumberFormatException e) {
+                      ; // empty catch
                     }
                     //Fall through
                 default :
@@ -246,10 +250,12 @@ public final class NumberUtils {
                 try {
                     return createInteger(val);
                 } catch (NumberFormatException nfe) {
+                  ; // empty catch
                 }
                 try {
                     return createLong(val);
                 } catch (NumberFormatException nfe) {
+                  ; // empty catch
                 }
                 return createBigInteger(val);
 
@@ -262,6 +268,7 @@ public final class NumberUtils {
                         return f;
                     }
                 } catch (NumberFormatException nfe) {
+                  ; // empty catch
                 }
                 try {
                     Double d = createDouble(val);
@@ -269,6 +276,7 @@ public final class NumberUtils {
                         return d;
                     }
                 } catch (NumberFormatException nfe) {
+                  ; // empty catch
                 }
 
                 return createBigDecimal(val);

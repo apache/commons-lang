@@ -46,6 +46,7 @@ public class RandomStringUtils {
      * to operate.</p>
      */
     public RandomStringUtils() {
+      ; // empty constructor
     }
 
     // Random
