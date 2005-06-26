@@ -1013,7 +1013,19 @@ public class FastDateFormat extends Format {
      * <p>Inner class defining a rule.</p>
      */
     private interface Rule {
+        /**
+         * Returns the estimated lentgh of the result.
+         * 
+         * @return the estimated length
+         */
         int estimateLength();
+        
+        /**
+         * Appends the value of the specified calendar to the output buffer based on the rule implementation.
+         * 
+         * @param buffer the output buffer
+         * @param calendar calendar to be appended
+         */
         void appendTo(StringBuffer buffer, Calendar calendar);
     }
 
@@ -1021,6 +1033,12 @@ public class FastDateFormat extends Format {
      * <p>Inner class defining a numeric rule.</p>
      */
     private interface NumberRule extends Rule {
+        /**
+         * Appends the specified value to the output buffer based on the rule implementation.
+         * 
+         * @param buffer the output buffer
+         * @param value the value to be appended
+         */
         void appendTo(StringBuffer buffer, int value);
     }
 
@@ -1030,14 +1048,26 @@ public class FastDateFormat extends Format {
     private static class CharacterLiteral implements Rule {
         private final char mValue;
 
+        /**
+         * Constructs a new instance of <code>CharacterLiteral</code>
+         * to hold the specified value.
+         * 
+         * @param value the character literal
+         */
         CharacterLiteral(char value) {
             mValue = value;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             return 1;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             buffer.append(mValue);
         }
@@ -1049,14 +1079,26 @@ public class FastDateFormat extends Format {
     private static class StringLiteral implements Rule {
         private final String mValue;
 
+        /**
+         * Constructs a new instance of <code>StringLiteral</code>
+         * to hold the specified value.
+         * 
+         * @param value the string literal
+         */
         StringLiteral(String value) {
             mValue = value;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             return mValue.length();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             buffer.append(mValue);
         }
@@ -1069,11 +1111,21 @@ public class FastDateFormat extends Format {
         private final int mField;
         private final String[] mValues;
 
+        /**
+         * Constructs an instance of <code>TextField</code>
+         * with the specified field and values.
+         * 
+         * @param field the field
+         * @param values the field values
+         */
         TextField(int field, String[] values) {
             mField = field;
             mValues = values;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             int max = 0;
             for (int i=mValues.length; --i >= 0; ) {
@@ -1085,6 +1137,9 @@ public class FastDateFormat extends Format {
             return max;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             buffer.append(mValues[calendar.get(mField)]);
         }
@@ -1098,18 +1153,32 @@ public class FastDateFormat extends Format {
         
         private final int mField;
 
+        /**
+         * Constructs an instance of <code>UnpadedNumberField</code> with the specified field.
+         * 
+         * @param field the field
+         */
         UnpaddedNumberField(int field) {
             mField = field;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             return 4;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             appendTo(buffer, calendar.get(mField));
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public final void appendTo(StringBuffer buffer, int value) {
             if (value < 10) {
                 buffer.append((char)(value + '0'));
@@ -1127,18 +1196,32 @@ public class FastDateFormat extends Format {
      */
     private static class UnpaddedMonthField implements NumberRule {
         static final UnpaddedMonthField INSTANCE = new UnpaddedMonthField();
-        
+
+        /**
+         * Constructs an instance of <code>UnpaddedMonthField</code>.
+         *
+         */
         UnpaddedMonthField() {
+          ; // empty constructor
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             return 2;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             appendTo(buffer, calendar.get(Calendar.MONTH) + 1);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public final void appendTo(StringBuffer buffer, int value) {
             if (value < 10) {
                 buffer.append((char)(value + '0'));
@@ -1156,6 +1239,12 @@ public class FastDateFormat extends Format {
         private final int mField;
         private final int mSize;
 
+        /**
+         * Constructs an instance of <code>PaddedNumberField</code>.
+         * 
+         * @param field the field
+         * @param size size of the output field
+         */
         PaddedNumberField(int field, int size) {
             if (size < 3) {
                 // Should use UnpaddedNumberField or TwoDigitNumberField.
@@ -1165,14 +1254,23 @@ public class FastDateFormat extends Format {
             mSize = size;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             return 4;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             appendTo(buffer, calendar.get(mField));
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public final void appendTo(StringBuffer buffer, int value) {
             if (value < 100) {
                 for (int i = mSize; --i >= 2; ) {
@@ -1201,18 +1299,32 @@ public class FastDateFormat extends Format {
     private static class TwoDigitNumberField implements NumberRule {
         private final int mField;
 
+        /**
+         * Constructs an instance of <code>TwoDigitNumberField</code> with the specified field.
+         * 
+         * @param field the field
+         */
         TwoDigitNumberField(int field) {
             mField = field;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             return 2;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             appendTo(buffer, calendar.get(mField));
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public final void appendTo(StringBuffer buffer, int value) {
             if (value < 100) {
                 buffer.append((char)(value / 10 + '0'));
@@ -1228,18 +1340,31 @@ public class FastDateFormat extends Format {
      */
     private static class TwoDigitYearField implements NumberRule {
         static final TwoDigitYearField INSTANCE = new TwoDigitYearField();
-        
+
+        /**
+         * Constructs an instance of <code>TwoDigitYearField</code>.
+         */
         TwoDigitYearField() {
+          ; // empty constructor
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             return 2;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             appendTo(buffer, calendar.get(Calendar.YEAR) % 100);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public final void appendTo(StringBuffer buffer, int value) {
             buffer.append((char)(value / 10 + '0'));
             buffer.append((char)(value % 10 + '0'));
@@ -1251,18 +1376,31 @@ public class FastDateFormat extends Format {
      */
     private static class TwoDigitMonthField implements NumberRule {
         static final TwoDigitMonthField INSTANCE = new TwoDigitMonthField();
-        
+
+        /**
+         * Constructs an instance of <code>TwoDigitMonthField</code>.
+         */
         TwoDigitMonthField() {
+          ; // empty constructor
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             return 2;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             appendTo(buffer, calendar.get(Calendar.MONTH) + 1);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public final void appendTo(StringBuffer buffer, int value) {
             buffer.append((char)(value / 10 + '0'));
             buffer.append((char)(value % 10 + '0'));
@@ -1275,14 +1413,26 @@ public class FastDateFormat extends Format {
     private static class TwelveHourField implements NumberRule {
         private final NumberRule mRule;
 
+        /**
+         * Constructs an instance of <code>TwelveHourField</code> with the specified
+         * <code>NumberRule</code>.
+         * 
+         * @param rule the rule
+         */
         TwelveHourField(NumberRule rule) {
             mRule = rule;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             return mRule.estimateLength();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             int value = calendar.get(Calendar.HOUR);
             if (value == 0) {
@@ -1291,6 +1441,9 @@ public class FastDateFormat extends Format {
             mRule.appendTo(buffer, value);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, int value) {
             mRule.appendTo(buffer, value);
         }
@@ -1302,14 +1455,26 @@ public class FastDateFormat extends Format {
     private static class TwentyFourHourField implements NumberRule {
         private final NumberRule mRule;
 
+        /**
+         * Constructs an instance of <code>TwentyFourHourField</code> with the specified
+         * <code>NumberRule</code>.
+         * 
+         * @param rule the rule
+         */
         TwentyFourHourField(NumberRule rule) {
             mRule = rule;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             return mRule.estimateLength();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             int value = calendar.get(Calendar.HOUR_OF_DAY);
             if (value == 0) {
@@ -1318,6 +1483,9 @@ public class FastDateFormat extends Format {
             mRule.appendTo(buffer, value);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, int value) {
             mRule.appendTo(buffer, value);
         }
@@ -1334,6 +1502,14 @@ public class FastDateFormat extends Format {
         private final String mStandard;
         private final String mDaylight;
 
+        /**
+         * Constructs an instance of <code>TimeZoneNameRule</code> with the specified properties.
+         * 
+         * @param timeZone the time zone
+         * @param timeZoneForced if <code>true</code> the time zone is forced into standard and daylight
+         * @param locale the locale
+         * @param style the style
+         */
         TimeZoneNameRule(TimeZone timeZone, boolean timeZoneForced, Locale locale, int style) {
             mTimeZone = timeZone;
             mTimeZoneForced = timeZoneForced;
@@ -1349,6 +1525,9 @@ public class FastDateFormat extends Format {
             }
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             if (mTimeZoneForced) {
                 return Math.max(mStandard.length(), mDaylight.length());
@@ -1359,6 +1538,9 @@ public class FastDateFormat extends Format {
             }
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             if (mTimeZoneForced) {
                 if (mTimeZone.useDaylightTime() && calendar.get(Calendar.DST_OFFSET) != 0) {
@@ -1387,14 +1569,25 @@ public class FastDateFormat extends Format {
         
         final boolean mColon;
         
+        /**
+         * Constructs an instance of <code>TimeZoneNumberRule</code> with the specified properties.
+         * 
+         * @param colon add colon between HH and MM in the output if <code>true</code>
+         */
         TimeZoneNumberRule(boolean colon) {
             mColon = colon;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int estimateLength() {
             return 5;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
             int offset = calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET);
             
@@ -1428,6 +1621,14 @@ public class FastDateFormat extends Format {
         private final int mStyle;
         private final Locale mLocale;
 
+        /**
+         * Constructs an instance of <code>TimeZoneDisplayKey</code> with the specified properties.
+         *  
+         * @param timeZone the time zone
+         * @param daylight adjust the style for daylight saving time if <code>true</code>
+         * @param style the timezone style
+         * @param locale the timezone locale
+         */
         TimeZoneDisplayKey(TimeZone timeZone,
                            boolean daylight, int style, Locale locale) {
             mTimeZone = timeZone;
@@ -1438,10 +1639,16 @@ public class FastDateFormat extends Format {
             mLocale = locale;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int hashCode() {
             return mStyle * 31 + mLocale.hashCode();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public boolean equals(Object obj) {
             if (this == obj) {
                 return true;
@@ -1468,11 +1675,19 @@ public class FastDateFormat extends Format {
         private final Object mObj1;
         private final Object mObj2;
 
+        /**
+         * Constructs an instance of <code>Pair</code> to hold the specified objects.
+         * @param obj1 one object in the pair
+         * @param obj2 second object in the pair
+         */
         public Pair(Object obj1, Object obj2) {
             mObj1 = obj1;
             mObj2 = obj2;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public boolean equals(Object obj) {
             if (this == obj) {
                 return true;
@@ -1491,12 +1706,18 @@ public class FastDateFormat extends Format {
                  key.mObj2 == null : mObj2.equals(key.mObj2));
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public int hashCode() {
             return
                 (mObj1 == null ? 0 : mObj1.hashCode()) +
                 (mObj2 == null ? 0 : mObj2.hashCode());
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public String toString() {
             return "[" + mObj1 + ':' + mObj2 + ']';
         }

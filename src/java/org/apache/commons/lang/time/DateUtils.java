@@ -120,6 +120,7 @@ public class DateUtils {
      * instance to operate.</p>
      */
     public DateUtils() {
+      ; // empty constructor
     }
 
     //-----------------------------------------------------------------------
