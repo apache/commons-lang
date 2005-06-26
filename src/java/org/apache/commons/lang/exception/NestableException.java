@@ -143,6 +143,9 @@ public class NestableException extends Exception implements Nestable {
         this.cause = cause;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Throwable getCause() {
         return cause;
     }
@@ -164,6 +167,9 @@ public class NestableException extends Exception implements Nestable {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String getMessage(int index) {
         if (index == 0) {
             return super.getMessage();
@@ -172,42 +178,72 @@ public class NestableException extends Exception implements Nestable {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String[] getMessages() {
         return delegate.getMessages();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Throwable getThrowable(int index) {
         return delegate.getThrowable(index);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int getThrowableCount() {
         return delegate.getThrowableCount();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Throwable[] getThrowables() {
         return delegate.getThrowables();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int indexOfThrowable(Class type) {
         return delegate.indexOfThrowable(type, 0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int indexOfThrowable(Class type, int fromIndex) {
         return delegate.indexOfThrowable(type, fromIndex);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void printStackTrace() {
         delegate.printStackTrace();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void printStackTrace(PrintStream out) {
         delegate.printStackTrace(out);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void printStackTrace(PrintWriter out) {
         delegate.printStackTrace(out);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final void printPartialStackTrace(PrintWriter out) {
         super.printStackTrace(out);
     }

@@ -91,6 +91,7 @@ public class ExceptionUtils {
      * to be created, although that is not normally necessary.</p>
      */
     public ExceptionUtils() {
+      ; // empty constructor
     }
 
     //-----------------------------------------------------------------------
@@ -293,15 +294,20 @@ public class ExceptionUtils {
         try {
             method = throwable.getClass().getMethod(methodName, null);
         } catch (NoSuchMethodException ignored) {
+          ; // exception ignored
         } catch (SecurityException ignored) {
+          ; // exception ignored
         }
 
         if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
             try {
                 return (Throwable) method.invoke(throwable, ArrayUtils.EMPTY_OBJECT_ARRAY);
             } catch (IllegalAccessException ignored) {
+              ; // exception ignored
             } catch (IllegalArgumentException ignored) {
+              ; // exception ignored
             } catch (InvocationTargetException ignored) {
+              ; // exception ignored
             }
         }
         return null;
@@ -319,14 +325,18 @@ public class ExceptionUtils {
         try {
             field = throwable.getClass().getField(fieldName);
         } catch (NoSuchFieldException ignored) {
+          ; // exception ignored
         } catch (SecurityException ignored) {
+          ; // exception ignored
         }
 
         if (field != null && Throwable.class.isAssignableFrom(field.getType())) {
             try {
                 return (Throwable) field.get(throwable);
             } catch (IllegalAccessException ignored) {
+              ; // exception ignored
             } catch (IllegalArgumentException ignored) {
+              ; // exception ignored
             }
         }
         return null;
@@ -377,7 +387,9 @@ public class ExceptionUtils {
                     return true;
                 }
             } catch (NoSuchMethodException ignored) {
+              ; // exception ignored
             } catch (SecurityException ignored) {
+              ; // exception ignored
             }
         }
 
@@ -387,7 +399,9 @@ public class ExceptionUtils {
                 return true;
             }
         } catch (NoSuchFieldException ignored) {
+          ; // exception ignored
         } catch (SecurityException ignored) {
+          ; // exception ignored
         }
 
         return false;
@@ -522,6 +536,17 @@ public class ExceptionUtils {
         return indexOf(throwable, type, fromIndex, true);
     }
 
+    /**
+     * <p>Worker method for the <code>indexOfType</code> methods.</p>
+     * 
+     * @param throwable  the throwable to inspect, may be null
+     * @param type  the type to search for, subclasses match, null returns -1
+     * @param fromIndex  the (zero based) index of the starting position,
+     *  negative treated as zero, larger than chain size returns -1
+     * @param subclass if <code>true</code>, compares with {@link Class.isAssignableFrom(Class)}, otherwise compares
+     * using references
+     * @return index of the <code>type</code> within throwables nested withing the specified <code>throwable</code>
+     */
     private static int indexOf(Throwable throwable, Class type, int fromIndex, boolean subclass) {
         if (throwable == null || type == null) {
             return -1;

@@ -82,6 +82,7 @@ public class NumberUtils {
      * to operate.</p>
      */
     public NumberUtils() {
+      ; // empty constructor
     }
 
     //-----------------------------------------------------------------------
@@ -472,6 +473,7 @@ public class NumberUtils {
                         }
 
                     } catch (NumberFormatException nfe) {
+                      ; // empty catch
                     }
                     //Fall through
                 case 'd' :
@@ -482,10 +484,12 @@ public class NumberUtils {
                             return d;
                         }
                     } catch (NumberFormatException nfe) {
+                      ; // empty constructor
                     }
                     try {
                         return createBigDecimal(numeric);
                     } catch (NumberFormatException e) {
+                      ; // empty constructor
                     }
                     //Fall through
                 default :
@@ -505,10 +509,12 @@ public class NumberUtils {
                 try {
                     return createInteger(str);
                 } catch (NumberFormatException nfe) {
+                  ; // empty contructor
                 }
                 try {
                     return createLong(str);
                 } catch (NumberFormatException nfe) {
+                  ; // empty constructor
                 }
                 return createBigInteger(str);
 
@@ -521,6 +527,7 @@ public class NumberUtils {
                         return f;
                     }
                 } catch (NumberFormatException nfe) {
+                  ; // empty constructor
                 }
                 try {
                     Double d = createDouble(str);
@@ -528,6 +535,7 @@ public class NumberUtils {
                         return d;
                     }
                 } catch (NumberFormatException nfe) {
+                  ; // empty constructor
                 }
 
                 return createBigDecimal(str);
