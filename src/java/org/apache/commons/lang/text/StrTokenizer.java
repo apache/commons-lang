@@ -1237,6 +1237,9 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     static final class NoMatcher implements Matcher {
 
+        /**
+         * Constructs a new instance of <code>NoMatcher</code>.
+         */
         NoMatcher() {
             super();
         }
@@ -1260,6 +1263,9 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     static final class TrimMatcher implements Matcher {
 
+        /**
+         * Constructs a new instance of <code>TrimMatcher</code>.
+         */
         TrimMatcher() {
             super();
         }
