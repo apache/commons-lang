@@ -114,7 +114,7 @@ public class SerializationUtils {
                     out.close();
                 }
             } catch (IOException ex) {
-                // ignore;
+                ; // ignore
             }
         }
     }
@@ -170,7 +170,7 @@ public class SerializationUtils {
                     in.close();
                 }
             } catch (IOException ex) {
-                // ignore
+                ; // ignore
             }
         }
     }

@@ -197,7 +197,7 @@ public final class NumberUtils {
                         try {
                             return createLong(numeric);
                         } catch (NumberFormatException nfe) {
-                            //Too big for a long
+                            ; //Too big for a long
                         }
                         return createBigInteger(numeric);
 
