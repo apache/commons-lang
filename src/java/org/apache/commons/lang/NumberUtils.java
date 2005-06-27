@@ -44,7 +44,7 @@ public final class NumberUtils {
      * to operate.</p>
      */
     public NumberUtils() {
-      ; // empty constructor
+      super();
     }
 
     //--------------------------------------------------------------------

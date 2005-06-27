@@ -133,7 +133,7 @@ public class ArrayUtils {
      * to operate.</p>
      */
     public ArrayUtils() {
-      ; // empty constructor
+      super();
     }
     
     // Basic methods handling multi-dimensional arrays

@@ -79,7 +79,7 @@ public class ClassUtils {
      * instance to operate.</p>
      */
     public ClassUtils() {
-      ; // empty constructor
+      super();
     }
 
     // Short class name

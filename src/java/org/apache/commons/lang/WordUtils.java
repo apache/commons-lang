@@ -41,7 +41,7 @@ public class WordUtils {
      * instance to operate.</p>
      */
     public WordUtils() {
-      ; // empty constructor
+      super();
     }
 
     // Wrapping

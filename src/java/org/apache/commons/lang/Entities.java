@@ -620,7 +620,7 @@ class Entities {
          * Constructs a new instance of <code>BinaryEntityMap</code>.
          */
         public BinaryEntityMap() {
-          ; // empty constructor
+          super();
         }
 
         /**

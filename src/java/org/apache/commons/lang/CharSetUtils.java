@@ -40,7 +40,7 @@ public class CharSetUtils {
      * to operate.</p>
      */
     public CharSetUtils() {
-      ; // empty constructor
+      super();
     }
 
     // Factory

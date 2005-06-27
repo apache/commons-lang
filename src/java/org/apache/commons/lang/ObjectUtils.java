@@ -62,7 +62,7 @@ public class ObjectUtils {
      * to operate.</p>
      */
     public ObjectUtils() {
-      ; // empty constructor
+      super();
     }
 
     // Defaulting
