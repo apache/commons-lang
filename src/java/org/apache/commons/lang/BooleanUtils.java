@@ -40,7 +40,7 @@ public class BooleanUtils {
      * to operate.</p>
      */
     public BooleanUtils() {
-      ; // empty constructor
+      super();
     }
 
     // Boolean utilities
