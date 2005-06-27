@@ -641,6 +641,8 @@ public class StrTokenizer implements ListIterator, Cloneable {
 
     /**
      * Read all the tokens.
+     * 
+     * @return array containing the tokens.
      */
     private String[] readTokens() {
         int len = chars.length;
@@ -1200,7 +1202,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
         /**
          * Constructor that creates a matcher from a String.
          *
-         * @param chars  the characters to match, must not be null
+         * @param str  the string to match, must not be null
          */
         StringMatcher(String str) {
             super();
