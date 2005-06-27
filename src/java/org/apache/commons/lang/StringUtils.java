@@ -168,7 +168,7 @@ public class StringUtils {
      * instance to operate.</p>
      */
     public StringUtils() {
-        // no init.
+        super();
     }
 
     // Empty checks
@@ -3213,6 +3213,7 @@ public class StringUtils {
         } else if (last == '\r') {
             // why is this block empty?
             // just to skip incrementing the index?
+          ;
         } else {
             lastIdx++;
         }

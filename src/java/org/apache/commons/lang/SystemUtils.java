@@ -1071,7 +1071,7 @@ public class SystemUtils {
      * instance to operate.</p>
      */
     public SystemUtils() {
-        // no init.
+        super();
     }
     
     //-----------------------------------------------------------------------    
