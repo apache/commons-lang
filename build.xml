@@ -122,8 +122,6 @@ limitations under the License.
 		</copy>
 	</target>
 	<!-- ========== Unit Test Targets ========================================= -->
-	<!-- removed test.text target from the depends list for the 2.1 release. It
-     should be reinstated when the text package is included -->
 	<target name="test" depends="
                                 compile.tests, 
                                 test.lang,
@@ -132,7 +130,8 @@ limitations under the License.
 						        test.enums,
                                 test.exception,
                                 test.math,
-                                test.mutable,
+						        test.mutable,
+        						test.text,
 						        test.time" description="Run all unit test cases">
 		<echo message="Running tests ..."/>
 	</target>
