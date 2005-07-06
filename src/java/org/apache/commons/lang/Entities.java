@@ -901,6 +901,7 @@ class Entities {
                                     }
                                 }
                             } catch (NumberFormatException e) {
+                                // ignore the escaped value content
                             }
                         }
                     } else { //escaped value content is an entity name
