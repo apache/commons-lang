@@ -82,7 +82,7 @@ public class StopWatch {
      * <p>Constructor.</p>
      */
     public StopWatch() {
-      ; // empty constructor
+        super();
     }
 
     /**

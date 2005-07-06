@@ -112,7 +112,7 @@ public class DateFormatUtils {
      * to operate.</p>
      */
     public DateFormatUtils() {
-      ; // empty constructor
+        super();
     }
 
     /**
