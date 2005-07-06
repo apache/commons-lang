@@ -62,7 +62,7 @@ public class ObjectUtils {
      * to operate.</p>
      */
     public ObjectUtils() {
-      super();
+        super();
     }
 
     // Defaulting
@@ -259,7 +259,7 @@ public class ObjectUtils {
          * Restricted constructor - singleton.
          */
         Null() {
-          ; // empty constructor
+            super();
         }
         
         /**

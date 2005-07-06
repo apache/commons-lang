@@ -1202,7 +1202,7 @@ public class FastDateFormat extends Format {
          *
          */
         UnpaddedMonthField() {
-          ; // empty constructor
+            super();
         }
 
         /**
@@ -1345,7 +1345,7 @@ public class FastDateFormat extends Format {
          * Constructs an instance of <code>TwoDigitYearField</code>.
          */
         TwoDigitYearField() {
-          ; // empty constructor
+            super();
         }
 
         /**
@@ -1381,7 +1381,7 @@ public class FastDateFormat extends Format {
          * Constructs an instance of <code>TwoDigitMonthField</code>.
          */
         TwoDigitMonthField() {
-          ; // empty constructor
+            super();
         }
 
         /**
