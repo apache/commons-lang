@@ -95,7 +95,7 @@ import org.apache.commons.lang.StringUtils;
  * @version $Id$
  * @since 2.2
  */
-public class VariableFormat {
+public class VariableFormatter {
     /** Constant for the default variable prefix. */
     static final String DEFAULT_PREFIX = "${";
 
@@ -131,7 +131,7 @@ public class VariableFormat {
      * @throws IllegalArgumentException
      *             if the map is undefined
      */
-    public VariableFormat(Map valueMap, String prefix, String suffix, char escape) {
+    public VariableFormatter(Map valueMap, String prefix, String suffix, char escape) {
         setValueMap(valueMap);
         setVariablePrefix(prefix);
         setVariableSuffix(suffix);
@@ -150,7 +150,7 @@ public class VariableFormat {
      * @throws IllegalArgumentException
      *             if the map is undefined
      */
-    public VariableFormat(Map valueMap, String prefix, String suffix) {
+    public VariableFormatter(Map valueMap, String prefix, String suffix) {
         this(valueMap, prefix, suffix, DEFAULT_ESCAPE);
     }
 
@@ -163,7 +163,7 @@ public class VariableFormat {
      * @throws IllegalArgumentException
      *             if the map is undefined
      */
-    public VariableFormat(Map valueMap) {
+    public VariableFormatter(Map valueMap) {
         this(valueMap, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
@@ -298,7 +298,7 @@ public class VariableFormat {
      * @return the result of the replace operation
      */
     public static String replace(Map valueMap, Object source) {
-        return new VariableFormat(valueMap).replace(source);
+        return new VariableFormatter(valueMap).replace(source);
     }
 
     /**
@@ -316,7 +316,7 @@ public class VariableFormat {
      * @return the result of the replace operation
      */
     public static String replace(Map valueMap, String prefix, String suffix, Object source) {
-        return new VariableFormat(valueMap, prefix, suffix).replace(source);
+        return new VariableFormatter(valueMap, prefix, suffix).replace(source);
     }
 
     /**
@@ -327,7 +327,7 @@ public class VariableFormat {
      * @return the result of the replace operation
      */
     public static String replaceSystemProperties(Object source) {
-        return new VariableFormat(System.getProperties()).replace(source);
+        return new VariableFormatter(System.getProperties()).replace(source);
     }
 
     /**

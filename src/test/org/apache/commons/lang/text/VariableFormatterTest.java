@@ -22,15 +22,15 @@ import java.util.Map;
 import junit.framework.TestCase;
 
 /**
- * Test class for VariableResolver.
+ * Test class for VariableFormatter.
  * 
  * @author Oliver Heger
  * @version $Id$
  */
-public class VariableFormatTest extends TestCase {
+public class VariableFormatterTest extends TestCase {
     static final String REPLACE_TEMPLATE = "The ${animal} jumps over the ${target}.";
 
-    private VariableFormat format;
+    private VariableFormatter format;
 
     private Map values;
 
@@ -40,7 +40,7 @@ public class VariableFormatTest extends TestCase {
         map.put("animal", "quick brown fox");
         map.put("target", "lazy dog");
         setValues(map);
-        setFormat(new VariableFormat(map));
+        setFormat(new VariableFormatter(map));
     }
 
     /**
@@ -48,31 +48,31 @@ public class VariableFormatTest extends TestCase {
      */
     public void testInitialize() {
         assertNotNull(format.getValueMap());
-        assertEquals(VariableFormat.DEFAULT_PREFIX, format.getVariablePrefix());
-        assertEquals(VariableFormat.DEFAULT_SUFFIX, format.getVariableSuffix());
-        assertEquals(VariableFormat.DEFAULT_ESCAPE, format.getEscapeCharacter());
+        assertEquals(VariableFormatter.DEFAULT_PREFIX, format.getVariablePrefix());
+        assertEquals(VariableFormatter.DEFAULT_SUFFIX, format.getVariableSuffix());
+        assertEquals(VariableFormatter.DEFAULT_ESCAPE, format.getEscapeCharacter());
 
-        format = new VariableFormat(values, "<<", ">>", '\\');
+        format = new VariableFormatter(values, "<<", ">>", '\\');
         assertEquals("<<", format.getVariablePrefix());
         assertEquals(">>", format.getVariableSuffix());
         assertEquals('\\', format.getEscapeCharacter());
 
         try {
-            format = new VariableFormat(null);
+            format = new VariableFormatter(null);
             fail("Could create format object with null map!");
         } catch (IllegalArgumentException iex) {
             // ok
         }
 
         try {
-            format = new VariableFormat(values, "${", null);
+            format = new VariableFormatter(values, "${", null);
             fail("Could create format object with undefined suffix!");
         } catch (IllegalArgumentException iex) {
             // ok
         }
 
         try {
-            format = new VariableFormat(values, null, "]");
+            format = new VariableFormatter(values, null, "]");
             fail("Could create format object with undefined prefix!");
         } catch (IllegalArgumentException iex) {
             // ok
@@ -163,7 +163,7 @@ public class VariableFormatTest extends TestCase {
      * Tests chaning variable prefix and suffix and the escaping character.
      */
     public void testNonDefaultTokens() {
-        format = new VariableFormat(values, "<<", ">>", '\\');
+        format = new VariableFormatter(values, "<<", ">>", '\\');
         assertEquals("The quick brown fox jumps over the lazy dog.", format
                 .replace("The <<animal>> jumps over the <<target>>."));
         assertEquals("The quick brown fox jumps over the <<target>>.", format
@@ -174,10 +174,10 @@ public class VariableFormatTest extends TestCase {
      * Tests invoking the static convenience methods.
      */
     public void testNonInstanceMethods() {
-        assertEquals("The quick brown fox jumps over the lazy dog.", VariableFormat.replace(values, REPLACE_TEMPLATE));
+        assertEquals("The quick brown fox jumps over the lazy dog.", VariableFormatter.replace(values, REPLACE_TEMPLATE));
         values.put("animal", "cow");
         values.put("target", "moon");
-        assertEquals("The cow jumps over the moon.", VariableFormat.replace(values, "&", ";",
+        assertEquals("The cow jumps over the moon.", VariableFormatter.replace(values, "&", ";",
                 "The &animal; jumps over the &target;."));
     }
 
@@ -191,7 +191,7 @@ public class VariableFormatTest extends TestCase {
         buf.append(System.getProperty("os.name"));
         buf.append(", your home directory is ");
         buf.append(System.getProperty("user.home")).append('.');
-        assertEquals(buf.toString(), VariableFormat.replaceSystemProperties("Hi ${user.name}, you are "
+        assertEquals(buf.toString(), VariableFormatter.replaceSystemProperties("Hi ${user.name}, you are "
             + "working with ${os.name}, your home "
             + "directory is ${user.home}."));
     }
@@ -204,11 +204,11 @@ public class VariableFormatTest extends TestCase {
         this.values = values;
     }
 
-    VariableFormat getFormat() {
+    VariableFormatter getFormat() {
         return this.format;
     }
 
-    void setFormat(VariableFormat format) {
+    void setFormat(VariableFormatter format) {
         this.format = format;
     }
 }
