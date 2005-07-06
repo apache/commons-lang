@@ -548,11 +548,11 @@ public abstract class Enum implements Comparable, Serializable {
                 String name = (String) mth.invoke(other, null);
                 return iName.equals(name);
             } catch (NoSuchMethodException e) {
-                ; // ignore - should never happen
+                // ignore - should never happen
             } catch (IllegalAccessException e) {
-                ; // ignore - should never happen
+                // ignore - should never happen
             } catch (InvocationTargetException e) {
-                ; // ignore - should never happen
+                // ignore - should never happen
             }
             return false;
         }
