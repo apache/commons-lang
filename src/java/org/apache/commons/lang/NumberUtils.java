@@ -197,7 +197,7 @@ public final class NumberUtils {
                         try {
                             return createLong(numeric);
                         } catch (NumberFormatException nfe) {
-                            ; //Too big for a long
+                            //Too big for a long
                         }
                         return createBigInteger(numeric);
 
@@ -213,8 +213,8 @@ public final class NumberUtils {
                             return f;
                         }
 
-                    } catch (NumberFormatException nfe) {
-                      ; // empty catch
+                    } catch (NumberFormatException e) {
+                        // ignore the bad number
                     }
                     //Fall through
                 case 'd' :
@@ -225,12 +225,12 @@ public final class NumberUtils {
                             return d;
                         }
                     } catch (NumberFormatException nfe) {
-                      ; // empty catch
+                        // empty catch
                     }
                     try {
                         return createBigDecimal(numeric);
                     } catch (NumberFormatException e) {
-                      ; // empty catch
+                        // empty catch
                     }
                     //Fall through
                 default :
@@ -250,12 +250,12 @@ public final class NumberUtils {
                 try {
                     return createInteger(val);
                 } catch (NumberFormatException nfe) {
-                  ; // empty catch
+                    // empty catch
                 }
                 try {
                     return createLong(val);
                 } catch (NumberFormatException nfe) {
-                  ; // empty catch
+                    // empty catch
                 }
                 return createBigInteger(val);
 
@@ -268,7 +268,7 @@ public final class NumberUtils {
                         return f;
                     }
                 } catch (NumberFormatException nfe) {
-                  ; // empty catch
+                    // empty catch
                 }
                 try {
                     Double d = createDouble(val);
@@ -276,7 +276,7 @@ public final class NumberUtils {
                         return d;
                     }
                 } catch (NumberFormatException nfe) {
-                  ; // empty catch
+                    // empty catch
                 }
 
                 return createBigDecimal(val);
