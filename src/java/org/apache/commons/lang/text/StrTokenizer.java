@@ -990,6 +990,18 @@ public class StrTokenizer implements ListIterator, Cloneable {
         }
     }
 
+    /**
+     * Set the character to ignore.
+     * <p>
+     * This character is ignored when parsing the String, unless it is
+     * within a quoted region.
+     *
+     * @param ignored  the ignored character to use
+     */
+    public void setIgnoredChar(char ignored) {
+        setIgnoredMatcher(new CharMatcher(ignored));
+    }
+
     // Trimmer
     //-----------------------------------------------------------------------
     /**
@@ -1014,18 +1026,6 @@ public class StrTokenizer implements ListIterator, Cloneable {
         if (trimmer != null) {
             this.trimmer = trimmer;
         }
-    }
-
-    /**
-     * Set the character to ignore.
-     * <p>
-     * This character is ignored when parsing the String, unless it is
-     * within a quoted region.
-     *
-     * @param ignored  the ignored character to use
-     */
-    public void setIgnoredChar(char ignored) {
-        setIgnoredMatcher(new CharMatcher(ignored));
     }
 
     //-----------------------------------------------------------------------
