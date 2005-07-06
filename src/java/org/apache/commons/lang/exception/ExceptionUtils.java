@@ -91,7 +91,7 @@ public class ExceptionUtils {
      * to be created, although that is not normally necessary.</p>
      */
     public ExceptionUtils() {
-      ; // empty constructor
+        super();
     }
 
     //-----------------------------------------------------------------------
@@ -294,20 +294,20 @@ public class ExceptionUtils {
         try {
             method = throwable.getClass().getMethod(methodName, null);
         } catch (NoSuchMethodException ignored) {
-          ; // exception ignored
+            // exception ignored
         } catch (SecurityException ignored) {
-          ; // exception ignored
+            // exception ignored
         }
 
         if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
             try {
                 return (Throwable) method.invoke(throwable, ArrayUtils.EMPTY_OBJECT_ARRAY);
             } catch (IllegalAccessException ignored) {
-              ; // exception ignored
+                // exception ignored
             } catch (IllegalArgumentException ignored) {
-              ; // exception ignored
+                // exception ignored
             } catch (InvocationTargetException ignored) {
-              ; // exception ignored
+                // exception ignored
             }
         }
         return null;
@@ -325,18 +325,18 @@ public class ExceptionUtils {
         try {
             field = throwable.getClass().getField(fieldName);
         } catch (NoSuchFieldException ignored) {
-          ; // exception ignored
+            // exception ignored
         } catch (SecurityException ignored) {
-          ; // exception ignored
+            // exception ignored
         }
 
         if (field != null && Throwable.class.isAssignableFrom(field.getType())) {
             try {
                 return (Throwable) field.get(throwable);
             } catch (IllegalAccessException ignored) {
-              ; // exception ignored
+                // exception ignored
             } catch (IllegalArgumentException ignored) {
-              ; // exception ignored
+                // exception ignored
             }
         }
         return null;
@@ -387,9 +387,9 @@ public class ExceptionUtils {
                     return true;
                 }
             } catch (NoSuchMethodException ignored) {
-              ; // exception ignored
+                // exception ignored
             } catch (SecurityException ignored) {
-              ; // exception ignored
+                // exception ignored
             }
         }
 
@@ -399,9 +399,9 @@ public class ExceptionUtils {
                 return true;
             }
         } catch (NoSuchFieldException ignored) {
-          ; // exception ignored
+            // exception ignored
         } catch (SecurityException ignored) {
-          ; // exception ignored
+            // exception ignored
         }
 
         return false;
