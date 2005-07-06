@@ -19,7 +19,7 @@ limitations under the License.
   
   <id>commons-lang</id>
   <name>Lang</name>
-  <currentVersion>2.1</currentVersion>
+  <currentVersion>2.2-dev</currentVersion>
   <inceptionYear>2001</inceptionYear>
   <shortDescription>Java Common Components</shortDescription>
   <description>
@@ -368,8 +368,6 @@ limitations under the License.
           <sourceModification>
             <className>FakeClass</className>
             <excludes>
-		<!-- text package excluded for the 2.1 release -->
-                <exclude>org/apache/commons/lang/text/**/*.java</exclude>
             </excludes>
           </sourceModification>
         </sourceModifications>
@@ -384,8 +382,6 @@ limitations under the License.
       		</includes>
       		<excludes>
         		<exclude>**/AllLangTestSuite.java</exclude>
-		        <!-- text package excluded for the 2.1 release -->
-			<exclude>org/apache/commons/lang/text/**/*.java</exclude>
       		</excludes>
             <resources>
                 <resource>
