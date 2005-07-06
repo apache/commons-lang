@@ -139,7 +139,8 @@ public class VariableFormatter {
     }
 
     /**
-     * Creates a new instance of <code>VariableFormat</code> and initializes it. Uses a default escaping character.
+     * Creates a new instance of <code>VariableFormat</code> and initializes it.
+     * Uses a default escaping character.
      * 
      * @param valueMap
      *            the map with the variables' values
@@ -155,8 +156,8 @@ public class VariableFormatter {
     }
 
     /**
-     * Creates a new instance of <code>VariableFormat</code> and initializes it. Uses defaults for variable prefix and
-     * suffix and the escaping character.
+     * Creates a new instance of <code>VariableFormat</code> and initializes it.
+     * Uses defaults for variable prefix and suffix and the escaping character.
      * 
      * @param valueMap
      *            the map with the variables' values
@@ -177,8 +178,8 @@ public class VariableFormatter {
     }
 
     /**
-     * Sets the escape character. If this character is placed before a variable reference in the source text, this
-     * variable will be ignored.
+     * Sets the escape character. If this character is placed before a
+     * variable reference in the source text, this variable will be ignored.
      * 
      * @param escapeCharacter
      *            the escape character (0 for disabling escaping)
@@ -260,10 +261,12 @@ public class VariableFormatter {
     }
 
     /**
-     * Replaces the occurrences of all variables in the given source data by their current values. If the source
-     * consists only of a single variable reference, this method directly returns the value of this variable (which can
-     * be an arbitrary object). If the source contains multiple variable references or static text, the return value
-     * will always be a String with the concatenation of all these elements.
+     * Replaces the occurrences of all variables in the given source data by
+     * their current values. If the source consists only of a single variable
+     * reference, this method directly returns the value of this variable
+     * (which can be an arbitrary object). If the source contains multiple
+     * variable references or static text, the return value will always be a
+     * String with the concatenation of all these elements.
      * 
      * @param source
      *            the text to be interpolated; this can be an arbitrary object whose <code>toString()</code> method
@@ -275,7 +278,8 @@ public class VariableFormatter {
     }
 
     /**
-     * Replaces the occurrences of all variables in the given source data by their current values.
+     * Replaces the occurrences of all variables in the given source data by
+     * their current values.
      * 
      * @param source
      *            the text to be interpolated; this can be an arbitrary object whose <code>toString()</code> method
@@ -288,8 +292,8 @@ public class VariableFormatter {
     }
 
     /**
-     * Replaces the occurrences of all variables in the given source data by their current values obtained from the
-     * passed in map.
+     * Replaces the occurrences of all variables in the given source data by
+     * their current values obtained from the passed in map.
      * 
      * @param valueMap
      *            the map with the values
@@ -302,8 +306,9 @@ public class VariableFormatter {
     }
 
     /**
-     * Replaces the occurrences of all variables in the given source data by their current values obtained from the
-     * passed in map. This method allows to specifiy a custom variable prefix and suffix
+     * Replaces the occurrences of all variables in the given source data by
+     * their current values obtained from the passed in map. This method
+     * allows to specifiy a custom variable prefix and suffix
      * 
      * @param valueMap
      *            the map with the values
@@ -320,7 +325,8 @@ public class VariableFormatter {
     }
 
     /**
-     * Replaces all variables in the given source data with values obtained from system properties.
+     * Replaces all variables in the given source data with values obtained
+     * from system properties.
      * 
      * @param source
      *            the source text
@@ -331,8 +337,8 @@ public class VariableFormatter {
     }
 
     /**
-     * Checks if the variable reference found at the specified position is escaped and if this is the case, where the
-     * escaped text starts.
+     * Checks if the variable reference found at the specified position is
+     * escaped and if this is the case, where the escaped text starts.
      * 
      * @param text
      *            the text to be processed
@@ -352,15 +358,19 @@ public class VariableFormatter {
     }
 
     /**
-     * Unescapes an escaped variable reference. This method is called if <code>escaped()</code> has determined an
-     * escaped variable reference. Its purpose is to remove any escaping characters and to add the resulting text into
-     * the target buffer. This implementation will remove the first escape character. So if the default values are used,
+     * Unescapes an escaped variable reference. This method is called if
+     * <code>escaped()</code> has determined an escaped variable reference.
+     * Its purpose is to remove any escaping characters and to add the
+     * resulting text into the target buffer. This implementation will remove
+     * the first escape character. So if the default values are used,
      * a text portion of <code>$${myvar}</code> will become <code>${myvar}</code>,
-     * <code>$$$${var with dollars}</code> will result in <code>$$${var with dollars}</code>. Text between the
-     * first variable start token and the last unescaped variable end token can contain variable references and will be
+     * <code>$$$${var with dollars}</code> will result in <code>$$${var with
+     * dollars}</code>. Text between the first variable start token and the last
+     * unescaped variable end token can contain variable references and will be
      * recursively replaced. So constructs of the following form can be built:
-     * <code>Variable $${${varName$}} is incorrect!</code> (note how the first &quot;}&quot; character is escaped, so
-     * that the second &quot;}&quot; marks the end of this construct.
+     * <code>Variable $${${varName$}} is incorrect!</code> (note how the first
+     * &quot;}&quot; character is escaped, so that the second &quot;}&quot;
+     * marks the end of this construct.
      * 
      * @param buf
      *            the target buffer
@@ -383,7 +393,8 @@ public class VariableFormatter {
     }
 
     /**
-     * Searches for a variable end token in the given string from the specified start position.
+     * Searches for a variable end token in the given string from the
+     * specified start position.
      * 
      * @param text
      *            the text to search
@@ -402,9 +413,11 @@ public class VariableFormatter {
     }
 
     /**
-     * Resolves the specified variable. This method is called whenever a variable reference is detected in the source
-     * text. It is passed the variable's name and must return the corresponding value. This implementation accesses the
-     * value map using the variable's name as key. Derived classes may overload this method to implement a different
+     * Resolves the specified variable. This method is called whenever a
+     * variable reference is detected in the source text. It is passed the
+     * variable's name and must return the corresponding value.
+     * This implementation accesses the value map using the variable's name
+     * as key. Derived classes may override this method to implement a different
      * strategy for resolving variables.
      * 
      * @param name
@@ -416,8 +429,9 @@ public class VariableFormatter {
     }
 
     /**
-     * Recursive handler for multple levels of interpolation. This is the main interpolation method, which resolves the
-     * values of all variable references contained in the passed in text.
+     * Recursive handler for multple levels of interpolation. This is the main
+     * interpolation method, which resolves the values of all variable
+     * references contained in the passed in text.
      * 
      * @param base
      *            string with the ${key} variables
@@ -515,4 +529,5 @@ public class VariableFormatter {
         result.append(base.substring(prec + getVariableSuffix().length(), base.length()));
         return (objResult != null && objLen > 0 && objLen == result.length()) ? objResult : result.toString();
     }
+
 }
