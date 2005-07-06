@@ -51,7 +51,7 @@ public class TextTestSuite extends TestCase {
         suite.addTest(InterpolationTest.suite());
         suite.addTest(StrBuilderTest.suite());
         suite.addTest(StrTokenizerTest.suite());
-        suite.addTestSuite(VariableFormatTest.class);
+        suite.addTestSuite(VariableFormatterTest.class);
         return suite;
     }
 
