@@ -288,7 +288,7 @@ public class VariableFormatter {
      */
     public String replace(Object source) {
         Object result = replaceObject(source);
-        return (result == null) ? null : result.toString();
+        return result == null ? null : result.toString();
     }
 
     /**
