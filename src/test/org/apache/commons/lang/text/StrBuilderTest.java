@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2005 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ package org.apache.commons.lang.text;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -33,6 +34,7 @@ import junit.textui.TestRunner;
  */
 public class StrBuilderTest extends TestCase {
 
+    /** Test subclass of Object, with a toString method. */
     private static Object FOO = new Object() {
         public String toString() {
             return "foo";
@@ -40,10 +42,9 @@ public class StrBuilderTest extends TestCase {
     };
 
     /**
-     * Main.
+     * Main method.
      * 
-     * @param args
-     *            command line arguments, ignored
+     * @param args  command line arguments, ignored
      */
     public static void main(String[] args) {
         TestRunner.run(suite());
@@ -70,309 +71,51 @@ public class StrBuilderTest extends TestCase {
         super(name);
     }
 
-    public void testAppend() {
+    //-----------------------------------------------------------------------
+    public void testConstructors() {
+        StrBuilder sb0 = new StrBuilder();
+        assertEquals(32, sb0.capacity());
+        assertEquals(0, sb0.length());
+        assertEquals(0, sb0.size());
 
-        StrBuilder sb = new StrBuilder();
-        assertEquals("", sb.toString());
+        StrBuilder sb1 = new StrBuilder(32);
+        assertEquals(32, sb1.capacity());
+        assertEquals(0, sb1.length());
+        assertEquals(0, sb1.size());
 
-        sb.appendNull();
-        assertEquals("", sb.toString());
+        StrBuilder sb2 = new StrBuilder(0);
+        assertEquals(32, sb2.capacity());
+        assertEquals(0, sb2.length());
+        assertEquals(0, sb2.size());
 
-        sb.append((Object) null);
-        assertEquals("", sb.toString());
+        StrBuilder sb3 = new StrBuilder(-1);
+        assertEquals(32, sb3.capacity());
+        assertEquals(0, sb3.length());
+        assertEquals(0, sb3.size());
 
-        sb.append(FOO);
-        assertEquals("foo", sb.toString());
+        StrBuilder sb4 = new StrBuilder(1);
+        assertEquals(1, sb4.capacity());
+        assertEquals(0, sb4.length());
+        assertEquals(0, sb4.size());
 
-        sb.append((String) null);
-        assertEquals("foo", sb.toString());
+        StrBuilder sb5 = new StrBuilder((String) null);
+        assertEquals(32, sb5.capacity());
+        assertEquals(0, sb5.length());
+        assertEquals(0, sb5.size());
 
-        sb.append("");
-        assertEquals("foo", sb.toString());
+        StrBuilder sb6 = new StrBuilder("");
+        assertEquals(32, sb6.capacity());
+        assertEquals(0, sb6.length());
+        assertEquals(0, sb6.size());
 
-        sb.append("bar");
-        assertEquals("foobar", sb.toString());
-
-        sb.append((StringBuffer) null);
-        assertEquals("foobar", sb.toString());
-
-        sb.append(new StringBuffer("baz"));
-        assertEquals("foobarbaz", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.append((char[]) null);
-        assertEquals("", sb.toString());
-
-        sb.append(new char[0]);
-        assertEquals("", sb.toString());
-
-        sb.append(new char[]{'f', 'o', 'o'});
-        assertEquals("foo", sb.toString());
-
-        sb.append((char[]) null, 0, 1);
-        assertEquals("foo", sb.toString());
-
-        try {
-            sb.append(new char[]{'b', 'a', 'r'}, -1, 1);
-            fail("append(char[], -1,) expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
-            // expected
-        }
-
-        try {
-            sb.append(new char[]{'b', 'a', 'r'}, 3, 1);
-            fail("append(char[], 3,) expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
-            // expected
-        }
-
-        try {
-            sb.append(new char[]{'b', 'a', 'r'}, 1, -1);
-            fail("append(char[],, -1) expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
-            // expected
-        }
-
-        try {
-            sb.append(new char[]{'b', 'a', 'r'}, 1, 3);
-            fail("append(char[], 1, 3) expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
-            // expected
-        }
-
-        // These next two cases slip by the error condition checks but are silent modifications
-        sb.append(new char[]{'b', 'a', 'r'}, -1, 0);
-        assertEquals("foo", sb.toString());
-
-        sb.append(new char[]{'b', 'a', 'r'}, 3, 0);
-        assertEquals("foo", sb.toString());
-
-        sb.append(new char[]{'a', 'b', 'c', 'b', 'a', 'r', 'd', 'e', 'f'}, 3, 3);
-        assertEquals("foobar", sb.toString());
-
-        sb.append(true);
-        assertEquals("foobartrue", sb.toString());
-
-        sb.append(false);
-        assertEquals("foobartruefalse", sb.toString());
-
-        sb.append('!');
-        assertEquals("foobartruefalse!", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.append(0);
-        assertEquals("0", sb.toString());
-
-        sb.append(1L);
-        assertEquals("01", sb.toString());
-
-        sb.append(2.3F);
-        assertEquals("012.3", sb.toString());
-
-        sb.append(4.5D);
-        assertEquals("012.34.5", sb.toString());
+        StrBuilder sb7 = new StrBuilder("foo");
+        assertEquals(35, sb7.capacity());
+        assertEquals(3, sb7.length());
+        assertEquals(3, sb7.size());
     }
 
-    public void testAppendFixedLength() {
-
-        StrBuilder sb = new StrBuilder();
-        assertEquals("", sb.toString());
-
-        sb.appendFixedLengthPadLeft("foo", -1, '-');
-        assertEquals("", sb.toString());
-
-        sb.appendFixedLengthPadLeft("foo", 0, '-');
-        assertEquals("", sb.toString());
-
-        sb.appendFixedLengthPadLeft("foo", 1, '-');
-        assertEquals("o", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.appendFixedLengthPadLeft("foo", 2, '-');
-        assertEquals("oo", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.appendFixedLengthPadLeft("foo", 3, '-');
-        assertEquals("foo", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.appendFixedLengthPadLeft("foo", 4, '-');
-        assertEquals("-foo", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.appendFixedLengthPadLeft("foo", 10, '-');
-        assertEquals(10, sb.length());
-        // 1234567890
-        assertEquals("-------foo", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.appendFixedLengthPadRight("foo", -1, '-');
-        assertEquals("", sb.toString());
-
-        sb.appendFixedLengthPadRight("foo", 0, '-');
-        assertEquals("", sb.toString());
-
-        /*
-         * 
-         * TODO: appears the implementation for appendFixedLengthPadRight is broken?
-         * 
-         * sb.appendFixedLengthPadRight("foo", 1, '-'); assertEquals("f", sb.toString());
-         * 
-         * sb.clear(); assertEquals("", sb.toString());
-         * 
-         * sb.appendFixedLengthPadRight("foo", 2, '-'); assertEquals("fo", sb.toString());
-         * 
-         * sb.clear(); assertEquals("", sb.toString());
-         * 
-         * sb.appendFixedLengthPadRight("foo", 3, '-'); assertEquals("foo", sb.toString());
-         * 
-         * sb.clear(); assertEquals("", sb.toString());
-         * 
-         * sb.appendFixedLengthPadRight("foo", 4, '-'); assertEquals("foo-", sb.toString());
-         * 
-         * sb.clear(); assertEquals("", sb.toString());
-         * 
-         * sb.appendFixedLengthPadRight("foo", 10, '-'); assertEquals(10, sb.length()); // 1234567890
-         * assertEquals("foo-------", sb.toString());
-         * 
-         */
-    }
-
-    public void testAppendPadding() {
-
-        StrBuilder sb = new StrBuilder();
-        sb.append("foo");
-        assertEquals("foo", sb.toString());
-
-        sb.appendPadding(-1, '-');
-        assertEquals("foo", sb.toString());
-
-        sb.appendPadding(0, '-');
-        assertEquals("foo", sb.toString());
-
-        sb.appendPadding(1, '-');
-        assertEquals("foo-", sb.toString());
-
-        sb.appendPadding(16, '-');
-        assertEquals(20, sb.length());
-        // 12345678901234567890
-        assertEquals("foo-----------------", sb.toString());
-    }
-
-    public void testAppendWithNullText() {
-
-        StrBuilder sb = new StrBuilder();
-        sb.setNullText("null");
-        assertEquals("", sb.toString());
-
-        sb.appendNull();
-        assertEquals("null", sb.toString());
-
-        sb.append((Object) null);
-        assertEquals("nullnull", sb.toString());
-
-        sb.append(FOO);
-        assertEquals("nullnullfoo", sb.toString());
-
-        sb.append((String) null);
-        assertEquals("nullnullfoonull", sb.toString());
-
-        sb.append("");
-        assertEquals("nullnullfoonull", sb.toString());
-
-        sb.append("bar");
-        assertEquals("nullnullfoonullbar", sb.toString());
-
-        sb.append((StringBuffer) null);
-        assertEquals("nullnullfoonullbarnull", sb.toString());
-
-        sb.append(new StringBuffer("baz"));
-        assertEquals("nullnullfoonullbarnullbaz", sb.toString());
-    }
-
-    public void testAppendWithSeparators() {
-
-        StrBuilder sb = new StrBuilder();
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators((Object[]) null, ",");
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators(new Object[0], ",");
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators(new Object[]{"foo", "bar", "baz"}, ",");
-        assertEquals("foo,bar,baz", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators(new Object[]{"foo", "bar", "baz"}, null);
-        assertEquals("foobarbaz", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators(new Object[]{"foo", null, "baz"}, ",");
-        assertEquals("foo,,baz", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators((Collection) null, ",");
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators(Collections.EMPTY_LIST, ",");
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}), ",");
-        assertEquals("foo,bar,baz", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}), null);
-        assertEquals("foobarbaz", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}), ",");
-        assertEquals("foo,,baz", sb.toString());
-    }
-
-    public void testAppendWithSeparatorsWithNullText() {
-
-        StrBuilder sb = new StrBuilder();
-        sb.setNullText("null");
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators(new Object[]{"foo", null, "baz"}, ",");
-        assertEquals("foo,null,baz", sb.toString());
-
-        sb.clear();
-        assertEquals("", sb.toString());
-
-        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}), ",");
-        assertEquals("foo,null,baz", sb.toString());
-    }
-
+    //-----------------------------------------------------------------------
     public void testCapacityAndLength() {
-
         StrBuilder sb = new StrBuilder();
         assertEquals(32, sb.capacity());
         assertEquals(0, sb.length());
@@ -455,131 +198,562 @@ public class StrBuilderTest extends TestCase {
         assertTrue(sb.isEmpty());
     }
 
-    public void testCharArray() {
-        // TODO
-    }
-
-    public void testConstructor() {
-
-        StrBuilder sb0 = new StrBuilder();
-        assertTrue(sb0.isEmpty());
-        StrBuilder sb1 = new StrBuilder(32);
-        assertTrue(sb1.isEmpty());
-        StrBuilder sb2 = new StrBuilder(0);
-        assertTrue(sb2.isEmpty());
-        StrBuilder sb3 = new StrBuilder(-1);
-        assertTrue(sb3.isEmpty());
-        StrBuilder sb4 = new StrBuilder(1);
-        assertTrue(sb4.isEmpty());
-        StrBuilder sb5 = new StrBuilder((String) null);
-        assertTrue(sb5.isEmpty());
-        StrBuilder sb6 = new StrBuilder("");
-        assertTrue(sb6.isEmpty());
-        StrBuilder sb7 = new StrBuilder("foo");
-        assertFalse(sb7.isEmpty());
-    }
-
-    public void testGetSetChar() {
-
+    //-----------------------------------------------------------------------
+    public void testLength() {
         StrBuilder sb = new StrBuilder();
+        assertEquals(0, sb.length());
+        
+        sb.append("Hello");
+        assertEquals(5, sb.length());
+    }
 
+    public void testSetLength() {
+        StrBuilder sb = new StrBuilder();
+        sb.append("Hello");
+        sb.setLength(2);
+        assertEquals("He", sb.toString());
+
+        try {
+            sb.setLength(-1);
+            fail("setLength(-1) expected StringIndexOutOfBoundsException");
+        } catch (StringIndexOutOfBoundsException e) {
+            // expected
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testCapacity() {
+        StrBuilder sb = new StrBuilder();
+        assertEquals(sb.buf.length, sb.capacity());
+        
+        sb.append("HelloWorldHelloWorldHelloWorldHelloWorld");
+        assertEquals(sb.buf.length, sb.capacity());
+    }
+
+    public void testEnsureCapacity() {
+        StrBuilder sb = new StrBuilder();
+        sb.ensureCapacity(2);
+        assertEquals(true, sb.capacity() >= 2);
+        
+        sb.ensureCapacity(-1);
+        assertEquals(true, sb.capacity() >= 0);
+        
+        sb.append("HelloWorld");
+        sb.ensureCapacity(40);
+        assertEquals(true, sb.capacity() >= 40);
+    }
+
+    public void testMinimizeCapacity() {
+        StrBuilder sb = new StrBuilder();
+        sb.minimizeCapacity();
+        assertEquals(0, sb.capacity());
+        
+        sb.append("HelloWorld");
+        sb.minimizeCapacity();
+        assertEquals(10, sb.capacity());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testSize() {
+        StrBuilder sb = new StrBuilder();
+        assertEquals(0, sb.size());
+        
+        sb.append("Hello");
+        assertEquals(5, sb.size());
+    }
+
+    public void testIsEmpty() {
+        StrBuilder sb = new StrBuilder();
+        assertEquals(true, sb.isEmpty());
+        
+        sb.append("Hello");
+        assertEquals(false, sb.isEmpty());
+        
+        sb.clear();
+        assertEquals(true, sb.isEmpty());
+    }
+
+    public void testClear() {
+        StrBuilder sb = new StrBuilder();
+        sb.append("Hello");
+        sb.clear();
+        assertEquals(0, sb.length());
+        assertEquals(true, sb.buf.length >= 5);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testCharAt() {
+        StrBuilder sb = new StrBuilder();
         try {
             sb.charAt(0);
             fail("charAt(0) expected IndexOutOfBoundsException");
         } catch (IndexOutOfBoundsException e) {
             // expected
         }
-
         try {
             sb.charAt(-1);
             fail("charAt(-1) expected IndexOutOfBoundsException");
         } catch (IndexOutOfBoundsException e) {
             // expected
         }
-
-        try {
-            sb.setCharAt(0, 'f');
-            fail("setCharAt(0,) expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
-            // expected
-        }
-
-        try {
-            sb.setCharAt(-1, 'f');
-            fail("setCharAt(-1,) expected IndexOutOfBoundsException");
-        } catch (IndexOutOfBoundsException e) {
-            // expected
-        }
-
         sb.append("foo");
         assertEquals('f', sb.charAt(0));
         assertEquals('o', sb.charAt(1));
         assertEquals('o', sb.charAt(2));
-
+        try {
+            sb.charAt(-1);
+            fail("charAt(-1) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
         try {
             sb.charAt(3);
             fail("charAt(3) expected IndexOutOfBoundsException");
         } catch (IndexOutOfBoundsException e) {
             // expected
         }
+    }
 
+    public void testSetCharAt() {
+        StrBuilder sb = new StrBuilder();
+        try {
+            sb.setCharAt(0, 'f');
+            fail("setCharAt(0,) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+        try {
+            sb.setCharAt(-1, 'f');
+            fail("setCharAt(-1,) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+        sb.append("foo");
         sb.setCharAt(0, 'b');
         sb.setCharAt(1, 'a');
         sb.setCharAt(2, 'r');
-
         try {
             sb.setCharAt(3, '!');
             fail("setCharAt(3,) expected IndexOutOfBoundsException");
         } catch (IndexOutOfBoundsException e) {
             // expected
         }
-
-        assertEquals('b', sb.charAt(0));
-        assertEquals('a', sb.charAt(1));
-        assertEquals('r', sb.charAt(2));
+        assertEquals("bar", sb.toString());
     }
 
-    public void testInitialCapacityAndLength() {
+    //-----------------------------------------------------------------------
+    public void testNullText() {
+        StrBuilder sb = new StrBuilder();
+        assertEquals(null, sb.getNullText());
 
-        StrBuilder sb0 = new StrBuilder();
-        assertEquals(32, sb0.capacity());
-        assertEquals(0, sb0.length());
-        assertEquals(0, sb0.size());
+        sb.setNullText("null");
+        assertEquals("null", sb.getNullText());
 
-        StrBuilder sb1 = new StrBuilder(32);
-        assertEquals(32, sb1.capacity());
-        assertEquals(0, sb1.length());
-        assertEquals(0, sb1.size());
+        sb.setNullText("");
+        assertEquals(null, sb.getNullText());
 
-        StrBuilder sb2 = new StrBuilder(0);
-        assertEquals(32, sb2.capacity());
-        assertEquals(0, sb2.length());
-        assertEquals(0, sb2.size());
+        sb.setNullText("NULL");
+        assertEquals("NULL", sb.getNullText());
 
-        StrBuilder sb3 = new StrBuilder(-1);
-        assertEquals(32, sb3.capacity());
-        assertEquals(0, sb3.length());
-        assertEquals(0, sb3.size());
+        sb.setNullText((String) null);
+        assertEquals(null, sb.getNullText());
+    }
 
-        StrBuilder sb4 = new StrBuilder(1);
-        assertEquals(1, sb4.capacity());
-        assertEquals(0, sb4.length());
-        assertEquals(0, sb4.size());
+    //-----------------------------------------------------------------------
+    public void testAppendWithNullText() {
+        StrBuilder sb = new StrBuilder();
+        sb.setNullText("NULL");
+        assertEquals("", sb.toString());
 
-        StrBuilder sb5 = new StrBuilder((String) null);
-        assertEquals(32, sb5.capacity());
-        assertEquals(0, sb5.length());
-        assertEquals(0, sb5.size());
+        sb.appendNull();
+        assertEquals("NULL", sb.toString());
 
-        StrBuilder sb6 = new StrBuilder("");
-        assertEquals(32, sb6.capacity());
-        assertEquals(0, sb6.length());
-        assertEquals(0, sb6.size());
+        sb.append((Object) null);
+        assertEquals("NULLNULL", sb.toString());
 
-        StrBuilder sb7 = new StrBuilder("foo");
-        assertEquals(35, sb7.capacity());
-        assertEquals(3, sb7.length());
-        assertEquals(3, sb7.size());
+        sb.append(FOO);
+        assertEquals("NULLNULLfoo", sb.toString());
+
+        sb.append((String) null);
+        assertEquals("NULLNULLfooNULL", sb.toString());
+
+        sb.append("");
+        assertEquals("NULLNULLfooNULL", sb.toString());
+
+        sb.append("bar");
+        assertEquals("NULLNULLfooNULLbar", sb.toString());
+
+        sb.append((StringBuffer) null);
+        assertEquals("NULLNULLfooNULLbarNULL", sb.toString());
+
+        sb.append(new StringBuffer("baz"));
+        assertEquals("NULLNULLfooNULLbarNULLbaz", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppend_Object() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendNull();
+        assertEquals("", sb.toString());
+
+        sb.append((Object) null);
+        assertEquals("", sb.toString());
+
+        sb.append(FOO);
+        assertEquals("foo", sb.toString());
+
+        sb.append((String) null);
+        assertEquals("foo", sb.toString());
+
+        sb.append("");
+        assertEquals("foo", sb.toString());
+
+        sb.append("bar");
+        assertEquals("foobar", sb.toString());
+
+        sb.append((StringBuffer) null);
+        assertEquals("foobar", sb.toString());
+
+        sb.append(new StringBuffer("baz"));
+        assertEquals("foobarbaz", sb.toString());
+
+        sb.append(new StrBuilder("yes"));
+        assertEquals("foobarbazyes", sb.toString());
+    }
+
+    public void testAppend_CharArray() {
+        StrBuilder sb = new StrBuilder();
+        
+        sb.append((char[]) null);
+        assertEquals("", sb.toString());
+
+        sb.append(new char[0]);
+        assertEquals("", sb.toString());
+
+        sb.append(new char[]{'f', 'o', 'o'});
+        assertEquals("foo", sb.toString());
+
+        sb.append((char[]) null, 0, 1);
+        assertEquals("foo", sb.toString());
+
+        try {
+            sb.append(new char[]{'b', 'a', 'r'}, -1, 1);
+            fail("append(char[], -1,) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append(new char[]{'b', 'a', 'r'}, 3, 1);
+            fail("append(char[], 3,) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append(new char[]{'b', 'a', 'r'}, 1, -1);
+            fail("append(char[],, -1) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append(new char[]{'b', 'a', 'r'}, 1, 3);
+            fail("append(char[], 1, 3) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append(new char[]{'b', 'a', 'r'}, -1, 3);
+            fail("append(char[], -1, 3) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append(new char[]{'b', 'a', 'r'}, 4, 0);
+            fail("append(char[], 4, 0) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        sb.append(new char[]{'b', 'a', 'r'}, 3, 0);
+        assertEquals("foo", sb.toString());
+
+        sb.append(new char[]{'a', 'b', 'c', 'b', 'a', 'r', 'd', 'e', 'f'}, 3, 3);
+        assertEquals("foobar", sb.toString());
+    }
+
+    public void testAppend_Primitive() {
+        StrBuilder sb = new StrBuilder();
+        sb.append(true);
+        assertEquals("true", sb.toString());
+
+        sb.append(false);
+        assertEquals("truefalse", sb.toString());
+
+        sb.append('!');
+        assertEquals("truefalse!", sb.toString());
+    }
+
+    public void testAppend_PrimitiveNumber() {
+        StrBuilder sb = new StrBuilder();
+        sb.append(0);
+        assertEquals("0", sb.toString());
+
+        sb.append(1L);
+        assertEquals("01", sb.toString());
+
+        sb.append(2.3f);
+        assertEquals("012.3", sb.toString());
+
+        sb.append(4.5d);
+        assertEquals("012.34.5", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendPadding() {
+        StrBuilder sb = new StrBuilder();
+        sb.append("foo");
+        assertEquals("foo", sb.toString());
+
+        sb.appendPadding(-1, '-');
+        assertEquals("foo", sb.toString());
+
+        sb.appendPadding(0, '-');
+        assertEquals("foo", sb.toString());
+
+        sb.appendPadding(1, '-');
+        assertEquals("foo-", sb.toString());
+
+        sb.appendPadding(16, '-');
+        assertEquals(20, sb.length());
+        //            12345678901234567890
+        assertEquals("foo-----------------", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendFixedWidthPadLeft() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendFixedWidthPadLeft("foo", -1, '-');
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft("foo", 0, '-');
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft("foo", 1, '-');
+        assertEquals("o", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft("foo", 2, '-');
+        assertEquals("oo", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft("foo", 3, '-');
+        assertEquals("foo", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft("foo", 4, '-');
+        assertEquals("-foo", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft("foo", 10, '-');
+        assertEquals(10, sb.length());
+        //            1234567890
+        assertEquals("-------foo", sb.toString());
+
+        sb.clear();
+        sb.setNullText("null");
+        sb.appendFixedWidthPadRight(null, 5, '-');
+        assertEquals("-null", sb.toString());
+    }
+
+    public void testAppendFixedWidthPadLeft_int() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendFixedWidthPadLeft(123, -1, '-');
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft(123, 0, '-');
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft(123, 1, '-');
+        assertEquals("3", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft(123, 2, '-');
+        assertEquals("23", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft(123, 3, '-');
+        assertEquals("123", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft(123, 4, '-');
+        assertEquals("-123", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadLeft(123, 10, '-');
+        assertEquals(10, sb.length());
+        //            1234567890
+        assertEquals("-------123", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendFixedWidthPadRight() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendFixedWidthPadRight("foo", -1, '-');
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight("foo", 0, '-');
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight("foo", 1, '-');
+        assertEquals("f", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight("foo", 2, '-');
+        assertEquals("fo", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight("foo", 3, '-');
+        assertEquals("foo", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight("foo", 4, '-');
+        assertEquals("foo-", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight("foo", 10, '-');
+        assertEquals(10, sb.length());
+        //            1234567890
+        assertEquals("foo-------", sb.toString());
+
+        sb.clear();
+        sb.setNullText("null");
+        sb.appendFixedWidthPadRight(null, 5, '-');
+        assertEquals("null-", sb.toString());
+    }
+
+    public void testAppendFixedWidthPadRight_int() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendFixedWidthPadRight(123, -1, '-');
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight(123, 0, '-');
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight(123, 1, '-');
+        assertEquals("1", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight(123, 2, '-');
+        assertEquals("12", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight(123, 3, '-');
+        assertEquals("123", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight(123, 4, '-');
+        assertEquals("123-", sb.toString());
+
+        sb.clear();
+        sb.appendFixedWidthPadRight(123, 10, '-');
+        assertEquals(10, sb.length());
+        //            1234567890
+        assertEquals("123-------", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendWithSeparators_Array() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendWithSeparators((Object[]) null, ",");
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(new Object[0], ",");
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(new Object[]{"foo", "bar", "baz"}, ",");
+        assertEquals("foo,bar,baz", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(new Object[]{"foo", "bar", "baz"}, null);
+        assertEquals("foobarbaz", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(new Object[]{"foo", null, "baz"}, ",");
+        assertEquals("foo,,baz", sb.toString());
+    }
+
+    public void testAppendWithSeparators_Collection() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendWithSeparators((Collection) null, ",");
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(Collections.EMPTY_LIST, ",");
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}), ",");
+        assertEquals("foo,bar,baz", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}), null);
+        assertEquals("foobarbaz", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}), ",");
+        assertEquals("foo,,baz", sb.toString());
+    }
+
+    public void testAppendWithSeparators_Iterator() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendWithSeparators((Iterator) null, ",");
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(Collections.EMPTY_LIST.iterator(), ",");
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}).iterator(), ",");
+        assertEquals("foo,bar,baz", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", "bar", "baz"}).iterator(), null);
+        assertEquals("foobarbaz", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}).iterator(), ",");
+        assertEquals("foo,,baz", sb.toString());
+    }
+
+    public void testAppendWithSeparatorsWithNullText() {
+        StrBuilder sb = new StrBuilder();
+        sb.setNullText("null");
+        sb.appendWithSeparators(new Object[]{"foo", null, "baz"}, ",");
+        assertEquals("foo,null,baz", sb.toString());
+
+        sb.clear();
+        sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}), ",");
+        assertEquals("foo,null,baz", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testCharArray() {
+        // TODO
     }
 
     public void testInsert() {
@@ -899,21 +1073,4 @@ public class StrBuilderTest extends TestCase {
         assertEquals("foonullbarbaz", sb.toString());
     }
 
-    public void testNullText() {
-
-        StrBuilder sb = new StrBuilder();
-        assertEquals(null, sb.getNullText());
-
-        sb.setNullText("null");
-        assertEquals("null", sb.getNullText());
-
-        sb.setNullText("");
-        assertEquals(null, sb.getNullText());
-
-        sb.setNullText("foo");
-        assertEquals("foo", sb.getNullText());
-
-        sb.setNullText((String) null);
-        assertEquals(null, sb.getNullText());
-    }
 }

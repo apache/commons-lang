@@ -74,7 +74,7 @@ public class StrBuilder implements Cloneable {
      * Constructor that creates an empty builder initial capacity 32 characters.
      */
     public StrBuilder() {
-        this(32);
+        this(CAPACITY);
     }
 
     /**
@@ -212,16 +212,6 @@ public class StrBuilder implements Cloneable {
     }
 
     /**
-     * Clears the string builder (convenience Collections API style method).
-     * <p>
-     * This method is the same as {@link #setLength(int)} and is provided to match the
-     * API of Collections.
-     */
-    public void clear() {
-        size = 0;
-    }
-
-    /**
      * Checks is the string builder is empty (convenience Collections API style method).
      * <p>
      * This method is the same as checking {@link #length()} and is provided to match the
@@ -230,6 +220,19 @@ public class StrBuilder implements Cloneable {
      */
     public boolean isEmpty() {
         return size == 0;
+    }
+
+    /**
+     * Clears the string builder (convenience Collections API style method).
+     * <p>
+     * This method does not reduce the size of the internal character buffer.
+     * To do that, call <code>clear()</code> followed by {@link #minimizeCapacity()}.
+     * <p>
+     * This method is the same as {@link #setLength(int)} and is provided to match the
+     * API of Collections.
+     */
+    public void clear() {
+        size = 0;
     }
 
     //-----------------------------------------------------------------------
@@ -457,6 +460,9 @@ public class StrBuilder implements Cloneable {
         if (chars == null) {
             return this;
         }
+        if (startIndex < 0 || startIndex > chars.length) {
+            throw new StringIndexOutOfBoundsException("startIndex must be valid");
+        }
         if (length < 0) {
             throw new StringIndexOutOfBoundsException("length must not be negative");
         }
@@ -548,8 +554,8 @@ public class StrBuilder implements Cloneable {
 
     //-----------------------------------------------------------------------
     /**
-     * Appends an array placing separators between each pair of values, but
-     * not after the last.
+     * Appends an array placing separators between each value, but
+     * not before the first or after the last.
      * Appending a null array will have no effect.
      * Each object is appended using {@link #append(Object)}.
      *
@@ -570,8 +576,8 @@ public class StrBuilder implements Cloneable {
     }
 
     /**
-     * Appends a collection placing separators between each pair of values, but
-     * not after the last.
+     * Appends a collection placing separators between each value, but
+     * not before the first or after the last.
      * Appending a null collection will have no effect.
      * Each object is appended using {@link #append(Object)}.
      *
@@ -583,6 +589,28 @@ public class StrBuilder implements Cloneable {
         if (coll != null && coll.size() > 0) {
             separator = (separator == null ? "" : separator);
             Iterator it = coll.iterator();
+            append(it.next());
+            while (it.hasNext()) {
+                append(separator);
+                append(it.next());
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Appends an iterator placing separators between each value, but
+     * not before the first or after the last.
+     * Appending a null iterator will have no effect.
+     * Each object is appended using {@link #append(Object)}.
+     *
+     * @param it  the iterator to append
+     * @param separator  the separator to use, null means no separator
+     * @return this, to enable chaining
+     */
+    public StrBuilder appendWithSeparators(Iterator it, String separator) {
+        if (it != null) {
+            separator = (separator == null ? "" : separator);
             append(it.next());
             while (it.hasNext()) {
                 append(separator);
@@ -610,62 +638,93 @@ public class StrBuilder implements Cloneable {
         return this;
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * Appends an object to the builder padding on the left to a fixed length.
+     * Appends an object to the builder padding on the left to a fixed width.
+     * The <code>toString</code> of the object is used.
      * If the object is larger than the length, the left hand side is lost.
      * If the object is null, the null text value is used.
      * 
-     * @param obj  the object to append
-     * @param length  the fixed field width
+     * @param obj  the object to append, null uses null text
+     * @param width  the fixed field width, zero or negative has no effect
      * @param padChar  the pad character to use
      * @return this, to enable chaining
      */
-    public StrBuilder appendFixedLengthPadLeft(Object obj, int length, char padChar) {
-        if (length > 0) {
-            ensureCapacity(size + length);
+    public StrBuilder appendFixedWidthPadLeft(Object obj, int width, char padChar) {
+        if (width > 0) {
+            ensureCapacity(size + width);
             String str = (obj == null ? getNullText() : obj.toString());
             int strLen = str.length();
-            if (strLen >= length) {
-                str.getChars(strLen - length, strLen, buf, size);
+            if (strLen >= width) {
+                str.getChars(strLen - width, strLen, buf, size);
             } else {
-                int padLen = length - strLen;
+                int padLen = width - strLen;
                 for (int i = 0; i < padLen; i++) {
                     buf[size + i] = padChar;
                 }
                 str.getChars(0, strLen, buf, size + padLen);
             }
-            size += length;
+            size += width;
+        }
+        return this;
+    }
+
+    /**
+     * Appends an object to the builder padding on the left to a fixed width.
+     * The <code>String.valueOf</code> of the object is used.
+     * If the formatted value is larger than the length, the left hand side is lost.
+     * 
+     * @param value  the value to append
+     * @param width  the fixed field width, zero or negative has no effect
+     * @param padChar  the pad character to use
+     * @return this, to enable chaining
+     */
+    public StrBuilder appendFixedWidthPadLeft(int value, int width, char padChar) {
+        return appendFixedWidthPadLeft(String.valueOf(value), width, padChar);
+    }
+
+    /**
+     * Appends an object to the builder padding on the right to a fixed length.
+     * The <code>toString</code> of the object is used.
+     * If the object is larger than the length, the right hand side is lost.
+     * If the object is null, null text value is used.
+     * 
+     * @param obj  the object to append, null uses null text
+     * @param width  the fixed field width, zero or negative has no effect
+     * @param padChar  the pad character to use
+     * @return this, to enable chaining
+     */
+    public StrBuilder appendFixedWidthPadRight(Object obj, int width, char padChar) {
+        if (width > 0) {
+            ensureCapacity(size + width);
+            String str = (obj == null ? getNullText() : obj.toString());
+            int strLen = str.length();
+            if (strLen >= width) {
+                str.getChars(0, strLen, buf, size);
+            } else {
+                int padLen = width - strLen;
+                str.getChars(0, strLen, buf, size);
+                for (int i = 0; i < padLen; i++) {
+                    buf[size + strLen + i] = padChar;
+                }
+            }
+            size += width;
         }
         return this;
     }
 
     /**
      * Appends an object to the builder padding on the right to a fixed length.
+     * The <code>String.valueOf</code> of the object is used.
      * If the object is larger than the length, the right hand side is lost.
-     * If the object is null, null text value is used.
      * 
-     * @param obj  the object to append
-     * @param length  the fixed field width
+     * @param value  the value to append
+     * @param width  the fixed field width, zero or negative has no effect
      * @param padChar  the pad character to use
      * @return this, to enable chaining
      */
-    public StrBuilder appendFixedLengthPadRight(Object obj, int length, char padChar) {
-        if (length > 0) {
-            ensureCapacity(size + length);
-            String str = (obj == null ? getNullText() : obj.toString());
-            int strLen = str.length();
-            if (strLen >= length) {
-                str.getChars(strLen - length, strLen, buf, size);
-            } else {
-                int padLen = length - strLen;
-                str.getChars(0, strLen, buf, size);
-                for (int i = 0; i < padLen; i++) {
-                    buf[size + strLen + i] = padChar;
-                }
-            }
-            size += length;
-        }
-        return this;
+    public StrBuilder appendFixedWidthPadRight(int value, int width, char padChar) {
+        return appendFixedWidthPadRight(String.valueOf(value), width, padChar);
     }
 
     //-----------------------------------------------------------------------
@@ -1400,6 +1459,35 @@ public class StrBuilder implements Cloneable {
         return this;
     }
 
+//    /**
+//     * Gets a String version of the string builder by calling the internal
+//     * constructor of String by reflection.
+//     * <p>
+//     * WARNING: You must not use the StrBuilder after calling this method
+//     * as the buffer is now shared with the String object. To ensure this,
+//     * the internal character array is set to null, so you will get
+//     * NullPointerExceptions on all method calls.
+//     *
+//     * @return the builder as a String
+//     */
+//    public String toSharedString() {
+//        try {
+//            Constructor con = String.class.getDeclaredConstructor(
+//                new Class[] {int.class, int.class, char[].class});
+//            con.setAccessible(true);
+//            char[] buffer = buf;
+//            buf = null;
+//            size = -1;
+//            nullText = null;
+//            return (String) con.newInstance(
+//                new Object[] {new Integer(0), new Integer(size), buffer});
+//            
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//            throw new UnsupportedOperationException("StrBuilder.toSharedString is unsupported: " + ex.getMessage());
+//        }
+//    }
+
     /**
      * Gets a String version of the string builder, creating a new instance
      * each time the method is called.
@@ -1411,6 +1499,16 @@ public class StrBuilder implements Cloneable {
      */
     public String toString() {
         return new String(buf, 0, size);
+    }
+
+    /**
+     * Gets a StringBuffer version of the string builder, creating a
+     * new instance each time the method is called.
+     *
+     * @return the builder as a StringBuffer
+     */
+    public StringBuffer toStringBuffer() {
+        return new StringBuffer(size).append(buf, 0, size);
     }
 
     //-----------------------------------------------------------------------
