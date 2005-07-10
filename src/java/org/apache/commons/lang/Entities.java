@@ -25,10 +25,10 @@ import java.util.TreeMap;
  * <p>Provides HTML and XML entity utilities.</p>
  *
  * @see <a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
- * @see <br/><a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
- * @see <br/><a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
- * @see <br/><a href="http://www.w3.org/TR/html401/charset.html#h-5.3">HTML 4.01 Character References</a>
- * @see <br/><a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
+ * @see <a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
+ * @see <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
+ * @see <a href="http://www.w3.org/TR/html401/charset.html#h-5.3">HTML 4.01 Character References</a>
+ * @see <a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
  *
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
