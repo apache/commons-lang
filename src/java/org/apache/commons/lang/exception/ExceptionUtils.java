@@ -543,7 +543,7 @@ public class ExceptionUtils {
      * @param type  the type to search for, subclasses match, null returns -1
      * @param fromIndex  the (zero based) index of the starting position,
      *  negative treated as zero, larger than chain size returns -1
-     * @param subclass if <code>true</code>, compares with {@link Class.isAssignableFrom(Class)}, otherwise compares
+     * @param subclass if <code>true</code>, compares with {@link Class#isAssignableFrom(Class)}, otherwise compares
      * using references
      * @return index of the <code>type</code> within throwables nested withing the specified <code>throwable</code>
      */

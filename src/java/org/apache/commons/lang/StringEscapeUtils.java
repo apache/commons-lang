@@ -139,7 +139,7 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Worker method for the {@link escapeJavaScript(String) method.</p>
+     * <p>Worker method for the {@link #escapeJavaScript(String)} method.</p>
      * 
      * @param str String to escape values in, may be null
      * @param escapeSingleQuotes escapes single quotes if <code>true</code>
@@ -161,7 +161,7 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Worker method for the {@link escapeJavaScript(String) method.</p>
+     * <p>Worker method for the {@link #escapeJavaScript(String)} method.</p>
      * 
      * @param out write to receieve the escaped string
      * @param str String to escape values in, may be null
