@@ -30,6 +30,7 @@ import java.util.Map;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @author Norm Deane
+ * @author Alban Peignier
  * @since 2.0
  * @version $Id$
  */
@@ -68,6 +69,7 @@ public class ClassUtils {
          primitiveWrapperMap.put(Long.TYPE, Long.class);
          primitiveWrapperMap.put(Double.TYPE, Double.class);
          primitiveWrapperMap.put(Float.TYPE, Float.class);
+         primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
     }
     
     /**
@@ -442,6 +444,9 @@ public class ClassUtils {
     /**
      * <p>Converts the specified primitive Class object to its corresponding
      * wrapper Class object.</p>
+     * 
+     * <p>NOTE: From v2.2, this method handles <code>Void.TYPE</code>,
+     * returning <code>Void.TYPE</code>.</p>
      *
      * @param cls  the class to convert, may be null
      * @return the wrapper class for <code>cls</code> or <code>cls</code> if

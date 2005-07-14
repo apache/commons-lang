@@ -352,6 +352,8 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("ClassUtils.class -> ClassUtils.class",
             org.apache.commons.lang.ClassUtils.class, 
             ClassUtils.primitiveToWrapper(org.apache.commons.lang.ClassUtils.class));
+        assertEquals("Void.TYPE -> Void.TYPE",
+            Void.TYPE, ClassUtils.primitiveToWrapper(Void.TYPE));
             
         // test null     
         assertNull("null -> null",
@@ -384,7 +386,7 @@ public class ClassUtilsTest extends TestCase {
 
         // test an array of no primitive classes
         final Class[] noPrimitives = new Class[] {
-                String.class, ClassUtils.class
+                String.class, ClassUtils.class, Void.TYPE
         };
         // This used to return the exact same array, but no longer does.
         assertNotSame("unmodified", noPrimitives, ClassUtils.primitivesToWrappers(noPrimitives));
