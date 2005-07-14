@@ -21,6 +21,8 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang.text.VariableFormatter.MapVariableResolver;
+
 /**
  * Test class for VariableFormatter.
  * 
@@ -34,6 +36,26 @@ public class VariableFormatterTest extends TestCase {
 
     private Map values;
 
+    VariableFormatter getFormat() {
+        return this.format;
+    }
+
+    MapVariableResolver getMapVariableResolver() {
+        return (MapVariableResolver)this.getFormat().getVariableResolver();
+    }
+
+    private Map getValueMap() {
+        return this.getMapVariableResolver().getMap();
+    }
+
+    Map getValues() {
+        return this.values;
+    }
+
+    void setFormat(VariableFormatter format) {
+        this.format = format;
+    }
+
     protected void setUp() throws Exception {
         super.setUp();
         Map map = new HashMap();
@@ -43,89 +65,12 @@ public class VariableFormatterTest extends TestCase {
         setFormat(new VariableFormatter(map));
     }
 
-    /**
-     * Tests creating new <code>VariableFormat</code> objects.
-     */
-    public void testInitialize() {
-        assertNotNull(format.getValueMap());
-        assertEquals(VariableFormatter.DEFAULT_PREFIX, format.getVariablePrefix());
-        assertEquals(VariableFormatter.DEFAULT_SUFFIX, format.getVariableSuffix());
-        assertEquals(VariableFormatter.DEFAULT_ESCAPE, format.getEscapeCharacter());
-
-        format = new VariableFormatter(values, "<<", ">>", '\\');
-        assertEquals("<<", format.getVariablePrefix());
-        assertEquals(">>", format.getVariableSuffix());
-        assertEquals('\\', format.getEscapeCharacter());
-
-        try {
-            format = new VariableFormatter(null);
-            fail("Could create format object with null map!");
-        } catch (IllegalArgumentException iex) {
-            // ok
-        }
-
-        try {
-            format = new VariableFormatter(values, "${", null);
-            fail("Could create format object with undefined suffix!");
-        } catch (IllegalArgumentException iex) {
-            // ok
-        }
-
-        try {
-            format = new VariableFormatter(values, null, "]");
-            fail("Could create format object with undefined prefix!");
-        } catch (IllegalArgumentException iex) {
-            // ok
-        }
+    private void setValueMap(Map valuesMap) {
+        this.getMapVariableResolver().setMap(valuesMap);
     }
 
-    /**
-     * Tests typical replace operations.
-     */
-    public void testReplace() {
-        assertEquals("The quick brown fox jumps over the lazy dog.", format.replaceObject(REPLACE_TEMPLATE));
-
-        format.getValueMap().put("animal", "cow");
-        format.getValueMap().put("target", "moon");
-        assertEquals("The cow jumps over the moon.", format.replace(REPLACE_TEMPLATE));
-
-        assertEquals("Variable ${var} is unknown!", format.replace("Variable ${var} is unknown!"));
-    }
-
-    /**
-     * Tests source texts with nothing to replace.
-     */
-    public void testReplaceNothing() {
-        assertNull(format.replace(null));
-        assertEquals("Nothing to replace.", format.replace("Nothing to replace."));
-        assertEquals("42", format.replace(new Integer(42)));
-    }
-
-    /**
-     * Tests escaping variable references.
-     */
-    public void testEscape() {
-        assertEquals("${animal}", format.replace("$${animal}"));
-        format.getValueMap().put("var_name", "x");
-        assertEquals("Many $$$$${target} $s", format.replace("Many $$$$$${target} $s"));
-        assertEquals("Variable ${x} must be used!", format.replace("Variable $${${var_name$}} must be used!"));
-    }
-
-    /**
-     * Tests recursive replacements.
-     */
-    public void testRecursiveReplacement() {
-        Map valuesMap = new HashMap();
-        valuesMap.put("animal", "${critter}");
-        valuesMap.put("target", "${pet}");
-        valuesMap.put("pet", "${petCharacteristic} dog");
-        valuesMap.put("petCharacteristic", "lazy");
-        valuesMap.put("critter", "${critterSpeed} ${critterColor} ${critterType}");
-        valuesMap.put("critterSpeed", "quick");
-        valuesMap.put("critterColor", "brown");
-        valuesMap.put("critterType", "fox");
-        format.setValueMap(valuesMap);
-        assertEquals("The quick brown fox jumps over the lazy dog.", format.replace(REPLACE_TEMPLATE));
+    void setValues(Map values) {
+        this.values = values;
     }
 
     /**
@@ -141,9 +86,9 @@ public class VariableFormatterTest extends TestCase {
         valuesMap.put("critterSpeed", "quick");
         valuesMap.put("critterColor", "brown");
         valuesMap.put("critterType", "${animal}");
-        format.setValueMap(valuesMap);
+        this.setValueMap(valuesMap);
         try {
-            format.replace(REPLACE_TEMPLATE);
+            this.getFormat().replace(REPLACE_TEMPLATE);
             fail("Cyclic replacement was not detected!");
         } catch (IllegalStateException isx) {
             // ok
@@ -151,12 +96,51 @@ public class VariableFormatterTest extends TestCase {
     }
 
     /**
-     * Tests operating on objects.
+     * Tests escaping variable references.
      */
-    public void testReplaceObject() {
-        format.getValueMap().put("value", new Integer(42));
-        assertEquals(new Integer(42), format.replaceObject("${value}"));
-        assertEquals("The answer is 42.", format.replaceObject("The answer is ${value}."));
+    public void testEscape() {
+        assertEquals("${animal}", this.getFormat().replace("$${animal}"));
+        this.getValueMap().put("var_name", "x");
+        assertEquals("Many $$$$${target} $s", this.getFormat().replace("Many $$$$$${target} $s"));
+        assertEquals("Variable ${x} must be used!", this.getFormat().replace("Variable $${${var_name$}} must be used!"));
+    }
+
+    /**
+     * Tests creating new <code>VariableFormat</code> objects.
+     */
+    public void testInitialize() {
+        assertNotNull(this.getFormat().getVariableResolver());
+        assertEquals(VariableFormatter.DEFAULT_PREFIX, this.getFormat().getVariablePrefix());
+        assertEquals(VariableFormatter.DEFAULT_SUFFIX, this.getFormat().getVariableSuffix());
+        assertEquals(VariableFormatter.DEFAULT_ESCAPE, this.getFormat().getEscapeCharacter());
+
+        format = new VariableFormatter(values, "<<", ">>", '\\');
+        assertEquals("<<", this.getFormat().getVariablePrefix());
+        assertEquals(">>", this.getFormat().getVariableSuffix());
+        assertEquals('\\', this.getFormat().getEscapeCharacter());
+
+// new VariableFormatter(null) should be OK IMO
+// Gary Gregory - July 14 2005        
+//        try {
+//            format = new VariableFormatter(null);
+//            fail("Could create format object with null map!");
+//        } catch (IllegalArgumentException iex) {
+//            // ok
+//        }
+
+        try {
+            format = new VariableFormatter(values, "${", null);
+            fail("Could create format object with undefined suffix!");
+        } catch (IllegalArgumentException iex) {
+            // ok
+        }
+
+        try {
+            format = new VariableFormatter(values, null, "]");
+            fail("Could create format object with undefined prefix!");
+        } catch (IllegalArgumentException iex) {
+            // ok
+        }
     }
 
     /**
@@ -182,6 +166,54 @@ public class VariableFormatterTest extends TestCase {
     }
 
     /**
+     * Tests recursive replacements.
+     */
+    public void testRecursiveReplacement() {
+        Map valuesMap = new HashMap();
+        valuesMap.put("animal", "${critter}");
+        valuesMap.put("target", "${pet}");
+        valuesMap.put("pet", "${petCharacteristic} dog");
+        valuesMap.put("petCharacteristic", "lazy");
+        valuesMap.put("critter", "${critterSpeed} ${critterColor} ${critterType}");
+        valuesMap.put("critterSpeed", "quick");
+        valuesMap.put("critterColor", "brown");
+        valuesMap.put("critterType", "fox");
+        this.setValueMap(valuesMap);
+        assertEquals("The quick brown fox jumps over the lazy dog.", this.getFormat().replace(REPLACE_TEMPLATE));
+    }
+
+    /**
+     * Tests typical replace operations.
+     */
+    public void testReplace() {
+        assertEquals("The quick brown fox jumps over the lazy dog.", this.getFormat().replaceObject(REPLACE_TEMPLATE));
+        Map map = this.getValueMap();
+        map.put("animal", "cow");
+        map.put("target", "moon");
+        assertEquals("The cow jumps over the moon.", this.getFormat().replace(REPLACE_TEMPLATE));
+
+        assertEquals("Variable ${var} is unknown!", this.getFormat().replace("Variable ${var} is unknown!"));
+    }
+
+    /**
+     * Tests source texts with nothing to replace.
+     */
+    public void testReplaceNothing() {
+        assertNull(this.getFormat().replace(null));
+        assertEquals("Nothing to replace.", this.getFormat().replace("Nothing to replace."));
+        assertEquals("42", this.getFormat().replace(new Integer(42)));
+    }
+
+    /**
+     * Tests operating on objects.
+     */
+    public void testReplaceObject() {
+        this.getValueMap().put("value", new Integer(42));
+        assertEquals(new Integer(42), this.getFormat().replaceObject("${value}"));
+        assertEquals("The answer is 42.", this.getFormat().replaceObject("The answer is ${value}."));
+    }
+
+    /**
      * Tests interpolation with system properties.
      */
     public void testReplaceSystemProperties() {
@@ -194,21 +226,5 @@ public class VariableFormatterTest extends TestCase {
         assertEquals(buf.toString(), VariableFormatter.replaceSystemProperties("Hi ${user.name}, you are "
             + "working with ${os.name}, your home "
             + "directory is ${user.home}."));
-    }
-
-    Map getValues() {
-        return this.values;
-    }
-
-    void setValues(Map values) {
-        this.values = values;
-    }
-
-    VariableFormatter getFormat() {
-        return this.format;
-    }
-
-    void setFormat(VariableFormatter format) {
-        this.format = format;
     }
 }

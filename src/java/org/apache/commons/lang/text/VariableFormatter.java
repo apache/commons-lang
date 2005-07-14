@@ -96,204 +96,97 @@ import org.apache.commons.lang.StringUtils;
  * @since 2.2
  */
 public class VariableFormatter {
+
+    /**
+     * A VariableResolver backed by a {@link Map}.
+     * 
+     * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
+     * @version $Id$
+     */
+    public static class MapVariableResolver implements VariableResolver {
+        /**
+         * Map keys are variable names and value
+         */
+        private Map map;
+
+        /**
+         * Creates a new VariableResolver backed by a Map.
+         * 
+         * @param map
+         *            The variable names and values.
+         */
+        public MapVariableResolver(Map map) {
+            this.setMap(map);
+        }
+
+        /**
+         * Gets the variable names and values.
+         * 
+         * @return the variable names and values.
+         */
+        public Map getMap() {
+            return this.map;
+        }
+
+        /**
+         * Resolves the given variable name with the backing Map.
+         * 
+         * @param varName
+         *            a variable name
+         * @return a value or <code>null</code> if the variable name is not in Map
+         */
+        public Object resolveVariable(String varName) {
+            if (this.getMap() == null) {
+                return null;
+            }
+            return this.getMap().get(varName);
+        }
+
+        /**
+         * Gets the variable names and values.
+         * 
+         * @param map
+         *            the variable names and values.
+         */
+        public void setMap(Map map) {
+            this.map = map;
+        }
+    }
+
+    /**
+     * <p>
+     * Definition of an interface for obtaining values for variables.
+     * </p>
+     * <p>
+     * Objects implementing this interface can be passed to <code>VariableFormatter</code> as source for variables'
+     * values. The interface is quite simple and defines only a single method for retrieving the value of a specified
+     * value.
+     * </p>
+     */
+    public static interface VariableResolver {
+        /**
+         * Returns the value of the specified variable. The variable's value can be an arbitrary object. If no variable
+         * with the given name is known, an implementation should return <b>null</b>.
+         * 
+         * @param varName
+         *            the name of the searched variable
+         * @return the variable's value
+         */
+        Object resolveVariable(String varName);
+    }
+
+    /** Constant for the default escape character. */
+    static final char DEFAULT_ESCAPE = '$';
+
     /** Constant for the default variable prefix. */
     static final String DEFAULT_PREFIX = "${";
 
     /** Constant for the default variable suffix. */
     static final String DEFAULT_SUFFIX = "}";
 
-    /** Constant for the default escape character. */
-    static final char DEFAULT_ESCAPE = '$';
-
-    /** Stores the map with the variables' values. */
-    private Map valueMap;
-
-    /** Stores the variable prefix. */
-    private String variablePrefix;
-
-    /** Stores the variable suffix. */
-    private String variableSuffix;
-
-    /** Stores the escape character. */
-    private char escapeCharacter;
-
     /**
-     * Creates a new instance of <code>VariableFormat</code> and initializes it.
-     * 
-     * @param valueMap
-     *            the map with the variables' values
-     * @param prefix
-     *            the prefix for variables
-     * @param suffix
-     *            the suffix for variables
-     * @param escape
-     *            the escape character
-     * @throws IllegalArgumentException
-     *             if the map is undefined
-     */
-    public VariableFormatter(Map valueMap, String prefix, String suffix, char escape) {
-        setValueMap(valueMap);
-        setVariablePrefix(prefix);
-        setVariableSuffix(suffix);
-        setEscapeCharacter(escape);
-    }
-
-    /**
-     * Creates a new instance of <code>VariableFormat</code> and initializes it.
-     * Uses a default escaping character.
-     * 
-     * @param valueMap
-     *            the map with the variables' values
-     * @param prefix
-     *            the prefix for variables
-     * @param suffix
-     *            the suffix for variables
-     * @throws IllegalArgumentException
-     *             if the map is undefined
-     */
-    public VariableFormatter(Map valueMap, String prefix, String suffix) {
-        this(valueMap, prefix, suffix, DEFAULT_ESCAPE);
-    }
-
-    /**
-     * Creates a new instance of <code>VariableFormat</code> and initializes it.
-     * Uses defaults for variable prefix and suffix and the escaping character.
-     * 
-     * @param valueMap
-     *            the map with the variables' values
-     * @throws IllegalArgumentException
-     *             if the map is undefined
-     */
-    public VariableFormatter(Map valueMap) {
-        this(valueMap, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
-    }
-
-    /**
-     * Returns the escape character.
-     * 
-     * @return the character used for escaping variable references
-     */
-    public char getEscapeCharacter() {
-        return this.escapeCharacter;
-    }
-
-    /**
-     * Sets the escape character. If this character is placed before a
-     * variable reference in the source text, this variable will be ignored.
-     * 
-     * @param escapeCharacter
-     *            the escape character (0 for disabling escaping)
-     */
-    public void setEscapeCharacter(char escapeCharacter) {
-        this.escapeCharacter = escapeCharacter;
-    }
-
-    /**
-     * Returns the map with the variables' values.
-     * 
-     * @return the values of the variables
-     */
-    public Map getValueMap() {
-        return this.valueMap;
-    }
-
-    /**
-     * Sets the map with the variables' values.
-     * 
-     * @param valueMap
-     *            the values of the variables
-     * @throws IllegalArgumentException
-     *             if <code>valueMap</code> is <b>null</b>
-     */
-    public void setValueMap(Map valueMap) throws IllegalArgumentException {
-        if (valueMap == null) {
-            throw new IllegalArgumentException("Value map must not be null");
-        }
-        this.valueMap = valueMap;
-    }
-
-    /**
-     * Returns the prefix for variables.
-     * 
-     * @return the prefix for variables
-     */
-    public String getVariablePrefix() {
-        return this.variablePrefix;
-    }
-
-    /**
-     * Sets the prefix for variables.
-     * 
-     * @param variablePrefix
-     *            the prefix for variables
-     * @throws IllegalArgumentException
-     *             if the prefix is <b>null</b>
-     */
-    public void setVariablePrefix(String variablePrefix) throws IllegalArgumentException {
-        if (variablePrefix == null) {
-            throw new IllegalArgumentException("Variable prefix must not be null!");
-        }
-        this.variablePrefix = variablePrefix;
-    }
-
-    /**
-     * Returns the suffix for variables.
-     * 
-     * @return the suffix for variables
-     */
-    public String getVariableSuffix() {
-        return this.variableSuffix;
-    }
-
-    /**
-     * Sets the suffix for variables
-     * 
-     * @param variableSuffix
-     *            the suffix for variables
-     * @throws IllegalArgumentException
-     *             if the prefix is <b>null</b>
-     */
-    public void setVariableSuffix(String variableSuffix) throws IllegalArgumentException {
-        if (variableSuffix == null) {
-            throw new IllegalArgumentException("Variable suffix must not be null!");
-        }
-        this.variableSuffix = variableSuffix;
-    }
-
-    /**
-     * Replaces the occurrences of all variables in the given source data by
-     * their current values. If the source consists only of a single variable
-     * reference, this method directly returns the value of this variable
-     * (which can be an arbitrary object). If the source contains multiple
-     * variable references or static text, the return value will always be a
-     * String with the concatenation of all these elements.
-     * 
-     * @param source
-     *            the text to be interpolated; this can be an arbitrary object whose <code>toString()</code> method
-     *            will be called
-     * @return the result of the replace operation
-     */
-    public Object replaceObject(Object source) {
-        return doReplace(source, null);
-    }
-
-    /**
-     * Replaces the occurrences of all variables in the given source data by
-     * their current values.
-     * 
-     * @param source
-     *            the text to be interpolated; this can be an arbitrary object whose <code>toString()</code> method
-     *            will be called
-     * @return the result of the replace operation
-     */
-    public String replace(Object source) {
-        Object result = replaceObject(source);
-        return result == null ? null : result.toString();
-    }
-
-    /**
-     * Replaces the occurrences of all variables in the given source data by
-     * their current values obtained from the passed in map.
+     * Replaces the occurrences of all variables in the given source data by their current values obtained from the
+     * passed in map.
      * 
      * @param valueMap
      *            the map with the values
@@ -306,9 +199,8 @@ public class VariableFormatter {
     }
 
     /**
-     * Replaces the occurrences of all variables in the given source data by
-     * their current values obtained from the passed in map. This method
-     * allows to specifiy a custom variable prefix and suffix
+     * Replaces the occurrences of all variables in the given source data by their current values obtained from the
+     * passed in map. This method allows to specifiy a custom variable prefix and suffix
      * 
      * @param valueMap
      *            the map with the values
@@ -325,8 +217,7 @@ public class VariableFormatter {
     }
 
     /**
-     * Replaces all variables in the given source data with values obtained
-     * from system properties.
+     * Replaces all variables in the given source data with values obtained from system properties.
      * 
      * @param source
      *            the source text
@@ -336,102 +227,70 @@ public class VariableFormatter {
         return new VariableFormatter(System.getProperties()).replace(source);
     }
 
+    /** Stores the escape character. */
+    private char escapeCharacter;
+
+    /** Stores the variable prefix. */
+    private String variablePrefix;
+
+    private VariableResolver variableResolver;
+
+    /** Stores the variable suffix. */
+    private String variableSuffix;
+
     /**
-     * Checks if the variable reference found at the specified position is
-     * escaped and if this is the case, where the escaped text starts.
+     * Creates a new instance of <code>VariableFormat</code> and initializes it. Uses defaults for variable prefix and
+     * suffix and the escaping character.
      * 
-     * @param text
-     *            the text to be processed
-     * @param beginIndex
-     *            the start index of the variable reference to check
-     * @return the starting index of the escaped text or -1 if this reference is not escaped
+     * @param valueMap
+     *            the map with the variables' values
+     * @throws IllegalArgumentException
+     *             if the map is undefined
      */
-    protected int escaped(String text, int beginIndex) {
-        if (beginIndex < 1 || text.charAt(beginIndex - 1) != getEscapeCharacter()) {
-            return -1;
-        }
-        int idx = beginIndex - 2;
-        while (idx >= 0 && text.charAt(idx) == getEscapeCharacter()) {
-            idx--;
-        }
-        return idx + 1;
+    public VariableFormatter(Map valueMap) {
+        this(valueMap, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
     /**
-     * Unescapes an escaped variable reference. This method is called if
-     * <code>escaped()</code> has determined an escaped variable reference.
-     * Its purpose is to remove any escaping characters and to add the
-     * resulting text into the target buffer. This implementation will remove
-     * the first escape character. So if the default values are used,
-     * a text portion of <code>$${myvar}</code> will become <code>${myvar}</code>,
-     * <code>$$$${var with dollars}</code> will result in <code>$$${var with
-     * dollars}</code>. Text between the first variable start token and the last
-     * unescaped variable end token can contain variable references and will be
-     * recursively replaced. So constructs of the following form can be built:
-     * <code>Variable $${${varName$}} is incorrect!</code> (note how the first
-     * &quot;}&quot; character is escaped, so that the second &quot;}&quot;
-     * marks the end of this construct.
+     * Creates a new instance of <code>VariableFormat</code> and initializes it. Uses a default escaping character.
      * 
-     * @param buf
-     *            the target buffer
-     * @param text
-     *            the text to be processed
-     * @param beginIndex
-     *            the begin index of the escaped variable reference
-     * @param endIndex
-     *            the end index of the escaped variable reference
-     * @param priorVariables
-     *            keeps track of the replaced variables
+     * @param valueMap
+     *            the map with the variables' values
+     * @param prefix
+     *            the prefix for variables
+     * @param suffix
+     *            the suffix for variables
+     * @throws IllegalArgumentException
+     *             if the map is undefined
      */
-    protected void unescape(StringBuffer buf, String text, int beginIndex, int endIndex, List priorVariables) {
-        int startToken = text.indexOf(getVariablePrefix(), beginIndex);
-        buf.append(text.substring(beginIndex + 1, startToken));
-        buf.append(getVariablePrefix());
-        String escapedContent = text.substring(startToken + getVariablePrefix().length(), endIndex);
-        buf.append(doReplace(StringUtils.replace(escapedContent, String.valueOf(getEscapeCharacter())
-            + getVariableSuffix(), getVariableSuffix()), priorVariables));
+    public VariableFormatter(Map valueMap, String prefix, String suffix) {
+        this(valueMap, prefix, suffix, DEFAULT_ESCAPE);
     }
 
     /**
-     * Searches for a variable end token in the given string from the
-     * specified start position.
+     * Creates a new instance of <code>VariableFormat</code> and initializes it.
      * 
-     * @param text
-     *            the text to search
-     * @param beginIndex
-     *            the start index
-     * @return the index of the end token or -1 if none was found
+     * @param valueMap
+     *            the map with the variables' values
+     * @param prefix
+     *            the prefix for variables
+     * @param suffix
+     *            the suffix for variables
+     * @param escape
+     *            the escape character
+     * @throws IllegalArgumentException
+     *             if the map is undefined
      */
-    protected int findEndToken(String text, int beginIndex) {
-        int pos = beginIndex - getVariableSuffix().length();
-
-        do {
-            pos = text.indexOf(getVariableSuffix(), pos + getVariableSuffix().length());
-        } while (pos > 0 && getEscapeCharacter() == text.charAt(pos - 1));
-
-        return pos;
+    public VariableFormatter(Map valueMap, String prefix, String suffix, char escape) {
+        this.setVariableResolver(new MapVariableResolver(valueMap));
+        this.setVariablePrefix(prefix);
+        this.setVariableSuffix(suffix);
+        this.setEscapeCharacter(escape);
     }
 
     /**
-     * Resolves the specified variable. This method is called whenever a
-     * variable reference is detected in the source text. It is passed the
-     * variable's name and must return the corresponding value.
-     * This implementation accesses the value map using the variable's name
-     * as key. Derived classes may override this method to implement a different
-     * strategy for resolving variables.
-     * 
-     * @param name
-     *            the name of the variable
-     * @return the variable's value or <b>null</b> if the variable is unknown
-     */
-    protected Object resolveVariable(String name) {
-        return getValueMap().get(name);
-    }
-
-    /**
-     * Recursive handler for multple levels of interpolation. This is the main
-     * interpolation method, which resolves the values of all variable
-     * references contained in the passed in text.
+     * Recursive handler for multple levels of interpolation. This is the main interpolation method, which resolves the
+     * values of all variable references contained in the passed in text.
      * 
      * @param base
      *            string with the ${key} variables
@@ -528,6 +387,199 @@ public class VariableFormatter {
 
         result.append(base.substring(prec + getVariableSuffix().length(), base.length()));
         return (objResult != null && objLen > 0 && objLen == result.length()) ? objResult : result.toString();
+    }
+
+    /**
+     * Checks if the variable reference found at the specified position is escaped and if this is the case, where the
+     * escaped text starts.
+     * 
+     * @param text
+     *            the text to be processed
+     * @param beginIndex
+     *            the start index of the variable reference to check
+     * @return the starting index of the escaped text or -1 if this reference is not escaped
+     */
+    protected int escaped(String text, int beginIndex) {
+        if (beginIndex < 1 || text.charAt(beginIndex - 1) != getEscapeCharacter()) {
+            return -1;
+        }
+        int idx = beginIndex - 2;
+        while (idx >= 0 && text.charAt(idx) == getEscapeCharacter()) {
+            idx--;
+        }
+        return idx + 1;
+    }
+
+    /**
+     * Searches for a variable end token in the given string from the specified start position.
+     * 
+     * @param text
+     *            the text to search
+     * @param beginIndex
+     *            the start index
+     * @return the index of the end token or -1 if none was found
+     */
+    protected int findEndToken(String text, int beginIndex) {
+        int pos = beginIndex - getVariableSuffix().length();
+
+        do {
+            pos = text.indexOf(getVariableSuffix(), pos + getVariableSuffix().length());
+        } while (pos > 0 && getEscapeCharacter() == text.charAt(pos - 1));
+
+        return pos;
+    }
+
+    /**
+     * Returns the escape character.
+     * 
+     * @return the character used for escaping variable references
+     */
+    public char getEscapeCharacter() {
+        return this.escapeCharacter;
+    }
+
+    /**
+     * Returns the prefix for variables.
+     * 
+     * @return the prefix for variables
+     */
+    public String getVariablePrefix() {
+        return this.variablePrefix;
+    }
+
+    public VariableResolver getVariableResolver() {
+        return this.variableResolver;
+    }
+
+    /**
+     * Returns the suffix for variables.
+     * 
+     * @return the suffix for variables
+     */
+    public String getVariableSuffix() {
+        return this.variableSuffix;
+    }
+
+    /**
+     * Replaces the occurrences of all variables in the given source data by their current values.
+     * 
+     * @param source
+     *            the text to be interpolated; this can be an arbitrary object whose <code>toString()</code> method
+     *            will be called
+     * @return the result of the replace operation
+     */
+    public String replace(Object source) {
+        Object result = replaceObject(source);
+        return result == null ? null : result.toString();
+    }
+
+    /**
+     * Replaces the occurrences of all variables in the given source data by their current values. If the source
+     * consists only of a single variable reference, this method directly returns the value of this variable (which can
+     * be an arbitrary object). If the source contains multiple variable references or static text, the return value
+     * will always be a String with the concatenation of all these elements.
+     * 
+     * @param source
+     *            the text to be interpolated; this can be an arbitrary object whose <code>toString()</code> method
+     *            will be called
+     * @return the result of the replace operation
+     */
+    public Object replaceObject(Object source) {
+        return doReplace(source, null);
+    }
+
+    /**
+     * Resolves the specified variable. This method is called whenever a variable reference is detected in the source
+     * text. It is passed the variable's name and must return the corresponding value. This implementation accesses the
+     * value map using the variable's name as key. Derived classes may override this method to implement a different
+     * strategy for resolving variables.
+     * 
+     * @param name
+     *            the name of the variable
+     * @return the variable's value or <b>null</b> if the variable is unknown
+     */
+    protected Object resolveVariable(String name) {
+        if (this.getVariableResolver() == null) {
+            return null;
+        }
+        return this.getVariableResolver().resolveVariable(name);
+    }
+
+    /**
+     * Sets the escape character. If this character is placed before a variable reference in the source text, this
+     * variable will be ignored.
+     * 
+     * @param escapeCharacter
+     *            the escape character (0 for disabling escaping)
+     */
+    public void setEscapeCharacter(char escapeCharacter) {
+        this.escapeCharacter = escapeCharacter;
+    }
+
+    /**
+     * Sets the prefix for variables.
+     * 
+     * @param variablePrefix
+     *            the prefix for variables
+     * @throws IllegalArgumentException
+     *             if the prefix is <b>null</b>
+     */
+    public void setVariablePrefix(String variablePrefix) throws IllegalArgumentException {
+        if (variablePrefix == null) {
+            throw new IllegalArgumentException("Variable prefix must not be null!");
+        }
+        this.variablePrefix = variablePrefix;
+    }
+
+    public void setVariableResolver(VariableResolver variableResolver) {
+        this.variableResolver = variableResolver;
+    }
+
+    /**
+     * Sets the suffix for variables
+     * 
+     * @param variableSuffix
+     *            the suffix for variables
+     * @throws IllegalArgumentException
+     *             if the prefix is <b>null</b>
+     */
+    public void setVariableSuffix(String variableSuffix) throws IllegalArgumentException {
+        if (variableSuffix == null) {
+            throw new IllegalArgumentException("Variable suffix must not be null!");
+        }
+        this.variableSuffix = variableSuffix;
+    }
+
+    /**
+     * Unescapes an escaped variable reference. This method is called if <code>escaped()</code> has determined an
+     * escaped variable reference. Its purpose is to remove any escaping characters and to add the resulting text into
+     * the target buffer. This implementation will remove the first escape character. So if the default values are used,
+     * a text portion of <code>$${myvar}</code> will become <code>${myvar}</code>,
+     * <code>$$$${var with dollars}</code> will result in <code>$$${var with
+     * dollars}</code>. Text between the
+     * first variable start token and the last unescaped variable end token can contain variable references and will be
+     * recursively replaced. So constructs of the following form can be built:
+     * <code>Variable $${${varName$}} is incorrect!</code> (note how the first &quot;}&quot; character is escaped, so
+     * that the second &quot;}&quot; marks the end of this construct.
+     * 
+     * @param buf
+     *            the target buffer
+     * @param text
+     *            the text to be processed
+     * @param beginIndex
+     *            the begin index of the escaped variable reference
+     * @param endIndex
+     *            the end index of the escaped variable reference
+     * @param priorVariables
+     *            keeps track of the replaced variables
+     */
+    protected void unescape(StringBuffer buf, String text, int beginIndex, int endIndex, List priorVariables) {
+        int startToken = text.indexOf(getVariablePrefix(), beginIndex);
+        buf.append(text.substring(beginIndex + 1, startToken));
+        buf.append(getVariablePrefix());
+        String escapedContent = text.substring(startToken + getVariablePrefix().length(), endIndex);
+        buf.append(doReplace(StringUtils.replace(escapedContent, String.valueOf(getEscapeCharacter())
+            + getVariableSuffix(), getVariableSuffix()), priorVariables));
     }
 
 }
