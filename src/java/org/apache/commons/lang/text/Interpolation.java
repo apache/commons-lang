@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Might be replaced by VariableFormat?
+ * Might be replaced by VariableFormatter?
  * 
  * <p>Performs basic variable interpolation on a String for variables within a Map.
  * Variables of the form, ${var}, are supported.</p>
