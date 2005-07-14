@@ -589,10 +589,11 @@ public class StrBuilder implements Cloneable {
         if (coll != null && coll.size() > 0) {
             separator = (separator == null ? "" : separator);
             Iterator it = coll.iterator();
-            append(it.next());
             while (it.hasNext()) {
-                append(separator);
                 append(it.next());
+                if (it.hasNext()) {
+                    append(separator);
+                }
             }
         }
         return this;
@@ -611,10 +612,11 @@ public class StrBuilder implements Cloneable {
     public StrBuilder appendWithSeparators(Iterator it, String separator) {
         if (it != null) {
             separator = (separator == null ? "" : separator);
-            append(it.next());
             while (it.hasNext()) {
-                append(separator);
                 append(it.next());
+                if (it.hasNext()) {
+                    append(separator);
+                }
             }
         }
         return this;
