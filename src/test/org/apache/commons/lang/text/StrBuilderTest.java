@@ -567,7 +567,7 @@ public class StrBuilderTest extends TestCase {
 
         sb.clear();
         sb.setNullText("null");
-        sb.appendFixedWidthPadRight(null, 5, '-');
+        sb.appendFixedWidthPadLeft(null, 5, '-');
         assertEquals("-null", sb.toString());
     }
 
