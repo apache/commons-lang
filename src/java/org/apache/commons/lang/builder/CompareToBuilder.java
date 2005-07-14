@@ -59,7 +59,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * }
  * </pre>
  *
- * <p>Alternatively, there is are {@link #reflectionCompare(Object, Object) reflectionCompare} method that uses
+ * <p>Alternatively, there are {@link #reflectionCompare(Object, Object) reflectionCompare} methods that use
  * reflection to determine the fields to append. Because fields can be private,
  * <code>reflectionCompare</code> uses {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} to
  * bypass normal access control checks. This will fail under a security manager,
