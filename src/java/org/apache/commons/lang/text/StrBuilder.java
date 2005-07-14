@@ -673,7 +673,7 @@ public class StrBuilder implements Cloneable {
 
     /**
      * Appends an object to the builder padding on the left to a fixed width.
-     * The <code>String.valueOf</code> of the object is used.
+     * The <code>String.valueOf</code> of the <code>int</code> value is used.
      * If the formatted value is larger than the length, the left hand side is lost.
      * 
      * @param value  the value to append
@@ -717,7 +717,7 @@ public class StrBuilder implements Cloneable {
 
     /**
      * Appends an object to the builder padding on the right to a fixed length.
-     * The <code>String.valueOf</code> of the object is used.
+     * The <code>String.valueOf</code> of the <code>int</code> value is used.
      * If the object is larger than the length, the right hand side is lost.
      * 
      * @param value  the value to append
