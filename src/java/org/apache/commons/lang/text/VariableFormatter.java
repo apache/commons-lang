@@ -233,26 +233,34 @@ public class VariableFormatter {
     /** Stores the variable prefix. */
     private String variablePrefix;
 
+    /**
+     * Variable resolution is delegated to an implementor of VariableResolver.
+     */
     private VariableResolver variableResolver;
 
     /** Stores the variable suffix. */
     private String variableSuffix;
 
     /**
-     * Creates a new instance of <code>VariableFormat</code> and initializes it. Uses defaults for variable prefix and
-     * suffix and the escaping character.
+     * Creates a new instance and initializes it. Uses defaults for variable prefix and suffix and the escaping
+     * character.
      * 
      * @param valueMap
      *            the map with the variables' values
-     * @throws IllegalArgumentException
-     *             if the map is undefined
      */
     public VariableFormatter(Map valueMap) {
         this(valueMap, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
     /**
-     * Creates a new instance of <code>VariableFormat</code> and initializes it. Uses a default escaping character.
+     * Creates a new instance with defaults for variable prefix and suffix and the escaping character.
+     */
+    public VariableFormatter() {
+        this((VariableResolver) null, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
+    }
+
+    /**
+     * Creates a new instance and initializes it. Uses a default escaping character.
      * 
      * @param valueMap
      *            the map with the variables' values
@@ -260,15 +268,13 @@ public class VariableFormatter {
      *            the prefix for variables
      * @param suffix
      *            the suffix for variables
-     * @throws IllegalArgumentException
-     *             if the map is undefined
      */
     public VariableFormatter(Map valueMap, String prefix, String suffix) {
         this(valueMap, prefix, suffix, DEFAULT_ESCAPE);
     }
 
     /**
-     * Creates a new instance of <code>VariableFormat</code> and initializes it.
+     * Creates a new instance and initializes it.
      * 
      * @param valueMap
      *            the map with the variables' values
@@ -278,11 +284,25 @@ public class VariableFormatter {
      *            the suffix for variables
      * @param escape
      *            the escape character
-     * @throws IllegalArgumentException
-     *             if the map is undefined
      */
     public VariableFormatter(Map valueMap, String prefix, String suffix, char escape) {
-        this.setVariableResolver(new MapVariableResolver(valueMap));
+        this(new MapVariableResolver(valueMap), prefix, suffix, escape);
+    }
+
+    /**
+     * Creates a new instance and initializes it.
+     * 
+     * @param variableResolver
+     *            the variable resolver
+     * @param prefix
+     *            the prefix for variables
+     * @param suffix
+     *            the suffix for variables
+     * @param escape
+     *            the escape character
+     */
+    public VariableFormatter(VariableResolver variableResolver, String prefix, String suffix, char escape) {
+        this.setVariableResolver(variableResolver);
         this.setVariablePrefix(prefix);
         this.setVariableSuffix(suffix);
         this.setEscapeCharacter(escape);
@@ -447,6 +467,11 @@ public class VariableFormatter {
         return this.variablePrefix;
     }
 
+    /**
+     * Gets the VariableResolver
+     * 
+     * @return the VariableResolver
+     */
     public VariableResolver getVariableResolver() {
         return this.variableResolver;
     }
@@ -531,6 +556,12 @@ public class VariableFormatter {
         this.variablePrefix = variablePrefix;
     }
 
+    /**
+     * Sets the VariableResolver
+     * 
+     * @param variableResolver
+     *            the VariableResolver
+     */
     public void setVariableResolver(VariableResolver variableResolver) {
         this.variableResolver = variableResolver;
     }
