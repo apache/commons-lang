@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.ArrayList;
 
 /**
- * Might be replaced by VariableFormat?
+ * Might be replaced by VariableFormatter?
  * 
  * Substitutes values from one or more maps into designated places within a string.
  * <p>
