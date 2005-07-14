@@ -41,7 +41,7 @@ public class VariableFormatterTest extends TestCase {
     }
 
     MapVariableResolver getMapVariableResolver() {
-        return (MapVariableResolver)this.getFormat().getVariableResolver();
+        return (MapVariableResolver) this.getFormat().getVariableResolver();
     }
 
     private Map getValueMap() {
@@ -119,14 +119,14 @@ public class VariableFormatterTest extends TestCase {
         assertEquals(">>", this.getFormat().getVariableSuffix());
         assertEquals('\\', this.getFormat().getEscapeCharacter());
 
-// new VariableFormatter(null) should be OK IMO
-// Gary Gregory - July 14 2005        
-//        try {
-//            format = new VariableFormatter(null);
-//            fail("Could create format object with null map!");
-//        } catch (IllegalArgumentException iex) {
-//            // ok
-//        }
+        // new VariableFormatter(null) should be OK IMO
+        // Gary Gregory - July 14 2005
+        // try {
+        // format = new VariableFormatter(null);
+        // fail("Could create format object with null map!");
+        // } catch (IllegalArgumentException iex) {
+        // // ok
+        // }
 
         try {
             format = new VariableFormatter(values, "${", null);
@@ -158,11 +158,27 @@ public class VariableFormatterTest extends TestCase {
      * Tests invoking the static convenience methods.
      */
     public void testNonInstanceMethods() {
-        assertEquals("The quick brown fox jumps over the lazy dog.", VariableFormatter.replace(values, REPLACE_TEMPLATE));
+        assertEquals("The quick brown fox jumps over the lazy dog.", VariableFormatter
+                .replace(values, REPLACE_TEMPLATE));
         values.put("animal", "cow");
         values.put("target", "moon");
         assertEquals("The cow jumps over the moon.", VariableFormatter.replace(values, "&", ";",
                 "The &animal; jumps over the &target;."));
+    }
+
+    public void testNoResolver() throws Exception {
+        this.testNoResolver(new VariableFormatter());
+        this.testNoResolver(new VariableFormatter(null));
+    }
+
+    void testNoResolver(VariableFormatter formatter) throws Exception {
+        formatter.setVariableResolver(null);
+        this.validateNoReplace(formatter);
+    }
+
+    public void testNullMap() throws Exception {
+        VariableFormatter formatter = new VariableFormatter(null);
+        validateNoReplace(formatter);
     }
 
     /**
@@ -226,5 +242,11 @@ public class VariableFormatterTest extends TestCase {
         assertEquals(buf.toString(), VariableFormatter.replaceSystemProperties("Hi ${user.name}, you are "
             + "working with ${os.name}, your home "
             + "directory is ${user.home}."));
+    }
+
+    void validateNoReplace(VariableFormatter formatter) {
+        String srcString = "Hello ${user.name}";
+        String destString = formatter.replace(srcString);
+        assertEquals(srcString, destString);
     }
 }
