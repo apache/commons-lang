@@ -81,20 +81,27 @@ public class MutableIntTest extends TestCase {
     }
 
     public void testEquals() {
-        final MutableInt mutNumA = new MutableInt(0);
-        final MutableInt mutNumB = new MutableInt(0);
-        final MutableInt mutNumC = new MutableInt(1);
+        this.testEquals(new MutableInt(0), new MutableInt(0), new MutableInt(1));
+        // Should Numbers be supported? GaryG July-21-2005.
+        //this.testEquals(mutNumA, new Integer(0), mutNumC);
+    }
 
-        assertEquals(true, mutNumA.equals(mutNumA));
-        assertEquals(true, mutNumA.equals(mutNumB));
-        assertEquals(true, mutNumB.equals(mutNumA));
-        assertEquals(true, mutNumB.equals(mutNumB));
-        assertEquals(false, mutNumA.equals(mutNumC));
-        assertEquals(false, mutNumB.equals(mutNumC));
-        assertEquals(true, mutNumC.equals(mutNumC));
-        assertEquals(false, mutNumA.equals(null));
-        assertEquals(false, mutNumA.equals(new Integer(0)));
-        assertEquals(false, mutNumA.equals("0"));
+    /**
+     * @param numA must not be a 0 Integer; must not equal numC.
+     * @param numB must equal numA; must not equal numC.
+     * @param numC must not equal numA; must not equal numC.
+     */
+    void testEquals(final Number numA, final Number numB, final Number numC) {
+        assertEquals(true, numA.equals(numA));
+        assertEquals(true, numA.equals(numB));
+        assertEquals(true, numB.equals(numA));
+        assertEquals(true, numB.equals(numB));
+        assertEquals(false, numA.equals(numC));
+        assertEquals(false, numB.equals(numC));
+        assertEquals(true, numC.equals(numC));
+        assertEquals(false, numA.equals(null));
+        assertEquals(false, numA.equals(new Integer(0)));
+        assertEquals(false, numA.equals("0"));
     }
 
     public void testHashCode() {
