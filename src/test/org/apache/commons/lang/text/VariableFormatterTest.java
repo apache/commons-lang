@@ -31,8 +31,8 @@ import org.apache.commons.lang.text.VariableFormatter.MapVariableResolver;
  */
 public class VariableFormatterTest extends TestCase {
 
-    private static final String KEY_TARGET = "target";
     private static final String KEY_ANIMAL = "animal";
+    private static final String KEY_TARGET = "target";
     static final String REPLACE_TEMPLATE = "The ${animal} jumps over the ${target}.";
     static final String REPLACE_TEMPLATE_NO_ESCAPE = "The {animal} jumps over the {target}.";
     static final String REPLACE_TEMPLATE_NO_PREFIX = "The $animal} jumps over the $target}.";
@@ -217,6 +217,15 @@ public class VariableFormatterTest extends TestCase {
         assertEquals("Variable ${var} is unknown!", this.getFormat().replace("Variable ${var} is unknown!"));
     }
 
+    void testReplaceNoElement(String badReplaceTemplate) {
+        assertEquals(badReplaceTemplate, this.getFormat().replaceObject(badReplaceTemplate));
+        Map map = this.getValueMap();
+        map.put(KEY_ANIMAL, "cow");
+        map.put(KEY_TARGET, "moon");
+        assertEquals("The cow jumps over the moon.", this.getFormat().replace(REPLACE_TEMPLATE));
+        assertEquals(badReplaceTemplate, this.getFormat().replaceObject(badReplaceTemplate));
+    }
+
     /**
      * Tests a replace template with missing escape strings.
      */
@@ -236,15 +245,6 @@ public class VariableFormatterTest extends TestCase {
      */
     public void testReplaceNoSuffix() {
         testReplaceNoElement(REPLACE_TEMPLATE_NO_SUFFIX);
-    }
-
-    void testReplaceNoElement(String badReplaceTemplate) {
-        assertEquals(badReplaceTemplate, this.getFormat().replaceObject(badReplaceTemplate));
-        Map map = this.getValueMap();
-        map.put(KEY_ANIMAL, "cow");
-        map.put(KEY_TARGET, "moon");
-        assertEquals("The cow jumps over the moon.", this.getFormat().replace(REPLACE_TEMPLATE));
-        assertEquals(badReplaceTemplate, this.getFormat().replaceObject(badReplaceTemplate));
     }
 
     /**
