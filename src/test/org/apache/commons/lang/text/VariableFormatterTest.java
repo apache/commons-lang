@@ -30,7 +30,13 @@ import org.apache.commons.lang.text.VariableFormatter.MapVariableResolver;
  * @version $Id$
  */
 public class VariableFormatterTest extends TestCase {
+
+    private static final String KEY_TARGET = "target";
+    private static final String KEY_ANIMAL = "animal";
     static final String REPLACE_TEMPLATE = "The ${animal} jumps over the ${target}.";
+    static final String REPLACE_TEMPLATE_NO_ESCAPE = "The {animal} jumps over the {target}.";
+    static final String REPLACE_TEMPLATE_NO_PREFIX = "The $animal} jumps over the $target}.";
+    static final String REPLACE_TEMPLATE_NO_SUFFIX = "The ${animal jumps over the ${target.";
 
     private VariableFormatter format;
 
@@ -59,8 +65,8 @@ public class VariableFormatterTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         Map map = new HashMap();
-        map.put("animal", "quick brown fox");
-        map.put("target", "lazy dog");
+        map.put(KEY_ANIMAL, "quick brown fox");
+        map.put(KEY_TARGET, "lazy dog");
         setValues(map);
         setFormat(new VariableFormatter(map));
     }
@@ -78,8 +84,8 @@ public class VariableFormatterTest extends TestCase {
      */
     public void testCyclicReplacement() {
         Map valuesMap = new HashMap();
-        valuesMap.put("animal", "${critter}");
-        valuesMap.put("target", "${pet}");
+        valuesMap.put(KEY_ANIMAL, "${critter}");
+        valuesMap.put(KEY_TARGET, "${pet}");
         valuesMap.put("pet", "${petCharacteristic} dog");
         valuesMap.put("petCharacteristic", "lazy");
         valuesMap.put("critter", "${critterSpeed} ${critterColor} ${critterType}");
@@ -160,8 +166,8 @@ public class VariableFormatterTest extends TestCase {
     public void testNonInstanceMethods() {
         assertEquals("The quick brown fox jumps over the lazy dog.", VariableFormatter
                 .replace(values, REPLACE_TEMPLATE));
-        values.put("animal", "cow");
-        values.put("target", "moon");
+        values.put(KEY_ANIMAL, "cow");
+        values.put(KEY_TARGET, "moon");
         assertEquals("The cow jumps over the moon.", VariableFormatter.replace(values, "&", ";",
                 "The &animal; jumps over the &target;."));
     }
@@ -186,8 +192,8 @@ public class VariableFormatterTest extends TestCase {
      */
     public void testRecursiveReplacement() {
         Map valuesMap = new HashMap();
-        valuesMap.put("animal", "${critter}");
-        valuesMap.put("target", "${pet}");
+        valuesMap.put(KEY_ANIMAL, "${critter}");
+        valuesMap.put(KEY_TARGET, "${pet}");
         valuesMap.put("pet", "${petCharacteristic} dog");
         valuesMap.put("petCharacteristic", "lazy");
         valuesMap.put("critter", "${critterSpeed} ${critterColor} ${critterType}");
@@ -204,11 +210,41 @@ public class VariableFormatterTest extends TestCase {
     public void testReplace() {
         assertEquals("The quick brown fox jumps over the lazy dog.", this.getFormat().replaceObject(REPLACE_TEMPLATE));
         Map map = this.getValueMap();
-        map.put("animal", "cow");
-        map.put("target", "moon");
+        map.put(KEY_ANIMAL, "cow");
+        map.put(KEY_TARGET, "moon");
         assertEquals("The cow jumps over the moon.", this.getFormat().replace(REPLACE_TEMPLATE));
 
         assertEquals("Variable ${var} is unknown!", this.getFormat().replace("Variable ${var} is unknown!"));
+    }
+
+    /**
+     * Tests a replace template with missing escape strings.
+     */
+    public void testReplaceNoEscape() {
+        testReplaceNoElement(REPLACE_TEMPLATE_NO_ESCAPE);
+    }
+
+    /**
+     * Tests a replace template with missing prefix strings.
+     */
+    public void testReplaceNoPrefix() {
+        testReplaceNoElement(REPLACE_TEMPLATE_NO_PREFIX);
+    }
+
+    /**
+     * Tests a replace template with missing postfix strings.
+     */
+    public void testReplaceNoSuffix() {
+        testReplaceNoElement(REPLACE_TEMPLATE_NO_SUFFIX);
+    }
+
+    void testReplaceNoElement(String badReplaceTemplate) {
+        assertEquals(badReplaceTemplate, this.getFormat().replaceObject(badReplaceTemplate));
+        Map map = this.getValueMap();
+        map.put(KEY_ANIMAL, "cow");
+        map.put(KEY_TARGET, "moon");
+        assertEquals("The cow jumps over the moon.", this.getFormat().replace(REPLACE_TEMPLATE));
+        assertEquals(badReplaceTemplate, this.getFormat().replaceObject(badReplaceTemplate));
     }
 
     /**
