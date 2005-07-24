@@ -32,10 +32,17 @@ import org.apache.commons.lang.text.VariableFormatter.MapVariableResolver;
 public class VariableFormatterTest extends TestCase {
 
     private static final String KEY_ANIMAL = "animal";
+
     private static final String KEY_TARGET = "target";
+
     static final String REPLACE_TEMPLATE = "The ${animal} jumps over the ${target}.";
+
     static final String REPLACE_TEMPLATE_NO_ESCAPE = "The {animal} jumps over the {target}.";
+
+    static final String REPLACE_TEMPLATE_NO_MARKERS = "The animal jumps over the target.";
+
     static final String REPLACE_TEMPLATE_NO_PREFIX = "The $animal} jumps over the $target}.";
+
     static final String REPLACE_TEMPLATE_NO_SUFFIX = "The ${animal jumps over the ${target.";
 
     private VariableFormatter format;
@@ -238,6 +245,13 @@ public class VariableFormatterTest extends TestCase {
      */
     public void testReplaceNoPrefix() {
         testReplaceNoElement(REPLACE_TEMPLATE_NO_PREFIX);
+    }
+
+    /**
+     * Tests a replace template with missing prefix strings.
+     */
+    public void testReplaceNoMarkers() {
+        testReplaceNoElement(REPLACE_TEMPLATE_NO_MARKERS);
     }
 
     /**
