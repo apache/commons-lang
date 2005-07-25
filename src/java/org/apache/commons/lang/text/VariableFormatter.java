@@ -390,16 +390,16 @@ public class VariableFormatter {
                     objResult = doReplace(objResult, priorVariables);
                     result.append(objResult);
                     objLen = objResult.toString().length();
-
-                    // pop the interpolated variable off the stack
-                    // this maintains priorVariables correctness for
-                    // properties with multiple interpolations, e.g.
-                    // prop.name=${some.other.prop1}/blahblah/${some.other.prop2}
-                    priorVariables.remove(priorVariables.size() - 1);
                 } else {
                     // variable not defined - so put it back in the value
                     result.append(getVariablePrefix()).append(variable).append(getVariableSuffix());
                 }
+
+                // pop the interpolated variable off the stack
+                // this maintains priorVariables correctness for
+                // properties with multiple interpolations, e.g.
+                // prop.name=${some.other.prop1}/blahblah/${some.other.prop2}
+                priorVariables.remove(priorVariables.size() - 1);
             }
 
             prec = end;

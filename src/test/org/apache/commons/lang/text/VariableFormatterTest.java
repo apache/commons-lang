@@ -226,6 +226,13 @@ public class VariableFormatterTest extends TestCase {
         assertEquals("Variable ${var} is unknown!", this.getFormat().replace("Variable ${var} is unknown!"));
     }
 
+    /**
+     * Tests a replace template with missing empty marker strings.
+     */
+    public void testReplaceEmptyKeys() {
+        testReplaceNoElement(REPLACE_TEMPLATE_EMPTY_KEYS);
+    }
+
     void testReplaceNoElement(String badReplaceTemplate) {
         assertEquals(badReplaceTemplate, this.getFormat().replaceObject(badReplaceTemplate));
         Map map = this.getValueMap();
@@ -243,13 +250,6 @@ public class VariableFormatterTest extends TestCase {
     }
 
     /**
-     * Tests a replace template with missing prefix strings.
-     */
-    public void testReplaceNoPrefix() {
-        testReplaceNoElement(REPLACE_TEMPLATE_NO_PREFIX);
-    }
-
-    /**
      * Tests a replace template with missing marker strings.
      */
     public void testReplaceNoMarkers() {
@@ -257,15 +257,10 @@ public class VariableFormatterTest extends TestCase {
     }
 
     /**
-     * Tests a replace template with missing empty marker strings.
+     * Tests a replace template with missing prefix strings.
      */
-    public void testReplaceEmptyKeys() {
-        try {
-            testReplaceNoElement(REPLACE_TEMPLATE_EMPTY_KEYS);
-            fail("Expected IllegalStateException.");
-        } catch (IllegalStateException e) {
-            // expected for now.
-        }
+    public void testReplaceNoPrefix() {
+        testReplaceNoElement(REPLACE_TEMPLATE_NO_PREFIX);
     }
 
     /**
