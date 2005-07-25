@@ -303,6 +303,29 @@ public class VariableFormatterTest extends TestCase {
             + "directory is ${user.home}."));
     }
 
+    /**
+     * Tests interpolation with weird boundary patterns.
+     */
+    public void testReplaceWeirdPattens() {
+        testReplaceNoElement("");
+        testReplaceNoElement("${}");
+        testReplaceNoElement("${ }");
+        testReplaceNoElement("${\t}");
+        testReplaceNoElement("${\n}");
+        testReplaceNoElement("${\b}");
+        testReplaceNoElement("${");
+        testReplaceNoElement("$}");
+        testReplaceNoElement("}");
+        testReplaceNoElement("${}$");
+        testReplaceNoElement("${${");
+        testReplaceNoElement("${${}}");
+        testReplaceNoElement("${$${}}");
+        testReplaceNoElement("${$$${}}");
+        testReplaceNoElement("${$$${$}}");
+        testReplaceNoElement("${${}}");
+        testReplaceNoElement("${${ }}");
+    }
+
     void validateNoReplace(VariableFormatter formatter) {
         String srcString = "Hello ${user.name}";
         String destString = formatter.replace(srcString);
