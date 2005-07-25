@@ -37,6 +37,8 @@ public class VariableFormatterTest extends TestCase {
 
     static final String REPLACE_TEMPLATE = "The ${animal} jumps over the ${target}.";
 
+    static final String REPLACE_TEMPLATE_EMPTY_KEYS = "The ${} jumps over the ${}.";
+
     static final String REPLACE_TEMPLATE_NO_ESCAPE = "The {animal} jumps over the {target}.";
 
     static final String REPLACE_TEMPLATE_NO_MARKERS = "The animal jumps over the target.";
@@ -248,10 +250,22 @@ public class VariableFormatterTest extends TestCase {
     }
 
     /**
-     * Tests a replace template with missing prefix strings.
+     * Tests a replace template with missing marker strings.
      */
     public void testReplaceNoMarkers() {
         testReplaceNoElement(REPLACE_TEMPLATE_NO_MARKERS);
+    }
+
+    /**
+     * Tests a replace template with missing empty marker strings.
+     */
+    public void testReplaceEmptyKeys() {
+        try {
+            testReplaceNoElement(REPLACE_TEMPLATE_EMPTY_KEYS);
+            fail("Expected IllegalStateException.");
+        } catch (IllegalStateException e) {
+            // expected for now.
+        }
     }
 
     /**
