@@ -312,13 +312,6 @@ public class VariableFormatter {
      * Recursive handler for multple levels of interpolation. This is the main interpolation method, which resolves the
      * values of all variable references contained in the passed in text.
      * 
-     * @param base
-     *            string with the ${key} variables
-     * @param priorVariables
-     *            serves two purposes: to allow checking for loops, and creating a meaningful exception message should a
-     *            loop occur. It's 0'th element will be set to the value of base from the first call. All subsequent
-     *            interpolated variables are added afterward. When called for the first time, this argument should be
-     *            <b>null </b>.
      * @param obj
      *            the text to be interpolated (as object)
      * @param priorVariables
