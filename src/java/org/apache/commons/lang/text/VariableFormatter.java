@@ -343,7 +343,9 @@ public class VariableFormatter {
         Object objResult = null;
         int objLen = 0;
 
-        while (((begin = base.indexOf(getVariablePrefix(), prec + getVariableSuffix().length())) > -1)
+        while (((begin = base.indexOf(
+                getVariablePrefix(), 
+                prec + getVariableSuffix().length())) > -1)
             && ((end = findEndToken(base, begin)) > -1)) {
             int escBegin = escaped(base, begin);
             if (escBegin >= 0) {
