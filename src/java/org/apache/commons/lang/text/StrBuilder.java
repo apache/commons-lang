@@ -365,9 +365,8 @@ public class StrBuilder implements Cloneable {
     public StrBuilder append(Object obj) {
         if (obj == null) {
             return appendNull();
-        } else {
-            return append(obj.toString());
-        }
+        } 
+        return append(obj.toString());        
     }
 
     /**
@@ -755,9 +754,8 @@ public class StrBuilder implements Cloneable {
     public StrBuilder insert(int index, Object obj) {
         if (obj == null) {
             return insert(index, nullText);
-        } else {
-            return insert(index, obj.toString());
         }
+        return insert(index, obj.toString());
     }
 
     /**
