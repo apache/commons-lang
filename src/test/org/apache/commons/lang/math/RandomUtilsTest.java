@@ -46,6 +46,8 @@ public final class RandomUtilsTest extends TestCase {
     /** test distribution of nextInt() */
     public void testNextInt() {
         tstNextInt(null);
+        
+        assertTrue (RandomUtils.nextInt() >= 0);
     }
     
     /** test distribution of nextInt(Random) */

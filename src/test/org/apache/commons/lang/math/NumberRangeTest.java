@@ -53,6 +53,44 @@ public final class NumberRangeTest extends AbstractRangeTest {
 
     //--------------------------------------------------------------------------
 
+    public void testConstructorExceptions() {
+        try {
+            new NumberRange (new Double (Double.NaN));
+            fail("no illegal argument exception");
+        } catch (IllegalArgumentException e) {
+        }
+        
+        try {
+            new NumberRange (new Double (Double.NaN), new Double (12.2));
+            fail("no illegal argument exception");
+        } catch (IllegalArgumentException e) {
+        }
+        
+        try {
+            new NumberRange (new Double (12.2), new Double (Double.NaN));
+            fail("no illegal argument exception");
+        } catch (IllegalArgumentException e) {
+        }
+        
+        try {
+            new NumberRange (new Float (Float.NaN));
+            fail("no illegal argument exception");
+        } catch (IllegalArgumentException e) {
+        }
+        
+        try {
+            new NumberRange (new Float (Float.NaN), new Float(12.2));
+            fail("no illegal argument exception");
+        } catch (IllegalArgumentException e) {
+        }
+        
+        try {
+            new NumberRange (new Float(12.2), new Float (Float.NaN));
+            fail("no illegal argument exception");
+        } catch (IllegalArgumentException e) {
+        }       
+    }
+    
     public void testConstructor1() {
         NumberRange nr = new NumberRange(five);
         assertSame(five, nr.getMinimumNumber());
