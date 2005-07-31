@@ -18,6 +18,8 @@ package org.apache.commons.lang.text;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.apache.commons.lang.ArrayUtils;
+
 /**
  * Builds a string from consituant parts providing a more flexible and powerful API
  * than StringBuffer.
@@ -271,6 +273,9 @@ public class StrBuilder implements Cloneable {
      * @return a new array that represents the contents of the builder
      */
     public char[] toCharArray() {
+        if (size == 0) {
+            return ArrayUtils.EMPTY_CHAR_ARRAY;
+        }
         char chars[] = new char[size];
         System.arraycopy(buf, 0, chars, 0, size);
         return chars;
@@ -283,11 +288,19 @@ public class StrBuilder implements Cloneable {
      * @param endIndex  the end index, exclusive, must be valid except
      *  that if too large it is treated as end of string
      * @return a new array that holds part of the contents of the builder
+     * 
+     * @throws StringIndexOutOfBoundsException when <code>startIndex</code> is less than 0;
+     *                   when <code>startIndex</code> is greater than <code>endIndex</code> (if <code>endIndex</code>
+     *                   is larger than {@link #size() }, then it is massaged to equal {@link #size()} before the validation).
      */
     public char[] toCharArray(int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
-        char chars[] = new char[size];
-        System.arraycopy(buf, startIndex, chars, 0, endIndex - startIndex);
+        int len = endIndex - startIndex;
+        if (len == 0) {
+            return ArrayUtils.EMPTY_CHAR_ARRAY;
+        }
+        char chars[] = new char[len];
+        System.arraycopy(buf, startIndex, chars, 0, len);
         return chars;
     }
 

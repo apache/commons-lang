@@ -751,11 +751,6 @@ public class StrBuilderTest extends TestCase {
         assertEquals("foo,null,baz", sb.toString());
     }
 
-    //-----------------------------------------------------------------------
-    public void testCharArray() {
-        // TODO
-    }
-
     public void testInsert() {
 
         StrBuilder sb = new StrBuilder();
@@ -1073,4 +1068,148 @@ public class StrBuilderTest extends TestCase {
         assertEquals("foonullbarbaz", sb.toString());
     }
 
+    public void testToCharArray ( ) {
+        
+        StrBuilder sb = new StrBuilder();
+        
+        char[] a = sb.toCharArray();
+        assertNotNull ("toCharArray() result is null", a);
+        assertEquals ("toCharArray() result is too large", 0, a.length);
+        
+        sb.append("junit");
+        a = sb.toCharArray();
+        assertEquals ("toCharArray() result incorrect length",5, a.length);
+        assertTrue ("toCharArray() result does not match",Arrays.equals("junit".toCharArray(), a));
+    }
+    
+    public void testToCharArrayIntInt() {
+        StrBuilder sb = new StrBuilder();
+        sb.append("junit");
+        char[] a = sb.toCharArray(0, 20); //too large test
+        assertEquals ("toCharArray(int,int) result incorrect length",5, a.length);
+        assertTrue ("toCharArray(int,int) result does not match",Arrays.equals("junit".toCharArray(), a));
+        
+        a = sb.toCharArray(0, 4);
+        assertEquals ("toCharArray(int,int) result incorrect length",4, a.length);
+        assertTrue ("toCharArray(int,int) result does not match",Arrays.equals("juni".toCharArray(), a));
+        
+        a = sb.toCharArray(0, 4);
+        assertEquals ("toCharArray(int,int) result incorrect length",4, a.length);
+        assertTrue ("toCharArray(int,int) result does not match",Arrays.equals("juni".toCharArray(), a));
+        
+        a = sb.toCharArray(0,1);
+        assertNotNull ("toCharArray(int,int) result is null", a);
+        
+        try {
+            sb.toCharArray(-1, 5);
+            fail ("no string index out of bound on -1");
+        }
+        catch (StringIndexOutOfBoundsException e) {}
+
+        try {
+            sb.toCharArray(6, 5);
+            fail ("no string index out of bound on -1");
+        }
+        catch (StringIndexOutOfBoundsException e) {}
+    }
+    
+    public void testGetChars ( ) {
+        
+        StrBuilder sb = new StrBuilder();
+        
+        char[] input = new char[10];
+        char[] a = sb.getChars(input);
+        assertSame (input, a);
+        assertTrue(Arrays.equals(new char[10], a));
+        
+        sb.append("junit");
+        a = sb.getChars(input);
+        assertSame(input, a);
+        assertTrue(Arrays.equals(new char[] {'j','u','n','i','t',0,0,0,0,0},a));
+        
+        a = sb.getChars(null);
+        assertNotSame(input,a);
+        assertEquals(5,a.length);
+        assertTrue(Arrays.equals("junit".toCharArray(),a));
+        
+        input = new char[5];
+        a = sb.getChars(input);
+        assertSame(input, a);
+        
+        input = new char[4];
+        a = sb.getChars(input);
+        assertNotSame(input, a);
+    }
+    
+    public void testGetCharsIntIntCharArrayInt( ) {
+        
+        StrBuilder sb = new StrBuilder();
+               
+        sb.append("junit");
+        char[] a = new char[5];
+        sb.getChars(0,5,a,0);
+        assertTrue(Arrays.equals(new char[] {'j','u','n','i','t'},a));
+        
+        a = new char[5];
+        sb.getChars(0,2,a,3);
+        assertTrue(Arrays.equals(new char[] {0,0,0,'j','u'},a));
+        
+        try {
+            sb.getChars(-1,0,a,0);
+            fail("no exception");
+        }
+        catch (StringIndexOutOfBoundsException e) {
+        }
+        
+        try {
+            sb.getChars(0,-1,a,0);
+            fail("no exception");
+        }
+        catch (StringIndexOutOfBoundsException e) {
+        }
+        
+        try {
+            sb.getChars(0,20,a,0);
+            fail("no exception");
+        }
+        catch (StringIndexOutOfBoundsException e) {
+        }
+        
+        try {
+            sb.getChars(4,2,a,0);
+            fail("no exception");
+        }
+        catch (StringIndexOutOfBoundsException e) {
+        }
+    }
+    
+    public void testAppendStringBuffer() {
+        StrBuilder sb = new StrBuilder();
+        
+        sb = sb.append(new StringBuffer());
+        assertNotNull(sb);
+        
+        sb = sb.append(new StringBuffer("junit"));
+        
+        assertEquals ("junit", sb.toString());
+    }
+    
+    public void testAppendStrBuilder() {
+        StrBuilder sb = new StrBuilder();
+        
+        sb = sb.append((StrBuilder)null);
+        assertNotNull(sb);
+        
+        sb = sb.append(new StrBuilder());
+        assertNotNull(sb);
+        assertEquals("", sb.toString());
+    }
+    
+    public void toStringBuffer() {
+        StrBuilder sb = new StrBuilder();
+        assertEquals (new StringBuffer().toString(), sb.toStringBuffer().toString());
+        
+        sb.append("junit");
+        assertEquals(new StringBuffer("junit").toString(), sb.toStringBuffer().toString());
+    }
 }
