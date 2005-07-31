@@ -83,8 +83,15 @@ public class RangeTest extends TestCase {
         RangeTestFixture r2 = new RangeTestFixture((byte) 0, (byte) 5);
         RangeTestFixture r3 = new RangeTestFixture((byte) 0, (byte) 10);
 
+        assertEquals(r1, r1);
         assertEquals(r1, r2);
+        assertEquals(r2, r2);
+        assertTrue(r1.equals(r1));
+        assertTrue(r2.equals(r2));
+        assertTrue(r3.equals(r3));
         assertFalse(r2.equals(r3));
+        assertFalse(r2.equals(null));
+        assertFalse(r2.equals("Ni!"));
     }
 
     /**
