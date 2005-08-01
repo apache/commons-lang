@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang.math;
 
 import junit.framework.Test;
@@ -20,7 +21,7 @@ import junit.framework.TestSuite;
 
 /**
  * Test cases for the {@link NumberRange} class.
- *
+ * 
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Stephen Colebourne
@@ -28,143 +29,119 @@ import junit.framework.TestSuite;
  */
 public final class NumberRangeTest extends AbstractRangeTest {
 
-    public NumberRangeTest(String name) {
-        super(name);
-    }
-
     public static Test suite() {
         TestSuite suite = new TestSuite(NumberRangeTest.class);
         suite.setName("NumberRange Tests");
         return suite;
     }
-    
+
+    public NumberRangeTest(String name) {
+        super(name);
+    }
+
+    void checkConstructorException(Number num) {
+        try {
+            new NumberRange(num);
+            fail("Expected an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // Expected.
+        }
+    }
+
+    void checkConstructorException(Number num1, Number num2) {
+        try {
+            new NumberRange(num1, num2);
+            fail("Expected an IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            // Expected.
+        }
+    }
+
+    protected Range createRange(Integer integer) {
+        return new NumberRange(integer);
+    }
+
+    // --------------------------------------------------------------------------
+
+    protected Range createRange(Integer integer1, Integer integer2) {
+        return new NumberRange(integer1, integer2);
+    }
+
     public void setUp() {
         super.setUp();
         tenToTwenty = new NumberRange(ten, twenty);
         otherRange = new IntRange(ten, twenty);
     }
 
-    protected Range createRange(Integer integer1, Integer integer2) {
-        return new NumberRange(integer1, integer2);
-    }
-    protected Range createRange(Integer integer) {
-        return new NumberRange(integer);
-    }
-
-    //--------------------------------------------------------------------------
-
-    public void testConstructorExceptions() {
-        try {
-            new NumberRange (new Double (Double.NaN));
-            fail("no illegal argument exception");
-        } catch (IllegalArgumentException e) {
-        }
-        
-        try {
-            new NumberRange (new Double (Double.NaN), new Double (12.2));
-            fail("no illegal argument exception");
-        } catch (IllegalArgumentException e) {
-        }
-        
-        try {
-            new NumberRange (new Double (12.2), new Double (Double.NaN));
-            fail("no illegal argument exception");
-        } catch (IllegalArgumentException e) {
-        }
-        
-        try {
-            new NumberRange (new Float (Float.NaN));
-            fail("no illegal argument exception");
-        } catch (IllegalArgumentException e) {
-        }
-        
-        try {
-            new NumberRange (new Float (Float.NaN), new Float(12.2));
-            fail("no illegal argument exception");
-        } catch (IllegalArgumentException e) {
-        }
-        
-        try {
-            new NumberRange (new Float(12.2), new Float (Float.NaN));
-            fail("no illegal argument exception");
-        } catch (IllegalArgumentException e) {
-        }       
-    }
-    
+    /**
+     * Tests non-exceptional conditions for the one argument constructor.
+     */
     public void testConstructor1() {
         NumberRange nr = new NumberRange(five);
         assertSame(five, nr.getMinimumNumber());
         assertSame(five, nr.getMaximumNumber());
-        
-        try {
-            new NumberRange(null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            new NumberRange(nonComparable);
-            fail();
-        } catch (IllegalArgumentException ex) {}
     }
-    
+
+    /**
+     * Tests exceptional conditions for the one argument constructor.
+     */
+    public void testConstructor1Exceptions() {
+        this.checkConstructorException(null);
+        this.checkConstructorException(nonComparableNumber);
+        this.checkConstructorException(new Float(Float.NaN));
+        this.checkConstructorException(new Double(Double.NaN));
+    }
+
+    /**
+     * Tests non-exceptional conditions for the two argument constructor.
+     */
     public void testConstructor2() {
         NumberRange nr = new NumberRange(five, ten);
         assertSame(five, nr.getMinimumNumber());
         assertSame(ten, nr.getMaximumNumber());
-        
+
         nr = new NumberRange(ten, five);
         assertSame(five, nr.getMinimumNumber());
         assertSame(ten, nr.getMaximumNumber());
-        
-        // not null
-        try {
-            new NumberRange(five, null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            new NumberRange(null, five);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        try {
-            new NumberRange(null, null);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        
-        // no mixed types
-        try {
-            new NumberRange(five, long21);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        
-        // must be comparable
-        try {
-            new NumberRange(nonComparable, nonComparable);
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        
-        // no double NaN
-        try {
-            new NumberRange(new Double(0), new Double(Double.NaN));
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        
-        try {
-            new NumberRange(new Double(Double.NaN), new Double(0));
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        
-        // no float NaN
-        try {
-            new NumberRange(new Float(0), new Float(Float.NaN));
-            fail();
-        } catch (IllegalArgumentException ex) {}
-        
-        try {
-            new NumberRange(new Float(Float.NaN), new Float(0));
-            fail();
-        } catch (IllegalArgumentException ex) {}
     }
 
-    //--------------------------------------------------------------------------
+    /**
+     * Tests exceptional conditions for the two argument constructor.
+     */
+    public void testConstructor2Exceptions() {
+        this.checkConstructorException(null, null);
+
+        this.checkConstructorException(new Float(12.2f), new Double(12.2));
+        this.checkConstructorException(new Float(Float.NaN), new Double(12.2));
+        this.checkConstructorException(new Double(Double.NaN), new Double(12.2));
+        this.checkConstructorException(new Double(12.2), new Double(Double.NaN));
+        this.checkConstructorException(new Double(Double.NaN), new Double(Double.NaN));
+        this.checkConstructorException(null, new Double(12.2));
+        this.checkConstructorException(new Double(12.2), null);
+
+        this.checkConstructorException(new Double(12.2f), new Float(12.2));
+        this.checkConstructorException(new Double(Double.NaN), new Float(12.2));
+        this.checkConstructorException(new Float(Float.NaN), new Float(12.2));
+        this.checkConstructorException(new Float(12.2), new Float(Float.NaN));
+        this.checkConstructorException(new Float(Float.NaN), new Float(Float.NaN));
+        this.checkConstructorException(null, new Float(12.2));
+        this.checkConstructorException(new Float(12.2), null);
+
+        this.checkConstructorException(nonComparableNumber, nonComparableNumber);
+        this.checkConstructorException(null, nonComparableNumber);
+        this.checkConstructorException(nonComparableNumber, null);
+        this.checkConstructorException(new Float(12.2), nonComparableNumber);
+        this.checkConstructorException(nonComparableNumber, new Float(12.2));
+    }
+
+    // --------------------------------------------------------------------------
+
+    public void testContainsLongBig() {
+        // original NumberRange class failed this test
+        NumberRange big = new NumberRange(new Long(Long.MAX_VALUE), new Long(Long.MAX_VALUE - 2));
+        assertEquals(true, big.containsLong(Long.MAX_VALUE - 1));
+        assertEquals(false, big.containsLong(Long.MAX_VALUE - 3));
+    }
 
     public void testContainsNumber() {
         assertEquals(false, tenToTwenty.containsNumber(null));
@@ -173,20 +150,14 @@ public final class NumberRangeTest extends AbstractRangeTest {
         assertEquals(true, tenToTwenty.containsNumber(fifteen));
         assertEquals(true, tenToTwenty.containsNumber(twenty));
         assertEquals(false, tenToTwenty.containsNumber(twentyFive));
-        
+
         try {
             tenToTwenty.containsNumber(long21);
             fail();
-        } catch (IllegalArgumentException ex) {}
+        } catch (IllegalArgumentException ex) {
+        }
     }
 
-    public void testContainsLongBig() {
-        // original NumberRange class failed this test
-        NumberRange big = new NumberRange(new Long(Long.MAX_VALUE), new Long(Long.MAX_VALUE- 2));
-        assertEquals(true, big.containsLong(Long.MAX_VALUE - 1));
-        assertEquals(false, big.containsLong(Long.MAX_VALUE - 3));
-    }
-
-    //--------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
 }

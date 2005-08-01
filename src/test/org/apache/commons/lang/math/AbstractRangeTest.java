@@ -63,10 +63,9 @@ public abstract class AbstractRangeTest extends TestCase {
         public long longValue() {
             return 12L;
         }
-
     }
     
-    protected InnerNumber nonComparable = new InnerNumber();
+    protected InnerNumber nonComparableNumber = new InnerNumber();
 
 
     public AbstractRangeTest(String name) {
@@ -74,30 +73,30 @@ public abstract class AbstractRangeTest extends TestCase {
     }
 
     public void setUp() {
-        five        = new Integer(5);
-        ten         = new Integer(10);
-        twelve      = new Integer(12);
-        fifteen     = new Integer(15);
-        twenty      = new Integer(20);
-        twentyFive  = new Integer(25);
-        long8       = new Long(8);
-        long10      = new Long(10);
-        long12      = new Long(12);
-        long20      = new Long(20);
-        long21      = new Long(21);
-        double8     = new Double(8);
-        double10    = new Double(10);
-        double12    = new Double(12);
-        double20    = new Double(20);
-        double21    = new Double(21);
-        float8      = new Float(8);
-        float10     = new Float(10);
-        float12     = new Float(12);
-        float20     = new Float(20);
-        float21     = new Float(21);
+        five = new Integer(5);
+        ten = new Integer(10);
+        twelve = new Integer(12);
+        fifteen = new Integer(15);
+        twenty = new Integer(20);
+        twentyFive = new Integer(25);
+        long8 = new Long(8);
+        long10 = new Long(10);
+        long12 = new Long(12);
+        long20 = new Long(20);
+        long21 = new Long(21);
+        double8 = new Double(8);
+        double10 = new Double(10);
+        double12 = new Double(12);
+        double20 = new Double(20);
+        double21 = new Double(21);
+        float8 = new Float(8);
+        float10 = new Float(10);
+        float12 = new Float(12);
+        float20 = new Float(20);
+        float21 = new Float(21);
     }
 
-    //--------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
 
     public void testGetMinimum() {
         assertEquals(10L, tenToTwenty.getMinimumLong());
@@ -117,7 +116,7 @@ public abstract class AbstractRangeTest extends TestCase {
 
     public void testContainsLong() {
         assertEquals(false, tenToTwenty.containsLong(null));
-        assertEquals(true, tenToTwenty.containsLong(nonComparable));
+        assertEquals(true, tenToTwenty.containsLong(nonComparableNumber));
         
         assertEquals(false, tenToTwenty.containsLong(five));
         assertEquals(true, tenToTwenty.containsLong(ten));
@@ -152,7 +151,7 @@ public abstract class AbstractRangeTest extends TestCase {
         
     public void testContainsInteger() {
         assertEquals(false, tenToTwenty.containsInteger(null));
-        assertEquals(true, tenToTwenty.containsInteger(nonComparable));
+        assertEquals(true, tenToTwenty.containsInteger(nonComparableNumber));
         
         assertEquals(false, tenToTwenty.containsInteger(five));
         assertEquals(true, tenToTwenty.containsInteger(ten));
@@ -187,7 +186,7 @@ public abstract class AbstractRangeTest extends TestCase {
 
     public void testContainsDouble() {
         assertEquals(false, tenToTwenty.containsDouble(null));
-        assertEquals(true, tenToTwenty.containsDouble(nonComparable));
+        assertEquals(true, tenToTwenty.containsDouble(nonComparableNumber));
         
         assertEquals(false, tenToTwenty.containsDouble(five));
         assertEquals(true, tenToTwenty.containsDouble(ten));
@@ -222,7 +221,7 @@ public abstract class AbstractRangeTest extends TestCase {
 
     public void testContainsFloat() {
         assertEquals(false, tenToTwenty.containsFloat(null));
-        assertEquals(true, tenToTwenty.containsFloat(nonComparable));
+        assertEquals(true, tenToTwenty.containsFloat(nonComparableNumber));
         
         assertEquals(false, tenToTwenty.containsFloat(five));
         assertEquals(true, tenToTwenty.containsFloat(ten));

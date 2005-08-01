@@ -64,7 +64,7 @@ public final class IntRangeTest extends AbstractRangeTest {
         assertSame(five, nr.getMinimumNumber());
         assertSame(five, nr.getMaximumNumber());
         
-        Range r = new IntRange(nonComparable);
+        Range r = new IntRange(nonComparableNumber);
         
         try {
             new IntRange(null);
@@ -124,7 +124,7 @@ public final class IntRangeTest extends AbstractRangeTest {
 
     public void testContainsNumber() {
         assertEquals(false, tenToTwenty.containsNumber(null));
-        assertEquals(true, tenToTwenty.containsNumber(nonComparable));
+        assertEquals(true, tenToTwenty.containsNumber(nonComparableNumber));
         
         assertEquals(false, tenToTwenty.containsNumber(five));
         assertEquals(true, tenToTwenty.containsNumber(ten));
