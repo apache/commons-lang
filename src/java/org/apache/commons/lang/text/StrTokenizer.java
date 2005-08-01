@@ -224,6 +224,15 @@ public class StrTokenizer implements ListIterator, Cloneable {
     //-----------------------------------------------------------------------
 
     /**
+     * Returns a clone of <code>CSV_TOKENIZER_PROTOTYPE</code>.
+     * 
+     * @return a clone of <code>CSV_TOKENIZER_PROTOTYPE</code>.
+     */
+    private static StrTokenizer getCSVClone() {
+        return (StrTokenizer) CSV_TOKENIZER_PROTOTYPE.clone();
+    }
+
+    /**
      * Gets a new tokenizer instance which parses Comma Seperated Value strings
      * initializing it with the given input.  The default for CSV processing
      * will be trim whitespace from both ends (which can be overriden with
@@ -233,7 +242,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return a new tokenizer instance which parses Comma Seperated Value strings
      */
     public static StrTokenizer getCSVInstance() {
-        return (StrTokenizer)CSV_TOKENIZER_PROTOTYPE.clone();
+        return getCSVClone();
     }
 
     /**
@@ -246,7 +255,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return a new tokenizer instance which parses Comma Seperated Value strings
      */
     public static StrTokenizer getCSVInstance(String input) {
-        StrTokenizer tok = (StrTokenizer)(CSV_TOKENIZER_PROTOTYPE.clone());
+        StrTokenizer tok = getCSVClone();
         tok.reset(input);
         return tok;
     }
@@ -261,10 +270,20 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return a new tokenizer instance which parses Comma Seperated Value strings
      */
     public static StrTokenizer getCSVInstance(char[] input) {
-        StrTokenizer tok = (StrTokenizer)(CSV_TOKENIZER_PROTOTYPE.clone());
+        StrTokenizer tok = getCSVClone();
         tok.reset(input);
         return tok;
     }
+
+    /**
+     * Returns a clone of <code>TSV_TOKENIZER_PROTOTYPE</code>.
+     * 
+     * @return a clone of <code>TSV_TOKENIZER_PROTOTYPE</code>.
+     */
+    private static StrTokenizer getTSVClone() {
+        return (StrTokenizer) TSV_TOKENIZER_PROTOTYPE.clone();
+    }
+
 
     /**
      * Gets a new tokenizer instance which parses Tab Seperated Value strings.
@@ -275,7 +294,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return a new tokenizer instance which parses Tab Seperated Value strings.
      */
     public static StrTokenizer getTSVInstance() {
-        return (StrTokenizer)TSV_TOKENIZER_PROTOTYPE.clone();
+        return getTSVClone();
     }
 
     /**
@@ -286,7 +305,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return a new tokenizer instance which parses Tab Seperated Value strings.
      */
     public static StrTokenizer getTSVInstance(String input) {
-        StrTokenizer tok = (StrTokenizer)(TSV_TOKENIZER_PROTOTYPE.clone());
+        StrTokenizer tok = getTSVClone();
         tok.reset(input);
         return tok;
     }
@@ -299,7 +318,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return a new tokenizer instance which parses Tab Seperated Value strings.
      */
     public static StrTokenizer getTSVInstance(char[] input) {
-        StrTokenizer tok = (StrTokenizer)(TSV_TOKENIZER_PROTOTYPE.clone());
+        StrTokenizer tok = getTSVClone();
         tok.reset(input);
         return tok;
     }
