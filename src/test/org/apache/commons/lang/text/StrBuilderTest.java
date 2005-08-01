@@ -116,6 +116,50 @@ public class StrBuilderTest extends TestCase {
         assertEquals(3, sb7.size());
     }
 
+    public void testDeleteChar() {
+        StrBuilder sb = new StrBuilder("abc");
+        sb.delete('X');
+        assertEquals("abc",sb.toString()); 
+        sb.delete('a');
+        assertEquals("bc",sb.toString()); 
+    }
+    
+    public void testDeleteIntInt() {
+        StrBuilder sb = new StrBuilder("abc");
+        sb.delete(0, 1);
+        assertEquals("bc",sb.toString()); 
+        sb.delete(1, 2);
+        assertEquals("b",sb.toString());
+        sb.delete(0, 1);
+        assertEquals("",sb.toString()); 
+        sb.delete(0, 1);
+        assertEquals("",sb.toString()); 
+    }
+    
+    public void testDeleteString() {
+        StrBuilder sb = new StrBuilder("abc");
+        sb.delete("X");
+        assertEquals("abc",sb.toString()); 
+        sb.delete("a");
+        assertEquals("bc",sb.toString()); 
+    }
+    
+    public void testDeleteCharAt() {
+        StrBuilder sb = new StrBuilder("abc");
+        sb.deleteCharAt(0);
+        assertEquals("bc",sb.toString()); 
+    }
+    
+    public void testDeleteCharAtExceptions() {
+        StrBuilder sb = new StrBuilder("abc");
+        try {
+            sb.deleteCharAt(1000);
+            fail("Expected StringIndexOutOfBoundsException");
+        } catch (StringIndexOutOfBoundsException e) {
+            // Expected
+        }
+    }
+    
     //-----------------------------------------------------------------------
     public void testCapacityAndLength() {
         StrBuilder sb = new StrBuilder();
@@ -316,6 +360,34 @@ public class StrBuilderTest extends TestCase {
         }
     }
 
+    public void testReplaceCharChar() {
+        StrBuilder sb = new StrBuilder("abc");
+        sb.replace('a', 'd');
+        assertEquals("dbc", sb.toString());
+        sb.replace('a', 'd');
+        assertEquals("dbc", sb.toString());
+        
+        sb = new StrBuilder("aabbcc");
+        sb.replace('a', 'd');
+        assertEquals("ddbbcc", sb.toString());
+        sb.replace('a', 'd');
+        assertEquals("ddbbcc", sb.toString());
+    }
+    
+    public void testReplaceStringString() {
+        StrBuilder sb = new StrBuilder("abc");
+        sb.replace("a", "d");
+        assertEquals("dbc", sb.toString());
+        sb.replace("a", "d");
+        assertEquals("dbc", sb.toString());
+        
+        sb = new StrBuilder("aabbcc");
+        sb.replace("a", "d");
+        assertEquals("ddbbcc", sb.toString());
+        sb.replace("a", "d");
+        assertEquals("ddbbcc", sb.toString());
+    }
+    
     public void testSetCharAt() {
         StrBuilder sb = new StrBuilder();
         try {
@@ -343,6 +415,42 @@ public class StrBuilderTest extends TestCase {
         assertEquals("bar", sb.toString());
     }
 
+    public void testStartsWith() {
+        this.testStartsWith(new StrBuilder());
+        this.testStartsWith(new StrBuilder(""));
+        this.testStartsWith(new StrBuilder(null));
+    }
+    
+    void testStartsWith(StrBuilder sb ) {
+        assertFalse(sb.startsWith("a"));
+        assertFalse(sb.startsWith(null));
+        assertTrue(sb.startsWith(""));
+        sb.append("abc");
+        assertTrue(sb.startsWith("a"));
+        assertTrue(sb.startsWith("ab"));
+        assertTrue(sb.startsWith("abc"));
+    }
+    
+    public void testEndsWith() {
+        this.testEndsWith(new StrBuilder());
+        this.testEndsWith(new StrBuilder(""));
+        this.testEndsWith(new StrBuilder(null));
+    }
+    
+    void testEndsWith(StrBuilder sb) {
+        assertFalse(sb.endsWith("a"));
+        assertFalse(sb.endsWith("c"));
+        assertTrue(sb.endsWith(""));
+        assertFalse(sb.endsWith(null));
+        sb.append("abc");
+        assertTrue(sb.endsWith("c"));
+        assertTrue(sb.endsWith("bc"));
+        assertTrue(sb.endsWith("abc"));
+        assertFalse(sb.endsWith("abcd"));
+        assertFalse(sb.endsWith(" abc"));
+        assertFalse(sb.endsWith("abc "));
+    }
+    
     //-----------------------------------------------------------------------
     public void testNullText() {
         StrBuilder sb = new StrBuilder();
