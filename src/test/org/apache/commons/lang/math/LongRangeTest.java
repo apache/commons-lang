@@ -62,7 +62,7 @@ public final class LongRangeTest extends AbstractRangeTest {
         assertSame(long8, nr.getMinimumNumber());
         assertSame(long8, nr.getMaximumNumber());
         
-        Range r = new LongRange(nonComparable);
+        Range r = new LongRange(nonComparableNumber);
         
         try {
             new LongRange(null);
@@ -112,7 +112,7 @@ public final class LongRangeTest extends AbstractRangeTest {
 
     public void testContainsNumber() {
         assertEquals(false, tenToTwenty.containsNumber(null));
-        assertEquals(true, tenToTwenty.containsNumber(nonComparable));
+        assertEquals(true, tenToTwenty.containsNumber(nonComparableNumber));
         
         assertEquals(false, tenToTwenty.containsNumber(five));
         assertEquals(true, tenToTwenty.containsNumber(ten));

@@ -67,7 +67,7 @@ public final class FloatRangeTest extends AbstractRangeTest {
         assertSame(float8, nr.getMinimumNumber());
         assertSame(float8, nr.getMaximumNumber());
         
-        Range r = new FloatRange(nonComparable);
+        Range r = new FloatRange(nonComparableNumber);
         
         try {
             new FloatRange(null);
@@ -131,7 +131,7 @@ public final class FloatRangeTest extends AbstractRangeTest {
 
     public void testContainsNumber() {
         assertEquals(false, tenToTwenty.containsNumber(null));
-        assertEquals(true, tenToTwenty.containsNumber(nonComparable));
+        assertEquals(true, tenToTwenty.containsNumber(nonComparableNumber));
         
         assertEquals(false, tenToTwenty.containsNumber(five));
         assertEquals(true, tenToTwenty.containsNumber(ten));
