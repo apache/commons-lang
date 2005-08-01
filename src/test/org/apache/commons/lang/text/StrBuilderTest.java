@@ -21,6 +21,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -1067,10 +1069,11 @@ public class StrBuilderTest extends TestCase {
         sb.insert(0, "foo");
         assertEquals("foonullbarbaz", sb.toString());
     }
-
+    
     public void testToCharArray ( ) {
         
-        StrBuilder sb = new StrBuilder();
+        StrBuilder sb = new StrBuilder();        
+        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, sb.toCharArray());
         
         char[] a = sb.toCharArray();
         assertNotNull ("toCharArray() result is null", a);
@@ -1084,6 +1087,8 @@ public class StrBuilderTest extends TestCase {
     
     public void testToCharArrayIntInt() {
         StrBuilder sb = new StrBuilder();
+        assertEquals(ArrayUtils.EMPTY_CHAR_ARRAY, sb.toCharArray(0, 0));
+
         sb.append("junit");
         char[] a = sb.toCharArray(0, 20); //too large test
         assertEquals ("toCharArray(int,int) result incorrect length",5, a.length);
