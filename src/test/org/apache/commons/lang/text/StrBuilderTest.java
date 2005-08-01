@@ -360,6 +360,9 @@ public class StrBuilderTest extends TestCase {
         }
     }
 
+    /**
+     * Tests {@link StrBuilder#replace(char, char)}.
+     */
     public void testReplaceCharChar() {
         StrBuilder sb = new StrBuilder("abc");
         sb.replace('a', 'd');
@@ -374,6 +377,9 @@ public class StrBuilderTest extends TestCase {
         assertEquals("ddbbcc", sb.toString());
     }
     
+    /**
+     * Tests {@link StrBuilder#replace(String, String)}.
+     */
     public void testReplaceStringString() {
         StrBuilder sb = new StrBuilder("abc");
         sb.replace("a", "d");
