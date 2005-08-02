@@ -1324,11 +1324,25 @@ public class StrBuilderTest extends TestCase {
         assertEquals("", sb.toString());
     }
     
-    public void toStringBuffer() {
+    public void testStringBuffer() {
         StrBuilder sb = new StrBuilder();
         assertEquals (new StringBuffer().toString(), sb.toStringBuffer().toString());
         
         sb.append("junit");
         assertEquals(new StringBuffer("junit").toString(), sb.toStringBuffer().toString());
+    }
+    
+    public void testReverse() {
+        StrBuilder sb = new StrBuilder();
+        
+        String actual = sb.reverse().toString();
+        assertEquals ("", actual);
+        
+        sb.append(true);
+        actual = sb.reverse().toString();
+        assertEquals("eurt", actual);
+        
+        actual = sb.reverse().toString();
+        assertEquals("true", actual);
     }
 }
