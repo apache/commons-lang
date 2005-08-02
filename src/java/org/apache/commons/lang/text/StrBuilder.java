@@ -1031,7 +1031,7 @@ public class StrBuilder implements Cloneable {
     public StrBuilder replace(int startIndex, int endIndex, String str) {
         endIndex = validateRange(startIndex, endIndex);
         int insertLen = str.length();
-        int removeLen = endIndex = startIndex;
+        int removeLen = endIndex - startIndex;
         int newSize = size - removeLen + insertLen;
         if (insertLen > removeLen) {
             ensureCapacity(newSize);
@@ -1462,12 +1462,15 @@ public class StrBuilder implements Cloneable {
      * @return this, to enable chaining
      */
     public StrBuilder reverse() {
+        if (size == 0) {
+            return this;
+        }
+        
         int half = size / 2;
-        char swap;
-        for (int i = 0; i < half; i++) {
-            swap = buf[i];
-            buf[i] = buf[size - i];
-            buf[size - i] = swap;
+        for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++,rightIdx--) {
+            char swap = buf[leftIdx];
+            buf[leftIdx] = buf[rightIdx];
+            buf[rightIdx] = swap;
         }
         return this;
     }
