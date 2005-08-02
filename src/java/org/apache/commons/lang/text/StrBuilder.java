@@ -1383,7 +1383,7 @@ public class StrBuilder implements Cloneable {
      * @return the last index of the character, or -1 if not found
      */
     public int lastIndexOf(char ch) {
-        return lastIndexOf(ch, 0);
+        return lastIndexOf(ch, size - 1);
     }
 
     /**
@@ -1398,9 +1398,8 @@ public class StrBuilder implements Cloneable {
         if (startIndex < 0) {
             return -1;
         }
-        char[] thisBuf = buf;
         for (int i = startIndex; i >= 0; i--) {
-            if (thisBuf[i] == ch) {
+            if (buf[i] == ch) {
                 return i;
             }
         }
@@ -1416,7 +1415,7 @@ public class StrBuilder implements Cloneable {
      * @return the last index of the string, or -1 if not found
      */
     public int lastIndexOf(String str) {
-        return lastIndexOf(str, size);
+        return lastIndexOf(str, size - 1);
     }
 
     /**
@@ -1439,11 +1438,11 @@ public class StrBuilder implements Cloneable {
             if (strLen == 1) {
                 return lastIndexOf(str.charAt(0), startIndex);
             }
-            char[] thisBuf = buf;
+
             outer:
-            for (int i = startIndex - strLen; i >= 0; i--) {
+            for (int i = startIndex - strLen + 1; i >= 0; i--) {
                 for (int j = 0; j < strLen; j++) {
-                    if (str.charAt(j) != thisBuf[i + j]) {
+                    if (str.charAt(j) != buf[i + j]) {
                         continue outer;
                     }
                 }
