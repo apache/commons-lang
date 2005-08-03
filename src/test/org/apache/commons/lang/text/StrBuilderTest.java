@@ -375,6 +375,8 @@ public class StrBuilderTest extends TestCase {
         assertEquals("ddbbcc", sb.toString());
         sb.replace('a', 'd');
         assertEquals("ddbbcc", sb.toString());
+        sb.replace('d', 'd');
+        assertEquals("ddbbcc", sb.toString());
     }
     
     /**
@@ -392,6 +394,18 @@ public class StrBuilderTest extends TestCase {
         assertEquals("ddbbcc", sb.toString());
         sb.replace("a", "d");
         assertEquals("ddbbcc", sb.toString());
+    }
+    
+    public void testReplaceIntIntStrBuilder() {
+        StrBuilder sb = new StrBuilder("abc");
+        sb.replace(0, 1, new StrBuilder ("d"));
+        assertEquals("dbc", sb.toString());
+        sb.replace(0, 1, new StrBuilder ("aaa"));
+        assertEquals("aaabc", sb.toString());
+        
+        sb = new StrBuilder("aabbcc");
+        sb.replace(0, 2, new StrBuilder("d"));
+        assertEquals("dbbcc", sb.toString());
     }
     
     public void testSetCharAt() {
@@ -435,6 +449,7 @@ public class StrBuilderTest extends TestCase {
         assertTrue(sb.startsWith("a"));
         assertTrue(sb.startsWith("ab"));
         assertTrue(sb.startsWith("abc"));
+        assertFalse(sb.startsWith("cba"));
     }
     
     public void testEndsWith() {
@@ -452,6 +467,7 @@ public class StrBuilderTest extends TestCase {
         assertTrue(sb.endsWith("c"));
         assertTrue(sb.endsWith("bc"));
         assertTrue(sb.endsWith("abc"));
+        assertFalse(sb.endsWith("cba"));
         assertFalse(sb.endsWith("abcd"));
         assertFalse(sb.endsWith(" abc"));
         assertFalse(sb.endsWith("abc "));
@@ -1492,5 +1508,85 @@ public class StrBuilderTest extends TestCase {
         sb = new StrBuilder("xyzabc");
         assertEquals (2, sb.lastIndexOf("za", sb.length()));
         assertEquals (-1, sb.lastIndexOf("za", 1));
+    }
+    
+    public void testContainsChar() {
+        StrBuilder sb = new StrBuilder("abcdefghijklmnopqrstuvwxyz");
+        assertTrue (sb.contains('a'));
+        assertTrue (sb.contains('o'));
+        assertTrue (sb.contains('z'));
+        assertFalse (sb.contains('1'));
+    }
+    
+    public void testContainsString() {
+        StrBuilder sb = new StrBuilder("abcdefghijklmnopqrstuvwxyz");
+        assertTrue (sb.contains("a"));
+        assertTrue (sb.contains("pq"));
+        assertTrue (sb.contains("z"));
+        assertFalse (sb.contains("zyx"));
+    }
+    
+    public void testMidString() {
+        StrBuilder sb = new StrBuilder("hello goodbye hello");
+        assertEquals ("goodbye", sb.midString(6, 7));
+        assertEquals ("hello", sb.midString(0, 5));
+        assertEquals ("hello", sb.midString(-5, 5));
+        assertEquals ("", sb.midString(0, -1));
+        assertEquals ("", sb.midString(20, 2));
+    }
+    
+    public void testRightString() {
+        StrBuilder sb = new StrBuilder("left right");
+        assertEquals ("right", sb.rightString(5));
+        assertEquals ("", sb.rightString(0));
+        assertEquals ("", sb.rightString(-5));
+        assertEquals ("left right", sb.rightString(15));
+    }
+    
+    public void testLeftString() {
+        StrBuilder sb = new StrBuilder("left right");
+        assertEquals ("left", sb.leftString(4));
+        assertEquals ("", sb.leftString(0));
+        assertEquals ("", sb.leftString(-5));
+        assertEquals ("left right", sb.leftString(15));
+    }
+    
+    public void testSubstringInt() {
+        StrBuilder sb = new StrBuilder ("hello goodbye");
+        assertEquals ("goodbye", sb.substring(6));
+        assertEquals ("hello goodbye".substring(6), sb.substring(6));
+        assertEquals ("hello goodbye", sb.substring(0));
+        assertEquals ("hello goodbye".substring(0), sb.substring(0));
+        try {
+            sb.substring(-1);
+            fail ();
+        } catch (StringIndexOutOfBoundsException e) {}
+        
+        try {
+            sb.substring(15);
+            fail ();
+        } catch (StringIndexOutOfBoundsException e) {}
+    
+    }
+    
+    public void testSubstringIntInt() {
+        StrBuilder sb = new StrBuilder ("hello goodbye");
+        assertEquals ("hello", sb.substring(0, 5));
+        assertEquals ("hello goodbye".substring(0, 6), sb.substring(0, 6));
+        
+        assertEquals ("goodbye", sb.substring(6, 13));
+        assertEquals ("hello goodbye".substring(6,13), sb.substring(6, 13));
+        
+        assertEquals ("goodbye", sb.substring(6, 20));
+        
+        try {
+            sb.substring(-1, 5);
+            fail();
+        } catch (StringIndexOutOfBoundsException e) {}
+        
+        try {
+            sb.substring(15, 20);
+            fail();
+        } catch (StringIndexOutOfBoundsException e) {}
     }
 }
