@@ -65,7 +65,7 @@ public class StrBuilder implements Cloneable {
     private static final long serialVersionUID = 7628716375283629643L;
 
     /** Internal data storage. */
-    protected char[] buf;
+    protected char[] buffer;
     /** Current size of the buffer. */
     protected int size;
     /** The null text. */
@@ -89,7 +89,7 @@ public class StrBuilder implements Cloneable {
         if (initialCapacity <= 0) {
             initialCapacity = CAPACITY;
         }
-        buf = new char[initialCapacity];
+        buffer = new char[initialCapacity];
     }
 
     /**
@@ -101,9 +101,9 @@ public class StrBuilder implements Cloneable {
     public StrBuilder(String str) {
         super();
         if (str == null) {
-            buf = new char[CAPACITY];
+            buffer = new char[CAPACITY];
         } else {
-            buf = new char[str.length() + CAPACITY];
+            buffer = new char[str.length() + CAPACITY];
             append(str);
         }
     }
@@ -161,7 +161,7 @@ public class StrBuilder implements Cloneable {
             int newEnd = length;
             size = length;
             for (int i = oldEnd; i < newEnd; i++) {
-                buf[i] = '\0';
+                buffer[i] = '\0';
             }
         }
     }
@@ -173,7 +173,7 @@ public class StrBuilder implements Cloneable {
      * @return the capacity
      */
     public int capacity() {
-        return buf.length;
+        return buffer.length;
     }
 
     /**
@@ -182,10 +182,10 @@ public class StrBuilder implements Cloneable {
      * @param capacity  the capacity to ensure
      */
     public void ensureCapacity(int capacity) {
-        if (capacity > buf.length) {
-            char[] old = buf;
-            buf = new char[capacity];
-            System.arraycopy(old, 0, buf, 0, size);
+        if (capacity > buffer.length) {
+            char[] old = buffer;
+            buffer = new char[capacity];
+            System.arraycopy(old, 0, buffer, 0, size);
         }
     }
 
@@ -193,10 +193,10 @@ public class StrBuilder implements Cloneable {
      * Minimizes the capacity to the actual length of the string.
      */
     public void minimizeCapacity() {
-        if (buf.length > length()) {
-            char[] old = buf;
-            buf = new char[length()];
-            System.arraycopy(old, 0, buf, 0, size);
+        if (buffer.length > length()) {
+            char[] old = buffer;
+            buffer = new char[length()];
+            System.arraycopy(old, 0, buffer, 0, size);
         }
     }
 
@@ -249,7 +249,7 @@ public class StrBuilder implements Cloneable {
         if (index < 0 || index >= length()) {
             throw new StringIndexOutOfBoundsException(index);
         }
-        return buf[index];
+        return buffer[index];
     }
 
     /**
@@ -263,7 +263,7 @@ public class StrBuilder implements Cloneable {
         if (index < 0 || index >= length()) {
             throw new StringIndexOutOfBoundsException(index);
         }
-        buf[index] = ch;
+        buffer[index] = ch;
     }
 
     //-----------------------------------------------------------------------
@@ -277,7 +277,7 @@ public class StrBuilder implements Cloneable {
             return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
         char chars[] = new char[size];
-        System.arraycopy(buf, 0, chars, 0, size);
+        System.arraycopy(buffer, 0, chars, 0, size);
         return chars;
     }
 
@@ -300,7 +300,7 @@ public class StrBuilder implements Cloneable {
             return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
         char chars[] = new char[len];
-        System.arraycopy(buf, startIndex, chars, 0, len);
+        System.arraycopy(buffer, startIndex, chars, 0, len);
         return chars;
     }
 
@@ -315,7 +315,7 @@ public class StrBuilder implements Cloneable {
         if (destination == null || destination.length < len) {
             destination = new char[len];
         }
-        System.arraycopy(buf, 0, destination, 0, len);
+        System.arraycopy(buffer, 0, destination, 0, len);
         return destination;
     }
 
@@ -339,7 +339,7 @@ public class StrBuilder implements Cloneable {
         if (startIndex > endIndex) {
             throw new StringIndexOutOfBoundsException("end < start");
         }
-        System.arraycopy(buf, startIndex, destination, destinationIndex, endIndex - startIndex);
+        System.arraycopy(buffer, startIndex, destination, destinationIndex, endIndex - startIndex);
     }
 
     //-----------------------------------------------------------------------
@@ -384,7 +384,7 @@ public class StrBuilder implements Cloneable {
         if (strLen > 0) {
             int len = length();
             ensureCapacity(len + strLen);
-            str.getChars(0, strLen, buf, len);
+            str.getChars(0, strLen, buffer, len);
             size += strLen;
         }
         return this;
@@ -405,7 +405,7 @@ public class StrBuilder implements Cloneable {
         if (strLen > 0) {
             int len = length();
             ensureCapacity(len + strLen);
-            str.getChars(0, strLen, buf, len);
+            str.getChars(0, strLen, buffer, len);
             size += strLen;
         }
         return this;
@@ -426,7 +426,7 @@ public class StrBuilder implements Cloneable {
         if (strLen > 0) {
             int len = length();
             ensureCapacity(len + strLen);
-            System.arraycopy(str.buf, 0, buf, len, strLen);
+            System.arraycopy(str.buffer, 0, buffer, len, strLen);
             size += strLen;
         }
         return this;
@@ -450,7 +450,7 @@ public class StrBuilder implements Cloneable {
         if (strLen > 0) {
             int len = length();
             ensureCapacity(len + strLen);
-            System.arraycopy(chars, 0, buf, len, strLen);
+            System.arraycopy(chars, 0, buffer, len, strLen);
             size += strLen;
         }
         return this;
@@ -481,7 +481,7 @@ public class StrBuilder implements Cloneable {
         if (length > 0) {
             int len = length();
             ensureCapacity(len + length);
-            System.arraycopy(chars, startIndex, buf, len, length);
+            System.arraycopy(chars, startIndex, buffer, len, length);
             size += length;
         }
         return this;
@@ -496,17 +496,17 @@ public class StrBuilder implements Cloneable {
     public StrBuilder append(boolean value) {
         if (value) {
             ensureCapacity(size + 4);
-            buf[size++] = 't';
-            buf[size++] = 'r';
-            buf[size++] = 'u';
-            buf[size++] = 'e';
+            buffer[size++] = 't';
+            buffer[size++] = 'r';
+            buffer[size++] = 'u';
+            buffer[size++] = 'e';
         } else {
             ensureCapacity(size + 5);
-            buf[size++] = 'f';
-            buf[size++] = 'a';
-            buf[size++] = 'l';
-            buf[size++] = 's';
-            buf[size++] = 'e';
+            buffer[size++] = 'f';
+            buffer[size++] = 'a';
+            buffer[size++] = 'l';
+            buffer[size++] = 's';
+            buffer[size++] = 'e';
         }
         return this;
     }
@@ -520,7 +520,7 @@ public class StrBuilder implements Cloneable {
     public StrBuilder append(char ch) {
         int len = length();
         ensureCapacity(len + 1);
-        buf[size++] = ch;
+        buffer[size++] = ch;
         return this;
     }
 
@@ -646,7 +646,7 @@ public class StrBuilder implements Cloneable {
         if (length >= 0) {
             ensureCapacity(size + length);
             for (int i = 0; i < length; i++) {
-                buf[size++] = padChar;
+                buffer[size++] = padChar;
             }
         }
         return this;
@@ -670,13 +670,13 @@ public class StrBuilder implements Cloneable {
             String str = (obj == null ? getNullText() : obj.toString());
             int strLen = str.length();
             if (strLen >= width) {
-                str.getChars(strLen - width, strLen, buf, size);
+                str.getChars(strLen - width, strLen, buffer, size);
             } else {
                 int padLen = width - strLen;
                 for (int i = 0; i < padLen; i++) {
-                    buf[size + i] = padChar;
+                    buffer[size + i] = padChar;
                 }
-                str.getChars(0, strLen, buf, size + padLen);
+                str.getChars(0, strLen, buffer, size + padLen);
             }
             size += width;
         }
@@ -714,12 +714,12 @@ public class StrBuilder implements Cloneable {
             String str = (obj == null ? getNullText() : obj.toString());
             int strLen = str.length();
             if (strLen >= width) {
-                str.getChars(0, strLen, buf, size);
+                str.getChars(0, strLen, buffer, size);
             } else {
                 int padLen = width - strLen;
-                str.getChars(0, strLen, buf, size);
+                str.getChars(0, strLen, buffer, size);
                 for (int i = 0; i < padLen; i++) {
-                    buf[size + strLen + i] = padChar;
+                    buffer[size + strLen + i] = padChar;
                 }
             }
             size += width;
@@ -776,9 +776,9 @@ public class StrBuilder implements Cloneable {
         if (strLen > 0) {
             int newSize = size + strLen;
             ensureCapacity(newSize);
-            System.arraycopy(buf, index, buf, index + strLen, size - index);
+            System.arraycopy(buffer, index, buffer, index + strLen, size - index);
             size = newSize;
-            str.getChars(0, strLen, buf, index);
+            str.getChars(0, strLen, buffer, index);
         }
         return this;
     }
@@ -803,8 +803,8 @@ public class StrBuilder implements Cloneable {
         int len = chars.length;
         if (len > 0) {
             ensureCapacity(size + len);
-            System.arraycopy(buf, index, buf, index + len, size - index);
-            System.arraycopy(chars, 0, buf, index, len);
+            System.arraycopy(buffer, index, buffer, index + len, size - index);
+            System.arraycopy(chars, 0, buffer, index, len);
             size += len;
         }
         return this;
@@ -837,8 +837,8 @@ public class StrBuilder implements Cloneable {
         }
         if (length > 0) {
             ensureCapacity(size + length);
-            System.arraycopy(buf, index, buf, index + length, size - index);
-            System.arraycopy(chars, offset, buf, index, length);
+            System.arraycopy(buffer, index, buffer, index + length, size - index);
+            System.arraycopy(chars, offset, buffer, index, length);
             size += length;
         }
         return this;
@@ -856,20 +856,20 @@ public class StrBuilder implements Cloneable {
         validateIndex(index);
         if (value) {
             ensureCapacity(size + 4);
-            System.arraycopy(buf, index, buf, index + 4, size - index);
-            buf[index++] = 't';
-            buf[index++] = 'r';
-            buf[index++] = 'u';
-            buf[index] = 'e';
+            System.arraycopy(buffer, index, buffer, index + 4, size - index);
+            buffer[index++] = 't';
+            buffer[index++] = 'r';
+            buffer[index++] = 'u';
+            buffer[index] = 'e';
             size += 4;
         } else {
             ensureCapacity(size + 5);
-            System.arraycopy(buf, index, buf, index + 5, size - index);
-            buf[index++] = 'f';
-            buf[index++] = 'a';
-            buf[index++] = 'l';
-            buf[index++] = 's';
-            buf[index] = 'e';
+            System.arraycopy(buffer, index, buffer, index + 5, size - index);
+            buffer[index++] = 'f';
+            buffer[index++] = 'a';
+            buffer[index++] = 'l';
+            buffer[index++] = 's';
+            buffer[index] = 'e';
             size += 5;
         }
         return this;
@@ -886,8 +886,8 @@ public class StrBuilder implements Cloneable {
     public StrBuilder insert(int index, char value) {
         validateIndex(index);
         ensureCapacity(size + 1);
-        System.arraycopy(buf, index, buf, index + 1, size - index);
-        buf[index] = value;
+        System.arraycopy(buffer, index, buffer, index + 1, size - index);
+        buffer[index] = value;
         size++;
         return this;
     }
@@ -954,7 +954,7 @@ public class StrBuilder implements Cloneable {
         endIndex = validateRange(startIndex, endIndex);
         int len = endIndex - startIndex;
         if (len > 0) {
-            System.arraycopy(buf, endIndex, buf, startIndex, size - endIndex);
+            System.arraycopy(buffer, endIndex, buffer, startIndex, size - endIndex);
             size -= len;
         }
         return this;
@@ -971,7 +971,7 @@ public class StrBuilder implements Cloneable {
         if (index < 0 || index >= size) {
             throw new StringIndexOutOfBoundsException(index);
         }
-        System.arraycopy(buf, index + 1, buf, index, size - index - 1);
+        System.arraycopy(buffer, index + 1, buffer, index, size - index - 1);
         size--;
         return this;
     }
@@ -984,14 +984,14 @@ public class StrBuilder implements Cloneable {
      */
     public StrBuilder delete(char ch) {
         for (int i = 0; i < size; i++) {
-            if (buf[i] == ch) {
+            if (buffer[i] == ch) {
                 int start = i;
                 while (++i < size) {
-                    if (buf[i] != ch) {
+                    if (buffer[i] != ch) {
                         break;
                     }
                 }
-                System.arraycopy(buf, i, buf, start, size - i);
+                System.arraycopy(buffer, i, buffer, start, size - i);
                 size -= (i - start);
             }
         }
@@ -1037,10 +1037,10 @@ public class StrBuilder implements Cloneable {
             ensureCapacity(newSize);
         }
         if (insertLen != removeLen) {
-            System.arraycopy(buf, endIndex, buf, startIndex + insertLen, size - endIndex);
+            System.arraycopy(buffer, endIndex, buffer, startIndex + insertLen, size - endIndex);
             size = newSize;
         }
-        str.getChars(0, insertLen, buf, startIndex);
+        str.getChars(0, insertLen, buffer, startIndex);
         return this;
     }
 
@@ -1064,11 +1064,11 @@ public class StrBuilder implements Cloneable {
         }
         if (insertLen != removeLen) {
             //shift the current characters to the right
-            System.arraycopy(buf, endIndex, buf, startIndex + insertLen, size - endIndex);
+            System.arraycopy(buffer, endIndex, buffer, startIndex + insertLen, size - endIndex);
             //adjust the size accordingly
             size += (insertLen - removeLen);
         }
-        builder.getChars(0, insertLen, buf, startIndex);
+        builder.getChars(0, insertLen, buffer, startIndex);
         return this;
     }
 
@@ -1082,8 +1082,8 @@ public class StrBuilder implements Cloneable {
     public StrBuilder replace(char search, char replace) {
         if (search != replace) {
             for (int i = 0; i < size; i++) {
-                if (buf[i] == search) {
-                    buf[i] = replace;
+                if (buffer[i] == search) {
+                    buffer[i] = replace;
                 }
             }
         }
@@ -1131,7 +1131,7 @@ public class StrBuilder implements Cloneable {
             return false;
         }
         for (int i = 0; i < len; i++) {
-            if (buf[i] != str.charAt(i)) {
+            if (buffer[i] != str.charAt(i)) {
                 return false;
             }
         }
@@ -1159,7 +1159,7 @@ public class StrBuilder implements Cloneable {
         }
         int pos = size - len;
         for (int i = 0; i < len; i++,pos++) {
-            if (buf[pos] != str.charAt(i)) {
+            if (buffer[pos] != str.charAt(i)) {
                 return false;
             }
         }
@@ -1193,7 +1193,7 @@ public class StrBuilder implements Cloneable {
      */
     public String substring(int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
-        return new String(buf, startIndex, endIndex - startIndex);
+        return new String(buffer, startIndex, endIndex - startIndex);
     }
 
     /**
@@ -1212,9 +1212,9 @@ public class StrBuilder implements Cloneable {
         if (length <= 0) {
             return "";
         } else if (length >= size) {
-            return new String(buf, 0, size);
+            return new String(buffer, 0, size);
         } else {
-            return new String(buf, 0, length);
+            return new String(buffer, 0, length);
         }
     }
 
@@ -1234,9 +1234,9 @@ public class StrBuilder implements Cloneable {
         if (length <= 0) {
             return "";
         } else if (length >= size) {
-            return new String(buf, 0, size);
+            return new String(buffer, 0, size);
         } else {
-            return new String(buf, size - length, length);
+            return new String(buffer, size - length, length);
         }
     }
 
@@ -1264,9 +1264,9 @@ public class StrBuilder implements Cloneable {
             return "";
         }
         if (size <= index + length) {
-            return new String(buf, index, size - index);
+            return new String(buffer, index, size - index);
         } else {
-            return new String(buf, index, length);
+            return new String(buffer, index, length);
         }
     }
 
@@ -1278,7 +1278,7 @@ public class StrBuilder implements Cloneable {
      * @return true if the builder contains the character
      */
     public boolean contains(char ch) {
-        char[] thisBuf = buf;
+        char[] thisBuf = buffer;
         for (int i = 0; i < thisBuf.length; i++) {
             if (thisBuf[i] == ch) {
                 return true;
@@ -1320,7 +1320,7 @@ public class StrBuilder implements Cloneable {
         if (startIndex >= size) {
             return -1;
         }
-        char[] thisBuf = buf;
+        char[] thisBuf = buffer;
         for (int i = startIndex; i < thisBuf.length; i++) {
             if (thisBuf[i] == ch) {
                 return i;
@@ -1361,7 +1361,7 @@ public class StrBuilder implements Cloneable {
             if (strLen == 1) {
                 return indexOf(str.charAt(0), startIndex);
             }
-            char[] thisBuf = buf;
+            char[] thisBuf = buffer;
             outer:
             for (int i = startIndex; i < thisBuf.length - strLen; i++) {
                 for (int j = 0; j < strLen; j++) {
@@ -1402,7 +1402,7 @@ public class StrBuilder implements Cloneable {
             return -1;
         }
         for (int i = startIndex; i >= 0; i--) {
-            if (buf[i] == ch) {
+            if (buffer[i] == ch) {
                 return i;
             }
         }
@@ -1445,7 +1445,7 @@ public class StrBuilder implements Cloneable {
             outer:
             for (int i = startIndex - strLen + 1; i >= 0; i--) {
                 for (int j = 0; j < strLen; j++) {
-                    if (str.charAt(j) != buf[i + j]) {
+                    if (str.charAt(j) != buffer[i + j]) {
                         continue outer;
                     }
                 }
@@ -1470,9 +1470,9 @@ public class StrBuilder implements Cloneable {
         
         int half = size / 2;
         for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++,rightIdx--) {
-            char swap = buf[leftIdx];
-            buf[leftIdx] = buf[rightIdx];
-            buf[rightIdx] = swap;
+            char swap = buffer[leftIdx];
+            buffer[leftIdx] = buffer[rightIdx];
+            buffer[rightIdx] = swap;
         }
         return this;
     }
@@ -1516,7 +1516,7 @@ public class StrBuilder implements Cloneable {
      * @return the builder as a String
      */
     public String toString() {
-        return new String(buf, 0, size);
+        return new String(buffer, 0, size);
     }
 
     /**
@@ -1526,7 +1526,7 @@ public class StrBuilder implements Cloneable {
      * @return the builder as a StringBuffer
      */
     public StringBuffer toStringBuffer() {
-        return new StringBuffer(size).append(buf, 0, size);
+        return new StringBuffer(size).append(buffer, 0, size);
     }
 
     //-----------------------------------------------------------------------

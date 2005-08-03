@@ -282,10 +282,10 @@ public class StrBuilderTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testCapacity() {
         StrBuilder sb = new StrBuilder();
-        assertEquals(sb.buf.length, sb.capacity());
+        assertEquals(sb.buffer.length, sb.capacity());
         
         sb.append("HelloWorldHelloWorldHelloWorldHelloWorld");
-        assertEquals(sb.buf.length, sb.capacity());
+        assertEquals(sb.buffer.length, sb.capacity());
     }
 
     public void testEnsureCapacity() {
@@ -336,7 +336,7 @@ public class StrBuilderTest extends TestCase {
         sb.append("Hello");
         sb.clear();
         assertEquals(0, sb.length());
-        assertEquals(true, sb.buf.length >= 5);
+        assertEquals(true, sb.buffer.length >= 5);
     }
 
     //-----------------------------------------------------------------------
