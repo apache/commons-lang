@@ -1058,12 +1058,15 @@ public class StrBuilder implements Cloneable {
     public StrBuilder replace(int startIndex, int endIndex, StrBuilder builder) {
         endIndex = validateRange(startIndex, endIndex);
         int insertLen = builder.length();
-        int removeLen = endIndex = startIndex;
+        int removeLen = endIndex - startIndex;
         if (insertLen > removeLen) {
             ensureCapacity(size - removeLen + insertLen);
         }
         if (insertLen != removeLen) {
+            //shift the current characters to the right
             System.arraycopy(buf, endIndex, buf, startIndex + insertLen, size - endIndex);
+            //adjust the size accordingly
+            size += (insertLen - removeLen);
         }
         builder.getChars(0, insertLen, buf, startIndex);
         return this;
@@ -1233,7 +1236,7 @@ public class StrBuilder implements Cloneable {
         } else if (length >= size) {
             return new String(buf, 0, size);
         } else {
-            return new String(buf, size - length, size);
+            return new String(buf, size - length, length);
         }
     }
 
