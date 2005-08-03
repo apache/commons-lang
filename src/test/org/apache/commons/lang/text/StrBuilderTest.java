@@ -122,6 +122,10 @@ public class StrBuilderTest extends TestCase {
         assertEquals("abc",sb.toString()); 
         sb.delete('a');
         assertEquals("bc",sb.toString()); 
+        sb.delete('c');
+        assertEquals("b",sb.toString()); 
+        sb.delete('b');
+        assertEquals("",sb.toString()); 
     }
     
     public void testDeleteIntInt() {
@@ -138,10 +142,18 @@ public class StrBuilderTest extends TestCase {
     
     public void testDeleteString() {
         StrBuilder sb = new StrBuilder("abc");
+        sb.delete(null);
+        assertEquals("abc",sb.toString()); 
+        sb.delete("");
+        assertEquals("abc",sb.toString()); 
         sb.delete("X");
         assertEquals("abc",sb.toString()); 
         sb.delete("a");
         assertEquals("bc",sb.toString()); 
+        sb.delete("c");
+        assertEquals("b",sb.toString()); 
+        sb.delete("b");
+        assertEquals("",sb.toString()); 
     }
     
     public void testDeleteCharAt() {
