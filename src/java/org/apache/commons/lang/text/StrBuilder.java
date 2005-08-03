@@ -101,9 +101,9 @@ public class StrBuilder implements Cloneable {
     public StrBuilder(String str) {
         super();
         if (str == null) {
-            buf = new char[32];
+            buf = new char[CAPACITY];
         } else {
-            buf = new char[str.length() + 32];
+            buf = new char[str.length() + CAPACITY];
             append(str);
         }
     }
