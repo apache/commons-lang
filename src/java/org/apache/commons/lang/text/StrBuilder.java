@@ -15,6 +15,8 @@
  */
 package org.apache.commons.lang.text;
 
+import java.io.CharArrayReader;
+import java.io.Reader;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -1477,6 +1479,22 @@ public class StrBuilder implements Cloneable {
         return this;
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * Gets the contents of this builder as a Reader.
+     * <p>
+     * This method allows the contents of the builder to be read
+     * using any standard method that expects a Reader.
+     * The current implementation returns a CharArrayReader, but
+     * you should not rely on this.
+     *
+     * @return a reader
+     */
+    public Reader asReader() {
+        return new CharArrayReader(buffer, 0, size);
+    }
+
+    //-----------------------------------------------------------------------
 //    /**
 //     * Gets a String version of the string builder by calling the internal
 //     * constructor of String by reflection.

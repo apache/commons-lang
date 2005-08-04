@@ -16,6 +16,7 @@
 
 package org.apache.commons.lang.text;
 
+import java.io.Reader;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -1601,4 +1602,17 @@ public class StrBuilderTest extends TestCase {
             fail();
         } catch (StringIndexOutOfBoundsException e) {}
     }
+
+    //-----------------------------------------------------------------------
+    public void testAsReader() throws Exception {
+        StrBuilder sb = new StrBuilder ("some text");
+        Reader reader = sb.asReader();
+        char[] buf = new char[40];
+        assertEquals(9, reader.read(buf));
+        assertEquals("some text", new String(buf, 0, 9));
+        
+        buf = new char[40];
+        assertEquals(-1, reader.read(buf));
+    }
+
 }
