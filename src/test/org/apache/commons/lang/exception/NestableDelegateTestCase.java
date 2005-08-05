@@ -215,6 +215,25 @@ public class NestableDelegateTestCase extends junit.framework.TestCase {
             assertEquals("message " + i, nMsgs[i], dMsgs[i]);
         }
     }
+    
+    public void testGetMessageString()
+    {
+        NestableDelegateTester1 ndt1 = new NestableDelegateTester1 (new NullPointerException ());
+        NestableDelegate nd = new NestableDelegate (ndt1);
+        assertNull (nd.getMessage((String)null));
+        
+        ndt1 = new NestableDelegateTester1 (new NullPointerException ("null pointer"));
+        nd = new NestableDelegate (ndt1);
+        assertNotNull(nd.getMessage((String)null));
+        
+        ndt1 = new NestableDelegateTester1 ();
+        nd = new NestableDelegate (ndt1);
+        assertNull(nd.getMessage((String)null));
+        
+        ndt1 = new NestableDelegateTester1 ("root");
+        nd = new NestableDelegate (ndt1);
+        assertNull(nd.getMessage((String)null));
+    }
 
     public void testNestableDelegateGetMessageN()
     {
