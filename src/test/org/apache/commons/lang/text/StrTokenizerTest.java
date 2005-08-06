@@ -379,6 +379,22 @@ public class StrTokenizerTest extends TestCase {
         assertEquals("f", tok.next());
         assertEquals("g", tok.next());
     }
+    
+    public void testStringMatcher() {
+        // build test fixture
+        char[] data = new char[26];
+        for(int i = 0; i < data.length; i++) {
+            data[i] = (char) (i + 'a');
+        }        
+        // perform tests
+        StrTokenizer.Matcher matcher = new StrTokenizer.StringMatcher("z");
+        for(int i = 0; i < data.length - 1; i++) {
+            assertEquals(0, matcher.isMatch(data, data.length, i));
+        }
+        assertEquals(1, matcher.isMatch(data, data.length, data.length - 1));
+        // test bad pos argument.
+        assertEquals(0, matcher.isMatch(data, data.length, data.length +100));
+    }
 
     public void testTSV() {
         this.testXSVAbc(StrTokenizer.getTSVInstance(TSV_SIMPLE_FIXTURE));
