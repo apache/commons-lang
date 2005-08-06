@@ -1238,7 +1238,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
          */
         public int isMatch(char[] text, int textLen, int pos) {
             int len = chars.length;
-            if (pos + len >= textLen) {
+            if (pos + len > textLen) {
                 return 0;
             }
             for (int i = 0; i < chars.length; i++, pos++) {
