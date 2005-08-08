@@ -153,9 +153,7 @@ public class StrBuilder implements Cloneable {
         if (length < 0) {
             throw new StringIndexOutOfBoundsException(length);
         }
-        if (length == size) {
-            // ok
-        } else if (length < size) {
+        if (length < size) {
             size = length;
         } else {
             ensureCapacity(length);
@@ -286,14 +284,16 @@ public class StrBuilder implements Cloneable {
     /**
      * Copies part of the builder's character array into a new character array.
      * 
-     * @param startIndex  the start index, inclusive, must be valid
-     * @param endIndex  the end index, exclusive, must be valid except
-     *  that if too large it is treated as end of string
+     * @param startIndex
+     *            the start index, inclusive, must be valid
+     * @param endIndex
+     *            the end index, exclusive, must be valid except that if too large it is treated as end of string
      * @return a new array that holds part of the contents of the builder
      * 
-     * @throws StringIndexOutOfBoundsException when <code>startIndex</code> is less than 0;
-     *                   when <code>startIndex</code> is greater than <code>endIndex</code> (if <code>endIndex</code>
-     *                   is larger than {@link #size() }, then it is massaged to equal {@link #size()} before the validation).
+     * @throws StringIndexOutOfBoundsException
+     *             when <code>startIndex</code> is less than 0; when <code>startIndex</code> is greater than
+     *             <code>endIndex</code> (if <code>endIndex</code> is larger than {@link #size() }, then it is
+     *             massaged to equal {@link #size()} before the validation).
      */
     public char[] toCharArray(int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);

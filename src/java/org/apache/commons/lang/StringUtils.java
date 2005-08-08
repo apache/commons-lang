@@ -3196,7 +3196,7 @@ public class StringUtils {
 
         if (str.length() == 1) {
             char ch = str.charAt(0);
-            if (ch == '\r' || ch == '\n') {
+            if (ch == CharUtils.CR || ch == CharUtils.LF) {
                 return EMPTY;
             } else {
                 return str;
@@ -3206,11 +3206,11 @@ public class StringUtils {
         int lastIdx = str.length() - 1;
         char last = str.charAt(lastIdx);
 
-        if (last == '\n') {
-            if (str.charAt(lastIdx - 1) == '\r') {
+        if (last == CharUtils.LF) {
+            if (str.charAt(lastIdx - 1) == CharUtils.CR) {
                 lastIdx--;
             }
-        } else if (last == '\r') {
+        } else if (last == CharUtils.CR) {
             // why is this block empty?
             // just to skip incrementing the index?
           ;
@@ -3392,8 +3392,8 @@ public class StringUtils {
         int lastIdx = strLen - 1;
         String ret = str.substring(0, lastIdx);
         char last = str.charAt(lastIdx);
-        if (last == '\n') {
-            if (ret.charAt(lastIdx - 1) == '\r') {
+        if (last == CharUtils.LF) {
+            if (ret.charAt(lastIdx - 1) == CharUtils.CR) {
                 return ret.substring(0, lastIdx - 1);
             }
         }
@@ -3416,8 +3416,8 @@ public class StringUtils {
             return EMPTY;
         }
         char last = str.charAt(lastIdx);
-        if (last == '\n') {
-            if (str.charAt(lastIdx - 1) == '\r') {
+        if (last == CharUtils.LF) {
+            if (str.charAt(lastIdx - 1) == CharUtils.CR) {
                 lastIdx--;
             }
         } else {
