@@ -498,9 +498,8 @@ public class StrTokenizer implements ListIterator, Cloneable {
     public String nextToken() {
         if (hasNext()) {
             return tokens[tokenPos++];
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
@@ -511,9 +510,8 @@ public class StrTokenizer implements ListIterator, Cloneable {
     public String previousToken() {
         if (hasPrevious()) {
             return tokens[--tokenPos];
-        } else {
-            return null;
         }
+        return null;
     }
 
     /**
