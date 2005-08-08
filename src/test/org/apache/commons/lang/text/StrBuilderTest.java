@@ -547,6 +547,22 @@ public class StrBuilderTest extends TestCase {
         sb.append(FOO);
         assertEquals("foo", sb.toString());
 
+        sb.append((StringBuffer) null);
+        assertEquals("foo", sb.toString());
+
+        sb.append(new StringBuffer("baz"));
+        assertEquals("foobaz", sb.toString());
+
+        sb.append(new StrBuilder("yes"));
+        assertEquals("foobazyes", sb.toString());
+    }
+
+    public void testAppend_String() {
+        StrBuilder sb = new StrBuilder();
+
+        sb.append("foo");
+        assertEquals("foo", sb.toString());
+
         sb.append((String) null);
         assertEquals("foo", sb.toString());
 
@@ -555,15 +571,64 @@ public class StrBuilderTest extends TestCase {
 
         sb.append("bar");
         assertEquals("foobar", sb.toString());
+    }
 
-        sb.append((StringBuffer) null);
+    public void testAppend_String_int_int() {
+        StrBuilder sb = new StrBuilder();
+        
+        sb.append("foo", 0, 3);
+        assertEquals("foo", sb.toString());
+
+        sb.append((String) null, 0, 1);
+        assertEquals("foo", sb.toString());
+
+        try {
+            sb.append("bar", -1, 1);
+            fail("append(char[], -1,) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append("bar", 3, 1);
+            fail("append(char[], 3,) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append("bar", 1, -1);
+            fail("append(char[],, -1) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append("bar", 1, 3);
+            fail("append(char[], 1, 3) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append("bar", -1, 3);
+            fail("append(char[], -1, 3) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        try {
+            sb.append("bar", 4, 0);
+            fail("append(char[], 4, 0) expected IndexOutOfBoundsException");
+        } catch (IndexOutOfBoundsException e) {
+            // expected
+        }
+
+        sb.append("bar", 3, 0);
+        assertEquals("foo", sb.toString());
+
+        sb.append("abcbardef", 3, 3);
         assertEquals("foobar", sb.toString());
-
-        sb.append(new StringBuffer("baz"));
-        assertEquals("foobarbaz", sb.toString());
-
-        sb.append(new StrBuilder("yes"));
-        assertEquals("foobarbazyes", sb.toString());
     }
 
     public void testAppend_CharArray() {
@@ -576,6 +641,13 @@ public class StrBuilderTest extends TestCase {
         assertEquals("", sb.toString());
 
         sb.append(new char[]{'f', 'o', 'o'});
+        assertEquals("foo", sb.toString());
+    }
+
+    public void testAppend_CharArray_int_int() {
+        StrBuilder sb = new StrBuilder();
+        
+        sb.append(new char[]{'f', 'o', 'o'}, 0, 3);
         assertEquals("foo", sb.toString());
 
         sb.append((char[]) null, 0, 1);

@@ -393,6 +393,34 @@ public class StrBuilder implements Cloneable {
     }
 
     /**
+     * Appends a string to the string builder.
+     * Appending null will call {@link #appendNull()}.
+     *
+     * @param str  the string to append
+     * @param startIndex  the start index, inclusive, must be valid
+     * @param length  the length to append, must be valid
+     * @return this, to enable chaining
+     */
+    public StrBuilder append(String str, int startIndex, int length) {
+        if (str == null) {
+            return appendNull();
+        }
+        if (startIndex < 0 || startIndex > str.length()) {
+            throw new StringIndexOutOfBoundsException("startIndex must be valid");
+        }
+        if (length < 0 || (startIndex + length) > str.length()) {
+            throw new StringIndexOutOfBoundsException("length must be valid");
+        }
+        if (length > 0) {
+            int len = length();
+            ensureCapacity(len + length);
+            str.getChars(startIndex, startIndex + length, buffer, len);
+            size += length;
+        }
+        return this;
+    }
+
+    /**
      * Appends a string buffer to the string builder.
      * Appending null will call {@link #appendNull()}.
      *
@@ -477,8 +505,8 @@ public class StrBuilder implements Cloneable {
         if (startIndex < 0 || startIndex > chars.length) {
             throw new StringIndexOutOfBoundsException("startIndex must be valid");
         }
-        if (length < 0) {
-            throw new StringIndexOutOfBoundsException("length must not be negative");
+        if (length < 0 || (startIndex + length) > chars.length) {
+            throw new StringIndexOutOfBoundsException("length must be valid");
         }
         if (length > 0) {
             int len = length();
