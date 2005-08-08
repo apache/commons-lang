@@ -17,6 +17,7 @@
 package org.apache.commons.lang.text;
 
 import java.io.Reader;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -1837,6 +1838,40 @@ public class StrBuilderTest extends TestCase {
         
         buf = new char[40];
         assertEquals(-1, reader.read(buf));
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAsWriter() throws Exception {
+        StrBuilder sb = new StrBuilder ("base");
+        Writer writer = sb.asWriter();
+        
+        writer.write('l');
+        assertEquals("basel", sb.toString());
+        
+        writer.write(new char[] {'i', 'n'});
+        assertEquals("baselin", sb.toString());
+        
+        writer.write(new char[] {'n', 'e', 'r'}, 1, 2);
+        assertEquals("baseliner", sb.toString());
+        
+        writer.write(" rout");
+        assertEquals("baseliner rout", sb.toString());
+        
+        writer.write("ping that server", 1, 3);
+        assertEquals("baseliner routing", sb.toString());
+        
+        writer.flush();  // no effect
+        assertEquals("baseliner routing", sb.toString());
+        
+        writer.close();  // no effect
+        assertEquals("baseliner routing", sb.toString());
+        
+        writer.write(" hi");  // works after close
+        assertEquals("baseliner routing hi", sb.toString());
+        
+        sb.setLength(4);  // mix and match
+        writer.write('d');
+        assertEquals("based", sb.toString());
     }
 
 }
