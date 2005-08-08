@@ -49,13 +49,32 @@ public class CharUtils {
     private static final String[] CHAR_STRING_ARRAY = new String[128];
     private static final Character[] CHAR_ARRAY = new Character[128];
     
+    /**
+     * <code>\u000a</code> linefeed LF ('\n').
+     * 
+     * @see <a href="http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#101089">JLF: Escape Sequences
+     *      for Character and String Literals</a>
+     * @since 2.2
+     */
+    public static final char LF = '\n';
+
+    /**
+     * <code>\u000d</code> carriage return CR ('\r').
+     * 
+     * @see <a href="http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#101089">JLF: Escape Sequences
+     *      for Character and String Literals</a>
+     * @since 2.2
+     */
+    public static final char CR = '\r';
+    
+
     static {
         for (int i = 127; i >= 0; i--) {
             CHAR_STRING_ARRAY[i] = CHAR_STRING.substring(i, i + 1);
             CHAR_ARRAY[i] = new Character((char) i);
         }
     }
-    
+
     /**
      * <p><code>CharUtils</code> instances should NOT be constructed in standard programming.
      * Instead, the class should be used as <code>CharUtils.toString('c');</code>.</p>
