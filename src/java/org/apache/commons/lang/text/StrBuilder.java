@@ -17,6 +17,7 @@ package org.apache.commons.lang.text;
 
 import java.io.CharArrayReader;
 import java.io.Reader;
+import java.io.Writer;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -1579,6 +1580,26 @@ public class StrBuilder implements Cloneable {
     }
 
     //-----------------------------------------------------------------------
+    /**
+     * Gets this builder as a Writer that can be written to.
+     * <p>
+     * This method allows you to populate the contents of the builder
+     * using any standard method that takes a Writer.
+     * <p>
+     * To use, simply create a <code>StrBuilder</code>,
+     * call <code>asWriter</code>, and populate away. The data is available
+     * at any time using the methods of the <code>StrBuilder</code>.
+     * Note however, that no synchronization occurs, so you must not read
+     * the builder from one thread while writing in another thread.
+     * Note also that close and flush have no effect on the writer.
+     *
+     * @return a writer that populates this builder
+     */
+    public Writer asWriter() {
+        return new StrBuilderWriter();
+    }
+
+    //-----------------------------------------------------------------------
 //    /**
 //     * Gets a String version of the string builder by calling the internal
 //     * constructor of String by reflection.
@@ -1663,6 +1684,51 @@ public class StrBuilder implements Cloneable {
     protected void validateIndex(int index) {
         if (index < 0 || index > size) {
             throw new StringIndexOutOfBoundsException(index);
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Inner class to allow StrBuilder to operate as a writer.
+     */
+    class StrBuilderWriter extends Writer {
+        StrBuilderWriter() {
+            super();
+        }
+
+        /** @inheritdoc */
+        public void close() {
+            // do nothing
+        }
+
+        /** @inheritdoc */
+        public void flush() {
+            // do nothing
+        }
+
+        /** @inheritdoc */
+        public void write(int c) {
+            append((char) c);
+        }
+
+        /** @inheritdoc */
+        public void write(char[] cbuf) {
+            append(cbuf);
+        }
+
+        /** @inheritdoc */
+        public void write(char[] cbuf, int off, int len) {
+            append(cbuf, off, len);
+        }
+
+        /** @inheritdoc */
+        public void write(String str) {
+            append(str);
+        }
+
+        /** @inheritdoc */
+        public void write(String str, int off, int len) {
+            append(str, off, len);
         }
     }
 
