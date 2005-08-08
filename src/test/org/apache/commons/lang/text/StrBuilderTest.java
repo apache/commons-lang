@@ -168,7 +168,7 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.deleteCharAt(1000);
             fail("Expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // Expected
         }
     }
@@ -226,7 +226,7 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.setLength(-1);
             fail("setLength(-1) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -279,7 +279,7 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.setLength(-1);
             fail("setLength(-1) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
     }
@@ -981,14 +981,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, FOO);
             fail("insert(-1, Object) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, FOO);
             fail("insert(7, Object) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1005,14 +1005,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, "foo");
             fail("insert(-1, String) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, "foo");
             fail("insert(7, String) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1029,14 +1029,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, new char[]{'f', 'o', 'o'});
             fail("insert(-1, char[]) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, new char[]{'f', 'o', 'o'});
             fail("insert(7, char[]) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1056,14 +1056,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 3, 3);
             fail("insert(-1, char[], 3, 3) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 3, 3);
             fail("insert(7, char[], 3, 3) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1076,28 +1076,28 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(0, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, -1, 3);
             fail("insert(0, char[], -1, 3) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(0, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 10, 3);
             fail("insert(0, char[], 10, 3) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(0, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 0, -1);
             fail("insert(0, char[], 0, -1) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(0, new char[]{'a', 'b', 'c', 'f', 'o', 'o', 'd', 'e', 'f'}, 0, 10);
             fail("insert(0, char[], 0, 10) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1114,14 +1114,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, true);
             fail("insert(-1, boolean) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, true);
             fail("insert(7, boolean) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1138,14 +1138,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, '!');
             fail("insert(-1, char) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, '!');
             fail("insert(7, char) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1159,14 +1159,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, 0);
             fail("insert(-1, int) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, 0);
             fail("insert(7, int) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1180,14 +1180,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, 1L);
             fail("insert(-1, long) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, 1L);
             fail("insert(7, long) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1201,14 +1201,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, 2.3F);
             fail("insert(-1, float) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, 2.3F);
             fail("insert(7, float) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1222,14 +1222,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, 4.5D);
             fail("insert(-1, double) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, 4.5D);
             fail("insert(7, double) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1247,14 +1247,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, FOO);
             fail("insert(-1, Object) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, FOO);
             fail("insert(7, Object) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1271,14 +1271,14 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.insert(-1, "foo");
             fail("insert(-1, String) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
         try {
             sb.insert(7, "foo");
             fail("insert(7, String) expected StringIndexOutOfBoundsException");
-        } catch (StringIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             // expected
         }
 
@@ -1328,13 +1328,13 @@ public class StrBuilderTest extends TestCase {
             sb.toCharArray(-1, 5);
             fail ("no string index out of bound on -1");
         }
-        catch (StringIndexOutOfBoundsException e) {}
+        catch (IndexOutOfBoundsException e) {}
 
         try {
             sb.toCharArray(6, 5);
             fail ("no string index out of bound on -1");
         }
-        catch (StringIndexOutOfBoundsException e) {}
+        catch (IndexOutOfBoundsException e) {}
     }
     
     public void testGetChars ( ) {
@@ -1382,28 +1382,28 @@ public class StrBuilderTest extends TestCase {
             sb.getChars(-1,0,a,0);
             fail("no exception");
         }
-        catch (StringIndexOutOfBoundsException e) {
+        catch (IndexOutOfBoundsException e) {
         }
         
         try {
             sb.getChars(0,-1,a,0);
             fail("no exception");
         }
-        catch (StringIndexOutOfBoundsException e) {
+        catch (IndexOutOfBoundsException e) {
         }
         
         try {
             sb.getChars(0,20,a,0);
             fail("no exception");
         }
-        catch (StringIndexOutOfBoundsException e) {
+        catch (IndexOutOfBoundsException e) {
         }
         
         try {
             sb.getChars(4,2,a,0);
             fail("no exception");
         }
-        catch (StringIndexOutOfBoundsException e) {
+        catch (IndexOutOfBoundsException e) {
         }
     }
     
@@ -1649,12 +1649,12 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.substring(-1);
             fail ();
-        } catch (StringIndexOutOfBoundsException e) {}
+        } catch (IndexOutOfBoundsException e) {}
         
         try {
             sb.substring(15);
             fail ();
-        } catch (StringIndexOutOfBoundsException e) {}
+        } catch (IndexOutOfBoundsException e) {}
     
     }
     
@@ -1671,12 +1671,12 @@ public class StrBuilderTest extends TestCase {
         try {
             sb.substring(-1, 5);
             fail();
-        } catch (StringIndexOutOfBoundsException e) {}
+        } catch (IndexOutOfBoundsException e) {}
         
         try {
             sb.substring(15, 20);
             fail();
-        } catch (StringIndexOutOfBoundsException e) {}
+        } catch (IndexOutOfBoundsException e) {}
     }
 
     //-----------------------------------------------------------------------
