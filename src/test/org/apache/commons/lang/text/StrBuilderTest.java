@@ -269,8 +269,12 @@ public class StrBuilderTest extends TestCase {
     public void testSetLength() {
         StrBuilder sb = new StrBuilder();
         sb.append("Hello");
-        sb.setLength(2);
+        sb.setLength(2);  // shorten
         assertEquals("He", sb.toString());
+        sb.setLength(2);  // no change
+        assertEquals("He", sb.toString());
+        sb.setLength(3);  // lengthen
+        assertEquals("He\0", sb.toString());
 
         try {
             sb.setLength(-1);

@@ -155,7 +155,7 @@ public class StrBuilder implements Cloneable {
         }
         if (length < size) {
             size = length;
-        } else {
+        } else if (length > size) {
             ensureCapacity(length);
             int oldEnd = size;
             int newEnd = length;
