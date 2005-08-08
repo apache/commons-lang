@@ -342,7 +342,7 @@ public class StrBuilder implements Cloneable {
 
     //-----------------------------------------------------------------------
     /**
-     * Appends the text representing <code>null</code> to the string builder.
+     * Appends the text representing <code>null</code> to this string builder.
      *
      * @return this, to enable chaining
      */
@@ -354,7 +354,7 @@ public class StrBuilder implements Cloneable {
     }
 
     /**
-     * Appends an object to the string builder.
+     * Appends an object to this string builder.
      * Appending null will call {@link #appendNull()}.
      *
      * @param obj  the object to append
@@ -368,7 +368,7 @@ public class StrBuilder implements Cloneable {
     }
 
     /**
-     * Appends a string to the string builder.
+     * Appends a string to this string builder.
      * Appending null will call {@link #appendNull()}.
      *
      * @param str  the string to append
@@ -389,7 +389,7 @@ public class StrBuilder implements Cloneable {
     }
 
     /**
-     * Appends a string to the string builder.
+     * Appends part of a string to this string builder.
      * Appending null will call {@link #appendNull()}.
      *
      * @param str  the string to append
@@ -417,7 +417,7 @@ public class StrBuilder implements Cloneable {
     }
 
     /**
-     * Appends a string buffer to the string builder.
+     * Appends a string buffer to this string builder.
      * Appending null will call {@link #appendNull()}.
      *
      * @param str  the string buffer to append
@@ -438,7 +438,35 @@ public class StrBuilder implements Cloneable {
     }
 
     /**
-     * Appends another string builder to the string builder.
+     * Appends part of a string buffer to this string builder.
+     * Appending null will call {@link #appendNull()}.
+     *
+     * @param str  the string to append
+     * @param startIndex  the start index, inclusive, must be valid
+     * @param length  the length to append, must be valid
+     * @return this, to enable chaining
+     */
+    public StrBuilder append(StringBuffer str, int startIndex, int length) {
+        if (str == null) {
+            return appendNull();
+        }
+        if (startIndex < 0 || startIndex > str.length()) {
+            throw new StringIndexOutOfBoundsException("startIndex must be valid");
+        }
+        if (length < 0 || (startIndex + length) > str.length()) {
+            throw new StringIndexOutOfBoundsException("length must be valid");
+        }
+        if (length > 0) {
+            int len = length();
+            ensureCapacity(len + length);
+            str.getChars(startIndex, startIndex + length, buffer, len);
+            size += length;
+        }
+        return this;
+    }
+
+    /**
+     * Appends another string builder to this string builder.
      * Appending null will call {@link #appendNull()}.
      *
      * @param str  the string builder to append
@@ -454,6 +482,34 @@ public class StrBuilder implements Cloneable {
             ensureCapacity(len + strLen);
             System.arraycopy(str.buffer, 0, buffer, len, strLen);
             size += strLen;
+        }
+        return this;
+    }
+
+    /**
+     * Appends part of a string builder to this string builder.
+     * Appending null will call {@link #appendNull()}.
+     *
+     * @param str  the string to append
+     * @param startIndex  the start index, inclusive, must be valid
+     * @param length  the length to append, must be valid
+     * @return this, to enable chaining
+     */
+    public StrBuilder append(StrBuilder str, int startIndex, int length) {
+        if (str == null) {
+            return appendNull();
+        }
+        if (startIndex < 0 || startIndex > str.length()) {
+            throw new StringIndexOutOfBoundsException("startIndex must be valid");
+        }
+        if (length < 0 || (startIndex + length) > str.length()) {
+            throw new StringIndexOutOfBoundsException("length must be valid");
+        }
+        if (length > 0) {
+            int len = length();
+            ensureCapacity(len + length);
+            str.getChars(startIndex, startIndex + length, buffer, len);
+            size += length;
         }
         return this;
     }
