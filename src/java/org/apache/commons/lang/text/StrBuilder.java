@@ -1456,10 +1456,10 @@ public class StrBuilder implements Cloneable {
      */
     public int indexOf(String str, int startIndex) {
         startIndex = (startIndex < 0 ? 0 : startIndex);
-        if (startIndex >= size) {
+        if (str == null || startIndex >= size) {
             return -1;
         }
-        int strLen = (str == null ? 0 : str.length());
+        int strLen = str.length();
         if (strLen > 0 && strLen <= size) {
             if (strLen == 1) {
                 return indexOf(str.charAt(0), startIndex);
@@ -1536,10 +1536,10 @@ public class StrBuilder implements Cloneable {
      */
     public int lastIndexOf(String str, int startIndex) {
         startIndex = (startIndex >= size ? size - 1 : startIndex);
-        if (startIndex < 0) {
+        if (str == null || startIndex < 0) {
             return -1;
         }
-        int strLen = (str == null ? 0 : str.length());
+        int strLen = str.length();
         if (strLen > 0 && strLen <= size) {
             if (strLen == 1) {
                 return lastIndexOf(str.charAt(0), startIndex);
