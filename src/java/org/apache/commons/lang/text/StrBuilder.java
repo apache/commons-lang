@@ -1194,6 +1194,26 @@ public class StrBuilder implements Cloneable {
 
     //-----------------------------------------------------------------------
     /**
+     * Reverses the string builder placing each character in the opposite index.
+     * 
+     * @return this, to enable chaining
+     */
+    public StrBuilder reverse() {
+        if (size == 0) {
+            return this;
+        }
+        
+        int half = size / 2;
+        for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++,rightIdx--) {
+            char swap = buffer[leftIdx];
+            buffer[leftIdx] = buffer[rightIdx];
+            buffer[rightIdx] = swap;
+        }
+        return this;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Checks whether this builder starts with the specified string.
      * <p>
      * Note that this method handles null input quietly, unlike String.
@@ -1538,25 +1558,6 @@ public class StrBuilder implements Cloneable {
             return startIndex;
         }
         return -1;
-    }
-
-    /**
-     * Reverses the string builder placing each character in the opposite index.
-     * 
-     * @return this, to enable chaining
-     */
-    public StrBuilder reverse() {
-        if (size == 0) {
-            return this;
-        }
-        
-        int half = size / 2;
-        for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++,rightIdx--) {
-            char swap = buffer[leftIdx];
-            buffer[leftIdx] = buffer[rightIdx];
-            buffer[rightIdx] = swap;
-        }
-        return this;
     }
 
     //-----------------------------------------------------------------------
