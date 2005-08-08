@@ -284,16 +284,12 @@ public class StrBuilder implements Cloneable {
     /**
      * Copies part of the builder's character array into a new character array.
      * 
-     * @param startIndex
-     *            the start index, inclusive, must be valid
-     * @param endIndex
-     *            the end index, exclusive, must be valid except that if too large it is treated as end of string
+     * @param startIndex  the start index, inclusive, must be valid
+     * @param endIndex  the end index, exclusive, must be valid except that
+     *  if too large it is treated as end of string
      * @return a new array that holds part of the contents of the builder
-     * 
-     * @throws StringIndexOutOfBoundsException
-     *             when <code>startIndex</code> is less than 0; when <code>startIndex</code> is greater than
-     *             <code>endIndex</code> (if <code>endIndex</code> is larger than {@link #size() }, then it is
-     *             massaged to equal {@link #size()} before the validation).
+     * @throws IndexOutOfBoundsException if startIndex is invalid,
+     *  or if endIndex is invalid (but endIndex greater than size is valid)
      */
     public char[] toCharArray(int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
@@ -779,7 +775,7 @@ public class StrBuilder implements Cloneable {
      * @param index  the index to add at, must be valid
      * @param obj  the object to insert
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder insert(int index, Object obj) {
         if (obj == null) {
@@ -795,7 +791,7 @@ public class StrBuilder implements Cloneable {
      * @param index  the index to add at, must be valid
      * @param str  the string to insert
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder insert(int index, String str) {
         validateIndex(index);
@@ -823,7 +819,7 @@ public class StrBuilder implements Cloneable {
      * @param index  the index to add at, must be valid
      * @param chars  the char array to insert
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder insert(int index, char chars[]) {
         validateIndex(index);
@@ -852,7 +848,7 @@ public class StrBuilder implements Cloneable {
      * @param offset  the offset into the character array to start at, must be valid
      * @param length  the length of the character array part to copy, must be positive
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if any index is invalid
+     * @throws IndexOutOfBoundsException if any index is invalid
      */
     public StrBuilder insert(int index, char chars[], int offset, int length) {
         validateIndex(index);
@@ -880,7 +876,7 @@ public class StrBuilder implements Cloneable {
      * @param index  the index to add at, must be valid
      * @param value  the value to insert
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder insert(int index, boolean value) {
         validateIndex(index);
@@ -911,7 +907,7 @@ public class StrBuilder implements Cloneable {
      * @param index  the index to add at, must be valid
      * @param value  the value to insert
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder insert(int index, char value) {
         validateIndex(index);
@@ -928,7 +924,7 @@ public class StrBuilder implements Cloneable {
      * @param index  the index to add at, must be valid
      * @param value  the value to insert
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder insert(int index, int value) {
         return insert(index, String.valueOf(value));
@@ -940,7 +936,7 @@ public class StrBuilder implements Cloneable {
      * @param index  the index to add at, must be valid
      * @param value  the value to insert
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder insert(int index, long value) {
         return insert(index, String.valueOf(value));
@@ -952,7 +948,7 @@ public class StrBuilder implements Cloneable {
      * @param index  the index to add at, must be valid
      * @param value  the value to insert
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder insert(int index, float value) {
         return insert(index, String.valueOf(value));
@@ -964,7 +960,7 @@ public class StrBuilder implements Cloneable {
      * @param index  the index to add at, must be valid
      * @param value  the value to insert
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder insert(int index, double value) {
         return insert(index, String.valueOf(value));
@@ -978,7 +974,7 @@ public class StrBuilder implements Cloneable {
      * @param endIndex  the end index, exclusive, must be valid except
      *  that if too large it is treated as end of string
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder delete(int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
@@ -995,7 +991,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param index  the index to delete
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder deleteCharAt(int index) {
         if (index < 0 || index >= size) {
@@ -1056,7 +1052,7 @@ public class StrBuilder implements Cloneable {
      *  that if too large it is treated as end of string
      * @param str  the string to replace with
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder replace(int startIndex, int endIndex, String str) {
         endIndex = validateRange(startIndex, endIndex);
@@ -1083,7 +1079,7 @@ public class StrBuilder implements Cloneable {
      *  that if too large it is treated as end of string
      * @param builder  the string builder to replace with
      * @return this, to enable chaining
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public StrBuilder replace(int startIndex, int endIndex, StrBuilder builder) {
         endIndex = validateRange(startIndex, endIndex);
@@ -1202,7 +1198,7 @@ public class StrBuilder implements Cloneable {
      * 
      * @param start  the start index, inclusive, must be valid
      * @return the new string
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public String substring(int start) {
         return substring(start, size);
@@ -1219,7 +1215,7 @@ public class StrBuilder implements Cloneable {
      * @param endIndex  the end index, exclusive, must be valid except
      *  that if too large it is treated as end of string
      * @return the new string
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     public String substring(int startIndex, int endIndex) {
         endIndex = validateRange(startIndex, endIndex);
@@ -1515,8 +1511,11 @@ public class StrBuilder implements Cloneable {
      * using any standard method that expects a Reader.
      * The current implementation returns a CharArrayReader, but
      * you should not rely on this.
+     * <p>
+     * Note that no synchronization occurs, so you must not alter this
+     * builder in one thread while reading it in another thread.
      *
-     * @return a reader
+     * @return a reader that reads from this builder
      */
     public Reader asReader() {
         return new CharArrayReader(buffer, 0, size);
@@ -1583,7 +1582,7 @@ public class StrBuilder implements Cloneable {
      * @param endIndex  the end index, exclusive, must be valid except
      *  that if too large it is treated as end of string
      * @return the new string
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     protected int validateRange(int startIndex, int endIndex) {
         if (startIndex < 0) {
@@ -1602,7 +1601,7 @@ public class StrBuilder implements Cloneable {
      * Validates parameters defining a single index in the builder.
      * 
      * @param index  the index, must be valid
-     * @throws StringIndexOutOfBoundsException if the index is invalid
+     * @throws IndexOutOfBoundsException if the index is invalid
      */
     protected void validateIndex(int index) {
         if (index < 0 || index > size) {
