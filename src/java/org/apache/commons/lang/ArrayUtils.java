@@ -952,9 +952,8 @@ public class ArrayUtils {
     public static int getLength(Object array) {
         if (array == null) {
             return 0;
-        } else {
-            return Array.getLength(array);
         }
+        return Array.getLength(array);
     }
 
     /**
@@ -3389,9 +3388,8 @@ public class ArrayUtils {
             Object newArray = Array.newInstance(array.getClass().getComponentType(), arrayLength + 1);
             System.arraycopy(array, 0, newArray, 0, arrayLength);
             return newArray;
-        } else {
-            return Array.newInstance(newArrayComponentType, 1);
         }
+        return Array.newInstance(newArrayComponentType, 1);
     }
     
     /**
