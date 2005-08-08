@@ -85,9 +85,8 @@ public class CharUtils {
     public static Character toCharacterObject(char ch) {
         if (ch < CHAR_ARRAY.length) {
             return CHAR_ARRAY[ch];
-        } else {
-            return new Character(ch);
         }
+        return new Character(ch);
     }
     
     /**
@@ -309,9 +308,8 @@ public class CharUtils {
     public static String toString(char ch) {
         if (ch < 128) {
             return CHAR_STRING_ARRAY[ch];
-        } else {
-            return new String(new char[] {ch});
         }
+        return new String(new char[] {ch});
     }
     
     /**
@@ -334,9 +332,8 @@ public class CharUtils {
     public static String toString(Character ch) {
         if (ch == null) {
             return null;
-        } else {
-            return toString(ch.charValue());
         }
+        return toString(ch.charValue());
     }
     
     //--------------------------------------------------------------------------
