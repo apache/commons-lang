@@ -18,23 +18,28 @@ package org.apache.commons.lang.text;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
- * Candidate class to replace Interpolation and MappedMessageFormat?
- * 
  * <p>
- * A class for variable interpolation (substitution).
+ * Replaces variables in text with other text.
  * </p>
  * <p>
- * This class can be given a text which can contain an arbitrary number of variables. It will then try to replace all
- * variables by their current values, which are obtained from a map. A variable per default is specified using the
- * typical notation &quot; <code>${&lt;varname&gt;}</code> &quot;. However by calling the
- * <code>setVariablePrefix()</code> and <code>setVariableSuffix()</code> methods it is possible to use a different
- * prefix or suffix.
+ * This class can be given a text which can contain an arbitrary number of variables. The default notation for a
+ * variable in text is <code>${variableName}</code>. However by calling the <code>setVariablePrefix()</code> and
+ * <code>setVariableSuffix()</code> methods it is possible to use a different prefix or suffix. Variable values are
+ * resolved from a map.
+ * </p>
+ * <p>
+ * The simplest example is to use this class to replace Java System properties. For example:
+ * 
+ * <pre>
+ * VariableFormatter.replaceSystemProperties(
+ *      "You are running with java.version = ${java.version} and os.name = ${os.name}.");
+ * </pre>
+ * 
  * </p>
  * <p>
  * Typical usage of this class follows the following pattern: First an instance is created and initialized with the map
@@ -44,16 +49,22 @@ import org.apache.commons.lang.StringUtils;
  * their values are known) will be resolved. The following example demonstrates this:
  * </p>
  * <p>
- * <code><pre>
+ * 
+ * <pre>
  * Map valuesMap = HashMap();
  * valuesMap.put(&quot;animal&quot;, &quot;quick brown fox&quot;);
  * valuesMap.put(&quot;target&quot;, &quot;lazy dog&quot;);
  * String templateString = &quot;The ${animal} jumped over the ${target}.&quot;;
  * VariableFormat vf = new VariableVormat(valuesMap);
  * String resolvedString = cf.replace(templateString);
- * </pre></code> yielding: <code><pre>
- *    The quick brown fox jumped over the lazy dog.
- * </pre></code>
+ * </pre>
+ * 
+ * yielding:
+ * 
+ * <pre>
+ *      The quick brown fox jumped over the lazy dog.
+ * </pre>
+ * 
  * </p>
  * <p>
  * In addition to this usage pattern there are some static convenience methods that cover the most common use cases.
@@ -82,12 +93,11 @@ import org.apache.commons.lang.StringUtils;
  * To achieve this effect there are two possibilities: Either set a different prefix and suffix for variables which do
  * not conflict with the result text you want to produce. The other possibility is to use the escape character that can
  * be set through the <code>setEscapeCharacter()</code> method. If this character is placed before a variable
- * reference, this reference is ignored and won't be replaced. It can also be placed before a variable suffix, then this
- * suffix will be ignored, too. Per default the escape character is set to the <code>$</code> character, so that in
- * the example above the text could have run:
+ * reference, this reference is ignored and won't be replaced. Per default the escape character is set to the
+ * <code>$</code> character, so that in the example above the text could have run:
  * </p>
  * <p>
- * <code>The variable $${${name$}} must be used.</code>
+ * <code>The variable $${${name}} must be used.</code>
  * </p>
  * 
  * 
@@ -150,6 +160,368 @@ public class VariableFormatter {
          */
         public void setMap(Map map) {
             this.map = map;
+        }
+    }
+
+    /**
+     * A simple class representing a token detected by the <code>VariableParser</code> class.
+     */
+    protected static class Token {
+        /** Constant for the token type ESCAPED_VAR. */
+        static final short ESCAPED_VAR_TOKEN = 3;
+
+        /** Constant for the token type TEXT. */
+        static final short TEXT_TOKEN = 1;
+
+        /** Constant for the token type VARIABLE. */
+        static final short VARIABLE_TOKEN = 2;
+
+        /**
+         * Creates a new variable token.
+         * 
+         * @param aStartIndex
+         *            The token starting index
+         * @param aLength
+         *            The token length
+         * @return a new token
+         */
+        public static Token newEscapedVariableToken(int aStartIndex, int aLength) {
+            return new Token(ESCAPED_VAR_TOKEN, aStartIndex, aLength);
+        }
+
+        /**
+         * Creates a new variable token.
+         * 
+         * @param aStartIndex
+         *            The token starting index
+         * @param aLength
+         *            The token length
+         * @return a new token
+         */
+        public static Token newTextToken(int aStartIndex, int aLength) {
+            return new Token(TEXT_TOKEN, aStartIndex, aLength);
+        }
+
+        /**
+         * Creates a new variable token.
+         * 
+         * @param aStartIndex
+         *            The token starting index
+         * @param aLength
+         *            The token length
+         * @return a new token
+         */
+        public static Token newVariableToken(int aStartIndex, int aLength) {
+            return new Token(VARIABLE_TOKEN, aStartIndex, aLength);
+        }
+
+        /** Stores the length of this token in characters. */
+        private int length;
+
+        /** Stores the token's start position in the source text. */
+        private int startIndex;
+
+        /** Stores the token type. */
+        private short type;
+
+        /**
+         * Creates a new token.
+         * 
+         * @param aType
+         *            The token type
+         * @param aStartIndex
+         *            The token starting index
+         * @param aLength
+         *            The token length
+         */
+        public Token(short aType, int aStartIndex, int aLength) {
+            this.setType(aType);
+            this.setStartIndex(aStartIndex);
+            this.setLength(aLength);
+        }
+
+        /**
+         * Returns the token's length.
+         * 
+         * @return the length of this token in characters
+         */
+        public int getLength() {
+            return this.length;
+        }
+
+        /**
+         * Returns the token's start index.
+         * 
+         * @return this token's start index in the source data
+         */
+        public int getStartIndex() {
+            return this.startIndex;
+        }
+
+        /**
+         * Returns the text for this token from the passed in source array.
+         * 
+         * @param data
+         *            the array with the source data
+         * @return the text for this token
+         */
+        public String getText(char[] data) {
+            return new String(data, getStartIndex(), getLength());
+        }
+
+        /**
+         * Returns this token's type.
+         * 
+         * @return the type of this token
+         */
+        public short getType() {
+            return this.type;
+        }
+
+        /**
+         * @param length
+         *            The length to set.
+         */
+        private void setLength(int length) {
+            this.length = length;
+        }
+
+        /**
+         * @param startIndex
+         *            The startIndex to set.
+         */
+        private void setStartIndex(int startIndex) {
+            this.startIndex = startIndex;
+        }
+
+        /**
+         * @param type
+         *            The type to set.
+         */
+        private void setType(short type) {
+            this.type = type;
+        }
+    }
+
+    /**
+     * A helper class for detecting variables in the source text. This class provides simple tokenizer functionality. It
+     * splits input text into tokens for text, variables, and escaped variable start tokens.
+     */
+    protected static class VariableParser {
+        /** Stores the end index. */
+        private int endIndex;
+
+        /** Stores the matcher for escaped variable start tokens. */
+        private StrTokenizer.Matcher escVarMatcher;
+
+        /** Stores the length of the data. */
+        private int length;
+
+        /** Stores the current position. */
+        private int pos;
+
+        /** Stores a list with the pending tokens. */
+        private LinkedList tokenList;
+
+        /** Stores the matcher for variable end tokens. */
+        private StrTokenizer.Matcher varEndMatcher;
+
+        /** Stores the matcher for variable start tokens. */
+        private StrTokenizer.Matcher varStartMatcher;
+
+        /**
+         * Creates a new instance of <code>VariableParser</code> and initializes it.
+         * 
+         * @param startMatcher
+         *            the variable start matcher
+         * @param endMatcher
+         *            the variable end matcher
+         * @param escMatcher
+         *            the escaped variable start matcher
+         * @param startPos
+         *            the start index in the source data
+         * @param length
+         *            the length of the source data
+         */
+        public VariableParser(StrTokenizer.Matcher startMatcher, StrTokenizer.Matcher endMatcher,
+                StrTokenizer.Matcher escMatcher, int startPos, int length) {
+            this.setVarStartMatcher(startMatcher);
+            this.setVarEndMatcher(endMatcher);
+            this.setEscVarMatcher(escMatcher);
+            this.setPos(startPos);
+            this.setLength(length);
+            this.setEndIndex(startPos + length);
+            this.setTokenList(new LinkedList());
+        }
+
+        /**
+         * Checks if there is a text token before the current position.
+         * 
+         * @param startPos
+         *            the start pos for the current <code>nextToken()</code> invocation
+         */
+        private void checkTextToken(int startPos) {
+            if (startPos < getPos()) {
+                getTokenList().addLast(Token.newTextToken(startPos, getPos() - startPos));
+            }
+        }
+
+        /**
+         * @return Returns the endIndex.
+         */
+        private int getEndIndex() {
+            return this.endIndex;
+        }
+
+        /**
+         * @return Returns the escVarMatcher.
+         */
+        private StrTokenizer.Matcher getEscVarMatcher() {
+            return this.escVarMatcher;
+        }
+
+        /**
+         * @return Returns the length.
+         */
+        private int getLength() {
+            return this.length;
+        }
+
+        /**
+         * @return Returns the pos.
+         */
+        private int getPos() {
+            return this.pos;
+        }
+
+        /**
+         * @return Returns the tokenList.
+         */
+        private LinkedList getTokenList() {
+            return this.tokenList;
+        }
+
+        /**
+         * @return Returns the varEndMatcher.
+         */
+        private StrTokenizer.Matcher getVarEndMatcher() {
+            return this.varEndMatcher;
+        }
+
+        /**
+         * @return Returns the varStartMatcher.
+         */
+        private StrTokenizer.Matcher getVarStartMatcher() {
+            return this.varStartMatcher;
+        }
+
+        /**
+         * Checks if the end of the source data has been reached.
+         * 
+         * @return a flag whether the end was reached
+         */
+        private boolean isEnd() {
+            return getPos() >= getEndIndex();
+        }
+
+        /**
+         * Returns the next token in the given data.
+         * 
+         * @param data
+         *            the array with the source data
+         * @return the next token or <b>null</b> if the end is reached
+         */
+        public Token nextToken(char[] data) {
+            if (getTokenList().isEmpty()) {
+                if (isEnd()) {
+                    // end of data is reached
+                    return null;
+                }
+                int startPos = getPos();
+                int tokenLen;
+                while (!isEnd() && getTokenList().isEmpty()) {
+                    if ((tokenLen = getEscVarMatcher().isMatch(data, getLength(), getPos())) > 0) {
+                        checkTextToken(startPos);
+                        getTokenList().addLast(Token.newEscapedVariableToken(getPos(), tokenLen));
+                        setPos(getPos() + tokenLen);
+                    } else if ((tokenLen = getVarStartMatcher().isMatch(data, getLength(), getPos())) > 0) {
+                        checkTextToken(startPos);
+                        setPos(getPos() + tokenLen);
+                        int varStart = getPos(), endLen = 0;
+                        while (!isEnd() && (endLen = getVarEndMatcher().isMatch(data, getLength(), getPos())) <= 0) {
+                            setPos(getPos() + 1);
+                        }
+                        if (endLen <= 0) {
+                            checkTextToken(varStart - tokenLen);
+                        } else {
+                            getTokenList().addLast(Token.newVariableToken(varStart, getPos() - varStart));
+                            setPos(getPos() + endLen);
+                        }
+                    } else {
+                        setPos(getPos() + 1);
+                    }
+                }
+                if (getTokenList().isEmpty()) {
+                    checkTextToken(startPos);
+                }
+            }
+            return (Token) getTokenList().removeFirst();
+        }
+
+        /**
+         * @param endIndex
+         *            The endIndex to set.
+         */
+        private void setEndIndex(int endIndex) {
+            this.endIndex = endIndex;
+        }
+
+        /**
+         * @param escVarMatcher
+         *            The escVarMatcher to set.
+         */
+        private void setEscVarMatcher(StrTokenizer.Matcher escVarMatcher) {
+            this.escVarMatcher = escVarMatcher;
+        }
+
+        /**
+         * @param length
+         *            The length to set.
+         */
+        private void setLength(int length) {
+            this.length = length;
+        }
+
+        /**
+         * @param pos
+         *            The pos to set.
+         */
+        private void setPos(int pos) {
+            this.pos = pos;
+        }
+
+        /**
+         * @param tokenList
+         *            The tokenList to set.
+         */
+        private void setTokenList(LinkedList tokenList) {
+            this.tokenList = tokenList;
+        }
+
+        /**
+         * @param varEndMatcher
+         *            The varEndMatcher to set.
+         */
+        private void setVarEndMatcher(StrTokenizer.Matcher varEndMatcher) {
+            this.varEndMatcher = varEndMatcher;
+        }
+
+        /**
+         * @param varStartMatcher
+         *            The varStartMatcher to set.
+         */
+        private void setVarStartMatcher(StrTokenizer.Matcher varStartMatcher) {
+            this.varStartMatcher = varStartMatcher;
         }
     }
 
@@ -242,6 +614,13 @@ public class VariableFormatter {
     private String variableSuffix;
 
     /**
+     * Creates a new instance with defaults for variable prefix and suffix and the escaping character.
+     */
+    public VariableFormatter() {
+        this((VariableResolver) null, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
+    }
+
+    /**
      * Creates a new instance and initializes it. Uses defaults for variable prefix and suffix and the escaping
      * character.
      * 
@@ -250,13 +629,6 @@ public class VariableFormatter {
      */
     public VariableFormatter(Map valueMap) {
         this(valueMap, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
-    }
-
-    /**
-     * Creates a new instance with defaults for variable prefix and suffix and the escaping character.
-     */
-    public VariableFormatter() {
-        this((VariableResolver) null, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
     /**
@@ -309,11 +681,124 @@ public class VariableFormatter {
     }
 
     /**
-     * Recursive handler for multple levels of interpolation. This is the main interpolation method, which resolves the
+     * Creates a parser object for tokenizing the input data.
+     * 
+     * @param data
+     *            the input data
+     * @param offset
+     *            the offset in the source array
+     * @param length
+     *            the length of the data to be processed
+     * @return the parser
+     */
+    protected VariableParser createParser(char[] data, int offset, int length) {
+        return new VariableParser(new StrTokenizer.StringMatcher(getVariablePrefix()), new StrTokenizer.StringMatcher(
+                getVariableSuffix()), new StrTokenizer.StringMatcher(String.valueOf(getEscapeCharacter())
+            + getVariablePrefix()), offset, length);
+    }
+
+    /**
+     * Recursive handler for multiple levels of interpolation. This is the main interpolation method, which resolves the
      * values of all variable references contained in the passed in text.
      * 
+     * @param data
+     *            the text to be interpolated (as character array)
+     * @param offset
+     *            the start offset in the text array
+     * @param length
+     *            the length of the data to be processed
+     * @param ref
+     *            a reference object which will be returned if no interpolation was performed
+     * @param priorVariables
+     *            keeps track of the replaced variables
+     * @return the result of the interpolation process
+     */
+    private Object doReplace(char[] data, int offset, int length, Object ref, List priorVariables) {
+        if (data == null) {
+            return null;
+        }
+
+        Object resultObj = ref;
+        int tokenCnt = 0;
+        StrBuilder buf = new StrBuilder(length);
+
+        // on the first call initialize priorVariables
+        if (priorVariables == null) {
+            priorVariables = new ArrayList();
+            priorVariables.add(new String(data, offset, length));
+        }
+
+        VariableParser parser = createParser(data, offset, length);
+        Token tok;
+        while ((tok = parser.nextToken(data)) != null) {
+            switch (tok.getType()) {
+                case Token.TEXT_TOKEN :
+                    buf.append(data, tok.getStartIndex(), tok.getLength());
+                    break;
+
+                case Token.ESCAPED_VAR_TOKEN :
+                    buf.append(getVariablePrefix());
+                    tokenCnt++;
+                    break;
+
+                case Token.VARIABLE_TOKEN :
+                    String variable = tok.getText(data);
+
+                    // if we've got a loop, create a useful exception message and
+                    // throw
+                    if (priorVariables.contains(variable)) {
+                        String initialBase = priorVariables.remove(0).toString();
+                        priorVariables.add(variable);
+                        StrBuilder priorVariableSb = new StrBuilder();
+
+                        // create a nice trace of interpolated variables like so:
+                        // var1->var2->var3
+                        for (Iterator it = priorVariables.iterator(); it.hasNext();) {
+                            priorVariableSb.append(it.next());
+                            if (it.hasNext()) {
+                                priorVariableSb.append("->");
+                            }
+                        }
+                        throw new IllegalStateException("Infinite loop in property interpolation of "
+                            + initialBase
+                            + ": "
+                            + priorVariableSb.toString());
+                    }
+                    // otherwise, add this variable to the interpolation list.
+                    priorVariables.add(variable);
+
+                    resultObj = resolveVariable(variable);
+                    if (resultObj != null) {
+                        resultObj = doReplace(resultObj, priorVariables);
+                        buf.append(resultObj);
+                    } else {
+                        // variable not defined - so put it back in the value
+                        buf.append(getVariablePrefix()).append(variable).append(getVariableSuffix());
+                    }
+
+                    // pop the interpolated variable off the stack
+                    // this maintains priorVariables correctness for
+                    // properties with multiple interpolations, e.g.
+                    // prop.name=${some.other.prop1}/blahblah/${some.other.prop2}
+                    priorVariables.remove(priorVariables.size() - 1);
+                    break;
+            }
+            tokenCnt++;
+        }
+
+        if (resultObj != null && tokenCnt == 1) {
+            // if there was only one token, return the reference object
+            return resultObj;
+        }
+        return buf.toString();
+    }
+
+    /**
+     * Recursive handler for multiple levels of interpolation. This is the main interpolation method for interpolating
+     * objects. It is called for recursively processing the values of resolved variables.
+     * 
      * @param obj
-     *            the text to be interpolated (as object)
+     *            the data to be interpolated (as object)
      * @param priorVariables
      *            keeps track of the replaced variables
      * @return the result of the interpolation process
@@ -322,126 +807,8 @@ public class VariableFormatter {
         if (obj == null) {
             return null;
         }
-
-        String base = obj.toString();
-        if (base.indexOf(getVariablePrefix()) < 0) {
-            return obj;
-        }
-
-        // on the first call initialize priorVariables
-        // and add base as the first element
-        if (priorVariables == null) {
-            priorVariables = new ArrayList();
-            priorVariables.add(base);
-        }
-
-        int begin = -1;
-        int end = -1;
-        int prec = 0 - getVariableSuffix().length();
-        String variable = null;
-        StringBuffer result = new StringBuffer();
-        Object objResult = null;
-        int objLen = 0;
-
-        while (((begin = base.indexOf(
-                getVariablePrefix(), 
-                prec + getVariableSuffix().length())) > -1)
-            && ((end = findEndToken(base, begin)) > -1)) {
-            int escBegin = escaped(base, begin);
-            if (escBegin >= 0) {
-                result.append(base.substring(prec + getVariableSuffix().length(), escBegin));
-                unescape(result, base, escBegin, end + getVariableSuffix().length(), priorVariables);
-            }
-
-            else {
-                result.append(base.substring(prec + getVariableSuffix().length(), begin));
-                variable = base.substring(begin + getVariablePrefix().length(), end);
-
-                // if we've got a loop, create a useful exception message and
-                // throw
-                if (priorVariables.contains(variable)) {
-                    String initialBase = priorVariables.remove(0).toString();
-                    priorVariables.add(variable);
-                    StringBuffer priorVariableSb = new StringBuffer();
-
-                    // create a nice trace of interpolated variables like so:
-                    // var1->var2->var3
-                    for (Iterator it = priorVariables.iterator(); it.hasNext();) {
-                        priorVariableSb.append(it.next());
-                        if (it.hasNext()) {
-                            priorVariableSb.append("->");
-                        }
-                    }
-                    throw new IllegalStateException("Infinite loop in property interpolation of "
-                        + initialBase
-                        + ": "
-                        + priorVariableSb.toString());
-                }
-                // otherwise, add this variable to the interpolation list.
-                priorVariables.add(variable);
-
-                objResult = resolveVariable(variable);
-                if (objResult != null) {
-                    objResult = doReplace(objResult, priorVariables);
-                    result.append(objResult);
-                    objLen = objResult.toString().length();
-                } else {
-                    // variable not defined - so put it back in the value
-                    result.append(getVariablePrefix()).append(variable).append(getVariableSuffix());
-                }
-
-                // pop the interpolated variable off the stack
-                // this maintains priorVariables correctness for
-                // properties with multiple interpolations, e.g.
-                // prop.name=${some.other.prop1}/blahblah/${some.other.prop2}
-                priorVariables.remove(priorVariables.size() - 1);
-            }
-
-            prec = end;
-        }
-
-        result.append(base.substring(prec + getVariableSuffix().length(), base.length()));
-        return (objResult != null && objLen > 0 && objLen == result.length()) ? objResult : result.toString();
-    }
-
-    /**
-     * Checks if the variable reference found at the specified position is escaped and if this is the case, where the
-     * escaped text starts.
-     * 
-     * @param text
-     *            the text to be processed
-     * @param beginIndex
-     *            the start index of the variable reference to check
-     * @return the starting index of the escaped text or -1 if this reference is not escaped
-     */
-    protected int escaped(String text, int beginIndex) {
-        if (beginIndex < 1 || text.charAt(beginIndex - 1) != getEscapeCharacter()) {
-            return -1;
-        }
-        int idx = beginIndex - 2;
-        while (idx >= 0 && text.charAt(idx) == getEscapeCharacter()) {
-            idx--;
-        }
-        return idx + 1;
-    }
-
-    /**
-     * Searches for a variable end token in the given string from the specified start position.
-     * 
-     * @param text
-     *            the text to search
-     * @param beginIndex
-     *            the start index
-     * @return the index of the end token or -1 if none was found
-     */
-    protected int findEndToken(String text, int beginIndex) {
-        int pos = beginIndex - getVariableSuffix().length();
-
-        do {
-            pos = text.indexOf(getVariableSuffix(), pos + getVariableSuffix().length());
-        } while (pos > 0 && getEscapeCharacter() == text.charAt(pos - 1));
-
-        return pos;
+        char[] data = obj.toString().toCharArray();
+        return doReplace(data, 0, data.length, obj, priorVariables);
     }
 
     /**
@@ -478,6 +845,34 @@ public class VariableFormatter {
      */
     public String getVariableSuffix() {
         return this.variableSuffix;
+    }
+
+    /**
+     * Replaces the occurrences of all variables in the given source array by their current values.
+     * 
+     * @param data
+     *            a character array with the source data
+     * @return the result of the replace operation
+     */
+    public String replace(char[] data) {
+        return replace(data, 0, data == null ? 0 : data.length);
+    }
+
+    /**
+     * Replaces the occurrences of all variables in the given source array by their current values. Only the specified
+     * portion of the array will be processed.
+     * 
+     * @param data
+     *            a character array with the source data
+     * @param offset
+     *            the start offset; processing will start at this position
+     * @param length
+     *            the length of the portion to be processed
+     * @return the result of the replace operation
+     */
+    public String replace(char[] data, int offset, int length) {
+        Object result = doReplace(data, offset, length, null, null);
+        return result == null ? null : result.toString();
     }
 
     /**
@@ -575,37 +970,4 @@ public class VariableFormatter {
         }
         this.variableSuffix = variableSuffix;
     }
-
-    /**
-     * Unescapes an escaped variable reference. This method is called if <code>escaped()</code> has determined an
-     * escaped variable reference. Its purpose is to remove any escaping characters and to add the resulting text into
-     * the target buffer. This implementation will remove the first escape character. So if the default values are used,
-     * a text portion of <code>$${myvar}</code> will become <code>${myvar}</code>,
-     * <code>$$$${var with dollars}</code> will result in <code>$$${var with
-     * dollars}</code>. Text between the
-     * first variable start token and the last unescaped variable end token can contain variable references and will be
-     * recursively replaced. So constructs of the following form can be built:
-     * <code>Variable $${${varName$}} is incorrect!</code> (note how the first &quot;}&quot; character is escaped, so
-     * that the second &quot;}&quot; marks the end of this construct.
-     * 
-     * @param buf
-     *            the target buffer
-     * @param text
-     *            the text to be processed
-     * @param beginIndex
-     *            the begin index of the escaped variable reference
-     * @param endIndex
-     *            the end index of the escaped variable reference
-     * @param priorVariables
-     *            keeps track of the replaced variables
-     */
-    protected void unescape(StringBuffer buf, String text, int beginIndex, int endIndex, List priorVariables) {
-        int startToken = text.indexOf(getVariablePrefix(), beginIndex);
-        buf.append(text.substring(beginIndex + 1, startToken));
-        buf.append(getVariablePrefix());
-        String escapedContent = text.substring(startToken + getVariablePrefix().length(), endIndex);
-        buf.append(doReplace(StringUtils.replace(escapedContent, String.valueOf(getEscapeCharacter())
-            + getVariableSuffix(), getVariableSuffix()), priorVariables));
-    }
-
 }
