@@ -556,10 +556,10 @@ public class StrBuilder implements Cloneable {
             return this;
         }
         if (startIndex < 0 || startIndex > chars.length) {
-            throw new StringIndexOutOfBoundsException("startIndex must be valid");
+            throw new StringIndexOutOfBoundsException("Invalid startIndex: " + length);
         }
         if (length < 0 || (startIndex + length) > chars.length) {
-            throw new StringIndexOutOfBoundsException("length must be valid");
+            throw new StringIndexOutOfBoundsException("Invalid length: " + length);
         }
         if (length > 0) {
             int len = length();
