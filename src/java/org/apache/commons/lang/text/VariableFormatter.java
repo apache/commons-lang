@@ -16,6 +16,7 @@
 
 package org.apache.commons.lang.text;
 
+import java.text.FieldPosition;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -164,9 +165,10 @@ public class VariableFormatter {
     }
 
     /**
-     * A simple class representing a token detected by the <code>VariableParser</code> class.
+     * A helper class for detecting variables in the source text. This class provides simple tokenizer functionality. It
+     * splits input text into tokens for text, variables, and escaped variable start tokens.
      */
-    protected static class Token {
+    protected static class VariableParser {
         /** Constant for the token type ESCAPED_VAR. */
         static final short ESCAPED_VAR_TOKEN = 3;
 
@@ -185,8 +187,8 @@ public class VariableFormatter {
          *            The token length
          * @return a new token
          */
-        public static Token newEscapedVariableToken(int aStartIndex, int aLength) {
-            return new Token(ESCAPED_VAR_TOKEN, aStartIndex, aLength);
+        public static FieldPosition newEscapedVariableToken(int aStartIndex, int aLength) {
+            return newToken(VariableParser.ESCAPED_VAR_TOKEN, aStartIndex, aLength);
         }
 
         /**
@@ -198,8 +200,15 @@ public class VariableFormatter {
          *            The token length
          * @return a new token
          */
-        public static Token newTextToken(int aStartIndex, int aLength) {
-            return new Token(TEXT_TOKEN, aStartIndex, aLength);
+        public static FieldPosition newTextToken(int aStartIndex, int aLength) {
+            return newToken(VariableParser.TEXT_TOKEN, aStartIndex, aLength);
+        }
+
+        private static FieldPosition newToken(int type, int beginIndex, int length) {
+            FieldPosition fp = new FieldPosition(type);
+            fp.setBeginIndex(beginIndex);
+            fp.setEndIndex(beginIndex + length);
+            return fp;
         }
 
         /**
@@ -211,103 +220,10 @@ public class VariableFormatter {
          *            The token length
          * @return a new token
          */
-        public static Token newVariableToken(int aStartIndex, int aLength) {
-            return new Token(VARIABLE_TOKEN, aStartIndex, aLength);
+        public static FieldPosition newVariableToken(int aStartIndex, int aLength) {
+            return newToken(VariableParser.VARIABLE_TOKEN, aStartIndex, aLength);
         }
 
-        /** Stores the length of this token in characters. */
-        private int length;
-
-        /** Stores the token's start position in the source text. */
-        private int startIndex;
-
-        /** Stores the token type. */
-        private short type;
-
-        /**
-         * Creates a new token.
-         * 
-         * @param aType
-         *            The token type
-         * @param aStartIndex
-         *            The token starting index
-         * @param aLength
-         *            The token length
-         */
-        public Token(short aType, int aStartIndex, int aLength) {
-            this.setType(aType);
-            this.setStartIndex(aStartIndex);
-            this.setLength(aLength);
-        }
-
-        /**
-         * Returns the token's length.
-         * 
-         * @return the length of this token in characters
-         */
-        public int getLength() {
-            return this.length;
-        }
-
-        /**
-         * Returns the token's start index.
-         * 
-         * @return this token's start index in the source data
-         */
-        public int getStartIndex() {
-            return this.startIndex;
-        }
-
-        /**
-         * Returns the text for this token from the passed in source array.
-         * 
-         * @param data
-         *            the array with the source data
-         * @return the text for this token
-         */
-        public String getText(char[] data) {
-            return new String(data, getStartIndex(), getLength());
-        }
-
-        /**
-         * Returns this token's type.
-         * 
-         * @return the type of this token
-         */
-        public short getType() {
-            return this.type;
-        }
-
-        /**
-         * @param length
-         *            The length to set.
-         */
-        private void setLength(int length) {
-            this.length = length;
-        }
-
-        /**
-         * @param startIndex
-         *            The startIndex to set.
-         */
-        private void setStartIndex(int startIndex) {
-            this.startIndex = startIndex;
-        }
-
-        /**
-         * @param type
-         *            The type to set.
-         */
-        private void setType(short type) {
-            this.type = type;
-        }
-    }
-
-    /**
-     * A helper class for detecting variables in the source text. This class provides simple tokenizer functionality. It
-     * splits input text into tokens for text, variables, and escaped variable start tokens.
-     */
-    protected static class VariableParser {
         /** Stores the end index. */
         private int endIndex;
 
@@ -362,7 +278,7 @@ public class VariableFormatter {
          */
         private void checkTextToken(int startPos) {
             if (startPos < getPos()) {
-                getTokenList().addLast(Token.newTextToken(startPos, getPos() - startPos));
+                getTokenList().addLast(VariableParser.newTextToken(startPos, getPos() - startPos));
             }
         }
 
@@ -416,12 +332,13 @@ public class VariableFormatter {
         }
 
         /**
-         * Checks if the end of the source data has been reached.
+         * Returns whether there is more to parse.
          * 
-         * @return a flag whether the end was reached
+         * @return a flag whether there is more to parse.
          */
-        private boolean isEnd() {
-            return getPos() >= getEndIndex();
+        // Named method like java.util.Iterator#hasNext()
+        private boolean hasNext() {
+            return getPos() < getEndIndex();
         }
 
         /**
@@ -431,30 +348,30 @@ public class VariableFormatter {
          *            the array with the source data
          * @return the next token or <b>null</b> if the end is reached
          */
-        public Token nextToken(char[] data) {
+        public FieldPosition nextToken(char[] data) {
             if (getTokenList().isEmpty()) {
-                if (isEnd()) {
+                if (!hasNext()) {
                     // end of data is reached
                     return null;
                 }
                 int startPos = getPos();
                 int tokenLen;
-                while (!isEnd() && getTokenList().isEmpty()) {
+                while (hasNext() && getTokenList().isEmpty()) {
                     if ((tokenLen = getEscVarMatcher().isMatch(data, getLength(), getPos())) > 0) {
                         checkTextToken(startPos);
-                        getTokenList().addLast(Token.newEscapedVariableToken(getPos(), tokenLen));
+                        getTokenList().addLast(VariableParser.newEscapedVariableToken(getPos(), tokenLen));
                         setPos(getPos() + tokenLen);
                     } else if ((tokenLen = getVarStartMatcher().isMatch(data, getLength(), getPos())) > 0) {
                         checkTextToken(startPos);
                         setPos(getPos() + tokenLen);
                         int varStart = getPos(), endLen = 0;
-                        while (!isEnd() && (endLen = getVarEndMatcher().isMatch(data, getLength(), getPos())) <= 0) {
+                        while (hasNext() && (endLen = getVarEndMatcher().isMatch(data, getLength(), getPos())) <= 0) {
                             setPos(getPos() + 1);
                         }
                         if (endLen <= 0) {
                             checkTextToken(varStart - tokenLen);
                         } else {
-                            getTokenList().addLast(Token.newVariableToken(varStart, getPos() - varStart));
+                            getTokenList().addLast(VariableParser.newVariableToken(varStart, getPos() - varStart));
                             setPos(getPos() + endLen);
                         }
                     } else {
@@ -465,7 +382,7 @@ public class VariableFormatter {
                     checkTextToken(startPos);
                 }
             }
-            return (Token) getTokenList().removeFirst();
+            return (FieldPosition) getTokenList().removeFirst();
         }
 
         /**
@@ -538,7 +455,7 @@ public class VariableFormatter {
     public static interface VariableResolver {
         /**
          * Returns the value of the specified variable. The variable's value can be an arbitrary object. If no variable
-         * with the given name is known, an implementation should return <b>null</b>.
+         * with the given name is known, an implementation should return <code>null</code>.
          * 
          * @param varName
          *            the name of the searched variable
@@ -729,20 +646,20 @@ public class VariableFormatter {
         }
 
         VariableParser parser = createParser(data, offset, length);
-        Token tok;
+        FieldPosition tok;
         while ((tok = parser.nextToken(data)) != null) {
-            switch (tok.getType()) {
-                case Token.TEXT_TOKEN :
-                    buf.append(data, tok.getStartIndex(), tok.getLength());
+            switch (tok.getField()) {
+                case VariableParser.TEXT_TOKEN :
+                    buf.append(data, tok.getBeginIndex(), getLength(tok));
                     break;
 
-                case Token.ESCAPED_VAR_TOKEN :
+                case VariableParser.ESCAPED_VAR_TOKEN :
                     buf.append(getVariablePrefix());
                     tokenCnt++;
                     break;
 
-                case Token.VARIABLE_TOKEN :
-                    String variable = tok.getText(data);
+                case VariableParser.VARIABLE_TOKEN :
+                    String variable = new String(data, tok.getBeginIndex(), getLength(tok));
 
                     // if we've got a loop, create a useful exception message and
                     // throw
@@ -818,6 +735,10 @@ public class VariableFormatter {
      */
     public char getEscapeCharacter() {
         return this.escapeCharacter;
+    }
+
+    private int getLength(FieldPosition tok) {
+        return tok.getEndIndex() - tok.getBeginIndex();
     }
 
     /**
