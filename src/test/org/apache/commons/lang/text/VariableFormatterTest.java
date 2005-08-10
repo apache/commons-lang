@@ -114,10 +114,11 @@ public class VariableFormatterTest extends TestCase {
      * Tests escaping variable references.
      */
     public void testEscape() {
+        assertEquals("${", this.getFormat().replace("$${"));
         assertEquals("${animal}", this.getFormat().replace("$${animal}"));
         this.getValueMap().put("var_name", "x");
         assertEquals("Many $$$$${target} $s", this.getFormat().replace("Many $$$$$${target} $s"));
-        assertEquals("Variable ${x} must be used!", this.getFormat().replace("Variable $${${var_name$}} must be used!"));
+        assertEquals("Variable ${x} must be used!", this.getFormat().replace("Variable $${${var_name}} must be used!"));
     }
 
     /**
@@ -275,6 +276,7 @@ public class VariableFormatterTest extends TestCase {
      */
     public void testReplaceNothing() {
         assertNull(this.getFormat().replace(null));
+        assertNull(this.getFormat().replace((Object)null));
         assertEquals("Nothing to replace.", this.getFormat().replace("Nothing to replace."));
         assertEquals("42", this.getFormat().replace(new Integer(42)));
     }
@@ -324,6 +326,21 @@ public class VariableFormatterTest extends TestCase {
         testReplaceNoElement("${$$${$}}");
         testReplaceNoElement("${${}}");
         testReplaceNoElement("${${ }}");
+    }
+    
+    /**
+     * Tests replace operations on char arrays.
+     */
+    public void testReplaceCharArray() {
+        assertEquals(null, this.getFormat().replace((char[]) null));
+        assertEquals("", this.getFormat().replace(new char[0]));
+        assertEquals(new String(new char[1]), this.getFormat().replace(new char[1]));
+        char[] data = REPLACE_TEMPLATE.toCharArray();
+        assertEquals("The quick brown fox jumps over the lazy dog.", this.getFormat().replace(data));
+        assertEquals("The quick brown fox", this.getFormat().replace(data, 0, 13));
+        assertEquals("", this.getFormat().replace(data, 0, 0));
+        char[] empty = new char[0];
+        assertEquals("", this.getFormat().replace(empty));
     }
 
     void validateNoReplace(VariableFormatter formatter) {
