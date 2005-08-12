@@ -3210,11 +3210,7 @@ public class StringUtils {
             if (str.charAt(lastIdx - 1) == CharUtils.CR) {
                 lastIdx--;
             }
-        } else if (last == CharUtils.CR) {
-            // why is this block empty?
-            // just to skip incrementing the index?
-          ;
-        } else {
+        } else if (last != CharUtils.CR) {
             lastIdx++;
         }
         return str.substring(0, lastIdx);
