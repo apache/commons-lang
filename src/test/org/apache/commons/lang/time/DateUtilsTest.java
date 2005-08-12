@@ -303,6 +303,8 @@ public class DateUtilsTest extends TestCase {
         assertEquals("round semimonth-2 failed",
                 dateParser.parse("November 16, 2001"),
                 DateUtils.round(date2, DateUtils.SEMI_MONTH));
+        
+        
         assertEquals("round date-1 failed",
                 dateParser.parse("February 13, 2002"),
                 DateUtils.round(date1, Calendar.DATE));
