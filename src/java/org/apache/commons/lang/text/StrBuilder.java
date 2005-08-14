@@ -125,12 +125,14 @@ public class StrBuilder implements Cloneable {
      * Sets the text to be appended when null is added.
      *
      * @param str  the null text, null means no append
+     * @return this, to enable chaining
      */
-    public void setNullText(String str) {
+    public StrBuilder setNullText(String str) {
         if (str != null && str.length() == 0) {
             str = null;
         }
         nullText = str;
+        return this;
     }
 
     //-----------------------------------------------------------------------
@@ -148,9 +150,10 @@ public class StrBuilder implements Cloneable {
      * or adding filler of unicode zero.
      *
      * @param length  the length to set to, must be zero or positive
+     * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the length is negative
      */
-    public void setLength(int length) {
+    public StrBuilder setLength(int length) {
         if (length < 0) {
             throw new StringIndexOutOfBoundsException(length);
         }
@@ -165,6 +168,7 @@ public class StrBuilder implements Cloneable {
                 buffer[i] = '\0';
             }
         }
+        return this;
     }
 
     //-----------------------------------------------------------------------
@@ -181,24 +185,29 @@ public class StrBuilder implements Cloneable {
      * Checks the capacity and ensures that it is at least the size specified.
      *
      * @param capacity  the capacity to ensure
+     * @return this, to enable chaining
      */
-    public void ensureCapacity(int capacity) {
+    public StrBuilder ensureCapacity(int capacity) {
         if (capacity > buffer.length) {
             char[] old = buffer;
             buffer = new char[capacity];
             System.arraycopy(old, 0, buffer, 0, size);
         }
+        return this;
     }
 
     /**
      * Minimizes the capacity to the actual length of the string.
+     *
+     * @return this, to enable chaining
      */
-    public void minimizeCapacity() {
+    public StrBuilder minimizeCapacity() {
         if (buffer.length > length()) {
             char[] old = buffer;
             buffer = new char[length()];
             System.arraycopy(old, 0, buffer, 0, size);
         }
+        return this;
     }
 
     //-----------------------------------------------------------------------
@@ -219,6 +228,7 @@ public class StrBuilder implements Cloneable {
      * <p>
      * This method is the same as checking {@link #length()} and is provided to match the
      * API of Collections.
+     *
      * @return <code>true</code> if the size is <code>0</code>.
      */
     public boolean isEmpty() {
@@ -231,11 +241,14 @@ public class StrBuilder implements Cloneable {
      * This method does not reduce the size of the internal character buffer.
      * To do that, call <code>clear()</code> followed by {@link #minimizeCapacity()}.
      * <p>
-     * This method is the same as {@link #setLength(int)} and is provided to match the
-     * API of Collections.
+     * This method is the same as {@link #setLength(int)} called with zero
+     * and is provided to match the API of Collections.
+     *
+     * @return this, to enable chaining
      */
-    public void clear() {
+    public StrBuilder clear() {
         size = 0;
+        return this;
     }
 
     //-----------------------------------------------------------------------
@@ -262,13 +275,15 @@ public class StrBuilder implements Cloneable {
      * @see #deleteCharAt(int)
      * @param index  the index to set
      * @param ch  the new character
+     * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public void setCharAt(int index, char ch) {
+    public StrBuilder setCharAt(int index, char ch) {
         if (index < 0 || index >= length()) {
             throw new StringIndexOutOfBoundsException(index);
         }
         buffer[index] = ch;
+        return this;
     }
 
     /**
