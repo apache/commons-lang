@@ -49,6 +49,8 @@ public class TextTestSuite extends TestCase {
         TestSuite suite = new TestSuite();
         suite.setName("Commons-Lang-Text Tests");
         suite.addTest(StrBuilderTest.suite());
+        suite.addTest(StrBuilderAppendInsertTest.suite());
+        suite.addTest(StrMatcherTest.suite());
         suite.addTest(StrTokenizerTest.suite());
         suite.addTestSuite(VariableFormatterTest.class);
         return suite;
