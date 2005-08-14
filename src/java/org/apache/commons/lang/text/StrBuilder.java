@@ -242,6 +242,8 @@ public class StrBuilder implements Cloneable {
     /**
      * Gets the character at the specified index.
      *
+     * @see #setCharAt(int, char)
+     * @see #deleteCharAt(int)
      * @param index  the index to retrieve, must be valid
      * @return the character at the index
      * @throws IndexOutOfBoundsException if the index is invalid
@@ -256,6 +258,8 @@ public class StrBuilder implements Cloneable {
     /**
      * Sets the character at the specified index.
      *
+     * @see #charAt(int)
+     * @see #deleteCharAt(int)
      * @param index  the index to set
      * @param ch  the new character
      * @throws IndexOutOfBoundsException if the index is invalid
@@ -265,6 +269,23 @@ public class StrBuilder implements Cloneable {
             throw new StringIndexOutOfBoundsException(index);
         }
         buffer[index] = ch;
+    }
+
+    /**
+     * Deletes the character at the specified index.
+     *
+     * @see #charAt(int)
+     * @see #setCharAt(int, char)
+     * @param index  the index to delete
+     * @return this, to enable chaining
+     * @throws IndexOutOfBoundsException if the index is invalid
+     */
+    public StrBuilder deleteCharAt(int index) {
+        if (index < 0 || index >= size) {
+            throw new StringIndexOutOfBoundsException(index);
+        }
+        deleteImpl(index, index + 1, 1);
+        return this;
     }
 
     //-----------------------------------------------------------------------
@@ -1025,6 +1046,19 @@ public class StrBuilder implements Cloneable {
 
     //-----------------------------------------------------------------------
     /**
+     * Internal method to delete a range without validation.
+     *
+     * @param startIndex  the start index, must be valid
+     * @param endIndex  the end index (exclusive), must be valid
+     * @param len  the length, must be valid
+     * @throws IndexOutOfBoundsException if any index is invalid
+     */
+    private void deleteImpl(int startIndex, int endIndex, int len) {
+        System.arraycopy(buffer, endIndex, buffer, startIndex, size - endIndex);
+        size -= len;
+    }
+
+    /**
      * Deletes the characters between the two specified indices.
      *
      * @param startIndex  the start index, inclusive, must be valid
@@ -1037,35 +1071,19 @@ public class StrBuilder implements Cloneable {
         endIndex = validateRange(startIndex, endIndex);
         int len = endIndex - startIndex;
         if (len > 0) {
-            System.arraycopy(buffer, endIndex, buffer, startIndex, size - endIndex);
-            size -= len;
+            deleteImpl(startIndex, endIndex, len);
         }
         return this;
     }
 
-    /**
-     * Deletes the character at the specified index.
-     *
-     * @param index  the index to delete
-     * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
-     */
-    public StrBuilder deleteCharAt(int index) {
-        if (index < 0 || index >= size) {
-            throw new StringIndexOutOfBoundsException(index);
-        }
-        System.arraycopy(buffer, index + 1, buffer, index, size - index - 1);
-        size--;
-        return this;
-    }
-
+    //-----------------------------------------------------------------------
     /**
      * Deletes the character wherever it occurs in the builder.
-     * 
+     *
      * @param ch  the character to delete
      * @return this, to enable chaining
      */
-    public StrBuilder delete(char ch) {
+    public StrBuilder deleteAll(char ch) {
         for (int i = 0; i < size; i++) {
             if (buffer[i] == ch) {
                 int start = i;
@@ -1074,26 +1092,25 @@ public class StrBuilder implements Cloneable {
                         break;
                     }
                 }
-                System.arraycopy(buffer, i, buffer, start, size - i);
-                size -= (i - start);
+                int len = i - start;
+                deleteImpl(start, i, len);
+                i -= len;
             }
         }
         return this;
     }
 
     /**
-     * Deletes the string wherever it occurs in the builder.
-     * 
-     * @param str  the string to delete, null causes no action
+     * Deletes the character wherever it occurs in the builder.
+     *
+     * @param ch  the character to delete
      * @return this, to enable chaining
      */
-    public StrBuilder delete(String str) {
-        int len = (str == null ? 0 : str.length());
-        if (len > 0) {
-            int index = indexOf(str, 0);
-            while (index >= 0) {
-                delete(index, index + len);
-                index = indexOf(str, index);
+    public StrBuilder deleteFirst(char ch) {
+        for (int i = 0; i < size; i++) {
+            if (buffer[i] == ch) {
+                deleteImpl(i, i + 1, 1);
+                break;
             }
         }
         return this;
@@ -1101,68 +1118,121 @@ public class StrBuilder implements Cloneable {
 
     //-----------------------------------------------------------------------
     /**
-     * Replaces a portion of the string builder with another string.
-     * The length of the inserted string does not have to match the removed length.
-     * 
-     * @param startIndex  the start index, inclusive, must be valid
-     * @param endIndex  the end index, exclusive, must be valid except
-     *  that if too large it is treated as end of string
-     * @param str  the string to replace with
+     * Deletes the string wherever it occurs in the builder.
+     *
+     * @param str  the string to delete, null causes no action
      * @return this, to enable chaining
-     * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder replace(int startIndex, int endIndex, String str) {
-        endIndex = validateRange(startIndex, endIndex);
-        int insertLen = str.length();
-        int removeLen = endIndex - startIndex;
-        int newSize = size - removeLen + insertLen;
-        if (insertLen > removeLen) {
-            ensureCapacity(newSize);
+    public StrBuilder deleteAll(String str) {
+        int len = (str == null ? 0 : str.length());
+        if (len > 0) {
+            int index = indexOf(str, 0);
+            while (index >= 0) {
+                deleteImpl(index, index + len, len);
+                index = indexOf(str, index);
+            }
         }
+        return this;
+    }
+
+    /**
+     * Deletes the string wherever it occurs in the builder.
+     *
+     * @param str  the string to delete, null causes no action
+     * @return this, to enable chaining
+     */
+    public StrBuilder deleteFirst(String str) {
+        int len = (str == null ? 0 : str.length());
+        if (len > 0) {
+            int index = indexOf(str, 0);
+            if (index >= 0) {
+                deleteImpl(index, index + len, len);
+            }
+        }
+        return this;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Deletes all parts of the builder that the matcher matches.
+     * <p>
+     * Matchers can be used to perform advanced deletion behaviour.
+     * For example you could write a matcher to delete all occurances
+     * where the character 'a' is followed by a number.
+     *
+     * @param matcher  the matcher to use to find the deletion, null causes no action
+     * @return this, to enable chaining
+     */
+    public StrBuilder deleteAll(StrMatcher matcher) {
+        return replace(matcher, null, 0, size, -1);
+    }
+
+    /**
+     * Deletes the first match within the builder using the specified matcher.
+     * <p>
+     * Matchers can be used to perform advanced deletion behaviour.
+     * For example you could write a matcher to delete
+     * where the character 'a' is followed by a number.
+     *
+     * @param matcher  the matcher to use to find the deletion, null causes no action
+     * @return this, to enable chaining
+     */
+    public StrBuilder deleteFirst(StrMatcher matcher) {
+        return replace(matcher, null, 0, size, 1);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Internal method to delete a range without validation.
+     *
+     * @param startIndex  the start index, must be valid
+     * @param endIndex  the end index (exclusive), must be valid
+     * @param removeLen  the length to remove (endIndex - startIndex), must be valid
+     * @param insertStr  the string to replace with, null means delete range
+     * @param insertLen  the length of the insert string, must be valid
+     * @param len  the length, must be valid
+     * @throws IndexOutOfBoundsException if any index is invalid
+     */
+    private void replaceImpl(int startIndex, int endIndex, int removeLen, String insertStr, int insertLen) {
+        int newSize = size - removeLen + insertLen;
         if (insertLen != removeLen) {
+            ensureCapacity(newSize);
             System.arraycopy(buffer, endIndex, buffer, startIndex + insertLen, size - endIndex);
             size = newSize;
         }
-        str.getChars(0, insertLen, buffer, startIndex);
-        return this;
+        if (insertLen > 0) {
+            insertStr.getChars(0, insertLen, buffer, startIndex);
+        }
     }
 
     /**
-     * Replaces a portion of the string builder with another string builder.
+     * Replaces a portion of the string builder with another string.
      * The length of the inserted string does not have to match the removed length.
-     * 
+     *
      * @param startIndex  the start index, inclusive, must be valid
      * @param endIndex  the end index, exclusive, must be valid except
      *  that if too large it is treated as end of string
-     * @param builder  the string builder to replace with
+     * @param replaceStr  the string to replace with, null means delete range
      * @return this, to enable chaining
      * @throws IndexOutOfBoundsException if the index is invalid
      */
-    public StrBuilder replace(int startIndex, int endIndex, StrBuilder builder) {
+    public StrBuilder replace(int startIndex, int endIndex, String replaceStr) {
         endIndex = validateRange(startIndex, endIndex);
-        int insertLen = builder.length();
-        int removeLen = endIndex - startIndex;
-        if (insertLen > removeLen) {
-            ensureCapacity(size - removeLen + insertLen);
-        }
-        if (insertLen != removeLen) {
-            //shift the current characters to the right
-            System.arraycopy(buffer, endIndex, buffer, startIndex + insertLen, size - endIndex);
-            //adjust the size accordingly
-            size += (insertLen - removeLen);
-        }
-        builder.getChars(0, insertLen, buffer, startIndex);
+        int insertLen = (replaceStr == null ? 0 : replaceStr.length());
+        replaceImpl(startIndex, endIndex, endIndex - startIndex, replaceStr, insertLen);
         return this;
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * Replaces the search character with the replace character throughout the builder.
-     * 
-     * @param search  the search string, null causes no action to occur
-     * @param replace  the replace string, null is equivalent to an empty string
+     * Replaces the search character with the replace character
+     * throughout the builder.
+     *
+     * @param search  the search character
+     * @param replace  the replace character
      * @return this, to enable chaining
      */
-    public StrBuilder replace(char search, char replace) {
+    public StrBuilder replaceAll(char search, char replace) {
         if (search != replace) {
             for (int i = 0; i < size; i++) {
                 if (buffer[i] == search) {
@@ -1174,20 +1244,152 @@ public class StrBuilder implements Cloneable {
     }
 
     /**
+     * Replaces the first instance of the search character with the
+     * replace character in the builder.
+     *
+     * @param search  the search character
+     * @param replace  the replace character
+     * @return this, to enable chaining
+     */
+    public StrBuilder replaceFirst(char search, char replace) {
+        if (search != replace) {
+            for (int i = 0; i < size; i++) {
+                if (buffer[i] == search) {
+                    buffer[i] = replace;
+                    break;
+                }
+            }
+        }
+        return this;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Replaces the search string with the replace string throughout the builder.
-     * 
+     *
      * @param searchStr  the search string, null causes no action to occur
      * @param replaceStr  the replace string, null is equivalent to an empty string
      * @return this, to enable chaining
      */
-    public StrBuilder replace(String searchStr, String replaceStr) {
+    public StrBuilder replaceAll(String searchStr, String replaceStr) {
         int searchLen = (searchStr == null ? 0 : searchStr.length());
         if (searchLen > 0) {
-            replaceStr = (replaceStr == null ? "" : replaceStr);
+            int replaceLen = (replaceStr == null ? 0 : replaceStr.length());
             int index = indexOf(searchStr, 0);
             while (index >= 0) {
-                replace(index, index + searchLen, replaceStr);
-                index = indexOf(searchStr, index);
+                replaceImpl(index, index + searchLen, searchLen, replaceStr, replaceLen);
+                index = indexOf(searchStr, index + replaceLen);
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Replaces the first instance of the search string with the replace string.
+     *
+     * @param searchStr  the search string, null causes no action to occur
+     * @param replaceStr  the replace string, null is equivalent to an empty string
+     * @return this, to enable chaining
+     */
+    public StrBuilder replaceFirst(String searchStr, String replaceStr) {
+        int searchLen = (searchStr == null ? 0 : searchStr.length());
+        if (searchLen > 0) {
+            int index = indexOf(searchStr, 0);
+            if (index >= 0) {
+                int replaceLen = (replaceStr == null ? 0 : replaceStr.length());
+                replaceImpl(index, index + searchLen, searchLen, replaceStr, replaceLen);
+            }
+        }
+        return this;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Replaces all matches within the builder with the replace string.
+     * <p>
+     * Matchers can be used to perform advanced replace behaviour.
+     * For example you could write a matcher to replace all occurances
+     * where the character 'a' is followed by a number.
+     *
+     * @param matcher  the matcher to use to find the deletion, null causes no action
+     * @param replaceStr  the replace string, null is equivalent to an empty string
+     * @return this, to enable chaining
+     */
+    public StrBuilder replaceAll(StrMatcher matcher, String replaceStr) {
+        return replace(matcher, replaceStr, 0, size, -1);
+    }
+
+    /**
+     * Replaces the first match within the builder with the replace string.
+     * <p>
+     * Matchers can be used to perform advanced replace behaviour.
+     * For example you could write a matcher to replace
+     * where the character 'a' is followed by a number.
+     *
+     * @param matcher  the matcher to use to find the deletion, null causes no action
+     * @param replaceStr  the replace string, null is equivalent to an empty string
+     * @return this, to enable chaining
+     */
+    public StrBuilder replaceFirst(StrMatcher matcher, String replaceStr) {
+        return replace(matcher, replaceStr, 0, size, 1);
+    }
+
+    // -----------------------------------------------------------------------
+    /**
+     * Advanced search and replaces within the builder using a matcher.
+     * <p>
+     * Matchers can be used to perform advanced behaviour.
+     * For example you could write a matcher to delete all occurances
+     * where the character 'a' is followed by a number.
+     *
+     * @param matcher  the matcher to use to find the deletion, null causes no action
+     * @param replaceStr  the string to replace the match with, null is a delete
+     * @param startIndex  the start index, inclusive, must be valid
+     * @param endIndex  the end index, exclusive, must be valid except
+     *  that if too large it is treated as end of string
+     * @param replaceCount  the number of times to replace, -1 for replace all
+     * @return this, to enable chaining
+     * @throws IndexOutOfBoundsException if start index is invalid
+     */
+    public StrBuilder replace(
+            StrMatcher matcher, String replaceStr,
+            int startIndex, int endIndex, int replaceCount) {
+        endIndex = validateRange(startIndex, endIndex);
+        return replaceImpl(matcher, replaceStr, startIndex, endIndex, replaceCount);
+    }
+
+    /**
+     * Replaces within the builder using a matcher.
+     * <p>
+     * Matchers can be used to perform advanced behaviour.
+     * For example you could write a matcher to delete all occurances
+     * where the character 'a' is followed by a number.
+     *
+     * @param matcher  the matcher to use to find the deletion, null causes no action
+     * @param replaceStr  the string to replace the match with, null is a delete
+     * @param from  the start index, must be valid
+     * @param to  the end index (exclusive), must be valid
+     * @param replaceCount  the number of times to replace, -1 for replace all
+     * @return this, to enable chaining
+     * @throws IndexOutOfBoundsException if any index is invalid
+     */
+    private StrBuilder replaceImpl(
+            StrMatcher matcher, String replaceStr,
+            int from, int to, int replaceCount) {
+        if (matcher == null || size == 0) {
+            return this;
+        }
+        int replaceLen = (replaceStr == null ? 0 : replaceStr.length());
+        char[] buf = buffer;
+        for (int i = from; i < to && replaceCount != 0; i++) {
+            int removeLen = matcher.isMatch(buf, i, from, to);
+            if (removeLen > 0) {
+                replaceImpl(i, i + removeLen, removeLen, replaceStr, replaceLen);
+                to = to - removeLen + replaceLen;
+                i = i + replaceLen - 1;
+                if (replaceCount > 0) {
+                    replaceCount--;
+                }
             }
         }
         return this;
@@ -1375,8 +1577,8 @@ public class StrBuilder implements Cloneable {
 
     //-----------------------------------------------------------------------
     /**
-     * Checks of the string builder contains the specified char.
-     * 
+     * Checks if the string builder contains the specified char.
+     *
      * @param ch  the character to find
      * @return true if the builder contains the character
      */
@@ -1391,13 +1593,28 @@ public class StrBuilder implements Cloneable {
     }
 
     /**
-     * Checks of the string builder contains the specified string.
-     * 
+     * Checks if the string builder contains the specified string.
+     *
      * @param str  the string to find
      * @return true if the builder contains the string
      */
     public boolean contains(String str) {
         return indexOf(str, 0) >= 0;
+    }
+
+    /**
+     * Checks if the string builder contains a string matched using the
+     * specified matcher.
+     * <p>
+     * Matchers can be used to perform advanced searching behaviour.
+     * For example you could write a matcher to search for the character
+     * 'a' followed by a number.
+     *
+     * @param matcher  the matcher to use, null returns -1
+     * @return true if the matcher finds a match in the builder
+     */
+    public boolean contains(StrMatcher matcher) {
+        return indexOf(matcher, 0) >= 0;
     }
 
     //-----------------------------------------------------------------------
@@ -1415,7 +1632,7 @@ public class StrBuilder implements Cloneable {
      * Searches the string builder to find the first reference to the specified char.
      * 
      * @param ch  the character to find
-     * @param startIndex  the index to start at, must be valid
+     * @param startIndex  the index to start at, invalid index rounded to edge
      * @return the first index of the character, or -1 if not found
      */
     public int indexOf(char ch, int startIndex) {
@@ -1451,7 +1668,7 @@ public class StrBuilder implements Cloneable {
      * Note that a null input string will return -1, whereas the JDK throws an exception.
      * 
      * @param str  the string to find, null returns -1
-     * @param startIndex  the index to start at, must be valid
+     * @param startIndex  the index to start at, invalid index rounded to edge
      * @return the first index of the string, or -1 if not found
      */
     public int indexOf(String str, int startIndex) {
@@ -1477,6 +1694,49 @@ public class StrBuilder implements Cloneable {
             
         } else if (strLen == 0) {
             return 0;
+        }
+        return -1;
+    }
+
+    /**
+     * Searches the string builder using the matcher to find the first match.
+     * <p>
+     * Matchers can be used to perform advanced searching behaviour.
+     * For example you could write a matcher to find the character 'a'
+     * followed by a number.
+     *
+     * @param matcher  the matcher to use, null returns -1
+     * @return the first index matched, or -1 if not found
+     */
+    public int indexOf(StrMatcher matcher) {
+        return indexOf(matcher, 0);
+    }
+
+    /**
+     * Searches the string builder using the matcher to find the first
+     * match searching from the given index.
+     * <p>
+     * Matchers can be used to perform advanced searching behaviour.
+     * For example you could write a matcher to find the character 'a'
+     * followed by a number.
+     *
+     * @param matcher  the matcher to use, null returns -1
+     * @param startIndex  the index to start at, invalid index rounded to edge
+     * @return the first index matched, or -1 if not found
+     */
+    public int indexOf(StrMatcher matcher, int startIndex) {
+        startIndex = (startIndex < 0 ? 0 : startIndex);
+        if (matcher == null || startIndex >= size) {
+            return -1;
+        }
+        int len = size;
+        if (len > 0) {
+            char[] buf = buffer;
+            for (int i = startIndex; i < len; i++) {
+                if (matcher.isMatch(buf, i, startIndex, len) > 0) {
+                    return i;
+                }
+            }
         }
         return -1;
     }
@@ -1557,6 +1817,50 @@ public class StrBuilder implements Cloneable {
             
         } else if (strLen == 0) {
             return startIndex;
+        }
+        return -1;
+    }
+
+    /**
+     * Searches the string builder using the matcher to find the last match.
+     * <p>
+     * Matchers can be used to perform advanced searching behaviour.
+     * For example you could write a matcher to find the character 'a'
+     * followed by a number.
+     *
+     * @param matcher  the matcher to use, null returns -1
+     * @return the last index matched, or -1 if not found
+     */
+    public int lastIndexOf(StrMatcher matcher) {
+        return lastIndexOf(matcher, size);
+    }
+
+    /**
+     * Searches the string builder using the matcher to find the last
+     * match searching from the given index.
+     * <p>
+     * Matchers can be used to perform advanced searching behaviour.
+     * For example you could write a matcher to find the character 'a'
+     * followed by a number.
+     *
+     * @param matcher  the matcher to use, null returns -1
+     * @param startIndex  the index to start at, invalid index rounded to edge
+     * @return the last index matched, or -1 if not found
+     */
+    public int lastIndexOf(StrMatcher matcher, int startIndex) {
+        startIndex = (startIndex >= size ? size - 1 : startIndex);
+        if (matcher == null || startIndex < 0) {
+            return -1;
+        }
+        int len = size;
+        if (len > 0) {
+            char[] buf = buffer;
+            int endIndex = startIndex + 1;
+            for (int i = startIndex; i >= 0; i--) {
+                if (matcher.isMatch(buf, i, 0, endIndex) > 0) {
+                    return i;
+                }
+            }
         }
         return -1;
     }
