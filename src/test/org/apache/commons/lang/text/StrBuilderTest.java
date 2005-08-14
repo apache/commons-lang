@@ -109,6 +109,18 @@ public class StrBuilderTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testChaining() {
+        StrBuilder sb = new StrBuilder();
+        assertSame(sb, sb.setNullText(null));
+        assertSame(sb, sb.setLength(1));
+        assertSame(sb, sb.setCharAt(0, 'a'));
+        assertSame(sb, sb.ensureCapacity(0));
+        assertSame(sb, sb.minimizeCapacity());
+        assertSame(sb, sb.clear());
+        assertSame(sb, sb.reverse());
+    }
+
+    //-----------------------------------------------------------------------
     public void testCapacityAndLength() {
         StrBuilder sb = new StrBuilder();
         assertEquals(32, sb.capacity());
