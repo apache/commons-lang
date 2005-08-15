@@ -228,7 +228,7 @@ public class VariableFormatter {
         private int endIndex;
 
         /** Stores the matcher for escaped variable start tokens. */
-        private StrTokenizer.Matcher escVarMatcher;
+        private StrMatcher escVarMatcher;
 
         /** Stores the length of the data. */
         private int length;
@@ -240,10 +240,10 @@ public class VariableFormatter {
         private LinkedList tokenList;
 
         /** Stores the matcher for variable end tokens. */
-        private StrTokenizer.Matcher varEndMatcher;
+        private StrMatcher varEndMatcher;
 
         /** Stores the matcher for variable start tokens. */
-        private StrTokenizer.Matcher varStartMatcher;
+        private StrMatcher varStartMatcher;
 
         /**
          * Creates a new instance of <code>VariableParser</code> and initializes it.
@@ -259,8 +259,8 @@ public class VariableFormatter {
          * @param length
          *            the length of the source data
          */
-        public VariableParser(StrTokenizer.Matcher startMatcher, StrTokenizer.Matcher endMatcher,
-                StrTokenizer.Matcher escMatcher, int startPos, int length) {
+        public VariableParser(StrMatcher startMatcher, StrMatcher endMatcher,
+                StrMatcher escMatcher, int startPos, int length) {
             this.setVarStartMatcher(startMatcher);
             this.setVarEndMatcher(endMatcher);
             this.setEscVarMatcher(escMatcher);
@@ -292,7 +292,7 @@ public class VariableFormatter {
         /**
          * @return Returns the escVarMatcher.
          */
-        private StrTokenizer.Matcher getEscVarMatcher() {
+        private StrMatcher getEscVarMatcher() {
             return this.escVarMatcher;
         }
 
@@ -320,14 +320,14 @@ public class VariableFormatter {
         /**
          * @return Returns the varEndMatcher.
          */
-        private StrTokenizer.Matcher getVarEndMatcher() {
+        private StrMatcher getVarEndMatcher() {
             return this.varEndMatcher;
         }
 
         /**
          * @return Returns the varStartMatcher.
          */
-        private StrTokenizer.Matcher getVarStartMatcher() {
+        private StrMatcher getVarStartMatcher() {
             return this.varStartMatcher;
         }
 
@@ -357,15 +357,15 @@ public class VariableFormatter {
                 int startPos = getPos();
                 int tokenLen;
                 while (hasNext() && getTokenList().isEmpty()) {
-                    if ((tokenLen = getEscVarMatcher().isMatch(data, getLength(), getPos())) > 0) {
+                    if ((tokenLen = getEscVarMatcher().isMatch(data, getPos(), 0, getLength())) > 0) {
                         checkTextToken(startPos);
                         getTokenList().addLast(VariableParser.newEscapedVariableToken(getPos(), tokenLen));
                         setPos(getPos() + tokenLen);
-                    } else if ((tokenLen = getVarStartMatcher().isMatch(data, getLength(), getPos())) > 0) {
+                    } else if ((tokenLen = getVarStartMatcher().isMatch(data, getPos(), 0, getLength())) > 0) {
                         checkTextToken(startPos);
                         setPos(getPos() + tokenLen);
                         int varStart = getPos(), endLen = 0;
-                        while (hasNext() && (endLen = getVarEndMatcher().isMatch(data, getLength(), getPos())) <= 0) {
+                        while (hasNext() && (endLen = getVarEndMatcher().isMatch(data, getPos(), 0, getLength())) <= 0) {
                             setPos(getPos() + 1);
                         }
                         if (endLen <= 0) {
@@ -397,7 +397,7 @@ public class VariableFormatter {
          * @param escVarMatcher
          *            The escVarMatcher to set.
          */
-        private void setEscVarMatcher(StrTokenizer.Matcher escVarMatcher) {
+        private void setEscVarMatcher(StrMatcher escVarMatcher) {
             this.escVarMatcher = escVarMatcher;
         }
 
@@ -429,7 +429,7 @@ public class VariableFormatter {
          * @param varEndMatcher
          *            The varEndMatcher to set.
          */
-        private void setVarEndMatcher(StrTokenizer.Matcher varEndMatcher) {
+        private void setVarEndMatcher(StrMatcher varEndMatcher) {
             this.varEndMatcher = varEndMatcher;
         }
 
@@ -437,7 +437,7 @@ public class VariableFormatter {
          * @param varStartMatcher
          *            The varStartMatcher to set.
          */
-        private void setVarStartMatcher(StrTokenizer.Matcher varStartMatcher) {
+        private void setVarStartMatcher(StrMatcher varStartMatcher) {
             this.varStartMatcher = varStartMatcher;
         }
     }
@@ -609,9 +609,10 @@ public class VariableFormatter {
      * @return the parser
      */
     protected VariableParser createParser(char[] data, int offset, int length) {
-        return new VariableParser(new StrTokenizer.StringMatcher(getVariablePrefix()), new StrTokenizer.StringMatcher(
-                getVariableSuffix()), new StrTokenizer.StringMatcher(String.valueOf(getEscapeCharacter())
-            + getVariablePrefix()), offset, length);
+        return new VariableParser(
+                StrMatcher.stringMatcher(getVariablePrefix()),
+                StrMatcher.stringMatcher(getVariableSuffix()),
+                StrMatcher.stringMatcher(String.valueOf(getEscapeCharacter()) + getVariablePrefix()), offset, length);
     }
 
     /**
