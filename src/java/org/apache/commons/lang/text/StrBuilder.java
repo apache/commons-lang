@@ -1692,23 +1692,24 @@ public class StrBuilder implements Cloneable {
             return -1;
         }
         int strLen = str.length();
-        if (strLen > 0 && strLen <= size) {
-            if (strLen == 1) {
-                return indexOf(str.charAt(0), startIndex);
-            }
-            char[] thisBuf = buffer;
-            outer:
-            for (int i = startIndex; i < thisBuf.length - strLen; i++) {
-                for (int j = 0; j < strLen; j++) {
-                    if (str.charAt(j) != thisBuf[i + j]) {
-                        continue outer;
-                    }
+        if (strLen == 1) {
+            return indexOf(str.charAt(0), startIndex);
+        }
+        if (strLen == 0) {
+            return startIndex;
+        }
+        if (strLen > size) {
+            return -1;
+        }
+        char[] thisBuf = buffer;
+        outer:
+        for (int i = startIndex; i < thisBuf.length - strLen; i++) {
+            for (int j = 0; j < strLen; j++) {
+                if (str.charAt(j) != thisBuf[i + j]) {
+                    continue outer;
                 }
-                return i;
             }
-            
-        } else if (strLen == 0) {
-            return 0;
+            return i;
         }
         return -1;
     }
@@ -1745,12 +1746,10 @@ public class StrBuilder implements Cloneable {
             return -1;
         }
         int len = size;
-        if (len > 0) {
-            char[] buf = buffer;
-            for (int i = startIndex; i < len; i++) {
-                if (matcher.isMatch(buf, i, startIndex, len) > 0) {
-                    return i;
-                }
+        char[] buf = buffer;
+        for (int i = startIndex; i < len; i++) {
+            if (matcher.isMatch(buf, i, startIndex, len) > 0) {
+                return i;
             }
         }
         return -1;
@@ -1867,14 +1866,11 @@ public class StrBuilder implements Cloneable {
         if (matcher == null || startIndex < 0) {
             return -1;
         }
-        int len = size;
-        if (len > 0) {
-            char[] buf = buffer;
-            int endIndex = startIndex + 1;
-            for (int i = startIndex; i >= 0; i--) {
-                if (matcher.isMatch(buf, i, 0, endIndex) > 0) {
-                    return i;
-                }
+        char[] buf = buffer;
+        int endIndex = startIndex + 1;
+        for (int i = startIndex; i >= 0; i--) {
+            if (matcher.isMatch(buf, i, 0, endIndex) > 0) {
+                return i;
             }
         }
         return -1;
