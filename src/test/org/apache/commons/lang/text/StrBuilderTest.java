@@ -689,6 +689,8 @@ public class StrBuilderTest extends TestCase {
         assertEquals("dececced", sb.toString());
         sb.replaceAll('c', 'f');
         assertEquals("defeffed", sb.toString());
+        sb.replaceAll('d', 'd');
+        assertEquals("defeffed", sb.toString());
     }
 
     //-----------------------------------------------------------------------
@@ -701,6 +703,8 @@ public class StrBuilderTest extends TestCase {
         sb.replaceFirst('b', 'e');
         assertEquals("decbccba", sb.toString());
         sb.replaceFirst('c', 'f');
+        assertEquals("defbccba", sb.toString());
+        sb.replaceAll('d', 'd');
         assertEquals("defbccba", sb.toString());
     }
 
@@ -1102,6 +1106,7 @@ public class StrBuilderTest extends TestCase {
         assertEquals("hello", sb.midString(-5, 5));
         assertEquals("", sb.midString(0, -1));
         assertEquals("", sb.midString(20, 2));
+        assertEquals("hello", sb.midString(14, 22));
     }
 
     public void testRightString() {
@@ -1155,32 +1160,36 @@ public class StrBuilderTest extends TestCase {
     // -----------------------------------------------------------------------
     public void testIndexOf_char() {
         StrBuilder sb = new StrBuilder("abab");
+        assertEquals(0, sb.indexOf('a'));
         
-        assertEquals (0, sb.indexOf('a'));
-        //should work like String#indexOf
-        assertEquals ("abab".indexOf('a'), sb.indexOf('a'));
-        
+        // should work like String#indexOf
+        assertEquals("abab".indexOf('a'), sb.indexOf('a'));
+
         assertEquals(1, sb.indexOf('b'));
-        assertEquals ("abab".indexOf('b'), sb.indexOf('b'));
-        
-        assertEquals (-1, sb.indexOf('z'));
+        assertEquals("abab".indexOf('b'), sb.indexOf('b'));
+
+        assertEquals(-1, sb.indexOf('z'));
     }
 
     public void testIndexOf_char_int() {
         StrBuilder sb = new StrBuilder("abab");
-        
-        assertEquals (2, sb.indexOf('a', 1));
-        //should work like String#indexOf
-        assertEquals ("abab".indexOf('a', 1), sb.indexOf('a', 1));
-        
+        assertEquals(0, sb.indexOf('a', -1));
+        assertEquals(0, sb.indexOf('a', 0));
+        assertEquals(2, sb.indexOf('a', 1));
+        assertEquals(-1, sb.indexOf('a', 4));
+        assertEquals(-1, sb.indexOf('a', 5));
+
+        // should work like String#indexOf
+        assertEquals("abab".indexOf('a', 1), sb.indexOf('a', 1));
+
         assertEquals(3, sb.indexOf('b', 2));
-        assertEquals ("abab".indexOf('b', 2), sb.indexOf('b', 2));
-        
-        assertEquals (-1, sb.indexOf('z', 2));
-        
+        assertEquals("abab".indexOf('b', 2), sb.indexOf('b', 2));
+
+        assertEquals(-1, sb.indexOf('z', 2));
+
         sb = new StrBuilder("xyzabc");
-        assertEquals (2, sb.indexOf('z', 0));
-        assertEquals (-1, sb.indexOf('z', 3));
+        assertEquals(2, sb.indexOf('z', 0));
+        assertEquals(-1, sb.indexOf('z', 3));
     }
 
     public void testLastIndexOf_char() {
@@ -1198,22 +1207,24 @@ public class StrBuilderTest extends TestCase {
 
     public void testLastIndexOf_char_int() {
         StrBuilder sb = new StrBuilder("abab");
-        
-        assertEquals (0, sb.lastIndexOf('a', 1));
-        //should work like String#lastIndexOf
-        assertEquals ("abab".lastIndexOf('a', 1), sb.lastIndexOf('a', 1));
-        
+        assertEquals(-1, sb.lastIndexOf('a', -1));
+        assertEquals(0, sb.lastIndexOf('a', 0));
+        assertEquals(0, sb.lastIndexOf('a', 1));
+
+        // should work like String#lastIndexOf
+        assertEquals("abab".lastIndexOf('a', 1), sb.lastIndexOf('a', 1));
+
         assertEquals(1, sb.lastIndexOf('b', 2));
-        assertEquals ("abab".lastIndexOf('b', 2), sb.lastIndexOf('b', 2));
-        
-        assertEquals (-1, sb.lastIndexOf('z', 2));
-        
+        assertEquals("abab".lastIndexOf('b', 2), sb.lastIndexOf('b', 2));
+
+        assertEquals(-1, sb.lastIndexOf('z', 2));
+
         sb = new StrBuilder("xyzabc");
-        assertEquals (2, sb.lastIndexOf('z', sb.length()));
-        assertEquals (-1, sb.lastIndexOf('z', 1));
+        assertEquals(2, sb.lastIndexOf('z', sb.length()));
+        assertEquals(-1, sb.lastIndexOf('z', 1));
     }
 
-    //-----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
     public void testIndexOf_String() {
         StrBuilder sb = new StrBuilder("abab");
         
@@ -1238,8 +1249,18 @@ public class StrBuilderTest extends TestCase {
 
     public void testIndexOf_String_int() {
         StrBuilder sb = new StrBuilder("abab");
-        
+        assertEquals(0, sb.indexOf("a", -1));
+        assertEquals(0, sb.indexOf("a", 0));
         assertEquals(2, sb.indexOf("a", 1));
+        assertEquals(2, sb.indexOf("a", 2));
+        assertEquals(-1, sb.indexOf("a", 3));
+        assertEquals(-1, sb.indexOf("a", 4));
+        assertEquals(-1, sb.indexOf("a", 5));
+        
+        assertEquals(-1, sb.indexOf("abcdef", 0));
+        assertEquals(0, sb.indexOf("", 0));
+        assertEquals(1, sb.indexOf("", 1));
+        
         //should work like String#indexOf
         assertEquals ("abab".indexOf("a", 1), sb.indexOf("a", 1));
         
@@ -1286,8 +1307,18 @@ public class StrBuilderTest extends TestCase {
 
     public void testLastIndexOf_String_int() {
         StrBuilder sb = new StrBuilder("abab");
-        
+        assertEquals(-1, sb.lastIndexOf("a", -1));
+        assertEquals(0, sb.lastIndexOf("a", 0));
         assertEquals(0, sb.lastIndexOf("a", 1));
+        assertEquals(2, sb.lastIndexOf("a", 2));
+        assertEquals(2, sb.lastIndexOf("a", 3));
+        assertEquals(2, sb.lastIndexOf("a", 4));
+        assertEquals(2, sb.lastIndexOf("a", 5));
+        
+        assertEquals(-1, sb.lastIndexOf("abcdef", 3));
+        assertEquals("abab".lastIndexOf("", 3), sb.lastIndexOf("", 3));
+        assertEquals("abab".lastIndexOf("", 1), sb.lastIndexOf("", 1));
+        
         //should work like String#lastIndexOf
         assertEquals("abab".lastIndexOf("a", 1), sb.lastIndexOf("a", 1));
         
@@ -1332,6 +1363,7 @@ public class StrBuilderTest extends TestCase {
         StrBuilder sb = new StrBuilder();
         assertEquals(-1, sb.indexOf((StrMatcher) null, 2));
         assertEquals(-1, sb.indexOf(StrMatcher.charMatcher('a'), 2));
+        assertEquals(-1, sb.indexOf(StrMatcher.charMatcher('a'), 0));
         
         sb.append("ab bd");
         assertEquals(0, sb.indexOf(StrMatcher.charMatcher('a'), -2));
@@ -1387,6 +1419,8 @@ public class StrBuilderTest extends TestCase {
         StrBuilder sb = new StrBuilder();
         assertEquals(-1, sb.lastIndexOf((StrMatcher) null, 2));
         assertEquals(-1, sb.lastIndexOf(StrMatcher.charMatcher('a'), 2));
+        assertEquals(-1, sb.lastIndexOf(StrMatcher.charMatcher('a'), 0));
+        assertEquals(-1, sb.lastIndexOf(StrMatcher.charMatcher('a'), -1));
         
         sb.append("ab bd");
         assertEquals(-1, sb.lastIndexOf(StrMatcher.charMatcher('a'), -2));
