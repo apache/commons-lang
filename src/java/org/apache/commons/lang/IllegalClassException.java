@@ -43,6 +43,9 @@ package org.apache.commons.lang;
  */
 public class IllegalClassException extends IllegalArgumentException {
 
+    /** Serialization version. */
+    private static final long serialVersionUID = 8063272569377254819L;
+
     /**
      * <p>Instantiates with the expected type, and actual object.</p>
      * 
