@@ -185,6 +185,7 @@ public class StrMatcherTest extends TestCase {
         assertEquals(0, matcher.isMatch(BUFFER2, 5, 0, BUFFER2.length));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher(""));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher((String) null));
+        assertTrue(StrMatcher.charSetMatcher("a") instanceof StrMatcher.CharMatcher);
     }
 
     //-----------------------------------------------------------------------
@@ -198,6 +199,7 @@ public class StrMatcherTest extends TestCase {
         assertEquals(0, matcher.isMatch(BUFFER2, 5, 0, BUFFER2.length));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher(new char[0]));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher((char[]) null));
+        assertTrue(StrMatcher.charSetMatcher("a".toCharArray()) instanceof StrMatcher.CharMatcher);
     }
 
     //-----------------------------------------------------------------------
