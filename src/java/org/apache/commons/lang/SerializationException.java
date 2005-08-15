@@ -28,6 +28,9 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  */
 public class SerializationException extends NestableRuntimeException {
 
+    /** Serialization version. */
+    private static final long serialVersionUID = 4029025366392702726L;
+
     /**
      * <p>Constructs a new <code>SerializationException</code> without specified
      * detail message.</p>

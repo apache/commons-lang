@@ -51,6 +51,9 @@ import org.apache.commons.lang.exception.NestableDelegate;
 public class NotImplementedException
         extends UnsupportedOperationException implements Nestable {
 
+    /** Serialization version. */
+    private static final long serialVersionUID = -6894122266938754088L;
+
     /**
      * The exception helper to delegate nested exception handling to.
      */
