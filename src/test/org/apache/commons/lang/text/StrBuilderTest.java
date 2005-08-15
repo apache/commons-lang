@@ -704,7 +704,7 @@ public class StrBuilderTest extends TestCase {
         assertEquals("decbccba", sb.toString());
         sb.replaceFirst('c', 'f');
         assertEquals("defbccba", sb.toString());
-        sb.replaceAll('d', 'd');
+        sb.replaceFirst('d', 'd');
         assertEquals("defbccba", sb.toString());
     }
 
