@@ -65,7 +65,7 @@ public class StrTokenizerTest extends TestCase {
         StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(StrTokenizer.TRIM_MATCHER);
+        tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(false);
         String tokens[] = tok.getAllTokens();
 
@@ -85,7 +85,7 @@ public class StrTokenizerTest extends TestCase {
         StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(StrTokenizer.NONE_MATCHER);
+        tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(false);
         String tokens[] = tok.getAllTokens();
 
@@ -105,7 +105,7 @@ public class StrTokenizerTest extends TestCase {
         StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(StrTokenizer.NONE_MATCHER);
+        tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(false);
         String tokens[] = tok.getAllTokens();
 
@@ -125,7 +125,7 @@ public class StrTokenizerTest extends TestCase {
         StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(StrTokenizer.TRIM_MATCHER);
+        tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(true);
         String tokens[] = tok.getAllTokens();
 
@@ -145,7 +145,7 @@ public class StrTokenizerTest extends TestCase {
         StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(StrTokenizer.TRIM_MATCHER);
+        tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(false);
         tok.setEmptyTokenAsNull(true);
         String tokens[] = tok.getAllTokens();
@@ -166,7 +166,7 @@ public class StrTokenizerTest extends TestCase {
         StrTokenizer tok = new StrTokenizer(input);
         tok.setDelimiterChar(';');
         tok.setQuoteChar('"');
-        tok.setIgnoredMatcher(StrTokenizer.TRIM_MATCHER);
+        tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(false);
         // tok.setTreatingEmptyAsNull(true);
         String tokens[] = tok.getAllTokens();
@@ -199,9 +199,9 @@ public class StrTokenizerTest extends TestCase {
 
         String input = "a   b c \"d e\" f ";
         StrTokenizer tok = new StrTokenizer(input);
-        tok.setDelimiterMatcher(StrTokenizer.SPACE_MATCHER);
-        tok.setQuoteMatcher(StrTokenizer.DOUBLE_QUOTE_MATCHER);
-        tok.setIgnoredMatcher(StrTokenizer.NONE_MATCHER);
+        tok.setDelimiterMatcher(StrMatcher.spaceMatcher());
+        tok.setQuoteMatcher(StrMatcher.doubleQuoteMatcher());
+        tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(false);
         String tokens[] = tok.getAllTokens();
 
@@ -219,9 +219,9 @@ public class StrTokenizerTest extends TestCase {
 
         String input = "a   b c \"d e\" f ";
         StrTokenizer tok = new StrTokenizer(input);
-        tok.setDelimiterMatcher(StrTokenizer.SPACE_MATCHER);
-        tok.setQuoteMatcher(StrTokenizer.DOUBLE_QUOTE_MATCHER);
-        tok.setIgnoredMatcher(StrTokenizer.NONE_MATCHER);
+        tok.setDelimiterMatcher(StrMatcher.spaceMatcher());
+        tok.setQuoteMatcher(StrMatcher.doubleQuoteMatcher());
+        tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(true);
         String tokens[] = tok.getAllTokens();
 
@@ -348,20 +348,6 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(input, tok.getContent());
     }
 
-    public void testMatcher() {
-        assertEquals(1, StrTokenizer.SPACE_MATCHER.isMatch(new char[]{' '}, 1, 0));
-        assertEquals(0, StrTokenizer.SPACE_MATCHER.isMatch(new char[]{'\n'}, 1, 0));
-        assertEquals(0, StrTokenizer.SPACE_MATCHER.isMatch(new char[]{'\u0001'}, 1, 0));
-
-        assertEquals(1, StrTokenizer.TRIM_MATCHER.isMatch(new char[]{' '}, 1, 0));
-        assertEquals(1, StrTokenizer.TRIM_MATCHER.isMatch(new char[]{'\n'}, 1, 0));
-        assertEquals(1, StrTokenizer.TRIM_MATCHER.isMatch(new char[]{'\u0001'}, 1, 0));
-
-        assertEquals(1, StrTokenizer.SPLIT_MATCHER.isMatch(new char[]{' '}, 1, 0));
-        assertEquals(1, StrTokenizer.SPLIT_MATCHER.isMatch(new char[]{'\n'}, 1, 0));
-        assertEquals(0, StrTokenizer.SPLIT_MATCHER.isMatch(new char[]{'\u0001'}, 1, 0));
-    }
-
     public void testReset() {
         String input = "a b c";
         StrTokenizer tok = new StrTokenizer(input);
@@ -378,22 +364,6 @@ public class StrTokenizerTest extends TestCase {
         tok.reset("f g".toCharArray());
         assertEquals("f", tok.next());
         assertEquals("g", tok.next());
-    }
-    
-    public void testStringMatcher() {
-        // build test fixture
-        char[] data = new char[26];
-        for(int i = 0; i < data.length; i++) {
-            data[i] = (char) (i + 'a');
-        }        
-        // perform tests
-        StrTokenizer.Matcher matcher = new StrTokenizer.StringMatcher("z");
-        for(int i = 0; i < data.length - 1; i++) {
-            assertEquals(0, matcher.isMatch(data, data.length, i));
-        }
-        assertEquals(1, matcher.isMatch(data, data.length, data.length - 1));
-        // test bad pos argument.
-        assertEquals(0, matcher.isMatch(data, data.length, data.length +100));
     }
 
     public void testTSV() {
@@ -429,6 +399,29 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(0, tokenizer.nextIndex());
         assertEquals(-1, tokenizer.previousIndex());
         assertEquals(3, tokenizer.size());
+    }
+
+    public void testIteration() {
+        StrTokenizer tkn = new StrTokenizer("a b c");
+        assertEquals(true, tkn.hasNext());
+        assertEquals("a", tkn.next());
+        try {
+            tkn.remove();
+            fail();
+        } catch (UnsupportedOperationException ex) {}
+        try {
+            tkn.set("x");
+            fail();
+        } catch (UnsupportedOperationException ex) {}
+        try {
+            tkn.add("y");
+            fail();
+        } catch (UnsupportedOperationException ex) {}
+        assertEquals(true, tkn.hasNext());
+        assertEquals("b", tkn.next());
+        assertEquals(true, tkn.hasNext());
+        assertEquals("c", tkn.next());
+        assertEquals(false, tkn.hasNext());
     }
 
 }

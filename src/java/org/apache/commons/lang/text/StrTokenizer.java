@@ -16,7 +16,6 @@
 package org.apache.commons.lang.text;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -77,64 +76,22 @@ import java.util.ListIterator;
  */
 public class StrTokenizer implements ListIterator, Cloneable {
 
-    /**
-     * Matches the comma character.
-     * Best used for <code>delimiter</code>.
-     */
-    public static final Matcher COMMA_MATCHER = new CharMatcher(',');
-    /**
-     * Matches the tab character.
-     * Best used for <code>delimiter</code>.
-     */
-    public static final Matcher TAB_MATCHER = new CharMatcher('\t');
-    /**
-     * Matches the space character.
-     * Best used for <code>delimiter</code>.
-     */
-    public static final Matcher SPACE_MATCHER = new CharMatcher(' ');
-    /**
-     * Matches the same characters as StringTokenizer,
-     * namely space, tab, newline, formfeed.
-     * Best used for <code>delimiter</code>.
-     */
-    public static final Matcher SPLIT_MATCHER = createCharSetMatcher(" \t\n\r\f");
-    /**
-     * Matches the double quote character.
-     * Best used for <code>quote</code>.
-     */
-    public static final Matcher SINGLE_QUOTE_MATCHER = new CharMatcher('\'');
-    /**
-     * Matches the double quote character.
-     * Best used for <code>quote</code>.
-     */
-    public static final Matcher DOUBLE_QUOTE_MATCHER = new CharMatcher('"');
-    /**
-     * Matches the String trim() whitespace characters.
-     * Best used for <code>trimmer</code>.
-     */
-    public static final Matcher TRIM_MATCHER = new TrimMatcher();
-    /**
-     * Matches no characters. Don't use this for delimiters!
-     * Best used for <code>trimmer</code>.
-     */
-    public static final Matcher NONE_MATCHER = new NoMatcher();
-
     private static final StrTokenizer CSV_TOKENIZER_PROTOTYPE;
     private static final StrTokenizer TSV_TOKENIZER_PROTOTYPE;
     static {
         CSV_TOKENIZER_PROTOTYPE = new StrTokenizer();
-        CSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(COMMA_MATCHER);
-        CSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(DOUBLE_QUOTE_MATCHER);
-        CSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(NONE_MATCHER);
-        CSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(TRIM_MATCHER);
+        CSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(StrMatcher.commaMatcher());
+        CSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(StrMatcher.doubleQuoteMatcher());
+        CSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(StrMatcher.noneMatcher());
+        CSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(StrMatcher.trimMatcher());
         CSV_TOKENIZER_PROTOTYPE.setEmptyTokenAsNull(false);
         CSV_TOKENIZER_PROTOTYPE.setIgnoreEmptyTokens(false);
 
         TSV_TOKENIZER_PROTOTYPE = new StrTokenizer();
-        TSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(TAB_MATCHER);
-        TSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(DOUBLE_QUOTE_MATCHER);
-        TSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(NONE_MATCHER);
-        TSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(TRIM_MATCHER);
+        TSV_TOKENIZER_PROTOTYPE.setDelimiterMatcher(StrMatcher.tabMatcher());
+        TSV_TOKENIZER_PROTOTYPE.setQuoteMatcher(StrMatcher.doubleQuoteMatcher());
+        TSV_TOKENIZER_PROTOTYPE.setIgnoredMatcher(StrMatcher.noneMatcher());
+        TSV_TOKENIZER_PROTOTYPE.setTrimmerMatcher(StrMatcher.trimMatcher());
         TSV_TOKENIZER_PROTOTYPE.setEmptyTokenAsNull(false);
         TSV_TOKENIZER_PROTOTYPE.setIgnoreEmptyTokens(false);
     }
@@ -149,77 +106,18 @@ public class StrTokenizer implements ListIterator, Cloneable {
     private int tokenPos;
 
     /** The delimiter matcher */
-    private Matcher delim = SPLIT_MATCHER;
+    private StrMatcher delim = StrMatcher.splitMatcher();
     /** The quote matcher */
-    private Matcher quote = NONE_MATCHER;
+    private StrMatcher quote = StrMatcher.noneMatcher();
     /** The ignored matcher */
-    private Matcher ignored = NONE_MATCHER;
+    private StrMatcher ignored = StrMatcher.noneMatcher();
     /** The trimmer matcher */
-    private Matcher trimmer = NONE_MATCHER;
+    private StrMatcher trimmer = StrMatcher.noneMatcher();
 
     /** Whether to return empty tokens as null */
     private boolean emptyAsNull = false;
     /** Whether to ignore empty tokens */
     private boolean ignoreEmptyTokens = true;
-
-    //-----------------------------------------------------------------------
-    /**
-     * Constructor that creates a matcher from a set of characters.
-     *
-     * @param chars  the characters to match, must not be null
-     * @return A new matcher for the given char[].
-     * @throws IllegalArgumentException if the character set is null or empty
-     */
-    public static Matcher createCharSetMatcher(char[] chars) {
-        if (chars == null || chars.length == 0) {
-            throw new IllegalArgumentException("Characters must not be null or empty");
-        }
-        if (chars.length == 1) {
-            return new CharMatcher(chars[0]);
-        }
-        return new CharSetMatcher(chars);
-    }
-
-    /**
-     * Constructor that creates a matcher from a string representing a set of characters.
-     *
-     * @param chars  the characters to match, must not be null
-     * @return A new Matcher for the given characters.
-     * @throws IllegalArgumentException if the character set is null or empty
-     */
-    public static Matcher createCharSetMatcher(String chars) {
-        if (chars == null || chars.length() == 0) {
-            throw new IllegalArgumentException("Characters must not be null or empty");
-        }
-        if (chars.length() == 1) {
-            return new CharMatcher(chars.charAt(0));
-        }
-        return new CharSetMatcher(chars.toCharArray());
-    }
-
-    /**
-     * Constructor that creates a matcher from a character.
-     *
-     * @param ch  the character to match, must not be null
-     * @return A new Matcher for the given char.
-     */
-    public static Matcher createCharMatcher(char ch) {
-        return new CharMatcher(ch);
-    }
-
-    /**
-     * Constructor that creates a matcher from a string.
-     *
-     * @param str  the string to match, must not be null
-     * @return A new Matcher for the given String.
-     * @throws IllegalArgumentException if the string is null or empty
-     */
-    public static Matcher createStringMatcher(String str) {
-        if (str == null || str.length() == 0) {
-            throw new IllegalArgumentException("String must not be null or empty");
-        }
-        return new StringMatcher(str);
-    }
 
     //-----------------------------------------------------------------------
 
@@ -376,7 +274,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @param input  the string which is to be parsed
      * @param delim  the field delimiter matcher
      */
-    public StrTokenizer(String input, Matcher delim) {
+    public StrTokenizer(String input, StrMatcher delim) {
         this(input);
         setDelimiterMatcher(delim);
     }
@@ -402,7 +300,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @param delim  the field delimiter matcher
      * @param quote  the field quoted string matcher
      */
-    public StrTokenizer(String input, Matcher delim, Matcher quote) {
+    public StrTokenizer(String input, StrMatcher delim, StrMatcher quote) {
         this(input, delim);
         setQuoteMatcher(quote);
     }
@@ -447,7 +345,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @param input  the string which is to be parsed, cloned
      * @param delim  the field delimiter matcher
      */
-    public StrTokenizer(char[] input, Matcher delim) {
+    public StrTokenizer(char[] input, StrMatcher delim) {
         this(input);
         setDelimiterMatcher(delim);
     }
@@ -473,7 +371,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @param delim  the field delimiter character
      * @param quote  the field quoted string character
      */
-    public StrTokenizer(char[] input, Matcher delim, Matcher quote) {
+    public StrTokenizer(char[] input, StrMatcher delim, StrMatcher quote) {
         this(input, delim);
         setQuoteMatcher(quote);
     }
@@ -685,7 +583,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
             // Handle the special case where the very last
             // character is a delimiter, in which case, we
             // need another empty string
-            if (start == len && delim.isMatch(chars, len, start - 1) == 1) {
+            if (start == len && delim.isMatch(chars, start - 1, 0, len) == 1) {
                 // Add the token, following the rules
                 // in this object
                 addToken(tokens, "");
@@ -734,9 +632,9 @@ public class StrTokenizer implements ListIterator, Cloneable {
         int delimLen = 0;
         int quoteLen = 0;
         while (start < len &&
-                (ignoreLen = ignored.isMatch(chars, len, start)) >= 1 &&
-                (delimLen = delim.isMatch(chars, len, start)) < 1 &&
-                (quoteLen = quote.isMatch(chars, len, start)) < 1) {
+                (ignoreLen = ignored.isMatch(chars, start, 0, len)) >= 1 &&
+                (delimLen = delim.isMatch(chars, start, 0, len)) < 1 &&
+                (quoteLen = quote.isMatch(chars, start, 0, len)) < 1) {
             start += ignoreLen;
         }
 
@@ -744,9 +642,9 @@ public class StrTokenizer implements ListIterator, Cloneable {
             return start;
         } else {
             // lengths not setup
-            if ((delimLen = delim.isMatch(chars, len, start)) >= 1) {
+            if ((delimLen = delim.isMatch(chars, start, 0, len)) >= 1) {
                 start += delimLen;
-            } else if ((quoteLen = quote.isMatch(chars, len, start)) >= 1) {
+            } else if ((quoteLen = quote.isMatch(chars, start, 0, len)) >= 1) {
                 start = readQuoted(start + quoteLen, cbuf, token);
             } else {
                 start = readUnquoted(start, token);
@@ -807,7 +705,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
                 // followed by a second quote.  If so, then we need
                 // to actually put the quote character into the token
                 // rather than end the token.
-                if ((quoteLen = quote.isMatch(chars, len, pos)) >= 1) {
+                if ((quoteLen = quote.isMatch(chars, pos, 0, len)) >= 1) {
                     if (pos + 1 < len && chars[pos + 1] == chars[pos]) {
                         cbuf[cbufcnt++] = chars[pos];
                         pos += 2;
@@ -828,10 +726,10 @@ public class StrTokenizer implements ListIterator, Cloneable {
             // the character
             else {
                 // If we're
-                if ((delimLen = delim.isMatch(chars, len, pos)) >= 1) {
+                if ((delimLen = delim.isMatch(chars, pos, 0, len)) >= 1) {
                     done = true;
                 } else {
-                    if ((quoteLen = quote.isMatch(chars, len, pos)) >= 1) {
+                    if ((quoteLen = quote.isMatch(chars, pos, 0, len)) >= 1) {
                         quoting = true;
                         pos += quoteLen;
                     } else {
@@ -862,23 +760,23 @@ public class StrTokenizer implements ListIterator, Cloneable {
         int len = chars.length;
         int pos = start;
         int delimLen = 0;
-        while (pos < len && (delimLen = delim.isMatch(chars, len, pos)) < 1) {
+        while (pos < len && (delimLen = delim.isMatch(chars, pos, 0, len)) < 1) {
             pos++;
         }
 
         /* Trim string based on the trimmer matcher */
-        while (trimmer.isMatch(chars, 1, start) > 0) {
+        while (trimmer.isMatch(chars, start, 0, len) > 0) {
             start++;
         }
 
         int length = Math.min(pos, len) - start;
 
-        while (trimmer.isMatch(chars, 1, start + length - 1) > 0) {
+        while (trimmer.isMatch(chars, start + length - 1, 0, len) > 0) {
             length--;
         }
 
         for (int i=0;i<length;i++) {
-            if (ignored.isMatch(chars, 1, start + i) == 0) {
+            if (ignored.isMatch(chars, start + i, 0, len) == 0) {
                 token.append(chars[start + i]);
             }
         }
@@ -894,7 +792,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *
      * @return the delimiter matcher in use
      */
-    public Matcher getDelimiterMatcher() {
+    public StrMatcher getDelimiterMatcher() {
         return delim;
     }
 
@@ -905,9 +803,9 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *
      * @param delim  the delimiter matcher to use
      */
-    public void setDelimiterMatcher(Matcher delim) {
+    public void setDelimiterMatcher(StrMatcher delim) {
         if (delim == null) {
-            this.delim = NONE_MATCHER;
+            this.delim = StrMatcher.noneMatcher();
         } else {
             this.delim = delim;
         }
@@ -919,7 +817,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @param delim  the delimiter character to use
      */
     public void setDelimiterChar(char delim) {
-        setDelimiterMatcher(new CharMatcher(delim));
+        setDelimiterMatcher(StrMatcher.charMatcher(delim));
     }
 
     /**
@@ -928,13 +826,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @param delim  the delimiter character to use
      */
     public void setDelimiterString(String delim) {
-        if (delim == null || delim.length() == 0) {
-            setDelimiterMatcher(NONE_MATCHER);
-        } else if (delim.length() == 1) {
-            setDelimiterMatcher(new CharMatcher(delim.charAt(0)));
-        } else {
-            setDelimiterMatcher(new StringMatcher(delim));
-        }
+        setDelimiterMatcher(StrMatcher.stringMatcher(delim));
     }
 
     // Quote
@@ -948,7 +840,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *
      * @return the quote matcher in use
      */
-    public Matcher getQuoteMatcher() {
+    public StrMatcher getQuoteMatcher() {
         return quote;
     }
 
@@ -960,7 +852,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *
      * @param quote  the quote matcher to use, null ignored
      */
-    public void setQuoteMatcher(Matcher quote) {
+    public void setQuoteMatcher(StrMatcher quote) {
         if (quote != null) {
             this.quote = quote;
         }
@@ -975,7 +867,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @param quote  the quote character to use
      */
     public void setQuoteChar(char quote) {
-        setQuoteMatcher(new CharMatcher(quote));
+        setQuoteMatcher(StrMatcher.charMatcher(quote));
     }
 
     // Ignored
@@ -989,7 +881,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *
      * @return the ignored matcher in use
      */
-    public Matcher getIgnoredMatcher() {
+    public StrMatcher getIgnoredMatcher() {
         return ignored;
     }
 
@@ -1001,7 +893,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *
      * @param ignored  the ignored matcher to use, null ignored
      */
-    public void setIgnoredMatcher(Matcher ignored) {
+    public void setIgnoredMatcher(StrMatcher ignored) {
         if (ignored != null) {
             this.ignored = ignored;
         }
@@ -1016,7 +908,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @param ignored  the ignored character to use
      */
     public void setIgnoredChar(char ignored) {
-        setIgnoredMatcher(new CharMatcher(ignored));
+        setIgnoredMatcher(StrMatcher.charMatcher(ignored));
     }
 
     // Trimmer
@@ -1029,7 +921,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *
      * @return the trimmer matcher in use
      */
-    public Matcher getTrimmerMatcher() {
+    public StrMatcher getTrimmerMatcher() {
         return trimmer;
     }
 
@@ -1039,7 +931,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *
      * @param trimmer  the trimmer matcher to use, null ignored
      */
-    public void setTrimmerMatcher(Matcher trimmer) {
+    public void setTrimmerMatcher(StrMatcher trimmer) {
         if (trimmer != null) {
             this.trimmer = trimmer;
         }
@@ -1115,188 +1007,6 @@ public class StrTokenizer implements ListIterator, Cloneable {
 
         } catch (CloneNotSupportedException ex) {
             return null;
-        }
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * Defines the interface used to match a set of characters during tokenization.
-     * Standard implementations of this interface are provided in the library.
-     * These are accessed via the create*() factory methods on StrTokenizer.
-     * If your application needs more unusual matching, implement this interface directly.
-     */
-    public static interface Matcher {
-        /**
-         * Returns the number of matching characters, zero for no match.
-         * <p>
-         * This method is called to check for a match.
-         * The parameter <code>pos</code> represents the current position to be
-         * checked in the string <code>text</code> (a character array which must
-         * not be changed).
-         * The text length is also provided for efficiency.
-         * The API guarantees that <code>pos</code> is a valid index for <code>text</code>.
-         * <p>
-         * The matching code may check one character or many.
-         * It must return zero for no match, or a positive number if a match was found.
-         * The number indicates the number of characters that matched.
-         *
-         * @param text  the text content to match against, do not change
-         * @param textLen  the length of the text
-         * @param pos  the starting position for the match, valid for text
-         * @return the number of matching characters, zero for no match
-         */
-        int isMatch(char[] text, int textLen, int pos);
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * Class used to define a set of characters for matching purposes.
-     */
-    public static final class CharSetMatcher implements Matcher {
-        private char[] chars;
-
-        /**
-         * Constructor that creates a matcher from a character array.
-         *
-         * @param chars  the characters to match, must not be null
-         */
-        public CharSetMatcher(char chars[]) {
-            super();
-            this.chars = (char[]) chars.clone();
-            Arrays.sort(this.chars);
-        }
-
-        /**
-         * Returns whether or not the given charatcer matches.
-         *
-         * @param text  the text content to match against
-         * @param textLen  the length of the text
-         * @param pos  the starting position
-         * @return the number of matching characters, zero for no match
-         */
-        public int isMatch(char[] text, int textLen, int pos) {
-            return Arrays.binarySearch(chars, text[pos]) >= 0 ? 1 : 0;
-        }
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * Class used to define a character for matching purposes.
-     */
-    static final class CharMatcher implements Matcher {
-        private char ch;
-
-        /**
-         * Constructor that creates a matcher that matches a single character.
-         *
-         * @param ch  the character to match
-         */
-        CharMatcher(char ch) {
-            super();
-            this.ch = ch;
-        }
-
-        /**
-         * Returns whether or not the given character matches.
-         *
-         * @param text  the text content to match against
-         * @param textLen  the length of the text
-         * @param pos  the starting position
-         * @return the number of matching characters, zero for no match
-         */
-        public int isMatch(char[] text, int textLen, int pos) {
-            return ch == text[pos] ? 1 : 0;
-        }
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * Class used to define a set of characters for matching purposes.
-     */
-    static final class StringMatcher implements Matcher {
-        private char[] chars;
-
-        /**
-         * Constructor that creates a matcher from a String.
-         *
-         * @param str  the string to match, must not be null
-         */
-        StringMatcher(String str) {
-            super();
-            chars = str.toCharArray();
-        }
-
-        /**
-         * Returns whether or not the given text matches the stored string.
-         *
-         * @param text  the text content to match against
-         * @param textLen  the length of the text
-         * @param pos  the starting position
-         * @return the number of matching characters, zero for no match
-         */
-        public int isMatch(char[] text, int textLen, int pos) {
-            int len = chars.length;
-            if (pos + len > textLen) {
-                return 0;
-            }
-            for (int i = 0; i < chars.length; i++, pos++) {
-                if (chars[i] != text[pos]) {
-                    return 0;
-                }
-            }
-            return len;
-        }
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * Class used to match no characters.
-     */
-    static final class NoMatcher implements Matcher {
-
-        /**
-         * Constructs a new instance of <code>NoMatcher</code>.
-         */
-        NoMatcher() {
-            super();
-        }
-
-        /**
-         * Always returns <code>false</code>.
-         *
-         * @param text  the text content to match against
-         * @param textLen  the length of the text
-         * @param pos  the starting position
-         * @return the number of matching characters, zero for no match
-         */
-        public int isMatch(char[] text, int textLen, int pos) {
-            return 0;
-        }
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * Class used to match whitespace as per trim().
-     */
-    static final class TrimMatcher implements Matcher {
-
-        /**
-         * Constructs a new instance of <code>TrimMatcher</code>.
-         */
-        TrimMatcher() {
-            super();
-        }
-
-        /**
-         * Returns whether or not the given charatcer matches.
-         *
-         * @param text  the text content to match against
-         * @param textLen  the length of the text
-         * @param pos  the starting position
-         * @return the number of matching characters, zero for no match
-         */
-        public int isMatch(char[] text, int textLen, int pos) {
-            return text[pos] <= 32 ? 1 : 0;
         }
     }
 
