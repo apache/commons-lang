@@ -15,7 +15,6 @@
  */
 package org.apache.commons.lang.text;
 
-import java.io.CharArrayReader;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.Collection;
@@ -44,6 +43,14 @@ import org.apache.commons.lang.SystemUtils;
  *   <li>leftString/rightString/midString - substring without exceptions</li>
  *   <li>contains - whether the builder contains a char or string</li>
  *   <li>size/clear/isEmpty - collections style API methods</li>
+ *  </ul>
+ * </li>
+ * </ul>
+ * <li>Views
+ *  <ul>
+ *   <li>asTokenizer - uses the internal buffer as the source of a StrTokenizer</li>
+ *   <li>asReader - uses the internal buffer as the source of a Reader</li>
+ *   <li>asWriter - allows a Writer to write directly to the internal buffer</li>
  *  </ul>
  * </li>
  * </ul>
@@ -1907,20 +1914,43 @@ public class StrBuilder implements Cloneable {
 
     //-----------------------------------------------------------------------
     /**
+     * Creates a tokenizer using the current contents of this builder.
+     * <p>
+     * This method allows the contents of the builder to be tokenized.
+     * The tokenizer will be setup to tokenize on space, tab, newline
+     * and formfeed (as per StringTokenizer). These values can be changed
+     * on the tokenizer class, before retrieving the tokens.
+     * <p>
+     * Note that the internal character array is shared between the two
+     * objects and no synchronization occurs, so you must not alter this
+     * builder in one thread while tokenizing it in another thread.
+     *
+     * @return a StrTokenizer instance
+     */
+    public StrTokenizer asTokenizer() {
+        return new StrTokenizer(buffer);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Gets the contents of this builder as a Reader.
      * <p>
      * This method allows the contents of the builder to be read
      * using any standard method that expects a Reader.
-     * The current implementation returns a CharArrayReader, but
-     * you should not rely on this.
      * <p>
-     * Note that no synchronization occurs, so you must not alter this
+     * To use, simply create a <code>StrBuilder</code>, populate it with
+     * data, call <code>asReader</code>, and then read away.
+     * <p>
+     * Note that the internal character array is shared between the two
+     * objects and no synchronization occurs, so you must not alter this
      * builder in one thread while reading it in another thread.
+     * Note also that close has no effect on the reader, and that
+     * marking is supported.
      *
      * @return a reader that reads from this builder
      */
     public Reader asReader() {
-        return new CharArrayReader(buffer, 0, size);
+        return new StrBuilderReader();
     }
 
     //-----------------------------------------------------------------------
@@ -1933,7 +1963,9 @@ public class StrBuilder implements Cloneable {
      * To use, simply create a <code>StrBuilder</code>,
      * call <code>asWriter</code>, and populate away. The data is available
      * at any time using the methods of the <code>StrBuilder</code>.
-     * Note however, that no synchronization occurs, so you must not read
+     * <p>
+     * Note that the internal character array is shared between the two
+     * objects and no synchronization occurs, so you must not alter this
      * the builder from one thread while writing in another thread.
      * Note also that close and flush have no effect on the writer.
      *
@@ -2028,6 +2060,85 @@ public class StrBuilder implements Cloneable {
     protected void validateIndex(int index) {
         if (index < 0 || index > size) {
             throw new StringIndexOutOfBoundsException(index);
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Inner class to allow StrBuilder to operate as a writer.
+     */
+    class StrBuilderReader extends Reader {
+        /** The current stream position. */
+        private int pos;
+        /** The last mark position. */
+        private int mark;
+
+        StrBuilderReader() {
+            super();
+        }
+
+        /** @inheritdoc */
+        public void close() {
+            // do nothing
+        }
+
+        /** @inheritdoc */
+        public int read() {
+            if (ready() == false) {
+                return -1;
+            }
+            return charAt(pos++);
+        }
+
+        /** @inheritdoc */
+        public int read(char b[], int off, int len) {
+            if (off < 0 || len < 0 || off > b.length ||
+                    (off + len) > b.length || (off + len) < 0) {
+                throw new IndexOutOfBoundsException();
+            }
+            if (len == 0) {
+                return 0;
+            }
+            if (pos >= size()) {
+                return -1;
+            }
+            if (pos + len > size()) {
+                len = size() - pos;
+            }
+            getChars(pos, pos + len, b, off);
+            pos += len;
+            return len;
+        }
+
+        public long skip(long n) {
+            if (pos + n > size()) {
+                n = size() - pos;
+            }
+            if (n < 0) {
+                return 0;
+            }
+            pos += n;
+            return n;
+        }
+
+        /** @inheritdoc */
+        public boolean ready() {
+            return pos < size();
+        }
+
+        /** @inheritdoc */
+        public boolean markSupported() {
+            return true;
+        }
+
+        /** @inheritdoc */
+        public void mark(int readAheadLimit) {
+            mark = pos;
+        }
+
+        /** @inheritdoc */
+        public void reset() {
+            pos = mark;
         }
     }
 
