@@ -1941,11 +1941,13 @@ public class StrBuilder implements Cloneable {
      * To use, simply create a <code>StrBuilder</code>, populate it with
      * data, call <code>asReader</code>, and then read away.
      * <p>
-     * Note that the internal character array is shared between the two
-     * objects and no synchronization occurs, so you must not alter this
-     * builder in one thread while reading it in another thread.
-     * Note also that close has no effect on the reader, and that
-     * marking is supported.
+     * The internal character array is shared between the builder and the reader.
+     * This allows you to append to the builder after creating the reader,
+     * and the changes will be picked up.
+     * Note however, that no synchronization occurs, so you must perform
+     * all operations with the builder and the reader in one thread.
+     * <p>
+     * The returned reader supports marking, and ignores the flush method.
      *
      * @return a reader that reads from this builder
      */
@@ -1964,10 +1966,13 @@ public class StrBuilder implements Cloneable {
      * call <code>asWriter</code>, and populate away. The data is available
      * at any time using the methods of the <code>StrBuilder</code>.
      * <p>
-     * Note that the internal character array is shared between the two
-     * objects and no synchronization occurs, so you must not alter this
-     * the builder from one thread while writing in another thread.
-     * Note also that close and flush have no effect on the writer.
+     * The internal character array is shared between the builder and the writer.
+     * This allows you to intermix calls that append to the builder and
+     * write using the writer and the changes will be occur correctly.
+     * Note however, that no synchronization occurs, so you must perform
+     * all operations with the builder and the writer in one thread.
+     * <p>
+     * The returned writer ignores the close and flush methods.
      *
      * @return a writer that populates this builder
      */
