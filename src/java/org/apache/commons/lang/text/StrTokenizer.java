@@ -925,7 +925,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * <p>
      * These characters are ignored when parsing the String, unless they are
      * within a quoted region.
-     * The default value is space (' ') and all char control characters (32 and less).
+     * The default value is not to ignore anything.
      *
      * @return the ignored matcher in use
      */
@@ -968,7 +968,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * Gets the trimmer character matcher.
      * <p>
      * These characters are trimmed off the beginning and ending of an unquoted string.
-     * The default value is space (' ') and all char control characters (32 and less).
+     * The default value is not to trim anything.
      *
      * @return the trimmer matcher in use
      */
