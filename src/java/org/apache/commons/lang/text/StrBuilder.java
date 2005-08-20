@@ -594,17 +594,14 @@ public class StrBuilder implements Cloneable {
 
     /**
      * Appends a char array to the string builder.
-     * Appending null has no effect.
-     * <p>
-     * Note: This method treats a null char array as an empty char array,
-     * unlike StringBuffer or String.
+     * Appending null will call {@link #appendNull()}.
      *
      * @param chars  the char array to append
      * @return this, to enable chaining
      */
     public StrBuilder append(char[] chars) {
         if (chars == null) {
-            return this;
+            return appendNull();
         }
         int strLen = chars.length;
         if (strLen > 0) {
@@ -618,10 +615,7 @@ public class StrBuilder implements Cloneable {
 
     /**
      * Appends a char array to the string builder.
-     * Appending null has no effect.
-     * <p>
-     * Note: This method treats a null char array as an empty char array,
-     * unlike StringBuffer or String.
+     * Appending null will call {@link #appendNull()}.
      *
      * @param chars  the char array to append
      * @param startIndex  the start index, inclusive, must be valid
@@ -630,7 +624,7 @@ public class StrBuilder implements Cloneable {
      */
     public StrBuilder append(char[] chars, int startIndex, int length) {
         if (chars == null) {
-            return this;
+            return appendNull();
         }
         if (startIndex < 0 || startIndex > chars.length) {
             throw new StringIndexOutOfBoundsException("Invalid startIndex: " + length);
@@ -945,10 +939,7 @@ public class StrBuilder implements Cloneable {
 
     /**
      * Inserts the character array into this builder.
-     * Inserting null has no effect.
-     * <p>
-     * Note: This method treats a null char array as an empty char array,
-     * unlike StringBuffer or String.
+     * Inserting null will use the stored null text value.
      *
      * @param index  the index to add at, must be valid
      * @param chars  the char array to insert
@@ -958,7 +949,7 @@ public class StrBuilder implements Cloneable {
     public StrBuilder insert(int index, char chars[]) {
         validateIndex(index);
         if (chars == null) {
-            return this;
+            return insert(index, nullText);
         }
         int len = chars.length;
         if (len > 0) {
@@ -972,10 +963,7 @@ public class StrBuilder implements Cloneable {
 
     /**
      * Inserts part of the character array into this builder.
-     * Inserting null has no effect.
-     * <p>
-     * Note: This method treats a null char array as an empty char array,
-     * unlike StringBuffer or String.
+     * Inserting null will use the stored null text value.
      *
      * @param index  the index to add at, must be valid
      * @param chars  the char array to insert
@@ -987,7 +975,7 @@ public class StrBuilder implements Cloneable {
     public StrBuilder insert(int index, char chars[], int offset, int length) {
         validateIndex(index);
         if (chars == null) {
-            return this;
+            return insert(index, nullText);
         }
         if (offset < 0 || offset > chars.length) {
             throw new StringIndexOutOfBoundsException("Invalid offset: " + offset);
