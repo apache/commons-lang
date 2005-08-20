@@ -349,6 +349,24 @@ public class StrTokenizerTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testChaining() {
+        StrTokenizer tok = new StrTokenizer();
+        assertEquals(tok, tok.reset());
+        assertEquals(tok, tok.reset(""));
+        assertEquals(tok, tok.reset(new char[0]));
+        assertEquals(tok, tok.setDelimiterChar(' '));
+        assertEquals(tok, tok.setDelimiterString(" "));
+        assertEquals(tok, tok.setDelimiterMatcher(null));
+        assertEquals(tok, tok.setQuoteChar(' '));
+        assertEquals(tok, tok.setQuoteMatcher(null));
+        assertEquals(tok, tok.setIgnoredChar(' '));
+        assertEquals(tok, tok.setIgnoredMatcher(null));
+        assertEquals(tok, tok.setTrimmerMatcher(null));
+        assertEquals(tok, tok.setEmptyTokenAsNull(false));
+        assertEquals(tok, tok.setIgnoreEmptyTokens(false));
+    }
+
+    //-----------------------------------------------------------------------
     public void testConstructor_String() {
         StrTokenizer tok = new StrTokenizer("a b");
         assertEquals("a", tok.next());

@@ -450,10 +450,13 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * Resets this tokenizer, forgetting all parsing and iteration already completed.
      * <p>
      * This method allows the same tokenizer to be reused for the same String.
+     *
+     * @return this, to enable chaining
      */
-    public void reset() {
+    public StrTokenizer reset() {
         tokenPos = 0;
         tokens = null;
+        return this;
     }
 
     /**
@@ -462,8 +465,9 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * on multiple input lines.
      *
      * @param input  the new string to tokenize, null sets no text to parse
+     * @return this, to enable chaining
      */
-    public void reset(String input) {
+    public StrTokenizer reset(String input) {
         reset();
         text = input;
         if (input != null) {
@@ -471,6 +475,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
         } else {
             chars = null;
         }
+        return this;
     }
 
     /**
@@ -482,11 +487,13 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * passing in to this method.
      *
      * @param input  the new character array to tokenize, not cloned, null sets no text to parse
+     * @return this, to enable chaining
      */
-    public void reset(char[] input) {
+    public StrTokenizer reset(char[] input) {
         reset();
         text = null;
         chars = input;
+        return this;
     }
 
     // ListIterator
@@ -836,31 +843,35 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * The delimitier is used to separate one token from another.
      *
      * @param delim  the delimiter matcher to use
+     * @return this, to enable chaining
      */
-    public void setDelimiterMatcher(StrMatcher delim) {
+    public StrTokenizer setDelimiterMatcher(StrMatcher delim) {
         if (delim == null) {
             this.delim = StrMatcher.noneMatcher();
         } else {
             this.delim = delim;
         }
+        return this;
     }
 
     /**
      * Sets the field delimiter character.
      *
      * @param delim  the delimiter character to use
+     * @return this, to enable chaining
      */
-    public void setDelimiterChar(char delim) {
-        setDelimiterMatcher(StrMatcher.charMatcher(delim));
+    public StrTokenizer setDelimiterChar(char delim) {
+        return setDelimiterMatcher(StrMatcher.charMatcher(delim));
     }
 
     /**
      * Sets the field delimiter string.
      *
      * @param delim  the delimiter string to use
+     * @return this, to enable chaining
      */
-    public void setDelimiterString(String delim) {
-        setDelimiterMatcher(StrMatcher.stringMatcher(delim));
+    public StrTokenizer setDelimiterString(String delim) {
+        return setDelimiterMatcher(StrMatcher.stringMatcher(delim));
     }
 
     // Quote
@@ -885,11 +896,13 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * This enables delimiters to be entered as data.
      *
      * @param quote  the quote matcher to use, null ignored
+     * @return this, to enable chaining
      */
-    public void setQuoteMatcher(StrMatcher quote) {
+    public StrTokenizer setQuoteMatcher(StrMatcher quote) {
         if (quote != null) {
             this.quote = quote;
         }
+        return this;
     }
 
     /**
@@ -899,9 +912,10 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * This enables delimiters to be entered as data.
      *
      * @param quote  the quote character to use
+     * @return this, to enable chaining
      */
-    public void setQuoteChar(char quote) {
-        setQuoteMatcher(StrMatcher.charMatcher(quote));
+    public StrTokenizer setQuoteChar(char quote) {
+        return setQuoteMatcher(StrMatcher.charMatcher(quote));
     }
 
     // Ignored
@@ -926,11 +940,13 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * within a quoted region.
      *
      * @param ignored  the ignored matcher to use, null ignored
+     * @return this, to enable chaining
      */
-    public void setIgnoredMatcher(StrMatcher ignored) {
+    public StrTokenizer setIgnoredMatcher(StrMatcher ignored) {
         if (ignored != null) {
             this.ignored = ignored;
         }
+        return this;
     }
 
     /**
@@ -940,9 +956,10 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * within a quoted region.
      *
      * @param ignored  the ignored character to use
+     * @return this, to enable chaining
      */
-    public void setIgnoredChar(char ignored) {
-        setIgnoredMatcher(StrMatcher.charMatcher(ignored));
+    public StrTokenizer setIgnoredChar(char ignored) {
+        return setIgnoredMatcher(StrMatcher.charMatcher(ignored));
     }
 
     // Trimmer
@@ -964,11 +981,13 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * unquoted string.
      *
      * @param trimmer  the trimmer matcher to use, null ignored
+     * @return this, to enable chaining
      */
-    public void setTrimmerMatcher(StrMatcher trimmer) {
+    public StrTokenizer setTrimmerMatcher(StrMatcher trimmer) {
         if (trimmer != null) {
             this.trimmer = trimmer;
         }
+        return this;
     }
 
     //-----------------------------------------------------------------------
@@ -987,9 +1006,11 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * The default for this property is false.
      *
      * @param emptyAsNull  whether empty tokens are returned as null
+     * @return this, to enable chaining
      */
-    public void setEmptyTokenAsNull(boolean emptyAsNull) {
+    public StrTokenizer setEmptyTokenAsNull(boolean emptyAsNull) {
         this.emptyAsNull = emptyAsNull;
+        return this;
     }
 
     //-----------------------------------------------------------------------
@@ -1008,9 +1029,11 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * The default for this property is false.
      *
      * @param ignoreEmptyTokens  whether empty tokens are not returned
+     * @return this, to enable chaining
      */
-    public void setIgnoreEmptyTokens(boolean ignoreEmptyTokens) {
+    public StrTokenizer setIgnoreEmptyTokens(boolean ignoreEmptyTokens) {
         this.ignoreEmptyTokens = ignoreEmptyTokens;
+        return this;
     }
 
     //-----------------------------------------------------------------------
@@ -1035,7 +1058,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
     public Object clone() {
         try {
             StrTokenizer cloned = (StrTokenizer) super.clone();
-            // chars[] does not need additional clone as it is treated as immutable
+            cloned.chars = (char[]) cloned.chars;
             cloned.reset();
             return cloned;
 
