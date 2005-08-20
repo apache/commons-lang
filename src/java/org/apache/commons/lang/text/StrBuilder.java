@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.SystemUtils;
 
 /**
  * Builds a string from consituant parts providing a more flexible and powerful API
@@ -71,6 +72,8 @@ public class StrBuilder implements Cloneable {
     protected char[] buffer;
     /** Current size of the buffer. */
     protected int size;
+    /** The new line. */
+    private String newLine;
     /** The null text. */
     private String nullText;
 
@@ -113,6 +116,27 @@ public class StrBuilder implements Cloneable {
 
     //-----------------------------------------------------------------------
     /**
+     * Gets the text to be appended when a new line is added.
+     *
+     * @return the new line text, null means use system default
+     */
+    public String getNewLineText() {
+        return newLine;
+    }
+
+    /**
+     * Sets the text to be appended when a new line is added.
+     *
+     * @param newLine  the new line text, null means use system default
+     * @return this, to enable chaining
+     */
+    public StrBuilder setNewLineText(String newLine) {
+        this.newLine = newLine;
+        return this;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Gets the text to be appended when null is added.
      *
      * @return the null text, null means no append
@@ -124,14 +148,14 @@ public class StrBuilder implements Cloneable {
     /**
      * Sets the text to be appended when null is added.
      *
-     * @param str  the null text, null means no append
+     * @param nullText  the null text, null means no append
      * @return this, to enable chaining
      */
-    public StrBuilder setNullText(String str) {
-        if (str != null && str.length() == 0) {
-            str = null;
+    public StrBuilder setNullText(String nullText) {
+        if (nullText != null && nullText.length() == 0) {
+            nullText = null;
         }
-        nullText = str;
+        this.nullText = nullText;
         return this;
     }
 
@@ -378,6 +402,23 @@ public class StrBuilder implements Cloneable {
     }
 
     //-----------------------------------------------------------------------
+    /**
+     * Appends the new line string to this string builder.
+     * <p>
+     * The new line string can be altered using {@link #setNewLineText(String)}.
+     * This might be used to force the output to always use Unix line endings
+     * even when on Windows.
+     *
+     * @return this, to enable chaining
+     */
+    public StrBuilder appendNewLine() {
+        if (newLine == null)  {
+            append(SystemUtils.LINE_SEPARATOR);
+            return this;
+        }
+        return append(newLine);
+    }
+
     /**
      * Appends the text representing <code>null</code> to this string builder.
      *
