@@ -18,6 +18,7 @@ package org.apache.commons.lang.text;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 import org.apache.commons.lang.ArrayUtils;
 
@@ -33,15 +34,21 @@ import org.apache.commons.lang.ArrayUtils;
  * Each token is separated from the next String by a <i>delimiter</i>.
  * One or more delimiter characters must be specified.
  * <p>
- * The processing then strips all the <i>ignored</i> characters from then entire string (this
- * is useful for removing things like carriage returns, and so forth)
+ * Each token may be surrounded by quotes.
+ * The <i>quote</i> matcher specifies the quote character(s).
+ * A quote may be escaped within a quoted section by duplicating itself.
  * <p>
- * The processing then strips all the <i>trimmer</i> characters from the ends of the string.
+ * Between each token and the delimiter are potentially characters that need trimming.
+ * The <i>trimmer</i> matcher specifies these characters.
+ * One usage might be to trim whitespace characters.
  * <p>
- * The token may also have <i>quotes</i> to mark an area not to be stripped or tokenized.
+ * At any point outside the quotes there might potentially be invalid characters.
+ * The <i>ignored</i> matcher specifies these characters to be removed.
+ * One usage might be to remove new line characters.
+ * <p>
  * Empty tokens may be removed or returned as null.
  * <pre>
- * "a,b,c"       - Three tokens "a","b","c"   (comma delimiter)
+ * "a,b,c"         - Three tokens "a","b","c"   (comma delimiter)
  * " a, b , c "    - Three tokens "a","b","c"   (default CSV processing trims whitespace)
  * "a, ", b ,", c" - Three tokens "a, " , " b ", ", c" (quoted text untouched)
  * </pre>
@@ -514,7 +521,10 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return the next String token
      */
     public Object next() {
-        return nextToken();
+        if (hasNext()) {
+            return tokens[tokenPos++];
+        }
+        throw new NoSuchElementException();
     }
 
     /**
@@ -542,7 +552,10 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return the previous token
      */
     public Object previous() {
-        return previousToken();
+        if (hasPrevious()) {
+            return tokens[--tokenPos];
+        }
+        throw new NoSuchElementException();
     }
 
     /**
@@ -602,35 +615,23 @@ public class StrTokenizer implements ListIterator, Cloneable {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
         int len = chars.length;
-        char cbuf[] = new char[len];
-        StringBuffer token = new StringBuffer();
-        int start = 0;
+        if (len == 0) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        StrBuilder buf = new StrBuilder();
         List tokens = new ArrayList();
-        String tok = null;
-
-        // Keep going until we run out of characters
-        while (start < len) {
-            // read the next token
-            start = readNextToken(start, cbuf, token);
-            tok = token.toString();
-
-            // Add the token, following the rules
-            // in this object
-            addToken(tokens, tok);
-
-            // Reset the string buffer to zero length
-            token.setLength(0);
-
-            // Handle the special case where the very last
-            // character is a delimiter, in which case, we
-            // need another empty string
-            if (start == len && delim.isMatch(chars, start - 1, 0, len) == 1) {
-                // Add the token, following the rules
-                // in this object
+        int start = 0;
+        
+        // loop around the entire buffer
+        while (start >= 0 && start < len) {
+            // find next token
+            start = readNextToken(chars, start, len, buf, tokens);
+            
+            // handle case where end of string is a delimiter
+            if (start >= len) {
                 addToken(tokens, "");
             }
         }
-
         return (String[]) tokens.toArray(new String[tokens.size()]);
     }
 
@@ -655,175 +656,168 @@ public class StrTokenizer implements ListIterator, Cloneable {
     /**
      * Reads character by character through the String to get the next token.
      *
+     * @param chars  the character array being tokenized
      * @param start  the first character of field
-     * @param cbuf  a character buffer for temporary computations (so we
-     *  don't have to keep recreating one)
-     * @param token  a StringBuffer where the output token will go
+     * @param len  the length of the character array being tokenized
+     * @param workArea  a temporary work area
+     * @param tokens  the list of parsed tokens
+     * @return the starting position of the next field (the character
+     *  immediately after the delimiter), or -1 if end of string found
+     */
+    private int readNextToken(char[] chars, int start, int len, StrBuilder workArea, List tokens) {
+        // skip all leading whitespace, unless it is the
+        // field delimiter or the quote character
+        while (start < len) {
+            int removeLen = Math.max(
+                    ignored.isMatch(chars, start, start, len),
+                    trimmer.isMatch(chars, start, start, len));
+            if (removeLen == 0 ||
+                delim.isMatch(chars, start, start, len) > 0 ||
+                quote.isMatch(chars, start, start, len) > 0) {
+                break;
+            }
+            start += removeLen;
+        }
+        
+        // handle reaching end
+        if (start >= len) {
+            addToken(tokens, "");
+            return -1;
+        }
+        
+        // handle empty token
+        int delimLen = delim.isMatch(chars, start, start, len);
+        if (delimLen > 0) {
+            addToken(tokens, "");
+            return start + delimLen;
+        }
+        
+        // handle found token
+        int quoteLen = quote.isMatch(chars, start, start, len);
+        if (quoteLen > 0) {
+            return readWithQuotes(chars, start + quoteLen, len, workArea, tokens, start, quoteLen);
+        }
+        return readWithQuotes(chars, start, len, workArea, tokens, 0, 0);
+    }
+
+    /**
+     * Reads a possibly quoted string token.
+     *
+     * @param chars  the character array being tokenized
+     * @param start  the first character of field
+     * @param len  the length of the character array being tokenized
+     * @param workArea  a temporary work area
+     * @param tokens  the list of parsed tokens
+     * @param quoteStart  the start position of the matched quote, 0 if no quoting
+     * @param quoteLen  the length of the matched quote, 0 if no quoting
      * @return the starting position of the next field (the character
      *  immediately after the delimiter, or if end of string found,
      *  then the length of string
      */
-    private int readNextToken(int start, char cbuf[], StringBuffer token) {
-        token.setLength(0);
-        int len = chars.length;
-
-        // Skip all leading whitespace, unless it is the
-        // field delimiter or the quote character
-        int ignoreLen = 0;
-        int delimLen = 0;
-        int quoteLen = 0;
-        while (start < len &&
-                (ignoreLen = ignored.isMatch(chars, start, 0, len)) >= 1 &&
-                (delimLen = delim.isMatch(chars, start, 0, len)) < 1 &&
-                (quoteLen = quote.isMatch(chars, start, 0, len)) < 1) {
-            start += ignoreLen;
-        }
-
-        if (start >= len) {
-            return start;
-        } else {
-            // lengths not setup
-            if ((delimLen = delim.isMatch(chars, start, 0, len)) >= 1) {
-                start += delimLen;
-            } else if ((quoteLen = quote.isMatch(chars, start, 0, len)) >= 1) {
-                start = readQuoted(start + quoteLen, cbuf, token);
-            } else {
-                start = readUnquoted(start, token);
-            }
-        }
-//
-//            // lengths not setup
-//            if ((delimLen = delim.isMatch(chars, start)) >= 1) {
-//                start += delimLen;
-//            } else if ((quoteLen = quote.isMatch(chars, start)) >= 1) {
-//                start = readQuoted(start + quoteLen, cbuf, token);
-//            } else {
-//                start = readUnquoted(start, token);
-//            }
-//        } else {
-//            if (delimLen > 0) {
-//                start += delimLen;
-//            } else if (quoteLen >= 1) {
-//                start = readQuoted(start + quoteLen, cbuf, token);
-//            } else {
-//                start = readUnquoted(start, token);
-//            }
-//        }
-
-        return start;
-    }
-
-    /**
-     * Reads a quoted string token.
-     *
-     * @param start The first character of field, immediately after any quote
-     * @param cbuf A character buffer for temporary computations (so we
-     *             don't have to keep recreating one)
-     * @param token A StringBuffer where the output token will go.
-     * @return The starting position of the next field (the character
-     *         immediately after the delimiter, or if end of string found,
-     *         then the length of string.
-     */
-    private int readQuoted(int start, char cbuf[], StringBuffer token) {
+    private int readWithQuotes(char[] chars, int start, int len, StrBuilder workArea, List tokens, int quoteStart, int quoteLen) {
         // Loop until we've found the end of the quoted
         // string or the end of the input
-        int cbufcnt = 0;
+        workArea.clear();
         int pos = start;
-        boolean done = false;
-        boolean quoting = true;
-        int len = chars.length;
-        int delimLen = 0;
-        int quoteLen = 0;
-
-        while (pos < len && !done) {
-            // Quoting mode can occur several times throughout
-            // a given string, so must switch between quoting
-            // and non-quoting until we encounter a non-quoted
-            // delimiter, or end of string, which indicates end
-            // of token.
+        boolean quoting = (quoteLen > 0);
+        int trimStart = 0;
+        
+        while (pos < len) {
+            // quoting mode can occur several times throughout a string
+            // we must switch between quoting and non-quoting until we
+            // encounter a non-quoted delimiter, or end of string
             if (quoting) {
+                // In quoting mode
+                
                 // If we've found a quote character, see if it's
                 // followed by a second quote.  If so, then we need
                 // to actually put the quote character into the token
                 // rather than end the token.
-                if ((quoteLen = quote.isMatch(chars, pos, 0, len)) >= 1) {
-                    if (pos + 1 < len && chars[pos + 1] == chars[pos]) {
-                        cbuf[cbufcnt++] = chars[pos];
-                        pos += 2;
-                    } else {
-                        // End the quoting if we get to this condition
-                        quoting = false;
-                        pos += quoteLen;
+                if (isQuote(chars, pos, len, quoteStart, quoteLen)) {
+                    if (isQuote(chars, pos + quoteLen, len, quoteStart, quoteLen)) {
+                        // matched pair of quotes, thus an escaped quote
+                        workArea.append(chars, pos, quoteLen);
+                        pos += (quoteLen * 2);
+                        trimStart = workArea.size();
+                        continue;
                     }
-                } else {
-                    // Otherwise, just put the character into the token
-                    cbuf[cbufcnt++] = chars[pos];
-                    pos++;
+                    
+                    // end of quoting
+                    quoting = false;
+                    pos += quoteLen;
+                    continue;
                 }
-            }
-            // If we're not in quoting mode, if we encounter
-            // a delimiter, the token is ended.  If we encounter
-            // a quote, we start quoting mode, otherwise, just append
-            // the character
-            else {
-                // If we're
-                if ((delimLen = delim.isMatch(chars, pos, 0, len)) >= 1) {
-                    done = true;
-                } else {
-                    if ((quoteLen = quote.isMatch(chars, pos, 0, len)) >= 1) {
+                
+                // copy regular character from inside quotes
+                workArea.append(chars[pos++]);
+                trimStart = workArea.size();
+                
+            } else {
+                // Not in quoting mode
+                
+                // check for delimiter, and thus end of token
+                int delimLen = delim.isMatch(chars, pos, start, len);
+                if (delimLen > 0) {
+                    // return condition when end of token found
+                    addToken(tokens, workArea.substring(0, trimStart));
+                    return pos + delimLen;
+                }
+                
+                // check for quote, and thus back into quoting mode
+                if (quoteLen > 0) {
+                    if (isQuote(chars, pos, len, quoteStart, quoteLen)) {
                         quoting = true;
                         pos += quoteLen;
-                    } else {
-                        cbuf[cbufcnt++] = chars[pos];
-                        pos++;
+                        continue;
                     }
                 }
+                
+                // check for ignored (outside quotes), and ignore
+                int ignoredLen = ignored.isMatch(chars, pos, start, len);
+                if (ignoredLen > 0) {
+                    pos += ignoredLen;
+                    continue;
+                }
+                
+                // check for trimmed character
+                // don't yet know if its at the end, so copy to workArea
+                // use trimStart to keep track of trim at the end
+                int trimmedLen = trimmer.isMatch(chars, pos, start, len);
+                if (trimmedLen > 0) {
+                    workArea.append(chars, pos, trimmedLen);
+                    pos += trimmedLen;
+                    continue;
+                }
+                
+                // copy regular character from outside quotes
+                workArea.append(chars[pos++]);
+                trimStart = workArea.size();
             }
         }
-
-        token.append(cbuf, 0, cbufcnt);
-
-        return pos + delimLen;
+        
+        // return condition when end of string found
+        addToken(tokens, workArea.substring(0, trimStart));
+        return -1;
     }
 
     /**
-     * Read an unquoted string until a delimiter is found.
+     * Checks if the characters at the index specified match the quote
+     * already matched in readNextToken().
      *
-     * @param start  the first character of field
-     * @param token  a StringBuffer where the output token will go.
-     * @return  the starting position of the next field (the character
-     *  immediately after the delimiter, or if end of string found,
-     *  then the length of string.
+     * @param chars  the character array being tokenized
+     * @param pos  the position to check for a quote
+     * @param len  the length of the character array being tokenized
+     * @param quoteStart  the start position of the matched quote, 0 if no quoting
+     * @param quoteLen  the length of the matched quote, 0 if no quoting
+     * @return true if a quote is matched
      */
-    private int readUnquoted(int start, StringBuffer token) {
-        // Find delimiter or end of string
-        char[] chars = this.chars;
-        int len = chars.length;
-        int pos = start;
-        int delimLen = 0;
-        while (pos < len && (delimLen = delim.isMatch(chars, pos, 0, len)) < 1) {
-            pos++;
-        }
-
-        /* Trim string based on the trimmer matcher */
-        while (trimmer.isMatch(chars, start, 0, len) > 0) {
-            start++;
-        }
-
-        int length = Math.min(pos, len) - start;
-
-        while (trimmer.isMatch(chars, start + length - 1, 0, len) > 0) {
-            length--;
-        }
-
-        for (int i=0;i<length;i++) {
-            if (ignored.isMatch(chars, start + i, 0, len) == 0) {
-                token.append(chars[start + i]);
+    private boolean isQuote(char[] chars, int pos, int len, int quoteStart, int quoteLen) {
+        for (int i = 0; i < quoteLen; i++) {
+            if ((pos + i) >= len || chars[pos + i] != chars[quoteStart + i]) {
+                return false;
             }
         }
-
-
-        return pos + delimLen;
+        return true;
     }
 
     // Delimiter
@@ -967,7 +961,8 @@ public class StrTokenizer implements ListIterator, Cloneable {
     /**
      * Gets the trimmer character matcher.
      * <p>
-     * These characters are trimmed off the beginning and ending of an unquoted string.
+     * These characters are trimmed off on each side of the delimiter
+     * until the token or quote is found.
      * The default value is not to trim anything.
      *
      * @return the trimmer matcher in use
@@ -977,8 +972,10 @@ public class StrTokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Set the matcher for characters to trim off the beginning and end of an
-     * unquoted string.
+     * Sets the matcher for characters to trim.
+     * <p>
+     * These characters are trimmed off on each side of the delimiter
+     * until the token or quote is found.
      *
      * @param trimmer  the trimmer matcher to use, null ignored
      * @return this, to enable chaining
@@ -1058,7 +1055,9 @@ public class StrTokenizer implements ListIterator, Cloneable {
     public Object clone() {
         try {
             StrTokenizer cloned = (StrTokenizer) super.clone();
-            cloned.chars = (char[]) cloned.chars;
+            if (cloned.chars != null) {
+                cloned.chars = (char[]) cloned.chars;
+            }
             cloned.reset();
             return cloned;
 
