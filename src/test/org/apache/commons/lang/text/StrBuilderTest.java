@@ -111,6 +111,7 @@ public class StrBuilderTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testChaining() {
         StrBuilder sb = new StrBuilder();
+        assertSame(sb, sb.setNewLineText(null));
         assertSame(sb, sb.setNullText(null));
         assertSame(sb, sb.setLength(1));
         assertSame(sb, sb.setCharAt(0, 'a'));
@@ -118,6 +119,39 @@ public class StrBuilderTest extends TestCase {
         assertSame(sb, sb.minimizeCapacity());
         assertSame(sb, sb.clear());
         assertSame(sb, sb.reverse());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testGetSetNewLineText() {
+        StrBuilder sb = new StrBuilder();
+        assertEquals(null, sb.getNewLineText());
+
+        sb.setNewLineText("#");
+        assertEquals("#", sb.getNewLineText());
+
+        sb.setNewLineText("");
+        assertEquals("", sb.getNewLineText());
+
+        sb.setNewLineText((String) null);
+        assertEquals(null, sb.getNewLineText());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testGetSetNullText() {
+        StrBuilder sb = new StrBuilder();
+        assertEquals(null, sb.getNullText());
+
+        sb.setNullText("null");
+        assertEquals("null", sb.getNullText());
+
+        sb.setNullText("");
+        assertEquals(null, sb.getNullText());
+
+        sb.setNullText("NULL");
+        assertEquals("NULL", sb.getNullText());
+
+        sb.setNullText((String) null);
+        assertEquals(null, sb.getNullText());
     }
 
     //-----------------------------------------------------------------------
@@ -478,24 +512,6 @@ public class StrBuilderTest extends TestCase {
         }
         catch (IndexOutOfBoundsException e) {
         }
-    }
-
-    //-----------------------------------------------------------------------
-    public void testNullText() {
-        StrBuilder sb = new StrBuilder();
-        assertEquals(null, sb.getNullText());
-
-        sb.setNullText("null");
-        assertEquals("null", sb.getNullText());
-
-        sb.setNullText("");
-        assertEquals(null, sb.getNullText());
-
-        sb.setNullText("NULL");
-        assertEquals("NULL", sb.getNullText());
-
-        sb.setNullText((String) null);
-        assertEquals(null, sb.getNullText());
     }
 
     //-----------------------------------------------------------------------

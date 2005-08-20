@@ -21,6 +21,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
+import org.apache.commons.lang.SystemUtils;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -67,6 +69,17 @@ public class StrBuilderAppendInsertTest extends TestCase {
      */
     public StrBuilderAppendInsertTest(String name) {
         super(name);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendNewLine() {
+        StrBuilder sb = new StrBuilder("---");
+        sb.appendNewLine().append("+++");
+        assertEquals("---" + SystemUtils.LINE_SEPARATOR + "+++", sb.toString());
+        
+        sb = new StrBuilder("---");
+        sb.setNewLineText("#").appendNewLine().setNewLineText(null).appendNewLine();
+        assertEquals("---#" + SystemUtils.LINE_SEPARATOR, sb.toString());
     }
 
     //-----------------------------------------------------------------------
