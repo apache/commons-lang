@@ -1485,19 +1485,78 @@ public class StrBuilderTest extends TestCase {
 
     // -----------------------------------------------------------------------
     public void testAsReader() throws Exception {
-        StrBuilder sb = new StrBuilder ("some text");
+        StrBuilder sb = new StrBuilder("some text");
         Reader reader = sb.asReader();
+        assertEquals(true, reader.ready());
         char[] buf = new char[40];
         assertEquals(9, reader.read(buf));
         assertEquals("some text", new String(buf, 0, 9));
         
-        buf = new char[40];
-        assertEquals(-1, reader.read(buf));
+        assertEquals(-1, reader.read());
+        assertEquals(false, reader.ready());
+        assertEquals(0, reader.skip(2));
+        assertEquals(0, reader.skip(-1));
+        
+        assertEquals(true, reader.markSupported());
+        reader = sb.asReader();
+        assertEquals('s', reader.read());
+        reader.mark(-1);
+        char[] array = new char[3];
+        assertEquals(3, reader.read(array, 0, 3));
+        assertEquals('o', array[0]);
+        assertEquals('m', array[1]);
+        assertEquals('e', array[2]);
+        reader.reset();
+        assertEquals(1, reader.read(array, 1, 1));
+        assertEquals('o', array[0]);
+        assertEquals('o', array[1]);
+        assertEquals('e', array[2]);
+        assertEquals(2, reader.skip(2));
+        assertEquals(' ', reader.read());
+        
+        assertEquals(true, reader.ready());
+        reader.close();
+        assertEquals(true, reader.ready());
+        
+        reader = sb.asReader();
+        array = new char[3];
+        try {
+            reader.read(array, -1, 0);
+            fail();
+        } catch (IndexOutOfBoundsException ex) {}
+        try {
+            reader.read(array, 0, -1);
+            fail();
+        } catch (IndexOutOfBoundsException ex) {}
+        try {
+            reader.read(array, 100, 1);
+            fail();
+        } catch (IndexOutOfBoundsException ex) {}
+        try {
+            reader.read(array, 0, 100);
+            fail();
+        } catch (IndexOutOfBoundsException ex) {}
+        try {
+            reader.read(array, Integer.MAX_VALUE, Integer.MAX_VALUE);
+            fail();
+        } catch (IndexOutOfBoundsException ex) {}
+        
+        assertEquals(0, reader.read(array, 0, 0));
+        assertEquals(0, array[0]);
+        assertEquals(0, array[1]);
+        assertEquals(0, array[2]);
+        
+        reader.skip(9);
+        assertEquals(-1, reader.read(array, 0, 1));
+        
+        reader.reset();
+        array = new char[30];
+        assertEquals(9, reader.read(array, 0, 30));
     }
 
     //-----------------------------------------------------------------------
     public void testAsWriter() throws Exception {
-        StrBuilder sb = new StrBuilder ("base");
+        StrBuilder sb = new StrBuilder("base");
         Writer writer = sb.asWriter();
         
         writer.write('l');
