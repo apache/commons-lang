@@ -138,11 +138,11 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppend_String() {
         StrBuilder sb = new StrBuilder();
+        sb.setNullText("NULL").append((String) null);
+        assertEquals("NULL", sb.toString());
 
+        sb = new StrBuilder();
         sb.append("foo");
-        assertEquals("foo", sb.toString());
-
-        sb.append((String) null);
         assertEquals("foo", sb.toString());
 
         sb.append("");
@@ -155,11 +155,11 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppend_String_int_int() {
         StrBuilder sb = new StrBuilder();
-        
-        sb.append("foo", 0, 3);
-        assertEquals("foo", sb.toString());
+        sb.setNullText("NULL").append((String) null, 0, 1);
+        assertEquals("NULL", sb.toString());
 
-        sb.append((String) null, 0, 1);
+        sb = new StrBuilder();
+        sb.append("foo", 0, 3);
         assertEquals("foo", sb.toString());
 
         try {
@@ -214,11 +214,11 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppend_StringBuffer() {
         StrBuilder sb = new StrBuilder();
+        sb.setNullText("NULL").append((StringBuffer) null);
+        assertEquals("NULL", sb.toString());
 
+        sb = new StrBuilder();
         sb.append(new StringBuffer("foo"));
-        assertEquals("foo", sb.toString());
-
-        sb.append((StringBuffer) null);
         assertEquals("foo", sb.toString());
 
         sb.append(new StringBuffer(""));
@@ -231,11 +231,11 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppend_StringBuffer_int_int() {
         StrBuilder sb = new StrBuilder();
-        
-        sb.append(new StringBuffer("foo"), 0, 3);
-        assertEquals("foo", sb.toString());
+        sb.setNullText("NULL").append((StringBuffer) null, 0, 1);
+        assertEquals("NULL", sb.toString());
 
-        sb.append((StringBuffer) null, 0, 1);
+        sb = new StrBuilder();
+        sb.append(new StringBuffer("foo"), 0, 3);
         assertEquals("foo", sb.toString());
 
         try {
@@ -290,11 +290,11 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppend_StrBuilder() {
         StrBuilder sb = new StrBuilder();
+        sb.setNullText("NULL").append((StrBuilder) null);
+        assertEquals("NULL", sb.toString());
 
+        sb = new StrBuilder();
         sb.append(new StrBuilder("foo"));
-        assertEquals("foo", sb.toString());
-
-        sb.append((StrBuilder) null);
         assertEquals("foo", sb.toString());
 
         sb.append(new StrBuilder(""));
@@ -307,11 +307,11 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppend_StrBuilder_int_int() {
         StrBuilder sb = new StrBuilder();
-        
-        sb.append(new StrBuilder("foo"), 0, 3);
-        assertEquals("foo", sb.toString());
+        sb.setNullText("NULL").append((StrBuilder) null, 0, 1);
+        assertEquals("NULL", sb.toString());
 
-        sb.append((StrBuilder) null, 0, 1);
+        sb = new StrBuilder();
+        sb.append(new StrBuilder("foo"), 0, 3);
         assertEquals("foo", sb.toString());
 
         try {
@@ -366,10 +366,10 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppend_CharArray() {
         StrBuilder sb = new StrBuilder();
-        
-        sb.append((char[]) null);
-        assertEquals("", sb.toString());
+        sb.setNullText("NULL").append((char[]) null);
+        assertEquals("NULL", sb.toString());
 
+        sb = new StrBuilder();
         sb.append(new char[0]);
         assertEquals("", sb.toString());
 
@@ -380,11 +380,11 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppend_CharArray_int_int() {
         StrBuilder sb = new StrBuilder();
-        
-        sb.append(new char[]{'f', 'o', 'o'}, 0, 3);
-        assertEquals("foo", sb.toString());
+        sb.setNullText("NULL").append((char[]) null, 0, 1);
+        assertEquals("NULL", sb.toString());
 
-        sb.append((char[]) null, 0, 1);
+        sb = new StrBuilder();
+        sb.append(new char[]{'f', 'o', 'o'}, 0, 3);
         assertEquals("foo", sb.toString());
 
         try {
@@ -1025,6 +1025,12 @@ public class StrBuilderAppendInsertTest extends TestCase {
 
         sb.insert(0, "foo");
         assertEquals("foonullbarbaz", sb.toString());
+
+        sb.insert(0, (char[]) null);
+        assertEquals("nullfoonullbarbaz", sb.toString());
+
+        sb.insert(0, (char[]) null, 0, 0);
+        assertEquals("nullnullfoonullbarbaz", sb.toString());
     }
 
 }
