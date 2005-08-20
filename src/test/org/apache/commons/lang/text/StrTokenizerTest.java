@@ -348,24 +348,138 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(input, tok.getContent());
     }
 
+    //-----------------------------------------------------------------------
+    public void testConstructor_String() {
+        StrTokenizer tok = new StrTokenizer("a b");
+        assertEquals("a", tok.next());
+        assertEquals("b", tok.next());
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer("");
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer((String) null);
+        assertEquals(false, tok.hasNext());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testConstructor_String_char() {
+        StrTokenizer tok = new StrTokenizer("a b", ' ');
+        assertEquals(1, tok.getDelimiterMatcher().isMatch(" ".toCharArray(), 0, 0, 1));
+        assertEquals("a", tok.next());
+        assertEquals("b", tok.next());
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer("", ' ');
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer((String) null, ' ');
+        assertEquals(false, tok.hasNext());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testConstructor_String_char_char() {
+        StrTokenizer tok = new StrTokenizer("a b", ' ', '"');
+        assertEquals(1, tok.getDelimiterMatcher().isMatch(" ".toCharArray(), 0, 0, 1));
+        assertEquals(1, tok.getQuoteMatcher().isMatch("\"".toCharArray(), 0, 0, 1));
+        assertEquals("a", tok.next());
+        assertEquals("b", tok.next());
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer("", ' ', '"');
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer((String) null, ' ', '"');
+        assertEquals(false, tok.hasNext());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testConstructor_charArray() {
+        StrTokenizer tok = new StrTokenizer("a b".toCharArray());
+        assertEquals("a", tok.next());
+        assertEquals("b", tok.next());
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer(new char[0]);
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer((char[]) null);
+        assertEquals(false, tok.hasNext());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testConstructor_charArray_char() {
+        StrTokenizer tok = new StrTokenizer("a b".toCharArray(), ' ');
+        assertEquals(1, tok.getDelimiterMatcher().isMatch(" ".toCharArray(), 0, 0, 1));
+        assertEquals("a", tok.next());
+        assertEquals("b", tok.next());
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer(new char[0], ' ');
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer((char[]) null, ' ');
+        assertEquals(false, tok.hasNext());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testConstructor_charArray_char_char() {
+        StrTokenizer tok = new StrTokenizer("a b".toCharArray(), ' ', '"');
+        assertEquals(1, tok.getDelimiterMatcher().isMatch(" ".toCharArray(), 0, 0, 1));
+        assertEquals(1, tok.getQuoteMatcher().isMatch("\"".toCharArray(), 0, 0, 1));
+        assertEquals("a", tok.next());
+        assertEquals("b", tok.next());
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer(new char[0], ' ', '"');
+        assertEquals(false, tok.hasNext());
+        
+        tok = new StrTokenizer((char[]) null, ' ', '"');
+        assertEquals(false, tok.hasNext());
+    }
+
+    //-----------------------------------------------------------------------
     public void testReset() {
-        String input = "a b c";
-        StrTokenizer tok = new StrTokenizer(input);
+        StrTokenizer tok = new StrTokenizer("a b c");
         assertEquals("a", tok.next());
         assertEquals("b", tok.next());
         assertEquals("c", tok.next());
+        assertEquals(false, tok.hasNext());
+        
         tok.reset();
         assertEquals("a", tok.next());
         assertEquals("b", tok.next());
         assertEquals("c", tok.next());
+        assertEquals(false, tok.hasNext());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testReset_String() {
+        StrTokenizer tok = new StrTokenizer("x x x");
         tok.reset("d e");
         assertEquals("d", tok.next());
         assertEquals("e", tok.next());
-        tok.reset("f g".toCharArray());
-        assertEquals("f", tok.next());
-        assertEquals("g", tok.next());
+        assertEquals(false, tok.hasNext());
+        
+        tok.reset((String) null);
+        assertEquals(false, tok.hasNext());
     }
 
+    //-----------------------------------------------------------------------
+    public void testReset_charArray() {
+        StrTokenizer tok = new StrTokenizer("x x x");
+        
+        char[] array = new char[] {'a', ' ', 'c'};
+        tok.reset(array);
+        array[1] = 'b'; // test linked array
+        assertEquals("abc", tok.next());
+        assertEquals(false, tok.hasNext());
+        
+        tok.reset((char[]) null);
+        assertEquals(false, tok.hasNext());
+    }
+
+    //-----------------------------------------------------------------------
     public void testTSV() {
         this.testXSVAbc(StrTokenizer.getTSVInstance(TSV_SIMPLE_FIXTURE));
         this.testXSVAbc(StrTokenizer.getTSVInstance(TSV_SIMPLE_FIXTURE.toCharArray()));

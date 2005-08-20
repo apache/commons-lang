@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.apache.commons.lang.ArrayUtils;
+
 /**
  * Tokenizes a string based based on delimiters (separators)
  * and supporting quoting and ignored character concepts.
@@ -242,8 +244,12 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     public StrTokenizer(String input) {
         super();
-        this.text = input;
-        this.chars = input.toCharArray();  // no clone as toCharArray() clones
+        text = input;
+        if (input != null) {
+            chars = input.toCharArray();
+        } else {
+            chars = null;
+        }
     }
 
     /**
@@ -308,19 +314,25 @@ public class StrTokenizer implements ListIterator, Cloneable {
     /**
      * Constructs a tokenizer splitting on space, tab, newline and formfeed
      * as per StringTokenizer.
+     * <p>
+     * The input character array is not cloned, and must not be altered after
+     * passing in to this method.
      *
-     * @param input  the string which is to be parsed, cloned
+     * @param input  the string which is to be parsed, not cloned
      */
     public StrTokenizer(char[] input) {
         super();
         this.text = null;
-        this.chars = (char[]) input.clone();
+        this.chars = input;
     }
 
     /**
      * Constructs a tokenizer splitting on the specified character.
+     * <p>
+     * The input character array is not cloned, and must not be altered after
+     * passing in to this method.
      *
-     * @param input  the string which is to be parsed, cloned
+     * @param input  the string which is to be parsed, not cloned
      * @param delim the field delimiter character
      */
     public StrTokenizer(char[] input, char delim) {
@@ -330,8 +342,11 @@ public class StrTokenizer implements ListIterator, Cloneable {
 
     /**
      * Constructs a tokenizer splitting on the specified string.
+     * <p>
+     * The input character array is not cloned, and must not be altered after
+     * passing in to this method.
      *
-     * @param input  the string which is to be parsed, cloned
+     * @param input  the string which is to be parsed, not cloned
      * @param delim the field delimiter string
      */
     public StrTokenizer(char[] input, String delim) {
@@ -341,8 +356,11 @@ public class StrTokenizer implements ListIterator, Cloneable {
 
     /**
      * Constructs a tokenizer splitting using the specified delimiter matcher.
+     * <p>
+     * The input character array is not cloned, and must not be altered after
+     * passing in to this method.
      *
-     * @param input  the string which is to be parsed, cloned
+     * @param input  the string which is to be parsed, not cloned
      * @param delim  the field delimiter matcher
      */
     public StrTokenizer(char[] input, StrMatcher delim) {
@@ -353,8 +371,11 @@ public class StrTokenizer implements ListIterator, Cloneable {
     /**
      * Constructs a tokenizer splitting on the specified delimiter character
      * and handling quotes using the specified quote character.
+     * <p>
+     * The input character array is not cloned, and must not be altered after
+     * passing in to this method.
      *
-     * @param input  the string which is to be parsed, cloned
+     * @param input  the string which is to be parsed, not cloned
      * @param delim  the field delimiter character
      * @param quote  the field quoted string character
      */
@@ -366,8 +387,11 @@ public class StrTokenizer implements ListIterator, Cloneable {
     /**
      * Constructs a tokenizer splitting using the specified delimiter matcher
      * and handling quotes using the specified quote matcher.
+     * <p>
+     * The input character array is not cloned, and must not be altered after
+     * passing in to this method.
      *
-     * @param input  the string which is to be parsed, cloned
+     * @param input  the string which is to be parsed, not cloned
      * @param delim  the field delimiter character
      * @param quote  the field quoted string character
      */
@@ -437,25 +461,32 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * In this manner you can re-use a tokenizer with the same settings
      * on multiple input lines.
      *
-     * @param input  the new string to tokenize
+     * @param input  the new string to tokenize, null sets no text to parse
      */
     public void reset(String input) {
         reset();
-        this.text = input;
-        chars = input.toCharArray();  // no clone as toCharArray() clones
+        text = input;
+        if (input != null) {
+            chars = input.toCharArray();
+        } else {
+            chars = null;
+        }
     }
 
     /**
      * Reset this tokenizer, giving it a new input string to parse.
      * In this manner you can re-use a tokenizer with the same settings
      * on multiple input lines.
+     * <p>
+     * The input character array is not cloned, and must not be altered after
+     * passing in to this method.
      *
-     * @param input  the new character array to tokenize, cloned
+     * @param input  the new character array to tokenize, not cloned, null sets no text to parse
      */
-    public void reset(char [] input) {
+    public void reset(char[] input) {
         reset();
-        this.text = null;
-        chars = (char[]) input.clone();
+        text = null;
+        chars = input;
     }
 
     // ListIterator
@@ -560,6 +591,9 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return array containing the tokens.
      */
     private String[] readTokens() {
+        if (chars == null) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
         int len = chars.length;
         char cbuf[] = new char[len];
         StringBuffer token = new StringBuffer();
@@ -812,7 +846,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Sets the field delimiter character
+     * Sets the field delimiter character.
      *
      * @param delim  the delimiter character to use
      */
@@ -821,9 +855,9 @@ public class StrTokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Sets the field delimiter character
+     * Sets the field delimiter string.
      *
-     * @param delim  the delimiter character to use
+     * @param delim  the delimiter string to use
      */
     public void setDelimiterString(String delim) {
         setDelimiterMatcher(StrMatcher.stringMatcher(delim));
