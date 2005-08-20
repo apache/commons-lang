@@ -16,6 +16,7 @@
 package org.apache.commons.lang;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
@@ -105,9 +106,9 @@ public class StringEscapeUtilsTest extends TestCase {
         message = "escapeJava(String) failed" + (message == null ? "" : (": " + message));
         assertEquals(message, expected, converted);
 
-        StringPrintWriter writer = new StringPrintWriter();
+        StringWriter writer = new StringWriter();
         StringEscapeUtils.escapeJava(writer, original);
-        assertEquals(expected, writer.getString());
+        assertEquals(expected, writer.toString());
     }
 
     public void testUnescapeJava() throws IOException {
@@ -127,7 +128,7 @@ public class StringEscapeUtilsTest extends TestCase {
         } catch (IllegalArgumentException ex) {
         }
         try {
-            String str = StringEscapeUtils.unescapeJava("\\u02-3");
+            StringEscapeUtils.unescapeJava("\\u02-3");
             fail();
         } catch (RuntimeException ex) {
         }
@@ -159,9 +160,9 @@ public class StringEscapeUtilsTest extends TestCase {
                 "' actual '" + StringEscapeUtils.escapeJava(actual) + "'",
                 expected, actual);
 
-        StringPrintWriter writer = new StringPrintWriter();
+        StringWriter writer = new StringWriter();
         StringEscapeUtils.unescapeJava(writer, original);
-        assertEquals(unescaped, writer.getString());
+        assertEquals(unescaped, writer.toString());
 
     }
 
@@ -210,12 +211,12 @@ public class StringEscapeUtilsTest extends TestCase {
             String expected = htmlEscapes[i][1];
             String original = htmlEscapes[i][2];
             assertEquals(message, expected, StringEscapeUtils.escapeHtml(original));
-            StringPrintWriter sw = new StringPrintWriter();
+            StringWriter sw = new StringWriter();
             try {
             StringEscapeUtils.escapeHtml(sw, original);
             } catch (IOException e) {
             }
-            String actual = original == null ? null : sw.getString();
+            String actual = original == null ? null : sw.toString();
             assertEquals(message, expected, actual);
         }
     }
@@ -227,12 +228,12 @@ public class StringEscapeUtilsTest extends TestCase {
             String original = htmlEscapes[i][1];
             assertEquals(message, expected, StringEscapeUtils.unescapeHtml(original));
             
-            StringPrintWriter sw = new StringPrintWriter();
+            StringWriter sw = new StringWriter();
             try {
             StringEscapeUtils.unescapeHtml(sw, original);
             } catch (IOException e) {
             }
-            String actual = original == null ? null : sw.getString();
+            String actual = original == null ? null : sw.toString();
             assertEquals(message, expected, actual);
         }
         // \u00E7 is a cedilla (c with wiggle under)

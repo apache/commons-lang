@@ -16,6 +16,7 @@
 package org.apache.commons.lang;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 
 import org.apache.commons.lang.exception.NestableRuntimeException;
@@ -150,9 +151,9 @@ public class StringEscapeUtils {
             return null;
         }
         try {
-            StringPrintWriter writer = new StringPrintWriter(str.length() * 2);
+            StringWriter writer = new StringWriter(str.length() * 2);
             escapeJavaStyleString(writer, str, escapeSingleQuotes);
-            return writer.getString();
+            return writer.toString();
         } catch (IOException ioe) {
             // this should never ever happen while writing to a StringWriter
             ioe.printStackTrace();
@@ -266,9 +267,9 @@ public class StringEscapeUtils {
             return null;
         }
         try {
-            StringPrintWriter writer = new StringPrintWriter(str.length());
+            StringWriter writer = new StringWriter(str.length());
             unescapeJava(writer, str);
-            return writer.getString();
+            return writer.toString();
         } catch (IOException ioe) {
             // this should never ever happen while writing to a StringWriter
             ioe.printStackTrace();
@@ -442,9 +443,9 @@ public class StringEscapeUtils {
         }
         
         try {
-            StringPrintWriter writer = new StringPrintWriter ((int)(str.length() * 1.5));
+            StringWriter writer = new StringWriter ((int)(str.length() * 1.5));
             escapeHtml(writer, str);
-            return writer.getString();
+            return writer.toString();
         } catch (IOException e) {
             //assert false;
             //should be impossible
@@ -514,9 +515,9 @@ public class StringEscapeUtils {
         }
         
         try {
-            StringPrintWriter writer = new StringPrintWriter ((int)(str.length() * 1.5));
+            StringWriter writer = new StringWriter ((int)(str.length() * 1.5));
             unescapeHtml(writer, str);
-            return writer.getString();
+            return writer.toString();
         } catch (IOException e) {
             //assert false;
             //should be impossible
