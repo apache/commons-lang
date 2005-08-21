@@ -22,7 +22,7 @@ import java.util.Locale;
 import java.util.Set;
 
 /**
- * <p>Operations to assist when working with a Locale.</p>
+ * <p>Operations to assist when working with a {@link Locale}.</p>
  *
  * <p>This class tries to handle <code>null</code> input gracefully.
  * An exception will not be thrown for a <code>null</code> input.
