@@ -101,7 +101,6 @@ public class LocaleUtils {
      * </pre>
      *
      * @param locale  the locale to start from
-     * @param defaultLocale  the default locale to use if no other is found
      * @return the list of Locale objects, 0 being locale
      */
     public static List localeLookupList(Locale locale) {
