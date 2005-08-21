@@ -1056,7 +1056,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
         try {
             StrTokenizer cloned = (StrTokenizer) super.clone();
             if (cloned.chars != null) {
-                cloned.chars = cloned.chars;
+                cloned.chars = (char[]) cloned.chars.clone();
             }
             cloned.reset();
             return cloned;
