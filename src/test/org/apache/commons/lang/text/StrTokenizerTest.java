@@ -542,7 +542,35 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(tok, tok.setIgnoreEmptyTokens(false));
     }
 
-    //-----------------------------------------------------------------------
+    public void testCloneNull() {
+        StrTokenizer tokenizer = new StrTokenizer((char[]) null);
+        // Start sanity check
+        assertEquals(null, tokenizer.nextToken());
+        tokenizer.reset();
+        assertEquals(null, tokenizer.nextToken());
+        // End sanity check
+        StrTokenizer clonedTokenizer = (StrTokenizer) tokenizer.clone();
+        tokenizer.reset();
+        assertEquals(null, tokenizer.nextToken());
+        assertEquals(null, clonedTokenizer.nextToken());
+    }
+
+    public void testCloneReset() {
+        char[] input = new char[]{'a'};
+        StrTokenizer tokenizer = new StrTokenizer(input);
+        // Start sanity check
+        assertEquals("a", tokenizer.nextToken());
+        tokenizer.reset();
+        assertEquals("a", tokenizer.nextToken());
+        // End sanity check
+        StrTokenizer clonedTokenizer = (StrTokenizer) tokenizer.clone();
+        input[0] = 'b';
+        tokenizer.reset();
+        assertEquals("b", tokenizer.nextToken());
+        assertEquals("a", clonedTokenizer.nextToken());
+    }
+  
+    // -----------------------------------------------------------------------
     public void testConstructor_String() {
         StrTokenizer tok = new StrTokenizer("a b");
         assertEquals("a", tok.next());
