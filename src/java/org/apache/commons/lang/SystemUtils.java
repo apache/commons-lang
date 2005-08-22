@@ -695,8 +695,8 @@ public class SystemUtils {
      * @since Java 1.2
      */
     public static final String USER_COUNTRY = 
-        (getSystemProperty("user.country") == null ?
-            getSystemProperty("user.region") : getSystemProperty("user.country"));
+        getSystemProperty("user.country") == null ?
+            getSystemProperty("user.region") : getSystemProperty("user.country");
 
     /**
      * <p>The <code>user.dir</code> System Property. User's current working
