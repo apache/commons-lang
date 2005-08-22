@@ -15,6 +15,8 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -363,6 +365,7 @@ public class ValidateTest extends TestCase {
         coll.add("a");
         coll.add("b");
         Validate.allElementsOfType(coll, String.class, "MSG");
+        Validate.allElementsOfType(coll, String.class);
         try {
             Validate.allElementsOfType(coll, Integer.class, "MSG");
             fail("Expecting IllegalArgumentException");
@@ -395,4 +398,13 @@ public class ValidateTest extends TestCase {
         }
     }
 
+    public void testConstructor() {
+        assertNotNull(new Validate());
+        Constructor[] cons = Validate.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(Validate.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(Validate.class.getModifiers()));
+    }
+    
 }
