@@ -17,8 +17,12 @@ package org.apache.commons.lang;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -36,6 +40,10 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class SerializationUtilsTest extends TestCase {
+
+  static final String CLASS_NOT_FOUND_MESSAGE = "ClassNotFoundSerializationTest.readObject fake exception";
+    protected static final String SERIALIZE_IO_EXCEPTION_MESSAGE = "Anonymous OutputStream I/O exception";
+  
     private String iString;
     private Integer iInteger;
     private HashMap iMap;
@@ -166,6 +174,22 @@ public class SerializationUtilsTest extends TestCase {
         }
         fail();
     }
+    
+    public void testSerializeIOException() throws Exception {
+        // forces an IOException when the ObjectOutputStream is created, to test not closing the stream
+        // in the finally block
+        OutputStream streamTest = new OutputStream() {
+            public void write(int arg0) throws IOException {
+                throw new IOException(SERIALIZE_IO_EXCEPTION_MESSAGE);
+            }
+        };
+        try {
+            SerializationUtils.serialize(iMap, streamTest);
+        }
+        catch(SerializationException e) {
+            assertEquals("java.io.IOException: " + SERIALIZE_IO_EXCEPTION_MESSAGE, e.getMessage());
+        }
+    }
 
     //-----------------------------------------------------------------------
 
@@ -219,6 +243,21 @@ public class SerializationUtilsTest extends TestCase {
         fail();
     }
 
+    public void testDeserializeStreamClassNotFound() throws Exception {
+        ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(streamReal);
+        oos.writeObject(new ClassNotFoundSerializationTest());
+        oos.flush();
+        oos.close();
+
+        ByteArrayInputStream inTest = new ByteArrayInputStream(streamReal.toByteArray());
+        try {
+            Object test = SerializationUtils.deserialize(inTest);
+        } catch(SerializationException se) {
+            assertEquals("java.lang.ClassNotFoundException: " + CLASS_NOT_FOUND_MESSAGE, se.getMessage());
+        }
+    }
+    
     //-----------------------------------------------------------------------
 
     public void testSerializeBytes() throws Exception {
@@ -343,4 +382,12 @@ public class SerializationUtilsTest extends TestCase {
         fail();
     }
 
+}
+
+class ClassNotFoundSerializationTest implements Serializable
+{
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException    {
+        throw new ClassNotFoundException(SerializationUtilsTest.CLASS_NOT_FOUND_MESSAGE);
+    }
 }
