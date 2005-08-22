@@ -52,6 +52,7 @@ public class LangTestSuite extends TestCase {
         suite.setName("Commons-Lang Tests");
         suite.addTest(ArrayUtilsTest.suite());
         suite.addTest(ArrayUtilsAddTest.suite());
+        suite.addTest(ArrayUtilsRemoveTest.suite());
         suite.addTest(BitFieldTest.suite());
         suite.addTest(BooleanUtilsTest.suite());
         suite.addTest(CharEncodingTest.suite());
@@ -63,6 +64,7 @@ public class LangTestSuite extends TestCase {
         suite.addTest(EntitiesTest.suite());
         suite.addTest(IllegalClassExceptionTest.suite());
         suite.addTest(IncompleteArgumentExceptionTest.suite());
+        suite.addTest(IntHashMapTest.suite());
         suite.addTest(NotImplementedExceptionTest.suite());
         suite.addTest(NullArgumentExceptionTest.suite());
         suite.addTest(NumberRangeTest.suite());
