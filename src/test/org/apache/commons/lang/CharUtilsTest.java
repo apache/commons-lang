@@ -213,6 +213,8 @@ public class CharUtilsTest extends TestCase {
             int val = Integer.parseInt(str.substring(2), 16);
             assertEquals(i, val);
         }
+        assertEquals("\\u0999", CharUtils.unicodeEscaped((char) 0x999));
+        assertEquals("\\u1001", CharUtils.unicodeEscaped((char) 0x1001));
     }
     
     public void testToUnicodeEscaped_Character() {
