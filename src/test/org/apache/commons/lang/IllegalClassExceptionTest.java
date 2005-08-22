@@ -61,6 +61,20 @@ public class IllegalClassExceptionTest extends TestCase {
         new IllegalClassException(null);
     }
 
+    // testConstructor_classObjectArgs
+
+    public void testConstructor_classObjectArgs_allNullInput() {
+        new IllegalClassException(null, (Object) null);
+    }
+
+    public void testConstructor_classObjectArgs_nullExpected() {
+        new IllegalClassException(null, new Object());
+    }
+
+    public void testConstructor_classObjectArgs_nullActual() {
+        new IllegalClassException(String.class, (Object) null);
+    }
+
     // testGetMessage
 
     public void testGetMessage_classArgs_nullInput() {
@@ -73,6 +87,19 @@ public class IllegalClassExceptionTest extends TestCase {
             new IllegalClassException(String.class, Integer.class);
         assertEquals(
             "Expected: java.lang.String, actual: java.lang.Integer",
+            t.getMessage());
+    }
+
+    public void testGetMessage_classObjectArgs_nullInput() {
+        final Throwable t = new IllegalClassException(null, (Object) null);
+        assertEquals("Expected: null, actual: null", t.getMessage());
+    }
+
+    public void testGetMessage_classObjectArgs_normalInput() {
+        final Throwable t =
+            new IllegalClassException(String.class, new Object());
+        assertEquals(
+            "Expected: java.lang.String, actual: java.lang.Object",
             t.getMessage());
     }
 
