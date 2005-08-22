@@ -15,6 +15,8 @@
  */
 package org.apache.commons.lang;
 
+import java.io.StringWriter;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -55,13 +57,21 @@ public class EntitiesTest extends TestCase
 
     public void testEscapeNamedEntity() throws Exception
     {
-        assertEquals("&foo;", entities.escape("\u00A1"));
-        assertEquals("x&foo;", entities.escape("x\u00A1"));
-        assertEquals("&foo;x", entities.escape("\u00A1x"));
-        assertEquals("x&foo;x", entities.escape("x\u00A1x"));
-        assertEquals("&foo;&bar;", entities.escape("\u00A1\u00A2"));
+        doTestEscapeNamedEntity("&foo;", "\u00A1");
+        doTestEscapeNamedEntity("x&foo;", "x\u00A1");
+        doTestEscapeNamedEntity("&foo;x", "\u00A1x");
+        doTestEscapeNamedEntity("x&foo;x", "x\u00A1x");
+        doTestEscapeNamedEntity("&foo;&bar;", "\u00A1\u00A2");
     }
 
+    private void doTestEscapeNamedEntity(final String expected, final String entity) throws Exception
+    {
+        assertEquals(expected, entities.escape(entity));
+        StringWriter writer = new StringWriter();
+        entities.escape(writer, entity);
+        assertEquals(expected, writer.toString());
+    }
+    
     public void testUnescapeNamedEntity() throws Exception
     {
         assertEquals("\u00A1", entities.unescape("&foo;"));
@@ -73,9 +83,26 @@ public class EntitiesTest extends TestCase
 
     public void testUnescapeUnknownEntity() throws Exception
     {
-        assertEquals("&zzzz;", entities.unescape("&zzzz;"));
+        doTestUnescapeEntity("&zzzz;", "&zzzz;");
     }
 
+    public void testUnescapeMiscellaneous() throws Exception
+    {
+      doTestUnescapeEntity("&hello", "&hello");
+      doTestUnescapeEntity("&;", "&;");
+      doTestUnescapeEntity("&#;", "&#;");
+      doTestUnescapeEntity("&#invalid;", "&#invalid;");
+      doTestUnescapeEntity("A", "&#X41;");
+    }
+    
+    private void doTestUnescapeEntity(final String expected, final String entity) throws Exception
+    {
+        assertEquals(expected, entities.unescape(entity));
+        StringWriter writer = new StringWriter();
+        entities.unescape(writer, entity);
+        assertEquals(expected, writer.toString());
+    }
+    
     public void testAddEntitiesArray() throws Exception
     {
         String[][] array = {{"foo", "100"}, {"bar", "101"}};
@@ -98,6 +125,10 @@ public class EntitiesTest extends TestCase
     {
         Entities.ArrayEntityMap map = new Entities.ArrayEntityMap(2);
         checkSomeEntityMap(map);
+        Entities.ArrayEntityMap map1 = new Entities.ArrayEntityMap();
+        checkSomeEntityMap(map1);
+        assertEquals(-1, map.value("null"));
+        assertNull(map.name(-1));
     }
 
     public void testTreeIntMap() throws Exception
@@ -110,12 +141,34 @@ public class EntitiesTest extends TestCase
     {
         Entities.EntityMap map = new Entities.HashEntityMap();
         checkSomeEntityMap(map);
+        assertEquals(-1, map.value("noname"));
     }
 
     public void testBinaryIntMap() throws Exception
     {
         Entities.BinaryEntityMap map = new Entities.BinaryEntityMap(2);
         checkSomeEntityMap(map);
+        Entities.BinaryEntityMap map1 = new Entities.BinaryEntityMap();
+        checkSomeEntityMap(map1);
+        
+        // value cannot be added twice
+        map1.add("baz4a", 4);
+        map1.add("baz4b", 4);
+        assertEquals(-1, map1.value("baz4b"));
+        assertEquals("baz4a", map1.name(4));
+        assertNull(map1.name(99));
+        
+        Entities.BinaryEntityMap map2 = new Entities.BinaryEntityMap();
+        map2.add("val1", 1);
+        map2.add("val2", 2);
+        map2.add("val3", 3);
+        map2.add("val4", 4);
+        map2.add("val5", 5);
+        assertEquals("val5", map2.name(5));
+        assertEquals("val4", map2.name(4));
+        assertEquals("val3", map2.name(3));
+        assertEquals("val2", map2.name(2));
+        assertEquals("val1", map2.name(1));
     }
 
     public void testPrimitiveIntMap() throws Exception
@@ -133,7 +186,7 @@ public class EntitiesTest extends TestCase
         assertEquals(3, map.value("baz"));
         assertEquals("baz", map.name(3));
     }
-
+    
     public void testHtml40Nbsp() throws Exception
     {
         assertEquals("&nbsp;", Entities.HTML40.escape("\u00A0"));
