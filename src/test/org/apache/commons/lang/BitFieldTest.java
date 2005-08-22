@@ -123,7 +123,7 @@ public class BitFieldTest extends TestCase {
     public void testIsAllSet() {
         for (int j = 0; j < 0x3F80; j += 0x80) {
             assertTrue(!bf_multi.isAllSet(j));
-            assertTrue(!bf_zero.isAllSet(j));
+            assertTrue(bf_zero.isAllSet(j));
         }
         assertTrue(bf_multi.isAllSet(0x3F80));
         assertTrue(!bf_single.isAllSet(0));
