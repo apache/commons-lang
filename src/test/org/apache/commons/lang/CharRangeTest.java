@@ -348,6 +348,15 @@ public class CharRangeTest extends TestCase {
         assertEquals(true, notbd.contains(notae));
     }
     
+    public void testContainsNullArg() {
+        CharRange range = new CharRange('a');
+        try {
+            boolean contains = range.contains(null);
+        } catch(IllegalArgumentException e) {
+            assertEquals("The Range must not be null", e.getMessage());
+        }
+    }
+    
     //-----------------------------------------------------------------------    
     public void testSerialization() {
         CharRange range = new CharRange('a');
