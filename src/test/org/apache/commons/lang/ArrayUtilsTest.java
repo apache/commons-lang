@@ -1811,6 +1811,8 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, 2, (double) 0));
         array = new double[0];
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, 2, (double) 0));
+        array = new double[] { (double) 3 };
+        assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 1, 0, (double) 0));
         array = new double[] { 0, 1, 2, 3, 0 };
         assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0, 99, (double) 0.3));
         assertEquals(0, ArrayUtils.lastIndexOf(array, (double) 0, 3, (double) 0.3));
