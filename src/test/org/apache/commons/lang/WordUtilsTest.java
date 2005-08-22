@@ -260,6 +260,10 @@ public class WordUtilsTest extends TestCase {
         assertEquals("i aM hERE 123", WordUtils.swapCase("I Am Here 123") );
         assertEquals("I AM here 123", WordUtils.swapCase("i am HERE 123") );
         assertEquals("i am here 123", WordUtils.swapCase("I AM HERE 123") );
+
+        String test = "This String contains a TitleCase character: \u01C8";
+        String expect = "tHIS sTRING CONTAINS A tITLEcASE CHARACTER: \u01C9";
+        assertEquals(expect, WordUtils.swapCase(test));
     }
 
 }
