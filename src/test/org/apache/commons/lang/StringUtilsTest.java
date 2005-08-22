@@ -126,14 +126,27 @@ public class StringUtilsTest extends TestCase {
         assertEquals(null, StringUtils.upperCase(null));
         assertEquals(null, StringUtils.lowerCase(null));
         assertEquals(null, StringUtils.capitalize(null));
+        assertEquals(null, StringUtils.uncapitalise(null));
         assertEquals(null, StringUtils.uncapitalize(null));
 
+        assertEquals("capitalise(String) failed",
+                    FOO_CAP, StringUtils.capitalise(FOO_UNCAP) );
+        assertEquals("capitalise(empty-string) failed",
+                    "", StringUtils.capitalise("") );
+        assertEquals("capitalise(single-char-string) failed",
+                    "X", StringUtils.capitalise("x") );
         assertEquals("capitalize(String) failed",
                      FOO_CAP, StringUtils.capitalize(FOO_UNCAP) );
         assertEquals("capitalize(empty-string) failed",
                      "", StringUtils.capitalize("") );
         assertEquals("capitalize(single-char-string) failed",
                      "X", StringUtils.capitalize("x") );
+        assertEquals("uncapitalise(String) failed",
+                     FOO_UNCAP, StringUtils.uncapitalise(FOO_CAP) );
+        assertEquals("uncapitalise(empty-string) failed",
+                     "", StringUtils.uncapitalise("") );
+        assertEquals("uncapitalise(single-char-string) failed",
+                     "x", StringUtils.uncapitalise("X") );
         assertEquals("uncapitalize(String) failed",
                      FOO_UNCAP, StringUtils.uncapitalize(FOO_CAP) );
         assertEquals("uncapitalize(empty-string) failed",
@@ -142,16 +155,24 @@ public class StringUtilsTest extends TestCase {
                      "x", StringUtils.uncapitalize("X") );
                      
         // reflection type of tests: Sentences.
+        assertEquals("uncapitalise(capitalise(String)) failed",
+                     SENTENCE_UNCAP, StringUtils.uncapitalise(StringUtils.capitalise(SENTENCE_UNCAP)) );
+        assertEquals("capitalise(uncapitalise(String)) failed",
+                     SENTENCE_CAP, StringUtils.capitalise(StringUtils.uncapitalise(SENTENCE_CAP)) );
         assertEquals("uncapitalize(capitalize(String)) failed",
                      SENTENCE_UNCAP, StringUtils.uncapitalize(StringUtils.capitalize(SENTENCE_UNCAP)) );
         assertEquals("capitalize(uncapitalize(String)) failed",
                      SENTENCE_CAP, StringUtils.capitalize(StringUtils.uncapitalize(SENTENCE_CAP)) );
 
         // reflection type of tests: One word.
+        assertEquals("uncapitalise(capitalise(String)) failed",
+                     FOO_UNCAP, StringUtils.uncapitalise(StringUtils.capitalise(FOO_UNCAP)) );
+        assertEquals("capitalise(uncapitalise(String)) failed",
+                     FOO_CAP, StringUtils.capitalise(StringUtils.uncapitalise(FOO_CAP)) );
         assertEquals("uncapitalize(capitalize(String)) failed",
-                    FOO_UNCAP, StringUtils.uncapitalize(StringUtils.capitalize(FOO_UNCAP)) );
+                     FOO_UNCAP, StringUtils.uncapitalize(StringUtils.capitalize(FOO_UNCAP)) );
         assertEquals("capitalize(uncapitalize(String)) failed",
-                    FOO_CAP, StringUtils.capitalize(StringUtils.uncapitalize(FOO_CAP)) );
+                     FOO_CAP, StringUtils.capitalize(StringUtils.uncapitalize(FOO_CAP)) );
 
         assertEquals("upperCase(String) failed",
                      "FOO TEST THING", StringUtils.upperCase("fOo test THING") );
@@ -161,6 +182,7 @@ public class StringUtilsTest extends TestCase {
                      "foo test thing", StringUtils.lowerCase("fOo test THING") );
         assertEquals("lowerCase(empty-string) failed",
                      "", StringUtils.lowerCase("") );
+        
     }
 
     public void testSwapCase_String() {
@@ -174,6 +196,10 @@ public class StringUtilsTest extends TestCase {
         assertEquals("i aM hERE 123", StringUtils.swapCase("I Am Here 123") );
         assertEquals("I AM here 123", StringUtils.swapCase("i am HERE 123") );
         assertEquals("i am here 123", StringUtils.swapCase("I AM HERE 123") );
+        
+        String test = "This String contains a TitleCase character: \u01C8";
+        String expect = "tHIS sTRING CONTAINS A tITLEcASE CHARACTER: \u01C9";
+        assertEquals(expect, WordUtils.swapCase(test));
     }
 
     //-----------------------------------------------------------------------
@@ -381,6 +407,13 @@ public class StringUtilsTest extends TestCase {
         assertEquals( splitOnStringExpectedResults.length, splitOnStringResults.length ) ;
         for ( int i = 0 ; i < splitOnStringExpectedResults.length ; i+= 1 ) {
             assertEquals( splitOnStringExpectedResults[i], splitOnStringResults[i] ) ;
+        }
+
+        String[] splitWithMultipleSeparatorExpectedResults = {"ab", "cd", "ef"};
+        String[] splitWithMultipleSeparator = StringUtils.splitByWholeSeparator("ab:cd::ef", ":");
+        assertEquals( splitWithMultipleSeparatorExpectedResults.length, splitWithMultipleSeparator.length );
+        for( int i = 0; i < splitWithMultipleSeparatorExpectedResults.length ; i++ ) {
+            assertEquals( splitWithMultipleSeparatorExpectedResults[i], splitWithMultipleSeparator[i] ) ;
         }
     }
 
@@ -917,15 +950,28 @@ public class StringUtilsTest extends TestCase {
         assertEquals("chompLast(String) failed",
                      FOO_UNCAP, StringUtils.chompLast(FOO_UNCAP + "\n") );
 
+        assertEquals("chompLast(\"\") failed",
+            "", StringUtils.chompLast("") );
+        assertEquals("chompLast(\"test\", \"test\") failed",
+            "test", StringUtils.chompLast("test", "tst") );
+        
         assertEquals("getChomp(String, String) failed",
                      "\n" + FOO_UNCAP, StringUtils.getChomp(FOO_UNCAP + "\n" + FOO_UNCAP, "\n") );
+        assertEquals("getChomp(String, String) failed",
+                     FOO_CAP, StringUtils.getChomp(FOO_CAP+FOO_CAP, FOO_CAP));
+        assertEquals("getChomp(String, String) failed",
+                     "", StringUtils.getChomp(FOO_UNCAP, FOO_CAP));
 
         assertEquals("prechomp(String, String) failed",
                      FOO_UNCAP, StringUtils.prechomp(FOO_UNCAP + "\n" + FOO_UNCAP, "\n") );
-
+        assertEquals("prechomp(String, String) failed",
+                     FOO_UNCAP, StringUtils.prechomp(FOO_UNCAP, FOO_CAP));
+        
         assertEquals("getPrechomp(String, String) failed",
                      FOO_UNCAP + "\n", StringUtils.getPrechomp(FOO_UNCAP + "\n" + FOO_UNCAP, "\n") );
-
+        assertEquals("getPrechomp(String, String) failed",
+                     "", StringUtils.getPrechomp(FOO_CAP, FOO_UNCAP));
+        
         assertEquals("chopNewline(String, String) failed",
                      FOO_UNCAP, StringUtils.chopNewline(FOO_UNCAP + "\r\n") );
     }
@@ -1308,6 +1354,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals(7, StringUtils.indexOfDifference("i am a machine", "i am a robot"));
         assertEquals(-1, StringUtils.indexOfDifference("foo", "foo"));
         assertEquals(0, StringUtils.indexOfDifference("i am a robot", "you are a robot"));
+        System.out.println("indexOfDiff: " + StringUtils.indexOfDifference("i am a robot", "not machine"));
     }
 
     //-----------------------------------------------------------------------
