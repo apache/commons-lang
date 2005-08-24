@@ -51,6 +51,8 @@ import org.apache.commons.lang.exception.NestableDelegate;
 public class NotImplementedException
         extends UnsupportedOperationException implements Nestable {
 
+    private static final String DEFAULT_MESSAGE = "Code is not implemented";
+
     /** Serialization version. */
     private static final long serialVersionUID = -6894122266938754088L;
 
@@ -72,7 +74,7 @@ public class NotImplementedException
      * @since 2.1
      */
     public NotImplementedException() {
-        super("Code is not implemented");
+        super(DEFAULT_MESSAGE);
     }
 
     /**
@@ -82,7 +84,7 @@ public class NotImplementedException
      * @param msg  the error message.
      */
     public NotImplementedException(String msg) {
-        super(msg == null ? "Code is not implemented" : msg);
+        super(msg == null ? DEFAULT_MESSAGE : msg);
     }
 
     /**
@@ -93,7 +95,7 @@ public class NotImplementedException
      * @since 2.1
      */
     public NotImplementedException(Throwable cause) {
-        super("Code is not implemented");
+        super(DEFAULT_MESSAGE);
         this.cause = cause;
     }
 
@@ -106,23 +108,21 @@ public class NotImplementedException
      * @since 2.1
      */
     public NotImplementedException(String msg, Throwable cause) {
-        super(msg == null ? "Code is not implemented" : msg);
+        super(msg == null ? DEFAULT_MESSAGE : msg);
         this.cause = cause;
     }
 
     /**
-     * Constructs a new <code>NotImplementedException</code> referencing
-     * the specified class.
+     * Constructs a new <code>NotImplementedException</code> referencing the specified class.
      * 
-     * @param clazz  the <code>Class</code> that has not implemented the method
+     * @param clazz
+     *            the <code>Class</code> that has not implemented the method
      */
     public NotImplementedException(Class clazz) {
-        super((clazz == null ?
-                "Code is not implemented" :
-                "Code is not implemented in " + clazz));
+        super(clazz == null ? DEFAULT_MESSAGE : DEFAULT_MESSAGE + " in " + clazz);
     }
 
-    //-----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
     /**
      * Gets the root cause of this exception.
      * @return the root cause of this exception.
@@ -163,9 +163,8 @@ public class NotImplementedException
     public String getMessage(int index) {
         if (index == 0) {
             return super.getMessage();
-        } else {
-            return delegate.getMessage(index);
         }
+        return delegate.getMessage(index);
     }
 
     /**
