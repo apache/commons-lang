@@ -154,6 +154,17 @@ public class MutableFloat extends Number implements Comparable, Mutable {
         return Float.isInfinite(value);
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * Gets this mutable as an instance of Float.
+     *
+     * @return a Float instance containing the value from this mutable
+     */
+    public Float toFloat() {
+        return new Float(floatValue());
+    }
+
+    //-----------------------------------------------------------------------
     /**
      * Compares this object against some other object. The result is <code>true</code> if and only if the argument is
      * not <code>null</code> and is a <code>Float</code> object that represents a <code>float</code> that has the

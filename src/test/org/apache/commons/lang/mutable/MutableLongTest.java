@@ -139,6 +139,11 @@ public class MutableLongTest extends TestCase {
         assertEquals( 1L, mutNum.longValue() );
     }
 
+    public void testToLong() {
+        assertEquals(new Long(0L), new MutableLong(0L).toLong());
+        assertEquals(new Long(123L), new MutableLong(123L).toLong());
+    }
+
     public void testToString() {
         assertEquals("0", new MutableLong(0).toString());
         assertEquals("10", new MutableLong(10).toString());

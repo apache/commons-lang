@@ -139,6 +139,11 @@ public class MutableByteTest extends TestCase {
         assertEquals( 1L, mutNum.longValue() );
     }
 
+    public void testToByte() {
+        assertEquals(new Byte((byte) 0), new MutableByte((byte) 0).toByte());
+        assertEquals(new Byte((byte) 123), new MutableByte((byte) 123).toByte());
+    }
+
     public void testToString() {
         assertEquals("0", new MutableByte((byte) 0).toString());
         assertEquals("10", new MutableByte((byte) 10).toString());

@@ -150,6 +150,11 @@ public class MutableDoubleTest extends TestCase {
         assertEquals( 1L, mutNum.longValue() );
     }
 
+    public void testToDouble() {
+        assertEquals(new Double(0d), new MutableDouble(0d).toDouble());
+        assertEquals(new Double(12.3d), new MutableDouble(12.3d).toDouble());
+    }
+
     public void testToString() {
         assertEquals("0.0", new MutableDouble(0d).toString());
         assertEquals("10.0", new MutableDouble(10d).toString());
