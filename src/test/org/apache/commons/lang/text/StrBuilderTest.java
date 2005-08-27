@@ -1589,6 +1589,63 @@ public class StrBuilderTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testEqualsIgnoreCase() {
+        StrBuilder sb1 = new StrBuilder();
+        StrBuilder sb2 = new StrBuilder();
+        assertEquals(true, sb1.equalsIgnoreCase(sb2));
+        
+        sb1.append("abc");
+        assertEquals(false, sb1.equalsIgnoreCase(sb2));
+        
+        sb2.append("ABC");
+        assertEquals(true, sb1.equalsIgnoreCase(sb2));
+        
+        sb2.clear().append("abc");
+        assertEquals(true, sb1.equalsIgnoreCase(sb2));
+        
+        sb2.clear().append("aBc");
+        assertEquals(true, sb1.equalsIgnoreCase(sb2));
+    }
+
+    //-----------------------------------------------------------------------
+    public void testEquals() {
+        StrBuilder sb1 = new StrBuilder();
+        StrBuilder sb2 = new StrBuilder();
+        assertEquals(true, sb1.equals((StrBuilder) sb2));
+        assertEquals(true, sb1.equals((Object) sb2));
+        
+        sb1.append("abc");
+        assertEquals(false, sb1.equals((StrBuilder) sb2));
+        assertEquals(false, sb1.equals((Object) sb2));
+        
+        sb2.append("ABC");
+        assertEquals(false, sb1.equals((StrBuilder) sb2));
+        assertEquals(false, sb1.equals((Object) sb2));
+        
+        sb2.clear().append("abc");
+        assertEquals(true, sb1.equals((StrBuilder) sb2));
+        assertEquals(true, sb1.equals((Object) sb2));
+        
+        assertEquals(false, sb1.equals(new Integer(1)));
+        assertEquals(false, sb1.equals("abc"));
+    }
+
+    //-----------------------------------------------------------------------
+    public void testHashCode() {
+        StrBuilder sb = new StrBuilder();
+        int hc1a = sb.hashCode();
+        int hc1b = sb.hashCode();
+        assertEquals(0, hc1a);
+        assertEquals(hc1a, hc1b);
+        
+        sb.append("abc");
+        int hc2a = sb.hashCode();
+        int hc2b = sb.hashCode();
+        assertEquals(true, hc2a != 0);
+        assertEquals(hc2a, hc2b);
+    }
+
+    //-----------------------------------------------------------------------
     public void testToString() {
         StrBuilder sb = new StrBuilder("abc");
         assertEquals("abc", sb.toString());

@@ -2010,6 +2010,86 @@ public class StrBuilder implements Cloneable {
 //        }
 //    }
 
+    //-----------------------------------------------------------------------
+    /**
+     * Checks the contents of this builder against another to see if they
+     * contain the same character content ignoring case.
+     *
+     * @param other  the object to check, null returns false
+     * @return true if the builders contain the same characters in the same order
+     */
+    public boolean equalsIgnoreCase(StrBuilder other) {
+        if (this == other) {
+            return true;
+        }
+        if (this.size != other.size) {
+            return false;
+        }
+        char thisBuf[] = this.buffer;
+        char otherBuf[] = other.buffer;
+        for (int i = size - 1; i >= 0; i--) {
+            char c1 = thisBuf[i];
+            char c2 = otherBuf[i];
+            if (c1 != c2 && Character.toUpperCase(c1) != Character.toUpperCase(c2)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks the contents of this builder against another to see if they
+     * contain the same character content.
+     *
+     * @param other  the object to check, null returns false
+     * @return true if the builders contain the same characters in the same order
+     */
+    public boolean equals(StrBuilder other) {
+        if (this == other) {
+            return true;
+        }
+        if (this.size != other.size) {
+            return false;
+        }
+        char thisBuf[] = this.buffer;
+        char otherBuf[] = other.buffer;
+        for (int i = size - 1; i >= 0; i--) {
+            if (thisBuf[i] != otherBuf[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks the contents of this builder against another to see if they
+     * contain the same character content.
+     *
+     * @param obj  the object to check, null returns false
+     * @return true if the builders contain the same characters in the same order
+     */
+    public boolean equals(Object obj) {
+        if (obj instanceof StrBuilder) {
+            return equals((StrBuilder) obj);
+        }
+        return false;
+    }
+
+    /**
+     * Gets a suitable hash code for this builder.
+     *
+     * @return a hash code
+     */
+    public int hashCode() {
+        char buf[] = buffer;
+        int hash = 0;
+        for (int i = size - 1; i >= 0; i--) {
+            hash = 31 * hash + buf[i];
+        }
+        return hash;
+    }
+
+    //-----------------------------------------------------------------------
     /**
      * Gets a String version of the string builder, creating a new instance
      * each time the method is called.
