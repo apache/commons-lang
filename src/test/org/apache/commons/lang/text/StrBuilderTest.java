@@ -119,6 +119,7 @@ public class StrBuilderTest extends TestCase {
         assertSame(sb, sb.minimizeCapacity());
         assertSame(sb, sb.clear());
         assertSame(sb, sb.reverse());
+        assertSame(sb, sb.trim());
     }
 
     //-----------------------------------------------------------------------
@@ -1040,9 +1041,31 @@ public class StrBuilderTest extends TestCase {
     public void testReverse() {
         StrBuilder sb = new StrBuilder();
         assertEquals("", sb.reverse().toString());
-        sb.append(true);
+        
+        sb.clear().append(true);
         assertEquals("eurt", sb.reverse().toString());
         assertEquals("true", sb.reverse().toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testTrim() {
+        StrBuilder sb = new StrBuilder();
+        assertEquals("", sb.reverse().toString());
+        
+        sb.clear().append(" \u0000 ");
+        assertEquals("", sb.trim().toString());
+        
+        sb.clear().append(" \u0000 a b c");
+        assertEquals("a b c", sb.trim().toString());
+        
+        sb.clear().append("a b c \u0000 ");
+        assertEquals("a b c", sb.trim().toString());
+        
+        sb.clear().append(" \u0000 a b c \u0000 ");
+        assertEquals("a b c", sb.trim().toString());
+        
+        sb.clear().append("a b c");
+        assertEquals("a b c", sb.trim().toString());
     }
 
     //-----------------------------------------------------------------------

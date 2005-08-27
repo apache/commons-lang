@@ -1458,10 +1458,39 @@ public class StrBuilder implements Cloneable {
         }
         
         int half = size / 2;
+        char[] buf = buffer;
         for (int leftIdx = 0, rightIdx = size - 1; leftIdx < half; leftIdx++,rightIdx--) {
-            char swap = buffer[leftIdx];
-            buffer[leftIdx] = buffer[rightIdx];
-            buffer[rightIdx] = swap;
+            char swap = buf[leftIdx];
+            buf[leftIdx] = buf[rightIdx];
+            buf[rightIdx] = swap;
+        }
+        return this;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Reverses the string builder placing each character in the opposite index.
+     * 
+     * @return this, to enable chaining
+     */
+    public StrBuilder trim() {
+        if (size == 0) {
+            return this;
+        }
+        int len = size;
+        char[] buf = buffer;
+        int pos = 0;
+        while (pos < len && buf[pos] <= ' ') {
+            pos++;
+        }
+        while (pos < len && buf[len - 1] <= ' ') {
+            len--;
+        }
+        if (len < size) {
+            delete(len, size);
+        }
+        if (pos > 0) {
+            delete(0, pos);
         }
         return this;
     }
