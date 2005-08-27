@@ -1469,8 +1469,9 @@ public class StrBuilder implements Cloneable {
 
     //-----------------------------------------------------------------------
     /**
-     * Reverses the string builder placing each character in the opposite index.
-     * 
+     * Trims the builder by removing characters less than or equal to a space
+     * from the beginning and end.
+     *
      * @return this, to enable chaining
      */
     public StrBuilder trim() {
