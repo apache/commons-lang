@@ -156,6 +156,16 @@ public class MutableDouble extends Number implements Comparable, Mutable {
 
     //-----------------------------------------------------------------------
     /**
+     * Gets this mutable as an instance of Double.
+     *
+     * @return a Double instance containing the value from this mutable
+     */
+    public Double toDouble() {
+        return new Double(doubleValue());
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Compares this object against the specified object. The result is <code>true</code> if and only if the argument
      * is not <code>null</code> and is a <code>Double</code> object that represents a double that has the identical
      * bit pattern to the bit pattern of the double represented by this object. For this purpose, two

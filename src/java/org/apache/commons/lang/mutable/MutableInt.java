@@ -136,6 +136,16 @@ public class MutableInt extends Number implements Comparable, Mutable {
 
     //-----------------------------------------------------------------------
     /**
+     * Gets this mutable as an instance of Integer.
+     *
+     * @return a Integer instance containing the value from this mutable
+     */
+    public Integer toInteger() {
+        return new Integer(intValue());
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Compares this object to the specified object. The result is <code>true</code> if and only if the argument is
      * not <code>null</code> and is an <code>MutableInt</code> object that contains the same <code>int</code> value
      * as this object.

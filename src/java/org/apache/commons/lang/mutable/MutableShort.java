@@ -145,6 +145,16 @@ public class MutableShort extends Number implements Comparable, Mutable {
 
     //-----------------------------------------------------------------------
     /**
+     * Gets this mutable as an instance of Short.
+     *
+     * @return a Short instance containing the value from this mutable
+     */
+    public Short toShort() {
+        return new Short(shortValue());
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Compares this object against the specified object. The result is <code>true</code> if and only if the argument
      * is not <code>null</code> and is a <code>MutableShort</code> object that contains the same <code>short</code>
      * value as this object.

@@ -150,6 +150,11 @@ public class MutableFloatTest extends TestCase {
         assertEquals( 1L, mutNum.longValue() );
     }
 
+    public void testToFloat() {
+        assertEquals(new Float(0f), new MutableFloat(0f).toFloat());
+        assertEquals(new Float(12.3f), new MutableFloat(12.3f).toFloat());
+    }
+
     public void testToString() {
         assertEquals("0.0", new MutableFloat(0f).toString());
         assertEquals("10.0", new MutableFloat(10f).toString());

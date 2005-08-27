@@ -145,6 +145,11 @@ public class MutableIntTest extends TestCase {
         assertEquals( 1L, mutNum.longValue() );
     }
 
+    public void testToInteger() {
+        assertEquals(new Integer(0), new MutableInt(0).toInteger());
+        assertEquals(new Integer(123), new MutableInt(123).toInteger());
+    }
+
     public void testToString() {
         assertEquals("0", new MutableInt(0).toString());
         assertEquals("10", new MutableInt(10).toString());

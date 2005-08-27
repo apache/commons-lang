@@ -145,6 +145,16 @@ public class MutableByte extends Number implements Comparable, Mutable {
 
     //-----------------------------------------------------------------------
     /**
+     * Gets this mutable as an instance of Byte.
+     *
+     * @return a Byte instance containing the value from this mutable
+     */
+    public Byte toByte() {
+        return new Byte(byteValue());
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Compares this object against the specified object. The result is <code>true</code> if and only if the argument
      * is not <code>null</code> and is a <code>MutableByte</code> object that contains the same <code>byte</code>
      * value as this object.
