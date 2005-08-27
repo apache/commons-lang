@@ -1,5 +1,17 @@
 /*
- * Copyright 2005 Steven Caswell
+ * Copyright 2005 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.apache.commons.lang;
 
@@ -9,12 +21,12 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
+ * Tests for the IntHashMap class.
  *
  * @author  Steven Caswell
  * @version $Id$
  */
-public class IntHashMapTest extends TestCase
-{
+public class IntHashMapTest extends TestCase {
 
     public static void main(String[] args) {
         TestRunner.run(suite());
@@ -28,26 +40,27 @@ public class IntHashMapTest extends TestCase
 
     public void testConstructor() {
         try {
-            IntHashMap map = new IntHashMap(-1, 0.0f);
+            new IntHashMap(-1, 0.0f);
             fail();
         } catch (IllegalArgumentException e) {
             assertEquals("Illegal Capacity: -1", e.getMessage());
         }
         try {
-            IntHashMap map = new IntHashMap(1, 0.0f);
+            new IntHashMap(1, 0.0f);
             fail();
         } catch (IllegalArgumentException e) {
             assertEquals("Illegal Load: 0.0", e.getMessage());
         }
-        IntHashMap map = new IntHashMap(0, 1.0f);
+        new IntHashMap(0, 1.0f);
         
         try {
-            IntHashMap map1 = new IntHashMap(-1);
+            new IntHashMap(-1);
             fail();
         } catch (IllegalArgumentException e) {
            assertEquals("Illegal Capacity: -1", e.getMessage());
         }
         IntHashMap map1 = new IntHashMap(0);
+        assertEquals(0, map1.size());
     }
     
     public void testClear() {
