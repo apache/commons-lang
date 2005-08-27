@@ -601,7 +601,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     private void tokenize() {
         if (tokens == null) {
-            this.tokens = readTokens();
+            tokens = readTokens();
         }
     }
 
@@ -643,10 +643,10 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     private void addToken(List list, String tok) {
         if (tok == null || tok.length() == 0) {
-            if (this.isIgnoreEmptyTokens()) {
+            if (isIgnoreEmptyTokens()) {
                 return;
             }
-            if (this.isEmptyTokenAsNull()) {
+            if (isEmptyTokenAsNull()) {
                 tok = null;
             }
         }
@@ -669,11 +669,11 @@ public class StrTokenizer implements ListIterator, Cloneable {
         // field delimiter or the quote character
         while (start < len) {
             int removeLen = Math.max(
-                    this.getIgnoredMatcher().isMatch(chars, start, start, len),
-                    this.getTrimmerMatcher().isMatch(chars, start, start, len));
+                    getIgnoredMatcher().isMatch(chars, start, start, len),
+                    getTrimmerMatcher().isMatch(chars, start, start, len));
             if (removeLen == 0 ||
-                this.getDelimiterMatcher().isMatch(chars, start, start, len) > 0 ||
-                this.getQuoteMatcher().isMatch(chars, start, start, len) > 0) {
+                getDelimiterMatcher().isMatch(chars, start, start, len) > 0 ||
+                getQuoteMatcher().isMatch(chars, start, start, len) > 0) {
                 break;
             }
             start += removeLen;
@@ -686,14 +686,14 @@ public class StrTokenizer implements ListIterator, Cloneable {
         }
         
         // handle empty token
-        int delimLen = this.getDelimiterMatcher().isMatch(chars, start, start, len);
+        int delimLen = getDelimiterMatcher().isMatch(chars, start, start, len);
         if (delimLen > 0) {
             addToken(tokens, "");
             return start + delimLen;
         }
         
         // handle found token
-        int quoteLen = this.getQuoteMatcher().isMatch(chars, start, start, len);
+        int quoteLen = getQuoteMatcher().isMatch(chars, start, start, len);
         if (quoteLen > 0) {
             return readWithQuotes(chars, start + quoteLen, len, workArea, tokens, start, quoteLen);
         }
@@ -756,7 +756,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
                 // Not in quoting mode
                 
                 // check for delimiter, and thus end of token
-                int delimLen = this.getDelimiterMatcher().isMatch(chars, pos, start, len);
+                int delimLen = getDelimiterMatcher().isMatch(chars, pos, start, len);
                 if (delimLen > 0) {
                     // return condition when end of token found
                     addToken(tokens, workArea.substring(0, trimStart));
@@ -773,7 +773,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
                 }
                 
                 // check for ignored (outside quotes), and ignore
-                int ignoredLen = this.getIgnoredMatcher().isMatch(chars, pos, start, len);
+                int ignoredLen = getIgnoredMatcher().isMatch(chars, pos, start, len);
                 if (ignoredLen > 0) {
                     pos += ignoredLen;
                     continue;
@@ -782,7 +782,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
                 // check for trimmed character
                 // don't yet know if its at the end, so copy to workArea
                 // use trimStart to keep track of trim at the end
-                int trimmedLen = this.getTrimmerMatcher().isMatch(chars, pos, start, len);
+                int trimmedLen = getTrimmerMatcher().isMatch(chars, pos, start, len);
                 if (trimmedLen > 0) {
                     workArea.append(chars, pos, trimmedLen);
                     pos += trimmedLen;
