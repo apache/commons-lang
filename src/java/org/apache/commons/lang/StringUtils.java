@@ -110,6 +110,7 @@ import java.util.List;
  * @author Phil Steitz
  * @author Al Chou
  * @author Michael Davey
+ * @author Reuben Sivan
  * @since 1.0
  * @version $Id$
  */
@@ -152,7 +153,7 @@ public class StringUtils {
      *
      * <p>Used for efficient space padding. The length of each String expands as needed.</p>
      */
-    private static final String[] PADDING = new String[Character.MAX_VALUE];
+    private static final String[] PADDING = new String[Character.MAX_VALUE + 1];
 
     static {
         // space padding is most common, start with 64 chars
