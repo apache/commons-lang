@@ -1615,7 +1615,9 @@ public class StrBuilderTest extends TestCase {
     public void testEqualsIgnoreCase() {
         StrBuilder sb1 = new StrBuilder();
         StrBuilder sb2 = new StrBuilder();
+        assertEquals(true, sb1.equalsIgnoreCase(sb1));
         assertEquals(true, sb1.equalsIgnoreCase(sb2));
+        assertEquals(true, sb2.equalsIgnoreCase(sb2));
         
         sb1.append("abc");
         assertEquals(false, sb1.equalsIgnoreCase(sb2));
@@ -1625,6 +1627,8 @@ public class StrBuilderTest extends TestCase {
         
         sb2.clear().append("abc");
         assertEquals(true, sb1.equalsIgnoreCase(sb2));
+        assertEquals(true, sb1.equalsIgnoreCase(sb1));
+        assertEquals(true, sb2.equalsIgnoreCase(sb2));
         
         sb2.clear().append("aBc");
         assertEquals(true, sb1.equalsIgnoreCase(sb2));
@@ -1634,19 +1638,21 @@ public class StrBuilderTest extends TestCase {
     public void testEquals() {
         StrBuilder sb1 = new StrBuilder();
         StrBuilder sb2 = new StrBuilder();
-        assertEquals(true, sb1.equals((StrBuilder) sb2));
+        assertEquals(true, sb1.equals(sb2));
+        assertEquals(true, sb1.equals(sb1));
+        assertEquals(true, sb2.equals(sb2));
         assertEquals(true, sb1.equals((Object) sb2));
         
         sb1.append("abc");
-        assertEquals(false, sb1.equals((StrBuilder) sb2));
+        assertEquals(false, sb1.equals(sb2));
         assertEquals(false, sb1.equals((Object) sb2));
         
         sb2.append("ABC");
-        assertEquals(false, sb1.equals((StrBuilder) sb2));
+        assertEquals(false, sb1.equals(sb2));
         assertEquals(false, sb1.equals((Object) sb2));
         
         sb2.clear().append("abc");
-        assertEquals(true, sb1.equals((StrBuilder) sb2));
+        assertEquals(true, sb1.equals(sb2));
         assertEquals(true, sb1.equals((Object) sb2));
         
         assertEquals(false, sb1.equals(new Integer(1)));
