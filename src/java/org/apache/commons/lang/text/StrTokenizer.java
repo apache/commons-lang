@@ -1048,22 +1048,32 @@ public class StrTokenizer implements ListIterator, Cloneable {
 
     //-----------------------------------------------------------------------
     /**
-     * Creates a new instance of this Tokenizer.
-     * The new instance is reset so that it will be at the start of the token list.
+     * Creates a new instance of this Tokenizer. The new instance is reset so that it will be at the start of the token
+     * list. If a {@link CloneNotSupportedException} is caught, return <code>null</code>.
+     * 
      * @return a new instance of this Tokenizer which has been reset.
      */
     public Object clone() {
         try {
-            StrTokenizer cloned = (StrTokenizer) super.clone();
-            if (cloned.chars != null) {
-                cloned.chars = (char[]) cloned.chars.clone();
-            }
-            cloned.reset();
-            return cloned;
-
+            return cloneReset();
         } catch (CloneNotSupportedException ex) {
             return null;
         }
+    }
+
+    /**
+     * Creates a new instance of this Tokenizer. The new instance is reset so that it will be at the start of the token
+     * list.
+     * 
+     * @return a new instance of this Tokenizer which has been reset.
+     */
+    protected Object cloneReset() throws CloneNotSupportedException {
+        StrTokenizer cloned = (StrTokenizer) super.clone();
+        if (cloned.chars != null) {
+            cloned.chars = (char[]) cloned.chars.clone();
+        }
+        cloned.reset();
+        return cloned;
     }
 
 }

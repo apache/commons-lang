@@ -542,6 +542,19 @@ public class StrTokenizerTest extends TestCase {
         assertEquals(tok, tok.setIgnoreEmptyTokens(false));
     }
 
+    /**
+     * Tests that the {@link StrTokenizer#clone()} clone method catches {@link CloneNotSupportedException} and returns
+     * <code>null</code>.
+     */
+    public void testCloneNotSupportedException() {
+        Object notCloned = (new StrTokenizer() {
+            public Object cloneReset() throws CloneNotSupportedException {
+                throw new CloneNotSupportedException("test");
+            }
+        }).clone();
+        assertNull(notCloned);
+    }
+
     public void testCloneNull() {
         StrTokenizer tokenizer = new StrTokenizer((char[]) null);
         // Start sanity check
