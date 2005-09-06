@@ -838,6 +838,10 @@ public final class Fraction extends Number implements Serializable, Comparable {
     /**
      * <p>Compares this object to another based on size.</p>
      *
+     * <p>Note: this class has a natural ordering that is inconsistent
+     * with equals, because, for example, equals treats 1/2 and 2/4 as
+     * different, whereas compareTo treats them as equal.
+     *
      * @param object  the object to compare to
      * @return -1 if this is less, 0 if equal, +1 if greater
      * @throws ClassCastException if the object is not a <code>Fraction</code>
