@@ -111,6 +111,7 @@ import java.util.List;
  * @author Al Chou
  * @author Michael Davey
  * @author Reuben Sivan
+ * @author Chris Hyzer
  * @since 1.0
  * @version $Id$
  */
@@ -2956,19 +2957,25 @@ public class StringUtils {
      *  <code>null</code> if null String input
      */
     public static String replace(String text, String repl, String with, int max) {
-        if (text == null || isEmpty(repl) || with == null || max == 0) {
+        if (isEmpty(text) || isEmpty(repl) || with == null || max == 0) {
             return text;
         }
-
-        StringBuffer buf = new StringBuffer(text.length());
-        int start = 0, end = 0;
-        while ((end = text.indexOf(repl, start)) != -1) {
+        int start = 0;
+        int end = text.indexOf(repl, start);
+        if (end == -1) {
+            return text;
+        }
+        int increase = with.length() - repl.length();
+        increase = (increase < 0 ? 0 : increase);
+        increase *= (max < 0 ? 16 : (max > 64 ? 64 : max));
+        StringBuffer buf = new StringBuffer(text.length() + increase);
+        while (end != -1) {
             buf.append(text.substring(start, end)).append(with);
             start = end + repl.length();
-
             if (--max == 0) {
                 break;
             }
+            end = text.indexOf(repl, start);
         }
         buf.append(text.substring(start));
         return buf.toString();
