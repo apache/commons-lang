@@ -231,7 +231,7 @@ public class RandomStringUtils {
             }
         }
 
-        StringBuffer buffer = new StringBuffer();
+        char[] buffer = new char[count];
         int gap = end - start;
 
         while (count-- != 0) {
@@ -241,16 +241,15 @@ public class RandomStringUtils {
             } else {
                 ch = chars[random.nextInt(gap) + start];
             }
-            if ((letters && numbers && Character.isLetterOrDigit(ch))
-                || (letters && Character.isLetter(ch))
+            if ((letters && Character.isLetter(ch))
                 || (numbers && Character.isDigit(ch))
                 || (!letters && !numbers)) {
-                buffer.append(ch);
+                buffer[count] = ch;
             } else {
                 count++;
             }
         }
-        return buffer.toString();
+        return new String(buffer);
     }
 
     /**
