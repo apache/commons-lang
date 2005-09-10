@@ -804,12 +804,23 @@ public class StringUtilsTest extends TestCase {
         assertEquals(null, StringUtils.replace(null, "any", null, 2));
         assertEquals(null, StringUtils.replace(null, "any", "any", 2));
 
+        assertEquals("", StringUtils.replace("", null, null, 2));
+        assertEquals("", StringUtils.replace("", null, "any", 2));
+        assertEquals("", StringUtils.replace("", "any", null, 2));
+        assertEquals("", StringUtils.replace("", "any", "any", 2));
+        
+        String str = new String(new char[] {'o', 'o', 'f', 'o', 'o'});
+        assertSame(str, StringUtils.replace(str, "x", "", -1));
+        
         assertEquals("f", StringUtils.replace("oofoo", "o", "", -1));
         assertEquals("oofoo", StringUtils.replace("oofoo", "o", "", 0));
         assertEquals("ofoo", StringUtils.replace("oofoo", "o", "", 1));
         assertEquals("foo", StringUtils.replace("oofoo", "o", "", 2));
         assertEquals("fo", StringUtils.replace("oofoo", "o", "", 3));
         assertEquals("f", StringUtils.replace("oofoo", "o", "", 4));
+        
+        assertEquals("f", StringUtils.replace("oofoo", "o", "", -5));
+        assertEquals("f", StringUtils.replace("oofoo", "o", "", 1000));
     }
     
     public void testReplaceOnce_StringStringString() {
