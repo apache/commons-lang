@@ -189,8 +189,11 @@ public final class Fraction extends Number implements Serializable, Comparable {
     }
 
     /**
-     * <p>Creates a <code>Fraction</code> instance with the 2 parts
+     * <p>Creates a reduced <code>Fraction</code> instance with the 2 parts
      * of a fraction Y/Z.</p>
+     *
+     * <p>For example, if the input parameters represent 2/4, then the created
+     * fraction will be 1/2.</p>
      *
      * <p>Any negative signs are resolved to be on the numerator.</p>
      *
@@ -448,12 +451,18 @@ public final class Fraction extends Number implements Serializable, Comparable {
 
     /**
      * <p>Reduce the fraction to the smallest values for the numerator and
-     * denominator, returning the result..</p>
+     * denominator, returning the result.</p>
+     * 
+     * <p>For example, if this fraction represents 2/4, then the result
+     * will be 1/2.</p>
      *
-     * @return a new reduce fraction instance, or this if no simplification possible
+     * @return a new reduced fraction instance, or this if no simplification possible
      */
     public Fraction reduce() {
         int gcd = greatestCommonDivisor(Math.abs(numerator), denominator);
+        if (gcd == 1) {
+            return this;
+        }
         return Fraction.getFraction(numerator / gcd, denominator / gcd);
     }
 

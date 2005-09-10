@@ -615,14 +615,31 @@ public class FractionTest extends TestCase {
         Fraction f = null;
         
         f = Fraction.getFraction(50, 75);
-        f = f.reduce();
-        assertEquals(2, f.getNumerator());
-        assertEquals(3, f.getDenominator());
+        Fraction result = f.reduce();
+        assertEquals(2, result.getNumerator());
+        assertEquals(3, result.getDenominator());
+
+        f = Fraction.getFraction(-2, -3);
+        result = f.reduce();
+        assertEquals(2, result.getNumerator());
+        assertEquals(3, result.getDenominator());
+
+        f = Fraction.getFraction(2, -3);
+        result = f.reduce();
+        assertEquals(-2, result.getNumerator());
+        assertEquals(3, result.getDenominator());
+
+        f = Fraction.getFraction(-2, 3);
+        result = f.reduce();
+        assertEquals(-2, result.getNumerator());
+        assertEquals(3, result.getDenominator());
+        assertSame(f, result);
 
         f = Fraction.getFraction(2, 3);
-        f = f.reduce();
-        assertEquals(2, f.getNumerator());
-        assertEquals(3, f.getDenominator());
+        result = f.reduce();
+        assertEquals(2, result.getNumerator());
+        assertEquals(3, result.getDenominator());
+        assertSame(f, result);
     }
     
     public void testInvert() {
