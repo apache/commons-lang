@@ -548,7 +548,7 @@ public class StrTokenizerTest extends TestCase {
      */
     public void testCloneNotSupportedException() {
         Object notCloned = (new StrTokenizer() {
-            public Object cloneReset() throws CloneNotSupportedException {
+            Object cloneReset() throws CloneNotSupportedException {
                 throw new CloneNotSupportedException("test");
             }
         }).clone();
