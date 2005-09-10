@@ -273,34 +273,17 @@ public class WordUtils {
      * @since 2.1
      */
     public static String capitalize(String str, char[] delimiters) {
-        if (str == null || str.length() == 0) {
+        int delimLen = (delimiters == null ? -1 : delimiters.length);
+        if (str == null || str.length() == 0 || delimLen == 0) {
             return str;
         }
         int strLen = str.length();
         StringBuffer buffer = new StringBuffer(strLen);
-
-        int delimitersLen = 0;
-        if(delimiters != null) {
-            delimitersLen = delimiters.length;
-        }
-
         boolean capitalizeNext = true;
         for (int i = 0; i < strLen; i++) {
             char ch = str.charAt(i);
 
-            boolean isDelimiter = false;
-            if(delimiters == null) {
-                isDelimiter = Character.isWhitespace(ch);
-            } else {
-                for(int j=0; j < delimitersLen; j++) {
-                    if(ch == delimiters[j]) {
-                        isDelimiter = true;
-                        break;
-                    }
-                }
-            }
-
-            if (isDelimiter) {
+            if (isDelimiter(ch, delimiters)) {
                 buffer.append(ch);
                 capitalizeNext = true;
             } else if (capitalizeNext) {
@@ -313,6 +296,7 @@ public class WordUtils {
         return buffer.toString();
     }
 
+    //-----------------------------------------------------------------------
     /**
      * <p>Converts all the whitespace separated words in a String into capitalized words, 
      * that is each word is made up of a titlecase character and then a series of 
@@ -363,13 +347,15 @@ public class WordUtils {
      * @since 2.1
      */
     public static String capitalizeFully(String str, char[] delimiters) {
-        if (str == null || str.length() == 0) {
+        int delimLen = (delimiters == null ? -1 : delimiters.length);
+        if (str == null || str.length() == 0 || delimLen == 0) {
             return str;
         }
         str = str.toLowerCase();
         return capitalize(str, delimiters);
     }
 
+    //-----------------------------------------------------------------------
     /**
      * <p>Uncapitalizes all the whitespace separated words in a String.
      * Only the first letter of each word is changed.</p>
@@ -417,34 +403,17 @@ public class WordUtils {
      * @since 2.1
      */
     public static String uncapitalize(String str, char[] delimiters) {
-        if (str == null || str.length() == 0) {
+        int delimLen = (delimiters == null ? -1 : delimiters.length);
+        if (str == null || str.length() == 0 || delimLen == 0) {
             return str;
         }
         int strLen = str.length();
-
-        int delimitersLen = 0;
-        if(delimiters != null) {
-            delimitersLen = delimiters.length;
-        }
-
         StringBuffer buffer = new StringBuffer(strLen);
         boolean uncapitalizeNext = true;
         for (int i = 0; i < strLen; i++) {
             char ch = str.charAt(i);
 
-            boolean isDelimiter = false;
-            if(delimiters == null) {
-                isDelimiter = Character.isWhitespace(ch);
-            } else {
-                for(int j=0; j < delimitersLen; j++) {
-                    if(ch == delimiters[j]) {
-                        isDelimiter = true;
-                        break;
-                    }
-                }
-            }
-
-            if (isDelimiter) {
+            if (isDelimiter(ch, delimiters)) {
                 buffer.append(ch);
                 uncapitalizeNext = true;
             } else if (uncapitalizeNext) {
@@ -457,6 +426,7 @@ public class WordUtils {
         return buffer.toString();
     }
 
+    //-----------------------------------------------------------------------
     /**
      * <p>Swaps the case of a String using a word based algorithm.</p>
      * 
@@ -510,5 +480,105 @@ public class WordUtils {
         }
         return buffer.toString();
     }
-    
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Extracts the initial letters from each word in the String.</p>
+     * 
+     * <p>The first letter of the string and all first letters after
+     * whitespace are returned as a new string.
+     * Their case is not changed.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A <code>null</code> input String returns <code>null</code>.</p>
+     *
+     * <pre>
+     * WordUtils.initials(null)             = null
+     * WordUtils.initials("")               = ""
+     * WordUtils.initials("Ben John Lee")   = "BJL"
+     * WordUtils.initials("Ben J.Lee")      = "BJ"
+     * </pre>
+     *
+     * @param str  the String to get initials from, may be null
+     * @return String of initial letters, <code>null</code> if null String input
+     * @see #initials(String,char[])
+     * @since 2.2
+     */
+    public static String initials(String str) {
+        return initials(str, null);
+    }
+
+    /**
+     * <p>Extracts the initial letters from each word in the String.</p>
+     * 
+     * <p>The first letter of the string and all first letters after the
+     * defined delimiters are returned as a new string.
+     * Their case is not changed.</p>
+     *
+     * <p>If the delimiters array is null, then Whitespace is used.
+     * Whitespace is defined by {@link Character#isWhitespace(char)}.
+     * A <code>null</code> input String returns <code>null</code>.
+     * An empty delimiter array returns an empty String.</p>
+     *
+     * <pre>
+     * WordUtils.initials(null, *)                = null
+     * WordUtils.initials("", *)                  = ""
+     * WordUtils.initials("Ben John Lee", null)   = "BJL"
+     * WordUtils.initials("Ben J.Lee", null)      = "BJ"
+     * WordUtils.initials("Ben J.Lee", [' ','.']) = "BJL"
+     * WordUtils.initials(*, new char[0])         = ""
+     * </pre>
+     * 
+     * @param str  the String to get initials from, may be null
+     * @param delimiters  set of characters to determine words, null means whitespace
+     * @return String of initial letters, <code>null</code> if null String input
+     * @see #initials(String)
+     * @since 2.2
+     */
+    public static String initials(String str, char[] delimiters) {
+        if (str == null || str.length() == 0) {
+            return str;
+        }
+        if (delimiters != null && delimiters.length == 0) {
+            return "";
+        }
+        int strLen = str.length();
+        char[] buf = new char[strLen / 2 + 1];
+        int count = 0;
+        boolean lastWasGap = true;
+        for (int i = 0; i < strLen; i++) {
+            char ch = str.charAt(i);
+
+            if (isDelimiter(ch, delimiters)) {
+                lastWasGap = true;
+            } else if (lastWasGap) {
+                buf[count++] = ch;
+                lastWasGap = false;
+            } else {
+                // ignore ch
+            }
+        }
+        return new String(buf, 0, count);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Is the character a delimiter.
+     *
+     * @param ch  the character to check
+     * @param delimiters  the delimiters
+     * @return true if it is a delimiter
+     */
+    private static boolean isDelimiter(char ch, char[] delimiters) {
+        if (delimiters == null) {
+            return Character.isWhitespace(ch);
+        }
+        for (int i = 0, isize = delimiters.length; i < isize; i++) {
+            if (ch == delimiters[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
