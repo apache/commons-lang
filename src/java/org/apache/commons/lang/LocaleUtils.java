@@ -16,9 +16,13 @@
 package org.apache.commons.lang;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -33,6 +37,19 @@ import java.util.Set;
  * @version $Id$
  */
 public class LocaleUtils {
+
+    /** Unmodifiable list of available locales. */
+    private static final List cAvailableLocaleList;
+    /** Unmodifiable set of available locales. */
+    private static Set cAvailableLocaleSet;
+    /** Unmodifiable map of language locales by country. */
+    private static final Map cLanguagesByCountry = Collections.synchronizedMap(new HashMap());
+    /** Unmodifiable map of country locales by language. */
+    private static final Map cCountriesByLanguage = Collections.synchronizedMap(new HashMap());
+    static {
+        List list = Arrays.asList(Locale.getAvailableLocales());
+        cAvailableLocaleList = Collections.unmodifiableList(list);
+    }
 
     /**
      * <p><code>LocaleUtils</code> instances should NOT be constructed in standard programming.
@@ -57,34 +74,48 @@ public class LocaleUtils {
      *   LocaleUtils.toLocale("en_GB")  = new Locale("en", "GB")
      *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")
      * </pre>
+     * 
+     * <p>This method validates the input strictly.
+     * The language code must be lowercase.
+     * The country code must be uppercase.
+     * The separator must be an underscore.
+     * The length must be correct.
+     * </p>
      *
      * @param str  the locale String to convert, null returns null
-     * @return a Locale
+     * @return a Locale, null if null input
      * @throws IllegalArgumentException if the string is an invalid format
      */
     public static Locale toLocale(String str) {
         if (str == null) {
             return null;
         }
-        if (str.length() != 2 &&
-            str.length() != 5 &&
-            str.length() < 7) {
+        int len = str.length();
+        if (len != 2 && len != 5 && len < 7) {
             throw new IllegalArgumentException("Invalid locale format: " + str);
         }
-        if (Character.isLowerCase(str.charAt(0)) == false ||
-            Character.isLowerCase(str.charAt(1)) == false) {
+        char ch0 = str.charAt(0);
+        char ch1 = str.charAt(1);
+        if (ch0 < 'a' || ch0 > 'z' || ch1 < 'a' || ch1 > 'z') {
             throw new IllegalArgumentException("Invalid locale format: " + str);
         }
-        if (str.length() == 2) {
+        if (len == 2) {
             return new Locale(str, "");
         } else {
-            if (Character.isUpperCase(str.charAt(3)) == false ||
-                Character.isUpperCase(str.charAt(4)) == false) {
+            if (str.charAt(2) != '_') {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
-            if (str.length() == 5) {
+            char ch3 = str.charAt(3);
+            char ch4 = str.charAt(4);
+            if (ch3 < 'A' || ch3 > 'Z' || ch4 < 'A' || ch4 > 'Z') {
+                throw new IllegalArgumentException("Invalid locale format: " + str);
+            }
+            if (len == 5) {
                 return new Locale(str.substring(0, 2), str.substring(3, 5));
             } else {
+                if (str.charAt(5) != '_') {
+                    throw new IllegalArgumentException("Invalid locale format: " + str);
+                }
                 return new Locale(str.substring(0, 2), str.substring(3, 5), str.substring(6));
             }
         }
@@ -101,7 +132,7 @@ public class LocaleUtils {
      * </pre>
      *
      * @param locale  the locale to start from
-     * @return the list of Locale objects, 0 being locale
+     * @return the unmodifiable list of Locale objects, 0 being locale, never null
      */
     public static List localeLookupList(Locale locale) {
         return localeLookupList(locale, locale);
@@ -117,12 +148,13 @@ public class LocaleUtils {
      *   = [Locale("fr","CA","xxx"), Locale("fr","CA"), Locale("fr"), Locale("en"]
      * </pre>
      *
-     * <p>This method takes a country code and searches to find the
-     * languages available for that country. Variant locales are removed.</p>
+     * <p>The result list begins with the most specific locale, then the
+     * next more general and so on, finishing with the default locale.
+     * The list will never contain the same locale twice.</p>
      *
      * @param locale  the locale to start from, null returns empty list
      * @param defaultLocale  the default locale to use if no other is found
-     * @return the list of Locale objects, 0 being locale
+     * @return the unmodifiable list of Locale objects, 0 being locale, never null
      */
     public static List localeLookupList(Locale locale, Locale defaultLocale) {
         List list = new ArrayList(4);
@@ -138,55 +170,116 @@ public class LocaleUtils {
                 list.add(defaultLocale);
             }
         }
-        return list;
+        return Collections.unmodifiableList(list);
     }
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Obtains the set of languages supported for a given country.</p>
-     
-     * <p>This method takes a country code and searches to find the
-     * languages available for that country. Variant locales are removed.</p>
+     * <p>Obtains an unmodifiable list of installed locales.</p>
+     * 
+     * <p>This method is a wrapper around {@link Locale#getAvailableLocales()}.
+     * It is more efficient, as the JDK method must create a new array each
+     * time it is called.</p>
      *
-     * @param countryCode  the 2 letter country code, null returns empty
-     * @return a Set of Locale objects
+     * @return the unmodifiable list of available locales
      */
-    public static Set languagesByCountry(String countryCode) {
-        Set set = new HashSet();
-        Locale[] array = Locale.getAvailableLocales();
-        if (countryCode != null) {
-            for (int i = 0; i < array.length; i++) {
-                if (countryCode.equals(array[i].getCountry()) &&
-                        array[i].getVariant().length() == 0) {
-                    set.add(array[i]);
-                }
-            }
+    public static List availableLocaleList() {
+        return cAvailableLocaleList;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Obtains an unmodifiable set of installed locales.</p>
+     * 
+     * <p>This method is a wrapper around {@link Locale#getAvailableLocales()}.
+     * It is more efficient, as the JDK method must create a new array each
+     * time it is called.</p>
+     *
+     * @return the unmodifiable set of available locales
+     */
+    public static Set availableLocaleSet() {
+        Set set = cAvailableLocaleSet;
+        if (set == null) {
+            set = new HashSet(availableLocaleList());
+            set = Collections.unmodifiableSet(set);
+            cAvailableLocaleSet = set;
         }
         return set;
     }
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Obtains the set of countries supported for a given language.</p>
+     * <p>Checks if the locale specified is in the list of available locales.</p>
+     *
+     * @return true if the locale is a known locale
+     */
+    public static boolean isAvailableLocale(Locale locale) {
+        return cAvailableLocaleSet.contains(locale);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Obtains the list of languages supported for a given country.</p>
+     *
+     * <p>This method takes a country code and searches to find the
+     * languages available for that country. Variant locales are removed.</p>
+     *
+     * @param countryCode  the 2 letter country code, null returns empty
+     * @return an unmodifiable List of Locale objects, never null
+     */
+    public static List languagesByCountry(String countryCode) {
+        List langs = (List) cLanguagesByCountry.get(countryCode);
+        if (langs == null) {
+            if (countryCode != null) {
+                langs = new ArrayList();
+                List locales = availableLocaleList();
+                for (int i = 0; i < locales.size(); i++) {
+                    Locale locale = (Locale) locales.get(i);
+                    if (countryCode.equals(locale.getCountry()) &&
+                            locale.getVariant().length() == 0) {
+                        langs.add(locale);
+                    }
+                }
+                langs = Collections.unmodifiableList(langs);
+            } else {
+                langs = Collections.EMPTY_LIST;
+            }
+            cLanguagesByCountry.put(countryCode, langs);
+        }
+        return langs;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Obtains the list of countries supported for a given language.</p>
      * 
      * <p>This method takes a language code and searches to find the
      * countries available for that language. Variant locales are removed.</p>
      *
      * @param languageCode  the 2 letter language code, null returns empty
-     * @return a Set of Locale objects
+     * @return an unmodifiable List of Locale objects, never null
      */
-    public static Set countriesByLanguage(String languageCode) {
-        Set set = new HashSet();
-        Locale[] array = Locale.getAvailableLocales();
-        if (languageCode != null) {
-            for (int i = 0; i < array.length; i++) {
-                if (languageCode.equals(array[i].getLanguage()) &&
-                        array[i].getVariant().length() == 0) {
-                    set.add(array[i]);
+    public static List countriesByLanguage(String languageCode) {
+        List countries = (List) cCountriesByLanguage.get(languageCode);
+        if (countries == null) {
+            if (languageCode != null) {
+                countries = new ArrayList();
+                List locales = availableLocaleList();
+                for (int i = 0; i < locales.size(); i++) {
+                    Locale locale = (Locale) locales.get(i);
+                    if (languageCode.equals(locale.getLanguage()) &&
+                            locale.getCountry().length() != 0 &&
+                            locale.getVariant().length() == 0) {
+                        countries.add(locale);
+                    }
                 }
+                countries = Collections.unmodifiableList(countries);
+            } else {
+                countries = Collections.EMPTY_LIST;
             }
+            cCountriesByLanguage.put(languageCode, countries);
         }
-        return set;
+        return countries;
     }
 
 }
