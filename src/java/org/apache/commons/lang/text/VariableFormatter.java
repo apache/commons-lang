@@ -465,13 +465,13 @@ public class VariableFormatter {
     }
 
     /** Constant for the default escape character. */
-    static final char DEFAULT_ESCAPE = '$';
+    public static final char DEFAULT_ESCAPE = '$';
 
     /** Constant for the default variable prefix. */
-    static final String DEFAULT_PREFIX = "${";
+    public static final String DEFAULT_PREFIX = "${";
 
     /** Constant for the default variable suffix. */
-    static final String DEFAULT_SUFFIX = "}";
+    public static final String DEFAULT_SUFFIX = "}";
 
     /**
      * Replaces the occurrences of all variables in the given source data by their current values obtained from the
