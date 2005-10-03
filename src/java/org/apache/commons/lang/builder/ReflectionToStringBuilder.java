@@ -148,8 +148,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * This method uses reflection to build a suitable <code>toString</code>
-     * using the default <code>ToStringStyle</code>.
+     * Builds a <code>toString</code> value using the default <code>ToStringStyle</code> through reflection.
+     * </p>
      * 
      * <p>
      * It uses <code>AccessibleObject.setAccessible</code> to gain access to
@@ -175,7 +175,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * This method uses reflection to build a suitable <code>toString</code>.
+     * Builds a <code>toString</code> value through reflection.
      * </p>
      * 
      * <p>
@@ -210,7 +210,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * This method uses reflection to build a suitable <code>toString</code>.
+     * Builds a <code>toString</code> value through reflection.
      * </p>
      * 
      * <p>
@@ -252,7 +252,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * This method uses reflection to build a suitable <code>toString</code>.
+     * Builds a <code>toString</code> value through reflection.
      * </p>
      * 
      * <p>
@@ -302,7 +302,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * This method uses reflection to build a suitable <code>toString</code>.
+     * Builds a <code>toString</code> value through reflection.
      * </p>
      * 
      * <p>
@@ -357,7 +357,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * This method uses reflection to build a suitable <code>toString</code>.
+     * Builds a <code>toString</code> value through reflection.
      * </p>
      * 
      * <p>
