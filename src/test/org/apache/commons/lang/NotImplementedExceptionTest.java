@@ -111,19 +111,19 @@ public class NotImplementedExceptionTest extends TestCase {
         assertEquals("Code is not implemented in class java.lang.String", ex.getMessage());
     }
 
-    public void testGetMessage_Indexed() {
-        NotImplementedException ex = new NotImplementedException(new Exception("nested 1", new Exception("nested 2")));
-        assertEquals("Code is not implemented", ex.getMessage());
-        assertEquals("Code is not implemented", ex.getMessage(0));
-        assertEquals("nested 1", ex.getMessage(1));
-        assertEquals("nested 2", ex.getMessage(2));
-        
-        String[] messages = ex.getMessages();
-        assertEquals(3, messages.length);
-        assertEquals("Code is not implemented", messages[0]);
-        assertEquals("nested 1", messages[1]);
-        assertEquals("nested 2", messages[2]);
-    }
+//    public void testGetMessage_Indexed() {
+//        NotImplementedException ex = new NotImplementedException(new Exception("nested 1", new Exception("nested 2")));
+//        assertEquals("Code is not implemented", ex.getMessage());
+//        assertEquals("Code is not implemented", ex.getMessage(0));
+//        assertEquals("nested 1", ex.getMessage(1));
+//        assertEquals("nested 2", ex.getMessage(2));
+//        
+//        String[] messages = ex.getMessages();
+//        assertEquals(3, messages.length);
+//        assertEquals("Code is not implemented", messages[0]);
+//        assertEquals("nested 1", messages[1]);
+//        assertEquals("nested 2", messages[2]);
+//    }
     
     public void testGetThrowable() {
         NotImplementedException ex = new NotImplementedException(new NestableException("nested 1", new NestableException("nested 2")));
