@@ -111,6 +111,7 @@ public class NotImplementedExceptionTest extends TestCase {
         assertEquals("Code is not implemented in class java.lang.String", ex.getMessage());
     }
 
+// Does not compile on Java 1.3.1:    
 //    public void testGetMessage_Indexed() {
 //        NotImplementedException ex = new NotImplementedException(new Exception("nested 1", new Exception("nested 2")));
 //        assertEquals("Code is not implemented", ex.getMessage());
