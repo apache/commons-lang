@@ -272,7 +272,7 @@ public class LocaleUtilsTest extends TestCase {
             new Locale[] {
                 LOCALE_EN_US_ZZZZ,
                 LOCALE_EN_US,
-                new Locale("en")});
+                new Locale("en", "")});
     }        
 
     /**
