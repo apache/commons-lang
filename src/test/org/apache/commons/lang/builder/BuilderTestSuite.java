@@ -47,17 +47,18 @@ public class BuilderTestSuite extends TestCase {
     public static Test suite() {
         TestSuite suite = new TestSuite();
         suite.setName("Commons-Lang-Builder Tests");
-        suite.addTest(CompareToBuilderTest.suite());
-        suite.addTest(EqualsBuilderTest.suite());
-        suite.addTest(HashCodeBuilderTest.suite());
-        suite.addTest(HashCodeBuilderAndEqualsBuilderTest.suite());
-        suite.addTest(ToStringBuilderTest.suite());
-        suite.addTest(DefaultToStringStyleTest.suite());
-        suite.addTest(NoFieldNamesToStringStyleTest.suite());
-        suite.addTest(MultiLineToStringStyleTest.suite());
-        suite.addTest(SimpleToStringStyleTest.suite());
-        suite.addTest(StandardToStringStyleTest.suite());
-        suite.addTest(ToStringStyleTest.suite());
+        suite.addTestSuite(CompareToBuilderTest.class);
+        suite.addTestSuite(EqualsBuilderTest.class);
+        suite.addTestSuite(HashCodeBuilderTest.class);
+        suite.addTestSuite(HashCodeBuilderAndEqualsBuilderTest.class);
+        suite.addTestSuite(ToStringBuilderTest.class);
+        suite.addTestSuite(DefaultToStringStyleTest.class);
+        suite.addTestSuite(NoFieldNamesToStringStyleTest.class);
+        suite.addTestSuite(MultiLineToStringStyleTest.class);
+        suite.addTestSuite(ReflectionToStringBuilderExcludeTest.class);
+        suite.addTestSuite(SimpleToStringStyleTest.class);
+        suite.addTestSuite(StandardToStringStyleTest.class);
+        suite.addTestSuite(ToStringStyleTest.class);
         return suite;
     }
 }
