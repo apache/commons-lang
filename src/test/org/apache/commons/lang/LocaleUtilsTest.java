@@ -18,6 +18,7 @@ package org.apache.commons.lang;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -256,10 +257,7 @@ public class LocaleUtilsTest extends TestCase {
         
         assertEquals(expected.length, localeList.size());
         assertEquals(Arrays.asList(expected), localeList);
-        try {
-            localeList.add("Unmodifiable");
-            fail();
-        } catch (UnsupportedOperationException ex) {}
+        assertUnmodifiableCollection(localeList);
     }
 
     //-----------------------------------------------------------------------
@@ -344,6 +342,8 @@ public class LocaleUtilsTest extends TestCase {
         List list2 = LocaleUtils.availableLocaleList();
         assertNotNull(list);
         assertSame(list, list2);
+        assertUnmodifiableCollection(list);
+        
         Locale[] jdkLocaleArray = Locale.getAvailableLocales();
         List jdkLocaleList = Arrays.asList(jdkLocaleArray);
         assertEquals(jdkLocaleList, list);
@@ -358,6 +358,8 @@ public class LocaleUtilsTest extends TestCase {
         Set set2 = LocaleUtils.availableLocaleSet();
         assertNotNull(set);
         assertSame(set, set2);
+        assertUnmodifiableCollection(set);
+        
         Locale[] jdkLocaleArray = Locale.getAvailableLocales();
         List jdkLocaleList = Arrays.asList(jdkLocaleArray);
         Set jdkLocaleSet = new HashSet(jdkLocaleList);
@@ -413,10 +415,7 @@ public class LocaleUtilsTest extends TestCase {
                         + " for country: " + country);
             }
         }
-        try {
-            list.add("Unmodifiable");
-            fail();
-        } catch (UnsupportedOperationException ex) {}
+        assertUnmodifiableCollection(list);
     }
 
     /**
@@ -463,10 +462,7 @@ public class LocaleUtilsTest extends TestCase {
                         + " for country: " + language);
             }
         }
-        try {
-            list.add("Unmodifiable");
-            fail();
-        } catch (UnsupportedOperationException ex) {}
+        assertUnmodifiableCollection(list);
     }
 
     /**
@@ -477,6 +473,16 @@ public class LocaleUtilsTest extends TestCase {
         assertCountriesByLanguage("de", new String[]{"DE", "CH", "AT", "LU"});
         assertCountriesByLanguage("zz", new String[0]);
         assertCountriesByLanguage("it", new String[]{"IT", "CH"});
+    }
+
+    /**
+     * @param coll  the collection to check
+     */
+    private static void assertUnmodifiableCollection(Collection coll) {
+        try {
+            coll.add("Unmodifiable");
+            fail();
+        } catch (UnsupportedOperationException ex) {}
     }
 
 }
