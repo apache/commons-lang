@@ -232,7 +232,7 @@ public class LocaleUtils {
      * @return an unmodifiable List of Locale objects, never null
      */
     public static List languagesByCountry(String countryCode) {
-        List langs = (List) cLanguagesByCountry.get(countryCode);
+        List langs = (List) cLanguagesByCountry.get(countryCode);  //syncd
         if (langs == null) {
             if (countryCode != null) {
                 langs = new ArrayList();
@@ -248,7 +248,7 @@ public class LocaleUtils {
             } else {
                 langs = Collections.EMPTY_LIST;
             }
-            cLanguagesByCountry.put(countryCode, langs);
+            cLanguagesByCountry.put(countryCode, langs);  //syncd
         }
         return langs;
     }
@@ -264,7 +264,7 @@ public class LocaleUtils {
      * @return an unmodifiable List of Locale objects, never null
      */
     public static List countriesByLanguage(String languageCode) {
-        List countries = (List) cCountriesByLanguage.get(languageCode);
+        List countries = (List) cCountriesByLanguage.get(languageCode);  //syncd
         if (countries == null) {
             if (languageCode != null) {
                 countries = new ArrayList();
@@ -281,7 +281,7 @@ public class LocaleUtils {
             } else {
                 countries = Collections.EMPTY_LIST;
             }
-            cCountriesByLanguage.put(languageCode, countries);
+            cCountriesByLanguage.put(languageCode, countries);  //syncd
         }
         return countries;
     }
