@@ -16,17 +16,17 @@
 package org.apache.commons.lang;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
-import org.apache.commons.lang.exception.NestableException;
+import java.lang.reflect.Constructor;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
+import org.apache.commons.lang.exception.NestableException;
 
 /**
  * JUnit tests.
@@ -111,20 +111,24 @@ public class NotImplementedExceptionTest extends TestCase {
         assertEquals("Code is not implemented in class java.lang.String", ex.getMessage());
     }
 
-// Does not compile on Java 1.3.1:    
-//    public void testGetMessage_Indexed() {
-//        NotImplementedException ex = new NotImplementedException(new Exception("nested 1", new Exception("nested 2")));
-//        assertEquals("Code is not implemented", ex.getMessage());
-//        assertEquals("Code is not implemented", ex.getMessage(0));
-//        assertEquals("nested 1", ex.getMessage(1));
-//        assertEquals("nested 2", ex.getMessage(2));
-//        
-//        String[] messages = ex.getMessages();
-//        assertEquals(3, messages.length);
-//        assertEquals("Code is not implemented", messages[0]);
-//        assertEquals("nested 1", messages[1]);
-//        assertEquals("nested 2", messages[2]);
-//    }
+    public void testGetMessage_Indexed() throws Exception {
+        if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
+            Exception ex1 = new Exception("nested 2");
+            Constructor con = Exception.class.getConstructor(new Class[] {String.class, Throwable.class});
+            Exception ex2 = (Exception) con.newInstance(new Object[] {"nested 1", ex1});
+            NotImplementedException ex = new NotImplementedException(ex2);
+            assertEquals("Code is not implemented", ex.getMessage());
+            assertEquals("Code is not implemented", ex.getMessage(0));
+            assertEquals("nested 1", ex.getMessage(1));
+            assertEquals("nested 2", ex.getMessage(2));
+            
+            String[] messages = ex.getMessages();
+            assertEquals(3, messages.length);
+            assertEquals("Code is not implemented", messages[0]);
+            assertEquals("nested 1", messages[1]);
+            assertEquals("nested 2", messages[2]);
+        }
+    }
     
     public void testGetThrowable() {
         NotImplementedException ex = new NotImplementedException(new NestableException("nested 1", new NestableException("nested 2")));
