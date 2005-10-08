@@ -220,9 +220,16 @@ public class LocaleUtilsTest extends TestCase {
      * Test toLocale() method.
      */
     public void testToLocale_3Part() {
-        assertValidToLocale("us_EN_a", "us", "EN", "a");
         assertValidToLocale("us_EN_A", "us", "EN", "A");
-        assertValidToLocale("us_EN_SFsafdFDsdfF", "us", "EN", "SFsafdFDsdfF");
+        // this isn't pretty, but was caused by a jdk bug it seems
+        // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4210525
+        if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
+            assertValidToLocale("us_EN_a", "us", "EN", "a");
+            assertValidToLocale("us_EN_SFsafdFDsdfF", "us", "EN", "SFsafdFDsdfF");
+        } else {
+            assertValidToLocale("us_EN_a", "us", "EN", "A");
+            assertValidToLocale("us_EN_SFsafdFDsdfF", "us", "EN", "SFSAFDFDSDFF");
+        }
         
         try {
             LocaleUtils.toLocale("us_EN-a");
@@ -272,7 +279,7 @@ public class LocaleUtilsTest extends TestCase {
             new Locale[] {
                 LOCALE_EN_US_ZZZZ,
                 LOCALE_EN_US,
-                new Locale("en", "")});
+                LOCALE_EN});
     }        
 
     /**

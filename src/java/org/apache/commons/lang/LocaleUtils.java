@@ -70,11 +70,15 @@ public class LocaleUtils {
      * locale object from it.</p>
      *
      * <pre>
-     *   LocaleUtils.toLocale("en")     = new Locale("en", "")
-     *   LocaleUtils.toLocale("en_GB")  = new Locale("en", "GB")
-     *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")
+     *   LocaleUtils.toLocale("en")         = new Locale("en", "")
+     *   LocaleUtils.toLocale("en_GB")      = new Locale("en", "GB")
+     *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
      * </pre>
-     * 
+     *
+     * <p>(#) The behaviour of the JDK variant constructor changed between JDK1.3 and JDK1.4.
+     * In JDK1.3, the constructor upper cases the variant, in JDK1.4, it doesn't.
+     * Thus, the result from getVariant() may vary depending on your JDK.</p>
+     *
      * <p>This method validates the input strictly.
      * The language code must be lowercase.
      * The country code must be uppercase.
