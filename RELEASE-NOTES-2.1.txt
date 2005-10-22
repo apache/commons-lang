@@ -1,21 +1,18 @@
 $Id$
 
                         Commons Lang Package
-                            Version 2.2
+                            Version 2.1
                            Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 2.2 version of Apache Jakarta Commons Lang.
+This document contains the release notes for the 2.1 version of Apache Jakarta Commons Lang.
 Commons Lang is a set of utility functions and reusable components that
 should be of use in any Java environment.
 
-INCOMPATIBLE CHANGES WITH VERSION 2.1:
 
-	*** TO DO
-
-INCOMPATIBLE CHANGES WITH VERSION 2.0:
+INCOMPATIBLE CHANGES:
 
 - The Nestable interface defines the method indexOfThrowable(Class).
 Previously the implementations checked only for a specific Class.
@@ -33,11 +30,8 @@ If your code previously relied on unusual aspects, it may no longer work.
 junit.jar to ANT_HOME/lib. You can get JUnit from http://www.junit.org. See the developer's guide
 for more details.
 
-DEPRECATIONS FROM 2.1 to 2.2:
 
-	*** TO DO
-
-DEPRECATIONS FROM 2.0 to 2.1:
+DEPRECATIONS:
 
 - The enum package has been renamed to enums for JDK1.5 compilance.
 All functionality is identical, just the package has changed.
@@ -48,11 +42,8 @@ This package will be removed in v3.0.
 - DateUtils - four constants, MILLIS_IN_* have been deprecated as they were defined
 as int not long. The replacements are MILLIS_PER_*. 
 
-NEW FEATURES IN 2.2:
 
-	**** TO DO
-	
-NEW FEATURES IN 2.1:
+NEW FEATURES:
 
 New:
 - Mutable package - contains basic classes that hold an Object or primitive
@@ -95,11 +86,7 @@ indexOfThrowable method untouched (see incompatible changes section)
 - StopWatch - new methods for split behaviour
 
 
-BUG FIXES IN 2.2:
-
-37111  Request for MutableBoolean implementation
-
-BUG FIXES IN 2.1:
+BUG FIXES:
 
 19331  General case: infinite loop: ToStringBuilder.reflectionToString
 23174  EqualsBuilder.append(Object[], Object[]) throws NPE
