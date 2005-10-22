@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.lang.mutable;
 
 import junit.framework.Test;
@@ -21,7 +22,7 @@ import junit.textui.TestRunner;
 
 /**
  * JUnit tests.
- *
+ * 
  * @version $Id$
  */
 public class MutableTestSuite {
@@ -33,6 +34,7 @@ public class MutableTestSuite {
     public static Test suite() {
         final TestSuite suite = new TestSuite();
 
+        suite.addTest(MutableBooleanTest.suite());
         suite.addTest(MutableByteTest.suite());
         suite.addTest(MutableShortTest.suite());
         suite.addTest(MutableIntTest.suite());
@@ -44,6 +46,7 @@ public class MutableTestSuite {
         return suite;
     }
 
-    private MutableTestSuite() {}
+    private MutableTestSuite() {
+    }
 
 }
