@@ -51,7 +51,7 @@ as int not long. The replacements are MILLIS_PER_*.
 NEW FEATURES IN 2.2:
 
 	**** TO DO
-	
+
 NEW FEATURES IN 2.1:
 
 New:
@@ -98,6 +98,7 @@ indexOfThrowable method untouched (see incompatible changes section)
 BUG FIXES IN 2.2:
 
 37111  Request for MutableBoolean implementation
+36512  Enhanced Class.forName version
 
 BUG FIXES IN 2.1:
 
