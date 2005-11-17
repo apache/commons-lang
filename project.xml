@@ -140,7 +140,16 @@ limitations under the License.
 				<role>Java Developer</role>
 			</roles>
 		</developer>
-	</developers>
+        <developer>
+			<name>James Carman</name>
+			<id>jcarman</id>
+			<email>jcarman@apache.org</email>
+			<organization>Carman Consulting, Inc.</organization>
+			<roles>
+				<role>Java Developer</role>
+			</roles>
+		</developer>
+    </developers>
 	<contributors>
 		<contributor>
 			<name>C. Scott Ananian</name>
