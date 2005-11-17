@@ -392,6 +392,110 @@ public class ClassUtilsTest extends TestCase {
         assertNotSame("unmodified", noPrimitives, ClassUtils.primitivesToWrappers(noPrimitives));
     }
 
+    public void testGetClassClassNotFound() throws Exception {
+        assertGetClassThrowsClassNotFound( "bool" );
+        assertGetClassThrowsClassNotFound( "bool[]" );
+        assertGetClassThrowsClassNotFound( "integer[]" );
+    }
+
+    public void testGetClassInvalidArguments() throws Exception {
+        assertGetClassThrowsIllegalArgument( null );
+        assertGetClassThrowsClassNotFound( "[][][]" );
+        assertGetClassThrowsClassNotFound( "[[]" );
+        assertGetClassThrowsClassNotFound( "[" );
+        assertGetClassThrowsClassNotFound( "java.lang.String][" );
+        assertGetClassThrowsClassNotFound( ".hello.world" );
+        assertGetClassThrowsClassNotFound( "hello..world" );
+    }
+
+    public void testWithInterleavingWhitespace() throws ClassNotFoundException {
+        assertEquals( int[].class, ClassUtils.getClass( " int [ ] " ) );
+        assertEquals( long[].class, ClassUtils.getClass( "\rlong\t[\n]\r" ) );
+        assertEquals( short[].class, ClassUtils.getClass( "\tshort                \t\t[]" ) );
+        assertEquals( byte[].class, ClassUtils.getClass( "byte[\t\t\n\r]   " ) );
+    }
+
+    public void testGetClassByNormalNameArrays() throws ClassNotFoundException {
+        assertEquals( int[].class, ClassUtils.getClass( "int[]" ) );
+        assertEquals( long[].class, ClassUtils.getClass( "long[]" ) );
+        assertEquals( short[].class, ClassUtils.getClass( "short[]" ) );
+        assertEquals( byte[].class, ClassUtils.getClass( "byte[]" ) );
+        assertEquals( char[].class, ClassUtils.getClass( "char[]" ) );
+        assertEquals( float[].class, ClassUtils.getClass( "float[]" ) );
+        assertEquals( double[].class, ClassUtils.getClass( "double[]" ) );
+        assertEquals( boolean[].class, ClassUtils.getClass( "boolean[]" ) );
+        assertEquals( String[].class, ClassUtils.getClass( "java.lang.String[]" ) );
+    }
+
+    public void testGetClassByNormalNameArrays2D() throws ClassNotFoundException {
+        assertEquals( int[][].class, ClassUtils.getClass( "int[][]" ) );
+        assertEquals( long[][].class, ClassUtils.getClass( "long[][]" ) );
+        assertEquals( short[][].class, ClassUtils.getClass( "short[][]" ) );
+        assertEquals( byte[][].class, ClassUtils.getClass( "byte[][]" ) );
+        assertEquals( char[][].class, ClassUtils.getClass( "char[][]" ) );
+        assertEquals( float[][].class, ClassUtils.getClass( "float[][]" ) );
+        assertEquals( double[][].class, ClassUtils.getClass( "double[][]" ) );
+        assertEquals( boolean[][].class, ClassUtils.getClass( "boolean[][]" ) );
+        assertEquals( String[][].class, ClassUtils.getClass( "java.lang.String[][]" ) );
+    }
+
+    public void testGetClassWithArrayClasses2D() throws Exception {
+        assertGetClassReturnsClass( String[][].class );
+        assertGetClassReturnsClass( int[][].class );
+        assertGetClassReturnsClass( long[][].class );
+        assertGetClassReturnsClass( short[][].class );
+        assertGetClassReturnsClass( byte[][].class );
+        assertGetClassReturnsClass( char[][].class );
+        assertGetClassReturnsClass( float[][].class );
+        assertGetClassReturnsClass( double[][].class );
+        assertGetClassReturnsClass( boolean[][].class );
+    }
+
+    public void testGetClassWithArrayClasses() throws Exception {
+        assertGetClassReturnsClass( String[].class );
+        assertGetClassReturnsClass( int[].class );
+        assertGetClassReturnsClass( long[].class );
+        assertGetClassReturnsClass( short[].class );
+        assertGetClassReturnsClass( byte[].class );
+        assertGetClassReturnsClass( char[].class );
+        assertGetClassReturnsClass( float[].class );
+        assertGetClassReturnsClass( double[].class );
+        assertGetClassReturnsClass( boolean[].class );
+    }
+
+    public void testGetClassRawPrimitives() throws ClassNotFoundException {
+        assertEquals( int.class, ClassUtils.getClass( "int" ) );
+        assertEquals( long.class, ClassUtils.getClass( "long" ) );
+        assertEquals( short.class, ClassUtils.getClass( "short" ) );
+        assertEquals( byte.class, ClassUtils.getClass( "byte" ) );
+        assertEquals( char.class, ClassUtils.getClass( "char" ) );
+        assertEquals( float.class, ClassUtils.getClass( "float" ) );
+        assertEquals( double.class, ClassUtils.getClass( "double" ) );
+        assertEquals( boolean.class, ClassUtils.getClass( "boolean" ) );
+    }
+
+    private void assertGetClassReturnsClass( Class c ) throws Exception {
+        assertEquals( c, ClassUtils.getClass( c.getName() ) );
+    }
+
+    private void assertGetClassThrowsException( String className, Class exceptionType ) throws Exception {
+        try {
+            ClassUtils.getClass( className );
+            fail( "ClassUtils.getClass() should fail with an exception of type " + exceptionType.getName() + " when given class name \"" + className + "\"." );
+        }
+        catch( Exception e ) {
+            assertTrue( exceptionType.isAssignableFrom( e.getClass() ) );
+        }
+    }
+
+    private void assertGetClassThrowsIllegalArgument( String className ) throws Exception {
+        assertGetClassThrowsException( className, IllegalArgumentException.class );
+    }
+
+    private void assertGetClassThrowsClassNotFound( String className ) throws Exception {
+        assertGetClassThrowsException( className, ClassNotFoundException.class );
+    }
+
     /**
      * Creates a new instance of URLClassLoader with the system class loader's URLs and a <code>null</code> parent
      * class loader.
