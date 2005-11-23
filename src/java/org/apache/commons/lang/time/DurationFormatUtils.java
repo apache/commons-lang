@@ -211,11 +211,12 @@ public class DurationFormatUtils {
             }
         }
         // handle plurals
-        duration = StringUtils.replaceOnce(duration, "1 seconds", "1 second");
-        duration = StringUtils.replaceOnce(duration, "1 minutes", "1 minute");
-        duration = StringUtils.replaceOnce(duration, "1 hours", "1 hour");
-        duration = StringUtils.replaceOnce(duration, "1 days", "1 day");
-        return duration;
+        duration = " " + duration;
+        duration = StringUtils.replaceOnce(duration, " 1 seconds", " 1 second");
+        duration = StringUtils.replaceOnce(duration, " 1 minutes", " 1 minute");
+        duration = StringUtils.replaceOnce(duration, " 1 hours", " 1 hour");
+        duration = StringUtils.replaceOnce(duration, " 1 days", " 1 day");
+        return duration.trim();
     }
 
     //-----------------------------------------------------------------------
