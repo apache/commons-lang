@@ -363,12 +363,13 @@ limitations under the License.
     <!-- Lang should depend on very little -->
     <dependencies>
         <dependency>
-            <id>junit</id>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <version>3.8.1</version>
         </dependency>
         <!--
     <dependency>
-      <groupId>maven-pluginss</groupId>
+      <groupId>maven-plugins</groupId>
       <artifactId>maven-findbugs-plugin</artifactId>
       <version>0.7.1</version>
       <url>http://maven-plugins.sourceforge.net/maven-findbugs-plugin/</url>
