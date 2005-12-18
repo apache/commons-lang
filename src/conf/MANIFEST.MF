@@ -1,7 +1,10 @@
-Extension-Name: @name@
-Specification-Title: Jakarta Commons Lang
+Manifest-Version: 1.0
+Package: org.apache.commons.lang
+Extension-Name: commons-lang
+Specification-Version: @version@
 Specification-Vendor: Apache Software Foundation
-Specification-Version: 2.1
-Implementation-Vendor: Apache Software Foundation
-Implementation-Title: org.apache.commons.lang
+Specification-Title: Commons Lang
 Implementation-Version: @version@
+Implementation-Vendor: Apache Software Foundation
+Implementation-Title: Commons Lang
+Implementation-Vendor-Id: org.apache
