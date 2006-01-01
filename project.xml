@@ -414,7 +414,7 @@ limitations under the License.
         <report>maven-checkstyle-plugin</report>
         <report>maven-pmd-plugin</report>
         <!-- <report>maven-findbugs-plugin</report> -->
-        <report>maven-clover-plugin</report>
+        <report>maven-cobertura-plugin</report>
         <!-- <report>maven-developer-activity-plugin</report> -->
         <!-- <report>maven-file-activity-plugin</report> -->
         <report>maven-javadoc-plugin</report>
