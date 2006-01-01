@@ -518,92 +518,102 @@ public class ClassUtils {
         return cls.getName().indexOf(INNER_CLASS_SEPARATOR_CHAR) >= 0;
     }
 
+    // Class loading
+    // ----------------------------------------------------------------------
     /**
-     * Returns the class represented by <code>className</code> using the <code>classLoader</code>.  This implementation
-     * supports names like "<code>java.lang.String[]</code>" as well as "<code>[Ljava.lang.String;</code>".
+     * Returns the class represented by <code>className</code> using the
+     * <code>classLoader</code>.  This implementation supports names like
+     * "<code>java.lang.String[]</code>" as well as "<code>[Ljava.lang.String;</code>".
      *
-     * @param classLoader the class loader to use to load the class
-     * @param className   the class name
+     * @param classLoader  the class loader to use to load the class
+     * @param className  the class name
      * @param initialize  whether the class must be initialized
      * @return the class represented by <code>className</code> using the <code>classLoader</code>
      * @throws ClassNotFoundException if the class is not found
      */
-    public static Class getClass( ClassLoader classLoader, String className, boolean initialize )
-            throws ClassNotFoundException {
+    public static Class getClass(
+            ClassLoader classLoader, String className, boolean initialize) throws ClassNotFoundException {
         Class clazz;
-        if( abbreviationMap.containsKey( className ) ) {
-            clazz = Class.forName( "[" + abbreviationMap.get( className ), initialize, classLoader ).getComponentType();
-        }
-        else {
-            clazz = Class.forName( toProperClassName( className ), initialize, classLoader );
+        if (abbreviationMap.containsKey(className)) {
+            String clsName = "[" + abbreviationMap.get(className);
+            clazz = Class.forName(clsName, initialize, classLoader).getComponentType();
+        } else {
+            clazz = Class.forName(toProperClassName(className), initialize, classLoader);
         }
         return clazz;
     }
 
     /**
-     * Returns the (initialized) class represented by <code>className</code> using the <code>classLoader</code>.  This
-     * implementation supports names like "<code>java.lang.String[]</code>" as well as
+     * Returns the (initialized) class represented by <code>className</code>
+     * using the <code>classLoader</code>.  This implementation supports names
+     * like "<code>java.lang.String[]</code>" as well as
      * "<code>[Ljava.lang.String;</code>".
      *
-     * @param classLoader the class loader to use to load the class
-     * @param className   the class name
+     * @param classLoader  the class loader to use to load the class
+     * @param className  the class name
      * @return the class represented by <code>className</code> using the <code>classLoader</code>
      * @throws ClassNotFoundException if the class is not found
      */
-    public static Class getClass( ClassLoader classLoader, String className ) throws ClassNotFoundException {
-        return getClass( classLoader, className, true );
+    public static Class getClass(ClassLoader classLoader, String className) throws ClassNotFoundException {
+        return getClass(classLoader, className, true);
     }
 
     /**
-     * Returns the (initialized )class represented by <code>className</code> using the current thread's context class
-     * loader.  This implementation supports names like "<code>java.lang.String[]</code>" as well as
-     * "<code>[Ljava.lang.String;</code>".
-     *
-     * @param className the class name
-     * @return the class represented by <code>className</code> using the current thread's context class loader
-     * @throws ClassNotFoundException if the class is not found
-     */
-    public static Class getClass( String className ) throws ClassNotFoundException {
-        return getClass( Thread.currentThread().getContextClassLoader() == null ? ClassUtils.class.getClassLoader() :
-                         Thread.currentThread().getContextClassLoader(), className, true );
-    }
-
-    /**
-     * Returns the class represented by <code>className</code> using the current thread's context class loader. This
-     * implementation supports names like "<code>java.lang.String[]</code>" as well as
+     * Returns the (initialized )class represented by <code>className</code>
+     * using the current thread's context class loader. This implementation
+     * supports names like "<code>java.lang.String[]</code>" as well as
      * "<code>[Ljava.lang.String;</code>".
      *
      * @param className  the class name
-     * @param initialize whether the class must be initialized
      * @return the class represented by <code>className</code> using the current thread's context class loader
      * @throws ClassNotFoundException if the class is not found
      */
-    public static Class getClass( String className, boolean initialize ) throws ClassNotFoundException {
-        return getClass( Thread.currentThread().getContextClassLoader() == null ? ClassUtils.class.getClassLoader() :
-                         Thread.currentThread().getContextClassLoader(), className, initialize );
+    public static Class getClass(String className) throws ClassNotFoundException {
+        return getClass(className, true);
     }
 
-    private static String toProperClassName( String className ) {
-        className = StringUtils.deleteWhitespace( className );
-        if( className == null ) {
-            throw new NullArgumentException( "className" );
-        }
-        else if( className.endsWith( "[]" ) ) {
-            final StringBuffer classNameBuffer = new StringBuffer();
-            while( className.endsWith( "[]" ) ) {
-                className = className.substring( 0, className.length() - 2 );
-                classNameBuffer.append( "[" );
+    /**
+     * Returns the class represented by <code>className</code> using the
+     * current thread's context class loader. This implementation supports
+     * names like "<code>java.lang.String[]</code>" as well as
+     * "<code>[Ljava.lang.String;</code>".
+     *
+     * @param className  the class name
+     * @param initialize  whether the class must be initialized
+     * @return the class represented by <code>className</code> using the current thread's context class loader
+     * @throws ClassNotFoundException if the class is not found
+     */
+    public static Class getClass(String className, boolean initialize) throws ClassNotFoundException {
+        ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
+        ClassLoader loader = contextCL == null ? ClassUtils.class.getClassLoader() : contextCL;
+        return getClass(loader, className, initialize );
+    }
+
+    /**
+     * Converts a class name to a JLS stle class name.
+     *
+     * @param className  the class name
+     * @return the converted name
+     */
+    private static String toProperClassName(String className) {
+        className = StringUtils.deleteWhitespace(className);
+        if (className == null) {
+            throw new NullArgumentException("className");
+        } else if (className.endsWith("[]")) {
+            StringBuffer classNameBuffer = new StringBuffer();
+            while (className.endsWith("[]")) {
+                className = className.substring(0, className.length() - 2);
+                classNameBuffer.append("[");
             }
-            final String abbreviation = ( String ) abbreviationMap.get( className );
-            if( abbreviation != null ) {
-                classNameBuffer.append( abbreviation );
-            }
-            else {
-                classNameBuffer.append( "L" ).append( className ).append( ";" );
+            String abbreviation = (String) abbreviationMap.get(className);
+            if (abbreviation != null) {
+                classNameBuffer.append(abbreviation);
+            } else {
+                classNameBuffer.append("L").append(className).append(";");
             }
             className = classNameBuffer.toString();
-
         }
         return className;
     }
+
 }
