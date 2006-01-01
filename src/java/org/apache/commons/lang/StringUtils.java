@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2063,13 +2063,12 @@ public class StringUtils {
      * A <code>null</code> separator splits on whitespace.</p>
      *
      * <pre>
-     * StringUtils.split(null, *)            = null
-     * StringUtils.split("", *)              = []
-     * StringUtils.split("ab de fg", null)   = ["ab", "de", "fg"]
-     * StringUtils.split("ab   de fg", null) = ["ab", "de", "fg"]
-     * StringUtils.split("ab:cd:ef", ":")    = ["ab", "cd", "ef"]
-     * StringUtils.split("abstemiouslyaeiouyabstemiously", "aeiouy")  = ["bst", "m", "sl", "bst", "m", "sl"]
-     * StringUtils.split("abstemiouslyaeiouyabstemiously", "aeiouy")  = ["abstemiously", "abstemiously"]
+     * StringUtils.splitByWholeSeparator(null, *)               = null
+     * StringUtils.splitByWholeSeparator("", *)                 = []
+     * StringUtils.splitByWholeSeparator("ab de fg", null)      = ["ab", "de", "fg"]
+     * StringUtils.splitByWholeSeparator("ab   de fg", null)    = ["ab", "de", "fg"]
+     * StringUtils.splitByWholeSeparator("ab:cd:ef", ":")       = ["ab", "cd", "ef"]
+     * StringUtils.splitByWholeSeparator("ab-!-cd-!-ef", "-!-") = ["ab", "cd", "ef"]
      * </pre>
      *
      * @param str  the String to parse, may be null
@@ -2096,10 +2095,9 @@ public class StringUtils {
      * StringUtils.splitByWholeSeparator("", *, *)                 = []
      * StringUtils.splitByWholeSeparator("ab de fg", null, 0)      = ["ab", "de", "fg"]
      * StringUtils.splitByWholeSeparator("ab   de fg", null, 0)    = ["ab", "de", "fg"]
-     * StringUtils.splitByWholeSeparator("ab:cd:ef", ":", 2)       = ["ab", "cd"]
-     * StringUtils.splitByWholeSeparator("abstemiouslyaeiouyabstemiously", "aeiouy", 2) = ["bst", "m"]
-     * StringUtils.splitByWholeSeparator("abstemiouslyaeiouyabstemiously", "aeiouy", 2) = 
-     * ["abstemiously", "abstemiously"]
+     * StringUtils.splitByWholeSeparator("ab:cd:ef", ":", 2)       = ["ab", "cd:ef"]
+     * StringUtils.splitByWholeSeparator("ab-!-cd-!-ef", "-!-", 5) = ["ab", "cd", "ef"]
+     * StringUtils.splitByWholeSeparator("ab-!-cd-!-ef", "-!-", 2) = ["ab", "cd-!-ef"]
      * </pre>
      *
      * @param str  the String to parse, may be null
