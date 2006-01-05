@@ -85,6 +85,7 @@ Updated:
 
 - ExceptionUtils - added indexOfType methods that check subclasses, thus leaving the existing
 indexOfThrowable method untouched (see incompatible changes section)
+                -- new ExceptionUtils method setCause()
 
 - NumberUtils - various string to number parsing methods added
 
@@ -100,6 +101,7 @@ BUG FIXES IN 2.2:
 37111  Request for MutableBoolean implementation
 36512  Enhanced Class.forName version
 37596  DurationFormatUtils.formatDurationWords "11 <unit>s" gets converted to "11 <unit>"
+37574  New ExceptionUtils method setCause()
 
 BUG FIXES IN 2.1:
 
