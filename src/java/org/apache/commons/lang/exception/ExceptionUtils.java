@@ -31,10 +31,11 @@ import java.util.StringTokenizer;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang.NullArgumentException;
 
 /**
  * <p>Provides utilities for manipulating and examining 
- * <code>Throwable</code> objects.</p>
+<code>Throwable</code> objects.</p>
  *
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author Dmitri Plotnikov
@@ -73,22 +74,40 @@ public class ExceptionUtils {
     };
 
     /**
-     * <p>The Method object for JDK1.4 getCause.</p>
+     * <p>
+     * The Method object for Java 1.4 getCause.
+     * </p>
      */
     private static final Method THROWABLE_CAUSE_METHOD;
+
+    /**
+     * <p>
+     * The Method object for Java 1.4 initCause.
+     * </p>
+     */
+    private static final Method THROWABLE_INITCAUSE_METHOD;
+    
     static {
-        Method getCauseMethod;
+        Method causeMethod;
         try {
-            getCauseMethod = Throwable.class.getMethod("getCause", null);
+            causeMethod = Throwable.class.getMethod("getCause", null);
         } catch (Exception e) {
-            getCauseMethod = null;
+            causeMethod = null;
         }
-        THROWABLE_CAUSE_METHOD = getCauseMethod;
+        THROWABLE_CAUSE_METHOD = causeMethod;
+        try {
+            causeMethod = Throwable.class.getMethod("initCause", new Class[]{Throwable.class});
+        } catch (Exception e) {
+            causeMethod = null;
+        }
+        THROWABLE_INITCAUSE_METHOD = causeMethod;
     }
     
     /**
-     * <p>Public constructor allows an instance of <code>ExceptionUtils</code>
-     * to be created, although that is not normally necessary.</p>
+     * <p>
+     * Public constructor allows an instance of <code>ExceptionUtils</code> to be created, although that is not
+     * normally necessary.
+     * </p>
      */
     public ExceptionUtils() {
         super();
@@ -127,6 +146,72 @@ public class ExceptionUtils {
                 CAUSE_METHOD_NAMES = toArray(list);
             }
         }
+    }
+
+    /**
+     * <p>
+     * Sets the cause of a <code>Throwable</code> using introspection, allowing source code compatibility between
+     * pre-1.4 and post-1.4 Java releases.
+     * </p>
+     * 
+     * <p>
+     * The typical use of this method is inside a constructor as in the following example:
+     * </p>
+     * 
+     * <p>
+     * <pre>
+     * import org.apache.commons.lang.exception.ExceptionUtils;
+     *  
+     * public class MyException extends Exception {
+     *  
+     *    public MyException(String msg) {
+     *       super(msg);
+     *    }
+     *   
+     *    public MyException(String msg, Throwable cause) {
+     *       super(msg);
+     *       ExceptionUtils.setCause(this, cause);
+     *    }
+     * 
+     * }           
+     * </pre>
+     * </p>
+     * 
+     * @param target
+     *            the target <code>Throwable</code>
+     * @param cause
+     *            the <code>Throwable</code> to set in the target
+     * @return a <code>true</code> if the target has been modified
+     * @since 2.2
+     */
+    public static boolean setCause(Throwable target, Throwable cause) {
+        if (target == null) {
+            throw new NullArgumentException("target");
+        }
+        Object[] causeArgs = new Object[]{cause};
+        boolean modifiedTarget = false;
+        if (THROWABLE_INITCAUSE_METHOD != null) {
+            try {
+                THROWABLE_INITCAUSE_METHOD.invoke(target, causeArgs);
+                modifiedTarget = true;
+            } catch (IllegalAccessException ignored) {
+                // Exception ignored.
+            } catch (InvocationTargetException ignored) {
+                // Exception ignored.
+            }
+        }
+        try {
+            Method setCauseMethod = target.getClass().getMethod("setCause", new Class[]{Throwable.class});
+            setCauseMethod.invoke(target, causeArgs);
+            modifiedTarget = true;
+        } catch (NoSuchMethodException ignored) {
+            // Exception ignored.
+        } catch (IllegalAccessException ignored) {
+            // Exception ignored.
+        } catch (InvocationTargetException ignored) {
+            // Exception ignored.
+        }
+        return modifiedTarget;
     }
 
     /**
@@ -768,14 +853,20 @@ public class ExceptionUtils {
     }
 
     /**
-     * <p>Returns an array where each element is a line from the argument.</p>
-     * <p>The end of line is determined by the value of {@link SystemUtils#LINE_SEPARATOR}.</p>
-     *  
-     * <p>Functionality shared between the
-     * <code>getStackFrames(Throwable)</code> methods of this and the
-     * {@link org.apache.commons.lang.exception.NestableDelegate}
-     * classes.</p>
-     * @param stackTrace A stack trace String.
+     * <p>
+     * Returns an array where each element is a line from the argument.
+     * </p>
+     * <p>
+     * The end of line is determined by the value of {@link SystemUtils#LINE_SEPARATOR}.
+     * </p>
+     * 
+     * <p>
+     * Functionality shared between the <code>getStackFrames(Throwable)</code> methods of this and the
+     * {@link org.apache.commons.lang.exception.NestableDelegate} classes.
+     * </p>
+     * 
+     * @param stackTrace
+     *            A stack trace String.
      * @return an array where each element is a line from the argument.
      */
     static String[] getStackFrames(String stackTrace) {

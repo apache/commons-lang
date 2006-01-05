@@ -16,6 +16,7 @@
 package org.apache.commons.lang.exception;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -25,6 +26,7 @@ import java.sql.SQLException;
 import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestSuite;
+
 import org.apache.commons.lang.SystemUtils;
 
 /**
@@ -137,6 +139,25 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         assertSame(null, ExceptionUtils.getRootCause(withoutCause));
         assertSame(withoutCause, ExceptionUtils.getRootCause(nested));
         assertSame(withoutCause, ExceptionUtils.getRootCause(withCause));
+    }
+
+    public void testSetCause() {
+        Exception cause = new ExceptionWithoutCause();
+        assertEquals(true, ExceptionUtils.setCause(new ExceptionWithCause(null), cause));
+        if (SystemUtils.isJavaVersionAtLeast(140)) {
+            assertEquals(true, ExceptionUtils.setCause(new ExceptionWithoutCause(), cause));
+        }
+    }
+
+    /**
+     * Tests overriding a cause to <code>null</code>.
+     */
+    public void testSetCauseToNull() {
+        Exception ex = new ExceptionWithCause(new IOException());
+        assertEquals(true, ExceptionUtils.setCause(ex, new IllegalStateException()));
+        assertNotNull(ExceptionUtils.getCause(ex));
+        assertEquals(true, ExceptionUtils.setCause(ex, null));
+        assertNull(ExceptionUtils.getCause(ex));
     }
 
     //-----------------------------------------------------------------------
@@ -387,11 +408,15 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         private Throwable cause;
 
         public ExceptionWithCause(Throwable cause) {
-            this.cause = cause;
+            setCause(cause);
         }
 
         public Throwable getCause() {
             return cause;
+        }
+
+        public void setCause(Throwable cause) {
+            this.cause = cause;
         }
     }
 
