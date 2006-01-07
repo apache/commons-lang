@@ -24,7 +24,6 @@ import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -884,7 +883,7 @@ public class ExceptionUtils {
     static String[] getStackFrames(String stackTrace) {
         String linebreak = SystemUtils.LINE_SEPARATOR;
         StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        List list = new LinkedList();
+        List list = new ArrayList();
         while (frames.hasMoreTokens()) {
             list.add(frames.nextToken());
         }
@@ -907,7 +906,7 @@ public class ExceptionUtils {
         String stackTrace = getStackTrace(t);
         String linebreak = SystemUtils.LINE_SEPARATOR;
         StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        List list = new LinkedList();
+        List list = new ArrayList();
         boolean traceStarted = false;
         while (frames.hasMoreTokens()) {
             String token = frames.nextToken();
