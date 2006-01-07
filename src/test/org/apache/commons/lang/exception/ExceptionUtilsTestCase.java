@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -397,7 +397,29 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         } catch (IllegalArgumentException ex) {
         }
     }
-    
+
+    public void test_getMessage_Throwable() {
+        Throwable th = null;
+        assertEquals("", ExceptionUtils.getMessage(th));
+        
+        th = new IllegalArgumentException("Base");
+        assertEquals("IllegalArgumentException: Base", ExceptionUtils.getMessage(th));
+        
+        th = new ExceptionWithCause("Wrapper", th);
+        assertEquals("ExceptionUtilsTestCase.ExceptionWithCause: Wrapper", ExceptionUtils.getMessage(th));
+    }
+
+    public void test_getRootCauseMessage_Throwable() {
+        Throwable th = null;
+        assertEquals("", ExceptionUtils.getRootCauseMessage(th));
+        
+        th = new IllegalArgumentException("Base");
+        assertEquals("IllegalArgumentException: Base", ExceptionUtils.getRootCauseMessage(th));
+        
+        th = new ExceptionWithCause("Wrapper", th);
+        assertEquals("IllegalArgumentException: Base", ExceptionUtils.getRootCauseMessage(th));
+    }
+
     //-----------------------------------------------------------------------
     /**
      * Provides a method with a well known chained/nested exception
@@ -407,7 +429,13 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
     private static class ExceptionWithCause extends Exception {
         private Throwable cause;
 
+        public ExceptionWithCause(String str, Throwable cause) {
+            super(str);
+            setCause(cause);
+        }
+
         public ExceptionWithCause(Throwable cause) {
+            super();
             setCause(cause);
         }
 
@@ -429,5 +457,5 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         public void getTargetException() {
         }
     }
-    
+
 }

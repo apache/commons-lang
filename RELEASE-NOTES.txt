@@ -50,7 +50,9 @@ as int not long. The replacements are MILLIS_PER_*.
 
 NEW FEATURES IN 2.2:
 
-	**** TO DO
+- New ExceptionUtils methods getMessage/getRootCauseMessage
+- New ExceptionUtils method setCause() [37574]
+
 
 NEW FEATURES IN 2.1:
 
@@ -101,7 +103,6 @@ BUG FIXES IN 2.2:
 37111  Request for MutableBoolean implementation
 36512  Enhanced Class.forName version
 37596  DurationFormatUtils.formatDurationWords "11 <unit>s" gets converted to "11 <unit>"
-37574  New ExceptionUtils method setCause()
 
 BUG FIXES IN 2.1:
 
