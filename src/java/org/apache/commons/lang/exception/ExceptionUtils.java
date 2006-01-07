@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.NullArgumentException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
@@ -920,6 +921,43 @@ public class ExceptionUtils {
             }
         }
         return list;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Gets a short message summarising the exception.
+     * <p>
+     * The message returned is of the form
+     * {ClassNameWithoutPackage}: {ThrowableMessage}
+     *
+     * @param th  the throwable to get a message for, null returns empty string
+     * @return the message, non-null
+     * @since Commons Lang 2.2
+     */
+    public static String getMessage(Throwable th) {
+        if (th == null) {
+            return "";
+        }
+        String clsName = ClassUtils.getShortClassName(th, null);
+        String msg = th.getMessage();
+        return clsName + ": " + StringUtils.defaultString(msg);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Gets a short message summarising the root cause exception.
+     * <p>
+     * The message returned is of the form
+     * {ClassNameWithoutPackage}: {ThrowableMessage}
+     *
+     * @param th  the throwable to get a message for, null returns empty string
+     * @return the message, non-null
+     * @since Commons Lang 2.2
+     */
+    public static String getRootCauseMessage(Throwable th) {
+        Throwable root = ExceptionUtils.getRootCause(th);
+        root = (root == null ? th : root);
+        return getMessage(root);
     }
 
 }
