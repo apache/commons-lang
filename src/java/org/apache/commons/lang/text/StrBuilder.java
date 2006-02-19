@@ -2278,27 +2278,27 @@ public class StrBuilder implements Cloneable {
 
         /** @inheritdoc */
         public void write(int c) {
-            append((char) c);
+            StrBuilder.this.append((char) c);
         }
 
         /** @inheritdoc */
         public void write(char[] cbuf) {
-            append(cbuf);
+            StrBuilder.this.append(cbuf);
         }
 
         /** @inheritdoc */
         public void write(char[] cbuf, int off, int len) {
-            append(cbuf, off, len);
+            StrBuilder.this.append(cbuf, off, len);
         }
 
         /** @inheritdoc */
         public void write(String str) {
-            append(str);
+            StrBuilder.this.append(str);
         }
 
         /** @inheritdoc */
         public void write(String str, int off, int len) {
-            append(str, off, len);
+            StrBuilder.this.append(str, off, len);
         }
     }
 
