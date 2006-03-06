@@ -1334,5 +1334,7 @@ public class FractionTest extends TestCase {
 
         f = Fraction.getFraction(-1, 1, Integer.MAX_VALUE);
         assertEquals("-1 1/2147483647", f.toProperString());
+
+        assertEquals("-1", Fraction.getFraction(-1).toProperString());
     }
 }

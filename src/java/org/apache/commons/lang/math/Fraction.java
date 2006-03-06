@@ -909,6 +909,8 @@ public final class Fraction extends Number implements Serializable, Comparable {
                 toProperString = "0";
             } else if (numerator == denominator) {
                 toProperString = "1";
+            } else if (numerator == -1 * denominator) {
+                toProperString = "-1";
             } else if ((numerator>0?-numerator:numerator) < -denominator) {
                 // note that we do the magnitude comparison test above with
                 // NEGATIVE (not positive) numbers, since negative numbers
