@@ -85,7 +85,7 @@ public class DurationFormatUtils {
      * <p>The format used is the ISO8601 period format.</p>
      * 
      * <p>This method formats durations using the days and lower fields of the
-     * ISO format pattern, such as P7D6H5M4.321S.</p>
+     * ISO format pattern, such as P7D6TH5M4.321S.</p>
      * 
      * @param durationMillis  the duration to format
      * @return the time as a String
