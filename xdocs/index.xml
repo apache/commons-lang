@@ -88,7 +88,7 @@ Bugs may be reported via the Bugzilla Management system. The following links may
 <section name="Resources">
 <ul>
 <li>
-Oct 17, 2003 - <a href="http://www.builder.com/">Builder.com</a> has an article on Commons Lang v1.0 entitled <a href="http://builder.com.com/article.jhtml?id=u00320021017yan01.htm&amp;page=1&amp;vf=tt">Jakarta Commons Lang project offers centralized utility functions</a> [and in <a href="http://www.zdnet.com.cn/developer/tech/story/0,2000081602,39077840,00.htm">chinese</a>, and in <a href="http://www.zdnet.de/builder/artikel/architect/200212/jakarta_utility_01-wc.html">german</a>].
+Oct 17, 2003 - <a href="http://www.builder.com/">Builder.com</a> has an article on Commons Lang v1.0 entitled <a href="http://builder.com.com/article.jhtml?id=u00320021017yan01.htm&amp;page=1&amp;vf=tt">Jakarta Commons Lang project offers centralized utility functions</a> [and in <a href="http://www.zdnet.com.cn/developer/tech/story/0,2000081602,39077840,00.htm">chinese</a>].
 </li>
 <li>
 <a href="http://maven.apache.org">Maven</a>, <a href="http://jdiff.sourceforge.net/">JDiff</a>, <a href="http://pmd.sourceforge.net/">PMD</a>, <a href="http://www.cs.umd.edu/~pugh/java/bugs/">FindBugs</a> and <a href="http://www.thecortex.net/clover/">Clover</a> have all been of use in the latest release of Commons Lang. 
