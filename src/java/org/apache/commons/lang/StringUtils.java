@@ -3521,7 +3521,7 @@ public class StringUtils {
             throw new IndexOutOfBoundsException("Cannot pad a negative amount: " + repeat);
         }
         final char[] buf = new char[repeat];
-        for (int i=0; i < buf.length; i++) {
+        for (int i = 0; i < buf.length; i++) {
             buf[i] = padChar;
         }
         return new String(buf);
