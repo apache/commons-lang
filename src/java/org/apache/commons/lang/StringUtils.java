@@ -150,18 +150,6 @@ public class StringUtils {
     private static final int PAD_LIMIT = 8192;
 
     /**
-     * <p>An array of <code>String</code>s used for padding.</p>
-     *
-     * <p>Used for efficient space padding. The length of each String expands as needed.</p>
-     */
-    private static final String[] PADDING = new String[Character.MAX_VALUE + 1];
-
-    static {
-        // space padding is most common, start with 64 chars
-        PADDING[32] = "                                                                ";
-    }
-
-    /**
      * <p><code>StringUtils</code> instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
      * <code>StringUtils.trim(" foo ");</code>.</p>
@@ -3515,23 +3503,28 @@ public class StringUtils {
      * StringUtils.padding(-2, 'e') = IndexOutOfBoundsException
      * </pre>
      *
+     * <p>Note: this method doesn't not support padding with
+     * <a href="http://www.unicode.org/glossary/#supplementary_character">Unicode Supplementary Characters</a>
+     * as they require a pair of <code>char</code>s to be represented.
+     * If you are needing to support full I18N of your applications
+     * consider using {@link #repeat(String, int)} instead. 
+     * </p>
+     *
      * @param repeat  number of times to repeat delim
      * @param padChar  character to repeat
      * @return String with repeated character
      * @throws IndexOutOfBoundsException if <code>repeat &lt; 0</code>
+     * @see #repeat(String, int)
      */
-    private static String padding(int repeat, char padChar) {
-        // be careful of synchronization in this method
-        // we are assuming that get and set from an array index is atomic
-        String pad = PADDING[padChar];
-        if (pad == null) {
-            pad = String.valueOf(padChar);
+    private static String padding(int repeat, char padChar) throws IndexOutOfBoundsException {
+        if (repeat < 0) {
+            throw new IndexOutOfBoundsException("Cannot pad a negative amount: " + repeat);
         }
-        while (pad.length() < repeat) {
-            pad = pad.concat(pad);
+        final char[] buf = new char[repeat];
+        for (int i=0; i < buf.length; i++) {
+            buf[i] = padChar;
         }
-        PADDING[padChar] = pad;
-        return pad.substring(0, repeat);
+        return new String(buf);
     }
 
     /**
