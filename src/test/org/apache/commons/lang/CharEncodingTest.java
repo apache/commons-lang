@@ -44,6 +44,13 @@ public class CharEncodingTest extends TestCase {
         assertTrue("Encoding should be supported: " + name, CharEncoding.isSupported(name));
     }
 
+    /**
+     * The class can be instantiated.
+     */
+    public void testConstructor() {
+        new CharEncoding();
+    }
+
     public void testMustBeSupportedJava1_3_1() {
         if (SystemUtils.isJavaVersionAtLeast(1.3f)) {
             this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
