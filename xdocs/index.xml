@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-Copyright 2002-2005 The Apache Software Foundation.
+Copyright 2002-2006 The Apache Software Foundation.
  
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,16 +14,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
 <document>
-
  <properties>
-  <title>Commons</title>
+  <title>Home</title>
   <author email="commons-dev@jakarta.apache.org">Commons Documentation Team</author>
  </properties>
-
- <body>
-
+<body>
+<!-- ================================================== -->
 <section name="Commons Lang">
 
 <p>
@@ -40,62 +37,71 @@ supports multiple types of nested-Exceptions, basic enhancements to java.util.Da
 building methods, such as hashCode, toString and equals.
 </p>
 </section>
-
-<section name="Latest Release">
-<p>The latest release of Apache Jakarta Commons Lang is version 2.1. It is available (from mirrors) in <a href="http://jakarta.apache.org/site/binindex.cgi">binary</a> and <a href="http://jakarta.apache.org/site/sourceindex.cgi">source</a> downloads. The <a href="http://www.apache.org/dist/jakarta/commons/lang/RELEASE-NOTES.txt">release notes</a> explain all of the changes and bugs that were fixed between 2.0 and 2.1. In addition, <a href="http://jdiff.sourceforge.net/">JDiff</a> has been used to create a <a href="http://jakarta.apache.org/commons/lang/Commons-Lang-2.0-to-2.1/changes.html">report</a> on the differences between 2.0 and 2.1. </p>
-</section>
-
+<!-- ================================================== -->
 <section name="Documentation">
 <p>
-An alphabetical list of the packages may be found in the <a href="http://svn.apache.org/viewcvs.cgi/*checkout*/jakarta/commons/proper/lang/trunk/STATUS.html">lang status document</a>.
+A getting started <a href="userguide.html">user guide</a> is available
+together with various <a href="maven-reports.html">project reports</a>.
 </p>
-
 <p>
-The <a href="http://jakarta.apache.org/commons/lang/api/index.html">JavaDoc API documents</a> are available online.
-</p>
-</section>
-
-<section name="Bugs">
-<p>
-Bugs may be reported via the Bugzilla Management system. The following links may prove useful:
+The JavaDoc API documents are available online:
 </p>
 <ul>
- <li><a href="http://issues.apache.org/bugzilla/createaccount.cgi">Create a Bugzilla account</a></li>
- <li><a href="http://issues.apache.org/bugzilla/enter_bug.cgi?product=Commons">Submit a bug report</a></li>
- <li><a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=UNCONFIRMED&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;bug_status=RESOLVED&amp;bug_status=VERIFIED&amp;bug_status=CLOSED&amp;email1=&amp;emailtype1=substring&amp;emailassigned_to1=1&amp;email2=&amp;emailtype2=substring&amp;emailreporter2=1&amp;bugidtype=include&amp;bug_id=&amp;changedin=&amp;votes=&amp;chfieldfrom=&amp;chfieldto=Now&amp;chfieldvalue=&amp;product=Commons&amp;component=Lang&amp;short_desc=&amp;short_desc_type=allwordssubstr&amp;long_desc=&amp;long_desc_type=allwordssubstr&amp;bug_file_loc=&amp;bug_file_loc_type=allwordssubstr&amp;keywords=&amp;keywords_type=anywords&amp;field0-0-0=noop&amp;type0-0-0=noop&amp;value0-0-0=&amp;cmdtype=doit&amp;newqueryname=&amp;order=Reuse+same+sort+as+last+time">All Lang bugs</a></li>
- <li><a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;email1=&amp;emailtype1=substring&amp;emailassigned_to1=1&amp;email2=&amp;emailtype2=substring&amp;emailreporter2=1&amp;bugidtype=include&amp;bug_id=&amp;changedin=&amp;votes=&amp;chfieldfrom=&amp;chfieldto=Now&amp;chfieldvalue=&amp;product=Commons&amp;component=Lang&amp;short_desc=&amp;short_desc_type=allwordssubstr&amp;long_desc=&amp;long_desc_type=allwordssubstr&amp;bug_file_loc=&amp;bug_file_loc_type=allwordssubstr&amp;keywords=&amp;keywords_type=anywords&amp;field0-0-0=noop&amp;type0-0-0=noop&amp;value0-0-0=&amp;cmdtype=doit&amp;newqueryname=&amp;order=Reuse+same+sort+as+last+time">All open Lang bugs</a></li>
+<li>The <a href="api-release/index.html">current release 2.1</a></li>
+<li>The <a href="api-2.0/index.html">previous version 2.0</a></li>
+<li>The <a href="apidocs/index.html">latest SVN</a></li>
 </ul>
+<p>
+The <a href="cvs-usage.html">subversion repository</a> can be
+<a href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/lang/trunk/">browsed</a>.
+</p>
 </section>
-
+<!-- ================================================== -->
 <section name="Releases">
-<ul>
-<li><a href="http://www.apache.org/dist/jakarta/commons/lang/">Version 2.1</a></li>
-<li><a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-lang/v2.0/">Version 2.0</a></li>
-<li><a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-lang/v1.0.1/">Version 1.0.1</a></li>
-<li><a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-lang/v1.0/">Version 1.0</a></li>
-<li><a href="http://jakarta.apache.org/builds/jakarta-commons/release/commons-lang/v1.0-b1/">Version 1.0-b1</a></li>
-</ul>
+<p>
+The latest version is v2.1. - 
+<a href="http://jakarta.apache.org/site/downloads/downloads_commons-lang.cgi">Download now!</a><br />
+The <a href="upgradeto2_1.html">upgrade notes</a> are also available.<br />
+In addition there is a <a href="Commons-Lang-2.0-to-2.1/changes.html">JDiff report</a> on the differences between 2.0 and 2.1.
+</p>
+<p>
+For previous releases, see the <a href="http://archive.apache.org/dist/jakarta/commons/lang/">Apache Archive</a>
+</p>
 </section>
-
-<section name="Repository">
-<ul>
-<li>
-<a href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/lang/trunk/">Subversion Repository</a>
-</li>
-</ul>
+<!-- ================================================== -->
+<section name="Support">
+<p>
+The <a href="mail-lists.html">commons mailing lists</a> act as the main support forum.
+The user list is suitable for most library usage queries.
+The dev list is intended for the development discussion.
+Please remember that the lists are shared between all commons components,
+so prefix your email by [lang].
+</p>
+<p>
+Issues may be reported via <a href="issue-tracking.html">ASF Bugzilla</a>.
+Please remember that Bugzilla is shared between all commons components,
+so prefix your issue by [lang].
+</p>
 </section>
-
+<!-- ================================================== -->
 <section name="Resources">
 <ul>
 <li>
-Oct 17, 2003 - <a href="http://www.builder.com/">Builder.com</a> has an article on Commons Lang v1.0 entitled <a href="http://builder.com.com/article.jhtml?id=u00320021017yan01.htm&amp;page=1&amp;vf=tt">Jakarta Commons Lang project offers centralized utility functions</a> [and in <a href="http://www.zdnet.com.cn/developer/tech/story/0,2000081602,39077840,00.htm">chinese</a>].
+Oct 17, 2003 - <a href="http://www.builder.com/">Builder.com</a> has an article on Commons Lang v1.0 entitled
+<a href="http://builder.com.com/article.jhtml?id=u00320021017yan01.htm&amp;page=1&amp;vf=tt">Jakarta Commons Lang project offers centralized utility functions</a>
+[and in <a href="http://www.zdnet.com.cn/developer/tech/story/0,2000081602,39077840,00.htm">chinese</a>].
 </li>
 <li>
-<a href="http://maven.apache.org">Maven</a>, <a href="http://jdiff.sourceforge.net/">JDiff</a>, <a href="http://pmd.sourceforge.net/">PMD</a>, <a href="http://www.cs.umd.edu/~pugh/java/bugs/">FindBugs</a> and <a href="http://www.thecortex.net/clover/">Clover</a> have all been of use in the latest release of Commons Lang. 
+<a href="http://maven.apache.org">Maven</a>,
+<a href="http://jdiff.sourceforge.net/">JDiff</a>,
+<a href="http://clirr.sourceforge.net/">Clirr</a>,
+<a href="http://pmd.sourceforge.net/">PMD</a>,
+<a href="http://www.cs.umd.edu/~pugh/java/bugs/">FindBugs</a> and
+<a href="http://cobertura.sourceforge.net/">Cobertura</a>
+have all been of use in the latest release of Commons Lang. 
 </li>
 </ul>
 </section>
-
+<!-- ================================================== -->
 </body>
 </document>
-

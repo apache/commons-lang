@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!--
-Copyright 2002-2005 The Apache Software Foundation.
+Copyright 2002-2006 The Apache Software Foundation.
  
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ limitations under the License.
         standard as to justify existence in java.lang.
     </description>
     <logo>/images/logo.png</logo>
-    <url>http://jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</url>
-    <package>org.apache.commons.${pom.artifactId.substring(8)}</package>
+    <url>http://jakarta.apache.org/commons/lang/</url>
+    <package>org.apache.commons.lang</package>
     <organization>
         <name>The Apache Software Foundation</name>
         <url>http://jakarta.apache.org</url>
@@ -44,12 +44,12 @@ limitations under the License.
     </licenses>
     <gumpRepositoryId>jakarta</gumpRepositoryId>
     <issueTrackingUrl>http://issues.apache.org/bugzilla/</issueTrackingUrl>
-    <siteAddress>jakarta.apache.org</siteAddress>
-    <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
-    <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
+    <siteAddress>people.apache.org</siteAddress>
+    <siteDirectory>/www/jakarta.apache.org/commons/lang/</siteDirectory>
+    <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/lang/</distributionDirectory>
     <repository>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/${pom.artifactId.substring(8)}/trunk</connection>
-        <url>http://svn.apache.org/viewcvs/jakarta/commons/proper/${pom.artifactId.substring(8)}/trunk</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk</connection>
+        <url>http://svn.apache.org/viewcvs/jakarta/commons/proper/lang/trunk</url>
     </repository>
     <mailingLists>
         <mailingList>
@@ -362,17 +362,26 @@ limitations under the License.
     </contributors>
     <!-- Lang should depend on very little -->
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-        </dependency>
-         <dependency>
-             <groupId>maven-plugins</groupId>
-             <artifactId>maven-cobertura-plugin</artifactId>
-             <version>1.1.1</version>
-             <type>plugin</type>
-         </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+        <properties>
+         <scope>test</scope>
+         <comment>Required only for testing.</comment>
+        </properties>
+      </dependency>
+      <dependency>
+        <groupId>maven-plugins</groupId>
+        <artifactId>maven-cobertura-plugin</artifactId>
+        <version>1.1.1</version>
+        <url>http://maven-plugins.sourceforge.net/maven-cobertura-plugin/</url>
+        <type>plugin</type>
+        <properties>
+         <scope>test</scope>
+         <comment>Required only for generating test coverage reports.</comment>
+        </properties>
+      </dependency>
         <!--
     <dependency>
       <groupId>maven-plugins</groupId>
@@ -415,21 +424,20 @@ limitations under the License.
         </unitTest>
     </build>
     <reports>
-        <!-- <report>maven-changelog-plugin</report> -->
-        <!-- <report>maven-changes-plugin</report> -->
-        <report>maven-checkstyle-plugin</report>
-        <report>maven-pmd-plugin</report>
-        <!-- <report>maven-findbugs-plugin</report> -->
-        <report>maven-cobertura-plugin</report>
-        <!-- <report>maven-developer-activity-plugin</report> -->
-        <!-- <report>maven-file-activity-plugin</report> -->
-        <report>maven-javadoc-plugin</report>
-        <!-- <report>maven-jellydoc-plugin</report> -->
-        <report>maven-junit-report-plugin</report>
-        <report>maven-jxr-plugin</report>
-        <report>maven-license-plugin</report>
-        <!-- <report>maven-linkcheck-plugin</report> -->
-        <!-- <report>maven-statcvs-plugin</report> -->
-        <report>maven-tasklist-plugin</report>
+      <!--report>maven-changelog-plugin</report-->
+      <!--report>maven-changes-plugin</report-->
+      <!--report>maven-developer-activity-plugin</report-->
+      <!--report>maven-file-activity-plugin</report-->
+      <report>maven-checkstyle-plugin</report>
+      <report>maven-javadoc-plugin</report>
+      <report>maven-jdepend-plugin</report>
+      <report>maven-junit-report-plugin</report>
+      <report>maven-jxr-plugin</report>
+      <report>maven-license-plugin</report>
+      <report>maven-cobertura-plugin</report>
+      <report>maven-jdiff-plugin</report>
+      <report>maven-pmd-plugin</report>
+      <!-- <report>maven-linkcheck-plugin</report> -->
+      <!--report>maven-tasklist-plugin</report-->
     </reports>
 </project>
