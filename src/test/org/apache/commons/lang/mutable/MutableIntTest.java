@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -148,6 +148,54 @@ public class MutableIntTest extends TestCase {
     public void testToInteger() {
         assertEquals(new Integer(0), new MutableInt(0).toInteger());
         assertEquals(new Integer(123), new MutableInt(123).toInteger());
+    }
+
+    public void testIncrement() {
+        MutableInt mutNum = new MutableInt(1);
+        mutNum.increment();
+        
+        assertEquals(2, mutNum.intValue());
+        assertEquals(2L, mutNum.longValue());
+    }
+
+    public void testDecrement() {
+        MutableInt mutNum = new MutableInt(1);
+        mutNum.decrement();
+        
+        assertEquals(0, mutNum.intValue());
+        assertEquals(0L, mutNum.longValue());
+    }
+
+    public void testAddValuePrimitive() {
+        MutableInt mutNum = new MutableInt(1);
+        mutNum.add(1);
+        
+        assertEquals(2, mutNum.intValue());
+        assertEquals(2L, mutNum.longValue());
+    }
+
+    public void testAddValueObject() {
+        MutableInt mutNum = new MutableInt(1);
+        mutNum.add(new Integer(1));
+        
+        assertEquals(2, mutNum.intValue());
+        assertEquals(2L, mutNum.longValue());
+    }
+
+    public void testSubtractValuePrimitive() {
+        MutableInt mutNum = new MutableInt(1);
+        mutNum.subtract(1);
+        
+        assertEquals(0, mutNum.intValue());
+        assertEquals(0L, mutNum.longValue());
+    }
+
+    public void testSubtractValueObject() {
+        MutableInt mutNum = new MutableInt(1);
+        mutNum.subtract(new Integer(1));
+        
+        assertEquals(0, mutNum.intValue());
+        assertEquals(0L, mutNum.longValue());
     }
 
     public void testToString() {

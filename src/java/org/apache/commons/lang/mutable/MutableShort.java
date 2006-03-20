@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2005 The Apache Software Foundation.
+ * Copyright 2004-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang.mutable;
 
 /**
@@ -94,6 +93,78 @@ public class MutableShort extends Number implements Comparable, Mutable {
      */
     public void setValue(Object value) {
         setValue(((Number) value).shortValue());
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Increments the value.
+     *
+     * @since Commons Lang 2.2
+     */
+    public void increment() {
+        value++;
+    }
+
+    /**
+     * Decrements the value.
+     *
+     * @since Commons Lang 2.2
+     */
+    public void decrement() {
+        value--;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Adds a value.
+     * 
+     * @param operand
+     *            the value to add
+     *
+     * @since Commons Lang 2.2
+     */
+    public void add(short operand) {
+        this.value += operand;
+    }
+
+    /**
+     * Adds a value.
+     * 
+     * @param operand
+     *            the value to add
+     * @throws NullPointerException
+     *             if the object is null
+     *
+     * @since Commons Lang 2.2
+     */
+    public void add(Number operand) {
+        this.value += operand.shortValue();
+    }
+
+    /**
+     * Subtracts a value.
+     * 
+     * @param operand
+     *            the value to add
+     *
+     * @since Commons Lang 2.2
+     */
+    public void subtract(short operand) {
+        this.value -= operand;
+    }
+
+    /**
+     * Subtracts a value.
+     * 
+     * @param operand
+     *            the value to add
+     * @throws NullPointerException
+     *             if the object is null
+     *
+     * @since Commons Lang 2.2
+     */
+    public void subtract(Number operand) {
+        this.value -= operand.shortValue();
     }
 
     //-----------------------------------------------------------------------

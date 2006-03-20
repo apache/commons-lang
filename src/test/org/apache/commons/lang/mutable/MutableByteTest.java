@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -142,6 +142,50 @@ public class MutableByteTest extends TestCase {
     public void testToByte() {
         assertEquals(new Byte((byte) 0), new MutableByte((byte) 0).toByte());
         assertEquals(new Byte((byte) 123), new MutableByte((byte) 123).toByte());
+    }
+
+    public void testIncrement() {
+        MutableByte mutNum = new MutableByte((byte) 1);
+        mutNum.increment();
+        
+        assertEquals(2, mutNum.intValue());
+        assertEquals(2L, mutNum.longValue());
+    }
+
+    public void testDecrement() {
+        MutableByte mutNum = new MutableByte((byte) 1);
+        mutNum.decrement();
+        
+        assertEquals(0, mutNum.intValue());
+        assertEquals(0L, mutNum.longValue());
+    }
+
+    public void testAddValuePrimitive() {
+        MutableByte mutNum = new MutableByte((byte) 1);
+        mutNum.add((byte)1);
+        
+        assertEquals((byte) 2, mutNum.byteValue());
+    }
+
+    public void testAddValueObject() {
+        MutableByte mutNum = new MutableByte((byte) 1);
+        mutNum.add(new Integer(1));
+        
+        assertEquals((byte) 2, mutNum.byteValue());
+    }
+
+    public void testSubtractValuePrimitive() {
+        MutableByte mutNum = new MutableByte((byte) 1);
+        mutNum.subtract((byte) 1);
+        
+        assertEquals((byte) 0, mutNum.byteValue());
+    }
+
+    public void testSubtractValueObject() {
+        MutableByte mutNum = new MutableByte((byte) 1);
+        mutNum.subtract(new Integer(1));
+        
+        assertEquals((byte) 0, mutNum.byteValue());
     }
 
     public void testToString() {
