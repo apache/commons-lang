@@ -22,6 +22,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.List;
 
 import junit.framework.Assert;
 import junit.framework.Test;
@@ -43,6 +44,9 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
     private NestableException nested;
     private Throwable withCause;
     private Throwable withoutCause;
+    private Throwable jdkNoCause;
+    private ExceptionWithCause selfCause;
+    private ExceptionWithCause recursiveCause;
 
     public ExceptionUtilsTestCase(String name) {
         super(name);
@@ -56,6 +60,22 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         withoutCause = createExceptionWithoutCause();
         nested = new NestableException(withoutCause);
         withCause = new ExceptionWithCause(nested);
+        jdkNoCause = new NullPointerException();
+        selfCause = new ExceptionWithCause(null);
+        selfCause.setCause(selfCause);
+        ExceptionWithCause a = new ExceptionWithCause(null);
+        ExceptionWithCause b = new ExceptionWithCause(a);
+        a.setCause(b);
+        recursiveCause = new ExceptionWithCause(a);
+    }
+
+    protected void tearDown() throws Exception {
+        withoutCause = null;
+        nested = null;
+        withCause = null;
+        jdkNoCause = null;
+        selfCause = null;
+        recursiveCause = null;
     }
 
     //-----------------------------------------------------------------------
@@ -109,6 +129,11 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         assertSame(null, ExceptionUtils.getCause(withoutCause));
         assertSame(withoutCause, ExceptionUtils.getCause(nested));
         assertSame(nested, ExceptionUtils.getCause(withCause));
+        assertSame(null, ExceptionUtils.getCause(jdkNoCause));
+        assertSame(selfCause, ExceptionUtils.getCause(selfCause));
+        assertSame(recursiveCause.getCause(), ExceptionUtils.getCause(recursiveCause));
+        assertSame(recursiveCause.getCause().getCause(), ExceptionUtils.getCause(recursiveCause.getCause()));
+        assertSame(recursiveCause.getCause(), ExceptionUtils.getCause(recursiveCause.getCause().getCause()));
     }
 
     public void testGetCause_ThrowableArray() {
@@ -139,6 +164,9 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         assertSame(null, ExceptionUtils.getRootCause(withoutCause));
         assertSame(withoutCause, ExceptionUtils.getRootCause(nested));
         assertSame(withoutCause, ExceptionUtils.getRootCause(withCause));
+        assertSame(null, ExceptionUtils.getRootCause(jdkNoCause));
+        assertSame(null, ExceptionUtils.getRootCause(selfCause));
+        assertSame(recursiveCause.getCause().getCause(), ExceptionUtils.getRootCause(recursiveCause));
     }
 
     public void testSetCause() {
@@ -190,21 +218,102 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         assertEquals(1, ExceptionUtils.getThrowableCount(withoutCause));
         assertEquals(2, ExceptionUtils.getThrowableCount(nested));
         assertEquals(3, ExceptionUtils.getThrowableCount(withCause));
+        assertEquals(1, ExceptionUtils.getThrowableCount(jdkNoCause));
+        assertEquals(1, ExceptionUtils.getThrowableCount(selfCause));
+        assertEquals(3, ExceptionUtils.getThrowableCount(recursiveCause));
     }
 
-    public void testGetThrowables_Throwable() {
+    //-----------------------------------------------------------------------
+    public void testGetThrowables_Throwable_null() {
         assertEquals(0, ExceptionUtils.getThrowables(null).length);
-        assertEquals(1, ExceptionUtils.getThrowables(withoutCause).length);
-        assertSame(withoutCause, ExceptionUtils.getThrowables(withoutCause)[0]);
-        
-        assertEquals(2, ExceptionUtils.getThrowables(nested).length);
-        assertSame(nested, ExceptionUtils.getThrowables(nested)[0]);
-        assertSame(withoutCause, ExceptionUtils.getThrowables(nested)[1]);
-        
-        assertEquals(3, ExceptionUtils.getThrowables(withCause).length);
-        assertSame(withCause, ExceptionUtils.getThrowables(withCause)[0]);
-        assertSame(nested, ExceptionUtils.getThrowables(withCause)[1]);
-        assertSame(withoutCause, ExceptionUtils.getThrowables(withCause)[2]);
+    }
+
+    public void testGetThrowables_Throwable_withoutCause() {
+        Throwable[] throwables = ExceptionUtils.getThrowables(withoutCause);
+        assertEquals(1, throwables.length);
+        assertSame(withoutCause, throwables[0]);
+    }
+
+    public void testGetThrowables_Throwable_nested() {
+        Throwable[] throwables = ExceptionUtils.getThrowables(nested);
+        assertEquals(2, throwables.length);
+        assertSame(nested, throwables[0]);
+        assertSame(withoutCause, throwables[1]);
+    }
+
+    public void testGetThrowables_Throwable_withCause() {
+        Throwable[] throwables = ExceptionUtils.getThrowables(withCause);
+        assertEquals(3, throwables.length);
+        assertSame(withCause, throwables[0]);
+        assertSame(nested, throwables[1]);
+        assertSame(withoutCause, throwables[2]);
+    }
+
+    public void testGetThrowables_Throwable_jdkNoCause() {
+        Throwable[] throwables = ExceptionUtils.getThrowables(jdkNoCause);
+        assertEquals(1, throwables.length);
+        assertSame(jdkNoCause, throwables[0]);
+    }
+
+    public void testGetThrowables_Throwable_selfCause() {
+        Throwable[] throwables = ExceptionUtils.getThrowables(selfCause);
+        assertEquals(1, throwables.length);
+        assertSame(selfCause, throwables[0]);
+    }
+
+    public void testGetThrowables_Throwable_recursiveCause() {
+        Throwable[] throwables = ExceptionUtils.getThrowables(recursiveCause);
+        assertEquals(3, throwables.length);
+        assertSame(recursiveCause, throwables[0]);
+        assertSame(recursiveCause.getCause(), throwables[1]);
+        assertSame(recursiveCause.getCause().getCause(), throwables[2]);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testGetThrowableList_Throwable_null() {
+        List throwables = ExceptionUtils.getThrowableList(null);
+        assertEquals(0, throwables.size());
+    }
+
+    public void testGetThrowableList_Throwable_withoutCause() {
+        List throwables = ExceptionUtils.getThrowableList(withoutCause);
+        assertEquals(1, throwables.size());
+        assertSame(withoutCause, throwables.get(0));
+    }
+
+    public void testGetThrowableList_Throwable_nested() {
+        List throwables = ExceptionUtils.getThrowableList(nested);
+        assertEquals(2, throwables.size());
+        assertSame(nested, throwables.get(0));
+        assertSame(withoutCause, throwables.get(1));
+    }
+
+    public void testGetThrowableList_Throwable_withCause() {
+        List throwables = ExceptionUtils.getThrowableList(withCause);
+        assertEquals(3, throwables.size());
+        assertSame(withCause, throwables.get(0));
+        assertSame(nested, throwables.get(1));
+        assertSame(withoutCause, throwables.get(2));
+    }
+
+    public void testGetThrowableList_Throwable_jdkNoCause() {
+        List throwables = ExceptionUtils.getThrowableList(jdkNoCause);
+        assertEquals(1, throwables.size());
+        assertSame(jdkNoCause, throwables.get(0));
+    }
+
+    public void testGetThrowableList_Throwable_selfCause() {
+        List throwables = ExceptionUtils.getThrowableList(selfCause);
+        assertEquals(1, throwables.size());
+        assertSame(selfCause, throwables.get(0));
+    }
+
+    public void testGetThrowableList_Throwable_recursiveCause() {
+        List throwables = ExceptionUtils.getThrowableList(recursiveCause);
+        assertEquals(3, throwables.size());
+        assertSame(recursiveCause, throwables.get(0));
+        assertSame(recursiveCause.getCause(), throwables.get(1));
+        assertSame(recursiveCause.getCause().getCause(), throwables.get(2));
     }
 
     //-----------------------------------------------------------------------

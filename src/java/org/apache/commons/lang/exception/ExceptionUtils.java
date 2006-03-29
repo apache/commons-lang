@@ -233,6 +233,7 @@ public class ExceptionUtils {
         return ArrayUtils.indexOf(CAUSE_METHOD_NAMES, methodName) >= 0;
     }
 
+    //-----------------------------------------------------------------------
     /**
      * <p>Introspects the <code>Throwable</code> to obtain the cause.</p>
      *
@@ -319,19 +320,19 @@ public class ExceptionUtils {
      * "root" of the tree, using {@link #getCause(Throwable)}, and
      * returns that exception.</p>
      *
+     * <p>From version 2.2, this method handles recursive cause structures
+     * that might otherwise cause infinite loops. If the throwable parameter
+     * has a cause of itself, then null will be returned. If the throwable
+     * parameter cause chain loops, the last element in the chain before the
+     * loop is returned.</p>
+     *
      * @param throwable  the throwable to get the root cause for, may be null
      * @return the root cause of the <code>Throwable</code>,
      *  <code>null</code> if none found or null throwable input
      */
     public static Throwable getRootCause(Throwable throwable) {
-        Throwable cause = getCause(throwable);
-        if (cause != null) {
-            throwable = cause;
-            while ((throwable = getCause(throwable)) != null) {
-                cause = throwable;
-            }
-        }
-        return cause;
+        List list = getThrowableList(throwable);
+        return (list.size() < 2 ? null : (Throwable)list.get(list.size() - 1));
     }
 
     /**
@@ -490,16 +491,16 @@ public class ExceptionUtils {
      * A throwable with one cause will return <code>2</code> and so on.
      * A <code>null</code> throwable will return <code>0</code>.</p>
      *
+     * <p>From version 2.2, this method handles recursive cause structures
+     * that might otherwise cause infinite loops. The cause chain is
+     * processed until the end is reached, or until the next item in the
+     * chain is already in the result set.</p>
+     *
      * @param throwable  the throwable to inspect, may be null
      * @return the count of throwables, zero if null input
      */
     public static int getThrowableCount(Throwable throwable) {
-        int count = 0;
-        while (throwable != null) {
-            count++;
-            throwable = ExceptionUtils.getCause(throwable);
-        }
-        return count;
+        return getThrowableList(throwable).size();
     }
 
     /**
@@ -510,18 +511,48 @@ public class ExceptionUtils {
      * one element - the input throwable.
      * A throwable with one cause will return an array containing
      * two elements. - the input throwable and the cause throwable.
-     * A <code>null</code> throwable will return an array size zero.</p>
+     * A <code>null</code> throwable will return an array of size zero.</p>
      *
+     * <p>From version 2.2, this method handles recursive cause structures
+     * that might otherwise cause infinite loops. The cause chain is
+     * processed until the end is reached, or until the next item in the
+     * chain is already in the result set.</p>
+     *
+     * @see #getThrowableList(Throwable)
      * @param throwable  the throwable to inspect, may be null
      * @return the array of throwables, never null
      */
     public static Throwable[] getThrowables(Throwable throwable) {
+        List list = getThrowableList(throwable);
+        return (Throwable[]) list.toArray(new Throwable[list.size()]);
+    }
+
+    /**
+     * <p>Returns the list of <code>Throwable</code> objects in the
+     * exception chain.</p>
+     *
+     * <p>A throwable without cause will return a list containing
+     * one element - the input throwable.
+     * A throwable with one cause will return a list containing
+     * two elements. - the input throwable and the cause throwable.
+     * A <code>null</code> throwable will return a list of size zero.</p>
+     *
+     * <p>This method handles recursive cause structures that might
+     * otherwise cause infinite loops. The cause chain is processed until
+     * the end is reached, or until the next item in the chain is already
+     * in the result set.</p>
+     *
+     * @param throwable  the throwable to inspect, may be null
+     * @return the list of throwables, never null
+     * @since Commons Lang 2.2
+     */
+    public static List getThrowableList(Throwable throwable) {
         List list = new ArrayList();
-        while (throwable != null) {
+        while (throwable != null && list.contains(throwable) == false) {
             list.add(throwable);
             throwable = ExceptionUtils.getCause(throwable);
         }
-        return (Throwable[]) list.toArray(new Throwable[list.size()]);
+        return list;
     }
 
     //-----------------------------------------------------------------------
