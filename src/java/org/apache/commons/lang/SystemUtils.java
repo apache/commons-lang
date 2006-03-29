@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1114,7 +1114,11 @@ public class SystemUtils {
         if (JAVA_VERSION_TRIMMED.length() >= 5) {
             str = str + JAVA_VERSION_TRIMMED.substring(4, 5);
         }
-        return Float.parseFloat(str);
+        try {
+            return Float.parseFloat(str);
+        } catch (Exception ex) {
+            return 0;
+        }
     }
     
     /**
@@ -1142,7 +1146,11 @@ public class SystemUtils {
         } else {
             str = str + "0";
         }
-        return Integer.parseInt(str);
+        try {
+            return Integer.parseInt(str);
+        } catch (Exception ex) {
+            return 0;
+        }
     }
 
     /**
