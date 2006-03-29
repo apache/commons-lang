@@ -245,16 +245,49 @@ public class SystemUtilsTest extends TestCase {
             assertEquals(false, SystemUtils.IS_JAVA_1_3);
             assertEquals(false, SystemUtils.IS_JAVA_1_4);
             assertEquals(false, SystemUtils.IS_JAVA_1_5);
+            assertEquals(false, SystemUtils.IS_JAVA_1_6);
         } else if (javaVersion.startsWith("1.1")) {
-            assertTrue(SystemUtils.IS_JAVA_1_1);
+            assertEquals(true, SystemUtils.IS_JAVA_1_1);
+            assertEquals(false, SystemUtils.IS_JAVA_1_2);
+            assertEquals(false, SystemUtils.IS_JAVA_1_3);
+            assertEquals(false, SystemUtils.IS_JAVA_1_4);
+            assertEquals(false, SystemUtils.IS_JAVA_1_5);
+            assertEquals(false, SystemUtils.IS_JAVA_1_6);
         } else if (javaVersion.startsWith("1.2")) {
-            assertTrue(SystemUtils.IS_JAVA_1_2);
+            assertEquals(false, SystemUtils.IS_JAVA_1_1);
+            assertEquals(true, SystemUtils.IS_JAVA_1_2);
+            assertEquals(false, SystemUtils.IS_JAVA_1_3);
+            assertEquals(false, SystemUtils.IS_JAVA_1_4);
+            assertEquals(false, SystemUtils.IS_JAVA_1_5);
+            assertEquals(false, SystemUtils.IS_JAVA_1_6);
         } else if (javaVersion.startsWith("1.3")) {
-            assertTrue(SystemUtils.IS_JAVA_1_3);
+            assertEquals(false, SystemUtils.IS_JAVA_1_1);
+            assertEquals(false, SystemUtils.IS_JAVA_1_2);
+            assertEquals(true, SystemUtils.IS_JAVA_1_3);
+            assertEquals(false, SystemUtils.IS_JAVA_1_4);
+            assertEquals(false, SystemUtils.IS_JAVA_1_5);
+            assertEquals(false, SystemUtils.IS_JAVA_1_6);
         } else if (javaVersion.startsWith("1.4")) {
-            assertTrue(SystemUtils.IS_JAVA_1_4);
+            assertEquals(false, SystemUtils.IS_JAVA_1_1);
+            assertEquals(false, SystemUtils.IS_JAVA_1_2);
+            assertEquals(false, SystemUtils.IS_JAVA_1_3);
+            assertEquals(true, SystemUtils.IS_JAVA_1_4);
+            assertEquals(false, SystemUtils.IS_JAVA_1_5);
+            assertEquals(false, SystemUtils.IS_JAVA_1_6);
         } else if (javaVersion.startsWith("1.5")) {
-            assertTrue(SystemUtils.IS_JAVA_1_5);
+            assertEquals(false, SystemUtils.IS_JAVA_1_1);
+            assertEquals(false, SystemUtils.IS_JAVA_1_2);
+            assertEquals(false, SystemUtils.IS_JAVA_1_3);
+            assertEquals(false, SystemUtils.IS_JAVA_1_4);
+            assertEquals(true, SystemUtils.IS_JAVA_1_5);
+            assertEquals(false, SystemUtils.IS_JAVA_1_6);
+        } else if (javaVersion.startsWith("1.6")) {
+            assertEquals(false, SystemUtils.IS_JAVA_1_1);
+            assertEquals(false, SystemUtils.IS_JAVA_1_2);
+            assertEquals(false, SystemUtils.IS_JAVA_1_3);
+            assertEquals(false, SystemUtils.IS_JAVA_1_4);
+            assertEquals(false, SystemUtils.IS_JAVA_1_5);
+            assertEquals(true, SystemUtils.IS_JAVA_1_6);
         } else {
             System.out.println("Can't test IS_JAVA value");
         }
