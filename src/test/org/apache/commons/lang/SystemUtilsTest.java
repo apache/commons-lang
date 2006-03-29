@@ -1,5 +1,5 @@
 /*
- * Copyright 2003,2004 The Apache Software Foundation.
+ * Copyright 2003,2004,2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,7 +83,11 @@ public class SystemUtilsTest extends TestCase {
         if (JAVA_VERSION_TRIMMED.length() >= 5) {
             str = str + JAVA_VERSION_TRIMMED.substring(4, 5);
         }
-        return Float.parseFloat(str);
+        try {
+            return Float.parseFloat(str);
+        } catch (Exception ex) {
+            return 0;
+        }
     }
 
     /**
@@ -111,7 +115,11 @@ public class SystemUtilsTest extends TestCase {
         } else {
             str = str + "0";
         }
-        return Integer.parseInt(str);
+        try {
+            return Integer.parseInt(str);
+        } catch (Exception ex) {
+            return 0;
+        }
     }
 
     /**
@@ -324,6 +332,9 @@ public class SystemUtilsTest extends TestCase {
         JAVA_VERSION = "JavaVM-1.3.1";  //HP-UX
         JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(1.31f, getJavaVersionAsFloat(), 0.000001f);
+        JAVA_VERSION = "XXX-1.3.x";  //error
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
+        assertEquals(0.0f, getJavaVersionAsFloat(), 0.000001f);
     }
 
     public void testJavaVersionAsInt() {
@@ -357,6 +368,9 @@ public class SystemUtilsTest extends TestCase {
         JAVA_VERSION = "JavaVM-1.3.1";  //HP-UX
         JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
         assertEquals(131, getJavaVersionAsInt());
+        JAVA_VERSION = "XXX-1.3.x";  //error
+        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
+        assertEquals(0, getJavaVersionAsInt());
     }
 
     public void testJavaVersionAtLeastFloat() {
