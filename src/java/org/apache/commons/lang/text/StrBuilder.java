@@ -24,7 +24,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.SystemUtils;
 
 /**
- * Builds a string from consituant parts providing a more flexible and powerful API
+ * Builds a string from constituent parts providing a more flexible and powerful API
  * than StringBuffer.
  * <p>
  * The main differences from StringBuffer/StringBuilder are:
