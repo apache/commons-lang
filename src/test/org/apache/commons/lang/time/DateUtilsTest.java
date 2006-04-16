@@ -43,6 +43,14 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:steve@mungoknotwise.com">Steven Caswell</a>
  */
 public class DateUtilsTest extends TestCase {
+
+    private static final long MILLIS_TEST;
+    static {
+        GregorianCalendar cal = new GregorianCalendar(2000, 6, 5, 4, 3, 2);
+        cal.set(Calendar.MILLISECOND, 1);
+        MILLIS_TEST = cal.getTime().getTime();
+    }
+
     DateFormat dateParser = null;
     DateFormat dateTimeParser = null;
     DateFormat timeZoneDateParser = null;
@@ -275,7 +283,191 @@ public class DateUtilsTest extends TestCase {
             fail();
         } catch (IllegalArgumentException ex) {}
     }
-    
+
+    //-----------------------------------------------------------------------
+    public void testAddYears() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.addYears(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.addYears(base, 1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2001, 6, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.addYears(base, -1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 1999, 6, 5, 4, 3, 2, 1);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAddMonths() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.addMonths(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.addMonths(base, 1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 7, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.addMonths(base, -1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 5, 5, 4, 3, 2, 1);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAddWeeks() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.addWeeks(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.addWeeks(base, 1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 12, 4, 3, 2, 1);
+        
+        result = DateUtils.addWeeks(base, -1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);      // july
+        assertDate(result, 2000, 5, 28, 4, 3, 2, 1);   // june
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAddDays() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.addDays(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.addDays(base, 1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 6, 4, 3, 2, 1);
+        
+        result = DateUtils.addDays(base, -1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 4, 4, 3, 2, 1);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAddHours() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.addHours(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.addHours(base, 1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 5, 3, 2, 1);
+        
+        result = DateUtils.addHours(base, -1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 3, 3, 2, 1);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAddMinutes() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.addMinutes(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.addMinutes(base, 1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 4, 2, 1);
+        
+        result = DateUtils.addMinutes(base, -1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 2, 2, 1);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAddSeconds() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.addSeconds(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.addSeconds(base, 1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 3, 1);
+        
+        result = DateUtils.addSeconds(base, -1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 1, 1);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAddMilliseconds() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.addMilliseconds(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.addMilliseconds(base, 1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 2);
+        
+        result = DateUtils.addMilliseconds(base, -1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 0);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAddByField() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.add(base, Calendar.YEAR, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.add(base, Calendar.YEAR, 1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2001, 6, 5, 4, 3, 2, 1);
+        
+        result = DateUtils.add(base, Calendar.YEAR, -1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 1999, 6, 5, 4, 3, 2, 1);
+    }
+
+    //-----------------------------------------------------------------------
+    private void assertDate(Date date, int year, int month, int day, int hour, int min, int sec, int mil) throws Exception {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        assertEquals(year, cal.get(Calendar.YEAR));
+        assertEquals(month, cal.get(Calendar.MONTH));
+        assertEquals(day, cal.get(Calendar.DAY_OF_MONTH));
+        assertEquals(hour, cal.get(Calendar.HOUR_OF_DAY));
+        assertEquals(min, cal.get(Calendar.MINUTE));
+        assertEquals(sec, cal.get(Calendar.SECOND));
+        assertEquals(mil, cal.get(Calendar.MILLISECOND));
+    }
+
     //-----------------------------------------------------------------------
     /**
      * Tests various values with the round method
