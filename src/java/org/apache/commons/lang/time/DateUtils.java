@@ -697,22 +697,28 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * <p>This constructs an <code>Iterator</code> that will
-     * start and stop over a date range based on the focused
-     * date and the range style.</p>
+     * <p>This constructs an <code>Iterator</code> over each day in a date
+     * range defined by a focus date and range style.</p>
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
-     * <code>RANGE_MONTH_SUNDAY</code> will return an
-     * <code>Iterator</code> that starts with Sunday, June 30,
-     * 2002 and ends with Saturday, August 3, 2002.
-     * 
-     * @param focus  the date to work with
-     * @param rangeStyle  the style constant to use. Must be one of the range
-     * styles listed for the {@link #iterator(Calendar, int)} method.
+     * <code>RANGE_MONTH_SUNDAY</code> will return an <code>Iterator</code>
+     * that starts with Sunday, June 30, 2002 and ends with Saturday, August 3,
+     * 2002, returning a Calendar instance for each intermediate day.</p>
      *
-     * @return the date iterator
-     * @throws IllegalArgumentException if the date is <code>null</code> or if
-     * the rangeStyle is not 
+     * <p>This method provides an iterator that returns Calendar objects.
+     * The days are progressed using {@link Calendar#add(int, int)}.</p>
+     *
+     * @param focus  the date to work with, not null
+     * @param rangeStyle  the style constant to use. Must be one of
+     * {@link DateUtils#RANGE_MONTH_SUNDAY}, 
+     * {@link DateUtils#RANGE_MONTH_MONDAY},
+     * {@link DateUtils#RANGE_WEEK_SUNDAY},
+     * {@link DateUtils#RANGE_WEEK_MONDAY},
+     * {@link DateUtils#RANGE_WEEK_RELATIVE},
+     * {@link DateUtils#RANGE_WEEK_CENTER}
+     * @return the date iterator, which always returns Calendar instances
+     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the rangeStyle is invalid
      */
     public static Iterator iterator(Date focus, int rangeStyle) {
         if (focus == null) {
@@ -724,15 +730,17 @@ public class DateUtils {
     }
 
     /**
-     * <p>This constructs an <code>Iterator</code> that will
-     * start and stop over a date range based on the focused
-     * date and the range style.</p>
+     * <p>This constructs an <code>Iterator</code> over each day in a date
+     * range defined by a focus date and range style.</p>
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
-     * <code>RANGE_MONTH_SUNDAY</code> will return an
-     * <code>Iterator</code> that starts with Sunday, June 30,
-     * 2002 and ends with Saturday, August 3, 2002.
-     * 
+     * <code>RANGE_MONTH_SUNDAY</code> will return an <code>Iterator</code>
+     * that starts with Sunday, June 30, 2002 and ends with Saturday, August 3,
+     * 2002, returning a Calendar instance for each intermediate day.</p>
+     *
+     * <p>This method provides an iterator that returns Calendar objects.
+     * The days are progressed using {@link Calendar#add(int, int)}.</p>
+     *
      * @param focus  the date to work with
      * @param rangeStyle  the style constant to use. Must be one of
      * {@link DateUtils#RANGE_MONTH_SUNDAY}, 
@@ -743,6 +751,7 @@ public class DateUtils {
      * {@link DateUtils#RANGE_WEEK_CENTER}
      * @return the date iterator
      * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws IllegalArgumentException if the rangeStyle is invalid
      */
     public static Iterator iterator(Calendar focus, int rangeStyle) {
         if (focus == null) {
@@ -817,15 +826,14 @@ public class DateUtils {
     }
 
     /**
-     * <p>This constructs an <code>Iterator</code> that will
-     * start and stop over a date range based on the focused
-     * date and the range style.</p>
+     * <p>This constructs an <code>Iterator</code> over each day in a date
+     * range defined by a focus date and range style.</p>
      *
      * <p>For instance, passing Thursday, July 4, 2002 and a
-     * <code>RANGE_MONTH_SUNDAY</code> will return an
-     * <code>Iterator</code> that starts with Sunday, June 30,
-     * 2002 and ends with Saturday, August 3, 2002.</p>
-     * 
+     * <code>RANGE_MONTH_SUNDAY</code> will return an <code>Iterator</code>
+     * that starts with Sunday, June 30, 2002 and ends with Saturday, August 3,
+     * 2002, returning a Calendar instance for each intermediate day.</p>
+     *
      * @param focus  the date to work with, either
      *  <code>Date</code> or <code>Calendar</code>
      * @param rangeStyle  the style constant to use. Must be one of the range
