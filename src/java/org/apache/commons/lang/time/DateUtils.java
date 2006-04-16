@@ -272,6 +272,139 @@ public class DateUtils {
 
     //-----------------------------------------------------------------------
     /**
+     * Adds a number of years to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount  the amount to add, may be negative
+     * @return the new date object with the amount added
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date addYears(Date date, int amount) {
+        return add(date, Calendar.YEAR, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Adds a number of months to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount  the amount to add, may be negative
+     * @return the new date object with the amount added
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date addMonths(Date date, int amount) {
+        return add(date, Calendar.MONTH, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Adds a number of weeks to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount  the amount to add, may be negative
+     * @return the new date object with the amount added
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date addWeeks(Date date, int amount) {
+        return add(date, Calendar.WEEK_OF_YEAR, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Adds a number of days to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount  the amount to add, may be negative
+     * @return the new date object with the amount added
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date addDays(Date date, int amount) {
+        return add(date, Calendar.DAY_OF_MONTH, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Adds a number of hours to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount  the amount to add, may be negative
+     * @return the new date object with the amount added
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date addHours(Date date, int amount) {
+        return add(date, Calendar.HOUR_OF_DAY, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Adds a number of minutes to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount  the amount to add, may be negative
+     * @return the new date object with the amount added
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date addMinutes(Date date, int amount) {
+        return add(date, Calendar.MINUTE, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Adds a number of seconds to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount  the amount to add, may be negative
+     * @return the new date object with the amount added
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date addSeconds(Date date, int amount) {
+        return add(date, Calendar.SECOND, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Adds a number of milliseconds to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount  the amount to add, may be negative
+     * @return the new date object with the amount added
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date addMilliseconds(Date date, int amount) {
+        return add(date, Calendar.MILLISECOND, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Adds to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param calendarField  the calendar field to add to
+     * @param amount  the amount to add, may be negative
+     * @return the new date object with the amount added
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date add(Date date, int calendarField, int amount) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(calendarField, amount);
+        return c.getTime();
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * <p>Round this date, leaving the field specified as the most
      * significant field.</p>
      *
