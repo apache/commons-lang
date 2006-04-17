@@ -465,7 +465,9 @@ public class StringEscapeUtils {
      * <p>becomes:</p>
      * <code>&amp;quot;bread&amp;quot; &amp;amp; &amp;quot;butter&amp;quot;</code>.
      * 
-     * <p>Supports all known HTML 4.0 entities, including funky accents.</p>
+     * <p>Supports all known HTML 4.0 entities, including funky accents. Note that 
+     * the common apostrophe escape character (&amp;apos; is not a legal entity 
+     * and so is not supported. </p>
      * 
      * @param writer The <code>Writer</code> to write the result to. This must not be <code>null</code>.
      * @param string  The <code>String</code> to escape. This may be <code>null</code>.
