@@ -126,6 +126,13 @@ public class ArrayUtils {
     public static final Character[] EMPTY_CHARACTER_OBJECT_ARRAY = new Character[0];
 
     /**
+     * The index value when an element is not found in a list or array: <code>-1</code>.
+     * This value is returned by methods in this class and can also be used in comparisons with values returned by
+     * various method from {@link java.util.List}.
+     */
+    public static final int INDEX_NOT_FOUND = -1;
+
+    /**
      * <p>ArrayUtils instances should NOT be constructed in standard programming.
      * Instead, the class should be used as <code>ArrayUtils.clone(new int[] {2})</code>.</p>
      *
@@ -215,7 +222,7 @@ public class ArrayUtils {
      *     {"BLUE", "#0000FF"}});
      * </pre>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      *
      * @param array  an array whose elements are either a {@link java.util.Map.Entry} or
      *  an Array containing at least two elements, may be <code>null</code>
@@ -261,7 +268,7 @@ public class ArrayUtils {
      * <p>The objects in the array are not cloned, thus there is no special
      * handling for multi-dimensional arrays.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  the array to shallow clone, may be <code>null</code>
      * @return the cloned array, <code>null</code> if <code>null</code> input
@@ -277,7 +284,7 @@ public class ArrayUtils {
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, <code>null</code> if <code>null</code> input
@@ -293,7 +300,7 @@ public class ArrayUtils {
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, <code>null</code> if <code>null</code> input
@@ -309,7 +316,7 @@ public class ArrayUtils {
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, <code>null</code> if <code>null</code> input
@@ -325,7 +332,7 @@ public class ArrayUtils {
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, <code>null</code> if <code>null</code> input
@@ -341,7 +348,7 @@ public class ArrayUtils {
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, <code>null</code> if <code>null</code> input
@@ -357,7 +364,7 @@ public class ArrayUtils {
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, <code>null</code> if <code>null</code> input
@@ -373,7 +380,7 @@ public class ArrayUtils {
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, <code>null</code> if <code>null</code> input
@@ -389,7 +396,7 @@ public class ArrayUtils {
      * <p>Clones an array returning a typecast result and handling
      * <code>null</code>.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  the array to clone, may be <code>null</code>
      * @return the cloned array, <code>null</code> if <code>null</code> input
@@ -979,7 +986,7 @@ public class ArrayUtils {
      *
      * <p>There is no special handling for multi-dimensional arrays.</p>
      *
-     * <p>This method does nothing if <code>null</code> array input.</p>
+     * <p>This method does nothing for a <code>null</code> input array.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -1002,7 +1009,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method does nothing if <code>null</code> array input.</p>
+     * <p>This method does nothing for a <code>null</code> input array.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -1025,7 +1032,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method does nothing if <code>null</code> array input.</p>
+     * <p>This method does nothing for a <code>null</code> input array.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -1048,7 +1055,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method does nothing if <code>null</code> array input.</p>
+     * <p>This method does nothing for a <code>null</code> input array.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -1071,7 +1078,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method does nothing if <code>null</code> array input.</p>
+     * <p>This method does nothing for a <code>null</code> input array.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -1094,7 +1101,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method does nothing if <code>null</code> array input.</p>
+     * <p>This method does nothing for a <code>null</code> input array.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -1117,7 +1124,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method does nothing if <code>null</code> array input.</p>
+     * <p>This method does nothing for a <code>null</code> input array.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -1140,7 +1147,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method does nothing if <code>null</code> array input.</p>
+     * <p>This method does nothing for a <code>null</code> input array.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -1163,7 +1170,7 @@ public class ArrayUtils {
     /**
      * <p>Reverses the order of the given array.</p>
      * 
-     * <p>This method does nothing if <code>null</code> array input.</p>
+     * <p>This method does nothing for a <code>null</code> input array.</p>
      * 
      * @param array  the array to reverse, may be <code>null</code>
      */
@@ -1189,36 +1196,36 @@ public class ArrayUtils {
     // Object IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Find the index of the given object in the array.</p>
+     * <p>Finds the index of the given object in the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
      * @return the index of the object within the array, 
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(Object[] array, Object objectToFind) {
         return indexOf(array, objectToFind, 0);
     }
 
     /**
-     * <p>Find the index of the given object in the array starting at the given index.</p>
+     * <p>Finds the index of the given object in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return <code>-1</code>.</p>
+     * length will return {@link #INDEX_NOT_FOUND} (<code>-1</code>).</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
      * @param startIndex  the index to start searching at
      * @return the index of the object within the array starting at the index,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(Object[] array, Object objectToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
             startIndex = 0;
@@ -1236,43 +1243,43 @@ public class ArrayUtils {
                 }
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
-     * <p>Find the last index of the given object within the array.</p>
+     * <p>Finds the last index of the given object within the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
      * @return the last index of the object within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(Object[] array, Object objectToFind) {
         return lastIndexOf(array, objectToFind, Integer.MAX_VALUE);
     }
 
     /**
-     * <p>Find the last index of the given object in the array starting at the given index.</p>
+     * <p>Finds the last index of the given object in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
-     * <p>A negative startIndex will return <code>-1</code>. A startIndex larger than
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} (<code>-1</code>). A startIndex larger than
      * the array length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param objectToFind  the object to find, may be <code>null</code>
      * @param startIndex  the start index to travers backwards from
      * @return the last index of the object within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(Object[] array, Object objectToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         } else if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
@@ -1289,7 +1296,7 @@ public class ArrayUtils {
                 }
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -1302,42 +1309,42 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(Object[] array, Object objectToFind) {
-        return indexOf(array, objectToFind) != -1;
+        return indexOf(array, objectToFind) != INDEX_NOT_FOUND;
     }
 
     // long IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Find the index of the given value in the array.</p>
+     * <p>Finds the index of the given value in the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(long[] array, long valueToFind) {
         return indexOf(array, valueToFind, 0);
     }
 
     /**
-     * <p>Find the index of the given value in the array starting at the given index.</p>
+     * <p>Finds the index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return -1.</p>
+     * length will return {@link #INDEX_NOT_FOUND} (<code>-1</code>).</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(long[] array, long valueToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
             startIndex = 0;
@@ -1347,43 +1354,43 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
-     * <p>Find the last index of the given value within the array.</p>
+     * <p>Finds the last index of the given value within the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(long[] array, long valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
     }
 
     /**
-     * <p>Find the last index of the given value in the array starting at the given index.</p>
+     * <p>Finds the last index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
-     * <p>A negative startIndex will return -1. A startIndex larger than the array
-     * length will search from the end of the array.</p>
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} (<code>-1</code>). A startIndex larger than the
+     * array length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(long[] array, long valueToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         } else if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
@@ -1392,7 +1399,7 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -1405,42 +1412,42 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(long[] array, long valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
     }
 
     // int IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Find the index of the given value in the array.</p>
+     * <p>Finds the index of the given value in the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(int[] array, int valueToFind) {
         return indexOf(array, valueToFind, 0);
     }
 
     /**
-     * <p>Find the index of the given value in the array starting at the given index.</p>
+     * <p>Finds the index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return -1.</p>
+     * length will return {@link #INDEX_NOT_FOUND} (<code>-1</code>).</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(int[] array, int valueToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
             startIndex = 0;
@@ -1450,43 +1457,43 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
-     * <p>Find the last index of the given value within the array.</p>
+     * <p>Finds the last index of the given value within the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(int[] array, int valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
     }
 
     /**
-     * <p>Find the last index of the given value in the array starting at the given index.</p>
+     * <p>Finds the last index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
-     * <p>A negative startIndex will return -1. A startIndex larger than the array
-     * length will search from the end of the array.</p>
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} (<code>-1</code>). A startIndex larger than the
+     * array length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(int[] array, int valueToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         } else if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
@@ -1495,7 +1502,7 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -1508,42 +1515,42 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(int[] array, int valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
     }
 
     // short IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Find the index of the given value in the array.</p>
+     * <p>Finds the index of the given value in the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(short[] array, short valueToFind) {
         return indexOf(array, valueToFind, 0);
     }
 
     /**
-     * <p>Find the index of the given value in the array starting at the given index.</p>
+     * <p>Finds the index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return -1.</p>
+     * length will return {@link #INDEX_NOT_FOUND} (<code>-1</code>).</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(short[] array, short valueToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
             startIndex = 0;
@@ -1553,43 +1560,43 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
-     * <p>Find the last index of the given value within the array.</p>
+     * <p>Finds the last index of the given value within the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(short[] array, short valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
     }
 
     /**
-     * <p>Find the last index of the given value in the array starting at the given index.</p>
+     * <p>Finds the last index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
-     * <p>A negative startIndex will return -1. A startIndex larger than the array
-     * length will search from the end of the array.</p>
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} (<code>-1</code>). A startIndex larger than the 
+     * array length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(short[] array, short valueToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         } else if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
@@ -1598,7 +1605,7 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -1611,20 +1618,20 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(short[] array, short valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
     }
 
     // char IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Find the index of the given value in the array.</p>
+     * <p>Finds the index of the given value in the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      * @since 2.1
      */
     public static int indexOf(char[] array, char valueToFind) {
@@ -1632,23 +1639,23 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Find the index of the given value in the array starting at the given index.</p>
+     * <p>Finds the index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return -1.</p>
+     * length will return {@link #INDEX_NOT_FOUND} (<code>-1</code>).</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      * @since 2.1
      */
     public static int indexOf(char[] array, char valueToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
             startIndex = 0;
@@ -1658,18 +1665,18 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
-     * <p>Find the last index of the given value within the array.</p>
+     * <p>Finds the last index of the given value within the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      * @since 2.1
      */
     public static int lastIndexOf(char[] array, char valueToFind) {
@@ -1677,26 +1684,26 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Find the last index of the given value in the array starting at the given index.</p>
+     * <p>Finds the last index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
-     * <p>A negative startIndex will return -1. A startIndex larger than the array
-     * length will search from the end of the array.</p>
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} (<code>-1</code>). A startIndex larger than the
+     * array length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      * @since 2.1
      */
     public static int lastIndexOf(char[] array, char valueToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         } else if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
@@ -1705,7 +1712,7 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -1719,42 +1726,42 @@ public class ArrayUtils {
      * @since 2.1
      */
     public static boolean contains(char[] array, char valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
     }
 
     // byte IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Find the index of the given value in the array.</p>
+     * <p>Finds the index of the given value in the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(byte[] array, byte valueToFind) {
         return indexOf(array, valueToFind, 0);
     }
 
     /**
-     * <p>Find the index of the given value in the array starting at the given index.</p>
+     * <p>Finds the index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return -1.</p>
+     * length will return {@link #INDEX_NOT_FOUND} (<code>-1</code>).</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(byte[] array, byte valueToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
             startIndex = 0;
@@ -1764,43 +1771,43 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
-     * <p>Find the last index of the given value within the array.</p>
+     * <p>Finds the last index of the given value within the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(byte[] array, byte valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
     }
 
     /**
-     * <p>Find the last index of the given value in the array starting at the given index.</p>
+     * <p>Finds the last index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
-     * <p>A negative startIndex will return -1. A startIndex larger than the array
-     * length will search from the end of the array.</p>
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} (<code>-1</code>). A startIndex larger than the 
+     * array length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(byte[] array, byte valueToFind, int startIndex) {
         if (array == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         } else if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
@@ -1809,7 +1816,7 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -1822,59 +1829,59 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(byte[] array, byte valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
     }
 
     // double IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Find the index of the given value in the array.</p>
+     * <p>Finds the index of the given value in the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(double[] array, double valueToFind) {
         return indexOf(array, valueToFind, 0);
     }
 
     /**
-     * <p>Find the index of the given value within a given tolerance in the array.
+     * <p>Finds the index of the given value within a given tolerance in the array.
      * This method will return the index of the first value which falls between the region
      * defined by valueToFind - tolerance and valueToFind + tolerance.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param tolerance tolerance of the search
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(double[] array, double valueToFind, double tolerance) {
         return indexOf(array, valueToFind, 0, tolerance);
     }
 
     /**
-     * <p>Find the index of the given value in the array starting at the given index.</p>
+     * <p>Finds the index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return -1.</p>
+     * length will return {@link #INDEX_NOT_FOUND} (<code>-1</code>).</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(double[] array, double valueToFind, int startIndex) {
         if (ArrayUtils.isEmpty(array)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
             startIndex = 0;
@@ -1884,29 +1891,29 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
-     * <p>Find the index of the given value in the array starting at the given index.
+     * <p>Finds the index of the given value in the array starting at the given index.
      * This method will return the index of the first value which falls between the region
      * defined by valueToFind - tolerance and valueToFind + tolerance.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return -1.</p>
+     * length will return {@link #INDEX_NOT_FOUND} (<code>-1</code>).</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @param tolerance tolerance of the search
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(double[] array, double valueToFind, int startIndex, double tolerance) {
         if (ArrayUtils.isEmpty(array)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
             startIndex = 0;
@@ -1918,60 +1925,60 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
-     * <p>Find the last index of the given value within the array.</p>
+     * <p>Finds the last index of the given value within the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(double[] array, double valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
     }
 
     /**
-     * <p>Find the last index of the given value within a given tolerance in the array.
+     * <p>Finds the last index of the given value within a given tolerance in the array.
      * This method will return the index of the last value which falls between the region
      * defined by valueToFind - tolerance and valueToFind + tolerance.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param tolerance tolerance of the search
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(double[] array, double valueToFind, double tolerance) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE, tolerance);
     }
 
     /**
-     * <p>Find the last index of the given value in the array starting at the given index.</p>
+     * <p>Finds the last index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
-     * <p>A negative startIndex will return -1. A startIndex larger than the array
-     * length will search from the end of the array.</p>
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} (<code>-1</code>). A startIndex larger than the 
+     * array length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(double[] array, double valueToFind, int startIndex) {
         if (ArrayUtils.isEmpty(array)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         } else if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
@@ -1980,32 +1987,32 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
-     * <p>Find the last index of the given value in the array starting at the given index.
+     * <p>Finds the last index of the given value in the array starting at the given index.
      * This method will return the index of the last value which falls between the region
      * defined by valueToFind - tolerance and valueToFind + tolerance.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
-     * <p>A negative startIndex will return -1. A startIndex larger than the array
-     * length will search from the end of the array.</p>
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} (<code>-1</code>). A startIndex larger than the 
+     * array length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
      * @param tolerance  search for value within plus/minus this amount
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(double[] array, double valueToFind, int startIndex, double tolerance) {
         if (ArrayUtils.isEmpty(array)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         } else if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
@@ -2016,7 +2023,7 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -2029,7 +2036,7 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(double[] array, double valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
     }
 
     /**
@@ -2046,42 +2053,42 @@ public class ArrayUtils {
      * @return true if value falling within tolerance is in array
      */
     public static boolean contains(double[] array, double valueToFind, double tolerance) {
-        return indexOf(array, valueToFind, 0, tolerance) != -1;
+        return indexOf(array, valueToFind, 0, tolerance) != INDEX_NOT_FOUND;
     }
 
     // float IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Find the index of the given value in the array.</p>
+     * <p>Finds the index of the given value in the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(float[] array, float valueToFind) {
         return indexOf(array, valueToFind, 0);
     }
 
     /**
-     * <p>Find the index of the given value in the array starting at the given index.</p>
+     * <p>Finds the index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return -1.</p>
+     * length will return {@link #INDEX_NOT_FOUND} (<code>-1</code>).</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(float[] array, float valueToFind, int startIndex) {
         if (ArrayUtils.isEmpty(array)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
             startIndex = 0;
@@ -2091,43 +2098,43 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
-     * <p>Find the last index of the given value within the array.</p>
+     * <p>Finds the last index of the given value within the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(float[] array, float valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
     }
 
     /**
-     * <p>Find the last index of the given value in the array starting at the given index.</p>
+     * <p>Finds the last index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
-     * <p>A negative startIndex will return -1. A startIndex larger than the array
-     * length will search from the end of the array.</p>
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} (<code>-1</code>). A startIndex larger than the 
+     * array length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(float[] array, float valueToFind, int startIndex) {
         if (ArrayUtils.isEmpty(array)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         } else if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
@@ -2136,7 +2143,7 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -2149,42 +2156,43 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(float[] array, float valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
     }
 
     // boolean IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Find the index of the given value in the array.</p>
+     * <p>Finds the index of the given value in the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int indexOf(boolean[] array, boolean valueToFind) {
         return indexOf(array, valueToFind, 0);
     }
 
     /**
-     * <p>Find the index of the given value in the array starting at the given index.</p>
+     * <p>Finds the index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
      * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return -1.</p>
+     * length will return {@link #INDEX_NOT_FOUND} (<code>-1</code>).</p>
      * 
      * @param array  the array to search through for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the index to start searching at
      * @return the index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code>
+     *  array input
      */
     public static int indexOf(boolean[] array, boolean valueToFind, int startIndex) {
         if (ArrayUtils.isEmpty(array)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
             startIndex = 0;
@@ -2194,43 +2202,44 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
-     * <p>Find the last index of the given value within the array.</p>
+     * <p>Finds the last index of the given value within the array.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) if 
+     * <code>null</code> array input.</p>
      * 
      * @param array  the array to travers backwords looking for the object, may be <code>null</code>
      * @param valueToFind  the object to find
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(boolean[] array, boolean valueToFind) {
         return lastIndexOf(array, valueToFind, Integer.MAX_VALUE);
     }
 
     /**
-     * <p>Find the last index of the given value in the array starting at the given index.</p>
+     * <p>Finds the last index of the given value in the array starting at the given index.</p>
      *
-     * <p>This method returns <code>-1</code> if <code>null</code> array input.</p>
+     * <p>This method returns {@link #INDEX_NOT_FOUND} (<code>-1</code>) for a <code>null</code> input array.</p>
      *
-     * <p>A negative startIndex will return -1. A startIndex larger than the array
-     * length will search from the end of the array.</p>
+     * <p>A negative startIndex will return {@link #INDEX_NOT_FOUND} (<code>-1</code>). A startIndex larger than 
+     * the array length will search from the end of the array.</p>
      * 
      * @param array  the array to traverse for looking for the object, may be <code>null</code>
      * @param valueToFind  the value to find
      * @param startIndex  the start index to travers backwards from
      * @return the last index of the value within the array,
-     *  <code>-1</code> if not found or <code>null</code> array input
+     *  {@link #INDEX_NOT_FOUND} (<code>-1</code>) if not found or <code>null</code> array input
      */
     public static int lastIndexOf(boolean[] array, boolean valueToFind, int startIndex) {
         if (ArrayUtils.isEmpty(array)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startIndex < 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         } else if (startIndex >= array.length) {
             startIndex = array.length - 1;
         }
@@ -2239,7 +2248,7 @@ public class ArrayUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -2252,7 +2261,7 @@ public class ArrayUtils {
      * @return <code>true</code> if the array contains the object
      */
     public static boolean contains(boolean[] array, boolean valueToFind) {
-        return indexOf(array, valueToFind) != -1;
+        return indexOf(array, valueToFind) != INDEX_NOT_FOUND;
     }
 
     // Primitive/Object array converters
@@ -2263,7 +2272,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Longs to primitives.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Long</code> array, may be <code>null</code>
      * @return a <code>long</code> array, <code>null</code> if null array input
@@ -2285,7 +2294,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Long to primitives handling <code>null</code>.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Long</code> array, may be <code>null</code>
      * @param valueForNull  the value to insert if <code>null</code> found
@@ -2308,7 +2317,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of primitive longs to objects.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>long</code> array
      * @return a <code>Long</code> array, <code>null</code> if null array input
@@ -2331,7 +2340,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Integers to primitives.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Integer</code> array, may be <code>null</code>
      * @return an <code>int</code> array, <code>null</code> if null array input
@@ -2353,7 +2362,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Integer to primitives handling <code>null</code>.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Integer</code> array, may be <code>null</code>
      * @param valueForNull  the value to insert if <code>null</code> found
@@ -2376,7 +2385,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of primitive ints to objects.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  an <code>int</code> array
      * @return an <code>Integer</code> array, <code>null</code> if null array input
@@ -2399,7 +2408,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Shorts to primitives.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Short</code> array, may be <code>null</code>
      * @return a <code>byte</code> array, <code>null</code> if null array input
@@ -2421,7 +2430,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Short to primitives handling <code>null</code>.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Short</code> array, may be <code>null</code>
      * @param valueForNull  the value to insert if <code>null</code> found
@@ -2444,7 +2453,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of primitive shorts to objects.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>short</code> array
      * @return a <code>Short</code> array, <code>null</code> if null array input
@@ -2467,7 +2476,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Bytes to primitives.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Byte</code> array, may be <code>null</code>
      * @return a <code>byte</code> array, <code>null</code> if null array input
@@ -2489,7 +2498,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Bytes to primitives handling <code>null</code>.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Byte</code> array, may be <code>null</code>
      * @param valueForNull  the value to insert if <code>null</code> found
@@ -2512,7 +2521,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of primitive bytes to objects.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>byte</code> array
      * @return a <code>Byte</code> array, <code>null</code> if null array input
@@ -2535,7 +2544,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Doubles to primitives.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Double</code> array, may be <code>null</code>
      * @return a <code>double</code> array, <code>null</code> if null array input
@@ -2557,7 +2566,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Doubles to primitives handling <code>null</code>.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Double</code> array, may be <code>null</code>
      * @param valueForNull  the value to insert if <code>null</code> found
@@ -2580,7 +2589,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of primitive doubles to objects.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>double</code> array
      * @return a <code>Double</code> array, <code>null</code> if null array input
@@ -2603,7 +2612,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Floats to primitives.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Float</code> array, may be <code>null</code>
      * @return a <code>float</code> array, <code>null</code> if null array input
@@ -2625,7 +2634,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Floats to primitives handling <code>null</code>.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Float</code> array, may be <code>null</code>
      * @param valueForNull  the value to insert if <code>null</code> found
@@ -2648,7 +2657,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of primitive floats to objects.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>float</code> array
      * @return a <code>Float</code> array, <code>null</code> if null array input
@@ -2671,7 +2680,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Booleans to primitives.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Boolean</code> array, may be <code>null</code>
      * @return a <code>boolean</code> array, <code>null</code> if null array input
@@ -2693,7 +2702,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of object Booleans to primitives handling <code>null</code>.</p>
      * 
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>Boolean</code> array, may be <code>null</code>
      * @param valueForNull  the value to insert if <code>null</code> found
@@ -2716,7 +2725,7 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of primitive booleans to objects.</p>
      *
-     * <p>This method returns <code>null</code> if <code>null</code> array input.</p>
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array  a <code>boolean</code> array
      * @return a <code>Boolean</code> array, <code>null</code> if null array input
@@ -3774,7 +3783,7 @@ public class ArrayUtils {
      */
     public static Object[] removeElement(Object[] array, Object element) {
         int index = indexOf(array, element);
-        if (index == -1) {
+        if (index == INDEX_NOT_FOUND) {
             return clone(array);
         } 
         return remove(array, index);
@@ -3839,7 +3848,7 @@ public class ArrayUtils {
      */
     public static boolean[] removeElement(boolean[] array, boolean element) {
         int index = indexOf(array, element);
-        if (index == -1) {
+        if (index == INDEX_NOT_FOUND) {
             return clone(array);
         } 
         return remove(array, index);
@@ -3904,7 +3913,7 @@ public class ArrayUtils {
      */
     public static byte[] removeElement(byte[] array, byte element) {
         int index = indexOf(array, element);
-        if (index == -1) {
+        if (index == INDEX_NOT_FOUND) {
             return clone(array);
         } 
         return remove(array, index);
@@ -3969,7 +3978,7 @@ public class ArrayUtils {
      */
     public static char[] removeElement(char[] array, char element) {
         int index = indexOf(array, element);
-        if (index == -1) {
+        if (index == INDEX_NOT_FOUND) {
             return clone(array);
         } 
         return remove(array, index);
@@ -4034,7 +4043,7 @@ public class ArrayUtils {
      */
     public static double[] removeElement(double[] array, double element) {
         int index = indexOf(array, element);
-        if (index == -1) {
+        if (index == INDEX_NOT_FOUND) {
             return clone(array);
         } 
         return remove(array, index);
@@ -4099,7 +4108,7 @@ public class ArrayUtils {
      */
     public static float[] removeElement(float[] array, float element) {
         int index = indexOf(array, element);
-        if (index == -1) {
+        if (index == INDEX_NOT_FOUND) {
             return clone(array);
         } 
         return remove(array, index);
@@ -4164,7 +4173,7 @@ public class ArrayUtils {
      */
     public static int[] removeElement(int[] array, int element) {
         int index = indexOf(array, element);
-        if (index == -1) {
+        if (index == INDEX_NOT_FOUND) {
             return clone(array);
         } 
         return remove(array, index);
@@ -4229,7 +4238,7 @@ public class ArrayUtils {
      */
     public static long[] removeElement(long[] array, long element) {
         int index = indexOf(array, element);
-        if (index == -1) {
+        if (index == INDEX_NOT_FOUND) {
             return clone(array);
         } 
         return remove(array, index);
@@ -4294,7 +4303,7 @@ public class ArrayUtils {
      */
     public static short[] removeElement(short[] array, short element) {
         int index = indexOf(array, element);
-        if (index == -1) {
+        if (index == INDEX_NOT_FOUND) {
             return clone(array);
         } 
         return remove(array, index);
