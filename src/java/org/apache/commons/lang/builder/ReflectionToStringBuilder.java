@@ -19,10 +19,15 @@ package org.apache.commons.lang.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ClassUtils;
 
 /**
@@ -395,7 +400,57 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Builds a String for a toString method excluding the given field name.
+     * Builds a String for a toString method excluding the given field names.
+     * 
+     * @param object
+     *            The object to "toString".
+     * @param excludeFieldNames
+     *            The field names to exclude. Null excludes nothing.
+     * @return The toString value.
+     */
+    public static String toStringExclude(Object object, Collection excludeFieldNames) {
+        return toStringExclude(object, toNoNullStringArray(excludeFieldNames));
+    }
+
+    /**
+     * Converts the given Collection into an array of Strings. The returned array does not contain <code>null</code>
+     * entries. Note that {@link Arrays#sort(Object[])} will throw an {@link NullPointerException} if an array element 
+     * is <code>null</code>.
+     * 
+     * @param collection
+     *            The collection to convert
+     * @return A new array of Strings.
+     */
+    private static String[] toNoNullStringArray(Collection collection) {
+        if (collection == null) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        return toNoNullStringArray(collection.toArray());
+    }
+
+    /**
+     * Returns a new array of Strings without null elements. Internal method used to normalize exclude lists
+     * (arrays and collections). Note that {@link Arrays#sort(Object[])} will throw an {@link NullPointerException} 
+     * if an array element is <code>null</code>.
+     * 
+     * @param array
+     *            The array to check
+     * @return The given array or a new array without null.
+     */
+    private static String[] toNoNullStringArray(Object[] array) {
+        ArrayList list = new ArrayList(array.length);
+        for (int i = 0; i < array.length; i++) {
+            Object e = array[i];
+            if (e != null) {
+                list.add(e.toString());
+            }
+        }
+        return (String[]) list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+    }
+    
+
+    /**
+     * Builds a String for a toString method excluding the given field names.
      * 
      * @param object
      *            The object to "toString".
@@ -772,15 +827,16 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * Sets the field names to exclude.
      * 
      * @param excludeFieldNamesParam
-     *            The excludeFieldNames to set.
+     *            The excludeFieldNames to excluding from toString or <code>null</code>.
      * @return <code>this</code>
      */
     public ReflectionToStringBuilder setExcludeFieldNames(String[] excludeFieldNamesParam) {
         if (excludeFieldNamesParam == null) {
             this.excludeFieldNames = null;
+        } else {
+            this.excludeFieldNames = (String[])toNoNullStringArray(excludeFieldNamesParam);
+            Arrays.sort(this.excludeFieldNames);
         }
-        this.excludeFieldNames = (String[]) excludeFieldNamesParam.clone();
-        Arrays.sort(this.excludeFieldNames);
         return this;
     }
 
