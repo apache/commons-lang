@@ -86,10 +86,12 @@ public class CompositeFormatTest extends TestCase {
             }
         };
 
-        Format composite = new CompositeFormat(parser, formatter);
+        CompositeFormat composite = new CompositeFormat(parser, formatter);
 
         composite.parseObject("", null);
         composite.format(new Object(), new StringBuffer(), null);
+        assertEquals( "Parser get method incorrectly implemented", parser, composite.getParser() );
+        assertEquals( "Formatter get method incorrectly implemented", formatter, composite.getFormatter() );
     }
 
 }
