@@ -35,8 +35,8 @@ public class CompositeFormat extends Format {
      * Create a format that points its parseObject method to one implementation 
      * and its format method to another. 
      *
-     * @param Format parser implementation
-     * @param Format formatter implementation
+     * @param parser implementation
+     * @param formatter implementation
      */
     public CompositeFormat(Format parser, Format formatter) {
         this.parser = parser;
@@ -46,7 +46,7 @@ public class CompositeFormat extends Format {
     /**
      * Uses the formatter Format instance. 
      *
-     * @see Format.format(Object, StringBuffer, FieldPosition)
+     * @see Format#format(Object, StringBuffer, FieldPosition)
      */
     public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
         return formatter.format(obj,toAppendTo,pos);
@@ -55,7 +55,7 @@ public class CompositeFormat extends Format {
     /**
      * Uses the parser Format instance. 
      *
-     * @see Format.parseObject(String, ParsePosition)
+     * @see Format#parseObject(String, ParsePosition)
      */
     public Object parseObject(String source, ParsePosition pos) {
         return parser.parseObject(source,pos);
@@ -64,7 +64,7 @@ public class CompositeFormat extends Format {
     /**
      * Provides access to the parser Format implementation. 
      *
-     * @return Parser Format implementation
+     * @return parser Format implementation
      */
     public Format getParser() {
         return this.parser;
@@ -73,7 +73,7 @@ public class CompositeFormat extends Format {
     /**
      * Provides access to the parser Format implementation. 
      *
-     * @return Formatter Format implementation
+     * @return formatter Format implementation
      */
     public Format getFormatter() {
         return this.formatter;
