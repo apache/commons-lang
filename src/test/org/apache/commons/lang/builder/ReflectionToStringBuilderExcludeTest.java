@@ -16,8 +16,14 @@
 
 package org.apache.commons.lang.builder;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import junit.framework.Assert;
 import junit.framework.TestCase;
+
+import org.apache.commons.lang.ArrayUtils;
 
 /**
  * @author <a href="mailto:ggregory@seagullsw.com">ggregory</a>
@@ -31,8 +37,6 @@ public class ReflectionToStringBuilderExcludeTest extends TestCase {
         private String showField = NOT_SECRET_VALUE;
     }
 
-    private static final int INDEX_NOT_FOUND = -1;
-
     private static final String NOT_SECRET_FIELD = "showField";
 
     private static final String NOT_SECRET_VALUE = "Hello World!";
@@ -41,19 +45,80 @@ public class ReflectionToStringBuilderExcludeTest extends TestCase {
 
     private static final String SECRET_VALUE = "secret value";
 
-    public void test_toStringExcluding() {
+    public void test_toStringExclude() {
         String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), SECRET_FIELD);
-        this.validateToStringValue(toString);
+        this.validateSecretFieldAbsent(toString);
     }
 
-    public void test_toStringExcludingArray() {
+    public void test_toStringExcludeArray() {
         String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new String[]{SECRET_FIELD});
-        this.validateToStringValue(toString);
+        this.validateSecretFieldAbsent(toString);
     }
 
-    void validateToStringValue(String toString) {
-        Assert.assertEquals(INDEX_NOT_FOUND, toString.indexOf(SECRET_VALUE));
-        Assert.assertTrue(toString.indexOf(NOT_SECRET_FIELD) > INDEX_NOT_FOUND);
-        Assert.assertTrue(toString.indexOf(NOT_SECRET_VALUE) > INDEX_NOT_FOUND);
+    public void test_toStringExcludeArrayWithNull() {
+        String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new String[]{null});
+        this.validateSecretFieldPresent(toString);
+    }
+
+    public void test_toStringExcludeArrayWithNulls() {
+        String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new String[]{null, null});
+        this.validateSecretFieldPresent(toString);
+    }
+
+    public void test_toStringExcludeCollection() {
+        List excludeList = new ArrayList();
+        excludeList.add(SECRET_FIELD);
+        String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), excludeList);
+        this.validateSecretFieldAbsent(toString);
+    }
+
+    public void test_toStringExcludeCollectionWithNull() {
+        List excludeList = new ArrayList();
+        excludeList.add(null);
+        String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), excludeList);
+        this.validateSecretFieldPresent(toString);
+    }
+
+    public void test_toStringExcludeCollectionWithNulls() {
+        List excludeList = new ArrayList();
+        excludeList.add(null);
+        excludeList.add(null);
+        String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), excludeList);
+        this.validateSecretFieldPresent(toString);
+    }
+
+    public void test_toStringExcludeEmptyArray() {
+        String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), ArrayUtils.EMPTY_STRING_ARRAY);
+        this.validateSecretFieldPresent(toString);
+    }
+
+    public void test_toStringExcludeEmptyCollection() {
+        String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), new ArrayList());
+        this.validateSecretFieldPresent(toString);
+    }
+
+    public void test_toStringExcludeNullArray() {
+        String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), (String[]) null);
+        this.validateSecretFieldPresent(toString);
+    }
+
+    public void test_toStringExcludeNullCollection() {
+        String toString = ReflectionToStringBuilder.toStringExclude(new TestFixture(), (Collection) null);
+        this.validateSecretFieldPresent(toString);
+    }
+
+    private void validateNonSecretField(String toString) {
+        Assert.assertTrue(toString.indexOf(NOT_SECRET_FIELD) > ArrayUtils.INDEX_NOT_FOUND);
+        Assert.assertTrue(toString.indexOf(NOT_SECRET_VALUE) > ArrayUtils.INDEX_NOT_FOUND);
+    }
+
+    private void validateSecretFieldAbsent(String toString) {
+        Assert.assertEquals(ArrayUtils.INDEX_NOT_FOUND, toString.indexOf(SECRET_VALUE));
+        this.validateNonSecretField(toString);
+    }
+
+    private void validateSecretFieldPresent(String toString) {
+        Assert.assertTrue(toString.indexOf(SECRET_VALUE) > 0);
+        this.validateNonSecretField(toString);
     }
 }
