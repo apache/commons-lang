@@ -302,5 +302,14 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals("", StringEscapeUtils.escapeSql(""));
         assertEquals(null, StringEscapeUtils.escapeSql(null));
     }
-}
 
+    // Tests issue #38569
+    // http://issues.apache.org/bugzilla/show_bug.cgi?id=38569
+    public void testStandaloneAmphersand() {
+        assertEquals("<P&O>", StringEscapeUtils.unescapeHtml("&lt;P&O&gt;"));
+        assertEquals("test & <", StringEscapeUtils.unescapeHtml("test & &lt;"));
+        assertEquals("<P&O>", StringEscapeUtils.unescapeXml("&lt;P&O&gt;"));
+        assertEquals("test & <", StringEscapeUtils.unescapeXml("test & &lt;"));
+    }
+
+}

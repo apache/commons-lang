@@ -820,6 +820,12 @@ class Entities {
                     buf.append(ch);
                     continue;
                 }
+                int amph = str.indexOf('&', i + 1);
+                if( amph != -1 && amph < semi ) {
+                    // Then the text looks like &...&...;
+                    buf.append(ch);
+                    continue;
+                }
                 String entityName = str.substring(i + 1, semi);
                 int entityValue;
                 if (entityName.length() == 0) {
@@ -880,6 +886,12 @@ class Entities {
                 int nextIdx = i+1;
                 int semiColonIdx = string.indexOf(';', nextIdx);
                 if (semiColonIdx == -1) {
+                    writer.write(c);
+                    continue;
+                }
+                int amphersandIdx = string.indexOf('&', i + 1);
+                if( amphersandIdx != -1 && amphersandIdx < semiColonIdx ) {
+                    // Then the text looks like &...&...;
                     writer.write(c);
                     continue;
                 }
