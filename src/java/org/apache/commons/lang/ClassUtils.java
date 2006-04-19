@@ -15,6 +15,9 @@
  */
 package org.apache.commons.lang;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -587,6 +590,53 @@ public class ClassUtils {
         ClassLoader contextCL = Thread.currentThread().getContextClassLoader();
         ClassLoader loader = contextCL == null ? ClassUtils.class.getClassLoader() : contextCL;
         return getClass(loader, className, initialize );
+    }
+
+    
+    /**
+     * <p>Returns the desired Method much like <code>Class.getMethod</code>, however 
+     * it ensures that the returned Method is from a public class or interface and not 
+     * from an anonymous inner class. This means that the Method is invokable and 
+     * doesn't fall foul of Java bug 
+     * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
+     *
+     *  <code><pre>Set set = Collections.unmodifiableSet(...);
+     *  Method method = ClassUtils.getPublicMethod(set.getClass(), "isEmpty",  new Class[0]);
+     *  Object result = method.invoke(set, new Object[]);</pre></code>
+     * </p>
+     */
+    public static Method getPublicMethod(Class cls, String methodName, Class parameterTypes[]) 
+        throws SecurityException, NoSuchMethodException 
+    {
+        
+        Method declaredMethod = cls.getMethod(methodName, parameterTypes);
+ 
+        if (Modifier.isPublic(declaredMethod.getDeclaringClass().getModifiers())) {
+            return declaredMethod;
+        }
+
+        List candidateClasses = new ArrayList();
+        candidateClasses.addAll(getAllInterfaces(cls));
+        candidateClasses.addAll(getAllSuperclasses(cls));
+
+        for (Iterator iter=candidateClasses.iterator(); iter.hasNext(); ) {
+            Class candidateClass = (Class) iter.next();
+            if (!Modifier.isPublic(candidateClass.getModifiers())) {
+                continue;
+            }
+            Method candidateMethod;
+            try {
+                candidateMethod = candidateClass.getMethod(methodName, parameterTypes);
+            } catch (NoSuchMethodException e) {
+                continue;
+            }
+            if (Modifier.isPublic(candidateMethod.getDeclaringClass().getModifiers())) {
+                return candidateMethod;
+            }
+        }
+        
+        String message = "Can't find an public method for " + methodName + " " + ArrayUtils.toString(parameterTypes); 
+        throw new NoSuchMethodException(message);
     }
 
     /**

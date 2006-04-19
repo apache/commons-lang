@@ -16,12 +16,16 @@
 package org.apache.commons.lang;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Collections;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -520,4 +524,35 @@ public class ClassUtilsTest extends TestCase {
         return URLClassLoader.newInstance(urlScl.getURLs(), null);
     }
 
+    // Show the Java bug: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4071957
+    // We may have to delete this if a JDK fixes the bug.
+    public void testShowJavaBug() throws Exception {
+        // Tests with Collections$UnmodifiableSet
+        Set set = Collections.unmodifiableSet(new HashSet());
+        Method isEmptyMethod = set.getClass().getMethod("isEmpty",  new Class[0]);
+        try {
+            isEmptyMethod.invoke(set, new Object[0]);
+            fail("Failed to throw IllegalAccessException as expected");
+        } catch(IllegalAccessException iae) {
+            // expected
+        }
+    }
+
+    public void testGetPublicMethod() throws Exception {
+        // Tests with Collections$UnmodifiableSet
+        Set set = Collections.unmodifiableSet(new HashSet());
+        Method isEmptyMethod = ClassUtils.getPublicMethod(set.getClass(), "isEmpty",  new Class[0]);
+            assertTrue(Modifier.isPublic(isEmptyMethod.getDeclaringClass().getModifiers()));
+ 
+        try {
+            isEmptyMethod.invoke(set, new Object[0]);
+        } catch(java.lang.IllegalAccessException iae) {
+            fail("Should not have thrown IllegalAccessException");
+        }
+               
+        // Tests with a public Class
+        Method toStringMethod = ClassUtils.getPublicMethod(Object.class, "toString",  new Class[0]);
+            assertEquals(Object.class.getMethod("toString", new Class[0]), toStringMethod);
+    }
+ 
 }
