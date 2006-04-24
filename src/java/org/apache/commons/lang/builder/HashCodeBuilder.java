@@ -18,6 +18,9 @@ package org.apache.commons.lang.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * <p>Assists in implementing {@link Object#hashCode()} methods.</p>
@@ -147,7 +150,32 @@ public class HashCodeBuilder {
      * @throws IllegalArgumentException if the object is <code>null</code>
      */
     public static int reflectionHashCode(Object object) {
-        return reflectionHashCode(17, 37, object, false, null);
+        return reflectionHashCode(17, 37, object, false, null, null);
+    }
+
+    /**
+     * <p>This method uses reflection to build a valid hash code.</p>
+     *
+     * <p>This constructor uses two hard coded choices for the constants
+     * needed to build a hash code.</p>
+     *
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manager, if the permissions are not set up correctly. It is
+     * also not as efficient as testing explicitly.</p>
+     *
+     * <p>Transient members will be not be used, as they are likely derived
+     * fields, and not part of the value of the <code>Object</code>.</p>
+     *
+     * <p>Static fields will not be tested. Superclass fields will be included.</p>
+     *
+     * @param object  the Object to create a <code>hashCode</code> for
+     * @param excludeFields  array of field names to exclude from use in calculation of hash code
+     * @return int hash code
+     * @throws IllegalArgumentException if the object is <code>null</code>
+     */
+    public static int reflectionHashCode(Object object, String[] excludeFields) {
+        return reflectionHashCode(17, 37, object, false, null, excludeFields);
     }
 
     /**
@@ -173,7 +201,7 @@ public class HashCodeBuilder {
      * @throws IllegalArgumentException if the object is <code>null</code>
      */
     public static int reflectionHashCode(Object object, boolean testTransients) {
-        return reflectionHashCode(17, 37, object, testTransients, null);
+        return reflectionHashCode(17, 37, object, testTransients, null, null);
     }
 
     /**
@@ -202,7 +230,7 @@ public class HashCodeBuilder {
      */
     public static int reflectionHashCode(
             int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object object) {
-        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, false, null);
+        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, false, null, null);
     }
 
     /**
@@ -234,7 +262,7 @@ public class HashCodeBuilder {
     public static int reflectionHashCode(
             int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
             Object object, boolean testTransients) {
-        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, testTransients, null);
+        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, testTransients, null, null);
     }
             
     /**
@@ -263,6 +291,7 @@ public class HashCodeBuilder {
      * @param testTransients  whether to include transient fields
      * @param reflectUpToClass  the superclass to reflect up to (inclusive),
      *  may be <code>null</code>
+     * @param excludeFields  array of field names to exclude from use in calculation of hash code
      * @return int hash code
      * @throws IllegalArgumentException if the Object is <code>null</code>
      * @throws IllegalArgumentException if the number is zero or even
@@ -273,17 +302,18 @@ public class HashCodeBuilder {
         int multiplierNonZeroOddNumber,
         Object object,
         boolean testTransients,
-        Class reflectUpToClass) {
+        Class reflectUpToClass,
+        String[] excludeFields) {
 
         if (object == null) {
             throw new IllegalArgumentException("The object to build a hash code for must not be null");
         }
         HashCodeBuilder builder = new HashCodeBuilder(initialNonZeroOddNumber, multiplierNonZeroOddNumber);
         Class clazz = object.getClass();
-        reflectionAppend(object, clazz, builder, testTransients);
+        reflectionAppend(object, clazz, builder, testTransients, excludeFields);
         while (clazz.getSuperclass() != null && clazz != reflectUpToClass) {
             clazz = clazz.getSuperclass();
-            reflectionAppend(object, clazz, builder, testTransients);
+            reflectionAppend(object, clazz, builder, testTransients, excludeFields);
         }
         return builder.toHashCode();
     }
@@ -297,12 +327,19 @@ public class HashCodeBuilder {
      * @param builder  the builder to append to
      * @param useTransients  whether to use transient fields
      */
-    private static void reflectionAppend(Object object, Class clazz, HashCodeBuilder builder, boolean useTransients) {
+    private static void reflectionAppend(
+            Object object, 
+            Class clazz, 
+            HashCodeBuilder builder, 
+            boolean useTransients,
+            String[] excludeFields) {
         Field[] fields = clazz.getDeclaredFields();
+        List excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.EMPTY_LIST;
         AccessibleObject.setAccessible(fields, true);
         for (int i = 0; i < fields.length; i++) {
             Field f = fields[i];
-            if ((f.getName().indexOf('$') == -1)
+            if (!excludedFieldList.contains(f.getName())
+                && (f.getName().indexOf('$') == -1)
                 && (useTransients || !Modifier.isTransient(f.getModifiers()))
                 && (!Modifier.isStatic(f.getModifiers()))) {
                 try {
