@@ -15,6 +15,7 @@
  */
 package org.apache.commons.lang.builder;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 
 import junit.framework.Test;
@@ -955,5 +956,41 @@ public class EqualsBuilderTest extends TestCase {
         // causes an NPE in 2.0 according to:
         // http://issues.apache.org/bugzilla/show_bug.cgi?id=33067
         new EqualsBuilder().append(x1, x2);
+    }
+
+    public void testReflectionEqualsExcludeFields() throws Exception {
+        TestObjectWithMultipleFields x1 = new TestObjectWithMultipleFields(1, 2, 3);
+        TestObjectWithMultipleFields x2 = new TestObjectWithMultipleFields(1, 3, 4);
+
+        // not equal when including all fields
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2));
+
+        // doesn't barf on null, empty array, or non-existent field, but still tests as not equal
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, null));
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {}));
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {"xxx"}));
+
+        // not equal if only one of the differing fields excluded
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {"two"}));
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {"three"}));
+
+        // equal if both differing fields excluded
+        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"two", "three"}));
+
+        // still equal as long as both differing fields are among excluded
+        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"one", "two", "three"}));
+        assertTrue(EqualsBuilder.reflectionEquals(x1, x2, new String[] {"one", "two", "three", "xxx"}));
+    }
+
+    static class TestObjectWithMultipleFields {
+        private TestObject one;
+        private TestObject two;
+        private TestObject three;
+
+        public TestObjectWithMultipleFields(int one, int two, int three) {
+            this.one = new TestObject(one);
+            this.two = new TestObject(two);
+            this.three = new TestObject(three);
+        }
     }
 }

@@ -437,4 +437,33 @@ public class HashCodeBuilderTest extends TestCase {
         assertEquals( (((17 * 37 + 0) * 37 + 1) * 37 + 1), new HashCodeBuilder(17, 37).append(obj).toHashCode());
     }
 
+    public void testReflectionHashCodeExcludeFields() throws Exception {
+        TestObjectWithMultipleFields x = new TestObjectWithMultipleFields(1, 2, 3);
+
+        assertEquals((((17 * 37 + 1) * 37 + 2) * 37 + 3), HashCodeBuilder.reflectionHashCode(x));
+
+        assertEquals((((17 * 37 + 1) * 37 + 2) * 37 + 3), HashCodeBuilder.reflectionHashCode(x, null));
+        assertEquals((((17 * 37 + 1) * 37 + 2) * 37 + 3), HashCodeBuilder.reflectionHashCode(x, new String[] {}));
+        assertEquals((((17 * 37 + 1) * 37 + 2) * 37 + 3), HashCodeBuilder.reflectionHashCode(x, new String[] {"xxx"}));
+
+        assertEquals(((17 * 37 + 1) * 37 + 3), HashCodeBuilder.reflectionHashCode(x, new String[] {"two"}));
+        assertEquals(((17 * 37 + 1) * 37 + 2), HashCodeBuilder.reflectionHashCode(x, new String[] {"three"}));
+
+        assertEquals((17 * 37 + 1), HashCodeBuilder.reflectionHashCode(x, new String[] {"two", "three"}));
+
+        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, new String[] {"one", "two", "three"}));
+        assertEquals(17, HashCodeBuilder.reflectionHashCode(x, new String[] {"one", "two", "three", "xxx"}));
+    }
+
+    static class TestObjectWithMultipleFields {
+        private int one = 0;
+        private int two = 0;
+        private int three = 0;
+
+        public TestObjectWithMultipleFields(int one, int two, int three) {
+            this.one = one;
+            this.two = two;
+            this.three = three;
+        }
+    }
 }
