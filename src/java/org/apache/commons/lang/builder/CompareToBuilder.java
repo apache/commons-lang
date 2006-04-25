@@ -18,7 +18,10 @@ package org.apache.commons.lang.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import org.apache.commons.lang.math.NumberUtils;
 
@@ -134,7 +137,7 @@ public class CompareToBuilder {
      *  with <code>lhs</code>
      */
     public static int reflectionCompare(Object lhs, Object rhs) {
-        return reflectionCompare(lhs, rhs, false, null);
+        return reflectionCompare(lhs, rhs, false, null, null);
     }
 
     /**
@@ -166,7 +169,39 @@ public class CompareToBuilder {
      *  with <code>lhs</code>
      */
     public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients) {
-        return reflectionCompare(lhs, rhs, compareTransients, null);
+        return reflectionCompare(lhs, rhs, compareTransients, null, null);
+    }
+
+    /**
+     * <p>Compares two <code>Object</code>s via reflection.</p>
+     *
+     * <p>Fields can be private, thus <code>AccessibleObject.setAccessible</code>
+     * is used to bypass normal access control checks. This will fail under a 
+     * security manager unless the appropriate permissions are set.</p>
+     *
+     * <ul>
+     * <li>Static fields will not be compared</li>
+     * <li>If <code>compareTransients</code> is <code>true</code>,
+     *     compares transient members.  Otherwise ignores them, as they
+     *     are likely derived fields.</li>
+     * <li>Superclass fields will be compared</li>
+     * </ul>
+     *
+     * <p>If both <code>lhs</code> and <code>rhs</code> are <code>null</code>,
+     * they are considered equal.</p>
+     *
+     * @param lhs  left-hand object
+     * @param rhs  right-hand object
+     * @param excludeFields  fields to exclude
+     * @return a negative integer, zero, or a positive integer as <code>lhs</code>
+     *  is less than, equal to, or greater than <code>rhs</code>
+     * @throws NullPointerException  if either <code>lhs</code> or <code>rhs</code>
+     *  (but not both) is <code>null</code>
+     * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
+     *  with <code>lhs</code>
+     */
+    public static int reflectionCompare(Object lhs, Object rhs, String[] excludeFields) {
+        return reflectionCompare(lhs, rhs, false, null, excludeFields);
     }
 
     /**
@@ -200,7 +235,7 @@ public class CompareToBuilder {
      *  with <code>lhs</code>
      * @since 2.0
      */
-    public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients, Class reflectUpToClass) {
+    public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients, Class reflectUpToClass, String[] excludeFields) {
         if (lhs == rhs) {
             return 0;
         }
@@ -212,10 +247,10 @@ public class CompareToBuilder {
             throw new ClassCastException();
         }
         CompareToBuilder compareToBuilder = new CompareToBuilder();
-        reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients);
+        reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients, excludeFields);
         while (lhsClazz.getSuperclass() != null && lhsClazz != reflectUpToClass) {
             lhsClazz = lhsClazz.getSuperclass();
-            reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients);
+            reflectionAppend(lhs, rhs, lhsClazz, compareToBuilder, compareTransients, excludeFields);
         }
         return compareToBuilder.toComparison();
     }
@@ -229,19 +264,23 @@ public class CompareToBuilder {
      * @param clazz  <code>Class</code> that defines fields to be compared
      * @param builder  <code>CompareToBuilder</code> to append to
      * @param useTransients  whether to compare transient fields
+     * @param excludeFields  fields to exclude
      */
     private static void reflectionAppend(
         Object lhs,
         Object rhs,
         Class clazz,
         CompareToBuilder builder,
-        boolean useTransients) {
+        boolean useTransients,
+        String[] excludeFields) {
         
         Field[] fields = clazz.getDeclaredFields();
+        List excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.EMPTY_LIST;
         AccessibleObject.setAccessible(fields, true);
         for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
             Field f = fields[i];
-            if ((f.getName().indexOf('$') == -1)
+            if (!excludedFieldList.contains(f.getName())
+                && (f.getName().indexOf('$') == -1)
                 && (useTransients || !Modifier.isTransient(f.getModifiers()))
                 && (!Modifier.isStatic(f.getModifiers()))) {
                 try {
