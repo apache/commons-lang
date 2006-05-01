@@ -251,6 +251,17 @@ public class FastDateFormatTest extends TestCase {
         assertEquals("0999/01/01", format.format(cal));
     }
     /**
+     * Show Bug #39410 is solved
+     */
+    public void testMilleniumBug() {
+        Calendar cal = Calendar.getInstance();
+        FastDateFormat format = FastDateFormat.getInstance("dd.MM.yyyy");
+
+        cal.set(1000,0,1);
+        assertEquals("01.01.1000", format.format(cal));
+    }
+
+    /**
      * testLowYearPadding showed that the date was buggy
      * This test confirms it, getting 366 back as a date
      */
