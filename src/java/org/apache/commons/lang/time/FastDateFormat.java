@@ -31,6 +31,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import org.apache.commons.lang.Validate;
+
 /**
  * <p>FastDateFormat is a fast and thread-safe version of
  * {@link java.text.SimpleDateFormat}.</p>
@@ -93,9 +95,6 @@ public class FastDateFormat extends Format {
      */
     public static final int SHORT = DateFormat.SHORT;
     
-    // package scoped as used by inner class
-    static final double LOG_10 = Math.log(10);
-
     private static String cDefaultPattern;
 
     private static Map cInstanceCache = new HashMap(7);
@@ -1283,7 +1282,8 @@ public class FastDateFormat extends Format {
                 if (value < 1000) {
                     digits = 3;
                 } else {
-                    digits = (int)(Math.log(value) / LOG_10) + 1;
+                    Validate.isTrue(value > -1, "Negative values should not be possible", value);
+                    digits = Integer.toString(value).length();
                 }
                 for (int i = mSize; --i >= digits; ) {
                     buffer.append('0');
