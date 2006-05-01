@@ -25,6 +25,9 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 /**
  * Unit tests for {@link org.apache.commons.lang.text.CompositeFormat}.
  */
@@ -92,6 +95,15 @@ public class CompositeFormatTest extends TestCase {
         composite.format(new Object(), new StringBuffer(), null);
         assertEquals( "Parser get method incorrectly implemented", parser, composite.getParser() );
         assertEquals( "Formatter get method incorrectly implemented", formatter, composite.getFormatter() );
+    }
+
+    public void testUsage() throws Exception {
+        Format f1 = new SimpleDateFormat("MMddyyyy", Locale.ENGLISH);
+        Format f2 = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+        CompositeFormat c = new CompositeFormat(f1, f2);
+        String testString = "January 3, 2005";
+        assertEquals(testString, c.format(c.parseObject("01032005")));
+        assertEquals(testString, c.reformat("01032005"));
     }
 
 }
