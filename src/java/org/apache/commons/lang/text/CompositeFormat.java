@@ -18,6 +18,7 @@ package org.apache.commons.lang.text;
 import java.text.Format;
 import java.text.FieldPosition;
 import java.text.ParsePosition;
+import java.text.ParseException;
 
 /**
  * Formats using one formatter and parses using a different formatter.
@@ -77,6 +78,17 @@ public class CompositeFormat extends Format {
      */
     public Format getFormatter() {
         return this.formatter;
+    }
+
+    /**
+     * Utility method to parse and then reformat a String. 
+     * 
+     * @param source String to reformat
+     * @return A reformatted String
+     * @throws ParseException thrown by parseObject(String) call
+     */
+    public String reformat(String input) throws ParseException {
+        return format(parseObject(input));
     }
 
 }
