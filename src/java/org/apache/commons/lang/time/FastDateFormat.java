@@ -545,7 +545,7 @@ public class FastDateFormat extends Format {
     }
 
     /**
-     * <p>Initialise the instance for first use.</p>
+     * <p>Initializes the instance for first use.</p>
      */
     protected void init() {
         List rulesList = parsePattern();
@@ -887,7 +887,7 @@ public class FastDateFormat extends Format {
     // Parsing
     //-----------------------------------------------------------------------
     /**
-     * <p>Parsing not supported.</p>
+     * <p>Parsing is not supported.</p>
      * 
      * @param source  the string to parse
      * @param pos  the parsing position
@@ -945,7 +945,7 @@ public class FastDateFormat extends Format {
     }
 
     /**
-     * <p>Gets  an estimate for the maximum string length that the
+     * <p>Gets an estimate for the maximum string length that the
      * formatter will produce.</p>
      *
      * <p>The actual formatted length will almost always be less than or
@@ -960,7 +960,7 @@ public class FastDateFormat extends Format {
     // Basics
     //-----------------------------------------------------------------------
     /**
-     * <p>Compare two objects for equality.</p>
+     * <p>Compares two objects for equality.</p>
      * 
      * @param obj  the object to compare to
      * @return <code>true</code> if equal
@@ -983,7 +983,7 @@ public class FastDateFormat extends Format {
     }
 
     /**
-     * <p>A suitable hashcode.</p>
+     * <p>Returns a hashcode compatible with equals.</p>
      * 
      * @return a hashcode compatible with equals
      */
