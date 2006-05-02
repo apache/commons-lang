@@ -116,7 +116,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern using the UTC time zone.</p>
+     * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
      * 
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date
@@ -127,7 +127,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern using the UTC time zone.</p>
+     * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
      * 
      * @param date  the date to format
      * @param pattern  the pattern to use to format the date
@@ -138,7 +138,7 @@ public class DateFormatUtils {
     }
     
     /**
-     * <p>Format a date/time into a specific pattern using the UTC time zone.</p>
+     * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
      * 
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date
@@ -150,7 +150,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern using the UTC time zone.</p>
+     * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
      * 
      * @param date  the date to format
      * @param pattern  the pattern to use to format the date
@@ -162,7 +162,7 @@ public class DateFormatUtils {
     }
     
     /**
-     * <p>Format a date/time into a specific pattern.</p>
+     * <p>Formats a date/time into a specific pattern.</p>
      * 
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date
@@ -173,7 +173,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern.</p>
+     * <p>Formats a date/time into a specific pattern.</p>
      * 
      * @param date  the date to format
      * @param pattern  the pattern to use to format the date
@@ -184,7 +184,7 @@ public class DateFormatUtils {
     }
     
     /**
-     * <p>Format a date/time into a specific pattern in a time zone.</p>
+     * <p>Formats a date/time into a specific pattern in a time zone.</p>
      * 
      * @param millis  the time expressed in milliseconds
      * @param pattern  the pattern to use to format the date
@@ -196,7 +196,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern in a time zone.</p>
+     * <p>Formats a date/time into a specific pattern in a time zone.</p>
      * 
      * @param date  the date to format
      * @param pattern  the pattern to use to format the date
@@ -208,7 +208,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern in a locale.</p>
+     * <p>Formats a date/time into a specific pattern in a locale.</p>
      * 
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date
@@ -220,7 +220,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern in a locale.</p>
+     * <p>Formats a date/time into a specific pattern in a locale.</p>
      * 
      * @param date  the date to format
      * @param pattern  the pattern to use to format the date
@@ -232,7 +232,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern in a time zone  and locale.</p>
+     * <p>Formats a date/time into a specific pattern in a time zone  and locale.</p>
      * 
      * @param millis  the date to format expressed in milliseconds
      * @param pattern  the pattern to use to format the date
@@ -245,7 +245,7 @@ public class DateFormatUtils {
     }
 
     /**
-     * <p>Format a date/time into a specific pattern in a time zone  and locale.</p>
+     * <p>Formats a date/time into a specific pattern in a time zone  and locale.</p>
      * 
      * @param date  the date to format
      * @param pattern  the pattern to use to format the date
