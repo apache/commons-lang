@@ -444,12 +444,12 @@ public final class EnumTest extends TestCase {
 
     public void testColorEnumEqualsWithDifferentClassLoaders() throws SecurityException, IllegalArgumentException,
             ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        this.testEqualsTrueWithDifferentClassLoaders(ColorEnum.BLUE);
-        this.testEqualsTrueWithDifferentClassLoaders(ColorEnum.GREEN);
-        this.testEqualsTrueWithDifferentClassLoaders(ColorEnum.RED);
+        this.testWithDifferentClassLoaders(ColorEnum.BLUE);
+        this.testWithDifferentClassLoaders(ColorEnum.GREEN);
+        this.testWithDifferentClassLoaders(ColorEnum.RED);
     }
 
-    void testEqualsTrueWithDifferentClassLoaders(ColorEnum colorEnum) throws ClassNotFoundException, SecurityException,
+    void testWithDifferentClassLoaders(ColorEnum colorEnum) throws ClassNotFoundException, SecurityException,
             NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         // Sanity checks:
         assertTrue(colorEnum.equals(colorEnum));
@@ -457,6 +457,7 @@ public final class EnumTest extends TestCase {
         // set up:
         ClassLoader classLoader = ClassUtilsTest.newSystemClassLoader();
         Object enumObjectFromOtherClassLoader = this.getColorEnum(classLoader, colorEnum.getName());
+
         // the real test, part 1.
         try {
             ColorEnum testCase = (ColorEnum) enumObjectFromOtherClassLoader;
@@ -464,16 +465,29 @@ public final class EnumTest extends TestCase {
         } catch (ClassCastException e) {
             // normal.
         }
+
         // the real test, part 2.
         assertEquals("The two objects should match even though they are from different class loaders", colorEnum,
                 enumObjectFromOtherClassLoader);
-        // the real test, part 3.
+
+        // the real test, part 3 - testing equals(Object)
         int falseCount = 0;
         for (Iterator iter = ColorEnum.iterator(); iter.hasNext();) {
             ColorEnum element = (ColorEnum) iter.next();
             if (!colorEnum.equals(element)) {
                 falseCount++;
                 assertFalse(enumObjectFromOtherClassLoader.equals(element));
+            }
+        }
+        assertEquals(ColorEnum.getEnumList().size() - 1, falseCount);
+
+        // the real test, part 4 - testing compareTo(Object) == 0
+        falseCount = 0;
+        for (Iterator iter = ColorEnum.iterator(); iter.hasNext();) {
+            ColorEnum element = (ColorEnum) iter.next();
+            if (!colorEnum.equals(element)) {
+                falseCount++;
+                assertFalse( ((Comparable)enumObjectFromOtherClassLoader).compareTo(element) == 0);
             }
         }
         assertEquals(ColorEnum.getEnumList().size() - 1, falseCount);
