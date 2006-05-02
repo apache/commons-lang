@@ -543,18 +543,10 @@ public abstract class Enum implements Comparable, Serializable {
             return iName.equals(((Enum) other).iName);
         } else {
             // This and other are in different class loaders, we must use reflection.
-            try {
-                Method mth = other.getClass().getMethod("getName", null);
-                String name = (String) mth.invoke(other, null);
-                return iName.equals(name);
-            } catch (NoSuchMethodException e) {
-                // ignore - should never happen
-            } catch (IllegalAccessException e) {
-                // ignore - should never happen
-            } catch (InvocationTargetException e) {
-                // ignore - should never happen
+            if (other.getClass().getName().equals(this.getClass().getName()) == false) {
+                return false;
             }
-            return false;
+            return iName.equals( getNameInOtherClassLoader(other) );
         }
     }
     
@@ -573,6 +565,9 @@ public abstract class Enum implements Comparable, Serializable {
      * <p>The default ordering is alphabetic by name, but this
      * can be overridden by subclasses.</p>
      * 
+     * <p>If the parameter is in a different class loader than this instance,
+     * reflection is used to compare the names.</p>
+     *
      * @see java.lang.Comparable#compareTo(Object)
      * @param other  the other object to compare to
      * @return -ve if this is less than the other object, +ve if greater
@@ -584,7 +579,27 @@ public abstract class Enum implements Comparable, Serializable {
         if (other == this) {
             return 0;
         }
+        if (other.getClass() != this.getClass()) {
+            if (other.getClass().getName().equals(this.getClass().getName())) {
+                return iName.compareTo( getNameInOtherClassLoader(other) );
+            }
+        }
         return iName.compareTo(((Enum) other).iName);
+    }
+
+    private String getNameInOtherClassLoader(Object other) {
+        try {
+            Method mth = other.getClass().getMethod("getName", null);
+            String name = (String) mth.invoke(other, null);
+            return name;
+        } catch (NoSuchMethodException e) {
+            // ignore - should never happen
+        } catch (IllegalAccessException e) {
+            // ignore - should never happen
+        } catch (InvocationTargetException e) {
+            // ignore - should never happen
+        }
+        throw new IllegalStateException("This should not happen");
     }
 
     /**
