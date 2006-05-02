@@ -31,7 +31,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.apache.commons.lang.ClassUtilsTest;
 import org.apache.commons.lang.SerializationUtils;
-import org.apache.commons.lang.enum.ColorEnum;
 
 /**
  * Test cases for the {@link Enum} class.
