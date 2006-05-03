@@ -2942,13 +2942,14 @@ public class StringUtils {
         if (end == -1) {
             return text;
         }
-        int increase = with.length() - repl.length();
+        int replLength = repl.length();
+        int increase = with.length() - replLength;
         increase = (increase < 0 ? 0 : increase);
         increase *= (max < 0 ? 16 : (max > 64 ? 64 : max));
         StringBuffer buf = new StringBuffer(text.length() + increase);
         while (end != -1) {
             buf.append(text.substring(start, end)).append(with);
-            start = end + repl.length();
+            start = end + replLength;
             if (--max == 0) {
                 break;
             }
@@ -3031,13 +3032,15 @@ public class StringUtils {
             replaceChars = "";
         }
         boolean modified = false;
-        StringBuffer buf = new StringBuffer(str.length());
-        for (int i = 0; i < str.length(); i++) {
+        int replaceCharsLength = replaceChars.length();
+        int strLength = str.length();
+        StringBuffer buf = new StringBuffer(strLength);
+        for (int i = 0; i < strLength; i++) {
             char ch = str.charAt(i);
             int index = searchChars.indexOf(ch);
             if (index >= 0) {
                 modified = true;
-                if (index < replaceChars.length()) {
+                if (index < replaceCharsLength) {
                     buf.append(replaceChars.charAt(index));
                 }
             } else {
