@@ -947,6 +947,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals("<null>", ReflectionToStringBuilder.toString(null));
     }
 
+    /* Unit test for #36061
     public void testObjectCycle() {
         ObjectCycle a = new ObjectCycle();
         ObjectCycle b = new ObjectCycle();
@@ -965,5 +966,6 @@ public class ToStringBuilderTest extends TestCase {
             return new ToStringBuilder(this).append(obj).toString();
         }
     }
+    */
 
 }
