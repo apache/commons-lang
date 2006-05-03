@@ -946,4 +946,24 @@ public class ToStringBuilderTest extends TestCase {
     public void testReflectionNull() {
         assertEquals("<null>", ReflectionToStringBuilder.toString(null));
     }
+
+    public void testObjectCycle() {
+        ObjectCycle a = new ObjectCycle();
+        ObjectCycle b = new ObjectCycle();
+        a.obj = b;
+        b.obj = a;
+       
+        String expected = toBaseString(a) + "[" + toBaseString(b) + "[" + toBaseString(a) + "]]";
+        assertEquals(expected, a.toString());
+        validateEmptyReflectionRegistry();
+    }
+    
+    static class ObjectCycle {
+        Object obj;
+       
+        public String toString() {
+            return new ToStringBuilder(this).append(obj).toString();
+        }
+    }
+
 }
