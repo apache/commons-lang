@@ -83,7 +83,7 @@ public class CompositeFormat extends Format {
     /**
      * Utility method to parse and then reformat a String. 
      * 
-     * @param source String to reformat
+     * @param input String to reformat
      * @return A reformatted String
      * @throws ParseException thrown by parseObject(String) call
      */
