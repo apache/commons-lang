@@ -1241,7 +1241,6 @@ public class StrBuilder implements Cloneable {
      * @param removeLen  the length to remove (endIndex - startIndex), must be valid
      * @param insertStr  the string to replace with, null means delete range
      * @param insertLen  the length of the insert string, must be valid
-     * @param len  the length, must be valid
      * @throws IndexOutOfBoundsException if any index is invalid
      */
     private void replaceImpl(int startIndex, int endIndex, int removeLen, String insertStr, int insertLen) {

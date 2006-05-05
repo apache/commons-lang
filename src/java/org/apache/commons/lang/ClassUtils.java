@@ -604,6 +604,14 @@ public class ClassUtils {
      *  Method method = ClassUtils.getPublicMethod(set.getClass(), "isEmpty",  new Class[0]);
      *  Object result = method.invoke(set, new Object[]);</pre></code>
      * </p>
+     *
+     * @param cls the class to check
+     * @param methodName the name of the method
+     * @param parameterTypes the list of parameters
+     * @return the method
+     * @throws SecurityException If a a security violation occured
+     * @throws NoSuchMethodException If the method is not found in the given class
+     *  or if the metothod doen't conform with the requirements
      */
     public static Method getPublicMethod(Class cls, String methodName, Class parameterTypes[]) 
         throws SecurityException, NoSuchMethodException 
