@@ -648,7 +648,7 @@ public class ClassUtils {
     }
 
     /**
-     * Converts a class name to a JLS stle class name.
+     * Converts a class name to a JLS style class name.
      *
      * @param className  the class name
      * @return the converted name
