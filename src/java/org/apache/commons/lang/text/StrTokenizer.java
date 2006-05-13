@@ -26,9 +26,11 @@ import org.apache.commons.lang.ArrayUtils;
  * Tokenizes a string based based on delimiters (separators)
  * and supporting quoting and ignored character concepts.
  * <p>
- * This class can split a String into many smaller strings.
- * It aims to do a similar job to java util StringTokenizer, however it offers
- * much more control and flexibility. By default, it is setup like StringTokenizer.
+ * This class can split a String into many smaller strings. It aims
+ * to do a similar job to {@link java.util.StringTokenizer StringTokenizer},
+ * however it offers much more control and flexibility including implementing
+ * the <code>ListIterator</code> interface. By default, it is setup
+ * like <code>StringTokenizer</code>.
  * <p>
  * The input String is split into a number of <i>tokens</i>.
  * Each token is separated from the next String by a <i>delimiter</i>.
