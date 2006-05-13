@@ -1951,8 +1951,8 @@ public class StrBuilder implements Cloneable {
      * on the tokenizer class, before retrieving the tokens.
      * <p>
      * Note that the internal character array is shared between the two
-     * objects and no synchronization occurs, so you must not alter this
-     * builder in one thread while tokenizing it in another thread.
+     * objects and no synchronization occurs. Once you call this method
+     * you must complete the tokenization before altering this buffer again.
      *
      * @return a StrTokenizer instance
      */
