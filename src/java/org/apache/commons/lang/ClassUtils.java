@@ -592,7 +592,8 @@ public class ClassUtils {
         return getClass(loader, className, initialize );
     }
 
-    
+    // Public method
+    // ----------------------------------------------------------------------
     /**
      * <p>Returns the desired Method much like <code>Class.getMethod</code>, however 
      * it ensures that the returned Method is from a public class or interface and not 
@@ -605,37 +606,36 @@ public class ClassUtils {
      *  Object result = method.invoke(set, new Object[]);</pre></code>
      * </p>
      *
-     * @param cls the class to check
-     * @param methodName the name of the method
-     * @param parameterTypes the list of parameters
+     * @param cls  the class to check, not null
+     * @param methodName  the name of the method
+     * @param parameterTypes  the list of parameters
      * @return the method
-     * @throws SecurityException If a a security violation occured
-     * @throws NoSuchMethodException If the method is not found in the given class
+     * @throws NullPointerException if the class is null
+     * @throws SecurityException if a a security violation occured
+     * @throws NoSuchMethodException if the method is not found in the given class
      *  or if the metothod doen't conform with the requirements
      */
     public static Method getPublicMethod(Class cls, String methodName, Class parameterTypes[]) 
-        throws SecurityException, NoSuchMethodException 
-    {
+            throws SecurityException, NoSuchMethodException {
         
         Method declaredMethod = cls.getMethod(methodName, parameterTypes);
- 
         if (Modifier.isPublic(declaredMethod.getDeclaringClass().getModifiers())) {
             return declaredMethod;
         }
-
+        
         List candidateClasses = new ArrayList();
         candidateClasses.addAll(getAllInterfaces(cls));
         candidateClasses.addAll(getAllSuperclasses(cls));
-
-        for (Iterator iter=candidateClasses.iterator(); iter.hasNext(); ) {
-            Class candidateClass = (Class) iter.next();
+        
+        for (Iterator it = candidateClasses.iterator(); it.hasNext(); ) {
+            Class candidateClass = (Class) it.next();
             if (!Modifier.isPublic(candidateClass.getModifiers())) {
                 continue;
             }
             Method candidateMethod;
             try {
                 candidateMethod = candidateClass.getMethod(methodName, parameterTypes);
-            } catch (NoSuchMethodException e) {
+            } catch (NoSuchMethodException ex) {
                 continue;
             }
             if (Modifier.isPublic(candidateMethod.getDeclaringClass().getModifiers())) {
@@ -643,10 +643,11 @@ public class ClassUtils {
             }
         }
         
-        String message = "Can't find an public method for " + methodName + " " + ArrayUtils.toString(parameterTypes); 
-        throw new NoSuchMethodException(message);
+        throw new NoSuchMethodException("Can't find a public method for " +
+                methodName + " " + ArrayUtils.toString(parameterTypes));
     }
 
+    // ----------------------------------------------------------------------
     /**
      * Converts a class name to a JLS style class name.
      *
