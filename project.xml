@@ -43,7 +43,7 @@ limitations under the License.
         </license>
     </licenses>
     <gumpRepositoryId>jakarta</gumpRepositoryId>
-    <issueTrackingUrl>http://issues.apache.org/bugzilla/</issueTrackingUrl>
+    <issueTrackingUrl>http://issues.apache.org/jira/</issueTrackingUrl>
     <siteAddress>people.apache.org</siteAddress>
     <siteDirectory>/www/jakarta.apache.org/commons/lang/</siteDirectory>
     <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/lang/</distributionDirectory>
