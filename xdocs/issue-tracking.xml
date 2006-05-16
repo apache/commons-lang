@@ -23,18 +23,18 @@ limitations under the License.
 <!-- ================================================== -->
 <section name="Issue tracking">
 <p>
-  Commons Lang uses <a href="http://issues.apache.org/bugzilla/">ASF Bugzilla</a> for tracking issues.
-  To use Bugzilla you may need to <a href="http://issues.apache.org/bugzilla/createaccount.cgi">create an account</a>.
+  Issues for Commons Lang are tracked at <a href="http://issues.apache.org/jira/browse/LANG">http://issues.apache.org/jira/browse/LANG</a>. 
+  To create a new issue you will need to <a href="http://issues.apache.org/jira/secure/Signup!default.jspa">sign up</a> for a new user, unless you had previously used Bugzilla in which case your username is your email address and you will need to use the <a href="http://issues.apache.org/jira/secure/ForgotPassword!default.jspa">Forgot Password</a> page to get a new password. 
 </p>
 <p>
   If you would like to report a bug, or raise an enhancement request with
   Commons Lang please do the following:
   <ol>
-  <li><a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=UNCONFIRMED&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;bug_status=NEEDINFO&amp;product=Commons&amp;component=Lang">Search existing open bugs</a>.
+  <li><a href="http://issues.apache.org/jira/secure/IssueNavigator.jspa?mode=show&requestId=12311034">Search existing bugs</a>. 
   If you find your issue listed then please add a comment with your details.</li>
   <li><a href="http://mail-archives.apache.org/mod_mbox/jakarta-commons-dev/">Search the mailing list archive</a>.
   You may find your issue or idea has already been discussed.</li>
-  <li><a href="http://issues.apache.org/bugzilla/enter_bug.cgi?product=Commons&amp;component=Lang&amp;version=1.2%20Final&amp;short_desc=%5Blang%5D%20%22Your%20subject%20heading%20here%22&amp;comment=Please%20provide%20details%20here.%20Its%20best%20to%20submit%20patches%20that%20alter%0D%0Aexisting%20file%20content%20in%20%22unified%20diff%22%20format.%20%0D%0A%0D%0ASubmissions%20that%20provide%20new%20files%20can%20be%20supplied%20as%20direct%20file%0D%0Aattachments%20or%20archives%20in%20zip%20or%20tar.gz%20format.%20please%20be%20kind%20%0D%0Aenough%20to%20identify%20the%20format%20of%20the%20attached%20archive%20as%20bugzilla%0D%0Atends%20to%20strip%20these%20characterstics%20by%20removing%20the%20files%20extension.">Submit a bug report or enhancement request</a>.
+  <li><a href="http://issues.apache.org/jira/secure/CreateIssue!default.jspa">Submit a bug report or enhancement request</a>.
   Please prefix all new issues with [lang] in the summary line.
   </li>
   </ol>
@@ -45,14 +45,6 @@ limitations under the License.
   <li>the more information you provide, the better we can help you</li>
   <li>test cases are vital, particularly for any proposed enhancements</li>
   <li>the developers of Commons Lang are all unpaid volunteers</li>
-  </ul>
-</p>
-<p>
-  You may also find these links useful:
-  <ul>
-  <li><a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=UNCONFIRMED&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;bug_status=NEEDINFO&amp;product=Commons&amp;component=Lang">All Open Lang bugs</a></li>
-  <li><a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=RESOLVED&amp;bug_status=VERIFIED&amp;bug_status=CLOSED&amp;product=Commons&amp;component=Lang">All Closed Lang bugs</a></li>
-  <li><a href="http://issues.apache.org/bugzilla/buglist.cgi?bug_status=UNCONFIRMED&amp;bug_status=NEW&amp;bug_status=ASSIGNED&amp;bug_status=REOPENED&amp;bug_status=NEEDINFO&amp;bug_status=RESOLVED&amp;bug_status=VERIFIED&amp;bug_status=CLOSED&amp;product=Commons&amp;component=Lang">All Lang bugs</a></li>
   </ul>
 </p>
 </section>
