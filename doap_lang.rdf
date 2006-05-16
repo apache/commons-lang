@@ -6,7 +6,7 @@
     <programming-language>Java</programming-language>
     <category rdf:resource="http://projects.apache.org/category/library"/>
     <license rdf:resource="http://usefulinc.com/doap/licenses/asl20"/>
-    <bug-database rdf:resource="http://issues.apache.org/bugzilla/buglist.cgi?product=Commons&amp;component=lang"/>
+    <bug-database rdf:resource="http://issues.apache.org/jira/browse/LANG"/>
     <download-page rdf:resource="http://jakarta.apache.org/site/downloads/downloads_commons-lang.cgi"/>
     <asfext:pmc rdf:resource="http://jakarta.apache.org/"/>
     <shortdesc xml:lang="en">Java Common Components</shortdesc>
