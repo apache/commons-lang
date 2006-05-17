@@ -30,13 +30,11 @@ limitations under the License.
   If you would like to report a bug, or raise an enhancement request with
   Commons Lang please do the following:
   <ol>
-  <li><a href="http://issues.apache.org/jira/secure/IssueNavigator.jspa?mode=show&requestId=12311034">Search existing bugs</a>. 
+  <li><a href="http://issues.apache.org/jira/secure/IssueNavigator.jspa?mode=show&requestId=12310481">Search existing bugs</a>. 
   If you find your issue listed then please add a comment with your details.</li>
   <li><a href="http://mail-archives.apache.org/mod_mbox/jakarta-commons-dev/">Search the mailing list archive</a>.
   You may find your issue or idea has already been discussed.</li>
-  <li><a href="http://issues.apache.org/jira/secure/CreateIssue!default.jspa">Submit a bug report or enhancement request</a>.
-  Please prefix all new issues with [lang] in the summary line.
-  </li>
+  <li><a href="http://issues.apache.org/jira/secure/CreateIssue!default.jspa">Submit a bug report or enhancement request</a>. </li>
   </ol>
 </p>
 <p>
