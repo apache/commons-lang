@@ -2197,7 +2197,7 @@ public class StringUtils {
      * StringUtils.splitPreserveAllTokens(null, *)         = null
      * StringUtils.splitPreserveAllTokens("", *)           = []
      * StringUtils.splitPreserveAllTokens("a.b.c", '.')    = ["a", "b", "c"]
-     * StringUtils.splitPreserveAllTokens("a..b.c", '.')   = ["a", "b", "c"]
+     * StringUtils.splitPreserveAllTokens("a..b.c", '.')   = ["a", "", "b", "c"]
      * StringUtils.splitPreserveAllTokens("a:b:c", '.')    = ["a:b:c"]
      * StringUtils.splitPreserveAllTokens("a\tb\nc", null) = ["a", "b", "c"]
      * StringUtils.splitPreserveAllTokens("a b c", ' ')    = ["a", "b", "c"]

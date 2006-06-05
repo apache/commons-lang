@@ -581,6 +581,16 @@ public class StringUtilsTest extends TestCase {
         assertEquals("b", res[3]);
         assertEquals("c", res[4]);
 
+        // Match example in javadoc
+        {
+          String[] results = null;
+          String[] expectedResults = {"a", "", "b", "c"};
+          results = StringUtils.splitPreserveAllTokens("a..b.c",'.');
+          assertEquals(expectedResults.length, results.length);
+          for (int i = 0; i < expectedResults.length; i++) {
+              assertEquals(expectedResults[i], results[i]);
+          }
+        }
     }
     
     public void testSplitPreserveAllTokens_StringString_StringStringInt() {
@@ -710,6 +720,7 @@ public class StringUtilsTest extends TestCase {
               assertEquals(expectedResults[i], results[i]);
           }
         }
+        
     }
     
     private void innerTestSplitPreserveAllTokens(char separator, String sepStr, char noMatch) {
