@@ -274,6 +274,40 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(false, StringUtils.contains("abc", "z"));
     }
 
+    public void testContainsIgnoreCase_StringString() {
+        assertFalse(StringUtils.containsIgnoreCase(null, null));
+        
+        // Null tests
+        assertFalse(StringUtils.containsIgnoreCase(null, ""));
+        assertFalse(StringUtils.containsIgnoreCase(null, "a"));
+        assertFalse(StringUtils.containsIgnoreCase(null, "abc"));
+        
+        assertFalse(StringUtils.containsIgnoreCase("", null));
+        assertFalse(StringUtils.containsIgnoreCase("a", null));
+        assertFalse(StringUtils.containsIgnoreCase("abc", null));
+        
+        // Match len = 0
+        assertTrue(StringUtils.containsIgnoreCase("", ""));
+        assertTrue(StringUtils.containsIgnoreCase("a", ""));
+        assertTrue(StringUtils.containsIgnoreCase("abc", ""));
+
+        // Match len = 1
+        assertFalse(StringUtils.containsIgnoreCase("", "a"));
+        assertTrue(StringUtils.containsIgnoreCase("a", "a"));
+        assertTrue(StringUtils.containsIgnoreCase("abc", "a"));
+        assertFalse(StringUtils.containsIgnoreCase("", "A"));
+        assertTrue(StringUtils.containsIgnoreCase("a", "A"));
+        assertTrue(StringUtils.containsIgnoreCase("abc", "A"));
+        
+        // Match len > 1
+        assertFalse(StringUtils.containsIgnoreCase("", "abc"));
+        assertFalse(StringUtils.containsIgnoreCase("a", "abc"));
+        assertTrue(StringUtils.containsIgnoreCase("xabcz", "abc"));
+        assertFalse(StringUtils.containsIgnoreCase("", "ABC"));
+        assertFalse(StringUtils.containsIgnoreCase("a", "ABC"));
+        assertTrue(StringUtils.containsIgnoreCase("xabcz", "ABC"));
+    }
+
     //-----------------------------------------------------------------------
     public void testIndexOfAny_StringStringarray() {
         assertEquals(-1, StringUtils.indexOfAny(null, (String[]) null));
