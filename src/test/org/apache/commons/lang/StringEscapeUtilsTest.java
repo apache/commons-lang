@@ -290,6 +290,20 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals("", StringEscapeUtils.escapeXml(""));
         assertEquals(null, StringEscapeUtils.escapeXml(null));
         assertEquals(null, StringEscapeUtils.unescapeXml(null));
+
+        StringWriter sw = new StringWriter();
+        try {
+            StringEscapeUtils.escapeXml(sw, "<abc>");
+        } catch (IOException e) {
+        }
+        assertEquals("XML was escaped incorrectly", "&lt;abc&gt;", sw.toString() );
+
+        sw = new StringWriter();
+        try {
+            StringEscapeUtils.unescapeXml(sw, "&lt;abc&gt;");
+        } catch (IOException e) {
+        }
+        assertEquals("XML was unescaped incorrectly", "<abc>", sw.toString() );
     }
 
     // SQL
