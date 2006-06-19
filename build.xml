@@ -171,7 +171,4 @@ limitations under the License.
 	<target name="test.time" depends="compile.tests">
 		<runTestCase classname="org.apache.commons.lang.time.TimeTestSuite"/>
 	</target>
-	<target name="test.util" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.util.UtilTestSuite"/>
-	</target>
 </project>
