@@ -276,37 +276,38 @@ public class DurationFormatUtils {
         end.setTime(new Date(endMillis));
 
         // initial estimates
-        int years = end.get(Calendar.YEAR) - start.get(Calendar.YEAR);
-        int months = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
-        // each initial estimate is adjusted in case it is under 0
-        while (months < 0) {
-            months += 12;
-            years -= 1;
-        }
-        int days = end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);
-        while (days < 0) {
-            days += 31; // such overshooting is taken care of later on
-            months -= 1;
-        }
-        int hours = end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY);
-        while (hours < 0) {
-            hours += 24;
-            days -= 1;
-        }
-        int minutes = end.get(Calendar.MINUTE) - start.get(Calendar.MINUTE);
-        while (minutes < 0) {
-            minutes += 60;
-            hours -= 1;
-        }
+        int milliseconds = end.get(Calendar.MILLISECOND) - start.get(Calendar.MILLISECOND);
         int seconds = end.get(Calendar.SECOND) - start.get(Calendar.SECOND);
+        int minutes = end.get(Calendar.MINUTE) - start.get(Calendar.MINUTE);
+        int hours = end.get(Calendar.HOUR_OF_DAY) - start.get(Calendar.HOUR_OF_DAY);
+        int days = end.get(Calendar.DAY_OF_MONTH) - start.get(Calendar.DAY_OF_MONTH);
+        int months = end.get(Calendar.MONTH) - start.get(Calendar.MONTH);
+        int years = end.get(Calendar.YEAR) - start.get(Calendar.YEAR);
+
+        // each initial estimate is adjusted in case it is under 0
+        while (milliseconds < 0) {
+            milliseconds += 1000;
+            seconds -= 1;
+        }
         while (seconds < 0) {
             seconds += 60;
             minutes -= 1;
         }
-        int milliseconds = end.get(Calendar.MILLISECOND) - start.get(Calendar.MILLISECOND);
-        while (milliseconds < 0) {
-            milliseconds += 1000;
-            seconds -= 1;
+        while (minutes < 0) {
+            minutes += 60;
+            hours -= 1;
+        }
+        while (hours < 0) {
+            hours += 24;
+            days -= 1;
+        }
+        while (days < 0) {
+            days += 31; // such overshooting is taken care of later on
+            months -= 1;
+        }
+        while (months < 0) {
+            months += 12;
+            years -= 1;
         }
 
         // take estimates off of end to see if we can equal start, when it overshoots recalculate
