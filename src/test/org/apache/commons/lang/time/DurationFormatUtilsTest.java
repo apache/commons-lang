@@ -19,6 +19,7 @@ package org.apache.commons.lang.time;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 import junit.framework.Test;
@@ -395,6 +396,18 @@ public class DurationFormatUtilsTest extends TestCase {
                 DurationFormatUtils.y, 1)));
         DurationFormatUtils.Token numToken = new DurationFormatUtils.Token(new Integer(1), 4);
         assertTrue("Token with Number value not equal to itself. ", numToken.equals(numToken));
+    }
+
+
+    // http://issues.apache.org/bugzilla/show_bug.cgi?id=38401
+    public void testBugzilla38401() {
+        Calendar cal1 = Calendar.getInstance();
+        cal1.set(2006, 0, 26, 18, 47, 34);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.set(2006, 1, 26, 10, 47, 34);
+
+        System.err.println("WAS: " + DurationFormatUtils.formatPeriod(cal1.getTime().getTime(), cal2.getTime().getTime(), "yyyy/MM/dd HH:mm:ss SSS") );
+        assertEquals( "0000/00/30 16:00:00 000", DurationFormatUtils.formatPeriod(cal1.getTime().getTime(), cal2.getTime().getTime(), "yyyy/MM/dd HH:mm:ss SSS") );
     }
 
     private void assertArrayEquals(DurationFormatUtils.Token[] obj1, DurationFormatUtils.Token[] obj2) {
