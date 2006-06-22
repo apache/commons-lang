@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -122,6 +123,29 @@ public class EqualsBuilder {
      */
     public static boolean reflectionEquals(Object lhs, Object rhs) {
         return reflectionEquals(lhs, rhs, false, null, null);
+    }
+
+    /**
+     * <p>This method uses reflection to determine if the two <code>Object</code>s
+     * are equal.</p>
+     *
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manager, if the permissions are not set up correctly. It is also
+     * not as efficient as testing explicitly.</p>
+     *
+     * <p>Transient members will be not be tested, as they are likely derived
+     * fields, and not part of the value of the Object.</p>
+     *
+     * <p>Static fields will not be tested. Superclass fields will be included.</p>
+     *
+     * @param lhs  <code>this</code> object
+     * @param rhs  the other object
+     * @param excludeFields  Collection of String field names to exclude from testing
+     * @return <code>true</code> if the two Objects have tested equals.
+     */
+    public static boolean reflectionEquals(Object lhs, Object rhs, Collection /*String*/ excludeFields) {
+        return reflectionEquals(lhs, rhs, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
     }
 
     /**

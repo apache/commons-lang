@@ -405,7 +405,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            The field names to exclude. Null excludes nothing.
      * @return The toString value.
      */
-    public static String toStringExclude(Object object, Collection excludeFieldNames) {
+    public static String toStringExclude(Object object, Collection /*String*/ excludeFieldNames) {
         return toStringExclude(object, toNoNullStringArray(excludeFieldNames));
     }
 
@@ -418,7 +418,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            The collection to convert
      * @return A new array of Strings.
      */
-    private static String[] toNoNullStringArray(Collection collection) {
+    static String[] toNoNullStringArray(Collection collection) {
         if (collection == null) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
@@ -434,7 +434,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            The array to check
      * @return The given array or a new array without null.
      */
-    private static String[] toNoNullStringArray(Object[] array) {
+    static String[] toNoNullStringArray(Object[] array) {
         ArrayList list = new ArrayList(array.length);
         for (int i = 0; i < array.length; i++) {
             Object e = array[i];

@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -151,6 +152,31 @@ public class HashCodeBuilder {
      */
     public static int reflectionHashCode(Object object) {
         return reflectionHashCode(17, 37, object, false, null, null);
+    }
+
+    /**
+     * <p>This method uses reflection to build a valid hash code.</p>
+     *
+     * <p>This constructor uses two hard coded choices for the constants
+     * needed to build a hash code.</p>
+     *
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manager, if the permissions are not set up correctly. It is
+     * also not as efficient as testing explicitly.</p>
+     *
+     * <p>Transient members will be not be used, as they are likely derived
+     * fields, and not part of the value of the <code>Object</code>.</p>
+     *
+     * <p>Static fields will not be tested. Superclass fields will be included.</p>
+     *
+     * @param object  the Object to create a <code>hashCode</code> for
+     * @param excludeFields  Collection of String field names to exclude from use in calculation of hash code
+     * @return int hash code
+     * @throws IllegalArgumentException if the object is <code>null</code>
+     */
+    public static int reflectionHashCode(Object object, Collection /*String*/ excludeFields) {
+        return reflectionHashCode(object, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
     }
 
     /**
