@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
@@ -192,7 +193,39 @@ public class CompareToBuilder {
      *
      * @param lhs  left-hand object
      * @param rhs  right-hand object
-     * @param excludeFields  fields to exclude
+     * @param excludeFields  Collection of String fields to exclude
+     * @return a negative integer, zero, or a positive integer as <code>lhs</code>
+     *  is less than, equal to, or greater than <code>rhs</code>
+     * @throws NullPointerException  if either <code>lhs</code> or <code>rhs</code>
+     *  (but not both) is <code>null</code>
+     * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
+     *  with <code>lhs</code>
+     */
+    public static int reflectionCompare(Object lhs, Object rhs, Collection /*String*/ excludeFields) {
+        return reflectionCompare(lhs, rhs, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
+    }
+
+    /**
+     * <p>Compares two <code>Object</code>s via reflection.</p>
+     *
+     * <p>Fields can be private, thus <code>AccessibleObject.setAccessible</code>
+     * is used to bypass normal access control checks. This will fail under a 
+     * security manager unless the appropriate permissions are set.</p>
+     *
+     * <ul>
+     * <li>Static fields will not be compared</li>
+     * <li>If <code>compareTransients</code> is <code>true</code>,
+     *     compares transient members.  Otherwise ignores them, as they
+     *     are likely derived fields.</li>
+     * <li>Superclass fields will be compared</li>
+     * </ul>
+     *
+     * <p>If both <code>lhs</code> and <code>rhs</code> are <code>null</code>,
+     * they are considered equal.</p>
+     *
+     * @param lhs  left-hand object
+     * @param rhs  right-hand object
+     * @param excludeFields  array of fields to exclude
      * @return a negative integer, zero, or a positive integer as <code>lhs</code>
      *  is less than, equal to, or greater than <code>rhs</code>
      * @throws NullPointerException  if either <code>lhs</code> or <code>rhs</code>
