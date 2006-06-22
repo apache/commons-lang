@@ -42,7 +42,7 @@ import java.util.List;
  * public class Person {
  *   String name;
  *   int age;
- *   boolean isSmoker;
+ *   boolean smoker;
  *   ...
  *
  *   public int hashCode() {
