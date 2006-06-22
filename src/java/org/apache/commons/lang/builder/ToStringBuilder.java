@@ -38,7 +38,7 @@ import org.apache.commons.lang.ObjectUtils;
  * public class Person {
  *   String name;
  *   int age;
- *   boolean isSmoker;
+ *   boolean smoker;
  * 
  *   ...
  * 
