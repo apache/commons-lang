@@ -315,7 +315,33 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
         }
         return sumSq;
     }           
-        
+
+    /**
+     * Checks if the string got by {@link RandomStringUtils#random(int)}
+     * can be converted to UTF-8 and back without loss.
+     *
+     * @author stefanhoehne@fastmail.fm
+     * @throws Exception
+     */
+    public void testLang100() throws Exception {
+        int size = 5000;
+        String encoding = "UTF-8";
+        String orig = RandomStringUtils.random(size);
+        byte[] bytes = orig.getBytes(encoding);
+        String copy = new String(bytes, encoding);
+
+        // for a verbose compare:
+        for (int i=0; i < orig.length() && i < copy.length(); i++) {
+            char o = orig.charAt(i);
+            char c = copy.charAt(i);
+            assertEquals("differs at " + i + "(" + Integer.toHexString((new Character(o)).hashCode()) + "," +
+            Integer.toHexString((new Character(c)).hashCode()) + ")", o, c);
+        }
+        // compare length also
+        assertEquals(orig.length(), copy.length());
+        // just to be complete
+        assertEquals(orig, copy);
+    }
 
     public static void main(String args[]) {
         TestRunner.run(suite());

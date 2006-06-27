@@ -18,6 +18,14 @@ package org.apache.commons.lang;
 import java.util.Random;
 /**
  * <p>Operations for random <code>String</code>s.</p>
+ * <p>Currently <em>private high surrogate</em> characters are ignored. 
+ * These are unicode characters that fall between the values 56192 (db80)
+ * and 56319 (dbff) as we don't know how to handle them. 
+ * High and low surrogates are correctly dealt with - that is if a 
+ * high surrogate is randomly chosen, 55296 (d800) to 56191 (db7f) 
+ * then it is followed by a low surrogate. If a low surrogate is chosen, 
+ * 56320 (dc00) to 57343 (dfff) then it is placed after a randomly 
+ * chosen high surrogate. </p>
  *
  * @author GenerationJava Core library
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
@@ -243,8 +251,32 @@ public class RandomStringUtils {
             }
             if ((letters && Character.isLetter(ch))
                 || (numbers && Character.isDigit(ch))
-                || (!letters && !numbers)) {
-                buffer[count] = ch;
+                || (!letters && !numbers)) 
+            {
+                if(ch >= 56320 && ch <= 57343) {
+                    if(count == 0) {
+                        count++;
+                    } else {
+                        // low surrogate, insert high surrogate after putting it in
+                        buffer[count] = ch;
+                        count--;
+                        buffer[count] = (char) (55296 + random.nextInt(128));
+                    }
+                } else if(ch >= 55296 && ch <= 56191) {
+                    if(count == 0) {
+                        count++;
+                    } else {
+                        // high surrogate, insert low surrogate before putting it in
+                        buffer[count] = (char) (56320 + random.nextInt(128));
+                        count--;
+                        buffer[count] = ch;
+                    }
+                } else if(ch >= 56192 && ch <= 56319) {
+                    // private high surrogate, no effing clue, so skip it
+                    count++;
+                } else {
+                    buffer[count] = ch;
+                }
             } else {
                 count++;
             }
