@@ -442,7 +442,7 @@ public class HashCodeBuilderTest extends TestCase {
 
         assertEquals((((17 * 37 + 1) * 37 + 2) * 37 + 3), HashCodeBuilder.reflectionHashCode(x));
 
-        assertEquals((((17 * 37 + 1) * 37 + 2) * 37 + 3), HashCodeBuilder.reflectionHashCode(x, null));
+        assertEquals((((17 * 37 + 1) * 37 + 2) * 37 + 3), HashCodeBuilder.reflectionHashCode(x, (String[]) null));
         assertEquals((((17 * 37 + 1) * 37 + 2) * 37 + 3), HashCodeBuilder.reflectionHashCode(x, new String[] {}));
         assertEquals((((17 * 37 + 1) * 37 + 2) * 37 + 3), HashCodeBuilder.reflectionHashCode(x, new String[] {"xxx"}));
 
