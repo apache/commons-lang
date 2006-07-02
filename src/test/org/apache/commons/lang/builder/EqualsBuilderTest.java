@@ -966,7 +966,7 @@ public class EqualsBuilderTest extends TestCase {
         assertTrue(!EqualsBuilder.reflectionEquals(x1, x2));
 
         // doesn't barf on null, empty array, or non-existent field, but still tests as not equal
-        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, null));
+        assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, (String[]) null));
         assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {}));
         assertTrue(!EqualsBuilder.reflectionEquals(x1, x2, new String[] {"xxx"}));
 
