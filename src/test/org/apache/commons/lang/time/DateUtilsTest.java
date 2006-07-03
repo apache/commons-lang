@@ -978,6 +978,14 @@ public class DateUtilsTest extends TestCase {
                 dateParser.parse("December 2, 2001"));
     }
 
+    // Tests LANG-59
+    public void testLang59() throws Exception {
+        // truncate 2004-10-31 01:00:00 MDT
+        Date oct31_01MDT = new Date(1099206000000L);
+        Date result = DateUtils.truncate(oct31_01MDT, Calendar.HOUR_OF_DAY);
+        assertEquals(oct31_01MDT, result); 
+    }
+
     /**
      * This checks that this is a 7 element iterator of Calendar objects
      * that are dates (no time), and exactly 1 day spaced after each other.
