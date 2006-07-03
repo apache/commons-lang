@@ -567,7 +567,7 @@ public class StringEscapeUtils {
      * Does not support DTDs or external entities.</p>
      *
      * <p>Note that unicode characters greater than 0x7f are currently escaped to 
-     *    their numerical \u equivalent. This may change in future releases. </p>
+     *    their numerical \\u equivalent. This may change in future releases. </p>
      *
      * @param writer  the writer receiving the unescaped string, not null
      * @param str  the <code>String</code> to escape, may be null
@@ -596,7 +596,7 @@ public class StringEscapeUtils {
      * Does not support DTDs or external entities.</p>
      *
      * <p>Note that unicode characters greater than 0x7f are currently escaped to 
-     *    their numerical \u equivalent. This may change in future releases. </p>
+     *    their numerical \\u equivalent. This may change in future releases. </p>
      *
      * @param str  the <code>String</code> to escape, may be null
      * @return a new escaped <code>String</code>, <code>null</code> if null string input
@@ -618,7 +618,7 @@ public class StringEscapeUtils {
      * <p>Supports only the five basic XML entities (gt, lt, quot, amp, apos).
      * Does not support DTDs or external entities.</p>
      *
-     * <p>Note that numerical \u unicode codes are unescaped to their respective 
+     * <p>Note that numerical \\u unicode codes are unescaped to their respective 
      *    unicode characters. This may change in future releases. </p>
      *
      * @param writer  the writer receiving the unescaped string, not null
@@ -645,7 +645,7 @@ public class StringEscapeUtils {
      * <p>Supports only the five basic XML entities (gt, lt, quot, amp, apos).
      * Does not support DTDs or external entities.</p>
      *
-     * <p>Note that numerical \u unicode codes are unescaped to their respective 
+     * <p>Note that numerical \\u unicode codes are unescaped to their respective 
      *    unicode characters. This may change in future releases. </p>
      *
      * @param str  the <code>String</code> to unescape, may be null
