@@ -406,7 +406,6 @@ public class DurationFormatUtilsTest extends TestCase {
         Calendar cal2 = Calendar.getInstance();
         cal2.set(2006, 1, 26, 10, 47, 34);
 
-        System.err.println("WAS: " + DurationFormatUtils.formatPeriod(cal1.getTime().getTime(), cal2.getTime().getTime(), "yyyy/MM/dd HH:mm:ss SSS") );
         assertEquals( "0000/00/30 16:00:00 000", DurationFormatUtils.formatPeriod(cal1.getTime().getTime(), cal2.getTime().getTime(), "yyyy/MM/dd HH:mm:ss SSS") );
     }
 
