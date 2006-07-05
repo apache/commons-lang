@@ -688,6 +688,7 @@ public class DateUtils {
                 //Set roundUp if this is more than half way between the minimum and maximum
                 roundUp = offset > ((max - min) / 2);
             }
+System.err.println("DST: " + val.get(Calendar.DST_OFFSET));
             //We need to remove this field
             val.set(fields[i][0], val.get(fields[i][0]) - offset);
         }

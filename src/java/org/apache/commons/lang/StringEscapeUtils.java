@@ -573,6 +573,7 @@ public class StringEscapeUtils {
      * @param str  the <code>String</code> to escape, may be null
      * @return a new escaped <code>String</code>, <code>null</code> if null string input
      * @throws IllegalArgumentException if the writer is null
+     * @throws IOException if there is a problem writing
      * @see #unescapeXml(java.lang.String)
      */
     public static void escapeXml(Writer writer, String str) throws IOException {
@@ -625,6 +626,7 @@ public class StringEscapeUtils {
      * @param str  the <code>String</code> to unescape, may be null
      * @return a new unescaped <code>String</code>, <code>null</code> if null string input
      * @throws IllegalArgumentException if the writer is null
+     * @throws IOException if there is a problem writing
      * @see #escapeXml(String)
      */
     public static void unescapeXml(Writer writer, String str) throws IOException {
