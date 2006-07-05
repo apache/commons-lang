@@ -2266,6 +2266,80 @@ public class ArrayUtils {
 
     // Primitive/Object array converters
     // ----------------------------------------------------------------------
+
+    // Character array converters
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Converts an array of object Characters to primitives.</p>
+     *
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
+     * 
+     * @param array  a <code>Character</code> array, may be <code>null</code>
+     * @return a <code>char</code> array, <code>null</code> if null array input
+     * @throws NullPointerException if array content is <code>null</code>
+     */
+    public static char[] toPrimitive(Character[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_CHAR_ARRAY;
+        }
+        final char[] result = new char[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].charValue();
+        }
+        return result;
+    }
+
+    /**
+     * <p>Converts an array of object Character to primitives handling <code>null</code>.</p>
+     * 
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
+     * 
+     * @param array  a <code>Character</code> array, may be <code>null</code>
+     * @param valueForNull  the value to insert if <code>null</code> found
+     * @return a <code>char</code> array, <code>null</code> if null array input
+     */
+    public static char[] toPrimitive(Character[] array, char valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return EMPTY_CHAR_ARRAY;
+        }
+        final char[] result = new char[array.length];
+        for (int i = 0; i < array.length; i++) {
+            Character b = array[i];
+            result[i] = (b == null ? valueForNull : b.charValue());
+        }
+        return result;
+    }
+    
+    /**
+     * Converts an array of primitive chars to objects.<br>
+     * <p>
+     * <strong>This is method is not in ArrayUtils.</strong>
+     * </p>
+     * <p>
+     * This method returns <code>null</code> for a <code>null</code> input
+     * array.
+     * </p>
+     * 
+     * @param array a <code>char</code> array
+     * @return a <code>Character</code> array, <code>null</code> if null
+     *         array input
+     */
+    public static Object[] toObject(char[] array) {
+        if ( array == null ) {
+            return null;
+        }else if( array.length == 0 ){
+            return EMPTY_CHARACTER_OBJECT_ARRAY;
+        }
+        final Character[] result = new Character[array.length];
+        for( int i = 0; i < array.length; i++ ){
+            result[i] = new Character( array[i] );
+        }
+        return result;
+     }    
     
     // Long array converters
     // ----------------------------------------------------------------------

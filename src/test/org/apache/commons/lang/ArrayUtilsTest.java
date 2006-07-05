@@ -2023,6 +2023,62 @@ public class ArrayUtilsTest extends TestCase {
 
     // testToPrimitive/Object for byte
     //  -----------------------------------------------------------------------
+    public void testToPrimitive_char() {
+        final Character[] b = null;
+        assertEquals(null, ArrayUtils.toPrimitive(b));
+        
+        assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, ArrayUtils.toPrimitive(new Character[0]));
+        
+        assertTrue(Arrays.equals(
+            new char[] {Character.MIN_VALUE, Character.MAX_VALUE, '0'},
+            ArrayUtils.toPrimitive(new Character[] {new Character(Character.MIN_VALUE), 
+                new Character(Character.MAX_VALUE), new Character('0')}))
+        );
+
+        try {
+            ArrayUtils.toPrimitive(new Character[] {new Character(Character.MIN_VALUE), null});
+            fail();
+        } catch (NullPointerException ex) {}
+    }
+
+    public void testToPrimitive_char_char() {
+        final Character[] b = null;
+        assertEquals(null, ArrayUtils.toPrimitive(b, Character.MIN_VALUE));
+        
+        assertSame(ArrayUtils.EMPTY_CHAR_ARRAY, 
+            ArrayUtils.toPrimitive(new Character[0], (char)0));
+        
+        assertTrue(Arrays.equals(
+            new char[] {Character.MIN_VALUE, Character.MAX_VALUE, '0'},
+            ArrayUtils.toPrimitive(new Character[] {new Character(Character.MIN_VALUE), 
+                new Character(Character.MAX_VALUE), new Character('0')}, 
+                Character.MIN_VALUE))
+        );
+        
+        assertTrue(Arrays.equals(
+            new char[] {Character.MIN_VALUE, Character.MAX_VALUE, '0'},
+            ArrayUtils.toPrimitive(new Character[] {new Character(Character.MIN_VALUE), null, 
+                new Character('0')}, Character.MAX_VALUE))
+        );
+    }
+
+    public void testToObject_char() {
+        final char[] b = null;
+        assertEquals(null, ArrayUtils.toObject(b));
+        
+        assertSame(ArrayUtils.EMPTY_CHARACTER_OBJECT_ARRAY, 
+            ArrayUtils.toObject(new char[0]));
+        
+        assertTrue(Arrays.equals(
+            new Character[] {new Character(Character.MIN_VALUE), 
+                new Character(Character.MAX_VALUE), new Character('0')},
+                ArrayUtils.toObject(new char[] {Character.MIN_VALUE, Character.MAX_VALUE, 
+                '0'} ))
+        );
+    }
+    
+    // testToPrimitive/Object for byte
+    //  -----------------------------------------------------------------------
     public void testToPrimitive_byte() {
         final Byte[] b = null;
         assertEquals(null, ArrayUtils.toPrimitive(b));
