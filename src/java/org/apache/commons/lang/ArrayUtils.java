@@ -2315,18 +2315,14 @@ public class ArrayUtils {
     }
     
     /**
-     * Converts an array of primitive chars to objects.<br>
-     * <p>
-     * <strong>This is method is not in ArrayUtils.</strong>
-     * </p>
-     * <p>
-     * This method returns <code>null</code> for a <code>null</code> input
-     * array.
-     * </p>
+     * <p>Converts an array of primitive chars to objects.</p>
+     *
+     * <p><strong>This is method is not in ArrayUtils.</strong></p>
+     *
+     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array a <code>char</code> array
-     * @return a <code>Character</code> array, <code>null</code> if null
-     *         array input
+     * @return a <code>Character</code> array, <code>null</code> if null array input
      */
     public static Object[] toObject(char[] array) {
         if ( array == null ) {
