@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2317,22 +2317,20 @@ public class ArrayUtils {
     /**
      * <p>Converts an array of primitive chars to objects.</p>
      *
-     * <p><strong>This is method is not in ArrayUtils.</strong></p>
-     *
      * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
      * 
      * @param array a <code>char</code> array
      * @return a <code>Character</code> array, <code>null</code> if null array input
      */
-    public static Object[] toObject(char[] array) {
-        if ( array == null ) {
+    public static Character[] toObject(char[] array) {
+        if (array == null) {
             return null;
-        }else if( array.length == 0 ){
+        } else if (array.length == 0) {
             return EMPTY_CHARACTER_OBJECT_ARRAY;
         }
         final Character[] result = new Character[array.length];
-        for( int i = 0; i < array.length; i++ ){
-            result[i] = new Character( array[i] );
+        for (int i = 0; i < array.length; i++) {
+            result[i] = new Character(array[i]);
         }
         return result;
      }    
