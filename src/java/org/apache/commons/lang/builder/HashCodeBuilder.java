@@ -288,7 +288,9 @@ public class HashCodeBuilder {
     public static int reflectionHashCode(
             int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
             Object object, boolean testTransients) {
-        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, testTransients, null, null);
+        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, 
+                                  object, testTransients, null, null
+                                 );
     }
             
     /**
@@ -352,6 +354,7 @@ public class HashCodeBuilder {
      * @param clazz  the class to append details of
      * @param builder  the builder to append to
      * @param useTransients  whether to use transient fields
+     * @param excludeFields  Collection of String field names to exclude from use in calculation of hash code
      */
     private static void reflectionAppend(
             Object object, 

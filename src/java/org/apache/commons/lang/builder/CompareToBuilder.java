@@ -260,6 +260,7 @@ public class CompareToBuilder {
      * @param rhs  right-hand object
      * @param compareTransients  whether to compare transient fields
      * @param reflectUpToClass  last superclass for which fields are compared
+     * @param excludeFields  fields to exclude
      * @return a negative integer, zero, or a positive integer as <code>lhs</code>
      *  is less than, equal to, or greater than <code>rhs</code>
      * @throws NullPointerException  if either <code>lhs</code> or <code>rhs</code>
@@ -268,7 +269,13 @@ public class CompareToBuilder {
      *  with <code>lhs</code>
      * @since 2.0
      */
-    public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients, Class reflectUpToClass, String[] excludeFields) {
+    public static int reflectionCompare(
+        Object lhs, 
+        Object rhs, 
+        boolean compareTransients, 
+        Class reflectUpToClass, 
+        String[] excludeFields) {
+
         if (lhs == rhs) {
             return 0;
         }

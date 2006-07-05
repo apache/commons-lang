@@ -365,7 +365,10 @@ public class VariableFormatter {
                         checkTextToken(startPos);
                         setPos(getPos() + tokenLen);
                         int varStart = getPos(), endLen = 0;
-                        while (hasNext() && (endLen = getVarEndMatcher().isMatch(data, getPos(), 0, getLength())) <= 0) {
+                        while ( hasNext() && 
+                                (endLen = getVarEndMatcher().isMatch(data, getPos(), 0, getLength())) <= 0
+                              )
+                        {
                             setPos(getPos() + 1);
                         }
                         if (endLen <= 0) {

@@ -716,7 +716,9 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *  immediately after the delimiter, or if end of string found,
      *  then the length of string
      */
-    private int readWithQuotes(char[] chars, int start, int len, StrBuilder workArea, List tokens, int quoteStart, int quoteLen) {
+    private int readWithQuotes(char[] chars, int start, int len, StrBuilder workArea, 
+                               List tokens, int quoteStart, int quoteLen) 
+    {
         // Loop until we've found the end of the quoted
         // string or the end of the input
         workArea.clear();
@@ -1068,6 +1070,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * list.
      * 
      * @return a new instance of this Tokenizer which has been reset.
+     * @throws CloneNotSupportedException if there is a problem cloning
      */
     Object cloneReset() throws CloneNotSupportedException {
         StrTokenizer cloned = (StrTokenizer) super.clone();
