@@ -737,44 +737,8 @@ public class VariableFormatter {
         return doReplace(data, 0, data.length, obj, priorVariables);
     }
 
-    /**
-     * Returns the escape character.
-     * 
-     * @return the character used for escaping variable references
-     */
-    public char getEscapeCharacter() {
-        return this.escapeCharacter;
-    }
-
     private int getLength(FieldPosition tok) {
         return tok.getEndIndex() - tok.getBeginIndex();
-    }
-
-    /**
-     * Returns the prefix for variables.
-     * 
-     * @return the prefix for variables
-     */
-    public String getVariablePrefix() {
-        return this.variablePrefix;
-    }
-
-    /**
-     * Gets the VariableResolver
-     * 
-     * @return the VariableResolver
-     */
-    public VariableResolver getVariableResolver() {
-        return this.variableResolver;
-    }
-
-    /**
-     * Returns the suffix for variables.
-     * 
-     * @return the suffix for variables
-     */
-    public String getVariableSuffix() {
-        return this.variableSuffix;
     }
 
     /**
@@ -850,9 +814,20 @@ public class VariableFormatter {
         return this.getVariableResolver().resolveVariable(name);
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * Sets the escape character. If this character is placed before a variable reference in the source text, this
-     * variable will be ignored.
+     * Returns the escape character.
+     * 
+     * @return the character used for escaping variable references
+     */
+    public char getEscapeCharacter() {
+        return this.escapeCharacter;
+    }
+
+    /**
+     * Sets the escape character.
+     * If this character is placed before a variable reference in the source
+     * text, this variable will be ignored.
      * 
      * @param escapeCharacter
      *            the escape character (0 for disabling escaping)
@@ -862,18 +837,60 @@ public class VariableFormatter {
     }
 
     /**
+     * Returns the prefix for variables.
+     * 
+     * @return the prefix for variables
+     */
+    public String getVariablePrefix() {
+        return this.variablePrefix;
+    }
+
+    /**
      * Sets the prefix for variables.
      * 
      * @param variablePrefix
-     *            the prefix for variables
+     *            the prefix for variables, not null
      * @throws IllegalArgumentException
      *             if the prefix is <b>null</b>
      */
-    public void setVariablePrefix(String variablePrefix) throws IllegalArgumentException {
+    public void setVariablePrefix(String variablePrefix) {
         if (variablePrefix == null) {
             throw new IllegalArgumentException("Variable prefix must not be null!");
         }
         this.variablePrefix = variablePrefix;
+    }
+
+    /**
+     * Returns the suffix for variables.
+     * 
+     * @return the suffix for variables
+     */
+    public String getVariableSuffix() {
+        return this.variableSuffix;
+    }
+
+    /**
+     * Sets the suffix for variables
+     * 
+     * @param variableSuffix
+     *            the suffix for variables, not null
+     * @throws IllegalArgumentException
+     *             if the prefix is <b>null</b>
+     */
+    public void setVariableSuffix(String variableSuffix) {
+        if (variableSuffix == null) {
+            throw new IllegalArgumentException("Variable suffix must not be null!");
+        }
+        this.variableSuffix = variableSuffix;
+    }
+
+    /**
+     * Gets the VariableResolver
+     * 
+     * @return the VariableResolver
+     */
+    public VariableResolver getVariableResolver() {
+        return this.variableResolver;
     }
 
     /**
@@ -886,18 +903,4 @@ public class VariableFormatter {
         this.variableResolver = variableResolver;
     }
 
-    /**
-     * Sets the suffix for variables
-     * 
-     * @param variableSuffix
-     *            the suffix for variables
-     * @throws IllegalArgumentException
-     *             if the prefix is <b>null</b>
-     */
-    public void setVariableSuffix(String variableSuffix) throws IllegalArgumentException {
-        if (variableSuffix == null) {
-            throw new IllegalArgumentException("Variable suffix must not be null!");
-        }
-        this.variableSuffix = variableSuffix;
-    }
 }
