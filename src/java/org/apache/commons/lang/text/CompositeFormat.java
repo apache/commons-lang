@@ -15,10 +15,10 @@
  */
 package org.apache.commons.lang.text;
 
-import java.text.Format;
 import java.text.FieldPosition;
-import java.text.ParsePosition;
+import java.text.Format;
 import java.text.ParseException;
+import java.text.ParsePosition;
 
 /**
  * Formats using one formatter and parses using a different formatter.
@@ -26,10 +26,16 @@ import java.text.ParseException;
  * and stored in a database another way.
  *
  * @author Archimedes Trajano
+ * @version $Id: $
  */
 public class CompositeFormat extends Format {
 
+    /** Serialization lock. */
+    private static final long serialVersionUID = -4329119827877627683L;
+
+    /** The parser to use. */
     private final Format parser;
+    /** The formatter to use. */
     private final Format formatter;
 
     /**
