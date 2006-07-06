@@ -605,27 +605,91 @@ public class VariableFormatter {
         this.setEscapeCharacter(escape);
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * Creates a parser object for tokenizing the input data.
+     * Replaces the occurrences of all variables in the given source array by
+     * their current values.
      * 
      * @param data
-     *            the input data
-     * @param offset
-     *            the offset in the source array
-     * @param length
-     *            the length of the data to be processed
-     * @return the parser
+     *            a character array with the source data
+     * @return the result of the replace operation
      */
-    protected VariableParser createParser(char[] data, int offset, int length) {
-        return new VariableParser(
-                StrMatcher.stringMatcher(getVariablePrefix()),
-                StrMatcher.stringMatcher(getVariableSuffix()),
-                StrMatcher.stringMatcher(String.valueOf(getEscapeCharacter()) + getVariablePrefix()), offset, length);
+    public String replace(char[] data) {
+        return replace(data, 0, data == null ? 0 : data.length);
     }
 
     /**
-     * Recursive handler for multiple levels of interpolation. This is the main interpolation method, which resolves the
-     * values of all variable references contained in the passed in text.
+     * Replaces the occurrences of all variables in the given source array by their
+     * current values. Only the specified portion of the array will be processed.
+     * 
+     * @param data
+     *            a character array with the source data
+     * @param offset
+     *            the start offset; processing will start at this position
+     * @param length
+     *            the length of the portion to be processed
+     * @return the result of the replace operation
+     */
+    public String replace(char[] data, int offset, int length) {
+        Object result = doReplace(data, offset, length, null, null);
+        return result == null ? null : result.toString();
+    }
+
+    /**
+     * Replaces the occurrences of all variables in the given source data by
+     * their current values.
+     * 
+     * @param source
+     *            the text to be interpolated; this can be an arbitrary object
+     *            whose <code>toString()</code> method will be called
+     * @return the result of the replace operation
+     */
+    public String replace(Object source) {
+        Object result = replaceObject(source);
+        return result == null ? null : result.toString();
+    }
+
+    /**
+     * Replaces the occurrences of all variables in the given source data by
+     * their current values. If the source consists only of a single variable
+     * reference, this method directly returns the value of this variable
+     * (which can be an arbitrary object). If the source contains multiple
+     * variable references or static text, the return value will always be a
+     * String with the concatenation of all these elements.
+     * 
+     * @param source
+     *            the text to be interpolated; this can be an arbitrary object
+     *            whose <code>toString()</code> method will be called
+     * @return the result of the replace operation
+     */
+    public Object replaceObject(Object source) {
+        return doReplace(source, null);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Recursive handler for multiple levels of interpolation. This is the main
+     * interpolation method for interpolating objects. It is called for recursively
+     * processing the values of resolved variables.
+     * 
+     * @param obj
+     *            the data to be interpolated (as object)
+     * @param priorVariables
+     *            keeps track of the replaced variables
+     * @return the result of the interpolation process
+     */
+    private Object doReplace(Object obj, List priorVariables) {
+        if (obj == null) {
+            return null;
+        }
+        char[] data = obj.toString().toCharArray();
+        return doReplace(data, 0, data.length, obj, priorVariables);
+    }
+
+    /**
+     * Recursive handler for multiple levels of interpolation. This is the main
+     * interpolation method, which resolves the values of all variable references
+     * contained in the passed in text.
      * 
      * @param data
      *            the text to be interpolated (as character array)
@@ -720,88 +784,39 @@ public class VariableFormatter {
     }
 
     /**
-     * Recursive handler for multiple levels of interpolation. This is the main interpolation method for interpolating
-     * objects. It is called for recursively processing the values of resolved variables.
+     * Gets the length from the parsed token.
      * 
-     * @param obj
-     *            the data to be interpolated (as object)
-     * @param priorVariables
-     *            keeps track of the replaced variables
-     * @return the result of the interpolation process
+     * @param tok  the token
+     * @return the length
      */
-    private Object doReplace(Object obj, List priorVariables) {
-        if (obj == null) {
-            return null;
-        }
-        char[] data = obj.toString().toCharArray();
-        return doReplace(data, 0, data.length, obj, priorVariables);
-    }
-
     private int getLength(FieldPosition tok) {
         return tok.getEndIndex() - tok.getBeginIndex();
     }
 
     /**
-     * Replaces the occurrences of all variables in the given source array by their current values.
+     * Creates a parser object for tokenizing the input data.
      * 
      * @param data
-     *            a character array with the source data
-     * @return the result of the replace operation
-     */
-    public String replace(char[] data) {
-        return replace(data, 0, data == null ? 0 : data.length);
-    }
-
-    /**
-     * Replaces the occurrences of all variables in the given source array by their current values. Only the specified
-     * portion of the array will be processed.
-     * 
-     * @param data
-     *            a character array with the source data
+     *            the input data
      * @param offset
-     *            the start offset; processing will start at this position
+     *            the offset in the source array
      * @param length
-     *            the length of the portion to be processed
-     * @return the result of the replace operation
+     *            the length of the data to be processed
+     * @return the parser
      */
-    public String replace(char[] data, int offset, int length) {
-        Object result = doReplace(data, offset, length, null, null);
-        return result == null ? null : result.toString();
+    protected VariableParser createParser(char[] data, int offset, int length) {
+        return new VariableParser(
+                StrMatcher.stringMatcher(getVariablePrefix()),
+                StrMatcher.stringMatcher(getVariableSuffix()),
+                StrMatcher.stringMatcher(String.valueOf(getEscapeCharacter()) + getVariablePrefix()), offset, length);
     }
 
     /**
-     * Replaces the occurrences of all variables in the given source data by their current values.
-     * 
-     * @param source
-     *            the text to be interpolated; this can be an arbitrary object whose <code>toString()</code> method
-     *            will be called
-     * @return the result of the replace operation
-     */
-    public String replace(Object source) {
-        Object result = replaceObject(source);
-        return result == null ? null : result.toString();
-    }
-
-    /**
-     * Replaces the occurrences of all variables in the given source data by their current values. If the source
-     * consists only of a single variable reference, this method directly returns the value of this variable (which can
-     * be an arbitrary object). If the source contains multiple variable references or static text, the return value
-     * will always be a String with the concatenation of all these elements.
-     * 
-     * @param source
-     *            the text to be interpolated; this can be an arbitrary object whose <code>toString()</code> method
-     *            will be called
-     * @return the result of the replace operation
-     */
-    public Object replaceObject(Object source) {
-        return doReplace(source, null);
-    }
-
-    /**
-     * Resolves the specified variable. This method is called whenever a variable reference is detected in the source
-     * text. It is passed the variable's name and must return the corresponding value. This implementation accesses the
-     * value map using the variable's name as key. Derived classes may override this method to implement a different
-     * strategy for resolving variables.
+     * Resolves the specified variable. This method is called whenever a variable
+     * reference is detected in the source text. It is passed the variable's name
+     * and must return the corresponding value. This implementation accesses the
+     * value map using the variable's name as key. Derived classes may override
+     * this method to implement a different strategy for resolving variables.
      * 
      * @param name
      *            the name of the variable
