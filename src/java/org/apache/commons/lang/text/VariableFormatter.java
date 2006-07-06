@@ -56,7 +56,7 @@ import java.util.Map;
  * valuesMap.put(&quot;animal&quot;, &quot;quick brown fox&quot;);
  * valuesMap.put(&quot;target&quot;, &quot;lazy dog&quot;);
  * String templateString = &quot;The ${animal} jumped over the ${target}.&quot;;
- * VariableFormat vf = new VariableVormat(valuesMap);
+ * VariableFormatter vf = new VariableFormatter(valuesMap);
  * String resolvedString = cf.replace(templateString);
  * </pre>
  * 
@@ -165,8 +165,9 @@ public class VariableFormatter {
     }
 
     /**
-     * A helper class for detecting variables in the source text. This class provides simple tokenizer functionality. It
-     * splits input text into tokens for text, variables, and escaped variable start tokens.
+     * A helper class for detecting variables in the source text.
+     * This class provides simple tokenizer functionality. It splits input
+     * text into tokens for text, variables, and escaped variable start tokens.
      */
     protected static class VariableParser {
         /** Constant for the token type ESCAPED_VAR. */
@@ -450,15 +451,16 @@ public class VariableFormatter {
      * Definition of an interface for obtaining values for variables.
      * </p>
      * <p>
-     * Objects implementing this interface can be passed to <code>VariableFormatter</code> as source for variables'
-     * values. The interface is quite simple and defines only a single method for retrieving the value of a specified
-     * value.
+     * Objects implementing this interface can be passed to <code>VariableFormatter</code>
+     * as source for the values of the variables. The interface is quite simple and defines
+     * only a single method for retrieving the value of a specified value.
      * </p>
      */
     public static interface VariableResolver {
         /**
-         * Returns the value of the specified variable. The variable's value can be an arbitrary object. If no variable
-         * with the given name is known, an implementation should return <code>null</code>.
+         * Returns the value of the specified variable. The variable's value
+         * can be an arbitrary object. If no variable with the given name is known,
+         * an implementation should return <code>null</code>.
          * 
          * @param varName
          *            the name of the searched variable
@@ -477,8 +479,8 @@ public class VariableFormatter {
     public static final String DEFAULT_SUFFIX = "}";
 
     /**
-     * Replaces the occurrences of all variables in the given source data by their current values obtained from the
-     * passed in map.
+     * Replaces the occurrences of all variables in the given source data by
+     * their current values obtained from the passed in map.
      * 
      * @param valueMap
      *            the map with the values
@@ -491,8 +493,9 @@ public class VariableFormatter {
     }
 
     /**
-     * Replaces the occurrences of all variables in the given source data by their current values obtained from the
-     * passed in map. This method allows to specifiy a custom variable prefix and suffix
+     * Replaces the occurrences of all variables in the given source data by
+     * their current values obtained from the passed in map. This method allows
+     * to specifiy a custom variable prefix and suffix
      * 
      * @param valueMap
      *            the map with the values
@@ -509,7 +512,8 @@ public class VariableFormatter {
     }
 
     /**
-     * Replaces all variables in the given source data with values obtained from system properties.
+     * Replaces all variables in the given source data with values obtained
+     * from system properties.
      * 
      * @param source
      *            the source text
@@ -534,15 +538,16 @@ public class VariableFormatter {
     private String variableSuffix;
 
     /**
-     * Creates a new instance with defaults for variable prefix and suffix and the escaping character.
+     * Creates a new instance with defaults for variable prefix and suffix
+     * and the escaping character.
      */
     public VariableFormatter() {
         this((VariableResolver) null, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
     /**
-     * Creates a new instance and initializes it. Uses defaults for variable prefix and suffix and the escaping
-     * character.
+     * Creates a new instance and initializes it. Uses defaults for variable
+     * prefix and suffix and the escaping character.
      * 
      * @param valueMap
      *            the map with the variables' values
