@@ -391,14 +391,14 @@ public class StringUtils {
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * StringUtils.strip(null)     = null
-     * StringUtils.strip("")       = null
-     * StringUtils.strip("   ")    = null
-     * StringUtils.strip("abc")    = "abc"
-     * StringUtils.strip("  abc")  = "abc"
-     * StringUtils.strip("abc  ")  = "abc"
-     * StringUtils.strip(" abc ")  = "abc"
-     * StringUtils.strip(" ab c ") = "ab c"
+     * StringUtils.stripToNull(null)     = null
+     * StringUtils.stripToNull("")       = null
+     * StringUtils.stripToNull("   ")    = null
+     * StringUtils.stripToNull("abc")    = "abc"
+     * StringUtils.stripToNull("  abc")  = "abc"
+     * StringUtils.stripToNull("abc  ")  = "abc"
+     * StringUtils.stripToNull(" abc ")  = "abc"
+     * StringUtils.stripToNull(" ab c ") = "ab c"
      * </pre>
      *
      * @param str  the String to be stripped, may be null
@@ -422,14 +422,14 @@ public class StringUtils {
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
      * <pre>
-     * StringUtils.strip(null)     = ""
-     * StringUtils.strip("")       = ""
-     * StringUtils.strip("   ")    = ""
-     * StringUtils.strip("abc")    = "abc"
-     * StringUtils.strip("  abc")  = "abc"
-     * StringUtils.strip("abc  ")  = "abc"
-     * StringUtils.strip(" abc ")  = "abc"
-     * StringUtils.strip(" ab c ") = "ab c"
+     * StringUtils.stripToEmpty(null)     = ""
+     * StringUtils.stripToEmpty("")       = ""
+     * StringUtils.stripToEmpty("   ")    = ""
+     * StringUtils.stripToEmpty("abc")    = "abc"
+     * StringUtils.stripToEmpty("  abc")  = "abc"
+     * StringUtils.stripToEmpty("abc  ")  = "abc"
+     * StringUtils.stripToEmpty(" abc ")  = "abc"
+     * StringUtils.stripToEmpty(" ab c ") = "ab c"
      * </pre>
      *
      * @param str  the String to be stripped, may be null
