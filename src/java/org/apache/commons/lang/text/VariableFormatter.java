@@ -187,7 +187,7 @@ public class VariableFormatter {
          *            The token length
          * @return a new token
          */
-        public static FieldPosition newEscapedVariableToken(int aStartIndex, int aLength) {
+        protected static FieldPosition newEscapedVariableToken(int aStartIndex, int aLength) {
             return newToken(VariableParser.ESCAPED_VAR_TOKEN, aStartIndex, aLength);
         }
 
@@ -200,7 +200,7 @@ public class VariableFormatter {
          *            The token length
          * @return a new token
          */
-        public static FieldPosition newTextToken(int aStartIndex, int aLength) {
+        protected static FieldPosition newTextToken(int aStartIndex, int aLength) {
             return newToken(VariableParser.TEXT_TOKEN, aStartIndex, aLength);
         }
 
@@ -220,7 +220,7 @@ public class VariableFormatter {
          *            The token length
          * @return a new token
          */
-        public static FieldPosition newVariableToken(int aStartIndex, int aLength) {
+        protected static FieldPosition newVariableToken(int aStartIndex, int aLength) {
             return newToken(VariableParser.VARIABLE_TOKEN, aStartIndex, aLength);
         }
 
@@ -259,7 +259,7 @@ public class VariableFormatter {
          * @param length
          *            the length of the source data
          */
-        public VariableParser(StrMatcher startMatcher, StrMatcher endMatcher,
+        protected VariableParser(StrMatcher startMatcher, StrMatcher endMatcher,
                 StrMatcher escMatcher, int startPos, int length) {
             this.setVarStartMatcher(startMatcher);
             this.setVarEndMatcher(endMatcher);
@@ -348,7 +348,7 @@ public class VariableFormatter {
          *            the array with the source data
          * @return the next token or <b>null</b> if the end is reached
          */
-        public FieldPosition nextToken(char[] data) {
+        protected FieldPosition nextToken(char[] data) {
             if (getTokenList().isEmpty()) {
                 if (!hasNext()) {
                     // end of data is reached
