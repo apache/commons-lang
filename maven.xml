@@ -23,12 +23,13 @@ limitations under the License.
     <!-- Copy Files -->
     <copy todir="${maven.dist.src.assembly.dir}">
       <fileset dir=".">
-        <include name="RELEASE-NOTES.txt"/>
+        <include name="RELEASE-NOTES*.txt"/>
         <include name="NOTICE.txt"/>
         <include name="PROPOSAL.html"/>
         <include name="STATUS.html"/>
         <include name="default.properties"/>
         <include name="checkstyle.xml"/>
+        <include name="checkstyle.properties"/>
       </fileset>
     </copy>
 
@@ -41,6 +42,16 @@ limitations under the License.
     <delete dir="${maven.dist.src.assembly.dir}/src/java/org/apache/commons/lang/text"/>
     <delete dir="${maven.dist.src.assembly.dir}/src/test/org/apache/commons/lang/text"/>
     
+  </postGoal>
+
+  <!-- Release process uses ant for Binary build, however for completeness... -->
+  <postGoal name="dist:prepare-bin-filesystem">
+
+    <copy todir="${maven.dist.bin.assembly.dir}">
+      <fileset file="${basedir}/NOTICE.txt"/>
+      <fileset file="${basedir}/RELEASE-NOTES.txt"/>
+    </copy>
+
   </postGoal>
   
 </project>

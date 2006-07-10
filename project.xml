@@ -408,6 +408,15 @@ limitations under the License.
         <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
         <integrationUnitTestSourceDirectory/>
         <aspectSourceDirectory/>
+        <resources>
+            <resource>
+                <directory>.</directory>
+                <targetPath>META-INF</targetPath>
+                <includes>
+                    <include>NOTICE.txt</include>
+                </includes>
+            </resource>
+        </resources>
         <!-- Unit test classes -->
         <unitTest>
             <includes>
