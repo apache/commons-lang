@@ -587,6 +587,12 @@ public abstract class Enum implements Comparable, Serializable {
         return iName.compareTo(((Enum) other).iName);
     }
 
+    /**
+     * <p>Use reflection to return an objects class name.</p>
+     *
+     * @param other The object to determine the class name for
+     * @return The class name
+     */
     private String getNameInOtherClassLoader(Object other) {
         try {
             Method mth = other.getClass().getMethod("getName", null);

@@ -622,6 +622,8 @@ public class DurationFormatUtils {
          * Returns a hashcode for the token equal to the 
          * hashcode for the token's value. Thus 'TT' and 'TTTT' 
          * will have the same hashcode. 
+         *
+         * @return The hashcode for the token
          */
         public int hashCode() {
             return this.value.hashCode();

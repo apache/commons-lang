@@ -2187,16 +2187,17 @@ public class StrBuilder implements Cloneable {
         /** The last mark position. */
         private int mark;
 
+        /** {@inheritDoc} */
         StrBuilderReader() {
             super();
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public void close() {
             // do nothing
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public int read() {
             if (ready() == false) {
                 return -1;
@@ -2204,7 +2205,7 @@ public class StrBuilder implements Cloneable {
             return charAt(pos++);
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public int read(char b[], int off, int len) {
             if (off < 0 || len < 0 || off > b.length ||
                     (off + len) > b.length || (off + len) < 0) {
@@ -2224,6 +2225,7 @@ public class StrBuilder implements Cloneable {
             return len;
         }
 
+        /** {@inheritDoc} */
         public long skip(long n) {
             if (pos + n > size()) {
                 n = size() - pos;
@@ -2235,22 +2237,22 @@ public class StrBuilder implements Cloneable {
             return n;
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public boolean ready() {
             return pos < size();
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public boolean markSupported() {
             return true;
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public void mark(int readAheadLimit) {
             mark = pos;
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public void reset() {
             pos = mark;
         }
@@ -2261,41 +2263,43 @@ public class StrBuilder implements Cloneable {
      * Inner class to allow StrBuilder to operate as a writer.
      */
     class StrBuilderWriter extends Writer {
+
+        /** {@inheritDoc} */
         StrBuilderWriter() {
             super();
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public void close() {
             // do nothing
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public void flush() {
             // do nothing
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public void write(int c) {
             StrBuilder.this.append((char) c);
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public void write(char[] cbuf) {
             StrBuilder.this.append(cbuf);
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public void write(char[] cbuf, int off, int len) {
             StrBuilder.this.append(cbuf, off, len);
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public void write(String str) {
             StrBuilder.this.append(str);
         }
 
-        /** @inheritdoc */
+        /** {@inheritDoc} */
         public void write(String str, int off, int len) {
             StrBuilder.this.append(str, off, len);
         }
