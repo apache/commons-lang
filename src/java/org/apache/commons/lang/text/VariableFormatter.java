@@ -205,6 +205,17 @@ public class VariableFormatter {
             return newToken(VariableParser.TEXT_TOKEN, aStartIndex, aLength);
         }
 
+        /**
+         * Creates a new token of the specified type.
+         * 
+         * @param type
+         *            The token type
+         * @param beginIndex
+         *            The token starting index
+         * @param length
+         *            The token length
+         * @return a new token
+         */
         private static FieldPosition newToken(int type, int beginIndex, int length) {
             FieldPosition fp = new FieldPosition(type);
             fp.setBeginIndex(beginIndex);
