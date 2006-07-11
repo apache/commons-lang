@@ -90,11 +90,6 @@ limitations under the License.
 		<copy file="RELEASE-NOTES.txt" todir="${dist.home}"/>
 		<antcall target="jar"/>
 	</target>
-	<target name="dist-build-2.1" description="Build binary distribution files excluding the text package">
-		<delete dir="src/java/org/apache/commons/lang/text"/>
-		<delete dir="src/test/org/apache/commons/lang/text"/>
-		<antcall target="dist-build"/>
-	</target>
 	<target name="dist-build" depends="clean,dist" description="Build binary distribution files">
 		<mkdir dir="${final.name}"/>
 		<move todir="${final.name}/${final.name}">
