@@ -621,6 +621,51 @@ public class DateUtils {
             throw new ArithmeticException("Calendar value too large for accurate calculations");
         }
         
+        if (field == Calendar.MILLISECOND) {
+            return;
+        }
+
+        // ----------------- Fix for LANG-59 ---------------------- START ---------------
+        // see http://issues.apache.org/jira/browse/LANG-59
+        //
+        // Manually truncate milliseconds, seconds and minutes, rather than using
+        // Calendar methods.
+
+        Date date = val.getTime();
+        long time = date.getTime();
+        boolean done = false;
+
+        // truncate milliseconds
+        int millisecs = val.get(Calendar.MILLISECOND);
+        if (!round || millisecs < 500) {
+            time = time - millisecs;
+            if (field == Calendar.SECOND) {
+                done = true;
+            }
+        }
+
+        // truncate seconds
+        int seconds = val.get(Calendar.SECOND);
+        if (!done && (!round || seconds < 30)) {
+            time = time - (seconds * 1000L);
+            if (field == Calendar.MINUTE) {
+                done = true;
+            }
+        }
+
+        // truncate minutes
+        int minutes = val.get(Calendar.MINUTE);
+        if (!done && (!round || minutes < 30)) {
+            time = time - (minutes * 60000L);
+        }
+
+        // reset time
+        if (date.getTime() != time) {
+            date.setTime(time);
+            val.setTime(date);
+        }
+        // ----------------- Fix for LANG-59 ----------------------- END ----------------
+
         boolean roundUp = false;
         for (int i = 0; i < fields.length; i++) {
             for (int j = 0; j < fields[i].length; j++) {
@@ -689,7 +734,9 @@ public class DateUtils {
                 roundUp = offset > ((max - min) / 2);
             }
             //We need to remove this field
-            val.set(fields[i][0], val.get(fields[i][0]) - offset);
+            if (offset != 0) {
+                val.set(fields[i][0], val.get(fields[i][0]) - offset);
+            }
         }
         throw new IllegalArgumentException("The field " + field + " is not supported");
 
