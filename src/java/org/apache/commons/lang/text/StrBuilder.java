@@ -19,6 +19,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.SystemUtils;
@@ -1943,21 +1944,39 @@ public class StrBuilder implements Cloneable {
 
     //-----------------------------------------------------------------------
     /**
-     * Creates a tokenizer using the current contents of this builder.
+     * Creates a tokenizer that can tokenize the contents of this builder.
      * <p>
-     * This method allows the contents of the builder to be tokenized.
-     * The tokenizer will be setup to tokenize on space, tab, newline
-     * and formfeed (as per StringTokenizer). These values can be changed
-     * on the tokenizer class, before retrieving the tokens.
+     * This method allows the contents of this builder to be tokenized.
+     * The tokenizer will be setup by default to tokenize on space, tab,
+     * newline and formfeed (as per StringTokenizer). These values can be
+     * changed on the tokenizer class, before retrieving the tokens.
      * <p>
-     * Note that the internal character array is shared between the two
-     * objects and no synchronization occurs. Once you call this method
-     * you must complete the tokenization before altering this buffer again.
+     * The returned tokenizer is linked to this builder. You may intermix
+     * calls to the buider and tokenizer within certain limits, however
+     * there is no synchronization. Once the tokenizer has been used once,
+     * it must be {@link StrTokenizer#reset() reset} to pickup the latest
+     * changes in the builder. For example:
+     * <pre>
+     * StrBuilder b = new StrBuilder();
+     * b.append("a b ");
+     * StrTokenizer t = b.asTokenizer();
+     * String[] tokens1 = t.getTokenArray();  // returns a,b
+     * b.append("c d ");
+     * String[] tokens2 = t.getTokenArray();  // returns a,b (c and d ignored)
+     * t.reset();              // reset causes builder changes to be picked up
+     * String[] tokens3 = t.getTokenArray();  // returns a,b,c,d
+     * </pre>
+     * In addition to simply intermixing appends and tokenization, you can also
+     * call the set methods on the tokenizer to alter how it tokenizes. Just
+     * remember to call reset when you want to pickup builder changes.
+     * <p>
+     * Calling {@link StrTokenizer#reset(String)} or {@link StrTokenizer#reset(char[])}
+     * with a non-null value will break the link with the builder.
      *
-     * @return a StrTokenizer instance
+     * @return a tokenizer that is linked to this builder
      */
     public StrTokenizer asTokenizer() {
-        return new StrTokenizer(buffer);
+        return new StrBuilderTokenizer();
     }
 
     //-----------------------------------------------------------------------
@@ -2179,6 +2198,37 @@ public class StrBuilder implements Cloneable {
 
     //-----------------------------------------------------------------------
     /**
+     * Inner class to allow StrBuilder to operate as a tokenizer.
+     */
+    class StrBuilderTokenizer extends StrTokenizer {
+
+        /** {@inheritDoc} */
+        StrBuilderTokenizer() {
+            super();
+        }
+
+        /** {@inheritDoc} */
+        protected List tokenize(char[] chars, int offset, int count) {
+            if (chars == null) {
+                return super.tokenize(StrBuilder.this.buffer, 0, StrBuilder.this.size());
+            } else {
+                return super.tokenize(chars, offset, count);
+            }
+        }
+
+        /** {@inheritDoc} */
+        public String getContent() {
+            String str = super.getContent();
+            if (str == null) {
+                return StrBuilder.this.toString();
+            } else {
+                return str;
+            }
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Inner class to allow StrBuilder to operate as a writer.
      */
     class StrBuilderReader extends Reader {
@@ -2202,7 +2252,7 @@ public class StrBuilder implements Cloneable {
             if (ready() == false) {
                 return -1;
             }
-            return charAt(pos++);
+            return StrBuilder.this.charAt(pos++);
         }
 
         /** {@inheritDoc} */
@@ -2214,21 +2264,21 @@ public class StrBuilder implements Cloneable {
             if (len == 0) {
                 return 0;
             }
-            if (pos >= size()) {
+            if (pos >= StrBuilder.this.size()) {
                 return -1;
             }
             if (pos + len > size()) {
-                len = size() - pos;
+                len = StrBuilder.this.size() - pos;
             }
-            getChars(pos, pos + len, b, off);
+            StrBuilder.this.getChars(pos, pos + len, b, off);
             pos += len;
             return len;
         }
 
         /** {@inheritDoc} */
         public long skip(long n) {
-            if (pos + n > size()) {
-                n = size() - pos;
+            if (pos + n > StrBuilder.this.size()) {
+                n = StrBuilder.this.size() - pos;
             }
             if (n < 0) {
                 return 0;
@@ -2239,7 +2289,7 @@ public class StrBuilder implements Cloneable {
 
         /** {@inheritDoc} */
         public boolean ready() {
-            return pos < size();
+            return pos < StrBuilder.this.size();
         }
 
         /** {@inheritDoc} */

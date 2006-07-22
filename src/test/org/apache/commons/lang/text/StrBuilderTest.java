@@ -1506,6 +1506,44 @@ public class StrBuilderTest extends TestCase {
         }
     };
 
+    //-----------------------------------------------------------------------
+    public void testAsTokenizer() throws Exception {
+        // from Javadoc
+        StrBuilder b = new StrBuilder();
+        b.append("a b ");
+        StrTokenizer t = b.asTokenizer();
+        
+        String[] tokens1 = t.getTokenArray();
+        assertEquals(2, tokens1.length);
+        assertEquals("a", tokens1[0]);
+        assertEquals("b", tokens1[1]);
+        assertEquals(2, t.size());
+        
+        b.append("c d ");
+        String[] tokens2 = t.getTokenArray();
+        assertEquals(2, tokens2.length);
+        assertEquals("a", tokens2[0]);
+        assertEquals("b", tokens2[1]);
+        assertEquals(2, t.size());
+        assertEquals("a", t.next());
+        assertEquals("b", t.next());
+        
+        t.reset();
+        String[] tokens3 = t.getTokenArray();
+        assertEquals(4, tokens3.length);
+        assertEquals("a", tokens3[0]);
+        assertEquals("b", tokens3[1]);
+        assertEquals("c", tokens3[2]);
+        assertEquals("d", tokens3[3]);
+        assertEquals(4, t.size());
+        assertEquals("a", t.next());
+        assertEquals("b", t.next());
+        assertEquals("c", t.next());
+        assertEquals("d", t.next());
+        
+        assertEquals("a b c d ", t.getContent());
+    }
+
     // -----------------------------------------------------------------------
     public void testAsReader() throws Exception {
         StrBuilder sb = new StrBuilder("some text");
