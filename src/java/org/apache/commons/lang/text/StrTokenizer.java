@@ -446,13 +446,27 @@ public class StrTokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Gets a copy of the full token list.
+     * Gets a copy of the full token list as an independent modifiable array.
      *
      * @return the tokens as a String array
      */
-    public String[] getAllTokens() {
+    public String[] getTokenArray() {
         tokenize();
         return (String[]) tokens.clone();
+    }
+
+    /**
+     * Gets a copy of the full token list as an independent modifiable list.
+     *
+     * @return the tokens as a String array
+     */
+    public List getTokenList() {
+        tokenize();
+        List list = new ArrayList(tokens.length);
+        for (int i = 0; i < tokens.length; i++) {
+            list.add(tokens[i]);
+        }
+        return list;
     }
 
     /**
