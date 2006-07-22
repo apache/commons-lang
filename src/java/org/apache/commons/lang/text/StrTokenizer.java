@@ -16,11 +16,10 @@
 package org.apache.commons.lang.text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
-
-import org.apache.commons.lang.ArrayUtils;
 
 /**
  * Tokenizes a string based based on delimiters (separators)
@@ -107,10 +106,8 @@ public class StrTokenizer implements ListIterator, Cloneable {
         TSV_TOKENIZER_PROTOTYPE.setIgnoreEmptyTokens(false);
     }
 
-    /** The text to work on */
+    /** The text to work on. */
     private char chars[];
-    /** The input text, null if char[] input */
-    private String text;
     /** The parsed tokens */
     private String tokens[];
     /** The current iteration position */
@@ -241,8 +238,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     public StrTokenizer() {
         super();
-        this.text = "";
-        this.chars = new char[0];
+        this.chars = null;
     }
 
     /**
@@ -253,7 +249,6 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     public StrTokenizer(String input) {
         super();
-        text = input;
         if (input != null) {
             chars = input.toCharArray();
         } else {
@@ -331,7 +326,6 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     public StrTokenizer(char[] input) {
         super();
-        this.text = null;
         this.chars = input;
     }
 
@@ -417,7 +411,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return the number of matched tokens
      */
     public int size() {
-        tokenize();
+        checkTokenized();
         return tokens.length;
     }
 
@@ -451,7 +445,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return the tokens as a String array
      */
     public String[] getTokenArray() {
-        tokenize();
+        checkTokenized();
         return (String[]) tokens.clone();
     }
 
@@ -461,7 +455,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return the tokens as a String array
      */
     public List getTokenList() {
-        tokenize();
+        checkTokenized();
         List list = new ArrayList(tokens.length);
         for (int i = 0; i < tokens.length; i++) {
             list.add(tokens[i]);
@@ -492,11 +486,10 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     public StrTokenizer reset(String input) {
         reset();
-        text = input;
         if (input != null) {
-            chars = input.toCharArray();
+            this.chars = input.toCharArray();
         } else {
-            chars = null;
+            this.chars = null;
         }
         return this;
     }
@@ -514,8 +507,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     public StrTokenizer reset(char[] input) {
         reset();
-        text = null;
-        chars = input;
+        this.chars = input;
         return this;
     }
 
@@ -527,7 +519,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return true if there are more tokens
      */
     public boolean hasNext() {
-        tokenize();
+        checkTokenized();
         return tokenPos < tokens.length;
     }
 
@@ -558,7 +550,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return true if there are previous tokens
      */
     public boolean hasPrevious() {
-        tokenize();
+        checkTokenized();
         return tokenPos > 0;
     }
 
@@ -613,42 +605,60 @@ public class StrTokenizer implements ListIterator, Cloneable {
     // Implementation
     //-----------------------------------------------------------------------
     /**
-     * Performs the tokenization if it hasn't already been done.
+     * Checks if tokenization has been done, and if not then do it.
      */
-    private void tokenize() {
+    private void checkTokenized() {
         if (tokens == null) {
-            tokens = readTokens();
+            if (chars == null) {
+                // still call tokenize as subclass may do some work
+                List split = tokenize(null, 0, 0);
+                tokens = (String[]) split.toArray(new String[split.size()]);
+            } else {
+                List split = tokenize(chars, 0, chars.length);
+                tokens = (String[]) split.toArray(new String[split.size()]);
+            }
         }
     }
 
     /**
-     * Read all the tokens.
+     * Internal method to performs the tokenization.
+     * <p>
+     * Most users of this class do not need to call this method. This method
+     * will be called automatically by other (public) methods when required.
+     * <p>
+     * This method exists to allow subclasses to add code before or after the
+     * tokenization. For example, a subclass could alter the character array,
+     * offset or count to be parsed, or call the tokenizer multiple times on
+     * multiple strings. It is also be possible to filter the results.
+     * <p>
+     * <code>StrTokenizer</code> will always pass a zero offset and a count
+     * equal to the length of the array to this method, however a subclass
+     * may pass other values, or even an entirely different array.
      * 
-     * @return array containing the tokens.
+     * @param chars  the character array being tokenized, may be null
+     * @param offset  the start position within the character array, must be valid
+     * @param count  the number of characters to tokenize, must be valid
+     * @return the modifiable list of String tokens, unmodifiable if null array or zero count
      */
-    private String[] readTokens() {
-        if (chars == null) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
-        }
-        int len = chars.length;
-        if (len == 0) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
+    protected List tokenize(char[] chars, int offset, int count) {
+        if (chars == null || count == 0) {
+            return Collections.EMPTY_LIST;
         }
         StrBuilder buf = new StrBuilder();
         List tokens = new ArrayList();
-        int start = 0;
+        int pos = offset;
         
         // loop around the entire buffer
-        while (start >= 0 && start < len) {
+        while (pos >= 0 && pos < count) {
             // find next token
-            start = readNextToken(chars, start, len, buf, tokens);
+            pos = readNextToken(chars, pos, count, buf, tokens);
             
             // handle case where end of string is a delimiter
-            if (start >= len) {
+            if (pos >= count) {
                 addToken(tokens, "");
             }
         }
-        return (String[]) tokens.toArray(new String[tokens.size()]);
+        return tokens;
     }
 
     /**
@@ -1058,10 +1068,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return the string content being parsed
      */
     public String getContent() {
-        if (text == null) {
-            text = new String(chars);
-        }
-        return text;
+        return new String(chars);
     }
 
     //-----------------------------------------------------------------------
