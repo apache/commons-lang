@@ -536,6 +536,9 @@ public class StrTokenizerTest extends TestCase {
 
         tok = new StrTokenizer(input.toCharArray());
         assertEquals(input, tok.getContent());
+        
+        tok = new StrTokenizer();
+        assertEquals(null, tok.getContent());
     }
 
     //-----------------------------------------------------------------------
@@ -828,6 +831,14 @@ public class StrTokenizerTest extends TestCase {
         assertEquals("c", tkn.next());
         assertEquals("b", tkn.next());
         assertEquals("a", tkn.next());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testToString() {
+        StrTokenizer tkn = new StrTokenizer("a b c d e");
+        assertEquals("StrTokenizer[not tokenized yet]", tkn.toString());
+        tkn.next();
+        assertEquals("StrTokenizer[a, b, c, d, e]", tkn.toString());
     }
 
 }
