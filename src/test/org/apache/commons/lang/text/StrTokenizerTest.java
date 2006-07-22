@@ -17,6 +17,7 @@
 package org.apache.commons.lang.text;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -531,7 +532,7 @@ public class StrTokenizerTest extends TestCase {
     public void testGetContent() {
         String input = "a   b c \"d e\" f ";
         StrTokenizer tok = new StrTokenizer(input);
-        assertSame(input, tok.getContent());
+        assertEquals(input, tok.getContent());
 
         tok = new StrTokenizer(input.toCharArray());
         assertEquals(input, tok.getContent());
@@ -802,6 +803,31 @@ public class StrTokenizerTest extends TestCase {
         } catch (NoSuchElementException ex) {}
         assertEquals(true, tkn.hasPrevious());
         assertEquals(false, tkn.hasNext());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testTokenizeSubclassInputChange() {
+        StrTokenizer tkn = new StrTokenizer("a b c d e") {
+            protected List tokenize(char[] chars, int offset, int count) {
+                return super.tokenize("w x y z".toCharArray(), 2, 5);
+            }
+        };
+        assertEquals("x", tkn.next());
+        assertEquals("y", tkn.next());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testTokenizeSubclassOutputChange() {
+        StrTokenizer tkn = new StrTokenizer("a b c") {
+            protected List tokenize(char[] chars, int offset, int count) {
+                List list = super.tokenize(chars, offset, count);
+                Collections.reverse(list);
+                return list;
+            }
+        };
+        assertEquals("c", tkn.next());
+        assertEquals("b", tkn.next());
+        assertEquals("a", tkn.next());
     }
 
 }
