@@ -1068,13 +1068,17 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @return the string content being parsed
      */
     public String getContent() {
+        if (chars == null) {
+            return null;
+        }
         return new String(chars);
     }
 
     //-----------------------------------------------------------------------
     /**
-     * Creates a new instance of this Tokenizer. The new instance is reset so that it will be at the start of the token
-     * list. If a {@link CloneNotSupportedException} is caught, return <code>null</code>.
+     * Creates a new instance of this Tokenizer. The new instance is reset so
+     * that it will be at the start of the token list.
+     * If a {@link CloneNotSupportedException} is caught, return <code>null</code>.
      * 
      * @return a new instance of this Tokenizer which has been reset.
      */
@@ -1087,8 +1091,8 @@ public class StrTokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Creates a new instance of this Tokenizer. The new instance is reset so that it will be at the start of the token
-     * list.
+     * Creates a new instance of this Tokenizer. The new instance is reset so that
+     * it will be at the start of the token list.
      * 
      * @return a new instance of this Tokenizer which has been reset.
      * @throws CloneNotSupportedException if there is a problem cloning
@@ -1100,6 +1104,20 @@ public class StrTokenizer implements ListIterator, Cloneable {
         }
         cloned.reset();
         return cloned;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Gets the String content that the tokenizer is parsing.
+     *
+     * @return the string content being parsed
+     */
+    public String toString() {
+        if (tokens == null) {
+            return "StrTokenizer[not tokenized yet]";
+        } else {
+            return "StrTokenizer" + getTokenList();
+        }
     }
 
 }
