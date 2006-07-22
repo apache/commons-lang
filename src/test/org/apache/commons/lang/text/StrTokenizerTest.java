@@ -16,6 +16,8 @@
 
 package org.apache.commons.lang.text;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import junit.framework.Test;
@@ -70,7 +72,7 @@ public class StrTokenizerTest extends TestCase {
         tok.setQuoteChar('"');
         tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(false);
-        String tokens[] = tok.getAllTokens();
+        String tokens[] = tok.getTokenArray();
 
         String expected[] = new String[]{"a", "b", "c", "d;\"e", "f", "", "", "",};
 
@@ -90,7 +92,7 @@ public class StrTokenizerTest extends TestCase {
         tok.setQuoteChar('"');
         tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(false);
-        String tokens[] = tok.getAllTokens();
+        String tokens[] = tok.getTokenArray();
 
         String expected[] = new String[]{"a", "b", "c ", "d;\"e", "f", " ", " ", "",};
 
@@ -110,7 +112,7 @@ public class StrTokenizerTest extends TestCase {
         tok.setQuoteChar('"');
         tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(false);
-        String tokens[] = tok.getAllTokens();
+        String tokens[] = tok.getTokenArray();
 
         String expected[] = new String[]{"a", "b", " c", "d;\"e", "f", " ", " ", "",};
 
@@ -130,7 +132,7 @@ public class StrTokenizerTest extends TestCase {
         tok.setQuoteChar('"');
         tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(true);
-        String tokens[] = tok.getAllTokens();
+        String tokens[] = tok.getTokenArray();
 
         String expected[] = new String[]{"a", "b", "c", "d;\"e", "f",};
 
@@ -151,7 +153,7 @@ public class StrTokenizerTest extends TestCase {
         tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(false);
         tok.setEmptyTokenAsNull(true);
-        String tokens[] = tok.getAllTokens();
+        String tokens[] = tok.getTokenArray();
 
         String expected[] = new String[]{"a", "b", "c", "d;\"e", "f", null, null, null,};
 
@@ -172,7 +174,7 @@ public class StrTokenizerTest extends TestCase {
         tok.setIgnoredMatcher(StrMatcher.trimMatcher());
         tok.setIgnoreEmptyTokens(false);
         // tok.setTreatingEmptyAsNull(true);
-        String tokens[] = tok.getAllTokens();
+        String tokens[] = tok.getTokenArray();
 
         String expected[] = new String[]{"a", "b", " c", "d;\"e", "f", null, null, null,};
 
@@ -206,7 +208,7 @@ public class StrTokenizerTest extends TestCase {
         tok.setQuoteMatcher(StrMatcher.doubleQuoteMatcher());
         tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(false);
-        String tokens[] = tok.getAllTokens();
+        String tokens[] = tok.getTokenArray();
 
         String expected[] = new String[]{"a", "", "", "b", "c", "d e", "f", "",};
 
@@ -226,7 +228,7 @@ public class StrTokenizerTest extends TestCase {
         tok.setQuoteMatcher(StrMatcher.doubleQuoteMatcher());
         tok.setIgnoredMatcher(StrMatcher.noneMatcher());
         tok.setIgnoreEmptyTokens(true);
-        String tokens[] = tok.getAllTokens();
+        String tokens[] = tok.getTokenArray();
 
         String expected[] = new String[]{"a", "b", "c", "d e", "f",};
 
@@ -480,6 +482,17 @@ public class StrTokenizerTest extends TestCase {
         assertEquals("bIGNOREcd", tok.next());
         assertEquals(null, tok.next());
         assertEquals(false, tok.hasNext());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testListArray() {
+        String input = "a  b c";
+        StrTokenizer tok = new StrTokenizer(input);
+        String[] array = tok.getTokenArray();
+        List list = tok.getTokenList();
+        
+        assertEquals(Arrays.asList(array), list);
+        assertEquals(3, list.size());
     }
 
     //-----------------------------------------------------------------------
