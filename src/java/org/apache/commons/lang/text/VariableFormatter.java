@@ -85,7 +85,7 @@ import java.util.Map;
  * </p>
  * <p>
  * Here only the variable's name refered to in the text should be replaced resulting in the text (assuming that the
- * value of the <code>name</code> variable is <code>x</code>:
+ * value of the <code>name</code> variable is <code>x</code>):
  * </p>
  * <p>
  * <code>The variable ${x} must be used.</code>

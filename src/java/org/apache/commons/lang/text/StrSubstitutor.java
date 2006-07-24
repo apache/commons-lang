@@ -71,7 +71,7 @@ import java.util.Map;
  *   The variable ${${name}} must be used.
  * </pre>
  * Here only the variable's name refered to in the text should be replaced resulting
- * in the text (assuming that the value of the <code>name</code> variable is <code>x</code>:
+ * in the text (assuming that the value of the <code>name</code> variable is <code>x</code>):
  * <pre>
  *   The variable ${x} must be used.
  * </pre>
@@ -86,7 +86,7 @@ import java.util.Map;
  *
  * @author Oliver Heger
  * @author Stephen Colebourne
- * @version $Id: VariableFormatter.java 420491 2006-07-10 11:23:57 +0000 (Mon, 10 Jul 2006) niallp $
+ * @version $Id$
  * @since 2.2
  */
 public class StrSubstitutor {
