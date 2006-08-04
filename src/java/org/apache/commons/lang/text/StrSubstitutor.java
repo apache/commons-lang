@@ -423,7 +423,8 @@ public class StrSubstitutor {
                             pos++;
                         } else {
                             // found variable end marker
-                            String varName = new String(chars, startPos + startMatchLen, pos - startPos - startMatchLen);
+                            String varName = new String(chars, startPos + startMatchLen, 
+                                                        pos - startPos - startMatchLen);
                             pos += endMatchLen;
                             int endPos = pos;
                             
