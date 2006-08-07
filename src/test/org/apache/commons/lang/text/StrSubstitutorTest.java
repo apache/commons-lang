@@ -24,8 +24,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.lang.text.StrSubstitutor.MapVariableResolver;
-
 /**
  * Test class for StrSubstitutor.
  * 
@@ -356,42 +354,60 @@ public class StrSubstitutorTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-//    /**
-//     * Tests source texts with nothing to replace.
-//     */
-//    public void testReplaceNothing() {
-//        assertNull(this.getFormat().replace((char[]) null));
-//        assertNull(this.getFormat().replace((String) null));
-//        assertNull(this.getFormat().replace((Object) null));
-//        assertEquals("Nothing to replace.", this.getFormat().replace("Nothing to replace."));
-//        assertEquals("42", this.getFormat().replace(new Integer(42)));
-//        assertEquals(0, this.getFormat().replace((StrBuilder) null));
-//    }
-//
-////    /**
-////     * Tests operating on objects.
-////     */
-////    public void testReplaceObject() {
-////        this.getValueMap().put("value", new Integer(42));
-////        assertEquals(new Integer(42), this.getFormat().replaceObject("${value}"));
-////        assertEquals("The answer is 42.", this.getFormat().replaceObject("The answer is ${value}."));
-////    }
-//
-//    /**
-//     * Tests interpolation with system properties.
-//     */
-//    public void testReplaceSystemProperties() {
-//        StringBuffer buf = new StringBuffer();
-//        buf.append("Hi ").append(System.getProperty("user.name"));
-//        buf.append(", you are working with ");
-//        buf.append(System.getProperty("os.name"));
-//        buf.append(", your home directory is ");
-//        buf.append(System.getProperty("user.home")).append('.');
-//        assertEquals(buf.toString(), StrSubstitutor.replaceSystemProperties("Hi ${user.name}, you are "
-//            + "working with ${os.name}, your home "
-//            + "directory is ${user.home}."));
-//    }
-//
+    /**
+     * Tests protected.
+     */
+    public void testResolveVariable() {
+        final StrBuilder builder = new StrBuilder("Hi ${name}!");
+        Map map = new HashMap();
+        map.put("name", "commons");
+        StrSubstitutor sub = new StrSubstitutor(map) {
+            protected String resolveVariable(String variableName, StrBuilder buf, int startPos, int endPos) {
+                assertEquals("name", variableName);
+                assertSame(builder, buf);
+                assertEquals(3, startPos);
+                assertEquals(10, endPos);
+                return "jakarta";
+            }
+        };
+        sub.replace(builder);
+        assertEquals("Hi jakarta!", builder.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Tests static.
+     */
+    public void testStaticReplace() {
+        Map map = new HashMap();
+        map.put("name", "commons");
+        assertEquals("Hi commons!", StrSubstitutor.replace("Hi ${name}!", map));
+    }
+
+    /**
+     * Tests static.
+     */
+    public void testStaticReplacePrefixSuffix() {
+        Map map = new HashMap();
+        map.put("name", "commons");
+        assertEquals("Hi commons!", StrSubstitutor.replace("Hi <name>!", map, "<", ">"));
+    }
+
+    /**
+     * Tests interpolation with system properties.
+     */
+    public void testStaticReplaceSystemProperties() {
+        StrBuilder buf = new StrBuilder();
+        buf.append("Hi ").append(System.getProperty("user.name"));
+        buf.append(", you are working with ");
+        buf.append(System.getProperty("os.name"));
+        buf.append(", your home directory is ");
+        buf.append(System.getProperty("user.home")).append('.');
+        assertEquals(buf.toString(), StrSubstitutor.replaceSystemProperties("Hi ${user.name}, you are "
+            + "working with ${os.name}, your home "
+            + "directory is ${user.home}."));
+    }
+
     //-----------------------------------------------------------------------
     private void doTestReplace(String expectedResult, String replaceTemplate, boolean substring) {
         String expectedShortResult = expectedResult.substring(1, expectedResult.length() - 1);
