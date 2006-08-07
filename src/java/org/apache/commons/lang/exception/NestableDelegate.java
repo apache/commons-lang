@@ -45,6 +45,8 @@ import java.util.List;
  */
 public class NestableDelegate implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Constructor error message.
      */
