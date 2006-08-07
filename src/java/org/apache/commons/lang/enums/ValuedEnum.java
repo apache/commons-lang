@@ -102,7 +102,11 @@ import org.apache.commons.lang.ClassUtils;
  */
 public abstract class ValuedEnum extends Enum {
     
-    /** Lang version 1.0.1 serial compatibility */
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = -7129650521543789085L;
     
     /**
