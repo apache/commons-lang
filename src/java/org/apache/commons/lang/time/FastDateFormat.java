@@ -78,6 +78,8 @@ public class FastDateFormat extends Format {
     // taking the value and adding (mathematically) the ASCII value for '0'.
     // So, don't change this code! It works and is very fast.
     
+    private static final long serialVersionUID = 1L;
+
     /**
      * FULL locale dependent date or time style.
      */

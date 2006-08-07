@@ -32,6 +32,8 @@ package org.apache.commons.lang.builder;
  */
 public class StandardToStringStyle extends ToStringStyle {
     
+    private static final long serialVersionUID = 1L;
+
     /**
      * <p>Constructor.</p>
      */

@@ -28,6 +28,8 @@ import java.util.Random;
  */
 public final class JVMRandom extends Random {
 
+    private static final long serialVersionUID = 1L;
+
     /**
      * Ensures that only the constructor can call reseed.
      */

@@ -1981,6 +1981,8 @@ public abstract class ToStringStyle implements Serializable {
      */
     private static final class DefaultToStringStyle extends ToStringStyle {
 
+        private static final long serialVersionUID = 1L;
+
         /**
          * <p>Constructor.</p>
          *
@@ -2011,6 +2013,8 @@ public abstract class ToStringStyle implements Serializable {
      * <code>StandardToStringStyle</code> to ensure its immutability.
      */
     private static final class NoFieldNameToStringStyle extends ToStringStyle {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * <p>Constructor.</p>
@@ -2044,6 +2048,8 @@ public abstract class ToStringStyle implements Serializable {
      */
     private static final class ShortPrefixToStringStyle extends ToStringStyle {
 
+        private static final long serialVersionUID = 1L;
+
         /**
          * <p>Constructor.</p>
          *
@@ -2073,6 +2079,8 @@ public abstract class ToStringStyle implements Serializable {
      * <code>StandardToStringStyle</code> to ensure its immutability.</p>
      */
     private static final class SimpleToStringStyle extends ToStringStyle {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * <p>Constructor.</p>
@@ -2107,6 +2115,8 @@ public abstract class ToStringStyle implements Serializable {
      * <code>StandardToStringStyle</code> to ensure its immutability.</p>
      */
     private static final class MultiLineToStringStyle extends ToStringStyle {
+
+        private static final long serialVersionUID = 1L;
 
         /**
          * <p>Constructor.</p>
