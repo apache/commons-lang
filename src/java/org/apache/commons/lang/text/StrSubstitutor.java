@@ -126,8 +126,8 @@ public class StrSubstitutor {
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the map.
      *
-     * @param source  the source text containing the variables to substitute
-     * @param valueMap  the map with the values
+     * @param source  the source text containing the variables to substitute, null returns null
+     * @param valueMap  the map with the values, may be null
      * @return the result of the replace operation
      */
     public static String replace(Object source, Map valueMap) {
@@ -139,11 +139,12 @@ public class StrSubstitutor {
      * their matching values from the map. This method allows to specifiy a
      * custom variable prefix and suffix
      *
-     * @param source  the source text containing the variables to substitute
-     * @param valueMap  the map with the values
-     * @param prefix  the prefix of variables
-     * @param suffix  the suffix of variables
+     * @param source  the source text containing the variables to substitute, null returns null
+     * @param valueMap  the map with the values, may be null
+     * @param prefix  the prefix of variables, not null
+     * @param suffix  the suffix of variables, not null
      * @return the result of the replace operation
+     * @throws IllegalArgumentException if the prefix or suffix is null
      */
     public static String replace(Object source, Map valueMap, String prefix, String suffix) {
         return new StrSubstitutor(valueMap, prefix, suffix).replace(source);
@@ -153,7 +154,7 @@ public class StrSubstitutor {
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the system properties.
      *
-     * @param source  the source text containing the variables to substitute
+     * @param source  the source text containing the variables to substitute, null returns null
      * @return the result of the replace operation
      */
     public static String replaceSystemProperties(Object source) {
@@ -365,14 +366,20 @@ public class StrSubstitutor {
 
     //-----------------------------------------------------------------------
     /**
-     * Main method for substituting variables.
+     * Internal method that substitutes the variables.
+     * <p>
+     * Most users of this class do not need to call this method. This method will
+     * be called automatically by another (public) method.
+     * <p>
+     * Writers of subclasses can override this method if they need access to
+     * the substitution process at the start or end.
      *
      * @param buf  the string builder to substitute into, not null
      * @param offset  the start offset within the builder, must be valid
      * @param length  the length within the builder to be processed, must be valid
      * @return true if altered
      */
-    private boolean substitute(StrBuilder buf, int offset, int length) {
+    protected boolean substitute(StrBuilder buf, int offset, int length) {
         return substitute(buf, offset, length, null) > 0;
     }
 
@@ -439,7 +446,7 @@ public class StrSubstitutor {
                             priorVariables.add(varName);
                             
                             // resolve the variable
-                            String varValue = resolveVariable(varName);
+                            String varValue = resolveVariable(varName, buf, startPos, endPos);
                             if (varValue != null) {
                                 // recursive replace
                                 int varLen = varValue.length();
@@ -486,21 +493,28 @@ public class StrSubstitutor {
     }
 
     /**
-     * Resolves the specified variable. This method is called whenever a variable
-     * reference is detected in the source text. It is passed the variable's name
-     * and must return the corresponding value. This implementation accesses the
-     * value map using the variable's name as key. Derived classes may override
-     * this method to implement a different strategy for resolving variables.
+     * Internal method that resolves the value of a variable.
+     * <p>
+     * Most users of this class do not need to call this method. This method is
+     * called automatically by the substitution process.
+     * <p>
+     * Writers of subclasses can override this method if they need to alter
+     * how each substitution occurs. The method is passed the variable's name
+     * and must return the corresponding value. This implementation uses the
+     * {@link #getVariableResolver()} with the variable's name as the key.
      *
-     * @param varName  the name of the variable
+     * @param variableName  the name of the variable, not null
+     * @param buf  the buffer where the substitution is occurring, not null
+     * @param startPos  the start position of the variable including the prefix, valid
+     * @param endPos  the end position of the variable including the suffix, valid
      * @return the variable's value or <b>null</b> if the variable is unknown
      */
-    protected String resolveVariable(String varName) {
+    protected String resolveVariable(String variableName, StrBuilder buf, int startPos, int endPos) {
         VariableResolver lookup = getVariableResolver();
         if (lookup == null) {
             return null;
         }
-        return lookup.resolveVariable(varName);
+        return lookup.resolveVariable(variableName);
     }
 
     // Escape
