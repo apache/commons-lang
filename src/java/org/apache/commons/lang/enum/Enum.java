@@ -237,7 +237,11 @@ import org.apache.commons.lang.StringUtils;
  */
 public abstract class Enum implements Comparable, Serializable {
 
-    /** Lang version 1.0.1 serial compatibility */
+    /**
+     * Required for serialization support. Lang version 1.0.1 serial compatibility.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = -487045951170455942L;
     
     // After discussion, the default size for HashMaps is used, as the

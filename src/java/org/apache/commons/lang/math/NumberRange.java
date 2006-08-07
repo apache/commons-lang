@@ -28,6 +28,11 @@ import java.io.Serializable;
  */
 public final class NumberRange extends Range implements Serializable {
     
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 71849363892710L;
 
     /**

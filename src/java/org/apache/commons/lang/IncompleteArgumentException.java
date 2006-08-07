@@ -46,7 +46,11 @@ import java.util.Arrays;
  */
 public class IncompleteArgumentException extends IllegalArgumentException {
 
-    /** Serialization version. */
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 4954193403612068178L;
 
     /**

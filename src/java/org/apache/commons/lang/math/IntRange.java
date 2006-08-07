@@ -26,6 +26,11 @@ import java.io.Serializable;
  */
 public final class IntRange extends Range implements Serializable {
     
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 71849363892730L;
 
     /**

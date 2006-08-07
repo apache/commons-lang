@@ -31,7 +31,11 @@ import java.io.Serializable;
  */
 public final class CharRange implements Serializable {
 
-    /** Serialization lock, Lang version 2.0. */
+    /**
+     * Required for serialization support. Lang version 2.0. 
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 8270183163158333422L;
     
     /** The first character, inclusive, in the range. */

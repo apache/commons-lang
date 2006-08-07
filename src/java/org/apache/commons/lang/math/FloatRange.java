@@ -26,6 +26,11 @@ import java.io.Serializable;
  */
 public final class FloatRange extends Range implements Serializable {
     
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 71849363892750L;
 
     /**

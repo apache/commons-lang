@@ -30,7 +30,11 @@ import java.text.ParsePosition;
  */
 public class CompositeFormat extends Format {
 
-    /** Serialization lock. */
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = -4329119827877627683L;
 
     /** The parser to use. */

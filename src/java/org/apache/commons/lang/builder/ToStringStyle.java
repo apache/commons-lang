@@ -1981,6 +1981,11 @@ public abstract class ToStringStyle implements Serializable {
      */
     private static final class DefaultToStringStyle extends ToStringStyle {
 
+        /**
+         * Required for serialization support.
+         * 
+         * @see java.io.Serializable
+         */
         private static final long serialVersionUID = 1L;
 
         /**
