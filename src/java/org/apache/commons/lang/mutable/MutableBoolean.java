@@ -28,7 +28,11 @@ import java.io.Serializable;
  */
 public class MutableBoolean implements Mutable, Serializable, Comparable {
 
-    /** Serialization lock. */
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = -4830728138360036487L;
 
     /** The mutable value. */

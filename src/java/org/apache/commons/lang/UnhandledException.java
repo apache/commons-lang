@@ -43,7 +43,11 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  */
 public class UnhandledException extends NestableRuntimeException {
 
-    /** Serialization version. */
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 1832101364842773720L;
 
     /**

@@ -44,7 +44,11 @@ package org.apache.commons.lang;
  */
 public class NullArgumentException extends IllegalArgumentException {
 
-    /** Serialization version. */
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 1174360235354917591L;
 
     /**

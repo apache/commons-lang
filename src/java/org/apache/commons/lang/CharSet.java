@@ -37,7 +37,11 @@ import java.util.Set;
  */
 public class CharSet implements Serializable {
 
-    /** Serialization lock, Lang version 2.0. */
+    /**
+     * Required for serialization support. Lang version 2.0. 
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 5947847346149275958L;
 
     /** 

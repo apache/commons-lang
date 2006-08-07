@@ -53,7 +53,11 @@ public class NotImplementedException
 
     private static final String DEFAULT_MESSAGE = "Code is not implemented";
 
-    /** Serialization version. */
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = -6894122266938754088L;
 
     /**

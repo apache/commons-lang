@@ -26,7 +26,11 @@ import java.io.Serializable;
  */
 public class MutableObject implements Mutable, Serializable {
 
-    /** Serialization lock. */
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 86241875189L;
 
     /** The mutable value. */

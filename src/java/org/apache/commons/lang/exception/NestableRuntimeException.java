@@ -32,6 +32,11 @@ import java.io.PrintWriter;
  */
 public class NestableRuntimeException extends RuntimeException implements Nestable {
     
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 1L;
 
     /**

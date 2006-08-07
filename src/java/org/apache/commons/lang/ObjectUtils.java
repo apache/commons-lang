@@ -252,7 +252,11 @@ public class ObjectUtils {
      * cannot be stored.</p>
      */
     public static class Null implements Serializable {
-        // declare serialization compatibility with Commons Lang 1.0
+        /**
+         * Required for serialization support. Declare serialization compatibility with Commons Lang 1.0
+         * 
+         * @see java.io.Serializable
+         */
         private static final long serialVersionUID = 7092611880189329093L;
         
         /**

@@ -24,7 +24,11 @@ package org.apache.commons.lang.mutable;
  */
 public class MutableInt extends Number implements Comparable, Mutable {
 
-    /** Serialization lock. */
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 512176391864L;
 
     /** The mutable value. */

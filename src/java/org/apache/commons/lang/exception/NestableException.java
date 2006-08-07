@@ -88,6 +88,11 @@ import java.io.PrintWriter;
  */
 public class NestableException extends Exception implements Nestable {
     
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 1L;
 
     /**

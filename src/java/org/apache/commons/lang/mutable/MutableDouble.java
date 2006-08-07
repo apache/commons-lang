@@ -26,7 +26,11 @@ import org.apache.commons.lang.math.NumberUtils;
  */
 public class MutableDouble extends Number implements Comparable, Mutable {
 
-    /** Serialization lock. */
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 1587163916L;
 
     /** The mutable value. */

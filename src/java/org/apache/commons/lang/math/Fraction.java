@@ -35,7 +35,11 @@ import java.math.BigInteger;
  */
 public final class Fraction extends Number implements Serializable, Comparable {
 
-    /** Serialization lock, Lang version 2.0 */
+    /**
+     * Required for serialization support. Lang version 2.0.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 65382027393090L;
 
     /**
