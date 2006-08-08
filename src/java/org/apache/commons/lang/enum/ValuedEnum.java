@@ -144,9 +144,9 @@ public abstract class ValuedEnum extends Enum {
         }
         List list = Enum.getEnumList(enumClass);
         for (Iterator it = list.iterator(); it.hasNext();) {
-            ValuedEnum enum = (ValuedEnum) it.next();
-            if (enum.getValue() == value) {
-                return enum;
+            ValuedEnum enumeration = (ValuedEnum) it.next();
+            if (enumeration.getValue() == value) {
+                return enumeration;
             }
         }
         return null;
