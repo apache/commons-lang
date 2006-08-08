@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.commons.lang.text;
 
 import java.util.ArrayList;
@@ -119,7 +118,7 @@ public class StrSubstitutor {
     /**
      * Variable resolution is delegated to an implementor of VariableResolver.
      */
-    private VariableResolver variableResolver;
+    private StrLookup variableResolver;
 
     //-----------------------------------------------------------------------
     /**
@@ -158,7 +157,7 @@ public class StrSubstitutor {
      * @return the result of the replace operation
      */
     public static String replaceSystemProperties(Object source) {
-        return new StrSubstitutor(System.getProperties()).replace(source);
+        return new StrSubstitutor(StrLookup.systemPropertiesLookup()).replace(source);
     }
 
     //-----------------------------------------------------------------------
@@ -167,7 +166,7 @@ public class StrSubstitutor {
      * and the escaping character.
      */
     public StrSubstitutor() {
-        this((VariableResolver) null, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
+        this((StrLookup) null, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
     /**
@@ -177,7 +176,7 @@ public class StrSubstitutor {
      * @param valueMap  the map with the variables' values, may be null
      */
     public StrSubstitutor(Map valueMap) {
-        this(new MapVariableResolver(valueMap), DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
+        this(StrLookup.mapLookup(valueMap), DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
     /**
@@ -189,7 +188,7 @@ public class StrSubstitutor {
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
     public StrSubstitutor(Map valueMap, String prefix, String suffix) {
-        this(valueMap, prefix, suffix, DEFAULT_ESCAPE);
+        this(StrLookup.mapLookup(valueMap), prefix, suffix, DEFAULT_ESCAPE);
     }
 
     /**
@@ -202,7 +201,16 @@ public class StrSubstitutor {
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
     public StrSubstitutor(Map valueMap, String prefix, String suffix, char escape) {
-        this(new MapVariableResolver(valueMap), prefix, suffix, escape);
+        this(StrLookup.mapLookup(valueMap), prefix, suffix, escape);
+    }
+
+    /**
+     * Creates a new instance and initializes it.
+     *
+     * @param variableResolver  the variable resolver, may be null
+     */
+    public StrSubstitutor(StrLookup variableResolver) {
+        this(variableResolver, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
     /**
@@ -214,7 +222,7 @@ public class StrSubstitutor {
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(VariableResolver variableResolver, String prefix, String suffix, char escape) {
+    public StrSubstitutor(StrLookup variableResolver, String prefix, String suffix, char escape) {
         this.setVariableResolver(variableResolver);
         this.setVariablePrefix(prefix);
         this.setVariableSuffix(suffix);
@@ -225,15 +233,16 @@ public class StrSubstitutor {
      * Creates a new instance and initializes it.
      *
      * @param variableResolver  the variable resolver, may be null
-     * @param prefix  the prefix for variables, not null
-     * @param suffix  the suffix for variables, not null
+     * @param prefixMatcher  the prefix for variables, not null
+     * @param suffixMatcher  the suffix for variables, not null
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(VariableResolver variableResolver, StrMatcher prefix, StrMatcher suffix, char escape) {
+    public StrSubstitutor(
+            StrLookup variableResolver, StrMatcher prefixMatcher, StrMatcher suffixMatcher, char escape) {
         this.setVariableResolver(variableResolver);
-        this.setVariablePrefixMatcher(prefix);
-        this.setVariableSuffixMatcher(suffix);
+        this.setVariablePrefixMatcher(prefixMatcher);
+        this.setVariableSuffixMatcher(suffixMatcher);
         this.setEscapeChar(escape);
     }
 
@@ -308,7 +317,7 @@ public class StrSubstitutor {
         }
         StrBuilder buf = new StrBuilder(length).append(source, offset, length);
         if (substitute(buf, 0, length) == false) {
-            return source.substring(offset, length);
+            return source.substring(offset, offset + length);
         }
         return buf.toString();
     }
@@ -510,11 +519,11 @@ public class StrSubstitutor {
      * @return the variable's value or <b>null</b> if the variable is unknown
      */
     protected String resolveVariable(String variableName, StrBuilder buf, int startPos, int endPos) {
-        VariableResolver lookup = getVariableResolver();
-        if (lookup == null) {
+        StrLookup resolver = getVariableResolver();
+        if (resolver == null) {
             return null;
         }
-        return lookup.resolveVariable(variableName);
+        return resolver.lookup(variableName);
     }
 
     // Escape
@@ -672,73 +681,21 @@ public class StrSubstitutor {
     // Resolver
     //-----------------------------------------------------------------------
     /**
-     * Gets the VariableResolver
+     * Gets the VariableResolver that is used to lookup variables.
      *
      * @return the VariableResolver
      */
-    public VariableResolver getVariableResolver() {
+    public StrLookup getVariableResolver() {
         return this.variableResolver;
     }
 
     /**
-     * Sets the VariableResolver
+     * Sets the VariableResolver that is used to lookup variables.
      *
      * @param variableResolver  the VariableResolver
      */
-    public void setVariableResolver(VariableResolver variableResolver) {
+    public void setVariableResolver(StrLookup variableResolver) {
         this.variableResolver = variableResolver;
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * Looks up a string value by name.
-     * This represents the simplest form of a map.
-     */
-    public static interface VariableResolver {
-        /**
-         * Resolves the variable name to a value.
-         *
-         * @param varName  the name to be looked up, may be null
-         * @return the matching value, null if no match
-         */
-        String resolveVariable(String varName);
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * Looks up a string value by name using a {@link Map}.
-     */
-    static class MapVariableResolver implements VariableResolver {
-        /**
-         * Map keys are variable names and value
-         */
-        Map map;
-
-        /**
-         * Creates a new resolver backed by a Map.
-         *
-         * @param map  the variable names and values
-         */
-        MapVariableResolver(Map map) {
-            this.map = map;
-        }
-
-        /**
-         * Resolves the given variable name with the backing Map.
-         *
-         * @param varName  a variable name
-         * @return a value or null if the variable name is not in Map
-         */
-        public String resolveVariable(String varName) {
-            if (map == null) {
-                return null;
-            }
-            Object obj = map.get(varName);
-            if (obj == null) {
-                return null;
-            }
-            return obj.toString();
-        }
     }
 
 }
