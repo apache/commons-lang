@@ -51,7 +51,9 @@ public class TextTestSuite extends TestCase {
         suite.addTest(CompositeFormatTest.suite());
         suite.addTest(StrBuilderTest.suite());
         suite.addTest(StrBuilderAppendInsertTest.suite());
+        suite.addTest(StrLookupTest.suite());
         suite.addTest(StrMatcherTest.suite());
+        suite.addTest(StrSubstitutorTest.suite());
         suite.addTest(StrTokenizerTest.suite());
         suite.addTestSuite(VariableFormatterTest.class);
         return suite;

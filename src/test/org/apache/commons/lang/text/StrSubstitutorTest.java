@@ -67,95 +67,6 @@ public class StrSubstitutorTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-//    /**
-//     * Tests escaping variable references.
-//     */
-//    public void testEscape() {
-//        assertEquals("${", this.getFormat().replace("$${"));
-//        assertEquals("${animal}", this.getFormat().replace("$${animal}"));
-//        this.getValueMap().put("var_name", "x");
-//        assertEquals("Many $$$$${target} $s", this.getFormat().replace("Many $$$$$${target} $s"));
-//        assertEquals("Variable ${x} must be used!", this.getFormat().replace("Variable $${${var_name}} must be used!"));
-//    }
-//
-//    /**
-//     * Tests creating new <code>VariableFormat</code> objects.
-//     */
-//    public void testInitialize() {
-//        assertNotNull(this.getFormat().getVariableResolver());
-//        assertEquals(StrSubstitutor.DEFAULT_PREFIX, this.getFormat().getVariablePrefixMatcher());
-//        assertEquals(StrSubstitutor.DEFAULT_SUFFIX, this.getFormat().getVariableSuffixMatcher());
-//        assertEquals(StrSubstitutor.DEFAULT_ESCAPE, this.getFormat().getEscapeChar());
-//
-//        format = new StrSubstitutor(values, "<<", ">>", '\\');
-//        assertEquals("<<", this.getFormat().getVariablePrefixMatcher());
-//        assertEquals(">>", this.getFormat().getVariableSuffixMatcher());
-//        assertEquals('\\', this.getFormat().getEscapeChar());
-//
-//        // new StrSubstitutor(null) should be OK IMO
-//        // Gary Gregory - July 14 2005
-//        // try {
-//        // format = new StrSubstitutor(null);
-//        // fail("Could create format object with null map!");
-//        // } catch (IllegalArgumentException iex) {
-//        // // ok
-//        // }
-//
-//        try {
-//            format = new StrSubstitutor(values, "${", null);
-//            fail("Could create format object with undefined suffix!");
-//        } catch (IllegalArgumentException iex) {
-//            // ok
-//        }
-//
-//        try {
-//            format = new StrSubstitutor(values, null, "]");
-//            fail("Could create format object with undefined prefix!");
-//        } catch (IllegalArgumentException iex) {
-//            // ok
-//        }
-//    }
-//
-//    /**
-//     * Tests chaning variable prefix and suffix and the escaping character.
-//     */
-//    public void testNonDefaultTokens() {
-//        format = new StrSubstitutor(values, "<<", ">>", '\\');
-//        assertEquals("The quick brown fox jumps over the lazy dog.", format
-//                .replace("The <<animal>> jumps over the <<target>>."));
-//        assertEquals("The quick brown fox jumps over the <<target>>.", format
-//                .replace("The <<animal>> jumps over the \\<<target>>."));
-//    }
-//
-//    /**
-//     * Tests invoking the static convenience methods.
-//     */
-//    public void testNonInstanceMethods() {
-//        assertEquals("The quick brown fox jumps over the lazy dog.",
-//                StrSubstitutor.replace(REPLACE_TEMPLATE, values));
-//        values.put(KEY_ANIMAL, "cow");
-//        values.put(KEY_TARGET, "moon");
-//        assertEquals("The cow jumps over the moon.",
-//                StrSubstitutor.replace("The &animal; jumps over the &target;.", values, "&", ";"));
-//    }
-//
-//    public void testNoResolver() throws Exception {
-//        this.testNoResolver(new StrSubstitutor());
-//        this.testNoResolver(new StrSubstitutor(null));
-//    }
-//
-//    void testNoResolver(StrSubstitutor formatter) throws Exception {
-//        formatter.setVariableResolver(null);
-//        this.validateNoReplace(formatter);
-//    }
-//
-//    public void testNullMap() throws Exception {
-//        StrSubstitutor formatter = new StrSubstitutor(null);
-//        validateNoReplace(formatter);
-//    }
-//
-
-    //-----------------------------------------------------------------------
     /**
      * Tests simple key replace.
      */
@@ -353,6 +264,14 @@ public class StrSubstitutorTest extends TestCase {
         doTestNoReplace("${${ }}");
     }
 
+    /**
+     * Tests simple key replace.
+     */
+    public void testReplacePartialString_noReplace() {
+        StrSubstitutor sub = new StrSubstitutor();
+        assertEquals("${animal} jumps", sub.replace("The ${animal} jumps over the ${target}.", 4, 15));
+    }
+
     //-----------------------------------------------------------------------
     /**
      * Tests protected.
@@ -372,6 +291,108 @@ public class StrSubstitutorTest extends TestCase {
         };
         sub.replace(builder);
         assertEquals("Hi jakarta!", builder.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Tests constructor.
+     */
+    public void testConstructorNoArgs() {
+        StrSubstitutor sub = new StrSubstitutor();
+        assertEquals("Hi ${name}", sub.replace("Hi ${name}"));
+    }
+
+    /**
+     * Tests constructor.
+     */
+    public void testConstructorMapPrefixSuffix() {
+        Map map = new HashMap();
+        map.put("name", "commons");
+        StrSubstitutor sub = new StrSubstitutor(map, "<", ">");
+        assertEquals("Hi < commons", sub.replace("Hi $< <name>"));
+    }
+
+    /**
+     * Tests constructor.
+     */
+    public void testConstructorMapFull() {
+        Map map = new HashMap();
+        map.put("name", "commons");
+        StrSubstitutor sub = new StrSubstitutor(map, "<", ">", '!');
+        assertEquals("Hi < commons", sub.replace("Hi !< <name>"));
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Tests get set.
+     */
+    public void testGetSetEscape() {
+        StrSubstitutor sub = new StrSubstitutor();
+        assertEquals('$', sub.getEscapeChar());
+        sub.setEscapeChar('<');
+        assertEquals('<', sub.getEscapeChar());
+    }
+
+    /**
+     * Tests get set.
+     */
+    public void testGetSetPrefix() {
+        StrSubstitutor sub = new StrSubstitutor();
+        assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
+        sub.setVariablePrefix('<');
+        assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.CharMatcher);
+        
+        sub.setVariablePrefix("<<");
+        assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
+        try {
+            sub.setVariablePrefix((String) null);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            // expected
+        }
+        assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
+        
+        StrMatcher matcher = StrMatcher.commaMatcher();
+        sub.setVariablePrefixMatcher(matcher);
+        assertSame(matcher, sub.getVariablePrefixMatcher());
+        try {
+            sub.setVariablePrefixMatcher((StrMatcher) null);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            // expected
+        }
+        assertSame(matcher, sub.getVariablePrefixMatcher());
+    }
+
+    /**
+     * Tests get set.
+     */
+    public void testGetSetSuffix() {
+        StrSubstitutor sub = new StrSubstitutor();
+        assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
+        sub.setVariableSuffix('<');
+        assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.CharMatcher);
+        
+        sub.setVariableSuffix("<<");
+        assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
+        try {
+            sub.setVariableSuffix((String) null);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            // expected
+        }
+        assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
+        
+        StrMatcher matcher = StrMatcher.commaMatcher();
+        sub.setVariableSuffixMatcher(matcher);
+        assertSame(matcher, sub.getVariableSuffixMatcher());
+        try {
+            sub.setVariableSuffixMatcher((StrMatcher) null);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            // expected
+        }
+        assertSame(matcher, sub.getVariableSuffixMatcher());
     }
 
     //-----------------------------------------------------------------------
@@ -443,9 +464,12 @@ public class StrSubstitutorTest extends TestCase {
         assertEquals(replaceTemplate, sub.replace(replaceTemplate));
         
         if (replaceTemplate == null) {
+            assertEquals(null, sub.replace((String) null, 0, 100));
             assertEquals(null, sub.replace((char[]) null));
+            assertEquals(null, sub.replace((char[]) null, 0, 100));
             assertEquals(null, sub.replace((Object) null));
             assertEquals(false, sub.replace((StrBuilder) null));
+            assertEquals(false, sub.replace((StrBuilder) null, 0, 100));
         } else {
             StrBuilder bld = new StrBuilder(replaceTemplate);
             assertEquals(false, sub.replace(bld));
