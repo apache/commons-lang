@@ -21,12 +21,12 @@ import java.util.Arrays;
  * A matcher class that can be queried to determine if a character array
  * portion matches.
  * <p>
- * This class comes complete with various constants and factory methods.
+ * This class comes complete with various factory methods.
  * If these do not suffice, you can subclass and implement your own matcher.
  *
  * @author Stephen Colebourne
  * @since 2.2
- * @version $Id$
+ * @version $Id: StrMatcher.java 232652 2005-08-14 21:45:47Z scolebourne $
  */
 public abstract class StrMatcher {
 
