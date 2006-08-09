@@ -369,7 +369,7 @@ public abstract class Enum implements Comparable, Serializable {
         if (entry == null) {
             return null;
         }
-        return (Enum) entry.map.get(getName());
+        return entry.map.get(getName());
     }
     
     //--------------------------------------------------------------------------------
