@@ -19,7 +19,6 @@ package org.apache.commons.lang.time;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 
 import junit.framework.Test;
