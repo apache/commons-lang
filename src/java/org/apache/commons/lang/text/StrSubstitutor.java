@@ -248,8 +248,51 @@ public class StrSubstitutor {
 
     //-----------------------------------------------------------------------
     /**
-     * Replaces all the occurrences of variables in the given source array with
-     * their matching values from the resolver.
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source string as a template.
+     *
+     * @param source  the string to replace in, null returns null
+     * @return the result of the replace operation
+     */
+    public String replace(String source) {
+        if (source == null) {
+            return null;
+        }
+        StrBuilder buf = new StrBuilder(source);
+        if (substitute(buf, 0, source.length()) == false) {
+            return source;
+        }
+        return buf.toString();
+    }
+
+    /**
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source string as a template.
+     * <p>
+     * Only the specified portion of the string will be processed.
+     * The rest of the string is not processed, and is not returned.
+     *
+     * @param source  the string to replace in, null returns null
+     * @param offset  the start offset within the array, must be valid
+     * @param length  the length within the array to be processed, must be valid
+     * @return the result of the replace operation
+     */
+    public String replace(String source, int offset, int length) {
+        if (source == null) {
+            return null;
+        }
+        StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        if (substitute(buf, 0, length) == false) {
+            return source.substring(offset, offset + length);
+        }
+        return buf.toString();
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source array as a template.
+     * The array is not altered by this method.
      *
      * @param source  the character array to replace in, not altered, null returns null
      * @return the result of the replace operation
@@ -264,9 +307,12 @@ public class StrSubstitutor {
     }
 
     /**
-     * Replaces all the occurrences of variables in the given source array by with
-     * their matching values from the resolver.
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source array as a template.
+     * The array is not altered by this method.
+     * <p>
      * Only the specified portion of the array will be processed.
+     * The rest of the array is not processed, and is not returned.
      *
      * @param source  the character array to replace in, not altered, null returns null
      * @param offset  the start offset within the array, must be valid
@@ -284,41 +330,81 @@ public class StrSubstitutor {
 
     //-----------------------------------------------------------------------
     /**
-     * Replaces all the occurrences of variables in the given source string with
-     * their matching values from the resolver.
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source buffer as a template.
+     * The buffer is not altered by this method.
      *
-     * @param source  the string to replace in, null returns null
+     * @param source  the buffer to use as a template, not changed, null returns null
      * @return the result of the replace operation
      */
-    public String replace(String source) {
+    public String replace(StringBuffer source) {
         if (source == null) {
             return null;
         }
-        StrBuilder buf = new StrBuilder(source);
-        if (substitute(buf, 0, source.length()) == false) {
-            return source;
-        }
+        StrBuilder buf = new StrBuilder(source.length()).append(source);
+        substitute(buf, 0, buf.length());
         return buf.toString();
     }
 
     /**
-     * Replaces all the occurrences of variables in the given source string by with
-     * their matching values from the resolver.
-     * Only the specified portion of the string will be processed.
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source buffer as a template.
+     * The buffer is not altered by this method.
+     * <p>
+     * Only the specified portion of the buffer will be processed.
+     * The rest of the buffer is not processed, and is not returned.
      *
-     * @param source  the string to replace in, null returns null
+     * @param source  the buffer to use as a template, not changed, null returns null
      * @param offset  the start offset within the array, must be valid
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
      */
-    public String replace(String source, int offset, int length) {
+    public String replace(StringBuffer source, int offset, int length) {
         if (source == null) {
             return null;
         }
         StrBuilder buf = new StrBuilder(length).append(source, offset, length);
-        if (substitute(buf, 0, length) == false) {
-            return source.substring(offset, offset + length);
+        substitute(buf, 0, length);
+        return buf.toString();
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source builder as a template.
+     * The builder is not altered by this method.
+     *
+     * @param source  the builder to use as a template, not changed, null returns null
+     * @return the result of the replace operation
+     */
+    public String replace(StrBuilder source) {
+        if (source == null) {
+            return null;
         }
+        StrBuilder buf = new StrBuilder(source.length()).append(source);
+        substitute(buf, 0, buf.length());
+        return buf.toString();
+    }
+
+    /**
+     * Replaces all the occurrences of variables with their matching values
+     * from the resolver using the given source builder as a template.
+     * The builder is not altered by this method.
+     * <p>
+     * Only the specified portion of the builder will be processed.
+     * The rest of the builder is not processed, and is not returned.
+     *
+     * @param source  the builder to use as a template, not changed, null returns null
+     * @param offset  the start offset within the array, must be valid
+     * @param length  the length within the array to be processed, must be valid
+     * @return the result of the replace operation
+     */
+    public String replace(StrBuilder source, int offset, int length) {
+        if (source == null) {
+            return null;
+        }
+        StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        substitute(buf, 0, length);
         return buf.toString();
     }
 
@@ -342,13 +428,54 @@ public class StrSubstitutor {
 
     //-----------------------------------------------------------------------
     /**
+     * Replaces all the occurrences of variables within the given source buffer
+     * with their matching values from the resolver.
+     * The buffer is updated with the result.
+     *
+     * @param source  the buffer to replace in, updated, null returns zero
+     * @return true if altered
+     */
+    public boolean replaceIn(StringBuffer source) {
+        if (source == null) {
+            return false;
+        }
+        return replaceIn(source, 0, source.length());
+    }
+
+    /**
+     * Replaces all the occurrences of variables within the given source buffer
+     * with their matching values from the resolver.
+     * The buffer is updated with the result.
+     * <p>
+     * Only the specified portion of the buffer will be processed.
+     * The rest of the buffer is not processed, but it is not deleted.
+     *
+     * @param source  the buffer to replace in, updated, null returns zero
+     * @param offset  the start offset within the array, must be valid
+     * @param length  the length within the buffer to be processed, must be valid
+     * @return true if altered
+     */
+    public boolean replaceIn(StringBuffer source, int offset, int length) {
+        if (source == null) {
+            return false;
+        }
+        StrBuilder buf = new StrBuilder(length).append(source, offset, length);
+        if (substitute(buf, 0, length) == false) {
+            return false;
+        }
+        source.replace(offset, offset + length, buf.toString());
+        return true;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Replaces all the occurrences of variables within the given source
      * builder with their matching values from the resolver.
      *
      * @param source  the builder to replace in, updated, null returns zero
      * @return true if altered
      */
-    public boolean replace(StrBuilder source) {
+    public boolean replaceIn(StrBuilder source) {
         if (source == null) {
             return false;
         }
@@ -358,15 +485,16 @@ public class StrSubstitutor {
     /**
      * Replaces all the occurrences of variables within the given source
      * builder with their matching values from the resolver.
-     * Only the specified portion of the builder will be processed, with
-     * the remainder left untouched.
+     * <p>
+     * Only the specified portion of the builder will be processed.
+     * The rest of the builder is not processed, but it is not deleted.
      *
      * @param source  the builder to replace in, null returns zero
      * @param offset  the start offset within the array, must be valid
-     * @param length  the length within the array to be processed, must be valid
+     * @param length  the length within the builder to be processed, must be valid
      * @return true if altered
      */
-    public boolean replace(StrBuilder source, int offset, int length) {
+    public boolean replaceIn(StrBuilder source, int offset, int length) {
         if (source == null) {
             return false;
         }
