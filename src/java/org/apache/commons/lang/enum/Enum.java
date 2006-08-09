@@ -296,7 +296,7 @@ public abstract class Enum implements Comparable, Serializable {
         /**
          * <p>Restrictive constructor.</p>
          */
-        private Entry() {
+        protected Entry() {
             super();
         }
     }
