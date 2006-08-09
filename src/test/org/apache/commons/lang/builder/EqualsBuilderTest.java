@@ -15,7 +15,6 @@
  */
 package org.apache.commons.lang.builder;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 
 import junit.framework.Test;
