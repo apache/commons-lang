@@ -19,6 +19,8 @@ package org.apache.commons.lang.text;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.mutable.MutableObject;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -289,7 +291,7 @@ public class StrSubstitutorTest extends TestCase {
                 return "jakarta";
             }
         };
-        sub.replace(builder);
+        sub.replaceIn(builder);
         assertEquals("Hi jakarta!", builder.toString());
     }
 
@@ -432,47 +434,81 @@ public class StrSubstitutorTest extends TestCase {
     //-----------------------------------------------------------------------
     private void doTestReplace(String expectedResult, String replaceTemplate, boolean substring) {
         String expectedShortResult = expectedResult.substring(1, expectedResult.length() - 1);
-        
         StrSubstitutor sub = new StrSubstitutor(values);
+        
+        // replace using String
         assertEquals(expectedResult, sub.replace(replaceTemplate));
         if (substring) {
             assertEquals(expectedShortResult, sub.replace(replaceTemplate, 1, replaceTemplate.length() - 2));
         }
         
+        // replace using char[]
         char[] chars = replaceTemplate.toCharArray();
         assertEquals(expectedResult, sub.replace(chars));
         if (substring) {
             assertEquals(expectedShortResult, sub.replace(chars, 1, chars.length - 2));
         }
         
+        // replace using StringBuffer
         StringBuffer buf = new StringBuffer(replaceTemplate);
         assertEquals(expectedResult, sub.replace(buf));
+        if (substring) {
+            assertEquals(expectedShortResult, sub.replace(buf, 1, buf.length() - 2));
+        }
         
+        // replace using StrBuilder
         StrBuilder bld = new StrBuilder(replaceTemplate);
-        assertEquals(true, sub.replace(bld));
-        assertEquals(expectedResult, bld.toString());
+        assertEquals(expectedResult, sub.replace(bld));
+        if (substring) {
+            assertEquals(expectedShortResult, sub.replace(bld, 1, bld.length() - 2));
+        }
         
+        // replace using object
+        MutableObject obj = new MutableObject(replaceTemplate);  // toString returns template
+        assertEquals(expectedResult, sub.replace(obj));
+        
+        // replace in StringBuffer
+        buf = new StringBuffer(replaceTemplate);
+        assertEquals(true, sub.replaceIn(buf));
+        assertEquals(expectedResult, buf.toString());
+        if (substring) {
+            buf = new StringBuffer(replaceTemplate);
+            assertEquals(true, sub.replaceIn(buf, 1, buf.length() - 2));
+            assertEquals(expectedResult, buf.toString());  // expect full result as remainder is untouched
+        }
+        
+        // replace in StrBuilder
+        bld = new StrBuilder(replaceTemplate);
+        assertEquals(true, sub.replaceIn(bld));
+        assertEquals(expectedResult, bld.toString());
         if (substring) {
             bld = new StrBuilder(replaceTemplate);
-            assertEquals(true, sub.replace(bld, 1, bld.length() - 2));
+            assertEquals(true, sub.replaceIn(bld, 1, bld.length() - 2));
             assertEquals(expectedResult, bld.toString());  // expect full result as remainder is untouched
         }
     }
 
     private void doTestNoReplace(String replaceTemplate) {
         StrSubstitutor sub = new StrSubstitutor(values);
-        assertEquals(replaceTemplate, sub.replace(replaceTemplate));
         
         if (replaceTemplate == null) {
+            assertEquals(null, sub.replace((String) null));
             assertEquals(null, sub.replace((String) null, 0, 100));
             assertEquals(null, sub.replace((char[]) null));
             assertEquals(null, sub.replace((char[]) null, 0, 100));
+            assertEquals(null, sub.replace((StringBuffer) null));
+            assertEquals(null, sub.replace((StringBuffer) null, 0, 100));
+            assertEquals(null, sub.replace((StrBuilder) null));
+            assertEquals(null, sub.replace((StrBuilder) null, 0, 100));
             assertEquals(null, sub.replace((Object) null));
-            assertEquals(false, sub.replace((StrBuilder) null));
-            assertEquals(false, sub.replace((StrBuilder) null, 0, 100));
+            assertEquals(false, sub.replaceIn((StringBuffer) null));
+            assertEquals(false, sub.replaceIn((StringBuffer) null, 0, 100));
+            assertEquals(false, sub.replaceIn((StrBuilder) null));
+            assertEquals(false, sub.replaceIn((StrBuilder) null, 0, 100));
         } else {
+            assertEquals(replaceTemplate, sub.replace(replaceTemplate));
             StrBuilder bld = new StrBuilder(replaceTemplate);
-            assertEquals(false, sub.replace(bld));
+            assertEquals(false, sub.replaceIn(bld));
             assertEquals(replaceTemplate, bld.toString());
         }
     }
