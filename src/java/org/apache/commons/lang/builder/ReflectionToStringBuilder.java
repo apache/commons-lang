@@ -833,7 +833,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         if (excludeFieldNamesParam == null) {
             this.excludeFieldNames = null;
         } else {
-            this.excludeFieldNames = (String[])toNoNullStringArray(excludeFieldNamesParam);
+            this.excludeFieldNames = toNoNullStringArray(excludeFieldNamesParam);
             Arrays.sort(this.excludeFieldNames);
         }
         return this;
