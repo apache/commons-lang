@@ -309,9 +309,9 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
     private double chiSquare(int[] expected, int[] observed) {
         double sumSq = 0.0d;
         double dev = 0.0d;
-        for (int i = 0; i< observed.length; i++) {
-            dev = (double)(observed[i] - expected[i]);
-            sumSq += dev*dev/(double)expected[i];
+        for (int i = 0; i < observed.length; i++) {
+            dev = (double) (observed[i] - expected[i]);
+            sumSq += dev * dev / (double) expected[i];
         }
         return sumSq;
     }           
