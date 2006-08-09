@@ -256,8 +256,8 @@ public class StringEscapeUtilsTest extends TestCase {
             Character c1 = new Character(i);
             Character c2 = new Character((char)(i+1));
             String expected = c1.toString() + c2.toString();
-            String escapedC1 = "&#x" + Integer.toHexString((int)(c1.charValue())) + ";";
-            String escapedC2 = "&#x" + Integer.toHexString((int)(c2.charValue())) + ";";
+            String escapedC1 = "&#x" + Integer.toHexString((c1.charValue())) + ";";
+            String escapedC2 = "&#x" + Integer.toHexString((c2.charValue())) + ";";
             assertEquals("hex number unescape index " + (int)i, expected, StringEscapeUtils.unescapeHtml(escapedC1 + escapedC2));
         }
     }
