@@ -81,7 +81,7 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
         r1 = RandomStringUtils.randomAscii(50);
         assertEquals("randomAscii(50) length", 50, r1.length());
         for(int i = 0; i < r1.length(); i++) {
-            assertTrue("char between 32 and 127", (int) r1.charAt(i) >= 32 && (int) r1.charAt(i) <= 127);
+            assertTrue("char between 32 and 127", r1.charAt(i) >= 32 && r1.charAt(i) <= 127);
         }        
         r2 = RandomStringUtils.randomAscii(50);
         assertTrue("!r1.equals(r2)", !r1.equals(r2));
