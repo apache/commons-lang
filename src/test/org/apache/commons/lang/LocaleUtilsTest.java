@@ -35,7 +35,7 @@ import junit.textui.TestRunner;
  *
  * @author Chris Hyzer
  * @author Stephen Colebourne
- * @version $Id$
+ * @version $Id: LocaleUtilsTest.java 307282 2005-10-08 10:04:20Z scolebourne $
  */
 public class LocaleUtilsTest extends TestCase {
 
@@ -423,7 +423,7 @@ public class LocaleUtilsTest extends TestCase {
      */
     public void testLanguagesByCountry() {
         assertLanguageByCountry(null, new String[0]);
-        assertLanguageByCountry("US", new String[]{"en"});
+        assertLanguageByCountry("GB", new String[]{"en"});
         assertLanguageByCountry("ZZ", new String[0]);
         assertLanguageByCountry("CH", new String[]{"fr", "de", "it"});
     }
