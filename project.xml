@@ -49,7 +49,7 @@ limitations under the License.
     <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/lang/</distributionDirectory>
     <repository>
         <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk</connection>
-        <url>http://svn.apache.org/viewcvs/jakarta/commons/proper/lang/trunk</url>
+        <url>http://svn.apache.org/viewvc/jakarta/commons/proper/lang/trunk</url>
     </repository>
     <mailingLists>
         <mailingList>
