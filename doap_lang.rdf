@@ -17,7 +17,7 @@
     </description>
     <repository>
       <SVNRepository>
-        <browse rdf:resource="http://svn.apache.org/viewcvs/jakarta/commons/proper/lang/trunk"/>
+        <browse rdf:resource="http://svn.apache.org/viewvc/jakarta/commons/proper/lang/trunk"/>
         <location rdf:resource="http://svn.apache.org/repos/asf/jakarta/commons/proper/lang"/>
       </SVNRepository>
     </repository>
