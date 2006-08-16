@@ -1993,7 +1993,7 @@ public abstract class ToStringStyle implements Serializable {
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        private DefaultToStringStyle() {
+        protected DefaultToStringStyle() {
             super();
         }
 
@@ -2026,7 +2026,7 @@ public abstract class ToStringStyle implements Serializable {
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        private NoFieldNameToStringStyle() {
+        protected NoFieldNameToStringStyle() {
             super();
             this.setUseFieldNames(false);
         }
@@ -2060,7 +2060,7 @@ public abstract class ToStringStyle implements Serializable {
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        private ShortPrefixToStringStyle() {
+        protected ShortPrefixToStringStyle() {
             super();
             this.setUseShortClassName(true);
             this.setUseIdentityHashCode(false);
@@ -2092,7 +2092,7 @@ public abstract class ToStringStyle implements Serializable {
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        private SimpleToStringStyle() {
+        protected SimpleToStringStyle() {
             super();
             this.setUseClassName(false);
             this.setUseIdentityHashCode(false);
@@ -2128,7 +2128,7 @@ public abstract class ToStringStyle implements Serializable {
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        private MultiLineToStringStyle() {
+        protected MultiLineToStringStyle() {
             super();
             this.setContentStart("[");
             this.setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
