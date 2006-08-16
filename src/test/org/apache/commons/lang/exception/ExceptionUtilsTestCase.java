@@ -32,7 +32,23 @@ import org.apache.commons.lang.SystemUtils;
 
 /**
  * Tests {@link org.apache.commons.lang.exception.ExceptionUtils}.
- *
+ * 
+ * <h3>Notes</h3>
+ * <p>
+ * Make sure this exception code does not depend on Java 1.4 nested exceptions. SVN revision 38990 does not compile with
+ * Java 1.3.1.
+ * </p>
+ * <ul>
+ * <li>Compiled with Sun Java 1.3.1_15</li>
+ * <li>Tested with Sun Java 1.3.1_15</li>
+ * <li>Tested with Sun Java 1.4.2_12</li>
+ * <li>Tested with Sun Java 1.5.0_08</li>
+ * <li>All of the above on Windows XP SP2 + patches.</li>
+ * </ul>
+ * <p>
+ * Gary Gregory; August 16, 2006.
+ * </p>
+ * 
  * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Stephen Colebourne
@@ -46,7 +62,7 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
     private Throwable withoutCause;
     private Throwable jdkNoCause;
     private ExceptionWithCause selfCause;
-    private ExceptionWithCause recursiveCause;
+    private ExceptionWithCause cyclicCause;
 
     public ExceptionUtilsTestCase(String name) {
         super(name);
@@ -66,7 +82,7 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         ExceptionWithCause a = new ExceptionWithCause(null);
         ExceptionWithCause b = new ExceptionWithCause(a);
         a.setCause(b);
-        recursiveCause = new ExceptionWithCause(a);
+        cyclicCause = new ExceptionWithCause(a);
     }
 
     protected void tearDown() throws Exception {
@@ -75,7 +91,7 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         withCause = null;
         jdkNoCause = null;
         selfCause = null;
-        recursiveCause = null;
+        cyclicCause = null;
     }
 
     //-----------------------------------------------------------------------
@@ -131,9 +147,9 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         assertSame(nested, ExceptionUtils.getCause(withCause));
         assertSame(null, ExceptionUtils.getCause(jdkNoCause));
         assertSame(selfCause, ExceptionUtils.getCause(selfCause));
-        assertSame(recursiveCause.getCause(), ExceptionUtils.getCause(recursiveCause));
-        assertSame(recursiveCause.getCause().getCause(), ExceptionUtils.getCause(recursiveCause.getCause()));
-        assertSame(recursiveCause.getCause(), ExceptionUtils.getCause(recursiveCause.getCause().getCause()));
+        assertSame(cyclicCause.getCause(), ExceptionUtils.getCause(cyclicCause));
+        assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), ExceptionUtils.getCause(cyclicCause.getCause()));
+        assertSame(cyclicCause.getCause(), ExceptionUtils.getCause(((ExceptionWithCause) cyclicCause.getCause()).getCause()));
     }
 
     public void testGetCause_ThrowableArray() {
@@ -166,7 +182,7 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         assertSame(withoutCause, ExceptionUtils.getRootCause(withCause));
         assertSame(null, ExceptionUtils.getRootCause(jdkNoCause));
         assertSame(null, ExceptionUtils.getRootCause(selfCause));
-        assertSame(recursiveCause.getCause().getCause(), ExceptionUtils.getRootCause(recursiveCause));
+        assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), ExceptionUtils.getRootCause(cyclicCause));
     }
 
     public void testSetCause() {
@@ -220,7 +236,7 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         assertEquals(3, ExceptionUtils.getThrowableCount(withCause));
         assertEquals(1, ExceptionUtils.getThrowableCount(jdkNoCause));
         assertEquals(1, ExceptionUtils.getThrowableCount(selfCause));
-        assertEquals(3, ExceptionUtils.getThrowableCount(recursiveCause));
+        assertEquals(3, ExceptionUtils.getThrowableCount(cyclicCause));
     }
 
     //-----------------------------------------------------------------------
@@ -262,11 +278,11 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
     }
 
     public void testGetThrowables_Throwable_recursiveCause() {
-        Throwable[] throwables = ExceptionUtils.getThrowables(recursiveCause);
+        Throwable[] throwables = ExceptionUtils.getThrowables(cyclicCause);
         assertEquals(3, throwables.length);
-        assertSame(recursiveCause, throwables[0]);
-        assertSame(recursiveCause.getCause(), throwables[1]);
-        assertSame(recursiveCause.getCause().getCause(), throwables[2]);
+        assertSame(cyclicCause, throwables[0]);
+        assertSame(cyclicCause.getCause(), throwables[1]);
+        assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), throwables[2]);
     }
 
     //-----------------------------------------------------------------------
@@ -309,11 +325,11 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
     }
 
     public void testGetThrowableList_Throwable_recursiveCause() {
-        List throwables = ExceptionUtils.getThrowableList(recursiveCause);
+        List throwables = ExceptionUtils.getThrowableList(cyclicCause);
         assertEquals(3, throwables.size());
-        assertSame(recursiveCause, throwables.get(0));
-        assertSame(recursiveCause.getCause(), throwables.get(1));
-        assertSame(recursiveCause.getCause().getCause(), throwables.get(2));
+        assertSame(cyclicCause, throwables.get(0));
+        assertSame(cyclicCause.getCause(), throwables.get(1));
+        assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), throwables.get(2));
     }
 
     //-----------------------------------------------------------------------
