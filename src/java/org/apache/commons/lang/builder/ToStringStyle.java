@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -1993,7 +1993,7 @@ public abstract class ToStringStyle implements Serializable {
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        protected DefaultToStringStyle() {
+        DefaultToStringStyle() {
             super();
         }
 
@@ -2026,7 +2026,7 @@ public abstract class ToStringStyle implements Serializable {
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        protected NoFieldNameToStringStyle() {
+        NoFieldNameToStringStyle() {
             super();
             this.setUseFieldNames(false);
         }
@@ -2060,7 +2060,7 @@ public abstract class ToStringStyle implements Serializable {
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        protected ShortPrefixToStringStyle() {
+        ShortPrefixToStringStyle() {
             super();
             this.setUseShortClassName(true);
             this.setUseIdentityHashCode(false);
@@ -2092,7 +2092,7 @@ public abstract class ToStringStyle implements Serializable {
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        protected SimpleToStringStyle() {
+        SimpleToStringStyle() {
             super();
             this.setUseClassName(false);
             this.setUseIdentityHashCode(false);
@@ -2128,7 +2128,7 @@ public abstract class ToStringStyle implements Serializable {
          *
          * <p>Use the static constant rather than instantiating.</p>
          */
-        protected MultiLineToStringStyle() {
+        MultiLineToStringStyle() {
             super();
             this.setContentStart("[");
             this.setFieldSeparator(SystemUtils.LINE_SEPARATOR + "  ");
