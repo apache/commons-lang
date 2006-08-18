@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package org.apache.commons.lang.enums;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
@@ -165,7 +167,11 @@ public abstract class ValuedEnum extends Enum {
      *
      * <p>The default ordering is numeric by value, but this
      * can be overridden by subclasses.</p>
-     * 
+     *
+     * <p>NOTE: From v2.2 the enums must be of the same type.
+     * If the parameter is in a different class loader than this instance,
+     * reflection is used to compare the values.</p>
+     *
      * @see java.lang.Comparable#compareTo(Object)
      * @param other  the other object to compare to
      * @return -ve if this is less than the other object, +ve if greater than,
@@ -174,7 +180,38 @@ public abstract class ValuedEnum extends Enum {
      * @throws NullPointerException if other is <code>null</code>
      */
     public int compareTo(Object other) {
+        if (other == this) {
+            return 0;
+        }
+        if (other.getClass() != this.getClass()) {
+            if (other.getClass().getName().equals(this.getClass().getName())) {
+                return iValue - getValueInOtherClassLoader(other);
+            }
+            throw new ClassCastException(
+                    "Different enum class '" + ClassUtils.getShortClassName(other.getClass()) + "'");
+        }
         return iValue - ((ValuedEnum) other).iValue;
+    }
+
+    /**
+     * <p>Use reflection to return an objects value.</p>
+     *
+     * @param other  the object to determine the value for
+     * @return the value
+     */
+    private int getValueInOtherClassLoader(Object other) {
+        try {
+            Method mth = other.getClass().getMethod("getValue", null);
+            Integer value = (Integer) mth.invoke(other, null);
+            return value.intValue();
+        } catch (NoSuchMethodException e) {
+            // ignore - should never happen
+        } catch (IllegalAccessException e) {
+            // ignore - should never happen
+        } catch (InvocationTargetException e) {
+            // ignore - should never happen
+        }
+        throw new IllegalStateException("This should not happen");
     }
 
     /**
