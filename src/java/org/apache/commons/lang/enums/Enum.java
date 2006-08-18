@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 The Apache Software Foundation.
+ * Copyright 2002-2006 The Apache Software Foundation.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -584,6 +584,8 @@ public abstract class Enum implements Comparable, Serializable {
             if (other.getClass().getName().equals(this.getClass().getName())) {
                 return iName.compareTo( getNameInOtherClassLoader(other) );
             }
+            throw new ClassCastException(
+                    "Different enum class '" + ClassUtils.getShortClassName(other.getClass()) + "'");
         }
         return iName.compareTo(((Enum) other).iName);
     }
