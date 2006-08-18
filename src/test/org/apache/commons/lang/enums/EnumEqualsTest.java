@@ -87,4 +87,33 @@ public final class EnumEqualsTest extends TestCase {
         assertEquals(false, TrafficlightColorEnum.RED.equals(new TotallyUnrelatedClass("some")));
         assertEquals(false, CarColorEnum.RED.equals(new TotallyUnrelatedClass("some")));
     }
+
+    //-----------------------------------------------------------------------
+    public void testCompareTo() {
+        try {
+            CarColorEnum.RED.compareTo(TrafficlightColorEnum.RED);
+            fail();
+        } catch (ClassCastException ex) {}
+        try {
+            CarColorEnum.YELLOW.compareTo(TrafficlightColorEnum.YELLOW);
+            fail();
+        } catch (ClassCastException ex) {}
+        try {
+            TrafficlightColorEnum.RED.compareTo(new TotallyUnrelatedClass("red"));
+            fail();
+        } catch (ClassCastException ex) {}
+        try {
+            CarColorEnum.RED.compareTo(new TotallyUnrelatedClass("red"));
+            fail();
+        } catch (ClassCastException ex) {}
+        try {
+            TrafficlightColorEnum.RED.compareTo(new TotallyUnrelatedClass("some"));
+            fail();
+        } catch (ClassCastException ex) {}
+        try {
+            CarColorEnum.RED.compareTo(new TotallyUnrelatedClass("some"));
+            fail();
+        } catch (ClassCastException ex) {}
+    }
+
 }
