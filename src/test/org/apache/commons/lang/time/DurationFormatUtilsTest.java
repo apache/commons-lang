@@ -402,8 +402,10 @@ public class DurationFormatUtilsTest extends TestCase {
     public void testBugzilla38401() {
         Calendar cal1 = Calendar.getInstance();
         cal1.set(2006, 0, 26, 18, 47, 34);
+        cal1.set(Calendar.MILLISECOND, 0);
         Calendar cal2 = Calendar.getInstance();
         cal2.set(2006, 1, 26, 10, 47, 34);
+        cal2.set(Calendar.MILLISECOND, 0);
 
         assertEquals( "0000/00/30 16:00:00 000", DurationFormatUtils.formatPeriod(cal1.getTime().getTime(), cal2.getTime().getTime(), "yyyy/MM/dd HH:mm:ss SSS") );
     }
