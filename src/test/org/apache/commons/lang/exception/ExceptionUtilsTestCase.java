@@ -15,6 +15,8 @@
  */
 package org.apache.commons.lang.exception;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -115,6 +117,17 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
         }
     }
 
+    //-----------------------------------------------------------------------
+    
+    public void testConstructor() {
+        assertNotNull(new ExceptionUtils());
+        Constructor[] cons = ExceptionUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(ExceptionUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(ExceptionUtils.class.getModifiers()));
+    }
+    
     //-----------------------------------------------------------------------
     
     public void testCauseMethodNameOps() {
