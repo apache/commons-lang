@@ -74,12 +74,15 @@ public class StopWatchTest extends TestCase {
             try {Thread.sleep(550);} catch (InterruptedException ex) {}
         watch.split();
         long splitTime = watch.getSplitTime();
+        String splitStr = watch.toSplitString();
             try {Thread.sleep(550);} catch (InterruptedException ex) {}
         watch.unsplit();
             try {Thread.sleep(550);} catch (InterruptedException ex) {}
         watch.stop();
         long totalTime = watch.getTime();
-        
+
+        assertEquals("Formatted split string not the correct length", 
+                     splitStr.length(), 11);
         assertTrue(splitTime >= 500);
         assertTrue(splitTime < 700);
         assertTrue(totalTime >= 1500);
