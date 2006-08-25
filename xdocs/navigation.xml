@@ -28,7 +28,7 @@ limitations under the License.
       <item name="Overview" href="/index.html"/>
       <item name="Download" href="http://jakarta.apache.org/site/downloads/downloads_commons-lang.cgi"/>
       <item name="Users guide" href="/userguide.html"/>
-      <item name="Javadoc (2.1 release)" href="api-release/index.html"/>
+      <item name="Javadoc (2.2 release)" href="api-release/index.html"/>
     </menu>
 
     <menu name="Development">
