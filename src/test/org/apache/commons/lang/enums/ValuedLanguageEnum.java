@@ -1,9 +1,10 @@
 /*
- * Copyright 2006 The Apache Software Foundation.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  * 
  *      http://www.apache.org/licenses/LICENSE-2.0
  * 
@@ -23,7 +24,7 @@ import java.util.Map;
  * Language enumeration.
  *
  * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
- * @version $Id: ValuedColorEnum.java 161244 2005-04-14 06:16:36Z ggregory $
+ * @version $Id$
  */
 public final class ValuedLanguageEnum extends ValuedEnum {
     public static final ValuedLanguageEnum ENGLISH = new ValuedLanguageEnum("English", 1);
