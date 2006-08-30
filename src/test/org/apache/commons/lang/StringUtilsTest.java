@@ -449,8 +449,28 @@ public class StringUtilsTest extends TestCase {
         assertEquals(null, StringUtils.splitPreserveAllTokens(null));
         assertEquals(0, StringUtils.splitPreserveAllTokens("").length);
         
-        String str = "a b .c";
+        String str = "abc def";
         String[] res = StringUtils.splitPreserveAllTokens(str);
+        assertEquals(2, res.length);
+        assertEquals("abc", res[0]);
+        assertEquals("def", res[1]);
+        
+        str = "abc  def";
+        res = StringUtils.splitPreserveAllTokens(str);
+        assertEquals(3, res.length);
+        assertEquals("abc", res[0]);
+        assertEquals("", res[1]);
+        assertEquals("def", res[2]);
+        
+        str = " abc ";
+        res = StringUtils.splitPreserveAllTokens(str);
+        assertEquals(3, res.length);
+        assertEquals("", res[0]);
+        assertEquals("abc", res[1]);
+        assertEquals("", res[2]);
+        
+        str = "a b .c";
+        res = StringUtils.splitPreserveAllTokens(str);
         assertEquals(3, res.length);
         assertEquals("a", res[0]);
         assertEquals("b", res[1]);
@@ -581,6 +601,23 @@ public class StringUtilsTest extends TestCase {
         assertEquals("a", res[2]);
         assertEquals("b", res[3]);
         assertEquals("c", res[4]);
+
+        str = "a b c ";
+        res = StringUtils.splitPreserveAllTokens(str,' ');
+        assertEquals(4, res.length);
+        assertEquals("a", res[0]);
+        assertEquals("b", res[1]);
+        assertEquals("c", res[2]);
+        assertEquals("", res[3]);
+
+        str = "a b c  ";
+        res = StringUtils.splitPreserveAllTokens(str,' ');
+        assertEquals(5, res.length);
+        assertEquals("a", res[0]);
+        assertEquals("b", res[1]);
+        assertEquals("c", res[2]);
+        assertEquals("", res[3]);
+        assertEquals("", res[3]);
 
         // Match example in javadoc
         {
