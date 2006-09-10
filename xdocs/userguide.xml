@@ -233,9 +233,5 @@ public final class ColorEnum extends Enum {
    <p>The text package was added in Lang 2.2. </p>
    </section>
 
-   <section name="Next version of Lang">
-    <p>The next version of Lang is a work in progress. </p>
-   </section>
-
 </body>
 </document>
