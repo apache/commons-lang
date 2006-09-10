@@ -223,9 +223,14 @@ public final class ColorEnum extends Enum {
 
    <section name="lang.text.*">
    <!--
-   Interpolation
-   MappedMessageFormat
+   CompositeFormat
+   StrLookup
+   StrSubstitutor
+   StrBuilder
+   StrMatcher
+   StrTokenizer
    -->
+   <p>The text package was added in Lang 2.2. </p>
    </section>
 
    <section name="Next version of Lang">
