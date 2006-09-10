@@ -78,7 +78,7 @@ import org.apache.commons.lang.ClassUtils;
  * <p>The above class could then be used as follows:</p>
  *
  * <pre>
- * public void doSomething(JavaVersion ver) {
+ * public void doSomething(JavaVersionEnum ver) {
  *   switch (ver.getValue()) {
  *     case JAVA1_0_VALUE:
  *       // ...
