@@ -1482,6 +1482,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals(StringUtils.removeEnd("", "a"), "");
         
         // All others:
+        assertEquals(StringUtils.removeEnd("www.domain.com.", ".com"), "www.domain.com.");
         assertEquals(StringUtils.removeEnd("www.domain.com", ".com"), "www.domain");
         assertEquals(StringUtils.removeEnd("www.domain", ".com"), "www.domain");
         assertEquals(StringUtils.removeEnd("domain.com", ""), "domain.com");   
