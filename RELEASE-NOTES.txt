@@ -105,11 +105,8 @@ LANG-246  CompositeFormat
 LANG-250  Performance boost for RandomStringUtils
 LANG-254  Enhanced Class.forName version
 LANG-260  StringEscapeUtils should expose escape*() methods taking Writer argument
-LANG-270  minor javadoc improvements for StringUtils.stripXxx() methods
-
-NEW FEATURES IN 2.2:
-
-          New ExceptionUtils methods getMessage/getRootCauseMessage
 LANG-263  Add StringUtils.containsIgnoreCase(...)
 LANG-267  Support char array converters on ArrayUtils
+LANG-270  minor javadoc improvements for StringUtils.stripXxx() methods
+          New ExceptionUtils methods getMessage/getRootCauseMessage
 
