@@ -13,15 +13,7 @@ should be of use in any Java environment.
 
 INCOMPATIBLE CHANGES WITH VERSION 2.1:
 
-(Review these incompatible changes, shouldn't be happening until 3.0)
-
-- Class changed: org.apache.commons.lang.builder.CompareToBuilder
-    Methods removed:
-      public static int reflectionCompare(Object, Object, boolean, Class);
-
-- Class changed: org.apache.commons.lang.builder.HashCodeBuilder
-    Methods removed:
-      public static int reflectionHashCode(int, int, Object, boolean, Class);
+- None
 
 ADDITIONAL INCOMPATIBLE CHANGES WITH VERSION 2.0:
 
