@@ -20,14 +20,15 @@ limitations under the License.
 </properties>
 <body>
 
+<!-- $Id$ -->
 
-<section name='Developers guide for Jakarta Commons "Lang"'>
+<section name='Developer guide for Jakarta Commons "Lang"'>
 
 
 <div align="center">
 <h1>The Jakarta Commons <em>Lang</em> Package</h1>
 <h2>Developers Guide</h2>
-$Id$<br />
+<br />
 <a href="#Introduction">[Introduction]</a>
 <a href="#PackageStructure">[Package Structure]</a>
 <a href="#UtilityClasses">[Utility Classes]</a>
@@ -41,7 +42,7 @@ $Id$<br />
 <h3>1.  INTRODUCTION</h3>
 
 <p>The <em>Lang</em> package contains a set of Java classes that extend
-the basic JDK classes. This developers guide seeks to set
+the basic JDK classes. This developer guide seeks to set
 out rules for the naming of classes and methods within the package. The purpose
 of this, as with all naming standards, is to improve the coherency and
 consistency of the whole API.</p>

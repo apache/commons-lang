@@ -28,7 +28,7 @@ limitations under the License.
     <menu name="Commons Lang">
       <item name="Overview" href="/index.html"/>
       <item name="Download" href="http://jakarta.apache.org/site/downloads/downloads_commons-lang.cgi"/>
-      <item name="Users guide" href="/userguide.html"/>
+      <item name="User guide" href="/userguide.html"/>
       <item name="Javadoc (2.2 release)" href="api-release/index.html"/>
     </menu>
 
@@ -38,7 +38,7 @@ limitations under the License.
       <item name="Team" href="/team-list.html"/>
       <item name="Tasks" href="/tasks.html"/>
       <item name="Proposal" href="/proposal.html"/>
-      <item name="Developers guide" href="/developerguide.html"/>
+      <item name="Developer guide" href="/developerguide.html"/>
       <item name="SVN repository" href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/lang/trunk/"/>
       <item name="Javadoc (SVN latest)" href="apidocs/index.html"/>
     </menu>
