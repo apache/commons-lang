@@ -294,6 +294,13 @@ public class HashCodeBuilder {
                                  );
     }
             
+    public static int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
+                                         Object object, boolean testTransients, Class reflectUpToClass) 
+    {
+        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, 
+                                  testTransients, reflectUpToClass, null);
+    }
+
     /**
      * <p>This method uses reflection to build a valid hash code.</p>
      *
