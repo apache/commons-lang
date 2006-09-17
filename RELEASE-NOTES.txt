@@ -13,9 +13,17 @@ should be of use in any Java environment.
 
 INCOMPATIBLE CHANGES WITH VERSION 2.1:
 
-	*** TO DO
+(Review these incompatible changes, shouldn't be happening until 3.0)
 
-INCOMPATIBLE CHANGES WITH VERSION 2.0:
+- Class changed: org.apache.commons.lang.builder.CompareToBuilder
+    Methods removed:
+      public static int reflectionCompare(Object, Object, boolean, Class);
+
+- Class changed: org.apache.commons.lang.builder.HashCodeBuilder
+    Methods removed:
+      public static int reflectionHashCode(int, int, Object, boolean, Class);
+
+ADDITIONAL INCOMPATIBLE CHANGES WITH VERSION 2.0:
 
 - The Nestable interface defines the method indexOfThrowable(Class).
 Previously the implementations checked only for a specific Class.
@@ -35,7 +43,7 @@ for more details.
 
 DEPRECATIONS FROM 2.1 to 2.2:
 
-	*** TO DO
+- None
 
 DEPRECATIONS FROM 2.0 to 2.1:
 
