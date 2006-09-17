@@ -19,17 +19,18 @@ limitations under the License.
 <document>
 
  <properties>
-  <title>Commons Lang - Users guide</title>
+  <title>Commons Lang - User guide</title>
   <author email="commons-dev@jakarta.apache.org">Commons Documentation Team</author>
  </properties>
 
  <body>
+  <!-- $Id$ -->
 
-  <section name='Users guide for Jakarta Commons "Lang"'>
+  <section name='User guide for Jakarta Commons "Lang"'>
     <div align="center">
       <h1>The Jakarta Commons <em>Lang</em> Package</h1>
       <h2>Users Guide</h2>
-$Id$<br />
+      <br />
       <a href="#Description">[Description]</a>
       <a href="#lang.*">[lang.*]</a>
       <a href="#lang.builder.*">[lang.builder.*]</a>
@@ -37,6 +38,7 @@ $Id$<br />
       <a href="#lang.exception.*">[lang.exception.*]</a>
       <a href="#lang.math.*">[lang.math.*]</a>
       <a href="#lang.mutable.*">[lang.mutable.*]</a>
+      <a href="#lang.text.*">[lang.text.*]</a>
       <a href="#lang.time.*">[lang.time.*]</a>
       <br /><br />
     </div>
@@ -208,6 +210,19 @@ public final class ColorEnum extends Enum {
     </p>
    </section>
 
+   <a name="lang.text.*"></a>
+   <section name="lang.text.*">
+   <!--
+   CompositeFormat
+   StrLookup
+   StrSubstitutor
+   StrBuilder
+   StrMatcher
+   StrTokenizer
+   -->
+   <p>The text package was added in Lang 2.2. </p>
+   </section>
+
    <a name="lang.time.*"></a>
    <section name="lang.time.*">
    <!--
@@ -219,18 +234,6 @@ public final class ColorEnum extends Enum {
    -->
     <p>Lang 2.0 saw the arrival of a time package. It contains some basic utilities for manipulating time (a delorean, police box and grandfather clock?). These include a StopWatch for simple performance measurements and an optimised FastDateFormat class. </p>
     <p>New in Lang 2.1 is the DurationFormatUtils class, which provides various methods for formatting durations. </p>
-   </section>
-
-   <section name="lang.text.*">
-   <!--
-   CompositeFormat
-   StrLookup
-   StrSubstitutor
-   StrBuilder
-   StrMatcher
-   StrTokenizer
-   -->
-   <p>The text package was added in Lang 2.2. </p>
    </section>
 
 </body>
