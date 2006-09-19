@@ -1063,7 +1063,7 @@ public class StringUtils {
             return false;
         }
         return contains(str.toUpperCase(), searchStr.toUpperCase());
-    } 
+    }
 
     // IndexOfAny chars
     //-----------------------------------------------------------------------
@@ -4297,7 +4297,7 @@ public class StringUtils {
         }
         return true;
     }
-  
+
     /**
      * <p>Checks if the String contains only unicode digits.
      * A decimal point is not a unicode digit and returns false.</p>
@@ -4826,7 +4826,7 @@ public class StringUtils {
             for (i=1; i<=n; i++) {
                 cost = s.charAt(i-1)==t_j ? 0 : 1;
                 // minimum of cell to the left+1, to the top+1, diagonally left and up +cost
-                d[i] = Math.min(Math.min(d[i-1]+1, p[i]+1),  p[i-1]+cost);  
+                d[i] = Math.min(Math.min(d[i-1]+1, p[i]+1),  p[i-1]+cost);
             }
 
             // copy current distance counts to 'previous row' distance counts
