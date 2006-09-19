@@ -16,6 +16,9 @@
  */
 package org.apache.commons.lang.builder;
 
+import org.apache.commons.lang.builder.ToStringBuilderTest.ReflectionTestCycleA;
+import org.apache.commons.lang.builder.ToStringBuilderTest.ReflectionTestCycleB;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -29,6 +32,28 @@ import junit.textui.TestRunner;
  */
 public class HashCodeBuilderTest extends TestCase {
 
+    /**
+     * A reflection test fixture.
+     */
+    static class ReflectionTestCycleA {
+        ReflectionTestCycleB b;
+
+        public int hashCode() {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+    }
+
+    /**
+     * A reflection test fixture.
+     */
+    static class ReflectionTestCycleB {
+        ReflectionTestCycleA a;
+
+        public int hashCode() {
+            return HashCodeBuilder.reflectionHashCode(this);
+        }
+    }
+    
     public HashCodeBuilderTest(String name) {
         super(name);
     }
@@ -467,4 +492,34 @@ public class HashCodeBuilderTest extends TestCase {
             this.three = three;
         }
     }
+    
+    /**
+     * Test Objects pointing to each other.
+     */
+    public void testReflectionObjectCycle() {
+        ReflectionTestCycleA a = new ReflectionTestCycleA();
+        ReflectionTestCycleB b = new ReflectionTestCycleB();
+        a.b = b;
+        b.a = a;
+        // Causes:
+        // java.lang.StackOverflowError
+        // at java.lang.ClassLoader.getCallerClassLoader(Native Method)
+        // at java.lang.Class.getDeclaredFields(Class.java:992)
+        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionAppend(HashCodeBuilder.java:373)
+        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:349)
+        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:155)
+        // at
+        // org.apache.commons.lang.builder.HashCodeBuilderTest$ReflectionTestCycleB.hashCode(HashCodeBuilderTest.java:53)
+        // at org.apache.commons.lang.builder.HashCodeBuilder.append(HashCodeBuilder.java:422)
+        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionAppend(HashCodeBuilder.java:383)
+        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:349)
+        // at org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode(HashCodeBuilder.java:155)
+        // at
+        // org.apache.commons.lang.builder.HashCodeBuilderTest$ReflectionTestCycleA.hashCode(HashCodeBuilderTest.java:42)
+        // at org.apache.commons.lang.builder.HashCodeBuilder.append(HashCodeBuilder.java:422)
+
+        // a.hashCode();
+        // b.hashCode();
+    }
+
 }
