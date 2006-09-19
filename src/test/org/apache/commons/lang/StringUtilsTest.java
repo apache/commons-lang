@@ -20,6 +20,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Collection;
+import java.util.Collections;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -243,13 +245,16 @@ public class StringUtilsTest extends TestCase {
         assertEquals(TEXT_LIST_CHAR, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(Arrays.asList(NULL_ARRAY_LIST).iterator(), SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(), SEPARATOR_CHAR));
+        assertEquals("foo", StringUtils.join(Collections.singleton("foo").iterator(), 'x'));
     }
     
     public void testJoin_IteratorString() {
         assertEquals(null, StringUtils.join((Iterator) null, null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), ""));
-        
+        assertEquals("foo", StringUtils.join(Collections.singleton("foo").iterator(), "x"));
+        assertEquals("foo", StringUtils.join(Collections.singleton("foo").iterator(), null));
+
         assertEquals("", StringUtils.join(Arrays.asList(NULL_ARRAY_LIST).iterator(), null));
         
         assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST).iterator(), null));
@@ -258,7 +263,31 @@ public class StringUtilsTest extends TestCase {
         
         assertEquals(TEXT_LIST, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), SEPARATOR));
     }
-    
+
+    public void testJoin_CollectionChar() {
+        assertEquals(null, StringUtils.join((Collection) null, ','));
+        assertEquals(TEXT_LIST_CHAR, StringUtils.join(Arrays.asList(ARRAY_LIST), SEPARATOR_CHAR));
+        assertEquals("", StringUtils.join(Arrays.asList(NULL_ARRAY_LIST), SEPARATOR_CHAR));
+        assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST), SEPARATOR_CHAR));
+        assertEquals("foo", StringUtils.join(Collections.singleton("foo"), 'x'));
+    }
+
+    public void testJoin_CollectionString() {
+        assertEquals(null, StringUtils.join((Collection) null, null));
+        assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST), null));
+        assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST), ""));
+        assertEquals("foo", StringUtils.join(Collections.singleton("foo"), "x"));
+        assertEquals("foo", StringUtils.join(Collections.singleton("foo"), null));
+
+        assertEquals("", StringUtils.join(Arrays.asList(NULL_ARRAY_LIST), null));
+
+        assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST), null));
+        assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST), ""));
+        assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST), SEPARATOR));
+
+        assertEquals(TEXT_LIST, StringUtils.join(Arrays.asList(ARRAY_LIST), SEPARATOR));
+    }
+
     public void testConcatenate_Objectarray() {
         assertEquals(null, StringUtils.concatenate(null));
         assertEquals("", StringUtils.concatenate(EMPTY_ARRAY_LIST));
