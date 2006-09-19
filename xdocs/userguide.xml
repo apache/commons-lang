@@ -220,7 +220,7 @@ public final class ColorEnum extends Enum {
    StrMatcher
    StrTokenizer
    -->
-   <p>The text package was added in Lang 2.2. </p>
+   <p>The text package was added in Lang 2.2. It provides, amongst other classes, a replacement for StringBuffer named <code>StrBuilder</code>, a class for substituting variables within a String named <code>StrSubstitutor</code> and a replacement for StringTokenizer named <code>StrTokenizer</code>. While somewhat ungainly, the <code>Str</code> prefix has been used to ensure we don't clash with any current or future standard Java classes. </p>
    </section>
 
    <a name="lang.time.*"></a>
