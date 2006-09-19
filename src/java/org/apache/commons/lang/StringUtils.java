@@ -2635,19 +2635,33 @@ public class StringUtils {
      * @since 2.0
      */
     public static String join(Iterator iterator, char separator) {
+
+        // handle null, zero and one elements before building a buffer
         if (iterator == null) {
             return null;
         }
+        if (!iterator.hasNext()) {
+            return EMPTY;
+        }
+        Object first = iterator.next();
+        if (!iterator.hasNext()) {
+            return ObjectUtils.toString(first);
+        }
+
+        // two or more elements
         StringBuffer buf = new StringBuffer(256); // Java default is 16, probably too small
+        if (first != null) {
+            buf.append(first);
+        }
+
         while (iterator.hasNext()) {
+            buf.append(separator);
             Object obj = iterator.next();
             if (obj != null) {
                 buf.append(obj);
             }
-            if (iterator.hasNext()) {
-                buf.append(separator);
-            }
         }
+
         return buf.toString();
     }
 
@@ -2665,17 +2679,32 @@ public class StringUtils {
      * @return the joined String, <code>null</code> if null iterator input
      */
     public static String join(Iterator iterator, String separator) {
+
+        // handle null, zero and one elements before building a buffer
         if (iterator == null) {
             return null;
         }
+        if (!iterator.hasNext()) {
+            return EMPTY;
+        }
+        Object first = iterator.next();
+        if (!iterator.hasNext()) {
+            return ObjectUtils.toString(first);
+        }
+
+        // two or more elements
         StringBuffer buf = new StringBuffer(256); // Java default is 16, probably too small
+        if (first != null) {
+            buf.append(first);
+        }
+
         while (iterator.hasNext()) {
+            if (separator != null) {
+                buf.append(separator);
+            }
             Object obj = iterator.next();
             if (obj != null) {
                 buf.append(obj);
-            }
-            if ((separator != null) && iterator.hasNext()) {
-                buf.append(separator);
             }
         }
         return buf.toString();
