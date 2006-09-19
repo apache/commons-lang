@@ -686,7 +686,7 @@ public class DateUtilsTest extends TestCase {
                     dateTimeParser.parse("March 30, 2003 04:00:00.000"),
                     DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY));
         } else {
-            this.warn("Some date rounding tests not run since the current version is " + SystemUtils.JAVA_VERSION);
+            this.warn("WARNING: Some date rounding tests not run since the current version is " + SystemUtils.JAVA_VERSION);
         }
         TimeZone.setDefault(defaultZone);
         dateTimeParser.setTimeZone(defaultZone);
@@ -889,6 +889,10 @@ public class DateUtilsTest extends TestCase {
      * see http://issues.apache.org/jira/browse/LANG-59
      */
     public void testTruncateLang59() throws Exception {
+        if (!SystemUtils.isJavaVersionAtLeast(1.4f)) {
+            this.warn("WARNING: Test for LANG-59 not run since the current version is " + SystemUtils.JAVA_VERSION);
+            return;
+        }
 
         // Set TimeZone to Mountain Time
         TimeZone MST_MDT = TimeZone.getTimeZone("MST7MDT");
