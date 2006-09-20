@@ -1,0 +1,202 @@
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+<title>Status File for Jakarta Commons "Lang" Component</title>
+</head>
+<body bgcolor="white">
+
+
+<div align="center">
+<h1>The Jakarta Commons <em>Lang</em> Component</h1>
+$Id$<br />
+<a href="#Introduction">[Introduction]</a>
+<a href="#Dependencies">[Dependencies]</a>
+<a href="#Release Info">[Release Info]</a>
+<a href="#Known Issues">[Known Issues]</a>
+<a href="#Action Items">[Action Items]</a>
+<a href="#Committers">[Committers]</a>
+<br /><br />
+</div>
+
+
+<a name="Introduction"></a>
+<h3>1.  INTRODUCTION</h3>
+
+<p>The <em>Lang</em> Component contains a set of Java classes that provide
+a basic set of common utility code on top of the standard Java classes.
+The following principal classes are included:</p>
+<ul>
+<li><strong>Main package</strong> - A package for the manipulation of basic Java classes
+<ul>
+ <li><strong>ArrayUtils</strong> - Helper for manipulating arrays.</li>
+ <li><strong>BitField</strong> - A class to assist with manipulating bits.</li>
+ <li><strong>BooleanUtils</strong> - Helper for boolean and java.lang.Boolean.</li>
+ <li><strong>CharEncoding</strong> - Character encoding names required of every implementation of the Java platform.</li>
+ <li><strong>CharRange</strong> - A range of characters.</li>
+ <li><strong>CharSet</strong> - A set of characters.</li>
+ <li><strong>CharSetUtils</strong> - Methods for dealing with CharSets, which are sets of characters such as [a-z] and [abcdez].</li>
+ <li><strong>CharUtils</strong> - Helper for operations on char primities and Character objects.</li>
+ <li><strong>ClassUtils</strong> - Helper for manipulating java.lang.Class objects.</li>
+ <li><strong>ObjectUtils</strong> - Helper for java.lang.Object.</li>
+ <li><strong>RandomStringUtils</strong> - Helper for creating randomised Strings.</li>
+ <li><strong>SerializationUtils</strong> - Helper for serializing Objects.</li>
+ <li><strong>StringEscapeUtils</strong> - Utility for escaping and unescaping Strings.</li>
+ <li><strong>StringUtils</strong> - Helper for java.lang.String.</li>
+ <li><strong>SystemUtils</strong> - Utility class defining the Java system properties.</li>
+ <li><strong>Validate</strong> - A class to simplify method argument validation.</li>
+ <li><strong>WordUtils</strong> - Utility for working with words.</li>
+</ul></li>
+
+<li><strong>Builder package</strong> - A package for the creation of equals, hashCode, compareTo and toString methods.
+<ul>
+ <li><strong>ToStringBuilder</strong> - Helper for building toString methods.</li>
+ <li><strong>EqualsBuilder</strong> - Helper for building equals methods.</li>
+ <li><strong>HashCodeBuilder</strong> - Helper for building hashCode methods.</li>
+ <li><strong>CompareToBuilder</strong> - Helper for building compareTo methods.</li>
+ <li><strong>ReflectionToStringBuilder</strong> - Helper for building toString methods using reflection.</li>
+ <li><strong>ToStringStyle</strong> - Controls string formatting for <strong>ToStringBuilder</strong>.</li>
+ <li><strong>StandardToStringStyle</strong> - Works with <strong>ToStringBuilder</strong> to create a toString.</li>
+</ul></li>
+
+<li><strong>Enums package</strong> - A package for the creation of enumerated types. Note: The package was previously named <strong>Enum</strong>.
+<ul>
+ <li><strong>EnumUtils</strong> - Helper for manipulating enumerated types.</li>
+ <li><strong>Enum</strong> - Abstract superclass for enumerated types to extend.</li>
+ <li><strong>ValuedEnum</strong> - Superclass for enumerated types with an integer constant.</li>
+</ul></li>
+
+<li><strong>Exception package</strong> - A package for the creation and manipulation of nested exceptions.</li>
+<ul>
+ <li><strong>ExceptionUtils</strong> - Helper for manipulating exceptions.</li>
+ <li><strong>NestableException</strong> - An exception that supports a nested exception.</li>
+ <li><strong>NestableRuntimeException</strong> - An exception that supports a nested exception.</li>
+ <li><strong>NestableError</strong> - An exception that supports a nested exception.</li>
+</ul></li>
+
+<li><strong>Math package</strong> - A package for simple business (not scientific) maths classes.
+<ul>
+ <li><strong>DoubleRange</strong> - Represents an inclusive range of doubles.</li>
+ <li><strong>FloatRange</strong> - Represents an inclusive range of floats.</li>
+ <li><strong>Fraction</strong> - A fraction.</li>
+ <li><strong>IntRange</strong> - Represents an inclusive range of ints.</li>
+ <li><strong>JVMRandom</strong> - An implementation of Random that does its best to appear to sit on top of java.lang.Math's private Random class.</li>
+ <li><strong>LongRange</strong> - Represents an inclusive range of longs.</li>
+ <li><strong>NumberRange</strong> - Represents an inclusive range of <strong>Number</strong> objects of the same type.</li>
+ <li><strong>NumberUtils</strong> - Helper for java.lang.Number and its subclasses.</li>
+ <li><strong>RandomUtils</strong> - A utility class for working with random numbers.</li>
+ <li><strong>Range</strong> - A range of numbers, of which there are classes representing Numbers, ints, doubles, longs and floats.</li>
+</ul></li>
+
+<li><strong>Mutable package</strong> - A package for typed mutable wrappers to primitive values and Object.
+<ul>
+ <li><strong>MutableByte</strong> - A mutable byte wrapper.</li>
+ <li><strong>MutableDouble</strong> - A mutable double wrapper.</li>
+ <li><strong>MutableFloat</strong> - A mutable float wrapper.</li>
+ <li><strong>MutableInt</strong> - A mutable int wrapper.</li>
+ <li><strong>MutableLong</strong> - A mutable long wrapper.</li>
+ <li><strong>MutableObject</strong> - A mutable Object wrapper.</li>
+ <li><strong>MutableShort</strong> - A mutable short wrapper.</li>
+</ul></li>
+
+<li><strong>Time package</strong> - A package for date/time related utilities.
+<ul>
+ <li><strong>DateFormatUtils</strong> - Aids in formatting Dates.</li>
+ <li><strong>DateUtils</strong> - Aids in manipulating Dates.</li>
+ <li><strong>DurationFormatUtils</strong> - Duration formatting utilities and constants.</li>
+ <li><strong>FastDateFormat</strong> - Optimised version of SimpleDateFormat.</li>
+ <li><strong>StopWatch</strong> - Records durations, represented by milliseconds.</li>
+</ul></li>
+
+</ul>
+
+
+<a name="Dependencies"></a>
+<h3>2.  DEPENDENCIES</h3>
+
+<p>The <em>Lang</em> component is dependent upon the following external
+components for development and use:</p>
+<ul>
+<li><a href="http://java.sun.com/j2se">Java Development Kit</a>
+    (Version 1.2 or later)</li>
+<li><a href="http://www.junit.org">JUnit Testing Framework</a>
+    (Version 3.8.1 or later) - for unit tests only, not required
+    for deployment</li>
+<li><a href="http://ant.apache.org">Apache Ant</a>
+    (Version 1.6 or later) - for building distributions</li>
+</ul>
+
+
+<a name="Release Info"></a>
+<h3>3.  RELEASE INFO</h3>
+
+<p>Current Release: 
+<a href="http://www.apache.org/dist/jakarta/commons/lang/">Version 2.1</a>
+</p>
+
+<p>Planned Next Release:  
+Undetermined
+</p>
+
+
+<a name="Known Issues"></a>
+<h3>4.  KNOWN ISSUES</h3>
+<p>
+<ul>
+</ul>
+</p>
+
+
+<a name="Action Items"></a>
+<h3>5.  ACTION ITEMS</h3>
+
+<p>Want to help?  Here's some "to do" items the team has identified as possibly being in scope for Lang.
+Note that all are still under discussion, so please mail the list before actioning.</p>
+<ul>
+<li>DateRange/Duration class.</li>
+<li>CloneUtils - utility class to enable cloning via various different mechanisms.</li>
+<li>StringUtils.reverseSplit(String, String delim, int count). Should basically be a 'reverseArray(reverseDelimitedString(split(txt, delim, count)))'.</li>
+<li>AStringBuffer - A StringBuffer implementation with additional methods from StringUtils.</li>
+<li>O(n) - Document all algorithm-implementing methods with the order. Possibly with an O(n) on the end of each parameterm or with an @order tag.</li>
+<li>Money and Currency. Maybe separate project.</li>
+<li>Code examples - Document as many static methods as possible with example usage.</li>
+<li>Faster StringTokeniser - Is Java's slow?</li>
+<li>StringUtilsNPE - A StringUtils that doesn't like nulls.</li>
+</ul>
+
+
+<a name="Committers"></a>
+<h3>6.  COMMITTERS</h3>
+
+<p>The following individuals are the primary developers and maintainers of this
+component.  Developers who plan to use <em>Lang</em> in their own
+projects are encouraged to collaborate on the future development of this
+component to ensure that it continues to meet a variety of needs.</p>
+<ul>
+<li><a href="mailto:bayard@apache.org">Henri Yandell</a></li>
+<li><a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a></li>
+<li><a href="mailto:scolebourne@joda.org">Stephen Colebourne</a></li>
+<li><a href="mailto:stevencaswell@apache.org">Steven Caswell</a></li>
+<li><a href="mailto:rdonkin@apache.org">Robert Burrell Donkin</a></li>
+<li><a href="mailto:ggregory@seagullsw.com">Gary Gregory</a></li>
+<li><a href="mailto:phil@steitz.com">Phil Steitz</a></li>
+<li><a href="mailto:fredrik@apache.org">Fredrik Westermarck</a></li>
+<!-- New committers, add your name here -->
+</ul>
+
+</body>
+</html>

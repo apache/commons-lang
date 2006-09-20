@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<document>
+ <properties>
+  <title>Home</title>
+  <author email="commons-dev@jakarta.apache.org">Commons Documentation Team</author>
+ </properties>
+<body>
+<!-- ================================================== -->
+<section name="Commons Lang">
+
+<p>
+The standard Java libraries fail to provide enough methods for
+manipulation of its core classes. The <em>Lang</em> Component provides
+these extra methods. 
+</p>
+
+<p>
+The <em>Lang</em> Component provides a host of helper utilities for the java.lang API, notably 
+String manipulation methods, basic numerical methods, object reflection, creation and serialization, 
+and System properties. Additionally it contains an inheritable enum type, an exception structure that 
+supports multiple types of nested-Exceptions, basic enhancements to java.util.Date and a series of utlities dedicated to help with 
+building methods, such as hashCode, toString and equals.
+</p>
+</section>
+<!-- ================================================== -->
+<section name="Documentation">
+<p>
+A getting started <a href="userguide.html">user guide</a> is available
+together with various <a href="maven-reports.html">project reports</a>.
+</p>
+<p>
+The JavaDoc API documents are available online:
+</p>
+<ul>
+<li>The <a href="api-release/index.html">current release 2.2</a></li>
+<li>The <a href="api-2.1/index.html">previous version 2.1</a></li>
+<li>The <a href="api-2.0/index.html">previous version 2.0</a></li>
+<li>The <a href="apidocs/index.html">latest SVN</a></li>
+</ul>
+<p>
+The <a href="cvs-usage.html">subversion repository</a> can be
+<a href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/lang/trunk/">browsed</a>.
+</p>
+</section>
+<!-- ================================================== -->
+<section name="Releases">
+<p>
+The latest version is v2.2. - 
+<a href="http://jakarta.apache.org/site/downloads/downloads_commons-lang.cgi">Download now!</a><br />
+The <a href="upgradeto2_2.html">upgrade notes</a> are also available.<br />
+<!-- In addition there is a <a href="Commons-Lang-2.1-to-2.2/changes.html">JDiff report</a> on the differences between 2.1 and 2.2. -->
+</p>
+<p>
+For previous releases, see the <a href="http://archive.apache.org/dist/jakarta/commons/lang/">Apache Archive</a>
+</p>
+</section>
+<!-- ================================================== -->
+<section name="Support">
+<p>
+The <a href="mail-lists.html">commons mailing lists</a> act as the main support forum.
+The user list is suitable for most library usage queries.
+The dev list is intended for the development discussion.
+Please remember that the lists are shared between all commons components,
+so prefix your email by [lang].
+</p>
+<p>
+Issues may be reported via <a href="issue-tracking.html">ASF JIRA</a>.
+Please read the instructions carefully to submit a useful bug report or enhancement request.
+</p>
+</section>
+<!-- ================================================== -->
+<section name="Resources">
+<ul>
+<li>
+Oct 17, 2003 - <a href="http://www.builder.com/">Builder.com</a> has an article on Commons Lang v1.0 entitled
+<a href="http://builder.com.com/article.jhtml?id=u00320021017yan01.htm&amp;page=1&amp;vf=tt">Jakarta Commons Lang project offers centralized utility functions</a>
+[and in <a href="http://www.zdnet.com.cn/developer/tech/story/0,2000081602,39077840,00.htm">chinese</a>].
+</li>
+<li>
+<a href="http://maven.apache.org">Maven</a>,
+<a href="http://jdiff.sourceforge.net/">JDiff</a>,
+<a href="http://clirr.sourceforge.net/">Clirr</a>,
+<a href="http://pmd.sourceforge.net/">PMD</a>,
+<a href="http://www.cs.umd.edu/~pugh/java/bugs/">FindBugs</a> and
+<a href="http://cobertura.sourceforge.net/">Cobertura</a>
+have all been of use in the latest release of Commons Lang. 
+</li>
+</ul>
+</section>
+<!-- ================================================== -->
+</body>
+</document>
