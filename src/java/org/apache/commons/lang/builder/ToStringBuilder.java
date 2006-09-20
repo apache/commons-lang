@@ -443,11 +443,11 @@ public class ToStringBuilder {
      * <p>Append to the <code>toString</code> an <code>Object</code>
      * value.</p>
      *
-     * @param object  the value to add to the <code>toString</code>
+     * @param obj  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder append(Object object) {
-        style.append(buffer, null, object, null);
+    public ToStringBuilder append(Object obj) {
+        style.append(buffer, null, obj, null);
         return this;
     }
 
@@ -819,11 +819,11 @@ public class ToStringBuilder {
      * value.</p>
      *
      * @param fieldName  the field name
-     * @param object  the value to add to the <code>toString</code>
+     * @param obj  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder append(String fieldName, Object object) {
-        style.append(buffer, fieldName, object, null);
+    public ToStringBuilder append(String fieldName, Object obj) {
+        style.append(buffer, fieldName, obj, null);
         return this;
     }
 
@@ -832,13 +832,13 @@ public class ToStringBuilder {
      * value.</p>
      *
      * @param fieldName  the field name
-     * @param object  the value to add to the <code>toString</code>
+     * @param obj  the value to add to the <code>toString</code>
      * @param fullDetail  <code>true</code> for detail,
      *  <code>false</code> for summary info
      * @return this
      */
-    public ToStringBuilder append(String fieldName, Object object, boolean fullDetail) {
-        style.append(buffer, fieldName, object, BooleanUtils.toBooleanObject(fullDetail));
+    public ToStringBuilder append(String fieldName, Object obj, boolean fullDetail) {
+        style.append(buffer, fieldName, obj, BooleanUtils.toBooleanObject(fullDetail));
         return this;
     }
 
