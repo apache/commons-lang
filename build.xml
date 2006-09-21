@@ -96,6 +96,8 @@
 		<antcall target="jar"/>
 	</target>
 	<target name="dist-build" depends="clean,dist" description="Build binary distribution files">
+		<jar jarfile="${final.name}-sources.jar" basedir="${source.home}" manifest="${build.home}/conf/MANIFEST.MF"/>
+		<jar jarfile="${final.name}-javadoc.jar" basedir="${dist.home}/docs/api" manifest="${build.home}/conf/MANIFEST.MF"/>
 		<mkdir dir="${final.name}"/>
 		<move todir="${final.name}/${final.name}">
 			<fileset dir="${dist.home}"/>
