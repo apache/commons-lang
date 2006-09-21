@@ -35,7 +35,6 @@ The following tasks are on the TODO list:
 <li>Improve maven script to generate previous version javadoc as per collections</li>
 <li>CloneUtils - utility class to enable cloning via various different mechanisms</li>
 <li>CharUtils - Utilities to work on a char[] in the same way as a String</li>
-<li>StringBuf - A StringBuffer implementation with additional methods from StringUtils</li>
 <li>Code examples - Document as many static methods as possible with example usage</li>
 </ul>
 

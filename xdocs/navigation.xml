@@ -39,7 +39,7 @@ limitations under the License.
       <item name="Tasks" href="/tasks.html"/>
       <item name="Proposal" href="/proposal.html"/>
       <item name="Developer guide" href="/developerguide.html"/>
-      <item name="SVN repository" href="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/lang/trunk/"/>
+      <item name="SVN repository" href="http://svn.apache.org/viewvc/jakarta/commons/proper/lang/trunk/"/>
       <item name="Javadoc (SVN latest)" href="apidocs/index.html"/>
     </menu>
 
