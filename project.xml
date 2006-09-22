@@ -378,7 +378,7 @@ limitations under the License.
       <dependency>
         <groupId>maven-plugins</groupId>
         <artifactId>maven-cobertura-plugin</artifactId>
-        <version>1.1.1</version>
+        <version>1.2</version>
         <url>http://maven-plugins.sourceforge.net/maven-cobertura-plugin/</url>
         <type>plugin</type>
         <properties>
@@ -386,15 +386,6 @@ limitations under the License.
          <comment>Required only for generating test coverage reports.</comment>
         </properties>
       </dependency>
-        <!--
-    <dependency>
-      <groupId>maven-plugins</groupId>
-      <artifactId>maven-findbugs-plugin</artifactId>
-      <version>0.7.1</version>
-      <url>http://maven-plugins.sourceforge.net/maven-findbugs-plugin/</url>
-      <type>plugin</type>
-    </dependency>
-    -->
     </dependencies>
     <build>
         <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
