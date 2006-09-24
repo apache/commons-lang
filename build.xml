@@ -46,6 +46,8 @@
 		<filter token="name" value="${component.name}"/>
 		<filter token="package" value="${component.package}"/>
 		<filter token="version" value="${component.version}"/>
+		<filter token="compile.source" value="${compile.source}"/>
+		<filter token="compile.target" value="${compile.target}"/>
 	</target>
 	<target name="prepare" depends="init" description="Prepare build directory">
 		<mkdir dir="${build.home}"/>
