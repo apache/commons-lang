@@ -294,6 +294,36 @@ public class HashCodeBuilder {
                                  );
     }
             
+    /**
+     * <p>This method uses reflection to build a valid hash code.</p>
+     *
+     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
+     * fields. This means that it will throw a security exception if run under
+     * a security manager, if the permissions are not set up correctly. It is also
+     * not as efficient as testing explicitly.</p>
+     *
+     * <p>If the TestTransients parameter is set to <code>true</code>, transient
+     * members will be tested, otherwise they are ignored, as they are likely
+     * derived fields, and not part of the value of the <code>Object</code>.</p>
+     *
+     * <p>Static fields will not be included. Superclass fields will be included
+     * up to and including the specified superclass. A null superclass is treated
+     * as java.lang.Object.</p>
+     *
+     * <p>Two randomly chosen, non-zero, odd numbers must be passed in. Ideally
+     * these should be different for each class, however this is not vital.
+     * Prime numbers are preferred, especially for the multiplier.</p>
+     *
+     * @param initialNonZeroOddNumber  a non-zero, odd number used as the initial value
+     * @param multiplierNonZeroOddNumber  a non-zero, odd number used as the multiplier
+     * @param object  the Object to create a <code>hashCode</code> for
+     * @param testTransients  whether to include transient fields
+     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
+     *  may be <code>null</code>
+     * @return int hash code
+     * @throws IllegalArgumentException if the Object is <code>null</code>
+     * @throws IllegalArgumentException if the number is zero or even
+     */
     public static int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber,
                                          Object object, boolean testTransients, Class reflectUpToClass) 
     {
