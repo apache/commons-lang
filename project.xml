@@ -20,7 +20,7 @@ limitations under the License.
     <groupId>commons-lang</groupId>
     <artifactId>commons-lang</artifactId>
     <name>Lang</name>
-    <currentVersion>2.2-rc2</currentVersion>
+    <currentVersion>2.2-rc3</currentVersion>
     <inceptionYear>2001</inceptionYear>
     <shortDescription>Java Common Components</shortDescription>
     <description>
