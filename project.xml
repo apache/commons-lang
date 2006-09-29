@@ -390,16 +390,7 @@ limitations under the License.
     <build>
         <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
         <sourceDirectory>src/java</sourceDirectory>
-        <sourceModifications>
-            <sourceModification>
-                <className>FakeClass</className>
-                <excludes>
-            </excludes>
-            </sourceModification>
-        </sourceModifications>
         <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-        <integrationUnitTestSourceDirectory/>
-        <aspectSourceDirectory/>
         <resources>
             <resource>
                 <directory>.</directory>
