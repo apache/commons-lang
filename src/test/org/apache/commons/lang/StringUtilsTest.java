@@ -222,6 +222,12 @@ public class StringUtilsTest extends TestCase {
         assertEquals("", StringUtils.join(EMPTY_ARRAY_LIST, SEPARATOR_CHAR));
         assertEquals(";;foo", StringUtils.join(MIXED_ARRAY_LIST, SEPARATOR_CHAR));
         assertEquals("foo;2", StringUtils.join(MIXED_TYPE_LIST, SEPARATOR_CHAR));
+
+        assertEquals("/", StringUtils.join(MIXED_ARRAY_LIST, '/', 0, MIXED_ARRAY_LIST.length-1));
+        assertEquals("foo", StringUtils.join(MIXED_TYPE_LIST, '/', 0, 1));
+        assertEquals("foo/2", StringUtils.join(MIXED_TYPE_LIST, '/', 0, 2));
+        assertEquals("2", StringUtils.join(MIXED_TYPE_LIST, '/', 1, 2));
+        assertEquals("", StringUtils.join(MIXED_TYPE_LIST, '/', 2, 1));
     }
     
     public void testJoin_ArrayString() {
@@ -238,6 +244,13 @@ public class StringUtilsTest extends TestCase {
         assertEquals(TEXT_LIST, StringUtils.join(ARRAY_LIST, SEPARATOR));
         assertEquals(",,foo", StringUtils.join(MIXED_ARRAY_LIST, SEPARATOR));
         assertEquals("foo,2", StringUtils.join(MIXED_TYPE_LIST, SEPARATOR));
+
+        assertEquals("/", StringUtils.join(MIXED_ARRAY_LIST, "/", 0, MIXED_ARRAY_LIST.length-1));
+        assertEquals("", StringUtils.join(MIXED_ARRAY_LIST, "", 0, MIXED_ARRAY_LIST.length-1));
+        assertEquals("foo", StringUtils.join(MIXED_TYPE_LIST, "/", 0, 1));
+        assertEquals("foo/2", StringUtils.join(MIXED_TYPE_LIST, "/", 0, 2));
+        assertEquals("2", StringUtils.join(MIXED_TYPE_LIST, "/", 1, 2));
+        assertEquals("", StringUtils.join(MIXED_TYPE_LIST, "/", 2, 1));
     }
     
     public void testJoin_IteratorChar() {
