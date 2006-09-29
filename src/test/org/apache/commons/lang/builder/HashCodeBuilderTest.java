@@ -514,7 +514,8 @@ public class HashCodeBuilderTest extends TestCase {
         ReflectionTestCycleB b = new ReflectionTestCycleB();
         a.b = b;
         b.a = a;
-        // Causes:
+        
+        // Used to caused:
         // java.lang.StackOverflowError
         // at java.lang.ClassLoader.getCallerClassLoader(Native Method)
         // at java.lang.Class.getDeclaredFields(Class.java:992)
