@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+c?xml version="1.0"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one or more
 contributor license agreements.  See the NOTICE file distributed with
@@ -20,7 +20,7 @@ limitations under the License.
     <groupId>commons-lang</groupId>
     <artifactId>commons-lang</artifactId>
     <name>Lang</name>
-    <currentVersion>2.2-rc3</currentVersion>
+    <currentVersion>2.2</currentVersion>
     <inceptionYear>2001</inceptionYear>
     <shortDescription>Java Common Components</shortDescription>
     <description>
