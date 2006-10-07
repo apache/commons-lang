@@ -411,6 +411,29 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEquals( "0000/00/30 16:00:00 000", DurationFormatUtils.formatPeriod(cal1.getTime().getTime(), cal2.getTime().getTime(), "yyyy/MM/dd HH:mm:ss SSS") );
     }
 
+    // https://issues.apache.org/jira/browse/LANG-281
+    public void testJiraLang281() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, Calendar.DECEMBER);
+        cal.set(Calendar.DAY_OF_MONTH, 31);
+        cal.set(Calendar.YEAR, 2005);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        Calendar cal2 = Calendar.getInstance();
+        cal2.set(Calendar.MONTH, Calendar.OCTOBER);
+        cal2.set(Calendar.DAY_OF_MONTH, 6);
+        cal2.set(Calendar.YEAR, 2006);
+        cal2.set(Calendar.HOUR_OF_DAY, 0);
+        cal2.set(Calendar.MINUTE, 0);
+        cal2.set(Calendar.SECOND, 0);
+        cal2.set(Calendar.MILLISECOND, 0);
+        String result = DurationFormatUtils.formatPeriod(cal.getTime().getTime(), cal2.getTime().getTime(), "MM");
+        assertEquals("09", result);
+    }
+
     private void assertArrayEquals(DurationFormatUtils.Token[] obj1, DurationFormatUtils.Token[] obj2) {
         assertEquals("Arrays are unequal length. ", obj1.length, obj2.length);
         for (int i = 0; i < obj1.length; i++) {

@@ -303,22 +303,20 @@ public class DurationFormatUtils {
             days -= 1;
         }
         while (days < 0) {
-            days += 31; // such overshooting is taken care of later on
+            end.add(Calendar.MONTH, -1);
+            days += end.getActualMaximum(Calendar.DAY_OF_MONTH);
+//days += 31; // TODO: Need tests to show this is bad and the new code is good.
+// HEN: It's a tricky subject. Jan 15th to March 10th. If I count days-first it is 
+// 1 month and 26 days, but if I count month-first then it is 1 month and 23 days.
+// Also it's contextual - if asked for no M in the format then I should probably 
+// be doing no calculating here.
             months -= 1;
+            end.add(Calendar.MONTH, 1);
         }
         while (months < 0) {
             months += 12;
             years -= 1;
         }
-
-        // take estimates off of end to see if we can equal start, when it overshoots recalculate
-        milliseconds -= reduceAndCorrect(start, end, Calendar.MILLISECOND, milliseconds);
-        seconds -= reduceAndCorrect(start, end, Calendar.SECOND, seconds);
-        minutes -= reduceAndCorrect(start, end, Calendar.MINUTE, minutes);
-        hours -= reduceAndCorrect(start, end, Calendar.HOUR_OF_DAY, hours);
-        days -= reduceAndCorrect(start, end, Calendar.DAY_OF_MONTH, days);
-        months -= reduceAndCorrect(start, end, Calendar.MONTH, months);
-        years -= reduceAndCorrect(start, end, Calendar.YEAR, years);
 
         // This next block of code adds in values that 
         // aren't requested. This allows the user to ask for the 
@@ -425,29 +423,6 @@ public class DurationFormatUtils {
             }
         }
         return buffer.toString();
-    }
-
-    /**
-     * Reduces by difference, then if it overshot, calculates the overshot amount and 
-     * fixes and returns the amount to change by.
-     *
-     * @param start Start of period being formatted
-     * @param end End of period being formatted
-     * @param field Field to reduce, as per constants in {@link java.util.Calendar}
-     * @param difference amount to reduce by
-     * @return int reduced value
-     */
-    static int reduceAndCorrect(Calendar start, Calendar end, int field, int difference) {
-        end.add( field, -1 * difference );
-        int endValue = end.get(field);
-        int startValue = start.get(field);
-        if (endValue < startValue) {
-            int newdiff = startValue - endValue;
-            end.add( field, newdiff );
-            return newdiff;
-        } else {
-            return 0;
-        }
     }
 
     static final Object y = "y";
