@@ -368,7 +368,7 @@ public class DurationFormatUtils {
      * @param seconds  the number of seconds
      * @param milliseconds  the number of millis
      * @param padWithZeros  whether to pad
-     * @return the formetted string
+     * @return the formatted string
      */
     static String format(Token[] tokens, int years, int months, int days, int hours, int minutes, int seconds,
             int milliseconds, boolean padWithZeros) {
