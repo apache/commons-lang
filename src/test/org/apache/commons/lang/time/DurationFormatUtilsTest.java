@@ -401,37 +401,37 @@ public class DurationFormatUtilsTest extends TestCase {
 
     // http://issues.apache.org/bugzilla/show_bug.cgi?id=38401
     public void testBugzilla38401() {
-        Calendar cal1 = Calendar.getInstance();
-        cal1.set(2006, 0, 26, 18, 47, 34);
-        cal1.set(Calendar.MILLISECOND, 0);
-        Calendar cal2 = Calendar.getInstance();
-        cal2.set(2006, 1, 26, 10, 47, 34);
-        cal2.set(Calendar.MILLISECOND, 0);
-
-        assertEquals( "0000/00/30 16:00:00 000", DurationFormatUtils.formatPeriod(cal1.getTime().getTime(), cal2.getTime().getTime(), "yyyy/MM/dd HH:mm:ss SSS") );
+        assertEqualDuration( "0000/00/30 16:00:00 000", new int[] { 2006, 0, 26, 18, 47, 34 }, 
+                             new int[] { 2006, 1, 26, 10, 47, 34 }, "yyyy/MM/dd HH:mm:ss SSS");
     }
 
     // https://issues.apache.org/jira/browse/LANG-281
     public void testJiraLang281() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.MONTH, Calendar.DECEMBER);
-        cal.set(Calendar.DAY_OF_MONTH, 31);
-        cal.set(Calendar.YEAR, 2005);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
+        assertEqualDuration( "09", new int[] { 2005, 11, 31, 0, 0, 0 }, 
+                             new int[] { 2006, 9, 6, 0, 0, 0 }, "MM");
+    }
 
+    // Attempting to test edge cases in DurationFormatUtils.formatPeriod
+    public void testEdgeDurations() {
+        assertEqualDuration( "01", new int[] { 2006, 0, 15, 0, 0, 0 }, 
+                             new int[] { 2006, 2, 10, 0, 0, 0 }, "MM");
+        assertEqualDuration( "12", new int[] { 2005, 0, 15, 0, 0, 0 }, 
+                             new int[] { 2006, 0, 15, 0, 0, 0 }, "MM");
+        assertEqualDuration( "12", new int[] { 2005, 0, 15, 0, 0, 0 }, 
+                             new int[] { 2006, 0, 16, 0, 0, 0 }, "MM");
+        assertEqualDuration( "11", new int[] { 2005, 0, 15, 0, 0, 0 }, 
+                             new int[] { 2006, 0, 14, 0, 0, 0 }, "MM");
+    }
+
+    private void assertEqualDuration(String expected, int[] start, int[] end, String format) {
+        Calendar cal1 = Calendar.getInstance();
+        cal1.set(start[0], start[1], start[2], start[3], start[4], start[5]);
+        cal1.set(Calendar.MILLISECOND, 0);
         Calendar cal2 = Calendar.getInstance();
-        cal2.set(Calendar.MONTH, Calendar.OCTOBER);
-        cal2.set(Calendar.DAY_OF_MONTH, 6);
-        cal2.set(Calendar.YEAR, 2006);
-        cal2.set(Calendar.HOUR_OF_DAY, 0);
-        cal2.set(Calendar.MINUTE, 0);
-        cal2.set(Calendar.SECOND, 0);
+        cal2.set(end[0], end[1], end[2], end[3], end[4], end[5]);
         cal2.set(Calendar.MILLISECOND, 0);
-        String result = DurationFormatUtils.formatPeriod(cal.getTime().getTime(), cal2.getTime().getTime(), "MM");
-        assertEquals("09", result);
+        String result = DurationFormatUtils.formatPeriod(cal1.getTime().getTime(), cal2.getTime().getTime(), format);
+        assertEquals(expected, result);
     }
 
     private void assertArrayEquals(DurationFormatUtils.Token[] obj1, DurationFormatUtils.Token[] obj2) {
