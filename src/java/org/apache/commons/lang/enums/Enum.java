@@ -225,6 +225,55 @@ import org.apache.commons.lang.StringUtils;
  * </pre>
  * 
  * <p>For more details, see the 'Nested' test cases.
+ *
+ * <h4>Lang Enums and Java 5.0 Enums</h4>
+ *
+ * <p>Enums were added to Java in Java 5.0. The main differences between Lang's 
+ * implementation and the new official JDK implementation are: </p>
+ * <ul>
+ * <li>The standard Enum is a not just a superclass, but is a type baked into the 
+ * language. </li>
+ * <li>The standard Enum does not support extension, so the standard methods that 
+ * are provided in the Lang enum are not available. </li>
+ * <li>Lang mandates a String name, whereas the standard Enum uses the class 
+ * name as its name. getName() changes to name(). </li>
+ * </ul>
+ *
+ * <p>Generally people should use the standard Enum. Migrating from the Lang 
+ * enum to the standard Enum is not as easy as it might be due to the lack of 
+ * class inheritence in standard Enums. This means that it's not possible 
+ * to provide a 'super-enum' which could provide the same utility methods 
+ * that the Lang enum does. The following utility class is a Java 5.0 
+ * version of our EnumUtils class and provides those utility methods. </p>
+ *
+ * <pre>
+ * import java.util.*;
+ * 
+ * public class EnumUtils {
+ * 
+ *   public static Enum getEnum(Class enumClass, String token) {
+ *     return Enum.valueOf(enumClass, token);
+ *   }
+ * 
+ *   public static Map getEnumMap(Class enumClass) {
+ *     HashMap map = new HashMap();
+ *     Iterator itr = EnumUtils.iterator(enumClass);
+ *     while(itr.hasNext()) {
+ *       Enum enm = (Enum) itr.next();
+ *       map.put( enm.name(), enm );
+ *     }
+ *     return map;
+ *   }
+ * 
+ *   public static List getEnumList(Class enumClass) {
+ *     return new ArrayList( EnumSet.allOf(enumClass) );
+ *   }
+ * 
+ *   public static Iterator iterator(Class enumClass) {
+ *     return EnumUtils.getEnumList(enumClass).iterator();
+ *   }
+ * }
+ * </pre>
  * 
  * @author Apache Avalon project
  * @author Stephen Colebourne
