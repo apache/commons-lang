@@ -94,6 +94,10 @@ import org.apache.commons.lang.ClassUtils;
  * <p>As shown, each enum has a name and a value. These can be accessed using
  * <code>getName</code> and <code>getValue</code>.</p>
  *
+ * <p><em>NOTE:</em> Because the switch is ultimately sitting on top of an 
+ * int, the example above is not type-safe. That is, there is nothing that 
+ * checks that JAVA1_0_VALUE is a legal constant for JavaVersionEnum. </p>
+ *
  * <p>The <code>getEnum</code> and <code>iterator</code> methods are recommended.
  * Unfortunately, Java restrictions require these to be coded as shown in each subclass.
  * An alternative choice is to use the {@link EnumUtils} class.</p>
