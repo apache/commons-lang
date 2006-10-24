@@ -398,6 +398,32 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(-10, NumberUtils.min(new short[] { -5, 0, -10, 5, 10 }));
     }
 
+    public void testMinByte() {
+        final byte[] b = null;
+        try {
+            NumberUtils.min(b);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.min(new byte[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "min(byte[]) failed for array length 1",
+            5,
+            NumberUtils.min(new byte[] { 5 }));
+
+        assertEquals(
+            "min(byte[]) failed for array length 2",
+            6,
+            NumberUtils.min(new byte[] { 6, 9 }));
+
+        assertEquals(-10, NumberUtils.min(new byte[] { -10, -5, 0, 5, 10 }));
+        assertEquals(-10, NumberUtils.min(new byte[] { -5, 0, -10, 5, 10 }));
+    }
+
     public void testMinDouble() {
         final double[] d = null;
         try {
@@ -552,6 +578,36 @@ public class NumberUtilsTest extends TestCase {
             NumberUtils.max(new short[] { -10, -5, 0, 5, 10 }));
         assertEquals(10, NumberUtils.max(new short[] { -10, -5, 0, 5, 10 }));
         assertEquals(10, NumberUtils.max(new short[] { -5, 0, 10, 5, -10 }));
+    }
+
+    public void testMaxByte() {
+        final byte[] b = null;
+        try {
+            NumberUtils.max(b);
+            fail("No exception was thrown for null input.");
+        } catch (IllegalArgumentException ex) {}
+
+        try {
+            NumberUtils.max(new byte[0]);
+            fail("No exception was thrown for empty input.");
+        } catch (IllegalArgumentException ex) {}
+
+        assertEquals(
+            "max(byte[]) failed for array length 1",
+            5,
+            NumberUtils.max(new byte[] { 5 }));
+
+        assertEquals(
+            "max(byte[]) failed for array length 2",
+            9,
+            NumberUtils.max(new byte[] { 6, 9 }));
+
+        assertEquals(
+            "max(byte[]) failed for array length 5",
+            10,
+            NumberUtils.max(new byte[] { -10, -5, 0, 5, 10 }));
+        assertEquals(10, NumberUtils.max(new byte[] { -10, -5, 0, 5, 10 }));
+        assertEquals(10, NumberUtils.max(new byte[] { -5, 0, 10, 5, -10 }));
     }
 
     public void testMaxDouble() {

@@ -751,6 +751,33 @@ public class NumberUtils {
         return min;
     }
 
+    /**
+     * <p>Returns the minimum value in an array.</p>
+     * 
+     * @param array  an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static byte min(byte[] array) {
+        // Validates input
+        if (array == null) {
+            throw new IllegalArgumentException("The Array must not be null");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+    
+        // Finds and returns min
+        byte min = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < min) {
+                min = array[i];
+            }
+        }
+    
+        return min;
+    }
+
      /**
      * <p>Returns the minimum value in an array.</p>
      * 
@@ -879,6 +906,33 @@ public class NumberUtils {
     
         // Finds and returns max
         short max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+    
+        return max;
+    }
+
+    /**
+     * <p>Returns the maximum value in an array.</p>
+     * 
+     * @param array  an array, must not be null or empty
+     * @return the minimum value in the array
+     * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
+     * @throws IllegalArgumentException if <code>array</code> is empty
+     */
+    public static byte max(byte[] array) {
+        // Validates input
+        if (array == null) {
+            throw new IllegalArgumentException("The Array must not be null");
+        } else if (array.length == 0) {
+            throw new IllegalArgumentException("Array cannot be empty.");
+        }
+    
+        // Finds and returns max
+        byte max = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] > max) {
                 max = array[i];
