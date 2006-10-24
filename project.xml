@@ -363,6 +363,12 @@ limitations under the License.
         <contributor>
             <name>Mario Winterer</name>
         </contributor>
+        <contributor>
+            <name>Stepan Koltsov</name>
+        </contributor>
+        <contributor>
+            <name>Holger Hoffstatte</name>
+        </contributor>
     </contributors>
     <!-- Lang should depend on very little -->
     <dependencies>
