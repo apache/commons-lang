@@ -318,6 +318,194 @@ public class NumberUtilsTest extends TestCase {
         }
     }
 
+    // equals tests
+    // ----------------------------------------------------------------------
+    public void testEqualsByte() {
+        byte[] array1 = null;
+        byte[] array2 = null;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+        assertEquals( true, NumberUtils.equals(array2, array1) );
+
+        array1 = new byte[] { 50, 20 }; // array2 still null
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+        assertEquals( false, NumberUtils.equals(array2, array1) );
+
+        // test same reference equivalence
+        array2 = array1;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test object equivalence
+        array2 = new byte[] { 50, 20 };
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test symmetry is not equivalent
+        array2 = new byte[] { 20, 50 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test the whole length of rhs is tested against
+        array2 = new byte[] { 50, 20, 10 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test whole length of lhs is tested against
+        array2 = new byte[] { 50 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+    }
+
+    public void testEqualsShort() {
+        short[] array1 = null;
+        short[] array2 = null;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+        assertEquals( true, NumberUtils.equals(array2, array1) );
+
+        array1 = new short[] { 50, 20 }; // array2 still null
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+        assertEquals( false, NumberUtils.equals(array2, array1) );
+
+        // test same reference equivalence
+        array2 = array1;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test object equivalence
+        array2 = new short[] { 50, 20 };
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test symmetry is not equivalent
+        array2 = new short[] { 20, 50 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test the whole length of rhs is tested against
+        array2 = new short[] { 50, 20, 10 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test whole length of lhs is tested against
+        array2 = new short[] { 50 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+    }
+
+    public void testEqualsInt() {
+        int[] array1 = null;
+        int[] array2 = null;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+        assertEquals( true, NumberUtils.equals(array2, array1) );
+
+        array1 = new int[] { 50, 20 }; // array2 still null
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+        assertEquals( false, NumberUtils.equals(array2, array1) );
+
+        // test same reference equivalence
+        array2 = array1;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test object equivalence
+        array2 = new int[] { 50, 20 };
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test symmetry is not equivalent
+        array2 = new int[] { 20, 50 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test the whole length of rhs is tested against
+        array2 = new int[] { 50, 20, 10 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test whole length of lhs is tested against
+        array2 = new int[] { 50 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+    }
+
+    public void testEqualsLong() {
+        long[] array1 = null;
+        long[] array2 = null;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+        assertEquals( true, NumberUtils.equals(array2, array1) );
+
+        array1 = new long[] { 50L, 20L }; // array2 still null
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+        assertEquals( false, NumberUtils.equals(array2, array1) );
+
+        // test same reference equivalence
+        array2 = array1;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test object equivalence
+        array2 = new long[] { 50L, 20L };
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test symmetry is not equivalent
+        array2 = new long[] { 20L, 50L };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test the whole length of rhs is tested against
+        array2 = new long[] { 50L, 20L, 10L };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test whole length of lhs is tested against
+        array2 = new long[] { 50L };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+    }
+
+    public void testEqualsFloat() {
+        float[] array1 = null;
+        float[] array2 = null;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+        assertEquals( true, NumberUtils.equals(array2, array1) );
+
+        array1 = new float[] { 50.6f, 20.6f }; // array2 still null
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+        assertEquals( false, NumberUtils.equals(array2, array1) );
+
+        // test same reference equivalence
+        array2 = array1;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test object equivalence
+        array2 = new float[] { 50.6f, 20.6f };
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test symmetry is not equivalent
+        array2 = new float[] { 20.6f, 50.6f };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test the whole length of rhs is tested against
+        array2 = new float[] { 50.6f, 20.6f, 10.6f };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test whole length of lhs is tested against
+        array2 = new float[] { 50.6f };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+    }
+
+    public void testEqualsDouble() {
+        double[] array1 = null;
+        double[] array2 = null;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+        assertEquals( true, NumberUtils.equals(array2, array1) );
+
+        array1 = new double[] { 50.6, 20.6 }; // array2 still null
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+        assertEquals( false, NumberUtils.equals(array2, array1) );
+
+        // test same reference equivalence
+        array2 = array1;
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test object equivalence
+        array2 = new double[] { 50.6, 20.6 };
+        assertEquals( true, NumberUtils.equals(array1, array2) );
+
+        // test symmetry is not equivalent
+        array2 = new double[] { 20.6, 50.6 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test the whole length of rhs is tested against
+        array2 = new double[] { 50.6, 20.6, 10.6 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+
+        // test whole length of lhs is tested against
+        array2 = new double[] { 50.6 };
+        assertEquals( false, NumberUtils.equals(array1, array2) );
+    }
+
     // min/max tests
     // ----------------------------------------------------------------------
     public void testMinLong() {
