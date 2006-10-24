@@ -811,9 +811,14 @@ class Entities {
      * @return A new escaped <code>String</code>.
      */
     public String unescape(String str) {
+        int firstAmp = str.indexOf('&');
+        if (firstAmp < 0) {
+            return str;
+        }
+
         StringBuffer buf = new StringBuffer(str.length());
-        int i;
-        for (i = 0; i < str.length(); ++i) {
+        buf.append(str.substring(0, firstAmp));
+        for (int i = firstAmp; i < str.length(); ++i) {
             char ch = str.charAt(i);
             if (ch == '&') {
                 int semi = str.indexOf(';', i + 1);
@@ -877,11 +882,15 @@ class Entities {
      * @see Writer
      */
     public void unescape(Writer writer, String string) throws IOException {
-        int len = string.length();
-        if (len == 0) {
+        int firstAmp = string.indexOf('&');
+        if (firstAmp < 0) {
+            writer.write(string);
             return;
         }
-        for (int i = 0; i < len; i++) {
+
+        writer.write(string, 0, firstAmp);
+        int len = string.length();
+        for (int i = firstAmp; i < len; i++) {
             char c = string.charAt(i);
             if (c == '&') {
                 int nextIdx = i+1;
