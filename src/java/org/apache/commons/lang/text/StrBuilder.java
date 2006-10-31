@@ -1670,7 +1670,7 @@ public class StrBuilder implements Cloneable {
      */
     public boolean contains(char ch) {
         char[] thisBuf = buffer;
-        for (int i = 0; i < thisBuf.length; i++) {
+        for (int i = 0; i < this.size; i++) {
             if (thisBuf[i] == ch) {
                 return true;
             }
@@ -1727,7 +1727,7 @@ public class StrBuilder implements Cloneable {
             return -1;
         }
         char[] thisBuf = buffer;
-        for (int i = startIndex; i < thisBuf.length; i++) {
+        for (int i = startIndex; i < size; i++) {
             if (thisBuf[i] == ch) {
                 return i;
             }
