@@ -1728,4 +1728,17 @@ public class StrBuilderTest extends TestCase {
         assertEquals(new StringBuffer("junit").toString(), sb.toStringBuffer().toString());
     }
 
+    //-----------------------------------------------------------------------
+    public void testLang294() {
+        StrBuilder sb = new StrBuilder("\n%BLAH%\nDo more stuff\neven more stuff\n%BLAH%\n");
+        sb.deleteAll("\n%BLAH%");
+        assertEquals("\nDo more stuff\neven more stuff\n", sb.toString()); 
+    }
+
+    public void testIndexOfLang294() {
+        StrBuilder sb = new StrBuilder("onetwothree");
+        sb.deleteFirst("three");
+        assertEquals(-1, sb.indexOf("three"));
+    }
+
 }

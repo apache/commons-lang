@@ -1773,8 +1773,9 @@ public class StrBuilder implements Cloneable {
             return -1;
         }
         char[] thisBuf = buffer;
+        int len = size - strLen + 1;
         outer:
-        for (int i = startIndex; i < thisBuf.length - strLen; i++) {
+        for (int i = startIndex; i < len; i++) {
             for (int j = 0; j < strLen; j++) {
                 if (str.charAt(j) != thisBuf[i + j]) {
                     continue outer;
