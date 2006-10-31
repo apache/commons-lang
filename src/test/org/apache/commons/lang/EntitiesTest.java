@@ -197,5 +197,13 @@ public class EntitiesTest extends TestCase
         assertEquals("&nbsp;", e.escape("\u00A0"));
     }
 
+    public void testNumberOverflow() throws Exception {
+        doTestUnescapeEntity("&#12345678;", "&#12345678;");
+        doTestUnescapeEntity("x&#12345678;y", "x&#12345678;y");
+        doTestUnescapeEntity("&#x12345678;", "&#x12345678;");
+        doTestUnescapeEntity("x&#x12345678;y", "x&#x12345678;y");
+    }
+
+
 }
 
