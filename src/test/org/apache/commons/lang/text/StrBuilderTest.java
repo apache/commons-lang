@@ -1741,4 +1741,12 @@ public class StrBuilderTest extends TestCase {
         assertEquals(-1, sb.indexOf("three"));
     }
 
+    //-----------------------------------------------------------------------
+    public void testLang295() {
+        StrBuilder sb = new StrBuilder("onetwothree");
+        sb.deleteFirst("three");
+        assertFalse( "The contains(char) method is looking beyond the end of the string", sb.contains('h'));
+        assertEquals( "The indexOf(char) method is looking beyond the end of the string", -1, sb.indexOf('h'));
+    }
+
 }
