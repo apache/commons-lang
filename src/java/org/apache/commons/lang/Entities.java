@@ -847,6 +847,9 @@ class Entities {
                             } else {
                                 entityValue = Integer.parseInt(entityName.substring(1));
                             }
+                            if (entityValue > 0xFFFF) {
+                                entityValue = -1;
+                            }
                         } catch (NumberFormatException ex) {
                             entityValue = -1;
                         }
@@ -917,13 +920,17 @@ class Entities {
                                     case 'X' :
                                     case 'x' : {
                                         entityValue = Integer.parseInt(entityContent.substring(2), 16);
+                                        break;
                                     }
                                     default : {
                                         entityValue = Integer.parseInt(entityContent.substring(1), 10);
                                     }
                                 }
+                                if (entityValue > 0xFFFF) {
+                                    entityValue = -1;
+                                }
                             } catch (NumberFormatException e) {
-                                // ignore the escaped value content
+                                entityValue = -1;
                             }
                         }
                     } else { //escaped value content is an entity name
