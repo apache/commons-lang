@@ -26,7 +26,6 @@ import junit.textui.TestRunner;
 /**
  * Unit tests for {@link StringEscapeUtils}.
  *
- * @author of original StringUtilsTest.testEscape = ?
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @version $Id$
