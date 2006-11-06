@@ -41,7 +41,6 @@ import java.util.TimeZone;
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @author Henri Yandell
  * @since 2.1
  * @version $Id$
  */
