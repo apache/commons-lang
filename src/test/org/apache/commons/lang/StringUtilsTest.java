@@ -32,7 +32,6 @@ import junit.textui.TestRunner;
  * Unit tests {@link org.apache.commons.lang.StringUtils}.
  *
  * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
- * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>

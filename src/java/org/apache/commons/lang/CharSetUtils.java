@@ -24,7 +24,6 @@ package org.apache.commons.lang;
  * Each method documents its behaviour in more detail.</p>
  * 
  * @see CharSet
- * @author <a href="bayard@generationjava.com">Henri Yandell</a>
  * @author Stephen Colebourne
  * @author Phil Steitz
  * @author Gary Gregory

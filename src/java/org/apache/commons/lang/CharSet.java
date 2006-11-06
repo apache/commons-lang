@@ -28,7 +28,6 @@ import java.util.Set;
  *
  * <p>Instances are immutable, but instances of subclasses may not be.</p>
  *
- * @author Henri Yandell
  * @author Stephen Colebourne
  * @author Phil Steitz
  * @author Pete Gieser

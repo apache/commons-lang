@@ -22,7 +22,6 @@ import java.math.BigInteger;
 /**
  * <p>Provides extra functionality for Java Number classes.</p>
  *
- * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author Stephen Colebourne
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>

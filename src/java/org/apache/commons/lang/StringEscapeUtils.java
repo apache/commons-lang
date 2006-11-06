@@ -27,9 +27,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * Java, Java Script, HTML, XML, and SQL.</p>
  *
  * @author Apache Jakarta Turbine
- * @author GenerationJavaCore library
  * @author Purple Technology
- * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @author Antony Riley
  * @author Helge Tesgaard

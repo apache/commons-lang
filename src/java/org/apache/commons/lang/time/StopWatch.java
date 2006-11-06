@@ -43,7 +43,6 @@ package org.apache.commons.lang.time;
  * 3. resume() may only be called if the watch has been suspend()<br />
  * 4. start() cannot be called twice without calling reset()</p>
  *
- * @author Henri Yandell
  * @author Stephen Colebourne
  * @since 2.0
  * @version $Id$

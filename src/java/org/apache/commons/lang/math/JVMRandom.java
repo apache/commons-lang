@@ -25,7 +25,6 @@ import java.util.Random;
  * Random methods via the {@link java.lang.Math#random()} method
  * and its system-wide {@link Random} object.</p>
  * 
- * @author Henri Yandell
  * @since 2.0
  * @version $Id$
  */

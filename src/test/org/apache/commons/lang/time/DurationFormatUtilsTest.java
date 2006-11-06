@@ -35,7 +35,6 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @author Henri Yandell
  */
 public class DurationFormatUtilsTest extends TestCase {
 
