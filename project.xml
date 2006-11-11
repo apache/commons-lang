@@ -414,14 +414,6 @@ limitations under the License.
             <excludes>
                 <exclude>**/AllLangTestSuite.java</exclude>
             </excludes>
-            <resources>
-                <resource>
-                    <directory>${pom.build.unitTestSourceDirectory}</directory>
-                    <includes>
-                        <include>**/*.xml</include>
-                    </includes>
-                </resource>
-            </resources>
         </unitTest>
     </build>
     <reports>
