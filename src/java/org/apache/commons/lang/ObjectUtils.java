@@ -31,6 +31,7 @@ import java.io.Serializable;
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @author Mario Winterer
+ * @author <a href="mailto:david@davidkarlsen.com">David J. M. Karlsen</a>
  * @since 1.0
  * @version $Id$
  */
@@ -276,5 +277,52 @@ public class ObjectUtils {
             return ObjectUtils.NULL;
         }
     }
+    
+    
+    /**
+     * Null safe comparison of Comparables.
+     * 
+     * @param c1
+     * @param c2
+     * @return
+     *  <ul>
+     *   <li>If both objects are non-null and unequal, the lesser object.
+     *   <li>If both objects are non-null and equal, c1.
+     *   <li>If one of the comparables is null, the non-null object.
+     *   <li>If both the comparables are null, null is returned.
+     *  </ul>
+     */
+    public static Object min( Comparable c1, Comparable c2 ) {
+        if ( c1 != null && c2 != null ) {
+            return c1.compareTo( c2 ) < 1 ? c1 : c2;
+        }
+        else {
+            return c1 != null ? c1 : c2;
+        }                              
+    }
+    
+    /**
+     * Null safe comparison of Comparables.
+     * 
+     * @param c1
+     * @param c2
+     * @return
+     *  <ul>
+     *   <li>If both objects are non-null and unequal, the greater object.
+     *   <li>If both objects are non-null and equal, c1.
+     *   <li>If one of the comparables is null, the non-null object.
+     *   <li>If both the comparables are null, null is returned.
+     *  </ul>
+     */
+    public static Object max( Comparable c1, Comparable c2 ) {
+        if ( c1 != null && c2 != null ) {
+            return c1.compareTo( c2 ) >= 0 ? c1 : c2;
+        }
+        else {
+            return c1 != null ? c1 : c2;
+        }                              
+    }
+    
+    
     
 }
