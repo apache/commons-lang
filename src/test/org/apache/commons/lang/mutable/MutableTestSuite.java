@@ -18,6 +18,7 @@
 package org.apache.commons.lang.mutable;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
@@ -26,10 +27,14 @@ import junit.textui.TestRunner;
  * 
  * @version $Id$
  */
-public class MutableTestSuite {
+public class MutableTestSuite extends TestCase {
 
     public static void main(String[] args) {
         TestRunner.run(suite());
+    }
+
+    public MutableTestSuite(String name) {
+        super(name);
     }
 
     public static Test suite() {
@@ -45,9 +50,6 @@ public class MutableTestSuite {
         suite.addTest(MutableObjectTest.suite());
 
         return suite;
-    }
-
-    private MutableTestSuite() {
     }
 
 }
