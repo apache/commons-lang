@@ -18,6 +18,8 @@ package org.apache.commons.lang;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.Calendar;
+import java.util.Date;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -175,5 +177,40 @@ public class ObjectUtilsTest extends TestCase {
         assertTrue(ObjectUtils.NULL instanceof ObjectUtils.Null);
         assertSame(ObjectUtils.NULL, SerializationUtils.clone(ObjectUtils.NULL));
     }
-
+    
+    
+    
+    public void testMax() {
+        Calendar calendar = Calendar.getInstance();
+        Comparable nonNullComparable1 = calendar.getTime();
+        Comparable nonNullComparable2 = calendar.getTime();
+        
+        calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
+        Comparable minComparable = calendar.getTime();
+        
+        assertNotSame( nonNullComparable1, nonNullComparable2 );
+        
+        assertSame( nonNullComparable1, ObjectUtils.max( null, nonNullComparable1 ) );
+        assertSame( nonNullComparable1, ObjectUtils.max( nonNullComparable1, null ) );
+        assertSame( nonNullComparable1, ObjectUtils.max( nonNullComparable1, nonNullComparable2 ) );
+        assertSame( nonNullComparable1, ObjectUtils.max( nonNullComparable1, minComparable ) );
+        assertSame( nonNullComparable1, ObjectUtils.max( minComparable, nonNullComparable1 ) );
+    }
+    
+    public void testMin() {
+        Calendar calendar = Calendar.getInstance();
+        Comparable nonNullComparable1 = calendar.getTime();
+        Comparable nonNullComparable2 = calendar.getTime();
+        
+        calendar.set( Calendar.YEAR, calendar.get( Calendar.YEAR ) -1 );
+        Comparable minComparable = calendar.getTime();
+        
+        assertNotSame( nonNullComparable1, nonNullComparable2 );
+        
+        assertSame( nonNullComparable1, ObjectUtils.min( null, nonNullComparable1 ) );
+        assertSame( nonNullComparable1, ObjectUtils.min( nonNullComparable1, null ) );
+        assertSame( nonNullComparable1, ObjectUtils.min( nonNullComparable1, nonNullComparable2 ) );
+        assertSame( minComparable, ObjectUtils.min( nonNullComparable1, minComparable ) );
+        assertSame( minComparable, ObjectUtils.min( minComparable, nonNullComparable1 ) );
+    }
 }
