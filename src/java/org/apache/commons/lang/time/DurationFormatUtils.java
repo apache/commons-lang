@@ -249,7 +249,18 @@ public class DurationFormatUtils {
     /**
      * <p>Formats the time gap as a string, using the specified format.
      * Padding the left hand side of numbers with zeroes is optional and 
-     * the timezone may be specified. 
+     * the timezone may be specified. </p>
+     *
+     * <p>When calculating the difference between months/days, it chooses to 
+     * calculate months first. So when working out the number of months and 
+     * days between January 15th and March 10th, it choose 1 month and 
+     * 23 days gained by choosing January->February = 1 month and then 
+     * calculating days forwards, and not the 1 month and 26 days gained by 
+     * choosing March -> February = 1 month and then calculating days 
+     * backwards. </p>
+     *
+     * <p>For more control, the Joda Time library is recommended
+     * (<a href="http://joda-time.sf.net/"). </p>
      * 
      * @param startMillis  the start of the duration
      * @param endMillis  the end of the duration
@@ -304,11 +315,10 @@ public class DurationFormatUtils {
         while (days < 0) {
             end.add(Calendar.MONTH, -1);
             days += end.getActualMaximum(Calendar.DAY_OF_MONTH);
-//days += 31; // TODO: Need tests to show this is bad and the new code is good.
-// HEN: It's a tricky subject. Jan 15th to March 10th. If I count days-first it is 
-// 1 month and 26 days, but if I count month-first then it is 1 month and 23 days.
-// Also it's contextual - if asked for no M in the format then I should probably 
-// be doing no calculating here.
+            // HEN: It's a tricky subject. Jan 15th to March 10th. If I count days-first it is 
+            // 1 month and 26 days, but if I count month-first then it is 1 month and 23 days.
+            // Also it's contextual - if asked for no M in the format then I should probably 
+            // be doing no calculating here.
             months -= 1;
             end.add(Calendar.MONTH, 1);
         }
