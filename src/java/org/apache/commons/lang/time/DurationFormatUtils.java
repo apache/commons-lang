@@ -312,37 +312,49 @@ public class DurationFormatUtils {
             hours += 24;
             days -= 1;
         }
-        while (days < 0) {
-            end.add(Calendar.MONTH, -1);
-            days += end.getActualMaximum(Calendar.DAY_OF_MONTH);
-            // HEN: It's a tricky subject. Jan 15th to March 10th. If I count days-first it is 
+        if (days < 0) {
+            days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
+            // It's a tricky subject. Jan 15th to March 10th. If I count days-first it is 
             // 1 month and 26 days, but if I count month-first then it is 1 month and 23 days.
+            // Here we choose the former. 
             // Also it's contextual - if asked for no M in the format then I should probably 
             // be doing no calculating here.
             months -= 1;
-            end.add(Calendar.MONTH, 1);
         }
         while (months < 0) {
             months += 12;
             years -= 1;
+            start.add(Calendar.YEAR, 1);
         }
 
-        // This next block of code adds in values that 
+        // This rest of this code adds in values that 
         // aren't requested. This allows the user to ask for the 
         // number of months and get the real count and not just 0->11.
+        
         if (!Token.containsTokenWithValue(tokens, y)) {
             if (Token.containsTokenWithValue(tokens, M)) {
                 months += 12 * years;
                 years = 0;
             } else {
-                // TODO: this is a bit weak, needs work to know about leap years
-                days += 365 * years;
+            	while(start.get(Calendar.YEAR) != end.get(Calendar.YEAR)) {
+            		days += start.getActualMaximum(Calendar.DAY_OF_YEAR);
+            		start.add(Calendar.YEAR, 1);
+            	}
                 years = 0;
             }
         }
-        if (!Token.containsTokenWithValue(tokens, M)) {
+                
+        if (!Token.containsTokenWithValue(tokens, M) && months != 0) {
+        	start.set(start.get(Calendar.YEAR), start.get(Calendar.MONTH), 0, 0, 0, 0);
+        	start.add(Calendar.MONTH, 1);
+        	end.set(end.get(Calendar.YEAR), end.get(Calendar.MONTH), 0, 0, 0, 0);
             days += end.get(Calendar.DAY_OF_YEAR) - start.get(Calendar.DAY_OF_YEAR);
             months = 0;
+            
+        	// WARNING: For performance sake the Calendar instances are not being 
+        	// cloned but modified inline. They should not be trusted after this point
+            start = null;
+            end = null;
         }
         if (!Token.containsTokenWithValue(tokens, d)) {
             hours += 24 * days;

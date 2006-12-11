@@ -420,6 +420,27 @@ public class DurationFormatUtilsTest extends TestCase {
                              new int[] { 2006, 0, 16, 0, 0, 0 }, "MM");
         assertEqualDuration( "11", new int[] { 2005, 0, 15, 0, 0, 0 }, 
                              new int[] { 2006, 0, 14, 0, 0, 0 }, "MM");
+        
+        assertEqualDuration( "01 26", new int[] { 2006, 0, 15, 0, 0, 0 },
+                             new int[] { 2006, 2, 10, 0, 0, 0 }, "MM dd");
+        assertEqualDuration( "54", new int[] { 2006, 0, 15, 0, 0, 0 },
+        		             new int[] { 2006, 2, 10, 0, 0, 0 }, "dd"); 
+        
+        assertEqualDuration( "09 12", new int[] { 2006, 1, 20, 0, 0, 0 },
+                             new int[] { 2006, 11, 4, 0, 0, 0 }, "MM dd");
+        assertEqualDuration( "287", new int[] { 2006, 1, 20, 0, 0, 0 },
+	                         new int[] { 2006, 11, 4, 0, 0, 0 }, "dd"); 
+
+        assertEqualDuration( "11 30", new int[] { 2006, 0, 2, 0, 0, 0 },
+                             new int[] { 2007, 0, 1, 0, 0, 0 }, "MM dd"); 
+        assertEqualDuration( "364", new int[] { 2006, 0, 2, 0, 0, 0 },
+                             new int[] { 2007, 0, 1, 0, 0, 0 }, "dd"); 
+
+        assertEqualDuration( "12 00", new int[] { 2006, 0, 1, 0, 0, 0 },
+                             new int[] { 2007, 0, 1, 0, 0, 0 }, "MM dd"); 
+        assertEqualDuration( "365", new int[] { 2006, 0, 1, 0, 0, 0 },
+                             new int[] { 2007, 0, 1, 0, 0, 0 }, "dd"); 
+    
     }
 
     private void assertEqualDuration(String expected, int[] start, int[] end, String format) {
@@ -429,7 +450,9 @@ public class DurationFormatUtilsTest extends TestCase {
         Calendar cal2 = Calendar.getInstance();
         cal2.set(end[0], end[1], end[2], end[3], end[4], end[5]);
         cal2.set(Calendar.MILLISECOND, 0);
-        String result = DurationFormatUtils.formatPeriod(cal1.getTime().getTime(), cal2.getTime().getTime(), format);
+        long milli1 = cal1.getTime().getTime();
+        long milli2 = cal2.getTime().getTime();
+        String result = DurationFormatUtils.formatPeriod(milli1, milli2, format);
         assertEquals(expected, result);
     }
 
