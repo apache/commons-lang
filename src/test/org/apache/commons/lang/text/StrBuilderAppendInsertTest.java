@@ -596,6 +596,13 @@ public class StrBuilderAppendInsertTest extends TestCase {
         assertEquals("null-", sb.toString());
     }
 
+    // See: http://issues.apache.org/jira/browse/LANG-299
+    public void testLang299() {
+        StrBuilder sb = new StrBuilder(1);
+        sb.appendFixedWidthPadRight("foo", 1, '-');
+        assertEquals("f", sb.toString());
+    }
+
     //-----------------------------------------------------------------------
     public void testAppendFixedWidthPadRight_int() {
         StrBuilder sb = new StrBuilder();
