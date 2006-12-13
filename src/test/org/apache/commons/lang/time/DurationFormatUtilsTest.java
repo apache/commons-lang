@@ -441,9 +441,61 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEqualDuration( "365", new int[] { 2006, 0, 1, 0, 0, 0 },
                              new int[] { 2007, 0, 1, 0, 0, 0 }, "dd"); 
     
+        assertEqualDuration( "31", new int[] { 2006, 0, 1, 0, 0, 0 },
+                new int[] { 2006, 1, 1, 0, 0, 0 }, "dd"); 
+        
+        assertEqualDuration( "92", new int[] { 2005, 9, 1, 0, 0, 0 },
+                new int[] { 2006, 0, 1, 0, 0, 0 }, "dd"); 
+        assertEqualDuration( "77", new int[] { 2005, 9, 16, 0, 0, 0 },
+                new int[] { 2006, 0, 1, 0, 0, 0 }, "dd"); 
+
+        // test month larger in start than end
+        assertEqualDuration( "136", new int[] { 2005, 9, 16, 0, 0, 0 },
+                new int[] { 2006, 2, 1, 0, 0, 0 }, "dd"); 
+        // test when start in leap year
+        assertEqualDuration( "136", new int[] { 2004, 9, 16, 0, 0, 0 },
+                new int[] { 2005, 2, 1, 0, 0, 0 }, "dd"); 
+        // test when end in leap year
+        assertEqualDuration( "137", new int[] { 2003, 9, 16, 0, 0, 0 },
+                new int[] { 2004, 2, 1, 0, 0, 0 }, "dd");         
+        // test when end in leap year but less than end of feb
+        assertEqualDuration( "135", new int[] { 2003, 9, 16, 0, 0, 0 },
+                new int[] { 2004, 1, 28, 0, 0, 0 }, "dd"); 
+
+        assertEqualDuration( "364", new int[] { 2007, 0, 2, 0, 0, 0 },
+                new int[] { 2008, 0, 1, 0, 0, 0 }, "dd"); 
+        assertEqualDuration( "729", new int[] { 2006, 0, 2, 0, 0, 0 },
+                new int[] { 2008, 0, 1, 0, 0, 0 }, "dd"); 
+
+        assertEqualDuration( "365", new int[] { 2007, 2, 2, 0, 0, 0 },
+                new int[] { 2008, 2, 1, 0, 0, 0 }, "dd"); 
+    }
+    
+    public void testDurationsByBruteForce() {
+        bruteForce(2006, 0, 1);
+        bruteForce(2006, 0, 2);
+//        bruteForce(2006, 1, 2);
+    }
+        
+    private void bruteForce(int year, int month, int day) {
+        String msg = year + "-" + month + "-" + day + " at ";
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, day, 0, 0, 0);
+        int[] array1 = new int[] { year, month, day, 0, 0, 0 };
+        int[] array2 = new int[] { year, month, day, 0, 0, 0 };
+        for (int i=0; i < 1500; i++) {
+            array2[0] = c.get(Calendar.YEAR);
+            array2[1] = c.get(Calendar.MONTH);
+            array2[2] = c.get(Calendar.DAY_OF_MONTH);
+            assertEqualDuration( msg + i, Integer.toString(i), array1, array2, "d" );
+            c.add(Calendar.DAY_OF_MONTH, 1);
+        }
     }
 
     private void assertEqualDuration(String expected, int[] start, int[] end, String format) {
+        assertEqualDuration(null, expected, start, end, format);
+    }
+    private void assertEqualDuration(String message, String expected, int[] start, int[] end, String format) {
         Calendar cal1 = Calendar.getInstance();
         cal1.set(start[0], start[1], start[2], start[3], start[4], start[5]);
         cal1.set(Calendar.MILLISECOND, 0);
@@ -453,7 +505,11 @@ public class DurationFormatUtilsTest extends TestCase {
         long milli1 = cal1.getTime().getTime();
         long milli2 = cal2.getTime().getTime();
         String result = DurationFormatUtils.formatPeriod(milli1, milli2, format);
-        assertEquals(expected, result);
+        if (message == null) {
+            assertEquals(expected, result);
+        } else {
+            assertEquals(message, expected, result);
+        }
     }
 
     private void assertArrayEquals(DurationFormatUtils.Token[] obj1, DurationFormatUtils.Token[] obj2) {
