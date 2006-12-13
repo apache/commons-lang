@@ -355,10 +355,10 @@ public class DurationFormatUtils {
                 months += 12 * years;
                 years = 0;
             } else {
-            	while ( (start.get(Calendar.YEAR) != end.get(Calendar.YEAR))) {
+                while ( (start.get(Calendar.YEAR) != end.get(Calendar.YEAR))) {
                     days += start.getActualMaximum(Calendar.DAY_OF_YEAR);
                     start.add(Calendar.YEAR, 1);
-            	}
+                }
                 years = 0;
             }
         }
@@ -366,9 +366,9 @@ public class DurationFormatUtils {
                 
         if (!Token.containsTokenWithValue(tokens, M) && months != 0) {   
             while(start.get(Calendar.MONTH) != end.get(Calendar.MONTH)) {
-        	String date = start.getTime().toString();
-        	days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
-        	start.add(Calendar.MONTH, 1);
+                String date = start.getTime().toString();
+                days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
+                start.add(Calendar.MONTH, 1);
             }
             days += leapDays;
             months = 0;            

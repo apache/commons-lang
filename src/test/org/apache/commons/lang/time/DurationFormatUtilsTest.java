@@ -424,12 +424,12 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEqualDuration( "01 26", new int[] { 2006, 0, 15, 0, 0, 0 },
                              new int[] { 2006, 2, 10, 0, 0, 0 }, "MM dd");
         assertEqualDuration( "54", new int[] { 2006, 0, 15, 0, 0, 0 },
-        		             new int[] { 2006, 2, 10, 0, 0, 0 }, "dd"); 
+                             new int[] { 2006, 2, 10, 0, 0, 0 }, "dd"); 
         
         assertEqualDuration( "09 12", new int[] { 2006, 1, 20, 0, 0, 0 },
                              new int[] { 2006, 11, 4, 0, 0, 0 }, "MM dd");
         assertEqualDuration( "287", new int[] { 2006, 1, 20, 0, 0, 0 },
-	                         new int[] { 2006, 11, 4, 0, 0, 0 }, "dd"); 
+                             new int[] { 2006, 11, 4, 0, 0, 0 }, "dd"); 
 
         assertEqualDuration( "11 30", new int[] { 2006, 0, 2, 0, 0, 0 },
                              new int[] { 2007, 0, 1, 0, 0, 0 }, "MM dd"); 
