@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 /**
@@ -312,6 +313,9 @@ public class DurationFormatUtils {
             hours += 24;
             days -= 1;
         }
+        // TODO: Create a test to see if this should be while. ie) one that makes hours above 
+        //       overflow and pushes this above the maximum # of days in a month?
+        int leapDays = 0;
         if (days < 0) {
             days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
             // It's a tricky subject. Jan 15th to March 10th. If I count days-first it is 
@@ -320,10 +324,25 @@ public class DurationFormatUtils {
             // Also it's contextual - if asked for no M in the format then I should probably 
             // be doing no calculating here.
             months -= 1;
+            start.add(Calendar.MONTH, 1);
         }
         while (months < 0) {
             months += 12;
             years -= 1;
+            if (start instanceof GregorianCalendar) {
+                if ( ((GregorianCalendar) start).isLeapYear(start.get(Calendar.YEAR) + 1) &&
+                     ( end.get(Calendar.MONTH) > 1) )  
+                {
+                    leapDays += 1;
+                }
+            }
+            if (end instanceof GregorianCalendar) {
+                if ( ((GregorianCalendar) end).isLeapYear(end.get(Calendar.YEAR)) &&
+                     ( end.get(Calendar.MONTH) < 1) )  
+                {
+                    leapDays -= 1;
+                }
+            }
             start.add(Calendar.YEAR, 1);
         }
 
@@ -331,31 +350,31 @@ public class DurationFormatUtils {
         // aren't requested. This allows the user to ask for the 
         // number of months and get the real count and not just 0->11.
         
-        if (!Token.containsTokenWithValue(tokens, y)) {
+        if (!Token.containsTokenWithValue(tokens, y) && years != 0) {
             if (Token.containsTokenWithValue(tokens, M)) {
                 months += 12 * years;
                 years = 0;
             } else {
-            	while(start.get(Calendar.YEAR) != end.get(Calendar.YEAR)) {
-            		days += start.getActualMaximum(Calendar.DAY_OF_YEAR);
-            		start.add(Calendar.YEAR, 1);
+            	while ( (start.get(Calendar.YEAR) != end.get(Calendar.YEAR))) {
+                    days += start.getActualMaximum(Calendar.DAY_OF_YEAR);
+                    start.add(Calendar.YEAR, 1);
             	}
                 years = 0;
             }
         }
+        start.set(Calendar.YEAR, end.get(Calendar.YEAR));
                 
-        if (!Token.containsTokenWithValue(tokens, M) && months != 0) {
-        	start.set(start.get(Calendar.YEAR), start.get(Calendar.MONTH), 0, 0, 0, 0);
+        if (!Token.containsTokenWithValue(tokens, M) && months != 0) {   
+            while(start.get(Calendar.MONTH) != end.get(Calendar.MONTH)) {
+        	String date = start.getTime().toString();
+        	days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
         	start.add(Calendar.MONTH, 1);
-        	end.set(end.get(Calendar.YEAR), end.get(Calendar.MONTH), 0, 0, 0, 0);
-            days += end.get(Calendar.DAY_OF_YEAR) - start.get(Calendar.DAY_OF_YEAR);
-            months = 0;
-            
-        	// WARNING: For performance sake the Calendar instances are not being 
-        	// cloned but modified inline. They should not be trusted after this point
-            start = null;
-            end = null;
+            }
+            days += leapDays;
+            months = 0;            
         }
+        start.set(Calendar.MONTH, end.get(Calendar.MONTH));
+
         if (!Token.containsTokenWithValue(tokens, d)) {
             hours += 24 * days;
             days = 0;
