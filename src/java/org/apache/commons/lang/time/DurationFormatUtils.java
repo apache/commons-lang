@@ -318,11 +318,10 @@ public class DurationFormatUtils {
         int leapDays = 0;
         if (days < 0) {
             days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
-            // It's a tricky subject. Jan 15th to March 10th. If I count days-first it is 
+            // Multiple answers possible. 
+            // For example, for Jan 15th to March 10th. If I count days-first it is 
             // 1 month and 26 days, but if I count month-first then it is 1 month and 23 days.
             // Here we choose the former. 
-            // Also it's contextual - if asked for no M in the format then I should probably 
-            // be doing no calculating here.
             months -= 1;
             start.add(Calendar.MONTH, 1);
         }
