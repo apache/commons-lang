@@ -1364,5 +1364,11 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(NumberUtils.FLOAT_ONE.floatValue() == 1.0f);
         assertTrue(NumberUtils.FLOAT_MINUS_ONE.floatValue() == -1.0f);
     }
+
+    public void testLang300() {
+        NumberUtils.createNumber("-1l");
+        NumberUtils.createNumber("01l");
+        NumberUtils.createNumber("1l");
+    }
     
 }
