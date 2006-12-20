@@ -469,31 +469,77 @@ public class DurationFormatUtilsTest extends TestCase {
 
         assertEqualDuration( "365", new int[] { 2007, 2, 2, 0, 0, 0 },
                 new int[] { 2008, 2, 1, 0, 0, 0 }, "dd"); 
-  //      assertEqualDuration( "333", new int[] { 2007, 1, 2, 0, 0, 0 },
-  //              new int[] { 2008, 0, 1, 0, 0, 0 }, "dd"); 
+        assertEqualDuration( "333", new int[] { 2007, 1, 2, 0, 0, 0 },
+                new int[] { 2008, 0, 1, 0, 0, 0 }, "dd"); 
+
+        assertEqualDuration( "28", new int[] { 2008, 1, 2, 0, 0, 0 },
+                new int[] { 2008, 2, 1, 0, 0, 0 }, "dd"); 
+        assertEqualDuration( "393", new int[] { 2007, 1, 2, 0, 0, 0 },
+                new int[] { 2008, 2, 1, 0, 0, 0 }, "dd"); 
+
+        assertEqualDuration( "369", new int[] { 2004, 0, 29, 0, 0, 0 },
+                new int[] { 2005, 1, 1, 0, 0, 0 }, "dd"); 
+
+        assertEqualDuration( "338", new int[] { 2004, 1, 29, 0, 0, 0 },
+                new int[] { 2005, 1, 1, 0, 0, 0 }, "dd"); 
+
+        assertEqualDuration( "28", new int[] { 2004, 2, 8, 0, 0, 0 },
+                new int[] { 2004, 3, 5, 0, 0, 0 }, "dd"); 
+
+        assertEqualDuration( "48", new int[] { 1992, 1, 29, 0, 0, 0 },
+                new int[] { 1996, 1, 29, 0, 0, 0 }, "M"); 
+        
+        
+        // this seems odd - and will fail if I throw it in as a brute force 
+        // below as it expects the answer to be 12. It's a tricky edge case
+        assertEqualDuration( "11", new int[] { 1996, 1, 29, 0, 0, 0 },
+                new int[] { 1997, 1, 28, 0, 0, 0 }, "M"); 
+        // again - this seems odd
+        assertEqualDuration( "11 28", new int[] { 1996, 1, 29, 0, 0, 0 },
+                new int[] { 1997, 1, 28, 0, 0, 0 }, "M d"); 
+        
     }
     
     public void testDurationsByBruteForce() {
-        bruteForce(2006, 0, 1);
-        bruteForce(2006, 0, 2);
-  //      bruteForce(2007, 1, 2);
+        bruteForce(2006, 0, 1, "d", Calendar.DAY_OF_MONTH);
+        bruteForce(2006, 0, 2, "d", Calendar.DAY_OF_MONTH);
+        bruteForce(2007, 1, 2, "d", Calendar.DAY_OF_MONTH);
+        bruteForce(2004, 1, 29, "d", Calendar.DAY_OF_MONTH);
+        bruteForce(1996, 1, 29, "d", Calendar.DAY_OF_MONTH);
+
+        bruteForce(1969, 1, 28, "M", Calendar.MONTH);  // tests for 48 years
+        //bruteForce(1996, 1, 29, "M", Calendar.MONTH);  // this will fail
     }
-        
-    private void bruteForce(int year, int month, int day) {
+    
+    private int FOUR_YEARS = 365 * 3 + 366;
+    
+    // Takes a minute to run, so generally turned off
+//    public void testBrutally() {
+//        Calendar c = Calendar.getInstance();
+//        c.set(2004, 0, 1, 0, 0, 0);
+//        for (int i=0; i < FOUR_YEARS; i++) {
+//            bruteForce(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), "d", Calendar.DAY_OF_MONTH );
+//            c.add(Calendar.DAY_OF_MONTH, 1);
+//        }
+//    }        
+    
+    private void bruteForce(int year, int month, int day, String format, int calendarType) {
         String msg = year + "-" + month + "-" + day + " to ";
         Calendar c = Calendar.getInstance();
         c.set(year, month, day, 0, 0, 0);
         int[] array1 = new int[] { year, month, day, 0, 0, 0 };
         int[] array2 = new int[] { year, month, day, 0, 0, 0 };
-        for (int i=0; i < 1500; i++) {
+        for (int i=0; i < FOUR_YEARS; i++) {
             array2[0] = c.get(Calendar.YEAR);
             array2[1] = c.get(Calendar.MONTH);
             array2[2] = c.get(Calendar.DAY_OF_MONTH);
             String tmpMsg = msg + array2[0] + "-" + array2[1] + "-" + array2[2] + " at ";
-            assertEqualDuration( tmpMsg + i, Integer.toString(i), array1, array2, "d" );
-            c.add(Calendar.DAY_OF_MONTH, 1);
+            assertEqualDuration( tmpMsg + i, Integer.toString(i), array1, array2, format );
+            c.add(calendarType, 1);
         }
     }
+    
+    
 
     private void assertEqualDuration(String expected, int[] start, int[] end, String format) {
         assertEqualDuration(null, expected, start, end, format);
