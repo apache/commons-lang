@@ -273,11 +273,12 @@ public class DurationFormatUtils {
     public static String formatPeriod(long startMillis, long endMillis, String format, boolean padWithZeros, 
             TimeZone timezone) {
 
-        long millis = endMillis - startMillis;
-        if (millis < 28 * DateUtils.MILLIS_PER_DAY) {
-            return formatDuration(millis, format, padWithZeros);
-        }
-
+        // Used to optimise for differences under 28 days and 
+        // called formatDuration(millis, format); however this did not work 
+        // over leap years. 
+        // TODO: Compare performance to see if anything was lost by 
+        // losing this optimisation. 
+        
         Token[] tokens = lexx(format);
 
         // timezones get funky around 0, so normalizing everything to GMT 
@@ -313,66 +314,73 @@ public class DurationFormatUtils {
             hours += 24;
             days -= 1;
         }
-        // TODO: Create a test to see if this should be while. ie) one that makes hours above 
-        //       overflow and pushes this above the maximum # of days in a month?
-        int leapDays = 0;
-        if (days < 0) {
-            days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
-            // Multiple answers possible. 
-            // For example, for Jan 15th to March 10th. If I count days-first it is 
-            // 1 month and 26 days, but if I count month-first then it is 1 month and 23 days.
-            // Here we choose the former. 
-            months -= 1;
-            start.add(Calendar.MONTH, 1);
-        }
-        while (months < 0) {
-            months += 12;
-            years -= 1;
-            if (start instanceof GregorianCalendar) {
-                if ( ((GregorianCalendar) start).isLeapYear(start.get(Calendar.YEAR) + 1) &&
-                     ( end.get(Calendar.MONTH) > 1) )  
-                {
-                    leapDays += 1;
-                }
+       
+        if (Token.containsTokenWithValue(tokens, M)) {
+            while (days < 0) {
+                days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
+                months -= 1;
+                start.add(Calendar.MONTH, 1);
             }
-            if (end instanceof GregorianCalendar) {
-                if ( ((GregorianCalendar) end).isLeapYear(end.get(Calendar.YEAR)) &&
-                     ( end.get(Calendar.MONTH) < 1) )  
-                {
-                    leapDays -= 1;
-                }
-            }
-            start.add(Calendar.YEAR, 1);
-        }
 
-        // This rest of this code adds in values that 
-        // aren't requested. This allows the user to ask for the 
-        // number of months and get the real count and not just 0->11.
-        
-        if (!Token.containsTokenWithValue(tokens, y) && years != 0) {
-            if (Token.containsTokenWithValue(tokens, M)) {
-                months += 12 * years;
-                years = 0;
-            } else {
-                while ( (start.get(Calendar.YEAR) != end.get(Calendar.YEAR))) {
-                    days += start.getActualMaximum(Calendar.DAY_OF_YEAR);
-                    start.add(Calendar.YEAR, 1);
+            while (months < 0) {
+                months += 12;
+                years -= 1;
+            }
+
+            if (!Token.containsTokenWithValue(tokens, y) && years != 0) {
+                while (years != 0) {
+                    months += 12 * years;
+                    years = 0;
                 }
+            }
+        } else {
+            // there are no M's in the format string
+
+            if( !Token.containsTokenWithValue(tokens, y) ) {
+                int target = end.get(Calendar.YEAR);
+                if (months < 0) {
+                    // target is end-year -1
+                    target -= 1;
+                }
+                
+                while ( (start.get(Calendar.YEAR) != target)) {
+                    days += start.getActualMaximum(Calendar.DAY_OF_YEAR) - start.get(Calendar.DAY_OF_YEAR);
+                    
+                    // Not sure I grok why this is needed, but the brutal tests show it is
+                    if(start instanceof GregorianCalendar) {
+                        if( (start.get(Calendar.MONTH) == Calendar.FEBRUARY) &&
+                            (start.get(Calendar.DAY_OF_MONTH) == 29 ) )
+                        {
+                            days += 1;
+                        }
+                    }
+                    
+                    start.add(Calendar.YEAR, 1);
+                    
+                    days += start.get(Calendar.DAY_OF_YEAR);
+                }
+                
                 years = 0;
             }
-        }
-        start.set(Calendar.YEAR, end.get(Calendar.YEAR));
-                
-        if (!Token.containsTokenWithValue(tokens, M) && months != 0) {   
-            while(start.get(Calendar.MONTH) != end.get(Calendar.MONTH)) {
-                String date = start.getTime().toString();
+            
+            while( start.get(Calendar.MONTH) != end.get(Calendar.MONTH) ) {
                 days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
                 start.add(Calendar.MONTH, 1);
             }
-            days += leapDays;
+            
             months = 0;            
+
+            while (days < 0) {
+                days += start.getActualMaximum(Calendar.DAY_OF_MONTH);
+                months -= 1;
+                start.add(Calendar.MONTH, 1);
+            }
+            
         }
-        start.set(Calendar.MONTH, end.get(Calendar.MONTH));
+
+        // The rest of this code adds in values that 
+        // aren't requested. This allows the user to ask for the 
+        // number of months and get the real count and not just 0->11.
 
         if (!Token.containsTokenWithValue(tokens, d)) {
             hours += 24 * days;
