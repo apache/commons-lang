@@ -409,6 +409,21 @@ public class DurationFormatUtilsTest extends TestCase {
         assertEqualDuration( "09", new int[] { 2005, 11, 31, 0, 0, 0 }, 
                              new int[] { 2006, 9, 6, 0, 0, 0 }, "MM");
     }
+    
+    // Testing the under a day range in DurationFormatUtils.formatPeriod
+    public void testLowDurations() {
+        for(int hr=0; hr < 24; hr++) {
+            for(int min=0; min < 60; min++) {
+                for(int sec=0; sec < 60; sec++) {
+                    assertEqualDuration( hr + ":" + min + ":" + sec, 
+                                         new int[] { 2000, 0, 1, 0, 0, 0, 0 },
+                                         new int[] { 2000, 0, 1, hr, min, sec },
+                                         "H:m:s"
+                                       );
+                }
+            }
+        }
+    }
 
     // Attempting to test edge cases in DurationFormatUtils.formatPeriod
     public void testEdgeDurations() {
@@ -538,8 +553,6 @@ public class DurationFormatUtilsTest extends TestCase {
             c.add(calendarType, 1);
         }
     }
-    
-    
 
     private void assertEqualDuration(String expected, int[] start, int[] end, String format) {
         assertEqualDuration(null, expected, start, end, format);
