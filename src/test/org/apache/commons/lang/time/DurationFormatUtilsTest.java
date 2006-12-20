@@ -469,16 +469,18 @@ public class DurationFormatUtilsTest extends TestCase {
 
         assertEqualDuration( "365", new int[] { 2007, 2, 2, 0, 0, 0 },
                 new int[] { 2008, 2, 1, 0, 0, 0 }, "dd"); 
+  //      assertEqualDuration( "333", new int[] { 2007, 1, 2, 0, 0, 0 },
+  //              new int[] { 2008, 0, 1, 0, 0, 0 }, "dd"); 
     }
     
     public void testDurationsByBruteForce() {
         bruteForce(2006, 0, 1);
         bruteForce(2006, 0, 2);
-//        bruteForce(2006, 1, 2);
+  //      bruteForce(2007, 1, 2);
     }
         
     private void bruteForce(int year, int month, int day) {
-        String msg = year + "-" + month + "-" + day + " at ";
+        String msg = year + "-" + month + "-" + day + " to ";
         Calendar c = Calendar.getInstance();
         c.set(year, month, day, 0, 0, 0);
         int[] array1 = new int[] { year, month, day, 0, 0, 0 };
@@ -487,7 +489,8 @@ public class DurationFormatUtilsTest extends TestCase {
             array2[0] = c.get(Calendar.YEAR);
             array2[1] = c.get(Calendar.MONTH);
             array2[2] = c.get(Calendar.DAY_OF_MONTH);
-            assertEqualDuration( msg + i, Integer.toString(i), array1, array2, "d" );
+            String tmpMsg = msg + array2[0] + "-" + array2[1] + "-" + array2[2] + " at ";
+            assertEqualDuration( tmpMsg + i, Integer.toString(i), array1, array2, "d" );
             c.add(Calendar.DAY_OF_MONTH, 1);
         }
     }
