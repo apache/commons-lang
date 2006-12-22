@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang.math;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 
 /**
@@ -34,7 +33,7 @@ import java.math.BigInteger;
  * @since 2.0
  * @version $Id$
  */
-public final class Fraction extends Number implements Serializable, Comparable {
+public final class Fraction extends Number implements Comparable {
 
     /**
      * Required for serialization support. Lang version 2.0.
