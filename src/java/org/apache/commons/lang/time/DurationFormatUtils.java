@@ -18,6 +18,7 @@ package org.apache.commons.lang.time;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -488,7 +489,7 @@ public class DurationFormatUtils {
      */
     static Token[] lexx(String format) {
         char[] array = format.toCharArray();
-        java.util.ArrayList list = new java.util.ArrayList(array.length);
+        ArrayList list = new ArrayList(array.length);
 
         boolean inLiteral = false;
         StringBuffer buffer = null;
@@ -539,7 +540,7 @@ public class DurationFormatUtils {
                 buffer = null; 
             }
         }
-        return (Token[]) list.toArray( new Token[0] );
+        return (Token[]) list.toArray( new Token[list.size()] );
     }
 
     /**
