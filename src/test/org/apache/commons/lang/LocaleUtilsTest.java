@@ -75,6 +75,13 @@ public class LocaleUtilsTest extends TestCase {
         return suite;
     }
 
+    public void setUp() throws Exception {
+        super.setUp();
+
+        // Testing #LANG-304. Must be called before availableLocaleSet is called.
+        LocaleUtils.isAvailableLocale(Locale.getDefault());
+    }
+
     //-----------------------------------------------------------------------
     /**
      * Test that constructors are public, and work, etc.
