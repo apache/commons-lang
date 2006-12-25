@@ -121,7 +121,9 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
      * @return the value as a Boolean
      */
     public Object getValue() {
-        return Boolean.valueOf(this.value);
+        return new Boolean(this.value);
+// TODO: JDK 1.4+
+//        return Boolean.valueOf(this.value);
     }
 
     /**
