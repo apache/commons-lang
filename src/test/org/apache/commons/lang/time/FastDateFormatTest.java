@@ -28,6 +28,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
+import org.apache.commons.lang.SerializationUtils;
+
 /**
  * Unit tests {@link org.apache.commons.lang.time.FastDateFormat}.
  *
@@ -277,5 +279,10 @@ public class FastDateFormatTest extends TestCase {
         assertEquals("0999/12/31", format.format(cal));
         cal.set(1,2,2);
         assertEquals("0001/03/02", format.format(cal));
+    }
+
+    public void testLang303() {
+        FastDateFormat format = FastDateFormat.getInstance("yyyy/MM/dd");
+        format = (FastDateFormat) SerializationUtils.deserialize( SerializationUtils.serialize( format ) );
     }
 }

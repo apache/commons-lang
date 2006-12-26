@@ -16,6 +16,9 @@
  */
 package org.apache.commons.lang.time;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.FieldPosition;
@@ -134,11 +137,11 @@ public class FastDateFormat extends Format {
     /**
      * The parsed rules.
      */
-    private Rule[] mRules;
+    private transient Rule[] mRules;
     /**
      * The estimated maximum length.
      */
-    private int mMaxLengthEstimate;
+    private transient int mMaxLengthEstimate;
 
     //-----------------------------------------------------------------------
     /**
@@ -1012,6 +1015,13 @@ public class FastDateFormat extends Format {
      */
     public String toString() {
         return "FastDateFormat[" + mPattern + "]";
+    }
+
+    // Serializing
+    //-----------------------------------------------------------------------
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        init();
     }
     
     // Rules
