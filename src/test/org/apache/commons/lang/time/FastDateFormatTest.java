@@ -282,7 +282,13 @@ public class FastDateFormatTest extends TestCase {
     }
 
     public void testLang303() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(2004,11,31);
+
         FastDateFormat format = FastDateFormat.getInstance("yyyy/MM/dd");
+        String output = format.format(cal);
+
         format = (FastDateFormat) SerializationUtils.deserialize( SerializationUtils.serialize( format ) );
+        assertEquals(output, format.format(cal));
     }
 }
