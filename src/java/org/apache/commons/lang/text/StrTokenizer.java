@@ -1099,6 +1099,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @throws CloneNotSupportedException if there is a problem cloning
      */
     Object cloneReset() throws CloneNotSupportedException {
+        // this method exists to enable 100% test coverage
         StrTokenizer cloned = (StrTokenizer) super.clone();
         if (cloned.chars != null) {
             cloned.chars = (char[]) cloned.chars.clone();
