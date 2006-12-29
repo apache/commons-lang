@@ -237,6 +237,50 @@ public class ObjectUtils {
         return obj == null ? nullStr : obj.toString();
     }
 
+    // Min/Max
+    //-----------------------------------------------------------------------
+    /**
+     * Null safe comparison of Comparables.
+     * 
+     * @param c1  the first comparable, may be null
+     * @param c2  the second comparable, may be null
+     * @return
+     *  <ul>
+     *   <li>If both objects are non-null and unequal, the lesser object.
+     *   <li>If both objects are non-null and equal, c1.
+     *   <li>If one of the comparables is null, the non-null object.
+     *   <li>If both the comparables are null, null is returned.
+     *  </ul>
+     */
+    public static Object min(Comparable c1, Comparable c2) {
+        if (c1 != null && c2 != null) {
+            return c1.compareTo(c2) < 1 ? c1 : c2;
+        } else {
+            return c1 != null ? c1 : c2;
+        }                              
+    }
+
+    /**
+     * Null safe comparison of Comparables.
+     * 
+     * @param c1  the first comparable, may be null
+     * @param c2  the second comparable, may be null
+     * @return
+     *  <ul>
+     *   <li>If both objects are non-null and unequal, the greater object.
+     *   <li>If both objects are non-null and equal, c1.
+     *   <li>If one of the comparables is null, the non-null object.
+     *   <li>If both the comparables are null, null is returned.
+     *  </ul>
+     */
+    public static Object max(Comparable c1, Comparable c2) {
+        if (c1 != null && c2 != null) {
+            return c1.compareTo(c2) >= 0 ? c1 : c2;
+        } else {
+            return c1 != null ? c1 : c2;
+        }
+    }
+
     // Null
     //-----------------------------------------------------------------------
     /**
@@ -277,52 +321,5 @@ public class ObjectUtils {
             return ObjectUtils.NULL;
         }
     }
-    
-    
-    /**
-     * Null safe comparison of Comparables.
-     * 
-     * @param c1
-     * @param c2
-     * @return
-     *  <ul>
-     *   <li>If both objects are non-null and unequal, the lesser object.
-     *   <li>If both objects are non-null and equal, c1.
-     *   <li>If one of the comparables is null, the non-null object.
-     *   <li>If both the comparables are null, null is returned.
-     *  </ul>
-     */
-    public static Object min( Comparable c1, Comparable c2 ) {
-        if ( c1 != null && c2 != null ) {
-            return c1.compareTo( c2 ) < 1 ? c1 : c2;
-        }
-        else {
-            return c1 != null ? c1 : c2;
-        }                              
-    }
-    
-    /**
-     * Null safe comparison of Comparables.
-     * 
-     * @param c1
-     * @param c2
-     * @return
-     *  <ul>
-     *   <li>If both objects are non-null and unequal, the greater object.
-     *   <li>If both objects are non-null and equal, c1.
-     *   <li>If one of the comparables is null, the non-null object.
-     *   <li>If both the comparables are null, null is returned.
-     *  </ul>
-     */
-    public static Object max( Comparable c1, Comparable c2 ) {
-        if ( c1 != null && c2 != null ) {
-            return c1.compareTo( c2 ) >= 0 ? c1 : c2;
-        }
-        else {
-            return c1 != null ? c1 : c2;
-        }                              
-    }
-    
-    
-    
+
 }
