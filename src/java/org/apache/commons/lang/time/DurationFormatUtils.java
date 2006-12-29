@@ -261,8 +261,8 @@ public class DurationFormatUtils {
      * choosing March -> February = 1 month and then calculating days 
      * backwards. </p>
      *
-     * <p>For more control, the Joda Time library is recommended
-     * (<a href="http://joda-time.sf.net/"). </p>
+     * <p>For more control, the <a href="http://joda-time.sf.net/">Joda-Time</a>
+     * library is recommended.</p>
      * 
      * @param startMillis  the start of the duration
      * @param endMillis  the end of the duration
