@@ -121,9 +121,8 @@ public class NestableError extends Error implements Nestable {
     public String getMessage(int index) {
         if (index == 0) {
             return super.getMessage();
-        } else {
-            return delegate.getMessage(index);
         }
+        return delegate.getMessage(index);
     }
 
     /**
