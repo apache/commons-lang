@@ -637,9 +637,8 @@ public class DurationFormatUtils {
                 } else {
                     return this.value == tok2.value;
                 }
-            } else {
-                return false;
             }
+            return false;
         }
 
         /**
