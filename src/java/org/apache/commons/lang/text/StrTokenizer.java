@@ -1117,9 +1117,8 @@ public class StrTokenizer implements ListIterator, Cloneable {
     public String toString() {
         if (tokens == null) {
             return "StrTokenizer[not tokenized yet]";
-        } else {
-            return "StrTokenizer" + getTokenList();
         }
+        return "StrTokenizer" + getTokenList();
     }
 
 }
