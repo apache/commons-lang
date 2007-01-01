@@ -118,6 +118,9 @@ public class ToStringBuilder {
     /**
      * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
      * 
+     * @param object
+     *            the Object to be output
+     * @return the String result
      * @see ReflectionToStringBuilder#toString(Object)
      */
     public static String reflectionToString(Object object) {
@@ -127,6 +130,11 @@ public class ToStringBuilder {
     /**
      * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
      * 
+     * @param object
+     *            the Object to be output
+     * @param style
+     *            the style of the <code>toString</code> to create, may be <code>null</code>
+     * @return the String result
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle)
      */
     public static String reflectionToString(Object object, ToStringStyle style) {
@@ -136,6 +144,13 @@ public class ToStringBuilder {
     /**
      * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
      * 
+     * @param object
+     *            the Object to be output
+     * @param style
+     *            the style of the <code>toString</code> to create, may be <code>null</code>
+     * @param outputTransients
+     *            whether to include transient fields
+     * @return the String result
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean)
      */
     public static String reflectionToString(Object object, ToStringStyle style, boolean outputTransients) {
@@ -145,6 +160,15 @@ public class ToStringBuilder {
     /**
      * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
      * 
+     * @param object
+     *            the Object to be output
+     * @param style
+     *            the style of the <code>toString</code> to create, may be <code>null</code>
+     * @param outputTransients
+     *            whether to include transient fields
+     * @param reflectUpToClass
+     *            the superclass to reflect up to (inclusive), may be <code>null</code>
+     * @return the String result
      * @see ReflectionToStringBuilder#toString(Object,ToStringStyle,boolean,boolean,Class)
      * @since 2.0
      */
