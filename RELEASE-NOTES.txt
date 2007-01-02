@@ -14,8 +14,7 @@ should be of use in any Java environment.
 
 INCOMPATIBLE CHANGES WITH VERSION 2.2:
 
-- Mention LANG-302 (StrBuilder implementing Cloneable)
-- ?
+- None
 
 ADDITIONAL INCOMPATIBLE CHANGES WITH VERSION 2.0:
 
@@ -37,7 +36,7 @@ for more details.
 
 DEPRECATIONS FROM 2.2 to 2.3:
 
-- ?
+- None
 
 DEPRECATIONS FROM 2.1 to 2.2:
 
