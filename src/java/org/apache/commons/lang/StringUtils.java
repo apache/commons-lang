@@ -1008,7 +1008,7 @@ public class StringUtils {
 
     /**
      * <p>Checks if String contains a search String, handling <code>null</code>.
-     * This method uses {@link String#indexOf(int)}.</p>
+     * This method uses {@link String#indexOf(String)}.</p>
      *
      * <p>A <code>null</code> String will return <code>false</code>.</p>
      *
