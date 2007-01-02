@@ -90,14 +90,12 @@
 			<classpath refid="compile.classpath"/>
 		</javadoc>
 	</target>
-	<target name="dist" depends="compile,javadoc" description="Create binary distribution">
+	<target name="dist" depends="clean,compile,javadoc" description="Create binary distribution">
 		<mkdir dir="${dist.home}"/>
 		<copy file="LICENSE.txt" todir="${dist.home}"/>
 		<copy file="NOTICE.txt" todir="${dist.home}"/>
 		<copy file="RELEASE-NOTES.txt" todir="${dist.home}"/>
 		<antcall target="jar"/>
-	</target>
-	<target name="dist-build" depends="clean,dist" description="Build binary distribution files">
         <copy file="${dist.home}/${final.name}.jar" todir="."/>
 		<jar jarfile="${final.name}-sources.jar" basedir="${source.home}" manifest="${build.home}/conf/MANIFEST.MF"/>
 		<jar jarfile="${final.name}-javadoc.jar" basedir="${dist.home}/docs/api" manifest="${build.home}/conf/MANIFEST.MF"/>
