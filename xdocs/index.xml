@@ -98,6 +98,7 @@ Oct 17, 2003 - <a href="http://www.builder.com/">Builder.com</a> has an article 
 <a href="http://maven.apache.org">Maven</a>,
 <a href="http://clirr.sourceforge.net/">Clirr</a>,
 <a href="http://pmd.sourceforge.net/">PMD</a>,
+<a href="http://cobertura.sourceforge.net/">Cobertura</a>,
 <a href="http://www.cs.umd.edu/~pugh/java/bugs/">FindBugs</a> and
 <a href="http://www.osjava.org/jardiff">JarDiff</a>
 have all been of use in the latest release of Commons Lang. 
