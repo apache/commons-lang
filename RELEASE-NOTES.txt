@@ -57,6 +57,7 @@ as int not long. The replacements are MILLIS_PER_*.
 BUG FIXES IN 2.3:
 
     * [LANG-69 ] - [lang] ToStringBuilder throws StackOverflowError when an Object cycle exists
+    * [LANG-102] - [lang] Refactor Entities methods
     * [LANG-153] - [lang] Can't XMLDecode an Enum
     * [LANG-262] - Use of enum prevents a classloader from being garbage collected resuling in out of memory exceptions.
     * [LANG-279] - HashCodeBuilder throws java.lang.StackOverflowError when an object contains a cycle.
