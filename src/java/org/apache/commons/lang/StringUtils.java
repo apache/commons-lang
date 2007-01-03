@@ -1034,7 +1034,7 @@ public class StringUtils {
         return str.indexOf(searchStr) >= 0;
     }
 
- /**
+    /**
      * <p>Checks if String contains a search String irrespective of case,
      * handling <code>null</code>. This method uses
      * {@link #contains(String, String)}.</p>
@@ -1052,8 +1052,8 @@ public class StringUtils {
      * StringUtils.contains("abc", "Z") = false
      * </pre>
      *
-     * @param str the String to check, may be null
-     * @param searchStr the String to find, may be null
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
      * @return true if the String contains the search String irrespective of
      * case or false if not or <code>null</code> string input
      */
