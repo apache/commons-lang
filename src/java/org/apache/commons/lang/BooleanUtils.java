@@ -70,7 +70,8 @@ public class BooleanUtils {
     // boolean Boolean methods
     //-----------------------------------------------------------------------
     /**
-     * <p>Is a Boolean value <code>true</code>, handling <code>null</code>.</p>
+     * <p>Checks if a <code>Boolean</code> value is <code>true</code>,
+     * handling <code>null</code> by returning <code>false</code>.</p>
      *
      * <pre>
      *   BooleanUtils.isTrue(Boolean.TRUE)  = true
@@ -78,7 +79,7 @@ public class BooleanUtils {
      *   BooleanUtils.isTrue(null)          = false
      * </pre>
      *
-     * @param bool  the boolean to convert
+     * @param bool  the boolean to check, null returns <code>false</code>
      * @return <code>true</code> only if the input is non-null and true
      * @since 2.1
      */
@@ -90,7 +91,26 @@ public class BooleanUtils {
     }
 
     /**
-     * <p>Is a Boolean value <code>false</code>, handling <code>null</code>.</p>
+     * <p>Checks if a <code>Boolean</code> value is <i>not</i> <code>true</code>,
+     * handling <code>null</code> by returning <code>true</code>.</p>
+     *
+     * <pre>
+     *   BooleanUtils.isNotTrue(Boolean.TRUE)  = false
+     *   BooleanUtils.isNotTrue(Boolean.FALSE) = true
+     *   BooleanUtils.isNotTrue(null)          = true
+     * </pre>
+     *
+     * @param bool  the boolean to check, null returns <code>true</code>
+     * @return <code>true</code> if the input is null or false
+     * @since 2.3
+     */
+    public static boolean isNotTrue(Boolean bool) {
+        return !isTrue(bool);
+    }
+
+    /**
+     * <p>Checks if a <code>Boolean</code> value is <code>false</code>,
+     * handling <code>null</code> by returning <code>false</code>.</p>
      *
      * <pre>
      *   BooleanUtils.isFalse(Boolean.TRUE)  = false
@@ -98,7 +118,7 @@ public class BooleanUtils {
      *   BooleanUtils.isFalse(null)          = false
      * </pre>
      *
-     * @param bool  the boolean to convert
+     * @param bool  the boolean to check, null returns <code>false</code>
      * @return <code>true</code> only if the input is non-null and false
      * @since 2.1
      */
@@ -109,6 +129,25 @@ public class BooleanUtils {
         return bool.booleanValue() ? false : true;
     }
 
+    /**
+     * <p>Checks if a <code>Boolean</code> value is <i>not</i> <code>false</code>,
+     * handling <code>null</code> by returning <code>true</code>.</p>
+     *
+     * <pre>
+     *   BooleanUtils.isNotTrue(Boolean.TRUE)  = true
+     *   BooleanUtils.isNotTrue(Boolean.FALSE) = false
+     *   BooleanUtils.isNotTrue(null)          = true
+     * </pre>
+     *
+     * @param bool  the boolean to check, null returns <code>true</code>
+     * @return <code>true</code> if the input is null or true
+     * @since 2.3
+     */
+    public static boolean isNotFalse(Boolean bool) {
+        return !isFalse(bool);
+    }
+
+    //-----------------------------------------------------------------------
     /**
      * <p>Boolean factory that avoids creating new Boolean objecs all the time.</p>
      * 
