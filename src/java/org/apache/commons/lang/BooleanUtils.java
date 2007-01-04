@@ -134,9 +134,9 @@ public class BooleanUtils {
      * handling <code>null</code> by returning <code>true</code>.</p>
      *
      * <pre>
-     *   BooleanUtils.isNotTrue(Boolean.TRUE)  = true
-     *   BooleanUtils.isNotTrue(Boolean.FALSE) = false
-     *   BooleanUtils.isNotTrue(null)          = true
+     *   BooleanUtils.isNotFalse(Boolean.TRUE)  = true
+     *   BooleanUtils.isNotFalse(Boolean.FALSE) = false
+     *   BooleanUtils.isNotFalse(null)          = true
      * </pre>
      *
      * @param bool  the boolean to check, null returns <code>true</code>
