@@ -56,9 +56,9 @@ as int not long. The replacements are MILLIS_PER_*.
 
 BUG FIXES IN 2.3:
 
-    * [LANG-69 ] - [lang] ToStringBuilder throws StackOverflowError when an Object cycle exists
-    * [LANG-102] - [lang] Refactor Entities methods
-    * [LANG-153] - [lang] Can't XMLDecode an Enum
+    * [LANG-69 ] - ToStringBuilder throws StackOverflowError when an Object cycle exists
+    * [LANG-102] - Refactor Entities methods
+    * [LANG-153] - Can't XMLDecode an Enum
     * [LANG-262] - Use of enum prevents a classloader from being garbage collected resuling in out of memory exceptions.
     * [LANG-279] - HashCodeBuilder throws java.lang.StackOverflowError when an object contains a cycle.
     * [LANG-281] - DurationFormatUtils returns wrong result
@@ -73,7 +73,6 @@ BUG FIXES IN 2.3:
 
 IMPROVEMENTS IN 2.3:
 
-    * [LANG-238] - [lang] Add equals(type[]) to NumberUtils
     * [LANG-258] - Enum JavaDoc
     * [LANG-268] - StringUtils.join should allow you to pass a range for it (so it only joins a part of the array)
     * [LANG-287] - Optimize StringEscapeUtils.unescapeXml(String)
@@ -82,4 +81,5 @@ IMPROVEMENTS IN 2.3:
     * [LANG-282] - Create more tests to test out the +=31 replacement code in DurationFormatUtils.
     * [LANG-266] - Wish for StringUtils.join(Collection, *)
     * [LANG-310] - BooleanUtils isNotTrue/isNotFalse
+    * [LANG-306] - StrBuilder appendln/appendAll/appendSeparator
 
