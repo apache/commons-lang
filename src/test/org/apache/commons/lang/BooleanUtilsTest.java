@@ -79,10 +79,23 @@ public class BooleanUtilsTest extends TestCase {
         assertEquals(false, BooleanUtils.isTrue((Boolean) null));
     }
 
+    public void test_isNotTrue_Boolean() {
+        assertEquals(false, BooleanUtils.isNotTrue(Boolean.TRUE));
+        assertEquals(true, BooleanUtils.isNotTrue(Boolean.FALSE));
+        assertEquals(true, BooleanUtils.isNotTrue((Boolean) null));
+    }
+
+    //-----------------------------------------------------------------------
     public void test_isFalse_Boolean() {
         assertEquals(false, BooleanUtils.isFalse(Boolean.TRUE));
         assertEquals(true, BooleanUtils.isFalse(Boolean.FALSE));
         assertEquals(false, BooleanUtils.isFalse((Boolean) null));
+    }
+
+    public void test_isNotFalse_Boolean() {
+        assertEquals(true, BooleanUtils.isNotFalse(Boolean.TRUE));
+        assertEquals(false, BooleanUtils.isNotFalse(Boolean.FALSE));
+        assertEquals(true, BooleanUtils.isNotFalse((Boolean) null));
     }
 
     //-----------------------------------------------------------------------

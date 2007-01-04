@@ -81,4 +81,5 @@ IMPROVEMENTS IN 2.3:
     * [LANG-291] - Null-safe comparison methods for finding most recent / least recent dates.
     * [LANG-282] - Create more tests to test out the +=31 replacement code in DurationFormatUtils.
     * [LANG-266] - Wish for StringUtils.join(Collection, *)
+    * [LANG-310] - BooleanUtils isNotTrue/isNotFalse
 
