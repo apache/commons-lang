@@ -1859,14 +1859,16 @@ public class StringUtils {
      *
      * <p>A <code>null</code> input String returns <code>null</code>.
      * A <code>null</code> open/close returns <code>null</code> (no match).
-     * An empty ("") open/close returns an empty string.</p>
+     * An empty ("") open and close returns an empty string.</p>
      *
      * <pre>
+     * StringUtils.substringBetween("wx[b]yz", "[", "]") = "b"
      * StringUtils.substringBetween(null, *, *)          = null
+     * StringUtils.substringBetween(*, null, *)          = null
+     * StringUtils.substringBetween(*, *, null)          = null
      * StringUtils.substringBetween("", "", "")          = ""
-     * StringUtils.substringBetween("", "", "tag")       = null
-     * StringUtils.substringBetween("", "tag", "tag")    = null
-     * StringUtils.substringBetween("yabcz", null, null) = null
+     * StringUtils.substringBetween("", "", "]")         = null
+     * StringUtils.substringBetween("", "[", "]")        = null
      * StringUtils.substringBetween("yabcz", "", "")     = ""
      * StringUtils.substringBetween("yabcz", "y", "z")   = "abc"
      * StringUtils.substringBetween("yabczyabcz", "y", "z")   = "abc"
@@ -1890,6 +1892,60 @@ public class StringUtils {
             }
         }
         return null;
+    }
+
+    /**
+     * <p>Searches a String for substrings delimited by a start and end tag,
+     * returning all matching substrings in an array.</p>
+     *
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * A <code>null</code> open/close returns <code>null</code> (no match).
+     * An empty ("") open/close returns <code>null</code> (no match).</p>
+     *
+     * <pre>
+     * StringUtils.substringsBetween("[a][b][c]", "[", "]") = ["a","b","c"]
+     * StringUtils.substringsBetween(null, *, *)            = null
+     * StringUtils.substringsBetween(*, null, *)            = null
+     * StringUtils.substringsBetween(*, *, null)            = null
+     * StringUtils.substringsBetween("", "[", "]")          = []
+     * </pre>
+     *
+     * @param str  the String containing the substrings, null returns null, empty returns empty
+     * @param open  the String identifying the start of the substring, empty returns null
+     * @param close  the String identifying the end of the substring, empty returns null
+     * @return a String Array of substrings, or <code>null</code> if no match
+     * @since 2.3
+     */
+    public static String[] substringsBetween(String str, String open, String close) {
+        if (str == null || isEmpty(open) || isEmpty(close)) {
+            return null;
+        }
+        int strLen = str.length();
+        if (strLen == 0) {
+            return ArrayUtils.EMPTY_STRING_ARRAY;
+        }
+        int closeLen = close.length();
+        int openLen = open.length();
+        List list = new ArrayList();
+        int pos = 0;
+        while (pos < (strLen - closeLen)) {
+            int start = str.indexOf(open, pos);
+            if (start < 0) {
+                break;
+            }
+            start += openLen;
+            int end = str.indexOf(close, start);
+            if (end < 0) {
+                break;
+            }
+            list.add(str.substring(start, end));
+            pos = end + closeLen;
+        }
+        if (list.size() > 0) {
+            return (String[]) list.toArray(new String [list.size()]);
+        } else {
+            return null;
+        }
     }
 
     // Nested extraction
