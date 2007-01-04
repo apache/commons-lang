@@ -82,4 +82,5 @@ IMPROVEMENTS IN 2.3:
     * [LANG-266] - Wish for StringUtils.join(Collection, *)
     * [LANG-310] - BooleanUtils isNotTrue/isNotFalse
     * [LANG-306] - StrBuilder appendln/appendAll/appendSeparator
+    * [LANG-275] - StringUtils substringsBetween
 
