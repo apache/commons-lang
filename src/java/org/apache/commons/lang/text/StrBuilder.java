@@ -738,6 +738,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param obj  the object to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(Object obj) {
         return append(obj).appendNewLine();
@@ -749,6 +750,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param str  the string to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(String str) {
         return append(str).appendNewLine();
@@ -762,6 +764,7 @@ public class StrBuilder implements Cloneable {
      * @param startIndex  the start index, inclusive, must be valid
      * @param length  the length to append, must be valid
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(String str, int startIndex, int length) {
         return append(str, startIndex, length).appendNewLine();
@@ -773,6 +776,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param str  the string buffer to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(StringBuffer str) {
         return append(str).appendNewLine();
@@ -786,6 +790,7 @@ public class StrBuilder implements Cloneable {
      * @param startIndex  the start index, inclusive, must be valid
      * @param length  the length to append, must be valid
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(StringBuffer str, int startIndex, int length) {
         return append(str, startIndex, length).appendNewLine();
@@ -797,6 +802,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param str  the string builder to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(StrBuilder str) {
         return append(str).appendNewLine();
@@ -810,6 +816,7 @@ public class StrBuilder implements Cloneable {
      * @param startIndex  the start index, inclusive, must be valid
      * @param length  the length to append, must be valid
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(StrBuilder str, int startIndex, int length) {
         return append(str, startIndex, length).appendNewLine();
@@ -821,6 +828,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param chars  the char array to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(char[] chars) {
         return append(chars).appendNewLine();
@@ -834,6 +842,7 @@ public class StrBuilder implements Cloneable {
      * @param startIndex  the start index, inclusive, must be valid
      * @param length  the length to append, must be valid
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(char[] chars, int startIndex, int length) {
         return append(chars, startIndex, length).appendNewLine();
@@ -844,6 +853,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param value  the value to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(boolean value) {
         return append(value).appendNewLine();
@@ -854,6 +864,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param ch  the value to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(char ch) {
         return append(ch).appendNewLine();
@@ -864,6 +875,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param value  the value to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(int value) {
         return append(value).appendNewLine();
@@ -874,6 +886,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param value  the value to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(long value) {
         return append(value).appendNewLine();
@@ -884,6 +897,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param value  the value to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(float value) {
         return append(value).appendNewLine();
@@ -894,6 +908,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param value  the value to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendln(double value) {
         return append(value).appendNewLine();
@@ -907,6 +922,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param array  the array to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendAll(Object[] array) {
         if (array != null && array.length > 0) {
@@ -924,6 +940,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param coll  the collection to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendAll(Collection coll) {
         if (coll != null && coll.size() > 0) {
@@ -942,6 +959,7 @@ public class StrBuilder implements Cloneable {
      *
      * @param it  the iterator to append
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendAll(Iterator it) {
         if (it != null) {
@@ -1041,6 +1059,7 @@ public class StrBuilder implements Cloneable {
      * 
      * @param separator  the separator to use, null means no separator
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendSeparator(String separator) {
         if (separator != null && size() > 0) {
@@ -1066,6 +1085,7 @@ public class StrBuilder implements Cloneable {
      * 
      * @param separator  the separator to use
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendSeparator(char separator) {
         if (size() > 0) {
@@ -1093,6 +1113,7 @@ public class StrBuilder implements Cloneable {
      * @param separator  the separator to use, null means no separator
      * @param loopIndex  the loop index
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendSeparator(String separator, int loopIndex) {
         if (separator != null && loopIndex > 0) {
@@ -1119,6 +1140,7 @@ public class StrBuilder implements Cloneable {
      * @param separator  the separator to use
      * @param loopIndex  the loop index
      * @return this, to enable chaining
+     * @since 2.3
      */
     public StrBuilder appendSeparator(char separator, int loopIndex) {
         if (loopIndex > 0) {
