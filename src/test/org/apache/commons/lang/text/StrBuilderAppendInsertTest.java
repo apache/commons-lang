@@ -22,12 +22,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 
-import org.apache.commons.lang.SystemUtils;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
+import org.apache.commons.lang.SystemUtils;
 
 /**
  * Unit tests for {@link org.apache.commons.lang.text.StrBuilder}.
@@ -35,6 +35,9 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class StrBuilderAppendInsertTest extends TestCase {
+
+    /** The system line separator. */
+    private static final String SEP = SystemUtils.LINE_SEPARATOR;
 
     /** Test subclass of Object, with a toString method. */
     private static Object FOO = new Object() {
@@ -76,11 +79,11 @@ public class StrBuilderAppendInsertTest extends TestCase {
     public void testAppendNewLine() {
         StrBuilder sb = new StrBuilder("---");
         sb.appendNewLine().append("+++");
-        assertEquals("---" + SystemUtils.LINE_SEPARATOR + "+++", sb.toString());
+        assertEquals("---" + SEP + "+++", sb.toString());
         
         sb = new StrBuilder("---");
         sb.setNewLineText("#").appendNewLine().setNewLineText(null).appendNewLine();
-        assertEquals("---#" + SystemUtils.LINE_SEPARATOR, sb.toString());
+        assertEquals("---#" + SEP, sb.toString());
     }
 
     //-----------------------------------------------------------------------
@@ -438,7 +441,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-    public void testAppend_Primitive() {
+    public void testAppend_Boolean() {
         StrBuilder sb = new StrBuilder();
         sb.append(true);
         assertEquals("true", sb.toString());
@@ -464,6 +467,201 @@ public class StrBuilderAppendInsertTest extends TestCase {
 
         sb.append(4.5d);
         assertEquals("012.34.5", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendln_Object() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendln((Object) null);
+        assertEquals("" + SEP, sb.toString());
+
+        sb.appendln((Object) FOO);
+        assertEquals(SEP + "foo" + SEP, sb.toString());
+
+        sb.appendln(new Integer(6));
+        assertEquals(SEP + "foo" + SEP + "6" + SEP, sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendln_String() {
+        final int[] count = new int[2];
+        StrBuilder sb = new StrBuilder() {
+            public StrBuilder append(String str) {
+                count[0]++;
+                return super.append(str);
+            }
+            public StrBuilder appendNewLine() {
+                count[1]++;
+                return super.appendNewLine();
+            }
+        };
+        sb.appendln("foo");
+        assertEquals("foo" + SEP, sb.toString());
+        assertEquals(2, count[0]);  // appendNewLine() calls append(String)
+        assertEquals(1, count[1]);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendln_String_int_int() {
+        final int[] count = new int[2];
+        StrBuilder sb = new StrBuilder() {
+            public StrBuilder append(String str, int startIndex, int length) {
+                count[0]++;
+                return super.append(str, startIndex, length);
+            }
+            public StrBuilder appendNewLine() {
+                count[1]++;
+                return super.appendNewLine();
+            }
+        };
+        sb.appendln("foo", 0, 3);
+        assertEquals("foo" + SEP, sb.toString());
+        assertEquals(1, count[0]);
+        assertEquals(1, count[1]);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendln_StringBuffer() {
+        final int[] count = new int[2];
+        StrBuilder sb = new StrBuilder() {
+            public StrBuilder append(StringBuffer str) {
+                count[0]++;
+                return super.append(str);
+            }
+            public StrBuilder appendNewLine() {
+                count[1]++;
+                return super.appendNewLine();
+            }
+        };
+        sb.appendln(new StringBuffer("foo"));
+        assertEquals("foo" + SEP, sb.toString());
+        assertEquals(1, count[0]);
+        assertEquals(1, count[1]);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendln_StringBuffer_int_int() {
+        final int[] count = new int[2];
+        StrBuilder sb = new StrBuilder() {
+            public StrBuilder append(StringBuffer str, int startIndex, int length) {
+                count[0]++;
+                return super.append(str, startIndex, length);
+            }
+            public StrBuilder appendNewLine() {
+                count[1]++;
+                return super.appendNewLine();
+            }
+        };
+        sb.appendln(new StringBuffer("foo"), 0, 3);
+        assertEquals("foo" + SEP, sb.toString());
+        assertEquals(1, count[0]);
+        assertEquals(1, count[1]);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendln_StrBuilder() {
+        final int[] count = new int[2];
+        StrBuilder sb = new StrBuilder() {
+            public StrBuilder append(StrBuilder str) {
+                count[0]++;
+                return super.append(str);
+            }
+            public StrBuilder appendNewLine() {
+                count[1]++;
+                return super.appendNewLine();
+            }
+        };
+        sb.appendln(new StrBuilder("foo"));
+        assertEquals("foo" + SEP, sb.toString());
+        assertEquals(1, count[0]);
+        assertEquals(1, count[1]);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendln_StrBuilder_int_int() {
+        final int[] count = new int[2];
+        StrBuilder sb = new StrBuilder() {
+            public StrBuilder append(StrBuilder str, int startIndex, int length) {
+                count[0]++;
+                return super.append(str, startIndex, length);
+            }
+            public StrBuilder appendNewLine() {
+                count[1]++;
+                return super.appendNewLine();
+            }
+        };
+        sb.appendln(new StrBuilder("foo"), 0, 3);
+        assertEquals("foo" + SEP, sb.toString());
+        assertEquals(1, count[0]);
+        assertEquals(1, count[1]);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendln_CharArray() {
+        final int[] count = new int[2];
+        StrBuilder sb = new StrBuilder() {
+            public StrBuilder append(char[] str) {
+                count[0]++;
+                return super.append(str);
+            }
+            public StrBuilder appendNewLine() {
+                count[1]++;
+                return super.appendNewLine();
+            }
+        };
+        sb.appendln("foo".toCharArray());
+        assertEquals("foo" + SEP, sb.toString());
+        assertEquals(1, count[0]);
+        assertEquals(1, count[1]);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendln_CharArray_int_int() {
+        final int[] count = new int[2];
+        StrBuilder sb = new StrBuilder() {
+            public StrBuilder append(char[] str, int startIndex, int length) {
+                count[0]++;
+                return super.append(str, startIndex, length);
+            }
+            public StrBuilder appendNewLine() {
+                count[1]++;
+                return super.appendNewLine();
+            }
+        };
+        sb.appendln("foo".toCharArray(), 0, 3);
+        assertEquals("foo" + SEP, sb.toString());
+        assertEquals(1, count[0]);
+        assertEquals(1, count[1]);
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendln_Boolean() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendln(true);
+        assertEquals("true" + SEP, sb.toString());
+        
+        sb.clear();
+        sb.appendln(false);
+        assertEquals("false" + SEP, sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendln_PrimitiveNumber() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendln(0);
+        assertEquals("0" + SEP, sb.toString());
+        
+        sb.clear();
+        sb.appendln(1L);
+        assertEquals("1" + SEP, sb.toString());
+        
+        sb.clear();
+        sb.appendln(2.3f);
+        assertEquals("2.3" + SEP, sb.toString());
+        
+        sb.clear();
+        sb.appendln(4.5d);
+        assertEquals("4.5" + SEP, sb.toString());
     }
 
     //-----------------------------------------------------------------------
@@ -637,6 +835,51 @@ public class StrBuilderAppendInsertTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testAppendAll_Array() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendAll((Object[]) null);
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendAll(new Object[0]);
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendAll(new Object[]{"foo", "bar", "baz"});
+        assertEquals("foobarbaz", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendAll_Collection() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendAll((Collection) null);
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendAll(Collections.EMPTY_LIST);
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendAll(Arrays.asList(new Object[]{"foo", "bar", "baz"}));
+        assertEquals("foobarbaz", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendAll_Iterator() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendAll((Iterator) null);
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendAll(Collections.EMPTY_LIST.iterator());
+        assertEquals("", sb.toString());
+
+        sb.clear();
+        sb.appendAll(Arrays.asList(new Object[]{"foo", "bar", "baz"}).iterator());
+        assertEquals("foobarbaz", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
     public void testAppendWithSeparators_Array() {
         StrBuilder sb = new StrBuilder();
         sb.appendWithSeparators((Object[]) null, ",");
@@ -715,6 +958,56 @@ public class StrBuilderAppendInsertTest extends TestCase {
         sb.clear();
         sb.appendWithSeparators(Arrays.asList(new Object[]{"foo", null, "baz"}), ",");
         assertEquals("foo,null,baz", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendSeparator_String() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendSeparator(",");  // no effect
+        assertEquals("", sb.toString());
+        sb.append("foo");
+        assertEquals("foo", sb.toString());
+        sb.appendSeparator(",");
+        assertEquals("foo,", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendSeparator_char() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendSeparator(',');  // no effect
+        assertEquals("", sb.toString());
+        sb.append("foo");
+        assertEquals("foo", sb.toString());
+        sb.appendSeparator(',');
+        assertEquals("foo,", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendSeparator_String_int() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendSeparator(",", 0);  // no effect
+        assertEquals("", sb.toString());
+        sb.append("foo");
+        assertEquals("foo", sb.toString());
+        sb.appendSeparator(",", 1);
+        assertEquals("foo,", sb.toString());
+        
+        sb.appendSeparator(",", -1);  // no effect
+        assertEquals("foo,", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
+    public void testAppendSeparator_char_int() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendSeparator(',', 0);  // no effect
+        assertEquals("", sb.toString());
+        sb.append("foo");
+        assertEquals("foo", sb.toString());
+        sb.appendSeparator(',', 1);
+        assertEquals("foo,", sb.toString());
+        
+        sb.appendSeparator(',', -1);  // no effect
+        assertEquals("foo,", sb.toString());
     }
 
     //-----------------------------------------------------------------------
