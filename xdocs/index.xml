@@ -51,7 +51,7 @@ The latest version is 2.3. -
 <tr><td>2.3</td><td>Pending</td><td><a href="api-2.3/">api-2.3</a></td><td><a href="upgradeto2_3.html">upgrade to 2.3</a></td></tr>
 <tr><td>2.2</td><td>04/Oct/06</td><td><a href="api-2.2/">api-2.2</a></td><td><a href="upgradeto2_2.html">upgrade to 2.2</a></td></tr>
 <tr><td>2.1</td><td>13/Jun/06</td><td><a href="api-2.1/">api-2.1</a></td><td><a href="upgradeto2_1.html">upgrade to 2.1</a></td></tr>
-<tr><td>2.0</td><td>02/Sep/03</td><td><a href="api-2.0/">api-2.0</a></td><td><a href="releasenotes2_0.html">release notes for 2.0</a></td></tr>
+<tr><td>2.0</td><td>02/Sep/03</td><td><a href="api-2.0/">api-2.0</a></td><td><a href="release2_0.html">release notes for 2.0</a></td></tr>
 <tr><td>1.0.1</td><td>25/Nov/02</td><td><a href="api-1.0.1/">api-1.0.1</a></td><td><a href="http://archive.apache.org/dist/jakarta/commons/lang/old/v1.0.1/RELEASE-NOTES.txt">upgrade to 1.0.1</a></td></tr>
 <tr><td>1.0</td><td>04/Oct/02</td><td><a href="api-1.0/">api-1.0</a></td><td><a href="http://archive.apache.org/dist/jakarta/commons/lang/old/v1.0/RELEASE-NOTES.txt">release notes for 1.0</a></td></tr>
 </table>
