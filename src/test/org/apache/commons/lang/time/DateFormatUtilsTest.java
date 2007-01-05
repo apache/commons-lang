@@ -217,11 +217,19 @@ public class DateFormatUtilsTest extends TestCase {
         TimeZone timeZone = TimeZone.getTimeZone("CET");
         Locale locale = Locale.GERMANY;
 
+        // show Calendar is good
         Calendar cal = Calendar.getInstance(timeZone, locale);
         cal.set(1948, 3, 19);
         assertEquals("19/04/1948", DateFormatUtils.format( cal.getTime(), pattern, timeZone, locale ) );
 
         Date date = new Date(48, 3, 19);
+
+        // test JDK
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern, locale);
+        sdf.setTimeZone(timeZone);
+        assertEquals("19/04/1948", sdf.format( date ) );
+
+        // test Commons
         assertEquals("19/04/1948", DateFormatUtils.format( date, pattern, timeZone, locale ) );
     }
 
