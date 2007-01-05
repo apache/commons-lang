@@ -19,6 +19,7 @@ package org.apache.commons.lang.time;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -209,6 +210,19 @@ public class DateFormatUtilsTest extends TestCase {
                         DateFormatUtils.SMTP_DATETIME_FORMAT.getPattern(),
                         DateFormatUtils.SMTP_DATETIME_FORMAT.getLocale());
         assertEquals("Sun, 08 Jun 2003 13:11:12 +0000", text);
+    }
+
+    public void testLang312() {
+        String pattern = "dd/MM/yyyy";
+        TimeZone timeZone = TimeZone.getTimeZone("CET");
+        Locale locale = Locale.GERMANY;
+
+        Calendar cal = Calendar.getInstance(timeZone, locale);
+        cal.set(1948, 3, 19);
+        assertEquals("19/04/1948", DateFormatUtils.format( cal.getTime(), pattern, timeZone, locale ) );
+
+        Date date = new Date(48, 3, 19);
+        assertEquals("19/04/1948", DateFormatUtils.format( date, pattern, timeZone, locale ) );
     }
 
 }
