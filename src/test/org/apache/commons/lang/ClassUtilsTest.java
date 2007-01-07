@@ -513,13 +513,13 @@ public class ClassUtilsTest extends TestCase {
         ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
         ClassLoader myClassLoader = ClassUtilsTest.class.getClassLoader();
         if (!(myClassLoader instanceof URLClassLoader)) {
-            fail("Need a better test set up.");
+            fail("ClassUtilsTest ClassLoader = " + (myClassLoader == null ? null : myClassLoader.getClass().getName()));
         }
         if (!(systemClassLoader instanceof URLClassLoader)) {
-            fail("Need a better test set up.");
+            fail("System  ClassLoader = " + (systemClassLoader == null ? null : systemClassLoader.getClass().getName()));
         }
         if (!myClassLoader.equals(systemClassLoader)) {
-            fail("Need a better test set up?");            
+            fail("ClassUtilsTest= " + myClassLoader + " System=" + systemClassLoader);
         }
         URLClassLoader urlScl = (URLClassLoader) myClassLoader;
         return URLClassLoader.newInstance(urlScl.getURLs(), null);
