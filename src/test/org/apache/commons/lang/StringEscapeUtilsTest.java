@@ -326,4 +326,8 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals("test & <", StringEscapeUtils.unescapeXml("test & &lt;"));
     }
 
+    public void testLang313() {
+        assertEquals("& &", StringEscapeUtils.unescapeHtml("& &amp;"));
+    }
+
 }
