@@ -168,7 +168,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{<null>,5,{3,6}}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionLongArray() {
@@ -177,7 +177,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionIntArray() {
@@ -186,7 +186,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionShortArray() {
@@ -195,7 +195,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionyteArray() {
@@ -204,7 +204,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{1,2,-3,4}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionCharArray() {
@@ -213,7 +213,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{A,2,_,D}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionDoubleArray() {
@@ -222,7 +222,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionFloatArray() {
@@ -231,7 +231,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{1.0,2.9876,-3.00001,4.3}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionBooleanArray() {
@@ -240,7 +240,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{true,false,false}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
     
     // Reflection Array Array tests
@@ -251,7 +251,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{{1.0,2.29686},<null>,{NaN}}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
 
@@ -261,7 +261,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionIntArrayArray() {
@@ -270,7 +270,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionhortArrayArray() {
@@ -279,7 +279,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionByteArrayArray() {
@@ -288,7 +288,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{{1,2},<null>,{5}}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionCharArrayArray() {
@@ -297,7 +297,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{{A,B},<null>,{p}}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionDoubleArrayArray() {
@@ -306,7 +306,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{{1.0,2.29686},<null>,{NaN}}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionBooleanArrayArray() {
@@ -316,7 +316,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[{{true,false},<null>,{false}}]", ToStringBuilder.reflectionToString(array));
         array = null;
         assertReflectionArray("<null>", array);
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
     
     // Reflection hierarchy tests
@@ -326,7 +326,7 @@ public class ToStringBuilderTest extends TestCase {
         String baseStr = this.toBaseString(base);
         assertEquals(baseStr + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]", ToStringBuilder.reflectionToString(base, null, true));
         assertEquals(baseStr + "[size=0]", ToStringBuilder.reflectionToString(base, null, false));
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionHierarchy() {
@@ -353,7 +353,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, List.class));
         assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, ReflectionTestFixtureA.class));
         assertEquals(baseStr + "[b=b]", ToStringBuilder.reflectionToString(baseB, null, false, ReflectionTestFixtureB.class));
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     static class ReflectionTestFixtureA {
@@ -394,7 +394,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(
             this.toBaseString(objects) + "[{" + this.toBaseString(objects) + "}]",
             ToStringBuilder.reflectionToString(objects));
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     /**
@@ -411,7 +411,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(
             this.toBaseString(objectsLevel2) + "[{{" + this.toBaseString(objectsLevel2) + "}}]",
             ToStringBuilder.reflectionToString(objectsLevel2));
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     public void testReflectionArrayArrayCycle() throws Exception {
@@ -433,7 +433,7 @@ public class ToStringBuilderTest extends TestCase {
                 + basicToString
                 + "}}]",
             ToStringBuilder.reflectionToString(objects));
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     /**
@@ -514,9 +514,9 @@ public class ToStringBuilderTest extends TestCase {
     public void testSimpleReflectionObjectCycle() throws Exception {
         SimpleReflectionTestFixture simple = new SimpleReflectionTestFixture();
         simple.o = simple;
-        assertTrue(ReflectionToStringBuilder.getRegistry().isEmpty());
+        assertTrue(ToStringStyle.getRegistry().isEmpty());
         assertEquals(this.toBaseString(simple) + "[o=" + this.toBaseString(simple) + "]", simple.toString());
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
 
     /**
@@ -526,9 +526,9 @@ public class ToStringBuilderTest extends TestCase {
      */
     public void testSelfInstanceVarReflectionObjectCycle() throws Exception {
         SelfInstanceVarReflectionTestFixture test = new SelfInstanceVarReflectionTestFixture();
-        assertTrue(ReflectionToStringBuilder.getRegistry().isEmpty());
+        assertTrue(ToStringStyle.getRegistry().isEmpty());
         assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + "]", test.toString());
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
     
     /**
@@ -539,9 +539,9 @@ public class ToStringBuilderTest extends TestCase {
      */
     public void testSelfInstanceTwoVarsReflectionObjectCycle() throws Exception {
         SelfInstanceTwoVarsReflectionTestFixture test = new SelfInstanceTwoVarsReflectionTestFixture();
-        assertTrue(ReflectionToStringBuilder.getRegistry().isEmpty());
+        assertTrue(ToStringStyle.getRegistry().isEmpty());
         assertEquals(this.toBaseString(test) + "[typeIsSelf=" + this.toBaseString(test) + ",otherType=" + test.getOtherType().toString() + "]", test.toString());
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
     
 
@@ -558,9 +558,9 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(
             this.toBaseString(a) + "[b=" + this.toBaseString(b) + "[a=" + this.toBaseString(a) + "]]",
             a.toString());
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
-
+    
     /**
      * Test a nasty combination of arrays and Objects pointing to each other.
      * objects[0] -> SimpleReflectionTestFixture[ o -> objects ]
@@ -586,11 +586,15 @@ public class ToStringBuilderTest extends TestCase {
                 + this.toBaseString(simple)
                 + "}]",
             ToStringBuilder.reflectionToString(simple));
-        this.validateEmptyReflectionRegistry();
+        this.validateEmptyToStringStyleRegistry();
     }
         
-    void validateEmptyReflectionRegistry() {
-        assertTrue(ReflectionToStringBuilder.getRegistry().isEmpty());        
+    void validateEmptyToStringStyleRegistry() {
+       if (!ToStringStyle.getRegistry().isEmpty()) {
+           System.out.println(ToStringStyle.getRegistry());
+       }
+       
+        assertTrue(ToStringStyle.getRegistry().isEmpty());        
     }
     //  End: Reflection cycle tests
 
@@ -831,6 +835,25 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[<null>]", new ToStringBuilder(base).append((Object) array).toString());
     }
 
+    public void testObjectCycle() {
+        ObjectCycle a = new ObjectCycle();
+        ObjectCycle b = new ObjectCycle();
+        a.obj = b;
+        b.obj = a;
+       
+        String expected = toBaseString(a) + "[" + toBaseString(b) + "[" + toBaseString(a) + "]]";
+        assertEquals(expected, a.toString());
+        validateEmptyToStringStyleRegistry();
+    }
+    
+    static class ObjectCycle {
+        Object obj;
+       
+        public String toString() {
+            return new ToStringBuilder(this).append(obj).toString();
+        }
+    }
+    
     public void testSimpleReflectionStatics() {
         SimpleReflectionStaticFieldsFixture instance1 = new SimpleReflectionStaticFieldsFixture();
         assertEquals(
@@ -947,26 +970,5 @@ public class ToStringBuilderTest extends TestCase {
     public void testReflectionNull() {
         assertEquals("<null>", ReflectionToStringBuilder.toString(null));
     }
-
-    /* Unit test for #36061
-    public void testObjectCycle() {
-        ObjectCycle a = new ObjectCycle();
-        ObjectCycle b = new ObjectCycle();
-        a.obj = b;
-        b.obj = a;
-       
-        String expected = toBaseString(a) + "[" + toBaseString(b) + "[" + toBaseString(a) + "]]";
-        assertEquals(expected, a.toString());
-        validateEmptyReflectionRegistry();
-    }
-    
-    static class ObjectCycle {
-        Object obj;
-       
-        public String toString() {
-            return new ToStringBuilder(this).append(obj).toString();
-        }
-    }
-    */
 
 }
