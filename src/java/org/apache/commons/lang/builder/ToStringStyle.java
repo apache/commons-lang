@@ -423,95 +423,97 @@ public abstract class ToStringStyle implements Serializable {
            appendCyclicObject(buffer, fieldName, value);
            return;
         }   
-           register(value);
-try {
-        if (value instanceof Collection) {
-            if (detail) {
-                appendDetail(buffer, fieldName, (Collection) value);
-            } else {
-                appendSummarySize(buffer, fieldName, ((Collection) value).size());
-            }
 
-        } else if (value instanceof Map) {
-            if (detail) {
-                appendDetail(buffer, fieldName, (Map) value);
-            } else {
-                appendSummarySize(buffer, fieldName, ((Map) value).size());
-            }
+        register(value);
 
-        } else if (value instanceof long[]) {
-            if (detail) {
-                appendDetail(buffer, fieldName, (long[]) value);
-            } else {
-                appendSummary(buffer, fieldName, (long[]) value);
-            }
-
-        } else if (value instanceof int[]) {
-            if (detail) {
-                appendDetail(buffer, fieldName, (int[]) value);
-            } else {
-                appendSummary(buffer, fieldName, (int[]) value);
-            }
-
-        } else if (value instanceof short[]) {
-            if (detail) {
-                appendDetail(buffer, fieldName, (short[]) value);
-            } else {
-                appendSummary(buffer, fieldName, (short[]) value);
-            }
-
-        } else if (value instanceof byte[]) {
-            if (detail) {
-                appendDetail(buffer, fieldName, (byte[]) value);
-            } else {
-                appendSummary(buffer, fieldName, (byte[]) value);
-            }
-
-        } else if (value instanceof char[]) {
-            if (detail) {
-                appendDetail(buffer, fieldName, (char[]) value);
-            } else {
-                appendSummary(buffer, fieldName, (char[]) value);
-            }
-
-        } else if (value instanceof double[]) {
-            if (detail) {
-                appendDetail(buffer, fieldName, (double[]) value);
-            } else {
-                appendSummary(buffer, fieldName, (double[]) value);
-            }
-
-        } else if (value instanceof float[]) {
-            if (detail) {
-                appendDetail(buffer, fieldName, (float[]) value);
-            } else {
-                appendSummary(buffer, fieldName, (float[]) value);
-            }
-
-        } else if (value instanceof boolean[]) {
-            if (detail) {
-                appendDetail(buffer, fieldName, (boolean[]) value);
-            } else {
-                appendSummary(buffer, fieldName, (boolean[]) value);
-            }
-
-        } else if (value.getClass().isArray()) {
-            if (detail) {
-                appendDetail(buffer, fieldName, (Object[]) value);
-            } else {
-                appendSummary(buffer, fieldName, (Object[]) value);
-            }
-
-        } else {
+        try {
+            if (value instanceof Collection) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, value);
+                    appendDetail(buffer, fieldName, (Collection) value);
                 } else {
-                    appendSummary(buffer, fieldName, value);
+                    appendSummarySize(buffer, fieldName, ((Collection) value).size());
                 }
-        }
-            } finally {
-                unregister(value);
+    
+            } else if (value instanceof Map) {
+                if (detail) {
+                    appendDetail(buffer, fieldName, (Map) value);
+                } else {
+                    appendSummarySize(buffer, fieldName, ((Map) value).size());
+                }
+    
+            } else if (value instanceof long[]) {
+                if (detail) {
+                    appendDetail(buffer, fieldName, (long[]) value);
+                } else {
+                    appendSummary(buffer, fieldName, (long[]) value);
+                }
+    
+            } else if (value instanceof int[]) {
+                if (detail) {
+                    appendDetail(buffer, fieldName, (int[]) value);
+                } else {
+                    appendSummary(buffer, fieldName, (int[]) value);
+                }
+    
+            } else if (value instanceof short[]) {
+                if (detail) {
+                    appendDetail(buffer, fieldName, (short[]) value);
+                } else {
+                    appendSummary(buffer, fieldName, (short[]) value);
+                }
+    
+            } else if (value instanceof byte[]) {
+                if (detail) {
+                    appendDetail(buffer, fieldName, (byte[]) value);
+                } else {
+                    appendSummary(buffer, fieldName, (byte[]) value);
+                }
+    
+            } else if (value instanceof char[]) {
+                if (detail) {
+                    appendDetail(buffer, fieldName, (char[]) value);
+                } else {
+                    appendSummary(buffer, fieldName, (char[]) value);
+                }
+    
+            } else if (value instanceof double[]) {
+                if (detail) {
+                    appendDetail(buffer, fieldName, (double[]) value);
+                } else {
+                    appendSummary(buffer, fieldName, (double[]) value);
+                }
+    
+            } else if (value instanceof float[]) {
+                if (detail) {
+                    appendDetail(buffer, fieldName, (float[]) value);
+                } else {
+                    appendSummary(buffer, fieldName, (float[]) value);
+                }
+    
+            } else if (value instanceof boolean[]) {
+                if (detail) {
+                    appendDetail(buffer, fieldName, (boolean[]) value);
+                } else {
+                    appendSummary(buffer, fieldName, (boolean[]) value);
+                }
+    
+            } else if (value.getClass().isArray()) {
+                if (detail) {
+                    appendDetail(buffer, fieldName, (Object[]) value);
+                } else {
+                    appendSummary(buffer, fieldName, (Object[]) value);
+                }
+    
+            } else {
+                    if (detail) {
+                        appendDetail(buffer, fieldName, value);
+                    } else {
+                        appendSummary(buffer, fieldName, value);
+                    }
             }
+        } finally {
+            unregister(value);
+        }
     }
     
     /**
@@ -1398,7 +1400,7 @@ try {
      */
     protected void appendClassName(StringBuffer buffer, Object object) {
         if (useClassName && object != null) {
-        	register(object);
+            register(object);
             if (useShortClassName) {
                 buffer.append(getShortClassName(object.getClass()));
             } else {
@@ -1415,7 +1417,7 @@ try {
      */
     protected void appendIdentityHashCode(StringBuffer buffer, Object object) {
         if (this.isUseIdentityHashCode() && object!=null) {
-        	register(object);
+            register(object);
             buffer.append('@');
             buffer.append(Integer.toHexString(System.identityHashCode(object)));
         }
