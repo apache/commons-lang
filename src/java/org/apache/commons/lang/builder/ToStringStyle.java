@@ -19,7 +19,9 @@ package org.apache.commons.lang.builder;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.ObjectUtils;
@@ -94,6 +96,78 @@ public abstract class ToStringStyle implements Serializable {
      */
     public static final ToStringStyle SIMPLE_STYLE = new SimpleToStringStyle();
     
+    /**
+     * <p>
+     * A registry of objects used by <code>reflectionToString</code> methods
+     * to detect cyclical object references and avoid infinite loops.
+     * </p>
+     */
+    private static ThreadLocal registry = new ThreadLocal() {
+        protected synchronized Object initialValue() {
+            // The HashSet implementation is not synchronized,
+            // which is just what we need here.
+            return new HashSet();
+        }
+    };
+
+    /**
+     * <p>
+     * Returns the registry of objects being traversed by the <code>reflectionToString</code>
+     * methods in the current thread.
+     * </p>
+     * 
+     * @return Set the registry of objects being traversed
+     */
+    static Set getRegistry() {
+        return (Set) registry.get();
+    }
+
+    /**
+     * <p>
+     * Returns <code>true</code> if the registry contains the given object.
+     * Used by the reflection methods to avoid infinite loops.
+     * </p>
+     * 
+     * @param value
+     *                  The object to lookup in the registry.
+     * @return boolean <code>true</code> if the registry contains the given
+     *             object.
+     */
+    static boolean isRegistered(Object value) {
+        return getRegistry().contains(value);
+    }
+
+    /**
+     * <p>
+     * Registers the given object. Used by the reflection methods to avoid
+     * infinite loops.
+     * </p>
+     * 
+     * @param value
+     *                  The object to register.
+     */
+    static void register(Object value) {
+        if (value != null) {
+            getRegistry().add(value);
+        }
+    }
+
+    /**
+     * <p>
+     * Unregisters the given object.
+     * </p>
+     * 
+     * <p>
+     * Used by the reflection methods to avoid infinite loops.
+     * </p>
+     * 
+     * @param value
+     *                  The object to unregister.
+     */
+    static void unregister(Object value) {
+        getRegistry().remove(value);
+    }
+
     /**
      * Whether to use the field names, the default is <code>true</code>.
      */
@@ -272,6 +346,7 @@ public abstract class ToStringStyle implements Serializable {
             removeLastFieldSeparator(buffer);
         }
         appendContentEnd(buffer);
+        unregister(object);
     }
 
     /**
@@ -343,11 +418,14 @@ public abstract class ToStringStyle implements Serializable {
      * @param detail  output detail or not
      */
     protected void appendInternal(StringBuffer buffer, String fieldName, Object value, boolean detail) {
-        if (ReflectionToStringBuilder.isRegistered(value)
+        if (isRegistered(value)
             && !(value instanceof Number || value instanceof Boolean || value instanceof Character)) {
-            ObjectUtils.appendIdentityToString(buffer, value);
-
-        } else if (value instanceof Collection) {
+           appendCyclicObject(buffer, fieldName, value);
+           return;
+        }   
+           register(value);
+try {
+        if (value instanceof Collection) {
             if (detail) {
                 appendDetail(buffer, fieldName, (Collection) value);
             } else {
@@ -425,12 +503,31 @@ public abstract class ToStringStyle implements Serializable {
             }
 
         } else {
-            if (detail) {
-                appendDetail(buffer, fieldName, value);
-            } else {
-                appendSummary(buffer, fieldName, value);
-            }
+                if (detail) {
+                    appendDetail(buffer, fieldName, value);
+                } else {
+                    appendSummary(buffer, fieldName, value);
+                }
         }
+            } finally {
+                unregister(value);
+            }
+    }
+    
+    /**
+     * <p>Append to the <code>toString</code> an <code>Object</code>
+     * value that has been detected to participate in a cycle. This
+     * implementation will print the standard string value of the value.</p>
+     * 
+     * @param buffer  the <code>StringBuffer</code> to populate
+     * @param fieldName  the field name, typically not used as already appended
+     * @param value  the value to add to the <code>toString</code>,
+     *  not <code>null</code>
+     *  
+     * @since 2.2
+     */
+    protected void appendCyclicObject(StringBuffer buffer, String fieldName, Object value) {
+       ObjectUtils.appendIdentityToString(buffer, value);
     }
 
     /**
@@ -1301,6 +1398,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     protected void appendClassName(StringBuffer buffer, Object object) {
         if (useClassName && object != null) {
+        	register(object);
             if (useShortClassName) {
                 buffer.append(getShortClassName(object.getClass()));
             } else {
@@ -1317,6 +1415,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     protected void appendIdentityHashCode(StringBuffer buffer, Object object) {
         if (this.isUseIdentityHashCode() && object!=null) {
+        	register(object);
             buffer.append('@');
             buffer.append(Integer.toHexString(System.identityHashCode(object)));
         }

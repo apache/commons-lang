@@ -95,57 +95,6 @@ import org.apache.commons.lang.ClassUtils;
  * @version $Id$
  */
 public class ReflectionToStringBuilder extends ToStringBuilder {
-    /**
-     * <p>
-     * A registry of objects used by <code>reflectionToString</code> methods to detect cyclical object references and
-     * avoid infinite loops.
-     * </p>
-     */
-    private static ThreadLocal registry = new ThreadLocal() {
-        protected synchronized Object initialValue() {
-            // The HashSet implementation is not synchronized,
-            // which is just what we need here.
-            return new HashSet();
-        }
-    };
-
-    /**
-     * <p>
-     * Returns the registry of objects being traversed by the <code>reflectionToString</code> methods in the current
-     * thread.
-     * </p>
-     * 
-     * @return Set the registry of objects being traversed
-     */
-    static Set getRegistry() {
-        return (Set) registry.get();
-    }
-
-    /**
-     * <p>
-     * Returns <code>true</code> if the registry contains the given object. Used by the reflection methods to avoid
-     * infinite loops.
-     * </p>
-     * 
-     * @param value
-     *            The object to lookup in the registry.
-     * @return boolean <code>true</code> if the registry contains the given object.
-     */
-    static boolean isRegistered(Object value) {
-        return getRegistry().contains(value);
-    }
-
-    /**
-     * <p>
-     * Registers the given object. Used by the reflection methods to avoid infinite loops.
-     * </p>
-     * 
-     * @param value
-     *            The object to register.
-     */
-    static void register(Object value) {
-        getRegistry().add(value);
-    }
 
     /**
      * <p>
@@ -463,22 +412,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
-     * Unregisters the given object.
-     * </p>
-     * 
-     * <p>
-     * Used by the reflection methods to avoid infinite loops.
-     * </p>
-     * 
-     * @param value
-     *            The object to unregister.
-     */
-    static void unregister(Object value) {
-        getRegistry().remove(value);
-    }
-
-    /**
      * Whether or not to append static fields.
      */
     private boolean appendStatics = false;
@@ -657,60 +590,29 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            The class of object parameter
      */
     protected void appendFieldsIn(Class clazz) {
-        if (isRegistered(this.getObject())) {
-            // The object has already been appended, therefore we have an
-            // object cycle.
-            // Append a simple Object.toString style string. The field name is
-            // already appended at this point.
-            this.appendAsObjectToString(this.getObject());
+        if (clazz.isArray()) {
+            this.reflectionAppendArray(this.getObject());
             return;
         }
-        try {
-            this.registerObject();
-            if (clazz.isArray()) {
-                this.reflectionAppendArray(this.getObject());
-                return;
-            }
-            Field[] fields = clazz.getDeclaredFields();
-            AccessibleObject.setAccessible(fields, true);
-            for (int i = 0; i < fields.length; i++) {
-                Field field = fields[i];
-                String fieldName = field.getName();
-                if (this.accept(field)) {
-                    try {
-                        // Warning: Field.get(Object) creates wrappers objects
-                        // for primitive types.
-                        Object fieldValue = this.getValue(field);
-                        if (isRegistered(fieldValue) && !field.getType().isPrimitive()) {
-                            // A known field value has already been appended,
-                            // therefore we have an object cycle,
-                            // append a simple Object.toString style string.
-                            this.getStyle().appendFieldStart(this.getStringBuffer(), fieldName);
-                            this.appendAsObjectToString(fieldValue);
-                            this.getStyle().appendFieldEnd(this.getStringBuffer(), fieldName);
-                            // The recursion out of
-                            // builder.append(fieldName, fieldValue);
-                            // below will append the field
-                            // end marker.
-                        } else {
-                            try {
-                                this.registerObject();
-                                this.append(fieldName, fieldValue);
-                            } finally {
-                                this.unregisterObject();
-                            }
-                        }
-                    } catch (IllegalAccessException ex) {
-                        // this can't happen. Would get a Security exception
-                        // instead
-                        // throw a runtime exception in case the impossible
-                        // happens.
-                        throw new InternalError("Unexpected IllegalAccessException: " + ex.getMessage());
-                    }
+        Field[] fields = clazz.getDeclaredFields();
+        AccessibleObject.setAccessible(fields, true);
+        for (int i = 0; i < fields.length; i++) {
+            Field field = fields[i];
+            String fieldName = field.getName();
+            if (this.accept(field)) {
+                try {
+                    // Warning: Field.get(Object) creates wrappers objects
+                    // for primitive types.
+                    Object fieldValue = this.getValue(field);
+                    this.append(fieldName, fieldValue);
+                } catch (IllegalAccessException ex) {
+                    //this can't happen. Would get a Security exception
+                    // instead
+                    //throw a runtime exception in case the impossible
+                    // happens.
+                    throw new InternalError("Unexpected IllegalAccessException: " + ex.getMessage());
                 }
             }
-        } finally {
-            this.unregisterObject();
         }
     }
 
@@ -791,15 +693,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
-     * Registers this builder's source object to avoid infinite loops when processing circular object references.
-     * </p>
-     */
-    void registerObject() {
-        register(this.getObject());
-    }
-
-    /**
-     * <p>
      * Sets whether or not to append static fields.
      * </p>
      * 
@@ -872,12 +765,4 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         return super.toString();
     }
 
-    /**
-     * <p>
-     * Unregisters this builder's source object to avoid infinite loops when processing circular object references.
-     * </p>
-     */
-    void unregisterObject() {
-        unregister(this.getObject());
-    }
 }
