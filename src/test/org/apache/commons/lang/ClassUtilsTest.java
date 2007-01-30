@@ -501,30 +501,6 @@ public class ClassUtilsTest extends TestCase {
         assertGetClassThrowsException( className, ClassNotFoundException.class );
     }
 
-    /**
-     * Creates a new instance of URLClassLoader with the system class loader's URLs and a <code>null</code> parent
-     * class loader.
-     * 
-     * @see ClassLoader#getSystemClassLoader()
-     * @see URLClassLoader#newInstance(URL[], ClassLoader)
-     * @return the resulting class loader
-     */
-    public static ClassLoader newSystemClassLoader() throws SecurityException, IllegalArgumentException {
-        ClassLoader systemClassLoader = ClassLoader.getSystemClassLoader();
-        ClassLoader myClassLoader = ClassUtilsTest.class.getClassLoader();
-        if (!(myClassLoader instanceof URLClassLoader)) {
-            fail("ClassUtilsTest ClassLoader = " + (myClassLoader == null ? null : myClassLoader.getClass().getName()));
-        }
-        if (!(systemClassLoader instanceof URLClassLoader)) {
-            fail("System  ClassLoader = " + (systemClassLoader == null ? null : systemClassLoader.getClass().getName()));
-        }
-        if (!myClassLoader.equals(systemClassLoader)) {
-            fail("ClassUtilsTest= " + myClassLoader + " System=" + systemClassLoader);
-        }
-        URLClassLoader urlScl = (URLClassLoader) myClassLoader;
-        return URLClassLoader.newInstance(urlScl.getURLs(), null);
-    }
-
     // Show the Java bug: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4071957
     // We may have to delete this if a JDK fixes the bug.
     public void testShowJavaBug() throws Exception {

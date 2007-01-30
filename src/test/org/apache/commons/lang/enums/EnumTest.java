@@ -30,7 +30,6 @@ import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.apache.commons.lang.ClassUtilsTest;
 import org.apache.commons.lang.SerializationUtils;
 
 /**
@@ -454,7 +453,11 @@ public final class EnumTest extends TestCase {
         assertTrue(colorEnum.equals(colorEnum));
         assertNotNull(ColorEnum.class.getClassLoader());
         // set up:
-        ClassLoader classLoader = ClassUtilsTest.newSystemClassLoader();
+        ClassLoader myClassLoader = EnumTest.class.getClassLoader();
+        if (!(myClassLoader instanceof URLClassLoader)) {
+            fail("EnumTest ClassLoader = " + (myClassLoader == null ? null : myClassLoader.getClass().getName()));
+        }
+        ClassLoader classLoader = URLClassLoader.newInstance( ((URLClassLoader)myClassLoader).getURLs(), null);
         Object enumObjectFromOtherClassLoader = this.getColorEnum(classLoader, colorEnum.getName());
 
         // the real test, part 1.
