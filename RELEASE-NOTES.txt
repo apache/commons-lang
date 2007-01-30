@@ -84,4 +84,5 @@ IMPROVEMENTS IN 2.3:
     * [LANG-291] - Null-safe comparison methods for finding most recent / least recent dates.
     * [LANG-306] - StrBuilder appendln/appendAll/appendSeparator
     * [LANG-310] - BooleanUtils isNotTrue/isNotFalse
+    * [LANG-314] - Tests fail to pass when building with Maven 2
 
