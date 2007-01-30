@@ -39,6 +39,17 @@ building methods, such as hashCode, toString and equals.
 </p>
 </section>
 <!-- ================================================== -->
+<section name="Documentation">
+<p>
+A getting started <a href="userguide.html">user guide</a> is available
+together with various <a href="maven-reports.html">project reports</a>.
+</p>
+<p>
+The <a href="cvs-usage.html">subversion repository</a> can be
+<a href="http://svn.apache.org/viewvc/jakarta/commons/proper/lang/trunk/">browsed</a>.
+</p>
+</section>
+<!-- ================================================== -->
 <section name="Releases">
 <p>
 The latest version is 2.3. - 
@@ -58,17 +69,6 @@ The latest version is 2.3. -
 
 <p>
 For previous releases, see the <a href="http://archive.apache.org/dist/jakarta/commons/lang/">Apache Archive</a>.
-</p>
-</section>
-<!-- ================================================== -->
-<section name="Documentation">
-<p>
-A getting started <a href="userguide.html">user guide</a> is available
-together with various <a href="maven-reports.html">project reports</a>.
-</p>
-<p>
-The <a href="cvs-usage.html">subversion repository</a> can be
-<a href="http://svn.apache.org/viewvc/jakarta/commons/proper/lang/trunk/">browsed</a>.
 </p>
 </section>
 <!-- ================================================== -->
