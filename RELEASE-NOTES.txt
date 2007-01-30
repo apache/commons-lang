@@ -70,17 +70,18 @@ BUG FIXES IN 2.3:
     * [LANG-300] - NumberUtils.createNumber throws NumberFormatException for one digit long
     * [LANG-303] - FastDateFormat.mRules is not transient or serializable
     * [LANG-304] - NullPointerException in isAvailableLocale(Locale)
+    * [LANG-313] - Wrong behavior of Entities.unescape
 
 IMPROVEMENTS IN 2.3:
 
     * [LANG-258] - Enum JavaDoc
+    * [LANG-266] - Wish for StringUtils.join(Collection, *)
     * [LANG-268] - StringUtils.join should allow you to pass a range for it (so it only joins a part of the array)
+    * [LANG-275] - StringUtils substringsBetween
+    * [LANG-282] - Create more tests to test out the +=31 replacement code in DurationFormatUtils.
     * [LANG-287] - Optimize StringEscapeUtils.unescapeXml(String)
     * [LANG-289] - NumberUtils.max(byte[]) and NumberUtils.min(byte[]) are missing
     * [LANG-291] - Null-safe comparison methods for finding most recent / least recent dates.
-    * [LANG-282] - Create more tests to test out the +=31 replacement code in DurationFormatUtils.
-    * [LANG-266] - Wish for StringUtils.join(Collection, *)
-    * [LANG-310] - BooleanUtils isNotTrue/isNotFalse
     * [LANG-306] - StrBuilder appendln/appendAll/appendSeparator
-    * [LANG-275] - StringUtils substringsBetween
+    * [LANG-310] - BooleanUtils isNotTrue/isNotFalse
 
