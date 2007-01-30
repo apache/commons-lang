@@ -85,7 +85,7 @@ BUG FIXES IN 2.3:
     * [LANG-279] - HashCodeBuilder throws java.lang.StackOverflowError when an object contains a cycle.
     * [LANG-281] - DurationFormatUtils returns wrong result
     * [LANG-286] - Serialization - not backwards compatible
-    * [LANG-292] - unescapeXml("&12345678;") should be "&12345678;"
+    * [LANG-292] - unescapeXml("&amp;12345678;") should be "&amp;12345678;"
     * [LANG-294] - StrBuilder.replaceAll and StrBuilder.deleteAll can throw ArrayIndexOutOfBoundsException.
     * [LANG-295] - StrBuilder contains usages of thisBuf.length when they should use size
     * [LANG-299] - Bug in method appendFixedWidthPadRight of class StrBuilder causes an ArrayIndexOutOfBoundsException
