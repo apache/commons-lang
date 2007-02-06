@@ -795,7 +795,13 @@ class Entities {
      */
     public String escape(String str) {
         StringWriter stringWriter = createStringWriter(str);
-        this.escape(stringWriter, str);
+        try {
+            this.escape(stringWriter, str);
+        } catch (IOException e) {
+            // This should never happen because ALL the StringWriter methods called by #escape(Writer, String) do not
+            // throw IOExceptions.
+            throw new UnhandledException(e);
+        }
         return stringWriter.toString();
     }
 
@@ -839,32 +845,6 @@ class Entities {
 
     /**
      * <p>
-     * Escapes the characters in the <code>String</code> passed and writes the result to the <code>StringWriter</code>
-     * passed.
-     * </p>
-     * 
-     * @param writer
-     *            The <code>StringWriter</code> to write the results of the escaping to. Assumed to be a non-null
-     *            value.
-     * @param str
-     *            The <code>String</code> to escape. Assumed to be a non-null value.
-     * 
-     * @see #escape(String)
-     * @see Writer
-     * @since 2.3
-     */
-    public void escape(StringWriter writer, String str) {
-        try {
-            this.escape((Writer) writer, str);
-        } catch (IOException e) {
-            // This should never happen because ALL the StringWriter methods called by #escape(Writer, String) do not
-            // throw IOExceptions.
-            throw new UnhandledException(e);
-        }
-    }
-
-    /**
-     * <p>
      * Unescapes the entities in a <code>String</code>.
      * </p>
      * 
@@ -879,38 +859,19 @@ class Entities {
      */
     public String unescape(String str) {
         StringWriter stringWriter = createStringWriter(str);
-        this.unescape(stringWriter, str);
+        try {
+            this.unescape(stringWriter, str);
+        } catch (IOException e) {
+            // This should never happen because ALL the StringWriter methods called by #escape(Writer, String) do not
+            // throw IOExceptions.
+            throw new UnhandledException(e);
+        }
         return stringWriter.toString();
     }
 
     private StringWriter createStringWriter(String str) {
         // Make the StringWriter 10% larger than the source String to avoid growing the writer
         return new StringWriter((int) (str.length() + (str.length() * 0.1)));
-    }
-
-    /**
-     * <p>
-     * Unescapes the escaped entities in the <code>String</code> passed and writes the result to the
-     * <code>StringWriter</code> passed.
-     * </p>
-     * 
-     * @param writer
-     *            The <code>StringWriter</code> to write the results to; assumed to be non-null.
-     * @param string
-     *            The <code>String</code> to write the results to; assumed to be non-null.
-     * 
-     * @see #escape(String)
-     * @see Writer
-     * @since 2.3
-     */
-    public void unescape(StringWriter writer, String string) {
-        try {
-            this.unescape((Writer) writer, string);
-        } catch (IOException e) {
-            // This should never happen because ALL the StringWriter methods called by #escape(Writer, String) do not
-            // throw IOExceptions.
-            throw new UnhandledException(e);
-        }
     }
 
     /**
