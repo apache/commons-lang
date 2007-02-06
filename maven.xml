@@ -26,7 +26,6 @@ limitations under the License.
       <fileset dir=".">
         <include name="RELEASE-NOTES*.txt"/>
         <include name="NOTICE.txt"/>
-        <include name="PROPOSAL.html"/>
         <include name="STATUS.html"/>
         <include name="default.properties"/>
         <include name="checkstyle.xml"/>
