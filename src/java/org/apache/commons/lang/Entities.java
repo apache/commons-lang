@@ -858,15 +858,20 @@ class Entities {
      * @return A new escaped <code>String</code>.
      */
     public String unescape(String str) {
-        StringWriter stringWriter = createStringWriter(str);
-        try {
-            this.unescape(stringWriter, str);
-        } catch (IOException e) {
-            // This should never happen because ALL the StringWriter methods called by #escape(Writer, String) do not
-            // throw IOExceptions.
-            throw new UnhandledException(e);
+        int firstAmp = str.indexOf('&');
+        if (firstAmp < 0) {
+            return str;
+        } else {
+            StringWriter stringWriter = createStringWriter(str);
+            try {
+                this.doUnescape(stringWriter, str, firstAmp);
+            } catch (IOException e) {
+                // This should never happen because ALL the StringWriter methods called by #escape(Writer, String) do not
+                // throw IOExceptions.
+                throw new UnhandledException(e);
+            }
+            return stringWriter.toString();
         }
-        return stringWriter.toString();
     }
 
     private StringWriter createStringWriter(String str) {
@@ -896,8 +901,12 @@ class Entities {
         if (firstAmp < 0) {
             writer.write(string);
             return;
+        } else {
+            doUnescape(writer, string, firstAmp);
         }
+    }
 
+    private void doUnescape(Writer writer, String string, int firstAmp) throws IOException {
         writer.write(string, 0, firstAmp);
         int len = string.length();
         for (int i = firstAmp; i < len; i++) {
