@@ -866,16 +866,21 @@ class Entities {
             try {
                 this.doUnescape(stringWriter, str, firstAmp);
             } catch (IOException e) {
-                // This should never happen because ALL the StringWriter methods called by #escape(Writer, String) do not
-                // throw IOExceptions.
+                // This should never happen because ALL the StringWriter methods called by #escape(Writer, String) 
+                // do not throw IOExceptions.
                 throw new UnhandledException(e);
             }
             return stringWriter.toString();
         }
     }
 
+    /**
+     * Make the StringWriter 10% larger than the source String to avoid growing the writer
+     *
+     * @param str The source string
+     * @return A newly created StringWriter
+     */
     private StringWriter createStringWriter(String str) {
-        // Make the StringWriter 10% larger than the source String to avoid growing the writer
         return new StringWriter((int) (str.length() + (str.length() * 0.1)));
     }
 
@@ -888,7 +893,7 @@ class Entities {
      * @param writer
      *            The <code>Writer</code> to write the results to; assumed to be non-null.
      * @param str
-     *            The <code>String</code> to write the results to; assumed to be non-null.
+     *            The source <code>String</code> to unescape; assumed to be non-null.
      * @throws IOException
      *             when <code>Writer</code> passed throws the exception from calls to the {@link Writer#write(int)}
      *             methods.
@@ -906,6 +911,19 @@ class Entities {
         }
     }
 
+    /**
+     * Underlying unescape method that allows the optimisation of not starting from the 0 index again.
+     *
+     * @param writer
+     *            The <code>Writer</code> to write the results to; assumed to be non-null.
+     * @param str
+     *            The source <code>String</code> to unescape; assumed to be non-null.
+     * @param firstAmp
+     *            The <code>int</code> index of the first ampersand in the source String.
+     * @throws IOException
+     *             when <code>Writer</code> passed throws the exception from calls to the {@link Writer#write(int)}
+     *             methods.
+     */
     private void doUnescape(Writer writer, String str, int firstAmp) throws IOException {
         writer.write(str, 0, firstAmp);
         int len = str.length();
