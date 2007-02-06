@@ -36,7 +36,8 @@ should be of use in any Java environment.
 
 INCOMPATIBLE CHANGES WITH VERSION 2.2:
 
-- None
+- Calling stop on a suspended StopWatch will no longer change the underlying time. 
+  It's very unlikely anyone was relying on that bug as a feature.
 
 ADDITIONAL INCOMPATIBLE CHANGES WITH VERSION 2.0:
 
@@ -93,6 +94,7 @@ BUG FIXES IN 2.3:
     * [LANG-303] - FastDateFormat.mRules is not transient or serializable
     * [LANG-304] - NullPointerException in isAvailableLocale(Locale)
     * [LANG-313] - Wrong behavior of Entities.unescape
+    * [LANG-315] - StopWatch: suspend() acts as split(), if followed by stop()
 
 IMPROVEMENTS IN 2.3:
 
