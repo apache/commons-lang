@@ -98,7 +98,9 @@
 		<antcall target="jar"/>
         <copy file="${dist.home}/${final.name}.jar" todir="."/>
 		<jar jarfile="${final.name}-sources.jar" basedir="${source.home}" manifest="${build.home}/conf/MANIFEST.MF"/>
+		<copy file="${final.name}-sources.jar" todir="${dist.home}"/>
 		<jar jarfile="${final.name}-javadoc.jar" basedir="${dist.home}/docs/api" manifest="${build.home}/conf/MANIFEST.MF"/>
+		<copy file="${final.name}-javadoc.jar" todir="${dist.home}"/>
 		<mkdir dir="${final.name}"/>
 		<move todir="${final.name}/${final.name}">
 			<fileset dir="${dist.home}"/>
