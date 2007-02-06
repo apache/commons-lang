@@ -794,7 +794,7 @@ class Entities {
      * @return A new escaped <code>String</code>.
      */
     public String escape(String str) {
-        StringWriter stringWriter = newStringWriter(str);
+        StringWriter stringWriter = createStringWriter(str);
         this.escape(stringWriter, str);
         return stringWriter.toString();
     }
@@ -878,13 +878,12 @@ class Entities {
      * @return A new escaped <code>String</code>.
      */
     public String unescape(String str) {
-        // Make the StringWriter larger than the source String to avoid growing the writer.
-        StringWriter stringWriter = newStringWriter(str);
+        StringWriter stringWriter = createStringWriter(str);
         this.unescape(stringWriter, str);
         return stringWriter.toString();
     }
 
-    private StringWriter newStringWriter(String str) {
+    private StringWriter createStringWriter(String str) {
         // Make the StringWriter 10% larger than the source String to avoid growing the writer
         return new StringWriter((int) (str.length() + (str.length() * 0.1)));
     }
