@@ -887,7 +887,7 @@ class Entities {
      * 
      * @param writer
      *            The <code>Writer</code> to write the results to; assumed to be non-null.
-     * @param string
+     * @param str
      *            The <code>String</code> to write the results to; assumed to be non-null.
      * @throws IOException
      *             when <code>Writer</code> passed throws the exception from calls to the {@link Writer#write(int)}
@@ -896,35 +896,35 @@ class Entities {
      * @see #escape(String)
      * @see Writer
      */
-    public void unescape(Writer writer, String string) throws IOException {
-        int firstAmp = string.indexOf('&');
+    public void unescape(Writer writer, String str) throws IOException {
+        int firstAmp = str.indexOf('&');
         if (firstAmp < 0) {
-            writer.write(string);
+            writer.write(str);
             return;
         } else {
-            doUnescape(writer, string, firstAmp);
+            doUnescape(writer, str, firstAmp);
         }
     }
 
-    private void doUnescape(Writer writer, String string, int firstAmp) throws IOException {
-        writer.write(string, 0, firstAmp);
-        int len = string.length();
+    private void doUnescape(Writer writer, String str, int firstAmp) throws IOException {
+        writer.write(str, 0, firstAmp);
+        int len = str.length();
         for (int i = firstAmp; i < len; i++) {
-            char c = string.charAt(i);
+            char c = str.charAt(i);
             if (c == '&') {
                 int nextIdx = i + 1;
-                int semiColonIdx = string.indexOf(';', nextIdx);
+                int semiColonIdx = str.indexOf(';', nextIdx);
                 if (semiColonIdx == -1) {
                     writer.write(c);
                     continue;
                 }
-                int amphersandIdx = string.indexOf('&', i + 1);
+                int amphersandIdx = str.indexOf('&', i + 1);
                 if (amphersandIdx != -1 && amphersandIdx < semiColonIdx) {
                     // Then the text looks like &...&...;
                     writer.write(c);
                     continue;
                 }
-                String entityContent = string.substring(nextIdx, semiColonIdx);
+                String entityContent = str.substring(nextIdx, semiColonIdx);
                 int entityValue = -1;
                 int entityContentLen = entityContent.length();
                 if (entityContentLen > 0) {
