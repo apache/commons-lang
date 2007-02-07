@@ -101,11 +101,13 @@
           <fileset dir="${basedir}" includes="LICENSE*, NOTICE*" />
         </copy>
 		<jar jarfile="${final.name}-sources.jar" basedir="${source.home}" manifest="${build.home}/conf/MANIFEST.MF"/>
+        <delete dir="${source.home}/META-INF"/>
 		<copy file="${final.name}-sources.jar" todir="${dist.home}"/>
         <copy todir="${dist.home}/docs/api/META-INF">
           <fileset dir="${basedir}" includes="LICENSE*, NOTICE*" />
         </copy>
 		<jar jarfile="${final.name}-javadoc.jar" basedir="${dist.home}/docs/api" manifest="${build.home}/conf/MANIFEST.MF"/>
+        <delete dir="${dist.home}/docs/api/META-INF"/>
 		<copy file="${final.name}-javadoc.jar" todir="${dist.home}"/>
 		<mkdir dir="${final.name}"/>
 		<move todir="${final.name}/${final.name}">
