@@ -29,6 +29,7 @@ limitations under the License.
         <include name="STATUS.html"/>
         <include name="default.properties"/>
         <include name="checkstyle.xml"/>
+        <include name="pom.xml"/>
       </fileset>
     </copy>
 
