@@ -391,7 +391,10 @@ public class LocaleUtilsTest extends TestCase {
 
     //-----------------------------------------------------------------------
     /**
-     * Make sure the language by country is correct.
+     * Make sure the language by country is correct. It checks that 
+     * the LocaleUtils.languagesByCountry(country) call contains the 
+     * array of languages passed in. It may contain more due to JVM 
+     * variations.
      *
      * @param country
      * @param languages array of languages that should be returned
@@ -401,7 +404,6 @@ public class LocaleUtilsTest extends TestCase {
         List list2 = LocaleUtils.languagesByCountry(country);
         assertNotNull(list);
         assertSame(list, list2);
-        assertEquals(languages.length, list.size());
         //search through langauges
         for (int i = 0; i < languages.length; i++) {
             Iterator iterator = list.iterator();
@@ -438,7 +440,11 @@ public class LocaleUtilsTest extends TestCase {
 
     //-----------------------------------------------------------------------
     /**
-     * Make sure the country by language is correct.
+     * Make sure the country by language is correct. It checks that 
+     * the LocaleUtils.countryByLanguage(language) call contains the 
+     * array of countries passed in. It may contain more due to JVM 
+     * variations.
+     *
      *
      * @param language
      * @param countries array of countries that should be returned
@@ -448,7 +454,6 @@ public class LocaleUtilsTest extends TestCase {
         List list2 = LocaleUtils.countriesByLanguage(language);
         assertNotNull(list);
         assertSame(list, list2);
-        assertEquals(countries.length, list.size());
         //search through langauges
         for (int i = 0; i < countries.length; i++) {
             Iterator iterator = list.iterator();
