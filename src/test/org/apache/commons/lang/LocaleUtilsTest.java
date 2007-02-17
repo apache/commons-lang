@@ -438,7 +438,7 @@ public class LocaleUtilsTest extends TestCase {
 
     //-----------------------------------------------------------------------
     /**
-     * Make sure the language by country is correct.
+     * Make sure the country by language is correct.
      *
      * @param language
      * @param countries array of countries that should be returned
@@ -474,7 +474,7 @@ public class LocaleUtilsTest extends TestCase {
     }
 
     /**
-     * Test languagesByCountry() method.
+     * Test countriesByLanguage() method.
      */
     public void testCountriesByLanguage() {
         assertCountriesByLanguage(null, new String[0]);
