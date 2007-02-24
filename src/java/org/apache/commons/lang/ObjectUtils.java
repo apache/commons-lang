@@ -36,7 +36,7 @@ import java.io.Serializable;
  * @version $Id$
  */
 public class ObjectUtils {
-    
+THIS WILL MAKE THE BUILD FAIL!!!!    
     /**
      * <p>Singleton used as a <code>null</code> placeholder where
      * <code>null</code> has another meaning.</p>
