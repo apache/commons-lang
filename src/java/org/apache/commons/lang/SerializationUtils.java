@@ -40,7 +40,7 @@ import java.io.Serializable;
  *
  * @author <a href="mailto:nissim@nksystems.com">Nissim Karpenstein</a>
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
- * @author <a href="mailto:dlr@finemaltcoding.com">Daniel Rall</a>
+ * @author Daniel L. Rall
  * @author Stephen Colebourne
  * @author Jeff Varszegi
  * @author Gary Gregory

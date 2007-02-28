@@ -24,7 +24,7 @@ import java.io.PrintWriter;
  * extensions which would like to be able to nest root exceptions
  * inside themselves.
  *
- * @author <a href="mailto:dlr@collab.net">Daniel Rall</a>
+ * @author Daniel L. Rall
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Pete Gieser
