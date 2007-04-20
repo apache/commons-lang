@@ -103,7 +103,7 @@ public class HashCodeBuilder {
      * @since 2.3
      */
     private static ThreadLocal registry = new ThreadLocal() {
-        protected synchronized Object initialValue() {
+        protected Object initialValue() {
             // The HashSet implementation is not synchronized,
             // which is just what we need here.
             return new HashSet();
