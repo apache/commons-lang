@@ -111,6 +111,9 @@ public class LocaleUtils {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
             }
             char ch3 = str.charAt(3);
+            if (ch3 == '_') {
+                return new Locale(str.substring(0, 2), "", str.substring(4));
+            }
             char ch4 = str.charAt(4);
             if (ch3 < 'A' || ch3 > 'Z' || ch4 < 'A' || ch4 > 'Z') {
                 throw new IllegalArgumentException("Invalid locale format: " + str);
