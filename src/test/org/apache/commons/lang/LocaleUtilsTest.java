@@ -498,4 +498,11 @@ public class LocaleUtilsTest extends TestCase {
         } catch (UnsupportedOperationException ex) {}
     }
 
+    /**
+     * Tests #LANG-328 - only language+variant
+     */
+    public void testLang328() {
+        assertValidToLocale("fr__POSIX", "fr", "", "POSIX");
+    }
+
 }
