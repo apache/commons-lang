@@ -69,8 +69,6 @@ public class LangTestSuite extends TestCase {
         suite.addTest(LocaleUtilsTest.suite());
         suite.addTest(NotImplementedExceptionTest.suite());
         suite.addTest(NullArgumentExceptionTest.suite());
-        suite.addTest(NumberRangeTest.suite());
-        suite.addTest(NumberUtilsTest.suite());
         suite.addTest(ObjectUtilsTest.suite());
         suite.addTest(RandomStringUtilsTest.suite());
         suite.addTest(SerializationUtilsTest.suite());
