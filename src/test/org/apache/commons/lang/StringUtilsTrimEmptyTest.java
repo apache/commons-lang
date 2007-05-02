@@ -87,7 +87,7 @@ public class StringUtilsTrimEmptyTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-    public void testClean() {
+    public void testDeprecatedClean() {
         assertEquals(FOO, StringUtils.clean(FOO + "  "));
         assertEquals(FOO, StringUtils.clean(" " + FOO + "  "));
         assertEquals(FOO, StringUtils.clean(" " + FOO));
