@@ -332,7 +332,7 @@ public class StringUtilsSubstringTest extends TestCase {
              StringUtils.countMatches("oooooooooooo", "ooo"));
     }
 
-    public void testGetNestedString_StringString() {
+    public void testDeprecatedGetNestedString_StringString() {
         assertEquals(null, StringUtils.getNestedString(null, "tag"));
         assertEquals("", StringUtils.getNestedString("", ""));
         assertEquals(null, StringUtils.getNestedString("", "abc"));
@@ -345,7 +345,7 @@ public class StringUtilsSubstringTest extends TestCase {
         assertEquals("bar", StringUtils.getNestedString("\nbar\n", "\n"));
     }
             
-    public void testGetNestedString_StringStringString() {
+    public void testDeprecatedGetNestedString_StringStringString() {
         assertEquals(null, StringUtils.getNestedString(null, "", ""));
         assertEquals("", StringUtils.getNestedString("", "", ""));
         assertEquals("", StringUtils.getNestedString("    ", " ", "  "));

@@ -333,7 +333,7 @@ public class SystemUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-    public void testJavaVersion() {
+    public void testDeprecatedJavaVersion() {
         assertEquals(SystemUtils.JAVA_VERSION_FLOAT, SystemUtils.getJavaVersion(), 0f);
     }
 

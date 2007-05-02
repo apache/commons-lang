@@ -300,7 +300,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals(TEXT_LIST, StringUtils.join(Arrays.asList(ARRAY_LIST), SEPARATOR));
     }
 
-    public void testConcatenate_Objectarray() {
+    public void testDeprecatedConcatenate_Objectarray() {
         assertEquals(null, StringUtils.concatenate(null));
         assertEquals("", StringUtils.concatenate(EMPTY_ARRAY_LIST));
         assertEquals("", StringUtils.concatenate(NULL_ARRAY_LIST));
@@ -847,7 +847,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals(msg, str.substring(2), res[1]);
     }
     
-    public void testDeleteSpace_String() {
+    public void testDeprecatedDeleteSpace_String() {
         assertEquals(null, StringUtils.deleteSpaces(null));
         assertEquals("", StringUtils.deleteSpaces(""));
         assertEquals("", StringUtils.deleteSpaces("    \t\t\n\n   "));
@@ -984,7 +984,7 @@ public class StringUtilsTest extends TestCase {
             "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM567891234"));
     }
     
-    public void testOverlayString_StringStringIntInt() {
+    public void testDeprecatedOverlayString_StringStringIntInt() {
         assertEquals("overlayString(String, String, int, int) failed",
                      "foo foor baz", StringUtils.overlayString(SENTENCE_UNCAP, FOO_UNCAP, 4, 6) );
         assertEquals("abef", StringUtils.overlayString("abcdef", "", 2, 4));
@@ -1310,7 +1310,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals("", StringUtils.reverseDelimited("", '.') );
     }
 
-    public void testReverseDelimitedString_StringString() {
+    public void testDeprecatedReverseDelimitedString_StringString() {
         assertEquals(null, StringUtils.reverseDelimitedString(null, null) );
         assertEquals("", StringUtils.reverseDelimitedString("", null) );
         assertEquals("", StringUtils.reverseDelimitedString("", ".") );
@@ -1339,7 +1339,7 @@ public class StringUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-    public void testEscapeFunctions_String() {
+    public void testDeprecatedEscapeFunctions_String() {
         assertEquals("", StringUtils.escape("") );
         assertEquals("abc", StringUtils.escape("abc") );
         assertEquals("\\t", StringUtils.escape("\t") );

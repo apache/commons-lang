@@ -70,7 +70,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#stringToInt(String)}.
      */
-    public void testStringToIntString() {
+    public void testDeprecatedStringToIntString() {
         assertTrue("stringToInt(String) 1 failed", NumberUtils.stringToInt("12345") == 12345);
         assertTrue("stringToInt(String) 2 failed", NumberUtils.stringToInt("abc") == 0);
         assertTrue("stringToInt(empty) failed", NumberUtils.stringToInt("") == 0);
@@ -90,7 +90,7 @@ public class NumberUtilsTest extends TestCase {
     /**
      * Test for {@link NumberUtils#stringToInt(String, int)}.
      */
-    public void testStringToIntStringI() {
+    public void testDeprecatedStringToIntStringI() {
         assertTrue("stringToInt(String,int) 1 failed", NumberUtils.stringToInt("12345", 5) == 12345);
         assertTrue("stringToInt(String,int) 2 failed", NumberUtils.stringToInt("1234.5", 5) == 5);
     }

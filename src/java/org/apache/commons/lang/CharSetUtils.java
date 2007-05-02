@@ -63,7 +63,7 @@ public class CharSetUtils {
      *
      * @param set  the set, may be null
      * @return a CharSet instance, <code>null</code> if null input
-     * @deprecated Use {@link CharSet#getInstance(String)}.
+     * @deprecated Use {@link CharSet#getInstance(String[])}.
      *             Method will be removed in Commons Lang 3.0.
      */
     public static CharSet evaluateSet(String[] set) {
@@ -120,7 +120,7 @@ public class CharSetUtils {
         if (StringUtils.isEmpty(str) || ArrayUtils.isEmpty(set)) {
             return str;
         }
-        CharSet chars = evaluateSet(set);
+        CharSet chars = CharSet.getInstance(set);
         StringBuffer buffer = new StringBuffer(str.length());
         char[] chrs = str.toCharArray();
         int sz = chrs.length;
@@ -186,7 +186,7 @@ public class CharSetUtils {
         if (StringUtils.isEmpty(str) || ArrayUtils.isEmpty(set)) {
             return 0;
         }
-        CharSet chars = evaluateSet(set);
+        CharSet chars = CharSet.getInstance(set);
         int count = 0;
         char[] chrs = str.toCharArray();
         int sz = chrs.length;
@@ -318,7 +318,7 @@ public class CharSetUtils {
      * @return modified String
      */
     private static String modify(String str, String[] set, boolean expect) {
-        CharSet chars = evaluateSet(set);
+        CharSet chars = CharSet.getInstance(set);
         StringBuffer buffer = new StringBuffer(str.length());
         char[] chrs = str.toCharArray();
         int sz = chrs.length;
