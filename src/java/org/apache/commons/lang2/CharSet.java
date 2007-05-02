@@ -146,6 +146,20 @@ public class CharSet implements Serializable {
         return new CharSet(setStr);
     }
 
+
+    /**
+     * <p>Constructs a new CharSet using the set syntax.
+     * Each string is merged in with the set.</p>
+     *
+     * @param set  Strings to merge into the initial set, may be null
+     */
+    public static CharSet getInstance(String[] setStrs) { 
+        if (setStrs == null) {
+            return null;
+        }
+        return new CharSet(setStrs);
+    }
+
     //-----------------------------------------------------------------------
     /**
      * <p>Constructs a new CharSet using the set syntax.</p>

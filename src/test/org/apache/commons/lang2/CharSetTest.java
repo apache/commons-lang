@@ -64,13 +64,21 @@ public class CharSetTest extends TestCase {
     
     //-----------------------------------------------------------------------
     public void testGetInstance() {
-        assertSame(CharSet.EMPTY, CharSet.getInstance(null));
+        assertSame(CharSet.EMPTY, CharSet.getInstance( (String) null));
         assertSame(CharSet.EMPTY, CharSet.getInstance(""));
         assertSame(CharSet.ASCII_ALPHA, CharSet.getInstance("a-zA-Z"));
         assertSame(CharSet.ASCII_ALPHA, CharSet.getInstance("A-Za-z"));
         assertSame(CharSet.ASCII_ALPHA_LOWER, CharSet.getInstance("a-z"));
         assertSame(CharSet.ASCII_ALPHA_UPPER, CharSet.getInstance("A-Z"));
         assertSame(CharSet.ASCII_NUMERIC, CharSet.getInstance("0-9"));
+    }
+
+    //-----------------------------------------------------------------------
+    public void testGetInstance_Stringarray() {
+        assertEquals(null, CharSet.getInstance((String[]) null));
+        assertEquals("[]", CharSet.getInstance(new String[0]).toString());
+        assertEquals("[]", CharSet.getInstance(new String[] {null}).toString());
+        assertEquals("[a-e]", CharSet.getInstance(new String[] {"a-e"}).toString());
     }
             
     //-----------------------------------------------------------------------

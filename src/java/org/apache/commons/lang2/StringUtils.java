@@ -88,7 +88,7 @@ import java.util.List;
  *
  * <p>A side effect of the <code>null</code> handling is that a
  * <code>NullPointerException</code> should be considered a bug in
- * <code>StringUtils</code> (except for deprecated methods).</p>
+ * <code>StringUtils</code>.</p>
  *
  * <p>Methods in this class give sample code to explain their operation.
  * The symbol <code>*</code> is used to indicate any input including <code>null</code>.</p>
@@ -253,29 +253,6 @@ public class StringUtils {
 
     // Trim
     //-----------------------------------------------------------------------
-    /**
-     * <p>Removes control characters (char &lt;= 32) from both
-     * ends of this String, handling <code>null</code> by returning
-     * an empty String ("").</p>
-     *
-     * <pre>
-     * StringUtils.clean(null)          = ""
-     * StringUtils.clean("")            = ""
-     * StringUtils.clean("abc")         = "abc"
-     * StringUtils.clean("    abc    ") = "abc"
-     * StringUtils.clean("     ")       = ""
-     * </pre>
-     *
-     * @see java.lang.String#trim()
-     * @param str  the String to clean, may be null
-     * @return the trimmed text, never <code>null</code>
-     * @deprecated Use the clearer named {@link #trimToEmpty(String)}.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String clean(String str) {
-        return str == null ? EMPTY : str.trim();
-    }
-
     /**
      * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String, handling <code>null</code> by returning
@@ -1950,62 +1927,6 @@ public class StringUtils {
 
     // Nested extraction
     //-----------------------------------------------------------------------
-    /**
-     * <p>Gets the String that is nested in between two instances of the
-     * same String.</p>
-     *
-     * <p>A <code>null</code> input String returns <code>null</code>.
-     * A <code>null</code> tag returns <code>null</code>.</p>
-     *
-     * <pre>
-     * StringUtils.getNestedString(null, *)            = null
-     * StringUtils.getNestedString("", "")             = ""
-     * StringUtils.getNestedString("", "tag")          = null
-     * StringUtils.getNestedString("tagabctag", null)  = null
-     * StringUtils.getNestedString("tagabctag", "")    = ""
-     * StringUtils.getNestedString("tagabctag", "tag") = "abc"
-     * </pre>
-     *
-     * @param str  the String containing nested-string, may be null
-     * @param tag  the String before and after nested-string, may be null
-     * @return the nested String, <code>null</code> if no match
-     * @deprecated Use the better named {@link #substringBetween(String, String)}.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String getNestedString(String str, String tag) {
-        return substringBetween(str, tag, tag);
-    }
-
-    /**
-     * <p>Gets the String that is nested in between two Strings.
-     * Only the first match is returned.</p>
-     *
-     * <p>A <code>null</code> input String returns <code>null</code>.
-     * A <code>null</code> open/close returns <code>null</code> (no match).
-     * An empty ("") open/close returns an empty string.</p>
-     *
-     * <pre>
-     * StringUtils.getNestedString(null, *, *)          = null
-     * StringUtils.getNestedString("", "", "")          = ""
-     * StringUtils.getNestedString("", "", "tag")       = null
-     * StringUtils.getNestedString("", "tag", "tag")    = null
-     * StringUtils.getNestedString("yabcz", null, null) = null
-     * StringUtils.getNestedString("yabcz", "", "")     = ""
-     * StringUtils.getNestedString("yabcz", "y", "z")   = "abc"
-     * StringUtils.getNestedString("yabczyabcz", "y", "z")   = "abc"
-     * </pre>
-     *
-     * @param str  the String containing nested-string, may be null
-     * @param open  the String before nested-string, may be null
-     * @param close  the String after nested-string, may be null
-     * @return the nested String, <code>null</code> if no match
-     * @deprecated Use the better named {@link #substringBetween(String, String, String)}.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String getNestedString(String str, String open, String close) {
-        return substringBetween(str, open, close);
-    }
-
     // Splitting
     //-----------------------------------------------------------------------
     /**
@@ -2533,28 +2454,6 @@ public class StringUtils {
     // Joining
     //-----------------------------------------------------------------------
     /**
-     * <p>Concatenates elements of an array into a single String.
-     * Null objects or empty strings within the array are represented by
-     * empty strings.</p>
-     *
-     * <pre>
-     * StringUtils.concatenate(null)            = null
-     * StringUtils.concatenate([])              = ""
-     * StringUtils.concatenate([null])          = ""
-     * StringUtils.concatenate(["a", "b", "c"]) = "abc"
-     * StringUtils.concatenate([null, "", "a"]) = "a"
-     * </pre>
-     *
-     * @param array  the array of values to concatenate, may be null
-     * @return the concatenated String, <code>null</code> if null array input
-     * @deprecated Use the better named {@link #join(Object[])} instead.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String concatenate(Object[] array) {
-        return join(array, null);
-    }
-
-    /**
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
      *
@@ -2880,39 +2779,6 @@ public class StringUtils {
 
     // Delete
     //-----------------------------------------------------------------------
-    /**
-     * <p>Deletes all 'space' characters from a String as defined by
-     * {@link Character#isSpace(char)}.</p>
-     *
-     * <p>This is the only StringUtils method that uses the
-     * <code>isSpace</code> definition. You are advised to use
-     * {@link #deleteWhitespace(String)} instead as whitespace is much
-     * better localized.</p>
-     *
-     * <pre>
-     * StringUtils.deleteSpaces(null)           = null
-     * StringUtils.deleteSpaces("")             = ""
-     * StringUtils.deleteSpaces("abc")          = "abc"
-     * StringUtils.deleteSpaces(" \t  abc \n ") = "abc"
-     * StringUtils.deleteSpaces("ab  c")        = "abc"
-     * StringUtils.deleteSpaces("a\nb\tc     ") = "abc"
-     * </pre>
-     *
-     * <p>Spaces are defined as <code>{' ', '\t', '\r', '\n', '\b'}</code>
-     * in line with the deprecated <code>isSpace</code> method.</p>
-     *
-     * @param str  the String to delete spaces from, may be null
-     * @return the String without 'spaces', <code>null</code> if null String input
-     * @deprecated Use the better localized {@link #deleteWhitespace(String)}.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String deleteSpaces(String str) {
-        if (str == null) {
-            return null;
-        }
-        return CharSetUtils.delete(str, " \t\r\n\b");
-    }
-
     /**
      * <p>Deletes all whitespaces from a String as defined by
      * {@link Character#isWhitespace(char)}.</p>
@@ -3288,39 +3154,6 @@ public class StringUtils {
     /**
      * <p>Overlays part of a String with another String.</p>
      *
-     * <pre>
-     * StringUtils.overlayString(null, *, *, *)           = NullPointerException
-     * StringUtils.overlayString(*, null, *, *)           = NullPointerException
-     * StringUtils.overlayString("", "abc", 0, 0)         = "abc"
-     * StringUtils.overlayString("abcdef", null, 2, 4)    = "abef"
-     * StringUtils.overlayString("abcdef", "", 2, 4)      = "abef"
-     * StringUtils.overlayString("abcdef", "zzzz", 2, 4)  = "abzzzzef"
-     * StringUtils.overlayString("abcdef", "zzzz", 4, 2)  = "abcdzzzzcdef"
-     * StringUtils.overlayString("abcdef", "zzzz", -1, 4) = IndexOutOfBoundsException
-     * StringUtils.overlayString("abcdef", "zzzz", 2, 8)  = IndexOutOfBoundsException
-     * </pre>
-     *
-     * @param text  the String to do overlaying in, may be null
-     * @param overlay  the String to overlay, may be null
-     * @param start  the position to start overlaying at, must be valid
-     * @param end  the position to stop overlaying before, must be valid
-     * @return overlayed String, <code>null</code> if null String input
-     * @throws NullPointerException if text or overlay is null
-     * @throws IndexOutOfBoundsException if either position is invalid
-     * @deprecated Use better named {@link #overlay(String, String, int, int)} instead.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String overlayString(String text, String overlay, int start, int end) {
-        return new StringBuffer(start + overlay.length() + text.length() - end + 1)
-            .append(text.substring(0, start))
-            .append(overlay)
-            .append(text.substring(end))
-            .toString();
-    }
-
-    /**
-     * <p>Overlays part of a String with another String.</p>
-     *
      * <p>A <code>null</code> string input returns <code>null</code>.
      * A negative index is treated as zero.
      * An index greater than the string length is treated as the string length.
@@ -3469,106 +3302,6 @@ public class StringUtils {
         return str;
     }
 
-    /**
-     * <p>Remove any &quot;\n&quot; if and only if it is at the end
-     * of the supplied String.</p>
-     *
-     * @param str  the String to chomp from, must not be null
-     * @return String without chomped ending
-     * @throws NullPointerException if str is <code>null</code>
-     * @deprecated Use {@link #chomp(String)} instead.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String chompLast(String str) {
-        return chompLast(str, "\n");
-    }
-
-    /**
-     * <p>Remove a value if and only if the String ends with that value.</p>
-     *
-     * @param str  the String to chomp from, must not be null
-     * @param sep  the String to chomp, must not be null
-     * @return String without chomped ending
-     * @throws NullPointerException if str or sep is <code>null</code>
-     * @deprecated Use {@link #chomp(String,String)} instead.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String chompLast(String str, String sep) {
-        if (str.length() == 0) {
-            return str;
-        }
-        String sub = str.substring(str.length() - sep.length());
-        if (sep.equals(sub)) {
-            return str.substring(0, str.length() - sep.length());
-        } else {
-            return str;
-        }
-    }
-
-    /**
-     * <p>Remove everything and return the last value of a supplied String, and
-     * everything after it from a String.</p>
-     *
-     * @param str  the String to chomp from, must not be null
-     * @param sep  the String to chomp, must not be null
-     * @return String chomped
-     * @throws NullPointerException if str or sep is <code>null</code>
-     * @deprecated Use {@link #substringAfterLast(String, String)} instead
-     *             (although this doesn't include the separator)
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String getChomp(String str, String sep) {
-        int idx = str.lastIndexOf(sep);
-        if (idx == str.length() - sep.length()) {
-            return sep;
-        } else if (idx != -1) {
-            return str.substring(idx);
-        } else {
-            return EMPTY;
-        }
-    }
-
-    /**
-     * <p>Remove the first value of a supplied String, and everything before it
-     * from a String.</p>
-     *
-     * @param str  the String to chomp from, must not be null
-     * @param sep  the String to chomp, must not be null
-     * @return String without chomped beginning
-     * @throws NullPointerException if str or sep is <code>null</code>
-     * @deprecated Use {@link #substringAfter(String,String)} instead.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String prechomp(String str, String sep) {
-        int idx = str.indexOf(sep);
-        if (idx != -1) {
-            return str.substring(idx + sep.length());
-        } else {
-            return str;
-        }
-    }
-
-    /**
-     * <p>Remove and return everything before the first value of a
-     * supplied String from another String.</p>
-     *
-     * @param str  the String to chomp from, must not be null
-     * @param sep  the String to chomp, must not be null
-     * @return String prechomped
-     * @throws NullPointerException if str or sep is <code>null</code>
-     * @deprecated Use {@link #substringBefore(String,String)} instead
-     *             (although this doesn't include the separator).
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String getPrechomp(String str, String sep) {
-        int idx = str.indexOf(sep);
-        if (idx != -1) {
-            return str.substring(0, idx + sep.length());
-        } else {
-            return EMPTY;
-        }
-    }
-
     // Chopping
     //-----------------------------------------------------------------------
     /**
@@ -3613,53 +3346,8 @@ public class StringUtils {
         return ret;
     }
 
-    /**
-     * <p>Removes <code>\n</code> from end of a String if it's there.
-     * If a <code>\r</code> precedes it, then remove that too.</p>
-     *
-     * @param str  the String to chop a newline from, must not be null
-     * @return String without newline
-     * @throws NullPointerException if str is <code>null</code>
-     * @deprecated Use {@link #chomp(String)} instead.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String chopNewline(String str) {
-        int lastIdx = str.length() - 1;
-        if (lastIdx <= 0) {
-            return EMPTY;
-        }
-        char last = str.charAt(lastIdx);
-        if (last == CharUtils.LF) {
-            if (str.charAt(lastIdx - 1) == CharUtils.CR) {
-                lastIdx--;
-            }
-        } else {
-            lastIdx++;
-        }
-        return str.substring(0, lastIdx);
-    }
-
     // Conversion
     //-----------------------------------------------------------------------
-    /**
-     * <p>Escapes any values it finds into their String form.</p>
-     *
-     * <p>So a tab becomes the characters <code>'\\'</code> and
-     * <code>'t'</code>.</p>
-     *
-     * <p>As of Lang 2.0, this calls {@link StringEscapeUtils#escapeJava(String)}
-     * behind the scenes.
-     * </p>
-     * @see StringEscapeUtils#escapeJava(java.lang.String)
-     * @param str String to escape values in
-     * @return String with escaped values
-     * @throws NullPointerException if str is <code>null</code>
-     * @deprecated Use {@link StringEscapeUtils#escapeJava(String)}
-     *             This method will be removed in Commons Lang 3.0
-     */
-    public static String escape(String str) {
-        return StringEscapeUtils.escapeJava(str);
-    }
 
     // Padding
     //-----------------------------------------------------------------------
@@ -4169,19 +3857,6 @@ public class StringUtils {
     }
 
     /**
-     * <p>Capitalizes a String changing the first letter to title case as
-     * per {@link Character#toTitleCase(char)}. No other letters are changed.</p>
-     *
-     * @param str  the String to capitalize, may be null
-     * @return the capitalized String, <code>null</code> if null String input
-     * @deprecated Use the standardly named {@link #capitalize(String)}.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String capitalise(String str) {
-        return capitalize(str);
-    }
-
-    /**
      * <p>Uncapitalizes a String changing the first letter to title case as
      * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
      *
@@ -4210,19 +3885,6 @@ public class StringUtils {
             .append(Character.toLowerCase(str.charAt(0)))
             .append(str.substring(1))
             .toString();
-    }
-
-    /**
-     * <p>Uncapitalizes a String changing the first letter to title case as
-     * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
-     *
-     * @param str  the String to uncapitalize, may be null
-     * @return the uncapitalized String, <code>null</code> if null String input
-     * @deprecated Use the standardly named {@link #uncapitalize(String)}.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String uncapitalise(String str) {
-        return uncapitalize(str);
     }
 
     /**
@@ -4272,22 +3934,6 @@ public class StringUtils {
             buffer.append(ch);
         }
         return buffer.toString();
-    }
-
-    /**
-     * <p>Capitalizes all the whitespace separated words in a String.
-     * Only the first letter of each word is changed.</p>
-     *
-     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.
-     * A <code>null</code> input String returns <code>null</code>.</p>
-     *
-     * @param str  the String to capitalize, may be null
-     * @return capitalized String, <code>null</code> if null String input
-     * @deprecated Use the relocated {@link WordUtils#capitalize(String)}.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static String capitaliseAllWords(String str) {
-        return WordUtils.capitalize(str);
     }
 
     // Count matches
@@ -4712,42 +4358,6 @@ public class StringUtils {
         String[] strs = split(str, separatorChar);
         ArrayUtils.reverse(strs);
         return join(strs, separatorChar);
-    }
-
-    /**
-     * <p>Reverses a String that is delimited by a specific character.</p>
-     *
-     * <p>The Strings between the delimiters are not reversed.
-     * Thus java.lang.String becomes String.lang.java (if the delimiter
-     * is <code>"."</code>).</p>
-     *
-     * <pre>
-     * StringUtils.reverseDelimitedString(null, *)       = null
-     * StringUtils.reverseDelimitedString("",*)          = ""
-     * StringUtils.reverseDelimitedString("a.b.c", null) = "a.b.c"
-     * StringUtils.reverseDelimitedString("a.b.c", ".")  = "c.b.a"
-     * </pre>
-     *
-     * @param str  the String to reverse, may be null
-     * @param separatorChars  the separator characters to use, null treated as whitespace
-     * @return the reversed String, <code>null</code> if null String input
-     * @deprecated Use {@link #reverseDelimited(String, char)} instead.
-     *      This method is broken as the join doesn't know which char to use.
-     *      Method will be removed in Commons Lang 3.0.
-     *
-     */
-    public static String reverseDelimitedString(String str, String separatorChars) {
-        if (str == null) {
-            return null;
-        }
-        // could implement manually, but simple way is to reuse other,
-        // probably slower, methods.
-        String[] strs = split(str, separatorChars);
-        ArrayUtils.reverse(strs);
-        if (separatorChars == null) {
-            return join(strs, ' ');
-        }
-        return join(strs, separatorChars);
     }
 
     // Abbreviating

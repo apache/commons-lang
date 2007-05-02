@@ -1093,23 +1093,6 @@ public class SystemUtils {
      *  <li><code>1.31f</code> for JDK 1.3.1
      * </ul>
      * 
-     * @return the version, for example 1.31f for JDK 1.3.1
-     * @deprecated Use {@link #JAVA_VERSION_FLOAT} instead.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static float getJavaVersion() {
-        return JAVA_VERSION_FLOAT;
-    }
-
-    /**
-     * <p>Gets the Java version number as a <code>float</code>.</p>
-     *
-     * <p>Example return values:</p>
-     * <ul>
-     *  <li><code>1.2f</code> for JDK 1.2
-     *  <li><code>1.31f</code> for JDK 1.3.1
-     * </ul>
-     * 
      * <p>Patch releases are not reported.
      * Zero is returned if {@link #JAVA_VERSION_TRIMMED} is <code>null</code>.</p>
      * 

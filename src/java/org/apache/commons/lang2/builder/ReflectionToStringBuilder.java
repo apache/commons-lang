@@ -288,52 +288,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * <p>
-     * Builds a <code>toString</code> value through reflection.
-     * </p>
-     * 
-     * <p>
-     * It uses <code>AccessibleObject.setAccessible</code> to gain access to private fields. This means that it will
-     * throw a security exception if run under a security manager, if the permissions are not set up correctly. It is
-     * also not as efficient as testing explicitly.
-     * </p>
-     * 
-     * <p>
-     * If the <code>outputTransients</code> is <code>true</code>, transient members will be output, otherwise they
-     * are ignored, as they are likely derived fields, and not part of the value of the Object.
-     * </p>
-     * 
-     * <p>
-     * Static fields will not be included. Superclass fields will be appended up to and including the specified
-     * superclass. A null superclass is treated as <code>java.lang.Object</code>.
-     * </p>
-     * 
-     * <p>
-     * If the style is <code>null</code>, the default <code>ToStringStyle</code> is used.
-     * </p>
-     * 
-     * @deprecated Use {@link #toString(Object,ToStringStyle,boolean,boolean,Class)}
-     * 
-     * @param object
-     *            the Object to be output
-     * @param style
-     *            the style of the <code>toString</code> to create, may be <code>null</code>
-     * @param outputTransients
-     *            whether to include transient fields
-     * @param reflectUpToClass
-     *            the superclass to reflect up to (inclusive), may be <code>null</code>
-     * @return the String result
-     * @throws IllegalArgumentException
-     *             if the Object is <code>null</code>
-     * @since 2.0
-     */
-    public static String toString(Object object, ToStringStyle style, 
-                                  boolean outputTransients, Class reflectUpToClass) 
-    {
-        return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients).toString();
-    }
-
-    /**
      * Builds a String for a toString method excluding the given field name.
      * 
      * @param object
@@ -491,29 +445,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      */
     public ReflectionToStringBuilder(Object object, ToStringStyle style, StringBuffer buffer) {
         super(object, style, buffer);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @deprecated Use {@link #ReflectionToStringBuilder(Object,ToStringStyle,StringBuffer,Class,boolean,boolean)}.
-     * 
-     * @param object
-     *            the Object to build a <code>toString</code> for
-     * @param style
-     *            the style of the <code>toString</code> to create, may be <code>null</code>
-     * @param buffer
-     *            the <code>StringBuffer</code> to populate, may be <code>null</code>
-     * @param reflectUpToClass
-     *            the superclass to reflect up to (inclusive), may be <code>null</code>
-     * @param outputTransients
-     *            whether to include transient fields
-     */
-    public ReflectionToStringBuilder(Object object, ToStringStyle style, StringBuffer buffer, Class reflectUpToClass,
-            boolean outputTransients) {
-        super(object, style, buffer);
-        this.setUpToClass(reflectUpToClass);
-        this.setAppendTransients(outputTransients);
     }
 
     /**

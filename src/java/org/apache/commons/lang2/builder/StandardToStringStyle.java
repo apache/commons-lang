@@ -80,17 +80,6 @@ public class StandardToStringStyle extends ToStringStyle {
     }
 
     /**
-     * <p>Gets whether to output short or long class names.</p>
-     *
-     * @return the current shortClassName flag
-     * @deprecated Use {@link #isUseShortClassName()}
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public boolean isShortClassName() {
-        return super.isUseShortClassName();
-    }
-
-    /**
      * <p>Sets whether to output short or long class names.</p>
      *
      * @param useShortClassName  the new useShortClassName flag
@@ -98,17 +87,6 @@ public class StandardToStringStyle extends ToStringStyle {
      */
     public void setUseShortClassName(boolean useShortClassName) {
         super.setUseShortClassName(useShortClassName);
-    }
-
-    /**
-     * <p>Sets whether to output short or long class names.</p>
-     *
-     * @param shortClassName  the new shortClassName flag
-     * @deprecated Use {@link #setUseShortClassName(boolean)}
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public void setShortClassName(boolean shortClassName) {
-        super.setUseShortClassName(shortClassName);
     }
 
     //---------------------------------------------------------------------

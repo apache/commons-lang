@@ -128,27 +128,14 @@ public class StringUtilsTest extends TestCase {
         assertEquals(null, StringUtils.upperCase(null));
         assertEquals(null, StringUtils.lowerCase(null));
         assertEquals(null, StringUtils.capitalize(null));
-        assertEquals(null, StringUtils.uncapitalise(null));
         assertEquals(null, StringUtils.uncapitalize(null));
 
-        assertEquals("capitalise(String) failed",
-                    FOO_CAP, StringUtils.capitalise(FOO_UNCAP) );
-        assertEquals("capitalise(empty-string) failed",
-                    "", StringUtils.capitalise("") );
-        assertEquals("capitalise(single-char-string) failed",
-                    "X", StringUtils.capitalise("x") );
         assertEquals("capitalize(String) failed",
                      FOO_CAP, StringUtils.capitalize(FOO_UNCAP) );
         assertEquals("capitalize(empty-string) failed",
                      "", StringUtils.capitalize("") );
         assertEquals("capitalize(single-char-string) failed",
                      "X", StringUtils.capitalize("x") );
-        assertEquals("uncapitalise(String) failed",
-                     FOO_UNCAP, StringUtils.uncapitalise(FOO_CAP) );
-        assertEquals("uncapitalise(empty-string) failed",
-                     "", StringUtils.uncapitalise("") );
-        assertEquals("uncapitalise(single-char-string) failed",
-                     "x", StringUtils.uncapitalise("X") );
         assertEquals("uncapitalize(String) failed",
                      FOO_UNCAP, StringUtils.uncapitalize(FOO_CAP) );
         assertEquals("uncapitalize(empty-string) failed",
@@ -157,20 +144,12 @@ public class StringUtilsTest extends TestCase {
                      "x", StringUtils.uncapitalize("X") );
                      
         // reflection type of tests: Sentences.
-        assertEquals("uncapitalise(capitalise(String)) failed",
-                     SENTENCE_UNCAP, StringUtils.uncapitalise(StringUtils.capitalise(SENTENCE_UNCAP)) );
-        assertEquals("capitalise(uncapitalise(String)) failed",
-                     SENTENCE_CAP, StringUtils.capitalise(StringUtils.uncapitalise(SENTENCE_CAP)) );
         assertEquals("uncapitalize(capitalize(String)) failed",
                      SENTENCE_UNCAP, StringUtils.uncapitalize(StringUtils.capitalize(SENTENCE_UNCAP)) );
         assertEquals("capitalize(uncapitalize(String)) failed",
                      SENTENCE_CAP, StringUtils.capitalize(StringUtils.uncapitalize(SENTENCE_CAP)) );
 
         // reflection type of tests: One word.
-        assertEquals("uncapitalise(capitalise(String)) failed",
-                     FOO_UNCAP, StringUtils.uncapitalise(StringUtils.capitalise(FOO_UNCAP)) );
-        assertEquals("capitalise(uncapitalise(String)) failed",
-                     FOO_CAP, StringUtils.capitalise(StringUtils.uncapitalise(FOO_CAP)) );
         assertEquals("uncapitalize(capitalize(String)) failed",
                      FOO_UNCAP, StringUtils.uncapitalize(StringUtils.capitalize(FOO_UNCAP)) );
         assertEquals("capitalize(uncapitalize(String)) failed",
@@ -300,14 +279,6 @@ public class StringUtilsTest extends TestCase {
         assertEquals(TEXT_LIST, StringUtils.join(Arrays.asList(ARRAY_LIST), SEPARATOR));
     }
 
-    public void testConcatenate_Objectarray() {
-        assertEquals(null, StringUtils.concatenate(null));
-        assertEquals("", StringUtils.concatenate(EMPTY_ARRAY_LIST));
-        assertEquals("", StringUtils.concatenate(NULL_ARRAY_LIST));
-        assertEquals("foo", StringUtils.concatenate(MIXED_ARRAY_LIST));
-        assertEquals("foo2", StringUtils.concatenate(MIXED_TYPE_LIST));
-    }
-        
     public void testSplit_String() {
         assertEquals(null, StringUtils.split(null));
         assertEquals(0, StringUtils.split("").length);
@@ -847,13 +818,6 @@ public class StringUtilsTest extends TestCase {
         assertEquals(msg, str.substring(2), res[1]);
     }
     
-    public void testDeleteSpace_String() {
-        assertEquals(null, StringUtils.deleteSpaces(null));
-        assertEquals("", StringUtils.deleteSpaces(""));
-        assertEquals("", StringUtils.deleteSpaces("    \t\t\n\n   "));
-        assertEquals("test", StringUtils.deleteSpaces("t  \t\ne\rs\n\n   \tt"));
-    }
-    
     public void testDeleteWhitespace_String() {
         assertEquals(null, StringUtils.deleteWhitespace(null));
         assertEquals("", StringUtils.deleteWhitespace(""));
@@ -984,30 +948,6 @@ public class StringUtilsTest extends TestCase {
             "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM567891234"));
     }
     
-    public void testOverlayString_StringStringIntInt() {
-        assertEquals("overlayString(String, String, int, int) failed",
-                     "foo foor baz", StringUtils.overlayString(SENTENCE_UNCAP, FOO_UNCAP, 4, 6) );
-        assertEquals("abef", StringUtils.overlayString("abcdef", "", 2, 4));
-        assertEquals("abzzzzef", StringUtils.overlayString("abcdef", "zzzz", 2, 4));
-        assertEquals("abcdzzzzcdef", StringUtils.overlayString("abcdef", "zzzz", 4, 2));
-        try {
-            StringUtils.overlayString(null, "zzzz", 2, 4);
-            fail();
-        } catch (NullPointerException ex) {}
-        try {
-            StringUtils.overlayString("abcdef", null, 2, 4);
-            fail();
-        } catch (NullPointerException ex) {}
-        try {
-            StringUtils.overlayString("abcdef", "zzzz", -1, 4);
-            fail();
-        } catch (IndexOutOfBoundsException ex) {}
-        try {
-            StringUtils.overlayString("abcdef", "zzzz", 2, 8);
-            fail();
-        } catch (IndexOutOfBoundsException ex) {}
-    }
-
     public void testOverlay_StringStringIntInt() {
         assertEquals(null, StringUtils.overlay(null, null, 2, 4));
         assertEquals(null, StringUtils.overlay(null, null, -2, -4));
@@ -1045,36 +985,6 @@ public class StringUtilsTest extends TestCase {
         String str = StringUtils.repeat("a", 10000);  // bigger than pad limit
         assertEquals(10000, str.length());
         assertEquals(true, StringUtils.containsOnly(str, new char[] {'a'}));
-    }
-
-    public void testDeprecatedChompFunctions() {
-        assertEquals("chompLast(String) failed",
-                     FOO_UNCAP, StringUtils.chompLast(FOO_UNCAP + "\n") );
-
-        assertEquals("chompLast(\"\") failed",
-            "", StringUtils.chompLast("") );
-        assertEquals("chompLast(\"test\", \"test\") failed",
-            "test", StringUtils.chompLast("test", "tst") );
-        
-        assertEquals("getChomp(String, String) failed",
-                     "\n" + FOO_UNCAP, StringUtils.getChomp(FOO_UNCAP + "\n" + FOO_UNCAP, "\n") );
-        assertEquals("getChomp(String, String) failed",
-                     FOO_CAP, StringUtils.getChomp(FOO_CAP+FOO_CAP, FOO_CAP));
-        assertEquals("getChomp(String, String) failed",
-                     "", StringUtils.getChomp(FOO_UNCAP, FOO_CAP));
-
-        assertEquals("prechomp(String, String) failed",
-                     FOO_UNCAP, StringUtils.prechomp(FOO_UNCAP + "\n" + FOO_UNCAP, "\n") );
-        assertEquals("prechomp(String, String) failed",
-                     FOO_UNCAP, StringUtils.prechomp(FOO_UNCAP, FOO_CAP));
-        
-        assertEquals("getPrechomp(String, String) failed",
-                     FOO_UNCAP + "\n", StringUtils.getPrechomp(FOO_UNCAP + "\n" + FOO_UNCAP, "\n") );
-        assertEquals("getPrechomp(String, String) failed",
-                     "", StringUtils.getPrechomp(FOO_CAP, FOO_UNCAP));
-        
-        assertEquals("chopNewline(String, String) failed",
-                     FOO_UNCAP, StringUtils.chopNewline(FOO_UNCAP + "\r\n") );
     }
 
     public void testChop() {
@@ -1156,28 +1066,6 @@ public class StringUtilsTest extends TestCase {
                 " ", StringUtils.chomp(" foo", "foo"));
         assertEquals("chomp(String, String) failed",
                 "foo ", StringUtils.chomp("foo ", "foo"));
-    }
-
-    public void testChopNewLine() {
-
-        String[][] newLineCases = {
-            { FOO_UNCAP + "\r\n", FOO_UNCAP } ,
-            { FOO_UNCAP + "\n" , FOO_UNCAP } ,
-            { FOO_UNCAP + "\r", FOO_UNCAP + "\r" },
-            { FOO_UNCAP, FOO_UNCAP },
-            { FOO_UNCAP + "\n" + FOO_UNCAP , FOO_UNCAP + "\n" + FOO_UNCAP },
-            { FOO_UNCAP + "\n\n", FOO_UNCAP + "\n"},
-            { "\n", "" },
-            { "", "" },
-            { "\r\n", "" }
-      };
-
-      for (int i = 0; i < newLineCases.length; i++) {
-          String original = newLineCases[i][0];
-          String expectedResult = newLineCases[i][1];
-          assertEquals("chopNewline(String) failed",
-                  expectedResult, StringUtils.chopNewline(original));
-      }
     }
 
     //-----------------------------------------------------------------------
@@ -1310,15 +1198,6 @@ public class StringUtilsTest extends TestCase {
         assertEquals("", StringUtils.reverseDelimited("", '.') );
     }
 
-    public void testReverseDelimitedString_StringString() {
-        assertEquals(null, StringUtils.reverseDelimitedString(null, null) );
-        assertEquals("", StringUtils.reverseDelimitedString("", null) );
-        assertEquals("", StringUtils.reverseDelimitedString("", ".") );
-        assertEquals("a.b.c", StringUtils.reverseDelimitedString("a.b.c", null) );
-        assertEquals("c b a", StringUtils.reverseDelimitedString("a b c", null) );
-        assertEquals("c.b.a", StringUtils.reverseDelimitedString("a.b.c", ".") );
-    }
-
     //-----------------------------------------------------------------------
     public void testDefault_String() {
         assertEquals("", StringUtils.defaultString(null));
@@ -1336,18 +1215,6 @@ public class StringUtilsTest extends TestCase {
         assertEquals("NULL", StringUtils.defaultIfEmpty(null, "NULL"));
         assertEquals("NULL", StringUtils.defaultIfEmpty("", "NULL"));
         assertEquals("abc", StringUtils.defaultIfEmpty("abc", "NULL"));
-    }
-
-    //-----------------------------------------------------------------------
-    public void testEscapeFunctions_String() {
-        assertEquals("", StringUtils.escape("") );
-        assertEquals("abc", StringUtils.escape("abc") );
-        assertEquals("\\t", StringUtils.escape("\t") );
-        assertEquals("\\\\", StringUtils.escape("\\") );
-        assertEquals("\\\\\\b\\t\\r", StringUtils.escape("\\\b\t\r") );
-        assertEquals("\\u1234", StringUtils.escape("\u1234") );
-        assertEquals("\\u0234", StringUtils.escape("\u0234") );
-        assertEquals("\\u00FD", StringUtils.escape("\u00fd") );
     }
 
     //-----------------------------------------------------------------------

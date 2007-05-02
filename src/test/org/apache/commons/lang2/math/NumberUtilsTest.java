@@ -68,16 +68,6 @@ public class NumberUtilsTest extends TestCase {
     //---------------------------------------------------------------------
 
     /**
-     * Test for {@link NumberUtils#stringToInt(String)}.
-     */
-    public void testStringToIntString() {
-        assertTrue("stringToInt(String) 1 failed", NumberUtils.stringToInt("12345") == 12345);
-        assertTrue("stringToInt(String) 2 failed", NumberUtils.stringToInt("abc") == 0);
-        assertTrue("stringToInt(empty) failed", NumberUtils.stringToInt("") == 0);
-        assertTrue("stringToInt(null) failed", NumberUtils.stringToInt(null) == 0);
-    }
-
-    /**
      * Test for {@link NumberUtils#toInt(String)}.
      */
     public void testToIntString() {
@@ -85,14 +75,6 @@ public class NumberUtilsTest extends TestCase {
         assertTrue("toInt(String) 2 failed", NumberUtils.toInt("abc") == 0);
         assertTrue("toInt(empty) failed", NumberUtils.toInt("") == 0);
         assertTrue("toInt(null) failed", NumberUtils.toInt(null) == 0);
-    }
-
-    /**
-     * Test for {@link NumberUtils#stringToInt(String, int)}.
-     */
-    public void testStringToIntStringI() {
-        assertTrue("stringToInt(String,int) 1 failed", NumberUtils.stringToInt("12345", 5) == 12345);
-        assertTrue("stringToInt(String,int) 2 failed", NumberUtils.stringToInt("1234.5", 5) == 5);
     }
 
     /**

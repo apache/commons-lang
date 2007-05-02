@@ -1576,17 +1576,6 @@ public abstract class ToStringStyle implements Serializable {
     }
 
     /**
-     * <p>Gets whether to output short or long class names.</p>
-     *
-     * @return the current shortClassName flag
-     * @deprecated Use {@link #isUseShortClassName()}
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    protected boolean isShortClassName() {
-        return useShortClassName;
-    }
-
-    /**
      * <p>Sets whether to output short or long class names.</p>
      *
      * @param useShortClassName  the new useShortClassName flag
@@ -1594,17 +1583,6 @@ public abstract class ToStringStyle implements Serializable {
      */
     protected void setUseShortClassName(boolean useShortClassName) {
         this.useShortClassName = useShortClassName;
-    }
-
-    /**
-     * <p>Sets whether to output short or long class names.</p>
-     *
-     * @param shortClassName  the new shortClassName flag
-     * @deprecated Use {@link #setUseShortClassName(boolean)}
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    protected void setShortClassName(boolean shortClassName) {
-        this.useShortClassName = shortClassName;
     }
 
     //---------------------------------------------------------------------

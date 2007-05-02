@@ -87,16 +87,6 @@ public class StringUtilsTrimEmptyTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-    public void testClean() {
-        assertEquals(FOO, StringUtils.clean(FOO + "  "));
-        assertEquals(FOO, StringUtils.clean(" " + FOO + "  "));
-        assertEquals(FOO, StringUtils.clean(" " + FOO));
-        assertEquals(FOO, StringUtils.clean(FOO + ""));
-        assertEquals("", StringUtils.clean(" \t\r\n\b "));
-        assertEquals("", StringUtils.clean(""));
-        assertEquals("", StringUtils.clean(null));
-    }
-
     public void testTrim() {
         assertEquals(FOO, StringUtils.trim(FOO + "  "));
         assertEquals(FOO, StringUtils.trim(" " + FOO + "  "));

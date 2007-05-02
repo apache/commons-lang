@@ -67,14 +67,6 @@ public class CharSetUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
-    public void testEvaluateSet_Stringarray() {
-        assertEquals(null, CharSetUtils.evaluateSet((String[]) null));
-        assertEquals("[]", CharSetUtils.evaluateSet(new String[0]).toString());
-        assertEquals("[]", CharSetUtils.evaluateSet(new String[] {null}).toString());
-        assertEquals("[a-e]", CharSetUtils.evaluateSet(new String[] {"a-e"}).toString());
-    }
-    
-    //-----------------------------------------------------------------------
     public void testSqueeze_StringString() {
         assertEquals(null, CharSetUtils.squeeze(null, (String) null));
         assertEquals(null, CharSetUtils.squeeze(null, ""));
@@ -232,45 +224,5 @@ public class CharSetUtilsTest extends TestCase {
         assertEquals("", CharSetUtils.delete("----", new String[] { "-" }));
         assertEquals("heo", CharSetUtils.delete("hello", new String[] { "l" }));
     }
-    
-    
-    public void testTranslate() {
-        assertEquals(null, CharSetUtils.translate(null, null, null));
-        assertEquals("", CharSetUtils.translate("", "a", "b"));
-        assertEquals("jelly", CharSetUtils.translate("hello", "ho", "jy"));
-        assertEquals("jellj", CharSetUtils.translate("hello", "ho", "j"));
-        assertEquals("jelly", CharSetUtils.translate("hello", "ho", "jyx"));
-        assertEquals("\rhello\r", CharSetUtils.translate("\nhello\n", "\n", "\r"));
-        assertEquals("hello", CharSetUtils.translate("hello", "", "x"));
-        assertEquals("hello", CharSetUtils.translate("hello", "", ""));
-        assertEquals("hello", CharSetUtils.translate("hello", "", ""));
-        // From http://issues.apache.org/bugzilla/show_bug.cgi?id=25454
-        assertEquals("q651.506bera", CharSetUtils.translate("d216.102oren", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789",
-                "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM567891234"));
-    }
-
-    public void testTranslateNullPointerException() {
-        try {
-            CharSetUtils.translate("hello", null, null);
-            fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
-        }
-        try {
-            CharSetUtils.translate("hello", "h", null);
-            fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
-        }
-        try {
-            CharSetUtils.translate("hello", null, "a");
-            fail("Expecting NullPointerException");
-        } catch (NullPointerException ex) {
-        }
-        try {
-            CharSetUtils.translate("hello", "h", "");
-            fail("Expecting ArrayIndexOutOfBoundsException");
-        } catch (ArrayIndexOutOfBoundsException ex) {
-        }
-    }
-         
     
 }

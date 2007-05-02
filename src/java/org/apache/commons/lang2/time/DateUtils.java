@@ -958,33 +958,4 @@ public class DateUtils {
         }
     }
     
-    //------------------------------------------------------------------------- 
-    // Deprecated int constants
-    // TODO: Remove in 3.0
-    
-    /**
-     * Number of milliseconds in a standard second.
-     * 
-     * @deprecated Use MILLIS_PER_SECOND. This will be removed in Commons Lang 3.0.
-     */
-    public static final int MILLIS_IN_SECOND = 1000;
-    /**
-     * Number of milliseconds in a standard minute.
-     * 
-     * @deprecated Use MILLIS_PER_MINUTE. This will be removed in Commons Lang 3.0.
-     */
-    public static final int MILLIS_IN_MINUTE = 60 * 1000;
-    /**
-     * Number of milliseconds in a standard hour.
-     * 
-     * @deprecated Use MILLIS_PER_HOUR. This will be removed in Commons Lang 3.0.
-     */
-    public static final int MILLIS_IN_HOUR = 60 * 60 * 1000;
-    /**
-     * Number of milliseconds in a standard day.
-     * 
-     * @deprecated Use MILLIS_PER_DAY. This will be removed in Commons Lang 3.0.
-     */
-    public static final int MILLIS_IN_DAY = 24 * 60 * 60 * 1000;
-    
 }
