@@ -79,6 +79,7 @@ public class LangTestSuite extends TestCase {
         suite.addTest(StringUtilsSubstringTest.suite());
         suite.addTest(StringUtilsEqualsIndexOfTest.suite());
         suite.addTest(StringUtilsIsTest.suite());
+        suite.addTest(StringUtilsStartsEndsWithTest.suite());
         suite.addTest(StringEscapeUtilsTest.suite());
         suite.addTest(SystemUtilsTest.suite());
         suite.addTest(UnhandledExceptionTest.suite());

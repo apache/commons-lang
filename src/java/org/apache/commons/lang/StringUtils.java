@@ -32,6 +32,10 @@ import java.util.List;
  *      - removes leading and trailing whitespace</li>
  *  <li><b>Equals</b>
  *      - compares two strings null-safe</li>
+ *  <li><b>startsWith</b>
+ *      - check if a String starts with a prefix null-safe</li>
+ *  <li><b>endsWith</b>
+ *      - check if a String ends with a suffix null-safe</li>
  *  <li><b>IndexOf/LastIndexOf/Contains</b>
  *      - null-safe index-of checks
  *  <li><b>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</b>
@@ -2982,6 +2986,41 @@ public class StringUtils {
     }
 
     /**
+     * <p>Case insensitive removal of a substring if it is at the begining of a source string,
+     * otherwise returns the source string.</p>
+     *
+     * <p>A <code>null</code> source string will return <code>null</code>.
+     * An empty ("") source string will return the empty string.
+     * A <code>null</code> search string will return the source string.</p>
+     *
+     * <pre>
+     * StringUtils.removeStartIgnoreCase(null, *)      = null
+     * StringUtils.removeStartIgnoreCase("", *)        = ""
+     * StringUtils.removeStartIgnoreCase(*, null)      = *
+     * StringUtils.removeStartIgnoreCase("www.domain.com", "www.")   = "domain.com"
+     * StringUtils.removeStartIgnoreCase("www.domain.com", "WWW.")   = "domain.com"
+     * StringUtils.removeStartIgnoreCase("domain.com", "www.")       = "domain.com"
+     * StringUtils.removeStartIgnoreCase("www.domain.com", "domain") = "www.domain.com"
+     * StringUtils.removeStartIgnoreCase("abc", "")    = "abc"
+     * </pre>
+     *
+     * @param str  the source String to search, may be null
+     * @param remove  the String to search for (case insensitive) and remove, may be null
+     * @return the substring with the string removed if found,
+     *  <code>null</code> if null String input
+     * @since 2.4
+     */
+    public static String removeStartIgnoreCase(String str, String remove) {
+        if (isEmpty(str) || isEmpty(remove)) {
+            return str;
+        }
+        if (startsWithIgnoreCase(str, remove)){
+            return str.substring(remove.length());
+        }
+        return str;
+    }
+
+    /**
      * <p>Removes a substring only if it is at the end of a source string,
      * otherwise returns the source string.</p>
      *
@@ -3010,6 +3049,40 @@ public class StringUtils {
             return str;
         }
         if (str.endsWith(remove)) {
+            return str.substring(0, str.length() - remove.length());
+        }
+        return str;
+    }
+
+    /**
+     * <p>Case insensitive removal of a substring if it is at the end of a source string,
+     * otherwise returns the source string.</p>
+     *
+     * <p>A <code>null</code> source string will return <code>null</code>.
+     * An empty ("") source string will return the empty string.
+     * A <code>null</code> search string will return the source string.</p>
+     *
+     * <pre>
+     * StringUtils.removeEnd(null, *)      = null
+     * StringUtils.removeEnd("", *)        = ""
+     * StringUtils.removeEnd(*, null)      = *
+     * StringUtils.removeEnd("www.domain.com", ".com.")  = "www.domain.com."
+     * StringUtils.removeEnd("www.domain.com", ".com")   = "www.domain"
+     * StringUtils.removeEnd("www.domain.com", "domain") = "www.domain.com"
+     * StringUtils.removeEnd("abc", "")    = "abc"
+     * </pre>
+     *
+     * @param str  the source String to search, may be null
+     * @param remove  the String to search for (case insensitive) and remove, may be null
+     * @return the substring with the string removed if found,
+     *  <code>null</code> if null String input
+     * @since 2.4
+     */
+    public static String removeEndIgnoreCase(String str, String remove) {
+        if (isEmpty(str) || isEmpty(remove)) {
+            return str;
+        }
+        if (endsWithIgnoreCase(str, remove)) {
             return str.substring(0, str.length() - remove.length());
         }
         return str;
@@ -5058,5 +5131,154 @@ public class StringUtils {
         return a;
     }
 */
+
+    // startsWith
+    //-----------------------------------------------------------------------
+
+    /**
+     * <p>Check if a String starts with a specified prefix.</p>
+     *
+     * <p><code>null</code>s are handled without exceptions. Two <code>null</code>
+     * references are considered to be equal. The comparison is case sensitive.</p>
+     *
+     * <pre>
+     * StringUtils.startsWith(null, null)      = true
+     * StringUtils.startsWith(null, "abcdef")  = false
+     * StringUtils.startsWith("abc", null)     = false
+     * StringUtils.startsWith("abc", "abcdef") = true
+     * StringUtils.startsWith("abc", "ABCDEF") = false
+     * </pre>
+     *
+     * @see java.lang.String#startsWith(String)
+     * @param str  the String to check, may be null
+     * @param prefix the prefix to find, may be null
+     * @return <code>true</code> if the String starts with the prefix, case sensitive, or
+     *  both <code>null</code>
+     * @since 2.4
+     */
+    public static boolean startsWith(String str, String prefix) {
+        return startsWith(str, prefix, false);
+    }
+
+    /**
+     * <p>Case insensitive check if a String starts with a specified prefix.</p>
+     *
+     * <p><code>null</code>s are handled without exceptions. Two <code>null</code>
+     * references are considered to be equal. The comparison is case insensitive.</p>
+     *
+     * <pre>
+     * StringUtils.startsWithIgnoreCase(null, null)      = true
+     * StringUtils.startsWithIgnoreCase(null, "abcdef")  = false
+     * StringUtils.startsWithIgnoreCase("abc", null)     = false
+     * StringUtils.startsWithIgnoreCase("abc", "abcdef") = true
+     * StringUtils.startsWithIgnoreCase("abc", "ABCDEF") = true
+     * </pre>
+     *
+     * @see java.lang.String#startsWith(String)
+     * @param str  the String to check, may be null
+     * @param prefix the prefix to find, may be null
+     * @return <code>true</code> if the String starts with the prefix, case insensitive, or
+     *  both <code>null</code>
+     * @since 2.4
+     */
+    public static boolean startsWithIgnoreCase(String str, String prefix) {
+        return startsWith(str, prefix, true);
+    }
+
+    /**
+     * <p>Check if a String starts with a specified prefix (optionally case insensitive).</p>
+     *
+     * @see java.lang.String#startsWith(String)
+     * @param str  the String to check, may be null
+     * @param prefix the prefix to find, may be null
+     * @param ignoreCase inidicates whether the compare should ignore case
+     *  (case insensitive) or not.
+     * @return <code>true</code> if the String starts with the prefix or
+     *  both <code>null</code>
+     */
+    private static boolean startsWith(String str, String prefix, boolean ignoreCase) {
+        if (str == null || prefix == null) {
+            return (str == null && prefix == null);
+        }
+        if (prefix.length() > str.length()) {
+            return false;
+        }
+        return str.regionMatches(ignoreCase, 0, prefix, 0, prefix.length());
+    }
+
+    // endsWith
+    //-----------------------------------------------------------------------
+
+    /**
+     * <p>Check if a String ends with a specified suffix.</p>
+     *
+     * <p><code>null</code>s are handled without exceptions. Two <code>null</code>
+     * references are considered to be equal. The comparison is case sensitive.</p>
+     *
+     * <pre>
+     * StringUtils.endsWith(null, null)      = true
+     * StringUtils.endsWith(null, "abcdef")  = false
+     * StringUtils.endsWith("def", null)     = false
+     * StringUtils.endsWith("def", "abcdef") = true
+     * StringUtils.endsWith("def", "ABCDEF") = false
+     * </pre>
+     *
+     * @see java.lang.String#endsWith(String)
+     * @param str  the String to check, may be null
+     * @param suffix the suffix to find, may be null
+     * @return <code>true</code> if the String ends with the suffix, case sensitive, or
+     *  both <code>null</code>
+     * @since 2.4
+     */
+    public static boolean endsWith(String str, String suffix) {
+        return endsWith(str, suffix, false);
+    }
+
+    /**
+     * <p>Case insensitive check if a String ends with a specified suffix.</p>
+     *
+     * <p><code>null</code>s are handled without exceptions. Two <code>null</code>
+     * references are considered to be equal. The comparison is case insensitive.</p>
+     *
+     * <pre>
+     * StringUtils.endsWithIgnoreCase(null, null)      = true
+     * StringUtils.endsWithIgnoreCase(null, "abcdef")  = false
+     * StringUtils.endsWithIgnoreCase("def", null)     = false
+     * StringUtils.endsWithIgnoreCase("def", "abcdef") = true
+     * StringUtils.endsWithIgnoreCase("def", "ABCDEF") = false
+     * </pre>
+     *
+     * @see java.lang.String#endsWith(String)
+     * @param str  the String to check, may be null
+     * @param suffix the suffix to find, may be null
+     * @return <code>true</code> if the String ends with the suffix, case insensitive, or
+     *  both <code>null</code>
+     * @since 2.4
+     */
+    public static boolean endsWithIgnoreCase(String str, String suffix) {
+        return endsWith(str, suffix, true);
+    }
+
+    /**
+     * <p>Check if a String ends with a specified suffix (optionally case insensitive).</p>
+     *
+     * @see java.lang.String#endsWith(String)
+     * @param str  the String to check, may be null
+     * @param suffix the suffix to find, may be null
+     * @param ignoreCase inidicates whether the compare should ignore case
+     *  (case insensitive) or not.
+     * @return <code>true</code> if the String starts with the prefix or
+     *  both <code>null</code>
+     */
+    private static boolean endsWith(String str, String suffix, boolean ignoreCase) {
+        if (str == null || suffix == null) {
+            return (str == null && suffix == null);
+        }
+        if (suffix.length() > str.length()) {
+            return false;
+        }
+        int strOffset = str.length() - suffix.length();
+        return str.regionMatches(ignoreCase, strOffset, suffix, 0, suffix.length());
+    }
 
 }
