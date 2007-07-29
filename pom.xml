@@ -37,7 +37,7 @@
         standard as to justify existence in java.lang.
     </description>
 
-  <url>http://jakarta.apache.org/commons/lang/</url>
+  <url>http://commons.apache.org/lang/</url>
 
   <issueManagement>
     <system>jira</system>
@@ -45,9 +45,9 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk</developerConnection>
-    <url>http://svn.apache.org/viewvc/jakarta/commons/proper/lang/trunk</url>
+    <connection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/lang/trunk</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/lang/trunk</developerConnection>
+    <url>http://svn.apache.org/viewvc/commons/proper/lang/trunk</url>
   </scm>
 
     <developers>
