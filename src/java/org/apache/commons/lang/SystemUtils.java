@@ -890,7 +890,7 @@ public class SystemUtils {
     // These MUST be declared after those above as they depend on the
     // values being set up
     // OS names from http://www.vamphq.com/os.html
-    // Selected ones included - please advise commons-dev@jakarta.apache.org
+    // Selected ones included - please advise dev@commons.apache.org
     // if you want another added or a mistake corrected
 
     /**
