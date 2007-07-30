@@ -15,14 +15,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<!DOCTYPE org.apache.commons.menus SYSTEM 'http://jakarta.apache.org/commons/build/maven-build.dtd'>
+<!DOCTYPE org.apache.commons.menus SYSTEM 'http://commons.apache.org/build/maven-build.dtd'>
 <project name="Lang">
 
   <title>Lang</title>
 
   <body>
     <links>
-      <item name="Jakarta Commons" href="http://jakarta.apache.org/commons/"/>
+      <item name="Apache Commons" href="http://commons.apache.org/"/>
     </links>
 
     <menu name="Commons Lang">
@@ -39,7 +39,7 @@ limitations under the License.
       <item name="Team" href="/team-list.html"/>
       <item name="Proposal" href="/proposal.html"/>
       <item name="Developer guide" href="/developerguide.html"/>
-      <item name="SVN repository" href="http://svn.apache.org/viewvc/jakarta/commons/proper/lang/trunk/"/>
+      <item name="SVN repository" href="http://svn.apache.org/viewvc/commons/proper/lang/trunk/"/>
       <item name="Javadoc (SVN latest)" href="apidocs/index.html"/>
     </menu>
 

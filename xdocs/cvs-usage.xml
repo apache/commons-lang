@@ -24,20 +24,20 @@ limitations under the License.
 <!-- ================================================== -->
 <section name="Source repository">
 <p>
-  Jakarta Commons Lang is hosted on the Apache
+  Commons Lang is hosted on the Apache
   <a href="http://subversion.tigris.org/">subversion</a> repository.
 </p>
 <p>
   The project URL is:<br />
-  <code>http://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk</code>
+  <code>http://svn.apache.org/repos/asf/commons/proper/lang/trunk</code>
 </p>
 <p>
   The best way to view the repository is via the
-  <a href="http://svn.apache.org/viewvc/jakarta/commons/proper/lang/trunk/">subversion viewer</a>.
+  <a href="http://svn.apache.org/viewvc/commons/proper/lang/trunk/">subversion viewer</a>.
 </p>
 <p>
   The alternative is to use the
-  <a href="http://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk/">native subversion</a> display.
+  <a href="http://svn.apache.org/repos/asf/commons/proper/lang/trunk/">native subversion</a> display.
 </p>
 </section>
 <!-- ================================================== -->
