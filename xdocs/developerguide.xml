@@ -16,17 +16,17 @@ limitations under the License.
 -->
 <document>
 <properties>
-<title>Developer guide for Jakarta Commons "Lang"</title>
+<title>Developer guide for Commons "Lang"</title>
 </properties>
 <body>
 
 <!-- $Id$ -->
 
-<section name='Developer guide for Jakarta Commons "Lang"'>
+<section name='Developer guide for Commons "Lang"'>
 
 
 <div align="center">
-<h1>The Jakarta Commons <em>Lang</em> Package</h1>
+<h1>The Commons <em>Lang</em> Package</h1>
 <h2>Developers Guide</h2>
 <br />
 <a href="#Introduction">[Introduction]</a>
