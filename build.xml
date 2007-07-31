@@ -19,7 +19,7 @@
  */
  -->
 <!--
-   "Lang" component of the Jakarta Commons Subproject
+   "Lang" component of the Apache Commons Subproject
    $Id$
 -->
 <project name="Lang" default="compile" basedir=".">

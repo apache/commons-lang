@@ -8,7 +8,7 @@ $Id$
 INTRODUCTION:
 
 This document contains the release notes for the 2.3 version of Apache 
-Jakarta Commons Lang.
+Apache Commons Lang.
 Commons Lang is a set of utility functions and reusable components that
 should be of use in any Java environment.
 
