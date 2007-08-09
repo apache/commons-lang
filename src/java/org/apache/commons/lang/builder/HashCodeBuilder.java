@@ -807,11 +807,16 @@ public class HashCodeBuilder {
      * <p>
      * Append a <code>hashCode</code> for a <code>long</code>.
      * </p>
+     * <p>
      * 
      * @param value
      *            the long to add to the <code>hashCode</code>
      * @return this
      */
+    // NOTE: This method uses >> and not >>> as Effective Java and 
+    //       Long.hashCode do. Ideally we should switch to >>> at 
+    //       some stage. There are backwards compat issues, so 
+    //       that will have to wait for the time being. cf LANG-342.
     public HashCodeBuilder append(long value) {
         iTotal = iTotal * iConstant + ((int) (value ^ (value >> 32)));
         return this;
