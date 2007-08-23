@@ -28,7 +28,7 @@
   <groupId>commons-lang</groupId>
   <artifactId>commons-lang</artifactId>
   <version>2.4-SNAPSHOT</version>
-  <name>Lang</name>
+  <name>Commons Lang</name>
 
   <inceptionYear>2001</inceptionYear>
     <description>
