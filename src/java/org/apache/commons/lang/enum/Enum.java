@@ -548,7 +548,7 @@ public abstract class Enum implements Comparable, Serializable {
             // classes are in the same class loader.
             return iName.equals(((Enum) other).iName);
         } else {
-            // This and other are in different class loaders, we must use reflection.
+            // This and other are in different class loaders, we must check indirectly
             if (other.getClass().getName().equals(this.getClass().getName()) == false) {
                 return false;
             }
@@ -589,6 +589,8 @@ public abstract class Enum implements Comparable, Serializable {
             if (other.getClass().getName().equals(this.getClass().getName())) {
                 return iName.compareTo( getNameInOtherClassLoader(other) );
             }
+            throw new ClassCastException(
+                    "Different enum class '" + ClassUtils.getShortClassName(other.getClass()) + "'");
         }
         return iName.compareTo(((Enum) other).iName);
     }
