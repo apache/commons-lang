@@ -256,7 +256,11 @@ public abstract class Enum implements Comparable, Serializable {
     /**
      * <code>Map</code>, key of class name, value of <code>Entry</code>.
      */
-    private static final Map cEnumClasses = new WeakHashMap();
+    private static Map cEnumClasses
+        // LANG-334: To avoid exposing a mutating map,
+        // we copy it each time we add to it. This is cheaper than
+        // using a synchronized map since we are almost entirely reads
+        = new WeakHashMap();
     
     /**
      * The string representation of the Enum.
@@ -349,12 +353,17 @@ public abstract class Enum implements Comparable, Serializable {
         if (ok == false) {
             throw new IllegalArgumentException("getEnumClass() must return a superclass of this class");
         }
-        
-        // create entry
-        Entry entry = (Entry) cEnumClasses.get(enumClass);
-        if (entry == null) {
-            entry = createEntry(enumClass);
-            cEnumClasses.put(enumClass, entry);
+
+        Entry entry;
+        synchronized( Enum.class ) { // LANG-334
+            // create entry
+            entry = (Entry) cEnumClasses.get(enumClass);
+            if (entry == null) {
+                entry = createEntry(enumClass);
+                Map myMap = new WeakHashMap( cEnumClasses );
+                myMap.put(enumClass, entry);
+                cEnumClasses = myMap;
+            }
         }
         if (entry.map.containsKey(name)) {
             throw new IllegalArgumentException("The Enum name must be unique, '" + name + "' has already been added");
