@@ -118,8 +118,8 @@ public class StopWatch {
         if (this.runningState != STATE_UNSTARTED) {
             throw new IllegalStateException("Stopwatch already started. ");
         }
-        stopTime = -1;
-        startTime = System.currentTimeMillis();
+        this.stopTime = -1;
+        this.startTime = System.currentTimeMillis();
         this.runningState = STATE_RUNNING;
     }
 
@@ -140,7 +140,7 @@ public class StopWatch {
             throw new IllegalStateException("Stopwatch is not running. ");
         }
         if (this.runningState == STATE_RUNNING) {
-            stopTime = System.currentTimeMillis();
+            this.stopTime = System.currentTimeMillis();
         }
         this.runningState = STATE_STOPPED;
     }
@@ -157,8 +157,8 @@ public class StopWatch {
     public void reset() {
         this.runningState = STATE_UNSTARTED;
         this.splitState = STATE_UNSPLIT;
-        startTime = -1;
-        stopTime = -1;
+        this.startTime = -1;
+        this.stopTime = -1;
     }
 
     /**
@@ -178,7 +178,7 @@ public class StopWatch {
         if (this.runningState != STATE_RUNNING) {
             throw new IllegalStateException("Stopwatch is not running. ");
         }
-        stopTime = System.currentTimeMillis();
+        this.stopTime = System.currentTimeMillis();
         this.splitState = STATE_SPLIT;
     }
 
@@ -199,7 +199,7 @@ public class StopWatch {
         if (this.splitState != STATE_SPLIT) {
             throw new IllegalStateException("Stopwatch has not been split. ");
         }
-        stopTime = -1;
+        this.stopTime = -1;
         this.splitState = STATE_UNSPLIT;
     }
 
@@ -220,7 +220,7 @@ public class StopWatch {
         if (this.runningState != STATE_RUNNING) {
             throw new IllegalStateException("Stopwatch must be running to suspend. ");
         }
-        stopTime = System.currentTimeMillis();
+        this.stopTime = System.currentTimeMillis();
         this.runningState = STATE_SUSPENDED;
     }
 
@@ -241,8 +241,8 @@ public class StopWatch {
         if (this.runningState != STATE_SUSPENDED) {
             throw new IllegalStateException("Stopwatch must be suspended to resume. ");
         }
-        startTime += (System.currentTimeMillis() - stopTime);
-        stopTime = -1;
+        this.startTime += (System.currentTimeMillis() - this.stopTime);
+        this.stopTime = -1;
         this.runningState = STATE_RUNNING;
     }
 
