@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang.time;
 
+import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -203,7 +204,31 @@ public class StopWatchTest extends TestCase {
         } catch(IllegalStateException ise) {
             // expected
         }
+    }
 
+    public void testGetStartTime() {
+        long beforeStopWatch = System.currentTimeMillis();
+        StopWatch watch = new StopWatch();
+        try {
+            watch.getStartTime();
+            fail("Calling getStartTime on an unstarted StopWatch should throw an exception");
+        } catch (IllegalStateException expected) {
+            // expected
+        }
+        watch.start();
+        try {
+            watch.getStartTime();
+            Assert.assertTrue(watch.getStartTime() >= beforeStopWatch);
+        } catch (IllegalStateException ex) {
+            fail("Start time should be available: " + ex.getMessage());
+        }
+        watch.reset();
+        try {
+            watch.getStartTime();
+            fail("Calling getStartTime on a reset, but unstarted StopWatch should throw an exception");
+        } catch (IllegalStateException expected) {
+            // expected
+        }
     }
 
 }
