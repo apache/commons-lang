@@ -20,12 +20,12 @@ package org.apache.commons.lang.text;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.mutable.MutableObject;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
+import org.apache.commons.lang.mutable.MutableObject;
 
 /**
  * Test class for StrSubstitutor.
