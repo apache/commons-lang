@@ -19,7 +19,6 @@ package org.apache.commons.lang;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
-import java.util.Date;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
