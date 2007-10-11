@@ -16,13 +16,13 @@
  */
 package org.apache.commons.lang.time;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * <p>Duration formatting utilities and constants. The following table describes the tokens 
