@@ -17,9 +17,6 @@
 
 package org.apache.commons.lang.builder;
 
-import org.apache.commons.lang.builder.ToStringBuilderTest.ReflectionTestCycleA;
-import org.apache.commons.lang.builder.ToStringBuilderTest.ReflectionTestCycleB;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
