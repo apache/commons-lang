@@ -31,6 +31,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
+
+
 /**
  * Unit tests {@link org.apache.commons.lang.ClassUtils}.
  *
@@ -393,6 +395,55 @@ public class ClassUtilsTest extends TestCase {
         };
         // This used to return the exact same array, but no longer does.
         assertNotSame("unmodified", noPrimitives, ClassUtils.primitivesToWrappers(noPrimitives));
+    }
+
+    public void testWrapperToPrimitive() {
+        // an array with classes to convert
+        final Class[] primitives = {
+                Boolean.TYPE, Byte.TYPE, Character.TYPE, Short.TYPE,
+                Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE
+        };
+        for (int i = 0; i < primitives.length; i++) {
+            Class wrapperCls = ClassUtils.primitiveToWrapper(primitives[i]);
+            assertFalse("Still primitive", wrapperCls.isPrimitive());
+            assertEquals(wrapperCls + " -> " + primitives[i], primitives[i],
+                    ClassUtils.wrapperToPrimitive(wrapperCls));
+        }
+    }
+
+    public void testWrapperToPrimitiveNoWrapper() {
+        assertNull("Wrong result for non wrapper class", ClassUtils.wrapperToPrimitive(String.class));
+    }
+
+    public void testWrapperToPrimitiveNull() {
+        assertNull("Wrong result for null class", ClassUtils.wrapperToPrimitive(null));
+    }
+
+    public void testWrappersToPrimitives() {
+        // an array with classes to test
+        final Class[] classes = {
+                Boolean.class, Byte.class, Character.class, Short.class,
+                Integer.class, Long.class, Float.class, Double.class,
+                String.class, ClassUtils.class, null
+        };
+
+        Class[] primitives = ClassUtils.wrappersToPrimitives(classes);
+        // now test the result
+        assertEquals("Wrong length of result array", classes.length, primitives.length);
+        for (int i = 0; i < classes.length; i++) {
+            Class expectedPrimitive = ClassUtils.wrapperToPrimitive(classes[i]);
+            assertEquals(classes[i] + " -> " + expectedPrimitive, expectedPrimitive,
+                    primitives[i]);
+        }
+    }
+
+    public void testWrappersToPrimitivesNull() {
+        assertNull("Wrong result for null input", ClassUtils.wrappersToPrimitives(null));
+    }
+
+    public void testWrappersToPrimitivesEmpty() {
+        Class[] empty = new Class[0];
+        assertEquals("Wrong result for empty input", empty, ClassUtils.wrappersToPrimitives(empty));
     }
 
     public void testGetClassClassNotFound() throws Exception {

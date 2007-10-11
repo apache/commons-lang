@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * <p>Operates on classes without using reflection.</p>
  *
@@ -73,6 +74,20 @@ public class ClassUtils {
          primitiveWrapperMap.put(Double.TYPE, Double.class);
          primitiveWrapperMap.put(Float.TYPE, Float.class);
          primitiveWrapperMap.put(Void.TYPE, Void.TYPE);
+    }
+
+    /**
+     * Maps wrapper <code>Class</code>es to their corresponding primitive types.
+     */
+    private static Map wrapperPrimitiveMap = new HashMap();
+    static {
+        for (Iterator it = primitiveWrapperMap.keySet().iterator(); it.hasNext();) {
+            Class primitiveClass = (Class) it.next();
+            Class wrapperClass = (Class) primitiveWrapperMap.get(primitiveClass);
+            if (!primitiveClass.equals(wrapperClass)) {
+                wrapperPrimitiveMap.put(wrapperClass, primitiveClass);
+            }
+        }
     }
 
     /**
@@ -501,6 +516,56 @@ public class ClassUtils {
         Class[] convertedClasses = new Class[classes.length];
         for (int i=0; i < classes.length; i++) {
             convertedClasses[i] = primitiveToWrapper( classes[i] );
+        }
+        return convertedClasses;
+    }
+
+    /**
+     * <p>Converts the specified wrapper class to its corresponding primitive
+     * class.</p>
+     *
+     * <p>This method is the counter part of <code>primitiveToWrapper()</code>.
+     * If the passed in class is a wrapper class for a primitive type, this
+     * primitive type will be returned (e.g. <code>Integer.TYPE</code> for
+     * <code>Integer.class</code>). For other classes, or if the parameter is
+     * <b>null</b>, the return value is <b>null</b>.</p>
+     *
+     * @param cls the class to convert, may be <b>null</b>
+     * @return the corresponding primitive type if <code>cls</code> is a
+     * wrapper class, <b>null</b> otherwise
+     * @see #primitiveToWrapper(Class)
+     * @since 2.4
+     */
+    public static Class wrapperToPrimitive(Class cls) {
+        return (Class) wrapperPrimitiveMap.get(cls);
+    }
+
+    /**
+     * <p>Converts the specified array of wrapper Class objects to an array of
+     * its corresponding primitive Class objects.</p>
+     *
+     * <p>This method invokes <code>wrapperToPrimitive()</code> for each element
+     * of the passed in array.</p>
+     *
+     * @param classes  the class array to convert, may be null or empty
+     * @return an array which contains for each given class, the primitive class or
+     * <b>null</b> if the original class is not a wrapper class. <code>null</code> if null input.
+     * Empty array if an empty array passed in.
+     * @see #wrapperToPrimitive(Class)
+     * @since 2.4
+     */
+    public static Class[] wrappersToPrimitives(Class[] classes) {        
+        if (classes == null) {
+            return null;
+        }
+
+        if (classes.length == 0) {
+            return classes;
+        }
+
+        Class[] convertedClasses = new Class[classes.length];
+        for (int i=0; i < classes.length; i++) {
+            convertedClasses[i] = wrapperToPrimitive( classes[i] );
         }
         return convertedClasses;
     }
