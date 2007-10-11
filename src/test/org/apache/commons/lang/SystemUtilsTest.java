@@ -22,6 +22,7 @@ package org.apache.commons.lang;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+
 import junit.framework.Assert;
 import junit.framework.Test;
 import junit.framework.TestCase;
