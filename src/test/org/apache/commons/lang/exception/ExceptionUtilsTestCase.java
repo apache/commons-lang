@@ -16,14 +16,14 @@
  */
 package org.apache.commons.lang.exception;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.sql.SQLException;
 import java.util.List;
 
