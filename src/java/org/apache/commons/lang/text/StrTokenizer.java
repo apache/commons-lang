@@ -29,7 +29,7 @@ import java.util.NoSuchElementException;
  * This class can split a String into many smaller strings. It aims
  * to do a similar job to {@link java.util.StringTokenizer StringTokenizer},
  * however it offers much more control and flexibility including implementing
- * the <code>ListIterator</code> interface. By default, it is setup
+ * the <code>ListIterator</code> interface. By default, it is set up
  * like <code>StringTokenizer</code>.
  * <p>
  * The input String is split into a number of <i>tokens</i>.
@@ -140,26 +140,26 @@ public class StrTokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Gets a new tokenizer instance which parses Comma Seperated Value strings
+     * Gets a new tokenizer instance which parses Comma Separated Value strings
      * initializing it with the given input.  The default for CSV processing
-     * will be trim whitespace from both ends (which can be overriden with
+     * will be trim whitespace from both ends (which can be overridden with
      * the setTrimmer method).
      * <p>
      * You must call a "reset" method to set the string which you want to parse.
-     * @return a new tokenizer instance which parses Comma Seperated Value strings
+     * @return a new tokenizer instance which parses Comma Separated Value strings
      */
     public static StrTokenizer getCSVInstance() {
         return getCSVClone();
     }
 
     /**
-     * Gets a new tokenizer instance which parses Comma Seperated Value strings
+     * Gets a new tokenizer instance which parses Comma Separated Value strings
      * initializing it with the given input.  The default for CSV processing
-     * will be trim whitespace from both ends (which can be overriden with
+     * will be trim whitespace from both ends (which can be overridden with
      * the setTrimmer method).
      *
      * @param input  the text to parse
-     * @return a new tokenizer instance which parses Comma Seperated Value strings
+     * @return a new tokenizer instance which parses Comma Separated Value strings
      */
     public static StrTokenizer getCSVInstance(String input) {
         StrTokenizer tok = getCSVClone();
@@ -168,13 +168,13 @@ public class StrTokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Gets a new tokenizer instance which parses Comma Seperated Value strings
+     * Gets a new tokenizer instance which parses Comma Separated Value strings
      * initializing it with the given input.  The default for CSV processing
-     * will be trim whitespace from both ends (which can be overriden with
+     * will be trim whitespace from both ends (which can be overridden with
      * the setTrimmer method).
      *
      * @param input  the text to parse
-     * @return a new tokenizer instance which parses Comma Seperated Value strings
+     * @return a new tokenizer instance which parses Comma Separated Value strings
      */
     public static StrTokenizer getCSVInstance(char[] input) {
         StrTokenizer tok = getCSVClone();
@@ -193,23 +193,23 @@ public class StrTokenizer implements ListIterator, Cloneable {
 
 
     /**
-     * Gets a new tokenizer instance which parses Tab Seperated Value strings.
+     * Gets a new tokenizer instance which parses Tab Separated Value strings.
      * The default for CSV processing will be trim whitespace from both ends
-     * (which can be overriden with the setTrimmer method).
+     * (which can be overridden with the setTrimmer method).
      * <p>
      * You must call a "reset" method to set the string which you want to parse.
-     * @return a new tokenizer instance which parses Tab Seperated Value strings.
+     * @return a new tokenizer instance which parses Tab Separated Value strings.
      */
     public static StrTokenizer getTSVInstance() {
         return getTSVClone();
     }
 
     /**
-     * Gets a new tokenizer instance which parses Tab Seperated Value strings.
+     * Gets a new tokenizer instance which parses Tab Separated Value strings.
      * The default for CSV processing will be trim whitespace from both ends
-     * (which can be overriden with the setTrimmer method).
+     * (which can be overridden with the setTrimmer method).
      * @param input  the string to parse
-     * @return a new tokenizer instance which parses Tab Seperated Value strings.
+     * @return a new tokenizer instance which parses Tab Separated Value strings.
      */
     public static StrTokenizer getTSVInstance(String input) {
         StrTokenizer tok = getTSVClone();
@@ -218,11 +218,11 @@ public class StrTokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Gets a new tokenizer instance which parses Tab Seperated Value strings.
+     * Gets a new tokenizer instance which parses Tab Separated Value strings.
      * The default for CSV processing will be trim whitespace from both ends
-     * (which can be overriden with the setTrimmer method).
+     * (which can be overridden with the setTrimmer method).
      * @param input  the string to parse
-     * @return a new tokenizer instance which parses Tab Seperated Value strings.
+     * @return a new tokenizer instance which parses Tab Separated Value strings.
      */
     public static StrTokenizer getTSVInstance(char[] input) {
         StrTokenizer tok = getTSVClone();
