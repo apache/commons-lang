@@ -243,6 +243,30 @@ public abstract class StrMatcher {
      */
     public abstract int isMatch(char[] buffer, int pos, int bufferStart, int bufferEnd);
 
+    /**
+     * Returns the number of matching characters, zero for no match.
+     * <p>
+     * This method is called to check for a match.
+     * The parameter <code>pos</code> represents the current position to be
+     * checked in the string <code>buffer</code> (a character array which must
+     * not be changed).
+     * The API guarantees that <code>pos</code> is a valid index for <code>buffer</code>.
+     * <p>
+     * The matching code may check one character or many.
+     * It may check characters preceeding <code>pos</code> as well as those after.
+     * <p>
+     * It must return zero for no match, or a positive number if a match was found.
+     * The number indicates the number of characters that matched.
+     *
+     * @param buffer  the text content to match against, do not change
+     * @param pos  the starting position for the match, valid for buffer
+     * @return the number of matching characters, zero for no match
+     * @since Commons Lang 2.4
+     */
+    public int isMatch(char[] buffer, int pos) {
+        return isMatch(buffer, pos, 0, buffer.length);
+    }
+
     //-----------------------------------------------------------------------
     /**
      * Class used to define a set of characters for matching purposes.
