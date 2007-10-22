@@ -66,124 +66,124 @@ public class StrMatcherTest extends TestCase {
     public void testCommaMatcher() {
         StrMatcher matcher = StrMatcher.commaMatcher();
         assertSame(matcher, StrMatcher.commaMatcher());
-        assertEquals(0, matcher.isMatch(BUFFER1, 0, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 1, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 2, 0, BUFFER1.length));
+        assertEquals(0, matcher.isMatch(BUFFER1, 0));
+        assertEquals(1, matcher.isMatch(BUFFER1, 1));
+        assertEquals(0, matcher.isMatch(BUFFER1, 2));
     }
 
     //-----------------------------------------------------------------------
     public void testTabMatcher() {
         StrMatcher matcher = StrMatcher.tabMatcher();
         assertSame(matcher, StrMatcher.tabMatcher());
-        assertEquals(0, matcher.isMatch(BUFFER1, 2, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 3, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 4, 0, BUFFER1.length));
+        assertEquals(0, matcher.isMatch(BUFFER1, 2));
+        assertEquals(1, matcher.isMatch(BUFFER1, 3));
+        assertEquals(0, matcher.isMatch(BUFFER1, 4));
     }
 
     //-----------------------------------------------------------------------
     public void testSpaceMatcher() {
         StrMatcher matcher = StrMatcher.spaceMatcher();
         assertSame(matcher, StrMatcher.spaceMatcher());
-        assertEquals(0, matcher.isMatch(BUFFER1, 4, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 5, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 6, 0, BUFFER1.length));
+        assertEquals(0, matcher.isMatch(BUFFER1, 4));
+        assertEquals(1, matcher.isMatch(BUFFER1, 5));
+        assertEquals(0, matcher.isMatch(BUFFER1, 6));
     }
 
     //-----------------------------------------------------------------------
     public void testSplitMatcher() {
         StrMatcher matcher = StrMatcher.splitMatcher();
         assertSame(matcher, StrMatcher.splitMatcher());
-        assertEquals(0, matcher.isMatch(BUFFER1, 2, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 3, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 4, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 5, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 6, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 7, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 8, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 9, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 10, 0, BUFFER1.length));
+        assertEquals(0, matcher.isMatch(BUFFER1, 2));
+        assertEquals(1, matcher.isMatch(BUFFER1, 3));
+        assertEquals(0, matcher.isMatch(BUFFER1, 4));
+        assertEquals(1, matcher.isMatch(BUFFER1, 5));
+        assertEquals(0, matcher.isMatch(BUFFER1, 6));
+        assertEquals(1, matcher.isMatch(BUFFER1, 7));
+        assertEquals(1, matcher.isMatch(BUFFER1, 8));
+        assertEquals(1, matcher.isMatch(BUFFER1, 9));
+        assertEquals(0, matcher.isMatch(BUFFER1, 10));
     }
 
     //-----------------------------------------------------------------------
     public void testTrimMatcher() {
         StrMatcher matcher = StrMatcher.trimMatcher();
         assertSame(matcher, StrMatcher.trimMatcher());
-        assertEquals(0, matcher.isMatch(BUFFER1, 2, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 3, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 4, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 5, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 6, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 7, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 8, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 9, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 10, 0, BUFFER1.length));
+        assertEquals(0, matcher.isMatch(BUFFER1, 2));
+        assertEquals(1, matcher.isMatch(BUFFER1, 3));
+        assertEquals(0, matcher.isMatch(BUFFER1, 4));
+        assertEquals(1, matcher.isMatch(BUFFER1, 5));
+        assertEquals(0, matcher.isMatch(BUFFER1, 6));
+        assertEquals(1, matcher.isMatch(BUFFER1, 7));
+        assertEquals(1, matcher.isMatch(BUFFER1, 8));
+        assertEquals(1, matcher.isMatch(BUFFER1, 9));
+        assertEquals(1, matcher.isMatch(BUFFER1, 10));
     }
 
     //-----------------------------------------------------------------------
     public void testSingleQuoteMatcher() {
         StrMatcher matcher = StrMatcher.singleQuoteMatcher();
         assertSame(matcher, StrMatcher.singleQuoteMatcher());
-        assertEquals(0, matcher.isMatch(BUFFER1, 10, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 11, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 12, 0, BUFFER1.length));
+        assertEquals(0, matcher.isMatch(BUFFER1, 10));
+        assertEquals(1, matcher.isMatch(BUFFER1, 11));
+        assertEquals(0, matcher.isMatch(BUFFER1, 12));
     }
 
     //-----------------------------------------------------------------------
     public void testDoubleQuoteMatcher() {
         StrMatcher matcher = StrMatcher.doubleQuoteMatcher();
         assertSame(matcher, StrMatcher.doubleQuoteMatcher());
-        assertEquals(0, matcher.isMatch(BUFFER1, 11, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 12, 0, BUFFER1.length));
+        assertEquals(0, matcher.isMatch(BUFFER1, 11));
+        assertEquals(1, matcher.isMatch(BUFFER1, 12));
     }
 
     //-----------------------------------------------------------------------
     public void testQuoteMatcher() {
         StrMatcher matcher = StrMatcher.quoteMatcher();
         assertSame(matcher, StrMatcher.quoteMatcher());
-        assertEquals(0, matcher.isMatch(BUFFER1, 10, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 11, 0, BUFFER1.length));
-        assertEquals(1, matcher.isMatch(BUFFER1, 12, 0, BUFFER1.length));
+        assertEquals(0, matcher.isMatch(BUFFER1, 10));
+        assertEquals(1, matcher.isMatch(BUFFER1, 11));
+        assertEquals(1, matcher.isMatch(BUFFER1, 12));
     }
 
     //-----------------------------------------------------------------------
     public void testNoneMatcher() {
         StrMatcher matcher = StrMatcher.noneMatcher();
         assertSame(matcher, StrMatcher.noneMatcher());
-        assertEquals(0, matcher.isMatch(BUFFER1, 0, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 1, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 2, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 3, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 4, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 5, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 6, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 7, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 8, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 9, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 10, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 11, 0, BUFFER1.length));
-        assertEquals(0, matcher.isMatch(BUFFER1, 12, 0, BUFFER1.length));
+        assertEquals(0, matcher.isMatch(BUFFER1, 0));
+        assertEquals(0, matcher.isMatch(BUFFER1, 1));
+        assertEquals(0, matcher.isMatch(BUFFER1, 2));
+        assertEquals(0, matcher.isMatch(BUFFER1, 3));
+        assertEquals(0, matcher.isMatch(BUFFER1, 4));
+        assertEquals(0, matcher.isMatch(BUFFER1, 5));
+        assertEquals(0, matcher.isMatch(BUFFER1, 6));
+        assertEquals(0, matcher.isMatch(BUFFER1, 7));
+        assertEquals(0, matcher.isMatch(BUFFER1, 8));
+        assertEquals(0, matcher.isMatch(BUFFER1, 9));
+        assertEquals(0, matcher.isMatch(BUFFER1, 10));
+        assertEquals(0, matcher.isMatch(BUFFER1, 11));
+        assertEquals(0, matcher.isMatch(BUFFER1, 12));
     }
 
     //-----------------------------------------------------------------------
     public void testCharMatcher_char() {
         StrMatcher matcher = StrMatcher.charMatcher('c');
-        assertEquals(0, matcher.isMatch(BUFFER2, 0, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 1, 0, BUFFER2.length));
-        assertEquals(1, matcher.isMatch(BUFFER2, 2, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 3, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 4, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 5, 0, BUFFER2.length));
+        assertEquals(0, matcher.isMatch(BUFFER2, 0));
+        assertEquals(0, matcher.isMatch(BUFFER2, 1));
+        assertEquals(1, matcher.isMatch(BUFFER2, 2));
+        assertEquals(0, matcher.isMatch(BUFFER2, 3));
+        assertEquals(0, matcher.isMatch(BUFFER2, 4));
+        assertEquals(0, matcher.isMatch(BUFFER2, 5));
     }
 
     //-----------------------------------------------------------------------
     public void testCharSetMatcher_String() {
         StrMatcher matcher = StrMatcher.charSetMatcher("ace");
-        assertEquals(1, matcher.isMatch(BUFFER2, 0, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 1, 0, BUFFER2.length));
-        assertEquals(1, matcher.isMatch(BUFFER2, 2, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 3, 0, BUFFER2.length));
-        assertEquals(1, matcher.isMatch(BUFFER2, 4, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 5, 0, BUFFER2.length));
+        assertEquals(1, matcher.isMatch(BUFFER2, 0));
+        assertEquals(0, matcher.isMatch(BUFFER2, 1));
+        assertEquals(1, matcher.isMatch(BUFFER2, 2));
+        assertEquals(0, matcher.isMatch(BUFFER2, 3));
+        assertEquals(1, matcher.isMatch(BUFFER2, 4));
+        assertEquals(0, matcher.isMatch(BUFFER2, 5));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher(""));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher((String) null));
         assertTrue(StrMatcher.charSetMatcher("a") instanceof StrMatcher.CharMatcher);
@@ -192,12 +192,12 @@ public class StrMatcherTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testCharSetMatcher_charArray() {
         StrMatcher matcher = StrMatcher.charSetMatcher("ace".toCharArray());
-        assertEquals(1, matcher.isMatch(BUFFER2, 0, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 1, 0, BUFFER2.length));
-        assertEquals(1, matcher.isMatch(BUFFER2, 2, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 3, 0, BUFFER2.length));
-        assertEquals(1, matcher.isMatch(BUFFER2, 4, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 5, 0, BUFFER2.length));
+        assertEquals(1, matcher.isMatch(BUFFER2, 0));
+        assertEquals(0, matcher.isMatch(BUFFER2, 1));
+        assertEquals(1, matcher.isMatch(BUFFER2, 2));
+        assertEquals(0, matcher.isMatch(BUFFER2, 3));
+        assertEquals(1, matcher.isMatch(BUFFER2, 4));
+        assertEquals(0, matcher.isMatch(BUFFER2, 5));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher(new char[0]));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.charSetMatcher((char[]) null));
         assertTrue(StrMatcher.charSetMatcher("a".toCharArray()) instanceof StrMatcher.CharMatcher);
@@ -206,12 +206,12 @@ public class StrMatcherTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testStringMatcher_String() {
         StrMatcher matcher = StrMatcher.stringMatcher("bc");
-        assertEquals(0, matcher.isMatch(BUFFER2, 0, 0, BUFFER2.length));
-        assertEquals(2, matcher.isMatch(BUFFER2, 1, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 2, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 3, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 4, 0, BUFFER2.length));
-        assertEquals(0, matcher.isMatch(BUFFER2, 5, 0, BUFFER2.length));
+        assertEquals(0, matcher.isMatch(BUFFER2, 0));
+        assertEquals(2, matcher.isMatch(BUFFER2, 1));
+        assertEquals(0, matcher.isMatch(BUFFER2, 2));
+        assertEquals(0, matcher.isMatch(BUFFER2, 3));
+        assertEquals(0, matcher.isMatch(BUFFER2, 4));
+        assertEquals(0, matcher.isMatch(BUFFER2, 5));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.stringMatcher(""));
         assertSame(StrMatcher.noneMatcher(), StrMatcher.stringMatcher((String) null));
     }
