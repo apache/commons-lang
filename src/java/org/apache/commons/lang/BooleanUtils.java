@@ -594,7 +594,10 @@ public class BooleanUtils {
      * @param nullString  the String to match for <code>null</code>
      *  (case sensitive), may be <code>null</code>
      * @return the Boolean value of the string,
-     *  <code>null</code> if no match or <code>null</code> input
+     *  <code>null</code> if either the String matches <code>nullString</code>
+     *  or if <code>null</code> input and <code>nullString</code> is
+     *  <code>null</code>
+     * @throws IllegalArgumentException if the String doesn't match
      */
     public static Boolean toBooleanObject(String str, String trueString, String falseString, String nullString) {
         if (str == null) {
