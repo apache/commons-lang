@@ -1042,7 +1042,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
     //-----------------------------------------------------------------------
     /**
      * Gets whether the tokenizer currently ignores empty tokens.
-     * The default for this property is false.
+     * The default for this property is true.
      *
      * @return true if empty tokens are not returned
      */
@@ -1052,7 +1052,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
 
     /**
      * Sets whether the tokenizer should ignore and not return empty tokens.
-     * The default for this property is false.
+     * The default for this property is true.
      *
      * @param ignoreEmptyTokens  whether empty tokens are not returned
      * @return this, to enable chaining
