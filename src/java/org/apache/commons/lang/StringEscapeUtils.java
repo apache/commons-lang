@@ -233,6 +233,10 @@ public class StringEscapeUtils {
                         out.write('\\');
                         out.write('\\');
                         break;
+                    case '/':
+                        out.write('\\');
+                        out.write('/');
+                        break;
                     default :
                         out.write(ch);
                         break;
