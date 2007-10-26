@@ -46,11 +46,10 @@ import java.util.List;
  * <p>Typical use for the code is as follows:</p>
  * <pre>
  * public boolean equals(Object obj) {
- *   if (obj instanceof MyClass == false) {
+ *   if (obj == null) { return false; }
+ *   if (obj == this) { return true; }
+ *   if (obj.getClass() == getClass()) {
  *     return false;
- *   }
- *   if (this == obj) {
- *     return true;
  *   }
  *   MyClass rhs = (MyClass) obj;
  *   return new EqualsBuilder()
