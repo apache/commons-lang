@@ -330,6 +330,8 @@ public class BooleanUtilsTest extends TestCase {
         assertEquals(true, BooleanUtils.toBoolean("YeS"));
         assertEquals(true, BooleanUtils.toBoolean("YEs"));
         assertEquals(true, BooleanUtils.toBoolean("YES"));
+        assertEquals(false, BooleanUtils.toBoolean("yes?"));
+        assertEquals(false, BooleanUtils.toBoolean("tru"));
     }
 
     public void test_toBoolean_String_String_String() {
