@@ -107,11 +107,11 @@ public class FastDateFormat extends Format {
     
     private static String cDefaultPattern;
 
-    private static Map cInstanceCache = new HashMap(7);
-    private static Map cDateInstanceCache = new HashMap(7);
-    private static Map cTimeInstanceCache = new HashMap(7);
-    private static Map cDateTimeInstanceCache = new HashMap(7);
-    private static Map cTimeZoneDisplayCache = new HashMap(7);
+    private static final Map cInstanceCache = new HashMap(7);
+    private static final Map cDateInstanceCache = new HashMap(7);
+    private static final Map cTimeInstanceCache = new HashMap(7);
+    private static final Map cDateTimeInstanceCache = new HashMap(7);
+    private static final Map cTimeZoneDisplayCache = new HashMap(7);
 
     /**
      * The pattern.
