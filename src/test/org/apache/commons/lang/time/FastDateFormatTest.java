@@ -132,6 +132,46 @@ public class FastDateFormatTest extends TestCase {
         }
     }
 
+    public void test_changeDefault_Locale_DateInstance() {
+        Locale realDefaultLocale = Locale.getDefault();
+        try {
+            Locale.setDefault(Locale.US);
+            FastDateFormat format1 = FastDateFormat.getDateInstance(FastDateFormat.FULL, Locale.GERMANY);
+            FastDateFormat format2 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
+            Locale.setDefault(Locale.GERMANY);
+            FastDateFormat format3 = FastDateFormat.getDateInstance(FastDateFormat.FULL);
+
+            assertSame(Locale.GERMANY, format1.getLocale());
+            assertSame(Locale.US, format2.getLocale());
+            assertSame(Locale.GERMANY, format3.getLocale());
+            assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
+            assertTrue(format2 != format3);
+
+        } finally {
+            Locale.setDefault(realDefaultLocale);
+        }
+    }
+
+    public void test_changeDefault_Locale_DateTimeInstance() {
+        Locale realDefaultLocale = Locale.getDefault();
+        try {
+            Locale.setDefault(Locale.US);
+            FastDateFormat format1 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL, Locale.GERMANY);
+            FastDateFormat format2 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
+            Locale.setDefault(Locale.GERMANY);
+            FastDateFormat format3 = FastDateFormat.getDateTimeInstance(FastDateFormat.FULL, FastDateFormat.FULL);
+
+            assertSame(Locale.GERMANY, format1.getLocale());
+            assertSame(Locale.US, format2.getLocale());
+            assertSame(Locale.GERMANY, format3.getLocale());
+            assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
+            assertTrue(format2 != format3);
+
+        } finally {
+            Locale.setDefault(realDefaultLocale);
+        }
+    }
+
     public void test_getInstance_String_TimeZone_Locale() {
         Locale realDefaultLocale = Locale.getDefault();
         TimeZone realDefaultZone = TimeZone.getDefault();
