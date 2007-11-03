@@ -36,7 +36,7 @@ import org.apache.commons.lang.Validate;
  * @since 2.4
  * @version $Id$
  */
-/* package-private */ class DefaultMetaFormatFactory {
+class DefaultMetaFormatFactory {
 
     /** Number key */
     public static final String NUMBER_KEY = "number";
