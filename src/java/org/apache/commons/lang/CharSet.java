@@ -150,7 +150,8 @@ public class CharSet implements Serializable {
      * <p>Constructs a new CharSet using the set syntax.
      * Each string is merged in with the set.</p>
      *
-     * @param set  Strings to merge into the initial set, may be null
+     * @param setStrs  Strings to merge into the initial set, may be null
+     * @return a CharSet instance
      */
     public static CharSet getInstance(String[] setStrs) {
         if (setStrs == null) {
