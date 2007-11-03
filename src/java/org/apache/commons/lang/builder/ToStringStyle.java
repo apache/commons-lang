@@ -71,28 +71,59 @@ import org.apache.commons.lang.SystemUtils;
 public abstract class ToStringStyle implements Serializable {
 
     /**
-     * The default toString style.
+     * The default toString style. Using the Using the <code>Person</code>
+     * example from {@link ToStringBuilder}, the output would look like this:
+     * 
+     * <pre>
+     * Person@182f0db[name=John Doe,age=33,smoker=false]
+     * </pre>
      */
     public static final ToStringStyle DEFAULT_STYLE = new DefaultToStringStyle();
     
     /**
-     * The multi line toString style.
+     * The multi line toString style. Using the Using the <code>Person</code>
+     * example from {@link ToStringBuilder}, the output would look like this:
+     * 
+     * <pre>
+     * Person@182f0db[
+     *   name=John Doe
+     *   age=33
+     *   smoker=false
+     * ]
+     * </pre>
      */
     public static final ToStringStyle MULTI_LINE_STYLE = new MultiLineToStringStyle();
     
     /**
-     * The no field names toString style.
+     * The no field names toString style. Using the Using the
+     * <code>Person</code> example from {@link ToStringBuilder}, the output
+     * would look like this:
+     * 
+     * <pre>
+     * Person@182f0db[John Doe,33,false]
+     * </pre>
      */
     public static final ToStringStyle NO_FIELD_NAMES_STYLE = new NoFieldNameToStringStyle();
     
     /**
-     * The short prefix toString style.
+     * The short prefix toString style. Using the <code>Person</code> example
+     * from {@link ToStringBuilder}, the output would look like this:
+     * 
+     * <pre>
+     * Person[name=John Doe,age=33,smoker=false]
+     * </pre>
+     * 
      * @since 2.1
      */
     public static final ToStringStyle SHORT_PREFIX_STYLE = new ShortPrefixToStringStyle();
 
     /**
-     * The simple toString style.
+     * The simple toString style. Using the Using the <code>Person</code>
+     * example from {@link ToStringBuilder}, the output would look like this:
+     * 
+     * <pre>
+     * John Doe,33,false
+     * </pre>
      */
     public static final ToStringStyle SIMPLE_STYLE = new SimpleToStringStyle();
     
