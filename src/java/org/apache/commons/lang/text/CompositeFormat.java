@@ -27,7 +27,7 @@ import java.text.ParsePosition;
  * and stored in a database another way.
  *
  * @author Archimedes Trajano
- * @version $Id: $
+ * @version $Id$
  */
 public class CompositeFormat extends Format {
 
