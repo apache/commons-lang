@@ -71,26 +71,27 @@ public class ExtendedMessageFormat extends MessageFormat {
         private String stripFormats(String pattern) {
             StringBuffer sb = new StringBuffer(pattern.length());
             ParsePosition pos = new ParsePosition(0);
+            char[] c = pattern.toCharArray();
             while (pos.getIndex() < pattern.length()) {
-                switch (pattern.charAt(pos.getIndex())) {
+                switch (c[pos.getIndex()]) {
                 case QUOTE:
                     appendQuotedString(pattern, pos, sb, true);
                     break;
                 case START_FE:
                     int start = pos.getIndex();
                     readArgumentIndex(pattern, next(pos));
-                    sb.append(pattern, start, pos.getIndex());
-                    if (pattern.charAt(pos.getIndex()) == START_FMT) {
+                    sb.append(c, start, pos.getIndex() - start);
+                    if (c[pos.getIndex()] == START_FMT) {
                         eatFormat(pattern, next(pos));
                     }
-                    if (pattern.charAt(pos.getIndex()) != END_FE) {
+                    if (c[pos.getIndex()] != END_FE) {
                         throw new IllegalArgumentException(
                                 "Unreadable format element at position "
                                         + start);
                     }
                     // fall through
                 default:
-                    sb.append(pattern.charAt(pos.getIndex()));
+                    sb.append(c[pos.getIndex()]);
                     next(pos);
                 }
             }
@@ -191,24 +192,25 @@ public class ExtendedMessageFormat extends MessageFormat {
         private StringBuffer appendQuotedString(String pattern,
                 ParsePosition pos, StringBuffer appendTo, boolean escapingOn) {
             int start = pos.getIndex();
-            if (escapingOn && pattern.charAt(start) == QUOTE) {
+            char[] c = pattern.toCharArray();
+            if (escapingOn && c[start] == QUOTE) {
                 return appendTo == null ? null : appendTo.append(QUOTE);
             }
             int lastHold = start;
             for (int i = pos.getIndex(); i < pattern.length(); i++) {
                 if (escapingOn
                         && pattern.substring(i).startsWith(ESCAPED_QUOTE)) {
-                    appendTo.append(pattern, lastHold, pos.getIndex()).append(
+                    appendTo.append(c, lastHold, pos.getIndex() - lastHold).append(
                             QUOTE);
                     pos.setIndex(i + ESCAPED_QUOTE.length());
                     lastHold = pos.getIndex();
                     continue;
                 }
-                switch (pattern.charAt(pos.getIndex())) {
+                switch (c[pos.getIndex()]) {
                 case QUOTE:
                     next(pos);
-                    return appendTo == null ? null : appendTo.append(pattern,
-                            lastHold, pos.getIndex());
+                    return appendTo == null ? null : appendTo.append(c,
+                            lastHold, pos.getIndex() - lastHold);
                 default:
                     next(pos);
                 }
