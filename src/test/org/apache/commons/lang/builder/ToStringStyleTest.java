@@ -123,4 +123,25 @@ public class ToStringStyleTest extends TestCase {
         assertEquals("", style.getSummaryObjectEndText());
     }
 
+    /**
+     * An object used to test {@link ToStringStyle}.
+     * 
+     * @author Scott Bassin
+     */
+    static class Person {
+        /**
+         * Test String field.
+         */
+        String name;
+
+        /**
+         * Test integer field.
+         */
+        int age;
+
+        /**
+         * Test boolean field.
+         */
+        boolean smoker;
+    }
 }

@@ -19,6 +19,8 @@ package org.apache.commons.lang.builder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.commons.lang.builder.ToStringStyleTest.Person;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -88,6 +90,14 @@ public class SimpleToStringStyleTest extends TestCase {
         assertEquals("{}", new ToStringBuilder(base).append("a", new HashMap(), true).toString());
         assertEquals("<size=0>", new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
         assertEquals("{}", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
+    }
+
+    public void testPerson() {
+        Person p = new Person();
+        p.name = "Jane Q. Public";
+        p.age = 47;
+        p.smoker = false;
+        assertEquals("Jane Q. Public,47,false", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 
     public void testLong() {
