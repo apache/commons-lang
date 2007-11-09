@@ -421,7 +421,7 @@ limitations under the License.
     </build>
     <reports>
       <!--report>maven-changes-plugin</report-->
-      <!--report>maven-findbugs-plugin</report-->
+      <report>maven-findbugs-plugin</report>
       <report>maven-checkstyle-plugin</report>
       <report>maven-javadoc-plugin</report>
       <report>maven-jdepend-plugin</report>
