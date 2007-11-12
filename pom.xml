@@ -363,7 +363,7 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-  </dependencies>
+  </dependencies> 
 
   <build>
     <sourceDirectory>src/java</sourceDirectory>
@@ -393,5 +393,16 @@
         </plugin>
       </plugins>
     </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <source>1.4</source>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>
