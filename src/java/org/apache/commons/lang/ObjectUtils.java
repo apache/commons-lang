@@ -157,7 +157,33 @@ public class ObjectUtils {
         if (object == null) {
             return null;
         }
-        return appendIdentityToString(null, object).toString();
+        StringBuffer buffer = new StringBuffer();
+        identityToString(buffer, object);
+        return buffer.toString();
+    }
+
+    /**
+     * <p>Appends the toString that would be produced by <code>Object</code>
+     * if a class did not override toString itself. <code>null</code>
+     * will throw a NullPointerException for either of the two parameters. </p>
+     *
+     * <pre>
+     * ObjectUtils.identityToString(buf, "")            = buf.append("java.lang.String@1e23"
+     * ObjectUtils.identityToString(buf, Boolean.TRUE)  = buf.append("java.lang.Boolean@7fa"
+     * ObjectUtils.identityToString(buf, Boolean.TRUE)  = buf.append("java.lang.Boolean@7fa")
+     * </pre>
+     *
+     * @param buffer  the buffer to append to
+     * @param object  the object to create a toString for
+     * @since 2.4
+     */
+    public static void identityToString(StringBuffer buffer, Object object) {
+        if (object == null) {
+            throw new NullPointerException("Cannot get the toString of a null identity");
+        }
+        buffer.append(object.getClass().getName())
+              .append('@')
+              .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
     /**
@@ -177,6 +203,7 @@ public class ObjectUtils {
      * @return the default toString text, or <code>null</code> if
      *  <code>null</code> passed in
      * @since 2.0
+     * @deprecated The design of this method is bad - see LANG-360. Instead, use identityToString(StringBuffer, Object).
      */
     public static StringBuffer appendIdentityToString(StringBuffer buffer, Object object) {
         if (object == null) {
