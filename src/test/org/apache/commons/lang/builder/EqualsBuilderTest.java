@@ -66,12 +66,12 @@ public class EqualsBuilderTest extends TestCase {
             this.a = a;
         }
         public boolean equals(Object o) {
-            if (o == this) {
-                return true;
-            }
-            if (!(o instanceof TestObject)) {
+            if (o == null) { return false; }
+            if (o == this) { return true; }
+            if (o.getClass() != getClass()) {
                 return false;
             }
+
             TestObject rhs = (TestObject) o;
             return (a == rhs.a);
         }
@@ -95,12 +95,12 @@ public class EqualsBuilderTest extends TestCase {
             this.b = b;
         }
         public boolean equals(Object o) {
-            if (o == this) {
-                return true;
-            }
-            if (!(o instanceof TestSubObject)) {
+            if (o == null) { return false; }
+            if (o == this) { return true; }
+            if (o.getClass() != getClass()) {
                 return false;
             }
+
             TestSubObject rhs = (TestSubObject) o;
             return super.equals(o) && (b == rhs.b);
         }
