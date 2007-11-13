@@ -5037,6 +5037,7 @@ public class StringUtils {
      *
      * @param strs  array of strings, entries may be null
      * @return the index where the strings begin to differ; -1 if they are all equal
+     * @since 2.4
      */
     public static int indexOfDifference(String[] strs) {
         if (strs == null || strs.length <= 1) {
@@ -5128,6 +5129,7 @@ public class StringUtils {
      * @return the initial sequence of characters that are common to all Strings
      * in the array; empty String if the array is null, the elements are all null 
      * or if there is no common prefix. 
+     * @since 2.4
      */
     public static String getCommonPrefix(String[] strs) {
         if (strs == null || strs.length == 0) {
