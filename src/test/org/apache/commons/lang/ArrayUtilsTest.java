@@ -2433,9 +2433,9 @@ public class ArrayUtilsTest extends TestCase {
         array[2] = new Double(99);
 
         Class[] results = ArrayUtils.toClass(array);
-        assertEquals("String", results[0].getSimpleName());
-        assertEquals("Integer", results[1].getSimpleName());
-        assertEquals("Double", results[2].getSimpleName());
+        assertEquals("String", ClassUtils.getShortClassName(results[0]));
+        assertEquals("Integer", ClassUtils.getShortClassName(results[1]));
+        assertEquals("Double", ClassUtils.getShortClassName(results[2]));
     }
 
     //-----------------------------------------------------------------------
