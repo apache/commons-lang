@@ -50,6 +50,8 @@ public abstract class AbstractMessageFormatTest extends TestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
+	// tests depend on Locale.US
+        java.util.Locale.setDefault(java.util.Locale.US);
     }
 
     protected abstract MessageFormat createMessageFormat(String pattern);
