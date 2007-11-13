@@ -2420,24 +2420,6 @@ public class ArrayUtilsTest extends TestCase {
                 new double[] { Double.MIN_VALUE, Double.MAX_VALUE, 9999999 })));
     }
 
-    public void testToClass_object() {
-        assertEquals(null, ArrayUtils.toClass(null));
-
-        assertSame(
-            ArrayUtils.EMPTY_CLASS_ARRAY,
-            ArrayUtils.toClass(new Class[0]));
-
-        Object[] array = new Object[3];
-        array[0] = new String("Test");
-        array[1] = new Integer(1);
-        array[2] = new Double(99);
-
-        Class[] results = ArrayUtils.toClass(array);
-        assertEquals("String", ClassUtils.getShortClassName(results[0]));
-        assertEquals("Integer", ClassUtils.getShortClassName(results[1]));
-        assertEquals("Double", ClassUtils.getShortClassName(results[2]));
-    }
-
     //-----------------------------------------------------------------------
     /**
      * Test for {@link ArrayUtils#isEmpty(java.lang.Object[])}.

@@ -581,4 +581,22 @@ public class ClassUtilsTest extends TestCase {
             assertEquals(Object.class.getMethod("toString", new Class[0]), toStringMethod);
     }
  
+    public void testToClass_object() {
+        assertEquals(null, ClassUtils.toClass(null));
+
+        assertSame(
+            ArrayUtils.EMPTY_CLASS_ARRAY,
+            ClassUtils.toClass(new Class[0]));
+
+        Object[] array = new Object[3];
+        array[0] = new String("Test");
+        array[1] = new Integer(1);
+        array[2] = new Double(99);
+
+        Class[] results = ClassUtils.toClass(array);
+        assertEquals("String", ClassUtils.getShortClassName(results[0]));
+        assertEquals("Integer", ClassUtils.getShortClassName(results[1]));
+        assertEquals("Double", ClassUtils.getShortClassName(results[2]));
+    }
+
 }
