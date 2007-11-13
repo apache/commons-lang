@@ -313,6 +313,7 @@ public abstract class ToStringStyle implements Serializable {
 
     /**
      * <p>Append to the <code>toString</code> the superclass toString.</p>
+     * <p>NOTE: It assumes that the toString has been created from the same ToStringStyle. </p>
      * 
      * <p>A <code>null</code> <code>superToString</code> is ignored.</p>
      * 
@@ -326,6 +327,7 @@ public abstract class ToStringStyle implements Serializable {
 
     /**
      * <p>Append to the <code>toString</code> another toString.</p>
+     * <p>NOTE: It assumes that the toString has been created from the same ToStringStyle. </p>
      * 
      * <p>A <code>null</code> <code>toString</code> is ignored.</p>
      * 
