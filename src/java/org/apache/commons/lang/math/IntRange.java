@@ -385,6 +385,7 @@ public final class IntRange extends Range implements Serializable {
      * <p>Returns an array containing all the integer values in the range.</p>
      *
      * @return the <code>int[]</code> representation of this range
+     * @since 2.4
      */
     public int[] toArray() {
         int[] array = new int[max - min + 1];
