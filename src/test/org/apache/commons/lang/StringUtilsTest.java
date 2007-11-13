@@ -39,6 +39,7 @@ import junit.textui.TestRunner;
  * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Phil Steitz
  * @author Gary D. Gregory
+ * @author Scott Johnson
  * @author Al Chou
  * @version $Id$
  */
@@ -1619,4 +1620,45 @@ public class StringUtilsTest extends TestCase {
         assertEquals("queued", StringUtils.remove("queued", 'z'));
     }
 
+    
+    public void testDifferenceAt_StringArray(){        
+        assertEquals(-1, StringUtils.indexOfDifference(null));
+        assertEquals(-1, StringUtils.indexOfDifference(new String[] {}));
+        assertEquals(-1, StringUtils.indexOfDifference(new String[] {"abc"}));
+        assertEquals(-1, StringUtils.indexOfDifference(new String[] {null, null}));
+        assertEquals(-1, StringUtils.indexOfDifference(new String[] {"", ""}));
+        assertEquals(0, StringUtils.indexOfDifference(new String[] {"", null}));
+        assertEquals(0, StringUtils.indexOfDifference(new String[] {"abc", null, null}));
+        assertEquals(0, StringUtils.indexOfDifference(new String[] {null, null, "abc"}));
+        assertEquals(0, StringUtils.indexOfDifference(new String[] {"", "abc"}));
+        assertEquals(0, StringUtils.indexOfDifference(new String[] {"abc", ""}));
+        assertEquals(-1, StringUtils.indexOfDifference(new String[] {"abc", "abc"}));
+        assertEquals(1, StringUtils.indexOfDifference(new String[] {"abc", "a"}));
+        assertEquals(2, StringUtils.indexOfDifference(new String[] {"ab", "abxyz"}));
+        assertEquals(2, StringUtils.indexOfDifference(new String[] {"abcde", "abxyz"}));
+        assertEquals(0, StringUtils.indexOfDifference(new String[] {"abcde", "xyz"}));
+        assertEquals(0, StringUtils.indexOfDifference(new String[] {"xyz", "abcde"}));
+        assertEquals(7, StringUtils.indexOfDifference(new String[] {"i am a machine", "i am a robot"}));
+    }
+    
+    public void testGetCommonPrefix_StringArray(){        
+        assertEquals("", StringUtils.getCommonPrefix(null));
+        assertEquals("", StringUtils.getCommonPrefix(new String[] {}));
+        assertEquals("abc", StringUtils.getCommonPrefix(new String[] {"abc"}));
+        assertEquals("", StringUtils.getCommonPrefix(new String[] {null, null}));
+        assertEquals("", StringUtils.getCommonPrefix(new String[] {"", ""}));
+        assertEquals("", StringUtils.getCommonPrefix(new String[] {"", null}));
+        assertEquals("", StringUtils.getCommonPrefix(new String[] {"abc", null, null}));
+        assertEquals("", StringUtils.getCommonPrefix(new String[] {null, null, "abc"}));
+        assertEquals("", StringUtils.getCommonPrefix(new String[] {"", "abc"}));
+        assertEquals("", StringUtils.getCommonPrefix(new String[] {"abc", ""}));
+        assertEquals("abc", StringUtils.getCommonPrefix(new String[] {"abc", "abc"}));
+        assertEquals("a", StringUtils.getCommonPrefix(new String[] {"abc", "a"}));
+        assertEquals("ab", StringUtils.getCommonPrefix(new String[] {"ab", "abxyz"}));
+        assertEquals("ab", StringUtils.getCommonPrefix(new String[] {"abcde", "abxyz"}));
+        assertEquals("", StringUtils.getCommonPrefix(new String[] {"abcde", "xyz"}));
+        assertEquals("", StringUtils.getCommonPrefix(new String[] {"xyz", "abcde"}));
+        assertEquals("i am a ", StringUtils.getCommonPrefix(new String[] {"i am a machine", "i am a robot"}));
+    }
+ 
 }
