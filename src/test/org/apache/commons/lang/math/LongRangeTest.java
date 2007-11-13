@@ -21,6 +21,8 @@ package org.apache.commons.lang.math;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import java.util.Arrays;
+
 /**
  * Test cases for the {@link LongRange} class.
  *
@@ -146,6 +148,13 @@ public final class LongRangeTest extends AbstractRangeTest {
         LongRange big = new LongRange(Long.MAX_VALUE, Long.MAX_VALUE- 2);
         assertEquals(true, big.containsLong(Long.MAX_VALUE - 1));
         assertEquals(false, big.containsLong(Long.MAX_VALUE - 3));
+    }
+
+    public void testToArray() {
+        long[] threeItems = new LongRange(3, 5).toArray();
+        assertTrue(Arrays.equals(new long[]{3, 4, 5}, threeItems));
+        long[] oneItem = new LongRange(4).toArray();
+        assertTrue(Arrays.equals(new long[]{4}, oneItem));
     }
 
     //--------------------------------------------------------------------------

@@ -394,4 +394,17 @@ public final class LongRange extends Range implements Serializable {
         return toString;
     }
 
+    /**
+     * <p>Returns an array containing all the long values in the range.</p>
+     *
+     * @return the <code>long[]</code> representation of this range
+     */
+    public long[] toArray() {
+        long[] array = new long[(int)(max - min + 1L)];
+        for(int i = 0; i < array.length; i++) {
+            array[i] = min + i;
+        }
+        return array;
+    }
+
 }

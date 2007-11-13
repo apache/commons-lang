@@ -21,6 +21,8 @@ package org.apache.commons.lang.math;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import java.util.Arrays;
+
 /**
  * Test cases for the {@link IntRange} class.
  *
@@ -158,6 +160,13 @@ public final class IntRangeTest extends AbstractRangeTest {
         IntRange big = new IntRange(Integer.MAX_VALUE, Integer.MAX_VALUE- 2);
         assertEquals(true, big.containsInteger(Integer.MAX_VALUE - 1));
         assertEquals(false, big.containsInteger(Integer.MAX_VALUE - 3));
+    }
+
+    public void testToArray() {
+        int[] threeItems = new IntRange(3, 5).toArray();
+        assertTrue(Arrays.equals(new int[]{3, 4, 5}, threeItems));
+        int[] oneItem = new IntRange(4).toArray();
+        assertTrue(Arrays.equals(new int[]{4}, oneItem));
     }
 
     //--------------------------------------------------------------------------
