@@ -4421,6 +4421,7 @@ public class ArrayUtils {
      *
      * @param array an <code>Object</code> array
      * @return a <code>Class</code> array, <code>null</code> if null array input
+     * @since 2.4
      */
     public static Class[] toClass(Object[] array)
     {
