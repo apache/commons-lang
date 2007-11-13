@@ -5126,8 +5126,8 @@ public class StringUtils {
      *
      * @param strs  array of String objects, entries may be null
      * @return the initial sequence of characters that are common to all Strings
-     * in the array; empty String if the array is null or the strings in the
-     * array are all null; -1 if all Strings are equal
+     * in the array; empty String if the array is null, the elements are all null 
+     * or if there is no common prefix. 
      */
     public static String getCommonPrefix(String[] strs) {
         if (strs == null || strs.length == 0) {
