@@ -971,4 +971,22 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals("<null>", ReflectionToStringBuilder.toString(null));
     }
 
+    /**
+     * Points out failure to print anything from appendToString methods using MULTI_LINE_STYLE.
+     * See issue LANG-372.
+     */
+    class MultiLineTestObject {
+        Integer i = new Integer(31337);
+        public String toString() {
+            return new ToStringBuilder(this).append("testInt", i).toString();
+        }
+    }
+
+    public void testAppendToStringUsingMultiLineStyle() {
+        MultiLineTestObject obj = new MultiLineTestObject();
+        ToStringBuilder testBuilder = new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                                          .appendToString(obj.toString());
+        assertEquals(testBuilder.toString().indexOf("testInt=31337"), -1);
+    }
+
 }
