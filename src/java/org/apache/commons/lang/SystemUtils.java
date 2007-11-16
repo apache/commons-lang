@@ -1072,6 +1072,17 @@ public class SystemUtils {
 
     //-----------------------------------------------------------------------    
     /**
+     * <p>Is <code>true</code> if this is Windows Vista.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     *
+     * @since 2.4
+     */
+    public static final boolean IS_OS_WINDOWS_VISTA = getOSMatches(OS_NAME_WINDOWS_PREFIX, "6.0"); 
+
+    //-----------------------------------------------------------------------    
+    /**
      * <p>SystemUtils instances should NOT be constructed in standard
      * programming. Instead, the class should be used as
      * <code>SystemUtils.FILE_SEPARATOR</code>.</p>
