@@ -332,4 +332,36 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals("& &", StringEscapeUtils.unescapeHtml("& &amp;"));
     }
 
+
+    public void testEscapeCsvString() throws Exception
+    {
+        assertEquals("foo.bar",          StringEscapeUtils.escapeCsv("foo.bar"));
+        assertEquals("\"foo,bar\"",      StringEscapeUtils.escapeCsv("foo,bar"));
+        assertEquals("\"foo\nbar\"",     StringEscapeUtils.escapeCsv("foo\nbar"));
+        assertEquals("\"foo\rbar\"",     StringEscapeUtils.escapeCsv("foo\rbar"));
+        assertEquals("\"foo\"\"bar\"",   StringEscapeUtils.escapeCsv("foo\"bar"));
+        assertEquals("",   StringEscapeUtils.escapeCsv(""));
+        assertEquals(null, StringEscapeUtils.escapeCsv(null));
+    }
+
+    public void testEscapeCsvWriter() throws Exception
+    {
+        checkCsvEscapeWriter("foo.bar",        "foo.bar");
+        checkCsvEscapeWriter("\"foo,bar\"",    "foo,bar");
+        checkCsvEscapeWriter("\"foo\nbar\"",   "foo\nbar");
+        checkCsvEscapeWriter("\"foo\rbar\"",   "foo\rbar");
+        checkCsvEscapeWriter("\"foo\"\"bar\"", "foo\"bar");
+        checkCsvEscapeWriter("", null);
+        checkCsvEscapeWriter("", "");
+    }
+
+    private void checkCsvEscapeWriter(String expected, String value) {
+        try {
+            StringWriter writer = new StringWriter();
+            StringEscapeUtils.escapeCsv(writer, value);
+            assertEquals(expected, writer.toString());
+        } catch (IOException e) {
+            fail("Threw: " + e);
+        }
+    }
 }
