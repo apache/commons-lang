@@ -405,11 +405,14 @@
     </build>
 
   <reporting>
+
+    <!-- N.B. The following can be removed once version 6
+         of the commons-parent pom is released -->
     <plugins>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-          <source>1.4</source>
+          <source>${maven.compile.source}</source>
         </configuration>
       </plugin>
     </plugins>
