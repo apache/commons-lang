@@ -89,11 +89,6 @@ public class MultiFormatTest extends TestCase {
                 NumberFormat.getIntegerInstance(Locale.US)).toMultiFormat();
     }
 
-    public void testWTF() {
-        System.out.println(DateFormat.getDateInstance(DateFormat.SHORT,
-                Locale.US).format(new Integer(1000)));
-    }
-
     public void testFormatNumber() {
         assertEquals("1,000", format.format(new Integer(1000)));
     }
