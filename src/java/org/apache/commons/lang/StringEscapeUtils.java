@@ -688,4 +688,93 @@ public class StringEscapeUtils {
         return StringUtils.replace(str, "'", "''");
     }
 
+    //-----------------------------------------------------------------------
+
+    /**
+     * <p>Returns a <code>String</code> value for a CSV column escaping with double quotes,
+     * if required.</p>
+     *
+     * <p>If the value contains a comma, newline or double quote, then the
+     *    String value is returned enclosed in double quotes.</p>
+     * </p>
+     *
+     * <p>Any double quote characters in the value are escaped with another double quote.</p>
+     *
+     * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
+     * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.
+     *
+     * @param str  the string to escape, may be null
+     * @return a new String, escaped for CSV, <code>null</code> if null string input
+     * @since 2.4
+     */
+    public static String escapeCsv(String str) {
+        if (!containsCsvChars(str)) {
+            return str;
+        }
+        StringBuffer buffer = new StringBuffer(str.length() + 10);
+        buffer.append('"');
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c == '"') {
+                buffer.append('"'); // escape double quote
+            }
+            buffer.append(c);
+        }
+        buffer.append('"');
+        return buffer.toString();
+    }
+
+    /**
+     * <p>Writes a <code>String</code> value for a CSV column escaping with double quotes,
+     * if required.</p>
+     *
+     * <p>If the value contains a comma, newline or double quote, then the
+     *    String value is written enclosed in double quotes.</p>
+     * </p>
+     *
+     * <p>Any double quote characters in the value are escaped with another double quote.</p>
+     *
+     * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
+     * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.
+     *
+     * @param str  the string to escape, may be null
+     * @param out  Writer to write escaped string into
+     * in double quotes or only when the value contains double quotes, commas or newline
+     * characters.
+     * @throws IOException if error occurs on underlying Writer
+     * @since 2.4
+     */
+    public static void escapeCsv(Writer out, String str) throws IOException {
+        if (!containsCsvChars(str)) {
+            if (str != null) {
+                out.write(str);
+            }
+            return;
+        }
+        out.write('"');
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c == '"') {
+                out.write('"'); // escape double quote
+            }
+            out.write(c);
+        }
+        out.write('"');
+    }
+
+    /**
+     * Determine if the String contains any characters that need escaping for CSV files.
+     *
+     * @param str  the string to escape, may be null
+     * @return <code>true</code> if the String contains characters that need escaping
+     * for CSV files, otherwise <code>false</code>
+     * @since 2.4
+     */
+    private static boolean containsCsvChars(String str) {
+        return (StringUtils.contains(str, '"') ||
+                StringUtils.contains(str, ',') ||
+                StringUtils.contains(str, CharUtils.CR) ||
+                StringUtils.contains(str, CharUtils.LF));
+    }
+
 }
