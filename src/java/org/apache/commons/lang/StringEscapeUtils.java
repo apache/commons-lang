@@ -691,7 +691,7 @@ public class StringEscapeUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Returns a <code>String</code> value for a CSV column escaping with double quotes,
+     * <p>Returns a <code>String</code> value for a CSV column enclosed in double quotes,
      * if required.</p>
      *
      * <p>If the value contains a comma, newline or double quote, then the
@@ -700,11 +700,16 @@ public class StringEscapeUtils {
      *
      * <p>Any double quote characters in the value are escaped with another double quote.</p>
      *
+     * <p>If the value does not contain a comma, newline or double quote, then the
+     *    String value is returned unchanged.</p>
+     * </p>
+     *
      * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
      * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.
      *
-     * @param str  the string to escape, may be null
-     * @return a new String, escaped for CSV, <code>null</code> if null string input
+     * @param str the input CSV column String, may be null
+     * @return the input String, enclosed in double quotes if the value contains a comma,
+     * newline or double quote, <code>null</code> if null string input
      * @since 2.4
      */
     public static String escapeCsv(String str) {
@@ -725,7 +730,7 @@ public class StringEscapeUtils {
     }
 
     /**
-     * <p>Writes a <code>String</code> value for a CSV column escaping with double quotes,
+     * <p>Writes a <code>String</code> value for a CSV column enclosed in double quotes,
      * if required.</p>
      *
      * <p>If the value contains a comma, newline or double quote, then the
@@ -734,13 +739,16 @@ public class StringEscapeUtils {
      *
      * <p>Any double quote characters in the value are escaped with another double quote.</p>
      *
+     * <p>If the value does not contain a comma, newline or double quote, then the
+     *    String value is written unchanged (null values are ignored).</p>
+     * </p>
+     *
      * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
      * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.
      *
-     * @param str  the string to escape, may be null
-     * @param out  Writer to write escaped string into
-     * in double quotes or only when the value contains double quotes, commas or newline
-     * characters.
+     * @param str the input CSV column String, may be null
+     * @param out Writer to write input string to, enclosed in double quotes if it contains
+     * a comma, newline or double quote
      * @throws IOException if error occurs on underlying Writer
      * @since 2.4
      */
