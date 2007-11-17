@@ -378,6 +378,39 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testContainsAny_StringChararray() {
+        assertFalse(StringUtils.containsAny(null, (char[]) null));
+        assertFalse(StringUtils.containsAny(null, new char[0]));
+        assertFalse(StringUtils.containsAny(null, new char[] {'a','b'}));
+        
+        assertFalse(StringUtils.containsAny("", (char[]) null));
+        assertFalse(StringUtils.containsAny("", new char[0]));
+        assertFalse(StringUtils.containsAny("", new char[] {'a','b'}));
+        
+        assertFalse(StringUtils.containsAny("zzabyycdxx", (char[]) null)); 
+        assertFalse(StringUtils.containsAny("zzabyycdxx", new char[0])); 
+        assertTrue(StringUtils.containsAny("zzabyycdxx", new char[] {'z','a'})); 
+        assertTrue(StringUtils.containsAny("zzabyycdxx", new char[] {'b','y'}));
+        assertFalse(StringUtils.containsAny("ab", new char[] {'z'}));
+    }
+
+    public void testContainsAny_StringString() {
+        assertFalse(StringUtils.containsAny(null, (String) null));
+        assertFalse(StringUtils.containsAny(null, ""));
+        assertFalse(StringUtils.containsAny(null, "ab"));
+        
+        assertFalse(StringUtils.containsAny("", (String) null));
+        assertFalse(StringUtils.containsAny("", ""));
+        assertFalse(StringUtils.containsAny("", "ab"));
+        
+        assertFalse(StringUtils.containsAny("zzabyycdxx", (String) null)); 
+        assertFalse(StringUtils.containsAny("zzabyycdxx", "")); 
+        assertTrue(StringUtils.containsAny("zzabyycdxx", "za")); 
+        assertTrue(StringUtils.containsAny("zzabyycdxx", "by"));
+        assertFalse(StringUtils.containsAny("ab", "z"));
+    }
+
+    //-----------------------------------------------------------------------
     public void testIndexOfAnyBut_StringChararray() {
         assertEquals(-1, StringUtils.indexOfAnyBut(null, (char[]) null));
         assertEquals(-1, StringUtils.indexOfAnyBut(null, new char[0]));

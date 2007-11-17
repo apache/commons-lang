@@ -40,8 +40,8 @@ import java.util.List;
  *      - null-safe index-of checks
  *  <li><b>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</b>
  *      - index-of any of a set of Strings</li>
- *  <li><b>ContainsOnly/ContainsNone</b>
- *      - does String contains only/none of these characters</li>
+ *  <li><b>ContainsOnly/ContainsNone/ContainsAny</b>
+ *      - does String contains only/none/any of these characters</li>
  *  <li><b>Substring/Left/Right/Mid</b>
  *      - null-safe substring extractions</li>
  *  <li><b>SubstringBefore/SubstringAfter/SubstringBetween</b>
@@ -1135,6 +1135,78 @@ public class StringUtils {
             return -1;
         }
         return indexOfAny(str, searchChars.toCharArray());
+    }
+
+    // ContainsAny
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Checks if the String contains any character in the given
+     * set of characters.</p>
+     *
+     * <p>A <code>null</code> String will return <code>false</code>.
+     * A <code>null</code> or zero length search array will return <code>false</code>.</p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)                = false
+     * StringUtils.containsAny("", *)                  = false
+     * StringUtils.containsAny(*, null)                = false
+     * StringUtils.containsAny(*, [])                  = false
+     * StringUtils.containsAny("zzabyycdxx",['z','a']) = true
+     * StringUtils.containsAny("zzabyycdxx",['b','y']) = true
+     * StringUtils.containsAny("aba", ['z'])           = false
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the <code>true</code> if any of the chars are found,
+     * <code>false</code> if no match or null input
+     * @since 2.4
+     */
+    public static boolean containsAny(String str, char[] searchChars) {
+        if (str == null || str.length() == 0 ||
+            searchChars == null || searchChars.length == 0) {
+            return false;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            for (int j = 0; j < searchChars.length; j++) {
+                if (searchChars[j] == ch) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * <p>Checks if the String contains any character in the given
+     * set of characters.</p>
+     *
+     * <p>A <code>null</code> String will return <code>false</code>.
+     * A <code>null</code> search string will return <code>false</code>.</p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)            = false
+     * StringUtils.containsAny("", *)              = false
+     * StringUtils.containsAny(*, null)            = false
+     * StringUtils.containsAny(*, "")              = false
+     * StringUtils.containsAny("zzabyycdxx", "za") = true
+     * StringUtils.containsAny("zzabyycdxx", "by") = true
+     * StringUtils.containsAny("aba","z")          = false
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the <code>true</code> if any of the chars are found,
+     * <code>false</code> if no match or null input
+     * @since 2.4
+     */
+    public static boolean containsAny(String str, String searchChars) {
+        if (searchChars == null) {
+            return false;
+        } else {
+            return containsAny(str, searchChars.toCharArray());
+        }
     }
 
     // IndexOfAnyBut chars
