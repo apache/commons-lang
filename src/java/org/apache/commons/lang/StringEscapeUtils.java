@@ -40,6 +40,8 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  */
 public class StringEscapeUtils {
 
+    private static final char[] CSV_SEARCH_CHARS = new char[] {',', '"', CharUtils.CR, CharUtils.LF};
+
     /**
      * <p><code>StringEscapeUtils</code> instances should NOT be constructed in
      * standard programming.</p>
@@ -713,7 +715,7 @@ public class StringEscapeUtils {
      * @since 2.4
      */
     public static String escapeCsv(String str) {
-        if (!containsCsvChars(str)) {
+        if (StringUtils.containsNone(str, CSV_SEARCH_CHARS)) {
             return str;
         }
         StringBuffer buffer = new StringBuffer(str.length() + 10);
@@ -753,7 +755,7 @@ public class StringEscapeUtils {
      * @since 2.4
      */
     public static void escapeCsv(Writer out, String str) throws IOException {
-        if (!containsCsvChars(str)) {
+        if (StringUtils.containsNone(str, CSV_SEARCH_CHARS)) {
             if (str != null) {
                 out.write(str);
             }
@@ -768,21 +770,6 @@ public class StringEscapeUtils {
             out.write(c);
         }
         out.write('"');
-    }
-
-    /**
-     * Determine if the String contains any characters that need escaping for CSV files.
-     *
-     * @param str  the string to escape, may be null
-     * @return <code>true</code> if the String contains characters that need escaping
-     * for CSV files, otherwise <code>false</code>
-     * @since 2.4
-     */
-    private static boolean containsCsvChars(String str) {
-        return (StringUtils.contains(str, '"') ||
-                StringUtils.contains(str, ',') ||
-                StringUtils.contains(str, CharUtils.CR) ||
-                StringUtils.contains(str, CharUtils.LF));
     }
 
 }
