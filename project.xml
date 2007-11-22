@@ -428,7 +428,6 @@ limitations under the License.
       <report>maven-junit-report-plugin</report>
       <report>maven-jxr-plugin</report>
       <report>maven-license-plugin</report>
-      <report>maven-cobertura-plugin</report>
       <!-- report>maven-jdiff-plugin</report -->
       <report>maven-pmd-plugin</report>
       <!-- <report>maven-linkcheck-plugin</report> -->
