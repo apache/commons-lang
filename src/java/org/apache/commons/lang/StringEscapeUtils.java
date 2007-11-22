@@ -40,7 +40,9 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  */
 public class StringEscapeUtils {
 
-    private static final char[] CSV_SEARCH_CHARS = new char[] {',', '"', CharUtils.CR, CharUtils.LF};
+    private static final char CSV_DELIMITER = ',';
+    private static final char CSV_QUOTE = '"';
+    private static final char[] CSV_SEARCH_CHARS = new char[] {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
 
     /**
      * <p><code>StringEscapeUtils</code> instances should NOT be constructed in
@@ -718,17 +720,15 @@ public class StringEscapeUtils {
         if (StringUtils.containsNone(str, CSV_SEARCH_CHARS)) {
             return str;
         }
-        StringBuffer buffer = new StringBuffer(str.length() + 10);
-        buffer.append('"');
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-            if (c == '"') {
-                buffer.append('"'); // escape double quote
-            }
-            buffer.append(c);
+        try {
+            StringWriter writer = new StringWriter();
+            escapeCsv(writer, str);
+            return writer.toString();
+        } catch (IOException ioe) {
+            // this should never ever happen while writing to a StringWriter
+            ioe.printStackTrace();
+            return null;
         }
-        buffer.append('"');
-        return buffer.toString();
     }
 
     /**
@@ -761,15 +761,15 @@ public class StringEscapeUtils {
             }
             return;
         }
-        out.write('"');
+        out.write(CSV_QUOTE);
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            if (c == '"') {
-                out.write('"'); // escape double quote
+            if (c == CSV_QUOTE) {
+                out.write(CSV_QUOTE); // escape double quote
             }
             out.write(c);
         }
-        out.write('"');
+        out.write(CSV_QUOTE);
     }
 
 }
