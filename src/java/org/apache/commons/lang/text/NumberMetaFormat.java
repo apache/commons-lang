@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * Stock "number" MetaFormat.
  * 
- * @see {@link ExtendedMessageFormat}
+ * @see ExtendedMessageFormat
  * @author Matt Benson
  * @since 2.4
  * @version $Id$

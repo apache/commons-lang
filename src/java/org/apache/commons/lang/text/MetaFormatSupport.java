@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * metaFormat support.
  * 
- * @see {@link ExtendedMessageFormat}
+ * @see ExtendedMessageFormat
  * @author Matt Benson
  * @since 2.4
  * @version $Id$
