@@ -59,7 +59,7 @@ public class NameKeyedMetaFormat extends MetaFormatSupport {
          * 
          * @param key
          * @param format
-         * @return
+         * @return Builder reference to this object
          */
         public Builder put(String key, Format format) {
             keyedFormats.put(key, format);
