@@ -29,7 +29,7 @@ import org.apache.commons.lang.ObjectUtils;
  * Basic metaFormat that requires enough configuration information to
  * parse/format other Formats for use by ExtendedMessageFormat.
  * 
- * @see {@link ExtendedMessageFormat}
+ * @see ExtendedMessageFormat
  * @author Matt Benson
  * @since 2.4
  * @version $Id$
