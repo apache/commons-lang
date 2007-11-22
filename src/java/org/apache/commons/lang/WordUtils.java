@@ -625,7 +625,9 @@ public class WordUtils {
         if (index == -1) {
             result.append(str.substring(0, upper));
             // only if abbreviation has occured do we append the appendToEnd value
-            if (upper != str.length()) result.append(StringUtils.defaultString(appendToEnd));
+            if (upper != str.length()) {
+                result.append(StringUtils.defaultString(appendToEnd));
+            }
         } else if (index > upper) {
             result.append(str.substring(0, upper));
             result.append(StringUtils.defaultString(appendToEnd));
