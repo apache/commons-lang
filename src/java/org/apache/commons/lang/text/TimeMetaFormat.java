@@ -41,30 +41,28 @@ public class TimeMetaFormat extends DateMetaFormatSupport {
     /**
      * Create a new NumberMetaFormat.
      * 
-     * @param locale
+     * @param locale Locale
      */
     public TimeMetaFormat(Locale locale) {
         super(locale);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.apache.commons.lang.text.AbstractDateMetaFormat#createSubformatInstance(int)
-     */
+    /** {@inheritDoc} */
     protected DateFormat createSubformatInstance(int style) {
         return DateFormat.getTimeInstance(style, getLocale());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.apache.commons.lang.text.AbstractDateMetaFormat#createReverseStyleMap()
-     */
+    /** {@inheritDoc} */
     protected Map createInverseStyleMap() {
         Map invertMe = createStyleMap();
         invertMe.remove(DEFAULT);
-        invertMe.remove(FULL);
+        DateFormat longDf = DateFormat.getTimeInstance(DateFormat.LONG,
+                getLocale());
+        DateFormat fullDf = DateFormat.getTimeInstance(DateFormat.FULL,
+                getLocale());
+        if (fullDf.equals(longDf)) {
+            invertMe.remove(FULL);
+        }
         return invert(invertMe);
     }
 }

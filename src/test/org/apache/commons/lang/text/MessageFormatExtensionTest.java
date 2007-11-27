@@ -16,11 +16,13 @@
  */
 package org.apache.commons.lang.text;
 
+import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.MessageFormat;
 import java.text.ParsePosition;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -31,22 +33,162 @@ import java.util.Locale;
  * @since 2.4
  * @version $Id$
  */
-public class MessageFormatExtensionTest extends AbstractMessageFormatTest {
+public abstract class MessageFormatExtensionTest extends
+        AbstractMessageFormatTest {
+    /**
+     * Tests for <code>Locale.US</code>
+     * 
+     * @author mbenson
+     */
+    public static class US extends MessageFormatExtensionTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.US;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.UK</code>
+     * 
+     * @author mbenson
+     */
+    public static class UK extends MessageFormatExtensionTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.UK;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.GERMANY</code>
+     * 
+     * @author mbenson
+     */
+    public static class DE extends MessageFormatExtensionTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.GERMANY;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.ITALY</code>
+     * 
+     * @author mbenson
+     */
+    public static class IT extends MessageFormatExtensionTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.ITALY;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.JAPAN</code>
+     * 
+     * @author mbenson
+     */
+    public static class JP extends MessageFormatExtensionTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.JAPAN;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.CHINA</code>
+     * 
+     * @author mbenson
+     */
+    public static class CN extends MessageFormatExtensionTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.CHINA;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.CANADA</code>
+     * 
+     * @author mbenson
+     */
+    public static class CA extends MessageFormatExtensionTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.CANADA;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.FRANCE</code>
+     * 
+     * @author mbenson
+     */
+    public static class FR extends MessageFormatExtensionTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.FRANCE;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.KOREA</code>
+     * 
+     * @author mbenson
+     */
+    public static class KR extends MessageFormatExtensionTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.KOREA;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.TAIWAN</code>
+     * 
+     * @author mbenson
+     */
+    public static class TW extends MessageFormatExtensionTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.TAIWAN;
+        }
+    }
 
     static class ProperNameCapitalizationFormat extends Format {
         private static final long serialVersionUID = -6081911520622186866L;
         private static final StrMatcher MATCH = StrMatcher
                 .charSetMatcher(" ,.");
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.text.Format#format(java.lang.Object,
-         *      java.lang.StringBuffer, java.text.FieldPosition)
+        /**
+         * {@inheritDoc}
          */
         public StringBuffer format(Object obj, StringBuffer toAppendTo,
                 FieldPosition fpos) {
-            char[] buffer = String.valueOf(obj).toCharArray();
+            if (!(obj instanceof String)) {
+                throw new IllegalArgumentException();
+            }
+            char[] buffer = ((String) obj).toCharArray();
             ParsePosition pos = new ParsePosition(0);
             while (pos.getIndex() < buffer.length) {
                 char c = buffer[pos.getIndex()];
@@ -91,17 +233,17 @@ public class MessageFormatExtensionTest extends AbstractMessageFormatTest {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.apache.commons.lang.text.AbstractMessageFormatTest#createMessageFormat(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
-    protected MessageFormat createMessageFormat(String pattern) {
-        return new ExtendedMessageFormat(pattern, new MultiFormat.Builder()
-                .add(ExtendedMessageFormat.createDefaultMetaFormat(Locale.US)).add(
+    protected MessageFormat createMessageFormat(String pattern, Locale locale) {
+        return new ExtendedMessageFormat(pattern, locale,
+                new MultiFormat.Builder().add(
                         new NameKeyedMetaFormat.Builder().put("properName",
                                 new ProperNameCapitalizationFormat())
-                                .toNameKeyedMetaFormat()).toMultiFormat());
+                                .toNameKeyedMetaFormat()).add(
+                        ExtendedMessageFormat.createDefaultMetaFormat(locale))
+                        .toMultiFormat());
     }
 
     public void testProperName() {
@@ -111,10 +253,23 @@ public class MessageFormatExtensionTest extends AbstractMessageFormatTest {
     }
 
     public void testMixed() {
-        doAssertions("John Q. Public was born on Thursday, January 1, 1970.",
-                "{0,properName} was born on {1,date,full}.", new Object[] {
+        StringBuffer expected = new StringBuffer("John Q. Public was born on ");
+        Date dob = new GregorianCalendar(1970, Calendar.JANUARY, 01, 0, 15, 20)
+                .getTime();
+        DateFormat longDf = DateFormat.getDateInstance(DateFormat.LONG, locale);
+        longDf.format(dob, expected, new FieldPosition(0));
+        expected.append('.');
+        String pattern = "{0,properName} was born on {1,date,long}.";
+        StringBuffer toPattern = new StringBuffer(pattern);
+        if (longDf.equals(DateFormat.getDateInstance(DateFormat.DEFAULT, locale))) {
+            int idx = pattern.indexOf(",long");
+            toPattern.delete(idx, idx + ",long".length());
+        }
+        doAssertions(expected.toString(),
+                pattern, new Object[] {
                         "john q. public",
                         new GregorianCalendar(1970, Calendar.JANUARY, 01, 0,
-                                15, 20).getTime() });
+                                15, 20).getTime() }, toPattern.toString());
     }
+
 }

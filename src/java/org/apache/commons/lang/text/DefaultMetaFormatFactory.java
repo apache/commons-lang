@@ -34,7 +34,8 @@ import org.apache.commons.lang.Validate;
  * 
  * @author Matt Benson
  * @since 2.4
- * @version $Id$
+ * @version $Id: DefaultMetaFormatFactory.java 592077 2007-11-05 16:47:10Z
+ *          mbenson $
  */
 class DefaultMetaFormatFactory {
 
@@ -59,16 +60,32 @@ class DefaultMetaFormatFactory {
     private static final String[] PATTERN_KEYS = new String[] { DATE_KEY,
             TIME_KEY };
 
+    /**
+     * Ordered NameKeyedMetaFormat
+     */
     private static class OrderedNameKeyedMetaFormat extends NameKeyedMetaFormat {
         private static final long serialVersionUID = -7688772075239431055L;
 
         private List keys;
 
+        /**
+         * Construct a new OrderedNameKeyedMetaFormat.
+         * 
+         * @param names String[]
+         * @param formats Format[]
+         */
         private OrderedNameKeyedMetaFormat(String[] names, Format[] formats) {
             super(createMap(names, formats));
             this.keys = Arrays.asList(names);
         }
 
+        /**
+         * Create a map from the specified key/value parameters.
+         * 
+         * @param names keys
+         * @param formats values
+         * @return Map
+         */
         private static Map createMap(String[] names, Format[] formats) {
             Validate.isTrue(ArrayUtils.isSameLength(names, formats));
             HashMap result = new HashMap(names.length);
@@ -78,6 +95,9 @@ class DefaultMetaFormatFactory {
             return result;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         protected Iterator iterateKeys() {
             return keys.iterator();
         }
@@ -86,8 +106,7 @@ class DefaultMetaFormatFactory {
     /**
      * Get a default metaformat for the specified Locale.
      * 
-     * @param locale
-     *            the Locale for the resulting Format instance.
+     * @param locale the Locale for the resulting Format instance.
      * @return Format
      */
     public static Format getFormat(final Locale locale) {
@@ -106,6 +125,12 @@ class DefaultMetaFormatFactory {
                                 new TimeMetaFormat(locale) }) });
     }
 
+    /**
+     * Get the default format supported by a given metaformat.
+     * 
+     * @param metaformat Format to handle parsing.
+     * @return the default format, if any.
+     */
     private static Format getDefaultFormat(Format metaformat) {
         ParsePosition pos = new ParsePosition(0);
         Object o = metaformat.parseObject("", pos);

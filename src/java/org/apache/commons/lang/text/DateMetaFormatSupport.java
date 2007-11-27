@@ -29,6 +29,7 @@ import java.util.Map;
 
 /**
  * date/time metaFormat support.
+ * 
  * @see ExtendedMessageFormat
  * @author Matt Benson
  * @since 2.4
@@ -70,18 +71,15 @@ public abstract class DateMetaFormatSupport extends MetaFormatSupport {
     /**
      * Create a new AbstractDateMetaFormat.
      * 
-     * @param locale
+     * @param locale Locale
      */
     public DateMetaFormatSupport(Locale locale) {
         super();
         this.locale = locale;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.text.Format#format(java.lang.Object, java.lang.StringBuffer,
-     *      java.text.FieldPosition)
+    /**
+     * {@inheritDoc}
      */
     public StringBuffer format(Object obj, StringBuffer toAppendTo,
             FieldPosition pos) {
@@ -98,6 +96,12 @@ public abstract class DateMetaFormatSupport extends MetaFormatSupport {
         throw new IllegalArgumentException(String.valueOf(obj));
     }
 
+    /**
+     * Get the subformat name for the given object.
+     * 
+     * @param subformat Object
+     * @return subformat name.
+     */
     private String getSubformatName(Object subformat) {
         initialize();
         if (reverseSubformats.containsKey(subformat)) {
@@ -107,11 +111,8 @@ public abstract class DateMetaFormatSupport extends MetaFormatSupport {
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.text.Format#parseObject(java.lang.String,
-     *      java.text.ParsePosition)
+    /**
+     * {@inheritDoc}
      */
     public Object parseObject(String source, ParsePosition pos) {
         int start = pos.getIndex();
@@ -131,6 +132,12 @@ public abstract class DateMetaFormatSupport extends MetaFormatSupport {
         return null;
     }
 
+    /**
+     * Get the named subformat.
+     * 
+     * @param subformat name
+     * @return Format designated by <code>name</code>, if any
+     */
     private Format getSubformat(String subformat) {
         initialize();
         if (!styleMap.containsKey(subformat)) {
@@ -141,7 +148,7 @@ public abstract class DateMetaFormatSupport extends MetaFormatSupport {
     }
 
     /**
-     * Get the locale in use by this {@link DateMetaFormatSupport}.
+     * Get the locale in use by this DateMetaFormatSupport.
      * 
      * @return Locale
      */
@@ -149,6 +156,9 @@ public abstract class DateMetaFormatSupport extends MetaFormatSupport {
         return locale;
     }
 
+    /**
+     * Initialize this DateMetaFormatSupport.
+     */
     private synchronized void initialize() {
         if (!initialized) {
             styleMap = createStyleMap();
@@ -175,7 +185,7 @@ public abstract class DateMetaFormatSupport extends MetaFormatSupport {
      * Create a subformat for the given <code>DateFormat</code> style
      * constant.
      * 
-     * @param style
+     * @param style DateFormat style constant
      * @return a DateFormat instance.
      */
     protected abstract DateFormat createSubformatInstance(int style);
@@ -194,8 +204,7 @@ public abstract class DateMetaFormatSupport extends MetaFormatSupport {
      * Set whether this metaformat can parse date/time pattern formats in
      * addition to named formats.
      * 
-     * @param handlePatterns
-     *            the boolean handlePatterns to set.
+     * @param handlePatterns the boolean handlePatterns to set.
      * @return <code>this</code> for fluent usage.
      */
     public DateMetaFormatSupport setHandlePatterns(boolean handlePatterns) {

@@ -24,7 +24,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * metaFormat support.
+ * Support class for implementing Formats that parse/format other Formats, with
+ * specific support for interoperability with ExtendedMessageFormat.
  * 
  * @see ExtendedMessageFormat
  * @author Matt Benson
@@ -40,11 +41,9 @@ public abstract class MetaFormatSupport extends Format {
     /**
      * Invert the specified Map.
      * 
-     * @param map
-     *            the Map to invert.
+     * @param map the Map to invert.
      * @return a new Map instance.
-     * @throws NullPointerException
-     *             if <code>map</code> is <code>null</code>.
+     * @throws NullPointerException if <code>map</code> is <code>null</code>.
      */
     protected Map invert(Map map) {
         Map result = new HashMap(map.size());
@@ -58,8 +57,8 @@ public abstract class MetaFormatSupport extends Format {
     /**
      * Find the end of the subformat.
      * 
-     * @param source
-     * @param pos
+     * @param source String
+     * @param pos current parse position
      */
     protected void seekFormatElementEnd(String source, ParsePosition pos) {
         int depth = 1;
@@ -85,8 +84,7 @@ public abstract class MetaFormatSupport extends Format {
     /**
      * Advance the parse index by 1.
      * 
-     * @param pos
-     *            the ParsePosition to advance.
+     * @param pos the ParsePosition to advance.
      * @return <code>pos</code>
      */
     protected ParsePosition next(ParsePosition pos) {
@@ -100,10 +98,8 @@ public abstract class MetaFormatSupport extends Format {
      * occurs <code>pos.getErrorIndex()</code> will contain a value >= zero,
      * indicating the index at which the parse error occurred.
      * 
-     * @param source
-     *            String to parse
-     * @param pos
-     *            ParsePosition marking index into <code>source</code>
+     * @param source String to parse
+     * @param pos ParsePosition marking index into <code>source</code>
      * @return Object parsed
      */
     public abstract Object parseObject(String source, ParsePosition pos);
@@ -112,19 +108,14 @@ public abstract class MetaFormatSupport extends Format {
      * Format the specified object, appending to the given StringBuffer, and
      * optionally respecting the specified FieldPosition.
      * 
-     * @param obj
-     *            the object to format
-     * @param toAppendTo
-     *            the StringBuffer to which the formatted object should be
-     *            appended
-     * @param pos
-     *            FieldPosition associated with <code>obj</code>
+     * @param obj the object to format
+     * @param toAppendTo the StringBuffer to which the formatted object should
+     *            be appended
+     * @param pos FieldPosition associated with <code>obj</code>
      * @return <code>toAppendTo</code>
-     * @throws NullPointerException
-     *             if <code>toAppendTo</code> or <code>pos</code> is
-     *             <code>null</code>
-     * @throws IllegalArgumentException
-     *             if unable to format <code>obj</code>
+     * @throws NullPointerException if <code>toAppendTo</code> or
+     *             <code>pos</code> is <code>null</code>
+     * @throws IllegalArgumentException if unable to format <code>obj</code>
      */
     public abstract StringBuffer format(Object obj, StringBuffer toAppendTo,
             FieldPosition pos);

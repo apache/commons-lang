@@ -22,13 +22,16 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
 /**
  * Extends <code>MessageFormat</code> to allow pluggable/additional formatting
  * options for embedded format elements; requires a "meta-format", i.e. a
  * <code>Format</code> capable of parsing and formatting other
- * <code>Format</code>s.
+ * <code>Format</code>s. One shortcoming is that recursive choice formats do
+ * not inherit knowledge of the extended formatters and are limited to those
+ * available with <code>java.text.MessageFormat</code> (patches welcome).
  * 
  * @author Matt Benson
  * @since 2.4
@@ -53,14 +56,16 @@ public class ExtendedMessageFormat extends MessageFormat {
      * behavior identical to a <code>java.lang.MessageFormat</code> using
      * <code>locale</code>.
      * 
-     * @param locale
-     *            the Locale for the resulting Format instance.
+     * @param locale the Locale for the resulting Format instance.
      * @return Format
      */
     public static Format createDefaultMetaFormat(Locale locale) {
         return DefaultMetaFormatFactory.getFormat(locale);
     }
 
+    /**
+     * Conceptual demarcation of methods to parse the pattern.
+     */
     private static class Parser {
         private static final String ESCAPED_QUOTE = "''";
         private static final char START_FMT = ',';
@@ -68,6 +73,12 @@ public class ExtendedMessageFormat extends MessageFormat {
         private static final char START_FE = '{';
         private static final char QUOTE = '\'';
 
+        /**
+         * Strip all formats from the pattern.
+         * 
+         * @param pattern String to strip
+         * @return stripped pattern
+         */
         private String stripFormats(String pattern) {
             StringBuffer sb = new StringBuffer(pattern.length());
             ParsePosition pos = new ParsePosition(0);
@@ -98,6 +109,14 @@ public class ExtendedMessageFormat extends MessageFormat {
             return sb.toString();
         }
 
+        /**
+         * Insert formats back into the pattern for toPattern() support.
+         * 
+         * @param pattern source
+         * @param formats the Formats to insert
+         * @param metaFormat Format to format the Formats
+         * @return full pattern
+         */
         private String insertFormats(String pattern, Format[] formats,
                 Format metaFormat) {
             if (formats == null || formats.length == 0) {
@@ -117,8 +136,10 @@ public class ExtendedMessageFormat extends MessageFormat {
                     sb.append(START_FE).append(
                             readArgumentIndex(pattern, next(pos)));
                     if (formats[fe] != null) {
-                        sb.append(START_FMT).append(
-                                metaFormat.format(formats[fe]));
+                        String formatName = metaFormat.format(formats[fe]);
+                        if (StringUtils.isNotEmpty(formatName)) {
+                            sb.append(START_FMT).append(formatName);
+                        }
                     }
                     break;
                 default:
@@ -129,6 +150,13 @@ public class ExtendedMessageFormat extends MessageFormat {
             return sb.toString();
         }
 
+        /**
+         * Parse the formats from the given pattern.
+         * 
+         * @param pattern String to parse
+         * @param metaFormat Format to parse the Formats
+         * @return array of parsed Formats
+         */
         private Format[] parseFormats(String pattern, Format metaFormat) {
             ArrayList result = new ArrayList();
             ParsePosition pos = new ParsePosition(0);
@@ -142,8 +170,8 @@ public class ExtendedMessageFormat extends MessageFormat {
                     readArgumentIndex(pattern, next(pos));
                     if (pattern.charAt(pos.getIndex()) == START_FMT) {
                         seekNonWs(pattern, next(pos));
-                        result.add(metaFormat.parseObject(pattern, pos));
                     }
+                    result.add(metaFormat.parseObject(pattern, pos));
                     seekNonWs(pattern, pos);
                     if (pattern.charAt(pos.getIndex()) != END_FE) {
                         throw new IllegalArgumentException(
@@ -158,6 +186,12 @@ public class ExtendedMessageFormat extends MessageFormat {
             return (Format[]) result.toArray(new Format[result.size()]);
         }
 
+        /**
+         * Consume whitespace from the current parse position.
+         * 
+         * @param pattern String to read
+         * @param pos current position
+         */
         private void seekNonWs(String pattern, ParsePosition pos) {
             int len = 0;
             char[] buffer = pattern.toCharArray();
@@ -167,11 +201,24 @@ public class ExtendedMessageFormat extends MessageFormat {
             } while (len > 0 && pos.getIndex() < pattern.length());
         }
 
+        /**
+         * Convenience method to advance parse position by 1
+         * 
+         * @param pos ParsePosition
+         * @return <code>pos</code>
+         */
         private ParsePosition next(ParsePosition pos) {
             pos.setIndex(pos.getIndex() + 1);
             return pos;
         }
 
+        /**
+         * Read the argument index from the current format element
+         * 
+         * @param pattern pattern to parse
+         * @param pos current parse position
+         * @return argument index as string
+         */
         private String readArgumentIndex(String pattern, ParsePosition pos) {
             int start = pos.getIndex();
             for (; pos.getIndex() < pattern.length(); next(pos)) {
@@ -189,6 +236,16 @@ public class ExtendedMessageFormat extends MessageFormat {
                     "Unterminated format element at position " + start);
         }
 
+        /**
+         * Consume a quoted string, adding it to <code>appendTo</code> if
+         * specified.
+         * 
+         * @param pattern pattern to parse
+         * @param pos current parse position
+         * @param appendTo optional StringBuffer to append
+         * @param escapingOn whether to process escaped quotes
+         * @return <code>appendTo</code>
+         */
         private StringBuffer appendQuotedString(String pattern,
                 ParsePosition pos, StringBuffer appendTo, boolean escapingOn) {
             int start = pos.getIndex();
@@ -200,8 +257,8 @@ public class ExtendedMessageFormat extends MessageFormat {
             for (int i = pos.getIndex(); i < pattern.length(); i++) {
                 if (escapingOn
                         && pattern.substring(i).startsWith(ESCAPED_QUOTE)) {
-                    appendTo.append(c, lastHold, pos.getIndex() - lastHold).append(
-                            QUOTE);
+                    appendTo.append(c, lastHold, pos.getIndex() - lastHold)
+                            .append(QUOTE);
                     pos.setIndex(i + ESCAPED_QUOTE.length());
                     lastHold = pos.getIndex();
                     continue;
@@ -219,11 +276,24 @@ public class ExtendedMessageFormat extends MessageFormat {
                     "Unterminated quoted string at position " + start);
         }
 
+        /**
+         * Consume quoted string only
+         * 
+         * @param pattern pattern to parse
+         * @param pos current parse position
+         * @param escapingOn whether to process escaped quotes
+         */
         private void getQuotedString(String pattern, ParsePosition pos,
                 boolean escapingOn) {
             appendQuotedString(pattern, pos, null, escapingOn);
         }
 
+        /**
+         * Consume the entire format found at the current position.
+         * 
+         * @param pattern string to parse
+         * @param pos current parse position
+         */
         private void eatFormat(String pattern, ParsePosition pos) {
             int start = pos.getIndex();
             int depth = 1;
@@ -254,15 +324,28 @@ public class ExtendedMessageFormat extends MessageFormat {
     private String strippedPattern;
 
     /**
-     * Create a new ExtendedMessageFormat.
+     * Create a new ExtendedMessageFormat for the default locale.
      * 
-     * @param pattern
-     * @param metaFormat
-     * @throws IllegalArgumentException
-     *             if <code>metaFormat</code> is <code>null</code> or in
-     *             case of a bad pattern.
+     * @param pattern String
+     * @param metaFormat Format
+     * @throws IllegalArgumentException if <code>metaFormat</code> is
+     *             <code>null</code> or in case of a bad pattern.
      */
     public ExtendedMessageFormat(String pattern, Format metaFormat) {
+        this(pattern, Locale.getDefault(), metaFormat);
+    }
+
+    /**
+     * Create a new ExtendedMessageFormat.
+     * 
+     * @param pattern String
+     * @param locale Locale
+     * @param metaFormat Format
+     * @throws IllegalArgumentException if <code>metaFormat</code> is
+     *             <code>null</code> or in case of a bad pattern.
+     */
+    public ExtendedMessageFormat(String pattern, Locale locale,
+            Format metaFormat) {
         /*
          * We have to do some acrobatics here: the call to the super constructor
          * will invoke applyPattern(), but we don't want to apply the pattern
@@ -270,7 +353,7 @@ public class ExtendedMessageFormat extends MessageFormat {
          * our (final) applyPattern implementation, and re-call at the end of
          * this constructor.
          */
-        super(pattern);
+        super(pattern, locale);
         setMetaFormat(metaFormat);
         applyPattern(pattern);
     }
@@ -278,8 +361,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Apply the specified pattern.
      * 
-     * @param pattern
-     *            pattern String
+     * @param pattern String
      */
     public final void applyPattern(String pattern) {
         if (metaFormat == null) {
@@ -293,20 +375,20 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * Pre-execution hook that allows subclasses to customize the behavior of
-     * the final applyPattern implementation.
+     * Pre-execution hook by means of which a subclass can customize the
+     * behavior of the final applyPattern implementation.
      * 
-     * @param pattern
+     * @param pattern String
      */
     protected void applyPatternPre(String pattern) {
         // noop
     }
 
     /**
-     * Post-execution hook that allows subclasses to customize the behavior of
-     * the final applyPattern implementation.
+     * Post-execution hook by means of which a subclass can customize the
+     * behavior of the final applyPattern implementation.
      * 
-     * @param pattern
+     * @param pattern String
      */
     protected void applyPatternPost(String pattern) {
         // noop
@@ -335,8 +417,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Set the meta-format. Has no effect until a subsequent call to
      * {@link #applyPattern(String)}.
      * 
-     * @param metaFormat
-     *            the Format metaFormat to set.
+     * @param metaFormat the Format metaFormat to set.
      */
     public synchronized void setMetaFormat(Format metaFormat) {
         Validate.notNull(metaFormat, "metaFormat is null");

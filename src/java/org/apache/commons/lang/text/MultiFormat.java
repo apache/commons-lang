@@ -50,7 +50,7 @@ public class MultiFormat extends Format {
         /**
          * Add a delegate format.
          * 
-         * @param delegate
+         * @param delegate Format
          * @return the builder
          */
         public Builder add(Format delegate) {
@@ -82,17 +82,19 @@ public class MultiFormat extends Format {
     /**
      * Create a new MultiFormat.
      * 
-     * @param delegates
+     * @param delegates Formats
      */
     public MultiFormat(Format[] delegates) {
         setDelegates(delegates);
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Format <code>obj</code>; append to <code>toAppendTo</code>.
      * 
-     * @see java.text.Format#format(java.lang.Object, java.lang.StringBuffer,
-     *      java.text.FieldPosition)
+     * @param obj Object to format
+     * @param toAppendTo StringBuffer to append to
+     * @param pos FieldPosition
+     * @return <code>toAppendTo</code>
      */
     public StringBuffer format(Object obj, StringBuffer toAppendTo,
             FieldPosition pos) {
@@ -108,11 +110,13 @@ public class MultiFormat extends Format {
                 + obj);
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Parse an object by trying each delegate.
      * 
-     * @see java.text.Format#parseObject(java.lang.String,
-     *      java.text.ParsePosition)
+     * @param source string
+     * @param pos current parse position
+     * @return value returned from first delegate that does not encounter an
+     *         error.
      */
     public Object parseObject(String source, ParsePosition pos) {
         int start = pos.getIndex();
@@ -133,8 +137,7 @@ public class MultiFormat extends Format {
     /**
      * Set the delegates.
      * 
-     * @param delegates
-     *            the Format[] delegates to set.
+     * @param delegates the Format[] delegates to set.
      */
     public void setDelegates(Format[] delegates) {
         Validate.noNullElements(delegates,
@@ -151,6 +154,11 @@ public class MultiFormat extends Format {
         return delegates;
     }
 
+    /**
+     * Validate and return our delegates.
+     * 
+     * @return delegate Formats, not null
+     */
     private Format[] getValidDelegates() {
         Format[] result = getDelegates();
         Validate.notEmpty(result, "No delegate Formats configured");

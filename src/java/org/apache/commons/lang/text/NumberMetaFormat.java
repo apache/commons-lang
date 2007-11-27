@@ -56,18 +56,15 @@ public class NumberMetaFormat extends MetaFormatSupport {
     /**
      * Create a new NumberMetaFormat.
      * 
-     * @param locale
+     * @param locale Locale
      */
     public NumberMetaFormat(Locale locale) {
         super();
         this.locale = locale;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.apache.commons.lang.text.AbstractMetaFormat#format(java.lang.Object,
-     *      java.lang.StringBuffer, java.text.FieldPosition)
+    /**
+     * {@inheritDoc}
      */
     public StringBuffer format(Object obj, StringBuffer toAppendTo,
             FieldPosition pos) {
@@ -85,11 +82,8 @@ public class NumberMetaFormat extends MetaFormatSupport {
         throw new IllegalArgumentException();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.text.Format#parseObject(java.lang.String,
-     *      java.text.ParsePosition)
+    /**
+     * {@inheritDoc}
      */
     public Object parseObject(String source, ParsePosition pos) {
         int start = pos.getIndex();
@@ -115,6 +109,9 @@ public class NumberMetaFormat extends MetaFormatSupport {
         return locale;
     }
 
+    /**
+     * Initialize this NumberMetaFormat.
+     */
     private synchronized void initialize() {
         if (subformats == null) {
             subformats = new HashMap();
