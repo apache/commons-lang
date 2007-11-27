@@ -40,17 +40,13 @@ public class DateMetaFormat extends DateMetaFormatSupport {
     /**
      * Create a new DateMetaFormat.
      * 
-     * @param locale
+     * @param locale the Locale to use
      */
     public DateMetaFormat(Locale locale) {
         super(locale);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.apache.commons.lang.text.AbstractDateMetaFormat#createSubformatInstance(int)
-     */
+    /** {@inheritDoc} */
     protected DateFormat createSubformatInstance(int style) {
         return DateFormat.getDateInstance(style, getLocale());
     }

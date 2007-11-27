@@ -57,8 +57,8 @@ public class NameKeyedMetaFormat extends MetaFormatSupport {
         /**
          * Add the specified format with the specified string key.
          * 
-         * @param key
-         * @param format
+         * @param key String
+         * @param format Format
          * @return Builder reference to this object
          */
         public Builder put(String key, Format format) {
@@ -80,16 +80,15 @@ public class NameKeyedMetaFormat extends MetaFormatSupport {
 
     /**
      * Create a new NameKeyedMetaFormat.
+     * 
+     * @param keyedFormats String->Format map.
      */
     public NameKeyedMetaFormat(Map keyedFormats) {
         this.keyedFormats = keyedFormats;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.apache.commons.lang.text.MetaFormatSupport#format(java.lang.Object,
-     *      java.lang.StringBuffer, java.text.FieldPosition)
+    /**
+     * {@inheritDoc}
      */
     public StringBuffer format(Object obj, StringBuffer toAppendTo,
             FieldPosition pos) {
@@ -117,11 +116,8 @@ public class NameKeyedMetaFormat extends MetaFormatSupport {
         throw new IllegalArgumentException("Cannot format " + obj);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.apache.commons.lang.text.MetaFormatSupport#parseObject(java.lang.String,
-     *      java.text.ParsePosition)
+    /**
+     * {@inheritDoc}
      */
     public Object parseObject(String source, ParsePosition pos) {
         int start = pos.getIndex();

@@ -20,21 +20,161 @@ import java.text.MessageFormat;
 import java.util.Locale;
 
 /**
- * Baseline tests for {@link ExtendedMessageFormat}
+ * Baseline tests for ExtendedMessageFormat
  * 
  * @author Matt Benson
  * @since 2.4
  * @version $Id$
  */
-public class ExtendedMessageFormatBaselineTest extends AbstractMessageFormatTest {
+public abstract class ExtendedMessageFormatBaselineTest extends
+        AbstractMessageFormatTest {
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Tests for <code>Locale.US</code>
      * 
-     * @see org.apache.commons.lang.text.AbstractMessageFormatTest#createMessageFormat(java.lang.String)
+     * @author mbenson
      */
-    protected MessageFormat createMessageFormat(String pattern) {
-        return new ExtendedMessageFormat(pattern, ExtendedMessageFormat.createDefaultMetaFormat(Locale.US));
+    public static class US extends ExtendedMessageFormatBaselineTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.US;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.UK</code>
+     * 
+     * @author mbenson
+     */
+    public static class UK extends ExtendedMessageFormatBaselineTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.UK;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.GERMANY</code>
+     * 
+     * @author mbenson
+     */
+    public static class DE extends ExtendedMessageFormatBaselineTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.GERMANY;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.ITALY</code>
+     * 
+     * @author mbenson
+     */
+    public static class IT extends ExtendedMessageFormatBaselineTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.ITALY;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.JAPAN</code>
+     * 
+     * @author mbenson
+     */
+    public static class JP extends ExtendedMessageFormatBaselineTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.JAPAN;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.CHINA</code>
+     * 
+     * @author mbenson
+     */
+    public static class CN extends ExtendedMessageFormatBaselineTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.CHINA;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.CANADA</code>
+     * 
+     * @author mbenson
+     */
+    public static class CA extends ExtendedMessageFormatBaselineTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.CANADA;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.FRANCE</code>
+     * 
+     * @author mbenson
+     */
+    public static class FR extends ExtendedMessageFormatBaselineTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.FRANCE;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.KOREA</code>
+     * 
+     * @author mbenson
+     */
+    public static class KR extends ExtendedMessageFormatBaselineTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.KOREA;
+        }
+    }
+
+    /**
+     * Tests for <code>Locale.TAIWAN</code>
+     * 
+     * @author mbenson
+     */
+    public static class TW extends ExtendedMessageFormatBaselineTest {
+        /**
+         * {@inheritDoc}
+         */
+        protected Locale getLocale() {
+            return Locale.TAIWAN;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected MessageFormat createMessageFormat(String pattern, Locale locale) {
+        return new ExtendedMessageFormat(pattern, locale, ExtendedMessageFormat
+                .createDefaultMetaFormat(locale));
     }
 
 }

@@ -43,11 +43,8 @@ public class ChoiceMetaFormat extends MetaFormatSupport {
         super();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.text.Format#format(java.lang.Object, java.lang.StringBuffer,
-     *      java.text.FieldPosition)
+    /**
+     * {@inheritDoc}
      */
     public StringBuffer format(Object obj, StringBuffer toAppendTo,
             FieldPosition pos) {
@@ -57,11 +54,8 @@ public class ChoiceMetaFormat extends MetaFormatSupport {
         throw new IllegalArgumentException(String.valueOf(obj));
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.text.Format#parseObject(java.lang.String,
-     *      java.text.ParsePosition)
+    /**
+     * {@inheritDoc}
      */
     public Object parseObject(String source, ParsePosition pos) {
         int start = pos.getIndex();

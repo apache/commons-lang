@@ -56,8 +56,15 @@ public class CompositeFormat extends Format {
     }
 
     /**
-     * Uses the formatter Format instance. 
-     *
+     * Uses the formatter Format instance.
+     * 
+     * @param obj
+     *            the object to format
+     * @param toAppendTo
+     *            the {@link StringBuffer} to append to
+     * @param pos
+     *            the FieldPosition to use (or ignore).
+     * @return <code>toAppendTo</code>
      * @see Format#format(Object, StringBuffer, FieldPosition)
      */
     public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
@@ -65,8 +72,15 @@ public class CompositeFormat extends Format {
     }
 
     /**
-     * Uses the parser Format instance. 
-     *
+     * Uses the parser Format instance.
+     * 
+     * @param source
+     *            the String source
+     * @param pos
+     *            the ParsePosition containing the position to parse from, will
+     *            be updated according to parsing success (index) or failure
+     *            (error index)
+     * @return the parsed Object
      * @see Format#parseObject(String, ParsePosition)
      */
     public Object parseObject(String source, ParsePosition pos) {
