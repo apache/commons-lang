@@ -22,10 +22,10 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 
 /**
- * Formats using one formatter and parses using a different formatter.
- * An example of use for this would be a webapp where data is taken in one way
- * and stored in a database another way.
- *
+ * Formats using one formatter and parses using a different formatter. An
+ * example of use for this would be a webapp where data is taken in one way and
+ * stored in a database another way.
+ * 
  * @author Archimedes Trajano
  * @version $Id$
  */
@@ -44,9 +44,9 @@ public class CompositeFormat extends Format {
     private final Format formatter;
 
     /**
-     * Create a format that points its parseObject method to one implementation 
-     * and its format method to another. 
-     *
+     * Create a format that points its parseObject method to one implementation
+     * and its format method to another.
+     * 
      * @param parser implementation
      * @param formatter implementation
      */
@@ -58,38 +58,34 @@ public class CompositeFormat extends Format {
     /**
      * Uses the formatter Format instance.
      * 
-     * @param obj
-     *            the object to format
-     * @param toAppendTo
-     *            the {@link StringBuffer} to append to
-     * @param pos
-     *            the FieldPosition to use (or ignore).
+     * @param obj the object to format
+     * @param toAppendTo the {@link StringBuffer} to append to
+     * @param pos the FieldPosition to use (or ignore).
      * @return <code>toAppendTo</code>
      * @see Format#format(Object, StringBuffer, FieldPosition)
      */
-    public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
-        return formatter.format(obj,toAppendTo,pos);
+    public StringBuffer format(Object obj, StringBuffer toAppendTo,
+            FieldPosition pos) {
+        return formatter.format(obj, toAppendTo, pos);
     }
 
     /**
      * Uses the parser Format instance.
      * 
-     * @param source
-     *            the String source
-     * @param pos
-     *            the ParsePosition containing the position to parse from, will
+     * @param source the String source
+     * @param pos the ParsePosition containing the position to parse from, will
      *            be updated according to parsing success (index) or failure
      *            (error index)
      * @return the parsed Object
      * @see Format#parseObject(String, ParsePosition)
      */
     public Object parseObject(String source, ParsePosition pos) {
-        return parser.parseObject(source,pos);
+        return parser.parseObject(source, pos);
     }
 
     /**
-     * Provides access to the parser Format implementation. 
-     *
+     * Provides access to the parser Format implementation.
+     * 
      * @return parser Format implementation
      */
     public Format getParser() {
@@ -97,8 +93,8 @@ public class CompositeFormat extends Format {
     }
 
     /**
-     * Provides access to the parser Format implementation. 
-     *
+     * Provides access to the parser Format implementation.
+     * 
      * @return formatter Format implementation
      */
     public Format getFormatter() {
@@ -106,7 +102,7 @@ public class CompositeFormat extends Format {
     }
 
     /**
-     * Utility method to parse and then reformat a String. 
+     * Utility method to parse and then reformat a String.
      * 
      * @param input String to reformat
      * @return A reformatted String
