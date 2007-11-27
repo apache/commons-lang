@@ -415,6 +415,13 @@
           <source>${maven.compile.source}</source>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+          <configLocation>${basedir}/checkstyle.xml</configLocation>
+        </configuration>
+      </plugin>
     </plugins>
   </reporting>
 
