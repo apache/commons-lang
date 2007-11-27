@@ -567,11 +567,14 @@ public final class Fraction extends Number implements Comparable {
      * @return the greatest common divisor, never zero
      */
     private static int greatestCommonDivisor(int u, int v) {
+        //if either op. is abs 0 or 1, return 1:
+        if (Math.abs(u) <= 1 || Math.abs(v) <= 1) {
+            return 1;
+        }
         // keep u and v negative, as negative integers range down to
         // -2^31, while positive numbers can only be as large as 2^31-1
         // (i.e. we can't necessarily negate a negative number without
         // overflow)
-        /* assert u!=0 && v!=0; */
         if (u>0) { u=-u; } // make u negative
         if (v>0) { v=-v; } // make v negative
         // B1. [Find power of 2]
