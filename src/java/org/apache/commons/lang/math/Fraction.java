@@ -463,6 +463,9 @@ public final class Fraction extends Number implements Comparable {
      * @return a new reduced fraction instance, or this if no simplification possible
      */
     public Fraction reduce() {
+        if (numerator == 0) {
+            return equals(ZERO) ? this : ZERO;
+        }
         int gcd = greatestCommonDivisor(Math.abs(numerator), denominator);
         if (gcd == 1) {
             return this;
