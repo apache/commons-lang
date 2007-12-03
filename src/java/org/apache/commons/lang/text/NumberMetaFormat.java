@@ -16,6 +16,9 @@
  */
 package org.apache.commons.lang.text;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.FieldPosition;
@@ -39,6 +42,20 @@ public class NumberMetaFormat extends MetaFormatSupport {
     private static final String INTEGER = "integer";
     private static final String CURRENCY = "currency";
     private static final String PERCENT = "percent";
+    private static final Method GET_INTEGER_INSTANCE;
+
+    static {
+        Method m = null;
+        try {
+            Method mm = NumberFormat.class.getDeclaredMethod("getIntegerInstance", new Class[] { Locale.class });
+            if (Modifier.isStatic(mm.getModifiers())) {
+                m = mm;
+            }
+        } catch (Exception e) {
+            // leave null
+        }
+        GET_INTEGER_INSTANCE = m;
+    }
 
     private Locale locale;
 
@@ -116,8 +133,7 @@ public class NumberMetaFormat extends MetaFormatSupport {
         if (subformats == null) {
             subformats = new HashMap();
             subformats.put(DEFAULT, NumberFormat.getInstance(getLocale()));
-            subformats.put(INTEGER, NumberFormat
-                    .getIntegerInstance(getLocale()));
+            subformats.put(INTEGER, createIntegerInstance(getLocale()));
             subformats.put(CURRENCY, NumberFormat
                     .getCurrencyInstance(getLocale()));
             subformats.put(PERCENT, NumberFormat
@@ -126,5 +142,27 @@ public class NumberMetaFormat extends MetaFormatSupport {
             reverseSubformats = invert(subformats);
             decimalFormatSymbols = new DecimalFormatSymbols(getLocale());
         }
+    }
+
+    /**
+     * Create the "integer" NumberFormat instance for the specified Locale.
+     * 
+     * @param locale the Locale to use
+     * @return integer NumberFormat
+     */
+    private static NumberFormat createIntegerInstance(Locale locale) {
+        if (GET_INTEGER_INSTANCE != null) {
+            try {
+                 return (NumberFormat) GET_INTEGER_INSTANCE.invoke(null, new Object[] { locale });
+            } catch (IllegalAccessException e) {
+                //fall through
+            } catch (InvocationTargetException e) {
+                //fall through
+            }
+        }
+        NumberFormat result = NumberFormat.getInstance(locale);
+        result.setMaximumFractionDigits(0);
+        result.setParseIntegerOnly(true);
+        return result;
     }
 }
