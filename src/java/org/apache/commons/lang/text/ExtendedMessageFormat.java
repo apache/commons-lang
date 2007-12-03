@@ -353,7 +353,8 @@ public class ExtendedMessageFormat extends MessageFormat {
          * our (final) applyPattern implementation, and re-call at the end of
          * this constructor.
          */
-        super(pattern, locale);
+        super(pattern);
+        setLocale(locale);
         setMetaFormat(metaFormat);
         applyPattern(pattern);
     }
