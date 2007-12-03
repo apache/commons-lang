@@ -86,7 +86,14 @@ public class MultiFormatTest extends TestCase {
         format = new MultiFormat.Builder().add(
                 new GuardedFormat(DateFormat.getDateInstance(DateFormat.SHORT,
                         Locale.US), new Class[] { Date.class })).add(
-                NumberFormat.getIntegerInstance(Locale.US)).toMultiFormat();
+                getIntegerNumberFormat(Locale.US)).toMultiFormat();
+    }
+
+    private NumberFormat getIntegerNumberFormat(Locale locale) {
+        NumberFormat result = NumberFormat.getInstance(locale);
+        result.setMaximumFractionDigits(0);
+        result.setParseIntegerOnly(true);
+        return result;
     }
 
     public void testFormatNumber() {
