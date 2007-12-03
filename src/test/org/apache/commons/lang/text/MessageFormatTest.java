@@ -156,6 +156,11 @@ public abstract class MessageFormatTest extends AbstractMessageFormatTest {
      * {@inheritDoc}
      */
     protected MessageFormat createMessageFormat(String pattern, Locale locale) {
-        return new MessageFormat(pattern, locale);
+        MessageFormat result = new MessageFormat(pattern);
+        if (!Locale.getDefault().equals(locale)) {
+            result.setLocale(locale);
+            result.applyPattern(pattern);
+        }
+        return result;
     }
 }
