@@ -29,9 +29,16 @@ import org.apache.commons.lang.Validate;
  * Extends <code>MessageFormat</code> to allow pluggable/additional formatting
  * options for embedded format elements; requires a "meta-format", i.e. a
  * <code>Format</code> capable of parsing and formatting other
- * <code>Format</code>s. One shortcoming is that recursive choice formats do
- * not inherit knowledge of the extended formatters and are limited to those
- * available with <code>java.text.MessageFormat</code> (patches welcome).
+ * <code>Format</code>s.
+ * 
+ * Limitations:
+ * <ul>
+ * <li><code>toPattern()</code> results are tailored to JDK 1.4+ output and
+ * will produce fairly drastically different results on earlier JDKs.</li>
+ * <li>Recursive choice formats do not inherit knowledge of the extended
+ * formatters and are limited to those available with
+ * <code>java.text.MessageFormat</code>.</li>
+ * </ul>
  * 
  * @author Matt Benson
  * @since 2.4
