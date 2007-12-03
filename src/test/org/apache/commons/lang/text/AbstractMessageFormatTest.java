@@ -29,6 +29,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import org.apache.commons.lang.SystemUtils;
+
 import junit.framework.TestCase;
 
 /**
@@ -160,12 +162,12 @@ public abstract class AbstractMessageFormatTest extends TestCase {
     }
 
     public void testInteger() {
-        doAssertions(NumberFormat.getIntegerInstance(locale), NUMBERS,
+        doAssertions(getIntegerNumberFormat(locale), NUMBERS,
                 "number,integer");
     }
 
     public void testIntegerLooseFormatting() {
-        doAssertions(NumberFormat.getIntegerInstance(locale), NUMBERS,
+        doAssertions(getIntegerNumberFormat(locale), NUMBERS,
                 " number , integer ", "number,integer");
     }
 
@@ -291,4 +293,12 @@ public abstract class AbstractMessageFormatTest extends TestCase {
         doAssertions(new ChoiceFormat(choice.toString()), NUMBERS, format
                 .toString());
     }
+
+    private NumberFormat getIntegerNumberFormat(Locale locale) {
+        NumberFormat result = NumberFormat.getInstance(locale);
+        result.setMaximumFractionDigits(0);
+        result.setParseIntegerOnly(true);
+        return result;
+    }
+
 }
