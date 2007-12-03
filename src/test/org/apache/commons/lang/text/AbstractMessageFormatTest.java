@@ -86,7 +86,9 @@ public abstract class AbstractMessageFormatTest extends TestCase {
             String toPattern) {
         MessageFormat f = createMessageFormat(pattern, locale);
         assertEquals(expected, f.format(args));
-        assertEquals(toPattern, f.toPattern());
+        if (SystemUtils.isJavaVersionAtLeast(140)) {
+            assertEquals(toPattern, f.toPattern());
+        }
     }
 
     protected void doAssertions(Format format, Object[] args) {
