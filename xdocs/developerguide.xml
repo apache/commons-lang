@@ -142,23 +142,24 @@ Lots of spelling differences will creep in all over.</p>
 <h3>5.BUILDING</h3>
 <h4>Building a Release</h4>
 <p>
-Commons Lang is intented to interoperate with Java version 1.2 and higher. To
-achieve this, the distribution must be built with JDK 1.2. Why? Over time the 
-base JDK has changed. Building with JDK 1.4 would make some things in Commons
+Commons Lang is intended to interoperate with older versions of Java. To 
+achieve this, the distribution must be built with the minimum targetted JDK. Why? Over time the 
+base JDK has changed. Building with a later JDK would make some things in Commons
 Lang not run with prior libraries. For example, new StringBuffer(StringBuffer) 
 was added after JDK1.2, but compiling under 1.4 could link to it. Run the code 
 under 1.2 and you get a NoSuchMethodError.
 </p>
 <p>
-To build a release, the distribution should be build with Ant using JDK 1.2.
-The Ant target <b>dist-build</b> in build.xml can be used to do this. The
-site can be build with Maven.
-<br/><br/>
-Ant 1.6 or higher is required for building the distribution due to the way the 
-build.xml script invokes test cases. It uses the more modern &lt;junit&gt; 
-optional Ant task, rather than the more messy technique of invoking Java with 
-the &lt;java&gt; tag to run the test runner. For this to work, junit.jar must 
-be copied to the Ant home library directory.
+The currently targetted version of Java is 1.3. 
+</p>
+<p>
+To build Lang:
+<table>
+<tr><th></th><th>Tested JAR</th><th>Distribution</th><th>Site</th></tr>
+<tr><td>ANT 1.6+ (junit.jar in $ANT_HOME/lib)</td><td><code>ant test</code></td><td><code>ant dist</code></td><td>n/a</td></tr>
+<tr><td>Maven 1.x</td><td><code>maven jar</code></td><td><code>maven dist</code></td><td><code>maven site</code></td></tr>
+<tr><td>Maven 2.x</td><td><code>mvn package</code></td><td>n/a</td><td>n/a</td></tr>
+</table>
 </p>
 </section>
 </body>
