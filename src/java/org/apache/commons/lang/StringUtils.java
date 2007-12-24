@@ -3105,7 +3105,7 @@ public class StringUtils {
      * StringUtils.removeEnd(null, *)      = null
      * StringUtils.removeEnd("", *)        = ""
      * StringUtils.removeEnd(*, null)      = *
-     * StringUtils.removeEnd("www.domain.com", ".com.")  = "www.domain.com."
+     * StringUtils.removeEnd("www.domain.com", ".com.")  = "www.domain.com"
      * StringUtils.removeEnd("www.domain.com", ".com")   = "www.domain"
      * StringUtils.removeEnd("www.domain.com", "domain") = "www.domain.com"
      * StringUtils.removeEnd("abc", "")    = "abc"
