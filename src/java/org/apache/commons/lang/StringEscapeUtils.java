@@ -772,4 +772,88 @@ public class StringEscapeUtils {
         out.write(CSV_QUOTE);
     }
 
+    /**
+     * <p>Returns a <code>String</code> value for an unescaped CSV column. </p>
+     *
+     * <p>If the value is enclosed in double quotes, and contains a comma, newline 
+     *    or double quote, then quotes are removed. 
+     * </p>
+     *
+     * <p>Any double quote escaped characters (a pair of double quotes) are unescaped 
+     *    to just one double quote. </p>
+     *
+     * <p>If the value is not enclosed in double quotes, or is and does not contain a 
+     *    comma, newline or double quote, then the String value is returned unchanged.</p>
+     * </p>
+     *
+     * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
+     * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.
+     *
+     * @param str the input CSV column String, may be null
+     * @return the input String, with enclosing double quotes removed and embedded double 
+     * quotes unescaped, <code>null</code> if null string input
+     * @since 2.4
+     */
+    public static String unescapeCsv(String str) {
+        if (str == null) {
+            return null;
+        }
+        try {
+            StringWriter writer = new StringWriter();
+            unescapeCsv(writer, str);
+            return writer.toString();
+        } catch (IOException ioe) {
+            // this should never ever happen while writing to a StringWriter
+            ioe.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * <p>Returns a <code>String</code> value for an unescaped CSV column. </p>
+     *
+     * <p>If the value is enclosed in double quotes, and contains a comma, newline 
+     *    or double quote, then quotes are removed. 
+     * </p>
+     *
+     * <p>Any double quote escaped characters (a pair of double quotes) are unescaped 
+     *    to just one double quote. </p>
+     *
+     * <p>If the value is not enclosed in double quotes, or is and does not contain a 
+     *    comma, newline or double quote, then the String value is returned unchanged.</p>
+     * </p>
+     *
+     * see <a href="http://en.wikipedia.org/wiki/Comma-separated_values">Wikipedia</a> and
+     * <a href="http://tools.ietf.org/html/rfc4180">RFC 4180</a>.
+     *
+     * @param str the input CSV column String, may be null
+     * @param out Writer to write the input String to, with enclosing double quotes 
+     * removed and embedded double quotes unescaped, <code>null</code> if null string input
+     * @throws IOException if error occurs on underlying Writer
+     * @since 2.4
+     */
+    public static void unescapeCsv(Writer out, String str) throws IOException {
+        if (str == null) {
+            return;
+        }
+        if (str.length() < 2) {
+            out.write(str);
+            return;
+        }
+        if ( str.charAt(0) != CSV_QUOTE || str.charAt(str.length() - 1) != CSV_QUOTE ) {
+            out.write(str);
+            return;
+        }
+
+        // strip quotes
+        String quoteless = str.substring(1, str.length() - 1);
+
+        if ( StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS) ) {
+            // deal with escaped quotes; ie) ""
+            str = StringUtils.replace(quoteless, "" + CSV_QUOTE + CSV_QUOTE, Character.toString(CSV_QUOTE));
+        }
+
+        out.write(str);
+    }
+
 }
