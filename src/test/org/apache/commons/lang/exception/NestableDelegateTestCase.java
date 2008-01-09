@@ -1034,7 +1034,7 @@ class ThrowableNestedNestable extends Throwable implements Nestable
     }
     
     /**
-     * @see Nestable#getThrowableS()
+     * @see Nestable#getThrowables()
      */
     public Throwable[] getThrowables()
     {

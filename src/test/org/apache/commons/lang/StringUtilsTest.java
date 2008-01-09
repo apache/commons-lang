@@ -1487,7 +1487,7 @@ public class StringUtilsTest extends TestCase {
     }
 
     /**
-     * A sanity check for {@link StringUtils.EMPTY}.
+     * A sanity check for {@link StringUtils#EMPTY}.
      */
     public void testEMPTY() {
         assertNotNull(StringUtils.EMPTY);
