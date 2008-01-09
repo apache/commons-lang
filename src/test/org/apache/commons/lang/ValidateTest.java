@@ -31,7 +31,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 /**
- * Unit tests {@link org.apache.commons.lang.util.Validate}.
+ * Unit tests {@link org.apache.commons.lang.Validate}.
  *
  * @author Stephen Colebourne
  * @author Norm Deane
