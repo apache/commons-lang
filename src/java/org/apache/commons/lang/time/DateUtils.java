@@ -403,7 +403,129 @@ public class DateUtils {
         c.add(calendarField, amount);
         return c.getTime();
     }
+    
+    //-----------------------------------------------------------------------
+    /**
+     * Sets the years field to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount the amount to set
+     * @return a new Date object set with the specified value
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date setYears(Date date, int amount) {
+        return set(date, Calendar.YEAR, amount);
+    }
 
+    //-----------------------------------------------------------------------
+    /**
+     * Sets the months field to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount the amount to set
+     * @return a new Date object set with the specified value
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date setMonths(Date date, int amount) {
+        return set(date, Calendar.MONTH, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Sets the day of month field to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount the amount to set
+     * @return a new Date object set with the specified value
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date setDays(Date date, int amount) {
+        return set(date, Calendar.DAY_OF_MONTH, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Sets the hours field to a date returning a new object.  Hours range 
+     * from  0-23.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount the amount to set
+     * @return a new Date object set with the specified value
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date setHours(Date date, int amount) {
+        return set(date, Calendar.HOUR_OF_DAY, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Sets the minute field to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount the amount to set
+     * @return a new Date object set with the specified value
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date setMinutes(Date date, int amount) {
+        return set(date, Calendar.MINUTE, amount);
+    }
+    
+    //-----------------------------------------------------------------------
+    /**
+     * Sets the seconds field to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount the amount to set
+     * @return a new Date object set with the specified value
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date setSeconds(Date date, int amount) {
+        return set(date, Calendar.SECOND, amount);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Sets the miliseconds field to a date returning a new object.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount the amount to set
+     * @return a new Date object set with the specified value
+     * @throws IllegalArgumentException if the date is null
+     */
+    public static Date setMilliseconds(Date date, int amount) {
+        return set(date, Calendar.MILLISECOND, amount);
+    } 
+    
+    //-----------------------------------------------------------------------
+    /**
+     * Sets the specified field to a date returning a new object.  
+     * This does not use a lenient calendar.
+     * The original date object is unchanged.
+     *
+     * @param date  the date, not null
+     * @param amount the amount to set
+     * @return a new Date object set with the specified value
+     * @throws IllegalArgumentException if the date is null
+     */
+    private static Date set(Date date, int calendarField, int amount) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+        // getInstance() returns a new object, so this method is thread safe.
+        Calendar c = Calendar.getInstance();
+        c.setLenient(false);
+        c.setTime(date);
+        c.set(calendarField, amount);
+        return c.getTime();
+    }   
+    
     //-----------------------------------------------------------------------
     /**
      * <p>Round this date, leaving the field specified as the most
