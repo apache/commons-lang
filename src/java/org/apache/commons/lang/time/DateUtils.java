@@ -518,6 +518,7 @@ public class DateUtils {
      * The original date object is unchanged.
      *
      * @param date  the date, not null
+     * @param calendarField  the calendar field to set the amount to
      * @param amount the amount to set
      * @return a new Date object set with the specified value
      * @throws IllegalArgumentException if the date is null
