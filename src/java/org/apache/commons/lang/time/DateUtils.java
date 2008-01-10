@@ -413,6 +413,7 @@ public class DateUtils {
      * @param amount the amount to set
      * @return a new Date object set with the specified value
      * @throws IllegalArgumentException if the date is null
+     * @since 2.4
      */
     public static Date setYears(Date date, int amount) {
         return set(date, Calendar.YEAR, amount);
@@ -427,6 +428,7 @@ public class DateUtils {
      * @param amount the amount to set
      * @return a new Date object set with the specified value
      * @throws IllegalArgumentException if the date is null
+     * @since 2.4
      */
     public static Date setMonths(Date date, int amount) {
         return set(date, Calendar.MONTH, amount);
@@ -441,6 +443,7 @@ public class DateUtils {
      * @param amount the amount to set
      * @return a new Date object set with the specified value
      * @throws IllegalArgumentException if the date is null
+     * @since 2.4
      */
     public static Date setDays(Date date, int amount) {
         return set(date, Calendar.DAY_OF_MONTH, amount);
@@ -456,6 +459,7 @@ public class DateUtils {
      * @param amount the amount to set
      * @return a new Date object set with the specified value
      * @throws IllegalArgumentException if the date is null
+     * @since 2.4
      */
     public static Date setHours(Date date, int amount) {
         return set(date, Calendar.HOUR_OF_DAY, amount);
@@ -470,6 +474,7 @@ public class DateUtils {
      * @param amount the amount to set
      * @return a new Date object set with the specified value
      * @throws IllegalArgumentException if the date is null
+     * @since 2.4
      */
     public static Date setMinutes(Date date, int amount) {
         return set(date, Calendar.MINUTE, amount);
@@ -484,6 +489,7 @@ public class DateUtils {
      * @param amount the amount to set
      * @return a new Date object set with the specified value
      * @throws IllegalArgumentException if the date is null
+     * @since 2.4
      */
     public static Date setSeconds(Date date, int amount) {
         return set(date, Calendar.SECOND, amount);
@@ -498,6 +504,7 @@ public class DateUtils {
      * @param amount the amount to set
      * @return a new Date object set with the specified value
      * @throws IllegalArgumentException if the date is null
+     * @since 2.4
      */
     public static Date setMilliseconds(Date date, int amount) {
         return set(date, Calendar.MILLISECOND, amount);
@@ -513,6 +520,7 @@ public class DateUtils {
      * @param amount the amount to set
      * @return a new Date object set with the specified value
      * @throws IllegalArgumentException if the date is null
+     * @since 2.4
      */
     private static Date set(Date date, int calendarField, int amount) {
         if (date == null) {
