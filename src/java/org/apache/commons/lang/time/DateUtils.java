@@ -393,6 +393,7 @@ public class DateUtils {
      * @param amount  the amount to add, may be negative
      * @return the new date object with the amount added
      * @throws IllegalArgumentException if the date is null
+     * @deprecated Will become privately scoped in 3.0
      */
     public static Date add(Date date, int calendarField, int amount) {
         if (date == null) {
