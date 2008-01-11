@@ -873,6 +873,12 @@ public class StringUtilsTest extends TestCase {
 
         assertTrue(ArrayUtils.isEquals(new String[] { "ab", ":", "cd", ":",
                 "ef" }, StringUtils.splitByCharacterType("ab:cd:ef", camelCase)));
+        
+        assertTrue(ArrayUtils.isEquals(new String[] { "number", "5" },
+                StringUtils.splitByCharacterType("number5")));
+        
+        assertTrue(ArrayUtils.isEquals(new String[] { "number", "5" },
+                StringUtils.splitByCharacterType("number5", camelCase)));
 
         assertTrue(ArrayUtils.isEquals(new String[] { "foo", "B", "ar" },
                 StringUtils.splitByCharacterType("fooBar")));
@@ -891,7 +897,6 @@ public class StringUtilsTest extends TestCase {
 
         assertTrue(ArrayUtils.isEquals(new String[] { "ASF", "Rules" },
                 StringUtils.splitByCharacterType("ASFRules", camelCase)));
-
     }
 
     public void testDeprecatedDeleteSpace_String() {
