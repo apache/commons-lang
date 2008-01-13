@@ -851,52 +851,53 @@ public class StringUtilsTest extends TestCase {
     public void testSplitByCharacterType() {
         assertNull(StringUtils.splitByCharacterType(null));
         assertEquals(0, StringUtils.splitByCharacterType("").length);
-        assertNull(StringUtils.splitByCharacterType(null, true));
-        assertEquals(0, StringUtils.splitByCharacterType("", true).length);
-
-        final boolean camelCase = true;
-
+        
         assertTrue(ArrayUtils.isEquals(new String[] { "ab", " ", "de", " ",
-                "fg" }, StringUtils.splitByCharacterType("ab de fg")));
-
-        assertTrue(ArrayUtils.isEquals(new String[] { "ab", " ", "de", " ",
-                "fg" }, StringUtils.splitByCharacterType("ab de fg", camelCase)));
-
+        "fg" }, StringUtils.splitByCharacterType("ab de fg")));
+        
         assertTrue(ArrayUtils.isEquals(new String[] { "ab", "   ", "de", " ",
-                "fg" }, StringUtils.splitByCharacterType("ab   de fg")));
-
-        assertTrue(ArrayUtils.isEquals(new String[] { "ab", "   ", "de", " ",
-                "fg" }, StringUtils.splitByCharacterType("ab   de fg", camelCase)));
-
+        "fg" }, StringUtils.splitByCharacterType("ab   de fg")));
+        
         assertTrue(ArrayUtils.isEquals(new String[] { "ab", ":", "cd", ":",
-                "ef" }, StringUtils.splitByCharacterType("ab:cd:ef")));
-
-        assertTrue(ArrayUtils.isEquals(new String[] { "ab", ":", "cd", ":",
-                "ef" }, StringUtils.splitByCharacterType("ab:cd:ef", camelCase)));
+        "ef" }, StringUtils.splitByCharacterType("ab:cd:ef")));
         
         assertTrue(ArrayUtils.isEquals(new String[] { "number", "5" },
                 StringUtils.splitByCharacterType("number5")));
         
-        assertTrue(ArrayUtils.isEquals(new String[] { "number", "5" },
-                StringUtils.splitByCharacterType("number5", camelCase)));
-
         assertTrue(ArrayUtils.isEquals(new String[] { "foo", "B", "ar" },
                 StringUtils.splitByCharacterType("fooBar")));
-
-        assertTrue(ArrayUtils.isEquals(new String[] { "foo", "Bar" },
-                StringUtils.splitByCharacterType("fooBar", camelCase)));
-
+        
         assertTrue(ArrayUtils.isEquals(new String[] { "foo", "200", "B", "ar" },
                 StringUtils.splitByCharacterType("foo200Bar")));
-
-        assertTrue(ArrayUtils.isEquals(new String[] { "foo", "200", "Bar" },
-                StringUtils.splitByCharacterType("foo200Bar", camelCase)));
-
+        
         assertTrue(ArrayUtils.isEquals(new String[] { "ASFR", "ules" },
                 StringUtils.splitByCharacterType("ASFRules")));
+    }
+    
+    public void testSplitByCharacterTypeCamelCase() {
+        assertNull(StringUtils.splitByCharacterTypeCamelCase(null));
+        assertEquals(0, StringUtils.splitByCharacterTypeCamelCase("").length);
+
+        assertTrue(ArrayUtils.isEquals(new String[] { "ab", " ", "de", " ",
+                "fg" }, StringUtils.splitByCharacterTypeCamelCase("ab de fg")));
+
+        assertTrue(ArrayUtils.isEquals(new String[] { "ab", "   ", "de", " ",
+                "fg" }, StringUtils.splitByCharacterTypeCamelCase("ab   de fg")));
+
+        assertTrue(ArrayUtils.isEquals(new String[] { "ab", ":", "cd", ":",
+                "ef" }, StringUtils.splitByCharacterTypeCamelCase("ab:cd:ef")));
+        
+        assertTrue(ArrayUtils.isEquals(new String[] { "number", "5" },
+                StringUtils.splitByCharacterTypeCamelCase("number5")));
+
+        assertTrue(ArrayUtils.isEquals(new String[] { "foo", "Bar" },
+                StringUtils.splitByCharacterTypeCamelCase("fooBar")));
+
+        assertTrue(ArrayUtils.isEquals(new String[] { "foo", "200", "Bar" },
+                StringUtils.splitByCharacterTypeCamelCase("foo200Bar")));
 
         assertTrue(ArrayUtils.isEquals(new String[] { "ASF", "Rules" },
-                StringUtils.splitByCharacterType("ASFRules", camelCase)));
+                StringUtils.splitByCharacterTypeCamelCase("ASFRules")));
     }
 
     public void testDeprecatedDeleteSpace_String() {
