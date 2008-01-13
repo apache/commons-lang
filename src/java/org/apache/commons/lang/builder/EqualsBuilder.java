@@ -377,8 +377,12 @@ public class EqualsBuilder {
         }
         Class lhsClass = lhs.getClass();
         if (!lhsClass.isArray()) {
-            // The simple case, not an array, just test the element
-            isEquals = lhs.equals(rhs);
+            if (lhs instanceof java.math.BigDecimal) {
+                isEquals = (((java.math.BigDecimal)lhs).compareTo(rhs) == 0);
+            } else {
+                // The simple case, not an array, just test the element
+                isEquals = lhs.equals(rhs);
+            }
         } else if (lhs.getClass() != rhs.getClass()) {
             // Here when we compare different dimensions, for example: a boolean[][] to a boolean[] 
             this.setEquals(false);
