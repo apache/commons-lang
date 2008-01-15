@@ -86,7 +86,10 @@
 		<mkdir dir="${dist.home}"/>
 		<mkdir dir="${dist.home}/docs"/>
 		<mkdir dir="${dist.home}/docs/api"/>
-		<javadoc sourcepath="${source.home}" destdir="${dist.home}/docs/api" overview="${source.home}/org/apache/commons/lang/overview.html" packagenames="org.apache.commons.*" excludepackagenames="${javadoc.excludepackagenames}" author="true" version="true" doctitle="&lt;h1&gt;${component.title}&lt;/h1&gt;" windowtitle="${component.title} (Version ${component.version})" bottom="Copyright &amp;copy; 2001-${copyright.end} - Apache Software Foundation" use="true" link="${jdk.javadoc}" source="${compile.source}">
+	    <tstamp>
+	        <format property="current.year" pattern="yyyy"/>
+	    </tstamp>
+		<javadoc sourcepath="${source.home}" destdir="${dist.home}/docs/api" overview="${source.home}/org/apache/commons/lang/overview.html" packagenames="org.apache.commons.*" excludepackagenames="${javadoc.excludepackagenames}" author="true" version="true" doctitle="&lt;h1&gt;${component.title}&lt;/h1&gt;" windowtitle="${component.title} (Version ${component.version})" bottom="Copyright &amp;copy; 2001-${current.year} - Apache Software Foundation" use="true" link="${jdk.javadoc}" source="${compile.source}">
 			<classpath refid="compile.classpath"/>
 		</javadoc>
 	</target>
