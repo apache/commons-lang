@@ -2228,7 +2228,7 @@ public class StringUtils {
      * @return an array of parsed Strings, <code>null</code> if null String was input
      */
     public static String[] splitByWholeSeparator(String str, String separator) {
-        return splitByWholeSeparator( str, separator, -1 ) ;
+        return splitByWholeSeparatorWorker( str, separator, -1, false ) ;
     }
 
     /**
@@ -2259,6 +2259,88 @@ public class StringUtils {
      * @return an array of parsed Strings, <code>null</code> if null String was input
      */
     public static String[] splitByWholeSeparator( String str, String separator, int max ) {
+        return splitByWholeSeparatorWorker(str, separator, max, false);
+    }
+
+    /**
+     * <p>Splits the provided text into an array, separator string specified. </p>
+     *
+     * <p>The separator is not included in the returned String array.
+     * Adjacent separators are treated as separators for empty tokens.
+     * For more control over the split use the StrTokenizer class.</p>
+     *
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * A <code>null</code> separator splits on whitespace.</p>
+     *
+     * <pre>
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens(null, *)               = null
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens("", *)                 = []
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens("ab de fg", null)      = ["ab", "de", "fg"]
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens("ab   de fg", null)    = ["ab", "", "", "de", "fg"]
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens("ab:cd:ef", ":")       = ["ab", "cd", "ef"]
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens("ab-!-cd-!-ef", "-!-") = ["ab", "cd", "ef"]
+     * </pre>
+     *
+     * @param str  the String to parse, may be null
+     * @param separator  String containing the String to be used as a delimiter,
+     *  <code>null</code> splits on whitespace
+     * @return an array of parsed Strings, <code>null</code> if null String was input
+     * @since 2.4
+     */
+    public static String[] splitByWholeSeparatorPreserveAllTokens(String str, String separator) {
+        return splitByWholeSeparatorWorker( str, separator, -1, true ) ;
+    }
+
+    /**
+     * <p>Splits the provided text into an array, separator string specified.
+     * Returns a maximum of <code>max</code> substrings.</p>
+     *
+     * <p>The separator is not included in the returned String array.
+     * Adjacent separators are treated as separators for empty tokens.
+     * For more control over the split use the StrTokenizer class.</p>
+     *
+     * <p>A <code>null</code> input String returns <code>null</code>.
+     * A <code>null</code> separator splits on whitespace.</p>
+     *
+     * <pre>
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens(null, *, *)               = null
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens("", *, *)                 = []
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens("ab de fg", null, 0)      = ["ab", "de", "fg"]
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens("ab   de fg", null, 0)    = ["ab", "", "", "de", "fg"]
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens("ab:cd:ef", ":", 2)       = ["ab", "cd:ef"]
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens("ab-!-cd-!-ef", "-!-", 5) = ["ab", "cd", "ef"]
+     * StringUtils.splitByWholeSeparatorPreserveAllTokens("ab-!-cd-!-ef", "-!-", 2) = ["ab", "cd-!-ef"]
+     * </pre>
+     *
+     * @param str  the String to parse, may be null
+     * @param separator  String containing the String to be used as a delimiter,
+     *  <code>null</code> splits on whitespace
+     * @param max  the maximum number of elements to include in the returned
+     *  array. A zero or negative value implies no limit.
+     * @return an array of parsed Strings, <code>null</code> if null String was input
+     * @since 2.4
+     */
+    public static String[] splitByWholeSeparatorPreserveAllTokens( String str, String separator, int max ) {
+        return splitByWholeSeparatorWorker(str, separator, max, true);
+    }
+
+    /**
+     * Performs the logic for the <code>splitByWholeSeparatorPreserveAllTokens</code> methods.
+     *
+     * @param str  the String to parse, may be <code>null</code>
+     * @param separator  String containing the String to be used as a delimiter,
+     *  <code>null</code> splits on whitespace
+     * @param max  the maximum number of elements to include in the returned
+     *  array. A zero or negative value implies no limit.
+     * @param preserveAllTokens if <code>true</code>, adjacent separators are
+     * treated as empty token separators; if <code>false</code>, adjacent
+     * separators are treated as one separator.
+     * @return an array of parsed Strings, <code>null</code> if null String input
+     * @since 2.4
+     */
+    private static String[] splitByWholeSeparatorWorker( String str, String separator, 
+                                                         int max, boolean preserveAllTokens ) 
+    {
         if (str == null) {
             return null;
         }
@@ -2271,7 +2353,7 @@ public class StringUtils {
 
         if ( ( separator == null ) || ( "".equals( separator ) ) ) {
             // Split on whitespace.
-            return split( str, null, max ) ;
+            return splitWorker( str, null, max, preserveAllTokens ) ;
         }
 
 
@@ -2303,6 +2385,15 @@ public class StringUtils {
                     }
                 } else {
                     // We found a consecutive occurrence of the separator, so skip it.
+                    if( preserveAllTokens ) {
+                        numberOfSubstrings += 1 ;
+                        if ( numberOfSubstrings == max ) {
+                            end = len ;
+                            substrings.add( str.substring( beg ) ) ;
+                        } else {
+                            substrings.add( "" );
+                        }
+                    }
                     beg = end + separatorLength ;
                 }
             } else {
