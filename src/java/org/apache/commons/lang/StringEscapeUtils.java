@@ -42,6 +42,7 @@ public class StringEscapeUtils {
 
     private static final char CSV_DELIMITER = ',';
     private static final char CSV_QUOTE = '"';
+    private static final String CSV_QUOTE_STR = String.valueOf(CSV_QUOTE);
     private static final char[] CSV_SEARCH_CHARS = new char[] {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
 
     /**
@@ -850,7 +851,7 @@ public class StringEscapeUtils {
 
         if ( StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS) ) {
             // deal with escaped quotes; ie) ""
-            str = StringUtils.replace(quoteless, "" + CSV_QUOTE + CSV_QUOTE, Character.toString(CSV_QUOTE));
+            str = StringUtils.replace(quoteless, "" + CSV_QUOTE + CSV_QUOTE, CSV_QUOTE_STR);
         }
 
         out.write(str);
