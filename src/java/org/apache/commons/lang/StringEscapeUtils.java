@@ -851,7 +851,7 @@ public class StringEscapeUtils {
 
         if ( StringUtils.containsAny(quoteless, CSV_SEARCH_CHARS) ) {
             // deal with escaped quotes; ie) ""
-            str = StringUtils.replace(quoteless, "" + CSV_QUOTE + CSV_QUOTE, CSV_QUOTE_STR);
+            str = StringUtils.replace(quoteless, CSV_QUOTE_STR + CSV_QUOTE_STR, CSV_QUOTE_STR);
         }
 
         out.write(str);
