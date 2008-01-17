@@ -385,9 +385,33 @@ limitations under the License.
         </properties>
       </dependency>
       <dependency>
+        <groupId>maven</groupId>
+        <artifactId>maven-xdoc-plugin</artifactId>
+        <version>1.9.2</version>
+        <url>http://maven.apache.org/reference/plugins/xdoc/</url>
+        <type>plugin</type>
+        <properties>
+          <comment>
+              &lt;strong&gt;Site Only&lt;/strong&gt; - v1.9.2 (minimum)
+          </comment>
+        </properties>
+      </dependency>
+      <dependency>
+        <groupId>maven-plugins</groupId>
+        <artifactId>maven-findbugs-plugin</artifactId>
+        <version>1.4</version>
+        <url>http://maven-plugins.sourceforge.net/maven-findbugs-plugin/</url>
+        <type>plugin</type>
+        <properties>
+          <comment>
+              &lt;strong&gt;Site Only&lt;/strong&gt; - v1.9.2 (minimum)
+          </comment>
+        </properties>
+      </dependency>
+      <dependency>
         <groupId>maven-plugins</groupId>
         <artifactId>maven-cobertura-plugin</artifactId>
-        <version>1.1.1</version>
+        <version>1.4</version>
         <url>http://maven-plugins.sourceforge.net/maven-cobertura-plugin/</url>
         <type>plugin</type>
         <properties>
