@@ -35,6 +35,7 @@ import java.util.Map;
  * @author Gary Gregory
  * @author Norm Deane
  * @author Alban Peignier
+ * @author Tomasz Blachowicz
  * @since 2.0
  * @version $Id$
  */
@@ -94,15 +95,35 @@ public class ClassUtils {
      * Maps a primitive class name to its corresponding abbreviation used in array class names.
      */
     private static Map abbreviationMap = new HashMap();
+
+    /**
+     * Maps an abbreviation used in array class names to corresponding primitive class name.
+     */
+    private static Map reverseAbbreviationMap = new HashMap();
+    
+    /**
+     * Add primitive type abbreviation to maps of abbreviations.
+     * 
+     * @param primitive Canonical name of primitive type
+     * @param abbreviation Corresponding abbreviation of primitive type
+     */
+    private static void addAbbreviation(String primitive, String abbreviation) {
+        abbreviationMap.put(primitive, abbreviation);
+        reverseAbbreviationMap.put(abbreviation, primitive);
+    }
+    
+    /**
+     * Feed abbreviation maps
+     */
     static {
-        abbreviationMap.put( "int", "I" );
-        abbreviationMap.put( "boolean", "Z" );
-        abbreviationMap.put( "float", "F" );
-        abbreviationMap.put( "long", "J" );
-        abbreviationMap.put( "short", "S" );
-        abbreviationMap.put( "byte", "B" );
-        abbreviationMap.put( "double", "D" );
-        abbreviationMap.put( "char", "C" );
+        addAbbreviation("int", "I");
+        addAbbreviation("boolean", "Z");
+        addAbbreviation("float", "F");
+        addAbbreviation("long", "J");
+        addAbbreviation("short", "S");
+        addAbbreviation("byte", "B");
+        addAbbreviation("double", "D");
+        addAbbreviation("char", "C");
     }
 
     /**
@@ -605,7 +626,7 @@ public class ClassUtils {
             String clsName = "[" + abbreviationMap.get(className);
             clazz = Class.forName(clsName, initialize, classLoader).getComponentType();
         } else {
-            clazz = Class.forName(toProperClassName(className), initialize, classLoader);
+            clazz = Class.forName(toCanonicalName(className), initialize, classLoader);
         }
         return clazz;
     }
@@ -718,7 +739,7 @@ public class ClassUtils {
      * @param className  the class name
      * @return the converted name
      */
-    private static String toProperClassName(String className) {
+    private static String toCanonicalName(String className) {
         className = StringUtils.deleteWhitespace(className);
         if (className == null) {
             throw new NullArgumentException("className");
@@ -760,5 +781,144 @@ public class ClassUtils {
             classes[i] = array[i].getClass();
         }
         return classes;
+    }
+
+    // Short canonical name
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Gets the canonical name minus the package name for an <code>Object</code>.</p>
+     *
+     * @param object  the class to get the short name for, may be null
+     * @param valueIfNull  the value to return if null
+     * @return the canonical name of the object without the package name, or the null value
+     * @since 2.4
+     */
+    public static String getShortCanonicalName(Object object, String valueIfNull) {
+        if (object == null) {
+            return valueIfNull;
+        }
+        return getShortCanonicalName(object.getClass().getName());
+    }
+
+    /**
+     * <p>Gets the canonical name minus the package name from a <code>Class</code>.</p>
+     *
+     * @param cls  the class to get the short name for.
+     * @return the canonical name without the package name or an empty string
+     * @since 2.4
+     */
+    public static String getShortCanonicalName(Class cls) {
+        if (cls == null) {
+            return StringUtils.EMPTY;
+        }
+        return getShortCanonicalName(cls.getName());
+    }
+
+    /**
+     * <p>Gets the canonical name minus the package name from a String.</p>
+     *
+     * <p>The string passed in is assumed to be a canonical name - it is not checked.</p>
+     *
+     * @param className  the className to get the short name for
+     * @return the canonical name of the class without the package name or an empty string
+     * @since 2.4
+     */
+    public static String getShortCanonicalName(String canonicalName) {
+        return ClassUtils.getShortClassName(getCanonicalName(canonicalName));
+    }
+
+    // Package name
+    // ----------------------------------------------------------------------
+    /**
+     * <p>Gets the package name from the canonical name of an <code>Object</code>.</p>
+     *
+     * @param object  the class to get the package name for, may be null
+     * @param valueIfNull  the value to return if null
+     * @return the package name of the object, or the null value
+     * @since 2.4
+     */
+    public static String getPackageCanonicalName(Object object, String valueIfNull) {
+        if (object == null) {
+            return valueIfNull;
+        }
+        return getPackageCanonicalName(object.getClass().getName());
+    }
+
+    /**
+     * <p>Gets the package name from the canonical name of a <code>Class</code>.</p>
+     *
+     * @param cls  the class to get the package name for, may be <code>null</code>.
+     * @return the package name or an empty string
+     * @since 2.4
+     */
+    public static String getPackageCanonicalName(Class cls) {
+        if (cls == null) {
+            return StringUtils.EMPTY;
+        }
+        return getPackageCanonicalName(cls.getName());
+    }
+
+    /**
+     * <p>Gets the package name from the canonical name. </p>
+     *
+     * <p>The string passed in is assumed to be a canonical name - it is not checked.</p>
+     * <p>If the class is unpackaged, return an empty string.</p>
+     *
+     * @param canonicalName  the canonical name to get the package name for, may be <code>null</code>
+     * @return the package name or an empty string
+     * @since 2.4
+     */
+    public static String getPackageCanonicalName(String canonicalName) {
+        return ClassUtils.getPackageName(getCanonicalName(canonicalName));
+    }
+
+    /**
+     * <p>Converts a given name of class into canonical format.
+     * If name of class is not a name of array class it returns
+     * unchanged name.</p>
+     * <p>Example:
+     * <ul>
+     * <li><code>getCanonicalName("[I") = "int[]"</code></li>
+     * <li><code>getCanonicalName("[Ljava.lang.String;") = "java.lang.String[]"</code></li>
+     * <li><code>getCanonicalName("java.lang.String") = "java.lang.String"</code></li>
+     * </ul>
+     * </p>
+     * 
+     * @param className the name of class
+     * @return canonical form of class name
+     * @since 2.4
+     */
+    private static String getCanonicalName(String className) {
+        className = StringUtils.deleteWhitespace(className);
+        if (className == null) {
+            return null;
+        } else {
+            int dim = 0;
+            while(className.startsWith("[")) {
+                dim++;
+                className = className.substring(1);
+            }
+            if(dim < 1) {
+                return className;
+            } else {
+                if(className.startsWith("L")) {
+                    className = className.substring(
+                        1,
+                        className.endsWith(";")
+                            ? className.length() - 1
+                            : className.length());
+                } else {
+                    if(className.length() > 0) {
+                        className = (String) reverseAbbreviationMap.get(
+                            className.substring(0, 1));
+                    }
+                }
+                StringBuffer canonicalClassNameBuffer = new StringBuffer(className);
+                for(int i = 0; i < dim; i++) {
+                    canonicalClassNameBuffer.append("[]");
+                }
+                return canonicalClassNameBuffer.toString();
+            }
+        }
     }
 }

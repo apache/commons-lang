@@ -38,6 +38,7 @@ import junit.textui.TestRunner;
  *
  * @author Stephen Colebourne
  * @author Gary D. Gregory
+ * @author Tomasz Blachowicz
  * @version $Id$
  */
 public class ClassUtilsTest extends TestCase {
@@ -597,6 +598,69 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("String", ClassUtils.getShortClassName(results[0]));
         assertEquals("Integer", ClassUtils.getShortClassName(results[1]));
         assertEquals("Double", ClassUtils.getShortClassName(results[2]));
+    }
+
+    public void test_getShortCanonicalName_Object() {
+        assertEquals("<null>", ClassUtils.getShortCanonicalName(null, "<null>"));
+        assertEquals("ClassUtils", ClassUtils.getShortCanonicalName(new ClassUtils(), "<null>"));
+        assertEquals("ClassUtils[]", ClassUtils.getShortCanonicalName(new ClassUtils[0], "<null>"));
+        assertEquals("ClassUtils[][]", ClassUtils.getShortCanonicalName(new ClassUtils[0][0], "<null>"));
+        assertEquals("int[]", ClassUtils.getShortCanonicalName(new int[0], "<null>"));
+        assertEquals("int[][]", ClassUtils.getShortCanonicalName(new int[0][0], "<null>"));
+    }
+
+    public void test_getShortCanonicalName_Class() {
+        assertEquals("ClassUtils", ClassUtils.getShortCanonicalName(ClassUtils.class));
+        assertEquals("ClassUtils[]", ClassUtils.getShortCanonicalName(ClassUtils[].class));
+        assertEquals("ClassUtils[][]", ClassUtils.getShortCanonicalName(ClassUtils[][].class));
+        assertEquals("int[]", ClassUtils.getShortCanonicalName(int[].class));
+        assertEquals("int[][]", ClassUtils.getShortCanonicalName(int[][].class));
+    }
+
+    public void test_getShortCanonicalName_String() {
+        assertEquals("ClassUtils", ClassUtils.getShortCanonicalName("org.apache.commons.lang.ClassUtils"));
+        assertEquals("ClassUtils[]", ClassUtils.getShortCanonicalName("[Lorg.apache.commons.lang.ClassUtils;"));
+        assertEquals("ClassUtils[][]", ClassUtils.getShortCanonicalName("[[Lorg.apache.commons.lang.ClassUtils;"));
+        assertEquals("ClassUtils[]", ClassUtils.getShortCanonicalName("org.apache.commons.lang.ClassUtils[]"));
+        assertEquals("ClassUtils[][]", ClassUtils.getShortCanonicalName("org.apache.commons.lang.ClassUtils[][]"));
+        assertEquals("int[]", ClassUtils.getShortCanonicalName("[I"));
+        assertEquals("int[][]", ClassUtils.getShortCanonicalName("[[I"));
+        assertEquals("int[]", ClassUtils.getShortCanonicalName("int[]"));
+        assertEquals("int[][]", ClassUtils.getShortCanonicalName("int[][]"));
+    }
+
+    public void test_getPackageCanonicalName_Object() {
+        assertEquals("<null>", ClassUtils.getPackageCanonicalName(null, "<null>"));
+        assertEquals("org.apache.commons.lang", ClassUtils.getPackageCanonicalName(new ClassUtils(), "<null>"));
+        assertEquals("org.apache.commons.lang", ClassUtils.getPackageCanonicalName(new ClassUtils[0], "<null>"));
+        assertEquals("org.apache.commons.lang", ClassUtils.getPackageCanonicalName(new ClassUtils[0][0], "<null>"));
+        assertEquals("", ClassUtils.getPackageCanonicalName(new int[0], "<null>"));
+        assertEquals("", ClassUtils.getPackageCanonicalName(new int[0][0], "<null>"));
+    }
+
+    public void test_getPackageCanonicalName_Class() {
+        assertEquals("org.apache.commons.lang", ClassUtils.getPackageCanonicalName(ClassUtils.class));
+        assertEquals("org.apache.commons.lang", ClassUtils.getPackageCanonicalName(ClassUtils[].class));
+        assertEquals("org.apache.commons.lang", ClassUtils.getPackageCanonicalName(ClassUtils[][].class));
+        assertEquals("", ClassUtils.getPackageCanonicalName(int[].class));
+        assertEquals("", ClassUtils.getPackageCanonicalName(int[][].class));
+    }
+
+    public void test_getPackageCanonicalName_String() {
+        assertEquals("org.apache.commons.lang", 
+            ClassUtils.getPackageCanonicalName("org.apache.commons.lang.ClassUtils"));
+        assertEquals("org.apache.commons.lang", 
+            ClassUtils.getPackageCanonicalName("[Lorg.apache.commons.lang.ClassUtils;"));
+        assertEquals("org.apache.commons.lang", 
+            ClassUtils.getPackageCanonicalName("[[Lorg.apache.commons.lang.ClassUtils;"));
+        assertEquals("org.apache.commons.lang", 
+            ClassUtils.getPackageCanonicalName("org.apache.commons.lang.ClassUtils[]"));
+        assertEquals("org.apache.commons.lang", 
+            ClassUtils.getPackageCanonicalName("org.apache.commons.lang.ClassUtils[][]"));
+        assertEquals("", ClassUtils.getPackageCanonicalName("[I"));
+        assertEquals("", ClassUtils.getPackageCanonicalName("[[I"));
+        assertEquals("", ClassUtils.getPackageCanonicalName("int[]"));
+        assertEquals("", ClassUtils.getPackageCanonicalName("int[][]"));
     }
 
 }
