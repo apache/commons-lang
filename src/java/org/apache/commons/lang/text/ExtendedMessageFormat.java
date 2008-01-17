@@ -27,7 +27,7 @@ import org.apache.commons.lang.Validate;
 
 /**
  * Extends <code>MessageFormat</code> to allow pluggable/additional formatting
- * options for embedded format elements; requires a "meta-format", i.e. a
+ * options for embedded format elements; requires a "meta-format", that is a
  * <code>Format</code> capable of parsing and formatting other
  * <code>Format</code>s.
  * 
