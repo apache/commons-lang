@@ -819,7 +819,7 @@ public class ClassUtils {
      *
      * <p>The string passed in is assumed to be a canonical name - it is not checked.</p>
      *
-     * @param className  the className to get the short name for
+     * @param canonicalName  the class name to get the short name for
      * @return the canonical name of the class without the package name or an empty string
      * @since 2.4
      */
