@@ -97,3 +97,4 @@ IMPROVEMENTS IN 2.4:
     * [LANG-362] - Add ExtendedMessageFormat to org.apache.commons.lang.text
     * [LANG-366] - add MultiFormat
     * [LANG-371] - ToStringStyle javadoc should show examples of styles
+    * [LANG-404] - Add Calendar flavour format methods to DateFormatUtils
