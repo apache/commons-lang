@@ -1082,7 +1082,7 @@ public class StringUtilsTest extends TestCase {
         try {
             StringUtils.replaceEachRepeatedly("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"});
             fail("Should be a circular reference");
-        } catch (IllegalArgumentException e) {}
+        } catch (IllegalStateException e) {}
 
         //JAVADOC TESTS END
 
