@@ -54,6 +54,7 @@ public class TimeTestSuite extends TestCase {
         suite.addTest(DurationFormatUtilsTest.suite());
         suite.addTest(StopWatchTest.suite());
         suite.addTest(FastDateFormatTest.suite());
+        suite.addTest(DateUtilsFragmentTest.suite());
         return suite;
     }
 }
