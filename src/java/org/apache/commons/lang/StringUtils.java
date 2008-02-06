@@ -3340,7 +3340,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Removes all occurences of a substring from within the source string.</p>
+     * <p>Removes all occurrences of a substring from within the source string.</p>
      *
      * <p>A <code>null</code> source string will return <code>null</code>.
      * An empty ("") source string will return the empty string.
@@ -3370,7 +3370,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Removes all occurences of a character from within the source string.</p>
+     * <p>Removes all occurrences of a character from within the source string.</p>
      *
      * <p>A <code>null</code> source string will return <code>null</code>.
      * An empty ("") source string will return the empty string.</p>
@@ -3514,7 +3514,7 @@ public class StringUtils {
 
     /**
      * <p>
-     * Replaces all occurences of Strings within another String.
+     * Replaces all occurrences of Strings within another String.
      * </p>
      * 
      * <p>
@@ -3557,7 +3557,7 @@ public class StringUtils {
 
     /**
      * <p>
-     * Replaces all occurences of Strings within another String.
+     * Replaces all occurrences of Strings within another String.
      * </p>
      * 
      * <p>
@@ -3609,7 +3609,7 @@ public class StringUtils {
 
     /**
      * <p>
-     * Replaces all occurences of Strings within another String.
+     * Replaces all occurrences of Strings within another String.
      * </p>
      * 
      * <p>
