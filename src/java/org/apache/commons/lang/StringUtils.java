@@ -1204,9 +1204,8 @@ public class StringUtils {
     public static boolean containsAny(String str, String searchChars) {
         if (searchChars == null) {
             return false;
-        } else {
-            return containsAny(str, searchChars.toCharArray());
         }
+        return containsAny(str, searchChars.toCharArray());
     }
 
     // IndexOfAnyBut chars
@@ -1665,9 +1664,8 @@ public class StringUtils {
         }
         if (str.length() <= len) {
             return str;
-        } else {
-            return str.substring(0, len);
         }
+        return str.substring(0, len);
     }
 
     /**
@@ -1699,9 +1697,8 @@ public class StringUtils {
         }
         if (str.length() <= len) {
             return str;
-        } else {
-            return str.substring(str.length() - len);
         }
+        return str.substring(str.length() - len);
     }
 
     /**
@@ -1740,9 +1737,8 @@ public class StringUtils {
         }
         if (str.length() <= (pos + len)) {
             return str.substring(pos);
-        } else {
-            return str.substring(pos, pos + len);
         }
+        return str.substring(pos, pos + len);
     }
 
     // SubStringAfter/SubStringBefore
@@ -2018,11 +2014,10 @@ public class StringUtils {
             list.add(str.substring(start, end));
             pos = end + closeLen;
         }
-        if (list.size() > 0) {
-            return (String[]) list.toArray(new String [list.size()]);
-        } else {
+        if (list.isEmpty()) {
             return null;
-        }
+        } 
+        return (String[]) list.toArray(new String [list.size()]);
     }
 
     // Nested extraction
@@ -2507,9 +2502,8 @@ public class StringUtils {
                 }
                 start = ++i;
                 continue;
-            } else {
-                lastMatch = false;
             }
+            lastMatch = false;
             match = true;
             i++;
         }
@@ -2642,9 +2636,8 @@ public class StringUtils {
                     }
                     start = ++i;
                     continue;
-                } else {
-                    lastMatch = false;
                 }
+                lastMatch = false;
                 match = true;
                 i++;
             }
@@ -2664,9 +2657,8 @@ public class StringUtils {
                     }
                     start = ++i;
                     continue;
-                } else {
-                    lastMatch = false;
                 }
+                lastMatch = false;
                 match = true;
                 i++;
             }
@@ -2685,9 +2677,8 @@ public class StringUtils {
                     }
                     start = ++i;
                     continue;
-                } else {
-                    lastMatch = false;
                 }
+                lastMatch = false;
                 match = true;
                 i++;
             }
@@ -3876,9 +3867,8 @@ public class StringUtils {
         }
         if (modified) {
             return buf.toString();
-        } else {
-            return str;
         }
+        return str;
     }
 
     // Overlay
@@ -4013,9 +4003,8 @@ public class StringUtils {
             char ch = str.charAt(0);
             if (ch == CharUtils.CR || ch == CharUtils.LF) {
                 return EMPTY;
-            } else {
-                return str;
             }
+            return str;
         }
 
         int lastIdx = str.length() - 1;
@@ -4098,9 +4087,8 @@ public class StringUtils {
         String sub = str.substring(str.length() - sep.length());
         if (sep.equals(sub)) {
             return str.substring(0, str.length() - sep.length());
-        } else {
-            return str;
         }
+        return str;
     }
 
     /**
@@ -4139,11 +4127,10 @@ public class StringUtils {
      */
     public static String prechomp(String str, String sep) {
         int idx = str.indexOf(sep);
-        if (idx != -1) {
-            return str.substring(idx + sep.length());
-        } else {
+        if (idx == -1) {
             return str;
-        }
+        }             
+        return str.substring(idx + sep.length());
     }
 
     /**
@@ -4160,11 +4147,10 @@ public class StringUtils {
      */
     public static String getPrechomp(String str, String sep) {
         int idx = str.indexOf(sep);
-        if (idx != -1) {
-            return str.substring(0, idx + sep.length());
-        } else {
+        if (idx == -1) {
             return EMPTY;
-        }
+        } 
+        return str.substring(0, idx + sep.length());
     }
 
     // Chopping
@@ -5629,9 +5615,8 @@ public class StringUtils {
             // shortest string and didn't find a match, but the string lengths 
             // vary, so return the length of the shortest string.
             return shortestStrLen;
-        } else {
-            return firstDiff;
         }
+        return firstDiff;
     }
     
     /**
@@ -5676,9 +5661,8 @@ public class StringUtils {
             // all strings were identical
             if (strs[0] == null) {
                 return EMPTY;
-            } else {
-                return strs[0];
             }
+            return strs[0];
         } else if (smallestIndexOfDiff == 0) {
             // there were no common initial characters
             return EMPTY;
