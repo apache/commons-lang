@@ -3351,7 +3351,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Removes all occurances of a substring from within the source string.</p>
+     * <p>Removes all occurences of a substring from within the source string.</p>
      *
      * <p>A <code>null</code> source string will return <code>null</code>.
      * An empty ("") source string will return the empty string.
@@ -3381,7 +3381,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Removes all occurances of a character from within the source string.</p>
+     * <p>Removes all occurences of a character from within the source string.</p>
      *
      * <p>A <code>null</code> source string will return <code>null</code>.
      * An empty ("") source string will return the empty string.</p>
@@ -3525,13 +3525,13 @@ public class StringUtils {
 
     /**
      * <p>
-     * Replaces all occurances of Strings within another String.
+     * Replaces all occurences of Strings within another String.
      * </p>
      * 
      * <p>
      * A <code>null</code> reference passed to this method is a no-op, or if
      * any "search string" or "string to replace" is null, that replace will be
-     * ignored. This will not repeat, for repeating replaces, call the
+     * ignored. This will not repeat. For repeating replaces, call the
      * overloaded method.
      * </p>
      * 
@@ -3568,13 +3568,13 @@ public class StringUtils {
 
     /**
      * <p>
-     * Replaces all occurances of Strings within another String.
+     * Replaces all occurences of Strings within another String.
      * </p>
      * 
      * <p>
      * A <code>null</code> reference passed to this method is a no-op, or if
      * any "search string" or "string to replace" is null, that replace will be
-     * ignored. This will not repeat, for repeating replaces, call the
+     * ignored. This will not repeat. For repeating replaces, call the
      * overloaded method.
      * </p>
      * 
@@ -3621,7 +3621,7 @@ public class StringUtils {
 
     /**
      * <p>
-     * Replaces all occurances of Strings within another String.
+     * Replaces all occurences of Strings within another String.
      * </p>
      * 
      * <p>
