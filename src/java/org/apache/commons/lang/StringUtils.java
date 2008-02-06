@@ -2351,7 +2351,7 @@ public class StringUtils {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
 
-        if ( ( separator == null ) || ( "".equals( separator ) ) ) {
+        if ( ( separator == null ) || ( EMPTY.equals( separator ) ) ) {
             // Split on whitespace.
             return splitWorker( str, null, max, preserveAllTokens ) ;
         }
@@ -2391,7 +2391,7 @@ public class StringUtils {
                             end = len ;
                             substrings.add( str.substring( beg ) ) ;
                         } else {
-                            substrings.add( "" );
+                            substrings.add( EMPTY );
                         }
                     }
                     beg = end + separatorLength ;
@@ -3377,7 +3377,7 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(remove)) {
             return str;
         }
-        return replace(str, remove, "", -1);
+        return replace(str, remove, EMPTY, -1);
     }
 
     /**
@@ -3856,7 +3856,7 @@ public class StringUtils {
             return str;
         }
         if (replaceChars == null) {
-            replaceChars = "";
+            replaceChars = EMPTY;
         }
         boolean modified = false;
         int replaceCharsLength = replaceChars.length();
