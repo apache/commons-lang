@@ -1163,8 +1163,7 @@ public class StringUtils {
      * @since 2.4
      */
     public static boolean containsAny(String str, char[] searchChars) {
-        if (str == null || str.length() == 0 ||
-            searchChars == null || searchChars.length == 0) {
+        if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
             return false;
         }
         for (int i = 0; i < str.length(); i++) {
@@ -1179,12 +1178,15 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the String contains any character in the given
-     * set of characters.</p>
-     *
-     * <p>A <code>null</code> String will return <code>false</code>.
-     * A <code>null</code> search string will return <code>false</code>.</p>
-     *
+     * <p>
+     * Checks if the String contains any character in the given set of characters.
+     * </p>
+     * 
+     * <p>
+     * A <code>null</code> String will return <code>false</code>. A <code>null</code> search string will return
+     * <code>false</code>.
+     * </p>
+     * 
      * <pre>
      * StringUtils.containsAny(null, *)            = false
      * StringUtils.containsAny("", *)              = false
@@ -1194,11 +1196,12 @@ public class StringUtils {
      * StringUtils.containsAny("zzabyycdxx", "by") = true
      * StringUtils.containsAny("aba","z")          = false
      * </pre>
-     *
-     * @param str  the String to check, may be null
-     * @param searchChars  the chars to search for, may be null
-     * @return the <code>true</code> if any of the chars are found,
-     * <code>false</code> if no match or null input
+     * 
+     * @param str
+     *            the String to check, may be null
+     * @param searchChars
+     *            the chars to search for, may be null
+     * @return the <code>true</code> if any of the chars are found, <code>false</code> if no match or null input
      * @since 2.4
      */
     public static boolean containsAny(String str, String searchChars) {
@@ -2283,7 +2286,7 @@ public class StringUtils {
      * @since 2.4
      */
     public static String[] splitByWholeSeparatorPreserveAllTokens(String str, String separator) {
-        return splitByWholeSeparatorWorker( str, separator, -1, true ) ;
+        return splitByWholeSeparatorWorker(str, separator, -1, true);
     }
 
     /**
@@ -2315,7 +2318,7 @@ public class StringUtils {
      * @return an array of parsed Strings, <code>null</code> if null String was input
      * @since 2.4
      */
-    public static String[] splitByWholeSeparatorPreserveAllTokens( String str, String separator, int max ) {
+    public static String[] splitByWholeSeparatorPreserveAllTokens(String str, String separator, int max) {
         return splitByWholeSeparatorWorker(str, separator, max, true);
     }
 
@@ -2333,76 +2336,72 @@ public class StringUtils {
      * @return an array of parsed Strings, <code>null</code> if null String input
      * @since 2.4
      */
-    private static String[] splitByWholeSeparatorWorker( String str, String separator, 
-                                                         int max, boolean preserveAllTokens ) 
-    {
+    private static String[] splitByWholeSeparatorWorker(String str, String separator, int max, boolean preserveAllTokens) {
         if (str == null) {
             return null;
         }
 
-        int len = str.length() ;
+        int len = str.length();
 
         if (len == 0) {
             return ArrayUtils.EMPTY_STRING_ARRAY;
         }
 
-        if ( ( separator == null ) || ( EMPTY.equals( separator ) ) ) {
+        if ((separator == null) || (EMPTY.equals(separator))) {
             // Split on whitespace.
-            return splitWorker( str, null, max, preserveAllTokens ) ;
+            return splitWorker(str, null, max, preserveAllTokens);
         }
 
+        int separatorLength = separator.length();
 
-        int separatorLength = separator.length() ;
+        ArrayList substrings = new ArrayList();
+        int numberOfSubstrings = 0;
+        int beg = 0;
+        int end = 0;
+        while (end < len) {
+            end = str.indexOf(separator, beg);
 
-        ArrayList substrings = new ArrayList() ;
-        int numberOfSubstrings = 0 ;
-        int beg = 0 ;
-        int end = 0 ;
-        while ( end < len ) {
-            end = str.indexOf( separator, beg ) ;
+            if (end > -1) {
+                if (end > beg) {
+                    numberOfSubstrings += 1;
 
-            if ( end > -1 ) {
-                if ( end > beg ) {
-                    numberOfSubstrings += 1 ;
-
-                    if ( numberOfSubstrings == max ) {
-                        end = len ;
-                        substrings.add( str.substring( beg ) ) ;
+                    if (numberOfSubstrings == max) {
+                        end = len;
+                        substrings.add(str.substring(beg));
                     } else {
                         // The following is OK, because String.substring( beg, end ) excludes
                         // the character at the position 'end'.
-                        substrings.add( str.substring( beg, end ) ) ;
+                        substrings.add(str.substring(beg, end));
 
                         // Set the starting point for the next search.
                         // The following is equivalent to beg = end + (separatorLength - 1) + 1,
                         // which is the right calculation:
-                        beg = end + separatorLength ;
+                        beg = end + separatorLength;
                     }
                 } else {
                     // We found a consecutive occurrence of the separator, so skip it.
-                    if( preserveAllTokens ) {
-                        numberOfSubstrings += 1 ;
-                        if ( numberOfSubstrings == max ) {
-                            end = len ;
-                            substrings.add( str.substring( beg ) ) ;
+                    if (preserveAllTokens) {
+                        numberOfSubstrings += 1;
+                        if (numberOfSubstrings == max) {
+                            end = len;
+                            substrings.add(str.substring(beg));
                         } else {
-                            substrings.add( EMPTY );
+                            substrings.add(EMPTY);
                         }
                     }
-                    beg = end + separatorLength ;
+                    beg = end + separatorLength;
                 }
             } else {
                 // String.substring( beg ) goes from 'beg' to the end of the String.
-                substrings.add( str.substring( beg ) ) ;
-                end = len ;
+                substrings.add(str.substring(beg));
+                end = len;
             }
         }
 
-        return (String[]) substrings.toArray( new String[substrings.size()] ) ;
+        return (String[]) substrings.toArray(new String[substrings.size()]);
     }
 
-
-    //-----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
     /**
      * <p>Splits the provided text into an array, using whitespace as the
      * separator, preserving all tokens, including empty tokens created by 
@@ -2770,8 +2769,7 @@ public class StringUtils {
             if (type == currentType) {
                 continue;
             }
-            if (camelCase && type == Character.LOWERCASE_LETTER
-                    && currentType == Character.UPPERCASE_LETTER) {
+            if (camelCase && type == Character.LOWERCASE_LETTER && currentType == Character.UPPERCASE_LETTER) {
                 int newTokenStart = pos - 1;
                 if (newTokenStart != tokenStart) {
                     list.add(new String(c, tokenStart, newTokenStart - tokenStart));
@@ -3267,7 +3265,7 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(remove)) {
             return str;
         }
-        if (startsWithIgnoreCase(str, remove)){
+        if (startsWithIgnoreCase(str, remove)) {
             return str.substring(remove.length());
         }
         return str;
@@ -3603,7 +3601,6 @@ public class StringUtils {
      * @since 2.4
      */
     public static String replaceEachRepeatedly(String text, String[] repl, String[] with) {
-
         // timeToLive should be 0 if not used or nothing to replace, else it's
         // the length of the replace array
         int timeToLive = repl == null ? 0 : repl.length;
@@ -3656,16 +3653,12 @@ public class StringUtils {
      *             and/or size 0)
      * @since 2.4
      */
-    private static String replaceEach(String text, String[] repl, String[] with,
-            boolean repeat, int timeToLive) {
+    private static String replaceEach(String text, String[] repl, String[] with, boolean repeat, int timeToLive) {
 
-        // mchyzer Performance note:  This creates very few new objects (one major goal)
+        // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
-        
-        if (text == null || text.length() == 0 || 
-            repl == null || repl.length == 0 || 
-            with == null || with.length == 0) 
-        {
+
+        if (text == null || text.length() == 0 || repl == null || repl.length == 0 || with == null || with.length == 0) {
             return text;
         }
 
@@ -3679,7 +3672,10 @@ public class StringUtils {
 
         // make sure lengths are ok, these need to be equal
         if (replLength != withLength) {
-            throw new IllegalArgumentException("Search and Replace array lengths don't match: " + replLength + " vs " + withLength);
+            throw new IllegalArgumentException("Search and Replace array lengths don't match: "
+                + replLength
+                + " vs "
+                + withLength);
         }
 
         // keep track of which still have matches
@@ -3697,7 +3693,7 @@ public class StringUtils {
                 continue;
             }
             tempIndex = text.indexOf(repl[i]);
-            
+
             // see if we need to keep searching for this
             if (tempIndex == -1) {
                 noMoreMatchesForReplIndex[i] = true;
@@ -3721,15 +3717,15 @@ public class StringUtils {
         int increase = 0;
 
         // count the replacement text elements that are larger than their corresponding text being replaced
-        for (int i=0; i<repl.length; i++) {
+        for (int i = 0; i < repl.length; i++) {
             int greater = with[i].length() - repl[i].length();
-            if(greater > 0) {
+            if (greater > 0) {
                 increase += 3 * greater; // assume 3 matches
             }
         }
         // have upper-bound at 20% increase, then let Java take over
-        increase = Math.min(increase, text.length() / 5); 
-    
+        increase = Math.min(increase, text.length() / 5);
+
         StringBuffer buf = new StringBuffer(text.length() + increase);
 
         while (textIndex != -1) {
@@ -3751,8 +3747,8 @@ public class StringUtils {
                     continue;
                 }
                 tempIndex = text.indexOf(repl[i], start);
-                
-                //see if we need to keep searching for this
+
+                // see if we need to keep searching for this
                 if (tempIndex == -1) {
                     noMoreMatchesForReplIndex[i] = true;
                 } else {
@@ -5571,14 +5567,14 @@ public class StringUtils {
         int shortestStrLen = Integer.MAX_VALUE;
         int longestStrLen = 0;
 
-        // find the min and max string lengths; this avoids checking to make 
+        // find the min and max string lengths; this avoids checking to make
         // sure we are not exceeding the length of the string each time through
         // the bottom loop.
-        for (int i=0; i<arrayLen; i++) {
+        for (int i = 0; i < arrayLen; i++) {
             if (strs[i] == null) {
                 anyStringNull = true;
                 shortestStrLen = 0;
-            } else {   
+            } else {
                 allStringsNull = false;
                 shortestStrLen = Math.min(strs[i].length(), shortestStrLen);
                 longestStrLen = Math.max(strs[i].length(), longestStrLen);
@@ -5593,13 +5589,13 @@ public class StringUtils {
         // handle lists containing some nulls or some empty strings
         if (shortestStrLen == 0) {
             return 0;
-        } 
+        }
 
         // find the position with the first difference across all strings
         int firstDiff = -1;
-        for (int stringPos = 0; stringPos<shortestStrLen; stringPos++) {
+        for (int stringPos = 0; stringPos < shortestStrLen; stringPos++) {
             char comparisonChar = strs[0].charAt(stringPos);
-            for (int arrayPos = 1; arrayPos<arrayLen; arrayPos++) {
+            for (int arrayPos = 1; arrayPos < arrayLen; arrayPos++) {
                 if (strs[arrayPos].charAt(stringPos) != comparisonChar) {
                     firstDiff = stringPos;
                     break;
@@ -5611,8 +5607,8 @@ public class StringUtils {
         }
 
         if (firstDiff == -1 && shortestStrLen != longestStrLen) {
-            // we compared all of the characters up to the length of the 
-            // shortest string and didn't find a match, but the string lengths 
+            // we compared all of the characters up to the length of the
+            // shortest string and didn't find a match, but the string lengths
             // vary, so return the length of the shortest string.
             return shortestStrLen;
         }
@@ -5667,7 +5663,7 @@ public class StringUtils {
             // there were no common initial characters
             return EMPTY;
         } else {
-            // we found a common initial character sequence 
+            // we found a common initial character sequence
             return strs[0].substring(0, smallestIndexOfDiff);
         }
     }  
