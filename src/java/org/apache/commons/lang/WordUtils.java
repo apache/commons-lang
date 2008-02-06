@@ -600,6 +600,7 @@ public class WordUtils {
      *                    This is appended ONLY if the string was indeed abbreviated.
      *                    The append does not count towards the lower or upper limits.
      * @return the abbreviated String.
+     * @since 2.4
      */
     public static String abbreviate(String str, int lower, int upper, String appendToEnd) {
         // initial parameter checks

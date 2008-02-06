@@ -261,7 +261,7 @@ public abstract class StrMatcher {
      * @param buffer  the text content to match against, do not change
      * @param pos  the starting position for the match, valid for buffer
      * @return the number of matching characters, zero for no match
-     * @since Commons Lang 2.4
+     * @since 2.4
      */
     public int isMatch(char[] buffer, int pos) {
         return isMatch(buffer, pos, 0, buffer.length);

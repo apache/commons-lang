@@ -152,6 +152,7 @@ public class CharSet implements Serializable {
      *
      * @param setStrs  Strings to merge into the initial set, may be null
      * @return a CharSet instance
+     * @since 2.4
      */
     public static CharSet getInstance(String[] setStrs) {
         if (setStrs == null) {
