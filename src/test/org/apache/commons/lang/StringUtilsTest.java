@@ -1403,6 +1403,15 @@ public class StringUtilsTest extends TestCase {
         assertEquals("  abc", StringUtils.leftPad("abc", 5, ""));
     }
 
+    public void testLength() {
+        assertEquals(0, StringUtils.length(null));
+        assertEquals(0, StringUtils.length(""));
+        assertEquals(0, StringUtils.length(StringUtils.EMPTY));
+        assertEquals(1, StringUtils.length("A"));
+        assertEquals(1, StringUtils.length(" "));
+        assertEquals(8, StringUtils.length("ABCDEFGH"));
+    }
+    
     //-----------------------------------------------------------------------
     public void testCenter_StringInt() {
         assertEquals(null, StringUtils.center(null, -1));
@@ -1647,6 +1656,7 @@ public class StringUtilsTest extends TestCase {
     public void testEMPTY() {
         assertNotNull(StringUtils.EMPTY);
         assertEquals("", StringUtils.EMPTY);
+        assertEquals(0, StringUtils.EMPTY.length());
     }
     
     public void testRemoveStart() {
