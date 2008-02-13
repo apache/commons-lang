@@ -3420,15 +3420,15 @@ public class StringUtils {
      * StringUtils.replaceOnce("aba", "a", "z")   = "zba"
      * </pre>
      *
-     * @see #replace(String text, String repl, String with, int max)
+     * @see #replace(String text, String searchString, String replacement, int max)
      * @param text  text to search and replace in, may be null
-     * @param repl  the String to search for, may be null
-     * @param with  the String to replace with, may be null
+     * @param searchString  the String to search for, may be null
+     * @param replacement  the String to replace with, may be null
      * @return the text with any replacements processed,
      *  <code>null</code> if null String input
      */
-    public static String replaceOnce(String text, String repl, String with) {
-        return replace(text, repl, with, 1);
+    public static String replaceOnce(String text, String searchString, String replacement) {
+        return replace(text, searchString, replacement, 1);
     }
 
     /**
@@ -3447,15 +3447,15 @@ public class StringUtils {
      * StringUtils.replace("aba", "a", "z")   = "zbz"
      * </pre>
      *
-     * @see #replace(String text, String repl, String with, int max)
+     * @see #replace(String text, String searchString, String replacement, int max)
      * @param text  text to search and replace in, may be null
-     * @param repl  the String to search for, may be null
-     * @param with  the String to replace with, may be null
+     * @param searchString  the String to search for, may be null
+     * @param replacement  the String to replace it with, may be null
      * @return the text with any replacements processed,
      *  <code>null</code> if null String input
      */
-    public static String replace(String text, String repl, String with) {
-        return replace(text, repl, with, -1);
+    public static String replace(String text, String searchString, String replacement) {
+        return replace(text, searchString, replacement, -1);
     }
 
     /**
@@ -3480,33 +3480,33 @@ public class StringUtils {
      * </pre>
      *
      * @param text  text to search and replace in, may be null
-     * @param repl  the String to search for, may be null
-     * @param with  the String to replace with, may be null
+     * @param searchString  the String to search for, may be null
+     * @param replacement  the String to replace it with, may be null
      * @param max  maximum number of values to replace, or <code>-1</code> if no maximum
      * @return the text with any replacements processed,
      *  <code>null</code> if null String input
      */
-    public static String replace(String text, String repl, String with, int max) {
-        if (isEmpty(text) || isEmpty(repl) || with == null || max == 0) {
+    public static String replace(String text, String searchString, String replacement, int max) {
+        if (isEmpty(text) || isEmpty(searchString) || replacement == null || max == 0) {
             return text;
         }
         int start = 0;
-        int end = text.indexOf(repl, start);
+        int end = text.indexOf(searchString, start);
         if (end == -1) {
             return text;
         }
-        int replLength = repl.length();
-        int increase = with.length() - replLength;
+        int replLength = searchString.length();
+        int increase = replacement.length() - replLength;
         increase = (increase < 0 ? 0 : increase);
         increase *= (max < 0 ? 16 : (max > 64 ? 64 : max));
         StringBuffer buf = new StringBuffer(text.length() + increase);
         while (end != -1) {
-            buf.append(text.substring(start, end)).append(with);
+            buf.append(text.substring(start, end)).append(replacement);
             start = end + replLength;
             if (--max == 0) {
                 break;
             }
-            end = text.indexOf(repl, start);
+            end = text.indexOf(searchString, start);
         }
         buf.append(text.substring(start));
         return buf.toString();
@@ -3540,10 +3540,10 @@ public class StringUtils {
      * 
      * @param text
      *            text to search and replace in, no-op if null
-     * @param repl
+     * @param searchList
      *            the Strings to search for, no-op if null
-     * @param with
-     *            the Strings to replace with, no-op if null
+     * @param replacementList
+     *            the Strings to replace them with, no-op if null
      * @return the text with any replacements processed, <code>null</code> if
      *         null String input
      * @throws IndexOutOfBoundsException
@@ -3551,8 +3551,8 @@ public class StringUtils {
      *             and/or size 0)
      * @since 2.4
      */
-    public static String replaceEach(String text, String[] repl, String[] with) {
-        return replaceEach(text, repl, with, false, 0);
+    public static String replaceEach(String text, String[] searchList, String[] replacementList) {
+        return replaceEach(text, searchList, replacementList, false, 0);
     }
 
     /**
@@ -3586,10 +3586,10 @@ public class StringUtils {
      * 
      * @param text
      *            text to search and replace in, no-op if null
-     * @param repl
+     * @param searchList
      *            the Strings to search for, no-op if null
-     * @param with
-     *            the Strings to replace with, no-op if null
+     * @param replacementList
+     *            the Strings to replace them with, no-op if null
      * @return the text with any replacements processed, <code>null</code> if
      *         null String input
      * @throws IllegalArgumentException
@@ -3600,11 +3600,11 @@ public class StringUtils {
      *             and/or size 0)
      * @since 2.4
      */
-    public static String replaceEachRepeatedly(String text, String[] repl, String[] with) {
+    public static String replaceEachRepeatedly(String text, String[] searchList, String[] replacementList) {
         // timeToLive should be 0 if not used or nothing to replace, else it's
         // the length of the replace array
-        int timeToLive = repl == null ? 0 : repl.length;
-        return replaceEach(text, repl, with, true, timeToLive);
+        int timeToLive = searchList == null ? 0 : searchList.length;
+        return replaceEach(text, searchList, replacementList, true, timeToLive);
     }
 
     /**
@@ -3636,10 +3636,12 @@ public class StringUtils {
      * 
      * @param text
      *            text to search and replace in, no-op if null
-     * @param repl
+     * @param searchList
      *            the Strings to search for, no-op if null
-     * @param with
-     *            the Strings to replace with, no-op if null
+     * @param replacementList
+     *            the Strings to replace them with, no-op if null
+     * @param repeat if true, then replace repeatedly 
+     *       until there are no more possible replacements or timeToLive < 0
      * @param timeToLive
      *            if less than 0 then there is a circular reference and endless
      *            loop
@@ -3653,12 +3655,12 @@ public class StringUtils {
      *             and/or size 0)
      * @since 2.4
      */
-    private static String replaceEach(String text, String[] repl, String[] with, boolean repeat, int timeToLive) {
+    private static String replaceEach(String text, String[] searchList, String[] replacementList, boolean repeat, int timeToLive) {
 
         // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
 
-        if (text == null || text.length() == 0 || repl == null || repl.length == 0 || with == null || with.length == 0) {
+        if (text == null || text.length() == 0 || searchList == null || searchList.length == 0 || replacementList == null || replacementList.length == 0) {
             return text;
         }
 
@@ -3667,19 +3669,19 @@ public class StringUtils {
             throw new IllegalStateException("TimeToLive of " + timeToLive + " is less than 0: " + text);
         }
 
-        int replLength = repl.length;
-        int withLength = with.length;
+        int searchLength = searchList.length;
+        int replacementLength = replacementList.length;
 
         // make sure lengths are ok, these need to be equal
-        if (replLength != withLength) {
+        if (searchLength != replacementLength) {
             throw new IllegalArgumentException("Search and Replace array lengths don't match: "
-                + replLength
+                + searchLength
                 + " vs "
-                + withLength);
+                + replacementLength);
         }
 
         // keep track of which still have matches
-        boolean[] noMoreMatchesForReplIndex = new boolean[replLength];
+        boolean[] noMoreMatchesForReplIndex = new boolean[searchLength];
 
         // index on index that the match was found
         int textIndex = -1;
@@ -3688,11 +3690,11 @@ public class StringUtils {
 
         // index of replace array that will replace the search string found
         // NOTE: logic duplicated below START
-        for (int i = 0; i < replLength; i++) {
-            if (noMoreMatchesForReplIndex[i] || repl[i] == null || repl[i].length() == 0 || with[i] == null) {
+        for (int i = 0; i < searchLength; i++) {
+            if (noMoreMatchesForReplIndex[i] || searchList[i] == null || searchList[i].length() == 0 || replacementList[i] == null) {
                 continue;
             }
-            tempIndex = text.indexOf(repl[i]);
+            tempIndex = text.indexOf(searchList[i]);
 
             // see if we need to keep searching for this
             if (tempIndex == -1) {
@@ -3717,8 +3719,8 @@ public class StringUtils {
         int increase = 0;
 
         // count the replacement text elements that are larger than their corresponding text being replaced
-        for (int i = 0; i < repl.length; i++) {
-            int greater = with[i].length() - repl[i].length();
+        for (int i = 0; i < searchList.length; i++) {
+            int greater = replacementList[i].length() - searchList[i].length();
             if (greater > 0) {
                 increase += 3 * greater; // assume 3 matches
             }
@@ -3733,20 +3735,20 @@ public class StringUtils {
             for (int i = start; i < textIndex; i++) {
                 buf.append(text.charAt(i));
             }
-            buf.append(with[replaceIndex]);
+            buf.append(replacementList[replaceIndex]);
 
-            start = textIndex + repl[replaceIndex].length();
+            start = textIndex + searchList[replaceIndex].length();
 
             textIndex = -1;
             replaceIndex = -1;
             tempIndex = -1;
             // find the next earliest match
             // NOTE: logic mostly duplicated above START
-            for (int i = 0; i < replLength; i++) {
-                if (noMoreMatchesForReplIndex[i] || repl[i] == null || repl[i].length() == 0 || with[i] == null) {
+            for (int i = 0; i < searchLength; i++) {
+                if (noMoreMatchesForReplIndex[i] || searchList[i] == null || searchList[i].length() == 0 || replacementList[i] == null) {
                     continue;
                 }
-                tempIndex = text.indexOf(repl[i], start);
+                tempIndex = text.indexOf(searchList[i], start);
 
                 // see if we need to keep searching for this
                 if (tempIndex == -1) {
@@ -3770,7 +3772,7 @@ public class StringUtils {
             return result;
         }
 
-        return replaceEach(result, repl, with, repeat, timeToLive - 1);
+        return replaceEach(result, searchList, replacementList, repeat, timeToLive - 1);
     }
 
     // Replace, character based
