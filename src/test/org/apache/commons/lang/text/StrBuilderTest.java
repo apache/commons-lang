@@ -1749,4 +1749,17 @@ public class StrBuilderTest extends TestCase {
         assertEquals( "The indexOf(char) method is looking beyond the end of the string", -1, sb.indexOf('h'));
     }
 
+    //-----------------------------------------------------------------------
+    public void testLang412Right() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendFixedWidthPadRight(null, 10, '*');
+        assertEquals( "Failed to invoke appendFixedWidthPadRight correctly", "**********", sb.toString());
+    }
+
+    public void testLang412Left() {
+        StrBuilder sb = new StrBuilder();
+        sb.appendFixedWidthPadLeft(null, 10, '*');
+        assertEquals( "Failed to invoke appendFixedWidthPadLeft correctly", "**********", sb.toString());
+    }
+
 }
