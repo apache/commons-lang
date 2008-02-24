@@ -5737,6 +5737,15 @@ public class StringUtils {
             return n;
         }
 
+        if (n > m) {
+            // swap the input strings to consume less memory
+            String tmp = s;
+            s = t;
+            t = tmp;
+            n = m;
+            m = t.length();
+        }
+
         int p[] = new int[n+1]; //'previous' cost array, horizontally
         int d[] = new int[n+1]; // cost array, horizontally
         int _d[]; //placeholder to assist in swapping p and d
