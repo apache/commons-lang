@@ -35,6 +35,7 @@ import org.apache.commons.lang.Validate;
  * unnecessary and thus have been disabled (UnsupportedOperationException).
  * 
  * @author Matt Benson
+ * @author Niall Pemberton
  * @since 2.4
  * @version $Id$
  */
