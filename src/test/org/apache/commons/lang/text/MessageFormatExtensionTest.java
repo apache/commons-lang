@@ -24,6 +24,7 @@ import java.text.ParsePosition;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -237,13 +238,13 @@ public abstract class MessageFormatExtensionTest extends
      * {@inheritDoc}
      */
     protected MessageFormat createMessageFormat(String pattern, Locale locale) {
-        return new ExtendedMessageFormat(pattern, locale,
-                new MultiFormat.Builder().add(
-                        new NameKeyedMetaFormat.Builder().put("properName",
-                                new ProperNameCapitalizationFormat())
-                                .toNameKeyedMetaFormat()).add(
-                        ExtendedMessageFormat.createDefaultMetaFormat(locale))
-                        .toMultiFormat());
+        final ProperNameCapitalizationFormat properNameCapitalizationFormat = new ProperNameCapitalizationFormat();
+        final FormatFactory ff = new FormatFactory() {
+            public Format getFormat(String name, String arguments, Locale locale) {
+                return "properName".equals(name) ? properNameCapitalizationFormat : null;
+            }
+        };
+        return new ExtendedMessageFormat(pattern, locale, new HashMap() { { put("properName", ff); }});
     }
 
     public void testProperName() {

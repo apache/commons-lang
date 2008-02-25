@@ -173,8 +173,7 @@ public abstract class ExtendedMessageFormatBaselineTest extends
      * {@inheritDoc}
      */
     protected MessageFormat createMessageFormat(String pattern, Locale locale) {
-        return new ExtendedMessageFormat(pattern, locale, ExtendedMessageFormat
-                .createDefaultMetaFormat(locale));
+        return new ExtendedMessageFormat(pattern, locale);
     }
 
 }
