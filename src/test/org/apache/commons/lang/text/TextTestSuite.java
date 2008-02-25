@@ -56,7 +56,6 @@ public class TextTestSuite extends TestCase {
         suite.addTest(StrMatcherTest.suite());
         suite.addTest(StrSubstitutorTest.suite());
         suite.addTest(StrTokenizerTest.suite());
-        suite.addTestSuite(MultiFormatTest.class);
         suite.addTestSuite(MessageFormatTest.US.class);
         suite.addTestSuite(MessageFormatTest.UK.class);
         suite.addTestSuite(MessageFormatTest.DE.class);
