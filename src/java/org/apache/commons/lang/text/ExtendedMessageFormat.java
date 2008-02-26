@@ -28,11 +28,35 @@ import java.util.Map;
 import org.apache.commons.lang.Validate;
 
 /**
- * Extends <code>MessageFormat</code> to allow pluggable/additional formatting
- * options for embedded format elements; requires elaboration.
+ * Extends <code>java.text.MessageFormat</code> to allow pluggable/additional formatting
+ * options for embedded format elements.  Client code should specify a registry
+ * of <code>FormatFactory</code> instances associated with <code>String</code>
+ * format names.  This registry will be consulted when the format elements are 
+ * parsed from the message pattern.  In this way custom patterns can be specified,
+ * and the formats supported by <code>java.text.MessageFormat</code> can be overridden
+ * at the format and/or format style level (@see MessageFormat).  A "format element"
+ * embedded in the message pattern is specified (<b>()?</b> signifies optionality):<br />
+ * <pre>
+ * <code>{</code
+ * <i>argument-number</i>
+ * <b>(</b>
+ *     <code>,</code><i>format-name</i>
+ *     <b>(</b><code>,</code><i>format-style</i><b>)?</b>
+ * <b>)?</b>
+ * <code>}</code>
+ * </pre>
  *
- * Note that the mutator methods for the replacement Formats are to be considered
- * unnecessary and thus have been disabled (UnsupportedOperationException).
+ * <i>format-name</i> and <i>format-style</i> values are trimmed of surrounding whitespace
+ * in the manner of <code>java.text.MessageFormat</code>.  If <i>format-name</i> denotes
+ * <code>FormatFactory formatFactoryInstance</code> in <code>registry</code>, a <code>Format</code>
+ * matching <i>format-name</i> and <i>format-style</i> is requested from
+ * <code>formatFactoryInstance</code>.  If this is successful, the <code>Format</code>
+ * found is used for this format element.
+ *
+ * <p>NOTICE: The various subformat mutator methods are considered unnecessary; they exist on the parent
+ * class to allow the type of customization which it is the job of this class to provide in
+ * a configurable fashion.  These methods have thus been disabled and will throw
+ * <code>UnsupportedOperationException</code>s if called.</p>
  * 
  * @author Matt Benson
  * @author Niall Pemberton
@@ -175,7 +199,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * {@inheritDoc}
-     * UNSUPPORTED
+     * @throws UnsupportedOperationException
      */
     public void setFormat(int formatElementIndex, Format newFormat) {
         throw new UnsupportedOperationException();
@@ -183,7 +207,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * {@inheritDoc}
-     * UNSUPPORTED
+     * @throws UnsupportedOperationException
      */
     public void setFormatByArgumentIndex(int argumentIndex, Format newFormat) {
         throw new UnsupportedOperationException();
@@ -191,7 +215,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * {@inheritDoc}
-     * UNSUPPORTED
+     * @throws UnsupportedOperationException
      */
     public void setFormats(Format[] newFormats) {
         throw new UnsupportedOperationException();
@@ -199,7 +223,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * {@inheritDoc}
-     * UNSUPPORTED
+     * @throws UnsupportedOperationException
      */
     public void setFormatsByArgumentIndex(Format[] newFormats) {
         throw new UnsupportedOperationException();
