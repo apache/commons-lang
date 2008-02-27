@@ -27,7 +27,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import junit.framework.Test;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
  * Test case for {@link ExtendedMessageFormat}.
@@ -44,6 +46,17 @@ public class ExtendedMessageFormatTest extends TestCase {
                                                  Locale.GERMANY};
 
     private Map registry = new HashMap();
+
+    /**
+     * Return a new test suite containing this test case.
+     * 
+     * @return a new test suite containing this test case
+     */
+    public static Test suite() {
+        TestSuite suite = new TestSuite(ExtendedMessageFormatTest.class);
+        suite.setName("ExtendedMessageFormat Tests");
+        return suite;
+    }
 
     /**
      * Create a new test case.
