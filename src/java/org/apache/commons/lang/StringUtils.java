@@ -2125,13 +2125,11 @@ public class StringUtils {
      * StringUtils.split("a.b.c", '.')    = ["a", "b", "c"]
      * StringUtils.split("a..b.c", '.')   = ["a", "b", "c"]
      * StringUtils.split("a:b:c", '.')    = ["a:b:c"]
-     * StringUtils.split("a\tb\nc", null) = ["a", "b", "c"]
      * StringUtils.split("a b c", ' ')    = ["a", "b", "c"]
      * </pre>
      *
      * @param str  the String to parse, may be null
-     * @param separatorChar  the character used as the delimiter,
-     *  <code>null</code> splits on whitespace
+     * @param separatorChar  the character used as the delimiter
      * @return an array of parsed Strings, <code>null</code> if null String input
      * @since 2.0
      */
