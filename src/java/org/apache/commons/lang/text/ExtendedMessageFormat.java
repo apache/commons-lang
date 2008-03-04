@@ -53,6 +53,13 @@ import org.apache.commons.lang.Validate;
  * <code>UnsupportedOperationException</code> if called.
  * </p>
  * 
+ * <p>Limitations inherited from <code>java.text.MessageFormat</code>:
+ * <ul>
+ * <li>When using "choice" subformats, support for nested formatting instructions is limited to that provided by the base class.</li>
+ * <li>Thread-safety of <code>Format</code>s, including <code>MessageFormat</code> and thus <code>ExtendedMessageFormat</code>, is not guaranteed.</li>
+ * </ul>
+ * </p>
+ * 
  * @author Matt Benson
  * @author Niall Pemberton
  * @since 2.4
