@@ -64,7 +64,7 @@ public class ClassUtils {
     /**
      * Maps primitive <code>Class</code>es to their corresponding wrapper <code>Class</code>.
      */
-    private static Map  primitiveWrapperMap = new HashMap();
+    private static Map primitiveWrapperMap = new HashMap();
     static {
          primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
          primitiveWrapperMap.put(Byte.TYPE, Byte.class);
