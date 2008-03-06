@@ -119,7 +119,8 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(String pattern, Locale locale, Map registry) {
-        super(DUMMY_PATTERN, locale);
+        super(DUMMY_PATTERN);
+        setLocale(locale);
         this.registry = registry;
         applyPattern(pattern);
     }
