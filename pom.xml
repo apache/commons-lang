@@ -136,6 +136,13 @@
                 <role>Java Developer</role>
             </roles>
         </developer>
+        <developer>
+            <name>Niall Pemberton</name>
+            <id>niallp</id>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
+        </developer>
     </developers>
     <contributors>
         <contributor>
