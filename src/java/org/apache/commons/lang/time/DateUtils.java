@@ -29,12 +29,15 @@ import java.util.TimeZone;
  * <p>A suite of utilities surrounding the use of the
  * {@link java.util.Calendar} and {@link java.util.Date} object.</p>
  * 
- * <p>DateUtils contains a lot of common methods considering manipulations of Dates or Calendars.
- * Some methods require some extra explanation.
- * The truncate and round methods could be considered the Math.floor(), Math.ceil() or Math.round versions for dates
+ * <p>DateUtils contains a lot of common methods considering manipulations
+ * of Dates or Calendars. Some methods require some extra explanation.
+ * The truncate and round methods could be considered the Math.floor(),
+ * Math.ceil() or Math.round versions for dates
  * This way date-fields will be ignored in bottom-up order.
- * As a complement to these methods we've introduced some fragment-methods. With these methods the Date-fields will be ignored in top-down order.
- * Since a date without a year is not a valid date, you have to decide in what kind of date-field you want your result, for instance milliseconds or days.
+ * As a complement to these methods we've introduced some fragment-methods.
+ * With these methods the Date-fields will be ignored in top-down order.
+ * Since a date without a year is not a valid date, you have to decide in what
+ * kind of date-field you want your result, for instance milliseconds or days.
  * </p>
  *   
  *   
@@ -1069,7 +1072,8 @@ public class DateUtils {
      *  <li>January 1, 2008 7:15:10.538 with Calendar.SECOND as fragment will return 538</li>
      *  <li>January 6, 2008 7:15:10.538 with Calendar.SECOND as fragment will return 538</li>
      *  <li>January 6, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10538 (10*1000 + 538)</li>
-     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0 (a millisecond cannot be split in milliseconds)</li>
+     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
+     *   (a millisecond cannot be split in milliseconds)</li>
      * </ul>
      * </p>
      * 
@@ -1102,10 +1106,14 @@ public class DateUtils {
      * 
      * <p>
      * <ul>
-     *  <li>January 1, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10 (equivalent to deprecated date.getSeconds())</li>
-     *  <li>January 6, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10 (equivalent to deprecated date.getSeconds())</li>
-     *  <li>January 6, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 26110 (7*3600 + 15*60 + 10)</li>
-     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0 (a millisecond cannot be split in seconds)</li>
+     *  <li>January 1, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10
+     *   (equivalent to deprecated date.getSeconds())</li>
+     *  <li>January 6, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10
+     *   (equivalent to deprecated date.getSeconds())</li>
+     *  <li>January 6, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 26110
+     *   (7*3600 + 15*60 + 10)</li>
+     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
+     *   (a millisecond cannot be split in seconds)</li>
      * </ul>
      * </p>
      * 
@@ -1138,11 +1146,14 @@ public class DateUtils {
      * 
      * <p>
      * <ul>
-     *  <li>January 1, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15 (equivalent to deprecated date.getMinutes())</li>
-     *  <li>January 6, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15 (equivalent to deprecated date.getMinutes())</li>
+     *  <li>January 1, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15
+     *   (equivalent to deprecated date.getMinutes())</li>
+     *  <li>January 6, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15
+     *   (equivalent to deprecated date.getMinutes())</li>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.MONTH as fragment will return 15</li>
      *  <li>January 6, 2008 7:15:10.538 with Calendar.MONTH as fragment will return 435 (7*60 + 15)</li>
-     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0 (a millisecond cannot be split in minutes)</li>
+     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
+     *   (a millisecond cannot be split in minutes)</li>
      * </ul>
      * </p>
      * 
@@ -1175,11 +1186,14 @@ public class DateUtils {
      * 
      * <p>
      * <ul>
-     *  <li>January 1, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7 (equivalent to deprecated date.getHours())</li>
-     *  <li>January 6, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7 (equivalent to deprecated date.getHours())</li>
+     *  <li>January 1, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7
+     *   (equivalent to deprecated date.getHours())</li>
+     *  <li>January 6, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7
+     *   (equivalent to deprecated date.getHours())</li>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.MONTH as fragment will return 7</li>
      *  <li>January 6, 2008 7:15:10.538 with Calendar.MONTH as fragment will return 127 (5*24 + 7)</li>
-     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0 (a millisecond cannot be split in hours)</li>
+     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
+     *   (a millisecond cannot be split in hours)</li>
      * </ul>
      * </p>
      * 
@@ -1212,11 +1226,14 @@ public class DateUtils {
      *  
      * <p>
      * <ul>
-     *  <li>January 28, 2008 with Calendar.MONTH as fragment will return 28 (equivalent to deprecated date.getDay())</li>
-     *  <li>February 28, 2008 with Calendar.MONTH as fragment will return 28 (equivalent to deprecated date.getDay())</li>
+     *  <li>January 28, 2008 with Calendar.MONTH as fragment will return 28
+     *   (equivalent to deprecated date.getDay())</li>
+     *  <li>February 28, 2008 with Calendar.MONTH as fragment will return 28
+     *   (equivalent to deprecated date.getDay())</li>
      *  <li>January 28, 2008 with Calendar.YEAR as fragment will return 28</li>
      *  <li>February 28, 2008 with Calendar.YEAR as fragment will return 59</li>
-     *  <li>January 28, 2008 with Calendar.MILLISECOND as fragment will return 0 (a millisecond cannot be split in days)</li>
+     *  <li>January 28, 2008 with Calendar.MILLISECOND as fragment will return 0
+     *   (a millisecond cannot be split in days)</li>
      * </ul>
      * </p>
      * 
@@ -1249,10 +1266,14 @@ public class DateUtils {
      * 
      * <p>
      * <ul>
-     *  <li>January 1, 2008 7:15:10.538 with Calendar.SECOND as fragment will return 538 (equivalent to calendar.get(Calendar.MILLISECOND))</li>
-     *  <li>January 6, 2008 7:15:10.538 with Calendar.SECOND as fragment will return 538 (equivalent to calendar.get(Calendar.MILLISECOND))</li>
-     *  <li>January 6, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10538 (10*1000 + 538)</li>
-     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0 (a millisecond cannot be split in milliseconds)</li>
+     *  <li>January 1, 2008 7:15:10.538 with Calendar.SECOND as fragment will return 538
+     *   (equivalent to calendar.get(Calendar.MILLISECOND))</li>
+     *  <li>January 6, 2008 7:15:10.538 with Calendar.SECOND as fragment will return 538
+     *   (equivalent to calendar.get(Calendar.MILLISECOND))</li>
+     *  <li>January 6, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10538
+     *   (10*1000 + 538)</li>
+     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
+     *   (a millisecond cannot be split in milliseconds)</li>
      * </ul>
      * </p>
      * 
@@ -1284,10 +1305,14 @@ public class DateUtils {
      * 
      * <p>
      * <ul>
-     *  <li>January 1, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10 (equivalent to calendar.get(Calendar.SECOND))</li>
-     *  <li>January 6, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10 (equivalent to calendar.get(Calendar.SECOND))</li>
-     *  <li>January 6, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 26110 (7*3600 + 15*60 + 10)</li>
-     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0 (a millisecond cannot be split in seconds)</li>
+     *  <li>January 1, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10
+     *   (equivalent to calendar.get(Calendar.SECOND))</li>
+     *  <li>January 6, 2008 7:15:10.538 with Calendar.MINUTE as fragment will return 10
+     *   (equivalent to calendar.get(Calendar.SECOND))</li>
+     *  <li>January 6, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 26110
+     *   (7*3600 + 15*60 + 10)</li>
+     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
+     *   (a millisecond cannot be split in seconds)</li>
      * </ul>
      * </p>
      * 
@@ -1320,11 +1345,14 @@ public class DateUtils {
      * 
      * <p>
      * <ul>
-     *  <li>January 1, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15 (equivalent to calendar.get(Calendar.MINUTES))</li>
-     *  <li>January 6, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15 (equivalent to calendar.get(Calendar.MINUTES))</li>
+     *  <li>January 1, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15
+     *   (equivalent to calendar.get(Calendar.MINUTES))</li>
+     *  <li>January 6, 2008 7:15:10.538 with Calendar.HOUR_OF_DAY as fragment will return 15
+     *   (equivalent to calendar.get(Calendar.MINUTES))</li>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.MONTH as fragment will return 15</li>
      *  <li>January 6, 2008 7:15:10.538 with Calendar.MONTH as fragment will return 435 (7*60 + 15)</li>
-     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0 (a millisecond cannot be split in minutes)</li>
+     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
+     *   (a millisecond cannot be split in minutes)</li>
      * </ul>
      * </p>
      * 
@@ -1357,11 +1385,14 @@ public class DateUtils {
      *  
      * <p>
      * <ul>
-     *  <li>January 1, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7 (equivalent to calendar.get(Calendar.HOUR_OF_DAY))</li>
-     *  <li>January 6, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7 (equivalent to calendar.get(Calendar.HOUR_OF_DAY))</li>
+     *  <li>January 1, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7
+     *   (equivalent to calendar.get(Calendar.HOUR_OF_DAY))</li>
+     *  <li>January 6, 2008 7:15:10.538 with Calendar.DAY_OF_YEAR as fragment will return 7
+     *   (equivalent to calendar.get(Calendar.HOUR_OF_DAY))</li>
      *  <li>January 1, 2008 7:15:10.538 with Calendar.MONTH as fragment will return 7</li>
      *  <li>January 6, 2008 7:15:10.538 with Calendar.MONTH as fragment will return 127 (5*24 + 7)</li>
-     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0 (a millisecond cannot be split in hours)</li>
+     *  <li>January 16, 2008 7:15:10.538 with Calendar.MILLISECOND as fragment will return 0
+     *   (a millisecond cannot be split in hours)</li>
      * </ul>
      * </p>
      *  
@@ -1394,11 +1425,16 @@ public class DateUtils {
      * 
      * <p>
      * <ul>
-     *  <li>January 28, 2008 with Calendar.MONTH as fragment will return 28 (equivalent to calendar.get(Calendar.DAY_OF_MONTH))</li>
-     *  <li>February 28, 2008 with Calendar.MONTH as fragment will return 28 (equivalent to calendar.get(Calendar.DAY_OF_MONTH))</li>
-     *  <li>January 28, 2008 with Calendar.YEAR as fragment will return 28 (equivalent to calendar.get(Calendar.DAY_OF_YEAR))</li>
-     *  <li>February 28, 2008 with Calendar.YEAR as fragment will return 59 (equivalent to calendar.get(Calendar.DAY_OF_YEAR))</li>
-     *  <li>January 28, 2008 with Calendar.MILLISECOND as fragment will return 0 (a millisecond cannot be split in days)</li>
+     *  <li>January 28, 2008 with Calendar.MONTH as fragment will return 28
+     *   (equivalent to calendar.get(Calendar.DAY_OF_MONTH))</li>
+     *  <li>February 28, 2008 with Calendar.MONTH as fragment will return 28
+     *   (equivalent to calendar.get(Calendar.DAY_OF_MONTH))</li>
+     *  <li>January 28, 2008 with Calendar.YEAR as fragment will return 28
+     *   (equivalent to calendar.get(Calendar.DAY_OF_YEAR))</li>
+     *  <li>February 28, 2008 with Calendar.YEAR as fragment will return 59
+     *   (equivalent to calendar.get(Calendar.DAY_OF_YEAR))</li>
+     *  <li>January 28, 2008 with Calendar.MILLISECOND as fragment will return 0
+     *   (a millisecond cannot be split in days)</li>
      * </ul>
      * </p>
      * 
