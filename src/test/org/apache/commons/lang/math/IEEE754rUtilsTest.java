@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.math.IEEE754rUtils}.
  *
- * @version $Id: IEEE754rUtilsTest.java 583665 2007-10-11 01:34:13Z ggregory $
+ * @version $Id$
  */
 public class IEEE754rUtilsTest extends TestCase {
 
