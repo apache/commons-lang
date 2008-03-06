@@ -143,6 +143,13 @@
                 <role>Java Developer</role>
             </roles>
         </developer>
+        <developer>
+            <name>Matt Benson</name>
+            <id>mbenson</id>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
+        </developer>
     </developers>
     <contributors>
         <contributor>
