@@ -55,8 +55,10 @@ import org.apache.commons.lang.Validate;
  * 
  * <p>Limitations inherited from <code>java.text.MessageFormat</code>:
  * <ul>
- * <li>When using "choice" subformats, support for nested formatting instructions is limited to that provided by the base class.</li>
- * <li>Thread-safety of <code>Format</code>s, including <code>MessageFormat</code> and thus <code>ExtendedMessageFormat</code>, is not guaranteed.</li>
+ * <li>When using "choice" subformats, support for nested formatting instructions is limited
+ *     to that provided by the base class.</li>
+ * <li>Thread-safety of <code>Format</code>s, including <code>MessageFormat</code> and thus
+ *     <code>ExtendedMessageFormat</code>, is not guaranteed.</li>
  * </ul>
  * </p>
  * 
@@ -281,7 +283,8 @@ public class ExtendedMessageFormat extends MessageFormat {
                 try {
                     return Integer.parseInt(result.toString());
                 } catch (NumberFormatException e) {
-                    //we've already ensured only digits, so unless something outlandishly large was specified we should be okay.
+                    // we've already ensured only digits, so unless something
+                    // outlandishly large was specified we should be okay.
                 }
             }
             error = !Character.isDigit(c);
@@ -332,8 +335,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Insert formats back into the pattern for toPattern() support.
      *
      * @param pattern source
-     * @param formats the Formats to insert
-     * @param metaFormat Format to format the Formats
+     * @param customPatterns The custom patterns to re-insert, if any
      * @return full pattern
      */
     private String insertFormats(String pattern, ArrayList customPatterns) {
