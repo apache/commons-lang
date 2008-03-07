@@ -248,11 +248,10 @@ public class ExtendedMessageFormatTest extends TestCase {
         buffer.append("], locale=[");
         buffer.append(locale);
         buffer.append("]");
-        MessageFormat mf = null;
-        if (locale == null) {
-            mf = new MessageFormat(pattern);
-        } else {
-            mf = new MessageFormat(pattern, locale);
+        MessageFormat mf = new MessageFormat(pattern);
+        if (locale != null) {
+            mf.setLocale(locale);
+            mf.applyPattern(pattern);
         }
         // System.out.println(buffer + ", result=[" + mf.format(args) +"]");
         ExtendedMessageFormat emf = null;
