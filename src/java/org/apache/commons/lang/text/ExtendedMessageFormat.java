@@ -192,8 +192,10 @@ public class ExtendedMessageFormat extends MessageFormat {
         toPattern = insertFormats(super.toPattern(), foundDescriptions);
         if (containsElements(foundFormats)) {
             Format[] origFormats = getFormats();
-            for (int i = 0; i < origFormats.length; i++) {
-                Format f = (Format) foundFormats.get(i);
+            //only loop over what we know we have, as MessageFormat on Java 1.3 seems to provide an extra format element:
+            int i = 0;
+            for (Iterator it = foundFormats.iterator(); it.hasNext(); i++) {
+                Format f = (Format) it.next();
                 if (f != null) {
                     origFormats[i] = f;
                 }

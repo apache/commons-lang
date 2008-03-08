@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang.SystemUtils;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -83,7 +85,7 @@ public class ExtendedMessageFormatTest extends TestCase {
     public void testExtendedFormats() {
         String pattern = "Lower: {0,lower} Upper: {1,upper}";
         ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-        assertEquals("TOPATTERN", pattern, emf.toPattern());
+        assertPatternsEqual("TOPATTERN", pattern, emf.toPattern());
         assertEquals("Lower: foo Upper: BAR", emf.format(new Object[] {"foo", "bar"}));
         assertEquals("Lower: foo Upper: BAR", emf.format(new Object[] {"Foo", "Bar"}));
         assertEquals("Lower: foo Upper: BAR", emf.format(new Object[] {"FOO", "BAR"}));
@@ -120,7 +122,7 @@ public class ExtendedMessageFormatTest extends TestCase {
             expected.append(df.format(args[1]));
             expected.append(" Salary: ");
             expected.append(nf.format(args[2]));
-            assertEquals(pattern, emf.toPattern());
+            assertPatternsEqual(null, pattern, emf.toPattern());
             assertEquals("" + testLocales[i], expected.toString(), emf.format(args));
         }
     }
@@ -133,7 +135,7 @@ public class ExtendedMessageFormatTest extends TestCase {
 //    public void testExtendedWithChoiceFormat() {
 //        String pattern = "Choice: {0,choice,1.0#{1,lower}|2.0#{1,upper}}";
 //        ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
-//        assertEquals(pattern, emf.toPattern());
+//        assertPatterns(null, pattern, emf.toPattern());
 //        try {
 //            assertEquals("one", emf.format(new Object[] {new Integer(1), "ONE"}));
 //            assertEquals("TWO", emf.format(new Object[] {new Integer(2), "two"}));
@@ -165,7 +167,7 @@ public class ExtendedMessageFormatTest extends TestCase {
 //                cf = NumberFormat.getCurrencyInstance(testLocales[i]);
 //                emf = new ExtendedMessageFormat(pattern, testLocales[i], registry);
 //            }
-//            assertEquals(pattern, emf.toPattern());
+//            assertPatterns(null, pattern, emf.toPattern());
 //            try {
 //                String lowExpected = lowArgs[0] + " low "    + nf.format(lowArgs[2]);
 //                String highExpected = highArgs[0] + " HIGH "  + cf.format(highArgs[2]);
@@ -261,7 +263,14 @@ public class ExtendedMessageFormatTest extends TestCase {
             emf = new ExtendedMessageFormat(pattern, locale);
         }
         assertEquals("format "    + buffer.toString(), mf.format(args), emf.format(args));
-        assertEquals("toPattern " + buffer.toString(), mf.toPattern(),  emf.toPattern());
+        assertPatternsEqual("toPattern " + buffer.toString(), mf.toPattern(),  emf.toPattern());
+    }
+
+    //can't trust what MessageFormat does with toPattern() pre 1.4:
+    private void assertPatternsEqual(String message, String expected, String actual) {
+        if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
+            assertEquals(message, expected, actual);
+        }
     }
 
     // ------------------------ Test Formats ------------------------
