@@ -36,7 +36,7 @@ import org.apache.commons.lang.Validate;
  * and the formats supported by <code>java.text.MessageFormat</code> can be overridden
  * at the format and/or format style level (see MessageFormat).  A "format element"
  * embedded in the message pattern is specified (<b>()?</b> signifies optionality):<br />
- * <code>{</code<i>argument-number</i><b>(</b><code>,</code><i>format-name</i><b>(</b><code>,</code><i>format-style</i><b>)?</b><b>)?</b><code>}</code>
+ * <code>{</code><i>argument-number</i><b>(</b><code>,</code><i>format-name</i><b>(</b><code>,</code><i>format-style</i><b>)?)?</b><code>}</code>
  *
  * <p>
  * <i>format-name</i> and <i>format-style</i> values are trimmed of surrounding whitespace
@@ -192,7 +192,8 @@ public class ExtendedMessageFormat extends MessageFormat {
         toPattern = insertFormats(super.toPattern(), foundDescriptions);
         if (containsElements(foundFormats)) {
             Format[] origFormats = getFormats();
-            //only loop over what we know we have, as MessageFormat on Java 1.3 seems to provide an extra format element:
+            // only loop over what we know we have, as MessageFormat on Java 1.3 
+            // seems to provide an extra format element:
             int i = 0;
             for (Iterator it = foundFormats.iterator(); it.hasNext(); i++) {
                 Format f = (Format) it.next();

@@ -2334,7 +2334,9 @@ public class StringUtils {
      * @return an array of parsed Strings, <code>null</code> if null String input
      * @since 2.4
      */
-    private static String[] splitByWholeSeparatorWorker(String str, String separator, int max, boolean preserveAllTokens) {
+    private static String[] splitByWholeSeparatorWorker(String str, String separator, int max, 
+                                                        boolean preserveAllTokens) 
+    {
         if (str == null) {
             return null;
         }
@@ -3566,20 +3568,20 @@ public class StringUtils {
      * </p>
      * 
      * <pre>
-     *  StringUtils.replaceEach(null, *, *, *)        = null
-     *  StringUtils.replaceEach("", *, *, *)          = ""
+     *  StringUtils.replaceEach(null, *, *, *) = null
+     *  StringUtils.replaceEach("", *, *, *) = ""
      *  StringUtils.replaceEach("aba", null, null, *) = "aba"
      *  StringUtils.replaceEach("aba", new String[0], null, *) = "aba"
      *  StringUtils.replaceEach("aba", null, new String[0], *) = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, null, *)  = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""}, *)  = "b"
-     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"}, *)  = "aba"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}, *)  = "wcte"
+     *  StringUtils.replaceEach("aba", new String[]{"a"}, null, *) = "aba"
+     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""}, *) = "b"
+     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"}, *) = "aba"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}, *) = "wcte"
      *  (example of how it repeats)
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false)  = "dcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true)  = "tcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, true)  = IllegalArgumentException
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, false)  = "dcabe"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false) = "dcte"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true) = "tcte"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, true) = IllegalArgumentException
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, false) = "dcabe"
      * </pre>
      * 
      * @param text
@@ -3617,19 +3619,19 @@ public class StringUtils {
      * </p>
      * 
      * <pre>
-     *  StringUtils.replaceEach(null, *, *, *)        = null
-     *  StringUtils.replaceEach("", *, *, *)          = ""
+     *  StringUtils.replaceEach(null, *, *, *) = null
+     *  StringUtils.replaceEach("", *, *, *) = ""
      *  StringUtils.replaceEach("aba", null, null, *) = "aba"
      *  StringUtils.replaceEach("aba", new String[0], null, *) = "aba"
      *  StringUtils.replaceEach("aba", null, new String[0], *) = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, null, *)  = "aba"
-     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""}, *)  = "b"
-     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"}, *)  = "aba"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}, *)  = "wcte"
+     *  StringUtils.replaceEach("aba", new String[]{"a"}, null, *) = "aba"
+     *  StringUtils.replaceEach("aba", new String[]{"a"}, new String[]{""}, *) = "b"
+     *  StringUtils.replaceEach("aba", new String[]{null}, new String[]{"a"}, *) = "aba"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"w", "t"}, *) = "wcte"
      *  (example of how it repeats)
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false)  = "dcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true)  = "tcte"
-     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *)  = IllegalArgumentException
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, false) = "dcte"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true) = "tcte"
+     *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *) = IllegalArgumentException
      * </pre>
      * 
      * @param text
@@ -3653,12 +3655,16 @@ public class StringUtils {
      *             and/or size 0)
      * @since 2.4
      */
-    private static String replaceEach(String text, String[] searchList, String[] replacementList, boolean repeat, int timeToLive) {
+    private static String replaceEach(String text, String[] searchList, String[] replacementList, 
+                                      boolean repeat, int timeToLive) 
+    {
 
         // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
 
-        if (text == null || text.length() == 0 || searchList == null || searchList.length == 0 || replacementList == null || replacementList.length == 0) {
+        if (text == null || text.length() == 0 || searchList == null || 
+            searchList.length == 0 || replacementList == null || replacementList.length == 0) 
+        {
             return text;
         }
 
@@ -3689,7 +3695,9 @@ public class StringUtils {
         // index of replace array that will replace the search string found
         // NOTE: logic duplicated below START
         for (int i = 0; i < searchLength; i++) {
-            if (noMoreMatchesForReplIndex[i] || searchList[i] == null || searchList[i].length() == 0 || replacementList[i] == null) {
+            if (noMoreMatchesForReplIndex[i] || searchList[i] == null || 
+                searchList[i].length() == 0 || replacementList[i] == null) 
+            {
                 continue;
             }
             tempIndex = text.indexOf(searchList[i]);
@@ -3743,7 +3751,9 @@ public class StringUtils {
             // find the next earliest match
             // NOTE: logic mostly duplicated above START
             for (int i = 0; i < searchLength; i++) {
-                if (noMoreMatchesForReplIndex[i] || searchList[i] == null || searchList[i].length() == 0 || replacementList[i] == null) {
+                if (noMoreMatchesForReplIndex[i] || searchList[i] == null || 
+                    searchList[i].length() == 0 || replacementList[i] == null) 
+                {
                     continue;
                 }
                 tempIndex = text.indexOf(searchList[i], start);
