@@ -7,10 +7,8 @@ $Id$
 
 INTRODUCTION:
 
-This document contains the release notes for the 2.4 version of 
-Apache Commons Lang.
-Commons Lang is a set of utility functions and reusable components that
-should be of use in any Java environment.
+This document contains the release notes for the 2.4 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any Java environment.
 
 INCOMPATIBLE CHANGES WITH VERSION 2.3:
 
@@ -65,7 +63,7 @@ as int not long. The replacements are MILLIS_PER_*.
 
 BUG FIXES IN 2.4:
 
-    * [LANG-76 ] - [lang] EnumUtils.getEnum() doesn't work well in 1.5
+    * [LANG-76 ] - EnumUtils.getEnum() doesn't work well in 1.5
     * [LANG-328] - LocaleUtils.toLocale() rejects strings with only language+variant
     * [LANG-334] - Enum is not thread-safe
     * [LANG-346] - Dates.round() behaves incorrectly for minutes and seconds
@@ -80,11 +78,24 @@ BUG FIXES IN 2.4:
     * [LANG-368] - FastDateFormat getDateInstance() and getDateTimeInstance() assume Locale.getDefault() won't change
     * [LANG-369] - ExceptionUtils not thread-safe
     * [LANG-372] - ToStringBuilder: MULTI_LINE_STYLE does not print anything from appendToString methods.
+    * [LANG-376] - MultiFormatTest testWTF() does nothing useful
+    * [LANG-380] - infinite loop in Fraction.reduce when numerator == 0
+    * [LANG-381] - NumberUtils.min(floatArray) returns wrong value if floatArray[0] happens to be Float.NaN
+    * [LANG-385] - http://commons.apache.org/lang/developerguide.html "Building" section is incorrect and incomplete
+    * [LANG-393] - EqualsBuilder don't compare BigDecimals correctly
+    * [LANG-399] - Javadoc bugs - cannot find object
+    * [LANG-410] - Ambiguous / confusing names in StringUtils replace* methods
+    * [LANG-412] - StrBuilder appendFixedWidth does not handle nulls
+    * [LANG-414] - DateUtils.round() often fails
 
 IMPROVEMENTS IN 2.4:
 
+    * [LANG-180] - adding a StringUtils.replace method that takes an array or List of replacement strings
+    * [LANG-192] - Split camel case strings
+    * [LANG-257] - Add new splitByWholeSeparatorPreserveAllTokens() methods to StringUtils
     * [LANG-269] - Shouldn't Commons Lang's StringUtils have a "common" string method?
-    * [LANG-321] - [patch] Add toArray() method to IntRange and LongRange classes
+    * [LANG-298] - ClassUtils.getShortClassName and ClassUtils.getPackageName and class of array
+    * [LANG-321] - Add toArray() method to IntRange and LongRange classes
     * [LANG-322] - ClassUtils.getShortClassName(String) inefficient
     * [LANG-326] - StringUtils: startsWith / endsWith / startsWithIgnoreCase / endsWithIgnoreCase / removeStartIgnoreCase / removeEndIgnoreCase methods
     * [LANG-329] - Pointless synchronized in ThreadLocal.initialValue should be removed
@@ -95,6 +106,12 @@ IMPROVEMENTS IN 2.4:
     * [LANG-351] - Extension to ClassUtils: Obtain the primitive class from a wrapper
     * [LANG-356] - Add getStartTime to StopWatch
     * [LANG-362] - Add ExtendedMessageFormat to org.apache.commons.lang.text
-    * [LANG-366] - add MultiFormat
     * [LANG-371] - ToStringStyle javadoc should show examples of styles
+    * [LANG-374] - Add escaping for CSV columns to StringEscapeUtils
+    * [LANG-375] - add SystemUtils.IS_OS_WINDOWS_VISTA field
+    * [LANG-379] - Calculating A date fragment in any time-unit
+    * [LANG-383] - Adding functionality to DateUtils to allow direct setting of various fields.
+    * [LANG-402] - OSGi-ify Lang
     * [LANG-404] - Add Calendar flavour format methods to DateFormatUtils
+    * [LANG-407] - StringUtils.length(String) returns null-safe length
+    * [LANG-413] - Memory usage improvement for StringUtils#getLevenshteinDistance()
