@@ -156,6 +156,20 @@
         </contributor>
         <contributor>
             <name>Chris Audley</name>
+        <developer>
+            <name>Niall Pemberton</name>
+            <id>niallp</id>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Matt Benson</name>
+            <id>mbenson</id>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
+        </developer>
         </contributor>
         <contributor>
             <name>Stephane Bailliez</name>
@@ -267,6 +281,9 @@
         </contributor>
         <contributor>
             <name>Rand McNeely</name>
+        </contributor>
+        <contributor>
+            <name>Dave Meikle</name>
         </contributor>
         <contributor>
             <name>Nikolay Metchev</name>
