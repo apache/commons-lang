@@ -12,6 +12,7 @@ Commons Lang is a set of utility functions and reusable components that should b
 
 INCOMPATIBLE CHANGES WITH VERSION 2.3:
 
+- None
 
 INCOMPATIBLE CHANGES WITH VERSION 2.2:
 
@@ -40,6 +41,9 @@ DEPRECATIONS FROM 2.3 to 2.4:
 
 - ObjectUtils.appendIdentityToString(StringBuffer, Object) - has very odd semantics, use 
   ObjectUtils.identityToString(StringBuffer, Object) instead.
+
+- public static java.util.Date add(java.util.Date, int, int) - it is not intended for this 
+  method to be public. Please let us know if you use this. 
 
 DEPRECATIONS FROM 2.2 to 2.3:
 
