@@ -30,7 +30,7 @@ limitations under the License.
       <item name="Download" href="http://commons.apache.org/downloads/download_lang.cgi"/>
       <item name="User guide" href="/userguide.html"/>
       <item name="Release History" href="/release-history.html"/>
-      <item name="Javadoc (2.3 release)" href="api-release/index.html"/>
+      <item name="Javadoc (2.4 release)" href="api-release/index.html"/>
     </menu>
 
     <menu name="Development">
