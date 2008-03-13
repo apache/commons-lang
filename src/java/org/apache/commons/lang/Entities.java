@@ -679,7 +679,7 @@ class Entities {
             int high = size - 1;
 
             while (low <= high) {
-                int mid = (low + high) >> 1;
+                int mid = (low + high) >>> 1;
                 int midVal = values[mid];
 
                 if (midVal < key) {
