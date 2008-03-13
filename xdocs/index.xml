@@ -48,8 +48,8 @@ together with various <a href="maven-reports.html">project reports</a>.
 The JavaDoc API documents are available online:
 </p>
 <ul>
-<li>The <a href="api-release/index.html">current release 2.3</a></li>
-<li>The <a href="api-2.2/index.html">previous version 2.2</a></li>
+<li>The <a href="api-release/index.html">current release 2.4</a></li>
+<li>The <a href="api-2.3/index.html">previous version 2.3</a></li>
 <li>Older releases - see the <a href="release-history.html">Release History</a> page</li>
 </ul>
 <p>
@@ -60,9 +60,9 @@ The <a href="cvs-usage.html">subversion repository</a> can be
 <!-- ================================================== -->
 <section name="Releases">
 <p>
-The latest version is 2.3. - 
+The latest version is 2.4. - 
 <a href="http://commons.apache.org/downloads/download_lang.cgi">Download now!</a> 
-(<a href="upgradeto2_3.html">upgrade notes</a>)
+(<a href="upgradeto2_4.html">upgrade notes</a>)
 </p>
 
 <p>
