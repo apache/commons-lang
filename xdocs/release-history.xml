@@ -24,6 +24,8 @@ limitations under the License.
 <!-- ================================================== -->
 <section name="Commons Lang Release History">
 
+<!-- TODO: Add the Java version for each release -->
+
 <table>
 <tr><th>Version</th><th>Release date</th><th>Javadoc</th><th>Release notes</th></tr>
 <tr><td>2.4</td><td>??/Mar/08</td><td><a href="api-2.4/">api-2.4</a></td><td><a href="upgradeto2_4.html">release notes for 2.4</a></td></tr>
