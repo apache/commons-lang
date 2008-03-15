@@ -27,7 +27,7 @@
     <asfext:pmc rdf:resource="http://commons.apache.org/"/>
     <shortdesc xml:lang="en">Java Common Components</shortdesc>
     <description xml:lang="en">
-        Commons.Lang, a package of Java utility classes for the
+        Commons Lang, a package of Java utility classes for the
         classes that are in java.lang's hierarchy, or are considered to be so
         standard as to justify existence in java.lang.
     </description>
