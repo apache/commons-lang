@@ -406,7 +406,8 @@ public abstract class Enum implements Comparable, Serializable {
             entry = (Entry) cEnumClasses.get(enumClass);
             if (entry == null) {
                 entry = createEntry(enumClass);
-                Map myMap = new WeakHashMap( cEnumClasses );
+                Map myMap = new WeakHashMap( ); // we avoid the (Map) constructor to achieve JDK 1.2 support
+                myMap.putAll( cEnumClasses );
                 myMap.put(enumClass, entry);
                 cEnumClasses = myMap;
             }
