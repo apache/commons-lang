@@ -42,7 +42,7 @@ building methods, such as hashCode, toString and equals.
 <section name="Documentation">
 <p>
 A getting started <a href="userguide.html">user guide</a> is available
-together with various <a href="maven-reports.html">project reports</a>.
+together with various <a href="project-reports.html">project reports</a>.
 </p>
 <p>
 The JavaDoc API documents are available online:
