@@ -1,0 +1,207 @@
+package org.apache.commons.lang;
+
+import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
+import org.apache.commons.lang.math.NumberUtils;
+
+public class ConstructorUtilsTest extends TestCase {
+    public static class TestBean {
+        private String toString;
+
+        public TestBean() {
+            toString = "()";
+        }
+
+        public TestBean(int i) {
+            toString = "(int)";
+        }
+
+        public TestBean(Integer i) {
+            toString = "(Integer)";
+        }
+
+        public TestBean(double d) {
+            toString = "(double)";
+        }
+
+        public TestBean(String s) {
+            toString = "(String)";
+        }
+
+        public TestBean(Object o) {
+            toString = "(Object)";
+        }
+
+        public String toString() {
+            return toString;
+        }
+    }
+
+    private static class PrivateClass {
+        public PrivateClass() {
+        }
+    }
+
+    private Map classCache;
+
+    public ConstructorUtilsTest(String name) {
+        super(name);
+        classCache = new HashMap();
+    }
+
+    /**
+     * Run the test cases as a suite.
+     * @return the Test
+     */
+    public static Test suite() {
+        TestSuite suite = new TestSuite(ConstructorUtilsTest.class);
+        suite.setName("ConstructorUtils Tests");
+        return suite;
+    }
+
+    protected void setUp() throws Exception {
+        super.setUp();
+        classCache.clear();
+    }
+
+    public void testConstructor() throws Exception {
+        assertNotNull(MethodUtils.class.newInstance());
+    }
+
+    public void testInvokeConstructor() throws Exception {
+        assertEquals("()", ConstructorUtils.invokeConstructor(TestBean.class,
+                ArrayUtils.EMPTY_CLASS_ARRAY).toString());
+        assertEquals("()", ConstructorUtils.invokeConstructor(TestBean.class,
+                (Class[]) null).toString());
+        assertEquals("(String)", ConstructorUtils.invokeConstructor(
+                TestBean.class, "").toString());
+        assertEquals("(Object)", ConstructorUtils.invokeConstructor(
+                TestBean.class, new Object()).toString());
+        assertEquals("(Object)", ConstructorUtils.invokeConstructor(
+                TestBean.class, Boolean.TRUE).toString());
+        assertEquals("(Integer)", ConstructorUtils.invokeConstructor(
+                TestBean.class, NumberUtils.INTEGER_ONE).toString());
+        assertEquals("(int)", ConstructorUtils.invokeConstructor(
+                TestBean.class, NumberUtils.BYTE_ONE).toString());
+        assertEquals("(double)", ConstructorUtils.invokeConstructor(
+                TestBean.class, NumberUtils.LONG_ONE).toString());
+        assertEquals("(double)", ConstructorUtils.invokeConstructor(
+                TestBean.class, NumberUtils.DOUBLE_ONE).toString());
+    }
+
+    public void testInvokeExactConstructor() throws Exception {
+        assertEquals("()", ConstructorUtils.invokeExactConstructor(
+                TestBean.class, ArrayUtils.EMPTY_CLASS_ARRAY).toString());
+        assertEquals("()", ConstructorUtils.invokeExactConstructor(
+                TestBean.class, (Class[]) null).toString());
+        assertEquals("(String)", ConstructorUtils.invokeExactConstructor(
+                TestBean.class, "").toString());
+        assertEquals("(Object)", ConstructorUtils.invokeExactConstructor(
+                TestBean.class, new Object()).toString());
+        assertEquals("(Integer)", ConstructorUtils.invokeExactConstructor(
+                TestBean.class, NumberUtils.INTEGER_ONE).toString());
+        assertEquals("(double)", ConstructorUtils.invokeExactConstructor(
+                TestBean.class, new Object[] { NumberUtils.DOUBLE_ONE },
+                new Class[] { Double.TYPE }).toString());
+
+        try {
+            ConstructorUtils.invokeExactConstructor(TestBean.class,
+                    NumberUtils.BYTE_ONE);
+            fail("should throw NoSuchMethodException");
+        } catch (NoSuchMethodException e) {
+        }
+        try {
+            ConstructorUtils.invokeExactConstructor(TestBean.class,
+                    NumberUtils.LONG_ONE);
+            fail("should throw NoSuchMethodException");
+        } catch (NoSuchMethodException e) {
+        }
+        try {
+            ConstructorUtils.invokeExactConstructor(TestBean.class,
+                    Boolean.TRUE);
+            fail("should throw NoSuchMethodException");
+        } catch (NoSuchMethodException e) {
+        }
+    }
+
+    public void testGetAccessibleConstructor() throws Exception {
+        assertNotNull(ConstructorUtils.getAccessibleConstructor(Object.class
+                .getConstructor(ArrayUtils.EMPTY_CLASS_ARRAY)));
+        assertNull(ConstructorUtils.getAccessibleConstructor(PrivateClass.class
+                .getConstructor(ArrayUtils.EMPTY_CLASS_ARRAY)));
+    }
+
+    public void testGetAccessibleConstructorFromDescription() throws Exception {
+        assertNotNull(ConstructorUtils.getAccessibleConstructor(Object.class,
+                ArrayUtils.EMPTY_CLASS_ARRAY));
+        assertNull(ConstructorUtils.getAccessibleConstructor(
+                PrivateClass.class, ArrayUtils.EMPTY_CLASS_ARRAY));
+    }
+
+    public void testGetMatchingAccessibleMethod() throws Exception {
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                ArrayUtils.EMPTY_CLASS_ARRAY, ArrayUtils.EMPTY_CLASS_ARRAY);
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class, null,
+                ArrayUtils.EMPTY_CLASS_ARRAY);
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(String.class), singletonArray(String.class));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Object.class), singletonArray(Object.class));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Boolean.class), singletonArray(Object.class));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Byte.class), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Byte.TYPE), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Short.class), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Short.TYPE), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Character.class), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Character.TYPE), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Integer.class), singletonArray(Integer.class));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Integer.TYPE), singletonArray(Integer.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Long.class), singletonArray(Double.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Long.TYPE), singletonArray(Double.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Float.class), singletonArray(Double.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Float.TYPE), singletonArray(Double.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Double.class), singletonArray(Double.TYPE));
+        expectMatchingAccessibleConstructorParameterTypes(TestBean.class,
+                singletonArray(Double.TYPE), singletonArray(Double.TYPE));
+    }
+
+    private void expectMatchingAccessibleConstructorParameterTypes(Class cls,
+            Class[] requestTypes, Class[] actualTypes) {
+        Constructor c = ConstructorUtils.getMatchingAccessibleConstructor(cls,
+                requestTypes);
+        assertTrue(Arrays.toString(c.getParameterTypes()) + " not equals "
+                + Arrays.toString(actualTypes), Arrays.equals(actualTypes, c
+                .getParameterTypes()));
+    }
+
+    private Class[] singletonArray(Class c) {
+        Class[] result = (Class[]) classCache.get(c);
+        if (result == null) {
+            result = new Class[] { c };
+            classCache.put(c, result);
+        }
+        return result;
+    }
+
+}
