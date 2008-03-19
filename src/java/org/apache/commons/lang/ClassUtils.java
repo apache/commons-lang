@@ -393,6 +393,42 @@ public class ClassUtils {
      * @return <code>true</code> if assignment possible
      */
     public static boolean isAssignable(Class[] classArray, Class[] toClassArray) {
+        return isAssignable(classArray, toClassArray, false);
+    }
+
+    /**
+     * <p>Checks if an array of Classes can be assigned to another array of Classes.</p>
+     *
+     * <p>This method calls {@link #isAssignable(Class, Class) isAssignable} for each
+     * Class pair in the input arrays. It can be used to check if a set of arguments
+     * (the first parameter) are suitably compatible with a set of method parameter types
+     * (the second parameter).</p>
+     *
+     * <p>Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this
+     * method takes into account widenings of primitive classes and
+     * <code>null</code>s.</p>
+     *
+     * <p>Primitive widenings allow an int to be assigned to a <code>long</code>,
+     * <code>float</code> or <code>double</code>. This method returns the correct
+     * result for these cases.</p>
+     *
+     * <p><code>Null</code> may be assigned to any reference type. This method will
+     * return <code>true</code> if <code>null</code> is passed in and the toClass is
+     * non-primitive.</p>
+     *
+     * <p>Specifically, this method tests whether the type represented by the
+     * specified <code>Class</code> parameter can be converted to the type
+     * represented by this <code>Class</code> object via an identity conversion
+     * widening primitive or widening reference conversion. See
+     * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
+     * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
+     *
+     * @param classArray  the array of Classes to check, may be <code>null</code>
+     * @param toClassArray  the array of Classes to try to assign into, may be <code>null</code>
+     * @param autoboxing  whether to use implicit autoboxing/unboxing between primitives and wrappers
+     * @return <code>true</code> if assignment possible
+     */
+    public static boolean isAssignable(Class[] classArray, Class[] toClassArray, boolean autoboxing) {
         if (ArrayUtils.isSameLength(classArray, toClassArray) == false) {
             return false;
         }
@@ -403,7 +439,7 @@ public class ClassUtils {
             toClassArray = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
         for (int i = 0; i < classArray.length; i++) {
-            if (isAssignable(classArray[i], toClassArray[i]) == false) {
+            if (isAssignable(classArray[i], toClassArray[i], autoboxing) == false) {
                 return false;
             }
         }
@@ -437,12 +473,58 @@ public class ClassUtils {
      * @return <code>true</code> if assignment possible
      */
     public static boolean isAssignable(Class cls, Class toClass) {
+        return isAssignable(cls, toClass, false);
+    }
+
+    /**
+     * <p>Checks if one <code>Class</code> can be assigned to a variable of
+     * another <code>Class</code>.</p>
+     *
+     * <p>Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method,
+     * this method takes into account widenings of primitive classes and
+     * <code>null</code>s.</p>
+     *
+     * <p>Primitive widenings allow an int to be assigned to a long, float or
+     * double. This method returns the correct result for these cases.</p>
+     *
+     * <p><code>Null</code> may be assigned to any reference type. This method
+     * will return <code>true</code> if <code>null</code> is passed in and the
+     * toClass is non-primitive.</p>
+     *
+     * <p>Specifically, this method tests whether the type represented by the
+     * specified <code>Class</code> parameter can be converted to the type
+     * represented by this <code>Class</code> object via an identity conversion
+     * widening primitive or widening reference conversion. See
+     * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
+     * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
+     *
+     * @param cls  the Class to check, may be null
+     * @param toClass  the Class to try to assign into, returns false if null
+     * @param autoboxing  whether to use implicit autoboxing/unboxing between primitives and wrappers
+     * @return <code>true</code> if assignment possible
+     */
+    public static boolean isAssignable(Class cls, Class toClass, boolean autoboxing) {
         if (toClass == null) {
             return false;
         }
         // have to check for null, as isAssignableFrom doesn't
         if (cls == null) {
             return !(toClass.isPrimitive());
+        }
+        //autoboxing:
+        if (autoboxing) {
+            if (cls.isPrimitive() && !toClass.isPrimitive()) {
+                cls = primitiveToWrapper(cls);
+                if (cls == null) {
+                    return false;
+                }
+            }
+            if (toClass.isPrimitive() && !cls.isPrimitive()) {
+                cls = wrapperToPrimitive(cls);
+                if (cls == null) {
+                    return false;
+                }
+            }
         }
         if (cls.equals(toClass)) {
             return true;
