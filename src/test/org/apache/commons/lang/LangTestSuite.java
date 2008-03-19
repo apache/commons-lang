@@ -16,6 +16,9 @@
  */
 package org.apache.commons.lang;
 
+import org.apache.commons.lang.reflect.ConstructorUtilsTest;
+import org.apache.commons.lang.reflect.MethodUtilsTest;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -62,6 +65,7 @@ public class LangTestSuite extends TestCase {
         suite.addTest(CharSetUtilsTest.suite());
         suite.addTest(CharUtilsTest.suite());
         suite.addTest(ClassUtilsTest.suite());
+        suite.addTest(ConstructorUtilsTest.suite());
         suite.addTest(EntitiesTest.suite());
         suite.addTest(IllegalClassExceptionTest.suite());
         suite.addTest(IncompleteArgumentExceptionTest.suite());
