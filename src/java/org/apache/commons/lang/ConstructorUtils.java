@@ -44,7 +44,8 @@ import java.lang.reflect.Modifier;
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
  * @author Rodney Waldhoff
- * @version $Revision$ $Date$
+ * @since 2.5
+ * @version $Id$
  */
 public class ConstructorUtils {
 

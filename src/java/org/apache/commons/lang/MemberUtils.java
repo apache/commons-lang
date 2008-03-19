@@ -27,6 +27,8 @@ import java.lang.reflect.Modifier;
  *
  * @author Steve Cohen
  * @author Matt Benson
+ * @since 2.5
+ * @version $Id$
  */
 abstract class MemberUtils {
     // TODO extract an interface to implement compareParameterSets(...)?

@@ -50,6 +50,8 @@ import java.util.WeakHashMap;
  * @author Robert Burrell Donkin
  * @author Niall Pemberton
  * @author Matt Benson
+ * @since 2.5
+ * @version $Id$
  */
 public class MethodUtils {
 
