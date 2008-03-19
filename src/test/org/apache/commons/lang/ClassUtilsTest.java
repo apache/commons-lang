@@ -222,114 +222,118 @@ public class ClassUtilsTest extends TestCase {
         Class[] array1s = new Class[] {String.class};
         Class[] array0 = new Class[] {};
 
-        assertEquals(false, ClassUtils.isAssignable(array1, array2));
-        assertEquals(false, ClassUtils.isAssignable(null, array2));
-        assertEquals(true, ClassUtils.isAssignable(null, array0));
-        assertEquals(true, ClassUtils.isAssignable(array0, array0));
-        assertEquals(true, ClassUtils.isAssignable(array0, null));
-        assertEquals(true, ClassUtils.isAssignable((Class[]) null, (Class[]) null));
+        assertFalse(ClassUtils.isAssignable(array1, array2));
+        assertFalse(ClassUtils.isAssignable(null, array2));
+        assertTrue(ClassUtils.isAssignable(null, array0));
+        assertTrue(ClassUtils.isAssignable(array0, array0));
+        assertTrue(ClassUtils.isAssignable(array0, null));
+        assertTrue(ClassUtils.isAssignable((Class[]) null, (Class[]) null));
         
-        assertEquals(false, ClassUtils.isAssignable(array1, array1s));
-        assertEquals(true, ClassUtils.isAssignable(array1s, array1s));
-        assertEquals(true, ClassUtils.isAssignable(array1s, array1));
+        assertFalse(ClassUtils.isAssignable(array1, array1s));
+        assertTrue(ClassUtils.isAssignable(array1s, array1s));
+        assertTrue(ClassUtils.isAssignable(array1s, array1));
     }
     
     public void test_isAssignable() throws Exception {
-        assertEquals(false, ClassUtils.isAssignable((Class) null, null));
-        assertEquals(false, ClassUtils.isAssignable(String.class, null));
+        assertFalse(ClassUtils.isAssignable((Class) null, null));
+        assertFalse(ClassUtils.isAssignable(String.class, null));
         
-        assertEquals(true, ClassUtils.isAssignable(null, Object.class));
-        assertEquals(true, ClassUtils.isAssignable(null, Integer.class));
-        assertEquals(false, ClassUtils.isAssignable(null, Integer.TYPE));
-        assertEquals(true, ClassUtils.isAssignable(String.class, Object.class));
-        assertEquals(true, ClassUtils.isAssignable(String.class, String.class));
-        assertEquals(false, ClassUtils.isAssignable(Object.class, String.class));
-        assertEquals(false, ClassUtils.isAssignable(Integer.TYPE, Integer.class));
-        assertEquals(false, ClassUtils.isAssignable(Integer.class, Integer.TYPE));
-        assertEquals(true, ClassUtils.isAssignable(Integer.TYPE, Integer.TYPE));
-        assertEquals(true, ClassUtils.isAssignable(Integer.class, Integer.class));
+        assertTrue(ClassUtils.isAssignable(null, Object.class));
+        assertTrue(ClassUtils.isAssignable(null, Integer.class));
+        assertFalse(ClassUtils.isAssignable(null, Integer.TYPE));
+        assertTrue(ClassUtils.isAssignable(String.class, Object.class));
+        assertTrue(ClassUtils.isAssignable(String.class, String.class));
+        assertFalse(ClassUtils.isAssignable(Object.class, String.class));
+        assertFalse(ClassUtils.isAssignable(Integer.TYPE, Integer.class));
+        assertFalse(ClassUtils.isAssignable(Integer.class, Integer.TYPE));
+        assertTrue(ClassUtils.isAssignable(Integer.TYPE, Integer.TYPE));
+        assertTrue(ClassUtils.isAssignable(Integer.class, Integer.class));
+        assertFalse(ClassUtils.isAssignable(Boolean.TYPE, Boolean.class));
+        assertFalse(ClassUtils.isAssignable(Boolean.class, Boolean.TYPE));
+        assertTrue(ClassUtils.isAssignable(Boolean.TYPE, Boolean.TYPE));
+        assertTrue(ClassUtils.isAssignable(Boolean.class, Boolean.class));
     }
     
     public void test_isAssignable_Widening() throws Exception {
         // test byte conversions
-        assertEquals("byte -> char", false, ClassUtils.isAssignable(Byte.TYPE, Character.TYPE));
-        assertEquals("byte -> byte", true, ClassUtils.isAssignable(Byte.TYPE, Byte.TYPE));
-        assertEquals("byte -> short", true, ClassUtils.isAssignable(Byte.TYPE, Short.TYPE));
-        assertEquals("byte -> int", true, ClassUtils.isAssignable(Byte.TYPE, Integer.TYPE));
-        assertEquals("byte -> long", true, ClassUtils.isAssignable(Byte.TYPE, Long.TYPE));
-        assertEquals("byte -> float", true, ClassUtils.isAssignable(Byte.TYPE, Float.TYPE));
-        assertEquals("byte -> double", true, ClassUtils.isAssignable(Byte.TYPE, Double.TYPE));
-        assertEquals("byte -> boolean", false, ClassUtils.isAssignable(Byte.TYPE, Boolean.TYPE));
+        assertFalse("byte -> char", ClassUtils.isAssignable(Byte.TYPE, Character.TYPE));
+        assertTrue("byte -> byte", ClassUtils.isAssignable(Byte.TYPE, Byte.TYPE));
+        assertTrue("byte -> short", ClassUtils.isAssignable(Byte.TYPE, Short.TYPE));
+        assertTrue("byte -> int", ClassUtils.isAssignable(Byte.TYPE, Integer.TYPE));
+        assertTrue("byte -> long", ClassUtils.isAssignable(Byte.TYPE, Long.TYPE));
+        assertTrue("byte -> float", ClassUtils.isAssignable(Byte.TYPE, Float.TYPE));
+        assertTrue("byte -> double", ClassUtils.isAssignable(Byte.TYPE, Double.TYPE));
+        assertFalse("byte -> boolean", ClassUtils.isAssignable(Byte.TYPE, Boolean.TYPE));
         
         // test short conversions
-        assertEquals("short -> char", false, ClassUtils.isAssignable(Short.TYPE, Character.TYPE));
-        assertEquals("short -> byte", false, ClassUtils.isAssignable(Short.TYPE, Byte.TYPE));
-        assertEquals("short -> short", true, ClassUtils.isAssignable(Short.TYPE, Short.TYPE));
-        assertEquals("short -> int", true, ClassUtils.isAssignable(Short.TYPE, Integer.TYPE));
-        assertEquals("short -> long", true, ClassUtils.isAssignable(Short.TYPE, Long.TYPE));
-        assertEquals("short -> float", true, ClassUtils.isAssignable(Short.TYPE, Float.TYPE));
-        assertEquals("short -> double", true, ClassUtils.isAssignable(Short.TYPE, Double.TYPE));
-        assertEquals("short -> boolean", false, ClassUtils.isAssignable(Short.TYPE, Boolean.TYPE));
+        assertFalse("short -> char", ClassUtils.isAssignable(Short.TYPE, Character.TYPE));
+        assertFalse("short -> byte", ClassUtils.isAssignable(Short.TYPE, Byte.TYPE));
+        assertTrue("short -> short", ClassUtils.isAssignable(Short.TYPE, Short.TYPE));
+        assertTrue("short -> int", ClassUtils.isAssignable(Short.TYPE, Integer.TYPE));
+        assertTrue("short -> long", ClassUtils.isAssignable(Short.TYPE, Long.TYPE));
+        assertTrue("short -> float", ClassUtils.isAssignable(Short.TYPE, Float.TYPE));
+        assertTrue("short -> double", ClassUtils.isAssignable(Short.TYPE, Double.TYPE));
+        assertFalse("short -> boolean", ClassUtils.isAssignable(Short.TYPE, Boolean.TYPE));
         
         // test char conversions
-        assertEquals("char -> char", true, ClassUtils.isAssignable(Character.TYPE, Character.TYPE));
-        assertEquals("char -> byte", false, ClassUtils.isAssignable(Character.TYPE, Byte.TYPE));
-        assertEquals("char -> short", false, ClassUtils.isAssignable(Character.TYPE, Short.TYPE));
-        assertEquals("char -> int", true, ClassUtils.isAssignable(Character.TYPE, Integer.TYPE));
-        assertEquals("char -> long", true, ClassUtils.isAssignable(Character.TYPE, Long.TYPE));
-        assertEquals("char -> float", true, ClassUtils.isAssignable(Character.TYPE, Float.TYPE));
-        assertEquals("char -> double", true, ClassUtils.isAssignable(Character.TYPE, Double.TYPE));
-        assertEquals("char -> boolean", false, ClassUtils.isAssignable(Character.TYPE, Boolean.TYPE));
+        assertTrue("char -> char", ClassUtils.isAssignable(Character.TYPE, Character.TYPE));
+        assertFalse("char -> byte", ClassUtils.isAssignable(Character.TYPE, Byte.TYPE));
+        assertFalse("char -> short", ClassUtils.isAssignable(Character.TYPE, Short.TYPE));
+        assertTrue("char -> int", ClassUtils.isAssignable(Character.TYPE, Integer.TYPE));
+        assertTrue("char -> long", ClassUtils.isAssignable(Character.TYPE, Long.TYPE));
+        assertTrue("char -> float", ClassUtils.isAssignable(Character.TYPE, Float.TYPE));
+        assertTrue("char -> double", ClassUtils.isAssignable(Character.TYPE, Double.TYPE));
+        assertFalse("char -> boolean", ClassUtils.isAssignable(Character.TYPE, Boolean.TYPE));
         
         // test int conversions
-        assertEquals("int -> char", false, ClassUtils.isAssignable(Integer.TYPE, Character.TYPE));
-        assertEquals("int -> byte", false, ClassUtils.isAssignable(Integer.TYPE, Byte.TYPE));
-        assertEquals("int -> short", false, ClassUtils.isAssignable(Integer.TYPE, Short.TYPE));
-        assertEquals("int -> int", true, ClassUtils.isAssignable(Integer.TYPE, Integer.TYPE));
-        assertEquals("int -> long", true, ClassUtils.isAssignable(Integer.TYPE, Long.TYPE));
-        assertEquals("int -> float", true, ClassUtils.isAssignable(Integer.TYPE, Float.TYPE));
-        assertEquals("int -> double", true, ClassUtils.isAssignable(Integer.TYPE, Double.TYPE));
-        assertEquals("int -> boolean", false, ClassUtils.isAssignable(Integer.TYPE, Boolean.TYPE));
+        assertFalse("int -> char", ClassUtils.isAssignable(Integer.TYPE, Character.TYPE));
+        assertFalse("int -> byte", ClassUtils.isAssignable(Integer.TYPE, Byte.TYPE));
+        assertFalse("int -> short", ClassUtils.isAssignable(Integer.TYPE, Short.TYPE));
+        assertTrue("int -> int", ClassUtils.isAssignable(Integer.TYPE, Integer.TYPE));
+        assertTrue("int -> long", ClassUtils.isAssignable(Integer.TYPE, Long.TYPE));
+        assertTrue("int -> float", ClassUtils.isAssignable(Integer.TYPE, Float.TYPE));
+        assertTrue("int -> double", ClassUtils.isAssignable(Integer.TYPE, Double.TYPE));
+        assertFalse("int -> boolean", ClassUtils.isAssignable(Integer.TYPE, Boolean.TYPE));
  
         // test long conversions
-        assertEquals("long -> char", false, ClassUtils.isAssignable(Long.TYPE, Character.TYPE));
-        assertEquals("long -> byte", false, ClassUtils.isAssignable(Long.TYPE, Byte.TYPE));
-        assertEquals("long -> short", false, ClassUtils.isAssignable(Long.TYPE, Short.TYPE));
-        assertEquals("long -> int", false, ClassUtils.isAssignable(Long.TYPE, Integer.TYPE));
-        assertEquals("long -> long", true, ClassUtils.isAssignable(Long.TYPE, Long.TYPE));
-        assertEquals("long -> float", true, ClassUtils.isAssignable(Long.TYPE, Float.TYPE));
-        assertEquals("long -> double", true, ClassUtils.isAssignable(Long.TYPE, Double.TYPE));
-        assertEquals("long -> boolean", false, ClassUtils.isAssignable(Long.TYPE, Boolean.TYPE));
+        assertFalse("long -> char", ClassUtils.isAssignable(Long.TYPE, Character.TYPE));
+        assertFalse("long -> byte", ClassUtils.isAssignable(Long.TYPE, Byte.TYPE));
+        assertFalse("long -> short", ClassUtils.isAssignable(Long.TYPE, Short.TYPE));
+        assertFalse("long -> int", ClassUtils.isAssignable(Long.TYPE, Integer.TYPE));
+        assertTrue("long -> long", ClassUtils.isAssignable(Long.TYPE, Long.TYPE));
+        assertTrue("long -> float", ClassUtils.isAssignable(Long.TYPE, Float.TYPE));
+        assertTrue("long -> double", ClassUtils.isAssignable(Long.TYPE, Double.TYPE));
+        assertFalse("long -> boolean", ClassUtils.isAssignable(Long.TYPE, Boolean.TYPE));
  
         // test float conversions
-        assertEquals("float -> char", false, ClassUtils.isAssignable(Float.TYPE, Character.TYPE));
-        assertEquals("float -> byte", false, ClassUtils.isAssignable(Float.TYPE, Byte.TYPE));
-        assertEquals("float -> short", false, ClassUtils.isAssignable(Float.TYPE, Short.TYPE));
-        assertEquals("float -> int", false, ClassUtils.isAssignable(Float.TYPE, Integer.TYPE));
-        assertEquals("float -> long", false, ClassUtils.isAssignable(Float.TYPE, Long.TYPE));
-        assertEquals("float -> float", true, ClassUtils.isAssignable(Float.TYPE, Float.TYPE));
-        assertEquals("float -> double", true, ClassUtils.isAssignable(Float.TYPE, Double.TYPE));
-        assertEquals("float -> boolean", false, ClassUtils.isAssignable(Float.TYPE, Boolean.TYPE));
+        assertFalse("float -> char", ClassUtils.isAssignable(Float.TYPE, Character.TYPE));
+        assertFalse("float -> byte", ClassUtils.isAssignable(Float.TYPE, Byte.TYPE));
+        assertFalse("float -> short", ClassUtils.isAssignable(Float.TYPE, Short.TYPE));
+        assertFalse("float -> int", ClassUtils.isAssignable(Float.TYPE, Integer.TYPE));
+        assertFalse("float -> long", ClassUtils.isAssignable(Float.TYPE, Long.TYPE));
+        assertTrue("float -> float", ClassUtils.isAssignable(Float.TYPE, Float.TYPE));
+        assertTrue("float -> double", ClassUtils.isAssignable(Float.TYPE, Double.TYPE));
+        assertFalse("float -> boolean", ClassUtils.isAssignable(Float.TYPE, Boolean.TYPE));
         
-        // test float conversions
-        assertEquals("double -> char", false, ClassUtils.isAssignable(Double.TYPE, Character.TYPE));
-        assertEquals("double -> byte", false, ClassUtils.isAssignable(Double.TYPE, Byte.TYPE));
-        assertEquals("double -> short", false, ClassUtils.isAssignable(Double.TYPE, Short.TYPE));
-        assertEquals("double -> int", false, ClassUtils.isAssignable(Double.TYPE, Integer.TYPE));
-        assertEquals("double -> long", false, ClassUtils.isAssignable(Double.TYPE, Long.TYPE));
-        assertEquals("double -> float", false, ClassUtils.isAssignable(Double.TYPE, Float.TYPE));
-        assertEquals("double -> double", true, ClassUtils.isAssignable(Double.TYPE, Double.TYPE));
-        assertEquals("double -> boolean", false, ClassUtils.isAssignable(Double.TYPE, Boolean.TYPE));
+        // test double conversions
+        assertFalse("double -> char", ClassUtils.isAssignable(Double.TYPE, Character.TYPE));
+        assertFalse("double -> byte", ClassUtils.isAssignable(Double.TYPE, Byte.TYPE));
+        assertFalse("double -> short", ClassUtils.isAssignable(Double.TYPE, Short.TYPE));
+        assertFalse("double -> int", ClassUtils.isAssignable(Double.TYPE, Integer.TYPE));
+        assertFalse("double -> long", ClassUtils.isAssignable(Double.TYPE, Long.TYPE));
+        assertFalse("double -> float", ClassUtils.isAssignable(Double.TYPE, Float.TYPE));
+        assertTrue("double -> double", ClassUtils.isAssignable(Double.TYPE, Double.TYPE));
+        assertFalse("double -> boolean", ClassUtils.isAssignable(Double.TYPE, Boolean.TYPE));
         
-        // test float conversions
-        assertEquals("boolean -> char", false, ClassUtils.isAssignable(Boolean.TYPE, Character.TYPE));
-        assertEquals("boolean -> byte", false, ClassUtils.isAssignable(Boolean.TYPE, Byte.TYPE));
-        assertEquals("boolean -> short", false, ClassUtils.isAssignable(Boolean.TYPE, Short.TYPE));
-        assertEquals("boolean -> int", false, ClassUtils.isAssignable(Boolean.TYPE, Integer.TYPE));
-        assertEquals("boolean -> long", false, ClassUtils.isAssignable(Boolean.TYPE, Long.TYPE));
-        assertEquals("boolean -> float", false, ClassUtils.isAssignable(Boolean.TYPE, Float.TYPE));
-        assertEquals("boolean -> double", false, ClassUtils.isAssignable(Boolean.TYPE, Double.TYPE));
-        assertEquals("boolean -> boolean", true, ClassUtils.isAssignable(Boolean.TYPE, Boolean.TYPE));
+        // test boolean conversions
+        assertFalse("boolean -> char", ClassUtils.isAssignable(Boolean.TYPE, Character.TYPE));
+        assertFalse("boolean -> byte", ClassUtils.isAssignable(Boolean.TYPE, Byte.TYPE));
+        assertFalse("boolean -> short", ClassUtils.isAssignable(Boolean.TYPE, Short.TYPE));
+        assertFalse("boolean -> int", ClassUtils.isAssignable(Boolean.TYPE, Integer.TYPE));
+        assertFalse("boolean -> long", ClassUtils.isAssignable(Boolean.TYPE, Long.TYPE));
+        assertFalse("boolean -> float", ClassUtils.isAssignable(Boolean.TYPE, Float.TYPE));
+        assertFalse("boolean -> double", ClassUtils.isAssignable(Boolean.TYPE, Double.TYPE));
+        assertTrue("boolean -> boolean", ClassUtils.isAssignable(Boolean.TYPE, Boolean.TYPE));
     }
     
     public void testPrimitiveToWrapper() {
