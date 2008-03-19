@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.beanutils;
+package org.apache.commons.lang;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -44,17 +44,22 @@ import java.lang.reflect.Modifier;
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
  * @author Rodney Waldhoff
- * @version $Revision$ $Date$
+ * @since 2.5
+ * @version $Id$
  */
 public class ConstructorUtils {
 
-    // --------------------------------------------------------- Private Members
-    /** An empty class array */
-    private static final Class[] EMPTY_CLASS_PARAMETERS = new Class[0];
-    /** An empty object array */
-    private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
-
-    // --------------------------------------------------------- Public Methods
+    /**
+     * <p>ConstructorUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as
+     * <code>ConstructorUtils.invokeConstructor(cls, args)</code>.</p>
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
+     */
+    public ConstructorUtils() {
+        super();
+    }
 
     /**
      * <p>Convenience method returning new instance of <code>klazz</code> using a single argument constructor.
@@ -63,7 +68,7 @@ public class ConstructorUtils {
      *
      * <p>The signatures should be assignment compatible.</p>
      *
-     * @param klass the class to be constructed.
+     * @param cls the class to be constructed.
      * @param arg the actual argument
      * @return new instance of <code>klazz</code>
      *
@@ -74,16 +79,10 @@ public class ConstructorUtils {
      *
      * @see #invokeConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
      */
-    public static Object invokeConstructor(Class klass, Object arg)
-        throws
-            NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException,
-            InstantiationException {
-
-        Object[] args = { arg };
-        return invokeConstructor(klass, args);
-
+    public static Object invokeConstructor(Class cls, Object arg)
+            throws NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException, InstantiationException {
+        return invokeConstructor(cls, new Object[] { arg });
     }
 
     /**
@@ -93,7 +92,7 @@ public class ConstructorUtils {
      *
      * <p>The signatures should be assignment compatible.</p>
      *
-     * @param klass the class to be constructed.
+     * @param cls the class to be constructed.
      * @param args actual argument array
      * @return new instance of <code>klazz</code>
      *
@@ -104,23 +103,17 @@ public class ConstructorUtils {
      *
      * @see #invokeConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
      */
-    public static Object invokeConstructor(Class klass, Object[] args)
-        throws
-            NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException,
-            InstantiationException {
-
+    public static Object invokeConstructor(Class cls, Object[] args)
+            throws NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException, InstantiationException {
         if (null == args) {
-            args = EMPTY_OBJECT_ARRAY;
+            args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        int arguments = args.length;
-        Class parameterTypes[] = new Class[arguments];
-        for (int i = 0; i < arguments; i++) {
+        Class parameterTypes[] = new Class[args.length];
+        for (int i = 0; i < args.length; i++) {
             parameterTypes[i] = args[i].getClass();
         }
-        return invokeConstructor(klass, args, parameterTypes);
-
+        return invokeConstructor(cls, args, parameterTypes);
     }
 
     /**
@@ -129,7 +122,7 @@ public class ConstructorUtils {
      *
      * <p>The signatures should be assignment compatible.</p>
      *
-     * @param klass the class to be constructed.
+     * @param cls the class to be constructed.
      * @param args actual argument array
      * @param parameterTypes parameter types array
      * @return new instance of <code>klazz</code>
@@ -140,32 +133,24 @@ public class ConstructorUtils {
      * @throws InstantiationException thrown on the constructor's invocation
      * @see Constructor#newInstance
      */
-    public static Object invokeConstructor(
-        Class klass,
-        Object[] args,
-        Class[] parameterTypes)
-        throws
-            NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException,
+    public static Object invokeConstructor(Class cls, Object[] args,
+            Class[] parameterTypes) throws NoSuchMethodException,
+            IllegalAccessException, InvocationTargetException,
             InstantiationException {
-
         if (parameterTypes == null) {
-            parameterTypes = EMPTY_CLASS_PARAMETERS;
+            parameterTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
         if (args == null) {
-            args = EMPTY_OBJECT_ARRAY;
+            args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-
-        Constructor ctor =
-            getMatchingAccessibleConstructor(klass, parameterTypes);
+        Constructor ctor = getMatchingAccessibleConstructor(cls, parameterTypes);
         if (null == ctor) {
             throw new NoSuchMethodException(
-                "No such accessible constructor on object: " + klass.getName());
+                    "No such accessible constructor on object: "
+                            + cls.getName());
         }
         return ctor.newInstance(args);
     }
-
 
     /**
      * <p>Convenience method returning new instance of <code>klazz</code> using a single argument constructor.
@@ -174,7 +159,7 @@ public class ConstructorUtils {
      *
      * <p>The signatures should match exactly.</p>
      *
-     * @param klass the class to be constructed.
+     * @param cls the class to be constructed.
      * @param arg the actual argument
      * @return new instance of <code>klazz</code>
      *
@@ -185,16 +170,10 @@ public class ConstructorUtils {
      *
      * @see #invokeExactConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
      */
-    public static Object invokeExactConstructor(Class klass, Object arg)
-        throws
-            NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException,
-            InstantiationException {
-
-        Object[] args = { arg };
-        return invokeExactConstructor(klass, args);
-
+    public static Object invokeExactConstructor(Class cls, Object arg)
+            throws NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException, InstantiationException {
+        return invokeExactConstructor(cls, new Object[] { arg });
     }
 
     /**
@@ -204,7 +183,7 @@ public class ConstructorUtils {
      *
      * <p>The signatures should match exactly.</p>
      *
-     * @param klass the class to be constructed.
+     * @param cls the class to be constructed.
      * @param args actual argument array
      * @return new instance of <code>klazz</code>
      *
@@ -215,22 +194,18 @@ public class ConstructorUtils {
      *
      * @see #invokeExactConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
      */
-    public static Object invokeExactConstructor(Class klass, Object[] args)
-        throws
-            NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException,
-            InstantiationException {
+    public static Object invokeExactConstructor(Class cls, Object[] args)
+            throws NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException, InstantiationException {
         if (null == args) {
-            args = EMPTY_OBJECT_ARRAY;
+            args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
         int arguments = args.length;
         Class parameterTypes[] = new Class[arguments];
         for (int i = 0; i < arguments; i++) {
             parameterTypes[i] = args[i].getClass();
         }
-        return invokeExactConstructor(klass, args, parameterTypes);
-
+        return invokeExactConstructor(cls, args, parameterTypes);
     }
 
     /**
@@ -240,7 +215,7 @@ public class ConstructorUtils {
      *
      * <p>The signatures should match exactly.</p>
      *
-     * @param klass the class to be constructed.
+     * @param cls the class to be constructed.
      * @param args actual argument array
      * @param parameterTypes parameter types array
      * @return new instance of <code>klazz</code>
@@ -251,69 +226,53 @@ public class ConstructorUtils {
      * @throws InstantiationException thrown on the constructor's invocation
      * @see Constructor#newInstance
      */
-    public static Object invokeExactConstructor(
-        Class klass,
-        Object[] args,
-        Class[] parameterTypes)
-        throws
-            NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException,
+    public static Object invokeExactConstructor(Class cls, Object[] args,
+            Class[] parameterTypes) throws NoSuchMethodException,
+            IllegalAccessException, InvocationTargetException,
             InstantiationException {
-
         if (args == null) {
-            args = EMPTY_OBJECT_ARRAY;
+            args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-
         if (parameterTypes == null) {
-            parameterTypes = EMPTY_CLASS_PARAMETERS;
+            parameterTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
-
-        Constructor ctor = getAccessibleConstructor(klass, parameterTypes);
+        Constructor ctor = getAccessibleConstructor(cls, parameterTypes);
         if (null == ctor) {
             throw new NoSuchMethodException(
-                "No such accessible constructor on object: " + klass.getName());
+                    "No such accessible constructor on object: "
+                            + cls.getName());
         }
         return ctor.newInstance(args);
-
     }
 
     /**
      * Returns a constructor with single argument.
-     * @param klass the class to be constructed
+     * @param cls the class to be constructed
      * @param parameterType The constructor parameter type
      * @return null if matching accessible constructor can not be found.
      * @see Class#getConstructor
      * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
      */
-    public static Constructor getAccessibleConstructor(
-        Class klass,
-        Class parameterType) {
-
-        Class[] parameterTypes = { parameterType };
-        return getAccessibleConstructor(klass, parameterTypes);
-
+    public static Constructor getAccessibleConstructor(Class cls,
+            Class parameterType) {
+        return getAccessibleConstructor(cls, new Class[] { parameterType });
     }
 
     /**
      * Returns a constructor given a class and signature.
-     * @param klass the class to be constructed
+     * @param cls the class to be constructed
      * @param parameterTypes the parameter array
      * @return null if matching accessible constructor can not be found
      * @see Class#getConstructor
      * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
      */
-    public static Constructor getAccessibleConstructor(
-        Class klass,
-        Class[] parameterTypes) {
-
+    public static Constructor getAccessibleConstructor(Class cls,
+            Class[] parameterTypes) {
         try {
-            return getAccessibleConstructor(
-                klass.getConstructor(parameterTypes));
+            return getAccessibleConstructor(cls.getConstructor(parameterTypes));
         } catch (NoSuchMethodException e) {
             return (null);
         }
-
     }
 
     /**
@@ -323,29 +282,11 @@ public class ConstructorUtils {
      * @see java.lang.SecurityManager
      */
     public static Constructor getAccessibleConstructor(Constructor ctor) {
-
-        // Make sure we have a method to check
-        if (ctor == null) {
-            return (null);
-        }
-
-        // If the requested method is not public we cannot call it
-        if (!Modifier.isPublic(ctor.getModifiers())) {
-            return (null);
-        }
-
-        // If the declaring class is public, we are done
-        Class clazz = ctor.getDeclaringClass();
-        if (Modifier.isPublic(clazz.getModifiers())) {
-            return (ctor);
-        }
-
-        // what else can we do?
-        return null;
-
+        return MemberUtils.isAccessible(ctor)
+                && Modifier.isPublic(ctor.getDeclaringClass().getModifiers()) ? ctor
+                : null;
     }
 
-    // -------------------------------------------------------- Private Methods
     /**
      * <p>Find an accessible constructor with compatible parameters.
      * Compatible parameters mean that every method parameter is assignable from
@@ -357,80 +298,41 @@ public class ConstructorUtils {
      * are assignment compatible with the parameter types.
      * The first matching constructor is returned.</p>
      *
-     * @param clazz find constructor for this class
+     * @param cls find constructor for this class
      * @param parameterTypes find method with compatible parameters
      * @return a valid Constructor object. If there's no matching constructor, returns <code>null</code>.
      */
-    private static Constructor getMatchingAccessibleConstructor(
-        Class clazz,
-        Class[] parameterTypes) {
-        // see if we can find the method directly
+    public static Constructor getMatchingAccessibleConstructor(Class cls,
+            Class[] parameterTypes) {
+        // see if we can find the constructor directly
         // most of the time this works and it's much faster
         try {
-            Constructor ctor = clazz.getConstructor(parameterTypes);
-            try {
-                //
-                // XXX Default access superclass workaround
-                //
-                // When a public class has a default access superclass
-                // with public methods, these methods are accessible.
-                // Calling them from compiled code works fine.
-                //
-                // Unfortunately, using reflection to invoke these methods
-                // seems to (wrongly) to prevent access even when the method
-                // modifer is public.
-                //
-                // The following workaround solves the problem but will only
-                // work from sufficiently privilages code. 
-                //
-                // Better workarounds would be greatfully accepted.
-                //
-                ctor.setAccessible(true);
-            } catch (SecurityException se) {
-                /* SWALLOW, if workaround fails don't fret. */
-            }
+            Constructor ctor = cls.getConstructor(parameterTypes);
+            MemberUtils.setAccessibleWorkaround(ctor);
             return ctor;
-
         } catch (NoSuchMethodException e) { /* SWALLOW */
         }
-
-        // search through all methods 
-        int paramSize = parameterTypes.length;
-        Constructor[] ctors = clazz.getConstructors();
-        for (int i = 0, size = ctors.length; i < size; i++) {
+        Constructor result = null;
+        // search through all constructors
+        Constructor[] ctors = cls.getConstructors();
+        for (int i = 0; i < ctors.length; i++) {
             // compare parameters
-            Class[] ctorParams = ctors[i].getParameterTypes();
-            int ctorParamSize = ctorParams.length;
-            if (ctorParamSize == paramSize) {
-                boolean match = true;
-                for (int n = 0; n < ctorParamSize; n++) {
-                    if (!MethodUtils
-                        .isAssignmentCompatible(
-                            ctorParams[n],
-                            parameterTypes[n])) {
-                        match = false;
-                        break;
-                    }
-                }
-
-                if (match) {
-                    // get accessible version of method
-                    Constructor ctor = getAccessibleConstructor(ctors[i]);
-                    if (ctor != null) {
-                        try {
-                            ctor.setAccessible(true);
-                        } catch (SecurityException se) {
-                            /* Swallow SecurityException
-                             * TODO: Why?
-                             */
-                        }
-                        return ctor;
+            if (ClassUtils.isAssignable(parameterTypes, ctors[i]
+                    .getParameterTypes(), true)) {
+                // get accessible version of method
+                Constructor ctor = getAccessibleConstructor(ctors[i]);
+                if (ctor != null) {
+                    MemberUtils.setAccessibleWorkaround(ctor);
+                    if (result == null
+                            || MemberUtils.compareParameterTypes(ctor
+                                    .getParameterTypes(), result
+                                    .getParameterTypes(), parameterTypes) < 0) {
+                        result = ctor;
                     }
                 }
             }
         }
-
-        return null;
+        return result;
     }
 
 }
