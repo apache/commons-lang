@@ -33,11 +33,12 @@ null handling did not match its design (see <a href="http://issues.apache.org/ji
 for more details. Instead users should use <code>ObjectUtils.identityToString(StringBuffer, Object)</code>.</p>
 
 <p>We also deprecated <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html#add(java.util.Date,%20int,%20int)"><code>DateUtils.add(java.util.Date, int, int)</code></a>. It should have been <code>private</code>
-from the beginning and please let us know if you actually use it.</p>
+from the beginning; please let us know if you actually use it.</p>
 </section>
 <section name="The build">
-<p>Before we move on - a quick note on the build - we built 2.4 using Maven 2 and Java 1.4. We also tested that the Ant build passed the tests
-successfully under Java 1.3, and that the classes compiled under Java 1.2. As it's been so long, we stopped building a Java 1.1 compatible jar. Most importantly - it should be a drop in replacement for Lang 2.3, but we recommend testing first of course. Now... moving on.</p>
+<p>Before we move on, a quick note on the build: we built 2.4 using Maven 2 and Java 1.4. We also tested that the Ant build passed the tests
+successfully under Java 1.3, and that the classes compiled under Java 1.2. As it's been so long, we stopped building a Java 1.1-compatible jar. <strong>Most importantly</strong>, it <em>should</em> be a drop in replacement for Lang 2.3, but we recommend testing first, of course. Now... moving on.
+</p>
 </section>
 <section name="New classes">
 <p>Three new classes were added, so let's cover those next.</p>
@@ -52,7 +53,82 @@ you can read more about it in <a href="http://issues.apache.org/jira/browse/LANG
 <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/text/FormatFactory.html"><code>FormatFactory</code></a>
 interface, both found in the <code>org.apache.commons.lang.text</code> package.</p>
 <p>Together they allow you to take the <code>java.text.MessageFormat</code> class further and insert your own formatting elements.</p>
-<p>TODO: Insert example.</p>
+<p>
+By way of an example, imagine that we have a need for custom formatting of a employee identification
+number or EIN. Perhaps, simplistically, our EIN is composed of a two-character department code
+followed by a four-digit number, and that it is customary within our organization to render the EIN
+with a hyphen following the department identifier. Here we'll represent the EIN as a simple
+String (of course in real life we would likely create a class composed of department and number).
+We can create a custom <code>Format</code> class:
+<pre><code>
+public class EINFormat extends Format {
+  private char[] idMask;
+
+  public EINFormat() {
+  }
+  public EINFormat(char maskChar) {
+    idMask = new char[4];
+    Arrays.fill(idMask, maskChar);
+  }
+  public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
+    String ein = (String) obj; //assume or assert length &gt;= 2
+    if (idMask == null) {
+      return new StringBuffer(ein).insert(2, '-').toString();
+    }
+    return new StringBuffer(ein.substring(0, 2)).append('-').append(idMask).toString();
+  }
+  public Object parseObject(String source, ParsePosition pos) {
+    int idx = pos.getIndex();
+    int endIdx = idx + 7;
+    if (source == null || source.length() &lt; endIdx) {
+      pos.setErrorIndex(idx);
+      return null;
+    }
+    if (source.charAt(idx + 2) != '-') {
+      pos.setErrorIndex(idx);
+      return null;
+    }
+    pos.setIndex(endIdx);
+    return source.substring(idx, endIdx).deleteCharAt(2);
+  }
+}
+</code></pre>
+Our custom EIN format is made available for <code>MessageFormat</code>-style processing by a
+<code>FormatFactory</code> implementation:
+<pre><code>
+public class EINFormatFactory implements FormatFactory {
+  public static final String EIN_FORMAT = "ein";
+  public Format getFormat(String name, String arguments, Locale locale) {
+    if (EIN_FORMAT.equals(name)) {
+      if (arguments == null || "".equals(arguments)) {
+        return new EINFormat();
+      }
+      return new EINFormat(arguments.charAt(0));
+    }
+    return null;
+  }
+}
+</code></pre>
+
+Now you simply provide a <code>java.util.Map&lt;String, FormatFactory&gt;</code> registry (keyed
+by format type) to <code>ExtendedMessageFormat</code>:
+<pre><code>
+new ExtendedMessageFormat("EIN: {0,ein}", Collections.singletonMap(EINFormatFactory.EIN_FORMAT, new EINFormatFactory()));
+</code></pre>
+As expected, this will render a String EIN "AA-9999" as: <code>"EIN: AA-9999"</code>.
+<br />
+If we wanted to trigger the EIN masking code, we could trigger that in the format pattern:
+<pre><code>
+new ExtendedMessageFormat("EIN: {0,ein,#}", Collections.singletonMap(EINFormatFactory.EIN_FORMAT, new EINFormatFactory()));
+</code></pre>
+This should render "AA-9999" as: <code>"EIN: AA-####"</code>.
+</p>
+<p>
+You can also use <code>ExtendedMessageFormat</code> to override any or all of the built-in
+formats supported by <code>java.text.MessageFormat</code>. Finally, note that because
+<code>ExtendedMessageFormat</code> extends <code>MessageFormat</code> it should work in most
+cases as a <em>true</em> drop-in replacement.
+</p>
 </section>
 <section name="New methods">
 <p>There were 58 new methods added to existing Commons Lang classes. Going through each one, one at a time would be dull,
@@ -65,7 +141,7 @@ and fortunately there are some nice groupings that we can discuss instead:</p>
 <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html#toClass(java.lang.Object[])"><img src="/images/external.png"/></a></p>
 <p><b>ClassUtils wrapper-&gt;primitive conversions</b> are the reflection of the pre-existing <code>primitiveToWrapper</code> methods. Again easy to explain, they turn an array of <code>Integer</code> into an array of <code>int[]</code>.
 <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html#wrappersToPrimitives(java.lang.Class[])"><img src="/images/external.png"/></a></p>
-<p><b>ObjectUtils identityToString(StringBuffer, Object)</b> is the StringBuffer variant of the pre-existing <code>identityToString</code> method. In case you've not met tht before, it produces the toString that would have been produced by an Object if it hadn't been overridden.
+<p><b>ObjectUtils identityToString(StringBuffer, Object)</b> is the StringBuffer variant of the pre-existing <code>identityToString</code> method. In case you've not met that before, it produces the toString that would have been produced by an Object if it hadn't been overridden.
 <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ObjectUtils.html#identityToString(java.lang.StringBuffer,%20java.lang.Object)"><img src="/images/external.png"/></a></p>
 <p><b>StringEscapeUtils CSV methods</b> are a new addition to our range of simple parser/printers. These, quite as expected, parse and unparse CSV text as per <a href="http://tools.ietf.org/html/rfc4180">RFC-4180</a>.
 <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringEscapeUtils.html#escapeCsv(java.lang.String)"><img src="/images/external.png"/></a></p>
@@ -86,8 +162,8 @@ and fortunately there are some nice groupings that we can discuss instead:</p>
 </section>
 
 <section name="StringUtils methods">
-<p>The <code>StringUtils</code> class is a little large isn't it. Sorry, but it's got bigger.</p>
-
+<p>The <code>StringUtils</code> class is a little large, isn't it? Sorry, but it's gotten bigger.
+</p>
 <ul>
   <li>boolean containsAny(String, char[]) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#containsOnly(java.lang.String,%20char[])"><img src="/images/external.png"/></a></li>
   <li>boolean containsAny(String, String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#containsOnly(java.lang.String,%20java.lang.String)"><img src="/images/external.png"/></a></li>
@@ -113,7 +189,7 @@ and fortunately there are some nice groupings that we can discuss instead:</p>
 </section>
 
 <section name="So long, farewell...">
-<p>Hopefully that was of interest. Don't forget to download <a href="download_lang.cgi">Lang 2.4</a>, or, for the Maven repositor users, upgrade your &lt;version&gt; tag to 2.4. Please feel free to raise any questions you might have on the <a href="mail-lists.html">mailing lists</a>, and report bugs or enhancements in the <a href="issue-tracking.html">issue tracker</a>.</p>
+<p>Hopefully that was of interest. Don't forget to download <a href="download_lang.cgi">Lang 2.4</a>, or, for the Maven repository users, upgrade your &lt;version&gt; tag to 2.4. Please feel free to raise any questions you might have on the <a href="mail-lists.html">mailing lists</a>, and report bugs or enhancements in the <a href="issue-tracking.html">issue tracker</a>.</p>
 </section>
 
 </section>
