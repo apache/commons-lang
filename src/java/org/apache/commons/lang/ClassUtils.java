@@ -31,6 +31,11 @@ import java.util.Map;
  * <p>This class handles invalid <code>null</code> inputs as best it can.
  * Each method documents its behaviour in more detail.</p>
  *
+ * <p>The notion of a <code>canonical name</code> includes the human 
+ * readable name for the type, for example <code>int[]</code>. The 
+ * non-canonical method variants work with the JVM names, such as 
+ * <code>[I</code>. </p>
+ *
  * @author Stephen Colebourne
  * @author Gary Gregory
  * @author Norm Deane
