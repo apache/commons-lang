@@ -17,14 +17,14 @@ limitations under the License.
 -->
 <document>
  <properties>
-  <title>What's new in 2.4?</title>
+  <title>What's new in Commons Lang 2.4?</title>
   <author email="dev@commons.apache.org">Commons Documentation Team</author>
  </properties>
 <body>
 
-<section name="What's new in 2.4?">
+<section name="What's new in Commons Lang 2.4?">
 <p>Commons Lang 2.4 is out, and the obvious question is: <i>"So what? What's changed?"</i>.</p>
-<p>Thus this article aims to briefly cover the changes and save you from having to dig into each JIRA
+<p>This article aims to briefly cover the changes and save you from having to dig through each JIRA
 issue to see what went on in the year of development between Lang 2.3 and 2.4.</p>
 <section name="Deprecations">
 <p>First, let us start with a couple of deprecations. As you can see in the release notes, we chose
@@ -132,55 +132,42 @@ cases as a <em>true</em> drop-in replacement.
 <section name="New methods">
 <p>There were 58 new methods added to existing Commons Lang classes. Going through each one, one at a time would be dull,
 and fortunately there are some nice groupings that we can discuss instead:</p>
-<p><b>CharSet getInstance(String[])</b> adds an additional builder method by which you can build a CharSet from multiple sets of characters at the same time. If you weren't aware of the CharSet class, it holds a set of characters created by a simple pattern language allowing constructs such as <code>"a-z"</code> and <code>"^a"</code> (everything but 'a'). It's most used by the CharSetUtils class, and came out of CharSetUtils.translate, a simple variant of the UNIX tr command.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/CharSet.html#getInstance(java.lang.String[])"><img src="/images/external.png"/></a></p>
-<p><b>ClassUtils Canonical name methods</b> are akin to the non '<code>Canonical</code>' methods, except they work with the more human readable <code>int[]</code> type names rather than the JVM versions of <code>[I</code>. This makes them useful for parsing input from developer's configuration files.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html"><img src="/images/external.png"/></a></p>
-<p><b>ClassUtils toClass(String[])</b> is very easy to explain - it calls <code>toClass</code> on each <code>Object</code> in the array and returns an array of <code>Class</code> objects.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html#toClass(java.lang.Object[])"><img src="/images/external.png"/></a></p>
-<p><b>ClassUtils wrapper-&gt;primitive conversions</b> are the reflection of the pre-existing <code>primitiveToWrapper</code> methods. Again easy to explain, they turn an array of <code>Integer</code> into an array of <code>int[]</code>.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html#wrappersToPrimitives(java.lang.Class[])"><img src="/images/external.png"/></a></p>
-<p><b>ObjectUtils identityToString(StringBuffer, Object)</b> is the StringBuffer variant of the pre-existing <code>identityToString</code> method. In case you've not met that before, it produces the toString that would have been produced by an Object if it hadn't been overridden.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ObjectUtils.html#identityToString(java.lang.StringBuffer,%20java.lang.Object)"><img src="/images/external.png"/></a></p>
-<p><b>StringEscapeUtils CSV methods</b> are a new addition to our range of simple parser/printers. These, quite as expected, parse and unparse CSV text as per <a href="http://tools.ietf.org/html/rfc4180">RFC-4180</a>.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringEscapeUtils.html#escapeCsv(java.lang.String)"><img src="/images/external.png"/></a></p>
+<p><b>CharSet <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/CharSet.html#getInstance(java.lang.String[])">getInstance(String[])</a></b> adds an additional builder method by which you can build a CharSet from multiple sets of characters at the same time. If you weren't aware of the CharSet class, it holds a set of characters created by a simple pattern language allowing constructs such as <code>"a-z"</code> and <code>"^a"</code> (everything but 'a'). It's most used by the CharSetUtils class, and came out of CharSetUtils.translate, a simple variant of the UNIX tr command.</p>
+<p><b>ClassUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html">canonical name</a> methods</b> are akin to the non '<code>Canonical</code>' methods, except they work with the more human readable <code>int[]</code> type names rather than the JVM versions of <code>[I</code>. This makes them useful for parsing input from developer's configuration files. </p>
+<p><b>ClassUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html#toClass(java.lang.Object[])">toClass(String[])</a></b> is very easy to explain - it calls <code>toClass</code> on each <code>Object</code> in the array and returns an array of <code>Class</code> objects.</p>
+<p><b>ClassUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html#wrappersToPrimitives(java.lang.Class[])">wrapper-&gt;primitive</a> conversions</b> are the reflection of the pre-existing <code>primitiveToWrapper</code> methods. Again easy to explain, they turn an array of <code>Integer</code> into an array of <code>int[]</code>.</p>
+<p><b>ObjectUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ObjectUtils.html#identityToString(java.lang.StringBuffer,%20java.lang.Object)">identityToString(StringBuffer, Object)</a></b> is the StringBuffer variant of the pre-existing <code>identityToString</code> method. In case you've not met that before, it produces the toString that would have been produced by an Object if it hadn't been overridden.</p>
+<p><b>StringEscapeUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringEscapeUtils.html#escapeCsv(java.lang.String)">CSV methods</a></b> are a new addition to our range of simple parser/printers. These, quite as expected, parse and unparse CSV text as per <a href="http://tools.ietf.org/html/rfc4180">RFC-4180</a>.</p>
 <p><b>StringUtils</b> has a host of new methods, as always, and we'll leave these for later.</p>
-<p><b>WordUtils abbreviate</b> finds the first space after the lower limit and abbreviates the text.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/WordUtils.html#abbreviate(java.lang.String,%20int,%20int,%20java.lang.String)"><img src="/images/external.png"/></a></p>
-<p><b>math.IntRange/LongRange.toArray</b> turn the range into an array of primitive <code>int</code>/<code>long</code>s contained in the range.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/math/IntRange.html#toArray()"><img src="/images/external.png"/></a>,
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/math/LongRange.html#toArray()"><img src="/images/external.png"/></a></p>
-<p><b>text.StrMatch.isMatch(char[], int)</b> is a helper method for checking whether there was a match with the StrMatcher objects.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/text/StrMatcher.html#isMatch(char[],%20int)"><img src="/images/external.png"/></a></p>
-<p><b>time.DateFormatUtils format(Calendar, ...)</b> provide Calendar variants for the pre-existing format methods. If these are new to you, they are helper methods to formatting a date.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateFormatUtils.html"><img src="/images/external.png"/></a></p>
-<p><b>time.DateUtils getFragment* methods</b> are used to splice the time element out of Date. If you have <code>2008/12/13 14:57</code>, then these could, for example, pull out the 13.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html"><img src="/images/external.png"/></a></p>
-<p><b>time.DateUtils setXxx methods</b> round off our walk through the methods - the setXxx variant of the existing addXxx helper methods.
-<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html"><img src="/images/external.png"/></a></p>
+<p><b>WordUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/WordUtils.html#abbreviate(java.lang.String,%20int,%20int,%20java.lang.String)">abbreviate</a></b> finds the first space after the lower limit and abbreviates the text.</p>
+<p><b>math.<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/math/IntRange.html#toArray()">IntRange</a>/<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/math/LongRange.html#toArray()">LongRange.toArray</a></b> turn the range into an array of primitive <code>int</code>/<code>long</code>s contained in the range.</p>
+<p><b>text.StrMatch.<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/text/StrMatcher.html#isMatch(char[],%20int)">isMatch(char[], int)</a></b> is a helper method for checking whether there was a match with the StrMatcher objects.</p>
+<p><b>time.DateFormatUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateFormatUtils.html">format(Calendar, ...)</a></b> provide Calendar variants for the pre-existing format methods. If these are new to you, they are helper methods to formatting a date.</p>
+<p><b>time.DateUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html">getFragment*</a> methods</b> are used to splice the time element out of Date. If you have <code>2008/12/13 14:57</code>, then these could, for example, pull out the 13.</p>
+<p><b>time.DateUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html">setXxx methods</a></b> round off our walk through the methods - the setXxx variant of the existing addXxx helper methods.</p>
 </section>
 
 <section name="StringUtils methods">
 <p>The <code>StringUtils</code> class is a little large, isn't it? Sorry, but it's gotten bigger.
 </p>
 <ul>
-  <li>boolean containsAny(String, char[]) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#containsOnly(java.lang.String,%20char[])"><img src="/images/external.png"/></a></li>
-  <li>boolean containsAny(String, String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#containsOnly(java.lang.String,%20java.lang.String)"><img src="/images/external.png"/></a></li>
-  <li>boolean endsWith(String, String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#endsWith(java.lang.String,%20java.lang.String)"><img src="/images/external.png"/></a></li>
-  <li>boolean endsWithIgnoreCase(String, String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#endsWithIgnoreCase(java.lang.String,%20java.lang.String)"><img src="/images/external.png"/></a></li>
-  <li>String getCommonPrefix(String[]) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#getCommonPrefix(java.lang.String[])"><img src="/images/external.png"/></a></li>
-  <li>int indexOfDifference(String[]) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#indexOfDifference(java.lang.String[])"><img src="/images/external.png"/></a></li>
-  <li>int length(String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#length(java.lang.String)"><img src="/images/external.png"/></a></li>
-  <li>String removeEndIgnoreCase(String, String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#removeEndIgnoreCase(java.lang.String,%20java.lang.String)"><img src="/images/external.png"/></a></li>
-  <li>String removeStartIgnoreCase(String, String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#removeStartIgnoreCase(java.lang.String,%20java.lang.String)"><img src="/images/external.png"/></a></li>
-  <li>String replaceEach(String, String[], String[]) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#replaceEach(java.lang.String,%20java.lang.String[],%20java.lang.String[])"><img src="/images/external.png"/></a></li>
-  <li>String replaceEachRepeatedly(String, String[], String[]) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#replaceEachRepeatedly(java.lang.String,%20java.lang.String[],%20java.lang.String[])"><img src="/images/external.png"/></a></li>
-  <li>String[] splitByCharacterType(String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#splitByCharacterType(java.lang.String)"><img src="/images/external.png"/></a></li>
-  <li>String[] splitByCharacterTypeCamelCase(String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#splitByCharacterTypeCamelCase(java.lang.String)"><img src="/images/external.png"/></a></li>
-  <li>String[] splitByWholeSeparatorPreserveAllTokens(String, String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#splitByWholeSeparatorPreserveAllTokens(java.lang.String,%20java.lang.String)"><img src="/images/external.png"/></a></li>
-  <li>String[] splitByWholeSeparatorPreserveAllTokens(String, String, int) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#splitByWholeSeparatorPreserveAllTokens(java.lang.String,%20java.lang.String,%20int)"><img src="/images/external.png"/></a></li>
-  <li>boolean startsWith(String, String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#startsWith(java.lang.String,%20java.lang.String)"><img src="/images/external.png"/></a></li>
-  <li>boolean startsWithIgnoreCase(String, String) <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#startsWithIgnoreCase(java.lang.String,%20java.lang.String)"><img src="/images/external.png"/></a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#containsOnly(java.lang.String,%20char[])">boolean containsAny(String, char[])</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#containsOnly(java.lang.String,%20java.lang.String)">boolean containsAny(String, String)</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#endsWith(java.lang.String,%20java.lang.String)">boolean endsWith(String, String)</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#endsWithIgnoreCase(java.lang.String,%20java.lang.String)">boolean endsWithIgnoreCase(String, String)</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#getCommonPrefix(java.lang.String[])">String getCommonPrefix(String[])</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#indexOfDifference(java.lang.String[])">int indexOfDifference(String[])</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#length(java.lang.String)">int length(String)</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#removeEndIgnoreCase(java.lang.String,%20java.lang.String)">String removeEndIgnoreCase(String, String)</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#removeStartIgnoreCase(java.lang.String,%20java.lang.String)">String removeStartIgnoreCase(String, String)</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#replaceEach(java.lang.String,%20java.lang.String[],%20java.lang.String[])">String replaceEach(String, String[], String[])</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#replaceEachRepeatedly(java.lang.String,%20java.lang.String[],%20java.lang.String[])">String replaceEachRepeatedly(String, String[], String[])</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#splitByCharacterType(java.lang.String)">String[] splitByCharacterType(String)</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#splitByCharacterTypeCamelCase(java.lang.String)">String[] splitByCharacterTypeCamelCase(String)</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#splitByWholeSeparatorPreserveAllTokens(java.lang.String,%20java.lang.String)">String[] splitByWholeSeparatorPreserveAllTokens(String, String)</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#splitByWholeSeparatorPreserveAllTokens(java.lang.String,%20java.lang.String,%20int)">String[] splitByWholeSeparatorPreserveAllTokens(String, String, int)</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#startsWith(java.lang.String,%20java.lang.String)">boolean startsWith(String, String)</a></li>
+  <li><a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html#startsWithIgnoreCase(java.lang.String,%20java.lang.String)">boolean startsWithIgnoreCase(String, String)</a></li>
 </ul>
 
 <p>Hopefully they are in many cases self-describing. Rather than spend a lot of time describing them, we'll let you read the Javadoc of the ones that interest you.</p>
