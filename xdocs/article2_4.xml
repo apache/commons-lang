@@ -37,7 +37,7 @@ from the beginning; please let us know if you actually use it.</p>
 </section>
 <section name="The build">
 <p>Before we move on, a quick note on the build: we built 2.4 using Maven 2 and Java 1.4. We also tested that the Ant build passed the tests
-successfully under Java 1.3, and that the classes compiled under Java 1.2. As it's been so long, we stopped building a Java 1.1-compatible jar. <strong>Most importantly</strong>, it <em>should</em> be a drop in replacement for Lang 2.3, but we recommend testing first, of course. Now... moving on.
+successfully under Java 1.3, and that the classes compiled under Java 1.2. As it's been so long, we stopped building a Java 1.1-compatible jar. <strong>Most importantly</strong>, it <em>should</em> be a drop in replacement for Lang 2.3, but we recommend testing first, of course. Also, for those of you who work within an OSGi framework, the jar should be ready for OSGi. Now... time to move on.
 </p>
 </section>
 <section name="New classes">
@@ -132,19 +132,19 @@ cases as a <em>true</em> drop-in replacement.
 <section name="New methods">
 <p>There were 58 new methods added to existing Commons Lang classes. Going through each one, one at a time would be dull,
 and fortunately there are some nice groupings that we can discuss instead:</p>
-<p><b>CharSet <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/CharSet.html#getInstance(java.lang.String[])">getInstance(String[])</a></b> adds an additional builder method by which you can build a CharSet from multiple sets of characters at the same time. If you weren't aware of the CharSet class, it holds a set of characters created by a simple pattern language allowing constructs such as <code>"a-z"</code> and <code>"^a"</code> (everything but 'a'). It's most used by the CharSetUtils class, and came out of CharSetUtils.translate, a simple variant of the UNIX tr command.</p>
-<p><b>ClassUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html">canonical name</a> methods</b> are akin to the non '<code>Canonical</code>' methods, except they work with the more human readable <code>int[]</code> type names rather than the JVM versions of <code>[I</code>. This makes them useful for parsing input from developer's configuration files. </p>
-<p><b>ClassUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html#toClass(java.lang.Object[])">toClass(String[])</a></b> is very easy to explain - it calls <code>toClass</code> on each <code>Object</code> in the array and returns an array of <code>Class</code> objects.</p>
-<p><b>ClassUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html#wrappersToPrimitives(java.lang.Class[])">wrapper-&gt;primitive</a> conversions</b> are the reflection of the pre-existing <code>primitiveToWrapper</code> methods. Again easy to explain, they turn an array of <code>Integer</code> into an array of <code>int[]</code>.</p>
-<p><b>ObjectUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ObjectUtils.html#identityToString(java.lang.StringBuffer,%20java.lang.Object)">identityToString(StringBuffer, Object)</a></b> is the StringBuffer variant of the pre-existing <code>identityToString</code> method. In case you've not met that before, it produces the toString that would have been produced by an Object if it hadn't been overridden.</p>
-<p><b>StringEscapeUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringEscapeUtils.html#escapeCsv(java.lang.String)">CSV methods</a></b> are a new addition to our range of simple parser/printers. These, quite as expected, parse and unparse CSV text as per <a href="http://tools.ietf.org/html/rfc4180">RFC-4180</a>.</p>
-<p><b>StringUtils</b> has a host of new methods, as always, and we'll leave these for later.</p>
-<p><b>WordUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/WordUtils.html#abbreviate(java.lang.String,%20int,%20int,%20java.lang.String)">abbreviate</a></b> finds the first space after the lower limit and abbreviates the text.</p>
-<p><b>math.<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/math/IntRange.html#toArray()">IntRange</a>/<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/math/LongRange.html#toArray()">LongRange.toArray</a></b> turn the range into an array of primitive <code>int</code>/<code>long</code>s contained in the range.</p>
-<p><b>text.StrMatch.<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/text/StrMatcher.html#isMatch(char[],%20int)">isMatch(char[], int)</a></b> is a helper method for checking whether there was a match with the StrMatcher objects.</p>
-<p><b>time.DateFormatUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateFormatUtils.html">format(Calendar, ...)</a></b> provide Calendar variants for the pre-existing format methods. If these are new to you, they are helper methods to formatting a date.</p>
-<p><b>time.DateUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html">getFragment*</a> methods</b> are used to splice the time element out of Date. If you have <code>2008/12/13 14:57</code>, then these could, for example, pull out the 13.</p>
-<p><b>time.DateUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html">setXxx methods</a></b> round off our walk through the methods - the setXxx variant of the existing addXxx helper methods.</p>
+<p>CharSet <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/CharSet.html#getInstance(java.lang.String[])">getInstance(String[])</a> adds an additional builder method by which you can build a CharSet from multiple sets of characters at the same time. If you weren't aware of the CharSet class, it holds a set of characters created by a simple pattern language allowing constructs such as <code>"a-z"</code> and <code>"^a"</code> (everything but 'a'). It's most used by the CharSetUtils class, and came out of CharSetUtils.translate, a simple variant of the UNIX tr command.</p>
+<p>ClassUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html">canonical name</a> methods are akin to the non '<code>Canonical</code>' methods, except they work with the more human readable <code>int[]</code> type names rather than the JVM versions of <code>[I</code>. This makes them useful for parsing input from developer's configuration files. </p>
+<p>ClassUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html#toClass(java.lang.Object[])">toClass(String[])</a> is very easy to explain - it calls <code>toClass</code> on each <code>Object</code> in the array and returns an array of <code>Class</code> objects.</p>
+<p>ClassUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ClassUtils.html#wrappersToPrimitives(java.lang.Class[])">wrapper-&gt;primitive</a> conversions are the reflection of the pre-existing <code>primitiveToWrapper</code> methods. Again easy to explain, they turn an array of <code>Integer</code> into an array of <code>int[]</code>.</p>
+<p>ObjectUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ObjectUtils.html#identityToString(java.lang.StringBuffer,%20java.lang.Object)">identityToString(StringBuffer, Object)</a> is the StringBuffer variant of the pre-existing <code>identityToString</code> method. In case you've not met that before, it produces the toString that would have been produced by an Object if it hadn't been overridden.</p>
+<p>StringEscapeUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringEscapeUtils.html#escapeCsv(java.lang.String)">CSV methods</a> are a new addition to our range of simple parser/printers. These, quite as expected, parse and unparse CSV text as per <a href="http://tools.ietf.org/html/rfc4180">RFC-4180</a>.</p>
+<p>StringUtils has a host of new methods, as always, and we'll leave these for later.</p>
+<p>WordUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/WordUtils.html#abbreviate(java.lang.String,%20int,%20int,%20java.lang.String)">abbreviate</a> finds the first space after the lower limit and abbreviates the text.</p>
+<p>math.<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/math/IntRange.html#toArray()">IntRange</a>/<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/math/LongRange.html#toArray()">LongRange.toArray</a> turn the range into an array of primitive <code>int</code>/<code>long</code>s contained in the range.</p>
+<p>text.StrMatch.<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/text/StrMatcher.html#isMatch(char[],%20int)">isMatch(char[], int)</a> is a helper method for checking whether there was a match with the StrMatcher objects.</p>
+<p>time.DateFormatUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateFormatUtils.html">format(Calendar, ...)</a> provide Calendar variants for the pre-existing format methods. If these are new to you, they are helper methods to formatting a date.</p>
+<p>time.DateUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html">getFragment*</a> methods are used to splice the time element out of Date. If you have <code>2008/12/13 14:57</code>, then these could, for example, pull out the 13.</p>
+<p>time.DateUtils <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html">setXxx methods</a> round off our walk through the methods - the setXxx variant of the existing addXxx helper methods.</p>
 </section>
 
 <section name="StringUtils methods">
@@ -174,8 +174,19 @@ and fortunately there are some nice groupings that we can discuss instead:</p>
 
 </section>
 
+<section name="What's fixed in Lang 2.4?">
+<p>In addition to new things, there are the bugfixes. As you can tell from the release notes, there are a good few - 24 in fact according to JIRA. Here are some of the interesting ones: </p>
+<ul>
+<li><a href="http://issues.apache.org/jira/browse/LANG-393">LANG-393</a> - We fixed EqualsBuilder so that it understands that BigDecimals are equal even when they think they're not. It seems very likely that usually you will want "29.0" and "29.00" to be equal, even if BigDecimal disagrees. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-380">LANG-380</a> - Chances are you'll know if you met this one. Fraction.reduce has an infinite loop if the numerator is 0. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-369">LANG-369</a>, <a href="http://issues.apache.org/jira/browse/LANG-367">LANG-367</a>, <a href="http://issues.apache.org/jira/browse/LANG-334">LANG-334</a> - Threading bugs - we improved how things work in concurrency situations for ExceptionUtils, FastDateFormat and Enum. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-346">LANG-346</a> - DateUtils.round was getting things wrong for minutes and seconds. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-328">LANG-328</a> - LocaleUtils.toLocale was broken if there was no country code defined. </li>
+</ul>
+</section>
+
 <section name="So long, farewell...">
-<p>Hopefully that was of interest. Don't forget to download <a href="download_lang.cgi">Lang 2.4</a>, or, for the Maven repository users, upgrade your &lt;version&gt; tag to 2.4. Please feel free to raise any questions you might have on the <a href="mail-lists.html">mailing lists</a>, and report bugs or enhancements in the <a href="issue-tracking.html">issue tracker</a>.</p>
+<p>Hopefully that was all of interest. Don't forget to download <a href="download_lang.cgi">Lang 2.4</a>, or, for the Maven repository users, upgrade your &lt;version&gt; tag to 2.4. Please feel free to raise any questions you might have on the <a href="mail-lists.html">mailing lists</a>, and report bugs or enhancements in the <a href="issue-tracking.html">issue tracker</a>.</p>
 </section>
 
 </section>
