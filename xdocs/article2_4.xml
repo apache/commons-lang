@@ -115,13 +115,13 @@ by format type) to <code>ExtendedMessageFormat</code>:
 <pre><code>
 new ExtendedMessageFormat("EIN: {0,ein}", Collections.singletonMap(EINFormatFactory.EIN_FORMAT, new EINFormatFactory()));
 </code></pre>
-As expected, this will render a String EIN "AA-9999" as: <code>"EIN: AA-9999"</code>.
+As expected, this will render a String EIN "AA9999" as: <code>"EIN: AA-9999"</code>.
 <br /> <br />
 If we wanted to trigger the EIN masking code, we could trigger that in the format pattern:
 <pre><code>
 new ExtendedMessageFormat("EIN: {0,ein,#}", Collections.singletonMap(EINFormatFactory.EIN_FORMAT, new EINFormatFactory()));
 </code></pre>
-This should render "AA-9999" as: <code>"EIN: AA-####"</code>.
+This should render "AA9999" as: <code>"EIN: AA-####"</code>.
 <br /> <br />
 You can also use <code>ExtendedMessageFormat</code> to override any or all of the built-in
 formats supported by <code>java.text.MessageFormat</code>. Finally, note that because
