@@ -149,6 +149,11 @@ public class StringUtilsStartsEndsWithTest extends TestCase {
         assertTrue("endsWithIgnoreCase(FOOBAR, BAR)", StringUtils.endsWithIgnoreCase(FOOBAR, BAR));
         assertTrue("endsWithIgnoreCase(foobar, BAR)", StringUtils.endsWithIgnoreCase(foobar, BAR));
         assertTrue("endsWithIgnoreCase(FOOBAR, bar)", StringUtils.endsWithIgnoreCase(FOOBAR, bar));
+
+        // javadoc
+        assertTrue(StringUtils.endsWithIgnoreCase("abcdef", "def"));
+        assertTrue(StringUtils.endsWithIgnoreCase("ABCDEF", "def"));
+        assertFalse(StringUtils.endsWithIgnoreCase("ABCDEF", "cde"));
     }
 
 }
