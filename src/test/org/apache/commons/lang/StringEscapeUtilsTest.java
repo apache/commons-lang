@@ -97,6 +97,22 @@ public class StringEscapeUtilsTest extends TestCase {
                 "\uABCD\u1234\u012C");
     }
 
+    /**
+     * https://issues.apache.org/jira/browse/LANG-421
+     */
+    public void testEscapeJavaWithSlash() {
+        final String input = "String with a slash (/) in it";
+
+        final String expected = input;
+        final String actual = StringEscapeUtils.escapeJava(input);
+
+        /**
+         * In 2.4 StringEscapeUtils.escapeJava(String) escapes '/' characters, which are not a valid character to escape
+         * in a Java string.
+         */
+        assertEquals(expected, actual);
+    }
+    
     private void assertEscapeJava(String escaped, String original) throws IOException {
         assertEscapeJava(null, escaped, original);
     }
