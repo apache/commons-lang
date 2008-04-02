@@ -167,16 +167,13 @@ public final class CharRange implements Serializable {
         if (negated) {
             if (range.negated) {
                 return start >= range.start && end <= range.end;
-            } else {
-                return range.end < start || range.start > end;
             }
-        } else {
-            if (range.negated) {
-                return start == 0 && end == Character.MAX_VALUE;
-            } else {
-                return start <= range.start && end >= range.end;
-            }
+            return range.end < start || range.start > end;
         }
+        if (range.negated) {
+            return start == 0 && end == Character.MAX_VALUE;
+        }
+        return start <= range.start && end >= range.end;
     }
 
     // Basics
