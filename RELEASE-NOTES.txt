@@ -79,7 +79,7 @@ BUG FIXES IN 2.4:
     * [LANG-353] - Javadoc Example for EqualsBuilder is questionable
     * [LANG-360] - Why does appendIdentityToString return null?
     * [LANG-361] - BooleanUtils toBooleanObject javadoc does not match implementation
-    * [LANG-363] - StringEscapeUtils..escapeJavaScript() method did not escape '/' into '\/', it will make IE render page incorrectly
+    * [LANG-363] - StringEscapeUtils.escapeJavaScript() method did not escape '/' into '\/', it will make IE render page incorrectly
     * [LANG-364] - Documentation bug for ignoreEmptyTokens accessors in StrTokenizer
     * [LANG-365] - BooleanUtils.toBoolean() - invalid drop-thru in case statement causes StringIndexOutOfBoundsException
     * [LANG-367] - FastDateFormat thread safety
