@@ -1,41 +1,39 @@
 /*
- * Copyright 2003,2004 The Apache Software Foundation.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.reflect;
+package org.apache.commons.lang.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * Utilities for working with fields by reflection.
+ * Utilities for working with fields by reflection. Adapted and refactored
+ * from the dormant [reflect] Commons sandbox component.
  * <p>
  * The ability is provided to break the scoping restrictions coded by the
  * programmer. This can allow fields to be changed that shouldn't be. This
  * facility should be used with care.
  *
  * @author Stephen Colebourne
+ * @author Matt Benson
+ * @since 2.5
  * @version $Id$
- * @since Commons Reflect 1.0
  */
 public class FieldUtils {
-    
-    /**
-     * An empty field array.
-     */
-    public static final Field[] EMPTY_FIELD_ARRAY = new Field[0];
-    
+
     /**
      * FieldUtils instances should NOT be constructed in standard programming.
      * <p>
@@ -46,7 +44,6 @@ public class FieldUtils {
         super();
     }
 
-    //-----------------------------------------------------------------------
     /**
      * Gets an accessible <code>Field</code> by name repecting scope.
      * Superclasses/interfaces will be considered.
@@ -55,26 +52,26 @@ public class FieldUtils {
      * @param fieldName  the field name to obtain
      * @return the Field object
      * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
      */
     public static Field getField(Class cls, String fieldName) {
-        return getField(cls, fieldName, false);
+        Field field = getField(cls, fieldName, false);
+        MemberUtils.setAccessibleWorkaround(field);
+        return field;
     }
-    
+
     /**
      * Gets an accessible <code>Field</code> by name breaking scope
      * if requested. Superclasses/interfaces will be considered.
      *
      * @param cls  the class to reflect, must not be null
      * @param fieldName  the field name to obtain
-     * @param breakScope  whether to break scope restrictions using the
+     * @param forceAccess  whether to break scope restrictions using the
      *  <code>setAccessible</code> method. <code>False</code> will only
      *  match public fields.
      * @return the Field object
      * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
      */
-    public static Field getField(Class cls, String fieldName, boolean breakScope) {
+    public static Field getField(final Class cls, String fieldName, boolean forceAccess) {
         if (cls == null) {
             throw new IllegalArgumentException("The class must not be null");
         }
@@ -83,7 +80,7 @@ public class FieldUtils {
         }
         // Sun Java 1.3 has a bugged implementation of getField hence we write the
         // code ourselves
-        
+
         // getField() will return the Field object with the declaring class
         // set correctly to the class that declares the field. Thus requesting the
         // field on a subclass will return the field from the superclass.
@@ -93,66 +90,55 @@ public class FieldUtils {
         // superclass protected/package/public
         //  private/different package blocks access to further superclasses
         // implementedinterface public
-        try {
-            // check up the superclass hierarchy
-            Class acls = cls;
-            Field match = null;
-            while (acls != null && acls != Object.class) {
+
+        // check up the superclass hierarchy
+        for (Class acls = cls; acls != null; acls = acls.getSuperclass()) {
+            try {
+                Field field = acls.getDeclaredField(fieldName);
                 // getDeclaredField checks for non-public scopes as well
                 // and it returns accurate results
-                try {
-                    Field field = acls.getDeclaredField(fieldName);
-                    if (Modifier.isPublic(field.getModifiers()) == false) {
-                        field.setAccessible(breakScope);
-                        return field;
+                if (!Modifier.isPublic(field.getModifiers())) {
+                    if (forceAccess) {
+                        field.setAccessible(true);
+                    } else {
+                        continue;
                     }
-                    if (breakScope == false) {
-                        // only public acceptable if not breaking scope
-                        throw new IllegalAccessException("The field '" + fieldName + 
-                            "' was found, but it's scope prevents direct access by reflection");
-                    }
-                    field.setAccessible(true);
-                    match = field;
-                    break;
-                    
-                } catch (NoSuchFieldException ex) {
-                    // ignore
                 }
-                // next superclass
-                acls = acls.getSuperclass();
+                return field;
+            } catch (NoSuchFieldException ex) {
+                // ignore
             }
-            // check the public interface case. This must be manually searched for
-            // incase there is a public supersuperclass field hidden by a private/package
-            // superclass field.
-            // check up the superclass hierarchy
-            Class[] ints = cls.getInterfaces();
+        }
+        // check the public interface case. This must be manually searched for
+        // incase there is a public supersuperclass field hidden by a private/package
+        // superclass field.
+        Field match = null;
+        for (Class acls = cls; acls != null; acls = acls.getSuperclass()) {
+            Class[] ints = acls.getInterfaces();
             for (int i = 0; i < ints.length; i++) {
                 // getField is fine here, because everything is public, and thus it works
                 try {
-                    Field field = ints[i].getField(fieldName);
-                    return field;
-                    
+                    Field test = ints[i].getField(fieldName);
+                    if (match != null) {
+                        if (match.getDeclaringClass().equals(test.getDeclaringClass())) {
+                            continue;
+                        }
+                        throw new IllegalArgumentException(
+                                "Reference to field "
+                                        + fieldName
+                                        + " is ambiguous relative to "
+                                        + cls
+                                        + "; a matching field exists on two or more parent interfaces.");
+                    }
+                    match = test;
                 } catch (NoSuchFieldException ex) {
                     // ignore
                 }
             }
-            if (match != null) {
-                return match;
-            }
-            throw new NoSuchFieldException("The field '" + fieldName + "' could not be found");
-    
-        } catch (ReflectionException ex) {
-            throw ex;
-        } catch (LinkageError ex) {
-            throw new ReflectionException(ReflectionUtils.getThrowableText(
-                ex, "getting field", cls.getName(), null, fieldName), ex);
-        } catch (Exception ex) {
-            throw new ReflectionException(ReflectionUtils.getThrowableText(
-                ex, "getting field", cls.getName(), null, fieldName), ex);
         }
+        return match;
     }
-    
-    //-----------------------------------------------------------------------
+
     /**
      * Gets an accessible <code>Field</code> by name respecting scope.
      * Only the specified class will be considered.
@@ -161,25 +147,23 @@ public class FieldUtils {
      * @param fieldName  the field name to obtain
      * @return the Field object
      * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
      */
-    public static Field getFieldExact(Class cls, String fieldName) {
-        return getFieldExact(cls, fieldName, false);
+    public static Field getDeclaredField(Class cls, String fieldName) {
+        return getDeclaredField(cls, fieldName, false);
     }
-    
+
     /**
      * Gets an accessible <code>Field</code> by name breaking scope
      * if requested. Only the specified class will be considered.
      *
      * @param cls  the class to reflect, must not be null
      * @param fieldName  the field name to obtain
-     * @param breakScope  whether to break scope restrictions using the
+     * @param forceAccess  whether to break scope restrictions using the
      *  <code>setAccessible</code> method. False will only match public fields.
      * @return the Field object
      * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
      */
-    public static Field getFieldExact(Class cls, String fieldName, boolean breakScope) {
+    public static Field getDeclaredField(Class cls, String fieldName, boolean forceAccess) {
         if (cls == null) {
             throw new IllegalArgumentException("The class must not be null");
         }
@@ -189,160 +173,81 @@ public class FieldUtils {
         try {
             // only consider the specified class by using getDeclaredField()
             Field field = cls.getDeclaredField(fieldName);
-            if (Modifier.isPublic(field.getModifiers()) == false) {
-                if (breakScope) {
+            if (!MemberUtils.isAccessible(field)) {
+                if (forceAccess) {
                     field.setAccessible(true);
                 } else {
-                    throw new IllegalAccessException("The field '" + fieldName + "' was found, but it's scope prevents direct access by reflection");
+                    return null;
                 }
             }
             return field;
-    
-        } catch (ReflectionException ex) {
-            throw ex;
-        } catch (LinkageError ex) {
-            throw new ReflectionException(ReflectionUtils.getThrowableText(
-                ex, "getting field", cls.getName(), null, fieldName), ex);
-        } catch (Exception ex) {
-            throw new ReflectionException(ReflectionUtils.getThrowableText(
-                ex, "getting field", cls.getName(), null, fieldName), ex);
+        } catch (NoSuchFieldException e) {
         }
+        return null;
     }
-    
-    //-----------------------------------------------------------------------
+
     /**
-     * Gets a static Field value from a <code>Field</code> object.
-     * 
-     * @param field  the field to use
+     * Read an accessible static Field.
+     * @param field to read
      * @return the field value
      * @throws IllegalArgumentException if the field is null or not static
-     * @throws ReflectionException if an error occurs during reflection
+     * @throws IllegalAccessException if the field is not accessible
      */
-    public static Object getStaticFieldValue(Field field) {
-        if (field == null) {
-            throw new IllegalArgumentException("The field must not be null");
-        }
-        if (Modifier.isStatic(field.getModifiers()) == false) {
-            throw new IllegalArgumentException("The field '" + field.getName() + "' is not static");
-        }
-        return getFieldValue(field, (Object) null, false);
+    public static Object readStaticField(Field field) throws IllegalAccessException {
+        return readStaticField(field, false);
     }
-    
+
     /**
-     * Gets a static Field value from a <code>Field</code> object.
-     * 
-     * @param field  the field to use
-     * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. <code>False</code> will only
-     *  match public methods.
+     * Read a static Field.
+     * @param field to read
+     * @param forceAccess  whether to break scope restrictions using the
+     *  <code>setAccessible</code> method.
      * @return the field value
      * @throws IllegalArgumentException if the field is null or not static
-     * @throws ReflectionException if an error occurs during reflection
+     * @throws IllegalAccessException if the field is not made accessible
      */
-    public static Object getStaticFieldValue(Field field, boolean breakScope) {
+    public static Object readStaticField(Field field, boolean forceAccess) throws IllegalAccessException {
         if (field == null) {
             throw new IllegalArgumentException("The field must not be null");
         }
-        if (Modifier.isStatic(field.getModifiers()) == false) {
+        if (!Modifier.isStatic(field.getModifiers())) {
             throw new IllegalArgumentException("The field '" + field.getName() + "' is not static");
         }
-        return getFieldValue(field, (Object) null, breakScope);
+        return readField(field, (Object) null, forceAccess);
     }
-    
+
     /**
-     * Gets a Field value from a <code>Field</code> object.
-     * 
-     * @param field  the field to use
-     * @param object  the object to call on, may be null for static fields
-     * @return the field value
-     * @throws IllegalArgumentException if the field is null
-     * @throws ReflectionException if an error occurs during reflection
-     */
-    public static Object getFieldValue(Field field, Object object) {
-        return getFieldValue(field, object, false);
-    }
-    
-    /**
-     * Gets a Field value from a Field object.
-     * 
-     * @param field  the field to use
-     * @param object  the object to call on, may be null for static fields
-     * @param breakScope  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. <code>False</code> will only
-     *  match public methods.
-     * @return the field value
-     * @throws IllegalArgumentException if the field is null
-     * @throws ReflectionException if an error occurs during reflection
-     */
-    public static Object getFieldValue(Field field, Object object, boolean breakScope) {
-        if (field == null) {
-            throw new IllegalArgumentException("The field must not be null");
-        }
-        try {
-            if (breakScope && Modifier.isPublic(field.getModifiers()) == false) {
-                field.setAccessible(true);
-            }
-            return field.get(object);
-    
-        } catch (ReflectionException ex) {
-            throw ex;
-        } catch (LinkageError ex) {
-            throw new ReflectionException(ReflectionUtils.getThrowableText(
-                ex, "getting field value", field.getDeclaringClass().getName(), null, field.getName()), ex);
-        } catch (Exception ex) {
-            throw new ReflectionException(ReflectionUtils.getThrowableText(
-                ex, "getting field value", field.getDeclaringClass().getName(), null, field.getName()), ex);
-        }
-    }
-    
-    //-----------------------------------------------------------------------
-    /**
-     * Gets a static Field value by name. The field must be public.
-     * Superclasses will be considered.
-     *
+     * Read the named public static field. Superclasses will be considered.
      * @param cls  the class to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @return the value of the field
      * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
+     * @throws IllegalAccessException if the field is not accessible
      */
-    public static Object getStaticFieldValue(Class cls, String fieldName) {
-        return getStaticFieldValue(cls, fieldName, false);
+    public static Object readStaticField(Class cls, String fieldName) throws IllegalAccessException {
+        return readStaticField(cls, fieldName, false);
     }
-    
+
     /**
-     * Gets a static Field value by name. Only the specified class
-     * will be considered.
-     *
+     * Read the named static field. Superclasses will be considered.
      * @param cls  the class to reflect, must not be null
      * @param fieldName  the field name to obtain
-     * @param breakScope  whether to break scope restrictions using the
+     * @param forceAccess  whether to break scope restrictions using the
      *  <code>setAccessible</code> method. <code>False</code> will only
      *  match public fields.
      * @return the Field object
      * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
+     * @throws IllegalAccessException if the field is not made accessible
      */
-    public static Object getStaticFieldValue(Class cls, String fieldName, boolean breakScope) {
-        try {
-            Field field = getField(cls, fieldName, breakScope);
-            if (Modifier.isStatic(field.getModifiers()) == false) {
-                throw new NoSuchMethodException("The field '" + fieldName + "' is not static");
-            }
-            return getStaticFieldValue(field, breakScope);
-            
-        } catch (ReflectionException ex) {
-            throw ex;
-        } catch (LinkageError ex) {
-            throw new ReflectionException(ReflectionUtils.getThrowableText(
-                ex, "getting field value", cls.getName(), null, fieldName), ex);
-        } catch (Exception ex) {
-            throw new ReflectionException(ReflectionUtils.getThrowableText(
-                ex, "getting field value", cls.getName(), null, fieldName), ex);
+    public static Object readStaticField(Class cls, String fieldName, boolean forceAccess) throws IllegalAccessException {
+        Field field = getField(cls, fieldName, forceAccess);
+        if (field == null) {
+            throw new IllegalArgumentException("Cannot locate field " + fieldName + " on " + cls);
         }
+        //already forced access above, don't repeat it here:
+        return readStaticField(field, false);
     }
-    
-    //-----------------------------------------------------------------------
+
     /**
      * Gets a static Field value by name. The field must be public.
      * Only the specified class will be considered.
@@ -351,108 +256,350 @@ public class FieldUtils {
      * @param fieldName  the field name to obtain
      * @return the value of the field
      * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
+     * @throws IllegalAccessException if the field is not accessible
      */
-    public static Object getStaticFieldValueExact(Class cls, String fieldName) {
-        return getStaticFieldValueExact(cls, fieldName, false);
+    public static Object readDeclaredStaticField(Class cls, String fieldName) throws IllegalAccessException {
+        return readDeclaredStaticField(cls, fieldName, false);
     }
-    
+
     /**
      * Gets a static Field value by name. Only the specified class will
      * be considered.
      *
      * @param cls  the class to reflect, must not be null
      * @param fieldName  the field name to obtain
-     * @param breakScope  whether to break scope restrictions using the
+     * @param forceAccess  whether to break scope restrictions using the
      *  <code>setAccessible</code> method. <code>False</code> will only
      *  match public fields.
      * @return the Field object
      * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
+     * @throws IllegalAccessException if the field is not made accessible
      */
-    public static Object getStaticFieldValueExact(Class cls, String fieldName, boolean breakScope) {
-        try {
-            Field field = getFieldExact(cls, fieldName, breakScope);
-            if (Modifier.isStatic(field.getModifiers()) == false) {
-                throw new NoSuchMethodException("The field '" + fieldName + "' is not static");
-            }
-            return getStaticFieldValue(field, breakScope);
-            
-        } catch (ReflectionException ex) {
-            throw ex;
-        } catch (LinkageError ex) {
-            throw new ReflectionException(ReflectionUtils.getThrowableText(
-                ex, "getting field value", cls.getName(), null, fieldName), ex);
-        } catch (Exception ex) {
-            throw new ReflectionException(ReflectionUtils.getThrowableText(
-                ex, "getting field value", cls.getName(), null, fieldName), ex);
+    public static Object readDeclaredStaticField(Class cls, String fieldName, boolean forceAccess)
+            throws IllegalAccessException {
+        Field field = getDeclaredField(cls, fieldName, forceAccess);
+        if (field == null) {
+            throw new IllegalArgumentException("Cannot locate declared field " + cls.getName() + "." + fieldName);
         }
+        //already forced access above, don't repeat it here:
+        return readStaticField(field, false);
     }
-    
-    //-----------------------------------------------------------------------
+
     /**
-     * Gets a Field value by name. The field must be public. Superclasses
-     * will be considered.
-     *
-     * @param object  the object to reflect, must not be null
+     * Read an accessible Field.
+     * @param field  the field to use
+     * @param target  the object to call on, may be null for static fields
+     * @return the field value
+     * @throws IllegalArgumentException if the field is null
+     * @throws IllegalAccessException if the field is not accessible
+     */
+    public static Object readField(Field field, Object target) throws IllegalAccessException {
+        return readField(field, target, false);
+    }
+
+    /**
+     * Read a Field.
+     * @param field  the field to use
+     * @param target  the object to call on, may be null for static fields
+     * @param forceAccess  whether to break scope restrictions using the
+     *  <code>setAccessible</code> method.
+     * @return the field value
+     * @throws IllegalArgumentException if the field is null
+     * @throws IllegalAccessException if the field is not made accessible
+     */
+    public static Object readField(Field field, Object target, boolean forceAccess) throws IllegalAccessException {
+        if (field == null) {
+            throw new IllegalArgumentException("The field must not be null");
+        }
+        if (forceAccess && !field.isAccessible()) {
+            field.setAccessible(true);
+        } else {
+            MemberUtils.setAccessibleWorkaround(field);
+        }
+        return field.get(target);
+    }
+
+    /**
+     * Read the named public field. Superclasses will be considered.
+     * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @return the value of the field
      * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
+     * @throws IllegalAccessException if the named field is not public
      */
-    public static Object getFieldValue(Object object, String fieldName) {
-        return getFieldValue(object, fieldName, false);
+    public static Object readField(Object target, String fieldName) throws IllegalAccessException {
+        return readField(target, fieldName, false);
     }
-    
+
     /**
-     * Gets a Field value by name. Only the specified class will be
-     * considered.
-     *
-     * @param object  the object to reflect, must not be null
+     * Read the named field. Superclasses will be considered.
+     * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
-     * @param breakScope  whether to break scope restrictions using the
+     * @param forceAccess  whether to break scope restrictions using the
      *  <code>setAccessible</code> method. <code>False</code> will only
      *  match public fields.
-     * @return the Field object
+     * @return the field value
      * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
+     * @throws IllegalAccessException if the named field is not made accessible
      */
-    public static Object getFieldValue(Object object, String fieldName, boolean breakScope) {
-        Field field = getField(object.getClass(), fieldName, breakScope);
-        return getFieldValue(field, object, breakScope);
+    public static Object readField(Object target, String fieldName, boolean forceAccess) throws IllegalAccessException {
+        if (target == null) {
+            throw new IllegalArgumentException("target object must not be null");
+        }
+        Class cls = target.getClass();
+        Field field = getField(cls, fieldName, forceAccess);
+        if (field == null) {
+            throw new IllegalArgumentException("Cannot locate field " + fieldName + " on " + cls);
+        }
+        //already forced access above, don't repeat it here:
+        return readField(field, target);
     }
-    
-    //-----------------------------------------------------------------------
+
     /**
-     * Gets a Field value by name. The field must be public.
-     * Only the class of the specified object will be considered.
-     *
-     * @param object  the object to reflect, must not be null
+     * Read the named public field. Only the class of the specified object will be considered.
+     * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @return the value of the field
      * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
+     * @throws IllegalAccessException if the named field is not public
      */
-    public static Object getFieldValueExact(Object object, String fieldName) {
-        return getFieldValueExact(object, fieldName, false);
+    public static Object readDeclaredField(Object target, String fieldName) throws IllegalAccessException {
+        return readDeclaredField(target, fieldName, false);
     }
-    
+
     /**
      * <p<>Gets a Field value by name. Only the class of the specified
      * object will be considered.
      *
-     * @param object  the object to reflect, must not be null
+     * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
-     * @param breakScope  whether to break scope restrictions using the
+     * @param forceAccess  whether to break scope restrictions using the
      *  <code>setAccessible</code> method. <code>False</code> will only
      *  match public fields.
      * @return the Field object
-     * @throws IllegalArgumentException if the class or field name is null
-     * @throws ReflectionException if an error occurs during reflection
+     * @throws IllegalArgumentException if <code>target</code> or <code>fieldName</code> is null
+     * @throws IllegalAccessException if the field is not made accessible
      */
-    public static Object getFieldValueExact(Object object, String fieldName, boolean breakScope) {
-        Field field = getFieldExact(object.getClass(), fieldName, breakScope);
-        return getFieldValue(field, object, breakScope);
+    public static Object readDeclaredField(Object target, String fieldName, boolean forceAccess) throws IllegalAccessException {
+        if (target == null) {
+            throw new IllegalArgumentException("target object must not be null");
+        }
+        Class cls = target.getClass();
+        Field field = getDeclaredField(cls, fieldName, forceAccess);
+        if (field == null) {
+            throw new IllegalArgumentException("Cannot locate declared field " + cls.getName() + "." + fieldName);
+        }
+        //already forced access above, don't repeat it here:
+        return readField(field, target);
     }
-    
+
+    /**
+     * Write a public static Field.
+     * @param field to write
+     * @param value to set
+     * @throws IllegalArgumentException if the field is null or not static
+     * @throws IllegalAccessException if the field is not public or is final
+     */
+    public static void writeStaticField(Field field, Object value) throws IllegalAccessException {
+        writeStaticField(field, value, false);
+    }
+
+    /**
+     * Write a static Field.
+     * @param field to write
+     * @param value to set
+     * @param forceAccess  whether to break scope restrictions using the
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
+     * @throws IllegalArgumentException if the field is null or not static
+     * @throws IllegalAccessException if the field is not made accessible or is final
+     */
+    public static void writeStaticField(Field field, Object value, boolean forceAccess) throws IllegalAccessException {
+        if (field == null) {
+            throw new IllegalArgumentException("The field must not be null");
+        }
+        if (!Modifier.isStatic(field.getModifiers())) {
+            throw new IllegalArgumentException("The field '" + field.getName() + "' is not static");
+        }
+        writeField(field, (Object) null, value, forceAccess);
+    }
+
+    /**
+     * Write a named public static Field. Superclasses will be considered.
+     * @param cls Class on which the Field is to be found
+     * @param fieldName to write
+     * @param value to set
+     * @throws IllegalArgumentException if the field cannot be located or is not static
+     * @throws IllegalAccessException if the field is not public or is final
+     */
+    public static void writeStaticField(Class cls, String fieldName, Object value) throws IllegalAccessException {
+        writeStaticField(cls, fieldName, value, false);
+    }
+
+    /**
+     * Write a named static Field. Superclasses will be considered.
+     * @param cls Class on which the Field is to be found
+     * @param fieldName to write
+     * @param value to set
+     * @param forceAccess  whether to break scope restrictions using the
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
+     * @throws IllegalArgumentException if the field cannot be located or is not static
+     * @throws IllegalAccessException if the field is not made accessible or is final
+     */
+    public static void writeStaticField(Class cls, String fieldName, Object value, boolean forceAccess)
+            throws IllegalAccessException {
+        Field field = getField(cls, fieldName, forceAccess);
+        if (field == null) {
+            throw new IllegalArgumentException("Cannot locate field " + fieldName + " on " + cls);
+        }
+        //already forced access above, don't repeat it here:
+        writeStaticField(field, value);
+    }
+
+    /**
+     * Write a named public static Field. Only the specified class will be considered.
+     * @param cls Class on which the Field is to be found
+     * @param fieldName to write
+     * @param value to set
+     * @throws IllegalArgumentException if the field cannot be located or is not static
+     * @throws IllegalAccessException if the field is not public or is final
+     */
+    public static void writeDeclaredStaticField(Class cls, String fieldName, Object value)
+            throws IllegalAccessException {
+        writeDeclaredStaticField(cls, fieldName, value, false);
+    }
+
+    /**
+     * Write a named static Field. Only the specified class will be considered.
+     * @param cls Class on which the Field is to be found
+     * @param fieldName to write
+     * @param value to set
+     * @param forceAccess  whether to break scope restrictions using the
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
+     * @throws IllegalArgumentException if the field cannot be located or is not static
+     * @throws IllegalAccessException if the field is not made accessible or is final
+      */
+    public static void writeDeclaredStaticField(Class cls, String fieldName, Object value, boolean forceAccess)
+            throws IllegalAccessException {
+        Field field = getDeclaredField(cls, fieldName, forceAccess);
+        if (field == null) {
+            throw new IllegalArgumentException("Cannot locate declared field " + cls.getName() + "." + fieldName);
+        }
+        //already forced access above, don't repeat it here:
+        writeField(field, (Object) null, value);
+    }
+
+    /**
+     * Write an accessible field.
+     * @param field to write
+     * @param target  the object to call on, may be null for static fields
+     * @param value to set
+     * @throws IllegalArgumentException if the field is null
+     * @throws IllegalAccessException if the field is not accessible or is final
+     */
+    public static void writeField(Field field, Object target, Object value) throws IllegalAccessException {
+        writeField(field, target, value, false);
+    }
+
+    /**
+     * Write a field.
+     * @param field to write
+     * @param target  the object to call on, may be null for static fields
+     * @param value to set
+     * @param forceAccess  whether to break scope restrictions using the
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
+     * @throws IllegalArgumentException if the field is null
+     * @throws IllegalAccessException if the field is not made accessible or is final
+     */
+    public static void writeField(Field field, Object target, Object value, boolean forceAccess) throws IllegalAccessException {
+        if (field == null) {
+            throw new IllegalArgumentException("The field must not be null");
+        }
+        if (forceAccess && !field.isAccessible()) {
+            field.setAccessible(true);
+        } else {
+            MemberUtils.setAccessibleWorkaround(field);
+        }
+        field.set(target, value);
+    }
+
+    /**
+     * Write a public field. Superclasses will be considered.
+     * @param target  the object to reflect, must not be null
+     * @param fieldName  the field name to obtain
+     * @param value to set
+     * @throws IllegalArgumentException if <code>target</code> or <code>fieldName</code> is null
+     * @throws IllegalAccessException if the field is not accessible
+     */
+    public static void writeField(Object target, String fieldName, Object value) throws IllegalAccessException {
+        writeField(target, fieldName, value, false);
+    }
+
+    /**
+     * Write a field. Superclasses will be considered.
+     * @param target  the object to reflect, must not be null
+     * @param fieldName  the field name to obtain
+     * @param value to set
+     * @param forceAccess  whether to break scope restrictions using the
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
+     * @throws IllegalArgumentException if <code>target</code> or <code>fieldName</code> is null
+     * @throws IllegalAccessException if the field is not made accessible
+     */
+    public static void writeField(Object target, String fieldName, Object value, boolean forceAccess)
+            throws IllegalAccessException {
+        if (target == null) {
+            throw new IllegalArgumentException("target object must not be null");
+        }
+        Class cls = target.getClass();
+        Field field = getField(cls, fieldName, forceAccess);
+        if (field == null) {
+            throw new IllegalArgumentException("Cannot locate declared field " + cls.getName() + "." + fieldName);
+        }
+        //already forced access above, don't repeat it here:
+        writeField(field, target, value);
+    }
+
+    /**
+     * Write a public field. Only the specified class will be considered.
+     * @param target  the object to reflect, must not be null
+     * @param fieldName  the field name to obtain
+     * @param value to set
+     * @param forceAccess  whether to break scope restrictions using the
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
+     * @throws IllegalArgumentException if <code>target</code> or <code>fieldName</code> is null
+     * @throws IllegalAccessException if the field is not made accessible
+     */
+    public static void writeDeclaredField(Object target, String fieldName, Object value) throws IllegalAccessException {
+        writeDeclaredField(target, fieldName, value, false);
+    }
+
+    /**
+     * Write a public field. Only the specified class will be considered.
+     * @param target  the object to reflect, must not be null
+     * @param fieldName  the field name to obtain
+     * @param value to set
+     * @param forceAccess  whether to break scope restrictions using the
+     *  <code>setAccessible</code> method. <code>False</code> will only
+     *  match public fields.
+     * @throws IllegalArgumentException if <code>target</code> or <code>fieldName</code> is null
+     * @throws IllegalAccessException if the field is not made accessible
+     */
+    public static void writeDeclaredField(Object target, String fieldName, Object value, boolean forceAccess)
+            throws IllegalAccessException {
+        if (target == null) {
+            throw new IllegalArgumentException("target object must not be null");
+        }
+        Class cls = target.getClass();
+        Field field = getDeclaredField(cls, fieldName, forceAccess);
+        if (field == null) {
+            throw new IllegalArgumentException("Cannot locate declared field " + cls.getName() + "." + fieldName);
+        }
+        //already forced access above, don't repeat it here:
+        writeField(field, target, value);
+    }
 }
