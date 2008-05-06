@@ -16,14 +16,19 @@
  */
 package org.apache.commons.lang.text;
 
+import java.text.ChoiceFormat;
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
@@ -40,12 +45,6 @@ import junit.framework.TestSuite;
  * @version $Id$
  */
 public class ExtendedMessageFormatTest extends TestCase {
-
-    private Locale[] testLocales = new Locale[] {null, //default locale
-                                                 Locale.US,
-                                                 Locale.UK,
-                                                 Locale.FRANCE,
-                                                 Locale.GERMANY};
 
     private Map registry = new HashMap();
 
@@ -100,20 +99,30 @@ public class ExtendedMessageFormatTest extends TestCase {
         Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 05);
         Object[] args = new Object[] {"John Doe", cal.getTime(), new Double("12345.67")};
-        String pattern = "Name: {0,upper} DOB: {1,date,short} Salary: {2,number,currency}";
+        String builtinsPattern = "DOB: {1,date,short} Salary: {2,number,currency}";
+        String extendedPattern = "Name: {0,upper} ";
+        String pattern = extendedPattern + builtinsPattern;
 
-        for (int i = 0; i < testLocales.length; i++) {
+        HashSet testLocales = new HashSet();
+        testLocales.addAll(Arrays.asList(DateFormat.getAvailableLocales()));
+        testLocales.retainAll(Arrays.asList(NumberFormat.getAvailableLocales()));
+        testLocales.add(null);
+
+        for (Iterator l = testLocales.iterator(); l.hasNext();) {
+            Locale locale = (Locale) l.next();
+            MessageFormat builtins = createMessageFormat(builtinsPattern, locale);
+            String expectedPattern = extendedPattern + builtins.toPattern();;
             DateFormat df = null;
             NumberFormat nf = null;
             ExtendedMessageFormat emf = null;
-            if (testLocales[i] == null) {
+            if (locale == null) {
                 df = DateFormat.getDateInstance(DateFormat.SHORT);
                 nf = NumberFormat.getCurrencyInstance();
                 emf = new ExtendedMessageFormat(pattern, registry);
             } else {
-                df = DateFormat.getDateInstance(DateFormat.SHORT, testLocales[i]);
-                nf = NumberFormat.getCurrencyInstance(testLocales[i]);
-                emf = new ExtendedMessageFormat(pattern, testLocales[i], registry);
+                df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+                nf = NumberFormat.getCurrencyInstance(locale);
+                emf = new ExtendedMessageFormat(pattern, locale, registry);
             }
             StringBuffer expected = new StringBuffer();
             expected.append("Name: ");
@@ -122,8 +131,8 @@ public class ExtendedMessageFormatTest extends TestCase {
             expected.append(df.format(args[1]));
             expected.append(" Salary: ");
             expected.append(nf.format(args[2]));
-            assertPatternsEqual(null, pattern, emf.toPattern());
-            assertEquals("" + testLocales[i], expected.toString(), emf.format(args));
+            assertPatternsEqual("pattern comparison for locale " + locale, expectedPattern, emf.toPattern());
+            assertEquals(String.valueOf(locale), expected.toString(), emf.format(args));
         }
     }
 
@@ -153,7 +162,10 @@ public class ExtendedMessageFormatTest extends TestCase {
 //        String pattern = "Choice: {0,choice,1.0#{0} {1,lower} {2,number}|2.0#{0} {1,upper} {2,number,currency}}";
 //        Object[] lowArgs  = new Object[] {new Integer(1), "Low",  new Double("1234.56")};
 //        Object[] highArgs = new Object[] {new Integer(2), "High", new Double("9876.54")};
-
+//        Locale[] availableLocales = ChoiceFormat.getAvailableLocales();
+//        Locale[] testLocales = new Locale[availableLocales.length + 1];
+//        testLocales[0] = null;
+//        System.arraycopy(availableLocales, 0, testLocales, 1, availableLocales.length);
 //        for (int i = 0; i < testLocales.length; i++) {
 //            NumberFormat nf = null;
 //            NumberFormat cf = null;
@@ -184,16 +196,17 @@ public class ExtendedMessageFormatTest extends TestCase {
      */
     public void testBuiltInChoiceFormat() {
         Object[] values = new Number[] {new Integer(1), new Double("2.2"), new Double("1234.5")};
-        String choicePattern = null; 
+        String choicePattern = null;
+        Locale[] availableLocales = ChoiceFormat.getAvailableLocales();
 
         choicePattern = "{0,choice,1#One|2#Two|3#Many {0,number}}";
         for (int i = 0; i < values.length; i++) {
-            checkBuiltInFormat(values[i] + ": " + choicePattern, new Object[] {values[i]});
+            checkBuiltInFormat(values[i] + ": " + choicePattern, new Object[] {values[i]}, availableLocales);
         }
 
         choicePattern = "{0,choice,1#''One''|2#\"Two\"|3#''{Many}'' {0,number}}";
         for (int i = 0; i < values.length; i++) {
-            checkBuiltInFormat(values[i] + ": " + choicePattern, new Object[] {values[i]});
+            checkBuiltInFormat(values[i] + ": " + choicePattern, new Object[] {values[i]}, availableLocales);
         }
     }
 
@@ -204,17 +217,45 @@ public class ExtendedMessageFormatTest extends TestCase {
         Calendar cal = Calendar.getInstance();
         cal.set(2007, Calendar.JANUARY, 23, 18, 33, 05);
         Object[] args = new Object[] {cal.getTime()};
+        Locale[] availableLocales = DateFormat.getAvailableLocales();
 
-        checkBuiltInFormat("1: {0,date,short}",    args);
-        checkBuiltInFormat("2: {0,date,medium}",   args);
-        checkBuiltInFormat("3: {0,date,long}",     args);
-        checkBuiltInFormat("4: {0,date,full}",     args);
-        checkBuiltInFormat("5: {0,date,d MMM yy}", args);
-        checkBuiltInFormat("6: {0,time,short}",    args);
-        checkBuiltInFormat("7: {0,time,medium}",   args);
-        checkBuiltInFormat("8: {0,time,long}",     args);
-        checkBuiltInFormat("9: {0,time,full}",     args);
-        checkBuiltInFormat("10: {0,time,HH:mm}",   args);
+        checkBuiltInFormat("1: {0,date,short}",    args, availableLocales);
+        checkBuiltInFormat("2: {0,date,medium}",   args, availableLocales);
+        checkBuiltInFormat("3: {0,date,long}",     args, availableLocales);
+        checkBuiltInFormat("4: {0,date,full}",     args, availableLocales);
+        checkBuiltInFormat("5: {0,date,d MMM yy}", args, availableLocales);
+        checkBuiltInFormat("6: {0,time,short}",    args, availableLocales);
+        checkBuiltInFormat("7: {0,time,medium}",   args, availableLocales);
+        checkBuiltInFormat("8: {0,time,long}",     args, availableLocales);
+        checkBuiltInFormat("9: {0,time,full}",     args, availableLocales);
+        checkBuiltInFormat("10: {0,time,HH:mm}",   args, availableLocales);
+        checkBuiltInFormat("11: {0,date}",         args, availableLocales);
+        checkBuiltInFormat("12: {0,time}",         args, availableLocales);
+    }
+
+    public void testOverriddenBuiltinFormat() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(2007, Calendar.JANUARY, 23);
+        Object[] args = new Object[] {cal.getTime()};
+        Locale[] availableLocales = DateFormat.getAvailableLocales();
+        Map registry = Collections.singletonMap("date", new OverrideShortDateFormatFactory());
+
+        //check the non-overridden builtins:
+        checkBuiltInFormat("1: {0,date}", registry,          args, availableLocales);
+        checkBuiltInFormat("2: {0,date,medium}", registry,   args, availableLocales);
+        checkBuiltInFormat("3: {0,date,long}", registry,     args, availableLocales);
+        checkBuiltInFormat("4: {0,date,full}", registry,     args, availableLocales);
+        checkBuiltInFormat("5: {0,date,d MMM yy}", registry, args, availableLocales);
+
+        //check the overridden format:
+        for (int i = -1; i < availableLocales.length; i++) {
+            Locale locale = i < 0 ? null : availableLocales[i];
+            MessageFormat dateDefault = createMessageFormat("{0,date}", locale);
+            String pattern = "{0,date,short}";
+            ExtendedMessageFormat dateShort = new ExtendedMessageFormat(pattern, locale, registry);
+            assertEquals("overridden date,short format", dateDefault.format(args), dateShort.format(args));
+            assertEquals("overridden date,short pattern", pattern, dateShort.toPattern());
+        }
     }
 
     /**
@@ -222,39 +263,54 @@ public class ExtendedMessageFormatTest extends TestCase {
      */
     public void testBuiltInNumberFormat() {
         Object[] args = new Object[] {new Double("6543.21")};
-        checkBuiltInFormat("1: {0,number}",            args);
-        checkBuiltInFormat("2: {0,number,integer}",    args);
-        checkBuiltInFormat("3: {0,number,currency}",   args);
-        checkBuiltInFormat("4: {0,number,percent}",    args);
-        checkBuiltInFormat("5: {0,number,00000.000}",  args);
+        Locale[] availableLocales = NumberFormat.getAvailableLocales();
+        checkBuiltInFormat("1: {0,number}",            args, availableLocales);
+        checkBuiltInFormat("2: {0,number,integer}",    args, availableLocales);
+        checkBuiltInFormat("3: {0,number,currency}",   args, availableLocales);
+        checkBuiltInFormat("4: {0,number,percent}",    args, availableLocales);
+        checkBuiltInFormat("5: {0,number,00000.000}",  args, availableLocales);
     }
 
     /**
-     * Create ExtendedMessageFormats for the specified pattern and the set of locales
-     * and check the formated output matches the expected result for the parameters.
+     * Test a built in format for the specified Locales, plus <code>null</code> Locale.
+     * @param pattern MessageFormat pattern
+     * @param args MessageFormat arguments
+     * @param locales to test
      */
-    private void checkBuiltInFormat(String pattern, Object[] args) {
-        for (int i = 0; i < testLocales.length; i++) {
-            checkBuiltInFormat(pattern, args, testLocales[i]);
+    private void checkBuiltInFormat(String pattern, Object[] args, Locale[] locales) {
+        checkBuiltInFormat(pattern, null, args, locales);
+    }
+
+    /**
+     * Test a built in format for the specified Locales, plus <code>null</code> Locale.
+     * @param pattern MessageFormat pattern
+     * @param registry FormatFactory registry to use
+     * @param args MessageFormat arguments
+     * @param locales to test
+     */
+    private void checkBuiltInFormat(String pattern, Map registry, Object[] args, Locale[] locales) {
+        checkBuiltInFormat(pattern, registry, args, (Locale) null);
+        for (int i = 0; i < locales.length; i++) {
+            checkBuiltInFormat(pattern, registry, args, locales[i]);
         }
     }
 
     /**
      * Create an ExtendedMessageFormat for the specified pattern and locale and check the
      * formated output matches the expected result for the parameters.
+     * @param pattern string
+     * @param registry map
+     * @param args Object[]
+     * @param locale Locale
      */
-    private void checkBuiltInFormat(String pattern, Object[] args, Locale locale) {
+    private void checkBuiltInFormat(String pattern, Map registry, Object[] args, Locale locale) {
         StringBuffer buffer = new StringBuffer();
         buffer.append("Pattern=[");
         buffer.append(pattern);
         buffer.append("], locale=[");
         buffer.append(locale);
         buffer.append("]");
-        MessageFormat mf = new MessageFormat(pattern);
-        if (locale != null) {
-            mf.setLocale(locale);
-            mf.applyPattern(pattern);
-        }
+        MessageFormat mf = createMessageFormat(pattern, locale);
         // System.out.println(buffer + ", result=[" + mf.format(args) +"]");
         ExtendedMessageFormat emf = null;
         if (locale == null) {
@@ -273,10 +329,25 @@ public class ExtendedMessageFormatTest extends TestCase {
         }
     }
 
+    /**
+     * Replace MessageFormat(String, Locale) constructor (not available until JDK 1.4).
+     * @param pattern string
+     * @param locale Locale
+     * @return MessageFormat
+     */
+    private MessageFormat createMessageFormat(String pattern, Locale locale) {
+        MessageFormat result = new MessageFormat(pattern);
+        if (locale != null) {
+            result.setLocale(locale);
+            result.applyPattern(pattern);
+        }
+        return result;
+    }
+
     // ------------------------ Test Formats ------------------------
 
     /**
-     * {@link Format} implementation which converts to upper case.
+     * {@link Format} implementation which converts to lower case.
      */
     private static class LowerCaseFormat extends Format {
         public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
@@ -286,7 +357,7 @@ public class ExtendedMessageFormatTest extends TestCase {
     }
 
     /**
-     * {@link Format} implementation which converts to lower case.
+     * {@link Format} implementation which converts to upper case.
      */
     private static class UpperCaseFormat extends Format {
         public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
@@ -313,6 +384,17 @@ public class ExtendedMessageFormatTest extends TestCase {
         private static final Format UPPER_INSTANCE = new UpperCaseFormat();
         public Format getFormat(String name, String arguments, Locale locale) {
             return UPPER_INSTANCE;
+        }
+    }
+    /**
+     * {@link FormatFactory} implementation to override date format "short" to "default".
+     */
+    private static class OverrideShortDateFormatFactory implements FormatFactory {
+        public Format getFormat(String name, String arguments, Locale locale) {
+            return !"short".equals(arguments) ? null
+                    : locale == null ? DateFormat
+                            .getDateInstance(DateFormat.DEFAULT) : DateFormat
+                            .getDateInstance(DateFormat.DEFAULT, locale);
         }
     }
 }
