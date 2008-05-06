@@ -71,7 +71,7 @@ public class LocaleUtilsTest extends TestCase {
      */
     public static Test suite() {
         TestSuite suite = new TestSuite(LocaleUtilsTest.class);
-        suite.setName("LocaleUtilsTest Tests");
+        suite.setName("LocaleUtils Tests");
         return suite;
     }
 
