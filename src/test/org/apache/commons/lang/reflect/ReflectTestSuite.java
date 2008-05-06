@@ -14,34 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang;
+package org.apache.commons.lang.reflect;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.lang.builder.BuilderTestSuite;
-import org.apache.commons.lang.enums.EnumTestSuite;
-import org.apache.commons.lang.exception.ExceptionTestSuite;
-import org.apache.commons.lang.math.MathTestSuite;
-import org.apache.commons.lang.mutable.MutableTestSuite;
-import org.apache.commons.lang.reflect.ReflectTestSuite;
-import org.apache.commons.lang.text.TextTestSuite;
-import org.apache.commons.lang.time.TimeTestSuite;
-
 /**
- * Test suite for [lang].
+ * Test suite for the reflect package.
  *
- * @author Stephen Colebourne
+ * @author Matt Benson
  * @version $Id$
  */
-public class AllLangTestSuite extends TestCase {
+public class ReflectTestSuite extends TestCase {
     
     /**
      * Construct a new instance.
      */
-    public AllLangTestSuite(String name) {
+    public ReflectTestSuite(String name) {
         super(name);
     }
 
@@ -57,17 +48,11 @@ public class AllLangTestSuite extends TestCase {
      */
     public static Test suite() {
         TestSuite suite = new TestSuite();
-        suite.setName("Commons-Lang (all) Tests");
-        suite.addTest(LangTestSuite.suite());
-        suite.addTest(BuilderTestSuite.suite());
-        suite.addTest(EnumTestSuite.suite());
-        suite.addTest(org.apache.commons.lang.enum.EnumTestSuite.suite());
-        suite.addTest(ExceptionTestSuite.suite());
-        suite.addTest(MathTestSuite.suite());
-        suite.addTest(MutableTestSuite.suite());
-        suite.addTest(ReflectTestSuite.suite());
-        suite.addTest(TextTestSuite.suite());
-        suite.addTest(TimeTestSuite.suite());
+        suite.setName("Commons-Lang-Reflect Tests");
+        suite.addTest(ConstructorUtilsTest.suite());
+        suite.addTest(FieldUtilsTest.suite());
+        suite.addTest(MethodUtilsTest.suite());
         return suite;
     }
+
 }
