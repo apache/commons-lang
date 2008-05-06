@@ -16,9 +16,6 @@
  */
 package org.apache.commons.lang;
 
-import org.apache.commons.lang.reflect.ConstructorUtilsTest;
-import org.apache.commons.lang.reflect.MethodUtilsTest;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
