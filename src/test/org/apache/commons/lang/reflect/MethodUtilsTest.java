@@ -313,8 +313,8 @@ public class MethodUtilsTest extends TestCase {
             String methodName, Class[] requestTypes, Class[] actualTypes) {
         Method m = MethodUtils.getMatchingAccessibleMethod(cls, methodName,
                 requestTypes);
-        assertTrue(Arrays.toString(m.getParameterTypes()) + " not equals "
-                + Arrays.toString(actualTypes), Arrays.equals(actualTypes, m
+        assertTrue(toString(m.getParameterTypes()) + " not equals "
+                + toString(actualTypes), Arrays.equals(actualTypes, m
                 .getParameterTypes()));
     }
 
@@ -328,6 +328,10 @@ public class MethodUtilsTest extends TestCase {
         MethodUtils.invokeMethod(testBean, "foo", "");
         assertEquals(0, MethodUtils.clearCache());
         MethodUtils.setCacheMethods(true);
+    }
+
+    private String toString(Class[] c) {
+        return Arrays.asList(c).toString();
     }
 
     private Class[] singletonArray(Class c) {
