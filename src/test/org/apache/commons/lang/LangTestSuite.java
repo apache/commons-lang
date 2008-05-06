@@ -65,13 +65,11 @@ public class LangTestSuite extends TestCase {
         suite.addTest(CharSetUtilsTest.suite());
         suite.addTest(CharUtilsTest.suite());
         suite.addTest(ClassUtilsTest.suite());
-        suite.addTest(ConstructorUtilsTest.suite());
         suite.addTest(EntitiesTest.suite());
         suite.addTest(IllegalClassExceptionTest.suite());
         suite.addTest(IncompleteArgumentExceptionTest.suite());
         suite.addTest(IntHashMapTest.suite());
         suite.addTest(LocaleUtilsTest.suite());
-        suite.addTest(MethodUtilsTest.suite());
         suite.addTest(NotImplementedExceptionTest.suite());
         suite.addTest(NullArgumentExceptionTest.suite());
         suite.addTest(NumberRangeTest.suite());
