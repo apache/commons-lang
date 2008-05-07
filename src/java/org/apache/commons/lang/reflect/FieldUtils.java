@@ -126,7 +126,7 @@ public class FieldUtils {
                                     + fieldName
                                     + " is ambiguous relative to "
                                     + cls
-                                    + "; a matching field exists on two or more parent interfaces.");
+                                    + "; a matching field exists on two or more implemented interfaces.");
                 }
                 match = test;
             } catch (NoSuchFieldException ex) {
