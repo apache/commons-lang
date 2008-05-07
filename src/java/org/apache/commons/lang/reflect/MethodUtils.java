@@ -59,38 +59,6 @@ import org.apache.commons.lang.ClassUtils;
 public class MethodUtils {
 
     /**
-     * Stores a cache of MethodDescriptor -> Method in a WeakHashMap.
-     * <p>
-     * The keys into this map only ever exist as temporary variables within
-     * methods of this class, and are never exposed to users of this class.
-     * This means that the WeakHashMap is used only as a mechanism for 
-     * limiting the size of the cache, ie a way to tell the garbage collector
-     * that the contents of the cache can be completely garbage-collected 
-     * whenever it needs the memory. Whether this is a good approach to
-     * this problem is doubtful; something like the commons-collections
-     * LRUMap may be more appropriate (though of course selecting an
-     * appropriate size is an issue).
-     * <p>
-     * This static variable is safe even when this code is deployed via a
-     * shared classloader because it is keyed via a MethodDescriptor object
-     * which has a Class as one of its members and that member is used in
-     * the MethodDescriptor.equals method. So two components that load the same
-     * class via different classloaders will generate non-equal MethodDescriptor
-     * objects and hence end up with different entries in the map.
-     */
-    private static final WeakHashMap/* <MethodDescriptor, Method> */cache = new WeakHashMap();
-
-    /**
-     * Indicates whether methods should be cached for improved performance.
-     * <p>
-     * Note that when this class is deployed via a shared classloader in
-     * a container, this will affect all webapps. However making this
-     * configurable per webapp would mean having a map keyed by context classloader
-     * which may introduce memory-leak problems.
-     */
-    private static boolean cacheMethods = true;
-
-    /**
      * <p>MethodUtils instances should NOT be constructed in standard programming.
      * Instead, the class should be used as
      * <code>MethodUtils.getAccessibleMethod(method)</code>.</p>
@@ -100,30 +68,6 @@ public class MethodUtils {
      */
     public MethodUtils() {
         super();
-    }
-
-    /**
-     * Set whether methods should be cached for greater performance or not,
-     * default is <code>true</code>.
-     *
-     * @param cacheMethods <code>true</code> if methods should be
-     * cached for greater performance, otherwise <code>false</code>
-     */
-    public static synchronized void setCacheMethods(boolean cacheMethods) {
-        MethodUtils.cacheMethods = cacheMethods;
-        if (!MethodUtils.cacheMethods) {
-            clearCache();
-        }
-    }
-
-    /**
-     * Clear the method cache.
-     * @return the number of cached methods cleared
-     */
-    public static synchronized int clearCache() {
-        int size = cache.size();
-        cache.clear();
-        return size;
     }
 
     /**
@@ -561,17 +505,8 @@ public class MethodUtils {
     public static Method getAccessibleMethod(Class cls, String methodName,
             Class[] parameterTypes) {
         try {
-            MethodDescriptor md = new MethodDescriptor(cls, methodName,
-                    parameterTypes, true);
-            // Check the cache first
-            Method method = getCachedMethod(md);
-            if (method != null) {
-                return method;
-            }
-            method = getAccessibleMethod(cls.getMethod(methodName,
+            return getAccessibleMethod(cls.getMethod(methodName,
                     parameterTypes));
-            cacheMethod(md, method);
-            return method;
         } catch (NoSuchMethodException e) {
             return (null);
         }
@@ -708,19 +643,9 @@ public class MethodUtils {
      */
     public static Method getMatchingAccessibleMethod(Class cls,
             String methodName, Class[] parameterTypes) {
-        MethodDescriptor md = new MethodDescriptor(cls, methodName,
-                parameterTypes, false);
-        // Check the cache first
-        Method method = getCachedMethod(md);
-        if (method != null) {
-            return method;
-        }
-        // see if we can find the method directly
-        // most of the time this works and it's much faster
         try {
-            method = cls.getMethod(methodName, parameterTypes);
+            Method method = cls.getMethod(methodName, parameterTypes);
             MemberUtils.setAccessibleWorkaround(method);
-            cacheMethod(md, method);
             return method;
         } catch (NoSuchMethodException e) { /* SWALLOW */
         }
@@ -748,100 +673,7 @@ public class MethodUtils {
         }
         if (bestMatch != null) {
             MemberUtils.setAccessibleWorkaround(bestMatch);
-            cacheMethod(md, bestMatch);
         }
         return bestMatch;
-    }
-
-    /**
-     * Return the method from the cache, if present.
-     *
-     * @param md The method descriptor
-     * @return The cached method
-     */
-    private static Method getCachedMethod(MethodDescriptor md) {
-        if (cacheMethods) {
-            return (Method) cache.get(md);
-        }
-        return null;
-    }
-
-    /**
-     * Add a method to the cache.
-     *
-     * @param md The method descriptor
-     * @param method The method to cache
-     */
-    private static void cacheMethod(MethodDescriptor md, Method method) {
-        if (cacheMethods) {
-            if (method != null) {
-                cache.put(md, method);
-            }
-        }
-    }
-
-    /**
-     * Represents the key to looking up a Method by reflection.
-     */
-    private static class MethodDescriptor {
-        private Class cls;
-        private String methodName;
-        private Class[] paramTypes;
-        private boolean exact;
-        private int hashCode;
-
-        /**
-         * The sole constructor.
-         *
-         * @param cls  the class to reflect, must not be null
-         * @param methodName  the method name to obtain
-         * @param paramTypes the array of classes representing the paramater types
-         * @param exact whether the match has to be exact.
-         */
-        public MethodDescriptor(Class cls, String methodName,
-                Class[] paramTypes, boolean exact) {
-            if (cls == null) {
-                throw new IllegalArgumentException("Class cannot be null");
-            }
-            if (methodName == null) {
-                throw new IllegalArgumentException("Method Name cannot be null");
-            }
-            if (paramTypes == null) {
-                paramTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
-            }
-            this.cls = cls;
-            this.methodName = methodName;
-            this.paramTypes = paramTypes;
-            this.exact = exact;
-            // is this adequate? :/
-            this.hashCode = methodName.length();
-        }
-
-        /**
-         * Checks for equality.
-         * @param obj object to be tested for equality
-         * @return true, if the object describes the same Method.
-         */
-        public boolean equals(Object obj) {
-            if (!(obj instanceof MethodDescriptor)) {
-                return false;
-            }
-            MethodDescriptor md = (MethodDescriptor) obj;
-
-            return exact == md.exact && methodName.equals(md.methodName)
-                    && cls.equals(md.cls)
-                    && Arrays.equals(paramTypes, md.paramTypes);
-        }
-
-        /**
-         * Returns the string length of method name. I.e. if the
-         * hashcodes are different, the objects are different. If the
-         * hashcodes are the same, need to use the equals method to
-         * determine equality.
-         * @return the string length of method name.
-         */
-        public int hashCode() {
-            return hashCode;
-        }
     }
 }
