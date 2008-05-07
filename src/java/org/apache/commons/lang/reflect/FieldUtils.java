@@ -18,6 +18,9 @@ package org.apache.commons.lang.reflect;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Iterator;
+
+import org.apache.commons.lang.ClassUtils;
 
 /**
  * Utilities for working with fields by reflection. Adapted and refactored
@@ -113,27 +116,21 @@ public class FieldUtils {
         // incase there is a public supersuperclass field hidden by a private/package
         // superclass field.
         Field match = null;
-        for (Class acls = cls; acls != null; acls = acls.getSuperclass()) {
-            Class[] ints = acls.getInterfaces();
-            for (int i = 0; i < ints.length; i++) {
-                // getField is fine here, because everything is public, and thus it works
-                try {
-                    Field test = ints[i].getField(fieldName);
-                    if (match != null) {
-                        if (match.getDeclaringClass().equals(test.getDeclaringClass())) {
-                            continue;
-                        }
-                        throw new IllegalArgumentException(
-                                "Reference to field "
-                                        + fieldName
-                                        + " is ambiguous relative to "
-                                        + cls
-                                        + "; a matching field exists on two or more parent interfaces.");
-                    }
-                    match = test;
-                } catch (NoSuchFieldException ex) {
-                    // ignore
+        for (Iterator intf = ClassUtils.getAllInterfaces(cls).iterator(); intf
+                .hasNext();) {
+            try {
+                Field test = ((Class) intf.next()).getField(fieldName);
+                if (match != null) {
+                    throw new IllegalArgumentException(
+                            "Reference to field "
+                                    + fieldName
+                                    + " is ambiguous relative to "
+                                    + cls
+                                    + "; a matching field exists on two or more parent interfaces.");
                 }
+                match = test;
+            } catch (NoSuchFieldException ex) {
+                // ignore
             }
         }
         return match;
