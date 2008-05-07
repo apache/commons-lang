@@ -318,18 +318,6 @@ public class MethodUtilsTest extends TestCase {
                 .getParameterTypes()));
     }
 
-    public void testSetCacheMethods() throws Exception {
-        MethodUtils.clearCache();
-        MethodUtils.setCacheMethods(true);
-        MethodUtils.invokeMethod(testBean, "foo", "");
-        assertEquals(1, MethodUtils.clearCache());
-        assertEquals(0, MethodUtils.clearCache());
-        MethodUtils.setCacheMethods(false);
-        MethodUtils.invokeMethod(testBean, "foo", "");
-        assertEquals(0, MethodUtils.clearCache());
-        MethodUtils.setCacheMethods(true);
-    }
-
     private String toString(Class[] c) {
         return Arrays.asList(c).toString();
     }
