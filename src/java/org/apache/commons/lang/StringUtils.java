@@ -4464,7 +4464,7 @@ public class StringUtils {
     /**
      * <p>Left pad a String with spaces (' ').</p>
      *
-     * <p>The String is padded to the size of <code>size<code>.</p>
+     * <p>The String is padded to the size of <code>size</code>.</p>
      *
      * <pre>
      * StringUtils.leftPad(null, *)   = null
