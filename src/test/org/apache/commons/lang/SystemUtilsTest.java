@@ -22,6 +22,7 @@ package org.apache.commons.lang;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.Locale;
 
 import junit.framework.Assert;
 import junit.framework.Test;
@@ -312,7 +313,7 @@ public class SystemUtilsTest extends TestCase {
             assertEquals(true, SystemUtils.IS_OS_SOLARIS);
             assertEquals(true, SystemUtils.IS_OS_UNIX);
             assertEquals(false, SystemUtils.IS_OS_WINDOWS);
-        } else if (osName.toLowerCase().startsWith("linux")) {
+        } else if (osName.toLowerCase(Locale.ENGLISH).startsWith("linux")) {
             assertEquals(true, SystemUtils.IS_OS_LINUX);
             assertEquals(true, SystemUtils.IS_OS_UNIX);
             assertEquals(false, SystemUtils.IS_OS_WINDOWS);
