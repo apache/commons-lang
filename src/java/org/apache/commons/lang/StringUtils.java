@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * <p>Operations on {@link java.lang.String} that are
@@ -4708,6 +4709,11 @@ public class StringUtils {
      * StringUtils.upperCase("aBc") = "ABC"
      * </pre>
      *
+     * <p><strong>Note:</strong> As described in the documentation for {@link String#toUpperCase()},
+     * the result of this method is affected by the current locale.
+     * For platform-independent case transformations, the method {@link #lowerCase(String, Locale)}
+     * should be used with a specific locale (e.g. {@link Locale#ENGLISH}).</p>
+     *
      * @param str  the String to upper case, may be null
      * @return the upper cased String, <code>null</code> if null String input
      */
@@ -4716,6 +4722,29 @@ public class StringUtils {
             return null;
         }
         return str.toUpperCase();
+    }
+
+    /**
+     * <p>Converts a String to upper case as per {@link String#toUpperCase(Locale)}.</p>
+     *
+     * <p>A <code>null</code> input String returns <code>null</code>.</p>
+     *
+     * <pre>
+     * StringUtils.upperCase(null, Locale.ENGLISH)  = null
+     * StringUtils.upperCase("", Locale.ENGLISH)    = ""
+     * StringUtils.upperCase("aBc", Locale.ENGLISH) = "ABC"
+     * </pre>
+     *
+     * @param str  the String to upper case, may be null
+     * @param locale  the locale that defines the case transformation rules, must not be null
+     * @return the upper cased String, <code>null</code> if null String input
+     * @since 3.0
+     */
+    public static String upperCase(String str, Locale locale) {
+        if (str == null) {
+            return null;
+        }
+        return str.toUpperCase(locale);
     }
 
     /**
@@ -4729,6 +4758,11 @@ public class StringUtils {
      * StringUtils.lowerCase("aBc") = "abc"
      * </pre>
      *
+     * <p><strong>Note:</strong> As described in the documentation for {@link String#toLowerCase()},
+     * the result of this method is affected by the current locale.
+     * For platform-independent case transformations, the method {@link #lowerCase(String, Locale)}
+     * should be used with a specific locale (e.g. {@link Locale#ENGLISH}).</p>
+     *
      * @param str  the String to lower case, may be null
      * @return the lower cased String, <code>null</code> if null String input
      */
@@ -4737,6 +4771,29 @@ public class StringUtils {
             return null;
         }
         return str.toLowerCase();
+    }
+
+    /**
+     * <p>Converts a String to lower case as per {@link String#toLowerCase(Locale)}.</p>
+     *
+     * <p>A <code>null</code> input String returns <code>null</code>.</p>
+     *
+     * <pre>
+     * StringUtils.lowerCase(null, Locale.ENGLISH)  = null
+     * StringUtils.lowerCase("", Locale.ENGLISH)    = ""
+     * StringUtils.lowerCase("aBc", Locale.ENGLISH) = "abc"
+     * </pre>
+     *
+     * @param str  the String to lower case, may be null
+     * @param locale  the locale that defines the case transformation rules, must not be null
+     * @return the lower cased String, <code>null</code> if null String input
+     * @since 3.0
+     */
+    public static String lowerCase(String str, Locale locale) {
+        if (str == null) {
+            return null;
+        }
+        return str.toLowerCase(locale);
     }
 
     /**

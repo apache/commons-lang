@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Locale;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -127,7 +128,9 @@ public class StringUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testCaseFunctions() {
         assertEquals(null, StringUtils.upperCase(null));
+        assertEquals(null, StringUtils.upperCase(null, Locale.ENGLISH));
         assertEquals(null, StringUtils.lowerCase(null));
+        assertEquals(null, StringUtils.lowerCase(null, Locale.ENGLISH));
         assertEquals(null, StringUtils.capitalize(null));
         assertEquals(null, StringUtils.uncapitalise(null));
         assertEquals(null, StringUtils.uncapitalize(null));
@@ -185,7 +188,15 @@ public class StringUtilsTest extends TestCase {
                      "foo test thing", StringUtils.lowerCase("fOo test THING") );
         assertEquals("lowerCase(empty-string) failed",
                      "", StringUtils.lowerCase("") );
-        
+
+        assertEquals("upperCase(String, Locale) failed",
+                     "FOO TEST THING", StringUtils.upperCase("fOo test THING", Locale.ENGLISH) );
+        assertEquals("upperCase(empty-string, Locale) failed",
+                     "", StringUtils.upperCase("", Locale.ENGLISH) );
+        assertEquals("lowerCase(String, Locale) failed",
+                     "foo test thing", StringUtils.lowerCase("fOo test THING", Locale.ENGLISH) );
+        assertEquals("lowerCase(empty-string, Locale) failed",
+                     "", StringUtils.lowerCase("", Locale.ENGLISH) );
     }
 
     public void testSwapCase_String() {
