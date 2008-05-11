@@ -387,6 +387,7 @@ public class WordUtilsTest extends TestCase {
         assertEquals("01234", WordUtils.abbreviate("01234 56789", 5, 10, null));
         assertEquals("01 23 45 67", WordUtils.abbreviate("01 23 45 67 89", 9, -1, null));
         assertEquals("01 23 45 6", WordUtils.abbreviate("01 23 45 67 89", 9, 10, null));
+        assertEquals("0123456789", WordUtils.abbreviate("0123456789", 15, 20, null));
 
         // test lower value + append
         assertEquals("012", WordUtils.abbreviate("012 3456789", 0,5, null));
