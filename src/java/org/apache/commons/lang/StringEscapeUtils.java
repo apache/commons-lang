@@ -19,6 +19,7 @@ package org.apache.commons.lang;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Locale;
 
 import org.apache.commons.lang.exception.NestableRuntimeException;
 
@@ -263,7 +264,7 @@ public class StringEscapeUtils {
      * @return An upper case hexadecimal <code>String</code>
      */
     private static String hex(char ch) {
-        return Integer.toHexString(ch).toUpperCase();
+        return Integer.toHexString(ch).toUpperCase(Locale.ENGLISH);
     }
 
     /**
