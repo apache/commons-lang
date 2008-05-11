@@ -62,12 +62,16 @@ import org.apache.commons.lang.SystemUtils;
  * with invalid indices or null input, have been altered - see individual methods.
  * The biggest of these changes is that by default, null will not output the text
  * 'null'. This can be controlled by a property, {@link #setNullText(String)}.
+ * <p>
+ * Prior to 3.0, this class implemented Cloneable but did not implement the 
+ * clone method so could not be used. From 3.0 onwards it no longer implements 
+ * the interface. 
  *
  * @author Stephen Colebourne
  * @since 2.2
  * @version $Id$
  */
-public class StrBuilder implements Cloneable {
+public class StrBuilder {
 
     /**
      * The extra capacity for new builders.
