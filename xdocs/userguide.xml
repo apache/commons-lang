@@ -32,19 +32,18 @@ limitations under the License.
       <h2>Users Guide</h2>
       <br />
       <a href="#Description">[Description]</a>
-      <a href="#lang.*">[lang.*]</a>
-      <a href="#lang.builder.*">[lang.builder.*]</a>
-      <a href="#lang.enums.*">[lang.enums.*]</a>
-      <a href="#lang.exception.*">[lang.exception.*]</a>
-      <a href="#lang.math.*">[lang.math.*]</a>
-      <a href="#lang.mutable.*">[lang.mutable.*]</a>
-      <a href="#lang.text.*">[lang.text.*]</a>
-      <a href="#lang.time.*">[lang.time.*]</a>
+      <a href="#lang.">[lang.*]</a>
+      <a href="#lang.builder.">[lang.builder.*]</a>
+      <a href="#lang.enums.">[lang.enums.*]</a>
+      <a href="#lang.exception.">[lang.exception.*]</a>
+      <a href="#lang.math.">[lang.math.*]</a>
+      <a href="#lang.mutable.">[lang.mutable.*]</a>
+      <a href="#lang.text.">[lang.text.*]</a>
+      <a href="#lang.time.">[lang.time.*]</a>
       <br /><br />
     </div>
   </section>
 
-  <a name="Description"></a>
   <section name="Description">
    <p>The Commons Lang library provides much needed additions to the standard JDK's java.lang package. Very generic, very reusable components for everyday use.</p>
    <p>The top level package contains various Utils classes, whilst there are various subpackages including enums, exception and builder. Using the Utils classes is generally simplicity itself. They are the equivalent of global functions in another language, a collection of stand-alone, thread-safe, static methods. In contrast, subpackages may contain interfaces which may have to be implemented or classes which may need to be extended to get the full functionality from the code. They may, however, contain more global-like functions. </p>
@@ -53,7 +52,6 @@ limitations under the License.
    <p>Before we begin, it's a good time to mention the Utils classes. They all contain empty public constructors with warnings not to use. This may seem an odd thing to do, but it allows tools like Velocity to access the class as if it were a bean. In other words, yes we know about private constructors. </p>
   </section>
 
-   <a name="lang.*"></a>
    <section name="lang.*">
     <subsection name="String manipulation - StringUtils, StringEscapeUtils, RandomStringUtils, Tokenizer, WordUtils">
      <p>Lang has a series of String utilities. The first is StringUtils, oodles and oodles of functions which tweak, transform, squeeze and cuddle java.lang.Strings. In addition to StringUtils, there are a series of other String manipulating classes; RandomStringUtils, StringEscapeUtils and Tokenizer. RandomStringUtils speaks for itself. It's provides ways in which to generate pieces of text, such as might be used for default passwords. StringEscapeUtils contains methods to escape and unescape Java, JavaScript, HTML, XML and SQL. Tokenizer is an improved alternative to java.util.StringTokenizer. </p>
@@ -116,7 +114,6 @@ limitations under the License.
     </subsection>
    </section>
 
-   <a name="lang.builder.*"></a>
    <section name="lang.builder.*">
    <!--
    CompareToBuilder
@@ -130,13 +127,13 @@ limitations under the License.
     <p>When you write a hashcode, do you check Bloch's Effective Java? No? You just hack in a quick number? Well HashCodeBuilder will save your day. It, and its buddies (EqualsBuilder, CompareToBuilder, ToStringBuilder), take care of the nasty bits while you focus on the important bits, like which fields will go into making up the hashcode.</p>
    </section>
 
-   <a name="lang.enums.*"></a>
-   <section name="lang.enums.* (formerly lang.enum)">
+   <section name="lang.enums.*">
    <!--
    Enum
    EnumUtils
    ValuedEnum
    -->
+    <p><i>(Formerly lang.enum.*)</i></p>
     <p>Enums are an old C thing. Very useful. One of the major uses is to give type to your constants, and even more, to give them order. For example:</p>
     <h5>A simple Enum</h5>
 <source>
@@ -161,7 +158,6 @@ public final class ColorEnum extends Enum {
     <p>The enums package used to be the enum package, but with Java 5 giving us an enum keyword, the move to the enums package name was necessary and the old enum package was deprecated. </p>
    </section>
 
-   <a name="lang.exception.*"></a>
    <section name="lang.exception.*">
    <!--
    ExceptionUtils
@@ -176,7 +172,6 @@ public final class ColorEnum extends Enum {
     <p>The reflection ability is one of the more interesting tricks hidden in the reflection sub-package, and of much use to writers of applications such as Tomcat or IDEs, in fact any code which has to catch 'Exception' from an unknown source and then wanting to display in a novel way.</p>
    </section>
 
-   <a name="lang.math.*"></a>
    <section name="lang.math.*">
    <!--
    DoubleRange
@@ -194,7 +189,6 @@ public final class ColorEnum extends Enum {
     <p>There are two aspects of this package I would like to highlight. The first is <code>NumberUtils.createNumber(String)</code>, a method which does its best to convert a String into a Number object. You have no idea what type of Number it will return, so you should call the relevant <code>xxxValue</code> method when you reach the point of needing a number. NumberUtils also has a related <code>isNumber</code> method. The second is the JVMRandom class. This is an instance of Random which relies on the <code>Math.random()</code> method for its implementation and so gives the developer access to the JVM's random seed. If you try to create Random objects in the same millisecond, they will give the same answer; so quickly you will find yourself caching that Random object. Rather than caching your own object, simply use the one the JVM is caching already. The RandomUtils provides a static access to the JVMRandom class, which may be easier to use. </p>
    </section>
 
-   <a name="lang.mutable.*"></a>
    <section name="lang.mutable.*">
    <!--
    Mutable
@@ -210,7 +204,6 @@ public final class ColorEnum extends Enum {
     </p>
    </section>
 
-   <a name="lang.text.*"></a>
    <section name="lang.text.*">
    <!--
    CompositeFormat
@@ -223,7 +216,6 @@ public final class ColorEnum extends Enum {
    <p>The text package was added in Lang 2.2. It provides, amongst other classes, a replacement for StringBuffer named <code>StrBuilder</code>, a class for substituting variables within a String named <code>StrSubstitutor</code> and a replacement for StringTokenizer named <code>StrTokenizer</code>. While somewhat ungainly, the <code>Str</code> prefix has been used to ensure we don't clash with any current or future standard Java classes. </p>
    </section>
 
-   <a name="lang.time.*"></a>
    <section name="lang.time.*">
    <!--
    DateFormatUtils
