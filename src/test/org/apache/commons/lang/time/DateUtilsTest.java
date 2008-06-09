@@ -667,17 +667,17 @@ public class DateUtilsTest extends TestCase {
         assertEquals("round second-2 failed",
                 dateTimeParser.parse("November 18, 2001 1:23:11.000"),
                 DateUtils.round(date2, Calendar.SECOND));
-        assertEquals("truncate ampm-1 failed",
+        assertEquals("round ampm-1 failed",
                 dateTimeParser.parse("February 3, 2002 00:00:00.000"),
                 DateUtils.round(dateAmPm1, Calendar.AM_PM));
-        assertEquals("truncate ampm-2 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
+        assertEquals("round ampm-2 failed",
+                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
                 DateUtils.round(dateAmPm2, Calendar.AM_PM));
-        assertEquals("truncate ampm-3 failed",
+        assertEquals("round ampm-3 failed",
                 dateTimeParser.parse("February 3, 2002 12:00:00.000"),
                 DateUtils.round(dateAmPm3, Calendar.AM_PM));
-        assertEquals("truncate ampm-4 failed",
-                dateTimeParser.parse("February 4, 2002 12:00:00.000"),
+        assertEquals("round ampm-4 failed",
+                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
                 DateUtils.round(dateAmPm4, Calendar.AM_PM));
 
         // tests for public static Date round(Object date, int field)
@@ -729,17 +729,17 @@ public class DateUtilsTest extends TestCase {
         assertEquals("round calendar second-2 failed",
                 dateTimeParser.parse("November 18, 2001 1:23:11.000"),
                 DateUtils.round((Object) cal2, Calendar.SECOND));
-        assertEquals("truncate ampm-1 failed",
+        assertEquals("round ampm-1 failed",
                 dateTimeParser.parse("February 3, 2002 00:00:00.000"),
                 DateUtils.round((Object) dateAmPm1, Calendar.AM_PM));
-        assertEquals("truncate ampm-2 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
+        assertEquals("round ampm-2 failed",
+                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
                 DateUtils.round((Object) dateAmPm2, Calendar.AM_PM));
-        assertEquals("truncate ampm-3 failed",
+        assertEquals("round ampm-3 failed",
                 dateTimeParser.parse("February 3, 2002 12:00:00.000"),
                 DateUtils.round((Object) dateAmPm3, Calendar.AM_PM));
-        assertEquals("truncate ampm-4 failed",
-                dateTimeParser.parse("February 4, 2002 12:00:00.000"),
+        assertEquals("round ampm-4 failed",
+                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
                 DateUtils.round((Object) dateAmPm4, Calendar.AM_PM));
 
         try {
@@ -763,17 +763,17 @@ public class DateUtilsTest extends TestCase {
             fail();
         } catch(IllegalArgumentException ex) {}
 
-        assertEquals("truncate ampm-1 failed",
+        assertEquals("round ampm-1 failed",
                 dateTimeParser.parse("February 3, 2002 00:00:00.000"),
                 DateUtils.round((Object) calAmPm1, Calendar.AM_PM));
-        assertEquals("truncate ampm-2 failed",
-                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
+        assertEquals("round ampm-2 failed",
+                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
                 DateUtils.round((Object) calAmPm2, Calendar.AM_PM));
-        assertEquals("truncate ampm-3 failed",
+        assertEquals("round ampm-3 failed",
                 dateTimeParser.parse("February 3, 2002 12:00:00.000"),
                 DateUtils.round((Object) calAmPm3, Calendar.AM_PM));
-        assertEquals("truncate ampm-4 failed",
-                dateTimeParser.parse("February 4, 2002 12:00:00.000"),
+        assertEquals("round ampm-4 failed",
+                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
                 DateUtils.round((Object) calAmPm4, Calendar.AM_PM));
         
         // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
