@@ -829,6 +829,18 @@ public class DateUtils {
                                 val.add(Calendar.DATE, -15);
                                 val.add(Calendar.MONTH, 1);
                             }
+// ----------------- Fix for LANG-440 ---------------------- START ---------------
+                        } else if (field == Calendar.AM_PM) {
+                            // This is a special case
+                            // If the time is 0, we round up to 12, otherwise
+                            //  we subtract 12 hours and add 1 day
+                            if (val.get(Calendar.HOUR_OF_DAY) == 0) {
+                                val.add(Calendar.HOUR_OF_DAY, 12);
+                            } else {
+                                val.add(Calendar.HOUR_OF_DAY, -12);
+                                val.add(Calendar.DATE, 1);
+                            }
+// ----------------- Fix for LANG-440 ---------------------- END ---------------
                         } else {
                             //We need at add one to this field since the
                             //  last number causes us to round up
