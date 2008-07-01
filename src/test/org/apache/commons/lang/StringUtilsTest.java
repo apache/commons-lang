@@ -1512,6 +1512,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals("NULL", StringUtils.defaultIfEmpty(null, "NULL"));
         assertEquals("NULL", StringUtils.defaultIfEmpty("", "NULL"));
         assertEquals("abc", StringUtils.defaultIfEmpty("abc", "NULL"));
+        assertNull(StringUtils.defaultIfEmpty("", null));
     }
 
     //-----------------------------------------------------------------------
