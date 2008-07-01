@@ -5308,6 +5308,7 @@ public class StringUtils {
      * StringUtils.defaultIfEmpty(null, "NULL")  = "NULL"
      * StringUtils.defaultIfEmpty("", "NULL")    = "NULL"
      * StringUtils.defaultIfEmpty("bat", "NULL") = "bat"
+     * StringUtils.defaultIfEmpty("", null)      = null
      * </pre>
      *
      * @see StringUtils#defaultString(String, String)
