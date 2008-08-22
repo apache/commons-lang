@@ -162,8 +162,7 @@ public class StringEscapeUtils {
             return writer.toString();
         } catch (IOException ioe) {
             // this should never ever happen while writing to a StringWriter
-            ioe.printStackTrace();
-            return null;
+            throw new UnhandledException(ioe);
         }
     }
 
@@ -286,8 +285,7 @@ public class StringEscapeUtils {
             return writer.toString();
         } catch (IOException ioe) {
             // this should never ever happen while writing to a StringWriter
-            ioe.printStackTrace();
-            return null;
+            throw new UnhandledException(ioe);
         }
     }
 
@@ -461,11 +459,9 @@ public class StringEscapeUtils {
             StringWriter writer = new StringWriter ((int)(str.length() * 1.5));
             escapeHtml(writer, str);
             return writer.toString();
-        } catch (IOException e) {
-            //assert false;
+        } catch (IOException ioe) {
             //should be impossible
-            e.printStackTrace();
-            return null;
+            throw new UnhandledException(ioe);
         }
     }
 
@@ -533,11 +529,9 @@ public class StringEscapeUtils {
             StringWriter writer = new StringWriter ((int)(str.length() * 1.5));
             unescapeHtml(writer, str);
             return writer.toString();
-        } catch (IOException e) {
-            //assert false;
+        } catch (IOException ioe) {
             //should be impossible
-            e.printStackTrace();
-            return null;
+            throw new UnhandledException(ioe);
         }
     }
 
@@ -733,8 +727,7 @@ public class StringEscapeUtils {
             return writer.toString();
         } catch (IOException ioe) {
             // this should never ever happen while writing to a StringWriter
-            ioe.printStackTrace();
-            return null;
+            throw new UnhandledException(ioe);
         }
     }
 
@@ -811,8 +804,7 @@ public class StringEscapeUtils {
             return writer.toString();
         } catch (IOException ioe) {
             // this should never ever happen while writing to a StringWriter
-            ioe.printStackTrace();
-            return null;
+            throw new UnhandledException(ioe);
         }
     }
 
