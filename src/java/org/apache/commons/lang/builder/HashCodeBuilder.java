@@ -27,6 +27,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.IDKey;
+
 /**
  * <p>
  * Assists in implementing {@link Object#hashCode()} methods.
@@ -110,6 +112,23 @@ public class HashCodeBuilder {
         }
     };
 
+    /*
+     * N.B. we cannot store the actual objects in a HashSet, as that would use the very hashCode()
+     * we are in the process of calculating.
+     * 
+     * So we generate a one-to-one mapping from the original object to a new object.
+     * 
+     * Now HashSet uses equals() to determine if two elements with the same hashcode really
+     * are equal, so we also need to ensure that the replacement objects are only equal
+     * if the original objects are identical.
+     * 
+     * The original implementation (2.4 and before) used the System.indentityHashCode()
+     * method - however this is not guaranteed to generate unique ids (e.g. LANG-459)
+     *  
+     * We now use the IDKey helper class (adapted from org.apache.axis.utils.IDKey)
+     * to disambiguate the duplicate ids.
+     */
+    
     /**
      * <p>
      * Returns the registry of objects being traversed by the reflection methods in the current thread.
@@ -134,7 +153,7 @@ public class HashCodeBuilder {
      * @since 2.3
      */
     static boolean isRegistered(Object value) {
-        return getRegistry().contains(toIdentityHashCodeInteger(value));
+        return getRegistry().contains(new IDKey(value));
     }
 
     /**
@@ -506,19 +525,7 @@ public class HashCodeBuilder {
      *            The object to register.
      */
     static void register(Object value) {
-        getRegistry().add(toIdentityHashCodeInteger(value));
-    }
-
-    /**
-     * Returns an Integer for the given object's default hash code.
-     * 
-     * @see System#identityHashCode(Object)
-     * @param value
-     *            object for which the hashCode is to be calculated
-     * @return Default int hash code
-     */
-    private static Integer toIdentityHashCodeInteger(Object value) {
-        return new Integer(System.identityHashCode(value));
+        getRegistry().add(new IDKey(value));
     }
 
     /**
@@ -534,7 +541,7 @@ public class HashCodeBuilder {
      * @since 2.3
      */
     static void unregister(Object value) {
-        getRegistry().remove(toIdentityHashCodeInteger(value));
+        getRegistry().remove(new IDKey(value));
     }
 
     /**
