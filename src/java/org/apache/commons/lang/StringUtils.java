@@ -5881,10 +5881,10 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.startsWith(null, null)      = true
-     * StringUtils.startsWith(null, "abcdef")  = false
-     * StringUtils.startsWith("abc", null)     = false
-     * StringUtils.startsWith("abc", "abcdef") = true
-     * StringUtils.startsWith("abc", "ABCDEF") = false
+     * StringUtils.startsWith(null, "abc")     = false
+     * StringUtils.startsWith("abcdef", null)  = false
+     * StringUtils.startsWith("abcdef", "abc") = true
+     * StringUtils.startsWith("ABCDEF", "abc") = false
      * </pre>
      *
      * @see java.lang.String#startsWith(String)
@@ -5906,10 +5906,10 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.startsWithIgnoreCase(null, null)      = true
-     * StringUtils.startsWithIgnoreCase(null, "abcdef")  = false
-     * StringUtils.startsWithIgnoreCase("abc", null)     = false
-     * StringUtils.startsWithIgnoreCase("abc", "abcdef") = true
-     * StringUtils.startsWithIgnoreCase("abc", "ABCDEF") = true
+     * StringUtils.startsWithIgnoreCase(null, "abc")     = false
+     * StringUtils.startsWithIgnoreCase("abcdef", null)  = false
+     * StringUtils.startsWithIgnoreCase("abcdef", "abc") = true
+     * StringUtils.startsWithIgnoreCase("ABCDEF", "abc") = true
      * </pre>
      *
      * @see java.lang.String#startsWith(String)
@@ -5955,10 +5955,11 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.endsWith(null, null)      = true
-     * StringUtils.endsWith(null, "abcdef")  = false
-     * StringUtils.endsWith("def", null)     = false
-     * StringUtils.endsWith("def", "abcdef") = true
-     * StringUtils.endsWith("def", "ABCDEF") = false
+     * StringUtils.endsWith(null, "def")     = false
+     * StringUtils.endsWith("abcdef", null)  = false
+     * StringUtils.endsWith("abcdef", "def") = true
+     * StringUtils.endsWith("ABCDEF", "def") = false
+     * StringUtils.endsWith("ABCDEF", "cde") = false
      * </pre>
      *
      * @see java.lang.String#endsWith(String)
@@ -5980,8 +5981,8 @@ public class StringUtils {
      *
      * <pre>
      * StringUtils.endsWithIgnoreCase(null, null)      = true
-     * StringUtils.endsWithIgnoreCase("abcdef", null)  = false
      * StringUtils.endsWithIgnoreCase(null, "def")     = false
+     * StringUtils.endsWithIgnoreCase("abcdef", null)  = false
      * StringUtils.endsWithIgnoreCase("abcdef", "def") = true
      * StringUtils.endsWithIgnoreCase("ABCDEF", "def") = true
      * StringUtils.endsWithIgnoreCase("ABCDEF", "cde") = false
