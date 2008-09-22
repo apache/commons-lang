@@ -5943,6 +5943,38 @@ public class StringUtils {
         }
         return str.regionMatches(ignoreCase, 0, prefix, 0, prefix.length());
     }
+    
+    /**
+     * <p>Check if a String starts with any of an array of specified strings.</p>
+     * 
+     * <pre>
+     * StringUtils.startsWithAny(null, null)      = false
+     * StringUtils.startsWithAny(null, new String[] {"abc"})  = false
+     * StringUtils.startsWithAny("abcxyz", null)     = false
+     * StringUtils.startsWithAny("abcxyz", new String[] {""}) = false
+     * StringUtils.startsWithAny("abcxyz", new String[] {"abc"}) = true
+     * StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
+     * </pre>
+     *
+     * @see java.lang.String#startsWithAny(String, String[])
+     * @param string  the String to check, may be null
+     * @param searchStrings the Strings to find, may be null or empty
+     * @return <code>true</code> if the String starts with any of the the prefixes, case insensitive, or
+     *  both <code>null</code>
+     * @since 3.0
+     */
+    public static boolean startsWithAny(String string, String[] searchStrings) {
+        if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
+            return false;
+        }
+        for (int i = 0; i < searchStrings.length; i++) {
+            String searchString = searchStrings[i];
+            if (StringUtils.startsWith(string, searchString)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     // endsWith
     //-----------------------------------------------------------------------

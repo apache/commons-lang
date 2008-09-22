@@ -1837,5 +1837,15 @@ public class StringUtilsTest extends TestCase {
         assertEquals("", StringUtils.getCommonPrefix(new String[] {"xyz", "abcde"}));
         assertEquals("i am a ", StringUtils.getCommonPrefix(new String[] {"i am a machine", "i am a robot"}));
     }
+        
+    public void testStartsWithAny() {
+        assertFalse(StringUtils.startsWithAny(null, null));
+        assertFalse(StringUtils.startsWithAny(null, new String[] {"abc"}));
+        assertFalse(StringUtils.startsWithAny("abcxyz", null));
+        assertFalse(StringUtils.startsWithAny("abcxyz", new String[] {}));
+        assertTrue(StringUtils.startsWithAny("abcxyz", new String[] {"abc"}));
+        assertTrue(StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "abc"}));
+        assertFalse(StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "abcd"}));
+    }
  
 }
