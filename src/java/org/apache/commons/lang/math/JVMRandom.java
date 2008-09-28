@@ -24,6 +24,10 @@ import java.util.Random;
  * <p><code>JVMRandom</code> is a wrapper that supports all possible 
  * Random methods via the {@link java.lang.Math#random()} method
  * and its system-wide {@link Random} object.</p>
+ *
+ * It does this to allow for a Random class in which the seed is
+ * shared between all members of the class - a better name would
+ * have been SharedSeedRandom.
  * 
  * @since 2.0
  * @version $Id$
