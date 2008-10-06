@@ -147,6 +147,7 @@
                                 test.exception,
                                 test.math,
 						        test.mutable,
+						        test.reflect,
         						test.text,
 						        test.time" description="Run all unit test cases">
 		<echo message="Running tests ..."/>
@@ -180,6 +181,9 @@
 	</target>
 	<target name="test.mutable" depends="compile.tests">
 		<runTestCase classname="org.apache.commons.lang.mutable.MutableTestSuite"/>
+	</target>
+	<target name="test.reflect" depends="compile.tests">
+		<runTestCase classname="org.apache.commons.lang.reflect.ReflectTestSuite"/>
 	</target>
 	<target name="test.text" depends="compile.tests">
 		<runTestCase classname="org.apache.commons.lang.text.TextTestSuite"/>
