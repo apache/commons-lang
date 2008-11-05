@@ -879,7 +879,7 @@ public class DateUtils {
                         if (offset >= 12) {
                             offset -= 12;
                         }
-                        roundUp = offset > 6;
+                        roundUp = offset >= 6;
                         offsetSet = true;
                     }
                     break;
