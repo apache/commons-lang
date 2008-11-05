@@ -142,6 +142,9 @@ public final class NumberUtils {
         if (val.length() == 0) {
             throw new NumberFormatException("\"\" is not a valid number.");
         }
+        if (val.length() == 1 && !Character.isDigit(val.charAt(0))) {
+            throw new NumberFormatException(val + " is not a valid number.");
+        }
         if (val.startsWith("--")) {
             // this is protection for poorness in java.lang.BigDecimal.
             // it accepts this as a legal value, but it does not appear 
