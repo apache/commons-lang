@@ -287,7 +287,7 @@ public abstract class StrMatcher {
         }
 
         /**
-         * Returns whether or not the given charatcer matches.
+         * Returns whether or not the given character matches.
          *
          * @param buffer  the text content to match against, do not change
          * @param pos  the starting position for the match, valid for buffer
@@ -414,7 +414,7 @@ public abstract class StrMatcher {
         }
 
         /**
-         * Returns whether or not the given charatcer matches.
+         * Returns whether or not the given character matches.
          *
          * @param buffer  the text content to match against, do not change
          * @param pos  the starting position for the match, valid for buffer
