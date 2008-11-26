@@ -565,9 +565,6 @@ public class FieldUtils {
      * @param target  the object to reflect, must not be null
      * @param fieldName  the field name to obtain
      * @param value to set
-     * @param forceAccess  whether to break scope restrictions using the
-     *  <code>setAccessible</code> method. <code>False</code> will only
-     *  match public fields.
      * @throws IllegalArgumentException if <code>target</code> or <code>fieldName</code> is null
      * @throws IllegalAccessException if the field is not made accessible
      */
