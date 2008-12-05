@@ -700,17 +700,6 @@ public class BooleanUtils {
         return false;
     }
     
-//    public static void main(String[] args) {
-//        long start = System.currentTimeMillis();
-//        boolean flag = true;
-//        int count = 0;
-//        for (int i = 0; i < 100000000; i++) {
-//            flag = toBoolean("YES");
-//        }
-//        long end = System.currentTimeMillis();
-//        System.out.println((end - start) + " " + flag + " " + count);
-//    }
-    
     /**
      * <p>Converts a String to a Boolean throwing an exception if no match found.</p>
      * 
