@@ -93,6 +93,15 @@ public class ExtendedMessageFormatTest extends TestCase {
     }
 
     /**
+     * Test Bug LANG-477 - out of memory error with escaped quote
+     */
+    public void testEscapedQuote_LANG_477() {
+        String pattern = "it''s a {0,lower} 'test'!";
+        ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, registry);
+        assertEquals("it's a dummy test!", emf.format(new Object[] {"DUMMY"}));
+    }
+
+    /**
      * Test extended and built in formats.
      */
     public void testExtendedAndBuiltInFormats() {
