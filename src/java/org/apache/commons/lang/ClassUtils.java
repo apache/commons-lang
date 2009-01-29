@@ -621,8 +621,8 @@ public class ClassUtils {
         }
 
         Class[] convertedClasses = new Class[classes.length];
-        for (int i=0; i < classes.length; i++) {
-            convertedClasses[i] = primitiveToWrapper( classes[i] );
+        for (int i = 0; i < classes.length; i++) {
+            convertedClasses[i] = primitiveToWrapper(classes[i]);
         }
         return convertedClasses;
     }
@@ -671,8 +671,8 @@ public class ClassUtils {
         }
 
         Class[] convertedClasses = new Class[classes.length];
-        for (int i=0; i < classes.length; i++) {
-            convertedClasses[i] = wrapperToPrimitive( classes[i] );
+        for (int i = 0; i < classes.length; i++) {
+            convertedClasses[i] = wrapperToPrimitive(classes[i]);
         }
         return convertedClasses;
     }
@@ -734,7 +734,7 @@ public class ClassUtils {
     }
 
     /**
-     * Returns the (initialized )class represented by <code>className</code>
+     * Returns the (initialized) class represented by <code>className</code>
      * using the current thread's context class loader. This implementation
      * supports names like "<code>java.lang.String[]</code>" as well as
      * "<code>[Ljava.lang.String;</code>".
@@ -856,8 +856,7 @@ public class ClassUtils {
      * @return a <code>Class</code> array, <code>null</code> if null array input
      * @since 2.4
      */
-    public static Class[] toClass(Object[] array)
-    {
+    public static Class[] toClass(Object[] array) {
         if (array == null) {
             return null;
         } else if (array.length == 0) {
@@ -981,27 +980,27 @@ public class ClassUtils {
             return null;
         } else {
             int dim = 0;
-            while(className.startsWith("[")) {
+            while (className.startsWith("[")) {
                 dim++;
                 className = className.substring(1);
             }
-            if(dim < 1) {
+            if (dim < 1) {
                 return className;
             } else {
-                if(className.startsWith("L")) {
+                if (className.startsWith("L")) {
                     className = className.substring(
                         1,
                         className.endsWith(";")
                             ? className.length() - 1
                             : className.length());
                 } else {
-                    if(className.length() > 0) {
+                    if (className.length() > 0) {
                         className = (String) reverseAbbreviationMap.get(
                             className.substring(0, 1));
                     }
                 }
                 StringBuffer canonicalClassNameBuffer = new StringBuffer(className);
-                for(int i = 0; i < dim; i++) {
+                for (int i = 0; i < dim; i++) {
                     canonicalClassNameBuffer.append("[]");
                 }
                 return canonicalClassNameBuffer.toString();
