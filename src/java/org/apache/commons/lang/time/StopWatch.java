@@ -83,12 +83,12 @@ public class StopWatch {
     /**
      * The start time.
      */
-    private long startTime = -1;
+    private long startTime;
 
     /**
      * The stop time.
      */
-    private long stopTime = -1;
+    private long stopTime;
 
     /**
      * <p>
@@ -118,7 +118,6 @@ public class StopWatch {
         if (this.runningState != STATE_UNSTARTED) {
             throw new IllegalStateException("Stopwatch already started. ");
         }
-        this.stopTime = -1;
         this.startTime = System.currentTimeMillis();
         this.runningState = STATE_RUNNING;
     }
@@ -157,8 +156,6 @@ public class StopWatch {
     public void reset() {
         this.runningState = STATE_UNSTARTED;
         this.splitState = STATE_UNSPLIT;
-        this.startTime = -1;
-        this.stopTime = -1;
     }
 
     /**
@@ -199,7 +196,6 @@ public class StopWatch {
         if (this.splitState != STATE_SPLIT) {
             throw new IllegalStateException("Stopwatch has not been split. ");
         }
-        this.stopTime = -1;
         this.splitState = STATE_UNSPLIT;
     }
 
@@ -242,7 +238,6 @@ public class StopWatch {
             throw new IllegalStateException("Stopwatch must be suspended to resume. ");
         }
         this.startTime += (System.currentTimeMillis() - this.stopTime);
-        this.stopTime = -1;
         this.runningState = STATE_RUNNING;
     }
 
