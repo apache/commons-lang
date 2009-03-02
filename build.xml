@@ -142,7 +142,6 @@
                                 compile.tests, 
                                 test.lang,
                                 test.builder,
-						        test.enum,
 						        test.enums,
                                 test.exception,
                                 test.math,
