@@ -167,9 +167,6 @@
 	<target name="test.builder" depends="compile.tests">
 		<runTestCase classname="org.apache.commons.lang.builder.BuilderTestSuite"/>
 	</target>
-	<target name="test.enum" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.enum.EnumTestSuite"/>
-	</target>
 	<target name="test.enums" depends="compile.tests">
 		<runTestCase classname="org.apache.commons.lang.enums.EnumTestSuite"/>
 	</target>
