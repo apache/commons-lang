@@ -1755,6 +1755,8 @@ public class StringUtils {
      * An empty ("") string input will return the empty string.
      * A <code>null</code> separator will return the input string.</p>
      *
+     * <p>If nothing is found, the string input is returned.</p>
+     *
      * <pre>
      * StringUtils.substringBefore(null, *)      = null
      * StringUtils.substringBefore("", *)        = ""
@@ -1795,6 +1797,8 @@ public class StringUtils {
      * A <code>null</code> separator will return the empty string if the
      * input string is not <code>null</code>.</p>
      *
+     * <p>If nothing is found, the empty string is returned.</p>
+     *
      * <pre>
      * StringUtils.substringAfter(null, *)      = null
      * StringUtils.substringAfter("", *)        = ""
@@ -1834,6 +1838,8 @@ public class StringUtils {
      * An empty ("") string input will return the empty string.
      * An empty or <code>null</code> separator will return the input string.</p>
      *
+     * <p>If nothing is found, the string input is returned.</p>
+     *
      * <pre>
      * StringUtils.substringBeforeLast(null, *)      = null
      * StringUtils.substringBeforeLast("", *)        = ""
@@ -1870,6 +1876,8 @@ public class StringUtils {
      * An empty ("") string input will return the empty string.
      * An empty or <code>null</code> separator will return the empty string if
      * the input string is not <code>null</code>.</p>
+     *
+     * <p>If nothing is found, the empty string is returned.</p>
      *
      * <pre>
      * StringUtils.substringAfterLast(null, *)      = null
