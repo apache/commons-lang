@@ -142,7 +142,6 @@
                                 compile.tests, 
                                 test.lang,
                                 test.builder,
-						        test.enums,
                                 test.exception,
                                 test.math,
 						        test.mutable,
@@ -165,9 +164,6 @@
 	</target>
 	<target name="test.builder" depends="compile.tests">
 		<runTestCase classname="org.apache.commons.lang.builder.BuilderTestSuite"/>
-	</target>
-	<target name="test.enums" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.enums.EnumTestSuite"/>
 	</target>
 	<target name="test.exception" depends="compile.tests">
 		<runTestCase classname="org.apache.commons.lang.exception.ExceptionTestSuite"/>
