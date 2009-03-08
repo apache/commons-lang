@@ -50,5 +50,19 @@ public final class ColorEnum extends Enum {
 }
 </pre>
 @since 2.1
+<h2>Migration to Java5</h2>
+<p>Java now provides Enums and the existing code can go away, with the following code changes. </p>
+
+<p>Firstly rewrite your enum as a Java enum.  See the 
+  <a href="http://java.sun.com/docs/books/tutorial/java/javaOO/enum.html">Java tutorial</a> for more. </p>
+
+<p>Then change the following: </p>
+
+<pre>
+  getEnum     -> valueOf
+  getEnumList -> new ArrayList( EnumSet.allOf(enumClass) ) // or just use an EnumSet
+  iterator    -> EnumSet.allOf(...).iterator()
+  getEnumMap  -> org.apache.commons.lang.EnumUtils.asMap(enumClass)
+</pre>
 </body>
 </html>
