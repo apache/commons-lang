@@ -28,16 +28,16 @@ import junit.framework.TestCase;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @version $Id$
  */
-public abstract class AbstractNestableTestCase extends TestCase
+public abstract class AbstractNestableTest extends TestCase
 {
 
     /**
      * Constructs an instance of
-     * <code>AbstractNestableTestCase</code>.
+     * <code>AbstractNestableTest</code>.
      *
      * @param name the test name
      */
-    public AbstractNestableTestCase(String name)
+    public AbstractNestableTest(String name)
     {
         super(name);
     }

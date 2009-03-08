@@ -47,11 +47,11 @@ public class ExceptionTestSuite extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        suite.addTest(NestableDelegateTestCase.suite());
-        suite.addTest(NestableErrorTestCase.suite());
-        suite.addTest(NestableExceptionTestCase.suite());
-        suite.addTest(NestableRuntimeExceptionTestCase.suite());
-        suite.addTest(ExceptionUtilsTestCase.suite());
+        suite.addTest(NestableDelegateTest.suite());
+        suite.addTest(NestableErrorTest.suite());
+        suite.addTest(NestableExceptionTest.suite());
+        suite.addTest(NestableRuntimeExceptionTest.suite());
+        suite.addTest(ExceptionUtilsTest.suite());
         return suite;
     }
 }
