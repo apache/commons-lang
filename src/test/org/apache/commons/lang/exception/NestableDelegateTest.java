@@ -23,6 +23,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
@@ -33,7 +34,7 @@ import junit.textui.TestRunner;
  * @author Daniel L. Rall
  * @version $Id$
  */
-public class NestableDelegateTestCase extends junit.framework.TestCase {
+public class NestableDelegateTest extends TestCase {
     private static final String CONSTRUCTOR_FAILED_MSG = 
     "The Nestable implementation passed to the NestableDelegate(Nestable) constructor must extend java.lang.Throwable";
 
@@ -43,9 +44,9 @@ public class NestableDelegateTestCase extends junit.framework.TestCase {
     protected String lineSeparator;
 
     /**
-     * Construct a new instance of NestableDelegateTestCase with the specified name
+     * Construct a new instance of NestableDelegateTest with the specified name
      */
-    public NestableDelegateTestCase(String name)
+    public NestableDelegateTest(String name)
     {
         super(name);
     }
@@ -60,7 +61,7 @@ public class NestableDelegateTestCase extends junit.framework.TestCase {
     
     public static Test suite()
     {
-        return new TestSuite(NestableDelegateTestCase.class);
+        return new TestSuite(NestableDelegateTest.class);
     }
     
     /**
