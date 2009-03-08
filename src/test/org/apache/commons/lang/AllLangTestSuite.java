@@ -22,7 +22,6 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 import org.apache.commons.lang.builder.BuilderTestSuite;
-import org.apache.commons.lang.enums.EnumTestSuite;
 import org.apache.commons.lang.exception.ExceptionTestSuite;
 import org.apache.commons.lang.math.MathTestSuite;
 import org.apache.commons.lang.mutable.MutableTestSuite;
@@ -60,7 +59,6 @@ public class AllLangTestSuite extends TestCase {
         suite.setName("Commons-Lang (all) Tests");
         suite.addTest(LangTestSuite.suite());
         suite.addTest(BuilderTestSuite.suite());
-        suite.addTest(EnumTestSuite.suite());
         suite.addTest(ExceptionTestSuite.suite());
         suite.addTest(MathTestSuite.suite());
         suite.addTest(MutableTestSuite.suite());
