@@ -19,12 +19,9 @@ package org.apache.commons.lang.time;
 import java.util.Calendar;
 import java.util.Date;
 
-import junit.framework.TestCase;
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateFormatUtils;
 
 public class DateUtilsFragmentTest extends TestCase {
 
