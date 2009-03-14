@@ -65,7 +65,7 @@ public class NestableDelegate implements Serializable {
      * wrapping (which must be a {@link
      * org.apache.commons.lang.exception.Nestable} implementation).
      */
-    private Throwable nestable = null;
+    private final Throwable nestable;
     
     /**
      * Whether to print the stack trace top-down.
