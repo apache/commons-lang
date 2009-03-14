@@ -33,8 +33,10 @@ import org.apache.commons.lang.ArrayUtils;
 public class ReflectionToStringBuilderExcludeTest extends TestCase {
 
     class TestFixture {
+        @SuppressWarnings("unused")
         private String secretField = SECRET_VALUE;
 
+        @SuppressWarnings("unused")
         private String showField = NOT_SECRET_VALUE;
     }
 

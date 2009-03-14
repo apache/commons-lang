@@ -1651,12 +1651,14 @@ public class StringUtilsTest extends TestCase {
         assertEquals(8, StringUtils.getLevenshteinDistance("zzzzzzzz", "hippo") );
         assertEquals(1, StringUtils.getLevenshteinDistance("hello", "hallo") );
         try {
+            @SuppressWarnings("unused")
             int d = StringUtils.getLevenshteinDistance("a", null);
             fail("expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             // empty
         }
         try {
+            @SuppressWarnings("unused")
             int d = StringUtils.getLevenshteinDistance(null, "a");
             fail("expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
