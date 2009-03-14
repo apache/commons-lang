@@ -192,7 +192,7 @@ public class LocaleUtils {
      *
      * @return the unmodifiable list of available locales
      */
-    public static List availableLocaleList() {
+    public static synchronized List availableLocaleList() {
         return cAvailableLocaleList;
     }
 
