@@ -1716,6 +1716,7 @@ public class ArrayUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @SuppressWarnings("cast")
     public void testIndexOfDouble() {
         double[] array = null;
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 0));
@@ -1730,6 +1731,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 99));
     }
 
+    @SuppressWarnings("cast")
     public void testIndexOfDoubleTolerance() {
         double[] array = null;
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, (double) 0));
@@ -1742,6 +1744,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(1, ArrayUtils.indexOf(array, (double) 1.00001324, (double) 0.0001));
     }
 
+    @SuppressWarnings("cast")
     public void testIndexOfDoubleWithStartIndex() {
         double[] array = null;
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 2));
@@ -1756,6 +1759,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 6));
     }
     
+    @SuppressWarnings("cast")
     public void testIndexOfDoubleWithStartIndexTolerance() {
         double[] array = null;
         assertEquals(-1, ArrayUtils.indexOf(array, (double) 0, 2, (double) 0));
@@ -1772,6 +1776,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(1, ArrayUtils.indexOf(array, (double) 1.00001324, -300, (double) 0.0001));
     }
 
+    @SuppressWarnings("cast")
     public void testLastIndexOfDouble() {
         double[] array = null;
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0));
@@ -1785,6 +1790,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 99));
     }
 
+    @SuppressWarnings("cast")
     public void testLastIndexOfDoubleTolerance() {
         double[] array = null;
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, (double) 0));
@@ -1797,6 +1803,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(1, ArrayUtils.lastIndexOf(array, (double) 1.00001324, (double) 0.0001));
     }
 
+    @SuppressWarnings("cast")
     public void testLastIndexOfDoubleWithStartIndex() {
         double[] array = null;
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, 2));
@@ -1812,6 +1819,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(4, ArrayUtils.lastIndexOf(array, (double) 0, 88));
     }
 
+    @SuppressWarnings("cast")
     public void testLastIndexOfDoubleWithStartIndexTolerance() {
         double[] array = null;
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 0, 2, (double) 0));
@@ -1828,6 +1836,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (double) 4.15, -200, (double) 2.0));
     }
 
+    @SuppressWarnings("cast")
     public void testContainsDouble() {
         double[] array = null;
         assertEquals(false, ArrayUtils.contains(array, (double) 1));
@@ -1839,6 +1848,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(false, ArrayUtils.contains(array, (double) 99));
     }
 
+    @SuppressWarnings("cast")
     public void testContainsDoubleTolerance() {
         double[] array = null;
         assertEquals(false, ArrayUtils.contains(array, (double) 1, (double) 0));
@@ -1850,6 +1860,7 @@ public class ArrayUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @SuppressWarnings("cast")
     public void testIndexOfFloat() {
         float[] array = null;
         assertEquals(-1, ArrayUtils.indexOf(array, (float) 0));
@@ -1863,6 +1874,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.indexOf(array, (float) 99));
     }
 
+    @SuppressWarnings("cast")
     public void testIndexOfFloatWithStartIndex() {
         float[] array = null;
         assertEquals(-1, ArrayUtils.indexOf(array, (float) 0, 2));
@@ -1878,6 +1890,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.indexOf(array, (float) 0, 6));
     }
 
+    @SuppressWarnings("cast")
     public void testLastIndexOfFloat() {
         float[] array = null;
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 0));
@@ -1891,6 +1904,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 99));
     }
 
+    @SuppressWarnings("cast")
     public void testLastIndexOfFloatWithStartIndex() {
         float[] array = null;
         assertEquals(-1, ArrayUtils.lastIndexOf(array, (float) 0, 2));
@@ -1906,6 +1920,7 @@ public class ArrayUtilsTest extends TestCase {
         assertEquals(4, ArrayUtils.lastIndexOf(array, (float) 0, 88));
     }
 
+    @SuppressWarnings("cast")
     public void testContainsFloat() {
         float[] array = null;
         assertEquals(false, ArrayUtils.contains(array, (float) 1));

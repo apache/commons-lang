@@ -365,6 +365,7 @@ public class ArrayUtilsRemoveTest extends TestCase {
         assertEquals(Character.TYPE, array.getClass().getComponentType());
     }
     
+    @SuppressWarnings("cast")
     public void testRemoveElementDoubleArray() {
         double[] array;
         array = ArrayUtils.removeElement((double[]) null, (double) 1);
@@ -383,6 +384,7 @@ public class ArrayUtilsRemoveTest extends TestCase {
         assertEquals(Double.TYPE, array.getClass().getComponentType());
     }
     
+    @SuppressWarnings("cast")
     public void testRemoveElementFloatArray() {
         float[] array;
         array = ArrayUtils.removeElement((float[]) null, (float) 1);
@@ -419,6 +421,7 @@ public class ArrayUtilsRemoveTest extends TestCase {
         assertEquals(Integer.TYPE, array.getClass().getComponentType());
     }
     
+    @SuppressWarnings("cast")
     public void testRemoveElementLongArray() {
         long[] array;
         array = ArrayUtils.removeElement((long[]) null, (long) 1);

@@ -110,6 +110,7 @@ public class CompareToBuilderTest extends TestCase {
     }
 
     static class TestTransientSubObject extends TestObject {
+        @SuppressWarnings("unused")
         private transient int t;
         public TestTransientSubObject(int a, int t) {
             super(a);
