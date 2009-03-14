@@ -86,9 +86,9 @@ public class StrBuilder {
     private static final long serialVersionUID = 7628716375283629643L;
 
     /** Internal data storage. */
-    protected char[] buffer;
+    protected char[] buffer; // TODO make private?
     /** Current size of the buffer. */
-    protected int size;
+    protected int size; // TODO make private?
     /** The new line. */
     private String newLine;
     /** The null text. */
