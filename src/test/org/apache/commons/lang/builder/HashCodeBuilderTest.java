@@ -36,6 +36,7 @@ public class HashCodeBuilderTest extends TestCase {
     static class ReflectionTestCycleA {
         ReflectionTestCycleB b;
 
+        @Override
         public int hashCode() {
             return HashCodeBuilder.reflectionHashCode(this);
         }
@@ -47,6 +48,7 @@ public class HashCodeBuilderTest extends TestCase {
     static class ReflectionTestCycleB {
         ReflectionTestCycleA a;
 
+        @Override
         public int hashCode() {
             return HashCodeBuilder.reflectionHashCode(this);
         }
@@ -66,10 +68,12 @@ public class HashCodeBuilderTest extends TestCase {
         return suite;
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
@@ -103,6 +107,7 @@ public class HashCodeBuilderTest extends TestCase {
             this.a = a;
         }
 
+        @Override
         public boolean equals(Object o) {
             if (o == this) {
                 return true;
@@ -126,6 +131,7 @@ public class HashCodeBuilderTest extends TestCase {
     static class TestSubObject extends TestObject {
         private int b;
 
+        @SuppressWarnings("unused")
         transient private int t;
 
         public TestSubObject() {
@@ -138,6 +144,7 @@ public class HashCodeBuilderTest extends TestCase {
             this.t = t;
         }
 
+        @Override
         public boolean equals(Object o) {
             if (o == this) {
                 return true;
@@ -222,12 +229,14 @@ public class HashCodeBuilderTest extends TestCase {
         assertEquals(17 * 37 + obj.hashCode(), new HashCodeBuilder(17, 37).append(obj).toHashCode());
     }
 
+    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testLong() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((long) 0L).toHashCode());
         assertEquals(17 * 37 + (int) (123456789L ^ (123456789L >> 32)), new HashCodeBuilder(17, 37).append(
                 (long) 123456789L).toHashCode());
     }
 
+    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testInt() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((int) 0).toHashCode());
         assertEquals(17 * 37 + 123456, new HashCodeBuilder(17, 37).append((int) 123456).toHashCode());
@@ -248,6 +257,7 @@ public class HashCodeBuilderTest extends TestCase {
         assertEquals(17 * 37 + 123, new HashCodeBuilder(17, 37).append((byte) 123).toHashCode());
     }
 
+    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testDouble() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((double) 0d).toHashCode());
         double d = 1234567.89;
@@ -255,6 +265,7 @@ public class HashCodeBuilderTest extends TestCase {
         assertEquals(17 * 37 + (int) (l ^ (l >> 32)), new HashCodeBuilder(17, 37).append(d).toHashCode());
     }
 
+    @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testFloat() {
         assertEquals(17 * 37, new HashCodeBuilder(17, 37).append((float) 0f).toHashCode());
         float f = 1234.89f;
@@ -490,10 +501,13 @@ public class HashCodeBuilderTest extends TestCase {
     }
 
     static class TestObjectWithMultipleFields {
+        @SuppressWarnings("unused")
         private int one = 0;
 
+        @SuppressWarnings("unused")
         private int two = 0;
 
+        @SuppressWarnings("unused")
         private int three = 0;
 
         public TestObjectWithMultipleFields(int one, int two, int three) {
