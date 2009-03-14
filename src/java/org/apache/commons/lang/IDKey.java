@@ -28,7 +28,7 @@ package org.apache.commons.lang;
 * identityHashCodes that can occur.
 *  
 */ 
-public final class IDKey {
+final class IDKey {
         private final Object value;
         private final int id;
 
