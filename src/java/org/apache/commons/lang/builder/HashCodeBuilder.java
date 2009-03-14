@@ -102,7 +102,7 @@ public class HashCodeBuilder {
      * 
      * @since 2.3
      */
-    private static ThreadLocal registry = new ThreadLocal() {
+    private static final ThreadLocal registry = new ThreadLocal() {
         @Override
         protected Object initialValue() {
             // The HashSet implementation is not synchronized,

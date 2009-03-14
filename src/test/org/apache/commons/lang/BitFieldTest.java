@@ -41,9 +41,9 @@ public class BitFieldTest extends TestCase {
         return suite;
     }
 
-    private static BitField bf_multi  = new BitField(0x3F80);
-    private static BitField bf_single = new BitField(0x4000);
-    private static BitField bf_zero = new BitField(0);
+    private static final BitField bf_multi  = new BitField(0x3F80);
+    private static final BitField bf_single = new BitField(0x4000);
+    private static final BitField bf_zero = new BitField(0);
 
     /**
      * Constructor BitFieldTest
