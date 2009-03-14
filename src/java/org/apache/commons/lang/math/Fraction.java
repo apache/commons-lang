@@ -416,6 +416,7 @@ public final class Fraction extends Number implements Comparable {
      *
      * @return the whole number fraction part
      */
+    @Override
     public int intValue() {
         return numerator / denominator;
     }
@@ -426,6 +427,7 @@ public final class Fraction extends Number implements Comparable {
      *
      * @return the whole number fraction part
      */
+    @Override
     public long longValue() {
         return (long) numerator / denominator;
     }
@@ -436,6 +438,7 @@ public final class Fraction extends Number implements Comparable {
      *
      * @return the fraction as a <code>float</code>
      */
+    @Override
     public float floatValue() {
         return ((float) numerator) / ((float) denominator);
     }
@@ -446,6 +449,7 @@ public final class Fraction extends Number implements Comparable {
      *
      * @return the fraction as a <code>double</code>
      */
+    @Override
     public double doubleValue() {
         return ((double) numerator) / ((double) denominator);
     }
@@ -829,6 +833,7 @@ public final class Fraction extends Number implements Comparable {
      * @param obj the reference object with which to compare
      * @return <code>true</code> if this object is equal
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -846,6 +851,7 @@ public final class Fraction extends Number implements Comparable {
      *
      * @return a hash code value for this object
      */
+    @Override
     public int hashCode() {
         if (hashCode == 0) {
             // hashcode update should be atomic.
@@ -894,6 +900,7 @@ public final class Fraction extends Number implements Comparable {
      *
      * @return a <code>String</code> form of the fraction
      */
+    @Override
     public String toString() {
         if (toString == null) {
             toString = new StringBuffer(32)

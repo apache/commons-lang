@@ -357,6 +357,7 @@ public class StopWatch {
      * 
      * @return the time as a String
      */
+    @Override
     public String toString() {
         return DurationFormatUtils.formatDurationHMS(getTime());
     }

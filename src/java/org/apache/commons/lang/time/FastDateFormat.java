@@ -784,6 +784,7 @@ public class FastDateFormat extends Format {
      * @param pos  the position - ignored
      * @return the buffer passed in
      */
+    @Override
     public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
         if (obj instanceof Date) {
             return format((Date) obj, toAppendTo);
@@ -899,6 +900,7 @@ public class FastDateFormat extends Format {
      * @param pos  the parsing position
      * @return <code>null</code> as not supported
      */
+    @Override
     public Object parseObject(String source, ParsePosition pos) {
         pos.setIndex(0);
         pos.setErrorIndex(0);
@@ -971,6 +973,7 @@ public class FastDateFormat extends Format {
      * @param obj  the object to compare to
      * @return <code>true</code> if equal
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof FastDateFormat == false) {
             return false;
@@ -993,6 +996,7 @@ public class FastDateFormat extends Format {
      * 
      * @return a hashcode compatible with equals
      */
+    @Override
     public int hashCode() {
         int total = 0;
         total += mPattern.hashCode();
@@ -1008,6 +1012,7 @@ public class FastDateFormat extends Format {
      * 
      * @return a debugging string
      */
+    @Override
     public String toString() {
         return "FastDateFormat[" + mPattern + "]";
     }
@@ -1663,6 +1668,7 @@ public class FastDateFormat extends Format {
         /**
          * {@inheritDoc}
          */
+        @Override
         public int hashCode() {
             return mStyle * 31 + mLocale.hashCode();
         }
@@ -1670,6 +1676,7 @@ public class FastDateFormat extends Format {
         /**
          * {@inheritDoc}
          */
+        @Override
         public boolean equals(Object obj) {
             if (this == obj) {
                 return true;
@@ -1709,6 +1716,7 @@ public class FastDateFormat extends Format {
         /**
          * {@inheritDoc}
          */
+        @Override
         public boolean equals(Object obj) {
             if (this == obj) {
                 return true;
@@ -1730,6 +1738,7 @@ public class FastDateFormat extends Format {
         /**
          * {@inheritDoc}
          */
+        @Override
         public int hashCode() {
             return
                 (mObj1 == null ? 0 : mObj1.hashCode()) +
@@ -1739,6 +1748,7 @@ public class FastDateFormat extends Format {
         /**
          * {@inheritDoc}
          */
+        @Override
         public String toString() {
             return "[" + mObj1 + ':' + mObj2 + ']';
         }

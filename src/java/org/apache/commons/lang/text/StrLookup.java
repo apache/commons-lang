@@ -147,6 +147,7 @@ public abstract class StrLookup {
          * @param key  the key to be looked up, may be null
          * @return the matching value, null if no match
          */
+        @Override
         public String lookup(String key) {
             if (map == null) {
                 return null;

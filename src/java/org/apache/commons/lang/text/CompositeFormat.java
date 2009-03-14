@@ -64,6 +64,7 @@ public class CompositeFormat extends Format {
      * @return <code>toAppendTo</code>
      * @see Format#format(Object, StringBuffer, FieldPosition)
      */
+    @Override
     public StringBuffer format(Object obj, StringBuffer toAppendTo,
             FieldPosition pos) {
         return formatter.format(obj, toAppendTo, pos);
@@ -79,6 +80,7 @@ public class CompositeFormat extends Format {
      * @return the parsed Object
      * @see Format#parseObject(String, ParsePosition)
      */
+    @Override
     public Object parseObject(String source, ParsePosition pos) {
         return parser.parseObject(source, pos);
     }

@@ -109,6 +109,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
      *            the object to compare with.
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof MutableBoolean) {
             return value == ((MutableBoolean) obj).booleanValue();
@@ -132,6 +133,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
      * @return the integer <code>1231</code> if this object represents <code>true</code>; returns the integer
      *         <code>1237</code> if this object represents <code>false</code>.
      */
+    @Override
     public int hashCode() {
         return value ? Boolean.TRUE.hashCode() : Boolean.FALSE.hashCode();
     }
@@ -165,6 +167,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
      * 
      * @return the mutable value as a string
      */
+    @Override
     public String toString() {
         return String.valueOf(value);
     }

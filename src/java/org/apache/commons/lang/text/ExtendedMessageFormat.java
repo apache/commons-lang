@@ -130,6 +130,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * {@inheritDoc}
      */
+    @Override
     public String toPattern() {
         return toPattern;
     }
@@ -139,6 +140,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * 
      * @param pattern String
      */
+    @Override
     public final void applyPattern(String pattern) {
         if (registry == null) {
             super.applyPattern(pattern);
@@ -209,6 +211,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * {@inheritDoc}
      * @throws UnsupportedOperationException
      */
+    @Override
     public void setFormat(int formatElementIndex, Format newFormat) {
         throw new UnsupportedOperationException();
     }
@@ -217,6 +220,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * {@inheritDoc}
      * @throws UnsupportedOperationException
      */
+    @Override
     public void setFormatByArgumentIndex(int argumentIndex, Format newFormat) {
         throw new UnsupportedOperationException();
     }
@@ -225,6 +229,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * {@inheritDoc}
      * @throws UnsupportedOperationException
      */
+    @Override
     public void setFormats(Format[] newFormats) {
         throw new UnsupportedOperationException();
     }
@@ -233,6 +238,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * {@inheritDoc}
      * @throws UnsupportedOperationException
      */
+    @Override
     public void setFormatsByArgumentIndex(Format[] newFormats) {
         throw new UnsupportedOperationException();
     }

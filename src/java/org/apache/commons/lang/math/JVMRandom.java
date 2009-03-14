@@ -59,6 +59,7 @@ public final class JVMRandom extends Random {
      * @param seed ignored
      * @throws UnsupportedOperationException
      */
+    @Override
     public synchronized void setSeed(long seed) {
         if (this.constructed) {
             throw new UnsupportedOperationException();
@@ -71,6 +72,7 @@ public final class JVMRandom extends Random {
      * @return Nothing, this method always throws an UnsupportedOperationException.
      * @throws UnsupportedOperationException
      */
+    @Override
     public synchronized double nextGaussian() {
         throw new UnsupportedOperationException();
     }
@@ -81,6 +83,7 @@ public final class JVMRandom extends Random {
      * @param byteArray ignored
      * @throws UnsupportedOperationException
      */
+    @Override
     public void nextBytes(byte[] byteArray) {
         throw new UnsupportedOperationException();
     }
@@ -91,6 +94,7 @@ public final class JVMRandom extends Random {
      *
      * @return the random int
      */
+    @Override
     public int nextInt() {
         return nextInt(Integer.MAX_VALUE);
     }
@@ -103,6 +107,7 @@ public final class JVMRandom extends Random {
      * @return the random int
      * @throws IllegalArgumentException when <code>n &lt;= 0</code>
      */
+    @Override
     public int nextInt(int n) {
         if (n <= 0) {
             throw new IllegalArgumentException(
@@ -117,6 +122,7 @@ public final class JVMRandom extends Random {
      * from the Math.random() sequence.</p>
      * @return the random long
      */
+    @Override
     public long nextLong() {
         // possible loss of precision?
         return nextLong(Long.MAX_VALUE);
@@ -148,6 +154,7 @@ public final class JVMRandom extends Random {
      *
      * @return the random boolean
      */
+    @Override
     public boolean nextBoolean() {
         return Math.random() > 0.5;
     }
@@ -158,6 +165,7 @@ public final class JVMRandom extends Random {
      *
      * @return the random float
      */
+    @Override
     public float nextFloat() {
         return (float)Math.random();
     }
@@ -166,6 +174,7 @@ public final class JVMRandom extends Random {
      *
      * @return the random double
      */
+    @Override
     public double nextDouble() {
         return Math.random();
     }

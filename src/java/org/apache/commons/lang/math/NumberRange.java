@@ -140,6 +140,7 @@ public final class NumberRange extends Range implements Serializable {
      *
      * @return the minimum number in this range
      */
+    @Override
     public Number getMinimumNumber() {
         return min;
     }
@@ -149,6 +150,7 @@ public final class NumberRange extends Range implements Serializable {
      *
      * @return the maximum number in this range
      */
+    @Override
     public Number getMaximumNumber() {
         return max;
     }
@@ -166,6 +168,7 @@ public final class NumberRange extends Range implements Serializable {
      * @return <code>true</code> if the specified number occurs within this range
      * @throws IllegalArgumentException if the number is of a different type to the range
      */
+    @Override
     public boolean containsNumber(Number number) {
         if (number == null) {
             return false;
@@ -193,6 +196,7 @@ public final class NumberRange extends Range implements Serializable {
      * @param obj the reference object with which to compare
      * @return <code>true</code> if this object is equal
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -209,6 +213,7 @@ public final class NumberRange extends Range implements Serializable {
      *
      * @return a hash code value for this object
      */
+    @Override
     public int hashCode() {
         if (hashCode == 0) {
             hashCode = 17;
@@ -226,6 +231,7 @@ public final class NumberRange extends Range implements Serializable {
      *
      * @return the <code>String</code> representation of this range
      */
+    @Override
     public String toString() {
         if (toString == null) {
             StringBuffer buf = new StringBuffer(32);

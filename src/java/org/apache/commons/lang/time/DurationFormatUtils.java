@@ -621,6 +621,7 @@ public class DurationFormatUtils {
          * @param obj2 Object to consider equality of
          * @return boolean <code>true</code> if equal
          */
+        @Override
         public boolean equals(Object obj2) {
             if (obj2 instanceof Token) {
                 Token tok2 = (Token) obj2;
@@ -648,6 +649,7 @@ public class DurationFormatUtils {
          *
          * @return The hashcode for the token
          */
+        @Override
         public int hashCode() {
             return this.value.hashCode();
         }
@@ -657,6 +659,7 @@ public class DurationFormatUtils {
          *
          * @return String representation of the token
          */
+        @Override
         public String toString() {
             return StringUtils.repeat(this.value.toString(), this.count);
         }
