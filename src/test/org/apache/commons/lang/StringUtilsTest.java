@@ -749,7 +749,6 @@ public class StringUtilsTest extends TestCase {
           String[] results = null;
           String[] expectedResults = {"ab", "  de fg"};
           results = StringUtils.splitPreserveAllTokens("ab   de fg", null, 2);
-          System.out.println("");
           assertEquals(expectedResults.length, results.length);
           for (int i = 0; i < expectedResults.length; i++) {
               assertEquals(expectedResults[i], results[i]);
