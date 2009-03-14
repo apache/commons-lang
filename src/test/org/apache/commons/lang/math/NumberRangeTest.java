@@ -60,16 +60,19 @@ public final class NumberRangeTest extends AbstractRangeTest {
         }
     }
 
+    @Override
     protected Range createRange(Integer integer) {
         return new NumberRange(integer);
     }
 
     // --------------------------------------------------------------------------
 
+    @Override
     protected Range createRange(Integer integer1, Integer integer2) {
         return new NumberRange(integer1, integer2);
     }
 
+    @Override
     public void setUp() {
         super.setUp();
         tenToTwenty = new NumberRange(ten, twenty);

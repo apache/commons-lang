@@ -54,6 +54,7 @@ public class NestableDelegateTest extends TestCase {
     /**
      * Set up instance variables required by this test case.
      */
+    @Override
     public void setUp()
     {
         lineSeparator = System.getProperty("line.separator");
@@ -67,6 +68,7 @@ public class NestableDelegateTest extends TestCase {
     /**
      * Tear down instance variables required by this test case.
      */
+    @Override
     public void tearDown()
     {
         lineSeparator = null;
@@ -661,6 +663,7 @@ class NestableDelegateTester1 extends Exception implements Nestable
     /**
      * @see Nestable#getCause()
      */
+    @Override
     public Throwable getCause()
     {
         return cause;
@@ -784,6 +787,7 @@ class NestableDelegateTester2 extends Throwable implements Nestable
     /**
      * @see Nestable#getCause()
      */
+    @Override
     public Throwable getCause()
     {
         return cause;
@@ -849,6 +853,7 @@ class ThrowableNestable extends Throwable implements Nestable
      * Returns the hard-coded string "ThrowableNestable exception" for this
      * test.
      */
+    @Override
     public String getMessage()
     {
         return "ThrowableNestable exception";
@@ -878,6 +883,7 @@ class ThrowableNestable extends Throwable implements Nestable
     /**
      * @see Nestable#getCause()
      */
+    @Override
     public Throwable getCause()
     {
         return cause;
@@ -888,6 +894,7 @@ class ThrowableNestable extends Throwable implements Nestable
      * Empty method to satisfy the implemented interface. Does nothing
      * in this test.
      */
+    @Override
     public void printStackTrace(PrintWriter out)
     {
     }
@@ -969,6 +976,7 @@ class ThrowableNestedNestable extends Throwable implements Nestable
      * For this test, returns "ThrowableNestable exception (" appended to the
      * message of the cause specified in the constructor.
      */
+    @Override
     public String getMessage()
     {
         return "ThrowableNestedNestable exception (" + cause.getMessage() + ")";
@@ -1000,6 +1008,7 @@ class ThrowableNestedNestable extends Throwable implements Nestable
     /**
      * @see Nestable#getCause()
      */
+    @Override
     public Throwable getCause()
     {
         return cause;
@@ -1010,6 +1019,7 @@ class ThrowableNestedNestable extends Throwable implements Nestable
      * For this test, writes the string
      * "ThrowableNestedNestable stack trace place-holder" to the print writer.
      */
+    @Override
     public void printStackTrace(PrintWriter out)
     {
         out.println("ThrowableNestedNestable stack trace place-holder");

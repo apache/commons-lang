@@ -63,6 +63,7 @@ public class SerializationUtilsTest extends TestCase {
         return suite;
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -73,6 +74,7 @@ public class SerializationUtilsTest extends TestCase {
         iMap.put("BAR", iInteger);
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
@@ -180,6 +182,7 @@ public class SerializationUtilsTest extends TestCase {
         // forces an IOException when the ObjectOutputStream is created, to test not closing the stream
         // in the finally block
         OutputStream streamTest = new OutputStream() {
+            @Override
             public void write(int arg0) throws IOException {
                 throw new IOException(SERIALIZE_IO_EXCEPTION_MESSAGE);
             }

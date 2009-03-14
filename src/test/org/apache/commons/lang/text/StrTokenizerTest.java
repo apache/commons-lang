@@ -566,6 +566,7 @@ public class StrTokenizerTest extends TestCase {
      */
     public void testCloneNotSupportedException() {
         Object notCloned = (new StrTokenizer() {
+            @Override
             Object cloneReset() throws CloneNotSupportedException {
                 throw new CloneNotSupportedException("test");
             }
@@ -812,6 +813,7 @@ public class StrTokenizerTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testTokenizeSubclassInputChange() {
         StrTokenizer tkn = new StrTokenizer("a b c d e") {
+            @Override
             protected List tokenize(char[] chars, int offset, int count) {
                 return super.tokenize("w x y z".toCharArray(), 2, 5);
             }
@@ -823,6 +825,7 @@ public class StrTokenizerTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testTokenizeSubclassOutputChange() {
         StrTokenizer tkn = new StrTokenizer("a b c") {
+            @Override
             protected List tokenize(char[] chars, int offset, int count) {
                 List list = super.tokenize(chars, offset, count);
                 Collections.reverse(list);

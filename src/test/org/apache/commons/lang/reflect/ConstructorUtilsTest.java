@@ -61,6 +61,7 @@ public class ConstructorUtilsTest extends TestCase {
             toString = "(Object)";
         }
 
+        @Override
         public String toString() {
             return toString;
         }
@@ -88,6 +89,7 @@ public class ConstructorUtilsTest extends TestCase {
         return suite;
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         classCache.clear();

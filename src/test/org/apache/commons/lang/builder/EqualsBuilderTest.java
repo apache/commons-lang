@@ -49,10 +49,12 @@ public class EqualsBuilderTest extends TestCase {
         return suite;
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
@@ -66,6 +68,7 @@ public class EqualsBuilderTest extends TestCase {
         public TestObject(int a) {
             this.a = a;
         }
+        @Override
         public boolean equals(Object o) {
             if (o == null) { return false; }
             if (o == this) { return true; }
@@ -95,6 +98,7 @@ public class EqualsBuilderTest extends TestCase {
             super(a);
             this.b = b;
         }
+        @Override
         public boolean equals(Object o) {
             if (o == null) { return false; }
             if (o == this) { return true; }
@@ -893,6 +897,7 @@ public class EqualsBuilderTest extends TestCase {
             this.a = a;
         }
 
+        @Override
         public boolean equals(Object o) {
             if (o == this)
                 return true;
@@ -915,6 +920,7 @@ public class EqualsBuilderTest extends TestCase {
             this.b = b;
         }
 
+        @Override
         public boolean equals(Object o) {
             if (o == this)
                 return true;

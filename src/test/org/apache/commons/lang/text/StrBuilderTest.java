@@ -1496,6 +1496,7 @@ public class StrBuilderTest extends TestCase {
     }
 
     static final StrMatcher A_NUMBER_MATCHER = new StrMatcher() {
+        @Override
         public int isMatch(char[] buffer, int pos, int bufferStart, int bufferEnd) {
             if (buffer[pos] == 'A') {
                 pos++;

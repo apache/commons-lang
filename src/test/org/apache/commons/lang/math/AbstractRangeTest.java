@@ -54,15 +54,19 @@ public abstract class AbstractRangeTest extends TestCase {
     protected Float float21;
     
     private static class InnerNumber extends Number {
+        @Override
         public double doubleValue() {
             return 12d;
         }
+        @Override
         public float floatValue() {
             return 12f;
         }
+        @Override
         public int intValue() {
             return 12;
         }
+        @Override
         public long longValue() {
             return 12L;
         }
@@ -75,6 +79,7 @@ public abstract class AbstractRangeTest extends TestCase {
         super(name);
     }
 
+    @Override
     public void setUp() {
         five = new Integer(5);
         ten = new Integer(10);

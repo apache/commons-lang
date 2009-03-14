@@ -46,6 +46,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * Sets up instance variables required by this test case.
      */
+    @Override
     public void setUp()
     {
     }
@@ -63,6 +64,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * Tears down instance variables required by this test case.
      */
+    @Override
     public void tearDown()
     {
     }
@@ -80,6 +82,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getNestable()
      */
+    @Override
     public Nestable getNestable()
     {
         return new NestableRuntimeException();
@@ -88,6 +91,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getNestable(Nestable)
      */
+    @Override
     public Nestable getNestable(Nestable n)
     {
         return new NestableRuntimeException((Throwable) n);
@@ -96,6 +100,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getNestable(String)
      */
+    @Override
     public Nestable getNestable(String msg)
     {
         return new NestableRuntimeException(msg);
@@ -104,6 +109,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getNestable(Throwable)
      */
+    @Override
     public Nestable getNestable(Throwable t)
     {
         return new NestableRuntimeException(t);
@@ -112,6 +118,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getNestable(String, Throwable)
      */
+    @Override
     public Nestable getNestable(String msg, Throwable t)
     {
         return new NestableRuntimeException(msg, t);
@@ -120,6 +127,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getNestable(String, Nestable)
      */
+    @Override
     public Nestable getNestable(String msg, Nestable n)
     {
         return new NestableRuntimeException(msg, (Throwable) n);
@@ -128,6 +136,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getTester1(Throwable)
      */
+    @Override
     public Nestable getTester1(Throwable t)
     {
         return new NestableRuntimeExceptionTester1(t);
@@ -136,6 +145,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getTester1(Nestable)
      */
+    @Override
     public Nestable getTester1(Nestable n)
     {
         return new NestableRuntimeExceptionTester1((Throwable) n);
@@ -144,6 +154,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getTester1(String, Throwable)
      */
+    @Override
     public Nestable getTester1(String msg, Throwable t)
     {
         return new NestableRuntimeExceptionTester1(msg, t);
@@ -152,6 +163,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getTester1(String, Nestable)
      */
+    @Override
     public Nestable getTester1(String msg, Nestable n)
     {
         return new NestableRuntimeExceptionTester1(msg, (Throwable) n);
@@ -160,6 +172,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getTester1Class()
      */
+    @Override
     public Class getTester1Class()
     {
         return NestableRuntimeExceptionTester1.class;
@@ -168,6 +181,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getTester2(String, Throwable)
      */
+    @Override
     public Nestable getTester2(String msg, Throwable t)
     {
         return new NestableRuntimeExceptionTester2(msg, t);
@@ -176,6 +190,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getTester2(String, Nestable)
      */
+    @Override
     public Nestable getTester2(String msg, Nestable n)
     {
         return new NestableRuntimeExceptionTester2(msg, (Throwable) n);
@@ -184,6 +199,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getTester2Class()
      */
+    @Override
     public Class getTester2Class()
     {
         return NestableRuntimeExceptionTester2.class;
@@ -192,6 +208,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getThrowable(String)
      */
+    @Override
     public Throwable getThrowable(String msg)
     {
         return new EOFException(msg);
@@ -200,6 +217,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getThrowableClass()
      */
+    @Override
     public Class getThrowableClass()
     {
         return EOFException.class;
@@ -208,6 +226,7 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     /**
      * @see AbstractNestableTest#getBaseThrowableClass()
      */
+    @Override
     public Class getBaseThrowableClass()
     {
         return RuntimeException.class;

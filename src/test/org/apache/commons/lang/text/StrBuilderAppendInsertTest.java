@@ -40,7 +40,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     private static final String SEP = SystemUtils.LINE_SEPARATOR;
 
     /** Test subclass of Object, with a toString method. */
-    private static Object FOO = new Object() {
+    private static final Object FOO = new Object() {
         @Override
         public String toString() {
             return "foo";
@@ -476,7 +476,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
         sb.appendln((Object) null);
         assertEquals("" + SEP, sb.toString());
 
-        sb.appendln((Object) FOO);
+        sb.appendln(FOO);
         assertEquals(SEP + "foo" + SEP, sb.toString());
 
         sb.appendln(new Integer(6));

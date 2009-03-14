@@ -45,10 +45,12 @@ public class CompareToBuilderTest extends TestCase {
         return suite;
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
@@ -60,6 +62,7 @@ public class CompareToBuilderTest extends TestCase {
         public TestObject(int a) {
             this.a = a;
         }
+        @Override
         public boolean equals(Object o) {
             if (o == this) {
                 return true;
@@ -93,6 +96,7 @@ public class CompareToBuilderTest extends TestCase {
             super(a);
             this.b = b;
         }
+        @Override
         public boolean equals(Object o) {
             if (o == this) {
                 return true;

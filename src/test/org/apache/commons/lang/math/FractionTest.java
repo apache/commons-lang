@@ -43,6 +43,7 @@ public class FractionTest extends TestCase {
         return suite;
     }
     
+    @Override
     public void setUp() {
     }
 

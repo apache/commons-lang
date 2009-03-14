@@ -97,6 +97,7 @@ public class DateUtilsTest extends TestCase {
         return suite;
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -150,6 +151,7 @@ public class DateUtilsTest extends TestCase {
         TimeZone.setDefault(defaultZone);
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }

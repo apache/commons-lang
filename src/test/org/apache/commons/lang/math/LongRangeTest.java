@@ -41,15 +41,18 @@ public final class LongRangeTest extends AbstractRangeTest {
         return suite;
     }
     
+    @Override
     public void setUp() {
         super.setUp();
         tenToTwenty = new LongRange(long10, long20);
         otherRange = new NumberRange(ten, twenty);
     }
 
+    @Override
     protected Range createRange(Integer integer1, Integer integer2) {
         return new LongRange(integer1, integer2);
     }
+    @Override
     protected Range createRange(Integer integer) {
         return new NumberRange(integer);
     }

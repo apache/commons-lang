@@ -70,20 +70,24 @@ public class CompositeFormatTest extends TestCase {
     public void testCompositeFormat() {
 
         Format parser = new Format() {
+            @Override
             public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
                 throw new UnsupportedOperationException("Not implemented");
             }
 
+            @Override
             public Object parseObject(String source, ParsePosition pos) {
                 return null;    // do nothing
             }
         };
 
         Format formatter = new Format() {
+            @Override
             public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
                 return null;    // do nothing
             }
 
+            @Override
             public Object parseObject(String source, ParsePosition pos) {
                 throw new UnsupportedOperationException("Not implemented");
             }

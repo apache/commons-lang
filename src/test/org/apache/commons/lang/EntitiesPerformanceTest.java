@@ -47,6 +47,7 @@ public class EntitiesPerformanceTest extends TestCase {
         return suite;
     }
 
+    @Override
     public void setUp() {
         if (stringWithUnicode == null) {
             StringBuffer buf = new StringBuffer(STRING_LENGTH);

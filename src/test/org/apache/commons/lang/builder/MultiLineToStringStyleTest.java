@@ -52,11 +52,13 @@ public class MultiLineToStringStyleTest extends TestCase {
         return suite;
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         ToStringBuilder.setDefaultStyle(ToStringStyle.MULTI_LINE_STYLE);
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
