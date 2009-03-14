@@ -39,15 +39,18 @@ public final class FloatRangeTest extends AbstractRangeTest {
         return suite;
     }
     
+    @Override
     public void setUp() {
         super.setUp();
         tenToTwenty = new FloatRange(float10, float20);
         otherRange = new NumberRange(ten, twenty);
     }
 
+    @Override
     protected Range createRange(Integer integer1, Integer integer2) {
         return new FloatRange(integer1, integer2);
     }
+    @Override
     protected Range createRange(Integer integer) {
         return new NumberRange(integer);
     }
@@ -161,6 +164,7 @@ public final class FloatRangeTest extends AbstractRangeTest {
         assertEquals(false, tenToTwenty.containsNumber(float21));
     }
 
+    @Override
     public void testToString() {
         String str = tenToTwenty.toString();
         assertEquals("Range[10.0,20.0]", str);

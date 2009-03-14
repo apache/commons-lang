@@ -49,12 +49,14 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
     /**
      * Set up instance variables required by this test case.
      */
+    @Override
     public void setUp() {
     }
     
     /**
      * Tear down instance variables required by this test case.
      */
+    @Override
     public void tearDown() {
     }
     
@@ -311,8 +313,8 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
         double sumSq = 0.0d;
         double dev = 0.0d;
         for (int i = 0; i < observed.length; i++) {
-            dev = (double) (observed[i] - expected[i]);
-            sumSq += dev * dev / (double) expected[i];
+            dev = (observed[i] - expected[i]);
+            sumSq += dev * dev / expected[i];
         }
         return sumSq;
     }           

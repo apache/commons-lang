@@ -59,6 +59,7 @@ public class FieldUtilsTest extends TestCase {
         return suite;
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         StaticContainer.reset();

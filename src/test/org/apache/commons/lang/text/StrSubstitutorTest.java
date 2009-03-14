@@ -57,6 +57,7 @@ public class StrSubstitutorTest extends TestCase {
         return suite;
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         values = new HashMap();
@@ -64,6 +65,7 @@ public class StrSubstitutorTest extends TestCase {
         values.put("target", "lazy dog");
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
         values = null;
@@ -284,6 +286,7 @@ public class StrSubstitutorTest extends TestCase {
         Map map = new HashMap();
         map.put("name", "commons");
         StrSubstitutor sub = new StrSubstitutor(map) {
+            @Override
             protected String resolveVariable(String variableName, StrBuilder buf, int startPos, int endPos) {
                 assertEquals("name", variableName);
                 assertSame(builder, buf);

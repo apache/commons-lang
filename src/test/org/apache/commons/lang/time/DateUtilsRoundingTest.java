@@ -64,7 +64,8 @@ public class DateUtilsRoundingTest extends TestCase {
 	Calendar januaryOneCalendar;
 	FastDateFormat fdf = DateFormatUtils.ISO_DATETIME_FORMAT;
 
-	protected void setUp() throws Exception {
+	@Override
+    protected void setUp() throws Exception {
 		super.setUp();
 		dateTimeParser = new SimpleDateFormat("MMM dd, yyyy H:mm:ss.SSS", Locale.ENGLISH);
 		

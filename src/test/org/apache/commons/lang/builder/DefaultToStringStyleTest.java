@@ -51,11 +51,13 @@ public class DefaultToStringStyleTest extends TestCase {
         return suite;
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);

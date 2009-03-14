@@ -114,6 +114,7 @@ public class MethodUtilsTest extends TestCase {
         return suite;
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         testBean = new TestBean();

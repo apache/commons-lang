@@ -68,12 +68,14 @@ public class ExtendedMessageFormatTest extends TestCase {
         super(name);
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         registry.put("lower", new LowerCaseFormatFactory());
         registry.put("upper", new UpperCaseFormatFactory());
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
@@ -359,9 +361,11 @@ public class ExtendedMessageFormatTest extends TestCase {
      * {@link Format} implementation which converts to lower case.
      */
     private static class LowerCaseFormat extends Format {
+        @Override
         public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
             return toAppendTo.append(((String)obj).toLowerCase());
         }
+        @Override
         public Object parseObject(String source, ParsePosition pos) {throw new UnsupportedOperationException();}
     }
 
@@ -369,9 +373,11 @@ public class ExtendedMessageFormatTest extends TestCase {
      * {@link Format} implementation which converts to upper case.
      */
     private static class UpperCaseFormat extends Format {
+        @Override
         public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
             return toAppendTo.append(((String)obj).toUpperCase());
         }
+        @Override
         public Object parseObject(String source, ParsePosition pos) {throw new UnsupportedOperationException();}
     }
 

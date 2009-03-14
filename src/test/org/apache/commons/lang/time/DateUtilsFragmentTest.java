@@ -44,7 +44,8 @@ public class DateUtilsFragmentTest extends TestCase {
 	private Date aDate;
 	private Calendar aCalendar;
 
-	protected void setUp() {
+	@Override
+    protected void setUp() {
 		aCalendar = Calendar.getInstance();
 		aCalendar.set(2005, months, days, hours, minutes, seconds);
 		aCalendar.set(Calendar.MILLISECOND, millis);

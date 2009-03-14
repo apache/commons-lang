@@ -76,6 +76,7 @@ public class ExceptionUtilsTest extends TestCase {
         return new TestSuite(ExceptionUtilsTest.class);
     }
 
+    @Override
     public void setUp() {
         withoutCause = createExceptionWithoutCause();
         nested = new NestableException(withoutCause);
@@ -89,6 +90,7 @@ public class ExceptionUtilsTest extends TestCase {
         cyclicCause = new ExceptionWithCause(a);
     }
 
+    @Override
     protected void tearDown() throws Exception {
         withoutCause = null;
         nested = null;
@@ -579,6 +581,7 @@ public class ExceptionUtilsTest extends TestCase {
             setCause(cause);
         }
 
+        @Override
         public Throwable getCause() {
             return cause;
         }

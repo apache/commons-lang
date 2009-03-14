@@ -35,6 +35,7 @@ public final class RandomUtilsTest extends TestCase {
         super(name);
     }
     
+    @Override
     public void setUp() {
     }
     

@@ -42,6 +42,7 @@ public class RangeTest extends TestCase {
             this.max = max;
         }
 
+        @Override
         public boolean containsNumber(Number number) {
             if (number.byteValue() >= min && number.byteValue() <= max) {
                 return true;
@@ -49,10 +50,12 @@ public class RangeTest extends TestCase {
             return false;
         }
 
+        @Override
         public Number getMaximumNumber() {
             return new Byte(max);
         }
 
+        @Override
         public Number getMinimumNumber() {
             return new Byte(min);
         }
@@ -68,10 +71,12 @@ public class RangeTest extends TestCase {
         super(name);
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }

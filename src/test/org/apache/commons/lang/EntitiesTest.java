@@ -48,6 +48,7 @@ public class EntitiesTest extends TestCase
 
     Entities entities;
 
+    @Override
     public void setUp()
     {
         entities = new Entities();

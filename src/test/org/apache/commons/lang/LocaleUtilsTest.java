@@ -75,6 +75,7 @@ public class LocaleUtilsTest extends TestCase {
         return suite;
     }
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
 

@@ -34,11 +34,13 @@ public class ShortPrefixToStringStyleTest extends TestCase {
     private final Integer base = new Integer(5);
     private final String baseStr = "Integer";
     
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         ToStringBuilder.setDefaultStyle(ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
+    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
         ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);

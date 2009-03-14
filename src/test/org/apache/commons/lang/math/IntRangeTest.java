@@ -43,15 +43,18 @@ public final class IntRangeTest extends AbstractRangeTest {
         return suite;
     }
     
+    @Override
     public void setUp() {
         super.setUp();
         tenToTwenty = new IntRange(ten, twenty);
         otherRange = new NumberRange(ten, twenty);
     }
 
+    @Override
     protected Range createRange(Integer integer1, Integer integer2) {
         return new IntRange(integer1, integer2);
     }
+    @Override
     protected Range createRange(Integer integer) {
         return new NumberRange(integer);
     }
