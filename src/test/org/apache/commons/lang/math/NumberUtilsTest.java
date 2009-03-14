@@ -1120,6 +1120,7 @@ public class NumberUtilsTest extends TestCase {
        }
     }
 
+    @SuppressWarnings("cast") // suppress instanceof warning check
     public void testConstants() {
         assertTrue(NumberUtils.LONG_ZERO instanceof Long);
         assertTrue(NumberUtils.LONG_ONE instanceof Long);
