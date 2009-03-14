@@ -333,25 +333,4 @@ public class StringUtilsSubstringTest extends TestCase {
         assertEquals(4, 
              StringUtils.countMatches("oooooooooooo", "ooo"));
     }
-
-    public void testDeprecatedGetNestedString_StringString() {
-        assertEquals(null, StringUtils.getNestedString(null, "tag"));
-        assertEquals("", StringUtils.getNestedString("", ""));
-        assertEquals(null, StringUtils.getNestedString("", "abc"));
-        assertEquals("", StringUtils.getNestedString("    ", " "));
-        assertEquals(null, StringUtils.getNestedString("abc", null));
-        assertEquals("", StringUtils.getNestedString("abc", ""));
-        assertEquals(null, StringUtils.getNestedString("abc", "a"));
-        assertEquals("bc", StringUtils.getNestedString("abca", "a"));
-        assertEquals("bc", StringUtils.getNestedString("abcabca", "a"));
-        assertEquals("bar", StringUtils.getNestedString("\nbar\n", "\n"));
-    }
-            
-    public void testDeprecatedGetNestedString_StringStringString() {
-        assertEquals(null, StringUtils.getNestedString(null, "", ""));
-        assertEquals("", StringUtils.getNestedString("", "", ""));
-        assertEquals("", StringUtils.getNestedString("    ", " ", "  "));
-        assertEquals("bar", StringUtils.getNestedString("<foo>bar</foo>", "<foo>", "</foo>") );
-    }
-
 }
