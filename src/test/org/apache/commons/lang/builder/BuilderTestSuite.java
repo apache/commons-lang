@@ -57,6 +57,7 @@ public class BuilderTestSuite extends TestCase {
         suite.addTestSuite(NoFieldNamesToStringStyleTest.class);
         suite.addTestSuite(MultiLineToStringStyleTest.class);
         suite.addTestSuite(ReflectionToStringBuilderExcludeTest.class);
+        suite.addTestSuite(ShortPrefixToStringStyleTest.class);
         suite.addTestSuite(SimpleToStringStyleTest.class);
         suite.addTestSuite(StandardToStringStyleTest.class);
         suite.addTestSuite(ToStringStyleTest.class);
