@@ -44,13 +44,14 @@ public class NestableRuntimeException extends RuntimeException implements Nestab
      * The helper instance which contains much of the code which we
      * delegate to.
      */
+    // TODO make final
     protected NestableDelegate delegate = new NestableDelegate(this);
 
     /**
      * Holds the reference to the exception or error that caused
      * this exception to be thrown.
      */
-    private Throwable cause = null;
+    private final Throwable cause;
 
     /**
      * Constructs a new <code>NestableRuntimeException</code> without specified
@@ -58,6 +59,7 @@ public class NestableRuntimeException extends RuntimeException implements Nestab
      */
     public NestableRuntimeException() {
         super();
+        this.cause = null;
     }
 
     /**
@@ -68,6 +70,7 @@ public class NestableRuntimeException extends RuntimeException implements Nestab
      */
     public NestableRuntimeException(String msg) {
         super(msg);
+        this.cause = null;
     }
 
     /**

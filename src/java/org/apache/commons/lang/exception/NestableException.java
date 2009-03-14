@@ -100,13 +100,14 @@ public class NestableException extends Exception implements Nestable {
      * The helper instance which contains much of the code which we
      * delegate to.
      */
+    // TODO make final
     protected NestableDelegate delegate = new NestableDelegate(this);
 
     /**
      * Holds the reference to the exception or error that caused
      * this exception to be thrown.
      */
-    private Throwable cause = null;
+    private final Throwable cause;
 
     /**
      * Constructs a new <code>NestableException</code> without specified
@@ -114,6 +115,7 @@ public class NestableException extends Exception implements Nestable {
      */
     public NestableException() {
         super();
+        this.cause = null;
     }
 
     /**
@@ -124,6 +126,7 @@ public class NestableException extends Exception implements Nestable {
      */
     public NestableException(String msg) {
         super(msg);
+        this.cause = null;
     }
 
     /**
