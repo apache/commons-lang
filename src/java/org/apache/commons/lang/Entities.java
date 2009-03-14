@@ -529,6 +529,7 @@ class Entities {
         /**
          * {@inheritDoc}
          */
+        @Override
         public String name(int value) {
             if (value < LOOKUP_TABLE_SIZE) {
                 return lookupTable()[value];
@@ -696,6 +697,7 @@ class Entities {
         /**
          * {@inheritDoc}
          */
+        @Override
         public void add(String name, int value) {
             ensureCapacity(size + 1);
             int insertAt = binarySearch(value);
@@ -713,6 +715,7 @@ class Entities {
         /**
          * {@inheritDoc}
          */
+        @Override
         public String name(int value) {
             int index = binarySearch(value);
             if (index < 0) {

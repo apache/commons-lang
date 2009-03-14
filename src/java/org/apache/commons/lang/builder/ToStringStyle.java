@@ -134,6 +134,7 @@ public abstract class ToStringStyle implements Serializable {
      * </p>
      */
     private static ThreadLocal registry = new ThreadLocal() {
+        @Override
         protected Object initialValue() {
             // The HashSet implementation is not synchronized,
             // which is just what we need here.
