@@ -337,10 +337,6 @@ public class SystemUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-    public void testDeprecatedJavaVersion() {
-        assertEquals(SystemUtils.JAVA_VERSION_FLOAT, SystemUtils.getJavaVersion(), 0f);
-    }
-
     public void testJavaVersionAsFloat() {
         JAVA_VERSION = null;
         JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
