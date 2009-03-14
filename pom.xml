@@ -442,6 +442,7 @@
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
       </plugin>
+      <!-- Requires setting 'export MAVEN_OPTS="-Xmx512m" ' -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
