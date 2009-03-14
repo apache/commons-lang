@@ -158,24 +158,6 @@ public class ObjectUtilsTest extends TestCase {
         }
     }
 
-    public void testAppendIdentityToString() {
-        assertEquals(null, ObjectUtils.appendIdentityToString(null, null));
-        assertEquals(null, ObjectUtils.appendIdentityToString(new StringBuffer(), null));
-        assertEquals(
-            "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
-            ObjectUtils.appendIdentityToString(null, FOO).toString());
-        assertEquals(
-            "java.lang.String@" + Integer.toHexString(System.identityHashCode(FOO)),
-            ObjectUtils.appendIdentityToString(new StringBuffer(), FOO).toString());
-        Integer val = new Integer(90);
-        assertEquals(
-            "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(val)),
-            ObjectUtils.appendIdentityToString(null, val).toString());
-        assertEquals(
-            "java.lang.Integer@" + Integer.toHexString(System.identityHashCode(val)),
-            ObjectUtils.appendIdentityToString(new StringBuffer(), val).toString());
-    }
-
     public void testToString_Object() {
         assertEquals("", ObjectUtils.toString((Object) null) );
         assertEquals(Boolean.TRUE.toString(), ObjectUtils.toString(Boolean.TRUE) );
