@@ -46,7 +46,7 @@ import junit.framework.TestSuite;
  */
 public class ExtendedMessageFormatTest extends TestCase {
 
-    private Map registry = new HashMap();
+    private final Map registry = new HashMap();
 
     /**
      * Return a new test suite containing this test case.
@@ -122,7 +122,7 @@ public class ExtendedMessageFormatTest extends TestCase {
         for (Iterator l = testLocales.iterator(); l.hasNext();) {
             Locale locale = (Locale) l.next();
             MessageFormat builtins = createMessageFormat(builtinsPattern, locale);
-            String expectedPattern = extendedPattern + builtins.toPattern();;
+            String expectedPattern = extendedPattern + builtins.toPattern();
             DateFormat df = null;
             NumberFormat nf = null;
             ExtendedMessageFormat emf = null;
