@@ -437,25 +437,6 @@ public class DateUtilsTest extends TestCase {
         assertDate(result, 2000, 6, 5, 4, 3, 2, 0);
     }
 
-    //-----------------------------------------------------------------------
-    public void testAddByField() throws Exception {
-        Date base = new Date(MILLIS_TEST);
-        Date result = DateUtils.add(base, Calendar.YEAR, 0);
-        assertNotSame(base, result);
-        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-        assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
-        
-        result = DateUtils.add(base, Calendar.YEAR, 1);
-        assertNotSame(base, result);
-        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-        assertDate(result, 2001, 6, 5, 4, 3, 2, 1);
-        
-        result = DateUtils.add(base, Calendar.YEAR, -1);
-        assertNotSame(base, result);
-        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-        assertDate(result, 1999, 6, 5, 4, 3, 2, 1);
-    }
-    
 	// -----------------------------------------------------------------------
 	public void testSetYears() throws Exception {
 		Date base = new Date(MILLIS_TEST);
