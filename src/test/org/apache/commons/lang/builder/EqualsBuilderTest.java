@@ -126,6 +126,7 @@ public class EqualsBuilderTest extends TestCase {
     }
 
     static class TestTSubObject extends TestObject {
+        @SuppressWarnings("unused")
         private transient int t;
         public TestTSubObject(int a, int t) {
             super(a);
@@ -134,6 +135,7 @@ public class EqualsBuilderTest extends TestCase {
     }
 
     static class TestTTSubObject extends TestTSubObject {
+        @SuppressWarnings("unused")
         private transient int tt;
         public TestTTSubObject(int a, int t, int tt) {
             super(a, t);
@@ -142,6 +144,7 @@ public class EqualsBuilderTest extends TestCase {
     }
 
     static class TestTTLeafObject extends TestTTSubObject {
+        @SuppressWarnings("unused")
         private int leafValue;
         public TestTTLeafObject(int a, int t, int tt, int leafValue) {
             super(a, t, tt);
@@ -998,8 +1001,11 @@ public class EqualsBuilderTest extends TestCase {
     }
 
     static class TestObjectWithMultipleFields {
+        @SuppressWarnings("unused")
         private TestObject one;
+        @SuppressWarnings("unused")
         private TestObject two;
+        @SuppressWarnings("unused")
         private TestObject three;
 
         public TestObjectWithMultipleFields(int one, int two, int three) {

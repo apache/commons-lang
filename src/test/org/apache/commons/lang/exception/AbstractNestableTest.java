@@ -169,6 +169,7 @@ public abstract class AbstractNestableTest extends TestCase
         // Test for index out of bounds
         try
         {
+            @SuppressWarnings("unused")
             String msg = ne.getMessage(-1);
             fail("getMessage(-1) should have thrown IndexOutOfBoundsException");
         }
@@ -177,6 +178,7 @@ public abstract class AbstractNestableTest extends TestCase
         }
         try
         {
+            @SuppressWarnings("unused")
             String msg = ne.getMessage(msgs.length + 100);
             fail("getMessage(999) should have thrown IndexOutOfBoundsException");
         }
@@ -429,6 +431,7 @@ public abstract class AbstractNestableTest extends TestCase
         // Test for index out of bounds
         try
         {
+            @SuppressWarnings("unused")
             int index = n.indexOfThrowable(getTester1Class(), -1);
             fail("method should have thrown IndexOutOfBoundsException");
         }
@@ -437,6 +440,7 @@ public abstract class AbstractNestableTest extends TestCase
         }
         try
         {
+            @SuppressWarnings("unused")
             int index = n.indexOfThrowable(getTester1Class(), 5);
             fail("method should have thrown IndexOutOfBoundsException");
         }
