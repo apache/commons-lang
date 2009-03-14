@@ -159,6 +159,7 @@ public class SerializationUtilsTest extends TestCase {
     }
 
     public void testSerializeStreamObjNull() throws Exception {
+        // TODO NOT USED - but should it be?
         ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         try {
             SerializationUtils.serialize(iMap, null);
@@ -169,6 +170,7 @@ public class SerializationUtilsTest extends TestCase {
     }
 
     public void testSerializeStreamNullNull() throws Exception {
+        // TODO NOT USED - but should it be?
         ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         try {
             SerializationUtils.serialize(null, null);
@@ -256,6 +258,7 @@ public class SerializationUtilsTest extends TestCase {
 
         ByteArrayInputStream inTest = new ByteArrayInputStream(streamReal.toByteArray());
         try {
+            @SuppressWarnings("unused")
             Object test = SerializationUtils.deserialize(inTest);
         } catch(SerializationException se) {
             assertEquals("java.lang.ClassNotFoundException: " + CLASS_NOT_FOUND_MESSAGE, se.getMessage());
