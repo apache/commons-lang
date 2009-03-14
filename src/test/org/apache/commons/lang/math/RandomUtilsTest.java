@@ -331,8 +331,8 @@ public final class RandomUtilsTest extends TestCase {
         double sumSq = 0.0d;
         double dev = 0.0d;
         for (int i = 0; i< observed.length; i++) {
-            dev = (double)(observed[i] - expected[i]);
-            sumSq += dev*dev/(double)expected[i];
+            dev = (observed[i] - expected[i]);
+            sumSq += dev*dev/expected[i];
         }
         return sumSq;
     }           
