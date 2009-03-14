@@ -335,7 +335,8 @@ public class ArrayUtilsTest extends TestCase {
         assertNotSame("java.sql.Date type", java.sql.Date.class,
             ArrayUtils.subarray(dateArray, 1, 4).getClass().getComponentType());
         try {
-            Object dummy = (java.sql.Date[])ArrayUtils.subarray(dateArray, 1,3);
+            @SuppressWarnings("unused")
+            java.sql.Date[] dummy = (java.sql.Date[])ArrayUtils.subarray(dateArray, 1,3);
             fail("Invalid downcast");
         } catch (ClassCastException e) {}
     }
