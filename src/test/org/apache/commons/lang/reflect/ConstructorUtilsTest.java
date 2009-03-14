@@ -212,9 +212,13 @@ public class ConstructorUtilsTest extends TestCase {
             Class[] requestTypes, Class[] actualTypes) {
         Constructor c = ConstructorUtils.getMatchingAccessibleConstructor(cls,
                 requestTypes);
-        assertTrue(Arrays.toString(c.getParameterTypes()) + " not equals "
-                + Arrays.toString(actualTypes), Arrays.equals(actualTypes, c
+        assertTrue(toString(c.getParameterTypes()) + " not equals "
+                + toString(actualTypes), Arrays.equals(actualTypes, c
                 .getParameterTypes()));
+    }
+
+    private String toString(Class[] c) {
+        return Arrays.asList(c).toString();
     }
 
     private Class[] singletonArray(Class c) {

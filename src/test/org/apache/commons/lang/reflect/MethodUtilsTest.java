@@ -313,9 +313,13 @@ public class MethodUtilsTest extends TestCase {
             String methodName, Class[] requestTypes, Class[] actualTypes) {
         Method m = MethodUtils.getMatchingAccessibleMethod(cls, methodName,
                 requestTypes);
-        assertTrue(Arrays.toString(m.getParameterTypes()) + " not equals "
-                + Arrays.toString(actualTypes), Arrays.equals(actualTypes, m
+        assertTrue(toString(m.getParameterTypes()) + " not equals "
+                + toString(actualTypes), Arrays.equals(actualTypes, m
                 .getParameterTypes()));
+    }
+
+    private String toString(Class[] c) {
+        return Arrays.asList(c).toString();
     }
 
     public void testSetCacheMethods() throws Exception {
