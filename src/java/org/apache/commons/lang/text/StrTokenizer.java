@@ -447,7 +447,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      */
     public String[] getTokenArray() {
         checkTokenized();
-        return (String[]) tokens.clone();
+        return tokens.clone();
     }
 
     /**
@@ -1103,7 +1103,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
         // this method exists to enable 100% test coverage
         StrTokenizer cloned = (StrTokenizer) super.clone();
         if (cloned.chars != null) {
-            cloned.chars = (char[]) cloned.chars.clone();
+            cloned.chars = cloned.chars.clone();
         }
         cloned.reset();
         return cloned;
