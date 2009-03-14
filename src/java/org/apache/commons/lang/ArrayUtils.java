@@ -278,7 +278,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        return (Object[]) array.clone();
+        return array.clone();
     }
 
     /**
@@ -294,7 +294,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        return (long[]) array.clone();
+        return array.clone();
     }
 
     /**
@@ -310,7 +310,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        return (int[]) array.clone();
+        return array.clone();
     }
 
     /**
@@ -326,7 +326,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        return (short[]) array.clone();
+        return array.clone();
     }
 
     /**
@@ -342,7 +342,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        return (char[]) array.clone();
+        return array.clone();
     }
 
     /**
@@ -358,7 +358,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        return (byte[]) array.clone();
+        return array.clone();
     }
 
     /**
@@ -374,7 +374,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        return (double[]) array.clone();
+        return array.clone();
     }
 
     /**
@@ -390,7 +390,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        return (float[]) array.clone();
+        return array.clone();
     }
 
     /**
@@ -406,7 +406,7 @@ public class ArrayUtils {
         if (array == null) {
             return null;
         }
-        return (boolean[]) array.clone();
+        return array.clone();
     }
 
     // Subarrays

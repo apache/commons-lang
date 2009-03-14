@@ -282,7 +282,7 @@ public abstract class StrMatcher {
          */
         CharSetMatcher(char chars[]) {
             super();
-            this.chars = (char[]) chars.clone();
+            this.chars = chars.clone();
             Arrays.sort(this.chars);
         }
 
