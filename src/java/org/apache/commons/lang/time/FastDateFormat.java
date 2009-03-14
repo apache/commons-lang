@@ -105,7 +105,8 @@ public class FastDateFormat extends Format {
      */
     public static final int SHORT = DateFormat.SHORT;
     
-    private static String cDefaultPattern;
+    //@GuardedBy("this")
+    private static String cDefaultPattern; // lazily initialised by getInstance()
 
     private static final Map cInstanceCache = new HashMap(7);
     private static final Map cDateInstanceCache = new HashMap(7);
