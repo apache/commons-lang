@@ -46,8 +46,8 @@ public class CalendarUtilsTest extends TestCase {
     }
 
     public static Test suite() {
-    	TestSuite suite = new TestSuite(CalendarUtilsTest.class);
-    	suite.setName("CalendarUtilsTest Tests");
+        TestSuite suite = new TestSuite(CalendarUtilsTest.class);
+        suite.setName("CalendarUtilsTest Tests");
         return suite;
     }
 
