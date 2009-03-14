@@ -1045,6 +1045,7 @@ public class ToStringBuilder {
      * 
      * @return the String <code>toString</code>
      */
+    @Override
     public String toString() {
         if (this.getObject() == null) {
             this.getStringBuffer().append(this.getStyle().getNullText());

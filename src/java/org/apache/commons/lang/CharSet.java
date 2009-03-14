@@ -265,6 +265,7 @@ public class CharSet implements Serializable {
      * @return true if equal
      * @since 2.0
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -282,6 +283,7 @@ public class CharSet implements Serializable {
      * @return a suitable hashCode
      * @since 2.0
      */
+    @Override
     public int hashCode() {
         return 89 + set.hashCode();
     }
@@ -291,6 +293,7 @@ public class CharSet implements Serializable {
      *
      * @return string representation of the set
      */
+    @Override
     public String toString() {
         return set.toString();
     }

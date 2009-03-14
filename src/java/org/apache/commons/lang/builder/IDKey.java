@@ -49,6 +49,7 @@ final class IDKey {
          * returns hashcode - i.e. the system identity hashcode.
          * @return the hashcode
          */ 
+        @Override
         public int hashCode() {
            return id;
         }
@@ -58,6 +59,7 @@ final class IDKey {
          * @param other
          * @return if the instances are for the same object
          */ 
+        @Override
         public boolean equals(Object other) {
             if (!(other instanceof IDKey)) {
                 return false;

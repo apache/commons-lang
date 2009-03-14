@@ -185,6 +185,7 @@ public final class CharRange implements Serializable {
      * @param obj  the object to compare to
      * @return true if equal
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -201,6 +202,7 @@ public final class CharRange implements Serializable {
      * 
      * @return a suitable hashCode
      */
+    @Override
     public int hashCode() {
         return 83 + start + 7 * end + (negated ? 1 : 0);
     }
@@ -210,6 +212,7 @@ public final class CharRange implements Serializable {
      * 
      * @return string representation of this range
      */
+    @Override
     public String toString() {
         if (iToString == null) {
             StringBuffer buf = new StringBuffer(4);

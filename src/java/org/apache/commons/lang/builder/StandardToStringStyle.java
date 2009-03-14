@@ -54,6 +54,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current useClassName flag
      */
+    @Override
     public boolean isUseClassName() {
         return super.isUseClassName();
     }
@@ -63,6 +64,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param useClassName  the new useClassName flag
      */
+    @Override
     public void setUseClassName(boolean useClassName) {
         super.setUseClassName(useClassName);
     }
@@ -75,6 +77,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the current useShortClassName flag
      * @since 2.0
      */
+    @Override
     public boolean isUseShortClassName() {
         return super.isUseShortClassName();
     }
@@ -86,6 +89,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @deprecated Use {@link #isUseShortClassName()}
      *             Method will be removed in Commons Lang 3.0.
      */
+    @Override
     public boolean isShortClassName() {
         return super.isUseShortClassName();
     }
@@ -96,6 +100,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param useShortClassName  the new useShortClassName flag
      * @since 2.0
      */
+    @Override
     public void setUseShortClassName(boolean useShortClassName) {
         super.setUseShortClassName(useShortClassName);
     }
@@ -107,6 +112,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @deprecated Use {@link #setUseShortClassName(boolean)}
      *             Method will be removed in Commons Lang 3.0.
      */
+    @Override
     public void setShortClassName(boolean shortClassName) {
         super.setUseShortClassName(shortClassName);
     }
@@ -117,6 +123,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * <p>Gets whether to use the identity hash code.</p>
      * @return the current useIdentityHashCode flag
      */
+    @Override
     public boolean isUseIdentityHashCode() {
         return super.isUseIdentityHashCode();
     }
@@ -126,6 +133,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param useIdentityHashCode  the new useIdentityHashCode flag
      */
+    @Override
     public void setUseIdentityHashCode(boolean useIdentityHashCode) {
         super.setUseIdentityHashCode(useIdentityHashCode);
     }
@@ -137,6 +145,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current useFieldNames flag
      */
+    @Override
     public boolean isUseFieldNames() {
         return super.isUseFieldNames();
     }
@@ -146,6 +155,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param useFieldNames  the new useFieldNames flag
      */
+    @Override
     public void setUseFieldNames(boolean useFieldNames) {
         super.setUseFieldNames(useFieldNames);
     }
@@ -158,6 +168,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current defaultFullDetail flag
      */
+    @Override
     public boolean isDefaultFullDetail() {
         return super.isDefaultFullDetail();
     }
@@ -168,6 +179,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param defaultFullDetail  the new defaultFullDetail flag
      */
+    @Override
     public void setDefaultFullDetail(boolean defaultFullDetail) {
         super.setDefaultFullDetail(defaultFullDetail);
     }
@@ -179,6 +191,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current array content detail setting
      */
+    @Override
     public boolean isArrayContentDetail() {
         return super.isArrayContentDetail();
     }
@@ -188,6 +201,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param arrayContentDetail  the new arrayContentDetail flag
      */
+    @Override
     public void setArrayContentDetail(boolean arrayContentDetail) {
         super.setArrayContentDetail(arrayContentDetail);
     }
@@ -199,6 +213,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current array start text
      */
+    @Override
     public String getArrayStart() {
         return super.getArrayStart();
     }
@@ -211,6 +226,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param arrayStart  the new array start text
      */
+    @Override
     public void setArrayStart(String arrayStart) {
         super.setArrayStart(arrayStart);
     }
@@ -222,6 +238,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current array end text
      */
+    @Override
     public String getArrayEnd() {
         return super.getArrayEnd();
     }
@@ -234,6 +251,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param arrayEnd  the new array end text
      */
+    @Override
     public void setArrayEnd(String arrayEnd) {
         super.setArrayEnd(arrayEnd);
     }
@@ -245,6 +263,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current array separator text
      */
+    @Override
     public String getArraySeparator() {
         return super.getArraySeparator();
     }
@@ -257,6 +276,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param arraySeparator  the new array separator text
      */
+    @Override
     public void setArraySeparator(String arraySeparator) {
         super.setArraySeparator(arraySeparator);
     }
@@ -268,6 +288,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current content start text
      */
+    @Override
     public String getContentStart() {
         return super.getContentStart();
     }
@@ -280,6 +301,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param contentStart  the new content start text
      */
+    @Override
     public void setContentStart(String contentStart) {
         super.setContentStart(contentStart);
     }
@@ -291,6 +313,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current content end text
      */
+    @Override
     public String getContentEnd() {
         return super.getContentEnd();
     }
@@ -303,6 +326,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param contentEnd  the new content end text
      */
+    @Override
     public void setContentEnd(String contentEnd) {
         super.setContentEnd(contentEnd);
     }
@@ -314,6 +338,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current field name value separator text
      */
+    @Override
     public String getFieldNameValueSeparator() {
         return super.getFieldNameValueSeparator();
     }
@@ -326,6 +351,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param fieldNameValueSeparator  the new field name value separator text
      */
+    @Override
     public void setFieldNameValueSeparator(String fieldNameValueSeparator) {
         super.setFieldNameValueSeparator(fieldNameValueSeparator);
     }
@@ -337,6 +363,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current field separator text
      */
+    @Override
     public String getFieldSeparator() {
         return super.getFieldSeparator();
     }
@@ -349,6 +376,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param fieldSeparator  the new field separator text
      */
+    @Override
     public void setFieldSeparator(String fieldSeparator) {
         super.setFieldSeparator(fieldSeparator);
     }
@@ -362,6 +390,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return the fieldSeparatorAtStart flag
      * @since 2.0
      */
+    @Override
     public boolean isFieldSeparatorAtStart() {
         return super.isFieldSeparatorAtStart();
     }
@@ -373,6 +402,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param fieldSeparatorAtStart  the fieldSeparatorAtStart flag
      * @since 2.0
      */
+    @Override
     public void setFieldSeparatorAtStart(boolean fieldSeparatorAtStart) {
         super.setFieldSeparatorAtStart(fieldSeparatorAtStart);
     }
@@ -386,6 +416,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @return fieldSeparatorAtEnd flag
      * @since 2.0
      */
+    @Override
     public boolean isFieldSeparatorAtEnd() {
         return super.isFieldSeparatorAtEnd();
     }
@@ -397,6 +428,7 @@ public class StandardToStringStyle extends ToStringStyle {
      * @param fieldSeparatorAtEnd  the fieldSeparatorAtEnd flag
      * @since 2.0
      */
+    @Override
     public void setFieldSeparatorAtEnd(boolean fieldSeparatorAtEnd) {
         super.setFieldSeparatorAtEnd(fieldSeparatorAtEnd);
     }
@@ -408,6 +440,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current text to output when <code>null</code> found
      */
+    @Override
     public String getNullText() {
         return super.getNullText();
     }
@@ -420,6 +453,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param nullText  the new text to output when <code>null</code> found
      */
+    @Override
     public void setNullText(String nullText) {
         super.setNullText(nullText);
     }
@@ -434,6 +468,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current start of size text
      */
+    @Override
     public String getSizeStartText() {
         return super.getSizeStartText();
     }
@@ -449,6 +484,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param sizeStartText  the new start of size text
      */
+    @Override
     public void setSizeStartText(String sizeStartText) {
         super.setSizeStartText(sizeStartText);
     }
@@ -463,6 +499,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current end of size text
      */
+    @Override
     public String getSizeEndText() {
         return super.getSizeEndText();
     }
@@ -478,6 +515,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param sizeEndText  the new end of size text
      */
+    @Override
     public void setSizeEndText(String sizeEndText) {
         super.setSizeEndText(sizeEndText);
     }
@@ -492,6 +530,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current start of summary text
      */
+    @Override
     public String getSummaryObjectStartText() {
         return super.getSummaryObjectStartText();
     }
@@ -507,6 +546,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param summaryObjectStartText  the new start of summary text
      */
+    @Override
     public void setSummaryObjectStartText(String summaryObjectStartText) {
         super.setSummaryObjectStartText(summaryObjectStartText);
     }
@@ -521,6 +561,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @return the current end of summary text
      */
+    @Override
     public String getSummaryObjectEndText() {
         return super.getSummaryObjectEndText();
     }
@@ -536,6 +577,7 @@ public class StandardToStringStyle extends ToStringStyle {
      *
      * @param summaryObjectEndText  the new end of summary text
      */
+    @Override
     public void setSummaryObjectEndText(String summaryObjectEndText) {
         super.setSummaryObjectEndText(summaryObjectEndText);
     }

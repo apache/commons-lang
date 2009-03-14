@@ -751,6 +751,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * 
      * @return the built string
      */
+    @Override
     public String toString() {
         if (this.getObject() == null) {
             return this.getStyle().getNullText();

@@ -134,6 +134,7 @@ public class NotImplementedException
      * 
      * @since 2.1
      */
+    @Override
     public Throwable getCause() {
         return cause;
     }
@@ -144,6 +145,7 @@ public class NotImplementedException
      * @return the error message
      * @since 2.1
      */
+    @Override
     public String getMessage() {
         if (super.getMessage() != null) {
             return super.getMessage();
@@ -255,6 +257,7 @@ public class NotImplementedException
      * 
      * @since 2.1
      */
+    @Override
     public void printStackTrace() {
         delegate.printStackTrace();
     }
@@ -266,6 +269,7 @@ public class NotImplementedException
      * @param out  the stream to write to
      * @since 2.1
      */
+    @Override
     public void printStackTrace(PrintStream out) {
         delegate.printStackTrace(out);
     }
@@ -277,6 +281,7 @@ public class NotImplementedException
      * @param out  the writer to write to
      * @since 2.1
      */
+    @Override
     public void printStackTrace(PrintWriter out) {
         delegate.printStackTrace(out);
     }
