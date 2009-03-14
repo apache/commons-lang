@@ -360,10 +360,16 @@ public class ToStringBuilderTest extends TestCase {
 
     static class ReflectionTestFixtureA {
         @SuppressWarnings("unused")
+        private char a='a';
+        @SuppressWarnings("unused")
         private transient char transientA='t';
     }
 
     static class ReflectionTestFixtureB extends ReflectionTestFixtureA {
+        @SuppressWarnings("unused")
+        private char b='b';
+        @SuppressWarnings("unused")
+        private transient char transientB='t';
     }
 
     public void testInnerClassReflection() {
@@ -482,7 +488,11 @@ public class ToStringBuilderTest extends TestCase {
     }
 
     private static class SelfInstanceVarReflectionTestFixture {
+        @SuppressWarnings("unused")
+        private SelfInstanceVarReflectionTestFixture typeIsSelf;
+
         public SelfInstanceVarReflectionTestFixture() {
+            this.typeIsSelf = this;
         }
 
         @Override
@@ -492,9 +502,12 @@ public class ToStringBuilderTest extends TestCase {
       }
     
     private static class SelfInstanceTwoVarsReflectionTestFixture {
+        @SuppressWarnings("unused")
+        private SelfInstanceTwoVarsReflectionTestFixture typeIsSelf;
         private String otherType = "The Other Type";
 
         public SelfInstanceTwoVarsReflectionTestFixture() {
+            this.typeIsSelf = this;
         }
         
         public String getOtherType(){
