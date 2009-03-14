@@ -87,7 +87,7 @@ public class ExceptionUtils {
     static {
         Method causeMethod;
         try {
-            causeMethod = Throwable.class.getMethod("getCause", null);
+            causeMethod = Throwable.class.getMethod("getCause", (Class[]) null);
         } catch (Exception e) {
             causeMethod = null;
         }
@@ -380,7 +380,7 @@ public class ExceptionUtils {
     private static Throwable getCauseUsingMethodName(Throwable throwable, String methodName) {
         Method method = null;
         try {
-            method = throwable.getClass().getMethod(methodName, null);
+            method = throwable.getClass().getMethod(methodName, (Class[]) null);
         } catch (NoSuchMethodException ignored) {
             // exception ignored
         } catch (SecurityException ignored) {
@@ -471,7 +471,7 @@ public class ExceptionUtils {
         synchronized(CAUSE_METHOD_NAMES) {
             for (int i = 0, isize = CAUSE_METHOD_NAMES.length; i < isize; i++) {
                 try {
-                    Method method = cls.getMethod(CAUSE_METHOD_NAMES[i], null);
+                    Method method = cls.getMethod(CAUSE_METHOD_NAMES[i], (Class[]) null);
                     if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
                         return true;
                     }
