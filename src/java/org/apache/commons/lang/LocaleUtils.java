@@ -205,7 +205,7 @@ public class LocaleUtils {
      *
      * @return the unmodifiable set of available locales
      */
-    public static Set availableLocaleSet() {
+    public static synchronized Set availableLocaleSet() {
         Set set = cAvailableLocaleSet;
         if (set == null) {
             set = new HashSet(availableLocaleList());
