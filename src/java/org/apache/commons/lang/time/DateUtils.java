@@ -407,9 +407,8 @@ public class DateUtils {
      * @param amount  the amount to add, may be negative
      * @return the new date object with the amount added
      * @throws IllegalArgumentException if the date is null
-     * @deprecated Will become privately scoped in 3.0
      */
-    public static Date add(Date date, int calendarField, int amount) {
+    private static Date add(Date date, int calendarField, int amount) {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -1615,34 +1614,5 @@ public class DateUtils {
             throw new UnsupportedOperationException();
         }
     }
-    
-    //------------------------------------------------------------------------- 
-    // Deprecated int constants
-    // TODO: Remove in 3.0
-    
-    /**
-     * Number of milliseconds in a standard second.
-     * 
-     * @deprecated Use MILLIS_PER_SECOND. This will be removed in Commons Lang 3.0.
-     */
-    public static final int MILLIS_IN_SECOND = 1000;
-    /**
-     * Number of milliseconds in a standard minute.
-     * 
-     * @deprecated Use MILLIS_PER_MINUTE. This will be removed in Commons Lang 3.0.
-     */
-    public static final int MILLIS_IN_MINUTE = 60 * 1000;
-    /**
-     * Number of milliseconds in a standard hour.
-     * 
-     * @deprecated Use MILLIS_PER_HOUR. This will be removed in Commons Lang 3.0.
-     */
-    public static final int MILLIS_IN_HOUR = 60 * 60 * 1000;
-    /**
-     * Number of milliseconds in a standard day.
-     * 
-     * @deprecated Use MILLIS_PER_DAY. This will be removed in Commons Lang 3.0.
-     */
-    public static final int MILLIS_IN_DAY = 24 * 60 * 60 * 1000;
     
 }
