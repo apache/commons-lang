@@ -16,7 +16,7 @@
  * 
  */
 
-package org.apache.commons.lang;
+package org.apache.commons.lang.builder;
 
 // adapted from org.apache.axis.utils.IDKey
 
