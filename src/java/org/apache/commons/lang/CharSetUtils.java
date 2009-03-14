@@ -43,36 +43,6 @@ public class CharSetUtils {
       super();
     }
 
-    // Factory
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Creates a <code>CharSet</code> instance which allows a certain amount of
-     * set logic to be performed.</p>
-     * <p>The syntax is:</p>
-     * <ul>
-     *  <li>&quot;aeio&quot; which implies 'a','e',..</li>
-     *  <li>&quot;^e&quot; implies not e.</li>
-     *  <li>&quot;ej-m&quot; implies e,j-&gt;m. e,j,k,l,m.</li>
-     * </ul>
-     * 
-     * <pre>
-     * CharSetUtils.evaluateSet(null)    = null
-     * CharSetUtils.evaluateSet([])      = CharSet matching nothing
-     * CharSetUtils.evaluateSet(["a-e"]) = CharSet matching a,b,c,d,e
-     * </pre>
-     *
-     * @param set  the set, may be null
-     * @return a CharSet instance, <code>null</code> if null input
-     * @deprecated Use {@link CharSet#getInstance(String[])}.
-     *             Method will be removed in Commons Lang 3.0.
-     */
-    public static CharSet evaluateSet(String[] set) {
-        if (set == null) {
-            return null;
-        }
-        return new CharSet(set); 
-    }
-
     // Squeeze
     //-----------------------------------------------------------------------
     /**
@@ -324,63 +294,6 @@ public class CharSetUtils {
         int sz = chrs.length;
         for(int i=0; i<sz; i++) {
             if(chars.contains(chrs[i]) == expect) {
-                buffer.append(chrs[i]);
-            }
-        }
-        return buffer.toString();
-    }
-
-    // Translate
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Translate characters in a String.
-     * This is a multi character search and replace routine.</p>
-     *
-     * <p>An example is:</p>
-     * <ul>
-     *   <li>translate(&quot;hello&quot;, &quot;ho&quot;, &quot;jy&quot;)
-     *    =&gt; jelly</li>
-     * </ul>
-     *
-     * <p>If the length of characters to search for is greater than the
-     * length of characters to replace, then the last character is 
-     * used.</p>
-     * 
-     * <pre>
-     * CharSetUtils.translate(null, *, *) = null
-     * CharSetUtils.translate("", *, *)   = ""
-     * </pre>
-     *
-     * @param str  String to replace characters in, may be null
-     * @param searchChars   a set of characters to search for, must not be null
-     * @param replaceChars  a set of characters to replace, must not be null or empty (&quot;&quot;)
-     * @return translated String, <code>null</code> if null string input
-     * @throws NullPointerException if <code>searchChars</code> or <code>replaceChars</code> 
-     *  is <code>null</code>
-     * @throws ArrayIndexOutOfBoundsException if <code>replaceChars</code> is empty (&quot;&quot;)
-     * @deprecated Use {@link StringUtils#replaceChars(String, String, String)}.
-     *             Method will be removed in Commons Lang 3.0.
-     *  NOTE: StringUtils#replaceChars behaves differently when 'searchChars' is longer
-     *  than 'replaceChars'. CharSetUtils#translate will use the last char of the replacement
-     *  string whereas StringUtils#replaceChars will delete
-     */
-    public static String translate(String str, String searchChars, String replaceChars) {
-        if (StringUtils.isEmpty(str)) {
-            return str;
-        }
-        StringBuffer buffer = new StringBuffer(str.length());
-        char[] chrs = str.toCharArray();
-        char[] withChrs = replaceChars.toCharArray();
-        int sz = chrs.length;
-        int withMax = replaceChars.length() - 1;
-        for(int i=0; i<sz; i++) {
-            int idx = searchChars.indexOf(chrs[i]);
-            if(idx != -1) {
-                if(idx > withMax) {
-                    idx = withMax;
-                }
-                buffer.append(withChrs[idx]);
-            } else {
                 buffer.append(chrs[i]);
             }
         }
