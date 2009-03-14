@@ -2480,6 +2480,7 @@ public class StrBuilder {
      * @param obj  the object to check, null returns false
      * @return true if the builders contain the same characters in the same order
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof StrBuilder) {
             return equals((StrBuilder) obj);
@@ -2492,6 +2493,7 @@ public class StrBuilder {
      *
      * @return a hash code
      */
+    @Override
     public int hashCode() {
         char buf[] = buffer;
         int hash = 0;
@@ -2511,6 +2513,7 @@ public class StrBuilder {
      *
      * @return the builder as a String
      */
+    @Override
     public String toString() {
         return new String(buffer, 0, size);
     }
@@ -2572,6 +2575,7 @@ public class StrBuilder {
         }
 
         /** {@inheritDoc} */
+        @Override
         protected List tokenize(char[] chars, int offset, int count) {
             if (chars == null) {
                 return super.tokenize(StrBuilder.this.buffer, 0, StrBuilder.this.size());
@@ -2581,6 +2585,7 @@ public class StrBuilder {
         }
 
         /** {@inheritDoc} */
+        @Override
         public String getContent() {
             String str = super.getContent();
             if (str == null) {
@@ -2607,11 +2612,13 @@ public class StrBuilder {
         }
 
         /** {@inheritDoc} */
+        @Override
         public void close() {
             // do nothing
         }
 
         /** {@inheritDoc} */
+        @Override
         public int read() {
             if (ready() == false) {
                 return -1;
@@ -2620,6 +2627,7 @@ public class StrBuilder {
         }
 
         /** {@inheritDoc} */
+        @Override
         public int read(char b[], int off, int len) {
             if (off < 0 || len < 0 || off > b.length ||
                     (off + len) > b.length || (off + len) < 0) {
@@ -2640,6 +2648,7 @@ public class StrBuilder {
         }
 
         /** {@inheritDoc} */
+        @Override
         public long skip(long n) {
             if (pos + n > StrBuilder.this.size()) {
                 n = StrBuilder.this.size() - pos;
@@ -2652,21 +2661,25 @@ public class StrBuilder {
         }
 
         /** {@inheritDoc} */
+        @Override
         public boolean ready() {
             return pos < StrBuilder.this.size();
         }
 
         /** {@inheritDoc} */
+        @Override
         public boolean markSupported() {
             return true;
         }
 
         /** {@inheritDoc} */
+        @Override
         public void mark(int readAheadLimit) {
             mark = pos;
         }
 
         /** {@inheritDoc} */
+        @Override
         public void reset() {
             pos = mark;
         }
@@ -2684,36 +2697,43 @@ public class StrBuilder {
         }
 
         /** {@inheritDoc} */
+        @Override
         public void close() {
             // do nothing
         }
 
         /** {@inheritDoc} */
+        @Override
         public void flush() {
             // do nothing
         }
 
         /** {@inheritDoc} */
+        @Override
         public void write(int c) {
             StrBuilder.this.append((char) c);
         }
 
         /** {@inheritDoc} */
+        @Override
         public void write(char[] cbuf) {
             StrBuilder.this.append(cbuf);
         }
 
         /** {@inheritDoc} */
+        @Override
         public void write(char[] cbuf, int off, int len) {
             StrBuilder.this.append(cbuf, off, len);
         }
 
         /** {@inheritDoc} */
+        @Override
         public void write(String str) {
             StrBuilder.this.append(str);
         }
 
         /** {@inheritDoc} */
+        @Override
         public void write(String str, int off, int len) {
             StrBuilder.this.append(str, off, len);
         }

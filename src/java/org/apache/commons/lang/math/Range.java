@@ -378,6 +378,7 @@ public abstract class Range {
      * @param obj the reference object with which to compare
      * @return <code>true</code> if this object is equal
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -399,6 +400,7 @@ public abstract class Range {
      *
      * @return a hash code value for this object
      */
+    @Override
     public int hashCode() {
         int result = 17;
         result = 37 * result + getClass().hashCode();
@@ -418,6 +420,7 @@ public abstract class Range {
      *
      * @return the <code>String</code> representation of this range
      */
+    @Override
     public String toString() {
         StringBuffer buf = new StringBuffer(32);
         buf.append("Range[");

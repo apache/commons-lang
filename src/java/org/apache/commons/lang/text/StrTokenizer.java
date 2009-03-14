@@ -1083,6 +1083,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * 
      * @return a new instance of this Tokenizer which has been reset.
      */
+    @Override
     public Object clone() {
         try {
             return cloneReset();
@@ -1114,6 +1115,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *
      * @return the string content being parsed
      */
+    @Override
     public String toString() {
         if (tokens == null) {
             return "StrTokenizer[not tokenized yet]";

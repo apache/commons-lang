@@ -85,6 +85,7 @@ public class MutableObject implements Mutable, Serializable {
      *            the object to compare with.
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof MutableObject) {
             Object other = ((MutableObject) obj).value;
@@ -98,6 +99,7 @@ public class MutableObject implements Mutable, Serializable {
      * 
      * @return the value's hash code or <code>0</code> if the value is <code>null</code>.
      */
+    @Override
     public int hashCode() {
         return value == null ? 0 : value.hashCode();
     }
@@ -107,6 +109,7 @@ public class MutableObject implements Mutable, Serializable {
      * 
      * @return the mutable value as a string
      */
+    @Override
     public String toString() {
         return value == null ? "null" : value.toString();
     }

@@ -94,6 +94,7 @@ public class NestableError extends Error implements Nestable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Throwable getCause() {
         return cause;
     }
@@ -105,6 +106,7 @@ public class NestableError extends Error implements Nestable {
      *
      * @return String message string of the throwable
      */
+    @Override
     public String getMessage() {
         if (super.getMessage() != null) {
             return super.getMessage();
@@ -170,6 +172,7 @@ public class NestableError extends Error implements Nestable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void printStackTrace() {
         delegate.printStackTrace();
     }
@@ -177,6 +180,7 @@ public class NestableError extends Error implements Nestable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void printStackTrace(PrintStream out) {
         delegate.printStackTrace(out);
     }
@@ -184,6 +188,7 @@ public class NestableError extends Error implements Nestable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void printStackTrace(PrintWriter out) {
         delegate.printStackTrace(out);
     }

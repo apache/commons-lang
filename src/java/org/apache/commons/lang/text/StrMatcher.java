@@ -295,6 +295,7 @@ public abstract class StrMatcher {
          * @param bufferEnd  the end index of the active buffer, valid for buffer
          * @return the number of matching characters, zero for no match
          */
+        @Override
         public int isMatch(char[] buffer, int pos, int bufferStart, int bufferEnd) {
             return Arrays.binarySearch(chars, buffer[pos]) >= 0 ? 1 : 0;
         }
@@ -327,6 +328,7 @@ public abstract class StrMatcher {
          * @param bufferEnd  the end index of the active buffer, valid for buffer
          * @return the number of matching characters, zero for no match
          */
+        @Override
         public int isMatch(char[] buffer, int pos, int bufferStart, int bufferEnd) {
             return ch == buffer[pos] ? 1 : 0;
         }
@@ -359,6 +361,7 @@ public abstract class StrMatcher {
          * @param bufferEnd  the end index of the active buffer, valid for buffer
          * @return the number of matching characters, zero for no match
          */
+        @Override
         public int isMatch(char[] buffer, int pos, int bufferStart, int bufferEnd) {
             int len = chars.length;
             if (pos + len > bufferEnd) {
@@ -395,6 +398,7 @@ public abstract class StrMatcher {
          * @param bufferEnd  the end index of the active buffer, valid for buffer
          * @return the number of matching characters, zero for no match
          */
+        @Override
         public int isMatch(char[] buffer, int pos, int bufferStart, int bufferEnd) {
             return 0;
         }
@@ -422,6 +426,7 @@ public abstract class StrMatcher {
          * @param bufferEnd  the end index of the active buffer, valid for buffer
          * @return the number of matching characters, zero for no match
          */
+        @Override
         public int isMatch(char[] buffer, int pos, int bufferStart, int bufferEnd) {
             return buffer[pos] <= 32 ? 1 : 0;
         }

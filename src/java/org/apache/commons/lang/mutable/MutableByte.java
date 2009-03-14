@@ -107,6 +107,7 @@ public class MutableByte extends Number implements Comparable, Mutable {
      *
      * @return the numeric value represented by this object after conversion to type byte.
      */
+    @Override
     public byte byteValue() {
         return value;
     }
@@ -116,6 +117,7 @@ public class MutableByte extends Number implements Comparable, Mutable {
      *
      * @return the numeric value represented by this object after conversion to type int.
      */
+    @Override
     public int intValue() {
         return value;
     }
@@ -125,6 +127,7 @@ public class MutableByte extends Number implements Comparable, Mutable {
      *
      * @return the numeric value represented by this object after conversion to type long.
      */
+    @Override
     public long longValue() {
         return value;
     }
@@ -134,6 +137,7 @@ public class MutableByte extends Number implements Comparable, Mutable {
      *
      * @return the numeric value represented by this object after conversion to type float.
      */
+    @Override
     public float floatValue() {
         return value;
     }
@@ -143,6 +147,7 @@ public class MutableByte extends Number implements Comparable, Mutable {
      *
      * @return the numeric value represented by this object after conversion to type double.
      */
+    @Override
     public double doubleValue() {
         return value;
     }
@@ -239,6 +244,7 @@ public class MutableByte extends Number implements Comparable, Mutable {
      *            the object to compare with.
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof MutableByte) {
             return value == ((MutableByte) obj).byteValue();
@@ -251,6 +257,7 @@ public class MutableByte extends Number implements Comparable, Mutable {
      * 
      * @return a suitable hashcode
      */
+    @Override
     public int hashCode() {
         return value;
     }
@@ -274,6 +281,7 @@ public class MutableByte extends Number implements Comparable, Mutable {
      * 
      * @return the mutable value as a string
      */
+    @Override
     public String toString() {
         return String.valueOf(value);
     }

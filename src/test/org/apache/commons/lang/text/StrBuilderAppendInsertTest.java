@@ -41,6 +41,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
 
     /** Test subclass of Object, with a toString method. */
     private static Object FOO = new Object() {
+        @Override
         public String toString() {
             return "foo";
         }
@@ -486,10 +487,12 @@ public class StrBuilderAppendInsertTest extends TestCase {
     public void testAppendln_String() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
+            @Override
             public StrBuilder append(String str) {
                 count[0]++;
                 return super.append(str);
             }
+            @Override
             public StrBuilder appendNewLine() {
                 count[1]++;
                 return super.appendNewLine();
@@ -505,10 +508,12 @@ public class StrBuilderAppendInsertTest extends TestCase {
     public void testAppendln_String_int_int() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
+            @Override
             public StrBuilder append(String str, int startIndex, int length) {
                 count[0]++;
                 return super.append(str, startIndex, length);
             }
+            @Override
             public StrBuilder appendNewLine() {
                 count[1]++;
                 return super.appendNewLine();
@@ -524,10 +529,12 @@ public class StrBuilderAppendInsertTest extends TestCase {
     public void testAppendln_StringBuffer() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
+            @Override
             public StrBuilder append(StringBuffer str) {
                 count[0]++;
                 return super.append(str);
             }
+            @Override
             public StrBuilder appendNewLine() {
                 count[1]++;
                 return super.appendNewLine();
@@ -543,10 +550,12 @@ public class StrBuilderAppendInsertTest extends TestCase {
     public void testAppendln_StringBuffer_int_int() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
+            @Override
             public StrBuilder append(StringBuffer str, int startIndex, int length) {
                 count[0]++;
                 return super.append(str, startIndex, length);
             }
+            @Override
             public StrBuilder appendNewLine() {
                 count[1]++;
                 return super.appendNewLine();
@@ -562,10 +571,12 @@ public class StrBuilderAppendInsertTest extends TestCase {
     public void testAppendln_StrBuilder() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
+            @Override
             public StrBuilder append(StrBuilder str) {
                 count[0]++;
                 return super.append(str);
             }
+            @Override
             public StrBuilder appendNewLine() {
                 count[1]++;
                 return super.appendNewLine();
@@ -581,10 +592,12 @@ public class StrBuilderAppendInsertTest extends TestCase {
     public void testAppendln_StrBuilder_int_int() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
+            @Override
             public StrBuilder append(StrBuilder str, int startIndex, int length) {
                 count[0]++;
                 return super.append(str, startIndex, length);
             }
+            @Override
             public StrBuilder appendNewLine() {
                 count[1]++;
                 return super.appendNewLine();
@@ -600,10 +613,12 @@ public class StrBuilderAppendInsertTest extends TestCase {
     public void testAppendln_CharArray() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
+            @Override
             public StrBuilder append(char[] str) {
                 count[0]++;
                 return super.append(str);
             }
+            @Override
             public StrBuilder appendNewLine() {
                 count[1]++;
                 return super.appendNewLine();
@@ -619,10 +634,12 @@ public class StrBuilderAppendInsertTest extends TestCase {
     public void testAppendln_CharArray_int_int() {
         final int[] count = new int[2];
         StrBuilder sb = new StrBuilder() {
+            @Override
             public StrBuilder append(char[] str, int startIndex, int length) {
                 count[0]++;
                 return super.append(str, startIndex, length);
             }
+            @Override
             public StrBuilder appendNewLine() {
                 count[1]++;
                 return super.appendNewLine();

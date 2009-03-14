@@ -177,6 +177,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return the minimum number in this range
      */
+    @Override
     public Number getMinimumNumber() {
         if (minObject == null) {
             minObject = new Double(min);            
@@ -191,6 +192,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return the minimum number in this range
      */
+    @Override
     public long getMinimumLong() {
         return (long) min;
     }
@@ -202,6 +204,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return the minimum number in this range
      */
+    @Override
     public int getMinimumInteger() {
         return (int) min;
     }
@@ -211,6 +214,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return the minimum number in this range
      */
+    @Override
     public double getMinimumDouble() {
         return min;
     }
@@ -222,6 +226,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return the minimum number in this range
      */
+    @Override
     public float getMinimumFloat() {
         return (float) min;
     }
@@ -231,6 +236,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return the maximum number in this range
      */
+    @Override
     public Number getMaximumNumber() {
         if (maxObject == null) {
             maxObject = new Double(max);            
@@ -245,6 +251,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return the maximum number in this range
      */
+    @Override
     public long getMaximumLong() {
         return (long) max;
     }
@@ -256,6 +263,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return the maximum number in this range
      */
+    @Override
     public int getMaximumInteger() {
         return (int) max;
     }
@@ -265,6 +273,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return the maximum number in this range
      */
+    @Override
     public double getMaximumDouble() {
         return max;
     }
@@ -276,6 +285,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return the maximum number in this range
      */
+    @Override
     public float getMaximumFloat() {
         return (float) max;
     }
@@ -292,6 +302,7 @@ public final class DoubleRange extends Range implements Serializable {
      * @param number  the number to test, may be <code>null</code>
      * @return <code>true</code> if the specified number occurs within this range
      */
+    @Override
     public boolean containsNumber(Number number) {
         if (number == null) {
             return false;
@@ -310,6 +321,7 @@ public final class DoubleRange extends Range implements Serializable {
      * @return <code>true</code> if the specified number occurs within this
      *  range by <code>double</code> comparison
      */
+    @Override
     public boolean containsDouble(double value) {
         return value >= min && value <= max;
     }
@@ -327,6 +339,7 @@ public final class DoubleRange extends Range implements Serializable {
      * @return <code>true</code> if the specified range occurs entirely within this range
      * @throws IllegalArgumentException if the range is not of this type
      */
+    @Override
     public boolean containsRange(Range range) {
         if (range == null) {
             return false;
@@ -344,6 +357,7 @@ public final class DoubleRange extends Range implements Serializable {
      * @param range  the range to test, may be <code>null</code>
      * @return <code>true</code> if the specified range overlaps with this range
      */
+    @Override
     public boolean overlapsRange(Range range) {
         if (range == null) {
             return false;
@@ -364,6 +378,7 @@ public final class DoubleRange extends Range implements Serializable {
      * @param obj the reference object with which to compare
      * @return <code>true</code> if this object is equal
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -381,6 +396,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return a hash code value for this object
      */
+    @Override
     public int hashCode() {
         if (hashCode == 0) {
             hashCode = 17;
@@ -400,6 +416,7 @@ public final class DoubleRange extends Range implements Serializable {
      *
      * @return the <code>String</code> representation of this range
      */
+    @Override
     public String toString() {
         if (toString == null) {
             StringBuffer buf = new StringBuffer(32);

@@ -179,6 +179,7 @@ public class MutableLong extends Number implements Comparable, Mutable {
      *
      * @return the numeric value represented by this object after conversion to type int.
      */
+    @Override
     public int intValue() {
         return (int) value;
     }
@@ -188,6 +189,7 @@ public class MutableLong extends Number implements Comparable, Mutable {
      *
      * @return the numeric value represented by this object after conversion to type long.
      */
+    @Override
     public long longValue() {
         return value;
     }
@@ -197,6 +199,7 @@ public class MutableLong extends Number implements Comparable, Mutable {
      *
      * @return the numeric value represented by this object after conversion to type float.
      */
+    @Override
     public float floatValue() {
         return value;
     }
@@ -206,6 +209,7 @@ public class MutableLong extends Number implements Comparable, Mutable {
      *
      * @return the numeric value represented by this object after conversion to type double.
      */
+    @Override
     public double doubleValue() {
         return value;
     }
@@ -230,6 +234,7 @@ public class MutableLong extends Number implements Comparable, Mutable {
      *            the object to compare with.
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof MutableLong) {
             return value == ((MutableLong) obj).longValue();
@@ -242,6 +247,7 @@ public class MutableLong extends Number implements Comparable, Mutable {
      * 
      * @return a suitable hashcode
      */
+    @Override
     public int hashCode() {
         return (int) (value ^ (value >>> 32));
     }
@@ -265,6 +271,7 @@ public class MutableLong extends Number implements Comparable, Mutable {
      * 
      * @return the mutable value as a string
      */
+    @Override
     public String toString() {
         return String.valueOf(value);
     }
