@@ -42,7 +42,8 @@ public class LocaleUtils {
     /** Unmodifiable list of available locales. */
     private static final List cAvailableLocaleList;
     /** Unmodifiable set of available locales. */
-    private static Set cAvailableLocaleSet;
+    //@GuardedBy("this")
+    private static Set cAvailableLocaleSet; // lazily created by availableLocaleSet()
     /** Unmodifiable map of language locales by country. */
     private static final Map cLanguagesByCountry = Collections.synchronizedMap(new HashMap());
     /** Unmodifiable map of country locales by language. */
@@ -205,7 +206,7 @@ public class LocaleUtils {
      *
      * @return the unmodifiable set of available locales
      */
-    public static Set availableLocaleSet() {
+    public static synchronized Set availableLocaleSet() {
         Set set = cAvailableLocaleSet;
         if (set == null) {
             set = new HashSet(availableLocaleList());
