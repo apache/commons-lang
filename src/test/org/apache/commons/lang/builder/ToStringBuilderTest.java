@@ -663,6 +663,7 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", (byte) 3).append("b", (byte) 4).toString());
     }
 
+    @SuppressWarnings("cast")
     public void testDouble() {
         assertEquals(baseStr + "[3.2]", new ToStringBuilder(base).append((double) 3.2).toString());
         assertEquals(baseStr + "[a=3.2]", new ToStringBuilder(base).append("a", (double) 3.2).toString());
