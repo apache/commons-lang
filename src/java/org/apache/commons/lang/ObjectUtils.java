@@ -35,6 +35,7 @@ import java.io.Serializable;
  * @since 1.0
  * @version $Id$
  */
+//@Immutable
 public class ObjectUtils {
 
     /**
@@ -184,38 +185,6 @@ public class ObjectUtils {
         buffer.append(object.getClass().getName())
               .append('@')
               .append(Integer.toHexString(System.identityHashCode(object)));
-    }
-
-    /**
-     * <p>Appends the toString that would be produced by <code>Object</code>
-     * if a class did not override toString itself. <code>null</code>
-     * will return <code>null</code>.</p>
-     *
-     * <pre>
-     * ObjectUtils.appendIdentityToString(*, null)            = null
-     * ObjectUtils.appendIdentityToString(null, "")           = "java.lang.String@1e23"
-     * ObjectUtils.appendIdentityToString(null, Boolean.TRUE) = "java.lang.Boolean@7fa"
-     * ObjectUtils.appendIdentityToString(buf, Boolean.TRUE)  = buf.append("java.lang.Boolean@7fa")
-     * </pre>
-     *
-     * @param buffer  the buffer to append to, may be <code>null</code>
-     * @param object  the object to create a toString for, may be <code>null</code>
-     * @return the default toString text, or <code>null</code> if
-     *  <code>null</code> passed in
-     * @since 2.0
-     * @deprecated The design of this method is bad - see LANG-360. Instead, use identityToString(StringBuffer, Object).
-     */
-    public static StringBuffer appendIdentityToString(StringBuffer buffer, Object object) {
-        if (object == null) {
-            return null;
-        }
-        if (buffer == null) {
-            buffer = new StringBuffer();
-        }
-        return buffer
-            .append(object.getClass().getName())
-            .append('@')
-            .append(Integer.toHexString(System.identityHashCode(object)));
     }
 
     // ToString
