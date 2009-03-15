@@ -562,7 +562,7 @@ public abstract class ToStringStyle implements Serializable {
      * @since 2.2
      */
     protected void appendCyclicObject(StringBuffer buffer, String fieldName, Object value) {
-       ObjectUtils.appendIdentityToString(buffer, value);
+       ObjectUtils.identityToString(buffer, value);
     }
 
     /**

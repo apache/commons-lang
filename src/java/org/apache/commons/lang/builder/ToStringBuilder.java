@@ -945,7 +945,7 @@ public class ToStringBuilder {
      * @since 2.0
      */
     public ToStringBuilder appendAsObjectToString(Object object) {
-        ObjectUtils.appendIdentityToString(this.getStringBuffer(), object);
+        ObjectUtils.identityToString(this.getStringBuffer(), object);
         return this;
     }
 
