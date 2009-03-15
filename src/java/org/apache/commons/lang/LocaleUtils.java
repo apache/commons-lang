@@ -40,16 +40,16 @@ import java.util.Set;
 public class LocaleUtils {
 
     /** Unmodifiable list of available locales. */
-    private static final List cAvailableLocaleList;
+    private static final List<Locale> cAvailableLocaleList;
     /** Unmodifiable set of available locales. */
     //@GuardedBy("this")
-    private static Set cAvailableLocaleSet; // lazily created by availableLocaleSet()
+    private static Set<Locale> cAvailableLocaleSet; // lazily created by availableLocaleSet()
     /** Unmodifiable map of language locales by country. */
-    private static final Map cLanguagesByCountry = Collections.synchronizedMap(new HashMap());
+    private static final Map<String, List<Locale>> cLanguagesByCountry = Collections.synchronizedMap(new HashMap<String, List<Locale>>());
     /** Unmodifiable map of country locales by language. */
-    private static final Map cCountriesByLanguage = Collections.synchronizedMap(new HashMap());
+    private static final Map<String, List<Locale>> cCountriesByLanguage = Collections.synchronizedMap(new HashMap<String, List<Locale>>());
     static {
-        List list = Arrays.asList(Locale.getAvailableLocales());
+        List<Locale> list = Arrays.asList(Locale.getAvailableLocales());
         cAvailableLocaleList = Collections.unmodifiableList(list);
     }
 
@@ -143,7 +143,7 @@ public class LocaleUtils {
      * @param locale  the locale to start from
      * @return the unmodifiable list of Locale objects, 0 being locale, never null
      */
-    public static List localeLookupList(Locale locale) {
+    public static List<Locale> localeLookupList(Locale locale) {
         return localeLookupList(locale, locale);
     }
 
@@ -165,8 +165,8 @@ public class LocaleUtils {
      * @param defaultLocale  the default locale to use if no other is found
      * @return the unmodifiable list of Locale objects, 0 being locale, never null
      */
-    public static List localeLookupList(Locale locale, Locale defaultLocale) {
-        List list = new ArrayList(4);
+    public static List<Locale> localeLookupList(Locale locale, Locale defaultLocale) {
+        List<Locale> list = new ArrayList<Locale>(4);
         if (locale != null) {
             list.add(locale);
             if (locale.getVariant().length() > 0) {
@@ -192,7 +192,7 @@ public class LocaleUtils {
      *
      * @return the unmodifiable list of available locales
      */
-    public static List availableLocaleList() {
+    public static List<Locale> availableLocaleList() {
         return cAvailableLocaleList;
     }
 
@@ -206,10 +206,10 @@ public class LocaleUtils {
      *
      * @return the unmodifiable set of available locales
      */
-    public static synchronized Set availableLocaleSet() {
-        Set set = cAvailableLocaleSet;
+    public static synchronized Set<Locale> availableLocaleSet() {
+        Set<Locale> set = cAvailableLocaleSet;
         if (set == null) {
-            set = new HashSet(availableLocaleList());
+            set = new HashSet<Locale>(availableLocaleList());
             set = Collections.unmodifiableSet(set);
             cAvailableLocaleSet = set;
         }
@@ -237,14 +237,14 @@ public class LocaleUtils {
      * @param countryCode  the 2 letter country code, null returns empty
      * @return an unmodifiable List of Locale objects, never null
      */
-    public static List languagesByCountry(String countryCode) {
-        List langs = (List) cLanguagesByCountry.get(countryCode);  //syncd
+    public static List<Locale> languagesByCountry(String countryCode) {
+        List<Locale> langs = cLanguagesByCountry.get(countryCode);  //syncd
         if (langs == null) {
             if (countryCode != null) {
-                langs = new ArrayList();
-                List locales = availableLocaleList();
+                langs = new ArrayList<Locale>();
+                List<Locale> locales = availableLocaleList();
                 for (int i = 0; i < locales.size(); i++) {
-                    Locale locale = (Locale) locales.get(i);
+                    Locale locale = locales.get(i);
                     if (countryCode.equals(locale.getCountry()) &&
                             locale.getVariant().length() == 0) {
                         langs.add(locale);
@@ -252,7 +252,7 @@ public class LocaleUtils {
                 }
                 langs = Collections.unmodifiableList(langs);
             } else {
-                langs = Collections.EMPTY_LIST;
+                langs = Collections.emptyList();
             }
             cLanguagesByCountry.put(countryCode, langs);  //syncd
         }
@@ -269,14 +269,14 @@ public class LocaleUtils {
      * @param languageCode  the 2 letter language code, null returns empty
      * @return an unmodifiable List of Locale objects, never null
      */
-    public static List countriesByLanguage(String languageCode) {
-        List countries = (List) cCountriesByLanguage.get(languageCode);  //syncd
+    public static List<Locale> countriesByLanguage(String languageCode) {
+        List<Locale> countries = cCountriesByLanguage.get(languageCode);  //syncd
         if (countries == null) {
             if (languageCode != null) {
-                countries = new ArrayList();
-                List locales = availableLocaleList();
+                countries = new ArrayList<Locale>();
+                List<Locale> locales = availableLocaleList();
                 for (int i = 0; i < locales.size(); i++) {
-                    Locale locale = (Locale) locales.get(i);
+                    Locale locale = locales.get(i);
                     if (languageCode.equals(locale.getLanguage()) &&
                             locale.getCountry().length() != 0 &&
                             locale.getVariant().length() == 0) {
@@ -285,7 +285,7 @@ public class LocaleUtils {
                 }
                 countries = Collections.unmodifiableList(countries);
             } else {
-                countries = Collections.EMPTY_LIST;
+                countries = Collections.emptyList();
             }
             cCountriesByLanguage.put(languageCode, countries);  //syncd
         }
