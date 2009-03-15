@@ -51,8 +51,7 @@ class Entities {
     private static final String[][] APOS_ARRAY = {{"apos", "39"}, // XML apostrophe
     };
 
-    // package scoped for testing
-    static final String[][] ISO8859_1_ARRAY = {{"nbsp", "160"}, // non-breaking space
+    private static final String[][] ISO8859_1_ARRAY = {{"nbsp", "160"}, // non-breaking space
         {"iexcl", "161"}, // inverted exclamation mark
         {"cent", "162"}, // cent sign
         {"pound", "163"}, // pound sign
@@ -150,9 +149,15 @@ class Entities {
         {"yuml", "255"}, // ÿ - lowercase y, umlaut
     };
 
-    // http://www.w3.org/TR/REC-html40/sgml/entities.html
     // package scoped for testing
-    static final String[][] HTML40_ARRAY = {
+    static int ISO8859_1_ARRAY_LENGTH = ISO8859_1_ARRAY.length;
+    
+    static String getISO8859_1(int i, int j) {
+        return ISO8859_1_ARRAY[i][j];
+    }
+
+    // http://www.w3.org/TR/REC-html40/sgml/entities.html
+    private static final String[][] HTML40_ARRAY = {
     // <!-- Latin Extended-B -->
         {"fnof", "402"}, // latin small f with hook = function= florin, U+0192 ISOtech -->
         // <!-- Greek -->
@@ -348,6 +353,13 @@ class Entities {
         // <!-- rsaquo is proposed but not yet ISO standardized -->
         {"euro", "8364"}, // -- euro sign, U+20AC NEW -->
     };
+    
+    // package scoped for testing
+    static int HTML40_ARRAY_LENGTH = HTML40_ARRAY.length;
+    
+    static String getHTML40(int i, int j) {
+        return HTML40_ARRAY[i][j];
+    }
 
     /**
      * <p>
@@ -438,9 +450,9 @@ class Entities {
     }
 
     static class PrimitiveEntityMap implements EntityMap {
-        private Map mapNameToValue = new HashMap();
+        private final Map mapNameToValue = new HashMap();
 
-        private IntHashMap mapValueToName = new IntHashMap();
+        private final IntHashMap mapValueToName = new IntHashMap();
 
         /**
          * {@inheritDoc}
