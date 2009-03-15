@@ -21,8 +21,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.lang.exception.Nestable;
-
 /**
  * JUnit tests.
  * 
@@ -59,14 +57,14 @@ public class UnhandledExceptionTest extends TestCase {
 
     public void testGetCause() {
         final Throwable t = new NullPointerException();
-        final Nestable n = new UnhandledException(t);
+        final Throwable n = new UnhandledException(t);
         assertEquals(t, n.getCause());
     }
 
     public void testGetCauseAndGetMessage() {
         final Throwable t = new NullPointerException();
         final String msg = "nullArg";
-        final Nestable n = new UnhandledException(msg, t);
+        final Throwable n = new UnhandledException(msg, t);
         assertEquals(t, n.getCause());
         assertEquals(msg, n.getMessage());
     }

@@ -27,8 +27,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.lang.exception.NestableException;
-
 /**
  * JUnit tests.
  * 
@@ -112,59 +110,8 @@ public class NotImplementedExceptionTest extends TestCase {
         assertEquals("Code is not implemented in class java.lang.String", ex.getMessage());
     }
 
-    public void testGetMessage_Indexed() throws Exception {
-        if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
-            Exception ex1 = new Exception("nested 2");
-            Constructor con = Exception.class.getConstructor(new Class[] {String.class, Throwable.class});
-            Exception ex2 = (Exception) con.newInstance(new Object[] {"nested 1", ex1});
-            NotImplementedException ex = new NotImplementedException(ex2);
-            assertEquals("Code is not implemented", ex.getMessage());
-            assertEquals("Code is not implemented", ex.getMessage(0));
-            assertEquals("nested 1", ex.getMessage(1));
-            assertEquals("nested 2", ex.getMessage(2));
-            
-            String[] messages = ex.getMessages();
-            assertEquals(3, messages.length);
-            assertEquals("Code is not implemented", messages[0]);
-            assertEquals("nested 1", messages[1]);
-            assertEquals("nested 2", messages[2]);
-        }
-    }
-    
-    public void testGetThrowable() {
-        NotImplementedException ex = new NotImplementedException(new NestableException("nested 1", new NestableException("nested 2")));
-        
-        assertEquals(3, ex.getThrowableCount());
-        
-        assertEquals(NotImplementedException.class, ex.getThrowable(0).getClass());
-        assertEquals("Code is not implemented", ex.getThrowable(0).getMessage());
-        assertEquals(NestableException.class, ex.getThrowable(1).getClass());
-        assertEquals("nested 1", ex.getThrowable(1).getMessage());
-        assertEquals(NestableException.class, ex.getThrowable(2).getClass());
-        assertEquals("nested 2", ex.getThrowable(2).getMessage());
-        
-        assertEquals(3, ex.getThrowables().length);
-        assertEquals(NotImplementedException.class, ex.getThrowables()[0].getClass());
-        assertEquals("Code is not implemented", ex.getThrowables()[0].getMessage());
-        assertEquals(NestableException.class, ex.getThrowables()[1].getClass());
-        assertEquals("nested 1", ex.getThrowables()[1].getMessage());
-        assertEquals(NestableException.class, ex.getThrowables()[2].getClass());
-        assertEquals("nested 2", ex.getThrowables()[2].getMessage());
-    }
-    
-    public void testIndexOfThrowable() {
-        NotImplementedException ex = new NotImplementedException(new NestableException("nested 1", new NestableException("nested 2")));
-        assertEquals(0, ex.indexOfThrowable(NotImplementedException.class));
-        assertEquals(1, ex.indexOfThrowable(NestableException.class));
-    }
-    
-    public void testIndexOfThrowable_Index() {
-        NotImplementedException ex = new NotImplementedException(new NestableException("nested 1", new NestableException("nested 2")));
-        assertEquals(1, ex.indexOfThrowable(NestableException.class, 1));
-    }
-    
     public void testPrintStackTrace() {
-        NotImplementedException ex = new NotImplementedException(new NestableException("nested 1", new NestableException("nested 2")));
+        NotImplementedException ex = new NotImplementedException(new Exception("nested 1", new RuntimeException("nested 2")));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(baos);
         PrintStream errStream = System.err;
@@ -175,7 +122,7 @@ public class NotImplementedExceptionTest extends TestCase {
     }
     
     public void testPrintStackTrace_Stream() {
-        NotImplementedException ex = new NotImplementedException(new NestableException("nested 1", new NestableException("nested 2")));
+        NotImplementedException ex = new NotImplementedException(new Exception("nested 1", new RuntimeException("nested 2")));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(baos);
         ex.printStackTrace(ps);
@@ -183,18 +130,11 @@ public class NotImplementedExceptionTest extends TestCase {
     }
     
     public void testPrintStackTrace_Writer() {
-        NotImplementedException ex = new NotImplementedException(new NestableException("nested 1", new NestableException("nested 2")));
+        NotImplementedException ex = new NotImplementedException(new Exception("nested 1", new RuntimeException("nested 2")));
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         ex.printStackTrace(writer);
         assertTrue(stringWriter.toString().length() > 0);
     }
     
-    public void testPrintPartialStackTrace_Writer() {
-      NotImplementedException ex = new NotImplementedException(new NestableException("nested 1", new NestableException("nested 2")));
-      StringWriter stringWriter = new StringWriter();
-      PrintWriter writer = new PrintWriter(stringWriter);
-      ex.printPartialStackTrace(writer);
-      assertTrue(stringWriter.toString().length() > 0);
-  }
 }

@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang;
 
-import org.apache.commons.lang.exception.NestableRuntimeException;
-
 /**
  * <p>Thrown when it is impossible or undesirable to consume or throw a checked exception.</p>
  * This exception supplements the standard exception classes by providing a more
@@ -42,7 +40,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @since 2.0
  * @version $Id$
  */
-public class UnhandledException extends NestableRuntimeException {
+public class UnhandledException extends RuntimeException {
 
     /**
      * Required for serialization support.

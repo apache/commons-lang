@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang;
 
-import org.apache.commons.lang.exception.NestableRuntimeException;
-
 /**
  * <p>Exception thrown when the Serialization process fails.</p>
  *
@@ -27,7 +25,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * @since 1.0
  * @version $Id$
  */
-public class SerializationException extends NestableRuntimeException {
+public class SerializationException extends RuntimeException {
 
     /**
      * Required for serialization support.
