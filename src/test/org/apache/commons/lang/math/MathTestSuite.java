@@ -55,7 +55,6 @@ public class MathTestSuite extends TestCase {
         suite.addTest(LongRangeTest.suite());
         suite.addTest(NumberRangeTest.suite());
         suite.addTest(NumberUtilsTest.suite());
-        suite.addTest(RandomUtilsTest.suite());
         suite.addTest(RangeTest.suite());
         return suite;
     }
