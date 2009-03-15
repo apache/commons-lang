@@ -89,7 +89,7 @@ public class LocaleUtilsTest extends TestCase {
      */
     public void testConstructor() {
         assertNotNull(new LocaleUtils());
-        Constructor[] cons = LocaleUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = LocaleUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(LocaleUtils.class.getModifiers()));
@@ -260,7 +260,7 @@ public class LocaleUtilsTest extends TestCase {
      * @param expected  expected results
      */
     private void assertLocaleLookupList(Locale locale, Locale defaultLocale, Locale[] expected) {
-        List localeList = defaultLocale == null ?
+        List<Locale> localeList = defaultLocale == null ?
                 LocaleUtils.localeLookupList(locale) :
                 LocaleUtils.localeLookupList(locale, defaultLocale);
         
@@ -347,14 +347,14 @@ public class LocaleUtilsTest extends TestCase {
      * Test availableLocaleList() method.
      */
     public void testAvailableLocaleList() {
-        List list = LocaleUtils.availableLocaleList();
-        List list2 = LocaleUtils.availableLocaleList();
+        List<Locale> list = LocaleUtils.availableLocaleList();
+        List<Locale> list2 = LocaleUtils.availableLocaleList();
         assertNotNull(list);
         assertSame(list, list2);
         assertUnmodifiableCollection(list);
         
         Locale[] jdkLocaleArray = Locale.getAvailableLocales();
-        List jdkLocaleList = Arrays.asList(jdkLocaleArray);
+        List<Locale> jdkLocaleList = Arrays.asList(jdkLocaleArray);
         assertEquals(jdkLocaleList, list);
     }
 
@@ -363,15 +363,15 @@ public class LocaleUtilsTest extends TestCase {
      * Test availableLocaleSet() method.
      */
     public void testAvailableLocaleSet() {
-        Set set = LocaleUtils.availableLocaleSet();
-        Set set2 = LocaleUtils.availableLocaleSet();
+        Set<Locale> set = LocaleUtils.availableLocaleSet();
+        Set<Locale> set2 = LocaleUtils.availableLocaleSet();
         assertNotNull(set);
         assertSame(set, set2);
         assertUnmodifiableCollection(set);
         
         Locale[] jdkLocaleArray = Locale.getAvailableLocales();
-        List jdkLocaleList = Arrays.asList(jdkLocaleArray);
-        Set jdkLocaleSet = new HashSet(jdkLocaleList);
+        List<Locale> jdkLocaleList = Arrays.asList(jdkLocaleArray);
+        Set<Locale> jdkLocaleSet = new HashSet<Locale>(jdkLocaleList);
         assertEquals(jdkLocaleSet, set);
     }
 
@@ -380,7 +380,7 @@ public class LocaleUtilsTest extends TestCase {
      * Test availableLocaleSet() method.
      */
     public void testIsAvailableLocale() {
-        Set set = LocaleUtils.availableLocaleSet();
+        Set<Locale> set = LocaleUtils.availableLocaleSet();
         assertEquals(set.contains(LOCALE_EN), LocaleUtils.isAvailableLocale(LOCALE_EN));
         assertEquals(set.contains(LOCALE_EN_US), LocaleUtils.isAvailableLocale(LOCALE_EN_US));
         assertEquals(set.contains(LOCALE_EN_US_ZZZZ), LocaleUtils.isAvailableLocale(LOCALE_EN_US_ZZZZ));
@@ -401,17 +401,17 @@ public class LocaleUtilsTest extends TestCase {
      * @param languages array of languages that should be returned
      */
     private void assertLanguageByCountry(String country, String[] languages) {
-        List list = LocaleUtils.languagesByCountry(country);
-        List list2 = LocaleUtils.languagesByCountry(country);
+        List<Locale> list = LocaleUtils.languagesByCountry(country);
+        List<Locale> list2 = LocaleUtils.languagesByCountry(country);
         assertNotNull(list);
         assertSame(list, list2);
         //search through langauges
         for (int i = 0; i < languages.length; i++) {
-            Iterator iterator = list.iterator();
+            Iterator<Locale> iterator = list.iterator();
             boolean found = false;
             // see if it was returned by the set
             while (iterator.hasNext()) {
-                Locale locale = (Locale) iterator.next();
+                Locale locale = iterator.next();
                 // should have an en empty variant
                 assertTrue(locale.getVariant() == null
                         || locale.getVariant().length() == 0);
@@ -451,17 +451,17 @@ public class LocaleUtilsTest extends TestCase {
      * @param countries array of countries that should be returned
      */
     private void assertCountriesByLanguage(String language, String[] countries) {
-        List list = LocaleUtils.countriesByLanguage(language);
-        List list2 = LocaleUtils.countriesByLanguage(language);
+        List<Locale> list = LocaleUtils.countriesByLanguage(language);
+        List<Locale> list2 = LocaleUtils.countriesByLanguage(language);
         assertNotNull(list);
         assertSame(list, list2);
         //search through langauges
         for (int i = 0; i < countries.length; i++) {
-            Iterator iterator = list.iterator();
+            Iterator<Locale> iterator = list.iterator();
             boolean found = false;
             // see if it was returned by the set
             while (iterator.hasNext()) {
-                Locale locale = (Locale) iterator.next();
+                Locale locale = iterator.next();
                 // should have an en empty variant
                 assertTrue(locale.getVariant() == null
                         || locale.getVariant().length() == 0);
@@ -492,9 +492,9 @@ public class LocaleUtilsTest extends TestCase {
     /**
      * @param coll  the collection to check
      */
-    private static void assertUnmodifiableCollection(Collection coll) {
+    private static void assertUnmodifiableCollection(Collection<?> coll) {
         try {
-            coll.add("Unmodifiable");
+            coll.add(null);
             fail();
         } catch (UnsupportedOperationException ex) {}
     }
