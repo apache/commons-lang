@@ -79,7 +79,7 @@ public class CharSet implements Serializable {
      * Subclasses can add more common patterns if desired.
      * @since 2.0
      */
-    protected static final Map COMMON = new HashMap();
+    protected static final Map<String, CharSet> COMMON = new HashMap<String, CharSet>();
     
     static {
         COMMON.put(null, EMPTY);
@@ -92,7 +92,7 @@ public class CharSet implements Serializable {
     }
 
     /** The set of CharRange objects. */
-    private Set set = new HashSet();
+    private final Set<CharRange> set = new HashSet<CharRange>();
 
     //-----------------------------------------------------------------------
     /**
@@ -231,7 +231,7 @@ public class CharSet implements Serializable {
      * @since 2.0
      */
     public CharRange[] getCharRanges() {
-        return (CharRange[]) set.toArray(new CharRange[set.size()]);
+        return set.toArray(new CharRange[set.size()]);
     }
 
     //-----------------------------------------------------------------------
@@ -243,8 +243,8 @@ public class CharSet implements Serializable {
      * @return <code>true</code> if the set contains the characters
      */
     public boolean contains(char ch) {
-        for (Iterator it = set.iterator(); it.hasNext();) {
-            CharRange range = (CharRange) it.next();
+        for (Iterator<CharRange> it = set.iterator(); it.hasNext();) {
+            CharRange range = it.next();
             if (range.contains(ch)) {
                 return true;
             }
