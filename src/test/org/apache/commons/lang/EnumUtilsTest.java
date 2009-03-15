@@ -30,6 +30,11 @@ public class EnumUtilsTest extends TestCase {
         return suite;
     }
 
+    public void testConstructable() {
+        // enforce public constructor
+        new EnumUtils();
+    }
+
     public void testGetEnumMap() {
         try {
             EnumUtils.getEnumMap(null);
