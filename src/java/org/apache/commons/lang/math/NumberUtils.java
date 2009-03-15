@@ -76,7 +76,7 @@ public class NumberUtils {
 
     /**
      * <p><code>NumberUtils</code> instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>NumberUtils.stringToInt("6");</code>.</p>
+     * Instead, the class should be used as <code>NumberUtils.toInt("6");</code>.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
