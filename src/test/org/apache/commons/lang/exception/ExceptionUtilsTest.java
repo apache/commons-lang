@@ -173,11 +173,6 @@ public class ExceptionUtilsTest extends TestCase {
         assertSame(null, ExceptionUtils.getCause(null, null));
         assertSame(null, ExceptionUtils.getCause(null, new String[0]));
 
-        // match because known type        
-        assertSame(withoutCause, ExceptionUtils.getCause(nested, null));
-        assertSame(withoutCause, ExceptionUtils.getCause(nested, new String[0]));
-        assertSame(withoutCause, ExceptionUtils.getCause(nested, new String[] {"getCause"}));
-        
         // not known type, so match on supplied method names
         assertSame(nested, ExceptionUtils.getCause(withCause, null));  // default names
         assertSame(null, ExceptionUtils.getCause(withCause, new String[0]));
@@ -599,6 +594,17 @@ public class ExceptionUtilsTest extends TestCase {
     private static class ExceptionWithoutCause extends Exception {
         public void getTargetException() {
         }
+    }
+
+    // Temporary classes to allow the nested exception code to be removed 
+    // prior to a rewrite of this test class. 
+    private static class NestableRuntimeException extends RuntimeException { 
+        public NestableRuntimeException() { super(); }
+        public NestableRuntimeException(Throwable t) { super(t); }
+    }
+    private static class NestableException extends Exception { 
+        public NestableException() { super(); }
+        public NestableException(Throwable t) { super(t); }
     }
 
 }

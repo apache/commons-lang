@@ -21,8 +21,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Locale;
 
-import org.apache.commons.lang.exception.NestableRuntimeException;
-
 /**
  * <p>Escapes and unescapes <code>String</code>s for
  * Java, Java Script, HTML, XML, and SQL.</p>
@@ -331,7 +329,7 @@ public class StringEscapeUtils {
                         inUnicode = false;
                         hadSlash = false;
                     } catch (NumberFormatException nfe) {
-                        throw new NestableRuntimeException("Unable to parse unicode value: " + unicode, nfe);
+                        throw new UnhandledException("Unable to parse unicode value: " + unicode, nfe);
                     }
                 }
                 continue;

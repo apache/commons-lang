@@ -248,8 +248,7 @@ public class ExceptionUtils {
      *
      * <p>The method searches for methods with specific names that return a 
      * <code>Throwable</code> object. This will pick up most wrapping exceptions,
-     * including those from JDK 1.4, and
-     * {@link org.apache.commons.lang.exception.NestableException NestableException}.
+     * including those from JDK 1.4.
      * The method names can be added to using {@link #addCauseMethodName(String)}.</p>
      *
      * <p>The default list searched for are:</p>
@@ -359,9 +358,7 @@ public class ExceptionUtils {
      * @return the wrapped exception, or <code>null</code> if not found
      */
     private static Throwable getCauseUsingWellKnownTypes(Throwable throwable) {
-        if (throwable instanceof Nestable) {
-            return ((Nestable) throwable).getCause();
-        } else if (throwable instanceof SQLException) {
+        if (throwable instanceof SQLException) {
             return ((SQLException) throwable).getNextException();
         } else if (throwable instanceof InvocationTargetException) {
             return ((InvocationTargetException) throwable).getTargetException();
@@ -457,9 +454,7 @@ public class ExceptionUtils {
             return false;
         }
 
-        if (throwable instanceof Nestable) {
-            return true;
-        } else if (throwable instanceof SQLException) {
+        if (throwable instanceof SQLException) {
             return true;
         } else if (throwable instanceof InvocationTargetException) {
             return true;
@@ -919,10 +914,6 @@ public class ExceptionUtils {
      * <p>Returns an array where each element is a line from the argument.</p>
      *
      * <p>The end of line is determined by the value of {@link SystemUtils#LINE_SEPARATOR}.</p>
-     *
-     * <p>Functionality shared between the
-     * <code>getStackFrames(Throwable)</code> methods of this and the
-     * {@link org.apache.commons.lang.exception.NestableDelegate} classes.</p>
      *
      * @param stackTrace  a stack trace String
      * @return an array where each element is a line from the argument
