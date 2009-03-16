@@ -256,12 +256,12 @@ public class ClassUtils {
      * @return the <code>List</code> of superclasses in order going up from this one
      *  <code>null</code> if null input
      */
-    public static List getAllSuperclasses(Class cls) {
+    public static List<Class<?>> getAllSuperclasses(Class<?> cls) {
         if (cls == null) {
             return null;
         }
-        List classes = new ArrayList();
-        Class superclass = cls.getSuperclass();
+        List<Class<?>> classes = new ArrayList<Class<?>>();
+        Class<?> superclass = cls.getSuperclass();
         while (superclass != null) {
             classes.add(superclass);
             superclass = superclass.getSuperclass();

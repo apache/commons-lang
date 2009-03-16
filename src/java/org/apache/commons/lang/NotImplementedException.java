@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
 
 /**
  * <p>Thrown to indicate that a block of code has not been implemented.
@@ -44,6 +42,7 @@ import java.io.PrintWriter;
  * @since 2.0
  * @version $Id$
  */
+//@Immutable
 public class NotImplementedException extends UnsupportedOperationException {
 
     private static final String DEFAULT_MESSAGE = "Code is not implemented";
@@ -104,7 +103,7 @@ public class NotImplementedException extends UnsupportedOperationException {
      * @param clazz
      *            the <code>Class</code> that has not implemented the method
      */
-    public NotImplementedException(Class clazz) {
+    public NotImplementedException(Class<?> clazz) {
         super(clazz == null ? DEFAULT_MESSAGE : DEFAULT_MESSAGE + " in " + clazz);
     }
 
