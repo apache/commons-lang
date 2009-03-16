@@ -56,11 +56,11 @@ public class NumberUtils {
     /** Reusable Short constant for minus one. */
     public static final Short SHORT_MINUS_ONE = new Short((short) -1);
     /** Reusable Byte constant for zero. */
-    public static final Byte BYTE_ZERO = new Byte((byte) 0);
+    public static final Byte BYTE_ZERO = Byte.valueOf((byte) 0);
     /** Reusable Byte constant for one. */
-    public static final Byte BYTE_ONE = new Byte((byte) 1);
+    public static final Byte BYTE_ONE = Byte.valueOf((byte) 1);
     /** Reusable Byte constant for minus one. */
-    public static final Byte BYTE_MINUS_ONE = new Byte((byte) -1);
+    public static final Byte BYTE_MINUS_ONE = Byte.valueOf((byte) -1);
     /** Reusable Double constant for zero. */
     public static final Double DOUBLE_ZERO = new Double(0.0d);
     /** Reusable Double constant for one. */
