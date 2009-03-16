@@ -47,7 +47,7 @@ public class MutableByteTest extends TestCase {
         
         assertEquals((byte) 1, new MutableByte((byte) 1).byteValue());
         
-        assertEquals((byte) 2, new MutableByte(new Byte((byte) 2)).byteValue());
+        assertEquals((byte) 2, new MutableByte(Byte.valueOf((byte) 2)).byteValue());
         assertEquals((byte) 3, new MutableByte(new MutableByte((byte) 3)).byteValue());
         try {
             new MutableByte(null);
@@ -58,19 +58,19 @@ public class MutableByteTest extends TestCase {
     public void testGetSet() {
         final MutableByte mutNum = new MutableByte((byte) 0);
         assertEquals((byte) 0, new MutableByte().byteValue());
-        assertEquals(new Byte((byte) 0), new MutableByte().getValue());
+        assertEquals(Byte.valueOf((byte) 0), new MutableByte().getValue());
         
         mutNum.setValue((byte) 1);
         assertEquals((byte) 1, mutNum.byteValue());
-        assertEquals(new Byte((byte) 1), mutNum.getValue());
+        assertEquals(Byte.valueOf((byte) 1), mutNum.getValue());
         
-        mutNum.setValue(new Byte((byte) 2));
+        mutNum.setValue(Byte.valueOf((byte) 2));
         assertEquals((byte) 2, mutNum.byteValue());
-        assertEquals(new Byte((byte) 2), mutNum.getValue());
+        assertEquals(Byte.valueOf((byte) 2), mutNum.getValue());
         
         mutNum.setValue(new MutableByte((byte) 3));
         assertEquals((byte) 3, mutNum.byteValue());
-        assertEquals(new Byte((byte) 3), mutNum.getValue());
+        assertEquals(Byte.valueOf((byte) 3), mutNum.getValue());
         try {
             mutNum.setValue(null);
             fail();
@@ -94,7 +94,7 @@ public class MutableByteTest extends TestCase {
         assertEquals(false, mutNumB.equals(mutNumC));
         assertEquals(true, mutNumC.equals(mutNumC));
         assertEquals(false, mutNumA.equals(null));
-        assertEquals(false, mutNumA.equals(new Byte((byte) 0)));
+        assertEquals(false, mutNumA.equals(Byte.valueOf((byte) 0)));
         assertEquals(false, mutNumA.equals("0"));
     }
 
@@ -106,7 +106,7 @@ public class MutableByteTest extends TestCase {
         assertEquals(true, mutNumA.hashCode() == mutNumA.hashCode());
         assertEquals(true, mutNumA.hashCode() == mutNumB.hashCode());
         assertEquals(false, mutNumA.hashCode() == mutNumC.hashCode());
-        assertEquals(true, mutNumA.hashCode() == new Byte((byte) 0).hashCode());
+        assertEquals(true, mutNumA.hashCode() == Byte.valueOf((byte) 0).hashCode());
     }
 
     public void testCompareTo() {
@@ -120,7 +120,7 @@ public class MutableByteTest extends TestCase {
             fail();
         } catch (NullPointerException ex) {}
         try {
-            mutNum.compareTo(new Byte((byte) 0));
+            mutNum.compareTo(Byte.valueOf((byte) 0));
             fail();
         } catch (ClassCastException ex) {}
         try {
@@ -141,8 +141,8 @@ public class MutableByteTest extends TestCase {
     }
 
     public void testToByte() {
-        assertEquals(new Byte((byte) 0), new MutableByte((byte) 0).toByte());
-        assertEquals(new Byte((byte) 123), new MutableByte((byte) 123).toByte());
+        assertEquals(Byte.valueOf((byte) 0), new MutableByte((byte) 0).toByte());
+        assertEquals(Byte.valueOf((byte) 123), new MutableByte((byte) 123).toByte());
     }
 
     public void testIncrement() {

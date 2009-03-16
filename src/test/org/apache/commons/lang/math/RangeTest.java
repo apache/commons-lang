@@ -52,12 +52,12 @@ public class RangeTest extends TestCase {
 
         @Override
         public Number getMaximumNumber() {
-            return new Byte(max);
+            return Byte.valueOf(max);
         }
 
         @Override
         public Number getMinimumNumber() {
-            return new Byte(min);
+            return Byte.valueOf(min);
         }
     }
 
