@@ -2603,7 +2603,7 @@ public class ArrayUtils {
         }
         final Byte[] result = new Byte[array.length];
         for (int i = 0; i < array.length; i++) {
-            result[i] = new Byte(array[i]);
+            result[i] = Byte.valueOf(array[i]);
         }
         return result;
     }  
@@ -3601,7 +3601,7 @@ public class ArrayUtils {
      * (index < 0 || index > array.length).
      */
     public static byte[] add(byte[] array, int index, byte element) {
-        return (byte[]) add(array, index, new Byte(element), Byte.TYPE);
+        return (byte[]) add(array, index, Byte.valueOf(element), Byte.TYPE);
     }
     
     /**

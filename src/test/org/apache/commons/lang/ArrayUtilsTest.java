@@ -2108,12 +2108,12 @@ public class ArrayUtilsTest extends TestCase {
         
         assertTrue(Arrays.equals(
             new byte[] {Byte.MIN_VALUE, Byte.MAX_VALUE, (byte)9999999},
-            ArrayUtils.toPrimitive(new Byte[] {new Byte(Byte.MIN_VALUE), 
-                new Byte(Byte.MAX_VALUE), new Byte((byte)9999999)}))
+            ArrayUtils.toPrimitive(new Byte[] {Byte.valueOf(Byte.MIN_VALUE), 
+                Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte)9999999)}))
         );
 
         try {
-            ArrayUtils.toPrimitive(new Byte[] {new Byte(Byte.MIN_VALUE), null});
+            ArrayUtils.toPrimitive(new Byte[] {Byte.valueOf(Byte.MIN_VALUE), null});
             fail();
         } catch (NullPointerException ex) {}
     }
@@ -2127,15 +2127,15 @@ public class ArrayUtilsTest extends TestCase {
         
         assertTrue(Arrays.equals(
             new byte[] {Byte.MIN_VALUE, Byte.MAX_VALUE, (byte)9999999},
-            ArrayUtils.toPrimitive(new Byte[] {new Byte(Byte.MIN_VALUE), 
-                new Byte(Byte.MAX_VALUE), new Byte((byte)9999999)}, 
+            ArrayUtils.toPrimitive(new Byte[] {Byte.valueOf(Byte.MIN_VALUE), 
+                Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte)9999999)}, 
                 Byte.MIN_VALUE))
         );
         
         assertTrue(Arrays.equals(
             new byte[] {Byte.MIN_VALUE, Byte.MAX_VALUE, (byte)9999999},
-            ArrayUtils.toPrimitive(new Byte[] {new Byte(Byte.MIN_VALUE), null, 
-                new Byte((byte)9999999)}, Byte.MAX_VALUE))
+            ArrayUtils.toPrimitive(new Byte[] {Byte.valueOf(Byte.MIN_VALUE), null, 
+                Byte.valueOf((byte)9999999)}, Byte.MAX_VALUE))
         );
     }
 
@@ -2147,8 +2147,8 @@ public class ArrayUtilsTest extends TestCase {
             ArrayUtils.toObject(new byte[0]));
         
         assertTrue(Arrays.equals(
-            new Byte[] {new Byte(Byte.MIN_VALUE), 
-                new Byte(Byte.MAX_VALUE), new Byte((byte)9999999)},
+            new Byte[] {Byte.valueOf(Byte.MIN_VALUE), 
+                Byte.valueOf(Byte.MAX_VALUE), Byte.valueOf((byte)9999999)},
                 ArrayUtils.toObject(new byte[] {Byte.MIN_VALUE, Byte.MAX_VALUE, 
                 (byte)9999999}))
         );

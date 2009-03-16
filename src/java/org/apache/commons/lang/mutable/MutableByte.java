@@ -73,7 +73,7 @@ public class MutableByte extends Number implements Comparable, Mutable {
      * @return the value as a Byte
      */
     public Object getValue() {
-        return new Byte(this.value);
+        return Byte.valueOf(this.value);
     }
 
     /**
@@ -159,7 +159,7 @@ public class MutableByte extends Number implements Comparable, Mutable {
      * @return a Byte instance containing the value from this mutable
      */
     public Byte toByte() {
-        return new Byte(byteValue());
+        return Byte.valueOf(byteValue());
     }
 
     //-----------------------------------------------------------------------
