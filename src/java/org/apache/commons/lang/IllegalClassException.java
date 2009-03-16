@@ -58,7 +58,7 @@ public class IllegalClassException extends IllegalArgumentException {
      * @param actual  the actual object
      * @since 2.1
      */
-    public IllegalClassException(Class expected, Object actual) {
+    public IllegalClassException(Class<?> expected, Object actual) {
         super(
             "Expected: "
                 + safeGetClassName(expected)
@@ -72,7 +72,7 @@ public class IllegalClassException extends IllegalArgumentException {
      * @param expected  the expected type
      * @param actual  the actual type
      */
-    public IllegalClassException(Class expected, Class actual) {
+    public IllegalClassException(Class<?> expected, Class<?> actual) {
         super(
             "Expected: "
                 + safeGetClassName(expected)
@@ -96,7 +96,7 @@ public class IllegalClassException extends IllegalArgumentException {
      * @param cls  a <code>Class</code>
      * @return the name of <code>cls</code>, or <code>null</code> if if <code>cls</code> is <code>null</code>.
      */
-    private static final String safeGetClassName(Class cls) {
+    private static final String safeGetClassName(Class<?> cls) {
         return cls == null ? null : cls.getName();
     }
 

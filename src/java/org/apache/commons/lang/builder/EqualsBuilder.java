@@ -144,7 +144,7 @@ public class EqualsBuilder {
      * @param excludeFields  Collection of String field names to exclude from testing
      * @return <code>true</code> if the two Objects have tested equals.
      */
-    public static boolean reflectionEquals(Object lhs, Object rhs, Collection /*String*/ excludeFields) {
+    public static boolean reflectionEquals(Object lhs, Object rhs, Collection<String> excludeFields) {
         return reflectionEquals(lhs, rhs, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
     }
 
@@ -220,7 +220,7 @@ public class EqualsBuilder {
      * @return <code>true</code> if the two Objects have tested equals.
      * @since 2.0
      */
-    public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients, Class reflectUpToClass) {
+    public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients, Class<?> reflectUpToClass) {
         return reflectionEquals(lhs, rhs, testTransients, reflectUpToClass, null);
     }
 
@@ -250,7 +250,7 @@ public class EqualsBuilder {
      * @return <code>true</code> if the two Objects have tested equals.
      * @since 2.0
      */
-    public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients, Class reflectUpToClass,
+    public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients, Class<?> reflectUpToClass,
             String[] excludeFields) {
         if (lhs == rhs) {
             return true;
@@ -262,9 +262,9 @@ public class EqualsBuilder {
         // class or in classes between the leaf and root.
         // If we are not testing transients or a subclass has no ivars, 
         // then a subclass can test equals to a superclass.
-        Class lhsClass = lhs.getClass();
-        Class rhsClass = rhs.getClass();
-        Class testClass;
+        Class<?> lhsClass = lhs.getClass();
+        Class<?> rhsClass = rhs.getClass();
+        Class<?> testClass;
         if (lhsClass.isInstance(rhs)) {
             testClass = lhsClass;
             if (!rhsClass.isInstance(lhs)) {
@@ -313,7 +313,7 @@ public class EqualsBuilder {
     private static void reflectionAppend(
         Object lhs,
         Object rhs,
-        Class clazz,
+        Class<?> clazz,
         EqualsBuilder builder,
         boolean useTransients,
         String[] excludeFields) {
@@ -375,7 +375,7 @@ public class EqualsBuilder {
             this.setEquals(false);
             return this;
         }
-        Class lhsClass = lhs.getClass();
+        Class<?> lhsClass = lhs.getClass();
         if (!lhsClass.isArray()) {
             if (lhs instanceof java.math.BigDecimal && rhs instanceof java.math.BigDecimal) {
                 isEquals = (((java.math.BigDecimal)lhs).compareTo((java.math.BigDecimal)rhs) == 0);
