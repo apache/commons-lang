@@ -102,12 +102,12 @@ public class HashCodeBuilder {
      * 
      * @since 2.3
      */
-    private static final ThreadLocal registry = new ThreadLocal() {
+    private static final ThreadLocal<Set<IDKey>> registry = new ThreadLocal<Set<IDKey>>() {
         @Override
-        protected Object initialValue() {
+        protected Set<IDKey> initialValue() {
             // The HashSet implementation is not synchronized,
             // which is just what we need here.
-            return new HashSet();
+            return new HashSet<IDKey>();
         }
     };
 
@@ -136,8 +136,8 @@ public class HashCodeBuilder {
      * @return Set the registry of objects being traversed
      * @since 2.3
      */
-    static Set getRegistry() {
-        return (Set) registry.get();
+    static Set<IDKey> getRegistry() {
+        return registry.get();
     }
 
     /**
@@ -171,7 +171,7 @@ public class HashCodeBuilder {
      * @param excludeFields
      *            Collection of String field names to exclude from use in calculation of hash code
      */
-    private static void reflectionAppend(Object object, Class clazz, HashCodeBuilder builder, boolean useTransients,
+    private static void reflectionAppend(Object object, Class<?> clazz, HashCodeBuilder builder, boolean useTransients,
             String[] excludeFields) {
         if (isRegistered(object)) {
             return;
@@ -305,7 +305,7 @@ public class HashCodeBuilder {
      * @return int hash code
      */
     public static int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object object,
-            boolean testTransients, Class reflectUpToClass) {
+            boolean testTransients, Class<?> reflectUpToClass) {
         return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, testTransients,
                 reflectUpToClass, null);
     }
@@ -356,13 +356,13 @@ public class HashCodeBuilder {
      * @since 2.0
      */
     public static int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object object,
-            boolean testTransients, Class reflectUpToClass, String[] excludeFields) {
+            boolean testTransients, Class<?> reflectUpToClass, String[] excludeFields) {
 
         if (object == null) {
             throw new IllegalArgumentException("The object to build a hash code for must not be null");
         }
         HashCodeBuilder builder = new HashCodeBuilder(initialNonZeroOddNumber, multiplierNonZeroOddNumber);
-        Class clazz = object.getClass();
+        Class<?> clazz = object.getClass();
         reflectionAppend(object, clazz, builder, testTransients, excludeFields);
         while (clazz.getSuperclass() != null && clazz != reflectUpToClass) {
             clazz = clazz.getSuperclass();
@@ -473,7 +473,7 @@ public class HashCodeBuilder {
      * @throws IllegalArgumentException
      *             if the object is <code>null</code>
      */
-    public static int reflectionHashCode(Object object, Collection /* String */excludeFields) {
+    public static int reflectionHashCode(Object object, Collection<String> excludeFields) {
         return reflectionHashCode(object, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
     }
 

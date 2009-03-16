@@ -108,11 +108,11 @@ public class FastDateFormat extends Format {
     //@GuardedBy("this")
     private static String cDefaultPattern; // lazily initialised by getInstance()
 
-    private static final Map cInstanceCache = new HashMap(7);
-    private static final Map cDateInstanceCache = new HashMap(7);
-    private static final Map cTimeInstanceCache = new HashMap(7);
-    private static final Map cDateTimeInstanceCache = new HashMap(7);
-    private static final Map cTimeZoneDisplayCache = new HashMap(7);
+    private static final Map<FastDateFormat, FastDateFormat> cInstanceCache = new HashMap<FastDateFormat, FastDateFormat>(7);
+    private static final Map<Object, FastDateFormat> cDateInstanceCache = new HashMap<Object, FastDateFormat>(7);
+    private static final Map<Object, FastDateFormat> cTimeInstanceCache = new HashMap<Object, FastDateFormat>(7);
+    private static final Map<Object, FastDateFormat> cDateTimeInstanceCache = new HashMap<Object, FastDateFormat>(7);
+    private static final Map<Object, String> cTimeZoneDisplayCache = new HashMap<Object, String>(7);
 
     /**
      * The pattern.
@@ -211,7 +211,7 @@ public class FastDateFormat extends Format {
      */
     public static synchronized FastDateFormat getInstance(String pattern, TimeZone timeZone, Locale locale) {
         FastDateFormat emptyFormat = new FastDateFormat(pattern, timeZone, locale);
-        FastDateFormat format = (FastDateFormat) cInstanceCache.get(emptyFormat);
+        FastDateFormat format = cInstanceCache.get(emptyFormat);
         if (format == null) {
             format = emptyFormat;
             format.init();  // convert shell format into usable one
@@ -278,7 +278,7 @@ public class FastDateFormat extends Format {
      *  pattern defined
      */
     public static synchronized FastDateFormat getDateInstance(int style, TimeZone timeZone, Locale locale) {
-        Object key = new Integer(style);
+        Object key = Integer.valueOf(style);
         if (timeZone != null) {
             key = new Pair(key, timeZone);
         }
@@ -289,7 +289,7 @@ public class FastDateFormat extends Format {
 
         key = new Pair(key, locale);
 
-        FastDateFormat format = (FastDateFormat) cDateInstanceCache.get(key);
+        FastDateFormat format = cDateInstanceCache.get(key);
         if (format == null) {
             try {
                 SimpleDateFormat formatter = (SimpleDateFormat) DateFormat.getDateInstance(style, locale);
@@ -363,7 +363,7 @@ public class FastDateFormat extends Format {
      *  pattern defined
      */
     public static synchronized FastDateFormat getTimeInstance(int style, TimeZone timeZone, Locale locale) {
-        Object key = new Integer(style);
+        Object key = Integer.valueOf(style);
         if (timeZone != null) {
             key = new Pair(key, timeZone);
         }
@@ -371,7 +371,7 @@ public class FastDateFormat extends Format {
             key = new Pair(key, locale);
         }
 
-        FastDateFormat format = (FastDateFormat) cTimeInstanceCache.get(key);
+        FastDateFormat format = cTimeInstanceCache.get(key);
         if (format == null) {
             if (locale == null) {
                 locale = Locale.getDefault();
@@ -457,7 +457,7 @@ public class FastDateFormat extends Format {
     public static synchronized FastDateFormat getDateTimeInstance(int dateStyle, int timeStyle, TimeZone timeZone,
             Locale locale) {
 
-        Object key = new Pair(new Integer(dateStyle), new Integer(timeStyle));
+        Object key = new Pair(Integer.valueOf(dateStyle), Integer.valueOf(timeStyle));
         if (timeZone != null) {
             key = new Pair(key, timeZone);
         }
@@ -466,7 +466,7 @@ public class FastDateFormat extends Format {
         }
         key = new Pair(key, locale);
 
-        FastDateFormat format = (FastDateFormat) cDateTimeInstanceCache.get(key);
+        FastDateFormat format = cDateTimeInstanceCache.get(key);
         if (format == null) {
             try {
                 SimpleDateFormat formatter = (SimpleDateFormat) DateFormat.getDateTimeInstance(dateStyle, timeStyle,
@@ -495,7 +495,7 @@ public class FastDateFormat extends Format {
      */
     static synchronized String getTimeZoneDisplay(TimeZone tz, boolean daylight, int style, Locale locale) {
         Object key = new TimeZoneDisplayKey(tz, daylight, style, locale);
-        String value = (String) cTimeZoneDisplayCache.get(key);
+        String value = cTimeZoneDisplayCache.get(key);
         if (value == null) {
             // This is a very slow call, so cache the results.
             value = tz.getDisplayName(daylight, style, locale);
@@ -555,8 +555,8 @@ public class FastDateFormat extends Format {
      * <p>Initializes the instance for first use.</p>
      */
     protected void init() {
-        List rulesList = parsePattern();
-        mRules = (Rule[]) rulesList.toArray(new Rule[rulesList.size()]);
+        List<Rule> rulesList = parsePattern();
+        mRules = rulesList.toArray(new Rule[rulesList.size()]);
 
         int len = 0;
         for (int i=mRules.length; --i >= 0; ) {
@@ -574,9 +574,9 @@ public class FastDateFormat extends Format {
      * @return a <code>List</code> of Rule objects
      * @throws IllegalArgumentException if pattern is invalid
      */
-    protected List parsePattern() {
+    protected List<Rule> parsePattern() {
         DateFormatSymbols symbols = new DateFormatSymbols(mLocale);
-        List rules = new ArrayList();
+        List<Rule> rules = new ArrayList<Rule>();
 
         String[] ERAs = symbols.getEras();
         String[] months = symbols.getMonths();

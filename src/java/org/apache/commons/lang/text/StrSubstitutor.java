@@ -533,7 +533,7 @@ public class StrSubstitutor {
      * @return the length change that occurs, unless priorVariables is null when the int
      *  represents a boolean flag as to whether any change occurred.
      */
-    private int substitute(StrBuilder buf, int offset, int length, List priorVariables) {
+    private int substitute(StrBuilder buf, int offset, int length, List<String> priorVariables) {
         StrMatcher prefixMatcher = getVariablePrefixMatcher();
         StrMatcher suffixMatcher = getVariableSuffixMatcher();
         char escape = getEscapeChar();
@@ -575,7 +575,7 @@ public class StrSubstitutor {
                             
                             // on the first call initialize priorVariables
                             if (priorVariables == null) {
-                                priorVariables = new ArrayList();
+                                priorVariables = new ArrayList<String>();
                                 priorVariables.add(new String(chars, offset, length));
                             }
                             
@@ -618,7 +618,7 @@ public class StrSubstitutor {
      * @param varName  the variable name to check
      * @param priorVariables  the list of prior variables
      */
-    private void checkCyclicSubstitution(String varName, List priorVariables) {
+    private void checkCyclicSubstitution(String varName, List<String> priorVariables) {
         if (priorVariables.contains(varName) == false) {
             return;
         }

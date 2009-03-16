@@ -133,12 +133,12 @@ public abstract class ToStringStyle implements Serializable {
      * to detect cyclical object references and avoid infinite loops.
      * </p>
      */
-    private static final ThreadLocal registry = new ThreadLocal() {
+    private static final ThreadLocal<Set<Object>> registry = new ThreadLocal<Set<Object>>() {
         @Override
-        protected Object initialValue() {
+        protected Set<Object> initialValue() {
             // The HashSet implementation is not synchronized,
             // which is just what we need here.
-            return new HashSet();
+            return new HashSet<Object>();
         }
     };
 
@@ -150,8 +150,8 @@ public abstract class ToStringStyle implements Serializable {
      * 
      * @return Set the registry of objects being traversed
      */
-    static Set getRegistry() {
-        return (Set) registry.get();
+    static Set<Object> getRegistry() {
+        return registry.get();
     }
 
     /**

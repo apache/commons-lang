@@ -203,7 +203,7 @@ public class CompareToBuilder {
      *  with <code>lhs</code>
      * @since 2.2
      */
-    public static int reflectionCompare(Object lhs, Object rhs, Collection /*String*/ excludeFields) {
+    public static int reflectionCompare(Object lhs, Object rhs, Collection<String> excludeFields) {
         return reflectionCompare(lhs, rhs, ReflectionToStringBuilder.toNoNullStringArray(excludeFields));
     }
 
@@ -272,7 +272,7 @@ public class CompareToBuilder {
      * @since 2.0
      */
     public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients, 
-                                        Class reflectUpToClass) 
+                                        Class<?> reflectUpToClass) 
     {
         return reflectionCompare(lhs, rhs, false, reflectUpToClass, null);
     }
@@ -313,7 +313,7 @@ public class CompareToBuilder {
         Object lhs, 
         Object rhs, 
         boolean compareTransients, 
-        Class reflectUpToClass, 
+        Class<?> reflectUpToClass, 
         String[] excludeFields) {
 
         if (lhs == rhs) {
@@ -322,7 +322,7 @@ public class CompareToBuilder {
         if (lhs == null || rhs == null) {
             throw new NullPointerException();
         }
-        Class lhsClazz = lhs.getClass();
+        Class<?> lhsClazz = lhs.getClass();
         if (!lhsClazz.isInstance(rhs)) {
             throw new ClassCastException();
         }
@@ -349,7 +349,7 @@ public class CompareToBuilder {
     private static void reflectionAppend(
         Object lhs,
         Object rhs,
-        Class clazz,
+        Class<?> clazz,
         CompareToBuilder builder,
         boolean useTransients,
         String[] excludeFields) {

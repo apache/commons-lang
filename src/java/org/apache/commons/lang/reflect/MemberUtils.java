@@ -54,7 +54,7 @@ abstract class MemberUtils {
     }
 
     /** Array of primitive number types ordered by "promotability" */
-    private static final Class[] ORDERED_PRIMITIVE_TYPES = { Byte.TYPE,
+    private static final Class<?>[] ORDERED_PRIMITIVE_TYPES = { Byte.TYPE,
             Short.TYPE, Character.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE,
             Double.TYPE };
 
@@ -128,7 +128,7 @@ abstract class MemberUtils {
      * @param actual the runtime parameter types to match against <code>left</code>/<code>right</code>
      * @return int consistent with <code>compare</code> semantics
      */
-    static int compareParameterTypes(Class[] left, Class[] right, Class[] actual) {
+    static int compareParameterTypes(Class<?>[] left, Class<?>[] right, Class<?>[] actual) {
         float leftCost = getTotalTransformationCost(actual, left);
         float rightCost = getTotalTransformationCost(actual, right);
         return leftCost < rightCost ? -1 : rightCost < leftCost ? 1 : 0;
@@ -141,11 +141,11 @@ abstract class MemberUtils {
      * @param destArgs The destination arguments
      * @return The total transformation cost
      */
-    private static float getTotalTransformationCost(Class[] srcArgs,
-            Class[] destArgs) {
+    private static float getTotalTransformationCost(Class<?>[] srcArgs,
+            Class<?>[] destArgs) {
         float totalCost = 0.0f;
         for (int i = 0; i < srcArgs.length; i++) {
-            Class srcClass, destClass;
+            Class<?> srcClass, destClass;
             srcClass = srcArgs[i];
             destClass = destArgs[i];
             totalCost += getObjectTransformationCost(srcClass, destClass);
@@ -161,8 +161,8 @@ abstract class MemberUtils {
      * @param destClass The destination class
      * @return The cost of transforming an object
      */
-    private static float getObjectTransformationCost(Class srcClass,
-            Class destClass) {
+    private static float getObjectTransformationCost(Class<?> srcClass,
+            Class<?> destClass) {
         if (destClass.isPrimitive()) {
             return getPrimitivePromotionCost(srcClass, destClass);
         }
@@ -197,10 +197,10 @@ abstract class MemberUtils {
      * @param destClass the (primitive) destination class
      * @return The cost of promoting the primitive
      */
-    private static float getPrimitivePromotionCost(final Class srcClass,
-            final Class destClass) {
+    private static float getPrimitivePromotionCost(final Class<?> srcClass,
+            final Class<?> destClass) {
         float cost = 0.0f;
-        Class cls = srcClass;
+        Class<?> cls = srcClass;
         if (!cls.isPrimitive()) {
             // slight unwrapping penalty
             cost += 0.1f;
