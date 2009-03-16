@@ -85,7 +85,7 @@ import java.util.NoSuchElementException;
  * @since 2.2
  * @version $Id$
  */
-public class StrTokenizer implements ListIterator, Cloneable {
+public class StrTokenizer implements ListIterator<String>, Cloneable {
 
     private static final StrTokenizer CSV_TOKENIZER_PROTOTYPE;
     private static final StrTokenizer TSV_TOKENIZER_PROTOTYPE;
@@ -529,7 +529,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *
      * @return the next String token
      */
-    public Object next() {
+    public String next() {
         if (hasNext()) {
             return tokens[tokenPos++];
         }
@@ -560,7 +560,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      *
      * @return the previous token
      */
-    public Object previous() {
+    public String previous() {
         if (hasPrevious()) {
             return tokens[--tokenPos];
         }
@@ -590,7 +590,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @param obj this parameter ignored.
      * @throws UnsupportedOperationException always
      */
-    public void set(Object obj) {
+    public void set(String obj) {
         throw new UnsupportedOperationException("set() is unsupported");
     }
 
@@ -599,7 +599,7 @@ public class StrTokenizer implements ListIterator, Cloneable {
      * @param obj this parameter ignored.
      * @throws UnsupportedOperationException always
      */
-    public void add(Object obj) {
+    public void add(String obj) {
         throw new UnsupportedOperationException("add() is unsupported");
     }
 

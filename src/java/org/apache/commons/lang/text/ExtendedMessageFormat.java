@@ -78,7 +78,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     private static final char QUOTE = '\'';
 
     private String toPattern;
-    private Map registry;
+    private final Map<String, FormatFactory> registry;
 
     /**
      * Create a new ExtendedMessageFormat for the default locale.
@@ -108,7 +108,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param registry Registry of format factories:  Map<String, FormatFactory>
      * @throws IllegalArgumentException in case of a bad pattern.
      */
-    public ExtendedMessageFormat(String pattern, Map registry) {
+    public ExtendedMessageFormat(String pattern, Map<String, FormatFactory> registry) {
         this(pattern, Locale.getDefault(), registry);
     }
 
@@ -120,7 +120,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param registry Registry of format factories:  Map<String, FormatFactory>
      * @throws IllegalArgumentException in case of a bad pattern.
      */
-    public ExtendedMessageFormat(String pattern, Locale locale, Map registry) {
+    public ExtendedMessageFormat(String pattern, Locale locale, Map<String, FormatFactory> registry) {
         super(DUMMY_PATTERN);
         setLocale(locale);
         this.registry = registry;
@@ -147,8 +147,8 @@ public class ExtendedMessageFormat extends MessageFormat {
             toPattern = super.toPattern();
             return;
         }
-        ArrayList foundFormats = new ArrayList();
-        ArrayList foundDescriptions = new ArrayList();
+        ArrayList<Format> foundFormats = new ArrayList<Format>();
+        ArrayList<String> foundDescriptions = new ArrayList<String>();
         StringBuffer stripCustom = new StringBuffer(pattern.length());
 
         ParsePosition pos = new ParsePosition(0);
@@ -197,8 +197,8 @@ public class ExtendedMessageFormat extends MessageFormat {
             // only loop over what we know we have, as MessageFormat on Java 1.3 
             // seems to provide an extra format element:
             int i = 0;
-            for (Iterator it = foundFormats.iterator(); it.hasNext(); i++) {
-                Format f = (Format) it.next();
+            for (Iterator<Format> it = foundFormats.iterator(); it.hasNext(); i++) {
+                Format f = it.next();
                 if (f != null) {
                     origFormats[i] = f;
                 }
@@ -258,7 +258,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                 name = desc.substring(0, i).trim();
                 args = desc.substring(i + 1).trim();
             }
-            FormatFactory factory = (FormatFactory) registry.get(name);
+            FormatFactory factory = registry.get(name);
             if (factory != null) {
                 return factory.getFormat(name, args, getLocale());
             }
@@ -347,7 +347,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param customPatterns The custom patterns to re-insert, if any
      * @return full pattern
      */
-    private String insertFormats(String pattern, ArrayList customPatterns) {
+    private String insertFormats(String pattern, ArrayList<String> customPatterns) {
         if (!containsElements(customPatterns)) {
             return pattern;
         }
@@ -367,7 +367,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                     fe++;
                     sb.append(START_FE).append(
                             readArgumentIndex(pattern, next(pos)));
-                    String customPattern = (String) customPatterns.get(fe);
+                    String customPattern = customPatterns.get(fe);
                     if (customPattern != null) {
                         sb.append(START_FMT).append(customPattern);
                     }
@@ -467,11 +467,11 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param coll to check
      * @return <code>true</code> if some Object was found, <code>false</code> otherwise.
      */
-    private boolean containsElements(Collection coll) {
+    private boolean containsElements(Collection<?> coll) {
         if (coll == null || coll.size() == 0) {
             return false;
         }
-        for (Iterator iter = coll.iterator(); iter.hasNext();) {
+        for (Iterator<?> iter = coll.iterator(); iter.hasNext();) {
             if (iter.next() != null) {
                 return true;
             }

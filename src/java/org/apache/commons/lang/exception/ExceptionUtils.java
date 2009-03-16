@@ -121,7 +121,7 @@ public class ExceptionUtils {
      */
     public static void addCauseMethodName(String methodName) {
         if (StringUtils.isNotEmpty(methodName) && !isCauseMethodName(methodName)) {            
-            List list = getCauseMethodNameList();
+            List<String> list = getCauseMethodNameList();
             if (list.add(methodName)) {
                 synchronized(CAUSE_METHOD_NAMES) {
                     CAUSE_METHOD_NAMES = toArray(list);
@@ -140,7 +140,7 @@ public class ExceptionUtils {
      */
     public static void removeCauseMethodName(String methodName) {
         if (StringUtils.isNotEmpty(methodName)) {
-            List list = getCauseMethodNameList();
+            List<String> list = getCauseMethodNameList();
             if (list.remove(methodName)) {
                 synchronized(CAUSE_METHOD_NAMES) {
                     CAUSE_METHOD_NAMES = toArray(list);
@@ -212,8 +212,8 @@ public class ExceptionUtils {
      * @param list a list to transform.
      * @return the given list as a <code>String[]</code>.
      */
-    private static String[] toArray(List list) {
-        return (String[]) list.toArray(new String[list.size()]);
+    private static String[] toArray(List<String> list) {
+        return list.toArray(new String[list.size()]);
     }
 
     /**
@@ -221,9 +221,9 @@ public class ExceptionUtils {
      *
      * @return {@link #CAUSE_METHOD_NAMES} as a List.
      */
-    private static ArrayList getCauseMethodNameList() {
+    private static ArrayList<String> getCauseMethodNameList() {
         synchronized(CAUSE_METHOD_NAMES) {
-            return new ArrayList(Arrays.asList(CAUSE_METHOD_NAMES));
+            return new ArrayList<String>(Arrays.asList(CAUSE_METHOD_NAMES));
         }
     }
 
@@ -343,7 +343,7 @@ public class ExceptionUtils {
      *  <code>null</code> if none found or null throwable input
      */
     public static Throwable getRootCause(Throwable throwable) {
-        List list = getThrowableList(throwable);
+        List<Throwable> list = getThrowableList(throwable);
         return (list.size() < 2 ? null : (Throwable)list.get(list.size() - 1));
     }
 
@@ -462,7 +462,7 @@ public class ExceptionUtils {
             return true;
         }
 
-        Class cls = throwable.getClass();
+        Class<? extends Throwable> cls = throwable.getClass();
         synchronized(CAUSE_METHOD_NAMES) {
             for (int i = 0, isize = CAUSE_METHOD_NAMES.length; i < isize; i++) {
                 try {
@@ -533,8 +533,8 @@ public class ExceptionUtils {
      * @return the array of throwables, never null
      */
     public static Throwable[] getThrowables(Throwable throwable) {
-        List list = getThrowableList(throwable);
-        return (Throwable[]) list.toArray(new Throwable[list.size()]);
+        List<Throwable> list = getThrowableList(throwable);
+        return list.toArray(new Throwable[list.size()]);
     }
 
     /**
@@ -556,8 +556,8 @@ public class ExceptionUtils {
      * @return the list of throwables, never null
      * @since Commons Lang 2.2
      */
-    public static List getThrowableList(Throwable throwable) {
-        List list = new ArrayList();
+    public static List<Throwable> getThrowableList(Throwable throwable) {
+        List<Throwable> list = new ArrayList<Throwable>();
         while (throwable != null && list.contains(throwable) == false) {
             list.add(throwable);
             throwable = ExceptionUtils.getCause(throwable);
@@ -580,7 +580,7 @@ public class ExceptionUtils {
      * @param clazz  the class to search for, subclasses do not match, null returns -1
      * @return the index into the throwable chain, -1 if no match or null input
      */
-    public static int indexOfThrowable(Throwable throwable, Class clazz) {
+    public static int indexOfThrowable(Throwable throwable, Class<?> clazz) {
         return indexOf(throwable, clazz, 0, false);
     }
 
@@ -603,7 +603,7 @@ public class ExceptionUtils {
      *  negative treated as zero, larger than chain size returns -1
      * @return the index into the throwable chain, -1 if no match or null input
      */
-    public static int indexOfThrowable(Throwable throwable, Class clazz, int fromIndex) {
+    public static int indexOfThrowable(Throwable throwable, Class<?> clazz, int fromIndex) {
         return indexOf(throwable, clazz, fromIndex, false);
     }
 
@@ -623,7 +623,7 @@ public class ExceptionUtils {
      * @return the index into the throwable chain, -1 if no match or null input
      * @since 2.1
      */
-    public static int indexOfType(Throwable throwable, Class type) {
+    public static int indexOfType(Throwable throwable, Class<?> type) {
         return indexOf(throwable, type, 0, true);
     }
 
@@ -647,7 +647,7 @@ public class ExceptionUtils {
      * @return the index into the throwable chain, -1 if no match or null input
      * @since 2.1
      */
-    public static int indexOfType(Throwable throwable, Class type, int fromIndex) {
+    public static int indexOfType(Throwable throwable, Class<?> type, int fromIndex) {
         return indexOf(throwable, type, fromIndex, true);
     }
 
@@ -662,7 +662,7 @@ public class ExceptionUtils {
      * using references
      * @return index of the <code>type</code> within throwables nested withing the specified <code>throwable</code>
      */
-    private static int indexOf(Throwable throwable, Class type, int fromIndex, boolean subclass) {
+    private static int indexOf(Throwable throwable, Class<?> type, int fromIndex, boolean subclass) {
         if (throwable == null || type == null) {
             return -1;
         }
@@ -798,10 +798,10 @@ public class ExceptionUtils {
         }
         Throwable throwables[] = getThrowables(throwable);
         int count = throwables.length;
-        ArrayList frames = new ArrayList();
-        List nextTrace = getStackFrameList(throwables[count - 1]);
+        ArrayList<String> frames = new ArrayList<String>();
+        List<String> nextTrace = getStackFrameList(throwables[count - 1]);
         for (int i = count; --i >= 0;) {
-            List trace = nextTrace;
+            List<String> trace = nextTrace;
             if (i != 0) {
                 nextTrace = getStackFrameList(throwables[i - 1]);
                 removeCommonFrames(trace, nextTrace);
@@ -815,7 +815,7 @@ public class ExceptionUtils {
                 frames.add(trace.get(j));
             }
         }
-        return (String[]) frames.toArray(new String[0]);
+        return frames.toArray(new String[0]);
     }
 
     /**
@@ -826,7 +826,7 @@ public class ExceptionUtils {
      * @throws IllegalArgumentException if either argument is null
      * @since 2.0
      */
-    public static void removeCommonFrames(List causeFrames, List wrapperFrames) {
+    public static void removeCommonFrames(List<String> causeFrames, List<String> wrapperFrames) {
         if (causeFrames == null || wrapperFrames == null) {
             throw new IllegalArgumentException("The List must not be null");
         }
@@ -835,8 +835,8 @@ public class ExceptionUtils {
         while (causeFrameIndex >= 0 && wrapperFrameIndex >= 0) {
             // Remove the frame from the cause trace if it is the same
             // as in the wrapper trace
-            String causeFrame = (String) causeFrames.get(causeFrameIndex);
-            String wrapperFrame = (String) wrapperFrames.get(wrapperFrameIndex);
+            String causeFrame = causeFrames.get(causeFrameIndex);
+            String wrapperFrame = wrapperFrames.get(wrapperFrameIndex);
             if (causeFrame.equals(wrapperFrame)) {
                 causeFrames.remove(causeFrameIndex);
             }
@@ -921,7 +921,7 @@ public class ExceptionUtils {
     static String[] getStackFrames(String stackTrace) {
         String linebreak = SystemUtils.LINE_SEPARATOR;
         StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        List list = new ArrayList();
+        List<String> list = new ArrayList<String>();
         while (frames.hasMoreTokens()) {
             list.add(frames.nextToken());
         }
@@ -940,11 +940,11 @@ public class ExceptionUtils {
      * @param t is any throwable
      * @return List of stack frames
      */
-    static List getStackFrameList(Throwable t) {
+    static List<String> getStackFrameList(Throwable t) {
         String stackTrace = getStackTrace(t);
         String linebreak = SystemUtils.LINE_SEPARATOR;
         StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        List list = new ArrayList();
+        List<String> list = new ArrayList<String>();
         boolean traceStarted = false;
         while (frames.hasMoreTokens()) {
             String token = frames.nextToken();

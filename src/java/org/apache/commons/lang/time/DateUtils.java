@@ -261,7 +261,7 @@ public class DateUtils {
      * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null
      * @return the parsed date
      * @throws IllegalArgumentException if the date string or pattern array is null
-     * @throws ParseException if none of the date patterns were suitable
+     * @throws ParseException if none of the date patterns were suitable (or there were none)
      */
     public static Date parseDate(String str, String[] parsePatterns) throws ParseException {
         if (str == null || parsePatterns == null) {
@@ -925,7 +925,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is <code>null</code>
      * @throws IllegalArgumentException if the rangeStyle is invalid
      */
-    public static Iterator iterator(Date focus, int rangeStyle) {
+    public static Iterator<Calendar> iterator(Date focus, int rangeStyle) {
         if (focus == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -958,7 +958,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date is <code>null</code>
      * @throws IllegalArgumentException if the rangeStyle is invalid
      */
-    public static Iterator iterator(Calendar focus, int rangeStyle) {
+    public static Iterator<Calendar> iterator(Calendar focus, int rangeStyle) {
         if (focus == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -1049,7 +1049,7 @@ public class DateUtils {
      * @throws ClassCastException if the object type is
      *  not a <code>Date</code> or <code>Calendar</code>
      */
-    public static Iterator iterator(Object focus, int rangeStyle) {
+    public static Iterator<?> iterator(Object focus, int rangeStyle) {
         if (focus == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
@@ -1565,7 +1565,7 @@ public class DateUtils {
     /**
      * <p>Date iterator.</p>
      */
-    static class DateIterator implements Iterator {
+    static class DateIterator implements Iterator<Calendar> {
         private final Calendar endFinal;
         private final Calendar spot;
         
@@ -1596,12 +1596,12 @@ public class DateUtils {
          *
          * @return Object calendar for the next date
          */
-        public Object next() {
+        public Calendar next() {
             if (spot.equals(endFinal)) {
                 throw new NoSuchElementException();
             }
             spot.add(Calendar.DATE, 1);
-            return spot.clone();
+            return (Calendar) spot.clone();
         }
 
         /**

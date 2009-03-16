@@ -485,11 +485,11 @@ public class DurationFormatUtils {
      * Parses a classic date format string into Tokens
      *
      * @param format to parse
-     * @return Token[] of tokens
+     * @return array of Token[]
      */
     static Token[] lexx(String format) {
         char[] array = format.toCharArray();
-        ArrayList list = new ArrayList(array.length);
+        ArrayList<Token> list = new ArrayList<Token>(array.length);
 
         boolean inLiteral = false;
         StringBuffer buffer = null;
@@ -498,7 +498,7 @@ public class DurationFormatUtils {
         for(int i=0; i<sz; i++) {
             char ch = array[i];
             if(inLiteral && ch != '\'') {
-                buffer.append(ch);
+                buffer.append(ch); // buffer can't be null if inLiteral is true
                 continue;
             }
             Object value = null;
@@ -540,7 +540,7 @@ public class DurationFormatUtils {
                 buffer = null; 
             }
         }
-        return (Token[]) list.toArray( new Token[list.size()] );
+        return list.toArray( new Token[list.size()] );
     }
 
     /**
