@@ -28,6 +28,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.lang.NullArgumentException;
@@ -46,6 +49,7 @@ import org.apache.commons.lang.SystemUtils;
  * @since 1.0
  * @version $Id$
  */
+@ThreadSafe
 public class ExceptionUtils {
     
     /**
@@ -56,9 +60,13 @@ public class ExceptionUtils {
      */
     static final String WRAPPED_MARKER = " [wrapped] ";
 
+    // Lock object for CAUSE_METHOD_NAMES
+    private static final Object CAUSE_METHOD_NAMES_LOCK = new Object();
+    
     /**
      * <p>The names of methods commonly used to access a wrapped exception.</p>
      */
+    @GuardedBy("CAUSE_METHOD_NAMES_LOCK")
     private static String[] CAUSE_METHOD_NAMES = {
         "getCause",
         "getNextException",
@@ -123,7 +131,7 @@ public class ExceptionUtils {
         if (StringUtils.isNotEmpty(methodName) && !isCauseMethodName(methodName)) {            
             List<String> list = getCauseMethodNameList();
             if (list.add(methodName)) {
-                synchronized(CAUSE_METHOD_NAMES) {
+                synchronized(CAUSE_METHOD_NAMES_LOCK) {
                     CAUSE_METHOD_NAMES = toArray(list);
                 }
             }
@@ -142,7 +150,7 @@ public class ExceptionUtils {
         if (StringUtils.isNotEmpty(methodName)) {
             List<String> list = getCauseMethodNameList();
             if (list.remove(methodName)) {
-                synchronized(CAUSE_METHOD_NAMES) {
+                synchronized(CAUSE_METHOD_NAMES_LOCK) {
                     CAUSE_METHOD_NAMES = toArray(list);
                 }
             }
@@ -222,7 +230,7 @@ public class ExceptionUtils {
      * @return {@link #CAUSE_METHOD_NAMES} as a List.
      */
     private static ArrayList<String> getCauseMethodNameList() {
-        synchronized(CAUSE_METHOD_NAMES) {
+        synchronized(CAUSE_METHOD_NAMES_LOCK) {
             return new ArrayList<String>(Arrays.asList(CAUSE_METHOD_NAMES));
         }
     }
@@ -237,7 +245,7 @@ public class ExceptionUtils {
      * @since 2.1
      */
     public static boolean isCauseMethodName(String methodName) {
-        synchronized(CAUSE_METHOD_NAMES) {
+        synchronized(CAUSE_METHOD_NAMES_LOCK) {
             return ArrayUtils.indexOf(CAUSE_METHOD_NAMES, methodName) >= 0;
         }
     }
@@ -274,7 +282,7 @@ public class ExceptionUtils {
      * @since 1.0
      */
     public static Throwable getCause(Throwable throwable) {
-        synchronized(CAUSE_METHOD_NAMES) {
+        synchronized(CAUSE_METHOD_NAMES_LOCK) {
             return getCause(throwable, CAUSE_METHOD_NAMES);
         }
     }
@@ -304,7 +312,7 @@ public class ExceptionUtils {
         Throwable cause = getCauseUsingWellKnownTypes(throwable);
         if (cause == null) {
             if (methodNames == null) {
-                synchronized(CAUSE_METHOD_NAMES) {
+                synchronized(CAUSE_METHOD_NAMES_LOCK) {
                     methodNames = CAUSE_METHOD_NAMES;
                 }
             }
@@ -463,7 +471,7 @@ public class ExceptionUtils {
         }
 
         Class<? extends Throwable> cls = throwable.getClass();
-        synchronized(CAUSE_METHOD_NAMES) {
+        synchronized(CAUSE_METHOD_NAMES_LOCK) {
             for (int i = 0, isize = CAUSE_METHOD_NAMES.length; i < isize; i++) {
                 try {
                     Method method = cls.getMethod(CAUSE_METHOD_NAMES[i], (Class[]) null);
