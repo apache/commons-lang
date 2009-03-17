@@ -391,6 +391,8 @@
         <groupId>net.jcip</groupId>
         <artifactId>jcip-annotations</artifactId>
         <version>1.0</version>
+        <!-- Not optional; this is a hack to stop the dependency becoming transitive -->
+        <optional>true</optional>
     </dependency> 
   </dependencies> 
 
