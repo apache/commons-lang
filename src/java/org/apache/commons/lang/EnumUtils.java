@@ -38,10 +38,10 @@ public class EnumUtils {
      * @param enumClass the class of the <code>enum</code> to get
      * @return the enum Map
      */
-    public static Map getEnumMap(Class enumClass) {
-        Map map = new LinkedHashMap();
-        Iterator itr = EnumSet.allOf(enumClass).iterator();
-        while(itr.hasNext()) { Enum enm = (Enum) itr.next(); map.put( enm.name(), enm ); }
+    public static Map<String, Enum<?>> getEnumMap(Class enumClass) {
+        Map<String, Enum<?>> map = new LinkedHashMap<String, Enum<?>>();
+        Iterator<? extends Enum<?>> itr = EnumSet.allOf(enumClass).iterator();
+        while(itr.hasNext()) { Enum<?> enm = itr.next(); map.put( enm.name(), enm ); }
         return map;
     }
     
