@@ -35,4 +35,16 @@
     <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
   </Match>
 
+  <Match>
+    <Class name="org.apache.commons.lang.BooleanUtils" />
+    <Method name="negate"/>
+    <Bug pattern="NP_BOOLEAN_RETURN_NULL" />
+  </Match>
+
+  <Match>
+    <Class name="org.apache.commons.lang.BooleanUtils" />
+    <Method name="toBooleanObject"/>
+    <Bug pattern="NP_BOOLEAN_RETURN_NULL" />
+  </Match>
+
 </FindBugsFilter>
