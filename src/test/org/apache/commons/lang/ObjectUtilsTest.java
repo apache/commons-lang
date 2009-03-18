@@ -169,7 +169,7 @@ public class ObjectUtilsTest extends TestCase {
     }
 
     public void testNull() {
-        assertTrue(ObjectUtils.NULL != null);
+        assertNotNull(ObjectUtils.NULL);
         assertTrue(ObjectUtils.NULL instanceof ObjectUtils.Null);
         assertSame(ObjectUtils.NULL, SerializationUtils.clone(ObjectUtils.NULL));
     }
@@ -189,8 +189,11 @@ public class ObjectUtilsTest extends TestCase {
         assertSame( nonNullComparable1, ObjectUtils.max( null, nonNullComparable1 ) );
         assertSame( nonNullComparable1, ObjectUtils.max( nonNullComparable1, null ) );
         assertSame( nonNullComparable1, ObjectUtils.max( nonNullComparable1, nonNullComparable2 ) );
+        assertSame( nonNullComparable2, ObjectUtils.max( nonNullComparable2, nonNullComparable1 ) );
         assertSame( nonNullComparable1, ObjectUtils.max( nonNullComparable1, minComparable ) );
         assertSame( nonNullComparable1, ObjectUtils.max( minComparable, nonNullComparable1 ) );
+
+        assertNull( ObjectUtils.max(null, null) );
     }
     
     public void testMin() {
@@ -206,7 +209,10 @@ public class ObjectUtilsTest extends TestCase {
         assertSame( nonNullComparable1, ObjectUtils.min( null, nonNullComparable1 ) );
         assertSame( nonNullComparable1, ObjectUtils.min( nonNullComparable1, null ) );
         assertSame( nonNullComparable1, ObjectUtils.min( nonNullComparable1, nonNullComparable2 ) );
+        assertSame( nonNullComparable2, ObjectUtils.min( nonNullComparable2, nonNullComparable1 ) );
         assertSame( minComparable, ObjectUtils.min( nonNullComparable1, minComparable ) );
         assertSame( minComparable, ObjectUtils.min( minComparable, nonNullComparable1 ) );
+
+        assertNull( ObjectUtils.min(null, null) );
     }
 }
