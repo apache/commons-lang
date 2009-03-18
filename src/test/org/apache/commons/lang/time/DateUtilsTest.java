@@ -159,7 +159,7 @@ public class DateUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new DateUtils());
-        Constructor[] cons = DateUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = DateUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(DateUtils.class.getModifiers()));
@@ -1201,7 +1201,7 @@ public class DateUtilsTest extends TestCase {
             Calendar centered = DateUtils.truncate(now, Calendar.DATE);
             centered.add(Calendar.DATE, -3);
             
-            Iterator it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_SUNDAY);
+            Iterator<?> it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_SUNDAY);
             assertWeekIterator(it, sunday);
             it = DateUtils.iterator(now, DateUtils.RANGE_WEEK_MONDAY);
             assertWeekIterator(it, monday);
@@ -1232,7 +1232,7 @@ public class DateUtilsTest extends TestCase {
      * Tests the calendar iterator for month-based ranges
      */
     public void testMonthIterator() throws Exception {
-        Iterator it = DateUtils.iterator(date1, DateUtils.RANGE_MONTH_SUNDAY);
+        Iterator<?> it = DateUtils.iterator(date1, DateUtils.RANGE_MONTH_SUNDAY);
         assertWeekIterator(it,
                 dateParser.parse("January 27, 2002"),
                 dateParser.parse("March 2, 2002"));
@@ -1257,7 +1257,7 @@ public class DateUtilsTest extends TestCase {
      * This checks that this is a 7 element iterator of Calendar objects
      * that are dates (no time), and exactly 1 day spaced after each other.
      */
-    private static void assertWeekIterator(Iterator it, Calendar start) {
+    private static void assertWeekIterator(Iterator<?> it, Calendar start) {
         Calendar end = (Calendar) start.clone();
         end.add(Calendar.DATE, 6);
 
@@ -1267,7 +1267,7 @@ public class DateUtilsTest extends TestCase {
     /**
      * Convenience method for when working with Date objects
      */
-    private static void assertWeekIterator(Iterator it, Date start, Date end) {
+    private static void assertWeekIterator(Iterator<?> it, Date start, Date end) {
         Calendar calStart = Calendar.getInstance();
         calStart.setTime(start);
         Calendar calEnd = Calendar.getInstance();
@@ -1281,7 +1281,7 @@ public class DateUtilsTest extends TestCase {
      * that are dates (no time), and exactly 1 day spaced after each other
      * (in addition to the proper start and stop dates)
      */
-    private static void assertWeekIterator(Iterator it, Calendar start, Calendar end) {
+    private static void assertWeekIterator(Iterator<?> it, Calendar start, Calendar end) {
         Calendar cal = (Calendar) it.next();
         assertEquals("", start, cal, 0);
         Calendar last = null;

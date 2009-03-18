@@ -55,7 +55,7 @@ public class DurationFormatUtilsTest extends TestCase {
     // -----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new DurationFormatUtils());
-        Constructor[] cons = DurationFormatUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = DurationFormatUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(DurationFormatUtils.class.getModifiers()));
