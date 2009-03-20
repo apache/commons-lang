@@ -391,12 +391,11 @@
         <groupId>net.jcip</groupId>
         <artifactId>jcip-annotations</artifactId>
         <version>1.0</version>
+        <optional>true</optional>
         <!-- 
             Annotations are only _required_ during a build
             They are not needed at run-time
-            Provided means that the dependency is not transitive.
          -->
-        <scope>provided</scope>
     </dependency> 
   </dependencies> 
 
