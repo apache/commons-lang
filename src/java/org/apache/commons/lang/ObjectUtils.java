@@ -248,7 +248,7 @@ public class ObjectUtils {
      *   <li>If both the comparables are null, null is returned.
      *  </ul>
      */
-    public static Object min(Comparable c1, Comparable c2) {
+    public static <T extends Comparable<? super T>> T min(T c1, T c2) {
         if (c1 != null && c2 != null) {
             return c1.compareTo(c2) < 1 ? c1 : c2;
         } else {
@@ -269,7 +269,7 @@ public class ObjectUtils {
      *   <li>If both the comparables are null, null is returned.
      *  </ul>
      */
-    public static Object max(Comparable c1, Comparable c2) {
+    public static <T extends Comparable<? super T>> T max(T c1, T c2) {
         if (c1 != null && c2 != null) {
             return c1.compareTo(c2) >= 0 ? c1 : c2;
         } else {
