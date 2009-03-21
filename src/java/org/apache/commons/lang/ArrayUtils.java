@@ -241,7 +241,7 @@ public class ArrayUtils {
         for (int i = 0; i < array.length; i++) {
             Object object = array[i];
             if (object instanceof Map.Entry) {
-                Map.Entry entry = (Map.Entry) object;
+                Map.Entry<?,?> entry = (Map.Entry<?,?>) object;
                 map.put(entry.getKey(), entry.getValue());
             } else if (object instanceof Object[]) {
                 Object[] entry = (Object[]) object;
