@@ -35,7 +35,7 @@ public class BooleanUtils {
 
     /**
      * <p><code>BooleanUtils</code> instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>BooleanUtils.toBooleanObject(true);</code>.</p>
+     * Instead, the class should be used as <code>BooleanUtils.negate(true);</code>.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
@@ -148,23 +148,6 @@ public class BooleanUtils {
     }
 
     //-----------------------------------------------------------------------
-    /**
-     * <p>Boolean factory that avoids creating new Boolean objecs all the time.</p>
-     * 
-     * <p>This method was added to JDK1.4 but is available here for earlier JDKs.</p>
-     *
-     * <pre>
-     *   BooleanUtils.toBooleanObject(false) = Boolean.FALSE
-     *   BooleanUtils.toBooleanObject(true)  = Boolean.TRUE
-     * </pre>
-     *
-     * @param bool  the boolean to convert
-     * @return Boolean.TRUE or Boolean.FALSE as appropriate
-     */
-    public static Boolean toBooleanObject(boolean bool) {
-        return bool ? Boolean.TRUE : Boolean.FALSE;
-    }
-    
     /**
      * <p>Converts a Boolean to a boolean handling <code>null</code>
      * by returning <code>false</code>.</p>

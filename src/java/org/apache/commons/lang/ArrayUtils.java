@@ -3538,7 +3538,7 @@ public class ArrayUtils {
      * (index < 0 || index > array.length).
      */
     public static boolean[] add(boolean[] array, int index, boolean element) {
-        return (boolean[]) add(array, index, BooleanUtils.toBooleanObject(element), Boolean.TYPE);
+        return (boolean[]) add(array, index, Boolean.valueOf(element), Boolean.TYPE);
     }
     
     /**

@@ -549,7 +549,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, boolean[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
+        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
 
@@ -594,7 +594,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, byte[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
+        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
 
@@ -640,7 +640,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, char[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
+        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
 
@@ -686,7 +686,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, double[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
+        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
 
@@ -732,7 +732,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, float[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
+        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
 
@@ -778,7 +778,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, int[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
+        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
 
@@ -824,7 +824,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, long[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
+        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
 
@@ -852,7 +852,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, Object obj, boolean fullDetail) {
-        style.append(buffer, fieldName, obj, BooleanUtils.toBooleanObject(fullDetail));
+        style.append(buffer, fieldName, obj, Boolean.valueOf(fullDetail));
         return this;
     }
 
@@ -885,7 +885,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, Object[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
+        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
 
@@ -931,7 +931,7 @@ public class ToStringBuilder {
      * @return this
      */
     public ToStringBuilder append(String fieldName, short[] array, boolean fullDetail) {
-        style.append(buffer, fieldName, array, BooleanUtils.toBooleanObject(fullDetail));
+        style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
 
