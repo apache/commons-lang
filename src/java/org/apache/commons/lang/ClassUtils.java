@@ -224,7 +224,7 @@ public class ClassUtils {
         if (cls == null) {
             return StringUtils.EMPTY;
         }
-        return getPackageName(cls.getName());
+        return cls.getPackage().getName();
     }
 
     /**
