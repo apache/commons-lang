@@ -101,11 +101,6 @@ public class BooleanUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-    public void test_toBooleanObject_boolean() {
-        assertSame(Boolean.TRUE, BooleanUtils.toBooleanObject(true));
-        assertSame(Boolean.FALSE, BooleanUtils.toBooleanObject(false));
-    }
-
     public void test_toBoolean_Boolean() {
         assertEquals(true, BooleanUtils.toBoolean(Boolean.TRUE));
         assertEquals(false, BooleanUtils.toBoolean(Boolean.FALSE));
