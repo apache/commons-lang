@@ -23,7 +23,7 @@ package org.apache.commons.lang.mutable;
  * @since 2.1
  * @version $Id$
  */
-public class MutableInt extends Number implements Comparable, Mutable {
+public class MutableInt extends Number implements Comparable<MutableInt>, Mutable {
 
     /**
      * Required for serialization support.
@@ -260,8 +260,7 @@ public class MutableInt extends Number implements Comparable, Mutable {
      * @return negative if this is less, zero if equal, positive if greater
      * @throws ClassCastException if the argument is not a MutableInt
      */
-    public int compareTo(Object obj) {
-        MutableInt other = (MutableInt) obj;
+    public int compareTo(MutableInt other) {
         int anotherVal = other.value;
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }

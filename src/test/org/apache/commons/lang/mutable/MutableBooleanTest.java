@@ -58,16 +58,6 @@ public class MutableBooleanTest extends TestCase {
             fail();
         } catch (NullPointerException ex) {
         }
-        try {
-            mutBool.compareTo(Boolean.FALSE);
-            fail();
-        } catch (ClassCastException ex) {
-        }
-        try {
-            mutBool.compareTo("false");
-            fail();
-        } catch (ClassCastException ex) {
-        }
     }
 
     // ----------------------------------------------------------------
