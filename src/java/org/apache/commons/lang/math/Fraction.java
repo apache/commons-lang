@@ -33,7 +33,7 @@ import java.math.BigInteger;
  * @since 2.0
  * @version $Id$
  */
-public final class Fraction extends Number implements Comparable {
+public final class Fraction extends Number implements Comparable<Fraction> {
 
     /**
      * Required for serialization support. Lang version 2.0.
@@ -867,13 +867,12 @@ public final class Fraction extends Number implements Comparable {
      * with equals, because, for example, equals treats 1/2 and 2/4 as
      * different, whereas compareTo treats them as equal.
      *
-     * @param object  the object to compare to
+     * @param other  the object to compare to
      * @return -1 if this is less, 0 if equal, +1 if greater
      * @throws ClassCastException if the object is not a <code>Fraction</code>
      * @throws NullPointerException if the object is <code>null</code>
      */
-    public int compareTo(Object object) {
-        Fraction other = (Fraction) object;
+    public int compareTo(Fraction other) {
         if (this==other) {
             return 0;
         }

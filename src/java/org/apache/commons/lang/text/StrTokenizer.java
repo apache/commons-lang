@@ -458,8 +458,8 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
     public List<String> getTokenList() {
         checkTokenized();
         List<String> list = new ArrayList<String>(tokens.length);
-        for (int i = 0; i < tokens.length; i++) {
-            list.add(tokens[i]);
+        for (String element : tokens) {
+            list.add(element);
         }
         return list;
     }
