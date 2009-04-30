@@ -1264,11 +1264,6 @@ public class FractionTest extends TestCase {
             fail("expecting NullPointerException");
         } catch (NullPointerException ex) {}
         
-        try {
-            f1.compareTo(new Object());
-            fail("expecting ClassCastException");
-        } catch (ClassCastException ex) {}
-        
         f2 = Fraction.getFraction(2, 5);
         assertTrue(f1.compareTo(f2) > 0);
         assertTrue(f2.compareTo(f2) == 0);

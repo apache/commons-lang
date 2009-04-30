@@ -119,7 +119,7 @@ public final class NumberRange extends Range implements Serializable {
             }
         }
         
-        int compare = ((Comparable) num1).compareTo(num2);
+        int compare = ((Comparable<Number>) num1).compareTo(num2);
         if (compare == 0) {
             this.min = num1;
             this.max = num1;
@@ -176,8 +176,8 @@ public final class NumberRange extends Range implements Serializable {
         if (number.getClass() != min.getClass()) {
             throw new IllegalArgumentException("The number must be of the same type as the range numbers");
         }
-        int compareMin = ((Comparable) min).compareTo(number);
-        int compareMax = ((Comparable) max).compareTo(number);
+        int compareMin = ((Comparable<Number>) min).compareTo(number);
+        int compareMax = ((Comparable<Number>) max).compareTo(number);
         return compareMin <= 0 && compareMax >= 0;
     }
 
