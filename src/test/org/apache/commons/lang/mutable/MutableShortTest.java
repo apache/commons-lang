@@ -119,14 +119,6 @@ public class MutableShortTest extends TestCase {
             mutNum.compareTo(null);
             fail();
         } catch (NullPointerException ex) {}
-        try {
-            mutNum.compareTo(new Short((short) 0));
-            fail();
-        } catch (ClassCastException ex) {}
-        try {
-            mutNum.compareTo("0");
-            fail();
-        } catch (ClassCastException ex) {}
     }
 
     public void testPrimitiveValues() {

@@ -29,7 +29,7 @@ import org.apache.commons.lang.BooleanUtils;
  * @author Apache Software Foundation
  * @version $Id$
  */
-public class MutableBoolean implements Mutable, Serializable, Comparable {
+public class MutableBoolean implements Mutable, Serializable, Comparable<MutableBoolean> {
 
     /**
      * Required for serialization support.
@@ -93,8 +93,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
      * @throws ClassCastException
      *             if the argument is not a MutableInt
      */
-    public int compareTo(Object obj) {
-        MutableBoolean other = (MutableBoolean) obj;
+    public int compareTo(MutableBoolean other) {
         boolean anotherVal = other.value;
         return value == anotherVal ? 0 : (value ? 1 : -1);
     }

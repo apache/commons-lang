@@ -130,14 +130,6 @@ public class MutableFloatTest extends TestCase {
             mutNum.compareTo(null);
             fail();
         } catch (NullPointerException ex) {}
-        try {
-            mutNum.compareTo(new Float(0f));
-            fail();
-        } catch (ClassCastException ex) {}
-        try {
-            mutNum.compareTo("0");
-            fail();
-        } catch (ClassCastException ex) {}
     }
 
     public void testPrimitiveValues() {

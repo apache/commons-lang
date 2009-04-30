@@ -25,7 +25,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @since 2.1
  * @version $Id$
  */
-public class MutableDouble extends Number implements Comparable, Mutable {
+public class MutableDouble extends Number implements Comparable<MutableDouble>, Mutable {
 
     /**
      * Required for serialization support.
@@ -300,8 +300,7 @@ public class MutableDouble extends Number implements Comparable, Mutable {
      * @return negative if this is less, zero if equal, positive if greater
      * @throws ClassCastException if the argument is not a MutableDouble
      */
-    public int compareTo(Object obj) {
-        MutableDouble other = (MutableDouble) obj;
+    public int compareTo(MutableDouble other) {
         double anotherVal = other.value;
         return Double.compare(value, anotherVal);
     }

@@ -23,7 +23,7 @@ package org.apache.commons.lang.mutable;
  * @since 2.1
  * @version $Id$
  */
-public class MutableLong extends Number implements Comparable, Mutable {
+public class MutableLong extends Number implements Comparable<MutableLong>, Mutable {
 
     /**
      * Required for serialization support.
@@ -260,8 +260,7 @@ public class MutableLong extends Number implements Comparable, Mutable {
      * @return negative if this is less, zero if equal, positive if greater
      * @throws ClassCastException if the argument is not a MutableLong
      */
-    public int compareTo(Object obj) {
-        MutableLong other = (MutableLong) obj;
+    public int compareTo(MutableLong other) {
         long anotherVal = other.value;
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }

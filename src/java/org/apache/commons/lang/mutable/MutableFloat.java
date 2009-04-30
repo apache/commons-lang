@@ -25,7 +25,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * @since 2.1
  * @version $Id$
  */
-public class MutableFloat extends Number implements Comparable, Mutable {
+public class MutableFloat extends Number implements Comparable<MutableFloat>, Mutable {
 
     /**
      * Required for serialization support.
@@ -301,8 +301,7 @@ public class MutableFloat extends Number implements Comparable, Mutable {
      *            the mutable to compare to
      * @return negative if this is less, zero if equal, positive if greater
      */
-    public int compareTo(Object obj) {
-        MutableFloat other = (MutableFloat) obj;
+    public int compareTo(MutableFloat other) {
         float anotherVal = other.value;
         return Float.compare(value, anotherVal);
     }
