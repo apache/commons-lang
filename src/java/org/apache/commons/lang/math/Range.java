@@ -267,8 +267,8 @@ public abstract class Range {
      *  range by <code>double</code> comparison
      */
     public boolean containsDouble(double value) {
-        int compareMin = NumberUtils.compare(getMinimumDouble(), value);
-        int compareMax = NumberUtils.compare(getMaximumDouble(), value);
+        int compareMin = Double.compare(getMinimumDouble(), value);
+        int compareMax = Double.compare(getMaximumDouble(), value);
         return compareMin <= 0 && compareMax >= 0;
     }
 
@@ -303,8 +303,8 @@ public abstract class Range {
      *  range by <code>float</code> comparison
      */
     public boolean containsFloat(float value) {
-        int compareMin = NumberUtils.compare(getMinimumFloat(), value);
-        int compareMax = NumberUtils.compare(getMaximumFloat(), value);
+        int compareMin = Float.compare(getMinimumFloat(), value);
+        int compareMax = Float.compare(getMaximumFloat(), value);
         return compareMin <= 0 && compareMax >= 0;
     }
 

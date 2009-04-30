@@ -589,7 +589,7 @@ public class CompareToBuilder {
         if (comparison != 0) {
             return this;
         }
-        comparison = NumberUtils.compare(lhs, rhs);
+        comparison = Double.compare(lhs, rhs);
         return this;
     }
 
@@ -610,7 +610,7 @@ public class CompareToBuilder {
         if (comparison != 0) {
             return this;
         }
-        comparison = NumberUtils.compare(lhs, rhs);
+        comparison = Float.compare(lhs, rhs);
         return this;
     }
 

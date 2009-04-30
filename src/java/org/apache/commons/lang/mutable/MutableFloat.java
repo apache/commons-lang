@@ -304,7 +304,7 @@ public class MutableFloat extends Number implements Comparable, Mutable {
     public int compareTo(Object obj) {
         MutableFloat other = (MutableFloat) obj;
         float anotherVal = other.value;
-        return NumberUtils.compare(value, anotherVal);
+        return Float.compare(value, anotherVal);
     }
 
     /**
