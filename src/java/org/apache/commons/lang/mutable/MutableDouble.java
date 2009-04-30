@@ -303,7 +303,7 @@ public class MutableDouble extends Number implements Comparable, Mutable {
     public int compareTo(Object obj) {
         MutableDouble other = (MutableDouble) obj;
         double anotherVal = other.value;
-        return NumberUtils.compare(value, anotherVal);
+        return Double.compare(value, anotherVal);
     }
 
     /**
