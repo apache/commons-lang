@@ -896,10 +896,10 @@ public class BooleanUtils {
 
         // Loops through array, comparing each item
         int trueCount = 0;
-        for (int i = 0; i < array.length; i++) {
+        for (boolean element : array) {
             // If item is true, and trueCount is < 1, increments count
             // Else, xor fails
-            if (array[i]) {
+            if (element) {
                 if (trueCount < 1) {
                     trueCount++;
                 } else {
