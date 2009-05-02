@@ -749,8 +749,8 @@ class Entities {
      *            array of entities to be added
      */
     public void addEntities(String[][] entityArray) {
-        for (int i = 0; i < entityArray.length; ++i) {
-            addEntity(entityArray[i][0], Integer.parseInt(entityArray[i][1]));
+        for (String[] element : entityArray) {
+            addEntity(element[0], Integer.parseInt(element[1]));
         }
     }
 

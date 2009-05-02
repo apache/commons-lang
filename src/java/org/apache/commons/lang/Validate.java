@@ -258,9 +258,7 @@ public class Validate {
      * @throws IllegalArgumentException if the array is empty
      */
     public static void notEmpty(Object[] array) {
-        if (array == null || array.length == 0) {
-            throw new IllegalArgumentException("The validated array is empty");
-        }
+        notEmpty(array, "The validated array is empty");
     }
 
     // notEmpty collection
@@ -278,7 +276,7 @@ public class Validate {
      * @param message  the exception message you would like to see if the collection is empty
      * @throws IllegalArgumentException if the collection is empty
      */
-    public static void notEmpty(Collection collection, String message) {
+    public static void notEmpty(Collection<?> collection, String message) {
         if (collection == null || collection.size() == 0) {
             throw new IllegalArgumentException(message);
         }
@@ -297,10 +295,8 @@ public class Validate {
      * @param collection  the collection to check is not empty
      * @throws IllegalArgumentException if the collection is empty
      */
-    public static void notEmpty(Collection collection) {
-        if (collection == null || collection.size() == 0) {
-            throw new IllegalArgumentException("The validated collection is empty");
-        }
+    public static void notEmpty(Collection<?> collection) {
+        notEmpty(collection, "The validated collection is empty");
     }
 
     // notEmpty map
@@ -318,7 +314,7 @@ public class Validate {
      * @param message  the exception message you would like to see if the map is empty
      * @throws IllegalArgumentException if the map is empty
      */
-    public static void notEmpty(Map map, String message) {
+    public static void notEmpty(Map<?,?> map, String message) {
         if (map == null || map.size() == 0) {
             throw new IllegalArgumentException(message);
         }
@@ -337,10 +333,8 @@ public class Validate {
      * @param map  the map to check is not empty
      * @throws IllegalArgumentException if the map is empty
      */
-    public static void notEmpty(Map map) {
-        if (map == null || map.size() == 0) {
-            throw new IllegalArgumentException("The validated map is empty");
-        }
+    public static void notEmpty(Map<?,?> map) {
+        notEmpty(map, "The validated map is empty");
     }
 
     // notEmpty string
@@ -378,9 +372,7 @@ public class Validate {
      * @throws IllegalArgumentException if the string is empty
      */
     public static void notEmpty(String string) {
-        if (string == null || string.length() == 0) {
-            throw new IllegalArgumentException("The validated string is empty");
-        }
+        notEmpty(string, "The validated string is empty");
     }
 
     // notNullElements array
