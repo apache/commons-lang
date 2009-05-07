@@ -318,7 +318,7 @@ public class EqualsBuilder {
         boolean useTransients,
         String[] excludeFields) {
         Field[] fields = clazz.getDeclaredFields();
-        List excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.EMPTY_LIST;
+        List<String> excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.<String>emptyList();
         AccessibleObject.setAccessible(fields, true);
         for (int i = 0; i < fields.length && builder.isEquals; i++) {
             Field f = fields[i];
