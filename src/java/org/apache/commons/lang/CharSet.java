@@ -19,7 +19,6 @@ package org.apache.commons.lang;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -243,8 +242,7 @@ public class CharSet implements Serializable {
      * @return <code>true</code> if the set contains the characters
      */
     public boolean contains(char ch) {
-        for (Iterator<CharRange> it = set.iterator(); it.hasNext();) {
-            CharRange range = it.next();
+        for (CharRange range : set) {
             if (range.contains(ch)) {
                 return true;
             }
