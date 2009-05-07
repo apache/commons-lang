@@ -20,9 +20,11 @@ package org.apache.commons.lang.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ClassUtils;
@@ -340,9 +342,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return The given array or a new array without null.
      */
     static String[] toNoNullStringArray(Object[] array) {
-        ArrayList<String> list = new ArrayList<String>(array.length);
-        for (int i = 0; i < array.length; i++) {
-            Object e = array[i];
+        List<String> list = new ArrayList<String>(array.length);
+        for (Object e : array) {
             if (e != null) {
                 list.add(e.toString());
             }
@@ -526,8 +527,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
         }
         Field[] fields = clazz.getDeclaredFields();
         AccessibleObject.setAccessible(fields, true);
-        for (int i = 0; i < fields.length; i++) {
-            Field field = fields[i];
+        for (Field field : fields) {
             String fieldName = field.getName();
             if (this.accept(field)) {
                 try {
