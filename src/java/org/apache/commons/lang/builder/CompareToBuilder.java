@@ -355,7 +355,7 @@ public class CompareToBuilder {
         String[] excludeFields) {
         
         Field[] fields = clazz.getDeclaredFields();
-        List excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.EMPTY_LIST;
+        List<String> excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.<String>emptyList();
         AccessibleObject.setAccessible(fields, true);
         for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
             Field f = fields[i];
@@ -685,7 +685,7 @@ public class CompareToBuilder {
      *  with <code>lhs</code>
      * @since 2.0
      */
-    public CompareToBuilder append(Object[] lhs, Object[] rhs, Comparator comparator) {
+    public CompareToBuilder append(Object[] lhs, Object[] rhs, Comparator<?> comparator) {
         if (comparison != 0) {
             return this;
         }
