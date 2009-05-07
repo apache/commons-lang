@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -87,8 +86,7 @@ public class ClassUtils {
      */
     private static final Map<Class<?>, Class<?>> wrapperPrimitiveMap = new HashMap<Class<?>, Class<?>>();
     static {
-        for (Iterator<Class<?>> it = primitiveWrapperMap.keySet().iterator(); it.hasNext();) {
-            Class<?> primitiveClass = it.next();
+        for (Class<?> primitiveClass : primitiveWrapperMap.keySet()) {
             Class<?> wrapperClass = primitiveWrapperMap.get(primitiveClass);
             if (!primitiveClass.equals(wrapperClass)) {
                 wrapperPrimitiveMap.put(wrapperClass, primitiveClass);
@@ -289,15 +287,14 @@ public class ClassUtils {
         List<Class<?>> list = new ArrayList<Class<?>>();
         while (cls != null) {
             Class<?>[] interfaces = cls.getInterfaces();
-            for (int i = 0; i < interfaces.length; i++) {
-                if (list.contains(interfaces[i]) == false) {
-                    list.add(interfaces[i]);
+            for (Class<?> intface : interfaces) {
+                if (list.contains(intface) == false) {
+                    list.add(intface);
                 }
-                List<Class<?>> superInterfaces = getAllInterfaces(interfaces[i]);
-                for (Iterator<Class<?>> it = superInterfaces.iterator(); it.hasNext();) {
-                    Class<?> intface = it.next();
-                    if (list.contains(intface) == false) {
-                        list.add(intface);
+                List<Class<?>> superInterfaces = getAllInterfaces(intface);
+                for (Class<?> superInterface : superInterfaces) {
+                    if (list.contains(superInterface) == false) {
+                        list.add(superInterface);
                     }
                 }
             }
@@ -325,8 +322,7 @@ public class ClassUtils {
             return null;
         }
         List<Class<?>> classes = new ArrayList<Class<?>>(classNames.size());
-        for (Iterator<String> it = classNames.iterator(); it.hasNext();) {
-            String className = it.next();
+        for (String className : classNames) {
             try {
                 classes.add(Class.forName(className));
             } catch (Exception ex) {
@@ -353,8 +349,7 @@ public class ClassUtils {
             return null;
         }
         List<String> classNames = new ArrayList<String>(classes.size());
-        for (Iterator<Class<?>> it = classes.iterator(); it.hasNext();) {
-            Class<?> cls = it.next();
+        for (Class<?> cls : classes) {
             if (cls == null) {
                 classNames.add(null);
             } else {
@@ -801,8 +796,7 @@ public class ClassUtils {
         candidateClasses.addAll(getAllInterfaces(cls));
         candidateClasses.addAll(getAllSuperclasses(cls));
 
-        for (Iterator<Class<?>> it = candidateClasses.iterator(); it.hasNext(); ) {
-            Class<?> candidateClass = it.next();
+        for (Class<?> candidateClass : candidateClasses) {
             if (!Modifier.isPublic(candidateClass.getModifiers())) {
                 continue;
             }
