@@ -806,7 +806,7 @@ public class ExceptionUtils {
         }
         Throwable throwables[] = getThrowables(throwable);
         int count = throwables.length;
-        ArrayList<String> frames = new ArrayList<String>();
+        List<String> frames = new ArrayList<String>();
         List<String> nextTrace = getStackFrameList(throwables[count - 1]);
         for (int i = count; --i >= 0;) {
             List<String> trace = nextTrace;
