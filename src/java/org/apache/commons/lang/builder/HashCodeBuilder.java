@@ -179,10 +179,9 @@ public class HashCodeBuilder {
         try {
             register(object);
             Field[] fields = clazz.getDeclaredFields();
-            List excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.EMPTY_LIST;
+            List<String> excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.EMPTY_LIST;
             AccessibleObject.setAccessible(fields, true);
-            for (int i = 0; i < fields.length; i++) {
-                Field field = fields[i];
+            for (Field field : fields) {
                 if (!excludedFieldList.contains(field.getName())
                     && (field.getName().indexOf('$') == -1)
                     && (useTransients || !Modifier.isTransient(field.getModifiers()))
