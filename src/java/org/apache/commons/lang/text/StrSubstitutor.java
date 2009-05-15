@@ -130,7 +130,7 @@ public class StrSubstitutor {
      * @param valueMap  the map with the values, may be null
      * @return the result of the replace operation
      */
-    public static String replace(Object source, Map valueMap) {
+    public static <V> String replace(Object source, Map<String, V> valueMap) {
         return new StrSubstitutor(valueMap).replace(source);
     }
 
@@ -146,7 +146,7 @@ public class StrSubstitutor {
      * @return the result of the replace operation
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public static String replace(Object source, Map valueMap, String prefix, String suffix) {
+    public static <V> String replace(Object source, Map<String, V> valueMap, String prefix, String suffix) {
         return new StrSubstitutor(valueMap, prefix, suffix).replace(source);
     }
 
@@ -176,7 +176,7 @@ public class StrSubstitutor {
      *
      * @param valueMap  the map with the variables' values, may be null
      */
-    public StrSubstitutor(Map valueMap) {
+    public <V> StrSubstitutor(Map<String, V> valueMap) {
         this(StrLookup.mapLookup(valueMap), DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
@@ -188,7 +188,7 @@ public class StrSubstitutor {
      * @param suffix  the suffix for variables, not null
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(Map valueMap, String prefix, String suffix) {
+    public <V> StrSubstitutor(Map<String, V> valueMap, String prefix, String suffix) {
         this(StrLookup.mapLookup(valueMap), prefix, suffix, DEFAULT_ESCAPE);
     }
 
@@ -201,7 +201,7 @@ public class StrSubstitutor {
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(Map valueMap, String prefix, String suffix, char escape) {
+    public <V> StrSubstitutor(Map<String, V> valueMap, String prefix, String suffix, char escape) {
         this(StrLookup.mapLookup(valueMap), prefix, suffix, escape);
     }
 
