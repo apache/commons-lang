@@ -303,8 +303,8 @@ public class HashCodeBuilder {
      *            the superclass to reflect up to (inclusive), may be <code>null</code>
      * @return int hash code
      */
-    public static int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object object,
-            boolean testTransients, Class<?> reflectUpToClass) {
+    public static <T> int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, T object,
+            boolean testTransients, Class<? super T> reflectUpToClass) {
         return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, testTransients,
                 reflectUpToClass, null);
     }
@@ -354,8 +354,8 @@ public class HashCodeBuilder {
      *             if the number is zero or even
      * @since 2.0
      */
-    public static int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object object,
-            boolean testTransients, Class<?> reflectUpToClass, String[] excludeFields) {
+    public static <T> int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, T object,
+            boolean testTransients, Class<? super T> reflectUpToClass, String[] excludeFields) {
 
         if (object == null) {
             throw new IllegalArgumentException("The object to build a hash code for must not be null");
