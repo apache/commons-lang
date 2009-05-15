@@ -35,16 +35,16 @@ import java.util.Map;
  * @since 2.2
  * @version $Id$
  */
-public abstract class StrLookup {
+public abstract class StrLookup<V> {
 
     /**
      * Lookup that always returns null.
      */
-    private static final StrLookup NONE_LOOKUP;
+    private static final StrLookup<?> NONE_LOOKUP;
     /**
      * Lookup that uses System properties.
      */
-    private static final StrLookup SYSTEM_PROPERTIES_LOOKUP;
+    private static final StrLookup<Object> SYSTEM_PROPERTIES_LOOKUP;
     static {
         NONE_LOOKUP = new MapStrLookup(null);
         StrLookup lookup = null;
@@ -62,7 +62,7 @@ public abstract class StrLookup {
      *
      * @return a lookup that always returns null, not null
      */
-    public static StrLookup noneLookup() {
+    public static StrLookup<?> noneLookup() {
         return NONE_LOOKUP;
     }
 
@@ -77,7 +77,7 @@ public abstract class StrLookup {
      *
      * @return a lookup using system properties, not null
      */
-    public static StrLookup systemPropertiesLookup() {
+    public static StrLookup<Object> systemPropertiesLookup() {
         return SYSTEM_PROPERTIES_LOOKUP;
     }
 
@@ -90,8 +90,8 @@ public abstract class StrLookup {
      * @param map  the map of keys to values, may be null
      * @return a lookup using the map, not null
      */
-    public static StrLookup mapLookup(Map map) {
-        return new MapStrLookup(map);
+    public static <V> StrLookup mapLookup(Map<String, V> map) {
+        return new MapStrLookup<V>(map);
     }
 
     //-----------------------------------------------------------------------
@@ -122,19 +122,19 @@ public abstract class StrLookup {
 
     //-----------------------------------------------------------------------
     /**
-     * Lookup imnplementation that uses a Map.
+     * Lookup implementation that uses a Map.
      */
-    static class MapStrLookup extends StrLookup {
+    static class MapStrLookup<V> extends StrLookup {
 
         /** Map keys are variable names and value. */
-        private final Map map;
+        private final Map<String, V> map;
 
         /**
          * Creates a new instance backed by a Map.
          *
          * @param map  the map of keys to values, may be null
          */
-        MapStrLookup(Map map) {
+        MapStrLookup(Map<String, V> map) {
             this.map = map;
         }
 
