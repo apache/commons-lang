@@ -477,6 +477,23 @@
           <minSeverity>info</minSeverity>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>2.3</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>pmd</report>
+              <report>cpd</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>javancss-maven-plugin</artifactId>
+        <version>2.0-beta-2</version>
+      </plugin>
     </plugins>
   </reporting>
 
