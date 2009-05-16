@@ -378,7 +378,7 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
     /**
      * Which field names to exclude from output. Intended for fields like <code>"password"</code>.
      */
-    private String[] excludeFieldNames;
+    protected String[] excludeFieldNames;
 
     /**
      * The last super class to stop appending fields for.
@@ -496,11 +496,11 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
             return false;
         }
         if (Modifier.isStatic(field.getModifiers()) && !this.isAppendStatics()) {
-            // Rject static fields.
+            // Reject static fields.
             return false;
         }
-        if (this.getExcludeFieldNames() != null
-            && Arrays.binarySearch(this.getExcludeFieldNames(), field.getName()) >= 0) {
+        if (this.excludeFieldNames != null
+            && Arrays.binarySearch(this.excludeFieldNames, field.getName()) >= 0) {
             // Reject fields from the getExcludeFieldNames list.
             return false;
         }
@@ -550,7 +550,7 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
      * @return Returns the excludeFieldNames.
      */
     public String[] getExcludeFieldNames() {
-        return this.excludeFieldNames;
+        return this.excludeFieldNames.clone();
     }
 
     /**
