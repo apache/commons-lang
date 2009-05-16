@@ -68,7 +68,7 @@ class IntHashMap {
      */
     private static class Entry {
         int hash;
-        int key;
+//        int key;    // not used currently
         Object value;
         Entry next;
 
@@ -82,7 +82,7 @@ class IntHashMap {
          */
         protected Entry(int hash, int key, Object value, Entry next) {
             this.hash = hash;
-            this.key = key;
+//            this.key = key;
             this.value = value;
             this.next = next;
         }
