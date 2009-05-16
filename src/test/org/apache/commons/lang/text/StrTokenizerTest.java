@@ -592,12 +592,12 @@ public class StrTokenizerTest extends TestCase {
         StrTokenizer tokenizer = new StrTokenizer(input);
         // Start sanity check
         assertEquals("a", tokenizer.nextToken());
-        tokenizer.reset();
+        tokenizer.reset(input);
         assertEquals("a", tokenizer.nextToken());
         // End sanity check
         StrTokenizer clonedTokenizer = (StrTokenizer) tokenizer.clone();
         input[0] = 'b';
-        tokenizer.reset();
+        tokenizer.reset(input);
         assertEquals("b", tokenizer.nextToken());
         assertEquals("a", clonedTokenizer.nextToken());
     }
@@ -723,9 +723,8 @@ public class StrTokenizerTest extends TestCase {
     public void testReset_charArray() {
         StrTokenizer tok = new StrTokenizer("x x x");
         
-        char[] array = new char[] {'a', ' ', 'c'};
+        char[] array = new char[] {'a', 'b', 'c'};
         tok.reset(array);
-        array[1] = 'b'; // test linked array
         assertEquals("abc", tok.next());
         assertEquals(false, tok.hasNext());
         
