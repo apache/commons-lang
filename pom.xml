@@ -481,6 +481,9 @@
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>2.3</version>
+        <configuration>
+          <targetJdk>1.5</targetJdk>  
+        </configuration>
         <reportSets>
           <reportSet>
             <reports>
