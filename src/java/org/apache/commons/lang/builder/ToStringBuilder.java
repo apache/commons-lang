@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang.builder;
 
-import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 
 /**

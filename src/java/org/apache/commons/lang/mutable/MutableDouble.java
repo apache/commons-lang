@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang.mutable;
 
-import org.apache.commons.lang.math.NumberUtils;
-
 /**
  * A mutable <code>double</code> wrapper.
  * 
