@@ -255,7 +255,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
     /**
      * Compares this mutable to another in ascending order.
      * 
-     * @param obj
+     * @param other
      *            the mutable to compare to
      * @return negative if this is less, zero if equal, positive if greater
      * @throws ClassCastException if the argument is not a MutableLong
