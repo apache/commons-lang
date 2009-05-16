@@ -461,6 +461,7 @@
         <configuration>
           <threshold>Normal</threshold>
           <effort>Default</effort>
+          <excludeFilterFile>findbugs-exclude-filter.xml</excludeFilterFile>
        </configuration>
       </plugin>
       <plugin>
