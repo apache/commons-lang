@@ -85,7 +85,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable<Mutable
     /**
      * Compares this mutable to another in ascending order.
      * 
-     * @param obj
+     * @param other
      *            the mutable to compare to
      * @return zero if this object represents the same boolean value as the argument; a positive value if this object
      *         represents true and the argument represents false; and a negative value if this object represents false
