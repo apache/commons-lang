@@ -2820,7 +2820,7 @@ public class ArrayUtils {
      * @return <code>true</code> if the array is empty or <code>null</code>
      * @since 2.1
      */
-    public static boolean isEmpty(Object[] array) {
+    public static <T> boolean isEmpty(T[] array) {
         if (array == null || array.length == 0) {
             return true;
         }
