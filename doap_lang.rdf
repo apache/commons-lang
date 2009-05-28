@@ -38,16 +38,16 @@
       </SVNRepository>
     </repository>
     <release>
-      <revision>
+      <Version>
         <name>commons-lang</name>
         <created>2006-10-04</created>
-        <version>2.2</version>
-      </revision>
-      <revision>
+        <revision>2.2</revision>
+      </Version>
+      <Version>
         <name>commons-lang</name>
         <created>2005-06-12</created>
-        <version>2.1</version>
-      </revision>
+        <revision>2.1</revision>
+      </Version>
     </release>
     <mailing-list rdf:resource="http://commons.apache.org/mail-lists.html"/>
   </Project>
