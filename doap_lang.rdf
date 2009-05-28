@@ -41,22 +41,22 @@
       <Version>
         <name>commons-lang</name>
         <created>2008-03-18</created>
-        <revision>2.4</version>
+        <revision>2.4</revision>
       </Version>
       <Version>
         <name>commons-lang</name>
         <created>2007-02-13</created>
-        <revision>2.3</version>
+        <revision>2.3</revision>
       </Version>
       <Version>
         <name>commons-lang</name>
         <created>2006-10-04</created>
-        <revision>2.2</version>
+        <revision>2.2</revision>
       </Version>
       <Version>
         <name>commons-lang</name>
         <created>2005-06-12</created>
-        <revision>2.1</version>
+        <revision>2.1</revision>
       </Version>
     </release>
     <mailing-list rdf:resource="http://commons.apache.org/mail-lists.html"/>
