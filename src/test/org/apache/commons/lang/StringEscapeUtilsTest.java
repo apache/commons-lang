@@ -324,17 +324,6 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals("XML was unescaped incorrectly", "<abc>", sw.toString() );
     }
 
-    // SQL
-    // see http://www.jguru.com/faq/view.jsp?EID=8881
-    //--------------------
-
-    public void testEscapeSql() throws Exception
-    {
-        assertEquals("don''t stop", StringEscapeUtils.escapeSql("don't stop"));
-        assertEquals("", StringEscapeUtils.escapeSql(""));
-        assertEquals(null, StringEscapeUtils.escapeSql(null));
-    }
-
     // Tests issue #38569
     // http://issues.apache.org/bugzilla/show_bug.cgi?id=38569
     public void testStandaloneAmphersand() {
