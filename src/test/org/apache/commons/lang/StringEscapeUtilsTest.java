@@ -154,7 +154,7 @@ public class StringEscapeUtilsTest extends TestCase {
         assertUnescapeJava("\ntest\b", "\\ntest\\b");
         assertUnescapeJava("\u123425foo\ntest\b", "\\u123425foo\\ntest\\b");
         assertUnescapeJava("'\foo\teste\r", "\\'\\foo\\teste\\r");
-        assertUnescapeJava("\\", "\\");
+        assertUnescapeJava("", "\\");
         //foo
         assertUnescapeJava("lowercase unicode", "\uABCDx", "\\uabcdx");
         assertUnescapeJava("uppercase unicode", "\uABCDx", "\\uABCDx");
