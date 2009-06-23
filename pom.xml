@@ -428,7 +428,6 @@
           </includes>
           <excludes>
             <exclude>**/*TestSuite.java</exclude>
-            <exclude>**/*PerformanceTest.java</exclude>
             <exclude>**/AllLangTestSuite.java</exclude>
           </excludes>
         </configuration>
