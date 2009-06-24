@@ -39,6 +39,10 @@ public class EscapeUtils {
             new EscapeLowAsciiAsUnicode(),
             new EscapeNonAsciiAsUnicode()
         );
+
+    public static final String escapeJava(String input) {
+        return ESCAPE_JAVA.translate(input);
+    }
                 
     public static final CharSequenceTranslator ESCAPE_ECMASCRIPT = 
         new AggregateTranslator(
@@ -53,6 +57,10 @@ public class EscapeUtils {
             new EscapeNonAsciiAsUnicode()
         );
             
+    public static final String escapeEcmaScript(String input) {
+        return ESCAPE_ECMASCRIPT.translate(input);
+    }
+                
     public static final CharSequenceTranslator ESCAPE_XML = 
         new AggregateTranslator(
             new LookupTranslator(EntityArrays.BASIC_ESCAPE),
@@ -60,6 +68,10 @@ public class EscapeUtils {
             new EscapeNonAsciiAsNumericEntity()
         );
 
+    public static final String escapeXml(String input) {
+        return ESCAPE_XML.translate(input);
+    }
+                
     public static final CharSequenceTranslator ESCAPE_HTML3 = 
         new AggregateTranslator(
             new LookupTranslator(EntityArrays.BASIC_ESCAPE),
@@ -67,6 +79,10 @@ public class EscapeUtils {
             new EscapeNonAsciiAsNumericEntity()
         );
 
+    public static final String escapeHtml3(String input) {
+        return ESCAPE_HTML3.translate(input);
+    }
+                
     public static final CharSequenceTranslator ESCAPE_HTML4 = 
         new AggregateTranslator(
             new LookupTranslator(EntityArrays.BASIC_ESCAPE),
@@ -75,8 +91,16 @@ public class EscapeUtils {
             new EscapeNonAsciiAsNumericEntity()
         );
 
+    public static final String escapeHtml4(String input) {
+        return ESCAPE_HTML4.translate(input);
+    }
+                
     public static final CharSequenceTranslator ESCAPE_CSV = new CsvEscaper();
 
+    public static final String escapeCsv(String input) {
+        return ESCAPE_CSV.translate(input);
+    }
+                
     // TODO: Create a parent class - 'SinglePassTranslator' ?
     // TODO: It would handle the index checking, and length returning, and 
     // TODO: could also have an optimization check method.

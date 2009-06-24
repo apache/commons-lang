@@ -47,8 +47,27 @@ public class UnescapeUtils {
                       })
         );
 
+    public static final String unescapeJava(String input) {
+        return UNESCAPE_JAVA.translate(input);
+    }
+                
     public static final CharSequenceTranslator UNESCAPE_ECMASCRIPT = UNESCAPE_JAVA;
 
+    public static final String unescapeEcmaScript(String input) {
+        return UNESCAPE_ECMASCRIPT.translate(input);
+    }
+                
+    public static final CharSequenceTranslator UNESCAPE_HTML3 = 
+        new AggregateTranslator(
+            new LookupTranslator(EntityArrays.BASIC_UNESCAPE),
+            new LookupTranslator(EntityArrays.ISO8859_1_UNESCAPE),
+            new NumericEntityUnescaper()
+        );
+
+    public static final String unescapeHtml3(String input) {
+        return UNESCAPE_HTML3.translate(input);
+    }
+                
     public static final CharSequenceTranslator UNESCAPE_HTML4 = 
         new AggregateTranslator(
             new LookupTranslator(EntityArrays.BASIC_UNESCAPE),
@@ -57,6 +76,10 @@ public class UnescapeUtils {
             new NumericEntityUnescaper()
         );
 
+    public static final String unescapeHtml4(String input) {
+        return UNESCAPE_HTML4.translate(input);
+    }
+                
     public static final CharSequenceTranslator UNESCAPE_XML = 
         new AggregateTranslator(
             new LookupTranslator(EntityArrays.BASIC_UNESCAPE),
@@ -64,8 +87,16 @@ public class UnescapeUtils {
             new NumericEntityUnescaper()
         );
 
+    public static final String unescapeXml(String input) {
+        return UNESCAPE_XML.translate(input);
+    }
+                
     public static final CharSequenceTranslator UNESCAPE_CSV = new CsvUnescaper();
 
+    public static final String unescapeCsv(String input) {
+        return UNESCAPE_CSV.translate(input);
+    }
+                
     static class CsvUnescaper extends CharSequenceTranslator {
 
         private static final char CSV_DELIMITER = ',';

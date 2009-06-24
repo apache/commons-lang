@@ -78,7 +78,7 @@ public class StringEscapeUtils {
      * @return String with escaped values, <code>null</code> if null string input
      */
     public static String escapeJava(String str) {
-        return EscapeUtils.ESCAPE_JAVA.translate(str);
+        return EscapeUtils.escapeJava(str);
     }
 
     /**
@@ -119,7 +119,7 @@ public class StringEscapeUtils {
      * @return String with escaped values, <code>null</code> if null string input
      */
     public static String escapeJavaScript(String str) {
-        return EscapeUtils.ESCAPE_ECMASCRIPT.translate(str);
+        return EscapeUtils.escapeEcmaScript(str);
     }
 
     /**
@@ -148,7 +148,7 @@ public class StringEscapeUtils {
      * @return a new unescaped <code>String</code>, <code>null</code> if null string input
      */
     public static String unescapeJava(String str) {
-        return UnescapeUtils.UNESCAPE_JAVA.translate(str);
+        return UnescapeUtils.unescapeJava(str);
     }
 
     /**
@@ -182,7 +182,7 @@ public class StringEscapeUtils {
      * @return A new unescaped <code>String</code>, <code>null</code> if null string input
      */
     public static String unescapeJavaScript(String str) {
-        return UnescapeUtils.UNESCAPE_ECMASCRIPT.translate(str);
+        return UnescapeUtils.unescapeEcmaScript(str);
     }
 
     /**
@@ -234,7 +234,7 @@ public class StringEscapeUtils {
      * @see <a href="http://www.w3.org/TR/html401/charset.html#code-position">HTML 4.01 Code positions</a>
      */
     public static String escapeHtml(String str) {
-        return EscapeUtils.ESCAPE_HTML4.translate(str);
+        return EscapeUtils.escapeHtml4(str);
     }
 
     /**
@@ -288,7 +288,7 @@ public class StringEscapeUtils {
      * @see #escapeHtml(Writer, String)
      */
     public static String unescapeHtml(String str) {
-        return UnescapeUtils.UNESCAPE_HTML4.translate(str);
+        return UnescapeUtils.unescapeHtml4(str);
     }
 
     /**
@@ -355,7 +355,7 @@ public class StringEscapeUtils {
      * @see #unescapeXml(java.lang.String)
      */
     public static String escapeXml(String str) {
-        return EscapeUtils.ESCAPE_XML.translate(str);
+        return EscapeUtils.escapeXml(str);
     }
 
     //-----------------------------------------------------------------------
@@ -396,7 +396,7 @@ public class StringEscapeUtils {
      * @see #escapeXml(String)
      */
     public static String unescapeXml(String str) {
-        return UnescapeUtils.UNESCAPE_XML.translate(str);
+        return UnescapeUtils.unescapeXml(str);
     }
 
     //-----------------------------------------------------------------------
@@ -424,7 +424,7 @@ public class StringEscapeUtils {
      * @since 2.4
      */
     public static String escapeCsv(String str) {
-        return EscapeUtils.ESCAPE_CSV.translate(str);
+        return EscapeUtils.escapeCsv(str);
     }
 
     /**
@@ -477,7 +477,7 @@ public class StringEscapeUtils {
      * @since 2.4
      */
     public static String unescapeCsv(String str) {
-        return UnescapeUtils.UNESCAPE_CSV.translate(str);
+        return UnescapeUtils.unescapeCsv(str);
     }
 
     /**
