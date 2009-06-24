@@ -65,7 +65,6 @@ public class LangTestSuite extends TestCase {
         suite.addTest(EnumUtilsTest.suite());
         suite.addTest(IllegalClassExceptionTest.suite());
         suite.addTest(IncompleteArgumentExceptionTest.suite());
-        suite.addTest(IntHashMapTest.suite());
         suite.addTest(LocaleUtilsTest.suite());
         suite.addTest(NotImplementedExceptionTest.suite());
         suite.addTest(NullArgumentExceptionTest.suite());
