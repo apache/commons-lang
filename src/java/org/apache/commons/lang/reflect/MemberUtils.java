@@ -31,7 +31,7 @@ import org.apache.commons.lang.SystemUtils;
  *
  * @author Steve Cohen
  * @author Matt Benson
- * @since 2.5
+ * @since 3.0
  * @version $Id$
  */
 abstract class MemberUtils {

@@ -46,7 +46,7 @@ import org.apache.commons.lang.ClassUtils;
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
  * @author Rodney Waldhoff
- * @since 2.5
+ * @since 3.0
  * @version $Id$
  */
 public class ConstructorUtils {
