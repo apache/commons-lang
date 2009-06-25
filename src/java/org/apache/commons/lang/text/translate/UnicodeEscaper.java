@@ -30,11 +30,11 @@ public class UnicodeEscaper extends CodePointTranslator {
     private boolean between = true;
 
     public static UnicodeEscaper below(int codepoint) {
-        return between(0, codepoint);
+        return outsideOf(codepoint, Integer.MAX_VALUE);
     }
 
     public static UnicodeEscaper above(int codepoint) {
-        return between(codepoint, Integer.MAX_VALUE);
+        return outsideOf(0, codepoint);
     }
 
     public static UnicodeEscaper outsideOf(int codepointLow, int codepointHigh) {
