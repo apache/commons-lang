@@ -104,6 +104,17 @@ public abstract class CharSequenceTranslator {
     }
 
     /**
+     * Helper method to create a merger of this translator with another set of 
+     * translators. Useful in customizing the standard functionality.
+     */
+    public final CharSequenceTranslator with(CharSequenceTranslator... translators) {
+        CharSequenceTranslator[] newArray = new CharSequenceTranslator[translators.length + 1];
+        newArray[0] = this;
+        System.arraycopy(translators, 0, newArray, 1, translators.length);
+        return new AggregateTranslator(newArray);
+    }
+
+    /**
      * <p>Returns an upper case hexadecimal <code>String</code> for the given
      * character.</p>
      *
