@@ -59,8 +59,15 @@ public class EscapeUtils {
                             {"\\", "\\\\"},
                             {"/", "\\/"}
                       }),
-            new EscapeLowAsciiAsUnicode(),
-            new EscapeNonAsciiAsUnicode()
+            new LookupTranslator(
+                      new String[][] {
+                            {"\b", "\\b"},
+                            {"\n", "\\n"},
+                            {"\t", "\\t"},
+                            {"\f", "\\f"},
+                            {"\r", "\\r"}
+                      }),
+            UnicodeEscaper.outsideOf(32, 0x7f) 
         );
             
     public static final String escapeEcmaScript(String input) {
