@@ -71,7 +71,7 @@ public class EscapeUtils {
         new AggregateTranslator(
             new LookupTranslator(EntityArrays.BASIC_ESCAPE),
             new LookupTranslator(EntityArrays.APOS_ESCAPE),
-            new EscapeNonAsciiAsNumericEntity()
+            NumericEntityEscaper.above(0x7f)
         );
 
     public static final String escapeXml(String input) {
@@ -82,7 +82,7 @@ public class EscapeUtils {
         new AggregateTranslator(
             new LookupTranslator(EntityArrays.BASIC_ESCAPE),
             new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE),
-            new EscapeNonAsciiAsNumericEntity()
+            NumericEntityEscaper.above(0x7f)
         );
 
     public static final String escapeHtml3(String input) {
@@ -94,7 +94,7 @@ public class EscapeUtils {
             new LookupTranslator(EntityArrays.BASIC_ESCAPE),
             new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE),
             new LookupTranslator(EntityArrays.HTML40_EXTENDED_ESCAPE),
-            new EscapeNonAsciiAsNumericEntity()
+            NumericEntityEscaper.above(0x7f)
         );
 
     public static final String escapeHtml4(String input) {
