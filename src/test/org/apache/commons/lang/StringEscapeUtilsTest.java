@@ -231,7 +231,7 @@ public class StringEscapeUtilsTest extends TestCase {
             assertEquals(message, expected, StringEscapeUtils.escapeHtml(original));
             StringWriter sw = new StringWriter();
             try {
-            StringEscapeUtils.escapeHtml(sw, original);
+                StringEscapeUtils.escapeHtml(sw, original);
             } catch (IOException e) {
             }
             String actual = original == null ? null : sw.toString();
@@ -248,7 +248,7 @@ public class StringEscapeUtilsTest extends TestCase {
             
             StringWriter sw = new StringWriter();
             try {
-            StringEscapeUtils.unescapeHtml(sw, original);
+                StringEscapeUtils.unescapeHtml(sw, original);
             } catch (IOException e) {
             }
             String actual = original == null ? null : sw.toString();
