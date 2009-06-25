@@ -30,14 +30,14 @@ package org.apache.commons.lang.mutable;
  * @since 2.1
  * @version $Id$
  */
-public interface Mutable {
+public interface Mutable<T> {
 
     /**
      * Gets the value of this mutable.
      * 
      * @return the stored value
      */
-    Object getValue();
+    T getValue();
 
     /**
      * Sets the value of this mutable.
@@ -49,6 +49,6 @@ public interface Mutable {
      * @throws ClassCastException
      *             if the type is invalid
      */
-    void setValue(Object value);
+    void setValue(T value);
 
 }

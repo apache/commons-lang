@@ -25,7 +25,7 @@ import java.io.Serializable;
  * @since 2.1
  * @version $Id$
  */
-public class MutableObject implements Mutable, Serializable {
+public class MutableObject<T> implements Mutable<T>, Serializable {
 
     /**
      * Required for serialization support.
@@ -35,7 +35,7 @@ public class MutableObject implements Mutable, Serializable {
     private static final long serialVersionUID = 86241875189L;
 
     /** The mutable value. */
-    private Object value;
+    private T value;
 
     /**
      * Constructs a new MutableObject with the default value of <code>null</code>.
@@ -50,7 +50,7 @@ public class MutableObject implements Mutable, Serializable {
      * @param value
      *            a value.
      */
-    public MutableObject(Object value) {
+    public MutableObject(T value) {
         super();
         this.value = value;
     }
@@ -61,7 +61,7 @@ public class MutableObject implements Mutable, Serializable {
      * 
      * @return the value
      */
-    public Object getValue() {
+    public T getValue() {
         return this.value;
     }
 
@@ -71,27 +71,27 @@ public class MutableObject implements Mutable, Serializable {
      * @param value
      *            the value to set
      */
-    public void setValue(Object value) {
+    public void setValue(T value) {
         this.value = value;
     }
 
     //-----------------------------------------------------------------------
     /**
      * Compares this object against the specified object. The result is <code>true</code> if and only if the argument
-     * is not <code>null</code> and is a <code>MutableObject</code> object that contains the same <code>Object</code>
+     * is not <code>null</code> and is a <code>MutableObject</code> object that contains the same <code>T</code>
      * value as this object.
      * 
      * @param obj
      *            the object to compare with.
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof MutableObject) {
-            Object other = ((MutableObject) obj).value;
-            return value == other || (value != null && value.equals(other));
+    public boolean equals(MutableObject<T> obj) {
+        if(obj == null) {
+            return false;
         }
-        return false;
+
+        T other = obj.value;
+        return value == other || (value != null && value.equals(other));
     }
 
     /**
