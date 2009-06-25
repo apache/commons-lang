@@ -30,15 +30,21 @@ import org.apache.commons.lang.CharUtils;
 public class EscapeUtils {
 
     public static final CharSequenceTranslator ESCAPE_JAVA = 
-        new AggregateTranslator(
-            new LookupTranslator(
-                      new String[][] { 
-                            {"\"", "\\\""},
-                            {"\\", "\\\\"}
-                      }),
-            new EscapeLowAsciiAsUnicode(),
-            new EscapeNonAsciiAsUnicode()
-        );
+          new LookupTranslator(
+            new String[][] { 
+              {"\"", "\\\""},
+              {"\\", "\\\\"},
+          }).with(
+          new LookupTranslator(
+            new String[][] {
+              {"\b", "\\b"},
+              {"\n", "\\n"},
+              {"\t", "\\t"},
+              {"\f", "\\f"},
+              {"\r", "\\r"}
+          }).with(
+          UnicodeEscaper.outsideOf(32, 0x7f) 
+        ));
 
     public static final String escapeJava(String input) {
         return ESCAPE_JAVA.translate(input);
