@@ -25,10 +25,47 @@ import java.io.Writer;
  */
 public class UnicodeEscaper extends CodePointTranslator {
 
+    private int below = 0;
+    private int above = Integer.MAX_VALUE;
+    private boolean between = true;
+
+    public static UnicodeEscaper below(int codepoint) {
+        return between(0, codepoint);
+    }
+
+    public static UnicodeEscaper above(int codepoint) {
+        return between(codepoint, Integer.MAX_VALUE);
+    }
+
+    public static UnicodeEscaper outsideOf(int codepointLow, int codepointHigh) {
+        UnicodeEscaper escaper = new UnicodeEscaper();
+        escaper.above = codepointHigh;
+        escaper.below = codepointLow;
+        escaper.between = false;
+        return escaper;
+    }
+
+    public static UnicodeEscaper between(int codepointLow, int codepointHigh) {
+        UnicodeEscaper escaper = new UnicodeEscaper();
+        escaper.above = codepointHigh;
+        escaper.below = codepointLow;
+        return escaper;
+    }
+
     /**
      * {@inheritDoc}
      */
     public boolean translate(int codepoint, Writer out) throws IOException {
+        if(between) {
+            if (codepoint < below || codepoint > above) {
+                return false;
+            }
+        } else {
+            if (codepoint >= below && codepoint <= above) {
+                return false;
+            }
+        }
+
         if (codepoint > 0xffff) {
             // TODO: Figure out what to do. Output as two unicodes?
             //       Does this make this a Java-specific output class?
