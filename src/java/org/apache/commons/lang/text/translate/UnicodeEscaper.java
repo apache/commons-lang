@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Translates codepoints to their unicode escape value. 
+ * Translates codepoints to their unicode escaped value. 
  * @since 3.0
  */
 public class UnicodeEscaper extends CodePointTranslator {
@@ -66,6 +66,8 @@ public class UnicodeEscaper extends CodePointTranslator {
             }
         }
 
+        // TODO: Handle multiple u's per Java spec
+        // TODO: Handle potential + sign per various unicode escape implementations
         if (codepoint > 0xffff) {
             // TODO: Figure out what to do. Output as two unicodes?
             //       Does this make this a Java-specific output class?
