@@ -218,9 +218,7 @@ public class Validate {
      * @throws IllegalArgumentException if the object is <code>null</code>
      */
     public static void notNull(Object object) {
-        if (object == null) {
-            throw new IllegalArgumentException("The validated object is null");
-        }
+        notNull(object, "The validated object is null");
     }
 
     // notEmpty array
