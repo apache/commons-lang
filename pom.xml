@@ -447,6 +447,22 @@
 
   <reporting>
     <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-changes-plugin</artifactId>
+          <version>2.0</version>
+          <configuration>
+            <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
+            <issueLinkTemplate>%URL%/%ISSUE%</issueLinkTemplate>
+          </configuration>
+          <reportSets>
+            <reportSet>
+              <reports>
+                 <report>changes-report</report>
+              </reports>
+            </reportSet>
+          </reportSets>
+        </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.1</version>
@@ -456,6 +472,7 @@
         </configuration>
       </plugin>
       <!-- Requires setting 'export MAVEN_OPTS="-Xmx512m" ' -->
+      <!--
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
@@ -466,6 +483,7 @@
           <excludeFilterFile>findbugs-exclude-filter.xml</excludeFilterFile>
        </configuration>
       </plugin>
+      -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
