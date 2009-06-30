@@ -29,20 +29,26 @@ import org.apache.commons.lang.CharUtils;
  */
 public class UnescapeUtils {
 
+    public static final CharSequenceTranslator UNESCAPE_JAVA_CTRL_CHARS = 
+            new LookupTranslator(
+                      new String[][] { 
+                            {"\\b", "\b"},
+                            {"\\n", "\n"},
+                            {"\\t", "\t"},
+                            {"\\f", "\f"},
+                            {"\\r", "\r"}
+                      });
+
     // throw "illegal character: \92" as an Exception if a \ on the end of the Java (as per the compiler)?
     public static final CharSequenceTranslator UNESCAPE_JAVA = 
         new AggregateTranslator(
             new UnicodeUnescaper(),
+            UNESCAPE_JAVA_CTRL_CHARS,
             new LookupTranslator(
                       new String[][] { 
                             {"\\\\", "\\"},
                             {"\\\"", "\""},
                             {"\\'", "'"},
-                            {"\\r", "\r"},
-                            {"\\f", "\f"},
-                            {"\\t", "\t"},
-                            {"\\n", "\n"},
-                            {"\\b", "\b"},
                             {"\\", ""}
                       })
         );
