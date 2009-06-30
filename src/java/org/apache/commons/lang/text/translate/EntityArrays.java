@@ -22,6 +22,7 @@ package org.apache.commons.lang.text.translate;
  *
  * @since 3.0
  */
+// TODO: These need to be public - make methods to return them for security purposes?
 class EntityArrays {
 
     static final String[][] ISO8859_1_ESCAPE = {
