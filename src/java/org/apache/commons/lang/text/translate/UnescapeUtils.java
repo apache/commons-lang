@@ -59,8 +59,8 @@ public class UnescapeUtils {
                 
     public static final CharSequenceTranslator UNESCAPE_HTML3 = 
         new AggregateTranslator(
-            new LookupTranslator(EntityArrays.BASIC_UNESCAPE),
-            new LookupTranslator(EntityArrays.ISO8859_1_UNESCAPE),
+            new LookupTranslator(EntityArrays.BASIC_UNESCAPE()),
+            new LookupTranslator(EntityArrays.ISO8859_1_UNESCAPE()),
             new NumericEntityUnescaper()
         );
 
@@ -70,9 +70,9 @@ public class UnescapeUtils {
                 
     public static final CharSequenceTranslator UNESCAPE_HTML4 = 
         new AggregateTranslator(
-            new LookupTranslator(EntityArrays.BASIC_UNESCAPE),
-            new LookupTranslator(EntityArrays.ISO8859_1_UNESCAPE),
-            new LookupTranslator(EntityArrays.HTML40_EXTENDED_UNESCAPE),
+            new LookupTranslator(EntityArrays.BASIC_UNESCAPE()),
+            new LookupTranslator(EntityArrays.ISO8859_1_UNESCAPE()),
+            new LookupTranslator(EntityArrays.HTML40_EXTENDED_UNESCAPE()),
             new NumericEntityUnescaper()
         );
 
@@ -82,8 +82,8 @@ public class UnescapeUtils {
                 
     public static final CharSequenceTranslator UNESCAPE_XML = 
         new AggregateTranslator(
-            new LookupTranslator(EntityArrays.BASIC_UNESCAPE),
-            new LookupTranslator(EntityArrays.APOS_UNESCAPE),
+            new LookupTranslator(EntityArrays.BASIC_UNESCAPE()),
+            new LookupTranslator(EntityArrays.APOS_UNESCAPE()),
             new NumericEntityUnescaper()
         );
 

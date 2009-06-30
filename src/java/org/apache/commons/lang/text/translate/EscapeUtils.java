@@ -76,8 +76,8 @@ public class EscapeUtils {
                 
     public static final CharSequenceTranslator ESCAPE_XML = 
         new AggregateTranslator(
-            new LookupTranslator(EntityArrays.BASIC_ESCAPE),
-            new LookupTranslator(EntityArrays.APOS_ESCAPE),
+            new LookupTranslator(EntityArrays.BASIC_ESCAPE()),
+            new LookupTranslator(EntityArrays.APOS_ESCAPE()),
             NumericEntityEscaper.above(0x7f)
         );
 
@@ -87,8 +87,8 @@ public class EscapeUtils {
                 
     public static final CharSequenceTranslator ESCAPE_HTML3 = 
         new AggregateTranslator(
-            new LookupTranslator(EntityArrays.BASIC_ESCAPE),
-            new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE),
+            new LookupTranslator(EntityArrays.BASIC_ESCAPE()),
+            new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE()),
             NumericEntityEscaper.above(0x7f)
         );
 
@@ -98,9 +98,9 @@ public class EscapeUtils {
                 
     public static final CharSequenceTranslator ESCAPE_HTML4 = 
         new AggregateTranslator(
-            new LookupTranslator(EntityArrays.BASIC_ESCAPE),
-            new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE),
-            new LookupTranslator(EntityArrays.HTML40_EXTENDED_ESCAPE),
+            new LookupTranslator(EntityArrays.BASIC_ESCAPE()),
+            new LookupTranslator(EntityArrays.ISO8859_1_ESCAPE()),
+            new LookupTranslator(EntityArrays.HTML40_EXTENDED_ESCAPE()),
             NumericEntityEscaper.above(0x7f)
         );
 
