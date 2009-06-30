@@ -17,15 +17,16 @@
 package org.apache.commons.lang.text.translate;
 
 /**
- * Package private class holding varius entity data for HTML and XML.
+ * Class holding various entity data for HTML and XML - generally for use with 
+ * the LookupTranslator.
  * All arrays are of length [*][2].
  *
  * @since 3.0
  */
-// TODO: These need to be public - make methods to return them for security purposes?
-class EntityArrays {
+public class EntityArrays {
 
-    static final String[][] ISO8859_1_ESCAPE = {
+    public static String[][] ISO8859_1_ESCAPE() { return ISO8859_1_ESCAPE.clone(); }
+    private static final String[][] ISO8859_1_ESCAPE = {
         {"\u00A0", "&nbsp;"}, // non-breaking space
         {"\u00A1", "&iexcl;"}, // inverted exclamation mark
         {"\u00A2", "&cent;"}, // cent sign
@@ -124,10 +125,12 @@ class EntityArrays {
         {"\u00FF", "&yuml;"}, // ÿ - lowercase y, umlaut
     };
 
-    static final String[][] ISO8859_1_UNESCAPE = invert(ISO8859_1_ESCAPE);
+    public static String[][] ISO8859_1_UNESCAPE() { return ISO8859_1_UNESCAPE.clone(); }
+    private static final String[][] ISO8859_1_UNESCAPE = invert(ISO8859_1_ESCAPE);
 
     // http://www.w3.org/TR/REC-html40/sgml/entities.html
-    static final String[][] HTML40_EXTENDED_ESCAPE = {
+    public static String[][] HTML40_EXTENDED_ESCAPE() { return HTML40_EXTENDED_ESCAPE.clone(); }
+    private static final String[][] HTML40_EXTENDED_ESCAPE = {
         // <!-- Latin Extended-B -->
         {"\u0192", "&fnof;"}, // latin small f with hook = function= florin, U+0192 ISOtech -->
         // <!-- Greek -->
@@ -324,29 +327,34 @@ class EntityArrays {
         {"\u20AC", "&euro;"}, // -- euro sign, U+20AC NEW -->
     };
 
-    static final String[][] HTML40_EXTENDED_UNESCAPE = invert(HTML40_EXTENDED_ESCAPE);
+    public static String[][] HTML40_EXTENDED_UNESCAPE() { return HTML40_EXTENDED_UNESCAPE.clone(); }
+    private static final String[][] HTML40_EXTENDED_UNESCAPE = invert(HTML40_EXTENDED_ESCAPE);
 
-    static final String[][] BASIC_ESCAPE = {
+    public static String[][] BASIC_ESCAPE() { return BASIC_ESCAPE.clone(); }
+    private static final String[][] BASIC_ESCAPE = {
         {"\"", "&quot;"}, // " - double-quote
         {"&", "&amp;"},   // & - ampersand
         {"<", "&lt;"},    // < - less-than
         {">", "&gt;"},    // > - greater-than
     };
 
-    static final String[][] BASIC_UNESCAPE = invert(BASIC_ESCAPE);
+    public static String[][] BASIC_UNESCAPE() { return BASIC_UNESCAPE.clone(); }
+    private static final String[][] BASIC_UNESCAPE = invert(BASIC_ESCAPE);
 
-    static final String[][] APOS_ESCAPE = {
+    public static String[][] APOS_ESCAPE() { return APOS_ESCAPE.clone(); }
+    private static final String[][] APOS_ESCAPE = {
         {"'", "&apos;"}, // XML apostrophe
     };
 
-    static final String[][] APOS_UNESCAPE = invert(APOS_ESCAPE);
+    public static String[][] APOS_UNESCAPE() { return APOS_UNESCAPE.clone(); }
+    private static final String[][] APOS_UNESCAPE = invert(APOS_ESCAPE);
 
     /**
      * Used to invert an escape array into an unescape array
      * @param array String[][] to be inverted
      * @return String[][] inverted array
      */
-    static String[][] invert(String[][] array) {
+    public static String[][] invert(String[][] array) {
         String[][] newarray = new String[array.length][2];
         for(int i = 0; i<array.length; i++) {
             newarray[i][0] = array[i][1];
