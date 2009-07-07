@@ -37,7 +37,10 @@ import org.apache.commons.lang.text.translate.UnescapeUtils;
  * @author Pete Gieser
  * @since 2.0
  * @version $Id$
+ *
+ * @deprecated Use text.translate.EscapeUtils and text.translate.UnescapeUtils instead
  */
+@Deprecated
 public class StringEscapeUtils {
 
     /**
