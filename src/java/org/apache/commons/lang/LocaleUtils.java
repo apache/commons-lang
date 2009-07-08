@@ -221,7 +221,7 @@ public class LocaleUtils {
      *
      * @return the unmodifiable set of available locales
      */
-    public static synchronized Set<Locale> availableLocaleSet() {
+    public static Set<Locale> availableLocaleSet() {
         if(cAvailableLocaleSet == null) { 
             initAvailableLocaleSet(); 
         }
