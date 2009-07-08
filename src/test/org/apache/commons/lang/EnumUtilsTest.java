@@ -36,18 +36,6 @@ public class EnumUtilsTest extends TestCase {
     }
 
     public void testGetEnumMap() {
-        try {
-            EnumUtils.getEnumMap(null);
-            fail("NullPointerException expected");
-        } catch(NullPointerException npe) {
-            // expected
-        }
-        try {
-            EnumUtils.getEnumMap(getClass());
-            fail("ClassCastException expected");
-        } catch(ClassCastException cce) {
-            // expected
-        }
         String toString = EnumUtils.getEnumMap(Traffic.class).toString(); 
         assertEquals( "getEnumMap not created correctly", "{RED=RED, AMBER=AMBER, GREEN=GREEN}", toString);
     }

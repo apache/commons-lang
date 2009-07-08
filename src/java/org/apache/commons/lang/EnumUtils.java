@@ -39,10 +39,13 @@ public class EnumUtils {
      * @param enumClass the class of the <code>enum</code> to get
      * @return the enum Map
      */
-    public static Map<String, Enum<?>> getEnumMap(Class enumClass) {
-        Map<String, Enum<?>> map = new LinkedHashMap<String, Enum<?>>();
-        Iterator<? extends Enum<?>> itr = EnumSet.allOf(enumClass).iterator();
-        while(itr.hasNext()) { Enum<?> enm = itr.next(); map.put( enm.name(), enm ); }
+    public static <E extends Enum<E>> Map<String, Enum<E>> getEnumMap(Class<E> enumClass) {
+        Map<String, Enum<E>> map = new LinkedHashMap<String, Enum<E>>();
+
+        for (E e: EnumSet.allOf(enumClass)) {
+            map.put(e.name(), e);
+        }
+
         return map;
     }
     
