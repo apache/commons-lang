@@ -418,4 +418,16 @@ public class StringEscapeUtilsTest extends TestCase {
 
         assertEquals( "High unicode was not escaped correctly", "&#119650;", escaped);
     }
+
+    // https://issues.apache.org/jira/browse/LANG-339
+    public void testEscapeHiragana() throws java.io.UnsupportedEncodingException {
+        // Some random Japanese unicode characters
+        String escaped = StringEscapeUtils.escapeHtml( "\u304B\u304C\u3068" );
+        assertEquals( "Hiragana character unicode behaviour has changed from their being escaped", 
+        "&#12363;&#12364;&#12392;", escaped);
+
+        String unescaped = StringEscapeUtils.unescapeHtml( escaped );
+
+        assertEquals( "Hiragana character unicode behaviour has changed - expected no unescaping", escaped, escaped);
+    }
 }
