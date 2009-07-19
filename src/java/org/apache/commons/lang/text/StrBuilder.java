@@ -71,7 +71,7 @@ import org.apache.commons.lang.SystemUtils;
  * @since 2.2
  * @version $Id$
  */
-public class StrBuilder {
+public class StrBuilder implements CharSequence {
 
     /**
      * The extra capacity for new builders.
@@ -1917,6 +1917,22 @@ public class StrBuilder {
     }
 
     //-----------------------------------------------------------------------
+    /**
+     * {@inheritDoc}
+     */
+    public CharSequence subSequence(int startIndex, int endIndex) {
+      if (startIndex < 0) {
+          throw new StringIndexOutOfBoundsException(startIndex);
+      }
+      if (endIndex > size) {
+          throw new StringIndexOutOfBoundsException(endIndex);
+      }
+      if (startIndex > endIndex) {
+          throw new StringIndexOutOfBoundsException(endIndex - startIndex);
+      }
+      return substring(startIndex, endIndex);
+    }
+
     /**
      * Extracts a portion of this string builder as a string.
      * 
