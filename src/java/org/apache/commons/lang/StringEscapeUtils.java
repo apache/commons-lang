@@ -68,7 +68,7 @@ public class StringEscapeUtils {
      * <code>'t'</code>.</p>
      *
      * <p>The only difference between Java strings and JavaScript strings
-     * is that in JavaScript, a single quote must be escaped.</p>
+     * is that in JavaScript, a single quote and forward-slash (/) are escaped.</p>
      *
      * <p>Example:
      * <pre>
@@ -109,7 +109,7 @@ public class StringEscapeUtils {
      * <code>'t'</code>.</p>
      *
      * <p>The only difference between Java strings and JavaScript strings
-     * is that in JavaScript, a single quote must be escaped.</p>
+     * is that in JavaScript, a single quote and forward-slash (/) are escaped.</p>
      *
      * <p>Example:
      * <pre>
