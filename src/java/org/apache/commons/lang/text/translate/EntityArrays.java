@@ -349,6 +349,18 @@ public class EntityArrays {
     public static String[][] APOS_UNESCAPE() { return APOS_UNESCAPE.clone(); }
     private static final String[][] APOS_UNESCAPE = invert(APOS_ESCAPE);
 
+    public static String[][] JAVA_CTRL_CHARS_ESCAPE() { return JAVA_CTRL_CHARS_ESCAPE.clone(); }
+    private static final String[][] JAVA_CTRL_CHARS_ESCAPE = {
+        {"\b", "\\b"},
+        {"\n", "\\n"},
+        {"\t", "\\t"},
+        {"\f", "\\f"},
+        {"\r", "\\r"}
+    };
+
+    public static String[][] JAVA_CTRL_CHARS_UNESCAPE() { return JAVA_CTRL_CHARS_UNESCAPE.clone(); }
+    private static final String[][] JAVA_CTRL_CHARS_UNESCAPE = invert(JAVA_CTRL_CHARS_ESCAPE);
+
     /**
      * Used to invert an escape array into an unescape array
      * @param array String[][] to be inverted

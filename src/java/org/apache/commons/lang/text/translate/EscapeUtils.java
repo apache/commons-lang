@@ -29,23 +29,13 @@ import org.apache.commons.lang.CharUtils;
  */
 public class EscapeUtils {
 
-    public static final CharSequenceTranslator ESCAPE_JAVA_CTRL_CHARS = 
-          new LookupTranslator(
-            new String[][] {
-              {"\b", "\\b"},
-              {"\n", "\\n"},
-              {"\t", "\\t"},
-              {"\f", "\\f"},
-              {"\r", "\\r"}
-            });
-
     public static final CharSequenceTranslator ESCAPE_JAVA = 
           new LookupTranslator(
             new String[][] { 
               {"\"", "\\\""},
               {"\\", "\\\\"},
           }).with(
-            ESCAPE_JAVA_CTRL_CHARS
+            new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE())
           ).with(
             UnicodeEscaper.outsideOf(32, 0x7f) 
         );
@@ -63,7 +53,7 @@ public class EscapeUtils {
                             {"\\", "\\\\"},
                             {"/", "\\/"}
                       }),
-            ESCAPE_JAVA_CTRL_CHARS,
+            new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_ESCAPE()),
             UnicodeEscaper.outsideOf(32, 0x7f) 
         );
             
