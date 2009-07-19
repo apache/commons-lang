@@ -1099,6 +1099,39 @@ public class StrBuilderTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testSubSequenceIntInt() {
+       StrBuilder sb = new StrBuilder ("hello goodbye");
+       // Start index is negative
+       try {
+            sb.subSequence(-1, 5);
+            fail();
+        } catch (IndexOutOfBoundsException e) {}
+        
+        // End index is negative
+       try {
+            sb.subSequence(2, -1);
+            fail();
+        } catch (IndexOutOfBoundsException e) {}
+        
+        // End index greater than length()
+        try {
+            sb.subSequence(2, sb.length() + 1);
+            fail();
+        } catch (IndexOutOfBoundsException e) {}
+        
+        // Start index greater then end index
+        try {
+            sb.subSequence(3, 2);
+            fail();
+        } catch (IndexOutOfBoundsException e) {}
+        
+        // Normal cases
+        assertEquals ("hello", sb.subSequence(0, 5));
+        assertEquals ("hello goodbye".subSequence(0, 6), sb.subSequence(0, 6));
+        assertEquals ("goodbye", sb.subSequence(6, 13));
+        assertEquals ("hello goodbye".subSequence(6,13), sb.subSequence(6, 13));
+    }
+
     public void testSubstringInt() {
         StrBuilder sb = new StrBuilder ("hello goodbye");
         assertEquals ("goodbye", sb.substring(6));
