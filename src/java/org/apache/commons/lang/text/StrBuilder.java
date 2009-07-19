@@ -71,7 +71,7 @@ import org.apache.commons.lang.SystemUtils;
  * @since 2.2
  * @version $Id$
  */
-public class StrBuilder implements CharSequence {
+public class StrBuilder implements CharSequence, Appendable {
 
     /**
      * The extra capacity for new builders.
@@ -460,6 +460,36 @@ public class StrBuilder implements CharSequence {
             return appendNull();
         } 
         return append(obj.toString());        
+    }
+
+    /**
+     * Appends a CharSequence to this string builder.
+     * Appending null will call {@link #appendNull()}.
+     *
+     * @param seq  the CharSequence to append
+     * @return this, to enable chaining
+     */
+    public StrBuilder append(CharSequence seq) {
+        if (seq == null) {
+            return appendNull();
+        } 
+        return append(seq.toString());        
+    }
+
+    /**
+     * Appends part of a CharSequence to this string builder.
+     * Appending null will call {@link #appendNull()}.
+     *
+     * @param seq  the CharSequence to append
+     * @param startIndex  the start index, inclusive, must be valid
+     * @param length  the length to append, must be valid
+     * @return this, to enable chaining
+     */
+    public StrBuilder append(CharSequence seq, int startIndex, int length) {
+        if (seq == null) {
+            return appendNull();
+        } 
+        return append(seq.toString(), startIndex, length);
     }
 
     /**

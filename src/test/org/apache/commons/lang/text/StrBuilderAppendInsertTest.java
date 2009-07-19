@@ -138,6 +138,9 @@ public class StrBuilderAppendInsertTest extends TestCase {
 
         sb.append(new StrBuilder("yes"));
         assertEquals("foobazyes", sb.toString());
+
+        sb.append((CharSequence) "Seq");
+        assertEquals("foobazyesSeq", sb.toString());
     }
 
     //-----------------------------------------------------------------------
@@ -214,6 +217,9 @@ public class StrBuilderAppendInsertTest extends TestCase {
 
         sb.append("abcbardef", 3, 3);
         assertEquals("foobar", sb.toString());
+
+        sb.append( (CharSequence)"abcbardef", 4, 3);
+        assertEquals("foobarard", sb.toString());
     }
 
     //-----------------------------------------------------------------------
