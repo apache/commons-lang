@@ -19,8 +19,6 @@ package org.apache.commons.lang.text.translate;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.apache.commons.lang.UnhandledException;
-
 /**
  * Translates escaped unicode values of the form \\u+\d\d\d\d back to 
  * unicode.
@@ -49,7 +47,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
                         int value = Integer.parseInt(unicode.toString(), 16);
                         out.write((char) value);
                     } catch (NumberFormatException nfe) {
-                        throw new UnhandledException("Unable to parse unicode value: " + unicode, nfe);
+                        throw new RuntimeException("Unable to parse unicode value: " + unicode, nfe);
                     }
                     return i + 4;
                 } else {
