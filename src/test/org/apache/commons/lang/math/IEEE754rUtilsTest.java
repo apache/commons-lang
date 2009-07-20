@@ -49,5 +49,52 @@ public class IEEE754rUtilsTest extends TestCase {
         assertEquals(1.2f, IEEE754rUtils.min(bF), 0.01);
         assertEquals(42.0f, IEEE754rUtils.max(bF), 0.01);
     }
+
+    public void testEnforceExceptions() {
+        try {
+            IEEE754rUtils.min( (float[]) null);
+            fail("IllegalArgumentException expected for null input");
+        } catch(IllegalArgumentException iae) { /* expected */ }
+
+        try {
+            IEEE754rUtils.min(new float[0]);
+            fail("IllegalArgumentException expected for empty input");
+        } catch(IllegalArgumentException iae) { /* expected */ }
+
+        try {
+            IEEE754rUtils.max( (float[]) null);
+            fail("IllegalArgumentException expected for null input");
+        } catch(IllegalArgumentException iae) { /* expected */ }
+
+        try {
+            IEEE754rUtils.max(new float[0]);
+            fail("IllegalArgumentException expected for empty input");
+        } catch(IllegalArgumentException iae) { /* expected */ }
+
+        try {
+            IEEE754rUtils.min( (double[]) null);
+            fail("IllegalArgumentException expected for null input");
+        } catch(IllegalArgumentException iae) { /* expected */ }
+
+        try {
+            IEEE754rUtils.min(new double[0]);
+            fail("IllegalArgumentException expected for empty input");
+        } catch(IllegalArgumentException iae) { /* expected */ }
+
+        try {
+            IEEE754rUtils.max( (double[]) null);
+            fail("IllegalArgumentException expected for null input");
+        } catch(IllegalArgumentException iae) { /* expected */ }
+
+        try {
+            IEEE754rUtils.max(new double[0]);
+            fail("IllegalArgumentException expected for empty input");
+        } catch(IllegalArgumentException iae) { /* expected */ }
+
+    }
+
+    public void testConstructorExists() {
+        new IEEE754rUtils();
+    }
     
 }
