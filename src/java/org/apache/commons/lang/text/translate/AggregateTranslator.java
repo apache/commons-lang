@@ -30,6 +30,8 @@ public class AggregateTranslator extends CharSequenceTranslator {
 
     /**
      * Specify the translators to be used at creation time. 
+     *
+     * @param translators CharSequenceTranslator array to aggregate
      */
     public AggregateTranslator(CharSequenceTranslator... translators) {
         this.translators = translators;

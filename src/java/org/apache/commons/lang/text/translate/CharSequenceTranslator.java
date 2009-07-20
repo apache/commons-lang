@@ -41,6 +41,7 @@ public abstract class CharSequenceTranslator {
      * @param index int representing the current point of translation
      * @param out Writer to translate the text to
      * @return int count of codepoints consumed
+     * @throws IOException if and only if the Writer produces an IOException
      */
     public abstract int translate(CharSequence input, int index, Writer out) throws IOException;
 
@@ -106,6 +107,9 @@ public abstract class CharSequenceTranslator {
     /**
      * Helper method to create a merger of this translator with another set of 
      * translators. Useful in customizing the standard functionality.
+     *
+     * @param translators CharSequenceTranslator array of translators to merge with this one
+     * @return CharSequenceTranslator merging this translator with the others
      */
     public final CharSequenceTranslator with(CharSequenceTranslator... translators) {
         CharSequenceTranslator[] newArray = new CharSequenceTranslator[translators.length + 1];
