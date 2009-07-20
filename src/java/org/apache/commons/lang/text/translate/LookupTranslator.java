@@ -34,7 +34,7 @@ public class LookupTranslator extends CharSequenceTranslator {
     /**
      * Define the lookup table to be used in translation
      *
-     * @param CharSequence[][] Lookup table of size [*][2]
+     * @param lookup CharSequence[][] table of size [*][2]
      */
     public LookupTranslator(CharSequence[][] lookup) {
         lookupMap = new HashMap<CharSequence, CharSequence>();
