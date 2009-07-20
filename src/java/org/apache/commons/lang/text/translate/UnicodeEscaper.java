@@ -66,7 +66,6 @@ public class UnicodeEscaper extends CodePointTranslator {
             }
         }
 
-        // TODO: Handle multiple u's per Java spec
         // TODO: Handle potential + sign per various unicode escape implementations
         if (codepoint > 0xffff) {
             // TODO: Figure out what to do. Output as two unicodes?

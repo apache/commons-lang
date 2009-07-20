@@ -31,6 +31,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
     /**
      * {@inheritDoc}
      */
+    // TODO: Handle \\u+0045 variant
     public int translate(CharSequence input, int index, Writer out) throws IOException {
         if(input.charAt(index) == '\\') {
             if( (index + 1 < input.length()) && input.charAt(index + 1) == 'u') {
