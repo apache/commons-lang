@@ -562,7 +562,7 @@ public class ClassUtilsTest extends TestCase {
     }
 
     public void testGetClassInvalidArguments() throws Exception {
-        assertGetClassThrowsIllegalArgument( null );
+        assertGetClassThrowsNullPointerException( null );
         assertGetClassThrowsClassNotFound( "[][][]" );
         assertGetClassThrowsClassNotFound( "[[]" );
         assertGetClassThrowsClassNotFound( "[" );
@@ -651,8 +651,8 @@ public class ClassUtilsTest extends TestCase {
         }
     }
 
-    private void assertGetClassThrowsIllegalArgument( String className ) throws Exception {
-        assertGetClassThrowsException( className, IllegalArgumentException.class );
+    private void assertGetClassThrowsNullPointerException( String className ) throws Exception {
+        assertGetClassThrowsException( className, NullPointerException.class );
     }
 
     private void assertGetClassThrowsClassNotFound( String className ) throws Exception {

@@ -21,8 +21,6 @@ import java.io.Writer;
 import java.io.StringWriter;
 import java.util.Locale;
 
-import org.apache.commons.lang.UnhandledException;
-
 /**
  * An API for translating text. 
  * Its core use is to escape and unescape text. Because escaping and unescaping 
@@ -60,7 +58,7 @@ public abstract class CharSequenceTranslator {
             return writer.toString();
         } catch (IOException ioe) {
             // this should never ever happen while writing to a StringWriter
-            throw new UnhandledException(ioe);
+            throw new RuntimeException(ioe);
         }
     }
 
