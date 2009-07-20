@@ -825,7 +825,7 @@ public class ClassUtils {
     private static String toCanonicalName(String className) {
         className = StringUtils.deleteWhitespace(className);
         if (className == null) {
-            throw new NullArgumentException("className");
+            throw new NullPointerException("className must not be null.");
         } else if (className.endsWith("[]")) {
             StringBuffer classNameBuffer = new StringBuffer();
             while (className.endsWith("[]")) {

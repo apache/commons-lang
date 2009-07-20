@@ -33,7 +33,6 @@ import net.jcip.annotations.ThreadSafe;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ClassUtils;
-import org.apache.commons.lang.NullArgumentException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
 
@@ -187,7 +186,7 @@ public class ExceptionUtils {
      */
     public static boolean setCause(Throwable target, Throwable cause) {
         if (target == null) {
-            throw new NullArgumentException("target");
+            throw new NullPointerException("target must not be null.");
         }
         Object[] causeArgs = new Object[]{cause};
         boolean modifiedTarget = false;
