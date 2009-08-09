@@ -93,7 +93,9 @@ public class DefaultExceptionContext implements ExceptionContext {
         }
         
         if (contextKeyList.size() > 0) {
-            buffer.append(SystemUtils.LINE_SEPARATOR);                 
+            if (buffer.length() > 0l) {
+                buffer.append(SystemUtils.LINE_SEPARATOR);
+            }
             buffer.append("Exception Context:");
             buffer.append(SystemUtils.LINE_SEPARATOR); 
             buffer.append("\t");  
@@ -120,8 +122,7 @@ public class DefaultExceptionContext implements ExceptionContext {
                 buffer.append(SystemUtils.LINE_SEPARATOR);  
                 buffer.append("\t");  
             }
-            buffer.append(SystemUtils.LINE_SEPARATOR);
-            buffer.append("\t---------------------------------");
+            buffer.append("---------------------------------");
         }
         return buffer.toString();
     }
