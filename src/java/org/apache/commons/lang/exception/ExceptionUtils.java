@@ -18,6 +18,7 @@ package org.apache.commons.lang.exception;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -25,7 +26,9 @@ import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import net.jcip.annotations.GuardedBy;
@@ -91,6 +94,31 @@ public class ExceptionUtils {
      */
     private static final Method THROWABLE_INITCAUSE_METHOD;
     
+    /**
+     * An empty {@link ExceptionContext}.
+     * @since 3.0
+     */
+    public static final ExceptionContext EMPTY_CONTEXT = new ExceptionContext() {
+
+        private static final long serialVersionUID = 1L;
+
+        public ExceptionContext addLabeledValue(String label, Serializable value) {
+          throw new UnsupportedOperationException();
+        }
+
+        public Serializable getLabeledValue(String label) {
+          return null;
+        }
+
+        public Set<String> getLabelSet() {
+          return Collections.<String>emptySet();
+        }
+
+        public String getFormattedExceptionMessage(String baseMessage) {
+          return baseMessage;
+        }
+
+      };    
     static {
         Method causeMethod;
         try {
