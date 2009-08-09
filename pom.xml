@@ -149,6 +149,15 @@
                 <role>Java Developer</role>
             </roles>
         </developer>
+        <developer>
+            <name>Joerg Schaible</name>
+            <id>joehni</id>
+            <email>joerg.schaible@gmx.de</email>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
+            <timezone>-1</timezone>
+        </developer>
     </developers>
     <contributors>
         <contributor>
@@ -378,6 +387,9 @@
         </contributor>
         <contributor>
             <name>Holger Hoffstatte</name>
+        </contributor>
+        <contributor>
+            <name>Derek C. Ashmore</name>
         </contributor>
     </contributors>
 
