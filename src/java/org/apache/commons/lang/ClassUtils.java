@@ -20,6 +20,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -284,24 +286,26 @@ public class ClassUtils {
         if (cls == null) {
             return null;
         }
-        List<Class<?>> list = new ArrayList<Class<?>>();
+
+        LinkedHashSet<Class<?>> interfacesFound = new LinkedHashSet<Class<?>>();
+        getAllInterfaces(cls, interfacesFound);
+
+        return new ArrayList<Class<?>>(interfacesFound);
+    }
+
+    private static void getAllInterfaces(Class<?> cls, HashSet<Class<?>> interfacesFound) {
         while (cls != null) {
             Class<?>[] interfaces = cls.getInterfaces();
-            for (Class<?> intface : interfaces) {
-                if (list.contains(intface) == false) {
-                    list.add(intface);
-                }
-                List<Class<?>> superInterfaces = getAllInterfaces(intface);
-                for (Class<?> superInterface : superInterfaces) {
-                    if (list.contains(superInterface) == false) {
-                        list.add(superInterface);
-                    }
+
+            for (Class<?> i : interfaces) {
+                if (interfacesFound.add(i)) {
+                    getAllInterfaces(i, interfacesFound);
                 }
             }
+
             cls = cls.getSuperclass();
-        }
-        return list;
-    }
+         }
+     }
 
     // Convert list
     // ----------------------------------------------------------------------
