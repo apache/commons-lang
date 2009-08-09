@@ -102,10 +102,6 @@ public class ContextedExceptionTest extends TestCase {
         assertTrue(message.indexOf("5")>=0);
         assertTrue(message.indexOf("Crap")>=0);
         
-        String contextMessage = contextedException.getFormattedExceptionMessage("");
-        assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
-        assertTrue(message.contains(contextMessage));
-        
         assertTrue(contextedException.getLabeledValue("test1") == null);
         assertTrue(contextedException.getLabeledValue("test2").equals("some value"));
         assertTrue(contextedException.getLabeledValue("crap") == null);
@@ -119,6 +115,12 @@ public class ContextedExceptionTest extends TestCase {
         assertTrue(contextedException.getLabelSet().contains("test Poorly written obj"));
         
         assertTrue(!contextedException.getLabelSet().contains("crap"));
+
+        contextedException.addLabeledValue("test Poorly written obj", "replacement");
+        
+        String contextMessage = contextedException.getFormattedExceptionMessage(null);
+        assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
+        assertTrue(contextedException.getMessage().endsWith(contextMessage));
     }
     
     public void testNullExceptionPassing() {

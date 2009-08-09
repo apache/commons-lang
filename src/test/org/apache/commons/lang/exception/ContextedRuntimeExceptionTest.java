@@ -102,10 +102,6 @@ public class ContextedRuntimeExceptionTest extends TestCase {
         assertTrue(message.indexOf("5")>=0);
         assertTrue(message.indexOf("Crap")>=0);
         
-        String contextMessage = contextedRuntimeException.getFormattedExceptionMessage("");
-        assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
-        assertTrue(message.contains(contextMessage));
-        
         assertTrue(contextedRuntimeException.getLabeledValue("test1") == null);
         assertTrue(contextedRuntimeException.getLabeledValue("test2").equals("some value"));
         assertTrue(contextedRuntimeException.getLabeledValue("crap") == null);
@@ -119,6 +115,12 @@ public class ContextedRuntimeExceptionTest extends TestCase {
         assertTrue(contextedRuntimeException.getLabelSet().contains("test Poorly written obj"));
         
         assertTrue(!contextedRuntimeException.getLabelSet().contains("crap"));
+
+        contextedRuntimeException.addLabeledValue("test Poorly written obj", "replacement");
+        
+        String contextMessage = contextedRuntimeException.getFormattedExceptionMessage(null);
+        assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
+        assertTrue(contextedRuntimeException.getMessage().endsWith(contextMessage));
     }
     
     public void testNullExceptionPassing() {
