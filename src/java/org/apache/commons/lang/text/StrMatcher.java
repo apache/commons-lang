@@ -273,7 +273,7 @@ public abstract class StrMatcher {
      */
     static final class CharSetMatcher extends StrMatcher {
         /** The set of characters to match. */
-        private char[] chars;
+        private final char[] chars;
 
         /**
          * Constructor that creates a matcher from a character array.
@@ -307,7 +307,7 @@ public abstract class StrMatcher {
      */
     static final class CharMatcher extends StrMatcher {
         /** The character to match. */
-        private char ch;
+        private final char ch;
 
         /**
          * Constructor that creates a matcher that matches a single character.
@@ -340,7 +340,7 @@ public abstract class StrMatcher {
      */
     static final class StringMatcher extends StrMatcher {
         /** The string to match, as a character array. */
-        private char[] chars;
+        private final char[] chars;
 
         /**
          * Constructor that creates a matcher from a String.
