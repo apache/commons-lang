@@ -402,16 +402,6 @@
       <version>3.8.2</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-        <groupId>net.jcip</groupId>
-        <artifactId>jcip-annotations</artifactId>
-        <version>1.0</version>
-        <optional>true</optional>
-        <!-- 
-            Annotations are only _required_ during a build
-            They are not needed at run-time
-         -->
-    </dependency> 
   </dependencies> 
 
   <properties>

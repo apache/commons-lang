@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import net.jcip.annotations.GuardedBy;
-import net.jcip.annotations.ThreadSafe;
+//import net.jcip.annotations.GuardedBy;
+//import net.jcip.annotations.ThreadSafe;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ClassUtils;
@@ -51,7 +51,7 @@ import org.apache.commons.lang.SystemUtils;
  * @since 1.0
  * @version $Id$
  */
-@ThreadSafe
+//@ThreadSafe
 public class ExceptionUtils {
     
     /**
@@ -68,7 +68,7 @@ public class ExceptionUtils {
     /**
      * <p>The names of methods commonly used to access a wrapped exception.</p>
      */
-    @GuardedBy("CAUSE_METHOD_NAMES_LOCK")
+//    @GuardedBy("CAUSE_METHOD_NAMES_LOCK")
     private static String[] CAUSE_METHOD_NAMES = {
         "getCause",
         "getNextException",
