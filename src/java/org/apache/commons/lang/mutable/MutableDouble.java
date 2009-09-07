@@ -23,7 +23,7 @@ package org.apache.commons.lang.mutable;
  * @since 2.1
  * @version $Id$
  */
-public class MutableDouble extends Number implements Comparable<MutableDouble>, Mutable {
+public class MutableDouble extends Number implements Comparable<MutableDouble>, Mutable<Number> {
 
     /**
      * Required for serialization support.
@@ -72,7 +72,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * 
      * @return the value as a Double
      */
-    public Object getValue() {
+    public Double getValue() {
         return new Double(this.value);
     }
 
@@ -93,11 +93,9 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      *            the value to set
      * @throws NullPointerException
      *             if the object is null
-     * @throws ClassCastException
-     *             if the type is not a {@link Number}
      */
-    public void setValue(Object value) {
-        setValue(((Number) value).doubleValue());
+    public void setValue(Number value) {
+        this.value = value.doubleValue();
     }
 
     //-----------------------------------------------------------------------
@@ -296,7 +294,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * @param other
      *            the mutable to compare to
      * @return negative if this is less, zero if equal, positive if greater
-     * @throws ClassCastException if the argument is not a MutableDouble
      */
     public int compareTo(MutableDouble other) {
         double anotherVal = other.value;

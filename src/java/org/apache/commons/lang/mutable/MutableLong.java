@@ -23,7 +23,7 @@ package org.apache.commons.lang.mutable;
  * @since 2.1
  * @version $Id$
  */
-public class MutableLong extends Number implements Comparable<MutableLong>, Mutable {
+public class MutableLong extends Number implements Comparable<MutableLong>, Mutable<Number> {
 
     /**
      * Required for serialization support.
@@ -72,7 +72,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * 
      * @return the value as a Long
      */
-    public Object getValue() {
+    public Long getValue() {
         return new Long(this.value);
     }
 
@@ -93,11 +93,9 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      *            the value to set
      * @throws NullPointerException
      *             if the object is null
-     * @throws ClassCastException
-     *             if the type is not a {@link Number}
      */
-    public void setValue(Object value) {
-        setValue(((Number) value).longValue());
+    public void setValue(Number value) {
+        this.value = value.longValue();
     }
 
     //-----------------------------------------------------------------------
@@ -258,7 +256,6 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
      * @param other
      *            the mutable to compare to
      * @return negative if this is less, zero if equal, positive if greater
-     * @throws ClassCastException if the argument is not a MutableLong
      */
     public int compareTo(MutableLong other) {
         long anotherVal = other.value;

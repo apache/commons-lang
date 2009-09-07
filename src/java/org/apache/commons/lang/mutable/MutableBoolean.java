@@ -27,7 +27,7 @@ import java.io.Serializable;
  * @author Apache Software Foundation
  * @version $Id$
  */
-public class MutableBoolean implements Mutable, Serializable, Comparable<MutableBoolean> {
+public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparable<MutableBoolean> {
 
     /**
      * Required for serialization support.
@@ -88,8 +88,6 @@ public class MutableBoolean implements Mutable, Serializable, Comparable<Mutable
      * @return zero if this object represents the same boolean value as the argument; a positive value if this object
      *         represents true and the argument represents false; and a negative value if this object represents false
      *         and the argument represents true
-     * @throws ClassCastException
-     *             if the argument is not a MutableInt
      */
     public int compareTo(MutableBoolean other) {
         boolean anotherVal = other.value;
@@ -120,7 +118,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable<Mutable
      * 
      * @return the value as a Boolean
      */
-    public Object getValue() {
+    public Boolean getValue() {
         return Boolean.valueOf(this.value);
     }
 
@@ -152,11 +150,9 @@ public class MutableBoolean implements Mutable, Serializable, Comparable<Mutable
      *            the value to set
      * @throws NullPointerException
      *             if the object is null
-     * @throws ClassCastException
-     *             if the type is not a {@link Boolean}
      */
-    public void setValue(Object value) {
-        setValue(((Boolean) value).booleanValue());
+    public void setValue(Boolean value) {
+        this.value = value.booleanValue();
     }
 
     /**

@@ -23,7 +23,7 @@ package org.apache.commons.lang.mutable;
  * @since 2.1
  * @version $Id$
  */
-public class MutableByte extends Number implements Comparable<MutableByte>, Mutable {
+public class MutableByte extends Number implements Comparable<MutableByte>, Mutable<Number> {
 
     /**
      * Required for serialization support.
@@ -72,7 +72,7 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      * 
      * @return the value as a Byte
      */
-    public Object getValue() {
+    public Byte getValue() {
         return Byte.valueOf(this.value);
     }
 
@@ -93,11 +93,9 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      *            the value to set
      * @throws NullPointerException
      *             if the object is null
-     * @throws ClassCastException
-     *             if the type is not a {@link Number}
      */
-    public void setValue(Object value) {
-        setValue(((Number) value).byteValue());
+    public void setValue(Number value) {
+        this.value = value.byteValue();
     }
 
     //-----------------------------------------------------------------------
