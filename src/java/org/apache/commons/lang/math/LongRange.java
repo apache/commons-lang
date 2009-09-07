@@ -381,11 +381,13 @@ public final class LongRange extends Range implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (hashCode == 0) {
-            hashCode = 17;
-            hashCode = 37 * hashCode + getClass().hashCode();
-            hashCode = 37 * hashCode + ((int) (min ^ (min >> 32)));
-            hashCode = 37 * hashCode + ((int) (max ^ (max >> 32)));
+        int temp = hashCode;
+        if (temp == 0) {
+            temp = 17;
+            temp = 37 * temp + getClass().hashCode();
+            temp = 37 * temp + ((int) (min ^ (min >> 32)));
+            temp = 37 * temp + ((int) (max ^ (max >> 32)));
+            hashCode = temp;
         }
         return hashCode;
     }
