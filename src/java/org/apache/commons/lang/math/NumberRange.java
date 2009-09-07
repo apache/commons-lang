@@ -215,11 +215,13 @@ public final class NumberRange extends Range implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (hashCode == 0) {
-            hashCode = 17;
-            hashCode = 37 * hashCode + getClass().hashCode();
-            hashCode = 37 * hashCode + min.hashCode();
-            hashCode = 37 * hashCode + max.hashCode();
+        int temp = hashCode;
+        if (temp == 0) {
+            temp = 17;
+            temp = 37 * temp + getClass().hashCode();
+            temp = 37 * temp + min.hashCode();
+            temp = 37 * temp + max.hashCode();
+            hashCode = temp;
         }
         return hashCode;
     }

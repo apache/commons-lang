@@ -394,11 +394,13 @@ public final class FloatRange extends Range implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (hashCode == 0) {
-            hashCode = 17;
-            hashCode = 37 * hashCode + getClass().hashCode();
-            hashCode = 37 * hashCode + Float.floatToIntBits(min);
-            hashCode = 37 * hashCode + Float.floatToIntBits(max);
+        int temp = hashCode;
+        if (temp == 0) {
+            temp = 17;
+            temp = 37 * temp + getClass().hashCode();
+            temp = 37 * temp + Float.floatToIntBits(min);
+            temp = 37 * temp + Float.floatToIntBits(max);
+            hashCode = temp;
         }
         return hashCode;
     }

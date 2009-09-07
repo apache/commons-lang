@@ -398,13 +398,15 @@ public final class DoubleRange extends Range implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (hashCode == 0) {
-            hashCode = 17;
-            hashCode = 37 * hashCode + getClass().hashCode();
+        int temp = hashCode;
+        if (temp == 0) {
+            temp = 17;
+            temp = 37 * temp + getClass().hashCode();
             long lng = Double.doubleToLongBits(min);
-            hashCode = 37 * hashCode + ((int) (lng ^ (lng >> 32)));
+            temp = 37 * temp + ((int) (lng ^ (lng >> 32)));
             lng = Double.doubleToLongBits(max);
-            hashCode = 37 * hashCode + ((int) (lng ^ (lng >> 32)));
+            temp = 37 * temp + ((int) (lng ^ (lng >> 32)));
+            hashCode = temp;
         }
         return hashCode;
     }

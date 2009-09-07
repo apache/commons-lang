@@ -368,11 +368,13 @@ public final class IntRange extends Range implements Serializable {
      */
     @Override
     public int hashCode() {
-        if (hashCode == 0) {
-            hashCode = 17;
-            hashCode = 37 * hashCode + getClass().hashCode();
-            hashCode = 37 * hashCode + min;
-            hashCode = 37 * hashCode + max;
+        int temp = hashCode;
+        if (temp == 0) {
+            temp = 17;
+            temp = 37 * temp + getClass().hashCode();
+            temp = 37 * temp + min;
+            temp = 37 * temp + max;
+            hashCode = temp;
         }
         return hashCode;
     }
