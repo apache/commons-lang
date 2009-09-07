@@ -75,10 +75,6 @@ public class MutableIntTest extends TestCase {
             mutNum.setValue(null);
             fail();
         } catch (NullPointerException ex) {}
-        try {
-            mutNum.setValue("0");
-            fail();
-        } catch (ClassCastException ex) {}
     }
 
     public void testEquals() {

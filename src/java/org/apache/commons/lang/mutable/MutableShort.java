@@ -23,7 +23,7 @@ package org.apache.commons.lang.mutable;
  * @since 2.1
  * @version $Id$
  */
-public class MutableShort extends Number implements Comparable<MutableShort>, Mutable {
+public class MutableShort extends Number implements Comparable<MutableShort>, Mutable<Number> {
 
     /**
      * Required for serialization support.
@@ -72,7 +72,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * 
      * @return the value as a Short
      */
-    public Object getValue() {
+    public Short getValue() {
         return new Short(this.value);
     }
 
@@ -93,11 +93,9 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      *                  the value to set
      * @throws NullPointerException
      *                  if the object is null
-     * @throws ClassCastException
-     *                  if the type is not a {@link Number}
      */
-    public void setValue(Object value) {
-        setValue(((Number) value).shortValue());
+    public void setValue(Number value) {
+        this.value = value.shortValue();
     }
 
     //-----------------------------------------------------------------------
@@ -268,7 +266,6 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
      * @param other
      *                  the mutable to compare to
      * @return negative if this is less, zero if equal, positive if greater
-     * @throws ClassCastException if the argument is not a MutableShort
      */
     public int compareTo(MutableShort other) {
         short anotherVal = other.value;

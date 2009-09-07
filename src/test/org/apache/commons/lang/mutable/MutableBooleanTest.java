@@ -113,11 +113,6 @@ public class MutableBooleanTest extends TestCase {
             fail();
         } catch (NullPointerException ex) {
         }
-        try {
-            mutBool.setValue("false");
-            fail();
-        } catch (ClassCastException ex) {
-        }
     }
 
     public void testHashCode() {

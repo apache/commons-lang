@@ -23,7 +23,7 @@ package org.apache.commons.lang.mutable;
  * @since 2.1
  * @version $Id$
  */
-public class MutableFloat extends Number implements Comparable<MutableFloat>, Mutable {
+public class MutableFloat extends Number implements Comparable<MutableFloat>, Mutable<Number> {
 
     /**
      * Required for serialization support.
@@ -72,7 +72,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      * 
      * @return the value as a Float
      */
-    public Object getValue() {
+    public Float getValue() {
         return new Float(this.value);
     }
 
@@ -93,11 +93,9 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
      *            the value to set
      * @throws NullPointerException
      *             if the object is null
-     * @throws ClassCastException
-     *             if the type is not a {@link Number}
      */
-    public void setValue(Object value) {
-        setValue(((Number) value).floatValue());
+    public void setValue(Number value) {
+        this.value = value.floatValue();
     }
 
     //-----------------------------------------------------------------------
