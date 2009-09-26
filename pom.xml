@@ -158,6 +158,15 @@
             </roles>
             <timezone>-1</timezone>
         </developer>
+        <developer>
+          <name>Oliver Heger</name>
+          <id>oheger</id>
+          <email>oheger@apache.org</email>
+          <timezone>+1</timezone>
+          <roles>
+            <role>Java Developer</role>
+          </roles>
+        </developer>
     </developers>
     <contributors>
         <contributor>
@@ -243,9 +252,6 @@
         </contributor>
         <contributor>
             <name>Michael Heuer</name>
-        </contributor>
-        <contributor>
-            <name>Oliver Heger</name>
         </contributor>
         <contributor>
             <name>Chris Hyzer</name>
