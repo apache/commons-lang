@@ -42,11 +42,9 @@ package org.apache.commons.lang.concurrent;
  * to this class, a subclass of {@code LazyInitializer} has to be created:
  *
  * <pre>
- * public class ComplexObjectInitializer extends LazyInitializer&lt;ComplexObject&gt;
- * {
+ * public class ComplexObjectInitializer extends LazyInitializer&lt;ComplexObject&gt; {
  *     &#064;Override
- *     protected ComplexObject initialize()
- *     {
+ *     protected ComplexObject initialize() {
  *         return new ComplexObject();
  *     }
  * }
@@ -77,8 +75,7 @@ package org.apache.commons.lang.concurrent;
  * @version $Id$
  * @param <T> the type of the object managed by this initializer class
  */
-public abstract class LazyInitializer<T>
-{
+public abstract class LazyInitializer<T> {
     /** Stores the managed object. */
     private volatile T object;
 
@@ -88,19 +85,15 @@ public abstract class LazyInitializer<T>
      *
      * @return the object initialized by this {@code LazyInitializer}
      */
-    public T get()
-    {
+    public T get() {
         // use a temporary variable to reduce the number of reads of the
         // volatile field
         T result = object;
 
-        if (result == null)
-        {
-            synchronized (this)
-            {
+        if (result == null) {
+            synchronized (this) {
                 result = object;
-                if (result == null)
-                {
+                if (result == null) {
                     object = result = initialize();
                 }
             }
