@@ -17,7 +17,6 @@
 package org.apache.commons.lang.exception;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Set;
 
 
