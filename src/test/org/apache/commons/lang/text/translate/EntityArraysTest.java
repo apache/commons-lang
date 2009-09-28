@@ -19,9 +19,6 @@ package org.apache.commons.lang.text.translate;
 
 import junit.framework.TestCase;
 
-import java.io.StringWriter;
-import java.io.IOException;
-
 /**
  * Unit tests for {@link org.apache.commons.lang.text.translate.EntityArrays}.
  */
