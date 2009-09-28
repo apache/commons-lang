@@ -451,7 +451,7 @@ public class Validate {
      */
     public static void noNullElements(Collection collection, String message) {
         Validate.notNull(collection);
-        for (Iterator it = collection.iterator(); it.hasNext();) {
+        for (Iterator<?> it = collection.iterator(); it.hasNext();) {
             if (it.next() == null) {
                 throw new IllegalArgumentException(message);
             }
@@ -478,7 +478,7 @@ public class Validate {
     public static void noNullElements(Collection collection) {
         Validate.notNull(collection);
         int i = 0;
-        for (Iterator it = collection.iterator(); it.hasNext(); i++) {
+        for (Iterator<?> it = collection.iterator(); it.hasNext(); i++) {
             if (it.next() == null) {
                 throw new IllegalArgumentException("The validated collection contains null element at index: " + i);
             }
@@ -502,7 +502,7 @@ public class Validate {
     public static void allElementsOfType(Collection collection, Class clazz, String message) {
         Validate.notNull(collection);
         Validate.notNull(clazz);
-        for (Iterator it = collection.iterator(); it.hasNext(); ) {
+        for (Iterator<?> it = collection.iterator(); it.hasNext(); ) {
             if (clazz.isInstance(it.next()) == false) {
                 throw new IllegalArgumentException(message);
             }
@@ -533,7 +533,7 @@ public class Validate {
         Validate.notNull(collection);
         Validate.notNull(clazz);
         int i = 0;
-        for (Iterator it = collection.iterator(); it.hasNext(); i++) {
+        for (Iterator<?> it = collection.iterator(); it.hasNext(); i++) {
             if (clazz.isInstance(it.next()) == false) {
                 throw new IllegalArgumentException("The validated collection contains an element not of type "
                     + clazz.getName() + " at index: " + i);

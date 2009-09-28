@@ -67,7 +67,7 @@ public final class NumberRange extends Range implements Serializable {
         if (num == null) {
             throw new IllegalArgumentException("The number must not be null");
         }
-        if (num instanceof Comparable == false) {
+        if (num instanceof Comparable<?> == false) {
             throw new IllegalArgumentException("The number must implement Comparable");
         }
         if (num instanceof Double && ((Double) num).isNaN()) {
@@ -106,7 +106,7 @@ public final class NumberRange extends Range implements Serializable {
         if (num1.getClass() != num2.getClass()) {
             throw new IllegalArgumentException("The numbers must be of the same type");
         }
-        if (num1 instanceof Comparable == false) {
+        if (num1 instanceof Comparable<?> == false) {
             throw new IllegalArgumentException("The numbers must implement Comparable");
         }
         if (num1 instanceof Double) {
