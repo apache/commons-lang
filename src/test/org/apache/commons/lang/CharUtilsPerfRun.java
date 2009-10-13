@@ -56,7 +56,7 @@ run_inlined_CharUtils_isAsciiNumeric: 84,420 milliseconds.
 
  * @version $Id$
  */
-public class CharUtilsPerfTest {
+public class CharUtilsPerfRun {
     final static String VERSION = "$Id$";
 
     final static int WARM_UP = 100;
@@ -72,7 +72,7 @@ public class CharUtilsPerfTest {
     }
 
     public static void main(String[] args) {
-        new CharUtilsPerfTest().run();
+        new CharUtilsPerfRun().run();
     }
 
     private void printSysInfo() {

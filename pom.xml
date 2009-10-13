@@ -401,11 +401,10 @@
 
   <!-- Lang should depend on very little -->
   <dependencies>
-    <!-- TODO: replace with TestNG -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.2</version>
+      <version>4.7</version>
       <scope>test</scope>
     </dependency>
   </dependencies> 
