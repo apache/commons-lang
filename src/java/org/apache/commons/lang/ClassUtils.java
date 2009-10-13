@@ -156,7 +156,7 @@ public class ClassUtils {
         if (object == null) {
             return valueIfNull;
         }
-        return getShortClassName(object.getClass().getName());
+        return getShortClassName(object.getClass());
     }
 
     /**
@@ -211,7 +211,7 @@ public class ClassUtils {
         if (object == null) {
             return valueIfNull;
         }
-        return getPackageName(object.getClass().getName());
+        return getPackageName(object.getClass());
     }
 
     /**
