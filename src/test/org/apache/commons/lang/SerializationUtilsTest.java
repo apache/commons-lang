@@ -42,7 +42,7 @@ import junit.textui.TestRunner;
  */
 public class SerializationUtilsTest extends TestCase {
 
-  static final String CLASS_NOT_FOUND_MESSAGE = "ClassNotFoundSerializationTest.readObject fake exception";
+  static final String CLASS_NOT_FOUND_MESSAGE = "ClassNotFoundSerialization.readObject fake exception";
     protected static final String SERIALIZE_IO_EXCEPTION_MESSAGE = "Anonymous OutputStream I/O exception";
   
     private String iString;
@@ -252,7 +252,7 @@ public class SerializationUtilsTest extends TestCase {
     public void testDeserializeStreamClassNotFound() throws Exception {
         ByteArrayOutputStream streamReal = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(streamReal);
-        oos.writeObject(new ClassNotFoundSerializationTest());
+        oos.writeObject(new ClassNotFoundSerialization());
         oos.flush();
         oos.close();
 
@@ -391,7 +391,7 @@ public class SerializationUtilsTest extends TestCase {
 
 }
 
-class ClassNotFoundSerializationTest implements Serializable
+class ClassNotFoundSerialization implements Serializable
 {
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException    {
