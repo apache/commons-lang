@@ -30,6 +30,7 @@ public abstract class CodePointTranslator extends CharSequenceTranslator {
      * Implementation of translate that maps onto the abstract translate(int, Writer) method. 
      * {@inheritDoc}
      */
+    @Override
     public final int translate(CharSequence input, int index, Writer out) throws IOException {
         int codepoint = Character.codePointAt(input, index);
         boolean consumed = translate(codepoint, out);

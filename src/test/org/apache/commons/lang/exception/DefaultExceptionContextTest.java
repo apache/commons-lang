@@ -35,6 +35,7 @@ public class DefaultExceptionContextTest extends TestCase {
         super(name);
     }
     
+    @Override
     public void setUp() {
         defaultExceptionContext = new DefaultExceptionContext()
         .addLabeledValue("test1", null)
