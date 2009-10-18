@@ -26,6 +26,15 @@ import java.io.Writer;
  */
 public class UnicodeUnescaper extends CharSequenceTranslator {
 
+    private boolean escapingPlus = false;
+
+    public void setEscapingPlus(boolean b) {
+        this.escapingPlus = b;
+    }
+    public boolean isEscapingPlus() {
+        return this.escapingPlus;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -39,6 +48,13 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
                     i++;
                 }
 
+                // consume + symbol in \\u+0045
+                if(isEscapingPlus()) {
+                    if( (index + i < input.length()) && (input.charAt(index + i) == '+') ) {
+                        i++;
+                    }
+                }
+
                 if( (index + i + 4 <= input.length()) ) {
                     // Get 4 hex digits
                     CharSequence unicode = input.subSequence(index + i, index + i + 4);
@@ -47,7 +63,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
                         int value = Integer.parseInt(unicode.toString(), 16);
                         out.write((char) value);
                     } catch (NumberFormatException nfe) {
-                        throw new RuntimeException("Unable to parse unicode value: " + unicode, nfe);
+                        throw new IllegalArgumentException("Unable to parse unicode value: " + unicode, nfe);
                     }
                     return i + 4;
                 } else {

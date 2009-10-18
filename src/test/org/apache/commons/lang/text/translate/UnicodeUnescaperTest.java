@@ -27,6 +27,22 @@ import java.io.IOException;
  */
 public class UnicodeUnescaperTest extends TestCase {
 
+    // Requested in LANG-507
+    public void testUPlus() throws IOException {
+        UnicodeUnescaper uu = new UnicodeUnescaper();
+
+        String input = "\\u+0047";
+        try {
+            String result = uu.translate(input);
+            fail("Default behaviour should not parse u+");
+        } catch(IllegalArgumentException iae) {
+            // expected
+        }
+
+        uu.setEscapingPlus(true);
+        assertEquals("Failed to unescape unicode characters with 'u+' notation", "G", uu.translate(input));
+    }
+
     public void testUuuuu() throws IOException {
         UnicodeUnescaper uu = new UnicodeUnescaper();
 
