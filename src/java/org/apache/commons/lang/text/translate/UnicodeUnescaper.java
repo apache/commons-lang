@@ -19,6 +19,9 @@ package org.apache.commons.lang.text.translate;
 import java.io.IOException;
 import java.io.Writer;
 
+import java.util.EnumSet;
+import java.util.Arrays;
+
 /**
  * Translates escaped unicode values of the form \\u+\d\d\d\d back to 
  * unicode.
@@ -26,13 +29,18 @@ import java.io.Writer;
  */
 public class UnicodeUnescaper extends CharSequenceTranslator {
 
-    private boolean escapingPlus = false;
+    public static enum PARAM { escapePlus };
 
-    public void setEscapingPlus(boolean b) {
-        this.escapingPlus = b;
+    private EnumSet<PARAM> params;
+
+    public UnicodeUnescaper(PARAM... params) {
+        if(params.length > 0) {
+            this.params = EnumSet.copyOf(Arrays.asList(params));
+        }
     }
-    public boolean isEscapingPlus() {
-        return this.escapingPlus;
+
+    public boolean isSet(PARAM p) { 
+        return (params == null) ? false : params.contains(p);
     }
 
     /**
@@ -50,7 +58,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
                 }
 
                 // consume + symbol in \\u+0045
-                if(isEscapingPlus()) {
+                if(isSet(PARAM.escapePlus)) {
                     if( (index + i < input.length()) && (input.charAt(index + i) == '+') ) {
                         i++;
                     }
