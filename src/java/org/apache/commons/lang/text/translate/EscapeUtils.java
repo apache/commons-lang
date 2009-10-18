@@ -112,6 +112,7 @@ public class EscapeUtils {
         private static final char[] CSV_SEARCH_CHARS = new char[] {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
 
         // TODO: Replace with a RegexTranslator. That should consume the number of characters the regex uses up?
+        @Override
         public int translate(CharSequence input, int index, Writer out) throws IOException {
 
             if(index != 0) {

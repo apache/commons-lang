@@ -29,6 +29,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int translate(CharSequence input, int index, Writer out) throws IOException {
         // TODO: Protect from ArrayIndexOutOfBounds
         if(input.charAt(index) == '&' && input.charAt(index + 1) == '#') {

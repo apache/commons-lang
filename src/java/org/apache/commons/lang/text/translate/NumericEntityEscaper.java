@@ -55,6 +55,7 @@ public class NumericEntityEscaper extends CodePointTranslator {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean translate(int codepoint, Writer out) throws IOException {
         if(between) {
             if (codepoint < below || codepoint > above) {

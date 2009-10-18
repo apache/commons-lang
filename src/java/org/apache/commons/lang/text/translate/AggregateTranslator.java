@@ -42,6 +42,7 @@ public class AggregateTranslator extends CharSequenceTranslator {
      * Execution stops with the number of consumed codepoints being returned. 
      * {@inheritDoc}
      */
+    @Override
     public int translate(CharSequence input, int index, Writer out) throws IOException {
         for (CharSequenceTranslator translator : translators) {
             int consumed = translator.translate(input, index, out);
