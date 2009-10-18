@@ -29,18 +29,18 @@ import java.util.Arrays;
  */
 public class UnicodeUnescaper extends CharSequenceTranslator {
 
-    public static enum PARAM { escapePlus };
+    public static enum OPTION { escapePlus };
 
-    private EnumSet<PARAM> params;
+    private EnumSet<OPTION> options;
 
-    public UnicodeUnescaper(PARAM... params) {
-        if(params.length > 0) {
-            this.params = EnumSet.copyOf(Arrays.asList(params));
+    public UnicodeUnescaper(OPTION... options) {
+        if(options.length > 0) {
+            this.options = EnumSet.copyOf(Arrays.asList(options));
         }
     }
 
-    public boolean isSet(PARAM p) { 
-        return (params == null) ? false : params.contains(p);
+    public boolean isSet(OPTION opt) { 
+        return (options == null) ? false : options.contains(opt);
     }
 
     /**
@@ -58,7 +58,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
                 }
 
                 // consume + symbol in \\u+0045
-                if(isSet(PARAM.escapePlus)) {
+                if(isSet(OPTION.escapePlus)) {
                     if( (index + i < input.length()) && (input.charAt(index + i) == '+') ) {
                         i++;
                     }

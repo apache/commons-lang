@@ -36,7 +36,7 @@ public class UnicodeUnescaperTest extends TestCase {
             // expected
         }
 
-        uu = new UnicodeUnescaper(UnicodeUnescaper.PARAM.escapePlus);
+        uu = new UnicodeUnescaper(UnicodeUnescaper.OPTION.escapePlus);
         assertEquals("Failed to unescape unicode characters with 'u+' notation", "G", uu.translate(input));
     }
 
