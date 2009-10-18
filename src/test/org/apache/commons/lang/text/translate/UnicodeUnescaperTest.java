@@ -19,21 +19,18 @@ package org.apache.commons.lang.text.translate;
 
 import junit.framework.TestCase;
 
-import java.io.StringWriter;
-import java.io.IOException;
-
 /**
  * Unit tests for {@link org.apache.commons.lang.text.translate.UnicodeEscaper}.
  */
 public class UnicodeUnescaperTest extends TestCase {
 
     // Requested in LANG-507
-    public void testUPlus() throws IOException {
+    public void testUPlus() {
         UnicodeUnescaper uu = new UnicodeUnescaper();
 
         String input = "\\u+0047";
         try {
-            String result = uu.translate(input);
+            uu.translate(input);
             fail("Default behaviour should not parse u+");
         } catch(IllegalArgumentException iae) {
             // expected
@@ -43,7 +40,7 @@ public class UnicodeUnescaperTest extends TestCase {
         assertEquals("Failed to unescape unicode characters with 'u+' notation", "G", uu.translate(input));
     }
 
-    public void testUuuuu() throws IOException {
+    public void testUuuuu() {
         UnicodeUnescaper uu = new UnicodeUnescaper();
 
         String input = "\\uuuuuuuu0047";
@@ -51,7 +48,7 @@ public class UnicodeUnescaperTest extends TestCase {
         assertEquals("Failed to unescape unicode characters with many 'u' characters", "G", result);
     }
 
-    public void testLessThanFour() throws IOException {
+    public void testLessThanFour() {
         UnicodeUnescaper uu = new UnicodeUnescaper();
 
         String input = "\\0047\\u006";
