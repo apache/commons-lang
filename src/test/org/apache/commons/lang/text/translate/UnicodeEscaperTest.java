@@ -19,15 +19,12 @@ package org.apache.commons.lang.text.translate;
 
 import junit.framework.TestCase;
 
-import java.io.StringWriter;
-import java.io.IOException;
-
 /**
  * Unit tests for {@link org.apache.commons.lang.text.translate.UnicodeEscaper}.
  */
 public class UnicodeEscaperTest extends TestCase {
 
-    public void testBelow() throws IOException {
+    public void testBelow() {
         UnicodeEscaper nee = UnicodeEscaper.below('F');
 
         String input = "ADFGZ";
@@ -35,7 +32,7 @@ public class UnicodeEscaperTest extends TestCase {
         assertEquals("Failed to escape unicode characters via the below method", "\\u0041\\u0044FGZ", result);
     }
 
-    public void testBetween() throws IOException {
+    public void testBetween() {
         UnicodeEscaper nee = UnicodeEscaper.between('F', 'L');
 
         String input = "ADFGZ";
@@ -43,7 +40,7 @@ public class UnicodeEscaperTest extends TestCase {
         assertEquals("Failed to escape unicode characters via the between method", "AD\\u0046\\u0047Z", result);
     }
 
-    public void testAbove() throws IOException {
+    public void testAbove() {
         UnicodeEscaper nee = UnicodeEscaper.above('F');
 
         String input = "ADFGZ";

@@ -19,15 +19,12 @@ package org.apache.commons.lang.text.translate;
 
 import junit.framework.TestCase;
 
-import java.io.StringWriter;
-import java.io.IOException;
-
 /**
  * Unit tests for {@link org.apache.commons.lang.text.translate.NumericEntityEscaper}.
  */
 public class NumericEntityEscaperTest extends TestCase {
 
-    public void testBelow() throws IOException {
+    public void testBelow() {
         NumericEntityEscaper nee = NumericEntityEscaper.below('F');
 
         String input = "ADFGZ";
@@ -35,7 +32,7 @@ public class NumericEntityEscaperTest extends TestCase {
         assertEquals("Failed to escape numeric entities via the below method", "&#65;&#68;FGZ", result);
     }
 
-    public void testBetween() throws IOException {
+    public void testBetween() {
         NumericEntityEscaper nee = NumericEntityEscaper.between('F', 'L');
 
         String input = "ADFGZ";
@@ -43,7 +40,7 @@ public class NumericEntityEscaperTest extends TestCase {
         assertEquals("Failed to escape numeric entities via the between method", "AD&#70;&#71;Z", result);
     }
 
-    public void testAbove() throws IOException {
+    public void testAbove() {
         NumericEntityEscaper nee = NumericEntityEscaper.above('F');
 
         String input = "ADFGZ";
