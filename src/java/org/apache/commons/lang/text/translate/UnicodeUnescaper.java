@@ -31,7 +31,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
 
     public static enum OPTION { escapePlus };
 
-    private EnumSet<OPTION> options;
+    private final EnumSet<OPTION> options;
 
     public UnicodeUnescaper(OPTION... options) {
         if(options.length > 0) {
