@@ -158,7 +158,7 @@ public class ObjectUtils {
         if (object == null) {
             return null;
         }
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         identityToString(buffer, object);
         return buffer.toString();
     }
@@ -178,13 +178,17 @@ public class ObjectUtils {
      * @param object  the object to create a toString for
      * @since 2.4
      */
-    public static void identityToString(StringBuffer buffer, Object object) {
+    public static void identityToString(Appendable buffer, Object object) {
         if (object == null) {
             throw new NullPointerException("Cannot get the toString of a null identity");
         }
-        buffer.append(object.getClass().getName())
-              .append('@')
-              .append(Integer.toHexString(System.identityHashCode(object)));
+        try {
+            buffer.append(object.getClass().getName())
+                  .append('@')
+                  .append(Integer.toHexString(System.identityHashCode(object)));
+        } catch(java.io.IOException ioe) {
+            // can't happen - Appendable API forces it upon us
+        }
     }
 
     // ToString
