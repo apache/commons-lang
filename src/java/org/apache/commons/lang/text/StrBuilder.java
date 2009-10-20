@@ -1128,7 +1128,7 @@ public class StrBuilder implements CharSequence, Appendable {
      * @since 3.0
      */
     public StrBuilder appendSeparator(String standard, String defaultIfEmpty) {
-    	String str = isEmpty() ? defaultIfEmpty : standard;
+        String str = isEmpty() ? defaultIfEmpty : standard;
         if (str != null) {
             append(str);
         }
@@ -1177,7 +1177,7 @@ public class StrBuilder implements CharSequence, Appendable {
             append(standard);
         }
         else {
-        	append(defaultIfEmpty);
+            append(defaultIfEmpty);
         }
         return this;
     }
