@@ -68,6 +68,7 @@ import org.apache.commons.lang.SystemUtils;
  * the interface. 
  *
  * @author Stephen Colebourne
+ * @author Robert Scholte
  * @since 2.2
  * @version $Id$
  */
@@ -1096,8 +1097,40 @@ public class StrBuilder implements CharSequence, Appendable {
      * @since 2.3
      */
     public StrBuilder appendSeparator(String separator) {
-        if (separator != null && size() > 0) {
-            append(separator);
+        return appendSeparator(separator, null);
+    }
+
+    /**
+     * Appends one of both separators to the StrBuilder.
+     * If the builder is currently empty it will append the defaultIfEmpty-separator
+     * Otherwise it will append the standard-separator
+     * 
+     * Appending a null separator will have no effect.
+     * The separator is appended using {@link #append(String)}.
+     * <p>
+     * This method is for example useful for constructing queries
+     * <pre>
+     * StrBuilder whereClause = new StrBuilder();
+     * if(searchCommand.getPriority() != null) {
+     *  whereClause.appendSeparator(" and", " where");
+     *  whereClause.append(" priority = ?")
+     * }
+     * if(searchCommand.getComponent() != null) {
+     *  whereClause.appendSeparator(" and", " where");
+     *  whereClause.append(" component = ?")
+     * }
+     * selectClause.append(whereClause)
+     * </pre>
+     * 
+     * @param standard the separator if builder is not empty, null means no separator
+     * @param defaultIfEmpty the separator if builder is empty, null means no separator
+     * @return this, to enable chaining
+     * @since 3.0
+     */
+    public StrBuilder appendSeparator(String standard, String defaultIfEmpty) {
+    	String str = isEmpty() ? defaultIfEmpty : standard;
+        if (str != null) {
+            append(str);
         }
         return this;
     }
@@ -1128,6 +1161,26 @@ public class StrBuilder implements CharSequence, Appendable {
         return this;
     }
 
+    /**
+     * Append one of both separators to the builder
+     * If the builder is currently empty it will append the defaultIfEmpty-separator
+     * Otherwise it will append the standard-separator
+     *
+     * The separator is appended using {@link #append(char)}.
+     * @param standard the separator if builder is not empty
+     * @param defaultIfEmpty the separator if builder is empty
+     * @return this, to enable chaining
+     * @since 3.0
+     */
+    public StrBuilder appendSeparator(char standard, char defaultIfEmpty) {
+        if (size() > 0) {
+            append(standard);
+        }
+        else {
+        	append(defaultIfEmpty);
+        }
+        return this;
+    }
     /**
      * Appends a separator to the builder if the loop index is greater than zero.
      * Appending a null separator will have no effect.
