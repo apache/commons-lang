@@ -421,7 +421,7 @@ public final class DoubleRange extends Range implements Serializable {
     @Override
     public String toString() {
         if (toString == null) {
-            StringBuffer buf = new StringBuffer(32);
+            StringBuilder buf = new StringBuilder(32);
             buf.append("Range[");
             buf.append(min);
             buf.append(',');

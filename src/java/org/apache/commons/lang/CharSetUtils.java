@@ -91,7 +91,7 @@ public class CharSetUtils {
             return str;
         }
         CharSet chars = CharSet.getInstance(set);
-        StringBuffer buffer = new StringBuffer(str.length());
+        StringBuilder buffer = new StringBuilder(str.length());
         char[] chrs = str.toCharArray();
         int sz = chrs.length;
         char lastChar = ' ';
@@ -289,7 +289,7 @@ public class CharSetUtils {
      */
     private static String modify(String str, String[] set, boolean expect) {
         CharSet chars = CharSet.getInstance(set);
-        StringBuffer buffer = new StringBuffer(str.length());
+        StringBuilder buffer = new StringBuilder(str.length());
         char[] chrs = str.toCharArray();
         int sz = chrs.length;
         for(int i=0; i<sz; i++) {

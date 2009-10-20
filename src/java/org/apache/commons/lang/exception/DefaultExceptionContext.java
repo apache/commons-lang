@@ -87,7 +87,7 @@ public class DefaultExceptionContext implements ExceptionContext {
      * @since 3.0
      */
     public String getFormattedExceptionMessage(String baseMessage){
-        StringBuffer buffer = new StringBuffer(256);
+        StringBuilder buffer = new StringBuilder(256);
         if (baseMessage != null) {
             buffer.append(baseMessage);
         }

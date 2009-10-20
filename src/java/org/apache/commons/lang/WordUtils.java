@@ -172,7 +172,7 @@ public class WordUtils {
         }
         int inputLineLength = str.length();
         int offset = 0;
-        StringBuffer wrappedLine = new StringBuffer(inputLineLength + 32);
+        StringBuilder wrappedLine = new StringBuilder(inputLineLength + 32);
         
         while ((inputLineLength - offset) > wrapLength) {
             if (str.charAt(offset) == ' ') {
@@ -278,7 +278,7 @@ public class WordUtils {
             return str;
         }
         int strLen = str.length();
-        StringBuffer buffer = new StringBuffer(strLen);
+        StringBuilder buffer = new StringBuilder(strLen);
         boolean capitalizeNext = true;
         for (int i = 0; i < strLen; i++) {
             char ch = str.charAt(i);
@@ -408,7 +408,7 @@ public class WordUtils {
             return str;
         }
         int strLen = str.length();
-        StringBuffer buffer = new StringBuffer(strLen);
+        StringBuilder buffer = new StringBuilder(strLen);
         boolean uncapitalizeNext = true;
         for (int i = 0; i < strLen; i++) {
             char ch = str.charAt(i);
@@ -454,7 +454,7 @@ public class WordUtils {
         if (str == null || (strLen = str.length()) == 0) {
             return str;
         }
-        StringBuffer buffer = new StringBuffer(strLen);
+        StringBuilder buffer = new StringBuilder(strLen);
 
         boolean whitespace = true;
         char ch = 0;
@@ -626,7 +626,7 @@ public class WordUtils {
             upper = lower;
         }
 
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         int index = StringUtils.indexOf(str, " ", lower);
         if (index == -1) {
             result.append(str.substring(0, upper));

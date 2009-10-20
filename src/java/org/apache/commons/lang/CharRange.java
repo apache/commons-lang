@@ -215,7 +215,7 @@ public final class CharRange implements Serializable {
     @Override
     public String toString() {
         if (iToString == null) {
-            StringBuffer buf = new StringBuffer(4);
+            StringBuilder buf = new StringBuilder(4);
             if (isNegated()) {
                 buf.append('^');
             }

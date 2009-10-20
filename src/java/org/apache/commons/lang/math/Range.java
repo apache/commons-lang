@@ -422,7 +422,7 @@ public abstract class Range {
      */
     @Override
     public String toString() {
-        StringBuffer buf = new StringBuffer(32);
+        StringBuilder buf = new StringBuilder(32);
         buf.append("Range[");
         buf.append(getMinimumNumber());
         buf.append(',');
