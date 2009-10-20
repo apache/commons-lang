@@ -188,7 +188,7 @@ public class ClassUtils {
             return StringUtils.EMPTY;
         }
 
-        StringBuffer arrayPrefix = new StringBuffer();
+        StringBuilder arrayPrefix = new StringBuilder();
 
         // Handle array encoding
         if (className.startsWith("[")) {
@@ -859,7 +859,7 @@ public class ClassUtils {
         if (className == null) {
             throw new NullPointerException("className must not be null.");
         } else if (className.endsWith("[]")) {
-            StringBuffer classNameBuffer = new StringBuffer();
+            StringBuilder classNameBuffer = new StringBuilder();
             while (className.endsWith("[]")) {
                 className = className.substring(0, className.length() - 2);
                 classNameBuffer.append("[");
@@ -1026,7 +1026,7 @@ public class ClassUtils {
                         className = reverseAbbreviationMap.get(className.substring(0, 1));
                     }
                 }
-                StringBuffer canonicalClassNameBuffer = new StringBuffer(className);
+                StringBuilder canonicalClassNameBuffer = new StringBuilder(className);
                 for (int i = 0; i < dim; i++) {
                     canonicalClassNameBuffer.append("[]");
                 }

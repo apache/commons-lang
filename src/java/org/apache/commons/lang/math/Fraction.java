@@ -902,7 +902,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
     @Override
     public String toString() {
         if (toString == null) {
-            toString = new StringBuffer(32)
+            toString = new StringBuilder(32)
                 .append(getNumerator())
                 .append('/')
                 .append(getDenominator()).toString();
@@ -936,13 +936,13 @@ public final class Fraction extends Number implements Comparable<Fraction> {
                 if (properNumerator == 0) {
                     toProperString = Integer.toString(getProperWhole());
                 } else {
-                    toProperString = new StringBuffer(32)
+                    toProperString = new StringBuilder(32)
                         .append(getProperWhole()).append(' ')
                         .append(properNumerator).append('/')
                         .append(getDenominator()).toString();
                 }
             } else {
-                toProperString = new StringBuffer(32)
+                toProperString = new StringBuilder(32)
                     .append(getNumerator()).append('/')
                     .append(getDenominator()).toString();
             }
