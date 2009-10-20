@@ -25,9 +25,15 @@ import java.io.Writer;
  */
 public class NumericEntityEscaper extends CodePointTranslator {
 
-    private int below = 0;
-    private int above = Integer.MAX_VALUE;
-    private boolean between = true;
+    private final int below;
+    private final int above;
+    private final boolean between;
+
+    private NumericEntityEscaper(int below, int above, boolean between) {
+        this.below = below;
+        this.above = above;
+        this.between = between;
+    }
 
     public static NumericEntityEscaper below(int codepoint) {
         return outsideOf(codepoint, Integer.MAX_VALUE);
@@ -38,18 +44,11 @@ public class NumericEntityEscaper extends CodePointTranslator {
     }
 
     public static NumericEntityEscaper between(int codepointLow, int codepointHigh) {
-        NumericEntityEscaper escaper = new NumericEntityEscaper();
-        escaper.above = codepointHigh;
-        escaper.below = codepointLow;
-        return escaper;
+        return new NumericEntityEscaper(codepointLow, codepointHigh, true);
     }
 
     public static NumericEntityEscaper outsideOf(int codepointLow, int codepointHigh) {
-        NumericEntityEscaper escaper = new NumericEntityEscaper();
-        escaper.above = codepointHigh;
-        escaper.below = codepointLow;
-        escaper.between = false;
-        return escaper;
+        return new NumericEntityEscaper(codepointLow, codepointHigh, false);
     }
 
     /**
