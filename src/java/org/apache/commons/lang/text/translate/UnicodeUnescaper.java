@@ -31,11 +31,14 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
 
     public static enum OPTION { escapePlus };
 
+    // TODO: Create an OptionsSet class to hide some of the conditional logic below
     private final EnumSet<OPTION> options;
 
     public UnicodeUnescaper(OPTION... options) {
         if(options.length > 0) {
             this.options = EnumSet.copyOf(Arrays.asList(options));
+        } else {
+            this.options = null;
         }
     }
 
