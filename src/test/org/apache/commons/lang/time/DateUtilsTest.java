@@ -1161,8 +1161,8 @@ public class DateUtilsTest extends TestCase {
      * Tests various values with the ceiling method
      */
     public void testCeil() throws Exception {
-    	// tests public static Date ceiling(Date date, int field)
-    	assertEquals("ceiling year-1 failed",
+        // tests public static Date ceiling(Date date, int field)
+        assertEquals("ceiling year-1 failed",
                 dateParser.parse("January 1, 2003"),
                 DateUtils.ceiling(date1, Calendar.YEAR));
         assertEquals("ceiling year-2 failed",
@@ -1317,7 +1317,7 @@ public class DateUtilsTest extends TestCase {
         
         // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
         // Test ceiling across the beginning of daylight saving time
-    	TimeZone.setDefault(zone);
+        TimeZone.setDefault(zone);
         dateTimeParser.setTimeZone(zone);
 
         assertEquals("ceiling MET date across DST change-over",
@@ -1373,7 +1373,7 @@ public class DateUtilsTest extends TestCase {
         } else {
             this.warn("WARNING: Some date ceiling tests not run since the current version is " + SystemUtils.JAVA_VERSION);
         }
-    	TimeZone.setDefault(defaultZone);
+        TimeZone.setDefault(defaultZone);
         dateTimeParser.setTimeZone(defaultZone);
         
      // Bug 31395, large dates
