@@ -285,6 +285,192 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testNotBlankNullStringShouldThrow() {
+        //given
+        String string = null;
+
+        try {
+            //when
+            Validate.notBlank(string);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("The validated string is blank", e.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankMsgNullStringShouldThrow() {
+        //given
+        String string = null;
+
+        try {
+            //when
+            Validate.notBlank(string, "Message");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("Message", e.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankEmptyStringShouldThrow() {
+        //given
+        String string = "";
+
+        try {
+            //when
+            Validate.notBlank(string);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("The validated string is blank", e.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankBlankStringWithWhitespacesShouldThrow() {
+        //given
+        String string = "   ";
+
+        try {
+            //when
+            Validate.notBlank(string);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("The validated string is blank", e.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankBlankStringWithNewlinesShouldThrow() {
+        //given
+        String string = " \n \t \r \n ";
+
+        try {
+            //when
+            Validate.notBlank(string);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("The validated string is blank", e.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankMsgBlankStringShouldThrow() {
+        //given
+        String string = " \n \t \r \n ";
+
+        try {
+            //when
+            Validate.notBlank(string, "Message");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("Message", e.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankMsgBlankStringWithWhitespacesShouldThrow() {
+        //given
+        String string = "   ";
+
+        try {
+            //when
+            Validate.notBlank(string, "Message");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("Message", e.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankMsgEmptyStringShouldThrow() {
+        //given
+        String string = "";
+
+        try {
+            //when
+            Validate.notBlank(string, "Message");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("Message", e.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankNotBlankStringShouldNotThrow() {
+        //given
+        String string = "abc";
+
+        //when
+        Validate.notBlank(string);
+
+        //then should not throw
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankNotBlankStringWithWhitespacesShouldNotThrow() {
+        //given
+        String string = "  abc   ";
+
+        //when
+        Validate.notBlank(string);
+
+        //then should not throw
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankNotBlankStringWithNewlinesShouldNotThrow() {
+        //given
+        String string = " \n \t abc \r \n ";
+
+        //when
+        Validate.notBlank(string);
+
+        //then should not throw
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankMsgNotBlankStringShouldNotThrow() {
+        //given
+        String string = "abc";
+
+        //when
+        Validate.notBlank(string, "Message");
+
+        //then should not throw
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankMsgNotBlankStringWithWhitespacesShouldNotThrow() {
+        //given
+        String string = "  abc   ";
+
+        //when
+        Validate.notBlank(string, "Message");
+
+        //then should not throw
+    }
+
+    //-----------------------------------------------------------------------
+    public void testNotBlankMsgNotBlankStringWithNewlinesShouldNotThrow() {
+        //given
+        String string = " \n \t abc \r \n ";
+
+        //when
+        Validate.notBlank(string, "Message");
+
+        //then should not throw
+    }
+
+    //-----------------------------------------------------------------------
     public void testNoNullElementsArray1() {
         String[] array = new String[] {"a", "b"};
         Validate.noNullElements(array);

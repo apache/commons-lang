@@ -39,8 +39,7 @@ import java.util.Map;
  * @version $Id$
  */
 public class Validate {
-    // Validate has no dependencies on other classes in Commons Lang at present
-    
+
     /**
      * Constructor. This class should not normally be instantiated.
      */
@@ -295,6 +294,45 @@ public class Validate {
      */
     public static void notEmpty(Collection<?> collection) {
         notEmpty(collection, "The validated collection is empty");
+    }
+
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument String is blank (<code>null</code>, empty or whitespace).</p>
+     *
+     * <pre>
+     * Validate.notBlank(myString);
+     * </pre>
+     *
+     * <p>The message in the exception is 'The validated string is blank'.</p>
+     *
+     * @param string  the string to check is not blank
+     * @throws IllegalArgumentException if the string is blank
+     * @see StringUtils#isBlank(CharSequence)
+     */
+    public static void notBlank(String string) {
+        if(StringUtils.isBlank(string)) {
+            throw new IllegalArgumentException("The validated string is blank");
+        }
+    }
+
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument String is blank (<code>null</code>, empty or whitespace).</p>
+     *
+     * <pre>
+     * Validate.notBlank(myString, "The string must not be blank");
+     * </pre>
+     *
+     * @param string  the string to check is not blank
+     * @param message  the exception message you would like to see if the string is blank
+     * @throws IllegalArgumentException if the string is blank
+     * @see StringUtils#isBlank(CharSequence)
+     */
+    public static void notBlank(String string, String message) {
+        if(StringUtils.isBlank(string)) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
     // notEmpty map
