@@ -705,7 +705,7 @@ public class FastDateFormat extends Format {
      * @return parsed token
      */
     protected String parseToken(String pattern, int[] indexRef) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
 
         int i = indexRef[0];
         int length = pattern.length();
