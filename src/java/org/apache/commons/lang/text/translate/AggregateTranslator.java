@@ -26,7 +26,7 @@ import java.io.Writer;
  */
 public class AggregateTranslator extends CharSequenceTranslator {
 
-    private CharSequenceTranslator[] translators;
+    private final CharSequenceTranslator[] translators;
 
     /**
      * Specify the translators to be used at creation time. 
@@ -34,6 +34,7 @@ public class AggregateTranslator extends CharSequenceTranslator {
      * @param translators CharSequenceTranslator array to aggregate
      */
     public AggregateTranslator(CharSequenceTranslator... translators) {
+        // TODO - copy array to prevent subsequent external changes
         this.translators = translators;
     }
 
