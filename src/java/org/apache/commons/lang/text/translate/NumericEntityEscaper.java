@@ -35,6 +35,10 @@ public class NumericEntityEscaper extends CodePointTranslator {
         this.between = between;
     }
 
+    public NumericEntityEscaper() { 
+        this(0, Integer.MAX_VALUE, true);
+    }
+
     public static NumericEntityEscaper below(int codepoint) {
         return outsideOf(codepoint, Integer.MAX_VALUE);
     }
