@@ -27,9 +27,9 @@ import java.util.HashMap;
 // TODO: Replace with a RegexLookup? Performance test.
 public class LookupTranslator extends CharSequenceTranslator {
 
-    private HashMap<CharSequence, CharSequence> lookupMap;
-    private int shortest = Integer.MAX_VALUE;
-    private int longest = 0;
+    private final HashMap<CharSequence, CharSequence> lookupMap;
+    private final int shortest;
+    private final int longest;
 
     /**
      * Define the lookup table to be used in translation
@@ -38,16 +38,20 @@ public class LookupTranslator extends CharSequenceTranslator {
      */
     public LookupTranslator(CharSequence[][] lookup) {
         lookupMap = new HashMap<CharSequence, CharSequence>();
+        int _shortest = Integer.MAX_VALUE;
+        int _longest = 0;
         for(CharSequence[] seq : lookup) {
             this.lookupMap.put(seq[0], seq[1]);
             int sz = seq[0].length();
-            if(sz < shortest) {
-                shortest = sz;
+            if(sz < _shortest) {
+                _shortest = sz;
             }
-            if(sz > longest) {
-                longest = sz;
+            if(sz > _longest) {
+                _longest = sz;
             }
         }
+        shortest = _shortest;
+        longest = _longest;
     }
 
     /**
