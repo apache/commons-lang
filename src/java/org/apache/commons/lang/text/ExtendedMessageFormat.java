@@ -149,7 +149,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         }
         ArrayList<Format> foundFormats = new ArrayList<Format>();
         ArrayList<String> foundDescriptions = new ArrayList<String>();
-        StringBuffer stripCustom = new StringBuffer(pattern.length());
+        StringBuilder stripCustom = new StringBuilder(pattern.length());
 
         ParsePosition pos = new ParsePosition(0);
         char[] c = pattern.toCharArray();
@@ -184,7 +184,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                     throw new IllegalArgumentException(
                             "Unreadable format element at position " + start);
                 }
-                // fall through
+                //$FALL-THROUGH$
             default:
                 stripCustom.append(c[pos.getIndex()]);
                 next(pos);
@@ -351,7 +351,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (!containsElements(customPatterns)) {
             return pattern;
         }
-        StringBuffer sb = new StringBuffer(pattern.length() * 2);
+        StringBuilder sb = new StringBuilder(pattern.length() * 2);
         ParsePosition pos = new ParsePosition(0);
         int fe = -1;
         int depth = 0;
@@ -375,7 +375,7 @@ public class ExtendedMessageFormat extends MessageFormat {
                 break;
             case END_FE:
                 depth--;
-                //fall through:
+                //$FALL-THROUGH$
             default:
                 sb.append(c);
                 next(pos);
@@ -420,8 +420,8 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param escapingOn whether to process escaped quotes
      * @return <code>appendTo</code>
      */
-    private StringBuffer appendQuotedString(String pattern, ParsePosition pos,
-            StringBuffer appendTo, boolean escapingOn) {
+    private StringBuilder appendQuotedString(String pattern, ParsePosition pos,
+            StringBuilder appendTo, boolean escapingOn) {
         int start = pos.getIndex();
         char[] c = pattern.toCharArray();
         if (escapingOn && c[start] == QUOTE) {
