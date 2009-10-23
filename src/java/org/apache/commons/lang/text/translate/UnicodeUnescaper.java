@@ -29,7 +29,7 @@ import java.util.Arrays;
  */
 public class UnicodeUnescaper extends CharSequenceTranslator {
 
-    public static enum OPTION { escapePlus };
+    public static enum OPTION { escapePlus }
 
     // TODO: Create an OptionsSet class to hide some of the conditional logic below
     private final EnumSet<OPTION> options;
@@ -49,7 +49,6 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
     /**
      * {@inheritDoc}
      */
-    // TODO: Handle \\u+0045 variant
     @Override
     public int translate(CharSequence input, int index, Writer out) throws IOException {
         if(input.charAt(index) == '\\') {
