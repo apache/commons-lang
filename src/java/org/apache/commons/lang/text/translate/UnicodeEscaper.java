@@ -25,9 +25,19 @@ import java.io.Writer;
  */
 public class UnicodeEscaper extends CodePointTranslator {
 
-    private int below = 0;
-    private int above = Integer.MAX_VALUE;
-    private boolean between = true;
+    private final int below;
+    private final int above;
+    private final boolean between;
+
+    public UnicodeEscaper(){
+        this(0, Integer.MAX_VALUE, true);
+    }
+
+    private UnicodeEscaper(int below, int above, boolean between) {
+        this.below = below;
+        this.above = above;
+        this.between = between;
+    }
 
     public static UnicodeEscaper below(int codepoint) {
         return outsideOf(codepoint, Integer.MAX_VALUE);
@@ -38,17 +48,12 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     public static UnicodeEscaper outsideOf(int codepointLow, int codepointHigh) {
-        UnicodeEscaper escaper = new UnicodeEscaper();
-        escaper.above = codepointHigh;
-        escaper.below = codepointLow;
-        escaper.between = false;
+        UnicodeEscaper escaper = new UnicodeEscaper(codepointLow, codepointHigh, false);
         return escaper;
     }
 
     public static UnicodeEscaper between(int codepointLow, int codepointHigh) {
-        UnicodeEscaper escaper = new UnicodeEscaper();
-        escaper.above = codepointHigh;
-        escaper.below = codepointLow;
+        UnicodeEscaper escaper = new UnicodeEscaper(codepointLow, codepointHigh, true);
         return escaper;
     }
 
