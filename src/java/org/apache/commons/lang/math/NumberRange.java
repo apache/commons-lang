@@ -119,6 +119,7 @@ public final class NumberRange extends Range implements Serializable {
             }
         }
         
+        @SuppressWarnings("unchecked") // this is checked above
         int compare = ((Comparable<Number>) num1).compareTo(num2);
         if (compare == 0) {
             this.min = num1;
@@ -176,7 +177,9 @@ public final class NumberRange extends Range implements Serializable {
         if (number.getClass() != min.getClass()) {
             throw new IllegalArgumentException("The number must be of the same type as the range numbers");
         }
+        @SuppressWarnings("unchecked") // this was checked in the ctor
         int compareMin = ((Comparable<Number>) min).compareTo(number);
+        @SuppressWarnings("unchecked") // this was checked in the ctor
         int compareMax = ((Comparable<Number>) max).compareTo(number);
         return compareMin <= 0 && compareMax >= 0;
     }
