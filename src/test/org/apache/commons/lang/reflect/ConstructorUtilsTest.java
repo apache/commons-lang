@@ -68,15 +68,16 @@ public class ConstructorUtilsTest extends TestCase {
     }
 
     private static class PrivateClass {
+        @SuppressWarnings("unused")
         public PrivateClass() {
         }
     }
 
-    private Map classCache;
+    private Map<Class<?>, Class<?>[]> classCache;
 
     public ConstructorUtilsTest(String name) {
         super(name);
-        classCache = new HashMap();
+        classCache = new HashMap<Class<?>, Class<?>[]>();
     }
 
     /**
@@ -210,21 +211,21 @@ public class ConstructorUtilsTest extends TestCase {
                 singletonArray(Double.TYPE), singletonArray(Double.TYPE));
     }
 
-    private void expectMatchingAccessibleConstructorParameterTypes(Class cls,
-            Class[] requestTypes, Class[] actualTypes) {
-        Constructor c = ConstructorUtils.getMatchingAccessibleConstructor(cls,
+    private void expectMatchingAccessibleConstructorParameterTypes(Class<?> cls,
+            Class<?>[] requestTypes, Class<?>[] actualTypes) {
+        Constructor<?> c = ConstructorUtils.getMatchingAccessibleConstructor(cls,
                 requestTypes);
         assertTrue(toString(c.getParameterTypes()) + " not equals "
                 + toString(actualTypes), Arrays.equals(actualTypes, c
                 .getParameterTypes()));
     }
 
-    private String toString(Class[] c) {
+    private String toString(Class<?>[] c) {
         return Arrays.asList(c).toString();
     }
 
-    private Class[] singletonArray(Class c) {
-        Class[] result = (Class[]) classCache.get(c);
+    private Class<?>[] singletonArray(Class<?> c) {
+        Class<?>[] result = classCache.get(c);
         if (result == null) {
             result = new Class[] { c };
             classCache.put(c, result);
