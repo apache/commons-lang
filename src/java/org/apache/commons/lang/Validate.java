@@ -46,7 +46,7 @@ public class Validate {
     public Validate() {
       super();
     }
-    
+
     // isTrue
     //---------------------------------------------------------------------------------
 
@@ -296,45 +296,6 @@ public class Validate {
         notEmpty(collection, "The validated collection is empty");
     }
 
-    /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument String is blank (<code>null</code>, empty or whitespace).</p>
-     *
-     * <pre>
-     * Validate.notBlank(myString);
-     * </pre>
-     *
-     * <p>The message in the exception is 'The validated string is blank'.</p>
-     *
-     * @param string  the string to check is not blank
-     * @throws IllegalArgumentException if the string is blank
-     * @see StringUtils#isBlank(CharSequence)
-     */
-    public static void notBlank(String string) {
-        if(StringUtils.isBlank(string)) {
-            throw new IllegalArgumentException("The validated string is blank");
-        }
-    }
-
-    /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument String is blank (<code>null</code>, empty or whitespace).</p>
-     *
-     * <pre>
-     * Validate.notBlank(myString, "The string must not be blank");
-     * </pre>
-     *
-     * @param string  the string to check is not blank
-     * @param message  the exception message you would like to see if the string is blank
-     * @throws IllegalArgumentException if the string is blank
-     * @see StringUtils#isBlank(CharSequence)
-     */
-    public static void notBlank(String string, String message) {
-        if(StringUtils.isBlank(string)) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
     // notEmpty map
     //---------------------------------------------------------------------------------
 
@@ -409,6 +370,48 @@ public class Validate {
      */
     public static void notEmpty(String string) {
         notEmpty(string, "The validated string is empty");
+    }
+
+    // notBlank string
+    //---------------------------------------------------------------------------------
+
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument String is blank (<code>null</code>, empty or whitespace).</p>
+     *
+     * <pre>
+     * Validate.notBlank(myString);
+     * </pre>
+     *
+     * <p>The message in the exception is 'The validated string is blank'.</p>
+     *
+     * @param string  the string to check is not blank
+     * @throws IllegalArgumentException if the string is blank
+     * @see StringUtils#isBlank(CharSequence)
+     */
+    public static void notBlank(String string) {
+        if (StringUtils.isBlank(string)) {
+            throw new IllegalArgumentException("The validated string is blank");
+        }
+    }
+
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument String is blank (<code>null</code>, empty or whitespace).</p>
+     *
+     * <pre>
+     * Validate.notBlank(myString, "The string must not be blank");
+     * </pre>
+     *
+     * @param string  the string to check is not blank
+     * @param message  the exception message you would like to see if the string is blank
+     * @throws IllegalArgumentException if the string is blank
+     * @see StringUtils#isBlank(CharSequence)
+     */
+    public static void notBlank(String string, String message) {
+        if (StringUtils.isBlank(string)) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
     // notNullElements array
@@ -561,10 +564,8 @@ public class Validate {
      * The message in the exception is 'The validated collection contains an element not of type clazz at index: '.
      * </p>
      * 
-     * @param collection
-     *            the collection to check, not null
-     * @param clazz
-     *            the <code>Class</code> which the collection's elements are expected to be, not null
+     * @param collection  the collection to check, not null
+     * @param clazz  the <code>Class</code> which the collection's elements are expected to be, not null
      * @since 2.1
      */
     public static void allElementsOfType(Collection<?> collection, Class<?> clazz) {
