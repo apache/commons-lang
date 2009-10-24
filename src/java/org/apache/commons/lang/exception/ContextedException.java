@@ -20,31 +20,25 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * Provides an easier and safer way for developers to provide context when
- * generating checked exceptions.  Often, additional information, besides what's
- * embedded in the exception cause, is needed for developers to debug and correct 
- * a bug.  Often, this additional information can reduce the time it takes
- * to replicate and fix a bug.
- * 
- * <p>ContextedException is easier as developers don't need to be concerned 
- * with formatting the exception message to include additional information 
- * with the exception.  Additional information is automatically included
- * in the message and printed stack trace.  This often thins out exception
- * handling code.</p>
- * 
- * <p>ContextedException is safer as the additional code needed to embed additional
- * information in a normal exception tends to be tested less and is more vulnerable
- * to errors such as null pointer exceptions.</p>
- * 
- * <p>An unchecked version of this exception is provided by ContextedRuntimeException.</p>
- * 
- * <p>To use this class write code as follows:</p>
- *
+ * <p>
+ * An exception that provides an easy and safe way to add contextual information.
+ * </p><p>
+ * An exception trace itself is often insufficient to provide rapid diagnosis of the issue.
+ * Frequently what is needed is a select few pieces of local contextual data.
+ * Providing this data is tricky however, due to concerns over formatting and nulls.
+ * </p><p>
+ * The contexted exception approach allows the exception to be created together with a
+ * map of context values. This additional information is automatically included in the
+ * message and printed stack trace.
+ * </p><p>
+ * An unchecked version of this exception is provided by ContextedRuntimeException.
+ * </p>
+ * <p>
+ * To use this class write code as follows:
+ * </p>
  * <pre>
  *   try {
- * 
- *   ...
- * 
+ *     ...
  *   } catch (Throwable e) {
  *     throw new ContextedException("Error posting account transaction", e)
  *          .addLabeledValue("accountNumber", accountNumber)
@@ -53,8 +47,8 @@ import java.util.Set;
  *   }
  * }
  * </pre>
- * 
- * <p>The output in a printStacktrace() (which often is written to a log) would look something like the following:
+ * </p><p>
+ * The output in a printStacktrace() (which often is written to a log) would look something like the following:
  * <pre>
  * org.apache.commons.lang.exception.ContextedException: java.lang.Exception: Error posting account transaction
  *  Exception Context:
@@ -66,109 +60,124 @@ import java.util.Set;
  *  at org.apache.commons.lang.exception.ContextedExceptionTest.testAddLabeledValue(ContextedExceptionTest.java:88)
  *  ..... (rest of trace)
  * </pre>
+ * </p>
  * 
  * @see ContextedRuntimeException
  * @author D. Ashmore
  * @since 3.0
- *
  */
 public class ContextedException extends Exception implements ExceptionContext {
 
+    /** The serialization version. */
     private static final long serialVersionUID = 8940917952810290164L;
-    private ExceptionContext exceptionContext = new DefaultExceptionContext();
+    /** The context where the data is stored. */
+    private final ExceptionContext exceptionContext;
 
     /**
      * Instantiates ContextedException without message or cause.
-     * <p>DefaultExceptionContext used to store and format context information.</p>
+     * <p>
+     * The context information is stored using a default implementation.
      */
     public ContextedException() {
+        super();
+        exceptionContext = new DefaultExceptionContext();
     }
 
     /**
      * Instantiates ContextedException with message, but without cause.
-     * <p>DefaultExceptionContext used to store and format context information.</p>
-     * @param message The exception message
+     * <p>
+     * The context information is stored using a default implementation.
+     * 
+     * @param message  the exception message, may be null
      */
     public ContextedException(String message) {
         super(message);
+        exceptionContext = new DefaultExceptionContext();
     }
 
     /**
      * Instantiates ContextedException with cause, but without message.
-     * <p>DefaultExceptionContext used to store and format context information.</p>
-     * @param cause Exception creating need for ContextedException
+     * <p>
+     * The context information is stored using a default implementation.
+     * 
+     * @param cause  the underlying cause of the exception, may be null
      */
     public ContextedException(Throwable cause) {
         super(cause);
+        exceptionContext = new DefaultExceptionContext();
     }
 
     /**
      * Instantiates ContextedException with cause and message.
-     * <p>DefaultExceptionContext used to store and format context information.</p>
-     * @param message The exception message
-     * @param cause Exception creating need for ContextedException
+     * <p>
+     * The context information is stored using a default implementation.
+     * 
+     * @param message  the exception message, may be null
+     * @param cause  the underlying cause of the exception, may be null
      */
     public ContextedException(String message, Throwable cause) {
         super(message, cause);
+        exceptionContext = new DefaultExceptionContext();
     }
-    
+
     /**
      * Instantiates ContextedException with cause, message, and ExceptionContext.
-     * @param message The exception message
-     * @param cause Exception creating need for ContextedException
-     * @param context Context used to store additional information
-     * @since 3.0
+     * 
+     * @param message  the exception message, may be null
+     * @param cause  the underlying cause of the exception, may be null
+     * @param context  the context used to store the additional information, null uses default implementation
      */
     public ContextedException(String message, Throwable cause, ExceptionContext context) {
         super(message, cause);
-        if (context != null) {
-            this.exceptionContext = context;
+        if (context == null) {
+            context = new DefaultExceptionContext();
         }
+        exceptionContext = context;
     }
-    
+
+    //-----------------------------------------------------------------------
     /**
      * Adds information helpful to a developer in diagnosing and correcting
      * the problem.  For the information to be meaningful, the value passed
      * should have a reasonable toString() implementation.
-     * 
-     * <p>Note:  If the value provided isn't Serializable, one solution would be
+     * <p>
+     * Note:  If the value provided isn't Serializable, one solution would be
      * to provide its toString() if it has a meaningful implementation or 
-     * individual properties of the value object instead.</p>
-     * @param label  a textual label associated with information
-     * @param value  information needed to understand exception.  May be <code>null</code>.
-     * @return this
-     * @since 3.0
+     * individual properties of the value object instead.
+     * 
+     * @param label  a textual label associated with information, null not recommended
+     * @param value  information needed to understand exception, may be null
+     * @return this, for method chaining
      */
     public ContextedException addLabeledValue(String label, Serializable value) {        
-        this.exceptionContext.addLabeledValue(label, value);
-        
+        exceptionContext.addLabeledValue(label, value);
         return this;
     }
-    
+
     /**
-     * Convenience method to retrieve a value from the underlying ExceptionContext.
-     * @param label  a textual label associated with information
-     * @return value  information needed to understand exception.  May be <code>null</code>.
-     * @since 3.0
+     * Retrieves a contextual data value associated with the label.
+     * 
+     * @param label  the label to get the contextual value for, may be null
+     * @return the contextual value associated with the label, may be null
      */
     public Serializable getLabeledValue(String label) {
-        return  this.exceptionContext.getLabeledValue(label);
+        return exceptionContext.getLabeledValue(label);
     }
-    
+
     /**
-     * Convenience method to retrieve currently defined labels from the underlying ExceptionContext.
-     * @return labelSet
-     * @since 3.0
+     * Retrieves the labels defined in the contextual data.
+     * 
+     * @return the set of labels, never null
      */
     public Set<String> getLabelSet() {
-        return this.exceptionContext.getLabelSet();
+        return exceptionContext.getLabelSet();
     }
-    
+
     /**
-     * Provides message pertaining to exception.
+     * Provides the message explaining the exception, including the contextual data.
+     * 
      * @see java.lang.Throwable#getMessage()
-     * @return message
-     * @since 3.0
+     * @return the message, never null
      */
     @Override
     public String getMessage(){
@@ -179,6 +188,6 @@ public class ContextedException extends Exception implements ExceptionContext {
      * {@inheritDoc}
      */
     public String getFormattedExceptionMessage(String baseMessage) {
-        return this.exceptionContext.getFormattedExceptionMessage(baseMessage);
+        return exceptionContext.getFormattedExceptionMessage(baseMessage);
     }
 }

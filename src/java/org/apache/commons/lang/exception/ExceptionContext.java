@@ -31,37 +31,39 @@ import java.util.Set;
  * @since 3.0
  */
 public interface ExceptionContext extends Serializable {
-    
+
     /**
-     * Adds a context item along with a label.  
-     * @param label label of item
-     * @param value value of item
+     * Adds a contextual label-value pair into this context.
+     * <p>
+     * This label-value pair provides information useful for debugging.
+     * 
+     * @param label  the label of the item to add, null not recommended
+     * @param value  the value of item to add, may be null
      * @return context itself to allow method chaining
-     * @since 3.0
      */
     public ExceptionContext addLabeledValue(String label, Serializable value);
-    
+
     /**
-     * Provides context information associated with the given label.
-     * @param label label of item
-     * @return value value associated with label
-     * @since 3.0
+     * Retrieves a contextual data value associated with the label.
+     * 
+     * @param label  the label to get the contextual value for, may be null
+     * @return the contextual value associated with the label, may be null
      */
     public Serializable getLabeledValue(String label);
-    
+
     /**
-     * Provides a set of labels that are currently in the context.
-     * @return labelSet labels currently used by the context
-     * @since 3.0
+     * Retrieves the labels defined in the contextual data.
+     * 
+     * @return the set of labels, never null
      */
     public Set<String> getLabelSet();
-    
+
     /**
      * Implementors provide the given base message with context label/value item 
      * information appended.
-     * @param baseMessage exception message <b>without</b> context information appended
-     * @return formattedMessage exception message <b>with</b> context information appended
-     * @since 3.0
+     * 
+     * @param baseMessage  the base exception message <b>without</b> context information appended
+     * @return the exception message <b>with</b> context information appended, never null
      */
     public String getFormattedExceptionMessage(String baseMessage);
 

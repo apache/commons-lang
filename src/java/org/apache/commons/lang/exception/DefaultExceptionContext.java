@@ -17,74 +17,63 @@
 package org.apache.commons.lang.exception;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.SystemUtils;
 
 /**
- * Provides context feature for exceptions.  Used by both checked and unchecked version of the contexted exceptions.
- * @see ContextedRuntimeException
+ * Default implementation of the context storing the label-value pairs for contexted exceptions.
+ * 
  * @author D. Ashmore
  * @since 3.0
  */
-public class DefaultExceptionContext implements ExceptionContext {
-    
+class DefaultExceptionContext implements ExceptionContext {
+
+    /** The serialization version. */
     private static final long serialVersionUID = 293747957535772807L;
-    
-    /*
-     * This value list could really be obtained from the Map, however, some
-     * callers want to control the order of the list as it appears in the 
-     * Message.  The list allows that.  name/value pairs will appear in
-     * the order that they're provided.   D. Ashmore
-     */
-    private List<String> contextKeyList = new ArrayList<String>();
-    private Map<String, Serializable> contextValueMap = new HashMap<String, Serializable>();
-    
+    /** The ordered map storing the label-data pairs. */
+    private Map<String, Serializable> contextValueMap = new LinkedHashMap<String, Serializable>();
+
     /**
-     * Adds information helpful to a developer in diagnosing and correcting
-     * the problem.  
-     * @see ContextedException#addLabeledValue(String, Serializable)
-     * @param label  a textual label associated with information
-     * @param value  information needed to understand exception.  May be null.
-     * @return this
-     * @since 3.0
+     * Adds a contextual label-value pair into this context.
+     * <p>
+     * This label-value pair provides information useful for debugging.
+     * 
+     * @param label  the label of the item to add, null not recommended
+     * @param value  the value of item to add, may be null
+     * @return this, for method chaining
      */
     public ExceptionContext addLabeledValue(String label, Serializable value) {        
-        this.contextKeyList.add(label);
-        this.contextValueMap.put(label, value);
-        
+        contextValueMap.put(label, value);
         return this;
     }
-    
+
     /**
-     * Retrieves the value for a given label.
-     * @param label  a textual label associated with information
-     * @return value  information needed to understand exception.  May be null.
-     * @since 3.0
+     * Retrieves a contextual data value associated with the label.
+     * 
+     * @param label  the label to get the contextual value for, may be null
+     * @return the contextual value associated with the label, may be null
      */
     public Serializable getLabeledValue(String label) {
-        return this.contextValueMap.get(label);
+        return contextValueMap.get(label);
     }
-    
+
     /**
-     * Retrieves currently defined labels.
-     * @return labelSet
-     * @since 3.0
+     * Retrieves the labels defined in the contextual data.
+     * 
+     * @return the set of labels, never null
      */
     public Set<String> getLabelSet() {
-        return this.contextValueMap.keySet();
+        return contextValueMap.keySet();
     }
-    
+
     /**
-     * Centralized message logic for both checked and unchecked version of
-     * context exceptions
-     * @param baseMessage message retained by super class
-     * @return message -- exception message
-     * @since 3.0
+     * Builds the message containing the contextual information.
+     * 
+     * @param baseMessage  the base exception message <b>without</b> context information appended
+     * @return the exception message <b>with</b> context information appended, never null
      */
     public String getFormattedExceptionMessage(String baseMessage){
         StringBuilder buffer = new StringBuilder(256);
@@ -92,7 +81,7 @@ public class DefaultExceptionContext implements ExceptionContext {
             buffer.append(baseMessage);
         }
         
-        if (contextKeyList.size() > 0) {
+        if (contextValueMap.size() > 0) {
             if (buffer.length() > 0l) {
                 buffer.append(SystemUtils.LINE_SEPARATOR);
             }
@@ -102,7 +91,7 @@ public class DefaultExceptionContext implements ExceptionContext {
             
             Object value;
             String valueStr;
-            for (String label: this.contextKeyList) {
+            for (String label : contextValueMap.keySet()) {
                 buffer.append("[");
                 buffer.append(label);
                 buffer.append("=");
@@ -126,5 +115,5 @@ public class DefaultExceptionContext implements ExceptionContext {
         }
         return buffer.toString();
     }
-    
+
 }
