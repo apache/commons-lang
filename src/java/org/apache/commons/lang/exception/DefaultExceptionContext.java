@@ -48,7 +48,7 @@ class DefaultExceptionContext implements ExceptionContext, Serializable {
      * @param value  the value of item to add, may be null
      * @return this, for method chaining
      */
-    public ExceptionContext addLabeledValue(String label, Object value) {        
+    public ExceptionContext addValue(String label, Object value) {        
         contextValueMap.put(label, value);
         return this;
     }
@@ -59,7 +59,7 @@ class DefaultExceptionContext implements ExceptionContext, Serializable {
      * @param label  the label to get the contextual value for, may be null
      * @return the contextual value associated with the label, may be null
      */
-    public Object getLabeledValue(String label) {
+    public Object getValue(String label) {
         return contextValueMap.get(label);
     }
 

@@ -38,7 +38,7 @@ public interface ExceptionContext {
      * @param value  the value of item to add, may be null
      * @return context itself to allow method chaining
      */
-    public ExceptionContext addLabeledValue(String label, Object value);
+    public ExceptionContext addValue(String label, Object value);
 
     /**
      * Retrieves a contextual data value associated with the label.
@@ -46,7 +46,7 @@ public interface ExceptionContext {
      * @param label  the label to get the contextual value for, may be null
      * @return the contextual value associated with the label, may be null
      */
-    public Object getLabeledValue(String label);
+    public Object getValue(String label);
 
     /**
      * Retrieves the labels defined in the contextual data.
