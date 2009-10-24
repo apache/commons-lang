@@ -38,14 +38,14 @@ public class DefaultExceptionContextTest extends TestCase {
     @Override
     public void setUp() {
         defaultExceptionContext = new DefaultExceptionContext()
-        .addLabeledValue("test1", null)
-        .addLabeledValue("test2", "some value")
-        .addLabeledValue("test Date", new Date())
-        .addLabeledValue("test Nbr", new Integer(5))
-        .addLabeledValue("test Poorly written obj", new ObjectWithFaultyToString());
+        .addValue("test1", null)
+        .addValue("test2", "some value")
+        .addValue("test Date", new Date())
+        .addValue("test Nbr", new Integer(5))
+        .addValue("test Poorly written obj", new ObjectWithFaultyToString());
     }
     
-    public void testAddLabeledValue() {
+    public void testAddValue() {
                 
         String message = defaultExceptionContext.getFormattedExceptionMessage("This is an error");
         assertTrue(message.indexOf("This is an error")>=0);
@@ -66,11 +66,11 @@ public class DefaultExceptionContextTest extends TestCase {
         defaultExceptionContext.getFormattedExceptionMessage(null);
     }
     
-    public void testGetLabeledValue() {
-        assertTrue(defaultExceptionContext.getLabeledValue("test1") == null);
-        assertTrue(defaultExceptionContext.getLabeledValue("test2").equals("some value"));
-        assertTrue(defaultExceptionContext.getLabeledValue("crap") == null);
-        assertTrue(defaultExceptionContext.getLabeledValue("test Poorly written obj") instanceof ObjectWithFaultyToString);
+    public void testGetValue() {
+        assertTrue(defaultExceptionContext.getValue("test1") == null);
+        assertTrue(defaultExceptionContext.getValue("test2").equals("some value"));
+        assertTrue(defaultExceptionContext.getValue("crap") == null);
+        assertTrue(defaultExceptionContext.getValue("test Poorly written obj") instanceof ObjectWithFaultyToString);
     }
     
     public void testGetLabelSet() {

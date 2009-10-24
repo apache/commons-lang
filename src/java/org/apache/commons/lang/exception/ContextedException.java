@@ -40,9 +40,9 @@ import java.util.Set;
  *     ...
  *   } catch (Throwable e) {
  *     throw new ContextedException("Error posting account transaction", e)
- *          .addLabeledValue("accountNumber", accountNumber)
- *          .addLabeledValue("amountPosted", amountPosted)
- *          .addLabeledValue("previousBalance", previousBalance)
+ *          .addValue("accountNumber", accountNumber)
+ *          .addValue("amountPosted", amountPosted)
+ *          .addValue("previousBalance", previousBalance)
  *   }
  * }
  * </pre>
@@ -56,7 +56,7 @@ import java.util.Set;
  *  [previousBalance=-2.17]
  *
  *  ---------------------------------
- *  at org.apache.commons.lang.exception.ContextedExceptionTest.testAddLabeledValue(ContextedExceptionTest.java:88)
+ *  at org.apache.commons.lang.exception.ContextedExceptionTest.testAddValue(ContextedExceptionTest.java:88)
  *  ..... (rest of trace)
  * </pre>
  * </p>
@@ -146,8 +146,8 @@ public class ContextedException extends Exception implements ExceptionContext {
      * @param value  information needed to understand exception, may be null
      * @return this, for method chaining
      */
-    public ContextedException addLabeledValue(String label, Object value) {        
-        exceptionContext.addLabeledValue(label, value);
+    public ContextedException addValue(String label, Object value) {        
+        exceptionContext.addValue(label, value);
         return this;
     }
 
@@ -157,8 +157,8 @@ public class ContextedException extends Exception implements ExceptionContext {
      * @param label  the label to get the contextual value for, may be null
      * @return the contextual value associated with the label, may be null
      */
-    public Object getLabeledValue(String label) {
-        return exceptionContext.getLabeledValue(label);
+    public Object getValue(String label) {
+        return exceptionContext.getValue(label);
     }
 
     /**

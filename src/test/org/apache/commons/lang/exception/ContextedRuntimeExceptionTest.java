@@ -83,13 +83,13 @@ public class ContextedRuntimeExceptionTest extends TestCase {
         assertTrue(message.indexOf(TEST_MESSAGE_2)>=0);
     }
 
-    public void testAddLabeledValue() {
+    public void testAddValue() {
         contextedRuntimeException = new ContextedRuntimeException(new Exception(TEST_MESSAGE))
-        .addLabeledValue("test1", null)
-        .addLabeledValue("test2", "some value")
-        .addLabeledValue("test Date", new Date())
-        .addLabeledValue("test Nbr", new Integer(5))
-        .addLabeledValue("test Poorly written obj", new ObjectWithFaultyToString());
+        .addValue("test1", null)
+        .addValue("test2", "some value")
+        .addValue("test Date", new Date())
+        .addValue("test Nbr", new Integer(5))
+        .addValue("test Poorly written obj", new ObjectWithFaultyToString());
         
         String message = contextedRuntimeException.getMessage();
         assertTrue(message.indexOf(TEST_MESSAGE)>=0);
@@ -102,10 +102,10 @@ public class ContextedRuntimeExceptionTest extends TestCase {
         assertTrue(message.indexOf("5")>=0);
         assertTrue(message.indexOf("Crap")>=0);
         
-        assertTrue(contextedRuntimeException.getLabeledValue("test1") == null);
-        assertTrue(contextedRuntimeException.getLabeledValue("test2").equals("some value"));
-        assertTrue(contextedRuntimeException.getLabeledValue("crap") == null);
-        assertTrue(contextedRuntimeException.getLabeledValue("test Poorly written obj") instanceof ObjectWithFaultyToString);
+        assertTrue(contextedRuntimeException.getValue("test1") == null);
+        assertTrue(contextedRuntimeException.getValue("test2").equals("some value"));
+        assertTrue(contextedRuntimeException.getValue("crap") == null);
+        assertTrue(contextedRuntimeException.getValue("test Poorly written obj") instanceof ObjectWithFaultyToString);
         
         assertTrue(contextedRuntimeException.getLabelSet().size() == 5);
         assertTrue(contextedRuntimeException.getLabelSet().contains("test1"));
@@ -116,7 +116,7 @@ public class ContextedRuntimeExceptionTest extends TestCase {
         
         assertTrue(!contextedRuntimeException.getLabelSet().contains("crap"));
 
-        contextedRuntimeException.addLabeledValue("test Poorly written obj", "replacement");
+        contextedRuntimeException.addValue("test Poorly written obj", "replacement");
         
         String contextMessage = contextedRuntimeException.getFormattedExceptionMessage(null);
         assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
@@ -125,18 +125,18 @@ public class ContextedRuntimeExceptionTest extends TestCase {
     
     public void testNullExceptionPassing() {
         contextedRuntimeException = new ContextedRuntimeException(TEST_MESSAGE_2, new Exception(TEST_MESSAGE), null)
-        .addLabeledValue("test1", null)
-        .addLabeledValue("test2", "some value")
-        .addLabeledValue("test Date", new Date())
-        .addLabeledValue("test Nbr", new Integer(5))
-        .addLabeledValue("test Poorly written obj", new ObjectWithFaultyToString());
+        .addValue("test1", null)
+        .addValue("test2", "some value")
+        .addValue("test Date", new Date())
+        .addValue("test Nbr", new Integer(5))
+        .addValue("test Poorly written obj", new ObjectWithFaultyToString());
         
         String message = contextedRuntimeException.getMessage();
         assertTrue(message != null);
     }
 
     public void testGetMessage() {
-        testAddLabeledValue();
+        testAddValue();
     }
     
 
