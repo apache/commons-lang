@@ -47,7 +47,7 @@ public class SerializationUtilsTest extends TestCase {
   
     private String iString;
     private Integer iInteger;
-    private HashMap iMap;
+    private HashMap<Object, Object> iMap;
 
     public SerializationUtilsTest(String name) {
         super(name);
@@ -69,7 +69,7 @@ public class SerializationUtilsTest extends TestCase {
 
         iString = "foo";
         iInteger = new Integer(7);
-        iMap = new HashMap();
+        iMap = new HashMap<Object, Object>();
         iMap.put("FOO", iString);
         iMap.put("BAR", iInteger);
     }
@@ -82,7 +82,7 @@ public class SerializationUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new SerializationUtils());
-        Constructor[] cons = SerializationUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = SerializationUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(SerializationUtils.class.getModifiers()));
@@ -159,8 +159,6 @@ public class SerializationUtilsTest extends TestCase {
     }
 
     public void testSerializeStreamObjNull() throws Exception {
-        // TODO NOT USED - but should it be?
-        ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         try {
             SerializationUtils.serialize(iMap, null);
         } catch (IllegalArgumentException ex) {
@@ -170,8 +168,6 @@ public class SerializationUtilsTest extends TestCase {
     }
 
     public void testSerializeStreamNullNull() throws Exception {
-        // TODO NOT USED - but should it be?
-        ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         try {
             SerializationUtils.serialize(null, null);
         } catch (IllegalArgumentException ex) {
@@ -209,9 +205,9 @@ public class SerializationUtilsTest extends TestCase {
         ByteArrayInputStream inTest = new ByteArrayInputStream(streamReal.toByteArray());
         Object test = SerializationUtils.deserialize(inTest);
         assertNotNull(test);
-        assertTrue(test instanceof HashMap);
+        assertTrue(test instanceof HashMap<?, ?>);
         assertTrue(test != iMap);
-        HashMap testMap = (HashMap) test;
+        HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));
         assertTrue(iString != testMap.get("FOO"));
         assertEquals(iInteger, testMap.get("BAR"));
@@ -320,9 +316,9 @@ public class SerializationUtilsTest extends TestCase {
 
         Object test = SerializationUtils.deserialize(streamReal.toByteArray());
         assertNotNull(test);
-        assertTrue(test instanceof HashMap);
+        assertTrue(test instanceof HashMap<?, ?>);
         assertTrue(test != iMap);
-        HashMap testMap = (HashMap) test;
+        HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));
         assertTrue(iString != testMap.get("FOO"));
         assertEquals(iInteger, testMap.get("BAR"));
@@ -364,9 +360,9 @@ public class SerializationUtilsTest extends TestCase {
     public void testClone() throws Exception {
         Object test = SerializationUtils.clone(iMap);
         assertNotNull(test);
-        assertTrue(test instanceof HashMap);
+        assertTrue(test instanceof HashMap<?,?>);
         assertTrue(test != iMap);
-        HashMap testMap = (HashMap) test;
+        HashMap<?, ?> testMap = (HashMap<?, ?>) test;
         assertEquals(iString, testMap.get("FOO"));
         assertTrue(iString != testMap.get("FOO"));
         assertEquals(iInteger, testMap.get("BAR"));
