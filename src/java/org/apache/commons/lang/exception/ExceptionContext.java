@@ -16,21 +16,18 @@
  */
 package org.apache.commons.lang.exception;
 
-import java.io.Serializable;
 import java.util.Set;
 
-
 /**
- * Provides context information for exceptions. It is available as separate interface to allow
- * it usage independently from the {@link ContextedException} and
- * {@link ContextedRuntimeException}.
+ * Allows the storage and retrieval of contextual information based on label-value
+ * pairs for exceptions.
  * 
  * @see ContextedException
  * @see ContextedRuntimeException
  * @author D. Ashmore
  * @since 3.0
  */
-public interface ExceptionContext extends Serializable {
+public interface ExceptionContext {
 
     /**
      * Adds a contextual label-value pair into this context.
@@ -41,7 +38,7 @@ public interface ExceptionContext extends Serializable {
      * @param value  the value of item to add, may be null
      * @return context itself to allow method chaining
      */
-    public ExceptionContext addLabeledValue(String label, Serializable value);
+    public ExceptionContext addLabeledValue(String label, Object value);
 
     /**
      * Retrieves a contextual data value associated with the label.
@@ -49,7 +46,7 @@ public interface ExceptionContext extends Serializable {
      * @param label  the label to get the contextual value for, may be null
      * @return the contextual value associated with the label, may be null
      */
-    public Serializable getLabeledValue(String label);
+    public Object getLabeledValue(String label);
 
     /**
      * Retrieves the labels defined in the contextual data.

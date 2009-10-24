@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang.exception;
 
-import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -141,15 +140,13 @@ public class ContextedException extends Exception implements ExceptionContext {
      * the problem.  For the information to be meaningful, the value passed
      * should have a reasonable toString() implementation.
      * <p>
-     * Note:  If the value provided isn't Serializable, one solution would be
-     * to provide its toString() if it has a meaningful implementation or 
-     * individual properties of the value object instead.
+     * Note: This exception is only serializable if the object added is serializable.
      * 
      * @param label  a textual label associated with information, null not recommended
      * @param value  information needed to understand exception, may be null
      * @return this, for method chaining
      */
-    public ContextedException addLabeledValue(String label, Serializable value) {        
+    public ContextedException addLabeledValue(String label, Object value) {        
         exceptionContext.addLabeledValue(label, value);
         return this;
     }
@@ -160,7 +157,7 @@ public class ContextedException extends Exception implements ExceptionContext {
      * @param label  the label to get the contextual value for, may be null
      * @return the contextual value associated with the label, may be null
      */
-    public Serializable getLabeledValue(String label) {
+    public Object getLabeledValue(String label) {
         return exceptionContext.getLabeledValue(label);
     }
 

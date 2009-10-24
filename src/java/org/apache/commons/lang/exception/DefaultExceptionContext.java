@@ -25,16 +25,19 @@ import org.apache.commons.lang.SystemUtils;
 
 /**
  * Default implementation of the context storing the label-value pairs for contexted exceptions.
+ * <p>
+ * This implementation is serializable, however this is dependent on the values that
+ * are added also being serializable.
  * 
  * @author D. Ashmore
  * @since 3.0
  */
-class DefaultExceptionContext implements ExceptionContext {
+class DefaultExceptionContext implements ExceptionContext, Serializable {
 
     /** The serialization version. */
     private static final long serialVersionUID = 293747957535772807L;
     /** The ordered map storing the label-data pairs. */
-    private Map<String, Serializable> contextValueMap = new LinkedHashMap<String, Serializable>();
+    private Map<String, Object> contextValueMap = new LinkedHashMap<String, Object>();
 
     /**
      * Adds a contextual label-value pair into this context.
@@ -45,7 +48,7 @@ class DefaultExceptionContext implements ExceptionContext {
      * @param value  the value of item to add, may be null
      * @return this, for method chaining
      */
-    public ExceptionContext addLabeledValue(String label, Serializable value) {        
+    public ExceptionContext addLabeledValue(String label, Object value) {        
         contextValueMap.put(label, value);
         return this;
     }
@@ -56,7 +59,7 @@ class DefaultExceptionContext implements ExceptionContext {
      * @param label  the label to get the contextual value for, may be null
      * @return the contextual value associated with the label, may be null
      */
-    public Serializable getLabeledValue(String label) {
+    public Object getLabeledValue(String label) {
         return contextValueMap.get(label);
     }
 
