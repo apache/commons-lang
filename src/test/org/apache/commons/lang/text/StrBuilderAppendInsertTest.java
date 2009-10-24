@@ -875,7 +875,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppendAll_Collection() {
         StrBuilder sb = new StrBuilder();
-        sb.appendAll((Collection) null);
+        sb.appendAll((Collection<?>) null);
         assertEquals("", sb.toString());
 
         sb.clear();
@@ -890,7 +890,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppendAll_Iterator() {
         StrBuilder sb = new StrBuilder();
-        sb.appendAll((Iterator) null);
+        sb.appendAll((Iterator<?>) null);
         assertEquals("", sb.toString());
 
         sb.clear();
@@ -928,7 +928,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppendWithSeparators_Collection() {
         StrBuilder sb = new StrBuilder();
-        sb.appendWithSeparators((Collection) null, ",");
+        sb.appendWithSeparators((Collection<?>) null, ",");
         assertEquals("", sb.toString());
 
         sb.clear();
@@ -951,7 +951,7 @@ public class StrBuilderAppendInsertTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testAppendWithSeparators_Iterator() {
         StrBuilder sb = new StrBuilder();
-        sb.appendWithSeparators((Iterator) null, ",");
+        sb.appendWithSeparators((Iterator<?>) null, ",");
         assertEquals("", sb.toString());
 
         sb.clear();

@@ -114,13 +114,13 @@ public class ExtendedMessageFormatTest extends TestCase {
         String extendedPattern = "Name: {0,upper} ";
         String pattern = extendedPattern + builtinsPattern;
 
-        HashSet testLocales = new HashSet();
+        HashSet<Locale> testLocales = new HashSet<Locale>();
         testLocales.addAll(Arrays.asList(DateFormat.getAvailableLocales()));
         testLocales.retainAll(Arrays.asList(NumberFormat.getAvailableLocales()));
         testLocales.add(null);
 
-        for (Iterator l = testLocales.iterator(); l.hasNext();) {
-            Locale locale = (Locale) l.next();
+        for (Iterator<Locale> l = testLocales.iterator(); l.hasNext();) {
+            Locale locale = l.next();
             MessageFormat builtins = createMessageFormat(builtinsPattern, locale);
             String expectedPattern = extendedPattern + builtins.toPattern();
             DateFormat df = null;
