@@ -461,18 +461,18 @@ public abstract class ToStringStyle implements Serializable {
         register(value);
 
         try {
-            if (value instanceof Collection) {
+            if (value instanceof Collection<?>) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (Collection) value);
+                    appendDetail(buffer, fieldName, (Collection<?>) value);
                 } else {
-                    appendSummarySize(buffer, fieldName, ((Collection) value).size());
+                    appendSummarySize(buffer, fieldName, ((Collection<?>) value).size());
                 }
     
-            } else if (value instanceof Map) {
+            } else if (value instanceof Map<?, ?>) {
                 if (detail) {
-                    appendDetail(buffer, fieldName, (Map) value);
+                    appendDetail(buffer, fieldName, (Map<?, ?>) value);
                 } else {
-                    appendSummarySize(buffer, fieldName, ((Map) value).size());
+                    appendSummarySize(buffer, fieldName, ((Map<?, ?>) value).size());
                 }
     
             } else if (value instanceof long[]) {
@@ -587,7 +587,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param coll  the <code>Collection</code> to add to the
      *  <code>toString</code>, not <code>null</code>
      */
-    protected void appendDetail(StringBuffer buffer, String fieldName, Collection coll) {
+    protected void appendDetail(StringBuffer buffer, String fieldName, Collection<?> coll) {
         buffer.append(coll);
     }
 
@@ -599,7 +599,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param map  the <code>Map</code> to add to the <code>toString</code>,
      *  not <code>null</code>
      */
-    protected void appendDetail(StringBuffer buffer, String fieldName, Map map) {
+    protected void appendDetail(StringBuffer buffer, String fieldName, Map<?, ?> map) {
         buffer.append(map);
     }
 
@@ -1570,7 +1570,7 @@ public abstract class ToStringStyle implements Serializable {
      * @param cls  the <code>Class</code> to get the short name of
      * @return the short name
      */
-    protected String getShortClassName(Class cls) {
+    protected String getShortClassName(Class<?> cls) {
         return ClassUtils.getShortClassName(cls);
     }
 

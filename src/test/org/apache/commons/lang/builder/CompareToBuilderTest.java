@@ -57,7 +57,7 @@ public class CompareToBuilderTest extends TestCase {
 
     //-----------------------------------------------------------------------
 
-    static class TestObject implements Comparable {
+    static class TestObject implements Comparable<TestObject> {
         private int a;
         public TestObject(int a) {
             this.a = a;
@@ -81,8 +81,7 @@ public class CompareToBuilderTest extends TestCase {
         public int getA() {
             return a;
         }
-        public int compareTo(Object o) {
-            TestObject rhs = (TestObject) o;
+        public int compareTo(TestObject rhs) {
             return (a < rhs.a) ? -1 : (a > rhs.a) ? +1 : 0;
         }
     }
