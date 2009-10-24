@@ -125,7 +125,7 @@ public class ExceptionUtilsTest extends TestCase {
     
     public void testConstructor() {
         assertNotNull(new ExceptionUtils());
-        Constructor[] cons = ExceptionUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = ExceptionUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(ExceptionUtils.class.getModifiers()));
@@ -299,25 +299,25 @@ public class ExceptionUtilsTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testGetThrowableList_Throwable_null() {
-        List throwables = ExceptionUtils.getThrowableList(null);
+        List<?> throwables = ExceptionUtils.getThrowableList(null);
         assertEquals(0, throwables.size());
     }
 
     public void testGetThrowableList_Throwable_withoutCause() {
-        List throwables = ExceptionUtils.getThrowableList(withoutCause);
+        List<?> throwables = ExceptionUtils.getThrowableList(withoutCause);
         assertEquals(1, throwables.size());
         assertSame(withoutCause, throwables.get(0));
     }
 
     public void testGetThrowableList_Throwable_nested() {
-        List throwables = ExceptionUtils.getThrowableList(nested);
+        List<?> throwables = ExceptionUtils.getThrowableList(nested);
         assertEquals(2, throwables.size());
         assertSame(nested, throwables.get(0));
         assertSame(withoutCause, throwables.get(1));
     }
 
     public void testGetThrowableList_Throwable_withCause() {
-        List throwables = ExceptionUtils.getThrowableList(withCause);
+        List<?> throwables = ExceptionUtils.getThrowableList(withCause);
         assertEquals(3, throwables.size());
         assertSame(withCause, throwables.get(0));
         assertSame(nested, throwables.get(1));
@@ -325,19 +325,19 @@ public class ExceptionUtilsTest extends TestCase {
     }
 
     public void testGetThrowableList_Throwable_jdkNoCause() {
-        List throwables = ExceptionUtils.getThrowableList(jdkNoCause);
+        List<?> throwables = ExceptionUtils.getThrowableList(jdkNoCause);
         assertEquals(1, throwables.size());
         assertSame(jdkNoCause, throwables.get(0));
     }
 
     public void testGetThrowableList_Throwable_selfCause() {
-        List throwables = ExceptionUtils.getThrowableList(selfCause);
+        List<?> throwables = ExceptionUtils.getThrowableList(selfCause);
         assertEquals(1, throwables.size());
         assertSame(selfCause, throwables.get(0));
     }
 
     public void testGetThrowableList_Throwable_recursiveCause() {
-        List throwables = ExceptionUtils.getThrowableList(cyclicCause);
+        List<?> throwables = ExceptionUtils.getThrowableList(cyclicCause);
         assertEquals(3, throwables.size());
         assertSame(cyclicCause, throwables.get(0));
         assertSame(cyclicCause.getCause(), throwables.get(1));
@@ -592,6 +592,7 @@ public class ExceptionUtilsTest extends TestCase {
      * return value of <code>Throwable</code>.
      */
     private static class ExceptionWithoutCause extends Exception {
+        @SuppressWarnings("unused")
         public void getTargetException() {
         }
     }
@@ -600,9 +601,11 @@ public class ExceptionUtilsTest extends TestCase {
     // prior to a rewrite of this test class. 
     private static class NestableRuntimeException extends RuntimeException { 
         public NestableRuntimeException() { super(); }
+        @SuppressWarnings("unused")
         public NestableRuntimeException(Throwable t) { super(t); }
     }
     private static class NestableException extends Exception { 
+        @SuppressWarnings("unused")
         public NestableException() { super(); }
         public NestableException(Throwable t) { super(t); }
     }
