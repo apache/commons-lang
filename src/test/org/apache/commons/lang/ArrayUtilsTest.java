@@ -70,7 +70,7 @@ public class ArrayUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new ArrayUtils());
-        Constructor[] cons = ArrayUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = ArrayUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(ArrayUtils.class.getModifiers()));
@@ -170,7 +170,7 @@ public class ArrayUtilsTest extends TestCase {
     
     //-----------------------------------------------------------------------
     public void testToMap() {
-        Map map = ArrayUtils.toMap(new String[][] {{"foo", "bar"}, {"hello", "world"}});
+        Map<?, ?> map = ArrayUtils.toMap(new String[][] {{"foo", "bar"}, {"hello", "world"}});
         
         assertEquals("bar", map.get("foo"));
         assertEquals("world", map.get("hello"));
@@ -189,7 +189,7 @@ public class ArrayUtilsTest extends TestCase {
             fail("exception expected");
         } catch (IllegalArgumentException ex) {}
         
-        map = ArrayUtils.toMap(new Object[] {new Map.Entry() {
+        map = ArrayUtils.toMap(new Object[] {new Map.Entry<Object, Object>() {
             public Object getKey() {
                 return "foo";
             }
