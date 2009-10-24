@@ -66,6 +66,19 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
         this.value = value.floatValue();
     }
 
+    /**
+     * Constructs a new MutableFloat parsing the given string.
+     * 
+     * @param value
+     *                  the string to parse.
+     * @throws NumberFormatException
+     *                  if the string cannot be parsed into a float
+     */
+    public MutableFloat(String value) throws NumberFormatException {
+        super();
+        this.value = Float.parseFloat(value);
+    }
+
     //-----------------------------------------------------------------------
     /**
      * Gets the value as a Float instance.

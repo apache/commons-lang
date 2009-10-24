@@ -66,6 +66,19 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
         this.value = value.shortValue();
     }
 
+    /**
+     * Constructs a new MutableShort parsing the given string.
+     * 
+     * @param value
+     *                  the string to parse.
+     * @throws NumberFormatException
+     *                  if the string cannot be parsed into a short
+     */
+    public MutableShort(String value) throws NumberFormatException {
+        super();
+        this.value = Short.parseShort(value);
+    }
+
     //-----------------------------------------------------------------------
     /**
      * Gets the value as a Short instance.
