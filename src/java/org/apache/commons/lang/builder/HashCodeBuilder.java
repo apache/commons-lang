@@ -977,6 +977,7 @@ public class HashCodeBuilder {
      * 
      * @return <code>hashCode</code> based on the fields appended
      */
+    @Override
     public int hashCode() {
         return toHashCode();
     }
