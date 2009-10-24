@@ -176,9 +176,9 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testNotEmptyCollection1() {
-        Collection coll = new ArrayList();
+        Collection<Integer> coll = new ArrayList<Integer>();
         try {
-            Validate.notEmpty((Collection) null);
+            Validate.notEmpty((Collection<?>) null);
             fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated collection is empty", ex.getMessage());
@@ -195,9 +195,9 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testNotEmptyCollection2() {
-        Collection coll = new ArrayList();
+        Collection<Integer> coll = new ArrayList<Integer>();
         try {
-            Validate.notEmpty((Collection) null, "MSG");
+            Validate.notEmpty((Collection<?>) null, "MSG");
             fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
@@ -214,9 +214,9 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testNotEmptyMap1() {
-        Map map = new HashMap();
+        Map<String, Integer> map = new HashMap<String, Integer>();
         try {
-            Validate.notEmpty((Map) null);
+            Validate.notEmpty((Map<?, ?>) null);
             fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated map is empty", ex.getMessage());
@@ -233,9 +233,9 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testNotEmptyMap2() {
-        Map map = new HashMap();
+        Map<String, Integer> map = new HashMap<String, Integer>();
         try {
-            Validate.notEmpty((Map) null, "MSG");
+            Validate.notEmpty((Map<?, ?>) null, "MSG");
             fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
@@ -510,12 +510,12 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testNoNullElementsCollection1() {
-        List coll = new ArrayList();
+        List<String> coll = new ArrayList<String>();
         coll.add("a");
         coll.add("b");
         Validate.noNullElements(coll);
         try {
-            Validate.noNullElements((Collection) null);
+            Validate.noNullElements((Collection<?>) null);
             fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated object is null", ex.getMessage());
@@ -531,12 +531,12 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testNoNullElementsCollection2() {
-        List coll = new ArrayList();
+        List<String> coll = new ArrayList<String>();
         coll.add("a");
         coll.add("b");
         Validate.noNullElements(coll, "MSG");
         try {
-            Validate.noNullElements((Collection) null, "MSG");
+            Validate.noNullElements((Collection<?>) null, "MSG");
             fail("Expecting IllegalArgumentException");
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated object is null", ex.getMessage());
@@ -552,7 +552,7 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testAllElementsOfType() {
-        List coll = new ArrayList();
+        List<Object> coll = new ArrayList<Object>();
         coll.add("a");
         coll.add("b");
         Validate.allElementsOfType(coll, String.class, "MSG");
@@ -571,7 +571,7 @@ public class ValidateTest extends TestCase {
             assertEquals("The validated collection contains an element not of type java.lang.String at index: 1", ex.getMessage());
         }
         
-        coll = new ArrayList();
+        coll = new ArrayList<Object>();
         coll.add(new Integer(5));
         coll.add(new Double(2.0d));
         Validate.allElementsOfType(coll, Number.class, "MSG");
@@ -591,7 +591,7 @@ public class ValidateTest extends TestCase {
 
     public void testConstructor() {
         assertNotNull(new Validate());
-        Constructor[] cons = Validate.class.getDeclaredConstructors();
+        Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(Validate.class.getModifiers()));
