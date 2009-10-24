@@ -28,7 +28,6 @@ import java.io.IOException;
 public class LookupTranslatorTest extends TestCase {
 
     public void testBasicLookup() throws IOException {
-        String input = "one";
         LookupTranslator lt = new LookupTranslator(new CharSequence[][] { { "one", "two" } });
         StringWriter out = new StringWriter();
         int result = lt.translate("one", 0, out);
