@@ -49,8 +49,11 @@ public class MutableShortTest extends TestCase {
         
         assertEquals((short) 2, new MutableShort(new Short((short) 2)).shortValue());
         assertEquals((short) 3, new MutableShort(new MutableShort((short) 3)).shortValue());
+
+        assertEquals((short) 2, new MutableShort("2").shortValue());
+
         try {
-            new MutableShort(null);
+            new MutableShort((Number)null);
             fail();
         } catch (NullPointerException ex) {}
     }

@@ -66,6 +66,19 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
         this.value = value.byteValue();
     }
 
+    /**
+     * Constructs a new MutableByte parsing the given string.
+     * 
+     * @param value
+     *                  the string to parse.
+     * @throws NumberFormatException
+     *                  if the string cannot be parsed into a byte
+     */
+    public MutableByte(String value) throws NumberFormatException {
+        super();
+        this.value = Byte.parseByte(value);
+    }
+
     //-----------------------------------------------------------------------
     /**
      * Gets the value as a Byte instance.
