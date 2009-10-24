@@ -179,7 +179,7 @@ public class HashCodeBuilder {
         try {
             register(object);
             Field[] fields = clazz.getDeclaredFields();
-            List<String> excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.EMPTY_LIST;
+            List<String> excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.<String>emptyList();
             AccessibleObject.setAccessible(fields, true);
             for (Field field : fields) {
                 if (!excludedFieldList.contains(field.getName())

@@ -438,7 +438,8 @@ public class CompareToBuilder {
      *  with <code>lhs</code>
      * @since 2.0
      */
-    public CompareToBuilder append(Object lhs, Object rhs, Comparator comparator) {
+    @SuppressWarnings("unchecked")
+    public CompareToBuilder append(Object lhs, Object rhs, Comparator<?> comparator) {
         if (comparison != 0) {
             return this;
         }
@@ -483,7 +484,7 @@ public class CompareToBuilder {
             if (comparator == null) {
                 comparison = ((Comparable) lhs).compareTo(rhs);
             } else {
-                comparison = comparator.compare(lhs, rhs);
+                comparison = ((Comparator) comparator).compare(lhs, rhs);
             }
         }
         return this;
