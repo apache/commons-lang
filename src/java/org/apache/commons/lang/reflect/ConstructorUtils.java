@@ -145,7 +145,7 @@ public class ConstructorUtils {
         if (args == null) {
             args = ArrayUtils.EMPTY_OBJECT_ARRAY;
         }
-        Constructor ctor = getMatchingAccessibleConstructor(cls, parameterTypes);
+        Constructor<?> ctor = getMatchingAccessibleConstructor(cls, parameterTypes);
         if (null == ctor) {
             throw new NoSuchMethodException(
                     "No such accessible constructor on object: "
@@ -238,7 +238,7 @@ public class ConstructorUtils {
         if (parameterTypes == null) {
             parameterTypes = ArrayUtils.EMPTY_CLASS_ARRAY;
         }
-        Constructor ctor = getAccessibleConstructor(cls, parameterTypes);
+        Constructor<?> ctor = getAccessibleConstructor(cls, parameterTypes);
         if (null == ctor) {
             throw new NoSuchMethodException(
                     "No such accessible constructor on object: "
@@ -309,20 +309,20 @@ public class ConstructorUtils {
         // see if we can find the constructor directly
         // most of the time this works and it's much faster
         try {
-            Constructor ctor = cls.getConstructor(parameterTypes);
+            Constructor<?> ctor = cls.getConstructor(parameterTypes);
             MemberUtils.setAccessibleWorkaround(ctor);
             return ctor;
         } catch (NoSuchMethodException e) { /* SWALLOW */
         }
-        Constructor result = null;
+        Constructor<?> result = null;
         // search through all constructors
-        Constructor[] ctors = cls.getConstructors();
+        Constructor<?>[] ctors = cls.getConstructors();
         for (int i = 0; i < ctors.length; i++) {
             // compare parameters
             if (ClassUtils.isAssignable(parameterTypes, ctors[i]
                     .getParameterTypes(), true)) {
                 // get accessible version of method
-                Constructor ctor = getAccessibleConstructor(ctors[i]);
+                Constructor<?> ctor = getAccessibleConstructor(ctors[i]);
                 if (ctor != null) {
                     MemberUtils.setAccessibleWorkaround(ctor);
                     if (result == null
