@@ -63,7 +63,7 @@ public class CharUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new CharUtils());
-        Constructor[] cons = CharUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = CharUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(BooleanUtils.class.getModifiers()));

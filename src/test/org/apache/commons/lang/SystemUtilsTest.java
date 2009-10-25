@@ -201,7 +201,7 @@ public class SystemUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new SystemUtils());
-        Constructor[] cons = SystemUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = SystemUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(SystemUtils.class.getModifiers()));

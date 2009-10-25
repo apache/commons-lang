@@ -45,7 +45,7 @@ public class WordUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new WordUtils());
-        Constructor[] cons = WordUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = WordUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(WordUtils.class.getModifiers()));

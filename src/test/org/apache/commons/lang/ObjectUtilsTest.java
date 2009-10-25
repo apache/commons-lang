@@ -66,7 +66,7 @@ public class ObjectUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new ObjectUtils());
-        Constructor[] cons = ObjectUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = ObjectUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(ObjectUtils.class.getModifiers()));

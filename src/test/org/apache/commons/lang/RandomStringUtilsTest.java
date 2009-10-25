@@ -63,7 +63,7 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new RandomStringUtils());
-        Constructor[] cons = RandomStringUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = RandomStringUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(RandomStringUtils.class.getModifiers()));
