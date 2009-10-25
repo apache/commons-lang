@@ -52,7 +52,7 @@ public class StringEscapeUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new StringEscapeUtils());
-        Constructor[] cons = StringEscapeUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = StringEscapeUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(StringEscapeUtils.class.getModifiers()));

@@ -60,7 +60,7 @@ public class BooleanUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new BooleanUtils());
-        Constructor[] cons = BooleanUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = BooleanUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(BooleanUtils.class.getModifiers()));
