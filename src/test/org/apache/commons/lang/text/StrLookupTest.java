@@ -82,7 +82,7 @@ public class StrLookupTest extends TestCase {
     }
 
     public void testMapLookup() {
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("key", "value");
         map.put("number", new Integer(2));
         assertEquals("value", StrLookup.mapLookup(map).lookup("key"));
@@ -93,7 +93,7 @@ public class StrLookupTest extends TestCase {
     }
 
     public void testMapLookup_nullMap() {
-        Map map = null;
+        Map<String, ?> map = null;
         assertEquals(null, StrLookup.mapLookup(map).lookup(null));
         assertEquals(null, StrLookup.mapLookup(map).lookup(""));
         assertEquals(null, StrLookup.mapLookup(map).lookup("any"));
