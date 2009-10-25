@@ -47,7 +47,7 @@ public class FieldUtilsTest extends TestCase {
     private PublicChild publicChild;
     private PubliclyShadowedChild publiclyShadowedChild;
     private PrivatelyShadowedChild privatelyShadowedChild;
-    private Class parentClass = PublicChild.class.getSuperclass();
+    private Class<?> parentClass = PublicChild.class.getSuperclass();
 
     /**
      * Run the test cases as a suite.
