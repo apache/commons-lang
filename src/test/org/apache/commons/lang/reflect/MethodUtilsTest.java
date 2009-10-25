@@ -97,11 +97,11 @@ public class MethodUtilsTest extends TestCase {
     }
 
     private TestBean testBean;
-    private Map classCache;
+    private Map<Class<?>, Class<?>[]> classCache;
 
     public MethodUtilsTest(String name) {
         super(name);
-        classCache = new HashMap();
+        classCache = new HashMap<Class<?>, Class<?>[]>();
     }
 
     /**
@@ -238,7 +238,7 @@ public class MethodUtilsTest extends TestCase {
 
     public void testGetAccessibleInterfaceMethod() throws Exception {
 
-        Class[][] p = { ArrayUtils.EMPTY_CLASS_ARRAY, null };
+        Class<?>[][] p = { ArrayUtils.EMPTY_CLASS_ARRAY, null };
         for (int i = 0; i < p.length; i++) {
             Method method = TestMutable.class.getMethod("getValue", p[i]);
             Method accessibleMethod = MethodUtils.getAccessibleMethod(method);
@@ -249,7 +249,7 @@ public class MethodUtilsTest extends TestCase {
 
     public void testGetAccessibleInterfaceMethodFromDescription()
             throws Exception {
-        Class[][] p = { ArrayUtils.EMPTY_CLASS_ARRAY, null };
+        Class<?>[][] p = { ArrayUtils.EMPTY_CLASS_ARRAY, null };
         for (int i = 0; i < p.length; i++) {
             Method accessibleMethod = MethodUtils.getAccessibleMethod(
                     TestMutable.class, "getValue", p[i]);
@@ -310,8 +310,8 @@ public class MethodUtilsTest extends TestCase {
                 singletonArray(Double.TYPE), singletonArray(Double.TYPE));
     }
 
-    private void expectMatchingAccessibleMethodParameterTypes(Class cls,
-            String methodName, Class[] requestTypes, Class[] actualTypes) {
+    private void expectMatchingAccessibleMethodParameterTypes(Class<?> cls,
+            String methodName, Class<?>[] requestTypes, Class<?>[] actualTypes) {
         Method m = MethodUtils.getMatchingAccessibleMethod(cls, methodName,
                 requestTypes);
         assertTrue(toString(m.getParameterTypes()) + " not equals "
@@ -319,12 +319,12 @@ public class MethodUtilsTest extends TestCase {
                 .getParameterTypes()));
     }
 
-    private String toString(Class[] c) {
+    private String toString(Class<?>[] c) {
         return Arrays.asList(c).toString();
     }
 
-    private Class[] singletonArray(Class c) {
-        Class[] result = (Class[]) classCache.get(c);
+    private Class<?>[] singletonArray(Class<?> c) {
+        Class<?>[] result = classCache.get(c);
         if (result == null) {
             result = new Class[] { c };
             classCache.put(c, result);
