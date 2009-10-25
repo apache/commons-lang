@@ -954,6 +954,29 @@ public class ToStringBuilderTest extends TestCase {
     }
 
     /**
+     * Tests ReflectionToStringBuilder setUpToClass().
+     */
+    public void test_setUpToClass_valid() {
+        Integer val = new Integer(5);
+        ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
+        test.setUpToClass(Number.class);
+    }
+    
+    /**
+     * Tests ReflectionToStringBuilder setUpToClass().
+     */
+    public void test_setUpToClass_invalid() {
+        Integer val = new Integer(5);
+        ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
+        try {
+            test.setUpToClass(String.class);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            // expected
+        }
+    }
+    
+    /**
      * Tests ReflectionToStringBuilder.toString() for statics.
      */
     class ReflectionStaticFieldsFixture {

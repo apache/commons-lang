@@ -95,7 +95,7 @@ import org.apache.commons.lang.ClassUtils;
  * @since 2.0
  * @version $Id$
  */
-public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
+public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * <p>
@@ -284,9 +284,10 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
      *             if the Object is <code>null</code>
      * @since 2.1
      */
-    public static <T> String toString(T object, ToStringStyle style, boolean outputTransients, boolean outputStatics,
-            Class<? super T> reflectUpToClass) {
-        return new ReflectionToStringBuilder<T>(object, style, null, reflectUpToClass, outputTransients, outputStatics)
+    public static <T> String toString(
+            T object, ToStringStyle style, boolean outputTransients,
+            boolean outputStatics, Class<? super T> reflectUpToClass) {
+        return new ReflectionToStringBuilder(object, style, null, reflectUpToClass, outputTransients, outputStatics)
                 .toString();
     }
 
@@ -361,8 +362,8 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
      *            The field names to exclude
      * @return The toString value.
      */
-    public static <T> String toStringExclude(T object, String[] excludeFieldNames) {
-        return new ReflectionToStringBuilder<T>(object).setExcludeFieldNames(excludeFieldNames).toString();
+    public static String toStringExclude(Object object, String[] excludeFieldNames) {
+        return new ReflectionToStringBuilder(object).setExcludeFieldNames(excludeFieldNames).toString();
     }
 
     /**
@@ -383,7 +384,7 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
     /**
      * The last super class to stop appending fields for.
      */
-    private Class<? super T> upToClass = null;
+    private Class<?> upToClass = null;
 
     /**
      * <p>
@@ -399,7 +400,7 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
      * @throws IllegalArgumentException
      *             if the Object passed in is <code>null</code>
      */
-    public ReflectionToStringBuilder(T object) {
+    public ReflectionToStringBuilder(Object object) {
         super(object);
     }
 
@@ -419,7 +420,7 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
      * @throws IllegalArgumentException
      *             if the Object passed in is <code>null</code>
      */
-    public ReflectionToStringBuilder(T object, ToStringStyle style) {
+    public ReflectionToStringBuilder(Object object, ToStringStyle style) {
         super(object, style);
     }
 
@@ -445,7 +446,7 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
      * @throws IllegalArgumentException
      *             if the Object passed in is <code>null</code>
      */
-    public ReflectionToStringBuilder(T object, ToStringStyle style, StringBuffer buffer) {
+    public ReflectionToStringBuilder(Object object, ToStringStyle style, StringBuffer buffer) {
         super(object, style, buffer);
     }
 
@@ -466,8 +467,9 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
      *            whether to include static fields
      * @since 2.1
      */
-    public ReflectionToStringBuilder(T object, ToStringStyle style, StringBuffer buffer, Class<? super T> reflectUpToClass,
-            boolean outputTransients, boolean outputStatics) {
+    public <T> ReflectionToStringBuilder(
+            T object, ToStringStyle style, StringBuffer buffer,
+            Class<? super T> reflectUpToClass, boolean outputTransients, boolean outputStatics) {
         super(object, style, buffer);
         this.setUpToClass(reflectUpToClass);
         this.setAppendTransients(outputTransients);
@@ -616,7 +618,7 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
      *            the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> reflectionAppendArray(Object array) {
+    public ReflectionToStringBuilder reflectionAppendArray(Object array) {
         this.getStyle().reflectionAppendArrayDetail(this.getStringBuffer(), null, array);
         return this;
     }
@@ -653,7 +655,7 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
      *            The excludeFieldNames to excluding from toString or <code>null</code>.
      * @return <code>this</code>
      */
-    public ReflectionToStringBuilder<T> setExcludeFieldNames(String[] excludeFieldNamesParam) {
+    public ReflectionToStringBuilder setExcludeFieldNames(String[] excludeFieldNamesParam) {
         if (excludeFieldNamesParam == null) {
             this.excludeFieldNames = null;
         } else {
@@ -671,7 +673,13 @@ public class ReflectionToStringBuilder<T> extends ToStringBuilder<T> {
      * @param clazz
      *            The last super class to stop appending fields for.
      */
-    public void setUpToClass(Class<? super T> clazz) {
+    public void setUpToClass(Class<?> clazz) {
+        if (clazz != null) {
+            Object object = getObject();
+            if (object != null && clazz.isInstance(object) == false) {
+                throw new IllegalArgumentException("Specified class is not a superclass of the object");
+            }
+        }
         this.upToClass = clazz;
     }
 

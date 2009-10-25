@@ -89,7 +89,7 @@ import org.apache.commons.lang.ObjectUtils;
  * @since 1.0
  * @version $Id$
  */
-public class ToStringBuilder<T> {
+public class ToStringBuilder {
 
     /**
      * The default style of output to use.
@@ -190,7 +190,7 @@ public class ToStringBuilder<T> {
     /**
      * The object being output.
      */
-    private final T object;
+    private final Object object;
 
     /**
      * The style of output to use.
@@ -207,7 +207,7 @@ public class ToStringBuilder<T> {
      * @throws IllegalArgumentException  if the Object passed in is
      *  <code>null</code>
      */
-    public ToStringBuilder(T object) {
+    public ToStringBuilder(Object object) {
         this(object, getDefaultStyle(), null);
     }
 
@@ -223,7 +223,7 @@ public class ToStringBuilder<T> {
      * @throws IllegalArgumentException  if the Object passed in is
      *  <code>null</code>
      */
-    public ToStringBuilder(T object, ToStringStyle style) {
+    public ToStringBuilder(Object object, ToStringStyle style) {
         this(object, style, null);
     }
 
@@ -240,7 +240,7 @@ public class ToStringBuilder<T> {
      * @param buffer  the <code>StringBuffer</code> to populate, may be
      *  <code>null</code>
      */
-    public ToStringBuilder(T object, ToStringStyle style, StringBuffer buffer) {
+    public ToStringBuilder(Object object, ToStringStyle style, StringBuffer buffer) {
         if (style == null) {
             style = getDefaultStyle();
         }
@@ -263,7 +263,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(boolean value) {
+    public ToStringBuilder append(boolean value) {
         style.append(buffer, null, value);
         return this;
     }
@@ -277,7 +277,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(boolean[] array) {
+    public ToStringBuilder append(boolean[] array) {
         style.append(buffer, null, array, null);
         return this;
     }
@@ -291,7 +291,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(byte value) {
+    public ToStringBuilder append(byte value) {
         style.append(buffer, null, value);
         return this;
     }
@@ -305,7 +305,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(byte[] array) {
+    public ToStringBuilder append(byte[] array) {
         style.append(buffer, null, array, null);
         return this;
     }
@@ -319,7 +319,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(char value) {
+    public ToStringBuilder append(char value) {
         style.append(buffer, null, value);
         return this;
     }
@@ -333,7 +333,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(char[] array) {
+    public ToStringBuilder append(char[] array) {
         style.append(buffer, null, array, null);
         return this;
     }
@@ -347,7 +347,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(double value) {
+    public ToStringBuilder append(double value) {
         style.append(buffer, null, value);
         return this;
     }
@@ -361,7 +361,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(double[] array) {
+    public ToStringBuilder append(double[] array) {
         style.append(buffer, null, array, null);
         return this;
     }
@@ -375,7 +375,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(float value) {
+    public ToStringBuilder append(float value) {
         style.append(buffer, null, value);
         return this;
     }
@@ -389,7 +389,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(float[] array) {
+    public ToStringBuilder append(float[] array) {
         style.append(buffer, null, array, null);
         return this;
     }
@@ -403,7 +403,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(int value) {
+    public ToStringBuilder append(int value) {
         style.append(buffer, null, value);
         return this;
     }
@@ -417,7 +417,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(int[] array) {
+    public ToStringBuilder append(int[] array) {
         style.append(buffer, null, array, null);
         return this;
     }
@@ -431,7 +431,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(long value) {
+    public ToStringBuilder append(long value) {
         style.append(buffer, null, value);
         return this;
     }
@@ -445,7 +445,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(long[] array) {
+    public ToStringBuilder append(long[] array) {
         style.append(buffer, null, array, null);
         return this;
     }
@@ -459,7 +459,7 @@ public class ToStringBuilder<T> {
      * @param obj  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(Object obj) {
+    public ToStringBuilder append(Object obj) {
         style.append(buffer, null, obj, null);
         return this;
     }
@@ -473,7 +473,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(Object[] array) {
+    public ToStringBuilder append(Object[] array) {
         style.append(buffer, null, array, null);
         return this;
     }
@@ -487,7 +487,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(short value) {
+    public ToStringBuilder append(short value) {
         style.append(buffer, null, value);
         return this;
     }
@@ -501,7 +501,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(short[] array) {
+    public ToStringBuilder append(short[] array) {
         style.append(buffer, null, array, null);
         return this;
     }
@@ -514,7 +514,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, boolean value) {
+    public ToStringBuilder append(String fieldName, boolean value) {
         style.append(buffer, fieldName, value);
         return this;
     }
@@ -527,7 +527,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>hashCode</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, boolean[] array) {
+    public ToStringBuilder append(String fieldName, boolean[] array) {
         style.append(buffer, fieldName, array, null);
         return this;
     }
@@ -547,7 +547,7 @@ public class ToStringBuilder<T> {
      *  for summary info
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, boolean[] array, boolean fullDetail) {
+    public ToStringBuilder append(String fieldName, boolean[] array, boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
@@ -560,7 +560,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, byte value) {
+    public ToStringBuilder append(String fieldName, byte value) {
         style.append(buffer, fieldName, value);
         return this;
     }
@@ -572,7 +572,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, byte[] array) {
+    public ToStringBuilder append(String fieldName, byte[] array) {
         style.append(buffer, fieldName, array, null);
         return this;
     }
@@ -592,7 +592,7 @@ public class ToStringBuilder<T> {
      *  for summary info
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, byte[] array, boolean fullDetail) {
+    public ToStringBuilder append(String fieldName, byte[] array, boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
@@ -605,7 +605,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, char value) {
+    public ToStringBuilder append(String fieldName, char value) {
         style.append(buffer, fieldName, value);
         return this;
     }
@@ -618,7 +618,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, char[] array) {
+    public ToStringBuilder append(String fieldName, char[] array) {
         style.append(buffer, fieldName, array, null);
         return this;
     }
@@ -638,7 +638,7 @@ public class ToStringBuilder<T> {
      *  for summary info
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, char[] array, boolean fullDetail) {
+    public ToStringBuilder append(String fieldName, char[] array, boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
@@ -651,7 +651,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, double value) {
+    public ToStringBuilder append(String fieldName, double value) {
         style.append(buffer, fieldName, value);
         return this;
     }
@@ -664,7 +664,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, double[] array) {
+    public ToStringBuilder append(String fieldName, double[] array) {
         style.append(buffer, fieldName, array, null);
         return this;
     }
@@ -684,7 +684,7 @@ public class ToStringBuilder<T> {
      *  for summary info
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, double[] array, boolean fullDetail) {
+    public ToStringBuilder append(String fieldName, double[] array, boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
@@ -697,7 +697,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, float value) {
+    public ToStringBuilder append(String fieldName, float value) {
         style.append(buffer, fieldName, value);
         return this;
     }
@@ -710,7 +710,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, float[] array) {
+    public ToStringBuilder append(String fieldName, float[] array) {
         style.append(buffer, fieldName, array, null);
         return this;
     }
@@ -730,7 +730,7 @@ public class ToStringBuilder<T> {
      *  for summary info
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, float[] array, boolean fullDetail) {
+    public ToStringBuilder append(String fieldName, float[] array, boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
@@ -743,7 +743,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, int value) {
+    public ToStringBuilder append(String fieldName, int value) {
         style.append(buffer, fieldName, value);
         return this;
     }
@@ -756,7 +756,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, int[] array) {
+    public ToStringBuilder append(String fieldName, int[] array) {
         style.append(buffer, fieldName, array, null);
         return this;
     }
@@ -776,7 +776,7 @@ public class ToStringBuilder<T> {
      *  for summary info
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, int[] array, boolean fullDetail) {
+    public ToStringBuilder append(String fieldName, int[] array, boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
@@ -789,7 +789,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, long value) {
+    public ToStringBuilder append(String fieldName, long value) {
         style.append(buffer, fieldName, value);
         return this;
     }
@@ -802,7 +802,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, long[] array) {
+    public ToStringBuilder append(String fieldName, long[] array) {
         style.append(buffer, fieldName, array, null);
         return this;
     }
@@ -822,7 +822,7 @@ public class ToStringBuilder<T> {
      *  for summary info
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, long[] array, boolean fullDetail) {
+    public ToStringBuilder append(String fieldName, long[] array, boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
@@ -835,7 +835,7 @@ public class ToStringBuilder<T> {
      * @param obj  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, Object obj) {
+    public ToStringBuilder append(String fieldName, Object obj) {
         style.append(buffer, fieldName, obj, null);
         return this;
     }
@@ -850,7 +850,7 @@ public class ToStringBuilder<T> {
      *  <code>false</code> for summary info
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, Object obj, boolean fullDetail) {
+    public ToStringBuilder append(String fieldName, Object obj, boolean fullDetail) {
         style.append(buffer, fieldName, obj, Boolean.valueOf(fullDetail));
         return this;
     }
@@ -863,7 +863,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, Object[] array) {
+    public ToStringBuilder append(String fieldName, Object[] array) {
         style.append(buffer, fieldName, array, null);
         return this;
     }
@@ -883,7 +883,7 @@ public class ToStringBuilder<T> {
      *  for summary info
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, Object[] array, boolean fullDetail) {
+    public ToStringBuilder append(String fieldName, Object[] array, boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
@@ -896,7 +896,7 @@ public class ToStringBuilder<T> {
      * @param value  the value to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, short value) {
+    public ToStringBuilder append(String fieldName, short value) {
         style.append(buffer, fieldName, value);
         return this;
     }
@@ -909,7 +909,7 @@ public class ToStringBuilder<T> {
      * @param array  the array to add to the <code>toString</code>
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, short[] array) {
+    public ToStringBuilder append(String fieldName, short[] array) {
         style.append(buffer, fieldName, array, null);
         return this;
     }
@@ -929,7 +929,7 @@ public class ToStringBuilder<T> {
      *  for summary info
      * @return this
      */
-    public ToStringBuilder<T> append(String fieldName, short[] array, boolean fullDetail) {
+    public ToStringBuilder append(String fieldName, short[] array, boolean fullDetail) {
         style.append(buffer, fieldName, array, Boolean.valueOf(fullDetail));
         return this;
     }
@@ -943,7 +943,7 @@ public class ToStringBuilder<T> {
      * @return this
      * @since 2.0
      */
-    public ToStringBuilder<T> appendAsObjectToString(Object object) {
+    public ToStringBuilder appendAsObjectToString(Object object) {
         ObjectUtils.identityToString(this.getStringBuffer(), object);
         return this;
     }
@@ -962,7 +962,7 @@ public class ToStringBuilder<T> {
      * @return this
      * @since 2.0
      */
-    public ToStringBuilder<T> appendSuper(String superToString) {
+    public ToStringBuilder appendSuper(String superToString) {
         if (superToString != null) {
             style.appendSuper(buffer, superToString);
         }
@@ -996,7 +996,7 @@ public class ToStringBuilder<T> {
      * @return this
      * @since 2.0
      */
-    public ToStringBuilder<T> appendToString(String toString) {
+    public ToStringBuilder appendToString(String toString) {
         if (toString != null) {
             style.appendToString(buffer, toString);
         }
@@ -1009,7 +1009,7 @@ public class ToStringBuilder<T> {
      * @return The object being output.
      * @since 2.0
      */
-    public T getObject() {
+    public Object getObject() {
         return object;
     }
 
