@@ -46,7 +46,7 @@ import junit.framework.TestSuite;
  */
 public class ExtendedMessageFormatTest extends TestCase {
 
-    private final Map registry = new HashMap();
+    private final Map<String, FormatFactory> registry = new HashMap<String, FormatFactory>();
 
     /**
      * Return a new test suite containing this test case.
@@ -249,7 +249,7 @@ public class ExtendedMessageFormatTest extends TestCase {
         cal.set(2007, Calendar.JANUARY, 23);
         Object[] args = new Object[] {cal.getTime()};
         Locale[] availableLocales = DateFormat.getAvailableLocales();
-        Map registry = Collections.singletonMap("date", new OverrideShortDateFormatFactory());
+        Map<String, ? extends FormatFactory> registry = Collections.singletonMap("date", new OverrideShortDateFormatFactory());
 
         //check the non-overridden builtins:
         checkBuiltInFormat("1: {0,date}", registry,          args, availableLocales);
@@ -299,7 +299,7 @@ public class ExtendedMessageFormatTest extends TestCase {
      * @param args MessageFormat arguments
      * @param locales to test
      */
-    private void checkBuiltInFormat(String pattern, Map registry, Object[] args, Locale[] locales) {
+    private void checkBuiltInFormat(String pattern, Map<String, ?> registry, Object[] args, Locale[] locales) {
         checkBuiltInFormat(pattern, registry, args, (Locale) null);
         for (int i = 0; i < locales.length; i++) {
             checkBuiltInFormat(pattern, registry, args, locales[i]);
@@ -314,7 +314,7 @@ public class ExtendedMessageFormatTest extends TestCase {
      * @param args Object[]
      * @param locale Locale
      */
-    private void checkBuiltInFormat(String pattern, Map registry, Object[] args, Locale locale) {
+    private void checkBuiltInFormat(String pattern, Map<String, ?> registry, Object[] args, Locale locale) {
         StringBuffer buffer = new StringBuffer();
         buffer.append("Pattern=[");
         buffer.append(pattern);
