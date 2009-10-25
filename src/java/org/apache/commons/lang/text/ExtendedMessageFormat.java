@@ -78,7 +78,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     private static final char QUOTE = '\'';
 
     private String toPattern;
-    private final Map<String, FormatFactory> registry;
+    private final Map<String, ? extends FormatFactory> registry;
 
     /**
      * Create a new ExtendedMessageFormat for the default locale.
@@ -120,7 +120,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param registry Registry of format factories:  Map<String, FormatFactory>
      * @throws IllegalArgumentException in case of a bad pattern.
      */
-    public ExtendedMessageFormat(String pattern, Locale locale, Map<String, FormatFactory> registry) {
+    public ExtendedMessageFormat(String pattern, Locale locale, Map<String, ? extends FormatFactory> registry) {
         super(DUMMY_PATTERN);
         setLocale(locale);
         this.registry = registry;
