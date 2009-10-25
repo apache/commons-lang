@@ -72,7 +72,7 @@ public final class IntRangeTest extends AbstractRangeTest {
         assertSame(five, nr.getMinimumNumber());
         assertSame(five, nr.getMaximumNumber());
         
-        Range r = new IntRange(nonComparableNumber);
+        new IntRange(nonComparableNumber);
         
         try {
             new IntRange(null);

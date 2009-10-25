@@ -73,7 +73,7 @@ public final class FloatRangeTest extends AbstractRangeTest {
         assertSame(float8, nr.getMinimumNumber());
         assertSame(float8, nr.getMaximumNumber());
         
-        Range r = new FloatRange(nonComparableNumber);
+        new FloatRange(nonComparableNumber);
         
         try {
             new FloatRange(null);
