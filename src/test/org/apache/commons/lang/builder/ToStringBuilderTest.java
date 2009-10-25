@@ -324,7 +324,7 @@ public class ToStringBuilderTest extends TestCase {
     // Reflection hierarchy tests
 
     public void testReflectionHierarchyArrayList() {
-        List base = new ArrayList();
+        List<Object> base = new ArrayList<Object>();
         String baseStr = this.toBaseString(base);
         assertEquals(baseStr + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]", ToStringBuilder.reflectionToString(base, null, true));
         assertEquals(baseStr + "[size=0]", ToStringBuilder.reflectionToString(base, null, false));
@@ -638,10 +638,10 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[a=3]", new ToStringBuilder(base).append("a", i3).toString());
         assertEquals(baseStr + "[a=3,b=4]", new ToStringBuilder(base).append("a", i3).append("b", i4).toString());
         assertEquals(baseStr + "[a=<Integer>]", new ToStringBuilder(base).append("a", i3, false).toString());
-        assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", new ArrayList(), false).toString());
-        assertEquals(baseStr + "[a=[]]", new ToStringBuilder(base).append("a", new ArrayList(), true).toString());
-        assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", new HashMap(), false).toString());
-        assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", new HashMap(), true).toString());
+        assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", new ArrayList<Object>(), false).toString());
+        assertEquals(baseStr + "[a=[]]", new ToStringBuilder(base).append("a", new ArrayList<Object>(), true).toString());
+        assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", new HashMap<Object, Object>(), false).toString());
+        assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", new HashMap<Object, Object>(), true).toString());
         assertEquals(baseStr + "[a=<size=0>]", new ToStringBuilder(base).append("a", (Object) new String[0], false).toString());
         assertEquals(baseStr + "[a={}]", new ToStringBuilder(base).append("a", (Object) new String[0], true).toString());
     }
