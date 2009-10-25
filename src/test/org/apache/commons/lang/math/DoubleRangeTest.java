@@ -73,7 +73,7 @@ public final class DoubleRangeTest extends AbstractRangeTest {
         assertSame(double8, nr.getMinimumNumber());
         assertSame(double8, nr.getMaximumNumber());
         
-        Range r = new DoubleRange(nonComparableNumber);
+        new DoubleRange(nonComparableNumber);
         
         try {
             new DoubleRange(null);
