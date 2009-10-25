@@ -59,7 +59,7 @@ public class NumberUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new NumberUtils());
-        Constructor[] cons = NumberUtils.class.getDeclaredConstructors();
+        Constructor<?>[] cons = NumberUtils.class.getDeclaredConstructors();
         assertEquals(1, cons.length);
         assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
         assertEquals(true, Modifier.isPublic(NumberUtils.class.getModifiers()));
