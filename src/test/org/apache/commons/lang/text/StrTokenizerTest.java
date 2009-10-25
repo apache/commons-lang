@@ -491,7 +491,7 @@ public class StrTokenizerTest extends TestCase {
         String input = "a  b c";
         StrTokenizer tok = new StrTokenizer(input);
         String[] array = tok.getTokenArray();
-        List list = tok.getTokenList();
+        List<?> list = tok.getTokenList();
         
         assertEquals(Arrays.asList(array), list);
         assertEquals(3, list.size());
@@ -813,7 +813,7 @@ public class StrTokenizerTest extends TestCase {
     public void testTokenizeSubclassInputChange() {
         StrTokenizer tkn = new StrTokenizer("a b c d e") {
             @Override
-            protected List tokenize(char[] chars, int offset, int count) {
+            protected List<String> tokenize(char[] chars, int offset, int count) {
                 return super.tokenize("w x y z".toCharArray(), 2, 5);
             }
         };
@@ -825,8 +825,8 @@ public class StrTokenizerTest extends TestCase {
     public void testTokenizeSubclassOutputChange() {
         StrTokenizer tkn = new StrTokenizer("a b c") {
             @Override
-            protected List tokenize(char[] chars, int offset, int count) {
-                List list = super.tokenize(chars, offset, count);
+            protected List<String> tokenize(char[] chars, int offset, int count) {
+                List<String> list = super.tokenize(chars, offset, count);
                 Collections.reverse(list);
                 return list;
             }

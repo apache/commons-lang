@@ -35,7 +35,7 @@ import org.apache.commons.lang.mutable.MutableObject;
  */
 public class StrSubstitutorTest extends TestCase {
 
-    private Map values;
+    private Map<String, String> values;
 
     /**
      * Main method.
@@ -60,7 +60,7 @@ public class StrSubstitutorTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        values = new HashMap();
+        values = new HashMap<String, String>();
         values.put("animal", "quick brown fox");
         values.put("target", "lazy dog");
     }
@@ -228,7 +228,7 @@ public class StrSubstitutorTest extends TestCase {
      * The cycle should be detected and cause an exception to be thrown.
      */
     public void testCyclicReplacement() {
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("animal", "${critter}");
         map.put("target", "${pet}");
         map.put("pet", "${petCharacteristic} dog");
@@ -283,7 +283,7 @@ public class StrSubstitutorTest extends TestCase {
      */
     public void testResolveVariable() {
         final StrBuilder builder = new StrBuilder("Hi ${name}!");
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("name", "commons");
         StrSubstitutor sub = new StrSubstitutor(map) {
             @Override
@@ -312,7 +312,7 @@ public class StrSubstitutorTest extends TestCase {
      * Tests constructor.
      */
     public void testConstructorMapPrefixSuffix() {
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("name", "commons");
         StrSubstitutor sub = new StrSubstitutor(map, "<", ">");
         assertEquals("Hi < commons", sub.replace("Hi $< <name>"));
@@ -322,7 +322,7 @@ public class StrSubstitutorTest extends TestCase {
      * Tests constructor.
      */
     public void testConstructorMapFull() {
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("name", "commons");
         StrSubstitutor sub = new StrSubstitutor(map, "<", ">", '!');
         assertEquals("Hi < commons", sub.replace("Hi !< <name>"));
@@ -406,7 +406,7 @@ public class StrSubstitutorTest extends TestCase {
      * Tests static.
      */
     public void testStaticReplace() {
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("name", "commons");
         assertEquals("Hi commons!", StrSubstitutor.replace("Hi ${name}!", map));
     }
@@ -415,7 +415,7 @@ public class StrSubstitutorTest extends TestCase {
      * Tests static.
      */
     public void testStaticReplacePrefixSuffix() {
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("name", "commons");
         assertEquals("Hi commons!", StrSubstitutor.replace("Hi <name>!", map, "<", ">"));
     }
@@ -468,7 +468,7 @@ public class StrSubstitutorTest extends TestCase {
         }
         
         // replace using object
-        MutableObject obj = new MutableObject(replaceTemplate);  // toString returns template
+        MutableObject<String> obj = new MutableObject<String>(replaceTemplate);  // toString returns template
         assertEquals(expectedResult, sub.replace(obj));
         
         // replace in StringBuffer
