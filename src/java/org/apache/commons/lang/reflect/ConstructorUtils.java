@@ -255,7 +255,7 @@ public class ConstructorUtils {
      * @see Class#getConstructor
      * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
      */
-    public static Constructor getAccessibleConstructor(Class<?> cls,
+    public static Constructor<?> getAccessibleConstructor(Class<?> cls,
             Class<?> parameterType) {
         return getAccessibleConstructor(cls, new Class[] { parameterType });
     }
@@ -268,7 +268,7 @@ public class ConstructorUtils {
      * @see Class#getConstructor
      * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
      */
-    public static Constructor getAccessibleConstructor(Class<?> cls,
+    public static Constructor<?> getAccessibleConstructor(Class<?> cls,
             Class<?>[] parameterTypes) {
         try {
             return getAccessibleConstructor(cls.getConstructor(parameterTypes));
@@ -283,7 +283,7 @@ public class ConstructorUtils {
      * @return <code>null</code> if accessible constructor can not be found.
      * @see java.lang.SecurityManager
      */
-    public static Constructor getAccessibleConstructor(Constructor ctor) {
+    public static Constructor<?> getAccessibleConstructor(Constructor<?> ctor) {
         return MemberUtils.isAccessible(ctor)
                 && Modifier.isPublic(ctor.getDeclaringClass().getModifiers()) ? ctor
                 : null;
@@ -304,7 +304,7 @@ public class ConstructorUtils {
      * @param parameterTypes find method with compatible parameters
      * @return a valid Constructor object. If there's no matching constructor, returns <code>null</code>.
      */
-    public static Constructor getMatchingAccessibleConstructor(Class<?> cls,
+    public static Constructor<?> getMatchingAccessibleConstructor(Class<?> cls,
             Class<?>[] parameterTypes) {
         // see if we can find the constructor directly
         // most of the time this works and it's much faster
