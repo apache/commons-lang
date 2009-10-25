@@ -142,7 +142,7 @@ public class ConcurrentUtilsTest extends TestCase {
     /**
      * Tests handleCause() if the cause is a checked exception.
      */
-    public void testHandleCauseChecked() throws ConcurrentException {
+    public void testHandleCauseChecked() {
         Exception ex = new Exception("Test");
         try {
             ConcurrentUtils.handleCause(new ExecutionException(ex));
