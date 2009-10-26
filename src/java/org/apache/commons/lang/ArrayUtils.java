@@ -173,7 +173,6 @@ public class ArrayUtils {
      * @param stringIfNull  the String to return if the array is <code>null</code>
      * @return a String representation of the array
      */
-    @SuppressWarnings("unchecked")
     public static String toString(Object array, String stringIfNull) {
         if (array == null) {
             return stringIfNull;
