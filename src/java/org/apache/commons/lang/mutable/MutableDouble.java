@@ -104,47 +104,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     }
 
     //-----------------------------------------------------------------------
-    // shortValue and bytValue rely on Number implementation
-    /**
-     * Returns the value of this MutableDouble as an int.
-     *
-     * @return the numeric value represented by this object after conversion to type int.
-     */
-    @Override
-    public int intValue() {
-        return (int) value;
-    }
-
-    /**
-     * Returns the value of this MutableDouble as a long.
-     *
-     * @return the numeric value represented by this object after conversion to type long.
-     */
-    @Override
-    public long longValue() {
-        return (long) value;
-    }
-
-    /**
-     * Returns the value of this MutableDouble as a float.
-     *
-     * @return the numeric value represented by this object after conversion to type float.
-     */
-    @Override
-    public float floatValue() {
-        return (float) value;
-    }
-
-    /**
-     * Returns the value of this MutableDouble as a double.
-     *
-     * @return the numeric value represented by this object after conversion to type double.
-     */
-    @Override
-    public double doubleValue() {
-        return value;
-    }
-
     /**
      * Checks whether the double value is the special NaN value.
      * 
@@ -161,16 +120,6 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      */
     public boolean isInfinite() {
         return Double.isInfinite(value);
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * Gets this mutable as an instance of Double.
-     *
-     * @return a Double instance containing the value from this mutable, never null
-     */
-    public Double toDouble() {
-        return Double.valueOf(doubleValue());
     }
 
     //-----------------------------------------------------------------------
@@ -233,6 +182,58 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      */
     public void subtract(Number operand) {
         this.value -= operand.doubleValue();
+    }
+
+    //-----------------------------------------------------------------------
+    // shortValue and bytValue rely on Number implementation
+    /**
+     * Returns the value of this MutableDouble as an int.
+     *
+     * @return the numeric value represented by this object after conversion to type int.
+     */
+    @Override
+    public int intValue() {
+        return (int) value;
+    }
+
+    /**
+     * Returns the value of this MutableDouble as a long.
+     *
+     * @return the numeric value represented by this object after conversion to type long.
+     */
+    @Override
+    public long longValue() {
+        return (long) value;
+    }
+
+    /**
+     * Returns the value of this MutableDouble as a float.
+     *
+     * @return the numeric value represented by this object after conversion to type float.
+     */
+    @Override
+    public float floatValue() {
+        return (float) value;
+    }
+
+    /**
+     * Returns the value of this MutableDouble as a double.
+     *
+     * @return the numeric value represented by this object after conversion to type double.
+     */
+    @Override
+    public double doubleValue() {
+        return value;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Gets this mutable as an instance of Double.
+     *
+     * @return a Double instance containing the value from this mutable, never null
+     */
+    public Double toDouble() {
+        return Double.valueOf(doubleValue());
     }
 
     //-----------------------------------------------------------------------
