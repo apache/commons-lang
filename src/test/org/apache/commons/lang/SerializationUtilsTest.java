@@ -390,7 +390,7 @@ public class SerializationUtilsTest extends TestCase {
 class ClassNotFoundSerialization implements Serializable
 {
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException    {
+    private void readObject(ObjectInputStream in) throws ClassNotFoundException    {
         throw new ClassNotFoundException(SerializationUtilsTest.CLASS_NOT_FOUND_MESSAGE);
     }
 }
