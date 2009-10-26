@@ -104,68 +104,6 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
     }
 
     //-----------------------------------------------------------------------
-    // shortValue relies on Number implementation
-    /**
-     * Returns the value of this MutableByte as a byte.
-     *
-     * @return the numeric value represented by this object after conversion to type byte.
-     */
-    @Override
-    public byte byteValue() {
-        return value;
-    }
-
-    /**
-     * Returns the value of this MutableByte as an int.
-     *
-     * @return the numeric value represented by this object after conversion to type int.
-     */
-    @Override
-    public int intValue() {
-        return value;
-    }
-
-    /**
-     * Returns the value of this MutableByte as a long.
-     *
-     * @return the numeric value represented by this object after conversion to type long.
-     */
-    @Override
-    public long longValue() {
-        return value;
-    }
-
-    /**
-     * Returns the value of this MutableByte as a float.
-     *
-     * @return the numeric value represented by this object after conversion to type float.
-     */
-    @Override
-    public float floatValue() {
-        return value;
-    }
-
-    /**
-     * Returns the value of this MutableByte as a double.
-     *
-     * @return the numeric value represented by this object after conversion to type double.
-     */
-    @Override
-    public double doubleValue() {
-        return value;
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * Gets this mutable as an instance of Byte.
-     *
-     * @return a Byte instance containing the value from this mutable
-     */
-    public Byte toByte() {
-        return Byte.valueOf(byteValue());
-    }
-
-    //-----------------------------------------------------------------------
     /**
      * Increments the value.
      *
@@ -225,6 +163,68 @@ public class MutableByte extends Number implements Comparable<MutableByte>, Muta
      */
     public void subtract(Number operand) {
         this.value -= operand.byteValue();
+    }
+
+    //-----------------------------------------------------------------------
+    // shortValue relies on Number implementation
+    /**
+     * Returns the value of this MutableByte as a byte.
+     *
+     * @return the numeric value represented by this object after conversion to type byte.
+     */
+    @Override
+    public byte byteValue() {
+        return value;
+    }
+
+    /**
+     * Returns the value of this MutableByte as an int.
+     *
+     * @return the numeric value represented by this object after conversion to type int.
+     */
+    @Override
+    public int intValue() {
+        return value;
+    }
+
+    /**
+     * Returns the value of this MutableByte as a long.
+     *
+     * @return the numeric value represented by this object after conversion to type long.
+     */
+    @Override
+    public long longValue() {
+        return value;
+    }
+
+    /**
+     * Returns the value of this MutableByte as a float.
+     *
+     * @return the numeric value represented by this object after conversion to type float.
+     */
+    @Override
+    public float floatValue() {
+        return value;
+    }
+
+    /**
+     * Returns the value of this MutableByte as a double.
+     *
+     * @return the numeric value represented by this object after conversion to type double.
+     */
+    @Override
+    public double doubleValue() {
+        return value;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Gets this mutable as an instance of Byte.
+     *
+     * @return a Byte instance containing the value from this mutable
+     */
+    public Byte toByte() {
+        return Byte.valueOf(byteValue());
     }
 
     //-----------------------------------------------------------------------
