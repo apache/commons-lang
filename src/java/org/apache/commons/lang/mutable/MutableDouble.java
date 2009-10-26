@@ -175,10 +175,10 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     /**
      * Gets this mutable as an instance of Double.
      *
-     * @return a Double instance containing the value from this mutable
+     * @return a Double instance containing the value from this mutable, never null
      */
     public Double toDouble() {
-        return new Double(doubleValue());
+        return Double.valueOf(doubleValue());
     }
 
     //-----------------------------------------------------------------------

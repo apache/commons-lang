@@ -229,10 +229,10 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
     /**
      * Gets this mutable as an instance of Long.
      *
-     * @return a Long instance containing the value from this mutable
+     * @return a Long instance containing the value from this mutable, never null
      */
     public Long toLong() {
-        return new Long(longValue());
+        return Long.valueOf(longValue());
     }
 
     //-----------------------------------------------------------------------
