@@ -47,8 +47,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Constructs a new MutableObject with the specified value.
      * 
-     * @param value
-     *            a value.
+     * @param value  the initial value to store
      */
     public MutableObject(T value) {
         super();
@@ -59,7 +58,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Gets the value.
      * 
-     * @return the value
+     * @return the value, may be null
      */
     public T getValue() {
         return this.value;
@@ -68,8 +67,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
     /**
      * Sets the value.
      * 
-     * @param value
-     *            the value to set
+     * @param value  the value to set
      */
     public void setValue(T value) {
         this.value = value;
@@ -81,8 +79,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      * is not <code>null</code> and is a <code>MutableObject</code> object that contains the same <code>T</code>
      * value as this object.
      * 
-     * @param obj
-     *            the object to compare with.
+     * @param obj  the object to compare with, null returns false
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
     public boolean equals(MutableObject<T> obj) {
@@ -104,6 +101,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
         return value == null ? 0 : value.hashCode();
     }
 
+    //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
      * 
