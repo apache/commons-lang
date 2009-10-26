@@ -80,6 +80,17 @@ public class MutableBoolean implements Mutable<Boolean>, Serializable, Comparabl
         return value;
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * Gets this mutable as an instance of Boolean.
+     *
+     * @return a Boolean instance containing the value from this mutable, never null
+     */
+    public Boolean toBoolean() {
+        return Boolean.valueOf(booleanValue());
+    }
+
+    //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
      * 

@@ -239,10 +239,10 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     /**
      * Gets this mutable as an instance of Short.
      *
-     * @return a Short instance containing the value from this mutable
+     * @return a Short instance containing the value from this mutable, never null
      */
     public Short toShort() {
-        return new Short(shortValue());
+        return Short.valueOf(shortValue());
     }
 
     //-----------------------------------------------------------------------
