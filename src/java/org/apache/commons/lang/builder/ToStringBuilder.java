@@ -106,7 +106,9 @@ public class ToStringBuilder {
      * It is recommended to pass a <code>ToStringStyle</code> to the constructor instead
      * of using this global default.</p>
      * 
-     * <p>This method is thread-safe, as a <code>volatile</code variable is used internally.</p>
+     * <p>This method is not intended for use from multiple threads.
+     * Internally, a <code>volatile</code> variable is used to provide the guarantee
+     * that the latest value set using {@link #setDefaultStyle} is the value returned.</p>
      * 
      * <p>One reason for changing the default could be to have a verbose style during
      * development and a compact style in production.</p>
@@ -125,7 +127,9 @@ public class ToStringBuilder {
      * It is recommended to pass a <code>ToStringStyle</code> to the constructor instead
      * of changing this global default.</p>
      * 
-     * <p>This method is thread-safe, as a <code>volatile</code variable is used internally.</p>
+     * <p>This method is not intended for use from multiple threads.
+     * Internally, a <code>volatile</code> variable is used to provide the guarantee
+     * that the latest value set is the value returned from {@link #getDefaultStyle}.</p>
      * 
      * @param style  the default <code>ToStringStyle</code>
      * @throws IllegalArgumentException if the style is <code>null</code>
