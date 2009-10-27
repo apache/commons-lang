@@ -24,6 +24,7 @@ import java.util.concurrent.ExecutionException;
  * java.util.concurrent} package.
  * </p>
  *
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class ConcurrentUtils {

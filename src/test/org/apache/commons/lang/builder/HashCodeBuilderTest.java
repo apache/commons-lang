@@ -25,7 +25,7 @@ import junit.textui.TestRunner;
 /**
  * Unit tests {@link org.apache.commons.lang.builder.HashCodeBuilder}.
  * 
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class HashCodeBuilderTest extends TestCase {

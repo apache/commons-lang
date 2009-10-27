@@ -29,7 +29,7 @@ import junit.textui.TestRunner;
 /**
  * Unit tests {@link org.apache.commons.lang.builder.NoFieldNamesToStringStyleTest}.
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class NoFieldNamesToStringStyleTest extends TestCase {

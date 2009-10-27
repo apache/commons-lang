@@ -30,10 +30,10 @@ import junit.textui.TestRunner;
 /**
  * TestCase for DateFormatUtils.
  *
+ * @author Apache Software Foundation
  * @author Apache Ant - DateUtilsTest
  * @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
- * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  */
 public class DateFormatUtilsTest extends TestCase {

@@ -27,8 +27,8 @@ import junit.textui.TestRunner;
 /**
  * Unit tests {@link org.apache.commons.lang.CharSetUtils}.
  *
+ * @author Apache Software Foundation
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @author Stephen Colebourne
  * @author Gary D. Gregory
  * @version $Id$
  */

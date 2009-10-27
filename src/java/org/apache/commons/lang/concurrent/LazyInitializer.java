@@ -72,6 +72,7 @@ package org.apache.commons.lang.concurrent;
  * (only an access to a <b>volatile</b> member field).
  * </p>
  *
+ * @author Apache Software Foundation
  * @version $Id$
  * @param <T> the type of the object managed by this initializer class
  */

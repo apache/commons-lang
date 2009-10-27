@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  * <p><code>LongRange</code> represents an inclusive range of <code>long</code>s.</p>
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @since 2.0
  * @version $Id$
  */

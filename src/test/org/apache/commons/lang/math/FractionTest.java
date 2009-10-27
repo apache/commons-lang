@@ -25,7 +25,7 @@ import junit.framework.TestSuite;
 /**
  * Test cases for the {@link Fraction} class
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author C. Scott Ananian
  * @version $Id$
  */

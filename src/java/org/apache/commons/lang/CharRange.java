@@ -23,7 +23,7 @@ import java.io.Serializable;
  * 
  * <p>Instances are immutable.</p>
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Chris Feldhacker
  * @author Gary Gregory
  * @since 1.0

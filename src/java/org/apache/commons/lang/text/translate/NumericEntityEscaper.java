@@ -20,7 +20,9 @@ import java.io.IOException;
 import java.io.Writer;
 
 /**
- * Translates codepoints to their XML numeric entity escaped value. 
+ * Translates codepoints to their XML numeric entity escaped value.
+ * 
+ * @author Apache Software Foundation
  * @since 3.0
  */
 public class NumericEntityEscaper extends CodePointTranslator {

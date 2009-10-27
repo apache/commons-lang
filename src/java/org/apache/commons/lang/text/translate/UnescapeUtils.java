@@ -24,7 +24,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.CharUtils;
 
 /**
- * Helper class defining various standard language unescape functions. 
+ * Helper class defining various standard language unescape functions.
+ * 
+ * @author Apache Software Foundation
  * @since 3.0
  */
 public class UnescapeUtils {

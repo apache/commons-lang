@@ -29,6 +29,7 @@ package org.apache.commons.lang.concurrent;
  * exceptions are thrown directly.
  * </p>
  *
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class ConcurrentException extends Exception {

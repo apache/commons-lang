@@ -30,7 +30,7 @@ import org.apache.commons.lang.builder.ToStringStyleTest.Person;
 /**
  * Unit tests {@link org.apache.commons.lang.builder.MultiLineToStringStyleTest}.
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class MultiLineToStringStyleTest extends TestCase {

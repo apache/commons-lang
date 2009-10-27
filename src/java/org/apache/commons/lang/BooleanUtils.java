@@ -25,7 +25,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * An exception will not be thrown for a <code>null</code> input.
  * Each method documents its behaviour in more detail.</p>
  * 
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Matthew Hawthorne
  * @author Gary Gregory
  * @since 2.0

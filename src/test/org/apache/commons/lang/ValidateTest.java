@@ -33,7 +33,7 @@ import junit.textui.TestRunner;
 /**
  * Unit tests {@link org.apache.commons.lang.Validate}.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Norm Deane
  * @version $Id$
  */

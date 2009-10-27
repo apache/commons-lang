@@ -30,7 +30,7 @@ import junit.textui.TestRunner;
 /**
  * Unit tests {@link org.apache.commons.lang.ArrayUtils}.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Moritz Petersen
  * @author Nikolay Metchev
  * @author Matthew Hawthorne

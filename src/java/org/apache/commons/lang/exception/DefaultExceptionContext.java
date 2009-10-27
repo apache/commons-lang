@@ -29,6 +29,7 @@ import org.apache.commons.lang.SystemUtils;
  * This implementation is serializable, however this is dependent on the values that
  * are added also being serializable.
  * 
+ * @author Apache Software Foundation
  * @author D. Ashmore
  * @since 3.0
  */

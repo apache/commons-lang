@@ -36,7 +36,7 @@ import junit.textui.TestRunner;
 /**
  * Unit tests {@link org.apache.commons.lang.ClassUtils}.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Gary D. Gregory
  * @author Tomasz Blachowicz
  * @version $Id$

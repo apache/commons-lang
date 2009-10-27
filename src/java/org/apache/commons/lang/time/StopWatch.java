@@ -50,7 +50,7 @@ package org.apache.commons.lang.time;
  * 4. start() cannot be called twice without calling reset()
  * </p>
  * 
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @since 2.0
  * @version $Id$
  */

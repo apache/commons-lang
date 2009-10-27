@@ -38,10 +38,10 @@ import java.io.Serializable;
  * <p>This class throws exceptions for invalid <code>null</code> inputs.
  * Each method documents its behaviour in more detail.</p>
  *
+ * @author Apache Software Foundation
  * @author <a href="mailto:nissim@nksystems.com">Nissim Karpenstein</a>
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author Daniel L. Rall
- * @author Stephen Colebourne
  * @author Jeff Varszegi
  * @author Gary Gregory
  * @since 1.0

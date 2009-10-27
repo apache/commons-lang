@@ -23,7 +23,7 @@ package org.apache.commons.lang.math;
  * subclass should be immutable and {@link java.io.Serializable Serializable}
  * if possible.</p>
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @since 2.0
  * @version $Id$
  */

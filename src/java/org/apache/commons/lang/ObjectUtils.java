@@ -25,10 +25,10 @@ import java.io.Serializable;
  * An exception will generally not be thrown for a <code>null</code> input.
  * Each method documents its behaviour in more detail.</p>
  *
+ * @author Apache Software Foundation
  * @author <a href="mailto:nissim@nksystems.com">Nissim Karpenstein</a>
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
  * @author Daniel L. Rall
- * @author Stephen Colebourne
  * @author Gary Gregory
  * @author Mario Winterer
  * @author <a href="mailto:david@davidkarlsen.com">David J. M. Karlsen</a>

@@ -21,6 +21,7 @@ package org.apache.commons.lang.text.translate;
  * the LookupTranslator.
  * All arrays are of length [*][2].
  *
+ * @author Apache Software Foundation
  * @since 3.0
  */
 public class EntityArrays {

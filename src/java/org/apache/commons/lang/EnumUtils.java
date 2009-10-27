@@ -21,7 +21,9 @@ import java.util.LinkedHashMap;
 import java.util.EnumSet;
 
 /**
- * Utility library to provide helper methods for Java enums. 
+ * Utility library to provide helper methods for Java enums.
+ * 
+ * @author Apache Software Foundation
  */
 public class EnumUtils {
     
