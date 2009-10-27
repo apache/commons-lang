@@ -17,7 +17,6 @@
 package org.apache.commons.lang;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -3009,7 +3008,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the elements of the provided <code>Collection</code> into
+     * <p>Joins the elements of the provided <code>Iterable</code> into
      * a single String containing the provided elements.</p>
      *
      * <p>No delimiter is added before or after the list. Null objects or empty
@@ -3017,20 +3016,20 @@ public class StringUtils {
      *
      * <p>See the examples here: {@link #join(Object[],char)}. </p>
      *
-     * @param collection  the <code>Collection</code> of values to join together, may be null
+     * @param iterable  the <code>Iterable</code> providing the values to join together, may be null
      * @param separator  the separator character to use
      * @return the joined String, <code>null</code> if null iterator input
      * @since 2.3
      */
-    public static String join(Collection<?> collection, char separator) {
-        if (collection == null) {
+    public static String join(Iterable<?> iterable, char separator) {
+        if (iterable == null) {
             return null;
         }
-        return join(collection.iterator(), separator);
+        return join(iterable.iterator(), separator);
     }
 
     /**
-     * <p>Joins the elements of the provided <code>Collection</code> into
+     * <p>Joins the elements of the provided <code>Iterable</code> into
      * a single String containing the provided elements.</p>
      *
      * <p>No delimiter is added before or after the list.
@@ -3038,16 +3037,16 @@ public class StringUtils {
      *
      * <p>See the examples here: {@link #join(Object[],String)}. </p>
      *
-     * @param collection  the <code>Collection</code> of values to join together, may be null
+     * @param iterable  the <code>Iterable</code> providing the values to join together, may be null
      * @param separator  the separator character to use, null treated as ""
      * @return the joined String, <code>null</code> if null iterator input
      * @since 2.3
      */
-    public static String join(Collection<?> collection, String separator) {
-        if (collection == null) {
+    public static String join(Iterable<?> iterable, String separator) {
+        if (iterable == null) {
             return null;
         }
-        return join(collection.iterator(), separator);
+        return join(iterable.iterator(), separator);
     }
 
     // Delete
