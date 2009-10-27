@@ -18,6 +18,9 @@
  */
 package org.apache.commons.lang;
 
+import java.util.List;
+import java.util.Map;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -35,9 +38,39 @@ public class EnumUtilsTest extends TestCase {
         new EnumUtils();
     }
 
-    public void testGetEnumMap() {
-        String toString = EnumUtils.getEnumMap(Traffic.class).toString(); 
-        assertEquals( "getEnumMap not created correctly", "{RED=RED, AMBER=AMBER, GREEN=GREEN}", toString);
+    public void test_getEnumMap() {
+        Map<String, Traffic> test = EnumUtils.getEnumMap(Traffic.class);
+        assertEquals( "getEnumMap not created correctly", "{RED=RED, AMBER=AMBER, GREEN=GREEN}", test.toString());
+        assertEquals(3, test.size());
+        assertEquals(true, test.containsKey("RED"));
+        assertEquals(Traffic.RED, test.get("RED"));
+        assertEquals(true, test.containsKey("AMBER"));
+        assertEquals(Traffic.AMBER, test.get("AMBER"));
+        assertEquals(true, test.containsKey("GREEN"));
+        assertEquals(Traffic.GREEN, test.get("GREEN"));
+        assertEquals(false, test.containsKey("PURPLE"));
+    }
+
+    public void test_getEnumList() {
+        List<Traffic> test = EnumUtils.getEnumList(Traffic.class);
+        assertEquals(3, test.size());
+        assertEquals(Traffic.RED, test.get(0));
+        assertEquals(Traffic.AMBER, test.get(1));
+        assertEquals(Traffic.GREEN, test.get(2));
+    }
+
+    public void test_isEnum() {
+        assertEquals(true, EnumUtils.isEnum(Traffic.class, "RED"));
+        assertEquals(true, EnumUtils.isEnum(Traffic.class, "AMBER"));
+        assertEquals(true, EnumUtils.isEnum(Traffic.class, "GREEN"));
+        assertEquals(false, EnumUtils.isEnum(Traffic.class, "PURPLE"));
+    }
+
+    public void test_getEnum() {
+        assertEquals(Traffic.RED, EnumUtils.getEnum(Traffic.class, "RED"));
+        assertEquals(Traffic.AMBER, EnumUtils.getEnum(Traffic.class, "AMBER"));
+        assertEquals(Traffic.GREEN, EnumUtils.getEnum(Traffic.class, "GREEN"));
+        assertEquals(null, EnumUtils.getEnum(Traffic.class, "PURPLE"));
     }
 
 }
