@@ -267,16 +267,16 @@ public class StringUtilsTest extends TestCase {
         assertEquals(TEXT_LIST, StringUtils.join(Arrays.asList(ARRAY_LIST).iterator(), SEPARATOR));
     }
 
-    public void testJoin_CollectionChar() {
-        assertEquals(null, StringUtils.join((Collection<?>) null, ','));
+    public void testJoin_IterableChar() {
+        assertEquals(null, StringUtils.join((Iterable<?>) null, ','));
         assertEquals(TEXT_LIST_CHAR, StringUtils.join(Arrays.asList(ARRAY_LIST), SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(Arrays.asList(NULL_ARRAY_LIST), SEPARATOR_CHAR));
         assertEquals("", StringUtils.join(Arrays.asList(EMPTY_ARRAY_LIST), SEPARATOR_CHAR));
         assertEquals("foo", StringUtils.join(Collections.singleton("foo"), 'x'));
     }
 
-    public void testJoin_CollectionString() {
-        assertEquals(null, StringUtils.join((Collection<?>) null, null));
+    public void testJoin_IterableString() {
+        assertEquals(null, StringUtils.join((Iterable<?>) null, null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST), null));
         assertEquals(TEXT_LIST_NOSEP, StringUtils.join(Arrays.asList(ARRAY_LIST), ""));
         assertEquals("foo", StringUtils.join(Collections.singleton("foo"), "x"));
