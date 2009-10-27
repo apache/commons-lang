@@ -21,7 +21,9 @@ import java.io.Writer;
 
 /**
  * Translate XML numeric entities of the form &#[xX]?\d+; to 
- * the specific codepoint. 
+ * the specific codepoint.
+ * 
+ * @author Apache Software Foundation
  * @since 3.0
  */
 public class NumericEntityUnescaper extends CharSequenceTranslator {

@@ -26,8 +26,8 @@ import junit.framework.TestSuite;
 /**
  * Unit tests for WordUtils class.
  * 
+ * @author Apache Software Foundation
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @author Stephen Colebourne
  * @version $Id$
  */
 public class WordUtilsTest extends TestCase {

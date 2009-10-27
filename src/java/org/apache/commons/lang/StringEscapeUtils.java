@@ -26,6 +26,7 @@ import org.apache.commons.lang.text.translate.UnescapeUtils;
  * <p>Escapes and unescapes <code>String</code>s for
  * Java, Java Script, HTML, XML, and SQL.</p>
  *
+ * @author Apache Software Foundation
  * @author Apache Jakarta Turbine
  * @author Purple Technology
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>

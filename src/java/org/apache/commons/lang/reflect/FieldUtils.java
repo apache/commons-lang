@@ -30,7 +30,7 @@ import org.apache.commons.lang.ClassUtils;
  * programmer. This can allow fields to be changed that shouldn't be. This
  * facility should be used with care.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Matt Benson
  * @since 3.0
  * @version $Id$

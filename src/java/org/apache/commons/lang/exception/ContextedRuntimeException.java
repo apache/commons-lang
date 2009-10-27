@@ -62,6 +62,7 @@ import java.util.Set;
  * </p>
  * 
  * @see ContextedException
+ * @author Apache Software Foundation
  * @author D. Ashmore
  * @author J&ouml;rg Schaible
  * @since 3.0

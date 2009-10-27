@@ -19,11 +19,11 @@ package org.apache.commons.lang;
 /**
  * <p>Operations on bit-mapped fields.</p>
  *
+ * @author Apache Software Foundation
  * @author Apache Jakarta POI
  * @author Scott Sanders (sanders at apache dot org)
  * @author Marc Johnson (mjohnson at apache dot org)
  * @author Andrew C. Oliver (acoliver at apache dot org)
- * @author Stephen Colebourne
  * @author Pete Gieser
  * @author Gary Gregory
  * @since 2.0

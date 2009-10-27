@@ -23,7 +23,7 @@ package org.apache.commons.lang;
  * An exception will not be thrown for a <code>null</code> input.
  * Each method documents its behaviour in more detail.</p>
  * 
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @since 2.1
  * @version $Id$
  */

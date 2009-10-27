@@ -84,8 +84,8 @@ import java.util.Map;
  *   The variable $${${name}} must be used.
  * </pre>
  *
+ * @author Apache Software Foundation
  * @author Oliver Heger
- * @author Stephen Colebourne
  * @version $Id$
  * @since 2.2
  */

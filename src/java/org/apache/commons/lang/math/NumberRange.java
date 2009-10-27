@@ -22,8 +22,8 @@ import java.io.Serializable;
  * <p><code>NumberRange</code> represents an inclusive range of 
  * {@link java.lang.Number} objects of the same type.</p>
  *
+ * @author Apache Software Foundation
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
- * @author Stephen Colebourne
  * @since 2.0 (previously in org.apache.commons.lang)
  * @version $Id$
  */

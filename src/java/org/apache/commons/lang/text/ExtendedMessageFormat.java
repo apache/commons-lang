@@ -62,6 +62,7 @@ import org.apache.commons.lang.Validate;
  * </ul>
  * </p>
  * 
+ * @author Apache Software Foundation
  * @author Matt Benson
  * @author Niall Pemberton
  * @since 2.4

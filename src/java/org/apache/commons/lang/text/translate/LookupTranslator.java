@@ -21,7 +21,9 @@ import java.io.Writer;
 import java.util.HashMap;
 
 /**
- * Translates a value using a lookup table. 
+ * Translates a value using a lookup table.
+ * 
+ * @author Apache Software Foundation
  * @since 3.0
  */
 // TODO: Replace with a RegexLookup? Performance test.

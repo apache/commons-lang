@@ -24,7 +24,9 @@ import java.util.Locale;
 /**
  * An API for translating text. 
  * Its core use is to escape and unescape text. Because escaping and unescaping 
- * is completely contextual, the API does not present two separate signatures. 
+ * is completely contextual, the API does not present two separate signatures.
+ * 
+ * @author Apache Software Foundation
  * @since 3.0
  */
 public abstract class CharSequenceTranslator {

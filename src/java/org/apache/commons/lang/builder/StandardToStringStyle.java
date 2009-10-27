@@ -25,7 +25,7 @@ package org.apache.commons.lang.builder;
  * store the result in a public static final variable for the rest of the
  * program to access.</p>
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Pete Gieser
  * @author Gary Gregory
  * @since 1.0

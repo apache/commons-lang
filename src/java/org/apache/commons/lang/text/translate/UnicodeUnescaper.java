@@ -25,6 +25,8 @@ import java.util.Arrays;
 /**
  * Translates escaped unicode values of the form \\u+\d\d\d\d back to 
  * unicode.
+ * 
+ * @author Apache Software Foundation
  * @since 3.0
  */
 public class UnicodeUnescaper extends CharSequenceTranslator {

@@ -21,7 +21,7 @@ package org.apache.commons.lang;
  *
  * <p>The original error is wrapped within this one.</p>
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @since 1.0
  * @version $Id$
  */

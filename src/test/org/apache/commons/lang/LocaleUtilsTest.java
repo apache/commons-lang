@@ -34,8 +34,8 @@ import junit.textui.TestRunner;
 /**
  * Unit tests for {@link LocaleUtils}.
  *
+ * @author Apache Software Foundation
  * @author Chris Hyzer
- * @author Stephen Colebourne
  * @version $Id$
  */
 public class LocaleUtilsTest extends TestCase {

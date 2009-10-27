@@ -24,6 +24,7 @@ import java.util.Set;
  * 
  * @see ContextedException
  * @see ContextedRuntimeException
+ * @author Apache Software Foundation
  * @author D. Ashmore
  * @since 3.0
  */

@@ -99,13 +99,13 @@ import java.util.Locale;
  * The symbol <code>*</code> is used to indicate any input including <code>null</code>.</p>
  *
  * @see java.lang.String
+ * @author Apache Software Foundation
  * @author <a href="http://jakarta.apache.org/turbine/">Apache Jakarta Turbine</a>
  * @author <a href="mailto:jon@latchkey.com">Jon S. Stevens</a>
  * @author Daniel L. Rall
  * @author <a href="mailto:gcoladonato@yahoo.com">Greg Coladonato</a>
  * @author <a href="mailto:ed@apache.org">Ed Korthof</a>
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
- * @author Stephen Colebourne
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
  * @author Holger Krauth
  * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>

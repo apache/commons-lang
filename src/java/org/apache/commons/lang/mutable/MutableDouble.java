@@ -21,6 +21,7 @@ package org.apache.commons.lang.mutable;
  * 
  * @see Double
  * @since 2.1
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class MutableDouble extends Number implements Comparable<MutableDouble>, Mutable<Number> {
