@@ -21,6 +21,7 @@ package org.apache.commons.lang;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -119,6 +120,7 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     public void testNotNull1() {
         Validate.notNull(new Object());
         try {
@@ -127,6 +129,10 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated object is null", ex.getMessage());
         }
+        
+        String str = "Hi";
+        String testStr = Validate.notNull(str);
+        assertSame(str, testStr);
     }
 
     //-----------------------------------------------------------------------
@@ -138,8 +144,13 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
+        
+        String str = "Hi";
+        String testStr = Validate.notNull(str, "Message");
+        assertSame(str, testStr);
     }
 
+    //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     public void testNotEmptyArray1() {
         Validate.notEmpty(new Object[] {null});
@@ -155,6 +166,10 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated array is empty", ex.getMessage());
         }
+        
+        String[] array = new String[] {"hi"};
+        String[] test = Validate.notEmpty(array);
+        assertSame(array, test);
     }
 
     //-----------------------------------------------------------------------
@@ -172,8 +187,13 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
+        
+        String[] array = new String[] {"hi"};
+        String[] test = Validate.notEmpty(array, "Message");
+        assertSame(array, test);
     }
 
+    //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     public void testNotEmptyCollection1() {
         Collection<Integer> coll = new ArrayList<Integer>();
@@ -191,6 +211,9 @@ public class ValidateTest extends TestCase {
         }
         coll.add(new Integer(8));
         Validate.notEmpty(coll);
+        
+        Collection<Integer> test = Validate.notEmpty(coll);
+        assertSame(coll, test);
     }
 
     //-----------------------------------------------------------------------
@@ -210,8 +233,12 @@ public class ValidateTest extends TestCase {
         }
         coll.add(new Integer(8));
         Validate.notEmpty(coll, "MSG");
+        
+        Collection<Integer> test = Validate.notEmpty(coll, "Message");
+        assertSame(coll, test);
     }
 
+    //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     public void testNotEmptyMap1() {
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -229,6 +256,9 @@ public class ValidateTest extends TestCase {
         }
         map.put("ll", new Integer(8));
         Validate.notEmpty(map);
+        
+        Map<String, Integer> test = Validate.notEmpty(map);
+        assertSame(map, test);
     }
 
     //-----------------------------------------------------------------------
@@ -248,8 +278,12 @@ public class ValidateTest extends TestCase {
         }
         map.put("ll", new Integer(8));
         Validate.notEmpty(map, "MSG");
+        
+        Map<String, Integer> test = Validate.notEmpty(map, "Message");
+        assertSame(map, test);
     }
 
+    //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     public void testNotEmptyString1() {
         Validate.notEmpty("hjl");
@@ -265,6 +299,10 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated string is empty", ex.getMessage());
         }
+        
+        String str = "Hi";
+        String testStr = Validate.notEmpty(str);
+        assertSame(str, testStr);
     }
 
     //-----------------------------------------------------------------------
@@ -282,8 +320,13 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
+        
+        String str = "Hi";
+        String testStr = Validate.notEmpty(str, "Message");
+        assertSame(str, testStr);
     }
 
+    //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     public void testNotBlankNullStringShouldThrow() {
         //given
@@ -471,6 +514,20 @@ public class ValidateTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testNotBlankReturnValues1() {
+        String str = "Hi";
+        String test = Validate.notBlank(str);
+        assertSame(str, test);
+    }
+
+    public void testNotBlankReturnValues2() {
+        String str = "Hi";
+        String test = Validate.notBlank(str, "Message");
+        assertSame(str, test);
+    }
+
+    //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     public void testNoNullElementsArray1() {
         String[] array = new String[] {"a", "b"};
         Validate.noNullElements(array);
@@ -487,6 +544,10 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated array contains null element at index: 1", ex.getMessage());
         }
+        
+        array = new String[] {"a", "b"};
+        String[] test = Validate.noNullElements(array);
+        assertSame(array, test);
     }
 
     //-----------------------------------------------------------------------
@@ -506,8 +567,13 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
+        
+        array = new String[] {"a", "b"};
+        String[] test = Validate.noNullElements(array, "Message");
+        assertSame(array, test);
     }
 
+    //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     public void testNoNullElementsCollection1() {
         List<String> coll = new ArrayList<String>();
@@ -527,6 +593,10 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated collection contains null element at index: 1", ex.getMessage());
         }
+        
+        coll.set(1, "b");
+        List<String> test = Validate.noNullElements(coll);
+        assertSame(coll, test);
     }
 
     //-----------------------------------------------------------------------
@@ -548,8 +618,13 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("MSG", ex.getMessage());
         }
+        
+        coll.set(1, "b");
+        List<String> test = Validate.noNullElements(coll, "Message");
+        assertSame(coll, test);
     }
 
+    //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     public void testAllElementsOfType() {
         List<Object> coll = new ArrayList<Object>();
@@ -589,6 +664,8 @@ public class ValidateTest extends TestCase {
         }
     }
 
+    //-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new Validate());
         Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
@@ -598,6 +675,7 @@ public class ValidateTest extends TestCase {
         assertEquals(false, Modifier.isFinal(Validate.class.getModifiers()));
     }
 
+    //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     public void testValidIndex_withMessage_array() {
         Object[] array = new Object[2];
@@ -615,6 +693,10 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("Broken: 2", ex.getMessage());
         }
+        
+        String[] strArray = new String[] {"Hi"};
+        String[] test = Validate.noNullElements(strArray, "Message");
+        assertSame(strArray, test);
     }
 
     public void testValidIndex_array() {
@@ -633,8 +715,13 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated array index is invalid: 2", ex.getMessage());
         }
+        
+        String[] strArray = new String[] {"Hi"};
+        String[] test = Validate.noNullElements(strArray);
+        assertSame(strArray, test);
     }
 
+    //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     public void testValidIndex_withMessage_collection() {
         Collection<String> coll = new ArrayList<String>();
@@ -654,6 +741,10 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("Broken: 2", ex.getMessage());
         }
+        
+        List<String> strColl = Arrays.asList(new String[] {"Hi"});
+        List<String> test = Validate.validIndex(strColl, 0, "Message");
+        assertSame(strColl, test);
     }
 
     public void testValidIndex_collection() {
@@ -674,8 +765,13 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated collection index is invalid: 2", ex.getMessage());
         }
+        
+        List<String> strColl = Arrays.asList(new String[] {"Hi"});
+        List<String> test = Validate.validIndex(strColl, 0);
+        assertSame(strColl, test);
     }
 
+    //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
     public void testValidIndex_withMessage_charSequence() {
         CharSequence str = "Hi";
@@ -693,6 +789,10 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("Broken: 2", ex.getMessage());
         }
+        
+        String input = "Hi";
+        String test = Validate.validIndex(input, 0, "Message");
+        assertSame(input, test);
     }
 
     public void testValidIndex_charSequence() {
@@ -711,6 +811,10 @@ public class ValidateTest extends TestCase {
         } catch (IllegalArgumentException ex) {
             assertEquals("The validated string index is invalid: 2", ex.getMessage());
         }
+        
+        String input = "Hi";
+        String test = Validate.validIndex(input, 0);
+        assertSame(input, test);
     }
 
 }

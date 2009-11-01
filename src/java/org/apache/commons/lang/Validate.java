@@ -195,12 +195,14 @@ public class Validate {
      * @param object  the object to check is not <code>null</code>
      * @param message  the exception message you would like to see
      *  if the object is <code>null</code>
+     * @return the input object, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the object is <code>null</code>
      */
-    public static void notNull(Object object, String message) {
+    public static <T> T notNull(T object, String message) {
         if (object == null) {
             throw new IllegalArgumentException(message);
         }
+        return object;
     }
 
     /**
@@ -214,10 +216,11 @@ public class Validate {
      * <p>The message in the exception is 'The validated object is null'.</p>
      * 
      * @param object  the object to check is not <code>null</code>
+     * @return the input object, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the object is <code>null</code>
      */
-    public static void notNull(Object object) {
-        notNull(object, "The validated object is null");
+    public static <T> T notNull(T object) {
+        return notNull(object, "The validated object is null");
     }
 
     // notEmpty array
@@ -233,12 +236,14 @@ public class Validate {
      * 
      * @param array  the array to check is not empty
      * @param message  the exception message you would like to see if the array is empty
+     * @return the input array, never <code>null</code> or empty, for chaining
      * @throws IllegalArgumentException if the array is empty
      */
-    public static void notEmpty(Object[] array, String message) {
+    public static <T> T[] notEmpty(T[] array, String message) {
         if (array == null || array.length == 0) {
             throw new IllegalArgumentException(message);
         }
+        return array;
     }
 
     /**
@@ -252,10 +257,11 @@ public class Validate {
      * <p>The message in the exception is 'The validated array is empty'.
      * 
      * @param array  the array to check is not empty
+     * @return the input array, never <code>null</code> or empty, for chaining
      * @throws IllegalArgumentException if the array is empty
      */
-    public static void notEmpty(Object[] array) {
-        notEmpty(array, "The validated array is empty");
+    public static <T> T[] notEmpty(T[] array) {
+        return notEmpty(array, "The validated array is empty");
     }
 
     // notEmpty collection
@@ -271,12 +277,14 @@ public class Validate {
      * 
      * @param collection  the collection to check is not empty
      * @param message  the exception message you would like to see if the collection is empty
+     * @return the input collection, never <code>null</code> or empty, for chaining
      * @throws IllegalArgumentException if the collection is empty
      */
-    public static void notEmpty(Collection<?> collection, String message) {
+    public static <T extends Collection<?>> T notEmpty(T collection, String message) {
         if (collection == null || collection.size() == 0) {
             throw new IllegalArgumentException(message);
         }
+        return collection;
     }
 
     /**
@@ -290,10 +298,11 @@ public class Validate {
      * <p>The message in the exception is 'The validated collection is empty'.</p>
      * 
      * @param collection  the collection to check is not empty
+     * @return the input collection, never <code>null</code> or empty, for chaining
      * @throws IllegalArgumentException if the collection is empty
      */
-    public static void notEmpty(Collection<?> collection) {
-        notEmpty(collection, "The validated collection is empty");
+    public static <T extends Collection<?>> T notEmpty(T collection) {
+        return notEmpty(collection, "The validated collection is empty");
     }
 
     // notEmpty map
@@ -309,12 +318,14 @@ public class Validate {
      * 
      * @param map  the map to check is not empty
      * @param message  the exception message you would like to see if the map is empty
+     * @return the input map, never <code>null</code> or empty, for chaining
      * @throws IllegalArgumentException if the map is empty
      */
-    public static void notEmpty(Map<?,?> map, String message) {
+    public static <T extends Map<?, ?>> T notEmpty(T map, String message) {
         if (map == null || map.size() == 0) {
             throw new IllegalArgumentException(message);
         }
+        return map;
     }
 
     /**
@@ -328,10 +339,11 @@ public class Validate {
      * <p>The message in the exception is 'The validated map is empty'.</p>
      * 
      * @param map  the map to check is not empty
+     * @return the input map, never <code>null</code> or empty, for chaining
      * @throws IllegalArgumentException if the map is empty
      */
-    public static void notEmpty(Map<?,?> map) {
-        notEmpty(map, "The validated map is empty");
+    public static <T extends Map<?, ?>> T notEmpty(T map) {
+        return notEmpty(map, "The validated map is empty");
     }
 
     // notEmpty string
@@ -347,12 +359,14 @@ public class Validate {
      * 
      * @param string  the string to check is not empty
      * @param message  the exception message you would like to see if the string is empty
+     * @return the input string, never <code>null</code> or empty, for chaining
      * @throws IllegalArgumentException if the string is empty
      */
-    public static void notEmpty(String string, String message) {
+    public static <T extends CharSequence> T notEmpty(T string, String message) {
         if (string == null || string.length() == 0) {
             throw new IllegalArgumentException(message);
         }
+        return string;
     }
 
     /**
@@ -366,14 +380,36 @@ public class Validate {
      * <p>The message in the exception is 'The validated string is empty'.</p>
      * 
      * @param string  the string to check is not empty
+     * @return the input string, never <code>null</code> or empty, for chaining
      * @throws IllegalArgumentException if the string is empty
      */
-    public static void notEmpty(String string) {
-        notEmpty(string, "The validated string is empty");
+    public static <T extends CharSequence> T notEmpty(T string) {
+        return notEmpty(string, "The validated string is empty");
     }
 
     // notBlank string
     //---------------------------------------------------------------------------------
+
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
+     * if the argument String is blank (<code>null</code>, empty or whitespace).</p>
+     *
+     * <pre>
+     * Validate.notBlank(myString, "The string must not be blank");
+     * </pre>
+     *
+     * @param string  the string to check is not blank
+     * @param message  the exception message you would like to see if the string is blank
+     * @return the input string, never <code>null</code> or blank, for chaining
+     * @throws IllegalArgumentException if the string is blank
+     * @see StringUtils#isBlank(CharSequence)
+     */
+    public static <T extends CharSequence> T notBlank(T string, String message) {
+        if (StringUtils.isBlank(string)) {
+            throw new IllegalArgumentException(message);
+        }
+        return string;
+    }
 
     /**
      * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
@@ -386,32 +422,12 @@ public class Validate {
      * <p>The message in the exception is 'The validated string is blank'.</p>
      *
      * @param string  the string to check is not blank
+     * @return the input string, never <code>null</code> or blank, for chaining
      * @throws IllegalArgumentException if the string is blank
      * @see StringUtils#isBlank(CharSequence)
      */
-    public static void notBlank(String string) {
-        if (StringUtils.isBlank(string)) {
-            throw new IllegalArgumentException("The validated string is blank");
-        }
-    }
-
-    /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument String is blank (<code>null</code>, empty or whitespace).</p>
-     *
-     * <pre>
-     * Validate.notBlank(myString, "The string must not be blank");
-     * </pre>
-     *
-     * @param string  the string to check is not blank
-     * @param message  the exception message you would like to see if the string is blank
-     * @throws IllegalArgumentException if the string is blank
-     * @see StringUtils#isBlank(CharSequence)
-     */
-    public static void notBlank(String string, String message) {
-        if (StringUtils.isBlank(string)) {
-            throw new IllegalArgumentException(message);
-        }
+    public static <T extends CharSequence> T notBlank(T string) {
+        return notBlank(string, "The validated string is blank");
     }
 
     // notNullElements array
@@ -431,16 +447,18 @@ public class Validate {
      * @param array  the array to check
      * @param message  the exception message if the array has
      *  <code>null</code> elements
+     * @return the validated input array, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the array has <code>null</code>
      *  elements or is <code>null</code>
      */
-    public static void noNullElements(Object[] array, String message) {
+    public static <T> T[] noNullElements(T[] array, String message) {
         Validate.notNull(array);
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
                 throw new IllegalArgumentException(message);
             }
         }
+        return array;
     }
 
     /**
@@ -458,16 +476,18 @@ public class Validate {
      * <p>If the array is null then the message in the exception is 'The validated object is null'.</p>
      * 
      * @param array  the array to check
+     * @return the validated input array, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the array has <code>null</code>
      *  elements or is <code>null</code>
      */
-    public static void noNullElements(Object[] array) {
+    public static <T> T[] noNullElements(T[] array) {
         Validate.notNull(array);
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
                 throw new IllegalArgumentException("The validated array contains null element at index: " + i);
             }
         }
+        return array;
     }
 
     // notNullElements collection
@@ -487,16 +507,18 @@ public class Validate {
      * @param collection  the collection to check
      * @param message  the exception message if the collection has
      *  <code>null</code> elements
+     * @return the validated input collection, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the collection has
      *  <code>null</code> elements or is <code>null</code>
      */
-    public static void noNullElements(Collection<?> collection, String message) {
+    public static <T extends Collection<?>> T noNullElements(T collection, String message) {
         Validate.notNull(collection);
         for (Iterator<?> it = collection.iterator(); it.hasNext();) {
             if (it.next() == null) {
                 throw new IllegalArgumentException(message);
             }
         }
+        return collection;
     }
 
     /**
@@ -513,10 +535,11 @@ public class Validate {
      * <p>If the collection is null then the message in the exception is 'The validated object is null'.</p>
      * 
      * @param collection  the collection to check
+     * @return the validated input collection, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the collection has
      *  <code>null</code> elements or is <code>null</code>
      */
-    public static void noNullElements(Collection<?> collection) {
+    public static <T extends Collection<?>> T noNullElements(T collection) {
         Validate.notNull(collection);
         int i = 0;
         for (Iterator<?> it = collection.iterator(); it.hasNext(); i++) {
@@ -524,7 +547,11 @@ public class Validate {
                 throw new IllegalArgumentException("The validated collection contains null element at index: " + i);
             }
         }
+        return collection;
     }
+
+    // allElementsOfType collection
+    //---------------------------------------------------------------------------------
 
     /**
      * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
@@ -595,13 +622,15 @@ public class Validate {
      *
      * @param array  the array to check, not null
      * @param message  the exception message if the array index is invalid
+     * @return the validated input array, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the array index is invalid or null
      */
-    public static void validIndex(Object[] array, int index, String message) {
+    public static <T> T[] validIndex(T[] array, int index, String message) {
         Validate.notNull(array);
         if (index < 0 || index >= array.length) {
             throw new IllegalArgumentException(message + index);
         }
+        return array;
     }
 
     /**
@@ -618,10 +647,11 @@ public class Validate {
      * <p>If the array is null then the message in the exception is 'The validated object is null'.</p>
      * 
      * @param array  the array to check, not null
+     * @return the validated input array, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the array index is invalid or null
      */
-    public static void validIndex(Object[] array, int index) {
-        validIndex(array, index, "The validated array index is invalid: ");
+    public static <T> T[] validIndex(T[] array, int index) {
+        return validIndex(array, index, "The validated array index is invalid: ");
     }
 
     // validIndex collection
@@ -639,13 +669,15 @@ public class Validate {
      *
      * @param coll  the collection to check, not null
      * @param message  the exception message if the collection index is invalid
+     * @return the validated input collection, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the collection index is invalid or null
      */
-    public static void validIndex(Collection<?> coll, int index, String message) {
+    public static <T extends Collection<?>> T validIndex(T coll, int index, String message) {
         Validate.notNull(coll);
         if (index < 0 || index >= coll.size()) {
             throw new IllegalArgumentException(message + index);
         }
+        return coll;
     }
 
     /**
@@ -662,10 +694,11 @@ public class Validate {
      * <p>If the collection is null then the message in the exception is 'The validated object is null'.</p>
      * 
      * @param coll  the collection to check, not null
+     * @return the validated input collection, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the collection index is invalid or null
      */
-    public static void validIndex(Collection<?> coll, int index) {
-        validIndex(coll, index, "The validated collection index is invalid: ");
+    public static <T extends Collection<?>> T validIndex(T coll, int index) {
+        return validIndex(coll, index, "The validated collection index is invalid: ");
     }
 
     // validIndex string
@@ -684,13 +717,15 @@ public class Validate {
      *
      * @param str  the string to check, not null
      * @param message  the exception message if the string index is invalid
+     * @return the validated input string, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the string index is invalid or null
      */
-    public static void validIndex(CharSequence str, int index, String message) {
+    public static <T extends CharSequence> T validIndex(T str, int index, String message) {
         Validate.notNull(str);
         if (index < 0 || index >= str.length()) {
             throw new IllegalArgumentException(message + index);
         }
+        return str;
     }
 
     /**
@@ -708,10 +743,11 @@ public class Validate {
      * <p>If the string is null then the message in the exception is 'The validated object is null'.</p>
      * 
      * @param str  the string to check, not null
+     * @return the validated input string, never <code>null</code>, for chaining
      * @throws IllegalArgumentException if the string index is invalid or null
      */
-    public static void validIndex(CharSequence str, int index) {
-        validIndex(str, index, "The validated string index is invalid: ");
+    public static <T extends CharSequence> T validIndex(T str, int index) {
+        return validIndex(str, index, "The validated string index is invalid: ");
     }
 
 }
