@@ -626,46 +626,6 @@ public class ValidateTest extends TestCase {
 
     //-----------------------------------------------------------------------
     //-----------------------------------------------------------------------
-    public void testAllElementsOfType() {
-        List<Object> coll = new ArrayList<Object>();
-        coll.add("a");
-        coll.add("b");
-        Validate.allElementsOfType(coll, String.class, "MSG");
-        Validate.allElementsOfType(coll, String.class);
-        try {
-            Validate.allElementsOfType(coll, Integer.class, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-        coll.set(1, Boolean.FALSE);
-        try {
-            Validate.allElementsOfType(coll, String.class);
-            fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
-            assertEquals("The validated collection contains an element not of type java.lang.String at index: 1", ex.getMessage());
-        }
-        
-        coll = new ArrayList<Object>();
-        coll.add(new Integer(5));
-        coll.add(new Double(2.0d));
-        Validate.allElementsOfType(coll, Number.class, "MSG");
-        try {
-            Validate.allElementsOfType(coll, Integer.class, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-        try {
-            Validate.allElementsOfType(coll, Double.class, "MSG");
-            fail("Expecting IllegalArgumentException");
-        } catch (IllegalArgumentException ex) {
-            assertEquals("MSG", ex.getMessage());
-        }
-    }
-
-    //-----------------------------------------------------------------------
-    //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new Validate());
         Constructor<?>[] cons = Validate.class.getDeclaredConstructors();
