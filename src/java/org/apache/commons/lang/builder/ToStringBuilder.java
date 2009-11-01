@@ -106,9 +106,10 @@ public class ToStringBuilder {
      * It is recommended to pass a <code>ToStringStyle</code> to the constructor instead
      * of using this global default.</p>
      * 
-     * <p>This method is not intended for use from multiple threads.
+     * <p>This method can be used from multiple threads.
      * Internally, a <code>volatile</code> variable is used to provide the guarantee
-     * that the latest value set using {@link #setDefaultStyle} is the value returned.</p>
+     * that the latest value set using {@link #setDefaultStyle} is the value returned.
+     * It is strongly recommended that the default style is only changed during application startup.</p>
      * 
      * <p>One reason for changing the default could be to have a verbose style during
      * development and a compact style in production.</p>
