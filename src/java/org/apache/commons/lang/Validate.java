@@ -580,4 +580,138 @@ public class Validate {
         }
     }
 
+    // validIndex array
+    //---------------------------------------------------------------------------------
+
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
+     * index for the argument array is invalid or if the array is <code>null</code>.</p>
+     *
+     * <pre>
+     * Validate.validIndex(myArray, 2, "The array index is invalid: ");
+     * </pre>
+     * 
+     * <p>If the array is null then the message in the exception is 'The validated object is null'.</p>
+     *
+     * @param array  the array to check, not null
+     * @param message  the exception message if the array index is invalid
+     * @throws IllegalArgumentException if the array index is invalid or null
+     */
+    public static void validIndex(Object[] array, int index, String message) {
+        Validate.notNull(array);
+        if (index < 0 || index >= array.length) {
+            throw new IllegalArgumentException(message + index);
+        }
+    }
+
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
+     * index for the argument array is invalid or if the array is <code>null</code>.</p>
+     *
+     * <pre>
+     * Validate.validIndex(myArray, 2);
+     * </pre>
+     *
+     * <p>If the array index is invalid the message in the exception is
+     * 'The validated array index is invalid: ' followed by the index.</p>
+     *
+     * <p>If the array is null then the message in the exception is 'The validated object is null'.</p>
+     * 
+     * @param array  the array to check, not null
+     * @throws IllegalArgumentException if the array index is invalid or null
+     */
+    public static void validIndex(Object[] array, int index) {
+        validIndex(array, index, "The validated array index is invalid: ");
+    }
+
+    // validIndex collection
+    //---------------------------------------------------------------------------------
+
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
+     * index for the argument collection is invalid or if the collection is <code>null</code>.</p>
+     *
+     * <pre>
+     * Validate.validIndex(myCollection, 2, "The collection index is invalid: ");
+     * </pre>
+     * 
+     * <p>If the collection is null then the message in the exception is 'The validated object is null'.</p>
+     *
+     * @param coll  the collection to check, not null
+     * @param message  the exception message if the collection index is invalid
+     * @throws IllegalArgumentException if the collection index is invalid or null
+     */
+    public static void validIndex(Collection<?> coll, int index, String message) {
+        Validate.notNull(coll);
+        if (index < 0 || index >= coll.size()) {
+            throw new IllegalArgumentException(message + index);
+        }
+    }
+
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
+     * index for the argument collection is invalid or if the collection is <code>null</code>.</p>
+     *
+     * <pre>
+     * Validate.validIndex(myCollection, 2);
+     * </pre>
+     *
+     * <p>If the collection index is invalid the message in the exception is
+     * 'The validated collection index is invalid: ' followed by the index.</p>
+     *
+     * <p>If the collection is null then the message in the exception is 'The validated object is null'.</p>
+     * 
+     * @param coll  the collection to check, not null
+     * @throws IllegalArgumentException if the collection index is invalid or null
+     */
+    public static void validIndex(Collection<?> coll, int index) {
+        validIndex(coll, index, "The validated collection index is invalid: ");
+    }
+
+    // validIndex string
+    //---------------------------------------------------------------------------------
+
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
+     * index for the argument character sequence (including String and StringBuffer)
+     * is invalid or if the string is <code>null</code>.</p>
+     *
+     * <pre>
+     * Validate.validIndex(myStr, 2, "The string index is invalid: ");
+     * </pre>
+     * 
+     * <p>If the string is null then the message in the exception is 'The validated object is null'.</p>
+     *
+     * @param str  the string to check, not null
+     * @param message  the exception message if the string index is invalid
+     * @throws IllegalArgumentException if the string index is invalid or null
+     */
+    public static void validIndex(CharSequence str, int index, String message) {
+        Validate.notNull(str);
+        if (index < 0 || index >= str.length()) {
+            throw new IllegalArgumentException(message + index);
+        }
+    }
+
+    /**
+     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
+     * index for the argument character sequence (including String and StringBuffer)
+     * is invalid or if the string is <code>null</code>.</p>
+     *
+     * <pre>
+     * Validate.validIndex(myStr, 2);
+     * </pre>
+     *
+     * <p>If the string index is invalid the message in the exception is
+     * 'The validated string index is invalid: ' followed by the index.</p>
+     *
+     * <p>If the string is null then the message in the exception is 'The validated object is null'.</p>
+     * 
+     * @param str  the string to check, not null
+     * @throws IllegalArgumentException if the string index is invalid or null
+     */
+    public static void validIndex(CharSequence str, int index) {
+        validIndex(str, index, "The validated string index is invalid: ");
+    }
+
 }

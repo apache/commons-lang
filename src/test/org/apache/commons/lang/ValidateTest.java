@@ -597,5 +597,120 @@ public class ValidateTest extends TestCase {
         assertEquals(true, Modifier.isPublic(Validate.class.getModifiers()));
         assertEquals(false, Modifier.isFinal(Validate.class.getModifiers()));
     }
-    
+
+    //-----------------------------------------------------------------------
+    public void testValidIndex_withMessage_array() {
+        Object[] array = new Object[2];
+        Validate.validIndex(array, 0, "Broken: ");
+        Validate.validIndex(array, 1, "Broken: ");
+        try {
+            Validate.validIndex(array, -1, "Broken: ");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Broken: -1", ex.getMessage());
+        }
+        try {
+            Validate.validIndex(array, 2, "Broken: ");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Broken: 2", ex.getMessage());
+        }
+    }
+
+    public void testValidIndex_array() {
+        Object[] array = new Object[2];
+        Validate.validIndex(array, 0);
+        Validate.validIndex(array, 1);
+        try {
+            Validate.validIndex(array, -1);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("The validated array index is invalid: -1", ex.getMessage());
+        }
+        try {
+            Validate.validIndex(array, 2);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("The validated array index is invalid: 2", ex.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testValidIndex_withMessage_collection() {
+        Collection<String> coll = new ArrayList<String>();
+        coll.add(null);
+        coll.add(null);
+        Validate.validIndex(coll, 0, "Broken: ");
+        Validate.validIndex(coll, 1, "Broken: ");
+        try {
+            Validate.validIndex(coll, -1, "Broken: ");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Broken: -1", ex.getMessage());
+        }
+        try {
+            Validate.validIndex(coll, 2, "Broken: ");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Broken: 2", ex.getMessage());
+        }
+    }
+
+    public void testValidIndex_collection() {
+        Collection<String> coll = new ArrayList<String>();
+        coll.add(null);
+        coll.add(null);
+        Validate.validIndex(coll, 0);
+        Validate.validIndex(coll, 1);
+        try {
+            Validate.validIndex(coll, -1);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("The validated collection index is invalid: -1", ex.getMessage());
+        }
+        try {
+            Validate.validIndex(coll, 2);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("The validated collection index is invalid: 2", ex.getMessage());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    public void testValidIndex_withMessage_charSequence() {
+        CharSequence str = "Hi";
+        Validate.validIndex(str, 0, "Broken: ");
+        Validate.validIndex(str, 1, "Broken: ");
+        try {
+            Validate.validIndex(str, -1, "Broken: ");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Broken: -1", ex.getMessage());
+        }
+        try {
+            Validate.validIndex(str, 2, "Broken: ");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Broken: 2", ex.getMessage());
+        }
+    }
+
+    public void testValidIndex_charSequence() {
+        CharSequence str = "Hi";
+        Validate.validIndex(str, 0);
+        Validate.validIndex(str, 1);
+        try {
+            Validate.validIndex(str, -1);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("The validated string index is invalid: -1", ex.getMessage());
+        }
+        try {
+            Validate.validIndex(str, 2);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("The validated string index is invalid: 2", ex.getMessage());
+        }
+    }
+
 }
