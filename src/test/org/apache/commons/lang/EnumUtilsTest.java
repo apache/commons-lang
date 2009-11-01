@@ -60,10 +60,10 @@ public class EnumUtilsTest extends TestCase {
     }
 
     public void test_isEnum() {
-        assertEquals(true, EnumUtils.isEnum(Traffic.class, "RED"));
-        assertEquals(true, EnumUtils.isEnum(Traffic.class, "AMBER"));
-        assertEquals(true, EnumUtils.isEnum(Traffic.class, "GREEN"));
-        assertEquals(false, EnumUtils.isEnum(Traffic.class, "PURPLE"));
+        assertEquals(true, EnumUtils.isValidEnum(Traffic.class, "RED"));
+        assertEquals(true, EnumUtils.isValidEnum(Traffic.class, "AMBER"));
+        assertEquals(true, EnumUtils.isValidEnum(Traffic.class, "GREEN"));
+        assertEquals(false, EnumUtils.isValidEnum(Traffic.class, "PURPLE"));
     }
 
     public void test_getEnum() {

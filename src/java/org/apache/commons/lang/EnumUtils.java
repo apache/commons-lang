@@ -73,7 +73,7 @@ public class EnumUtils {
      * @param enumClass  the class of the <code>enum</code> to get, not null
      * @return the map of enum names to enums, never null
      */
-    public static <E extends Enum<E>> boolean isEnum(Class<E> enumClass, String enumName) {
+    public static <E extends Enum<E>> boolean isValidEnum(Class<E> enumClass, String enumName) {
         try {
             Enum.valueOf(enumClass, enumName);
             return true;
