@@ -318,4 +318,36 @@ public class ObjectUtils {
         }
     }
 
+    /**
+     * <p>Returns the first passed value which is not <code>null</code> or
+     * <code>null</code> otherwise.</p>
+     * 
+     * <pre>
+     * ObjectUtils.firstNonNull(null, null)      = null
+     * ObjectUtils.firstNonNull(null, "")        = ""
+     * ObjectUtils.firstNonNull(null, null, "")  = ""
+     * ObjectUtils.firstNonNull(null, "zz")      = "zz"
+     * ObjectUtils.firstNonNull("abc", *)        = "abc"
+     * ObjectUtils.firstNonNull(null, "xyz", *)  = "xyz"
+     * ObjectUtils.firstNonNull(Boolean.TRUE, *) = Boolean.TRUE
+     * ObjectUtils.firstNonNull()                = null
+     * </pre>
+     *
+     * @param values  the values to test, may be <code>null</code> or empty
+     * 
+     * @return The first value from <code>values</code> which is not
+     *         <code>null</code> or <code>null</code> otherwise.
+     */
+    public static <T> T firstNonNull(T... values) {
+      // This is a trivial implementation. There may be faster ones.
+      // According to the JRE Libraries, overloading the method with fixed
+      // parameter sizes may be faster.
+      for (T val : values) {
+        if (val != null && val != ObjectUtils.NULL) {
+          return val;
+        }
+      }
+      return null;
+    }
+
 }
