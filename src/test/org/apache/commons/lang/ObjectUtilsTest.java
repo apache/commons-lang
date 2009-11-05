@@ -216,4 +216,19 @@ public class ObjectUtilsTest extends TestCase {
 
         assertNull( ObjectUtils.min((String)null, (String)null) );
     }
+
+    public void testFirstNonNull() {
+      assertEquals(null, ObjectUtils.firstNonNull(null, null));
+      assertEquals("", ObjectUtils.firstNonNull(null, ""));
+      assertEquals("123", ObjectUtils.firstNonNull(null, null, "123", "456"));
+      assertEquals("123", ObjectUtils.firstNonNull("123", null, "456", null));
+      assertEquals(null, ObjectUtils.firstNonNull());
+      assertSame(Boolean.TRUE, ObjectUtils.firstNonNull(Boolean.TRUE));
+      assertNull(ObjectUtils.firstNonNull());
+      assertNull(ObjectUtils.firstNonNull(null, null));
+      assertSame("123", ObjectUtils.firstNonNull(null, ObjectUtils.NULL, "123", "456"));
+      assertSame("456", ObjectUtils.firstNonNull(ObjectUtils.NULL, "456", "123", null));
+      assertNull(ObjectUtils.firstNonNull(null, null, ObjectUtils.NULL));
+    }
+
 }
