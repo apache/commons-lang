@@ -26,6 +26,7 @@ import java.util.Comparator;
  * @version $Id: Range.java 830032 2009-10-27 00:15:00Z scolebourne $
  */
 // TODO: Serializable?
+// TODO: Make class final and use fields instead of getters?
 public class Range<T> {
 
     private final Comparator comparator;
