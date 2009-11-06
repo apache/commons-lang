@@ -51,9 +51,6 @@ public class RangeTest extends TestCase {
         doubleRange = new Range<Double>((double) 10, (double) 20);
     }
 
-    /**
-     * Test method for 'org.apache.commons.lang.Range.equals(Object)'
-     */
     public void testEqualsObject() {
         assertEquals(byteRange, byteRange);
         assertEquals(byteRange, byteRange2);
@@ -66,22 +63,25 @@ public class RangeTest extends TestCase {
         assertFalse(byteRange2.equals("Ni!"));
     }
 
-    /**
-     * Test method for 'org.apache.commons.lang.Range.hashCode()'
-     */
     public void testHashCode() {
         assertEquals(byteRange.hashCode(), byteRange2.hashCode());
         assertFalse(byteRange.hashCode() == byteRange3.hashCode());
+
+        assertEquals(intRange.hashCode(), intRange.hashCode());
+        assertTrue(intRange.hashCode() != 0);
     }
 
-    /**
-     * Test method for 'org.apache.commons.lang.Range.toString()'
-     */
     public void testToString() {
         assertNotNull(byteRange.toString());
+
+        String str = intRange.toString();
+        assertEquals("Range[10,20]", str);
+//        assertSame(str, intRange.toString());  // no longer passes - does it matter?
+        assertEquals("Range[-20,-10]", new Range<Integer>(-20, -10).toString());
     }
 
     // --------------------------------------------------------------------------
+
     public void testGetMinimum() {
         assertEquals(10, (int) intRange.getMinimum());
         assertEquals(10L, (long) longRange.getMinimum());
@@ -105,6 +105,28 @@ public class RangeTest extends TestCase {
         assertTrue(intRange.contains(20));
         assertFalse(intRange.contains(25));
     }
+
+    public void testElementBefore() {
+        assertFalse(intRange.elementBefore(null));
+        
+        assertTrue(intRange.elementBefore(5));
+        assertFalse(intRange.elementBefore(10));
+        assertFalse(intRange.elementBefore(15));
+        assertFalse(intRange.elementBefore(20));
+        assertFalse(intRange.elementBefore(25));
+    }
+
+    public void testElementAfter() {
+        assertFalse(intRange.elementAfter(null));
+        
+        assertFalse(intRange.elementAfter(5));
+        assertFalse(intRange.elementAfter(10));
+        assertFalse(intRange.elementAfter(15));
+        assertFalse(intRange.elementAfter(20));
+        assertTrue(intRange.elementAfter(25));
+    }
+
+    // --------------------------------------------------------------------------
 
     public void testContainsRange() {
 
@@ -135,6 +157,38 @@ public class RangeTest extends TestCase {
         
         // negative
         assertFalse(intRange.containsRange(new Range(-11, -18)));
+
+    }
+
+    public void testOverlapsRange() {
+
+        // null handling
+        assertFalse(intRange.overlapsRange(null));
+
+        // easy inside range
+        assertTrue(intRange.overlapsRange(new Range(12, 18)));
+
+        // outside range on each side
+        assertFalse(intRange.overlapsRange(new Range(32, 45)));
+        assertFalse(intRange.overlapsRange(new Range(2, 8)));
+
+        // equals range
+        assertTrue(intRange.overlapsRange(new Range(10, 20)));
+
+        // overlaps
+        assertTrue(intRange.overlapsRange(new Range(9, 14)));
+        assertTrue(intRange.overlapsRange(new Range(16, 21)));
+
+        // touches lower boundary
+        assertTrue(intRange.overlapsRange(new Range(10, 19)));
+        assertTrue(intRange.overlapsRange(new Range(10, 21)));
+
+        // touches upper boundary
+        assertTrue(intRange.overlapsRange(new Range(11, 20)));
+        assertTrue(intRange.overlapsRange(new Range(9, 20)));
+        
+        // negative
+        assertFalse(intRange.overlapsRange(new Range(-11, -18)));
 
     }
 
