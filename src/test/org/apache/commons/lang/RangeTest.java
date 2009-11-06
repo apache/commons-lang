@@ -106,4 +106,36 @@ public class RangeTest extends TestCase {
         assertFalse(intRange.contains(25));
     }
 
+    public void testContainsRange() {
+
+        // null handling
+        assertFalse(intRange.containsRange(null));
+
+        // easy inside range
+        assertTrue(intRange.containsRange(new Range(12, 18)));
+
+        // outside range on each side
+        assertFalse(intRange.containsRange(new Range(32, 45)));
+        assertFalse(intRange.containsRange(new Range(2, 8)));
+
+        // equals range
+        assertTrue(intRange.containsRange(new Range(10, 20)));
+
+        // overlaps
+        assertFalse(intRange.containsRange(new Range(9, 14)));
+        assertFalse(intRange.containsRange(new Range(16, 21)));
+
+        // touches lower boundary
+        assertTrue(intRange.containsRange(new Range(10, 19)));
+        assertFalse(intRange.containsRange(new Range(10, 21)));
+
+        // touches upper boundary
+        assertTrue(intRange.containsRange(new Range(11, 20)));
+        assertFalse(intRange.containsRange(new Range(9, 20)));
+        
+        // negative
+        assertFalse(intRange.containsRange(new Range(-11, -18)));
+
+    }
+
 }
