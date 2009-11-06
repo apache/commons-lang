@@ -160,7 +160,6 @@ public class Range<T> {
      *
      * @param element  the element to test, may be <code>null</code>
      * @return <code>true</code> if the specified element occurs within this range
-     * @throws IllegalArgumentException if the <code>Number</code> cannot be compared
      */
     public boolean contains(T element) {
         if(element == null) {
@@ -169,20 +168,32 @@ public class Range<T> {
         return (comparator.compare(element, getMinimum()) > -1) && (comparator.compare(element, getMaximum()) < 1);
     }
 
-    public boolean lessThan(T element) {
+    /**
+     * <p>Tests whether the specified element occurs before this range.</p>
+     *
+     * @param element  the element to test
+     * @return <code>true</code> if the specified element occurs before this range
+     */
+    public boolean elementBefore(T element) {
         if (element == null) {
-            return false;
+            return false; // ??
         }
         
-        return this.comparator.compare(getMinimum(), element) < 1;
+        return this.comparator.compare(element, getMinimum()) < 0;
     }
 
-    public boolean greaterThan(T element) {
+    /**
+     * <p>Tests whether the specified element occurs after this range.</p>
+     *
+     * @param element  the element to test
+     * @return <code>true</code> if the specified element occurs after this range
+     */
+    public boolean elementAfter(T element) {
         if (element == null) {
-            return false;
+            return false; // ??
         }
         
-        return this.comparator.compare(getMaximum(), element) > -1;
+        return this.comparator.compare(element, getMaximum()) > 0;
     }
 
     // Range tests
