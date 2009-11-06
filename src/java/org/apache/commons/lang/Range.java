@@ -154,22 +154,19 @@ public class Range<T> {
     //--------------------------------------------------------------------
     
     /**
-     * <p>Tests whether the specified <code>Number</code> occurs within
-     * this range.</p>
-     * 
-     * <p>The exact comparison implementation varies by subclass. It is
-     * intended that an <code>int</code> specific subclass will compare using
-     * <code>int</code> comparison.</p>
+     * <p>Tests whether the specified element occurs within this range.</p>
      * 
      * <p><code>null</code> is handled and returns <code>false</code>.</p>
      *
-     * @param number  the number to test, may be <code>null</code>
-     * @return <code>true</code> if the specified number occurs within this range
+     * @param element  the element to test, may be <code>null</code>
+     * @return <code>true</code> if the specified element occurs within this range
      * @throws IllegalArgumentException if the <code>Number</code> cannot be compared
      */
-    public boolean contains(T t) {
-// TODO: Rewrite in terms of !lessThan and !greaterThan?
-        return (comparator.compare(t, getMinimum()) > -1) && (comparator.compare(t, getMaximum()) < 1);
+    public boolean contains(T element) {
+        if(element == null) {
+            return false;
+        }
+        return (comparator.compare(element, getMinimum()) > -1) && (comparator.compare(element, getMaximum()) < 1);
     }
 
     public boolean lessThan(T element) {
@@ -177,7 +174,7 @@ public class Range<T> {
             return false;
         }
         
-        return this.comparator.compare(this.getMinimum(), element) < 1;
+        return this.comparator.compare(getMinimum(), element) < 1;
     }
 
     public boolean greaterThan(T element) {

@@ -95,4 +95,15 @@ public class RangeTest extends TestCase {
         assertEquals(20f, floatRange.getMaximum(), 0.00001f);
         assertEquals(20d, doubleRange.getMaximum(), 0.00001d);
     }
+
+    public void testContains() {
+        assertFalse(intRange.contains(null));
+        
+        assertFalse(intRange.contains(5));
+        assertTrue(intRange.contains(10));
+        assertTrue(intRange.contains(15));
+        assertTrue(intRange.contains(20));
+        assertFalse(intRange.contains(25));
+    }
+
 }
