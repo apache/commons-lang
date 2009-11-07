@@ -17,6 +17,8 @@
 package org.apache.commons.lang.concurrent;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import junit.framework.TestCase;
 
@@ -161,4 +163,36 @@ public class ConcurrentUtilsTest extends TestCase {
         ConcurrentUtils.handleCause(null);
         ConcurrentUtils.handleCause(new ExecutionException("Test", null));
     }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Tests constant future.
+     */
+    public void testConstantFuture_Integer() throws Exception {
+        Integer value = new Integer(5);
+        Future<Integer> test = ConcurrentUtils.constantFuture(value);
+        assertEquals(true, test.isDone());
+        assertSame(value, test.get());
+        assertSame(value, test.get(1000, TimeUnit.SECONDS));
+        assertSame(value, test.get(1000, null));
+        assertEquals(false, test.isCancelled());
+        assertEquals(false, test.cancel(true));
+        assertEquals(false, test.cancel(false));
+    }
+
+    /**
+     * Tests constant future.
+     */
+    public void testConstantFuture_null() throws Exception {
+        Integer value = null;
+        Future<Integer> test = ConcurrentUtils.constantFuture(value);
+        assertEquals(true, test.isDone());
+        assertSame(value, test.get());
+        assertSame(value, test.get(1000, TimeUnit.SECONDS));
+        assertSame(value, test.get(1000, null));
+        assertEquals(false, test.isCancelled());
+        assertEquals(false, test.cancel(true));
+        assertEquals(false, test.cancel(false));
+    }
+
 }
