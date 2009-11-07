@@ -17,6 +17,8 @@
 package org.apache.commons.lang.concurrent;
 
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -28,6 +30,7 @@ import java.util.concurrent.ExecutionException;
  * @version $Id$
  */
 public class ConcurrentUtils {
+
     /**
      * Private constructor so that no instances can be created. This class
      * contains only static utility methods.
@@ -117,4 +120,53 @@ public class ConcurrentUtils {
             throw (Error) ex.getCause();
         }
     }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>
+     * Gets an implementation of <code>Future</code> that is immediately done
+     * and returns the specified constant value.
+     * </p>
+     * <p>
+     * This can be useful to return a simple constant immediately from the
+     * concurrent processing, perhaps as part of avoiding nulls.
+     * A constant future can also be useful in testing.
+     * </p>
+     * 
+     * @param value  the constant value to return, may be null
+     * @return an instance of Future that will return the value, never null
+     */
+    public static <T> Future<T> constantFuture(T value) {
+        return new ConstantFuture<T>(value);
+    }
+
+    static final class ConstantFuture<T> implements Future<T> {
+        /** The constant value. */
+        private final T value;
+
+        ConstantFuture(T value) {
+            this.value = value;
+        }
+
+        public boolean isDone() {
+            return true;
+        }
+
+        public T get() {
+            return value;
+        }
+
+        public T get(long timeout, TimeUnit unit) {
+            return value;
+        }
+
+        public boolean isCancelled() {
+            return false;
+        }
+
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            return false;
+        }
+    }
+
 }
