@@ -106,10 +106,10 @@ public class ExtendedMessageFormat extends MessageFormat {
      * Create a new ExtendedMessageFormat for the default locale.
      * 
      * @param pattern String
-     * @param registry Registry of format factories:  Map<String, FormatFactory>
+     * @param registry Registry of format factories:  Map<String, ? extends FormatFactory>
      * @throws IllegalArgumentException in case of a bad pattern.
      */
-    public ExtendedMessageFormat(String pattern, Map<String, FormatFactory> registry) {
+    public ExtendedMessageFormat(String pattern, Map<String, ? extends FormatFactory> registry) {
         this(pattern, Locale.getDefault(), registry);
     }
 
@@ -118,7 +118,7 @@ public class ExtendedMessageFormat extends MessageFormat {
      * 
      * @param pattern String
      * @param locale Locale
-     * @param registry Registry of format factories:  Map<String, FormatFactory>
+     * @param registry Registry of format factories:  Map<String, ? extends FormatFactory>
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(String pattern, Locale locale, Map<String, ? extends FormatFactory> registry) {
