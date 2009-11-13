@@ -51,6 +51,26 @@ public class RangeTest extends TestCase {
         doubleRange = new Range<Double>((double) 10, (double) 20);
     }
 
+    // --------------------------------------------------------------------------
+
+    public void testComparableConstructors() {
+        try {
+            Range range = new Range(new Object());
+            fail("IllegalArgumentException expected");
+        } catch(ClassCastException cce) {
+            // expected
+        }
+
+        try {
+            Range range = new Range(new Object(), new Object());
+            fail("ClassCastException expected");
+        } catch(ClassCastException cce) {
+            // expected
+        }
+    }
+
+    // --------------------------------------------------------------------------
+
     public void testEqualsObject() {
         assertEquals(byteRange, byteRange);
         assertEquals(byteRange, byteRange2);

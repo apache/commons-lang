@@ -41,10 +41,11 @@ public class Range<T> {
      *
      * @param element  the value to use for this range, must not be <code>null</code>
      * @throws IllegalArgumentException if the value is <code>null</code>
+     * @throws ClassCastException if the value is not Comparable
      */
-// TODO: Ideally this would only support <T extends Comparable<? super T>>
+    // TODO: Ideally the ClassCastException would be compile-time via generics
     public Range(T element) {
-        this(element, element);
+        this( element, element);
     }
 
     /**
@@ -59,10 +60,11 @@ public class Range<T> {
      * @param element1  first value that defines the edge of the range, inclusive
      * @param element2  second value that defines the edge of the range, inclusive
      * @throws IllegalArgumentException if either value is <code>null</code>
+     * @throws ClassCastException if either value is not Comparable
      */
-// TODO: Ideally this would only support <T extends Comparable<? super T>>
+    // TODO: Ideally the ClassCastException would be compile-time via generics
     public Range(T element1, T element2) {
-        this(element1, element2, ComparableComparator.INSTANCE);
+        this( element1, element2, ComparableComparator.INSTANCE);
     }
 
     /**
