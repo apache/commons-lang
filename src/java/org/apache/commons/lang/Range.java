@@ -199,6 +199,30 @@ public class Range<T> {
         return this.comparator.compare(element, getMaximum()) > 0;
     }
 
+    /**
+     * <p>Tests where the specified element occurs relative to this range.</p>
+     * <p>The API is reminiscent of the Comparable interface returning <code>-1</code> if 
+     * the element is before the range, <code>0</code> if contained within the range and 
+     * <code>1</code> if the element is after the range. </p>
+     *
+     * @param element  the element to test
+     * @return -1, 0 or +1 depending on the element's location relative to the range
+     */
+    public int elementCompareTo(T element) {
+        if(element == null) {
+            // Comparable API says throw NPE on null
+            throw new NullPointerException("Element is null");
+        }
+        if(elementBefore(element)) {
+            return -1;
+        } else
+        if(elementAfter(element)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     // Range tests
     //--------------------------------------------------------------------
 
