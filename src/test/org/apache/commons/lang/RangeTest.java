@@ -146,6 +146,21 @@ public class RangeTest extends TestCase {
         assertTrue(intRange.elementAfter(25));
     }
 
+    public void testElementCompareTo() {
+        try {
+            intRange.elementCompareTo(null);
+            fail("NullPointerException should have been thrown");
+        } catch(NullPointerException npe) {
+            // expected
+        }
+        
+        assertEquals(-1, intRange.elementCompareTo(5));
+        assertEquals(0, intRange.elementCompareTo(10));
+        assertEquals(0, intRange.elementCompareTo(15));
+        assertEquals(0, intRange.elementCompareTo(20));
+        assertEquals(1, intRange.elementCompareTo(25));
+    }
+
     // --------------------------------------------------------------------------
 
     public void testContainsRange() {
