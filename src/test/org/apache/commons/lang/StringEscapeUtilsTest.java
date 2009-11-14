@@ -218,9 +218,8 @@ public class StringEscapeUtilsTest extends TestCase {
         {"final character only", "greater than &gt;", "greater than >"},
         {"first character only", "&lt; less than", "< less than"},
         {"apostrophe", "Huntington's chorea", "Huntington's chorea"},
-        {"languages", "English,Fran&ccedil;ais,&#26085;&#26412;&#35486; (nihongo)", "English,Fran\u00E7ais,\u65E5\u672C\u8A9E (nihongo)"},
-        {"8-bit ascii doesn't number-escape", "~\u007F", "\u007E\u007F"},
-        {"8-bit ascii does number-escape", "&#128;&#159;", "\u0080\u009F"},
+        {"languages", "English,Fran&ccedil;ais,\u65E5\u672C\u8A9E (nihongo)", "English,Fran\u00E7ais,\u65E5\u672C\u8A9E (nihongo)"},
+        {"8-bit ascii shouldn't number-escape", "\u0080\u009F", "\u0080\u009F"},
     };
 
     public void testEscapeHtml() {
@@ -298,9 +297,9 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals("&lt;abc&gt;", StringEscapeUtils.escapeXml("<abc>"));
         assertEquals("<abc>", StringEscapeUtils.unescapeXml("&lt;abc&gt;"));
 
-        assertEquals("XML should use numbers, not names for HTML entities",
-                "&#161;", StringEscapeUtils.escapeXml("\u00A1"));
-        assertEquals("XML should use numbers, not names for HTML entities",
+        assertEquals("XML should not escape >0x7f values",
+                "\u00A1", StringEscapeUtils.escapeXml("\u00A1"));
+        assertEquals("XML should be able to unescape >0x7f values",
                 "\u00A0", StringEscapeUtils.unescapeXml("&#160;"));
 
         assertEquals("ain't", StringEscapeUtils.unescapeXml("ain&apos;t"));
@@ -413,21 +412,29 @@ public class StringEscapeUtilsTest extends TestCase {
         // codepoint: U+1D362
         byte[] data = new byte[] { (byte)0xF0, (byte)0x9D, (byte)0x8D, (byte)0xA2 };
 
-        String escaped = StringEscapeUtils.escapeHtml( new String(data, "UTF8") );
-        String unescaped = StringEscapeUtils.unescapeHtml( escaped );
+        String original = new String(data, "UTF8");
 
-        assertEquals( "High unicode was not escaped correctly", "&#119650;", escaped);
+        String escaped = StringEscapeUtils.escapeHtml( original );
+        assertEquals( "High unicode should not have been escaped", original, escaped);
+
+        String unescaped = StringEscapeUtils.unescapeHtml( escaped );
+        assertEquals( "High unicode should have been unchanged", original, unescaped);
+
+// TODO: I think this should hold, needs further investigation
+//        String unescapedFromEntity = StringEscapeUtils.unescapeHtml( "&#119650;" );
+//        assertEquals( "High unicode should have been unescaped", original, unescapedFromEntity);
     }
 
     // https://issues.apache.org/jira/browse/LANG-339
     public void testEscapeHiragana() throws java.io.UnsupportedEncodingException {
         // Some random Japanese unicode characters
-        String escaped = StringEscapeUtils.escapeHtml( "\u304B\u304C\u3068" );
-        assertEquals( "Hiragana character unicode behaviour has changed from their being escaped", 
-        "&#12363;&#12364;&#12392;", escaped);
+        String original = "\u304B\u304C\u3068";
+        String escaped = StringEscapeUtils.escapeHtml(original);
+        assertEquals( "Hiragana character unicode behaviour should not be being escaped by escapeHtml",
+        original, escaped);
 
         String unescaped = StringEscapeUtils.unescapeHtml( escaped );
 
-        assertEquals( "Hiragana character unicode behaviour has changed - expected no unescaping", escaped, escaped);
+        assertEquals( "Hiragana character unicode behaviour has changed - expected no unescaping", escaped, unescaped);
     }
 }
