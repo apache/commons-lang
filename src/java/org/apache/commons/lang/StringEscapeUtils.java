@@ -328,8 +328,8 @@ public class StringEscapeUtils {
      * <p>Supports only the five basic XML entities (gt, lt, quot, amp, apos).
      * Does not support DTDs or external entities.</p>
      *
-     * <p>Note that unicode characters greater than 0x7f are currently escaped to 
-     *    their numerical \\u equivalent. This may change in future releases. </p>
+     * <p>Note that unicode characters greater than 0x7f are as of 3.0, no longer 
+     *    escaped. </p>
      *
      * @param writer  the writer receiving the unescaped string, not null
      * @param str  the <code>String</code> to escape, may be null
@@ -351,8 +351,8 @@ public class StringEscapeUtils {
      * <p>Supports only the five basic XML entities (gt, lt, quot, amp, apos).
      * Does not support DTDs or external entities.</p>
      *
-     * <p>Note that unicode characters greater than 0x7f are currently escaped to 
-     *    their numerical \\u equivalent. This may change in future releases. </p>
+     * <p>Note that unicode characters greater than 0x7f are as of 3.0, no longer 
+     *    escaped. </p>
      *
      * @param str  the <code>String</code> to escape, may be null
      * @return a new escaped <code>String</code>, <code>null</code> if null string input
