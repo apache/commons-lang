@@ -24,7 +24,7 @@ import org.apache.commons.lang.text.translate.UnescapeUtils;
 
 /**
  * <p>Escapes and unescapes <code>String</code>s for
- * Java, Java Script, HTML, XML, and SQL.</p>
+ * Java, Java Script, HTML and XML.</p>
  *
  * @author Apache Software Foundation
  * @author Apache Jakarta Turbine
