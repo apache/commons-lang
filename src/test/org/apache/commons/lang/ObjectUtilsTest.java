@@ -72,7 +72,7 @@ public class ObjectUtilsTest extends TestCase {
         assertEquals(true, Modifier.isPublic(ObjectUtils.class.getModifiers()));
         assertEquals(false, Modifier.isFinal(ObjectUtils.class.getModifiers()));
     }
-    
+
     //-----------------------------------------------------------------------
     public void testIsNull() {
         Object o = FOO;
@@ -81,6 +81,24 @@ public class ObjectUtilsTest extends TestCase {
         assertSame("dflt was returned when o was not null", o, ObjectUtils.defaultIfNull(o, dflt));
     }
 
+    public void testFirstNonNull() {
+        assertEquals(null, ObjectUtils.firstNonNull(null, null));
+        assertEquals("", ObjectUtils.firstNonNull(null, ""));
+        String firstNonNullGenerics = ObjectUtils.firstNonNull(null, null, "123", "456");
+        assertEquals("123", firstNonNullGenerics);
+        assertEquals("123", ObjectUtils.firstNonNull("123", null, "456", null));
+        assertEquals(null, ObjectUtils.firstNonNull());
+        assertSame(Boolean.TRUE, ObjectUtils.firstNonNull(Boolean.TRUE));
+        assertNull(ObjectUtils.firstNonNull());
+        assertNull(ObjectUtils.firstNonNull(null, null));
+//        assertSame("123", ObjectUtils.firstNonNull(null, ObjectUtils.NULL, "123", "456"));
+//        assertSame("456", ObjectUtils.firstNonNull(ObjectUtils.NULL, "456", "123", null));
+//        assertNull(ObjectUtils.firstNonNull(null, null, ObjectUtils.NULL));
+        assertNull(ObjectUtils.firstNonNull((Object) null));
+        assertNull(ObjectUtils.firstNonNull((Object[]) null));
+    }
+
+    //-----------------------------------------------------------------------
     public void testEquals() {
         assertTrue("ObjectUtils.equals(null, null) returned false", ObjectUtils.equals(null, null));
         assertTrue("ObjectUtils.equals(\"foo\", null) returned true", !ObjectUtils.equals(FOO, null));
@@ -215,20 +233,6 @@ public class ObjectUtilsTest extends TestCase {
         assertSame( minComparable, ObjectUtils.min( minComparable, nonNullComparable1 ) );
 
         assertNull( ObjectUtils.min((String)null, (String)null) );
-    }
-
-    public void testFirstNonNull() {
-      assertEquals(null, ObjectUtils.firstNonNull(null, null));
-      assertEquals("", ObjectUtils.firstNonNull(null, ""));
-      assertEquals("123", ObjectUtils.firstNonNull(null, null, "123", "456"));
-      assertEquals("123", ObjectUtils.firstNonNull("123", null, "456", null));
-      assertEquals(null, ObjectUtils.firstNonNull());
-      assertSame(Boolean.TRUE, ObjectUtils.firstNonNull(Boolean.TRUE));
-      assertNull(ObjectUtils.firstNonNull());
-      assertNull(ObjectUtils.firstNonNull(null, null));
-      assertSame("123", ObjectUtils.firstNonNull(null, ObjectUtils.NULL, "123", "456"));
-      assertSame("456", ObjectUtils.firstNonNull(ObjectUtils.NULL, "456", "123", null));
-      assertNull(ObjectUtils.firstNonNull(null, null, ObjectUtils.NULL));
     }
 
 }
