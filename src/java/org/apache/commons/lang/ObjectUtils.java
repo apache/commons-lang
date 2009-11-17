@@ -111,9 +111,11 @@ public class ObjectUtils {
      *  or <code>null</code> if there are no non-null values
      */
     public static <T> T firstNonNull(T... values) {
-        for (T val : values) {
-            if (val != null && val != ObjectUtils.NULL) {
-                return val;
+        if (values != null) {
+            for (T val : values) {
+                if (val != null) {
+                    return val;
+                }
             }
         }
         return null;
