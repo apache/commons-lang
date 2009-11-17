@@ -91,6 +91,37 @@ public class ObjectUtils {
     }
 
     /**
+     * <p>Returns the first value in the array which is not <code>null</code>.
+     * If all the values are <code>null</code> or the array is <code>null</code>
+     * or empty then <code>null</code> is returned.</p>
+     * 
+     * <pre>
+     * ObjectUtils.firstNonNull(null, null)      = null
+     * ObjectUtils.firstNonNull(null, "")        = ""
+     * ObjectUtils.firstNonNull(null, null, "")  = ""
+     * ObjectUtils.firstNonNull(null, "zz")      = "zz"
+     * ObjectUtils.firstNonNull("abc", *)        = "abc"
+     * ObjectUtils.firstNonNull(null, "xyz", *)  = "xyz"
+     * ObjectUtils.firstNonNull(Boolean.TRUE, *) = Boolean.TRUE
+     * ObjectUtils.firstNonNull()                = null
+     * </pre>
+     *
+     * @param values  the values to test, may be <code>null</code> or empty
+     * @return the first value from <code>values</code> which is not <code>null</code>,
+     *  or <code>null</code> if there are no non-null values
+     */
+    public static <T> T firstNonNull(T... values) {
+        for (T val : values) {
+            if (val != null && val != ObjectUtils.NULL) {
+                return val;
+            }
+        }
+        return null;
+    }
+
+    // Null-safe equals/hashCode
+    //-----------------------------------------------------------------------
+    /**
      * <p>Compares two objects for equality, where either one or both
      * objects may be <code>null</code>.</p>
      *
@@ -316,38 +347,6 @@ public class ObjectUtils {
         private Object readResolve() {
             return ObjectUtils.NULL;
         }
-    }
-
-    /**
-     * <p>Returns the first passed value which is not <code>null</code> or
-     * <code>null</code> otherwise.</p>
-     * 
-     * <pre>
-     * ObjectUtils.firstNonNull(null, null)      = null
-     * ObjectUtils.firstNonNull(null, "")        = ""
-     * ObjectUtils.firstNonNull(null, null, "")  = ""
-     * ObjectUtils.firstNonNull(null, "zz")      = "zz"
-     * ObjectUtils.firstNonNull("abc", *)        = "abc"
-     * ObjectUtils.firstNonNull(null, "xyz", *)  = "xyz"
-     * ObjectUtils.firstNonNull(Boolean.TRUE, *) = Boolean.TRUE
-     * ObjectUtils.firstNonNull()                = null
-     * </pre>
-     *
-     * @param values  the values to test, may be <code>null</code> or empty
-     * 
-     * @return The first value from <code>values</code> which is not
-     *         <code>null</code> or <code>null</code> otherwise.
-     */
-    public static <T> T firstNonNull(T... values) {
-      // This is a trivial implementation. There may be faster ones.
-      // According to the JRE Libraries, overloading the method with fixed
-      // parameter sizes may be faster.
-      for (T val : values) {
-        if (val != null && val != ObjectUtils.NULL) {
-          return val;
-        }
-      }
-      return null;
     }
 
 }
