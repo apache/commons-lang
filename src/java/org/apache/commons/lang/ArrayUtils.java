@@ -181,18 +181,6 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Get a hashCode for an array handling multi-dimensional arrays correctly.</p>
-     *
-     * <p>Multi-dimensional primitive arrays are also handled correctly by this method.</p>
-     *
-     * @param array  the array to get a hashCode for, may be <code>null</code>
-     * @return a hashCode for the array, zero if null array input
-     */
-    public static int hashCode(Object array) {
-        return new HashCodeBuilder().append(array).toHashCode();
-    }
-
-    /**
      * <p>Compares two arrays, using equals(), handling multi-dimensional arrays
      * correctly.</p>
      *
