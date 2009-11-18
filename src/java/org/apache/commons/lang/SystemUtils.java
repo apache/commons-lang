@@ -1091,6 +1091,16 @@ public class SystemUtils {
      */
     public static final boolean IS_OS_WINDOWS_VISTA = getOSMatches(OS_NAME_WINDOWS_PREFIX, "6.0"); 
 
+    /**
+     * <p>Is <code>true</code> if this is Windows 7.</p>
+     *
+     * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
+     * <code>null</code>.</p>
+     *
+     * @since 3.0
+     */
+    public static final boolean IS_OS_WINDOWS_7 = getOSMatches(OS_NAME_WINDOWS_PREFIX, "6.1"); 
+
     //-----------------------------------------------------------------------    
     /**
      * <p>SystemUtils instances should NOT be constructed in standard
