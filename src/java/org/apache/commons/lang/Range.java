@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -25,9 +26,10 @@ import java.util.Comparator;
  * @since 3.0
  * @version $Id: Range.java 830032 2009-10-27 00:15:00Z scolebourne $
  */
-// TODO: Serializable?
 // TODO: Make class final and use fields instead of getters?
-public class Range<T> {
+public class Range<T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final Comparator comparator;
     private final T minimum;
