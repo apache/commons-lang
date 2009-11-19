@@ -76,6 +76,7 @@ public class Range<T> implements Serializable {
      * determine where values lie in the range.</p>
      *
      * @param element  the value to use for this range, must not be <code>null</code>
+     * @param c comparator to be used
      * @throws IllegalArgumentException if the value is <code>null</code>
      */
     public Range(T element, Comparator c) {
@@ -93,6 +94,7 @@ public class Range<T> implements Serializable {
      *
      * @param element1  first value that defines the edge of the range, inclusive
      * @param element2  second value that defines the edge of the range, inclusive
+     * @param c comparator to be used
      * @throws IllegalArgumentException if either value is <code>null</code>
      */
     public Range(T element1, T element2, Comparator c) {
@@ -237,7 +239,7 @@ public class Range<T> implements Serializable {
      * 
      * <p><code>null</code> is handled and returns <code>false</code>.</p>
      * 
-     * <p>This implementation uses the {@link #containsNumber(Number)} method.
+     * <p>This implementation uses the {@link #contains(Object)} method.
      * Subclasses may be able to optimise this.</p>
      *
      * @param range  the range to test, may be <code>null</code>
@@ -262,7 +264,7 @@ public class Range<T> implements Serializable {
      * 
      * <p><code>null</code> is handled and returns <code>false</code>.</p>
      * 
-     * <p>This implementation uses the {@link #containsNumber(Number)} and
+     * <p>This implementation uses the {@link #contains(Object)} and
      * {@link #containsRange(Range)} methods.
      * Subclasses may be able to optimise this.</p>
      *
@@ -288,8 +290,8 @@ public class Range<T> implements Serializable {
      * 
      * <p>To be equal, the class, minimum and maximum must be equal.</p>
      * 
-     * <p>This implementation uses the {@link #getMinimumNumber()} and 
-     * {@link #getMaximumNumber()} methods. 
+     * <p>This implementation uses the {@link #getMinimum()} and 
+     * {@link #getMaximum()} methods. 
      * Subclasses may be able to optimise this.</p>
      *
      * @param obj the reference object with which to compare
@@ -311,8 +313,8 @@ public class Range<T> implements Serializable {
     /**
      * <p>Gets a hashCode for the range.</p>
      * 
-     * <p>This implementation uses the {@link #getMinimumNumber()} and 
-     * {@link #getMaximumNumber()} methods. 
+     * <p>This implementation uses the {@link #getMinimum()} and 
+     * {@link #getMaximum()} methods. 
      * Subclasses may be able to optimise this.</p>
      *
      * @return a hash code value for this object
@@ -331,8 +333,8 @@ public class Range<T> implements Serializable {
      *
      * <p>The format of the String is 'Range[<i>min</i>,<i>max</i>]'.</p>
      * 
-     * <p>This implementation uses the {@link #getMinimumNumber()} and 
-     * {@link #getMaximumNumber()} methods. 
+     * <p>This implementation uses the {@link #getMinimum()} and 
+     * {@link #getMaximum()} methods. 
      * Subclasses may be able to optimise this.</p>
      *
      * @return the <code>String</code> representation of this range
@@ -368,10 +370,12 @@ public class Range<T> implements Serializable {
             return obj1.compareTo(obj2);
         }
 
+        @Override
         public int hashCode() {
             return "ComparableComparator".hashCode();
         }
 
+        @Override
         public boolean equals(Object object) {
             return (this == object) || 
                    ((null != object) && (object.getClass().equals(this.getClass())));
