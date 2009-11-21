@@ -24,6 +24,7 @@ public class StaticContainer {
     public static final Object IMMUTABLE_PUBLIC = "public";
     protected static final Object IMMUTABLE_PROTECTED = "protected";
     static final Object IMMUTABLE_PACKAGE = "";
+    @SuppressWarnings("unused")
     private static final Object IMMUTABLE_PRIVATE = "private";
 
     public static Object mutablePublic;
