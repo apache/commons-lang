@@ -26,17 +26,19 @@ import junit.framework.TestCase;
  * 
  * @version $Id: RangeTest.java 754804 2009-03-16 02:06:18Z sebb $
  */
+@SuppressWarnings("boxing")
 public class RangeTest extends TestCase {
 
-    private Range byteRange;
-    private Range byteRange2;
-    private Range byteRange3;
+    private Range<Byte> byteRange;
+    private Range<Byte> byteRange2;
+    private Range<Byte> byteRange3;
 
     private Range<Integer> intRange;
     private Range<Long> longRange;
     private Range<Float> floatRange;
     private Range<Double> doubleRange;
 
+    @SuppressWarnings("cast") // intRange
     @Override
     public void setUp() {
         byteRange   = Range.between((byte) 0, (byte) 5);
