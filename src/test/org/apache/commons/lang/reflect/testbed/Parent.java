@@ -24,5 +24,6 @@ class Parent implements Foo {
     public String s = "s";
     protected boolean b = false;
     int i = 0;
+    @SuppressWarnings("unused")
     private double d = 0.0;
 }
