@@ -300,7 +300,7 @@ public abstract class BackgroundInitializer<T> {
 
     private class InitializationTask implements Callable<T> {
         /** Stores the executor service to be destroyed at the end. */
-        private final ExecutorService executor;
+        private final ExecutorService execFinally;
 
         /**
          * Creates a new instance of {@code InitializationTask} and initializes
@@ -309,7 +309,7 @@ public abstract class BackgroundInitializer<T> {
          * @param exec the {@code ExecutorService}
          */
         public InitializationTask(ExecutorService exec) {
-            executor = exec;
+            execFinally = exec;
         }
 
         /**
@@ -322,8 +322,8 @@ public abstract class BackgroundInitializer<T> {
             try {
                 return initialize();
             } finally {
-                if (executor != null) {
-                    executor.shutdown();
+                if (execFinally != null) {
+                    execFinally.shutdown();
                 }
             }
         }
