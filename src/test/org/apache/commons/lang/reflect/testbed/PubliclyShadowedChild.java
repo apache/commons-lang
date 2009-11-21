@@ -20,6 +20,7 @@ package org.apache.commons.lang.reflect.testbed;
  * @author mbenson
  * @version $Id$
  */
+@SuppressWarnings("hiding") // deliberate re-use of variable names
 public class PubliclyShadowedChild extends Parent {
     public String s = "ss";
     public boolean b = true;
