@@ -45,7 +45,7 @@ public class BackgroundInitializerTest extends TestCase {
     /**
      * Tests whether initialize() is invoked.
      */
-    public void testInitialize() throws ConcurrentException {
+    public void testInitialize() {
         BackgroundInitializerTestImpl init = new BackgroundInitializerTestImpl();
         init.start();
         checkInitialize(init);

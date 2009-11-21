@@ -270,7 +270,7 @@ public class MultiBackgroundInitializerTest extends TestCase {
      * Tests the behavior of the initializer if one of the child initializers
      * throws a runtime exception.
      */
-    public void testInitializeRuntimeEx() throws ConcurrentException {
+    public void testInitializeRuntimeEx() {
         ChildBackgroundInitializer child = new ChildBackgroundInitializer();
         child.ex = new RuntimeException();
         initializer.addInitializer(CHILD_INIT, child);

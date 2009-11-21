@@ -426,7 +426,7 @@ public class StringEscapeUtilsTest extends TestCase {
     }
 
     // https://issues.apache.org/jira/browse/LANG-339
-    public void testEscapeHiragana() throws java.io.UnsupportedEncodingException {
+    public void testEscapeHiragana() {
         // Some random Japanese unicode characters
         String original = "\u304B\u304C\u3068";
         String escaped = StringEscapeUtils.escapeHtml4(original);
