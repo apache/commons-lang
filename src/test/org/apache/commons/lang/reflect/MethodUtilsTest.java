@@ -87,7 +87,7 @@ public class MethodUtilsTest extends TestCase {
         }
     }
 
-    private static class TestMutable implements Mutable {
+    private static class TestMutable implements Mutable<Object> {
         public Object getValue() {
             return null;
         }
