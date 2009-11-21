@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang;
 
+import java.util.Comparator;
+
 import junit.framework.TestCase;
 
 /**
@@ -62,6 +64,43 @@ public class RangeTest extends TestCase {
             };
         Range.is(c);
         Range.between(c, c);
+    }
+
+    public void testIsWithCompare(){
+        Comparator<Integer> c = new Comparator<Integer>(){
+            public int compare(Integer o1, Integer o2) {
+                return 0; // all integers are equal
+            }
+        };
+        Range<Integer> ri = Range.is(10);
+        assertFalse("should not contain null",ri.contains(null));
+        assertTrue("should contain 10",ri.contains(10));
+        assertFalse("should not contain 11",ri.contains(11));
+        ri = Range.is(10,c);
+        assertFalse("should not contain null",ri.contains(null));
+        assertTrue("should contain 10",ri.contains(10));
+        assertTrue("should contain 11",ri.contains(11));
+    }
+
+    public void testBetweenWithCompare(){
+        // TODO add tests with a better comparator
+        Comparator<Integer> c = new Comparator<Integer>(){
+            public int compare(Integer o1, Integer o2) {
+                return 0; // all integers are equal
+            }
+        };
+        Range<Integer> rb = Range.between(-10,20);
+        assertFalse("should not contain null",rb.contains(null));
+        assertTrue("should contain 10",rb.contains(10));
+        assertTrue("should contain -10",rb.contains(-10));
+        assertFalse("should not contain 21",rb.contains(21));
+        assertFalse("should not contain -11",rb.contains(-11));
+        rb = Range.between(-10,20,c);
+        assertFalse("should not contain null",rb.contains(null));
+        assertTrue("should contain 10",rb.contains(10));
+        assertTrue("should contain -10",rb.contains(-10));
+        assertTrue("should contain 21",rb.contains(21));
+        assertTrue("should contain -11",rb.contains(-11));
     }
 
     // --------------------------------------------------------------------------
