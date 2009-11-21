@@ -45,9 +45,8 @@ public class Range<T> implements Serializable {
      * @throws IllegalArgumentException if the value is <code>null</code>
      * @throws ClassCastException if the value is not Comparable
      */
-    // TODO: Ideally the ClassCastException would be compile-time via generics
-    public Range(T element) {
-        this( element, element);
+    public static <T extends Comparable> Range is(T element) {
+        return new Range(element, element, ComparableComparator.INSTANCE);
     }
 
     /**
@@ -64,9 +63,8 @@ public class Range<T> implements Serializable {
      * @throws IllegalArgumentException if either value is <code>null</code>
      * @throws ClassCastException if either value is not Comparable
      */
-    // TODO: Ideally the ClassCastException would be compile-time via generics
-    public Range(T element1, T element2) {
-        this( element1, element2, ComparableComparator.INSTANCE);
+    public static <T extends Comparable> Range between(T element1, T element2) {
+        return new Range( element1, element2, ComparableComparator.INSTANCE);
     }
 
     /**
@@ -79,8 +77,8 @@ public class Range<T> implements Serializable {
      * @param c comparator to be used
      * @throws IllegalArgumentException if the value is <code>null</code>
      */
-    public Range(T element, Comparator c) {
-        this(element, element, c);
+    public static <T> Range is(T element, Comparator c) {
+        return new Range(element, element, c);
     }
 
     /**
@@ -97,7 +95,11 @@ public class Range<T> implements Serializable {
      * @param c comparator to be used
      * @throws IllegalArgumentException if either value is <code>null</code>
      */
-    public Range(T element1, T element2, Comparator c) {
+    public static <T> Range between(T element1, T element2, Comparator c) {
+        return new Range(element1, element2, c);
+    }
+
+    private Range(T element1, T element2, Comparator c) {
         if(element1 == null || element2 == null) {
             throw new IllegalArgumentException("Elements in a range must not be null: element1=" + 
                                                element1 + ", element2=" + element2);
@@ -233,15 +235,8 @@ public class Range<T> implements Serializable {
     /**
      * <p>Tests whether the specified range occurs entirely within this range.</p>
      * 
-     * <p>The exact comparison implementation varies by subclass. It is
-     * intended that an <code>int</code> specific subclass will compare using
-     * <code>int</code> comparison.</p>
-     * 
      * <p><code>null</code> is handled and returns <code>false</code>.</p>
      * 
-     * <p>This implementation uses the {@link #contains(Object)} method.
-     * Subclasses may be able to optimise this.</p>
-     *
      * @param range  the range to test, may be <code>null</code>
      * @return <code>true</code> if the specified range occurs entirely within
      *  this range; otherwise, <code>false</code>
@@ -258,16 +253,8 @@ public class Range<T> implements Serializable {
     /**
      * <p>Tests whether the specified range overlaps with this range.</p>
      * 
-     * <p>The exact comparison implementation varies by subclass. It is
-     * intended that an <code>int</code> specific subclass will compare using
-     * <code>int</code> comparison.</p>
-     * 
      * <p><code>null</code> is handled and returns <code>false</code>.</p>
      * 
-     * <p>This implementation uses the {@link #contains(Object)} and
-     * {@link #containsRange(Range)} methods.
-     * Subclasses may be able to optimise this.</p>
-     *
      * @param range  the range to test, may be <code>null</code>
      * @return <code>true</code> if the specified range overlaps with this
      *  range; otherwise, <code>false</code>
@@ -290,10 +277,6 @@ public class Range<T> implements Serializable {
      * 
      * <p>To be equal, the class, minimum and maximum must be equal.</p>
      * 
-     * <p>This implementation uses the {@link #getMinimum()} and 
-     * {@link #getMaximum()} methods. 
-     * Subclasses may be able to optimise this.</p>
-     *
      * @param obj the reference object with which to compare
      * @return <code>true</code> if this object is equal
      */
@@ -313,10 +296,6 @@ public class Range<T> implements Serializable {
     /**
      * <p>Gets a hashCode for the range.</p>
      * 
-     * <p>This implementation uses the {@link #getMinimum()} and 
-     * {@link #getMaximum()} methods. 
-     * Subclasses may be able to optimise this.</p>
-     *
      * @return a hash code value for this object
      */
     @Override
@@ -333,10 +312,6 @@ public class Range<T> implements Serializable {
      *
      * <p>The format of the String is 'Range[<i>min</i>,<i>max</i>]'.</p>
      * 
-     * <p>This implementation uses the {@link #getMinimum()} and 
-     * {@link #getMaximum()} methods. 
-     * Subclasses may be able to optimise this.</p>
-     *
      * @return the <code>String</code> representation of this range
      */
     @Override

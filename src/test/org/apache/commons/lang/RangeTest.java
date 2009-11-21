@@ -39,33 +39,29 @@ public class RangeTest extends TestCase {
 
     @Override
     public void setUp() {
-        byteRange   = new Range((byte) 0, (byte) 5);
-        byteRange2  = new Range((byte) 0, (byte) 5);
-        byteRange3  = new Range((byte) 0, (byte) 10);
+        byteRange   = Range.between((byte) 0, (byte) 5);
+        byteRange2  = Range.between((byte) 0, (byte) 5);
+        byteRange3  = Range.between((byte) 0, (byte) 10);
 
-        intRange    = new Range<Integer>((int) 10, (int) 20);
-        longRange   = new Range<Long>((long) 10, (long) 20);
-        floatRange  = new Range<Float>((float) 10, (float) 20);
-        doubleRange = new Range<Double>((double) 10, (double) 20);
+        intRange    = Range.between((int) 10, (int) 20);
+        longRange   = Range.between((long) 10, (long) 20);
+        floatRange  = Range.between((float) 10, (float) 20);
+        doubleRange = Range.between((double) 10, (double) 20);
     }
 
     // --------------------------------------------------------------------------
 
     public void testComparableConstructors() {
-        try {
-            Range range = new Range(new Object());
-            fail("IllegalArgumentException expected");
-        } catch(ClassCastException cce) {
-            // expected
-        }
-
-        try {
-            Range range = new Range(new Object(), new Object());
-            fail("ClassCastException expected");
-        } catch(ClassCastException cce) {
-            // expected
-        }
+        Comparable c = 
+            new Comparable() { 
+                public int compareTo(Object other) {
+                    return 1;
+                }
+            };
+        Range.is(c);
+        Range.between(c, c);
     }
+
 
     // --------------------------------------------------------------------------
 
@@ -95,7 +91,7 @@ public class RangeTest extends TestCase {
         String str = intRange.toString();
         assertEquals("Range[10,20]", str);
 //        assertSame(str, intRange.toString());  // no longer passes - does it matter?
-        assertEquals("Range[-20,-10]", new Range<Integer>(-20, -10).toString());
+        assertEquals("Range[-20,-10]", Range.between(-20, -10).toString());
     }
 
     // --------------------------------------------------------------------------
@@ -167,29 +163,29 @@ public class RangeTest extends TestCase {
         assertFalse(intRange.containsRange(null));
 
         // easy inside range
-        assertTrue(intRange.containsRange(new Range(12, 18)));
+        assertTrue(intRange.containsRange(Range.between(12, 18)));
 
         // outside range on each side
-        assertFalse(intRange.containsRange(new Range(32, 45)));
-        assertFalse(intRange.containsRange(new Range(2, 8)));
+        assertFalse(intRange.containsRange(Range.between(32, 45)));
+        assertFalse(intRange.containsRange(Range.between(2, 8)));
 
         // equals range
-        assertTrue(intRange.containsRange(new Range(10, 20)));
+        assertTrue(intRange.containsRange(Range.between(10, 20)));
 
         // overlaps
-        assertFalse(intRange.containsRange(new Range(9, 14)));
-        assertFalse(intRange.containsRange(new Range(16, 21)));
+        assertFalse(intRange.containsRange(Range.between(9, 14)));
+        assertFalse(intRange.containsRange(Range.between(16, 21)));
 
         // touches lower boundary
-        assertTrue(intRange.containsRange(new Range(10, 19)));
-        assertFalse(intRange.containsRange(new Range(10, 21)));
+        assertTrue(intRange.containsRange(Range.between(10, 19)));
+        assertFalse(intRange.containsRange(Range.between(10, 21)));
 
         // touches upper boundary
-        assertTrue(intRange.containsRange(new Range(11, 20)));
-        assertFalse(intRange.containsRange(new Range(9, 20)));
+        assertTrue(intRange.containsRange(Range.between(11, 20)));
+        assertFalse(intRange.containsRange(Range.between(9, 20)));
         
         // negative
-        assertFalse(intRange.containsRange(new Range(-11, -18)));
+        assertFalse(intRange.containsRange(Range.between(-11, -18)));
 
     }
 
@@ -199,29 +195,29 @@ public class RangeTest extends TestCase {
         assertFalse(intRange.overlapsRange(null));
 
         // easy inside range
-        assertTrue(intRange.overlapsRange(new Range(12, 18)));
+        assertTrue(intRange.overlapsRange(Range.between(12, 18)));
 
         // outside range on each side
-        assertFalse(intRange.overlapsRange(new Range(32, 45)));
-        assertFalse(intRange.overlapsRange(new Range(2, 8)));
+        assertFalse(intRange.overlapsRange(Range.between(32, 45)));
+        assertFalse(intRange.overlapsRange(Range.between(2, 8)));
 
         // equals range
-        assertTrue(intRange.overlapsRange(new Range(10, 20)));
+        assertTrue(intRange.overlapsRange(Range.between(10, 20)));
 
         // overlaps
-        assertTrue(intRange.overlapsRange(new Range(9, 14)));
-        assertTrue(intRange.overlapsRange(new Range(16, 21)));
+        assertTrue(intRange.overlapsRange(Range.between(9, 14)));
+        assertTrue(intRange.overlapsRange(Range.between(16, 21)));
 
         // touches lower boundary
-        assertTrue(intRange.overlapsRange(new Range(10, 19)));
-        assertTrue(intRange.overlapsRange(new Range(10, 21)));
+        assertTrue(intRange.overlapsRange(Range.between(10, 19)));
+        assertTrue(intRange.overlapsRange(Range.between(10, 21)));
 
         // touches upper boundary
-        assertTrue(intRange.overlapsRange(new Range(11, 20)));
-        assertTrue(intRange.overlapsRange(new Range(9, 20)));
+        assertTrue(intRange.overlapsRange(Range.between(11, 20)));
+        assertTrue(intRange.overlapsRange(Range.between(9, 20)));
         
         // negative
-        assertFalse(intRange.overlapsRange(new Range(-11, -18)));
+        assertFalse(intRange.overlapsRange(Range.between(-11, -18)));
 
     }
 
