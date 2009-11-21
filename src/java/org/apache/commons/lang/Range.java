@@ -31,7 +31,7 @@ public class Range<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Comparator comparator;
+    private final Comparator<T> comparator;
     private final T minimum;
     private final T maximum;
 
@@ -45,8 +45,8 @@ public class Range<T> implements Serializable {
      * @throws IllegalArgumentException if the value is <code>null</code>
      * @throws ClassCastException if the value is not Comparable
      */
-    public static <T extends Comparable> Range is(T element) {
-        return new Range(element, element, ComparableComparator.INSTANCE);
+    public static <T extends Comparable<T>> Range<T> is(T element) {
+        return new Range<T>(element, element, ComparableComparator.<T>getInstance());
     }
 
     /**
@@ -63,8 +63,8 @@ public class Range<T> implements Serializable {
      * @throws IllegalArgumentException if either value is <code>null</code>
      * @throws ClassCastException if either value is not Comparable
      */
-    public static <T extends Comparable> Range between(T element1, T element2) {
-        return new Range( element1, element2, ComparableComparator.INSTANCE);
+    public static <T extends Comparable<T>> Range<T> between(T element1, T element2) {
+        return new Range<T>( element1, element2, ComparableComparator.<T>getInstance());
     }
 
     /**
@@ -77,8 +77,8 @@ public class Range<T> implements Serializable {
      * @param c comparator to be used
      * @throws IllegalArgumentException if the value is <code>null</code>
      */
-    public static <T> Range is(T element, Comparator c) {
-        return new Range(element, element, c);
+    public static <T> Range<T> is(T element, Comparator<T> c) {
+        return new Range<T>(element, element, c);
     }
 
     /**
@@ -95,11 +95,11 @@ public class Range<T> implements Serializable {
      * @param c comparator to be used
      * @throws IllegalArgumentException if either value is <code>null</code>
      */
-    public static <T> Range between(T element1, T element2, Comparator c) {
-        return new Range(element1, element2, c);
+    public static <T> Range<T> between(T element1, T element2, Comparator<T> c) {
+        return new Range<T>(element1, element2, c);
     }
 
-    private Range(T element1, T element2, Comparator c) {
+    private Range(T element1, T element2, Comparator<T> c) {
         if(element1 == null || element2 == null) {
             throw new IllegalArgumentException("Elements in a range must not be null: element1=" + 
                                                element1 + ", element2=" + element2);
@@ -145,7 +145,7 @@ public class Range<T> implements Serializable {
      *
      * @return the comparator being used
      */
-    public Comparator getComparator() {
+    public Comparator<T> getComparator() {
         return this.comparator;
     }
 
@@ -287,7 +287,8 @@ public class Range<T> implements Serializable {
         } else if (obj == null || obj.getClass() != getClass()) {
             return false;
         } else {
-            Range range = (Range) obj;
+            @SuppressWarnings("unchecked") // OK because we checked the class above
+            Range<T> range = (Range<T>) obj;
             return getMinimum().equals(range.getMinimum()) &&
                    getMaximum().equals(range.getMaximum());
         }
