@@ -62,6 +62,13 @@ public class RangeTest extends TestCase {
         Range.between(c, c);
     }
 
+    // --------------------------------------------------------------------------
+
+    public void testRangeOfChars() {
+        Range<Character> chars = Range.between('a', 'z');
+        assertTrue(chars.contains('b'));
+        assertFalse(chars.contains('B'));
+    }
 
     // --------------------------------------------------------------------------
 
