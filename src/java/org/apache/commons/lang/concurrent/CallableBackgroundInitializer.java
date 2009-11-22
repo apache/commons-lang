@@ -48,13 +48,11 @@ import java.util.concurrent.ExecutorService;
  *
  * <pre>
  * // a Callable that performs a complex computation
- * Callable<Integer> computationCallable = new MyComputationCallable();
- *
+ * Callable&lt;Integer&gt; computationCallable = new MyComputationCallable();
  * // setup the background initializer
- * CallableBackgroundInitializer<Integer> initializer =
+ * CallableBackgroundInitializer&lt;Integer&gt; initializer =
  *     new CallableBackgroundInitializer(computationCallable);
  * initializer.start();
- *
  * // Now do some other things. Initialization runs in a parallel thread
  * ...
  * // Wait for the end of initialization and access the result
@@ -63,7 +61,7 @@ import java.util.concurrent.ExecutorService;
  *
  * </p>
  *
- * @version $Id: $
+ * @version $Id$
  * @param <T> the type of the object managed by this initializer class
  */
 public class CallableBackgroundInitializer<T> extends BackgroundInitializer<T> {
