@@ -289,7 +289,7 @@ public class StringEscapeUtilsTest extends TestCase {
         assertEquals("&Beta;", StringEscapeUtils.escapeHtml4("\u0392"));
         assertEquals("\u0392", StringEscapeUtils.unescapeHtml4("&Beta;"));
 
-        //todo: refine API for escaping/unescaping specific HTML versions
+        // TODO: refine API for escaping/unescaping specific HTML versions
 
     }
 
