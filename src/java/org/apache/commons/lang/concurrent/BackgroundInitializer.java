@@ -280,7 +280,7 @@ public abstract class BackgroundInitializer<T> {
      * method. If a temporary {@code ExecutorService} is used, it is destroyed
      * at the end of the task.
      *
-     * @param execDestory the {@code ExecutorService} to be destroyed by the
+     * @param execDestroy the {@code ExecutorService} to be destroyed by the
      * task
      * @return a task for the background initialization
      */
