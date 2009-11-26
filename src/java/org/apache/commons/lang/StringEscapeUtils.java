@@ -310,7 +310,6 @@ public class StringEscapeUtils {
      * @param input  the <code>String</code> to escape, may be null
      * @return a new escaped <code>String</code>, <code>null</code> if null string input
      * 
-     * @see #unescapeHtml(String)
      * @see <a href="http://hotwired.lycos.com/webmonkey/reference/special_characters/">ISO Entities</a>
      * @see <a href="http://www.w3.org/TR/REC-html32#latin1">HTML 3.2 Character Entities for ISO Latin-1</a>
      * @see <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">HTML 4.0 Character entity references</a>
