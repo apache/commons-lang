@@ -21,10 +21,6 @@ import java.io.Writer;
 
 import org.apache.commons.lang.text.translate.*;
 
-// CsvTranslators
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.CharUtils;
-
 /**
  * <p>Escapes and unescapes <code>String</code>s for
  * Java, Java Script, HTML and XML.</p>
