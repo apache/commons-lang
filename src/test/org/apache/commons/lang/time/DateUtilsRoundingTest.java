@@ -261,7 +261,7 @@ public class DateUtilsRoundingTest extends TestCase {
      * Includes rounding to January 1
      * 
      * @throws Exception
-     * @3.0
+     * @since 3.0
      */
     public void testRoundAmPm() throws Exception {
         final int calendarField = Calendar.AM_PM;
