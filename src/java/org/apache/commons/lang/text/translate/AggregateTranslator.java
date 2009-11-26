@@ -19,6 +19,8 @@ package org.apache.commons.lang.text.translate;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.apache.commons.lang.ArrayUtils;
+
 /**
  * Executes a sequence of translators one after the other. Execution ends whenever 
  * the first translator consumes codepoints from the input.
@@ -36,8 +38,7 @@ public class AggregateTranslator extends CharSequenceTranslator {
      * @param translators CharSequenceTranslator array to aggregate
      */
     public AggregateTranslator(CharSequenceTranslator... translators) {
-        // TODO - copy array to prevent subsequent external changes
-        this.translators = translators;
+        this.translators = ArrayUtils.clone(translators);
     }
 
     /**
