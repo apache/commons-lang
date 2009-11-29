@@ -21,24 +21,45 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * <p>Assists in validating arguments.</p>
- * 
- * <p>The class is based along the lines of JUnit. If an argument value is 
- * deemed invalid, an IllegalArgumentException is thrown. For example:</p>
+ * <p>This class assists in validating arguments. The validation methods are 
+ * based along the following principles: 
+ * <ul>
+ *   <li>An invalid <code>null</code> argument causes a {@link NullPointerException}.</li>
+ *   <li>A non-<code>null</code> argument causes an {@link IllegalArgumentException}.</li>
+ *   <li>An invalid index into an array/collection/map/string causes an {@link IndexOutOfBoundsException}.</li> 
+ * </ul>
+ *  
+ * <p>All exceptions messages are <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/Formatter.html#syntax">format strings</a>
+ * as defined by the Java platform. For example:</p>
  * 
  * <pre>
- * Validate.isTrue( i > 0, "The value must be greater than zero: ", i);
- * Validate.notNull( surname, "The surname must not be null");
+ * Validate.isTrue(i > 0, "The value must be greater than zero: %d", i);
+ * Validate.notNull(surname, "The surname must not be %s", null);
  * </pre>
- *
+ * 
  * @author Apache Software Foundation
  * @author <a href="mailto:ola.berg@arkitema.se">Ola Berg</a>
  * @author Gary Gregory
  * @author Norm Deane
- * @since 2.0
+ * @author Paul Benedict
  * @version $Id$
+ * @see java.lang.String#format(String, Object...)
+ * @since 2.0
  */
 public class Validate {
+
+    private static final String DEFAULT_IS_NULL_EXCEPTION_MESSAGE = "The validated object is null";
+    private static final String DEFAULT_IS_TRUE_EXCEPTION_MESSAGE = "The validated expression is false";
+    private static final String DEFAULT_NO_NULL_ELEMENTS_ARRAY_EXCEPTION_MESSAGE = "The validated array contains null element at index: %d";
+    private static final String DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EXCEPTION_MESSAGE = "The validated collection contains null element at index: %d";
+    private static final String DEFAULT_NOT_BLANK_EXCEPTION_MESSAGE = "The validated character sequence is blank";
+    private static final String DEFAULT_NOT_EMPTY_ARRAY_EXCEPTION_MESSAGE = "The validated array is empty";
+    private static final String DEFAULT_NOT_EMPTY_CHAR_SEQUENCE_EXCEPTION_MESSAGE = "The validated character sequence is empty";
+    private static final String DEFAULT_NOT_EMPTY_COLLECTION_EXCEPTION_MESSAGE = "The validated collection is empty";
+    private static final String DEFAULT_NOT_EMPTY_MAP_EXCEPTION_MESSAGE = "The validated map is empty";
+    private static final String DEFAULT_VALID_INDEX_ARRAY_EXCEPTION_MESSAGE = "The validated array index is invalid: %d";
+    private static final String DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EXCEPTION_MESSAGE = "The validated character sequence is invalid: %d";
+    private static final String DEFAULT_VALID_INDEX_COLLECTION_EXCEPTION_MESSAGE = "The validated collection index is invalid: %d";
 
     /**
      * Constructor. This class should not normally be instantiated.
@@ -51,133 +72,134 @@ public class Validate {
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the test result is <code>false</code>.</p>
-     * 
-     * <p>This is used when validating according to an arbitrary boolean expression,
-     * such as validating a primitive number or using your own custom validation 
-     * expression.</p>
+     * <p>Validate that the argument condition is <code>true</code>; otherwise 
+     * throwing an exception with the specified message. This method is useful when
+     * validating according to an arbitrary boolean expression, such as validating a 
+     * primitive number or using your own custom validation expression.</p>
      *
-     * <pre>
-     * Validate.isTrue( myObject.isOk(), "The object is not OK: ", myObject);
-     * </pre>
+     * <pre>Validate.isTrue(myObject.isOk(), "The object is not OK: %s", myObject);</pre>
      *
      * <p>For performance reasons, the object is passed as a separate parameter and
-     * appended to the message string only in the case of an error.</p>
+     * appended to the exception message only in the case of an error.</p>
      * 
-     * @param expression  a boolean expression
-     * @param message  the exception message you would like to see if the
-     *  expression is <code>false</code>
-     * @param value  the value to append to the message in case of error
+     * @param expression the boolean expression to check 
+     * @param message the exception message if invalid
+     * @param value the value to append to the message when invalid
      * @throws IllegalArgumentException if expression is <code>false</code>
+     * @see #isTrue(boolean)
+     * @see #isTrue(boolean, String, long)
+     * @see #isTrue(boolean, String, double)
+     * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(boolean expression, String message, Object value) {
         if (expression == false) {
-            throw new IllegalArgumentException(message + value);
+            throw new IllegalArgumentException(String.format(message, value));
         }
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the test result is <code>false</code>.</p>
-     * 
-     * <p>This is used when validating according to an arbitrary boolean expression,
-     * such as validating a primitive number or using your own custom validation 
-     * expression.</p>
+     * <p>Validate that the argument condition is <code>true</code>; otherwise 
+     * throwing an exception with the specified message. This method is useful when
+     * validating according to an arbitrary boolean expression, such as validating a 
+     * primitive number or using your own custom validation expression.</p>
      *
-     * <pre>
-     * Validate.isTrue( i > 0, "The value must be greater than zero: ", i);
-     * </pre>
+     * <pre>Validate.isTrue(i > 0.0, "The value must be greater than zero: %d", i);</pre>
      *
      * <p>For performance reasons, the long value is passed as a separate parameter and
-     * appended to the message string only in the case of an error.</p>
+     * appended to the exception message only in the case of an error.</p>
      * 
-     * @param expression  a boolean expression
-     * @param message  the exception message you would like to see if the expression is <code>false</code>
-     * @param value  the value to append to the message in case of error
+     * @param expression the boolean expression to check 
+     * @param message the exception message if invalid
+     * @param value the value to append to the message when invalid
      * @throws IllegalArgumentException if expression is <code>false</code>
+     * @see #isTrue(boolean)
+     * @see #isTrue(boolean, String, double)
+     * @see #isTrue(boolean, String, Object)
+     * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(boolean expression, String message, long value) {
         if (expression == false) {
-            throw new IllegalArgumentException(message + value);
+            throw new IllegalArgumentException(String.format(message, value));
         }
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the test result is <code>false</code>.</p>
-     * 
-     * <p>This is used when validating according to an arbitrary boolean expression,
-     * such as validating a primitive number or using your own custom validation 
-     * expression.</p>
+     * <p>Validate that the argument condition is <code>true</code>; otherwise 
+     * throwing an exception with the specified message. This method is useful when
+     * validating according to an arbitrary boolean expression, such as validating a 
+     * primitive number or using your own custom validation expression.</p>
      *
-     * <pre>
-     * Validate.isTrue( d > 0.0, "The value must be greater than zero: ", d);
-     * </pre>
+     * <pre>Validate.isTrue(d > 0.0, "The value must be greater than zero: %s", d);</pre>
      *
      * <p>For performance reasons, the double value is passed as a separate parameter and
-     * appended to the message string only in the case of an error.</p>
+     * appended to the exception message only in the case of an error.</p>
      * 
-     * @param expression  a boolean expression
-     * @param message  the exception message you would like to see if the expression
-     *  is <code>false</code>
-     * @param value  the value to append to the message in case of error
+     * @param expression the boolean expression to check 
+     * @param message the exception message if invalid
+     * @param value the value to append to the message when invalid
      * @throws IllegalArgumentException if expression is <code>false</code>
+     * @see #isTrue(boolean)
+     * @see #isTrue(boolean, String, long)
+     * @see #isTrue(boolean, String, Object)
+     * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(boolean expression, String message, double value) {
         if (expression == false) {
-            throw new IllegalArgumentException(message + value);
+            throw new IllegalArgumentException(String.format(message, value));
         }
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the test result is <code>false</code>.</p>
-     * 
-     * <p>This is used when validating according to an arbitrary boolean expression,
-     * such as validating a primitive number or using your own custom validation 
-     * expression.</p>
+     * <p>Validate that the argument condition is <code>true</code>; otherwise 
+     * throwing an exception with the specified message. This method is useful when
+     * validating according to an arbitrary boolean expression, such as validating a 
+     * primitive number or using your own custom validation expression.</p>
      *
      * <pre>
-     * Validate.isTrue( (i > 0), "The value must be greater than zero");
-     * Validate.isTrue( myObject.isOk(), "The object is not OK");
-     * </pre>
+     * Validate.isTrue(i >= min && i <= max, "The value must be between %d and %d", min, max);
+     * Validate.isTrue(myObject.isOk(), "The object is not okay");</pre>
      *
      * <p>For performance reasons, the message string should not involve a string append,
      * instead use the {@link #isTrue(boolean, String, Object)} method.</p>
      * 
-     * @param expression  a boolean expression
-     * @param message  the exception message you would like to see if the expression
-     *  is <code>false</code>
+     * @param expression the boolean expression to check 
+     * @param message the exception message if invalid
+     * @param values the optional values for the formatted exception message
      * @throws IllegalArgumentException if expression is <code>false</code>
+     * @see #isTrue(boolean)
+     * @see #isTrue(boolean, String, long)
+     * @see #isTrue(boolean, String, double)
+     * @see #isTrue(boolean, String, Object)
      */
-    public static void isTrue(boolean expression, String message) {
+    public static void isTrue(boolean expression, String message, Object... values) {
         if (expression == false) {
-            throw new IllegalArgumentException(message);
+            throw new IllegalArgumentException(String.format(message, values));
         }
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the test result is <code>false</code>.</p>
-     * 
-     * <p>This is used when validating according to an arbitrary boolean expression,
-     * such as validating a primitive number or using your own custom validation 
-     * expression.</p>
+     * <p>Validate that the argument condition is <code>true</code>; otherwise 
+     * throwing an exception. This method is useful when validating according 
+     * to an arbitrary boolean expression, such as validating a 
+     * primitive number or using your own custom validation expression.</p>
      *
      * <pre>
-     * Validate.isTrue( i > 0 );
-     * Validate.isTrue( myObject.isOk() );
-     * </pre>
+     * Validate.isTrue(i > 0);
+     * Validate.isTrue(myObject.isOk());</pre>
      *
-     * <p>The message in the exception is 'The validated expression is false'.</p>
+     * <p>The message of the exception is &quot;The validated expression is 
+     * false&quot;.</p>
      * 
-     * @param expression  a boolean expression
+     * @param expression the boolean expression to check 
      * @throws IllegalArgumentException if expression is <code>false</code>
+     * @see #isTrue(boolean, String, long)
+     * @see #isTrue(boolean, String, double)
+     * @see #isTrue(boolean, String, Object)
+     * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(boolean expression) {
         if (expression == false) {
-            throw new IllegalArgumentException("The validated expression is false");
+            throw new IllegalArgumentException(DEFAULT_IS_TRUE_EXCEPTION_MESSAGE);
         }
     }
 
@@ -185,512 +207,568 @@ public class Validate {
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument is <code>null</code>.</p>
+     * <p>Validate that the specified argument is not <code>null</code>; 
+     * otherwise throwing an exception.
      *
-     * <pre>
-     * Validate.notNull(myObject, "The object must not be null");
-     * </pre>
+     * <pre>Validate.notNull(myObject, "The object must not be null");</pre>
+     *
+     * <p>The message of the exception is &quot;The validated object is 
+     * null&quot;.</p>
      * 
-     * @param object  the object to check is not <code>null</code>
-     * @param message  the exception message you would like to see
-     *  if the object is <code>null</code>
-     * @return the input object, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the object is <code>null</code>
+     * @param <T> the object type
+     * @param object the object to check
+     * @return the validated object (never <code>null</code> for method chaining)
+     * @throws NullPointerException if the object is <code>null</code>
+     * @see #notNull(Object, String, Object...)
      */
-    public static <T> T notNull(T object, String message) {
-        if (object == null) {
-            throw new IllegalArgumentException(message);
-        }
-        return object;
+    public static <T> T notNull(T object) {
+        return notNull(object, DEFAULT_IS_NULL_EXCEPTION_MESSAGE);
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument is <code>null</code>.</p>
+     * <p>Validate that the specified argument is not <code>null</code>; 
+     * otherwise throwing an exception with the specified message.
      *
-     * <pre>
-     * Validate.notNull(myObject);
-     * </pre>
-     *
-     * <p>The message in the exception is 'The validated object is null'.</p>
+     * <pre>Validate.notNull(myObject, "The object must not be null");</pre>
      * 
-     * @param object  the object to check is not <code>null</code>
-     * @return the input object, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the object is <code>null</code>
+     * @param <T> the object type
+     * @param object the object to check
+     * @param message the exception message if invalid
+     * @param values the optional values for the formatted exception message
+     * @return the validated object (never <code>null</code> for method chaining)
+     * @throws NullPointerException if the object is <code>null</code>
+     * @see #notNull(Object)
      */
-    public static <T> T notNull(T object) {
-        return notNull(object, "The validated object is null");
+    public static <T> T notNull(T object, String message, Object... values) {
+        if (object == null) {
+            throw new NullPointerException(String.format(message, values));
+        }
+        return object;
     }
 
     // notEmpty array
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument array is empty (<code>null</code> or no elements).</p>
+     * <p>Validate that the specified argument array is neither <code>null</code> 
+     * nor a length of zero (no elements); otherwise throwing an exception 
+     * with the specified message.
      *
-     * <pre>
-     * Validate.notEmpty(myArray, "The array must not be empty");
-     * </pre>
+     * <pre>Validate.notEmpty(myArray, "The array must not be empty");</pre>
      * 
-     * @param array  the array to check is not empty
-     * @param message  the exception message you would like to see if the array is empty
-     * @return the input array, never <code>null</code> or empty, for chaining
+     * @param <T> the array type
+     * @param array the array to check
+     * @param message the exception message if invalid
+     * @return the validated array (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the array is <code>null</code>
      * @throws IllegalArgumentException if the array is empty
+     * @see #notEmpty(Object[])
      */
-    public static <T> T[] notEmpty(T[] array, String message) {
-        if (array == null || array.length == 0) {
-            throw new IllegalArgumentException(message);
+    public static <T> T[] notEmpty(T[] array, String message, Object... values) {
+        if (array == null) {
+            throw new NullPointerException(String.format(message, values));
+        }
+        if (array.length == 0) {
+            throw new IllegalArgumentException(String.format(message, values));
         }
         return array;
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument array is empty (<code>null</code> or no elements).</p>
+     * <p>Validate that the specified argument array is neither <code>null</code> 
+     * nor a length of zero (no elements); otherwise throwing an exception. 
      *
-     * <pre>
-     * Validate.notEmpty(myArray);
-     * </pre>
-     *
-     * <p>The message in the exception is 'The validated array is empty'.
+     * <pre>Validate.notEmpty(myArray);</pre>
      * 
-     * @param array  the array to check is not empty
-     * @return the input array, never <code>null</code> or empty, for chaining
+     * <p>The message in the exception is &quot;The validated array is 
+     * empty&quot;.
+     * 
+     * @param <T> the array type
+     * @param array the array to check
+     * @return the validated array (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the array is <code>null</code>
      * @throws IllegalArgumentException if the array is empty
+     * @see #notEmpty(Object[], String, Object...)
      */
     public static <T> T[] notEmpty(T[] array) {
-        return notEmpty(array, "The validated array is empty");
+        return notEmpty(array, DEFAULT_NOT_EMPTY_ARRAY_EXCEPTION_MESSAGE);
     }
 
     // notEmpty collection
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument Collection is empty (<code>null</code> or no elements).</p>
+     * <p>Validate that the specified argument collection is neither <code>null</code> 
+     * nor a size of zero (no elements); otherwise throwing an exception 
+     * with the specified message.
      *
-     * <pre>
-     * Validate.notEmpty(myCollection, "The collection must not be empty");
-     * </pre>
+     * <pre>Validate.notEmpty(myCollection, "The collection must not be empty");</pre>
      * 
-     * @param collection  the collection to check is not empty
-     * @param message  the exception message you would like to see if the collection is empty
-     * @return the input collection, never <code>null</code> or empty, for chaining
+     * @param <T> the collection type
+     * @param collection the collection to check
+     * @param message the exception message if invalid
+     * @return the validated collection (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the collection is <code>null</code>
      * @throws IllegalArgumentException if the collection is empty
+     * @see #notEmpty(Object[])
      */
-    public static <T extends Collection<?>> T notEmpty(T collection, String message) {
-        if (collection == null || collection.size() == 0) {
-            throw new IllegalArgumentException(message);
+    public static <T extends Collection<?>> T notEmpty(T collection, String message, Object... values) {
+        if (collection == null) {
+            throw new NullPointerException(String.format(message, values));
+        }
+        if (collection.size() == 0) {
+            throw new IllegalArgumentException(String.format(message, values));
         }
         return collection;
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument Collection is empty (<code>null</code> or no elements).</p>
+     * <p>Validate that the specified argument collection is neither <code>null</code> 
+     * nor a size of zero (no elements); otherwise throwing an exception. 
      *
-     * <pre>
-     * Validate.notEmpty(myCollection);
-     * </pre>
-     *
-     * <p>The message in the exception is 'The validated collection is empty'.</p>
+     * <pre>Validate.notEmpty(myCollection);</pre>
      * 
-     * @param collection  the collection to check is not empty
-     * @return the input collection, never <code>null</code> or empty, for chaining
+     * <p>The message in the exception is &quot;The validated collection is 
+     * empty&quot;.</p>
+     * 
+     * @param <T> the collection type
+     * @param collection the collection to check
+     * @return the validated collection (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the collection is <code>null</code>
      * @throws IllegalArgumentException if the collection is empty
+     * @see #notEmpty(Collection, String, Object...)
      */
     public static <T extends Collection<?>> T notEmpty(T collection) {
-        return notEmpty(collection, "The validated collection is empty");
+        return notEmpty(collection, DEFAULT_NOT_EMPTY_COLLECTION_EXCEPTION_MESSAGE);
     }
 
     // notEmpty map
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument Map is empty (<code>null</code> or no elements).</p>
+     * <p>Validate that the specified argument map is neither <code>null</code> 
+     * nor a size of zero (no elements); otherwise throwing an exception 
+     * with the specified message.
      *
-     * <pre>
-     * Validate.notEmpty(myMap, "The map must not be empty");
-     * </pre>
+     * <pre>Validate.notEmpty(myMap, "The map must not be empty");</pre>
      * 
-     * @param map  the map to check is not empty
-     * @param message  the exception message you would like to see if the map is empty
-     * @return the input map, never <code>null</code> or empty, for chaining
+     * @param <T> the map type
+     * @param map the map to check
+     * @param message the exception message if invalid
+     * @return the validated map (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the map is <code>null</code>
      * @throws IllegalArgumentException if the map is empty
+     * @see #notEmpty(Object[])
      */
-    public static <T extends Map<?, ?>> T notEmpty(T map, String message) {
-        if (map == null || map.size() == 0) {
-            throw new IllegalArgumentException(message);
+    public static <T extends Map<?, ?>> T notEmpty(T map, String message, Object... values) {
+        if (map == null) {
+            throw new NullPointerException(String.format(message, values));
+        }
+        if (map.size() == 0) {
+            throw new IllegalArgumentException(String.format(message, values));
         }
         return map;
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument Map is empty (<code>null</code> or no elements).</p>
+     * <p>Validate that the specified argument map is neither <code>null</code> 
+     * nor a size of zero (no elements); otherwise throwing an exception. 
      *
-     * <pre>
-     * Validate.notEmpty(myMap);
-     * </pre>
-     *
-     * <p>The message in the exception is 'The validated map is empty'.</p>
+     * <pre>Validate.notEmpty(myMap);</pre>
      * 
-     * @param map  the map to check is not empty
-     * @return the input map, never <code>null</code> or empty, for chaining
+     * <p>The message in the exception is &quot;The validated map is 
+     * empty&quot;.</p>
+     * 
+     * @param <T> the map type
+     * @param map the map to check
+     * @return the validated map (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the map is <code>null</code>
      * @throws IllegalArgumentException if the map is empty
+     * @see #notEmpty(Map, String, Object...)
      */
     public static <T extends Map<?, ?>> T notEmpty(T map) {
-        return notEmpty(map, "The validated map is empty");
+        return notEmpty(map, DEFAULT_NOT_EMPTY_MAP_EXCEPTION_MESSAGE);
     }
 
     // notEmpty string
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument String is empty (<code>null</code> or zero length).</p>
+     * <p>Validate that the specified argument character sequence is 
+     * neither <code>null</code> nor a length of zero (no characters); 
+     * otherwise throwing an exception with the specified message.
      *
-     * <pre>
-     * Validate.notEmpty(myString, "The string must not be empty");
-     * </pre>
+     * <pre>Validate.notEmpty(myString, "The string must not be empty");</pre>
      * 
-     * @param string  the string to check is not empty
-     * @param message  the exception message you would like to see if the string is empty
-     * @return the input string, never <code>null</code> or empty, for chaining
-     * @throws IllegalArgumentException if the string is empty
+     * @param <T> the character sequence type
+     * @param chars the character sequence to check
+     * @param message the exception message if invalid
+     * @return the validated character sequence (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the character sequence is <code>null</code>
+     * @throws IllegalArgumentException if the character sequence is empty
+     * @see #notEmpty(CharSequence)
      */
-    public static <T extends CharSequence> T notEmpty(T string, String message) {
-        if (string == null || string.length() == 0) {
-            throw new IllegalArgumentException(message);
+    public static <T extends CharSequence> T notEmpty(T chars, String message, Object... values) {
+        if (chars == null) {
+            throw new NullPointerException(String.format(message, values));
         }
-        return string;
+        if (chars.length() == 0) {
+            throw new IllegalArgumentException(String.format(message, values));
+        }
+        return chars;
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument String is empty (<code>null</code> or zero length).</p>
+     * <p>Validate that the specified argument character sequence is 
+     * neither <code>null</code> nor a length of zero (no characters); 
+     * otherwise throwing an exception with the specified message.
      *
-     * <pre>
-     * Validate.notEmpty(myString);
-     * </pre>
-     *
-     * <p>The message in the exception is 'The validated string is empty'.</p>
+     * <pre>Validate.notEmpty(myString);</pre>
      * 
-     * @param string  the string to check is not empty
-     * @return the input string, never <code>null</code> or empty, for chaining
-     * @throws IllegalArgumentException if the string is empty
+     * <p>The message in the exception is &quot;The validated 
+     * character sequence is empty&quot;.</p>
+     * 
+     * @param <T> the character sequence type
+     * @param chars the character sequence to check
+     * @return the validated character sequence (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the character sequence is <code>null</code>
+     * @throws IllegalArgumentException if the character sequence is empty
+     * @see #notEmpty(CharSequence, String, Object...)
      */
-    public static <T extends CharSequence> T notEmpty(T string) {
-        return notEmpty(string, "The validated string is empty");
+    public static <T extends CharSequence> T notEmpty(T chars) {
+        return notEmpty(chars, DEFAULT_NOT_EMPTY_CHAR_SEQUENCE_EXCEPTION_MESSAGE);
     }
 
     // notBlank string
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument String is blank (<code>null</code>, empty or whitespace).</p>
+     * <p>Validate that the specified argument character sequence is 
+     * neither <code>null</code>, a length of zero (no characters), empty
+     * nor whitespace; otherwise throwing an exception with the specified 
+     * message.
      *
-     * <pre>
-     * Validate.notBlank(myString, "The string must not be blank");
-     * </pre>
-     *
-     * @param string  the string to check is not blank
-     * @param message  the exception message you would like to see if the string is blank
-     * @return the input string, never <code>null</code> or blank, for chaining
-     * @throws IllegalArgumentException if the string is blank
-     * @see StringUtils#isBlank(CharSequence)
+     * <pre>Validate.notBlank(myString, "The string must not be blank");</pre>
+     * 
+     * @param <T> the character sequence type
+     * @param chars the character sequence to check
+     * @param message the exception message if invalid
+     * @return the validated character sequence (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the character sequence is <code>null</code>
+     * @throws IllegalArgumentException if the character sequence is blank
+     * @see #notBlank(CharSequence)
      */
-    public static <T extends CharSequence> T notBlank(T string, String message) {
-        if (StringUtils.isBlank(string)) {
-            throw new IllegalArgumentException(message);
+    public static <T extends CharSequence> T notBlank(T chars, String message, Object... values) {
+        if (chars == null) {
+            throw new NullPointerException(String.format(message, values));
         }
-        return string;
+        if (StringUtils.isBlank(chars)) {
+            throw new IllegalArgumentException(String.format(message, values));
+        }
+        return chars;
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument String is blank (<code>null</code>, empty or whitespace).</p>
+     * <p>Validate that the specified argument character sequence is 
+     * neither <code>null</code>, a length of zero (no characters), empty
+     * nor whitespace; otherwise throwing an exception.
      *
-     * <pre>
-     * Validate.notBlank(myString);
-     * </pre>
-     *
-     * <p>The message in the exception is 'The validated string is blank'.</p>
-     *
-     * @param string  the string to check is not blank
-     * @return the input string, never <code>null</code> or blank, for chaining
-     * @throws IllegalArgumentException if the string is blank
-     * @see StringUtils#isBlank(CharSequence)
+     * <pre>Validate.notBlank(myString);</pre>
+     * 
+     * <p>The message in the exception is &quot;The validated character 
+     * sequence is blank&quot;.</p>
+     * 
+     * @param <T> the character sequence type
+     * @param chars the character sequence to check
+     * @return the validated character sequence (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the character sequence is <code>null</code>
+     * @throws IllegalArgumentException if the character sequence is blank
+     * @see #notBlank(CharSequence, String, Object...)
      */
-    public static <T extends CharSequence> T notBlank(T string) {
-        return notBlank(string, "The validated string is blank");
+    public static <T extends CharSequence> T notBlank(T chars) {
+        return notBlank(chars, DEFAULT_NOT_BLANK_EXCEPTION_MESSAGE);
     }
 
     // notNullElements array
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument array has <code>null</code> elements or is
-     * <code>null</code>.</p>
+     * <p>Validate that the specified argument array is neither 
+     * <code>null</code> nor contains any elements that are <code>null</code>;
+     * otherwise throwing an exception with the specified message.
      *
-     * <pre>
-     * Validate.noNullElements(myArray, "The array must not contain null elements");
-     * </pre>
+     * <pre>Validate.noNullElements(myArray, "The array contain null at position %d");</pre>
      * 
-     * <p>If the array is null then the message in the exception is 'The validated object is null'.</p>
-     *
-     * @param array  the array to check
-     * @param message  the exception message if the array has
-     *  <code>null</code> elements
-     * @return the validated input array, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the array has <code>null</code>
-     *  elements or is <code>null</code>
+     * <p>If the array is <code>null</code>, then the message in the exception 
+     * is &quot;The validated object is null&quot;.</p>
+     * 
+     * <p>If the array has a <code>null</code> element, then the iteration 
+     * index of the invalid element is appended to the <code>values</code> 
+     * argument.</p>
+     * 
+     * @param <T> the array type
+     * @param array the array to check
+     * @return the validated array (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the array is <code>null</code>
+     * @throws IllegalArgumentException if an element is <code>null</code>
+     * @see #noNullElements(Object[])
      */
-    public static <T> T[] noNullElements(T[] array, String message) {
+    public static <T> T[] noNullElements(T[] array, String message, Object... values) {
         Validate.notNull(array);
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
-                throw new IllegalArgumentException(message);
+                Object[] values2 = ArrayUtils.add(values, i);
+                throw new IllegalArgumentException(String.format(message, values2));
             }
         }
         return array;
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument array has <code>null</code> elements or is
-     * <code>null</code>.</p>
+     * <p>Validate that the specified argument array is neither 
+     * <code>null</code> nor contains any elements that are <code>null</code>;
+     * otherwise throwing an exception.
      *
-     * <pre>
-     * Validate.noNullElements(myArray);
-     * </pre>
-     *
-     * <p>If the array has a null element the message in the exception is
-     * 'The validated array contains null element at index: '.</p>
-     *
-     * <p>If the array is null then the message in the exception is 'The validated object is null'.</p>
+     * <pre>Validate.noNullElements(myArray);</pre>
      * 
-     * @param array  the array to check
-     * @return the validated input array, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the array has <code>null</code>
-     *  elements or is <code>null</code>
+     * <p>If the array is <code>null</code>, then the message in the exception 
+     * is &quot;The validated object is null&quot;.</p>
+     * 
+     * <p>If the array has a <code>null</code> element, then the message in the
+     * exception is &quot;The validated array contains null element at index: 
+     * &quot followed by the index.</p>
+     *
+     * @param <T> the array type
+     * @param array the array to check
+     * @return the validated array (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the array is <code>null</code>
+     * @throws IllegalArgumentException if an element is <code>null</code>
+     * @see #noNullElements(Object[], String, Object...)
      */
     public static <T> T[] noNullElements(T[] array) {
-        Validate.notNull(array);
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == null) {
-                throw new IllegalArgumentException("The validated array contains null element at index: " + i);
-            }
-        }
-        return array;
+        return noNullElements(array, DEFAULT_NO_NULL_ELEMENTS_ARRAY_EXCEPTION_MESSAGE);
     }
 
     // notNullElements collection
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument Collection has <code>null</code> elements or is
-     * <code>null</code>.</p>
+     * <p>Validate that the specified argument collection is neither 
+     * <code>null</code> nor contains any elements that are <code>null</code>;
+     * otherwise throwing an exception with the specified message.
      *
-     * <pre>
-     * Validate.noNullElements(myCollection, "The collection must not contain null elements");
-     * </pre>
-     *
-     * <p>If the collection is null then the message in the exception is 'The validated object is null'.</p>
+     * <pre>Validate.noNullElements(myCollection, "The collection contains null at position %d");</pre>
      * 
-     * @param collection  the collection to check
-     * @param message  the exception message if the collection has
-     *  <code>null</code> elements
-     * @return the validated input collection, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the collection has
-     *  <code>null</code> elements or is <code>null</code>
+     * <p>If the collection is <code>null</code>, then the message in the exception 
+     * is &quot;The validated object is null&quot;.</p>
+     * 
+     * <p>If the collection has a <code>null</code> element, then the iteration 
+     * index of the invalid element is appended to the <code>values</code> 
+     * argument.</p>
+     *
+     * @param <T> the collection type
+     * @param collection the collection to check
+     * @return the validated collection (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the array is <code>null</code>
+     * @throws IllegalArgumentException if an element is <code>null</code>
+     * @see #noNullElements(Collection, String, Object...)
      */
-    public static <T extends Collection<?>> T noNullElements(T collection, String message) {
+    public static <T extends Collection<?>> T noNullElements(T collection, String message, Object... values) {
         Validate.notNull(collection);
-        for (Iterator<?> it = collection.iterator(); it.hasNext();) {
+        int i = 0;
+        for (Iterator<?> it = collection.iterator(); it.hasNext(); i++) {
             if (it.next() == null) {
-                throw new IllegalArgumentException(message);
+                Object[] values2 = ArrayUtils.addAll(values, i);
+                throw new IllegalArgumentException(String.format(message, values2));
             }
         }
         return collection;
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code>
-     * if the argument Collection has <code>null</code> elements or is
-     * <code>null</code>.</p>
+     * <p>Validate that the specified argument collection is neither 
+     * <code>null</code> nor contains any elements that are <code>null</code>;
+     * otherwise throwing an exception.
      *
-     * <pre>
-     * Validate.noNullElements(myCollection);
-     * </pre>
-     *
-     * <p>The message in the exception is 'The validated collection contains null element at index: '.</p>
-     *
-     * <p>If the collection is null then the message in the exception is 'The validated object is null'.</p>
+     * <pre>Validate.noNullElements(myCollection);</pre>
      * 
-     * @param collection  the collection to check
-     * @return the validated input collection, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the collection has
-     *  <code>null</code> elements or is <code>null</code>
+     * <p>If the collection is <code>null</code>, then the message in the exception 
+     * is &quot;The validated object is null&quot;.</p>
+     * 
+     * <p>If the array has a <code>null</code> element, then the message in the
+     * exception is &quot;The validated collection contains null element at index: 
+     * &quot followed by the index.</p>
+     *
+     * @param <T> the collection type
+     * @param collection the collection to check
+     * @return the validated collection (never <code>null</code> method for chaining)
+     * @throws NullPointerException if the array is <code>null</code>
+     * @throws IllegalArgumentException if an element is <code>null</code>
+     * @see #noNullElements(Collection, String, Object...)
      */
     public static <T extends Collection<?>> T noNullElements(T collection) {
-        Validate.notNull(collection);
-        int i = 0;
-        for (Iterator<?> it = collection.iterator(); it.hasNext(); i++) {
-            if (it.next() == null) {
-                throw new IllegalArgumentException("The validated collection contains null element at index: " + i);
-            }
-        }
-        return collection;
+        return noNullElements(collection, DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EXCEPTION_MESSAGE);
     }
 
     // validIndex array
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
-     * index for the argument array is invalid or if the array is <code>null</code>.</p>
+     * <p>Validates that the index is within the bounds of the argument 
+     * array; otherwise throwing an exception with the specified message.</p>
      *
-     * <pre>
-     * Validate.validIndex(myArray, 2, "The array index is invalid: ");
-     * </pre>
+     * <pre>Validate.validIndex(myArray, 2, "The array index is invalid: ");</pre>
      * 
-     * <p>If the array is null then the message in the exception is 'The validated object is null'.</p>
-     *
-     * @param array  the array to check, not null
-     * @param message  the exception message if the array index is invalid
-     * @return the validated input array, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the array index is invalid or null
+     * <p>If the array is <code>null</code>, then the message of the exception 
+     * is &quot;The validated object is null&quot;.</p>
+     * 
+     * @param <T> the array type
+     * @param array the array to check
+     * @param index the index
+     * @param message the exception message if invalid
+     * @return the validated array (never <code>null</code> for method chaining)
+     * @throws NullPointerException if the array is <code>null</code>
+     * @throws IndexOutOfBoundsException if the index is invalid
+     * @see #validIndex(Object[], int)
      */
-    public static <T> T[] validIndex(T[] array, int index, String message) {
+    public static <T> T[] validIndex(T[] array, int index, String message, Object... values) {
         Validate.notNull(array);
         if (index < 0 || index >= array.length) {
-            throw new IllegalArgumentException(message + index);
+            throw new IndexOutOfBoundsException(String.format(message, values));
         }
         return array;
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
-     * index for the argument array is invalid or if the array is <code>null</code>.</p>
+     * <p>Validates that the index is within the bounds of the argument 
+     * array; otherwise throwing an exception.</p>
      *
-     * <pre>
-     * Validate.validIndex(myArray, 2);
-     * </pre>
+     * <pre>Validate.validIndex(myArray, 2);</pre>
      *
-     * <p>If the array index is invalid the message in the exception is
-     * 'The validated array index is invalid: ' followed by the index.</p>
-     *
-     * <p>If the array is null then the message in the exception is 'The validated object is null'.</p>
+     * <p>If the array is <code>null</code>, then the message of the exception
+     * is &quot;The validated object is null&quot;.</p>
      * 
-     * @param array  the array to check, not null
-     * @return the validated input array, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the array index is invalid or null
+     * <p>If the index is invalid, then the message of the exception is 
+     * &quot;The validated array index is invalid: &quot; followed by the 
+     * index.</p>
+     * 
+     * @param <T> the array type
+     * @param array the array to check
+     * @param index the index
+     * @return the validated array (never <code>null</code> for method chaining)
+     * @throws NullPointerException if the array is <code>null</code>
+     * @throws IndexOutOfBoundsException if the index is invalid
+     * @see #validIndex(Object[], int, String, Object...)
      */
     public static <T> T[] validIndex(T[] array, int index) {
-        return validIndex(array, index, "The validated array index is invalid: ");
+        return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EXCEPTION_MESSAGE, index);
     }
 
     // validIndex collection
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
-     * index for the argument collection is invalid or if the collection is <code>null</code>.</p>
+     * <p>Validates that the index is within the bounds of the argument 
+     * collection; otherwise throwing an exception with the specified message.</p>
      *
-     * <pre>
-     * Validate.validIndex(myCollection, 2, "The collection index is invalid: ");
-     * </pre>
+     * <pre>Validate.validIndex(myCollection, 2, "The collection index is invalid: ");</pre>
      * 
-     * <p>If the collection is null then the message in the exception is 'The validated object is null'.</p>
+     * <p>If the collection is <code>null</code>, then the message of the 
+     * exception is &quot;The validated object is null&quot;.</p>
      *
-     * @param coll  the collection to check, not null
-     * @param message  the exception message if the collection index is invalid
-     * @return the validated input collection, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the collection index is invalid or null
+     * @param <T> the collection type
+     * @param collection the collection to check
+     * @param index the index
+     * @param message the exception message if invalid
+     * @return the validated collection (never <code>null</code> for chaining)
+     * @throws NullPointerException if the collection is <code>null</code>
+     * @throws IndexOutOfBoundsException if the index is invalid
+     * @see #validIndex(Collection, int)
      */
-    public static <T extends Collection<?>> T validIndex(T coll, int index, String message) {
-        Validate.notNull(coll);
-        if (index < 0 || index >= coll.size()) {
-            throw new IllegalArgumentException(message + index);
+    public static <T extends Collection<?>> T validIndex(T collection, int index, String message, Object... values) {
+        Validate.notNull(collection);
+        if (index < 0 || index >= collection.size()) {
+            throw new IndexOutOfBoundsException(String.format(message, values));
         }
-        return coll;
+        return collection;
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
-     * index for the argument collection is invalid or if the collection is <code>null</code>.</p>
+     * <p>Validates that the index is within the bounds of the argument 
+     * collection; otherwise throwing an exception.</p>
      *
-     * <pre>
-     * Validate.validIndex(myCollection, 2);
-     * </pre>
+     * <pre>Validate.validIndex(myCollection, 2);</pre>
      *
-     * <p>If the collection index is invalid the message in the exception is
-     * 'The validated collection index is invalid: ' followed by the index.</p>
-     *
-     * <p>If the collection is null then the message in the exception is 'The validated object is null'.</p>
+     * <p>If the index is invalid, then the message of the exception 
+     * is &quot;The validated collection index is invalid: &quot; 
+     * followed by the index.</p>
      * 
-     * @param coll  the collection to check, not null
-     * @return the validated input collection, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the collection index is invalid or null
+     * @param <T> the collection type
+     * @param collection the collection to check
+     * @param index the index
+     * @return the validated collection (never <code>null</code> for method chaining)
+     * @throws NullPointerException if the collection is <code>null</code>
+     * @throws IndexOutOfBoundsException if the index is invalid
+     * @see #validIndex(Collection, int, String, Object...)
      */
-    public static <T extends Collection<?>> T validIndex(T coll, int index) {
-        return validIndex(coll, index, "The validated collection index is invalid: ");
+    public static <T extends Collection<?>> T validIndex(T collection, int index) {
+        return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EXCEPTION_MESSAGE, index);
     }
 
     // validIndex string
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
-     * index for the argument character sequence (including String and StringBuffer)
-     * is invalid or if the string is <code>null</code>.</p>
+     * <p>Validates that the index is within the bounds of the argument 
+     * character sequence; otherwise throwing an exception with the 
+     * specified message.</p>
      *
-     * <pre>
-     * Validate.validIndex(myStr, 2, "The string index is invalid: ");
-     * </pre>
+     * <pre>Validate.validIndex(myStr, 2, "The string index is invalid: ");</pre>
      * 
-     * <p>If the string is null then the message in the exception is 'The validated object is null'.</p>
+     * <p>If the character sequence is <code>null</code>, then the message 
+     * of the exception is &quot;The validated object is null&quot;.</p>
      *
-     * @param str  the string to check, not null
-     * @param message  the exception message if the string index is invalid
-     * @return the validated input string, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the string index is invalid or null
+     * @param <T> the character sequence type
+     * @param chars the character sequence to check
+     * @param index the index
+     * @param message the exception message if invalid
+     * @return the validated character sequence (never <code>null</code> for method chaining)
+     * @throws NullPointerException if the character sequence is <code>null</code>
+     * @throws IndexOutOfBoundsException if the index is invalid
+     * @see #validIndex(CharSequence, int)
      */
-    public static <T extends CharSequence> T validIndex(T str, int index, String message) {
-        Validate.notNull(str);
-        if (index < 0 || index >= str.length()) {
-            throw new IllegalArgumentException(message + index);
+    public static <T extends CharSequence> T validIndex(T chars, int index, String message, Object... values) {
+        Validate.notNull(chars);
+        if (index < 0 || index >= chars.length()) {
+            throw new IndexOutOfBoundsException(String.format(message, values));
         }
-        return str;
+        return chars;
     }
 
     /**
-     * <p>Validate an argument, throwing <code>IllegalArgumentException</code> if the
-     * index for the argument character sequence (including String and StringBuffer)
-     * is invalid or if the string is <code>null</code>.</p>
-     *
-     * <pre>
-     * Validate.validIndex(myStr, 2);
-     * </pre>
-     *
-     * <p>If the string index is invalid the message in the exception is
-     * 'The validated string index is invalid: ' followed by the index.</p>
-     *
-     * <p>If the string is null then the message in the exception is 'The validated object is null'.</p>
+     * <p>Validates that the index is within the bounds of the argument 
+     * character sequence; otherwise throwing an exception.</p>
      * 
-     * @param str  the string to check, not null
-     * @return the validated input string, never <code>null</code>, for chaining
-     * @throws IllegalArgumentException if the string index is invalid or null
+     * <pre>Validate.validIndex(myStr, 2);</pre>
+     *
+     * <p>If the character sequence is <code>null</code>, then the message 
+     * of the exception is &quot;The validated object is 
+     * null&quot;.</p>
+     * 
+     * <p>If the index is invalid, then the message of the exception 
+     * is &quot;The validated character sequence index is invalid: &quot; 
+     * followed by the index.</p>
+     * 
+     * @param <T> the character sequence type
+     * @param chars the character sequence to check
+     * @param index the index
+     * @return the validated character sequence (never <code>null</code> for method chaining)
+     * @throws NullPointerException if the character sequence is <code>null</code>
+     * @throws IndexOutOfBoundsException if the index is invalid
+     * @see #validIndex(CharSequence, int, String, Object...)
      */
-    public static <T extends CharSequence> T validIndex(T str, int index) {
-        return validIndex(str, index, "The validated string index is invalid: ");
+    public static <T extends CharSequence> T validIndex(T chars, int index) {
+        return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EXCEPTION_MESSAGE, index);
     }
 
 }
