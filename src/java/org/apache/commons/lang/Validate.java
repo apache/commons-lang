@@ -58,7 +58,7 @@ public class Validate {
     private static final String DEFAULT_NOT_EMPTY_COLLECTION_EXCEPTION_MESSAGE = "The validated collection is empty";
     private static final String DEFAULT_NOT_EMPTY_MAP_EXCEPTION_MESSAGE = "The validated map is empty";
     private static final String DEFAULT_VALID_INDEX_ARRAY_EXCEPTION_MESSAGE = "The validated array index is invalid: %d";
-    private static final String DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EXCEPTION_MESSAGE = "The validated character sequence is invalid: %d";
+    private static final String DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EXCEPTION_MESSAGE = "The validated character sequence index is invalid: %d";
     private static final String DEFAULT_VALID_INDEX_COLLECTION_EXCEPTION_MESSAGE = "The validated collection index is invalid: %d";
 
     /**
