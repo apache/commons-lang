@@ -26,7 +26,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.CharRange}.
+ * Unit tests {@link org.apache.commons.lang3.CharRange}.
  *
  * @author Apache Software Foundation
  * @version $Id$

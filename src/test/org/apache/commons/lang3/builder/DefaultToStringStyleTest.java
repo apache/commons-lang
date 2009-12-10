@@ -27,7 +27,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.builder.DefaultToStringStyleTest}.
+ * Unit tests {@link org.apache.commons.lang3.builder.DefaultToStringStyleTest}.
  *
  * @author Apache Software Foundation
  * @version $Id$

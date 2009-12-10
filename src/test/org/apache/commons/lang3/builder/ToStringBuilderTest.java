@@ -26,7 +26,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests for {@link org.apache.commons.lang.builder.ToStringBuilder}.
+ * Unit tests for {@link org.apache.commons.lang3.builder.ToStringBuilder}.
  *
  * @author Apache Software Foundation
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>

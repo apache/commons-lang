@@ -49,14 +49,14 @@ import java.util.Set;
  * </p><p>
  * The output in a printStacktrace() (which often is written to a log) would look something like the following:
  * <pre>
- * org.apache.commons.lang.exception.ContextedException: java.lang.Exception: Error posting account transaction
+ * org.apache.commons.lang3.exception.ContextedException: java.lang.Exception: Error posting account transaction
  *  Exception Context:
  *  [accountNumber=null]
  *  [amountPosted=100.00]
  *  [previousBalance=-2.17]
  *
  *  ---------------------------------
- *  at org.apache.commons.lang.exception.ContextedExceptionTest.testAddValue(ContextedExceptionTest.java:88)
+ *  at org.apache.commons.lang3.exception.ContextedExceptionTest.testAddValue(ContextedExceptionTest.java:88)
  *  ..... (rest of trace)
  * </pre>
  * </p>

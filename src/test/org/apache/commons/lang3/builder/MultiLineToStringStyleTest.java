@@ -28,7 +28,7 @@ import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 
 /**
- * Unit tests {@link org.apache.commons.lang.builder.MultiLineToStringStyleTest}.
+ * Unit tests {@link org.apache.commons.lang3.builder.MultiLineToStringStyleTest}.
  *
  * @author Apache Software Foundation
  * @version $Id$

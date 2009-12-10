@@ -128,7 +128,7 @@ public class DurationFormatUtilsTest extends TestCase {
             // at junit.framework.Assert.assertEquals(Assert.java:81)
             // at junit.framework.Assert.assertEquals(Assert.java:87)
             // at
-            // org.apache.commons.lang.time.DurationFormatUtilsTest.testFormatDurationWords(DurationFormatUtilsTest.java:124)
+            // org.apache.commons.lang3.time.DurationFormatUtilsTest.testFormatDurationWords(DurationFormatUtilsTest.java:124)
             // at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
             // at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
             // at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)

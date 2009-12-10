@@ -31,7 +31,7 @@ import junit.textui.TestRunner;
 import org.apache.commons.lang3.SerializationUtils;
 
 /**
- * Unit tests {@link org.apache.commons.lang.time.FastDateFormat}.
+ * Unit tests {@link org.apache.commons.lang3.time.FastDateFormat}.
  *
  * @author Sean Schofield
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>

@@ -27,7 +27,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.ObjectUtils}.
+ * Unit tests {@link org.apache.commons.lang3.ObjectUtils}.
  *
  * @author Apache Software Foundation
  * @author <a href="mailto:jmcnally@collab.net">John McNally</a>

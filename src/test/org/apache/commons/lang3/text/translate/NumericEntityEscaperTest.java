@@ -20,7 +20,7 @@ package org.apache.commons.lang3.text.translate;
 import junit.framework.TestCase;
 
 /**
- * Unit tests for {@link org.apache.commons.lang.text.translate.NumericEntityEscaper}.
+ * Unit tests for {@link org.apache.commons.lang3.text.translate.NumericEntityEscaper}.
  */
 public class NumericEntityEscaperTest extends TestCase {
 

@@ -34,7 +34,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.SerializationUtils}.
+ * Unit tests {@link org.apache.commons.lang3.SerializationUtils}.
  *
  * @author Apache Software Foundation
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>

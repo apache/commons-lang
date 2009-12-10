@@ -22,7 +22,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.StringUtils} - StartsWith/EndsWith methods
+ * Unit tests {@link org.apache.commons.lang3.StringUtils} - StartsWith/EndsWith methods
  *
  * @version $Id$
  */

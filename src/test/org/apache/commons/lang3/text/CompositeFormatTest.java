@@ -29,7 +29,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests for {@link org.apache.commons.lang.text.CompositeFormat}.
+ * Unit tests for {@link org.apache.commons.lang3.text.CompositeFormat}.
  */
 public class CompositeFormatTest extends TestCase {
 

@@ -22,8 +22,8 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Tests {@link org.apache.commons.lang.builder.HashCodeBuilder} and
- * {@link org.apache.commons.lang.builder.EqualsBuilderTest} to insure that equal
+ * Tests {@link org.apache.commons.lang3.builder.HashCodeBuilder} and
+ * {@link org.apache.commons.lang3.builder.EqualsBuilderTest} to insure that equal
  * objects must have equal hash codes.
  * 
  * @author Gary Gregory
