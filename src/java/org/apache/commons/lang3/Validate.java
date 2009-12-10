@@ -553,61 +553,61 @@ public class Validate {
     //---------------------------------------------------------------------------------
 
     /**
-     * <p>Validate that the specified argument collection is neither 
+     * <p>Validate that the specified argument iterable is neither 
      * <code>null</code> nor contains any elements that are <code>null</code>;
      * otherwise throwing an exception with the specified message.
      *
      * <pre>Validate.noNullElements(myCollection, "The collection contains null at position %d");</pre>
      * 
-     * <p>If the collection is <code>null</code>, then the message in the exception 
+     * <p>If the iterable is <code>null</code>, then the message in the exception 
      * is &quot;The validated object is null&quot;.</p>
      * 
-     * <p>If the collection has a <code>null</code> element, then the iteration 
+     * <p>If the iterable has a <code>null</code> element, then the iteration 
      * index of the invalid element is appended to the <code>values</code> 
      * argument.</p>
      *
-     * @param <T> the collection type
-     * @param collection the collection to check
-     * @return the validated collection (never <code>null</code> method for chaining)
+     * @param <T> the iterable type
+     * @param iterable the iterable to check
+     * @return the validated iterable (never <code>null</code> method for chaining)
      * @throws NullPointerException if the array is <code>null</code>
      * @throws IllegalArgumentException if an element is <code>null</code>
-     * @see #noNullElements(Collection, String, Object...)
+     * @see #noNullElements(Iterable)
      */
-    public static <T extends Collection<?>> T noNullElements(T collection, String message, Object... values) {
-        Validate.notNull(collection);
+    public static <T extends Iterable<?>> T noNullElements(T iterable, String message, Object... values) {
+        Validate.notNull(iterable);
         int i = 0;
-        for (Iterator<?> it = collection.iterator(); it.hasNext(); i++) {
+        for (Iterator<?> it = iterable.iterator(); it.hasNext(); i++) {
             if (it.next() == null) {
                 Object[] values2 = ArrayUtils.addAll(values, i);
                 throw new IllegalArgumentException(String.format(message, values2));
             }
         }
-        return collection;
+        return iterable;
     }
 
     /**
-     * <p>Validate that the specified argument collection is neither 
+     * <p>Validate that the specified argument iterable is neither 
      * <code>null</code> nor contains any elements that are <code>null</code>;
      * otherwise throwing an exception.
      *
      * <pre>Validate.noNullElements(myCollection);</pre>
      * 
-     * <p>If the collection is <code>null</code>, then the message in the exception 
+     * <p>If the iterable is <code>null</code>, then the message in the exception 
      * is &quot;The validated object is null&quot;.</p>
      * 
      * <p>If the array has a <code>null</code> element, then the message in the
-     * exception is &quot;The validated collection contains null element at index: 
+     * exception is &quot;The validated iterable contains null element at index: 
      * &quot followed by the index.</p>
      *
-     * @param <T> the collection type
-     * @param collection the collection to check
-     * @return the validated collection (never <code>null</code> method for chaining)
+     * @param <T> the iterable type
+     * @param iterable the iterable to check
+     * @return the validated iterable (never <code>null</code> method for chaining)
      * @throws NullPointerException if the array is <code>null</code>
      * @throws IllegalArgumentException if an element is <code>null</code>
      * @see #noNullElements(Collection, String, Object...)
      */
-    public static <T extends Collection<?>> T noNullElements(T collection) {
-        return noNullElements(collection, DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EXCEPTION_MESSAGE);
+    public static <T extends Iterable<?>> T noNullElements(T iterable) {
+        return noNullElements(iterable, DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EXCEPTION_MESSAGE);
     }
 
     // validIndex array
