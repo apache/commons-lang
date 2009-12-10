@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.builder;
+package org.apache.commons.lang3.builder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.lang.builder.ToStringStyleTest.Person;
+import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

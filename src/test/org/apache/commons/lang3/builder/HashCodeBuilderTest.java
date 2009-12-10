@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang.builder;
+package org.apache.commons.lang3.builder;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.commons.lang;
+package org.apache.commons.lang3;
 
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;

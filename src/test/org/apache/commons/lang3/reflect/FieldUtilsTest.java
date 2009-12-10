@@ -14,17 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.reflect;
+package org.apache.commons.lang3.reflect;
 
 import java.lang.reflect.Field;
 
-import org.apache.commons.lang.reflect.testbed.Ambig;
-import org.apache.commons.lang.reflect.testbed.Foo;
-import org.apache.commons.lang.reflect.testbed.PrivatelyShadowedChild;
-import org.apache.commons.lang.reflect.testbed.PublicChild;
-import org.apache.commons.lang.reflect.testbed.PubliclyShadowedChild;
-import org.apache.commons.lang.reflect.testbed.StaticContainer;
-import org.apache.commons.lang.reflect.testbed.StaticContainerChild;
+import org.apache.commons.lang3.reflect.testbed.Ambig;
+import org.apache.commons.lang3.reflect.testbed.Foo;
+import org.apache.commons.lang3.reflect.testbed.PrivatelyShadowedChild;
+import org.apache.commons.lang3.reflect.testbed.PublicChild;
+import org.apache.commons.lang3.reflect.testbed.PubliclyShadowedChild;
+import org.apache.commons.lang3.reflect.testbed.StaticContainer;
+import org.apache.commons.lang3.reflect.testbed.StaticContainerChild;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

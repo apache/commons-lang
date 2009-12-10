@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.math;
+package org.apache.commons.lang3.math;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Unit tests {@link org.apache.commons.lang.math.NumberUtils}.

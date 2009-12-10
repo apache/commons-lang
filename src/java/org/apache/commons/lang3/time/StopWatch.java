@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang.time;
+package org.apache.commons.lang3.time;
 
 /**
  * <p>

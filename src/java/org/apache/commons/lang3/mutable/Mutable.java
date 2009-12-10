@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang.mutable;
+package org.apache.commons.lang3.mutable;
 
 /**
  * Provides mutable access to a value.

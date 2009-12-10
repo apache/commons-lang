@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang.builder;
+package org.apache.commons.lang3.builder;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;

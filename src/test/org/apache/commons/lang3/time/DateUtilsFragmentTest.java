@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.time;
+package org.apache.commons.lang3.time;
 
 import java.util.Calendar;
 import java.util.Date;

@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.commons.lang;
+package org.apache.commons.lang3;
 
 import java.io.File;
 import java.lang.reflect.Constructor;

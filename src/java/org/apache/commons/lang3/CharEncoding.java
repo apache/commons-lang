@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang;
+package org.apache.commons.lang3;
 
 import java.io.UnsupportedEncodingException;
 
