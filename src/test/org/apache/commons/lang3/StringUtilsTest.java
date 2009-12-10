@@ -1004,7 +1004,7 @@ public class StringUtilsTest extends TestCase {
     }
 
     /**
-     * Test method for 'org.apache.commons.lang.StringUtils.replaceEach(String, String[], String[])'
+     * Test method for 'StringUtils.replaceEach(String, String[], String[])'
      */
     public void testReplace_StringStringArrayStringArray() {
 
@@ -1036,7 +1036,7 @@ public class StringUtilsTest extends TestCase {
     }
 
     /**
-     * Test method for 'org.apache.commons.lang.StringUtils.replaceEachRepeatedly(String, String[], String[])'
+     * Test method for 'StringUtils.replaceEachRepeatedly(String, String[], String[])'
      */
     public void testReplace_StringStringArrayStringArrayBoolean() {
         //JAVADOC TESTS START
