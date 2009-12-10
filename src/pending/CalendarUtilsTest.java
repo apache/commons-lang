@@ -28,7 +28,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.CalendarUtils}.
+ * Unit tests {@link org.apache.commons.lang3.CalendarUtils}.
  *
  * @author <a href="mailto:sergek@lokitech.com">Serge Knystautas</a>
  */

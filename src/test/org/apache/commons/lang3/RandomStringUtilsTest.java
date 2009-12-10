@@ -25,7 +25,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.RandomStringUtils}.
+ * Unit tests {@link org.apache.commons.lang3.RandomStringUtils}.
  *
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>

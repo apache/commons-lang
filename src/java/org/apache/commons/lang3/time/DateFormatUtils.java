@@ -25,7 +25,7 @@ import java.util.TimeZone;
  * <p>Date and time formatting utilities and constants.</p>
  *
  * <p>Formatting is performed using the
- * {@link org.apache.commons.lang.time.FastDateFormat} class.</p>
+ * {@link org.apache.commons.lang3.time.FastDateFormat} class.</p>
  *
  * @author Apache Software Foundation
  * @author Apache Ant - DateUtils

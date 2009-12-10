@@ -24,7 +24,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.builder.CompareToBuilder}.
+ * Unit tests {@link org.apache.commons.lang3.builder.CompareToBuilder}.
  *
  * @author Apache Software Foundation
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>

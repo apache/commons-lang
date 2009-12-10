@@ -22,7 +22,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.StringUtils} - Trim/Empty methods
+ * Unit tests {@link org.apache.commons.lang3.StringUtils} - Trim/Empty methods
  *
  * @author Apache Software Foundation
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>

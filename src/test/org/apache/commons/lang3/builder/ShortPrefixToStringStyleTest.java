@@ -24,7 +24,7 @@ import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 import junit.framework.TestCase;
 
 /**
- * Unit tests {@link org.apache.commons.lang.builder.ToStringStyle#SHORT_PREFIX_STYLE}.
+ * Unit tests {@link org.apache.commons.lang3.builder.ToStringStyle#SHORT_PREFIX_STYLE}.
  * 
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @version $Id$

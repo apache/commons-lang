@@ -23,7 +23,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests for {@link org.apache.commons.lang.text.StrMatcher}.
+ * Unit tests for {@link org.apache.commons.lang3.text.StrMatcher}.
  *
  * @version $Id$
  */

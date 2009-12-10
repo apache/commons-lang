@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 
 /**
  * <p>
- * Tests the methods in the {@link org.apache.commons.lang.Range} class.
+ * Tests the methods in the {@link org.apache.commons.lang3.Range} class.
  * </p>
  * 
  * @version $Id: RangeTest.java 754804 2009-03-16 02:06:18Z sebb $

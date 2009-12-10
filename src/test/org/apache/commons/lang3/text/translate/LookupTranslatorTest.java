@@ -23,7 +23,7 @@ import java.io.StringWriter;
 import java.io.IOException;
 
 /**
- * Unit tests for {@link org.apache.commons.lang.text.translate.LookupTranslator}.
+ * Unit tests for {@link org.apache.commons.lang3.text.translate.LookupTranslator}.
  */
 public class LookupTranslatorTest extends TestCase {
 

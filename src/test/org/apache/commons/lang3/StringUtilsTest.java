@@ -29,7 +29,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.StringUtils}.
+ * Unit tests {@link org.apache.commons.lang3.StringUtils}.
  *
  * @author Apache Software Foundation
  * @author Daniel L. Rall

@@ -38,7 +38,7 @@ import junit.textui.TestRunner;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
- * Unit tests {@link org.apache.commons.lang.time.DateUtils}.
+ * Unit tests {@link org.apache.commons.lang3.time.DateUtils}.
  *
  * @author <a href="mailto:sergek@lokitech.com">Serge Knystautas</a>
  * @author <a href="mailto:steve@mungoknotwise.com">Steven Caswell</a>

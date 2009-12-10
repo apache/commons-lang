@@ -29,7 +29,7 @@ import junit.textui.TestRunner;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
- * Unit tests {@link org.apache.commons.lang.math.NumberUtils}.
+ * Unit tests {@link org.apache.commons.lang3.math.NumberUtils}.
  *
  * @author Apache Software Foundation
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>

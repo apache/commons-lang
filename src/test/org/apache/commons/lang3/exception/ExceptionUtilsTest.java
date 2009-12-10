@@ -35,7 +35,7 @@ import junit.framework.TestSuite;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
- * Tests {@link org.apache.commons.lang.exception.ExceptionUtils}.
+ * Tests {@link org.apache.commons.lang3.exception.ExceptionUtils}.
  * 
  * <h3>Notes</h3>
  * <p>

@@ -20,7 +20,7 @@ package org.apache.commons.lang3.text.translate;
 import junit.framework.TestCase;
 
 /**
- * Unit tests for {@link org.apache.commons.lang.text.translate.EntityArrays}.
+ * Unit tests for {@link org.apache.commons.lang3.text.translate.EntityArrays}.
  */
 public class EntityArraysTest extends TestCase {
 

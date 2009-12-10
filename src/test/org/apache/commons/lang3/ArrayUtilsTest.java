@@ -28,7 +28,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.ArrayUtils}.
+ * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
  *
  * @author Apache Software Foundation
  * @author Moritz Petersen

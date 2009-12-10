@@ -19,7 +19,7 @@ package org.apache.commons.lang3.math;
 import junit.framework.TestCase;
 
 /**
- * Unit tests {@link org.apache.commons.lang.math.IEEE754rUtils}.
+ * Unit tests {@link org.apache.commons.lang3.math.IEEE754rUtils}.
  *
  * @version $Id$
  */

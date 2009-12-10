@@ -25,7 +25,7 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
- * Unit tests {@link org.apache.commons.lang.BooleanUtils}.
+ * Unit tests {@link org.apache.commons.lang3.BooleanUtils}.
  *
  * @author Apache Software Foundation
  * @author Matthew Hawthorne
