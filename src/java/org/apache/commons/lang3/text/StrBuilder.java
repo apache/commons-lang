@@ -969,17 +969,17 @@ public class StrBuilder implements CharSequence, Appendable {
     }
 
     /**
-     * Appends each item in a collection to the builder without any separators.
-     * Appending a null collection will have no effect.
+     * Appends each item in a iterable to the builder without any separators.
+     * Appending a null iterable will have no effect.
      * Each object is appended using {@link #append(Object)}.
      *
-     * @param coll  the collection to append
+     * @param iterable  the iterable to append
      * @return this, to enable chaining
      * @since 2.3
      */
-    public StrBuilder appendAll(Collection<?> coll) {
-        if (coll != null && coll.size() > 0) {
-            Iterator<?> it = coll.iterator();
+    public StrBuilder appendAll(Iterable<?> iterable) {
+        if (iterable != null) {
+            Iterator<?> it = iterable.iterator();
             while (it.hasNext()) {
                 append(it.next());
             }
@@ -1029,19 +1029,19 @@ public class StrBuilder implements CharSequence, Appendable {
     }
 
     /**
-     * Appends a collection placing separators between each value, but
+     * Appends a iterable placing separators between each value, but
      * not before the first or after the last.
-     * Appending a null collection will have no effect.
+     * Appending a null iterable will have no effect.
      * Each object is appended using {@link #append(Object)}.
      *
-     * @param coll  the collection to append
+     * @param iterable  the iterable to append
      * @param separator  the separator to use, null means no separator
      * @return this, to enable chaining
      */
-    public StrBuilder appendWithSeparators(Collection<?> coll, String separator) {
-        if (coll != null && coll.size() > 0) {
+    public StrBuilder appendWithSeparators(Iterable<?> iterable, String separator) {
+        if (iterable != null) {
             separator = (separator == null ? "" : separator);
-            Iterator<?> it = coll.iterator();
+            Iterator<?> it = iterable.iterator();
             while (it.hasNext()) {
                 append(it.next());
                 if (it.hasNext()) {
