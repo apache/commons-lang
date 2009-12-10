@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang.text;
+package org.apache.commons.lang3.text;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,8 +27,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * Unit test for Tokenizer.

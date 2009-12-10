@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang;
+package org.apache.commons.lang3;
 
 /**
  * <p>Exception thrown when the Serialization process fails.</p>

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang.text;
+package org.apache.commons.lang3.text;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,7 +27,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Unit tests for {@link org.apache.commons.lang.text.StrBuilder}.

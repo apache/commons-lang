@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.text;
+package org.apache.commons.lang3.text;
 
 import java.text.Format;
 import java.text.MessageFormat;
@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  * Extends <code>java.text.MessageFormat</code> to allow pluggable/additional formatting

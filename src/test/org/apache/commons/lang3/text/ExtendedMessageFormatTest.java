@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.text;
+package org.apache.commons.lang3.text;
 
 import java.text.ChoiceFormat;
 import java.text.DateFormat;
@@ -32,7 +32,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

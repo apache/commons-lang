@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.text.translate;
+package org.apache.commons.lang3.text.translate;
 
 import java.io.IOException;
 import java.io.Writer;
 
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Executes a sequence of translators one after the other. Execution ends whenever 

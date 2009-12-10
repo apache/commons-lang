@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.text;
+package org.apache.commons.lang3.text;
 
 import java.io.Reader;
 import java.io.Writer;
@@ -22,8 +22,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Builds a string from constituent parts providing a more flexible and powerful API

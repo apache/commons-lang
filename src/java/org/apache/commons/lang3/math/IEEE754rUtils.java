@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.math;
+package org.apache.commons.lang3.math;
 
 /**
  * <p>Provides IEEE-754r variants of NumberUtils methods. </p>

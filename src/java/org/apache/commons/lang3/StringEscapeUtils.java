@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang;
+package org.apache.commons.lang3;
 
 import java.io.IOException;
 import java.io.Writer;
 
-import org.apache.commons.lang.text.translate.*;
+import org.apache.commons.lang3.text.translate.*;
 
 /**
  * <p>Escapes and unescapes <code>String</code>s for

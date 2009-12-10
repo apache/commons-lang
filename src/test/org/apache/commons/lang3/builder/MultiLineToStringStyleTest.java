@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.builder;
+package org.apache.commons.lang3.builder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,8 +24,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.lang.SystemUtils;
-import org.apache.commons.lang.builder.ToStringStyleTest.Person;
+import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 
 /**
  * Unit tests {@link org.apache.commons.lang.builder.MultiLineToStringStyleTest}.

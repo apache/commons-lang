@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.reflect;
+package org.apache.commons.lang3.reflect;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
@@ -22,7 +22,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang3.Validate;
 
 /**
  * <p>Utility methods focusing on type inspection, particularly with regard to

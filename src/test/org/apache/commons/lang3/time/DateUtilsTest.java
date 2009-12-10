@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.time;
+package org.apache.commons.lang3.time;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
@@ -35,7 +35,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.lang.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Unit tests {@link org.apache.commons.lang.time.DateUtils}.

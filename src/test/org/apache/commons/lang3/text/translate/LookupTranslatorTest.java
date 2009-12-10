@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang.text.translate;
+package org.apache.commons.lang3.text.translate;
 
 import junit.framework.TestCase;
 

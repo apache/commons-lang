@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang.text;
+package org.apache.commons.lang3.text;
 
 import java.text.FieldPosition;
 import java.text.Format;

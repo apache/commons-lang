@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang.exception;
+package org.apache.commons.lang3.exception;
 
 import java.util.Date;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.exception.ContextedExceptionTest.ObjectWithFaultyToString;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ContextedExceptionTest.ObjectWithFaultyToString;
 
 /**
  * JUnit tests for ContextedRuntimeException.

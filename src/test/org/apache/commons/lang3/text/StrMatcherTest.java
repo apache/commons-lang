@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.commons.lang.text;
+package org.apache.commons.lang3.text;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
