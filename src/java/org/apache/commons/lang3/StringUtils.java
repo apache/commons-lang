@@ -607,6 +607,70 @@ public class StringUtils {
         return newArr;
     }
 
+    /**
+     * <p>Removes the accents from a string. </p>
+     * <p>NOTE: This is a JDK 1.6 method, it will fail on JDK 1.5. </p>
+     *
+     * <pre>
+     * StringUtils.stripAccents(null)                = null
+     * StringUtils.stripAccents("")                  = ""
+     * StringUtils.stripAccents("control")           = "control"
+     * StringUtils.stripAccents("&ecute;clair")      = "eclair"
+     * </pre>
+     * 
+     * @param input String to be stripped
+     * @return String without accents on the text
+     *
+     * @since 3.0
+     */
+    public static String stripAccents(String input) {
+        if(input == null) {
+            return null;
+        }
+        if(SystemUtils.isJavaVersionAtLeast(1.6f)) {
+
+            // String decomposed = Normalizer.normalize(input, Normalizer.Form.NFD);
+
+            // START of 1.5 reflection - in 1.6 use the line commented out above
+            try {
+                // get java.text.Normalizer.Form class
+                Class normalizerFormClass = ClassUtils.getClass("java.text.Normalizer$Form", false);
+
+                // get Normlizer class
+                Class normalizerClass = ClassUtils.getClass("java.text.Normalizer", false);
+
+                // get static method on Normalizer
+                java.lang.reflect.Method method = normalizerClass.getMethod("normalize", CharSequence.class, normalizerFormClass );
+
+                // get Normalizer.NFD field
+                java.lang.reflect.Field nfd = normalizerFormClass.getField("NFD");
+
+                // invoke method
+                String decomposed = (String) method.invoke( null, input, nfd.get(null) );
+                // END of 1.5 reflection
+
+                java.util.regex.Pattern accentPattern = java.util.regex.Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+                return accentPattern.matcher(decomposed).replaceAll("");
+            } catch(ClassNotFoundException cnfe) {
+                throw new RuntimeException("ClassNotFoundException occurred during 1.6 backcompat code", cnfe);
+            } catch(NoSuchMethodException nsme) {
+                throw new RuntimeException("NoSuchMethodException occurred during 1.6 backcompat code", nsme);
+            } catch(NoSuchFieldException nsfe) {
+                throw new RuntimeException("NoSuchFieldException occurred during 1.6 backcompat code", nsfe);
+            } catch(IllegalAccessException iae) {
+                throw new RuntimeException("IllegalAccessException occurred during 1.6 backcompat code", iae);
+            } catch(IllegalArgumentException iae) {
+                throw new RuntimeException("IllegalArgumentException occurred during 1.6 backcompat code", iae);
+            } catch(java.lang.reflect.InvocationTargetException ite) {
+                throw new RuntimeException("InvocationTargetException occurred during 1.6 backcompat code", ite);
+            } catch(SecurityException se) {
+                throw new RuntimeException("SecurityException occurred during 1.6 backcompat code", se);
+            }
+        } else {
+            throw new UnsupportedOperationException("The stripAccents(String) method is not supported until Java 1.6");
+        }
+    }
+
     // Equals
     //-----------------------------------------------------------------------
     /**
