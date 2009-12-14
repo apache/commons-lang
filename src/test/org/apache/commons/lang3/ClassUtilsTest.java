@@ -210,8 +210,8 @@ public class ClassUtilsTest extends TestCase {
     
     // -------------------------------------------------------------------------
     public void test_convertClassNamesToClasses_List() {
-        List list = new ArrayList();
-        List result = ClassUtils.convertClassNamesToClasses(list);
+        List<String> list = new ArrayList<String>();
+        List<Class<?>> result = ClassUtils.convertClassNamesToClasses(list);
         assertEquals(0, result.size());
         
         list.add("java.lang.String");
@@ -223,17 +223,19 @@ public class ClassUtilsTest extends TestCase {
         assertEquals(null, result.get(1));
         assertEquals(Object.class, result.get(2));
 
-        list.add(new Object());
+        @SuppressWarnings("unchecked") // test what happens when non-gneric code adds wrong type of element
+        List<Object> olist = (List<Object>)(List<?>)list; 
+        olist.add(new Object());
         try {
             ClassUtils.convertClassNamesToClasses(list);
-            fail();
-        } catch (ClassCastException ex) {}
+            fail("Should not have been able to convert list");
+        } catch (ClassCastException expected) {}
         assertEquals(null, ClassUtils.convertClassNamesToClasses(null));
     }
     
     public void test_convertClassesToClassNames_List() {
-        List list = new ArrayList();
-        List result = ClassUtils.convertClassesToClassNames(list);
+        List<Class<?>> list = new ArrayList<Class<?>>();
+        List<String> result = ClassUtils.convertClassesToClassNames(list);
         assertEquals(0, result.size());
         
         list.add(String.class);
@@ -245,11 +247,13 @@ public class ClassUtilsTest extends TestCase {
         assertEquals(null, result.get(1));
         assertEquals("java.lang.Object", result.get(2));
 
-        list.add(new Object());
+        @SuppressWarnings("unchecked") // test what happens when non-gneric code adds wrong type of element
+        List<Object> olist = (List<Object>)(List<?>)list; 
+        olist.add(new Object());
         try {
             ClassUtils.convertClassesToClassNames(list);
-            fail();
-        } catch (ClassCastException ex) {}
+            fail("Should not have been able to convert list");
+        } catch (ClassCastException expected) {}
         assertEquals(null, ClassUtils.convertClassesToClassNames(null));
     }
     
