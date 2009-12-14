@@ -119,7 +119,7 @@ public class Validate {
      */
     public static void isTrue(boolean expression, String message, long value) {
         if (expression == false) {
-            throw new IllegalArgumentException(String.format(message, value));
+            throw new IllegalArgumentException(String.format(message, Long.valueOf(value)));
         }
     }
 
@@ -145,7 +145,7 @@ public class Validate {
      */
     public static void isTrue(boolean expression, String message, double value) {
         if (expression == false) {
-            throw new IllegalArgumentException(String.format(message, value));
+            throw new IllegalArgumentException(String.format(message, new Double(value)));
         }
     }
 
@@ -517,7 +517,7 @@ public class Validate {
         Validate.notNull(array);
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
-                Object[] values2 = ArrayUtils.add(values, i);
+                Object[] values2 = ArrayUtils.add(values, Integer.valueOf(i));
                 throw new IllegalArgumentException(String.format(message, values2));
             }
         }
@@ -578,7 +578,7 @@ public class Validate {
         int i = 0;
         for (Iterator<?> it = iterable.iterator(); it.hasNext(); i++) {
             if (it.next() == null) {
-                Object[] values2 = ArrayUtils.addAll(values, i);
+                Object[] values2 = ArrayUtils.addAll(values, Integer.valueOf(i));
                 throw new IllegalArgumentException(String.format(message, values2));
             }
         }
@@ -661,7 +661,7 @@ public class Validate {
      * @see #validIndex(Object[], int, String, Object...)
      */
     public static <T> T[] validIndex(T[] array, int index) {
-        return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EXCEPTION_MESSAGE, index);
+        return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EXCEPTION_MESSAGE, Integer.valueOf(index));
     }
 
     // validIndex collection
@@ -712,7 +712,7 @@ public class Validate {
      * @see #validIndex(Collection, int, String, Object...)
      */
     public static <T extends Collection<?>> T validIndex(T collection, int index) {
-        return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EXCEPTION_MESSAGE, index);
+        return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EXCEPTION_MESSAGE, Integer.valueOf(index));
     }
 
     // validIndex string
@@ -768,7 +768,7 @@ public class Validate {
      * @see #validIndex(CharSequence, int, String, Object...)
      */
     public static <T extends CharSequence> T validIndex(T chars, int index) {
-        return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EXCEPTION_MESSAGE, index);
+        return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EXCEPTION_MESSAGE, Integer.valueOf(index));
     }
 
 }
