@@ -40,16 +40,19 @@ public abstract class StrLookup<V> {
     /**
      * Lookup that always returns null.
      */
-    private static final StrLookup<?> NONE_LOOKUP;
+    private static final StrLookup<String> NONE_LOOKUP;
     /**
      * Lookup that uses System properties.
      */
-    private static final StrLookup<Object> SYSTEM_PROPERTIES_LOOKUP;
+    private static final StrLookup<String> SYSTEM_PROPERTIES_LOOKUP;
     static {
-        NONE_LOOKUP = new MapStrLookup(null);
-        StrLookup lookup = null;
+        NONE_LOOKUP = new MapStrLookup<String>(null);
+        StrLookup<String> lookup = null;
         try {
-            lookup = new MapStrLookup(System.getProperties());
+            final Map<?, ?> propMap = System.getProperties();
+            @SuppressWarnings("unchecked") // System property keys and values are always Strings
+            final Map<String, String> properties = (Map<String, String>) propMap;
+            lookup = new MapStrLookup<String>(properties);
         } catch (SecurityException ex) {
             lookup = NONE_LOOKUP;
         }
@@ -77,7 +80,7 @@ public abstract class StrLookup<V> {
      *
      * @return a lookup using system properties, not null
      */
-    public static StrLookup<Object> systemPropertiesLookup() {
+    public static StrLookup<String> systemPropertiesLookup() {
         return SYSTEM_PROPERTIES_LOOKUP;
     }
 
@@ -90,7 +93,7 @@ public abstract class StrLookup<V> {
      * @param map  the map of keys to values, may be null
      * @return a lookup using the map, not null
      */
-    public static <V> StrLookup mapLookup(Map<String, V> map) {
+    public static <V> StrLookup<V> mapLookup(Map<String, V> map) {
         return new MapStrLookup<V>(map);
     }
 
@@ -124,7 +127,7 @@ public abstract class StrLookup<V> {
     /**
      * Lookup implementation that uses a Map.
      */
-    static class MapStrLookup<V> extends StrLookup {
+    static class MapStrLookup<V> extends StrLookup<V> {
 
         /** Map keys are variable names and value. */
         private final Map<String, V> map;
