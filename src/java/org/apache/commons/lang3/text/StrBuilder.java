@@ -18,7 +18,6 @@ package org.apache.commons.lang3.text;
 
 import java.io.Reader;
 import java.io.Writer;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -1090,7 +1089,7 @@ public class StrBuilder implements CharSequence, Appendable {
      * }
      * </pre>
      * Note that for this simple example, you should use
-     * {@link #appendWithSeparators(Collection, String)}.
+     * {@link #appendWithSeparators(Iterable, String)}.
      * 
      * @param separator  the separator to use, null means no separator
      * @return this, to enable chaining
@@ -1148,7 +1147,7 @@ public class StrBuilder implements CharSequence, Appendable {
      * }
      * </pre>
      * Note that for this simple example, you should use
-     * {@link #appendWithSeparators(Collection, String)}.
+     * {@link #appendWithSeparators(Iterable, String)}.
      * 
      * @param separator  the separator to use
      * @return this, to enable chaining
@@ -1195,7 +1194,7 @@ public class StrBuilder implements CharSequence, Appendable {
      * }
      * </pre>
      * Note that for this simple example, you should use
-     * {@link #appendWithSeparators(Collection, String)}.
+     * {@link #appendWithSeparators(Iterable, String)}.
      * 
      * @param separator  the separator to use, null means no separator
      * @param loopIndex  the loop index
@@ -1222,7 +1221,7 @@ public class StrBuilder implements CharSequence, Appendable {
      * }
      * </pre>
      * Note that for this simple example, you should use
-     * {@link #appendWithSeparators(Collection, String)}.
+     * {@link #appendWithSeparators(Iterable, String)}.
      * 
      * @param separator  the separator to use
      * @param loopIndex  the loop index
