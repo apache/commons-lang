@@ -634,10 +634,10 @@ public class StringUtils {
             // START of 1.5 reflection - in 1.6 use the line commented out above
             try {
                 // get java.text.Normalizer.Form class
-                Class normalizerFormClass = ClassUtils.getClass("java.text.Normalizer$Form", false);
+                Class<?> normalizerFormClass = ClassUtils.getClass("java.text.Normalizer$Form", false);
 
                 // get Normlizer class
-                Class normalizerClass = ClassUtils.getClass("java.text.Normalizer", false);
+                Class<?> normalizerClass = ClassUtils.getClass("java.text.Normalizer", false);
 
                 // get static method on Normalizer
                 java.lang.reflect.Method method = normalizerClass.getMethod("normalize", CharSequence.class, normalizerFormClass );
