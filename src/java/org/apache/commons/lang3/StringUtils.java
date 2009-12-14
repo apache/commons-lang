@@ -3673,6 +3673,9 @@ public class StringUtils {
 
         // count the replacement text elements that are larger than their corresponding text being replaced
         for (int i = 0; i < searchList.length; i++) {
+            if (searchList[i] == null || replacementList[i] == null) {
+                continue;
+            }
             int greater = replacementList[i].length() - searchList[i].length();
             if (greater > 0) {
                 increase += 3 * greater; // assume 3 matches
