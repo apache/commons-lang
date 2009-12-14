@@ -283,7 +283,7 @@ public class StrSubstitutorTest extends TestCase {
      */
     public void testResolveVariable() {
         final StrBuilder builder = new StrBuilder("Hi ${name}!");
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("name", "commons");
         StrSubstitutor sub = new StrSubstitutor(map) {
             @Override
