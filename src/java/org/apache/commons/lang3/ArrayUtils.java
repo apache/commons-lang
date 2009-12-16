@@ -3203,7 +3203,8 @@ public class ArrayUtils {
      * the new array is the same as that of the input array.</p>
      *
      * <p>If the input array is <code>null</code>, a new one element array is returned
-     *  whose component type is the same as the element.</p>
+     *  whose component type is the same as the element, unless the element itself is null,
+     *  in which case the return type is Object[]</p>
      *
      * <pre>
      * ArrayUtils.add(null, null)      = [null]
