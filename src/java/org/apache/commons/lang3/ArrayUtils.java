@@ -2944,8 +2944,9 @@ public class ArrayUtils {
      *
      * @param array1  the first array whose elements are added to the new array, may be <code>null</code>
      * @param array2  the second array whose elements are added to the new array, may be <code>null</code>
-     * @return The new array, <code>null</code> if <code>null</code> array inputs.
-     *      The type of the new array is the type of the first array.
+     * @return The new array, <code>null</code> if both arrays are <code>null</code>.
+     *      The type of the new array is the type of the first array,
+     *      unless the first array is null, in which case the type is the same as the second array.
      * @since 2.1
      */
     @SuppressWarnings("unchecked")
