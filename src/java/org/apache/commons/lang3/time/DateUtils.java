@@ -290,14 +290,29 @@ public class DateUtils {
         SimpleDateFormat parser = null;
         ParsePosition pos = new ParsePosition(0);
         for (int i = 0; i < parsePatterns.length; i++) {
+
+            String pattern = parsePatterns[i];
+
+            // LANG-530 - need to make sure 'ZZ' output doesn't get passed to SimpleDateFormat
+            if (parsePatterns[i].endsWith("ZZ")) {
+                pattern = pattern.substring(0, pattern.length() - 1);
+            }
+            
             if (i == 0) {
-                parser = new SimpleDateFormat(parsePatterns[0]);
+                parser = new SimpleDateFormat(pattern);
             } else {
-                parser.applyPattern(parsePatterns[i]); // cannot be null if i != 0
+                parser.applyPattern(pattern); // cannot be null if i != 0
             }
             pos.setIndex(0);
-            Date date = parser.parse(str, pos);
-            if (date != null && pos.getIndex() == str.length()) {
+
+            String str2 = str;
+            // LANG-530 - need to make sure 'ZZ' output doesn't hit SimpleDateFormat as it will ParseException
+            if (parsePatterns[i].endsWith("ZZ")) {
+                str2 = str.replaceAll("([-+][0-9][0-9]):([0-9][0-9])$", "$1$2"); 
+            }
+
+            Date date = parser.parse(str2, pos);
+            if (date != null && pos.getIndex() == str2.length()) {
                 return date;
             }
         }
