@@ -328,7 +328,9 @@ public class Range<T> implements Serializable {
 
 
     // Taken from Commons Collections - documentation removed as not a public class
-    private static class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E> {
+    private static class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E>, Serializable {
+
+        private static final long serialVersionUID = 1L;
 
         @SuppressWarnings("unchecked")
         public static final ComparableComparator<?> INSTANCE = new ComparableComparator();

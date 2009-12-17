@@ -269,4 +269,8 @@ public class RangeTest extends TestCase {
 
     }
 
+    public void testSerializing() {
+        SerializationUtils.clone(intRange);
+    }
+
 }
