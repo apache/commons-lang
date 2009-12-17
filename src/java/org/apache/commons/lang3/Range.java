@@ -180,12 +180,14 @@ public class Range<T> implements Serializable {
     /**
      * <p>Tests whether the specified element occurs before this range.</p>
      *
-     * @param element  the element to test
+     * <p><code>null</code> is handled and returns <code>false</code>.</p>
+     *
+     * @param element  the element to test, may be <code>null</code>
      * @return <code>true</code> if the specified element occurs before this range
      */
     public boolean elementBefore(T element) {
         if (element == null) {
-            return false; // ??
+            return false;
         }
         
         return this.comparator.compare(element, getMinimum()) < 0;
@@ -194,12 +196,14 @@ public class Range<T> implements Serializable {
     /**
      * <p>Tests whether the specified element occurs after this range.</p>
      *
-     * @param element  the element to test
+     * <p><code>null</code> is handled and returns <code>false</code>.</p>
+     *
+     * @param element  the element to test, may be <code>null</code>
      * @return <code>true</code> if the specified element occurs after this range
      */
     public boolean elementAfter(T element) {
         if (element == null) {
-            return false; // ??
+            return false;
         }
         
         return this.comparator.compare(element, getMaximum()) > 0;
