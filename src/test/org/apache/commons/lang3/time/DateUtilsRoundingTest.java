@@ -23,8 +23,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import junit.framework.TestCase;
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 /**
  * These Unit-tests will check all possible extremes when using some rounding-methods of DateUtils.
@@ -42,12 +40,6 @@ import junit.framework.TestSuite;
  */
 // TODO: Add DateUtils.ceil()-tests if method is available
 public class DateUtilsRoundingTest extends TestCase {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(DateUtilsRoundingTest.class);
-        suite.setName("DateUtils Rounding Tests");
-        return suite;
-    }
 
     DateFormat dateTimeParser;
     

@@ -21,10 +21,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests for {@link StringEscapeUtils}.
@@ -37,16 +34,6 @@ public class StringEscapeUtilsTest extends TestCase {
 
     public StringEscapeUtilsTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(StringEscapeUtilsTest.class);
-        suite.setName("StringEscapeUtilsTest Tests");
-        return suite;
     }
 
     //-----------------------------------------------------------------------

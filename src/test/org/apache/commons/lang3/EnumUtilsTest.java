@@ -21,17 +21,9 @@ package org.apache.commons.lang3;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 public class EnumUtilsTest extends TestCase {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(EnumUtilsTest.class);
-        suite.setName("EnumUtils Tests");
-        return suite;
-    }
 
     public void testConstructable() {
         // enforce public constructor

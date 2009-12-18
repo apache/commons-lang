@@ -18,9 +18,7 @@
  */
 package org.apache.commons.lang3.math;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Test cases for the {@link Fraction} class
@@ -35,16 +33,6 @@ public class FractionTest extends TestCase {
 
     public FractionTest(String name) {
         super(name);
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(FractionTest.class);
-        suite.setName("Fraction Tests");
-        return suite;
-    }
-    
-    @Override
-    public void setUp() {
     }
 
     //--------------------------------------------------------------------------

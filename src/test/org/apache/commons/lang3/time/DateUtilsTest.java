@@ -30,10 +30,7 @@ import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
 import junit.framework.AssertionFailedError;
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.apache.commons.lang3.SystemUtils;
 
@@ -85,16 +82,6 @@ public class DateUtilsTest extends TestCase {
 
     public DateUtilsTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(DateUtilsTest.class);
-        suite.setName("DateUtils Tests");
-        return suite;
     }
 
     @Override
@@ -149,11 +136,6 @@ public class DateUtilsTest extends TestCase {
         cal8 = Calendar.getInstance();
         cal8.setTime(date8);
         TimeZone.setDefault(defaultZone);
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     //-----------------------------------------------------------------------

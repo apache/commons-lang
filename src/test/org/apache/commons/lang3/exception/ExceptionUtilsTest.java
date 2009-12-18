@@ -28,9 +28,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import junit.framework.Assert;
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 import org.apache.commons.lang3.SystemUtils;
 
@@ -70,10 +68,6 @@ public class ExceptionUtilsTest extends TestCase {
 
     public ExceptionUtilsTest(String name) {
         super(name);
-    }
-
-    public static Test suite() {
-        return new TestSuite(ExceptionUtilsTest.class);
     }
 
     @Override

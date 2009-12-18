@@ -19,10 +19,7 @@ package org.apache.commons.lang3;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.CharUtils}.
@@ -38,26 +35,6 @@ public class CharUtilsTest extends TestCase {
     
     public CharUtilsTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(CharUtilsTest.class);
-        suite.setName("CharUtils Tests");
-        return suite;
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     //-----------------------------------------------------------------------

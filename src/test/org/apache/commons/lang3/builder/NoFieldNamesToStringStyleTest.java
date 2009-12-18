@@ -19,12 +19,9 @@ package org.apache.commons.lang3.builder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
-
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+
+import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.NoFieldNamesToStringStyleTest}.
@@ -39,16 +36,6 @@ public class NoFieldNamesToStringStyleTest extends TestCase {
     
     public NoFieldNamesToStringStyleTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(NoFieldNamesToStringStyleTest.class);
-        suite.setName("NoFieldNamesToStringStyle Tests");
-        return suite;
     }
 
     @Override

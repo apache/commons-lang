@@ -19,12 +19,9 @@ package org.apache.commons.lang3.builder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
-
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+
+import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.SimpleToStringStyleTest}.
@@ -38,16 +35,6 @@ public class SimpleToStringStyleTest extends TestCase {
     
     public SimpleToStringStyleTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(SimpleToStringStyleTest.class);
-        suite.setName("SimpleToStringStyle Tests");
-        return suite;
     }
 
     @Override

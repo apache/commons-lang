@@ -22,10 +22,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * TestCase for DateFormatUtils.
@@ -37,16 +34,6 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  */
 public class DateFormatUtilsTest extends TestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(DateFormatUtilsTest.class);
-        suite.setName("DateFormatUtils Tests");
-        return suite;
-    }
 
     public DateFormatUtilsTest(String s) {
         super(s);

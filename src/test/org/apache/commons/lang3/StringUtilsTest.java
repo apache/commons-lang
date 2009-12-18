@@ -23,10 +23,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Locale;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils}.
@@ -94,26 +91,6 @@ public class StringUtilsTest extends TestCase {
 
     public StringUtilsTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(StringUtilsTest.class);
-        suite.setName("StringUtilsTest Tests");
-        return suite;
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     //-----------------------------------------------------------------------
