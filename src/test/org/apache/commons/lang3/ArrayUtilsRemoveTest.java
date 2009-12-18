@@ -56,7 +56,22 @@ public class ArrayUtilsRemoveTest extends TestCase {
             fail("IndexOutOfBoundsException expected");
         } catch (IndexOutOfBoundsException e) {}
     }
-    
+
+    public void testRemoveNumberArray(){
+        Number[] inarray = {Integer.valueOf(1),Long.valueOf(2),Byte.valueOf((byte) 3)};
+        assertEquals(3, inarray.length);
+        Number[] outarray;
+        outarray = ArrayUtils.remove(inarray, 1);
+        assertEquals(2, outarray.length);
+        assertEquals(Number.class, outarray.getClass().getComponentType());
+        outarray = ArrayUtils.remove(outarray, 1);
+        assertEquals(1, outarray.length);
+        assertEquals(Number.class, outarray.getClass().getComponentType());
+        outarray = ArrayUtils.remove(outarray, 0);
+        assertEquals(0, outarray.length);
+        assertEquals(Number.class, outarray.getClass().getComponentType());
+    }
+
     public void testRemoveBooleanArray() {
         boolean[] array;
         array = ArrayUtils.remove(new boolean[] {true}, 0);
