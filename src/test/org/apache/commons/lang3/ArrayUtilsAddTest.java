@@ -19,10 +19,7 @@ package org.apache.commons.lang3;
 
 import java.util.Arrays;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Tests ArrayUtils add methods.
@@ -31,14 +28,19 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class ArrayUtilsAddTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ArrayUtilsAddTest.class);
-        suite.setName("ArrayUtils add Tests");
-        return suite;
+    public void testJira567(){
+        Number[] n;
+        // Valid array construction
+        n = ArrayUtils.addAll(new Number[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)});
+        assertEquals(2,n.length);
+        assertEquals(Number.class,n.getClass().getComponentType());
+        try {
+            // Invalid - can't store Long in Integer array
+               n = ArrayUtils.addAll(new Integer[]{Integer.valueOf(1)}, new Long[]{Long.valueOf(2)});
+               fail("Should have generated IllegalArgumentException");
+        } catch (IllegalArgumentException expected) {
+        }
     }
 
     public void testAddObjectArrayBoolean() {
