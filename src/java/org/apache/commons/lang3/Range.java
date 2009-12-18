@@ -336,10 +336,10 @@ public class Range<T> implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") // Comparator works for all types
         public static final ComparableComparator<?> INSTANCE = new ComparableComparator();
 
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") // OK to cast, because comparator works for all types
         public static <E extends Comparable<? super E>> ComparableComparator<E> getInstance() {
             return (ComparableComparator<E>) INSTANCE;
         }
