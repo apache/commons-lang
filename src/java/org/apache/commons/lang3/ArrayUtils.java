@@ -425,7 +425,6 @@ public class ArrayUtils {
      *      the start and end indices.
      * @since 2.1
      */
-    @SuppressWarnings("unchecked")
     public static <T> T[] subarray(T[] array, int startIndexInclusive, int endIndexExclusive) {
         if (array == null) {
             return null;
@@ -439,8 +438,11 @@ public class ArrayUtils {
         int newSize = endIndexExclusive - startIndexInclusive;
         Class<?> type = array.getClass().getComponentType();
         if (newSize <= 0) {
-            return (T[]) Array.newInstance(type, 0);
+            @SuppressWarnings("unchecked") // OK, because array is of type T
+            final T[] emptyArray = (T[]) Array.newInstance(type, 0);
+            return emptyArray;
         }
+        @SuppressWarnings("unchecked") // OK, because array is of type T
         T[] subarray = (T[]) Array.newInstance(type, newSize);
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
@@ -2949,7 +2951,6 @@ public class ArrayUtils {
      *      unless the first array is null, in which case the type is the same as the second array.
      * @since 2.1
      */
-    @SuppressWarnings("unchecked")
     public static <T> T[] addAll(T[] array1, T... array2) {
         if (array1 == null) {
             return clone(array2);
@@ -2957,6 +2958,7 @@ public class ArrayUtils {
             return clone(array1);
         }
         final Class<?> type1 = array1.getClass().getComponentType();
+        @SuppressWarnings("unchecked") // OK, because array is of type T
         T[] joinedArray = (T[]) Array.newInstance(type1, array1.length + array2.length);
         System.arraycopy(array1, 0, joinedArray, 0, array1.length);
         try {
@@ -3224,13 +3226,16 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array  the array to "add" the element to, may be <code>null</code>
-     * @param element  the object to add
+     * @param element  the object to add, may be <code>null</code>
      * @return A new array containing the existing elements plus the new element
+     * The returned array type will be that of the input array (unless null),
+     * in which case it will have the same type as the element (unless that is also null)
+     * in which case the returned type will be Object[].
      * @since 2.1
      */
-    @SuppressWarnings("unchecked")
     public static <T> T[] add(T[] array, T element) {
         Class<?> type = array != null ? array.getClass() : (element != null ? element.getClass() : Object.class);
+        // TODO - this is NOT safe to ignore - see LANG-571
         T[] newArray = (T[]) copyArrayGrow1(array, type);
         newArray[newArray.length - 1] = element;
         return newArray;
@@ -3499,7 +3504,6 @@ public class ArrayUtils {
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index < 0 || index > array.length).
      */
-    @SuppressWarnings("unchecked")
     public static <T> T[] add(T[] array, int index, T element) {
         Class<?> clss = null;
         if (array != null) {
@@ -3507,9 +3511,13 @@ public class ArrayUtils {
         } else if (element != null) {
             clss = element.getClass();
         } else {
-            return (T[]) new Object[] { null };
+            // TODO this is not type-safe - see LANG-571
+            final T[] emptyArray = (T[]) new Object[] { null };
+            return emptyArray;
         }
-        return (T[]) add(array, index, element, clss);
+        @SuppressWarnings("unchecked") // the add method creates an array of type clss, which is type T
+        final T[] newArray = (T[]) add(array, index, element, clss);
+        return newArray;
     }
 
     /**
@@ -3822,7 +3830,7 @@ public class ArrayUtils {
      * (index < 0 || index >= array.length), or if the array is <code>null</code>.
      * @since 2.1
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // remove() always creates an array of the same type as its input
     public static <T> T[] remove(T[] array, int index) {
         return (T[]) remove((Object) array, index);
     }
