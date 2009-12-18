@@ -438,7 +438,6 @@ public class CompareToBuilder {
      *  with <code>lhs</code>
      * @since 2.0
      */
-    @SuppressWarnings("unchecked")
     public CompareToBuilder append(Object lhs, Object rhs, Comparator<?> comparator) {
         if (comparison != 0) {
             return this;
@@ -482,9 +481,13 @@ public class CompareToBuilder {
         } else {
             // the simple case, not an array, just test the element
             if (comparator == null) {
-                comparison = ((Comparable) lhs).compareTo(rhs);
+                @SuppressWarnings("unchecked") // assume this can be done; if not throw CCE as per Javadoc
+                final Comparable<Object> comparable = (Comparable<Object>) lhs;
+                comparison = comparable.compareTo(rhs);
             } else {
-                comparison = ((Comparator) comparator).compare(lhs, rhs);
+                @SuppressWarnings("unchecked") // assume this can be done; if not throw CCE as per Javadoc
+                final Comparator<Object> comparator2 = (Comparator<Object>) comparator;
+                comparison = comparator2.compare(lhs, rhs);
             }
         }
         return this;
