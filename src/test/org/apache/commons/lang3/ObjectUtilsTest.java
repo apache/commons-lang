@@ -21,10 +21,7 @@ import java.lang.reflect.Modifier;
 import java.util.Calendar;
 import java.util.Date;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ObjectUtils}.
@@ -41,26 +38,6 @@ public class ObjectUtilsTest extends TestCase {
 
     public ObjectUtilsTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ObjectUtilsTest.class);
-        suite.setName("ObjectUtils Tests");
-        return suite;
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     //-----------------------------------------------------------------------

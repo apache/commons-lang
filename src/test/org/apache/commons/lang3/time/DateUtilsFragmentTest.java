@@ -19,17 +19,9 @@ package org.apache.commons.lang3.time;
 import java.util.Calendar;
 import java.util.Date;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 public class DateUtilsFragmentTest extends TestCase {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(DateUtilsFragmentTest.class);
-        suite.setName("DateUtils Fragment Tests");
-        return suite;
-    }
 
     private static final int months = 7;   // second final prime before 12
     private static final int days = 23;    // second final prime before 31 (and valid)

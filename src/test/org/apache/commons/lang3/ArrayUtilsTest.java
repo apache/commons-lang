@@ -22,10 +22,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
@@ -45,26 +42,6 @@ public class ArrayUtilsTest extends TestCase {
 
     public ArrayUtilsTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ArrayUtilsTest.class);
-        suite.setName("ArrayUtils Tests");
-        return suite;
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     //-----------------------------------------------------------------------

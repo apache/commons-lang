@@ -26,10 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests for {@link LocaleUtils}.
@@ -55,24 +52,6 @@ public class LocaleUtilsTest extends TestCase {
      */
     public LocaleUtilsTest(String name) {
         super(name);
-    }
-
-    /**
-     * Main.
-     * @param args
-     */
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    /**
-     * Run the test cases as a suite.
-     * @return the Test
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite(LocaleUtilsTest.class);
-        suite.setName("LocaleUtils Tests");
-        return suite;
     }
 
     @Override

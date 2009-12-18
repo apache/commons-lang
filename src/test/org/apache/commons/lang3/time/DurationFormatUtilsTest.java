@@ -22,10 +22,7 @@ import java.lang.reflect.Modifier;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * TestCase for DurationFormatUtils.
@@ -37,16 +34,6 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  */
 public class DurationFormatUtilsTest extends TestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(DurationFormatUtilsTest.class);
-        suite.setName("DurationFormatUtils Tests");
-        return suite;
-    }
 
     public DurationFormatUtilsTest(String s) {
         super(s);
