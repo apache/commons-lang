@@ -488,7 +488,7 @@ public class NumberUtils {
             }
             dec = null;
         }
-        if (!Character.isDigit(lastChar)) {
+        if (!Character.isDigit(lastChar) && lastChar != '.') {
             if (expPos > -1 && expPos < str.length() - 1) {
                 exp = str.substring(expPos + 1, str.length() - 1);
             } else {
@@ -1384,6 +1384,14 @@ public class NumberUtils {
             if (chars[i] == 'e' || chars[i] == 'E') {
                 // can't have an E at the last byte
                 return false;
+            }
+            if (chars[i] == '.') {
+                if (hasDecPoint || hasExp) {
+                    // two decimal points or dec in exponent
+                    return false;
+                }
+                // single trailing decimal point after non-exponent is ok
+                return foundDigit;
             }
             if (!allowSigns
                 && (chars[i] == 'd'
