@@ -26,8 +26,7 @@ import java.util.Comparator;
  * @since 3.0
  * @version $Id: Range.java 830032 2009-10-27 00:15:00Z scolebourne $
  */
-// TODO: Make class final and use fields instead of getters?
-public class Range<T> implements Serializable {
+public final class Range<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -174,7 +173,7 @@ public class Range<T> implements Serializable {
         if(element == null) {
             return false;
         }
-        return (comparator.compare(element, getMinimum()) > -1) && (comparator.compare(element, getMaximum()) < 1);
+        return (comparator.compare(element, this.minimum) > -1) && (comparator.compare(element, this.maximum) < 1);
     }
 
     /**
@@ -190,7 +189,7 @@ public class Range<T> implements Serializable {
             return false;
         }
         
-        return this.comparator.compare(element, getMinimum()) < 0;
+        return this.comparator.compare(element, this.minimum) < 0;
     }
 
     /**
@@ -206,7 +205,7 @@ public class Range<T> implements Serializable {
             return false;
         }
         
-        return this.comparator.compare(element, getMaximum()) > 0;
+        return this.comparator.compare(element, this.maximum) > 0;
     }
 
     /**
@@ -268,8 +267,8 @@ public class Range<T> implements Serializable {
         if (range == null) {
             return false;
         }
-        return range.contains(getMinimum())
-            || range.contains(getMaximum())
+        return range.contains(this.minimum)
+            || range.contains(this.maximum)
             || contains(range.getMinimum());
     }
 
@@ -307,8 +306,8 @@ public class Range<T> implements Serializable {
     public int hashCode() {
         int result = 17;
         result = 37 * result + getClass().hashCode();
-        result = 37 * result + getMinimum().hashCode();
-        result = 37 * result + getMaximum().hashCode();
+        result = 37 * result + this.minimum.hashCode();
+        result = 37 * result + this.maximum.hashCode();
         return result;
     }
 
@@ -323,9 +322,9 @@ public class Range<T> implements Serializable {
     public String toString() {
         StringBuilder buf = new StringBuilder(32);
         buf.append("Range[");
-        buf.append(getMinimum());
+        buf.append(this.minimum);
         buf.append(',');
-        buf.append(getMaximum());
+        buf.append(this.maximum);
         buf.append(']');
         return buf.toString();
     }
