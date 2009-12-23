@@ -247,6 +247,51 @@ public class ArrayUtils {
         return map;
     }
 
+    // Generic array
+    //-----------------------------------------------------------------------
+    /**
+     * Create a type-safe generic array.
+     *
+     * <p>Arrays are covariant i.e. they cannot be created from a generic type:</p>
+     *
+     * <pre>
+    public static &lt;T&gt; T[] createAnArray(int size)
+    {
+        return T[size]; // compiler error here
+    }
+    public static &lt;T&gt; T[] createAnArray(int size)
+    {
+        return (T[])Object[size]; // ClassCastException at runtime
+    }
+     * </pre>
+     *
+     * <p>Therefore new arrays of generic types can be created with this method, e.g. an arrays
+     * of Strings:</p>
+     *
+     * <pre>
+    String[] array = ArrayUtils.toArray("1", "2");
+    String[] emptyArray = ArrayUtils.&lt;String&gt;toArray();
+     * </pre>
+     * 
+     * The method is typically used in scenarios, where the caller itself uses generic types
+     * that have to be combined into an array.
+     * 
+     * Note, this method makes only sense to provide arguments of the same type so that the
+     * compiler can deduce the type of the array itself. While it is possible to select the
+     * type explicitly like in <code>Number[] array = ArrayUtils.<Number>toArray(new
+     * Integer(42), new Double(Math.PI))</code>, there is no real advantage to <code>new
+     * Number[] {new Integer(42), new Double(Math.PI)}</code> anymore.
+     *
+     * @param  <T>   the array's element type
+     * @param  items the items of the array
+     * @return the array
+     * @since  3.0
+     */
+    public static <T> T[] toArray(final T... items)
+    {
+        return items;
+    }
+    
     // Clone
     //-----------------------------------------------------------------------
     /**

@@ -133,6 +133,72 @@ public class ArrayUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    /**
+     * Tests generic array creation with parameters of same type.
+     */
+    public void testArrayCreation()
+    {
+        final String[] array = ArrayUtils.toArray("foo", "bar");
+        assertEquals(2, array.length);
+        assertEquals("foo", array[0]);
+        assertEquals("bar", array[1]);
+    }
+
+    /**
+     * Tests generic array creation with general return type.
+     */
+    public void testArrayCreationWithGeneralReturnType()
+    {
+        final Object obj = ArrayUtils.toArray("foo", "bar");
+        assertTrue(obj instanceof String[]);
+    }
+
+    /**
+     * Tests generic array creation with parameters of common base type.
+     */
+    public void testArrayCreationWithDifferentTypes()
+    {
+        final Number[] array = ArrayUtils.<Number>toArray(Integer.valueOf(42), Double.valueOf(Math.PI));
+        assertEquals(2, array.length);
+        assertEquals(Integer.valueOf(42), array[0]);
+        assertEquals(Double.valueOf(Math.PI), array[1]);
+    }
+
+    /**
+     * Tests generic array creation with generic type.
+     */
+    public void testIndirectArrayCreation()
+    {
+        final String[] array = toArrayPropagatingType("foo", "bar");
+        assertEquals(2, array.length);
+        assertEquals("foo", array[0]);
+        assertEquals("bar", array[1]);
+    }
+
+    /**
+     * Tests generic empty array creation with generic type.
+     */
+    public void testEmptyArrayCreation()
+    {
+        final String[] array = ArrayUtils.<String>toArray();
+        assertEquals(0, array.length);
+    }
+
+    /**
+     * Tests indirect generic empty array creation with generic type.
+     */
+    public void testIndirectEmptyArrayCreation()
+    {
+        final String[] array = ArrayUtilsTest.<String>toArrayPropagatingType();
+        assertEquals(0, array.length);
+    }
+
+    private static <T> T[] toArrayPropagatingType(final T... items)
+    {
+        return ArrayUtils.toArray(items);
+    }
+    
+    //-----------------------------------------------------------------------
     public void testToMap() {
         Map<?, ?> map = ArrayUtils.toMap(new String[][] {{"foo", "bar"}, {"hello", "world"}});
         
