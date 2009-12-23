@@ -156,7 +156,7 @@
             <roles>
                 <role>Java Developer</role>
             </roles>
-            <timezone>-1</timezone>
+            <timezone>+1</timezone>
         </developer>
         <developer>
           <name>Oliver Heger</name>
