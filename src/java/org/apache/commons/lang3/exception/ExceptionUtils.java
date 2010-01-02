@@ -431,71 +431,6 @@ public class ExceptionUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Checks if the Throwable class has a <code>getCause</code> method.</p>
-     *
-     * <p>This is true for JDK 1.4 and above.</p>
-     *
-     * @return true if Throwable is nestable
-     * @since 2.0
-     */
-    public static boolean isThrowableNested() {
-        return THROWABLE_CAUSE_METHOD != null;
-    }
-    
-    /**
-     * <p>Checks whether this <code>Throwable</code> class can store a cause.</p>
-     *
-     * <p>This method does <b>not</b> check whether it actually does store a cause.<p>
-     *
-     * @param throwable  the <code>Throwable</code> to examine, may be null
-     * @return boolean <code>true</code> if nested otherwise <code>false</code>
-     * @since 2.0
-     */
-    public static boolean isNestedThrowable(Throwable throwable) {
-        if (throwable == null) {
-            return false;
-        }
-
-        if (throwable instanceof SQLException) {
-            return true;
-        } else if (throwable instanceof InvocationTargetException) {
-            return true;
-        } else if (isThrowableNested()) {
-            return true;
-        }
-
-        Class<? extends Throwable> cls = throwable.getClass();
-        synchronized(CAUSE_METHOD_NAMES_LOCK) {
-            for (int i = 0, isize = CAUSE_METHOD_NAMES.length; i < isize; i++) {
-                try {
-                    Method method = cls.getMethod(CAUSE_METHOD_NAMES[i], (Class[]) null);
-                    if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
-                        return true;
-                    }
-                } catch (NoSuchMethodException ignored) {
-                    // exception ignored
-                } catch (SecurityException ignored) {
-                    // exception ignored
-                }
-            }
-        }
-
-        try {
-            Field field = cls.getField("detail");
-            if (field != null) {
-                return true;
-            }
-        } catch (NoSuchFieldException ignored) {
-            // exception ignored
-        } catch (SecurityException ignored) {
-            // exception ignored
-        }
-
-        return false;
-    }
-
-    //-----------------------------------------------------------------------
-    /**
      * <p>Counts the number of <code>Throwable</code> objects in the
      * exception chain.</p>
      *
@@ -845,30 +780,6 @@ public class ExceptionUtils {
             causeFrameIndex--;
             wrapperFrameIndex--;
         }
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * <p>A way to get the entire nested stack-trace of an throwable.</p>
-     *
-     * <p>The result of this method is highly dependent on the JDK version
-     * and whether the exceptions override printStackTrace or not.</p>
-     *
-     * @param throwable  the <code>Throwable</code> to be examined
-     * @return the nested stack trace, with the root cause first
-     * @since 2.0
-     */
-    public static String getFullStackTrace(Throwable throwable) {
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw, true);
-        Throwable[] ts = getThrowables(throwable);
-        for (int i = 0; i < ts.length; i++) {
-            ts[i].printStackTrace(pw);
-            if (isNestedThrowable(ts[i])) {
-                break;
-            }
-        }
-        return sw.getBuffer().toString();
     }
 
     //-----------------------------------------------------------------------

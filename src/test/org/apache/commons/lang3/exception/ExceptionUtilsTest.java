@@ -211,30 +211,6 @@ public class ExceptionUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
-    public void testIsThrowableNested() {
-        if (SystemUtils.isJavaVersionAtLeast(140)) {
-            assertEquals(true, ExceptionUtils.isThrowableNested());
-        } else {
-            assertEquals(false, ExceptionUtils.isThrowableNested());
-        }
-    }
-    
-    public void testIsNestedThrowable_Throwable() {
-        assertEquals(true, ExceptionUtils.isNestedThrowable(new SQLException()));
-        assertEquals(true, ExceptionUtils.isNestedThrowable(new InvocationTargetException(new Exception())));
-        assertEquals(true, ExceptionUtils.isNestedThrowable(new NestableRuntimeException()));
-        assertEquals(true, ExceptionUtils.isNestedThrowable(withCause));
-        assertEquals(true, ExceptionUtils.isNestedThrowable(nested));
-        if (SystemUtils.isJavaVersionAtLeast(140)) {
-            assertEquals(true, ExceptionUtils.isNestedThrowable(withoutCause));
-            assertEquals(true, ExceptionUtils.isNestedThrowable(new Throwable()));
-        } else {
-            assertEquals(false, ExceptionUtils.isNestedThrowable(withoutCause));
-            assertEquals(false, ExceptionUtils.isNestedThrowable(new Throwable()));
-        }
-    }
-
-    //-----------------------------------------------------------------------
     public void testGetThrowableCount_Throwable() {
         assertEquals(0, ExceptionUtils.getThrowableCount(null));
         assertEquals(1, ExceptionUtils.getThrowableCount(withoutCause));
