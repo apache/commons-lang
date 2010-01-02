@@ -185,25 +185,6 @@ public class ExceptionUtilsTest extends TestCase {
         assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), ExceptionUtils.getRootCause(cyclicCause));
     }
 
-    public void testSetCause() {
-        Exception cause = new ExceptionWithoutCause();
-        assertEquals(true, ExceptionUtils.setCause(new ExceptionWithCause(null), cause));
-        if (SystemUtils.isJavaVersionAtLeast(140)) {
-            assertEquals(true, ExceptionUtils.setCause(new ExceptionWithoutCause(), cause));
-        }
-    }
-
-    /**
-     * Tests overriding a cause to <code>null</code>.
-     */
-    public void testSetCauseToNull() {
-        Exception ex = new ExceptionWithCause(new IOException());
-        assertEquals(true, ExceptionUtils.setCause(ex, new IllegalStateException()));
-        assertNotNull(ExceptionUtils.getCause(ex));
-        assertEquals(true, ExceptionUtils.setCause(ex, null));
-        assertNull(ExceptionUtils.getCause(ex));
-    }
-
     //-----------------------------------------------------------------------
     public void testGetThrowableCount_Throwable() {
         assertEquals(0, ExceptionUtils.getThrowableCount(null));
