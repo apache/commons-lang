@@ -84,15 +84,6 @@ public class ExceptionUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * Returns the given list as a <code>String[]</code>.
-     * @param list a list to transform.
-     * @return the given list as a <code>String[]</code>.
-     */
-    private static String[] toArray(List<String> list) {
-        return list.toArray(new String[list.size()]);
-    }
-
-    /**
      * <p>Returns the default names used when searching for the cause of an exception.</p>
      *
      * <p>This may be modified and used in the overloaded getCause(Throwable, String[]) method.</p>
@@ -670,7 +661,7 @@ public class ExceptionUtils {
         while (frames.hasMoreTokens()) {
             list.add(frames.nextToken());
         }
-        return toArray(list);
+        return list.toArray(new String[list.size()]);
     }
 
     /**
