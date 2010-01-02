@@ -123,30 +123,6 @@ public class ExceptionUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
-    
-    public void testCauseMethodNameOps() {
-        this.testCauseMethodNameOps(null);
-        this.testCauseMethodNameOps("");
-        this.testCauseMethodNameOps(" ");
-        this.testCauseMethodNameOps("\t\r\n\t");
-        this.testCauseMethodNameOps("testMethodName");
-    }
-    
-    void testCauseMethodNameOps(String name) {
-        String methodName = "testMethodName";
-        try {
-            Assert.assertFalse(ExceptionUtils.isCauseMethodName(methodName));
-            ExceptionUtils.addCauseMethodName(methodName);            
-            ExceptionUtils.addCauseMethodName(methodName);            
-            Assert.assertTrue(ExceptionUtils.isCauseMethodName(methodName));
-        } finally {
-            ExceptionUtils.removeCauseMethodName(methodName);
-            Assert.assertFalse(
-                    "The method name " + methodName + " should not be in the array", 
-                    ExceptionUtils.isCauseMethodName(methodName));
-        }
-    }
-    
     public void testGetCause_Throwable() {
         assertSame(null, ExceptionUtils.getCause(null));
         assertSame(null, ExceptionUtils.getCause(withoutCause));

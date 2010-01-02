@@ -44,7 +44,6 @@ import org.apache.commons.lang3.SystemUtils;
  * @since 1.0
  * @version $Id$
  */
-//@ThreadSafe
 public class ExceptionUtils {
     
     /**
@@ -55,14 +54,10 @@ public class ExceptionUtils {
      */
     static final String WRAPPED_MARKER = " [wrapped] ";
 
-    // Lock object for CAUSE_METHOD_NAMES
-    private static final Object CAUSE_METHOD_NAMES_LOCK = new Object();
-    
     /**
      * <p>The names of methods commonly used to access a wrapped exception.</p>
      */
-//    @GuardedBy("CAUSE_METHOD_NAMES_LOCK")
-    private static String[] CAUSE_METHOD_NAMES = {
+    private static final String[] CAUSE_METHOD_NAMES = {
         "getCause",
         "getNextException",
         "getTargetException",
@@ -89,44 +84,6 @@ public class ExceptionUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Adds to the list of method names used in the search for <code>Throwable</code>
-     * objects.</p>
-     * 
-     * @param methodName  the methodName to add to the list, <code>null</code>
-     *  and empty strings are ignored
-     * @since 2.0
-     */
-    public static void addCauseMethodName(String methodName) {
-        if (StringUtils.isNotEmpty(methodName) && !isCauseMethodName(methodName)) {            
-            List<String> list = getCauseMethodNameList();
-            if (list.add(methodName)) {
-                synchronized(CAUSE_METHOD_NAMES_LOCK) {
-                    CAUSE_METHOD_NAMES = toArray(list);
-                }
-            }
-        }
-    }
-
-    /**
-     * <p>Removes from the list of method names used in the search for <code>Throwable</code>
-     * objects.</p>
-     * 
-     * @param methodName  the methodName to remove from the list, <code>null</code>
-     *  and empty strings are ignored
-     * @since 2.1
-     */
-    public static void removeCauseMethodName(String methodName) {
-        if (StringUtils.isNotEmpty(methodName)) {
-            List<String> list = getCauseMethodNameList();
-            if (list.remove(methodName)) {
-                synchronized(CAUSE_METHOD_NAMES_LOCK) {
-                    CAUSE_METHOD_NAMES = toArray(list);
-                }
-            }
-        }
-    }
-
-    /**
      * Returns the given list as a <code>String[]</code>.
      * @param list a list to transform.
      * @return the given list as a <code>String[]</code>.
@@ -136,29 +93,15 @@ public class ExceptionUtils {
     }
 
     /**
-     * Returns {@link #CAUSE_METHOD_NAMES} as a List.
+     * <p>Returns the default names used when searching for the cause of an exception.</p>
      *
-     * @return {@link #CAUSE_METHOD_NAMES} as a List.
+     * <p>This may be modified and used in the overloaded getCause(Throwable, String[]) method.</p>
+     *
+     * @return cloned array of the default method names
+     * @since 3.0
      */
-    private static ArrayList<String> getCauseMethodNameList() {
-        synchronized(CAUSE_METHOD_NAMES_LOCK) {
-            return new ArrayList<String>(Arrays.asList(CAUSE_METHOD_NAMES));
-        }
-    }
-
-    /**
-     * <p>Tests if the list of method names used in the search for <code>Throwable</code>
-     * objects include the given name.</p>
-     * 
-     * @param methodName  the methodName to search in the list.
-     * @return if the list of method names used in the search for <code>Throwable</code>
-     *  objects include the given name.
-     * @since 2.1
-     */
-    public static boolean isCauseMethodName(String methodName) {
-        synchronized(CAUSE_METHOD_NAMES_LOCK) {
-            return ArrayUtils.indexOf(CAUSE_METHOD_NAMES, methodName) >= 0;
-        }
+    public static String[] getDefaultCauseMethodNames() {
+        return ArrayUtils.clone(CAUSE_METHOD_NAMES);
     }
 
     //-----------------------------------------------------------------------
@@ -193,9 +136,7 @@ public class ExceptionUtils {
      * @since 1.0
      */
     public static Throwable getCause(Throwable throwable) {
-        synchronized(CAUSE_METHOD_NAMES_LOCK) {
-            return getCause(throwable, CAUSE_METHOD_NAMES);
-        }
+        return getCause(throwable, CAUSE_METHOD_NAMES);
     }
 
     /**
@@ -222,9 +163,7 @@ public class ExceptionUtils {
         }
 
         if (methodNames == null) {
-            synchronized(CAUSE_METHOD_NAMES_LOCK) {
-                methodNames = CAUSE_METHOD_NAMES;
-            }
+            methodNames = CAUSE_METHOD_NAMES;
         }
 
         for (int i = 0; i < methodNames.length; i++) {
