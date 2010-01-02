@@ -57,6 +57,7 @@ public class ExceptionUtils {
     /**
      * <p>The names of methods commonly used to access a wrapped exception.</p>
      */
+    // TODO: Remove in Lang 4.0
     private static final String[] CAUSE_METHOD_NAMES = {
         "getCause",
         "getNextException",
@@ -90,7 +91,9 @@ public class ExceptionUtils {
      *
      * @return cloned array of the default method names
      * @since 3.0
+     * @deprecated This feature will be removed in Lang 4.0
      */
+    @Deprecated
     public static String[] getDefaultCauseMethodNames() {
         return ArrayUtils.clone(CAUSE_METHOD_NAMES);
     }
@@ -125,7 +128,9 @@ public class ExceptionUtils {
      * @return the cause of the <code>Throwable</code>,
      *  <code>null</code> if none found or null throwable input
      * @since 1.0
+     * @deprecated This feature will be removed in Lang 4.0
      */
+    @Deprecated
     public static Throwable getCause(Throwable throwable) {
         return getCause(throwable, CAUSE_METHOD_NAMES);
     }
@@ -147,7 +152,9 @@ public class ExceptionUtils {
      * @return the cause of the <code>Throwable</code>,
      *  <code>null</code> if none found or null throwable input
      * @since 1.0
+     * @deprecated This feature will be removed in Lang 4.0
      */
+    @Deprecated
     public static Throwable getCause(Throwable throwable, String[] methodNames) {
         if (throwable == null) {
             return null;
@@ -199,6 +206,7 @@ public class ExceptionUtils {
      * @param methodName  the name of the method to find and invoke
      * @return the wrapped exception, or <code>null</code> if not found
      */
+    // TODO: Remove in Lang 4.0
     private static Throwable getCauseUsingMethodName(Throwable throwable, String methodName) {
         Method method = null;
         try {
