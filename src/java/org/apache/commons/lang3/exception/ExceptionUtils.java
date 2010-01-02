@@ -151,64 +151,6 @@ public class ExceptionUtils {
     }
 
     /**
-     * <p>Sets the cause of a <code>Throwable</code> using introspection, allowing
-     * source code compatibility between pre-1.4 and post-1.4 Java releases.</p>
-     *
-     * <p>The typical use of this method is inside a constructor as in
-     * the following example:</p>
-     *
-     * <pre>
-     * import org.apache.commons.lang3.exception.ExceptionUtils;
-     *  
-     * public class MyException extends Exception {
-     *  
-     *    public MyException(String msg) {
-     *       super(msg);
-     *    }
-     *
-     *    public MyException(String msg, Throwable cause) {
-     *       super(msg);
-     *       ExceptionUtils.setCause(this, cause);
-     *    }
-     * }
-     * </pre>
-     *
-     * @param target  the target <code>Throwable</code>
-     * @param cause  the <code>Throwable</code> to set in the target
-     * @return a <code>true</code> if the target has been modified
-     * @since 2.2
-     */
-    public static boolean setCause(Throwable target, Throwable cause) {
-        if (target == null) {
-            throw new NullPointerException("target must not be null.");
-        }
-        Object[] causeArgs = new Object[]{cause};
-        boolean modifiedTarget = false;
-        if (THROWABLE_INITCAUSE_METHOD != null) {
-            try {
-                THROWABLE_INITCAUSE_METHOD.invoke(target, causeArgs);
-                modifiedTarget = true;
-            } catch (IllegalAccessException ignored) {
-                // Exception ignored.
-            } catch (InvocationTargetException ignored) {
-                // Exception ignored.
-            }
-        }
-        try {
-            Method setCauseMethod = target.getClass().getMethod("setCause", new Class[]{Throwable.class});
-            setCauseMethod.invoke(target, causeArgs);
-            modifiedTarget = true;
-        } catch (NoSuchMethodException ignored) {
-            // Exception ignored.
-        } catch (IllegalAccessException ignored) {
-            // Exception ignored.
-        } catch (InvocationTargetException ignored) {
-            // Exception ignored.
-        }
-        return modifiedTarget;
-    }
-
-    /**
      * Returns the given list as a <code>String[]</code>.
      * @param list a list to transform.
      * @return the given list as a <code>String[]</code>.
