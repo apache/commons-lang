@@ -167,7 +167,7 @@ public class ExceptionUtils {
             }
         }
 
-        return getCauseUsingFieldName(throwable, "detail");
+        return null;
     }
 
     /**
@@ -217,35 +217,6 @@ public class ExceptionUtils {
             } catch (IllegalArgumentException ignored) {
                 // exception ignored
             } catch (InvocationTargetException ignored) {
-                // exception ignored
-            }
-        }
-        return null;
-    }
-
-    /**
-     * <p>Finds a <code>Throwable</code> by field name.</p>
-     *
-     * @param throwable  the exception to examine
-     * @param fieldName  the name of the attribute to examine
-     * @return the wrapped exception, or <code>null</code> if not found
-     */
-    private static Throwable getCauseUsingFieldName(Throwable throwable, String fieldName) {
-        Field field = null;
-        try {
-            field = throwable.getClass().getField(fieldName);
-        } catch (NoSuchFieldException ignored) {
-            // exception ignored
-        } catch (SecurityException ignored) {
-            // exception ignored
-        }
-
-        if (field != null && Throwable.class.isAssignableFrom(field.getType())) {
-            try {
-                return (Throwable) field.get(throwable);
-            } catch (IllegalAccessException ignored) {
-                // exception ignored
-            } catch (IllegalArgumentException ignored) {
                 // exception ignored
             }
         }
