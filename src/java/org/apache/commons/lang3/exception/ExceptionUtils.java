@@ -78,30 +78,6 @@ public class ExceptionUtils {
     };
 
     /**
-     * <p>The Method object for Java 1.4 getCause.</p>
-     */
-    private static final Method THROWABLE_CAUSE_METHOD;
-    /**
-     * <p>The Method object for Java 1.4 initCause.</p>
-     */
-    private static final Method THROWABLE_INITCAUSE_METHOD;
-    static {
-        Method causeMethod;
-        try {
-            causeMethod = Throwable.class.getMethod("getCause", (Class[]) null);
-        } catch (Exception e) {
-            causeMethod = null;
-        }
-        THROWABLE_CAUSE_METHOD = causeMethod;
-        try {
-            causeMethod = Throwable.class.getMethod("initCause", new Class[]{Throwable.class});
-        } catch (Exception e) {
-            causeMethod = null;
-        }
-        THROWABLE_INITCAUSE_METHOD = causeMethod;
-    }
-
-    /**
      * <p>
      * Public constructor allows an instance of <code>ExceptionUtils</code> to be created, although that is not
      * normally necessary.
