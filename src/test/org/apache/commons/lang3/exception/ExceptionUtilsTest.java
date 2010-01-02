@@ -63,7 +63,6 @@ public class ExceptionUtilsTest extends TestCase {
     private Throwable withCause;
     private Throwable withoutCause;
     private Throwable jdkNoCause;
-    private ExceptionWithCause selfCause;
     private ExceptionWithCause cyclicCause;
 
     public ExceptionUtilsTest(String name) {
@@ -76,8 +75,6 @@ public class ExceptionUtilsTest extends TestCase {
         nested = new NestableException(withoutCause);
         withCause = new ExceptionWithCause(nested);
         jdkNoCause = new NullPointerException();
-        selfCause = new ExceptionWithCause(null);
-        selfCause.setCause(selfCause);
         ExceptionWithCause a = new ExceptionWithCause(null);
         ExceptionWithCause b = new ExceptionWithCause(a);
         a.setCause(b);
@@ -90,7 +87,6 @@ public class ExceptionUtilsTest extends TestCase {
         nested = null;
         withCause = null;
         jdkNoCause = null;
-        selfCause = null;
         cyclicCause = null;
     }
 
@@ -157,7 +153,6 @@ public class ExceptionUtilsTest extends TestCase {
         assertSame(withoutCause, ExceptionUtils.getCause(nested));
         assertSame(nested, ExceptionUtils.getCause(withCause));
         assertSame(null, ExceptionUtils.getCause(jdkNoCause));
-        assertSame(selfCause, ExceptionUtils.getCause(selfCause));
         assertSame(cyclicCause.getCause(), ExceptionUtils.getCause(cyclicCause));
         assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), ExceptionUtils.getCause(cyclicCause.getCause()));
         assertSame(cyclicCause.getCause(), ExceptionUtils.getCause(((ExceptionWithCause) cyclicCause.getCause()).getCause()));
@@ -187,7 +182,6 @@ public class ExceptionUtilsTest extends TestCase {
         assertSame(withoutCause, ExceptionUtils.getRootCause(nested));
         assertSame(withoutCause, ExceptionUtils.getRootCause(withCause));
         assertSame(null, ExceptionUtils.getRootCause(jdkNoCause));
-        assertSame(null, ExceptionUtils.getRootCause(selfCause));
         assertSame(((ExceptionWithCause) cyclicCause.getCause()).getCause(), ExceptionUtils.getRootCause(cyclicCause));
     }
 
@@ -217,7 +211,6 @@ public class ExceptionUtilsTest extends TestCase {
         assertEquals(2, ExceptionUtils.getThrowableCount(nested));
         assertEquals(3, ExceptionUtils.getThrowableCount(withCause));
         assertEquals(1, ExceptionUtils.getThrowableCount(jdkNoCause));
-        assertEquals(1, ExceptionUtils.getThrowableCount(selfCause));
         assertEquals(3, ExceptionUtils.getThrowableCount(cyclicCause));
     }
 
@@ -251,12 +244,6 @@ public class ExceptionUtilsTest extends TestCase {
         Throwable[] throwables = ExceptionUtils.getThrowables(jdkNoCause);
         assertEquals(1, throwables.length);
         assertSame(jdkNoCause, throwables[0]);
-    }
-
-    public void testGetThrowables_Throwable_selfCause() {
-        Throwable[] throwables = ExceptionUtils.getThrowables(selfCause);
-        assertEquals(1, throwables.length);
-        assertSame(selfCause, throwables[0]);
     }
 
     public void testGetThrowables_Throwable_recursiveCause() {
@@ -298,12 +285,6 @@ public class ExceptionUtilsTest extends TestCase {
         List<?> throwables = ExceptionUtils.getThrowableList(jdkNoCause);
         assertEquals(1, throwables.size());
         assertSame(jdkNoCause, throwables.get(0));
-    }
-
-    public void testGetThrowableList_Throwable_selfCause() {
-        List<?> throwables = ExceptionUtils.getThrowableList(selfCause);
-        assertEquals(1, throwables.size());
-        assertSame(selfCause, throwables.get(0));
     }
 
     public void testGetThrowableList_Throwable_recursiveCause() {
