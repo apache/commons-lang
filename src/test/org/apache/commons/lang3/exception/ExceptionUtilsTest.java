@@ -550,11 +550,6 @@ public class ExceptionUtilsTest extends TestCase {
 
     // Temporary classes to allow the nested exception code to be removed 
     // prior to a rewrite of this test class. 
-    private static class NestableRuntimeException extends RuntimeException { 
-        public NestableRuntimeException() { super(); }
-        @SuppressWarnings("unused")
-        public NestableRuntimeException(Throwable t) { super(t); }
-    }
     private static class NestableException extends Exception { 
         @SuppressWarnings("unused")
         public NestableException() { super(); }
