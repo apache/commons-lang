@@ -22,7 +22,6 @@ import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -303,28 +302,24 @@ public class ExceptionUtils {
         if (throwable == null) {
             return null;
         }
-        Throwable cause = getCauseUsingWellKnownTypes(throwable);
-        if (cause == null) {
-            if (methodNames == null) {
-                synchronized(CAUSE_METHOD_NAMES_LOCK) {
-                    methodNames = CAUSE_METHOD_NAMES;
-                }
-            }
-            for (int i = 0; i < methodNames.length; i++) {
-                String methodName = methodNames[i];
-                if (methodName != null) {
-                    cause = getCauseUsingMethodName(throwable, methodName);
-                    if (cause != null) {
-                        break;
-                    }
-                }
-            }
 
-            if (cause == null) {
-                cause = getCauseUsingFieldName(throwable, "detail");
+        if (methodNames == null) {
+            synchronized(CAUSE_METHOD_NAMES_LOCK) {
+                methodNames = CAUSE_METHOD_NAMES;
             }
         }
-        return cause;
+
+        for (int i = 0; i < methodNames.length; i++) {
+            String methodName = methodNames[i];
+            if (methodName != null) {
+                Throwable cause = getCauseUsingMethodName(throwable, methodName);
+                if (cause != null) {
+                    return cause;
+                }
+            }
+        }
+
+        return getCauseUsingFieldName(throwable, "detail");
     }
 
     /**
@@ -347,26 +342,6 @@ public class ExceptionUtils {
     public static Throwable getRootCause(Throwable throwable) {
         List<Throwable> list = getThrowableList(throwable);
         return (list.size() < 2 ? null : (Throwable)list.get(list.size() - 1));
-    }
-
-    /**
-     * <p>Finds a <code>Throwable</code> for known types.</p>
-     * 
-     * <p>Uses <code>instanceof</code> checks to examine the exception,
-     * looking for well known types which could contain chained or
-     * wrapped exceptions.</p>
-     *
-     * @param throwable  the exception to examine
-     * @return the wrapped exception, or <code>null</code> if not found
-     */
-    private static Throwable getCauseUsingWellKnownTypes(Throwable throwable) {
-        if (throwable instanceof SQLException) {
-            return ((SQLException) throwable).getNextException();
-        } else if (throwable instanceof InvocationTargetException) {
-            return ((InvocationTargetException) throwable).getTargetException();
-        } else {
-            return null;
-        }
     }
 
     /**
