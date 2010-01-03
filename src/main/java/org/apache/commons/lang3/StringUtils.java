@@ -21,6 +21,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 /**
  * <p>Operations on {@link java.lang.String} that are
  * <code>null</code> safe.</p>
