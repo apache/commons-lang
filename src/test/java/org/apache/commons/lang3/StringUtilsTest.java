@@ -23,6 +23,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Locale;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import junit.framework.TestCase;
 
 /**
