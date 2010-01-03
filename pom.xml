@@ -167,6 +167,14 @@
             <role>Java Developer</role>
           </roles>
         </developer>
+        <developer>
+          <name>Paul Benedict</name>
+          <id>pbenedict</id>
+          <email>pbenedict@apache.org</email>
+          <roles>
+            <role>Java Developer</role>
+          </roles>
+        </developer>
     </developers>
     <contributors>
         <contributor>
