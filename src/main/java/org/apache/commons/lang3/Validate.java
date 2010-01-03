@@ -48,18 +48,19 @@ import java.util.Map;
  */
 public class Validate {
 
-    private static final String DEFAULT_IS_NULL_EXCEPTION_MESSAGE = "The validated object is null";
-    private static final String DEFAULT_IS_TRUE_EXCEPTION_MESSAGE = "The validated expression is false";
-    private static final String DEFAULT_NO_NULL_ELEMENTS_ARRAY_EXCEPTION_MESSAGE = "The validated array contains null element at index: %d";
-    private static final String DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EXCEPTION_MESSAGE = "The validated collection contains null element at index: %d";
-    private static final String DEFAULT_NOT_BLANK_EXCEPTION_MESSAGE = "The validated character sequence is blank";
-    private static final String DEFAULT_NOT_EMPTY_ARRAY_EXCEPTION_MESSAGE = "The validated array is empty";
-    private static final String DEFAULT_NOT_EMPTY_CHAR_SEQUENCE_EXCEPTION_MESSAGE = "The validated character sequence is empty";
-    private static final String DEFAULT_NOT_EMPTY_COLLECTION_EXCEPTION_MESSAGE = "The validated collection is empty";
-    private static final String DEFAULT_NOT_EMPTY_MAP_EXCEPTION_MESSAGE = "The validated map is empty";
-    private static final String DEFAULT_VALID_INDEX_ARRAY_EXCEPTION_MESSAGE = "The validated array index is invalid: %d";
-    private static final String DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EXCEPTION_MESSAGE = "The validated character sequence index is invalid: %d";
-    private static final String DEFAULT_VALID_INDEX_COLLECTION_EXCEPTION_MESSAGE = "The validated collection index is invalid: %d";
+    private static final String DEFAULT_IS_NULL_EX_MESSAGE = "The validated object is null";
+    private static final String DEFAULT_IS_TRUE_EX_MESSAGE = "The validated expression is false";
+    private static final String DEFAULT_NO_NULL_ELEMENTS_ARRAY_EX_MESSAGE = "The validated array contains null element at index: %d";
+    private static final String DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EX_MESSAGE = "The validated collection contains null element at index: %d";
+    private static final String DEFAULT_NOT_BLANK_EX_MESSAGE = "The validated character sequence is blank";
+    private static final String DEFAULT_NOT_EMPTY_ARRAY_EX_MESSAGE = "The validated array is empty";
+    private static final String DEFAULT_NOT_EMPTY_CHAR_SEQUENCE_EX_MESSAGE = "The validated character sequence is empty";
+    private static final String DEFAULT_NOT_EMPTY_COLLECTION_EX_MESSAGE = "The validated collection is empty";
+    private static final String DEFAULT_NOT_EMPTY_MAP_EX_MESSAGE = "The validated map is empty";
+    private static final String DEFAULT_VALID_INDEX_ARRAY_EX_MESSAGE = "The validated array index is invalid: %d";
+    private static final String DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE = "The validated character sequence index is invalid: %d";
+    private static final String DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE = "The validated collection index is invalid: %d";
+	private static final String DEFAULT_VALID_STATE_EX_MESSAGE = "The validated state is false";
 
     /**
      * Constructor. This class should not normally be instantiated.
@@ -70,32 +71,6 @@ public class Validate {
 
     // isTrue
     //---------------------------------------------------------------------------------
-
-    /**
-     * <p>Validate that the argument condition is <code>true</code>; otherwise 
-     * throwing an exception with the specified message. This method is useful when
-     * validating according to an arbitrary boolean expression, such as validating a 
-     * primitive number or using your own custom validation expression.</p>
-     *
-     * <pre>Validate.isTrue(myObject.isOk(), "The object is not OK: %s", myObject);</pre>
-     *
-     * <p>For performance reasons, the object is passed as a separate parameter and
-     * appended to the exception message only in the case of an error.</p>
-     * 
-     * @param expression the boolean expression to check 
-     * @param message the exception message if invalid
-     * @param value the value to append to the message when invalid
-     * @throws IllegalArgumentException if expression is <code>false</code>
-     * @see #isTrue(boolean)
-     * @see #isTrue(boolean, String, long)
-     * @see #isTrue(boolean, String, double)
-     * @see #isTrue(boolean, String, Object...)
-     */
-    public static void isTrue(boolean expression, String message, Object value) {
-        if (expression == false) {
-            throw new IllegalArgumentException(String.format(message, value));
-        }
-    }
 
     /**
      * <p>Validate that the argument condition is <code>true</code>; otherwise 
@@ -114,7 +89,6 @@ public class Validate {
      * @throws IllegalArgumentException if expression is <code>false</code>
      * @see #isTrue(boolean)
      * @see #isTrue(boolean, String, double)
-     * @see #isTrue(boolean, String, Object)
      * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(boolean expression, String message, long value) {
@@ -140,7 +114,6 @@ public class Validate {
      * @throws IllegalArgumentException if expression is <code>false</code>
      * @see #isTrue(boolean)
      * @see #isTrue(boolean, String, long)
-     * @see #isTrue(boolean, String, Object)
      * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(boolean expression, String message, double value) {
@@ -159,9 +132,6 @@ public class Validate {
      * Validate.isTrue(i >= min && i <= max, "The value must be between %d and %d", min, max);
      * Validate.isTrue(myObject.isOk(), "The object is not okay");</pre>
      *
-     * <p>For performance reasons, the message string should not involve a string append,
-     * instead use the {@link #isTrue(boolean, String, Object)} method.</p>
-     * 
      * @param expression the boolean expression to check 
      * @param message the exception message if invalid
      * @param values the optional values for the formatted exception message
@@ -169,7 +139,6 @@ public class Validate {
      * @see #isTrue(boolean)
      * @see #isTrue(boolean, String, long)
      * @see #isTrue(boolean, String, double)
-     * @see #isTrue(boolean, String, Object)
      */
     public static void isTrue(boolean expression, String message, Object... values) {
         if (expression == false) {
@@ -194,12 +163,11 @@ public class Validate {
      * @throws IllegalArgumentException if expression is <code>false</code>
      * @see #isTrue(boolean, String, long)
      * @see #isTrue(boolean, String, double)
-     * @see #isTrue(boolean, String, Object)
      * @see #isTrue(boolean, String, Object...)
      */
     public static void isTrue(boolean expression) {
         if (expression == false) {
-            throw new IllegalArgumentException(DEFAULT_IS_TRUE_EXCEPTION_MESSAGE);
+            throw new IllegalArgumentException(DEFAULT_IS_TRUE_EX_MESSAGE);
         }
     }
 
@@ -222,7 +190,7 @@ public class Validate {
      * @see #notNull(Object, String, Object...)
      */
     public static <T> T notNull(T object) {
-        return notNull(object, DEFAULT_IS_NULL_EXCEPTION_MESSAGE);
+        return notNull(object, DEFAULT_IS_NULL_EX_MESSAGE);
     }
 
     /**
@@ -291,7 +259,7 @@ public class Validate {
      * @see #notEmpty(Object[], String, Object...)
      */
     public static <T> T[] notEmpty(T[] array) {
-        return notEmpty(array, DEFAULT_NOT_EMPTY_ARRAY_EXCEPTION_MESSAGE);
+        return notEmpty(array, DEFAULT_NOT_EMPTY_ARRAY_EX_MESSAGE);
     }
 
     // notEmpty collection
@@ -339,7 +307,7 @@ public class Validate {
      * @see #notEmpty(Collection, String, Object...)
      */
     public static <T extends Collection<?>> T notEmpty(T collection) {
-        return notEmpty(collection, DEFAULT_NOT_EMPTY_COLLECTION_EXCEPTION_MESSAGE);
+        return notEmpty(collection, DEFAULT_NOT_EMPTY_COLLECTION_EX_MESSAGE);
     }
 
     // notEmpty map
@@ -387,7 +355,7 @@ public class Validate {
      * @see #notEmpty(Map, String, Object...)
      */
     public static <T extends Map<?, ?>> T notEmpty(T map) {
-        return notEmpty(map, DEFAULT_NOT_EMPTY_MAP_EXCEPTION_MESSAGE);
+        return notEmpty(map, DEFAULT_NOT_EMPTY_MAP_EX_MESSAGE);
     }
 
     // notEmpty string
@@ -436,7 +404,7 @@ public class Validate {
      * @see #notEmpty(CharSequence, String, Object...)
      */
     public static <T extends CharSequence> T notEmpty(T chars) {
-        return notEmpty(chars, DEFAULT_NOT_EMPTY_CHAR_SEQUENCE_EXCEPTION_MESSAGE);
+        return notEmpty(chars, DEFAULT_NOT_EMPTY_CHAR_SEQUENCE_EX_MESSAGE);
     }
 
     // notBlank string
@@ -486,7 +454,7 @@ public class Validate {
      * @see #notBlank(CharSequence, String, Object...)
      */
     public static <T extends CharSequence> T notBlank(T chars) {
-        return notBlank(chars, DEFAULT_NOT_BLANK_EXCEPTION_MESSAGE);
+        return notBlank(chars, DEFAULT_NOT_BLANK_EX_MESSAGE);
     }
 
     // notNullElements array
@@ -546,7 +514,7 @@ public class Validate {
      * @see #noNullElements(Object[], String, Object...)
      */
     public static <T> T[] noNullElements(T[] array) {
-        return noNullElements(array, DEFAULT_NO_NULL_ELEMENTS_ARRAY_EXCEPTION_MESSAGE);
+        return noNullElements(array, DEFAULT_NO_NULL_ELEMENTS_ARRAY_EX_MESSAGE);
     }
 
     // notNullElements collection
@@ -607,7 +575,7 @@ public class Validate {
      * @see #noNullElements(Collection, String, Object...)
      */
     public static <T extends Iterable<?>> T noNullElements(T iterable) {
-        return noNullElements(iterable, DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EXCEPTION_MESSAGE);
+        return noNullElements(iterable, DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EX_MESSAGE);
     }
 
     // validIndex array
@@ -661,7 +629,7 @@ public class Validate {
      * @see #validIndex(Object[], int, String, Object...)
      */
     public static <T> T[] validIndex(T[] array, int index) {
-        return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EXCEPTION_MESSAGE, Integer.valueOf(index));
+        return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EX_MESSAGE, Integer.valueOf(index));
     }
 
     // validIndex collection
@@ -712,7 +680,7 @@ public class Validate {
      * @see #validIndex(Collection, int, String, Object...)
      */
     public static <T extends Collection<?>> T validIndex(T collection, int index) {
-        return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EXCEPTION_MESSAGE, Integer.valueOf(index));
+        return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE, Integer.valueOf(index));
     }
 
     // validIndex string
@@ -768,7 +736,50 @@ public class Validate {
      * @see #validIndex(CharSequence, int, String, Object...)
      */
     public static <T extends CharSequence> T validIndex(T chars, int index) {
-        return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EXCEPTION_MESSAGE, Integer.valueOf(index));
+        return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE, Integer.valueOf(index));
+    }
+
+    /**
+     * <p>Validate that the stateful condition is <code>true</code>; otherwise 
+     * throwing an exception. This method is useful when validating according 
+     * to an arbitrary boolean expression, such as validating a 
+     * primitive number or using your own custom validation expression.</p>
+     *
+     * <pre>
+     * Validate.validState(field > 0);
+     * Validate.validState(this.isOk());</pre>
+     *
+     * <p>The message of the exception is &quot;The validated state is 
+     * false&quot;.</p>
+     * 
+     * @param expression the boolean expression to check 
+     * @throws IllegalStateException if expression is <code>false</code>
+     * @see #validState(boolean, String, Object...)
+     */
+    public static void validState(boolean expression) {
+        if (expression == false) {
+            throw new IllegalArgumentException(DEFAULT_VALID_STATE_EX_MESSAGE);
+        }
+    }
+
+    /**
+     * <p>Validate that the stateful condition is <code>true</code>; otherwise 
+     * throwing an exception with the specified message. This method is useful when
+     * validating according to an arbitrary boolean expression, such as validating a 
+     * primitive number or using your own custom validation expression.</p>
+     *
+     * <pre>Validate.validState(this.isOk(), "The state is not OK: %s", myObject);</pre>
+     *
+     * @param expression the boolean expression to check 
+     * @param message the exception message if invalid
+     * @param values the optional values for the formatted exception message
+     * @throws IllegalStateException if expression is <code>false</code>
+     * @see #validState(boolean)
+     */
+    public static void validState(boolean expression, String message, Object... values) {
+        if (expression == false) {
+            throw new IllegalStateException(String.format(message, values));
+        }
     }
 
 }
