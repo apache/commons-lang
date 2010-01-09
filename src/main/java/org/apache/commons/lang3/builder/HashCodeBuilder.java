@@ -813,7 +813,6 @@ public class HashCodeBuilder {
      * <p>
      * Append a <code>hashCode</code> for a <code>long</code>.
      * </p>
-     * <p>
      * 
      * @param value
      *            the long to add to the <code>hashCode</code>
@@ -862,8 +861,7 @@ public class HashCodeBuilder {
             iTotal = iTotal * iConstant;
 
         } else {
-            Class clss = object.getClass();
-            if(clss.isArray()) {
+            if(object.getClass().isArray()) {
                 // 'Switch' on type of array, to dispatch to the correct handler
                 // This handles multi dimensional arrays
                 if (object instanceof long[]) {
