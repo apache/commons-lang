@@ -24,6 +24,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 /**
  * <p>Assists in implementing {@link Object#equals(Object)} methods.</p>
  *
@@ -318,11 +320,10 @@ public class EqualsBuilder {
         boolean useTransients,
         String[] excludeFields) {
         Field[] fields = clazz.getDeclaredFields();
-        List<String> excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.<String>emptyList();
         AccessibleObject.setAccessible(fields, true);
         for (int i = 0; i < fields.length && builder.isEquals; i++) {
             Field f = fields[i];
-            if (!excludedFieldList.contains(f.getName())
+            if (!ArrayUtils.contains(excludeFields, f.getName())
                 && (f.getName().indexOf('$') == -1)
                 && (useTransients || !Modifier.isTransient(f.getModifiers()))
                 && (!Modifier.isStatic(f.getModifiers()))) {

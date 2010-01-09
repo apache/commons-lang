@@ -27,6 +27,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 /**
  * <p>
  * Assists in implementing {@link Object#hashCode()} methods.
@@ -179,10 +181,9 @@ public class HashCodeBuilder {
         try {
             register(object);
             Field[] fields = clazz.getDeclaredFields();
-            List<String> excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.<String>emptyList();
             AccessibleObject.setAccessible(fields, true);
             for (Field field : fields) {
-                if (!excludedFieldList.contains(field.getName())
+                if (!ArrayUtils.contains(excludeFields, field.getName())
                     && (field.getName().indexOf('$') == -1)
                     && (useTransients || !Modifier.isTransient(field.getModifiers()))
                     && (!Modifier.isStatic(field.getModifiers()))) {
