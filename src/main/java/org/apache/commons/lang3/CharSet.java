@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -75,10 +76,10 @@ public class CharSet implements Serializable {
 
     /**
      * A Map of the common cases used in the factory.
-     * Subclasses can add more common patterns if desired.
+     * Subclasses can add more common patterns if desired
      * @since 2.0
      */
-    protected static final Map<String, CharSet> COMMON = new HashMap<String, CharSet>();
+    protected static final Map<String, CharSet> COMMON = Collections.synchronizedMap(new HashMap<String, CharSet>());
     
     static {
         COMMON.put(null, EMPTY);
