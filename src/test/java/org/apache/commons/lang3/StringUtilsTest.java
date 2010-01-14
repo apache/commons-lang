@@ -1637,6 +1637,7 @@ public class StringUtilsTest extends TestCase {
 
         // Case insensitive:
         assertEquals("removeEndIgnoreCase(\"www.domain.com\", \".COM\")", StringUtils.removeEndIgnoreCase("www.domain.com", ".COM"), "www.domain");
+        assertEquals("removeEndIgnoreCase(\"www.domain.COM\", \".com\")", StringUtils.removeEndIgnoreCase("www.domain.COM", ".com"), "www.domain");
     }
 
     public void testRemove_String() {
