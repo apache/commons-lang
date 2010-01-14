@@ -3473,13 +3473,13 @@ public class StringUtils {
      * A <code>null</code> search string will return the source string.</p>
      *
      * <pre>
-     * StringUtils.removeEndEndIgnoreCase(null, *)      = null
-     * StringUtils.removeEndEndIgnoreCase("", *)        = ""
-     * StringUtils.removeEndEndIgnoreCase(*, null)      = *
-     * StringUtils.removeEndEndIgnoreCase("www.domain.com", ".com.")  = "www.domain.com"
-     * StringUtils.removeEndEndIgnoreCase("www.domain.com", ".com")   = "www.domain"
-     * StringUtils.removeEndEndIgnoreCase("www.domain.com", "domain") = "www.domain.com"
-     * StringUtils.removeEndEndIgnoreCase("abc", "")    = "abc"
+     * StringUtils.removeEndIgnoreCase(null, *)      = null
+     * StringUtils.removeEndIgnoreCase("", *)        = ""
+     * StringUtils.removeEndIgnoreCase(*, null)      = *
+     * StringUtils.removeEndIgnoreCase("www.domain.com", ".com.")  = "www.domain.com"
+     * StringUtils.removeEndIgnoreCase("www.domain.com", ".com")   = "www.domain"
+     * StringUtils.removeEndIgnoreCase("www.domain.com", "domain") = "www.domain.com"
+     * StringUtils.removeEndIgnoreCase("abc", "")    = "abc"
      * StringUtils.removeEndIgnoreCase("www.domain.com", ".COM") = "www.domain")
      * StringUtils.removeEndIgnoreCase("www.domain.COM", ".com") = "www.domain")
      * </pre>
