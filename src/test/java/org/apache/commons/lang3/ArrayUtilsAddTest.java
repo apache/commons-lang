@@ -178,15 +178,8 @@ public class ArrayUtilsAddTest extends TestCase {
 
     public void testAddObjectArrayObject() {
         Object[] newArray;
-        newArray = ArrayUtils.add((Object[])null, null);
-        assertTrue(Arrays.equals((new Object[]{null}), newArray));
-        assertEquals(Object.class, newArray.getClass().getComponentType());
 
         //show that not casting is okay
-        newArray = ArrayUtils.add(null, null);
-        assertTrue(Arrays.equals((new Object[]{null}), newArray));
-        assertEquals(Object.class, newArray.getClass().getComponentType());
-
         newArray = ArrayUtils.add((Object[])null, "a");
         assertTrue(Arrays.equals((new String[]{"a"}), newArray));
         assertTrue(Arrays.equals((new Object[]{"a"}), newArray));
@@ -216,10 +209,6 @@ public class ArrayUtilsAddTest extends TestCase {
         newArray = ArrayUtils.add(numberArray1, new Float(3));
         assertTrue(Arrays.equals((new Float[]{new Float(3)}), newArray));
         assertEquals(Float.class, newArray.getClass().getComponentType());
-
-        newArray = ArrayUtils.add(numberArray1, null);
-        assertTrue(Arrays.equals((new Object[]{null}), newArray));
-        assertEquals(Object.class, newArray.getClass().getComponentType());
     }
     
     public void testLANG571(){
@@ -360,9 +349,6 @@ public class ArrayUtilsAddTest extends TestCase {
 
     public void testAddObjectAtIndex() {
         Object[] newArray;
-        newArray = ArrayUtils.add((Object[])null, 0, null);
-        assertTrue(Arrays.equals((new Object[]{null}), newArray));
-        assertEquals(Object.class, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add((Object[])null, 0, "a");
         assertTrue(Arrays.equals((new String[]{"a"}), newArray));
         assertTrue(Arrays.equals((new Object[]{"a"}), newArray));
