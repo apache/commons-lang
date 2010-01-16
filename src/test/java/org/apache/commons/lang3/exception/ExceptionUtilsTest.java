@@ -17,20 +17,14 @@
 package org.apache.commons.lang3.exception;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.sql.SQLException;
 import java.util.List;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
-
-import org.apache.commons.lang3.SystemUtils;
 
 /**
  * Tests {@link org.apache.commons.lang3.exception.ExceptionUtils}.
@@ -123,6 +117,7 @@ public class ExceptionUtilsTest extends TestCase {
     }
     
     //-----------------------------------------------------------------------
+    @SuppressWarnings("deprecation") // Specifically tests the deprecated methods
     public void testGetCause_Throwable() {
         assertSame(null, ExceptionUtils.getCause(null));
         assertSame(null, ExceptionUtils.getCause(withoutCause));
@@ -134,6 +129,7 @@ public class ExceptionUtilsTest extends TestCase {
         assertSame(cyclicCause.getCause(), ExceptionUtils.getCause(((ExceptionWithCause) cyclicCause.getCause()).getCause()));
     }
 
+    @SuppressWarnings("deprecation") // Specifically tests the deprecated methods
     public void testGetCause_ThrowableArray() {
         assertSame(null, ExceptionUtils.getCause(null, null));
         assertSame(null, ExceptionUtils.getCause(null, new String[0]));
