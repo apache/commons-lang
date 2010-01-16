@@ -44,10 +44,16 @@ public final class Range<T> implements Serializable {
      * The minimum value in this range (inclusive).
      */
     private final T minimum;
+
     /**
      * The maximum value in this range (inclusive).
      */
     private final T maximum;
+
+    /**
+     * Cached output hashCode (class is immutable).
+     */
+    private transient int hashCode = 0;
 
     /**
      * Cached output toString (class is immutable).
@@ -324,10 +330,14 @@ public final class Range<T> implements Serializable {
      */
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 37 * result + getClass().hashCode();
-        result = 37 * result + this.minimum.hashCode();
-        result = 37 * result + this.maximum.hashCode();
+        int result = hashCode;
+        if (hashCode == 0) {
+            result = 17;
+            result = 37 * result + getClass().hashCode();
+            result = 37 * result + this.minimum.hashCode();
+            result = 37 * result + this.maximum.hashCode();
+            hashCode = result;
+        }
         return result;
     }
 
