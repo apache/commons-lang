@@ -350,16 +350,18 @@ public final class Range<T> implements Serializable {
      */
     @Override
     public String toString() {
-        if (toString == null) {
+        String result = toString;
+        if (result == null) {
             StringBuilder buf = new StringBuilder(32);
             buf.append("Range[");
             buf.append(this.minimum);
             buf.append(',');
             buf.append(this.maximum);
             buf.append(']');
-            toString = buf.toString();
+            result = buf.toString();
+            toString = result;
         }
-        return toString;
+        return result;
     }
 
     // Taken from Commons Collections - documentation removed as not a public class
