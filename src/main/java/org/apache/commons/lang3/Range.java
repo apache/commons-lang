@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * <p><code>Range</code> represents a range of numbers of the same type.</p>
+ * <p><code>Range</code> represents an immutable range of numbers of the same type.</p>
  * 
  * @author Apache Software Foundation
  * @since 3.0
