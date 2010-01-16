@@ -28,11 +28,31 @@ import java.util.Comparator;
  */
 public final class Range<T> implements Serializable {
 
+    /**
+     * Required for serialization support.
+     * 
+     * @see java.io.Serializable
+     */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * The ordering scheme used in this range.
+     */
     private final Comparator<T> comparator;
+
+    /**
+     * The minimum value in this range (inclusive).
+     */
     private final T minimum;
+    /**
+     * The maximum value in this range (inclusive).
+     */
     private final T maximum;
+
+    /**
+     * Cached output toString (class is immutable).
+     */
+    private transient String toString = null;
 
     /**
      * <p>Constructs a new <code>Range</code> using the specified
@@ -320,15 +340,17 @@ public final class Range<T> implements Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder buf = new StringBuilder(32);
-        buf.append("Range[");
-        buf.append(this.minimum);
-        buf.append(',');
-        buf.append(this.maximum);
-        buf.append(']');
-        return buf.toString();
+        if (toString == null) {
+            StringBuilder buf = new StringBuilder(32);
+            buf.append("Range[");
+            buf.append(this.minimum);
+            buf.append(',');
+            buf.append(this.maximum);
+            buf.append(']');
+            toString = buf.toString();
+        }
+        return toString;
     }
-
 
     // Taken from Commons Collections - documentation removed as not a public class
     private static class ComparableComparator<E extends Comparable<? super E>> implements Comparator<E>, Serializable {
