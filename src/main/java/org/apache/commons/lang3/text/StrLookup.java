@@ -117,7 +117,14 @@ public abstract class StrLookup<V> {
      * Or, a numeric based implementation could be created that treats the key
      * as an integer, increments the value and return the result as a string -
      * converting 1 to 2, 15 to 16 etc.
-     *
+     * <p>
+     * The {@link #lookup(String)} method always returns a String, regardless of
+     * the underlying data, by converting it as necessary. For example:
+     * <pre>
+     * Map<String, Object> map = new HashMap<String, Object>();
+     * map.put("number", new Integer(2));
+     * assertEquals("2", StrLookup.mapLookup(map).lookup("number"));
+     * </pre>
      * @param key  the key to be looked up, may be null
      * @return the matching value, null if no match
      */
