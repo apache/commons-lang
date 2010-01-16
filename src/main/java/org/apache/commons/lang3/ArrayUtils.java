@@ -3280,13 +3280,21 @@ public class ArrayUtils {
      * @param element  the object to add, may be <code>null</code>
      * @return A new array containing the existing elements plus the new element
      * The returned array type will be that of the input array (unless null),
-     * in which case it will have the same type as the element (unless that is also null)
-     * in which case the returned type will be Object[].
+     * in which case it will have the same type as the element.
+     * If both are null, an IllegalArgumentException is thrown
      * @since 2.1
+     * @throws IllegalArgumentException if both arguments are null
      */
     public static <T> T[] add(T[] array, T element) {
-        Class<?> type = array != null ? array.getClass() : (element != null ? element.getClass() : Object.class);
-        // TODO - this is NOT safe to ignore - see LANG-571
+        Class<?> type;
+        if (array != null){
+            type = array.getClass();
+        } else if (element != null) {
+            type = element.getClass();
+        } else {
+            throw new IllegalArgumentException("Arguments cannot both be null");            
+        }
+        @SuppressWarnings("unchecked") // type must be T
         T[] newArray = (T[]) copyArrayGrow1(array, type);
         newArray[newArray.length - 1] = element;
         return newArray;
@@ -3554,6 +3562,7 @@ public class ArrayUtils {
      * @return A new array containing the existing elements and the new element
      * @throws IndexOutOfBoundsException if the index is out of range
      * (index < 0 || index > array.length).
+     * @throws IllegalArgumentException if both array and element are null
      */
     public static <T> T[] add(T[] array, int index, T element) {
         Class<?> clss = null;
@@ -3562,9 +3571,7 @@ public class ArrayUtils {
         } else if (element != null) {
             clss = element.getClass();
         } else {
-            // TODO this is not type-safe - see LANG-571
-            final T[] emptyArray = (T[]) new Object[] { null };
-            return emptyArray;
+            throw new IllegalArgumentException("Array and element cannot both be null");            
         }
         @SuppressWarnings("unchecked") // the add method creates an array of type clss, which is type T
         final T[] newArray = (T[]) add(array, index, element, clss);
