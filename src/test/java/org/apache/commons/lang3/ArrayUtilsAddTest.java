@@ -221,6 +221,25 @@ public class ArrayUtilsAddTest extends TestCase {
         assertTrue(Arrays.equals((new Object[]{null}), newArray));
         assertEquals(Object.class, newArray.getClass().getComponentType());
     }
+    
+    public void testLANG571(){
+        String[] stringArray=null;
+        String aString=null;
+        try {
+            @SuppressWarnings("unused")
+            String[] sa = ArrayUtils.add(stringArray, aString);
+            fail("Should have caused IllegalArgumentException");
+        } catch (IllegalArgumentException iae){
+            //expected
+        }
+        try {
+            @SuppressWarnings("unused")
+            String[] sa = ArrayUtils.add(stringArray, 0, aString);
+            fail("Should have caused IllegalArgumentException");
+        } catch (IllegalArgumentException iae){
+            //expected
+        }
+    }
 
     public void testAddObjectArrayToObjectArray() {
         assertNull(ArrayUtils.addAll((Object[]) null, (Object[]) null));

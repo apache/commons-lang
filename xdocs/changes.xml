@@ -23,6 +23,7 @@
 
   <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">
     <action type="update">Push down WordUtils to "text" sub-package.</action>
+    <action type="fix" issue="LANG-571">ArrayUtils.add(T[] array[, offset], T element) can create unexpected ClassCastException</action>
   </release>
 
   <release version="2.4" date="2008-03-18" description="">
