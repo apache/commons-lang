@@ -5522,7 +5522,7 @@ public class StringUtils {
      * <li>The length to truncate to is less than the length of the supplied String</li>
      * <li>The length to truncate to is greater than 0</li>
      * <li>The abbreviated String will have enough room for the length supplied replacement String
-     * and the first and last characters of the supplied String for truncation</li>
+     * and the first and last characters of the supplied String for abbreviation</li>
      * </ul>
      * Otherwise, the returned String will be the same as the supplied String for abbreviation.
      * </p>
