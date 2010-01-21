@@ -6091,14 +6091,14 @@ public class StringUtils {
         }
 
         int targetSting = length-middle.length();
-	 int startOffset = targetSting/2+targetSting%2;
+        int startOffset = targetSting/2+targetSting%2;
         int endOffset = str.length()-targetSting/2;
-	    
-	 StringBuilder builder = new StringBuilder(length);
-	 builder.append(str.substring(0,startOffset));
-	 builder.append(middle);
-	 builder.append(str.substring(endOffset));
-	    
+        
+        StringBuilder builder = new StringBuilder(length);
+        builder.append(str.substring(0,startOffset));
+        builder.append(middle);
+        builder.append(str.substring(endOffset));
+        
         return builder.toString();
     }
 }

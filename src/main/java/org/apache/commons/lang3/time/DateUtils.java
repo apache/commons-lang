@@ -308,7 +308,7 @@ public class DateUtils {
         return parseDateWithLeniency(str, parsePatterns, false);
     }
     private static Date parseDateWithLeniency(String str, String[] parsePatterns,
-			boolean lenient) throws ParseException {
+            boolean lenient) throws ParseException {
         if (str == null || parsePatterns == null) {
             throw new IllegalArgumentException("Date and Patterns must not be null");
         }

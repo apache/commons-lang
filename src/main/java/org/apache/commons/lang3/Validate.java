@@ -60,7 +60,7 @@ public class Validate {
     private static final String DEFAULT_VALID_INDEX_ARRAY_EX_MESSAGE = "The validated array index is invalid: %d";
     private static final String DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE = "The validated character sequence index is invalid: %d";
     private static final String DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE = "The validated collection index is invalid: %d";
-	private static final String DEFAULT_VALID_STATE_EX_MESSAGE = "The validated state is false";
+    private static final String DEFAULT_VALID_STATE_EX_MESSAGE = "The validated state is false";
 
     /**
      * Constructor. This class should not normally be instantiated.
