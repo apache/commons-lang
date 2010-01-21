@@ -1686,6 +1686,45 @@ public class StringUtilsTest extends TestCase {
         assertEquals("queued", StringUtils.remove("queued", 'z'));
     }
 
+    public void testTruncateMiddle() {
+        // javadoc examples
+        assertNull( StringUtils.truncateMiddle(null, null, 0) );
+        assertEquals( "abc", StringUtils.truncateMiddle("abc", null, 0) );
+        assertEquals( "abc", StringUtils.truncateMiddle("abc", ".", 0) );
+        assertEquals( "abc", StringUtils.truncateMiddle("abc", ".", 3) );
+        assertEquals( "ab.f", StringUtils.truncateMiddle("abcdef", ".", 4) );
+
+        // JIRA issue (LANG-405) example (slightly different than actual expected result)
+        assertEquals( 
+            "A very long text with un...f the text is complete.",
+            StringUtils.truncateMiddle(
+                "A very long text with unimportant stuff in the middle but interesting start and " +
+                "end to see if the text is complete.", "...", 50) );
+
+        // Test a much longer text :)
+        String longText = "Start text" + StringUtils.repeat("x", 10000) + "Close text";
+        assertEquals( 
+            "Start text->Close text",
+            StringUtils.truncateMiddle( longText, "->", 22 ) );
+
+        // Test negative length
+        assertEquals("abc", StringUtils.truncateMiddle("abc", ".", -1));
+
+        // Test boundaries
+        // Fails to change anything as method ensures first and last char are kept
+        assertEquals("abc", StringUtils.truncateMiddle("abc", ".", 1));
+        assertEquals("abc", StringUtils.truncateMiddle("abc", ".", 2));
+
+        // Test length of n=1
+        assertEquals("a", StringUtils.truncateMiddle("a", ".", 1));
+
+        // Test smallest length that can lead to success
+        assertEquals("a.d", StringUtils.truncateMiddle("abcd", ".", 3));
+
+        // More from LANG-405
+        assertEquals("a..f", StringUtils.truncateMiddle("abcdef", "..", 4));
+        assertEquals("ab.ef", StringUtils.truncateMiddle("abcdef", ".", 5));
+    }
     
     public void testDifferenceAt_StringArray(){        
         assertEquals(-1, StringUtils.indexOfDifference(null));
