@@ -5511,6 +5511,55 @@ public class StringUtils {
         }
         return "..." + str.substring(str.length() - (maxWidth - 3));
     }
+    
+    /**
+     * <p>Abbreviates a String to the length passed, replacing the middle characters with the supplied
+     * replacement String.</p>
+     *
+     * <p>This abbreviation only occurs if the following criteria is met:
+     * <ul>
+     * <li>Neither the String for abbreviation nor the replacement String are null or empty </li>
+     * <li>The length to truncate to is less than the length of the supplied String</li>
+     * <li>The length to truncate to is greater than 0</li>
+     * <li>The abbreviated String will have enough room for the length supplied replacement String
+     * and the first and last characters of the supplied String for truncation</li>
+     * </ul>
+     * Otherwise, the returned String will be the same as the supplied String for abbreviation.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.abbreviateMiddle(null, null, 0)      = null
+     * StringUtils.abbreviateMiddle("abc", null, 0)      = "abc"
+     * StringUtils.abbreviateMiddle("abc", ".", 0)      = "abc"
+     * StringUtils.abbreviateMiddle("abc", ".", 3)      = "abc"
+     * StringUtils.abbreviateMiddle("abcdef", ".", 4)     = "ab.f"
+     * </pre>
+     *
+     * @param str  the String to abbreviate, may be null
+     * @param middle the String to replace the middle characters with, may be null
+     * @param length the length to abbreviate <code>str</code> to.
+     * @return the abbreviated String if the above criteria is met, or the original String supplied for abbreviation.
+     */
+    public static String abbreviateMiddle(String str, String middle, int length) {
+        if (isEmpty(str) || isEmpty(middle)) {
+            return str;
+        }
+      
+        if (length >= str.length() || length < (middle.length()+2)) {
+            return str;
+        }
+
+        int targetSting = length-middle.length();
+        int startOffset = targetSting/2+targetSting%2;
+        int endOffset = str.length()-targetSting/2;
+        
+        StringBuilder builder = new StringBuilder(length);
+        builder.append(str.substring(0,startOffset));
+        builder.append(middle);
+        builder.append(str.substring(endOffset));
+        
+        return builder.toString();
+    }
 
     // Difference
     //-----------------------------------------------------------------------
@@ -6051,54 +6100,5 @@ public class StringUtils {
         }
         int strOffset = str.length() - suffix.length();
         return str.regionMatches(ignoreCase, strOffset, suffix, 0, suffix.length());
-    }
-    
-    /**
-     * <p>Truncates a String to the length passed, replacing the middle characters with the supplied
-     * replacement String.</p>
-     *
-     * <p>This truncation only occurs if the following criteria is met:
-     * <ul>
-     * <li>Neither the String for truncation nor the replacement String are null or empty </li>
-     * <li>The length to truncate to is less than the length of the supplied String</li>
-     * <li>The length to truncate to is greater than 0</li>
-     * <li>The truncated String will have enough room for the length supplied replacement String
-     * and the first and last characters of the supplied String for truncation</li>
-     * </ul>
-     * Otherwise, the returned String will be the same as the supplied String for truncation.
-     * </p>
-     *
-     * <pre>
-     * StringUtils.truncateMiddle(null, null, 0)      = null
-     * StringUtils.truncateMiddle("abc", null, 0)      = "abc"
-     * StringUtils.truncateMiddle("abc", ".", 0)      = "abc"
-     * StringUtils.truncateMiddle("abc", ".", 3)      = "abc"
-     * StringUtils.truncateMiddle("abcdef", ".", 4)     = "ab.f"
-     * </pre>
-     *
-     * @param str  the String to truncate, may be null
-     * @param middle the String to replace the middle characters with, may be null
-     * @param length the length to truncate <code>str</code> to.
-     * @return the truncated String if the above criteria is met, or the original String supplied for truncation.
-     */
-    public static String truncateMiddle(String str, String middle, int length) {
-        if (isEmpty(str) || isEmpty(middle)) {
-            return str;
-        }
-      
-        if (length >= str.length() || length < (middle.length()+2)) {
-            return str;
-        }
-
-        int targetSting = length-middle.length();
-        int startOffset = targetSting/2+targetSting%2;
-        int endOffset = str.length()-targetSting/2;
-        
-        StringBuilder builder = new StringBuilder(length);
-        builder.append(str.substring(0,startOffset));
-        builder.append(middle);
-        builder.append(str.substring(endOffset));
-        
-        return builder.toString();
     }
 }
