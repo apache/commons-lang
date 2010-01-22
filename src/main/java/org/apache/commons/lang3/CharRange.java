@@ -79,6 +79,7 @@ public final class CharRange implements Serializable {
      * <p>Constructs a <code>CharRange</code> over a single character.</p>
      *
      * @param ch  only character in this range
+     * @return the new CharRange object
      * @see CharRange#CharRange(char, char, boolean)
      */
     public static CharRange is(char ch) {
@@ -89,6 +90,7 @@ public final class CharRange implements Serializable {
      * <p>Constructs a negated <code>CharRange</code> over a single character.</p>
      *
      * @param ch  only character in this range
+     * @return the new CharRange object
      * @see CharRange#CharRange(char, char, boolean)
      */
     public static CharRange isNot(char ch) {
@@ -100,6 +102,7 @@ public final class CharRange implements Serializable {
      *
      * @param start  first character, inclusive, in this range
      * @param end  last character, inclusive, in this range
+     * @return the new CharRange object
      * @see CharRange#CharRange(char, char, boolean)
      */
     public static CharRange isIn(char start, char end) {
@@ -111,6 +114,7 @@ public final class CharRange implements Serializable {
      *
      * @param start  first character, inclusive, in this range
      * @param end  last character, inclusive, in this range
+     * @return the new CharRange object
      * @see CharRange#CharRange(char, char, boolean)
      */
     public static CharRange isNotIn(char start, char end) {

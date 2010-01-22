@@ -321,6 +321,12 @@ public class ClassUtils {
         return new ArrayList<Class<?>>(interfacesFound);
     }
 
+    /**
+     * Get the interfaces for the specified class.
+     *
+     * @param cls  the class to look up, may be <code>null</code>
+     * @param interfacesFound the <code>Set</code> of interfaces for the class
+     */
     private static void getAllInterfaces(Class<?> cls, HashSet<Class<?>> interfacesFound) {
         while (cls != null) {
             Class<?>[] interfaces = cls.getInterfaces();

@@ -67,6 +67,7 @@ public final class Range<T> implements Serializable {
      * determine where values lie in the range.</p>
      *
      * @param element  the value to use for this range, must not be <code>null</code>
+     * @return the new range object
      * @throws IllegalArgumentException if the value is <code>null</code>
      * @throws ClassCastException if the value is not Comparable
      */
@@ -85,6 +86,7 @@ public final class Range<T> implements Serializable {
      *
      * @param element1  first value that defines the edge of the range, inclusive
      * @param element2  second value that defines the edge of the range, inclusive
+     * @return the new range object
      * @throws IllegalArgumentException if either value is <code>null</code>
      * @throws ClassCastException if either value is not Comparable
      */
@@ -100,6 +102,7 @@ public final class Range<T> implements Serializable {
      *
      * @param element  the value to use for this range, must not be <code>null</code>
      * @param c comparator to be used
+     * @return the new range object
      * @throws IllegalArgumentException if the value is <code>null</code>
      */
     public static <T> Range<T> is(T element, Comparator<T> c) {
@@ -118,6 +121,7 @@ public final class Range<T> implements Serializable {
      * @param element1  first value that defines the edge of the range, inclusive
      * @param element2  second value that defines the edge of the range, inclusive
      * @param c comparator to be used
+     * @return the new range object
      * @throws IllegalArgumentException if either value is <code>null</code>
      */
     public static <T> Range<T> between(T element1, T element2, Comparator<T> c) {
