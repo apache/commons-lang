@@ -71,7 +71,8 @@ public class EnumUtils {
      * a valid enum without needing to catch the exception.
      *
      * @param enumClass  the class of the <code>enum</code> to get, not null
-     * @return the map of enum names to enums, never null
+     * @param enumName   the enum name
+     * @return true if the enum name is valid, otherwise false
      */
     public static <E extends Enum<E>> boolean isValidEnum(Class<E> enumClass, String enumName) {
         try {
@@ -89,7 +90,8 @@ public class EnumUtils {
      * for an invalid enum name.
      *
      * @param enumClass  the class of the <code>enum</code> to get, not null
-     * @return the map of enum names to enums, never null
+     * @param enumName   the enum name
+     * @return the enum or null if not found
      */
     public static <E extends Enum<E>> E getEnum(Class<E> enumClass, String enumName) {
         try {
