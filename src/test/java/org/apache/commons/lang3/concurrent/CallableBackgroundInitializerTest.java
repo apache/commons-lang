@@ -29,7 +29,7 @@ import junit.framework.TestCase;
  */
 public class CallableBackgroundInitializerTest extends TestCase {
     /** Constant for the result of the call() invocation. */
-    private static final Integer RESULT = 42;
+    private static final Integer RESULT = Integer.valueOf(42);
 
     /**
      * Tries to create an instance without a Callable. This should cause an
