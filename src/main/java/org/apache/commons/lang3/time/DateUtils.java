@@ -298,15 +298,14 @@ public class DateUtils {
      * 
      * @param str  the date to parse, not null
      * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null
-     * @param lenient Specify whether or not date/time parsing is to be lenient.
      * @return the parsed date
      * @throws IllegalArgumentException if the date string or pattern array is null
      * @throws ParseException if none of the date patterns were suitable
-     * @see java.util.Calender#isLenient()
      */
     public static Date parseDateStrictly(String str, String[] parsePatterns) throws ParseException {
         return parseDateWithLeniency(str, parsePatterns, false);
     }
+
     private static Date parseDateWithLeniency(String str, String[] parsePatterns,
             boolean lenient) throws ParseException {
         if (str == null || parsePatterns == null) {
