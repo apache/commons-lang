@@ -312,7 +312,8 @@ public class DateUtils {
             throw new IllegalArgumentException("Date and Patterns must not be null");
         }
         
-        SimpleDateFormat parser = null;
+        SimpleDateFormat parser = new SimpleDateFormat();
+        parser.setLenient(lenient);
         ParsePosition pos = new ParsePosition(0);
         for (int i = 0; i < parsePatterns.length; i++) {
 
@@ -323,12 +324,7 @@ public class DateUtils {
                 pattern = pattern.substring(0, pattern.length() - 1);
             }
             
-            if (i == 0) {
-                parser = new SimpleDateFormat(pattern);
-                parser.setLenient(lenient);
-            } else {
-                parser.applyPattern(pattern); // cannot be null if i != 0
-            }
+            parser.applyPattern(pattern);
             pos.setIndex(0);
 
             String str2 = str;
