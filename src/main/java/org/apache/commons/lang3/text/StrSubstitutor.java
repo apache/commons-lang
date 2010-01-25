@@ -119,7 +119,7 @@ public class StrSubstitutor {
     /**
      * Variable resolution is delegated to an implementor of VariableResolver.
      */
-    private StrLookup variableResolver;
+    private StrLookup<?> variableResolver;
 
     //-----------------------------------------------------------------------
     /**
@@ -167,7 +167,7 @@ public class StrSubstitutor {
      * and the escaping character.
      */
     public StrSubstitutor() {
-        this((StrLookup) null, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
+        this((StrLookup<?>) null, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
     /**
@@ -210,7 +210,7 @@ public class StrSubstitutor {
      *
      * @param variableResolver  the variable resolver, may be null
      */
-    public StrSubstitutor(StrLookup variableResolver) {
+    public StrSubstitutor(StrLookup<?> variableResolver) {
         this(variableResolver, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
@@ -223,7 +223,7 @@ public class StrSubstitutor {
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(StrLookup variableResolver, String prefix, String suffix, char escape) {
+    public StrSubstitutor(StrLookup<?> variableResolver, String prefix, String suffix, char escape) {
         this.setVariableResolver(variableResolver);
         this.setVariablePrefix(prefix);
         this.setVariableSuffix(suffix);
@@ -240,7 +240,7 @@ public class StrSubstitutor {
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
     public StrSubstitutor(
-            StrLookup variableResolver, StrMatcher prefixMatcher, StrMatcher suffixMatcher, char escape) {
+            StrLookup<?> variableResolver, StrMatcher prefixMatcher, StrMatcher suffixMatcher, char escape) {
         this.setVariableResolver(variableResolver);
         this.setVariablePrefixMatcher(prefixMatcher);
         this.setVariableSuffixMatcher(suffixMatcher);
@@ -648,7 +648,7 @@ public class StrSubstitutor {
      * @return the variable's value or <b>null</b> if the variable is unknown
      */
     protected String resolveVariable(String variableName, StrBuilder buf, int startPos, int endPos) {
-        StrLookup resolver = getVariableResolver();
+        StrLookup<?> resolver = getVariableResolver();
         if (resolver == null) {
             return null;
         }
@@ -814,7 +814,7 @@ public class StrSubstitutor {
      *
      * @return the VariableResolver
      */
-    public StrLookup getVariableResolver() {
+    public StrLookup<?> getVariableResolver() {
         return this.variableResolver;
     }
 
@@ -823,7 +823,7 @@ public class StrSubstitutor {
      *
      * @param variableResolver  the VariableResolver
      */
-    public void setVariableResolver(StrLookup variableResolver) {
+    public void setVariableResolver(StrLookup<?> variableResolver) {
         this.variableResolver = variableResolver;
     }
 
