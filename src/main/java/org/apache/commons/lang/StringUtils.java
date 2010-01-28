@@ -6220,7 +6220,7 @@ public class StringUtils {
      * StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
      * </pre>
      *
-     * @see java.lang.String#startsWithAny(String, String[])
+     * @see #startsWith(String, String)
      * @param string  the String to check, may be null
      * @param searchStrings the Strings to find, may be null or empty
      * @return <code>true</code> if the String starts with any of the the prefixes, case insensitive, or

@@ -2566,7 +2566,6 @@ public class StrBuilder {
      */
     class StrBuilderTokenizer extends StrTokenizer {
 
-        /** {@inheritDoc} */
         StrBuilderTokenizer() {
             super();
         }
@@ -2601,7 +2600,6 @@ public class StrBuilder {
         /** The last mark position. */
         private int mark;
 
-        /** {@inheritDoc} */
         StrBuilderReader() {
             super();
         }
@@ -2678,7 +2676,6 @@ public class StrBuilder {
      */
     class StrBuilderWriter extends Writer {
 
-        /** {@inheritDoc} */
         StrBuilderWriter() {
             super();
         }
