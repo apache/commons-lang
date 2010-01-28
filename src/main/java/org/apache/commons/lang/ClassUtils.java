@@ -314,25 +314,33 @@ public class ClassUtils {
         if (cls == null) {
             return null;
         }
-        List list = new ArrayList();
+
+        List interfacesFound = new ArrayList();
+        getAllInterfaces(cls, interfacesFound);
+
+        return interfacesFound;
+    }
+
+    /**
+     * Get the interfaces for the specified class.
+     *
+     * @param cls  the class to look up, may be <code>null</code>
+     * @param interfacesFound the <code>Set</code> of interfaces for the class
+     */
+    private static void getAllInterfaces(Class cls, List interfacesFound) {
         while (cls != null) {
             Class[] interfaces = cls.getInterfaces();
+
             for (int i = 0; i < interfaces.length; i++) {
-                if (list.contains(interfaces[i]) == false) {
-                    list.add(interfaces[i]);
-                }
-                List superInterfaces = getAllInterfaces(interfaces[i]);
-                for (Iterator it = superInterfaces.iterator(); it.hasNext();) {
-                    Class intface = (Class) it.next();
-                    if (list.contains(intface) == false) {
-                        list.add(intface);
-                    }
+                if (!interfacesFound.contains(interfaces[i])) {
+                    interfacesFound.add(interfaces[i]);
+                    getAllInterfaces(interfaces[i], interfacesFound);
                 }
             }
+
             cls = cls.getSuperclass();
-        }
-        return list;
-    }
+         }
+     }
 
     // Convert list
     // ----------------------------------------------------------------------
