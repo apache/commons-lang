@@ -58,7 +58,7 @@ import org.apache.commons.lang.SystemUtils;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
  */
-public class ExceptionUtilsTestCase extends junit.framework.TestCase {
+public class ExceptionUtilsTest extends junit.framework.TestCase {
     
     private NestableException nested;
     private Throwable withCause;
@@ -67,12 +67,12 @@ public class ExceptionUtilsTestCase extends junit.framework.TestCase {
     private ExceptionWithCause selfCause;
     private ExceptionWithCause cyclicCause;
 
-    public ExceptionUtilsTestCase(String name) {
+    public ExceptionUtilsTest(String name) {
         super(name);
     }
 
     public static Test suite() {
-        return new TestSuite(ExceptionUtilsTestCase.class);
+        return new TestSuite(ExceptionUtilsTest.class);
     }
 
     public void setUp() {

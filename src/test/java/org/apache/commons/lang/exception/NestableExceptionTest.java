@@ -33,7 +33,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @version $Id$
  */
-public class NestableExceptionTestCase extends AbstractNestableTestCase {
+public class NestableExceptionTest extends AbstractNestableTest {
     
     /**
      * Construct a new instance of
@@ -41,7 +41,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
      *
      * @param name test case name
      */
-    public NestableExceptionTestCase(String name)
+    public NestableExceptionTest(String name)
     {
         super(name);
     }
@@ -60,7 +60,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
      */
     public static Test suite()
     {
-        return new TestSuite(NestableExceptionTestCase.class);
+        return new TestSuite(NestableExceptionTest.class);
     }
     
     /**
@@ -81,7 +81,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getNestable()
+     * @see AbstractNestableTest#getNestable()
      */
     public Nestable getNestable()
     {
@@ -89,7 +89,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getNestable(Nestable)
+     * @see AbstractNestableTest#getNestable(Nestable)
      */
     public Nestable getNestable(Nestable n)
     {
@@ -97,7 +97,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getNestable(String)
+     * @see AbstractNestableTest#getNestable(String)
      */
     public Nestable getNestable(String msg)
     {
@@ -105,7 +105,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getNestable(Throwable)
+     * @see AbstractNestableTest#getNestable(Throwable)
      */
     public Nestable getNestable(Throwable t)
     {
@@ -113,7 +113,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getNestable(String, Throwable)
+     * @see AbstractNestableTest#getNestable(String, Throwable)
      */
     public Nestable getNestable(String msg, Throwable t)
     {
@@ -121,7 +121,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getNestable(String, Nestable)
+     * @see AbstractNestableTest#getNestable(String, Nestable)
      */
     public Nestable getNestable(String msg, Nestable n)
     {
@@ -129,7 +129,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getTester1(Throwable)
+     * @see AbstractNestableTest#getTester1(Throwable)
      */
     public Nestable getTester1(Throwable t)
     {
@@ -137,7 +137,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getTester1(Nestable)
+     * @see AbstractNestableTest#getTester1(Nestable)
      */
     public Nestable getTester1(Nestable n)
     {
@@ -145,7 +145,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getTester1(String, Throwable)
+     * @see AbstractNestableTest#getTester1(String, Throwable)
      */
     public Nestable getTester1(String msg, Throwable t)
     {
@@ -153,7 +153,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getTester1(String, Nestable)
+     * @see AbstractNestableTest#getTester1(String, Nestable)
      */
     public Nestable getTester1(String msg, Nestable n)
     {
@@ -161,7 +161,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getTester1Class()
+     * @see AbstractNestableTest#getTester1Class()
      */
     public Class getTester1Class()
     {
@@ -169,7 +169,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getTester2(String, Throwable)
+     * @see AbstractNestableTest#getTester2(String, Throwable)
      */
     public Nestable getTester2(String msg, Throwable t)
     {
@@ -177,7 +177,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getTester2(String, Nestable)
+     * @see AbstractNestableTest#getTester2(String, Nestable)
      */
     public Nestable getTester2(String msg, Nestable n)
     {
@@ -185,7 +185,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getTester2Class()
+     * @see AbstractNestableTest#getTester2Class()
      */
     public Class getTester2Class()
     {
@@ -193,7 +193,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getThrowable(String)
+     * @see AbstractNestableTest#getThrowable(String)
      */
     public Throwable getThrowable(String msg)
     {
@@ -201,7 +201,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
     
     /**
-     * @see AbstractNestableTestCase#getThrowableClass()
+     * @see AbstractNestableTest#getThrowableClass()
      */
     public Class getThrowableClass()
     {
@@ -209,7 +209,7 @@ public class NestableExceptionTestCase extends AbstractNestableTestCase {
     }
 
     /**
-     * @see AbstractNestableTestCase#getBaseThrowableClass()
+     * @see AbstractNestableTest#getBaseThrowableClass()
      */
     public Class getBaseThrowableClass()
     {
