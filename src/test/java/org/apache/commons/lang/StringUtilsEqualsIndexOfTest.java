@@ -109,6 +109,37 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(0, StringUtils.indexOf("aabaabaa", ""));
     }
 
+    public void testIndexOfIgnoreCase_String() {
+        assertEquals(-1, StringUtils.indexOfIgnoreCase(null, null));
+        assertEquals(-1, StringUtils.indexOfIgnoreCase(null, ""));
+        assertEquals(-1, StringUtils.indexOfIgnoreCase("", null));
+        assertEquals(0, StringUtils.indexOfIgnoreCase("", ""));
+        assertEquals(0, StringUtils.indexOfIgnoreCase("aabaabaa", "a"));
+        assertEquals(0, StringUtils.indexOfIgnoreCase("aabaabaa", "A"));
+        assertEquals(2, StringUtils.indexOfIgnoreCase("aabaabaa", "b"));
+        assertEquals(2, StringUtils.indexOfIgnoreCase("aabaabaa", "B"));
+        assertEquals(1, StringUtils.indexOfIgnoreCase("aabaabaa", "ab"));
+        assertEquals(1, StringUtils.indexOfIgnoreCase("aabaabaa", "AB"));
+        assertEquals(0, StringUtils.indexOfIgnoreCase("aabaabaa", ""));
+    }
+
+    public void testIndexOfIgnoreCase_StringInt() {
+        assertEquals(1, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", -1));
+        assertEquals(1, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 0));
+        assertEquals(1, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 1));
+        assertEquals(4, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 2));
+        assertEquals(4, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 3));
+        assertEquals(4, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 4));
+        assertEquals(-1, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 5));
+        assertEquals(-1, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 6));
+        assertEquals(-1, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 7));
+        assertEquals(-1, StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 8));
+        assertEquals(1, StringUtils.indexOfIgnoreCase("aab", "AB", 1));
+        assertEquals(5, StringUtils.indexOfIgnoreCase("aabaabaa", "", 5));
+        assertEquals(-1, StringUtils.indexOfIgnoreCase("ab", "AAB", 0));
+        assertEquals(-1, StringUtils.indexOfIgnoreCase("aab", "AAB", 1));
+    }
+
     public void testOrdinalIndexOf() {
         assertEquals(-1, StringUtils.ordinalIndexOf(null, null, Integer.MIN_VALUE));
         assertEquals(-1, StringUtils.ordinalIndexOf("", null, Integer.MIN_VALUE));
@@ -261,6 +292,47 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "b", -1));
         assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "b", 0));
         assertEquals(0, StringUtils.lastIndexOf("aabaabaa", "a", 0));
+    }
+
+    public void testLastIndexOfIgnoreCase_String() {
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase(null, null));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase("", null));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase(null, ""));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase("", "a"));
+        assertEquals(0, StringUtils.lastIndexOfIgnoreCase("", ""));
+        assertEquals(8, StringUtils.lastIndexOfIgnoreCase("aabaabaa", ""));
+        assertEquals(7, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "a"));
+        assertEquals(7, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "A"));
+        assertEquals(5, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "b"));
+        assertEquals(5, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B"));
+        assertEquals(4, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "ab"));
+        assertEquals(4, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "AB"));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase("ab", "AAB"));
+        assertEquals(0, StringUtils.lastIndexOfIgnoreCase("aab", "AAB"));
+    }
+
+    public void testLastIndexOfIgnoreCase_StringInt() {
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase(null, null, 0));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase(null, null, -1));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase(null, "", 0));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase(null, "", -1));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase("", null, 0));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase("", null, -1));
+        assertEquals(0, StringUtils.lastIndexOfIgnoreCase("", "", 0));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase("", "", -1));
+        assertEquals(0, StringUtils.lastIndexOfIgnoreCase("", "", 9));
+        assertEquals(0, StringUtils.lastIndexOfIgnoreCase("abc", "", 0));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase("abc", "", -1));
+        assertEquals(3, StringUtils.lastIndexOfIgnoreCase("abc", "", 9));
+        assertEquals(7, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "A", 8));
+        assertEquals(5, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 8));
+        assertEquals(4, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "AB", 8));
+        assertEquals(2, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 3));
+        assertEquals(5, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 9));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", -1));
+        assertEquals(-1, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 0));
+        assertEquals(0, StringUtils.lastIndexOfIgnoreCase("aabaabaa", "A", 0));
+        assertEquals(1, StringUtils.lastIndexOfIgnoreCase("aab", "AB", 1));
     }
 
     //-----------------------------------------------------------------------

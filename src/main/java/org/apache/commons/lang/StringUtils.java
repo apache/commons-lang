@@ -873,6 +873,87 @@ public class StringUtils {
         return str.indexOf(searchStr, startPos);
     }
 
+    /**
+     * <p>Case in-sensitive find of the first index within a String.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.
+     * A negative start position is treated as zero.
+     * An empty ("") search String always matches.
+     * A start position greater than the string length only matches
+     * an empty search String.</p>
+     *
+     * <pre>
+     * StringUtils.indexOfIgnoreCase(null, *)          = -1
+     * StringUtils.indexOfIgnoreCase(*, null)          = -1
+     * StringUtils.indexOfIgnoreCase("", "")           = 0
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "a")  = 0
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "b")  = 2
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "ab") = 1
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
+     * @return the first index of the search String,
+     *  -1 if no match or <code>null</code> string input
+     * @since 3.0
+     */
+    public static int indexOfIgnoreCase(String str, String searchStr) {
+        return indexOfIgnoreCase(str, searchStr, 0);
+    }
+
+    /**
+     * <p>Case in-sensitive find of the first index within a String
+     * from the specified position.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.
+     * A negative start position is treated as zero.
+     * An empty ("") search String always matches.
+     * A start position greater than the string length only matches
+     * an empty search String.</p>
+     *
+     * <pre>
+     * StringUtils.indexOfIgnoreCase(null, *, *)          = -1
+     * StringUtils.indexOfIgnoreCase(*, null, *)          = -1
+     * StringUtils.indexOfIgnoreCase("", "", 0)           = 0
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "A", 0)  = 0
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 0)  = 2
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "AB", 0) = 1
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 3)  = 5
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
+     * StringUtils.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
+     * StringUtils.indexOfIgnoreCase("abc", "", 9)        = 3
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
+     * @param startPos  the start position, negative treated as zero
+     * @return the first index of the search String,
+     *  -1 if no match or <code>null</code> string input
+     * @since 3.0
+     */
+    public static int indexOfIgnoreCase(String str, String searchStr, int startPos) {
+        if (str == null || searchStr == null) {
+            return -1;
+        }
+        if (startPos < 0) {
+            startPos = 0;
+        }
+        int endLimit = (str.length() - searchStr.length()) + 1;
+        if (startPos > endLimit) {
+            return -1;
+        }
+        if (searchStr.length() == 0) {
+            return startPos;
+        }
+        for (int i = startPos; i < endLimit; i++) {
+            if (str.regionMatches(true, i, searchStr, 0, searchStr.length())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     // LastIndexOf
     //-----------------------------------------------------------------------
     /**
@@ -1034,6 +1115,85 @@ public class StringUtils {
             return -1;
         }
         return str.lastIndexOf(searchStr, startPos);
+    }
+
+    /**
+     * <p>Case in-sensitive find of the last index within a String.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.
+     * A negative start position returns <code>-1</code>.
+     * An empty ("") search String always matches unless the start position is negative.
+     * A start position greater than the string length searches the whole string.</p>
+     *
+     * <pre>
+     * StringUtils.lastIndexOfIgnoreCase(null, *)          = -1
+     * StringUtils.lastIndexOfIgnoreCase(*, null)          = -1
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "A")  = 7
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B")  = 5
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "AB") = 4
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
+     * @return the first index of the search String,
+     *  -1 if no match or <code>null</code> string input
+     * @since 3.0
+     */
+    public static int lastIndexOfIgnoreCase(String str, String searchStr) {
+        if (str == null || searchStr == null) {
+            return -1;
+        }
+        return lastIndexOfIgnoreCase(str, searchStr, str.length());
+    }
+
+    /**
+     * <p>Case in-sensitive find of the last index within a String
+     * from the specified position.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.
+     * A negative start position returns <code>-1</code>.
+     * An empty ("") search String always matches unless the start position is negative.
+     * A start position greater than the string length searches the whole string.</p>
+     *
+     * <pre>
+     * StringUtils.lastIndexOfIgnoreCase(null, *, *)          = -1
+     * StringUtils.lastIndexOfIgnoreCase(*, null, *)          = -1
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "A", 8)  = 7
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 8)  = 5
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "AB", 8) = 4
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 9)  = 5
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", -1) = -1
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "A", 0)  = 0
+     * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 0)  = -1
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
+     * @param startPos  the start position
+     * @return the first index of the search String,
+     *  -1 if no match or <code>null</code> string input
+     * @since 3.0
+     */
+    public static int lastIndexOfIgnoreCase(String str, String searchStr, int startPos) {
+        if (str == null || searchStr == null) {
+            return -1;
+        }
+        if (startPos > (str.length() - searchStr.length())) {
+            startPos = str.length() - searchStr.length();
+        }
+        if (startPos < 0) {
+            return -1;
+        }
+        if (searchStr.length() == 0) {
+            return startPos;
+        }
+
+        for (int i = startPos; i >= 0; i--) {
+            if (str.regionMatches(true, i, searchStr, 0, searchStr.length())) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     // Contains
