@@ -1614,6 +1614,46 @@ public class StringUtilsTest extends TestCase {
         assertEquals(message, expected, actual);
     }
 
+    public void testAbbreviateMiddle() {
+        // javadoc examples
+        assertNull( StringUtils.abbreviateMiddle(null, null, 0) );
+        assertEquals( "abc", StringUtils.abbreviateMiddle("abc", null, 0) );
+        assertEquals( "abc", StringUtils.abbreviateMiddle("abc", ".", 0) );
+        assertEquals( "abc", StringUtils.abbreviateMiddle("abc", ".", 3) );
+        assertEquals( "ab.f", StringUtils.abbreviateMiddle("abcdef", ".", 4) );
+
+        // JIRA issue (LANG-405) example (slightly different than actual expected result)
+        assertEquals( 
+            "A very long text with un...f the text is complete.",
+            StringUtils.abbreviateMiddle(
+                "A very long text with unimportant stuff in the middle but interesting start and " +
+                "end to see if the text is complete.", "...", 50) );
+
+        // Test a much longer text :)
+        String longText = "Start text" + StringUtils.repeat("x", 10000) + "Close text";
+        assertEquals( 
+            "Start text->Close text",
+            StringUtils.abbreviateMiddle( longText, "->", 22 ) );
+
+        // Test negative length
+        assertEquals("abc", StringUtils.abbreviateMiddle("abc", ".", -1));
+
+        // Test boundaries
+        // Fails to change anything as method ensures first and last char are kept
+        assertEquals("abc", StringUtils.abbreviateMiddle("abc", ".", 1));
+        assertEquals("abc", StringUtils.abbreviateMiddle("abc", ".", 2));
+
+        // Test length of n=1
+        assertEquals("a", StringUtils.abbreviateMiddle("a", ".", 1));
+
+        // Test smallest length that can lead to success
+        assertEquals("a.d", StringUtils.abbreviateMiddle("abcd", ".", 3));
+
+        // More from LANG-405
+        assertEquals("a..f", StringUtils.abbreviateMiddle("abcdef", "..", 4));
+        assertEquals("ab.ef", StringUtils.abbreviateMiddle("abcdef", ".", 5));
+    }
+
     //-----------------------------------------------------------------------
     public void testDifference_StringString() {
         assertEquals(null, StringUtils.difference(null, null));
