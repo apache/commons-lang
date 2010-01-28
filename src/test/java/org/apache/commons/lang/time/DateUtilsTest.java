@@ -456,150 +456,150 @@ public class DateUtilsTest extends TestCase {
         assertDate(result, 1999, 6, 5, 4, 3, 2, 1);
     }
     
-	// -----------------------------------------------------------------------
-	public void testSetYears() throws Exception {
-		Date base = new Date(MILLIS_TEST);
-		Date result = DateUtils.setYears(base, 2000);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
+    // -----------------------------------------------------------------------
+    public void testSetYears() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.setYears(base, 2000);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 1);
 
-		result = DateUtils.setYears(base, 2008);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2008, 6, 5, 4, 3, 2, 1);
+        result = DateUtils.setYears(base, 2008);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2008, 6, 5, 4, 3, 2, 1);
 
-		result = DateUtils.setYears(base, 2005);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2005, 6, 5, 4, 3, 2, 1);
-	}
+        result = DateUtils.setYears(base, 2005);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2005, 6, 5, 4, 3, 2, 1);
+    }
 
-	// -----------------------------------------------------------------------
-	public void testSetMonths() throws Exception {
-		Date base = new Date(MILLIS_TEST);
-		Date result = DateUtils.setMonths(base, 5);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 5, 5, 4, 3, 2, 1);
+    // -----------------------------------------------------------------------
+    public void testSetMonths() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.setMonths(base, 5);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 5, 5, 4, 3, 2, 1);
 
-		result = DateUtils.setMonths(base, 1);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 1, 5, 4, 3, 2, 1);
+        result = DateUtils.setMonths(base, 1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 1, 5, 4, 3, 2, 1);
 
-		try {
-			result = DateUtils.setMonths(base, 12);
-			fail("DateUtils.setMonths did not throw an expected IllegalArguementException.");
-		} catch (IllegalArgumentException e) {
+        try {
+            result = DateUtils.setMonths(base, 12);
+            fail("DateUtils.setMonths did not throw an expected IllegalArguementException.");
+        } catch (IllegalArgumentException e) {
 
-		}
-	}
+        }
+    }
 
-	// -----------------------------------------------------------------------
-	public void testSetDays() throws Exception {
-		Date base = new Date(MILLIS_TEST);
-		Date result = DateUtils.setDays(base, 1);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 6, 1, 4, 3, 2, 1);
+    // -----------------------------------------------------------------------
+    public void testSetDays() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.setDays(base, 1);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 1, 4, 3, 2, 1);
 
-		result = DateUtils.setDays(base, 29);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 6, 29, 4, 3, 2, 1);
+        result = DateUtils.setDays(base, 29);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 29, 4, 3, 2, 1);
 
-		try {
-			result = DateUtils.setDays(base, 32);
-			fail("DateUtils.setDays did not throw an expected IllegalArguementException.");
-		} catch (IllegalArgumentException e) {
+        try {
+            result = DateUtils.setDays(base, 32);
+            fail("DateUtils.setDays did not throw an expected IllegalArguementException.");
+        } catch (IllegalArgumentException e) {
 
-		}
-	}
+        }
+    }
 
-	// -----------------------------------------------------------------------
-	public void testSetHours() throws Exception {
-		Date base = new Date(MILLIS_TEST);
-		Date result = DateUtils.setHours(base, 0);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 6, 5, 0, 3, 2, 1);
+    // -----------------------------------------------------------------------
+    public void testSetHours() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.setHours(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 0, 3, 2, 1);
 
-		result = DateUtils.setHours(base, 23);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 6, 5, 23, 3, 2, 1);
+        result = DateUtils.setHours(base, 23);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 23, 3, 2, 1);
 
-		try {
-			result = DateUtils.setHours(base, 24);
-			fail("DateUtils.setHours did not throw an expected IllegalArguementException.");
-		} catch (IllegalArgumentException e) {
+        try {
+            result = DateUtils.setHours(base, 24);
+            fail("DateUtils.setHours did not throw an expected IllegalArguementException.");
+        } catch (IllegalArgumentException e) {
 
-		}
-	}
+        }
+    }
 
-	// -----------------------------------------------------------------------
-	public void testSetMinutes() throws Exception {
-		Date base = new Date(MILLIS_TEST);
-		Date result = DateUtils.setMinutes(base, 0);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 6, 5, 4, 0, 2, 1);
+    // -----------------------------------------------------------------------
+    public void testSetMinutes() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.setMinutes(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 0, 2, 1);
 
-		result = DateUtils.setMinutes(base, 59);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 6, 5, 4, 59, 2, 1);
+        result = DateUtils.setMinutes(base, 59);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 59, 2, 1);
 
-		try {
-			result = DateUtils.setMinutes(base, 60);
-			fail("DateUtils.setMinutes did not throw an expected IllegalArguementException.");
-		} catch (IllegalArgumentException e) {
+        try {
+            result = DateUtils.setMinutes(base, 60);
+            fail("DateUtils.setMinutes did not throw an expected IllegalArguementException.");
+        } catch (IllegalArgumentException e) {
 
-		}
-	}
+        }
+    }
 
-	// -----------------------------------------------------------------------
-	public void testSetSeconds() throws Exception {
-		Date base = new Date(MILLIS_TEST);
-		Date result = DateUtils.setSeconds(base, 0);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 6, 5, 4, 3, 0, 1);
+    // -----------------------------------------------------------------------
+    public void testSetSeconds() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.setSeconds(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 0, 1);
 
-		result = DateUtils.setSeconds(base, 59);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 6, 5, 4, 3, 59, 1);
+        result = DateUtils.setSeconds(base, 59);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 59, 1);
 
-		try {
-			result = DateUtils.setSeconds(base, 60);
-			fail("DateUtils.setSeconds did not throw an expected IllegalArguementException.");
-		} catch (IllegalArgumentException e) {
+        try {
+            result = DateUtils.setSeconds(base, 60);
+            fail("DateUtils.setSeconds did not throw an expected IllegalArguementException.");
+        } catch (IllegalArgumentException e) {
 
-		}
-	}
+        }
+    }
 
-	// -----------------------------------------------------------------------
-	public void testSetMilliseconds() throws Exception {
-		Date base = new Date(MILLIS_TEST);
-		Date result = DateUtils.setMilliseconds(base, 0);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 6, 5, 4, 3, 2, 0);
+    // -----------------------------------------------------------------------
+    public void testSetMilliseconds() throws Exception {
+        Date base = new Date(MILLIS_TEST);
+        Date result = DateUtils.setMilliseconds(base, 0);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 0);
 
-		result = DateUtils.setMilliseconds(base, 999);
-		assertNotSame(base, result);
-		assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
-		assertDate(result, 2000, 6, 5, 4, 3, 2, 999);
+        result = DateUtils.setMilliseconds(base, 999);
+        assertNotSame(base, result);
+        assertDate(base, 2000, 6, 5, 4, 3, 2, 1);
+        assertDate(result, 2000, 6, 5, 4, 3, 2, 999);
 
-		try {
-			result = DateUtils.setMilliseconds(base, 1000);
-			fail("DateUtils.setMilliseconds did not throw an expected IllegalArguementException.");
-		} catch (IllegalArgumentException e) {
+        try {
+            result = DateUtils.setMilliseconds(base, 1000);
+            fail("DateUtils.setMilliseconds did not throw an expected IllegalArguementException.");
+        } catch (IllegalArgumentException e) {
 
-		}
-	}
+        }
+    }
 
     //-----------------------------------------------------------------------
     private void assertDate(Date date, int year, int month, int day, int hour, int min, int sec, int mil) throws Exception {
