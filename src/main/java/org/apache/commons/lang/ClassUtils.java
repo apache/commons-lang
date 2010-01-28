@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,9 +31,9 @@ import java.util.Map;
  * <p>This class handles invalid <code>null</code> inputs as best it can.
  * Each method documents its behaviour in more detail.</p>
  *
- * <p>The notion of a <code>canonical name</code> includes the human 
- * readable name for the type, for example <code>int[]</code>. The 
- * non-canonical method variants work with the JVM names, such as 
+ * <p>The notion of a <code>canonical name</code> includes the human
+ * readable name for the type, for example <code>int[]</code>. The
+ * non-canonical method variants work with the JVM names, such as
  * <code>[I</code>. </p>
  *
  * @author Stephen Colebourne
@@ -105,10 +105,10 @@ public class ClassUtils {
      * Maps an abbreviation used in array class names to corresponding primitive class name.
      */
     private static Map reverseAbbreviationMap = new HashMap();
-    
+
     /**
      * Add primitive type abbreviation to maps of abbreviations.
-     * 
+     *
      * @param primitive Canonical name of primitive type
      * @param abbreviation Corresponding abbreviation of primitive type
      */
@@ -116,7 +116,7 @@ public class ClassUtils {
         abbreviationMap.put(primitive, abbreviation);
         reverseAbbreviationMap.put(abbreviation, primitive);
     }
-    
+
     /**
      * Feed abbreviation maps
      */
@@ -661,7 +661,7 @@ public class ClassUtils {
      * @see #wrapperToPrimitive(Class)
      * @since 2.4
      */
-    public static Class[] wrappersToPrimitives(Class[] classes) {        
+    public static Class[] wrappersToPrimitives(Class[] classes) {
         if (classes == null) {
             return null;
         }
@@ -767,10 +767,10 @@ public class ClassUtils {
     // Public method
     // ----------------------------------------------------------------------
     /**
-     * <p>Returns the desired Method much like <code>Class.getMethod</code>, however 
-     * it ensures that the returned Method is from a public class or interface and not 
-     * from an anonymous inner class. This means that the Method is invokable and 
-     * doesn't fall foul of Java bug 
+     * <p>Returns the desired Method much like <code>Class.getMethod</code>, however
+     * it ensures that the returned Method is from a public class or interface and not
+     * from an anonymous inner class. This means that the Method is invokable and
+     * doesn't fall foul of Java bug
      * <a href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4071957">4071957</a>).
      *
      *  <code><pre>Set set = Collections.unmodifiableSet(...);
@@ -787,18 +787,18 @@ public class ClassUtils {
      * @throws NoSuchMethodException if the method is not found in the given class
      *  or if the metothod doen't conform with the requirements
      */
-    public static Method getPublicMethod(Class cls, String methodName, Class parameterTypes[]) 
+    public static Method getPublicMethod(Class cls, String methodName, Class parameterTypes[])
             throws SecurityException, NoSuchMethodException {
-        
+
         Method declaredMethod = cls.getMethod(methodName, parameterTypes);
         if (Modifier.isPublic(declaredMethod.getDeclaringClass().getModifiers())) {
             return declaredMethod;
         }
-        
+
         List candidateClasses = new ArrayList();
         candidateClasses.addAll(getAllInterfaces(cls));
         candidateClasses.addAll(getAllSuperclasses(cls));
-        
+
         for (Iterator it = candidateClasses.iterator(); it.hasNext(); ) {
             Class candidateClass = (Class) it.next();
             if (!Modifier.isPublic(candidateClass.getModifiers())) {
@@ -814,7 +814,7 @@ public class ClassUtils {
                 return candidateMethod;
             }
         }
-        
+
         throw new NoSuchMethodException("Can't find a public method for " +
                 methodName + " " + ArrayUtils.toString(parameterTypes));
     }
@@ -969,7 +969,7 @@ public class ClassUtils {
      * <li><code>getCanonicalName("java.lang.String") = "java.lang.String"</code></li>
      * </ul>
      * </p>
-     * 
+     *
      * @param className the name of class
      * @return canonical form of class name
      * @since 2.4
