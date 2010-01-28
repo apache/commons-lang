@@ -218,7 +218,7 @@ public final class NumberUtils {
                     } catch (NumberFormatException e) {
                         // ignore the bad number
                     }
-                    //Fall through
+                    //$FALL-THROUGH$
                 case 'd' :
                 case 'D' :
                     try {
@@ -234,7 +234,7 @@ public final class NumberUtils {
                     } catch (NumberFormatException e) {
                         // empty catch
                     }
-                    //Fall through
+                    //$FALL-THROUGH$
                 default :
                     throw new NumberFormatException(val + " is not a valid number.");
 

@@ -1518,15 +1518,20 @@ public class DateUtils {
             case Calendar.DAY_OF_YEAR:
             case Calendar.DATE:
                 result += (calendar.get(Calendar.HOUR_OF_DAY) * MILLIS_PER_HOUR) / millisPerUnit;
+                //$FALL-THROUGH$
             case Calendar.HOUR_OF_DAY:
                 result += (calendar.get(Calendar.MINUTE) * MILLIS_PER_MINUTE) / millisPerUnit;
+                //$FALL-THROUGH$
             case Calendar.MINUTE:
                 result += (calendar.get(Calendar.SECOND) * MILLIS_PER_SECOND) / millisPerUnit;
+                //$FALL-THROUGH$
             case Calendar.SECOND:
                 result += (calendar.get(Calendar.MILLISECOND) * 1) / millisPerUnit;
                 break;
-            case Calendar.MILLISECOND: break;//never useful
-                default: throw new IllegalArgumentException("The fragment " + fragment + " is not supported");
+            case Calendar.MILLISECOND: 
+                break;//never useful
+            default: 
+                throw new IllegalArgumentException("The fragment " + fragment + " is not supported");
         }
         return result;
     }
