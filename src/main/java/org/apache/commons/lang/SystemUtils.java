@@ -885,6 +885,16 @@ public class SystemUtils {
      */
     public static final boolean IS_JAVA_1_6 = getJavaVersionMatches("1.6");
 
+    /**
+     * <p>Is <code>true</code> if this is Java version 1.7 (also 1.7.x versions).</p>
+     *
+     * <p>The field will return <code>false</code> if {@link #JAVA_VERSION} is
+     * <code>null</code>.</p>
+     * 
+     * @since 3.0
+     */
+    public static final boolean IS_JAVA_1_7 = getJavaVersionMatches("1.7");
+
     // Operating system checks
     //-----------------------------------------------------------------------
     // These MUST be declared after those above as they depend on the
