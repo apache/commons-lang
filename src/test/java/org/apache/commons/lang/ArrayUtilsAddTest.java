@@ -41,6 +41,20 @@ public class ArrayUtilsAddTest extends TestCase {
         return suite;
     }
 
+    public void testJira567(){
+        Number[] n;
+        // Valid array construction
+        n = (Number[])ArrayUtils.addAll(new Number[]{new Integer(1)}, new Long[]{new Long(2)});
+        assertEquals(2,n.length);
+        assertEquals(Number.class,n.getClass().getComponentType());
+        try {
+            // Invalid - can't store Long in Integer array
+               n = (Number[])ArrayUtils.addAll(new Integer[]{new Integer(1)}, new Long[]{new Long(2)});
+               fail("Should have generated IllegalArgumentException");
+        } catch (IllegalArgumentException expected) {
+        }
+    }
+
     public void testAddObjectArrayBoolean() {
         boolean[] newArray;
         newArray = ArrayUtils.add((boolean[])null, false);
