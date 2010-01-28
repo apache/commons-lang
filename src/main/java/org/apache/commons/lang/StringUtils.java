@@ -790,6 +790,12 @@ public class StringUtils {
      * StringUtils.ordinalIndexOf("aabaabaa", "", 2)   = 0
      * </pre>
      *
+     * <p>Note that 'head(String str, int n)' may be implemented as: </p>
+     *
+     * <pre>
+     *   str.substring(0, lastOrdinalIndexOf(str, "\n", n))
+     * </pre>
+     *
      * @param str  the String to check, may be null
      * @param searchStr  the String to find, may be null
      * @param ordinal  the n-th <code>searchStr</code> to find
@@ -798,16 +804,25 @@ public class StringUtils {
      * @since 2.1
      */
     public static int ordinalIndexOf(String str, String searchStr, int ordinal) {
+        return ordinalIndexOf(str, searchStr, ordinal, false);
+    }
+
+    // Shared code between ordinalIndexOf(String,String,int) and lastOrdinalIndexOf(String,String,int)
+    private static int ordinalIndexOf(String str, String searchStr, int ordinal, boolean lastIndex) {
         if (str == null || searchStr == null || ordinal <= 0) {
             return INDEX_NOT_FOUND;
         }
         if (searchStr.length() == 0) {
-            return 0;
+            return lastIndex ? str.length() : 0;
         }
         int found = 0;
-        int index = INDEX_NOT_FOUND;
+        int index = lastIndex ? str.length() : INDEX_NOT_FOUND;
         do {
-            index = str.indexOf(searchStr, index + 1);
+            if(lastIndex) {
+                index = str.lastIndexOf(searchStr, index - 1);
+            } else {
+                index = str.indexOf(searchStr, index + 1);
+            }
             if (index < 0) {
                 return index;
             }
@@ -947,6 +962,43 @@ public class StringUtils {
             return -1;
         }
         return str.lastIndexOf(searchStr);
+    }
+
+    /**
+     * <p>Finds the n-th last index within a String, handling <code>null</code>.
+     * This method uses {@link String#lastIndexOf(String)}.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.</p>
+     *
+     * <pre>
+     * StringUtils.lastOrdinalIndexOf(null, *, *)          = -1
+     * StringUtils.lastOrdinalIndexOf(*, null, *)          = -1
+     * StringUtils.lastOrdinalIndexOf("", "", *)           = 0
+     * StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 1)  = 7
+     * StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 2)  = 6
+     * StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 1)  = 5
+     * StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 2)  = 2
+     * StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 1) = 4
+     * StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 2) = 1
+     * StringUtils.lastOrdinalIndexOf("aabaabaa", "", 1)   = 8
+     * StringUtils.lastOrdinalIndexOf("aabaabaa", "", 2)   = 8
+     * </pre>
+     *
+     * <p>Note that 'tail(String str, int n)' may be implemented as: </p>
+     *
+     * <pre>
+     *   str.substring(lastOrdinalIndexOf(str, "\n", n) + 1)
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
+     * @param ordinal  the n-th last <code>searchStr</code> to find
+     * @return the n-th last index of the search String,
+     *  <code>-1</code> (<code>INDEX_NOT_FOUND</code>) if no match or <code>null</code> string input
+     * @since 3.0
+     */
+    public static int lastOrdinalIndexOf(String str, String searchStr, int ordinal) {
+        return ordinalIndexOf(str, searchStr, ordinal, true);
     }
 
     /**
@@ -6055,5 +6107,4 @@ public class StringUtils {
         int strOffset = str.length() - suffix.length();
         return str.regionMatches(ignoreCase, strOffset, suffix, 0, suffix.length());
     }
-
 }

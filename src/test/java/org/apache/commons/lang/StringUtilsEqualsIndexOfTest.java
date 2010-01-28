@@ -226,6 +226,20 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(4, StringUtils.lastIndexOf("aabaabaa", "ab"));
     }
 
+    public void testLastOrdinalIndexOf() {
+        assertEquals(-1, StringUtils.lastOrdinalIndexOf(null, "*", 42) );
+        assertEquals(-1, StringUtils.lastOrdinalIndexOf("*", null, 42) );
+        assertEquals(0, StringUtils.lastOrdinalIndexOf("", "", 42) );
+        assertEquals(7, StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 1) );
+        assertEquals(6, StringUtils.lastOrdinalIndexOf("aabaabaa", "a", 2) );
+        assertEquals(5, StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 1) );
+        assertEquals(2, StringUtils.lastOrdinalIndexOf("aabaabaa", "b", 2) );
+        assertEquals(4, StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 1) );
+        assertEquals(1, StringUtils.lastOrdinalIndexOf("aabaabaa", "ab", 2) );
+        assertEquals(8, StringUtils.lastOrdinalIndexOf("aabaabaa", "", 1) );
+        assertEquals(8, StringUtils.lastOrdinalIndexOf("aabaabaa", "", 2) );
+    }
+
     public void testLastIndexOf_StringInt() {
         assertEquals(-1, StringUtils.lastIndexOf(null, null, 0));
         assertEquals(-1, StringUtils.lastIndexOf(null, null, -1));
