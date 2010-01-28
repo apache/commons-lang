@@ -229,7 +229,7 @@ public class ArrayUtilsAddTest extends TestCase {
         Object[] newArray;
         String[] stringArray1 = new String[]{"a", "b", "c"};
         String[] stringArray2 = new String[]{"1", "2", "3"};
-        newArray = ArrayUtils.addAll(stringArray1, null);
+        newArray = ArrayUtils.addAll(stringArray1, (String[]) null);
         assertNotSame(stringArray1, newArray);
         assertTrue(Arrays.equals(stringArray1, newArray));
         assertTrue(Arrays.equals((new String[]{"a", "b", "c"}), newArray));
@@ -242,7 +242,7 @@ public class ArrayUtilsAddTest extends TestCase {
         newArray = ArrayUtils.addAll(stringArray1, stringArray2);
         assertTrue(Arrays.equals((new String[]{"a", "b", "c", "1", "2", "3"}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
-        newArray = ArrayUtils.addAll(ArrayUtils.EMPTY_STRING_ARRAY, null);
+        newArray = ArrayUtils.addAll(ArrayUtils.EMPTY_STRING_ARRAY, (String[]) null);
         assertTrue(Arrays.equals(ArrayUtils.EMPTY_STRING_ARRAY, newArray));
         assertTrue(Arrays.equals((new String[]{}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
