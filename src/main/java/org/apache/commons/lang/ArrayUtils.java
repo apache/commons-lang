@@ -3230,7 +3230,8 @@ public class ArrayUtils {
      * the new array is the same as that of the input array.</p>
      *
      * <p>If the input array is <code>null</code>, a new one element array is returned
-     *  whose component type is the same as the element.</p>
+     *  whose component type is the same as the element, unless the element itself is null,
+     *  in which case the return type is Object[]</p>
      *
      * <pre>
      * ArrayUtils.add(null, null)      = [null]
@@ -3241,12 +3242,21 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array  the array to "add" the element to, may be <code>null</code>
-     * @param element  the object to add
+     * @param element  the object to add, may be <code>null</code>
      * @return A new array containing the existing elements plus the new element
+     * The returned array type will be that of the input array (unless null),
+     * in which case it will have the same type as the element.
      * @since 2.1
      */
     public static Object[] add(Object[] array, Object element) {
-        Class type = array != null ? array.getClass() : (element != null ? element.getClass() : Object.class);
+        Class type;
+        if (array != null){
+            type = array.getClass();
+        } else if (element != null) {
+            type = element.getClass();
+        } else {
+            type = Object.class;
+        }
         Object[] newArray = (Object[]) copyArrayGrow1(array, type);
         newArray[newArray.length - 1] = element;
         return newArray;
