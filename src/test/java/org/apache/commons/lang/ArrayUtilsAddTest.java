@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
 
 /**
  * Tests ArrayUtils add methods.
- * 
+ *
  * @author Gary D. Gregory
  * @version $Id$
  */
@@ -54,7 +54,7 @@ public class ArrayUtilsAddTest extends TestCase {
         assertTrue(Arrays.equals(new boolean[]{true, false, true, false}, newArray));
         assertEquals(Boolean.TYPE, newArray.getClass().getComponentType());
     }
-    
+
     public void testAddObjectArrayByte() {
         byte[] newArray;
         newArray = ArrayUtils.add((byte[])null, (byte)0);
@@ -69,9 +69,9 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add(array1, (byte)4);
         assertTrue(Arrays.equals(new byte[]{1, 2, 3, 4}, newArray));
-        assertEquals(Byte.TYPE, newArray.getClass().getComponentType());        
+        assertEquals(Byte.TYPE, newArray.getClass().getComponentType());
     }
-    
+
     public void testAddObjectArrayChar() {
         char[] newArray;
         newArray = ArrayUtils.add((char[])null, (char)0);
@@ -86,9 +86,9 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Character.TYPE, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add(array1, (char)4);
         assertTrue(Arrays.equals(new char[]{1, 2, 3, 4}, newArray));
-        assertEquals(Character.TYPE, newArray.getClass().getComponentType());        
+        assertEquals(Character.TYPE, newArray.getClass().getComponentType());
     }
-    
+
     public void testAddObjectArrayDouble() {
         double[] newArray;
         newArray = ArrayUtils.add((double[])null, 0);
@@ -103,9 +103,9 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Double.TYPE, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add(array1, 4);
         assertTrue(Arrays.equals(new double[]{1, 2, 3, 4}, newArray));
-        assertEquals(Double.TYPE, newArray.getClass().getComponentType());        
+        assertEquals(Double.TYPE, newArray.getClass().getComponentType());
     }
-    
+
     public void testAddObjectArrayFloat() {
         float[] newArray;
         newArray = ArrayUtils.add((float[])null, 0);
@@ -120,9 +120,9 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Float.TYPE, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add(array1, 4);
         assertTrue(Arrays.equals(new float[]{1, 2, 3, 4}, newArray));
-        assertEquals(Float.TYPE, newArray.getClass().getComponentType());        
+        assertEquals(Float.TYPE, newArray.getClass().getComponentType());
     }
-    
+
     public void testAddObjectArrayInt() {
         int[] newArray;
         newArray = ArrayUtils.add((int[])null, 0);
@@ -137,9 +137,9 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Integer.TYPE, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add(array1, 4);
         assertTrue(Arrays.equals(new int[]{1, 2, 3, 4}, newArray));
-        assertEquals(Integer.TYPE, newArray.getClass().getComponentType());        
+        assertEquals(Integer.TYPE, newArray.getClass().getComponentType());
     }
-    
+
     public void testAddObjectArrayLong() {
         long[] newArray;
         newArray = ArrayUtils.add((long[])null, 0);
@@ -154,9 +154,9 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Long.TYPE, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add(array1, 4);
         assertTrue(Arrays.equals(new long[]{1, 2, 3, 4}, newArray));
-        assertEquals(Long.TYPE, newArray.getClass().getComponentType());        
+        assertEquals(Long.TYPE, newArray.getClass().getComponentType());
     }
-    
+
     public void testAddObjectArrayShort() {
         short[] newArray;
         newArray = ArrayUtils.add((short[])null, (short)0);
@@ -171,39 +171,39 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(Short.TYPE, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add(array1, (short)4);
         assertTrue(Arrays.equals(new short[]{1, 2, 3, 4}, newArray));
-        assertEquals(Short.TYPE, newArray.getClass().getComponentType());        
+        assertEquals(Short.TYPE, newArray.getClass().getComponentType());
     }
-    
+
     public void testAddObjectArrayObject() {
         Object[] newArray;
         newArray = ArrayUtils.add((Object[])null, null);
         assertTrue(Arrays.equals((new Object[]{null}), newArray));
         assertEquals(Object.class, newArray.getClass().getComponentType());
-        
+
         newArray = ArrayUtils.add((Object[])null, "a");
         assertTrue(Arrays.equals((new String[]{"a"}), newArray));
         assertTrue(Arrays.equals((new Object[]{"a"}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
-        
+
         String[] stringArray1 = new String[]{"a", "b", "c"};
         newArray = ArrayUtils.add(stringArray1, null);
         assertTrue(Arrays.equals((new String[]{"a", "b", "c", null}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
-        
+
         newArray = ArrayUtils.add(stringArray1, "d");
         assertTrue(Arrays.equals((new String[]{"a", "b", "c", "d"}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
-        
+
         Number[] numberArray1 = new Number[]{new Integer(1), new Double(2)};
         newArray = ArrayUtils.add(numberArray1, new Float(3));
         assertTrue(Arrays.equals((new Number[]{new Integer(1), new Double(2), new Float(3)}), newArray));
         assertEquals(Number.class, newArray.getClass().getComponentType());
-        
+
         numberArray1 = null;
         newArray = ArrayUtils.add(numberArray1, new Float(3));
         assertTrue(Arrays.equals((new Float[]{new Float(3)}), newArray));
         assertEquals(Float.class, newArray.getClass().getComponentType());
-        
+
         numberArray1 = null;
         newArray = ArrayUtils.add(numberArray1, null);
         assertTrue(Arrays.equals((new Object[]{null}), newArray));
@@ -241,92 +241,92 @@ public class ArrayUtilsAddTest extends TestCase {
         assertTrue(Arrays.equals((new String[]{}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
         String[] stringArrayNull = new String []{null};
-        newArray = ArrayUtils.addAll(stringArrayNull, stringArrayNull);        
+        newArray = ArrayUtils.addAll(stringArrayNull, stringArrayNull);
         assertTrue(Arrays.equals((new String[]{null, null}), newArray));
         assertEquals(String.class, newArray.getClass().getComponentType());
 
         // boolean
-        assertTrue( Arrays.equals( new boolean[] { true, false, false, true }, 
+        assertTrue( Arrays.equals( new boolean[] { true, false, false, true },
             ArrayUtils.addAll( new boolean[] { true, false }, new boolean[] { false, true } ) ) );
 
-        assertTrue( Arrays.equals( new boolean[] { false, true }, 
+        assertTrue( Arrays.equals( new boolean[] { false, true },
             ArrayUtils.addAll( null, new boolean[] { false, true } ) ) );
 
-        assertTrue( Arrays.equals( new boolean[] { true, false }, 
+        assertTrue( Arrays.equals( new boolean[] { true, false },
             ArrayUtils.addAll( new boolean[] { true, false }, null ) ) );
 
         // char
-        assertTrue( Arrays.equals( new char[] { 'a', 'b', 'c', 'd' }, 
+        assertTrue( Arrays.equals( new char[] { 'a', 'b', 'c', 'd' },
             ArrayUtils.addAll( new char[] { 'a', 'b' }, new char[] { 'c', 'd' } ) ) );
 
-        assertTrue( Arrays.equals( new char[] { 'c', 'd' }, 
+        assertTrue( Arrays.equals( new char[] { 'c', 'd' },
             ArrayUtils.addAll( null, new char[] { 'c', 'd' } ) ) );
 
-        assertTrue( Arrays.equals( new char[] { 'a', 'b' }, 
+        assertTrue( Arrays.equals( new char[] { 'a', 'b' },
             ArrayUtils.addAll( new char[] { 'a', 'b' }, null ) ) );
 
         // byte
-        assertTrue( Arrays.equals( new byte[] { (byte) 0, (byte) 1, (byte) 2, (byte) 3 }, 
+        assertTrue( Arrays.equals( new byte[] { (byte) 0, (byte) 1, (byte) 2, (byte) 3 },
             ArrayUtils.addAll( new byte[] { (byte) 0, (byte) 1 }, new byte[] { (byte) 2, (byte) 3 } ) ) );
 
-        assertTrue( Arrays.equals( new byte[] { (byte) 2, (byte) 3 }, 
+        assertTrue( Arrays.equals( new byte[] { (byte) 2, (byte) 3 },
             ArrayUtils.addAll( null, new byte[] { (byte) 2, (byte) 3 } ) ) );
 
-        assertTrue( Arrays.equals( new byte[] { (byte) 0, (byte) 1 }, 
+        assertTrue( Arrays.equals( new byte[] { (byte) 0, (byte) 1 },
             ArrayUtils.addAll( new byte[] { (byte) 0, (byte) 1 }, null ) ) );
 
         // short
-        assertTrue( Arrays.equals( new short[] { (short) 10, (short) 20, (short) 30, (short) 40 }, 
+        assertTrue( Arrays.equals( new short[] { (short) 10, (short) 20, (short) 30, (short) 40 },
             ArrayUtils.addAll( new short[] { (short) 10, (short) 20 }, new short[] { (short) 30, (short) 40 } ) ) );
 
-        assertTrue( Arrays.equals( new short[] { (short) 30, (short) 40 }, 
+        assertTrue( Arrays.equals( new short[] { (short) 30, (short) 40 },
             ArrayUtils.addAll( null, new short[] { (short) 30, (short) 40 } ) ) );
 
-        assertTrue( Arrays.equals( new short[] { (short) 10, (short) 20 }, 
+        assertTrue( Arrays.equals( new short[] { (short) 10, (short) 20 },
             ArrayUtils.addAll( new short[] { (short) 10, (short) 20 }, null ) ) );
 
         // int
-        assertTrue( Arrays.equals( new int[] { 1, 1000, -1000, -1 }, 
+        assertTrue( Arrays.equals( new int[] { 1, 1000, -1000, -1 },
             ArrayUtils.addAll( new int[] { 1, 1000 }, new int[] { -1000, -1 } ) ) );
 
-        assertTrue( Arrays.equals( new int[] { -1000, -1 }, 
+        assertTrue( Arrays.equals( new int[] { -1000, -1 },
             ArrayUtils.addAll( null, new int[] { -1000, -1 } ) ) );
 
-        assertTrue( Arrays.equals( new int[] { 1, 1000 }, 
+        assertTrue( Arrays.equals( new int[] { 1, 1000 },
             ArrayUtils.addAll( new int[] { 1, 1000 }, null ) ) );
 
         // long
-        assertTrue( Arrays.equals( new long[] { 1L, -1L, 1000L, -1000L }, 
+        assertTrue( Arrays.equals( new long[] { 1L, -1L, 1000L, -1000L },
             ArrayUtils.addAll( new long[] { 1L, -1L }, new long[] { 1000L, -1000L } ) ) );
 
-        assertTrue( Arrays.equals( new long[] { 1000L, -1000L }, 
+        assertTrue( Arrays.equals( new long[] { 1000L, -1000L },
             ArrayUtils.addAll( null, new long[] { 1000L, -1000L } ) ) );
-        
-        assertTrue( Arrays.equals( new long[] { 1L, -1L }, 
+
+        assertTrue( Arrays.equals( new long[] { 1L, -1L },
             ArrayUtils.addAll( new long[] { 1L, -1L }, null ) ) );
 
         // float
-        assertTrue( Arrays.equals( new float[] { 10.5f, 10.1f, 1.6f, 0.01f }, 
+        assertTrue( Arrays.equals( new float[] { 10.5f, 10.1f, 1.6f, 0.01f },
             ArrayUtils.addAll( new float[] { 10.5f, 10.1f }, new float[] { 1.6f, 0.01f } ) ) );
 
-        assertTrue( Arrays.equals( new float[] { 1.6f, 0.01f }, 
+        assertTrue( Arrays.equals( new float[] { 1.6f, 0.01f },
             ArrayUtils.addAll( null, new float[] { 1.6f, 0.01f } ) ) );
 
-        assertTrue( Arrays.equals( new float[] { 10.5f, 10.1f }, 
+        assertTrue( Arrays.equals( new float[] { 10.5f, 10.1f },
             ArrayUtils.addAll( new float[] { 10.5f, 10.1f }, null ) ) );
 
         // double
-        assertTrue( Arrays.equals( new double[] { Math.PI, -Math.PI, 0, 9.99 }, 
+        assertTrue( Arrays.equals( new double[] { Math.PI, -Math.PI, 0, 9.99 },
             ArrayUtils.addAll( new double[] { Math.PI, -Math.PI }, new double[] { 0, 9.99 } ) ) );
 
-        assertTrue( Arrays.equals( new double[] { 0, 9.99 }, 
+        assertTrue( Arrays.equals( new double[] { 0, 9.99 },
             ArrayUtils.addAll( null, new double[] { 0, 9.99 } ) ) );
 
-        assertTrue( Arrays.equals( new double[] { Math.PI, -Math.PI }, 
+        assertTrue( Arrays.equals( new double[] { Math.PI, -Math.PI },
             ArrayUtils.addAll( new double[] { Math.PI, -Math.PI }, null ) ) );
 
-    }    
-    
+    }
+
     public void testAddObjectAtIndex() {
         Object[] newArray;
         newArray = ArrayUtils.add((Object[])null, 0, null);
@@ -348,13 +348,13 @@ public class ArrayUtilsAddTest extends TestCase {
         assertEquals(String.class, newArray.getClass().getComponentType());
         newArray = ArrayUtils.add(stringArray1, 3, "d");
         assertTrue(Arrays.equals((new String[]{"a", "b", "c", "d"}), newArray));
-        assertEquals(String.class, newArray.getClass().getComponentType());        
+        assertEquals(String.class, newArray.getClass().getComponentType());
         assertEquals(String.class, newArray.getClass().getComponentType());
 
         Object[] o = new Object[] {"1", "2", "4"};
         Object[] result = ArrayUtils.add(o, 2, "3");
         Object[] result2 = ArrayUtils.add(o, 3, "5");
-        
+
         assertNotNull(result);
         assertEquals(4, result.length);
         assertEquals("1", result[0]);
@@ -570,5 +570,5 @@ public class ArrayUtilsAddTest extends TestCase {
             assertEquals("Index: -1, Length: 2", e.getMessage());
         }
     }
-    
+
 }
