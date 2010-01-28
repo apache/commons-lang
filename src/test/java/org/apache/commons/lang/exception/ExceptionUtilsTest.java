@@ -545,7 +545,7 @@ public class ExceptionUtilsTest extends junit.framework.TestCase {
         assertEquals("IllegalArgumentException: Base", ExceptionUtils.getMessage(th));
         
         th = new ExceptionWithCause("Wrapper", th);
-        assertEquals("ExceptionUtilsTestCase.ExceptionWithCause: Wrapper", ExceptionUtils.getMessage(th));
+        assertEquals("ExceptionUtilsTest.ExceptionWithCause: Wrapper", ExceptionUtils.getMessage(th));
     }
 
     public void test_getRootCauseMessage_Throwable() {
