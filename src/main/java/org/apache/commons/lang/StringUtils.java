@@ -1254,8 +1254,8 @@ public class StringUtils {
 
     /**
      * <p>Checks if String contains a search String irrespective of case,
-     * handling <code>null</code>. This method uses
-     * {@link #contains(String, String)}.</p>
+     * handling <code>null</code>. Case-insensitivity is defined as by
+     * {@link String#equalsIgnoreCase(String)}.
      *
      * <p>A <code>null</code> String will return <code>false</code>.</p>
      *
@@ -1279,7 +1279,14 @@ public class StringUtils {
         if (str == null || searchStr == null) {
             return false;
         }
-        return contains(str.toUpperCase(), searchStr.toUpperCase());
+        int len = searchStr.length();
+        int max = str.length() - len;
+        for (int i = 0; i <= max; i++) {
+            if (str.regionMatches(true, i, searchStr, 0, len)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // IndexOfAny chars
