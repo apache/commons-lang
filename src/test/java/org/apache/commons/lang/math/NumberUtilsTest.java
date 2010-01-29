@@ -239,6 +239,9 @@ public class NumberUtilsTest extends TestCase {
                 .createNumber("10" + Integer.MAX_VALUE));
         assertEquals("createNumber(String) 18 failed", new BigInteger("10" + Long.MAX_VALUE), NumberUtils
                 .createNumber("10" + Long.MAX_VALUE));
+
+        // LANG-521
+        assertEquals("createNumber(String) LANG-521 failed", new Float("2."), NumberUtils.createNumber("2."));
     }
 
     public void testCreateFloat() {
@@ -1160,6 +1163,9 @@ public class NumberUtilsTest extends TestCase {
         assertTrue("isNumber(String) 24 Neg failed", !NumberUtils.isNumber(val));
         assertTrue("isNumber(String)/createNumber(String) 24 Neg failed", !checkCreateNumber(val));
 
+        // LANG-521
+        val = "2.";
+        assertTrue("isNumber(String) LANG-521 failed", NumberUtils.isNumber(val));
     }
 
     private boolean checkCreateNumber(String val) {
