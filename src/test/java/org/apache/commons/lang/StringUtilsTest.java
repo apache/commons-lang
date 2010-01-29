@@ -1727,7 +1727,29 @@ public class StringUtilsTest extends TestCase {
         assertEquals("", StringUtils.EMPTY);
         assertEquals(0, StringUtils.EMPTY.length());
     }
-    
+
+    /**
+     * Test for {@link StringUtils#isAllLowerCase(String)}.
+     */
+    public void testIsAllLowerCase() {
+        assertFalse(StringUtils.isAllLowerCase(null));
+        assertFalse(StringUtils.isAllLowerCase(StringUtils.EMPTY));
+        assertTrue(StringUtils.isAllLowerCase("abc"));
+        assertFalse(StringUtils.isAllLowerCase("abc "));
+        assertFalse(StringUtils.isAllLowerCase("abC"));
+    }
+
+    /**
+     * Test for {@link StringUtils#isAllUpperCase(String)}.
+     */
+    public void testIsAllUpperCase() {
+        assertFalse(StringUtils.isAllUpperCase(null));
+        assertFalse(StringUtils.isAllUpperCase(StringUtils.EMPTY));
+        assertTrue(StringUtils.isAllUpperCase("ABC"));
+        assertFalse(StringUtils.isAllUpperCase("ABC "));
+        assertFalse(StringUtils.isAllUpperCase("aBC"));
+    }
+
     public void testRemoveStart() {
         // StringUtils.removeStart("", *)        = ""
         assertNull(StringUtils.removeStart(null, null));

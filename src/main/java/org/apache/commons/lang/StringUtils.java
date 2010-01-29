@@ -5508,6 +5508,66 @@ public class StringUtils {
         return true;
     }
 
+    /**
+     * <p>Checks if the String contains only lowercase characters.</p>
+     *
+     * <p><code>null</code> will return <code>false</code>.
+     * An empty String ("") will return <code>false</code>.</p>
+     *
+     * <pre>
+     * StringUtils.isAllLowerCase(null)   = false
+     * StringUtils.isAllLowerCase("")     = false
+     * StringUtils.isAllLowerCase("  ")   = false
+     * StringUtils.isAllLowerCase("abc")  = true
+     * StringUtils.isAllLowerCase("abC") = false
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @return <code>true</code> if only contains lowercase characters, and is non-null
+     */
+    public static boolean isAllLowerCase(String str) {
+        if (str == null || isEmpty(str)) {
+            return false;
+        }
+        int sz = str.length();
+        for (int i = 0; i < sz; i++) {
+            if (Character.isLowerCase(str.charAt(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * <p>Checks if the String contains only uppercase characters.</p>
+     *
+     * <p><code>null</code> will return <code>false</code>.
+     * An empty String ("") will return <code>false</code>.</p>
+     *
+     * <pre>
+     * StringUtils.isAllUpperCase(null)   = false
+     * StringUtils.isAllUpperCase("")     = false
+     * StringUtils.isAllUpperCase("  ")   = false
+     * StringUtils.isAllUpperCase("ABC")  = true
+     * StringUtils.isAllUpperCase("aBC") = false
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @return <code>true</code> if only contains uppercase characters, and is non-null
+     */
+    public static boolean isAllUpperCase(String str) {
+        if (str == null || isEmpty(str)) {
+            return false;
+        }
+        int sz = str.length();
+        for (int i = 0; i < sz; i++) {
+            if (Character.isUpperCase(str.charAt(i)) == false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Defaults
     //-----------------------------------------------------------------------
     /**
