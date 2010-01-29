@@ -332,6 +332,101 @@ public class NumberUtils {
       }
     }
 
+     //-----------------------------------------------------------------------
+     /**
+     * <p>Convert a <code>String</code> to a <code>byte</code>, returning
+     * <code>zero</code> if the conversion fails.</p>
+     *
+     * <p>If the string is <code>null</code>, <code>zero</code> is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toByte(null) = 0
+     *   NumberUtils.toByte("")   = 0
+     *   NumberUtils.toByte("1")  = 1
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @return the byte represented by the string, or <code>zero</code> if
+     *  conversion fails
+     */
+    public static byte toByte(String str) {
+        return toByte(str, (byte) 0);
+    }
+
+    /**
+     * <p>Convert a <code>String</code> to a <code>byte</code>, returning a
+     * default value if the conversion fails.</p>
+     *
+     * <p>If the string is <code>null</code>, the default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toByte(null, 1) = 1
+     *   NumberUtils.toByte("", 1)   = 1
+     *   NumberUtils.toByte("1", 0)  = 1
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @param defaultValue  the default value
+     * @return the byte represented by the string, or the default if conversion fails
+     */
+    public static byte toByte(String str, byte defaultValue) {
+        if(str == null) {
+            return defaultValue;
+        }
+        try {
+            return Byte.parseByte(str);
+        } catch (NumberFormatException nfe) {
+            return defaultValue;
+        }
+    }
+
+    /**
+     * <p>Convert a <code>String</code> to a <code>short</code>, returning
+     * <code>zero</code> if the conversion fails.</p>
+     *
+     * <p>If the string is <code>null</code>, <code>zero</code> is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toShort(null) = 0
+     *   NumberUtils.toShort("")   = 0
+     *   NumberUtils.toShort("1")  = 1
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @return the short represented by the string, or <code>zero</code> if
+     *  conversion fails
+     */
+    public static short toShort(String str) {
+        return toShort(str, (short) 0);
+    }
+
+    /**
+     * <p>Convert a <code>String</code> to an <code>short</code>, returning a
+     * default value if the conversion fails.</p>
+     *
+     * <p>If the string is <code>null</code>, the default value is returned.</p>
+     *
+     * <pre>
+     *   NumberUtils.toShort(null, 1) = 1
+     *   NumberUtils.toShort("", 1)   = 1
+     *   NumberUtils.toShort("1", 0)  = 1
+     * </pre>
+     *
+     * @param str  the string to convert, may be null
+     * @param defaultValue  the default value
+     * @return the short represented by the string, or the default if conversion fails
+     */
+    public static short toShort(String str, short defaultValue) {
+        if(str == null) {
+            return defaultValue;
+        }
+        try {
+            return Short.parseShort(str);
+        } catch (NumberFormatException nfe) {
+            return defaultValue;
+        }
+    }
+
     //-----------------------------------------------------------------------
     // must handle Long, Float, Integer, Float, Short,
     //                  BigDecimal, BigInteger and Byte

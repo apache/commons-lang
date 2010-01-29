@@ -168,6 +168,42 @@ public class NumberUtilsTest extends TestCase {
         assertTrue("toDouble(String,int) 2 failed", NumberUtils.toDouble("a", 5.0d) == 5.0d);
     }
 
+     /**
+     * Test for {@link NumberUtils#toByte(String)}.
+     */
+    public void testToByteString() {
+        assertTrue("toByte(String) 1 failed", NumberUtils.toByte("123") == 123);
+        assertTrue("toByte(String) 2 failed", NumberUtils.toByte("abc") == 0);
+        assertTrue("toByte(empty) failed", NumberUtils.toByte("") == 0);
+        assertTrue("toByte(null) failed", NumberUtils.toByte(null) == 0);
+    }
+
+    /**
+     * Test for {@link NumberUtils#toByte(String, byte)}.
+     */
+    public void testToByteStringI() {
+        assertTrue("toByte(String,byte) 1 failed", NumberUtils.toByte("123", (byte) 5) == 123);
+        assertTrue("toByte(String,byte) 2 failed", NumberUtils.toByte("12.3", (byte) 5) == 5);
+    }
+
+    /**
+     * Test for {@link NumberUtils#toShort(String)}.
+     */
+    public void testToShortString() {
+        assertTrue("toShort(String) 1 failed", NumberUtils.toShort("12345") == 12345);
+        assertTrue("toShort(String) 2 failed", NumberUtils.toShort("abc") == 0);
+        assertTrue("toShort(empty) failed", NumberUtils.toShort("") == 0);
+        assertTrue("toShort(null) failed", NumberUtils.toShort(null) == 0);
+    }
+
+    /**
+     * Test for {@link NumberUtils#toShort(String, short)}.
+     */
+    public void testToShortStringI() {
+        assertTrue("toShort(String,short) 1 failed", NumberUtils.toShort("12345", (short) 5) == 12345);
+        assertTrue("toShort(String,short) 2 failed", NumberUtils.toShort("1234.5", (short) 5) == 5);
+    }
+
     public void testCreateNumber() {
         // a lot of things can go wrong
         assertEquals("createNumber(String) 1 failed", new Float("1234.5"), NumberUtils.createNumber("1234.5"));
