@@ -1248,6 +1248,19 @@ public class StringUtilsTest extends TestCase {
                      FOO_UNCAP, StringUtils.chopNewline(FOO_UNCAP + "\r\n") );
     }
 
+    public void testRepeat_StringStringInt() {
+        assertEquals(null, StringUtils.repeat(null, null, 2));
+        assertEquals(null, StringUtils.repeat(null, "x", 2));
+        assertEquals("", StringUtils.repeat("", null, 2));
+
+        assertEquals("", StringUtils.repeat("ab", "", 0));
+        assertEquals("", StringUtils.repeat("", "", 2));
+
+        assertEquals("xx", StringUtils.repeat("", "x", 3));
+
+        assertEquals("?, ?, ?", StringUtils.repeat("?", ", ", 3));
+    }
+
     public void testChop() {
 
         String[][] chopCases = {

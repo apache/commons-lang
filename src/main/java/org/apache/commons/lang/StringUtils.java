@@ -4539,6 +4539,35 @@ public class StringUtils {
     }
 
     /**
+     * <p>Repeat a String <code>repeat</code> times to form a
+     * new String, with a String separator injected each time. </p>
+     *
+     * <pre>
+     * StringUtils.repeat(null, null, 2) = null
+     * StringUtils.repeat(null, "x", 2)  = null
+     * StringUtils.repeat("", null, 0)   = ""
+     * StringUtils.repeat("", "", 2)     = ""
+     * StringUtils.repeat("", "x", 3)    = "xxx"
+     * StringUtils.repeat("?", ", ", 3)  = "?, ?, ?"
+     * </pre>
+     *
+     * @param str        the String to repeat, may be null
+     * @param separator  the String to inject, may be null
+     * @param repeat     number of times to repeat str, negative treated as zero
+     * @return a new String consisting of the original String repeated,
+     *  <code>null</code> if null String input
+     */
+    public static String repeat(String str, String separator, int repeat) {
+        if(str == null || separator == null) {
+            return repeat(str, repeat);
+        } else {
+            // given that repeat(String, int) is quite optimized, better to rely on it than try and splice this into it
+            String result = repeat(str + separator, repeat);
+            return removeEnd(result, separator);
+        }
+    }
+
+    /**
      * <p>Returns padding using the specified delimiter repeated
      * to a given length.</p>
      *
