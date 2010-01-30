@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * 
  * <p>DateUtils contains a lot of common methods considering manipulations
  * of Dates or Calendars. Some methods require some extra explanation.
- * The truncate and round methods could be considered the Math.floor(),
+ * The truncate, ceiling and round methods could be considered the Math.floor(),
  * Math.ceil() or Math.round versions for dates
  * This way date-fields will be ignored in bottom-up order.
  * As a complement to these methods we've introduced some fragment-methods.
@@ -125,6 +125,21 @@ public class DateUtils {
      * A month range, the week starting on Monday.
      */
     public final static int RANGE_MONTH_MONDAY = 6;
+
+    /**
+     * Constant marker for truncating 
+     */
+    private final static int MODIFY_TRUNCATE = 0;
+
+    /**
+     * Constant marker for rounding
+     */
+    private final static int MODIFY_ROUND = 1;
+
+    /**
+     * Constant marker for ceiling
+     */
+    private final static int MODIFY_CEILING= 2;
 
     /**
      * <p><code>DateUtils</code> instances should NOT be constructed in
@@ -585,7 +600,7 @@ public class DateUtils {
         }
         Calendar gval = Calendar.getInstance();
         gval.setTime(date);
-        modify(gval, field, true);
+        modify(gval, field, MODIFY_ROUND);
         return gval.getTime();
     }
 
@@ -622,7 +637,7 @@ public class DateUtils {
             throw new IllegalArgumentException("The date must not be null");
         }
         Calendar rounded = (Calendar) date.clone();
-        modify(rounded, field, true);
+        modify(rounded, field, MODIFY_ROUND);
         return rounded;
     }
 
@@ -692,7 +707,7 @@ public class DateUtils {
         }
         Calendar gval = Calendar.getInstance();
         gval.setTime(date);
-        modify(gval, field, false);
+        modify(gval, field, MODIFY_TRUNCATE);
         return gval.getTime();
     }
 
@@ -717,7 +732,7 @@ public class DateUtils {
             throw new IllegalArgumentException("The date must not be null");
         }
         Calendar truncated = (Calendar) date.clone();
-        modify(truncated, field, false);
+        modify(truncated, field, MODIFY_TRUNCATE);
         return truncated;
     }
 
@@ -753,6 +768,91 @@ public class DateUtils {
             throw new ClassCastException("Could not truncate " + date);
         }
     }
+    
+  //-----------------------------------------------------------------------
+    /**
+     * <p>Ceil this date, leaving the field specified as the most
+     * significant field.</p>
+     *
+     * <p>For example, if you had the datetime of 28 Mar 2002
+     * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
+     * 2002 13:00:00.000.  If this was passed with MONTH, it would
+     * return 1 Mar 2002 0:00:00.000.</p>
+     * 
+     * @param date  the date to work with
+     * @param field  the field from <code>Calendar</code>
+     *  or <code>SEMI_MONTH</code>
+     * @return the rounded date
+     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws ArithmeticException if the year is over 280 million
+     */
+    public static Date ceiling(Date date, int field) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+        Calendar gval = Calendar.getInstance();
+        gval.setTime(date);
+        modify(gval, field, MODIFY_CEILING);
+        return gval.getTime();
+    }
+
+    /**
+     * <p>Ceil this date, leaving the field specified as the most
+     * significant field.</p>
+     *
+     * <p>For example, if you had the datetime of 28 Mar 2002
+     * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
+     * 2002 13:00:00.000.  If this was passed with MONTH, it would
+     * return 1 Mar 2002 0:00:00.000.</p>
+     * 
+     * @param date  the date to work with
+     * @param field  the field from <code>Calendar</code>
+     *  or <code>SEMI_MONTH</code>
+     * @return the rounded date (a different object)
+     * @throws IllegalArgumentException if the date is <code>null</code>
+     * @throws ArithmeticException if the year is over 280 million
+     */
+    public static Calendar ceiling(Calendar date, int field) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+        Calendar ceiled = (Calendar) date.clone();
+        modify(ceiled, field, MODIFY_CEILING);
+        return ceiled;
+    }
+
+    /**
+     * <p>Ceil this date, leaving the field specified as the most
+     * significant field.</p>
+     *
+     * <p>For example, if you had the datetime of 28 Mar 2002
+     * 13:45:01.231, if you passed with HOUR, it would return 28 Mar
+     * 2002 13:00:00.000.  If this was passed with MONTH, it would
+     * return 1 Mar 2002 0:00:00.000.</p>
+     * 
+     * @param date  the date to work with, either <code>Date</code>
+     *  or <code>Calendar</code>
+     * @param field  the field from <code>Calendar</code>
+     *  or <code>SEMI_MONTH</code>
+     * @return the rounded date
+     * @throws IllegalArgumentException if the date
+     *  is <code>null</code>
+     * @throws ClassCastException if the object type is not a
+     *  <code>Date</code> or <code>Calendar</code>
+     * @throws ArithmeticException if the year is over 280 million
+     */
+    public static Date ceiling(Object date, int field) {
+        if (date == null) {
+            throw new IllegalArgumentException("The date must not be null");
+        }
+        if (date instanceof Date) {
+            return ceiling((Date) date, field);
+        } else if (date instanceof Calendar) {
+            return ceiling((Calendar) date, field).getTime();
+        } else {
+            throw new ClassCastException("Could not find ceiling of for type: " + date.getClass());
+        }
+    }
 
     //-----------------------------------------------------------------------
     /**
@@ -760,10 +860,10 @@ public class DateUtils {
      * 
      * @param val  the calendar
      * @param field  the field constant
-     * @param round  true to round, false to truncate
+     * @param modType  type to truncate, round or ceiling
      * @throws ArithmeticException if the year is over 280 million
      */
-    private static void modify(Calendar val, int field, boolean round) {
+    private static void modify(Calendar val, int field, int modType) {
         if (val.get(Calendar.YEAR) > 280000000) {
             throw new ArithmeticException("Calendar value too large for accurate calculations");
         }
@@ -784,7 +884,7 @@ public class DateUtils {
 
         // truncate milliseconds
         int millisecs = val.get(Calendar.MILLISECOND);
-        if (!round || millisecs < 500) {
+        if (MODIFY_TRUNCATE == modType || millisecs < 500) {
             time = time - millisecs;
         }
         if (field == Calendar.SECOND) {
@@ -793,7 +893,7 @@ public class DateUtils {
 
         // truncate seconds
         int seconds = val.get(Calendar.SECOND);
-        if (!done && (!round || seconds < 30)) {
+        if (!done && (MODIFY_TRUNCATE == modType || seconds < 30)) {
             time = time - (seconds * 1000L);
         }
         if (field == Calendar.MINUTE) {
@@ -802,7 +902,7 @@ public class DateUtils {
 
         // truncate minutes
         int minutes = val.get(Calendar.MINUTE);
-        if (!done && (!round || minutes < 30)) {
+        if (!done && (MODIFY_TRUNCATE == modType || minutes < 30)) {
             time = time - (minutes * 60000L);
         }
 
@@ -818,7 +918,7 @@ public class DateUtils {
             for (int j = 0; j < fields[i].length; j++) {
                 if (fields[i][j] == field) {
                     //This is our field... we stop looping
-                    if (round && roundUp) {
+                    if (modType == MODIFY_CEILING || (modType == MODIFY_ROUND && roundUp)) {
                         if (field == DateUtils.SEMI_MONTH) {
                             //This is a special case that's hard to generalize
                             //If the date is 1, we round up to 16, otherwise

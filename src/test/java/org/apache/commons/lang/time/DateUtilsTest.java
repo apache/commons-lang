@@ -1171,6 +1171,243 @@ public class DateUtilsTest extends TestCase {
     }
 
     /**
+     * Tests various values with the ceiling method
+     */
+    public void testCeil() throws Exception {
+        // tests public static Date ceiling(Date date, int field)
+        assertEquals("ceiling year-1 failed",
+                dateParser.parse("January 1, 2003"),
+                DateUtils.ceiling(date1, Calendar.YEAR));
+        assertEquals("ceiling year-2 failed",
+                dateParser.parse("January 1, 2002"),
+                DateUtils.ceiling(date2, Calendar.YEAR));
+        assertEquals("ceiling month-1 failed",
+                dateParser.parse("March 1, 2002"),
+                DateUtils.ceiling(date1, Calendar.MONTH));
+        assertEquals("ceiling month-2 failed",
+                dateParser.parse("December 1, 2001"),
+                DateUtils.ceiling(date2, Calendar.MONTH));
+        assertEquals("ceiling semimonth-1 failed",
+                dateParser.parse("February 16, 2002"),
+                DateUtils.ceiling(date1, DateUtils.SEMI_MONTH));
+        assertEquals("ceiling semimonth-2 failed",
+                dateParser.parse("December 1, 2001"),
+                DateUtils.ceiling(date2, DateUtils.SEMI_MONTH));
+        assertEquals("ceiling date-1 failed",
+                dateParser.parse("February 13, 2002"),
+                DateUtils.ceiling(date1, Calendar.DATE));
+        assertEquals("ceiling date-2 failed",
+                dateParser.parse("November 19, 2001"),
+                DateUtils.ceiling(date2, Calendar.DATE));
+        assertEquals("ceiling hour-1 failed",
+                dateTimeParser.parse("February 12, 2002 13:00:00.000"),
+                DateUtils.ceiling(date1, Calendar.HOUR));
+        assertEquals("ceiling hour-2 failed",
+                dateTimeParser.parse("November 18, 2001 2:00:00.000"),
+                DateUtils.ceiling(date2, Calendar.HOUR));
+        assertEquals("ceiling minute-1 failed",
+                dateTimeParser.parse("February 12, 2002 12:35:00.000"),
+                DateUtils.ceiling(date1, Calendar.MINUTE));
+        assertEquals("ceiling minute-2 failed",
+                dateTimeParser.parse("November 18, 2001 1:24:00.000"),
+                DateUtils.ceiling(date2, Calendar.MINUTE));
+        assertEquals("ceiling second-1 failed",
+                dateTimeParser.parse("February 12, 2002 12:34:57.000"),
+                DateUtils.ceiling(date1, Calendar.SECOND));
+        assertEquals("ceiling second-2 failed",
+                dateTimeParser.parse("November 18, 2001 1:23:12.000"),
+                DateUtils.ceiling(date2, Calendar.SECOND));
+        assertEquals("ceiling ampm-1 failed",
+                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
+                DateUtils.ceiling(dateAmPm1, Calendar.AM_PM));
+        assertEquals("ceiling ampm-2 failed",
+                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
+                DateUtils.ceiling(dateAmPm2, Calendar.AM_PM));
+        assertEquals("ceiling ampm-3 failed",
+                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
+                DateUtils.ceiling(dateAmPm3, Calendar.AM_PM));
+        assertEquals("ceiling ampm-4 failed",
+                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
+                DateUtils.ceiling(dateAmPm4, Calendar.AM_PM));
+        
+     // tests public static Date ceiling(Object date, int field)
+        assertEquals("ceiling year-1 failed",
+                dateParser.parse("January 1, 2003"),
+                DateUtils.ceiling((Object) date1, Calendar.YEAR));
+        assertEquals("ceiling year-2 failed",
+                dateParser.parse("January 1, 2002"),
+                DateUtils.ceiling((Object) date2, Calendar.YEAR));
+        assertEquals("ceiling month-1 failed",
+                dateParser.parse("March 1, 2002"),
+                DateUtils.ceiling((Object) date1, Calendar.MONTH));
+        assertEquals("ceiling month-2 failed",
+                dateParser.parse("December 1, 2001"),
+                DateUtils.ceiling((Object) date2, Calendar.MONTH));
+        assertEquals("ceiling semimonth-1 failed",
+                dateParser.parse("February 16, 2002"),
+                DateUtils.ceiling((Object) date1, DateUtils.SEMI_MONTH));
+        assertEquals("ceiling semimonth-2 failed",
+                dateParser.parse("December 1, 2001"),
+                DateUtils.ceiling((Object) date2, DateUtils.SEMI_MONTH));
+        assertEquals("ceiling date-1 failed",
+                dateParser.parse("February 13, 2002"),
+                DateUtils.ceiling((Object) date1, Calendar.DATE));
+        assertEquals("ceiling date-2 failed",
+                dateParser.parse("November 19, 2001"),
+                DateUtils.ceiling((Object) date2, Calendar.DATE));
+        assertEquals("ceiling hour-1 failed",
+                dateTimeParser.parse("February 12, 2002 13:00:00.000"),
+                DateUtils.ceiling((Object) date1, Calendar.HOUR));
+        assertEquals("ceiling hour-2 failed",
+                dateTimeParser.parse("November 18, 2001 2:00:00.000"),
+                DateUtils.ceiling((Object) date2, Calendar.HOUR));
+        assertEquals("ceiling minute-1 failed",
+                dateTimeParser.parse("February 12, 2002 12:35:00.000"),
+                DateUtils.ceiling((Object) date1, Calendar.MINUTE));
+        assertEquals("ceiling minute-2 failed",
+                dateTimeParser.parse("November 18, 2001 1:24:00.000"),
+                DateUtils.ceiling((Object) date2, Calendar.MINUTE));
+        assertEquals("ceiling second-1 failed",
+                dateTimeParser.parse("February 12, 2002 12:34:57.000"),
+                DateUtils.ceiling((Object) date1, Calendar.SECOND));
+        assertEquals("ceiling second-2 failed",
+                dateTimeParser.parse("November 18, 2001 1:23:12.000"),
+                DateUtils.ceiling((Object) date2, Calendar.SECOND));
+        assertEquals("ceiling ampm-1 failed",
+                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
+                DateUtils.ceiling((Object) dateAmPm1, Calendar.AM_PM));
+        assertEquals("ceiling ampm-2 failed",
+                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
+                DateUtils.ceiling((Object) dateAmPm2, Calendar.AM_PM));
+        assertEquals("ceiling ampm-3 failed",
+                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
+                DateUtils.ceiling((Object) dateAmPm3, Calendar.AM_PM));
+        assertEquals("ceiling ampm-4 failed",
+                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
+                DateUtils.ceiling((Object) dateAmPm4, Calendar.AM_PM));
+        
+        assertEquals("ceiling calendar second-1 failed",
+                dateTimeParser.parse("February 12, 2002 12:34:57.000"),
+                DateUtils.ceiling((Object) cal1, Calendar.SECOND));
+        assertEquals("ceiling calendar second-2 failed",
+                dateTimeParser.parse("November 18, 2001 1:23:12.000"),
+                DateUtils.ceiling((Object) cal2, Calendar.SECOND));
+        
+        assertEquals("ceiling ampm-1 failed",
+                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
+                DateUtils.ceiling((Object) calAmPm1, Calendar.AM_PM));
+        assertEquals("ceiling ampm-2 failed",
+                dateTimeParser.parse("February 3, 2002 12:00:00.000"),
+                DateUtils.ceiling((Object) calAmPm2, Calendar.AM_PM));
+        assertEquals("ceiling ampm-3 failed",
+                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
+                DateUtils.ceiling((Object) calAmPm3, Calendar.AM_PM));
+        assertEquals("ceiling ampm-4 failed",
+                dateTimeParser.parse("February 4, 2002 00:00:00.000"),
+                DateUtils.ceiling((Object) calAmPm4, Calendar.AM_PM));
+
+        try {
+            DateUtils.ceiling((Date) null, Calendar.SECOND);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.ceiling((Calendar) null, Calendar.SECOND);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.ceiling((Object) null, Calendar.SECOND);
+            fail();
+        } catch (IllegalArgumentException ex) {}
+        try {
+            DateUtils.ceiling("", Calendar.SECOND);
+            fail();
+        } catch (ClassCastException ex) {}
+        try {
+            DateUtils.ceiling(date1, -9999);
+            fail();
+        } catch(IllegalArgumentException ex) {}
+
+        
+        // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
+        // Test ceiling across the beginning of daylight saving time
+        TimeZone.setDefault(zone);
+        dateTimeParser.setTimeZone(zone);
+
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 31, 2003 00:00:00.000"),
+                DateUtils.ceiling(date4, Calendar.DATE));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 31, 2003 00:00:00.000"),
+                DateUtils.ceiling((Object) cal4, Calendar.DATE));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 31, 2003 00:00:00.000"),
+                DateUtils.ceiling(date5, Calendar.DATE));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 31, 2003 00:00:00.000"),
+                DateUtils.ceiling((Object) cal5, Calendar.DATE));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 31, 2003 00:00:00.000"),
+                DateUtils.ceiling(date6, Calendar.DATE));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 31, 2003 00:00:00.000"),
+                DateUtils.ceiling((Object) cal6, Calendar.DATE));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 31, 2003 00:00:00.000"),
+                DateUtils.ceiling(date7, Calendar.DATE));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 31, 2003 00:00:00.000"),
+                DateUtils.ceiling((Object) cal7, Calendar.DATE));
+        
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.ceiling(date4, Calendar.HOUR_OF_DAY));
+        assertEquals("ceiling MET date across DST change-over",
+                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                DateUtils.ceiling((Object) cal4, Calendar.HOUR_OF_DAY));
+        if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
+            assertEquals("ceiling MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                    DateUtils.ceiling(date5, Calendar.HOUR_OF_DAY));
+            assertEquals("ceiling MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                    DateUtils.ceiling((Object) cal5, Calendar.HOUR_OF_DAY));
+            assertEquals("ceiling MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                    DateUtils.ceiling(date6, Calendar.HOUR_OF_DAY));
+            assertEquals("ceiling MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                    DateUtils.ceiling((Object) cal6, Calendar.HOUR_OF_DAY));
+            assertEquals("ceiling MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                    DateUtils.ceiling(date7, Calendar.HOUR_OF_DAY));
+            assertEquals("ceiling MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 04:00:00.000"),
+                    DateUtils.ceiling((Object) cal7, Calendar.HOUR_OF_DAY));
+        } else {
+            this.warn("WARNING: Some date ceiling tests not run since the current version is " + SystemUtils.JAVA_VERSION);
+        }
+        TimeZone.setDefault(defaultZone);
+        dateTimeParser.setTimeZone(defaultZone);
+        
+     // Bug 31395, large dates
+        Date endOfTime = new Date(Long.MAX_VALUE); // fyi: Sun Aug 17 07:12:55 CET 292278994 -- 807 millis
+        GregorianCalendar endCal = new GregorianCalendar();
+        endCal.setTime(endOfTime);
+        try {
+            DateUtils.ceiling(endCal, Calendar.DATE);
+            fail();
+        } catch (ArithmeticException ex) {}
+        endCal.set(Calendar.YEAR, 280000001);
+        try {
+            DateUtils.ceiling(endCal, Calendar.DATE);
+            fail();
+        } catch (ArithmeticException ex) {}
+        endCal.set(Calendar.YEAR, 280000000);
+        Calendar cal = DateUtils.ceiling(endCal, Calendar.DATE);
+        assertEquals(0, cal.get(Calendar.HOUR));
+    }
+
+    /**
      * Tests the iterator exceptions
      */
     public void testIteratorEx() throws Exception {
