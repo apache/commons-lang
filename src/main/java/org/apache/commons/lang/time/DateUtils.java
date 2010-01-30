@@ -274,16 +274,42 @@ public class DateUtils {
      * <p>Parses a string representing a date by trying a variety of different parsers.</p>
      * 
      * <p>The parse will try each parse pattern in turn.
-     * A parse is only deemed sucessful if it parses the whole of the input string.
+     * A parse is only deemed successful if it parses the whole of the input string.
      * If no parse patterns match, a ParseException is thrown.</p>
+     * The parser will be lenient toward the parsed date.
      * 
      * @param str  the date to parse, not null
      * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null
      * @return the parsed date
      * @throws IllegalArgumentException if the date string or pattern array is null
-     * @throws ParseException if none of the date patterns were suitable
+     * @throws ParseException if none of the date patterns were suitable (or there were none)
      */
     public static Date parseDate(String str, String[] parsePatterns) throws ParseException {
+        return parseDateWithLeniency(str, parsePatterns, true);
+    }
+    
+  //-----------------------------------------------------------------------
+    /**
+     * <p>Parses a string representing a date by trying a variety of different parsers.</p>
+     * 
+     * <p>The parse will try each parse pattern in turn.
+     * A parse is only deemed successful if it parses the whole of the input string.
+     * If no parse patterns match, a ParseException is thrown.</p>
+     * The parser parses strictly - it does not allow for dates such as "February 942, 1996". 
+     * 
+     * @param str  the date to parse, not null
+     * @param parsePatterns  the date format patterns to use, see SimpleDateFormat, not null
+     * @param lenient Specify whether or not date/time parsing is to be lenient.
+     * @return the parsed date
+     * @throws IllegalArgumentException if the date string or pattern array is null
+     * @throws ParseException if none of the date patterns were suitable
+     * @see java.util.Calender#isLenient()
+     */
+    public static Date parseDateStrictly(String str, String[] parsePatterns) throws ParseException {
+        return parseDateWithLeniency(str, parsePatterns, false);
+    }
+    private static Date parseDateWithLeniency(String str, String[] parsePatterns,
+            boolean lenient) throws ParseException {
         if (str == null || parsePatterns == null) {
             throw new IllegalArgumentException("Date and Patterns must not be null");
         }
@@ -301,6 +327,7 @@ public class DateUtils {
             
             if (i == 0) {
                 parser = new SimpleDateFormat(pattern);
+                parser.setLenient(lenient);
             } else {
                 parser.applyPattern(pattern); // cannot be null if i != 0
             }
