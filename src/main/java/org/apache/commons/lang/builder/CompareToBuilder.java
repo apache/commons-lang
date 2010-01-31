@@ -19,12 +19,10 @@ package org.apache.commons.lang.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
 /** 
@@ -355,11 +353,10 @@ public class CompareToBuilder {
         String[] excludeFields) {
         
         Field[] fields = clazz.getDeclaredFields();
-        List excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.EMPTY_LIST;
         AccessibleObject.setAccessible(fields, true);
         for (int i = 0; i < fields.length && builder.comparison == 0; i++) {
             Field f = fields[i];
-            if (!excludedFieldList.contains(f.getName())
+            if (!ArrayUtils.contains(excludeFields, f.getName())
                 && (f.getName().indexOf('$') == -1)
                 && (useTransients || !Modifier.isTransient(f.getModifiers()))
                 && (!Modifier.isStatic(f.getModifiers()))) {

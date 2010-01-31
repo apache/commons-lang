@@ -20,13 +20,11 @@ package org.apache.commons.lang.builder;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.IDKey;
 
 /**
@@ -180,11 +178,10 @@ public class HashCodeBuilder {
         try {
             register(object);
             Field[] fields = clazz.getDeclaredFields();
-            List excludedFieldList = excludeFields != null ? Arrays.asList(excludeFields) : Collections.EMPTY_LIST;
             AccessibleObject.setAccessible(fields, true);
             for (int i = 0; i < fields.length; i++) {
                 Field field = fields[i];
-                if (!excludedFieldList.contains(field.getName())
+                if (!ArrayUtils.contains(excludeFields, field.getName())
                     && (field.getName().indexOf('$') == -1)
                     && (useTransients || !Modifier.isTransient(field.getModifiers()))
                     && (!Modifier.isStatic(field.getModifiers()))) {
