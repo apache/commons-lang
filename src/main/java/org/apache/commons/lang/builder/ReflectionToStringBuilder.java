@@ -564,7 +564,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
             return false;
         }
         if (Modifier.isStatic(field.getModifiers()) && !this.isAppendStatics()) {
-            // Rject static fields.
+            // Reject static fields.
             return false;
         }
         if (this.getExcludeFieldNames() != null

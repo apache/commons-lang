@@ -321,7 +321,8 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
      * Checks if the string got by {@link RandomStringUtils#random(int)}
      * can be converted to UTF-8 and back without loss.
      *
-     * @author stefanhoehne@fastmail.fm
+     * @see <a href="http://issues.apache.org/jira/browse/LANG-100">LANG-100</a>
+     *
      * @throws Exception
      */
     public void testLang100() throws Exception {

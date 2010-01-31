@@ -36,12 +36,11 @@ import junit.framework.TestSuite;
  * A month with 29 or 30 days will be rounded up from the 16th
  * A month with 31 days will be rounded up from the 17th
  * 
- * @todo Add DateUtils.ceil()-tests if method is available
- *   
  * @author Robert Scholte
  * @since 3.0
  *
  */
+// TODO: Add DateUtils.ceil()-tests if method is available
 public class DateUtilsRoundingTest extends TestCase {
 
     public static Test suite() {

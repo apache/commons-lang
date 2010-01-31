@@ -145,7 +145,8 @@ public class ToStringBuilder {
 
     //----------------------------------------------------------------------------
     /**
-     * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
+     * <p>Uses <code>ReflectionToStringBuilder</code> to generate a
+     * <code>toString</code> for the specified object.</p>
      * 
      * @param object  the Object to be output
      * @return the String result
@@ -156,7 +157,8 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
+     * <p>Uses <code>ReflectionToStringBuilder</code> to generate a
+     * <code>toString</code> for the specified object.</p>
      * 
      * @param object  the Object to be output
      * @param style  the style of the <code>toString</code> to create, may be <code>null</code>
@@ -168,7 +170,8 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
+     * <p>Uses <code>ReflectionToStringBuilder</code> to generate a
+     * <code>toString</code> for the specified object.</p>
      * 
      * @param object  the Object to be output
      * @param style  the style of the <code>toString</code> to create, may be <code>null</code>
@@ -181,7 +184,8 @@ public class ToStringBuilder {
     }
 
     /**
-     * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
+     * <p>Uses <code>ReflectionToStringBuilder</code> to generate a
+     * <code>toString</code> for the specified object.</p>
      * 
      * @param object  the Object to be output
      * @param style  the style of the <code>toString</code> to create, may be <code>null</code>
@@ -202,62 +206,51 @@ public class ToStringBuilder {
     //----------------------------------------------------------------------------
 
     /**
-     * Current toString buffer.
+     * Current toString buffer, not null.
      */
     private final StringBuffer buffer;
-
     /**
-     * The object being output.
+     * The object being output, may be null.
      */
     private final Object object;
-
     /**
-     * The style of output to use.
+     * The style of output to use, not null.
      */
     private final ToStringStyle style;
 
     /**
-     * <p>Constructor for <code>ToStringBuilder</code>.</p>
+     * <p>Constructs a builder for the specified object using the default output style.</p>
      *
-     * <p>This constructor outputs using the default style set with
-     * <code>setDefaultStyle</code>.</p>
+     * <p>This default style is obtained from {@link #getDefaultStyle()}.</p>
      * 
-     * @param object  the Object to build a <code>toString</code> for
-     * @throws IllegalArgumentException  if the Object passed in is
-     *  <code>null</code>
+     * @param object  the Object to build a <code>toString</code> for, not recommended to be null
      */
     public ToStringBuilder(Object object) {
         this(object, null, null);
     }
 
     /**
-     * <p>Constructor for <code>ToStringBuilder</code> specifying the
-     * output style.</p>
+     * <p>Constructs a builder for the specified object using the a defined output style.</p>
      *
      * <p>If the style is <code>null</code>, the default style is used.</p>
      * 
-     * @param object  the Object to build a <code>toString</code> for
-     * @param style  the style of the <code>toString</code> to create,
-     *  may be <code>null</code>
-     * @throws IllegalArgumentException  if the Object passed in is
-     *  <code>null</code>
+     * @param object  the Object to build a <code>toString</code> for, not recommended to be null
+     * @param style  the style of the <code>toString</code> to create, null uses the default style
      */
     public ToStringBuilder(Object object, ToStringStyle style) {
         this(object, style, null);
     }
 
     /**
-     * <p>Constructor for <code>ToStringBuilder</code>.</p>
+     * <p>Constructs a builder for the specified object.</p>
      *
      * <p>If the style is <code>null</code>, the default style is used.</p>
      *
      * <p>If the buffer is <code>null</code>, a new one is created.</p>
      * 
-     * @param object  the Object to build a <code>toString</code> for
-     * @param style  the style of the <code>toString</code> to create,
-     *  may be <code>null</code>
-     * @param buffer  the <code>StringBuffer</code> to populate, may be
-     *  <code>null</code>
+     * @param object  the Object to build a <code>toString</code> for, not recommended to be null
+     * @param style  the style of the <code>toString</code> to create, null uses the default style
+     * @param buffer  the <code>StringBuffer</code> to populate, may be null
      */
     public ToStringBuilder(Object object, ToStringStyle style, StringBuffer buffer) {
         if (style == null) {

@@ -1974,6 +1974,8 @@ public class StringUtils {
      * An empty ("") string input will return the empty string.
      * A <code>null</code> separator will return the input string.</p>
      *
+     * <p>If nothing is found, the string input is returned.</p>
+     *
      * <pre>
      * StringUtils.substringBefore(null, *)      = null
      * StringUtils.substringBefore("", *)        = ""
@@ -2014,6 +2016,8 @@ public class StringUtils {
      * A <code>null</code> separator will return the empty string if the
      * input string is not <code>null</code>.</p>
      *
+     * <p>If nothing is found, the empty string is returned.</p>
+     *
      * <pre>
      * StringUtils.substringAfter(null, *)      = null
      * StringUtils.substringAfter("", *)        = ""
@@ -2053,6 +2057,8 @@ public class StringUtils {
      * An empty ("") string input will return the empty string.
      * An empty or <code>null</code> separator will return the input string.</p>
      *
+     * <p>If nothing is found, the string input is returned.</p>
+     *
      * <pre>
      * StringUtils.substringBeforeLast(null, *)      = null
      * StringUtils.substringBeforeLast("", *)        = ""
@@ -2089,6 +2095,8 @@ public class StringUtils {
      * An empty ("") string input will return the empty string.
      * An empty or <code>null</code> separator will return the empty string if
      * the input string is not <code>null</code>.</p>
+     *
+     * <p>If nothing is found, the empty string is returned.</p>
      *
      * <pre>
      * StringUtils.substringAfterLast(null, *)      = null
@@ -3534,13 +3542,15 @@ public class StringUtils {
      * A <code>null</code> search string will return the source string.</p>
      *
      * <pre>
-     * StringUtils.removeEnd(null, *)      = null
-     * StringUtils.removeEnd("", *)        = ""
-     * StringUtils.removeEnd(*, null)      = *
-     * StringUtils.removeEnd("www.domain.com", ".com.")  = "www.domain.com."
-     * StringUtils.removeEnd("www.domain.com", ".com")   = "www.domain"
-     * StringUtils.removeEnd("www.domain.com", "domain") = "www.domain.com"
-     * StringUtils.removeEnd("abc", "")    = "abc"
+     * StringUtils.removeEndIgnoreCase(null, *)      = null
+     * StringUtils.removeEndIgnoreCase("", *)        = ""
+     * StringUtils.removeEndIgnoreCase(*, null)      = *
+     * StringUtils.removeEndIgnoreCase("www.domain.com", ".com.")  = "www.domain.com"
+     * StringUtils.removeEndIgnoreCase("www.domain.com", ".com")   = "www.domain"
+     * StringUtils.removeEndIgnoreCase("www.domain.com", "domain") = "www.domain.com"
+     * StringUtils.removeEndIgnoreCase("abc", "")    = "abc"
+     * StringUtils.removeEndIgnoreCase("www.domain.com", ".COM") = "www.domain")
+     * StringUtils.removeEndIgnoreCase("www.domain.COM", ".com") = "www.domain")
      * </pre>
      *
      * @param str  the source String to search, may be null

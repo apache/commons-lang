@@ -45,8 +45,7 @@ public class MutableInt extends Number implements Comparable, Mutable {
     /**
      * Constructs a new MutableInt with the specified value.
      * 
-     * @param value
-     *                  a value.
+     * @param value  the initial value to store
      */
     public MutableInt(int value) {
         super();
@@ -56,10 +55,8 @@ public class MutableInt extends Number implements Comparable, Mutable {
     /**
      * Constructs a new MutableInt with the specified value.
      * 
-     * @param value
-     *                  a value.
-     * @throws NullPointerException
-     *                  if the object is null
+     * @param value  the initial value to store, not null
+     * @throws NullPointerException if the object is null
      */
     public MutableInt(Number value) {
         super();
@@ -70,7 +67,7 @@ public class MutableInt extends Number implements Comparable, Mutable {
     /**
      * Gets the value as a Integer instance.
      * 
-     * @return the value as a Integer
+     * @return the value as a Integer, never null
      */
     public Object getValue() {
         return new Integer(this.value);
@@ -79,8 +76,7 @@ public class MutableInt extends Number implements Comparable, Mutable {
     /**
      * Sets the value.
      * 
-     * @param value
-     *                  the value to set
+     * @param value  the value to set
      */
     public void setValue(int value) {
         this.value = value;
@@ -89,12 +85,9 @@ public class MutableInt extends Number implements Comparable, Mutable {
     /**
      * Sets the value from any Number instance.
      * 
-     * @param value
-     *                  the value to set
-     * @throws NullPointerException
-     *                  if the object is null
-     * @throws ClassCastException
-     *                  if the type is not a {@link Number}
+     * @param value  the value to set, not null
+     * @throws NullPointerException if the object is null
+     * @throws ClassCastException if the type is not a {@link Number}
      */
     public void setValue(Object value) {
         setValue(((Number) value).intValue());
@@ -121,11 +114,9 @@ public class MutableInt extends Number implements Comparable, Mutable {
 
     //-----------------------------------------------------------------------
     /**
-     * Adds a value.
+     * Adds a value to the value of this instance.
      * 
-     * @param operand
-     *            the value to add
-     *
+     * @param operand  the value to add, not null
      * @since Commons Lang 2.2
      */
     public void add(int operand) {
@@ -133,13 +124,10 @@ public class MutableInt extends Number implements Comparable, Mutable {
     }
 
     /**
-     * Adds a value.
+     * Adds a value to the value of this instance.
      * 
-     * @param operand
-     *            the value to add
-     * @throws NullPointerException
-     *             if the object is null
-     *
+     * @param operand  the value to add, not null
+     * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
     public void add(Number operand) {
@@ -147,11 +135,9 @@ public class MutableInt extends Number implements Comparable, Mutable {
     }
 
     /**
-     * Subtracts a value.
+     * Subtracts a value from the value of this instance.
      * 
-     * @param operand
-     *            the value to add
-     *
+     * @param operand  the value to subtract, not null
      * @since Commons Lang 2.2
      */
     public void subtract(int operand) {
@@ -159,13 +145,10 @@ public class MutableInt extends Number implements Comparable, Mutable {
     }
 
     /**
-     * Subtracts a value.
+     * Subtracts a value from the value of this instance.
      * 
-     * @param operand
-     *            the value to add
-     * @throws NullPointerException
-     *             if the object is null
-     *
+     * @param operand  the value to subtract, not null
+     * @throws NullPointerException if the object is null
      * @since Commons Lang 2.2
      */
     public void subtract(Number operand) {
@@ -175,7 +158,7 @@ public class MutableInt extends Number implements Comparable, Mutable {
     //-----------------------------------------------------------------------
     // shortValue and bytValue rely on Number implementation
     /**
-     * Returns the value of this MutableInt as a int.
+     * Returns the value of this MutableInt as an int.
      *
      * @return the numeric value represented by this object after conversion to type int.
      */
@@ -214,7 +197,7 @@ public class MutableInt extends Number implements Comparable, Mutable {
     /**
      * Gets this mutable as an instance of Integer.
      *
-     * @return a Integer instance containing the value from this mutable
+     * @return a Integer instance containing the value from this mutable, never null
      */
     public Integer toInteger() {
         return new Integer(intValue());
@@ -223,11 +206,10 @@ public class MutableInt extends Number implements Comparable, Mutable {
     //-----------------------------------------------------------------------
     /**
      * Compares this object to the specified object. The result is <code>true</code> if and only if the argument is
-     * not <code>null</code> and is an <code>MutableInt</code> object that contains the same <code>int</code> value
+     * not <code>null</code> and is a <code>MutableInt</code> object that contains the same <code>int</code> value
      * as this object.
      * 
-     * @param obj
-     *                  the object to compare with.
+     * @param obj  the object to compare with, null returns false
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
     public boolean equals(Object obj) {
@@ -238,19 +220,19 @@ public class MutableInt extends Number implements Comparable, Mutable {
     }
 
     /**
-     * Returns a suitable hashcode for this mutable.
+     * Returns a suitable hash code for this mutable.
      * 
-     * @return a suitable hashcode
+     * @return a suitable hash code
      */
     public int hashCode() {
         return value;
     }
 
+    //-----------------------------------------------------------------------
     /**
      * Compares this mutable to another in ascending order.
      * 
-     * @param obj
-     *                  the mutable to compare to
+     * @param other  the other mutable to compare to, not null
      * @return negative if this is less, zero if equal, positive if greater
      * @throws ClassCastException if the argument is not a MutableInt
      */
@@ -260,6 +242,7 @@ public class MutableInt extends Number implements Comparable, Mutable {
         return value < anotherVal ? -1 : (value == anotherVal ? 0 : 1);
     }
 
+    //-----------------------------------------------------------------------
     /**
      * Returns the String value of this mutable.
      * 

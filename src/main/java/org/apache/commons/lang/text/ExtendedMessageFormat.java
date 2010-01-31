@@ -83,7 +83,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Create a new ExtendedMessageFormat for the default locale.
      * 
-     * @param pattern String
+     * @param pattern  the pattern to use, not null
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(String pattern) {
@@ -93,8 +93,8 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Create a new ExtendedMessageFormat.
      * 
-     * @param pattern String
-     * @param locale Locale
+     * @param pattern  the pattern to use, not null
+     * @param locale  the locale to use, not null
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(String pattern, Locale locale) {
@@ -104,8 +104,8 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Create a new ExtendedMessageFormat for the default locale.
      * 
-     * @param pattern String
-     * @param registry Registry of format factories:  Map<String, FormatFactory>
+     * @param pattern  the pattern to use, not null
+     * @param registry  the registry of format factories, may be null
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(String pattern, Map registry) {
@@ -115,9 +115,9 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Create a new ExtendedMessageFormat.
      * 
-     * @param pattern String
-     * @param locale Locale
-     * @param registry Registry of format factories:  Map<String, FormatFactory>
+     * @param pattern  the pattern to use, not null
+     * @param locale  the locale to use, not null
+     * @param registry  the registry of format factories, may be null
      * @throws IllegalArgumentException in case of a bad pattern.
      */
     public ExtendedMessageFormat(String pattern, Locale locale, Map registry) {

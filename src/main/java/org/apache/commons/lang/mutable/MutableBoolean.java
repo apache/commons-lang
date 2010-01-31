@@ -51,8 +51,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
     /**
      * Constructs a new MutableBoolean with the specified value.
      * 
-     * @param value
-     *            a value.
+     * @param value  the initial value to store
      */
     public MutableBoolean(boolean value) {
         super();
@@ -62,17 +61,15 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
     /**
      * Constructs a new MutableBoolean with the specified value.
      * 
-     * @param value
-     *            a value.
-     * @throws NullPointerException
-     *             if the object is null
+     * @param value  the initial value to store, not null
+     * @throws NullPointerException if the object is null
      */
     public MutableBoolean(Boolean value) {
         super();
         this.value = value.booleanValue();
     }
 
-    // -----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     /**
      * Returns the value of this MutableBoolean as a boolean.
      * 
@@ -85,13 +82,10 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
     /**
      * Compares this mutable to another in ascending order.
      * 
-     * @param obj
-     *            the mutable to compare to
-     * @return zero if this object represents the same boolean value as the argument; a positive value if this object
-     *         represents true and the argument represents false; and a negative value if this object represents false
-     *         and the argument represents true
-     * @throws ClassCastException
-     *             if the argument is not a MutableInt
+     * @param other  the other mutable to compare to, not null
+     * @return negative if this is less, zero if equal, positive if greater
+     *  where false is less than true
+     * @throws ClassCastException if the argument is not a MutableBoolean
      */
     public int compareTo(Object obj) {
         MutableBoolean other = (MutableBoolean) obj;
@@ -99,14 +93,13 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
         return value == anotherVal ? 0 : (value ? 1 : -1);
     }
 
-    // -----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     /**
      * Compares this object to the specified object. The result is <code>true</code> if and only if the argument is
      * not <code>null</code> and is an <code>MutableBoolean</code> object that contains the same
      * <code>boolean</code> value as this object.
      * 
-     * @param obj
-     *            the object to compare with.
+     * @param obj  the object to compare with, null returns false
      * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
      */
     public boolean equals(Object obj) {
@@ -116,21 +109,20 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
         return false;
     }
 
-    // -----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
     /**
      * Gets the value as a Boolean instance.
      * 
-     * @return the value as a Boolean
+     * @return the value as a Boolean, never null
      */
     public Object getValue() {
         return BooleanUtils.toBooleanObject(this.value);
     }
 
     /**
-     * Returns a suitable hashcode for this mutable.
+     * Returns a suitable hash code for this mutable.
      * 
-     * @return the integer <code>1231</code> if this object represents <code>true</code>; returns the integer
-     *         <code>1237</code> if this object represents <code>false</code>.
+     * @return the hash code returned by <code>Boolean.TRUE</code> or <code>Boolean.FALSE</code>
      */
     public int hashCode() {
         return value ? Boolean.TRUE.hashCode() : Boolean.FALSE.hashCode();
@@ -139,8 +131,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
     /**
      * Sets the value.
      * 
-     * @param value
-     *            the value to set
+     * @param value  the value to set
      */
     public void setValue(boolean value) {
         this.value = value;
@@ -149,12 +140,9 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
     /**
      * Sets the value from any Boolean instance.
      * 
-     * @param value
-     *            the value to set
-     * @throws NullPointerException
-     *             if the object is null
-     * @throws ClassCastException
-     *             if the type is not a {@link Boolean}
+     * @param value  the value to set, not null
+     * @throws NullPointerException if the object is null
+     * @throws ClassCastException if the type is not a {@link Boolean}
      */
     public void setValue(Object value) {
         setValue(((Boolean) value).booleanValue());

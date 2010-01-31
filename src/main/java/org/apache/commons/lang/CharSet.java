@@ -76,7 +76,7 @@ public class CharSet implements Serializable {
 
     /**
      * A Map of the common cases used in the factory.
-     * Subclasses can add more common patterns if desired.
+     * Subclasses can add more common patterns if desired
      * @since 2.0
      */
     protected static final Map COMMON = new HashMap();

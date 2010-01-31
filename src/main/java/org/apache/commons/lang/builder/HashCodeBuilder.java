@@ -811,7 +811,6 @@ public class HashCodeBuilder {
      * <p>
      * Append a <code>hashCode</code> for a <code>long</code>.
      * </p>
-     * <p>
      * 
      * @param value
      *            the long to add to the <code>hashCode</code>

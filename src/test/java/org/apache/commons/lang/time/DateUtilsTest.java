@@ -794,7 +794,7 @@ public class DateUtilsTest extends TestCase {
                 dateTimeParser.parse("February 4, 2002 00:00:00.000"),
                 DateUtils.round((Object) calAmPm4, Calendar.AM_PM));
         
-        // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
+        // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560 / LANG-13
         // Test rounding across the beginning of daylight saving time
         TimeZone.setDefault(zone);
         dateTimeParser.setTimeZone(zone);

@@ -1042,7 +1042,7 @@ public class StringUtilsTest extends TestCase {
     }
 
     /**
-     * Test method for 'org.apache.commons.lang.StringUtils.replaceEach(String, String[], String[])'
+     * Test method for 'StringUtils.replaceEach(String, String[], String[])'
      */
     public void testReplace_StringStringArrayStringArray() {
 
@@ -1078,7 +1078,7 @@ public class StringUtilsTest extends TestCase {
     }
 
     /**
-     * Test method for 'org.apache.commons.lang.StringUtils.replaceEachRepeatedly(String, String[], String[])'
+     * Test method for 'StringUtils.replaceEachRepeatedly(String, String[], String[])'
      */
     public void testReplace_StringStringArrayStringArrayBoolean() {
         //JAVADOC TESTS START
@@ -1875,7 +1875,6 @@ public class StringUtilsTest extends TestCase {
         // StringUtils.remove("queued", 'z') = "queued"
         assertEquals("queued", StringUtils.remove("queued", 'z'));
     }
-
     
     public void testDifferenceAt_StringArray(){        
         assertEquals(-1, StringUtils.indexOfDifference(null));

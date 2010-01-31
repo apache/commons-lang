@@ -485,7 +485,7 @@ public class DurationFormatUtils {
      * Parses a classic date format string into Tokens
      *
      * @param format to parse
-     * @return Token[] of tokens
+     * @return array of Token[]
      */
     static Token[] lexx(String format) {
         char[] array = format.toCharArray();
