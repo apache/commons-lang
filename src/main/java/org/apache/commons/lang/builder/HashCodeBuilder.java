@@ -860,6 +860,7 @@ public class HashCodeBuilder {
             iTotal = iTotal * iConstant;
 
         } else {
+            if(object.getClass().isArray()) {
                 // 'Switch' on type of array, to dispatch to the correct handler
                 // This handles multi dimensional arrays
                 if (object instanceof long[]) {
@@ -878,12 +879,13 @@ public class HashCodeBuilder {
                     append((float[]) object);
                 } else if (object instanceof boolean[]) {
                     append((boolean[]) object);
-                } else if (object instanceof Object[]) {
+                } else {
                     // Not an array of primitives
                     append((Object[]) object);
-                } else {
-                    iTotal = iTotal * iConstant + object.hashCode();
                 }
+            } else {
+                iTotal = iTotal * iConstant + object.hashCode();
+            }
         }
         return this;
     }
