@@ -842,4 +842,11 @@ public class EqualsBuilder {
     protected void setEquals(boolean isEquals) {
         this.isEquals = isEquals;
     }
+
+    /**
+     * Reset the EqualsBuilder so you can use the same object again
+     */
+    public void reset() {
+        this.isEquals = true;
+    }
 }

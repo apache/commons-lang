@@ -393,6 +393,15 @@ public class EqualsBuilderTest extends TestCase {
         equalsBuilder.setEquals(false);
         assertFalse(equalsBuilder.isEquals());
     }
+
+    public void testReset() {
+        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        assertTrue(equalsBuilder.isEquals());
+        equalsBuilder.setEquals(false);
+        assertFalse(equalsBuilder.isEquals());
+        equalsBuilder.reset();
+        assertTrue(equalsBuilder.isEquals());
+    }
     
     public void testBoolean() {
         boolean o1 = true;
