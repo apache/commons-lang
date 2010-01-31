@@ -93,28 +93,57 @@ import org.apache.commons.lang.ObjectUtils;
 public class ToStringBuilder {
 
     /**
-     * The default style of output to use.
+     * The default style of output to use, not null.
      */
-    private static ToStringStyle defaultStyle = ToStringStyle.DEFAULT_STYLE;
+    private static volatile ToStringStyle defaultStyle = ToStringStyle.DEFAULT_STYLE;
 
     //----------------------------------------------------------------------------
 
     /**
      * <p>Gets the default <code>ToStringStyle</code> to use.</p>
-     *
-     * <p>This could allow the <code>ToStringStyle</code> to be
-     * controlled for an entire application with one call.</p>
-     *
-     * <p>This might be used to have a verbose
-     * <code>ToStringStyle</code> during development and a compact
-     * <code>ToStringStyle</code> in production.</p>
      * 
-     * @return the default <code>ToStringStyle</code>
+     * <p>This method gets a singleton default value, typically for the whole JVM.
+     * Changing this default should generally only be done during application startup.
+     * It is recommended to pass a <code>ToStringStyle</code> to the constructor instead
+     * of using this global default.</p>
+     * 
+     * <p>This method can be used from multiple threads.
+     * Internally, a <code>volatile</code> variable is used to provide the guarantee
+     * that the latest value set using {@link #setDefaultStyle} is the value returned.
+     * It is strongly recommended that the default style is only changed during application startup.</p>
+     * 
+     * <p>One reason for changing the default could be to have a verbose style during
+     * development and a compact style in production.</p>
+     * 
+     * @return the default <code>ToStringStyle</code>, never null
      */
     public static ToStringStyle getDefaultStyle() {
         return defaultStyle;
     }
 
+    /**
+     * <p>Sets the default <code>ToStringStyle</code> to use.</p>
+     * 
+     * <p>This method sets a singleton default value, typically for the whole JVM.
+     * Changing this default should generally only be done during application startup.
+     * It is recommended to pass a <code>ToStringStyle</code> to the constructor instead
+     * of changing this global default.</p>
+     * 
+     * <p>This method is not intended for use from multiple threads.
+     * Internally, a <code>volatile</code> variable is used to provide the guarantee
+     * that the latest value set is the value returned from {@link #getDefaultStyle}.</p>
+     * 
+     * @param style  the default <code>ToStringStyle</code>
+     * @throws IllegalArgumentException if the style is <code>null</code>
+     */
+    public static void setDefaultStyle(ToStringStyle style) {
+        if (style == null) {
+            throw new IllegalArgumentException("The style must not be null");
+        }
+        defaultStyle = style;
+    }
+
+    //----------------------------------------------------------------------------
     /**
      * <p>Forwards to <code>ReflectionToStringBuilder</code>.</p>
      * 
@@ -170,18 +199,7 @@ public class ToStringBuilder {
         return ReflectionToStringBuilder.toString(object, style, outputTransients, false, reflectUpToClass);
     }
 
-    /**
-     * <p>Sets the default <code>ToStringStyle</code> to use.</p>
-     * 
-     * @param style  the default <code>ToStringStyle</code>
-     * @throws IllegalArgumentException if the style is <code>null</code>
-     */
-    public static void setDefaultStyle(ToStringStyle style) {
-        if (style == null) {
-            throw new IllegalArgumentException("The style must not be null");
-        }
-        defaultStyle = style;
-    }
+    //----------------------------------------------------------------------------
 
     /**
      * Current toString buffer.
@@ -209,7 +227,7 @@ public class ToStringBuilder {
      *  <code>null</code>
      */
     public ToStringBuilder(Object object) {
-        this(object, getDefaultStyle(), null);
+        this(object, null, null);
     }
 
     /**
