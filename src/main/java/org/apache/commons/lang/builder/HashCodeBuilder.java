@@ -968,4 +968,16 @@ public class HashCodeBuilder {
         return iTotal;
     }
 
+    /**
+     * <p>
+     * The computed <code>hashCode</code> from toHashCode() is returned due to the likelyhood 
+     * of bugs in mis-calling toHashCode() and the unlikelyness of it mattering what the hashCode for 
+     * HashCodeBuilder itself is.
+     * 
+     * @return <code>hashCode</code> based on the fields appended
+     */
+    public int hashCode() {
+        return toHashCode();
+    }
+
 }

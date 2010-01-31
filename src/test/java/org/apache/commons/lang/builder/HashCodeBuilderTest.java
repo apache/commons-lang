@@ -533,4 +533,13 @@ public class HashCodeBuilderTest extends TestCase {
         b.hashCode();
     }
 
+    /**
+     * Ensures LANG-520 remains true
+     */
+    public void testToHashCodeEqualsHashCode() {
+        HashCodeBuilder hcb = new HashCodeBuilder(17, 37).append(new Object()).append('a');
+        assertEquals("hashCode() is no longer returning the same value as toHashCode() - see LANG-520", 
+                     hcb.toHashCode(), hcb.hashCode());
+    }
+
 }
