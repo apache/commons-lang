@@ -1170,8 +1170,6 @@ public class FastDateFormat extends Format {
      * <p>Inner class to output an unpadded number.</p>
      */
     private static class UnpaddedNumberField implements NumberRule {
-        static final UnpaddedNumberField INSTANCE_YEAR = new UnpaddedNumberField(Calendar.YEAR);
-        
         private final int mField;
 
         /**
