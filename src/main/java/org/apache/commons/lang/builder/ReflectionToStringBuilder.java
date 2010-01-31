@@ -741,6 +741,12 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            The last super class to stop appending fields for.
      */
     public void setUpToClass(Class clazz) {
+        if (clazz != null) {
+            Object object = getObject();
+            if (object != null && clazz.isInstance(object) == false) {
+                throw new IllegalArgumentException("Specified class is not a superclass of the object");
+            }
+        }
         this.upToClass = clazz;
     }
 

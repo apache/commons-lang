@@ -338,7 +338,6 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[a=a,transientA=t]", ToStringBuilder.reflectionToString(baseA, null, true));
         assertEquals(baseStr + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, null));
         assertEquals(baseStr + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, Object.class));
-        assertEquals(baseStr + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, List.class));
         assertEquals(baseStr + "[a=a]", ToStringBuilder.reflectionToString(baseA, null, false, ReflectionTestFixtureA.class));
         
         ReflectionTestFixtureB baseB = new ReflectionTestFixtureB();
@@ -350,7 +349,6 @@ public class ToStringBuilderTest extends TestCase {
         assertEquals(baseStr + "[b=b,transientB=t,a=a,transientA=t]", ToStringBuilder.reflectionToString(baseB, null, true));
         assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, null));
         assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, Object.class));
-        assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, List.class));
         assertEquals(baseStr + "[b=b,a=a]", ToStringBuilder.reflectionToString(baseB, null, false, ReflectionTestFixtureA.class));
         assertEquals(baseStr + "[b=b]", ToStringBuilder.reflectionToString(baseB, null, false, ReflectionTestFixtureB.class));
         this.validateEmptyToStringStyleRegistry();
@@ -937,6 +935,29 @@ public class ToStringBuilderTest extends TestCase {
         return ReflectionToStringBuilder.toString(object, style, false, true, reflectUpToClass);
     }
 
+    /**
+     * Tests ReflectionToStringBuilder setUpToClass().
+     */
+    public void test_setUpToClass_valid() {
+        Integer val = new Integer(5);
+        ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
+        test.setUpToClass(Number.class);
+    }
+    
+    /**
+     * Tests ReflectionToStringBuilder setUpToClass().
+     */
+    public void test_setUpToClass_invalid() {
+        Integer val = new Integer(5);
+        ReflectionToStringBuilder test = new ReflectionToStringBuilder(val);
+        try {
+            test.setUpToClass(String.class);
+            fail();
+        } catch (IllegalArgumentException ex) {
+            // expected
+        }
+    }
+    
     /**
      * Tests ReflectionToStringBuilder.toString() for statics.
      */
