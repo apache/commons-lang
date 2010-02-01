@@ -81,7 +81,7 @@ public class ShortPrefixToStringStyleTest extends TestCase {
         p.name = "John Q. Public";
         p.age = 45;
         p.smoker = true;
-        String pBaseStr = p.getClass().getName();
+        String pBaseStr = "ToStringStyleTest.Person";
         assertEquals(pBaseStr + "[name=John Q. Public,age=45,smoker=true]", new ToStringBuilder(p).append("name", p.name).append("age", p.age).append("smoker", p.smoker).toString());
     }
 
