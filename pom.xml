@@ -405,9 +405,10 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <includes>
-            <include>**/*TestSuite.java</include>
+            <include>**/*Test.java</include>
           </includes>
           <excludes>
+            <exclude>**/*TestSuite.java</exclude>
             <exclude>**/AllLangTestSuite.java</exclude>
           </excludes>
         </configuration>
@@ -456,7 +457,7 @@
         <artifactId>clirr-maven-plugin</artifactId>
         <version>2.2.2</version>
         <configuration>
-          <comparisonVersion>2.3</comparisonVersion>
+          <comparisonVersion>2.4</comparisonVersion>
           <minSeverity>info</minSeverity>
         </configuration>
       </plugin>
