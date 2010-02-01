@@ -448,7 +448,7 @@ public class StringUtilsTest extends TestCase {
         String stringToSplitOnNulls = "ab   de fg" ;
         String[] splitOnNullExpectedResults = { "ab", "de", "fg" } ;
 
-        String[] splitOnNullResults = StringUtils.splitByWholeSeparator( "ab   de fg", null ) ;
+        String[] splitOnNullResults = StringUtils.splitByWholeSeparator( stringToSplitOnNulls, null ) ;
         assertEquals( splitOnNullExpectedResults.length, splitOnNullResults.length ) ;
         for ( int i = 0 ; i < splitOnNullExpectedResults.length ; i+= 1 ) {
             assertEquals( splitOnNullExpectedResults[i], splitOnNullResults[i] ) ;
@@ -760,7 +760,6 @@ public class StringUtilsTest extends TestCase {
           String[] results = null;
           String[] expectedResults = {"ab", "  de fg"};
           results = StringUtils.splitPreserveAllTokens("ab   de fg", null, 2);
-          System.out.println("");
           assertEquals(expectedResults.length, results.length);
           for (int i = 0; i < expectedResults.length; i++) {
               assertEquals(expectedResults[i], results[i]);
@@ -1827,7 +1826,8 @@ public class StringUtilsTest extends TestCase {
         assertEquals("removeEndIgnoreCase(\"domain.com\", null)", StringUtils.removeEndIgnoreCase("domain.com", null), "domain.com");   
 
         // Case insensitive:
-        assertEquals("removeEndIgnoreCase(\"www.domain.com\", \".com\")", StringUtils.removeEndIgnoreCase("www.domain.com", ".COM"), "www.domain");
+        assertEquals("removeEndIgnoreCase(\"www.domain.com\", \".COM\")", StringUtils.removeEndIgnoreCase("www.domain.com", ".COM"), "www.domain");
+        assertEquals("removeEndIgnoreCase(\"www.domain.COM\", \".com\")", StringUtils.removeEndIgnoreCase("www.domain.COM", ".com"), "www.domain");
     }
 
     public void testRemove_String() {

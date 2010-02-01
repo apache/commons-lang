@@ -247,6 +247,8 @@ public class StringUtilsSubstringTest extends TestCase {
             
     public void testSubstringBetween_StringStringString() {
         assertEquals(null, StringUtils.substringBetween(null, "", ""));
+        assertEquals(null, StringUtils.substringBetween("", null, ""));
+        assertEquals(null, StringUtils.substringBetween("", "", null));
         assertEquals("", StringUtils.substringBetween("", "", ""));
         assertEquals("", StringUtils.substringBetween("foo", "", ""));
         assertEquals(null, StringUtils.substringBetween("foo", "", "]"));
