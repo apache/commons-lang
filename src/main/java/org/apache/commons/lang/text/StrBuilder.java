@@ -231,7 +231,7 @@ public class StrBuilder {
     public StrBuilder ensureCapacity(int capacity) {
         if (capacity > buffer.length) {
             char[] old = buffer;
-            buffer = new char[capacity];
+            buffer = new char[capacity * 2];
             System.arraycopy(old, 0, buffer, 0, size);
         }
         return this;
