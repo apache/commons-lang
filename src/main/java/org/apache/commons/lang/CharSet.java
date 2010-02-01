@@ -92,7 +92,7 @@ public class CharSet implements Serializable {
     }
 
     /** The set of CharRange objects. */
-    private Set set = new HashSet();
+    private final Set set = new HashSet();
 
     //-----------------------------------------------------------------------
     /**

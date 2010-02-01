@@ -78,7 +78,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     private static final char QUOTE = '\'';
 
     private String toPattern;
-    private Map registry;
+    private final Map registry;
 
     /**
      * Create a new ExtendedMessageFormat for the default locale.
