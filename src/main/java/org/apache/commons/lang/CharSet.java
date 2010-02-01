@@ -205,19 +205,19 @@ public class CharSet implements Serializable {
             int remainder = (len - pos);
             if (remainder >= 4 && str.charAt(pos) == '^' && str.charAt(pos + 2) == '-') {
                 // negated range
-                set.add(new CharRange(str.charAt(pos + 1), str.charAt(pos + 3), true));
+                set.add(CharRange.isNotIn(str.charAt(pos + 1), str.charAt(pos + 3)));
                 pos += 4;
             } else if (remainder >= 3 && str.charAt(pos + 1) == '-') {
                 // range
-                set.add(new CharRange(str.charAt(pos), str.charAt(pos + 2)));
+                set.add(CharRange.isIn(str.charAt(pos), str.charAt(pos + 2)));
                 pos += 3;
             } else if (remainder >= 2 && str.charAt(pos) == '^') {
                 // negated char
-                set.add(new CharRange(str.charAt(pos + 1), true));
+                set.add(CharRange.isNot(str.charAt(pos + 1)));
                 pos += 2;
             } else {
                 // char
-                set.add(new CharRange(str.charAt(pos)));
+                set.add(CharRange.is(str.charAt(pos)));
                 pos += 1;
             }
         }

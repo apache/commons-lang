@@ -48,6 +48,54 @@ public final class CharRange implements Serializable {
     /** Cached toString. */
     private transient String iToString;
 
+    // Static
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Constructs a <code>CharRange</code> over a single character.</p>
+     *
+     * @param ch  only character in this range
+     * @return the new CharRange object
+     * @see CharRange#CharRange(char, char, boolean)
+     */
+    public static CharRange is(char ch) {
+        return new CharRange(ch, ch, false);
+    }
+
+    /**
+     * <p>Constructs a negated <code>CharRange</code> over a single character.</p>
+     *
+     * @param ch  only character in this range
+     * @return the new CharRange object
+     * @see CharRange#CharRange(char, char, boolean)
+     */
+    public static CharRange isNot(char ch) {
+        return new CharRange(ch, ch, true);
+    }
+
+    /**
+     * <p>Constructs a <code>CharRange</code> over a set of characters.</p>
+     *
+     * @param start  first character, inclusive, in this range
+     * @param end  last character, inclusive, in this range
+     * @return the new CharRange object
+     * @see CharRange#CharRange(char, char, boolean)
+     */
+    public static CharRange isIn(char start, char end) {
+        return new CharRange(start, end, false);
+    }
+
+    /**
+     * <p>Constructs a negated <code>CharRange</code> over a set of characters.</p>
+     *
+     * @param start  first character, inclusive, in this range
+     * @param end  last character, inclusive, in this range
+     * @return the new CharRange object
+     * @see CharRange#CharRange(char, char, boolean)
+     */
+    public static CharRange isNotIn(char start, char end) {
+        return new CharRange(start, end, true);
+    }
+
     //-----------------------------------------------------------------------
     /**
      * <p>Constructs a <code>CharRange</code> over a single character.</p>
