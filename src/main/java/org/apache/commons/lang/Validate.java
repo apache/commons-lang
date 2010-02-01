@@ -175,9 +175,7 @@ public class Validate {
      * @throws IllegalArgumentException if the object is <code>null</code>
      */
     public static void notNull(Object object) {
-        if (object == null) {
-            throw new IllegalArgumentException("The validated object is null");
-        }
+        notNull(object, "The validated object is null");
     }
 
     /**
@@ -228,9 +226,7 @@ public class Validate {
      * @throws IllegalArgumentException if the array is empty
      */
     public static void notEmpty(Object[] array) {
-        if (array == null || array.length == 0) {
-            throw new IllegalArgumentException("The validated array is empty");
-        }
+        notEmpty(array, "The validated array is empty");
     }
 
     // notEmpty collection
@@ -266,9 +262,7 @@ public class Validate {
      * @throws IllegalArgumentException if the collection is empty
      */
     public static void notEmpty(Collection collection) {
-        if (collection == null || collection.size() == 0) {
-            throw new IllegalArgumentException("The validated collection is empty");
-        }
+        notEmpty(collection, "The validated collection is empty");
     }
 
     // notEmpty map
@@ -305,9 +299,7 @@ public class Validate {
      * @see #notEmpty(Map, String, Object...)
      */
     public static void notEmpty(Map map) {
-        if (map == null || map.size() == 0) {
-            throw new IllegalArgumentException("The validated map is empty");
-        }
+        notEmpty(map, "The validated map is empty");
     }
 
     // notEmpty string
@@ -344,9 +336,7 @@ public class Validate {
      * @throws IllegalArgumentException if the string is empty
      */
     public static void notEmpty(String string) {
-        if (string == null || string.length() == 0) {
-            throw new IllegalArgumentException("The validated string is empty");
-        }
+        notEmpty(string, "The validated string is empty");
     }
 
     // notNullElements array
