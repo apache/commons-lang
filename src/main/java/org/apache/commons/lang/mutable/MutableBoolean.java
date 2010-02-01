@@ -110,6 +110,16 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
 
     //-----------------------------------------------------------------------
     /**
+     * Gets this mutable as an instance of Boolean.
+     *
+     * @return a Boolean instance containing the value from this mutable, never null
+     */
+    public Boolean toBoolean() {
+        return  BooleanUtils.toBooleanObject(this.value);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Compares this object to the specified object. The result is <code>true</code> if and only if the argument is
      * not <code>null</code> and is an <code>MutableBoolean</code> object that contains the same
      * <code>boolean</code> value as this object.
