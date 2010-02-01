@@ -970,6 +970,28 @@ public class StrBuilderAppendInsertTest extends TestCase {
         sb.appendSeparator(",");
         assertEquals("foo,", sb.toString());
     }
+    
+    //-----------------------------------------------------------------------
+    public void testAppendSeparator_String_String() {
+        StrBuilder sb = new StrBuilder();
+        final String startSeparator = "order by ";
+        final String standardSeparator = ",";
+        final String foo = "foo";
+        sb.appendSeparator(null, null);
+        assertEquals("", sb.toString());
+        sb.appendSeparator(standardSeparator, null);
+        assertEquals("", sb.toString());
+        sb.appendSeparator(standardSeparator, startSeparator); 
+        assertEquals(startSeparator, sb.toString());
+        sb.appendSeparator(null, null); 
+        assertEquals(startSeparator, sb.toString());
+        sb.appendSeparator(null, startSeparator); 
+        assertEquals(startSeparator, sb.toString());
+        sb.append(foo);
+        assertEquals(startSeparator + foo, sb.toString());
+        sb.appendSeparator(standardSeparator, startSeparator);
+        assertEquals(startSeparator + foo + standardSeparator, sb.toString());
+    }
 
     //-----------------------------------------------------------------------
     public void testAppendSeparator_char() {
@@ -980,6 +1002,18 @@ public class StrBuilderAppendInsertTest extends TestCase {
         assertEquals("foo", sb.toString());
         sb.appendSeparator(',');
         assertEquals("foo,", sb.toString());
+    }
+    public void testAppendSeparator_char_char() {
+        StrBuilder sb = new StrBuilder();
+        final char startSeparator = ':';
+        final char standardSeparator = ',';
+        final String foo = "foo";
+        sb.appendSeparator(standardSeparator, startSeparator);  // no effect
+        assertEquals(String.valueOf(startSeparator), sb.toString());
+        sb.append(foo);
+        assertEquals(String.valueOf(startSeparator) + foo, sb.toString());
+        sb.appendSeparator(standardSeparator, startSeparator);
+        assertEquals(String.valueOf(startSeparator) + foo + standardSeparator, sb.toString());
     }
 
     //-----------------------------------------------------------------------
@@ -1333,5 +1367,4 @@ public class StrBuilderAppendInsertTest extends TestCase {
         sb.insert(0, (char[]) null, 0, 0);
         assertEquals("nullnullfoonullbarbaz", sb.toString());
     }
-
 }
