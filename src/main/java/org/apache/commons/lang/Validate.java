@@ -164,21 +164,6 @@ public class Validate {
 
     /**
      * <p>Validate that the specified argument is not <code>null</code>; 
-     * otherwise throwing an exception with the specified message.
-     *
-     * <pre>Validate.notNull(myObject, "The object must not be null");</pre>
-     * 
-     * @param object the object to check
-     * @param message the exception message if invalid
-     */
-    public static void notNull(Object object, String message) {
-        if (object == null) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    /**
-     * <p>Validate that the specified argument is not <code>null</code>; 
      * otherwise throwing an exception.
      *
      * <pre>Validate.notNull(myObject);</pre>
@@ -192,6 +177,21 @@ public class Validate {
     public static void notNull(Object object) {
         if (object == null) {
             throw new IllegalArgumentException("The validated object is null");
+        }
+    }
+
+    /**
+     * <p>Validate that the specified argument is not <code>null</code>; 
+     * otherwise throwing an exception with the specified message.
+     *
+     * <pre>Validate.notNull(myObject, "The object must not be null");</pre>
+     * 
+     * @param object the object to check
+     * @param message the exception message if invalid
+     */
+    public static void notNull(Object object, String message) {
+        if (object == null) {
+            throw new IllegalArgumentException(message);
         }
     }
 
