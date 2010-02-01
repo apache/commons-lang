@@ -65,6 +65,17 @@ public class MutableDouble extends Number implements Comparable, Mutable {
         this.value = value.doubleValue();
     }
 
+    /**
+     * Constructs a new MutableDouble parsing the given string.
+     * 
+     * @param value  the string to parse, not null
+     * @throws NumberFormatException if the string cannot be parsed into a double
+     */
+    public MutableDouble(String value) throws NumberFormatException {
+        super();
+        this.value = Double.parseDouble(value);
+    }
+
     //-----------------------------------------------------------------------
     /**
      * Gets the value as a Double instance.

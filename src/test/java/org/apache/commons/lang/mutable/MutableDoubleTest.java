@@ -49,8 +49,11 @@ public class MutableDoubleTest extends TestCase {
         
         assertEquals(2d, new MutableDouble(new Double(2d)).doubleValue(), 0.0001d);
         assertEquals(3d, new MutableDouble(new MutableDouble(3d)).doubleValue(), 0.0001d);
+        
+        assertEquals(2d, new MutableDouble("2.0").doubleValue(), 0.0001d);
+
         try {
-            new MutableDouble(null);
+            new MutableDouble((Number)null);
             fail();
         } catch (NullPointerException ex) {}
     }

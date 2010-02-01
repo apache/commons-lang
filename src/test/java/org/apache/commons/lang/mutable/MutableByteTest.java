@@ -49,8 +49,11 @@ public class MutableByteTest extends TestCase {
         
         assertEquals((byte) 2, new MutableByte(new Byte((byte) 2)).byteValue());
         assertEquals((byte) 3, new MutableByte(new MutableByte((byte) 3)).byteValue());
+
+        assertEquals((byte) 2, new MutableByte("2").byteValue());
+
         try {
-            new MutableByte(null);
+            new MutableByte((Number)null);
             fail();
         } catch (NullPointerException ex) {}
     }

@@ -49,8 +49,11 @@ public class MutableLongTest extends TestCase {
         
         assertEquals(2, new MutableLong(new Long(2)).longValue());
         assertEquals(3, new MutableLong(new MutableLong(3)).longValue());
+
+        assertEquals(2, new MutableLong("2").longValue());
+
         try {
-            new MutableLong(null);
+            new MutableLong((Number)null);
             fail();
         } catch (NullPointerException ex) {}
     }

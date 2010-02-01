@@ -49,8 +49,11 @@ public class MutableIntTest extends TestCase {
         
         assertEquals(2, new MutableInt(new Integer(2)).intValue());
         assertEquals(3, new MutableInt(new MutableLong(3)).intValue());
+
+        assertEquals(2, new MutableInt("2").intValue());
+
         try {
-            new MutableInt(null);
+            new MutableInt((Number)null);
             fail();
         } catch (NullPointerException ex) {}
     }
