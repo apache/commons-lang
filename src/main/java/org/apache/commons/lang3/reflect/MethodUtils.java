@@ -49,7 +49,6 @@ import org.apache.commons.lang3.ClassUtils;
  * @author Gregor Ra&#253;man
  * @author Jan Sorensen
  * @author Robert Burrell Donkin
- * @author Niall Pemberton
  * @author Matt Benson
  * @since 3.0
  * @version $Id$
