@@ -16,19 +16,20 @@
  * 
  */
 
-package org.apache.commons.lang;
+package org.apache.commons.lang.builder;
 
 // adapted from org.apache.axis.utils.IDKey
 
 /**
-* Wrap an identity key (System.identityHashCode()) 
-* so that an object can only be equal() to itself.
-* 
-* This is necessary to disambiguate the occasional duplicate
-* identityHashCodes that can occur.
-*  
-*/ 
-public final class IDKey {
+ * Wrap an identity key (System.identityHashCode()) 
+ * so that an object can only be equal() to itself.
+ * 
+ * This is necessary to disambiguate the occasional duplicate
+ * identityHashCodes that can occur.
+ * 
+ * @author Apache Software Foundation
+ */ 
+final class IDKey {
         private final Object value;
         private final int id;
 
