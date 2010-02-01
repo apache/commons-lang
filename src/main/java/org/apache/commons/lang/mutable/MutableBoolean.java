@@ -100,6 +100,25 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
 
     //-----------------------------------------------------------------------
     /**
+     * Checks if the current value is <code>true</code>.
+     * 
+     * @return <code>true</code> if the current value is <code>true</code>
+     */
+    public boolean isTrue() {
+        return value == true;
+    }
+
+    /**
+     * Checks if the current value is <code>false</code>.
+     * 
+     * @return <code>true</code> if the current value is <code>false</code>
+     */
+    public boolean isFalse() {
+        return value == false;
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * Returns the value of this MutableBoolean as a boolean.
      * 
      * @return the boolean value represented by this object.

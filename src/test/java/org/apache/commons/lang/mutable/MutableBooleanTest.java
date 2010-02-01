@@ -111,10 +111,14 @@ public class MutableBooleanTest extends TestCase {
         final MutableBoolean mutBool = new MutableBoolean(false);
         assertEquals(Boolean.FALSE, mutBool.toBoolean());
         assertEquals(false, mutBool.booleanValue());
+        assertEquals(true, mutBool.isFalse());
+        assertEquals(false, mutBool.isTrue());
 
         mutBool.setValue(Boolean.TRUE);
         assertEquals(Boolean.TRUE, mutBool.toBoolean());
         assertEquals(true, mutBool.booleanValue());
+        assertEquals(false, mutBool.isFalse());
+        assertEquals(true, mutBool.isTrue());
 
         mutBool.setValue(false);
         assertEquals(false, mutBool.booleanValue());
