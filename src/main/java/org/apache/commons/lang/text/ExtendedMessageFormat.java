@@ -214,6 +214,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
+     * {@inheritDoc}
      * @throws UnsupportedOperationException
      */
     public void setFormatByArgumentIndex(int argumentIndex, Format newFormat) {
@@ -229,6 +230,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
+     * {@inheritDoc}
      * @throws UnsupportedOperationException
      */
     public void setFormatsByArgumentIndex(Format[] newFormats) {

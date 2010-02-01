@@ -166,7 +166,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
     /**
      * Compares this mutable to another in ascending order.
      * 
-     * @param other  the other mutable to compare to, not null
+     * @param obj the other mutable to compare to, not null
      * @return negative if this is less, zero if equal, positive if greater
      *  where false is less than true
      */

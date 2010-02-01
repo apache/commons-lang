@@ -243,7 +243,7 @@ public class MutableInt extends Number implements Comparable, Mutable {
     /**
      * Compares this mutable to another in ascending order.
      * 
-     * @param other  the other mutable to compare to, not null
+     * @param obj the other mutable to compare to, not null
      * @return negative if this is less, zero if equal, positive if greater
      * @throws ClassCastException if the argument is not a MutableInt
      */
