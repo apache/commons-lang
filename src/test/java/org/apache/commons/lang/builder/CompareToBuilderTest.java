@@ -23,8 +23,8 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.builder.CompareToBuilder}.
  *
+ * @author Apache Software Foundation
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @version $Id$
  */
 public class CompareToBuilderTest extends TestCase {

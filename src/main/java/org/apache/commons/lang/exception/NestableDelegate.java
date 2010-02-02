@@ -35,12 +35,12 @@ import java.util.List;
  * {@link org.apache.commons.lang.exception.NestableRuntimeException NestableRuntimeException}.
  * </p>
  * 
+ * @author Apache Software Foundation
  * @author <a href="mailto:Rafal.Krzewski@e-point.pl">Rafal Krzewski</a>
  * @author Daniel L. Rall
  * @author <a href="mailto:knielsen@apache.org">Kasper Nielsen</a>
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Sean C. Sullivan
- * @author Stephen Colebourne
  * @since 1.0
  * @version $Id$
  */

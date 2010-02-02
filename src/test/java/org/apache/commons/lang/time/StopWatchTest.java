@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 /**
  * TestCase for StopWatch.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class StopWatchTest extends TestCase {

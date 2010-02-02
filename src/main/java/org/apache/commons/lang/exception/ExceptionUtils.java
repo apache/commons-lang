@@ -38,9 +38,9 @@ import org.apache.commons.lang.SystemUtils;
  * <p>Provides utilities for manipulating and examining 
  * <code>Throwable</code> objects.</p>
  *
+ * @author Apache Software Foundation
  * @author Daniel L. Rall
  * @author Dmitri Plotnikov
- * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Pete Gieser
  * @since 1.0

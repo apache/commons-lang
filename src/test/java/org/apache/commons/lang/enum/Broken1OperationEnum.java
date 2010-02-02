@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * Broken Operator enumeration, null class.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public abstract class Broken1OperationEnum extends Enum {

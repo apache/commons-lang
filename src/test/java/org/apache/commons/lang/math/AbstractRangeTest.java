@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 /**
  * Test cases for the {@link Range} classes.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public abstract class AbstractRangeTest extends TestCase {

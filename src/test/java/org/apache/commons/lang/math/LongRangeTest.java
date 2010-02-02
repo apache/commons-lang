@@ -23,7 +23,7 @@ import java.util.Arrays;
 /**
  * Test cases for the {@link LongRange} class.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public final class LongRangeTest extends AbstractRangeTest {

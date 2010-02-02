@@ -26,6 +26,7 @@ package org.apache.commons.lang.mutable;
  * effectively change the value of the primitive/string. Another use case is to store a frequently changing primitive in
  * a collection (for example a total in a map) without needing to create new Integer/Long wrapper objects.
  * 
+ * @author Apache Software Foundation
  * @author Matthew Hawthorne
  * @since 2.1
  * @version $Id$

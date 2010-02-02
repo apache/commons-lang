@@ -23,8 +23,8 @@ import junit.framework.TestCase;
 /**
  * Test cases for the {@link Enum} class equals method.
  *
+ * @author Apache Software Foundation
  * @author Matthias Eichel
- * @author Stephen Colebourne
  * @version $Id$
  */
 public final class EnumEqualsTest extends TestCase {

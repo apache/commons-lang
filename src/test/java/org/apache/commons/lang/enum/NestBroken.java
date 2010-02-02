@@ -28,7 +28,7 @@ import java.util.Map;
  * will return an empty list, unless and until the NestBroken class is
  * referenced.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 

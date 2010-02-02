@@ -36,7 +36,7 @@ import java.util.Map;
  * non-canonical method variants work with the JVM names, such as
  * <code>[I</code>. </p>
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Gary Gregory
  * @author Norm Deane
  * @author Alban Peignier

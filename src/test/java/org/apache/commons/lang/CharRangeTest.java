@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.CharRange}.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class CharRangeTest extends TestCase {

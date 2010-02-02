@@ -24,11 +24,11 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.NumberUtils}.
  *
+ * @author Apache Software Foundation
  * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author Eric Pugh
  * @author Phil Steitz
- * @author Stephen Colebourne
  * @version $Id$
  */
 public class NumberUtilsTest extends TestCase {

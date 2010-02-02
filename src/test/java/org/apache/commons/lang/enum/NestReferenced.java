@@ -26,7 +26,7 @@ import java.util.Map;
  * is obviously inconvenient as it involves defining two sets of constants.
  * See NestedLinked for an alternative.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 

@@ -29,6 +29,7 @@ import org.apache.commons.lang.SystemUtils;
  * Contains common code for working with Methods/Constructors, extracted and
  * refactored from <code>MethodUtils</code> when it was imported from Commons BeanUtils.
  *
+ * @author Apache Software Foundation
  * @author Steve Cohen
  * @author Matt Benson
  * @since 2.5

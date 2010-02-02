@@ -24,7 +24,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.BooleanUtils}.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Matthew Hawthorne
  * @version $Id$
  */

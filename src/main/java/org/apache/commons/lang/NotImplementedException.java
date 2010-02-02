@@ -44,8 +44,8 @@ import org.apache.commons.lang.exception.NestableDelegate;
  * }
  * </pre>
  * 
+ * @author Apache Software Foundation
  * @author Matthew Hawthorne
- * @author Stephen Colebourne
  * @since 2.0
  * @version $Id$
  */

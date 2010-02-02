@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests for {@link org.apache.commons.lang.builder.ToStringBuilder}.
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Apache Software Foundation
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author <a href="mailto:alex@apache.org">Alex Chaffee</a>
  * @version $Id$

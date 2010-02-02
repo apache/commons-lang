@@ -21,7 +21,7 @@ import java.io.Serializable;
 /**
  * <p><code>IntRange</code> represents an inclusive range of <code>int</code>s.</p>
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @since 2.0
  * @version $Id$
  */

@@ -19,7 +19,7 @@ package org.apache.commons.lang.enum;
 /**
  * Dummy enumeration - no values.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public abstract class DummyEnum extends Enum {

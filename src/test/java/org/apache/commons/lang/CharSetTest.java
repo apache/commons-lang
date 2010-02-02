@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.CharSet}.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Phil Steitz
  * @version $Id$
  */

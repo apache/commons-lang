@@ -25,7 +25,7 @@ import java.util.Map;
  * All is well here as the nested enum class is really no different
  * to any other class.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 

@@ -98,7 +98,7 @@ import org.apache.commons.lang.ClassUtils;
  *          {@link org.apache.commons.lang.enums} since <code>enum</code> is a Java 1.5 keyword. 
  * @see org.apache.commons.lang.enums.ValuedEnum
  * @author Apache Avalon project
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @since 1.0
  * @version $Id$
  */

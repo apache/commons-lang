@@ -30,7 +30,7 @@ import java.util.Map;
  * class is nested, not an inner class. The static block thus forces the
  * class load of the outer class, which is needed to initialise the enums.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 

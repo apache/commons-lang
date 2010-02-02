@@ -24,7 +24,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.CharUtils}.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class CharUtilsTest extends TestCase {

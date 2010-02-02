@@ -24,7 +24,7 @@ package org.apache.commons.lang;
  * Each method documents its behaviour in more detail.</p>
  * 
  * @see CharSet
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Phil Steitz
  * @author Gary Gregory
  * @since 1.0

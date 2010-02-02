@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * Broken Operator enumeration, getEnumClass() not superclass.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public abstract class Broken2OperationEnum extends Enum {

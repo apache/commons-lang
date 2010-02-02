@@ -21,8 +21,8 @@ import junit.framework.TestCase;
 /**
  * JUnit tests.
  * 
+ * @author Apache Software Foundation
  * @author Matthew Hawthorne
- * @author Stephen Colebourne
  * @version $Id$
  * @see NullArgumentException
  */

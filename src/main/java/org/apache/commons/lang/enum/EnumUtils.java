@@ -29,7 +29,7 @@ import java.util.Map;
  * @see org.apache.commons.lang.enums.EnumUtils
  * @see Enum
  * @see ValuedEnum
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Gary Gregory
  * @since 1.0
  * @version $Id$

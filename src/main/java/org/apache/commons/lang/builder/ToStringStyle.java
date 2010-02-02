@@ -61,7 +61,7 @@ import org.apache.commons.lang.SystemUtils;
  * </pre>
  * </p>
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Gary Gregory
  * @author Pete Gieser
  * @author Masato Tezuka

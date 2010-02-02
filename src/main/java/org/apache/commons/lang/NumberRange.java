@@ -23,8 +23,8 @@ package org.apache.commons.lang;
  * is unsuitable for dealing with large <code>Long</code>, <code>BigDecimal</code>
  * or <code>BigInteger</code> numbers.</p>
  *
+ * @author Apache Software Foundation
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
- * @author Stephen Colebourne
  * @since 1.0
  * @version $Revision$ $Date$
  * 

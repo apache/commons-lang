@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.StringUtils} - Substring methods
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Apache Software Foundation
  * @author Michael Davey
  * @version $Id$
  */

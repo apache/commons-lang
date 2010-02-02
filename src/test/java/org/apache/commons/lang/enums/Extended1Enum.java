@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * Base extended enumeration.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class Extended1Enum extends Enum {

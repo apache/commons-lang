@@ -87,7 +87,7 @@ import org.apache.commons.lang.ArrayUtils;
  * }
  * </pre>
  * 
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0

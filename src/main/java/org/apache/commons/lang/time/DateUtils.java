@@ -44,8 +44,8 @@ import org.apache.commons.lang.StringUtils;
  *   
  *   
  *
+ * @author Apache Software Foundation
  * @author <a href="mailto:sergek@lokitech.com">Serge Knystautas</a>
- * @author Stephen Colebourne
  * @author Janek Bogucki
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz

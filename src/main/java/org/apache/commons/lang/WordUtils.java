@@ -24,7 +24,7 @@ package org.apache.commons.lang;
  * Each method documents its behaviour in more detail.</p>
  * 
  * @author Apache Jakarta Velocity
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
  * @author Gary Gregory
  * @since 2.0

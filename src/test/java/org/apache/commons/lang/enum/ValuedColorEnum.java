@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * Color enumeration.
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Apache Software Foundation
  * @version $Id$
  */
 

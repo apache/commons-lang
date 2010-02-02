@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * Language enumeration.
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public final class ValuedLanguageEnum extends ValuedEnum {

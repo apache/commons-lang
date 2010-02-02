@@ -36,9 +36,9 @@ package org.apache.commons.lang;
  * }
  * </pre>
  * 
+ * @author Apache Software Foundation
  * @author Matthew Hawthorne
  * @author Gary Gregory
- * @author Stephen Colebourne
  * @since 2.0
  * @version $Id$
  */

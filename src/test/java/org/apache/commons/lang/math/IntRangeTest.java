@@ -23,7 +23,7 @@ import java.util.Arrays;
 /**
  * Test cases for the {@link IntRange} class.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Janek Bogucki
  * @author Phil Steitz
  * @version $Id$

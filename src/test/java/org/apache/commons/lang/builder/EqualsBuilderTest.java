@@ -23,8 +23,8 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.builder.EqualsBuilder}.
  *
+ * @author Apache Software Foundation
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Maarten Coene
  * @version $Id$

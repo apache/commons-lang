@@ -103,7 +103,7 @@ import org.apache.commons.lang.ClassUtils;
  * An alternative choice is to use the {@link EnumUtils} class.</p>
  *
  * @author Apache Avalon project
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @since 2.1 (class existed in enum package from v1.0)
  * @version $Id$
  */

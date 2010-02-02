@@ -27,10 +27,10 @@ import java.util.TimeZone;
  * <p>Formatting is performed using the
  * {@link org.apache.commons.lang.time.FastDateFormat} class.</p>
  *
+ * @author Apache Software Foundation
  * @author Apache Ant - DateUtils
  * @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
- * @author Stephen Colebourne
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.0
  * @version $Id$

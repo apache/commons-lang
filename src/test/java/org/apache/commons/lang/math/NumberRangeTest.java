@@ -22,9 +22,9 @@ package org.apache.commons.lang.math;
 /**
  * Test cases for the {@link NumberRange} class.
  * 
+ * @author Apache Software Foundation
  * @author <a href="mailto:chrise@esha.com">Christopher Elkins</a>
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @author Stephen Colebourne
  * @version $Id$
  */
 public final class NumberRangeTest extends AbstractRangeTest {

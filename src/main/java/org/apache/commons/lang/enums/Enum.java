@@ -276,7 +276,7 @@ import org.apache.commons.lang.StringUtils;
  * </pre>
  * 
  * @author Apache Avalon project
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Chris Webb
  * @author Mike Bowler
  * @author Matthias Eichel

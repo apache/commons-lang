@@ -84,7 +84,7 @@ import org.apache.commons.lang.ObjectUtils;
  * <p>The exact format of the <code>toString</code> is determined by
  * the {@link ToStringStyle} passed into the constructor.</p>
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Gary Gregory
  * @author Pete Gieser
  * @since 1.0

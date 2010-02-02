@@ -31,8 +31,8 @@ import java.util.Map;
  * Validate.notNull( surname, "The surname must not be null");
  * </pre>
  *
+ * @author Apache Software Foundation
  * @author <a href="mailto:ola.berg@arkitema.se">Ola Berg</a>
- * @author Stephen Colebourne
  * @author Gary Gregory
  * @author Norm Deane
  * @since 2.0

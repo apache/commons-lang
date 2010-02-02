@@ -74,8 +74,8 @@ import org.apache.commons.lang.ArrayUtils;
  * }
  * </pre>
  *
+ * @author Apache Software Foundation
  * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
- * @author Stephen Colebourne
  * @author Gary Gregory
  * @author Pete Gieser
  * @author Arun Mammen Thomas

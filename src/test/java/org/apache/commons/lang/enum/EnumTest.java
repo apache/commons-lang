@@ -35,7 +35,7 @@ import org.apache.commons.lang.SerializationUtils;
 /**
  * Test cases for the {@link Enum} class.
  * 
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Gary D. Gregory
  * @version $Id$
  */

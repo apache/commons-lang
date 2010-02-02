@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * Extended enumeration.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class Extended2Enum extends Extended1Enum {

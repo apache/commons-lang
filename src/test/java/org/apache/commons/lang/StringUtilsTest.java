@@ -29,8 +29,8 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.StringUtils}.
  *
+ * @author Apache Software Foundation
  * @author Daniel L. Rall
- * @author Stephen Colebourne
  * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
  * @author Holger Krauth

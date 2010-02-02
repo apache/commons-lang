@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.builder.ToStringStyle}.
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class StandardToStringStyleTest extends TestCase {
@@ -61,7 +61,7 @@ public class StandardToStringStyleTest extends TestCase {
 
     protected void tearDown() throws Exception {
         super.tearDown();
-        ToStringBuilder.setDefaultStyle(STYLE);
+        ToStringBuilder.setDefaultStyle(ToStringStyle.DEFAULT_STYLE);
     }
 
     //----------------------------------------------------------------

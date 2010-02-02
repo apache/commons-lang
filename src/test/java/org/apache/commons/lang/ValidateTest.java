@@ -31,7 +31,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang.Validate}.
  *
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Norm Deane
  * @version $Id$
  */

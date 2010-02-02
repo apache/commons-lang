@@ -32,7 +32,7 @@ import junit.framework.TestCase;
  * 
  * Only limited testing can be performed.
  * 
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Tetsuya Kaneuchi
  * @author Gary D. Gregory
  * @version $Id$

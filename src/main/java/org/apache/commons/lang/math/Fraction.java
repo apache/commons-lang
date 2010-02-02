@@ -25,8 +25,8 @@ import java.math.BigInteger;
  * <p>This class is immutable, and interoperable with most methods that accept
  * a <code>Number</code>.</p>
  *
+ * @author Apache Software Foundation
  * @author Travis Reeder
- * @author Stephen Colebourne
  * @author Tim O'Brien
  * @author Pete Gieser
  * @author C. Scott Ananian

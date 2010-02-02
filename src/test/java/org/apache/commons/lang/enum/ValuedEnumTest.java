@@ -27,7 +27,7 @@ import org.apache.commons.lang.SerializationUtils;
 /**
  * Test cases for the {@link Enum} class.
  *
- * @author <a href="mailto:scolebourne@joda.org">Stephen Colebourne</a>
+ * @author Apache Software Foundation
  * @version $Id$
  */
 

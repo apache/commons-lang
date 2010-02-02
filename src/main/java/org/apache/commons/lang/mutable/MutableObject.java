@@ -23,6 +23,7 @@ import java.io.Serializable;
  * A mutable <code>Object</code> wrapper.
  * 
  * @since 2.1
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class MutableObject implements Mutable, Serializable {

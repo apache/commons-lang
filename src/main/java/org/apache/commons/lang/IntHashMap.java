@@ -28,9 +28,9 @@ package org.apache.commons.lang;
  * not be supported in future releases of Apache Commons Lang.  Utilities of
  * this sort may be included in future releases of Apache Commons Collections.</p>
  *
+ * @author Apache Software Foundation
  * @author Justin Couch
  * @author Alex Chaffee (alex@apache.org)
- * @author Stephen Colebourne
  * @since 2.0
  * @version $Revision$
  * @see java.util.HashMap

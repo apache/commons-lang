@@ -23,6 +23,7 @@ import org.apache.commons.lang.math.NumberUtils;
  * 
  * @see Float
  * @since 2.1
+ * @author Apache Software Foundation
  * @version $Id$
  */
 public class MutableFloat extends Number implements Comparable, Mutable {

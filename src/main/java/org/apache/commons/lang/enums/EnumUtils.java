@@ -25,7 +25,7 @@ import java.util.Map;
  *
  * @see Enum
  * @see ValuedEnum
- * @author Stephen Colebourne
+ * @author Apache Software Foundation
  * @author Gary Gregory
  * @since 2.1 (class existed in enum package from v1.0)
  * @version $Id$
