@@ -1172,13 +1172,17 @@ public class DateUtilsTest extends TestCase {
         TimeZone.setDefault(defaultZone);
     }
 
-    // http://issues.apache.org/jira/browse/LANG-520
-    public void testLang520() throws ParseException {
-        Date d = new Date();
-        String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
-        Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });
-        // the format loses milliseconds so have to reintroduce them
-        assertEquals("Date not equal to itself ISO formatted and parsed", d.getTime(), d2.getTime() + d.getTime() % 1000); 
+    // http://issues.apache.org/jira/browse/LANG-530
+    public void testLang530() throws ParseException {
+        if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
+            Date d = new Date();
+            String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
+            Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });
+            // the format loses milliseconds so have to reintroduce them
+            assertEquals("Date not equal to itself ISO formatted and parsed", d.getTime(), d2.getTime() + d.getTime() % 1000);
+        } else {
+            this.warn("WARNING: Cannot test SimpleDateFormat with 'Z' since the current version is " + SystemUtils.JAVA_VERSION);
+        }
     }
     
     /**
