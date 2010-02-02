@@ -23,172 +23,206 @@
    $Id$
 -->
 <project name="Lang" default="compile" basedir=".">
-	<!-- ========== Initialize Properties ===================================== -->
-	<property file="${user.home}/${component.name}.build.properties"/>
-	<property file="${user.home}/build.properties"/>
-	<property file="${basedir}/build.properties"/>
-	<property file="${basedir}/default.properties"/>
-	<!-- The Sun Javadoc for versions prior to 1.3 are off-line. -->
-	<property name="jdk.javadoc" value="http://java.sun.com/j2se/1.3/docs/api/"/>
-	<!-- ========== Construct compile classpath =============================== -->
-	<path id="compile.classpath">
-		<pathelement location="${build.home}/classes"/>
-	</path>
-	<!-- ========== Construct unit test classpath ============================= -->
-	<path id="test.classpath">
-		<pathelement location="${build.home}/classes"/>
-		<pathelement location="${build.home}/tests"/>
-		<pathelement location="${junit.jar}"/>
-	</path>
-	<!-- ========== Executable Targets ======================================== -->
-	<target name="init" description="Initialize and evaluate conditionals">
-		<echo message="-------- ${component.name} ${component.version} --------"/>
-		<filter token="name" value="${component.name}"/>
-		<filter token="package" value="${component.package}"/>
-		<filter token="version" value="${component.version}"/>
-		<filter token="compile.source" value="${compile.source}"/>
-		<filter token="compile.target" value="${compile.target}"/>
-	</target>
-	<target name="prepare" depends="init" description="Prepare build directory">
-		<mkdir dir="${build.home}"/>
-		<mkdir dir="${build.home}/classes"/>
-		<mkdir dir="${build.home}/conf"/>
-		<mkdir dir="${build.home}/tests"/>
-	</target>
-	<target name="static" depends="prepare" description="Copy static files to build directory">
-		<tstamp/>
-		<copy todir="${build.home}/conf" filtering="on">
-			<fileset dir="${conf.home}" includes="*.MF"/>
-		</copy>
-	</target>
-	<target name="compile" depends="static" description="Compile shareable components">
-		<javac srcdir="${source.home}" destdir="${build.home}/classes" debug="${compile.debug}" deprecation="${compile.deprecation}" target="${compile.target}" source="${compile.source}" excludes="${compile.excludes}" optimize="${compile.optimize}">
-			<classpath refid="compile.classpath"/>
-		</javac>
-		<copy todir="${build.home}/classes" filtering="on">
-			<fileset dir="${source.home}" excludes="**/*.java"/>
-		</copy>
-	</target>
-	<target name="compile.tests" depends="compile" description="Compile unit test cases">
-		<javac srcdir="${test.home}" destdir="${build.home}/tests" debug="${compile.debug}" deprecation="off" target="${compile.target}" source="${compile.source}" optimize="${compile.optimize}">
-			<classpath refid="test.classpath"/>
-		</javac>
-		<copy todir="${build.home}/tests" filtering="on">
-			<fileset dir="${test.home}" excludes="**/*.java"/>
-		</copy>
-	</target>
-	<target name="clean" description="Clean build and distribution directories">
-		<delete dir="${build.home}"/>
-		<delete dir="${dist.home}"/>
-	</target>
-	<target name="all" depends="clean,compile" description="Clean and compile all components"/>
-	<target name="javadoc" depends="compile" description="Create component Javadoc documentation">
-		<mkdir dir="${dist.home}"/>
-		<mkdir dir="${dist.home}/docs"/>
-		<mkdir dir="${dist.home}/docs/api"/>
-	    <tstamp>
-	        <format property="current.year" pattern="yyyy"/>
-	    </tstamp>
-		<javadoc sourcepath="${source.home}" destdir="${dist.home}/docs/api" overview="${source.home}/org/apache/commons/lang/overview.html" packagenames="org.apache.commons.*" excludepackagenames="${javadoc.excludepackagenames}" author="true" version="true" doctitle="&lt;h1&gt;${component.title}&lt;/h1&gt;" windowtitle="${component.title} (Version ${component.version})" bottom="Copyright &amp;copy; 2001-${current.year} - Apache Software Foundation" use="true" link="${jdk.javadoc}" source="${compile.source}">
-			<classpath refid="compile.classpath"/>
-		</javadoc>
-	</target>
-	<target name="dist" depends="clean,compile,javadoc" description="Create binary distribution">
-		<mkdir dir="${dist.home}"/>
-		<copy file="LICENSE.txt" todir="${dist.home}"/>
-		<copy file="NOTICE.txt" todir="${dist.home}"/>
-		<copy file="RELEASE-NOTES.txt" todir="${dist.home}"/>
-		<antcall target="jar"/>
-        <copy file="${dist.home}/${final.name}.jar" todir="."/>
-        <copy todir="${source.home}/META-INF">
-          <fileset dir="${basedir}" includes="LICENSE*, NOTICE*" />
+
+    <!-- ========== Initialize Properties ===================================== -->
+    <property file="${user.home}/${component.name}.build.properties"/>
+    <property file="${user.home}/build.properties"/>
+    <property file="${basedir}/build.properties"/>
+    <property file="${basedir}/default.properties"/>
+    <!-- The Sun Javadoc for versions prior to 1.3 are off-line. -->
+    <property name="jdk.javadoc" value="http://java.sun.com/j2se/1.3/docs/api/"/>
+
+    <!-- ========== Construct compile classpath =============================== -->
+    <path id="compile.classpath">
+        <pathelement location="${build.home}/classes"/>
+    </path>
+
+    <!-- ========== Construct unit test classpath ============================= -->
+    <path id="test.classpath">
+        <pathelement location="${build.home}/classes"/>
+        <pathelement location="${build.home}/tests"/>
+        <pathelement location="${junit.jar}"/>
+    </path>
+
+    <!-- ========== Executable Targets ======================================== -->
+    <target name="init" description="Initialize and evaluate conditionals">
+        <echo message="-------- ${component.name} ${component.version} --------"/>
+        <filter token="name" value="${component.name}"/>
+        <filter token="package" value="${component.package}"/>
+        <filter token="version" value="${component.version}"/>
+        <filter token="compile.source" value="${compile.source}"/>
+        <filter token="compile.target" value="${compile.target}"/>
+        <mkdir dir="${build.home}"/>
+    </target>
+
+    <!-- ========== Compile Targets ========================================= -->
+    <target name="compile" depends="init" description="Compile shareable components">
+        <mkdir dir="${build.home}/classes"/>
+        <javac srcdir="${source.home}" destdir="${build.home}/classes" debug="${compile.debug}" deprecation="${compile.deprecation}" target="${compile.target}" source="${compile.source}" excludes="${compile.excludes}" optimize="${compile.optimize}">
+            <classpath refid="compile.classpath"/>
+        </javac>
+        <copy todir="${build.home}/classes" filtering="on">
+            <fileset dir="${source.home}" excludes="**/*.java"/>
         </copy>
-		<jar jarfile="${final.name}-sources.jar" basedir="${source.home}" manifest="${build.home}/conf/MANIFEST.MF"/>
-        <delete dir="${source.home}/META-INF"/>
-		<copy file="${final.name}-sources.jar" todir="${dist.home}"/>
-        <copy todir="${dist.home}/docs/api/META-INF">
-          <fileset dir="${basedir}" includes="LICENSE*, NOTICE*" />
+    </target>
+
+    <target name="compile.tests" depends="compile" description="Compile unit test cases">
+        <mkdir dir="${build.home}/tests"/>
+        <javac srcdir="${test.home}" destdir="${build.home}/tests" debug="${compile.debug}" deprecation="off" target="${compile.target}" source="${compile.source}" optimize="${compile.optimize}">
+            <classpath refid="test.classpath"/>
+        </javac>
+        <copy todir="${build.home}/tests" filtering="on">
+            <fileset dir="${test.home}" excludes="**/*.java"/>
         </copy>
-		<jar jarfile="${final.name}-javadoc.jar" basedir="${dist.home}/docs/api" manifest="${build.home}/conf/MANIFEST.MF"/>
-        <delete dir="${dist.home}/docs/api/META-INF"/>
-		<copy file="${final.name}-javadoc.jar" todir="${dist.home}"/>
-		<mkdir dir="${final.name}"/>
-		<move todir="${final.name}/${final.name}">
-			<fileset dir="${dist.home}"/>
-		</move>
-		<tar destfile="${final.name}.tar" basedir="${final.name}"/>
-		<gzip zipfile="${final.name}.tar.gz" src="${final.name}.tar"/>
-		<delete file="${final.name}.tar"/>
-		<fixcrlf srcdir="${final.name}" eol="crlf" includes="**/*.txt"/>
-		<zip destfile="${final.name}.zip" basedir="${final.name}"/>
-		<delete dir="${final.name}"/>
-	</target>
-	<target name="jar" depends="compile" description="Create jar">
-		<mkdir dir="${dist.home}"/>
-		<mkdir dir="${build.home}/classes/META-INF"/>
-		<copy file="LICENSE.txt" tofile="${build.home}/classes/META-INF/LICENSE.txt"/>
-		<copy file="NOTICE.txt" tofile="${build.home}/classes/META-INF/NOTICE.txt"/>
-		<jar jarfile="${dist.home}/${final.name}.jar" basedir="${build.home}/classes" manifest="${build.home}/conf/MANIFEST.MF" excludes="**/*.html"/>
-	</target>
-	<target name="install-jar" depends="jar" description="--> Installs jar file in ${lib.repo}">
-		<copy todir="${lib.repo}" filtering="no">
-			<fileset dir="${dist.home}">
-				<include name="${final.name}.jar"/>
-			</fileset>
-		</copy>
-	</target>
-	<!-- ========== Unit Test Targets ========================================= -->
-	<target name="test" depends="
-                                compile.tests, 
-                                test.lang,
-                                test.builder,
-						        test.enum,
-						        test.enums,
-                                test.exception,
-                                test.math,
-						        test.mutable,
-						        test.reflect,
-        						test.text,
-						        test.time" description="Run all unit test cases">
-		<echo message="Running tests ..."/>
-	</target>
-	<macrodef name="runTestCase">
-		<attribute name="classname"/>
-		<sequential>
-			<junit printsummary="true" showoutput="true" fork="${junit.fork}" haltonerror="${test.failonerror}">
-				<classpath refid="test.classpath"/>
-				<test name="@{classname}"/>
-			</junit>
-		</sequential>
-	</macrodef>
-	<target name="test.lang" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.LangTestSuite"/>
-	</target>
-	<target name="test.builder" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.builder.BuilderTestSuite"/>
-	</target>
-	<target name="test.enum" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.enum.EnumTestSuite"/>
-	</target>
-	<target name="test.enums" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.enums.EnumTestSuite"/>
-	</target>
-	<target name="test.exception" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.exception.ExceptionTestSuite"/>
-	</target>
-	<target name="test.math" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.math.MathTestSuite"/>
-	</target>
-	<target name="test.mutable" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.mutable.MutableTestSuite"/>
-	</target>
-	<target name="test.reflect" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.reflect.ReflectTestSuite"/>
-	</target>
-	<target name="test.text" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.text.TextTestSuite"/>
-	</target>
-	<target name="test.time" depends="compile.tests">
-		<runTestCase classname="org.apache.commons.lang.time.TimeTestSuite"/>
-	</target>
+    </target>
+
+    <!-- ========== Unit Tests ========================================= -->
+    <target name="test" depends="compile.tests" description="Run all unit test cases">
+        <echo message="Running unit tests ..."/>
+        <mkdir dir="${build.home}/test-reports"/>
+        <junit printsummary="true" showoutput="true" fork="yes" haltonfailure="${test.failonerror}">
+            <classpath refid="test.classpath"/>
+            <formatter type="plain"/>
+            <batchtest fork="yes" todir="${build.home}/test-reports">
+                <fileset dir="${test.home}">
+                    <include name="**/*Test.java"/>
+                    <exclude name="**/Abstract*Test.java"/>
+                    <exclude name="**/EntitiesPerformanceTest.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="clean" description="Clean build and distribution directories">
+        <delete dir="${build.home}"/>
+    </target>
+
+    <target name="all" depends="clean,test,compile" description="Clean and compile all components"/>
+
+    <!-- ========== JavaDocs ========================================= -->
+    <target name="javadoc" depends="compile" description="Create component Javadoc documentation">
+        <mkdir dir="${build.home}"/>
+        <mkdir dir="${build.home}/apidocs"/>
+        <tstamp>
+            <format property="current.year" pattern="yyyy"/>
+        </tstamp>
+        <javadoc sourcepath="${source.home}" 
+                 destdir="${build.home}/apidocs" 
+                 overview="${source.home}/org/apache/commons/lang/overview.html" 
+                 packagenames="org.apache.commons.*" 
+                 excludepackagenames="${javadoc.excludepackagenames}" 
+                 author="false" 
+                 version="true" 
+                 doctitle="&lt;h1&gt;Commons Lang ${component.version}&lt;/h1&gt;"
+                 windowtitle="Lang ${component.version}" 
+                 bottom="Copyright &amp;copy; 2001-${current.year} - Apache Software Foundation" 
+                 use="true" 
+                 link="${jdk.javadoc}" 
+                 source="${compile.source}">
+            <classpath refid="compile.classpath"/>
+        </javadoc>
+    </target>
+
+    <!-- ========== Jar Targets ========================================= -->
+    <target name="jar" depends="compile" description="Create jar">
+        <mkdir dir="${build.home}/classes/META-INF"/>
+        <copy file="LICENSE.txt" tofile="${build.home}/classes/META-INF/LICENSE.txt"/>
+        <copy file="NOTICE.txt"  tofile="${build.home}/classes/META-INF/NOTICE.txt"/>
+        <jar jarfile="${build.home}/${final.name}.jar">
+            <manifest>
+                <attribute name="Specification-Title" value="Commons Lang"/>
+                <attribute name="Specification-Version" value="${component.version}"/>
+                <attribute name="Specification-Vendor" value="The Apache Software Foundation"/>
+                <attribute name="Implementation-Title" value="Commons Lang"/>
+                <attribute name="Implementation-Version" value="${component.version}"/> 
+                <attribute name="Implementation-Vendor" value="The Apache Software Foundation"/>
+                <attribute name="Implementation-Vendor-Id" value="org.apache"/>
+                <attribute name="X-Compile-Source-JDK" value="${compile.source}"/>
+                <attribute name="X-Compile-Target-JDK" value="${compile.target}"/>
+            </manifest>
+            <fileset dir="${build.home}/classes">
+                <include name="**/*.class"/>
+                <include name="**/LICENSE.txt"/>
+                <include name="**/NOTICE.txt"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="javadoc-jar" depends="javadoc" description="Create JavaDoc jar">
+        <jar jarfile="${build.home}/${final.name}-javadoc.jar">
+            <manifest>
+                <attribute name="Specification-Title" value="Commons Lang API"/>
+                <attribute name="Specification-Version" value="${component.version}"/>
+                <attribute name="Specification-Vendor" value="The Apache Software Foundation"/>
+                <attribute name="Implementation-Title" value="Commons Lang API"/>
+                <attribute name="Implementation-Version" value="${component.version}"/> 
+                <attribute name="Implementation-Vendor" value="The Apache Software Foundation"/>
+                <attribute name="Implementation-Vendor-Id" value="org.apache"/>
+            </manifest>
+            <fileset dir="${build.home}/apidocs"/>
+            <fileset dir="${basedir}">
+                <include name="LICENSE.txt"/>
+                <include name="NOTICE.txt"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="source-jar" depends="init" description="Create JavaDoc jar">
+        <jar jarfile="${build.home}/${final.name}-sources.jar">
+            <manifest>
+                <attribute name="Specification-Title" value="Commons Lang Source"/>
+                <attribute name="Specification-Version" value="${component.version}"/>
+                <attribute name="Specification-Vendor" value="The Apache Software Foundation"/>
+                <attribute name="Implementation-Title" value="Commons Lang Source"/>
+                <attribute name="Implementation-Version" value="${component.version}"/> 
+                <attribute name="Implementation-Vendor" value="The Apache Software Foundation"/>
+                <attribute name="Implementation-Vendor-Id" value="org.apache"/>
+            </manifest>
+            <fileset dir="${source.home}">
+                <include name="**/*.java"/>
+            </fileset>
+            <fileset dir="${basedir}">
+                <include name="LICENSE.txt"/>
+                <include name="NOTICE.txt"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <!-- ========== Distribution ========================================= -->
+    <target name="dist" depends="clean,jar,source-jar,javadoc-jar" description="Create binary distribution">
+
+        <!-- binary distro -->
+        <zip destfile="${build.home}/${final.name}.zip">
+            <zipfileset dir="${basedir}" prefix="${final.name}"
+                      includes="LICENSE.txt,
+                                NOTICE.txt,
+                                RELEASE-NOTES.txt"
+             />
+            <zipfileset dir="${build.home}" includes="*.jar," prefix="${final.name}"/>
+            <zipfileset dir="${build.home}/apidocs" prefix="${final.name}/apidocs"/>
+        </zip>
+        <tar destfile="${build.home}/${final.name}.tar.gz" compression="gzip">
+            <zipfileset src="${build.home}/${final.name}.zip"/>
+        </tar>
+
+        <!-- source distro -->
+        <zip destfile="${build.home}/${final.name}-src.zip">
+            <zipfileset dir="${basedir}" prefix="${final.name}-src"
+                      includes="build.xml,
+                                build.xml,
+                                checkstyle.xml,
+                                default.properties,
+                                LICENSE.txt,
+                                NOTICE.txt,
+                                pom.xml,
+                                RELEASE-NOTES.txt"
+             />
+            <zipfileset dir="${basedir}/src"   prefix="${final.name}-src/src"/>
+            <zipfileset dir="${basedir}/xdocs" prefix="${final.name}-src/xdocs"/>
+        </zip>
+        <tar destfile="${build.home}/${final.name}-src.tar.gz" compression="gzip">
+            <zipfileset src="${build.home}/${final.name}-src.zip"/>
+        </tar>
+
+    </target>
 </project>
