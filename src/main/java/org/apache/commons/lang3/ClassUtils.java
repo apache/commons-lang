@@ -507,13 +507,17 @@ public class ClassUtils {
      * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
      * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
      *
+     * <p><strong>Since Lang 3.0,</strong> this method will default behavior for
+     * calculating assignability between primitive and wrapper types <em>corresponding
+     * to the running Java version</em>; i.e. autoboxing will be the default
+     * behavior in VMs running Java versions >= 1.5.</p>
+     *
      * @param cls  the Class to check, may be null
      * @param toClass  the Class to try to assign into, returns false if null
      * @return <code>true</code> if assignment possible
      */
-    //TODO when we bump the major version we should default autoboxing to true on platforms >= 1.5
     public static boolean isAssignable(Class<?> cls, Class<?> toClass) {
-        return isAssignable(cls, toClass, false);
+        return isAssignable(cls, toClass, SystemUtils.isJavaVersionAtLeast(1.5f));
     }
 
     /**
