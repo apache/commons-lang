@@ -1344,6 +1344,7 @@ public class DateUtilsTest extends TestCase {
 
         
         // Fix for http://issues.apache.org/bugzilla/show_bug.cgi?id=25560
+        // == https://issues.apache.org/jira/browse/LANG-13
         // Test ceiling across the beginning of daylight saving time
         TimeZone.setDefault(zone);
         dateTimeParser.setTimeZone(zone);
@@ -1373,13 +1374,13 @@ public class DateUtilsTest extends TestCase {
                 dateTimeParser.parse("March 31, 2003 00:00:00.000"),
                 DateUtils.ceiling((Object) cal7, Calendar.DATE));
         
-        assertEquals("ceiling MET date across DST change-over",
-                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                DateUtils.ceiling(date4, Calendar.HOUR_OF_DAY));
-        assertEquals("ceiling MET date across DST change-over",
-                dateTimeParser.parse("March 30, 2003 03:00:00.000"),
-                DateUtils.ceiling((Object) cal4, Calendar.HOUR_OF_DAY));
         if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
+            assertEquals("ceiling MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                    DateUtils.ceiling(date4, Calendar.HOUR_OF_DAY));
+            assertEquals("ceiling MET date across DST change-over",
+                    dateTimeParser.parse("March 30, 2003 03:00:00.000"),
+                    DateUtils.ceiling((Object) cal4, Calendar.HOUR_OF_DAY));
             assertEquals("ceiling MET date across DST change-over",
                     dateTimeParser.parse("March 30, 2003 03:00:00.000"),
                     DateUtils.ceiling(date5, Calendar.HOUR_OF_DAY));
