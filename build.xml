@@ -82,8 +82,10 @@
         <mkdir dir="${build.home}/test-reports"/>
         <junit printsummary="true" showoutput="true" fork="yes" haltonfailure="${test.failonerror}">
             <classpath refid="test.classpath"/>
-            <formatter type="plain"/>
-            <batchtest fork="yes" todir="${build.home}/test-reports">
+            <formatter type="plain" usefile="true" />
+            <!-- If test.entry is defined, run a single test, otherwise run all valid tests -->
+            <test name="${test.entry}" todir="${build.home}/test-reports" if="test.entry"/>
+            <batchtest fork="yes" todir="${build.home}/test-reports" unless="test.entry">
                 <fileset dir="${test.home}">
                     <include name="**/*Test.java"/>
                     <exclude name="**/Abstract*Test.java"/>
