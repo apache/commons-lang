@@ -23,35 +23,12 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests for {@link org.apache.commons.lang.text.CompositeFormat}.
  */
 public class CompositeFormatTest extends TestCase {
-
-    /**
-     * Main method.
-     * 
-     * @param args  command line arguments, ignored
-     */
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    /**
-     * Return a new test suite containing this test case.
-     * 
-     * @return a new test suite containing this test case
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite(CompositeFormatTest.class);
-        suite.setName("CompositeFormat Tests");
-        return suite;
-    }
 
     /**
      * Create a new test case with the specified name.

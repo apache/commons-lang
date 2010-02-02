@@ -22,10 +22,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 /**
  * Tests the org.apache.commons.lang.exception.NestableDelegate class.
  *
@@ -56,11 +52,6 @@ public class NestableDelegateTest extends junit.framework.TestCase {
     public void setUp()
     {
         lineSeparator = System.getProperty("line.separator");
-    }
-    
-    public static Test suite()
-    {
-        return new TestSuite(NestableDelegateTest.class);
     }
     
     /**
@@ -573,11 +564,6 @@ public class NestableDelegateTest extends junit.framework.TestCase {
             i++;
         }
         return i;
-    }
-    
-    public static void main(String args[])
-    {
-        TestRunner.run(suite());
     }
 }
 

@@ -16,9 +16,7 @@
  */
 package org.apache.commons.lang;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Test cases for the {@link NumberRange} class.
@@ -57,13 +55,6 @@ public final class NumberRangeTest extends TestCase {
         tenToTwenty = new NumberRange(ten, twenty);
         fifteenToTwentyFive = new NumberRange( fifteen, twentyFive);
         fiveToNine = new NumberRange( five, nine );
-    }
-
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(NumberRangeTest.class);
-        suite.setName("NumberRange Tests");
-        return suite;
     }
 
     public void testMaxMin() {

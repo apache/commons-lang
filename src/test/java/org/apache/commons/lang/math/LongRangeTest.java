@@ -18,9 +18,6 @@
  */
 package org.apache.commons.lang.math;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import java.util.Arrays;
 
 /**
@@ -33,12 +30,6 @@ public final class LongRangeTest extends AbstractRangeTest {
 
     public LongRangeTest(String name) {
         super(name);
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(LongRangeTest.class);
-        suite.setName("LongRange Tests");
-        return suite;
     }
     
     public void setUp() {

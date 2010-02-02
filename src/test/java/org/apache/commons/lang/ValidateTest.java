@@ -26,10 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+
 /**
  * Unit tests {@link org.apache.commons.lang.Validate}.
  *
@@ -41,24 +39,6 @@ public class ValidateTest extends TestCase {
 
     public ValidateTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ValidateTest.class);
-        suite.setName("Validate Tests");
-        return suite;
-    }
-
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     //-----------------------------------------------------------------------

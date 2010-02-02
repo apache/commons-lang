@@ -17,9 +17,7 @@
 
 package org.apache.commons.lang.math;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * <p>
@@ -56,12 +54,6 @@ public class RangeTest extends TestCase {
         public Number getMinimumNumber() {
             return new Byte(min);
         }
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(RangeTest.class);
-        suite.setName("Range Tests");
-        return suite;
     }
 
     public RangeTest(String name) {

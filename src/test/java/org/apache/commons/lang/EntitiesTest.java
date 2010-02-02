@@ -18,10 +18,7 @@ package org.apache.commons.lang;
 
 import java.io.StringWriter;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests for {@link StringEscapeUtils}.
@@ -34,16 +31,6 @@ public class EntitiesTest extends TestCase
 {
     public EntitiesTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(EntitiesTest.class);
-        suite.setName("EntitiesTest Tests");
-        return suite;
     }
 
     Entities entities;

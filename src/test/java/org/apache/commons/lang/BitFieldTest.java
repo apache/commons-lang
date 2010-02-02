@@ -16,10 +16,7 @@
  */
 package org.apache.commons.lang;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Class to test BitField functionality
@@ -30,16 +27,6 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class BitFieldTest extends TestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(BitFieldTest.class);
-        suite.setName("BitField Tests");
-        return suite;
-    }
 
     private static final BitField bf_multi  = new BitField(0x3F80);
     private static final BitField bf_single = new BitField(0x4000);

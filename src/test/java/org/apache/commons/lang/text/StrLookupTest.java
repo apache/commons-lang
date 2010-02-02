@@ -20,10 +20,7 @@ package org.apache.commons.lang.text;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Test class for StrLookup.
@@ -31,34 +28,6 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class StrLookupTest extends TestCase {
-
-    /**
-     * Main method.
-     * 
-     * @param args  command line arguments, ignored
-     */
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    /**
-     * Return a new test suite containing this test case.
-     * 
-     * @return a new test suite containing this test case
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite(StrLookupTest.class);
-        suite.setName("StrLookup Tests");
-        return suite;
-    }
-
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
 
     //-----------------------------------------------------------------------
     public void testNoneLookup() {

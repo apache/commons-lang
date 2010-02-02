@@ -22,9 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Test cases for the {@link Enum} class.
@@ -40,12 +38,6 @@ public final class EnumUtilsTest extends TestCase {
     }
 
     public void setUp() {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(EnumUtilsTest.class);
-        suite.setName("EnumUtils Tests");
-        return suite;
     }
 
     //-----------------------------------------------------------------------

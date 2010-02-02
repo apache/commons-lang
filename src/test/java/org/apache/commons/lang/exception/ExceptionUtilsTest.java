@@ -28,8 +28,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import junit.framework.Assert;
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.apache.commons.lang.SystemUtils;
 
@@ -71,9 +69,6 @@ public class ExceptionUtilsTest extends junit.framework.TestCase {
         super(name);
     }
 
-    public static Test suite() {
-        return new TestSuite(ExceptionUtilsTest.class);
-    }
 
     public void setUp() {
         withoutCause = createExceptionWithoutCause();

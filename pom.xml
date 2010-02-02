@@ -409,8 +409,6 @@
           </includes>
           <excludes>
             <exclude>**/EntitiesPerformanceTest.java</exclude>
-            <exclude>**/*TestSuite.java</exclude>
-            <exclude>**/AllLangTestSuite.java</exclude>
           </excludes>
         </configuration>
       </plugin>

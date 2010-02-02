@@ -18,9 +18,6 @@
  */
 package org.apache.commons.lang.math;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 /**
  * Test cases for the {@link DoubleRange} class.
  *
@@ -31,12 +28,6 @@ public final class DoubleRangeTest extends AbstractRangeTest {
 
     public DoubleRangeTest(String name) {
         super(name);
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(DoubleRangeTest.class);
-        suite.setName("DoubleRange Tests");
-        return suite;
     }
     
     public void setUp() {

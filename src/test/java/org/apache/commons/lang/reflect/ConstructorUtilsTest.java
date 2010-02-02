@@ -21,9 +21,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.math.NumberUtils;
@@ -78,15 +76,6 @@ public class ConstructorUtilsTest extends TestCase {
         classCache = new HashMap();
     }
 
-    /**
-     * Run the test cases as a suite.
-     * @return the Test
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ConstructorUtilsTest.class);
-        suite.setName("ConstructorUtils Tests");
-        return suite;
-    }
 
     protected void setUp() throws Exception {
         super.setUp();

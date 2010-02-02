@@ -16,10 +16,7 @@
  */
 package org.apache.commons.lang.builder;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Test case for ToStringStyle.
@@ -31,20 +28,6 @@ public class ToStringStyleTest extends TestCase {
 
     public ToStringStyleTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ToStringStyleTest.class);
-        suite.setName("ToStringStyle Tests");
-        return suite;
-    }
-
-    protected void setUp() throws Exception {
-        super.setUp();
     }
 
     private static class ToStringStyleImpl extends ToStringStyle {

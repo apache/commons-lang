@@ -16,10 +16,7 @@
  */
 package org.apache.commons.lang;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 public class EntitiesPerformanceTest extends TestCase {
     private int COUNT = 10000;
@@ -36,15 +33,6 @@ public class EntitiesPerformanceTest extends TestCase {
 
     public EntitiesPerformanceTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(EntitiesPerformanceTest.class);
-        return suite;
     }
 
     public void setUp() {

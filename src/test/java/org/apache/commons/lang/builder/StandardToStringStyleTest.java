@@ -21,10 +21,7 @@ import java.util.HashMap;
 
 import org.apache.commons.lang.builder.ToStringStyleTest.Person;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests {@link org.apache.commons.lang.builder.ToStringStyle}.
@@ -56,15 +53,6 @@ public class StandardToStringStyleTest extends TestCase {
         super(name);
     }
 
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(StandardToStringStyleTest.class);
-        suite.setName("StandardToStringStyle Tests");
-        return suite;
-    }
 
     protected void setUp() throws Exception {
         super.setUp();

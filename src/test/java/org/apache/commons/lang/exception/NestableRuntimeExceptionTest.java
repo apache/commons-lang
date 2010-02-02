@@ -20,10 +20,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
 import java.io.PrintStream;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 /**
  * Tests the org.apache.commons.lang.exception.NestableRuntimeException class.
  *
@@ -51,30 +47,10 @@ public class NestableRuntimeExceptionTest extends AbstractNestableTest {
     }
     
     /**
-     * Returns the test suite
-     *
-     * @return the test suite
-     */
-    public static Test suite()
-    {
-        return new TestSuite(NestableRuntimeExceptionTest.class);
-    }
-    
-    /**
      * Tears down instance variables required by this test case.
      */
     public void tearDown()
     {
-    }
-    
-    /**
-     * Command line entry point for running the test suite.
-     *
-     * @param args array of command line arguments
-     */
-    public static void main(String args[])
-    {
-        TestRunner.run(suite());
     }
     
     /**

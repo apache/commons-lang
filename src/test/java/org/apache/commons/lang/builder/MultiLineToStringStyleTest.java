@@ -19,10 +19,7 @@ package org.apache.commons.lang.builder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.lang.builder.ToStringStyleTest.Person;
@@ -42,15 +39,6 @@ public class MultiLineToStringStyleTest extends TestCase {
         super(name);
     }
 
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(MultiLineToStringStyleTest.class);
-        suite.setName("MultiLineToStringStyle Tests");
-        return suite;
-    }
 
     protected void setUp() throws Exception {
         super.setUp();

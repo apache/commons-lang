@@ -18,10 +18,6 @@ package org.apache.commons.lang.exception;
 
 import java.io.EOFException;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 /**
  * Tests the org.apache.commons.lang.exception.NestableError class.
  *
@@ -47,32 +43,12 @@ public class NestableErrorTest extends AbstractNestableTest {
     public void setUp()
     {
     }
-
-    /**
-     * Returns the test suite
-     *
-     * @return the test suite
-     */
-    public static Test suite()
-    {
-        return new TestSuite(NestableErrorTest.class);
-    }
     
     /**
      * Tears down instance variables required by this test case.
      */
     public void tearDown()
     {
-    }
-
-    /**
-     * Command line entry point for running the test suite.
-     *
-     * @param args array of command line arguments
-     */
-    public static void main(String args[])
-    {
-        TestRunner.run(suite());
     }
 
     /**

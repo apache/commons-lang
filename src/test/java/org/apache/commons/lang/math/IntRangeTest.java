@@ -18,9 +18,6 @@
  */
 package org.apache.commons.lang.math;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import java.util.Arrays;
 
 /**
@@ -35,12 +32,6 @@ public final class IntRangeTest extends AbstractRangeTest {
 
     public IntRangeTest(String name) {
         super(name);
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(IntRangeTest.class);
-        suite.setName("IntRange Tests");
-        return suite;
     }
     
     public void setUp() {

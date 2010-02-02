@@ -17,10 +17,7 @@
 
 package org.apache.commons.lang.text;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests for {@link org.apache.commons.lang.text.StrMatcher}.
@@ -32,26 +29,6 @@ public class StrMatcherTest extends TestCase {
     private static final char[] BUFFER1 = "0,1\t2 3\n\r\f\u0000'\"".toCharArray();
 
     private static final char[] BUFFER2 = "abcdef".toCharArray();
-
-    /**
-     * Main method.
-     * 
-     * @param args  command line arguments, ignored
-     */
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    /**
-     * Return a new test suite containing this test case.
-     * 
-     * @return a new test suite containing this test case
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite(StrMatcherTest.class);
-        suite.setName("StrMatcher Tests");
-        return suite;
-    }
 
     /**
      * Create a new test case with the specified name.

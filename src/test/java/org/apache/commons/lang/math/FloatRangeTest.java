@@ -18,9 +18,6 @@
  */
 package org.apache.commons.lang.math;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 /**
  * Test cases for the {@link FloatRange} class.
  *
@@ -31,12 +28,6 @@ public final class FloatRangeTest extends AbstractRangeTest {
 
     public FloatRangeTest(String name) {
         super(name);
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(FloatRangeTest.class);
-        suite.setName("FloatRange Tests");
-        return suite;
     }
     
     public void setUp() {

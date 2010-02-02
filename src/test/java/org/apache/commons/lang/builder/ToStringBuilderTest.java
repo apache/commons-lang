@@ -20,10 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests for {@link org.apache.commons.lang.builder.ToStringBuilder}.
@@ -40,24 +37,6 @@ public class ToStringBuilderTest extends TestCase {
     
     public ToStringBuilderTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ToStringBuilderTest.class);
-        suite.setName("ToStringBuilder Tests");
-        return suite;
-    }
-
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     //-----------------------------------------------------------------------

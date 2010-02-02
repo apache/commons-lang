@@ -22,10 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ObjectUtils;
@@ -40,16 +37,6 @@ public class StrTokenizerTest extends TestCase {
     private static final String CSV_SIMPLE_FIXTURE = "A,b,c";
 
     private static final String TSV_SIMPLE_FIXTURE = "A\tb\tc";
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(StrTokenizerTest.class);
-        suite.setName("TokenizerTest Tests");
-        return suite;
-    }
 
     /**
      * JUnit constructor.

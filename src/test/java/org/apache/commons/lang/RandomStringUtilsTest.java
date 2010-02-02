@@ -20,9 +20,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.Random;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests {@link org.apache.commons.lang.RandomStringUtils}.
@@ -40,24 +37,6 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
         super(name);
     }
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(RandomStringUtilsTest.class);
-        suite.setName("RandomStringUtils Tests");
-        return suite;
-    }
-    
-    /**
-     * Set up instance variables required by this test case.
-     */
-    public void setUp() {
-    }
-    
-    /**
-     * Tear down instance variables required by this test case.
-     */
-    public void tearDown() {
-    }
-    
     //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new RandomStringUtils());
@@ -343,10 +322,6 @@ public class RandomStringUtilsTest extends junit.framework.TestCase {
         assertEquals(orig.length(), copy.length());
         // just to be complete
         assertEquals(orig, copy);
-    }
-
-    public static void main(String args[]) {
-        TestRunner.run(suite());
     }
 }
 

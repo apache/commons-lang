@@ -18,9 +18,7 @@ package org.apache.commons.lang.enums;
 
 import java.net.URLClassLoader;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Test cases for the {@link Enum} class equals method.
@@ -36,12 +34,6 @@ public final class EnumEqualsTest extends TestCase {
     }
 
     public void setUp() {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(EnumEqualsTest.class);
-        suite.setName("Enum equals Tests");
-        return suite;
     }
 
     //-----------------------------------------------------------------------

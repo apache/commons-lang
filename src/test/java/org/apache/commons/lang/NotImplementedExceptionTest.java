@@ -22,10 +22,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.apache.commons.lang.exception.NestableException;
 
@@ -37,15 +34,6 @@ import org.apache.commons.lang.exception.NestableException;
  * @see NotImplementedException
  */
 public class NotImplementedExceptionTest extends TestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        return new TestSuite(NotImplementedExceptionTest.class);
-    }
-
     public NotImplementedExceptionTest(String testName) {
         super(testName);
     }

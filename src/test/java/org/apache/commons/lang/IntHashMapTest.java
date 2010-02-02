@@ -16,10 +16,7 @@
  */
 package org.apache.commons.lang;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Tests for the IntHashMap class.
@@ -28,16 +25,6 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class IntHashMapTest extends TestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(IntHashMapTest.class);
-        suite.setName("IntHashMapTest Tests");
-        return suite;
-    }
 
     public void testConstructor() {
         try {

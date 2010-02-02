@@ -17,10 +17,7 @@
 
 package org.apache.commons.lang;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Tests CharEncoding.
@@ -30,16 +27,6 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class CharEncodingTest extends TestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(CharEncodingTest.class);
-        suite.setName("CharEncoding Tests");
-        return suite;
-    }
 
     private void assertSupportedEncoding(String name) {
         assertTrue("Encoding should be supported: " + name, CharEncoding.isSupported(name));

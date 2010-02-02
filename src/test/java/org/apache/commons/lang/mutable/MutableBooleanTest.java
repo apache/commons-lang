@@ -17,10 +17,7 @@
 
 package org.apache.commons.lang.mutable;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * JUnit tests.
@@ -31,14 +28,6 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class MutableBooleanTest extends TestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        return new TestSuite(MutableBooleanTest.class);
-    }
 
     public MutableBooleanTest(String testName) {
         super(testName);

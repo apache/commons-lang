@@ -20,10 +20,7 @@ package org.apache.commons.lang.text;
 import java.util.HashMap;
 import java.util.Map;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.apache.commons.lang.mutable.MutableObject;
 
@@ -37,25 +34,6 @@ public class StrSubstitutorTest extends TestCase {
 
     private Map values;
 
-    /**
-     * Main method.
-     * 
-     * @param args  command line arguments, ignored
-     */
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    /**
-     * Return a new test suite containing this test case.
-     * 
-     * @return a new test suite containing this test case
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite(StrSubstitutorTest.class);
-        suite.setName("StrSubstitutor Tests");
-        return suite;
-    }
 
     protected void setUp() throws Exception {
         super.setUp();

@@ -19,9 +19,7 @@ package org.apache.commons.lang;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Unit tests {@link org.apache.commons.lang.NumberUtils}.
@@ -37,12 +35,6 @@ public class NumberUtilsTest extends TestCase {
 
     public NumberUtilsTest(String name) {
         super(name);
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(NumberUtilsTest.class);
-        suite.setName("NumberUtils Tests");
-        return suite;
     }
 
     //---------------------------------------------------------------------

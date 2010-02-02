@@ -23,10 +23,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.apache.commons.lang.SerializationUtils;
 
@@ -43,25 +40,6 @@ public class FastDateFormatTest extends TestCase {
 
     public FastDateFormatTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(FastDateFormatTest.class);
-        suite.setName("FastDateFormat Tests");
-
-        return suite;
-    }
-
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     public void test_getInstance() {

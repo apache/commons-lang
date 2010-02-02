@@ -16,10 +16,7 @@
  */
 package org.apache.commons.lang;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.apache.commons.lang.exception.Nestable;
 
@@ -31,14 +28,6 @@ import org.apache.commons.lang.exception.Nestable;
  * @see UnhandledException
  */
 public class UnhandledExceptionTest extends TestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        return new TestSuite(UnhandledExceptionTest.class);
-    }
 
     public UnhandledExceptionTest(String testName) {
         super(testName);

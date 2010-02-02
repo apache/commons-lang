@@ -16,10 +16,7 @@
  */
 package org.apache.commons.lang;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * JUnit tests.
@@ -30,14 +27,6 @@ import junit.textui.TestRunner;
  * @see NullArgumentException
  */
 public class NullArgumentExceptionTest extends TestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        return new TestSuite(NullArgumentExceptionTest.class);
-    }
 
     public NullArgumentExceptionTest(String testName) {
         super(testName);

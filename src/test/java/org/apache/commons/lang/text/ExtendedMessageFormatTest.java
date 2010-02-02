@@ -33,10 +33,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang.SystemUtils;
-
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Test case for {@link ExtendedMessageFormat}.
@@ -47,17 +44,6 @@ import junit.framework.TestSuite;
 public class ExtendedMessageFormatTest extends TestCase {
 
     private Map registry = new HashMap();
-
-    /**
-     * Return a new test suite containing this test case.
-     * 
-     * @return a new test suite containing this test case
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ExtendedMessageFormatTest.class);
-        suite.setName("ExtendedMessageFormat Tests");
-        return suite;
-    }
 
     /**
      * Create a new test case.
@@ -72,10 +58,6 @@ public class ExtendedMessageFormatTest extends TestCase {
         super.setUp();
         registry.put("lower", new LowerCaseFormatFactory());
         registry.put("upper", new UpperCaseFormatFactory());
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     /**

@@ -20,19 +20,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 import junit.framework.TestCase;
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 
 public class DateUtilsFragmentTest extends TestCase {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(DateUtilsFragmentTest.class);
-        suite.setName("DateUtils Fragment Tests");
-        return suite;
-    }
 
     private static final int months = 7;   // second final prime before 12
     private static final int days = 23;    // second final prime before 31 (and valid)

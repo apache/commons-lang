@@ -19,9 +19,6 @@
 
 package org.apache.commons.lang.math;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 /**
  * Test cases for the {@link NumberRange} class.
  * 
@@ -31,12 +28,6 @@ import junit.framework.TestSuite;
  * @version $Id$
  */
 public final class NumberRangeTest extends AbstractRangeTest {
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(NumberRangeTest.class);
-        suite.setName("NumberRange Tests");
-        return suite;
-    }
 
     public NumberRangeTest(String name) {
         super(name);

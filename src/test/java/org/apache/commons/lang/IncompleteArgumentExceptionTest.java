@@ -16,10 +16,7 @@
  */
 package org.apache.commons.lang;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * JUnit tests.
@@ -29,14 +26,6 @@ import junit.textui.TestRunner;
  * @see IncompleteArgumentException
  */
 public class IncompleteArgumentExceptionTest extends TestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        return new TestSuite(IncompleteArgumentExceptionTest.class);
-    }
 
     public IncompleteArgumentExceptionTest(String testName) {
         super(testName);

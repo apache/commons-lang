@@ -19,10 +19,7 @@ package org.apache.commons.lang;
 
 import java.util.Arrays;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Tests ArrayUtils add methods.
@@ -31,15 +28,6 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class ArrayUtilsAddTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ArrayUtilsAddTest.class);
-        suite.setName("ArrayUtils add Tests");
-        return suite;
-    }
 
     public void testJira567(){
         Number[] n;

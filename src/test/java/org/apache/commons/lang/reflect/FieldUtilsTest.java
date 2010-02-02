@@ -26,10 +26,7 @@ import org.apache.commons.lang.reflect.testbed.PubliclyShadowedChild;
 import org.apache.commons.lang.reflect.testbed.StaticContainer;
 import org.apache.commons.lang.reflect.testbed.StaticContainerChild;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 /**
  * Unit tests FieldUtils
  * @author mbenson
@@ -49,15 +46,6 @@ public class FieldUtilsTest extends TestCase {
     private PrivatelyShadowedChild privatelyShadowedChild;
     private Class parentClass = PublicChild.class.getSuperclass();
 
-    /**
-     * Run the test cases as a suite.
-     * @return the Test
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite(FieldUtilsTest.class);
-        suite.setName("FieldUtils Tests");
-        return suite;
-    }
 
     protected void setUp() throws Exception {
         super.setUp();

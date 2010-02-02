@@ -17,10 +17,7 @@
 package org.apache.commons.lang.time;
 
 import junit.framework.Assert;
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * TestCase for StopWatch.
@@ -29,16 +26,6 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class StopWatchTest extends TestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(StopWatchTest.class);
-        suite.setName("StopWatch Tests");
-        return suite;
-    }
 
     public StopWatchTest(String s) {
         super(s);

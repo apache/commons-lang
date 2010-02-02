@@ -18,10 +18,7 @@ package org.apache.commons.lang.builder;
 
 import java.math.BigInteger;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests {@link org.apache.commons.lang.builder.CompareToBuilder}.
@@ -32,25 +29,8 @@ import junit.textui.TestRunner;
  */
 public class CompareToBuilderTest extends TestCase {
 
-  public CompareToBuilderTest(String name) {
-    super(name);
-  }
-     public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(CompareToBuilderTest.class);
-        suite.setName("CompareToBuilder Tests");
-        return suite;
-    }
-
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    public CompareToBuilderTest(String name) {
+        super(name);
     }
 
     //-----------------------------------------------------------------------

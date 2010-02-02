@@ -20,10 +20,7 @@ package org.apache.commons.lang;
 
 import java.lang.reflect.Modifier;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests {@link org.apache.commons.lang.CharSet}.
@@ -36,24 +33,6 @@ public class CharSetTest extends TestCase {
     
     public CharSetTest(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(CharSetTest.class);
-        suite.setName("CharSet Tests");
-        return suite;
-    }
-
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     //-----------------------------------------------------------------------

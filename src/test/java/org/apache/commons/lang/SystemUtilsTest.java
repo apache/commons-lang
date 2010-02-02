@@ -25,10 +25,7 @@ import java.lang.reflect.Modifier;
 import java.util.Locale;
 
 import junit.framework.Assert;
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Unit tests {@link org.apache.commons.lang.SystemUtils}.
@@ -41,15 +38,6 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class SystemUtilsTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(SystemUtilsTest.class);
-        suite.setName("SystemUtils Tests");
-        return suite;
-    }
 
     //-----------------------------------------------------------------------
     // COPIED FROM SystemUtils
@@ -186,14 +174,6 @@ public class SystemUtilsTest extends TestCase {
             return false;
         }
         return OS_NAME.startsWith(osNamePrefix) && OS_VERSION.startsWith(osVersionPrefix);
-    }
-
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     //-----------------------------------------------------------------------

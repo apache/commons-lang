@@ -19,10 +19,7 @@ package org.apache.commons.lang;
 
 import java.util.Arrays;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 /**
  * Tests ArrayUtils remove and removeElement methods.
@@ -31,15 +28,6 @@ import junit.textui.TestRunner;
  * @version $Id$
  */
 public class ArrayUtilsRemoveTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ArrayUtilsRemoveTest.class);
-        suite.setName("ArrayUtils remove Tests");
-        return suite;
-    }
 
     public void testRemoveObjectArray() {
         Object[] array;

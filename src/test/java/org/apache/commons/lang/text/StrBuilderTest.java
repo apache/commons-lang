@@ -21,10 +21,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.Arrays;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.apache.commons.lang.ArrayUtils;
 
@@ -35,26 +32,6 @@ import org.apache.commons.lang.ArrayUtils;
  * @version $Id$
  */
 public class StrBuilderTest extends TestCase {
-
-    /**
-     * Main method.
-     * 
-     * @param args  command line arguments, ignored
-     */
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    /**
-     * Return a new test suite containing this test case.
-     * 
-     * @return a new test suite containing this test case
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite(StrBuilderTest.class);
-        suite.setName("StrBuilder Tests");
-        return suite;
-    }
 
     /**
      * Create a new test case with the specified name.

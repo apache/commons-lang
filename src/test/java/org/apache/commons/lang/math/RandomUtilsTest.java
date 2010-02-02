@@ -18,9 +18,7 @@ package org.apache.commons.lang.math;
 
 import java.util.Random;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Test cases for the {@link RandomUtils} class.
@@ -36,12 +34,6 @@ public final class RandomUtilsTest extends TestCase {
     }
     
     public void setUp() {
-    }
-    
-    public static Test suite() {
-        TestSuite suite = new TestSuite(RandomUtilsTest.class);
-        suite.setName("RandomUtils Tests");
-        return suite;
     }
     
     /** test distribution of nextInt() */

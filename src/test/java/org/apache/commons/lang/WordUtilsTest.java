@@ -19,9 +19,7 @@ package org.apache.commons.lang;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Unit tests for WordUtils class.
@@ -34,12 +32,6 @@ public class WordUtilsTest extends TestCase {
 
     public WordUtilsTest(String name) {
         super(name);
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(WordUtilsTest.class);
-        suite.setName("WordUtilsTests");
-        return suite;
     }
 
     //-----------------------------------------------------------------------
