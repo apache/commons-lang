@@ -468,6 +468,7 @@ public class ClassUtils {
      * @param toClassArray  the array of Classes to try to assign into, may be <code>null</code>
      * @param autoboxing  whether to use implicit autoboxing/unboxing between primitives and wrappers
      * @return <code>true</code> if assignment possible
+     * @since 2.5
      */
     public static boolean isAssignable(Class[] classArray, Class[] toClassArray, boolean autoboxing) {
         if (ArrayUtils.isSameLength(classArray, toClassArray) == false) {
@@ -543,6 +544,7 @@ public class ClassUtils {
      * @param toClass  the Class to try to assign into, returns false if null
      * @param autoboxing  whether to use implicit autoboxing/unboxing between primitives and wrappers
      * @return <code>true</code> if assignment possible
+     * @since 2.5
      */
     public static boolean isAssignable(Class cls, Class toClass, boolean autoboxing) {
         if (toClass == null) {

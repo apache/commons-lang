@@ -69,6 +69,7 @@ public class MutableInt extends Number implements Comparable, Mutable {
      * 
      * @param value  the string to parse, not null
      * @throws NumberFormatException if the string cannot be parsed into an int
+     * @since 2.5
      */
     public MutableInt(String value) throws NumberFormatException {
         super();

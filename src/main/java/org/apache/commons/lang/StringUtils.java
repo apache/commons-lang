@@ -895,7 +895,7 @@ public class StringUtils {
      * @param searchStr  the String to find, may be null
      * @return the first index of the search String,
      *  -1 if no match or <code>null</code> string input
-     * @since 3.0
+     * @since 2.5
      */
     public static int indexOfIgnoreCase(String str, String searchStr) {
         return indexOfIgnoreCase(str, searchStr, 0);
@@ -930,7 +930,7 @@ public class StringUtils {
      * @param startPos  the start position, negative treated as zero
      * @return the first index of the search String,
      *  -1 if no match or <code>null</code> string input
-     * @since 3.0
+     * @since 2.5
      */
     public static int indexOfIgnoreCase(String str, String searchStr, int startPos) {
         if (str == null || searchStr == null) {
@@ -1076,7 +1076,7 @@ public class StringUtils {
      * @param ordinal  the n-th last <code>searchStr</code> to find
      * @return the n-th last index of the search String,
      *  <code>-1</code> (<code>INDEX_NOT_FOUND</code>) if no match or <code>null</code> string input
-     * @since 3.0
+     * @since 2.5
      */
     public static int lastOrdinalIndexOf(String str, String searchStr, int ordinal) {
         return ordinalIndexOf(str, searchStr, ordinal, true);
@@ -1137,7 +1137,7 @@ public class StringUtils {
      * @param searchStr  the String to find, may be null
      * @return the first index of the search String,
      *  -1 if no match or <code>null</code> string input
-     * @since 3.0
+     * @since 2.5
      */
     public static int lastIndexOfIgnoreCase(String str, String searchStr) {
         if (str == null || searchStr == null) {
@@ -1172,7 +1172,7 @@ public class StringUtils {
      * @param startPos  the start position
      * @return the first index of the search String,
      *  -1 if no match or <code>null</code> string input
-     * @since 3.0
+     * @since 2.5
      */
     public static int lastIndexOfIgnoreCase(String str, String searchStr, int startPos) {
         if (str == null || searchStr == null) {
@@ -4503,6 +4503,7 @@ public class StringUtils {
      * @param repeat  number of times to repeat str, negative treated as zero
      * @return a new String consisting of the original String repeated,
      *  <code>null</code> if null String input
+     * @since 2.5
      */
     public static String repeat(String str, int repeat) {
         // Performance tuned for 2.0 (JDK1.4)
@@ -4999,7 +5000,7 @@ public class StringUtils {
      * @param str  the String to upper case, may be null
      * @param locale  the locale that defines the case transformation rules, must not be null
      * @return the upper cased String, <code>null</code> if null String input
-     * @since 3.0
+     * @since 2.5
      */
     public static String upperCase(String str, Locale locale) {
         if (str == null) {
@@ -5048,7 +5049,7 @@ public class StringUtils {
      * @param str  the String to lower case, may be null
      * @param locale  the locale that defines the case transformation rules, must not be null
      * @return the lower cased String, <code>null</code> if null String input
-     * @since 3.0
+     * @since 2.5
      */
     public static String lowerCase(String str, Locale locale) {
         if (str == null) {
@@ -5534,6 +5535,7 @@ public class StringUtils {
      *
      * @param str  the String to check, may be null
      * @return <code>true</code> if only contains lowercase characters, and is non-null
+     * @since 2.5
      */
     public static boolean isAllLowerCase(String str) {
         if (str == null || isEmpty(str)) {
@@ -5564,6 +5566,7 @@ public class StringUtils {
      *
      * @param str  the String to check, may be null
      * @return <code>true</code> if only contains uppercase characters, and is non-null
+     * @since 2.5
      */
     public static boolean isAllUpperCase(String str) {
         if (str == null || isEmpty(str)) {
@@ -5859,6 +5862,7 @@ public class StringUtils {
      * @param middle the String to replace the middle characters with, may be null
      * @param length the length to abbreviate <code>str</code> to.
      * @return the abbreviated String if the above criteria is met, or the original String supplied for abbreviation.
+     * @since 2.5
      */
     public static String abbreviateMiddle(String str, String middle, int length) {
         if (isEmpty(str) || isEmpty(middle)) {
@@ -6331,7 +6335,7 @@ public class StringUtils {
      * @param searchStrings the Strings to find, may be null or empty
      * @return <code>true</code> if the String starts with any of the the prefixes, case insensitive, or
      *  both <code>null</code>
-     * @since 3.0
+     * @since 2.5
      */
     public static boolean startsWithAny(String string, String[] searchStrings) {
         if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {

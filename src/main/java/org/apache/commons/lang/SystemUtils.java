@@ -891,7 +891,7 @@ public class SystemUtils {
      * <p>The field will return <code>false</code> if {@link #JAVA_VERSION} is
      * <code>null</code>.</p>
      * 
-     * @since 3.0
+     * @since 2.5
      */
     public static final boolean IS_JAVA_1_7 = getJavaVersionMatches("1.7");
 
@@ -1097,7 +1097,7 @@ public class SystemUtils {
      * <p>The field will return <code>false</code> if <code>OS_NAME</code> is
      * <code>null</code>.</p>
      *
-     * @since 3.0
+     * @since 2.5
      */
     public static final boolean IS_OS_WINDOWS_7 = getOSMatches(OS_NAME_WINDOWS_PREFIX, "6.1"); 
 

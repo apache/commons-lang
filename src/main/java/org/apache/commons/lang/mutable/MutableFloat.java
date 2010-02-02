@@ -71,6 +71,7 @@ public class MutableFloat extends Number implements Comparable, Mutable {
      * 
      * @param value  the string to parse, not null
      * @throws NumberFormatException if the string cannot be parsed into a float
+     * @since 2.5
      */
     public MutableFloat(String value) throws NumberFormatException {
         super();

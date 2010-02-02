@@ -103,6 +103,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
      * Checks if the current value is <code>true</code>.
      * 
      * @return <code>true</code> if the current value is <code>true</code>
+     * @since 2.5
      */
     public boolean isTrue() {
         return value == true;
@@ -112,6 +113,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
      * Checks if the current value is <code>false</code>.
      * 
      * @return <code>true</code> if the current value is <code>false</code>
+     * @since 2.5
      */
     public boolean isFalse() {
         return value == false;
@@ -132,6 +134,7 @@ public class MutableBoolean implements Mutable, Serializable, Comparable {
      * Gets this mutable as an instance of Boolean.
      *
      * @return a Boolean instance containing the value from this mutable, never null
+     * @since 2.5
      */
     public Boolean toBoolean() {
         return  BooleanUtils.toBooleanObject(this.value);

@@ -975,6 +975,7 @@ public class HashCodeBuilder {
      * HashCodeBuilder itself is.
      * 
      * @return <code>hashCode</code> based on the fields appended
+     * @since 2.5
      */
     public int hashCode() {
         return toHashCode();

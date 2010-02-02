@@ -302,6 +302,7 @@ public class DateUtils {
      * @return the parsed date
      * @throws IllegalArgumentException if the date string or pattern array is null
      * @throws ParseException if none of the date patterns were suitable
+     * @since 2.5
      */
     public static Date parseDateStrictly(String str, String[] parsePatterns) throws ParseException {
         return parseDateWithLeniency(str, parsePatterns, false);
@@ -874,6 +875,7 @@ public class DateUtils {
      * @return the rounded date
      * @throws IllegalArgumentException if the date is <code>null</code>
      * @throws ArithmeticException if the year is over 280 million
+     * @since 2.5
      */
     public static Date ceiling(Date date, int field) {
         if (date == null) {
@@ -900,6 +902,7 @@ public class DateUtils {
      * @return the rounded date (a different object)
      * @throws IllegalArgumentException if the date is <code>null</code>
      * @throws ArithmeticException if the year is over 280 million
+     * @since 2.5
      */
     public static Calendar ceiling(Calendar date, int field) {
         if (date == null) {
@@ -929,6 +932,7 @@ public class DateUtils {
      * @throws ClassCastException if the object type is not a
      *  <code>Date</code> or <code>Calendar</code>
      * @throws ArithmeticException if the year is over 280 million
+     * @since 2.5
      */
     public static Date ceiling(Object date, int field) {
         if (date == null) {
