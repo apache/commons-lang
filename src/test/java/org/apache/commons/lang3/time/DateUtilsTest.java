@@ -1153,8 +1153,8 @@ public class DateUtilsTest extends TestCase {
         TimeZone.setDefault(defaultZone);
     }
 
-    // http://issues.apache.org/jira/browse/LANG-520
-    public void testLang520() throws ParseException {
+    // http://issues.apache.org/jira/browse/LANG-530
+    public void testLang530() throws ParseException {
         Date d = new Date();
         String isoDateStr = DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.format(d);
         Date d2 = DateUtils.parseDate(isoDateStr, new String[] { DateFormatUtils.ISO_DATETIME_TIME_ZONE_FORMAT.getPattern() });
