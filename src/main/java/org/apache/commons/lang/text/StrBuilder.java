@@ -71,7 +71,7 @@ import org.apache.commons.lang.SystemUtils;
  * @since 2.2
  * @version $Id$
  */
-public class StrBuilder {
+public class StrBuilder implements Cloneable {
 
     /**
      * The extra capacity for new builders.
