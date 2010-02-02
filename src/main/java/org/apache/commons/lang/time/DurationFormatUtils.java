@@ -498,7 +498,7 @@ public class DurationFormatUtils {
         for(int i=0; i<sz; i++) {
             char ch = array[i];
             if(inLiteral && ch != '\'') {
-                buffer.append(ch);
+                buffer.append(ch); // buffer can't be null if inLiteral is true
                 continue;
             }
             Object value = null;
