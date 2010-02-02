@@ -203,8 +203,8 @@ public class ClassUtilsTest extends TestCase {
         list.add(new Object());
         try {
             ClassUtils.convertClassNamesToClasses(list);
-            fail();
-        } catch (ClassCastException ex) {}
+            fail("Should not have been able to convert list");
+        } catch (ClassCastException expected) {}
         assertEquals(null, ClassUtils.convertClassNamesToClasses(null));
     }
     
@@ -225,8 +225,8 @@ public class ClassUtilsTest extends TestCase {
         list.add(new Object());
         try {
             ClassUtils.convertClassesToClassNames(list);
-            fail();
-        } catch (ClassCastException ex) {}
+            fail("Should not have been able to convert list");
+        } catch (ClassCastException expected) {}
         assertEquals(null, ClassUtils.convertClassesToClassNames(null));
     }
     

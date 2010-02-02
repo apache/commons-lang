@@ -141,7 +141,6 @@ public class SerializationUtilsTest extends TestCase {
     }
 
     public void testSerializeStreamObjNull() throws Exception {
-        ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         try {
             SerializationUtils.serialize(iMap, null);
         } catch (IllegalArgumentException ex) {
@@ -151,7 +150,6 @@ public class SerializationUtilsTest extends TestCase {
     }
 
     public void testSerializeStreamNullNull() throws Exception {
-        ByteArrayOutputStream streamTest = new ByteArrayOutputStream();
         try {
             SerializationUtils.serialize(null, null);
         } catch (IllegalArgumentException ex) {
