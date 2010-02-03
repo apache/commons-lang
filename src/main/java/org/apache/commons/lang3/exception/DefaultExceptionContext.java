@@ -104,10 +104,11 @@ class DefaultExceptionContext implements ExceptionContext, Serializable {
                     buffer.append("null");
                 }
                 else {
-                    try {valueStr = value.toString();}
-                    catch (Throwable t) {
-                        valueStr = "Excepted on toString(): " + 
-                            ExceptionUtils.getStackTrace(t);
+                    try {
+                        valueStr = value.toString();
+                    }
+                    catch (Exception e) {
+                        valueStr = "Exception thrown on toString(): " + ExceptionUtils.getStackTrace(e);
                     }
                     buffer.append(valueStr);
                 }
