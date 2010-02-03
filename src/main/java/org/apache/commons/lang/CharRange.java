@@ -17,6 +17,8 @@
 package org.apache.commons.lang;
 
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * <p>A contiguous range of characters, optionally negated.</p>
@@ -277,5 +279,108 @@ public final class CharRange implements Serializable {
         }
         return iToString;
     }
-    
+
+    // Expansions
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Returns an iterator which can be used to walk through the characters described by this range.</p>
+     *
+     * @return an iterator to the chars represented by this range
+     * @since 2.5
+     */
+    public Iterator iterator() {
+        return new CharacterIterator(this);
+    }
+
+    /**
+     * Character {@link Iterator}.
+     */
+    private static class CharacterIterator implements Iterator {
+        /** The current character */
+        private char current;
+
+        private CharRange range;
+        private boolean hasNext;
+
+        /**
+         * Construct a new iterator for the character range.
+         *
+         * @param r The character range
+         */
+        private CharacterIterator(CharRange r) {
+            range = r;
+            hasNext = true;
+
+            if (range.negated) {
+                if (range.start == 0) {
+                    if (range.end == Character.MAX_VALUE) {
+                        // This range is an empty set
+                        hasNext = false;
+                    } else {
+                        current = (char) (range.end + 1);
+                    }
+                } else {
+                    current = 0;
+                }
+            } else {
+                current = range.start;
+            }
+        }
+
+        /**
+         * Prepare the next character in the range.
+         */
+        private void prepareNext() {
+            if (range.negated) {
+                if (current == Character.MAX_VALUE) {
+                    hasNext = false;
+                } else if (current + 1 == range.start) {
+                    if (range.end == Character.MAX_VALUE) {
+                        hasNext = false;
+                    } else {
+                        current = (char) (range.end + 1);
+                    }
+                } else {
+                    current = (char) (current + 1);
+                }
+            } else if (current < range.end) {
+                current = (char) (current + 1);
+            } else {
+                hasNext = false;
+            }
+        }
+
+        /**
+         * Has the iterator not reached the end character yet?
+         *
+         * @return <code>true</code> if the iterator has yet to reach the character date
+         */
+        public boolean hasNext() {
+            return hasNext;
+        }
+
+        /**
+         * Return the next character in the iteration
+         *
+         * @return <code>Character</code> for the next character
+         */
+        public Object next() {
+            if (hasNext == false) {
+                throw new NoSuchElementException();
+            }
+            char cur = current;
+            prepareNext();
+            return new Character(cur);
+        }
+
+        /**
+         * Always throws UnsupportedOperationException.
+         *
+         * @throws UnsupportedOperationException
+         * @see java.util.Iterator#remove()
+         */
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
 }

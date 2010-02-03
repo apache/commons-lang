@@ -19,6 +19,8 @@
 package org.apache.commons.lang;
 
 import java.lang.reflect.Modifier;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import junit.framework.TestCase;
 
@@ -403,7 +405,73 @@ public class CharRangeTest extends TestCase {
             assertEquals("The Range must not be null", e.getMessage());
         }
     }
-    
+
+    public void testIterator() {
+        CharRange a = CharRange.is('a');
+        CharRange ad = CharRange.isIn('a', 'd');
+        CharRange nota = CharRange.isNot('a');
+        CharRange emptySet = CharRange.isNotIn((char) 0, Character.MAX_VALUE);
+        CharRange notFirst = CharRange.isNotIn((char) 1, Character.MAX_VALUE);
+        CharRange notLast = CharRange.isNotIn((char) 0, (char) (Character.MAX_VALUE - 1));
+
+        Iterator aIt = a.iterator();
+        assertNotNull(aIt);
+        assertTrue(aIt.hasNext());
+        assertEquals(new Character('a'), aIt.next());
+        assertFalse(aIt.hasNext());
+
+        Iterator adIt = ad.iterator();
+        assertNotNull(adIt);
+        assertTrue(adIt.hasNext());
+        assertEquals(new Character('a'), adIt.next());
+        assertEquals(new Character('b'), adIt.next());
+        assertEquals(new Character('c'), adIt.next());
+        assertEquals(new Character('d'), adIt.next());
+        assertFalse(adIt.hasNext());
+
+        Iterator notaIt = nota.iterator();
+        assertNotNull(notaIt);
+        assertTrue(notaIt.hasNext());
+        while (notaIt.hasNext()) {
+            Character c = (Character) notaIt.next();
+            assertFalse('a' == c.charValue());
+        }
+
+        Iterator emptySetIt = emptySet.iterator();
+        assertNotNull(emptySetIt);
+        assertFalse(emptySetIt.hasNext());
+        try {
+            emptySetIt.next();
+            fail("Should throw NoSuchElementException");
+        } catch (NoSuchElementException e) {
+            assertTrue(true);
+        }
+
+        Iterator notFirstIt = notFirst.iterator();
+        assertNotNull(notFirstIt);
+        assertTrue(notFirstIt.hasNext());
+        assertEquals(new Character((char) 0), notFirstIt.next());
+        assertFalse(notFirstIt.hasNext());
+        try {
+        	notFirstIt.next();
+            fail("Should throw NoSuchElementException");
+        } catch (NoSuchElementException e) {
+            assertTrue(true);
+        }
+
+        Iterator notLastIt = notLast.iterator();
+        assertNotNull(notLastIt);
+        assertTrue(notLastIt.hasNext());
+        assertEquals(new Character(Character.MAX_VALUE), notLastIt.next());
+        assertFalse(notLastIt.hasNext());
+        try {
+        	notLastIt.next();
+            fail("Should throw NoSuchElementException");
+        } catch (NoSuchElementException e) {
+            assertTrue(true);
+        }
+    }
+
     //-----------------------------------------------------------------------    
     public void testSerialization() {
         CharRange range = CharRange.is('a');
