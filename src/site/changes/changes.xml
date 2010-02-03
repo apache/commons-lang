@@ -21,55 +21,56 @@
   </properties>
   <body>
 
-  <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">
-    <action type="update">Push down WordUtils to "text" sub-package.</action>
-    <action type="add" issue="LANG-564">Improve StrLookup API documentation</action>
-    <action type="fix" issue="LANG-571">ArrayUtils.add(T[] array[, offset], T element) can create unexpected ClassCastException</action>
-  </release>
-
   <release version="2.5" date="Unreleased" description="">
-    <action type="fix" issue="LANG-506">Entities missing final modifiers; thread-safety issues</action>
-    <action type="fix" issue="LANG-584">ExceptionUtils - use immutable lock target</action>
-    <action type="fix" issue="LANG-494">CharSet - Synchronizing the COMMON Map so that getInstance doesn't miss a put from a subclass in another thread</action>
+    <action type="add" issue="LANG-583">ArrayUtils - add isNotEmpty() methods</action>
+    <action type="add" issue="LANG-534">ArrayUtils - add nullToEmpty() methods</action>
+    <action type="add" issue="LANG-454">CharRange - provide an iterator that lets you walk the chars in the range</action>
     <action type="add" issue="LANG-514">CharRange - add more readable static builder methods</action>
-    <action type="fix" issue="LANG-523">
-        StrBuilder - Performance improvement to StrBuilder by doubling the size of the String
-         in ensureCapacity. Tests indicate a hundredhold improvement in appending speed, which seems
-         worth the doubling of data size.
-     </action>
-    <action type="add" issue="LANG-422">StrBuilder - add appendSeparator() methods with an alternative default separator if the StrBuilder is currently empty</action>
-    <action type="add" issue="LANG-522">Mutable numbers - add string constructors </action>
-    <action type="add">MutableBoolean - add toBoolean(), isTrue() and isFalse() methods</action>
-    <action type="fix" issue="LANG-487">ToStringBuilder - make default style thread-safe</action>
-    <action type="fix" issue="LANG-574">HashCodeBuilder - Performance improvement: check for isArray to short-circuit the 9 instanceof checks.</action>
-    <action type="fix" issue="LANG-520">HashCodeBuilder - Changing the hashCode() method to return toHashCode()</action>
-    <action type="fix" issue="LANG-467">EqualsBuilder - removing the special handling of BigDecimal (LANG-393) to use compareTo instead of equals because it creates an inequality with HashCodeBuilder</action>
-    <action type="add" issue="LANG-466">EqualsBuilder - add reset() method</action>
-    <action type="fix" issue="LANG-575">Compare, Equals and HashCode builders - replacing the creation of a List in the core of each Builder class to test contains on the excludeFields with a call to ArrayUtils.contains()</action>
-    <action type="fix" issue="LANG-547">FastDateFormat - Remove unused field</action>
-    <action type="fix" issue="LANG-538">FastDateFormat - need to call getTime() on a calendar sometimes to get it in the right state, otherwise the timezone gets out of whack</action>
-    <action type="add" issue="LANG-486">DateUtils - add parseDateStrictly() method method</action>
-    <action type="fix" issue="LANG-530">DateUtils - Fix parseDate() cannot parse ISO8601 dates produced by FastDateFormat</action>
+    <action type="add">ClassUtils - new isAssignable() methods with autoboxing</action>
+    <action type="add" issue="LANG-535">ClassUtils - add support to getShortClassName and getPackageName for arrays</action>
     <action type="add" issue="LANG-434">DateUtils - add ceiling() method</action>
-    <action type="fix" issue="LANG-521">NumberUtils - isNumber(String) and createNumber(String) both modified to support '2.'</action>
+    <action type="add" issue="LANG-486">DateUtils - add parseDateStrictly() method</action>
+    <action type="add" issue="LANG-466">EqualsBuilder - add reset() method</action>
     <action type="add" issue="LANG-461">NumberUtils - add toByte() and toShort() methods</action>
-    <action type="add" issue="LANG-471">StringUtils - add isAllUpperCase() and isAllLowerCase() methods</action>
-    <action type="add" issue="LANG-438">StringUtils - add repeat() method</action>
-    <action type="fix" issue="LANG-432">StringUtils - improve handling of case-insensitive Strings</action>
-    <action type="add" issue="LANG-405">StringUtils - add abbreviateMiddle() method</action>
-    <action type="add" issue="LANG-569">StringUtils - add indexOfIgnoreCase() and lastIndexOfIgnoreCase() methods</action>
-    <action type="add" issue="LANG-469">StringUtils - add lastOrdinalIndexOf() method to complement the existing ordinalIndexOf() method</action>
-    <action type="fix" issue="LANG-552">StringUtils - replaceEach(String, String[], String[]) no longer NPEs when null appears in the last String[]</action>
+    <action type="add" issue="LANG-522">Mutable numbers - add string constructors</action>
+    <action type="add">MutableBoolean - add toBoolean(), isTrue() and isFalse() methods</action>
+    <action type="add" issue="LANG-422">StrBuilder - add appendSeparator() methods with an alternative default separator if the StrBuilder is currently empty</action>
     <action type="add" issue="LANG-555">SystemUtils - add IS_OS_WINDOWS_7 constant</action>
     <action type="add" issue="LANG-554">SystemUtils - add IS_JAVA_1_7 constant for JDK 1.7</action>
-    <action type="fix" issue="LANG-500">ClassUtils - improving performance of getAllInterfaces</action>
-    <action type="update" issue="LANG-535">
-       ClassUtils - add support to getShortClassName and getPackageName for arrays, including primitive arrays
-        and multi-dimensional arrays. Also stopped getPackageName relying on the underlying class.getPackage
-        as it's sometimes null
-     </action>
+    <action type="add" issue="LANG-405">StringUtils - add abbreviateMiddle() method</action>
+    <action type="add" issue="LANG-569">StringUtils - add indexOfIgnoreCase() and lastIndexOfIgnoreCase() methods</action>
+    <action type="add" issue="LANG-471">StringUtils - add isAllUpperCase() and isAllLowerCase() methods</action>
+    <action type="add" issue="LANG-469">StringUtils - add lastOrdinalIndexOf() method to complement the existing ordinalIndexOf() method</action>
+    <action type="add" issue="LANG-438">StringUtils - add repeat() method</action>
+    <action type="add" issue="LANG-445">StringUtils - add startsWithAny() method</action>
+    <action type="add" issue="LANG-430">StringUtils - add upperCase(String, Locale) and lowerCase(String, Locale) methods</action>
+    <action type="add" issue="LANG-416">New Reflection package containing ConstructorUtils, FieldUtils, MemberUtils and MethodUtils</action>
     <action type="fix" issue="LANG-567">ArrayUtils - addAll() does not handle mixed types very well</action>
-    <action type="fix" issue="LANG-477">ExtendedMessageFormat - OutOfMemory with custom format registry and a pattern containing single quotes</action>
+    <action type="fix" issue="LANG-494">CharSet - Synchronizing the COMMON Map so that getInstance doesn't miss a put from a subclass in another thread</action>
+    <action type="fix" issue="LANG-500">ClassUtils - improving performance of getAllInterfaces</action>
+    <action type="fix" issue="LANG-530">DateUtils - Fix parseDate() cannot parse ISO8601 dates produced by FastDateFormat</action>
+    <action type="fix" issue="LANG-440">DateUtils - round() doesn't work correct for Calendar.AM_PM</action>
+    <action type="fix" issue="LANG-443">DateUtils - improve tests</action>
+    <action type="fix" issue="LANG-538">FastDateFormat - call getTime() on a calendar to ensure timezone is in the right state</action>
+    <action type="fix" issue="LANG-547">FastDateFormat - Remove unused field</action>
+    <action type="fix" issue="LANG-506">Entities missing final modifiers; thread-safety issues</action>
+    <action type="fix" issue="LANG-584">ExceptionUtils - use immutable lock target</action>
+    <action type="fix" issue="LANG-477">ExtendedMessageFormat - OutOfMemory with a pattern containing single quotes</action>
+    <action type="fix" issue="LANG-457">NumberUtils - createNumber() thows a StringIndexOutOfBoundsException when only an "l" is passed in</action>
+    <action type="fix" issue="LANG-521">NumberUtils - isNumber(String) and createNumber(String) both modified to support '2.'</action>
+    <action type="fix" issue="LANG-432">StringUtils - improve handling of case-insensitive Strings</action>
+    <action type="fix" issue="LANG-552">StringUtils - replaceEach() no longer NPEs when null appears in the last String[]</action>
+    <action type="fix" issue="LANG-460">StringUtils - correct JavaDocs for startsWith() and startsWithIgnoreCase()</action>
+    <action type="fix" issue="LANG-421">StringEscapeUtils - escapeJava() escapes '/' characters</action>
+    <action type="fix" issue="LANG-450">StringEscapeUtils - change escapeJavaStyleString() to throw UnhandledException instead swallowing IOException and returning null</action>
+    <action type="fix" issue="LANG-419">WordUtils - fix StringIndexOutOfBoundsException when lower is greater than the String length</action>
+    <action type="fix" issue="LANG-523">StrBuilder - Performance improvement by doubling the size of the String in ensureCapacity</action>
+    <action type="fix" issue="LANG-575">Compare, Equals and HashCode builders - use ArrayUtils to avoid creating a temporary List</action>
+    <action type="fix" issue="LANG-467">EqualsBuilder - removing the special handling of BigDecimal (LANG-393) to use compareTo instead of equals because it creates an inequality with HashCodeBuilder</action>
+    <action type="fix" issue="LANG-574">HashCodeBuilder - Performance improvement: check for isArray to short-circuit the 9 instanceof checks.</action>
+    <action type="fix" issue="LANG-520">HashCodeBuilder - Changing the hashCode() method to return toHashCode()</action>
+    <action type="fix" issue="LANG-459">HashCodeBuilder - reflectionHashCode() can generate incorrect hashcodes</action>
+    <action type="fix" issue="LANG-487">ToStringBuilder - make default style thread-safe</action>
   </release>
 
   <release version="2.4" date="2008-03-18" description="">
