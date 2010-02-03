@@ -43,6 +43,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Gary Gregory
  * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
  * @author Maarten Coene
+ * @author <a href="mailto:levon@lk.otherinbox.com">Levon Karayan</a>
  * @since 2.0
  * @version $Id$
  */
@@ -439,6 +440,387 @@ public class ArrayUtils {
             return null;
         }
         return array.clone();
+    }
+
+    // nullToEmpty
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static Object[] nullToEmpty(Object[] array) {
+        if (array == null) {
+            return EMPTY_OBJECT_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_OBJECT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static String[] nullToEmpty(String[] array) {
+        if (array == null) {
+            return EMPTY_STRING_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_STRING_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static long[] nullToEmpty(long[] array) {
+        if (array == null) {
+            return EMPTY_LONG_ARRAY;
+        }
+        if (array.length == 0) {
+            return EMPTY_LONG_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static int[] nullToEmpty(int[] array) {
+        if (array == null) {
+            return EMPTY_INT_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_INT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static short[] nullToEmpty(short[] array) {
+        if (array == null) {
+            return EMPTY_SHORT_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_SHORT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static char[] nullToEmpty(char[] array) {
+        if (array == null) {
+            return EMPTY_CHAR_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_CHAR_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static byte[] nullToEmpty(byte[] array) {
+        if (array == null) {
+            return EMPTY_BYTE_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_BYTE_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static double[] nullToEmpty(double[] array) {
+        if (array == null) {
+            return EMPTY_DOUBLE_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_DOUBLE_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static float[] nullToEmpty(float[] array) {
+        if (array == null) {
+            return EMPTY_FLOAT_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_FLOAT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static boolean[] nullToEmpty(boolean[] array) {
+        if (array == null) {
+            return EMPTY_BOOLEAN_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_BOOLEAN_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static Long[] nullToEmpty(Long[] array) {
+        if (array == null) {
+            return EMPTY_LONG_OBJECT_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_LONG_OBJECT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static Integer[] nullToEmpty(Integer[] array) {
+        if (array == null) {
+            return EMPTY_INTEGER_OBJECT_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_INTEGER_OBJECT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static Short[] nullToEmpty(Short[] array) {
+        if (array == null) {
+            return EMPTY_SHORT_OBJECT_ARRAY;
+        }else if (array.length == 0) {
+            return EMPTY_SHORT_OBJECT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static Character[] nullToEmpty(Character[] array) {
+        if (array == null) {
+            return EMPTY_CHARACTER_OBJECT_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_CHARACTER_OBJECT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static Byte[] nullToEmpty(Byte[] array) {
+        if (array == null) {
+            return EMPTY_BYTE_OBJECT_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_BYTE_OBJECT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static Double[] nullToEmpty(Double[] array) {
+        if (array == null) {
+            return EMPTY_DOUBLE_OBJECT_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_DOUBLE_OBJECT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static Float[] nullToEmpty(Float[] array) {
+        if (array == null) {
+            return EMPTY_FLOAT_OBJECT_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_FLOAT_OBJECT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>Defensive programming technique to change a <code>null</code>
+     * reference to an empty one..</p>
+     *
+     * <p>This method returns an empty array for a <code>null</code> input array.</p>
+     * 
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     * the empty <code>public static</code> references in this class.</p>
+     *
+     * @param array  the array to check for <code>null</code> or empty
+     * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     */
+    public static Boolean[] nullToEmpty(Boolean[] array) {
+        if (array == null) {
+            return EMPTY_BOOLEAN_OBJECT_ARRAY;
+        } else if (array.length == 0) {
+            return EMPTY_BOOLEAN_OBJECT_ARRAY;
+        }
+        return array;
     }
 
     // Subarrays
