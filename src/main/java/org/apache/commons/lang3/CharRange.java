@@ -31,7 +31,7 @@ import java.util.NoSuchElementException;
  * @since 1.0
  * @version $Id$
  */
-public final class CharRange implements Serializable {
+public final class CharRange implements Iterable<Character>, Serializable {
 
     /**
      * Required for serialization support. Lang version 2.0. 
@@ -251,18 +251,26 @@ public final class CharRange implements Serializable {
      *
      * @return an iterator to the chars represented by this range
      */
-    public Iterator iterator() {
+    public Iterator<Character> iterator() {
         return new CharacterIterator(this);
     }
 
-    static class CharacterIterator implements Iterator {
-        /** The currect character */
+    /**
+     * Character {@link Iterator}.
+     */
+    private static class CharacterIterator implements Iterator<Character> {
+        /** The current character */
         private char current;
 
         private CharRange range;
         private boolean hasNext;
 
-        public CharacterIterator(CharRange r) {
+        /**
+         * Construct a new iterator for the character range.
+         *
+         * @param r The character range
+         */
+        private CharacterIterator(CharRange r) {
             range = r;
             hasNext = true;
 
@@ -282,6 +290,9 @@ public final class CharRange implements Serializable {
             }
         }
 
+        /**
+         * Prepare the next character in the range.
+         */
         private void prepareNext() {
             if (range.negated) {
                 if (current == Character.MAX_VALUE) {
@@ -316,7 +327,7 @@ public final class CharRange implements Serializable {
          *
          * @return <code>Character</code> for the next character
          */
-        public Object next() {
+        public Character next() {
             if (hasNext == false) {
                 throw new NoSuchElementException();
             }
