@@ -445,6 +445,7 @@ class Entities {
         /**
          * {@inheritDoc}
          */
+        // TODO not thread-safe as there is a window between changing the two maps
         public void add(String name, int value) {
             mapNameToValue.put(name, new Integer(value));
             mapValueToName.put(value, name);
@@ -470,9 +471,20 @@ class Entities {
     }
 
     static abstract class MapIntMap implements Entities.EntityMap {
-        protected Map mapNameToValue;
+        protected final Map mapNameToValue;
 
-        protected Map mapValueToName;
+        protected final Map mapValueToName;
+
+        /**
+         * Construct a new instance with specified maps.
+         *
+         * @param nameToValue name to value map
+         * @param valueToName value to namee map
+         */
+        MapIntMap(Map nameToValue, Map valueToName){
+            mapNameToValue = nameToValue;
+            mapValueToName = valueToName;
+        }
 
         /**
          * {@inheritDoc}
@@ -506,8 +518,7 @@ class Entities {
          * Constructs a new instance of <code>HashEntityMap</code>.
          */
         public HashEntityMap() {
-            mapNameToValue = new HashMap();
-            mapValueToName = new HashMap();
+            super(new HashMap(), new HashMap());
         }
     }
 
@@ -516,15 +527,15 @@ class Entities {
          * Constructs a new instance of <code>TreeEntityMap</code>.
          */
         public TreeEntityMap() {
-            mapNameToValue = new TreeMap();
-            mapValueToName = new TreeMap();
+            super(new TreeMap(), new TreeMap());
         }
     }
 
     static class LookupEntityMap extends PrimitiveEntityMap {
+        // TODO this class is not thread-safe
         private String[] lookupTable;
 
-        private int LOOKUP_TABLE_SIZE = 256;
+        private final int LOOKUP_TABLE_SIZE = 256;
 
         /**
          * {@inheritDoc}
@@ -564,7 +575,8 @@ class Entities {
     }
 
     static class ArrayEntityMap implements EntityMap {
-        protected int growBy = 100;
+        // TODO this class is not thread-safe
+        protected final int growBy;
 
         protected int size = 0;
 
@@ -576,6 +588,7 @@ class Entities {
          * Constructs a new instance of <code>ArrayEntityMap</code>.
          */
         public ArrayEntityMap() {
+            this.growBy = 100;
             names = new String[growBy];
             values = new int[growBy];
         }
@@ -647,6 +660,8 @@ class Entities {
     }
 
     static class BinaryEntityMap extends ArrayEntityMap {
+
+        // TODO - not thread-safe, because parent is not. Also references size.
 
         /**
          * Constructs a new instance of <code>BinaryEntityMap</code>.
@@ -722,8 +737,16 @@ class Entities {
         }
     }
 
+    private final EntityMap map;
+
+    public Entities(){
+        map = new Entities.LookupEntityMap();
+    }
+
     // package scoped for testing
-    EntityMap map = new Entities.LookupEntityMap();
+    Entities(EntityMap emap){
+        map = emap;
+    }
 
     /**
      * <p>

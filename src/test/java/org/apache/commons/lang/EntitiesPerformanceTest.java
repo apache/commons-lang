@@ -108,9 +108,7 @@ public class EntitiesPerformanceTest extends TestCase {
     }
 
     private Entities build(Entities.EntityMap intMap) {
-        Entities entities;
-        entities = new Entities();
-        entities.map = intMap;
+        Entities entities = new Entities(intMap);
         Entities.fillWithHtml40Entities(entities);
         return entities;
     }

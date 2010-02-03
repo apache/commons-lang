@@ -177,8 +177,7 @@ public class EntitiesTest extends TestCase
     public void testHtml40Nbsp() throws Exception
     {
         assertEquals("&nbsp;", Entities.HTML40.escape("\u00A0"));
-        Entities e = new Entities();
-        e.map = new Entities.PrimitiveEntityMap();
+        Entities e = new Entities(new Entities.PrimitiveEntityMap());
         Entities.fillWithHtml40Entities(e);
         assertEquals("&nbsp;", e.escape("\u00A0"));
     }
