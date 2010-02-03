@@ -60,15 +60,15 @@ class IntHashMap {
      *
      * @serial
      */
-    private float loadFactor;
+    private final float loadFactor;
 
     /**
      * <p>Innerclass that acts as a datastructure to create a new entry in the
      * table.</p>
      */
     private static class Entry {
-        int hash;
-        int key;
+        final int hash;
+        final int key; // TODO not read; seems to be always same as hash
         Object value;
         Entry next;
 

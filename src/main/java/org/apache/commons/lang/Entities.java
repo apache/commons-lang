@@ -438,9 +438,9 @@ class Entities {
     }
 
     static class PrimitiveEntityMap implements EntityMap {
-        private Map mapNameToValue = new HashMap();
+        private final Map mapNameToValue = new HashMap();
 
-        private IntHashMap mapValueToName = new IntHashMap();
+        private final IntHashMap mapValueToName = new IntHashMap();
 
         /**
          * {@inheritDoc}
