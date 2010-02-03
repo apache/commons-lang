@@ -220,7 +220,6 @@
                                 RELEASE-NOTES.txt"
              />
             <zipfileset dir="${basedir}/src"   prefix="${final.name}-src/src"/>
-            <zipfileset dir="${basedir}/xdocs" prefix="${final.name}-src/xdocs"/>
         </zip>
         <tar destfile="${build.home}/${final.name}-src.tar.gz" compression="gzip">
             <zipfileset src="${build.home}/${final.name}-src.zip"/>
