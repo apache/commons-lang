@@ -38,7 +38,7 @@ import java.util.Set;
  * <pre>
  *   try {
  *     ...
- *   } catch (Throwable e) {
+ *   } catch (Exception e) {
  *     throw new ContextedException("Error posting account transaction", e)
  *          .addValue("accountNumber", accountNumber)
  *          .addValue("amountPosted", amountPosted)
