@@ -371,20 +371,23 @@ class Entities {
     public static final Entities HTML40;
 
     static {
-        XML = new Entities();
-        XML.addEntities(BASIC_ARRAY);
-        XML.addEntities(APOS_ARRAY);
+        Entities xml = new Entities();
+        xml.addEntities(BASIC_ARRAY);
+        xml.addEntities(APOS_ARRAY);
+        XML = xml;
     }
 
     static {
-        HTML32 = new Entities();
-        HTML32.addEntities(BASIC_ARRAY);
-        HTML32.addEntities(ISO8859_1_ARRAY);
+        Entities html32 = new Entities();
+        html32.addEntities(BASIC_ARRAY);
+        html32.addEntities(ISO8859_1_ARRAY);
+        HTML32 = html32;
     }
 
     static {
-        HTML40 = new Entities();
-        fillWithHtml40Entities(HTML40);
+        Entities html40 = new Entities();
+        fillWithHtml40Entities(html40);
+        HTML40 = html40;
     }
 
     /**
