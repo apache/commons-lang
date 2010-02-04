@@ -151,7 +151,7 @@ public final class JVMRandom extends Random {
      * @return the random boolean
      */
     public boolean nextBoolean() {
-        return SHARED_RANDOM.nextDouble() > 0.5;
+        return SHARED_RANDOM.nextBoolean();
     }
     /**
      * <p>Returns the next pseudorandom, uniformly distributed float value
@@ -161,7 +161,7 @@ public final class JVMRandom extends Random {
      * @return the random float
      */
     public float nextFloat() {
-        return (float)SHARED_RANDOM.nextDouble();
+        return SHARED_RANDOM.nextFloat();
     }
     /**
      * <p>Synonymous to the Math.random() call.</p>
