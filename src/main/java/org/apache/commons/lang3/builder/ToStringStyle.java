@@ -144,9 +144,8 @@ public abstract class ToStringStyle implements Serializable {
      *
      * @return Set the registry of objects being traversed
      */
-    static Set<Object> getRegistry() {
-        WeakHashMap<Object, Object> m = REGISTRY.get();
-        return m == null ? Collections.<Object> emptySet() : m.keySet();
+    static Map<Object, Object> getRegistry() {
+        return REGISTRY.get();
     }
 
     /**
@@ -161,7 +160,8 @@ public abstract class ToStringStyle implements Serializable {
      *             object.
      */
     static boolean isRegistered(Object value) {
-        return getRegistry().contains(value);
+        Map<Object, Object> m = getRegistry();
+        return m != null && m.containsKey(value);
     }
 
     /**
