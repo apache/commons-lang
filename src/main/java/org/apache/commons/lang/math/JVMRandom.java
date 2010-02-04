@@ -90,7 +90,7 @@ public final class JVMRandom extends Random {
     /**
      * <p>Returns the next pseudorandom, uniformly distributed int value
      * from the Math.random() sequence.</p>
-     *
+     * <b>N.B. All values are >= 0.<b>
      * @return the random int
      */
     public int nextInt() {
@@ -117,6 +117,7 @@ public final class JVMRandom extends Random {
     /**
      * <p>Returns the next pseudorandom, uniformly distributed long value
      * from the Math.random() sequence.</p>
+     * <b>N.B. All values are >= 0.<b>
      * @return the random long
      */
     public long nextLong() {
