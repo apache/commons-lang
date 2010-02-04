@@ -41,6 +41,8 @@ public final class JVMRandom extends Random {
      */
     private static final long serialVersionUID = 1L;
 
+    private static final Random SHARED_RANDOM = new Random();
+
     /**
      * Ensures that only the constructor can call reseed.
      */
@@ -110,7 +112,7 @@ public final class JVMRandom extends Random {
             );
         }
         // TODO: check this cannot return 'n'
-        return (int)(Math.random() * n);
+        return (int)(SHARED_RANDOM.nextDouble() * n);
     }
     /**
      * <p>Returns the next pseudorandom, uniformly distributed long value
@@ -118,8 +120,7 @@ public final class JVMRandom extends Random {
      * @return the random long
      */
     public long nextLong() {
-        // possible loss of precision?
-        return nextLong(Long.MAX_VALUE);
+        return Math.abs(SHARED_RANDOM.nextLong());
     }
 
 
@@ -139,7 +140,7 @@ public final class JVMRandom extends Random {
             );
         }
         // TODO: check this cannot return 'n'
-        return (long)(Math.random() * n);
+        return (long)(SHARED_RANDOM.nextDouble() * n);
      }
 
     /**
@@ -149,7 +150,7 @@ public final class JVMRandom extends Random {
      * @return the random boolean
      */
     public boolean nextBoolean() {
-        return Math.random() > 0.5;
+        return SHARED_RANDOM.nextDouble() > 0.5;
     }
     /**
      * <p>Returns the next pseudorandom, uniformly distributed float value
@@ -159,7 +160,7 @@ public final class JVMRandom extends Random {
      * @return the random float
      */
     public float nextFloat() {
-        return (float)Math.random();
+        return (float)SHARED_RANDOM.nextDouble();
     }
     /**
      * <p>Synonymous to the Math.random() call.</p>
@@ -167,7 +168,7 @@ public final class JVMRandom extends Random {
      * @return the random double
      */
     public double nextDouble() {
-        return Math.random();
+        return SHARED_RANDOM.nextDouble();
     }
     
 }

@@ -118,8 +118,12 @@ public final class RandomUtilsTest extends TestCase {
      * @param rnd Random to use if not null
      */
     private void tstNextLong(Random rnd) {
+        // Distribution
         int[] expected = new int[] {500,500};
         int[] observed = new int[] {0,0};
+        // Even/Odd
+        int[] expected2 = new int[] {500,500};
+        int[] observed2 = new int[] {0,0};
         long result = 0;
         long midPoint = Long.MAX_VALUE/2;
         for (int i = 0; i < 1000; i ++) {
@@ -133,6 +137,11 @@ public final class RandomUtilsTest extends TestCase {
             } else {
                 observed[1]++;
             }
+            if (result % 2 == 0) {
+               observed2[0]++;
+            } else {
+               observed2[1]++;
+            }
         }
         /* Use ChiSquare dist with df = 2-1 = 1, alpha = .001
          * Change to 6.64 for alpha = .01  
@@ -140,6 +149,9 @@ public final class RandomUtilsTest extends TestCase {
         assertTrue(
             "chi-square test -- will fail about 1 in 1000 times",
             chiSquare(expected,observed) < 10.83); 
+        assertTrue(
+                "chi-square test -- will fail about 1 in 1000 times",
+                chiSquare(expected2,observed2) < 10.83); 
     }
         
     
