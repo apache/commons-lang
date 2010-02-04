@@ -96,6 +96,7 @@ public final class JVMRandom extends Random {
     public int nextInt() {
         return nextInt(Integer.MAX_VALUE);
     }
+
     /**
      * <p>Returns a pseudorandom, uniformly distributed int value between
      * <code>0</code> (inclusive) and the specified value (exclusive), from
@@ -106,14 +107,9 @@ public final class JVMRandom extends Random {
      * @throws IllegalArgumentException when <code>n &lt;= 0</code>
      */
     public int nextInt(int n) {
-        if (n <= 0) {
-            throw new IllegalArgumentException(
-                "Upper bound for nextInt must be positive"
-            );
-        }
-        // TODO: check this cannot return 'n'
-        return (int)(SHARED_RANDOM.nextDouble() * n);
+        return SHARED_RANDOM.nextInt(n);
     }
+
     /**
      * <p>Returns the next pseudorandom, uniformly distributed long value
      * from the Math.random() sequence.</p>
