@@ -19,9 +19,7 @@ package org.apache.commons.lang3.builder;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
-import java.util.Set;
 import java.util.WeakHashMap;
 
 import org.apache.commons.lang3.ClassUtils;
@@ -175,13 +173,10 @@ public abstract class ToStringStyle implements Serializable {
      */
     static void register(Object value) {
         if (value != null) {
-            WeakHashMap<Object, Object> m;
-            synchronized (ToStringStyle.class) {
-                m = REGISTRY.get();
-                if (m == null) {
-                    m = new WeakHashMap<Object, Object>();
-                    REGISTRY.set(m);
-                }
+            WeakHashMap<Object, Object> m = REGISTRY.get();
+            if (m == null) {
+                m = new WeakHashMap<Object, Object>();
+                REGISTRY.set(m);
             }
             m.put(value, null);
         }
@@ -201,14 +196,11 @@ public abstract class ToStringStyle implements Serializable {
      */
     static void unregister(Object value) {
         if (value != null) {
-            WeakHashMap<Object, Object> m;
-            synchronized (ToStringStyle.class) {
-                m = REGISTRY.get();
-                if (m != null) {
-                    m.remove(value);
-                    if (m.isEmpty()) {
-                        REGISTRY.remove();
-                    }
+            WeakHashMap<Object, Object> m = REGISTRY.get();
+            if (m != null) {
+                m.remove(value);
+                if (m.isEmpty()) {
+                    REGISTRY.remove();
                 }
             }
         }
