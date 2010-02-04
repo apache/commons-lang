@@ -94,7 +94,11 @@ public final class JVMRandom extends Random {
      * @return the random int
      */
     public int nextInt() {
-        return nextInt(Integer.MAX_VALUE);
+        int value = Math.abs(SHARED_RANDOM.nextInt());
+        if (value < 0){ // Integer.MIN_VALUE
+            value = 0; // ensures 0 occurs equally often as other +ve values
+        }
+        return value;
     }
 
     /**
@@ -117,7 +121,11 @@ public final class JVMRandom extends Random {
      * @return the random long
      */
     public long nextLong() {
-        return Math.abs(SHARED_RANDOM.nextLong());
+        long value = Math.abs(SHARED_RANDOM.nextLong());
+        if (value < 0){ // Long.MIN_VALUE
+            value = 0; // ensures 0 occurs equally often as other +ve values
+        }
+        return value;
     }
 
 
