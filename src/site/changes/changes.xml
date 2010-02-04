@@ -71,6 +71,7 @@
     <action type="fix" issue="LANG-520">HashCodeBuilder - Changing the hashCode() method to return toHashCode()</action>
     <action type="fix" issue="LANG-459">HashCodeBuilder - reflectionHashCode() can generate incorrect hashcodes</action>
     <action type="fix" issue="LANG-487">ToStringBuilder - make default style thread-safe</action>
+    <action type="fix" issue="LANG-472">RandomUtils - nextLong() always produces even numbers</action>
   </release>
 
   <release version="2.4" date="2008-03-18" description="">
