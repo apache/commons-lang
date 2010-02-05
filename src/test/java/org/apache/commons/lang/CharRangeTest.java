@@ -453,7 +453,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(new Character((char) 0), notFirstIt.next());
         assertFalse(notFirstIt.hasNext());
         try {
-        	notFirstIt.next();
+            notFirstIt.next();
             fail("Should throw NoSuchElementException");
         } catch (NoSuchElementException e) {
             assertTrue(true);
@@ -465,7 +465,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(new Character(Character.MAX_VALUE), notLastIt.next());
         assertFalse(notLastIt.hasNext());
         try {
-        	notLastIt.next();
+            notLastIt.next();
             fail("Should throw NoSuchElementException");
         } catch (NoSuchElementException e) {
             assertTrue(true);
