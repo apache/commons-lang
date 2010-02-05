@@ -906,6 +906,9 @@ public class ClassUtilsTest extends TestCase {
 
         assertTrue(Arrays.equals(new Class[] { String.class, Integer.class, Double.class },
                 ClassUtils.toClass(new Object[] { "Test", 1, 99d })));
+
+        assertTrue(Arrays.equals(new Class[] { String.class, null, Double.class },
+                ClassUtils.toClass(new Object[] { "Test", null, 99d })));
     }
 
     public void test_getShortCanonicalName_Object() {
