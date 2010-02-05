@@ -173,12 +173,11 @@ public abstract class ToStringStyle implements Serializable {
      */
     static void register(Object value) {
         if (value != null) {
-            WeakHashMap<Object, Object> m = REGISTRY.get();
+            Map<Object, Object> m = getRegistry();
             if (m == null) {
-                m = new WeakHashMap<Object, Object>();
-                REGISTRY.set(m);
+                REGISTRY.set(new WeakHashMap<Object, Object>());
             }
-            m.put(value, null);
+            getRegistry().put(value, null);
         }
     }
 
@@ -196,7 +195,7 @@ public abstract class ToStringStyle implements Serializable {
      */
     static void unregister(Object value) {
         if (value != null) {
-            WeakHashMap<Object, Object> m = REGISTRY.get();
+            Map<Object, Object> m = getRegistry();
             if (m != null) {
                 m.remove(value);
                 if (m.isEmpty()) {
