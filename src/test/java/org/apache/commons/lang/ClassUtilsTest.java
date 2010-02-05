@@ -20,6 +20,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -715,21 +716,15 @@ public class ClassUtilsTest extends TestCase {
     }
  
     public void testToClass_object() {
-        assertEquals(null, ClassUtils.toClass(null));
+        assertNull(ClassUtils.toClass(null));
 
-        assertSame(
-            ArrayUtils.EMPTY_CLASS_ARRAY,
-            ClassUtils.toClass(new Class[0]));
+        assertSame(ArrayUtils.EMPTY_CLASS_ARRAY, ClassUtils.toClass(ArrayUtils.EMPTY_OBJECT_ARRAY));
 
-        Object[] array = new Object[3];
-        array[0] = new String("Test");
-        array[1] = new Integer(1);
-        array[2] = new Double(99);
+        assertTrue(Arrays.equals(new Class[] { String.class, Integer.class, Double.class },
+                ClassUtils.toClass(new Object[] { "Test", new Integer(1), new Double(99d) })));
 
-        Class[] results = ClassUtils.toClass(array);
-        assertEquals("String", ClassUtils.getShortClassName(results[0]));
-        assertEquals("Integer", ClassUtils.getShortClassName(results[1]));
-        assertEquals("Double", ClassUtils.getShortClassName(results[2]));
+        assertTrue(Arrays.equals(new Class[] { String.class, null, Double.class },
+                ClassUtils.toClass(new Object[] { "Test", null, new Double(99d) })));
     }
 
     public void test_getShortCanonicalName_Object() {
