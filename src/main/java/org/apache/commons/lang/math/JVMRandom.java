@@ -44,9 +44,15 @@ public final class JVMRandom extends Random {
     private static final Random SHARED_RANDOM = new Random();
 
     /**
+     * Ensures that only the parent constructor can call reseed.
+     */
+    private boolean constructed = false;
+
+    /**
      * Constructs a new instance.
      */
     public JVMRandom() {
+        this.constructed = true;
     }
     
     /**
@@ -56,7 +62,9 @@ public final class JVMRandom extends Random {
      * @throws UnsupportedOperationException
      */
     public synchronized void setSeed(long seed) {
-        throw new UnsupportedOperationException();
+        if (this.constructed) {
+            throw new UnsupportedOperationException();
+        }
     }
 
     /**
