@@ -48,6 +48,7 @@ IMPROVEMENTS IN 2.5
 BUG FIXES IN 2.5
 ================
 
+    * [LANG-472] - RandomUtils(JVMRandom) - nextLong() / nextLong(long) now generate properly distributed random numbers 
     * [LANG-494] - CharSet - Synchronizing the COMMON Map so that getInstance doesn't miss a put from a subclass in another thread
     * [LANG-500] - ClassUtils - improving performance of getAllInterfaces
     * [LANG-530] - DateUtils - Fix parseDate() cannot parse ISO8601 dates produced by FastDateFormat

@@ -45,6 +45,7 @@
     <action type="add" issue="LANG-445">StringUtils - add startsWithAny() method</action>
     <action type="add" issue="LANG-430">StringUtils - add upperCase(String, Locale) and lowerCase(String, Locale) methods</action>
     <action type="add" issue="LANG-416">New Reflection package containing ConstructorUtils, FieldUtils, MemberUtils and MethodUtils</action>
+    <action type="fix" issue="LANG-472">RandomUtils(JVMRandom) - nextLong() / nextLong(long) now generate properly distributed random numbers</action>
     <action type="fix" issue="LANG-567">ArrayUtils - addAll() does not handle mixed types very well</action>
     <action type="fix" issue="LANG-494">CharSet - Synchronizing the COMMON Map so that getInstance doesn't miss a put from a subclass in another thread</action>
     <action type="fix" issue="LANG-500">ClassUtils - improving performance of getAllInterfaces</action>
