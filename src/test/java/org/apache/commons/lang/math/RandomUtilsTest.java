@@ -33,9 +33,6 @@ public final class RandomUtilsTest extends TestCase {
         super(name);
     }
     
-    public void setUp() {
-    }
-    
     /** test distribution of nextInt() */
     public void testNextInt() {
         tstNextInt(null);
@@ -97,6 +94,42 @@ public final class RandomUtilsTest extends TestCase {
             chiSquare(expected,observed) < 16.27);                                                            
     }  
     
+    /** 
+     * Generate 1000 values for nextInt(bound) and compare
+     * the observed frequency counts to expected counts using
+     * a chi-square test.
+     * @param bound upper bound to use
+     */
+    private void tstNextInt(int bound) {
+        assertTrue(bound+" Must be non-negative",bound>=0);
+        int result = 0;
+        Random rnd = new Random();
+        // test uniformity -- use Chi-Square test at .01 level
+        int[] expected = new int[] {500,500};
+        int[] observed = new int[] {0,0};
+        int[] observed2 = new int[] {0,0};
+        for (int i = 0; i < 1000; i ++) {
+            result = rnd.nextInt(bound);
+            assertTrue(result+" Must be non-negative",result>=0);
+            assertTrue(result+" Must be less than bound: "+bound,result<bound);
+            if (result < bound/2) {
+                observed[0]++;
+            } else {
+                observed[1]++;
+            }
+            observed2[result%2]++;
+        } 
+        /* Use ChiSquare dist with df = 2-1 = 1, alpha = .001
+         * Change to 6.64 for alpha = .01  
+         */ 
+        assertTrue(
+            "mid point chi-square test -- will fail about 1 in 1000 times ",
+                chiSquare(expected,observed) < 10.83);                                                            
+        assertTrue(
+                "odd/even chi-square test -- will fail about 1 in 1000 times",
+                chiSquare(expected,observed2) < 10.83);                                                            
+    }  
+
     /** test distribution of nextLong() */
     public void testNextLong() {
         tstNextLong(null);
@@ -112,7 +145,7 @@ public final class RandomUtilsTest extends TestCase {
     }
      
     /** 
-     * Generate 1000 values for nextLong and check that
+     * Generate 1000 values for nextLong() and check that
      * p(value < long.MAXVALUE/2) ~ 0.5. Use chi-square test
      * with df = 2-1 = 1  
      * @param rnd Random to use if not null
@@ -147,11 +180,56 @@ public final class RandomUtilsTest extends TestCase {
          * Change to 6.64 for alpha = .01  
          */ 
         assertTrue(
-            "chi-square test -- will fail about 1 in 1000 times",
+            "mid point chi-square test -- will fail about 1 in 1000 times",
             chiSquare(expected,observed) < 10.83); 
         assertTrue(
-                "chi-square test -- will fail about 1 in 1000 times",
+                "odd/even chi-square test -- will fail about 1 in 1000 times",
                 chiSquare(expected2,observed2) < 10.83); 
+    }
+
+    /** 
+     * Generate 1000 values for nextInt(bound) and compare
+     * the observed frequency counts to expected counts using
+     * a chi-square test.
+     * @param bound upper bound to use
+     */
+    private void tstNextLong(long bound) {
+        // Distribution
+        int[] expected = new int[] {500,500};
+        int[] observed = new int[] {0,0};
+        // Even/Odd
+        int[] expected2 = new int[] {500,500};
+        int[] observed2 = new int[] {0,0};
+        long result = 0;
+        long midPoint = bound/2;
+        for (int i = 0; i < 1000; i ++) {
+            result = JVMRandom.nextLong(bound);
+            assertTrue(result+" Must be non-negative",result>=0);
+            assertTrue(result+" Must be less than bound: "+bound,result<bound);
+            if (result < midPoint) {
+                observed[0]++;
+            } else {
+                observed[1]++;
+            }
+            if (result % 2 == 0) {
+               observed2[0]++;
+            } else {
+               observed2[1]++;
+            }
+        }
+        /* Use ChiSquare dist with df = 2-1 = 1, alpha = .001
+         * Change to 6.64 for alpha = .01  
+         */ 
+        final double chiSquare = chiSquare(expected,observed);
+        assertTrue(
+            "mid point chi-square test -- will fail about 1 in 1000 times: "
+                +chiSquare+":"+observed[0]+","+observed[1],
+            chiSquare < 10.83); 
+        final double oddEven = chiSquare(expected2,observed2);
+        assertTrue(
+                "odd/even chi-square test -- will fail about 1 in 1000 times: "
+                +oddEven+":"+observed2[0]+","+observed2[1],
+                oddEven < 10.83); 
     }
         
     
@@ -326,6 +404,40 @@ public final class RandomUtilsTest extends TestCase {
 
     }
     
+    public void testNextIntBound(){
+        tstNextInt(10);
+        tstNextInt(1<<8);
+        tstNextInt((1<<8)+1);
+        tstNextInt((1<<8)-1);
+        tstNextInt(1<<30);
+        tstNextInt((1<<30)-1);
+        tstNextInt((1<<30)+1);
+        Random rnd = new Random();
+        for(int i=0;i<10;i++){
+            tstNextInt(rnd.nextInt(Integer.MAX_VALUE));
+        }
+    }
+
+    public void testNextLongBound(){
+        tstNextLong(Integer.MAX_VALUE-1);
+        tstNextLong(Integer.MAX_VALUE);
+        tstNextLong((long)Integer.MAX_VALUE+1);
+        tstNextLong(Long.MAX_VALUE/1024);
+        tstNextLong(Long.MAX_VALUE/920);
+        tstNextLong(Long.MAX_VALUE/1000);
+        tstNextLong(Long.MAX_VALUE/512);
+        tstNextLong(Long.MAX_VALUE/64);
+        tstNextLong(Long.MAX_VALUE-1);
+        tstNextLong(Long.MAX_VALUE);
+        Random rnd = new Random();
+        for(int i=0;i<10;i++){
+            tstNextLong(rnd.nextInt(Integer.MAX_VALUE));
+        }
+        for(int i=0;i<10;i++){
+            tstNextLong(rnd.nextLong() & 0x7fffffffffffffffL);
+        }
+    }
+
     /**
      * Computes Chi-Square statistic given observed and expected counts
      * @param observed array of observed frequency counts
@@ -342,4 +454,3 @@ public final class RandomUtilsTest extends TestCase {
     }           
 
 }
-
