@@ -200,7 +200,7 @@ public abstract class ToStringStyle implements Serializable {
             if (m != null) {
                 m.remove(value);
                 if (m.isEmpty()) {
-                    REGISTRY.remove();
+                    REGISTRY.set(null);
                 }
             }
         }
