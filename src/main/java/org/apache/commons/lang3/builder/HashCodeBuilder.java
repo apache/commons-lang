@@ -101,14 +101,7 @@ public class HashCodeBuilder {
      * 
      * @since 2.3
      */
-    private static final ThreadLocal<Set<IDKey>> registry = new ThreadLocal<Set<IDKey>>() {
-        @Override
-        protected Set<IDKey> initialValue() {
-            // The HashSet implementation is not synchronized,
-            // which is just what we need here.
-            return new HashSet<IDKey>();
-        }
-    };
+    private static final ThreadLocal<Set<IDKey>> REGISTRY = new ThreadLocal<Set<IDKey>>();
 
     /*
      * N.B. we cannot store the actual objects in a HashSet, as that would use the very hashCode()
@@ -136,7 +129,7 @@ public class HashCodeBuilder {
      * @since 2.3
      */
     static Set<IDKey> getRegistry() {
-        return registry.get();
+        return REGISTRY.get();
     }
 
     /**
@@ -151,7 +144,8 @@ public class HashCodeBuilder {
      * @since 2.3
      */
     static boolean isRegistered(Object value) {
-        return getRegistry().contains(new IDKey(value));
+        Set<IDKey> registry = getRegistry();
+        return registry != null && registry.contains(new IDKey(value));
     }
 
     /**
@@ -521,6 +515,11 @@ public class HashCodeBuilder {
      *            The object to register.
      */
     static void register(Object value) {
+        synchronized (HashCodeBuilder.class) {
+            if (getRegistry() == null) {
+                REGISTRY.set(new HashSet<IDKey>());
+            }
+        }
         getRegistry().add(new IDKey(value));
     }
 
@@ -537,7 +536,15 @@ public class HashCodeBuilder {
      * @since 2.3
      */
     static void unregister(Object value) {
-        getRegistry().remove(new IDKey(value));
+        Set<IDKey> s = getRegistry();
+        if (s != null) {
+            s.remove(new IDKey(value));
+            synchronized (HashCodeBuilder.class) {
+                if (s.isEmpty()) {
+                    REGISTRY.remove();
+                }
+            }
+        }
     }
 
     /**
