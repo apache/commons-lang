@@ -754,5 +754,96 @@ public class ValidateTest extends TestCase {
         String test = Validate.validIndex(input, 0);
         assertSame(input, test);
     }
-
+    
+    public void testMatchesPattern()
+    {
+        CharSequence str = "hi";
+        Validate.matchesPattern(str, "[a-z]*");
+        try
+        {
+            Validate.matchesPattern(str, "[0-9]*");
+            fail("Expecting IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertEquals("The string hi does not match the pattern [0-9]*", e.getMessage());
+        }
+    }
+    
+    public void testMatchesPattern_withMessage()
+    {
+        CharSequence str = "hi";
+        Validate.matchesPattern(str, "[a-z]*", "Does not match");
+        try
+        {
+            Validate.matchesPattern(str, "[0-9]*", "Does not match");
+            fail("Expecting IllegalArgumentException");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertEquals("Does not match", e.getMessage());
+        }
+    }
+    
+    public void testInclusiveBetween()
+    {
+        Validate.inclusiveBetween("a", "c", "b");
+        Validate.inclusiveBetween(0, 2, 1);
+        Validate.inclusiveBetween(0, 2, 2);
+        try {
+            Validate.inclusiveBetween(0, 5, 6);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The value 6 is not in the specified inclusive range of 0 to 5", e.getMessage());
+        }
+    }
+    
+    public void testInclusiveBetween_withMessage()
+    {
+        Validate.inclusiveBetween("a", "c", "b", "Error");
+        Validate.inclusiveBetween(0, 2, 1, "Error");
+        Validate.inclusiveBetween(0, 2, 2, "Error");
+        try {
+            Validate.inclusiveBetween(0, 5, 6, "Error");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Error", e.getMessage());
+        }
+    }
+    
+    public void testExclusiveBetween()
+    {
+        Validate.exclusiveBetween("a", "c", "b");
+        Validate.exclusiveBetween(0, 2, 1);
+        try {
+            Validate.exclusiveBetween(0, 5, 6);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The value 6 is not in the specified exclusive range of 0 to 5", e.getMessage());
+        }
+        try {
+            Validate.exclusiveBetween(0, 5, 5);
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The value 5 is not in the specified exclusive range of 0 to 5", e.getMessage());
+        }
+    }
+    
+    public void testExclusiveBetween_withMessage()
+    {
+        Validate.exclusiveBetween("a", "c", "b", "Error");
+        Validate.exclusiveBetween(0, 2, 1, "Error");
+        try {
+            Validate.exclusiveBetween(0, 5, 6, "Error");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Error", e.getMessage());
+        }
+        try {
+            Validate.exclusiveBetween(0, 5, 5, "Error");
+            fail("Expecting IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Error", e.getMessage());
+        }
+    }
 }

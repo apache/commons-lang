@@ -19,6 +19,7 @@ package org.apache.commons.lang3;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * <p>This class assists in validating arguments. The validation methods are 
@@ -48,6 +49,9 @@ import java.util.Map;
  */
 public class Validate {
 
+    private static final String DEFAULT_EXCLUSIVE_BETWEEN_EX_MESSAGE = "The value %s is not in the specified exclusive range of %s to %s";
+    private static final String DEFAULT_INCLUSIVE_BETWEEN_EX_MESSAGE = "The value %s is not in the specified inclusive range of %s to %s";
+    private static final String DEFAULT_MATCHES_PATTERN_EX = "The string %s does not match the pattern %s";
     private static final String DEFAULT_IS_NULL_EX_MESSAGE = "The validated object is null";
     private static final String DEFAULT_IS_TRUE_EX_MESSAGE = "The validated expression is false";
     private static final String DEFAULT_NO_NULL_ELEMENTS_ARRAY_EX_MESSAGE = "The validated array contains null element at index: %d";
@@ -781,5 +785,134 @@ public class Validate {
             throw new IllegalStateException(String.format(message, values));
         }
     }
-
+    
+    /**
+     * <p>Validate that the specified argument character sequence matches the specified regular
+     * expression pattern; otherwise throwing an exception.</p>
+     *
+     * <pre>Validate.matchesPattern("hi", "[a-z]*");</pre>
+     * 
+     * <p>The syntax of the pattern is the one used in the {@link Pattern} class.</p>
+     * 
+     * @param input the character sequence to validate
+     * @param pattern regular expression pattern
+     * @throws IllegalArgumentException if the character sequence does not match the pattern
+     * @see #matchesPattern(String, String, String, Object...)
+     */
+    public static void matchesPattern(CharSequence input, String pattern)
+    {
+        if (Pattern.matches(pattern, input) == false)
+        {
+            throw new IllegalArgumentException(String.format(DEFAULT_MATCHES_PATTERN_EX, input, pattern));
+        }
+    }
+    
+    /**
+     * <p>Validate that the specified argument character sequence matches the specified regular
+     * expression pattern; otherwise throwing an exception with the specified message.</p>
+     *
+     * <pre>Validate.matchesPattern("hi", "[a-z]*", "%s does not match %s", "hi" "[a-z]*");</pre>
+     * 
+     * <p>The syntax of the pattern is the one used in the {@link Pattern} class.</p>
+     * 
+     * @param input the character sequence to validate
+     * @param pattern regular expression pattern
+     * @param message the exception message
+     * @param optional values to replace in the exception message
+     * @throws IllegalArgumentException if the character sequence does not match the pattern
+     * @see #matchesPattern(String, String)
+     */
+    public static void matchesPattern(CharSequence input, String pattern, String message, Object... values)
+    {
+        if (Pattern.matches(pattern, input) == false)
+        {
+            throw new IllegalArgumentException(String.format(message, values));
+        }
+    }
+    
+    /**
+     * <p>Validate that the specified argument object fall between the two
+     * inclusive values specified; otherwise, throws an exception.</p>
+     *
+     * <pre>Validate.inclusiveBetween(0, 2, 1);</pre>
+     * 
+     * @param value the object to validate
+     * @param start the inclusive start value
+     * @param end the inclusive end value
+     * @throws IllegalArgumentException if the value falls out of the boundaries
+     * @see #inclusiveBetween(Object, Object, Comparable, String, Object...)
+     */
+    public static <T> void inclusiveBetween(T start, T end, Comparable<T> value)
+    {
+        if (value.compareTo(start) < 0 || value.compareTo(end) > 0)
+        {
+            throw new IllegalArgumentException(String.format(DEFAULT_INCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
+        }
+    }
+    
+    /**
+     * <p>Validate that the specified argument object fall between the two
+     * inclusive values specified; otherwise, throws an exception with the
+     * specified message.</p>
+     *
+     * <pre>Validate.inclusiveBetween(0, 2, 1, "Not in boundaries");</pre>
+     * 
+     * @param value the object to validate
+     * @param start the inclusive start value
+     * @param end the inclusive end value
+     * @param message the exception message
+     * @param optional values to replace in the exception message
+     * @throws IllegalArgumentException if the value falls out of the boundaries
+     * @see #inclusiveBetween(Object, Object, Comparable)
+     */
+    public static <T> void inclusiveBetween(T start, T end, Comparable<T> value, String message, Object... values)
+    {
+        if (value.compareTo(start) < 0 || value.compareTo(end) > 0)
+        {
+            throw new IllegalArgumentException(String.format(message, values));
+        }
+    }
+    
+    /**
+     * <p>Validate that the specified argument object fall between the two
+     * exclusive values specified; otherwise, throws an exception.</p>
+     *
+     * <pre>Validate.inclusiveBetween(0, 2, 1);</pre>
+     * 
+     * @param value the object to validate
+     * @param start the exclusive start value
+     * @param end the exclusive end value
+     * @throws IllegalArgumentException if the value falls out of the boundaries
+     * @see #exclusiveBetween(Object, Object, Comparable, String, Object...)
+     */
+    public static <T> void exclusiveBetween(T start, T end, Comparable<T> value)
+    {
+        if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0)
+        {
+            throw new IllegalArgumentException(String.format(DEFAULT_EXCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
+        }
+    }
+    
+    /**
+     * <p>Validate that the specified argument object fall between the two
+     * exclusive values specified; otherwise, throws an exception with the
+     * specified message.</p>
+     *
+     * <pre>Validate.inclusiveBetween(0, 2, 1, "Not in boundaries");</pre>
+     * 
+     * @param value the object to validate
+     * @param start the exclusive start value
+     * @param end the exclusive end value
+     * @param message the exception message
+     * @param optional values to replace in the exception message
+     * @throws IllegalArgumentException if the value falls out of the boundaries
+     * @see #exclusiveBetween(Object, Object, Comparable)
+     */
+    public static <T> void exclusiveBetween(T start, T end, Comparable<T> value, String message, Object... values)
+    {
+        if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0)
+        {
+            throw new IllegalArgumentException(String.format(message, values));
+        }
+    }
 }
