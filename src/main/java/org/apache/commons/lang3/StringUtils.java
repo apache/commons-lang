@@ -909,10 +909,6 @@ public class StringUtils {
         if (str == null || searchStr == null) {
             return -1;
         }
-        // JDK1.2/JDK1.3 have a bug, when startPos > str.length for "", hence
-        if (searchStr.length() == 0 && startPos >= str.length()) {
-            return str.length();
-        }
         return str.indexOf(searchStr, startPos);
     }
 
