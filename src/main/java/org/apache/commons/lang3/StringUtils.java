@@ -814,6 +814,44 @@ public class StringUtils {
     }
 
     /**
+     * <p>Finds the first index within a String, handling <code>null</code>.
+     * This method uses {@link String#indexOf(String, int)}.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.
+     * A negative start position is treated as zero.
+     * An empty ("") search String always matches.
+     * A start position greater than the string length only matches
+     * an empty search String.</p>
+     *
+     * <pre>
+     * StringUtils.indexOf(null, *, *)          = -1
+     * StringUtils.indexOf(*, null, *)          = -1
+     * StringUtils.indexOf("", "", 0)           = 0
+     * StringUtils.indexOf("aabaabaa", "a", 0)  = 0
+     * StringUtils.indexOf("aabaabaa", "b", 0)  = 2
+     * StringUtils.indexOf("aabaabaa", "ab", 0) = 1
+     * StringUtils.indexOf("aabaabaa", "b", 3)  = 5
+     * StringUtils.indexOf("aabaabaa", "b", 9)  = -1
+     * StringUtils.indexOf("aabaabaa", "b", -1) = 2
+     * StringUtils.indexOf("aabaabaa", "", 2)   = 2
+     * StringUtils.indexOf("abc", "", 9)        = 3
+     * </pre>
+     *
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
+     * @param startPos  the start position, negative treated as zero
+     * @return the first index of the search String,
+     *  -1 if no match or <code>null</code> string input
+     * @since 2.0
+     */
+    public static int indexOf(String str, String searchStr, int startPos) {
+        if (str == null || searchStr == null) {
+            return -1;
+        }
+        return str.indexOf(searchStr, startPos);
+    }
+
+    /**
      * <p>Finds the n-th index within a String, handling <code>null</code>.
      * This method uses {@link String#indexOf(String)}.</p>
      *
@@ -872,44 +910,6 @@ public class StringUtils {
             found++;
         } while (found < ordinal);
         return index;
-    }
-
-    /**
-     * <p>Finds the first index within a String, handling <code>null</code>.
-     * This method uses {@link String#indexOf(String, int)}.</p>
-     *
-     * <p>A <code>null</code> String will return <code>-1</code>.
-     * A negative start position is treated as zero.
-     * An empty ("") search String always matches.
-     * A start position greater than the string length only matches
-     * an empty search String.</p>
-     *
-     * <pre>
-     * StringUtils.indexOf(null, *, *)          = -1
-     * StringUtils.indexOf(*, null, *)          = -1
-     * StringUtils.indexOf("", "", 0)           = 0
-     * StringUtils.indexOf("aabaabaa", "a", 0)  = 0
-     * StringUtils.indexOf("aabaabaa", "b", 0)  = 2
-     * StringUtils.indexOf("aabaabaa", "ab", 0) = 1
-     * StringUtils.indexOf("aabaabaa", "b", 3)  = 5
-     * StringUtils.indexOf("aabaabaa", "b", 9)  = -1
-     * StringUtils.indexOf("aabaabaa", "b", -1) = 2
-     * StringUtils.indexOf("aabaabaa", "", 2)   = 2
-     * StringUtils.indexOf("abc", "", 9)        = 3
-     * </pre>
-     *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
-     * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search String,
-     *  -1 if no match or <code>null</code> string input
-     * @since 2.0
-     */
-    public static int indexOf(String str, String searchStr, int startPos) {
-        if (str == null || searchStr == null) {
-            return -1;
-        }
-        return str.indexOf(searchStr, startPos);
     }
 
     /**
