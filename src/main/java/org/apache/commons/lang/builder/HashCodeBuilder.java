@@ -541,7 +541,9 @@ public class HashCodeBuilder {
         if (registry != null) {
             registry.remove(new IDKey(value));
             synchronized (HashCodeBuilder.class) {
-                if (registry.isEmpty()) {
+                //read again
+                registry = getRegistry();
+                if (registry != null && registry.isEmpty()) {
                     REGISTRY.set(null);
                 }
             }
