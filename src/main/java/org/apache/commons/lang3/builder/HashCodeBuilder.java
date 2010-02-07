@@ -536,11 +536,13 @@ public class HashCodeBuilder {
      * @since 2.3
      */
     static void unregister(Object value) {
-        Set<IDKey> s = getRegistry();
-        if (s != null) {
-            s.remove(new IDKey(value));
+        Set<IDKey> registry = getRegistry();
+        if (registry != null) {
+            registry.remove(new IDKey(value));
             synchronized (HashCodeBuilder.class) {
-                if (s.isEmpty()) {
+                //read again
+                registry = getRegistry();
+                if (registry != null && registry.isEmpty()) {
                     REGISTRY.remove();
                 }
             }
