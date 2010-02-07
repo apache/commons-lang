@@ -509,7 +509,9 @@ public class HashCodeBuilderTest extends TestCase {
         // at org.apache.commons.lang.builder.HashCodeBuilder.append(HashCodeBuilder.java:422)
 
         a.hashCode();
+        assertNull(HashCodeBuilder.getRegistry());
         b.hashCode();
+        assertNull(HashCodeBuilder.getRegistry());
     }
 
     /**

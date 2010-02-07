@@ -101,13 +101,7 @@ public class HashCodeBuilder {
      * 
      * @since 2.3
      */
-    private static final ThreadLocal registry = new ThreadLocal() {
-        protected Object initialValue() {
-            // The HashSet implementation is not synchronized,
-            // which is just what we need here.
-            return new HashSet();
-        }
-    };
+    private static final ThreadLocal REGISTRY = new ThreadLocal();
 
     /*
      * N.B. we cannot store the actual objects in a HashSet, as that would use the very hashCode()
@@ -135,7 +129,7 @@ public class HashCodeBuilder {
      * @since 2.3
      */
     static Set getRegistry() {
-        return (Set) registry.get();
+        return (Set) REGISTRY.get();
     }
 
     /**
@@ -150,7 +144,8 @@ public class HashCodeBuilder {
      * @since 2.3
      */
     static boolean isRegistered(Object value) {
-        return getRegistry().contains(new IDKey(value));
+        Set registry = getRegistry();
+        return registry != null && registry.contains(new IDKey(value));
     }
 
     /**
@@ -521,6 +516,11 @@ public class HashCodeBuilder {
      *            The object to register.
      */
     static void register(Object value) {
+        synchronized (HashCodeBuilder.class) {
+            if (getRegistry() == null) {
+                REGISTRY.set(new HashSet());
+            }
+        }
         getRegistry().add(new IDKey(value));
     }
 
@@ -537,7 +537,15 @@ public class HashCodeBuilder {
      * @since 2.3
      */
     static void unregister(Object value) {
-        getRegistry().remove(new IDKey(value));
+        Set registry = getRegistry();
+        if (registry != null) {
+            registry.remove(new IDKey(value));
+            synchronized (HashCodeBuilder.class) {
+                if (registry.isEmpty()) {
+                    REGISTRY.set(null);
+                }
+            }
+        }
     }
 
     /**
