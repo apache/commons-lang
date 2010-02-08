@@ -794,6 +794,7 @@ public class StringUtils {
      * StringUtils.indexOf(null, *)          = -1
      * StringUtils.indexOf(*, null)          = -1
      * StringUtils.indexOf("", "")           = 0
+     * StringUtils.indexOf("", *)            = -1 (except when * = "")
      * StringUtils.indexOf("aabaabaa", "a")  = 0
      * StringUtils.indexOf("aabaabaa", "b")  = 2
      * StringUtils.indexOf("aabaabaa", "ab") = 1
@@ -827,6 +828,7 @@ public class StringUtils {
      * StringUtils.indexOf(null, *, *)          = -1
      * StringUtils.indexOf(*, null, *)          = -1
      * StringUtils.indexOf("", "", 0)           = 0
+     * StringUtils.indexOf("", *, 0)            = -1 (except when * = "")
      * StringUtils.indexOf("aabaabaa", "a", 0)  = 0
      * StringUtils.indexOf("aabaabaa", "b", 0)  = 2
      * StringUtils.indexOf("aabaabaa", "ab", 0) = 1
