@@ -418,6 +418,8 @@ public class StrTokenizer implements ListIterator, Cloneable {
 
     /**
      * Gets the next token from the String.
+     * Equivalent to {@link #next()} except it returns null rather than
+     * throwing {@link NoSuchElementException} when no tokens remain.
      *
      * @return the next sequential token, or null when no more tokens are found
      */
@@ -525,9 +527,10 @@ public class StrTokenizer implements ListIterator, Cloneable {
     }
 
     /**
-     * Gets the next token. This method is equivalent to {@link #nextToken()}.
+     * Gets the next token.
      *
      * @return the next String token
+     * @throws NoSuchElementException if there are no more elements
      */
     public Object next() {
         if (hasNext()) {
