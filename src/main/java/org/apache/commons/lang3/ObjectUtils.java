@@ -17,6 +17,10 @@
 package org.apache.commons.lang3;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import org.apache.commons.lang3.exception.CloneFailedException;
 
 /**
  * <p>Operations on <code>Object</code>.</p>
@@ -308,6 +312,48 @@ public class ObjectUtils {
         } else {
             return c1 != null ? c1 : c2;
         }
+    }
+    
+    /**
+     * Clone an object.
+     * 
+     * @param <T> the type of the object
+     * @param o the object to clone
+     * @return the clone if the object implements {@link Cloneable} otherwise <code>null</code>
+     * @throws CloneFailedException if the object is cloneable and the clone operation fails
+     * @since 3.0
+     */
+    public static <T> T clone(final T o) {
+        if (o instanceof Cloneable) {
+            try {
+                final Method clone = o.getClass().getMethod("clone", (Class[])null);
+                @SuppressWarnings("unchecked")
+                final T result = (T)clone.invoke(o, (Object[])null);
+                return result;
+            } catch (final NoSuchMethodException e) {
+                throw new CloneFailedException("Cloneable type has no clone method", e);
+            } catch (final IllegalAccessException e) {
+                throw new CloneFailedException("Cannot clone Cloneable type", e);
+            } catch (final InvocationTargetException e) {
+                throw new CloneFailedException("Exception cloning Cloneable type", e.getCause());
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Clone an object if possible.
+     * 
+     * @param <T> the type of the object
+     * @param o the object to clone
+     * @return the clone if the object implements {@link Cloneable} otherwise the object itself
+     * @throws CloneFailedException if the object is cloneable and the clone operation fails
+     * @since 3.0
+     */
+    public static <T> T cloneIfPossible(final T o) {
+        final T clone = clone(o);
+        return clone == null ? o : clone;
     }
 
     // Null
