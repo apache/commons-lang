@@ -122,12 +122,14 @@ public final class RandomUtilsTest extends TestCase {
         /* Use ChiSquare dist with df = 2-1 = 1, alpha = .001
          * Change to 6.64 for alpha = .01  
          */ 
+        double chiSquare = chiSquare(expected,observed);
         assertTrue(
-            "mid point chi-square test -- will fail about 1 in 1000 times ",
-                chiSquare(expected,observed) < 10.83);                                                            
+            "mid point chi-square test -- will fail about 1 in 1000 times: "+chiSquare,
+                chiSquare < 10.83);                                                            
+        chiSquare = chiSquare(expected,observed2);
         assertTrue(
-                "odd/even chi-square test -- will fail about 1 in 1000 times",
-                chiSquare(expected,observed2) < 10.83);                                                            
+                "odd/even chi-square test -- will fail about 1 in 1000 times: "+chiSquare,
+                chiSquare < 10.83);                                                            
     }  
 
     /** test distribution of nextLong() */
