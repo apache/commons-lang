@@ -2668,6 +2668,9 @@ public class StrBuilder implements CharSequence, Appendable {
      */
     class StrBuilderTokenizer extends StrTokenizer {
 
+        /**
+         * Default constructor.
+         */
         StrBuilderTokenizer() {
             super();
         }
@@ -2704,6 +2707,9 @@ public class StrBuilder implements CharSequence, Appendable {
         /** The last mark position. */
         private int mark;
 
+        /**
+         * Default constructor.
+         */
         StrBuilderReader() {
             super();
         }
@@ -2788,6 +2794,9 @@ public class StrBuilder implements CharSequence, Appendable {
      */
     class StrBuilderWriter extends Writer {
 
+        /**
+         * Default constructor.
+         */
         StrBuilderWriter() {
             super();
         }
