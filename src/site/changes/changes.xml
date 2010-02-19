@@ -45,18 +45,20 @@
     <action type="add" issue="LANG-445">StringUtils - add startsWithAny() method</action>
     <action type="add" issue="LANG-430">StringUtils - add upperCase(String, Locale) and lowerCase(String, Locale) methods</action>
     <action type="add" issue="LANG-416">New Reflection package containing ConstructorUtils, FieldUtils, MemberUtils and MethodUtils</action>
-    <action type="fix" issue="LANG-472">RandomUtils(JVMRandom) - nextLong() / nextLong(long) now generate properly distributed random numbers</action>
     <action type="fix" issue="LANG-567">ArrayUtils - addAll() does not handle mixed types very well</action>
     <action type="fix" issue="LANG-494">CharSet - Synchronizing the COMMON Map so that getInstance doesn't miss a put from a subclass in another thread</action>
     <action type="fix" issue="LANG-500">ClassUtils - improving performance of getAllInterfaces</action>
+    <action type="fix" issue="LANG-587">ClassUtils - toClass() throws NullPointerException on null array element</action>
     <action type="fix" issue="LANG-530">DateUtils - Fix parseDate() cannot parse ISO8601 dates produced by FastDateFormat</action>
     <action type="fix" issue="LANG-440">DateUtils - round() doesn't work correct for Calendar.AM_PM</action>
     <action type="fix" issue="LANG-443">DateUtils - improve tests</action>
+    <action type="fix" issue="LANG-204">Entities - multithreaded initialization</action>
     <action type="fix" issue="LANG-538">FastDateFormat - call getTime() on a calendar to ensure timezone is in the right state</action>
     <action type="fix" issue="LANG-547">FastDateFormat - Remove unused field</action>
     <action type="fix" issue="LANG-506">Entities missing final modifiers; thread-safety issues</action>
     <action type="fix" issue="LANG-584">ExceptionUtils - use immutable lock target</action>
     <action type="fix" issue="LANG-477">ExtendedMessageFormat - OutOfMemory with a pattern containing single quotes</action>
+    <action type="fix" issue="LANG-511">LocaleUtils - Initialization of available locales in LocaleUtils can be deferred</action>
     <action type="fix" issue="LANG-457">NumberUtils - createNumber() thows a StringIndexOutOfBoundsException when only an "l" is passed in</action>
     <action type="fix" issue="LANG-521">NumberUtils - isNumber(String) and createNumber(String) both modified to support '2.'</action>
     <action type="fix" issue="LANG-432">StringUtils - improve handling of case-insensitive Strings</action>
@@ -71,9 +73,9 @@
     <action type="fix" issue="LANG-574">HashCodeBuilder - Performance improvement: check for isArray to short-circuit the 9 instanceof checks.</action>
     <action type="fix" issue="LANG-520">HashCodeBuilder - Changing the hashCode() method to return toHashCode()</action>
     <action type="fix" issue="LANG-459">HashCodeBuilder - reflectionHashCode() can generate incorrect hashcodes</action>
+    <action type="fix" issue="LANG-586">HashCodeBuilder and ToStringStyle - use of ThreadLocal causes memory leaks in container environments</action>
     <action type="fix" issue="LANG-487">ToStringBuilder - make default style thread-safe</action>
     <action type="fix" issue="LANG-472">RandomUtils - nextLong() always produces even numbers</action>
-    <action type="fix" issue="LANG-511">LocaleUtils - Initialization of available locales in LocaleUtils can be deferred</action>
   </release>
 
   <release version="2.4" date="2008-03-18" description="">

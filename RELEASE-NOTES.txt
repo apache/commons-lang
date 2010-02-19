@@ -48,17 +48,19 @@ IMPROVEMENTS IN 2.5
 BUG FIXES IN 2.5
 ================
 
-    * [LANG-472] - RandomUtils(JVMRandom) - nextLong() / nextLong(long) now generate properly distributed random numbers 
     * [LANG-494] - CharSet - Synchronizing the COMMON Map so that getInstance doesn't miss a put from a subclass in another thread
     * [LANG-500] - ClassUtils - improving performance of getAllInterfaces
+    * [LANG-587] - ClassUtils - toClass() throws NullPointerException on null array element
     * [LANG-530] - DateUtils - Fix parseDate() cannot parse ISO8601 dates produced by FastDateFormat
     * [LANG-440] - DateUtils - round() doesn't work correct for Calendar.AM_PM
     * [LANG-443] - DateUtils - improve tests
+    * [LANG-204] - Entities - multithreaded initialization
     * [LANG-538] - FastDateFormat - call getTime() on a calendar to ensure timezone is in the right state
     * [LANG-547] - FastDateFormat - Remove unused field
     * [LANG-506] - Entities missing final modifiers; thread-safety issues
     * [LANG-584] - ExceptionUtils - use immutable lock target
     * [LANG-477] - ExtendedMessageFormat - OutOfMemory with a pattern containing single quotes
+    * [LANG-511] - LocaleUtils - initialization of available locales can be deferred
     * [LANG-457] - NumberUtils - createNumber() thows a StringIndexOutOfBoundsException for "l"
     * [LANG-521] - NumberUtils - isNumber(String) and createNumber(String) both modified to support '2.'
     * [LANG-432] - StringUtils - improve handling of case-insensitive Strings
@@ -73,7 +75,7 @@ BUG FIXES IN 2.5
     * [LANG-574] - HashCodeBuilder - Performance improvement: check for isArray to short-circuit the 9 instanceof checks
     * [LANG-520] - HashCodeBuilder - Changing the hashCode() method to return toHashCode()
     * [LANG-459] - HashCodeBuilder - reflectionHashCode() can generate incorrect hashcodes
+    * [LANG-586] - HashCodeBuilder and ToStringStyle - use of ThreadLocal causes memory leaks in container environments
     * [LANG-487] - ToStringBuilder - make default style thread-safe
     * [LANG-472] - RandomUtils - nextLong() always produces even numbers
-    * [LANG-511] - LocaleUtils - initialization of available locales can be deferred
 
