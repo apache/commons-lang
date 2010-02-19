@@ -73,6 +73,7 @@
     <action type="fix" issue="LANG-459">HashCodeBuilder - reflectionHashCode() can generate incorrect hashcodes</action>
     <action type="fix" issue="LANG-487">ToStringBuilder - make default style thread-safe</action>
     <action type="fix" issue="LANG-472">RandomUtils - nextLong() always produces even numbers</action>
+    <action type="fix" issue="LANG-511">LocaleUtils - Initialization of available locales in LocaleUtils can be deferred</action>
   </release>
 
   <release version="2.4" date="2008-03-18" description="">

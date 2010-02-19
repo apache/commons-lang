@@ -75,4 +75,5 @@ BUG FIXES IN 2.5
     * [LANG-459] - HashCodeBuilder - reflectionHashCode() can generate incorrect hashcodes
     * [LANG-487] - ToStringBuilder - make default style thread-safe
     * [LANG-472] - RandomUtils - nextLong() always produces even numbers
+    * [LANG-511] - LocaleUtils - initialization of available locales can be deferred
 
