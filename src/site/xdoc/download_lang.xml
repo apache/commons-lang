@@ -102,17 +102,17 @@ limitations under the License.
         <ul class="downloads">
           <li class="group"><div class="links"><span class="label">Binary</span></div>
             <ul>
-              <li class="download"><a href="[preferred]/commons/lang/binaries/commons-lang-2.4-bin.tar.gz">2.4.tar.gz</a>
+              <li class="download"><a href="[preferred]/commons/lang/binaries/commons-lang-2.5-bin.tar.gz">2.5.tar.gz</a>
                 <ul class="attributes">
-                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.4-bin.tar.gz.md5">md5</a>]</span>
-                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.4-bin.tar.gz.asc">pgp</a>]</span>
+                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.5-bin.tar.gz.md5">md5</a>]</span>
+                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.5-bin.tar.gz.asc">pgp</a>]</span>
                   </li>
                 </ul>
               </li>
-              <li class="download"><a href="[preferred]/commons/lang/binaries/commons-lang-2.4-bin.zip">2.4.zip</a>
+              <li class="download"><a href="[preferred]/commons/lang/binaries/commons-lang-2.5-bin.zip">2.5.zip</a>
                 <ul class="attributes">
-                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.4-bin.zip.md5">md5</a>]</span>
-                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.4-bin.zip.asc">pgp</a>]</span>
+                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.5-bin.zip.md5">md5</a>]</span>
+                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.5-bin.zip.asc">pgp</a>]</span>
                   </li>
                 </ul>
               </li>
@@ -120,17 +120,17 @@ limitations under the License.
           </li>
           <li class="group"><div class="links"><span class="label">Source</span></div>
             <ul>
-              <li class="download"><a href="[preferred]/commons/lang/source/commons-lang-2.4-src.tar.gz">2.4.tar.gz</a>
+              <li class="download"><a href="[preferred]/commons/lang/source/commons-lang-2.5-src.tar.gz">2.5.tar.gz</a>
                 <ul class="attributes">
-                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.4-src.tar.gz.md5">md5</a>]</span>
-                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.4-src.tar.gz.asc">pgp</a>]</span>
+                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.5-src.tar.gz.md5">md5</a>]</span>
+                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.5-src.tar.gz.asc">pgp</a>]</span>
                   </li>
                 </ul>
               </li>
-              <li class="download"><a href="[preferred]/commons/lang/source/commons-lang-2.4-src.zip">2.4.zip</a>
+              <li class="download"><a href="[preferred]/commons/lang/source/commons-lang-2.5-src.zip">2.5.zip</a>
                 <ul class="attributes">
-                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.4-src.zip.md5">md5</a>]</span>
-                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.4-src.zip.asc">pgp</a>]</span>
+                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.5-src.zip.md5">md5</a>]</span>
+                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.5-src.zip.asc">pgp</a>]</span>
                   </li>
                 </ul>
               </li>
