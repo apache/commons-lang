@@ -2618,6 +2618,9 @@ public class StrBuilder implements Cloneable {
      */
     class StrBuilderTokenizer extends StrTokenizer {
 
+        /**
+         * Default constructor.
+         */
         StrBuilderTokenizer() {
             super();
         }
@@ -2652,6 +2655,9 @@ public class StrBuilder implements Cloneable {
         /** The last mark position. */
         private int mark;
 
+        /**
+         * Default constructor.
+         */
         StrBuilderReader() {
             super();
         }
@@ -2728,6 +2734,9 @@ public class StrBuilder implements Cloneable {
      */
     class StrBuilderWriter extends Writer {
 
+        /**
+         * Default constructor.
+         */
         StrBuilderWriter() {
             super();
         }

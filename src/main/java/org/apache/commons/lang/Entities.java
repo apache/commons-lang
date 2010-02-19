@@ -742,11 +742,18 @@ class Entities {
 
     private final EntityMap map;
 
+    /**
+     * Default constructor.
+     */
     public Entities(){
         map = new Entities.LookupEntityMap();
     }
 
-    // package scoped for testing
+    /**
+     * package scoped constructor for testing.
+     *
+     * @param emap entity map.
+     */
     Entities(EntityMap emap){
         map = emap;
     }

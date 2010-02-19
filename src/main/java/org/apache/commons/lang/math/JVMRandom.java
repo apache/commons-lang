@@ -214,8 +214,12 @@ public final class JVMRandom extends Random {
         int n=0; // number of leading zeros found
         while(true){
             // 64 = number of bits in a long
-            if (num < 0) return 64-n; // no leading zeroes left
-            if (y == 0) return n; // no bits left to check
+            if (num < 0) {
+                return 64-n; // no leading zeroes left
+            }
+            if (y == 0) {
+                return n; // no bits left to check
+            }
             n++;
             num=num << 1; // check leading bits
             y=y >> 1; // check trailing bits

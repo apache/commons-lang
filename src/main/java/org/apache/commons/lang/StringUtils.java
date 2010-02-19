@@ -807,6 +807,19 @@ public class StringUtils {
         return ordinalIndexOf(str, searchStr, ordinal, false);
     }
 
+    /**
+     * <p>Finds the n-th index within a String, handling <code>null</code>.
+     * This method uses {@link String#indexOf(String)}.</p>
+     *
+     * <p>A <code>null</code> String will return <code>-1</code>.</p>
+     *
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
+     * @param ordinal  the n-th <code>searchStr</code> to find
+     * @param lastIndex true if lastOrdinalIndexOf() otherwise false if ordinalIndexOf()
+     * @return the n-th index of the search String,
+     *  <code>-1</code> (<code>INDEX_NOT_FOUND</code>) if no match or <code>null</code> string input
+     */
     // Shared code between ordinalIndexOf(String,String,int) and lastOrdinalIndexOf(String,String,int)
     private static int ordinalIndexOf(String str, String searchStr, int ordinal, boolean lastIndex) {
         if (str == null || searchStr == null || ordinal <= 0) {

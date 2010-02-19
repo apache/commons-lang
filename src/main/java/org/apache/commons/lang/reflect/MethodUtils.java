@@ -549,6 +549,7 @@ public class MethodUtils {
      * @param cls Class to be checked
      * @param methodName Method name of the method we wish to call
      * @param parameterTypes The parameter type signatures
+     * @return the accessible method or <code>null</code> if not found
      */
     private static Method getAccessibleMethodFromSuperclass(Class cls,
             String methodName, Class[] parameterTypes) {
@@ -579,6 +580,7 @@ public class MethodUtils {
      * @param cls Parent class for the interfaces to be checked
      * @param methodName Method name of the method we wish to call
      * @param parameterTypes The parameter type signatures
+     * @return the accessible method or <code>null</code> if not found
      */
     private static Method getAccessibleMethodFromInterfaceNest(Class cls,
             String methodName, Class[] parameterTypes) {

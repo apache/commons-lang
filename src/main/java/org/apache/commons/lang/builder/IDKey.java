@@ -35,7 +35,7 @@ final class IDKey {
 
         /**
          * Constructor for IDKey
-         * @param _value
+         * @param _value The value
          */ 
         public IDKey(Object _value) {
             // This is the Object hashcode 
@@ -56,7 +56,7 @@ final class IDKey {
 
         /**
          * checks if instances are equal
-         * @param other
+         * @param other The other object to compare to
          * @return if the instances are for the same object
          */ 
         public boolean equals(Object other) {

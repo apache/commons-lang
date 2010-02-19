@@ -80,9 +80,6 @@ public class DateUtils {
      */
     public static final long MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
 
-    /** Sign characters */
-    private static final char[] SIGN_CHARS = new char[] {'+', '-'};
-
     /**
      * This is half a month, so this represents whether a date is in the top
      * or bottom half of the month.
@@ -361,6 +358,14 @@ public class DateUtils {
         }
         throw new ParseException("Unable to parse the date: " + str, -1);
     }
+
+    /**
+     * Index of sign charaters (i.e. '+' or '-').
+     * 
+     * @param str The string to search
+     * @param startPos The start position
+     * @return the index of the first sign character or -1 if not found
+     */
     private static int indexOfSignChars(String str, int startPos) {
         int idx = StringUtils.indexOf(str, '+', startPos);
         if (idx < 0) {
