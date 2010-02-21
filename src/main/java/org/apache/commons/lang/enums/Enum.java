@@ -536,7 +536,7 @@ public abstract class Enum implements Comparable, Serializable {
                 // LANG-76 - try to force class initialization for JDK 1.5+
                 Class.forName(enumClass.getName(), true, enumClass.getClassLoader());
                 entry = (Entry) cEnumClasses.get(enumClass);
-            } catch (Throwable t) {
+            } catch (Exception e) {
                 // Ignore
             }
         }
