@@ -53,9 +53,10 @@
     <action type="fix" issue="LANG-440">DateUtils - round() doesn't work correct for Calendar.AM_PM</action>
     <action type="fix" issue="LANG-443">DateUtils - improve tests</action>
     <action type="fix" issue="LANG-204">Entities - multithreaded initialization</action>
+    <action type="fix" issue="LANG-506">Entities - missing final modifiers; thread-safety issues</action>
+    <action type="fix" issue="LANG-76">EnumUtils - getEnum() doesn't work well in 1.5+</action>
     <action type="fix" issue="LANG-538">FastDateFormat - call getTime() on a calendar to ensure timezone is in the right state</action>
     <action type="fix" issue="LANG-547">FastDateFormat - Remove unused field</action>
-    <action type="fix" issue="LANG-506">Entities missing final modifiers; thread-safety issues</action>
     <action type="fix" issue="LANG-584">ExceptionUtils - use immutable lock target</action>
     <action type="fix" issue="LANG-477">ExtendedMessageFormat - OutOfMemory with a pattern containing single quotes</action>
     <action type="fix" issue="LANG-511">LocaleUtils - Initialization of available locales in LocaleUtils can be deferred</action>
@@ -76,6 +77,7 @@
     <action type="fix" issue="LANG-586">HashCodeBuilder and ToStringStyle - use of ThreadLocal causes memory leaks in container environments</action>
     <action type="fix" issue="LANG-487">ToStringBuilder - make default style thread-safe</action>
     <action type="fix" issue="LANG-472">RandomUtils - nextLong() always produces even numbers</action>
+    <action type="fix" issue="LANG-592">RandomUtils - RandomUtils tests are failing frequently</action>
   </release>
 
   <release version="2.4" date="2008-03-18" description="">

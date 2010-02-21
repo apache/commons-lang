@@ -71,9 +71,10 @@ BUG FIXES IN 2.5
     * [LANG-440] - DateUtils - round() doesn't work correct for Calendar.AM_PM
     * [LANG-443] - DateUtils - improve tests
     * [LANG-204] - Entities - multithreaded initialization
+    * [LANG-506] - Entities - missing final modifiers; thread-safety issues
+    * [LANG-76]  - EnumUtils - getEnum() doesn't work well in 1.5+
     * [LANG-538] - FastDateFormat - call getTime() on a calendar to ensure timezone is in the right state
     * [LANG-547] - FastDateFormat - Remove unused field
-    * [LANG-506] - Entities missing final modifiers; thread-safety issues
     * [LANG-584] - ExceptionUtils - use immutable lock target
     * [LANG-477] - ExtendedMessageFormat - OutOfMemory with a pattern containing single quotes
     * [LANG-511] - LocaleUtils - initialization of available locales can be deferred
@@ -94,6 +95,7 @@ BUG FIXES IN 2.5
     * [LANG-586] - HashCodeBuilder and ToStringStyle - use of ThreadLocal causes memory leaks in container environments
     * [LANG-487] - ToStringBuilder - make default style thread-safe
     * [LANG-472] - RandomUtils - nextLong() always produces even numbers
+    * [LANG-592] - RandomUtils - RandomUtils tests are failing frequently
 
 </source>
 </p>
