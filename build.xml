@@ -53,6 +53,7 @@
         <filter token="compile.source" value="${compile.source}"/>
         <filter token="compile.target" value="${compile.target}"/>
         <mkdir dir="${build.home}"/>
+        <available property="jdk.1.5.present" classname="java.lang.StringBuilder"/>
     </target>
 
     <!-- ========== Compile Targets ========================================= -->
@@ -66,9 +67,21 @@
         </copy>
     </target>
 
-    <target name="compile.tests" depends="compile" description="Compile unit test cases">
+    <!-- Compile EnumUtilsLang76Test using source/target 1.5 if JDK 1.5 present (see LANG-76) -->
+    <target name="test.compile.jdk15" depends="compile" description="Run test for LANG-76" if="jdk.1.5.present">
+        <echo message="Compiling EnumUtilsLang76Test using source/target 1.5"/>
+        <mkdir dir="${build.home}/tests"/>
+        <javac srcdir="${test.home}" destdir="${build.home}/tests"
+               target="1.5" source="1.5"
+               includes="org/apache/commons/lang/enums/EnumUtilsLang76Test.java">
+            <classpath refid="test.classpath"/>
+        </javac>
+    </target>
+
+    <target name="compile.tests" depends="compile,test.compile.jdk15" description="Compile unit test cases">
         <mkdir dir="${build.home}/tests"/>
         <javac srcdir="${test.home}" destdir="${build.home}/tests" debug="${compile.debug}" deprecation="off" target="${compile.target}" source="${compile.source}" optimize="${compile.optimize}">
+            <exclude name="org/apache/commons/lang/enums/EnumUtilsLang76Test.java" if="jdk.1.5.present"/>
             <classpath refid="test.classpath"/>
         </javac>
         <copy todir="${build.home}/tests" filtering="on">

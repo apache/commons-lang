@@ -156,22 +156,4 @@ public final class EnumUtilsTest extends TestCase {
             fail();
         } catch (IllegalArgumentException ex) {}
     }
-
-    /** Test for LANG-76 **/
-    public void testGetEnum_LANG76() {
-        Object obj = EnumUtils.getEnum(Lang76Enum.class, "1");
-        assertNotNull(obj);
-        assertEquals("EnumUtilsTest.Lang76Enum[1]", obj.toString());
-    }
-
-    /** Test Enum for LANG-76 **/
-    public static final class Lang76Enum  extends Enum {
-        public static final Lang76Enum ONE     = new Lang76Enum("1");
-        public static final Lang76Enum TWO     = new Lang76Enum("2");
-        public static final Lang76Enum THREE   = new Lang76Enum("3");
-
-        private Lang76Enum(String suit) {
-            super(suit);
-        }
-    }
 }

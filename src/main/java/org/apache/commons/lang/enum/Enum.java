@@ -484,6 +484,17 @@ public abstract class Enum implements Comparable, Serializable {
             throw new IllegalArgumentException("The Class must be a subclass of Enum");
         }
         Entry entry = (Entry) cEnumClasses.get(enumClass);
+
+        if (entry == null) {
+            try {
+                // LANG-76 - try to force class initialization for JDK 1.5+
+                Class.forName(enumClass.getName(), true, enumClass.getClassLoader());
+                entry = (Entry) cEnumClasses.get(enumClass);
+            } catch (Throwable t) {
+                // Ignore
+            }
+        }
+
         return entry;
     }
     
