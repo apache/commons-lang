@@ -55,10 +55,10 @@
     <action type="fix" issue="LANG-204">Entities - multithreaded initialization</action>
     <action type="fix" issue="LANG-506">Entities - missing final modifiers; thread-safety issues</action>
     <action type="fix" issue="LANG-76">EnumUtils - getEnum() doesn't work well in 1.5+</action>
-    <action type="fix" issue="LANG-538">FastDateFormat - call getTime() on a calendar to ensure timezone is in the right state</action>
-    <action type="fix" issue="LANG-547">FastDateFormat - Remove unused field</action>
     <action type="fix" issue="LANG-584">ExceptionUtils - use immutable lock target</action>
     <action type="fix" issue="LANG-477">ExtendedMessageFormat - OutOfMemory with a pattern containing single quotes</action>
+    <action type="fix" issue="LANG-538">FastDateFormat - call getTime() on a calendar to ensure timezone is in the right state</action>
+    <action type="fix" issue="LANG-547">FastDateFormat - Remove unused field</action>
     <action type="fix" issue="LANG-511">LocaleUtils - Initialization of available locales in LocaleUtils can be deferred</action>
     <action type="fix" issue="LANG-457">NumberUtils - createNumber() thows a StringIndexOutOfBoundsException when only an "l" is passed in</action>
     <action type="fix" issue="LANG-521">NumberUtils - isNumber(String) and createNumber(String) both modified to support '2.'</action>
