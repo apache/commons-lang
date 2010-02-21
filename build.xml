@@ -103,8 +103,24 @@
                     <include name="**/*Test.java"/>
                     <exclude name="**/Abstract*Test.java"/>
                     <exclude name="**/EntitiesPerformanceTest.java"/>
+                    <exclude name="**/RandomUtilsFreqTest.java"/>
                 </fileset>
             </batchtest>
+        </junit>
+    </target>
+
+    <!--
+	 RandomUtils frequency tests have been put in a separate test case which
+	 is only run when using this target because it fails too frequently.
+	 See https://issues.apache.org/jira/browse/LANG-592
+	 -->
+	<target name="test-random-freq" depends="compile.tests" description="Run RandomUtilsFreqTest">
+        <echo message="Running RandomUtilsFreqTest unit test ..."/>
+        <mkdir dir="${build.home}/test-reports"/>
+        <junit printsummary="true" showoutput="true" fork="yes" haltonfailure="${test.failonerror}">
+            <classpath refid="test.classpath"/>
+            <formatter type="plain" usefile="true" />
+            <test name="org.apache.commons.lang.math.RandomUtilsFreqTest" todir="${build.home}/test-reports"/>
         </junit>
     </target>
 
