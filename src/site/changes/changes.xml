@@ -21,7 +21,7 @@
   </properties>
   <body>
 
-  <release version="2.5" date="2010-02-23" description="">
+  <release version="2.5" date="2010-02-25" description="">
     <action type="add" issue="LANG-583">ArrayUtils - add isNotEmpty() methods</action>
     <action type="add" issue="LANG-534">ArrayUtils - add nullToEmpty() methods</action>
     <action type="add" issue="LANG-454">CharRange - provide an iterator that lets you walk the chars in the range</action>
