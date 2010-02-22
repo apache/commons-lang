@@ -446,7 +446,7 @@ public class ArrayUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -465,7 +465,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -484,7 +484,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -503,7 +503,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -522,7 +522,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -541,7 +541,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -560,7 +560,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -579,7 +579,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -598,7 +598,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -617,7 +617,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -636,7 +636,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -655,7 +655,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -674,7 +674,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -693,7 +693,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -712,7 +712,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -731,7 +731,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -750,7 +750,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -769,7 +769,7 @@ public class ArrayUtils {
 
     /**
      * <p>Defensive programming technique to change a <code>null</code>
-     * reference to an empty one..</p>
+     * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a <code>null</code> input array.</p>
      * 
@@ -3321,10 +3321,10 @@ public class ArrayUtils {
 
     // ----------------------------------------------------------------------
     /**
-     * <p>Checks if an array of Objects is not empty or <code>not null</code>.</p>
+     * <p>Checks if an array of Objects is not empty or not <code>null</code>.</p>
      *
      * @param array  the array to test
-     * @return <code>true</code> if the array is not empty or <code>not null</code>
+     * @return <code>true</code> if the array is not empty or not <code>null</code>
      *
      */
      public static <T> boolean isNotEmpty(T[] array) {
@@ -3332,10 +3332,10 @@ public class ArrayUtils {
      }
 
     /**
-     * <p>Checks if an array of primitive longs is not empty or <code>not null</code>.</p>
+     * <p>Checks if an array of primitive longs is not empty or not <code>null</code>.</p>
      *
      * @param array  the array to test
-     * @return <code>true</code> if the array is not empty or <code>not null</code>
+     * @return <code>true</code> if the array is not empty or not <code>null</code>
      *
      */
     public static boolean isNotEmpty(long[] array) {
@@ -3343,10 +3343,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive ints is not empty or <code>not null</code>.</p>
+     * <p>Checks if an array of primitive ints is not empty or not <code>null</code>.</p>
      *
      * @param array  the array to test
-     * @return <code>true</code> if the array is not empty or <code>not null</code>
+     * @return <code>true</code> if the array is not empty or not <code>null</code>
      *
      */
     public static boolean isNotEmpty(int[] array) {
@@ -3354,10 +3354,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive shorts is not empty or <code>not null</code>.</p>
+     * <p>Checks if an array of primitive shorts is not empty or not <code>null</code>.</p>
      *
      * @param array  the array to test
-     * @return <code>true</code> if the array is not empty or <code>not null</code>
+     * @return <code>true</code> if the array is not empty or not <code>null</code>
      *
      */
     public static boolean isNotEmpty(short[] array) {
@@ -3365,10 +3365,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive chars is not empty or <code>not null</code>.</p>
+     * <p>Checks if an array of primitive chars is not empty or not <code>null</code>.</p>
      *
      * @param array  the array to test
-     * @return <code>true</code> if the array is not empty or <code>not null</code>
+     * @return <code>true</code> if the array is not empty or not <code>null</code>
      *
      */
     public static boolean isNotEmpty(char[] array) {
@@ -3376,10 +3376,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive bytes is not empty or <code>not null</code>.</p>
+     * <p>Checks if an array of primitive bytes is not empty or not <code>null</code>.</p>
      *
      * @param array  the array to test
-     * @return <code>true</code> if the array is not empty or <code>not null</code>
+     * @return <code>true</code> if the array is not empty or not <code>null</code>
      *
      */
     public static boolean isNotEmpty(byte[] array) {
@@ -3387,10 +3387,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive doubles is not empty or <code>not null</code>.</p>
+     * <p>Checks if an array of primitive doubles is not empty or not <code>null</code>.</p>
      *
      * @param array  the array to test
-     * @return <code>true</code> if the array is not empty or <code>not null</code>
+     * @return <code>true</code> if the array is not empty or not <code>null</code>
      *
      */
     public static boolean isNotEmpty(double[] array) {
@@ -3398,10 +3398,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive floats is not empty or <code>not null</code>.</p>
+     * <p>Checks if an array of primitive floats is not empty or not <code>null</code>.</p>
      *
      * @param array  the array to test
-     * @return <code>true</code> if the array is not empty or <code>not null</code>
+     * @return <code>true</code> if the array is not empty or not <code>null</code>
      *
      */
     public static boolean isNotEmpty(float[] array) {
@@ -3409,10 +3409,10 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of primitive booleans is not empty or <code>not null</code>.</p>
+     * <p>Checks if an array of primitive booleans is not empty or not <code>null</code>.</p>
      *
      * @param array  the array to test
-     * @return <code>true</code> if the array is not empty or <code>not null</code>
+     * @return <code>true</code> if the array is not empty or not <code>null</code>
      *
      */
     public static boolean isNotEmpty(boolean[] array) {
