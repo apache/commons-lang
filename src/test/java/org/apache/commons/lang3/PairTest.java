@@ -63,6 +63,14 @@ public class PairTest {
     }
 
     @Test
+    public void testToString() throws Exception {
+        assertEquals("(null,null)", Pair.of(null, null).toString());
+        assertEquals("(null,two)", Pair.of(null, "two").toString());
+        assertEquals("(one,null)", Pair.of("one", null).toString());
+        assertEquals("(one,two)", Pair.of("one", "two").toString());
+    }
+
+    @Test
     @SuppressWarnings("unchecked")
     public void testSerialization() throws Exception {
         Pair<Integer, String> origPair = Pair.of(0, "foo");
