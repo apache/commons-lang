@@ -48,23 +48,21 @@ together with various <a href="project-reports.html">project reports</a>.
 The JavaDoc API documents are available online:
 </p>
 <ul>
-<li>The <a href="api-release/index.html">current release 2.4</a></li>
-<li>The <a href="api-2.3/index.html">previous version 2.3</a></li>
+<li>The <a href="api-release/index.html">current release 2.5</a></li>
+<li>The <a href="api-2.4/index.html">previous version 2.4</a></li>
 <li>Older releases - see the <a href="release-history.html">Release History</a> page</li>
 </ul>
 <p>
-The <a href="cvs-usage.html">subversion repository</a> can be
+The <a href="source-repository.html">subversion repository</a> can be
 <a href="http://svn.apache.org/viewvc/commons/proper/lang/trunk/">browsed</a>.
 </p>
 </section>
 <!-- ================================================== -->
 <section name="Releases">
 <p>
-The latest version 2.4, is JDK 1.2 compatible - 
-<a href="http://commons.apache.org/downloads/download_lang.cgi">Download now!</a> 
-(<a href="upgradeto2_4.html">upgrade notes</a>). </p>
-
-<p>Read '<a href="article2_4.html">What's new in 2.4?</a>' for more information. </p>
+The latest version 2.5, is JDK 1.3 compatible - 
+<a href="http://commons.apache.org/lang/download_lang.cgi">Download now!</a> 
+(<a href="upgradeto2_5.html">upgrade notes</a>). </p>
 
 <p>
 For information on previous releases, see the <a href="release-history.html">Release History</a> and to download previous releases, see the <a href="http://archive.apache.org/dist/commons/lang/">Apache Archive</a>.

@@ -31,6 +31,7 @@ limitations under the License.
   You may also be interested in the upgrade notes:
 </p>
 <ul>
+  <li>Upgrade <a href="upgradeto2_5.html">from 2.4 to 2.5</a></li>
   <li>Upgrade <a href="upgradeto2_4.html">from 2.3 to 2.4</a></li>
   <li>Upgrade <a href="upgradeto2_3.html">from 2.2 to 2.3</a></li>
   <li>Upgrade <a href="upgradeto2_2.html">from 2.1 to 2.2</a></li>
@@ -41,16 +42,12 @@ limitations under the License.
 <!-- ================================================== -->
 <section name="Maven Goals">
   <p>
-    To build a jar file, change into the root directory of Lang and run "maven jar".
+    To build a jar file, change into the root directory of Lang and run "mvn package".
     The result will be in the "target" subdirectory.
   </p>
   <p>
-    To build the Javadocs, run "maven javadoc".
-    The result will be in "target/docs/apidocs".
-  </p>
-  <p>
-    To build the full website, run "maven site".
-    The result will be in "target/docs".
+    To build the full website, run "mvn site".
+    The result will be in "target/site".
 	You must be online to successfully complete this target.
   </p>
   <p>
@@ -62,11 +59,11 @@ limitations under the License.
 <section name="Ant Goals">
   <p>
     To build a jar file, change into the root directory of Lang and run "ant jar".
-    The result will be in the "dist" subdirectory.
+    The result will be in the "target" subdirectory.
   </p>
   <p>
     To build the Javadocs, run "ant javadoc".
-    The result will be in "dist/docs/api".
+    The result will be in "target/docs/api".
   </p>
 </section>
 <!-- ================================================== -->
