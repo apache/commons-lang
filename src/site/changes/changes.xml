@@ -41,7 +41,7 @@
     <action type="add" issue="LANG-569">StringUtils - add indexOfIgnoreCase() and lastIndexOfIgnoreCase() methods</action>
     <action type="add" issue="LANG-471">StringUtils - add isAllUpperCase() and isAllLowerCase() methods</action>
     <action type="add" issue="LANG-469">StringUtils - add lastOrdinalIndexOf() method to complement the existing ordinalIndexOf() method</action>
-    <action type="add" issue="LANG-438">StringUtils - add repeat() method</action>
+    <action type="add" issue="LANG-348">StringUtils - add repeat() method</action>
     <action type="add" issue="LANG-445">StringUtils - add startsWithAny() method</action>
     <action type="add" issue="LANG-430">StringUtils - add upperCase(String, Locale) and lowerCase(String, Locale) methods</action>
     <action type="add" issue="LANG-416">New Reflection package containing ConstructorUtils, FieldUtils, MemberUtils and MethodUtils</action>
