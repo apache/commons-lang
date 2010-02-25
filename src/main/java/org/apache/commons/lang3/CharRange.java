@@ -83,6 +83,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
      * @param ch  only character in this range
      * @return the new CharRange object
      * @see CharRange#CharRange(char, char, boolean)
+     * @since 2.5
      */
     public static CharRange is(char ch) {
         return new CharRange(ch, ch, false);
@@ -94,6 +95,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
      * @param ch  only character in this range
      * @return the new CharRange object
      * @see CharRange#CharRange(char, char, boolean)
+     * @since 2.5
      */
     public static CharRange isNot(char ch) {
         return new CharRange(ch, ch, true);
@@ -106,6 +108,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
      * @param end  last character, inclusive, in this range
      * @return the new CharRange object
      * @see CharRange#CharRange(char, char, boolean)
+     * @since 2.5
      */
     public static CharRange isIn(char start, char end) {
         return new CharRange(start, end, false);
@@ -118,6 +121,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
      * @param end  last character, inclusive, in this range
      * @return the new CharRange object
      * @see CharRange#CharRange(char, char, boolean)
+     * @since 2.5
      */
     public static CharRange isNotIn(char start, char end) {
         return new CharRange(start, end, true);
@@ -250,6 +254,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
      * <p>Returns an iterator which can be used to walk through the characters described by this range.</p>
      *
      * @return an iterator to the chars represented by this range
+     * @since 2.5
      */
     public Iterator<Character> iterator() {
         return new CharacterIterator(this);

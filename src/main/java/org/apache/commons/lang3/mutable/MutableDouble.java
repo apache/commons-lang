@@ -69,6 +69,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
      * 
      * @param value  the string to parse, not null
      * @throws NumberFormatException if the string cannot be parsed into a double
+     * @since 2.5
      */
     public MutableDouble(String value) throws NumberFormatException {
         super();

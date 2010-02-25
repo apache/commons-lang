@@ -1124,7 +1124,7 @@ public class StrBuilder implements CharSequence, Appendable {
      * @param standard the separator if builder is not empty, null means no separator
      * @param defaultIfEmpty the separator if builder is empty, null means no separator
      * @return this, to enable chaining
-     * @since 3.0
+     * @since 2.5
      */
     public StrBuilder appendSeparator(String standard, String defaultIfEmpty) {
         String str = isEmpty() ? defaultIfEmpty : standard;
@@ -1169,7 +1169,7 @@ public class StrBuilder implements CharSequence, Appendable {
      * @param standard the separator if builder is not empty
      * @param defaultIfEmpty the separator if builder is empty
      * @return this, to enable chaining
-     * @since 3.0
+     * @since 2.5
      */
     public StrBuilder appendSeparator(char standard, char defaultIfEmpty) {
         if (size() > 0) {
