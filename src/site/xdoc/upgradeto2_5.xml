@@ -56,7 +56,7 @@ IMPROVEMENTS IN 2.5
     * [LANG-569] - StringUtils - add indexOfIgnoreCase() and lastIndexOfIgnoreCase() methods
     * [LANG-471] - StringUtils - add isAllUpperCase() and isAllLowerCase() methods
     * [LANG-469] - StringUtils - add lastOrdinalIndexOf() method to complement the existing ordinalIndexOf() method
-    * [LANG-438] - StringUtils - add repeat() method
+    * [LANG-348] - StringUtils - add repeat() method
     * [LANG-445] - StringUtils - add startsWithAny() method
     * [LANG-430] - StringUtils - add upperCase(String, Locale) and lowerCase(String, Locale) methods
     * [LANG-416] - New Reflection package containing ConstructorUtils, FieldUtils, MemberUtils and MethodUtils
