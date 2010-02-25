@@ -304,6 +304,7 @@ public class NumberUtils {
      * @param str  the string to convert, may be null
      * @return the byte represented by the string, or <code>zero</code> if
      *  conversion fails
+     * @since 2.5
      */
     public static byte toByte(String str) {
         return toByte(str, (byte) 0);
@@ -324,6 +325,7 @@ public class NumberUtils {
      * @param str  the string to convert, may be null
      * @param defaultValue  the default value
      * @return the byte represented by the string, or the default if conversion fails
+     * @since 2.5
      */
     public static byte toByte(String str, byte defaultValue) {
         if(str == null) {
@@ -351,6 +353,7 @@ public class NumberUtils {
      * @param str  the string to convert, may be null
      * @return the short represented by the string, or <code>zero</code> if
      *  conversion fails
+     * @since 2.5
      */
     public static short toShort(String str) {
         return toShort(str, (short) 0);
@@ -371,6 +374,7 @@ public class NumberUtils {
      * @param str  the string to convert, may be null
      * @param defaultValue  the default value
      * @return the short represented by the string, or the default if conversion fails
+     * @since 2.5
      */
     public static short toShort(String str, short defaultValue) {
         if(str == null) {

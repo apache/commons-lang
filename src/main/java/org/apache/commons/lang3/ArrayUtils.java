@@ -455,6 +455,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static Object[] nullToEmpty(Object[] array) {
         if (array == null || array.length == 0) {
@@ -474,6 +475,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static String[] nullToEmpty(String[] array) {
         if (array == null || array.length == 0) {
@@ -493,6 +495,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static long[] nullToEmpty(long[] array) {
         if (array == null || array.length == 0) {
@@ -512,6 +515,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static int[] nullToEmpty(int[] array) {
         if (array == null || array.length == 0) {
@@ -531,6 +535,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static short[] nullToEmpty(short[] array) {
         if (array == null || array.length == 0) {
@@ -550,6 +555,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static char[] nullToEmpty(char[] array) {
         if (array == null || array.length == 0) {
@@ -569,6 +575,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static byte[] nullToEmpty(byte[] array) {
         if (array == null || array.length == 0) {
@@ -588,6 +595,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static double[] nullToEmpty(double[] array) {
         if (array == null || array.length == 0) {
@@ -607,6 +615,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static float[] nullToEmpty(float[] array) {
         if (array == null || array.length == 0) {
@@ -626,6 +635,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static boolean[] nullToEmpty(boolean[] array) {
         if (array == null || array.length == 0) {
@@ -645,6 +655,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static Long[] nullToEmpty(Long[] array) {
         if (array == null || array.length == 0) {
@@ -664,6 +675,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static Integer[] nullToEmpty(Integer[] array) {
         if (array == null || array.length == 0) {
@@ -683,6 +695,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static Short[] nullToEmpty(Short[] array) {
         if (array == null || array.length == 0) {
@@ -702,6 +715,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static Character[] nullToEmpty(Character[] array) {
         if (array == null || array.length == 0) {
@@ -721,6 +735,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static Byte[] nullToEmpty(Byte[] array) {
         if (array == null || array.length == 0) {
@@ -740,6 +755,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static Double[] nullToEmpty(Double[] array) {
         if (array == null || array.length == 0) {
@@ -759,6 +775,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static Float[] nullToEmpty(Float[] array) {
         if (array == null || array.length == 0) {
@@ -778,6 +795,7 @@ public class ArrayUtils {
      *
      * @param array  the array to check for <code>null</code> or empty
      * @return the same array, <code>public static</code> empty array if <code>null</code> or empty input
+     * @since 2.5
      */
     public static Boolean[] nullToEmpty(Boolean[] array) {
         if (array == null || array.length == 0) {
@@ -3325,7 +3343,7 @@ public class ArrayUtils {
      *
      * @param array  the array to test
      * @return <code>true</code> if the array is not empty or not <code>null</code>
-     *
+     * @since 2.5
      */
      public static <T> boolean isNotEmpty(T[] array) {
          return (array != null && array.length != 0);
@@ -3336,7 +3354,7 @@ public class ArrayUtils {
      *
      * @param array  the array to test
      * @return <code>true</code> if the array is not empty or not <code>null</code>
-     *
+     * @since 2.5
      */
     public static boolean isNotEmpty(long[] array) {
         return (array != null && array.length != 0);
@@ -3347,7 +3365,7 @@ public class ArrayUtils {
      *
      * @param array  the array to test
      * @return <code>true</code> if the array is not empty or not <code>null</code>
-     *
+     * @since 2.5
      */
     public static boolean isNotEmpty(int[] array) {
         return (array != null && array.length != 0);
@@ -3358,7 +3376,7 @@ public class ArrayUtils {
      *
      * @param array  the array to test
      * @return <code>true</code> if the array is not empty or not <code>null</code>
-     *
+     * @since 2.5
      */
     public static boolean isNotEmpty(short[] array) {
         return (array != null && array.length != 0);
@@ -3369,7 +3387,7 @@ public class ArrayUtils {
      *
      * @param array  the array to test
      * @return <code>true</code> if the array is not empty or not <code>null</code>
-     *
+     * @since 2.5
      */
     public static boolean isNotEmpty(char[] array) {
         return (array != null && array.length != 0);
@@ -3380,7 +3398,7 @@ public class ArrayUtils {
      *
      * @param array  the array to test
      * @return <code>true</code> if the array is not empty or not <code>null</code>
-     *
+     * @since 2.5
      */
     public static boolean isNotEmpty(byte[] array) {
         return (array != null && array.length != 0);
@@ -3391,7 +3409,7 @@ public class ArrayUtils {
      *
      * @param array  the array to test
      * @return <code>true</code> if the array is not empty or not <code>null</code>
-     *
+     * @since 2.5
      */
     public static boolean isNotEmpty(double[] array) {
         return (array != null && array.length != 0);
@@ -3402,7 +3420,7 @@ public class ArrayUtils {
      *
      * @param array  the array to test
      * @return <code>true</code> if the array is not empty or not <code>null</code>
-     *
+     * @since 2.5
      */
     public static boolean isNotEmpty(float[] array) {
         return (array != null && array.length != 0);
@@ -3413,7 +3431,7 @@ public class ArrayUtils {
      *
      * @param array  the array to test
      * @return <code>true</code> if the array is not empty or not <code>null</code>
-     *
+     * @since 2.5
      */
     public static boolean isNotEmpty(boolean[] array) {
         return (array != null && array.length != 0);
