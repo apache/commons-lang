@@ -48,6 +48,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Phil Steitz
  * @author Robert Scholte
+ * @author Paul Benedict
  * @since 2.0
  * @version $Id$
  */
@@ -1691,6 +1692,80 @@ public class DateUtils {
                 default: throw new IllegalArgumentException("The fragment " + fragment + " is not supported");
         }
         return result;
+    }
+    
+    /**
+     * Determines if two calendars are equal up to no more than the specified 
+     * most significant field.
+     * 
+     * @param cal1 the first calendar, not <code>null</code>
+     * @param cal2 the second calendar, not <code>null</code>
+     * @param field the field from <code>Calendar</code>
+     * @return <code>true</code> if equal; otherwise <code>false</code>
+     * @throws IllegalArgumentException if any argument is <code>null</code>
+     * @see #truncate(Calendar, int)
+     * @see #truncatedEquals(Date, Date, int)
+     * @since 3.0
+     */
+    public static boolean truncatedEquals(Calendar cal1, Calendar cal2, int field) {
+        return truncatedCompareTo(cal1, cal2, field) == 0;
+    }
+
+    /**
+     * Determines if two dates are equal up to no more than the specified 
+     * most significant field.
+     * 
+     * @param date1 the first date, not <code>null</code>
+     * @param date2 the second date, not <code>null</code>
+     * @param field the field from <code>Calendar</code>
+     * @return <code>true</code> if equal; otherwise <code>false</code>
+     * @throws IllegalArgumentException if any argument is <code>null</code>
+     * @see #truncate(Date, int)
+     * @see #truncatedEquals(Calendar, Calendar, int)
+     * @since 3.0
+     */
+    public static boolean truncatedEquals(Date date1, Date date2, int field) {
+        return truncatedCompareTo(date1, date2, field) == 0;
+    }
+
+    /**
+     * Determines how two calendars compare up to no more than the specified 
+     * most significant field.
+     * 
+     * @param cal1 the first calendar, not <code>null</code>
+     * @param cal2 the second calendar, not <code>null</code>
+     * @param field the field from <code>Calendar</code>
+     * @return a negative integer, zero, or a positive integer as the first 
+     * calendar is less than, equal to, or greater than the second.
+     * @throws IllegalArgumentException if any argument is <code>null</code>
+     * @see #truncate(Calendar, int)
+     * @see #truncatedCompareTo(Date, Date, int)
+     * @since 3.0
+     */
+    public static int truncatedCompareTo(Calendar cal1, Calendar cal2, int field) {
+        Calendar truncatedCal1 = truncate(cal1, field);
+        Calendar truncatedCal2 = truncate(cal2, field);
+        return truncatedCal1.compareTo(truncatedCal2);
+    }
+
+    /**
+     * Determines how two dates compare up to no more than the specified 
+     * most significant field.
+     * 
+     * @param date1 the first date, not <code>null</code>
+     * @param date2 the second date, not <code>null</code>
+     * @param field the field from <code>Calendar</code>
+     * @return a negative integer, zero, or a positive integer as the first 
+     * date is less than, equal to, or greater than the second.
+     * @throws IllegalArgumentException if any argument is <code>null</code>
+     * @see #truncate(Calendar, int)
+     * @see #truncatedCompareTo(Date, Date, int)
+     * @since 3.0
+     */
+    public static int truncatedCompareTo(Date date1, Date date2, int field) {
+        Date truncatedDate1 = truncate(date1, field);
+        Date truncatedDate2 = truncate(date2, field);
+        return truncatedDate1.compareTo(truncatedDate2);
     }
     
     /**
