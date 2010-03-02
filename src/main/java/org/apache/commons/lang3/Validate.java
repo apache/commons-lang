@@ -818,9 +818,9 @@ public class Validate {
      * @param input the character sequence to validate
      * @param pattern regular expression pattern
      * @param message the exception message
-     * @param optional values to replace in the exception message
+     * @param values (optional) values to replace in the exception message
      * @throws IllegalArgumentException if the character sequence does not match the pattern
-     * @see #matchesPattern(String, String)
+     * @see #matchesPattern(CharSequence, String)
      */
     public static void matchesPattern(CharSequence input, String pattern, String message, Object... values)
     {
@@ -861,7 +861,7 @@ public class Validate {
      * @param start the inclusive start value
      * @param end the inclusive end value
      * @param message the exception message
-     * @param optional values to replace in the exception message
+     * @param values to replace in the exception message (optional)
      * @throws IllegalArgumentException if the value falls out of the boundaries
      * @see #inclusiveBetween(Object, Object, Comparable)
      */
@@ -904,7 +904,7 @@ public class Validate {
      * @param start the exclusive start value
      * @param end the exclusive end value
      * @param message the exception message
-     * @param optional values to replace in the exception message
+     * @param values to replace in the exception message (optional)
      * @throws IllegalArgumentException if the value falls out of the boundaries
      * @see #exclusiveBetween(Object, Object, Comparable)
      */
