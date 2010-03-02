@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -49,6 +48,7 @@ public final class Pair<L, R> implements Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -63,6 +63,7 @@ public final class Pair<L, R> implements Serializable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int hashCode() {
         return new HashCodeBuilder().append(left).append(right).toHashCode();
     }
@@ -70,6 +71,7 @@ public final class Pair<L, R> implements Serializable {
     /**
      * Returns a String representation of the Pair in the form: (L,R)
      */
+    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("(");
