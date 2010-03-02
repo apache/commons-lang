@@ -48,11 +48,11 @@ limitations under the License.
   <p>
     To build the full website, run "mvn site".
     The result will be in "target/site".
-	You must be online to successfully complete this target.
+    You must be online to successfully complete this target.
   </p>
   <p>
-	Further details can be found in the
-	<a href="http://commons.apache.org/building.html">commons build instructions</a>.
+    Further details can be found in the
+    <a href="http://commons.apache.org/building.html">commons build instructions</a>.
   </p>
 </section>
 <!-- ================================================== -->
