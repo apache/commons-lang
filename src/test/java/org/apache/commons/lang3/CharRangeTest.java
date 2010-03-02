@@ -312,13 +312,13 @@ public class CharRangeTest extends TestCase {
         CharRange notFirst = CharRange.isNotIn((char) 1, Character.MAX_VALUE);
         CharRange notLast = CharRange.isNotIn((char) 0, (char) (Character.MAX_VALUE - 1));
 
-        Iterator aIt = a.iterator();
+        Iterator<Character> aIt = a.iterator();
         assertNotNull(aIt);
         assertTrue(aIt.hasNext());
         assertEquals(Character.valueOf('a'), aIt.next());
         assertFalse(aIt.hasNext());
 
-        Iterator adIt = ad.iterator();
+        Iterator<Character> adIt = ad.iterator();
         assertNotNull(adIt);
         assertTrue(adIt.hasNext());
         assertEquals(Character.valueOf('a'), adIt.next());
@@ -327,15 +327,15 @@ public class CharRangeTest extends TestCase {
         assertEquals(Character.valueOf('d'), adIt.next());
         assertFalse(adIt.hasNext());
 
-        Iterator notaIt = nota.iterator();
+        Iterator<Character> notaIt = nota.iterator();
         assertNotNull(notaIt);
         assertTrue(notaIt.hasNext());
         while (notaIt.hasNext()) {
-            Character c = (Character) notaIt.next();
+            Character c = notaIt.next();
             assertFalse('a' == c.charValue());
         }
 
-        Iterator emptySetIt = emptySet.iterator();
+        Iterator<Character> emptySetIt = emptySet.iterator();
         assertNotNull(emptySetIt);
         assertFalse(emptySetIt.hasNext());
         try {
@@ -345,7 +345,7 @@ public class CharRangeTest extends TestCase {
             assertTrue(true);
         }
 
-        Iterator notFirstIt = notFirst.iterator();
+        Iterator<Character> notFirstIt = notFirst.iterator();
         assertNotNull(notFirstIt);
         assertTrue(notFirstIt.hasNext());
         assertEquals(Character.valueOf((char) 0), notFirstIt.next());
@@ -357,7 +357,7 @@ public class CharRangeTest extends TestCase {
             assertTrue(true);
         }
 
-        Iterator notLastIt = notLast.iterator();
+        Iterator<Character> notLastIt = notLast.iterator();
         assertNotNull(notLastIt);
         assertTrue(notLastIt.hasNext());
         assertEquals(Character.valueOf(Character.MAX_VALUE), notLastIt.next());
