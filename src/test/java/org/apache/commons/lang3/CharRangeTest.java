@@ -31,7 +31,7 @@ import junit.framework.TestCase;
  * @version $Id$
  */
 public class CharRangeTest extends TestCase {
-    
+
     public CharRangeTest(String name) {
         super(name);
     }
@@ -50,7 +50,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(false, rangea.isNegated());
         assertEquals("a", rangea.toString());
     }
-    
+
     public void testConstructorAccessors_isNot() {
         CharRange rangea = CharRange.isNot('a');
         assertEquals('a', rangea.getStart());
@@ -58,7 +58,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(true, rangea.isNegated());
         assertEquals("^a", rangea.toString());
     }
-    
+
     public void testConstructorAccessors_isIn_Same() {
         CharRange rangea = CharRange.isIn('a', 'a');
         assertEquals('a', rangea.getStart());
@@ -66,7 +66,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(false, rangea.isNegated());
         assertEquals("a", rangea.toString());
     }
-    
+
     public void testConstructorAccessors_isIn_Normal() {
         CharRange rangea = CharRange.isIn('a', 'e');
         assertEquals('a', rangea.getStart());
@@ -74,7 +74,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(false, rangea.isNegated());
         assertEquals("a-e", rangea.toString());
     }
-    
+
     public void testConstructorAccessors_isIn_Reversed() {
         CharRange rangea = CharRange.isIn('e', 'a');
         assertEquals('a', rangea.getStart());
@@ -82,7 +82,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(false, rangea.isNegated());
         assertEquals("a-e", rangea.toString());
     }
-    
+
     public void testConstructorAccessors_isNotIn_Same() {
         CharRange rangea = CharRange.isNotIn('a', 'a');
         assertEquals('a', rangea.getStart());
@@ -90,7 +90,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(true, rangea.isNegated());
         assertEquals("^a", rangea.toString());
     }
-    
+
     public void testConstructorAccessors_isNotIn_Normal() {
         CharRange rangea = CharRange.isNotIn('a', 'e');
         assertEquals('a', rangea.getStart());
@@ -98,7 +98,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(true, rangea.isNegated());
         assertEquals("^a-e", rangea.toString());
     }
-    
+
     public void testConstructorAccessors_isNotIn_Reversed() {
         CharRange rangea = CharRange.isNotIn('e', 'a');
         assertEquals('a', rangea.getStart());
@@ -107,21 +107,21 @@ public class CharRangeTest extends TestCase {
         assertEquals("^a-e", rangea.toString());
     }
 
-    //-----------------------------------------------------------------------    
+    //-----------------------------------------------------------------------
     public void testEquals_Object() {
         CharRange rangea = CharRange.is('a');
         CharRange rangeae = CharRange.isIn('a', 'e');
         CharRange rangenotbf = CharRange.isIn('b', 'f');
-        
+
         assertEquals(false, rangea.equals(null));
-        
+
         assertEquals(true, rangea.equals(rangea));
         assertEquals(true, rangea.equals(CharRange.is('a')));
         assertEquals(true, rangeae.equals(rangeae));
         assertEquals(true, rangeae.equals(CharRange.isIn('a', 'e')));
         assertEquals(true, rangenotbf.equals(rangenotbf));
         assertEquals(true, rangenotbf.equals(CharRange.isIn('b', 'f')));
-        
+
         assertEquals(false, rangea.equals(rangeae));
         assertEquals(false, rangea.equals(rangenotbf));
         assertEquals(false, rangeae.equals(rangea));
@@ -129,19 +129,19 @@ public class CharRangeTest extends TestCase {
         assertEquals(false, rangenotbf.equals(rangea));
         assertEquals(false, rangenotbf.equals(rangeae));
     }
-            
+
     public void testHashCode() {
         CharRange rangea = CharRange.is('a');
         CharRange rangeae = CharRange.isIn('a', 'e');
         CharRange rangenotbf = CharRange.isIn('b', 'f');
-        
+
         assertEquals(true, rangea.hashCode() == rangea.hashCode());
         assertEquals(true, rangea.hashCode() == CharRange.is('a').hashCode());
         assertEquals(true, rangeae.hashCode() == rangeae.hashCode());
         assertEquals(true, rangeae.hashCode() == CharRange.isIn('a', 'e').hashCode());
         assertEquals(true, rangenotbf.hashCode() == rangenotbf.hashCode());
         assertEquals(true, rangenotbf.hashCode() == CharRange.isIn('b', 'f').hashCode());
-        
+
         assertEquals(false, rangea.hashCode() == rangeae.hashCode());
         assertEquals(false, rangea.hashCode() == rangenotbf.hashCode());
         assertEquals(false, rangeae.hashCode() == rangea.hashCode());
@@ -149,27 +149,27 @@ public class CharRangeTest extends TestCase {
         assertEquals(false, rangenotbf.hashCode() == rangea.hashCode());
         assertEquals(false, rangenotbf.hashCode() == rangeae.hashCode());
     }
-    
-    //-----------------------------------------------------------------------    
+
+    //-----------------------------------------------------------------------
     public void testContains_Char() {
         CharRange range = CharRange.is('c');
         assertEquals(false, range.contains('b'));
         assertEquals(true, range.contains('c'));
         assertEquals(false, range.contains('d'));
         assertEquals(false, range.contains('e'));
-        
+
         range = CharRange.isIn('c', 'd');
         assertEquals(false, range.contains('b'));
         assertEquals(true, range.contains('c'));
         assertEquals(true, range.contains('d'));
         assertEquals(false, range.contains('e'));
-        
+
         range = CharRange.isIn('d', 'c');
         assertEquals(false, range.contains('b'));
         assertEquals(true, range.contains('c'));
         assertEquals(true, range.contains('d'));
         assertEquals(false, range.contains('e'));
-        
+
         range = CharRange.isNotIn('c', 'd');
         assertEquals(true, range.contains('b'));
         assertEquals(false, range.contains('c'));
@@ -178,8 +178,8 @@ public class CharRangeTest extends TestCase {
         assertEquals(true, range.contains((char) 0));
         assertEquals(true, range.contains(Character.MAX_VALUE));
     }
-    
-    //-----------------------------------------------------------------------    
+
+    //-----------------------------------------------------------------------
     public void testContains_Charrange() {
         CharRange a = CharRange.is('a');
         CharRange b = CharRange.is('b');
@@ -194,19 +194,19 @@ public class CharRangeTest extends TestCase {
         CharRange de = CharRange.isIn('d', 'e');
         CharRange ef = CharRange.isIn('e', 'f');
         CharRange ae = CharRange.isIn('a', 'e');
-        
+
         // normal/normal
         assertEquals(false, c.contains(b));
         assertEquals(true, c.contains(c));
         assertEquals(true, c.contains(c2));
         assertEquals(false, c.contains(d));
-        
+
         assertEquals(false, c.contains(cd));
         assertEquals(false, c.contains(bd));
         assertEquals(false, c.contains(bc));
         assertEquals(false, c.contains(ab));
         assertEquals(false, c.contains(de));
-        
+
         assertEquals(true, cd.contains(c));
         assertEquals(true, bd.contains(c));
         assertEquals(true, bc.contains(c));
@@ -218,7 +218,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(true, ae.contains(bc));
         assertEquals(true, ae.contains(cd));
         assertEquals(true, ae.contains(de));
-        
+
         CharRange notb = CharRange.isNot('b');
         CharRange notc = CharRange.isNot('c');
         CharRange notd = CharRange.isNot('d');
@@ -230,7 +230,7 @@ public class CharRangeTest extends TestCase {
         CharRange notae = CharRange.isNotIn('a', 'e');
         CharRange all = CharRange.isIn((char) 0, Character.MAX_VALUE);
         CharRange allbutfirst = CharRange.isIn((char) 1, Character.MAX_VALUE);
-        
+
         // normal/negated
         assertEquals(false, c.contains(notc));
         assertEquals(false, c.contains(notbd));
@@ -238,14 +238,14 @@ public class CharRangeTest extends TestCase {
         assertEquals(true, all.contains(notbd));
         assertEquals(false, allbutfirst.contains(notc));
         assertEquals(false, allbutfirst.contains(notbd));
-        
+
         // negated/normal
         assertEquals(true, notc.contains(a));
         assertEquals(true, notc.contains(b));
         assertEquals(false, notc.contains(c));
         assertEquals(true, notc.contains(d));
         assertEquals(true, notc.contains(e));
-        
+
         assertEquals(true, notc.contains(ab));
         assertEquals(false, notc.contains(bc));
         assertEquals(false, notc.contains(bd));
@@ -254,13 +254,13 @@ public class CharRangeTest extends TestCase {
         assertEquals(false, notc.contains(ae));
         assertEquals(false, notc.contains(all));
         assertEquals(false, notc.contains(allbutfirst));
-        
+
         assertEquals(true, notbd.contains(a));
         assertEquals(false, notbd.contains(b));
         assertEquals(false, notbd.contains(c));
         assertEquals(false, notbd.contains(d));
         assertEquals(true, notbd.contains(e));
-        
+
         assertEquals(true, notcd.contains(ab));
         assertEquals(false, notcd.contains(bc));
         assertEquals(false, notcd.contains(bd));
@@ -270,22 +270,22 @@ public class CharRangeTest extends TestCase {
         assertEquals(true, notcd.contains(ef));
         assertEquals(false, notcd.contains(all));
         assertEquals(false, notcd.contains(allbutfirst));
-        
+
         // negated/negated
         assertEquals(false, notc.contains(notb));
         assertEquals(true, notc.contains(notc));
         assertEquals(false, notc.contains(notd));
-        
+
         assertEquals(false, notc.contains(notab));
         assertEquals(true, notc.contains(notbc));
         assertEquals(true, notc.contains(notbd));
         assertEquals(true, notc.contains(notcd));
         assertEquals(false, notc.contains(notde));
-        
+
         assertEquals(false, notbd.contains(notb));
         assertEquals(false, notbd.contains(notc));
         assertEquals(false, notbd.contains(notd));
-        
+
         assertEquals(false, notbd.contains(notab));
         assertEquals(false, notbd.contains(notbc));
         assertEquals(true, notbd.contains(notbd));
@@ -293,7 +293,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(false, notbd.contains(notde));
         assertEquals(true, notbd.contains(notae));
     }
-    
+
     public void testContainsNullArg() {
         CharRange range = CharRange.is('a');
         try {
@@ -351,7 +351,7 @@ public class CharRangeTest extends TestCase {
         assertEquals(Character.valueOf((char) 0), notFirstIt.next());
         assertFalse(notFirstIt.hasNext());
         try {
-        	notFirstIt.next();
+            notFirstIt.next();
             fail("Should throw NoSuchElementException");
         } catch (NoSuchElementException e) {
             assertTrue(true);
@@ -363,14 +363,14 @@ public class CharRangeTest extends TestCase {
         assertEquals(Character.valueOf(Character.MAX_VALUE), notLastIt.next());
         assertFalse(notLastIt.hasNext());
         try {
-        	notLastIt.next();
+            notLastIt.next();
             fail("Should throw NoSuchElementException");
         } catch (NoSuchElementException e) {
             assertTrue(true);
         }
     }
 
-    //-----------------------------------------------------------------------    
+    //-----------------------------------------------------------------------
     public void testSerialization() {
         CharRange range = CharRange.is('a');
         assertEquals(range, SerializationUtils.clone(range)); 
@@ -379,5 +379,5 @@ public class CharRangeTest extends TestCase {
         range = CharRange.isNotIn('a', 'e');
         assertEquals(range, SerializationUtils.clone(range)); 
     }
-    
+
 }
