@@ -65,6 +65,8 @@ public class Validate {
     private static final String DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE = "The validated character sequence index is invalid: %d";
     private static final String DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE = "The validated collection index is invalid: %d";
     private static final String DEFAULT_VALID_STATE_EX_MESSAGE = "The validated state is false";
+    private static final String DEFAULT_IS_ASSIGNABLE_EX_MESSAGE = "The validated class can not be converted to the %s class";
+    private static final String DEFAULT_IS_INSTANCE_OF_EX_MESSAGE = "The validated object is not an instance of %s";
 
     /**
      * Constructor. This class should not normally be instantiated.
@@ -911,6 +913,99 @@ public class Validate {
     public static <T> void exclusiveBetween(T start, T end, Comparable<T> value, String message, Object... values)
     {
         if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0)
+        {
+            throw new IllegalArgumentException(String.format(message, values));
+        }
+    }
+
+    /**
+     * <p>Validate that the argument is an instance of the specified class; otherwise
+     * throwing an exception. This method is useful when validating according to an arbitrary
+     * class</p>
+     * 
+     * <pre>Validate.isInstanceOf(OkClass.class, object);</pre>
+     * 
+     * <p>The message of the exception is &quot;The validated object is not an instance of&quot;
+     * followed by the name of the class</p>
+     * 
+     * @param type the class the object must be validated against
+     * @param o the object to check
+     * @throws IllegalArgumentException if argument is not of specified class
+     * @see #isInstanceOf(Class, Object, String, Object...)
+     */
+    public static void isInstanceOf(Class<?> type, Object o)
+    {
+        if (type.isInstance(o) == false)
+        {
+            throw new IllegalArgumentException(String.format(DEFAULT_IS_INSTANCE_OF_EX_MESSAGE, type.getName()));
+        }
+    }
+    
+    /**
+     * <p>Validate that the argument is an instance of the specified class; otherwise
+     * throwing an exception with the specified message. This method is useful when 
+     * validating according to an arbitrary class</p>
+     * 
+     * <pre>Validate.isInstanceOf(OkClass.classs, object, "Wrong class, object is of class %s", object.getClass().getName());</pre>
+     * 
+     * @param type the class the object must be validated against
+     * @param o the object to check
+     * @param message exception message
+     * @param values optional value for the exception message
+     * @throws IllegalArgumentException if argument is not of specified class
+     * @see #isInstanceOf(Class, Object)
+     */
+    public static void isInstanceOf(Class<?> type, Object o, String message, Object... values)
+    {
+        if (type.isInstance(o) == false)
+        {
+            throw new IllegalArgumentException(String.format(message, values));
+        }
+    }
+    
+    /**
+     * <p>Validate that the argument can be converted to the specified class; otherwise
+     * throwing an exception with the specified message. This method is useful when
+     * validating if there will be no casting errors.</p>
+     * 
+     * <pre>Validate.isAssignableFrom(SuperClass.class, object.getClass());</pre>
+     * 
+     * <p>The message of the exception is &quot;The validated object can not be converted to the&quot;
+     * followed by the name of the class and &quot;class&quot;</p>
+     * 
+     * @param superType the class the class must be validated against
+     * @param type the class to check
+     * @throws IllegalArgumentException if argument can not be converted to the specified class
+     * @see #isAssignableFrom(Class, Class, String, Object...)
+     */
+    public static void isAssignableFrom(Class<?> superType, Class<?> type)
+    {
+        if (superType.isAssignableFrom(type) == false)
+        {
+            throw new IllegalArgumentException(String.format(DEFAULT_IS_ASSIGNABLE_EX_MESSAGE, superType.getName()));
+        }
+    }
+    
+    /**
+     * <p>Validate that the argument can be converted to the specified class; otherwise
+     * throwing an exception. This method is useful when validating if there will be no
+     * casting errors.</p>
+     * 
+     * <pre>Validate.isAssignableFrom(SuperClass.class, object.getClass());</pre>
+     * 
+     * <p>The message of the exception is &quot;The validated object can not be converted to the&quot;
+     * followed by the name of the class and &quot;class&quot;</p>
+     * 
+     * @param superType the class the class must be validated against
+     * @param type the class to check
+     * @param message the exception message if invalid
+     * @param values the optional values for the formatted exception message
+     * @throws IllegalArgumentException if argument can not be converted to the specified class
+     * @see #isAssignableFrom(Class, Class)
+     */
+    public static void isAssignableFrom(Class<?> superType, Class<?> type, String message, Object... values)
+    {
+        if (superType.isAssignableFrom(type) == false)
         {
             throw new IllegalArgumentException(String.format(message, values));
         }

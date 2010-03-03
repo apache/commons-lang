@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -846,4 +847,49 @@ public class ValidateTest extends TestCase {
             assertEquals("Error", e.getMessage());
         }
     }
+
+    public void testIsInstanceOf() {
+        Validate.isInstanceOf(String.class, "hi");
+        Validate.isInstanceOf(Integer.class, 1);
+        try {
+            Validate.isInstanceOf(List.class, "hi");
+            fail("Expecting IllegalArgumentException");
+        } catch(IllegalArgumentException e) {
+            assertEquals("The validated object is not an instance of java.util.List", e.getMessage());
+        }
+    }
+    
+    public void testIsInstanceOf_withMessage() {
+        Validate.isInstanceOf(String.class, "hi", "Error");
+        Validate.isInstanceOf(Integer.class, 1, "Error");
+        try {
+            Validate.isInstanceOf(List.class, "hi", "Error");
+            fail("Expecting IllegalArgumentException");
+        } catch(IllegalArgumentException e) {
+            assertEquals("Error", e.getMessage());
+        }
+    }
+    
+    public void testIsAssignable() {
+        Validate.isAssignableFrom(CharSequence.class, String.class);
+        Validate.isAssignableFrom(AbstractList.class, ArrayList.class);
+        try {
+            Validate.isAssignableFrom(List.class, String.class);
+            fail("Expecting IllegalArgumentException");
+        } catch(IllegalArgumentException e) {
+            assertEquals("The validated class can not be converted to the java.util.List class", e.getMessage());
+        }
+    }
+    
+    public void testIsAssignable_withMessage() {
+        Validate.isAssignableFrom(CharSequence.class, String.class, "Error");
+        Validate.isAssignableFrom(AbstractList.class, ArrayList.class, "Error");
+        try {
+            Validate.isAssignableFrom(List.class, String.class, "Error");
+            fail("Expecting IllegalArgumentException");
+        } catch(IllegalArgumentException e) {
+            assertEquals("Error", e.getMessage());
+        }
+    }
+
 }
