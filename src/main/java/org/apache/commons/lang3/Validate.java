@@ -38,6 +38,7 @@ import java.util.regex.Pattern;
  * Validate.notNull(surname, "The surname must not be %s", null);
  * </pre>
  * 
+ * <p>#ThreadSafe#
  * @author Apache Software Foundation
  * @author <a href="mailto:ola.berg@arkitema.se">Ola Berg</a>
  * @author Gary Gregory
