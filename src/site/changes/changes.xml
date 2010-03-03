@@ -23,6 +23,8 @@
 
   <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">
     <action type="update">Push down WordUtils to "text" sub-package.</action>
+    <action type="add" issue="LANG-559">Added validState validation method</action>
+    <action type="add" issue="LANG-559">Added isAssignableFrom and isInstanceOf validation methods</action>
     <action type="add" issue="LANG-564">Improve StrLookup API documentation</action>
     <action type="fix" issue="LANG-571">ArrayUtils.add(T[] array[, offset], T element) can create unexpected ClassCastException</action>
   </release>
