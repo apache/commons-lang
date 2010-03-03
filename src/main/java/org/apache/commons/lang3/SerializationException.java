@@ -21,6 +21,7 @@ package org.apache.commons.lang3;
  *
  * <p>The original error is wrapped within this one.</p>
  *
+ * <p>#ThreadSafe#
  * @author Apache Software Foundation
  * @since 1.0
  * @version $Id$
