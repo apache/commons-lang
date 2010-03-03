@@ -22,6 +22,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * A basic immutable Object pair.
+ *
+ * <p>#ThreadSafe#
  * @since Lang 3.0
  * @author Matt Benson
  */

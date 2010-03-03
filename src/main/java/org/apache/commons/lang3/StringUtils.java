@@ -99,6 +99,7 @@ import org.apache.commons.lang3.text.WordUtils;
  * <p>Methods in this class give sample code to explain their operation.
  * The symbol <code>*</code> is used to indicate any input including <code>null</code>.</p>
  *
+ * <p>#ThreadSafe#
  * @see java.lang.String
  * @author Apache Software Foundation
  * @author <a href="http://jakarta.apache.org/turbine/">Apache Jakarta Turbine</a>

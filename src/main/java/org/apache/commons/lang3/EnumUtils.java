@@ -25,6 +25,7 @@ import java.util.Map;
 /**
  * Utility library to provide helper methods for Java enums.
  * 
+ * <p>#ThreadSafe#
  * @author Apache Software Foundation
  */
 public class EnumUtils {
