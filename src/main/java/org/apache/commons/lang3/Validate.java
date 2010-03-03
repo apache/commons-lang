@@ -463,7 +463,7 @@ public class Validate {
         return notBlank(chars, DEFAULT_NOT_BLANK_EX_MESSAGE);
     }
 
-    // notNullElements array
+    // noNullElements array
     //---------------------------------------------------------------------------------
 
     /**
@@ -523,7 +523,7 @@ public class Validate {
         return noNullElements(array, DEFAULT_NO_NULL_ELEMENTS_ARRAY_EX_MESSAGE);
     }
 
-    // notNullElements collection
+    // noNullElements iterable
     //---------------------------------------------------------------------------------
 
     /**
@@ -578,7 +578,7 @@ public class Validate {
      * @return the validated iterable (never <code>null</code> method for chaining)
      * @throws NullPointerException if the array is <code>null</code>
      * @throws IllegalArgumentException if an element is <code>null</code>
-     * @see #noNullElements(Collection, String, Object...)
+     * @see #noNullElements(Iterable, String, Object...)
      */
     public static <T extends Iterable<?>> T noNullElements(T iterable) {
         return noNullElements(iterable, DEFAULT_NO_NULL_ELEMENTS_COLLECTION_EX_MESSAGE);
@@ -799,7 +799,7 @@ public class Validate {
      * @param input the character sequence to validate
      * @param pattern regular expression pattern
      * @throws IllegalArgumentException if the character sequence does not match the pattern
-     * @see #matchesPattern(String, String, String, Object...)
+     * @see #matchesPattern(CharSequence, String, String, Object...)
      */
     public static void matchesPattern(CharSequence input, String pattern)
     {
