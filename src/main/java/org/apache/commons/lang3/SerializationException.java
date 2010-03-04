@@ -21,7 +21,7 @@ package org.apache.commons.lang3;
  *
  * <p>The original error is wrapped within this one.</p>
  *
- * <p>#ThreadSafe#
+ * <p>#NotThreadSafe# because Throwable is not threadsafe</p>
  * @author Apache Software Foundation
  * @since 1.0
  * @version $Id$
