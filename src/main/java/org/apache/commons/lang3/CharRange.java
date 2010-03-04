@@ -254,6 +254,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
     /**
      * <p>Returns an iterator which can be used to walk through the characters described by this range.</p>
      *
+     * <p>#NotThreadSafe# the iterator is not threadsafe</p>
      * @return an iterator to the chars represented by this range
      * @since 2.5
      */
@@ -263,12 +264,13 @@ public final class CharRange implements Iterable<Character>, Serializable {
 
     /**
      * Character {@link Iterator}.
+     * <p>#NotThreadSafe#</p>
      */
     private static class CharacterIterator implements Iterator<Character> {
         /** The current character */
         private char current;
 
-        private CharRange range;
+        private final CharRange range;
         private boolean hasNext;
 
         /**
