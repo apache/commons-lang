@@ -25,7 +25,7 @@ import java.io.File;
  * the corresponding field in this class will be set to <code>null</code>
  * and a message will be written to <code>System.err</code>.</p>
  *
- * <p>#ThreadSafe#
+ * <p>#ThreadSafe#</p>
  * @author Apache Software Foundation
  * @author Based on code from Avalon Excalibur
  * @author Based on code from Lucene

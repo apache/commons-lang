@@ -31,7 +31,7 @@ import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
  * <p>Escapes and unescapes <code>String</code>s for
  * Java, Java Script, HTML and XML.</p>
  *
- * <p>#ThreadSafe#
+ * <p>#ThreadSafe#</p>
  * @author Apache Software Foundation
  * @author Apache Jakarta Turbine
  * @author Purple Technology
