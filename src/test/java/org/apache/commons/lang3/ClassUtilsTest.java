@@ -44,6 +44,7 @@ public class ClassUtilsTest extends TestCase {
     }
 
     private static class Inner {
+        private class DeeplyNested{}
     }
 
     //-----------------------------------------------------------------------
@@ -787,6 +788,13 @@ public class ClassUtilsTest extends TestCase {
         assertEquals( byte[].class, ClassUtils.getClass( "byte[\t\t\n\r]   " ) );
     }
 
+    public void testGetInnerClass() throws ClassNotFoundException {
+        assertEquals( Inner.DeeplyNested.class, ClassUtils.getClass( "org.apache.commons.lang3.ClassUtilsTest.Inner.DeeplyNested" ) );
+        assertEquals( Inner.DeeplyNested.class, ClassUtils.getClass( "org.apache.commons.lang3.ClassUtilsTest.Inner$DeeplyNested" ) );
+        assertEquals( Inner.DeeplyNested.class, ClassUtils.getClass( "org.apache.commons.lang3.ClassUtilsTest$Inner$DeeplyNested" ) );
+        assertEquals( Inner.DeeplyNested.class, ClassUtils.getClass( "org.apache.commons.lang3.ClassUtilsTest$Inner.DeeplyNested" ) );
+    }
+
     public void testGetClassByNormalNameArrays() throws ClassNotFoundException {
         assertEquals( int[].class, ClassUtils.getClass( "int[]" ) );
         assertEquals( long[].class, ClassUtils.getClass( "long[]" ) );
@@ -797,6 +805,10 @@ public class ClassUtilsTest extends TestCase {
         assertEquals( double[].class, ClassUtils.getClass( "double[]" ) );
         assertEquals( boolean[].class, ClassUtils.getClass( "boolean[]" ) );
         assertEquals( String[].class, ClassUtils.getClass( "java.lang.String[]" ) );
+        assertEquals( java.util.Map.Entry[].class, ClassUtils.getClass( "java.util.Map.Entry[]" ) );
+        assertEquals( java.util.Map.Entry[].class, ClassUtils.getClass( "java.util.Map$Entry[]" ) );
+        assertEquals( java.util.Map.Entry[].class, ClassUtils.getClass( "[Ljava.util.Map.Entry;" ) );
+        assertEquals( java.util.Map.Entry[].class, ClassUtils.getClass( "[Ljava.util.Map$Entry;" ) );
     }
 
     public void testGetClassByNormalNameArrays2D() throws ClassNotFoundException {
