@@ -23,9 +23,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Locale;
 
-import org.apache.commons.lang3.text.WordUtils;
-
 import junit.framework.TestCase;
+
+import org.apache.commons.lang3.text.WordUtils;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils}.
@@ -1296,13 +1296,29 @@ public class StringUtilsTest extends TestCase {
         assertEquals("  abc", StringUtils.leftPad("abc", 5, ""));
     }
 
-    public void testLength() {
+    public void testLengthString() {
         assertEquals(0, StringUtils.length(null));
         assertEquals(0, StringUtils.length(""));
         assertEquals(0, StringUtils.length(StringUtils.EMPTY));
         assertEquals(1, StringUtils.length("A"));
         assertEquals(1, StringUtils.length(" "));
         assertEquals(8, StringUtils.length("ABCDEFGH"));
+    }
+
+    public void testLengthStringBuffer() {
+        assertEquals(0, StringUtils.length(new StringBuffer("")));
+        assertEquals(0, StringUtils.length(new StringBuffer(StringUtils.EMPTY)));
+        assertEquals(1, StringUtils.length(new StringBuffer("A")));
+        assertEquals(1, StringUtils.length(new StringBuffer(" ")));
+        assertEquals(8, StringUtils.length(new StringBuffer("ABCDEFGH")));
+    }
+
+    public void testLengthStringBuilder() {
+        assertEquals(0, StringUtils.length(new StringBuilder("")));
+        assertEquals(0, StringUtils.length(new StringBuilder(StringUtils.EMPTY)));
+        assertEquals(1, StringUtils.length(new StringBuilder("A")));
+        assertEquals(1, StringUtils.length(new StringBuilder(" ")));
+        assertEquals(8, StringUtils.length(new StringBuilder("ABCDEFGH")));
     }
     
     //-----------------------------------------------------------------------
