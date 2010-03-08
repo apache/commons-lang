@@ -67,7 +67,7 @@ import java.util.Set;
  * @author J&ouml;rg Schaible
  * @since 3.0
  */
-public class ContextedRuntimeException extends Exception implements ExceptionContext {
+public class ContextedRuntimeException extends RuntimeException implements ExceptionContext {
 
     /** The serialization version. */
     private static final long serialVersionUID = 1459691936045811817L;
