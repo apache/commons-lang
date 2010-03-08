@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.nio.CharBuffer;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -1402,6 +1403,24 @@ public class StringUtilsTest extends TestCase {
         assertEquals("NULL", StringUtils.defaultIfEmpty("", "NULL"));
         assertEquals("abc", StringUtils.defaultIfEmpty("abc", "NULL"));
         assertNull(StringUtils.defaultIfEmpty("", null));
+    }
+
+    public void testDefaultIfEmpty_StringBuilders() {
+        assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuilder(""), new StringBuilder("NULL")).toString());
+        assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
+        assertNull(StringUtils.defaultIfEmpty(new StringBuilder(""), null));
+    }
+
+    public void testDefaultIfEmpty_StringBuffers() {
+        assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuffer(""), new StringBuffer("NULL")).toString());
+        assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL")).toString());
+        assertNull(StringUtils.defaultIfEmpty(new StringBuffer(""), null));
+    }
+
+    public void testDefaultIfEmpty_CharBuffers() {
+        assertEquals("NULL", StringUtils.defaultIfEmpty(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
+        assertEquals("abc", StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")).toString());
+        assertNull(StringUtils.defaultIfEmpty(CharBuffer.wrap(""), null));
     }
 
     //-----------------------------------------------------------------------
