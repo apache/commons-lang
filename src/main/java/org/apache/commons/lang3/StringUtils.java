@@ -5353,7 +5353,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Returns either the passed in String, or if the String is
+     * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * empty or <code>null</code>, the value of <code>defaultStr</code>.</p>
      *
      * <pre>
@@ -5364,12 +5364,12 @@ public class StringUtils {
      * </pre>
      *
      * @see StringUtils#defaultString(String, String)
-     * @param str  the String to check, may be null
-     * @param defaultStr  the default String to return
+     * @param str  the CharSequence to check, may be null
+     * @param defaultStr  the default CharSequence to return
      *  if the input is empty ("") or <code>null</code>, may be null
-     * @return the passed in String, or the default
+     * @return the passed in CharSequence, or the default
      */
-    public static String defaultIfEmpty(String str, String defaultStr) {
+    public static CharSequence defaultIfEmpty(CharSequence str, CharSequence defaultStr) {
         return StringUtils.isEmpty(str) ? defaultStr : str;
     }
 
