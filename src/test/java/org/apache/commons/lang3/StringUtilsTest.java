@@ -118,13 +118,26 @@ public class StringUtilsTest extends TestCase {
         assertEquals("capitalize(empty-string) failed",
                      "", StringUtils.capitalize("") );
         assertEquals("capitalize(single-char-string) failed",
-                     "X", StringUtils.capitalize("x") );
+                "X", StringUtils.capitalize("x") );
+        assertEquals("capitalize(single-char-string) failed",
+                "X", StringUtils.capitalize(new StringBuilder("x")) );
+        assertEquals("capitalize(single-char-string) failed",
+                "X", StringUtils.capitalize(new StringBuffer("x")) );
+        assertEquals("capitalize(single-char-string) failed",
+                "X", StringUtils.capitalize(CharBuffer.wrap("x")) );
+        
         assertEquals("uncapitalize(String) failed",
                      FOO_UNCAP, StringUtils.uncapitalize(FOO_CAP) );
         assertEquals("uncapitalize(empty-string) failed",
                      "", StringUtils.uncapitalize("") );
         assertEquals("uncapitalize(single-char-string) failed",
-                     "x", StringUtils.uncapitalize("X") );
+                "x", StringUtils.uncapitalize("X") );
+        assertEquals("uncapitalize(single-char-string) failed",
+                "x", StringUtils.uncapitalize(new StringBuilder("X")) );
+        assertEquals("uncapitalize(single-char-string) failed",
+                "x", StringUtils.uncapitalize(new StringBuffer("X")) );
+        assertEquals("uncapitalize(single-char-string) failed",
+                "x", StringUtils.uncapitalize(CharBuffer.wrap("X")) );
                      
         // reflection type of tests: Sentences.
         assertEquals("uncapitalize(capitalize(String)) failed",

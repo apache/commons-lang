@@ -173,7 +173,7 @@ public class StringUtils {
     // Empty checks
     //-----------------------------------------------------------------------
     /**
-     * <p>Checks if a String is empty ("") or null.</p>
+     * <p>Checks if a CharSequence is empty ("") or null.</p>
      *
      * <pre>
      * StringUtils.isEmpty(null)      = true
@@ -184,18 +184,18 @@ public class StringUtils {
      * </pre>
      *
      * <p>NOTE: This method changed in Lang version 2.0.
-     * It no longer trims the String.
+     * It no longer trims the CharSequence.
      * That functionality is available in isBlank().</p>
      *
-     * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is empty or null
+     * @param cs  the CharSequence to check, may be null
+     * @return <code>true</code> if the CharSequence is empty or null
      */
-    public static boolean isEmpty(CharSequence str) {
-        return str == null || str.length() == 0;
+    public static boolean isEmpty(CharSequence cs) {
+        return cs == null || cs.length() == 0;
     }
 
     /**
-     * <p>Checks if a String is not empty ("") and not null.</p>
+     * <p>Checks if a CharSequence is not empty ("") and not null.</p>
      *
      * <pre>
      * StringUtils.isNotEmpty(null)      = false
@@ -205,15 +205,15 @@ public class StringUtils {
      * StringUtils.isNotEmpty("  bob  ") = true
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is not empty and not null
+     * @param cs  the CharSequence to check, may be null
+     * @return <code>true</code> if the CharSequence is not empty and not null
      */
-    public static boolean isNotEmpty(CharSequence str) {
-        return !StringUtils.isEmpty(str);
+    public static boolean isNotEmpty(CharSequence cs) {
+        return !StringUtils.isEmpty(cs);
     }
 
     /**
-     * <p>Checks if a String is whitespace, empty ("") or null.</p>
+     * <p>Checks if a CharSequence is whitespace, empty ("") or null.</p>
      *
      * <pre>
      * StringUtils.isBlank(null)      = true
@@ -223,17 +223,17 @@ public class StringUtils {
      * StringUtils.isBlank("  bob  ") = false
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is null, empty or whitespace
+     * @param cs  the CharSequence to check, may be null
+     * @return <code>true</code> if the CharSequence is null, empty or whitespace
      * @since 2.0
      */
-    public static boolean isBlank(CharSequence str) {
+    public static boolean isBlank(CharSequence cs) {
         int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
+        if (cs == null || (strLen = cs.length()) == 0) {
             return true;
         }
         for (int i = 0; i < strLen; i++) {
-            if ((Character.isWhitespace(str.charAt(i)) == false)) {
+            if ((Character.isWhitespace(cs.charAt(i)) == false)) {
                 return false;
             }
         }
@@ -241,7 +241,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if a String is not empty (""), not null and not whitespace only.</p>
+     * <p>Checks if a CharSequence is not empty (""), not null and not whitespace only.</p>
      *
      * <pre>
      * StringUtils.isNotBlank(null)      = false
@@ -251,13 +251,13 @@ public class StringUtils {
      * StringUtils.isNotBlank("  bob  ") = true
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @return <code>true</code> if the String is
+     * @param cs  the CharSequence to check, may be null
+     * @return <code>true</code> if the CharSequence is
      *  not empty and not null and not whitespace
      * @since 2.0
      */
-    public static boolean isNotBlank(CharSequence str) {
-        return !StringUtils.isBlank(str);
+    public static boolean isNotBlank(CharSequence cs) {
+        return !StringUtils.isBlank(cs);
     }
 
     // Trim
@@ -677,7 +677,7 @@ public class StringUtils {
     // Equals
     //-----------------------------------------------------------------------
     /**
-     * <p>Compares two Strings, returning <code>true</code> if they are equal.</p>
+     * <p>Compares two CharSequences, returning <code>true</code> if they are equal.</p>
      *
      * <p><code>null</code>s are handled without exceptions. Two <code>null</code>
      * references are considered to be equal. The comparison is case sensitive.</p>
@@ -691,13 +691,13 @@ public class StringUtils {
      * </pre>
      *
      * @see java.lang.String#equals(Object)
-     * @param str1  the first String, may be null
-     * @param str2  the second String, may be null
-     * @return <code>true</code> if the Strings are equal, case sensitive, or
+     * @param cs1  the first CharSequence, may be null
+     * @param cs2  the second CharSequence, may be null
+     * @return <code>true</code> if the CharSequences are equal, case sensitive, or
      *  both <code>null</code>
      */
-    public static boolean equals(String str1, String str2) {
-        return str1 == null ? str2 == null : str1.equals(str2);
+    public static boolean equals(CharSequence cs1, CharSequence cs2) {
+        return cs1 == null ? cs2 == null : cs1.equals(cs2);
     }
 
     /**
@@ -1347,7 +1347,7 @@ public class StringUtils {
     // IndexOfAny chars
     //-----------------------------------------------------------------------
     /**
-     * <p>Search a String to find the first index of any
+     * <p>Search a CharSequence to find the first index of any
      * character in the given set of characters.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
@@ -1363,17 +1363,17 @@ public class StringUtils {
      * StringUtils.indexOfAny("aba", ['z'])           = -1
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
      */
-    public static int indexOfAny(String str, char[] searchChars) {
-        if (isEmpty(str) || ArrayUtils.isEmpty(searchChars)) {
+    public static int indexOfAny(CharSequence cs, char[] searchChars) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return -1;
         }
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
+        for (int i = 0; i < cs.length(); i++) {
+            char ch = cs.charAt(i);
             for (int j = 0; j < searchChars.length; j++) {
                 if (searchChars[j] == ch) {
                     return i;
@@ -1384,7 +1384,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Search a String to find the first index of any
+     * <p>Search a CharSequence to find the first index of any
      * character in the given set of characters.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
@@ -1400,25 +1400,25 @@ public class StringUtils {
      * StringUtils.indexOfAny("aba","z")          = -1
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
      */
-    public static int indexOfAny(String str, String searchChars) {
-        if (isEmpty(str) || isEmpty(searchChars)) {
+    public static int indexOfAny(CharSequence cs, String searchChars) {
+        if (isEmpty(cs) || isEmpty(searchChars)) {
             return -1;
         }
-        return indexOfAny(str, searchChars.toCharArray());
+        return indexOfAny(cs, searchChars.toCharArray());
     }
 
     // ContainsAny
     //-----------------------------------------------------------------------
     /**
-     * <p>Checks if the String contains any character in the given
+     * <p>Checks if the CharSequence contains any character in the given
      * set of characters.</p>
      *
-     * <p>A <code>null</code> String will return <code>false</code>.
+     * <p>A <code>null</code> CharSequence will return <code>false</code>.
      * A <code>null</code> or zero length search array will return <code>false</code>.</p>
      *
      * <pre>
@@ -1431,18 +1431,18 @@ public class StringUtils {
      * StringUtils.containsAny("aba", ['z'])           = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the <code>true</code> if any of the chars are found,
      * <code>false</code> if no match or null input
      * @since 2.4
      */
-    public static boolean containsAny(String str, char[] searchChars) {
-        if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
+    public static boolean containsAny(CharSequence cs, char[] searchChars) {
+        if (cs == null || cs.length() == 0 || searchChars == null || searchChars.length == 0) {
             return false;
         }
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
+        for (int i = 0; i < cs.length(); i++) {
+            char ch = cs.charAt(i);
             for (int j = 0; j < searchChars.length; j++) {
                 if (searchChars[j] == ch) {
                     return true;
@@ -1454,11 +1454,11 @@ public class StringUtils {
 
     /**
      * <p>
-     * Checks if the String contains any character in the given set of characters.
+     * Checks if the CharSequence contains any character in the given set of characters.
      * </p>
      * 
      * <p>
-     * A <code>null</code> String will return <code>false</code>. A <code>null</code> search string will return
+     * A <code>null</code> CharSequence will return <code>false</code>. A <code>null</code> search CharSequence will return
      * <code>false</code>.
      * </p>
      * 
@@ -1472,27 +1472,27 @@ public class StringUtils {
      * StringUtils.containsAny("aba","z")          = false
      * </pre>
      * 
-     * @param str
-     *            the String to check, may be null
+     * @param cs
+     *            the CharSequence to check, may be null
      * @param searchChars
      *            the chars to search for, may be null
      * @return the <code>true</code> if any of the chars are found, <code>false</code> if no match or null input
      * @since 2.4
      */
-    public static boolean containsAny(String str, String searchChars) {
+    public static boolean containsAny(CharSequence cs, String searchChars) {
         if (searchChars == null) {
             return false;
         }
-        return containsAny(str, searchChars.toCharArray());
+        return containsAny(cs, searchChars.toCharArray());
     }
 
     // IndexOfAnyBut chars
     //-----------------------------------------------------------------------
     /**
-     * <p>Search a String to find the first index of any
+     * <p>Searches a CharSequence to find the first index of any
      * character not in the given set of characters.</p>
      *
-     * <p>A <code>null</code> String will return <code>-1</code>.
+     * <p>A <code>null</code> CharSequence will return <code>-1</code>.
      * A <code>null</code> or zero length search array will return <code>-1</code>.</p>
      *
      * <pre>
@@ -1505,17 +1505,17 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut("aba", 'ab')       = -1
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
      */
-    public static int indexOfAnyBut(String str, char[] searchChars) {
-        if (isEmpty(str) || ArrayUtils.isEmpty(searchChars)) {
+    public static int indexOfAnyBut(CharSequence cs, char[] searchChars) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return -1;
         }
-        outer : for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
+        outer : for (int i = 0; i < cs.length(); i++) {
+            char ch = cs.charAt(i);
             for (int j = 0; j < searchChars.length; j++) {
                 if (searchChars[j] == ch) {
                     continue outer;
@@ -1563,11 +1563,11 @@ public class StringUtils {
     // ContainsOnly
     //-----------------------------------------------------------------------
     /**
-     * <p>Checks if the String contains only certain characters.</p>
+     * <p>Checks if the CharSequence contains only certain characters.</p>
      *
-     * <p>A <code>null</code> String will return <code>false</code>.
+     * <p>A <code>null</code> CharSequence will return <code>false</code>.
      * A <code>null</code> valid character array will return <code>false</code>.
-     * An empty String ("") always returns <code>true</code>.</p>
+     * An empty CharSequence (length()=0) always returns <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.containsOnly(null, *)       = false
@@ -1579,30 +1579,30 @@ public class StringUtils {
      * StringUtils.containsOnly("abz", 'abc')  = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the String to check, may be null
      * @param valid  an array of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
      */
-    public static boolean containsOnly(String str, char[] valid) {
+    public static boolean containsOnly(CharSequence cs, char[] valid) {
         // All these pre-checks are to maintain API with an older version
-        if ((valid == null) || (str == null)) {
+        if (valid == null || cs == null) {
             return false;
         }
-        if (str.length() == 0) {
+        if (cs.length() == 0) {
             return true;
         }
         if (valid.length == 0) {
             return false;
         }
-        return indexOfAnyBut(str, valid) == -1;
+        return indexOfAnyBut(cs, valid) == -1;
     }
 
     /**
-     * <p>Checks if the String contains only certain characters.</p>
+     * <p>Checks if the CharSequence contains only certain characters.</p>
      *
-     * <p>A <code>null</code> String will return <code>false</code>.
+     * <p>A <code>null</code> CharSequence will return <code>false</code>.
      * A <code>null</code> valid character String will return <code>false</code>.
-     * An empty String ("") always returns <code>true</code>.</p>
+     * An empty String (length()=0) always returns <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.containsOnly(null, *)       = false
@@ -1614,26 +1614,26 @@ public class StringUtils {
      * StringUtils.containsOnly("abz", "abc")  = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @param validChars  a String of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
      * @since 2.0
      */
-    public static boolean containsOnly(String str, String validChars) {
-        if (str == null || validChars == null) {
+    public static boolean containsOnly(CharSequence cs, String validChars) {
+        if (cs == null || validChars == null) {
             return false;
         }
-        return containsOnly(str, validChars.toCharArray());
+        return containsOnly(cs, validChars.toCharArray());
     }
 
     // ContainsNone
     //-----------------------------------------------------------------------
     /**
-     * <p>Checks that the String does not contain certain characters.</p>
+     * <p>Checks that the CharSequence does not contain certain characters.</p>
      *
-     * <p>A <code>null</code> String will return <code>true</code>.
+     * <p>A <code>null</code> CharSequence will return <code>true</code>.
      * A <code>null</code> invalid character array will return <code>true</code>.
-     * An empty String ("") always returns true.</p>
+     * An empty CharSequence (length()=0) always returns true.</p>
      *
      * <pre>
      * StringUtils.containsNone(null, *)       = true
@@ -1645,19 +1645,19 @@ public class StringUtils {
      * StringUtils.containsNone("abz", 'xyz')  = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @param invalidChars  an array of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
      * @since 2.0
      */
-    public static boolean containsNone(String str, char[] invalidChars) {
-        if (str == null || invalidChars == null) {
+    public static boolean containsNone(CharSequence cs, char[] invalidChars) {
+        if (cs == null || invalidChars == null) {
             return true;
         }
-        int strSize = str.length();
+        int strSize = cs.length();
         int validSize = invalidChars.length;
         for (int i = 0; i < strSize; i++) {
-            char ch = str.charAt(i);
+            char ch = cs.charAt(i);
             for (int j = 0; j < validSize; j++) {
                 if (invalidChars[j] == ch) {
                     return false;
@@ -1668,9 +1668,9 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks that the String does not contain certain characters.</p>
+     * <p>Checks that the CharSequence does not contain certain characters.</p>
      *
-     * <p>A <code>null</code> String will return <code>true</code>.
+     * <p>A <code>null</code> CharSequence will return <code>true</code>.
      * A <code>null</code> invalid character array will return <code>true</code>.
      * An empty String ("") always returns true.</p>
      *
@@ -1684,16 +1684,16 @@ public class StringUtils {
      * StringUtils.containsNone("abz", "xyz")  = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @param invalidChars  a String of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
      * @since 2.0
      */
-    public static boolean containsNone(String str, String invalidChars) {
-        if (str == null || invalidChars == null) {
+    public static boolean containsNone(CharSequence cs, String invalidChars) {
+        if (cs == null || invalidChars == null) {
             return true;
         }
-        return containsNone(str, invalidChars.toCharArray());
+        return containsNone(cs, invalidChars.toCharArray());
     }
 
     // IndexOfAny strings
@@ -1725,7 +1725,7 @@ public class StringUtils {
      * @return the first index of any of the searchStrs in str, -1 if no match
      */
     public static int indexOfAny(String str, String[] searchStrs) {
-        if ((str == null) || (searchStrs == null)) {
+        if (str == null || searchStrs == null) {
             return -1;
         }
         int sz = searchStrs.length;
@@ -4606,17 +4606,20 @@ public class StringUtils {
         }
     }
 
-    /**
-     * Gets a String's length or <code>0</code> if the String is <code>null</code>.
-     * 
-     * @param str
-     *            a String or <code>null</code>
-     * @return String length or <code>0</code> if the String is <code>null</code>.
-     * @since 2.4
-     */
-    public static int length(CharSequence str) {
-        return str == null ? 0 : str.length();
-    }
+	/**
+	 * Gets a CharSequence length or <code>0</code> if the CharSequence is
+	 * <code>null</code>.
+	 * 
+	 * @param cs
+	 *            a CharSequence or <code>null</code>
+	 * @return CharSequence length or <code>0</code> if the CharSequence is
+	 *         <code>null</code>.
+	 * @since 2.4
+	 * @deprecated See {@link CharSequenceUtils#length(CharSequence)}
+	 */
+	public static int length(CharSequence cs) {
+		return CharSequenceUtils.length(cs);
+	}
     
     // Centering
     //-----------------------------------------------------------------------
@@ -4842,25 +4845,28 @@ public class StringUtils {
      * StringUtils.capitalize("cAt") = "CAt"
      * </pre>
      *
-     * @param str  the String to capitalize, may be null
+     * @param cs the String to capitalize, may be null
      * @return the capitalized String, <code>null</code> if null String input
      * @see WordUtils#capitalize(String)
      * @see #uncapitalize(String)
      * @since 2.0
      */
-    public static String capitalize(String str) {
+    public static String capitalize(CharSequence cs) {
+        if (cs == null ) {
+            return null;
+        }
         int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
-            return str;
+        if ((strLen = cs.length()) == 0) {
+            return cs.toString();
         }
         return new StringBuilder(strLen)
-            .append(Character.toTitleCase(str.charAt(0)))
-            .append(str.substring(1))
+            .append(Character.toTitleCase(cs.charAt(0)))
+            .append(CharSequenceUtils.subSequence(cs, 1))
             .toString();
     }
 
     /**
-     * <p>Uncapitalizes a String changing the first letter to title case as
+     * <p>Uncapitalizes a CharSequence changing the first letter to title case as
      * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
      *
      * <p>For a word based algorithm, see {@link WordUtils#uncapitalize(String)}.
@@ -4873,20 +4879,23 @@ public class StringUtils {
      * StringUtils.uncapitalize("CAT") = "cAT"
      * </pre>
      *
-     * @param str  the String to uncapitalize, may be null
+     * @param cs the String to uncapitalize, may be null
      * @return the uncapitalized String, <code>null</code> if null String input
      * @see WordUtils#uncapitalize(String)
-     * @see #capitalize(String)
+     * @see #capitalize(CharSequence)
      * @since 2.0
      */
-    public static String uncapitalize(String str) {
+    public static String uncapitalize(CharSequence cs) {
+        if (cs == null ) {
+            return null;
+        }
         int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
-            return str;
+        if ((strLen = cs.length()) == 0) {
+            return cs.toString();
         }
         return new StringBuilder(strLen)
-            .append(Character.toLowerCase(str.charAt(0)))
-            .append(str.substring(1))
+            .append(Character.toLowerCase(cs.charAt(0)))
+            .append(CharSequenceUtils.subSequence(cs, 1))
             .toString();
     }
 
@@ -4976,10 +4985,10 @@ public class StringUtils {
     // Character Tests
     //-----------------------------------------------------------------------
     /**
-     * <p>Checks if the String contains only unicode letters.</p>
+     * <p>Checks if the CharSequence contains only unicode letters.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty CharSequence (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isAlpha(null)   = false
@@ -4990,16 +4999,16 @@ public class StringUtils {
      * StringUtils.isAlpha("ab-c") = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains letters, and is non-null
      */
-    public static boolean isAlpha(String str) {
-        if (str == null) {
+    public static boolean isAlpha(CharSequence cs) {
+        if (cs == null) {
             return false;
         }
-        int sz = str.length();
+        int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetter(str.charAt(i)) == false) {
+            if (Character.isLetter(cs.charAt(i)) == false) {
                 return false;
             }
         }
@@ -5007,11 +5016,11 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the String contains only unicode letters and
+     * <p>Checks if the CharSequence contains only unicode letters and
      * space (' ').</p>
      *
      * <p><code>null</code> will return <code>false</code>
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty CharSequence (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isAlphaSpace(null)   = false
@@ -5023,17 +5032,17 @@ public class StringUtils {
      * StringUtils.isAlphaSpace("ab-c") = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains letters and space,
      *  and is non-null
      */
-    public static boolean isAlphaSpace(String str) {
-        if (str == null) {
+    public static boolean isAlphaSpace(CharSequence cs) {
+        if (cs == null) {
             return false;
         }
-        int sz = str.length();
+        int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isLetter(str.charAt(i)) == false) && (str.charAt(i) != ' ')) {
+            if ((Character.isLetter(cs.charAt(i)) == false) && (cs.charAt(i) != ' ')) {
                 return false;
             }
         }
@@ -5041,10 +5050,10 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the String contains only unicode letters or digits.</p>
+     * <p>Checks if the CharSequence contains only unicode letters or digits.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty CharSequence (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isAlphanumeric(null)   = false
@@ -5056,17 +5065,17 @@ public class StringUtils {
      * StringUtils.isAlphanumeric("ab-c") = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains letters or digits,
      *  and is non-null
      */
-    public static boolean isAlphanumeric(String str) {
-        if (str == null) {
+    public static boolean isAlphanumeric(CharSequence cs) {
+        if (cs == null) {
             return false;
         }
-        int sz = str.length();
+        int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetterOrDigit(str.charAt(i)) == false) {
+            if (Character.isLetterOrDigit(cs.charAt(i)) == false) {
                 return false;
             }
         }
@@ -5074,11 +5083,11 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the String contains only unicode letters, digits
+     * <p>Checks if the CharSequence contains only unicode letters, digits
      * or space (<code>' '</code>).</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty CharSequence (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isAlphanumeric(null)   = false
@@ -5090,17 +5099,17 @@ public class StringUtils {
      * StringUtils.isAlphanumeric("ab-c") = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains letters, digits or space,
      *  and is non-null
      */
-    public static boolean isAlphanumericSpace(String str) {
-        if (str == null) {
+    public static boolean isAlphanumericSpace(CharSequence cs) {
+        if (cs == null) {
             return false;
         }
-        int sz = str.length();
+        int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isLetterOrDigit(str.charAt(i)) == false) && (str.charAt(i) != ' ')) {
+            if ((Character.isLetterOrDigit(cs.charAt(i)) == false) && (cs.charAt(i) != ' ')) {
                 return false;
             }
         }
@@ -5108,10 +5117,10 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the string contains only ASCII printable characters.</p>
+     * <p>Checks if the CharSequence contains only ASCII printable characters.</p>
      * 
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty CharSequence (length()=0) will return <code>true</code>.</p>
      * 
      * <pre>
      * StringUtils.isAsciiPrintable(null)     = false
@@ -5127,18 +5136,18 @@ public class StringUtils {
      * StringUtils.isAsciiPrintable("Ceki G\u00fclc\u00fc") = false
      * </pre>
      *
-     * @param str the string to check, may be null
+     * @param cs the CharSequence to check, may be null
      * @return <code>true</code> if every character is in the range
      *  32 thru 126
      * @since 2.1
      */
-    public static boolean isAsciiPrintable(String str) {
-        if (str == null) {
+    public static boolean isAsciiPrintable(CharSequence cs) {
+        if (cs == null) {
             return false;
         }
-        int sz = str.length();
+        int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (CharUtils.isAsciiPrintable(str.charAt(i)) == false) {
+            if (CharUtils.isAsciiPrintable(cs.charAt(i)) == false) {
                 return false;
             }
         }
@@ -5146,11 +5155,11 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the String contains only unicode digits.
+     * <p>Checks if the CharSequence contains only unicode digits.
      * A decimal point is not a unicode digit and returns false.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty CharSequence (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isNumeric(null)   = false
@@ -5163,16 +5172,16 @@ public class StringUtils {
      * StringUtils.isNumeric("12.3") = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains digits, and is non-null
      */
-    public static boolean isNumeric(String str) {
-        if (str == null) {
+    public static boolean isNumeric(CharSequence cs) {
+        if (cs == null) {
             return false;
         }
-        int sz = str.length();
+        int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isDigit(str.charAt(i)) == false) {
+            if (Character.isDigit(cs.charAt(i)) == false) {
                 return false;
             }
         }
@@ -5180,12 +5189,12 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the String contains only unicode digits or space
+     * <p>Checks if the CharSequence contains only unicode digits or space
      * (<code>' '</code>).
      * A decimal point is not a unicode digit and returns false.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty CharSequence (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isNumeric(null)   = false
@@ -5198,17 +5207,17 @@ public class StringUtils {
      * StringUtils.isNumeric("12.3") = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains digits or space,
      *  and is non-null
      */
-    public static boolean isNumericSpace(String str) {
-        if (str == null) {
+    public static boolean isNumericSpace(CharSequence cs) {
+        if (cs == null) {
             return false;
         }
-        int sz = str.length();
+        int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isDigit(str.charAt(i)) == false) && (str.charAt(i) != ' ')) {
+            if ((Character.isDigit(cs.charAt(i)) == false) && (cs.charAt(i) != ' ')) {
                 return false;
             }
         }
@@ -5216,10 +5225,10 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the String contains only whitespace.</p>
+     * <p>Checks if the CharSequence contains only whitespace.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty CharSequence (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isWhitespace(null)   = false
@@ -5230,17 +5239,17 @@ public class StringUtils {
      * StringUtils.isWhitespace("ab-c") = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains whitespace, and is non-null
      * @since 2.0
      */
-    public static boolean isWhitespace(String str) {
-        if (str == null) {
+    public static boolean isWhitespace(CharSequence cs) {
+        if (cs == null) {
             return false;
         }
-        int sz = str.length();
+        int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isWhitespace(str.charAt(i)) == false)) {
+            if ((Character.isWhitespace(cs.charAt(i)) == false)) {
                 return false;
             }
         }
@@ -5248,10 +5257,10 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the String contains only lowercase characters.</p>
+     * <p>Checks if the CharSequence contains only lowercase characters.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>false</code>.</p>
+     * An empty CharSequence (length()=0) will return <code>false</code>.</p>
      *
      * <pre>
      * StringUtils.isAllLowerCase(null)   = false
@@ -5261,17 +5270,17 @@ public class StringUtils {
      * StringUtils.isAllLowerCase("abC") = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains lowercase characters, and is non-null
      * @since 2.5
      */
-    public static boolean isAllLowerCase(String str) {
-        if (str == null || isEmpty(str)) {
+    public static boolean isAllLowerCase(CharSequence cs) {
+        if (cs == null || isEmpty(cs)) {
             return false;
         }
-        int sz = str.length();
+        int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLowerCase(str.charAt(i)) == false) {
+            if (Character.isLowerCase(cs.charAt(i)) == false) {
                 return false;
             }
         }
@@ -5279,10 +5288,10 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if the String contains only uppercase characters.</p>
+     * <p>Checks if the CharSequence contains only uppercase characters.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>false</code>.</p>
+     * An empty String (length()=0) will return <code>false</code>.</p>
      *
      * <pre>
      * StringUtils.isAllUpperCase(null)   = false
@@ -5292,17 +5301,17 @@ public class StringUtils {
      * StringUtils.isAllUpperCase("aBC") = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param cs the CharSequence to check, may be null
      * @return <code>true</code> if only contains uppercase characters, and is non-null
      * @since 2.5
      */
-    public static boolean isAllUpperCase(String str) {
-        if (str == null || isEmpty(str)) {
+    public static boolean isAllUpperCase(CharSequence cs) {
+        if (cs == null || isEmpty(cs)) {
             return false;
         }
-        int sz = str.length();
+        int sz = cs.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isUpperCase(str.charAt(i)) == false) {
+            if (Character.isUpperCase(cs.charAt(i)) == false) {
                 return false;
             }
         }
@@ -5393,7 +5402,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return new StringBuilder(str).reverse().toString();
+        return CharSequenceUtils.reverse(str).toString();
     }
 
     /**
@@ -5619,8 +5628,8 @@ public class StringUtils {
     }
 
     /**
-     * <p>Compares two Strings, and returns the index at which the
-     * Strings begin to differ.</p>
+     * <p>Compares two CharSequences, and returns the index at which the
+     * CharSequences begin to differ.</p>
      *
      * <p>For example,
      * <code>indexOfDifference("i am a machine", "i am a robot") -> 7</code></p>
@@ -5636,33 +5645,33 @@ public class StringUtils {
      * StringUtils.indexOfDifference("abcde", "xyz") = 0
      * </pre>
      *
-     * @param str1  the first String, may be null
-     * @param str2  the second String, may be null
-     * @return the index where str2 and str1 begin to differ; -1 if they are equal
+     * @param cs1  the first CharSequence, may be null
+     * @param cs2  the second CharSequence, may be null
+     * @return the index where cs1 and cs2 begin to differ; -1 if they are equal
      * @since 2.0
      */
-    public static int indexOfDifference(String str1, String str2) {
-        if (str1 == str2) {
+    public static int indexOfDifference(CharSequence cs1, CharSequence cs2) {
+        if (cs1 == cs2) {
             return -1;
         }
-        if (str1 == null || str2 == null) {
+        if (cs1 == null || cs2 == null) {
             return 0;
         }
         int i;
-        for (i = 0; i < str1.length() && i < str2.length(); ++i) {
-            if (str1.charAt(i) != str2.charAt(i)) {
+        for (i = 0; i < cs1.length() && i < cs2.length(); ++i) {
+            if (cs1.charAt(i) != cs2.charAt(i)) {
                 break;
             }
         }
-        if (i < str2.length() || i < str1.length()) {
+        if (i < cs2.length() || i < cs1.length()) {
             return i;
         }
         return -1;
     }
 
     /**
-     * <p>Compares all Strings in an array and returns the index at which the
-     * Strings begin to differ.</p>
+     * <p>Compares all CharSequences in an array and returns the index at which the
+     * CharSequences begin to differ.</p>
      *
      * <p>For example,
      * <code>indexOfDifference(new String[] {"i am a machine", "i am a robot"}) -> 7</code></p>
@@ -5687,17 +5696,17 @@ public class StringUtils {
      * StringUtils.indexOfDifference(new String[] {"i am a machine", "i am a robot"}) = 7
      * </pre>
      *
-     * @param strs  array of strings, entries may be null
+     * @param css  array of CharSequences, entries may be null
      * @return the index where the strings begin to differ; -1 if they are all equal
      * @since 2.4
      */
-    public static int indexOfDifference(String[] strs) {
-        if (strs == null || strs.length <= 1) {
+    public static int indexOfDifference(CharSequence[] css) {
+        if (css == null || css.length <= 1) {
             return -1;
         }
         boolean anyStringNull = false;
         boolean allStringsNull = true;
-        int arrayLen = strs.length;
+        int arrayLen = css.length;
         int shortestStrLen = Integer.MAX_VALUE;
         int longestStrLen = 0;
 
@@ -5705,13 +5714,13 @@ public class StringUtils {
         // sure we are not exceeding the length of the string each time through
         // the bottom loop.
         for (int i = 0; i < arrayLen; i++) {
-            if (strs[i] == null) {
+            if (css[i] == null) {
                 anyStringNull = true;
                 shortestStrLen = 0;
             } else {
                 allStringsNull = false;
-                shortestStrLen = Math.min(strs[i].length(), shortestStrLen);
-                longestStrLen = Math.max(strs[i].length(), longestStrLen);
+                shortestStrLen = Math.min(css[i].length(), shortestStrLen);
+                longestStrLen = Math.max(css[i].length(), longestStrLen);
             }
         }
 
@@ -5728,9 +5737,9 @@ public class StringUtils {
         // find the position with the first difference across all strings
         int firstDiff = -1;
         for (int stringPos = 0; stringPos < shortestStrLen; stringPos++) {
-            char comparisonChar = strs[0].charAt(stringPos);
+            char comparisonChar = css[0].charAt(stringPos);
             for (int arrayPos = 1; arrayPos < arrayLen; arrayPos++) {
-                if (strs[arrayPos].charAt(stringPos) != comparisonChar) {
+                if (css[arrayPos].charAt(stringPos) != comparisonChar) {
                     firstDiff = stringPos;
                     break;
                 }
@@ -5838,7 +5847,7 @@ public class StringUtils {
      * @return result distance
      * @throws IllegalArgumentException if either String input <code>null</code>
      */
-    public static int getLevenshteinDistance(String s, String t) {
+    public static int getLevenshteinDistance(CharSequence s, CharSequence t) {
         if (s == null || t == null) {
             throw new IllegalArgumentException("Strings must not be null");
         }
@@ -5871,7 +5880,7 @@ public class StringUtils {
 
         if (n > m) {
             // swap the input strings to consume less memory
-            String tmp = s;
+        	CharSequence tmp = s;
             s = t;
             t = tmp;
             n = m;
@@ -6109,7 +6118,7 @@ public class StringUtils {
      */
     private static boolean endsWith(String str, String suffix, boolean ignoreCase) {
         if (str == null || suffix == null) {
-            return (str == null && suffix == null);
+            return str == null && suffix == null;
         }
         if (suffix.length() > str.length()) {
             return false;
