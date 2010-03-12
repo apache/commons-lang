@@ -5524,16 +5524,17 @@ public class StringUtils {
         if ((str.length() - offset) < (maxWidth - 3)) {
             offset = str.length() - (maxWidth - 3);
         }
-        if (offset <= 4) {
-            return str.substring(0, maxWidth - 3) + "...";
+        final String abrevMarker = "...";
+		if (offset <= 4) {
+            return str.substring(0, maxWidth - 3) + abrevMarker;
         }
         if (maxWidth < 7) {
             throw new IllegalArgumentException("Minimum abbreviation width with offset is 7");
         }
         if ((offset + (maxWidth - 3)) < str.length()) {
-            return "..." + abbreviate(str.substring(offset), maxWidth - 3);
+            return abrevMarker + abbreviate(str.substring(offset), maxWidth - 3);
         }
-        return "..." + str.substring(str.length() - (maxWidth - 3));
+        return abrevMarker + str.substring(str.length() - (maxWidth - 3));
     }
     
     /**
