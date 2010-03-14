@@ -83,39 +83,4 @@ public class CharSequenceUtils {
 	public static CharSequence subSequence(CharSequence cs, int start) {
 		return cs == null ? null : cs.subSequence(start, cs.length());
 	}
-
-	public static int indexOf(CharSequence cs, int ch, int startPos) {
-		int max = cs.length();
-
-		if (startPos < 0) {
-			startPos = 0;
-		} else if (startPos >= max) {
-			return StringUtils.INDEX_NOT_FOUND;
-		}
-
-		if (ch < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
-			for (int i = startPos; i < max; i++) {
-				if (cs.charAt(i) == ch) {
-					return i;
-				}
-			}
-			return StringUtils.INDEX_NOT_FOUND;
-		}
-
-		// supp chars
-		if (ch <= Character.MAX_CODE_POINT) {
-			char[] surrogates = Character.toChars(ch);
-			for (int i = startPos; i < max; i++) {
-				if (cs.charAt(i) == surrogates[0]) {
-					if (i + 1 == max) {
-						break;
-					}
-					if (cs.charAt(i + 1) == surrogates[1]) {
-						return i;
-					}
-				}
-			}
-		}
-		return StringUtils.INDEX_NOT_FOUND;
-	}
 }
