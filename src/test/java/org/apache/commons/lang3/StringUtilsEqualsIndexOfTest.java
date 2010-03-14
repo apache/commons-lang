@@ -33,7 +33,19 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
     private static final String BAR = "bar";
     private static final String FOOBAR = "foobar";
     private static final String[] FOOBAR_SUB_ARRAY = new String[] {"ob", "ba"};
+	
+    /**
+	 * Supplementary character U+20000
+	 * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+	 */
+	private static final String CharU20000 = "\uD840\uDC00";
 
+	/**
+	 * Supplementary character U+20001
+	 * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+	 */
+	private static final String CharU20001 = "\uD840\uDC01";
+	
     public StringUtilsEqualsIndexOfTest(String name) {
         super(name);
     }
@@ -643,4 +655,45 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(true, StringUtils.containsNone(str3, chars3));
     }
 
+	/**
+	 * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+	 */
+	public void testContainsStringWithSupplementaryChars() {
+		assertEquals(true, StringUtils.contains(CharU20000 + CharU20001, CharU20000));
+		assertEquals(true, StringUtils.contains(CharU20000 + CharU20001, CharU20001));
+		assertEquals(true, StringUtils.contains(CharU20000, CharU20000));
+		assertEquals(false, StringUtils.contains(CharU20000, CharU20001));
+	}
+
+	/**
+	 * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+	 */
+	public void testContainsAnyStringWithSupplementaryChars() {
+		assertEquals(true, StringUtils.containsAny(CharU20000 + CharU20001, CharU20000));
+		assertEquals(true, StringUtils.containsAny(CharU20000 + CharU20001, CharU20001));
+		assertEquals(true, StringUtils.containsAny(CharU20000, CharU20000));
+		// Sanity check:
+		assertEquals(-1, CharU20000.indexOf(CharU20001));
+		assertEquals(0, CharU20000.indexOf(CharU20001.charAt(0)));
+		assertEquals(-1, CharU20000.indexOf(CharU20001.charAt(1)));
+		// Test:
+		assertEquals(false, StringUtils.containsAny(CharU20000, CharU20001));
+		assertEquals(false, StringUtils.containsAny(CharU20001, CharU20000));
+	}
+	
+	/**
+	 * See http://java.sun.com/developer/technicalArticles/Intl/Supplementary/
+	 */
+	public void testContainsAnyCharArrayWithSupplementaryChars() {
+		assertEquals(true, StringUtils.containsAny(CharU20000 + CharU20001, CharU20000.toCharArray()));
+		assertEquals(true, StringUtils.containsAny(CharU20000 + CharU20001, CharU20001.toCharArray()));
+		assertEquals(true, StringUtils.containsAny(CharU20000, CharU20000.toCharArray()));
+		// Sanity check:
+		assertEquals(-1, CharU20000.indexOf(CharU20001));
+		assertEquals(0, CharU20000.indexOf(CharU20001.charAt(0)));
+		assertEquals(-1, CharU20000.indexOf(CharU20001.charAt(1)));
+		// Test:
+		assertEquals(false, StringUtils.containsAny(CharU20000, CharU20001.toCharArray()));
+		assertEquals(false, StringUtils.containsAny(CharU20001, CharU20000.toCharArray()));
+	}
 }
