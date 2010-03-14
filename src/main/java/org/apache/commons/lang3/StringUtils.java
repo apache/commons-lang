@@ -5383,12 +5383,12 @@ public class StringUtils {
      * StringUtils.defaultIfEmpty("bat", "NULL") = "bat"
      * StringUtils.defaultIfEmpty("", null)      = null
      * </pre>
-     *
-     * @see StringUtils#defaultString(String, String)
+     * @param <T> the specific kind of CharSequence
      * @param str  the CharSequence to check, may be null
      * @param defaultStr  the default CharSequence to return
      *  if the input is empty ("") or <code>null</code>, may be null
      * @return the passed in CharSequence, or the default
+     * @see StringUtils#defaultString(String, String)
      */
     public static <T extends CharSequence> T defaultIfEmpty(T str, T defaultStr) {
         return StringUtils.isEmpty(str) ? defaultStr : str;
