@@ -38,32 +38,6 @@ public class CharSequenceUtils {
 	}
 
 	/**
-	 * <p>
-	 * Reverses a CharSequence as per {@link StringBuilder#reverse()}.
-	 * </p>
-	 * 
-	 * <p>
-	 * A <code>null</code> CharSequence returns <code>null</code>.
-	 * </p>
-	 * 
-	 * <pre>
-	 * CharSequenceUtils.reverse(null) = null
-	 * CharSequenceUtils.reverse("").toString() = ""
-	 * CharSequenceUtils.reverse("bat").toString() = "tab"
-	 * </pre>
-	 * 
-	 * @param str
-	 *            the String to reverse, may be null
-	 * @return the reversed String, <code>null</code> if null String input
-	 */
-	public static CharSequence reverse(CharSequence str) {
-		if (str == null) {
-			return null;
-		}
-		return new StringBuilder(str).reverse();
-	}
-
-	/**
 	 * Returns a new <code>CharSequence</code> that is a subsequence of this
 	 * sequence starting with the <code>char</code> value at the specified
 	 * index. The length (in <code>char</code>s) of the returned sequence is

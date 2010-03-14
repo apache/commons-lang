@@ -5414,7 +5414,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return CharSequenceUtils.reverse(str).toString();
+		return new StringBuilder(str).reverse().toString();
     }
 
     /**
