@@ -44,10 +44,11 @@ public class CharSequenceUtils {
 	 * <code>length() - start</code>, so if <code>start == end</code> then an
 	 * empty sequence is returned. </p>
 	 * 
+	 * @param cs
+	 *            the specified subsequence, may be null
 	 * @param start
 	 *            the start index, inclusive
-	 * 
-	 * @return the specified subsequence
+	 * @return a new subsequence or null
 	 * 
 	 * @throws IndexOutOfBoundsException
 	 *             if <code>start</code> is negative or if <code>start</code> is
