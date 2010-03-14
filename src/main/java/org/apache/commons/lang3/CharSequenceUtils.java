@@ -37,27 +37,32 @@ public class CharSequenceUtils {
 		return cs == null ? 0 : cs.length();
 	}
 
-    /**
-     * <p>Reverses a CharSequence as per {@link StringBuilder#reverse()}.</p>
-     *
-     * <p>A <code>null</code> CharSequence returns <code>null</code>.</p>
-     *
-     * <pre>
-     * CharSequenceUtils.reverse(null) = null
-     * CharSequenceUtils.reverse("").toString() = ""
-     * CharSequenceUtils.reverse("bat").toString() = "tab"
-     * </pre>
-     *
-     * @param str  the String to reverse, may be null
-     * @return the reversed String, <code>null</code> if null String input
-     */
-    public static CharSequence reverse(CharSequence str) {
-        if (str == null) {
-            return null;
-        }
-        return new StringBuilder(str).reverse();
-    }
-    
+	/**
+	 * <p>
+	 * Reverses a CharSequence as per {@link StringBuilder#reverse()}.
+	 * </p>
+	 * 
+	 * <p>
+	 * A <code>null</code> CharSequence returns <code>null</code>.
+	 * </p>
+	 * 
+	 * <pre>
+	 * CharSequenceUtils.reverse(null) = null
+	 * CharSequenceUtils.reverse("").toString() = ""
+	 * CharSequenceUtils.reverse("bat").toString() = "tab"
+	 * </pre>
+	 * 
+	 * @param str
+	 *            the String to reverse, may be null
+	 * @return the reversed String, <code>null</code> if null String input
+	 */
+	public static CharSequence reverse(CharSequence str) {
+		if (str == null) {
+			return null;
+		}
+		return new StringBuilder(str).reverse();
+	}
+
 	/**
 	 * Returns a new <code>CharSequence</code> that is a subsequence of this
 	 * sequence starting with the <code>char</code> value at the specified
@@ -77,5 +82,40 @@ public class CharSequenceUtils {
 	 */
 	public static CharSequence subSequence(CharSequence cs, int start) {
 		return cs == null ? null : cs.subSequence(start, cs.length());
+	}
+
+	public static int indexOf(CharSequence cs, int ch, int startPos) {
+		int max = cs.length();
+
+		if (startPos < 0) {
+			startPos = 0;
+		} else if (startPos >= max) {
+			return StringUtils.INDEX_NOT_FOUND;
+		}
+
+		if (ch < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+			for (int i = startPos; i < max; i++) {
+				if (cs.charAt(i) == ch) {
+					return i;
+				}
+			}
+			return StringUtils.INDEX_NOT_FOUND;
+		}
+
+		// supp chars
+		if (ch <= Character.MAX_CODE_POINT) {
+			char[] surrogates = Character.toChars(ch);
+			for (int i = startPos; i < max; i++) {
+				if (cs.charAt(i) == surrogates[0]) {
+					if (i + 1 == max) {
+						break;
+					}
+					if (cs.charAt(i + 1) == surrogates[1]) {
+						return i;
+					}
+				}
+			}
+		}
+		return StringUtils.INDEX_NOT_FOUND;
 	}
 }
