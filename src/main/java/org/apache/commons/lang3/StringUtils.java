@@ -5390,7 +5390,7 @@ public class StringUtils {
      *  if the input is empty ("") or <code>null</code>, may be null
      * @return the passed in CharSequence, or the default
      */
-    public static CharSequence defaultIfEmpty(CharSequence str, CharSequence defaultStr) {
+    public static <T extends CharSequence> T defaultIfEmpty(T str, T defaultStr) {
         return StringUtils.isEmpty(str) ? defaultStr : str;
     }
 

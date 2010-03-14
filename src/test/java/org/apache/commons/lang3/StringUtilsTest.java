@@ -1416,24 +1416,36 @@ public class StringUtilsTest extends TestCase {
         assertEquals("NULL", StringUtils.defaultIfEmpty("", "NULL"));
         assertEquals("abc", StringUtils.defaultIfEmpty("abc", "NULL"));
         assertNull(StringUtils.defaultIfEmpty("", null));
+        // Tests compatibility for the API return type
+        String s = StringUtils.defaultIfEmpty("abc", "NULL");
+        assertEquals("abc", s);
     }
 
     public void testDefaultIfEmpty_StringBuilders() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuilder(""), new StringBuilder("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
         assertNull(StringUtils.defaultIfEmpty(new StringBuilder(""), null));
+        // Tests compatibility for the API return type
+        StringBuilder s = StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL"));
+        assertEquals("abc", s.toString());
     }
 
     public void testDefaultIfEmpty_StringBuffers() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuffer(""), new StringBuffer("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL")).toString());
         assertNull(StringUtils.defaultIfEmpty(new StringBuffer(""), null));
+        // Tests compatibility for the API return type
+        StringBuffer s = StringUtils.defaultIfEmpty(new StringBuffer("abc"), new StringBuffer("NULL"));
+        assertEquals("abc", s.toString());
     }
 
     public void testDefaultIfEmpty_CharBuffers() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")).toString());
         assertNull(StringUtils.defaultIfEmpty(CharBuffer.wrap(""), null));
+        // Tests compatibility for the API return type
+        CharBuffer s = StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL"));
+        assertEquals("abc", s.toString());
     }
 
     //-----------------------------------------------------------------------
