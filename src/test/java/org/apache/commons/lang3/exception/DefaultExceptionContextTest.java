@@ -23,7 +23,7 @@ import org.apache.commons.lang3.exception.ContextedExceptionTest.ObjectWithFault
 import junit.framework.TestCase;
 
 /**
- * JUnit tests for DefaultExceptionContext
+ * JUnit tests for DefaultExceptionContext.
  * @author D. Ashmore
  *
  */
@@ -46,20 +46,41 @@ public class DefaultExceptionContextTest extends TestCase {
     }
     
     public void testAddValue() {
+        defaultExceptionContext.addValue("test2", "different value");
                 
         String message = defaultExceptionContext.getFormattedExceptionMessage("This is an error");
         assertTrue(message.indexOf("This is an error")>=0);
         assertTrue(message.indexOf("test1")>=0);
         assertTrue(message.indexOf("test2")>=0);
+        assertTrue(message.indexOf("test2[1]")>=0);
         assertTrue(message.indexOf("test Date")>=0);
         assertTrue(message.indexOf("test Nbr")>=0);
         assertTrue(message.indexOf("test Poorly written obj")>=0);
         assertTrue(message.indexOf("some value")>=0);
+        assertTrue(message.indexOf("different value")>=0);
         assertTrue(message.indexOf("5")>=0);
         assertTrue(message.indexOf("Crap")>=0);
-        
-        //contextedException.printStackTrace();
     }
+    
+    public void testReplaceValue() {
+        defaultExceptionContext.replaceValue("test2", "different value");
+        defaultExceptionContext.replaceValue("test3", "3");
+                
+        String message = defaultExceptionContext.getFormattedExceptionMessage("This is an error");
+        assertTrue(message.indexOf("This is an error")>=0);
+        assertTrue(message.indexOf("test1")>=0);
+        assertTrue(message.indexOf("test2")>=0);
+        assertTrue(message.indexOf("test3")>=0);
+        assertTrue(message.indexOf("test Date")>=0);
+        assertTrue(message.indexOf("test Nbr")>=0);
+        assertTrue(message.indexOf("test Poorly written obj")>=0);
+        assertTrue(message.indexOf("different value")>=0);
+        assertTrue(message.indexOf("5")>=0);
+        assertTrue(message.indexOf("Crap")>=0);
+
+        assertTrue(message.indexOf("test2[1]")<0);
+        assertTrue(message.indexOf("some value")<0);
+}
     
     public void testFormattedExceptionMessageNull() {
         defaultExceptionContext = new DefaultExceptionContext();

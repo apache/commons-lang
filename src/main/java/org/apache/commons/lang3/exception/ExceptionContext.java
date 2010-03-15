@@ -33,13 +33,30 @@ public interface ExceptionContext {
     /**
      * Adds a contextual label-value pair into this context.
      * <p>
-     * This label-value pair provides information useful for debugging.
+     * This label-value pair provides information useful for debugging. If the
+     * provided label already exists, it depends on the implementation what
+     * happens with the new value. 
+     * </p>
      * 
      * @param label  the label of the item to add, null not recommended
      * @param value  the value of item to add, may be null
      * @return context itself to allow method chaining
      */
     public ExceptionContext addValue(String label, Object value);
+
+    /**
+     * Replaces a contextual label-value pair of this context.
+     * <p>
+     * This label-value pair provides information useful for debugging. If the
+     * label does not exist yet, it depends on the implementation what happens
+     * with the provided value.
+     * </p>
+     * 
+     * @param label  the label of the item to add, null not recommended
+     * @param value  the value of item to add, may be null
+     * @return context itself to allow method chaining
+     */
+    public ExceptionContext replaceValue(String label, Object value);
 
     /**
      * Retrieves a contextual data value associated with the label.

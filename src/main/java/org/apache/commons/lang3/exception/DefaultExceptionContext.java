@@ -43,13 +43,41 @@ class DefaultExceptionContext implements ExceptionContext, Serializable {
     /**
      * Adds a contextual label-value pair into this context.
      * <p>
-     * This label-value pair provides information useful for debugging.
+     * This label-value pair provides information useful for debugging. If the
+     * label already exists and the provided information is different, the 
+     * label will be added with an appended index.
+     * </p>
      * 
      * @param label  the label of the item to add, null not recommended
      * @param value  the value of item to add, may be null
      * @return this, for method chaining
      */
     public ExceptionContext addValue(String label, Object value) {        
+        String key = label;
+        int i = 0;
+        while (contextValueMap.containsKey(key)) {
+            Object information = contextValueMap.get(key);
+            if ((value == null && information == null)
+                    || (value != null && value.equals(information)))
+                return this;
+            key = label + "[" + ++i +"]";
+        }
+        contextValueMap.put(key, value);
+        return this;
+    }
+
+    /**
+     * Replaces a contextual label-value pair of this context.
+     * <p>
+     * This label-value pair provides information useful for debugging. If the
+     * label does not yet exists, a simply add operation is performed.
+     * </p>
+     * 
+     * @param label  the label of the item to add, null not recommended
+     * @param value  the value of item to add, may be null
+     * @return this, for method chaining
+     */
+    public ExceptionContext replaceValue(String label, Object value) {        
         contextValueMap.put(label, value);
         return this;
     }
