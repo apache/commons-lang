@@ -26,17 +26,13 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * JUnit tests for ContextedException.
  * @author D. Ashmore
- *
+ * @author Apache Software Foundation
  */
 public class ContextedExceptionTest extends TestCase {
     
     private static final String TEST_MESSAGE_2 = "This is monotonous";
     private static final String TEST_MESSAGE = "Test Message";
     private ContextedException contextedException;
-
-    public ContextedExceptionTest(String name) {
-        super(name);
-    }
 
     public void testContextedException() {
         contextedException = new ContextedException();
@@ -88,8 +84,7 @@ public class ContextedExceptionTest extends TestCase {
         .addValue("test1", null)
         .addValue("test2", "some value")
         .addValue("test Date", new Date())
-        .addValue("test Nbr", new Integer(5))
-        .addValue("test Poorly written obj", new ObjectWithFaultyToString());
+        .addValue("test Nbr", new Integer(5));
         
         String message = contextedException.getMessage();
         assertTrue(message.indexOf(TEST_MESSAGE)>=0);
@@ -97,27 +92,49 @@ public class ContextedExceptionTest extends TestCase {
         assertTrue(message.indexOf("test2")>=0);
         assertTrue(message.indexOf("test Date")>=0);
         assertTrue(message.indexOf("test Nbr")>=0);
-        assertTrue(message.indexOf("test Poorly written obj")>=0);
         assertTrue(message.indexOf("some value")>=0);
         assertTrue(message.indexOf("5")>=0);
-        assertTrue(message.indexOf("Crap")>=0);
         
         assertTrue(contextedException.getValue("test1") == null);
         assertTrue(contextedException.getValue("test2").equals("some value"));
-        assertTrue(contextedException.getValue("crap") == null);
-        assertTrue(contextedException.getValue("test Poorly written obj") instanceof ObjectWithFaultyToString);
         
-        assertTrue(contextedException.getLabelSet().size() == 5);
+        assertTrue(contextedException.getLabelSet().size() == 4);
         assertTrue(contextedException.getLabelSet().contains("test1"));
         assertTrue(contextedException.getLabelSet().contains("test2"));
         assertTrue(contextedException.getLabelSet().contains("test Date"));
         assertTrue(contextedException.getLabelSet().contains("test Nbr"));
+
+        contextedException.addValue("test2", "different value");
+        assertTrue(contextedException.getLabelSet().size() == 5);
+        assertTrue(contextedException.getLabelSet().contains("test2"));
+        assertTrue(contextedException.getLabelSet().contains("test2[1]"));
+        
+        String contextMessage = contextedException.getFormattedExceptionMessage(null);
+        assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
+        assertTrue(contextedException.getMessage().endsWith(contextMessage));
+    }
+
+    public void testReplaceValue() {
+        contextedException = new ContextedException(new Exception(TEST_MESSAGE))
+        .addValue("test Poorly written obj", new ObjectWithFaultyToString());
+        
+        String message = contextedException.getMessage();
+        assertTrue(message.indexOf(TEST_MESSAGE)>=0);
+        assertTrue(message.indexOf("test Poorly written obj")>=0);
+        assertTrue(message.indexOf("Crap")>=0);
+        
+        assertTrue(contextedException.getValue("crap") == null);
+        assertTrue(contextedException.getValue("test Poorly written obj") instanceof ObjectWithFaultyToString);
+        
+        assertTrue(contextedException.getLabelSet().size() == 1);
         assertTrue(contextedException.getLabelSet().contains("test Poorly written obj"));
         
         assertTrue(!contextedException.getLabelSet().contains("crap"));
 
-        contextedException.addValue("test Poorly written obj", "replacement");
-        
+        contextedException.replaceValue("test Poorly written obj", "replacement");
+
+        assertTrue(contextedException.getLabelSet().size() == 1);
+
         String contextMessage = contextedException.getFormattedExceptionMessage(null);
         assertTrue(contextMessage.indexOf(TEST_MESSAGE) == -1);
         assertTrue(contextedException.getMessage().endsWith(contextMessage));
@@ -133,10 +150,6 @@ public class ContextedExceptionTest extends TestCase {
         
         String message = contextedException.getMessage();
         assertTrue(message != null);
-    }
-
-    public void testGetMessage() {
-        testAddValue();
     }
     
     static class ObjectWithFaultyToString implements Serializable {

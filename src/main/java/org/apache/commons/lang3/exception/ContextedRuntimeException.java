@@ -64,7 +64,6 @@ import java.util.Set;
  * @see ContextedException
  * @author Apache Software Foundation
  * @author D. Ashmore
- * @author J&ouml;rg Schaible
  * @since 3.0
  */
 public class ContextedRuntimeException extends RuntimeException implements ExceptionContext {
@@ -140,9 +139,11 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
     /**
      * Adds information helpful to a developer in diagnosing and correcting
      * the problem.  For the information to be meaningful, the value passed
-     * should have a reasonable toString() implementation.
+     * should have a reasonable toString() implementation. If the added label
+     * is already available, the label is appended with an index.
      * <p>
      * Note: This exception is only serializable if the object added is serializable.
+     * </p>
      * 
      * @param label  a textual label associated with information, null not recommended
      * @param value  information needed to understand exception, may be null
@@ -150,6 +151,24 @@ public class ContextedRuntimeException extends RuntimeException implements Excep
      */
     public ContextedRuntimeException addValue(String label, Object value) {        
         exceptionContext.addValue(label, value);
+        return this;
+    }
+
+    /**
+     * Replaces information helpful to a developer in diagnosing and correcting
+     * the problem.  For the information to be meaningful, the value passed
+     * should have a reasonable toString() implementation. If the replaced
+     * label does not yet exist, it is simply added.
+     * <p>
+     * Note: This exception is only serializable if the object added is serializable.
+     * </p>
+     * 
+     * @param label  a textual label associated with information, null not recommended
+     * @param value  information needed to understand exception, may be null
+     * @return this, for method chaining
+     */
+    public ContextedRuntimeException replaceValue(String label, Object value) {        
+        exceptionContext.replaceValue(label, value);
         return this;
     }
 
