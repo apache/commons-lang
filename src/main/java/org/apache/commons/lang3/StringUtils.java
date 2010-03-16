@@ -746,7 +746,7 @@ public class StringUtils {
      *  -1 if no match or <code>null</code> string input
      * @since 2.0
      */
-    public static int indexOf(String str, char searchChar) {
+    public static int indexOf(String str, int searchChar) {
         if (isEmpty(str)) {
             return INDEX_NOT_FOUND;
         }
@@ -778,7 +778,7 @@ public class StringUtils {
      *  -1 if no match or <code>null</code> string input
      * @since 2.0
      */
-    public static int indexOf(String str, char searchChar, int startPos) {
+    public static int indexOf(String str, int searchChar, int startPos) {
         if (isEmpty(str)) {
             return INDEX_NOT_FOUND;
         }
@@ -1030,7 +1030,7 @@ public class StringUtils {
      *  -1 if no match or <code>null</code> string input
      * @since 2.0
      */
-    public static int lastIndexOf(String str, char searchChar) {
+    public static int lastIndexOf(String str, int searchChar) {
         if (isEmpty(str)) {
             return INDEX_NOT_FOUND;
         }
@@ -1064,7 +1064,7 @@ public class StringUtils {
      *  -1 if no match or <code>null</code> string input
      * @since 2.0
      */
-    public static int lastIndexOf(String str, char searchChar, int startPos) {
+    public static int lastIndexOf(String str, int searchChar, int startPos) {
         if (isEmpty(str)) {
             return INDEX_NOT_FOUND;
         }
@@ -1272,7 +1272,7 @@ public class StringUtils {
      *  false if not or <code>null</code> string input
      * @since 2.0
      */
-    public static boolean contains(String str, char searchChar) {
+    public static boolean contains(String str, int searchChar) {
         if (isEmpty(str)) {
             return false;
         }
