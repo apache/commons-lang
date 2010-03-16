@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -620,7 +620,7 @@ public class StringUtils {
      * StringUtils.stripAccents("control")           = "control"
      * StringUtils.stripAccents("&ecute;clair")      = "eclair"
      * </pre>
-     * 
+     *
      * @param input String to be stripped
      * @return String without accents on the text
      *
@@ -1482,12 +1482,12 @@ public class StringUtils {
      * <p>
      * Checks if the CharSequence contains any character in the given set of characters.
      * </p>
-     * 
+     *
      * <p>
      * A <code>null</code> CharSequence will return <code>false</code>. A <code>null</code> search CharSequence will return
      * <code>false</code>.
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.containsAny(null, *)            = false
      * StringUtils.containsAny("", *)              = false
@@ -1497,7 +1497,7 @@ public class StringUtils {
      * StringUtils.containsAny("zzabyycdxx", "by") = true
      * StringUtils.containsAny("aba","z")          = false
      * </pre>
-     * 
+     *
      * @param cs
      *            the CharSequence to check, may be null
      * @param searchChars
@@ -2362,7 +2362,7 @@ public class StringUtils {
         }
         if (list.isEmpty()) {
             return null;
-        } 
+        }
         return list.toArray(new String [list.size()]);
     }
 
@@ -2622,8 +2622,8 @@ public class StringUtils {
      * @return an array of parsed Strings, <code>null</code> if null String input
      * @since 2.4
      */
-    private static String[] splitByWholeSeparatorWorker(String str, String separator, int max, 
-                                                        boolean preserveAllTokens) 
+    private static String[] splitByWholeSeparatorWorker(String str, String separator, int max,
+                                                        boolean preserveAllTokens)
     {
         if (str == null) {
             return null;
@@ -2692,7 +2692,7 @@ public class StringUtils {
     // -----------------------------------------------------------------------
     /**
      * <p>Splits the provided text into an array, using whitespace as the
-     * separator, preserving all tokens, including empty tokens created by 
+     * separator, preserving all tokens, including empty tokens created by
      * adjacent separators. This is an alternative to using StringTokenizer.
      * Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
@@ -2755,7 +2755,7 @@ public class StringUtils {
     }
 
     /**
-     * Performs the logic for the <code>split</code> and 
+     * Performs the logic for the <code>split</code> and
      * <code>splitPreserveAllTokens</code> methods that do not return a
      * maximum array length.
      *
@@ -2801,7 +2801,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Splits the provided text into an array, separators specified, 
+     * <p>Splits the provided text into an array, separators specified,
      * preserving all tokens, including empty tokens created by adjacent
      * separators. This is an alternative to using StringTokenizer.</p>
      *
@@ -2839,7 +2839,7 @@ public class StringUtils {
 
     /**
      * <p>Splits the provided text into an array with a maximum length,
-     * separators specified, preserving all tokens, including empty tokens 
+     * separators specified, preserving all tokens, including empty tokens
      * created by adjacent separators.</p>
      *
      * <p>The separator is not included in the returned String array.
@@ -2878,8 +2878,8 @@ public class StringUtils {
     }
 
     /**
-     * Performs the logic for the <code>split</code> and 
-     * <code>splitPreserveAllTokens</code> methods that return a maximum array 
+     * Performs the logic for the <code>split</code> and
+     * <code>splitPreserveAllTokens</code> methods that return a maximum array
      * length.
      *
      * @param str  the String to parse, may be <code>null</code>
@@ -2979,7 +2979,7 @@ public class StringUtils {
     /**
      * <p>Splits a String by Character type as returned by
      * <code>java.lang.Character.getType(char)</code>. Groups of contiguous
-     * characters of the same type are returned as complete tokens. 
+     * characters of the same type are returned as complete tokens.
      * <pre>
      * StringUtils.splitByCharacterType(null)         = null
      * StringUtils.splitByCharacterType("")           = []
@@ -3007,7 +3007,7 @@ public class StringUtils {
      * <code>Character.UPPERCASE_LETTER</code>, if any, immediately
      * preceding a token of type <code>Character.LOWERCASE_LETTER</code>
      * will belong to the following token rather than to the preceding, if any,
-     * <code>Character.UPPERCASE_LETTER</code> token. 
+     * <code>Character.UPPERCASE_LETTER</code> token.
      * <pre>
      * StringUtils.splitByCharacterTypeCamelCase(null)         = null
      * StringUtils.splitByCharacterTypeCamelCase("")           = []
@@ -3035,7 +3035,7 @@ public class StringUtils {
      * the character of type <code>Character.UPPERCASE_LETTER</code>, if any,
      * immediately preceding a token of type <code>Character.LOWERCASE_LETTER</code>
      * will belong to the following token rather than to the preceding, if any,
-     * <code>Character.UPPERCASE_LETTER</code> token. 
+     * <code>Character.UPPERCASE_LETTER</code> token.
      * @param str the String to split, may be <code>null</code>
      * @param camelCase whether to use so-called "camel-case" for letter types
      * @return an array of parsed Strings, <code>null</code> if null String input
@@ -3751,14 +3751,14 @@ public class StringUtils {
      * <p>
      * Replaces all occurrences of Strings within another String.
      * </p>
-     * 
+     *
      * <p>
      * A <code>null</code> reference passed to this method is a no-op, or if
      * any "search string" or "string to replace" is null, that replace will be
      * ignored. This will not repeat. For repeating replaces, call the
      * overloaded method.
      * </p>
-     * 
+     *
      * <pre>
      *  StringUtils.replaceEach(null, *, *)        = null
      *  StringUtils.replaceEach("", *, *)          = ""
@@ -3772,7 +3772,7 @@ public class StringUtils {
      *  (example of how it does not repeat)
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"})  = "dcte"
      * </pre>
-     * 
+     *
      * @param text
      *            text to search and replace in, no-op if null
      * @param searchList
@@ -3794,14 +3794,14 @@ public class StringUtils {
      * <p>
      * Replaces all occurrences of Strings within another String.
      * </p>
-     * 
+     *
      * <p>
      * A <code>null</code> reference passed to this method is a no-op, or if
      * any "search string" or "string to replace" is null, that replace will be
      * ignored. This will not repeat. For repeating replaces, call the
      * overloaded method.
      * </p>
-     * 
+     *
      * <pre>
      *  StringUtils.replaceEach(null, *, *, *) = null
      *  StringUtils.replaceEach("", *, *, *) = ""
@@ -3818,7 +3818,7 @@ public class StringUtils {
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, true) = IllegalArgumentException
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, false) = "dcabe"
      * </pre>
-     * 
+     *
      * @param text
      *            text to search and replace in, no-op if null
      * @param searchList
@@ -3846,13 +3846,13 @@ public class StringUtils {
      * <p>
      * Replaces all occurrences of Strings within another String.
      * </p>
-     * 
+     *
      * <p>
      * A <code>null</code> reference passed to this method is a no-op, or if
      * any "search string" or "string to replace" is null, that replace will be
-     * ignored. 
+     * ignored.
      * </p>
-     * 
+     *
      * <pre>
      *  StringUtils.replaceEach(null, *, *, *) = null
      *  StringUtils.replaceEach("", *, *, *) = ""
@@ -3868,14 +3868,14 @@ public class StringUtils {
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "t"}, true) = "tcte"
      *  StringUtils.replaceEach("abcde", new String[]{"ab", "d"}, new String[]{"d", "ab"}, *) = IllegalArgumentException
      * </pre>
-     * 
+     *
      * @param text
      *            text to search and replace in, no-op if null
      * @param searchList
      *            the Strings to search for, no-op if null
      * @param replacementList
      *            the Strings to replace them with, no-op if null
-     * @param repeat if true, then replace repeatedly 
+     * @param repeat if true, then replace repeatedly
      *       until there are no more possible replacements or timeToLive < 0
      * @param timeToLive
      *            if less than 0 then there is a circular reference and endless
@@ -3890,15 +3890,15 @@ public class StringUtils {
      *             and/or size 0)
      * @since 2.4
      */
-    private static String replaceEach(String text, String[] searchList, String[] replacementList, 
-                                      boolean repeat, int timeToLive) 
+    private static String replaceEach(String text, String[] searchList, String[] replacementList,
+                                      boolean repeat, int timeToLive)
     {
 
         // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
 
-        if (text == null || text.length() == 0 || searchList == null || 
-            searchList.length == 0 || replacementList == null || replacementList.length == 0) 
+        if (text == null || text.length() == 0 || searchList == null ||
+            searchList.length == 0 || replacementList == null || replacementList.length == 0)
         {
             return text;
         }
@@ -3930,8 +3930,8 @@ public class StringUtils {
         // index of replace array that will replace the search string found
         // NOTE: logic duplicated below START
         for (int i = 0; i < searchLength; i++) {
-            if (noMoreMatchesForReplIndex[i] || searchList[i] == null || 
-                searchList[i].length() == 0 || replacementList[i] == null) 
+            if (noMoreMatchesForReplIndex[i] || searchList[i] == null ||
+                searchList[i].length() == 0 || replacementList[i] == null)
             {
                 continue;
             }
@@ -3989,8 +3989,8 @@ public class StringUtils {
             // find the next earliest match
             // NOTE: logic mostly duplicated above START
             for (int i = 0; i < searchLength; i++) {
-                if (noMoreMatchesForReplIndex[i] || searchList[i] == null || 
-                    searchList[i].length() == 0 || replacementList[i] == null) 
+                if (noMoreMatchesForReplIndex[i] || searchList[i] == null ||
+                    searchList[i].length() == 0 || replacementList[i] == null)
                 {
                     continue;
                 }
@@ -4422,7 +4422,7 @@ public class StringUtils {
      * <a href="http://www.unicode.org/glossary/#supplementary_character">Unicode Supplementary Characters</a>
      * as they require a pair of <code>char</code>s to be represented.
      * If you are needing to support full I18N of your applications
-     * consider using {@link #repeat(String, int)} instead. 
+     * consider using {@link #repeat(String, int)} instead.
      * </p>
      *
      * @param repeat  number of times to repeat delim
@@ -4666,21 +4666,21 @@ public class StringUtils {
         }
     }
 
-	/**
-	 * Gets a CharSequence length or <code>0</code> if the CharSequence is
-	 * <code>null</code>.
-	 * 
-	 * @param cs
-	 *            a CharSequence or <code>null</code>
-	 * @return CharSequence length or <code>0</code> if the CharSequence is
-	 *         <code>null</code>.
-	 * @since 2.4
-	 * @deprecated See {@link CharSequenceUtils#length(CharSequence)}
-	 */
-	public static int length(CharSequence cs) {
-		return CharSequenceUtils.length(cs);
-	}
-    
+    /**
+     * Gets a CharSequence length or <code>0</code> if the CharSequence is
+     * <code>null</code>.
+     *
+     * @param cs
+     *            a CharSequence or <code>null</code>
+     * @return CharSequence length or <code>0</code> if the CharSequence is
+     *         <code>null</code>.
+     * @since 2.4
+     * @deprecated See {@link CharSequenceUtils#length(CharSequence)}
+     */
+    public static int length(CharSequence cs) {
+        return CharSequenceUtils.length(cs);
+    }
+
     // Centering
     //-----------------------------------------------------------------------
     /**
@@ -5178,10 +5178,10 @@ public class StringUtils {
 
     /**
      * <p>Checks if the CharSequence contains only ASCII printable characters.</p>
-     * 
+     *
      * <p><code>null</code> will return <code>false</code>.
      * An empty CharSequence (length()=0) will return <code>true</code>.</p>
-     * 
+     *
      * <pre>
      * StringUtils.isAsciiPrintable(null)     = false
      * StringUtils.isAsciiPrintable("")       = true
@@ -5462,7 +5462,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-		return new StringBuilder(str).reverse().toString();
+        return new StringBuilder(str).reverse().toString();
     }
 
     /**
@@ -5585,7 +5585,7 @@ public class StringUtils {
             offset = str.length() - (maxWidth - 3);
         }
         final String abrevMarker = "...";
-		if (offset <= 4) {
+        if (offset <= 4) {
             return str.substring(0, maxWidth - 3) + abrevMarker;
         }
         if (maxWidth < 7) {
@@ -5596,7 +5596,7 @@ public class StringUtils {
         }
         return abrevMarker + str.substring(str.length() - (maxWidth - 3));
     }
-    
+
     /**
      * <p>Abbreviates a String to the length passed, replacing the middle characters with the supplied
      * replacement String.</p>
@@ -5630,7 +5630,7 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(middle)) {
             return str;
         }
-      
+
         if (length >= str.length() || length < (middle.length()+2)) {
             return str;
         }
@@ -5638,12 +5638,12 @@ public class StringUtils {
         int targetSting = length-middle.length();
         int startOffset = targetSting/2+targetSting%2;
         int endOffset = str.length()-targetSting/2;
-        
+
         StringBuilder builder = new StringBuilder(length);
         builder.append(str.substring(0,startOffset));
         builder.append(middle);
         builder.append(str.substring(endOffset));
-        
+
         return builder.toString();
     }
 
@@ -5818,9 +5818,9 @@ public class StringUtils {
         }
         return firstDiff;
     }
-    
+
     /**
-     * <p>Compares all Strings in an array and returns the initial sequence of 
+     * <p>Compares all Strings in an array and returns the initial sequence of
      * characters that is common to all of them.</p>
      *
      * <p>For example,
@@ -5848,8 +5848,8 @@ public class StringUtils {
      *
      * @param strs  array of String objects, entries may be null
      * @return the initial sequence of characters that are common to all Strings
-     * in the array; empty String if the array is null, the elements are all null 
-     * or if there is no common prefix. 
+     * in the array; empty String if the array is null, the elements are all null
+     * or if there is no common prefix.
      * @since 2.4
      */
     public static String getCommonPrefix(String[] strs) {
@@ -5870,8 +5870,8 @@ public class StringUtils {
             // we found a common initial character sequence
             return strs[0].substring(0, smallestIndexOfDiff);
         }
-    }  
-    
+    }
+
     // Misc
     //-----------------------------------------------------------------------
     /**
@@ -5914,19 +5914,19 @@ public class StringUtils {
         }
 
         /*
-           The difference between this impl. and the previous is that, rather 
-           than creating and retaining a matrix of size s.length()+1 by t.length()+1, 
+           The difference between this impl. and the previous is that, rather
+           than creating and retaining a matrix of size s.length()+1 by t.length()+1,
            we maintain two single-dimensional arrays of length s.length()+1.  The first, d,
            is the 'current working' distance array that maintains the newest distance cost
            counts as we iterate through the characters of String s.  Each time we increment
            the index of String t we are comparing, d is copied to p, the second int[].  Doing so
-           allows us to retain the previous cost counts as required by the algorithm (taking 
+           allows us to retain the previous cost counts as required by the algorithm (taking
            the minimum of the cost count to the left, up one, and diagonally up and to the left
-           of the current cost count being calculated).  (Note that the arrays aren't really 
-           copied anymore, just switched...this is clearly much better than cloning an array 
+           of the current cost count being calculated).  (Note that the arrays aren't really
+           copied anymore, just switched...this is clearly much better than cloning an array
            or doing a System.arraycopy() each time  through the outer loop.)
 
-           Effectively, the difference between the two implementations is this one does not 
+           Effectively, the difference between the two implementations is this one does not
            cause an out of memory condition when calculating the LD over two very large strings.
          */
 
@@ -5941,7 +5941,7 @@ public class StringUtils {
 
         if (n > m) {
             // swap the input strings to consume less memory
-        	CharSequence tmp = s;
+            CharSequence tmp = s;
             s = t;
             t = tmp;
             n = m;
@@ -5980,7 +5980,7 @@ public class StringUtils {
             d = _d;
         }
 
-        // our last action in the above loop was to switch d and p, so p now 
+        // our last action in the above loop was to switch d and p, so p now
         // actually has the most recent cost counts
         return p[n];
     }
@@ -6079,10 +6079,10 @@ public class StringUtils {
         }
         return str.regionMatches(ignoreCase, 0, prefix, 0, prefix.length());
     }
-    
+
     /**
      * <p>Check if a String starts with any of an array of specified strings.</p>
-     * 
+     *
      * <pre>
      * StringUtils.startsWithAny(null, null)      = false
      * StringUtils.startsWithAny(null, new String[] {"abc"})  = false
