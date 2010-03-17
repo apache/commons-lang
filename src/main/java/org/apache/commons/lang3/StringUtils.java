@@ -1081,9 +1081,9 @@ public class StringUtils {
      * StringUtils.lastIndexOf(null, *)          = -1
      * StringUtils.lastIndexOf(*, null)          = -1
      * StringUtils.lastIndexOf("", "")           = 0
-     * StringUtils.lastIndexOf("aabaabaa", "a")  = 0
-     * StringUtils.lastIndexOf("aabaabaa", "b")  = 2
-     * StringUtils.lastIndexOf("aabaabaa", "ab") = 1
+     * StringUtils.lastIndexOf("aabaabaa", "a")  = 7
+     * StringUtils.lastIndexOf("aabaabaa", "b")  = 4
+     * StringUtils.lastIndexOf("aabaabaa", "ab") = 5
      * StringUtils.lastIndexOf("aabaabaa", "")   = 8
      * </pre>
      *
