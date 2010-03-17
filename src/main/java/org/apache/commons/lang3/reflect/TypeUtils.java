@@ -44,7 +44,7 @@ public class TypeUtils {
      * @param type to read
      * @return Class<?>
      */
-    // original code stolen from commons [proxy]'s 2.0 branch, then kneaded until firm
+    // original code taken from commons [proxy]'s 2.0 branch, then kneaded until firm
     public static Class<?> getRawType(Type enclosingType, Type type) {
         if (type instanceof Class<?>) {
             // it is raw, no problem
@@ -80,7 +80,7 @@ public class TypeUtils {
      * @param typeVar
      * @return Type resolved
      */
-    // original code stolen from commons [proxy]'s 2.0 branch, then kneaded until firm
+    // original code taken from commons [proxy]'s 2.0 branch, then kneaded until firm
     private static Type resolveVariable(Type enclosingType, TypeVariable<?> typeVar) {
         if (enclosingType instanceof ParameterizedType) {
             ParameterizedType parameterizedEnclosingType = (ParameterizedType) enclosingType;
