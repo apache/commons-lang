@@ -16,57 +16,51 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Test class for {@link ConcurrentUtils}.
  *
  * @version $Id$
  */
-public class ConcurrentUtilsTest extends TestCase {
+public class ConcurrentUtilsTest {
     /**
      * Tests creating a ConcurrentException with a runtime exception as cause.
      */
+    @Test(expected = IllegalArgumentException.class)
     public void testConcurrentExceptionCauseUnchecked() {
-        try {
-            new ConcurrentException(new RuntimeException());
-            fail("Could create ConcurrentException with unchecked cause!");
-        } catch (IllegalArgumentException iex) {
-            // ok
-        }
+        new ConcurrentException(new RuntimeException());
     }
 
     /**
      * Tests creating a ConcurrentException with an error as cause.
      */
+    @Test(expected = IllegalArgumentException.class)
     public void testConcurrentExceptionCauseError() {
-        try {
-            new ConcurrentException("An error", new Error());
-            fail("Could create ConcurrentException with an error cause!");
-        } catch (IllegalArgumentException iex) {
-            // ok
-        }
+        new ConcurrentException("An error", new Error());
     }
 
     /**
      * Tests creating a ConcurrentException with null as cause.
      */
+    @Test(expected = IllegalArgumentException.class)
     public void testConcurrentExceptionCauseNull() {
-        try {
-            new ConcurrentException(null);
-            fail("Could create ConcurrentException with null cause!");
-        } catch (IllegalArgumentException iex) {
-            // ok
-        }
+        new ConcurrentException(null);
     }
 
     /**
      * Tests extractCause() for a null exception.
      */
+    @Test
     public void testExtractCauseNull() {
         assertNull("Non null result", ConcurrentUtils.extractCause(null));
     }
@@ -74,6 +68,7 @@ public class ConcurrentUtilsTest extends TestCase {
     /**
      * Tests extractCause() if the cause of the passed in exception is null.
      */
+    @Test
     public void testExtractCauseNullCause() {
         assertNull("Non null result", ConcurrentUtils
                 .extractCause(new ExecutionException("Test", null)));
@@ -82,6 +77,7 @@ public class ConcurrentUtilsTest extends TestCase {
     /**
      * Tests extractCause() if the cause is an error.
      */
+    @Test
     public void testExtractCauseError() {
         Error err = new AssertionError("Test");
         try {
@@ -95,6 +91,7 @@ public class ConcurrentUtilsTest extends TestCase {
     /**
      * Tests extractCause() if the cause is an unchecked exception.
      */
+    @Test
     public void testExtractCauseUnchecked() {
         RuntimeException rex = new RuntimeException("Test");
         try {
@@ -108,6 +105,7 @@ public class ConcurrentUtilsTest extends TestCase {
     /**
      * Tests extractCause() if the cause is a checked exception.
      */
+    @Test
     public void testExtractCauseChecked() {
         Exception ex = new Exception("Test");
         ConcurrentException cex = ConcurrentUtils
@@ -118,6 +116,7 @@ public class ConcurrentUtilsTest extends TestCase {
     /**
      * Tests handleCause() if the cause is an error.
      */
+    @Test
     public void testHandleCauseError() throws ConcurrentException {
         Error err = new AssertionError("Test");
         try {
@@ -131,6 +130,7 @@ public class ConcurrentUtilsTest extends TestCase {
     /**
      * Tests handleCause() if the cause is an unchecked exception.
      */
+    @Test
     public void testHandleCauseUnchecked() throws ConcurrentException {
         RuntimeException rex = new RuntimeException("Test");
         try {
@@ -144,6 +144,7 @@ public class ConcurrentUtilsTest extends TestCase {
     /**
      * Tests handleCause() if the cause is a checked exception.
      */
+    @Test
     public void testHandleCauseChecked() {
         Exception ex = new Exception("Test");
         try {
@@ -159,6 +160,7 @@ public class ConcurrentUtilsTest extends TestCase {
      * the method should do nothing. We can only test that no exception is
      * thrown.
      */
+    @Test
     public void testHandleCauseNull() throws ConcurrentException {
         ConcurrentUtils.handleCause(null);
         ConcurrentUtils.handleCause(new ExecutionException("Test", null));
@@ -168,6 +170,7 @@ public class ConcurrentUtilsTest extends TestCase {
     /**
      * Tests constant future.
      */
+    @Test
     public void testConstantFuture_Integer() throws Exception {
         Integer value = new Integer(5);
         Future<Integer> test = ConcurrentUtils.constantFuture(value);
@@ -183,6 +186,7 @@ public class ConcurrentUtilsTest extends TestCase {
     /**
      * Tests constant future.
      */
+    @Test
     public void testConstantFuture_null() throws Exception {
         Integer value = null;
         Future<Integer> test = ConcurrentUtils.constantFuture(value);
