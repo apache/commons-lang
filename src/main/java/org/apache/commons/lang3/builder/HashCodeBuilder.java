@@ -93,7 +93,7 @@ import org.apache.commons.lang3.ArrayUtils;
  * @since 1.0
  * @version $Id$
  */
-public class HashCodeBuilder {
+public class HashCodeBuilder implements Builder<Integer> {
     /**
      * <p>
      * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
@@ -975,6 +975,17 @@ public class HashCodeBuilder {
      */
     public int toHashCode() {
         return iTotal;
+    }
+    
+    /**
+     * Returns the computed <code>hashCode</code>.
+     * 
+     * @return <code>hashCode</code> based on the fields appended
+     * 
+     * @since 3.0
+     */
+    public Integer build() {
+        return toHashCode();
     }
 
     /**

@@ -272,6 +272,20 @@ public class CompareToBuilderTest extends TestCase {
         assertTrue(new CompareToBuilder().append((Object) null, (Object) null).toComparison() == 0);
         assertTrue(new CompareToBuilder().append(null, o1).toComparison() < 0);
     }
+    
+    public void testObjectBuild() {
+        TestObject o1 = new TestObject(4);
+        TestObject o2 = new TestObject(4);
+        assertTrue(new CompareToBuilder().append(o1, o1).build() == 0);
+        assertTrue(new CompareToBuilder().append(o1, o2).build() == 0);
+        o2.setA(5);
+        assertTrue(new CompareToBuilder().append(o1, o2).build() < 0);
+        assertTrue(new CompareToBuilder().append(o2, o1).build() > 0);
+        
+        assertTrue(new CompareToBuilder().append(o1, null).build() > 0);
+        assertTrue(new CompareToBuilder().append((Object) null, (Object) null).build() == 0);
+        assertTrue(new CompareToBuilder().append(null, o1).build() < 0);
+    }
 
     public void testObjectEx2() {
         TestObject o1 = new TestObject(4);

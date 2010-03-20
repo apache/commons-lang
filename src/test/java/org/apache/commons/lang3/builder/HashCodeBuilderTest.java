@@ -205,6 +205,13 @@ public class HashCodeBuilderTest extends TestCase {
         obj = new Object();
         assertEquals(17 * 37 + obj.hashCode(), new HashCodeBuilder(17, 37).append(obj).toHashCode());
     }
+    
+    public void testObjectBuild() {
+        Object obj = null;
+        assertEquals(17 * 37, new HashCodeBuilder(17, 37).append(obj).build().intValue());
+        obj = new Object();
+        assertEquals(17 * 37 + obj.hashCode(), new HashCodeBuilder(17, 37).append(obj).build().intValue());
+    }
 
     @SuppressWarnings("cast") // cast is not really needed, keep for consistency
     public void testLong() {
