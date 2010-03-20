@@ -27,6 +27,7 @@ import junit.framework.TestCase;
  * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
  * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @author Maarten Coene
+ * @author Oliver Sauder
  * @version $Id$
  */
 public class EqualsBuilderTest extends TestCase {
@@ -991,4 +992,53 @@ public class EqualsBuilderTest extends TestCase {
             this.three = new TestObject(three);
         }
     }
+    
+    /**
+     * Test cyclical object references which cause a StackOverflowException if
+     * not handled properly. s. LANG-606
+     */
+    public void testCyclicalObjectReferences() {
+        TestObjectReference refX1 = new TestObjectReference(1);
+        TestObjectReference x1 = new TestObjectReference(1);
+        x1.setObjectReference(refX1);
+        refX1.setObjectReference(x1);
+
+        TestObjectReference refX2 = new TestObjectReference(1);
+        TestObjectReference x2 = new TestObjectReference(1);
+        x2.setObjectReference(refX2);
+        refX2.setObjectReference(x2);
+
+        TestObjectReference refX3 = new TestObjectReference(2);
+        TestObjectReference x3 = new TestObjectReference(2);
+        x3.setObjectReference(refX3);
+        refX3.setObjectReference(x3);
+
+        assertTrue(x1.equals(x2));
+        assertNull(EqualsBuilder.getRegistry());
+        assertFalse(x1.equals(x3));
+        assertNull(EqualsBuilder.getRegistry());
+        assertFalse(x2.equals(x3));
+        assertNull(EqualsBuilder.getRegistry());
+    }
+
+    static class TestObjectReference {
+        @SuppressWarnings("unused")
+        private TestObjectReference reference;
+        @SuppressWarnings("unused")
+        private TestObject one;
+
+        public TestObjectReference(int one) {
+            this.one = new TestObject(one);
+        }
+
+        public void setObjectReference(TestObjectReference reference) {
+            this.reference = reference;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return EqualsBuilder.reflectionEquals(this, obj);
+        }
+    }
 }
+
