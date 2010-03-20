@@ -20,8 +20,11 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.Pair;
 
 /**
  * <p>Assists in implementing {@link Object#equals(Object)} methods.</p>
@@ -79,10 +82,137 @@ import org.apache.commons.lang3.ArrayUtils;
  * @author Gary Gregory
  * @author Pete Gieser
  * @author Arun Mammen Thomas
+ * @author Oliver Sauder
  * @since 1.0
  * @version $Id$
  */
 public class EqualsBuilder {
+    
+    /**
+     * <p>
+     * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
+     * </p>
+     * 
+     * @since 3.0
+     */
+    private static final ThreadLocal<Set<Pair<IDKey, IDKey>>> REGISTRY = new ThreadLocal<Set<Pair<IDKey, IDKey>>>();
+
+    /*
+     * N.B. we cannot store the actual objects in a HashSet, as that would use the very hashCode()
+     * we are in the process of calculating.
+     * 
+     * So we generate a one-to-one mapping from the original object to a new object.
+     * 
+     * Now HashSet uses equals() to determine if two elements with the same hashcode really
+     * are equal, so we also need to ensure that the replacement objects are only equal
+     * if the original objects are identical.
+     * 
+     * The original implementation (2.4 and before) used the System.indentityHashCode()
+     * method - however this is not guaranteed to generate unique ids (e.g. LANG-459)
+     *  
+     * We now use the IDKey helper class (adapted from org.apache.axis.utils.IDKey)
+     * to disambiguate the duplicate ids.
+     */
+
+    /**
+     * <p>
+     * Returns the registry of object pairs being traversed by the reflection
+     * methods in the current thread.
+     * </p>
+     * 
+     * @return Set the registry of objects being traversed
+     * @since 3.0
+     */
+    static Set<Pair<IDKey, IDKey>> getRegistry() {
+        return REGISTRY.get();
+    }
+
+    /**
+     * <p>
+     * Converters value pair into a register pair.
+     * </p>
+     * 
+     * @param lhs <code>this</code> object
+     * @param rhs the other object
+     * 
+     * @return
+     */
+    static Pair<IDKey, IDKey> getRegisterPair(Object lhs, Object rhs) {
+        IDKey left = new IDKey(lhs);
+        IDKey right = new IDKey(rhs);
+        return new Pair<IDKey, IDKey>(left, right);
+    }
+
+    /**
+     * <p>
+     * Returns <code>true</code> if the registry contains the given object pair.
+     * Used by the reflection methods to avoid infinite loops.
+     * Objects might be swapped therefore a check is needed if the object pair
+     * is registered in given or swapped order.
+     * </p>
+     * 
+     * @param lhs <code>this</code> object to lookup in registry
+     * @param rhs the other object to lookup on registry
+     * @return boolean <code>true</code> if the registry contains the given object.
+     * @since 3.0
+     */
+    static boolean isRegistered(Object lhs, Object rhs) {
+        Set<Pair<IDKey, IDKey>> registry = getRegistry();
+        Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
+        Pair<IDKey, IDKey> swappedPair = new Pair<IDKey, IDKey>(pair.right,
+                pair.left);
+
+        return registry != null
+                && (registry.contains(pair) || registry.contains(swappedPair));
+    }
+
+    /**
+     * <p>
+     * Registers the given object pair.
+     * Used by the reflection methods to avoid infinite loops.
+     * </p>
+     * 
+     * @param lhs <code>this</code> object to register
+     * @param rhs the other object to register
+     */
+    static void register(Object lhs, Object rhs) {
+        synchronized (HashCodeBuilder.class) {
+            if (getRegistry() == null) {
+                REGISTRY.set(new HashSet<Pair<IDKey, IDKey>>());
+            }
+        }
+
+        Set<Pair<IDKey, IDKey>> registry = getRegistry();
+        Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
+        registry.add(pair);
+    }
+
+    /**
+     * <p>
+     * Unregisters the given object pair.
+     * </p>
+     * 
+     * <p>
+     * Used by the reflection methods to avoid infinite loops.
+     * 
+     * @param lhs <code>this</code> object to unregister
+     * @param rhs the other object to unregister
+     * @since 3.0
+     */
+    static void unregister(Object lhs, Object rhs) {
+        Set<Pair<IDKey, IDKey>> registry = getRegistry();
+        if (registry != null) {
+            Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
+            registry.remove(pair);
+            synchronized (HashCodeBuilder.class) {
+                //read again
+                registry = getRegistry();
+                if (registry != null && registry.isEmpty()) {
+                    REGISTRY.remove();
+                }
+            }
+        }
+    }
     
     /**
      * If the fields tested are equals.
@@ -316,22 +446,32 @@ public class EqualsBuilder {
         EqualsBuilder builder,
         boolean useTransients,
         String[] excludeFields) {
-        Field[] fields = clazz.getDeclaredFields();
-        AccessibleObject.setAccessible(fields, true);
-        for (int i = 0; i < fields.length && builder.isEquals; i++) {
-            Field f = fields[i];
-            if (!ArrayUtils.contains(excludeFields, f.getName())
-                && (f.getName().indexOf('$') == -1)
-                && (useTransients || !Modifier.isTransient(f.getModifiers()))
-                && (!Modifier.isStatic(f.getModifiers()))) {
-                try {
-                    builder.append(f.get(lhs), f.get(rhs));
-                } catch (IllegalAccessException e) {
-                    //this can't happen. Would get a Security exception instead
-                    //throw a runtime exception in case the impossible happens.
-                    throw new InternalError("Unexpected IllegalAccessException");
+        
+        if (isRegistered(lhs, rhs)) {
+            return;
+        }
+        
+        try {
+            register(lhs, rhs);
+            Field[] fields = clazz.getDeclaredFields();
+            AccessibleObject.setAccessible(fields, true);
+            for (int i = 0; i < fields.length && builder.isEquals; i++) {
+                Field f = fields[i];
+                if (!ArrayUtils.contains(excludeFields, f.getName())
+                    && (f.getName().indexOf('$') == -1)
+                    && (useTransients || !Modifier.isTransient(f.getModifiers()))
+                    && (!Modifier.isStatic(f.getModifiers()))) {
+                    try {
+                        builder.append(f.get(lhs), f.get(rhs));
+                    } catch (IllegalAccessException e) {
+                        //this can't happen. Would get a Security exception instead
+                        //throw a runtime exception in case the impossible happens.
+                        throw new InternalError("Unexpected IllegalAccessException");
+                    }
                 }
             }
+        } finally {
+            unregister(lhs, rhs);
         }
     }
 
