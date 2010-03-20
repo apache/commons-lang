@@ -89,7 +89,7 @@ import org.apache.commons.lang3.ArrayUtils;
  * @since 1.0
  * @version $Id$
  */
-public class CompareToBuilder {
+public class CompareToBuilder implements Builder<Integer> {
     
     /**
      * Current state of the comparison as appended fields are checked.
@@ -1043,5 +1043,18 @@ public class CompareToBuilder {
         return comparison;
     }
 
+    /**
+     * Returns a negative integer, a positive integer, or zero as
+     * the <code>builder</code> has judged the "left-hand" side
+     * as less than, greater than, or equal to the "right-hand"
+     * side.
+     * 
+     * @return final comparison result
+     * 
+     * @since 3.0
+     */
+    public Integer build() {
+        return toComparison();
+    }
 }
 

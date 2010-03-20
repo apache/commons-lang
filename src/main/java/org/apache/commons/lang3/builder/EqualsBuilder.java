@@ -86,7 +86,7 @@ import org.apache.commons.lang3.Pair;
  * @since 1.0
  * @version $Id$
  */
-public class EqualsBuilder {
+public class EqualsBuilder implements Builder<Boolean> {
     
     /**
      * <p>
@@ -967,6 +967,19 @@ public class EqualsBuilder {
      */
     public boolean isEquals() {
         return this.isEquals;
+    }
+    
+    /**
+     * <p>Returns <code>true</code> if the fields that have been checked
+     * are all equal.</p>
+     *
+     * @return <code>true</code> if all of the fields that have been checked
+     *         are equal, <code>false</code> otherwise.
+     *         
+     * @since 3.0
+     */
+    public Boolean build() {
+        return isEquals();
     }
 
     /**

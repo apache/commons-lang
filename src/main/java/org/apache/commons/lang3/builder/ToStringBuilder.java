@@ -89,7 +89,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * @since 1.0
  * @version $Id$
  */
-public class ToStringBuilder {
+public class ToStringBuilder implements Builder<String> {
 
     /**
      * The default style of output to use, not null.
@@ -1065,4 +1065,17 @@ public class ToStringBuilder {
         return this.getStringBuffer().toString();
     }
 
+    /**
+     * Returns the String that was build as an object representation. The 
+     * default implementation utilizes the {@link #toString()} implementation.
+     * 
+     * @return the String <code>toString</code>
+     * 
+     * @see #toString()
+     * 
+     * @since 3.0
+     */
+    public String build() {
+        return toString();
+    }
 }

@@ -305,6 +305,21 @@ public class EqualsBuilderTest extends TestCase {
         assertTrue(!new EqualsBuilder().append(null, o2).isEquals());
         assertTrue(new EqualsBuilder().append((Object) null, (Object) null).isEquals());
     }
+    
+    public void testObjectBuild() {
+        TestObject o1 = new TestObject(4);
+        TestObject o2 = new TestObject(5);
+        assertTrue(new EqualsBuilder().append(o1, o1).build());
+        assertTrue(!new EqualsBuilder().append(o1, o2).build());
+        o2.setA(4);
+        assertTrue(new EqualsBuilder().append(o1, o2).build());
+
+        assertTrue(!new EqualsBuilder().append(o1, this).build());
+        
+        assertTrue(!new EqualsBuilder().append(o1, null).build());
+        assertTrue(!new EqualsBuilder().append(null, o2).build());
+        assertTrue(new EqualsBuilder().append((Object) null, (Object) null).build());
+    }
 
     public void testLong() {
         long o1 = 1L;
