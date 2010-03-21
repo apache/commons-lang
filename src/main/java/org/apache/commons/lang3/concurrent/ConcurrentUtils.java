@@ -66,6 +66,28 @@ public class ConcurrentUtils {
     }
 
     /**
+     * Inspects the cause of the specified {@code ExecutionException} and
+     * creates a {@code ConcurrentRuntimeException} with the checked cause if
+     * necessary. This method works exactly like
+     * {@link #extractCause(ExecutionException)}. The only difference is that
+     * the cause of the specified {@code ExecutionException} is extracted as a
+     * runtime exception. This is an alternative for client code that does not
+     * want to deal with checked exceptions.
+     *
+     * @param ex the exception to be processed
+     * @return a {@code ConcurrentRuntimeException} with the checked cause
+     */
+    public static ConcurrentRuntimeException extractCauseUnchecked(
+            ExecutionException ex) {
+        if (ex == null || ex.getCause() == null) {
+            return null;
+        }
+
+        throwCause(ex);
+        return new ConcurrentRuntimeException(ex.getMessage(), ex.getCause());
+    }
+
+    /**
      * Handles the specified {@code ExecutionException}. This method calls
      * {@link #extractCause(ExecutionException)} for obtaining the cause of the
      * exception - which might already cause an unchecked exception or an error
@@ -84,6 +106,27 @@ public class ConcurrentUtils {
 
         if (cex != null) {
             throw cex;
+        }
+    }
+
+    /**
+     * Handles the specified {@code ExecutionException} and transforms it into a
+     * runtime exception. This method works exactly like
+     * {@link #handleCause(ExecutionException)}, but instead of a
+     * {@link ConcurrentException} it throws a
+     * {@link ConcurrentRuntimeException}. This is an alternative for client
+     * code that does not want to deal with checked exceptions.
+     *
+     * @param ex the exception to be handled
+     * @throws ConcurrentRuntimeException if the cause of the {@code
+     * ExecutionException} is a checked exception; this exception is then
+     * wrapped in the thrown runtime exception
+     */
+    public static void handleCauseUnchecked(ExecutionException ex) {
+        ConcurrentRuntimeException crex = extractCauseUnchecked(ex);
+
+        if (crex != null) {
+            throw crex;
         }
     }
 
@@ -132,7 +175,7 @@ public class ConcurrentUtils {
      * concurrent processing, perhaps as part of avoiding nulls.
      * A constant future can also be useful in testing.
      * </p>
-     * 
+     *
      * @param value  the constant value to return, may be null
      * @return an instance of Future that will return the value, never null
      */

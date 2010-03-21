@@ -58,6 +58,30 @@ public class ConcurrentUtilsTest {
     }
 
     /**
+     * Tries to create a ConcurrentRuntimeException with a runtime as cause.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testConcurrentRuntimeExceptionCauseUnchecked() {
+        new ConcurrentRuntimeException(new RuntimeException());
+    }
+
+    /**
+     * Tries to create a ConcurrentRuntimeException with an error as cause.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testConcurrentRuntimeExceptionCauseError() {
+        new ConcurrentRuntimeException("An error", new Error());
+    }
+
+    /**
+     * Tries to create a ConcurrentRuntimeException with null as cause.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testConcurrentRuntimeExceptionCauseNull() {
+        new ConcurrentRuntimeException(null);
+    }
+
+    /**
      * Tests extractCause() for a null exception.
      */
     @Test
@@ -92,7 +116,7 @@ public class ConcurrentUtilsTest {
      * Tests extractCause() if the cause is an unchecked exception.
      */
     @Test
-    public void testExtractCauseUnchecked() {
+    public void testExtractCauseUncheckedException() {
         RuntimeException rex = new RuntimeException("Test");
         try {
             ConcurrentUtils.extractCause(new ExecutionException(rex));
@@ -114,6 +138,62 @@ public class ConcurrentUtilsTest {
     }
 
     /**
+     * Tests extractCauseUnchecked() for a null exception.
+     */
+    @Test
+    public void testExtractCauseUncheckedNull() {
+        assertNull("Non null result", ConcurrentUtils.extractCauseUnchecked(null));
+    }
+
+    /**
+     * Tests extractCauseUnchecked() if the cause of the passed in exception is null.
+     */
+    @Test
+    public void testExtractCauseUncheckedNullCause() {
+        assertNull("Non null result", ConcurrentUtils
+                .extractCauseUnchecked(new ExecutionException("Test", null)));
+    }
+
+    /**
+     * Tests extractCauseUnchecked() if the cause is an error.
+     */
+    @Test
+    public void testExtractCauseUncheckedError() {
+        Error err = new AssertionError("Test");
+        try {
+            ConcurrentUtils.extractCauseUnchecked(new ExecutionException(err));
+            fail("Error not thrown!");
+        } catch (Error e) {
+            assertEquals("Wrong error", err, e);
+        }
+    }
+
+    /**
+     * Tests extractCauseUnchecked() if the cause is an unchecked exception.
+     */
+    @Test
+    public void testExtractCauseUncheckedUncheckedException() {
+        RuntimeException rex = new RuntimeException("Test");
+        try {
+            ConcurrentUtils.extractCauseUnchecked(new ExecutionException(rex));
+            fail("Runtime exception not thrown!");
+        } catch (RuntimeException r) {
+            assertEquals("Wrong exception", rex, r);
+        }
+    }
+
+    /**
+     * Tests extractCauseUnchecked() if the cause is a checked exception.
+     */
+    @Test
+    public void testExtractCauseUncheckedChecked() {
+        Exception ex = new Exception("Test");
+        ConcurrentRuntimeException cex = ConcurrentUtils
+                .extractCauseUnchecked(new ExecutionException(ex));
+        assertSame("Wrong cause", ex, cex.getCause());
+    }
+
+    /**
      * Tests handleCause() if the cause is an error.
      */
     @Test
@@ -131,7 +211,7 @@ public class ConcurrentUtilsTest {
      * Tests handleCause() if the cause is an unchecked exception.
      */
     @Test
-    public void testHandleCauseUnchecked() throws ConcurrentException {
+    public void testHandleCauseUncheckedException() throws ConcurrentException {
         RuntimeException rex = new RuntimeException("Test");
         try {
             ConcurrentUtils.handleCause(new ExecutionException(rex));
@@ -164,6 +244,61 @@ public class ConcurrentUtilsTest {
     public void testHandleCauseNull() throws ConcurrentException {
         ConcurrentUtils.handleCause(null);
         ConcurrentUtils.handleCause(new ExecutionException("Test", null));
+    }
+
+    /**
+     * Tests handleCauseUnchecked() if the cause is an error.
+     */
+    @Test
+    public void testHandleCauseUncheckedError() throws ConcurrentException {
+        Error err = new AssertionError("Test");
+        try {
+            ConcurrentUtils.handleCauseUnchecked(new ExecutionException(err));
+            fail("Error not thrown!");
+        } catch (Error e) {
+            assertEquals("Wrong error", err, e);
+        }
+    }
+
+    /**
+     * Tests handleCauseUnchecked() if the cause is an unchecked exception.
+     */
+    @Test
+    public void testHandleCauseUncheckedUncheckedException()
+            throws ConcurrentException {
+        RuntimeException rex = new RuntimeException("Test");
+        try {
+            ConcurrentUtils.handleCauseUnchecked(new ExecutionException(rex));
+            fail("Runtime exception not thrown!");
+        } catch (RuntimeException r) {
+            assertEquals("Wrong exception", rex, r);
+        }
+    }
+
+    /**
+     * Tests handleCauseUnchecked() if the cause is a checked exception.
+     */
+    @Test
+    public void testHandleCauseUncheckedChecked() {
+        Exception ex = new Exception("Test");
+        try {
+            ConcurrentUtils.handleCauseUnchecked(new ExecutionException(ex));
+            fail("ConcurrentRuntimeException not thrown!");
+        } catch (ConcurrentRuntimeException crex) {
+            assertEquals("Wrong cause", ex, crex.getCause());
+        }
+    }
+
+    /**
+     * Tests handleCauseUnchecked() for a null parameter or a null cause. In
+     * this case the method should do nothing. We can only test that no
+     * exception is thrown.
+     */
+    @Test
+    public void testHandleCauseUncheckedNull() throws ConcurrentException {
+        ConcurrentUtils.handleCauseUnchecked(null);
+        ConcurrentUtils.handleCauseUnchecked(new ExecutionException("Test",
+                null));
     }
 
     //-----------------------------------------------------------------------
