@@ -284,7 +284,7 @@ public class DateUtils {
      * @throws IllegalArgumentException if the date string or pattern array is null
      * @throws ParseException if none of the date patterns were suitable (or there were none)
      */
-    public static Date parseDate(String str, String[] parsePatterns) throws ParseException {
+    public static Date parseDate(String str, String... parsePatterns) throws ParseException {
         return parseDateWithLeniency(str, parsePatterns, true);
     }
     
@@ -304,7 +304,7 @@ public class DateUtils {
      * @throws ParseException if none of the date patterns were suitable
      * @since 2.5
      */
-    public static Date parseDateStrictly(String str, String[] parsePatterns) throws ParseException {
+    public static Date parseDateStrictly(String str, String... parsePatterns) throws ParseException {
         return parseDateWithLeniency(str, parsePatterns, false);
     }
 
