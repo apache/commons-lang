@@ -65,30 +65,6 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Convenience method returning new instance of <code>klazz</code> using a single argument constructor.
-     * The formal parameter type is inferred from the actual values of <code>arg</code>.
-     * See {@link #invokeExactConstructor(Class, Object[], Class[])} for more details.</p>
-     *
-     * <p>The signatures should be assignment compatible.</p>
-     *
-     * @param cls the class to be constructed.
-     * @param arg the actual argument
-     * @return new instance of <code>klazz</code>
-     *
-     * @throws NoSuchMethodException If the constructor cannot be found
-     * @throws IllegalAccessException If an error occurs accessing the constructor
-     * @throws InvocationTargetException If an error occurs invoking the constructor
-     * @throws InstantiationException If an error occurs instantiating the class
-     *
-     * @see #invokeConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
-     */
-    public static <T> T invokeConstructor(Class<T> cls, Object arg)
-            throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException, InstantiationException {
-        return invokeConstructor(cls, new Object[] { arg });
-    }
-
-    /**
      * <p>Returns new instance of <code>klazz</code> created using the actual arguments <code>args</code>.
      * The formal parameter types are inferred from the actual values of <code>args</code>.
      * See {@link #invokeExactConstructor(Class, Object[], Class[])} for more details.</p>
@@ -106,7 +82,7 @@ public class ConstructorUtils {
      *
      * @see #invokeConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
      */
-    public static <T> T invokeConstructor(Class<T> cls, Object[] args)
+    public static <T> T invokeConstructor(Class<T> cls, Object... args)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
         if (null == args) {
@@ -156,30 +132,6 @@ public class ConstructorUtils {
     }
 
     /**
-     * <p>Convenience method returning new instance of <code>klazz</code> using a single argument constructor.
-     * The formal parameter type is inferred from the actual values of <code>arg</code>.
-     * See {@link #invokeExactConstructor(Class, Object[], Class[])} for more details.</p>
-     *
-     * <p>The signatures should match exactly.</p>
-     *
-     * @param cls the class to be constructed.
-     * @param arg the actual argument
-     * @return new instance of <code>klazz</code>
-     *
-     * @throws NoSuchMethodException If the constructor cannot be found
-     * @throws IllegalAccessException If an error occurs accessing the constructor
-     * @throws InvocationTargetException If an error occurs invoking the constructor
-     * @throws InstantiationException If an error occurs instantiating the class
-     *
-     * @see #invokeExactConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
-     */
-    public static <T> T invokeExactConstructor(Class<T> cls, Object arg)
-            throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException, InstantiationException {
-        return invokeExactConstructor(cls, new Object[] { arg });
-    }
-
-    /**
      * <p>Returns new instance of <code>klazz</code> created using the actual arguments <code>args</code>.
      * The formal parameter types are inferred from the actual values of <code>args</code>.
      * See {@link #invokeExactConstructor(Class, Object[], Class[])} for more details.</p>
@@ -197,7 +149,7 @@ public class ConstructorUtils {
      *
      * @see #invokeExactConstructor(java.lang.Class, java.lang.Object[], java.lang.Class[])
      */
-    public static <T> T invokeExactConstructor(Class<T> cls, Object[] args)
+    public static <T> T invokeExactConstructor(Class<T> cls, Object... args)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
         if (null == args) {
@@ -249,19 +201,6 @@ public class ConstructorUtils {
     }
 
     /**
-     * Returns a constructor with single argument.
-     * @param cls the class to be constructed
-     * @param parameterType The constructor parameter type
-     * @return null if matching accessible constructor can not be found.
-     * @see Class#getConstructor
-     * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
-     */
-    public static <T> Constructor<T> getAccessibleConstructor(Class<T> cls,
-            Class<?> parameterType) {
-        return getAccessibleConstructor(cls, new Class[] { parameterType });
-    }
-
-    /**
      * Returns a constructor given a class and signature.
      * @param cls the class to be constructed
      * @param parameterTypes the parameter array
@@ -270,7 +209,7 @@ public class ConstructorUtils {
      * @see #getAccessibleConstructor(java.lang.reflect.Constructor)
      */
     public static <T> Constructor<T> getAccessibleConstructor(Class<T> cls,
-            Class<?>[] parameterTypes) {
+            Class<?>... parameterTypes) {
         try {
             return getAccessibleConstructor(cls.getConstructor(parameterTypes));
         } catch (NoSuchMethodException e) {
@@ -307,7 +246,7 @@ public class ConstructorUtils {
      */
     @SuppressWarnings("unchecked")
     public static <T> Constructor<T> getMatchingAccessibleConstructor(Class<T> cls,
-            Class<?>[] parameterTypes) {
+            Class<?>... parameterTypes) {
         // see if we can find the constructor directly
         // most of the time this works and it's much faster
         try {
