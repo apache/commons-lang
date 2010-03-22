@@ -436,7 +436,6 @@
     <commons.release.version>2.5</commons.release.version>
     <commons.jira.id>LANG</commons.jira.id>
     <commons.jira.pid>12310481</commons.jira.pid>
-    <commons.osgi.import>!net.jcip.annotations,*</commons.osgi.import>
   </properties> 
 
 
