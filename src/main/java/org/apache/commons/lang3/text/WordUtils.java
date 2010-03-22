@@ -201,7 +201,7 @@ public class WordUtils {
      * @see #capitalizeFully(String)
      * @since 2.1
      */
-    public static String capitalize(String str, char[] delimiters) {
+    public static String capitalize(String str, char... delimiters) {
         int delimLen = (delimiters == null ? -1 : delimiters.length);
         if (str == null || str.length() == 0 || delimLen == 0) {
             return str;
@@ -275,7 +275,7 @@ public class WordUtils {
      * @return capitalized String, <code>null</code> if null String input
      * @since 2.1
      */
-    public static String capitalizeFully(String str, char[] delimiters) {
+    public static String capitalizeFully(String str, char... delimiters) {
         int delimLen = (delimiters == null ? -1 : delimiters.length);
         if (str == null || str.length() == 0 || delimLen == 0) {
             return str;
@@ -331,7 +331,7 @@ public class WordUtils {
      * @see #capitalize(String)
      * @since 2.1
      */
-    public static String uncapitalize(String str, char[] delimiters) {
+    public static String uncapitalize(String str, char... delimiters) {
         int delimLen = (delimiters == null ? -1 : delimiters.length);
         if (str == null || str.length() == 0 || delimLen == 0) {
             return str;
@@ -464,7 +464,7 @@ public class WordUtils {
      * @see #initials(String)
      * @since 2.2
      */
-    public static String initials(String str, char[] delimiters) {
+    public static String initials(String str, char... delimiters) {
         if (str == null || str.length() == 0) {
             return str;
         }
