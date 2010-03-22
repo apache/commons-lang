@@ -887,7 +887,7 @@ public class BooleanUtils {
      * @throws IllegalArgumentException if <code>array</code> is <code>null</code>
      * @throws IllegalArgumentException if <code>array</code> is empty.
      */
-    public static boolean xor(boolean[] array) {
+    public static boolean xor(boolean... array) {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
@@ -928,7 +928,7 @@ public class BooleanUtils {
      * @throws IllegalArgumentException if <code>array</code> is empty.
      * @throws IllegalArgumentException if <code>array</code> contains a <code>null</code>
      */
-    public static Boolean xor(Boolean[] array) {
+    public static Boolean xor(Boolean... array) {
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
         } else if (array.length == 0) {

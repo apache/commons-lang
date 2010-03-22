@@ -5761,7 +5761,7 @@ public class StringUtils {
      * @return the index where the strings begin to differ; -1 if they are all equal
      * @since 2.4
      */
-    public static int indexOfDifference(CharSequence[] css) {
+    public static int indexOfDifference(CharSequence... css) {
         if (css == null || css.length <= 1) {
             return INDEX_NOT_FOUND;
         }
@@ -5852,7 +5852,7 @@ public class StringUtils {
      * or if there is no common prefix.
      * @since 2.4
      */
-    public static String getCommonPrefix(String[] strs) {
+    public static String getCommonPrefix(String... strs) {
         if (strs == null || strs.length == 0) {
             return EMPTY;
         }
