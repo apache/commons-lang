@@ -3076,6 +3076,46 @@ public class StringUtils {
     // Joining
     //-----------------------------------------------------------------------
     /**
+     * <p>Joins the provided elements into a single String. </p>
+     *
+     * <p>No separator is added to the joined String.
+     * Null objects or empty string elements are represented by
+     * empty strings.</p>
+     *
+     * <pre>
+     * StringUtils.concat("a", "b", "c") = "abc"
+     * StringUtils.concat(null, "", "a") = "a"
+     * </pre>
+     *
+     * @param elements  the values to join together
+     * @return the concatenated String
+     * @since 3.0
+     */
+    public static String concat(Object... elements) {
+        return join(elements, null);
+    }
+
+    /**
+     * <p>Joins the provided elements into a single String. </p>
+     *
+     * <p>No separator is added to the joined String.
+     * Null objects or empty string elements are represented by
+     * empty strings.</p>
+     *
+     * <pre>
+     * StringUtils.concatWith(".", "a", "b", "c") = "a.b.c"
+     * StringUtils.concatWith("", null, "", "a") = "a"
+     * </pre>
+     *
+     * @param elements  the values to join together
+     * @return the concatenated String
+     * @since 3.0
+     */
+    public static String concatWith(String separator, Object... elements) {
+        return join(elements, separator);
+    }
+
+    /**
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
      *
