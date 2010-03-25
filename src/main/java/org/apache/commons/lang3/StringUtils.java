@@ -21,8 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.lang3.text.WordUtils;
-
 /**
  * <p>Operations on {@link java.lang.String} that are
  * <code>null</code> safe.</p>
@@ -4935,7 +4933,7 @@ public class StringUtils {
      * <p>Capitalizes a String changing the first letter to title case as
      * per {@link Character#toTitleCase(char)}. No other letters are changed.</p>
      *
-     * <p>For a word based algorithm, see {@link WordUtils#capitalize(String)}.
+     * <p>For a word based algorithm, see {@link org.apache.commons.lang.text.WordUtils#capitalize(String)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
@@ -4947,7 +4945,7 @@ public class StringUtils {
      *
      * @param cs the String to capitalize, may be null
      * @return the capitalized String, <code>null</code> if null String input
-     * @see WordUtils#capitalize(String)
+     * @see org.apache.commons.lang.text.WordUtils#capitalize(String)
      * @see #uncapitalize(String)
      * @since 2.0
      */
@@ -4969,7 +4967,7 @@ public class StringUtils {
      * <p>Uncapitalizes a CharSequence changing the first letter to title case as
      * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
      *
-     * <p>For a word based algorithm, see {@link WordUtils#uncapitalize(String)}.
+     * <p>For a word based algorithm, see {@link org.apache.commons.lang.text.WordUtils#uncapitalize(String)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
@@ -4981,7 +4979,7 @@ public class StringUtils {
      *
      * @param cs the String to uncapitalize, may be null
      * @return the uncapitalized String, <code>null</code> if null String input
-     * @see WordUtils#uncapitalize(String)
+     * @see org.apache.commons.lang.text.WordUtils#uncapitalize(String)
      * @see #capitalize(CharSequence)
      * @since 2.0
      */
@@ -5009,7 +5007,7 @@ public class StringUtils {
      *  <li>Lower case character converts to Upper case</li>
      * </ul>
      *
-     * <p>For a word based algorithm, see {@link WordUtils#swapCase(String)}.
+     * <p>For a word based algorithm, see {@link org.apache.commons.lang.text.WordUtils#swapCase(String)}.
      * A <code>null</code> input String returns <code>null</code>.</p>
      *
      * <pre>
@@ -5021,7 +5019,7 @@ public class StringUtils {
      * <p>NOTE: This method changed in Lang version 2.0.
      * It no longer performs a word based algorithm.
      * If you only use ASCII, you will notice no change.
-     * That functionality is available in WordUtils.</p>
+     * That functionality is available in org.apache.commons.lang.text.WordUtils.</p>
      *
      * @param str  the String to swap case, may be null
      * @return the changed String, <code>null</code> if null String input
