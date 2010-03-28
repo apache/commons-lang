@@ -345,12 +345,11 @@ public class ObjectUtils {
 
     /**
      * Clone an object if possible. This method is similar to {@link #clone(Object)}, but will
-     * return the provided instance as return value instead of <code>null</code> if the instance
-     * is not cloneable. This is convenient in case the caller will use different
-     * implementations (e.g. of a service) and some of the instances do not allow concurrent
-     * processing or have state. In such a case the implementation can simply provide a proper
-     * clone implementation and the caller has not to take care, it will simply call this method
-     * here.
+     * return the provided instance as the return value instead of <code>null</code> if the instance
+     * is not cloneable. This is more convenient if the caller uses different
+     * implementations (e.g. of a service) and some of the implementations do not allow concurrent
+     * processing or have state. In such cases the implementation can simply provide a proper
+     * clone implementation and the caller's code does not have to change.
      * 
      * @param <T> the type of the object
      * @param o the object to clone
