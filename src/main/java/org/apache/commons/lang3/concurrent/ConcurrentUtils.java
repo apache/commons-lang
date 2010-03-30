@@ -166,6 +166,46 @@ public class ConcurrentUtils {
 
     //-----------------------------------------------------------------------
     /**
+     * Invokes the specified {@code ConcurrentInitializer} and returns the
+     * object produced by the initializer. This method just invokes the {@code
+     * get()} method of the given {@code ConcurrentInitializer}. It is
+     * <b>null</b>-safe: if the argument is <b>null</b>, result is also
+     * <b>null</b>.
+     *
+     * @param <T> the type of the object produced by the initializer
+     * @param initializer the {@code ConcurrentInitializer} to be invoked
+     * @return the object managed by the {@code ConcurrentInitializer}
+     * @throws ConcurrentException if the {@code ConcurrentInitializer} throws
+     * an exception
+     */
+    public static <T> T initialize(ConcurrentInitializer<T> initializer)
+            throws ConcurrentException {
+        return (initializer != null) ? initializer.get() : null;
+    }
+
+    /**
+     * Invokes the specified {@code ConcurrentInitializer} and transforms
+     * occurring exceptions to runtime exceptions. This method works like
+     * {@link #initialize(ConcurrentInitializer)}, but if the {@code
+     * ConcurrentInitializer} throws a {@link ConcurrentException}, it is
+     * caught, and the cause is wrapped in a {@link ConcurrentRuntimeException}.
+     * So client code does not have to deal with checked exceptions.
+     *
+     * @param <T> the type of the object produced by the initializer
+     * @param initializer the {@code ConcurrentInitializer} to be invoked
+     * @return the object managed by the {@code ConcurrentInitializer}
+     * @throws ConcurrentRuntimeException if the initializer throws an exception
+     */
+    public static <T> T initializeUnchecked(ConcurrentInitializer<T> initializer) {
+        try {
+            return initialize(initializer);
+        } catch (ConcurrentException cex) {
+            throw new ConcurrentRuntimeException(cex.getCause());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    /**
      * <p>
      * Gets an implementation of <code>Future</code> that is immediately done
      * and returns the specified constant value.
