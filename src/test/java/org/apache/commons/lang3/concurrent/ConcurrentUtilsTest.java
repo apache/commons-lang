@@ -25,6 +25,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import org.easymock.EasyMock;
 import org.junit.Test;
 
 /**
@@ -299,6 +300,75 @@ public class ConcurrentUtilsTest {
         ConcurrentUtils.handleCauseUnchecked(null);
         ConcurrentUtils.handleCauseUnchecked(new ExecutionException("Test",
                 null));
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * Tests initialize() for a null argument.
+     */
+    @Test
+    public void testInitializeNull() throws ConcurrentException {
+        assertNull("Got a result", ConcurrentUtils.initialize(null));
+    }
+
+    /**
+     * Tests a successful initialize() operation.
+     */
+    @Test
+    public void testInitialize() throws ConcurrentException {
+        @SuppressWarnings("unchecked")
+        ConcurrentInitializer<Object> init = EasyMock
+                .createMock(ConcurrentInitializer.class);
+        final Object result = new Object();
+        EasyMock.expect(init.get()).andReturn(result);
+        EasyMock.replay(init);
+        assertSame("Wrong result object", result, ConcurrentUtils
+                .initialize(init));
+        EasyMock.verify(init);
+    }
+
+    /**
+     * Tests initializeUnchecked() for a null argument.
+     */
+    @Test
+    public void testInitializeUncheckedNull() {
+        assertNull("Got a result", ConcurrentUtils.initializeUnchecked(null));
+    }
+
+    /**
+     * Tests a successful initializeUnchecked() operation.
+     */
+    @Test
+    public void testInitializeUnchecked() throws ConcurrentException {
+        @SuppressWarnings("unchecked")
+        ConcurrentInitializer<Object> init = EasyMock
+                .createMock(ConcurrentInitializer.class);
+        final Object result = new Object();
+        EasyMock.expect(init.get()).andReturn(result);
+        EasyMock.replay(init);
+        assertSame("Wrong result object", result, ConcurrentUtils
+                .initializeUnchecked(init));
+        EasyMock.verify(init);
+    }
+
+    /**
+     * Tests whether exceptions are correctly handled by initializeUnchecked().
+     */
+    @Test
+    public void testInitializeUncheckedEx() throws ConcurrentException {
+        @SuppressWarnings("unchecked")
+        ConcurrentInitializer<Object> init = EasyMock
+                .createMock(ConcurrentInitializer.class);
+        final Exception cause = new Exception();
+        EasyMock.expect(init.get()).andThrow(new ConcurrentException(cause));
+        EasyMock.replay(init);
+        try {
+            ConcurrentUtils.initializeUnchecked(init);
+            fail("Exception not thrown!");
+        } catch (ConcurrentRuntimeException crex) {
+            assertSame("Wrong cause", cause, crex.getCause());
+        }
+        EasyMock.verify(init);
     }
 
     //-----------------------------------------------------------------------

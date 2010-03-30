@@ -76,7 +76,7 @@ package org.apache.commons.lang3.concurrent;
  * @version $Id$
  * @param <T> the type of the object managed by this initializer class
  */
-public abstract class LazyInitializer<T> {
+public abstract class LazyInitializer<T> implements ConcurrentInitializer<T> {
     /** Stores the managed object. */
     private volatile T object;
 
@@ -85,8 +85,10 @@ public abstract class LazyInitializer<T> {
      * is created. After that it is cached and can be accessed pretty fast.
      *
      * @return the object initialized by this {@code LazyInitializer}
+     * @throws ConcurrentException if an error occurred during initialization of
+     * the object
      */
-    public T get() {
+    public T get() throws ConcurrentException {
         // use a temporary variable to reduce the number of reads of the
         // volatile field
         T result = object;
@@ -111,6 +113,7 @@ public abstract class LazyInitializer<T> {
      * handled by {@code get()}.
      *
      * @return the managed data object
+     * @throws ConcurrentException if an error occurs during object creation
      */
-    protected abstract T initialize();
+    protected abstract T initialize() throws ConcurrentException;
 }

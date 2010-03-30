@@ -82,7 +82,8 @@ import java.util.concurrent.Future;
  * @version $Id$
  * @param <T> the type of the object managed by this initializer class
  */
-public abstract class BackgroundInitializer<T> {
+public abstract class BackgroundInitializer<T> implements
+        ConcurrentInitializer<T> {
     /** The external executor service for executing tasks. */
     private ExecutorService externalExecutor;
 

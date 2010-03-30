@@ -16,82 +16,31 @@
  */
 package org.apache.commons.lang3.concurrent;
 
-import java.util.concurrent.CountDownLatch;
-
-import junit.framework.TestCase;
+import org.junit.Before;
 
 /**
  * Test class for {@code LazyInitializer}.
  *
  * @version $Id$
  */
-public class LazyInitializerTest extends TestCase {
+public class LazyInitializerTest extends AbstractConcurrentInitializerTest {
     /** The initializer to be tested. */
     private LazyInitializerTestImpl initializer;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         initializer = new LazyInitializerTestImpl();
     }
 
     /**
-     * Tests obtaining the managed object.
+     * Returns the initializer to be tested. This implementation returns the
+     * {@code LazyInitializer} created in the {@code setUp()} method.
+     *
+     * @return the initializer to be tested
      */
-    public void testGet() {
-        assertNotNull("No managed object", initializer.get());
-    }
-
-    /**
-     * Tests whether sequential get() invocations always return the same
-     * instance.
-     */
-    public void testGetMultipleTimes() {
-        Object obj = initializer.get();
-        for (int i = 0; i < 10; i++) {
-            assertEquals("Got different object at " + i, obj, initializer.get());
-        }
-    }
-
-    /**
-     * Tests invoking get() from multiple threads concurrently.
-     */
-    public void testGetConcurrent() throws InterruptedException {
-        final int threadCount = 20;
-        final CountDownLatch startLatch = new CountDownLatch(1);
-        class GetThread extends Thread {
-            Object object;
-
-            @Override
-            public void run() {
-                try {
-                    // wait until all threads are ready for maximum parallelism
-                    startLatch.await();
-                    // access the initializer
-                    object = initializer.get();
-                } catch (InterruptedException iex) {
-                    // ignore
-                }
-            }
-        }
-
-        GetThread[] threads = new GetThread[threadCount];
-        for (int i = 0; i < threadCount; i++) {
-            threads[i] = new GetThread();
-            threads[i].start();
-        }
-
-        // fire all threads and wait until they are ready
-        startLatch.countDown();
-        for (Thread t : threads) {
-            t.join();
-        }
-
-        // check results
-        Object managedObject = initializer.get();
-        for (GetThread t : threads) {
-            assertEquals("Wrong object", managedObject, t.object);
-        }
+    @Override
+    protected ConcurrentInitializer<Object> createInitializer() {
+        return initializer;
     }
 
     /**
