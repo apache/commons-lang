@@ -3094,9 +3094,10 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the provided elements into a single String. </p>
+     * <p>Joins the provided elements into a single String, with the specified 
+     * separator between each element. </p>
      *
-     * <p>No separator is added to the joined String.
+     * <p>No separator is added before or after the joined String.
      * Null objects or empty string elements are represented by
      * empty strings.</p>
      *
@@ -3105,6 +3106,7 @@ public class StringUtils {
      * StringUtils.concatWith("", null, "", "a") = "a"
      * </pre>
      *
+     * @param separator the value to put between elements
      * @param elements  the values to join together
      * @return the concatenated String
      * @since 3.0
