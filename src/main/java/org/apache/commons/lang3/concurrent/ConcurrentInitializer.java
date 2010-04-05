@@ -24,7 +24,7 @@ package org.apache.commons.lang3.concurrent;
  * The idea behind this interface is to provide access to an object in a
  * thread-safe manner. A {@code ConcurrentInitializer} can be passed to multiple
  * threads which can all access the object produced by the initializer. Through
- * the {@link #getInitializedObject()} method the object can be queried.
+ * the {@link #get()} method the object can be queried.
  * </p>
  * <p>
  * Concrete implementations of this interface will use different strategies for
