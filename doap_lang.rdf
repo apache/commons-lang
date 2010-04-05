@@ -63,6 +63,21 @@
         <created>2005-06-12</created>
         <revision>2.1</revision>
       </Version>
+      <Version>
+        <name>commons-lang</name>
+        <created>2003-09-02</created>
+        <revision>2.0</revision>
+      </Version>
+      <Version>
+        <name>commons-lang</name>
+        <created>2002-11-25</created>
+        <revision>1.0.1</revision>
+      </Version>
+      <Version>
+        <name>commons-lang</name>
+        <created>2002-10-04</created>
+        <revision>1.0</revision>
+      </Version>
     </release>
     <mailing-list rdf:resource="http://commons.apache.org/mail-lists.html"/>
   </Project>
