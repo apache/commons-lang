@@ -187,6 +187,7 @@ public class StringUtils {
      *
      * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if the CharSequence is empty or null
+     * @since 3.0 Changed signature from isEmpty(String) to isEmpty(CharSequence)
      */
     public static boolean isEmpty(CharSequence cs) {
         return cs == null || cs.length() == 0;
@@ -205,6 +206,7 @@ public class StringUtils {
      *
      * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if the CharSequence is not empty and not null
+     * @since 3.0 Changed signature from isNotEmpty(String) to isNotEmpty(CharSequence)
      */
     public static boolean isNotEmpty(CharSequence cs) {
         return !StringUtils.isEmpty(cs);
@@ -224,6 +226,7 @@ public class StringUtils {
      * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if the CharSequence is null, empty or whitespace
      * @since 2.0
+     * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
      */
     public static boolean isBlank(CharSequence cs) {
         int strLen;
@@ -253,6 +256,7 @@ public class StringUtils {
      * @return <code>true</code> if the CharSequence is
      *  not empty and not null and not whitespace
      * @since 2.0
+     * @since 3.0 Changed signature from isNotBlank(String) to isNotBlank(CharSequence)
      */
     public static boolean isNotBlank(CharSequence cs) {
         return !StringUtils.isBlank(cs);
@@ -693,6 +697,7 @@ public class StringUtils {
      * @param cs2  the second CharSequence, may be null
      * @return <code>true</code> if the CharSequences are equal, case sensitive, or
      *  both <code>null</code>
+     * @since 3.0 Changed signature from equals(String, String) to equals(CharSequence, CharSequence)
      */
     public static boolean equals(CharSequence cs1, CharSequence cs2) {
         return cs1 == null ? cs2 == null : cs1.equals(cs2);
@@ -1365,6 +1370,7 @@ public class StringUtils {
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
+     * @since 3.0 Changed signature from indexOfAny(String, char[]) to indexOfAny(CharSequence, char[])
      */
     public static int indexOfAny(CharSequence cs, char[] searchChars) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
@@ -1413,6 +1419,7 @@ public class StringUtils {
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
+     * @since 3.0 Changed signature from indexOfAny(String, String) to indexOfAny(CharSequence, String)
      */
     public static int indexOfAny(CharSequence cs, String searchChars) {
         if (isEmpty(cs) || isEmpty(searchChars)) {
@@ -1533,6 +1540,7 @@ public class StringUtils {
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
+     * @since 3.0 Changed signature from indexOfAnyBut(String, char[]) to indexOfAnyBut(CharSequence, char[])
      */
     public static int indexOfAnyBut(CharSequence cs, char[] searchChars) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
@@ -1627,6 +1635,7 @@ public class StringUtils {
      * @param cs  the String to check, may be null
      * @param valid  an array of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
+     * @since 3.0 Changed signature from containsOnly(String, char[]) to containsOnly(CharSequence, char[])
      */
     public static boolean containsOnly(CharSequence cs, char[] valid) {
         // All these pre-checks are to maintain API with an older version
@@ -1663,6 +1672,7 @@ public class StringUtils {
      * @param validChars  a String of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
      * @since 2.0
+     * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, String)
      */
     public static boolean containsOnly(CharSequence cs, String validChars) {
         if (cs == null || validChars == null) {
@@ -1694,6 +1704,7 @@ public class StringUtils {
      * @param searchChars  an array of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
      * @since 2.0
+     * @since 3.0 Changed signature from containsNone(String, char[]) to containsNone(CharSequence, char[])
      */
     public static boolean containsNone(CharSequence cs, char[] searchChars) {
         if (cs == null || searchChars == null) {
@@ -1746,6 +1757,7 @@ public class StringUtils {
      * @param invalidChars  a String of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
      * @since 2.0
+     * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
      */
     public static boolean containsNone(CharSequence cs, String invalidChars) {
         if (cs == null || invalidChars == null) {
@@ -4716,6 +4728,7 @@ public class StringUtils {
      *         <code>null</code>.
      * @since 2.4
      * @deprecated See {@link CharSequenceUtils#length(CharSequence)}
+     * @since 3.0 Changed signature from length(String) to length(CharSequence)
      */
     public static int length(CharSequence cs) {
         return CharSequenceUtils.length(cs);
@@ -4950,6 +4963,7 @@ public class StringUtils {
      * @see org.apache.commons.lang3.text.WordUtils#capitalize(String)
      * @see #uncapitalize(CharSequence)
      * @since 2.0
+     * @since 3.0 Changed signature from capitalize(String) to capitalize(CharSequence)
      */
     public static String capitalize(CharSequence cs) {
         if (cs == null ) {
@@ -4984,6 +4998,7 @@ public class StringUtils {
      * @see org.apache.commons.lang3.text.WordUtils#uncapitalize(String)
      * @see #capitalize(CharSequence)
      * @since 2.0
+     * @since 3.0 Changed signature from uncapitalize(String) to uncapitalize(CharSequence)
      */
     public static String uncapitalize(CharSequence cs) {
         if (cs == null ) {
@@ -5101,6 +5116,7 @@ public class StringUtils {
      *
      * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains letters, and is non-null
+     * @since 3.0 Changed signature from isAlpha(String) to isAlpha(CharSequence)
      */
     public static boolean isAlpha(CharSequence cs) {
         if (cs == null) {
@@ -5135,6 +5151,7 @@ public class StringUtils {
      * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains letters and space,
      *  and is non-null
+     * @since 3.0 Changed signature from isAlphaSpace(String) to isAlphaSpace(CharSequence)
      */
     public static boolean isAlphaSpace(CharSequence cs) {
         if (cs == null) {
@@ -5168,6 +5185,7 @@ public class StringUtils {
      * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains letters or digits,
      *  and is non-null
+     * @since 3.0 Changed signature from isAlphanumeric(String) to isAlphanumeric(CharSequence)
      */
     public static boolean isAlphanumeric(CharSequence cs) {
         if (cs == null) {
@@ -5202,6 +5220,7 @@ public class StringUtils {
      * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains letters, digits or space,
      *  and is non-null
+     * @since 3.0 Changed signature from isAlphanumericSpace(String) to isAlphanumericSpace(CharSequence)
      */
     public static boolean isAlphanumericSpace(CharSequence cs) {
         if (cs == null) {
@@ -5240,6 +5259,7 @@ public class StringUtils {
      * @return <code>true</code> if every character is in the range
      *  32 thru 126
      * @since 2.1
+     * @since 3.0 Changed signature from isAsciiPrintable(String) to isAsciiPrintable(CharSequence)
      */
     public static boolean isAsciiPrintable(CharSequence cs) {
         if (cs == null) {
@@ -5274,6 +5294,7 @@ public class StringUtils {
      *
      * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains digits, and is non-null
+     * @since 3.0 Changed signature from isNumeric(String) to isNumeric(CharSequence)
      */
     public static boolean isNumeric(CharSequence cs) {
         if (cs == null) {
@@ -5310,6 +5331,7 @@ public class StringUtils {
      * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains digits or space,
      *  and is non-null
+     * @since 3.0 Changed signature from isNumericSpace(String) to isNumericSpace(CharSequence)
      */
     public static boolean isNumericSpace(CharSequence cs) {
         if (cs == null) {
@@ -5342,6 +5364,7 @@ public class StringUtils {
      * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains whitespace, and is non-null
      * @since 2.0
+     * @since 3.0 Changed signature from isWhitespace(String) to isWhitespace(CharSequence)
      */
     public static boolean isWhitespace(CharSequence cs) {
         if (cs == null) {
@@ -5373,6 +5396,7 @@ public class StringUtils {
      * @param cs  the CharSequence to check, may be null
      * @return <code>true</code> if only contains lowercase characters, and is non-null
      * @since 2.5
+     * @since 3.0 Changed signature from isAllLowerCase(String) to isAllLowerCase(CharSequence)
      */
     public static boolean isAllLowerCase(CharSequence cs) {
         if (cs == null || isEmpty(cs)) {
@@ -5404,6 +5428,7 @@ public class StringUtils {
      * @param cs the CharSequence to check, may be null
      * @return <code>true</code> if only contains uppercase characters, and is non-null
      * @since 2.5
+     * @since 3.0 Changed signature from isAllUpperCase(String) to isAllUpperCase(CharSequence)
      */
     public static boolean isAllUpperCase(CharSequence cs) {
         if (cs == null || isEmpty(cs)) {
@@ -5750,6 +5775,7 @@ public class StringUtils {
      * @param cs2  the second CharSequence, may be null
      * @return the index where cs1 and cs2 begin to differ; -1 if they are equal
      * @since 2.0
+     * @since 3.0 Changed signature from indexOfDifference(String, String) to indexOfDifference(CharSequence, CharSequence)
      */
     public static int indexOfDifference(CharSequence cs1, CharSequence cs2) {
         if (cs1 == cs2) {
@@ -5800,6 +5826,7 @@ public class StringUtils {
      * @param css  array of CharSequences, entries may be null
      * @return the index where the strings begin to differ; -1 if they are all equal
      * @since 2.4
+     * @since 3.0 Changed signature from indexOfDifference(String...) to indexOfDifference(CharSequence...)
      */
     public static int indexOfDifference(CharSequence... css) {
         if (css == null || css.length <= 1) {
@@ -5947,6 +5974,7 @@ public class StringUtils {
      * @param t  the second String, must not be null
      * @return result distance
      * @throws IllegalArgumentException if either String input <code>null</code>
+     * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to getLevenshteinDistance(CharSequence, CharSequence)
      */
     public static int getLevenshteinDistance(CharSequence s, CharSequence t) {
         if (s == null || t == null) {
