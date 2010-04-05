@@ -1652,7 +1652,7 @@ public class StringUtilsTest extends TestCase {
     }
 
     /**
-     * Test for {@link StringUtils#isAllLowerCase(String)}.
+     * Test for {@link StringUtils#isAllLowerCase(CharSequence)}.
      */
     public void testIsAllLowerCase() {
         assertFalse(StringUtils.isAllLowerCase(null));
@@ -1663,7 +1663,7 @@ public class StringUtilsTest extends TestCase {
     }
 
     /**
-     * Test for {@link StringUtils#isAllUpperCase(String)}.
+     * Test for {@link StringUtils#isAllUpperCase(CharSequence)}.
      */
     public void testIsAllUpperCase() {
         assertFalse(StringUtils.isAllUpperCase(null));
