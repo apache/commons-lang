@@ -4516,6 +4516,7 @@ public class StringUtils {
      * @param repeat  number of times to repeat str, negative treated as zero
      * @return a new String consisting of the original String repeated,
      *  <code>null</code> if null String input
+     * @since 2.5
      */
     public static String repeat(String str, int repeat) {
         // Performance tuned for 2.0 (JDK1.4)
@@ -4579,7 +4580,6 @@ public class StringUtils {
      * @param repeat     number of times to repeat str, negative treated as zero
      * @return a new String consisting of the original String repeated,
      *  <code>null</code> if null String input
-     * @since 2.5
      */
     public static String repeat(String str, String separator, int repeat) {
         if(str == null || separator == null) {
