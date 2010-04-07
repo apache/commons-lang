@@ -6166,7 +6166,7 @@ public class StringUtils {
      *  both <code>null</code>
      * @since 2.5
      */
-    public static boolean startsWithAny(String string, String[] searchStrings) {
+    public static boolean startsWithAny(String string, String... searchStrings) {
         if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
