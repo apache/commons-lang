@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<document>
+ <properties>
+  <title>What's new in Commons Lang 2.5?</title>
+  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+ </properties>
+<body>
+
+<section name="What's new in Commons Lang 2.5?">
+<p>Commons Lang 2.5 is out, and the obvious question is: <i>"So what? What's changed?"</i>.</p>
+<p>This article aims to briefly cover the changes and save you from having to dig through each JIRA
+issue to see what went on in the two years of development between Lang 2.4 and 2.5.</p>
+<p>Two years?!? Yes, it's true. The reason is that 2.5 represents the backwards compatible changes in the 
+nearly complete Java-5 focused Lang 3.0. </p>
+<section name="Deprecations">
+<p>There were no new deprecations in 2.5. </p>
+</section>
+<section name="The build">
+<p>2.5 was built using Sun's 1.6.0_17 JVM, but targets Java 1.3. </p>
+</section>
+<section name="New classes">
+<p>A new org.apache.commons.lang.reflect package was added, accumulating common high-level uses of the java.lang.reflect APIs. The 
+classes, hopefully self-evident in nature, were pulled together from the existing BeanUtils and the unreleased Reflect components. 
+The classes are: </p>
+<ul>
+<li>ConstructorUtils - primarily creating new instances of classes</li>
+<li>FieldUtils - primarily reading and writing to Object/Class fields</li>
+<li>MethodUtils - primarily methods to make invoking methods simpler</li>
+</ul>
+<p>You can read more about the classes in their 
+<a href="LANG_2_5/src/main/java/org/apache/commons/lang/reflect//MemberUtils.java">javadoc</a>. </p>
+</section>
+<section name="New fields">
+<p>With both Java 7 and Windows 7 becoming a reality, 
+<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/SystemUtils.html">SystemUtils</a> was updated to 
+provide boolean fields for both versions. </p>
+</section>
+<section name="New methods">
+<p>There were 66 new methods added to existing Commons Lang classes. </p>
+<p>The <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/ArrayUtils.html">ArrayUtils</a> class 
+received two new types of methods. Firstly, a boolean isNotEmpty(array) set of methods, identifying whether the particular 
+array is null or an empty sized array. This makes it the inverse of the existing isEmpty(array) methods. Secondly, an array 
+nullToEmpty(array) set of methods that converts null or empty arrays to a singleton empty array already available from the 
+ArrayUtils class. Non null/empty arrays are left untouched. </p>
+
+<p>The constructor for the 
+<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/CharRange.html">CharRange</a> class is somewhat 
+confusing. It takes a boolean parameter that when set to true means the CharRange is negated. To make code easier to read, the 
+following static helper methods were added: </p>
+<ul>
+<li>public org.apache.commons.lang.CharRange is(char)</li>
+<li>public org.apache.commons.lang.CharRange isIn(char, char)</li>
+<li>public org.apache.commons.lang.CharRange isNot(char)</li>
+<li>public org.apache.commons.lang.CharRange isNotIn(char, char)</li>
+</ul>
+<p>An iterator() method was also added to provide another way of walking the range. </p>
+
+<p>The <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/builder/EqualsBuilder.html">EqualsBuilder</a> 
+obtained a new reset() method to allow for reuse, while the 
+<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/builder/HashCodeBuilder.html">HashCodeBuilder</a> 
+received a hashCode() method that returns the built hash code instead of the natural hash code of the builder object itself. It 
+doesn't really matter what the builder chooses to use as a hash code and this stops accidental use of the hashCode() instead of 
+toHashCode() method from causing lots of pain. </p>
+
+<p>Helper isFalse(), isTrue() and toBoolean() methods were added to 
+<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/mutable/MutableBoolean.html">MutableBoolean</a>, 
+while the other mutable classes received String argument constructors. </p>
+
+<p>Lastly, the <a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/time/DateUtils.html">DateUtils</a> 
+class received a new ceiling set of methods to truncate upwards, and a parseDateStrictly method to parse a Date with the 
+supplied DateFormat classes leniency set to false. </p>
+
+</section>
+
+<section name="StringUtils methods">
+<p>As with 2.4, the 
+<a href="http://commons.apache.org/lang/api-release/org/apache/commons/lang/StringUtils.html">StringUtils</a> class has 
+grown and we cover its new methods in its own section. </p>
+<ul>
+<li>abbreviateMiddle(String, String, int);String - This method turns aRatherLongNameSuchAsAFileName into 'aRatherLo...AFileName'. 
+This is often desirable when you want to restrict the length of a name, but you can afford to have quite long names. </li>
+<li>indexOfIgnoreCase(String, String);int - An indexOf method that ignores the case of what it's matching. Matching lastIndexOfIgnoreCase and 'start at index' variants were also added. </li>
+<li>lastOrdinalIndexOf(String, String, int);int - A matching variant for the already exisitng ordinalIndexOf method - they 
+support finding the Nth indexOf instead of the first time the search term is found. </li>
+<li>isAllLowerCase(String);boolean - Is the String all lower case. </li>
+<li>isAllUpperCase(String);boolean - Is the String all upper case. </li>
+<li>lowerCase(String, Locale);String - Null protected toLowerCase methods for the platform independent inclined. </li>
+<li>upperCase(String, Locale);String - Null protected toUpperCase methods for the platform independent inclined. </li>
+<li>repeat(String, String, int);String - Repeat option that includes an optional separator. </li>
+<li>startsWithAny(String, String[]);boolean - Does the specified String start with any of the supplied values. </li>
+</ul>
+</section>
+
+<section name="What's fixed in Lang 2.5?">
+<p>Per the <a href="upgradeto2_5.html">release notes</a> there are 32 bugs fixed in Lang 2.5. Some highlights are: </p>
+<ul>
+<li><a href="http://issues.apache.org/jira/browse/LANG-477">LANG-477</a> - fixing an OutOfMemoryError in ExtendedMessageFormat. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-76">LANG-76</a> - EnumUtils.getEnum() doesn't work well in 1.5. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-204">LANG-204</a> and 
+<a href="http://issues.apache.org/jira/browse/LANG-506">LANG-506</a> - Multithread improvements to the package private Entities 
+class, used behind the scenes by StringEscapeUtils. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-511">LANG-511</a> - Improve performance by deferring LocaleUtils initialization. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-523">LANG-523</a> - Two orders of magnitude performance improvement in StrBuilder. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-467">LANG-467</a> - Reverted the change to EqualsBuilder in Lang 2.4 to 
+specially handle BigDecimal. While useful, it put things out of sync with HashCodeBuilder. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-586">LANG-586</a> - Use of a ThreadLocal in HashCodeBuilder and 
+ToStringStyle meant that containers could end up with memory leaks. This was rewritten to avoid this. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-472">LANG-472</a> - RandomUtils.nextLong() was returning only even numbers. Fans of Java-based roulette wheels can breathe a sigh of relief. </li>
+</ul>
+</section>
+
+<section name="So long, farewell...">
+<p>Hopefully that was all of interest. Don't forget to download <a href="http://commons.apache.org/lang/download_lang.cgi">Lang 2.5</a>, or, for the Maven repository users, upgrade your &lt;version&gt; tag to 2.5. Please feel free to raise any questions you might have on the <a href="mail-lists.html">mailing lists</a>, and report bugs or enhancements in the <a href="issue-tracking.html">issue tracker</a>.</p>
+</section>
+
+</section>
+
+</body>
+</document>
