@@ -115,7 +115,7 @@ support finding the Nth indexOf instead of the first time the search term is fou
 <li><a href="http://issues.apache.org/jira/browse/LANG-204">LANG-204</a> and 
 <a href="http://issues.apache.org/jira/browse/LANG-506">LANG-506</a> - Multithread improvements to the package private Entities 
 class, used behind the scenes by StringEscapeUtils. </li>
-<li><a href="http://issues.apache.org/jira/browse/LANG-511">LANG-511</a> - Improve performance by deferring LocalUtils initialization. </li>
+<li><a href="http://issues.apache.org/jira/browse/LANG-511">LANG-511</a> - Improve performance by deferring LocaleUtils initialization. </li>
 <li><a href="http://issues.apache.org/jira/browse/LANG-523">LANG-523</a> - Two orders of magnitude performance improvement in StrBuilder. </li>
 <li><a href="http://issues.apache.org/jira/browse/LANG-467">LANG-467</a> - Reverted the change to EqualsBuilder in Lang 2.4 to 
 specially handle BigDecimal. While useful, it put things out of sync with HashCodeBuilder. </li>
