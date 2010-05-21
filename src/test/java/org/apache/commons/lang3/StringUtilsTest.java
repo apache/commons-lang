@@ -964,7 +964,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals("", StringUtils.replace("foofoofoo", "foo", ""));
         assertEquals("barbarbar", StringUtils.replace("foofoofoo", "foo", "bar"));
         assertEquals("farfarfar", StringUtils.replace("foofoofoo", "oo", "ar"));
-       }
+    }
     
     public void testReplace_StringStringStringInt() {
         assertEquals(null, StringUtils.replace(null, null, null, 2));
