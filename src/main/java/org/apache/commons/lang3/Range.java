@@ -21,6 +21,8 @@ import java.util.Comparator;
 
 /**
  * <p><code>Range</code> represents an immutable range of numbers of the same type.</p>
+ * <p>The objects need to either be implementations of <code>java.lang.Comparable</code>
+ * or you need to supply a <code>java.util.Comparator</code>. </p>
  * 
  * <p>#ThreadSafe#</p>
  * @author Apache Software Foundation
