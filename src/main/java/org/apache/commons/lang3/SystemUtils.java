@@ -1669,7 +1669,7 @@ public class SystemUtils {
      * 
      * @return the version, for example 131 for Java 1.3.1
      */
-    static float toJavaVersionInt(String version) {
+    static int toJavaVersionInt(String version) {
         return toVersionInt(toJavaVersionIntArray(version, JAVA_VERSION_TRIM_SIZE));
     }
 
