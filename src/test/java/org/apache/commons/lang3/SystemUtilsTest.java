@@ -201,6 +201,7 @@ public class SystemUtilsTest extends TestCase {
         assertEquals(1.5f, SystemUtils.toJavaVersionFloat("1.5.0"), 0.000001f);
         assertEquals(1.6f, SystemUtils.toJavaVersionFloat("1.6.0"), 0.000001f);
         assertEquals(1.31f, SystemUtils.toJavaVersionFloat("JavaVM-1.3.1"), 0.000001f);
+        assertEquals(1.3f, SystemUtils.toJavaVersionFloat("1.3.0 subset"), 0.000001f);
         // This used to return 0f in [lang] version 2.5:
         assertEquals(1.3f, SystemUtils.toJavaVersionFloat("XXX-1.3.x"), 0.000001f);
     }
@@ -219,6 +220,7 @@ public class SystemUtilsTest extends TestCase {
         assertEquals(150, SystemUtils.toJavaVersionInt("1.5.0"), 0.000001f);
         assertEquals(160, SystemUtils.toJavaVersionInt("1.6.0"), 0.000001f);
         assertEquals(131, SystemUtils.toJavaVersionInt("JavaVM-1.3.1"), 0.000001f);
+        assertEquals(131, SystemUtils.toJavaVersionInt("1.3.1 subset"), 0.000001f);
         // This used to return 0f in [lang] version 2.5:
         assertEquals(130, SystemUtils.toJavaVersionInt("XXX-1.3.x"), 0.000001f);
     }
