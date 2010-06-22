@@ -60,8 +60,13 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
                 return 0;
             }
 
-            // TODO: if(entityValue > 0xFFFF) {
-            out.write(entityValue);
+            if(entityValue > 0xFFFF) {
+                char[] chrs = Character.toChars(entityValue);
+                out.write(chrs[0]);
+                out.write(chrs[1]);
+            } else {
+                out.write(entityValue);
+            }
             return 2 + (end - start) + (isHex ? 1 : 0) + 1;
         }
         return 0;
