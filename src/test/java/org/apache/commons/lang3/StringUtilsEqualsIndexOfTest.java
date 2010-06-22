@@ -431,6 +431,16 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(true, StringUtils.containsOnly(str3, chars3));
     }
 
+    public void testContainsWhitespace() {
+        assertFalse( StringUtils.containsWhitespace("") );
+        assertTrue( StringUtils.containsWhitespace(" ") );
+        assertFalse( StringUtils.containsWhitespace("a") );
+        assertTrue( StringUtils.containsWhitespace("a ") );
+        assertTrue( StringUtils.containsWhitespace(" a") );
+        assertTrue( StringUtils.containsWhitespace("a\t") );
+        assertTrue( StringUtils.containsWhitespace("\n") );
+    }
+
     public void testEquals() {
         assertEquals(true, StringUtils.equals(null, null));
         assertEquals(true, StringUtils.equals(FOO, FOO));
