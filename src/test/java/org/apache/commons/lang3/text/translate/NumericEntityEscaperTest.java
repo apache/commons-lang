@@ -47,4 +47,16 @@ public class NumericEntityEscaperTest extends TestCase {
         String result = nee.translate(input);
         assertEquals("Failed to escape numeric entities via the above method", "ADF&#71;&#90;", result);
     }
+
+    // See LANG-617
+    public void testSupplementary() {
+        NumericEntityEscaper nee = new NumericEntityEscaper();
+        String input = "\uD803\uDC22";
+        String expected = "&#68642;";
+
+        String result = nee.translate(input);
+        assertEquals("Failed to escape numeric entities supplementary characters", expected, result);
+
+    }
+
 }
