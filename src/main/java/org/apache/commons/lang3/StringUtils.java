@@ -1347,6 +1347,28 @@ public class StringUtils {
         return false;
     }
 
+    /**
+     * Check whether the given String contains any whitespace characters.
+     * @param str the String to check (may be <code>null</code>)
+     * @return <code>true</code> if the String is not empty and
+     * contains at least 1 whitespace character
+     * @see java.lang.Character#isWhitespace
+     * @since 3.0
+     */
+    // From org.springframework.util.StringUtils, under Apache License 2.0
+    public static boolean containsWhitespace(String str) {
+        if (isEmpty(str)) {
+            return false;
+        }
+        int strLen = str.length();
+        for (int i = 0; i < strLen; i++) {
+            if (Character.isWhitespace(str.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // IndexOfAny chars
     //-----------------------------------------------------------------------
     /**
