@@ -72,7 +72,6 @@ public class NumericEntityEscaper extends CodePointTranslator {
             }
         }
 
-        // TODO: if (codepoint > 0xffff) ?
         out.write("&#");
         out.write(Integer.toString(codepoint, 10));
         out.write(';');
