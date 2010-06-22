@@ -25,26 +25,26 @@ import junit.framework.TestCase;
 public class UnicodeEscaperTest extends TestCase {
 
     public void testBelow() {
-        UnicodeEscaper nee = UnicodeEscaper.below('F');
+        UnicodeEscaper ue = UnicodeEscaper.below('F');
 
         String input = "ADFGZ";
-        String result = nee.translate(input);
+        String result = ue.translate(input);
         assertEquals("Failed to escape unicode characters via the below method", "\\u0041\\u0044FGZ", result);
     }
 
     public void testBetween() {
-        UnicodeEscaper nee = UnicodeEscaper.between('F', 'L');
+        UnicodeEscaper ue = UnicodeEscaper.between('F', 'L');
 
         String input = "ADFGZ";
-        String result = nee.translate(input);
+        String result = ue.translate(input);
         assertEquals("Failed to escape unicode characters via the between method", "AD\\u0046\\u0047Z", result);
     }
 
     public void testAbove() {
-        UnicodeEscaper nee = UnicodeEscaper.above('F');
+        UnicodeEscaper ue = UnicodeEscaper.above('F');
 
         String input = "ADFGZ";
-        String result = nee.translate(input);
+        String result = ue.translate(input);
         assertEquals("Failed to escape unicode characters via the above method", "ADF\\u0047\\u005A", result);
     }
 }
