@@ -376,7 +376,7 @@ public final class Range<T> implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
-        @SuppressWarnings("unchecked") // Comparator works for all types
+        @SuppressWarnings("rawtypes") // Comparator works for all types
         public static final ComparableComparator<?> INSTANCE = new ComparableComparator();
 
         @SuppressWarnings("unchecked") // OK to cast, because comparator works for all types

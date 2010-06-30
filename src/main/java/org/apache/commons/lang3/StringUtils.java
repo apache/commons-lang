@@ -4752,6 +4752,7 @@ public class StringUtils {
      * @deprecated See {@link CharSequenceUtils#length(CharSequence)}
      * @since 3.0 Changed signature from length(String) to length(CharSequence)
      */
+    @Deprecated
     public static int length(CharSequence cs) {
         return CharSequenceUtils.length(cs);
     }
