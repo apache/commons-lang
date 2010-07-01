@@ -448,10 +448,6 @@
           <includes>
             <include>**/*Test.java</include>
           </includes>
-          <excludes>
-            <exclude>**/*TestSuite.java</exclude>
-            <exclude>**/AllLangTestSuite.java</exclude>
-          </excludes>
         </configuration>
       </plugin>
       <plugin>
