@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -326,18 +327,37 @@ public class ObjectUtils {
      */
     public static <T> T clone(final T o) {
         if (o instanceof Cloneable) {
-            try {
-                final Method clone = o.getClass().getMethod("clone", (Class[])null);
-                @SuppressWarnings("unchecked")
-                final T result = (T)clone.invoke(o, (Object[])null);
-                return result;
-            } catch (final NoSuchMethodException e) {
-                throw new CloneFailedException("Cloneable type has no clone method", e);
-            } catch (final IllegalAccessException e) {
-                throw new CloneFailedException("Cannot clone Cloneable type", e);
-            } catch (final InvocationTargetException e) {
-                throw new CloneFailedException("Exception cloning Cloneable type", e.getCause());
+            final Object result;
+            if (o.getClass().isArray()) {
+                final Class<?> componentType = o.getClass().getComponentType();
+                if (!componentType.isPrimitive()) {
+                    result = ((Object[])o).clone();
+                } else {
+                    int length = Array.getLength(o);
+                    result = Array.newInstance(componentType, length);
+                    while (length-- > 0) {
+                        Array.set(result, length, Array.get(o, length));
+                    }
+                }
+            } else {
+                try {
+                    final Method clone = o.getClass().getMethod("clone");
+                    result = clone.invoke(o);
+                } catch (final NoSuchMethodException e) {
+                    throw new CloneFailedException("Cloneable type "
+                        + o.getClass().getName()
+                        + " has no clone method", e);
+                } catch (final IllegalAccessException e) {
+                    throw new CloneFailedException("Cannot clone Cloneable type "
+                        + o.getClass().getName(), e);
+                } catch (final InvocationTargetException e) {
+                    throw new CloneFailedException("Exception cloning Cloneable type "
+                        + o.getClass().getName(), e.getCause());
+                }
             }
+            @SuppressWarnings("unchecked")
+            final T checked = (T)result;
+            return checked;
         }
 
         return null;
