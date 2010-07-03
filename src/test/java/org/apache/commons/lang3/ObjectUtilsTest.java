@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -243,6 +244,21 @@ public class ObjectUtilsTest extends TestCase {
         } catch (final CloneFailedException e) {
             assertEquals(NoSuchMethodException.class, e.getCause().getClass());
         }
+    }
+
+    /**
+     * Tests {@link ObjectUtils#clone(Object)} with an object array.
+     */
+    public void testCloneOfStringArray() {
+        assertTrue(Arrays.deepEquals(
+            new String[]{"string"}, ObjectUtils.clone(new String[]{"string"})));
+    }
+
+    /**
+     * Tests {@link ObjectUtils#clone(Object)} with an array of primitives.
+     */
+    public void testCloneOfPrimitiveArray() {
+        assertTrue(Arrays.equals(new int[]{1}, ObjectUtils.clone(new int[]{1})));
     }
 
     /**
