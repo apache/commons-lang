@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<document>
+ <properties>
+  <title>What's new in Commons Lang 3.0?</title>
+  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+ </properties>
+<body>
+
+<section name="DRAFT">
+<p>THIS IS A DRAFT - 3.0 IS NOT OUT, BUT THIS DOCUMENT SHOULD PROVE USEFUL WHEN EXAMINING BETA RELEASES OR TRUNK</p>
+</section>
+
+<section name="What's new in Commons Lang 3.0?">
+<p>Commons Lang 3.0 is <strong>(not yet)</strong> out, and the obvious question is: <i>"So what? What's changed?"</i>.</p>
+<section name="The big story">
+<p>Lang is now Java 5 based. We've generified the API, moved certain APIs to support <code>varargs</code> and thrown out any features 
+that are now supported by Java itself. We've removed the deprecated parts of the API and have also removed some features that 
+were deemed weak or unnecessary. All of this means that Lang 3.0 is not backwards compatible. </p>
+<p>To that end we have changed the package name, allowing Lang 3.0 to sit side-by-side with your previous version of Lang without any bad side effects. The new package name is the exciting and original <code>org.apache.commons.lang3</code>. </p>
+<p>There are also, as you'd expect, new features, enhancements and bugs fixed. </p>
+</section>
+<section name="The build">
+<p>We built 3.0 using Maven 2.2.1 and Java 1.5. <strong>Needs confirmation before release of actual build details</strong></p>
+</section>
+<section name="Migrating from 2.x">
+<p>Despite the label of backwards incompatibility, in the vast majority of cases the simple addition of a <code>'3'</code> to an import statement will suffice for your migration. For example, using Perl: </p> 
+<p>find . -type f -name '*.java' | xargs perl -pi -e 's/org\.apache\.commons\.lang\./org.apache.commons.lang3./g'</p>
+</section>
+<section name="What's gone?">
+<p>Enum package - Java 5 provided enums out of the box, therefore we dispensed with both the deprecated enum package, 
+and the enums package. Instead you should migrate over to the standard Java enum. An EnumUtils class has been born 
+from the ashes of the old code, focused on providing additional functionality to the standard Java enum API. </p>
+<p>NestedExceptions - In Java 1.4, the notion that all Throwables could be linked to a cause was introduced. In Lang we 
+had provided a NestedException framework to support the same feature, and now that we're jumping from Java 1.3 to 
+Java 5 we are remove this feature. The deprecation section below covers one part of ExceptionUtils that remains until 
+we are on Java 6, where the last remaining parts of the JDK appear to have embraced the new cause API. </p>
+<p>JVMRandom - This class was introduced in Lang 2.0 to support a Random object built around the system seed. This 
+proved to be both an uncommon use case and one with bugs and so was dropped. </p>
+<p>StringEscapeUtils.escapeSql - This was a misleading method, only handling the simplest of possible SQL cases. As SQL is not 
+Lang's focus, it didn't make sense to improve this method. </p>
+<p>Various Exception classes were removed - the lesson in defining more semantically relevant exception classes is that you can keep on coming up with more and more new classes. Simpler to focus on using the main JDK classes. </p>
+<p>The various Range classes in the <code>math</code> package were removed in favour of a new Range class. </p>
+<p>All deprecated fields/methods/classes - with a new major version, all of the previously deprecated parts of the API could finally go away. </p>
+<p>If you feel that something was unfairly taken away, please feel free to contact the list. In many cases the possibility exists to reintroduce code. </p>
+</section>
+<section name="Deprecations">
+<p>The lone deprecation in 3.0 is that of the notion of 'cause method names' in ExceptionUtils. In Java 5.0 it is still just about 
+needed to handle some JDK classes that have not been migrated to the getCause API. In Java 6.0 things appear to be resolved and 
+we will remove the related methods in Lang 4.0. </p>
+</section>
+<section name="New packages">
+<p>Two new packages have shown up. org.apache.commons.lang3.concurrent, which unsurprisingly provides support classes for 
+multi-threaded programming, and org.apache.commons.lang3.text.translate, which provides a pluggable API for text transformation. </p>
+TODO: Add examples
+</section>
+<section name="New classes">
+<p><code>CharSequenceUtils</code></p>
+<p><code>EnumUtils</code></p>
+<p><code>Pair</code></p>
+<p><code>Range</code></p>
+<p><code>builder.Builder</code></p>
+<p><code>exception.ContextedException</code></p>
+<p><code>exception.CloneFailedException</code></p>
+<p><code>reflect.ConstructorUtils</code></p>
+<p><code>reflect.FieldUtils</code></p>
+<p><code>reflect.MethodUtils</code></p>
+<p><code>reflect.TypeUtils</code></p>
+<p><code>text.WordUtils</code></p>
+</section>
+<section name="New methods">
+</section>
+
+<section name="What's fixed in Lang 3.0?">
+</section>
+
+<!--
+<section name="What next???"> TODO: Add Beta info.
+<p>Hopefully that was all of interest. Don't forget to download <a href="http://commons.apache.org/lang/download_lang.cgi">Lang 3.0</a>, or, for the Maven repository users, upgrade your &lt;version&gt; tag to 3.0 and your groupId to org.apache.commons. Please feel free to raise any questions you might have on the <a href="mail-lists.html">mailing lists</a>, and report bugs or enhancements in the <a href="issue-tracking.html">issue tracker</a>.</p>
+</section>
+-->
+
+</section>
+
+</body>
+</document>
