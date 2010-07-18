@@ -76,20 +76,33 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
 
     //-----------------------------------------------------------------------
     /**
+     * <p>
      * Compares this object against the specified object. The result is <code>true</code> if and only if the argument
      * is not <code>null</code> and is a <code>MutableObject</code> object that contains the same <code>T</code>
      * value as this object.
+     * </p>
      * 
-     * @param obj  the object to compare with, null returns false
-     * @return <code>true</code> if the objects are the same; <code>false</code> otherwise.
+     * @param obj  the object to compare with, <code>null</code> returns <code>false</code>
+     * @return	<code>true</code> if the objects are the same;
+     *          <code>true</code> if the objects have equivalent <code>value</code> fields;			
+     *          <code>false</code> otherwise.
      */
-    public boolean equals(MutableObject<T> obj) {
-        if(obj == null) {
-            return false;
+    @SuppressWarnings("unchecked")
+    @Override
+	public boolean equals(Object obj) {
+        if (obj == null) {
+        	return false;
         }
-
-        T other = obj.value;
-        return value == other || (value != null && value.equals(other));
+        if (this == obj) {
+        	return true;
+        }
+    	if (this.getClass() == obj.getClass()) {
+            MutableObject<T> that = (MutableObject<T>) obj;
+            return this.value.equals(that.value);
+        }
+    	else {
+    		return false;
+    	}
     }
 
     /**
