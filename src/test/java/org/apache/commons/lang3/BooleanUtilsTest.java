@@ -241,6 +241,9 @@ public class BooleanUtilsTest extends TestCase {
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject("ON"));
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject("YES"));
         assertEquals(Boolean.TRUE, BooleanUtils.toBooleanObject("TruE"));
+
+        assertEquals(null, BooleanUtils.toBooleanObject("ab"));
+        assertEquals(null, BooleanUtils.toBooleanObject("yoo"));
     }
     
     public void test_toBooleanObject_String_String_String_String() {
@@ -306,6 +309,10 @@ public class BooleanUtilsTest extends TestCase {
         assertEquals(true, BooleanUtils.toBoolean("YES"));
         assertEquals(false, BooleanUtils.toBoolean("yes?"));
         assertEquals(false, BooleanUtils.toBoolean("tru"));
+
+        assertEquals(false, BooleanUtils.toBoolean("no"));
+        assertEquals(false, BooleanUtils.toBoolean("off"));
+        assertEquals(false, BooleanUtils.toBoolean("yoo"));
     }
 
     public void test_toBoolean_String_String_String() {
