@@ -563,12 +563,12 @@ public class BooleanUtils {
                 if ((ch0 == 'o' || ch0 == 'O') && 
                     (ch1 == 'n' || ch1 == 'N') ) 
                 {
-                    return true;
+                    return Boolean.TRUE;
                 }
                 if ((ch0 == 'n' || ch0 == 'N') && 
                     (ch1 == 'o' || ch1 == 'O') ) 
                 {
-                    return false;
+                    return Boolean.FALSE;
                 }
                 break;
             }
@@ -580,13 +580,13 @@ public class BooleanUtils {
                     (ch1 == 'e' || ch1 == 'E') &&
                     (ch2 == 's' || ch2 == 'S') ) 
                 {
-                    return true;
+                    return Boolean.TRUE;
                 }
                 if ((ch0 == 'o' || ch0 == 'O') &&
                     (ch1 == 'f' || ch1 == 'F') &&
                     (ch2 == 'f' || ch2 == 'F') ) 
                 {
-                    return false;
+                    return Boolean.FALSE;
                 }
                 break;
             }
@@ -600,7 +600,7 @@ public class BooleanUtils {
                     (ch2 == 'u' || ch2 == 'U') &&
                     (ch3 == 'e' || ch3 == 'E') ) 
                 {
-                    return true;
+                    return Boolean.TRUE;
                 }
                 break;
             }
@@ -616,7 +616,7 @@ public class BooleanUtils {
                     (ch3 == 's' || ch3 == 'S') &&
                     (ch4 == 'e' || ch4 == 'E') ) 
                 {
-                    return false;
+                    return Boolean.FALSE;
                 }
                 break;
             }
