@@ -501,7 +501,7 @@ public class TypeUtils {
      * (indirectly) implemented more than once (e.g. where <code>toClass</code>
      * specifies the interface {@link java.lang.Iterable Iterable} and
      * <code>type</code> specifies a parameterized type that implements both
-     * {@link java.util.Set Set} and {@link java.lang.Collection Collection}),
+     * {@link java.util.Set Set} and {@link java.util.Collection Collection}),
      * this method will look at the inheritance hierarchy of only one of the
      * implementations/subclasses; the first interface encountered that isn't a
      * subinterface to one of the others in the <code>type</code> to
@@ -678,7 +678,7 @@ public class TypeUtils {
      * parameter of {@link java.util.SortedSet}, which in turn sets the
      * parameter of {@link Set}, which in turn sets the parameter of
      * {@link java.util.Collection}, which in turn sets the parameter of
-     * {@link java.util.Iterable}. Since <code>TreeSet</code>'s parameter maps
+     * {@link java.lang.Iterable}. Since <code>TreeSet</code>'s parameter maps
      * (indirectly) to <code>Iterable</code>'s parameter, it will be able to
      * determine that based on the super type <code>Iterable<? extends
      * Map<Integer,? extends Collection<?>>></code>, the parameter of
@@ -803,7 +803,7 @@ public class TypeUtils {
                 // check if this interface is further up the inheritance chain
                 // than the previously found match
                 if (isAssignable(midClass, superClass)
-                        && isAssignable((Type) genericInterface, (Type) midClass)) {
+                        && isAssignable(genericInterface, (Type) midClass)) {
                     genericInterface = midType;
                 }
             }
@@ -887,7 +887,7 @@ public class TypeUtils {
      * <p> Returns an array containing the sole type of {@link Object} if
      * {@link TypeVariable#getBounds()} returns an empty array. Otherwise, it
      * returns the result of <code>TypeVariable.getBounds()</code> passed into
-     * {@link normalizeUpperBounds}. </p>
+     * {@link #normalizeUpperBounds}. </p>
      *
      * @param typeVariable the subject type variable
      * @return a non-empty array containing the bounds of the type variable.
@@ -902,7 +902,7 @@ public class TypeUtils {
      * <p> Returns an array containing the sole value of {@link Object} if
      * {@link WildcardType#getUpperBounds()} returns an empty array. Otherwise,
      * it returns the result of <code>WildcardType.getUpperBounds()</code>
-     * passed into {@link normalizeUpperBounds}. </p>
+     * passed into {@link #normalizeUpperBounds}. </p>
      *
      * @param wildcardType the subject wildcard type
      * @return a non-empty array containing the upper bounds of the wildcard
@@ -919,7 +919,7 @@ public class TypeUtils {
      * {@link WildcardType#getLowerBounds()} returns an empty array. Otherwise,
      * it returns the result of <code>WildcardType.getLowerBounds()</code>. </p>
      *
-     * @param type the subject wildcard type
+     * @param wildcardType the subject wildcard type
      * @return a non-empty array containing the lower bounds of the wildcard
      * type.
      */
