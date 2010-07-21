@@ -692,7 +692,7 @@ public class BooleanUtils {
      * </pre>
      *
      * @param str  the String to check
-     * @return the boolean value of the string, <code>false</code> if no match
+     * @return the boolean value of the string, <code>false</code> if no match or the String is null
      */
     public static boolean toBoolean(String str) {
         return toBooleanObject(str) == Boolean.TRUE;
