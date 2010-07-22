@@ -27,15 +27,20 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Provides some useful event-based utility methods.
+ *
+ * @since 3.0
+ */
 public class EventUtils
 {
     /**
      * Adds an event listener to the specified source.  This looks for an "add" method corresponding to the event
      * type (addActionListener, for example).
-     * @param eventSource the event source
-     * @param listenerType the event listener type
-     * @param listener the listener
-     * @param <L> the event listener type
+     * @param eventSource   the event source
+     * @param listenerType  the event listener type
+     * @param listener      the listener
+     * @param <L>           the event listener type
      *
      * @throws IllegalArgumentException if the object doesn't support the listener type
      */
@@ -62,7 +67,7 @@ public class EventUtils
     /**
      * Binds an event listener to a specific method on a specific object.
      *
-     * @param <L>
+     * @param <L>          the event listener type
      * @param target       the target object
      * @param methodName   the name of the method to be called
      * @param eventSource  the object which is generating events (JButton, JList, etc.)

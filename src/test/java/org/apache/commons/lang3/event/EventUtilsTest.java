@@ -29,6 +29,9 @@ import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * @since 3.0
+ */
 public class EventUtilsTest extends TestCase
 {
     public void testAddEventListener()

@@ -24,6 +24,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @since 3.0
+ */
 public class EventListenerSupportTest extends TestCase
 {
     public void testEventDispatchOrder()
