@@ -29,6 +29,16 @@ import java.util.Set;
 
 public class EventUtils
 {
+    /**
+     * Adds an event listener to the specified source.  This looks for an "add" method corresponding to the event
+     * type (addActionListener, for example).
+     * @param eventSource the event source
+     * @param listenerType the event listener type
+     * @param listener the listener
+     * @param <L> the event listener type
+     *
+     * @throws IllegalArgumentException if the object doesn't support the listener type
+     */
     public static <L> void addEventListener(Object eventSource, Class<L> listenerType, L listener)
     {
         try
@@ -37,11 +47,11 @@ public class EventUtils
         }
         catch (NoSuchMethodException e)
         {
-            throw new IllegalArgumentException("Class " + eventSource.getClass() + " does not have an accesible add" + listenerType.getSimpleName() + " method which takes a parameter of type " + listenerType.getClass().getName() + ".");
+            throw new IllegalArgumentException("Class " + eventSource.getClass().getName() + " does not have a public add" + listenerType.getSimpleName() + " method which takes a parameter of type " + listenerType.getName() + ".");
         }
         catch (IllegalAccessException e)
         {
-            throw new IllegalArgumentException("Class " + eventSource.getClass() + " does not have an accesible add" + listenerType.getSimpleName () + " method which takes a parameter of type " + listenerType.getClass().getName() + ".");
+            throw new IllegalArgumentException("Class " + eventSource.getClass().getName() + " does not have an accesible add" + listenerType.getSimpleName () + " method which takes a parameter of type " + listenerType.getName() + ".");
         }
         catch (InvocationTargetException e)
         {
@@ -88,7 +98,7 @@ public class EventUtils
                 }
                 else
                 {
-                    return MethodUtils.invokeMethod(target, methodName, new Object[]{});
+                    return MethodUtils.invokeMethod(target, methodName);
                 }
             }
             return null;
