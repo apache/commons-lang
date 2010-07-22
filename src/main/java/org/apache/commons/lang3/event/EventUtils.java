@@ -51,7 +51,7 @@ public class EventUtils
         }
         catch (IllegalAccessException e)
         {
-            throw new IllegalArgumentException("Class " + eventSource.getClass().getName() + " does not have an accesible add" + listenerType.getSimpleName () + " method which takes a parameter of type " + listenerType.getName() + ".");
+            throw new IllegalArgumentException("Class " + eventSource.getClass().getName() + " does not have an accessible add" + listenerType.getSimpleName () + " method which takes a parameter of type " + listenerType.getName() + ".");
         }
         catch (InvocationTargetException e)
         {
@@ -62,6 +62,7 @@ public class EventUtils
     /**
      * Binds an event listener to a specific method on a specific object.
      *
+     * @param <L>
      * @param target       the target object
      * @param methodName   the name of the method to be called
      * @param eventSource  the object which is generating events (JButton, JList, etc.)
@@ -69,9 +70,9 @@ public class EventUtils
      * @param eventTypes   the event types (method names) from the listener interface (if none specified, all will be
      *                     supported)
      */
-    public static void bindEventsToMethod(Object target, String methodName, Object eventSource, Class listenerType, String... eventTypes)
+    public static <L> void bindEventsToMethod(Object target, String methodName, Object eventSource, Class<L> listenerType, String... eventTypes)
     {
-        final Object listener = Proxy.newProxyInstance(target.getClass().getClassLoader(), new Class[] { listenerType }, new EventBindingInvocationHandler(target, methodName, eventTypes));
+        final L listener = listenerType.cast(Proxy.newProxyInstance(target.getClass().getClassLoader(), new Class[] { listenerType }, new EventBindingInvocationHandler(target, methodName, eventTypes)));
         addEventListener(eventSource, listenerType, listener);
     }
 
