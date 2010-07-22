@@ -41,6 +41,32 @@ public class EventListenerSupportTest extends TestCase
         assertSame(calledListeners.get(1), listener2);
     }
 
+    public void testCreateWithNonInterfaceParameter()
+    {
+        try
+        {
+            EventListenerSupport.create(String.class);
+            fail("Should not be able to create using non-interface class.");
+        }
+        catch(IllegalArgumentException e)
+        {
+            
+        }
+    }
+
+    public void testCreateWithNullParameter()
+    {
+        try
+        {
+            EventListenerSupport.create(null);
+            fail("Should not be able to create using null class.");
+        }
+        catch(NullPointerException e)
+        {
+
+        }
+    }
+    
     public void testRemoveListenerDuringEvent()
     {
         final EventListenerSupport<ActionListener> listenerSupport = EventListenerSupport.create(ActionListener.class);

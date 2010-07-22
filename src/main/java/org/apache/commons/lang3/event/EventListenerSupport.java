@@ -17,6 +17,8 @@
 
 package org.apache.commons.lang3.event;
 
+import org.apache.commons.lang3.Validate;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -41,6 +43,8 @@ import java.util.List;
  * </pre>
  *
  * @param <L> The event listener type
+ *
+ * @since 3.0
  */
 public class EventListenerSupport<L>
 {
@@ -77,6 +81,9 @@ public class EventListenerSupport<L>
      */
     public EventListenerSupport(Class<L> listenerInterface, ClassLoader classLoader)
     {
+        Validate.notNull(listenerInterface, "Listener interface cannot be null.");
+        Validate.notNull(classLoader, "ClassLoader cannot be null.");
+        Validate.isTrue(listenerInterface.isInterface(), "Class {0} is not an interface", listenerInterface.getName());
         proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader, new Class[]{listenerInterface},
                 new ProxyInvocationHandler()));
     }
@@ -102,6 +109,7 @@ public class EventListenerSupport<L>
      */
     public void addListener(L listener)
     {
+        Validate.notNull(listener, "Listener object cannot be null.");
         listeners.add(0, listener);
     }
 
@@ -122,6 +130,7 @@ public class EventListenerSupport<L>
      */
     public void removeListener(L listener)
     {
+        Validate.notNull(listener, "Listener object cannot be null.");
         listeners.remove(listener);
     }
 
