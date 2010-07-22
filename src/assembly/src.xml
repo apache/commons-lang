@@ -25,6 +25,7 @@
         <fileSet>
             <includes>
                 <include>checkstyle.xml</include>
+                <include>findbugs-exclude-filter.xml</include>
                 <include>LICENSE.txt</include>
                 <include>NOTICE.txt</include>
                 <include>pom.xml</include>
