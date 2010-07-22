@@ -26,7 +26,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.commons</groupId>
-  <artifactId>commons-lang</artifactId>
+  <artifactId>commons-lang3</artifactId>
   <version>3.0-SNAPSHOT</version>
   <name>Commons Lang</name>
 
