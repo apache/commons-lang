@@ -35,7 +35,7 @@ import java.util.List;
  *   public void someMethodThatFiresAction()
  *   {
  *     ActionEvent e = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "somethingCool");
- *     actionListeners.getProxy().actionPerformed(e);
+ *     actionListeners.fire().actionPerformed(e);
  *   }
  * }
  * </pre>
