@@ -20,8 +20,8 @@ package org.apache.commons.lang3.event;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * An EventListenerSupport object can be used to manage a list of event listeners of a particular type.
@@ -44,7 +44,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class EventListenerSupport<L>
 {
-    private final List<L> listeners;
+    private final List<L> listeners = new LinkedList<L>();
     private final L proxy;
 
     /**
@@ -77,7 +77,6 @@ public class EventListenerSupport<L>
      */
     public EventListenerSupport(Class<L> listenerInterface, ClassLoader classLoader)
     {
-        listeners = new CopyOnWriteArrayList<L>();
         proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader, new Class[]{listenerInterface},
                 new ProxyInvocationHandler()));
     }
