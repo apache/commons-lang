@@ -18,8 +18,11 @@ package org.apache.commons.lang3.event;
 
 import junit.framework.TestCase;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.VetoableChangeListener;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -40,6 +43,58 @@ public class EventUtilsTest extends TestCase
         assertEquals(1, handler.getEventCount("propertyChange"));
     }
 
+    public void testAddEventListenerWithNoAddMethod()
+    {
+        final PropertyChangeSource src = new PropertyChangeSource();
+        EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
+        ActionListener listener = handler.createListener(ActionListener.class);
+        try
+        {
+            EventUtils.addEventListener(src, ActionListener.class, listener);
+            fail("Should not be allowed to add a listener to an object that doesn't support it.");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertEquals("Class " + src.getClass().getName() + " does not have a public add" + ActionListener.class.getSimpleName() + " method which takes a parameter of type " + ActionListener.class.getName() + ".", e.getMessage());
+        }
+    }
+
+    public void testAddEventListenerThrowsException()
+    {
+        final ExceptionEventSource src = new ExceptionEventSource();
+        try
+        {
+            EventUtils.addEventListener(src, ActionListener.class, new ActionListener()
+            {
+                public void actionPerformed(ActionEvent e)
+                {
+                    // Do nothing!
+                }
+            });
+            fail("Add method should have thrown an exception, so method should fail.");
+        }
+        catch (RuntimeException e)
+        {
+
+        }
+    }
+
+    public void testAddEventListenerWithPrivateAddMethod()
+    {
+        final PropertyChangeSource src = new PropertyChangeSource();
+        EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
+        VetoableChangeListener listener = handler.createListener(VetoableChangeListener.class);
+        try
+        {
+            EventUtils.addEventListener(src, VetoableChangeListener.class, listener);
+            fail("Should not be allowed to add a listener to an object that doesn't support it.");
+        }
+        catch (IllegalArgumentException e)
+        {
+            assertEquals("Class " + src.getClass().getName() + " does not have a public add" + VetoableChangeListener.class.getSimpleName() + " method which takes a parameter of type " + VetoableChangeListener.class.getName() + ".", e.getMessage());
+        }
+    }
+
     public void testBindEventsToMethod()
     {
         final PropertyChangeSource src = new PropertyChangeSource();
@@ -48,6 +103,37 @@ public class EventUtilsTest extends TestCase
         assertEquals(0, counter.getCount());
         src.setProperty("newValue");
         assertEquals(1, counter.getCount());
+    }
+
+
+    public void testBindEventsToMethodWithEvent()
+    {
+        final PropertyChangeSource src = new PropertyChangeSource();
+        final EventCounterWithEvent counter = new EventCounterWithEvent();
+        EventUtils.bindEventsToMethod(counter, "eventOccurred", src, PropertyChangeListener.class);
+        assertEquals(0, counter.getCount());
+        src.setProperty("newValue");
+        assertEquals(1, counter.getCount());
+    }
+
+
+    public void testBindFilteredEventsToMethod()
+    {
+        final MultipleEventSource src = new MultipleEventSource();
+        final EventCounter counter = new EventCounter();
+        EventUtils.bindEventsToMethod(counter, "eventOccurred", src, MultipleEventListener.class, "event1");
+        assertEquals(0, counter.getCount());
+        src.listeners.fire().event1(new ActionEvent(src, ActionEvent.ACTION_PERFORMED, "event1"));
+        assertEquals(1, counter.getCount());
+        src.listeners.fire().event2(new ActionEvent(src, ActionEvent.ACTION_PERFORMED, "event2"));
+        assertEquals(1, counter.getCount());
+    }
+
+    public static interface MultipleEventListener
+    {
+        public void event1(ActionEvent e);
+
+        public void event2(ActionEvent e);
     }
 
     public static class EventCounter
@@ -64,6 +150,22 @@ public class EventUtilsTest extends TestCase
             return count;
         }
     }
+
+    public static class EventCounterWithEvent
+    {
+        private int count;
+
+        public void eventOccurred(PropertyChangeEvent e)
+        {
+            count++;
+        }
+
+        public int getCount()
+        {
+            return count;
+        }
+    }
+
 
     private static class EventCountingInvociationHandler implements InvocationHandler
     {
@@ -97,6 +199,24 @@ public class EventUtilsTest extends TestCase
         }
     }
 
+    public static class MultipleEventSource
+    {
+        private EventListenerSupport<MultipleEventListener> listeners = EventListenerSupport.create(MultipleEventListener.class);
+
+        public void addMultipleEventListener(MultipleEventListener listener)
+        {
+            listeners.addListener(listener);
+        }
+    }
+
+    public static class ExceptionEventSource
+    {
+        public void addActionListener(ActionListener listener)
+        {
+            throw new RuntimeException();
+        }
+    }
+
     public static class PropertyChangeSource
     {
         private EventListenerSupport<PropertyChangeListener> listeners = EventListenerSupport.create(PropertyChangeListener.class);
@@ -107,7 +227,12 @@ public class EventUtilsTest extends TestCase
         {
             String oldValue = this.property;
             this.property = property;
-            listeners.fire().propertyChange(new PropertyChangeEvent(this, "property", "oldValue", property));
+            listeners.fire().propertyChange(new PropertyChangeEvent(this, "property", oldValue, property));
+        }
+
+        protected void addVetoableChangeListener(VetoableChangeListener listener)
+        {
+            // Do nothing!
         }
 
         public void addPropertyChangeListener(PropertyChangeListener listener)
