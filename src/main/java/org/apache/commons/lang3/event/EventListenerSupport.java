@@ -24,6 +24,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * An EventListenerSupport object can be used to manage a list of event listeners of a particular type.
@@ -48,7 +49,7 @@ import java.util.List;
  */
 public class EventListenerSupport<L>
 {
-    private final List<L> listeners = new LinkedList<L>();
+    private final List<L> listeners = new CopyOnWriteArrayList<L>();
     private final L proxy;
 
     /**
@@ -110,7 +111,7 @@ public class EventListenerSupport<L>
     public void addListener(L listener)
     {
         Validate.notNull(listener, "Listener object cannot be null.");
-        listeners.add(0, listener);
+        listeners.add(listener);
     }
 
     /**
@@ -141,9 +142,9 @@ public class EventListenerSupport<L>
     {
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
         {
-            for (int i = listeners.size() - 1; i >= 0; --i)
+            for (L listener : listeners)
             {
-                method.invoke(listeners.get(i), args);
+                method.invoke(listener, args);
             }
             return null;
         }
