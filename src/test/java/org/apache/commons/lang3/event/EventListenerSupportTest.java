@@ -29,6 +29,34 @@ import java.util.List;
  */
 public class EventListenerSupportTest extends TestCase
 {
+    public void testAddNullListener()
+    {
+        EventListenerSupport<ActionListener> listenerSupport = EventListenerSupport.create(ActionListener.class);
+        try
+        {
+            listenerSupport.addListener(null);
+            fail("Should not be able to add a null listener.");
+        }
+        catch (NullPointerException e)
+        {
+
+        }
+    }
+
+    public void testRemoveNullListener()
+    {
+        EventListenerSupport<ActionListener> listenerSupport = EventListenerSupport.create(ActionListener.class);
+        try
+        {
+            listenerSupport.removeListener(null);
+            fail("Should not be able to remove a null listener.");
+        }
+        catch (NullPointerException e)
+        {
+
+        }
+    }
+
     public void testEventDispatchOrder()
     {
         EventListenerSupport<ActionListener> listenerSupport = EventListenerSupport.create(ActionListener.class);
@@ -51,9 +79,9 @@ public class EventListenerSupportTest extends TestCase
             EventListenerSupport.create(String.class);
             fail("Should not be able to create using non-interface class.");
         }
-        catch(IllegalArgumentException e)
+        catch (IllegalArgumentException e)
         {
-            
+
         }
     }
 
@@ -64,12 +92,12 @@ public class EventListenerSupportTest extends TestCase
             EventListenerSupport.create(null);
             fail("Should not be able to create using null class.");
         }
-        catch(NullPointerException e)
+        catch (NullPointerException e)
         {
 
         }
     }
-    
+
     public void testRemoveListenerDuringEvent()
     {
         final EventListenerSupport<ActionListener> listenerSupport = EventListenerSupport.create(ActionListener.class);
