@@ -27,7 +27,7 @@ import java.util.Comparator;
  * <p>#ThreadSafe#</p>
  * @author Apache Software Foundation
  * @since 3.0
- * @version $Id: Range.java 830032 2009-10-27 00:15:00Z scolebourne $
+ * @version $Id$
  */
 public final class Range<T> implements Serializable {
 

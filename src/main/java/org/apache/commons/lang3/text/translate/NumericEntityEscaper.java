@@ -24,6 +24,7 @@ import java.io.Writer;
  * 
  * @author Apache Software Foundation
  * @since 3.0
+ * @version $Id$
  */
 public class NumericEntityEscaper extends CodePointTranslator {
 

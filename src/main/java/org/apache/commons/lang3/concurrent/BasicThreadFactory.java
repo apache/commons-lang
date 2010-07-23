@@ -84,8 +84,8 @@ import java.util.concurrent.atomic.AtomicLong;
  * </pre>
  * </p>
  *
- * @version $Id: $
  * @since 3.0
+ * @version $Id$
  */
 public class BasicThreadFactory implements ThreadFactory {
     /** A counter for the threads created by this factory. */
@@ -248,7 +248,7 @@ public class BasicThreadFactory implements ThreadFactory {
      * BasicThreadFactory} for a usage example.
      * </p>
      *
-     * @version $Id: $
+     * @version $Id$
      */
     public static class Builder 
         implements org.apache.commons.lang3.builder.Builder<BasicThreadFactory> {

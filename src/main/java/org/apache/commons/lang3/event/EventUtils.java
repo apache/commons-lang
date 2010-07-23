@@ -31,6 +31,7 @@ import java.util.Set;
  * Provides some useful event-based utility methods.
  *
  * @since 3.0
+ * @version $Id$
  */
 public class EventUtils
 {

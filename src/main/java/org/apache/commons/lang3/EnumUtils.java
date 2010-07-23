@@ -27,6 +27,7 @@ import java.util.Map;
  * 
  * <p>#ThreadSafe#</p>
  * @author Apache Software Foundation
+ * @version $Id$
  */
 public class EnumUtils {
 

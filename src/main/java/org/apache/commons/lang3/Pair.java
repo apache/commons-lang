@@ -26,6 +26,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * <p>#ThreadSafe# if the objects are threadsafe</p>
  * @since Lang 3.0
  * @author Matt Benson
+ * @version $Id$
  */
 public final class Pair<L, R> implements Serializable {
     /** Serialization version */
