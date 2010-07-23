@@ -45,6 +45,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @param <L> The event listener type
  *
  * @since 3.0
+ * @version $Id$
  */
 public class EventListenerSupport<L>
 {

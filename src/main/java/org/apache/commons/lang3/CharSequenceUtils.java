@@ -20,6 +20,7 @@ package org.apache.commons.lang3;
  * Null-safe CharSequence utility methods.
  *
  * @author Gary Gregory
+ * @version $Id$
  */
 public class CharSequenceUtils {
 

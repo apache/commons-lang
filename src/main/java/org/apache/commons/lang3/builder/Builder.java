@@ -76,6 +76,7 @@ package org.apache.commons.lang3.builder;
  * 
  * @author <a href="mailto:mwooten.dev@gmail.com">Michael Wooten</a>
  * @since 3.0
+ * @version $Id$
  */
 public interface Builder<T> {
 

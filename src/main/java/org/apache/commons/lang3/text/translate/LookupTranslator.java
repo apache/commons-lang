@@ -25,6 +25,7 @@ import java.util.HashMap;
  * 
  * @author Apache Software Foundation
  * @since 3.0
+ * @version $Id$
  */
 // TODO: Replace with a RegexLookup? Performance test.
 public class LookupTranslator extends CharSequenceTranslator {
