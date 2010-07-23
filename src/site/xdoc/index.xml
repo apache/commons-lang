@@ -26,15 +26,14 @@ limitations under the License.
 
 <p>
 The standard Java libraries fail to provide enough methods for
-manipulation of its core classes. The <em>Lang</em> Component provides
+manipulation of its core classes. Apache Commons Lang provides
 these extra methods. 
 </p>
 
 <p>
-The <em>Lang</em> Component provides a host of helper utilities for the java.lang API, notably 
-String manipulation methods, basic numerical methods, object reflection, creation and serialization, 
-and System properties. Additionally it contains an inheritable enum type, an exception structure that 
-supports multiple types of nested-Exceptions, basic enhancements to java.util.Date and a series of utilities dedicated to help with 
+Lang provides a host of helper utilities for the java.lang API, notably 
+String manipulation methods, basic numerical methods, object reflection, concurrency, creation and serialization 
+and System properties. Additionally it contains basic enhancements to java.util.Date and a series of utilities dedicated to help with 
 building methods, such as hashCode, toString and equals.
 </p>
 </section>
@@ -48,7 +47,8 @@ together with various <a href="project-reports.html">project reports</a>.
 The JavaDoc API documents are available online:
 </p>
 <ul>
-<li>The <a href="api-release/index.html">current release 2.5</a></li>
+<li>The <a href="apidocs/index.html">beta release 3.0-beta</a></li>
+<li>The <a href="api-2.5/index.html">current stable release 2.5</a></li>
 <li>The <a href="api-2.4/index.html">previous version 2.4</a></li>
 <li>Older releases - see the <a href="release-history.html">Release History</a> page</li>
 </ul>
@@ -60,9 +60,14 @@ The <a href="source-repository.html">subversion repository</a> can be
 <!-- ================================================== -->
 <section name="Releases">
 <p>
-The latest version 2.5, is JDK 1.3 compatible - 
-<a href="http://commons.apache.org/lang/download_lang.cgi">Download now!</a> 
-(<a href="upgradeto2_5.html">upgrade notes</a>). </p>
+A beta version of the next release is available - 
+(<a href="http://commons.apache.org/lang/download_lang.cgi">download</a>)
+(<a href="upgradeto3_0.html">draft changelog</a>) (<a href="article3_0.html">draft upgrade notes</a>). </p>
+
+<p>
+The latest stable version 2.5, is JDK 1.3 compatible - 
+(<a href="http://commons.apache.org/lang/download_lang.cgi">download</a>) 
+(<a href="upgradeto2_5.html">changelog</a>) (<a href="article2_5.html">upgrade notes</a>). </p>
 
 <p>
 For information on previous releases, see the <a href="release-history.html">Release History</a> and to download previous releases, see the <a href="http://archive.apache.org/dist/commons/lang/">Apache Archive</a>.
