@@ -1,83 +1,168 @@
 $Id$
 
                         Commons Lang Package
-                            Version 2.5
+                            Version 3.0-beta
                            Release Notes
 
 
 INTRODUCTION:
 
-This document contains the release notes for the 2.5 version of Apache Commons Lang.
-Commons Lang is a set of utility functions and reusable components that should be of use in any Java environment.
+This document contains the release notes for the 3.0 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any 
+Java environment.
 
+Lang 3.0 now targets Java 5.0, making use of features that arrived with Java 5.0 such as generics, 
+variable arguments, autoboxing, concurrency and formatted output.
 
-COMPATIBILITY WITH 2.4
-======================
-Lang 2.5 is binary compatible release with Lang 2.4, containing bug fixes and small enhancements.
+Note that this is a Beta release. The API is largely stable, and we're eager for feedback on 
+the mailing list or issue tracker.
 
-Lang 2.5 requires a minimum of JDK 1.3.
-
-
-IMPROVEMENTS IN 2.5
+IMPROVEMENTS IN 3.0
 ===================
 
-    * [LANG-583] - ArrayUtils - add isNotEmpty() methods
-    * [LANG-534] - ArrayUtils - add nullToEmpty() methods
-    * [LANG-454] - CharRange - provide an iterator that lets you walk the chars in the range
-    * [LANG-514] - CharRange - add more readable static builder methods
-    * [        ] - ClassUtils - new isAssignable() methods with autoboxing
-    * [LANG-535] - ClassUtils - add support to getShortClassName and getPackageName for arrays
-    * [LANG-434] - DateUtils - add ceiling() method
-    * [LANG-486] - DateUtils - add parseDateStrictly() method
-    * [LANG-466] - EqualsBuilder - add reset() method
-    * [LANG-461] - NumberUtils - add toByte() and toShort() methods
-    * [LANG-522] - Mutable numbers - add string constructors
-    * [        ] - MutableBoolean - add toBoolean(), isTrue() and isFalse() methods
-    * [LANG-422] - StrBuilder - add appendSeparator() methods with an alternative default separator if the StrBuilder is currently empty
-    * [LANG-555] - SystemUtils - add IS_OS_WINDOWS_7 constant
-    * [LANG-554] - SystemUtils - add IS_JAVA_1_7 constant for JDK 1.7
-    * [LANG-405] - StringUtils - add abbreviateMiddle() method
-    * [LANG-569] - StringUtils - add indexOfIgnoreCase() and lastIndexOfIgnoreCase() methods
-    * [LANG-471] - StringUtils - add isAllUpperCase() and isAllLowerCase() methods
-    * [LANG-469] - StringUtils - add lastOrdinalIndexOf() method to complement the existing ordinalIndexOf() method
-    * [LANG-438] - StringUtils - add repeat() method
-    * [LANG-445] - StringUtils - add startsWithAny() method
-    * [LANG-430] - StringUtils - add upperCase(String, Locale) and lowerCase(String, Locale) methods
-    * [LANG-416] - New Reflection package containing ConstructorUtils, FieldUtils, MemberUtils and MethodUtils
+(todo)
 
-BUG FIXES IN 2.5
+Sub-task
+
+    * [LANG-491] - ExceptionUtils + ExceptionUtilsTest needs an overhaul
+    * [LANG-512] - Compare performance of replace method to regex in Java
+    * [LANG-516] - Define standard for escape/unescape XML
+    * [LANG-517] - Define standard for escape/unescape HTML
+    * [LANG-518] - Define standard for escape/unescape 'JavaScript'
+    * [LANG-519] - Define standard for escape/unescape Java
+
+Improvement
+
+    * [LANG-238] - Add equals(type[]) to NumberUtils
+    * [LANG-280] - Improve wrap method on WordUtils
+    * [LANG-290] - EnumUtils for JDK 5.0
+    * [LANG-293] - StringEscapeUtils.unescape* can be faster
+    * [LANG-312] - DateFormatUtils.format with Timezone parameter "CET" produces wrong date in 
+                   summer time 1945 to 1949
+    * [LANG-336] - Finally start using generics.
+    * [LANG-340] - performance problem with EqualsBuilder.append()
+    * [LANG-355] - StrBuilder should implement CharSequence and Appendable
+    * [LANG-401] - Replace iteration loops with foreach where appropriate to increase readability
+    * [LANG-420] - Rename ObjectUtils.toString() to asString().
+    * [LANG-424] - Improve Javadoc for StringUtils class
+    * [LANG-433] - clone() method for ObjectUtils
+    * [LANG-447] - String case-insensitive comparisons, equals, and hashing
+    * [LANG-458] - Refactor Validate.java to eliminate code redundancy
+    * [LANG-479] - Document where in SVN trunk is.
+    * [LANG-504] - bring ArrayUtils.isEmpty to the generics world
+    * [LANG-507] - StringEscapeUtils.unescapeJava should support \u+ notation
+    * [LANG-508] - Validate: add message parameter construction via elllipsis notation to 
+                   speed up processing
+    * [LANG-510] - Convert StringUtils API to take CharSequence
+    * [LANG-513] - Better EnumUtils
+    * [LANG-528] - Mutable classes should implement an appropriately typed Mutable interface
+    * [LANG-531] - Add defaultIfEmpty or nullIfEmpty to ArrayUtils
+    * [LANG-540] - Make NumericEntityEscaper immutable
+    * [LANG-548] - Use Iterable on API instead of Collection
+    * [LANG-558] - Overhaul Validate class
+    * [LANG-566] - Replace lastIndexOf methods with -ve index support?
+    * [LANG-570] - Do the test cases really still require main() and suite() methods?
+    * [LANG-579] - Add new Validate methods
+    * [LANG-597] - Add more utility methods for generic types
+    * [LANG-599] - ClassUtils.getClass(): Allow Dots as Inner Class Separators
+    * [LANG-605] - DefaultExceptionContext overwrites values in recursive situations
+    * [LANG-612] - Add ability to do only basic escape &amp; unescape to StringEscapeUtils
+    * [LANG-632] - provide a date2calendar convenience method
+    * [LANG-633] - Use same optimization in toBooleanObject(String) as in toBoolean(String str)
+
+New Feature
+
+    * [LANG-276] - MutableBigDecimal and MutableBigInteger
+    * [LANG-283] - Visitors for Builders
+    * [LANG-285] - Wish : method unaccent
+    * [LANG-308] - CharUtils - Utilities to work on a char[] in the same way as a String
+    * [LANG-316] - Enable CaseInsensitivity in EqualsBuilder and HashCodeBuilder
+    * [LANG-324] - Weak references with time limit?
+    * [LANG-330] - Add StringBufferUtils or overload StringUtils methods
+    * [LANG-354] - Implementation of a CloneBuilder Class
+    * [LANG-358] - ObjectUtils.coalesce
+    * [LANG-373] - Quote regexp
+    * [LANG-386] - LeftOf/RightOfNumber in Range convenience methods necessary
+    * [LANG-435] - Add ClassUtils.isAssignable() variants with autoboxing
+    * [LANG-444] - StringUtils.emptyToNull
+    * [LANG-446] - Add null-safe ObjectUtils.clone()
+    * [LANG-496] - A generic implementation of the Lazy initialization pattern
+    * [LANG-497] - Addition of ContextedException and ContextedRuntimeException
+    * [LANG-498] - Add StringEscapeUtils.escapeText() methods
+    * [LANG-499] - Add support for the handling of ExecutionExceptions
+    * [LANG-501] - Add support for background initialization
+    * [LANG-524] - ArrayUtils.addAll for between Object arrays and Collections
+    * [LANG-529] - Add a concurrent package
+    * [LANG-533] - Validate: support for validating blank strings
+    * [LANG-537] - Add ArrayUtils.toArray to create generic arrays
+    * [LANG-545] - Add ability to create a Future for a constant
+    * [LANG-546] - Add methods to Validate to check whether the index is valid for the array/list/string
+    * [LANG-553] - Add TypeUtils class to provide utility code for working with generic types
+    * [LANG-559] - New Validate utility methods
+    * [LANG-560] - New TimedSemaphore class
+    * [LANG-573] - Add new APIs to StringUtils (countLowerCase, countUpperCase, countDigits)
+    * [LANG-576] - Add methods for cloneables to ObjectUtils
+    * [LANG-580] - Add Event Support Utilities
+    * [LANG-582] - Provide an implementation of the ThreadFactory interface
+    * [LANG-588] - Create a basic Pair&lt;L, R&gt; class
+    * [LANG-594] - DateUtils equal &amp; compare functions up to most significant field
+    * [LANG-601] - Add Builder Interface / Update Builders to Implement It
+    * [LANG-609] - Support lazy initialization using atomic variables
+    * [LANG-610] - Extend exception handling in ConcurrentUtils to runtime exceptions
+    * [LANG-625] - Add StringUtils.containsWhitespace(String str)
+
+Task
+
+    * [LANG-396] - Investigate for vararg usages
+    * [LANG-398] - Annotations?
+    * [LANG-438] - Remove @deprecateds
+    * [LANG-490] - Note to rewrite package.html's before release.
+    * [LANG-492] - Remove code handled now by the JDK
+    * [LANG-493] - Remove code that does not hold enough value to remain
+    * [LANG-505] - Rewrite StringEscapeUtils
+    * [LANG-515] - Define standard escape/unescape behaviours
+    * [LANG-541] - Replace StringBuffer with StringBuilder
+    * [LANG-551] - Replace Range classes with generic version
+    * [LANG-562] - Change Maven groupId
+    * [LANG-563] - Change Java package name
+    * [LANG-590] - Remove JDK 1.2/1.3 bug handling in StringUtils.indexOf(String, String, int)
+    * [LANG-600] - Javadoc is incorrect for public static int lastIndexOf(String str, String searchStr)
+
+Wish
+
+    * [LANG-425] - Sequence(String)Utils
+    * [LANG-539] - Compile commons.lang for CDC 1.1/Foundation 1.1
+
+BUG FIXES IN 3.0
 ================
 
-    * [LANG-494] - CharSet - Synchronizing the COMMON Map so that getInstance doesn't miss a put from a subclass in another thread
-    * [LANG-500] - ClassUtils - improving performance of getAllInterfaces
-    * [LANG-587] - ClassUtils - toClass() throws NullPointerException on null array element
-    * [LANG-530] - DateUtils - Fix parseDate() cannot parse ISO8601 dates produced by FastDateFormat
-    * [LANG-440] - DateUtils - round() doesn't work correct for Calendar.AM_PM
-    * [LANG-443] - DateUtils - improve tests
-    * [LANG-204] - Entities - multithreaded initialization
-    * [LANG-506] - Entities - missing final modifiers; thread-safety issues
-    * [LANG-76]  - EnumUtils - getEnum() doesn't work well in 1.5+
-    * [LANG-584] - ExceptionUtils - use immutable lock target
-    * [LANG-477] - ExtendedMessageFormat - OutOfMemory with a pattern containing single quotes
-    * [LANG-538] - FastDateFormat - call getTime() on a calendar to ensure timezone is in the right state
-    * [LANG-547] - FastDateFormat - Remove unused field
-    * [LANG-511] - LocaleUtils - initialization of available locales can be deferred
-    * [LANG-457] - NumberUtils - createNumber() thows a StringIndexOutOfBoundsException for "l"
-    * [LANG-521] - NumberUtils - isNumber(String) and createNumber(String) both modified to support '2.'
-    * [LANG-432] - StringUtils - improve handling of case-insensitive Strings
-    * [LANG-552] - StringUtils - replaceEach() no longer NPEs when null appears in the last String[]
-    * [LANG-460] - StringUtils - correct JavaDocs for startsWith() and startsWithIgnoreCase()
-    * [LANG-421] - StringEscapeUtils - escapeJava() escapes '/' characters
-    * [LANG-450] - StringEscapeUtils - change escapeJavaStyleString() to throw UnhandledException instead swallowing IOException
-    * [LANG-419] - WordUtils - fix StringIndexOutOfBoundsException when lower is greater than the String length
-    * [LANG-523] - StrBuilder - Performance improvement by doubling the size of the String in ensureCapacity
-    * [LANG-575] - Compare, Equals and HashCode builders - use ArrayUtils to avoid creating a temporary List
-    * [LANG-467] - EqualsBuilder - removing the special handling of BigDecimal (LANG-393) to use compareTo 
-    * [LANG-574] - HashCodeBuilder - Performance improvement: check for isArray to short-circuit the 9 instanceof checks
-    * [LANG-520] - HashCodeBuilder - Changing the hashCode() method to return toHashCode()
-    * [LANG-459] - HashCodeBuilder - reflectionHashCode() can generate incorrect hashcodes
-    * [LANG-586] - HashCodeBuilder and ToStringStyle - use of ThreadLocal causes memory leaks in container environments
-    * [LANG-487] - ToStringBuilder - make default style thread-safe
-    * [LANG-472] - RandomUtils - nextLong() always produces even numbers
-    * [LANG-592] - RandomUtils - RandomUtils tests are failing frequently
-
+    * [LANG-11] - Depend on JDK 1.5+
+    * [LANG-52] - Validate.notNull should throw NullArgumentException
+    * [LANG-66] - StringEscaper.escapeXml() escapes characters &gt; 0x7f
+    * [LANG-302] - StrBuilder does not implement clone()
+    * [LANG-339] - StringEscapeUtils.escapeHtml() escapes multibyte characters like Chinese, Japanes, etc.
+    * [LANG-369] - ExceptionUtils not thread-safe
+    * [LANG-418] - Javadoc incorrect for StringUtils.endsWithIgnoreCase
+    * [LANG-439] - StringEscapeUtils.escapeHTML() does not escape chars (0x00-0x20)
+    * [LANG-448] - Lower Ascii Characters don't get encoded by Entities.java
+    * [LANG-468] - JDK 1.5 build/runtime failure on LANG-393 (EqualsBuilder)
+    * [LANG-474] - Fixes for thread safety
+    * [LANG-478] - StopWatch does not resist to system time changes
+    * [LANG-480] - StringEscapeUtils.escapeHtml incorrectly converts unicode characters above U+00FFFF 
+                   into 2 characters
+    * [LANG-481] - Possible race-conditions in hashCode of the range classes
+    * [LANG-561] - unescapeHtml has been dropped without going through deprecation
+    * [LANG-564] - Improve StrLookup API documentation
+    * [LANG-568] - @SuppressWarnings("unchecked") is used too generally
+    * [LANG-571] - ArrayUtils.add(T[] array, T element) can create unexpected ClassCastException
+    * [LANG-585] - exception.DefaultExceptionContext.getFormattedExceptionMessage catches Throwable
+    * [LANG-589] - StringUtils: indexOf("", String) and indexOf("", char) have different behaviour
+    * [LANG-602] - ContextedRuntimeException no longer an 'unchecked' exception
+    * [LANG-606] - EqualsBuilder causes StackOverflowException
+    * [LANG-608] - Some StringUtils methods should take an int character instead of char to use 
+                   String API features.
+    * [LANG-628] - Javadoc for HashCodeBuilder.append(boolean) does not match implementation.
+    * [LANG-630] - mutable.MutableObject defines equals(MutableObject) method and uses Object.equals(Object)
+    * [LANG-631] - StringUtils JavaDoc contains erroneous examples
+    * [LANG-635] - CompareToBuilder.reflectionCompare(Object, Object, boolean, Class) ignores 
+                   third compareTransients parameter
