@@ -36,7 +36,7 @@ import junit.framework.TestCase;
  * 
  * @author Robert Scholte
  * @since 3.0
- *
+ * @version $Id$
  */
 // TODO: Add DateUtils.ceil()-tests if method is available
 public class DateUtilsRoundingTest extends TestCase {

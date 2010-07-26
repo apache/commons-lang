@@ -26,6 +26,7 @@ import java.util.List;
 
 /**
  * @since 3.0
+ * @version $Id$
  */
 public class EventListenerSupportTest extends TestCase
 {

@@ -23,6 +23,10 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
+/**
+ * 
+ * @version $Id$
+ */
 public class EnumUtilsTest extends TestCase {
 
     public void testConstructable() {

@@ -26,7 +26,7 @@ import junit.framework.TestCase;
  * Tests the methods in the {@link org.apache.commons.lang3.Range} class.
  * </p>
  * 
- * @version $Id: RangeTest.java 754804 2009-03-16 02:06:18Z sebb $
+ * @version $Id$
  */
 @SuppressWarnings("boxing")
 public class RangeTest extends TestCase {

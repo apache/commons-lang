@@ -33,7 +33,7 @@ import org.junit.Test;
 /**
  * Test class for {@code BasicThreadFactory}.
  *
- * @version $Id: $
+ * @version $Id$
  */
 public class BasicThreadFactoryTest {
     /** Constant for the test naming pattern. */
