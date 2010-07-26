@@ -31,6 +31,7 @@ import java.util.TreeMap;
 
 /**
  * @since 3.0
+ * @version $Id$
  */
 public class EventUtilsTest extends TestCase
 {
