@@ -20,7 +20,7 @@ the mailing list or issue tracker.
 IMPROVEMENTS IN 3.0
 ===================
 
-(todo)
+(to improve)
 
 Sub-task
 
