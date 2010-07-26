@@ -41,6 +41,8 @@ were deemed weak or unnecessary. All of this means that Lang 3.0 is not backward
 <section name="Migrating from 2.x">
 <p>Despite the label of backwards incompatibility, in the vast majority of cases the simple addition of a <code>'3'</code> to an import statement will suffice for your migration. For example, using Perl: </p> 
 <p>find . -type f -name '*.java' | xargs perl -pi -e 's/org\.apache\.commons\.lang\./org.apache.commons.lang3./g'</p>
+<p>Maven users will need to update the groupId from <code>commons-lang</code> to <code>org.apache.commons</code>, 
+and the artifactId from <code>commons-lang</code> to <code>commons-lang3</code>. </p>
 </section>
 <section name="What's gone?">
 <p>Enum package - Java 5 provided enums out of the box, therefore we dispensed with both the deprecated enum package, 
