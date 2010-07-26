@@ -83,26 +83,26 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      * </p>
      * 
      * @param obj  the object to compare with, <code>null</code> returns <code>false</code>
-     * @return	<code>true</code> if the objects are the same;
-     *          <code>true</code> if the objects have equivalent <code>value</code> fields;			
+     * @return  <code>true</code> if the objects are the same;
+     *          <code>true</code> if the objects have equivalent <code>value</code> fields;
      *          <code>false</code> otherwise.
      */
     @SuppressWarnings("unchecked")
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == null) {
-        	return false;
+            return false;
         }
         if (this == obj) {
-        	return true;
+            return true;
         }
-    	if (this.getClass() == obj.getClass()) {
+        if (this.getClass() == obj.getClass()) {
             MutableObject<T> that = (MutableObject<T>) obj;
             return this.value.equals(that.value);
         }
-    	else {
-    		return false;
-    	}
+        else {
+            return false;
+        }
     }
 
     /**
