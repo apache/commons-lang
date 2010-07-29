@@ -1057,4 +1057,29 @@ public class TypeUtils {
         throw new IllegalArgumentException("unknown type: " + type);
     }
 
+    /**
+     * Learn whether the specified type denotes an array type.
+     * @param type
+     * @return <code>true</code> if <code>type</code> is an array class or a {@link GenericArrayType}.
+     */
+    public static boolean isArrayType(Type type) {
+        return type instanceof GenericArrayType || type instanceof Class<?> && ((Class<?>) type).isArray();
+    }
+
+    /**
+     * Get the array component type of <code>type</code>.
+     * @param type
+     * @return component type or null if type is not an array type
+     */
+    public static Type getArrayComponentType(Type type) {
+        if (type instanceof Class<?>) {
+            Class<?> clazz = (Class<?>) type;
+            return clazz.isArray() ? clazz.getComponentType() : null;
+        }
+        if (type instanceof GenericArrayType) {
+            return ((GenericArrayType) type).getGenericComponentType();
+        }
+        return null;
+    }
+
 }
