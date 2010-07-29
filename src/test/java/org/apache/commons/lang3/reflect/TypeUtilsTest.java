@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.reflect.testbed.Foo;
@@ -555,6 +555,100 @@ public class TypeUtilsTest<B> {
         Assert.assertNull(TypeUtils.getRawType(genericParentT, GenericParent.class));
         Assert.assertEquals(GenericParent[].class, TypeUtils.getRawType(GenericTypeHolder.class
                 .getDeclaredField("barParents").getGenericType(), null));
+    }
+
+    @Test
+    public void testIsArrayTypeClasses() {
+        Assert.assertTrue(TypeUtils.isArrayType(boolean[].class));
+        Assert.assertTrue(TypeUtils.isArrayType(byte[].class));
+        Assert.assertTrue(TypeUtils.isArrayType(short[].class));
+        Assert.assertTrue(TypeUtils.isArrayType(int[].class));
+        Assert.assertTrue(TypeUtils.isArrayType(char[].class));
+        Assert.assertTrue(TypeUtils.isArrayType(long[].class));
+        Assert.assertTrue(TypeUtils.isArrayType(float[].class));
+        Assert.assertTrue(TypeUtils.isArrayType(double[].class));
+        Assert.assertTrue(TypeUtils.isArrayType(Object[].class));
+        Assert.assertTrue(TypeUtils.isArrayType(String[].class));
+
+        Assert.assertFalse(TypeUtils.isArrayType(boolean.class));
+        Assert.assertFalse(TypeUtils.isArrayType(byte.class));
+        Assert.assertFalse(TypeUtils.isArrayType(short.class));
+        Assert.assertFalse(TypeUtils.isArrayType(int.class));
+        Assert.assertFalse(TypeUtils.isArrayType(char.class));
+        Assert.assertFalse(TypeUtils.isArrayType(long.class));
+        Assert.assertFalse(TypeUtils.isArrayType(float.class));
+        Assert.assertFalse(TypeUtils.isArrayType(double.class));
+        Assert.assertFalse(TypeUtils.isArrayType(Object.class));
+        Assert.assertFalse(TypeUtils.isArrayType(String.class));
+    }
+
+    @Test
+    public void testIsArrayGenericTypes() throws Exception {
+        Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
+                List.class, List.class, List.class, List.class, List[].class, List[].class,
+                List[].class, List[].class, List[].class, List[].class, List[].class);
+
+        Type[] types = method.getGenericParameterTypes();
+
+        Assert.assertFalse(TypeUtils.isArrayType(types[0]));
+        Assert.assertFalse(TypeUtils.isArrayType(types[1]));
+        Assert.assertFalse(TypeUtils.isArrayType(types[2]));
+        Assert.assertFalse(TypeUtils.isArrayType(types[3]));
+        Assert.assertFalse(TypeUtils.isArrayType(types[4]));
+        Assert.assertFalse(TypeUtils.isArrayType(types[5]));
+        Assert.assertFalse(TypeUtils.isArrayType(types[6]));
+        Assert.assertTrue(TypeUtils.isArrayType(types[7]));
+        Assert.assertTrue(TypeUtils.isArrayType(types[8]));
+        Assert.assertTrue(TypeUtils.isArrayType(types[9]));
+        Assert.assertTrue(TypeUtils.isArrayType(types[10]));
+        Assert.assertTrue(TypeUtils.isArrayType(types[11]));
+        Assert.assertTrue(TypeUtils.isArrayType(types[12]));
+        Assert.assertTrue(TypeUtils.isArrayType(types[13]));
+    }
+
+    @Test
+    public void testGetPrimitiveArrayComponentType() throws Exception {
+        Assert.assertEquals(boolean.class, TypeUtils.getArrayComponentType(boolean[].class));
+        Assert.assertEquals(byte.class, TypeUtils.getArrayComponentType(byte[].class));
+        Assert.assertEquals(short.class, TypeUtils.getArrayComponentType(short[].class));
+        Assert.assertEquals(int.class, TypeUtils.getArrayComponentType(int[].class));
+        Assert.assertEquals(char.class, TypeUtils.getArrayComponentType(char[].class));
+        Assert.assertEquals(long.class, TypeUtils.getArrayComponentType(long[].class));
+        Assert.assertEquals(float.class, TypeUtils.getArrayComponentType(float[].class));
+        Assert.assertEquals(double.class, TypeUtils.getArrayComponentType(double[].class));
+
+        Assert.assertNull(TypeUtils.getArrayComponentType(boolean.class));
+        Assert.assertNull(TypeUtils.getArrayComponentType(byte.class));
+        Assert.assertNull(TypeUtils.getArrayComponentType(short.class));
+        Assert.assertNull(TypeUtils.getArrayComponentType(int.class));
+        Assert.assertNull(TypeUtils.getArrayComponentType(char.class));
+        Assert.assertNull(TypeUtils.getArrayComponentType(long.class));
+        Assert.assertNull(TypeUtils.getArrayComponentType(float.class));
+        Assert.assertNull(TypeUtils.getArrayComponentType(double.class));
+    }
+
+    @Test
+    public void testGetArrayComponentType() throws Exception {
+        Method method = getClass().getMethod("dummyMethod", List.class, List.class, List.class,
+                List.class, List.class, List.class, List.class, List[].class, List[].class,
+                List[].class, List[].class, List[].class, List[].class, List[].class);
+
+        Type[] types = method.getGenericParameterTypes();
+
+        Assert.assertNull(TypeUtils.getArrayComponentType(types[0]));
+        Assert.assertNull(TypeUtils.getArrayComponentType(types[1]));
+        Assert.assertNull(TypeUtils.getArrayComponentType(types[2]));
+        Assert.assertNull(TypeUtils.getArrayComponentType(types[3]));
+        Assert.assertNull(TypeUtils.getArrayComponentType(types[4]));
+        Assert.assertNull(TypeUtils.getArrayComponentType(types[5]));
+        Assert.assertNull(TypeUtils.getArrayComponentType(types[6]));
+        Assert.assertEquals(types[0], TypeUtils.getArrayComponentType(types[7]));
+        Assert.assertEquals(types[1], TypeUtils.getArrayComponentType(types[8]));
+        Assert.assertEquals(types[2], TypeUtils.getArrayComponentType(types[9]));
+        Assert.assertEquals(types[3], TypeUtils.getArrayComponentType(types[10]));
+        Assert.assertEquals(types[4], TypeUtils.getArrayComponentType(types[11]));
+        Assert.assertEquals(types[5], TypeUtils.getArrayComponentType(types[12]));
+        Assert.assertEquals(types[6], TypeUtils.getArrayComponentType(types[13]));
     }
 
     public Iterable<? extends Map<Integer, ? extends Collection<?>>> iterable;
