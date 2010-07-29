@@ -730,10 +730,7 @@ public class ClassUtils {
      *  false if not or <code>null</code>
      */
     public static boolean isInnerClass(Class<?> cls) {
-        if (cls == null) {
-            return false;
-        }
-        return cls.getName().indexOf(INNER_CLASS_SEPARATOR_CHAR) >= 0;
+        return cls != null && cls.getEnclosingClass() != null;
     }
 
     // Class loading
