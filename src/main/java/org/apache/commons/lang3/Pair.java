@@ -86,7 +86,7 @@ public final class Pair<L, R> implements Serializable {
     }
 
     /**
-     * Static creation method for a Pair<L, R>.
+     * Static fluent creation method for a Pair<L, R>:  <code>Pair.of(left, right)</code>
      * @param <L>
      * @param <R>
      * @param left
