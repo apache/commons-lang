@@ -140,7 +140,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     static Pair<IDKey, IDKey> getRegisterPair(Object lhs, Object rhs) {
         IDKey left = new IDKey(lhs);
         IDKey right = new IDKey(rhs);
-        return new Pair<IDKey, IDKey>(left, right);
+        return Pair.of(left, right);
     }
 
     /**
@@ -159,8 +159,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     static boolean isRegistered(Object lhs, Object rhs) {
         Set<Pair<IDKey, IDKey>> registry = getRegistry();
         Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
-        Pair<IDKey, IDKey> swappedPair = new Pair<IDKey, IDKey>(pair.right,
-                pair.left);
+        Pair<IDKey, IDKey> swappedPair = Pair.of(pair.right, pair.left);
 
         return registry != null
                 && (registry.contains(pair) || registry.contains(swappedPair));
