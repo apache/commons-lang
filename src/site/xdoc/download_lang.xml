@@ -95,7 +95,7 @@ limitations under the License.
       </p>
     </subsection>
     </section>
-    <section name="Commons Lang 2.5 Java 1.2+">
+    <section name="Commons Lang 2.5 (Java 1.2+)">
       <subsection name="Binaries">
         <table>
           <tr>
@@ -125,7 +125,7 @@ limitations under the License.
         </table>
       </subsection>
     </section>
-    <section name="Commons Lang 3.0-beta Java 5.0+">
+    <section name="Commons Lang 3.0-beta (Java 5.0+)">
       <subsection name="Binaries">
         <table>
           <tr>
