@@ -201,7 +201,7 @@ public class ArrayUtilsTest extends TestCase {
     
     //-----------------------------------------------------------------------
     public void testToMap() {
-        Map<?, ?> map = ArrayUtils.toMap(new String[][] {{"foo", "bar"}, {"hello", "world"}});
+        Map<String,String> map = ArrayUtils.toMap(new String[][] {{"foo", "bar"}, {"hello", "world"}});
         
         assertEquals("bar", map.get("foo"));
         assertEquals("world", map.get("hello"));
