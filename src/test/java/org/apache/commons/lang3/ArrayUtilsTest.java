@@ -181,7 +181,7 @@ public class ArrayUtilsTest extends TestCase {
      */
     public void testEmptyArrayCreation()
     {
-        final String[] array = ArrayUtils.toArray();
+        final String[] array = ArrayUtils.<String>toArray();
         assertEquals(0, array.length);
     }
 
@@ -190,7 +190,7 @@ public class ArrayUtilsTest extends TestCase {
      */
     public void testIndirectEmptyArrayCreation()
     {
-        final String[] array = ArrayUtilsTest.toArrayPropagatingType();
+        final String[] array = ArrayUtilsTest.<String>toArrayPropagatingType();
         assertEquals(0, array.length);
     }
 
