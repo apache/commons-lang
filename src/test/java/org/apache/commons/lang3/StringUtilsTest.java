@@ -77,7 +77,7 @@ public class StringUtilsTest extends TestCase {
     private static final String[] EMPTY_ARRAY_LIST = {};
     private static final String[] NULL_ARRAY_LIST = {null};
     private static final String[] MIXED_ARRAY_LIST = {null, "", "foo"};
-    private static final Object[] MIXED_TYPE_LIST = {new String("foo"), new Long(2)};
+    private static final Object[] MIXED_TYPE_LIST = {"foo", 2L};
 
     private static final String SEPARATOR = ",";
     private static final char   SEPARATOR_CHAR = ';';
@@ -191,7 +191,7 @@ public class StringUtilsTest extends TestCase {
     public void testConcat_Objects() {
         assertEquals("abc", StringUtils.concat("a", "b", "c"));
         assertEquals("a",   StringUtils.concat(null, "", "a"));
-        assertEquals(null,  StringUtils.concat(null));
+        assertEquals(null,  StringUtils.concat((String[])null));
     }
 
     public void testConcatWith_StringObjects() {
@@ -199,7 +199,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals("a...b...c", StringUtils.concatWith("...", "a", "b", "c"));
         assertEquals("a",     StringUtils.concatWith("", null, "", "a"));
         assertEquals("a",     StringUtils.concatWith(null, null, "", "a"));
-        assertEquals(null,    StringUtils.concatWith(null, null));
+        assertEquals(null,    StringUtils.concatWith(null, (String[])null));
     }
 
     public void testJoin_Objectarray() {
@@ -361,7 +361,7 @@ public class StringUtilsTest extends TestCase {
             }
         }
         
-        String[] results = null;
+        String[] results;
         String[] expectedResults = {"ab", "de fg"};
         results = StringUtils.split("ab   de fg", null, 2);
         assertEquals(expectedResults.length, results.length);
@@ -696,7 +696,7 @@ public class StringUtilsTest extends TestCase {
 
         // Match example in javadoc
         {
-          String[] results = null;
+          String[] results;
           String[] expectedResults = {"a", "", "b", "c"};
           results = StringUtils.splitPreserveAllTokens("a..b.c",'.');
           assertEquals(expectedResults.length, results.length);
@@ -724,7 +724,7 @@ public class StringUtilsTest extends TestCase {
         }
 
         {
-          String[] results = null;
+          String[] results;
           String[] expectedResults = {"ab", "de fg"};
           results = StringUtils.splitPreserveAllTokens("ab de fg", null, 2);
           assertEquals(expectedResults.length, results.length);
@@ -734,7 +734,7 @@ public class StringUtilsTest extends TestCase {
         }
 
         {
-          String[] results = null;
+          String[] results;
           String[] expectedResults = {"ab", "  de fg"};
           results = StringUtils.splitPreserveAllTokens("ab   de fg", null, 2);
           assertEquals(expectedResults.length, results.length);
@@ -744,7 +744,7 @@ public class StringUtilsTest extends TestCase {
         }
         
         {
-          String[] results = null;
+          String[] results;
           String[] expectedResults = {"ab", "::de:fg"};
           results = StringUtils.splitPreserveAllTokens("ab:::de:fg", ":", 2);
           assertEquals(expectedResults.length, results.length);
@@ -754,7 +754,7 @@ public class StringUtilsTest extends TestCase {
         }
         
         {
-          String[] results = null;
+          String[] results;
           String[] expectedResults = {"ab", "", " de fg"};
           results = StringUtils.splitPreserveAllTokens("ab   de fg", null, 3);
           assertEquals(expectedResults.length, results.length);
@@ -764,7 +764,7 @@ public class StringUtilsTest extends TestCase {
         }
         
         {
-          String[] results = null;
+          String[] results;
           String[] expectedResults = {"ab", "", "", "de fg"};
           results = StringUtils.splitPreserveAllTokens("ab   de fg", null, 4);
           assertEquals(expectedResults.length, results.length);
@@ -775,7 +775,7 @@ public class StringUtilsTest extends TestCase {
 
         {
           String[] expectedResults = {"ab", "cd:ef"};
-          String[] results = null;
+          String[] results;
           results = StringUtils.splitPreserveAllTokens("ab:cd:ef",":", 2);
           assertEquals(expectedResults.length, results.length);
           for (int i = 0; i < expectedResults.length; i++) {
@@ -784,7 +784,7 @@ public class StringUtilsTest extends TestCase {
         }
 
         {
-          String[] results = null;
+          String[] results;
           String[] expectedResults = {"ab", ":cd:ef"};
           results = StringUtils.splitPreserveAllTokens("ab::cd:ef",":", 2);
           assertEquals(expectedResults.length, results.length);
@@ -794,7 +794,7 @@ public class StringUtilsTest extends TestCase {
         }
 
         {
-          String[] results = null;
+          String[] results;
           String[] expectedResults = {"ab", "", ":cd:ef"};
           results = StringUtils.splitPreserveAllTokens("ab:::cd:ef",":", 3);
           assertEquals(expectedResults.length, results.length);
@@ -804,7 +804,7 @@ public class StringUtilsTest extends TestCase {
         }
 
         {
-          String[] results = null;
+          String[] results;
           String[] expectedResults = {"ab", "", "", "cd:ef"};
           results = StringUtils.splitPreserveAllTokens("ab:::cd:ef",":", 4);
           assertEquals(expectedResults.length, results.length);
@@ -814,7 +814,7 @@ public class StringUtilsTest extends TestCase {
         }
 
         {
-          String[] results = null;
+          String[] results;
           String[] expectedResults = {"", "ab", "", "", "cd:ef"};
           results = StringUtils.splitPreserveAllTokens(":ab:::cd:ef",":", 5);
           assertEquals(expectedResults.length, results.length);
@@ -824,7 +824,7 @@ public class StringUtilsTest extends TestCase {
         }
         
         {
-          String[] results = null;
+          String[] results;
           String[] expectedResults = {"", "", "ab", "", "", "cd:ef"};
           results = StringUtils.splitPreserveAllTokens("::ab:::cd:ef",":", 6);
           assertEquals(expectedResults.length, results.length);
@@ -1330,28 +1330,28 @@ public class StringUtilsTest extends TestCase {
     }
 
     public void testLengthString() {
-        assertEquals(0, StringUtils.length(null));
-        assertEquals(0, StringUtils.length(""));
-        assertEquals(0, StringUtils.length(StringUtils.EMPTY));
-        assertEquals(1, StringUtils.length("A"));
-        assertEquals(1, StringUtils.length(" "));
-        assertEquals(8, StringUtils.length("ABCDEFGH"));
+        assertEquals(0, CharSequenceUtils.length(null));
+        assertEquals(0, CharSequenceUtils.length(""));
+        assertEquals(0, CharSequenceUtils.length(StringUtils.EMPTY));
+        assertEquals(1, CharSequenceUtils.length("A"));
+        assertEquals(1, CharSequenceUtils.length(" "));
+        assertEquals(8, CharSequenceUtils.length("ABCDEFGH"));
     }
 
     public void testLengthStringBuffer() {
-        assertEquals(0, StringUtils.length(new StringBuffer("")));
-        assertEquals(0, StringUtils.length(new StringBuffer(StringUtils.EMPTY)));
-        assertEquals(1, StringUtils.length(new StringBuffer("A")));
-        assertEquals(1, StringUtils.length(new StringBuffer(" ")));
-        assertEquals(8, StringUtils.length(new StringBuffer("ABCDEFGH")));
+        assertEquals(0, CharSequenceUtils.length(new StringBuffer("")));
+        assertEquals(0, CharSequenceUtils.length(new StringBuffer(StringUtils.EMPTY)));
+        assertEquals(1, CharSequenceUtils.length(new StringBuffer("A")));
+        assertEquals(1, CharSequenceUtils.length(new StringBuffer(" ")));
+        assertEquals(8, CharSequenceUtils.length(new StringBuffer("ABCDEFGH")));
     }
 
     public void testLengthStringBuilder() {
-        assertEquals(0, StringUtils.length(new StringBuilder("")));
-        assertEquals(0, StringUtils.length(new StringBuilder(StringUtils.EMPTY)));
-        assertEquals(1, StringUtils.length(new StringBuilder("A")));
-        assertEquals(1, StringUtils.length(new StringBuilder(" ")));
-        assertEquals(8, StringUtils.length(new StringBuilder("ABCDEFGH")));
+        assertEquals(0, CharSequenceUtils.length(new StringBuilder("")));
+        assertEquals(0, CharSequenceUtils.length(new StringBuilder(StringUtils.EMPTY)));
+        assertEquals(1, CharSequenceUtils.length(new StringBuilder("A")));
+        assertEquals(1, CharSequenceUtils.length(new StringBuilder(" ")));
+        assertEquals(8, CharSequenceUtils.length(new StringBuilder("ABCDEFGH")));
     }
     
     //-----------------------------------------------------------------------
@@ -1806,7 +1806,7 @@ public class StringUtilsTest extends TestCase {
     }
     
     public void testDifferenceAt_StringArray(){        
-        assertEquals(-1, StringUtils.indexOfDifference(null));
+        assertEquals(-1, StringUtils.indexOfDifference((String[])null));
         assertEquals(-1, StringUtils.indexOfDifference(new String[] {}));
         assertEquals(-1, StringUtils.indexOfDifference(new String[] {"abc"}));
         assertEquals(-1, StringUtils.indexOfDifference(new String[] {null, null}));
@@ -1826,33 +1826,33 @@ public class StringUtilsTest extends TestCase {
     }
     
     public void testGetCommonPrefix_StringArray(){        
-        assertEquals("", StringUtils.getCommonPrefix(null));
-        assertEquals("", StringUtils.getCommonPrefix(new String[] {}));
-        assertEquals("abc", StringUtils.getCommonPrefix(new String[] {"abc"}));
-        assertEquals("", StringUtils.getCommonPrefix(new String[] {null, null}));
-        assertEquals("", StringUtils.getCommonPrefix(new String[] {"", ""}));
-        assertEquals("", StringUtils.getCommonPrefix(new String[] {"", null}));
-        assertEquals("", StringUtils.getCommonPrefix(new String[] {"abc", null, null}));
-        assertEquals("", StringUtils.getCommonPrefix(new String[] {null, null, "abc"}));
-        assertEquals("", StringUtils.getCommonPrefix(new String[] {"", "abc"}));
-        assertEquals("", StringUtils.getCommonPrefix(new String[] {"abc", ""}));
-        assertEquals("abc", StringUtils.getCommonPrefix(new String[] {"abc", "abc"}));
-        assertEquals("a", StringUtils.getCommonPrefix(new String[] {"abc", "a"}));
-        assertEquals("ab", StringUtils.getCommonPrefix(new String[] {"ab", "abxyz"}));
-        assertEquals("ab", StringUtils.getCommonPrefix(new String[] {"abcde", "abxyz"}));
-        assertEquals("", StringUtils.getCommonPrefix(new String[] {"abcde", "xyz"}));
-        assertEquals("", StringUtils.getCommonPrefix(new String[] {"xyz", "abcde"}));
-        assertEquals("i am a ", StringUtils.getCommonPrefix(new String[] {"i am a machine", "i am a robot"}));
+        assertEquals("", StringUtils.getCommonPrefix((String[])null));
+        assertEquals("", StringUtils.getCommonPrefix());
+        assertEquals("abc", StringUtils.getCommonPrefix("abc"));
+        assertEquals("", StringUtils.getCommonPrefix(null, null));
+        assertEquals("", StringUtils.getCommonPrefix("", ""));
+        assertEquals("", StringUtils.getCommonPrefix("", null));
+        assertEquals("", StringUtils.getCommonPrefix("abc", null, null));
+        assertEquals("", StringUtils.getCommonPrefix(null, null, "abc"));
+        assertEquals("", StringUtils.getCommonPrefix("", "abc"));
+        assertEquals("", StringUtils.getCommonPrefix("abc", ""));
+        assertEquals("abc", StringUtils.getCommonPrefix("abc", "abc"));
+        assertEquals("a", StringUtils.getCommonPrefix("abc", "a"));
+        assertEquals("ab", StringUtils.getCommonPrefix("ab", "abxyz"));
+        assertEquals("ab", StringUtils.getCommonPrefix("abcde", "abxyz"));
+        assertEquals("", StringUtils.getCommonPrefix("abcde", "xyz"));
+        assertEquals("", StringUtils.getCommonPrefix("xyz", "abcde"));
+        assertEquals("i am a ", StringUtils.getCommonPrefix("i am a machine", "i am a robot"));
     }
         
     public void testStartsWithAny() {
-        assertFalse(StringUtils.startsWithAny(null, null));
-        assertFalse(StringUtils.startsWithAny(null, new String[] {"abc"}));
-        assertFalse(StringUtils.startsWithAny("abcxyz", null));
-        assertFalse(StringUtils.startsWithAny("abcxyz", new String[] {}));
-        assertTrue(StringUtils.startsWithAny("abcxyz", new String[] {"abc"}));
-        assertTrue(StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "abc"}));
-        assertFalse(StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "abcd"}));
+        assertFalse(StringUtils.startsWithAny(null, (String[])null));
+        assertFalse(StringUtils.startsWithAny(null, "abc"));
+        assertFalse(StringUtils.startsWithAny("abcxyz", (String[])null));
+        assertFalse(StringUtils.startsWithAny("abcxyz"));
+        assertTrue(StringUtils.startsWithAny("abcxyz", "abc"));
+        assertTrue(StringUtils.startsWithAny("abcxyz", null, "xyz", "abc"));
+        assertFalse(StringUtils.startsWithAny("abcxyz", null, "xyz", "abcd"));
     }
  
     public void testNormalizeSpace() {
