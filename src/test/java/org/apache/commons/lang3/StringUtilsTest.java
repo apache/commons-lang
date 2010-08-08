@@ -1329,29 +1329,32 @@ public class StringUtilsTest extends TestCase {
         assertEquals("  abc", StringUtils.leftPad("abc", 5, ""));
     }
 
+    @SuppressWarnings("deprecation")
     public void testLengthString() {
-        assertEquals(0, CharSequenceUtils.length(null));
-        assertEquals(0, CharSequenceUtils.length(""));
-        assertEquals(0, CharSequenceUtils.length(StringUtils.EMPTY));
-        assertEquals(1, CharSequenceUtils.length("A"));
-        assertEquals(1, CharSequenceUtils.length(" "));
-        assertEquals(8, CharSequenceUtils.length("ABCDEFGH"));
+        assertEquals(0, StringUtils.length(null));
+        assertEquals(0, StringUtils.length(""));
+        assertEquals(0, StringUtils.length(StringUtils.EMPTY));
+        assertEquals(1, StringUtils.length("A"));
+        assertEquals(1, StringUtils.length(" "));
+        assertEquals(8, StringUtils.length("ABCDEFGH"));
     }
 
+    @SuppressWarnings("deprecation")
     public void testLengthStringBuffer() {
-        assertEquals(0, CharSequenceUtils.length(new StringBuffer("")));
-        assertEquals(0, CharSequenceUtils.length(new StringBuffer(StringUtils.EMPTY)));
-        assertEquals(1, CharSequenceUtils.length(new StringBuffer("A")));
-        assertEquals(1, CharSequenceUtils.length(new StringBuffer(" ")));
-        assertEquals(8, CharSequenceUtils.length(new StringBuffer("ABCDEFGH")));
+        assertEquals(0, StringUtils.length(new StringBuffer("")));
+        assertEquals(0, StringUtils.length(new StringBuffer(StringUtils.EMPTY)));
+        assertEquals(1, StringUtils.length(new StringBuffer("A")));
+        assertEquals(1, StringUtils.length(new StringBuffer(" ")));
+        assertEquals(8, StringUtils.length(new StringBuffer("ABCDEFGH")));
     }
 
+    @SuppressWarnings("deprecation")
     public void testLengthStringBuilder() {
-        assertEquals(0, CharSequenceUtils.length(new StringBuilder("")));
-        assertEquals(0, CharSequenceUtils.length(new StringBuilder(StringUtils.EMPTY)));
-        assertEquals(1, CharSequenceUtils.length(new StringBuilder("A")));
-        assertEquals(1, CharSequenceUtils.length(new StringBuilder(" ")));
-        assertEquals(8, CharSequenceUtils.length(new StringBuilder("ABCDEFGH")));
+        assertEquals(0, StringUtils.length(new StringBuilder("")));
+        assertEquals(0, StringUtils.length(new StringBuilder(StringUtils.EMPTY)));
+        assertEquals(1, StringUtils.length(new StringBuilder("A")));
+        assertEquals(1, StringUtils.length(new StringBuilder(" ")));
+        assertEquals(8, StringUtils.length(new StringBuilder("ABCDEFGH")));
     }
     
     //-----------------------------------------------------------------------
@@ -1825,7 +1828,7 @@ public class StringUtilsTest extends TestCase {
         assertEquals(7, StringUtils.indexOfDifference(new String[] {"i am a machine", "i am a robot"}));
     }
     
-    public void testGetCommonPrefix_StringArray(){        
+    public void testGetCommonPrefix_StringArray(){
         assertEquals("", StringUtils.getCommonPrefix((String[])null));
         assertEquals("", StringUtils.getCommonPrefix());
         assertEquals("abc", StringUtils.getCommonPrefix("abc"));
