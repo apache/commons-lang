@@ -90,9 +90,9 @@ public class ConstructorUtilsTest extends TestCase {
 
     public void testInvokeConstructor() throws Exception {
         assertEquals("()", ConstructorUtils.invokeConstructor(TestBean.class,
-                ArrayUtils.EMPTY_CLASS_ARRAY).toString());
+                (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY).toString());
         assertEquals("()", ConstructorUtils.invokeConstructor(TestBean.class,
-                (Class[]) null).toString());
+                (Object[]) null).toString());
         assertEquals("(String)", ConstructorUtils.invokeConstructor(
                 TestBean.class, "").toString());
         assertEquals("(Object)", ConstructorUtils.invokeConstructor(
@@ -111,9 +111,9 @@ public class ConstructorUtilsTest extends TestCase {
 
     public void testInvokeExactConstructor() throws Exception {
         assertEquals("()", ConstructorUtils.invokeExactConstructor(
-                TestBean.class, ArrayUtils.EMPTY_CLASS_ARRAY).toString());
+                TestBean.class, (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY).toString());
         assertEquals("()", ConstructorUtils.invokeExactConstructor(
-                TestBean.class, (Class[]) null).toString());
+                TestBean.class, (Object[]) null).toString());
         assertEquals("(String)", ConstructorUtils.invokeExactConstructor(
                 TestBean.class, "").toString());
         assertEquals("(Object)", ConstructorUtils.invokeExactConstructor(
