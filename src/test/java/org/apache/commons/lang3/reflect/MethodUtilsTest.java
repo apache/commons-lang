@@ -115,9 +115,9 @@ public class MethodUtilsTest extends TestCase {
 
     public void testInvokeMethod() throws Exception {
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo",
-                ArrayUtils.EMPTY_CLASS_ARRAY));
+                (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo",
-                (Class[]) null));
+                (Object[]) null));
         assertEquals("foo(String)", MethodUtils.invokeMethod(testBean, "foo",
                 ""));
         assertEquals("foo(Object)", MethodUtils.invokeMethod(testBean, "foo",
@@ -136,9 +136,9 @@ public class MethodUtilsTest extends TestCase {
 
     public void testInvokeExactMethod() throws Exception {
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo",
-                ArrayUtils.EMPTY_CLASS_ARRAY));
+                (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
         assertEquals("foo()", MethodUtils.invokeMethod(testBean, "foo",
-                (Class[]) null));
+                (Object[]) null));
         assertEquals("foo(String)", MethodUtils.invokeExactMethod(testBean,
                 "foo", ""));
         assertEquals("foo(Object)", MethodUtils.invokeExactMethod(testBean,
@@ -170,9 +170,9 @@ public class MethodUtilsTest extends TestCase {
 
     public void testInvokeStaticMethod() throws Exception {
         assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class,
-                "bar", ArrayUtils.EMPTY_CLASS_ARRAY));
+                "bar", (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
         assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class,
-                "bar", (Class[]) null));
+                "bar", (Object[]) null));
         assertEquals("bar(String)", MethodUtils.invokeStaticMethod(
                 TestBean.class, "bar", ""));
         assertEquals("bar(Object)", MethodUtils.invokeStaticMethod(
@@ -191,9 +191,9 @@ public class MethodUtilsTest extends TestCase {
 
     public void testInvokeExactStaticMethod() throws Exception {
         assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class,
-                "bar", ArrayUtils.EMPTY_CLASS_ARRAY));
+                "bar", (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY));
         assertEquals("bar()", MethodUtils.invokeStaticMethod(TestBean.class,
-                "bar", (Class[]) null));
+                "bar", (Object[]) null));
         assertEquals("bar(String)", MethodUtils.invokeExactStaticMethod(
                 TestBean.class, "bar", ""));
         assertEquals("bar(Object)", MethodUtils.invokeExactStaticMethod(
