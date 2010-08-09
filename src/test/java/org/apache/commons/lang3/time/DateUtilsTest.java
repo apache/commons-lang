@@ -264,7 +264,7 @@ public class DateUtilsTest extends TestCase {
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
-            DateUtils.parseDate(dateStr, null);
+            DateUtils.parseDate(dateStr, (String[]) null);
             fail();
         } catch (IllegalArgumentException ex) {}
         try {
