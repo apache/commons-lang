@@ -765,7 +765,7 @@ public class Validate {
      */
     public static void validState(boolean expression) {
         if (expression == false) {
-            throw new IllegalArgumentException(DEFAULT_VALID_STATE_EX_MESSAGE);
+            throw new IllegalStateException(DEFAULT_VALID_STATE_EX_MESSAGE);
         }
     }
 
