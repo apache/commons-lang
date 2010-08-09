@@ -87,7 +87,6 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
      *          <code>true</code> if the objects have equivalent <code>value</code> fields;
      *          <code>false</code> otherwise.
      */
-    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -97,7 +96,7 @@ public class MutableObject<T> implements Mutable<T>, Serializable {
             return true;
         }
         if (this.getClass() == obj.getClass()) {
-            MutableObject<T> that = (MutableObject<T>) obj;
+            MutableObject<?> that = (MutableObject<?>) obj;
             return this.value.equals(that.value);
         }
         else {
