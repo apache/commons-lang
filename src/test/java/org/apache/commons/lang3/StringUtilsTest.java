@@ -192,7 +192,6 @@ public class StringUtilsTest extends TestCase {
         assertEquals("abc", StringUtils.concat("a", "b", "c"));
         assertEquals("a",   StringUtils.concat(null, "", "a"));
         assertEquals(null,  StringUtils.concat((Object[])null));
-        assertEquals(null,  StringUtils.concat((Object)null)); // varargs version
     }
 
     public void testConcatWith_StringObjects() {
@@ -201,7 +200,6 @@ public class StringUtilsTest extends TestCase {
         assertEquals("a",     StringUtils.concatWith("", null, "", "a"));
         assertEquals("a",     StringUtils.concatWith(null, null, "", "a"));
         assertEquals(null,    StringUtils.concatWith(null, (Object[])null));
-        assertEquals(null,    StringUtils.concatWith(null, (Object)null)); // varargs version
     }
 
     public void testJoin_Objectarray() {
