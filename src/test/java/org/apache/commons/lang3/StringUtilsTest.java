@@ -77,7 +77,7 @@ public class StringUtilsTest extends TestCase {
     private static final String[] EMPTY_ARRAY_LIST = {};
     private static final String[] NULL_ARRAY_LIST = {null};
     private static final String[] MIXED_ARRAY_LIST = {null, "", "foo"};
-    private static final Object[] MIXED_TYPE_LIST = {"foo", 2L};
+    private static final Object[] MIXED_TYPE_LIST = {"foo", Long.valueOf(2L)};
 
     private static final String SEPARATOR = ",";
     private static final char   SEPARATOR_CHAR = ';';
@@ -191,7 +191,8 @@ public class StringUtilsTest extends TestCase {
     public void testConcat_Objects() {
         assertEquals("abc", StringUtils.concat("a", "b", "c"));
         assertEquals("a",   StringUtils.concat(null, "", "a"));
-        assertEquals(null,  StringUtils.concat((String[])null));
+        assertEquals(null,  StringUtils.concat((Object[])null));
+        assertEquals(null,  StringUtils.concat((Object)null)); // varargs version
     }
 
     public void testConcatWith_StringObjects() {
@@ -199,7 +200,8 @@ public class StringUtilsTest extends TestCase {
         assertEquals("a...b...c", StringUtils.concatWith("...", "a", "b", "c"));
         assertEquals("a",     StringUtils.concatWith("", null, "", "a"));
         assertEquals("a",     StringUtils.concatWith(null, null, "", "a"));
-        assertEquals(null,    StringUtils.concatWith(null, (String[])null));
+        assertEquals(null,    StringUtils.concatWith(null, (Object[])null));
+        assertEquals(null,    StringUtils.concatWith(null, (Object)null)); // varargs version
     }
 
     public void testJoin_Objectarray() {
