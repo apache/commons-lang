@@ -244,7 +244,6 @@ public class ConstructorUtils {
      * @param parameterTypes find method with compatible parameters
      * @return a valid Constructor object. If there's no matching constructor, returns <code>null</code>.
      */
-    @SuppressWarnings("unchecked")
     public static <T> Constructor<T> getMatchingAccessibleConstructor(Class<T> cls,
             Class<?>... parameterTypes) {
         // see if we can find the constructor directly
@@ -263,6 +262,7 @@ public class ConstructorUtils {
             if (ClassUtils.isAssignable(parameterTypes, ctors[i]
                     .getParameterTypes(), true)) {
                 // get accessible version of method
+                @SuppressWarnings("unchecked") // TODO is this OK? If so, why?
                 Constructor<T> ctor = getAccessibleConstructor((Constructor<T>) ctors[i]);
                 if (ctor != null) {
                     MemberUtils.setAccessibleWorkaround(ctor);
