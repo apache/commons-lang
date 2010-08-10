@@ -222,17 +222,16 @@ public class ArrayUtils {
      * @throws IllegalArgumentException  if the array contains elements other
      *  than {@link java.util.Map.Entry} and an Array
      */
-    @SuppressWarnings("unchecked")
-    public static <K,V> Map<K, V> toMap(Object[] array) {
+    public static Map<Object, Object> toMap(Object[] array) {
         if (array == null) {
             return null;
         }
-        final Map<K, V> map = new HashMap<K, V>((int) (array.length * 1.5));
+        final Map<Object, Object> map = new HashMap<Object, Object>((int) (array.length * 1.5));
         for (int i = 0; i < array.length; i++) {
             Object object = array[i];
             if (object instanceof Map.Entry<?, ?>) {
                 Map.Entry<?,?> entry = (Map.Entry<?,?>) object;
-                map.put((K)entry.getKey(), (V)entry.getValue());
+                map.put(entry.getKey(), entry.getValue());
             } else if (object instanceof Object[]) {
                 Object[] entry = (Object[]) object;
                 if (entry.length < 2) {
@@ -240,7 +239,7 @@ public class ArrayUtils {
                         + object
                         + "', has a length less than 2");
                 }
-                map.put((K)entry[0], (V)entry[1]);
+                map.put(entry[0], entry[1]);
             } else {
                 throw new IllegalArgumentException("Array element " + i + ", '"
                         + object
