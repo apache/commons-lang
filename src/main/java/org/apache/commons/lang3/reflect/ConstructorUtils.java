@@ -268,8 +268,8 @@ public class ConstructorUtils {
          * Class.getConstructors() is documented to return Constructor<T> so as
          * long as the array is not subsequently modified, everything's fine:
          */
-        @SuppressWarnings("unchecked")
-        Constructor<T>[] ctors = (Constructor<T>[]) cls.getConstructors();
+        @SuppressWarnings("unchecked") // cls is of type T
+        Constructor<T>[] ctors = cls.getConstructors();
 
         // return best match:
         for (Constructor<T> ctor : ctors) {
