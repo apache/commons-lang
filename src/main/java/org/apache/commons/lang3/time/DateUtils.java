@@ -629,6 +629,7 @@ public class DateUtils {
      * @param date the date to convert to a Calendar
      * @return the created Calendar
      * @throws NullPointerException if null is passed in
+     * @since 3.0
      */
     public static Calendar toCalendar(Date date) {
         Calendar c = Calendar.getInstance();
