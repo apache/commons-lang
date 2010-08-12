@@ -265,14 +265,13 @@ public class ConstructorUtils {
         }
         Constructor<T> result = null;
         /*
-         * Class.getConstructors() is documented to return Constructor<T> so as
-         * long as the array is not subsequently modified, everything's fine:
+         * (1) Class.getConstructors() is documented to return Constructor<T> so as
+         * long as the array is not subsequently modified, everything's fine.
          */
-        @SuppressWarnings("unchecked") // cls is of type T
-        Constructor<T>[] ctors = cls.getConstructors();
+        Constructor<?>[] ctors = cls.getConstructors();
 
         // return best match:
-        for (Constructor<T> ctor : ctors) {
+        for (Constructor<?> ctor : ctors) {
             // compare parameters
             if (ClassUtils.isAssignable(parameterTypes, ctor.getParameterTypes(), true)) {
                 // get accessible version of constructor
@@ -282,7 +281,10 @@ public class ConstructorUtils {
                     if (result == null
                             || MemberUtils.compareParameterTypes(ctor.getParameterTypes(), result
                                     .getParameterTypes(), parameterTypes) < 0) {
-                        result = ctor;
+                        // temporary variable for annotation, see comment above (1)
+                        @SuppressWarnings("unchecked") 
+                        Constructor<T> constructor = (Constructor<T>)ctor;
+                        result = constructor;
                     }
                 }
             }
