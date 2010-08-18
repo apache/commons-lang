@@ -17,6 +17,7 @@
 
 package org.apache.commons.lang3.event;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -67,6 +68,11 @@ public class EventListenerSupport<L>
      * object will sent to all registered listeners.
      */
     private final L proxy;
+
+    /**
+     * Empty typed array for #getListeners().
+     */
+    private final L[] prototypeArray;
 
     /**
      * Creates an EventListenerSupport object which supports the specified 
@@ -128,6 +134,9 @@ public class EventListenerSupport<L>
         proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader, 
                 new Class[]{listenerInterface},
                 new ProxyInvocationHandler()));
+        @SuppressWarnings("unchecked")
+        final L[] prototypeArray = (L[]) Array.newInstance(listenerInterface, 0);
+        this.prototypeArray = prototypeArray;
     }
 
     /**
@@ -183,6 +192,16 @@ public class EventListenerSupport<L>
     {
         Validate.notNull(listener, "Listener object cannot be null.");
         listeners.remove(listener);
+    }
+
+    /**
+     * Get an array containing the currently registered listeners.
+     * Modification to this array's elements will have no effect on the
+     * {@link EventListenerSupport} instance.
+     * @return L[]
+     */
+    public L[] getListeners() {
+        return listeners.toArray(prototypeArray);
     }
 
     /**

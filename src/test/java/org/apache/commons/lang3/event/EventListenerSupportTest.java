@@ -24,6 +24,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.easymock.EasyMock;
+
 /**
  * @since 3.0
  * @version $Id$
@@ -109,6 +111,28 @@ public class EventListenerSupportTest extends TestCase
         assertEquals(listenerSupport.getListenerCount(), 10);
         listenerSupport.fire().actionPerformed(new ActionEvent("Hello", 0, "Hello"));
         assertEquals(listenerSupport.getListenerCount(), 0);
+    }
+
+    public void testGetListeners() {
+        final EventListenerSupport<ActionListener> listenerSupport = EventListenerSupport.create(ActionListener.class);
+
+        ActionListener[] listeners = listenerSupport.getListeners();
+        assertEquals(0, listeners.length);
+        ActionListener[] empty = listeners;
+        //for fun, show that the same empty instance is used 
+        assertSame(empty, listenerSupport.getListeners());
+
+        ActionListener listener1 = EasyMock.createNiceMock(ActionListener.class);
+        listenerSupport.addListener(listener1);
+        assertEquals(1, listenerSupport.getListeners().length);
+        assertEquals(ActionListener.class, listenerSupport.getListeners().getClass().getComponentType());
+        ActionListener listener2 = EasyMock.createNiceMock(ActionListener.class);
+        listenerSupport.addListener(listener2);
+        assertEquals(2, listenerSupport.getListeners().length);
+        listenerSupport.removeListener(listener1);
+        assertEquals(1, listenerSupport.getListeners().length);
+        listenerSupport.removeListener(listener2);
+        assertSame(empty, listenerSupport.getListeners());
     }
 
     private void addDeregisterListener(final EventListenerSupport<ActionListener> listenerSupport)
