@@ -219,17 +219,6 @@ public class EventListenerSupport<L> implements Serializable
     }
 
     /**
-     * Create the proxy object.
-     * @param listenerInterface
-     * @param classLoader
-     */
-    private void createProxy(Class<L> listenerInterface, ClassLoader classLoader) {
-        proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader, 
-                new Class[]{listenerInterface},
-                new ProxyInvocationHandler()));
-    }
-
-    /**
      * Serialize.
      * @param objectOutputStream
      * @throws IOException
@@ -279,16 +268,35 @@ public class EventListenerSupport<L> implements Serializable
      * @param classLoader
      */
     private void initializeTransientFields(Class<L> listenerInterface, ClassLoader classLoader) {
-        createProxy(listenerInterface, classLoader);
         @SuppressWarnings("unchecked")
         L[] array = (L[]) Array.newInstance(listenerInterface, 0);
         this.prototypeArray = array;
+        createProxy(listenerInterface, classLoader);
+    }
+
+    /**
+     * Create the proxy object.
+     * @param listenerInterface
+     * @param classLoader
+     */
+    private void createProxy(Class<L> listenerInterface, ClassLoader classLoader) {
+        proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader,
+                new Class[] { listenerInterface }, createInvocationHandler()));
+    }
+
+    /**
+     * Create the {@link InvocationHandler} responsible for broadcasting calls
+     * to the managed listeners.  Subclasses can override to provide custom behavior.
+     * @return ProxyInvocationHandler
+     */
+    protected InvocationHandler createInvocationHandler() {
+        return new ProxyInvocationHandler();
     }
 
     /**
      * An invocation handler used to dispatch the event(s) to all the listeners.
      */
-    private class ProxyInvocationHandler implements InvocationHandler
+    protected class ProxyInvocationHandler implements InvocationHandler
     {
         /** Serialization version */
         private static final long serialVersionUID = 1L;

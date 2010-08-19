@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -178,6 +179,39 @@ public class EventListenerSupportTest extends TestCase
         //remove listener and verify we get an empty array of listeners
         deserializedListenerSupport.removeListener(listener);
         assertEquals(0, deserializedListenerSupport.getListeners().length);
+    }
+
+    public void testSubclassInvocationHandling() {
+
+        @SuppressWarnings("serial")
+        EventListenerSupport<ActionListener> eventListenerSupport = new EventListenerSupport<ActionListener>(
+                ActionListener.class) {
+            protected java.lang.reflect.InvocationHandler createInvocationHandler() {
+                return new ProxyInvocationHandler() {
+                    /**
+                     * {@inheritDoc}
+                     */
+                    @Override
+                    public Object invoke(Object proxy, Method method, Object[] args)
+                            throws Throwable {
+                        return "actionPerformed".equals(method.getName())
+                                && "ignore".equals(((ActionEvent) args[0]).getActionCommand()) ? null
+                                : super.invoke(proxy, method, args);
+                    }
+                };
+            };
+        };
+
+        ActionListener listener = EasyMock.createNiceMock(ActionListener.class);
+        eventListenerSupport.addListener(listener);
+        Object source = new Object();
+        ActionEvent ignore = new ActionEvent(source, 0, "ignore");
+        ActionEvent respond = new ActionEvent(source, 1, "respond");
+        listener.actionPerformed(respond);
+        EasyMock.replay(listener);
+        eventListenerSupport.fire().actionPerformed(ignore);
+        eventListenerSupport.fire().actionPerformed(respond);
+        EasyMock.verify(listener);
     }
 
     private void addDeregisterListener(final EventListenerSupport<ActionListener> listenerSupport)
