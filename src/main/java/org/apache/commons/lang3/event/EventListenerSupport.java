@@ -309,7 +309,7 @@ public class EventListenerSupport<L> implements Serializable
          *        invocation was called.
          * @param method the listener method that will be called on all of the
          *        listeners.
-         * @param args event arguments to propogate to the listeners.
+         * @param args event arguments to propagate to the listeners.
          */
         public Object invoke(Object proxy, Method method, Object[] args) 
             throws Throwable
