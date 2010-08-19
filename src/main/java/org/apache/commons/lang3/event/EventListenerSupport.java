@@ -17,10 +17,16 @@
 
 package org.apache.commons.lang3.event;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -49,30 +55,36 @@ import org.apache.commons.lang3.Validate;
  * }
  * </pre></code>
  *
+ * Serializing an {@link EventListenerSupport} instance will result in any
+ * non-{@link Serializable} listeners being silently dropped.
+ *
  * @param <L> the type of event listener that is supported by this proxy.
  *
  * @since 3.0
  * @version $Id$
  */
-public class EventListenerSupport<L>
+public class EventListenerSupport<L> implements Serializable
 {
+    /** Serialization version */
+    private static final long serialVersionUID = 3593265990380473632L;
+
     /**
-    * The list used to hold the registered listeners. This list is 
-    * intentionally a thread-safe copy-on-write-array so that traversals over
-    * the list of listeners will be atomic.
-    */
-    private final List<L> listeners = new CopyOnWriteArrayList<L>();
-    
+     * The list used to hold the registered listeners. This list is 
+     * intentionally a thread-safe copy-on-write-array so that traversals over
+     * the list of listeners will be atomic.
+     */
+    private List<L> listeners = new CopyOnWriteArrayList<L>();
+
     /**
      * The proxy representing the collection of listeners. Calls to this proxy 
      * object will sent to all registered listeners.
      */
-    private final L proxy;
+    private transient L proxy;
 
     /**
      * Empty typed array for #getListeners().
      */
-    private final L[] prototypeArray;
+    private transient L[] prototypeArray;
 
     /**
      * Creates an EventListenerSupport object which supports the specified 
@@ -126,17 +138,19 @@ public class EventListenerSupport<L>
      */
     public EventListenerSupport(Class<L> listenerInterface, ClassLoader classLoader)
     {
+        this();
         Validate.notNull(listenerInterface, "Listener interface cannot be null.");
         Validate.notNull(classLoader, "ClassLoader cannot be null.");
-        Validate.isTrue(listenerInterface.isInterface(), 
-            "Class {0} is not an interface", 
-            listenerInterface.getName());
-        proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader, 
-                new Class[]{listenerInterface},
-                new ProxyInvocationHandler()));
-        @SuppressWarnings("unchecked")
-        final L[] prototypeArray = (L[]) Array.newInstance(listenerInterface, 0);
-        this.prototypeArray = prototypeArray;
+        Validate.isTrue(listenerInterface.isInterface(), "Class {0} is not an interface",
+                listenerInterface.getName());
+        initializeTransientFields(listenerInterface, classLoader);
+    }
+
+    /**
+     * Create a new EventListenerSupport instance.
+     * Serialization-friendly constructor.
+     */
+    private EventListenerSupport() {
     }
 
     /**
@@ -205,10 +219,80 @@ public class EventListenerSupport<L>
     }
 
     /**
+     * Create the proxy object.
+     * @param listenerInterface
+     * @param classLoader
+     */
+    private void createProxy(Class<L> listenerInterface, ClassLoader classLoader) {
+        proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader, 
+                new Class[]{listenerInterface},
+                new ProxyInvocationHandler()));
+    }
+
+    /**
+     * Serialize.
+     * @param objectOutputStream
+     * @throws IOException
+     */
+    private void writeObject(ObjectOutputStream objectOutputStream) throws IOException {
+        ArrayList<L> serializableListeners = new ArrayList<L>();
+
+        // don't just rely on instanceof Serializable:
+        ObjectOutputStream testObjectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
+        for (L listener : listeners) {
+            try {
+                testObjectOutputStream.writeObject(listener);
+                serializableListeners.add(listener);
+            } catch (IOException exception) {
+                //recreate test stream in case of indeterminate state
+                testObjectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
+            }
+        }
+        /*
+         * we can reconstitute everything we need from an array of our listeners,
+         * which has the additional advantage of typically requiring less storage than a list:
+         */
+        objectOutputStream.writeObject(serializableListeners.toArray(prototypeArray));
+    }
+
+    /**
+     * Deserialize.
+     * @param objectInputStream
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private void readObject(ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
+        @SuppressWarnings("unchecked")
+        L[] listeners = (L[]) objectInputStream.readObject();
+
+        this.listeners = new CopyOnWriteArrayList<L>(listeners);
+
+        @SuppressWarnings("unchecked")
+        Class<L> listenerInterface = (Class<L>) listeners.getClass().getComponentType();
+
+        initializeTransientFields(listenerInterface, Thread.currentThread().getContextClassLoader());
+    }
+
+    /**
+     * Initialize transient fields.
+     * @param listenerInterface
+     * @param classLoader
+     */
+    private void initializeTransientFields(Class<L> listenerInterface, ClassLoader classLoader) {
+        createProxy(listenerInterface, classLoader);
+        @SuppressWarnings("unchecked")
+        L[] array = (L[]) Array.newInstance(listenerInterface, 0);
+        this.prototypeArray = array;
+    }
+
+    /**
      * An invocation handler used to dispatch the event(s) to all the listeners.
      */
     private class ProxyInvocationHandler implements InvocationHandler
     {
+        /** Serialization version */
+        private static final long serialVersionUID = 1L;
+
         /**
          * Propagates the method call to all registered listeners in place of
          * the proxy listener object.
