@@ -21,6 +21,12 @@ import junit.framework.TestCase;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,6 +124,7 @@ public class EventListenerSupportTest extends TestCase
 
         ActionListener[] listeners = listenerSupport.getListeners();
         assertEquals(0, listeners.length);
+        assertEquals(ActionListener.class, listeners.getClass().getComponentType());
         ActionListener[] empty = listeners;
         //for fun, show that the same empty instance is used 
         assertSame(empty, listenerSupport.getListeners());
@@ -125,7 +132,6 @@ public class EventListenerSupportTest extends TestCase
         ActionListener listener1 = EasyMock.createNiceMock(ActionListener.class);
         listenerSupport.addListener(listener1);
         assertEquals(1, listenerSupport.getListeners().length);
-        assertEquals(ActionListener.class, listenerSupport.getListeners().getClass().getComponentType());
         ActionListener listener2 = EasyMock.createNiceMock(ActionListener.class);
         listenerSupport.addListener(listener2);
         assertEquals(2, listenerSupport.getListeners().length);
@@ -133,6 +139,45 @@ public class EventListenerSupportTest extends TestCase
         assertEquals(1, listenerSupport.getListeners().length);
         listenerSupport.removeListener(listener2);
         assertSame(empty, listenerSupport.getListeners());
+    }
+
+    public void testSerialization() throws IOException, ClassNotFoundException {
+        EventListenerSupport<ActionListener> listenerSupport = EventListenerSupport.create(ActionListener.class);
+        listenerSupport.addListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+        listenerSupport.addListener(EasyMock.createNiceMock(ActionListener.class));
+
+        //serialize:
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+
+        objectOutputStream.writeObject(listenerSupport);
+        objectOutputStream.close();
+
+        //deserialize:
+        @SuppressWarnings("unchecked")
+        EventListenerSupport<ActionListener> deserializedListenerSupport = (EventListenerSupport<ActionListener>) new ObjectInputStream(
+                new ByteArrayInputStream(outputStream.toByteArray())).readObject();
+
+        //make sure we get a listener array back, of the correct component type, and that it contains only the serializable mock
+        ActionListener[] listeners = deserializedListenerSupport.getListeners();
+        assertEquals(ActionListener.class, listeners.getClass().getComponentType());
+        assertEquals(1, listeners.length);
+
+        //now verify that the mock still receives events; we can infer that the proxy was correctly reconstituted
+        ActionListener listener = listeners[0];
+        ActionEvent evt = new ActionEvent(new Object(), 666, "sit");
+        listener.actionPerformed(evt);
+        EasyMock.replay(listener);
+        deserializedListenerSupport.fire().actionPerformed(evt);
+        EasyMock.verify(listener);
+
+        //remove listener and verify we get an empty array of listeners
+        deserializedListenerSupport.removeListener(listener);
+        assertEquals(0, deserializedListenerSupport.getListeners().length);
     }
 
     private void addDeregisterListener(final EventListenerSupport<ActionListener> listenerSupport)
