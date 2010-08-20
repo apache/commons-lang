@@ -286,6 +286,37 @@ public class MultiBackgroundInitializerTest {
     }
 
     /**
+     * Tests the isSuccessful() method of the result object if no child
+     * initializer has thrown an exception.
+     */
+    @Test
+    public void testInitializeResultsIsSuccessfulTrue()
+            throws ConcurrentException {
+        ChildBackgroundInitializer child = new ChildBackgroundInitializer();
+        initializer.addInitializer(CHILD_INIT, child);
+        initializer.start();
+        MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
+                .get();
+        assertTrue("Wrong success flag", res.isSuccessful());
+    }
+
+    /**
+     * Tests the isSuccessful() method of the result object if at least one
+     * child initializer has thrown an exception.
+     */
+    @Test
+    public void testInitializeResultsIsSuccessfulFalse()
+            throws ConcurrentException {
+        ChildBackgroundInitializer child = new ChildBackgroundInitializer();
+        child.ex = new Exception();
+        initializer.addInitializer(CHILD_INIT, child);
+        initializer.start();
+        MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
+                .get();
+        assertFalse("Wrong success flag", res.isSuccessful());
+    }
+
+    /**
      * Tests whether MultiBackgroundInitializers can be combined in a nested
      * way.
      */
