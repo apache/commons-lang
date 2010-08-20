@@ -16,28 +16,34 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Test class for {@link MultiBackgroundInitializer}.
  *
  * @version $Id$
  */
-public class MultiBackgroundInitializerTest extends TestCase {
+public class MultiBackgroundInitializerTest {
     /** Constant for the names of the child initializers. */
     private static final String CHILD_INIT = "childInitializer";
 
     /** The initializer to be tested. */
     private MultiBackgroundInitializer initializer;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         initializer = new MultiBackgroundInitializer();
     }
 
@@ -66,31 +72,24 @@ public class MultiBackgroundInitializerTest extends TestCase {
      * Tests addInitializer() if a null name is passed in. This should cause an
      * exception.
      */
+    @Test(expected = IllegalArgumentException.class)
     public void testAddInitializerNullName() {
-        try {
-            initializer.addInitializer(null, new ChildBackgroundInitializer());
-            fail("Null name not detected!");
-        } catch (IllegalArgumentException iex) {
-            // ok
-        }
+        initializer.addInitializer(null, new ChildBackgroundInitializer());
     }
 
     /**
      * Tests addInitializer() if a null initializer is passed in. This should
      * cause an exception.
      */
+    @Test(expected = IllegalArgumentException.class)
     public void testAddInitializerNullInit() {
-        try {
-            initializer.addInitializer(CHILD_INIT, null);
-            fail("Could add null initializer!");
-        } catch (IllegalArgumentException iex) {
-            // ok
-        }
+        initializer.addInitializer(CHILD_INIT, null);
     }
 
     /**
      * Tests the background processing if there are no child initializers.
      */
+    @Test
     public void testInitializeNoChildren() throws ConcurrentException {
         assertTrue("Wrong result of start()", initializer.start());
         MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
@@ -134,6 +133,7 @@ public class MultiBackgroundInitializerTest extends TestCase {
     /**
      * Tests background processing if a temporary executor is used.
      */
+    @Test
     public void testInitializeTempExec() throws ConcurrentException {
         checkInitialize();
         assertTrue("Executor not shutdown", initializer.getActiveExecutor()
@@ -143,6 +143,7 @@ public class MultiBackgroundInitializerTest extends TestCase {
     /**
      * Tests background processing if an external executor service is provided.
      */
+    @Test
     public void testInitializeExternalExec() throws ConcurrentException {
         ExecutorService exec = Executors.newCachedThreadPool();
         try {
@@ -160,6 +161,7 @@ public class MultiBackgroundInitializerTest extends TestCase {
      * Tests the behavior of initialize() if a child initializer has a specific
      * executor service. Then this service should not be overridden.
      */
+    @Test
     public void testInitializeChildWithExecutor() throws ConcurrentException {
         final String initExec = "childInitializerWithExecutor";
         ExecutorService exec = Executors.newSingleThreadExecutor();
@@ -182,6 +184,7 @@ public class MultiBackgroundInitializerTest extends TestCase {
      * Tries to add another child initializer after the start() method has been
      * called. This should not be allowed.
      */
+    @Test
     public void testAddInitializerAfterStart() throws ConcurrentException {
         initializer.start();
         try {
@@ -197,79 +200,60 @@ public class MultiBackgroundInitializerTest extends TestCase {
      * Tries to query an unknown child initializer from the results object. This
      * should cause an exception.
      */
+    @Test(expected = NoSuchElementException.class)
     public void testResultGetInitializerUnknown() throws ConcurrentException {
         MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
-        try {
-            res.getInitializer("unknown");
-            fail("Could obtain unknown child initializer!");
-        } catch (NoSuchElementException nex) {
-            // ok
-        }
+        res.getInitializer("unknown");
     }
 
     /**
      * Tries to query the results of an unknown child initializer from the
      * results object. This should cause an exception.
      */
+    @Test(expected = NoSuchElementException.class)
     public void testResultGetResultObjectUnknown() throws ConcurrentException {
         MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
-        try {
-            res.getResultObject("unknown");
-            fail("Could obtain results from unknown child initializer!");
-        } catch (NoSuchElementException nex) {
-            // ok
-        }
+        res.getResultObject("unknown");
     }
 
     /**
      * Tries to query the exception of an unknown child initializer from the
      * results object. This should cause an exception.
      */
+    @Test(expected = NoSuchElementException.class)
     public void testResultGetExceptionUnknown() throws ConcurrentException {
         MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
-        try {
-            res.getException("unknown");
-            fail("Could obtain exception from unknown child initializer!");
-        } catch (NoSuchElementException nex) {
-            // ok
-        }
+        res.getException("unknown");
     }
 
     /**
      * Tries to query the exception flag of an unknown child initializer from
      * the results object. This should cause an exception.
      */
+    @Test(expected = NoSuchElementException.class)
     public void testResultIsExceptionUnknown() throws ConcurrentException {
         MultiBackgroundInitializer.MultiBackgroundInitializerResults res = checkInitialize();
-        try {
-            res.isException("unknown");
-            fail("Could obtain exception status from unknown child initializer!");
-        } catch (NoSuchElementException nex) {
-            // ok
-        }
+        res.isException("unknown");
     }
 
     /**
      * Tests that the set with the names of the initializers cannot be modified.
      */
+    @Test(expected = UnsupportedOperationException.class)
     public void testResultInitializerNamesModify() throws ConcurrentException {
         checkInitialize();
         MultiBackgroundInitializer.MultiBackgroundInitializerResults res = initializer
                 .get();
         Iterator<String> it = res.initializerNames().iterator();
         it.next();
-        try {
-            it.remove();
-            fail("Could modify set with initializer names!");
-        } catch (UnsupportedOperationException uex) {
-            // ok
-        }
+        it.remove();
     }
 
     /**
      * Tests the behavior of the initializer if one of the child initializers
      * throws a runtime exception.
      */
+    @Test
     public void testInitializeRuntimeEx() {
         ChildBackgroundInitializer child = new ChildBackgroundInitializer();
         child.ex = new RuntimeException();
@@ -287,6 +271,7 @@ public class MultiBackgroundInitializerTest extends TestCase {
      * Tests the behavior of the initializer if one of the child initializers
      * throws a checked exception.
      */
+    @Test
     public void testInitializeEx() throws ConcurrentException {
         ChildBackgroundInitializer child = new ChildBackgroundInitializer();
         child.ex = new Exception();
@@ -304,6 +289,7 @@ public class MultiBackgroundInitializerTest extends TestCase {
      * Tests whether MultiBackgroundInitializers can be combined in a nested
      * way.
      */
+    @Test
     public void testInitializeNested() throws ConcurrentException {
         final String nameMulti = "multiChildInitializer";
         initializer
