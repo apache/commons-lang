@@ -319,6 +319,16 @@ public class MultiBackgroundInitializer
         }
 
         /**
+         * Returns a flag whether the whole initialization was successful. This
+         * is the case if no child initializer has thrown an exception.
+         *
+         * @return a flag whether the initialization was successful
+         */
+        public boolean isSuccessful() {
+            return exceptions.isEmpty();
+        }
+
+        /**
          * Checks whether an initializer with the given name exists. If not,
          * throws an exception. If it exists, the associated child initializer
          * is returned.
