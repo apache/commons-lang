@@ -1329,7 +1329,6 @@ public class StringUtilsTest extends TestCase {
         assertEquals("  abc", StringUtils.leftPad("abc", 5, ""));
     }
 
-    @SuppressWarnings("deprecation")
     public void testLengthString() {
         assertEquals(0, StringUtils.length(null));
         assertEquals(0, StringUtils.length(""));
@@ -1339,7 +1338,6 @@ public class StringUtilsTest extends TestCase {
         assertEquals(8, StringUtils.length("ABCDEFGH"));
     }
 
-    @SuppressWarnings("deprecation")
     public void testLengthStringBuffer() {
         assertEquals(0, StringUtils.length(new StringBuffer("")));
         assertEquals(0, StringUtils.length(new StringBuffer(StringUtils.EMPTY)));
@@ -1348,7 +1346,6 @@ public class StringUtilsTest extends TestCase {
         assertEquals(8, StringUtils.length(new StringBuffer("ABCDEFGH")));
     }
 
-    @SuppressWarnings("deprecation")
     public void testLengthStringBuilder() {
         assertEquals(0, StringUtils.length(new StringBuilder("")));
         assertEquals(0, StringUtils.length(new StringBuilder(StringUtils.EMPTY)));
@@ -1357,6 +1354,13 @@ public class StringUtilsTest extends TestCase {
         assertEquals(8, StringUtils.length(new StringBuilder("ABCDEFGH")));
     }
     
+    public void testLength_CharBuffer() {
+        assertEquals(0, StringUtils.length(CharBuffer.wrap("")));
+        assertEquals(1, StringUtils.length(CharBuffer.wrap("A")));
+        assertEquals(1, StringUtils.length(CharBuffer.wrap(" ")));
+        assertEquals(8, StringUtils.length(CharBuffer.wrap("ABCDEFGH")));
+    }
+
     //-----------------------------------------------------------------------
     public void testCenter_StringInt() {
         assertEquals(null, StringUtils.center(null, -1));

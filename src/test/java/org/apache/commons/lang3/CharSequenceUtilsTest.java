@@ -29,35 +29,6 @@ import junit.framework.TestCase;
  */
 public class CharSequenceUtilsTest extends TestCase {
 
-    public void testLength_CharBuffer() {
-        Assert.assertEquals(0, CharSequenceUtils.length(CharBuffer.wrap("")));
-        Assert.assertEquals(1, CharSequenceUtils.length(CharBuffer.wrap("A")));
-        Assert.assertEquals(1, CharSequenceUtils.length(CharBuffer.wrap(" ")));
-        Assert.assertEquals(8, CharSequenceUtils.length(CharBuffer.wrap("ABCDEFGH")));
-    }
-
-    public void testLength_String() {
-        Assert.assertEquals(0, CharSequenceUtils.length(null));
-        Assert.assertEquals(0, CharSequenceUtils.length(""));
-        Assert.assertEquals(1, CharSequenceUtils.length("A"));
-        Assert.assertEquals(1, CharSequenceUtils.length(" "));
-        Assert.assertEquals(8, CharSequenceUtils.length("ABCDEFGH"));
-    }
-
-    public void testLength_StringBuffer() {
-        Assert.assertEquals(0, CharSequenceUtils.length(new StringBuffer("")));
-        Assert.assertEquals(1, CharSequenceUtils.length(new StringBuffer("A")));
-        Assert.assertEquals(1, CharSequenceUtils.length(new StringBuffer(" ")));
-        Assert.assertEquals(8, CharSequenceUtils.length(new StringBuffer("ABCDEFGH")));
-    }
-
-    public void testLength_StringBuilder() {
-        Assert.assertEquals(0, CharSequenceUtils.length(new StringBuilder("")));
-        Assert.assertEquals(1, CharSequenceUtils.length(new StringBuilder("A")));
-        Assert.assertEquals(1, CharSequenceUtils.length(new StringBuilder(" ")));
-        Assert.assertEquals(8, CharSequenceUtils.length(new StringBuilder("ABCDEFGH")));
-    }
-
     public void testSubSequence() {
         //
         // null input

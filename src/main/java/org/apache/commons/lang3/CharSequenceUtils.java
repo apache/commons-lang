@@ -25,20 +25,6 @@ package org.apache.commons.lang3;
 public class CharSequenceUtils {
 
     /**
-     * Gets a CharSequence length or <code>0</code> if the CharSequence is
-     * <code>null</code>.
-     *
-     * @param cs
-     *            a CharSequence or <code>null</code>
-     * @return CharSequence length or <code>0</code> if the CharSequence is
-     *         <code>null</code>.
-     * @since 3.0
-     */
-    public static int length(CharSequence cs) {
-        return cs == null ? 0 : cs.length();
-    }
-
-    /**
      * Returns a new <code>CharSequence</code> that is a subsequence of this
      * sequence starting with the <code>char</code> value at the specified
      * index. The length (in <code>char</code>s) of the returned sequence is

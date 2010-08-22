@@ -4755,12 +4755,10 @@ public class StringUtils {
      * @return CharSequence length or <code>0</code> if the CharSequence is
      *         <code>null</code>.
      * @since 2.4
-     * @deprecated See {@link CharSequenceUtils#length(CharSequence)}
      * @since 3.0 Changed signature from length(String) to length(CharSequence)
      */
-    @Deprecated
     public static int length(CharSequence cs) {
-        return CharSequenceUtils.length(cs);
+        return cs == null ? 0 : cs.length();
     }
 
     // Centering
