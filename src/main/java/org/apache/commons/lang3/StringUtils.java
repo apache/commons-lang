@@ -2016,7 +2016,7 @@ public class StringUtils {
      *
      * <p>If <code>len</code> characters are not available, or the
      * String is <code>null</code>, the String will be returned without
-     * an exception. An exception is thrown if len is negative.</p>
+     * an exception. An empty String is returned if len is negative.</p>
      *
      * <pre>
      * StringUtils.left(null, *)    = null
@@ -2049,7 +2049,7 @@ public class StringUtils {
      *
      * <p>If <code>len</code> characters are not available, or the String
      * is <code>null</code>, the String will be returned without an
-     * an exception. An exception is thrown if len is negative.</p>
+     * an exception. An empty String is returned if len is negative.</p>
      *
      * <pre>
      * StringUtils.right(null, *)    = null
@@ -2083,7 +2083,7 @@ public class StringUtils {
      * <p>If <code>len</code> characters are not available, the remainder
      * of the String will be returned without an exception. If the
      * String is <code>null</code>, <code>null</code> will be returned.
-     * An exception is thrown if len is negative.</p>
+     * An empty String is returned if len is negative.</p>
      *
      * <pre>
      * StringUtils.mid(null, *, *)    = null
