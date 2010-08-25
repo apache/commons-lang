@@ -369,6 +369,7 @@ public class SerializationUtilsTest extends TestCase {
 
 }
 
+@SuppressWarnings("serial")
 class ClassNotFoundSerialization implements Serializable
 {
 
