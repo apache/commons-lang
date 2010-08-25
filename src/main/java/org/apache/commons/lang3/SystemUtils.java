@@ -1174,7 +1174,7 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Is <code>true</code> if this is a POSIX compilant system, as in any of AIX, HP-UX, Irix, Linux, MacOSX, Solaris or SUN OS.
+     * Is <code>true</code> if this is a UNIX like system, as in any of AIX, HP-UX, Irix, Linux, MacOSX, Solaris or SUN OS.
      * </p>
      * 
      * <p>
