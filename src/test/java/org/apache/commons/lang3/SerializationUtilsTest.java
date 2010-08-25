@@ -340,7 +340,7 @@ public class SerializationUtilsTest extends TestCase {
     //-----------------------------------------------------------------------
 
     public void testClone() throws Exception {
-        Object test = SerializationUtils.clone(iMap);
+        HashMap<?, ?> test = SerializationUtils.clone(iMap);
         assertNotNull(test);
         assertTrue(test instanceof HashMap<?,?>);
         assertTrue(test != iMap);

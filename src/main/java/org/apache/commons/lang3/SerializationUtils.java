@@ -77,8 +77,9 @@ public class SerializationUtils {
      * @return the cloned object
      * @throws SerializationException (runtime) if the serialization fails
      */
-    public static Object clone(Serializable object) {
-        return deserialize(serialize(object));
+    @SuppressWarnings("unchecked")
+    public static <T extends Serializable> T clone(T object) {
+        return (T) deserialize(serialize(object));
     }
     
     // Serialize
