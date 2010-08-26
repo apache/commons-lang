@@ -2083,7 +2083,8 @@ public class StringUtils {
      * <p>If <code>len</code> characters are not available, the remainder
      * of the String will be returned without an exception. If the
      * String is <code>null</code>, <code>null</code> will be returned.
-     * An empty String is returned if len is negative.</p>
+     * An empty String is returned if len is negative or exceeds the
+     * length of <code>str</code>.</p>
      *
      * <pre>
      * StringUtils.mid(null, *, *)    = null
