@@ -17,8 +17,11 @@
 package org.apache.commons.lang3.text;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Substitutes variables within a string by values.
@@ -150,6 +153,30 @@ public class StrSubstitutor {
         return new StrSubstitutor(valueMap, prefix, suffix).replace(source);
     }
 
+    /**
+     * Replaces all the occurrences of variables in the given source object with their matching
+     * values from the properties.
+     * 
+     * @param source the source text containing the variables to substitute, null returns null
+     * @param properties the properties with values, may be null
+     * @return the result of the replace operation
+     */
+    public static String replace(Object source, Properties valueProperties)
+    {
+        if (valueProperties == null) {
+            return source.toString();
+        }
+        Map<String,String> valueMap = new HashMap<String,String>();
+        Enumeration<?> propNames = valueProperties.propertyNames();
+        while (propNames.hasMoreElements())
+        {
+            String propName = (String)propNames.nextElement();
+            String propValue = valueProperties.getProperty(propName);
+            valueMap.put(propName, propValue);
+        }
+        return StrSubstitutor.replace(source, valueMap);
+    }
+    
     /**
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the system properties.
