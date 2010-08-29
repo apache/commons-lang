@@ -2028,7 +2028,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the String to get the leftmost characters from, may be null
-     * @param len  the length of the required String, must be zero or positive
+     * @param len  the length of the required String
      * @return the leftmost characters, <code>null</code> if null String input
      */
     public static String left(String str, int len) {
@@ -2061,7 +2061,7 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the String to get the rightmost characters from, may be null
-     * @param len  the length of the required String, must be zero or positive
+     * @param len  the length of the required String
      * @return the rightmost characters, <code>null</code> if null String input
      */
     public static String right(String str, int len) {
@@ -2099,7 +2099,7 @@ public class StringUtils {
      *
      * @param str  the String to get the characters from, may be null
      * @param pos  the position to start from, negative treated as zero
-     * @param len  the length of the required String, must be zero or positive
+     * @param len  the length of the required String
      * @return the middle characters, <code>null</code> if null String input
      */
     public static String mid(String str, int pos, int len) {
