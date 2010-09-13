@@ -415,7 +415,7 @@ public class AnnotationUtilsTest {
 
     @Test
     public void testBothArgsNull() {
-        assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), null));
+        assertTrue(AnnotationUtils.equals(null, null));
     }
 
     @Test
