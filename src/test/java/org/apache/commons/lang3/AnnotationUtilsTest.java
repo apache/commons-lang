@@ -391,6 +391,7 @@ public class AnnotationUtilsTest {
     @Test
     public void testEquivalence() {
         assertTrue(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field2.getAnnotation(TestAnnotation.class)));
+        assertTrue(AnnotationUtils.equals(field2.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test
@@ -401,16 +402,19 @@ public class AnnotationUtilsTest {
     @Test
     public void testNonEquivalentAnnotationsOfSameType() {
         assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field3.getAnnotation(TestAnnotation.class)));
+        assertFalse(AnnotationUtils.equals(field3.getAnnotation(TestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test
     public void testAnnotationsOfDifferingTypes() {
         assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), field4.getAnnotation(NestAnnotation.class)));
+        assertFalse(AnnotationUtils.equals(field4.getAnnotation(NestAnnotation.class), field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test
     public void testOneArgNull() {
         assertFalse(AnnotationUtils.equals(field1.getAnnotation(TestAnnotation.class), null));
+        assertFalse(AnnotationUtils.equals(null, field1.getAnnotation(TestAnnotation.class)));
     }
 
     @Test
