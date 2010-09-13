@@ -557,6 +557,20 @@ public class BooleanUtils {
             return null;
         }
         switch (str.length()) {
+            case 1: {
+                char ch0 = str.charAt(0);
+                if ((ch0 == 'y' || ch0 == 'Y') ||
+                    (ch0 == 't' || ch0 == 'T'))
+                {
+                    return Boolean.TRUE;
+                }
+                if ((ch0 == 'n' || ch0 == 'N') ||
+                    (ch0 == 'f' || ch0 == 'F'))
+                {
+                    return Boolean.FALSE;
+                }
+                break;
+            }
             case 2: {
                 char ch0 = str.charAt(0);
                 char ch1 = str.charAt(1);
