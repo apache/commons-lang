@@ -93,7 +93,7 @@ public class CharSet implements Serializable {
     }
 
     /** The set of CharRange objects. */
-    private final Set<CharRange> set = new HashSet<CharRange>();
+    private final Set<CharRange> set = Collections.synchronizedSet(new HashSet<CharRange>());
 
     //-----------------------------------------------------------------------
     /**
