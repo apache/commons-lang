@@ -169,22 +169,6 @@ public class AnnotationUtils {
         return builder.build();
     }
 
-    //besides modularity, this has the advantage of autoboxing primitives:
-    private static int hashMember(String name, Object value) throws IllegalArgumentException,
-            IllegalAccessException, InvocationTargetException {
-        int part1 = name.hashCode() * 127;
-        if (value == null) {
-            return part1;
-        }
-        if (value.getClass().isArray()) {
-            return part1 ^ arrayMemberHash(value.getClass().getComponentType(), value);
-        }
-        if (value instanceof Annotation) {
-            return part1 ^ hashCode((Annotation) value);
-        }
-        return part1 ^ value.hashCode();
-    }
-
     /**
      * Learn whether the specified type is permitted as an annotation member.
      * These include {@link String}, {@link Class}, primitive types,
@@ -201,6 +185,22 @@ public class AnnotationUtils {
         }
         return type.isPrimitive() || type.isEnum() || type.isAnnotation()
                 || String.class.equals(type) || Class.class.equals(type);
+    }
+
+    //besides modularity, this has the advantage of autoboxing primitives:
+    private static int hashMember(String name, Object value) throws IllegalArgumentException,
+            IllegalAccessException, InvocationTargetException {
+        int part1 = name.hashCode() * 127;
+        if (value == null) {
+            return part1;
+        }
+        if (value.getClass().isArray()) {
+            return part1 ^ arrayMemberHash(value.getClass().getComponentType(), value);
+        }
+        if (value instanceof Annotation) {
+            return part1 ^ hashCode((Annotation) value);
+        }
+        return part1 ^ value.hashCode();
     }
 
     private static boolean memberEquals(Class<?> type, Object o1, Object o2) {
