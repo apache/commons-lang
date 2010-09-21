@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -471,14 +471,15 @@ public class AnnotationUtilsTest {
         assertTrue(AnnotationUtils.equals(generated2, generated));
     }
 
-    @Test(timeout = 666)
+    @Test(timeout = 666000)
     public void testHashCode() throws Exception {
-        final Test testAnno = getClass().getDeclaredMethod("testHashCode")
-                .getAnnotation(Test.class);
-        assertEquals(testAnno.hashCode(), AnnotationUtils.hashCode(testAnno));
+        final Test test = getClass().getDeclaredMethod("testHashCode").getAnnotation(Test.class);
+        assertEquals(test.hashCode(), AnnotationUtils.hashCode(test));
+        final TestAnnotation testAnnotation = field1.getAnnotation(TestAnnotation.class);
+        assertEquals(testAnnotation.hashCode(), AnnotationUtils.hashCode(testAnnotation));
     }
 
-    @Test(timeout = 666)
+    @Test(timeout = 666000)
     public void testToString() throws Exception {
         final Test testAnno = getClass().getDeclaredMethod("testToString")
                 .getAnnotation(Test.class);
@@ -486,7 +487,7 @@ public class AnnotationUtilsTest {
         assertTrue(toString.startsWith("@org.junit.Test("));
         assertTrue(toString.endsWith(")"));
         assertTrue(toString.contains("expected=class org.junit.Test$None"));
-        assertTrue(toString.contains("timeout=666"));
+        assertTrue(toString.contains("timeout=666000"));
         assertTrue(toString.contains(", "));
     }
 }
