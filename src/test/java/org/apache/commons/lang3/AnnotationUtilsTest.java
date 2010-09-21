@@ -475,8 +475,10 @@ public class AnnotationUtilsTest {
     public void testHashCode() throws Exception {
         final Test test = getClass().getDeclaredMethod("testHashCode").getAnnotation(Test.class);
         assertEquals(test.hashCode(), AnnotationUtils.hashCode(test));
-        final TestAnnotation testAnnotation = field1.getAnnotation(TestAnnotation.class);
-        assertEquals(testAnnotation.hashCode(), AnnotationUtils.hashCode(testAnnotation));
+        final TestAnnotation testAnnotation1 = field1.getAnnotation(TestAnnotation.class);
+        assertEquals(testAnnotation1.hashCode(), AnnotationUtils.hashCode(testAnnotation1));
+        final TestAnnotation testAnnotation3 = field3.getAnnotation(TestAnnotation.class);
+        assertEquals(testAnnotation3.hashCode(), AnnotationUtils.hashCode(testAnnotation3));
     }
 
     @Test(timeout = 666000)
