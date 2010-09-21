@@ -470,4 +470,23 @@ public class AnnotationUtilsTest {
         assertTrue(AnnotationUtils.equals(generated, generated2));
         assertTrue(AnnotationUtils.equals(generated2, generated));
     }
+
+    @Test(timeout = 666)
+    public void testHashCode() throws Exception {
+        final Test testAnno = getClass().getDeclaredMethod("testHashCode")
+                .getAnnotation(Test.class);
+        assertEquals(testAnno.hashCode(), AnnotationUtils.hashCode(testAnno));
+    }
+
+    @Test(timeout = 666)
+    public void testToString() throws Exception {
+        final Test testAnno = getClass().getDeclaredMethod("testToString")
+                .getAnnotation(Test.class);
+        String toString = AnnotationUtils.toString(testAnno);
+        assertTrue(toString.startsWith("@org.junit.Test("));
+        assertTrue(toString.endsWith(")"));
+        assertTrue(toString.contains("expected=class org.junit.Test$None"));
+        assertTrue(toString.contains("timeout=666"));
+        assertTrue(toString.contains(", "));
+    }
 }

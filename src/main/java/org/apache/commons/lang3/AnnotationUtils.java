@@ -17,8 +17,10 @@
 package org.apache.commons.lang3;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * Helper methods for working with {@link Annotation}s.
@@ -38,12 +40,10 @@ public class AnnotationUtils {
     }
 
     /**
-     * Learn whether two annotations are equivalent as defined by
-     * {@link Annotation#equals(Object)}. This method is useful because
-     * dynamically created {@link Annotation} instances are always proxy
-     * objects, which, though dependent upon implementation, very often cannot
-     * be depended upon to behave "normally" in terms of {@link #equals(Object)}
-     * implementation.
+     * Learn whether two annotations are equivalent; dynamically created
+     * {@link Annotation} instances are always proxy objects which cannot be
+     * depended upon to know how to implement {@link Annotation#equals(Object)}
+     * per spec.
      * @param a1 the first Annotation to compare
      * @param a2 the second Annotation to compare
      */
@@ -76,6 +76,83 @@ public class AnnotationUtils {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Generate a hashcode for the given annotation; dynamically created
+     * {@link Annotation} instances are always proxy objects which cannot be
+     * depended upon to know how to implement {@link Annotation#hashCode()} per
+     * spec.
+     * 
+     * @param a the Annotation for a hashcode calculation is desired
+     * @return the calculated hashcode
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     */
+    public static int hashCode(Annotation a) throws IllegalArgumentException,
+            IllegalAccessException, InvocationTargetException {
+        int result = 0;
+        Class<? extends Annotation> type = a.annotationType();
+        for (Method m : type.getDeclaredMethods()) {
+            result += hashMember(m.getName(), m.invoke(a));
+        }
+        return result;
+    }
+
+    /**
+     * Generate a string representation of an Annotation, as suggested by
+     * {@link Annotation#toString()}.
+     * @param a the annotation of which a string representation is desired
+     * @return String
+     */
+    public static String toString(final Annotation a) {
+        return new StringBuilder(a.annotationType().getName()).insert(0, '@').append('(')
+                .append(StringUtils.join(new Iterable<String>() {
+
+                    public Iterator<String> iterator() {
+                        final Method[] methods = a.annotationType().getDeclaredMethods();
+                        return new Iterator<String>() {
+                            int pos = 0;
+
+                            public boolean hasNext() {
+                                return pos < methods.length;
+                            }
+
+                            public String next() {
+                                Method m = methods[pos++];
+                                try {
+                                    return new StringBuilder(m.getName()).append('=')
+                                            .append(m.invoke(a)).toString();
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+
+                            public void remove() {
+                                throw new UnsupportedOperationException();
+                            }
+
+                        };
+                    }
+
+                }, ", ")).append(')').toString();
+    }
+
+    //besides modularity, this has the advantage of autoboxing primitives:
+    private static int hashMember(String name, Object value) throws IllegalArgumentException,
+            IllegalAccessException, InvocationTargetException {
+        int part1 = name.hashCode() * 127;
+        if (value == null) {
+            return part1;
+        }
+        if (value.getClass().isArray()) {
+            return part1 ^ arrayMemberHash(value.getClass().getComponentType(), value);
+        }
+        if (value instanceof Annotation) {
+            return part1 ^ hashCode((Annotation) value);
+        }
+        return part1 ^ value.hashCode();
     }
 
     /**
@@ -154,4 +231,33 @@ public class AnnotationUtils {
         }
         return true;
     }
+
+    private static int arrayMemberHash(Class<?> componentType, Object o) {
+        if (componentType.equals(Byte.TYPE)) {
+            return Arrays.hashCode((byte[]) o);
+        }
+        if (componentType.equals(Short.TYPE)) {
+            return Arrays.hashCode((short[]) o);
+        }
+        if (componentType.equals(Integer.TYPE)) {
+            return Arrays.hashCode((int[]) o);
+        }
+        if (componentType.equals(Character.TYPE)) {
+            return Arrays.hashCode((char[]) o);
+        }
+        if (componentType.equals(Long.TYPE)) {
+            return Arrays.hashCode((long[]) o);
+        }
+        if (componentType.equals(Float.TYPE)) {
+            return Arrays.hashCode((float[]) o);
+        }
+        if (componentType.equals(Double.TYPE)) {
+            return Arrays.hashCode((double[]) o);
+        }
+        if (componentType.equals(Boolean.TYPE)) {
+            return Arrays.hashCode((boolean[]) o);
+        }
+        return Arrays.hashCode((Object[]) o);
+    }
+
 }
