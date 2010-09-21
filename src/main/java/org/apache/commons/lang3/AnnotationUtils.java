@@ -20,7 +20,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Iterator;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Helper methods for working with {@link Annotation}s.
@@ -28,6 +30,50 @@ import java.util.Iterator;
  * @version $Id$
  */
 public class AnnotationUtils {
+    private static final ToStringStyle TO_STRING_STYLE = new ToStringStyle() {
+        /** Serialization version */
+        private static final long serialVersionUID = 1L;
+
+        {
+            setDefaultFullDetail(true);
+            setArrayContentDetail(true);
+            setUseClassName(true);
+            setUseShortClassName(true);
+            setUseIdentityHashCode(false);
+            setContentStart("(");
+            setContentEnd(")");
+            setFieldSeparator(", ");
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        protected String getShortClassName(java.lang.Class<?> cls) {
+            Class<? extends Annotation> annotationType = null;
+            for (Class<?> iface : ClassUtils.getAllInterfaces(cls)) {
+                if (Annotation.class.isAssignableFrom(iface)) {
+                    @SuppressWarnings("unchecked")
+                    //because we just checked the assignability
+                    Class<? extends Annotation> found = (Class<? extends Annotation>) iface;
+                    annotationType = found;
+                    break;
+                }
+            }
+            return new StringBuilder(annotationType == null ? null : annotationType.getName())
+                    .insert(0, '@').toString();
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        protected void appendDetail(StringBuffer buffer, String fieldName, Object value) {
+            if (value instanceof Annotation) {
+                value = AnnotationUtils.toString((Annotation) value);
+            }
+            super.appendDetail(buffer, fieldName, value);
+        }
+
+    };
 
     /**
      * <p><code>AnnotationUtils</code> instances should NOT be constructed in
@@ -107,36 +153,20 @@ public class AnnotationUtils {
      * @return String
      */
     public static String toString(final Annotation a) {
-        return new StringBuilder(a.annotationType().getName()).insert(0, '@').append('(')
-                .append(StringUtils.join(new Iterable<String>() {
-
-                    public Iterator<String> iterator() {
-                        final Method[] methods = a.annotationType().getDeclaredMethods();
-                        return new Iterator<String>() {
-                            int pos = 0;
-
-                            public boolean hasNext() {
-                                return pos < methods.length;
-                            }
-
-                            public String next() {
-                                Method m = methods[pos++];
-                                try {
-                                    return new StringBuilder(m.getName()).append('=')
-                                            .append(m.invoke(a)).toString();
-                                } catch (Exception e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-
-                            public void remove() {
-                                throw new UnsupportedOperationException();
-                            }
-
-                        };
-                    }
-
-                }, ", ")).append(')').toString();
+        ToStringBuilder builder = new ToStringBuilder(a, TO_STRING_STYLE);
+        for (Method m : a.annotationType().getDeclaredMethods()) {
+            if (m.getParameterTypes().length > 0) {
+                continue; //wtf?
+            }
+            try {
+                builder.append(m.getName(), m.invoke(a));
+            } catch (RuntimeException e) {
+                throw e;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return builder.build();
     }
 
     //besides modularity, this has the advantage of autoboxing primitives:
