@@ -40,6 +40,7 @@ limitations under the License.
       <a href="#lang.mutable.">[lang.mutable.*]</a>
       <a href="#lang.text.">[lang.text.*]</a>
       <a href="#lang.time.">[lang.time.*]</a>
+      <a href="#lang.concurrent.">[lang.concurrent.*]</a>
       <br /><br />
     </div>
   </section>
@@ -228,5 +229,496 @@ public final class ColorEnum extends Enum {
     <p>New in Lang 2.1 is the DurationFormatUtils class, which provides various methods for formatting durations. </p>
    </section>
 
+   <section name="lang.concurrent.*">
+   <p>
+     In Lang 3.0 a new <em>concurrent</em> package was introduced containing
+     interfaces and classes to support programming with multiple threads. Its
+     aim is to serve as an extension of the <em>java.util.concurrent</em>
+     package of the JDK.
+   </p>
+
+   <subsection name="Concurrent initializers">
+   <p>
+     A group of classes deals with the correct creation and initialization of
+     objects that are accessed by multiple threads. All these classes implement
+     the <code>ConcurrentInitializer</code> interface which provides just a
+     single method:
+   </p>
+   <source><![CDATA[
+public interface ConcurrentInitializer<T> {
+    T get() throws ConcurrentException;
+}
+   ]]></source>
+   <p>
+     A <code>ConcurrentInitializer</code> produces an object. By calling the
+     <code>get()</code> method the object managed by the initializer can be
+     obtained. There are different implementations of the interface available
+     addressing various use cases:
+   </p>
+   <p>
+     The <code>LazyInitializer</code> class can be used to defer the creation of
+     an object until it is actually used. This makes sense, for instance, if the
+     creation of the object is expensive and would slow down application startup
+     or if the object is needed only for special executions. <code>LazyInitializer</code>
+     implements the <em>double-check idiom for an instance field</em> as
+     discussed in Joshua Bloch's "Effective Java", 2nd edition, item 71. It
+     uses <strong>volatile</strong> fields to reduce the amount of
+     synchronization. Note that this idiom is appropriate for instance fields
+     only. For <strong>static</strong> fields there are superior alternatives.
+   </p>
+   <p>
+     We provide an example use case to demonstrate the usage of this class: A
+     server application uses multiple worker threads to process client requests.
+     If such a request causes a fatal error, an administrator is to be notified
+     using a special messaging service. We assume that the creation of the
+     messaging service is an expensive operation. So it should only be performed
+     if an error actually occurs. Here is where <code>LazyInitializer</code>
+     comes into play. We create a specialized subclass for creating and
+     initializing an instance of our messaging service. <code>LazyInitializer</code>
+     declares an abstract <code>initialize()</code> method which we have to
+     implement to create the messaging service object:
+   </p>
+   <source><![CDATA[
+public class MessagingServiceInitializer
+  extends LazyInitializer<MessagingService> {
+    protected MessagingService initialize() throws ConcurrentException {
+        // Do all necessary steps to create and initialize the service object
+        MessagingService service = ...
+
+        return service;
+    }
+}
+   ]]></source>
+   <p>
+     Now each server thread is passed a reference to a shared instance of our
+     new <code>MessagingServiceInitializer</code> class. The threads run in a
+     loop processing client requests. If an error is detected, the messaging
+     service is obtained from the initializer, and the administrator is
+     notified:
+   </p>
+   <source><![CDATA[
+public class ServerThread implements Runnable {
+    /** The initializer for obtaining the messaging service. */
+    private final ConcurrentInitializer<MessagingService> initializer;
+
+    public ServerThread(ConcurrentInitializer<MessagingService> init) {
+        initializer = init;
+    }
+
+    public void run() {
+        while (true) {
+            try {
+                // wait for request
+                // process request
+            } catch (FatalServerException ex) {
+                // get messaging service
+                try {
+                    MessagingService svc = initializer.get();
+                    svc.notifyAdministrator(ex);
+                } catch (ConcurrentException cex) {
+                    cex.printStackTrace();
+                }
+            }
+        }
+    }
+}
+   ]]></source>
+   <p>
+     The <code>AtomicInitializer</code> class is very similar to
+     <code>LazyInitializer</code>. It serves the same purpose: to defer the
+     creation of an object until it is needed. The internal structure is also
+     very similar. Again there is an abstract <code>initialize()</code> method
+     which has to be implemented by concrete subclasses in order to create and
+     initialize the managed object. Actually, in our example above we can turn
+     the <code>MessagingServiceInitializer</code> into an atomic initializer by
+     simply changing the <strong>extends</strong> declaration to refer to
+     <code>AtomicInitializer&lt;MessagingService&gt;</code> as super class.
+   </p>
+   <p>
+     The difference between <code>AtomicInitializer</code> and
+     <code>LazyInitializer</code> is that the former uses classes from the
+     <code>java.util.concurrent.atomic</code> package for its implementation
+     (hence the name). This has the advantage that no synchronization is needed,
+     thus the implementation is usually more efficient than the one of the
+     <code>LazyInitializer</code> class. However, there is one drawback: Under
+     high load, if multiple threads access the initializer concurrently, it is
+     possible that the <code>initialize()</code> method is invoked multiple
+     times. The class guarantees that <code>get()</code> always returns the
+     same object though; so objects created accidently are immideately discarded.
+     As a rule of thumb, <code>AtomicInitializer</code> is preferrable if the
+     probability of a simultaneous access to the initializer is low, e.g. if
+     there are not too many concurrent threads. <code>LazyInitializer</code> is
+     the safer variant, but it has some overhead due to synchronization.
+   </p>
+   <p>
+     Another implementation of the <code>ConcurrentInitializer</code> interface
+     is <code>BackgroundInitializer</code>. It is again an abstract base class
+     with an <code>initialize()</code> method that has to be defined by concrete
+     subclasses. The idea of <code>BackgroundInitializer</code> is that it calls
+     the <code>initialize()</code> method in a separate worker thread. An
+     application creates a background initializer and starts it. Then it can
+     continue with its work while the initializer runs in parallel. When the
+     application needs the results of the initializer it calls its
+     <code>get()</code> method. <code>get()</code> blocks until the initialization
+     is complete. This is useful for instance at application startup. Here
+     initialization steps (e.g. reading configuration files, opening a database
+     connection, etc.) can be run in background threads while the application
+     shows a splash screen and constructs its UI.
+   </p>
+   <p>
+     As a concrete example consider an application that has to read the content
+     of a URL - maybe a page with news - which is to be displayed to the user after
+     login. Because loading the data over the network can take some time a
+     specialized implementation of <code>BackgroundInitializer</code> can be
+     created for this purpose:
+   </p>
+   <source><![CDATA[
+public class URLLoader extends BackgroundInitializer<String> {
+    /** The URL to be loaded. */
+    private final URL url;
+
+    public URLLoader(URL u) {
+        url = u;
+    }
+
+    protected String initialize() throws ConcurrentException {
+      try {
+          InputStream in = url.openStream();
+          // read content into string
+          ...
+          return content;
+      } catch (IOException ioex) {
+          throw new ConcurrentException(ioex);
+      }
+    }
+}
+   ]]></source>
+   <p>
+     An application creates an instance of <code>URLLoader</code> and starts it.
+     Then it can do other things. When it needs the content of the URL it calls
+     the initializer's <code>get()</code> method:
+   </p>
+   <source><![CDATA[
+URL url = new URL("http://www.application-home-page.com/");
+URLLoader loader = new URLLoader(url);
+loader.start();  // this starts the background initialization
+
+// do other stuff
+...
+// now obtain the content of the URL
+String content;
+try {
+    content = loader.get();  // this may block
+} catch (ConcurrentException cex) {
+    content = "Error when loading URL " + url;
+}
+// display content
+   ]]></source>
+   <p>
+     Related to <code>BackgroundInitializer</code> is the
+     <code>MultiBackgroundInitializer</code> class. As the name implies, this
+     class can handle multiplie initializations in parallel. The basic usage
+     scenario is that a <code>MultiBackgroundInitializer</code> instance is
+     created. Then an arbitrary number of <code>BackgroundInitializer</code>
+     objects is added using the <code>addInitializer()</code> method. When adding
+     an initializer a string has to be provided which is later used to obtain
+     the result for this initializer. When all initializers have been added the
+     <code>start()</code> method is called. This starts processing of all
+     initializers. Later the <code>get()</code> method can be called. It waits
+     until all initializers have finished their initialization. <code>get()</code>
+     returns an object of type <code>MultiBackgroundInitializer.MultiBackgroundInitializerResults</code>.
+     This object provides information about all initializations that have been
+     performed. It can be checked whether a specific initializer was successful
+     or threw an exception. Of course, all initialization results can be queried.
+   </p>
+   <p>
+     With <code>MultiBackgroundInitializer</code> we can extend our example to
+     perform multiple initialization steps. Suppose that in addition to loading
+     a web site we also want to create a JPA entity manager factory and read a
+     configuration file. We assume that corresponding <code>BackgroundInitializer</code>
+     implementations exist. The following example fragment shows the usage of
+     <code>MultiBackgroundInitializer</code> for this purpose:
+   </p>
+   <source><![CDATA[
+MultiBackgroundInitializer initializer = new MultiBackgroundInitializer();
+initializer.addInitializer("url", new URLLoader(url));
+initializer.addInitializer("jpa", new JPAEMFInitializer());
+initializer.addInitializer("config", new ConfigurationInitializer());
+initializer.start();  // start background processing
+
+// do other interesting things in parallel
+...
+// evaluate the results of background initialization
+MultiBackgroundInitializer.MultiBackgroundInitializerResults results =
+    initializer.get();
+String urlContent = (String) results.getResultObject("url");
+EntityManagerFactory emf =
+    (EntityManagerFactory) results.getResultObject("jpa");
+...
+   ]]></source>
+   <p>
+     The child initializers are added to the multi initializer and are assigned
+     a unique name. The object returned by the <code>get()</code> method is then
+     queried for the single results using these unique names.
+   </p>
+   <p>
+     If background initializers - including <code>MultiBackgroundInitializer</code>
+     - are created using the standard constructor, they create their own
+     <code>ExecutorService</code> which is used behind the scenes to execute the
+     worker tasks. It is also possible to pass in an <code>ExecutorService</code>
+     when the initializer is constructed. That way client code can configure
+     the <code>ExecutorService</code> according to its specific needs; for
+     instance, the number of threads available could be limited.
+   </p>
+   </subsection>
+
+   <subsection name="Utility classes">
+   <p>
+     Another group of classes in the new <code>concurrent</code> package offers
+     some generic functionality related to concurrency. There is the
+     <code>ConcurrentUtils</code> class with a bunch of static utility methods.
+     One focus of this class is dealing with exceptions thrown by JDK classes.
+     Many JDK classes of the executor framework throw exceptions of type
+     <code>ExecutionException</code> if something goes wrong. The root cause of
+     these exceptions can also be a runtime exception or even an error. In
+     typical Java programming you often do not want to deal with runtime
+     exceptions directly; rather you let them fall through the hierarchy of
+     method invocations until they reach a central exception handler. Checked
+     exceptions in contrast are usually handled close to their occurrence. With
+     <code>ExecutionException</code> this principle is violated. Because it is a
+     checked exception, an application is forced to handle it even if the cause
+     is a runtime exception. So you typically have to inspect the cause of the
+     <code>ExecutionException</code> and test whether it is a checked exception
+     which has to be handled. If this is not the case, the causing exception can
+     be rethrown.
+   </p>
+   <p>
+     The <code>extractCause()</code> method of <code>ConcurrentUtils</code> does
+     this work for you. It is passed an <code>ExecutionException</code> and tests
+     its root cause. If this is an error or a runtime exception, it is directly
+     rethrown. Otherwise, an instance of <code>ConcurrentException</code> is
+     created and initialized with the root cause. (<code>ConcurrentException</code>
+     is a new exception class in the <code>o.a.c.l.concurrent</code> package.)
+     So if you get such a <code>ConcurrentException</code>, you can be sure that
+     the original cause for the <code>ExecutionException</code> was a checked
+     exception. For users who prefer runtime exceptions in general there is also
+     an <code>extractCauseUnchecked()</code> method which behaves like
+     <code>extractCause()</code>, but returns the unchecked exception
+     <code>ConcurrentRuntimeException</code> instead.
+   </p>
+   <p>
+     In addition to the <code>extractCause()</code> methods there are
+     corresponding <code>handleCause()</code> methods. These methods extract the
+     cause of the passed in <code>ExecutionException</code> and throw the
+     resulting <code>ConcurrentException</code> or <code>ConcurrentRuntimeException</code>.
+     This makes it easy to transform an <code>ExecutionException</code> into a
+     <code>ConcurrentException</code> ignoring unchecked exceptions:
+   </p>
+   <source><![CDATA[
+Future<Object> future = ...;
+try {
+    Object result = future.get();
+    ...
+} catch (ExecutionException eex) {
+    ConcurrentUtils.handleCause(eex);
+}
+   ]]></source>
+   <p>
+     There is also some support for the concurrent initializers introduced in
+     the last sub section. The <code>initialize()</code> method is passed a
+     <code>ConcurrentInitializer</code> object and returns the object created by
+     this initializer. It is null-safe. The <code>initializeUnchecked()</code>
+     method works analogously, but a <code>ConcurrentException</code> throws by the
+     initializer is rethrown as a <code>ConcurrentRuntimeException</code>. This
+     is especially useful if the specific <code>ConcurrentInitializer</code>
+     does not throw checked exceptions. Using this method the code for requesting
+     the object of an initializer becomes less verbose. The direct invocation
+     looks as follows:
+   </p>
+   <source><![CDATA[
+ConcurrentInitializer<MyClass> initializer = ...;
+try {
+    MyClass obj = initializer.get();
+    // do something with obj
+} catch (ConcurrentException cex) {
+    // exception handling
+}
+   ]]></source>
+   <p>
+     Using the <code>initializeUnchecked()</code> method, this becomes:
+   </p>
+   <source><![CDATA[
+ConcurrentInitializer<MyClass> initializer = ...;
+MyClass obj = ConcurrentUtils.initializeUnchecked(initializer);
+// do something with obj
+   ]]></source>
+   <p>
+     Another utility class deals with the creation of threads. When using the
+     <em>Executor</em> framework new in JDK 1.5 the developer usually does not
+     have to care about creating threads; the executors create the threads they
+     need on demand. However, sometimes it is desired to set some properties of
+     the newly created worker threads. This is possible through the
+     <code>ThreadFactory</code> interface; an implementation of this interface
+     has to be created and pased to an executor on creation time. Currently, the
+     JDK does not provide an implementation of <code>ThreadFactory</code>, so
+     one has to start from scratch.
+   </p>
+   <p>
+     With <code>BasicThreadFactory</code> Commons Lang has an implementation of
+     <code>ThreadFactory</code> that works out of the box for many common use
+     cases. For instance, it is possible to set a naming pattern for the new
+     threads, set the daemon flag and a priority, or install a handler for
+     uncaught exceptions. Instances of <code>BasicThreadFactory</code> are
+     created and configured using the nested <code>Builder</code> class. The
+     following example shows a typical usage scenario:
+   </p>
+   <source><![CDATA[
+BasicThreadFactory factory = new BasicThreadFactory.Builder()
+    .namingPattern("worker-thread-%d")
+    .daemon(true)
+    .uncaughtExceptionHandler(myHandler)
+    .build();
+ExecutorService exec = Executors.newSingleThreadExecutor(factory);
+   ]]></source>
+   <p>
+     The nested <code>Builder</code> class defines some methods for configuring
+     the new <code>BasicThreadFactory</code> instance. Objects of this class are
+     immutable, so these attributes cannot be changed later. The naming pattern
+     is a string which can be passed to <code>String.format()</code>. The
+     placeholder <em>%d</em> is replaced by an increasing counter value. An
+     instance can wrap another <code>ThreadFactory</code> implementation; this
+     is achieved by calling the builder's <code>wrappedFactory()</code> method.
+     This factory is then used for creating new threads; after that the specific
+     attributes are applied to the new thread. If no wrapped factory is set, the
+     default factory provided by the JDK is used.
+   </p>
+   </subsection>
+
+   <subsection name="Synchronization objects">
+   <p>
+     The <code>concurrent</code> package also provides some support for specific
+     synchronization problems with threads.
+   </p>
+   <p>
+     <code>TimedSemaphore</code> allows restricted access to a resource in a
+     given time frame. Similar to a semaphore, a number of permits can be
+     acquired. What is new is the fact that the permits available are related to
+     a given time unit. For instance, the timed semaphore can be configured to
+     allow 10 permits in a second. Now multiple threads access the semaphore
+     and call its <code>acquire()</code> method. The semaphore keeps track about
+     the number of granted permits in the current time frame. Only 10 calls are
+     allowd; if there are further callers, they are blocked until the time
+     frame (one second in this example) is over. Then all blocking threads are
+     released, and the counter of available permits is reset to 0. So the game
+     can start anew.
+   </p>
+   <p>
+     What are use cases for <code>TimedSemaphore</code>? One example is to
+     artificially limit the load produced by multiple threads. Consider a batch
+     application accessing a database to extract statistical data. The
+     application runs multiple threads which issue database queries in parallel
+     and perform some calculation on the results. If the database to be processed
+     is huge and is also used by a production system, multiple factors have to be
+     balanced: On one hand, the time required for the statistical evaluation
+     should not take too long. Therefore you will probably use a larger number
+     of threads because most of its life time a thread will just wait for the
+     database to return query results. On the other hand, the load on the
+     database generated by all these threads should be limited so that the
+     responsiveness of the production system is not affected. With a
+     <code>TimedSemaphore</code> object this can be achieved. The semaphore can
+     be configured to allow e.g. 100 queries per second. After these queries
+     have been sent to the database the threads have to wait until the second is
+     over - then they can query again. By fine-tuning the limit enforced by the
+     semaphore a good balance between performance and database load can be
+     established. It is even possible to change the number of available permits
+     at runtime. So this number can be reduced during the typical working hours
+     and increased at night.
+   </p>
+   <p>
+     The following code examples demonstrate parts of the implementation of such
+     a scenario. First the batch application has to create an instance of
+     <code>TimedSemaphore</code> and to initialize its properties with default
+     values:
+   </p>
+   <source><![CDATA[
+TimedSemaphore semaphore = new TimedSemaphore(1, TimeUnit.SECONDS, 100);
+   ]]></source>
+   <p>
+     Here we specify that the semaphore should allow 100 permits in one second.
+     This is effectively the limit of database queries per second in our
+     example use case. Next the server threads issuing database queries and
+     performing statistical operations can be initialized. They are passed a
+     reference to the semaphore at creation time. Before they execute a query
+     they have to acquire a permit.
+   </p>
+   <source><![CDATA[
+public class StatisticsTask implements Runnable {
+    /** The semaphore for limiting database load. */
+    private final TimedSemaphore semaphore;
+
+    public StatisticsTask(TimedSemaphore sem, Connection con) {
+        semaphore = sem;
+        ...
+    }
+
+    /**
+     * The main processing method. Executes queries and evaluates their results.
+     */
+    public void run() {
+        try {
+            while (!isDone()) {
+                semaphore.acquire();    // enforce the load limit
+
+                executeAndEvaluateQuery();
+            }
+        } catch (InterruptedException iex) {
+            // fall through
+        }
+    }
+}
+   ]]></source>
+   <p>
+     The important line here is the call to <code>semaphore.acquire()</code>.
+     If the number of permits in the current time frame has not yet been reached,
+     the call returns immediately. Otherwise, it blocks until the end of the
+     time frame. The last piece missing is a scheduler service which adapts the
+     number of permits allowed by the semaphore according to the time of day. We
+     assume that this service is pretty simple and knows only two different time
+     slots: working shift and night shift. The service is triggered periodically.
+     It then determines the current time slot and configures the timed semaphore
+     accordingly.
+   </p>
+   <source><![CDATA[
+public class SchedulerService {
+    /** The semaphore for limiting database load. */
+    private final TimedSemaphore semaphore;
+    ...
+
+    /**
+     * Configures the timed semaphore based on the current time of day. This
+     * method is called periodically.
+     */
+    public void configureTimedSemaphore() {
+        int limit;
+        if (isWorkshift()) {
+            limit = 50;    // low database load
+        } else {
+            limit = 250;   // high database load
+        }
+
+        semaphore.setLimit(limit);
+    }
+}
+   ]]></source>
+   <p>
+     With the <code>setLimit()</code> method the number of permits allowed for
+     a time frame can be changed. There are some other methods for querying the
+     internal state of a timed semaphore. Also some statistical data is available,
+     e.g. the average number of <code>acquire()</code> calls per time frame. When
+     a timed semaphore is no more needed, its <code>shutdown()</code> method has
+     to be called.
+   </p>
+   </subsection>
+   </section>
 </body>
 </document>
