@@ -92,7 +92,7 @@ public class ObjectUtils {
      * @param defaultValue  the default value to return, may be <code>null</code>
      * @return <code>object</code> if it is not <code>null</code>, defaultValue otherwise
      */
-    public static Object defaultIfNull(Object object, Object defaultValue) {
+    public static <T> T defaultIfNull(T object, T defaultValue) {
         return object != null ? object : defaultValue;
     }
 
