@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -73,7 +73,7 @@ import java.util.Properties;
  * <pre>
  *   The variable ${${name}} must be used.
  * </pre>
- * Here only the variable's name refered to in the text should be replaced resulting
+ * Here only the variable's name referred to in the text should be replaced resulting
  * in the text (assuming that the value of the <code>name</code> variable is <code>x</code>):
  * <pre>
  *   The variable ${x} must be used.
@@ -88,7 +88,6 @@ import java.util.Properties;
  * </pre>
  *
  * @author Apache Software Foundation
- * @author Oliver Heger
  * @version $Id$
  * @since 2.2
  */
@@ -156,7 +155,7 @@ public class StrSubstitutor {
     /**
      * Replaces all the occurrences of variables in the given source object with their matching
      * values from the properties.
-     * 
+     *
      * @param source the source text containing the variables to substitute, null returns null
      * @param valueProperties the properties with values, may be null
      * @return the result of the replace operation
@@ -176,7 +175,7 @@ public class StrSubstitutor {
         }
         return StrSubstitutor.replace(source, valueMap);
     }
-    
+
     /**
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the system properties.
@@ -564,7 +563,7 @@ public class StrSubstitutor {
         StrMatcher prefixMatcher = getVariablePrefixMatcher();
         StrMatcher suffixMatcher = getVariableSuffixMatcher();
         char escape = getEscapeChar();
-        
+
         boolean top = (priorVariables == null);
         boolean altered = false;
         int lengthChange = 0;
@@ -595,21 +594,21 @@ public class StrSubstitutor {
                             pos++;
                         } else {
                             // found variable end marker
-                            String varName = new String(chars, startPos + startMatchLen, 
+                            String varName = new String(chars, startPos + startMatchLen,
                                                         pos - startPos - startMatchLen);
                             pos += endMatchLen;
                             int endPos = pos;
-                            
+
                             // on the first call initialize priorVariables
                             if (priorVariables == null) {
                                 priorVariables = new ArrayList<String>();
                                 priorVariables.add(new String(chars, offset, length));
                             }
-                            
+
                             // handle cyclic substitution
                             checkCyclicSubstitution(varName, priorVariables);
                             priorVariables.add(varName);
-                            
+
                             // resolve the variable
                             String varValue = resolveVariable(varName, buf, startPos, endPos);
                             if (varValue != null) {
@@ -624,7 +623,7 @@ public class StrSubstitutor {
                                 lengthChange += change;
                                 chars = buf.buffer;  // in case buffer was altered
                             }
-                            
+
                             // remove variable from the cyclic stack
                             priorVariables.remove(priorVariables.size() - 1);
                             break;
