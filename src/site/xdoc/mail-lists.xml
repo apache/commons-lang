@@ -188,7 +188,7 @@ limitations under the License.
           <td><a class="externalLink" href="mailto:announce-subscribe@apache.org">Subscribe</a></td> 
           <td><a class="externalLink" href="mailto:announce-unsubscribe@apache.org">Unsubscribe</a></td> 
           <td><i>read only</i></td>
-          <td><a class="externalLink" href="http://mail-archives.apache.org/mod_mbox/announce/">mail-archives.apache.org</a></td> 
+          <td><a class="externalLink" href="http://mail-archives.apache.org/mod_mbox/www-announce/">mail-archives.apache.org</a></td> 
           <td><a class="externalLink" href="http://markmail.org/list/org.apache.announce/">markmail.org</a><br />
               <a class="externalLink" href="http://old.nabble.com/Apache-News-and-Announce-f109.html">old.nabble.com</a><br />
               <a class="externalLink" href="http://www.mail-archive.com/announce@apache.org/">www.mail-archive.com</a><br />
