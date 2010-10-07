@@ -474,7 +474,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-changes-plugin</artifactId>
-          <version>2.0</version>
+          <version>2.3</version>
           <configuration>
             <xmlPath>${basedir}/src/site/changes/changes.xml</xmlPath>
             <issueLinkTemplate>%URL%/%ISSUE%</issueLinkTemplate>
@@ -489,7 +489,7 @@
         </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.3</version>
+        <version>2.6</version>
         <configuration>
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <enableRulesSummary>false</enableRulesSummary>
@@ -499,7 +499,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>1.2</version>
+        <version>2.3.1</version>
         <configuration>
           <threshold>Normal</threshold>
           <effort>Default</effort>
@@ -509,7 +509,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.3</version>
+        <version>2.4</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
