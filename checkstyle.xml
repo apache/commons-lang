@@ -23,9 +23,14 @@ limitations under the License.
 <!-- commons lang customization of default Checkstyle behavior -->
 <module name="Checker">
   <property name="localeLanguage" value="en"/>
-  <module name="PackageHtml"/>
+  <module name="JavadocPackage">
+    <!-- setting allowLegacy means it will check for package.html instead of just package-info.java -->
+    <property name="allowLegacy" value="true"/>
+  </module>
+  <module name="FileTabCharacter">
+    <property name="fileExtensions" value="java,xml"/>
+  </module>
   <module name="TreeWalker">
-    <module name="TabCharacter"/>
     <module name="AvoidStarImport"/>
     <module name="RedundantImport"/>
     <module name="UnusedImports"/>
