@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
 
 /**
  * Test class for StrSubstitutor.
- * 
+ *
  * @author Oliver Heger
  * @version $Id$
  */
@@ -255,6 +255,57 @@ public class StrSubstitutorTest extends TestCase {
         assertEquals("${animal} jumps", sub.replace("The ${animal} jumps over the ${target}.", 4, 15));
     }
 
+    /**
+     * Tests whether a variable can be replaced in a variable name.
+     */
+    public void testReplaceInVariable() {
+        values.put("animal.1", "fox");
+        values.put("animal.2", "mouse");
+        values.put("species", "2");
+        StrSubstitutor sub = new StrSubstitutor(values);
+        sub.setEnableSubstitutionInVariables(true);
+        assertEquals(
+                "Wrong result (1)",
+                "The mouse jumps over the lazy dog.",
+                sub.replace("The ${animal.${species}} jumps over the ${target}."));
+        values.put("species", "1");
+        assertEquals(
+                "Wrong result (2)",
+                "The fox jumps over the lazy dog.",
+                sub.replace("The ${animal.${species}} jumps over the ${target}."));
+    }
+
+    /**
+     * Tests whether substitution in variable names is disabled per default.
+     */
+    public void testReplaceInVariableDisabled() {
+        values.put("animal.1", "fox");
+        values.put("animal.2", "mouse");
+        values.put("species", "2");
+        StrSubstitutor sub = new StrSubstitutor(values);
+        assertEquals(
+                "Wrong result",
+                "The ${animal.${species}} jumps over the lazy dog.",
+                sub.replace("The ${animal.${species}} jumps over the ${target}."));
+    }
+
+    /**
+     * Tests complex and recursive substitution in variable names.
+     */
+    public void testReplaceInVariableRecursive() {
+        values.put("animal.2", "brown fox");
+        values.put("animal.1", "white mouse");
+        values.put("color", "white");
+        values.put("species.white", "1");
+        values.put("species.brown", "2");
+        StrSubstitutor sub = new StrSubstitutor(values);
+        sub.setEnableSubstitutionInVariables(true);
+        assertEquals(
+                "Wrong result",
+                "The white mouse jumps over the lazy dog.",
+                sub.replace("The ${animal.${species.${color}}} jumps over the ${target}."));
+    }
+
     //-----------------------------------------------------------------------
     /**
      * Tests protected.
@@ -325,7 +376,7 @@ public class StrSubstitutorTest extends TestCase {
         assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
         sub.setVariablePrefix('<');
         assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.CharMatcher);
-        
+
         sub.setVariablePrefix("<<");
         assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
         try {
@@ -335,7 +386,7 @@ public class StrSubstitutorTest extends TestCase {
             // expected
         }
         assertEquals(true, sub.getVariablePrefixMatcher() instanceof StrMatcher.StringMatcher);
-        
+
         StrMatcher matcher = StrMatcher.commaMatcher();
         sub.setVariablePrefixMatcher(matcher);
         assertSame(matcher, sub.getVariablePrefixMatcher());
@@ -356,7 +407,7 @@ public class StrSubstitutorTest extends TestCase {
         assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
         sub.setVariableSuffix('<');
         assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.CharMatcher);
-        
+
         sub.setVariableSuffix("<<");
         assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
         try {
@@ -366,7 +417,7 @@ public class StrSubstitutorTest extends TestCase {
             // expected
         }
         assertEquals(true, sub.getVariableSuffixMatcher() instanceof StrMatcher.StringMatcher);
-        
+
         StrMatcher matcher = StrMatcher.commaMatcher();
         sub.setVariableSuffixMatcher(matcher);
         assertSame(matcher, sub.getVariableSuffixMatcher());
@@ -412,7 +463,7 @@ public class StrSubstitutorTest extends TestCase {
             + "working with ${os.name}, your home "
             + "directory is ${user.home}."));
     }
-    
+
     /**
      * Test the replace of a properties object
      */
@@ -430,38 +481,38 @@ public class StrSubstitutorTest extends TestCase {
     private void doTestReplace(String expectedResult, String replaceTemplate, boolean substring) {
         String expectedShortResult = expectedResult.substring(1, expectedResult.length() - 1);
         StrSubstitutor sub = new StrSubstitutor(values);
-        
+
         // replace using String
         assertEquals(expectedResult, sub.replace(replaceTemplate));
         if (substring) {
             assertEquals(expectedShortResult, sub.replace(replaceTemplate, 1, replaceTemplate.length() - 2));
         }
-        
+
         // replace using char[]
         char[] chars = replaceTemplate.toCharArray();
         assertEquals(expectedResult, sub.replace(chars));
         if (substring) {
             assertEquals(expectedShortResult, sub.replace(chars, 1, chars.length - 2));
         }
-        
+
         // replace using StringBuffer
         StringBuffer buf = new StringBuffer(replaceTemplate);
         assertEquals(expectedResult, sub.replace(buf));
         if (substring) {
             assertEquals(expectedShortResult, sub.replace(buf, 1, buf.length() - 2));
         }
-        
+
         // replace using StrBuilder
         StrBuilder bld = new StrBuilder(replaceTemplate);
         assertEquals(expectedResult, sub.replace(bld));
         if (substring) {
             assertEquals(expectedShortResult, sub.replace(bld, 1, bld.length() - 2));
         }
-        
+
         // replace using object
         MutableObject<String> obj = new MutableObject<String>(replaceTemplate);  // toString returns template
         assertEquals(expectedResult, sub.replace(obj));
-        
+
         // replace in StringBuffer
         buf = new StringBuffer(replaceTemplate);
         assertEquals(true, sub.replaceIn(buf));
@@ -471,7 +522,7 @@ public class StrSubstitutorTest extends TestCase {
             assertEquals(true, sub.replaceIn(buf, 1, buf.length() - 2));
             assertEquals(expectedResult, buf.toString());  // expect full result as remainder is untouched
         }
-        
+
         // replace in StrBuilder
         bld = new StrBuilder(replaceTemplate);
         assertEquals(true, sub.replaceIn(bld));
@@ -485,7 +536,7 @@ public class StrSubstitutorTest extends TestCase {
 
     private void doTestNoReplace(String replaceTemplate) {
         StrSubstitutor sub = new StrSubstitutor(values);
-        
+
         if (replaceTemplate == null) {
             assertEquals(null, sub.replace((String) null));
             assertEquals(null, sub.replace((String) null, 0, 100));

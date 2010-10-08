@@ -86,6 +86,16 @@ import java.util.Properties;
  * <pre>
  *   The variable $${${name}} must be used.
  * </pre>
+ * <p>
+ * In some complex scenarios you might even want to perform substitution in the
+ * names of variables, for instance
+ * <pre>
+ * ${jre-${java.specification.version}}
+ * </pre>
+ * <code>StrSubstitutor</code> supports this recursive substitution in variable
+ * names, but it has to be enabled explicitly by setting the
+ * {@link #setEnableSubstitutionInVariables(boolean) enableSubstitutionInVariables}
+ * property to <b>true</b>.
  *
  * @author Apache Software Foundation
  * @version $Id$
@@ -122,6 +132,10 @@ public class StrSubstitutor {
      * Variable resolution is delegated to an implementor of VariableResolver.
      */
     private StrLookup<?> variableResolver;
+    /**
+     * The flag whether substitution in variable names is enabled.
+     */
+    private boolean enableSubstitutionInVariables;
 
     //-----------------------------------------------------------------------
     /**
@@ -571,7 +585,8 @@ public class StrSubstitutor {
         int bufEnd = offset + length;
         int pos = offset;
         while (pos < bufEnd) {
-            int startMatchLen = prefixMatcher.isMatch(chars, pos, offset, bufEnd);
+            int startMatchLen = prefixMatcher.isMatch(chars, pos, offset,
+                    bufEnd);
             if (startMatchLen == 0) {
                 pos++;
             } else {
@@ -579,7 +594,7 @@ public class StrSubstitutor {
                 if (pos > offset && chars[pos - 1] == escape) {
                     // escaped
                     buf.deleteCharAt(pos - 1);
-                    chars = buf.buffer;  // in case buffer was altered
+                    chars = buf.buffer; // in case buffer was altered
                     lengthChange--;
                     altered = true;
                     bufEnd--;
@@ -588,45 +603,73 @@ public class StrSubstitutor {
                     int startPos = pos;
                     pos += startMatchLen;
                     int endMatchLen = 0;
+                    int nestedVarCount = 0;
                     while (pos < bufEnd) {
-                        endMatchLen = suffixMatcher.isMatch(chars, pos, offset, bufEnd);
+                        if (isEnableSubstitutionInVariables()
+                                && (endMatchLen = prefixMatcher.isMatch(chars,
+                                        pos, offset, bufEnd)) != 0) {
+                            // found a nested variable start
+                            nestedVarCount++;
+                            pos += endMatchLen;
+                            continue;
+                        }
+
+                        endMatchLen = suffixMatcher.isMatch(chars, pos, offset,
+                                bufEnd);
                         if (endMatchLen == 0) {
                             pos++;
                         } else {
                             // found variable end marker
-                            String varName = new String(chars, startPos + startMatchLen,
-                                                        pos - startPos - startMatchLen);
-                            pos += endMatchLen;
-                            int endPos = pos;
+                            if (nestedVarCount == 0) {
+                                String varName = new String(chars, startPos
+                                        + startMatchLen, pos - startPos
+                                        - startMatchLen);
+                                if (isEnableSubstitutionInVariables()) {
+                                    StrBuilder bufName = new StrBuilder(varName);
+                                    substitute(bufName, 0, bufName.length());
+                                    varName = bufName.toString();
+                                }
+                                pos += endMatchLen;
+                                int endPos = pos;
 
-                            // on the first call initialize priorVariables
-                            if (priorVariables == null) {
-                                priorVariables = new ArrayList<String>();
-                                priorVariables.add(new String(chars, offset, length));
+                                // on the first call initialize priorVariables
+                                if (priorVariables == null) {
+                                    priorVariables = new ArrayList<String>();
+                                    priorVariables.add(new String(chars,
+                                            offset, length));
+                                }
+
+                                // handle cyclic substitution
+                                checkCyclicSubstitution(varName, priorVariables);
+                                priorVariables.add(varName);
+
+                                // resolve the variable
+                                String varValue = resolveVariable(varName, buf,
+                                        startPos, endPos);
+                                if (varValue != null) {
+                                    // recursive replace
+                                    int varLen = varValue.length();
+                                    buf.replace(startPos, endPos, varValue);
+                                    altered = true;
+                                    int change = substitute(buf, startPos,
+                                            varLen, priorVariables);
+                                    change = change
+                                            + (varLen - (endPos - startPos));
+                                    pos += change;
+                                    bufEnd += change;
+                                    lengthChange += change;
+                                    chars = buf.buffer; // in case buffer was
+                                                        // altered
+                                }
+
+                                // remove variable from the cyclic stack
+                                priorVariables
+                                        .remove(priorVariables.size() - 1);
+                                break;
+                            } else {
+                                nestedVarCount--;
+                                pos += endMatchLen;
                             }
-
-                            // handle cyclic substitution
-                            checkCyclicSubstitution(varName, priorVariables);
-                            priorVariables.add(varName);
-
-                            // resolve the variable
-                            String varValue = resolveVariable(varName, buf, startPos, endPos);
-                            if (varValue != null) {
-                                // recursive replace
-                                int varLen = varValue.length();
-                                buf.replace(startPos, endPos, varValue);
-                                altered = true;
-                                int change = substitute(buf, startPos, varLen, priorVariables);
-                                change = change + (varLen - (endPos - startPos));
-                                pos += change;
-                                bufEnd += change;
-                                lengthChange += change;
-                                chars = buf.buffer;  // in case buffer was altered
-                            }
-
-                            // remove variable from the cyclic stack
-                            priorVariables.remove(priorVariables.size() - 1);
-                            break;
                         }
                     }
                 }
@@ -740,7 +783,7 @@ public class StrSubstitutor {
     /**
      * Sets the variable prefix to use.
      * <p>
-     * The variable prefix is the characer or characters that identify the
+     * The variable prefix is the character or characters that identify the
      * start of a variable. This method allows a single character prefix to
      * be easily set.
      *
@@ -819,7 +862,7 @@ public class StrSubstitutor {
     /**
      * Sets the variable suffix to use.
      * <p>
-     * The variable suffix is the characer or characters that identify the
+     * The variable suffix is the character or characters that identify the
      * end of a variable. This method allows a string suffix to be easily set.
      *
      * @param suffix  the suffix for variables, not null
@@ -853,4 +896,29 @@ public class StrSubstitutor {
         this.variableResolver = variableResolver;
     }
 
+    // Substitution support in variable names
+    //-----------------------------------------------------------------------
+    /**
+     * Returns a flag whether substitution is done in variable names.
+     *
+     * @return the substitution in variable names flag
+     * @since 3.0
+     */
+    public boolean isEnableSubstitutionInVariables() {
+        return enableSubstitutionInVariables;
+    }
+
+    /**
+     * Sets a flag whether substitution is done in variable names. If set to
+     * <b>true</b>, the names of variables can contain other variables which are
+     * processed first before the original variable is evaluated, e.g.
+     * <code>${jre-${java.version}}</code>. The default value is <b>false</b>.
+     *
+     * @param enableSubstitutionInVariables the new value of the flag
+     * @since 3.0
+     */
+    public void setEnableSubstitutionInVariables(
+            boolean enableSubstitutionInVariables) {
+        this.enableSubstitutionInVariables = enableSubstitutionInVariables;
+    }
 }
