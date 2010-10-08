@@ -86,6 +86,7 @@ New Feature
     * [LANG-435] - Add ClassUtils.isAssignable() variants with autoboxing
     * [LANG-444] - StringUtils.emptyToNull
     * [LANG-446] - Add null-safe ObjectUtils.clone()
+    * [LANG-482] - StrSubstitutor now supports substitution in variable names
     * [LANG-496] - A generic implementation of the Lazy initialization pattern
     * [LANG-497] - Addition of ContextedException and ContextedRuntimeException
     * [LANG-498] - Add StringEscapeUtils.escapeText() methods

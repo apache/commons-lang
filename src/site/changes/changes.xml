@@ -69,6 +69,7 @@
     <action type="add" issue="LANG-496">A generic implementation of the Lazy initialization pattern.</action>
     <action type="remove" issue="LANG-493">Remove code that does not hold enough value to remain.</action>
     <action type="remove" issue="LANG-492">Remove code handled now by the JDK.</action>
+    <action type="add" issue="LANG-482">StrSubstitutor now supports substitution in variable names.</action>
     <action type="fix" issue="LANG-481">Possible race-conditions in hashCode of the range classes.</action>
     <action type="fix" issue="LANG-480">StringEscapeUtils.escapeHtml incorrectly converts unicode characters above U+00FFFF into 2 characters.</action>
     <action type="update" issue="LANG-479">Document where in SVN trunk is.</action>
