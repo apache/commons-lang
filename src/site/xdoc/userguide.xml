@@ -345,10 +345,37 @@ public class ServerThread implements Runnable {
      possible that the <code>initialize()</code> method is invoked multiple
      times. The class guarantees that <code>get()</code> always returns the
      same object though; so objects created accidently are immideately discarded.
-     As a rule of thumb, <code>AtomicInitializer</code> is preferrable if the
-     probability of a simultaneous access to the initializer is low, e.g. if
-     there are not too many concurrent threads. <code>LazyInitializer</code> is
-     the safer variant, but it has some overhead due to synchronization.
+   </p>
+   <p>
+     With <code>AtomicSafeInitializer</code> there is yet another variant
+     implementing the lazy initializing pattern. Its implementation is close to
+     <code>AtomicInitializer</code>; it also uses atomic variables internally
+     and therefore does not need synchronization. The name &quot;Safe&quot; is
+     derived from the fact that it implements an additional check which guarantees
+     that the <code>initialize()</code> method is called only once. So it
+     behaves exactly in the same way as <code>LazyInitializer</code>.
+   </p>
+   <p>
+     Now, which one of the lazy initializer implementations should you use?
+     First of all we have to state that is is problematic to give general
+     recommendations regarding the performance of these classes. The initializers
+     make use of low-level functionality whose efficiency depends on multiple
+     factors including the target platform and the number of concurrent threads.
+     So developers should make their own benchmarks in scenarios close to their
+     specific use cases. The following statements are rules of thumb which have
+     to be verified in practice.
+   </p>
+   <p>
+     <code>AtomicInitializer</code> is probably the most efficient implementation
+     due to its lack of synchronization and further checks. Its main drawback is
+     that the <code>initialize()</code> method can be called multiple
+     times. In cases where this is not an issue <code>AtomicInitializer</code> is
+     a good choice. <code>AtomicSafeInitializer</code> and
+     <code>LazyInitializer</code> both guarantee that the initialization method
+     is called only once. Because <code>AtomicSafeInitializer</code> does not
+     use synchronization it is probably slightly more efficient than
+     <code>LazyInitializer</code>, but the concrete numbers might depend on the
+     level of concurrency.
    </p>
    <p>
      Another implementation of the <code>ConcurrentInitializer</code> interface
