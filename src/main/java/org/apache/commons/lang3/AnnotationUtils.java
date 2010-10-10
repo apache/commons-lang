@@ -59,7 +59,7 @@ public class AnnotationUtils {
                     break;
                 }
             }
-            return new StringBuilder(annotationType == null ? null : annotationType.getName())
+            return new StringBuilder(annotationType == null ? "" : annotationType.getName())
                     .insert(0, '@').toString();
         }
 
