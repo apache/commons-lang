@@ -18,9 +18,8 @@ package org.apache.commons.lang3.text.translate;
 
 import java.io.IOException;
 import java.io.Writer;
-
-import java.util.EnumSet;
 import java.util.Arrays;
+import java.util.EnumSet;
 
 /**
  * Translates escaped unicode values of the form \\u+\d\d\d\d back to 

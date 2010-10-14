@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import java.nio.CharBuffer;
-
 import junit.framework.Assert;
 import junit.framework.TestCase;
 

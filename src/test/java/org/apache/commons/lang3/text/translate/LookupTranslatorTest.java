@@ -17,10 +17,10 @@
 
 package org.apache.commons.lang3.text.translate;
 
-import junit.framework.TestCase;
-
-import java.io.StringWriter;
 import java.io.IOException;
+import java.io.StringWriter;
+
+import junit.framework.TestCase;
 
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.LookupTranslator}.

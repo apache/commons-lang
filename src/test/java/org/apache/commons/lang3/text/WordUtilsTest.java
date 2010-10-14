@@ -19,9 +19,9 @@ package org.apache.commons.lang3.text;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
-import org.apache.commons.lang3.StringUtils;
-
 import junit.framework.TestCase;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Unit tests for WordUtils class.

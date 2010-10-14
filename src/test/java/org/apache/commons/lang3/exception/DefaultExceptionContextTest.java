@@ -18,9 +18,9 @@ package org.apache.commons.lang3.exception;
 
 import java.util.Date;
 
-import org.apache.commons.lang3.exception.ContextedExceptionTest.ObjectWithFaultyToString;
-
 import junit.framework.TestCase;
+
+import org.apache.commons.lang3.exception.ContextedExceptionTest.ObjectWithFaultyToString;
 
 /**
  * JUnit tests for DefaultExceptionContext.

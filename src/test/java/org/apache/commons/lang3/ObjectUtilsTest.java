@@ -22,10 +22,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
+import junit.framework.TestCase;
+
 import org.apache.commons.lang3.exception.CloneFailedException;
 import org.apache.commons.lang3.mutable.MutableObject;
-
-import junit.framework.TestCase;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.ObjectUtils}.

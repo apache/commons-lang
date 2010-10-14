@@ -16,29 +16,26 @@
  */
 package org.apache.commons.lang3.reflect;
 
-import java.lang.reflect.TypeVariable;
-import java.util.List;
-
-import org.junit.Test;
-
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
-
-import org.junit.Assert;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.reflect.testbed.Foo;
 import org.apache.commons.lang3.reflect.testbed.GenericParent;
 import org.apache.commons.lang3.reflect.testbed.GenericTypeHolder;
 import org.apache.commons.lang3.reflect.testbed.StringParameterizedChild;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Test TypeUtils

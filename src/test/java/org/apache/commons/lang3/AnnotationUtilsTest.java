@@ -18,8 +18,13 @@ package org.apache.commons.lang3;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
-import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.*;
-import static org.junit.Assert.*;
+import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.CURLY;
+import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.LARRY;
+import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.MOE;
+import static org.apache.commons.lang3.AnnotationUtilsTest.Stooge.SHEMP;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

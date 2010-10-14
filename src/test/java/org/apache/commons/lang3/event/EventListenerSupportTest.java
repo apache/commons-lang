@@ -17,8 +17,6 @@
 
 package org.apache.commons.lang3.event;
 
-import junit.framework.TestCase;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
@@ -29,6 +27,8 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import junit.framework.TestCase;
 
 import org.easymock.EasyMock;
 
