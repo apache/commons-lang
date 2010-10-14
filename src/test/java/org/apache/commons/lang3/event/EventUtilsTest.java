@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3.event;
 
-import junit.framework.TestCase;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -28,6 +26,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Map;
 import java.util.TreeMap;
+
+import junit.framework.TestCase;
 
 /**
  * @since 3.0

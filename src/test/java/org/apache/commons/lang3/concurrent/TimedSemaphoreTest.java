@@ -28,7 +28,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.concurrent.TimedSemaphore;
 import org.easymock.EasyMock;
 import org.junit.Test;
 

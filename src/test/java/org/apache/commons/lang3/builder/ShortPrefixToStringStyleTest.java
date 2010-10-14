@@ -19,9 +19,9 @@ package org.apache.commons.lang3.builder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
-
 import junit.framework.TestCase;
+
+import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.ToStringStyle#SHORT_PREFIX_STYLE}.
