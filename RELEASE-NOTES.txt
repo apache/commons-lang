@@ -111,6 +111,7 @@ New Feature
     * [LANG-609] - Support lazy initialization using atomic variables
     * [LANG-610] - Extend exception handling in ConcurrentUtils to runtime exceptions
     * [LANG-625] - Add StringUtils.containsWhitespace(String str)
+    * [LANG-653] - Provide a very basic ConcurrentInitializer implementation
 
 Task
 
