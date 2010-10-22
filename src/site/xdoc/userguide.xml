@@ -256,6 +256,14 @@ public interface ConcurrentInitializer<T> {
      addressing various use cases:
    </p>
    <p>
+     <code>ConstantInitializer</code> is a very straightforward implementation of
+     the <code>ConcurrentInitializer</code> interface: An instance is passed an
+     object when it is constructed. In its <code>get()</code> method it simply
+     returns this object. This is useful, for instance in unit tests or in cases
+     when you want to pass a specific object to a component which expects a
+     <code>ConcurrentInitializer</code>.
+   </p>
+   <p>
      The <code>LazyInitializer</code> class can be used to defer the creation of
      an object until it is actually used. This makes sense, for instance, if the
      creation of the object is expensive and would slow down application startup
