@@ -5516,6 +5516,28 @@ public class StringUtils {
 
     /**
      * <p>Returns either the passed in CharSequence, or if the CharSequence is
+     * whitespace, empty ("") or <code>null</code>, the value of <code>defaultStr</code>.</p>
+     *
+     * <pre>
+     * StringUtils.defaultIfBlank(null, "NULL")  = "NULL"
+     * StringUtils.defaultIfBlank("", "NULL")    = "NULL"
+     * StringUtils.defaultIfBlank(" ", "NULL")   = "NULL"
+     * StringUtils.defaultIfBlank("bat", "NULL") = "bat"
+     * StringUtils.defaultIfBlank("", null)      = null
+     * </pre>
+     * @param <T> the specific kind of CharSequence
+     * @param str the CharSequence to check, may be null
+     * @param defaultStr  the default CharSequence to return
+     *  if the input is whitespace, empty ("") or <code>null</code>, may be null
+     * @return the passed in CharSequence, or the default
+     * @see StringUtils#defaultString(String, String)
+     */
+    public static <T extends CharSequence> T defaultIfBlank(T str, T defaultStr) {
+        return StringUtils.isBlank(str) ? defaultStr : str;
+    }
+
+    /**
+     * <p>Returns either the passed in CharSequence, or if the CharSequence is
      * empty or <code>null</code>, the value of <code>defaultStr</code>.</p>
      *
      * <pre>

@@ -1447,12 +1447,33 @@ public class StringUtilsTest extends TestCase {
         assertEquals("abc", s);
     }
 
+    public void testDefaultIfBlank_StringString() {
+        assertEquals("NULL", StringUtils.defaultIfBlank(null, "NULL"));
+        assertEquals("NULL", StringUtils.defaultIfBlank("", "NULL"));
+        assertEquals("NULL", StringUtils.defaultIfBlank(" ", "NULL"));
+        assertEquals("abc", StringUtils.defaultIfBlank("abc", "NULL"));
+        assertNull(StringUtils.defaultIfBlank("", null));
+        // Tests compatibility for the API return type
+        String s = StringUtils.defaultIfBlank("abc", "NULL");
+        assertEquals("abc", s);
+    }
+
     public void testDefaultIfEmpty_StringBuilders() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(new StringBuilder(""), new StringBuilder("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
         assertNull(StringUtils.defaultIfEmpty(new StringBuilder(""), null));
         // Tests compatibility for the API return type
         StringBuilder s = StringUtils.defaultIfEmpty(new StringBuilder("abc"), new StringBuilder("NULL"));
+        assertEquals("abc", s.toString());
+    }
+
+    public void testDefaultIfBlank_StringBuilders() {
+        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuilder(""), new StringBuilder("NULL")).toString());
+        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuilder(" "), new StringBuilder("NULL")).toString());
+        assertEquals("abc", StringUtils.defaultIfBlank(new StringBuilder("abc"), new StringBuilder("NULL")).toString());
+        assertNull(StringUtils.defaultIfBlank(new StringBuilder(""), null));
+        // Tests compatibility for the API return type
+        StringBuilder s = StringUtils.defaultIfBlank(new StringBuilder("abc"), new StringBuilder("NULL"));
         assertEquals("abc", s.toString());
     }
 
@@ -1465,12 +1486,32 @@ public class StringUtilsTest extends TestCase {
         assertEquals("abc", s.toString());
     }
 
+    public void testDefaultIfBlank_StringBuffers() {
+        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuffer(""), new StringBuffer("NULL")).toString());
+        assertEquals("NULL", StringUtils.defaultIfBlank(new StringBuffer(" "), new StringBuffer("NULL")).toString());
+        assertEquals("abc", StringUtils.defaultIfBlank(new StringBuffer("abc"), new StringBuffer("NULL")).toString());
+        assertNull(StringUtils.defaultIfBlank(new StringBuffer(""), null));
+        // Tests compatibility for the API return type
+        StringBuffer s = StringUtils.defaultIfBlank(new StringBuffer("abc"), new StringBuffer("NULL"));
+        assertEquals("abc", s.toString());
+    }
+
     public void testDefaultIfEmpty_CharBuffers() {
         assertEquals("NULL", StringUtils.defaultIfEmpty(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
         assertEquals("abc", StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")).toString());
         assertNull(StringUtils.defaultIfEmpty(CharBuffer.wrap(""), null));
         // Tests compatibility for the API return type
         CharBuffer s = StringUtils.defaultIfEmpty(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL"));
+        assertEquals("abc", s.toString());
+    }
+
+    public void testDefaultIfBlank_CharBuffers() {
+        assertEquals("NULL", StringUtils.defaultIfBlank(CharBuffer.wrap(""), CharBuffer.wrap("NULL")).toString());
+        assertEquals("NULL", StringUtils.defaultIfBlank(CharBuffer.wrap(" "), CharBuffer.wrap("NULL")).toString());
+        assertEquals("abc", StringUtils.defaultIfBlank(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL")).toString());
+        assertNull(StringUtils.defaultIfBlank(CharBuffer.wrap(""), null));
+        // Tests compatibility for the API return type
+        CharBuffer s = StringUtils.defaultIfBlank(CharBuffer.wrap("abc"), CharBuffer.wrap("NULL"));
         assertEquals("abc", s.toString());
     }
 
