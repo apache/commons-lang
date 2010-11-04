@@ -43,6 +43,8 @@ public class AnnotationUtils {
             setContentStart("(");
             setContentEnd(")");
             setFieldSeparator(", ");
+            setArrayStart("[");
+            setArrayEnd("]");
         }
 
         /**
