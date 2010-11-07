@@ -1555,13 +1555,14 @@ public class StringUtils {
      * A <code>null</code> or zero length search array will return <code>-1</code>.</p>
      *
      * <pre>
-     * StringUtils.indexOfAnyBut(null, *)           = -1
-     * StringUtils.indexOfAnyBut("", *)             = -1
-     * StringUtils.indexOfAnyBut(*, null)           = -1
-     * StringUtils.indexOfAnyBut(*, [])             = -1
-     * StringUtils.indexOfAnyBut("zzabyycdxx",'za') = 3
-     * StringUtils.indexOfAnyBut("zzabyycdxx", '')  = 0
-     * StringUtils.indexOfAnyBut("aba", 'ab')       = -1
+     * StringUtils.indexOfAnyBut(null, *)                              = -1
+     * StringUtils.indexOfAnyBut("", *)                                = -1
+     * StringUtils.indexOfAnyBut(*, null)                              = -1
+     * StringUtils.indexOfAnyBut(*, [])                                = -1
+     * StringUtils.indexOfAnyBut("zzabyycdxx", new char[] {'z', 'a'} ) = 3
+     * StringUtils.indexOfAnyBut("aba", new char[] {'z'} )             = 0
+     * StringUtils.indexOfAnyBut("aba", new char[] {'a', 'b'} )        = -1
+
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
