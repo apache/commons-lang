@@ -596,7 +596,9 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(-1, StringUtils.indexOfAnyBut("zzabyycdxx", new char[0]));
         assertEquals(3, StringUtils.indexOfAnyBut("zzabyycdxx", new char[] {'z','a'}));
         assertEquals(0, StringUtils.indexOfAnyBut("zzabyycdxx", new char[] {'b','y'}));
-        assertEquals(0, StringUtils.indexOfAnyBut("ab", new char[] {'z'}));
+        assertEquals(-1, StringUtils.indexOfAnyBut("aba", new char[] {'a', 'b'}));
+        assertEquals(0, StringUtils.indexOfAnyBut("aba", new char[] {'z'}));
+
     }
 
     public void testIndexOfAnyBut_StringCharArrayWithSupplementaryChars() {
