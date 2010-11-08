@@ -1611,7 +1611,7 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut(*, null)            = -1
      * StringUtils.indexOfAnyBut(*, "")              = -1
      * StringUtils.indexOfAnyBut("zzabyycdxx", "za") = 3
-     * StringUtils.indexOfAnyBut("zzabyycdxx", "")   = 0
+     * StringUtils.indexOfAnyBut("zzabyycdxx", "")   = -1
      * StringUtils.indexOfAnyBut("aba","ab")         = -1
      * </pre>
      *
