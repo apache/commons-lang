@@ -1603,7 +1603,7 @@ public class StringUtils {
      * character not in the given set of characters.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
-     * A <code>null</code> search string will return <code>-1</code>.</p>
+     * A <code>null</code> or empty search string will return <code>-1</code>.</p>
      *
      * <pre>
      * StringUtils.indexOfAnyBut(null, *)            = -1
