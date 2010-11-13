@@ -111,7 +111,7 @@ public class EntityArrays {
         {"\u00EF", "&iuml;"}, // ï - lowercase i, umlaut
         {"\u00F0", "&eth;"}, // ð - lowercase eth, Icelandic
         {"\u00F1", "&ntilde;"}, // ñ - lowercase n, tilde
-        {"\u00F3", "&ograve;"}, // ò - lowercase o, grave accent
+        {"\u00F2", "&ograve;"}, // ò - lowercase o, grave accent
         {"\u00F3", "&oacute;"}, // ó - lowercase o, acute accent
         {"\u00F4", "&ocirc;"}, // ô - lowercase o, circumflex accent
         {"\u00F5", "&otilde;"}, // õ - lowercase o, tilde
