@@ -50,6 +50,7 @@ public class AnnotationUtils {
         /**
          * {@inheritDoc}
          */
+        @Override
         protected String getShortClassName(java.lang.Class<?> cls) {
             Class<? extends Annotation> annotationType = null;
             for (Class<?> iface : ClassUtils.getAllInterfaces(cls)) {
@@ -68,6 +69,7 @@ public class AnnotationUtils {
         /**
          * {@inheritDoc}
          */
+        @Override
         protected void appendDetail(StringBuffer buffer, String fieldName, Object value) {
             if (value instanceof Annotation) {
                 value = AnnotationUtils.toString((Annotation) value);
