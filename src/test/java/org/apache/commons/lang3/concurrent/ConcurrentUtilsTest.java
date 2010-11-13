@@ -17,8 +17,10 @@
 package org.apache.commons.lang3.concurrent;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.concurrent.ExecutionException;
@@ -251,7 +253,7 @@ public class ConcurrentUtilsTest {
      * Tests handleCauseUnchecked() if the cause is an error.
      */
     @Test
-    public void testHandleCauseUncheckedError() throws ConcurrentException {
+    public void testHandleCauseUncheckedError() {
         Error err = new AssertionError("Test");
         try {
             ConcurrentUtils.handleCauseUnchecked(new ExecutionException(err));
@@ -265,8 +267,7 @@ public class ConcurrentUtilsTest {
      * Tests handleCauseUnchecked() if the cause is an unchecked exception.
      */
     @Test
-    public void testHandleCauseUncheckedUncheckedException()
-            throws ConcurrentException {
+    public void testHandleCauseUncheckedUncheckedException() {
         RuntimeException rex = new RuntimeException("Test");
         try {
             ConcurrentUtils.handleCauseUnchecked(new ExecutionException(rex));
@@ -296,7 +297,7 @@ public class ConcurrentUtilsTest {
      * exception is thrown.
      */
     @Test
-    public void testHandleCauseUncheckedNull() throws ConcurrentException {
+    public void testHandleCauseUncheckedNull() {
         ConcurrentUtils.handleCauseUnchecked(null);
         ConcurrentUtils.handleCauseUnchecked(new ExecutionException("Test",
                 null));
@@ -379,13 +380,13 @@ public class ConcurrentUtilsTest {
     public void testConstantFuture_Integer() throws Exception {
         Integer value = new Integer(5);
         Future<Integer> test = ConcurrentUtils.constantFuture(value);
-        assertEquals(true, test.isDone());
+        assertTrue(test.isDone());
         assertSame(value, test.get());
         assertSame(value, test.get(1000, TimeUnit.SECONDS));
         assertSame(value, test.get(1000, null));
-        assertEquals(false, test.isCancelled());
-        assertEquals(false, test.cancel(true));
-        assertEquals(false, test.cancel(false));
+        assertFalse(test.isCancelled());
+        assertFalse(test.cancel(true));
+        assertFalse(test.cancel(false));
     }
 
     /**
@@ -395,13 +396,13 @@ public class ConcurrentUtilsTest {
     public void testConstantFuture_null() throws Exception {
         Integer value = null;
         Future<Integer> test = ConcurrentUtils.constantFuture(value);
-        assertEquals(true, test.isDone());
+        assertTrue(test.isDone());
         assertSame(value, test.get());
         assertSame(value, test.get(1000, TimeUnit.SECONDS));
         assertSame(value, test.get(1000, null));
-        assertEquals(false, test.isCancelled());
-        assertEquals(false, test.cancel(true));
-        assertEquals(false, test.cancel(false));
+        assertFalse(test.isCancelled());
+        assertFalse(test.cancel(true));
+        assertFalse(test.cancel(false));
     }
 
 }
