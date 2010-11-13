@@ -239,7 +239,7 @@ public class EntityArrays {
         {"\u2211", "&sum;"}, // n-ary summation, U+2211 ISOamsb -->
         // <!-- sum is NOT the same character as U+03A3 'greek capital letter sigma'
         // though the same glyph might be used for both -->
-        {"\u2122", "&minus;"}, // minus sign, U+2212 ISOtech -->
+        {"\u2212", "&minus;"}, // minus sign, U+2212 ISOtech -->
         {"\u2217", "&lowast;"}, // asterisk operator, U+2217 ISOtech -->
         {"\u221A", "&radic;"}, // square root = radical sign,U+221A ISOtech -->
         {"\u221D", "&prop;"}, // proportional to, U+221D ISOtech -->
