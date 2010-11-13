@@ -17,7 +17,6 @@
 package org.apache.commons.lang3.concurrent;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.regex.Pattern;
@@ -51,11 +50,12 @@ public class ConstantInitializerTest {
      */
     private void checkEquals(Object obj, boolean expected) {
         assertEquals("Wrong result of equals", expected, init.equals(obj));
-        assertNotNull(obj);
-        assertEquals("Not symmetric", expected, obj.equals(init));
-        if (expected) {
-            assertEquals("Different hash codes", init.hashCode(),
-                    obj.hashCode());
+        if (obj != null) {
+            assertEquals("Not symmetric", expected, obj.equals(init));
+            if (expected) {
+                assertEquals("Different hash codes", init.hashCode(),
+                        obj.hashCode());
+            }
         }
     }
 
