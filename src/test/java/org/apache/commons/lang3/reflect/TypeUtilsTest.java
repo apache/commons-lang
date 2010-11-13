@@ -42,7 +42,7 @@ import org.junit.Test;
  * @author David M. Sledge
  * @version $Id$
  */
-@SuppressWarnings({ "unchecked", "unused" })
+@SuppressWarnings({ "unchecked", "unused" , "rawtypes", "null"})
 //raw types, where used, are used purposely
 public class TypeUtilsTest<B> {
 
@@ -674,7 +674,7 @@ class AAAClass extends AAClass<String> {
     }
 }
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("rawtypes")
 //raw types, where used, are used purposely
 class AClass extends AAClass<String>.BBClass<Number> {
 
