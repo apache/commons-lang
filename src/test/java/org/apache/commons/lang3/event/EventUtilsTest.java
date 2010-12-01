@@ -16,14 +16,14 @@
  */
 package org.apache.commons.lang3.event;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.naming.event.ObjectChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.VetoableChangeListener;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -51,15 +51,15 @@ public class EventUtilsTest extends TestCase
     {
         final PropertyChangeSource src = new PropertyChangeSource();
         EventCountingInvociationHandler handler = new EventCountingInvociationHandler();
-        ActionListener listener = handler.createListener(ActionListener.class);
+        ObjectChangeListener listener = handler.createListener(ObjectChangeListener.class);
         try
         {
-            EventUtils.addEventListener(src, ActionListener.class, listener);
+            EventUtils.addEventListener(src, ObjectChangeListener.class, listener);
             fail("Should not be allowed to add a listener to an object that doesn't support it.");
         }
         catch (IllegalArgumentException e)
         {
-            assertEquals("Class " + src.getClass().getName() + " does not have a public add" + ActionListener.class.getSimpleName() + " method which takes a parameter of type " + ActionListener.class.getName() + ".", e.getMessage());
+            assertEquals("Class " + src.getClass().getName() + " does not have a public add" + ObjectChangeListener.class.getSimpleName() + " method which takes a parameter of type " + ObjectChangeListener.class.getName() + ".", e.getMessage());
         }
     }
 
@@ -68,9 +68,9 @@ public class EventUtilsTest extends TestCase
         final ExceptionEventSource src = new ExceptionEventSource();
         try
         {
-            EventUtils.addEventListener(src, ActionListener.class, new ActionListener()
+            EventUtils.addEventListener(src, PropertyChangeListener.class, new PropertyChangeListener()
             {
-                public void actionPerformed(ActionEvent e)
+                public void propertyChange(PropertyChangeEvent e)
                 {
                     // Do nothing!
                 }
@@ -127,17 +127,17 @@ public class EventUtilsTest extends TestCase
         final EventCounter counter = new EventCounter();
         EventUtils.bindEventsToMethod(counter, "eventOccurred", src, MultipleEventListener.class, "event1");
         assertEquals(0, counter.getCount());
-        src.listeners.fire().event1(new ActionEvent(src, ActionEvent.ACTION_PERFORMED, "event1"));
+        src.listeners.fire().event1(new PropertyChangeEvent(new Date(), "Day", 0, 1));
         assertEquals(1, counter.getCount());
-        src.listeners.fire().event2(new ActionEvent(src, ActionEvent.ACTION_PERFORMED, "event2"));
+        src.listeners.fire().event2(new PropertyChangeEvent(new Date(), "Day", 1, 2));
         assertEquals(1, counter.getCount());
     }
 
     public static interface MultipleEventListener
     {
-        public void event1(ActionEvent e);
+        public void event1(PropertyChangeEvent e);
 
-        public void event2(ActionEvent e);
+        public void event2(PropertyChangeEvent e);
     }
 
     public static class EventCounter
@@ -215,7 +215,7 @@ public class EventUtilsTest extends TestCase
 
     public static class ExceptionEventSource
     {
-        public void addActionListener(ActionListener listener)
+        public void addPropertyChangeListener(PropertyChangeListener listener)
         {
             throw new RuntimeException();
         }
