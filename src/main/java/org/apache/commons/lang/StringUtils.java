@@ -542,10 +542,11 @@ public class StringUtils {
      * StringUtils.stripEnd("abc  ", null)    = "abc"
      * StringUtils.stripEnd(" abc ", null)    = " abc"
      * StringUtils.stripEnd("  abcyx", "xyz") = "  abc"
+     * StringUtils.stripEnd("120.00", ".0")   = "12"
      * </pre>
      *
      * @param str  the String to remove characters from, may be null
-     * @param stripChars  the characters to remove, null treated as whitespace
+     * @param stripChars  the set of characters to remove, null treated as whitespace
      * @return the stripped String, <code>null</code> if null String input
      */
     public static String stripEnd(String str, String stripChars) {
