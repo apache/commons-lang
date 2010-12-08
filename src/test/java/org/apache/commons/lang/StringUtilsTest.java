@@ -1906,7 +1906,7 @@ public class StringUtilsTest extends TestCase {
     }
  
     public void testLANG666() {
-        assertEquals("12",StringUtils.stripEnd("120.00", ".00"));
-        assertEquals("121",StringUtils.stripEnd("121.00", ".00"));
+        assertEquals("12",StringUtils.stripEnd("120.00", ".0"));
+        assertEquals("121",StringUtils.stripEnd("121.00", ".0"));
     }
 }
