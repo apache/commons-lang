@@ -1916,4 +1916,9 @@ public class StringUtilsTest extends TestCase {
         assertEquals("a b c", StringUtils.normalizeSpace("  a  b   c  "));
         assertEquals("a b c", StringUtils.normalizeSpace("a\t\f\r  b\u000B   c\n"));
     }
+
+    public void testLANG666() {
+        assertEquals("12",StringUtils.stripEnd("120.00", ".00"));
+        assertEquals("121",StringUtils.stripEnd("121.00", ".00"));
+    }
 }
