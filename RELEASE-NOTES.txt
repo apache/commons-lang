@@ -168,3 +168,4 @@ BUG FIXES IN 3.0
     * [LANG-631] - StringUtils JavaDoc contains erroneous examples
     * [LANG-635] - CompareToBuilder.reflectionCompare(Object, Object, boolean, Class) ignores 
                    third compareTransients parameter
+    * [LANG-658] - Some Entitys like &Ouml; are not matched properly against its ISO8859-1 representation
