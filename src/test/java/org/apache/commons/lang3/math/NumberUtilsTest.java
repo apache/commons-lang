@@ -1139,6 +1139,10 @@ public class NumberUtilsTest extends TestCase {
         // LANG-521
         val = "2.";
         assertTrue("isNumber(String) LANG-521 failed", NumberUtils.isNumber(val));
+
+        // LANG-664
+        val = "1.1L";
+        assertFalse("isNumber(String) LANG-664 failed", NumberUtils.isNumber(val));
     }
 
     private boolean checkCreateNumber(String val) {
