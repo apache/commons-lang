@@ -136,7 +136,8 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @param numerator  the numerator, for example the three in 'three sevenths'
      * @param denominator  the denominator, for example the seven in 'three sevenths'
      * @return a new fraction instance
-     * @throws ArithmeticException if the denomiator is <code>zero</code>
+     * @throws ArithmeticException if the denominator is <code>zero</code>
+     * or the denominator is {@code negative} and the numerator is {@code Integer#MIN_VALUE}
      */
     public static Fraction getFraction(int numerator, int denominator) {
         if (denominator == 0) {
@@ -163,7 +164,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @param numerator  the numerator, for example the three in 'one and three sevenths'
      * @param denominator  the denominator, for example the seven in 'one and three sevenths'
      * @return a new fraction instance
-     * @throws ArithmeticException if the denomiator is <code>zero</code>
+     * @throws ArithmeticException if the denominator is <code>zero</code>
      * @throws ArithmeticException if the denominator is negative
      * @throws ArithmeticException if the numerator is negative
      * @throws ArithmeticException if the resulting numerator exceeds 
