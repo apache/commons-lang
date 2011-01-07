@@ -345,7 +345,7 @@ public class ObjectUtils {
      * considered less than a Non-<code>null</code> value
      * @return a negative value if c1 < c2, zero if c1 = c2
      * and a positive value if c1 > c2
-     * @see java.lang.Comparator#compare(Object, Object)
+     * @see java.util.Comparator#compare(Object, Object)
      */
     public static <T extends Comparable<? super T>> int compare(T c1, T c2, boolean nullGreater) {
         int result = 0;
