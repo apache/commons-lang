@@ -277,35 +277,49 @@ public class ObjectUtils {
     /**
      * Null safe comparison of Comparables.
      * 
-     * @param c1  the first comparable, may be null
-     * @param c2  the second comparable, may be null
+     * @param values the set of comparable values, may be null
      * @return
      *  <ul>
-     *   <li>If both objects are non-null and unequal, the lesser object.
-     *   <li>If both objects are non-null and equal, c1.
-     *   <li>If one of the comparables is null, the non-null object.
-     *   <li>If both the comparables are null, null is returned.
+     *   <li>If any objects are non-null and unequal, the lesser object.
+     *   <li>If all objects are non-null and equal, the first.
+     *   <li>If any of the comparables are null, the lesser of the non-null object.
+     *   <li>If all the comparables are null, null is returned.
      *  </ul>
      */
-    public static <T extends Comparable<? super T>> T min(T c1, T c2) {
-        return compare(c1, c2, true) <= 0 ? c1 : c2;
+    public static <T extends Comparable<? super T>> T min(T... values) {
+        T result = null;
+        if (values != null) {
+            for (T value : values) {
+                if (compare(value, result, true) < 0) {
+                    result = value;
+                }
+            }
+        }
+        return result;
     }
 
     /**
      * Null safe comparison of Comparables.
      * 
-     * @param c1  the first comparable, may be null
-     * @param c2  the second comparable, may be null
+     * @param values the set of comparable values, may be null
      * @return
      *  <ul>
-     *   <li>If both objects are non-null and unequal, the greater object.
-     *   <li>If both objects are non-null and equal, c1.
-     *   <li>If one of the comparables is null, the non-null object.
-     *   <li>If both the comparables are null, null is returned.
+     *   <li>If any objects are non-null and unequal, the greater object.
+     *   <li>If all objects are non-null and equal, the first.
+     *   <li>If any of the comparables are null, the greater of the non-null object.
+     *   <li>If all the comparables are null, null is returned.
      *  </ul>
      */
-    public static <T extends Comparable<? super T>> T max(T c1, T c2) {
-        return compare(c1, c2, false) >= 0 ? c1 : c2;
+    public static <T extends Comparable<? super T>> T max(T... values) {
+        T result = null;
+        if (values != null) {
+            for (T value : values) {
+                if (compare(value, result, false) > 0) {
+                    result = value;
+                }
+            }
+        }
+        return result;
     }
 
     /**
