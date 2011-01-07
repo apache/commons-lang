@@ -348,17 +348,14 @@ public class ObjectUtils {
      * @see java.util.Comparator#compare(Object, Object)
      */
     public static <T extends Comparable<? super T>> int compare(T c1, T c2, boolean nullGreater) {
-        int result = 0;
-        if ((c1 == null) || (c2 == null)) {
-            if (nullGreater) {
-                result = (c1 == null ? 1 : 0) - (c2 == null ? 1 : 0);
-            } else {
-                result = (c1 == null ? -1 : 0) - (c2 == null ? -1 : 0);
-            }
-        } else {
-            result = c1.compareTo(c2);
+        if (c1 == c2) {
+            return 0;
+        } else if (c1 == null) {
+            return (nullGreater ? 1 : -1);
+        } else if (c2 == null) {
+            return (nullGreater ? -1 : 1);
         }
-        return result;
+        return c1.compareTo(c2);
     }
     
     /**
