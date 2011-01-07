@@ -310,6 +310,7 @@ public class ObjectUtils {
 
     /**
      * Null safe comparison of Comparables.
+     * {@code null} is assumed to be less than a non-{@code null} value.
      * 
      * @param c1  the first comparable, may be null
      * @param c2  the second comparable, may be null
