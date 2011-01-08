@@ -39,144 +39,10 @@ import junit.framework.TestCase;
  */
 public class SystemUtilsTest extends TestCase {
 
-    //-----------------------------------------------------------------------
-    // COPIED FROM SystemUtils
-    //-----------------------------------------------------------------------
-    private String JAVA_VERSION;
-
-    private String JAVA_VERSION_TRIMMED;
-
-    private String OS_NAME;
-
-    private String OS_VERSION;
-
     public SystemUtilsTest(String name) {
         super(name);
     }
 
-    /**
-     * <p>Gets the Java version number as a <code>float</code>.</p>
-     *
-     * <p>Example return values:</p>
-     * <ul>
-     *  <li><code>1.2f</code> for JDK 1.2
-     *  <li><code>1.31f</code> for JDK 1.3.1
-     * </ul>
-     * 
-     * <p>Patch releases are not reported.
-     * Zero is returned if {@link #JAVA_VERSION_TRIMMED} is <code>null</code>.</p>
-     * 
-     * @return the version, for example 1.31f for JDK 1.3.1
-     */
-    private float getJavaVersionAsFloat() {
-        if (JAVA_VERSION_TRIMMED == null) {
-            return 0f;
-        }
-        String str = JAVA_VERSION_TRIMMED.substring(0, 3);
-        if (JAVA_VERSION_TRIMMED.length() >= 5) {
-            str = str + JAVA_VERSION_TRIMMED.substring(4, 5);
-        }
-        try {
-            return Float.parseFloat(str);
-        } catch (Exception ex) {
-            return 0;
-        }
-    }
-
-    /**
-     * <p>Gets the Java version number as an <code>int</code>.</p>
-     *
-     * <p>Example return values:</p>
-     * <ul>
-     *  <li><code>120</code> for JDK 1.2
-     *  <li><code>131</code> for JDK 1.3.1
-     * </ul>
-     * 
-     * <p>Patch releases are not reported.
-     * Zero is returned if {@link #JAVA_VERSION_TRIMMED} is <code>null</code>.</p>
-     * 
-     * @return the version, for example 131 for JDK 1.3.1
-     */
-    private int getJavaVersionAsInt() {
-        if (JAVA_VERSION == null) {
-            return 0;
-        }
-        String str = JAVA_VERSION_TRIMMED.substring(0, 1);
-        str = str + JAVA_VERSION_TRIMMED.substring(2, 3);
-        if (JAVA_VERSION_TRIMMED.length() >= 5) {
-            str = str + JAVA_VERSION_TRIMMED.substring(4, 5);
-        } else {
-            str = str + "0";
-        }
-        try {
-            return Integer.parseInt(str);
-        } catch (Exception ex) {
-            return 0;
-        }
-    }
-
-    /**
-     * Trims the text of the java version to start with numbers.
-     * 
-     * @return the trimmed java version
-     */
-    private String getJavaVersionTrimmed() {
-        if (JAVA_VERSION != null) {
-            for (int i = 0; i < JAVA_VERSION.length(); i++) {
-                char ch = JAVA_VERSION.charAt(i);
-                if (ch >= '0' && ch <= '9') {
-                    return JAVA_VERSION.substring(i);
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Decides if the java version matches.
-     * 
-     * @param versionPrefix
-     *                  the prefix for the java version
-     * @return true if matches, or false if not or can't determine
-     */
-    private boolean getJavaVersionMatches(String versionPrefix) {
-        if (JAVA_VERSION_TRIMMED == null) {
-            return false;
-        }
-        return JAVA_VERSION_TRIMMED.startsWith(versionPrefix);
-    }
-
-    /**
-     * Decides if the operating system matches.
-     * 
-     * @param osNamePrefix
-     *                  the prefix for the os name
-     * @return true if matches, or false if not or can't determine
-     */
-    private boolean getOSMatches(String osNamePrefix) {
-        if (OS_NAME == null) {
-            return false;
-        }
-        return OS_NAME.startsWith(osNamePrefix);
-    }
-
-    /**
-     * Decides if the operating system matches.
-     * 
-     * @param osNamePrefix
-     *                  the prefix for the os name
-     * @param osVersionPrefix
-     *                  the prefix for the version
-     * @return true if matches, or false if not or can't determine
-     */
-    private boolean getOSMatches(String osNamePrefix, String osVersionPrefix) {
-        if (OS_NAME == null || OS_VERSION == null) {
-            return false;
-        }
-        return OS_NAME.startsWith(osNamePrefix) && OS_VERSION.startsWith(osVersionPrefix);
-    }
-
-    //-----------------------------------------------------------------------
     public void testConstructor() {
         assertNotNull(new SystemUtils());
         Constructor[] cons = SystemUtils.class.getDeclaredConstructors();
@@ -231,6 +97,7 @@ public class SystemUtilsTest extends TestCase {
             assertEquals(false, SystemUtils.IS_JAVA_1_4);
             assertEquals(false, SystemUtils.IS_JAVA_1_5);
             assertEquals(false, SystemUtils.IS_JAVA_1_6);
+            assertEquals(false, SystemUtils.IS_JAVA_1_7);
         } else if (javaVersion.startsWith("1.1")) {
             assertEquals(true, SystemUtils.IS_JAVA_1_1);
             assertEquals(false, SystemUtils.IS_JAVA_1_2);
@@ -238,6 +105,7 @@ public class SystemUtilsTest extends TestCase {
             assertEquals(false, SystemUtils.IS_JAVA_1_4);
             assertEquals(false, SystemUtils.IS_JAVA_1_5);
             assertEquals(false, SystemUtils.IS_JAVA_1_6);
+            assertEquals(false, SystemUtils.IS_JAVA_1_7);
         } else if (javaVersion.startsWith("1.2")) {
             assertEquals(false, SystemUtils.IS_JAVA_1_1);
             assertEquals(true, SystemUtils.IS_JAVA_1_2);
@@ -245,6 +113,7 @@ public class SystemUtilsTest extends TestCase {
             assertEquals(false, SystemUtils.IS_JAVA_1_4);
             assertEquals(false, SystemUtils.IS_JAVA_1_5);
             assertEquals(false, SystemUtils.IS_JAVA_1_6);
+            assertEquals(false, SystemUtils.IS_JAVA_1_7);
         } else if (javaVersion.startsWith("1.3")) {
             assertEquals(false, SystemUtils.IS_JAVA_1_1);
             assertEquals(false, SystemUtils.IS_JAVA_1_2);
@@ -252,6 +121,7 @@ public class SystemUtilsTest extends TestCase {
             assertEquals(false, SystemUtils.IS_JAVA_1_4);
             assertEquals(false, SystemUtils.IS_JAVA_1_5);
             assertEquals(false, SystemUtils.IS_JAVA_1_6);
+            assertEquals(false, SystemUtils.IS_JAVA_1_7);
         } else if (javaVersion.startsWith("1.4")) {
             assertEquals(false, SystemUtils.IS_JAVA_1_1);
             assertEquals(false, SystemUtils.IS_JAVA_1_2);
@@ -259,6 +129,7 @@ public class SystemUtilsTest extends TestCase {
             assertEquals(true, SystemUtils.IS_JAVA_1_4);
             assertEquals(false, SystemUtils.IS_JAVA_1_5);
             assertEquals(false, SystemUtils.IS_JAVA_1_6);
+            assertEquals(false, SystemUtils.IS_JAVA_1_7);
         } else if (javaVersion.startsWith("1.5")) {
             assertEquals(false, SystemUtils.IS_JAVA_1_1);
             assertEquals(false, SystemUtils.IS_JAVA_1_2);
@@ -266,6 +137,7 @@ public class SystemUtilsTest extends TestCase {
             assertEquals(false, SystemUtils.IS_JAVA_1_4);
             assertEquals(true, SystemUtils.IS_JAVA_1_5);
             assertEquals(false, SystemUtils.IS_JAVA_1_6);
+            assertEquals(false, SystemUtils.IS_JAVA_1_7);
         } else if (javaVersion.startsWith("1.6")) {
             assertEquals(false, SystemUtils.IS_JAVA_1_1);
             assertEquals(false, SystemUtils.IS_JAVA_1_2);
@@ -273,6 +145,7 @@ public class SystemUtilsTest extends TestCase {
             assertEquals(false, SystemUtils.IS_JAVA_1_4);
             assertEquals(false, SystemUtils.IS_JAVA_1_5);
             assertEquals(true, SystemUtils.IS_JAVA_1_6);
+            assertEquals(false, SystemUtils.IS_JAVA_1_7);
         } else {
             System.out.println("Can't test IS_JAVA value");
         }
@@ -314,81 +187,42 @@ public class SystemUtilsTest extends TestCase {
         }
     }
 
-    //-----------------------------------------------------------------------
-    public void testDeprecatedJavaVersion() {
-        assertEquals(SystemUtils.JAVA_VERSION_FLOAT, SystemUtils.getJavaVersion(), 0f);
-    }
-
     public void testJavaVersionAsFloat() {
-        JAVA_VERSION = null;
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(0f, getJavaVersionAsFloat(), 0.000001f);
-        JAVA_VERSION = "1.1";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(1.1f, getJavaVersionAsFloat(), 0.000001f);
-        JAVA_VERSION = "1.2";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(1.2f, getJavaVersionAsFloat(), 0.000001f);
-        JAVA_VERSION = "1.3.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(1.3f, getJavaVersionAsFloat(), 0.000001f);
-        JAVA_VERSION = "1.3.1";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(1.31f, getJavaVersionAsFloat(), 0.000001f);
-        JAVA_VERSION = "1.4.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(1.4f, getJavaVersionAsFloat(), 0.000001f);
-        JAVA_VERSION = "1.4.1";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(1.41f, getJavaVersionAsFloat(), 0.000001f);
-        JAVA_VERSION = "1.5.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(1.5f, getJavaVersionAsFloat(), 0.000001f);
-        JAVA_VERSION = "1.6.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(1.6f, getJavaVersionAsFloat(), 0.000001f);
-        JAVA_VERSION = "JavaVM-1.3.1";  //HP-UX
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(1.31f, getJavaVersionAsFloat(), 0.000001f);
-        JAVA_VERSION = "XXX-1.3.x";  //error
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(0.0f, getJavaVersionAsFloat(), 0.000001f);
+        assertEquals(0f, SystemUtils.toJavaVersionFloat(null), 0.000001f);
+        assertEquals(0f, SystemUtils.toJavaVersionFloat(""), 0.000001f);
+        assertEquals(0f, SystemUtils.toJavaVersionFloat("0"), 0.000001f);
+        assertEquals(1.1f, SystemUtils.toJavaVersionFloat("1.1"), 0.000001f);
+        assertEquals(1.2f, SystemUtils.toJavaVersionFloat("1.2"), 0.000001f);
+        assertEquals(1.3f, SystemUtils.toJavaVersionFloat("1.3.0"), 0.000001f);
+        assertEquals(1.31f, SystemUtils.toJavaVersionFloat("1.3.1"), 0.000001f);
+        assertEquals(1.4f, SystemUtils.toJavaVersionFloat("1.4.0"), 0.000001f);
+        assertEquals(1.41f, SystemUtils.toJavaVersionFloat("1.4.1"), 0.000001f);
+        assertEquals(1.42f, SystemUtils.toJavaVersionFloat("1.4.2"), 0.000001f);
+        assertEquals(1.5f, SystemUtils.toJavaVersionFloat("1.5.0"), 0.000001f);
+        assertEquals(1.6f, SystemUtils.toJavaVersionFloat("1.6.0"), 0.000001f);
+        assertEquals(1.31f, SystemUtils.toJavaVersionFloat("JavaVM-1.3.1"), 0.000001f);
+        assertEquals(1.3f, SystemUtils.toJavaVersionFloat("1.3.0 subset"), 0.000001f);
+        // This used to return 0f in [lang] version 2.5:
+        assertEquals(1.3f, SystemUtils.toJavaVersionFloat("XXX-1.3.x"), 0.000001f);
     }
 
     public void testJavaVersionAsInt() {
-        JAVA_VERSION = null;
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(0, getJavaVersionAsInt());
-        JAVA_VERSION = "1.1";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(110, getJavaVersionAsInt());
-        JAVA_VERSION = "1.2";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(120, getJavaVersionAsInt());
-        JAVA_VERSION = "1.3.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(130, getJavaVersionAsInt());
-        JAVA_VERSION = "1.3.1";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(131, getJavaVersionAsInt());
-        JAVA_VERSION = "1.4.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(140, getJavaVersionAsInt());
-        JAVA_VERSION = "1.4.1";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(141, getJavaVersionAsInt());
-        JAVA_VERSION = "1.5.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(150, getJavaVersionAsInt());
-        JAVA_VERSION = "1.6.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(160, getJavaVersionAsInt());
-        JAVA_VERSION = "JavaVM-1.3.1";  //HP-UX
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(131, getJavaVersionAsInt());
-        JAVA_VERSION = "XXX-1.3.x";  //error
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(0, getJavaVersionAsInt());
+        assertEquals(0, SystemUtils.toJavaVersionInt(null));
+        assertEquals(0, SystemUtils.toJavaVersionInt(""));
+        assertEquals(0, SystemUtils.toJavaVersionInt("0"));
+        assertEquals(110, SystemUtils.toJavaVersionInt("1.1"));
+        assertEquals(120, SystemUtils.toJavaVersionInt("1.2"));
+        assertEquals(130, SystemUtils.toJavaVersionInt("1.3.0"));
+        assertEquals(131, SystemUtils.toJavaVersionInt("1.3.1"));
+        assertEquals(140, SystemUtils.toJavaVersionInt("1.4.0"));
+        assertEquals(141, SystemUtils.toJavaVersionInt("1.4.1"));
+        assertEquals(142, SystemUtils.toJavaVersionInt("1.4.2"));
+        assertEquals(150, SystemUtils.toJavaVersionInt("1.5.0"));
+        assertEquals(160, SystemUtils.toJavaVersionInt("1.6.0"));
+        assertEquals(131, SystemUtils.toJavaVersionInt("JavaVM-1.3.1"));
+        assertEquals(131, SystemUtils.toJavaVersionInt("1.3.1 subset"));
+        // This used to return 0f in [lang] version 2.5:
+        assertEquals(130, SystemUtils.toJavaVersionInt("XXX-1.3.x"));
     }
 
     public void testJavaVersionAtLeastFloat() {
@@ -409,103 +243,161 @@ public class SystemUtilsTest extends TestCase {
         assertEquals(false, SystemUtils.isJavaVersionAtLeast(version));
     }
 
-    //-----------------------------------------------------------------------
     public void testJavaVersionMatches() {
-        JAVA_VERSION = null;
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.1";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(true, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.2";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(true, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.3.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(true, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.3.1";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(true, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.4.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(true, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.4.1";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(true, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.5.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(true, getJavaVersionMatches("1.5"));
-        JAVA_VERSION = "1.6.0";
-        JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-        assertEquals(false, getJavaVersionMatches("1.1"));
-        assertEquals(false, getJavaVersionMatches("1.2"));
-        assertEquals(false, getJavaVersionMatches("1.3"));
-        assertEquals(false, getJavaVersionMatches("1.4"));
-        assertEquals(false, getJavaVersionMatches("1.5"));
+        String javaVersion = null;
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "";
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "1.0";
+        assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "1.1";
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "1.2";
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "1.3.0";
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "1.3.1";
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "1.4.0";
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "1.4.1";
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "1.4.2";
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "1.5.0";
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "1.6.0";
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
+        javaVersion = "1.7.0";
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.0"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.1"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.2"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.3"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.4"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.5"));
+        assertEquals(false, SystemUtils.isJavaVersionMatch(javaVersion, "1.6"));
+        assertEquals(true, SystemUtils.isJavaVersionMatch(javaVersion, "1.7"));
     }
 
-    public void testOSMatches() {
-        OS_NAME = null;
-        assertEquals(false, getOSMatches("Windows"));
-        OS_NAME = "Windows 95";
-        assertEquals(true, getOSMatches("Windows"));
-        OS_NAME = "Windows NT";
-        assertEquals(true, getOSMatches("Windows"));
-        OS_NAME = "OS/2";
-        assertEquals(false, getOSMatches("Windows"));
+    public void testOSMatchesName() {
+        String osName = null;
+        assertEquals(false, SystemUtils.isOSNameMatch(osName, "Windows"));
+        osName = "";
+        assertEquals(false, SystemUtils.isOSNameMatch(osName, "Windows"));
+        osName = "Windows 95";
+        assertEquals(true, SystemUtils.isOSNameMatch(osName, "Windows"));
+        osName = "Windows NT";
+        assertEquals(true, SystemUtils.isOSNameMatch(osName, "Windows"));
+        osName = "OS/2";
+        assertEquals(false, SystemUtils.isOSNameMatch(osName, "Windows"));
     }
 
-    public void testOSMatches2() {
-        OS_NAME = null;
-        OS_VERSION = null;
-        assertEquals(false, getOSMatches("Windows 9", "4.1"));
-        OS_NAME = "Windows 95";
-        OS_VERSION = "4.0";
-        assertEquals(false, getOSMatches("Windows 9", "4.1"));
-        OS_NAME = "Windows 95";
-        OS_VERSION = "4.1";
-        assertEquals(true, getOSMatches("Windows 9", "4.1"));
-        OS_NAME = "Windows 98";
-        OS_VERSION = "4.1";
-        assertEquals(true, getOSMatches("Windows 9", "4.1"));
-        OS_NAME = "Windows NT";
-        OS_VERSION = "4.0";
-        assertEquals(false, getOSMatches("Windows 9", "4.1"));
-        OS_NAME = "OS/2";
-        OS_VERSION = "4.0";
-        assertEquals(false, getOSMatches("Windows 9", "4.1"));
+    public void testOSMatchesNameAndVersion() {
+        String osName = null;
+        String osVersion = null;
+        assertEquals(false, SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        osName = "";
+        osVersion = "";
+        assertEquals(false, SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        osName = "Windows 95";
+        osVersion = "4.0";
+        assertEquals(false, SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        osName = "Windows 95";
+        osVersion = "4.1";
+        assertEquals(true, SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        osName = "Windows 98";
+        osVersion = "4.1";
+        assertEquals(true, SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        osName = "Windows NT";
+        osVersion = "4.0";
+        assertEquals(false, SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
+        osName = "OS/2";
+        osVersion = "4.0";
+        assertEquals(false, SystemUtils.isOSMatch(osName, osVersion, "Windows 9", "4.1"));
     }
 
     public void testJavaAwtHeadless() {
