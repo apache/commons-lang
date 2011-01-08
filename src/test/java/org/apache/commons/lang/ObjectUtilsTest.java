@@ -18,9 +18,13 @@ package org.apache.commons.lang;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import junit.framework.TestCase;
+
+import org.apache.commons.lang.exception.CloneFailedException;
+import org.apache.commons.lang.mutable.MutableObject;
 
 /**
  * Unit tests {@link org.apache.commons.lang.ObjectUtils}.
@@ -204,4 +208,104 @@ public class ObjectUtilsTest extends TestCase {
         assertSame( minComparable, ObjectUtils.min( nonNullComparable1, minComparable ) );
         assertSame( minComparable, ObjectUtils.min( minComparable, nonNullComparable1 ) );
     }
+
+    /**
+     * Tests {@link ObjectUtils#clone(Object)} with a cloneable object.
+     */
+    public void testCloneOfCloneable() {
+        final CloneableString string = new CloneableString("apache");
+        final CloneableString stringClone = (CloneableString)ObjectUtils.clone(string);
+        assertEquals("apache", stringClone.getValue());
+    }
+
+    /**
+     * Tests {@link ObjectUtils#clone(Object)} with a not cloneable object.
+     */
+    public void testCloneOfNotCloneable() {
+        final String string = new String("apache");
+        assertNull(ObjectUtils.clone(string));
+    }
+
+    /**
+     * Tests {@link ObjectUtils#clone(Object)} with an uncloneable object.
+     */
+    public void testCloneOfUncloneable() {
+        final UncloneableString string = new UncloneableString("apache");
+        try {
+            ObjectUtils.clone(string);
+            fail("Thrown " + CloneFailedException.class.getName() + " expected");
+        } catch (final CloneFailedException e) {
+            //expected result
+        }
+    }
+
+    /**
+     * Tests {@link ObjectUtils#clone(Object)} with an object array.
+     */
+    public void testCloneOfStringArray() {
+        assertTrue(Arrays.equals(
+            new String[]{"string"}, (String[])ObjectUtils.clone(new String[]{"string"})));
+    }
+
+    /**
+     * Tests {@link ObjectUtils#clone(Object)} with an array of primitives.
+     */
+    public void testCloneOfPrimitiveArray() {
+        assertTrue(Arrays.equals(new int[]{1}, (int[])ObjectUtils.clone(new int[]{1})));
+    }
+
+    /**
+     * Tests {@link ObjectUtils#cloneIfPossible(Object)} with a cloneable object.
+     */
+    public void testPossibleCloneOfCloneable() {
+        final CloneableString string = new CloneableString("apache");
+        final CloneableString stringClone = (CloneableString)ObjectUtils.cloneIfPossible(string);
+        assertEquals("apache", stringClone.getValue());
+    }
+
+    /**
+     * Tests {@link ObjectUtils#cloneIfPossible(Object)} with a not cloneable object.
+     */
+    public void testPossibleCloneOfNotCloneable() {
+        final String string = new String("apache");
+        assertSame(string, ObjectUtils.cloneIfPossible(string));
+    }
+
+    /**
+     * Tests {@link ObjectUtils#cloneIfPossible(Object)} with an uncloneable object.
+     */
+    public void testPossibleCloneOfUncloneable() {
+        final UncloneableString string = new UncloneableString("apache");
+        try {
+            ObjectUtils.cloneIfPossible(string);
+            fail("Thrown " + CloneFailedException.class.getName() + " expected");
+        } catch (final CloneFailedException e) {
+            //expected result
+        }
+    }
+
+    /**
+     * String that is cloneable.
+     */
+    static final class CloneableString extends MutableObject implements Cloneable {
+        private static final long serialVersionUID = 1L;
+        CloneableString(final String s) {
+            super(s);
+        }
+
+        public Object clone() throws CloneNotSupportedException {
+            return (CloneableString)super.clone();
+        }
+    }
+
+    /**
+     * String that is not cloneable.
+     */
+    static final class UncloneableString extends MutableObject implements Cloneable {
+        private static final long serialVersionUID = 1L;
+        UncloneableString(final String s) {
+            super(s);
+        }
+    }
+
 }
