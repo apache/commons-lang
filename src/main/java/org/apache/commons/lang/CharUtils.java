@@ -556,5 +556,20 @@ public class CharUtils {
     public static boolean isAsciiAlphanumeric(char ch) {
         return (ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9');
     }
+
+    // ----------------- Following code copied from Apache Harmony (Character class)
+    /**
+     * Indicates whether {@code ch} is a high- (or leading-) surrogate code unit
+     * that is used for representing supplementary characters in UTF-16
+     * encoding.
+     *
+     * @param ch
+     *            the character to test.
+     * @return {@code true} if {@code ch} is a high-surrogate code unit;
+     *         {@code false} otherwise.
+     */
+    static boolean isHighSurrogate(char ch) {
+        return ('\uD800' <= ch && '\uDBFF' >= ch);
+    }
     
 }

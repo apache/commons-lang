@@ -1331,11 +1331,22 @@ public class StringUtils {
         if (isEmpty(str) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        for (int i = 0; i < str.length(); i++) {
+        int csLen = str.length();
+        int csLast = csLen - 1;
+        int searchLen = searchChars.length;
+        int searchLast = searchLen - 1;
+        for (int i = 0; i < csLen; i++) {
             char ch = str.charAt(i);
-            for (int j = 0; j < searchChars.length; j++) {
+            for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    return i;
+                    if (i < csLast && j < searchLast && CharUtils.isHighSurrogate(ch)) {
+                        // ch is a supplementary character
+                        if (searchChars[j + 1] == str.charAt(i + 1)) {
+                            return i;
+                        }
+                    } else {
+                        return i;
+                    }
                 }
             }
         }
@@ -1397,14 +1408,29 @@ public class StringUtils {
      * @since 2.4
      */
     public static boolean containsAny(String str, char[] searchChars) {
-        if (str == null || str.length() == 0 || searchChars == null || searchChars.length == 0) {
+        if (isEmpty(str) || ArrayUtils.isEmpty(searchChars)) {
             return false;
         }
-        for (int i = 0; i < str.length(); i++) {
+        int csLength = str.length();
+        int searchLength = searchChars.length;
+        int csLast = csLength - 1;
+        int searchLast = searchLength - 1;
+        for (int i = 0; i < csLength; i++) {
             char ch = str.charAt(i);
-            for (int j = 0; j < searchChars.length; j++) {
+            for (int j = 0; j < searchLength; j++) {
                 if (searchChars[j] == ch) {
-                    return true;
+                    if (CharUtils.isHighSurrogate(ch)) {
+                        if (j == searchLast) {
+                            // missing low surrogate, fine, like String.indexOf(String)
+                            return true;
+                        }
+                        if (i < csLast && searchChars[j + 1] == str.charAt(i + 1)) {
+                            return true;
+                        }
+                    } else {
+                        // ch is in the Basic Multilingual Plane
+                        return true;
+                    }
                 }
             }
         }
@@ -1473,11 +1499,22 @@ public class StringUtils {
         if (isEmpty(str) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        outer : for (int i = 0; i < str.length(); i++) {
+        int csLen = str.length();
+        int csLast = csLen - 1;
+        int searchLen = searchChars.length;
+        int searchLast = searchLen - 1;
+        outer:
+        for (int i = 0; i < csLen; i++) {
             char ch = str.charAt(i);
-            for (int j = 0; j < searchChars.length; j++) {
+            for (int j = 0; j < searchLen; j++) {
                 if (searchChars[j] == ch) {
-                    continue outer;
+                    if (i < csLast && j < searchLast && CharUtils.isHighSurrogate(ch)) {
+                        if (searchChars[j + 1] == str.charAt(i + 1)) {
+                            continue outer;
+                        }
+                    } else {
+                        continue outer;
+                    }
                 }
             }
             return i;
@@ -1511,9 +1548,19 @@ public class StringUtils {
         if (isEmpty(str) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        for (int i = 0; i < str.length(); i++) {
-            if (searchChars.indexOf(str.charAt(i)) < 0) {
-                return i;
+        int strLen = str.length();
+        for (int i = 0; i < strLen; i++) {
+            char ch = str.charAt(i);
+            boolean chFound = searchChars.indexOf(ch) >= 0;
+            if (i + 1 < strLen && CharUtils.isHighSurrogate(ch)) {
+                char ch2 = str.charAt(i + 1);
+                if (chFound && searchChars.indexOf(ch2) < 0) {
+                    return i;
+                }
+            } else {
+                if (!chFound) {
+                    return i;
+                }
             }
         }
         return INDEX_NOT_FOUND;
@@ -1605,21 +1652,34 @@ public class StringUtils {
      * </pre>
      *
      * @param str  the String to check, may be null
-     * @param invalidChars  an array of invalid chars, may be null
+     * @param searchChars  an array of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
      * @since 2.0
      */
-    public static boolean containsNone(String str, char[] invalidChars) {
-        if (str == null || invalidChars == null) {
+    public static boolean containsNone(String str, char[] searchChars) {
+        if (str == null || searchChars == null) {
             return true;
         }
-        int strSize = str.length();
-        int validSize = invalidChars.length;
-        for (int i = 0; i < strSize; i++) {
+        int csLen = str.length();
+        int csLast = csLen - 1;
+        int searchLen = searchChars.length;
+        int searchLast = searchLen - 1;
+        for (int i = 0; i < csLen; i++) {
             char ch = str.charAt(i);
-            for (int j = 0; j < validSize; j++) {
-                if (invalidChars[j] == ch) {
-                    return false;
+            for (int j = 0; j < searchLen; j++) {
+                if (searchChars[j] == ch) {
+                    if (CharUtils.isHighSurrogate(ch)) {
+                        if (j == searchLast) {
+                            // missing low surrogate, fine, like String.indexOf(String)
+                            return false;
+                        }
+                        if (i < csLast && searchChars[j + 1] == str.charAt(i + 1)) {
+                            return false;
+                        }
+                    } else {
+                        // ch is in the Basic Multilingual Plane
+                        return false;
+                    }
                 }
             }
         }
