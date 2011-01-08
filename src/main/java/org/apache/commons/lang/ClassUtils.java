@@ -735,8 +735,9 @@ public class ClassUtils {
     // ----------------------------------------------------------------------
     /**
      * Returns the class represented by <code>className</code> using the
-     * <code>classLoader</code>.  This implementation supports names like
-     * "<code>java.lang.String[]</code>" as well as "<code>[Ljava.lang.String;</code>".
+     * <code>classLoader</code>.  This implementation supports the syntaxes
+     * "<code>java.util.Map.Entry[]</code>", "<code>java.util.Map$Entry[]</code>",
+     * "<code>[Ljava.util.Map.Entry;</code>", and "<code>[Ljava.util.Map$Entry;</code>".
      *
      * @param classLoader  the class loader to use to load the class
      * @param className  the class name
@@ -746,21 +747,38 @@ public class ClassUtils {
      */
     public static Class getClass(
             ClassLoader classLoader, String className, boolean initialize) throws ClassNotFoundException {
-        Class clazz;
-        if (abbreviationMap.containsKey(className)) {
-            String clsName = "[" + abbreviationMap.get(className);
-            clazz = Class.forName(clsName, initialize, classLoader).getComponentType();
-        } else {
-            clazz = Class.forName(toCanonicalName(className), initialize, classLoader);
+        try {
+            Class clazz;
+            if (abbreviationMap.containsKey(className)) {
+                String clsName = "[" + abbreviationMap.get(className);
+                clazz = Class.forName(clsName, initialize, classLoader).getComponentType();
+            } else {
+                clazz = Class.forName(toCanonicalName(className), initialize, classLoader);
+            }
+            return clazz;
+        } catch (ClassNotFoundException ex) {
+            // allow path separators (.) as inner class name separators
+            int lastDotIndex = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
+
+            if (lastDotIndex != -1) {
+                try {
+                    return getClass(classLoader, className.substring(0, lastDotIndex) +
+                            INNER_CLASS_SEPARATOR_CHAR + className.substring(lastDotIndex + 1),
+                            initialize);
+                } catch (ClassNotFoundException ex2) {
+                }
+            }
+
+            throw ex;
         }
-        return clazz;
     }
 
     /**
      * Returns the (initialized) class represented by <code>className</code>
-     * using the <code>classLoader</code>.  This implementation supports names
-     * like "<code>java.lang.String[]</code>" as well as
-     * "<code>[Ljava.lang.String;</code>".
+     * using the <code>classLoader</code>.  This implementation supports
+     * the syntaxes "<code>java.util.Map.Entry[]</code>",
+     * "<code>java.util.Map$Entry[]</code>", "<code>[Ljava.util.Map.Entry;</code>",
+     * and "<code>[Ljava.util.Map$Entry;</code>".
      *
      * @param classLoader  the class loader to use to load the class
      * @param className  the class name
@@ -774,8 +792,9 @@ public class ClassUtils {
     /**
      * Returns the (initialized) class represented by <code>className</code>
      * using the current thread's context class loader. This implementation
-     * supports names like "<code>java.lang.String[]</code>" as well as
-     * "<code>[Ljava.lang.String;</code>".
+     * supports the syntaxes "<code>java.util.Map.Entry[]</code>",
+     * "<code>java.util.Map$Entry[]</code>", "<code>[Ljava.util.Map.Entry;</code>",
+     * and "<code>[Ljava.util.Map$Entry;</code>".
      *
      * @param className  the class name
      * @return the class represented by <code>className</code> using the current thread's context class loader
@@ -787,9 +806,9 @@ public class ClassUtils {
 
     /**
      * Returns the class represented by <code>className</code> using the
-     * current thread's context class loader. This implementation supports
-     * names like "<code>java.lang.String[]</code>" as well as
-     * "<code>[Ljava.lang.String;</code>".
+     * current thread's context class loader. This implementation supports the
+     * syntaxes "<code>java.util.Map.Entry[]</code>", "<code>java.util.Map$Entry[]</code>",
+     * "<code>[Ljava.util.Map.Entry;</code>", and "<code>[Ljava.util.Map$Entry;</code>".
      *
      * @param className  the class name
      * @param initialize  whether the class must be initialized
