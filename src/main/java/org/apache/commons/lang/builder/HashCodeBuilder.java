@@ -609,9 +609,16 @@ public class HashCodeBuilder {
      * Append a <code>hashCode</code> for a <code>boolean</code>.
      * </p>
      * <p>
-     * This adds <code>iConstant * 1</code> to the <code>hashCode</code> and not a <code>1231</code> or
-     * <code>1237</code> as done in java.lang.Boolean. This is in accordance with the <quote>Effective Java</quote>
-     * design.
+     * This adds <code>1</code> when true, and <code>0</code> when false to the <code>hashCode</code>.
+     * </p>
+     * <p>
+     * This is in contrast to the standard <code>java.lang.Boolean.hashCode</code> handling, which computes
+     * a <code>hashCode</code> value of <code>1231</code> for <code>java.lang.Boolean</code> instances
+     * that represent <code>true</code> or <code>1237</code> for <code>java.lang.Boolean</code> instances
+     * that represent <code>false</code>.
+     * </p>
+     * <p>
+     * This is in accordance with the <quote>Effective Java</quote> design.
      * </p>
      * 
      * @param value
