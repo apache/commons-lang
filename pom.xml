@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>15</version>
+    <version>17</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>commons-lang</groupId>
@@ -505,17 +505,17 @@
         </plugin>
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.3</version>
+        <version>2.6</version>
         <configuration>
           <configLocation>${basedir}/checkstyle.xml</configLocation>
           <enableRulesSummary>false</enableRulesSummary>
         </configuration>
       </plugin>
-      <!--
+      <!-- Requires setting 'export MAVEN_OPTS="-Xmx512m" ' -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>1.2</version>
+        <version>2.3.1</version>
         <configuration>
           <threshold>Normal</threshold>
           <effort>Default</effort>
@@ -524,9 +524,8 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
-        <version>2.3</version>
+        <version>2.4</version>
       </plugin>
-      -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>clirr-maven-plugin</artifactId>
