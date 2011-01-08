@@ -954,6 +954,11 @@ public class StringUtilsTest extends TestCase {
         assertEquals("test", StringUtils.deleteWhitespace("\u000Bt  \t\n\u0009e\rs\n\n   \tt"));
     }
 
+    public void testLang623() {
+        assertEquals("t", StringUtils.replaceChars("\u00DE", '\u00DE', 't'));
+        assertEquals("t", StringUtils.replaceChars("\u00FE", '\u00FE', 't'));
+    }
+
     public void testReplace_StringStringString() {
         assertEquals(null, StringUtils.replace(null, null, null));
         assertEquals(null, StringUtils.replace(null, null, "any"));
