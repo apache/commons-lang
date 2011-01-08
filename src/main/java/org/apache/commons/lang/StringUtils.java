@@ -517,7 +517,7 @@ public class StringUtils {
         } else if (stripChars.length() == 0) {
             return str;
         } else {
-            while ((start != strLen) && (stripChars.indexOf(str.charAt(start)) != -1)) {
+            while ((start != strLen) && (stripChars.indexOf(str.charAt(start)) != INDEX_NOT_FOUND)) {
                 start++;
             }
         }
@@ -562,7 +562,7 @@ public class StringUtils {
         } else if (stripChars.length() == 0) {
             return str;
         } else {
-            while ((end != 0) && (stripChars.indexOf(str.charAt(end - 1)) != -1)) {
+            while ((end != 0) && (stripChars.indexOf(str.charAt(end - 1)) != INDEX_NOT_FOUND)) {
                 end--;
             }
         }
@@ -688,7 +688,7 @@ public class StringUtils {
      * <p>Finds the first index within a String, handling <code>null</code>.
      * This method uses {@link String#indexOf(int)}.</p>
      *
-     * <p>A <code>null</code> or empty ("") String will return <code>-1</code>.</p>
+     * <p>A <code>null</code> or empty ("") String will return <code>INDEX_NOT_FOUND (-1)</code>.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *)         = -1
@@ -705,7 +705,7 @@ public class StringUtils {
      */
     public static int indexOf(String str, char searchChar) {
         if (isEmpty(str)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         return str.indexOf(searchChar);
     }
@@ -715,7 +715,7 @@ public class StringUtils {
      * handling <code>null</code>.
      * This method uses {@link String#indexOf(int, int)}.</p>
      *
-     * <p>A <code>null</code> or empty ("") String will return <code>-1</code>.
+     * <p>A <code>null</code> or empty ("") String will return <code>(INDEX_NOT_FOUND) -1</code>.
      * A negative start position is treated as zero.
      * A start position greater than the string length returns <code>-1</code>.</p>
      *
@@ -737,7 +737,7 @@ public class StringUtils {
      */
     public static int indexOf(String str, char searchChar, int startPos) {
         if (isEmpty(str)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         return str.indexOf(searchChar, startPos);
     }
@@ -766,7 +766,7 @@ public class StringUtils {
      */
     public static int indexOf(String str, String searchStr) {
         if (str == null || searchStr == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         return str.indexOf(searchStr);
     }
@@ -878,7 +878,7 @@ public class StringUtils {
      */
     public static int indexOf(String str, String searchStr, int startPos) {
         if (str == null || searchStr == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         // JDK1.2/JDK1.3 have a bug, when startPos > str.length for "", hence
         if (searchStr.length() == 0 && startPos >= str.length()) {
@@ -948,14 +948,14 @@ public class StringUtils {
      */
     public static int indexOfIgnoreCase(String str, String searchStr, int startPos) {
         if (str == null || searchStr == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startPos < 0) {
             startPos = 0;
         }
         int endLimit = (str.length() - searchStr.length()) + 1;
         if (startPos > endLimit) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (searchStr.length() == 0) {
             return startPos;
@@ -965,7 +965,7 @@ public class StringUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     // LastIndexOf
@@ -991,7 +991,7 @@ public class StringUtils {
      */
     public static int lastIndexOf(String str, char searchChar) {
         if (isEmpty(str)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         return str.lastIndexOf(searchChar);
     }
@@ -1025,7 +1025,7 @@ public class StringUtils {
      */
     public static int lastIndexOf(String str, char searchChar, int startPos) {
         if (isEmpty(str)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         return str.lastIndexOf(searchChar, startPos);
     }
@@ -1054,7 +1054,7 @@ public class StringUtils {
      */
     public static int lastIndexOf(String str, String searchStr) {
         if (str == null || searchStr == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         return str.lastIndexOf(searchStr);
     }
@@ -1126,7 +1126,7 @@ public class StringUtils {
      */
     public static int lastIndexOf(String str, String searchStr, int startPos) {
         if (str == null || searchStr == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         return str.lastIndexOf(searchStr, startPos);
     }
@@ -1155,7 +1155,7 @@ public class StringUtils {
      */
     public static int lastIndexOfIgnoreCase(String str, String searchStr) {
         if (str == null || searchStr == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         return lastIndexOfIgnoreCase(str, searchStr, str.length());
     }
@@ -1190,13 +1190,13 @@ public class StringUtils {
      */
     public static int lastIndexOfIgnoreCase(String str, String searchStr, int startPos) {
         if (str == null || searchStr == null) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (startPos > (str.length() - searchStr.length())) {
             startPos = str.length() - searchStr.length();
         }
         if (startPos < 0) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (searchStr.length() == 0) {
             return startPos;
@@ -1207,7 +1207,7 @@ public class StringUtils {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     // Contains
@@ -1329,7 +1329,7 @@ public class StringUtils {
      */
     public static int indexOfAny(String str, char[] searchChars) {
         if (isEmpty(str) || ArrayUtils.isEmpty(searchChars)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
@@ -1339,7 +1339,7 @@ public class StringUtils {
                 }
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -1366,7 +1366,7 @@ public class StringUtils {
      */
     public static int indexOfAny(String str, String searchChars) {
         if (isEmpty(str) || isEmpty(searchChars)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         return indexOfAny(str, searchChars.toCharArray());
     }
@@ -1471,7 +1471,7 @@ public class StringUtils {
      */
     public static int indexOfAnyBut(String str, char[] searchChars) {
         if (isEmpty(str) || ArrayUtils.isEmpty(searchChars)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         outer : for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
@@ -1482,7 +1482,7 @@ public class StringUtils {
             }
             return i;
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -1509,14 +1509,14 @@ public class StringUtils {
      */
     public static int indexOfAnyBut(String str, String searchChars) {
         if (isEmpty(str) || isEmpty(searchChars)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         for (int i = 0; i < str.length(); i++) {
             if (searchChars.indexOf(str.charAt(i)) < 0) {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     // ContainsOnly
@@ -1553,7 +1553,7 @@ public class StringUtils {
         if (valid.length == 0) {
             return false;
         }
-        return indexOfAnyBut(str, valid) == -1;
+        return indexOfAnyBut(str, valid) == INDEX_NOT_FOUND;
     }
 
     /**
@@ -1685,7 +1685,7 @@ public class StringUtils {
      */
     public static int indexOfAny(String str, String[] searchStrs) {
         if ((str == null) || (searchStrs == null)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int sz = searchStrs.length;
 
@@ -1699,7 +1699,7 @@ public class StringUtils {
                 continue;
             }
             tmp = str.indexOf(search);
-            if (tmp == -1) {
+            if (tmp == INDEX_NOT_FOUND) {
                 continue;
             }
 
@@ -1708,7 +1708,7 @@ public class StringUtils {
             }
         }
 
-        return (ret == Integer.MAX_VALUE) ? -1 : ret;
+        return (ret == Integer.MAX_VALUE) ? INDEX_NOT_FOUND : ret;
     }
 
     /**
@@ -1738,10 +1738,10 @@ public class StringUtils {
      */
     public static int lastIndexOfAny(String str, String[] searchStrs) {
         if ((str == null) || (searchStrs == null)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         int sz = searchStrs.length;
-        int ret = -1;
+        int ret = INDEX_NOT_FOUND;
         int tmp = 0;
         for (int i = 0; i < sz; i++) {
             String search = searchStrs[i];
@@ -2015,7 +2015,7 @@ public class StringUtils {
             return EMPTY;
         }
         int pos = str.indexOf(separator);
-        if (pos == -1) {
+        if (pos == INDEX_NOT_FOUND) {
             return str;
         }
         return str.substring(0, pos);
@@ -2057,7 +2057,7 @@ public class StringUtils {
             return EMPTY;
         }
         int pos = str.indexOf(separator);
-        if (pos == -1) {
+        if (pos == INDEX_NOT_FOUND) {
             return EMPTY;
         }
         return str.substring(pos + separator.length());
@@ -2095,7 +2095,7 @@ public class StringUtils {
             return str;
         }
         int pos = str.lastIndexOf(separator);
-        if (pos == -1) {
+        if (pos == INDEX_NOT_FOUND) {
             return str;
         }
         return str.substring(0, pos);
@@ -2138,7 +2138,7 @@ public class StringUtils {
             return EMPTY;
         }
         int pos = str.lastIndexOf(separator);
-        if (pos == -1 || pos == (str.length() - separator.length())) {
+        if (pos == INDEX_NOT_FOUND || pos == (str.length() - separator.length())) {
             return EMPTY;
         }
         return str.substring(pos + separator.length());
@@ -2203,9 +2203,9 @@ public class StringUtils {
             return null;
         }
         int start = str.indexOf(open);
-        if (start != -1) {
+        if (start != INDEX_NOT_FOUND) {
             int end = str.indexOf(close, start + open.length());
-            if (end != -1) {
+            if (end != INDEX_NOT_FOUND) {
                 return str.substring(start + open.length(), end);
             }
         }
@@ -3633,7 +3633,7 @@ public class StringUtils {
      * @since 2.1
      */
     public static String remove(String str, char remove) {
-        if (isEmpty(str) || str.indexOf(remove) == -1) {
+        if (isEmpty(str) || str.indexOf(remove) == INDEX_NOT_FOUND) {
             return str;
         }
         char[] chars = str.toCharArray();
@@ -3736,7 +3736,7 @@ public class StringUtils {
         }
         int start = 0;
         int end = text.indexOf(searchString, start);
-        if (end == -1) {
+        if (end == INDEX_NOT_FOUND) {
             return text;
         }
         int replLength = searchString.length();
@@ -3744,7 +3744,7 @@ public class StringUtils {
         increase = (increase < 0 ? 0 : increase);
         increase *= (max < 0 ? 16 : (max > 64 ? 64 : max));
         StringBuffer buf = new StringBuffer(text.length() + increase);
-        while (end != -1) {
+        while (end != INDEX_NOT_FOUND) {
             buf.append(text.substring(start, end)).append(replacement);
             start = end + replLength;
             if (--max == 0) {
@@ -5252,7 +5252,7 @@ public class StringUtils {
         }
         int count = 0;
         int idx = 0;
-        while ((idx = str.indexOf(sub, idx)) != -1) {
+        while ((idx = str.indexOf(sub, idx)) != INDEX_NOT_FOUND) {
             count++;
             idx += sub.length();
         }
@@ -5934,7 +5934,7 @@ public class StringUtils {
             return str1;
         }
         int at = indexOfDifference(str1, str2);
-        if (at == -1) {
+        if (at == INDEX_NOT_FOUND) {
             return EMPTY;
         }
         return str2.substring(at);
@@ -5965,7 +5965,7 @@ public class StringUtils {
      */
     public static int indexOfDifference(String str1, String str2) {
         if (str1 == str2) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         if (str1 == null || str2 == null) {
             return 0;
@@ -5979,7 +5979,7 @@ public class StringUtils {
         if (i < str2.length() || i < str1.length()) {
             return i;
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 
     /**
@@ -6015,7 +6015,7 @@ public class StringUtils {
      */
     public static int indexOfDifference(String[] strs) {
         if (strs == null || strs.length <= 1) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
         boolean anyStringNull = false;
         boolean allStringsNull = true;
@@ -6039,7 +6039,7 @@ public class StringUtils {
 
         // handle lists containing all nulls or all empty strings
         if (allStringsNull || (longestStrLen == 0 && !anyStringNull)) {
-            return -1;
+            return INDEX_NOT_FOUND;
         }
 
         // handle lists containing some nulls or some empty strings
@@ -6109,7 +6109,7 @@ public class StringUtils {
             return EMPTY;
         }
         int smallestIndexOfDiff = indexOfDifference(strs);
-        if (smallestIndexOfDiff == -1) {
+        if (smallestIndexOfDiff == INDEX_NOT_FOUND) {
             // all strings were identical
             if (strs[0] == null) {
                 return EMPTY;
