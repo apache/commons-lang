@@ -296,7 +296,7 @@ public class Validate {
      * 
      * @param map the map to check
      * @throws IllegalArgumentException if the map is empty
-     * @see #notEmpty(Map, String, Object...)
+     * @see #notEmpty(Map, String)
      */
     public static void notEmpty(Map map) {
         notEmpty(map, "The validated map is empty");
