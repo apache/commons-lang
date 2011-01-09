@@ -26,15 +26,14 @@ limitations under the License.
 
 <p>
 The standard Java libraries fail to provide enough methods for
-manipulation of its core classes. The <em>Lang</em> Component provides
+manipulation of its core classes. Apache Commons Lang provides
 these extra methods. 
 </p>
 
 <p>
-The <em>Lang</em> Component provides a host of helper utilities for the java.lang API, notably 
-String manipulation methods, basic numerical methods, object reflection, creation and serialization, 
-and System properties. Additionally it contains an inheritable enum type, an exception structure that 
-supports multiple types of nested-Exceptions, basic enhancements to java.util.Date and a series of utilities dedicated to help with 
+Lang provides a host of helper utilities for the java.lang API, notably 
+String manipulation methods, basic numerical methods, object reflection, concurrency, creation and serialization 
+and System properties. Additionally it contains basic enhancements to java.util.Date and a series of utilities dedicated to help with 
 building methods, such as hashCode, toString and equals.
 </p>
 </section>
@@ -81,25 +80,6 @@ so prefix your email by [lang].
 Issues may be reported via <a href="issue-tracking.html">ASF JIRA</a>.
 Please read the instructions carefully to submit a useful bug report or enhancement request.
 </p>
-</section>
-<!-- ================================================== -->
-<section name="Resources">
-<ul>
-<li>
-Oct 17, 2002 - <a href="http://www.builder.com/">Builder.com</a> has an article on Commons Lang v1.0 entitled
-<a href="http://builder.com.com/article.jhtml?id=u00320021017yan01.htm&amp;page=1&amp;vf=tt">Apache Commons Lang project offers centralized utility functions</a>
-</li>
-<li>
-<a href="http://ant.apache.org">Ant</a>,
-<a href="http://maven.apache.org">Maven</a>,
-<a href="http://clirr.sourceforge.net/">Clirr</a>,
-<a href="http://pmd.sourceforge.net/">PMD</a>,
-<a href="http://cobertura.sourceforge.net/">Cobertura</a>,
-<a href="http://www.cs.umd.edu/~pugh/java/bugs/">FindBugs</a> and
-<a href="http://www.osjava.org/jardiff">JarDiff</a>
-have all been of use in the latest release of Commons Lang. 
-</li>
-</ul>
 </section>
 <!-- ================================================== -->
 </body>
