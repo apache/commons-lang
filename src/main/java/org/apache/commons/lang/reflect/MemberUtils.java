@@ -56,9 +56,8 @@ abstract class MemberUtils {
     }
 
     /** Array of primitive number types ordered by "promotability" */
-    private static final Class[] ORDERED_PRIMITIVE_TYPES = { Byte.TYPE,
-            Short.TYPE, Character.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE,
-            Double.TYPE };
+    private static final Class[] ORDERED_PRIMITIVE_TYPES = { Byte.TYPE, Short.TYPE,
+            Character.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE };
 
     /**
      * XXX Default access superclass workaround
@@ -77,7 +76,8 @@ abstract class MemberUtils {
             return;
         }
         Member m = (Member) o;
-        if (Modifier.isPublic(m.getModifiers()) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
+        if (Modifier.isPublic(m.getModifiers())
+                && isPackageAccess(m.getDeclaringClass().getModifiers())) {
             try {
                 o.setAccessible(true);
             } catch (SecurityException e) {
@@ -101,8 +101,7 @@ abstract class MemberUtils {
      * @return true if <code>m</code> is accessible
      */
     static boolean isAccessible(Member m) {
-        return m != null && Modifier.isPublic(m.getModifiers())
-                && !isSynthetic(m);
+        return m != null && Modifier.isPublic(m.getModifiers()) && !isSynthetic(m);
     }
 
     /**
@@ -145,8 +144,7 @@ abstract class MemberUtils {
      * @param destArgs The destination arguments
      * @return The total transformation cost
      */
-    private static float getTotalTransformationCost(Class[] srcArgs,
-            Class[] destArgs) {
+    private static float getTotalTransformationCost(Class[] srcArgs, Class[] destArgs) {
         float totalCost = 0.0f;
         for (int i = 0; i < srcArgs.length; i++) {
             Class srcClass, destClass;
@@ -165,15 +163,13 @@ abstract class MemberUtils {
      * @param destClass The destination class
      * @return The cost of transforming an object
      */
-    private static float getObjectTransformationCost(Class srcClass,
-            Class destClass) {
+    private static float getObjectTransformationCost(Class srcClass, Class destClass) {
         if (destClass.isPrimitive()) {
             return getPrimitivePromotionCost(srcClass, destClass);
         }
         float cost = 0.0f;
         while (destClass != null && !destClass.equals(srcClass)) {
-            if (destClass.isInterface()
-                    && ClassUtils.isAssignable(srcClass, destClass)) {
+            if (destClass.isInterface() && ClassUtils.isAssignable(srcClass, destClass)) {
                 // slight penalty for interface match.
                 // we still want an exact match to override an interface match,
                 // but
@@ -202,8 +198,7 @@ abstract class MemberUtils {
      * @param destClass the (primitive) destination class
      * @return The cost of promoting the primitive
      */
-    private static float getPrimitivePromotionCost(final Class srcClass,
-            final Class destClass) {
+    private static float getPrimitivePromotionCost(final Class srcClass, final Class destClass) {
         float cost = 0.0f;
         Class cls = srcClass;
         if (!cls.isPrimitive()) {
