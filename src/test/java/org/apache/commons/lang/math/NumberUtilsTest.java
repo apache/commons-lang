@@ -229,6 +229,9 @@ public class NumberUtilsTest extends TestCase {
 
         // LANG-521
         assertEquals("createNumber(String) LANG-521 failed", new Float("2."), NumberUtils.createNumber("2."));
+
+        // LANG-638
+        assertFalse("createNumber(String) succeeded", checkCreateNumber("1eE"));
     }
 
     public void testCreateFloat() {
