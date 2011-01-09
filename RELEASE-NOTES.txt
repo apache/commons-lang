@@ -11,7 +11,7 @@ This document contains the release notes for the 2.6 version of Apache Commons L
 Commons Lang is a set of utility functions and reusable components that should be of use in any Java environment.
 
 
-COMPATIBILITY WITH 2.4
+COMPATIBILITY WITH 2.5
 ======================
 Lang 2.6 is binary compatible release with Lang 2.5, containing bug fixes and small enhancements.
 

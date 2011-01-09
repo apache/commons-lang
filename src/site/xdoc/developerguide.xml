@@ -135,8 +135,7 @@ This should be of the form 'Method will be removed in Commons Lang 3.0.'. </p>
 <h4>Language used in code/comments</h4>
 <p>It has been decided to casually standardize on US-English.
 To avoid misplaced jeers of 'americanisation', the people making this decision largely write in non-US-English.
-However, it's not something to get worked up about.
-Lots of spelling differences will creep in all over.</p>
+However, it's not something to get worked up about.  Lots of spelling differences will creep in all over.</p>
 
 <a name="Building"></a>
 <h3>5.BUILDING</h3>
@@ -156,9 +155,7 @@ The currently targetted version of Java is 1.3.
 To build Lang:
 <table>
 <tr><th></th><th>Tested JAR</th><th>Distribution</th><th>Site</th></tr>
-<tr><td>ANT 1.6+ (junit.jar in $ANT_HOME/lib)</td><td><code>ant test</code></td><td><code>ant dist</code></td><td>n/a</td></tr>
-<tr><td>Maven 1.x</td><td><code>maven jar</code></td><td><code>maven dist</code></td><td><code>maven site</code></td></tr>
-<tr><td>Maven 2.x</td><td><code>mvn package</code></td><td>n/a</td><td>n/a</td></tr>
+<tr><td>Maven 2.x</td><td><code>mvn package</code></td><td>mvn assembly:assembly</td><td>mvn site</td></tr>
 </table>
 </p>
 </section>
