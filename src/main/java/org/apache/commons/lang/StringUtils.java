@@ -6479,4 +6479,54 @@ public class StringUtils {
         int strOffset = str.length() - suffix.length();
         return str.regionMatches(ignoreCase, strOffset, suffix, 0, suffix.length());
     }
+
+    /**
+     * <p>
+     * Similar to <a
+     * href="http://www.w3.org/TR/xpath/#function-normalize-space">http://www.w3.org/TR/xpath/#function-normalize
+     * -space</a>
+     * </p>
+     * <p>
+     * The function returns the argument string with whitespace normalized by using
+     * <code>{@link #trim(String)}</code> to remove leading and trailing whitespace
+     * and then replacing sequences of whitespace characters by a single space.
+     * </p>
+     * In XML Whitespace characters are the same as those allowed by the <a
+     * href="http://www.w3.org/TR/REC-xml/#NT-S">S</a> production, which is S ::= (#x20 | #x9 | #xD | #xA)+
+     * <p>
+     * See Java's {@link Character#isWhitespace(char)} for which characters are considered whitespace.
+     * <p>
+     * The difference is that Java's whitespace includes vertical tab and form feed, which this functional will also
+     * normalize. Additonally <code>{@link #trim(String)}</code> removes control characters (char &lt;= 32) from both
+     * ends of this String.
+     * </p>
+     *
+     * @see Character#isWhitespace(char)
+     * @see #trim(String)
+     * @see <ahref="http://www.w3.org/TR/xpath/#function-normalize-space">
+     *              http://www.w3.org/TR/xpath/#function-normalize-space</a>
+     * @param str the source String to normalize whitespaces from, may be null
+     * @return the modified string with whitespace normalized, <code>null</code> if null String input
+     * 
+     * @since 2.6
+     */
+    public static String normalizeSpace(String str) {
+        if(str == null) {
+            return null;
+        }
+        str = trim(str);
+        StringBuffer b = new StringBuffer(str.length());
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (Character.isWhitespace(c)) {
+                if (i > 0 && !Character.isWhitespace(str.charAt(i - 1))) {
+                    b.append(' ');
+                }
+            } else {
+                b.append(c);
+            }
+        }
+        return b.toString();
+    }
+
 }
