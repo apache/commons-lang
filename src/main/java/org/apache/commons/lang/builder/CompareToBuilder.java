@@ -272,7 +272,7 @@ public class CompareToBuilder {
     public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients, 
                                         Class reflectUpToClass) 
     {
-        return reflectionCompare(lhs, rhs, false, reflectUpToClass, null);
+        return reflectionCompare(lhs, rhs, compareTransients, reflectUpToClass, null);
     }
 
     /**
