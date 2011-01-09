@@ -19,6 +19,7 @@ package org.apache.commons.lang.text;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import junit.framework.TestCase;
 
@@ -408,6 +409,19 @@ public class StrSubstitutorTest extends TestCase {
         assertEquals(buf.toString(), StrSubstitutor.replaceSystemProperties("Hi ${user.name}, you are "
             + "working with ${os.name}, your home "
             + "directory is ${user.home}."));
+    }
+
+    /**
+     * Test the replace of a properties object
+     */
+    public void testSubstitutetDefaultProperties(){
+        String org = "${doesnotwork}";
+        System.setProperty("doesnotwork", "It work's!");
+
+        // create a new Properties object with the System.getProperties as default
+        Properties props = new Properties(System.getProperties());
+
+        assertEquals("It work's!",StrSubstitutor.replace(org, props));
     }
 
     //-----------------------------------------------------------------------
