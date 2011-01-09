@@ -296,6 +296,16 @@ public class MethodUtilsTest extends TestCase {
                 singletonArray(Double.class), singletonArray(Double.TYPE));
         expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
                 singletonArray(Double.TYPE), singletonArray(Double.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(TestBean.class, "foo",
+                singletonArray(Double.TYPE), singletonArray(Double.TYPE));
+        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testOne",
+                singletonArray(ParentObject.class), singletonArray(ParentObject.class));
+        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testOne",
+                singletonArray(ChildObject.class), singletonArray(ParentObject.class));
+        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testTwo",
+                singletonArray(ParentObject.class), singletonArray(GrandParentObject.class));
+        expectMatchingAccessibleMethodParameterTypes(InheritanceBean.class, "testTwo",
+                singletonArray(ChildObject.class), singletonArray(ChildInterface.class));
     }
 
     private void expectMatchingAccessibleMethodParameterTypes(Class cls,
@@ -320,4 +330,17 @@ public class MethodUtilsTest extends TestCase {
         return result;
     }
 
+    public static class InheritanceBean {
+        public void testOne(Object obj) {}
+        public void testOne(GrandParentObject obj) {}
+        public void testOne(ParentObject obj) {}
+        public void testTwo(Object obj) {}
+        public void testTwo(GrandParentObject obj) {}
+        public void testTwo(ChildInterface obj) {}
+    }
+    interface ChildInterface {}
+    public static class GrandParentObject {}
+    public static class ParentObject extends GrandParentObject {}
+    public static class ChildObject extends ParentObject implements ChildInterface {}
+    
 }

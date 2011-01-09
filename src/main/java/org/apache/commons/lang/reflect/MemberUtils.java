@@ -168,7 +168,7 @@ abstract class MemberUtils {
             return getPrimitivePromotionCost(srcClass, destClass);
         }
         float cost = 0.0f;
-        while (destClass != null && !destClass.equals(srcClass)) {
+        while (srcClass != null && !destClass.equals(srcClass)) {
             if (destClass.isInterface() && ClassUtils.isAssignable(srcClass, destClass)) {
                 // slight penalty for interface match.
                 // we still want an exact match to override an interface match,
@@ -179,13 +179,13 @@ abstract class MemberUtils {
                 break;
             }
             cost++;
-            destClass = destClass.getSuperclass();
+            srcClass = srcClass.getSuperclass();
         }
         /*
          * If the destination class is null, we've travelled all the way up to
          * an Object match. We'll penalize this by adding 1.5 to the cost.
          */
-        if (destClass == null) {
+        if (srcClass == null) {
             cost += 1.5f;
         }
         return cost;
