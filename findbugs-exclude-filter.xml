@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+
+<!--
+  This file contains some false positive bugs detected by findbugs. Their
+  false positive nature has been analyzed individually and they have been
+  put here to instruct findbugs it must ignore them.
+-->
+<FindBugsFilter>
+
+  <!-- Reason: Optimization to use == -->
+  <Match>
+    <Class name="org.apache.commons.lang.BooleanUtils" />
+    <Method name="toBoolean" />
+    <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
+  </Match>
+
+  <!-- Reason: Optimization to use == -->
+  <Match>
+    <Class name="org.apache.commons.lang.BooleanUtils" />
+    <Method name="toBooleanObject" />
+    <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
+  </Match>
+
+  <!-- Reason: Intention to return null when null input == -->
+  <Match>
+    <Class name="org.apache.commons.lang.BooleanUtils" />
+    <Method name="toBooleanObject" />
+    <Bug pattern="NP_BOOLEAN_RETURN_NULL" />
+  </Match>
+
+  <!-- Reason: Intention to return null when null input == -->
+  <Match>
+    <Class name="org.apache.commons.lang.BooleanUtils" />
+    <Method name="negate" />
+    <Bug pattern="NP_BOOLEAN_RETURN_NULL" />
+  </Match>
+
+  <!-- Reason: Optimization to use == -->
+  <Match>
+    <Class name="org.apache.commons.lang.StringUtils" />
+    <Method name="indexOfDifference"/>
+    <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
+  </Match>
+
+  <!-- Reason: Very much intended to do a fall through on the switch -->
+  <Match>
+    <Class name="org.apache.commons.lang.NumberUtils" />
+    <Method name="createNumber"/>
+    <Bug pattern="SF_SWITCH_FALLTHROUGH" />
+  </Match>
+
+  <!-- Reason: Very much intended to do a fall through on the switch -->
+  <Match>
+    <Class name="org.apache.commons.lang.math.NumberUtils" />
+    <Method name="createNumber"/>
+    <Bug pattern="SF_SWITCH_FALLTHROUGH" />
+  </Match>
+
+  <!-- Reason: Very much intended to do a fall through on the switch -->
+  <Match>
+    <Class name="org.apache.commons.lang.time.DateUtils" />
+    <Method name="getFragment"/>
+    <Bug pattern="SF_SWITCH_FALLTHROUGH" />
+  </Match>
+
+  <!-- Reason: Very much intended to compare class names -->
+  <Match>
+    <Class name="org.apache.commons.lang.enum.Enum" />
+    <Method name="equals"/>
+    <Bug pattern="EQ_COMPARING_CLASS_NAMES" />
+  </Match>
+
+  <!-- Reason: Very much intended to compare class names -->
+  <Match>
+    <Class name="org.apache.commons.lang.enums.Enum" />
+    <Method name="equals"/>
+    <Bug pattern="EQ_COMPARING_CLASS_NAMES" />
+  </Match>
+
+  <!-- Reason: Continue if Exception.initCause() isn't found -->
+  <Match>
+    <Class name="org.apache.commons.lang.exception.ExceptionUtils" />
+    <Method name="&lt;clinit&gt;"/>
+    <Bug pattern="REC_CATCH_EXCEPTION" />
+  </Match>
+
+  <!-- Reason: Continue if Method.isSynthetic() isn't found -->
+  <Match>
+    <Class name="org.apache.commons.lang.reflect.MemberUtils" />
+    <Method name="&lt;clinit&gt;"/>
+    <Bug pattern="REC_CATCH_EXCEPTION" />
+  </Match>
+
+</FindBugsFilter>

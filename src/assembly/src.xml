@@ -27,6 +27,7 @@
                 <include>build.xml</include>
                 <include>checkstyle.xml</include>
                 <include>default.properties</include>
+                <include>findbugs-exclude-filter.xml</include>
                 <include>LICENSE.txt</include>
                 <include>NOTICE.txt</include>
                 <include>pom.xml</include>
