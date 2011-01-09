@@ -659,6 +659,21 @@ public class DateUtils {
         c.set(calendarField, amount);
         return c.getTime();
     }   
+
+    //-----------------------------------------------------------------------
+    /**
+     * Convert a Date into a Calendar object. 
+     * 
+     * @param date the date to convert to a Calendar
+     * @return the created Calendar
+     * @throws NullPointerException if null is passed in
+     * @since 2.6
+     */
+    public static Calendar toCalendar(Date date) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        return c;
+    }
     
     //-----------------------------------------------------------------------
     /**
