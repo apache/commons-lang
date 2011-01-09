@@ -6530,4 +6530,35 @@ public class StringUtils {
         return b.toString();
     }
 
+    /**
+     * <p>Check if a String ends with any of an array of specified strings.</p>
+     *
+     * <pre>
+     * StringUtils.endsWithAny(null, null)      = false
+     * StringUtils.endsWithAny(null, new String[] {"abc"})  = false
+     * StringUtils.endsWithAny("abcxyz", null)     = false
+     * StringUtils.endsWithAny("abcxyz", new String[] {""}) = true
+     * StringUtils.endsWithAny("abcxyz", new String[] {"xyz"}) = true
+     * StringUtils.endsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
+     * </pre>
+     *
+     * @param string  the String to check, may be null
+     * @param searchStrings the Strings to find, may be null or empty
+     * @return <code>true</code> if the String ends with any of the the prefixes, case insensitive, or
+     *  both <code>null</code>
+     * @since 2.6
+     */
+    public static boolean endsWithAny(String string, String[] searchStrings) {
+        if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
+            return false;
+        }
+        for (int i = 0; i < searchStrings.length; i++) {
+            String searchString = searchStrings[i];
+            if (StringUtils.endsWith(string, searchString)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
