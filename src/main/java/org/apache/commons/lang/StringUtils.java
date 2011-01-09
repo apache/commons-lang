@@ -5701,6 +5701,28 @@ public class StringUtils {
 
     /**
      * <p>Returns either the passed in String, or if the String is
+     * whitespace, empty ("") or <code>null</code>, the value of <code>defaultStr</code>.</p>
+     *
+     * <pre>
+     * StringUtils.defaultIfBlank(null, "NULL")  = "NULL"
+     * StringUtils.defaultIfBlank("", "NULL")    = "NULL"
+     * StringUtils.defaultIfBlank(" ", "NULL")   = "NULL"
+     * StringUtils.defaultIfBlank("bat", "NULL") = "bat"
+     * StringUtils.defaultIfBlank("", null)      = null
+     * </pre>
+     * @param str the String to check, may be null
+     * @param defaultStr  the default String to return
+     *  if the input is whitespace, empty ("") or <code>null</code>, may be null
+     * @return the passed in String, or the default
+     * @see StringUtils#defaultString(String, String)
+     * @since 2.6
+     */
+    public static String defaultIfBlank(String str, String defaultStr) {
+        return StringUtils.isBlank(str) ? defaultStr : str;
+    }
+
+    /**
+     * <p>Returns either the passed in String, or if the String is
      * empty or <code>null</code>, the value of <code>defaultStr</code>.</p>
      *
      * <pre>

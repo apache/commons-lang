@@ -1515,6 +1515,16 @@ public class StringUtilsTest extends TestCase {
         assertNull(StringUtils.defaultIfEmpty("", null));
     }
 
+    public void testDefaultIfBlank_StringString() {
+        assertEquals("NULL", StringUtils.defaultIfBlank(null, "NULL"));
+        assertEquals("NULL", StringUtils.defaultIfBlank("", "NULL"));
+        assertEquals("NULL", StringUtils.defaultIfBlank(" ", "NULL"));
+        assertEquals("abc", StringUtils.defaultIfBlank("abc", "NULL"));
+        assertNull(StringUtils.defaultIfBlank("", null));
+        String s = StringUtils.defaultIfBlank("abc", "NULL");
+        assertEquals("abc", s);
+    }
+
     //-----------------------------------------------------------------------
     public void testDeprecatedEscapeFunctions_String() {
         assertEquals("", StringUtils.escape("") );
