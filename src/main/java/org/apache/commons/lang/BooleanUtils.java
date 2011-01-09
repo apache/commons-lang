@@ -726,7 +726,7 @@ public class BooleanUtils {
      * @return the boolean value of the string, <code>false</code> if no match or the String is null
      */
     public static boolean toBoolean(String str) {
-        return toBooleanObject(str) == Boolean.TRUE;
+        return toBoolean(toBooleanObject(str));
     }
     
     /**

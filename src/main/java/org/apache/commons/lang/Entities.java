@@ -538,7 +538,7 @@ class Entities {
         // TODO this class is not thread-safe
         private String[] lookupTable;
 
-        private final int LOOKUP_TABLE_SIZE = 256;
+        private static final int LOOKUP_TABLE_SIZE = 256;
 
         /**
          * {@inheritDoc}
