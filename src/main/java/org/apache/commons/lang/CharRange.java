@@ -302,7 +302,7 @@ public final class CharRange implements Serializable {
         /** The current character */
         private char current;
 
-        private CharRange range;
+        private final CharRange range;
         private boolean hasNext;
 
         /**
