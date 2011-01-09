@@ -6297,27 +6297,6 @@ public class StringUtils {
         return p[n];
     }
 
-    /**
-     * <p>Gets the minimum of three <code>int</code> values.</p>
-     *
-     * @param a  value 1
-     * @param b  value 2
-     * @param c  value 3
-     * @return  the smallest of the values
-     */
-/*
-    private static int min(int a, int b, int c) {
-        // Method copied from NumberUtils to avoid dependency on subpackage
-        if (b < a) {
-            a = b;
-        }
-        if (c < a) {
-            a = c;
-        }
-        return a;
-    }
-*/
-
     // startsWith
     //-----------------------------------------------------------------------
 
