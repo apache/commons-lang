@@ -28,6 +28,7 @@ import java.util.Random;
  * 56320 (dc00) to 57343 (dfff) then it is placed after a randomly 
  * chosen high surrogate. </p>
  *
+ * <p>#ThreadSafe#</p>
  * @author Apache Software Foundation
  * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
  * @author Gary Gregory

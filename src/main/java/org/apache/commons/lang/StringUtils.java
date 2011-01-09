@@ -98,6 +98,7 @@ import java.util.Locale;
  * <p>Methods in this class give sample code to explain their operation.
  * The symbol <code>*</code> is used to indicate any input including <code>null</code>.</p>
  *
+ * <p>#ThreadSafe#</p>
  * @see java.lang.String
  * @author Apache Software Foundation
  * @author <a href="http://jakarta.apache.org/turbine/">Apache Jakarta Turbine</a>
@@ -121,6 +122,7 @@ import java.util.Locale;
  * @since 1.0
  * @version $Id$
  */
+//@Immutable
 public class StringUtils {
     // Performance testing notes (JDK 1.4, Jul03, scolebourne)
     // Whitespace:

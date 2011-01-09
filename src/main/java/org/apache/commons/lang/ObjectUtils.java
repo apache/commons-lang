@@ -30,6 +30,7 @@ import org.apache.commons.lang.reflect.MethodUtils;
  * An exception will generally not be thrown for a <code>null</code> input.
  * Each method documents its behaviour in more detail.</p>
  *
+ * <p>#ThreadSafe#</p>
  * @author Apache Software Foundation
  * @author <a href="mailto:nissim@nksystems.com">Nissim Karpenstein</a>
  * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
@@ -40,6 +41,7 @@ import org.apache.commons.lang.reflect.MethodUtils;
  * @since 1.0
  * @version $Id$
  */
+//@Immutable
 public class ObjectUtils {
 
     /**

@@ -34,6 +34,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * array input. However, an Object array that contains a <code>null</code>
  * element may throw an exception. Each method documents its behaviour.</p>
  *
+ * <p>#ThreadSafe#</p>
  * @author Apache Software Foundation
  * @author Moritz Petersen
  * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>

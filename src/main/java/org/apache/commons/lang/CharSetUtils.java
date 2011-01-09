@@ -23,6 +23,7 @@ package org.apache.commons.lang;
  * An exception will not be thrown for a <code>null</code> input.
  * Each method documents its behaviour in more detail.</p>
  * 
+ * <p>#ThreadSafe#</p>
  * @see CharSet
  * @author Apache Software Foundation
  * @author Phil Steitz

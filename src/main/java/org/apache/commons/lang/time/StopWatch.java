@@ -50,6 +50,8 @@ package org.apache.commons.lang.time;
  * 4. start() cannot be called twice without calling reset()
  * </p>
  * 
+ * <p>This class is not thread-safe</p>
+ * 
  * @author Apache Software Foundation
  * @since 2.0
  * @version $Id$

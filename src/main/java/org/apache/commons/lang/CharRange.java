@@ -25,6 +25,7 @@ import java.util.NoSuchElementException;
  * 
  * <p>Instances are immutable.</p>
  *
+ * <p>#ThreadSafe#</p>
  * @author Apache Software Foundation
  * @author Chris Feldhacker
  * @author Gary Gregory
@@ -285,6 +286,7 @@ public final class CharRange implements Serializable {
     /**
      * <p>Returns an iterator which can be used to walk through the characters described by this range.</p>
      *
+     * <p>#NotThreadSafe# the iterator is not threadsafe</p>
      * @return an iterator to the chars represented by this range
      * @since 2.5
      */
@@ -294,6 +296,7 @@ public final class CharRange implements Serializable {
 
     /**
      * Character {@link Iterator}.
+     * <p>#NotThreadSafe#</p>
      */
     private static class CharacterIterator implements Iterator {
         /** The current character */
