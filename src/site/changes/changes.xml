@@ -21,6 +21,32 @@
   </properties>
   <body>
 
+  <release version="2.6" date="Unreleased" description="">
+    <action type="add" issue="LANG-633">BooleanUtils: use same optimization in toBooleanObject(String) as in toBoolean(String)</action>
+    <action type="add" issue="LANG-599">ClassUtils: allow Dots as Inner Class Separators in getClass()</action>
+    <action type="add" issue="LANG-594">DateUtils: equal and compare functions up to most significant field</action>
+    <action type="add" issue="LANG-632">DateUtils: provide a Date to Calendar convenience method</action>
+    <action type="add" issue="LANG-576">ObjectUtils: add clone methods to ObjectUtils</action>
+    <action type="add" issue="LANG-667">ObjectUtils: add a Null-safe compare() method</action>
+    <action type="add" issue="LANG-640">StringUtils: add a normalizeSpace() method</action>
+    <action type="add" issue="LANG-614">StringUtils: add endsWithAny() method</action>
+    <action type="add" issue="LANG-655">StringUtils: add defaultIfBlank() method</action>
+    <action type="add" issue="LANG-596">StrSubstitutor: add a replace(String, Properties) variant</action>
+    <action type="add" issue="LANG-482">StrSubstitutor: support substitution in variable names</action>
+    <action type="fix" issue="LANG-629">CharSet: make the underlying set synchronized</action>
+    <action type="fix" issue="LANG-635">CompareToBuilder: fix passing along compareTransients to the reflectionCompare method</action>
+    <action type="fix" issue="LANG-645">FastDateFormat: fix to properly include the locale when formatting a Date</action>
+    <action type="fix" issue="LANG-638">NumberUtils: createNumber() throws a StringIndexOutOfBoundsException when argument containing "e" and "E" is passed in</action>
+    <action type="fix" issue="LANG-607">StringUtils methods do not handle Unicode 2.0+ supplementary characters correctly</action>
+    <action type="fix" issue="LANG-624">SystemUtils: getJavaVersionAsFloat throws StringIndexOutOfBoundsException on Android runtime/Dalvik VM</action>
+    <action type="fix" issue="BEANUTILS-381">MemberUtils: getMatchingAccessibleMethod does not correctly handle inheritance and method overloading</action>
+    <action type="update" issue="LANG-600">Javadoc is incorrect for lastIndexOf() method</action>
+    <action type="update" issue="LANG-628">Javadoc for HashCodeBuilder.append(boolean) does not match implementation</action>
+    <action type="update" issue="LANG-643">Javadoc StringUtils.left() claims to throw an exception on negative lenth, but doesn't</action>
+    <action type="update" issue="LANG-370">Javadoc - document thread safety</action>
+    <action type="update" issue="LANG-623">Test for StringUtils replaceChars() icelandic characters</action>
+  </release>
+
   <release version="2.5" date="2010-02-25" description="">
     <action type="add" issue="LANG-583">ArrayUtils - add isNotEmpty() methods</action>
     <action type="add" issue="LANG-534">ArrayUtils - add nullToEmpty() methods</action>
@@ -71,7 +97,7 @@
     <action type="fix" issue="LANG-523">StrBuilder - Performance improvement by doubling the size of the String in ensureCapacity</action>
     <action type="fix" issue="LANG-575">Compare, Equals and HashCode builders - use ArrayUtils to avoid creating a temporary List</action>
     <action type="fix" issue="LANG-467">EqualsBuilder - removing the special handling of BigDecimal (LANG-393) to use compareTo instead of equals because it creates an inequality with HashCodeBuilder</action>
-    <action type="fix" issue="LANG-574">HashCodeBuilder - Performance improvement: check for isArray to short-circuit the 9 instanceof checks.</action>
+    <action type="fix" issue="LANG-574">HashCodeBuilder - Performance improvement: check for isArray to short-circuit the 9 instanceof checks</action>
     <action type="fix" issue="LANG-520">HashCodeBuilder - Changing the hashCode() method to return toHashCode()</action>
     <action type="fix" issue="LANG-459">HashCodeBuilder - reflectionHashCode() can generate incorrect hashcodes</action>
     <action type="fix" issue="LANG-586">HashCodeBuilder and ToStringStyle - use of ThreadLocal causes memory leaks in container environments</action>
