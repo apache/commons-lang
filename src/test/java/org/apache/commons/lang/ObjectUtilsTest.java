@@ -210,6 +210,27 @@ public class ObjectUtilsTest extends TestCase {
     }
 
     /**
+     * Tests {@link ObjectUtils#compare(Comparable, Comparable, boolean)}.
+     */
+    public void testCompare() {
+        Integer one = new Integer(1);
+        Integer two = new Integer(2);
+        Integer nullValue = null;
+
+        assertEquals("Null Null false", 0, ObjectUtils.compare(nullValue, nullValue));
+        assertEquals("Null Null true",  0, ObjectUtils.compare(nullValue, nullValue, true));
+
+        assertEquals("Null one false", -1, ObjectUtils.compare(nullValue, one));
+        assertEquals("Null one true",   1, ObjectUtils.compare(nullValue, one, true));
+        
+        assertEquals("one Null false", 1, ObjectUtils.compare(one, nullValue));
+        assertEquals("one Null true", -1, ObjectUtils.compare(one, nullValue, true));
+
+        assertEquals("one two false", -1, ObjectUtils.compare(one, two));
+        assertEquals("one two true",  -1, ObjectUtils.compare(one, two, true));
+    }
+
+    /**
      * Tests {@link ObjectUtils#clone(Object)} with a cloneable object.
      */
     public void testCloneOfCloneable() {

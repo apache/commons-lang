@@ -287,11 +287,7 @@ public class ObjectUtils {
      *  </ul>
      */
     public static Object min(Comparable c1, Comparable c2) {
-        if (c1 != null && c2 != null) {
-            return c1.compareTo(c2) < 1 ? c1 : c2;
-        } else {
-            return c1 != null ? c1 : c2;
-        }                              
+        return (compare(c1, c2, true) <= 0 ? c1 : c2);
     }
 
     /**
@@ -308,11 +304,45 @@ public class ObjectUtils {
      *  </ul>
      */
     public static Object max(Comparable c1, Comparable c2) {
-        if (c1 != null && c2 != null) {
-            return c1.compareTo(c2) >= 0 ? c1 : c2;
-        } else {
-            return c1 != null ? c1 : c2;
+        return (compare(c1, c2, false) >= 0 ? c1 : c2);
+    }
+
+    /**
+     * Null safe comparison of Comparables.
+     * {@code null} is assumed to be less than a non-{@code null} value.
+     * 
+     * @param c1  the first comparable, may be null
+     * @param c2  the second comparable, may be null
+     * @return a negative value if c1 < c2, zero if c1 = c2
+     * and a positive value if c1 > c2
+     * @since 2.6
+     */
+    public static int compare(Comparable c1, Comparable c2) {
+        return compare(c1, c2, false);
+    }
+
+    /**
+     * Null safe comparison of Comparables.
+     * 
+     * @param c1  the first comparable, may be null
+     * @param c2  the second comparable, may be null
+     * @param nullGreater if true <code>null</code> is considered greater
+     * than a Non-<code>null</code> value or if false <code>null</code> is
+     * considered less than a Non-<code>null</code> value
+     * @return a negative value if c1 < c2, zero if c1 = c2
+     * and a positive value if c1 > c2
+     * @see java.util.Comparator#compare(Object, Object)
+     * @since 2.6
+     */
+    public static int compare(Comparable c1, Comparable c2, boolean nullGreater) {
+        if (c1 == c2) {
+            return 0;
+        } else if (c1 == null) {
+            return (nullGreater ? 1 : -1);
+        } else if (c2 == null) {
+            return (nullGreater ? -1 : 1);
         }
+        return c1.compareTo(c2);
     }
     
     /**
