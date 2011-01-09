@@ -1599,7 +1599,7 @@ public class ArrayUtils {
                     return i;
                 }
             }
-        } else {
+        } else if (array.getClass().getComponentType().isInstance(objectToFind)) {
             for (int i = startIndex; i < array.length; i++) {
                 if (objectToFind.equals(array[i])) {
                     return i;
@@ -1652,7 +1652,7 @@ public class ArrayUtils {
                     return i;
                 }
             }
-        } else {
+        } else if (array.getClass().getComponentType().isInstance(objectToFind)) {
             for (int i = startIndex; i >= 0; i--) {
                 if (objectToFind.equals(array[i])) {
                     return i;
