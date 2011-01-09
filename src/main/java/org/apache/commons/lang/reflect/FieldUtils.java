@@ -48,7 +48,7 @@ public class FieldUtils {
     }
 
     /**
-     * Gets an accessible <code>Field</code> by name repecting scope.
+     * Gets an accessible <code>Field</code> by name respecting scope.
      * Superclasses/interfaces will be considered.
      *
      * @param cls  the class to reflect, must not be null

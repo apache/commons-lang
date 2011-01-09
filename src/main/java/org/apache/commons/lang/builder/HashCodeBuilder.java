@@ -38,6 +38,13 @@ import org.apache.commons.lang.ArrayUtils;
  * </p>
  * 
  * <p>
+ * The following is the approach taken. When appending a data field, the current total is multiplied by the 
+ * multiplier then a relevant value 
+ * for that data type is added. For example, if the current hashCode is 17, and the multiplier is 37, then 
+ * appending the integer 45 will create a hashcode of 674, namely 17 * 37 + 45. 
+ * </p>
+ * 
+ * <p>
  * All relevant fields from the object should be included in the <code>hashCode</code> method. Derived fields may be
  * excluded. In general, any field used in the <code>equals</code> method must be used in the <code>hashCode</code>
  * method.

@@ -754,6 +754,7 @@ public class StringUtils {
      * StringUtils.indexOf(null, *)          = -1
      * StringUtils.indexOf(*, null)          = -1
      * StringUtils.indexOf("", "")           = 0
+     * StringUtils.indexOf("", *)            = -1 (except when * = "")
      * StringUtils.indexOf("aabaabaa", "a")  = 0
      * StringUtils.indexOf("aabaabaa", "b")  = 2
      * StringUtils.indexOf("aabaabaa", "ab") = 1
@@ -861,6 +862,7 @@ public class StringUtils {
      * StringUtils.indexOf(null, *, *)          = -1
      * StringUtils.indexOf(*, null, *)          = -1
      * StringUtils.indexOf("", "", 0)           = 0
+     * StringUtils.indexOf("", *, 0)            = -1 (except when * = "")
      * StringUtils.indexOf("aabaabaa", "a", 0)  = 0
      * StringUtils.indexOf("aabaabaa", "b", 0)  = 2
      * StringUtils.indexOf("aabaabaa", "ab", 0) = 1
@@ -1483,13 +1485,13 @@ public class StringUtils {
      * A <code>null</code> or zero length search array will return <code>-1</code>.</p>
      *
      * <pre>
-     * StringUtils.indexOfAnyBut(null, *)           = -1
-     * StringUtils.indexOfAnyBut("", *)             = -1
-     * StringUtils.indexOfAnyBut(*, null)           = -1
-     * StringUtils.indexOfAnyBut(*, [])             = -1
-     * StringUtils.indexOfAnyBut("zzabyycdxx",'za') = 3
-     * StringUtils.indexOfAnyBut("zzabyycdxx", '')  = 0
-     * StringUtils.indexOfAnyBut("aba", 'ab')       = -1
+     * StringUtils.indexOfAnyBut(null, *)                              = -1
+     * StringUtils.indexOfAnyBut("", *)                                = -1
+     * StringUtils.indexOfAnyBut(*, null)                              = -1
+     * StringUtils.indexOfAnyBut(*, [])                                = -1
+     * StringUtils.indexOfAnyBut("zzabyycdxx", new char[] {'z', 'a'} ) = 3
+     * StringUtils.indexOfAnyBut("aba", new char[] {'z'} )             = 0
+     * StringUtils.indexOfAnyBut("aba", new char[] {'a', 'b'} )        = -1
      * </pre>
      *
      * @param str  the String to check, may be null
@@ -1529,7 +1531,7 @@ public class StringUtils {
      * character not in the given set of characters.</p>
      *
      * <p>A <code>null</code> String will return <code>-1</code>.
-     * A <code>null</code> search string will return <code>-1</code>.</p>
+     * A <code>null</code> or empty search string will return <code>-1</code>.</p>
      *
      * <pre>
      * StringUtils.indexOfAnyBut(null, *)            = -1
@@ -1537,7 +1539,7 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut(*, null)            = -1
      * StringUtils.indexOfAnyBut(*, "")              = -1
      * StringUtils.indexOfAnyBut("zzabyycdxx", "za") = 3
-     * StringUtils.indexOfAnyBut("zzabyycdxx", "")   = 0
+     * StringUtils.indexOfAnyBut("zzabyycdxx", "")   = -1
      * StringUtils.indexOfAnyBut("aba","ab")         = -1
      * </pre>
      *
@@ -1575,7 +1577,7 @@ public class StringUtils {
      *
      * <p>A <code>null</code> String will return <code>false</code>.
      * A <code>null</code> valid character array will return <code>false</code>.
-     * An empty String ("") always returns <code>true</code>.</p>
+     * An empty String (length()=0) always returns <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.containsOnly(null, *)       = false
@@ -1610,7 +1612,7 @@ public class StringUtils {
      *
      * <p>A <code>null</code> String will return <code>false</code>.
      * A <code>null</code> valid character String will return <code>false</code>.
-     * An empty String ("") always returns <code>true</code>.</p>
+     * An empty String (length()=0) always returns <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.containsOnly(null, *)       = false
@@ -1641,7 +1643,7 @@ public class StringUtils {
      *
      * <p>A <code>null</code> String will return <code>true</code>.
      * A <code>null</code> invalid character array will return <code>true</code>.
-     * An empty String ("") always returns true.</p>
+     * An empty String (length()=0) always returns true.</p>
      *
      * <pre>
      * StringUtils.containsNone(null, *)       = true
@@ -3093,8 +3095,10 @@ public class StringUtils {
     // Joining
     //-----------------------------------------------------------------------
     /**
-     * <p>Concatenates elements of an array into a single String.
-     * Null objects or empty strings within the array are represented by
+     * <p>Joins the provided elements into a single String. </p>
+     *
+     * <p>No separator is added to the joined String.
+     * Null objects or empty string elements are represented by
      * empty strings.</p>
      *
      * <pre>
@@ -5328,7 +5332,7 @@ public class StringUtils {
      * <p>Checks if the String contains only unicode letters.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty String (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isAlpha(null)   = false
@@ -5360,7 +5364,7 @@ public class StringUtils {
      * space (' ').</p>
      *
      * <p><code>null</code> will return <code>false</code>
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty String (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isAlphaSpace(null)   = false
@@ -5393,7 +5397,7 @@ public class StringUtils {
      * <p>Checks if the String contains only unicode letters or digits.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty String (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isAlphanumeric(null)   = false
@@ -5427,7 +5431,7 @@ public class StringUtils {
      * or space (<code>' '</code>).</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty String (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isAlphanumeric(null)   = false
@@ -5460,7 +5464,7 @@ public class StringUtils {
      * <p>Checks if the string contains only ASCII printable characters.</p>
      * 
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty String (length()=0) will return <code>true</code>.</p>
      * 
      * <pre>
      * StringUtils.isAsciiPrintable(null)     = false
@@ -5499,7 +5503,7 @@ public class StringUtils {
      * A decimal point is not a unicode digit and returns false.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty String (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isNumeric(null)   = false
@@ -5534,7 +5538,7 @@ public class StringUtils {
      * A decimal point is not a unicode digit and returns false.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty String (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isNumeric(null)   = false
@@ -5568,7 +5572,7 @@ public class StringUtils {
      * <p>Checks if the String contains only whitespace.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>true</code>.</p>
+     * An empty String (length()=0) will return <code>true</code>.</p>
      *
      * <pre>
      * StringUtils.isWhitespace(null)   = false
@@ -5600,7 +5604,7 @@ public class StringUtils {
      * <p>Checks if the String contains only lowercase characters.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>false</code>.</p>
+     * An empty String (length()=0) will return <code>false</code>.</p>
      *
      * <pre>
      * StringUtils.isAllLowerCase(null)   = false
@@ -5631,7 +5635,7 @@ public class StringUtils {
      * <p>Checks if the String contains only uppercase characters.</p>
      *
      * <p><code>null</code> will return <code>false</code>.
-     * An empty String ("") will return <code>false</code>.</p>
+     * An empty String (length()=0) will return <code>false</code>.</p>
      *
      * <pre>
      * StringUtils.isAllUpperCase(null)   = false
@@ -5734,11 +5738,11 @@ public class StringUtils {
      * StringUtils.defaultIfEmpty("", null)      = null
      * </pre>
      *
-     * @see StringUtils#defaultString(String, String)
      * @param str  the String to check, may be null
      * @param defaultStr  the default String to return
      *  if the input is empty ("") or <code>null</code>, may be null
      * @return the passed in String, or the default
+     * @see StringUtils#defaultString(String, String)
      */
     public static String defaultIfEmpty(String str, String defaultStr) {
         return StringUtils.isEmpty(str) ? defaultStr : str;

@@ -73,7 +73,7 @@ import java.util.Properties;
  * <pre>
  *   The variable ${${name}} must be used.
  * </pre>
- * Here only the variable's name refered to in the text should be replaced resulting
+ * Here only the variable's name referred to in the text should be replaced resulting
  * in the text (assuming that the value of the <code>name</code> variable is <code>x</code>):
  * <pre>
  *   The variable ${x} must be used.
@@ -784,7 +784,7 @@ public class StrSubstitutor {
     /**
      * Sets the variable prefix to use.
      * <p>
-     * The variable prefix is the characer or characters that identify the
+     * The variable prefix is the character or characters that identify the
      * start of a variable. This method allows a single character prefix to
      * be easily set.
      *
@@ -863,7 +863,7 @@ public class StrSubstitutor {
     /**
      * Sets the variable suffix to use.
      * <p>
-     * The variable suffix is the characer or characters that identify the
+     * The variable suffix is the character or characters that identify the
      * end of a variable. This method allows a string suffix to be easily set.
      *
      * @param suffix  the suffix for variables, not null

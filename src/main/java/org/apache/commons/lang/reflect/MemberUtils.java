@@ -27,7 +27,8 @@ import org.apache.commons.lang.SystemUtils;
 
 /**
  * Contains common code for working with Methods/Constructors, extracted and
- * refactored from <code>MethodUtils</code> when it was imported from Commons BeanUtils.
+ * refactored from <code>MethodUtils</code> when it was imported from Commons
+ * BeanUtils.
  *
  * @author Apache Software Foundation
  * @author Steve Cohen
@@ -62,13 +63,13 @@ abstract class MemberUtils {
     /**
      * XXX Default access superclass workaround
      *
-     * When a public class has a default access superclass with public
-     * members, these members are accessible. Calling them from
-     * compiled code works fine. Unfortunately, on some JVMs, using reflection to invoke these
-     * members seems to (wrongly) to prevent access even when the
-     * modifer is public. Calling setAccessible(true) solves the problem
-     * but will only work from sufficiently privileged code. Better
-     * workarounds would be gratefully accepted.
+     * When a public class has a default access superclass with public members,
+     * these members are accessible. Calling them from compiled code works fine.
+     * Unfortunately, on some JVMs, using reflection to invoke these members
+     * seems to (wrongly) to prevent access even when the modifer is public.
+     * Calling setAccessible(true) solves the problem but will only work from
+     * sufficiently privileged code. Better workarounds would be gratefully
+     * accepted.
      * @param o the AccessibleObject to set as accessible
      */
     static void setAccessibleWorkaround(AccessibleObject o) {
@@ -122,11 +123,13 @@ abstract class MemberUtils {
     /**
      * Compare the relative fitness of two sets of parameter types in terms of
      * matching a third set of runtime parameter types, such that a list ordered
-     * by the results of the comparison would return the best match first (least).
+     * by the results of the comparison would return the best match first
+     * (least).
      *
      * @param left the "left" parameter set
      * @param right the "right" parameter set
-     * @param actual the runtime parameter types to match against <code>left</code>/<code>right</code>
+     * @param actual the runtime parameter types to match against
+     * <code>left</code>/<code>right</code>
      * @return int consistent with <code>compare</code> semantics
      */
     static int compareParameterTypes(Class[] left, Class[] right, Class[] actual) {
@@ -136,8 +139,8 @@ abstract class MemberUtils {
     }
 
     /**
-     * Returns the sum of the object transformation cost for each class in the source
-     * argument list.
+     * Returns the sum of the object transformation cost for each class in the
+     * source argument list.
      * @param srcArgs The source arguments
      * @param destArgs The destination arguments
      * @return The total transformation cost
@@ -155,9 +158,9 @@ abstract class MemberUtils {
     }
 
     /**
-     * Gets the number of steps required needed to turn the source class into the 
-     * destination class. This represents the number of steps in the object hierarchy 
-     * graph.
+     * Gets the number of steps required needed to turn the source class into
+     * the destination class. This represents the number of steps in the object
+     * hierarchy graph.
      * @param srcClass The source class
      * @param destClass The destination class
      * @return The cost of transforming an object
@@ -193,7 +196,8 @@ abstract class MemberUtils {
     }
 
     /**
-     * Get the number of steps required to promote a primitive number to another type.
+     * Get the number of steps required to promote a primitive number to another
+     * type.
      * @param srcClass the (primitive) source class
      * @param destClass the (primitive) destination class
      * @return The cost of promoting the primitive
