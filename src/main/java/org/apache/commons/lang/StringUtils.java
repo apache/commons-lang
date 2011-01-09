@@ -6536,10 +6536,10 @@ public class StringUtils {
      * @since 2.6
      */
     public static String normalizeSpace(String str) {
-        if(str == null) {
-            return null;
-        }
         str = trim(str);
+        if(str == null || str.length() <= 2) {
+            return str;
+        }
         StringBuffer b = new StringBuffer(str.length());
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
