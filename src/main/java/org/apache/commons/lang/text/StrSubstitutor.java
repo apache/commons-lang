@@ -174,6 +174,7 @@ public class StrSubstitutor {
      * @param source the source text containing the variables to substitute, null returns null
      * @param valueProperties the properties with values, may be null
      * @return the result of the replace operation
+     * @since 2.6
      */
     public static String replace(Object source, Properties valueProperties)
     {
