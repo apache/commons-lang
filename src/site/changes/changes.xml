@@ -40,6 +40,7 @@
     <action type="fix" issue="LANG-607">StringUtils methods do not handle Unicode 2.0+ supplementary characters correctly</action>
     <action type="fix" issue="LANG-624">SystemUtils: getJavaVersionAsFloat throws StringIndexOutOfBoundsException on Android runtime/Dalvik VM</action>
     <action type="fix" issue="BEANUTILS-381">MemberUtils: getMatchingAccessibleMethod does not correctly handle inheritance and method overloading</action>
+    <action type="update" issue="LANG-669">Use StrBuilder instead of StringBuffer to improve performance where sync. is not an issue</action>
     <action type="update" issue="LANG-600">Javadoc is incorrect for lastIndexOf() method</action>
     <action type="update" issue="LANG-628">Javadoc for HashCodeBuilder.append(boolean) does not match implementation</action>
     <action type="update" issue="LANG-643">Javadoc StringUtils.left() claims to throw an exception on negative lenth, but doesn't</action>

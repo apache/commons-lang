@@ -18,6 +18,8 @@ package org.apache.commons.lang.math;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.text.StrBuilder;
+
 /**
  * <p><code>NumberRange</code> represents an inclusive range of 
  * {@link java.lang.Number} objects of the same type.</p>
@@ -228,7 +230,7 @@ public final class NumberRange extends Range implements Serializable {
      */
     public String toString() {
         if (toString == null) {
-            StringBuffer buf = new StringBuffer(32);
+            StrBuilder buf = new StrBuilder(32);
             buf.append("Range[");
             buf.append(min);
             buf.append(',');

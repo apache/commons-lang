@@ -147,7 +147,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         }
         ArrayList foundFormats = new ArrayList();
         ArrayList foundDescriptions = new ArrayList();
-        StringBuffer stripCustom = new StringBuffer(pattern.length());
+        StrBuilder stripCustom = new StrBuilder(pattern.length());
 
         ParsePosition pos = new ParsePosition(0);
         char[] c = pattern.toCharArray();
@@ -270,7 +270,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     private int readArgumentIndex(String pattern, ParsePosition pos) {
         int start = pos.getIndex();
         seekNonWs(pattern, pos);
-        StringBuffer result = new StringBuffer();
+        StrBuilder result = new StrBuilder();
         boolean error = false;
         for (; !error && pos.getIndex() < pattern.length(); next(pos)) {
             char c = pattern.charAt(pos.getIndex());
@@ -345,7 +345,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         if (!containsElements(customPatterns)) {
             return pattern;
         }
-        StringBuffer sb = new StringBuffer(pattern.length() * 2);
+        StrBuilder sb = new StrBuilder(pattern.length() * 2);
         ParsePosition pos = new ParsePosition(0);
         int fe = -1;
         int depth = 0;
@@ -414,8 +414,8 @@ public class ExtendedMessageFormat extends MessageFormat {
      * @param escapingOn whether to process escaped quotes
      * @return <code>appendTo</code>
      */
-    private StringBuffer appendQuotedString(String pattern, ParsePosition pos,
-            StringBuffer appendTo, boolean escapingOn) {
+    private StrBuilder appendQuotedString(String pattern, ParsePosition pos,
+            StrBuilder appendTo, boolean escapingOn) {
         int start = pos.getIndex();
         char[] c = pattern.toCharArray();
         if (escapingOn && c[start] == QUOTE) {

@@ -18,6 +18,8 @@ package org.apache.commons.lang.math;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.text.StrBuilder;
+
 /**
  * <p><code>LongRange</code> represents an inclusive range of <code>long</code>s.</p>
  *
@@ -383,7 +385,7 @@ public final class LongRange extends Range implements Serializable {
      */
     public String toString() {
         if (toString == null) {
-            StringBuffer buf = new StringBuffer(32);
+            StrBuilder buf = new StrBuilder(32);
             buf.append("Range[");
             buf.append(min);
             buf.append(',');

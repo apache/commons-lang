@@ -22,6 +22,7 @@ import java.io.Writer;
 import java.util.Locale;
 
 import org.apache.commons.lang.exception.NestableRuntimeException;
+import org.apache.commons.lang.text.StrBuilder;
 
 /**
  * <p>Escapes and unescapes <code>String</code>s for
@@ -314,7 +315,7 @@ public class StringEscapeUtils {
             return;
         }
         int sz = str.length();
-        StringBuffer unicode = new StringBuffer(4);
+        StrBuilder unicode = new StrBuilder(4);
         boolean hadSlash = false;
         boolean inUnicode = false;
         for (int i = 0; i < sz; i++) {

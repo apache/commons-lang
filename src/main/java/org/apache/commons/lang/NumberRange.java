@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang;
 
+import org.apache.commons.lang.text.StrBuilder;
+
 /**
  * <p>Represents a range of {@link Number} objects.</p>
  * 
@@ -194,7 +196,7 @@ public final class NumberRange {
      * @return the string representation of this range
      */
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StrBuilder sb = new StrBuilder();
 
         if (min.doubleValue() < 0) {
             sb.append('(')

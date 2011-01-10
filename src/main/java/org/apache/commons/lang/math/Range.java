@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang.math;
 
+import org.apache.commons.lang.text.StrBuilder;
+
 /**
  * <p><code>Range</code> represents a range of numbers of the same type.</p>
  * 
@@ -419,7 +421,7 @@ public abstract class Range {
      * @return the <code>String</code> representation of this range
      */
     public String toString() {
-        StringBuffer buf = new StringBuffer(32);
+        StrBuilder buf = new StrBuilder(32);
         buf.append("Range[");
         buf.append(getMinimumNumber());
         buf.append(',');

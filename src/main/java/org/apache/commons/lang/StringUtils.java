@@ -22,6 +22,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang.text.StrBuilder;
+
 /**
  * <p>Operations on {@link java.lang.String} that are
  * <code>null</code> safe.</p>
@@ -3208,7 +3210,7 @@ public class StringUtils {
         }
 
         bufSize *= ((array[startIndex] == null ? 16 : array[startIndex].toString().length()) + 1);
-        StringBuffer buf = new StringBuffer(bufSize);
+        StrBuilder buf = new StrBuilder(bufSize);
 
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
@@ -3297,7 +3299,7 @@ public class StringUtils {
         bufSize *= ((array[startIndex] == null ? 16 : array[startIndex].toString().length())
                         + separator.length());
 
-        StringBuffer buf = new StringBuffer(bufSize);
+        StrBuilder buf = new StrBuilder(bufSize);
 
         for (int i = startIndex; i < endIndex; i++) {
             if (i > startIndex) {
@@ -3339,7 +3341,7 @@ public class StringUtils {
         }
 
         // two or more elements
-        StringBuffer buf = new StringBuffer(256); // Java default is 16, probably too small
+        StrBuilder buf = new StrBuilder(256); // Java default is 16, probably too small
         if (first != null) {
             buf.append(first);
         }
@@ -3383,7 +3385,7 @@ public class StringUtils {
         }
 
         // two or more elements
-        StringBuffer buf = new StringBuffer(256); // Java default is 16, probably too small
+        StrBuilder buf = new StrBuilder(256); // Java default is 16, probably too small
         if (first != null) {
             buf.append(first);
         }
@@ -3810,7 +3812,7 @@ public class StringUtils {
         int increase = replacement.length() - replLength;
         increase = (increase < 0 ? 0 : increase);
         increase *= (max < 0 ? 16 : (max > 64 ? 64 : max));
-        StringBuffer buf = new StringBuffer(text.length() + increase);
+        StrBuilder buf = new StrBuilder(text.length() + increase);
         while (end != INDEX_NOT_FOUND) {
             buf.append(text.substring(start, end)).append(replacement);
             start = end + replLength;
@@ -4048,7 +4050,7 @@ public class StringUtils {
         // have upper-bound at 20% increase, then let Java take over
         increase = Math.min(increase, text.length() / 5);
 
-        StringBuffer buf = new StringBuffer(text.length() + increase);
+        StrBuilder buf = new StrBuilder(text.length() + increase);
 
         while (textIndex != -1) {
 
@@ -4172,7 +4174,7 @@ public class StringUtils {
         boolean modified = false;
         int replaceCharsLength = replaceChars.length();
         int strLength = str.length();
-        StringBuffer buf = new StringBuffer(strLength);
+        StrBuilder buf = new StrBuilder(strLength);
         for (int i = 0; i < strLength; i++) {
             char ch = str.charAt(i);
             int index = searchChars.indexOf(ch);
@@ -4219,7 +4221,7 @@ public class StringUtils {
      *             Method will be removed in Commons Lang 3.0.
      */
     public static String overlayString(String text, String overlay, int start, int end) {
-        return new StringBuffer(start + overlay.length() + text.length() - end + 1)
+        return new StrBuilder(start + overlay.length() + text.length() - end + 1)
             .append(text.substring(0, start))
             .append(overlay)
             .append(text.substring(end))
@@ -4280,7 +4282,7 @@ public class StringUtils {
             start = end;
             end = temp;
         }
-        return new StringBuffer(len + start - end + overlay.length() + 1)
+        return new StrBuilder(len + start - end + overlay.length() + 1)
             .append(str.substring(0, start))
             .append(overlay)
             .append(str.substring(end))
@@ -4621,7 +4623,7 @@ public class StringUtils {
                 }
                 return new String(output2);
             default :
-                StringBuffer buf = new StringBuffer(outputLength);
+                StrBuilder buf = new StrBuilder(outputLength);
                 for (int i = 0; i < repeat; i++) {
                     buf.append(str);
                 }
@@ -5164,7 +5166,7 @@ public class StringUtils {
         if (str == null || (strLen = str.length()) == 0) {
             return str;
         }
-        return new StringBuffer(strLen)
+        return new StrBuilder(strLen)
             .append(Character.toTitleCase(str.charAt(0)))
             .append(str.substring(1))
             .toString();
@@ -5208,7 +5210,7 @@ public class StringUtils {
         if (str == null || (strLen = str.length()) == 0) {
             return str;
         }
-        return new StringBuffer(strLen)
+        return new StrBuilder(strLen)
             .append(Character.toLowerCase(str.charAt(0)))
             .append(str.substring(1))
             .toString();
@@ -5259,7 +5261,7 @@ public class StringUtils {
         if (str == null || (strLen = str.length()) == 0) {
             return str;
         }
-        StringBuffer buffer = new StringBuffer(strLen);
+        StrBuilder buffer = new StrBuilder(strLen);
 
         char ch = 0;
         for (int i = 0; i < strLen; i++) {
@@ -5751,7 +5753,7 @@ public class StringUtils {
     // Reversing
     //-----------------------------------------------------------------------
     /**
-     * <p>Reverses a String as per {@link StringBuffer#reverse()}.</p>
+     * <p>Reverses a String as per {@link StrBuilder#reverse()}.</p>
      *
      * <p>A <code>null</code> String returns <code>null</code>.</p>
      *
@@ -5768,7 +5770,7 @@ public class StringUtils {
         if (str == null) {
             return null;
         }
-        return new StringBuffer(str).reverse().toString();
+        return new StrBuilder(str).reverse().toString();
     }
 
     /**
@@ -5980,7 +5982,7 @@ public class StringUtils {
         int startOffset = targetSting/2+targetSting%2;
         int endOffset = str.length()-targetSting/2;
         
-        StringBuffer builder = new StringBuffer(length);
+        StrBuilder builder = new StrBuilder(length);
         builder.append(str.substring(0,startOffset));
         builder.append(middle);
         builder.append(str.substring(endOffset));
@@ -6544,7 +6546,7 @@ public class StringUtils {
         if(str == null || str.length() <= 2) {
             return str;
         }
-        StringBuffer b = new StringBuffer(str.length());
+        StrBuilder b = new StrBuilder(str.length());
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
             if (Character.isWhitespace(c)) {

@@ -20,6 +20,8 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.apache.commons.lang.text.StrBuilder;
+
 /**
  * <p>A contiguous range of characters, optionally negated.</p>
  * 
@@ -267,7 +269,7 @@ public final class CharRange implements Serializable {
      */
     public String toString() {
         if (iToString == null) {
-            StringBuffer buf = new StringBuffer(4);
+            StrBuilder buf = new StrBuilder(4);
             if (isNegated()) {
                 buf.append('^');
             }

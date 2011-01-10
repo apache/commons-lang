@@ -18,6 +18,8 @@ package org.apache.commons.lang.math;
 
 import java.math.BigInteger;
 
+import org.apache.commons.lang.text.StrBuilder;
+
 /**
  * <p><code>Fraction</code> is a <code>Number</code> implementation that
  * stores fractions accurately.</p>
@@ -896,7 +898,7 @@ public final class Fraction extends Number implements Comparable {
      */
     public String toString() {
         if (toString == null) {
-            toString = new StringBuffer(32)
+            toString = new StrBuilder(32)
                 .append(getNumerator())
                 .append('/')
                 .append(getDenominator()).toString();
@@ -930,13 +932,13 @@ public final class Fraction extends Number implements Comparable {
                 if (properNumerator == 0) {
                     toProperString = Integer.toString(getProperWhole());
                 } else {
-                    toProperString = new StringBuffer(32)
+                    toProperString = new StrBuilder(32)
                         .append(getProperWhole()).append(' ')
                         .append(properNumerator).append('/')
                         .append(getDenominator()).toString();
                 }
             } else {
-                toProperString = new StringBuffer(32)
+                toProperString = new StrBuilder(32)
                     .append(getNumerator()).append('/')
                     .append(getDenominator()).toString();
             }

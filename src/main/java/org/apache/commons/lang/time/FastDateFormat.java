@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.text.StrBuilder;
 
 /**
  * <p>FastDateFormat is a fast and thread-safe version of
@@ -704,7 +705,7 @@ public class FastDateFormat extends Format {
      * @return parsed token
      */
     protected String parseToken(String pattern, int[] indexRef) {
-        StringBuffer buf = new StringBuffer();
+        StrBuilder buf = new StrBuilder();
 
         int i = indexRef[0];
         int length = pattern.length();

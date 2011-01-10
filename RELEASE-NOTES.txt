@@ -47,6 +47,7 @@ BUG FIXES IN 2.6
 TASKS IN 2.6
 ============
 
+    * [LANG-669] - Use StrBuilder instead of StringBuffer to improve performance where sync. is not an issue
     * [LANG-600] - Javadoc is incorrect for lastIndexOf() method
     * [LANG-628] - Javadoc for HashCodeBuilder.append(boolean) does not match implementation
     * [LANG-643] - Javadoc StringUtils.left() claims to throw an exception on negative lenth, but doesn't

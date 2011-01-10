@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.text.StrBuilder;
 
 /**
  * <p>Operates on classes without using reflection.</p>
@@ -188,7 +189,7 @@ public class ClassUtils {
             return StringUtils.EMPTY;
         }
 
-        StringBuffer arrayPrefix = new StringBuffer();
+        StrBuilder arrayPrefix = new StrBuilder();
 
         // Handle array encoding
         if (className.startsWith("[")) {
@@ -888,7 +889,7 @@ public class ClassUtils {
         if (className == null) {
             throw new NullArgumentException("className");
         } else if (className.endsWith("[]")) {
-            StringBuffer classNameBuffer = new StringBuffer();
+            StrBuilder classNameBuffer = new StrBuilder();
             while (className.endsWith("[]")) {
                 className = className.substring(0, className.length() - 2);
                 classNameBuffer.append("[");
@@ -1057,7 +1058,7 @@ public class ClassUtils {
                             className.substring(0, 1));
                     }
                 }
-                StringBuffer canonicalClassNameBuffer = new StringBuffer(className);
+                StrBuilder canonicalClassNameBuffer = new StrBuilder(className);
                 for (int i = 0; i < dim; i++) {
                     canonicalClassNameBuffer.append("[]");
                 }

@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang;
 
+import org.apache.commons.lang.text.StrBuilder;
+
 /**
  * <p>Operations on <code>CharSet</code>s.</p>
  *
@@ -122,7 +124,7 @@ public class CharSetUtils {
             return str;
         }
         CharSet chars = CharSet.getInstance(set);
-        StringBuffer buffer = new StringBuffer(str.length());
+        StrBuilder buffer = new StrBuilder(str.length());
         char[] chrs = str.toCharArray();
         int sz = chrs.length;
         char lastChar = ' ';
@@ -320,7 +322,7 @@ public class CharSetUtils {
      */
     private static String modify(String str, String[] set, boolean expect) {
         CharSet chars = CharSet.getInstance(set);
-        StringBuffer buffer = new StringBuffer(str.length());
+        StrBuilder buffer = new StrBuilder(str.length());
         char[] chrs = str.toCharArray();
         int sz = chrs.length;
         for(int i=0; i<sz; i++) {
@@ -369,7 +371,7 @@ public class CharSetUtils {
         if (StringUtils.isEmpty(str)) {
             return str;
         }
-        StringBuffer buffer = new StringBuffer(str.length());
+        StrBuilder buffer = new StrBuilder(str.length());
         char[] chrs = str.toCharArray();
         char[] withChrs = replaceChars.toCharArray();
         int sz = chrs.length;
