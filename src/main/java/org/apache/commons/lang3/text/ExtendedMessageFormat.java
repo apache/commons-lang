@@ -47,7 +47,7 @@ import org.apache.commons.lang3.Validate;
  * found is used for this format element.
  * </p>
  *
- * <p>NOTICE: The various subformat mutator methods are considered unnecessary; they exist on the parent
+ * <p><b>NOTICE:</b> The various subformat mutator methods are considered unnecessary; they exist on the parent
  * class to allow the type of customization which it is the job of this class to provide in
  * a configurable fashion.  These methods have thus been disabled and will throw
  * <code>UnsupportedOperationException</code> if called.
@@ -210,6 +210,8 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Throws UnsupportedOperationException - see class Javadoc for details.
      * 
+     * @param formatElementIndex format element index
+     * @param newFormat the new format
      * @throws UnsupportedOperationException
      */
     @Override
@@ -220,6 +222,8 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Throws UnsupportedOperationException - see class Javadoc for details.
      * 
+     * @param argumentIndex argument index
+     * @param newFormat the new format
      * @throws UnsupportedOperationException
      */
     @Override
@@ -230,6 +234,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Throws UnsupportedOperationException - see class Javadoc for details.
      * 
+     * @param newFormats new formats
      * @throws UnsupportedOperationException
      */
     @Override
@@ -240,6 +245,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Throws UnsupportedOperationException - see class Javadoc for details.
      * 
+     * @param newFormats new formats
      * @throws UnsupportedOperationException
      */
     @Override
