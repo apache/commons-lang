@@ -245,6 +245,33 @@ public class StrBuilderTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testClone() throws Exception {
+        StrBuilder sb = new StrBuilder();
+        sb.setNewLineText("NEWLINE");
+        sb.setNullText("NULLVALUE");
+        sb.append("abc");
+        assertEquals("before", "abc", sb.toString());
+
+        // Clone
+        StrBuilder clone = (StrBuilder)sb.clone();
+        assertEquals("capacity", sb.capacity(), clone.capacity());
+        assertEquals("size", sb.size(), clone.size());
+        assertEquals("toString", sb.toString(), clone.toString());
+
+        // Modify Original
+        sb.append("def");
+        assertEquals("original-1", "abcdef", sb.toString());
+        assertEquals("different",  "abc", clone.toString());
+
+        // Modify Clone
+        clone.append((String)null);
+        assertEquals("append null", "abcNULLVALUE", clone.toString());
+        clone.appendNewLine();
+        assertEquals("append newline", "abcNULLVALUENEWLINE", clone.toString());
+        assertEquals("original-2",  "abcdef", sb.toString());
+    }
+
+    //-----------------------------------------------------------------------
     public void testCapacity() {
         StrBuilder sb = new StrBuilder();
         assertEquals(sb.buffer.length, sb.capacity());

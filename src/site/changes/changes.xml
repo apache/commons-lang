@@ -28,6 +28,7 @@
     <action type="add" issue="LANG-632">DateUtils: provide a Date to Calendar convenience method</action>
     <action type="add" issue="LANG-576">ObjectUtils: add clone methods to ObjectUtils</action>
     <action type="add" issue="LANG-667">ObjectUtils: add a Null-safe compare() method</action>
+    <action type="add" issue="LANG-302">StrBuilder: implement clone() method</action>
     <action type="add" issue="LANG-640">StringUtils: add a normalizeSpace() method</action>
     <action type="add" issue="LANG-614">StringUtils: add endsWithAny() method</action>
     <action type="add" issue="LANG-655">StringUtils: add defaultIfBlank() method</action>

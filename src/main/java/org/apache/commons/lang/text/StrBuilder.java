@@ -2577,6 +2577,20 @@ public class StrBuilder implements Cloneable {
         return new StringBuffer(size).append(buffer, 0, size);
     }
 
+    /**
+     * Clone this object.
+     *
+     * @return a clone of this object
+     * @throws CloneNotSupportedException if clone is not supported
+     * @since 2.6
+     */
+    public Object clone() throws CloneNotSupportedException {
+        StrBuilder clone = (StrBuilder)super.clone();
+        clone.buffer = new char[buffer.length];
+        System.arraycopy(buffer, 0, clone.buffer, 0, buffer.length);
+        return clone;
+    }
+
     //-----------------------------------------------------------------------
     /**
      * Validates parameters defining a range of the builder.
