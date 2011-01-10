@@ -208,7 +208,8 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * {@inheritDoc}
+     * Throws UnsupportedOperationException - see class Javadoc for details.
+     * 
      * @throws UnsupportedOperationException
      */
     @Override
@@ -217,7 +218,8 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * {@inheritDoc}
+     * Throws UnsupportedOperationException - see class Javadoc for details.
+     * 
      * @throws UnsupportedOperationException
      */
     @Override
@@ -226,7 +228,8 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * {@inheritDoc}
+     * Throws UnsupportedOperationException - see class Javadoc for details.
+     * 
      * @throws UnsupportedOperationException
      */
     @Override
@@ -235,7 +238,8 @@ public class ExtendedMessageFormat extends MessageFormat {
     }
 
     /**
-     * {@inheritDoc}
+     * Throws UnsupportedOperationException - see class Javadoc for details.
+     * 
      * @throws UnsupportedOperationException
      */
     @Override
