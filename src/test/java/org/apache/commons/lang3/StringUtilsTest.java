@@ -1909,7 +1909,13 @@ public class StringUtilsTest extends TestCase {
         assertEquals("", StringUtils.normalizeSpace(" "));
         assertEquals("", StringUtils.normalizeSpace("\t"));
         assertEquals("", StringUtils.normalizeSpace("\n"));        
+        assertEquals("", StringUtils.normalizeSpace("\u0009"));
         assertEquals("", StringUtils.normalizeSpace("\u000B"));
+        assertEquals("", StringUtils.normalizeSpace("\u000C"));
+        assertEquals("", StringUtils.normalizeSpace("\u001C"));
+        assertEquals("", StringUtils.normalizeSpace("\u001D"));
+        assertEquals("", StringUtils.normalizeSpace("\u001E"));
+        assertEquals("", StringUtils.normalizeSpace("\u001F"));
         assertEquals("", StringUtils.normalizeSpace("\f"));
         assertEquals("", StringUtils.normalizeSpace("\r"));
         assertEquals("a", StringUtils.normalizeSpace("  a  "));
