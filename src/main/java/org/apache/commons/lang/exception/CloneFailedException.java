@@ -23,7 +23,7 @@ package org.apache.commons.lang.exception;
  * @author Apache Software Foundation
  * @since 2.6
  */
-public class CloneFailedException extends RuntimeException {
+public class CloneFailedException extends NestableRuntimeException {
     // ~ Static fields/initializers ---------------------------------------------
 
     private static final long serialVersionUID = 20091223L;
@@ -38,5 +38,26 @@ public class CloneFailedException extends RuntimeException {
      */
     public CloneFailedException(final String message) {
         super(message);
+    }
+
+    /**
+     * Constructs a CloneFailedException.
+     * 
+     * @param cause cause of the exception
+     * @since upcoming
+     */
+    public CloneFailedException(final Throwable cause) {
+        super(cause);
+    }
+
+    /**
+     * Constructs a CloneFailedException.
+     * 
+     * @param message description of the exception
+     * @param cause cause of the exception
+     * @since upcoming
+     */
+    public CloneFailedException(final String message, final Throwable cause) {
+        super(message, cause);
     }
 }

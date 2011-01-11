@@ -397,13 +397,13 @@ public class ObjectUtils {
                 } catch (final NoSuchMethodException e) {
                     throw new CloneFailedException("Cloneable type "
                         + o.getClass().getName()
-                        + " has no clone method: " + e);
+                        + " has no clone method", e);
                 } catch (final IllegalAccessException e) {
                     throw new CloneFailedException("Cannot clone Cloneable type "
-                        + o.getClass().getName() + ": " + e);
+                        + o.getClass().getName(), e);
                 } catch (final InvocationTargetException e) {
                     throw new CloneFailedException("Exception cloning Cloneable type "
-                        + o.getClass().getName() + ": " + e.getTargetException());
+                        + o.getClass().getName(), e.getTargetException());
                 }
             }
             return result;
