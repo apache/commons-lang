@@ -263,6 +263,50 @@ public class ExtendedMessageFormatTest extends TestCase {
     }
 
     /**
+     * Test equals() and hashcode.
+     */
+    public void testEqualsHashcode() {
+        Map registry = new HashMap();
+        registry.put("testfmt", new LowerCaseFormatFactory());
+        Map otherRegitry = new HashMap();
+        otherRegitry.put("testfmt", new UpperCaseFormatFactory());
+
+        String pattern = "Pattern: {0,testfmt}";
+        ExtendedMessageFormat emf = new ExtendedMessageFormat(pattern, Locale.US, registry);
+
+        ExtendedMessageFormat other = null;
+
+        // Same object
+        assertTrue("same, equals()",   emf.equals(emf));
+        assertTrue("same, hashcode()", emf.hashCode() == emf.hashCode());
+
+        // Equal Object
+        other = new ExtendedMessageFormat(pattern, Locale.US, registry);
+        assertTrue("equal, equals()",   emf.equals(other));
+        assertTrue("equal, hashcode()", emf.hashCode() == other.hashCode());
+
+        // Different Class
+        other = new OtherExtendedMessageFormat(pattern, Locale.US, registry);
+        assertFalse("class, equals()",  emf.equals(other));
+        assertTrue("class, hashcode()", emf.hashCode() == other.hashCode()); // same hashcode
+        
+        // Different pattern
+        other = new ExtendedMessageFormat("X" + pattern, Locale.US, registry);
+        assertFalse("pattern, equals()",   emf.equals(other));
+        assertFalse("pattern, hashcode()", emf.hashCode() == other.hashCode());
+
+        // Different registry
+        other = new ExtendedMessageFormat(pattern, Locale.US, otherRegitry);
+        assertFalse("registry, equals()",   emf.equals(other));
+        assertFalse("registry, hashcode()", emf.hashCode() == other.hashCode());
+
+        // Different Locale
+        other = new ExtendedMessageFormat(pattern, Locale.FRANCE, registry);
+        assertFalse("locale, equals()",  emf.equals(other));
+        assertTrue("locale, hashcode()", emf.hashCode() == other.hashCode()); // same hashcode
+    }
+
+    /**
      * Test a built in format for the specified Locales, plus <code>null</code> Locale.
      * @param pattern MessageFormat pattern
      * @param args MessageFormat arguments
@@ -388,4 +432,16 @@ public class ExtendedMessageFormatTest extends TestCase {
                             .getDateInstance(DateFormat.DEFAULT, locale);
         }
     }
+
+    /**
+     * Alternative ExtendedMessageFormat impl.
+     */
+    private static class OtherExtendedMessageFormat extends ExtendedMessageFormat {
+        public OtherExtendedMessageFormat(String pattern, Locale locale,
+                Map registry) {
+            super(pattern, locale, registry);
+        }
+        
+    }
+
 }

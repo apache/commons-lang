@@ -37,6 +37,7 @@
     <action type="add" issue="LANG-482">StrSubstitutor: support substitution in variable names</action>
     <action type="fix" issue="LANG-629">CharSet: make the underlying set synchronized</action>
     <action type="fix" issue="LANG-635">CompareToBuilder: fix passing along compareTransients to the reflectionCompare method</action>
+    <action type="fix" issue="LANG-636">ExtendedMessageFormat doesn't override equals(Object)</action>
     <action type="fix" issue="LANG-645">FastDateFormat: fix to properly include the locale when formatting a Date</action>
     <action type="fix" issue="LANG-638">NumberUtils: createNumber() throws a StringIndexOutOfBoundsException when argument containing "e" and "E" is passed in</action>
     <action type="fix" issue="LANG-607">StringUtils methods do not handle Unicode 2.0+ supplementary characters correctly</action>

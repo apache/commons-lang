@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.Validate;
 
 /**
@@ -69,6 +70,7 @@ import org.apache.commons.lang.Validate;
  */
 public class ExtendedMessageFormat extends MessageFormat {
     private static final long serialVersionUID = -2362048321261811743L;
+    private static final int HASH_SEED = 31;
 
     private static final String DUMMY_PATTERN = "";
     private static final String ESCAPED_QUOTE = "''";
@@ -245,6 +247,49 @@ public class ExtendedMessageFormat extends MessageFormat {
      */
     public void setFormatsByArgumentIndex(Format[] newFormats) {
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Check if this extended message format is equal to another object.
+     *
+     * @param obj the object to compare to
+     * @return true if this object equals the other, otherwise false
+     * @since 2.6
+     */
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (ObjectUtils.notEqual(getClass(), obj.getClass())) {
+          return false;
+        }
+        ExtendedMessageFormat rhs = (ExtendedMessageFormat)obj;
+        if (ObjectUtils.notEqual(toPattern, rhs.toPattern)) {
+            return false;
+        }
+        if (ObjectUtils.notEqual(registry, rhs.registry)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Return the hashcode.
+     *
+     * @return the hashcode
+     * @since 2.6
+     */
+    public int hashCode() {
+        int result = super.hashCode();
+        result = HASH_SEED * result + ObjectUtils.hashCode(registry);
+        result = HASH_SEED * result + ObjectUtils.hashCode(toPattern);
+        return result;
     }
 
     /**

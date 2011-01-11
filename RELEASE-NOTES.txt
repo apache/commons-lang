@@ -40,6 +40,7 @@ BUG FIXES IN 2.6
 
     * [LANG-629] - CharSet: make the underlying set synchronized
     * [LANG-635] - CompareToBuilder: fix passing along compareTransients to the reflectionCompare method
+    * [LANG-636] - ExtendedMessageFormat doesn't override equals(Object)
     * [LANG-645] - FastDateFormat: fix to properly include the locale when formatting a Date
     * [LANG-638] - NumberUtils: createNumber() throws a StringIndexOutOfBoundsException when argument containing "e" and "E" is passed in
     * [LANG-607] - StringUtils methods do not handle Unicode 2.0+ supplementary characters correctly
