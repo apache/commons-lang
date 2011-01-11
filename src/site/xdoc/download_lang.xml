@@ -50,10 +50,11 @@ limitations under the License.
   </properties>
   <body>
     <section name="Download Commons Lang">
+    <subsection name="Using a Mirror">
       <p>
         We recommend you use a mirror to download our release
         builds, but you <strong>must</strong> verify the integrity of
-        the downloaded files using signatures downloaded from our main 
+        the downloaded files using signatures downloaded from our main
         distribution directories. Recent releases (48 hours) may not yet
         be available from the mirrors.
       </p>
@@ -70,7 +71,7 @@ limitations under the License.
 
       <form action="[location]" method="get" id="SelectMirror">
         <p>
-          Other mirrors: 
+          Other mirrors:
           <select name="Preferred">
           [if-any http]
             [for http]<option value="[http]">[http]</option>[end]
@@ -87,59 +88,81 @@ limitations under the License.
       </form>
 
       <p>
-        The <code>KEYS</code> link links to the code signing keys used to sign the product.
-        The <code>PGP</code> link downloads the OpenPGP compatible signature from our main site. 
+        The <a href="http://www.apache.org/dist/commons/KEYS">KEYS</a>
+        link links to the code signing keys used to sign the product.
+        The <code>PGP</code> link downloads the OpenPGP compatible signature from our main site.
         The <code>MD5</code> link downloads the checksum from the main site.
       </p>
-
-      <p>
-        For more information concerning Commons Lang, see the 
-        <a href="index.html" class="name">Commons Lang</a> web site.
-      </p>
-
-      <p>
-        <div class="links"><span class="link"><a href="http://www.apache.org/dist/commons/KEYS">KEYS</a></span></div>
-        <ul class="downloads">
-          <li class="group"><div class="links"><span class="label">Binary</span></div>
-            <ul>
-              <li class="download"><a href="[preferred]/commons/lang/binaries/commons-lang-2.5-bin.tar.gz">2.5.tar.gz</a>
-                <ul class="attributes">
-                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.5-bin.tar.gz.md5">md5</a>]</span>
-                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.5-bin.tar.gz.asc">pgp</a>]</span>
-                  </li>
-                </ul>
-              </li>
-              <li class="download"><a href="[preferred]/commons/lang/binaries/commons-lang-2.5-bin.zip">2.5.zip</a>
-                <ul class="attributes">
-                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.5-bin.zip.md5">md5</a>]</span>
-                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.5-bin.zip.asc">pgp</a>]</span>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li class="group"><div class="links"><span class="label">Source</span></div>
-            <ul>
-              <li class="download"><a href="[preferred]/commons/lang/source/commons-lang-2.5-src.tar.gz">2.5.tar.gz</a>
-                <ul class="attributes">
-                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.5-src.tar.gz.md5">md5</a>]</span>
-                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.5-src.tar.gz.asc">pgp</a>]</span>
-                  </li>
-                </ul>
-              </li>
-              <li class="download"><a href="[preferred]/commons/lang/source/commons-lang-2.5-src.zip">2.5.zip</a>
-                <ul class="attributes">
-                  <li><span class="md5">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.5-src.zip.md5">md5</a>]</span>
-                      <span class="pgp">[<a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.5-src.zip.asc">pgp</a>]</span>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
+    </subsection>
+    </section>
+    <section name="Commons Lang 2.6 (Java 1.3+)">
+      <subsection name="Binaries">
+        <table>
+          <tr>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang-2.6-bin.tar.gz">commons-lang-2.6-bin.tar.gz</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.tar.gz.asc">pgp</a></td>
+          </tr>
+          <tr>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang-2.6-bin.zip">commons-lang-2.6-bin.zip</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.zip.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-2.6-bin.zip.asc">pgp</a></td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="Source">
+        <table>
+          <tr>
+              <td><a href="[preferred]/commons/lang/source/commons-lang-2.6-src.tar.gz">commons-lang-2.6-src.tar.gz</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.tar.gz.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.tar.gz.asc">pgp</a></td>
+          </tr>
+          <tr>
+              <td><a href="[preferred]/commons/lang/source/commons-lang-2.6-src.zip">commons-lang-2.6-src.zip</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.zip.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang-2.6-src.zip.asc">pgp</a></td>
+          </tr>
+        </table>
+      </subsection>
+    </section>
+    <section name="Commons Lang 3.0-beta (Java 5.0+)">
+      <subsection name="Binaries">
+        <table>
+          <tr>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang-3.0-beta-bin.tar.gz">commons-lang-3.0-beta-bin.tar.gz</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-3.0-beta-bin.tar.gz.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-3.0-beta-bin.tar.gz.asc">pgp</a></td>
+          </tr>
+          <tr>
+              <td><a href="[preferred]/commons/lang/binaries/commons-lang-3.0-beta-bin.zip">commons-lang-3.0-beta-bin.zip</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-3.0-beta-bin.zip.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/binaries/commons-lang-3.0-beta-bin.zip.asc">pgp</a></td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="Source">
+        <table>
+          <tr>
+              <td><a href="[preferred]/commons/lang/source/commons-lang-3.0-beta-src.tar.gz">commons-lang-3.0-beta-src.tar.gz</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang-3.0-beta-src.tar.gz.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang-3.0-beta-src.tar.gz.asc">pgp</a></td>
+          </tr>
+          <tr>
+              <td><a href="[preferred]/commons/lang/source/commons-lang-3.0-beta-src.zip">commons-lang-3.0-beta-src.zip</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang-3.0-beta-src.zip.md5">md5</a></td>
+              <td><a href="http://www.apache.org/dist/commons/lang/source/commons-lang-3.0-beta-src.zip.asc">pgp</a></td>
+          </tr>
+        </table>
+      </subsection>
+    </section>
+    <section name="Archives">
+        <p>
+          Older releases can be obtained from the archives.
+        </p>
+        <ul>
           <li class="download"><a href="[preferred]/commons/lang/">browse download area</a></li>
           <li><a href="http://archive.apache.org/dist/commons/lang/">archives...</a></li>
         </ul>
-      </p>
     </section>
   </body>
 </document>

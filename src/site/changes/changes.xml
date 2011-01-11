@@ -21,7 +21,7 @@
   </properties>
   <body>
 
-  <release version="2.6" date="Unreleased" description="">
+  <release version="2.6" date="2011-01-16" description="">
     <action type="add" issue="LANG-633">BooleanUtils: use same optimization in toBooleanObject(String) as in toBoolean(String)</action>
     <action type="add" issue="LANG-599">ClassUtils: allow Dots as Inner Class Separators in getClass()</action>
     <action type="add" issue="LANG-594">DateUtils: equal and compare functions up to most significant field</action>

@@ -47,7 +47,8 @@ together with various <a href="project-reports.html">project reports</a>.
 The JavaDoc API documents are available online:
 </p>
 <ul>
-<li>The <a href="api-release/index.html">current release 2.5</a></li>
+<li>The <a href="api-2.6/index.html">current stable release 2.6</a></li>
+<li>The <a href="api-2.5/index.html">previous version 2.5</a></li>
 <li>The <a href="api-2.4/index.html">previous version 2.4</a></li>
 <li>Older releases - see the <a href="release-history.html">Release History</a> page</li>
 </ul>
@@ -59,9 +60,9 @@ The <a href="source-repository.html">subversion repository</a> can be
 <!-- ================================================== -->
 <section name="Releases">
 <p>
-The latest version 2.5, is JDK 1.3 compatible - 
+The latest version 2.6, is JDK 1.3 compatible - 
 <a href="http://commons.apache.org/lang/download_lang.cgi">Download now!</a> 
-(<a href="upgradeto2_5.html">upgrade notes</a>). </p>
+(<a href="upgradeto2_6.html">upgrade notes</a>). </p>
 
 <p>
 For information on previous releases, see the <a href="release-history.html">Release History</a> and to download previous releases, see the <a href="http://archive.apache.org/dist/commons/lang/">Apache Archive</a>.
