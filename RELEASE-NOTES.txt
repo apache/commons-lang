@@ -27,6 +27,7 @@ IMPROVEMENTS IN 2.6
     * [LANG-632] - DateUtils: provide a Date to Calendar convenience method
     * [LANG-576] - ObjectUtils: add clone methods to ObjectUtils
     * [LANG-667] - ObjectUtils: add a Null-safe compare() method
+    * [LANG-670] - ObjectUtils: add notEqual() method
     * [LANG-302] - StrBuilder: implement clone() method
     * [LANG-640] - StringUtils: add a normalizeSpace() method
     * [LANG-614] - StringUtils: add endsWithAny() method

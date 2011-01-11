@@ -126,6 +126,30 @@ public class ObjectUtils {
     }
 
     /**
+     * <p>Compares two objects for inequality, where either one or both
+     * objects may be <code>null</code>.</p>
+     *
+     * <pre>
+     * ObjectUtils.notEqual(null, null)                  = false
+     * ObjectUtils.notEqual(null, "")                    = true
+     * ObjectUtils.notEqual("", null)                    = true
+     * ObjectUtils.notEqual("", "")                      = false
+     * ObjectUtils.notEqual(Boolean.TRUE, null)          = true
+     * ObjectUtils.notEqual(Boolean.TRUE, "true")        = true
+     * ObjectUtils.notEqual(Boolean.TRUE, Boolean.TRUE)  = false
+     * ObjectUtils.notEqual(Boolean.TRUE, Boolean.FALSE) = true
+     * </pre>
+     *
+     * @param object1  the first object, may be <code>null</code>
+     * @param object2  the second object, may be <code>null</code>
+     * @return <code>false</code> if the values of both objects are the same
+     * @since 2.6
+     */
+    public static boolean notEqual(Object object1, Object object2) {
+        return ObjectUtils.equals(object1, object2) == false;
+    }
+
+    /**
      * <p>Gets the hash code of an object returning zero when the
      * object is <code>null</code>.</p>
      *
