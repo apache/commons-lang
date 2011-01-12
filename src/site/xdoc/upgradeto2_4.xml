@@ -17,12 +17,12 @@ limitations under the License.
 -->
 <document>
  <properties>
-  <title>Upgrade from 2.3 to 2.4</title>
+  <title>2.4 Release Notes</title>
   <author email="dev@commons.apache.org">Commons Documentation Team</author>
  </properties>
 <body>
 
-<section name="Upgrade to 2.4">
+<section name="Lang 2.4 Release Notes">
 <p>
 These are the release notes and advice for upgrading Commons-Lang from
 version 2.3 to version 2.4. <br/><br/>See '<a href="article2_4.html">What's new in 2.4?</a>' for more information. 
