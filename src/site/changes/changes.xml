@@ -22,8 +22,8 @@
   <body>
 
   <release version="2.6" date="2011-01-16" description="">
-    <action type="add" issue="LANG-633">BooleanUtils: use same optimization in toBooleanObject(String) as in toBoolean(String)</action>
-    <action type="add" issue="LANG-599">ClassUtils: allow Dots as Inner Class Separators in getClass()</action>
+    <action type="update" issue="LANG-633">BooleanUtils: use same optimization in toBooleanObject(String) as in toBoolean(String)</action>
+    <action type="update" issue="LANG-599">ClassUtils: allow Dots as Inner Class Separators in getClass()</action>
     <action type="add" issue="LANG-594">DateUtils: equal and compare functions up to most significant field</action>
     <action type="add" issue="LANG-632">DateUtils: provide a Date to Calendar convenience method</action>
     <action type="add" issue="LANG-576">ObjectUtils: add clone methods to ObjectUtils</action>
@@ -35,6 +35,7 @@
     <action type="add" issue="LANG-655">StringUtils: add defaultIfBlank() method</action>
     <action type="add" issue="LANG-596">StrSubstitutor: add a replace(String, Properties) variant</action>
     <action type="add" issue="LANG-482">StrSubstitutor: support substitution in variable names</action>
+    <action type="update" issue="LANG-669">Use StrBuilder instead of StringBuffer to improve performance where sync. is not an issue</action>
     <action type="fix" issue="LANG-629">CharSet: make the underlying set synchronized</action>
     <action type="fix" issue="LANG-635">CompareToBuilder: fix passing along compareTransients to the reflectionCompare method</action>
     <action type="fix" issue="LANG-636">ExtendedMessageFormat doesn't override equals(Object)</action>
@@ -43,7 +44,6 @@
     <action type="fix" issue="LANG-607">StringUtils methods do not handle Unicode 2.0+ supplementary characters correctly</action>
     <action type="fix" issue="LANG-624">SystemUtils: getJavaVersionAsFloat throws StringIndexOutOfBoundsException on Android runtime/Dalvik VM</action>
     <action type="fix" issue="BEANUTILS-381">MemberUtils: getMatchingAccessibleMethod does not correctly handle inheritance and method overloading</action>
-    <action type="update" issue="LANG-669">Use StrBuilder instead of StringBuffer to improve performance where sync. is not an issue</action>
     <action type="update" issue="LANG-600">Javadoc is incorrect for lastIndexOf() method</action>
     <action type="update" issue="LANG-628">Javadoc for HashCodeBuilder.append(boolean) does not match implementation</action>
     <action type="update" issue="LANG-643">Javadoc StringUtils.left() claims to throw an exception on negative lenth, but doesn't</action>
