@@ -301,8 +301,8 @@ public class ToStringBuilderTest extends TestCase {
     // Reflection hierarchy tests
 
     /* Following Test removed because its dependant on the Java implementation
-     * (currently passes using Sun/Oracle implementations, but fails for IBM's
-    public void XtestReflectionHierarchyArrayList() {
+     * (currently passes using Sun/Oracle implementations, but fails for IBM's JDK 6)
+    public void testReflectionHierarchyArrayList() {
         List base = new ArrayList();
         String baseStr = this.toBaseString(base);
         assertEquals(baseStr + "[elementData={<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>,<null>},size=0,modCount=0]", ToStringBuilder.reflectionToString(base, null, true));
