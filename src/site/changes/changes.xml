@@ -21,7 +21,7 @@
   </properties>
   <body>
 
-  <release version="2.6" date="2011-01-16" description="">
+  <release version="2.6" date="2011-01-16" description="Bug Fixes/Enhancements for the 2.5 release (requires minimum of Java 1.3)">
     <action type="update" issue="LANG-633">BooleanUtils: use same optimization in toBooleanObject(String) as in toBoolean(String)</action>
     <action type="update" issue="LANG-599">ClassUtils: allow Dots as Inner Class Separators in getClass()</action>
     <action type="add" issue="LANG-594">DateUtils: equal and compare functions up to most significant field</action>
