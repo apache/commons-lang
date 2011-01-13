@@ -1938,6 +1938,9 @@ public class StringUtilsTest extends TestCase {
         assertEquals("a", StringUtils.normalizeSpace("  a  "));
         assertEquals("a b c", StringUtils.normalizeSpace("  a  b   c  "));
         assertEquals("a b c", StringUtils.normalizeSpace("a\t\f\r  b\u000B   c\n"));
+        assertEquals("", StringUtils.normalizeSpace(WHITESPACE));
+        assertEquals("A", StringUtils.normalizeSpace(WHITESPACE + " A " + WHITESPACE));
+        assertEquals("A B", StringUtils.normalizeSpace(WHITESPACE + " A " + WHITESPACE + " B " + WHITESPACE));
     }
 
     public void testLANG666() {

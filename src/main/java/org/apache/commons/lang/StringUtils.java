@@ -6542,7 +6542,7 @@ public class StringUtils {
      * @since 2.6
      */
     public static String normalizeSpace(String str) {
-        str = trim(str);
+        str = strip(str);
         if(str == null || str.length() <= 2) {
             return str;
         }
