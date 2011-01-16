@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<document>
+ <properties>
+  <title>2.6 Release Notes</title>
+  <author email="dev@commons.apache.org">Commons Documentation Team</author>
+ </properties>
+<body>
+
+<section name="Lang 2.6 Release Notes">
+<p>
+These are the release notes and advice for upgrading Commons-Lang from
+version 2.5 to version 2.6. <br/><br/>.
+<source>
+INTRODUCTION:
+
+This document contains the release notes for the 2.6 version of Apache Commons Lang.
+Commons Lang is a set of utility functions and reusable components that should be of use in any Java environment.
+
+
+COMPATIBILITY WITH 2.5
+======================
+Lang 2.6 is binary compatible release with Lang 2.5, containing bug fixes and small enhancements.
+
+Lang 2.6 requires a minimum of JDK 1.3.
+
+
+IMPROVEMENTS IN 2.6
+===================
+
+    * [LANG-633] - BooleanUtils: use same optimization in toBooleanObject(String) as in toBoolean(String)
+    * [LANG-599] - ClassUtils: allow Dots as Inner Class Separators in getClass()
+    * [LANG-594] - DateUtils: equal and compare functions up to most significant field
+    * [LANG-632] - DateUtils: provide a Date to Calendar convenience method
+    * [LANG-576] - ObjectUtils: add clone methods to ObjectUtils
+    * [LANG-667] - ObjectUtils: add a Null-safe compare() method
+    * [LANG-670] - ObjectUtils: add notEqual() method
+    * [LANG-302] - StrBuilder: implement clone() method
+    * [LANG-640] - StringUtils: add a normalizeSpace() method
+    * [LANG-614] - StringUtils: add endsWithAny() method
+    * [LANG-655] - StringUtils: add defaultIfBlank() method
+    * [LANG-596] - StrSubstitutor: add a replace(String, Properties) variant
+    * [LANG-482] - StrSubstitutor: support substitution in variable names
+    * [LANG-669] - Use StrBuilder instead of StringBuffer to improve performance where sync. is not an issue
+    
+BUG FIXES IN 2.6
+================
+
+    * [LANG-629] - CharSet: make the underlying set synchronized
+    * [LANG-635] - CompareToBuilder: fix passing along compareTransients to the reflectionCompare method
+    * [LANG-636] - ExtendedMessageFormat doesn't override equals(Object)
+    * [LANG-645] - FastDateFormat: fix to properly include the locale when formatting a Date
+    * [LANG-638] - NumberUtils: createNumber() throws a StringIndexOutOfBoundsException when argument containing "e" and "E" is passed in
+    * [LANG-607] - StringUtils methods do not handle Unicode 2.0+ supplementary characters correctly
+    * [LANG-624] - SystemUtils: getJavaVersionAsFloat throws StringIndexOutOfBoundsException on Android runtime/Dalvik VM
+    * [BEANUTILS-381] - MemberUtils: getMatchingAccessibleMethod does not correctly handle inheritance and method overloading
+
+OTHER CHANGES IN 2.6
+====================
+
+    * [LANG-600] - Javadoc is incorrect for lastIndexOf() method
+    * [LANG-628] - Javadoc for HashCodeBuilder.append(boolean) does not match implementation
+    * [LANG-643] - Javadoc StringUtils.left() claims to throw an exception on negative lenth, but doesn't
+    * [LANG-370] - Javadoc - document thread safety
+    * [LANG-623] - Test for StringUtils replaceChars() icelandic characters
+
+</source>
+</p>
+</section>
+
+</body>
+</document>
