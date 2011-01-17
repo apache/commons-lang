@@ -24,6 +24,7 @@ import org.apache.commons.lang3.text.translate.CharSequenceTranslator;
 import org.apache.commons.lang3.text.translate.EntityArrays;
 import org.apache.commons.lang3.text.translate.LookupTranslator;
 import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
+import org.apache.commons.lang3.text.translate.OctalUnescaper;
 import org.apache.commons.lang3.text.translate.UnicodeEscaper;
 import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
 
@@ -128,6 +129,7 @@ public class StringEscapeUtils {
     // TODO: throw "illegal character: \92" as an Exception if a \ on the end of the Java (as per the compiler)?
     public static final CharSequenceTranslator UNESCAPE_JAVA = 
         new AggregateTranslator(
+            new OctalUnescaper(),     // .between('\1', '\377'),
             new UnicodeUnescaper(),
             new LookupTranslator(EntityArrays.JAVA_CTRL_CHARS_UNESCAPE()),
             new LookupTranslator(
