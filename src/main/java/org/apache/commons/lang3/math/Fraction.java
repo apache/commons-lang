@@ -25,6 +25,10 @@ import java.math.BigInteger;
  * <p>This class is immutable, and interoperable with most methods that accept
  * a <code>Number</code>.</p>
  *
+ * <p>Note that this class is intended for common use cases, it is <i>int</i>
+ * based and thus suffers from various overflow issues. For a BigInteger based 
+ * equivalent, please see the Commons Math BigFraction class. </p>
+ *
  * @author Apache Software Foundation
  * @author Travis Reeder
  * @author Tim O'Brien
