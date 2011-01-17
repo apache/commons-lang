@@ -330,6 +330,11 @@ public class FractionTest extends TestCase {
             f = Fraction.getReducedFraction(-7, Integer.MIN_VALUE);  
             fail("Expecting ArithmeticException");
         } catch (ArithmeticException ex) {}      
+
+        // LANG-662
+        f = Fraction.getReducedFraction(Integer.MIN_VALUE, 2);
+        assertEquals(Integer.MIN_VALUE / 2, f.getNumerator());
+        assertEquals(1, f.getDenominator());
     }
 
     public void testFactory_double() {
@@ -643,6 +648,11 @@ public class FractionTest extends TestCase {
         assertEquals(0, result.getNumerator());
         assertEquals(1, result.getDenominator());
         assertSame(result, Fraction.ZERO);
+
+        f = Fraction.getFraction(Integer.MIN_VALUE, 2);
+        result = f.reduce();
+        assertEquals(Integer.MIN_VALUE / 2, result.getNumerator());
+        assertEquals(1, result.getDenominator());
     }
     
     public void testInvert() {
