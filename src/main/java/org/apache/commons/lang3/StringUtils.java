@@ -16,6 +16,8 @@
  */
 package org.apache.commons.lang3;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -620,8 +622,12 @@ public class StringUtils {
     }
 
     /**
-     * <p>Removes the accents from a string. </p>
-     * <p>NOTE: This is a JDK 1.6 method, it will fail on JDK 1.5. </p>
+     * <p>Removes diacritics (~= accents) from a string. The case will not be altered.</p>
+     * <p>For instance, '&agrave;' will be replaced by 'a'.</p>
+     * <p>Note that ligatures will be left as is.</p>
+     *
+     * <p>This method will use the first available implementation of:
+     * Java 6's {@link java.text.Normalizer}, Java 1.3&ndash;1.5's {@code sun.text.Normalizer}</p>
      *
      * <pre>
      * StringUtils.stripAccents(null)                = null
@@ -631,55 +637,103 @@ public class StringUtils {
      * </pre>
      *
      * @param input String to be stripped
-     * @return String without accents on the text
+     * @return input text with diacritics removed
      *
      * @since 3.0
      */
-    public static String stripAccents(String input) {
+    // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their unaccented equivalent (and uncommited bug fix: https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
+    public static String stripAccents(CharSequence input) {
         if(input == null) {
             return null;
         }
-        if(SystemUtils.isJavaVersionAtLeast(1.6f)) {
-
-            // String decomposed = Normalizer.normalize(input, Normalizer.Form.NFD);
-
-            // START of 1.5 reflection - in 1.6 use the line commented out above
-            try {
-                // get java.text.Normalizer.Form class
-                Class<?> normalizerFormClass = ClassUtils.getClass("java.text.Normalizer$Form", false);
-
-                // get Normlizer class
-                Class<?> normalizerClass = ClassUtils.getClass("java.text.Normalizer", false);
-
-                // get static method on Normalizer
-                java.lang.reflect.Method method = normalizerClass.getMethod("normalize", CharSequence.class, normalizerFormClass );
-
-                // get Normalizer.NFD field
-                java.lang.reflect.Field nfd = normalizerFormClass.getField("NFD");
-
-                // invoke method
-                String decomposed = (String) method.invoke( null, input, nfd.get(null) );
-                // END of 1.5 reflection
-
-                java.util.regex.Pattern accentPattern = java.util.regex.Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-                return accentPattern.matcher(decomposed).replaceAll("");
-            } catch(ClassNotFoundException cnfe) {
-                throw new RuntimeException("ClassNotFoundException occurred during 1.6 backcompat code", cnfe);
-            } catch(NoSuchMethodException nsme) {
-                throw new RuntimeException("NoSuchMethodException occurred during 1.6 backcompat code", nsme);
-            } catch(NoSuchFieldException nsfe) {
-                throw new RuntimeException("NoSuchFieldException occurred during 1.6 backcompat code", nsfe);
-            } catch(IllegalAccessException iae) {
-                throw new RuntimeException("IllegalAccessException occurred during 1.6 backcompat code", iae);
-            } catch(IllegalArgumentException iae) {
-                throw new RuntimeException("IllegalArgumentException occurred during 1.6 backcompat code", iae);
-            } catch(java.lang.reflect.InvocationTargetException ite) {
-                throw new RuntimeException("InvocationTargetException occurred during 1.6 backcompat code", ite);
-            } catch(SecurityException se) {
-                throw new RuntimeException("SecurityException occurred during 1.6 backcompat code", se);
+        try {
+            String result = null;
+            if (java6Available) {
+                result = removeAccentsJava6(input);
+            } else if (sunAvailable) {
+                result = removeAccentsSUN(input);
+            } else {
+            	throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least Java 1.6 or a SUN JVM");
             }
-        } else {
-            throw new UnsupportedOperationException("The stripAccents(String) method is not supported until Java 1.6");
+            // Note that none of the above methods correctly remove ligatures...
+            return result;
+        } catch(IllegalArgumentException iae) {
+            throw new RuntimeException("IllegalArgumentException occurred during 1.6 backcompat code", iae);
+        } catch(IllegalAccessException iae) {
+            throw new RuntimeException("IllegalAccessException occurred during 1.6 backcompat code", iae);
+        } catch(InvocationTargetException ite) {
+            throw new RuntimeException("InvocationTargetException occurred during 1.6 backcompat code", ite);
+        } catch(SecurityException se) {
+            throw new RuntimeException("SecurityException occurred during 1.6 backcompat code", se);
+        }
+    }
+
+    /**
+     * Use {@code java.text.Normalizer#normalize(CharSequence, Normalizer.Form)}
+     * (but be careful, this classe exists in Java 1.3, with an entirely different meaning!)
+     * @param text
+     */
+    private static String removeAccentsJava6(CharSequence text) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+        /*
+        String decomposed = java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
+        return java6Pattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
+        */
+        if (!java6Available || java6NormalizerFormNFD == null) {
+            throw new IllegalStateException("java.text.Normalizer is not available");
+        }
+        String result;
+        result = (String) java6NormalizeMethod.invoke(null, new Object[] {text, java6NormalizerFormNFD});
+        result = java6Pattern.matcher(result).replaceAll("");//$NON-NLS-1$
+        return result;
+    }
+
+    /**
+     * Use {@code sun.text.Normalizer#decompose(String, boolean, int)}
+     */
+    private static String removeAccentsSUN(CharSequence text) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+        /*
+        String decomposed = sun.text.Normalizer.decompose(text, false, 0);
+        return sunPattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
+        */
+        if (! sunAvailable) {
+            throw new IllegalStateException("sun.text.Normalizer is not available");
+        }
+        String result;
+        result = (String) sunDecomposeMethod.invoke(null, new Object[] {text, Boolean.FALSE, Integer.valueOf(0)});
+        result = sunPattern.matcher(result).replaceAll("");//$NON-NLS-1$
+        return result;
+    }
+
+    // SUN internal, Java 1.3 -> Java 5
+    private static boolean sunAvailable = false;
+    private static Method  sunDecomposeMethod = null;
+    private static final Pattern sunPattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");//$NON-NLS-1$
+    // Java 6+
+    private static boolean java6Available = false;
+    private static Method  java6NormalizeMethod = null;
+    private static Object  java6NormalizerFormNFD = null;
+    private static final Pattern java6Pattern = sunPattern;
+
+    static {
+        try {
+            // java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
+            // Be careful not to get Java 1.3 java.text.Normalizer!
+            Class<?> normalizerFormClass = Thread.currentThread().getContextClassLoader().loadClass("java.text.Normalizer$Form");//$NON-NLS-1$
+            java6NormalizerFormNFD = normalizerFormClass.getField("NFD").get(null);//$NON-NLS-1$
+            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader().loadClass("java.text.Normalizer");//$NON-NLS-1$
+            java6NormalizeMethod = normalizerClass.getMethod("normalize", new Class[] {CharSequence.class, normalizerFormClass});//$NON-NLS-1$
+            java6Available = true;
+        } catch (Exception e) {
+            java6Available = false;
+        }
+
+        try {
+            // sun.text.Normalizer.decompose(text, false, 0);
+            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader().loadClass("sun.text.Normalizer");//$NON-NLS-1$
+            sunDecomposeMethod = normalizerClass.getMethod("decompose", new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
+            sunAvailable = true;
+        } catch (Exception e) {
+            sunAvailable = false;
         }
     }
 
