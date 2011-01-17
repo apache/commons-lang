@@ -468,7 +468,7 @@ public class StrSubstitutorTest extends TestCase {
      * Test the replace of a properties object
      */
     public void testSubstitutetDefaultProperties(){
-    	String org = "${doesnotwork}";
+        String org = "${doesnotwork}";
         System.setProperty("doesnotwork", "It work's!");
 
         // create a new Properties object with the System.getProperties as default

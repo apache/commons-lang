@@ -163,7 +163,7 @@ public class StringUtils {
      * A regex pattern for recognizing blocks of whitespace characters.
      */
     private static final Pattern WHITESPACE_BLOCK = Pattern.compile("\\s+");
-    
+
     /**
      * <p><code>StringUtils</code> instances should NOT be constructed in
      * standard programming. Instead, the class should be used as
@@ -653,7 +653,7 @@ public class StringUtils {
             } else if (sunAvailable) {
                 result = removeAccentsSUN(input);
             } else {
-            	throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least Java 1.6 or a Sun JVM");
+                throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least Java 1.6 or a Sun JVM");
             }
             // Note that none of the above methods correctly remove ligatures...
             return result;
@@ -3191,7 +3191,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Joins the provided elements into a single String, with the specified 
+     * <p>Joins the provided elements into a single String, with the specified
      * separator between each element. </p>
      *
      * <p>No separator is added before or after the joined String.
@@ -6372,21 +6372,21 @@ public class StringUtils {
      * normalize. Additonally <code>{@link #trim(String)}</code> removes control characters (char &lt;= 32) from both
      * ends of this String.
      * </p>
-     * 
+     *
      * @see Pattern
      * @see #trim(String)
      * @see <a
      *      href="http://www.w3.org/TR/xpath/#function-normalize-space">http://www.w3.org/TR/xpath/#function-normalize-space</a>
      * @param str the source String to normalize whitespaces from, may be null
      * @return the modified string with whitespace normalized, <code>null</code> if null String input
-     * 
+     *
      * @since 3.0
      */
     public static String normalizeSpace(String str) {
         if(str == null) {
             return null;
         }
-        return WHITESPACE_BLOCK.matcher(trim(str)).replaceAll(" ");         
+        return WHITESPACE_BLOCK.matcher(trim(str)).replaceAll(" ");
     }
 
     /**
