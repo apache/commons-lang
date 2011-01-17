@@ -653,18 +653,18 @@ public class StringUtils {
             } else if (sunAvailable) {
                 result = removeAccentsSUN(input);
             } else {
-            	throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least Java 1.6 or a SUN JVM");
+            	throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least Java 1.6 or a Sun JVM");
             }
             // Note that none of the above methods correctly remove ligatures...
             return result;
         } catch(IllegalArgumentException iae) {
-            throw new RuntimeException("IllegalArgumentException occurred during 1.6 backcompat code", iae);
+            throw new RuntimeException("IllegalArgumentException occurred", iae);
         } catch(IllegalAccessException iae) {
-            throw new RuntimeException("IllegalAccessException occurred during 1.6 backcompat code", iae);
+            throw new RuntimeException("IllegalAccessException occurred", iae);
         } catch(InvocationTargetException ite) {
-            throw new RuntimeException("InvocationTargetException occurred during 1.6 backcompat code", ite);
+            throw new RuntimeException("InvocationTargetException occurred", ite);
         } catch(SecurityException se) {
-            throw new RuntimeException("SecurityException occurred during 1.6 backcompat code", se);
+            throw new RuntimeException("SecurityException occurred", se);
         }
     }
 
