@@ -53,7 +53,7 @@
     <action type="add" issue="LANG-545">Add ability to create a Future for a constant.</action>
     <action type="update" issue="LANG-541">Replace StringBuffer with StringBuilder.</action>
     <action type="update" issue="LANG-540">Make NumericEntityEscaper immutable.</action>
-    <action type="update"> issue="LANG-539">Compile commons.lang for CDC 1.1/Foundation 1.1.</action>
+    <action type="update" issue="LANG-539">Compile commons.lang for CDC 1.1/Foundation 1.1.</action>
     <action type="add" issue="LANG-537">Add ArrayUtils.toArray to create generic arrays.</action>
     <action type="add" issue="LANG-533">Validate: support for validating blank strings.</action>
     <action type="add" issue="LANG-529">Add a concurrent package.</action>
