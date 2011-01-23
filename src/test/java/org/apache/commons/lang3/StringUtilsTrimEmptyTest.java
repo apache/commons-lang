@@ -242,29 +242,20 @@ public class StringUtilsTrimEmptyTest extends TestCase {
     }
 
     public void testStripAccents() {
-        if(SystemUtils.isJavaVersionAtLeast(1.6f)) {
-            String cue = "\u00C7\u00FA\u00EA";
-            assertEquals( "Failed to strip accents from " + cue, "Cue", StringUtils.stripAccents(cue));
+        String cue = "\u00C7\u00FA\u00EA";
+        assertEquals( "Failed to strip accents from " + cue, "Cue", StringUtils.stripAccents(cue));
 
-            String lots = "\u00C0\u00C1\u00C2\u00C3\u00C4\u00C5\u00C7\u00C8\u00C9" + 
-                          "\u00CA\u00CB\u00CC\u00CD\u00CE\u00CF\u00D1\u00D2\u00D3" + 
-                          "\u00D4\u00D5\u00D6\u00D9\u00DA\u00DB\u00DC\u00DD";
-            assertEquals( "Failed to strip accents from " + lots, 
-                          "AAAAAACEEEEIIIINOOOOOUUUUY", 
-                          StringUtils.stripAccents(lots));
+        String lots = "\u00C0\u00C1\u00C2\u00C3\u00C4\u00C5\u00C7\u00C8\u00C9" + 
+                      "\u00CA\u00CB\u00CC\u00CD\u00CE\u00CF\u00D1\u00D2\u00D3" + 
+                      "\u00D4\u00D5\u00D6\u00D9\u00DA\u00DB\u00DC\u00DD";
+        assertEquals( "Failed to strip accents from " + lots, 
+                      "AAAAAACEEEEIIIINOOOOOUUUUY", 
+                      StringUtils.stripAccents(lots));
 
-            assertNull( "Failed null safety", StringUtils.stripAccents(null) );
-            assertEquals( "Failed empty String", "", StringUtils.stripAccents("") );
-            assertEquals( "Failed to handle non-accented text", "control", StringUtils.stripAccents("control") );
-            assertEquals( "Failed to handle easy example", "eclair", StringUtils.stripAccents("\u00E9clair") );
-        } else {
-            try {
-                StringUtils.stripAccents("string");
-                fail("Before JDK 1.6, stripAccents is not expected to work");
-            } catch(UnsupportedOperationException uoe) {
-                assertEquals("The stripAccents(String) method is not supported until Java 1.6", uoe.getMessage());
-            }
-        }
+        assertNull( "Failed null safety", StringUtils.stripAccents(null) );
+        assertEquals( "Failed empty String", "", StringUtils.stripAccents("") );
+        assertEquals( "Failed to handle non-accented text", "control", StringUtils.stripAccents("control") );
+        assertEquals( "Failed to handle easy example", "eclair", StringUtils.stripAccents("\u00E9clair") );
     }
 
     //-----------------------------------------------------------------------
