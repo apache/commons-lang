@@ -1177,6 +1177,18 @@ public class DateUtilsTest extends TestCase {
      * Tests various values with the ceiling method
      */
     public void testCeil() throws Exception {
+        // test javadoc
+        assertEquals("ceiling javadoc-1 failed",
+                dateTimeParser.parse("March 28, 2002 14:00:00.000"),
+                DateUtils.ceiling(
+                    dateTimeParser.parse("March 28, 2002 13:45:01.231"),
+                Calendar.HOUR));
+        assertEquals("ceiling javadoc-2 failed",
+                dateTimeParser.parse("April 1, 2002 00:00:00.000"),
+                DateUtils.ceiling(
+                    dateTimeParser.parse("March 28, 2002 13:45:01.231"),
+                Calendar.MONTH));
+
         // tests public static Date ceiling(Date date, int field)
         assertEquals("ceiling year-1 failed",
                 dateParser.parse("January 1, 2003"),
