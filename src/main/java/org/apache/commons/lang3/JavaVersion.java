@@ -43,6 +43,17 @@ public enum JavaVersion {
         this.name = name;
     }
 
+    /**
+     * Whether this version of Java is at least the version 
+     * of Java passed in.
+     *
+     * For example:
+     *  myVersion.atLeast(JavaVersion.JAVA_1_4)
+     *
+     * @param requiredVersion to check this version is at least equivalent to
+     *
+     * @return Whether this version is at least the passed in version
+     */
     public boolean atLeast(JavaVersion requiredVersion) {
         return this.value >= requiredVersion.value;
     }
