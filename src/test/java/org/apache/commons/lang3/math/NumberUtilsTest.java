@@ -23,6 +23,7 @@ import java.math.BigInteger;
 
 import junit.framework.TestCase;
 
+import static org.apache.commons.lang3.JavaVersion.*;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
@@ -198,7 +199,7 @@ public class NumberUtilsTest extends TestCase {
                 .createNumber("12345678901234567890L"));
 
         // jdk 1.2 doesn't support this. unsure about jdk 1.2.2
-        if (SystemUtils.isJavaVersionAtLeast(1.3f)) {
+        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_3)) {
             assertEquals("createNumber(String) 15 failed", new BigDecimal("1.1E-700"), NumberUtils
                     .createNumber("1.1E-700F"));
         }

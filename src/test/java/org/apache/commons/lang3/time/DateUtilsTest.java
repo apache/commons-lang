@@ -32,6 +32,7 @@ import java.util.TimeZone;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
+import static org.apache.commons.lang3.JavaVersion.*;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
@@ -805,7 +806,7 @@ public class DateUtilsTest extends TestCase {
         assertEquals("round MET date across DST change-over",
                 dateTimeParser.parse("March 30, 2003 01:00:00.000"),
                 DateUtils.round((Object) cal4, Calendar.HOUR_OF_DAY));
-        if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
+        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
             assertEquals("round MET date across DST change-over",
                     dateTimeParser.parse("March 30, 2003 03:00:00.000"),
                     DateUtils.round(date5, Calendar.HOUR_OF_DAY));
@@ -825,7 +826,7 @@ public class DateUtilsTest extends TestCase {
                     dateTimeParser.parse("March 30, 2003 04:00:00.000"),
                     DateUtils.round((Object) cal7, Calendar.HOUR_OF_DAY));
         } else {
-            this.warn("WARNING: Some date rounding tests not run since the current version is " + SystemUtils.JAVA_VERSION);
+            this.warn("WARNING: Some date rounding tests not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
         }
         TimeZone.setDefault(defaultZone);
         dateTimeParser.setTimeZone(defaultZone);
@@ -1091,8 +1092,8 @@ public class DateUtilsTest extends TestCase {
      * see http://issues.apache.org/jira/browse/LANG-59
      */
     public void testTruncateLang59() throws Exception {
-        if (!SystemUtils.isJavaVersionAtLeast(1.4f)) {
-            this.warn("WARNING: Test for LANG-59 not run since the current version is " + SystemUtils.JAVA_VERSION);
+        if (!SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
+            this.warn("WARNING: Test for LANG-59 not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
             return;
         }
 
@@ -1379,7 +1380,7 @@ public class DateUtilsTest extends TestCase {
         assertEquals("ceiling MET date across DST change-over",
                 dateTimeParser.parse("March 30, 2003 03:00:00.000"),
                 DateUtils.ceiling((Object) cal4, Calendar.HOUR_OF_DAY));
-        if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
+        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
             assertEquals("ceiling MET date across DST change-over",
                     dateTimeParser.parse("March 30, 2003 03:00:00.000"),
                     DateUtils.ceiling(date5, Calendar.HOUR_OF_DAY));
@@ -1399,7 +1400,7 @@ public class DateUtilsTest extends TestCase {
                     dateTimeParser.parse("March 30, 2003 04:00:00.000"),
                     DateUtils.ceiling((Object) cal7, Calendar.HOUR_OF_DAY));
         } else {
-            this.warn("WARNING: Some date ceiling tests not run since the current version is " + SystemUtils.JAVA_VERSION);
+            this.warn("WARNING: Some date ceiling tests not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
         }
         TimeZone.setDefault(defaultZone);
         dateTimeParser.setTimeZone(defaultZone);

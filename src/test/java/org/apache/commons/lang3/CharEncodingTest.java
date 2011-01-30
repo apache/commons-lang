@@ -19,6 +19,8 @@ package org.apache.commons.lang3;
 
 import junit.framework.TestCase;
 
+import static org.apache.commons.lang3.JavaVersion.*;
+
 /**
  * Tests CharEncoding.
  * 
@@ -40,7 +42,7 @@ public class CharEncodingTest extends TestCase {
     }
 
     public void testMustBeSupportedJava1_3_1() {
-        if (SystemUtils.isJavaVersionAtLeast(1.3f)) {
+        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_3)) {
             this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
             this.assertSupportedEncoding(CharEncoding.US_ASCII);
             this.assertSupportedEncoding(CharEncoding.UTF_16);
@@ -48,7 +50,7 @@ public class CharEncodingTest extends TestCase {
             this.assertSupportedEncoding(CharEncoding.UTF_16LE);
             this.assertSupportedEncoding(CharEncoding.UTF_8);
         } else {
-            this.warn("Java 1.3 tests not run since the current version is " + SystemUtils.JAVA_VERSION);
+            this.warn("Java 1.3 tests not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
         }
     }
 
@@ -66,12 +68,12 @@ public class CharEncodingTest extends TestCase {
         // In this test, I simply deleted the encodings from the 1.3.1 list.
         // The Javadoc do not specify which encodings are required.
         //
-        if (SystemUtils.isJavaVersionAtLeast(1.1f)) {
+        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_1)) {
             this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
             this.assertSupportedEncoding(CharEncoding.US_ASCII);
             this.assertSupportedEncoding(CharEncoding.UTF_8);
         } else {
-            this.warn("Java 1.1 tests not run since the current version is " + SystemUtils.JAVA_VERSION);
+            this.warn("Java 1.1 tests not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
         }
     }
 
@@ -80,12 +82,12 @@ public class CharEncodingTest extends TestCase {
         // In this test, I simply deleted the encodings from the 1.3.1 list.
         // The Javadoc do not specify which encodings are required.
         //
-        if (SystemUtils.isJavaVersionAtLeast(1.2f)) {
+        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_2)) {
             this.assertSupportedEncoding(CharEncoding.ISO_8859_1);
             this.assertSupportedEncoding(CharEncoding.US_ASCII);
             this.assertSupportedEncoding(CharEncoding.UTF_8);
         } else {
-            this.warn("Java 1.2 tests not run since the current version is " + SystemUtils.JAVA_VERSION);
+            this.warn("Java 1.2 tests not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
         }
     }
 

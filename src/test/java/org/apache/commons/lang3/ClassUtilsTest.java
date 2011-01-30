@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.apache.commons.lang3.JavaVersion.*;
+
 import junit.framework.TestCase;
 
 /**
@@ -265,7 +267,7 @@ public class ClassUtilsTest extends TestCase {
         assertTrue(ClassUtils.isAssignable(array1s, array1s));
         assertTrue(ClassUtils.isAssignable(array1s, array1));
 
-        boolean autoboxing = SystemUtils.isJavaVersionAtLeast(1.5f);
+        boolean autoboxing = SystemUtils.isJavaVersionAtLeast(JAVA_1_5);
 
         assertEquals(autoboxing, ClassUtils.isAssignable(arrayPrimitives, arrayWrappers));
         assertEquals(autoboxing, ClassUtils.isAssignable(arrayWrappers, arrayPrimitives));
@@ -340,7 +342,7 @@ public class ClassUtilsTest extends TestCase {
         assertTrue(ClassUtils.isAssignable(String.class, String.class));
         assertFalse(ClassUtils.isAssignable(Object.class, String.class));
 
-        boolean autoboxing = SystemUtils.isJavaVersionAtLeast(1.5f);
+        boolean autoboxing = SystemUtils.isJavaVersionAtLeast(JAVA_1_5);
 
         assertEquals(autoboxing, ClassUtils.isAssignable(Integer.TYPE, Integer.class));
         assertEquals(autoboxing, ClassUtils.isAssignable(Integer.TYPE, Object.class));
@@ -485,7 +487,7 @@ public class ClassUtilsTest extends TestCase {
     }
 
     public void test_isAssignable_DefaultUnboxing_Widening() throws Exception {
-        boolean autoboxing = SystemUtils.isJavaVersionAtLeast(1.5f);
+        boolean autoboxing = SystemUtils.isJavaVersionAtLeast(JAVA_1_5);
 
         // test byte conversions
         assertFalse("byte -> char", ClassUtils.isAssignable(Byte.class, Character.TYPE));

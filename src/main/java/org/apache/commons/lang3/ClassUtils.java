@@ -436,7 +436,7 @@ public class ClassUtils {
      * @return <code>true</code> if assignment possible
      */
     public static boolean isAssignable(Class<?>[] classArray, Class<?>[] toClassArray) {
-        return isAssignable(classArray, toClassArray, SystemUtils.isJavaVersionAtLeast(1.5f));
+        return isAssignable(classArray, toClassArray, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
     }
 
     /**
@@ -521,7 +521,7 @@ public class ClassUtils {
      * @return <code>true</code> if assignment possible
      */
     public static boolean isAssignable(Class<?> cls, Class<?> toClass) {
-        return isAssignable(cls, toClass, SystemUtils.isJavaVersionAtLeast(1.5f));
+        return isAssignable(cls, toClass, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
     }
 
     /**

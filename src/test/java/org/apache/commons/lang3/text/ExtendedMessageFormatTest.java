@@ -34,6 +34,7 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
+import static org.apache.commons.lang3.JavaVersion.*;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
@@ -359,7 +360,7 @@ public class ExtendedMessageFormatTest extends TestCase {
 
     //can't trust what MessageFormat does with toPattern() pre 1.4:
     private void assertPatternsEqual(String message, String expected, String actual) {
-        if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
+        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
             assertEquals(message, expected, actual);
         }
     }
