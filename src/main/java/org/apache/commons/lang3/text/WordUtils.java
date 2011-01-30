@@ -16,7 +16,6 @@
  */
 package org.apache.commons.lang3.text;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 /**
