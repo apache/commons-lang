@@ -62,7 +62,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
      * @return whether the option is set
      */
     public boolean isSet(OPTION option) { 
-        return (options == null) ? false : options.contains(opt);
+        return (options == null) ? false : options.contains(option);
     }
 
     /**
