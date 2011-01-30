@@ -74,6 +74,7 @@ TODO: Add examples
 <section name="New classes">
 <p><code>CharSequenceUtils</code></p>
 <p><code>EnumUtils</code></p>
+<p><code>JavaVersion</code></p>
 <p><code>Pair</code></p>
 <p><code>Range</code></p>
 <p><code>builder.Builder</code></p>
@@ -88,7 +89,11 @@ TODO: Add examples
 <section name="New methods">
 </section>
 
-<section name="What's fixed in Lang 3.0?">
+<section name="What's changed?">
+  <p>Add info about SystemUtils moving over to the JavaVersion enum and away from int/float. </p>
+</section>
+
+<section name="What's fixed?">
 </section>
 
 <!--
