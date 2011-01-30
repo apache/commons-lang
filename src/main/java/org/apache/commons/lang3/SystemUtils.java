@@ -473,6 +473,7 @@ public class SystemUtils {
      * @since Java 1.3
      */
     public static final String JAVA_SPECIFICATION_VERSION = getSystemProperty("java.specification.version");
+    private static final JavaVersion JAVA_SPECIFICATION_VERSION_AS_ENUM = JavaVersion.get(JAVA_SPECIFICATION_VERSION);
 
     /**
      * <p>
@@ -898,71 +899,6 @@ public class SystemUtils {
      */
     public static final String USER_TIMEZONE = getSystemProperty("user.timezone");
 
-    // Java version
-    // -----------------------------------------------------------------------
-    // This MUST be declared after those above as it depends on the
-    // values being set up
-
-    /**
-     * <p>
-     * Gets the Java version as a <code>String</code> trimming leading letters.
-     * </p>
-     * 
-     * <p>
-     * The field will return <code>null</code> if {@link #JAVA_VERSION} is <code>null</code>.
-     * </p>
-     * 
-     * @since 2.1
-     */
-    public static final String JAVA_VERSION_TRIMMED = getJavaVersionTrimmed();
-
-    // Java version values
-    // -----------------------------------------------------------------------
-    // These MUST be declared after the trim above as they depend on the
-    // value being set up
-
-    /**
-     * <p>
-     * Gets the Java version as a <code>float</code>.
-     * </p>
-     * 
-     * <p>
-     * Example return values:
-     * </p>
-     * <ul>
-     * <li><code>1.2f</code> for Java 1.2
-     * <li><code>1.31f</code> for Java 1.3.1
-     * </ul>
-     * 
-     * <p>
-     * The field will return zero if {@link #JAVA_VERSION} is <code>null</code>.
-     * </p>
-     * 
-     * @since 2.0
-     */
-    public static final float JAVA_VERSION_FLOAT = getJavaVersionAsFloat();
-
-    /**
-     * <p>
-     * Gets the Java version as an <code>int</code>.
-     * </p>
-     * 
-     * <p>
-     * Example return values:
-     * </p>
-     * <ul>
-     * <li><code>120</code> for Java 1.2
-     * <li><code>131</code> for Java 1.3.1
-     * </ul>
-     * 
-     * <p>
-     * The field will return zero if {@link #JAVA_VERSION} is <code>null</code>.
-     * </p>
-     * 
-     * @since 2.0
-     */
-    public static final int JAVA_VERSION_INT = getJavaVersionAsInt();
-
     // Java version checks
     // -----------------------------------------------------------------------
     // These MUST be declared after those above as they depend on the
@@ -1342,54 +1278,6 @@ public class SystemUtils {
 
     /**
      * <p>
-     * Gets the Java version number as a <code>float</code>.
-     * </p>
-     * 
-     * <p>
-     * Example return values:
-     * </p>
-     * <ul>
-     * <li><code>1.2f</code> for Java 1.2</li>
-     * <li><code>1.31f</code> for Java 1.3.1</li>
-     * <li><code>1.6f</code> for Java 1.6.0_20</li>
-     * </ul>
-     * 
-     * <p>
-     * Patch releases are not reported.
-     * </p>
-     * 
-     * @return the version, for example 1.31f for Java 1.3.1
-     */
-    private static float getJavaVersionAsFloat() {
-        return toVersionFloat(toJavaVersionIntArray(SystemUtils.JAVA_VERSION, JAVA_VERSION_TRIM_SIZE));
-    }
-
-    /**
-     * <p>
-     * Gets the Java version number as an <code>int</code>.
-     * </p>
-     * 
-     * <p>
-     * Example return values:
-     * </p>
-     * <ul>
-     * <li><code>120</code> for Java 1.2</li>
-     * <li><code>131</code> for Java 1.3.1</li>
-     * <li><code>160</code> for Java 1.6.0_20</li>
-     * </ul>
-     * 
-     * <p>
-     * Patch releases are not reported.
-     * </p>
-     * 
-     * @return the version, for example 131 for Java 1.3.1
-     */
-    private static int getJavaVersionAsInt() {
-        return toVersionInt(toJavaVersionIntArray(SystemUtils.JAVA_VERSION, JAVA_VERSION_TRIM_SIZE));
-    }
-
-    /**
-     * <p>
      * Decides if the Java version matches.
      * </p>
      * 
@@ -1398,24 +1286,7 @@ public class SystemUtils {
      * @return true if matches, or false if not or can't determine
      */
     private static boolean getJavaVersionMatches(String versionPrefix) {
-        return isJavaVersionMatch(JAVA_VERSION_TRIMMED, versionPrefix);
-    }
-
-    /**
-     * Trims the text of the java version to start with numbers.
-     * 
-     * @return the trimmed java version
-     */
-    private static String getJavaVersionTrimmed() {
-        if (JAVA_VERSION != null) {
-            for (int i = 0; i < JAVA_VERSION.length(); i++) {
-                char ch = JAVA_VERSION.charAt(i);
-                if (ch >= '0' && ch <= '9') {
-                    return JAVA_VERSION.substring(i);
-                }
-            }
-        }
-        return null;
+        return isJavaVersionMatch(JAVA_SPECIFICATION_VERSION, versionPrefix);
     }
 
     /**
@@ -1530,30 +1401,8 @@ public class SystemUtils {
      *            the required version, for example 1.31f
      * @return <code>true</code> if the actual version is equal or greater than the required version
      */
-    public static boolean isJavaVersionAtLeast(float requiredVersion) {
-        return JAVA_VERSION_FLOAT >= requiredVersion;
-    }
-
-    /**
-     * <p>
-     * Is the Java version at least the requested version.
-     * </p>
-     * 
-     * <p>
-     * Example input:
-     * </p>
-     * <ul>
-     * <li><code>120</code> to test for Java 1.2 or greater</li>
-     * <li><code>131</code> to test for Java 1.3.1 or greater</li>
-     * </ul>
-     * 
-     * @param requiredVersion
-     *            the required version, for example 131
-     * @return <code>true</code> if the actual version is equal or greater than the required version
-     * @since 2.0
-     */
-    public static boolean isJavaVersionAtLeast(int requiredVersion) {
-        return JAVA_VERSION_INT >= requiredVersion;
+    public static boolean isJavaVersionAtLeast(JavaVersion requiredVersion) {
+        return JAVA_SPECIFICATION_VERSION_AS_ENUM.atLeast(requiredVersion);
     }
 
     /**
@@ -1617,193 +1466,6 @@ public class SystemUtils {
             return false;
         }
         return osName.startsWith(osNamePrefix);
-    }
-
-    /**
-     * <p>
-     * Converts the given Java version string to a <code>float</code>.
-     * </p>
-     * 
-     * <p>
-     * Example return values:
-     * </p>
-     * <ul>
-     * <li><code>1.2f</code> for Java 1.2</li>
-     * <li><code>1.31f</code> for Java 1.3.1</li>
-     * <li><code>1.6f</code> for Java 1.6.0_20</li>
-     * </ul>
-     * 
-     * <p>
-     * Patch releases are not reported.
-     * </p>
-     * <p>
-     * This method is package private instead of private to support unit test invocation.
-     * </p>
-     * 
-     * @return the version, for example 1.31f for Java 1.3.1
-     */
-    static float toJavaVersionFloat(String version) {
-        return toVersionFloat(toJavaVersionIntArray(version, JAVA_VERSION_TRIM_SIZE));
-    }
-
-    /**
-     * <p>
-     * Converts the given Java version string to an <code>int</code>.
-     * </p>
-     * 
-     * <p>
-     * Example return values:
-     * </p>
-     * <ul>
-     * <li><code>120</code> for Java 1.2</li>
-     * <li><code>131</code> for Java 1.3.1</li>
-     * <li><code>160</code> for Java 1.6.0_20</li>
-     * </ul>
-     * 
-     * <p>
-     * Patch releases are not reported.
-     * </p>
-     * <p>
-     * This method is package private instead of private to support unit test invocation.
-     * </p>
-     * 
-     * @return the version, for example 131 for Java 1.3.1
-     */
-    static int toJavaVersionInt(String version) {
-        return toVersionInt(toJavaVersionIntArray(version, JAVA_VERSION_TRIM_SIZE));
-    }
-
-    /**
-     * <p>
-     * Converts the given Java version string to an <code>int[]</code> of maximum size <code>3</code>.
-     * </p>
-     * 
-     * <p>
-     * Example return values:
-     * </p>
-     * <ul>
-     * <li><code>[1, 2, 0]</code> for Java 1.2</li>
-     * <li><code>[1, 3, 1]</code> for Java 1.3.1</li>
-     * <li><code>[1, 5, 0]</code> for Java 1.5.0_21</li>
-     * </ul>
-     * <p>
-     * This method is package private instead of private to support unit test invocation.
-     * </p>
-     * 
-     * @return the version, for example [1, 5, 0] for Java 1.5.0_21
-     */
-    static int[] toJavaVersionIntArray(String version) {
-        return toJavaVersionIntArray(version, Integer.MAX_VALUE);
-    }
-
-    /**
-     * <p>
-     * Converts the given Java version string to an <code>int[]</code> of maximum size <code>limit</code>.
-     * </p>
-     * 
-     * <p>
-     * Example return values:
-     * </p>
-     * <ul>
-     * <li><code>[1, 2, 0]</code> for Java 1.2</li>
-     * <li><code>[1, 3, 1]</code> for Java 1.3.1</li>
-     * <li><code>[1, 5, 0, 21]</code> for Java 1.5.0_21</li>
-     * </ul>
-     * 
-     * @return the version, for example [1, 5, 0, 21] for Java 1.5.0_21
-     */
-    private static int[] toJavaVersionIntArray(String version, int limit) {
-        if (version == null) {
-            return ArrayUtils.EMPTY_INT_ARRAY;
-        }
-        String[] strings = Pattern.compile("[^\\d]").split(version);
-        int[] ints = new int[Math.min(limit, strings.length)];
-        int j = 0;
-        for (int i = 0; i < strings.length && j < limit; i++) {
-            String s = strings[i];
-            if (s.length() > 0) {
-                ints[j++] = Integer.parseInt(s);
-            }
-        }
-        return ints;
-    }
-
-    /**
-     * <p>
-     * Converts given the Java version array to a <code>float</code>.
-     * </p>
-     * 
-     * <p>
-     * Example return values:
-     * </p>
-     * <ul>
-     * <li><code>1.2f</code> for Java 1.2</li>
-     * <li><code>1.31f</code> for Java 1.3.1</li>
-     * <li><code>1.6f</code> for Java 1.6.0_20</li>
-     * </ul>
-     * 
-     * <p>
-     * Patch releases are not reported.
-     * </p>
-     * 
-     * @return the version, for example 1.31f for Java 1.3.1
-     */
-    private static float toVersionFloat(int[] javaVersions) {
-        if (javaVersions == null || javaVersions.length == 0) {
-            return 0f;
-        }
-        if (javaVersions.length == 1) {
-            return javaVersions[0];
-        }
-        StringBuilder builder = new StringBuilder();
-        builder.append(javaVersions[0]);
-        builder.append('.');
-        for (int i = 1; i < javaVersions.length; i++) {
-            builder.append(javaVersions[i]);
-        }
-        try {
-            return Float.parseFloat(builder.toString());
-        } catch (Exception ex) {
-            return 0f;
-        }
-    }
-
-    /**
-     * <p>
-     * Converts given the Java version array to an <code>int</code>.
-     * </p>
-     * 
-     * <p>
-     * Example return values:
-     * </p>
-     * <ul>
-     * <li><code>120</code> for Java 1.2</li>
-     * <li><code>131</code> for Java 1.3.1</li>
-     * <li><code>160</code> for Java 1.6.0_20</li>
-     * </ul>
-     * 
-     * <p>
-     * Patch releases are not reported.
-     * </p>
-     * 
-     * @return the version, for example 1.31f for Java 1.3.1
-     */
-    private static int toVersionInt(int[] javaVersions) {
-        if (javaVersions == null) {
-            return 0;
-        }
-        int intVersion = 0;
-        int len = javaVersions.length;
-        if (len >= 1) {
-            intVersion = javaVersions[0] * 100;
-        }
-        if (len >= 2) {
-            intVersion += javaVersions[1] * 10;
-        }
-        if (len >= 3) {
-            intVersion += javaVersions[2];
-        }
-        return intVersion;
     }
 
     // -----------------------------------------------------------------------

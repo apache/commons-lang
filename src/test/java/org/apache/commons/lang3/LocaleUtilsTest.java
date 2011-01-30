@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import static org.apache.commons.lang3.JavaVersion.*;
+
 import junit.framework.TestCase;
 
 /**
@@ -212,7 +214,7 @@ public class LocaleUtilsTest extends TestCase {
         assertValidToLocale("us_EN_A", "us", "EN", "A");
         // this isn't pretty, but was caused by a jdk bug it seems
         // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4210525
-        if (SystemUtils.isJavaVersionAtLeast(1.4f)) {
+        if (SystemUtils.isJavaVersionAtLeast(JAVA_1_4)) {
             assertValidToLocale("us_EN_a", "us", "EN", "a");
             assertValidToLocale("us_EN_SFsafdFDsdfF", "us", "EN", "SFsafdFDsdfF");
         } else {
