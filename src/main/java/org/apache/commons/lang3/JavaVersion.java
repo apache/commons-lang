@@ -33,7 +33,8 @@ public enum JavaVersion {
     JAVA_1_4(1.4f, "1.4"), 
     JAVA_1_5(1.5f, "1.5"), 
     JAVA_1_6(1.6f, "1.6"), 
-    JAVA_1_7(1.7f, "1.7");
+    JAVA_1_7(1.7f, "1.7"),
+    JAVA_1_8(1.8f, "1.8");
 
     private float value;
     private String name;
@@ -86,6 +87,9 @@ public enum JavaVersion {
         } else
         if("1.7".equals(nom)) {
             return JAVA_1_7;
+        } else
+        if("1.8".equals(nom)) {
+            return JAVA_1_8;
         } else {
             return null;
         }
