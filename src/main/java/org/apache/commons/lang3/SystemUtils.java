@@ -17,7 +17,6 @@
 package org.apache.commons.lang3;
 
 import java.io.File;
-import java.util.regex.Pattern;
 
 /**
  * <p>
@@ -46,8 +45,6 @@ import java.util.regex.Pattern;
  * @version $Id$
  */
 public class SystemUtils {
-
-    private static final int JAVA_VERSION_TRIM_SIZE = 3;
 
     /**
      * The prefix String for all Windows OS.
