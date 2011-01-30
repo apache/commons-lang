@@ -49,7 +49,7 @@ public enum JavaVersion {
 
     // helper for static importing
     static JavaVersion getJavaVersion(final String nom) {
-        return getJavaVersion(nom);
+        return get(nom);
     }
     static JavaVersion get(final String nom) {
         if("0.9".equals(nom)) {
