@@ -48,10 +48,12 @@ public class LocaleUtils {
     private static Set<Locale> cAvailableLocaleSet;   // lazily created by availableLocaleSet()
 
     /** Unmodifiable map of language locales by country. */
-    private static final Map<String, List<Locale>> cLanguagesByCountry = Collections.synchronizedMap(new HashMap<String, List<Locale>>());
+    private static final Map<String, List<Locale>> cLanguagesByCountry = 
+        Collections.synchronizedMap(new HashMap<String, List<Locale>>());
 
     /** Unmodifiable map of country locales by language. */
-    private static final Map<String, List<Locale>> cCountriesByLanguage = Collections.synchronizedMap(new HashMap<String, List<Locale>>());
+    private static final Map<String, List<Locale>> cCountriesByLanguage = 
+        Collections.synchronizedMap(new HashMap<String, List<Locale>>());
 
     /**
      * <p><code>LocaleUtils</code> instances should NOT be constructed in standard programming.
