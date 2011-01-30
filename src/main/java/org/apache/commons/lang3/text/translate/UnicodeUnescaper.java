@@ -33,9 +33,20 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
 
     public static enum OPTION { escapePlus }
 
-    // TODO: Create an OptionsSet class to hide some of the conditional logic below
+    // TODO?: Create an OptionsSet class to hide some of the conditional logic below
     private final EnumSet<OPTION> options;
 
+    /**
+     * Create a UnicodeUnescaper.
+     *
+     * The constructor takes a list of options, only one of which is currently 
+     * available (whether to expect a plus sign after the 'u'). 
+     *
+     * For example, to handle "\\u+0047":
+     *    new UnicodeUnescaper(UnicodeUnescaper.OPTION.escapePlus)
+     *
+     * @param OPTION... options to apply to this unescaper
+     */
     public UnicodeUnescaper(OPTION... options) {
         if(options.length > 0) {
             this.options = EnumSet.copyOf(Arrays.asList(options));
@@ -44,7 +55,13 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
         }
     }
 
-    public boolean isSet(OPTION opt) { 
+    /**
+     * Whether the passed in option is currently set.
+     *
+     * @param OPTION option to check state of
+     * @return whether the option is set
+     */
+    public boolean isSet(OPTION option) { 
         return (options == null) ? false : options.contains(opt);
     }
 
