@@ -18,6 +18,7 @@ package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
 
 import java.io.ByteArrayInputStream;
@@ -58,6 +59,11 @@ public class PairTest {
     public void testEquals() throws Exception {
         assertEquals(Pair.of(null, "foo"), Pair.of(null, "foo"));
         assertFalse(Pair.of("foo", 0).equals(Pair.of("foo", null)));
+        assertFalse(Pair.of("foo", "bar").equals(Pair.of("xyz", "bar")));
+
+        Pair p = Pair.of("foo", "bar");
+        assertTrue(p.equals(p));
+        assertFalse(p.equals(new Object()));
     }
 
     @Test
