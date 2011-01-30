@@ -103,7 +103,8 @@ public class StringEscapeUtils {
         private static final char CSV_DELIMITER = ',';
         private static final char CSV_QUOTE = '"';
         private static final String CSV_QUOTE_STR = String.valueOf(CSV_QUOTE);
-        private static final char[] CSV_SEARCH_CHARS = new char[] {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
+        private static final char[] CSV_SEARCH_CHARS = 
+            new char[] {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
 
         // TODO: Replace with a RegexTranslator. That should consume the number of characters the regex uses up?
         @Override
@@ -172,7 +173,8 @@ public class StringEscapeUtils {
         private static final char CSV_DELIMITER = ',';
         private static final char CSV_QUOTE = '"';
         private static final String CSV_QUOTE_STR = String.valueOf(CSV_QUOTE);
-        private static final char[] CSV_SEARCH_CHARS = new char[] {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
+        private static final char[] CSV_SEARCH_CHARS = 
+            new char[] {CSV_DELIMITER, CSV_QUOTE, CharUtils.CR, CharUtils.LF};
 
         // TODO: Replace with a RegexTranslator. That should consume the number of characters the regex uses up?
         @Override
@@ -329,6 +331,14 @@ public class StringEscapeUtils {
         return ESCAPE_HTML4.translate(input);
     }
 
+    /**
+     * <p>Escapes the characters in a <code>String</code> using HTML entities.</p>
+     * <p>Supports only the HTML 3.0 entities. </p>
+     *
+     * @param input  the <code>String</code> to escape, may be null
+     * @return a new escaped <code>String</code>, <code>null</code> if null string input
+     * 
+     */
     public static final String escapeHtml3(String input) {
         return ESCAPE_HTML3.translate(input);
     }
@@ -353,6 +363,14 @@ public class StringEscapeUtils {
         return UNESCAPE_HTML4.translate(input);
     }
 
+    /**
+     * <p>Unescapes a string containing entity escapes to a string
+     * containing the actual Unicode characters corresponding to the
+     * escapes. Supports only HTML 3.0 entities.</p>
+     *
+     * @param input  the <code>String</code> to unescape, may be null
+     * @return a new unescaped <code>String</code>, <code>null</code> if null string input
+     */
     public static final String unescapeHtml3(String input) {
         return UNESCAPE_HTML3.translate(input);
     }
