@@ -96,6 +96,7 @@ public class AnnotationUtils {
      * per spec.
      * @param a1 the first Annotation to compare
      * @param a2 the second Annotation to compare
+     * @return Whether the two annotations are equal
      */
     public static boolean equals(Annotation a1, Annotation a2) {
         if (a1 == a2) {
@@ -136,9 +137,9 @@ public class AnnotationUtils {
      * 
      * @param a the Annotation for a hashcode calculation is desired
      * @return the calculated hashcode
-     * @throws InvocationTargetException
-     * @throws IllegalAccessException
      * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
      */
     public static int hashCode(Annotation a) throws IllegalArgumentException,
             IllegalAccessException, InvocationTargetException {
