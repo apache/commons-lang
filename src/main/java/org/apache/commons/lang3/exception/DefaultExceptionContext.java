@@ -58,8 +58,10 @@ class DefaultExceptionContext implements ExceptionContext, Serializable {
         while (contextValueMap.containsKey(key)) {
             Object information = contextValueMap.get(key);
             if ((value == null && information == null)
-                    || (value != null && value.equals(information)))
+                    || (value != null && value.equals(information))) 
+            {
                 return this;
+            }
             key = label + "[" + ++i +"]";
         }
         contextValueMap.put(key, value);
