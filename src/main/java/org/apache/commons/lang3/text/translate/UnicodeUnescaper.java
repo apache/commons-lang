@@ -50,6 +50,8 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
     public UnicodeUnescaper(OPTION... options) {
         if(options.length > 0) {
             this.options = EnumSet.copyOf(Arrays.asList(options));
+        } else {
+            this.options = null;
         }
     }
 
