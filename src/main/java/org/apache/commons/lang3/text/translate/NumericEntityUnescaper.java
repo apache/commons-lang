@@ -34,8 +34,7 @@ public class NumericEntityUnescaper extends CharSequenceTranslator {
      */
     @Override
     public int translate(CharSequence input, int index, Writer out) throws IOException {
-        // TODO: Protect from ArrayIndexOutOfBounds
-        if(input.charAt(index) == '&' && input.charAt(index + 1) == '#') {
+        if(input.charAt(index) == '&' && index < (input.length() - 1) && input.charAt(index + 1) == '#') {
             int start = index + 2;
             boolean isHex = false;
 

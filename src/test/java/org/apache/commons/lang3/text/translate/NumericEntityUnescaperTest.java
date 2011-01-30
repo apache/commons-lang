@@ -34,4 +34,13 @@ public class NumericEntityUnescaperTest extends TestCase {
         assertEquals("Failed to unescape numeric entities supplementary characters", expected, result);
     }
 
+    public void testOutOfBounds() {
+        NumericEntityUnescaper neu = new NumericEntityUnescaper();
+        String input = "Test &";
+        String expected = input;
+
+        String result = neu.translate(input);
+        assertEquals("Failed to ignore when last character is &", expected, result);
+    }
+
 }
