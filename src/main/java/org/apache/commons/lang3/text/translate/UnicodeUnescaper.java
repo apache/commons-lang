@@ -45,7 +45,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
      * For example, to handle "\\u+0047":
      *    new UnicodeUnescaper(UnicodeUnescaper.OPTION.escapePlus)
      *
-     * @param OPTION... options to apply to this unescaper
+     * @param options to apply to this unescaper
      */
     public UnicodeUnescaper(OPTION... options) {
         if(options.length > 0) {
@@ -58,7 +58,7 @@ public class UnicodeUnescaper extends CharSequenceTranslator {
     /**
      * Whether the passed in option is currently set.
      *
-     * @param OPTION option to check state of
+     * @param option to check state of
      * @return whether the option is set
      */
     public boolean isSet(OPTION option) { 
