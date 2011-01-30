@@ -27,7 +27,6 @@ import java.util.HashMap;
  * @since 3.0
  * @version $Id$
  */
-// TODO: Replace with a RegexLookup? Performance test.
 public class LookupTranslator extends CharSequenceTranslator {
 
     private final HashMap<CharSequence, CharSequence> lookupMap;
