@@ -65,7 +65,6 @@ public abstract class CharSequenceTranslator {
         }
     }
 
-    // TODO: Point to CsvEscaper as a way to 'override'?
     /**
      * Translate an input onto a Writer. This is intentionally final as its algorithm is 
      * tightly coupled with the abstract method of this class. 
