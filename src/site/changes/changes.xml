@@ -6,9 +6,9 @@
      The ASF licenses this file to You under the Apache License, Version 2.0
      (the "License"); you may not use this file except in compliance with
      the License.  You may obtain a copy of the License at
-    
+
           http://www.apache.org/licenses/LICENSE-2.0
-    
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,6 +22,35 @@
   <body>
 
   <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">
+    <action type="add" issue="LANG-610">Extend exception handling in ConcurrentUtils to runtime exceptions.</action>
+    <action type="fix" issue="LANG-624">SystemUtils.getJavaVersionAsFloat throws StringIndexOutOfBoundsException on Android runtime/Dalvik VM</action>
+    <action type="remove" issue="LANG-673">WordUtils.abbreviate() removed</action>
+    <action type="fix" issue="LANG-672">Doc bug in DateUtils#ceiling</action>
+    <action type="fix" issue="LANG-646">StringEscapeUtils.unescapeJava doesn't handle octal escapes and Unicode with extra u</action>
+    <action type="fix" issue="LANG-662">org.apache.commons.lang3.math.Fraction does not reduce (Integer.MIN_VALUE, 2^k)</action>
+    <action type="fix" issue="LANG-663">org.apache.commons.lang3.math.Fraction does not always succeed in multiplyBy and divideBy</action>
+    <action type="update" issue="LANG-668">Change ObjectUtils min() &amp; max() functions to use varargs rather than just two parameters</action>
+    <action type="add" issue="LANG-667">Add a Null-safe compare() method to ObjectUtils</action>
+    <action type="fix" issue="LANG-664">NumberUtils.isNumber(String) is not right when the String is "1.1L"</action>
+    <action type="fix" issue="LANG-659">EntityArrays typo: {"\u2122", "&amp;minus;"}, // minus sign, U+2212 ISOtech</action>
+    <action type="fix" issue="LANG-658">Some Entitys like &amp;Ouml; are not matched properly against its ISO8859-1 representation</action>
+    <action type="fix" issue="LANG-656">Example StringUtils.indexOfAnyBut("zzabyycdxx", '') = 0 incorrect</action>
+    <action type="add" issue="LANG-655">Add StringUtils.defaultIfBlank()</action>
+    <action type="add" issue="LANG-653">Provide a very basic ConcurrentInitializer implementation</action>
+    <action type="add" issue="LANG-609">Support lazy initialization using atomic variables</action>
+    <action type="add" issue="LANG-482">Enhance StrSubstitutor to support nested ${var-${subvr}} expansion</action>
+    <action type="add" issue="LANG-644">Provide documentation about the new concurrent package</action>
+    <action type="fix" issue="LANG-629">Charset may not be threadsafe, because the HashSet is not synch.</action>
+    <action type="fix" issue="LANG-617">StringEscapeUtils.escapeXML() can't process UTF-16 supplementary characters</action>
+    <action type="add" issue="LANG-614">StringUtils.endsWithAny method</action>
+    <action type="add" issue="LANG-651">Add AnnotationUtils</action>
+    <action type="add" issue="LANG-649">BooleanUtils.toBooleanObject to support single character input</action>
+    <action type="fix" issue="LANG-645">FastDateFormat.format() outputs incorrect week of year because locale isn't respected</action>
+    <action type="fix" issue="LANG-596">StrSubstitutor should also handle the default properties of a java.util.Properties class</action>
+    <action type="fix" issue="LANG-643">Javadoc StringUtils.left() claims to throw on negative len, but doesn't</action>
+    <action type="add" issue="LANG-640">Add normalizeSpace to StringUtils</action>
+    <action type="fix" issue="LANG-638">NumberUtils createNumber throws a StringIndexOutOfBoundsException when argument containing "e" and "E" is passed in</action>
+<!-- 3.0 beta below here -->
     <action type="update">Push down WordUtils to "text" sub-package.</action>
     <action type="add" issue="LANG-610">Extend exception handling in ConcurrentUtils to runtime exceptions.</action>
     <action type="fix" issue="LANG-608">Some StringUtils methods should take an int character instead of char to use String API features.</action>
