@@ -16,6 +16,9 @@
  */
 package org.apache.commons.lang3;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
@@ -27,6 +30,17 @@ import junit.framework.TestCase;
  */
 public class CharSequenceUtilsTest extends TestCase {
 
+    //-----------------------------------------------------------------------
+    public void testConstructor() {
+        assertNotNull(new CharSequenceUtils());
+        Constructor<?>[] cons = CharSequenceUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(CharSequenceUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(CharSequenceUtils.class.getModifiers()));
+    }
+    
+    //-----------------------------------------------------------------------
     public void testSubSequence() {
         //
         // null input
