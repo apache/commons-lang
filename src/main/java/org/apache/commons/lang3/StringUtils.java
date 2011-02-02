@@ -723,7 +723,13 @@ public class StringUtils {
             Class<?> normalizerClass = Thread.currentThread().getContextClassLoader().loadClass("java.text.Normalizer");//$NON-NLS-1$
             java6NormalizeMethod = normalizerClass.getMethod("normalize", new Class[] {CharSequence.class, normalizerFormClass});//$NON-NLS-1$
             java6Available = true;
-        } catch (Exception e) {
+        } catch (ClassNotFoundException e) {
+            java6Available = false;
+        } catch (NoSuchFieldException e) {
+            java6Available = false;
+        } catch (IllegalAccessException e) {
+            java6Available = false;
+        } catch (NoSuchMethodException e) {
             java6Available = false;
         }
 
@@ -732,7 +738,9 @@ public class StringUtils {
             Class<?> normalizerClass = Thread.currentThread().getContextClassLoader().loadClass("sun.text.Normalizer");//$NON-NLS-1$
             sunDecomposeMethod = normalizerClass.getMethod("decompose", new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
             sunAvailable = true;
-        } catch (Exception e) {
+        } catch (ClassNotFoundException e) {
+            sunAvailable = false;
+        } catch (NoSuchMethodException e) {
             sunAvailable = false;
         }
     }
