@@ -20,8 +20,10 @@ import javax.naming.event.ObjectChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.VetoableChangeListener;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
 import java.util.Date;
 import java.util.Map;
@@ -35,6 +37,16 @@ import junit.framework.TestCase;
  */
 public class EventUtilsTest extends TestCase
 {
+
+    public void testConstructor() {
+        assertNotNull(new EventUtils());
+        Constructor<?>[] cons = EventUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(EventUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(EventUtils.class.getModifiers()));
+    }
+    
     public void testAddEventListener()
     {
         final PropertyChangeSource src = new PropertyChangeSource();

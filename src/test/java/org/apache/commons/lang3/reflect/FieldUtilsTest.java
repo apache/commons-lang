@@ -16,7 +16,9 @@
  */
 package org.apache.commons.lang3.reflect;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 import junit.framework.TestCase;
 
@@ -56,6 +58,15 @@ public class FieldUtilsTest extends TestCase {
         privatelyShadowedChild = new PrivatelyShadowedChild();
     }
 
+    public void testConstructor() {
+        assertNotNull(new FieldUtils());
+        Constructor<?>[] cons = FieldUtils.class.getDeclaredConstructors();
+        assertEquals(1, cons.length);
+        assertEquals(true, Modifier.isPublic(cons[0].getModifiers()));
+        assertEquals(true, Modifier.isPublic(FieldUtils.class.getModifiers()));
+        assertEquals(false, Modifier.isFinal(FieldUtils.class.getModifiers()));
+    }
+    
     public void testGetField() {
         assertEquals(Foo.class, FieldUtils.getField(PublicChild.class, "VALUE").getDeclaringClass());
         assertEquals(parentClass, FieldUtils.getField(PublicChild.class, "s").getDeclaringClass());
