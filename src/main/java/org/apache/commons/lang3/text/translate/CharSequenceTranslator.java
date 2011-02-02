@@ -56,7 +56,7 @@ public abstract class CharSequenceTranslator {
             return null;
         }
         try {
-            StringWriter writer = new StringWriter(input.length() * 2);  // TODO: Make the 2 part of the API???
+            StringWriter writer = new StringWriter(input.length() * 2);
             translate(input, writer);
             return writer.toString();
         } catch (IOException ioe) {
