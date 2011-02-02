@@ -123,7 +123,9 @@ public class AnnotationUtils {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (IllegalAccessException e) {
+            return false;
+        } catch (InvocationTargetException e) {
             return false;
         }
         return true;
