@@ -396,7 +396,7 @@ public class ObjectUtils {
             if (o.getClass().isArray()) {
                 final Class<?> componentType = o.getClass().getComponentType();
                 if (!componentType.isPrimitive()) {
-                    result = ((Object[])o).clone();
+                    result = ((Object[]) o).clone();
                 } else {
                     int length = Array.getLength(o);
                     result = Array.newInstance(componentType, length);
@@ -421,7 +421,7 @@ public class ObjectUtils {
                 }
             }
             @SuppressWarnings("unchecked")
-            final T checked = (T)result;
+            final T checked = (T) result;
             return checked;
         }
 
