@@ -238,6 +238,7 @@ public class EqualsBuilderTest extends TestCase {
      * @param toTer Left hand side, equal to to and toBis
      * @param to2 a different TestObject
      * @param oToChange a TestObject that will be changed
+     * @param testTransients whether to test transient instance variables 
      */
     public void testReflectionEqualsEquivalenceRelationship(
         TestObject to,
