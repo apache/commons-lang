@@ -52,6 +52,8 @@ public class BooleanUtils {
      * 
      * <p>If <code>null</code> is passed in, <code>null</code> will be returned.</p>
      *
+     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
+     *
      * <pre>
      *   BooleanUtils.negate(Boolean.TRUE)  = Boolean.FALSE;
      *   BooleanUtils.negate(Boolean.FALSE) = Boolean.TRUE;
@@ -234,6 +236,8 @@ public class BooleanUtils {
      * 
      * <p><code>null</code> will be converted to <code>null</code>.</p>
      *
+     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
+     *
      * <pre>
      *   BooleanUtils.toBoolean(new Integer(0))    = Boolean.FALSE
      *   BooleanUtils.toBoolean(new Integer(1))    = Boolean.TRUE
@@ -315,6 +319,8 @@ public class BooleanUtils {
     /**
      * <p>Converts an int to a Boolean specifying the conversion values.</p>
      * 
+     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
+     *
      * <pre>
      *   BooleanUtils.toBooleanObject(0, 0, 2, 3) = Boolean.TRUE
      *   BooleanUtils.toBooleanObject(2, 1, 2, 3) = Boolean.FALSE
@@ -343,6 +349,8 @@ public class BooleanUtils {
     /**
      * <p>Converts an Integer to a Boolean specifying the conversion values.</p>
      * 
+     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
+     *
      * <pre>
      *   BooleanUtils.toBooleanObject(new Integer(0), new Integer(0), new Integer(2), new Integer(3)) = Boolean.TRUE
      *   BooleanUtils.toBooleanObject(new Integer(2), new Integer(1), new Integer(2), new Integer(3)) = Boolean.FALSE
@@ -528,6 +536,8 @@ public class BooleanUtils {
      * (case insensitive) will return <code>false</code>.
      * Otherwise, <code>null</code> is returned.</p>
      *
+     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
+     *
      * <pre>
      *   BooleanUtils.toBooleanObject(null)    = null
      *   BooleanUtils.toBooleanObject("true")  = Boolean.TRUE
@@ -641,6 +651,8 @@ public class BooleanUtils {
 
     /**
      * <p>Converts a String to a Boolean throwing an exception if no match.</p>
+     *
+     * <p>NOTE: This returns null and will throw a NullPointerException if autoboxed to a boolean. </p>
      *
      * <pre>
      *   BooleanUtils.toBooleanObject("true", "true", "false", "null")  = Boolean.TRUE
