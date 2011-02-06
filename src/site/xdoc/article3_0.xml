@@ -33,30 +33,38 @@ limitations under the License.
 that are now supported by Java itself. We've removed the deprecated parts of the API and have also removed some features that 
 were deemed weak or unnecessary. All of this means that Lang 3.0 is not backwards compatible. </p>
 <p>To that end we have changed the package name, allowing Lang 3.0 to sit side-by-side with your previous version of Lang without any bad side effects. The new package name is the exciting and original <code>org.apache.commons.lang3</code>. </p>
-<p>There are also, as you'd expect, new features, enhancements and bugs fixed. </p>
+<p>As you'd expect, there are also new features, enhancements and bugs fixed. </p>
 </section>
 <section name="The build">
 <p>We built 3.0 using Maven 2.2.1 and Java 1.5. <strong>Needs confirmation before release of actual build details</strong></p>
 </section>
 <section name="Migrating from 2.x">
-<p>Despite the label of backwards incompatibility, in the vast majority of cases the simple addition of a <code>'3'</code> to an import statement will suffice for your migration. For example, using Perl: </p> 
-<p>find . -type f -name '*.java' | xargs perl -pi -e 's/org\.apache\.commons\.lang\./org.apache.commons.lang3./g'</p>
-<p>Maven users will need to update the groupId from <code>commons-lang</code> to <code>org.apache.commons</code>, 
-and the artifactId from <code>commons-lang</code> to <code>commons-lang3</code>. </p>
+<h3>Java code</h3>
+<p>Despite the label of backwards incompatibility, in the vast majority of cases the simple addition of a <code>'3'</code> to an import statement will suffice for your migration. </p><br/>
+<p>Change: <code>import org.apache.commons.lang</code> -&gt; <code>import org.apache.commons.lang3</code></p>
+<h3>Maven</h3>
+<p><code>groupId</code>: <code>commons-lang</code> -&gt; <code>org.apache.commons</code></p>
+<p><code>artifactId</code>: <code>commons-lang</code> -&gt; <code>commons-lang3</code></p>
 </section>
 <section name="What's gone?">
-<p>Enum package - Java 5 provided enums out of the box, therefore we dispensed with both the deprecated enum package, 
+<h3>Enum package</h3>
+<p>Java 5 provided enums out of the box, therefore we dispensed with both the deprecated enum package, 
 and the enums package. Instead you should migrate over to the standard Java enum. An EnumUtils class has been born 
 from the ashes of the old code, focused on providing additional functionality to the standard Java enum API. </p>
-<p>NestedExceptions - In Java 1.4, the notion that all Throwables could be linked to a cause was introduced. In Lang we 
+<h3>NestedExceptions</h3>
+<p>In Java 1.4, the notion that all Throwables could be linked to a cause was introduced. In Lang we 
 had provided a NestedException framework to support the same feature, and now that we're jumping from Java 1.3 to 
 Java 5 we are remove this feature. The deprecation section below covers one part of ExceptionUtils that remains until 
 we are on Java 6, where the last remaining parts of the JDK appear to have embraced the new cause API. </p>
-<p>JVMRandom - This class was introduced in Lang 2.0 to support a Random object built around the system seed. This 
+<h3>JVMRandom</h3>
+<p>This class was introduced in Lang 2.0 to support a Random object built around the system seed. This 
 proved to be both an uncommon use case and one with bugs and so was dropped. </p>
-<p>StringEscapeUtils.escapeSql - This was a misleading method, only handling the simplest of possible SQL cases. As SQL is not Lang's focus, it didn't make sense to maintain this method. </p>
+<h3>StringEscapeUtils.escapeSql</h3>
+<p>This was a misleading method, only handling the simplest of possible SQL cases. As SQL is not Lang's focus, it didn't make sense to maintain this method. </p>
 <p>Various Exception classes were removed - the lesson in defining more semantically relevant exception classes is that you can keep on coming up with more and more new classes. Simpler to focus on using the main JDK classes. </p>
+<h3>math.*Range</h3>
 <p>The various Range classes in the <code>math</code> package were removed in favour of a new generic Range class. </p>
+<h3>Previous Deprecations</h3>
 <p>All deprecated fields/methods/classes - with a new major version, all of the previously deprecated parts of the API could finally go away. </p>
 <p>If you feel that something was unfairly taken away, please feel free to contact the list. In many cases the possibility exists to reintroduce code. </p>
 </section>
