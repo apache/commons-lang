@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">
+    <action type="add" issue="LANG-676">Documented potential NPE if auto-boxing occurs for some BooleanUtils methods</action>
     <action type="fix" issue="LANG-677">DateUtils.isSameLocalTime compares using 12 hour clock and not 24 hour</action>
     <action type="add" issue="LANG-610">Extend exception handling in ConcurrentUtils to runtime exceptions.</action>
     <action type="fix" issue="LANG-624">SystemUtils.getJavaVersionAsFloat throws StringIndexOutOfBoundsException on Android runtime/Dalvik VM</action>
