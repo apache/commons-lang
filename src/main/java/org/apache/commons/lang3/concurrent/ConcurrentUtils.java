@@ -16,6 +16,7 @@
  */
 package org.apache.commons.lang3.concurrent;
 
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -199,6 +200,105 @@ public class ConcurrentUtils {
     public static <T> T initializeUnchecked(ConcurrentInitializer<T> initializer) {
         try {
             return initialize(initializer);
+        } catch (ConcurrentException cex) {
+            throw new ConcurrentRuntimeException(cex.getCause());
+        }
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>
+     * Puts a value in the specified {@code ConcurrentMap} if the key is not yet
+     * present. This method works similar to the {@code putIfAbsent()} method of
+     * the {@code ConcurrentMap} interface, but the value returned is different.
+     * Basically, this method is equivalent to the following code fragment:
+     *
+     * <pre>
+     * if (!map.containsKey(key)) {
+     *     map.put(key, value);
+     *     return value;
+     * } else {
+     *     return map.get(key);
+     * }
+     * </pre>
+     *
+     * except that the action is performed atomically. So this method always
+     * returns the value which is stored in the map.
+     * </p>
+     * <p>
+     * This method is <b>null</b>-safe: It accepts a <b>null</b> map as input
+     * without throwing an exception. In this case the return value is
+     * <b>null</b>, too.
+     * </p>
+     *
+     * @param <K> the type of the keys of the map
+     * @param <V> the type of the values of the map
+     * @param map the map to be modified
+     * @param key the key of the value to be added
+     * @param value the value to be added
+     * @return the value stored in the map after this operation
+     */
+    public static <K, V> V putIfAbsent(ConcurrentMap<K, V> map, K key, V value) {
+        if (map == null) {
+            return null;
+        }
+
+        V result = map.putIfAbsent(key, value);
+        return (result != null) ? result : value;
+    }
+
+    /**
+     * Checks if a concurrent map contains a key and creates a corresponding
+     * value if not. This method first checks the presence of the key in the
+     * given map. If it is already contained, its value is returned. Otherwise
+     * the {@code get()} method of the passed in {@link ConcurrentInitializer}
+     * is called. With the resulting object
+     * {@link #putIfAbsent(ConcurrentMap, Object, Object)} is called. This
+     * handles the case that in the meantime another thread has added the key to
+     * the map. Both the map and the initializer can be <b>null</b>; in this
+     * case this method simply returns <b>null</b>.
+     *
+     * @param <K> the type of the keys of the map
+     * @param <V> the type of the values of the map
+     * @param map the map to be modified
+     * @param key the key of the value to be added
+     * @param init the {@link ConcurrentInitializer} for creating the value
+     * @return the value stored in the map after this operation; this may or may
+     * not be the object created by the {@link ConcurrentInitializer}
+     * @throws ConcurrentException if the initializer throws an exception
+     */
+    public static <K, V> V createIfAbsent(ConcurrentMap<K, V> map, K key,
+            ConcurrentInitializer<V> init) throws ConcurrentException {
+        if (map == null || init == null) {
+            return null;
+        }
+
+        V value = map.get(key);
+        if (value == null) {
+            return putIfAbsent(map, key, init.get());
+        }
+        return value;
+    }
+
+    /**
+     * Checks if a concurrent map contains a key and creates a corresponding
+     * value if not, suppressing checked exceptions. This method calls
+     * {@code createIfAbsent()}. If a {@link ConcurrentException} is thrown, it
+     * is caught and re-thrown as a {@link ConcurrentRuntimeException}.
+     *
+     * @param <K> the type of the keys of the map
+     * @param <V> the type of the values of the map
+     * @param map the map to be modified
+     * @param key the key of the value to be added
+     * @param init the {@link ConcurrentInitializer} for creating the value
+     * @return the value stored in the map after this operation; this may or may
+     * not be the object created by the {@link ConcurrentInitializer}
+     * @throws ConcurrentRuntimeException if the initializer throws an exception
+     */
+    public static <K, V> V createIfAbsentUnchecked(ConcurrentMap<K, V> map,
+            K key, ConcurrentInitializer<V> init) {
+        try {
+            return createIfAbsent(map, key, init);
         } catch (ConcurrentException cex) {
             throw new ConcurrentRuntimeException(cex.getCause());
         }
