@@ -23,6 +23,8 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
@@ -405,4 +407,142 @@ public class ConcurrentUtilsTest {
         assertFalse(test.cancel(false));
     }
 
+    //-----------------------------------------------------------------------
+    /**
+     * Tests putIfAbsent() if the map contains the key in question.
+     */
+    @Test
+    public void testPutIfAbsentKeyPresent() {
+        final String key = "testKey";
+        final Integer value = 42;
+        ConcurrentMap<String, Integer> map = new ConcurrentHashMap<String, Integer>();
+        map.put(key, value);
+        assertEquals("Wrong result", value,
+                ConcurrentUtils.putIfAbsent(map, key, 0));
+        assertEquals("Wrong value in map", value, map.get(key));
+    }
+
+    /**
+     * Tests putIfAbsent() if the map does not contain the key in question.
+     */
+    @Test
+    public void testPutIfAbsentKeyNotPresent() {
+        final String key = "testKey";
+        final Integer value = 42;
+        ConcurrentMap<String, Integer> map = new ConcurrentHashMap<String, Integer>();
+        assertEquals("Wrong result", value,
+                ConcurrentUtils.putIfAbsent(map, key, value));
+        assertEquals("Wrong value in map", value, map.get(key));
+    }
+
+    /**
+     * Tests putIfAbsent() if a null map is passed in.
+     */
+    @Test
+    public void testPutIfAbsentNullMap() {
+        assertNull("Wrong result",
+                ConcurrentUtils.putIfAbsent(null, "test", 100));
+    }
+
+    /**
+     * Tests createIfAbsent() if the key is found in the map.
+     */
+    @Test
+    public void testCreateIfAbsentKeyPresent() throws ConcurrentException {
+        @SuppressWarnings("unchecked")
+        ConcurrentInitializer<Integer> init = EasyMock
+                .createMock(ConcurrentInitializer.class);
+        EasyMock.replay(init);
+        final String key = "testKey";
+        final Integer value = 42;
+        ConcurrentMap<String, Integer> map = new ConcurrentHashMap<String, Integer>();
+        map.put(key, value);
+        assertEquals("Wrong result", value,
+                ConcurrentUtils.createIfAbsent(map, key, init));
+        assertEquals("Wrong value in map", value, map.get(key));
+        EasyMock.verify(init);
+    }
+
+    /**
+     * Tests createIfAbsent() if the map does not contain the key in question.
+     */
+    @Test
+    public void testCreateIfAbsentKeyNotPresent() throws ConcurrentException {
+        @SuppressWarnings("unchecked")
+        ConcurrentInitializer<Integer> init = EasyMock
+                .createMock(ConcurrentInitializer.class);
+        final String key = "testKey";
+        final Integer value = 42;
+        EasyMock.expect(init.get()).andReturn(value);
+        EasyMock.replay(init);
+        ConcurrentMap<String, Integer> map = new ConcurrentHashMap<String, Integer>();
+        assertEquals("Wrong result", value,
+                ConcurrentUtils.createIfAbsent(map, key, init));
+        assertEquals("Wrong value in map", value, map.get(key));
+        EasyMock.verify(init);
+    }
+
+    /**
+     * Tests createIfAbsent() if a null map is passed in.
+     */
+    @Test
+    public void testCreateIfAbsentNullMap() throws ConcurrentException {
+        @SuppressWarnings("unchecked")
+        ConcurrentInitializer<Integer> init = EasyMock
+                .createMock(ConcurrentInitializer.class);
+        EasyMock.replay(init);
+        assertNull("Wrong result",
+                ConcurrentUtils.createIfAbsent(null, "test", init));
+        EasyMock.verify(init);
+    }
+
+    /**
+     * Tests createIfAbsent() if a null initializer is passed in.
+     */
+    @Test
+    public void testCreateIfAbsentNullInit() throws ConcurrentException {
+        ConcurrentMap<String, Integer> map = new ConcurrentHashMap<String, Integer>();
+        final String key = "testKey";
+        final Integer value = 42;
+        map.put(key, value);
+        assertNull("Wrong result",
+                ConcurrentUtils.createIfAbsent(map, key, null));
+        assertEquals("Map was changed", value, map.get(key));
+    }
+
+    /**
+     * Tests createIfAbsentUnchecked() if no exception is thrown.
+     */
+    @Test
+    public void testCreateIfAbsentUncheckedSuccess() {
+        final String key = "testKey";
+        final Integer value = 42;
+        ConcurrentMap<String, Integer> map = new ConcurrentHashMap<String, Integer>();
+        assertEquals("Wrong result", value,
+                ConcurrentUtils.createIfAbsentUnchecked(map, key,
+                        new ConstantInitializer<Integer>(value)));
+        assertEquals("Wrong value in map", value, map.get(key));
+    }
+
+    /**
+     * Tests createIfAbsentUnchecked() if an exception is thrown.
+     */
+    @Test
+    public void testCreateIfAbsentUncheckedException()
+            throws ConcurrentException {
+        @SuppressWarnings("unchecked")
+        ConcurrentInitializer<Integer> init = EasyMock
+                .createMock(ConcurrentInitializer.class);
+        Exception ex = new Exception();
+        EasyMock.expect(init.get()).andThrow(new ConcurrentException(ex));
+        EasyMock.replay(init);
+        try {
+            ConcurrentUtils.createIfAbsentUnchecked(
+                    new ConcurrentHashMap<String, Integer>(), "test", init);
+            fail("Exception not thrown!");
+        } catch (ConcurrentRuntimeException crex) {
+            assertEquals("Wrong cause", ex, crex.getCause());
+        }
+        EasyMock.verify(init);
+    }
 }
