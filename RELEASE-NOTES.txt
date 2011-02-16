@@ -112,6 +112,7 @@ New Feature
     * [LANG-610] - Extend exception handling in ConcurrentUtils to runtime exceptions
     * [LANG-625] - Add StringUtils.containsWhitespace(String str)
     * [LANG-653] - Provide a very basic ConcurrentInitializer implementation
+    * [LANG-678] - Add support for ConcurrentMap.putIfAbsent()
 
 Task
 
