@@ -987,7 +987,7 @@ public class StringUtils {
         int found = 0;
         int index = lastIndex ? str.length() : INDEX_NOT_FOUND;
         do {
-            if(lastIndex) {
+            if (lastIndex) {
                 index = str.lastIndexOf(searchStr, index - 1);
             } else {
                 index = str.indexOf(searchStr, index + 1);
