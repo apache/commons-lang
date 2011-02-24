@@ -148,7 +148,12 @@ public class AnnotationUtils {
         int result = 0;
         Class<? extends Annotation> type = a.annotationType();
         for (Method m : type.getDeclaredMethods()) {
-            result += hashMember(m.getName(), m.invoke(a));
+            Object value = m.invoke(a);
+            if (value == null) {
+                throw new IllegalStateException(String.format("Annotation method %s returned null",
+                        m));
+            }
+            result += hashMember(m.getName(), value);
         }
         return result;
     }
@@ -198,9 +203,6 @@ public class AnnotationUtils {
     private static int hashMember(String name, Object value) throws IllegalArgumentException,
             IllegalAccessException, InvocationTargetException {
         int part1 = name.hashCode() * 127;
-        if (value == null) {
-            return part1;
-        }
         if (value.getClass().isArray()) {
             return part1 ^ arrayMemberHash(value.getClass().getComponentType(), value);
         }
