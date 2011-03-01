@@ -109,6 +109,7 @@ multi-threaded programming, and org.apache.commons.lang3.text.translate, which p
 <section name="Other Notable Changes">
 <ul>
 <li>StringUtils.isAlpha, isNumeric and isAlphanumeric now all return false when passed an empty String. Previously they returned true. </li>
+<li>SystemUtils.isJavaVersionAtLeast now relies on the <code>java.specification.version</code> and not the <code>java.version</code> System property. </li>
 </ul>
 </section>
 
