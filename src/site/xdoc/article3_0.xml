@@ -106,6 +106,12 @@ multi-threaded programming, and org.apache.commons.lang3.text.translate, which p
 <p>See the <a href="changes-report.html#3.0">3.0 changes report</a> for the list of fixed bugs and other enhancements. </p>
 </section>
 
+<section name="Other Notable Changes">
+<ul>
+<li>StringUtils.isAlpha, isNumeric and isAlphanumeric now all return false when passed an empty String. Previously they returned true. </li>
+</ul>
+</section>
+
 <!--
 <section name="What next???"> TODO: Add Beta info.
 <p>Hopefully that was all of interest. Don't forget to download <a href="http://commons.apache.org/lang/download_lang.cgi">Lang 3.0</a>, or, for the Maven repository users, upgrade your &lt;version&gt; tag to 3.0 and your groupId to org.apache.commons. Please feel free to raise any questions you might have on the <a href="mail-lists.html">mailing lists</a>, and report bugs or enhancements in the <a href="issue-tracking.html">issue tracker</a>.</p>

@@ -35,7 +35,7 @@ public class StringUtilsIsTest extends TestCase {
 
     public void testIsAlpha() {
         assertEquals(false, StringUtils.isAlpha(null));
-        assertEquals(true, StringUtils.isAlpha(""));
+        assertEquals(false, StringUtils.isAlpha(""));
         assertEquals(false, StringUtils.isAlpha(" "));
         assertEquals(true, StringUtils.isAlpha("a"));
         assertEquals(true, StringUtils.isAlpha("A"));
@@ -49,7 +49,7 @@ public class StringUtilsIsTest extends TestCase {
 
     public void testIsAlphanumeric() {
         assertEquals(false, StringUtils.isAlphanumeric(null));
-        assertEquals(true, StringUtils.isAlphanumeric(""));
+        assertEquals(false, StringUtils.isAlphanumeric(""));
         assertEquals(false, StringUtils.isAlphanumeric(" "));
         assertEquals(true, StringUtils.isAlphanumeric("a"));
         assertEquals(true, StringUtils.isAlphanumeric("A"));
@@ -131,7 +131,7 @@ public class StringUtilsIsTest extends TestCase {
   
     public void testIsNumeric() {
         assertEquals(false, StringUtils.isNumeric(null));
-        assertEquals(true, StringUtils.isNumeric(""));
+        assertEquals(false, StringUtils.isNumeric(""));
         assertEquals(false, StringUtils.isNumeric(" "));
         assertEquals(false, StringUtils.isNumeric("a"));
         assertEquals(false, StringUtils.isNumeric("A"));
