@@ -79,7 +79,31 @@ we will remove the related methods in Lang 4.0. </p>
 <section name="New packages">
 <p>Two new packages have shown up. org.apache.commons.lang3.concurrent, which unsurprisingly provides support classes for 
 multi-threaded programming, and org.apache.commons.lang3.text.translate, which provides a pluggable API for text transformation. </p>
-<!-- TODO: Add examples -->
+<!-- TODO: <h3>concurrent.*</h3> -->
+
+<h3>text.translate.*</h3>
+<p>A common complaint with StringEscapeUtils was that its escapeXml and escapeHtml methods should not be escaping non-ASCII characters. We agreed and made the change while creating a modular approach to let users define their own escaping constructs. </p>
+<p>The simplest way to show this is to look at the code that implements escapeXml:</p>
+<pre>
+    return ESCAPE_XML.translate(input);
+</pre>
+<p>Very simple. Maybe a bit too very simple, let's look a bit deeper. </p>
+<pre>
+    public static final CharSequenceTranslator ESCAPE_XML =
+        new AggregateTranslator(
+            new LookupTranslator(EntityArrays.BASIC_ESCAPE()),
+            new LookupTranslator(EntityArrays.APOS_ESCAPE())
+        );
+</pre>
+<p>Here we see that <code>ESCAPE_XML</code> is a '<code>CharSequenceTranslator</code>', which in turn is made up of two lookup translators based on the basic XML escapes and another to escape apostrophes. This shows one way to combine translators. Another can be shown by looking at the example to achieve the old XML escaping functionality (escaping non-ASCII): </p>
+<pre>
+          StringEscapeUtils.ESCAPE_XML.with( UnicodeEscaper.above(0x7f) );
+</pre>
+<p>That takes the standard Commons Lang provided escape functionality, and adds on another translation layer. Another JIRA requested option was to also escape non-printable ASCII, this is now achievable with a modification of the above: </p>
+<pre>
+          StringEscapeUtils.ESCAPE_XML.with( UnicodeEscaper.outsideOf(32, 0x7f) );
+</pre>
+<p>You can also implement your own translators (be they for escaping, unescaping or some aspect of your own). See the <code>CharSequenceTranslator</code> and its <code>CodePointTranslator</code> helper subclass for details - primarily a case of implementing the translate(CharSequence, int, Writer);int method. </p>
 </section>
 <section name="New classes + methods">
 <p>There are many new classes and methods in Lang 3.0 - the most complete way to see the changes is via this <a href="lang2-lang3-clirr-report.html">Lang2 to Lang3 Clirr report</a>. </p>
@@ -110,6 +134,7 @@ multi-threaded programming, and org.apache.commons.lang3.text.translate, which p
 <ul>
 <li>StringUtils.isAlpha, isNumeric and isAlphanumeric now all return false when passed an empty String. Previously they returned true. </li>
 <li>SystemUtils.isJavaVersionAtLeast now relies on the <code>java.specification.version</code> and not the <code>java.version</code> System property. </li>
+<li>StringEscapeUtils.escapeXml and escapeHtml no longer escape high value unicode characters by default. The text.translate package is available to recreate the old behaviour. </li>
 </ul>
 </section>
 
