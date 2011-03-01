@@ -79,8 +79,56 @@ we will remove the related methods in Lang 4.0. </p>
 <section name="New packages">
 <p>Two new packages have shown up. org.apache.commons.lang3.concurrent, which unsurprisingly provides support classes for 
 multi-threaded programming, and org.apache.commons.lang3.text.translate, which provides a pluggable API for text transformation. </p>
-<!-- TODO: <h3>concurrent.*</h3> -->
 
+<h3>concurrent.*</h3>
+<p>Java 1.5 adds a great bunch of functionality related to multi-threaded programming
+below the <code>java.util.concurrent</code> package. Commons Lang 3.0 provides
+some additional classes in this area which are intended to further simplify the
+development of concurrent applications.</p>
+<p>The classes located in the <code>concurrent</code> package can be roughly
+divided into the following categories:
+<ul>
+<li>Utility classes</li>
+<li>Initializer classes</li>
+</ul>
+</p>
+<p>Classes of the former category provide some basic functionality a developer
+typically has to implement manually again and again. Examples are a configurable
+<code>ThreadFactory</code> implementation or utility methods for the handling of
+<code>ExecutionException</code>s thrown by Java's executor service framework.</p>
+<p>Initializer classes deal with the creation of objects in a multi-threaded
+environment. There are several variants of initializer implementations serving
+different purposes. For instance, there are a couple of concrete initializers
+supporting lazy initialization of objects in a safe way. Another example is
+<code>BackgroundInitializer</code> which allows pushing the creation of an
+expensive object to a background thread while the application can continue with
+the execution of other tasks. Here is an example of the usage of <code>BackgroundInitializer</code>
+which creates an <code>EntityManagerFactory</code> object:</p>
+<pre>
+public class DBInitializer extends BackgroundInitialize&lt;EntityManagerFactory&gt; {
+    protected EntityManagerFactory initialize() {
+        return Persistence.createEntityManagerFactory(&quot;mypersistenceunit&quot;);
+    }
+}
+</pre>
+<p>An application creates an instance of the <code>DBInitializer</code> class
+and calls its <code>start()</code> method. When it later needs access to the
+<code>EntityManagerFactory</code> created by the initializer it calls the
+<code>get()</code> method; <code>get()</code> returns the object produced by the
+initializer if it is already available or blocks if necessary until initialization
+is complete. Alternatively a convenience method of the <code>ConcurrentUtils</code>
+class can be used to obtain the object from the initializer which hides the
+checked exception declared by <code>get()</code>:</p>
+<pre>
+DBInitializer init = new DBInitializer();
+init.start();
+
+// now do some other stuff
+
+EntityManagerFactory factory = ConcurrentUtils.initializeUnchecked(init);
+</pre>
+<p>Comprehensive documentation about the <code>concurrent</code> package is
+available in the <a href="userguide.html">user guide</a>.</p>
 <h3>text.translate.*</h3>
 <p>A common complaint with StringEscapeUtils was that its escapeXml and escapeHtml methods should not be escaping non-ASCII characters. We agreed and made the change while creating a modular approach to let users define their own escaping constructs. </p>
 <p>The simplest way to show this is to look at the code that implements escapeXml:</p>
