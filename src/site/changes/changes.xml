@@ -54,7 +54,8 @@
     <action type="fix" issue="LANG-643">Javadoc StringUtils.left() claims to throw on negative len, but doesn't</action>
     <action type="add" issue="LANG-640">Add normalizeSpace to StringUtils</action>
     <action type="fix" issue="LANG-638">NumberUtils createNumber throws a StringIndexOutOfBoundsException when argument containing "e" and "E" is passed in</action>
-<!-- 3.0 beta below here -->
+    <!-- 3.0 beta below here -->
+    <action>NOTE: The below were included in the Commons Lang 3.0-beta release.</action>
     <action type="update">Push down WordUtils to "text" sub-package.</action>
     <action type="add" issue="LANG-610">Extend exception handling in ConcurrentUtils to runtime exceptions.</action>
     <action type="fix" issue="LANG-608">Some StringUtils methods should take an int character instead of char to use String API features.</action>
