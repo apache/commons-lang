@@ -105,11 +105,11 @@ expensive object to a background thread while the application can continue with
 the execution of other tasks. Here is an example of the usage of <code>BackgroundInitializer</code>
 which creates an <code>EntityManagerFactory</code> object:</p>
 <pre>
-public class DBInitializer extends BackgroundInitialize&lt;EntityManagerFactory&gt; {
-    protected EntityManagerFactory initialize() {
-        return Persistence.createEntityManagerFactory(&quot;mypersistenceunit&quot;);
+    public class DBInitializer extends BackgroundInitialize&lt;EntityManagerFactory&gt; {
+        protected EntityManagerFactory initialize() {
+            return Persistence.createEntityManagerFactory(&quot;mypersistenceunit&quot;);
+        }
     }
-}
 </pre>
 <p>An application creates an instance of the <code>DBInitializer</code> class
 and calls its <code>start()</code> method. When it later needs access to the
@@ -120,15 +120,15 @@ is complete. Alternatively a convenience method of the <code>ConcurrentUtils</co
 class can be used to obtain the object from the initializer which hides the
 checked exception declared by <code>get()</code>:</p>
 <pre>
-DBInitializer init = new DBInitializer();
-init.start();
+    DBInitializer init = new DBInitializer();
+    init.start();
 
-// now do some other stuff
+    // now do some other stuff
 
-EntityManagerFactory factory = ConcurrentUtils.initializeUnchecked(init);
+    EntityManagerFactory factory = ConcurrentUtils.initializeUnchecked(init);
 </pre>
 <p>Comprehensive documentation about the <code>concurrent</code> package is
-available in the <a href="userguide.html">user guide</a>.</p>
+available in the <a href="userguide.html#lang.concurrent.">user guide</a>.</p>
 <h3>text.translate.*</h3>
 <p>A common complaint with StringEscapeUtils was that its escapeXml and escapeHtml methods should not be escaping non-ASCII characters. We agreed and made the change while creating a modular approach to let users define their own escaping constructs. </p>
 <p>The simplest way to show this is to look at the code that implements escapeXml:</p>
