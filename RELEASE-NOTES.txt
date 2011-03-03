@@ -1,7 +1,7 @@
 $Id$
 
                         Commons Lang Package
-                            Version 3.0-beta
+                            Version 3.0
                            Release Notes
 
 
@@ -14,8 +14,9 @@ Java environment.
 Lang 3.0 now targets Java 5.0, making use of features that arrived with Java 5.0 such as generics, 
 variable arguments, autoboxing, concurrency and formatted output.
 
-Note that this is a Beta release. The API is largely stable, and we're eager for feedback on 
-the mailing list or issue tracker.
+For the latest advice on upgrading, see the following page: 
+
+    http://commons.apache.org/lang/article3_0.html
 
 ADDITIONS IN 3.0
 ================
