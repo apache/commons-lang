@@ -257,13 +257,11 @@ public class ArrayUtils {
      * <p>Arrays are covariant i.e. they cannot be created from a generic type:</p>
      *
      * <pre>
-    public static &lt;T&gt; T[] createAnArray(int size)
-    {
+    public static &lt;T&gt; T[] createAnArray(int size) {
         return T[size]; // compiler error here
     }
-    public static &lt;T&gt; T[] createAnArray(int size)
-    {
-        return (T[])Object[size]; // ClassCastException at runtime
+    public static &lt;T&gt; T[] createAnArray(int size) {
+        return (T[])new Object[size]; // ClassCastException at runtime
     }
      * </pre>
      *
@@ -280,7 +278,7 @@ public class ArrayUtils {
      * 
      * Note, this method makes only sense to provide arguments of the same type so that the
      * compiler can deduce the type of the array itself. While it is possible to select the
-     * type explicitly like in <code>Number[] array = ArrayUtils.<Number>toArray(new
+     * type explicitly like in <code>Number[] array = ArrayUtils.&lt;Number&gt;toArray(new
      * Integer(42), new Double(Math.PI))</code>, there is no real advantage to <code>new
      * Number[] {new Integer(42), new Double(Math.PI)}</code> anymore.
      *
@@ -289,8 +287,7 @@ public class ArrayUtils {
      * @return the array
      * @since  3.0
      */
-    public static <T> T[] toArray(final T... items)
-    {
+    public static <T> T[] toArray(final T... items) {
         return items;
     }
     
