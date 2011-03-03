@@ -22,12 +22,8 @@ limitations under the License.
  </properties>
 <body>
 
-<section name="DRAFT">
-<p>THIS IS A DRAFT - 3.0 IS NOT OUT, BUT THIS DOCUMENT SHOULD PROVE USEFUL WHEN EXAMINING BETA RELEASES OR TRUNK</p>
-</section>
-
 <section name="What's new in Commons Lang 3.0?">
-<p>Commons Lang 3.0 is <strong>(not yet)</strong> out, and the obvious question is: <i>"So what? What's changed?"</i>.</p>
+<p>Commons Lang 3.0 is out, and the obvious question is: <i>"So what? What's changed?"</i>.</p>
 <section name="The big story">
 <p>Lang is now Java 5 based. We've generified the API, moved certain APIs to support <code>varargs</code> and thrown out any features 
 that are now supported by Java itself. We've removed the deprecated parts of the API and have also removed some features that 
