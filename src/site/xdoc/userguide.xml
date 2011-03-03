@@ -34,7 +34,6 @@ limitations under the License.
       <a href="#Description">[Description]</a>
       <a href="#lang.">[lang.*]</a>
       <a href="#lang.builder.">[lang.builder.*]</a>
-      <a href="#lang.enums.">[lang.enums.*]</a>
       <a href="#lang.exception.">[lang.exception.*]</a>
       <a href="#lang.math.">[lang.math.*]</a>
       <a href="#lang.mutable.">[lang.mutable.*]</a>
@@ -47,10 +46,10 @@ limitations under the License.
 
   <section name="Description">
    <p>The Commons Lang library provides much needed additions to the standard JDK's java.lang package. Very generic, very reusable components for everyday use.</p>
-   <p>The top level package contains various Utils classes, whilst there are various subpackages including enums, exception and builder. Using the Utils classes is generally simplicity itself. They are the equivalent of global functions in another language, a collection of stand-alone, thread-safe, static methods. In contrast, subpackages may contain interfaces which may have to be implemented or classes which may need to be extended to get the full functionality from the code. They may, however, contain more global-like functions. </p>
-   <p>Lang seeks to support Java 1.2 onwards, so although you may have seen features in later versions of Java, such as split methods and nested exceptions, Lang still maintains non-java.lang versions for users of earlier versions of Java. </p>
-   <p>You will find deprecated methods as you stroll through the Lang documentation. These are removed in the next major release. </p>
-   <p>Before we begin, it's a good time to mention the Utils classes. They all contain empty public constructors with warnings not to use. This may seem an odd thing to do, but it allows tools like Velocity to access the class as if it were a bean. In other words, yes we know about private constructors. </p>
+   <p>The top level package contains various Utils classes, whilst there are various subpackages including math, concurrent and builder. Using the Utils classes is generally simplicity itself. They are the equivalent of global functions in another language, a collection of stand-alone, thread-safe, static methods. In contrast, subpackages may contain interfaces which may have to be implemented or classes which may need to be extended to get the full functionality from the code. They may, however, contain more global-like functions. </p>
+   <p>Lang 3.0 is JDK 1.5+; before that Lang was JDK 1.2+. In both cases you can find features of later JDKs being maintained by us and likely to be removed or modified in favour of the JDK in the next major version. </p>
+   <p>You will find deprecated methods as you stroll through the Lang documentation. These are removed in the next major version. </p>
+   <p>Before we begin, it's a good time to mention the Utils classes. They all contain empty public constructors with warnings not to use. This may seem an odd thing to do, but it allows tools like Velocity to access the class as if it were a bean. In other words, yes we know about private constructors and have chosen not to use them. </p>
   </section>
 
    <section name="lang.*">
@@ -105,10 +104,6 @@ limitations under the License.
      <p>Our final util class is BooleanUtils. It contains various Boolean acting methods, probably of most interest is the <code>BooleanUtils.toBoolean(String)</code> method which turns various positive/negative Strings into a Boolean object, and not just true/false as with Boolean.valueOf. </p>
     </subsection>
 
-    <subsection name="Exceptions - IllegalClassException, IncompleteArgumentException, NotImplementedException, NullArgumentException, UnhandledException">
-     <p>Lang also has a series of Exceptions that we felt are useful. All of these exceptions are descendents of RuntimeException, they're just a bit more meaningful than java.lang.IllegalArgumentException. </p>
-    </subsection>
-
     <subsection name="Flotsam - BitField, Validate">
      <p>On reaching the end of our package, we are left with a couple of classes that haven't fit any of the topics so far. </p>
      <p>The BitField class provides a wrapper class around the classic bitmask integer, whilst the Validate class may be used for assertions (remember, we support Java 1.2). </p>
@@ -128,66 +123,14 @@ limitations under the License.
     <p>When you write a hashcode, do you check Bloch's Effective Java? No? You just hack in a quick number? Well HashCodeBuilder will save your day. It, and its buddies (EqualsBuilder, CompareToBuilder, ToStringBuilder), take care of the nasty bits while you focus on the important bits, like which fields will go into making up the hashcode.</p>
    </section>
 
-   <section name="lang.enums.*">
-   <!--
-   Enum
-   EnumUtils
-   ValuedEnum
-   -->
-    <p><i>(Formerly lang.enum.*)</i></p>
-    <p>Enums are an old C thing. Very useful. One of the major uses is to give type to your constants, and even more, to give them order. For example:</p>
-    <h5>A simple Enum</h5>
-<source>
-public final class ColorEnum extends Enum {
-     public static final ColorEnum RED = new ColorEnum("Red");
-     public static final ColorEnum GREEN = new ColorEnum("Green");
-     public static final ColorEnum BLUE = new ColorEnum("Blue");
-
-     private ColorEnum(String color) {
-          super(color);
-     }
-
-     public static ColorEnum getEnum(String color) {
-          return (ColorEnum) getEnum(ColorEnum.class, color);
-     }
-
-     public static Iterator iterator() {
-          return iterator(ColorEnum.class);
-     }
-}
-</source>
-    <p>The enums package used to be the enum package, but with Java 5 giving us an enum keyword, the move to the enums package name was necessary and the old enum package was deprecated. </p>
-   </section>
-
-   <section name="lang.exception.*">
-   <!--
-   ExceptionUtils
-   Nestable
-   NestableDelegate
-   NestableError
-   NestableException
-   NestableRuntimeException
-   -->
-    <p>JDK 1.4 brought us NestedExceptions, that is an Exception which can link to another Exception. This subpackage provides it to those of us who have to code to something other than JDK 1.4 (most reusable code libaries are aimed at JDK 1.2).</p>
-    <p>It isn't just a nested exception framework though, it uses reflection to allow it to handle many nested exception frameworks, including JDK 1.4's.</p>
-    <p>The reflection ability is one of the more interesting tricks hidden in the reflection sub-package, and of much use to writers of applications such as Tomcat or IDEs, in fact any code which has to catch 'Exception' from an unknown source and then wanting to display in a novel way.</p>
-   </section>
-
    <section name="lang.math.*">
    <!--
-   DoubleRange
-   FloatRange
    Fraction
-   IntRange
-   JVMRandom
-   LongRange
-   NumberRange
    NumberUtils
    RandomUtils
-   Range
    -->
-    <p>Although Commons-Math also exists, some basic mathematical functions are contained within Lang. These include classes to represent ranges of numbers, a Fraction class, various utilities for random numbers, and the flagship class, NumberUtils which contains a handful of classic number functions. </p>
-    <p>There are two aspects of this package I would like to highlight. The first is <code>NumberUtils.createNumber(String)</code>, a method which does its best to convert a String into a Number object. You have no idea what type of Number it will return, so you should call the relevant <code>xxxValue</code> method when you reach the point of needing a number. NumberUtils also has a related <code>isNumber</code> method. The second is the JVMRandom class. This is an instance of Random which relies on the <code>Math.random()</code> method for its implementation and so gives the developer access to the JVM's random seed. If you try to create Random objects in the same millisecond, they will give the same answer; so quickly you will find yourself caching that Random object. Rather than caching your own object, simply use the one the JVM is caching already. The RandomUtils provides a static access to the JVMRandom class, which may be easier to use. </p>
+    <p>Although Commons-Math also exists, some basic mathematical functions are contained within Lang. These include classes to a Fraction class, various utilities for random numbers, and the flagship class, NumberUtils which contains a handful of classic number functions. </p>
+    <p>There are two aspects of this package I would like to highlight. The first is <code>NumberUtils.createNumber(String)</code>, a method which does its best to convert a String into a Number object. You have no idea what type of Number it will return, so you should call the relevant <code>xxxValue</code> method when you reach the point of needing a number. NumberUtils also has a related <code>isNumber</code> method. </p>
    </section>
 
    <section name="lang.mutable.*">
