@@ -28,7 +28,7 @@
             <item name="Download"        href="/download_lang.cgi"/>
             <item name="Users guide"     href="/userguide.html"/>
             <item name="Release History" href="/release-history.html"/>
-            <item name="Javadoc (2.6 release)" href="api-release/index.html"/>
+            <item name="Javadoc (3.0 release)" href="api-release/index.html"/>
         </menu>
 
         <menu name="Development">
