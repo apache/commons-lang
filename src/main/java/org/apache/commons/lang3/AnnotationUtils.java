@@ -89,7 +89,7 @@ public class AnnotationUtils {
     };
 
     /**
-     * <p><code>AnnotationUtils</code> instances should NOT be constructed in
+     * <p>{@code AnnotationUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used statically.</p>
      * 
      * <p>This constructor is public to permit tools that require a JavaBean

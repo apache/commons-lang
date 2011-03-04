@@ -884,7 +884,7 @@ public class BooleanUtils {
      *   BooleanUtils.xor(new boolean[] { true, false })  = true
      * </pre>
      *
-     * @param array  an array of <code>boolean<code>s
+     * @param array  an array of {@code boolean}s
      * @return {@code true} if the xor is successful.
      * @throws IllegalArgumentException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.
@@ -924,7 +924,7 @@ public class BooleanUtils {
      *   BooleanUtils.xor(new Boolean[] { Boolean.TRUE, Boolean.FALSE })  = Boolean.TRUE
      * </pre>
      *
-     * @param array  an array of <code>Boolean<code>s
+     * @param array  an array of {@code Boolean}s
      * @return {@code true} if the xor is successful.
      * @throws IllegalArgumentException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty.

@@ -36,7 +36,7 @@ public class SerializationException extends RuntimeException {
     private static final long serialVersionUID = 4029025366392702726L;
 
     /**
-     * <p>Constructs a new <code>SerializationException</code> without specified
+     * <p>Constructs a new {@code SerializationException} without specified
      * detail message.</p>
      */
     public SerializationException() {
@@ -44,7 +44,7 @@ public class SerializationException extends RuntimeException {
     }
 
     /**
-     * <p>Constructs a new <code>SerializationException</code> with specified
+     * <p>Constructs a new {@code SerializationException} with specified
      * detail message.</p>
      *
      * @param msg  The error message.
@@ -54,10 +54,10 @@ public class SerializationException extends RuntimeException {
     }
 
     /**
-     * <p>Constructs a new <code>SerializationException</code> with specified
-     * nested <code>Throwable</code>.</p>
+     * <p>Constructs a new {@code SerializationException} with specified
+     * nested {@code Throwable}.</p>
      *
-     * @param cause  The <code>Exception</code> or <code>Error</code>
+     * @param cause  The {@code Exception} or {@code Error}
      *  that caused this exception to be thrown.
      */
     public SerializationException(Throwable cause) {
@@ -65,11 +65,11 @@ public class SerializationException extends RuntimeException {
     }
 
     /**
-     * <p>Constructs a new <code>SerializationException</code> with specified
-     * detail message and nested <code>Throwable</code>.</p>
+     * <p>Constructs a new {@code SerializationException} with specified
+     * detail message and nested {@code Throwable}.</p>
      *
      * @param msg    The error message.
-     * @param cause  The <code>Exception</code> or <code>Error</code>
+     * @param cause  The {@code Exception} or {@code Error}
      *  that caused this exception to be thrown.
      */
     public SerializationException(String msg, Throwable cause) {

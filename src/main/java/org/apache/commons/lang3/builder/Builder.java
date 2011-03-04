@@ -32,7 +32,7 @@ package org.apache.commons.lang3.builder;
  * 
  * <p>
  * It is a recommended practice that the methods supplied to configure the 
- * object or result being built return a reference to <code>this</code> so that
+ * object or result being built return a reference to {@code this} so that
  * method calls can be chained together.
  * </p>
  * 
