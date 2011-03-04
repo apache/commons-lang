@@ -24,7 +24,7 @@ import java.util.TimeZone;
 /**
  * <p>Date and time formatting utilities and constants.</p>
  *
- * <p>Formatting is performed using the
+ * <p>Formatting is performed using the thread-safe
  * {@link org.apache.commons.lang3.time.FastDateFormat} class.</p>
  *
  * @author Apache Software Foundation
@@ -121,7 +121,7 @@ public class DateFormatUtils {
      * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
      * 
      * @param millis  the date to format expressed in milliseconds
-     * @param pattern  the pattern to use to format the date
+     * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
      */
     public static String formatUTC(long millis, String pattern) {
@@ -131,8 +131,8 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
      * 
-     * @param date  the date to format
-     * @param pattern  the pattern to use to format the date
+     * @param date  the date to format, not null
+     * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
      */
     public static String formatUTC(Date date, String pattern) {
@@ -143,7 +143,7 @@ public class DateFormatUtils {
      * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
      * 
      * @param millis  the date to format expressed in milliseconds
-     * @param pattern  the pattern to use to format the date
+     * @param pattern  the pattern to use to format the date, not null
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */
@@ -154,8 +154,8 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern using the UTC time zone.</p>
      * 
-     * @param date  the date to format
-     * @param pattern  the pattern to use to format the date
+     * @param date  the date to format, not null
+     * @param pattern  the pattern to use to format the date, not null
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */
@@ -167,7 +167,7 @@ public class DateFormatUtils {
      * <p>Formats a date/time into a specific pattern.</p>
      * 
      * @param millis  the date to format expressed in milliseconds
-     * @param pattern  the pattern to use to format the date
+     * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
      */
     public static String format(long millis, String pattern) {
@@ -177,8 +177,8 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern.</p>
      * 
-     * @param date  the date to format
-     * @param pattern  the pattern to use to format the date
+     * @param date  the date to format, not null
+     * @param pattern  the pattern to use to format the date, not null
      * @return the formatted date
      */
     public static String format(Date date, String pattern) {
@@ -188,8 +188,8 @@ public class DateFormatUtils {
     /**
      * <p>Formats a calendar into a specific pattern.</p>
      * 
-     * @param calendar  the calendar to format
-     * @param pattern  the pattern to use to format the calendar
+     * @param calendar  the calendar to format, not null
+     * @param pattern  the pattern to use to format the calendar, not null
      * @return the formatted calendar
      * @see FastDateFormat#format(Calendar)
      * @since 2.4
@@ -202,7 +202,7 @@ public class DateFormatUtils {
      * <p>Formats a date/time into a specific pattern in a time zone.</p>
      * 
      * @param millis  the time expressed in milliseconds
-     * @param pattern  the pattern to use to format the date
+     * @param pattern  the pattern to use to format the date, not null
      * @param timeZone  the time zone  to use, may be <code>null</code>
      * @return the formatted date
      */
@@ -213,8 +213,8 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern in a time zone.</p>
      * 
-     * @param date  the date to format
-     * @param pattern  the pattern to use to format the date
+     * @param date  the date to format, not null
+     * @param pattern  the pattern to use to format the date, not null
      * @param timeZone  the time zone  to use, may be <code>null</code>
      * @return the formatted date
      */
@@ -225,8 +225,8 @@ public class DateFormatUtils {
     /**
      * <p>Formats a calendar into a specific pattern in a time zone.</p>
      * 
-     * @param calendar  the calendar to format
-     * @param pattern  the pattern to use to format the calendar
+     * @param calendar  the calendar to format, not null
+     * @param pattern  the pattern to use to format the calendar, not null
      * @param timeZone  the time zone  to use, may be <code>null</code>
      * @return the formatted calendar
      * @see FastDateFormat#format(Calendar)
@@ -240,7 +240,7 @@ public class DateFormatUtils {
      * <p>Formats a date/time into a specific pattern in a locale.</p>
      * 
      * @param millis  the date to format expressed in milliseconds
-     * @param pattern  the pattern to use to format the date
+     * @param pattern  the pattern to use to format the date, not null
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */
@@ -251,8 +251,8 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern in a locale.</p>
      * 
-     * @param date  the date to format
-     * @param pattern  the pattern to use to format the date
+     * @param date  the date to format, not null
+     * @param pattern  the pattern to use to format the date, not null
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
      */
@@ -263,8 +263,8 @@ public class DateFormatUtils {
     /**
      * <p>Formats a calendar into a specific pattern in a locale.</p>
      * 
-     * @param calendar  the calendar to format
-     * @param pattern  the pattern to use to format the calendar
+     * @param calendar  the calendar to format, not null
+     * @param pattern  the pattern to use to format the calendar, not null
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted calendar
      * @see FastDateFormat#format(Calendar)
@@ -278,7 +278,7 @@ public class DateFormatUtils {
      * <p>Formats a date/time into a specific pattern in a time zone  and locale.</p>
      * 
      * @param millis  the date to format expressed in milliseconds
-     * @param pattern  the pattern to use to format the date
+     * @param pattern  the pattern to use to format the date, not null
      * @param timeZone  the time zone  to use, may be <code>null</code>
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
@@ -290,8 +290,8 @@ public class DateFormatUtils {
     /**
      * <p>Formats a date/time into a specific pattern in a time zone  and locale.</p>
      * 
-     * @param date  the date to format
-     * @param pattern  the pattern to use to format the date
+     * @param date  the date to format, not null
+     * @param pattern  the pattern to use to format the date, not null, not null
      * @param timeZone  the time zone  to use, may be <code>null</code>
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted date
@@ -304,8 +304,8 @@ public class DateFormatUtils {
     /**
      * <p>Formats a calendar into a specific pattern in a time zone  and locale.</p>
      * 
-     * @param calendar  the calendar to format
-     * @param pattern  the pattern to use to format the calendar
+     * @param calendar  the calendar to format, not null
+     * @param pattern  the pattern to use to format the calendar, not null
      * @param timeZone  the time zone  to use, may be <code>null</code>
      * @param locale  the locale to use, may be <code>null</code>
      * @return the formatted calendar

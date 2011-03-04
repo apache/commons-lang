@@ -75,7 +75,7 @@ public class DurationFormatUtils {
      * <i>H</i>:<i>m</i>:<i>s</i>.<i>S</i>.</p>
      * 
      * @param durationMillis  the duration to format
-     * @return the time as a String
+     * @return the formatted duration, not null
      */
     public static String formatDurationHMS(long durationMillis) {
         return formatDuration(durationMillis, "H:mm:ss.SSS");
@@ -90,7 +90,7 @@ public class DurationFormatUtils {
      * ISO format pattern, such as P7D6TH5M4.321S.</p>
      * 
      * @param durationMillis  the duration to format
-     * @return the time as a String
+     * @return the formatted duration, not null
      */
     public static String formatDurationISO(long durationMillis) {
         return formatDuration(durationMillis, ISO_EXTENDED_FORMAT_PATTERN, false);
@@ -104,8 +104,8 @@ public class DurationFormatUtils {
      * format pattern. Months and larger are not used.</p>
      * 
      * @param durationMillis  the duration to format
-     * @param format  the way in which to format the duration
-     * @return the time as a String
+     * @param format  the way in which to format the duration, not null
+     * @return the formatted duration, not null
      */
     public static String formatDuration(long durationMillis, String format) {
         return formatDuration(durationMillis, format, true);
@@ -120,9 +120,9 @@ public class DurationFormatUtils {
      * format pattern. Months and larger are not used.</p>
      * 
      * @param durationMillis  the duration to format
-     * @param format  the way in which to format the duration
+     * @param format  the way in which to format the duration, not null
      * @param padWithZeros  whether to pad the left hand side of numbers with 0's
-     * @return the time as a String
+     * @return the formatted duration, not null
      */
     public static String formatDuration(long durationMillis, String format, boolean padWithZeros) {
 
@@ -166,7 +166,7 @@ public class DurationFormatUtils {
      * @param durationMillis  the elapsed time to report in milliseconds
      * @param suppressLeadingZeroElements  suppresses leading 0 elements
      * @param suppressTrailingZeroElements  suppresses trailing 0 elements
-     * @return the formatted text in days/hours/minutes/seconds
+     * @return the formatted text in days/hours/minutes/seconds, not null
      */
     public static String formatDurationWords(
         long durationMillis,
@@ -229,7 +229,7 @@ public class DurationFormatUtils {
      * 
      * @param startMillis  the start of the duration to format
      * @param endMillis  the end of the duration to format
-     * @return the time as a String
+     * @return the formatted duration, not null
      */
     public static String formatPeriodISO(long startMillis, long endMillis) {
         return formatPeriod(startMillis, endMillis, ISO_EXTENDED_FORMAT_PATTERN, false, TimeZone.getDefault());
@@ -241,8 +241,8 @@ public class DurationFormatUtils {
      * 
      * @param startMillis  the start of the duration
      * @param endMillis  the end of the duration
-     * @param format  the way in which to format the duration
-     * @return the time as a String
+     * @param format  the way in which to format the duration, not null
+     * @return the formatted duration, not null
      */
     public static String formatPeriod(long startMillis, long endMillis, String format) {
         return formatPeriod(startMillis, endMillis, format, true, TimeZone.getDefault());
@@ -266,10 +266,10 @@ public class DurationFormatUtils {
      * 
      * @param startMillis  the start of the duration
      * @param endMillis  the end of the duration
-     * @param format  the way in which to format the duration
-     * @param padWithZeros whether to pad the left hand side of numbers with 0's
-     * @param timezone the millis are defined in
-     * @return the time as a String
+     * @param format  the way in which to format the duration, not null
+     * @param padWithZeros  whether to pad the left hand side of numbers with 0's
+     * @param timezone  the millis are defined in
+     * @return the formatted duration, not null
      */
     public static String formatPeriod(long startMillis, long endMillis, String format, boolean padWithZeros, 
             TimeZone timezone) {
@@ -482,7 +482,7 @@ public class DurationFormatUtils {
     /**
      * Parses a classic date format string into Tokens
      *
-     * @param format to parse
+     * @param format  the format to parse, not null
      * @return array of Token[]
      */
     static Token[] lexx(String format) {
@@ -541,6 +541,7 @@ public class DurationFormatUtils {
         return list.toArray( new Token[list.size()] );
     }
 
+    //-----------------------------------------------------------------------
     /**
      * Element that is parsed from the format pattern.
      */
@@ -641,11 +642,11 @@ public class DurationFormatUtils {
         }
 
         /**
-         * Returns a hashcode for the token equal to the 
-         * hashcode for the token's value. Thus 'TT' and 'TTTT' 
-         * will have the same hashcode. 
+         * Returns a hash code for the token equal to the 
+         * hash code for the token's value. Thus 'TT' and 'TTTT' 
+         * will have the same hash code. 
          *
-         * @return The hashcode for the token
+         * @return The hash code for the token
          */
         @Override
         public int hashCode() {
