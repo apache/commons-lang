@@ -278,7 +278,7 @@ public final class Range<T> implements Serializable {
      *  this range; otherwise, <code>false</code>
      * @throws IllegalArgumentException if the <code>Range</code> cannot be compared
      */
-    public boolean containsRange(Range<T> range) {
+    public boolean containsAll(Range<T> range) {
         if (range == null) {
             return false;
         }
@@ -296,7 +296,7 @@ public final class Range<T> implements Serializable {
      *  range; otherwise, <code>false</code>
      * @throws IllegalArgumentException if the <code>Range</code> cannot be compared
      */
-    public boolean overlapsRange(Range<T> range) {
+    public boolean overlapsWith(Range<T> range) {
         if (range == null) {
             return false;
         }

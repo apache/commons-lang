@@ -205,67 +205,67 @@ public class RangeTest extends TestCase {
 
     // --------------------------------------------------------------------------
 
-    public void testContainsRange() {
+    public void testContainsAll() {
 
         // null handling
-        assertFalse(intRange.containsRange(null));
+        assertFalse(intRange.containsAll(null));
 
         // easy inside range
-        assertTrue(intRange.containsRange(Range.between(12, 18)));
+        assertTrue(intRange.containsAll(Range.between(12, 18)));
 
         // outside range on each side
-        assertFalse(intRange.containsRange(Range.between(32, 45)));
-        assertFalse(intRange.containsRange(Range.between(2, 8)));
+        assertFalse(intRange.containsAll(Range.between(32, 45)));
+        assertFalse(intRange.containsAll(Range.between(2, 8)));
 
         // equals range
-        assertTrue(intRange.containsRange(Range.between(10, 20)));
+        assertTrue(intRange.containsAll(Range.between(10, 20)));
 
         // overlaps
-        assertFalse(intRange.containsRange(Range.between(9, 14)));
-        assertFalse(intRange.containsRange(Range.between(16, 21)));
+        assertFalse(intRange.containsAll(Range.between(9, 14)));
+        assertFalse(intRange.containsAll(Range.between(16, 21)));
 
         // touches lower boundary
-        assertTrue(intRange.containsRange(Range.between(10, 19)));
-        assertFalse(intRange.containsRange(Range.between(10, 21)));
+        assertTrue(intRange.containsAll(Range.between(10, 19)));
+        assertFalse(intRange.containsAll(Range.between(10, 21)));
 
         // touches upper boundary
-        assertTrue(intRange.containsRange(Range.between(11, 20)));
-        assertFalse(intRange.containsRange(Range.between(9, 20)));
+        assertTrue(intRange.containsAll(Range.between(11, 20)));
+        assertFalse(intRange.containsAll(Range.between(9, 20)));
         
         // negative
-        assertFalse(intRange.containsRange(Range.between(-11, -18)));
+        assertFalse(intRange.containsAll(Range.between(-11, -18)));
 
     }
 
-    public void testOverlapsRange() {
+    public void testOverlapsWith() {
 
         // null handling
-        assertFalse(intRange.overlapsRange(null));
+        assertFalse(intRange.overlapsWith(null));
 
         // easy inside range
-        assertTrue(intRange.overlapsRange(Range.between(12, 18)));
+        assertTrue(intRange.overlapsWith(Range.between(12, 18)));
 
         // outside range on each side
-        assertFalse(intRange.overlapsRange(Range.between(32, 45)));
-        assertFalse(intRange.overlapsRange(Range.between(2, 8)));
+        assertFalse(intRange.overlapsWith(Range.between(32, 45)));
+        assertFalse(intRange.overlapsWith(Range.between(2, 8)));
 
         // equals range
-        assertTrue(intRange.overlapsRange(Range.between(10, 20)));
+        assertTrue(intRange.overlapsWith(Range.between(10, 20)));
 
         // overlaps
-        assertTrue(intRange.overlapsRange(Range.between(9, 14)));
-        assertTrue(intRange.overlapsRange(Range.between(16, 21)));
+        assertTrue(intRange.overlapsWith(Range.between(9, 14)));
+        assertTrue(intRange.overlapsWith(Range.between(16, 21)));
 
         // touches lower boundary
-        assertTrue(intRange.overlapsRange(Range.between(10, 19)));
-        assertTrue(intRange.overlapsRange(Range.between(10, 21)));
+        assertTrue(intRange.overlapsWith(Range.between(10, 19)));
+        assertTrue(intRange.overlapsWith(Range.between(10, 21)));
 
         // touches upper boundary
-        assertTrue(intRange.overlapsRange(Range.between(11, 20)));
-        assertTrue(intRange.overlapsRange(Range.between(9, 20)));
+        assertTrue(intRange.overlapsWith(Range.between(11, 20)));
+        assertTrue(intRange.overlapsWith(Range.between(9, 20)));
         
         // negative
-        assertFalse(intRange.overlapsRange(Range.between(-11, -18)));
+        assertFalse(intRange.overlapsWith(Range.between(-11, -18)));
 
     }
 
