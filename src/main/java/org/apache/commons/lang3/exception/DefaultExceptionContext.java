@@ -58,8 +58,7 @@ class DefaultExceptionContext implements ExceptionContext, Serializable {
         while (contextValueMap.containsKey(key)) {
             Object information = contextValueMap.get(key);
             if ((value == null && information == null)
-                    || (value != null && value.equals(information))) 
-            {
+                    || (value != null && value.equals(information))) {
                 return this;
             }
             key = label + "[" + ++i +"]";
@@ -132,12 +131,10 @@ class DefaultExceptionContext implements ExceptionContext, Serializable {
                 value = this.contextValueMap.get(label);
                 if (value == null) {
                     buffer.append("null");
-                }
-                else {
+                } else {
                     try {
                         valueStr = value.toString();
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         valueStr = "Exception thrown on toString(): " + ExceptionUtils.getStackTrace(e);
                     }
                     buffer.append(valueStr);

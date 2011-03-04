@@ -802,10 +802,8 @@ public class Validate {
      * @throws IllegalArgumentException if the character sequence does not match the pattern
      * @see #matchesPattern(CharSequence, String, String, Object...)
      */
-    public static void matchesPattern(CharSequence input, String pattern)
-    {
-        if (Pattern.matches(pattern, input) == false)
-        {
+    public static void matchesPattern(CharSequence input, String pattern) {
+        if (Pattern.matches(pattern, input) == false) {
             throw new IllegalArgumentException(String.format(DEFAULT_MATCHES_PATTERN_EX, input, pattern));
         }
     }
@@ -825,10 +823,8 @@ public class Validate {
      * @throws IllegalArgumentException if the character sequence does not match the pattern
      * @see #matchesPattern(CharSequence, String)
      */
-    public static void matchesPattern(CharSequence input, String pattern, String message, Object... values)
-    {
-        if (Pattern.matches(pattern, input) == false)
-        {
+    public static void matchesPattern(CharSequence input, String pattern, String message, Object... values) {
+        if (Pattern.matches(pattern, input) == false) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -845,10 +841,8 @@ public class Validate {
      * @throws IllegalArgumentException if the value falls out of the boundaries
      * @see #inclusiveBetween(Object, Object, Comparable, String, Object...)
      */
-    public static <T> void inclusiveBetween(T start, T end, Comparable<T> value)
-    {
-        if (value.compareTo(start) < 0 || value.compareTo(end) > 0)
-        {
+    public static <T> void inclusiveBetween(T start, T end, Comparable<T> value) {
+        if (value.compareTo(start) < 0 || value.compareTo(end) > 0) {
             throw new IllegalArgumentException(String.format(DEFAULT_INCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
         }
     }
@@ -868,10 +862,8 @@ public class Validate {
      * @throws IllegalArgumentException if the value falls out of the boundaries
      * @see #inclusiveBetween(Object, Object, Comparable)
      */
-    public static <T> void inclusiveBetween(T start, T end, Comparable<T> value, String message, Object... values)
-    {
-        if (value.compareTo(start) < 0 || value.compareTo(end) > 0)
-        {
+    public static <T> void inclusiveBetween(T start, T end, Comparable<T> value, String message, Object... values) {
+        if (value.compareTo(start) < 0 || value.compareTo(end) > 0) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -888,10 +880,8 @@ public class Validate {
      * @throws IllegalArgumentException if the value falls out of the boundaries
      * @see #exclusiveBetween(Object, Object, Comparable, String, Object...)
      */
-    public static <T> void exclusiveBetween(T start, T end, Comparable<T> value)
-    {
-        if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0)
-        {
+    public static <T> void exclusiveBetween(T start, T end, Comparable<T> value) {
+        if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0) {
             throw new IllegalArgumentException(String.format(DEFAULT_EXCLUSIVE_BETWEEN_EX_MESSAGE, value, start, end));
         }
     }
@@ -911,10 +901,8 @@ public class Validate {
      * @throws IllegalArgumentException if the value falls out of the boundaries
      * @see #exclusiveBetween(Object, Object, Comparable)
      */
-    public static <T> void exclusiveBetween(T start, T end, Comparable<T> value, String message, Object... values)
-    {
-        if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0)
-        {
+    public static <T> void exclusiveBetween(T start, T end, Comparable<T> value, String message, Object... values) {
+        if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -934,10 +922,8 @@ public class Validate {
      * @throws IllegalArgumentException if argument is not of specified class
      * @see #isInstanceOf(Class, Object, String, Object...)
      */
-    public static void isInstanceOf(Class<?> type, Object o)
-    {
-        if (type.isInstance(o) == false)
-        {
+    public static void isInstanceOf(Class<?> type, Object o) {
+        if (type.isInstance(o) == false) {
             throw new IllegalArgumentException(String.format(DEFAULT_IS_INSTANCE_OF_EX_MESSAGE, type.getName()));
         }
     }
@@ -956,10 +942,8 @@ public class Validate {
      * @throws IllegalArgumentException if argument is not of specified class
      * @see #isInstanceOf(Class, Object)
      */
-    public static void isInstanceOf(Class<?> type, Object o, String message, Object... values)
-    {
-        if (type.isInstance(o) == false)
-        {
+    public static void isInstanceOf(Class<?> type, Object o, String message, Object... values) {
+        if (type.isInstance(o) == false) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }
@@ -979,10 +963,8 @@ public class Validate {
      * @throws IllegalArgumentException if argument can not be converted to the specified class
      * @see #isAssignableFrom(Class, Class, String, Object...)
      */
-    public static void isAssignableFrom(Class<?> superType, Class<?> type)
-    {
-        if (superType.isAssignableFrom(type) == false)
-        {
+    public static void isAssignableFrom(Class<?> superType, Class<?> type) {
+        if (superType.isAssignableFrom(type) == false) {
             throw new IllegalArgumentException(String.format(DEFAULT_IS_ASSIGNABLE_EX_MESSAGE, superType.getName()));
         }
     }
@@ -1004,10 +986,8 @@ public class Validate {
      * @throws IllegalArgumentException if argument can not be converted to the specified class
      * @see #isAssignableFrom(Class, Class)
      */
-    public static void isAssignableFrom(Class<?> superType, Class<?> type, String message, Object... values)
-    {
-        if (superType.isAssignableFrom(type) == false)
-        {
+    public static void isAssignableFrom(Class<?> superType, Class<?> type, String message, Object... values) {
+        if (superType.isAssignableFrom(type) == false) {
             throw new IllegalArgumentException(String.format(message, values));
         }
     }

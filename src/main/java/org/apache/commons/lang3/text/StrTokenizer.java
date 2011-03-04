@@ -726,8 +726,7 @@ public class StrTokenizer implements ListIterator<String>, Cloneable {
      *  then the length of string
      */
     private int readWithQuotes(char[] chars, int start, int len, StrBuilder workArea, 
-                               List<String> tokens, int quoteStart, int quoteLen) 
-    {
+                               List<String> tokens, int quoteStart, int quoteLen) {
         // Loop until we've found the end of the quoted
         // string or the end of the input
         workArea.clear();

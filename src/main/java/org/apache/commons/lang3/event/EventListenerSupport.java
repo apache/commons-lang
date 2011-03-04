@@ -63,8 +63,8 @@ import org.apache.commons.lang3.Validate;
  * @since 3.0
  * @version $Id$
  */
-public class EventListenerSupport<L> implements Serializable
-{
+public class EventListenerSupport<L> implements Serializable {
+
     /** Serialization version */
     private static final long serialVersionUID = 3593265990380473632L;
 
@@ -101,8 +101,7 @@ public class EventListenerSupport<L> implements Serializable
      * @throws IllegalArgumentException if <code>listenerInterface</code> is
      *         not an interface.
      */
-    public static <T> EventListenerSupport<T> create(Class<T> listenerInterface)
-    {
+    public static <T> EventListenerSupport<T> create(Class<T> listenerInterface) {
         return new EventListenerSupport<T>(listenerInterface);
     }
 
@@ -118,8 +117,7 @@ public class EventListenerSupport<L> implements Serializable
      * @throws IllegalArgumentException if <code>listenerInterface</code> is
      *         not an interface.
      */
-    public EventListenerSupport(Class<L> listenerInterface)
-    {
+    public EventListenerSupport(Class<L> listenerInterface) {
         this(listenerInterface, Thread.currentThread().getContextClassLoader());
     }
 
@@ -136,8 +134,7 @@ public class EventListenerSupport<L> implements Serializable
      * @throws IllegalArgumentException if <code>listenerInterface</code> is
      *         not an interface.
      */
-    public EventListenerSupport(Class<L> listenerInterface, ClassLoader classLoader)
-    {
+    public EventListenerSupport(Class<L> listenerInterface, ClassLoader classLoader) {
         this();
         Validate.notNull(listenerInterface, "Listener interface cannot be null.");
         Validate.notNull(classLoader, "ClassLoader cannot be null.");
@@ -161,8 +158,7 @@ public class EventListenerSupport<L> implements Serializable
      * @return a proxy object which can be used to call listener methods on all 
      * of the registered event listeners
      */
-    public L fire()
-    {
+    public L fire() {
         return proxy;
     }
 
@@ -178,8 +174,7 @@ public class EventListenerSupport<L> implements Serializable
      * @throws NullPointerException if <code>listener</code> is 
      *         <code>null</code>.
      */
-    public void addListener(L listener)
-    {
+    public void addListener(L listener) {
         Validate.notNull(listener, "Listener object cannot be null.");
         listeners.add(listener);
     }
@@ -189,8 +184,7 @@ public class EventListenerSupport<L> implements Serializable
      *
      * @return the number of registered listeners.
      */
-    int getListenerCount()
-    {
+    int getListenerCount() {
         return listeners.size();
     }
 
@@ -202,8 +196,7 @@ public class EventListenerSupport<L> implements Serializable
      * @throws NullPointerException if <code>listener</code> is 
      *         <code>null</code>.
      */
-    public void removeListener(L listener)
-    {
+    public void removeListener(L listener) {
         Validate.notNull(listener, "Listener object cannot be null.");
         listeners.remove(listener);
     }
@@ -296,8 +289,7 @@ public class EventListenerSupport<L> implements Serializable
     /**
      * An invocation handler used to dispatch the event(s) to all the listeners.
      */
-    protected class ProxyInvocationHandler implements InvocationHandler
-    {
+    protected class ProxyInvocationHandler implements InvocationHandler {
         /** Serialization version */
         private static final long serialVersionUID = 1L;
 
@@ -311,11 +303,8 @@ public class EventListenerSupport<L> implements Serializable
          *        listeners.
          * @param args event arguments to propagate to the listeners.
          */
-        public Object invoke(Object proxy, Method method, Object[] args) 
-            throws Throwable
-        {
-            for (L listener : listeners)
-            {
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            for (L listener : listeners) {
                 method.invoke(listener, args);
             }
             return null;

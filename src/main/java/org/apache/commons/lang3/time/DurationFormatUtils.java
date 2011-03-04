@@ -348,12 +348,10 @@ public class DurationFormatUtils {
                     days += start.getActualMaximum(Calendar.DAY_OF_YEAR) - start.get(Calendar.DAY_OF_YEAR);
                     
                     // Not sure I grok why this is needed, but the brutal tests show it is
-                    if(start instanceof GregorianCalendar) {
-                        if( (start.get(Calendar.MONTH) == Calendar.FEBRUARY) &&
-                            (start.get(Calendar.DAY_OF_MONTH) == 29 ) )
-                        {
-                            days += 1;
-                        }
+                    if (start instanceof GregorianCalendar &&
+                            start.get(Calendar.MONTH) == Calendar.FEBRUARY &&
+                            start.get(Calendar.DAY_OF_MONTH) == 29) {
+                        days += 1;
                     }
                     
                     start.add(Calendar.YEAR, 1);

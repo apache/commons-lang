@@ -2725,9 +2725,8 @@ public class StringUtils {
      * @return an array of parsed Strings, <code>null</code> if null String input
      * @since 2.4
      */
-    private static String[] splitByWholeSeparatorWorker(String str, String separator, int max,
-                                                        boolean preserveAllTokens)
-    {
+    private static String[] splitByWholeSeparatorWorker(
+            String str, String separator, int max, boolean preserveAllTokens) {
         if (str == null) {
             return null;
         }
@@ -4035,16 +4034,14 @@ public class StringUtils {
      *             and/or size 0)
      * @since 2.4
      */
-    private static String replaceEach(String text, String[] searchList, String[] replacementList,
-                                      boolean repeat, int timeToLive)
-    {
+    private static String replaceEach(
+            String text, String[] searchList, String[] replacementList, boolean repeat, int timeToLive) {
 
         // mchyzer Performance note: This creates very few new objects (one major goal)
         // let me know if there are performance requests, we can create a harness to measure
 
         if (text == null || text.length() == 0 || searchList == null ||
-            searchList.length == 0 || replacementList == null || replacementList.length == 0)
-        {
+                searchList.length == 0 || replacementList == null || replacementList.length == 0) {
             return text;
         }
 
@@ -4076,8 +4073,7 @@ public class StringUtils {
         // NOTE: logic duplicated below START
         for (int i = 0; i < searchLength; i++) {
             if (noMoreMatchesForReplIndex[i] || searchList[i] == null ||
-                searchList[i].length() == 0 || replacementList[i] == null)
-            {
+                    searchList[i].length() == 0 || replacementList[i] == null) {
                 continue;
             }
             tempIndex = text.indexOf(searchList[i]);
@@ -4135,8 +4131,7 @@ public class StringUtils {
             // NOTE: logic mostly duplicated above START
             for (int i = 0; i < searchLength; i++) {
                 if (noMoreMatchesForReplIndex[i] || searchList[i] == null ||
-                    searchList[i].length() == 0 || replacementList[i] == null)
-                {
+                        searchList[i].length() == 0 || replacementList[i] == null) {
                     continue;
                 }
                 tempIndex = text.indexOf(searchList[i], start);
