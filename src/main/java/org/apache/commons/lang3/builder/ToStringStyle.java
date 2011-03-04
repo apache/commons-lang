@@ -70,6 +70,11 @@ import org.apache.commons.lang3.SystemUtils;
 public abstract class ToStringStyle implements Serializable {
 
     /**
+     * Serialization version ID.
+     */
+    private static final long serialVersionUID = -2587890625525655916L;
+
+    /**
      * The default toString style. Using the Using the <code>Person</code>
      * example from {@link ToStringBuilder}, the output would look like this:
      *
