@@ -17,32 +17,45 @@
 package org.apache.commons.lang3;
 
 /**
- * Null-safe CharSequence utility methods.
+ * <p>Operations on {@code CharSequence} that are
+ * <code>null</code> safe.</p>
  *
+ * @author Apache Software Foundation
  * @author Gary Gregory
+ * @since 3.0
  * @version $Id$
  */
 public class CharSequenceUtils {
 
     /**
-     * Returns a new <code>CharSequence</code> that is a subsequence of this
-     * sequence starting with the <code>char</code> value at the specified
-     * index. The length (in <code>char</code>s) of the returned sequence is
-     * <code>length() - start</code>, so if <code>start == end</code> then an
-     * empty sequence is returned. </p>
+     * <p>{@code CharSequenceUtils} instances should NOT be constructed in
+     * standard programming. Instead, the static methods on the class should
+     * be used, such as {@code CharSequenceUtils.subSequence(cs, 4);}.</p>
      *
-     * @param cs
-     *            the specified subsequence, may be null
-     * @param start
-     *            the start index, inclusive
-     * @return a new subsequence or null
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
+     */
+    public CharSequenceUtils() {
+        super();
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Returns a new {@code CharSequence} that is a subsequence of this
+     * sequence starting with the {@code char} value at the specified index.</p>
+     * 
+     * <p>This provides the {@code CharSequence} equivalent to {@link String#substring(int)}.
+     * The length (in {@code char}) of the returned sequence is {@code length() - start},
+     * so if {@start == end} then an empty sequence is returned.</p>
      *
-     * @throws IndexOutOfBoundsException
-     *             if <code>start</code> is negative or if <code>start</code> is
-     *             greater than <code>length()</code>
-     * @since 3.0
+     * @param cs  the specified subsequence, null returns null
+     * @param start  the start index, inclusive, valid
+     * @return a new subsequence, may be null
+     * @throws IndexOutOfBoundsException if {@code start} is negative or if 
+     *  {@code start} is greater than {@code length()}
      */
     public static CharSequence subSequence(CharSequence cs, int start) {
         return cs == null ? null : cs.subSequence(start, cs.length());
     }
+
 }
