@@ -265,39 +265,40 @@ public class ArrayUtils {
     // Generic array
     //-----------------------------------------------------------------------
     /**
-     * Create a type-safe generic array.
+     * <p>Create a type-safe generic array.</p>
      *
-     * <p>Arrays are covariant i.e. they cannot be created from a generic type:</p>
+     * <p>The Java language does not allow an array to be created from a generic type:</p>
      *
      * <pre>
     public static &lt;T&gt; T[] createAnArray(int size) {
-        return T[size]; // compiler error here
+        return new T[size]; // compiler error here
     }
     public static &lt;T&gt; T[] createAnArray(int size) {
         return (T[])new Object[size]; // ClassCastException at runtime
     }
      * </pre>
      *
-     * <p>Therefore new arrays of generic types can be created with this method, e.g. an arrays
-     * of Strings:</p>
+     * <p>Therefore new arrays of generic types can be created with this method.
+     * For example, an array of Strings can be created:</p>
      *
      * <pre>
     String[] array = ArrayUtils.toArray("1", "2");
     String[] emptyArray = ArrayUtils.&lt;String&gt;toArray();
      * </pre>
      * 
-     * The method is typically used in scenarios, where the caller itself uses generic types
-     * that have to be combined into an array.
+     * <p>The method is typically used in scenarios, where the caller itself uses generic types
+     * that have to be combined into an array.</p>
      * 
-     * Note, this method makes only sense to provide arguments of the same type so that the
+     * <p>Note, this method makes only sense to provide arguments of the same type so that the
      * compiler can deduce the type of the array itself. While it is possible to select the
-     * type explicitly like in <code>Number[] array = ArrayUtils.&lt;Number&gt;toArray(new
-     * Integer(42), new Double(Math.PI))</code>, there is no real advantage to <code>new
-     * Number[] {new Integer(42), new Double(Math.PI)}</code> anymore.
+     * type explicitly like in
+     * <code>Number[] array = ArrayUtils.&lt;Number&gt;toArray(new Integer(42), new Double(Math.PI))</code>,
+     * there is no real advantage when compared to
+     * <code>new Number[] {new Integer(42), new Double(Math.PI)}</code>.</p>
      *
      * @param  <T>   the array's element type
-     * @param  items the items of the array
-     * @return the array
+     * @param  items  the varargs array items, null allowed
+     * @return the array, not null unless a null array is passed in
      * @since  3.0
      */
     public static <T> T[] toArray(final T... items) {
