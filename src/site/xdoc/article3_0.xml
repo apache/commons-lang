@@ -60,6 +60,7 @@ we are on Java 6, where the last remaining parts of the JDK appear to have embra
 proved to be both an uncommon use case and one with bugs and so was dropped. </p>
 <h3>StringEscapeUtils.escapeSql</h3>
 <p>This was a misleading method, only handling the simplest of possible SQL cases. As SQL is not Lang's focus, it didn't make sense to maintain this method. </p>
+<h3>*Exceptions removed</h3>
 <p>Various Exception classes were removed - the lesson in defining more semantically relevant exception classes is that you can keep on coming up with more and more new classes. Simpler to focus on using the main JDK classes. </p>
 <h3>math.*Range</h3>
 <p>The various Range classes in the <code>math</code> package were removed in favour of a new generic Range class. </p>
