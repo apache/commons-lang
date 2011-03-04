@@ -52,14 +52,14 @@ public final class CharRange implements Iterable<Character>, Serializable {
     private transient String iToString;
 
     /**
-     * <p>Constructs a <code>CharRange</code> over a set of characters,
+     * <p>Constructs a {@code CharRange} over a set of characters,
      * optionally negating the range.</p>
      *
      * <p>A negated range includes everything except that defined by the
      * start and end characters.</p>
      * 
      * <p>If start and end are in the wrong order, they are reversed.
-     * Thus <code>a-e</code> is the same as <code>e-a</code>.</p>
+     * Thus {@code a-e} is the same as {@code e-a}.</p>
      *
      * @param start  first character, inclusive, in this range
      * @param end  last character, inclusive, in this range
@@ -79,7 +79,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * <p>Constructs a <code>CharRange</code> over a single character.</p>
+     * <p>Constructs a {@code CharRange} over a single character.</p>
      *
      * @param ch  only character in this range
      * @return the new CharRange object
@@ -91,7 +91,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * <p>Constructs a negated <code>CharRange</code> over a single character.</p>
+     * <p>Constructs a negated {@code CharRange} over a single character.</p>
      *
      * @param ch  only character in this range
      * @return the new CharRange object
@@ -103,7 +103,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * <p>Constructs a <code>CharRange</code> over a set of characters.</p>
+     * <p>Constructs a {@code CharRange} over a set of characters.</p>
      *
      * @param start  first character, inclusive, in this range
      * @param end  last character, inclusive, in this range
@@ -116,7 +116,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * <p>Constructs a negated <code>CharRange</code> over a set of characters.</p>
+     * <p>Constructs a negated {@code CharRange} over a set of characters.</p>
      *
      * @param start  first character, inclusive, in this range
      * @param end  last character, inclusive, in this range
@@ -149,12 +149,12 @@ public final class CharRange implements Iterable<Character>, Serializable {
     }
 
     /**
-     * <p>Is this <code>CharRange</code> negated.</p>
+     * <p>Is this {@code CharRange} negated.</p>
      * 
      * <p>A negated range includes everything except that defined by the
      * start and end characters.</p>
      *
-     * @return <code>true</code> is negated
+     * @return {@code true} if negated
      */
     public boolean isNegated() {
         return negated;
@@ -166,7 +166,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
      * <p>Is the character specified contained in this range.</p>
      *
      * @param ch  the character to check
-     * @return <code>true</code> if this range contains the input character
+     * @return {@code true} if this range contains the input character
      */
     public boolean contains(char ch) {
         return (ch >= start && ch <= end) != negated;
@@ -177,8 +177,8 @@ public final class CharRange implements Iterable<Character>, Serializable {
      * this range.</p>
      *
      * @param range  the range to check against
-     * @return <code>true</code> if this range entirely contains the input range
-     * @throws IllegalArgumentException if <code>null</code> input
+     * @return {@code true} if this range entirely contains the input range
+     * @throws IllegalArgumentException if {@code null} input
      */
     public boolean contains(CharRange range) {
         if (range == null) {
@@ -324,7 +324,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
         /**
          * Has the iterator not reached the end character yet?
          *
-         * @return <code>true</code> if the iterator has yet to reach the character date
+         * @return {@code true} if the iterator has yet to reach the character date
          */
         public boolean hasNext() {
             return hasNext;
@@ -333,7 +333,7 @@ public final class CharRange implements Iterable<Character>, Serializable {
         /**
          * Return the next character in the iteration
          *
-         * @return <code>Character</code> for the next character
+         * @return {@code Character} for the next character
          */
         public Character next() {
             if (hasNext == false) {
