@@ -17,9 +17,10 @@
 
 package org.apache.commons.lang3;
 
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_1;
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_2;
+import static org.apache.commons.lang3.JavaVersion.JAVA_1_3;
 import junit.framework.TestCase;
-
-import static org.apache.commons.lang3.JavaVersion.*;
 
 /**
  * Tests CharEncoding.
@@ -52,6 +53,12 @@ public class CharEncodingTest extends TestCase {
         } else {
             this.warn("Java 1.3 tests not run since the current version is " + SystemUtils.JAVA_SPECIFICATION_VERSION);
         }
+    }
+
+    public void testSupported() {
+        assertTrue(CharEncoding.isSupported("UTF8"));
+        assertTrue(CharEncoding.isSupported("UTF-8"));
+        assertTrue(CharEncoding.isSupported("ASCII"));
     }
 
     public void testNotSupported() {
