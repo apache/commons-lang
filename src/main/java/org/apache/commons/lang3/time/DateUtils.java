@@ -54,6 +54,8 @@ public class DateUtils {
 
     /**
      * The UTC time zone (often referred to as GMT).
+     * Since a {@code TimeZone} is mutable and this is a "constant", it is
+     * essential that this object is not altered.
      */
     public static final TimeZone UTC_TIME_ZONE = TimeZone.getTimeZone("GMT");
     /**
