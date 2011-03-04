@@ -25,11 +25,20 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * Helper methods for working with {@link Annotation}s.
+ * <p>Helper methods for working with {@link Annotation} instances.</p>
+ * 
+ * <p>This contains various utility methods that make working with annotations simpler.</p>
+ * 
+ * <p>#ThreadSafe#</p>
+ * 
  * @since 3.0
  * @version $Id$
  */
 public class AnnotationUtils {
+
+    /**
+     * A style that prints annotations as recommended.
+     */
     private static final ToStringStyle TO_STRING_STYLE = new ToStringStyle() {
         /** Serialization version */
         private static final long serialVersionUID = 1L;
@@ -89,14 +98,17 @@ public class AnnotationUtils {
     public AnnotationUtils() {
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * Learn whether two annotations are equivalent; dynamically created
-     * {@link Annotation} instances are always proxy objects which cannot be
-     * depended upon to know how to implement {@link Annotation#equals(Object)}
-     * per spec.
-     * @param a1 the first Annotation to compare
-     * @param a2 the second Annotation to compare
-     * @return Whether the two annotations are equal
+     * <p>Checks if two annotations are equal.</p>
+     * 
+     * <p>Dynamically created {@link Annotation} instances are always proxy
+     * objects which cannot be depended upon to know how to implement
+     * {@link Annotation#equals(Object)} correctly.</p>
+     * 
+     * @param a1 the first Annotation to compare, null returns false unless both are null
+     * @param a2 the second Annotation to compare, null returns false unless both are null
+     * @return true if the two annotations are equal or both null
      */
     public static boolean equals(Annotation a1, Annotation a2) {
         if (a1 == a2) {
@@ -132,26 +144,26 @@ public class AnnotationUtils {
     }
 
     /**
-     * Generate a hashcode for the given annotation; dynamically created
-     * {@link Annotation} instances are always proxy objects which cannot be
-     * depended upon to know how to implement {@link Annotation#hashCode()} per
-     * spec.
+     * <p>Generate a hash code for the given annotation.</p>
      * 
-     * @param a the Annotation for a hashcode calculation is desired
-     * @return the calculated hashcode
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
-     * @throws InvocationTargetException
+     * <p>Dynamically created {@link Annotation} instances are always proxy
+     * objects which cannot be depended upon to know how to implement
+     * {@link Annotation#hashCode()} correctly.</p>
+     * 
+     * @param a the Annotation for a hash code calculation is desired, not null
+     * @return the calculated hash code
+     * @throws IllegalAccessException if thrown during annotation access
+     * @throws InvocationTargetException if thrown during annotation access
      */
-    public static int hashCode(Annotation a) throws IllegalArgumentException,
-            IllegalAccessException, InvocationTargetException {
+    public static int hashCode(Annotation a)
+            throws IllegalAccessException, InvocationTargetException {
         int result = 0;
         Class<? extends Annotation> type = a.annotationType();
         for (Method m : type.getDeclaredMethods()) {
             Object value = m.invoke(a);
             if (value == null) {
-                throw new IllegalStateException(String.format("Annotation method %s returned null",
-                        m));
+                throw new IllegalStateException(
+                        String.format("Annotation method %s returned null", m));
             }
             result += hashMember(m.getName(), value);
         }
@@ -159,10 +171,11 @@ public class AnnotationUtils {
     }
 
     /**
-     * Generate a string representation of an Annotation, as suggested by
-     * {@link Annotation#toString()}.
+     * <p>Generate a string representation of an Annotation, as suggested by
+     * {@link Annotation#toString()}.</p>
+     * 
      * @param a the annotation of which a string representation is desired
-     * @return String
+     * @return the standard string representation of an annotation, not null
      */
     public static String toString(final Annotation a) {
         ToStringBuilder builder = new ToStringBuilder(a, TO_STRING_STYLE);
@@ -182,11 +195,14 @@ public class AnnotationUtils {
     }
 
     /**
-     * Learn whether the specified type is permitted as an annotation member.
-     * These include {@link String}, {@link Class}, primitive types,
-     * {@link Annotation}s, {@link Enum}s, and arrays of same.
-     * @param type to check
-     * @return boolean
+     * <p>Checks if the specified type is permitted as an annotation member.</p>
+     * 
+     * <p>The Java language specification only permits certain types to be used
+     * in annotations. These include {@link String}, {@link Class}, primitive types,
+     * {@link Annotation}, {@link Enum}, and arrays of these types.</p>
+     * 
+     * @param type the type to check, null returns false
+     * @return true if the type is a valid type to use in an annotation
      */
     public static boolean isValidAnnotationMemberType(Class<?> type) {
         if (type == null) {
@@ -200,8 +216,8 @@ public class AnnotationUtils {
     }
 
     //besides modularity, this has the advantage of autoboxing primitives:
-    private static int hashMember(String name, Object value) throws IllegalArgumentException,
-            IllegalAccessException, InvocationTargetException {
+    private static int hashMember(String name, Object value)
+            throws IllegalAccessException, InvocationTargetException {
         int part1 = name.hashCode() * 127;
         if (value.getClass().isArray()) {
             return part1 ^ arrayMemberHash(value.getClass().getComponentType(), value);
