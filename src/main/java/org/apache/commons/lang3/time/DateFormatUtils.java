@@ -38,6 +38,11 @@ import java.util.TimeZone;
 public class DateFormatUtils {
 
     /**
+     * The UTC time zone (often referred to as GMT).
+     * This is private as it is mutable.
+     */
+    private static final TimeZone UTC_TIME_ZONE = TimeZone.getTimeZone("GMT");
+    /**
      * ISO8601 formatter for date-time without time zone.
      * The format used is <tt>yyyy-MM-dd'T'HH:mm:ss</tt>.
      */
@@ -125,7 +130,7 @@ public class DateFormatUtils {
      * @return the formatted date
      */
     public static String formatUTC(long millis, String pattern) {
-        return format(new Date(millis), pattern, DateUtils.UTC_TIME_ZONE, null);
+        return format(new Date(millis), pattern, UTC_TIME_ZONE, null);
     }
 
     /**
@@ -136,7 +141,7 @@ public class DateFormatUtils {
      * @return the formatted date
      */
     public static String formatUTC(Date date, String pattern) {
-        return format(date, pattern, DateUtils.UTC_TIME_ZONE, null);
+        return format(date, pattern, UTC_TIME_ZONE, null);
     }
     
     /**
@@ -148,7 +153,7 @@ public class DateFormatUtils {
      * @return the formatted date
      */
     public static String formatUTC(long millis, String pattern, Locale locale) {
-        return format(new Date(millis), pattern, DateUtils.UTC_TIME_ZONE, locale);
+        return format(new Date(millis), pattern, UTC_TIME_ZONE, locale);
     }
 
     /**
@@ -160,7 +165,7 @@ public class DateFormatUtils {
      * @return the formatted date
      */
     public static String formatUTC(Date date, String pattern, Locale locale) {
-        return format(date, pattern, DateUtils.UTC_TIME_ZONE, locale);
+        return format(date, pattern, UTC_TIME_ZONE, locale);
     }
     
     /**
