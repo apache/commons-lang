@@ -250,9 +250,8 @@ public class RandomStringUtils {
                 ch = chars[random.nextInt(gap) + start];
             }
             if ((letters && Character.isLetter(ch))
-                || (numbers && Character.isDigit(ch))
-                || (!letters && !numbers)) 
-            {
+                    || (numbers && Character.isDigit(ch))
+                    || (!letters && !numbers)) {
                 if(ch >= 56320 && ch <= 57343) {
                     if(count == 0) {
                         count++;

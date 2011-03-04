@@ -268,9 +268,8 @@ public class CompareToBuilder implements Builder<Integer> {
      *  with <code>lhs</code>
      * @since 2.0
      */
-    public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients, 
-                                        Class<?> reflectUpToClass) 
-    {
+    public static int reflectionCompare(
+            Object lhs, Object rhs, boolean compareTransients, Class<?> reflectUpToClass) {
         return reflectionCompare(lhs, rhs, compareTransients, reflectUpToClass, null);
     }
 

@@ -174,15 +174,13 @@ public class StrSubstitutor {
      * @param valueProperties the properties with values, may be null
      * @return the result of the replace operation
      */
-    public static String replace(Object source, Properties valueProperties)
-    {
+    public static String replace(Object source, Properties valueProperties) {
         if (valueProperties == null) {
             return source.toString();
         }
         Map<String,String> valueMap = new HashMap<String,String>();
         Enumeration<?> propNames = valueProperties.propertyNames();
-        while (propNames.hasMoreElements())
-        {
+        while (propNames.hasMoreElements()) {
             String propName = (String)propNames.nextElement();
             String propValue = valueProperties.getProperty(propName);
             valueMap.put(propName, propValue);

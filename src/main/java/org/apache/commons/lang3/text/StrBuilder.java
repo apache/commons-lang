@@ -1174,8 +1174,7 @@ public class StrBuilder implements CharSequence, Appendable {
     public StrBuilder appendSeparator(char standard, char defaultIfEmpty) {
         if (size() > 0) {
             append(standard);
-        }
-        else {
+        } else {
             append(defaultIfEmpty);
         }
         return this;
