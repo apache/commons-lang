@@ -19,6 +19,8 @@ package org.apache.commons.lang3;
 /**
  * <p>Operations on {@code CharSequence} that are
  * <code>null</code> safe.</p>
+ * 
+ * <p>#ThreadSafe#</p>
  *
  * @author Apache Software Foundation
  * @author Gary Gregory
