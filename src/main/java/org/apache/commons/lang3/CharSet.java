@@ -100,7 +100,7 @@ public class CharSet implements Serializable {
      * <p>Factory method to create a new CharSet using a special syntax.</p>
      *
      * <ul>
-     *  <li><code>null</code> or empty string ("")
+     *  <li>{@code null} or empty string ("")
      * - set containing no characters</li>
      *  <li>Single character, such as "a"
      *  - set containing just that character</li>
@@ -179,7 +179,7 @@ public class CharSet implements Serializable {
      * Each string is merged in with the set.</p>
      *
      * @param set  Strings to merge into the initial set
-     * @throws NullPointerException if set is <code>null</code>
+     * @throws NullPointerException if set is {@code null}
      */
     protected CharSet(String[] set) {
         super();
@@ -191,7 +191,7 @@ public class CharSet implements Serializable {
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Add a set definition string to the <code>CharSet</code>.</p>
+     * <p>Add a set definition string to the {@code CharSet}.</p>
      *
      * @param str  set definition string
      */
@@ -237,11 +237,11 @@ public class CharSet implements Serializable {
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Does the <code>CharSet</code> contain the specified
-     * character <code>ch</code>.</p>
+     * <p>Does the {@code CharSet} contain the specified
+     * character {@code ch}.</p>
      *
      * @param ch  the character to check for
-     * @return <code>true</code> if the set contains the characters
+     * @return {@code true} if the set contains the characters
      */
     public boolean contains(char ch) {
         for (CharRange range : set) {
@@ -255,10 +255,10 @@ public class CharSet implements Serializable {
     // Basics
     //-----------------------------------------------------------------------
     /**
-     * <p>Compares two CharSet objects, returning true if they represent
+     * <p>Compares two {@code CharSet} objects, returning true if they represent
      * exactly the same set of characters defined in the same way.</p>
      *
-     * <p>The two sets <code>abc</code> and <code>a-c</code> are <i>not</i>
+     * <p>The two sets {@code abc} and {@code a-c} are <i>not</i>
      * equal according to this method.</p>
      *
      * @param obj  the object to compare to
@@ -278,9 +278,9 @@ public class CharSet implements Serializable {
     }
 
     /**
-     * <p>Gets a hashCode compatible with the equals method.</p>
+     * <p>Gets a hash code compatible with the equals method.</p>
      *
-     * @return a suitable hashCode
+     * @return a suitable hash code
      * @since 2.0
      */
     @Override
