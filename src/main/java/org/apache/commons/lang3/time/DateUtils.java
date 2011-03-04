@@ -83,7 +83,7 @@ public class DateUtils {
      * This is half a month, so this represents whether a date is in the top
      * or bottom half of the month.
      */
-    public final static int SEMI_MONTH = 1001;
+    public static final int SEMI_MONTH = 1001;
 
     private static final int[][] fields = {
             {Calendar.MILLISECOND},
@@ -100,50 +100,50 @@ public class DateUtils {
     /**
      * A week range, starting on Sunday.
      */
-    public final static int RANGE_WEEK_SUNDAY = 1;
+    public static final int RANGE_WEEK_SUNDAY = 1;
 
     /**
      * A week range, starting on Monday.
      */
-    public final static int RANGE_WEEK_MONDAY = 2;
+    public static final int RANGE_WEEK_MONDAY = 2;
 
     /**
      * A week range, starting on the day focused.
      */
-    public final static int RANGE_WEEK_RELATIVE = 3;
+    public static final int RANGE_WEEK_RELATIVE = 3;
 
     /**
      * A week range, centered around the day focused.
      */
-    public final static int RANGE_WEEK_CENTER = 4;
+    public static final int RANGE_WEEK_CENTER = 4;
 
     /**
      * A month range, the week starting on Sunday.
      */
-    public final static int RANGE_MONTH_SUNDAY = 5;
+    public static final int RANGE_MONTH_SUNDAY = 5;
 
     /**
      * A month range, the week starting on Monday.
      */
-    public final static int RANGE_MONTH_MONDAY = 6;
+    public static final int RANGE_MONTH_MONDAY = 6;
     
     /**
      * Constant marker for truncating 
      * @since 3.0
      */
-    public final static int MODIFY_TRUNCATE = 0;
+    public static final int MODIFY_TRUNCATE = 0;
 
     /**
      * Constant marker for rounding
      * @since 3.0
      */
-    public final static int MODIFY_ROUND = 1;
+    public static final int MODIFY_ROUND = 1;
     
     /**
      * Constant marker for ceiling
      * @since 3.0
      */
-    public final static int MODIFY_CEILING= 2;
+    public static final int MODIFY_CEILING= 2;
     
 
     /**
