@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -179,6 +180,18 @@ public class ArrayUtils {
             return stringIfNull;
         }
         return new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString();
+    }
+
+    /**
+     * <p>Get a hash code for an array handling multi-dimensional arrays correctly.</p>
+     *
+     * <p>Multi-dimensional primitive arrays are also handled correctly by this method.</p>
+     *
+     * @param array  the array to get a hash code for, <code>null</code> returns zero
+     * @return a hash code for the array
+     */
+    public static int hashCode(Object array) {
+        return new HashCodeBuilder().append(array).toHashCode();
     }
 
     /**

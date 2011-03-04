@@ -71,6 +71,23 @@ public class ArrayUtilsTest extends TestCase {
     }
 
     //-----------------------------------------------------------------------
+    public void testHashCode() {
+        long[][] array1 = new long[][] {{2,5}, {4,5}};
+        long[][] array2 = new long[][] {{2,5}, {4,6}};
+        assertEquals(true, ArrayUtils.hashCode(array1) == ArrayUtils.hashCode(array1));
+        assertEquals(false, ArrayUtils.hashCode(array1) == ArrayUtils.hashCode(array2));
+        
+        Object[] array3 = new Object[] {new String(new char[] {'A', 'B'})};
+        Object[] array4 = new Object[] {"AB"};
+        assertEquals(true, ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array3));
+        assertEquals(true, ArrayUtils.hashCode(array3) == ArrayUtils.hashCode(array4));
+        
+        Object[] arrayA = new Object[] {new boolean[] {true, false}, new int[] {6, 7}};
+        Object[] arrayB = new Object[] {new boolean[] {true, false}, new int[] {6, 7}};
+        assertEquals(true, ArrayUtils.hashCode(arrayB) == ArrayUtils.hashCode(arrayA));
+    }
+
+    //-----------------------------------------------------------------------
     private void assertIsEquals(Object array1, Object array2, Object array3) {
         assertEquals(true, ArrayUtils.isEquals(array1, array1));
         assertEquals(true, ArrayUtils.isEquals(array2, array2));
