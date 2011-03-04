@@ -652,8 +652,7 @@ public class DateUtils {
      * </p>
      * 
      * @param date  the date to work with, not null
-     * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
-     * @param field  the field from {@code Calendar} or <code>SEMI_MONTH</code>
+     * @param field  the field from {@code Calendar} or {@code SEMI_MONTH}
      * @return the different rounded date, not null
      * @throws ArithmeticException if the year is over 280 million
      */
