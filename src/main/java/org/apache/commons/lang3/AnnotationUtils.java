@@ -135,9 +135,9 @@ public class AnnotationUtils {
                     }
                 }
             }
-        } catch (IllegalAccessException e) {
+        } catch (IllegalAccessException ex) {
             return false;
-        } catch (InvocationTargetException e) {
+        } catch (InvocationTargetException ex) {
             return false;
         }
         return true;
@@ -155,17 +155,22 @@ public class AnnotationUtils {
      * @throws IllegalAccessException if thrown during annotation access
      * @throws InvocationTargetException if thrown during annotation access
      */
-    public static int hashCode(Annotation a)
-            throws IllegalAccessException, InvocationTargetException {
+    public static int hashCode(Annotation a) {
         int result = 0;
         Class<? extends Annotation> type = a.annotationType();
         for (Method m : type.getDeclaredMethods()) {
-            Object value = m.invoke(a);
-            if (value == null) {
-                throw new IllegalStateException(
-                        String.format("Annotation method %s returned null", m));
+            try {
+                Object value = m.invoke(a);
+                if (value == null) {
+                    throw new IllegalStateException(
+                            String.format("Annotation method %s returned null", m));
+                }
+                result += hashMember(m.getName(), value);
+            } catch (RuntimeException ex) {
+                throw ex;
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
-            result += hashMember(m.getName(), value);
         }
         return result;
     }
@@ -185,10 +190,10 @@ public class AnnotationUtils {
             }
             try {
                 builder.append(m.getName(), m.invoke(a));
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            } catch (RuntimeException ex) {
+                throw ex;
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
             }
         }
         return builder.build();
