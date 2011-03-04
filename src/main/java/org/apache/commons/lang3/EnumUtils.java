@@ -23,10 +23,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Utility library to provide helper methods for Java enums.
+ * <p>Utility library to provide helper methods for Java enums.</p>
  * 
  * <p>#ThreadSafe#</p>
+ * 
  * @author Apache Software Foundation
+ * @since 3.0
  * @version $Id$
  */
 public class EnumUtils {
@@ -39,11 +41,11 @@ public class EnumUtils {
     }
 
     /**
-     * Gets the <code>Map</code> of <code>enums</code> by name.
-     * <p>
-     * This method is useful when you need a map of enums by name.
+     * <p>Gets the {@code Map} of enums by name.</p>
+     * 
+     * <p>This method is useful when you need a map of enums by name.</p>
      *
-     * @param enumClass  the class of the <code>enum</code> to get, not null
+     * @param enumClass  the class of the enum to query, not null
      * @return the modifiable map of enum names to enums, never null
      */
     public static <E extends Enum<E>> Map<String, E> getEnumMap(Class<E> enumClass) {
@@ -55,11 +57,11 @@ public class EnumUtils {
     }
 
     /**
-     * Gets the <code>List</code> of <code>enums</code>.
-     * <p>
-     * This method is useful when you need a list of enums rather than an array.
+     * <p>Gets the {@code List} of enums.</p>
+     * 
+     * <p>This method is useful when you need a list of enums rather than an array.</p>
      *
-     * @param enumClass  the class of the <code>enum</code> to get, not null
+     * @param enumClass  the class of the enum to query, not null
      * @return the modifiable list of enums, never null
      */
     public static <E extends Enum<E>> List<E> getEnumList(Class<E> enumClass) {
@@ -67,16 +69,19 @@ public class EnumUtils {
     }
 
     /**
-     * Checks if the specified name is a valid <code>enum</code> for the class.
-     * <p>
-     * This method differs from {@link Enum#valueOf} in that checks if the name is
-     * a valid enum without needing to catch the exception.
+     * <p>Checks if the specified name is a valid enum for the class.</p>
+     * 
+     * <p>This method differs from {@link Enum#valueOf} in that checks if the name is
+     * a valid enum without needing to catch the exception.</p>
      *
-     * @param enumClass  the class of the <code>enum</code> to get, not null
-     * @param enumName   the enum name
+     * @param enumClass  the class of the enum to query, not null
+     * @param enumName   the enum name, null returns false
      * @return true if the enum name is valid, otherwise false
      */
     public static <E extends Enum<E>> boolean isValidEnum(Class<E> enumClass, String enumName) {
+        if (enumName == null) {
+            return false;
+        }
         try {
             Enum.valueOf(enumClass, enumName);
             return true;
@@ -86,16 +91,19 @@ public class EnumUtils {
     }
 
     /**
-     * Gets the <code>enum</code> for the class, returning <code>null</code> if not found.
-     * <p>
-     * This method differs from {@link Enum#valueOf} in that it does not throw an exception
-     * for an invalid enum name.
+     * <p>Gets the enum for the class, returning {@code null} if not found.</p>
+     * 
+     * <p>This method differs from {@link Enum#valueOf} in that it does not throw an exception
+     * for an invalid enum name.</p>
      *
-     * @param enumClass  the class of the <code>enum</code> to get, not null
-     * @param enumName   the enum name
-     * @return the enum or null if not found
+     * @param enumClass  the class of the enum to query, not null
+     * @param enumName   the enum name, null returns null
+     * @return the enum, null if not found
      */
     public static <E extends Enum<E>> E getEnum(Class<E> enumClass, String enumName) {
+        if (enumName == null) {
+            return null;
+        }
         try {
             return Enum.valueOf(enumClass, enumName);
         } catch (IllegalArgumentException ex) {

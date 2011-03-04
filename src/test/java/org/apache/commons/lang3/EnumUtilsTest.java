@@ -60,6 +60,16 @@ public class EnumUtilsTest extends TestCase {
         assertEquals(true, EnumUtils.isValidEnum(Traffic.class, "AMBER"));
         assertEquals(true, EnumUtils.isValidEnum(Traffic.class, "GREEN"));
         assertEquals(false, EnumUtils.isValidEnum(Traffic.class, "PURPLE"));
+        assertEquals(false, EnumUtils.isValidEnum(Traffic.class, null));
+    }
+
+    public void test_isEnum_nullClass() {
+        try {
+            EnumUtils.isValidEnum((Class<Traffic>) null, "PURPLE");
+            fail();
+        } catch (NullPointerException ex) {
+            // ok
+        }
     }
 
     public void test_getEnum() {
@@ -67,6 +77,16 @@ public class EnumUtilsTest extends TestCase {
         assertEquals(Traffic.AMBER, EnumUtils.getEnum(Traffic.class, "AMBER"));
         assertEquals(Traffic.GREEN, EnumUtils.getEnum(Traffic.class, "GREEN"));
         assertEquals(null, EnumUtils.getEnum(Traffic.class, "PURPLE"));
+        assertEquals(null, EnumUtils.getEnum(Traffic.class, null));
+    }
+
+    public void test_getEnum_nullClass() {
+        try {
+            EnumUtils.getEnum((Class<Traffic>) null, "PURPLE");
+            fail();
+        } catch (NullPointerException ex) {
+            // ok
+        }
     }
 
 }
