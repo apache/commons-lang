@@ -126,17 +126,17 @@ public class DateUtils {
      * Constant marker for truncating.
      * @since 3.0
      */
-    public static final int MODIFY_TRUNCATE = 0;
+    private static final int MODIFY_TRUNCATE = 0;
     /**
      * Constant marker for rounding.
      * @since 3.0
      */
-    public static final int MODIFY_ROUND = 1;
+    private static final int MODIFY_ROUND = 1;
     /**
      * Constant marker for ceiling.
      * @since 3.0
      */
-    public static final int MODIFY_CEILING = 2;
+    private static final int MODIFY_CEILING = 2;
 
     /**
      * <p>{@code DateUtils} instances should NOT be constructed in
