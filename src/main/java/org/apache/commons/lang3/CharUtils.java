@@ -19,8 +19,8 @@ package org.apache.commons.lang3;
 /**
  * <p>Operations on char primitives and Character objects.</p>
  *
- * <p>This class tries to handle <code>null</code> input gracefully.
- * An exception will not be thrown for a <code>null</code> input.
+ * <p>This class tries to handle {@code null} input gracefully.
+ * An exception will not be thrown for a {@code null} input.
  * Each method documents its behaviour in more detail.</p>
  * 
  * <p>#ThreadSafe#</p>
@@ -52,7 +52,7 @@ public class CharUtils {
     private static final Character[] CHAR_ARRAY = new Character[128];
     
     /**
-     * <code>\u000a</code> linefeed LF ('\n').
+     * {@code \u000a} linefeed LF ('\n').
      * 
      * @see <a href="http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#101089">JLF: Escape Sequences
      *      for Character and String Literals</a>
@@ -61,7 +61,7 @@ public class CharUtils {
     public static final char LF = '\n';
 
     /**
-     * <code>\u000d</code> carriage return CR ('\r').
+     * {@code \u000d} carriage return CR ('\r').
      * 
      * @see <a href="http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#101089">JLF: Escape Sequences
      *      for Character and String Literals</a>
@@ -78,8 +78,8 @@ public class CharUtils {
     }
 
     /**
-     * <p><code>CharUtils</code> instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>CharUtils.toString('c');</code>.</p>
+     * <p>{@code CharUtils} instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as {@code CharUtils.toString('c');}.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
@@ -136,7 +136,7 @@ public class CharUtils {
     
     //-----------------------------------------------------------------------
     /**
-     * <p>Converts the Character to a char throwing an exception for <code>null</code>.</p>
+     * <p>Converts the Character to a char throwing an exception for {@code null}.</p>
      * 
      * <pre>
      *   CharUtils.toChar(null) = IllegalArgumentException
@@ -156,7 +156,7 @@ public class CharUtils {
     }
     
     /**
-     * <p>Converts the Character to a char handling <code>null</code>.</p>
+     * <p>Converts the Character to a char handling {@code null}.</p>
      * 
      * <pre>
      *   CharUtils.toChar(null, 'X') = 'X'
@@ -339,7 +339,7 @@ public class CharUtils {
      * <p>For ASCII 7 bit characters, this uses a cache that will return the
      * same String object each time.</p>
      * 
-     * <p>If <code>null</code> is passed in, <code>null</code> will be returned.</p>
+     * <p>If {@code null} is passed in, {@code null} will be returned.</p>
      *
      * <pre>
      *   CharUtils.toString(null) = null
@@ -387,7 +387,7 @@ public class CharUtils {
      * 
      * <p>This format is the Java source code format.</p>
      * 
-     * <p>If <code>null</code> is passed in, <code>null</code> will be returned.</p>
+     * <p>If {@code null} is passed in, {@code null} will be returned.</p>
      *
      * <pre>
      *   CharUtils.unicodeEscaped(null) = null

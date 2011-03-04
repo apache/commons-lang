@@ -20,9 +20,9 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * <p><code>Range</code> represents an immutable range of comparables of the same type.</p>
- * <p>The objects need to either be implementations of <code>java.lang.Comparable</code>
- * or you need to supply a <code>java.util.Comparator</code>. </p>
+ * <p>{@code Range} represents an immutable range of comparables of the same type.</p>
+ * <p>The objects need to either be implementations of {@code java.lang.Comparable}
+ * or you need to supply a {@code java.util.Comparator}. </p>
  * 
  * <p>#ThreadSafe# if the comparables are thread-safe</p>
  * @author Apache Software Foundation
@@ -64,14 +64,14 @@ public final class Range<T> implements Serializable {
     private transient String toString = null;
 
     /**
-     * <p>Constructs a new <code>Range</code> using the specified
+     * <p>Constructs a new {@code Range} using the specified
      * element as both the minimum and maximum in this range.</p>
      * <p>The range uses the natural ordering of the elements to 
      * determine where values lie in the range.</p>
      *
-     * @param element  the value to use for this range, must not be <code>null</code>
+     * @param element  the value to use for this range, must not be {@code null}
      * @return the new range object
-     * @throws IllegalArgumentException if the value is <code>null</code>
+     * @throws IllegalArgumentException if the value is {@code null}
      * @throws ClassCastException if the value is not Comparable
      */
     public static <T extends Comparable<T>> Range<T> is(T element) {
@@ -79,7 +79,7 @@ public final class Range<T> implements Serializable {
     }
 
     /**
-     * <p>Constructs a new <code>Range</code> with the specified
+     * <p>Constructs a new {@code Range} with the specified
      * minimum and maximum values (both inclusive).</p>
      * <p>The range uses the natural ordering of the elements to 
      * determine where values lie in the range.</p>
@@ -90,7 +90,7 @@ public final class Range<T> implements Serializable {
      * @param element1  first value that defines the edge of the range, inclusive
      * @param element2  second value that defines the edge of the range, inclusive
      * @return the new range object
-     * @throws IllegalArgumentException if either value is <code>null</code>
+     * @throws IllegalArgumentException if either value is {@code null}
      * @throws ClassCastException if either value is not Comparable
      */
     public static <T extends Comparable<T>> Range<T> between(T element1, T element2) {
@@ -98,24 +98,24 @@ public final class Range<T> implements Serializable {
     }
 
     /**
-     * <p>Constructs a new <code>Range</code> using the specified
+     * <p>Constructs a new {@code Range} using the specified
      * element as both the minimum and maximum in this range.</p>
-     * <p>The range uses the passed in <code>Comparator</code> to 
+     * <p>The range uses the passed in {@code Comparator} to 
      * determine where values lie in the range.</p>
      *
-     * @param element  the value to use for this range, must not be <code>null</code>
+     * @param element  the value to use for this range, must not be {@code null}
      * @param c comparator to be used
      * @return the new range object
-     * @throws IllegalArgumentException if the value is <code>null</code>
+     * @throws IllegalArgumentException if the value is {@code null}
      */
     public static <T> Range<T> is(T element, Comparator<T> c) {
         return new Range<T>(element, element, c);
     }
 
     /**
-     * <p>Constructs a new <code>Range</code> with the specified
+     * <p>Constructs a new {@code Range} with the specified
      * minimum and maximum values (both inclusive).</p>
-     * <p>The range uses the passed in <code>Comparator</code> to 
+     * <p>The range uses the passed in {@code Comparator} to 
      * determine where values lie in the range.</p>
      *
      * <p>The arguments may be passed in the order (min,max) or (max,min). The
@@ -125,7 +125,7 @@ public final class Range<T> implements Serializable {
      * @param element2  second value that defines the edge of the range, inclusive
      * @param c comparator to be used
      * @return the new range object
-     * @throws IllegalArgumentException if either value is <code>null</code>
+     * @throws IllegalArgumentException if either value is {@code null}
      */
     public static <T> Range<T> between(T element1, T element2, Comparator<T> c) {
         return new Range<T>(element1, element2, c);
@@ -197,10 +197,10 @@ public final class Range<T> implements Serializable {
     /**
      * <p>Tests whether the specified element occurs within this range.</p>
      * 
-     * <p><code>null</code> is handled and returns <code>false</code>.</p>
+     * <p>{@code null} is handled and returns {@code false}.</p>
      *
-     * @param element  the element to test, may be <code>null</code>
-     * @return <code>true</code> if the specified element occurs within this range
+     * @param element  the element to test, may be {@code null}
+     * @return {@code true} if the specified element occurs within this range
      */
     public boolean contains(T element) {
         if(element == null) {
@@ -212,10 +212,10 @@ public final class Range<T> implements Serializable {
     /**
      * <p>Tests whether the specified element occurs before this range.</p>
      *
-     * <p><code>null</code> is handled and returns <code>false</code>.</p>
+     * <p>{@code null} is handled and returns {@code false}.</p>
      *
-     * @param element  the element to test, may be <code>null</code>
-     * @return <code>true</code> if the specified element occurs before this range
+     * @param element  the element to test, may be {@code null}
+     * @return {@code true} if the specified element occurs before this range
      */
     public boolean elementBefore(T element) {
         if (element == null) {
@@ -228,10 +228,10 @@ public final class Range<T> implements Serializable {
     /**
      * <p>Tests whether the specified element occurs after this range.</p>
      *
-     * <p><code>null</code> is handled and returns <code>false</code>.</p>
+     * <p>{@code null} is handled and returns {@code false}.</p>
      *
-     * @param element  the element to test, may be <code>null</code>
-     * @return <code>true</code> if the specified element occurs after this range
+     * @param element  the element to test, may be {@code null}
+     * @return {@code true} if the specified element occurs after this range
      */
     public boolean elementAfter(T element) {
         if (element == null) {
@@ -243,9 +243,9 @@ public final class Range<T> implements Serializable {
 
     /**
      * <p>Tests where the specified element occurs relative to this range.</p>
-     * <p>The API is reminiscent of the Comparable interface returning <code>-1</code> if 
-     * the element is before the range, <code>0</code> if contained within the range and 
-     * <code>1</code> if the element is after the range. </p>
+     * <p>The API is reminiscent of the Comparable interface returning {@code -1} if 
+     * the element is before the range, {@code 0} if contained within the range and 
+     * {@code 1} if the element is after the range. </p>
      *
      * @param element  the element to test
      * @return -1, 0 or +1 depending on the element's location relative to the range
@@ -271,12 +271,12 @@ public final class Range<T> implements Serializable {
     /**
      * <p>Tests whether the specified range occurs entirely within this range.</p>
      * 
-     * <p><code>null</code> is handled and returns <code>false</code>.</p>
+     * <p>{@code null} is handled and returns {@code false}.</p>
      * 
-     * @param range  the range to test, may be <code>null</code>
-     * @return <code>true</code> if the specified range occurs entirely within
-     *  this range; otherwise, <code>false</code>
-     * @throws IllegalArgumentException if the <code>Range</code> cannot be compared
+     * @param range  the range to test, may be {@code null}
+     * @return {@code true} if the specified range occurs entirely within
+     *  this range; otherwise, {@code false}
+     * @throws IllegalArgumentException if the {@code Range} cannot be compared
      */
     public boolean containsAll(Range<T> range) {
         if (range == null) {
@@ -289,12 +289,12 @@ public final class Range<T> implements Serializable {
     /**
      * <p>Tests whether the specified range overlaps with this range.</p>
      * 
-     * <p><code>null</code> is handled and returns <code>false</code>.</p>
+     * <p>{@code null} is handled and returns {@code false}.</p>
      * 
-     * @param range  the range to test, may be <code>null</code>
-     * @return <code>true</code> if the specified range overlaps with this
-     *  range; otherwise, <code>false</code>
-     * @throws IllegalArgumentException if the <code>Range</code> cannot be compared
+     * @param range  the range to test, may be {@code null}
+     * @return {@code true} if the specified range overlaps with this
+     *  range; otherwise, {@code false}
+     * @throws IllegalArgumentException if the {@code Range} cannot be compared
      */
     public boolean overlapsWith(Range<T> range) {
         if (range == null) {
@@ -314,7 +314,7 @@ public final class Range<T> implements Serializable {
      * <p>To be equal, the class, minimum and maximum must be equal.</p>
      * 
      * @param obj the reference object with which to compare
-     * @return <code>true</code> if this object is equal
+     * @return {@code true} if this object is equal
      */
     @Override
     public boolean equals(Object obj) {
@@ -349,11 +349,11 @@ public final class Range<T> implements Serializable {
     }
 
     /**
-     * <p>Gets the range as a <code>String</code>.</p>
+     * <p>Gets the range as a {@code String}.</p>
      *
      * <p>The format of the String is 'Range[<i>min</i>,<i>max</i>]'.</p>
      * 
-     * @return the <code>String</code> representation of this range
+     * @return the {@code String} representation of this range
      */
     @Override
     public String toString() {

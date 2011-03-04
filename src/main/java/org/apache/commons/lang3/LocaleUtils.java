@@ -29,8 +29,8 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * <p>Operations to assist when working with a {@link Locale}.</p>
  *
- * <p>This class tries to handle <code>null</code> input gracefully.
- * An exception will not be thrown for a <code>null</code> input.
+ * <p>This class tries to handle {@code null} input gracefully.
+ * An exception will not be thrown for a {@code null} input.
  * Each method documents its behaviour in more detail.</p>
  *
  * @author Apache Software Foundation
@@ -48,8 +48,8 @@ public class LocaleUtils {
         new ConcurrentHashMap<String, List<Locale>>();
 
     /**
-     * <p><code>LocaleUtils</code> instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as <code>LocaleUtils.toLocale("en_GB");</code>.</p>
+     * <p>{@code LocaleUtils} instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as {@code LocaleUtils.toLocale("en_GB");}.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>

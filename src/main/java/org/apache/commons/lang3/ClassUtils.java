@@ -29,13 +29,13 @@ import java.util.Map;
 /**
  * <p>Operates on classes without using reflection.</p>
  *
- * <p>This class handles invalid <code>null</code> inputs as best it can.
+ * <p>This class handles invalid {@code null} inputs as best it can.
  * Each method documents its behaviour in more detail.</p>
  *
- * <p>The notion of a <code>canonical name</code> includes the human
- * readable name for the type, for example <code>int[]</code>. The
+ * <p>The notion of a {@code canonical name} includes the human
+ * readable name for the type, for example {@code int[]}. The
  * non-canonical method variants work with the JVM names, such as
- * <code>[I</code>. </p>
+ * {@code [I}. </p>
  *
  * @author Apache Software Foundation
  * @author Gary Gregory
@@ -53,7 +53,7 @@ public class ClassUtils {
     public static final char PACKAGE_SEPARATOR_CHAR = '.';
 
     /**
-     * <p>The package separator String: <code>"&#x2e;"</code>.</p>
+     * <p>The package separator String: {@code "&#x2e;"}.</p>
      */
     public static final String PACKAGE_SEPARATOR = String.valueOf(PACKAGE_SEPARATOR_CHAR);
 
@@ -63,12 +63,12 @@ public class ClassUtils {
     public static final char INNER_CLASS_SEPARATOR_CHAR = '$';
 
     /**
-     * <p>The inner class separator String: <code>"$"</code>.</p>
+     * <p>The inner class separator String: {@code "$"}.</p>
      */
     public static final String INNER_CLASS_SEPARATOR = String.valueOf(INNER_CLASS_SEPARATOR_CHAR);
 
     /**
-     * Maps primitive <code>Class</code>es to their corresponding wrapper <code>Class</code>.
+     * Maps primitive {@code Class}es to their corresponding wrapper {@code Class}.
      */
     private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<Class<?>, Class<?>>();
     static {
@@ -84,7 +84,7 @@ public class ClassUtils {
     }
 
     /**
-     * Maps wrapper <code>Class</code>es to their corresponding primitive types.
+     * Maps wrapper {@code Class}es to their corresponding primitive types.
      */
     private static final Map<Class<?>, Class<?>> wrapperPrimitiveMap = new HashMap<Class<?>, Class<?>>();
     static {
@@ -134,7 +134,7 @@ public class ClassUtils {
     /**
      * <p>ClassUtils instances should NOT be constructed in standard programming.
      * Instead, the class should be used as
-     * <code>ClassUtils.getShortClassName(cls)</code>.</p>
+     * {@code ClassUtils.getShortClassName(cls)}.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
@@ -146,7 +146,7 @@ public class ClassUtils {
     // Short class name
     // ----------------------------------------------------------------------
     /**
-     * <p>Gets the class name minus the package name for an <code>Object</code>.</p>
+     * <p>Gets the class name minus the package name for an {@code Object}.</p>
      *
      * @param object  the class to get the short name for, may be null
      * @param valueIfNull  the value to return if null
@@ -160,7 +160,7 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Gets the class name minus the package name from a <code>Class</code>.</p>
+     * <p>Gets the class name minus the package name from a {@code Class}.</p>
      *
      * @param cls  the class to get the short name for.
      * @return the class name without the package name or an empty string
@@ -219,7 +219,7 @@ public class ClassUtils {
     // Package name
     // ----------------------------------------------------------------------
     /**
-     * <p>Gets the package name of an <code>Object</code>.</p>
+     * <p>Gets the package name of an {@code Object}.</p>
      *
      * @param object  the class to get the package name for, may be null
      * @param valueIfNull  the value to return if null
@@ -233,9 +233,9 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Gets the package name of a <code>Class</code>.</p>
+     * <p>Gets the package name of a {@code Class}.</p>
      *
-     * @param cls  the class to get the package name for, may be <code>null</code>.
+     * @param cls  the class to get the package name for, may be {@code null}.
      * @return the package name or an empty string
      */
     public static String getPackageName(Class<?> cls) {
@@ -246,12 +246,12 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Gets the package name from a <code>String</code>.</p>
+     * <p>Gets the package name from a {@code String}.</p>
      *
      * <p>The string passed in is assumed to be a class name - it is not checked.</p>
      * <p>If the class is unpackaged, return an empty string.</p>
      *
-     * @param className  the className to get the package name for, may be <code>null</code>
+     * @param className  the className to get the package name for, may be {@code null}
      * @return the package name or an empty string
      */
     public static String getPackageName(String className) {
@@ -278,11 +278,11 @@ public class ClassUtils {
     // Superclasses/Superinterfaces
     // ----------------------------------------------------------------------
     /**
-     * <p>Gets a <code>List</code> of superclasses for the given class.</p>
+     * <p>Gets a {@code List} of superclasses for the given class.</p>
      *
-     * @param cls  the class to look up, may be <code>null</code>
-     * @return the <code>List</code> of superclasses in order going up from this one
-     *  <code>null</code> if null input
+     * @param cls  the class to look up, may be {@code null}
+     * @return the {@code List} of superclasses in order going up from this one
+     *  {@code null} if null input
      */
     public static List<Class<?>> getAllSuperclasses(Class<?> cls) {
         if (cls == null) {
@@ -298,7 +298,7 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Gets a <code>List</code> of all interfaces implemented by the given
+     * <p>Gets a {@code List} of all interfaces implemented by the given
      * class and its superclasses.</p>
      *
      * <p>The order is determined by looking through each interface in turn as
@@ -306,9 +306,9 @@ public class ClassUtils {
      * superclass is considered in the same way. Later duplicates are ignored,
      * so the order is maintained.</p>
      *
-     * @param cls  the class to look up, may be <code>null</code>
-     * @return the <code>List</code> of interfaces in order,
-     *  <code>null</code> if null input
+     * @param cls  the class to look up, may be {@code null}
+     * @return the {@code List} of interfaces in order,
+     *  {@code null} if null input
      */
     public static List<Class<?>> getAllInterfaces(Class<?> cls) {
         if (cls == null) {
@@ -324,8 +324,8 @@ public class ClassUtils {
     /**
      * Get the interfaces for the specified class.
      *
-     * @param cls  the class to look up, may be <code>null</code>
-     * @param interfacesFound the <code>Set</code> of interfaces for the class
+     * @param cls  the class to look up, may be {@code null}
+     * @param interfacesFound the {@code Set} of interfaces for the class
      */
     private static void getAllInterfaces(Class<?> cls, HashSet<Class<?>> interfacesFound) {
         while (cls != null) {
@@ -344,15 +344,15 @@ public class ClassUtils {
     // Convert list
     // ----------------------------------------------------------------------
     /**
-     * <p>Given a <code>List</code> of class names, this method converts them into classes.</p>
+     * <p>Given a {@code List} of class names, this method converts them into classes.</p>
      *
-     * <p>A new <code>List</code> is returned. If the class name cannot be found, <code>null</code>
-     * is stored in the <code>List</code>. If the class name in the <code>List</code> is
-     * <code>null</code>, <code>null</code> is stored in the output <code>List</code>.</p>
+     * <p>A new {@code List} is returned. If the class name cannot be found, {@code null}
+     * is stored in the {@code List}. If the class name in the {@code List} is
+     * {@code null}, {@code null} is stored in the output {@code List}.</p>
      *
      * @param classNames  the classNames to change
-     * @return a <code>List</code> of Class objects corresponding to the class names,
-     *  <code>null</code> if null input
+     * @return a {@code List} of Class objects corresponding to the class names,
+     *  {@code null} if null input
      * @throws ClassCastException if classNames contains a non String entry
      */
     public static List<Class<?>> convertClassNamesToClasses(List<String> classNames) {
@@ -371,16 +371,16 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Given a <code>List</code> of <code>Class</code> objects, this method converts
+     * <p>Given a {@code List} of {@code Class} objects, this method converts
      * them into class names.</p>
      *
-     * <p>A new <code>List</code> is returned. <code>null</code> objects will be copied into
-     * the returned list as <code>null</code>.</p>
+     * <p>A new {@code List} is returned. {@code null} objects will be copied into
+     * the returned list as {@code null}.</p>
      *
      * @param classes  the classes to change
-     * @return a <code>List</code> of class names corresponding to the Class objects,
-     *  <code>null</code> if null input
-     * @throws ClassCastException if <code>classes</code> contains a non-<code>Class</code> entry
+     * @return a {@code List} of class names corresponding to the Class objects,
+     *  {@code null} if null input
+     * @throws ClassCastException if {@code classes} contains a non-{@code Class} entry
      */
     public static List<String> convertClassesToClassNames(List<Class<?>> classes) {
         if (classes == null) {
@@ -409,19 +409,19 @@ public class ClassUtils {
      *
      * <p>Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this
      * method takes into account widenings of primitive classes and
-     * <code>null</code>s.</p>
+     * {@code null}s.</p>
      *
-     * <p>Primitive widenings allow an int to be assigned to a <code>long</code>,
-     * <code>float</code> or <code>double</code>. This method returns the correct
+     * <p>Primitive widenings allow an int to be assigned to a {@code long},
+     * {@code float} or {@code double}. This method returns the correct
      * result for these cases.</p>
      *
-     * <p><code>Null</code> may be assigned to any reference type. This method will
-     * return <code>true</code> if <code>null</code> is passed in and the toClass is
+     * <p>{@code Null} may be assigned to any reference type. This method will
+     * return {@code true} if {@code null} is passed in and the toClass is
      * non-primitive.</p>
      *
      * <p>Specifically, this method tests whether the type represented by the
-     * specified <code>Class</code> parameter can be converted to the type
-     * represented by this <code>Class</code> object via an identity conversion
+     * specified {@code Class} parameter can be converted to the type
+     * represented by this {@code Class} object via an identity conversion
      * widening primitive or widening reference conversion. See
      * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
      * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
@@ -431,9 +431,9 @@ public class ClassUtils {
      * to the running Java version</em>; i.e. autoboxing will be the default
      * behavior in VMs running Java versions >= 1.5.</p>
      *
-     * @param classArray  the array of Classes to check, may be <code>null</code>
-     * @param toClassArray  the array of Classes to try to assign into, may be <code>null</code>
-     * @return <code>true</code> if assignment possible
+     * @param classArray  the array of Classes to check, may be {@code null}
+     * @param toClassArray  the array of Classes to try to assign into, may be {@code null}
+     * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(Class<?>[] classArray, Class<?>[] toClassArray) {
         return isAssignable(classArray, toClassArray, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
@@ -449,27 +449,27 @@ public class ClassUtils {
      *
      * <p>Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method, this
      * method takes into account widenings of primitive classes and
-     * <code>null</code>s.</p>
+     * {@code null}s.</p>
      *
-     * <p>Primitive widenings allow an int to be assigned to a <code>long</code>,
-     * <code>float</code> or <code>double</code>. This method returns the correct
+     * <p>Primitive widenings allow an int to be assigned to a {@code long},
+     * {@code float} or {@code double}. This method returns the correct
      * result for these cases.</p>
      *
-     * <p><code>Null</code> may be assigned to any reference type. This method will
-     * return <code>true</code> if <code>null</code> is passed in and the toClass is
+     * <p>{@code Null} may be assigned to any reference type. This method will
+     * return {@code true} if {@code null} is passed in and the toClass is
      * non-primitive.</p>
      *
      * <p>Specifically, this method tests whether the type represented by the
-     * specified <code>Class</code> parameter can be converted to the type
-     * represented by this <code>Class</code> object via an identity conversion
+     * specified {@code Class} parameter can be converted to the type
+     * represented by this {@code Class} object via an identity conversion
      * widening primitive or widening reference conversion. See
      * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
      * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
      *
-     * @param classArray  the array of Classes to check, may be <code>null</code>
-     * @param toClassArray  the array of Classes to try to assign into, may be <code>null</code>
+     * @param classArray  the array of Classes to check, may be {@code null}
+     * @param toClassArray  the array of Classes to try to assign into, may be {@code null}
      * @param autoboxing  whether to use implicit autoboxing/unboxing between primitives and wrappers
-     * @return <code>true</code> if assignment possible
+     * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(Class<?>[] classArray, Class<?>[] toClassArray, boolean autoboxing) {
         if (ArrayUtils.isSameLength(classArray, toClassArray) == false) {
@@ -490,23 +490,23 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Checks if one <code>Class</code> can be assigned to a variable of
-     * another <code>Class</code>.</p>
+     * <p>Checks if one {@code Class} can be assigned to a variable of
+     * another {@code Class}.</p>
      *
      * <p>Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method,
      * this method takes into account widenings of primitive classes and
-     * <code>null</code>s.</p>
+     * {@code null}s.</p>
      *
      * <p>Primitive widenings allow an int to be assigned to a long, float or
      * double. This method returns the correct result for these cases.</p>
      *
-     * <p><code>Null</code> may be assigned to any reference type. This method
-     * will return <code>true</code> if <code>null</code> is passed in and the
+     * <p>{@code Null} may be assigned to any reference type. This method
+     * will return {@code true} if {@code null} is passed in and the
      * toClass is non-primitive.</p>
      *
      * <p>Specifically, this method tests whether the type represented by the
-     * specified <code>Class</code> parameter can be converted to the type
-     * represented by this <code>Class</code> object via an identity conversion
+     * specified {@code Class} parameter can be converted to the type
+     * represented by this {@code Class} object via an identity conversion
      * widening primitive or widening reference conversion. See
      * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
      * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
@@ -518,30 +518,30 @@ public class ClassUtils {
      *
      * @param cls  the Class to check, may be null
      * @param toClass  the Class to try to assign into, returns false if null
-     * @return <code>true</code> if assignment possible
+     * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(Class<?> cls, Class<?> toClass) {
         return isAssignable(cls, toClass, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
     }
 
     /**
-     * <p>Checks if one <code>Class</code> can be assigned to a variable of
-     * another <code>Class</code>.</p>
+     * <p>Checks if one {@code Class} can be assigned to a variable of
+     * another {@code Class}.</p>
      *
      * <p>Unlike the {@link Class#isAssignableFrom(java.lang.Class)} method,
      * this method takes into account widenings of primitive classes and
-     * <code>null</code>s.</p>
+     * {@code null}s.</p>
      *
      * <p>Primitive widenings allow an int to be assigned to a long, float or
      * double. This method returns the correct result for these cases.</p>
      *
-     * <p><code>Null</code> may be assigned to any reference type. This method
-     * will return <code>true</code> if <code>null</code> is passed in and the
+     * <p>{@code Null} may be assigned to any reference type. This method
+     * will return {@code true} if {@code null} is passed in and the
      * toClass is non-primitive.</p>
      *
      * <p>Specifically, this method tests whether the type represented by the
-     * specified <code>Class</code> parameter can be converted to the type
-     * represented by this <code>Class</code> object via an identity conversion
+     * specified {@code Class} parameter can be converted to the type
+     * represented by this {@code Class} object via an identity conversion
      * widening primitive or widening reference conversion. See
      * <em><a href="http://java.sun.com/docs/books/jls/">The Java Language Specification</a></em>,
      * sections 5.1.1, 5.1.2 and 5.1.4 for details.</p>
@@ -549,7 +549,7 @@ public class ClassUtils {
      * @param cls  the Class to check, may be null
      * @param toClass  the Class to try to assign into, returns false if null
      * @param autoboxing  whether to use implicit autoboxing/unboxing between primitives and wrappers
-     * @return <code>true</code> if assignment possible
+     * @return {@code true} if assignment possible
      */
     public static boolean isAssignable(Class<?> cls, Class<?> toClass, boolean autoboxing) {
         if (toClass == null) {
@@ -628,12 +628,12 @@ public class ClassUtils {
      * <p>Converts the specified primitive Class object to its corresponding
      * wrapper Class object.</p>
      *
-     * <p>NOTE: From v2.2, this method handles <code>Void.TYPE</code>,
-     * returning <code>Void.TYPE</code>.</p>
+     * <p>NOTE: From v2.2, this method handles {@code Void.TYPE},
+     * returning {@code Void.TYPE}.</p>
      *
      * @param cls  the class to convert, may be null
-     * @return the wrapper class for <code>cls</code> or <code>cls</code> if
-     * <code>cls</code> is not a primitive. <code>null</code> if null input.
+     * @return the wrapper class for {@code cls} or {@code cls} if
+     * {@code cls} is not a primitive. {@code null} if null input.
      * @since 2.1
      */
     public static Class<?> primitiveToWrapper(Class<?> cls) {
@@ -650,7 +650,7 @@ public class ClassUtils {
      *
      * @param classes  the class array to convert, may be null or empty
      * @return an array which contains for each given class, the wrapper class or
-     * the original class if class is not a primitive. <code>null</code> if null input.
+     * the original class if class is not a primitive. {@code null} if null input.
      * Empty array if an empty array passed in.
      * @since 2.1
      */
@@ -674,14 +674,14 @@ public class ClassUtils {
      * <p>Converts the specified wrapper class to its corresponding primitive
      * class.</p>
      *
-     * <p>This method is the counter part of <code>primitiveToWrapper()</code>.
+     * <p>This method is the counter part of {@code primitiveToWrapper()}.
      * If the passed in class is a wrapper class for a primitive type, this
-     * primitive type will be returned (e.g. <code>Integer.TYPE</code> for
-     * <code>Integer.class</code>). For other classes, or if the parameter is
+     * primitive type will be returned (e.g. {@code Integer.TYPE} for
+     * {@code Integer.class}). For other classes, or if the parameter is
      * <b>null</b>, the return value is <b>null</b>.</p>
      *
      * @param cls the class to convert, may be <b>null</b>
-     * @return the corresponding primitive type if <code>cls</code> is a
+     * @return the corresponding primitive type if {@code cls} is a
      * wrapper class, <b>null</b> otherwise
      * @see #primitiveToWrapper(Class)
      * @since 2.4
@@ -694,12 +694,12 @@ public class ClassUtils {
      * <p>Converts the specified array of wrapper Class objects to an array of
      * its corresponding primitive Class objects.</p>
      *
-     * <p>This method invokes <code>wrapperToPrimitive()</code> for each element
+     * <p>This method invokes {@code wrapperToPrimitive()} for each element
      * of the passed in array.</p>
      *
      * @param classes  the class array to convert, may be null or empty
      * @return an array which contains for each given class, the primitive class or
-     * <b>null</b> if the original class is not a wrapper class. <code>null</code> if null input.
+     * <b>null</b> if the original class is not a wrapper class. {@code null} if null input.
      * Empty array if an empty array passed in.
      * @see #wrapperToPrimitive(Class)
      * @since 2.4
@@ -726,8 +726,8 @@ public class ClassUtils {
      * <p>Is the specified class an inner class or static nested class.</p>
      *
      * @param cls  the class to check, may be null
-     * @return <code>true</code> if the class is an inner or static nested class,
-     *  false if not or <code>null</code>
+     * @return {@code true} if the class is an inner or static nested class,
+     *  false if not or {@code null}
      */
     public static boolean isInnerClass(Class<?> cls) {
         return cls != null && cls.getEnclosingClass() != null;
@@ -736,15 +736,15 @@ public class ClassUtils {
     // Class loading
     // ----------------------------------------------------------------------
     /**
-     * Returns the class represented by <code>className</code> using the
-     * <code>classLoader</code>.  This implementation supports the syntaxes
-     * "<code>java.util.Map.Entry[]</code>", "<code>java.util.Map$Entry[]</code>",
-     * "<code>[Ljava.util.Map.Entry;</code>", and "<code>[Ljava.util.Map$Entry;</code>".
+     * Returns the class represented by {@code className} using the
+     * {@code classLoader}.  This implementation supports the syntaxes
+     * "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
+     * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
      *
      * @param classLoader  the class loader to use to load the class
      * @param className  the class name
      * @param initialize  whether the class must be initialized
-     * @return the class represented by <code>className</code> using the <code>classLoader</code>
+     * @return the class represented by {@code className} using the {@code classLoader}
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(
@@ -776,15 +776,15 @@ public class ClassUtils {
     }
 
     /**
-     * Returns the (initialized) class represented by <code>className</code>
-     * using the <code>classLoader</code>.  This implementation supports
-     * the syntaxes "<code>java.util.Map.Entry[]</code>",
-     * "<code>java.util.Map$Entry[]</code>", "<code>[Ljava.util.Map.Entry;</code>",
-     * and "<code>[Ljava.util.Map$Entry;</code>".
+     * Returns the (initialized) class represented by {@code className}
+     * using the {@code classLoader}.  This implementation supports
+     * the syntaxes "{@code java.util.Map.Entry[]}",
+     * "{@code java.util.Map$Entry[]}", "{@code [Ljava.util.Map.Entry;}",
+     * and "{@code [Ljava.util.Map$Entry;}".
      *
      * @param classLoader  the class loader to use to load the class
      * @param className  the class name
-     * @return the class represented by <code>className</code> using the <code>classLoader</code>
+     * @return the class represented by {@code className} using the {@code classLoader}
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(ClassLoader classLoader, String className) throws ClassNotFoundException {
@@ -792,14 +792,14 @@ public class ClassUtils {
     }
 
     /**
-     * Returns the (initialized) class represented by <code>className</code>
+     * Returns the (initialized) class represented by {@code className}
      * using the current thread's context class loader. This implementation
-     * supports the syntaxes "<code>java.util.Map.Entry[]</code>",
-     * "<code>java.util.Map$Entry[]</code>", "<code>[Ljava.util.Map.Entry;</code>",
-     * and "<code>[Ljava.util.Map$Entry;</code>".
+     * supports the syntaxes "{@code java.util.Map.Entry[]}",
+     * "{@code java.util.Map$Entry[]}", "{@code [Ljava.util.Map.Entry;}",
+     * and "{@code [Ljava.util.Map$Entry;}".
      *
      * @param className  the class name
-     * @return the class represented by <code>className</code> using the current thread's context class loader
+     * @return the class represented by {@code className} using the current thread's context class loader
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(String className) throws ClassNotFoundException {
@@ -807,14 +807,14 @@ public class ClassUtils {
     }
 
     /**
-     * Returns the class represented by <code>className</code> using the
+     * Returns the class represented by {@code className} using the
      * current thread's context class loader. This implementation supports the
-     * syntaxes "<code>java.util.Map.Entry[]</code>", "<code>java.util.Map$Entry[]</code>",
-     * "<code>[Ljava.util.Map.Entry;</code>", and "<code>[Ljava.util.Map$Entry;</code>".
+     * syntaxes "{@code java.util.Map.Entry[]}", "{@code java.util.Map$Entry[]}",
+     * "{@code [Ljava.util.Map.Entry;}", and "{@code [Ljava.util.Map$Entry;}".
      *
      * @param className  the class name
      * @param initialize  whether the class must be initialized
-     * @return the class represented by <code>className</code> using the current thread's context class loader
+     * @return the class represented by {@code className} using the current thread's context class loader
      * @throws ClassNotFoundException if the class is not found
      */
     public static Class<?> getClass(String className, boolean initialize) throws ClassNotFoundException {
@@ -826,7 +826,7 @@ public class ClassUtils {
     // Public method
     // ----------------------------------------------------------------------
     /**
-     * <p>Returns the desired Method much like <code>Class.getMethod</code>, however
+     * <p>Returns the desired Method much like {@code Class.getMethod}, however
      * it ensures that the returned Method is from a public class or interface and not
      * from an anonymous inner class. This means that the Method is invokable and
      * doesn't fall foul of Java bug
@@ -906,13 +906,13 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Converts an array of <code>Object</code> in to an array of <code>Class</code> objects.
+     * <p>Converts an array of {@code Object} in to an array of {@code Class} objects.
      * If any of these objects is null, a null element will be inserted into the array.</p>
      *
-     * <p>This method returns <code>null</code> for a <code>null</code> input array.</p>
+     * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
-     * @param array an <code>Object</code> array
-     * @return a <code>Class</code> array, <code>null</code> if null array input
+     * @param array an {@code Object} array
+     * @return a {@code Class} array, {@code null} if null array input
      * @since 2.4
      */
     public static Class<?>[] toClass(Object[] array) {
@@ -931,7 +931,7 @@ public class ClassUtils {
     // Short canonical name
     // ----------------------------------------------------------------------
     /**
-     * <p>Gets the canonical name minus the package name for an <code>Object</code>.</p>
+     * <p>Gets the canonical name minus the package name for an {@code Object}.</p>
      *
      * @param object  the class to get the short name for, may be null
      * @param valueIfNull  the value to return if null
@@ -946,7 +946,7 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Gets the canonical name minus the package name from a <code>Class</code>.</p>
+     * <p>Gets the canonical name minus the package name from a {@code Class}.</p>
      *
      * @param cls  the class to get the short name for.
      * @return the canonical name without the package name or an empty string
@@ -975,7 +975,7 @@ public class ClassUtils {
     // Package name
     // ----------------------------------------------------------------------
     /**
-     * <p>Gets the package name from the canonical name of an <code>Object</code>.</p>
+     * <p>Gets the package name from the canonical name of an {@code Object}.</p>
      *
      * @param object  the class to get the package name for, may be null
      * @param valueIfNull  the value to return if null
@@ -990,9 +990,9 @@ public class ClassUtils {
     }
 
     /**
-     * <p>Gets the package name from the canonical name of a <code>Class</code>.</p>
+     * <p>Gets the package name from the canonical name of a {@code Class}.</p>
      *
-     * @param cls  the class to get the package name for, may be <code>null</code>.
+     * @param cls  the class to get the package name for, may be {@code null}.
      * @return the package name or an empty string
      * @since 2.4
      */
@@ -1009,7 +1009,7 @@ public class ClassUtils {
      * <p>The string passed in is assumed to be a canonical name - it is not checked.</p>
      * <p>If the class is unpackaged, return an empty string.</p>
      *
-     * @param canonicalName  the canonical name to get the package name for, may be <code>null</code>
+     * @param canonicalName  the canonical name to get the package name for, may be {@code null}
      * @return the package name or an empty string
      * @since 2.4
      */
@@ -1023,9 +1023,9 @@ public class ClassUtils {
      * unchanged name.</p>
      * <p>Example:
      * <ul>
-     * <li><code>getCanonicalName("[I") = "int[]"</code></li>
-     * <li><code>getCanonicalName("[Ljava.lang.String;") = "java.lang.String[]"</code></li>
-     * <li><code>getCanonicalName("java.lang.String") = "java.lang.String"</code></li>
+     * <li>{@code getCanonicalName("[I") = "int[]"}</li>
+     * <li>{@code getCanonicalName("[Ljava.lang.String;") = "java.lang.String[]"}</li>
+     * <li>{@code getCanonicalName("java.lang.String") = "java.lang.String"}</li>
      * </ul>
      * </p>
      *
