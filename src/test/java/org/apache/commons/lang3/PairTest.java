@@ -18,13 +18,10 @@ package org.apache.commons.lang3;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -36,59 +33,29 @@ import org.junit.Test;
 public class PairTest {
 
     @Test
-    public void testBasic() throws Exception {
-        Pair<Integer, String> pair = new Pair<Integer, String>(0, "foo");
-        assertEquals(0, pair.left.intValue());
-        assertEquals("foo", pair.right);
-        Pair<Object, String> pair2 = new Pair<Object, String>(null, "bar");
-        assertNull(pair2.left);
-        assertEquals("bar", pair2.right);
-    }
-
-    @Test
     public void testPairOf() throws Exception {
         Pair<Integer, String> pair = Pair.of(0, "foo");
-        assertEquals(0, pair.left.intValue());
-        assertEquals("foo", pair.right);
+        assertTrue(pair instanceof ImmutablePair<?, ?>);
+        assertEquals(0, ((ImmutablePair<Integer, String>) pair).left.intValue());
+        assertEquals("foo", ((ImmutablePair<Integer, String>) pair).right);
         Pair<Object, String> pair2 = Pair.of(null, "bar");
-        assertNull(pair2.left);
-        assertEquals("bar", pair2.right);
+        assertTrue(pair2 instanceof ImmutablePair<?, ?>);
+        assertNull(((ImmutablePair<Object, String>) pair2).left);
+        assertEquals("bar", ((ImmutablePair<Object, String>) pair2).right);
     }
 
     @Test
-    public void testEquals() throws Exception {
-        assertEquals(Pair.of(null, "foo"), Pair.of(null, "foo"));
-        assertFalse(Pair.of("foo", 0).equals(Pair.of("foo", null)));
-        assertFalse(Pair.of("foo", "bar").equals(Pair.of("xyz", "bar")));
+    public void testCompatibility() throws Exception {
+        Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
+        Pair<Integer, String> pair2 = MutablePair.of(0, "foo");
+        assertEquals(pair, pair2);
+        assertEquals(pair.hashCode(), pair2.hashCode());
+        HashSet<Pair<Integer, String>> set = new HashSet<Pair<Integer, String>>();
+        set.add(pair);
+        assertTrue(set.contains(pair2));
 
-        Pair p = Pair.of("foo", "bar");
-        assertTrue(p.equals(p));
-        assertFalse(p.equals(new Object()));
-    }
-
-    @Test
-    public void testHashCode() throws Exception {
-        assertEquals(Pair.of(null, "foo").hashCode(), Pair.of(null, "foo").hashCode());
-    }
-
-    @Test
-    public void testToString() throws Exception {
-        assertEquals("(null,null)", Pair.of(null, null).toString());
-        assertEquals("(null,two)", Pair.of(null, "two").toString());
-        assertEquals("(one,null)", Pair.of("one", null).toString());
-        assertEquals("(one,two)", Pair.of("one", "two").toString());
-    }
-
-    @Test
-    @SuppressWarnings("unchecked")
-    public void testSerialization() throws Exception {
-        Pair<Integer, String> origPair = Pair.of(0, "foo");
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(baos);
-        out.writeObject(origPair);
-        Pair<Integer, String> deserializedPair = (Pair<Integer, String>) new ObjectInputStream(
-                new ByteArrayInputStream(baos.toByteArray())).readObject();
-        assertEquals(origPair, deserializedPair);
-        assertEquals(origPair.hashCode(), deserializedPair.hashCode());
+        pair2.setValue("bar");
+        assertFalse(pair.equals(pair2));
+        assertFalse(pair.hashCode() == pair2.hashCode());
     }
 }

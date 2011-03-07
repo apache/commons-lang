@@ -17,35 +17,47 @@
 package org.apache.commons.lang3;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
- * A basic immutable Object pair.
- *
- * <p>#ThreadSafe# if the objects are threadsafe</p>
+ * Abstract Pair (or 2-element Tuple).
+ * 
  * @since Lang 3.0
  * @author Matt Benson
  * @version $Id$
  */
-public final class Pair<L, R> implements Serializable {
+public abstract class Pair<L, R> implements Serializable, Map.Entry<L, R> {
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
-    /** Left object */
-    public final L left;
-
-    /** Right object */
-    public final R right;
+    /**
+     * Get the "left" element of the pair.
+     * @return L
+     */
+    public abstract L getLeftElement();
 
     /**
-     * Create a new Pair instance.
-     * @param left
-     * @param right
+     * Get the "right" element of the pair.
+     * @return
      */
-    public Pair(L left, R right) {
-        this.left = left;
-        this.right = right;
+    public abstract R getRightElement();
+
+    /**
+     * Return {@link #getLeftElement()} as a {@link Map.Entry}'s key.
+     * @return L
+     */
+    public final L getKey() {
+        return getLeftElement();
+    }
+
+    /**
+     * Return {@link #getRightElement()} as a {@link Map.Entry}'s value.
+     * @return R
+     */
+    public R getValue() {
+        return getRightElement();
     }
 
     /**
@@ -60,7 +72,8 @@ public final class Pair<L, R> implements Serializable {
             return false;
         }
         Pair<?, ?> other = (Pair<?, ?>) obj;
-        return ObjectUtils.equals(left, other.left) && ObjectUtils.equals(right, other.right);
+        return ObjectUtils.equals(getLeftElement(), other.getLeftElement())
+                && ObjectUtils.equals(getRightElement(), other.getRightElement());
     }
 
     /**
@@ -68,7 +81,9 @@ public final class Pair<L, R> implements Serializable {
      */
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(left).append(right).toHashCode();
+        // TODO should the hashCodeBuilder be seeded per concrete type?
+        return new HashCodeBuilder().append(getLeftElement()).append(getRightElement())
+                .toHashCode();
     }
 
     /**
@@ -76,24 +91,25 @@ public final class Pair<L, R> implements Serializable {
      */
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder(ClassUtils.getShortClassName(this, null));
         builder.append("(");
-        builder.append(left);
+        builder.append(getLeftElement());
         builder.append(",");
-        builder.append(right);
+        builder.append(getRightElement());
         builder.append(")");
         return builder.toString();
     }
 
     /**
-     * Static fluent creation method for a Pair<L, R>:  <code>Pair.of(left, right)</code>
+     * Static fluent creation method for a {@link Pair}<L, R>:
+     * <code>Pair.of(left, right)</code>
      * @param <L>
      * @param <R>
      * @param left
      * @param right
-     * @return Pair<L, R>(left, right)
+     * @return ImmutablePair<L, R>(left, right)
      */
     public static <L, R> Pair<L, R> of(L left, R right) {
-        return new Pair<L, R>(left, right);
+        return new ImmutablePair<L, R>(left, right);
     }
 }
