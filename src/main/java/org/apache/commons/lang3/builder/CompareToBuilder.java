@@ -1053,7 +1053,7 @@ public class CompareToBuilder implements Builder<Integer> {
      * @since 3.0
      */
     public Integer build() {
-        return toComparison();
+        return Integer.valueOf(toComparison());
     }
 }
 

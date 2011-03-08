@@ -216,9 +216,9 @@ public class BasicThreadFactory implements ThreadFactory {
      * @param t the thread to be initialized
      */
     private void initializeThread(Thread t) {
-        long count = threadCounter.incrementAndGet();
 
         if (getNamingPattern() != null) {
+            Long count = Long.valueOf(threadCounter.incrementAndGet());
             t.setName(String.format(getNamingPattern(), count));
         }
 
