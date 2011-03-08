@@ -3178,48 +3178,6 @@ public class StringUtils {
     // Joining
     //-----------------------------------------------------------------------
     /**
-     * <p>Joins the provided elements into a single String. </p>
-     *
-     * <p>No separator is added to the joined String.
-     * Null objects or empty string elements are represented by
-     * empty strings.</p>
-     *
-     * <pre>
-     * StringUtils.concat("a", "b", "c") = "abc"
-     * StringUtils.concat(null, "", "a") = "a"
-     * </pre>
-     *
-     * @param elements  the values to join together
-     * @return the concatenated String
-     * @since 3.0
-     */
-    public static String concat(Object... elements) {
-        return join(elements, null);
-    }
-
-    /**
-     * <p>Joins the provided elements into a single String, with the specified
-     * separator between each element. </p>
-     *
-     * <p>No separator is added before or after the joined String.
-     * Null objects or empty string elements are represented by
-     * empty strings.</p>
-     *
-     * <pre>
-     * StringUtils.concatWith(".", "a", "b", "c") = "a.b.c"
-     * StringUtils.concatWith("", null, "", "a") = "a"
-     * </pre>
-     *
-     * @param separator the value to put between elements
-     * @param elements  the values to join together
-     * @return the concatenated String
-     * @since 3.0
-     */
-    public static String concatWith(String separator, Object... elements) {
-        return join(elements, separator);
-    }
-
-    /**
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
      *
@@ -3238,9 +3196,10 @@ public class StringUtils {
      * @param array  the array of values to join together, may be null
      * @return the joined String, {@code null} if null array input
      * @since 2.0
+     * @since 3.0 Changed signature to use varargs
      */
-    public static String join(Object[] array) {
-        return join(array, null);
+    public static String join(Object... elements) {
+        return join(elements, null);
     }
 
     /**
