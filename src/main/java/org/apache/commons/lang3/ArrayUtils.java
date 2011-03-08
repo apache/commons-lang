@@ -137,7 +137,7 @@ public class ArrayUtils {
 
     /**
      * <p>ArrayUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code ArrayUtils.clone(new int[] {2})}.</p>
+     * Instead, the class should be used as <code>ArrayUtils.clone(new int[] {2})</code>.</p>
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.</p>
@@ -145,6 +145,10 @@ public class ArrayUtils {
     public ArrayUtils() {
       super();
     }
+
+    
+    // N.B. Cannot use {@code} to enclose text which includes {}, but <code></code> is OK
+    
 
     // Basic methods handling multi-dimensional arrays
     //-----------------------------------------------------------------------
@@ -154,7 +158,7 @@ public class ArrayUtils {
      * <p>Multi-dimensional arrays are handled correctly, including
      * multi-dimensional primitive arrays.</p>
      *
-     * <p>The format is that of Java source code, for example {@code {a,b}}.</p>
+     * <p>The format is that of Java source code, for example <code>{a,b}</code>.</p>
      *
      * @param array  the array to get a toString for, may be {@code null}
      * @return a String representation of the array, '{}' if null array input
@@ -169,7 +173,7 @@ public class ArrayUtils {
      * <p>Multi-dimensional arrays are handled correctly, including
      * multi-dimensional primitive arrays.</p>
      *
-     * <p>The format is that of Java source code, for example {@code {a,b}}.</p>
+     * <p>The format is that of Java source code, for example <code>{a,b}</code>.</p>
      *
      * @param array  the array to get a toString for, may be {@code null}
      * @param stringIfNull  the String to return if the array is {@code null}
@@ -294,7 +298,7 @@ public class ArrayUtils {
      * type explicitly like in
      * <code>Number[] array = ArrayUtils.&lt;Number&gt;toArray(new Integer(42), new Double(Math.PI))</code>,
      * there is no real advantage when compared to
-     * {@code new Number[] {new Integer(42), new Double(Math.PI)}}.</p>
+     * <code>new Number[] {new Integer(42), new Double(Math.PI)}</code>.</p>
      *
      * @param  <T>   the array's element type
      * @param  items  the varargs array items, null allowed
