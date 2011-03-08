@@ -978,7 +978,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @since 3.0
      */
     public Boolean build() {
-        return isEquals();
+        return Boolean.valueOf(isEquals());
     }
 
     /**
