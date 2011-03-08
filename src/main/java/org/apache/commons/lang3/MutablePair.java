@@ -88,7 +88,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * Implement {@link Map.Entry#setValue(Object)}.
+     * Implement {@link java.util.Map.Entry#setValue(Object)}.
      * @param value value (<code>rightElement</code>) to set
      */
     public R setValue(R value) {

@@ -48,7 +48,7 @@ public class CharSequenceUtils {
      * 
      * <p>This provides the {@code CharSequence} equivalent to {@link String#substring(int)}.
      * The length (in {@code char}) of the returned sequence is {@code length() - start},
-     * so if {@start == end} then an empty sequence is returned.</p>
+     * so if {@code start == end} then an empty sequence is returned.</p>
      *
      * @param cs  the specified subsequence, null returns null
      * @param start  the start index, inclusive, valid

@@ -3193,7 +3193,7 @@ public class StringUtils {
      * StringUtils.join([null, "", "a"]) = "a"
      * </pre>
      *
-     * @param array  the array of values to join together, may be null
+     * @param elements  the values to join together, may be null
      * @return the joined String, {@code null} if null array input
      * @since 2.0
      * @since 3.0 Changed signature to use varargs
