@@ -5872,7 +5872,7 @@ public class StringUtils {
      * CharSequences begin to differ.</p>
      *
      * <p>For example,
-     * {@code indexOfDifference(new String[] {"i am a machine", "i am a robot"}) -> 7}</p>
+     * <code>indexOfDifference(new String[] {"i am a machine", "i am a robot"}) -> 7</code></p>
      *
      * <pre>
      * StringUtils.indexOfDifference(null) = -1
@@ -5962,7 +5962,7 @@ public class StringUtils {
      * characters that is common to all of them.</p>
      *
      * <p>For example,
-     * {@code getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) -> "i am a "}</p>
+     * <code>getCommonPrefix(new String[] {"i am a machine", "i am a robot"}) -> "i am a "</code></p>
      *
      * <pre>
      * StringUtils.getCommonPrefix(null) = ""
@@ -6314,7 +6314,7 @@ public class StringUtils {
      * </p>
      * <p>
      * The function returns the argument string with whitespace normalized by using
-     * {@code {@link #trim(String)}} to remove leading and trailing whitespace
+     * <code>{@link #trim(String)}</code> to remove leading and trailing whitespace
      * and then replacing sequences of whitespace characters by a single space.
      * </p>
      * In XML Whitespace characters are the same as those allowed by the <a
@@ -6334,7 +6334,7 @@ public class StringUtils {
      * </p>
      * <p>
      * The difference is that Java's whitespace includes vertical tab and form feed, which this functional will also
-     * normalize. Additonally {@code {@link #trim(String)}} removes control characters (char &lt;= 32) from both
+     * normalize. Additonally <code>{@link #trim(String)}</code> removes control characters (char &lt;= 32) from both
      * ends of this String.
      * </p>
      *
