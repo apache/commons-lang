@@ -16,8 +16,6 @@
  */
 package org.apache.commons.lang3;
 
-import java.util.Map;
-
 /**
  * Immutable concrete manifestation of the {@link Pair} type.
  * 
