@@ -67,7 +67,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * {@link Map.Entry#setValue(Object)} implementation.
+     * {@link java.util.Map.Entry#setValue(Object)} implementation.
      * @throws UnsupportedOperationException
      */
     public R setValue(R arg0) {

@@ -40,12 +40,12 @@ public abstract class Pair<L, R> implements Serializable, Map.Entry<L, R> {
 
     /**
      * Get the "right" element of the pair.
-     * @return
+     * @return R
      */
     public abstract R getRightElement();
 
     /**
-     * Return {@link #getLeftElement()} as a {@link Map.Entry}'s key.
+     * Return {@link #getLeftElement()} as a {@link java.util.Map.Entry}'s key.
      * @return L
      */
     public final L getKey() {
@@ -53,7 +53,7 @@ public abstract class Pair<L, R> implements Serializable, Map.Entry<L, R> {
     }
 
     /**
-     * Return {@link #getRightElement()} as a {@link Map.Entry}'s value.
+     * Return {@link #getRightElement()} as a {@link java.util.Map.Entry}'s value.
      * @return R
      */
     public R getValue() {

@@ -53,7 +53,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for escaping Java. 
      * 
-     * While {@link escapeJava(String)} is the expected method of use, this 
+     * While {@link #escapeJava(String)} is the expected method of use, this 
      * object allows the Java escaping functionality to be used 
      * as the foundation for a custom translator. 
      */
@@ -71,7 +71,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for escaping EcmaScript/JavaScript. 
      * 
-     * While {@link escapeEcmaScript(String)} is the expected method of use, this 
+     * While {@link #escapeEcmaScript(String)} is the expected method of use, this 
      * object allows the EcmaScript escaping functionality to be used 
      * as the foundation for a custom translator. 
      */
@@ -91,7 +91,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for escaping XML.
      * 
-     * While {@link escapeXml(String)} is the expected method of use, this 
+     * While {@link #escapeXml(String)} is the expected method of use, this 
      * object allows the XML escaping functionality to be used 
      * as the foundation for a custom translator. 
      */
@@ -104,7 +104,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for escaping HTML version 3.0.
      * 
-     * While {@link escapeHtml3(String)} is the expected method of use, this 
+     * While {@link #escapeHtml3(String)} is the expected method of use, this 
      * object allows the HTML escaping functionality to be used 
      * as the foundation for a custom translator. 
      */
@@ -117,7 +117,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for escaping HTML version 4.0.
      * 
-     * While {@link escapeHtml4(String)} is the expected method of use, this 
+     * While {@link #escapeHtml4(String)} is the expected method of use, this 
      * object allows the HTML escaping functionality to be used 
      * as the foundation for a custom translator. 
      */
@@ -131,7 +131,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for escaping individual Comma Separated Values. 
      * 
-     * While {@link escapeCsv(String)} is the expected method of use, this 
+     * While {@link #escapeCsv(String)} is the expected method of use, this 
      * object allows the CSV escaping functionality to be used 
      * as the foundation for a custom translator. 
      */
@@ -171,7 +171,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for unescaping escaped Java. 
      * 
-     * While {@link unescapeJava(String)} is the expected method of use, this 
+     * While {@link #unescapeJava(String)} is the expected method of use, this 
      * object allows the Java unescaping functionality to be used 
      * as the foundation for a custom translator. 
      */
@@ -193,7 +193,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for unescaping escaped EcmaScript. 
      * 
-     * While {@link unescapeEcmaScript(String)} is the expected method of use, this 
+     * While {@link #unescapeEcmaScript(String)} is the expected method of use, this 
      * object allows the EcmaScript unescaping functionality to be used 
      * as the foundation for a custom translator. 
      */
@@ -202,7 +202,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for unescaping escaped HTML 3.0. 
      * 
-     * While {@link unescapeHtml3(String)} is the expected method of use, this 
+     * While {@link #unescapeHtml3(String)} is the expected method of use, this 
      * object allows the HTML unescaping functionality to be used 
      * as the foundation for a custom translator. 
      */
@@ -216,7 +216,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for unescaping escaped HTML 4.0. 
      * 
-     * While {@link unescapeHtml4(String)} is the expected method of use, this 
+     * While {@link #unescapeHtml4(String)} is the expected method of use, this 
      * object allows the HTML unescaping functionality to be used 
      * as the foundation for a custom translator. 
      */
@@ -231,7 +231,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for unescaping escaped XML.
      * 
-     * While {@link unescapeXml(String)} is the expected method of use, this 
+     * While {@link #unescapeXml(String)} is the expected method of use, this 
      * object allows the XML unescaping functionality to be used 
      * as the foundation for a custom translator. 
      */
@@ -245,7 +245,7 @@ public class StringEscapeUtils {
     /**
      * Translator object for unescaping escaped Comma Separated Value entries.
      * 
-     * While {@link unescapeCsv(String)} is the expected method of use, this 
+     * While {@link #unescapeCsv(String)} is the expected method of use, this 
      * object allows the CSV unescaping functionality to be used 
      * as the foundation for a custom translator. 
      */
