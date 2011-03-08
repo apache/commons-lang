@@ -999,7 +999,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @since 3.0
      */
     public Integer build() {
-        return toHashCode();
+        return Integer.valueOf(toHashCode());
     }
 
     /**
