@@ -858,10 +858,10 @@ public class StringUtils {
     }
 
     /**
-     * <p>Finds the first index within a String, handling {@code null}.
-     * This method uses {@link String#indexOf(String)}.</p>
+     * <p>Finds the first index within a CharSequence, handling {@code null}.
+     * This method uses {@link String#indexOf(String, int)} if possible.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.</p>
+     * <p>A {@code null} CharSequence will return {@code -1}.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *)          = -1
@@ -874,28 +874,28 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", "")   = 0
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
-     * @return the first index of the search String,
+     * @param seq  the CharSequence to check, may be null
+     * @param searchSeq  the CharSequence to find, may be null
+     * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(String str, String searchStr) {
-        if (str == null || searchStr == null) {
+    public static int indexOf(CharSequence seq, CharSequence searchSeq) {
+        if (seq == null || searchSeq == null) {
             return INDEX_NOT_FOUND;
         }
-        return str.indexOf(searchStr);
+        return StringUtils.indexOfSequence(seq, searchSeq, 0);
     }
 
     /**
-     * <p>Finds the first index within a String, handling {@code null}.
-     * This method uses {@link String#indexOf(String, int)}.</p>
+     * <p>Finds the first index within a CharSequence, handling {@code null}.
+     * This method uses {@link String#indexOf(String, int)} if possible.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.
+     * <p>A {@code null} CharSequence will return {@code -1}.
      * A negative start position is treated as zero.
-     * An empty ("") search String always matches.
+     * An empty ("") search CharSequence always matches.
      * A start position greater than the string length only matches
-     * an empty search String.</p>
+     * an empty search CharSequence.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *, *)          = -1
@@ -912,18 +912,18 @@ public class StringUtils {
      * StringUtils.indexOf("abc", "", 9)        = 3
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
+     * @param seq  the CharSequence to check, may be null
+     * @param searchSeq  the CharSequence to find, may be null
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search String,
+     * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(String str, String searchStr, int startPos) {
-        if (str == null || searchStr == null) {
+    public static int indexOf(CharSequence seq, CharSequence searchSeq, int startPos) {
+        if (seq == null || searchSeq == null) {
             return INDEX_NOT_FOUND;
         }
-        return str.indexOf(searchStr, startPos);
+        return StringUtils.indexOfSequence(seq, searchSeq, startPos);
     }
 
     /**
