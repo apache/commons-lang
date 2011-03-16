@@ -157,6 +157,7 @@ BUG FIXES IN 3.0
     [LANG-664] NumberUtils.isNumber(String) is not right when the String is "1.1L"
     [LANG-672] Doc bug in DateUtils#ceiling
     [LANG-677] DateUtils.isSameLocalTime compares using 12 hour clock and not 24 hour
+    [LANG-685] EqualsBuilder synchronizes on HashCodeBuilder.
 
 </source>
 </p>

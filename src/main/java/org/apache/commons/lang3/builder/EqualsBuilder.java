@@ -175,7 +175,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param rhs the other object to register
      */
     static void register(Object lhs, Object rhs) {
-        synchronized (HashCodeBuilder.class) {
+        synchronized (EqualsBuilder.class) {
             if (getRegistry() == null) {
                 REGISTRY.set(new HashSet<Pair<IDKey, IDKey>>());
             }
@@ -203,7 +203,7 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (registry != null) {
             Pair<IDKey, IDKey> pair = getRegisterPair(lhs, rhs);
             registry.remove(pair);
-            synchronized (HashCodeBuilder.class) {
+            synchronized (EqualsBuilder.class) {
                 //read again
                 registry = getRegistry();
                 if (registry != null && registry.isEmpty()) {
