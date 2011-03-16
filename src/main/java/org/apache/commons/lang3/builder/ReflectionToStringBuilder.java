@@ -377,6 +377,8 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
 
     /**
      * Which field names to exclude from output. Intended for fields like <code>"password"</code>.
+     *
+     * @since 3.0 this is protected instead of private
      */
     protected String[] excludeFieldNames;
 

@@ -79,6 +79,7 @@ import java.util.concurrent.Future;
  * operation is complete or to cancel the operation.
  * </p>
  *
+ * @since 3.0
  * @version $Id$
  * @param <T> the type of the object managed by this initializer class
  */

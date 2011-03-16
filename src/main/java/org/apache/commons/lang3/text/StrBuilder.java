@@ -468,6 +468,7 @@ public class StrBuilder implements CharSequence, Appendable {
      *
      * @param seq  the CharSequence to append
      * @return this, to enable chaining
+     * @since 3.0
      */
     public StrBuilder append(CharSequence seq) {
         if (seq == null) {
@@ -484,6 +485,7 @@ public class StrBuilder implements CharSequence, Appendable {
      * @param startIndex  the start index, inclusive, must be valid
      * @param length  the length to append, must be valid
      * @return this, to enable chaining
+     * @since 3.0
      */
     public StrBuilder append(CharSequence seq, int startIndex, int length) {
         if (seq == null) {
@@ -717,6 +719,7 @@ public class StrBuilder implements CharSequence, Appendable {
      *
      * @param ch  the value to append
      * @return this, to enable chaining
+     * @since 3.0
      */
     public StrBuilder append(char ch) {
         int len = length();
@@ -2000,6 +2003,7 @@ public class StrBuilder implements CharSequence, Appendable {
     //-----------------------------------------------------------------------
     /**
      * {@inheritDoc}
+     * @since 3.0
      */
     public CharSequence subSequence(int startIndex, int endIndex) {
       if (startIndex < 0) {

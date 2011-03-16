@@ -91,6 +91,7 @@ import java.util.concurrent.ExecutorService;
  * by {@code MultiBackgroundInitializer} waits forever.
  * </p>
  *
+ * @since 3.0
  * @version $Id$
  */
 public class MultiBackgroundInitializer
