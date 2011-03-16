@@ -49,9 +49,13 @@ public class EventUtils {
         try {
             MethodUtils.invokeMethod(eventSource, "add" + listenerType.getSimpleName(), listener);
         } catch (NoSuchMethodException e) {
-            throw new IllegalArgumentException("Class " + eventSource.getClass().getName() + " does not have a public add" + listenerType.getSimpleName() + " method which takes a parameter of type " + listenerType.getName() + ".");
+            throw new IllegalArgumentException("Class " + eventSource.getClass().getName()
+                    + " does not have a public add" + listenerType.getSimpleName()
+                    + " method which takes a parameter of type " + listenerType.getName() + ".");
         } catch (IllegalAccessException e) {
-            throw new IllegalArgumentException("Class " + eventSource.getClass().getName() + " does not have an accessible add" + listenerType.getSimpleName () + " method which takes a parameter of type " + listenerType.getName() + ".");
+            throw new IllegalArgumentException("Class " + eventSource.getClass().getName()
+                    + " does not have an accessible add" + listenerType.getSimpleName ()
+                    + " method which takes a parameter of type " + listenerType.getName() + ".");
         } catch (InvocationTargetException e) {
             throw new RuntimeException("Unable to add listener.", e.getCause());
         }
@@ -68,8 +72,10 @@ public class EventUtils {
      * @param eventTypes   the event types (method names) from the listener interface (if none specified, all will be
      *                     supported)
      */
-    public static <L> void bindEventsToMethod(Object target, String methodName, Object eventSource, Class<L> listenerType, String... eventTypes) {
-        final L listener = listenerType.cast(Proxy.newProxyInstance(target.getClass().getClassLoader(), new Class[] { listenerType }, new EventBindingInvocationHandler(target, methodName, eventTypes)));
+    public static <L> void bindEventsToMethod(Object target, String methodName, Object eventSource,
+            Class<L> listenerType, String... eventTypes) {
+        final L listener = listenerType.cast(Proxy.newProxyInstance(target.getClass().getClassLoader(),
+                new Class[] { listenerType }, new EventBindingInvocationHandler(target, methodName, eventTypes)));
         addEventListener(eventSource, listenerType, listener);
     }
 
@@ -78,12 +84,28 @@ public class EventUtils {
         private final String methodName;
         private final Set<String> eventTypes;
 
+        /**
+         * Creates a new instance of {@code EventBindingInvocationHandler}.
+         *
+         * @param target the target object for method invocations
+         * @param methodName the name of the method to be invoked
+         * @param eventTypes the names of the supported event types
+         */
         public EventBindingInvocationHandler(final Object target, final String methodName, String[] eventTypes) {
             this.target = target;
             this.methodName = methodName;
             this.eventTypes = new HashSet<String>(Arrays.asList(eventTypes));
         }
 
+        /**
+         * Handles a method invocation on the proxy object.
+         *
+         * @param proxy the proxy instance
+         * @param method the method to be invoked
+         * @param parameters the parameters for the method invocation
+         * @return the result of the method call
+         * @throws Throwable if an error occurs
+         */
         public Object invoke(final Object proxy, final Method method, final Object[] parameters) throws Throwable {
             if ( eventTypes.isEmpty() || eventTypes.contains(method.getName())) {
                 if (hasMatchingParametersMethod(method)) {
@@ -95,6 +117,12 @@ public class EventUtils {
             return null;
         }
 
+        /**
+         * Checks whether a method for the passed in parameters can be found.
+         *
+         * @param method the method to be invoked
+         * @return a flag whether the parameters could be matched
+         */
         private boolean hasMatchingParametersMethod(final Method method) {
             return MethodUtils.getAccessibleMethod(target.getClass(), methodName, method.getParameterTypes()) != null;
         }
