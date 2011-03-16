@@ -61,6 +61,7 @@ import java.util.concurrent.ExecutorService;
  *
  * </p>
  *
+ * @since 3.0
  * @version $Id$
  * @param <T> the type of the object managed by this initializer class
  */

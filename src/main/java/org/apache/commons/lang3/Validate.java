@@ -437,6 +437,8 @@ public class Validate {
      * @throws NullPointerException if the character sequence is {@code null}
      * @throws IllegalArgumentException if the character sequence is blank
      * @see #notBlank(CharSequence)
+     * 
+     * @since 3.0
      */
     public static <T extends CharSequence> T notBlank(T chars, String message, Object... values) {
         if (chars == null) {
@@ -464,6 +466,8 @@ public class Validate {
      * @throws NullPointerException if the character sequence is {@code null}
      * @throws IllegalArgumentException if the character sequence is blank
      * @see #notBlank(CharSequence, String, Object...)
+     * 
+     * @since 3.0
      */
     public static <T extends CharSequence> T notBlank(T chars) {
         return notBlank(chars, DEFAULT_NOT_BLANK_EX_MESSAGE);
@@ -615,6 +619,8 @@ public class Validate {
      * @throws NullPointerException if the array is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(Object[], int)
+     * 
+     * @since 3.0
      */
     public static <T> T[] validIndex(T[] array, int index, String message, Object... values) {
         Validate.notNull(array);
@@ -644,6 +650,8 @@ public class Validate {
      * @throws NullPointerException if the array is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(Object[], int, String, Object...)
+     * 
+     * @since 3.0
      */
     public static <T> T[] validIndex(T[] array, int index) {
         return validIndex(array, index, DEFAULT_VALID_INDEX_ARRAY_EX_MESSAGE, Integer.valueOf(index));
@@ -670,6 +678,8 @@ public class Validate {
      * @throws NullPointerException if the collection is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(Collection, int)
+     * 
+     * @since 3.0
      */
     public static <T extends Collection<?>> T validIndex(T collection, int index, String message, Object... values) {
         Validate.notNull(collection);
@@ -696,6 +706,8 @@ public class Validate {
      * @throws NullPointerException if the collection is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(Collection, int, String, Object...)
+     * 
+     * @since 3.0
      */
     public static <T extends Collection<?>> T validIndex(T collection, int index) {
         return validIndex(collection, index, DEFAULT_VALID_INDEX_COLLECTION_EX_MESSAGE, Integer.valueOf(index));
@@ -723,6 +735,8 @@ public class Validate {
      * @throws NullPointerException if the character sequence is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(CharSequence, int)
+     * 
+     * @since 3.0
      */
     public static <T extends CharSequence> T validIndex(T chars, int index, String message, Object... values) {
         Validate.notNull(chars);
@@ -753,6 +767,8 @@ public class Validate {
      * @throws NullPointerException if the character sequence is {@code null}
      * @throws IndexOutOfBoundsException if the index is invalid
      * @see #validIndex(CharSequence, int, String, Object...)
+     * 
+     * @since 3.0
      */
     public static <T extends CharSequence> T validIndex(T chars, int index) {
         return validIndex(chars, index, DEFAULT_VALID_INDEX_CHAR_SEQUENCE_EX_MESSAGE, Integer.valueOf(index));
@@ -777,6 +793,8 @@ public class Validate {
      * @param expression  the boolean expression to check 
      * @throws IllegalStateException if expression is {@code false}
      * @see #validState(boolean, String, Object...)
+     * 
+     * @since 3.0
      */
     public static void validState(boolean expression) {
         if (expression == false) {
@@ -797,6 +815,8 @@ public class Validate {
      * @param values  the optional values for the formatted exception message, null array not recommended
      * @throws IllegalStateException if expression is {@code false}
      * @see #validState(boolean)
+     * 
+     * @since 3.0
      */
     public static void validState(boolean expression, String message, Object... values) {
         if (expression == false) {
@@ -819,6 +839,8 @@ public class Validate {
      * @param pattern  the regular expression pattern, not null
      * @throws IllegalArgumentException if the character sequence does not match the pattern
      * @see #matchesPattern(CharSequence, String, String, Object...)
+     * 
+     * @since 3.0
      */
     public static void matchesPattern(CharSequence input, String pattern) {
         if (Pattern.matches(pattern, input) == false) {
@@ -840,6 +862,8 @@ public class Validate {
      * @param values  the optional values for the formatted exception message, null array not recommended
      * @throws IllegalArgumentException if the character sequence does not match the pattern
      * @see #matchesPattern(CharSequence, String)
+     * 
+     * @since 3.0
      */
     public static void matchesPattern(CharSequence input, String pattern, String message, Object... values) {
         if (Pattern.matches(pattern, input) == false) {
@@ -861,6 +885,8 @@ public class Validate {
      * @param value  the object to validate, not null
      * @throws IllegalArgumentException if the value falls out of the boundaries
      * @see #inclusiveBetween(Object, Object, Comparable, String, Object...)
+     * 
+     * @since 3.0
      */
     public static <T> void inclusiveBetween(T start, T end, Comparable<T> value) {
         if (value.compareTo(start) < 0 || value.compareTo(end) > 0) {
@@ -882,6 +908,8 @@ public class Validate {
      * @param values  the optional values for the formatted exception message, null array not recommended
      * @throws IllegalArgumentException if the value falls out of the boundaries
      * @see #inclusiveBetween(Object, Object, Comparable)
+     * 
+     * @since 3.0
      */
     public static <T> void inclusiveBetween(T start, T end, Comparable<T> value, String message, Object... values) {
         if (value.compareTo(start) < 0 || value.compareTo(end) > 0) {
@@ -903,6 +931,8 @@ public class Validate {
      * @param value  the object to validate, not null
      * @throws IllegalArgumentException if the value falls out of the boundaries
      * @see #exclusiveBetween(Object, Object, Comparable, String, Object...)
+     * 
+     * @since 3.0
      */
     public static <T> void exclusiveBetween(T start, T end, Comparable<T> value) {
         if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0) {
@@ -924,6 +954,8 @@ public class Validate {
      * @param values  the optional values for the formatted exception message, null array not recommended
      * @throws IllegalArgumentException if the value falls out of the boundaries
      * @see #exclusiveBetween(Object, Object, Comparable)
+     * 
+     * @since 3.0
      */
     public static <T> void exclusiveBetween(T start, T end, Comparable<T> value, String message, Object... values) {
         if (value.compareTo(start) <= 0 || value.compareTo(end) >= 0) {
@@ -948,6 +980,8 @@ public class Validate {
      * @param obj  the object to check, null throws an exception
      * @throws IllegalArgumentException if argument is not of specified class
      * @see #isInstanceOf(Class, Object, String, Object...)
+     * 
+     * @since 3.0
      */
     public static void isInstanceOf(Class<?> type, Object obj) {
         if (type.isInstance(obj) == false) {
@@ -968,6 +1002,8 @@ public class Validate {
      * @param values  the optional values for the formatted exception message, null array not recommended
      * @throws IllegalArgumentException if argument is not of specified class
      * @see #isInstanceOf(Class, Object)
+     * 
+     * @since 3.0
      */
     public static void isInstanceOf(Class<?> type, Object obj, String message, Object... values) {
         if (type.isInstance(obj) == false) {
@@ -992,6 +1028,8 @@ public class Validate {
      * @param type  the class to check, not null
      * @throws IllegalArgumentException if argument can not be converted to the specified class
      * @see #isAssignableFrom(Class, Class, String, Object...)
+     * 
+     * @since 3.0
      */
     public static void isAssignableFrom(Class<?> superType, Class<?> type) {
         if (superType.isAssignableFrom(type) == false) {

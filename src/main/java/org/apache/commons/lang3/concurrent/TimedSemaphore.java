@@ -122,7 +122,8 @@ import java.util.concurrent.TimeUnit;
  * resources. After that {@link #acquire()} must not be called any more.
  * </p>
  *
- * @version $Id:$
+ * @since 3.0
+ * @version $Id$
  */
 public class TimedSemaphore {
     /**
