@@ -467,6 +467,8 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(-1, StringUtils.indexOf("", ' '));
         assertEquals(0, StringUtils.indexOf("aabaabaa", 'a'));
         assertEquals(2, StringUtils.indexOf("aabaabaa", 'b'));
+
+        assertEquals(2, StringUtils.indexOf(new StringBuilder("aabaabaa"), 'b'));
     }
 
     public void testIndexOf_charInt() {
@@ -479,6 +481,8 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(5, StringUtils.indexOf("aabaabaa", 'b', 3));
         assertEquals(-1, StringUtils.indexOf("aabaabaa", 'b', 9));
         assertEquals(2, StringUtils.indexOf("aabaabaa", 'b', -1));
+
+        assertEquals(5, StringUtils.indexOf(new StringBuilder("aabaabaa"), 'b', 3));
     }
 
     public void testIndexOf_String() {
