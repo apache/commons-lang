@@ -2091,21 +2091,21 @@ public class StringUtils {
      * StringUtils.left("abc", 4)   = "abc"
      * </pre>
      *
-     * @param str  the String to get the leftmost characters from, may be null
+     * @param seq  the CharSequence to get the leftmost characters from, may be null
      * @param len  the length of the required String
      * @return the leftmost characters, {@code null} if null String input
      */
-    public static String left(String str, int len) {
-        if (str == null) {
+    public static String left(CharSequence seq, int len) {
+        if (seq == null) {
             return null;
         }
         if (len < 0) {
             return EMPTY;
         }
-        if (str.length() <= len) {
-            return str;
+        if (seq.length() <= len) {
+            return seq.toString();
         }
-        return str.substring(0, len);
+        return seq.subSequence(0, len).toString();
     }
 
     /**
@@ -2124,21 +2124,21 @@ public class StringUtils {
      * StringUtils.right("abc", 4)   = "abc"
      * </pre>
      *
-     * @param str  the String to get the rightmost characters from, may be null
+     * @param seq  the CharSequence to get the rightmost characters from, may be null
      * @param len  the length of the required String
      * @return the rightmost characters, {@code null} if null String input
      */
-    public static String right(String str, int len) {
-        if (str == null) {
+    public static String right(CharSequence seq, int len) {
+        if (seq == null) {
             return null;
         }
         if (len < 0) {
             return EMPTY;
         }
-        if (str.length() <= len) {
-            return str;
+        if (seq.length() <= len) {
+            return seq.toString();
         }
-        return str.substring(str.length() - len);
+        return StringUtils.subSequence(seq, seq.length() - len).toString();
     }
 
     /**
@@ -2148,7 +2148,7 @@ public class StringUtils {
      * of the String will be returned without an exception. If the
      * String is {@code null}, {@code null} will be returned.
      * An empty String is returned if len is negative or exceeds the
-     * length of {@code str}.</p>
+     * length of {@code seq}.</p>
      *
      * <pre>
      * StringUtils.mid(null, *, *)    = null
@@ -2161,25 +2161,25 @@ public class StringUtils {
      * StringUtils.mid("abc", -2, 2)  = "ab"
      * </pre>
      *
-     * @param str  the String to get the characters from, may be null
+     * @param seq  the CharSequence to get the characters from, may be null
      * @param pos  the position to start from, negative treated as zero
      * @param len  the length of the required String
      * @return the middle characters, {@code null} if null String input
      */
-    public static String mid(String str, int pos, int len) {
-        if (str == null) {
+    public static String mid(CharSequence seq, int pos, int len) {
+        if (seq == null) {
             return null;
         }
-        if (len < 0 || pos > str.length()) {
+        if (len < 0 || pos > seq.length()) {
             return EMPTY;
         }
         if (pos < 0) {
             pos = 0;
         }
-        if (str.length() <= (pos + len)) {
-            return str.substring(pos);
+        if (seq.length() <= (pos + len)) {
+            return StringUtils.subSequence(seq, pos).toString();
         }
-        return str.substring(pos, pos + len);
+        return seq.subSequence(pos, pos + len).toString();
     }
 
     // SubStringAfter/SubStringBefore
@@ -4555,13 +4555,13 @@ public class StringUtils {
      * StringUtils.rightPad("bat", -1) = "bat"
      * </pre>
      *
-     * @param str  the String to pad out, may be null
+     * @param seq  the CharSequence to pad out, may be null
      * @param size  the size to pad to
      * @return right padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      */
-    public static String rightPad(String str, int size) {
-        return rightPad(str, size, ' ');
+    public static String rightPad(CharSequence seq, int size) {
+        return rightPad(seq, size, ' ');
     }
 
     /**
@@ -4578,25 +4578,25 @@ public class StringUtils {
      * StringUtils.rightPad("bat", -1, 'z') = "bat"
      * </pre>
      *
-     * @param str  the String to pad out, may be null
+     * @param seq  the CharSequence to pad out, may be null
      * @param size  the size to pad to
      * @param padChar  the character to pad with
      * @return right padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      * @since 2.0
      */
-    public static String rightPad(String str, int size, char padChar) {
-        if (str == null) {
+    public static String rightPad(CharSequence seq, int size, char padChar) {
+        if (seq == null) {
             return null;
         }
-        int pads = size - str.length();
+        int pads = size - seq.length();
         if (pads <= 0) {
-            return str; // returns original String when possible
+            return seq.toString(); // returns original String when possible
         }
         if (pads > PAD_LIMIT) {
-            return rightPad(str, size, String.valueOf(padChar));
+            return rightPad(seq, size, String.valueOf(padChar));
         }
-        return str.concat(padding(pads, padChar));
+        return seq.toString().concat(padding(pads, padChar));
     }
 
     /**
@@ -4616,40 +4616,40 @@ public class StringUtils {
      * StringUtils.rightPad("bat", 5, "")    = "bat  "
      * </pre>
      *
-     * @param str  the String to pad out, may be null
+     * @param seq  the CharSequence to pad out, may be null
      * @param size  the size to pad to
      * @param padStr  the String to pad with, null or empty treated as single space
      * @return right padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      */
-    public static String rightPad(String str, int size, String padStr) {
-        if (str == null) {
+    public static String rightPad(CharSequence seq, int size, CharSequence padStr) {
+        if (seq == null) {
             return null;
         }
         if (isEmpty(padStr)) {
             padStr = " ";
         }
         int padLen = padStr.length();
-        int strLen = str.length();
+        int strLen = seq.length();
         int pads = size - strLen;
         if (pads <= 0) {
-            return str; // returns original String when possible
+            return seq.toString(); // returns original String when possible
         }
         if (padLen == 1 && pads <= PAD_LIMIT) {
-            return rightPad(str, size, padStr.charAt(0));
+            return rightPad(seq, size, padStr.charAt(0));
         }
 
         if (pads == padLen) {
-            return str.concat(padStr);
+            return seq.toString().concat(padStr.toString());
         } else if (pads < padLen) {
-            return str.concat(padStr.substring(0, pads));
+            return seq.toString().concat(padStr.subSequence(0, pads).toString());
         } else {
             char[] padding = new char[pads];
-            char[] padChars = padStr.toCharArray();
+            char[] padChars = padStr.toString().toCharArray();
             for (int i = 0; i < pads; i++) {
                 padding[i] = padChars[i % padLen];
             }
-            return str.concat(new String(padding));
+            return seq.toString().concat(new String(padding));
         }
     }
 
@@ -4667,13 +4667,13 @@ public class StringUtils {
      * StringUtils.leftPad("bat", -1) = "bat"
      * </pre>
      *
-     * @param str  the String to pad out, may be null
+     * @param seq  the CharSequence to pad out, may be null
      * @param size  the size to pad to
      * @return left padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      */
-    public static String leftPad(String str, int size) {
-        return leftPad(str, size, ' ');
+    public static String leftPad(CharSequence seq, int size) {
+        return leftPad(seq, size, ' ');
     }
 
     /**
@@ -4690,25 +4690,25 @@ public class StringUtils {
      * StringUtils.leftPad("bat", -1, 'z') = "bat"
      * </pre>
      *
-     * @param str  the String to pad out, may be null
+     * @param seq  the CharSequence to pad out, may be null
      * @param size  the size to pad to
      * @param padChar  the character to pad with
      * @return left padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      * @since 2.0
      */
-    public static String leftPad(String str, int size, char padChar) {
-        if (str == null) {
+    public static String leftPad(CharSequence seq, int size, char padChar) {
+        if (seq == null) {
             return null;
         }
-        int pads = size - str.length();
+        int pads = size - seq.length();
         if (pads <= 0) {
-            return str; // returns original String when possible
+            return seq.toString(); // returns original String when possible
         }
         if (pads > PAD_LIMIT) {
-            return leftPad(str, size, String.valueOf(padChar));
+            return leftPad(seq, size, String.valueOf(padChar));
         }
-        return padding(pads, padChar).concat(str);
+        return padding(pads, padChar).concat(seq.toString());
     }
 
     /**
@@ -4728,40 +4728,40 @@ public class StringUtils {
      * StringUtils.leftPad("bat", 5, "")    = "  bat"
      * </pre>
      *
-     * @param str  the String to pad out, may be null
+     * @param seq  the CharSequence to pad out, may be null
      * @param size  the size to pad to
-     * @param padStr  the String to pad with, null or empty treated as single space
+     * @param padStr  the CharSequence to pad with, null or empty treated as single space
      * @return left padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      */
-    public static String leftPad(String str, int size, String padStr) {
-        if (str == null) {
+    public static String leftPad(CharSequence seq, int size, CharSequence padStr) {
+        if (seq == null) {
             return null;
         }
         if (isEmpty(padStr)) {
             padStr = " ";
         }
         int padLen = padStr.length();
-        int strLen = str.length();
+        int strLen = seq.length();
         int pads = size - strLen;
         if (pads <= 0) {
-            return str; // returns original String when possible
+            return seq.toString(); // returns original String when possible
         }
         if (padLen == 1 && pads <= PAD_LIMIT) {
-            return leftPad(str, size, padStr.charAt(0));
+            return leftPad(seq, size, padStr.charAt(0));
         }
 
         if (pads == padLen) {
-            return padStr.concat(str);
+            return padStr.toString().concat(seq.toString());
         } else if (pads < padLen) {
-            return padStr.substring(0, pads).concat(str);
+            return padStr.subSequence(0, pads).toString().concat(seq.toString());
         } else {
             char[] padding = new char[pads];
-            char[] padChars = padStr.toCharArray();
+            char[] padChars = padStr.toString().toCharArray();
             for (int i = 0; i < pads; i++) {
                 padding[i] = padChars[i % padLen];
             }
-            return new String(padding).concat(str);
+            return new String(padding).concat(seq.toString());
         }
     }
 
@@ -4801,12 +4801,12 @@ public class StringUtils {
      * StringUtils.center("a", 4)    = " a  "
      * </pre>
      *
-     * @param str  the String to center, may be null
+     * @param seq  the CharSequence to center, may be null
      * @param size  the int size of new String, negative treated as zero
      * @return centered String, {@code null} if null String input
      */
-    public static String center(String str, int size) {
-        return center(str, size, ' ');
+    public static String center(CharSequence seq, int size) {
+        return center(seq, size, ' ');
     }
 
     /**
@@ -4827,24 +4827,27 @@ public class StringUtils {
      * StringUtils.center("a", 4, 'y')    = "yayy"
      * </pre>
      *
-     * @param str  the String to center, may be null
+     * @param seq  the CharSequence to center, may be null
      * @param size  the int size of new String, negative treated as zero
      * @param padChar  the character to pad the new String with
      * @return centered String, {@code null} if null String input
      * @since 2.0
      */
-    public static String center(String str, int size, char padChar) {
-        if (str == null || size <= 0) {
-            return str;
+    public static String center(CharSequence seq, int size, char padChar) {
+        if (seq == null) {
+            return null;
         }
-        int strLen = str.length();
+        if (size <= 0) {
+            return seq.toString();
+        }
+        int strLen = seq.length();
         int pads = size - strLen;
         if (pads <= 0) {
-            return str;
+            return seq.toString();
         }
-        str = leftPad(str, strLen + pads / 2, padChar);
-        str = rightPad(str, size, padChar);
-        return str;
+        String tmp = leftPad(seq, strLen + pads / 2, padChar);
+        tmp = rightPad(tmp, size, padChar);
+        return tmp;
     }
 
     /**
@@ -4867,27 +4870,30 @@ public class StringUtils {
      * StringUtils.center("abc", 7, "")   = "  abc  "
      * </pre>
      *
-     * @param str  the String to center, may be null
+     * @param seq  the CharSequence to center, may be null
      * @param size  the int size of new String, negative treated as zero
-     * @param padStr  the String to pad the new String with, must not be null or empty
+     * @param padStr  the CharSequence to pad the new String with, must not be null or empty
      * @return centered String, {@code null} if null String input
      * @throws IllegalArgumentException if padStr is {@code null} or empty
      */
-    public static String center(String str, int size, String padStr) {
-        if (str == null || size <= 0) {
-            return str;
+    public static String center(CharSequence seq, int size, CharSequence padStr) {
+        if (seq == null) {
+            return null;
+        }
+        if (size <= 0) {
+            return seq.toString();
         }
         if (isEmpty(padStr)) {
             padStr = " ";
         }
-        int strLen = str.length();
+        int strLen = seq.length();
         int pads = size - strLen;
         if (pads <= 0) {
-            return str;
+            return seq.toString();
         }
-        str = leftPad(str, strLen + pads / 2, padStr);
-        str = rightPad(str, size, padStr);
-        return str;
+        String tmp = leftPad(seq, strLen + pads / 2, padStr);
+        tmp = rightPad(tmp, size, padStr);
+        return tmp;
     }
 
     // Case conversion
@@ -4908,14 +4914,14 @@ public class StringUtils {
      * For platform-independent case transformations, the method {@link #lowerCase(String, Locale)}
      * should be used with a specific locale (e.g. {@link Locale#ENGLISH}).</p>
      *
-     * @param str  the String to upper case, may be null
+     * @param seq  the CharSequence to upper case, may be null
      * @return the upper cased String, {@code null} if null String input
      */
-    public static String upperCase(String str) {
-        if (str == null) {
+    public static String upperCase(CharSequence seq) {
+        if (seq == null) {
             return null;
         }
-        return str.toUpperCase();
+        return seq.toString().toUpperCase();
     }
 
     /**
@@ -4929,16 +4935,16 @@ public class StringUtils {
      * StringUtils.upperCase("aBc", Locale.ENGLISH) = "ABC"
      * </pre>
      *
-     * @param str  the String to upper case, may be null
+     * @param seq  the CharSequence to upper case, may be null
      * @param locale  the locale that defines the case transformation rules, must not be null
      * @return the upper cased String, {@code null} if null String input
      * @since 2.5
      */
-    public static String upperCase(String str, Locale locale) {
-        if (str == null) {
+    public static String upperCase(CharSequence seq, Locale locale) {
+        if (seq == null) {
             return null;
         }
-        return str.toUpperCase(locale);
+        return seq.toString().toUpperCase(locale);
     }
 
     /**
@@ -4957,14 +4963,14 @@ public class StringUtils {
      * For platform-independent case transformations, the method {@link #lowerCase(String, Locale)}
      * should be used with a specific locale (e.g. {@link Locale#ENGLISH}).</p>
      *
-     * @param str  the String to lower case, may be null
+     * @param seq  the CharSequence to lower case, may be null
      * @return the lower cased String, {@code null} if null String input
      */
-    public static String lowerCase(String str) {
-        if (str == null) {
+    public static String lowerCase(CharSequence seq) {
+        if (seq == null) {
             return null;
         }
-        return str.toLowerCase();
+        return seq.toString().toLowerCase();
     }
 
     /**
@@ -4978,16 +4984,16 @@ public class StringUtils {
      * StringUtils.lowerCase("aBc", Locale.ENGLISH) = "abc"
      * </pre>
      *
-     * @param str  the String to lower case, may be null
+     * @param seq  the CharSequence to lower case, may be null
      * @param locale  the locale that defines the case transformation rules, must not be null
      * @return the lower cased String, {@code null} if null String input
      * @since 2.5
      */
-    public static String lowerCase(String str, Locale locale) {
-        if (str == null) {
+    public static String lowerCase(CharSequence seq, Locale locale) {
+        if (seq == null) {
             return null;
         }
-        return str.toLowerCase(locale);
+        return seq.toString().toLowerCase(locale);
     }
 
     /**
@@ -5084,19 +5090,22 @@ public class StringUtils {
      * If you only use ASCII, you will notice no change.
      * That functionality is available in org.apache.commons.lang3.text.WordUtils.</p>
      *
-     * @param str  the String to swap case, may be null
+     * @param seq  the CharSequence to swap case, may be null
      * @return the changed String, {@code null} if null String input
      */
-    public static String swapCase(String str) {
+    public static String swapCase(CharSequence seq) {
         int strLen;
-        if (str == null || (strLen = str.length()) == 0) {
-            return str;
+        if (seq == null) {
+            return null;
+        }
+        if ( (strLen = seq.length()) == 0) {
+            return seq.toString();
         }
         StringBuilder buffer = new StringBuilder(strLen);
 
         char ch = 0;
         for (int i = 0; i < strLen; i++) {
-            ch = str.charAt(i);
+            ch = seq.charAt(i);
             if (Character.isUpperCase(ch)) {
                 ch = Character.toLowerCase(ch);
             } else if (Character.isTitleCase(ch)) {
