@@ -98,7 +98,8 @@ public class MultiBackgroundInitializer
         extends
         BackgroundInitializer<MultiBackgroundInitializer.MultiBackgroundInitializerResults> {
     /** A map with the child initializers. */
-    private final Map<String, BackgroundInitializer<?>> childInitializers = new HashMap<String, BackgroundInitializer<?>>();
+    private final Map<String, BackgroundInitializer<?>> childInitializers =
+        new HashMap<String, BackgroundInitializer<?>>();
 
     /**
      * Creates a new instance of {@code MultiBackgroundInitializer}.
