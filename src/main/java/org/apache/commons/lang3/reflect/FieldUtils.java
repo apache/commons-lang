@@ -236,7 +236,8 @@ public class FieldUtils {
      * @throws IllegalArgumentException if the class or field name is null
      * @throws IllegalAccessException if the field is not made accessible
      */
-    public static Object readStaticField(Class<?> cls, String fieldName, boolean forceAccess) throws IllegalAccessException {
+    public static Object readStaticField(Class<?> cls, String fieldName, boolean forceAccess)
+        throws IllegalAccessException {
         Field field = getField(cls, fieldName, forceAccess);
         if (field == null) {
             throw new IllegalArgumentException("Cannot locate field " + fieldName + " on " + cls);
@@ -377,7 +378,8 @@ public class FieldUtils {
      * @throws IllegalArgumentException if <code>target</code> or <code>fieldName</code> is null
      * @throws IllegalAccessException if the field is not made accessible
      */
-    public static Object readDeclaredField(Object target, String fieldName, boolean forceAccess) throws IllegalAccessException {
+    public static Object readDeclaredField(Object target, String fieldName, boolean forceAccess)
+        throws IllegalAccessException {
         if (target == null) {
             throw new IllegalArgumentException("target object must not be null");
         }
@@ -511,7 +513,8 @@ public class FieldUtils {
      * @throws IllegalArgumentException if the field is null
      * @throws IllegalAccessException if the field is not made accessible or is final
      */
-    public static void writeField(Field field, Object target, Object value, boolean forceAccess) throws IllegalAccessException {
+    public static void writeField(Field field, Object target, Object value, boolean forceAccess)
+        throws IllegalAccessException {
         if (field == null) {
             throw new IllegalArgumentException("The field must not be null");
         }
