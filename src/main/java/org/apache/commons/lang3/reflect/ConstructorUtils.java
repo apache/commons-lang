@@ -26,20 +26,20 @@ import org.apache.commons.lang3.ClassUtils;
 /**
  * <p> Utility reflection methods focussed on constructors, modelled after
  * {@link MethodUtils}. </p>
- * 
+ *
  * <h3>Known Limitations</h3> <h4>Accessing Public Constructors In A Default
  * Access Superclass</h4> <p>There is an issue when invoking public constructors
  * contained in a default access superclass. Reflection locates these
  * constructors fine and correctly assigns them as public. However, an
  * <code>IllegalAccessException</code> is thrown if the constructors is
  * invoked.</p>
- * 
+ *
  * <p><code>ConstructorUtils</code> contains a workaround for this situation. It
  * will attempt to call <code>setAccessible</code> on this constructor. If this
  * call succeeds, then the method can be invoked as normal. This call will only
  * succeed when the application has sufficient security privilages. If this call
  * fails then a warning will be logged and the method may fail.</p>
- * 
+ *
  * @author Apache Software Foundation
  * @author Craig R. McClanahan
  * @author Ralph Schaer
@@ -58,7 +58,7 @@ public class ConstructorUtils {
      * <p>ConstructorUtils instances should NOT be constructed in standard
      * programming. Instead, the class should be used as
      * <code>ConstructorUtils.invokeConstructor(cls, args)</code>.</p>
-     * 
+     *
      * <p>This constructor is public to permit tools that require a JavaBean
      * instance to operate.</p>
      */
@@ -72,20 +72,21 @@ public class ConstructorUtils {
      * the actual values of <code>args</code>. See
      * {@link #invokeExactConstructor(Class, Object[], Class[])} for more
      * details.</p>
-     * 
+     *
      * <p>The signatures should be assignment compatible.</p>
-     * 
+     *
+     * @param <T> the type to be constructed
      * @param cls the class to be constructed.
      * @param args actual argument array
      * @return new instance of <code>klazz</code>
-     * 
+     *
      * @throws NoSuchMethodException If the constructor cannot be found
      * @throws IllegalAccessException If an error occurs accessing the
      * constructor
      * @throws InvocationTargetException If an error occurs invoking the
      * constructor
      * @throws InstantiationException If an error occurs instantiating the class
-     * 
+     *
      * @see #invokeConstructor(java.lang.Class, java.lang.Object[],
      * java.lang.Class[])
      */
@@ -106,14 +107,15 @@ public class ConstructorUtils {
      * <p>Returns new instance of <code>klazz</code> created using constructor
      * with signature <code>parameterTypes</code> and actual arguments
      * <code>args</code>.</p>
-     * 
+     *
      * <p>The signatures should be assignment compatible.</p>
-     * 
+     *
+     * @param <T> the type to be constructed
      * @param cls the class to be constructed.
      * @param args actual argument array
      * @param parameterTypes parameter types array
      * @return new instance of <code>klazz</code>
-     * 
+     *
      * @throws NoSuchMethodException if matching constructor cannot be found
      * @throws IllegalAccessException thrown on the constructor's invocation
      * @throws InvocationTargetException thrown on the constructor's invocation
@@ -143,20 +145,21 @@ public class ConstructorUtils {
      * the actual values of <code>args</code>. See
      * {@link #invokeExactConstructor(Class, Object[], Class[])} for more
      * details.</p>
-     * 
+     *
      * <p>The signatures should match exactly.</p>
-     * 
+     *
+     * @param <T> the type to be constructed
      * @param cls the class to be constructed.
      * @param args actual argument array
      * @return new instance of <code>klazz</code>
-     * 
+     *
      * @throws NoSuchMethodException If the constructor cannot be found
      * @throws IllegalAccessException If an error occurs accessing the
      * constructor
      * @throws InvocationTargetException If an error occurs invoking the
      * constructor
      * @throws InstantiationException If an error occurs instantiating the class
-     * 
+     *
      * @see #invokeExactConstructor(java.lang.Class, java.lang.Object[],
      * java.lang.Class[])
      */
@@ -178,14 +181,15 @@ public class ConstructorUtils {
      * <p>Returns new instance of <code>klazz</code> created using constructor
      * with signature <code>parameterTypes</code> and actual arguments
      * <code>args</code>.</p>
-     * 
+     *
      * <p>The signatures should match exactly.</p>
-     * 
+     *
+     * @param <T> the type to be constructed
      * @param cls the class to be constructed.
      * @param args actual argument array
      * @param parameterTypes parameter types array
      * @return new instance of <code>klazz</code>
-     * 
+     *
      * @throws NoSuchMethodException if matching constructor cannot be found
      * @throws IllegalAccessException thrown on the constructor's invocation
      * @throws InvocationTargetException thrown on the constructor's invocation
@@ -211,6 +215,8 @@ public class ConstructorUtils {
 
     /**
      * Returns a constructor given a class and signature.
+     *
+     * @param <T> the type to be constructed
      * @param cls the class to be constructed
      * @param parameterTypes the parameter array
      * @return null if matching accessible constructor can not be found
@@ -228,6 +234,8 @@ public class ConstructorUtils {
 
     /**
      * Returns accessible version of the given constructor.
+     *
+     * @param <T> the type to be constructed
      * @param ctor prototype constructor object.
      * @return <code>null</code> if accessible constructor can not be found.
      * @see java.lang.SecurityManager
@@ -242,12 +250,13 @@ public class ConstructorUtils {
      * parameters mean that every method parameter is assignable from the given
      * parameters. In other words, it finds constructor that will take the
      * parameters given.</p>
-     * 
+     *
      * <p>First it checks if there is constructor matching the exact signature.
      * If no such, all the constructors of the class are tested if their
      * signatures are assignment compatible with the parameter types. The first
      * matching constructor is returned.</p>
-     * 
+     *
+     * @param <T> the type to be constructed
      * @param cls find constructor for this class
      * @param parameterTypes find method with compatible parameters
      * @return a valid Constructor object. If there's no matching constructor,
@@ -282,7 +291,7 @@ public class ConstructorUtils {
                             || MemberUtils.compareParameterTypes(ctor.getParameterTypes(), result
                                     .getParameterTypes(), parameterTypes) < 0) {
                         // temporary variable for annotation, see comment above (1)
-                        @SuppressWarnings("unchecked") 
+                        @SuppressWarnings("unchecked")
                         Constructor<T> constructor = (Constructor<T>)ctor;
                         result = constructor;
                     }
