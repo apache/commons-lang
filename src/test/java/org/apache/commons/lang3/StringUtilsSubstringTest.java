@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import junit.framework.TestCase;
+import org.junit.Assert;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
@@ -312,4 +313,38 @@ public class StringUtilsSubstringTest extends TestCase {
         assertEquals(4, 
              StringUtils.countMatches("oooooooooooo", "ooo"));
     }
+
+    //-----------------------------------------------------------------------
+    public void testSubSequence() {
+        //
+        // null input
+        //
+        Assert.assertEquals(null, StringUtils.subSequence(null, -1));
+        Assert.assertEquals(null, StringUtils.subSequence(null, 0));
+        Assert.assertEquals(null, StringUtils.subSequence(null, 1));
+        //
+        // non-null input
+        //
+        Assert.assertEquals(StringUtils.EMPTY, StringUtils.subSequence(StringUtils.EMPTY, 0));
+        Assert.assertEquals("012", StringUtils.subSequence("012", 0));
+        Assert.assertEquals("12", StringUtils.subSequence("012", 1));
+        Assert.assertEquals("2", StringUtils.subSequence("012", 2));
+        Assert.assertEquals(StringUtils.EMPTY, StringUtils.subSequence("012", 3));
+        //
+        // Exception expected
+        //
+        try {
+            Assert.assertEquals(null, StringUtils.subSequence(StringUtils.EMPTY, -1));
+            Assert.fail("Expected " + IndexOutOfBoundsException.class.getName());
+        } catch (IndexOutOfBoundsException e) {
+            // Expected
+        }
+        try {
+            Assert.assertEquals(null, StringUtils.subSequence(StringUtils.EMPTY, 1));
+            Assert.fail("Expected " + IndexOutOfBoundsException.class.getName());
+        } catch (IndexOutOfBoundsException e) {
+            // Expected
+        }
+    }
+
 }
