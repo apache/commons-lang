@@ -800,10 +800,10 @@ public class StringUtils {
     // IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Finds the first index within a String, handling {@code null}.
-     * This method uses {@link String#indexOf(int)}.</p>
+     * <p>Finds the first index within a CharSequence, handling {@code null}.
+     * This method uses {@link String#indexOf(int, int)} if possible.</p>
      *
-     * <p>A {@code null} or empty ("") String will return {@code INDEX_NOT_FOUND (-1)}.</p>
+     * <p>A {@code null} or empty ("") CharSequence will return {@code INDEX_NOT_FOUND (-1)}.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *)         = -1
@@ -812,25 +812,25 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", 'b') = 2
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param seq  the CharSequence to check, may be null
      * @param searchChar  the character to find
      * @return the first index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(String str, int searchChar) {
-        if (isEmpty(str)) {
+    public static int indexOf(CharSequence seq, int searchChar) {
+        if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return str.indexOf(searchChar);
+        return StringUtils.indexOfSequence(seq, searchChar, 0);
     }
 
     /**
-     * <p>Finds the first index within a String from a start position,
+     * <p>Finds the first index within a CharSequence from a start position,
      * handling {@code null}.
-     * This method uses {@link String#indexOf(int, int)}.</p>
+     * This method uses {@link String#indexOf(int, int)} if possible.</p>
      *
-     * <p>A {@code null} or empty ("") String will return {@code (INDEX_NOT_FOUND) -1}.
+     * <p>A {@code null} or empty ("") CharSequence will return {@code (INDEX_NOT_FOUND) -1}.
      * A negative start position is treated as zero.
      * A start position greater than the string length returns {@code -1}.</p>
      *
@@ -843,18 +843,18 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", 'b', -1) = 2
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param seq  the CharSequence to check, may be null
      * @param searchChar  the character to find
      * @param startPos  the start position, negative treated as zero
      * @return the first index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(String str, int searchChar, int startPos) {
-        if (isEmpty(str)) {
+    public static int indexOf(CharSequence seq, int searchChar, int startPos) {
+        if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return str.indexOf(searchChar, startPos);
+        return StringUtils.indexOfSequence(seq, searchChar, startPos);
     }
 
     /**
@@ -6414,6 +6414,36 @@ public class StringUtils {
      */
     public static CharSequence subSequence(CharSequence cs, int start) {
         return cs == null ? null : cs.subSequence(start, cs.length());
+    }
+
+    // Used by the indexOf(CharSequence methods) as a green implementation of indexOf
+    static int indexOfSequence(CharSequence cs, int searchChar, int start) {
+        if (cs instanceof String) {
+            return ((String) cs).indexOf(searchChar, start);
+        } else {
+            int sz = cs.length();
+            if ( start < 0 ) {
+                start = 0;
+            }
+            for ( int i=start; i < sz; i++ ) {
+                if ( cs.charAt(i) == searchChar) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
+    // Used by the indexOf(CharSequence methods) as a green implementation of indexOf
+    static int indexOfSequence(CharSequence cs, CharSequence searchChar, int start) {
+        if (cs instanceof String && searchChar instanceof String) {
+            // TODO: Do we assume searchChar is usually relatively small; 
+            //       If so then calling toString() on it is better than reverting to 
+            //       the green implementation in the else block
+            return ((String) cs).indexOf( (String) searchChar, start);
+        } else {
+            // TODO: Implement rather than convert to String
+            return cs.toString().indexOf(searchChar.toString(), start);
+        }
     }
 
 }
