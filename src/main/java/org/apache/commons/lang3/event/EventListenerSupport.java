@@ -33,18 +33,18 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.apache.commons.lang3.Validate;
 
 /**
- * An EventListenerSupport object can be used to manage a list of event 
- * listeners of a particular type. The class provides 
+ * An EventListenerSupport object can be used to manage a list of event
+ * listeners of a particular type. The class provides
  * {@link #addListener(Object)} and {@link #removeListener(Object)} methods
  * for registering listeners, as well as a {@link #fire()} method for firing
  * events to the listeners.
- * 
+ *
  * <p/>
  * To use this class, suppose you want to support ActionEvents.  You would do:
  * <code><pre>
  * public class MyActionEventSource
  * {
- *   private EventListenerSupport<ActionListener> actionListeners = 
+ *   private EventListenerSupport<ActionListener> actionListeners =
  *       EventListenerSupport.create(ActionListener.class);
  *
  *   public void someMethodThatFiresAction()
@@ -69,14 +69,14 @@ public class EventListenerSupport<L> implements Serializable {
     private static final long serialVersionUID = 3593265990380473632L;
 
     /**
-     * The list used to hold the registered listeners. This list is 
+     * The list used to hold the registered listeners. This list is
      * intentionally a thread-safe copy-on-write-array so that traversals over
      * the list of listeners will be atomic.
      */
     private List<L> listeners = new CopyOnWriteArrayList<L>();
 
     /**
-     * The proxy representing the collection of listeners. Calls to this proxy 
+     * The proxy representing the collection of listeners. Calls to this proxy
      * object will sent to all registered listeners.
      */
     private transient L proxy;
@@ -87,16 +87,17 @@ public class EventListenerSupport<L> implements Serializable {
     private transient L[] prototypeArray;
 
     /**
-     * Creates an EventListenerSupport object which supports the specified 
+     * Creates an EventListenerSupport object which supports the specified
      * listener type.
      *
+     * @param <T> the type of the listener interface
      * @param listenerInterface the type of listener interface that will receive
      *        events posted using this class.
-     * 
-     * @return an EventListenerSupport object which supports the specified 
+     *
+     * @return an EventListenerSupport object which supports the specified
      *         listener type.
-     *         
-     * @throws NullPointerException if <code>listenerInterface</code> is 
+     *
+     * @throws NullPointerException if <code>listenerInterface</code> is
      *         <code>null</code>.
      * @throws IllegalArgumentException if <code>listenerInterface</code> is
      *         not an interface.
@@ -106,13 +107,13 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Creates an EventListenerSupport object which supports the provided 
+     * Creates an EventListenerSupport object which supports the provided
      * listener interface.
      *
      * @param listenerInterface the type of listener interface that will receive
      *        events posted using this class.
-     * 
-     * @throws NullPointerException if <code>listenerInterface</code> is 
+     *
+     * @throws NullPointerException if <code>listenerInterface</code> is
      *         <code>null</code>.
      * @throws IllegalArgumentException if <code>listenerInterface</code> is
      *         not an interface.
@@ -122,13 +123,13 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Creates an EventListenerSupport object which supports the provided 
-     * listener interface using the specified class loader to create the JDK 
+     * Creates an EventListenerSupport object which supports the provided
+     * listener interface using the specified class loader to create the JDK
      * dynamic proxy.
      *
      * @param listenerInterface the listener interface.
      * @param classLoader       the class loader.
-     * 
+     *
      * @throws NullPointerException if <code>listenerInterface</code> or
      *         <code>classLoader</code> is <code>null</code>.
      * @throws IllegalArgumentException if <code>listenerInterface</code> is
@@ -151,11 +152,11 @@ public class EventListenerSupport<L> implements Serializable {
     }
 
     /**
-     * Returns a proxy object which can be used to call listener methods on all 
+     * Returns a proxy object which can be used to call listener methods on all
      * of the registered event listeners. All calls made to this proxy will be
      * forwarded to all registered listeners.
      *
-     * @return a proxy object which can be used to call listener methods on all 
+     * @return a proxy object which can be used to call listener methods on all
      * of the registered event listeners
      */
     public L fire() {
@@ -170,8 +171,8 @@ public class EventListenerSupport<L> implements Serializable {
      * Registers an event listener.
      *
      * @param listener the event listener (may not be <code>null</code>).
-     * 
-     * @throws NullPointerException if <code>listener</code> is 
+     *
+     * @throws NullPointerException if <code>listener</code> is
      *         <code>null</code>.
      */
     public void addListener(L listener) {
@@ -192,8 +193,8 @@ public class EventListenerSupport<L> implements Serializable {
      * Unregisters an event listener.
      *
      * @param listener the event listener (may not be <code>null</code>).
-     * 
-     * @throws NullPointerException if <code>listener</code> is 
+     *
+     * @throws NullPointerException if <code>listener</code> is
      *         <code>null</code>.
      */
     public void removeListener(L listener) {
@@ -213,8 +214,8 @@ public class EventListenerSupport<L> implements Serializable {
 
     /**
      * Serialize.
-     * @param objectOutputStream
-     * @throws IOException
+     * @param objectOutputStream the output stream
+     * @throws IOException if an IO error occurs
      */
     private void writeObject(ObjectOutputStream objectOutputStream) throws IOException {
         ArrayList<L> serializableListeners = new ArrayList<L>();
@@ -239,9 +240,9 @@ public class EventListenerSupport<L> implements Serializable {
 
     /**
      * Deserialize.
-     * @param objectInputStream
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @param objectInputStream the input stream
+     * @throws IOException if an IO error occurs
+     * @throws ClassNotFoundException if the class cannot be resolved
      */
     private void readObject(ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
         @SuppressWarnings("unchecked")
@@ -257,8 +258,8 @@ public class EventListenerSupport<L> implements Serializable {
 
     /**
      * Initialize transient fields.
-     * @param listenerInterface
-     * @param classLoader
+     * @param listenerInterface the class of the listener interface
+     * @param classLoader the class loader to be used
      */
     private void initializeTransientFields(Class<L> listenerInterface, ClassLoader classLoader) {
         @SuppressWarnings("unchecked")
@@ -269,8 +270,8 @@ public class EventListenerSupport<L> implements Serializable {
 
     /**
      * Create the proxy object.
-     * @param listenerInterface
-     * @param classLoader
+     * @param listenerInterface the class of the listener interface
+     * @param classLoader the class loader to be used
      */
     private void createProxy(Class<L> listenerInterface, ClassLoader classLoader) {
         proxy = listenerInterface.cast(Proxy.newProxyInstance(classLoader,
@@ -296,12 +297,14 @@ public class EventListenerSupport<L> implements Serializable {
         /**
          * Propagates the method call to all registered listeners in place of
          * the proxy listener object.
-         * 
-         * @param proxy the proxy object representing a listener on which the 
+         *
+         * @param proxy the proxy object representing a listener on which the
          *        invocation was called.
          * @param method the listener method that will be called on all of the
          *        listeners.
          * @param args event arguments to propagate to the listeners.
+         * @return the result of the method call
+         * @throws Throwable if an error occurs
          */
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             for (L listener : listeners) {
