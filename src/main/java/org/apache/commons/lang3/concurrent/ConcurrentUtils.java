@@ -317,6 +317,7 @@ public class ConcurrentUtils {
      * A constant future can also be useful in testing.
      * </p>
      *
+     * @param <T> the type of the value used by this {@code Future} object
      * @param value  the constant value to return, may be null
      * @return an instance of Future that will return the value, never null
      */
@@ -324,30 +325,60 @@ public class ConcurrentUtils {
         return new ConstantFuture<T>(value);
     }
 
+    /**
+     * A specialized {@code Future} implementation which wraps a constant value.
+     * @param <T> the type of the value wrapped by this class
+     */
     static final class ConstantFuture<T> implements Future<T> {
         /** The constant value. */
         private final T value;
 
+        /**
+         * Creates a new instance of {@code ConstantFuture} and initializes it
+         * with the constant value.
+         *
+         * @param value the value (may be <b>null</b>)
+         */
         ConstantFuture(T value) {
             this.value = value;
         }
 
+        /**
+         * {@inheritDoc} This implementation always returns <b>true</b> because
+         * the constant object managed by this {@code Future} implementation is
+         * always available.
+         */
         public boolean isDone() {
             return true;
         }
 
+        /**
+         * {@inheritDoc} This implementation just returns the constant value.
+         */
         public T get() {
             return value;
         }
 
+        /**
+         * {@inheritDoc} This implementation just returns the constant value; it
+         * does not block, therefore the timeout has no meaning.
+         */
         public T get(long timeout, TimeUnit unit) {
             return value;
         }
 
+        /**
+         * {@inheritDoc} This implementation always returns <b>false</b>; there
+         * is no background process which could be cancelled.
+         */
         public boolean isCancelled() {
             return false;
         }
 
+        /**
+         * {@inheritDoc} The cancel operation is not supported. This
+         * implementation always returns <b>false</b>.
+         */
         public boolean cancel(boolean mayInterruptIfRunning) {
             return false;
         }
