@@ -67,6 +67,8 @@ public abstract class AtomicSafeInitializer<T> implements
      * Get (and initialize, if not initialized yet) the required object
      *
      * @return lazily initialized object
+     * @throws ConcurrentException if the initialization of the object causes an
+     * exception
      */
     public final T get() throws ConcurrentException {
         T result;
