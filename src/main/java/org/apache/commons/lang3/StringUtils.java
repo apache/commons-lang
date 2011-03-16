@@ -5641,7 +5641,7 @@ public class StringUtils {
      * <ul>
      *   <li>If {@code str} is less than {@code maxWidth} characters
      *       long, return it.</li>
-     *   <li>Else abbreviate it to {@code (substring(str, 0, max-3) + "...")}.</li>
+     *   <li>Else abbreviate it to {@code (substring(seq, 0, max-3) + "...")}.</li>
      *   <li>If {@code maxWidth} is less than {@code 4}, throw an
      *       {@code IllegalArgumentException}.</li>
      *   <li>In no case will it return a String of length greater than
@@ -5659,14 +5659,14 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param seq  the CharSequence to check, may be null
      * @param maxWidth  maximum length of result String, must be at least 4
      * @return abbreviated String, {@code null} if null String input
      * @throws IllegalArgumentException if the width is too small
      * @since 2.0
      */
-    public static String abbreviate(String str, int maxWidth) {
-        return abbreviate(str, 0, maxWidth);
+    public static String abbreviate(CharSequence seq, int maxWidth) {
+        return abbreviate(seq, 0, maxWidth);
     }
 
     /**
@@ -5697,40 +5697,40 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefghij", 5, 6)        = IllegalArgumentException
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param seq  the CharSequence to check, may be null
      * @param offset  left edge of source String
      * @param maxWidth  maximum length of result String, must be at least 4
      * @return abbreviated String, {@code null} if null String input
      * @throws IllegalArgumentException if the width is too small
      * @since 2.0
      */
-    public static String abbreviate(String str, int offset, int maxWidth) {
-        if (str == null) {
+    public static String abbreviate(CharSequence seq, int offset, int maxWidth) {
+        if (seq == null) {
             return null;
         }
         if (maxWidth < 4) {
             throw new IllegalArgumentException("Minimum abbreviation width is 4");
         }
-        if (str.length() <= maxWidth) {
-            return str;
+        if (seq.length() <= maxWidth) {
+            return seq.toString();
         }
-        if (offset > str.length()) {
-            offset = str.length();
+        if (offset > seq.length()) {
+            offset = seq.length();
         }
-        if ((str.length() - offset) < (maxWidth - 3)) {
-            offset = str.length() - (maxWidth - 3);
+        if ((seq.length() - offset) < (maxWidth - 3)) {
+            offset = seq.length() - (maxWidth - 3);
         }
         final String abrevMarker = "...";
         if (offset <= 4) {
-            return str.substring(0, maxWidth - 3) + abrevMarker;
+            return seq.subSequence(0, maxWidth - 3) + abrevMarker;
         }
         if (maxWidth < 7) {
             throw new IllegalArgumentException("Minimum abbreviation width with offset is 7");
         }
-        if ((offset + (maxWidth - 3)) < str.length()) {
-            return abrevMarker + abbreviate(str.substring(offset), maxWidth - 3);
+        if ((offset + (maxWidth - 3)) < seq.length()) {
+            return abrevMarker + abbreviate(StringUtils.subSequence(seq, offset), maxWidth - 3);
         }
-        return abrevMarker + str.substring(str.length() - (maxWidth - 3));
+        return abrevMarker + StringUtils.subSequence(seq, seq.length() - (maxWidth - 3));
     }
 
     /**
@@ -5756,29 +5756,32 @@ public class StringUtils {
      * StringUtils.abbreviateMiddle("abcdef", ".", 4)     = "ab.f"
      * </pre>
      *
-     * @param str  the String to abbreviate, may be null
-     * @param middle the String to replace the middle characters with, may be null
-     * @param length the length to abbreviate {@code str} to.
+     * @param seq  the CharSequence to abbreviate, may be null
+     * @param middle the CharSequence to replace the middle characters with, may be null
+     * @param length the length to abbreviate {@code seq} to.
      * @return the abbreviated String if the above criteria is met, or the original String supplied for abbreviation.
      * @since 2.5
      */
-    public static String abbreviateMiddle(String str, String middle, int length) {
-        if (isEmpty(str) || isEmpty(middle)) {
-            return str;
+    public static String abbreviateMiddle(CharSequence seq, CharSequence middle, int length) {
+        if (seq == null) {
+            return null;
+        }
+        if (isEmpty(seq) || isEmpty(middle)) {
+            return seq.toString();
         }
 
-        if (length >= str.length() || length < (middle.length()+2)) {
-            return str;
+        if (length >= seq.length() || length < (middle.length()+2)) {
+            return seq.toString();
         }
 
         int targetSting = length-middle.length();
         int startOffset = targetSting/2+targetSting%2;
-        int endOffset = str.length()-targetSting/2;
+        int endOffset = seq.length()-targetSting/2;
 
         StringBuilder builder = new StringBuilder(length);
-        builder.append(str.substring(0,startOffset));
+        builder.append(seq.subSequence(0,startOffset));
         builder.append(middle);
-        builder.append(str.substring(endOffset));
+        builder.append(StringUtils.subSequence(seq, endOffset));
 
         return builder.toString();
     }
