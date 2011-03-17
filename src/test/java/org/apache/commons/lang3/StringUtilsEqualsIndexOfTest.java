@@ -675,6 +675,8 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(-1, StringUtils.lastIndexOf("", ' '));
         assertEquals(7, StringUtils.lastIndexOf("aabaabaa", 'a'));
         assertEquals(5, StringUtils.lastIndexOf("aabaabaa", 'b'));
+
+        assertEquals(5, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), 'b'));
     }
 
     public void testLastIndexOf_charInt() {
@@ -688,6 +690,8 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(5, StringUtils.lastIndexOf("aabaabaa", 'b', 9));
         assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", 'b', -1));
         assertEquals(0, StringUtils.lastIndexOf("aabaabaa", 'a', 0));
+
+        assertEquals(2, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), 'b', 2));
     }
 
     public void testLastIndexOf_String() {
@@ -699,6 +703,8 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(7, StringUtils.lastIndexOf("aabaabaa", "a"));
         assertEquals(5, StringUtils.lastIndexOf("aabaabaa", "b"));
         assertEquals(4, StringUtils.lastIndexOf("aabaabaa", "ab"));
+
+        assertEquals(4, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), "ab"));
     }
 
     public void testLastIndexOf_StringInt() {
@@ -722,6 +728,8 @@ public class StringUtilsEqualsIndexOfTest extends TestCase {
         assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "b", -1));
         assertEquals(-1, StringUtils.lastIndexOf("aabaabaa", "b", 0));
         assertEquals(0, StringUtils.lastIndexOf("aabaabaa", "a", 0));
+
+        assertEquals(2, StringUtils.lastIndexOf(new StringBuilder("aabaabaa"), "b", 3));
     }
 
     public void testLastIndexOfAny_StringStringArray() {
