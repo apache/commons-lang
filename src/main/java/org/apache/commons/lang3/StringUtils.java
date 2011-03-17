@@ -4911,7 +4911,7 @@ public class StringUtils {
      *
      * <p><strong>Note:</strong> As described in the documentation for {@link String#toUpperCase()},
      * the result of this method is affected by the current locale.
-     * For platform-independent case transformations, the method {@link #lowerCase(String, Locale)}
+     * For platform-independent case transformations, the method {@link #lowerCase(CharSequence, Locale)}
      * should be used with a specific locale (e.g. {@link Locale#ENGLISH}).</p>
      *
      * @param seq  the CharSequence to upper case, may be null
