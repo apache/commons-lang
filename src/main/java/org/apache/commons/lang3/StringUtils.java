@@ -1326,10 +1326,10 @@ public class StringUtils {
     // Contains
     //-----------------------------------------------------------------------
     /**
-     * <p>Checks if String contains a search character, handling {@code null}.
-     * This method uses {@link String#indexOf(int)}.</p>
+     * <p>Checks if CharSequence contains a search character, handling {@code null}.
+     * This method uses {@link String#indexOf(int)} if possible.</p>
      *
-     * <p>A {@code null} or empty ("") String will return {@code false}.</p>
+     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.</p>
      *
      * <pre>
      * StringUtils.contains(null, *)    = false
@@ -1338,17 +1338,17 @@ public class StringUtils {
      * StringUtils.contains("abc", 'z') = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param seq  the CharSequence to check, may be null
      * @param searchChar  the character to find
-     * @return true if the String contains the search character,
+     * @return true if the CharSequence contains the search character,
      *  false if not or {@code null} string input
      * @since 2.0
      */
-    public static boolean contains(String str, int searchChar) {
-        if (isEmpty(str)) {
+    public static boolean contains(CharSequence seq, int searchChar) {
+        if (isEmpty(seq)) {
             return false;
         }
-        return str.indexOf(searchChar) >= 0;
+        return indexOfSequence(seq, searchChar, 0) >= 0;
     }
 
     /**
