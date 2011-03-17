@@ -21,8 +21,6 @@ import java.lang.reflect.Modifier;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * Unit tests for WordUtils class.
  * 
