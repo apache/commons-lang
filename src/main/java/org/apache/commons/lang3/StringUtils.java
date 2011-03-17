@@ -6417,7 +6417,10 @@ public class StringUtils {
     }
 
     // The following methods are used to support basic java.lang.String functionality 
-    // for CharSequences
+    // for CharSequences. Currently keeping these as package private; they may be 
+    // useful as public methods so others can also support CharSequence instead of 
+    // String. At that point they may make more sense on a CharSequenceUtils and 
+    // will want a name change.
 
     // Used by the indexOf(CharSequence methods) as a green implementation of indexOf
     static int indexOfSequence(CharSequence cs, int searchChar, int start) {
