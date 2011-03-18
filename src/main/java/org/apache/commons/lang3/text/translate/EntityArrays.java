@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +17,7 @@
 package org.apache.commons.lang3.text.translate;
 
 /**
- * Class holding various entity data for HTML and XML - generally for use with 
+ * Class holding various entity data for HTML and XML - generally for use with
  * the LookupTranslator.
  * All arrays are of length [*][2].
  *
@@ -29,7 +29,8 @@ public class EntityArrays {
 
     /**
      * Mapping to escape <a href="https://secure.wikimedia.org/wikipedia/en/wiki/ISO/IEC_8859-1">ISO-8859-1</a>
-     * characters to their named HTML 3.x equivalents. 
+     * characters to their named HTML 3.x equivalents.
+     * @return the mapping table
      */
     public static String[][] ISO8859_1_ESCAPE() { return ISO8859_1_ESCAPE.clone(); }
     private static final String[][] ISO8859_1_ESCAPE = {
@@ -133,14 +134,16 @@ public class EntityArrays {
 
     /**
      * Reverse of {@link #ISO8859_1_ESCAPE()} for unescaping purposes.
+     * @return the mapping table
      */
     public static String[][] ISO8859_1_UNESCAPE() { return ISO8859_1_UNESCAPE.clone(); }
     private static final String[][] ISO8859_1_UNESCAPE = invert(ISO8859_1_ESCAPE);
 
     /**
-     * Mapping to escape additional <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">character entity 
-     * references</a>. Note that this must be used with {@link #ISO8859_1_ESCAPE()} to get the full list of 
+     * Mapping to escape additional <a href="http://www.w3.org/TR/REC-html40/sgml/entities.html">character entity
+     * references</a>. Note that this must be used with {@link #ISO8859_1_ESCAPE()} to get the full list of
      * HTML 4.0 character entities.
+     * @return the mapping table
      */
     public static String[][] HTML40_EXTENDED_ESCAPE() { return HTML40_EXTENDED_ESCAPE.clone(); }
     private static final String[][] HTML40_EXTENDED_ESCAPE = {
@@ -342,6 +345,7 @@ public class EntityArrays {
 
     /**
      * Reverse of {@link #HTML40_EXTENDED_ESCAPE()} for unescaping purposes.
+     * @return the mapping table
      */
     public static String[][] HTML40_EXTENDED_UNESCAPE() { return HTML40_EXTENDED_UNESCAPE.clone(); }
     private static final String[][] HTML40_EXTENDED_UNESCAPE = invert(HTML40_EXTENDED_ESCAPE);
@@ -350,6 +354,7 @@ public class EntityArrays {
      * Mapping to escape the basic XML and HTML character entities.
      *
      * Namely: {@code " & < >}
+     * @return the mapping table
      */
     public static String[][] BASIC_ESCAPE() { return BASIC_ESCAPE.clone(); }
     private static final String[][] BASIC_ESCAPE = {
@@ -361,12 +366,14 @@ public class EntityArrays {
 
     /**
      * Reverse of {@link #BASIC_ESCAPE()} for unescaping purposes.
+     * @return the mapping table
      */
     public static String[][] BASIC_UNESCAPE() { return BASIC_UNESCAPE.clone(); }
     private static final String[][] BASIC_UNESCAPE = invert(BASIC_ESCAPE);
 
     /**
-     * Mapping to escape the apostrophe character to its XML character entity. 
+     * Mapping to escape the apostrophe character to its XML character entity.
+     * @return the mapping table
      */
     public static String[][] APOS_ESCAPE() { return APOS_ESCAPE.clone(); }
     private static final String[][] APOS_ESCAPE = {
@@ -375,14 +382,16 @@ public class EntityArrays {
 
     /**
      * Reverse of {@link #APOS_ESCAPE()} for unescaping purposes.
+     * @return the mapping table
      */
     public static String[][] APOS_UNESCAPE() { return APOS_UNESCAPE.clone(); }
     private static final String[][] APOS_UNESCAPE = invert(APOS_ESCAPE);
 
     /**
-     * Mapping to escape the Java control characters. 
+     * Mapping to escape the Java control characters.
      *
      * Namely: {@code \b \n \t \f \r}
+     * @return the mapping table
      */
     public static String[][] JAVA_CTRL_CHARS_ESCAPE() { return JAVA_CTRL_CHARS_ESCAPE.clone(); }
     private static final String[][] JAVA_CTRL_CHARS_ESCAPE = {
@@ -395,6 +404,7 @@ public class EntityArrays {
 
     /**
      * Reverse of {@link #JAVA_CTRL_CHARS_ESCAPE()} for unescaping purposes.
+     * @return the mapping table
      */
     public static String[][] JAVA_CTRL_CHARS_UNESCAPE() { return JAVA_CTRL_CHARS_UNESCAPE.clone(); }
     private static final String[][] JAVA_CTRL_CHARS_UNESCAPE = invert(JAVA_CTRL_CHARS_ESCAPE);
