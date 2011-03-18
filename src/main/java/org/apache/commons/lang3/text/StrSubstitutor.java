@@ -142,6 +142,7 @@ public class StrSubstitutor {
      * Replaces all the occurrences of variables in the given source object with
      * their matching values from the map.
      *
+     * @param <V> the type of the values in the map
      * @param source  the source text containing the variables to substitute, null returns null
      * @param valueMap  the map with the values, may be null
      * @return the result of the replace operation
@@ -155,6 +156,7 @@ public class StrSubstitutor {
      * their matching values from the map. This method allows to specifiy a
      * custom variable prefix and suffix
      *
+     * @param <V> the type of the values in the map
      * @param source  the source text containing the variables to substitute, null returns null
      * @param valueMap  the map with the values, may be null
      * @param prefix  the prefix of variables, not null
@@ -212,6 +214,7 @@ public class StrSubstitutor {
      * Creates a new instance and initializes it. Uses defaults for variable
      * prefix and suffix and the escaping character.
      *
+     * @param <V> the type of the values in the map
      * @param valueMap  the map with the variables' values, may be null
      */
     public <V> StrSubstitutor(Map<String, V> valueMap) {
@@ -221,6 +224,7 @@ public class StrSubstitutor {
     /**
      * Creates a new instance and initializes it. Uses a default escaping character.
      *
+     * @param <V> the type of the values in the map
      * @param valueMap  the map with the variables' values, may be null
      * @param prefix  the prefix for variables, not null
      * @param suffix  the suffix for variables, not null
@@ -233,6 +237,7 @@ public class StrSubstitutor {
     /**
      * Creates a new instance and initializes it.
      *
+     * @param <V> the type of the values in the map
      * @param valueMap  the map with the variables' values, may be null
      * @param prefix  the prefix for variables, not null
      * @param suffix  the suffix for variables, not null
