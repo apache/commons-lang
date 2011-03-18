@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -90,6 +90,7 @@ public abstract class StrLookup<V> {
      * If the map is null, then null will be returned from every lookup.
      * The map result object is converted to a string using toString().
      *
+     * @param <V> the type of the values supported by the lookup
      * @param map  the map of keys to values, may be null
      * @return a lookup using the map, not null
      */
