@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ import java.io.Writer;
 
 /**
  * Translates codepoints to their unicode escaped value.
- * 
+ *
  * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
@@ -40,9 +40,9 @@ public class UnicodeEscaper extends CodePointTranslator {
     }
 
     /**
-     * <p>Constructs a <code>UnicodeEscaper</code> for the specified range. This is 
+     * <p>Constructs a <code>UnicodeEscaper</code> for the specified range. This is
      * the underlying method for the other constructors/builders. The <code>below</code>
-     * and <code>above</code> boundaries are inclusive when <code>between</code> is 
+     * and <code>above</code> boundaries are inclusive when <code>between</code> is
      * <code>true</code> and exclusive when it is <code>false</code>. </p>
      *
      * @param below int value representing the lowest codepoint boundary
@@ -59,6 +59,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * <p>Constructs a <code>UnicodeEscaper</code> below the specified value (exclusive). </p>
      *
      * @param codepoint below which to escape
+     * @return the newly created {@code UnicodeEscaper} instance
      */
     public static UnicodeEscaper below(int codepoint) {
         return outsideOf(codepoint, Integer.MAX_VALUE);
@@ -68,6 +69,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * <p>Constructs a <code>UnicodeEscaper</code> above the specified value (exclusive). </p>
      *
      * @param codepoint above which to escape
+     * @return the newly created {@code UnicodeEscaper} instance
      */
     public static UnicodeEscaper above(int codepoint) {
         return outsideOf(0, codepoint);
@@ -78,6 +80,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      *
      * @param codepointLow below which to escape
      * @param codepointHigh above which to escape
+     * @return the newly created {@code UnicodeEscaper} instance
      */
     public static UnicodeEscaper outsideOf(int codepointLow, int codepointHigh) {
         UnicodeEscaper escaper = new UnicodeEscaper(codepointLow, codepointHigh, false);
@@ -89,6 +92,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      *
      * @param codepointLow above which to escape
      * @param codepointHigh below which to escape
+     * @return the newly created {@code UnicodeEscaper} instance
      */
     public static UnicodeEscaper between(int codepointLow, int codepointHigh) {
         UnicodeEscaper escaper = new UnicodeEscaper(codepointLow, codepointHigh, true);
