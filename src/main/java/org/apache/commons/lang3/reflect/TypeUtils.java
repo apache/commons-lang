@@ -176,6 +176,7 @@ public class TypeUtils {
      *
      * @param type the subject type to be assigned to the target type
      * @param toParameterizedType the target parameterized type
+     * @param typeVarAssigns a map with type variables
      * @return true if <code>type</code> is assignable to <code>toType</code>.
      */
     private static boolean isAssignable(Type type, ParameterizedType toParameterizedType,
@@ -242,6 +243,7 @@ public class TypeUtils {
      *
      * @param type the subject type to be assigned to the target type
      * @param toGenericArrayType the target generic array type
+     * @param typeVarAssigns a map with type variables
      * @return true if <code>type</code> is assignable to
      * <code>toGenericArrayType</code>.
      */
@@ -317,6 +319,7 @@ public class TypeUtils {
      *
      * @param type the subject type to be assigned to the target type
      * @param toWildcardType the target wildcard type
+     * @param typeVarAssigns a map with type variables
      * @return true if <code>type</code> is assignable to
      * <code>toWildcardType</code>.
      */
@@ -405,6 +408,7 @@ public class TypeUtils {
      *
      * @param type the subject type to be assigned to the target type
      * @param toTypeVariable the target type variable
+     * @param typeVarAssigns a map with type variables
      * @return true if <code>type</code> is assignable to
      * <code>toTypeVariable</code>.
      */
@@ -449,9 +453,10 @@ public class TypeUtils {
     /**
      * <p> </p>
      *
-     * @param type
-     * @param typeVarAssigns
-     * @return
+     * @param type the type to be replaced
+     * @param typeVarAssigns the map with type variables
+     * @return the replaced type
+     * @throws IllegalArgumentException if the type cannot be substituted
      */
     private static Type substituteTypeVariables(Type type, Map<TypeVariable<?>, Type> typeVarAssigns) {
         if (type instanceof TypeVariable<?> && typeVarAssigns != null) {
@@ -522,10 +527,10 @@ public class TypeUtils {
     /**
      * <p> Return a map of the type arguments of <code>type</code> in the context of <code>toClass</code>. </p>
      *
-     * @param type
-     * @param toClass
-     * @param subtypeVarAssigns
-     * @return
+     * @param type the type in question
+     * @param toClass the class
+     * @param subtypeVarAssigns a map with type variables
+     * @return the map with type arguments
      */
     private static Map<TypeVariable<?>, Type> getTypeArguments(Type type, Class<?> toClass,
             Map<TypeVariable<?>, Type> subtypeVarAssigns) {
@@ -572,12 +577,12 @@ public class TypeUtils {
     }
 
     /**
-     * <p> </p>
+     * <p> Return a map of the type arguments of a parameterized type in the context of <code>toClass</code>. </p>
      *
-     * @param parameterizedType
-     * @param toClass
-     * @param subtypeVarAssigns
-     * @return
+     * @param parameterizedType the parameterized type
+     * @param toClass the class
+     * @param subtypeVarAssigns a map with type variables
+     * @return the map with type arguments
      */
     private static Map<TypeVariable<?>, Type> getTypeArguments(
             ParameterizedType parameterizedType, Class<?> toClass,
@@ -625,12 +630,12 @@ public class TypeUtils {
     }
 
     /**
-     * <p> </p>
+     * <p> Return a map of the type arguments of a class in the context of <code>toClass</code>. </p>
      *
-     * @param cls
-     * @param toClass
-     * @param subtypeVarAssigns
-     * @return
+     * @param cls the class in question
+     * @param toClass the context class
+     * @param subtypeVarAssigns a map with type variables
+     * @return the map with type arguments
      */
     private static Map<TypeVariable<?>, Type> getTypeArguments(Class<?> cls, Class<?> toClass,
             Map<TypeVariable<?>, Type> subtypeVarAssigns) {
@@ -725,11 +730,11 @@ public class TypeUtils {
     }
 
     /**
-     * <p> </p>
+     * <p>Performs a mapping of type variables.</p>
      *
-     * @param cls
-     * @param parameterizedType
-     * @param typeVarAssigns
+     * @param cls the class in question
+     * @param parameterizedType the parameterized type
+     * @param typeVarAssigns the map to be filled
      */
     private static <T> void mapTypeVariablesToArguments(Class<T> cls,
             ParameterizedType parameterizedType, Map<TypeVariable<?>, Type> typeVarAssigns) {
@@ -774,9 +779,9 @@ public class TypeUtils {
      * <p> Closest parent type? Closest to what? The closest parent type to the
      * super class specified by <code>superClass</code>. </p>
      *
-     * @param cls
-     * @param superClass
-     * @return
+     * @param cls the class in question
+     * @param superClass the super class
+     * @return the closes parent type
      */
     private static Type getClosestParentType(Class<?> cls, Class<?> superClass) {
         // only look at the interfaces if the super class is also an interface
@@ -823,8 +828,8 @@ public class TypeUtils {
      * <p> Checks if the given value can be assigned to the target type
      * following the Java generics rules. </p>
      *
-     * @param value
-     * @param type
+     * @param value the value to be checked
+     * @param type the target type
      * @return true of <code>value</code> is an instance of <code>type</code>.
      */
     public static boolean isInstance(Object value, Type type) {
@@ -961,10 +966,11 @@ public class TypeUtils {
     }
 
     /**
-     * <p> Type-checking method of convenience. </p>
+     * <p> Transforms the passed in type to a {@code Class} object. Type-checking method of convenience. </p>
      *
-     * @param parameterizedType
-     * @return
+     * @param parameterizedType the type to be converted
+     * @return the corresponding {@code Class} object
+     * @throws IllegalStateException if the conversion fails
      */
     private static Class<?> getRawType(ParameterizedType parameterizedType) {
         Type rawType = parameterizedType.getRawType();
@@ -1059,7 +1065,7 @@ public class TypeUtils {
 
     /**
      * Learn whether the specified type denotes an array type.
-     * @param type
+     * @param type the type to be checked
      * @return <code>true</code> if <code>type</code> is an array class or a {@link GenericArrayType}.
      */
     public static boolean isArrayType(Type type) {
@@ -1068,7 +1074,7 @@ public class TypeUtils {
 
     /**
      * Get the array component type of <code>type</code>.
-     * @param type
+     * @param type the type to be checked
      * @return component type or null if type is not an array type
      */
     public static Type getArrayComponentType(Type type) {
