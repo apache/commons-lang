@@ -146,9 +146,9 @@ public class ArrayUtils {
       super();
     }
 
-    
+
     // N.B. Cannot use {@code} to enclose text which includes {}, but <code></code> is OK
-    
+
 
     // Basic methods handling multi-dimensional arrays
     //-----------------------------------------------------------------------
@@ -289,10 +289,10 @@ public class ArrayUtils {
     String[] array = ArrayUtils.toArray("1", "2");
     String[] emptyArray = ArrayUtils.&lt;String&gt;toArray();
      * </pre>
-     * 
+     *
      * <p>The method is typically used in scenarios, where the caller itself uses generic types
      * that have to be combined into an array.</p>
-     * 
+     *
      * <p>Note, this method makes only sense to provide arguments of the same type so that the
      * compiler can deduce the type of the array itself. While it is possible to select the
      * type explicitly like in
@@ -308,7 +308,7 @@ public class ArrayUtils {
     public static <T> T[] toArray(final T... items) {
         return items;
     }
-    
+
     // Clone
     //-----------------------------------------------------------------------
     /**
@@ -320,6 +320,7 @@ public class ArrayUtils {
      *
      * <p>This method returns {@code null} for a {@code null} input array.</p>
      *
+     * @param <T> the component type of the array
      * @param array  the array to shallow clone, may be {@code null}
      * @return the cloned array, {@code null} if {@code null} input
      */
@@ -465,8 +466,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -485,8 +486,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -505,8 +506,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -525,8 +526,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -545,8 +546,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -565,8 +566,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -585,8 +586,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -605,8 +606,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -625,8 +626,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -645,8 +646,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -665,8 +666,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -685,8 +686,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -705,8 +706,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -725,8 +726,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -745,8 +746,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -765,8 +766,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -785,8 +786,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -805,8 +806,8 @@ public class ArrayUtils {
      * reference to an empty one.</p>
      *
      * <p>This method returns an empty array for a {@code null} input array.</p>
-     * 
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with 
+     *
+     * <p>As a memory optimizing technique an empty array passed in will be overridden with
      * the empty {@code public static} references in this class.</p>
      *
      * @param array  the array to check for {@code null} or empty
@@ -837,6 +838,7 @@ public class ArrayUtils {
      * Date[] someDates = (Date[])ArrayUtils.subarray(allDates, 2, 5);
      * </pre>
      *
+     * @param <T> the component type of the array
      * @param array  the array
      * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
      *      is promoted to 0, overvalue (&gt;array.length) results
@@ -3330,6 +3332,7 @@ public class ArrayUtils {
     /**
      * <p>Checks if an array of Objects is not empty or not {@code null}.</p>
      *
+     * @param <T> the component type of the array
      * @param array  the array to test
      * @return {@code true} if the array is not empty or not {@code null}
      * @since 2.5
@@ -3441,6 +3444,7 @@ public class ArrayUtils {
      * ArrayUtils.addAll(["a", "b", "c"], ["1", "2", "3"]) = ["a", "b", "c", "1", "2", "3"]
      * </pre>
      *
+     * @param <T> the component type of the array
      * @param array1  the first array whose elements are added to the new array, may be {@code null}
      * @param array2  the second array whose elements are added to the new array, may be {@code null}
      * @return The new array, {@code null} if both arrays are {@code null}.
@@ -3470,7 +3474,8 @@ public class ArrayUtils {
              */
             final Class<?> type2 = array2.getClass().getComponentType();
             if (!type1.isAssignableFrom(type2)){
-                throw new IllegalArgumentException("Cannot store "+type2.getName()+" in an array of "+type1.getName(), ase);
+                throw new IllegalArgumentException("Cannot store "+type2.getName()+" in an array of "
+                        +type1.getName(), ase);
             }
             throw ase; // No, so rethrow original
         }
@@ -3728,6 +3733,7 @@ public class ArrayUtils {
      * ArrayUtils.add(["a", "b"], "c") = ["a", "b", "c"]
      * </pre>
      *
+     * @param <T> the component type of the array
      * @param array  the array to "add" the element to, may be {@code null}
      * @param element  the object to add, may be {@code null}
      * @return A new array containing the existing elements plus the new element
@@ -3744,7 +3750,7 @@ public class ArrayUtils {
         } else if (element != null) {
             type = element.getClass();
         } else {
-            throw new IllegalArgumentException("Arguments cannot both be null");            
+            throw new IllegalArgumentException("Arguments cannot both be null");
         }
         @SuppressWarnings("unchecked") // type must be T
         T[] newArray = (T[]) copyArrayGrow1(array, type);
@@ -4008,6 +4014,7 @@ public class ArrayUtils {
      * ArrayUtils.add(["a", "b"], 3, "c") = ["a", "b", "c"]
      * </pre>
      *
+     * @param <T> the component type of the array
      * @param array  the array to add the element to, may be {@code null}
      * @param index  the position of the new object
      * @param element  the object to add
@@ -4023,7 +4030,7 @@ public class ArrayUtils {
         } else if (element != null) {
             clss = element.getClass();
         } else {
-            throw new IllegalArgumentException("Array and element cannot both be null");            
+            throw new IllegalArgumentException("Array and element cannot both be null");
         }
         @SuppressWarnings("unchecked") // the add method creates an array of type clss, which is type T
         final T[] newArray = (T[]) add(array, index, element, clss);
@@ -4332,6 +4339,7 @@ public class ArrayUtils {
      * ArrayUtils.remove(["a", "b", "c"], 1) = ["a", "c"]
      * </pre>
      *
+     * @param <T> the component type of the array
      * @param array  the array to remove the element from, may not be {@code null}
      * @param index  the position of the element to be removed
      * @return A new array containing the existing elements except the element
@@ -4364,6 +4372,7 @@ public class ArrayUtils {
      * ArrayUtils.removeElement(["a", "b", "a"], "a") = ["b", "a"]
      * </pre>
      *
+     * @param <T> the component type of the array
      * @param array  the array to remove the element from, may be {@code null}
      * @param element  the element to be removed
      * @return A new array containing the existing elements except the first
