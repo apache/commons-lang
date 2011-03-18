@@ -2002,7 +2002,7 @@ public class StringUtils {
             return EMPTY;
         }
 
-        return sequenceToString(str.subSequence(start, str.length()));
+        return str.subSequence(start, str.length()).toString();
     }
 
     /**
@@ -2070,7 +2070,7 @@ public class StringUtils {
             end = 0;
         }
 
-        return sequenceToString(str.subSequence(start, end));
+        return str.subSequence(start, end).toString();
     }
 
     // Left/Right/Mid
@@ -6492,15 +6492,6 @@ public class StringUtils {
         } else {
             // TODO: Implement rather than convert to String
             return cs.toString().toCharArray();
-        }
-    }
-
-    // Convert a CharSequence to a String
-    static String sequenceToString(CharSequence cs) {
-        if (cs instanceof String) {
-            return ((String) cs);
-        } else {
-            return cs.toString();
         }
     }
 
