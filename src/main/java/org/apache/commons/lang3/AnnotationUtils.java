@@ -89,6 +89,27 @@ public class AnnotationUtils {
     };
 
     /**
+     * Statically cached class instance for the CDI Nonbinding annotation.
+     */
+    private static final Class<? extends Annotation> NONBINDING_ANNOTATION_TYPE;
+    static {
+        Class<?> nonbindingAnnotationType = null;
+        try {
+            nonbindingAnnotationType = ClassUtils.getClass("javax.enterprise.util.Nonbinding");
+        } catch (ClassNotFoundException e) {
+        }
+        if (nonbindingAnnotationType != null
+                && Annotation.class.isAssignableFrom(nonbindingAnnotationType)) {
+            //just checked:
+            @SuppressWarnings("unchecked")
+            Class<? extends Annotation> stronglyTyped = (Class<? extends Annotation>) nonbindingAnnotationType;
+            NONBINDING_ANNOTATION_TYPE = stronglyTyped;
+        } else {
+            NONBINDING_ANNOTATION_TYPE = null;
+        }
+    }
+
+    /**
      * <p>{@code AnnotationUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used statically.</p>
      *
@@ -127,7 +148,8 @@ public class AnnotationUtils {
         try {
             for (Method m : type.getDeclaredMethods()) {
                 if (m.getParameterTypes().length == 0
-                        && isValidAnnotationMemberType(m.getReturnType())) {
+                        && isValidAnnotationMemberType(m.getReturnType())
+                        && !isNonbindingMember(m)) {
                     Object v1 = m.invoke(a1);
                     Object v2 = m.invoke(a2);
                     if (!memberEquals(m.getReturnType(), v1, v2)) {
@@ -359,4 +381,13 @@ public class AnnotationUtils {
         return Arrays.hashCode((Object[]) o);
     }
 
+    /**
+     * Helper method to look for the CDI Nonbinding annotation on an Annotation member.
+     * @param accessor the accessor method to check
+     * @return whether the Nonbinding annotation was found
+     */
+    private static boolean isNonbindingMember(Method accessor) {
+        return NONBINDING_ANNOTATION_TYPE != null
+                && accessor.isAnnotationPresent(NONBINDING_ANNOTATION_TYPE);
+    }
 }
