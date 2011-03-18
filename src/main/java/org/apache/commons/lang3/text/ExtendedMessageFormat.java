@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,12 +32,13 @@ import org.apache.commons.lang3.Validate;
  * Extends <code>java.text.MessageFormat</code> to allow pluggable/additional formatting
  * options for embedded format elements.  Client code should specify a registry
  * of <code>FormatFactory</code> instances associated with <code>String</code>
- * format names.  This registry will be consulted when the format elements are 
+ * format names.  This registry will be consulted when the format elements are
  * parsed from the message pattern.  In this way custom patterns can be specified,
  * and the formats supported by <code>java.text.MessageFormat</code> can be overridden
  * at the format and/or format style level (see MessageFormat).  A "format element"
  * embedded in the message pattern is specified (<b>()?</b> signifies optionality):<br />
- * <code>{</code><i>argument-number</i><b>(</b><code>,</code><i>format-name</i><b>(</b><code>,</code><i>format-style</i><b>)?)?</b><code>}</code>
+ * <code>{</code><i>argument-number</i><b>(</b><code>,</code><i>format-name</i><b>
+ * (</b><code>,</code><i>format-style</i><b>)?)?</b><code>}</code>
  *
  * <p>
  * <i>format-name</i> and <i>format-style</i> values are trimmed of surrounding whitespace
@@ -53,7 +54,7 @@ import org.apache.commons.lang3.Validate;
  * a configurable fashion.  These methods have thus been disabled and will throw
  * <code>UnsupportedOperationException</code> if called.
  * </p>
- * 
+ *
  * <p>Limitations inherited from <code>java.text.MessageFormat</code>:
  * <ul>
  * <li>When using "choice" subformats, support for nested formatting instructions is limited
@@ -62,7 +63,7 @@ import org.apache.commons.lang3.Validate;
  *     <code>ExtendedMessageFormat</code>, is not guaranteed.</li>
  * </ul>
  * </p>
- * 
+ *
  * @author Apache Software Foundation
  * @author Matt Benson
  * @since 2.4
@@ -84,7 +85,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Create a new ExtendedMessageFormat for the default locale.
-     * 
+     *
      * @param pattern  the pattern to use, not null
      * @throws IllegalArgumentException in case of a bad pattern.
      */
@@ -94,7 +95,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Create a new ExtendedMessageFormat.
-     * 
+     *
      * @param pattern  the pattern to use, not null
      * @param locale  the locale to use, not null
      * @throws IllegalArgumentException in case of a bad pattern.
@@ -105,7 +106,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Create a new ExtendedMessageFormat for the default locale.
-     * 
+     *
      * @param pattern  the pattern to use, not null
      * @param registry  the registry of format factories, may be null
      * @throws IllegalArgumentException in case of a bad pattern.
@@ -116,7 +117,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Create a new ExtendedMessageFormat.
-     * 
+     *
      * @param pattern  the pattern to use, not null
      * @param locale  the locale to use, not null
      * @param registry  the registry of format factories, may be null
@@ -139,7 +140,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Apply the specified pattern.
-     * 
+     *
      * @param pattern String
      */
     @Override
@@ -196,7 +197,7 @@ public class ExtendedMessageFormat extends MessageFormat {
         toPattern = insertFormats(super.toPattern(), foundDescriptions);
         if (containsElements(foundFormats)) {
             Format[] origFormats = getFormats();
-            // only loop over what we know we have, as MessageFormat on Java 1.3 
+            // only loop over what we know we have, as MessageFormat on Java 1.3
             // seems to provide an extra format element:
             int i = 0;
             for (Iterator<Format> it = foundFormats.iterator(); it.hasNext(); i++) {
@@ -211,7 +212,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Throws UnsupportedOperationException - see class Javadoc for details.
-     * 
+     *
      * @param formatElementIndex format element index
      * @param newFormat the new format
      * @throws UnsupportedOperationException
@@ -223,7 +224,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Throws UnsupportedOperationException - see class Javadoc for details.
-     * 
+     *
      * @param argumentIndex argument index
      * @param newFormat the new format
      * @throws UnsupportedOperationException
@@ -235,7 +236,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Throws UnsupportedOperationException - see class Javadoc for details.
-     * 
+     *
      * @param newFormats new formats
      * @throws UnsupportedOperationException
      */
@@ -246,7 +247,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Throws UnsupportedOperationException - see class Javadoc for details.
-     * 
+     *
      * @param newFormats new formats
      * @throws UnsupportedOperationException
      */
@@ -300,7 +301,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Get a custom format from a format description.
-     * 
+     *
      * @param desc String
      * @return Format
      */
@@ -323,7 +324,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Read the argument index from the current format element
-     * 
+     *
      * @param pattern pattern to parse
      * @param pos current parse position
      * @return argument index
@@ -365,7 +366,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Parse the format component of a format element.
-     * 
+     *
      * @param pattern string to parse
      * @param pos current parse position
      * @return Format description String
@@ -441,7 +442,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Consume whitespace from the current parse position.
-     * 
+     *
      * @param pattern String to read
      * @param pos current position
      */
@@ -456,7 +457,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Convenience method to advance parse position by 1
-     * 
+     *
      * @param pos ParsePosition
      * @return <code>pos</code>
      */
@@ -468,7 +469,7 @@ public class ExtendedMessageFormat extends MessageFormat {
     /**
      * Consume a quoted string, adding it to <code>appendTo</code> if
      * specified.
-     * 
+     *
      * @param pattern pattern to parse
      * @param pos current parse position
      * @param appendTo optional StringBuffer to append
@@ -507,7 +508,7 @@ public class ExtendedMessageFormat extends MessageFormat {
 
     /**
      * Consume quoted string only
-     * 
+     *
      * @param pattern pattern to parse
      * @param pos current parse position
      * @param escapingOn whether to process escaped quotes
