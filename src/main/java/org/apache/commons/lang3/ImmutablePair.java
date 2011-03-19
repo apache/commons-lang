@@ -18,12 +18,12 @@ package org.apache.commons.lang3;
 
 /**
  * Immutable concrete manifestation of the {@link Pair} type.
- * 
+ *
  * <p>#ThreadSafe# if the objects are threadsafe</p>
  * @since Lang 3.0
  * @author Matt Benson
  * @version $Id$
- * 
+ *
  * @param <L> left generic type
  * @param <R> right generic type
  */
@@ -38,9 +38,9 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
 
     /**
      * Create a new ImmutablePair instance.
-     * 
-     * @param left
-     * @param right
+     *
+     * @param left the left value
+     * @param right the right value
      */
     public ImmutablePair(L left, R right) {
         super();
@@ -65,20 +65,25 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * {@link java.util.Map.Entry#setValue(Object)} implementation.
-     * @throws UnsupportedOperationException
+     * {@link java.util.Map.Entry#setValue(Object)} implementation. Because this
+     * class is immutable the {@code setValue()} operation is not supported.
+     * Therefore always an exception is thrown.
+     *
+     * @param value the value to set
+     * @throws UnsupportedOperationException as this operation is not supported
      */
-    public R setValue(R arg0) {
+    public R setValue(R value) {
         throw new UnsupportedOperationException();
     }
 
     /**
      * Static fluent creation method for an {@link ImmutablePair}<L, R>:
      * <code>ImmutablePair.of(left, right)</code>
-     * @param <L>
-     * @param <R>
-     * @param left
-     * @param right
+     *
+     * @param <L> the left generic type
+     * @param <R> the right generic type
+     * @param left the let value
+     * @param right the right value
      * @return ImmutablePair<L, R>(left, right)
      */
     public static <L, R> ImmutablePair<L, R> of(L left, R right) {
