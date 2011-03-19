@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -87,12 +87,12 @@ import org.apache.commons.lang3.Pair;
  * @version $Id$
  */
 public class EqualsBuilder implements Builder<Boolean> {
-    
+
     /**
      * <p>
      * A registry of objects used by reflection methods to detect cyclical object references and avoid infinite loops.
      * </p>
-     * 
+     *
      * @since 3.0
      */
     private static final ThreadLocal<Set<Pair<IDKey, IDKey>>> REGISTRY = new ThreadLocal<Set<Pair<IDKey, IDKey>>>();
@@ -100,16 +100,16 @@ public class EqualsBuilder implements Builder<Boolean> {
     /*
      * N.B. we cannot store the actual objects in a HashSet, as that would use the very hashCode()
      * we are in the process of calculating.
-     * 
+     *
      * So we generate a one-to-one mapping from the original object to a new object.
-     * 
+     *
      * Now HashSet uses equals() to determine if two elements with the same hashcode really
      * are equal, so we also need to ensure that the replacement objects are only equal
      * if the original objects are identical.
-     * 
+     *
      * The original implementation (2.4 and before) used the System.indentityHashCode()
      * method - however this is not guaranteed to generate unique ids (e.g. LANG-459)
-     *  
+     *
      * We now use the IDKey helper class (adapted from org.apache.axis.utils.IDKey)
      * to disambiguate the duplicate ids.
      */
@@ -119,7 +119,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * Returns the registry of object pairs being traversed by the reflection
      * methods in the current thread.
      * </p>
-     * 
+     *
      * @return Set the registry of objects being traversed
      * @since 3.0
      */
@@ -131,11 +131,11 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>
      * Converters value pair into a register pair.
      * </p>
-     * 
+     *
      * @param lhs <code>this</code> object
      * @param rhs the other object
-     * 
-     * @return
+     *
+     * @return the pair
      */
     static Pair<IDKey, IDKey> getRegisterPair(Object lhs, Object rhs) {
         IDKey left = new IDKey(lhs);
@@ -150,7 +150,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * Objects might be swapped therefore a check is needed if the object pair
      * is registered in given or swapped order.
      * </p>
-     * 
+     *
      * @param lhs <code>this</code> object to lookup in registry
      * @param rhs the other object to lookup on registry
      * @return boolean <code>true</code> if the registry contains the given object.
@@ -170,7 +170,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * Registers the given object pair.
      * Used by the reflection methods to avoid infinite loops.
      * </p>
-     * 
+     *
      * @param lhs <code>this</code> object to register
      * @param rhs the other object to register
      */
@@ -190,10 +190,10 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>
      * Unregisters the given object pair.
      * </p>
-     * 
+     *
      * <p>
      * Used by the reflection methods to avoid infinite loops.
-     * 
+     *
      * @param lhs <code>this</code> object to unregister
      * @param rhs the other object to unregister
      * @since 3.0
@@ -212,7 +212,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             }
         }
     }
-    
+
     /**
      * If the fields tested are equals.
      * The default value is <code>true</code>.
@@ -386,9 +386,9 @@ public class EqualsBuilder implements Builder<Boolean> {
         if (lhs == null || rhs == null) {
             return false;
         }
-        // Find the leaf class since there may be transients in the leaf 
+        // Find the leaf class since there may be transients in the leaf
         // class or in classes between the leaf and root.
-        // If we are not testing transients or a subclass has no ivars, 
+        // If we are not testing transients or a subclass has no ivars,
         // then a subclass can test equals to a superclass.
         Class<?> lhsClass = lhs.getClass();
         Class<?> rhsClass = rhs.getClass();
@@ -418,7 +418,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             }
         } catch (IllegalArgumentException e) {
             // In this case, we tried to test a subclass vs. a superclass and
-            // the subclass has ivars or the ivars are transient and 
+            // the subclass has ivars or the ivars are transient and
             // we are testing transients.
             // If a subclass has ivars that we are trying to test them, we get an
             // exception and we know that the objects are not equal.
@@ -430,7 +430,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     /**
      * <p>Appends the fields and values defined by the given object of the
      * given Class.</p>
-     * 
+     *
      * @param lhs  the left hand object
      * @param rhs  the right hand object
      * @param clazz  the class to append details of
@@ -445,11 +445,11 @@ public class EqualsBuilder implements Builder<Boolean> {
         EqualsBuilder builder,
         boolean useTransients,
         String[] excludeFields) {
-        
+
         if (isRegistered(lhs, rhs)) {
             return;
         }
-        
+
         try {
             register(lhs, rhs);
             Field[] fields = clazz.getDeclaredFields();
@@ -517,7 +517,7 @@ public class EqualsBuilder implements Builder<Boolean> {
             // The simple case, not an array, just test the element
             isEquals = lhs.equals(rhs);
         } else if (lhs.getClass() != rhs.getClass()) {
-            // Here when we compare different dimensions, for example: a boolean[][] to a boolean[] 
+            // Here when we compare different dimensions, for example: a boolean[][] to a boolean[]
             this.setEquals(false);
         }
         // 'Switch' on type of array, to dispatch to the correct handler
@@ -549,7 +549,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * <p>
      * Test if two <code>long</code> s are equal.
      * </p>
-     * 
+     *
      * @param lhs
      *                  the left hand <code>long</code>
      * @param rhs
@@ -967,14 +967,14 @@ public class EqualsBuilder implements Builder<Boolean> {
     public boolean isEquals() {
         return this.isEquals;
     }
-    
+
     /**
      * <p>Returns <code>true</code> if the fields that have been checked
      * are all equal.</p>
      *
      * @return <code>true</code> if all of the fields that have been checked
      *         are equal, <code>false</code> otherwise.
-     *         
+     *
      * @since 3.0
      */
     public Boolean build() {
@@ -983,7 +983,7 @@ public class EqualsBuilder implements Builder<Boolean> {
 
     /**
      * Sets the <code>isEquals</code> value.
-     * 
+     *
      * @param isEquals The value to set.
      * @since 2.1
      */
