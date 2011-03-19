@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 /**
- * <p>Assists with the serialization process and performs additional functionality based 
+ * <p>Assists with the serialization process and performs additional functionality based
  * on serialization.</p>
  * <p>
  * <ul>
@@ -49,7 +49,7 @@ import java.io.Serializable;
  * @version $Id$
  */
 public class SerializationUtils {
-    
+
     /**
      * <p>SerializationUtils instances should NOT be constructed in standard programming.
      * Instead, the class should be used as {@code SerializationUtils.clone(object)}.</p>
@@ -72,7 +72,8 @@ public class SerializationUtils {
      * graphs, or for those that don't support deep cloning this can
      * be a simple alternative implementation. Of course all the objects
      * must be {@code Serializable}.</p>
-     * 
+     *
+     * @param <T> the type of the object involved
      * @param object  the {@code Serializable} object to clone
      * @return the cloned object
      * @throws SerializationException (runtime) if the serialization fails
@@ -87,7 +88,7 @@ public class SerializationUtils {
         final T result = (T) deserialize(serialize(object));
         return result;
     }
-    
+
     // Serialize
     //-----------------------------------------------------------------------
     /**
@@ -96,7 +97,7 @@ public class SerializationUtils {
      * <p>The stream will be closed once the object is written.
      * This avoids the need for a finally clause, and maybe also exception
      * handling, in the application code.</p>
-     * 
+     *
      * <p>The stream passed in is not buffered internally within this method.
      * This is the responsibility of your application if desired.</p>
      *
@@ -114,7 +115,7 @@ public class SerializationUtils {
             // stream closed in the finally
             out = new ObjectOutputStream(outputStream);
             out.writeObject(obj);
-            
+
         } catch (IOException ex) {
             throw new SerializationException(ex);
         } finally {
@@ -150,7 +151,7 @@ public class SerializationUtils {
      * <p>The stream will be closed once the object is written. This
      * avoids the need for a finally clause, and maybe also exception
      * handling, in the application code.</p>
-     * 
+     *
      * <p>The stream passed in is not buffered internally within this method.
      * This is the responsibility of your application if desired.</p>
      *
@@ -168,7 +169,7 @@ public class SerializationUtils {
             // stream closed in the finally
             in = new ObjectInputStream(inputStream);
             return in.readObject();
-            
+
         } catch (ClassNotFoundException ex) {
             throw new SerializationException(ex);
         } catch (IOException ex) {
@@ -199,5 +200,5 @@ public class SerializationUtils {
         ByteArrayInputStream bais = new ByteArrayInputStream(objectData);
         return deserialize(bais);
     }
-    
+
 }
