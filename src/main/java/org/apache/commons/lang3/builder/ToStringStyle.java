@@ -137,7 +137,8 @@ public abstract class ToStringStyle implements Serializable {
      * to detect cyclical object references and avoid infinite loops.
      * </p>
      */
-    private static final ThreadLocal<WeakHashMap<Object, Object>> REGISTRY = new ThreadLocal<WeakHashMap<Object,Object>>();
+    private static final ThreadLocal<WeakHashMap<Object, Object>> REGISTRY =
+        new ThreadLocal<WeakHashMap<Object,Object>>();
 
     /**
      * <p>
