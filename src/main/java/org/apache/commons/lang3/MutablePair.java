@@ -18,12 +18,12 @@ package org.apache.commons.lang3;
 
 /**
  * Mutable concrete manifestation of the {@link Pair} type.
- * 
+ *
  * <p>#ThreadSafe# if the objects are threadsafe</p>
  * @since Lang 3.0
  * @author Matt Benson
  * @version $Id$
- * 
+ *
  * @param <L> left generic type
  * @param <R> right generic type
  */
@@ -43,9 +43,9 @@ public class MutablePair<L, R> extends Pair<L, R> {
 
     /**
      * Create a new MutablePair instance.
-     * 
-     * @param leftElement
-     * @param rightElement
+     *
+     * @param leftElement the left value
+     * @param rightElement the right value
      */
     public MutablePair(L leftElement, R rightElement) {
         super();
@@ -63,7 +63,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
 
     /**
      * Set the left element of the pair.
-     * @param leftElement
+     * @param leftElement the value of the left element
      */
     public void setLeftElement(L leftElement) {
         this.leftElement = leftElement;
@@ -79,7 +79,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
 
     /**
      * Set the right element of the pair.
-     * @param rightElement
+     * @param rightElement the value of the right element
      */
     public void setRightElement(R rightElement) {
         this.rightElement = rightElement;
@@ -88,6 +88,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Implement {@link java.util.Map.Entry#setValue(Object)}.
      * @param value value (<code>rightElement</code>) to set
+     * @return the old value for the right element
      */
     public R setValue(R value) {
         R result = getRightElement();
@@ -98,10 +99,10 @@ public class MutablePair<L, R> extends Pair<L, R> {
     /**
      * Static fluent creation method for a {@link MutablePair}<L, R>:
      * <code>MutablePair.of(left, right)</code>
-     * @param <L>
-     * @param <R>
-     * @param left
-     * @param right
+     * @param <L> the left generic type
+     * @param <R> the right generic type
+     * @param left the left value
+     * @param right the right value
      * @return MutablePair<L, R>(left, right)
      */
     public static <L, R> MutablePair<L, R> of(L left, R right) {
