@@ -70,6 +70,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * Therefore always an exception is thrown.
      *
      * @param value the value to set
+     * @return the old right value
      * @throws UnsupportedOperationException as this operation is not supported
      */
     public R setValue(R value) {
