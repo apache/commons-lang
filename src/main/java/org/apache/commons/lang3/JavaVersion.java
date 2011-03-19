@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +18,7 @@ package org.apache.commons.lang3;
 
 /**
  * <p>An enum representing all the versions of the Java specification.
- * This is intended to mirror available values from the 
+ * This is intended to mirror available values from the
  * <em>java.specification.version</em> System property. </p>
  *
  * @author Apache Software Foundation
@@ -26,13 +26,13 @@ package org.apache.commons.lang3;
  * @version $Id: $
  */
 public enum JavaVersion {
-    JAVA_0_9(1.5f, "0.9"),    // Android 
-    JAVA_1_1(1.1f, "1.1"), 
-    JAVA_1_2(1.2f, "1.2"), 
-    JAVA_1_3(1.3f, "1.3"), 
-    JAVA_1_4(1.4f, "1.4"), 
-    JAVA_1_5(1.5f, "1.5"), 
-    JAVA_1_6(1.6f, "1.6"), 
+    JAVA_0_9(1.5f, "0.9"),    // Android
+    JAVA_1_1(1.1f, "1.1"),
+    JAVA_1_2(1.2f, "1.2"),
+    JAVA_1_3(1.3f, "1.3"),
+    JAVA_1_4(1.4f, "1.4"),
+    JAVA_1_5(1.5f, "1.5"),
+    JAVA_1_6(1.6f, "1.6"),
     JAVA_1_7(1.7f, "1.7"),
     JAVA_1_8(1.8f, "1.8");
 
@@ -47,7 +47,7 @@ public enum JavaVersion {
 
     /**
      * Constructor.
-     * 
+     *
      * @param value  the float value
      * @param name  the standard name, not null
      */
@@ -70,11 +70,29 @@ public enum JavaVersion {
         return this.value >= requiredVersion.value;
     }
 
+    /**
+     * Transforms the given string with a Java version number to the
+     * corresponding constant of this enumeration class. This method is used
+     * internally.
+     *
+     * @param nom the Java version as string
+     * @return the corresponding enumeration constant or <b>null</b> if the
+     * version is unknown
+     */
     // helper for static importing
     static JavaVersion getJavaVersion(final String nom) {
         return get(nom);
     }
 
+    /**
+     * Transforms the given string with a Java version number to the
+     * corresponding constant of this enumeration class. This method is used
+     * internally.
+     *
+     * @param nom the Java version as string
+     * @return the corresponding enumeration constant or <b>null</b> if the
+     * version is unknown
+     */
     static JavaVersion get(final String nom) {
         if ("0.9".equals(nom)) {
             return JAVA_0_9;
@@ -102,9 +120,9 @@ public enum JavaVersion {
     //-----------------------------------------------------------------------
     /**
      * <p>The string value is overridden to return the standard name.</p>
-     * 
+     *
      * <p>For example, '1.5'.</p>
-     * 
+     *
      * @return the name, not null
      */
     @Override
