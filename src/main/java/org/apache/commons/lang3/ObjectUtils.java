@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import org.apache.commons.lang3.exception.CloneFailedException;
 
 /**
  * <p>Operations on {@code Object}.</p>
- * 
+ *
  * <p>This class tries to handle {@code null} input gracefully.
  * An exception will generally not be thrown for a {@code null} input.
  * Each method documents its behaviour in more detail.</p>
@@ -60,7 +60,7 @@ public class ObjectUtils {
      * <p>This instance is Serializable.</p>
      */
     public static final Null NULL = new Null();
-    
+
     /**
      * <p>{@code ObjectUtils} instances should NOT be constructed in
      * standard programming. Instead, the static methods on the class should
@@ -77,7 +77,7 @@ public class ObjectUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Returns a default value if the object passed is {@code null}.</p>
-     * 
+     *
      * <pre>
      * ObjectUtils.defaultIfNull(null, null)      = null
      * ObjectUtils.defaultIfNull(null, "")        = ""
@@ -86,6 +86,7 @@ public class ObjectUtils {
      * ObjectUtils.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
      * </pre>
      *
+     * @param <T> the type of the object
      * @param object  the {@code Object} to test, may be {@code null}
      * @param defaultValue  the default value to return, may be {@code null}
      * @return {@code object} if it is not {@code null}, defaultValue otherwise
@@ -98,7 +99,7 @@ public class ObjectUtils {
      * <p>Returns the first value in the array which is not {@code null}.
      * If all the values are {@code null} or the array is {@code null}
      * or empty then {@code null} is returned.</p>
-     * 
+     *
      * <pre>
      * ObjectUtils.firstNonNull(null, null)      = null
      * ObjectUtils.firstNonNull(null, "")        = ""
@@ -110,6 +111,7 @@ public class ObjectUtils {
      * ObjectUtils.firstNonNull()                = null
      * </pre>
      *
+     * @param <T> the component type of the array
      * @param values  the values to test, may be {@code null} or empty
      * @return the first value from {@code values} which is not {@code null},
      *  or {@code null} if there are no non-null values
@@ -253,14 +255,14 @@ public class ObjectUtils {
     /**
      * <p>Gets the {@code toString} of an {@code Object} returning
      * an empty string ("") if {@code null} input.</p>
-     * 
+     *
      * <pre>
      * ObjectUtils.toString(null)         = ""
      * ObjectUtils.toString("")           = ""
      * ObjectUtils.toString("bat")        = "bat"
      * ObjectUtils.toString(Boolean.TRUE) = "true"
      * </pre>
-     * 
+     *
      * @see StringUtils#defaultString(String)
      * @see String#valueOf(Object)
      * @param obj  the Object to {@code toString}, may be null
@@ -274,7 +276,7 @@ public class ObjectUtils {
     /**
      * <p>Gets the {@code toString} of an {@code Object} returning
      * a specified text if {@code null} input.</p>
-     * 
+     *
      * <pre>
      * ObjectUtils.toString(null, null)           = null
      * ObjectUtils.toString(null, "null")         = "null"
@@ -282,7 +284,7 @@ public class ObjectUtils {
      * ObjectUtils.toString("bat", "null")        = "bat"
      * ObjectUtils.toString(Boolean.TRUE, "null") = "true"
      * </pre>
-     * 
+     *
      * @see StringUtils#defaultString(String,String)
      * @see String#valueOf(Object)
      * @param obj  the Object to {@code toString}, may be null
@@ -298,7 +300,8 @@ public class ObjectUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Null safe comparison of Comparables.</p>
-     * 
+     *
+     * @param <T> type of the values processed by this method
      * @param values the set of comparable values, may be null
      * @return
      *  <ul>
@@ -322,7 +325,8 @@ public class ObjectUtils {
 
     /**
      * <p>Null safe comparison of Comparables.</p>
-     * 
+     *
+     * @param <T> type of the values processed by this method
      * @param values the set of comparable values, may be null
      * @return
      *  <ul>
@@ -347,7 +351,8 @@ public class ObjectUtils {
     /**
      * <p>Null safe comparison of Comparables.
      * {@code null} is assumed to be less than a non-{@code null} value.</p>
-     * 
+     *
+     * @param <T> type of the values processed by this method
      * @param c1  the first comparable, may be null
      * @param c2  the second comparable, may be null
      * @return a negative value if c1 < c2, zero if c1 = c2
@@ -359,7 +364,8 @@ public class ObjectUtils {
 
     /**
      * <p>Null safe comparison of Comparables.</p>
-     * 
+     *
+     * @param <T> type of the values processed by this method
      * @param c1  the first comparable, may be null
      * @param c2  the second comparable, may be null
      * @param nullGreater if true {@code null} is considered greater
@@ -379,10 +385,10 @@ public class ObjectUtils {
         }
         return c1.compareTo(c2);
     }
-    
+
     /**
      * <p>Clone an object.</p>
-     * 
+     *
      * @param <T> the type of the object
      * @param obj  the object to clone, null returns null
      * @return the clone if the object implements {@link Cloneable} otherwise {@code null}
@@ -429,14 +435,14 @@ public class ObjectUtils {
 
     /**
      * <p>Clone an object if possible.</p>
-     * 
+     *
      * <p>This method is similar to {@link #clone(Object)}, but will return the provided
      * instance as the return value instead of {@code null} if the instance
      * is not cloneable. This is more convenient if the caller uses different
      * implementations (e.g. of a service) and some of the implementations do not allow concurrent
      * processing or have state. In such cases the implementation can simply provide a proper
      * clone implementation and the caller's code does not have to change.</p>
-     * 
+     *
      * @param <T> the type of the object
      * @param obj  the object to clone, null returns null
      * @return the clone if the object implements {@link Cloneable} otherwise the object itself
@@ -466,21 +472,21 @@ public class ObjectUtils {
     public static class Null implements Serializable {
         /**
          * Required for serialization support. Declare serialization compatibility with Commons Lang 1.0
-         * 
+         *
          * @see java.io.Serializable
          */
         private static final long serialVersionUID = 7092611880189329093L;
-        
+
         /**
          * Restricted constructor - singleton.
          */
         Null() {
             super();
         }
-        
+
         /**
          * <p>Ensure singleton.</p>
-         * 
+         *
          * @return the singleton value
          */
         private Object readResolve() {
