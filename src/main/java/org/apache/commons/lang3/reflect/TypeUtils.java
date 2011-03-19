@@ -732,6 +732,7 @@ public class TypeUtils {
     /**
      * <p>Performs a mapping of type variables.</p>
      *
+     * @param <T> the generic type of the class in question
      * @param cls the class in question
      * @param parameterizedType the parameterized type
      * @param typeVarAssigns the map to be filled
