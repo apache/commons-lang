@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,9 +39,9 @@ import org.apache.commons.lang3.ObjectUtils;
  *   String name;
  *   int age;
  *   boolean smoker;
- * 
+ *
  *   ...
- * 
+ *
  *   public String toString() {
  *     return new ToStringBuilder(this).
  *       append("name", name).
@@ -54,13 +54,13 @@ import org.apache.commons.lang3.ObjectUtils;
  *
  * <p>This will produce a toString of the format:
  * <code>Person@7f54[name=Stephen,age=29,smoker=false]</code></p>
- * 
+ *
  * <p>To add the superclass <code>toString</code>, use {@link #appendSuper}.
  * To append the <code>toString</code> from an object that is delegated
  * to (or any other object), use {@link #appendToString}.</p>
  *
  * <p>Alternatively, there is a method that uses reflection to determine
- * the fields to test. Because these fields are usually private, the method, 
+ * the fields to test. Because these fields are usually private, the method,
  * <code>reflectionToString</code>, uses <code>AccessibleObject.setAccessible</code> to
  * change the visibility of the fields. This will fail under a security manager,
  * unless the appropriate permissions are set up correctly. It is also
@@ -79,7 +79,7 @@ import org.apache.commons.lang3.ObjectUtils;
  * <pre>
  * System.out.println("An object: " + ToStringBuilder.reflectionToString(anObject));
  * </pre>
- * 
+ *
  * <p>The exact format of the <code>toString</code> is determined by
  * the {@link ToStringStyle} passed into the constructor.</p>
  *
@@ -100,20 +100,20 @@ public class ToStringBuilder implements Builder<String> {
 
     /**
      * <p>Gets the default <code>ToStringStyle</code> to use.</p>
-     * 
+     *
      * <p>This method gets a singleton default value, typically for the whole JVM.
      * Changing this default should generally only be done during application startup.
      * It is recommended to pass a <code>ToStringStyle</code> to the constructor instead
      * of using this global default.</p>
-     * 
+     *
      * <p>This method can be used from multiple threads.
      * Internally, a <code>volatile</code> variable is used to provide the guarantee
      * that the latest value set using {@link #setDefaultStyle} is the value returned.
      * It is strongly recommended that the default style is only changed during application startup.</p>
-     * 
+     *
      * <p>One reason for changing the default could be to have a verbose style during
      * development and a compact style in production.</p>
-     * 
+     *
      * @return the default <code>ToStringStyle</code>, never null
      */
     public static ToStringStyle getDefaultStyle() {
@@ -122,16 +122,16 @@ public class ToStringBuilder implements Builder<String> {
 
     /**
      * <p>Sets the default <code>ToStringStyle</code> to use.</p>
-     * 
+     *
      * <p>This method sets a singleton default value, typically for the whole JVM.
      * Changing this default should generally only be done during application startup.
      * It is recommended to pass a <code>ToStringStyle</code> to the constructor instead
      * of changing this global default.</p>
-     * 
+     *
      * <p>This method is not intended for use from multiple threads.
      * Internally, a <code>volatile</code> variable is used to provide the guarantee
      * that the latest value set is the value returned from {@link #getDefaultStyle}.</p>
-     * 
+     *
      * @param style  the default <code>ToStringStyle</code>
      * @throws IllegalArgumentException if the style is <code>null</code>
      */
@@ -146,7 +146,7 @@ public class ToStringBuilder implements Builder<String> {
     /**
      * <p>Uses <code>ReflectionToStringBuilder</code> to generate a
      * <code>toString</code> for the specified object.</p>
-     * 
+     *
      * @param object  the Object to be output
      * @return the String result
      * @see ReflectionToStringBuilder#toString(Object)
@@ -158,7 +158,7 @@ public class ToStringBuilder implements Builder<String> {
     /**
      * <p>Uses <code>ReflectionToStringBuilder</code> to generate a
      * <code>toString</code> for the specified object.</p>
-     * 
+     *
      * @param object  the Object to be output
      * @param style  the style of the <code>toString</code> to create, may be <code>null</code>
      * @return the String result
@@ -171,7 +171,7 @@ public class ToStringBuilder implements Builder<String> {
     /**
      * <p>Uses <code>ReflectionToStringBuilder</code> to generate a
      * <code>toString</code> for the specified object.</p>
-     * 
+     *
      * @param object  the Object to be output
      * @param style  the style of the <code>toString</code> to create, may be <code>null</code>
      * @param outputTransients  whether to include transient fields
@@ -185,7 +185,8 @@ public class ToStringBuilder implements Builder<String> {
     /**
      * <p>Uses <code>ReflectionToStringBuilder</code> to generate a
      * <code>toString</code> for the specified object.</p>
-     * 
+     *
+     * @param <T> the type of the object
      * @param object  the Object to be output
      * @param style  the style of the <code>toString</code> to create, may be <code>null</code>
      * @param outputTransients  whether to include transient fields
@@ -221,7 +222,7 @@ public class ToStringBuilder implements Builder<String> {
      * <p>Constructs a builder for the specified object using the default output style.</p>
      *
      * <p>This default style is obtained from {@link #getDefaultStyle()}.</p>
-     * 
+     *
      * @param object  the Object to build a <code>toString</code> for, not recommended to be null
      */
     public ToStringBuilder(Object object) {
@@ -232,7 +233,7 @@ public class ToStringBuilder implements Builder<String> {
      * <p>Constructs a builder for the specified object using the a defined output style.</p>
      *
      * <p>If the style is <code>null</code>, the default style is used.</p>
-     * 
+     *
      * @param object  the Object to build a <code>toString</code> for, not recommended to be null
      * @param style  the style of the <code>toString</code> to create, null uses the default style
      */
@@ -246,7 +247,7 @@ public class ToStringBuilder implements Builder<String> {
      * <p>If the style is <code>null</code>, the default style is used.</p>
      *
      * <p>If the buffer is <code>null</code>, a new one is created.</p>
-     * 
+     *
      * @param object  the Object to build a <code>toString</code> for, not recommended to be null
      * @param style  the style of the <code>toString</code> to create, null uses the default style
      * @param buffer  the <code>StringBuffer</code> to populate, may be null
@@ -947,9 +948,9 @@ public class ToStringBuilder implements Builder<String> {
 
     /**
      * <p>Appends with the same format as the default <code>Object toString()
-     * </code> method. Appends the class name followed by 
+     * </code> method. Appends the class name followed by
      * {@link System#identityHashCode(java.lang.Object)}.</p>
-     * 
+     *
      * @param object  the <code>Object</code> whose class name and id to output
      * @return this
      * @since 2.0
@@ -963,10 +964,10 @@ public class ToStringBuilder implements Builder<String> {
 
     /**
      * <p>Append the <code>toString</code> from the superclass.</p>
-     * 
+     *
      * <p>This method assumes that the superclass uses the same <code>ToStringStyle</code>
      * as this one.</p>
-     * 
+     *
      * <p>If <code>superToString</code> is <code>null</code>, no change is made.</p>
      *
      * @param superToString  the result of <code>super.toString()</code>
@@ -982,25 +983,25 @@ public class ToStringBuilder implements Builder<String> {
 
     /**
      * <p>Append the <code>toString</code> from another object.</p>
-     * 
+     *
      * <p>This method is useful where a class delegates most of the implementation of
      * its properties to another class. You can then call <code>toString()</code> on
      * the other class and pass the result into this method.</p>
-     * 
+     *
      * <pre>
      *   private AnotherObject delegate;
      *   private String fieldInThisClass;
-     * 
+     *
      *   public String toString() {
      *     return new ToStringBuilder(this).
      *       appendToString(delegate.toString()).
      *       append(fieldInThisClass).
      *       toString();
      *   }</pre>
-     * 
+     *
      * <p>This method assumes that the other object uses the same <code>ToStringStyle</code>
      * as this one.</p>
-     * 
+     *
      * <p>If the <code>toString</code> is <code>null</code>, no change is made.</p>
      *
      * @param toString  the result of <code>toString()</code> on another object
@@ -1016,7 +1017,7 @@ public class ToStringBuilder implements Builder<String> {
 
     /**
      * <p>Returns the <code>Object</code> being output.</p>
-     * 
+     *
      * @return The object being output.
      * @since 2.0
      */
@@ -1026,7 +1027,7 @@ public class ToStringBuilder implements Builder<String> {
 
     /**
      * <p>Gets the <code>StringBuffer</code> being populated.</p>
-     * 
+     *
      * @return the <code>StringBuffer</code> being populated
      */
     public StringBuffer getStringBuffer() {
@@ -1037,7 +1038,7 @@ public class ToStringBuilder implements Builder<String> {
 
     /**
      * <p>Gets the <code>ToStringStyle</code> being used.</p>
-     * 
+     *
      * @return the <code>ToStringStyle</code> being used
      * @since 2.0
      */
@@ -1047,12 +1048,12 @@ public class ToStringBuilder implements Builder<String> {
 
     /**
      * <p>Returns the built <code>toString</code>.</p>
-     * 
+     *
      * <p>This method appends the end of data indicator, and can only be called once.
      * Use {@link #getStringBuffer} to get the current string state.</p>
-     * 
+     *
      * <p>If the object is <code>null</code>, return the style's <code>nullText</code></p>
-     * 
+     *
      * @return the String <code>toString</code>
      */
     @Override
@@ -1066,13 +1067,13 @@ public class ToStringBuilder implements Builder<String> {
     }
 
     /**
-     * Returns the String that was build as an object representation. The 
+     * Returns the String that was build as an object representation. The
      * default implementation utilizes the {@link #toString()} implementation.
-     * 
+     *
      * @return the String <code>toString</code>
-     * 
+     *
      * @see #toString()
-     * 
+     *
      * @since 3.0
      */
     public String build() {
