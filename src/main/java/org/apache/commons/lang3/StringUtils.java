@@ -641,7 +641,9 @@ public class StringUtils {
      *
      * @since 3.0
      */
-    // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their unaccented equivalent (and uncommited bug fix: https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
+    // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their
+    // unaccented equivalent (and uncommited bug fix:
+    // https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
     public static String stripAccents(CharSequence input) {
         if(input == null) {
             return null;
@@ -653,7 +655,8 @@ public class StringUtils {
             } else if (sunAvailable) {
                 result = removeAccentsSUN(input);
             } else {
-                throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least Java 1.6 or a Sun JVM");
+                throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least "
+                        + "Java 1.6 or a Sun JVM");
             }
             // Note that none of the above methods correctly remove ligatures...
             return result;
@@ -671,9 +674,15 @@ public class StringUtils {
     /**
      * Use {@code java.text.Normalizer#normalize(CharSequence, Normalizer.Form)}
      * (but be careful, this classe exists in Java 1.3, with an entirely different meaning!)
-     * @param text
+     *
+     * @param text the text to be processed
+     * @return the processed string
+     * @throws IllegalAccessException may be thrown by a reflection call
+     * @throws InvocationTargetException if a reflection call throws an exception
+     * @throws IllegalStateException if the {@code Normalizer} class is not available
      */
-    private static String removeAccentsJava6(CharSequence text) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    private static String removeAccentsJava6(CharSequence text)
+        throws IllegalAccessException, InvocationTargetException {
         /*
         String decomposed = java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
         return java6Pattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
@@ -689,8 +698,15 @@ public class StringUtils {
 
     /**
      * Use {@code sun.text.Normalizer#decompose(String, boolean, int)}
+     *
+     * @param text the text to be processed
+     * @return the processed string
+     * @throws IllegalAccessException may be thrown by a reflection call
+     * @throws InvocationTargetException if a reflection call throws an exception
+     * @throws IllegalStateException if the {@code Normalizer} class is not available
      */
-    private static String removeAccentsSUN(CharSequence text) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    private static String removeAccentsSUN(CharSequence text)
+        throws IllegalAccessException, InvocationTargetException {
         /*
         String decomposed = sun.text.Normalizer.decompose(text, false, 0);
         return sunPattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
@@ -718,10 +734,13 @@ public class StringUtils {
         try {
             // java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
             // Be careful not to get Java 1.3 java.text.Normalizer!
-            Class<?> normalizerFormClass = Thread.currentThread().getContextClassLoader().loadClass("java.text.Normalizer$Form");//$NON-NLS-1$
+            Class<?> normalizerFormClass = Thread.currentThread().getContextClassLoader()
+                .loadClass("java.text.Normalizer$Form");//$NON-NLS-1$
             java6NormalizerFormNFD = normalizerFormClass.getField("NFD").get(null);//$NON-NLS-1$
-            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader().loadClass("java.text.Normalizer");//$NON-NLS-1$
-            java6NormalizeMethod = normalizerClass.getMethod("normalize", new Class[] {CharSequence.class, normalizerFormClass});//$NON-NLS-1$
+            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
+                .loadClass("java.text.Normalizer");//$NON-NLS-1$
+            java6NormalizeMethod = normalizerClass.getMethod("normalize",
+                    new Class[] {CharSequence.class, normalizerFormClass});//$NON-NLS-1$
             java6Available = true;
         } catch (ClassNotFoundException e) {
             java6Available = false;
@@ -735,8 +754,10 @@ public class StringUtils {
 
         try {
             // sun.text.Normalizer.decompose(text, false, 0);
-            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader().loadClass("sun.text.Normalizer");//$NON-NLS-1$
-            sunDecomposeMethod = normalizerClass.getMethod("decompose", new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
+            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
+                .loadClass("sun.text.Normalizer");//$NON-NLS-1$
+            sunDecomposeMethod = normalizerClass.getMethod("decompose",
+                    new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
             sunAvailable = true;
         } catch (ClassNotFoundException e) {
             sunAvailable = false;
@@ -5858,7 +5879,8 @@ public class StringUtils {
      * @param cs2  the second CharSequence, may be null
      * @return the index where cs1 and cs2 begin to differ; -1 if they are equal
      * @since 2.0
-     * @since 3.0 Changed signature from indexOfDifference(String, String) to indexOfDifference(CharSequence, CharSequence)
+     * @since 3.0 Changed signature from indexOfDifference(String, String) to
+     * indexOfDifference(CharSequence, CharSequence)
      */
     public static int indexOfDifference(CharSequence cs1, CharSequence cs2) {
         if (cs1 == cs2) {
@@ -6057,7 +6079,8 @@ public class StringUtils {
      * @param t  the second String, must not be null
      * @return result distance
      * @throws IllegalArgumentException if either String input {@code null}
-     * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to getLevenshteinDistance(CharSequence, CharSequence)
+     * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to
+     * getLevenshteinDistance(CharSequence, CharSequence)
      */
     public static int getLevenshteinDistance(CharSequence s, CharSequence t) {
         if (s == null || t == null) {
@@ -6401,7 +6424,7 @@ public class StringUtils {
     /**
      * <p>Returns a new {@code CharSequence} that is a subsequence of this
      * sequence starting with the {@code char} value at the specified index.</p>
-     * 
+     *
      * <p>This provides the {@code CharSequence} equivalent to {@link String#substring(int)}.
      * The length (in {@code char}) of the returned sequence is {@code length() - start},
      * so if {@code start == end} then an empty sequence is returned.</p>
@@ -6409,20 +6432,28 @@ public class StringUtils {
      * @param cs  the specified subsequence, null returns null
      * @param start  the start index, inclusive, valid
      * @return a new subsequence, may be null
-     * @throws IndexOutOfBoundsException if {@code start} is negative or if 
+     * @throws IndexOutOfBoundsException if {@code start} is negative or if
      *  {@code start} is greater than {@code length()}
      */
     public static CharSequence subSequence(CharSequence cs, int start) {
         return cs == null ? null : cs.subSequence(start, cs.length());
     }
 
-    // The following methods are used to support basic java.lang.String functionality 
-    // for CharSequences. Currently keeping these as package private; they may be 
-    // useful as public methods so others can also support CharSequence instead of 
-    // String. At that point they may make more sense on a CharSequenceUtils and 
+    // The following methods are used to support basic java.lang.String functionality
+    // for CharSequences. Currently keeping these as package private; they may be
+    // useful as public methods so others can also support CharSequence instead of
+    // String. At that point they may make more sense on a CharSequenceUtils and
     // will want a name change.
 
-    // Used by the indexOf(CharSequence methods) as a green implementation of indexOf
+    /**
+     * Used by the indexOf(CharSequence methods) as a green implementation of
+     * indexOf.
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @param searchChar the char to be searched for
+     * @param start the start index
+     * @return the index where the search char was found
+     */
     static int indexOfSequence(CharSequence cs, int searchChar, int start) {
         if (cs instanceof String) {
             return ((String) cs).indexOf(searchChar, start);
@@ -6439,11 +6470,19 @@ public class StringUtils {
             return -1;
         }
     }
-    // Used by the indexOf(CharSequence methods) as a green implementation of indexOf
+
+    /**
+     * Used by the indexOf(CharSequence methods) as a green implementation of indexOf.
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @param searchChar the {@code CharSequence} to be searched for
+     * @param start the start index
+     * @return the index where the search sequence was found
+     */
     static int indexOfSequence(CharSequence cs, CharSequence searchChar, int start) {
         if (cs instanceof String && searchChar instanceof String) {
-            // TODO: Do we assume searchChar is usually relatively small; 
-            //       If so then calling toString() on it is better than reverting to 
+            // TODO: Do we assume searchChar is usually relatively small;
+            //       If so then calling toString() on it is better than reverting to
             //       the green implementation in the else block
             return ((String) cs).indexOf( (String) searchChar, start);
         } else {
@@ -6452,7 +6491,14 @@ public class StringUtils {
         }
     }
 
-    // Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
+    /**
+     * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @param searchChar the char to be searched for
+     * @param start the start index
+     * @return the index where the search char was found
+     */
     static int lastIndexOfSequence(CharSequence cs, int searchChar, int start) {
         if (cs instanceof String) {
             return ((String) cs).lastIndexOf(searchChar, start);
@@ -6472,11 +6518,19 @@ public class StringUtils {
             return -1;
         }
     }
-    // Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
+
+    /**
+     * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @param searchChar the {@code CharSequence} to be searched for
+     * @param start the start index
+     * @return the index where the search sequence was found
+     */
     static int lastIndexOfSequence(CharSequence cs, CharSequence searchChar, int start) {
         if (cs instanceof String && searchChar instanceof String) {
-            // TODO: Do we assume searchChar is usually relatively small; 
-            //       If so then calling toString() on it is better than reverting to 
+            // TODO: Do we assume searchChar is usually relatively small;
+            //       If so then calling toString() on it is better than reverting to
             //       the green implementation in the else block
             return ((String) cs).lastIndexOf( (String) searchChar, start);
         } else {
@@ -6485,7 +6539,13 @@ public class StringUtils {
         }
     }
 
-    // Green implementation of toCharArray
+    /**
+     * Green implementation of toCharArray.
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @return the resulting char array
+     */
+    //
     static char[] toCharArraySequence(CharSequence cs) {
         if (cs instanceof String) {
             return ((String) cs).toCharArray();
