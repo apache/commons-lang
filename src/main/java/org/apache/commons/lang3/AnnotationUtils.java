@@ -248,7 +248,7 @@ public class AnnotationUtils {
      * Helper method for generating a hash code for a member of an annotation.
      *
      * @param name the name of the member
-     * @param the value of the member
+     * @param value the value of the member
      * @return a hash code for this member
      */
     private static int hashMember(String name, Object value) {
