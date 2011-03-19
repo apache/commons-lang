@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ import java.util.Comparator;
  * <p>{@code Range} represents an immutable range of comparables of the same type.</p>
  * <p>The objects need to either be implementations of {@code java.lang.Comparable}
  * or you need to supply a {@code java.util.Comparator}. </p>
- * 
+ *
  * <p>#ThreadSafe# if the comparables are thread-safe</p>
  * @author Apache Software Foundation
  * @since 3.0
@@ -33,7 +33,7 @@ public final class Range<T> implements Serializable {
 
     /**
      * Required for serialization support.
-     * 
+     *
      * @see java.io.Serializable
      */
     private static final long serialVersionUID = 1L;
@@ -66,9 +66,10 @@ public final class Range<T> implements Serializable {
     /**
      * <p>Constructs a new {@code Range} using the specified
      * element as both the minimum and maximum in this range.</p>
-     * <p>The range uses the natural ordering of the elements to 
+     * <p>The range uses the natural ordering of the elements to
      * determine where values lie in the range.</p>
      *
+     * @param <T> the type of this {@code Range}
      * @param element  the value to use for this range, must not be {@code null}
      * @return the new range object
      * @throws IllegalArgumentException if the value is {@code null}
@@ -81,12 +82,13 @@ public final class Range<T> implements Serializable {
     /**
      * <p>Constructs a new {@code Range} with the specified
      * minimum and maximum values (both inclusive).</p>
-     * <p>The range uses the natural ordering of the elements to 
+     * <p>The range uses the natural ordering of the elements to
      * determine where values lie in the range.</p>
      *
      * <p>The arguments may be passed in the order (min,max) or (max,min). The
      * getMinimum and getMaximum methods will return the correct values.</p>
      *
+     * @param <T> the type of this {@code Range}
      * @param element1  first value that defines the edge of the range, inclusive
      * @param element2  second value that defines the edge of the range, inclusive
      * @return the new range object
@@ -100,9 +102,10 @@ public final class Range<T> implements Serializable {
     /**
      * <p>Constructs a new {@code Range} using the specified
      * element as both the minimum and maximum in this range.</p>
-     * <p>The range uses the passed in {@code Comparator} to 
+     * <p>The range uses the passed in {@code Comparator} to
      * determine where values lie in the range.</p>
      *
+     * @param <T> the type of this {@code Range}
      * @param element  the value to use for this range, must not be {@code null}
      * @param c comparator to be used
      * @return the new range object
@@ -115,12 +118,13 @@ public final class Range<T> implements Serializable {
     /**
      * <p>Constructs a new {@code Range} with the specified
      * minimum and maximum values (both inclusive).</p>
-     * <p>The range uses the passed in {@code Comparator} to 
+     * <p>The range uses the passed in {@code Comparator} to
      * determine where values lie in the range.</p>
      *
      * <p>The arguments may be passed in the order (min,max) or (max,min). The
      * getMinimum and getMaximum methods will return the correct values.</p>
      *
+     * @param <T> the type of this {@code Range}
      * @param element1  first value that defines the edge of the range, inclusive
      * @param element2  second value that defines the edge of the range, inclusive
      * @param c comparator to be used
@@ -131,9 +135,16 @@ public final class Range<T> implements Serializable {
         return new Range<T>(element1, element2, c);
     }
 
+    /**
+     * Creates a new instance of {@code Range}.
+     *
+     * @param element1 the first element
+     * @param element2 the second element
+     * @param c the comparator to be used
+     */
     private Range(T element1, T element2, Comparator<T> c) {
         if(element1 == null || element2 == null) {
-            throw new IllegalArgumentException("Elements in a range must not be null: element1=" + 
+            throw new IllegalArgumentException("Elements in a range must not be null: element1=" +
                                                element1 + ", element2=" + element2);
         }
 
@@ -182,7 +193,7 @@ public final class Range<T> implements Serializable {
     }
 
     /**
-     * <p>Whether or not the Range is using the default natural comparison method 
+     * <p>Whether or not the Range is using the default natural comparison method
      * to compare elements. </p>
      *
      * @return whether or not the default Comparator is in use
@@ -193,10 +204,10 @@ public final class Range<T> implements Serializable {
 
     // Include tests
     //--------------------------------------------------------------------
-    
+
     /**
      * <p>Tests whether the specified element occurs within this range.</p>
-     * 
+     *
      * <p>{@code null} is handled and returns {@code false}.</p>
      *
      * @param element  the element to test, may be {@code null}
@@ -221,7 +232,7 @@ public final class Range<T> implements Serializable {
         if (element == null) {
             return false;
         }
-        
+
         return this.comparator.compare(element, this.minimum) < 0;
     }
 
@@ -237,14 +248,14 @@ public final class Range<T> implements Serializable {
         if (element == null) {
             return false;
         }
-        
+
         return this.comparator.compare(element, this.maximum) > 0;
     }
 
     /**
      * <p>Tests where the specified element occurs relative to this range.</p>
-     * <p>The API is reminiscent of the Comparable interface returning {@code -1} if 
-     * the element is before the range, {@code 0} if contained within the range and 
+     * <p>The API is reminiscent of the Comparable interface returning {@code -1} if
+     * the element is before the range, {@code 0} if contained within the range and
      * {@code 1} if the element is after the range. </p>
      *
      * @param element  the element to test
@@ -270,9 +281,9 @@ public final class Range<T> implements Serializable {
 
     /**
      * <p>Tests whether the specified range occurs entirely within this range.</p>
-     * 
+     *
      * <p>{@code null} is handled and returns {@code false}.</p>
-     * 
+     *
      * @param range  the range to test, may be {@code null}
      * @return {@code true} if the specified range occurs entirely within
      *  this range; otherwise, {@code false}
@@ -282,15 +293,15 @@ public final class Range<T> implements Serializable {
         if (range == null) {
             return false;
         }
-        return contains(range.getMinimum()) 
+        return contains(range.getMinimum())
             && contains(range.getMaximum());
     }
 
     /**
      * <p>Tests whether the specified range overlaps with this range.</p>
-     * 
+     *
      * <p>{@code null} is handled and returns {@code false}.</p>
-     * 
+     *
      * @param range  the range to test, may be {@code null}
      * @return {@code true} if the specified range overlaps with this
      *  range; otherwise, {@code false}
@@ -310,9 +321,9 @@ public final class Range<T> implements Serializable {
 
     /**
      * <p>Compares this range to another object to test if they are equal.</p>.
-     * 
+     *
      * <p>To be equal, the class, minimum and maximum must be equal.</p>
-     * 
+     *
      * @param obj the reference object with which to compare
      * @return {@code true} if this object is equal
      */
@@ -332,7 +343,7 @@ public final class Range<T> implements Serializable {
 
     /**
      * <p>Gets a hashCode for the range.</p>
-     * 
+     *
      * @return a hash code value for this object
      */
     @Override
@@ -352,7 +363,7 @@ public final class Range<T> implements Serializable {
      * <p>Gets the range as a {@code String}.</p>
      *
      * <p>The format of the String is 'Range[<i>min</i>,<i>max</i>]'.</p>
-     * 
+     *
      * @return the {@code String} representation of this range
      */
     @Override
@@ -379,15 +390,31 @@ public final class Range<T> implements Serializable {
         @SuppressWarnings("rawtypes") // Comparator works for all types
         public static final ComparableComparator<?> INSTANCE = new ComparableComparator();
 
+        /**
+         * Returns a comparator for the specified {@code Comparable} type.
+         *
+         * @param <E> the {@code Comparable} type
+         * @return the comparator for this type
+         */
         @SuppressWarnings("unchecked") // OK to cast, because comparator works for all types
         public static <E extends Comparable<? super E>> ComparableComparator<E> getInstance() {
             return (ComparableComparator<E>) INSTANCE;
         }
 
+        /**
+         * Creates a new instance of {@code ComparableComparator}.
+         */
         public ComparableComparator() {
             super();
         }
 
+        /**
+         * Compares two objects.
+         *
+         * @param obj1 the first object
+         * @param obj2 the second object
+         * @return the result of the comparison
+         */
         public int compare(E obj1, E obj2) {
             return obj1.compareTo(obj2);
         }
@@ -399,7 +426,7 @@ public final class Range<T> implements Serializable {
 
         @Override
         public boolean equals(Object object) {
-            return (this == object) || 
+            return (this == object) ||
                    ((null != object) && (object.getClass().equals(this.getClass())));
         }
 
