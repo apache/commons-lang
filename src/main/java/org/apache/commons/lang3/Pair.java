@@ -23,7 +23,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Abstract Pair (or 2-element Tuple).
- * 
+ *
  * @since Lang 3.0
  * @author Matt Benson
  * @version $Id$
@@ -88,6 +88,7 @@ public abstract class Pair<L, R> implements Serializable, Map.Entry<L, R> {
 
     /**
      * Returns a String representation of the Pair in the form: (L,R)
+     * @return a string for this object
      */
     @Override
     public String toString() {
@@ -103,10 +104,10 @@ public abstract class Pair<L, R> implements Serializable, Map.Entry<L, R> {
     /**
      * Static fluent creation method for a {@link Pair}<L, R>:
      * <code>Pair.of(left, right)</code>
-     * @param <L>
-     * @param <R>
-     * @param left
-     * @param right
+     * @param <L> the left generic type
+     * @param <R> the right generic type
+     * @param left the left value
+     * @param right the right value
      * @return ImmutablePair<L, R>(left, right)
      */
     public static <L, R> Pair<L, R> of(L left, R right) {
