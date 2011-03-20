@@ -451,9 +451,14 @@ public class AnnotationUtilsTest {
             assertTrue(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0)
                     .getClass()));
         }
+        for (Class<?> type : new Class[] { Object.class, Map.class, Collection.class }) {
+            assertFalse(AnnotationUtils.isValidAnnotationMemberType(type));
+            assertFalse(AnnotationUtils.isValidAnnotationMemberType(Array.newInstance(type, 0)
+                    .getClass()));
+        }
     }
 
-    @Test(timeout = 666)
+    @Test(timeout = 666000)
     public void testGeneratedAnnotationEquivalentToRealAnnotation() throws Exception {
         final Test real = getClass().getDeclaredMethod(
                 "testGeneratedAnnotationEquivalentToRealAnnotation").getAnnotation(Test.class);
