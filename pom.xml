@@ -428,6 +428,13 @@
       <version>2.5.2</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>javax.enterprise</groupId>
+      <artifactId>cdi-api</artifactId>
+      <version>1.0-SP1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <properties>
