@@ -98,27 +98,6 @@ public class AnnotationUtils {
     };
 
     /**
-     * Statically cached class instance for the CDI Nonbinding annotation.
-     */
-    private static final Class<? extends Annotation> NONBINDING_ANNOTATION_TYPE;
-    static {
-        Class<?> nonbindingAnnotationType = null;
-        try {
-            nonbindingAnnotationType = ClassUtils.getClass("javax.enterprise.util.Nonbinding");
-        } catch (ClassNotFoundException e) {
-        }
-        if (nonbindingAnnotationType != null
-                && Annotation.class.isAssignableFrom(nonbindingAnnotationType)) {
-            //just checked:
-            @SuppressWarnings("unchecked")
-            Class<? extends Annotation> stronglyTyped = (Class<? extends Annotation>) nonbindingAnnotationType;
-            NONBINDING_ANNOTATION_TYPE = stronglyTyped;
-        } else {
-            NONBINDING_ANNOTATION_TYPE = null;
-        }
-    }
-
-    /**
      * <p>{@code AnnotationUtils} instances should NOT be constructed in
      * standard programming. Instead, the class should be used statically.</p>
      *
@@ -131,11 +110,7 @@ public class AnnotationUtils {
     //-----------------------------------------------------------------------
     /**
      * <p>Checks if two annotations are equal using the criteria for equality
-     * presented in the {@link Annotation#equals(Object)} API docs. Additionally
-     * if the <code>javax.enterprise.util.Nonbinding</code> annotation is found
-     * on the classpath, its implications will be respected:
-     * <code>Nonbinding</code> members will contribute nothing to the equality
-     * calculation.</p>
+     * presented in the {@link Annotation#equals(Object)} API docs.</p>
      *
      * @param a1 the first Annotation to compare, {@code null} returns
      * {@code false} unless both are {@code null}
@@ -161,8 +136,7 @@ public class AnnotationUtils {
         try {
             for (Method m : type.getDeclaredMethods()) {
                 if (m.getParameterTypes().length == 0
-                        && isValidAnnotationMemberType(m.getReturnType())
-                        && !isNonbindingMember(m)) {
+                        && isValidAnnotationMemberType(m.getReturnType())) {
                     Object v1 = m.invoke(a1);
                     Object v2 = m.invoke(a2);
                     if (!memberEquals(m.getReturnType(), v1, v2)) {
@@ -392,16 +366,5 @@ public class AnnotationUtils {
             return Arrays.hashCode((boolean[]) o);
         }
         return Arrays.hashCode((Object[]) o);
-    }
-
-    /**
-     * Helper method to look for the CDI {@code Nonbinding} annotation on an
-     * {@link Annotation} member.
-     * @param accessor the accessor method to check
-     * @return whether the {@code Nonbinding} annotation was found
-     */
-    private static boolean isNonbindingMember(Method accessor) {
-        return NONBINDING_ANNOTATION_TYPE != null
-                && accessor.isAnnotationPresent(NONBINDING_ANNOTATION_TYPE);
     }
 }
