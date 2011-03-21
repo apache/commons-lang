@@ -37,8 +37,6 @@ import java.lang.reflect.Proxy;
 import java.util.Collection;
 import java.util.Map;
 
-import javax.enterprise.util.Nonbinding;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -120,7 +118,6 @@ public class AnnotationUtilsTest {
             type = Object.class,
             types = { Object.class }
     )
-    @Blah(foo = 6, bar = "x")
     public Object dummy1;
 
     @TestAnnotation(
@@ -197,7 +194,6 @@ public class AnnotationUtilsTest {
             type = Object.class,
             types = { Object.class }
     )
-    @Blah(foo = 6, bar = "y")
     public Object dummy2;
 
     @TestAnnotation(
@@ -299,7 +295,6 @@ public class AnnotationUtilsTest {
             type = Object.class,
             types = { Object.class }
     )
-    @Blah(foo = 7, bar = "x")
     public Object dummy3;
 
     @NestAnnotation(
@@ -384,15 +379,6 @@ public class AnnotationUtilsTest {
 
     public static enum Stooge {
         MOE, LARRY, CURLY, JOE, SHEMP;
-    }
-
-    @Retention(RUNTIME)
-    @Target(FIELD)
-    public @interface Blah {
-        int foo();
-
-        @Nonbinding
-        String bar();
     }
 
     private Field field1;
@@ -518,12 +504,4 @@ public class AnnotationUtilsTest {
         assertTrue(toString.contains(", "));
     }
 
-    @Test
-    public void testNonbinding() throws Exception {
-        Blah blah1 = field1.getAnnotation(Blah.class);
-        Blah blah2 = field2.getAnnotation(Blah.class);
-        Blah blah3 = field3.getAnnotation(Blah.class);
-        assertTrue(AnnotationUtils.equals(blah1, blah2));
-        assertFalse(AnnotationUtils.equals(blah1, blah3));
-    }
 }
