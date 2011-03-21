@@ -153,7 +153,8 @@ public class AnnotationUtils {
     }
 
     /**
-     * <p>Generate a hash code for the given annotation.</p>
+     * <p>Generate a hash code for the given annotation using the algorithm
+     * presented in the {@link Annotation#hashCode()} API docs.</p>
      *
      * @param a the Annotation for a hash code calculation is desired, not
      * {@code null}
