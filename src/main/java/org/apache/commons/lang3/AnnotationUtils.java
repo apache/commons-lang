@@ -27,7 +27,16 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  * <p>Helper methods for working with {@link Annotation} instances.</p>
  *
- * <p>This contains various utility methods that make working with annotations simpler.</p>
+ * <p>This class contains various utility methods that make working with
+ * annotations simpler.</p>
+ *
+ * <p>{@link Annotation} instances are always proxy objects; unfortunately
+ * dynamic proxies cannot be depended upon to know how to implement certain
+ * methods in the same manner as would be done by "natural" {@link Annotation}s.
+ * The methods presented in this class can be used to avoid that possibility. It
+ * is of course also possible for dynamic proxies to actually delegate their
+ * e.g. {@link Annotation#equals(Object)}/{@link Annotation#hashCode()}/
+ * {@link Annotation#toString()} implementations to {@link AnnotationUtils}.</p>
  *
  * <p>#ThreadSafe#</p>
  *
@@ -121,15 +130,19 @@ public class AnnotationUtils {
 
     //-----------------------------------------------------------------------
     /**
-     * <p>Checks if two annotations are equal.</p>
+     * <p>Checks if two annotations are equal using the criteria for equality
+     * presented in the {@link Annotation#equals(Object)} API docs. Additionally
+     * if the <code>javax.enterprise.util.Nonbinding</code> annotation is found
+     * on the classpath, its implications will be respected:
+     * <code>Nonbinding</code> members will contribute nothing to the equality
+     * calculation.</p>
      *
-     * <p>Dynamically created {@link Annotation} instances are always proxy
-     * objects which cannot be depended upon to know how to implement
-     * {@link Annotation#equals(Object)} correctly.</p>
-     *
-     * @param a1 the first Annotation to compare, null returns false unless both are null
-     * @param a2 the second Annotation to compare, null returns false unless both are null
-     * @return true if the two annotations are equal or both null
+     * @param a1 the first Annotation to compare, {@code null} returns
+     * {@code false} unless both are {@code null}
+     * @param a2 the second Annotation to compare, {@code null} returns
+     * {@code false} unless both are {@code null}
+     * @return {@code true} if the two annotations are {@code equal} or both
+     * {@code null}
      */
     public static boolean equals(Annotation a1, Annotation a2) {
         if (a1 == a2) {
@@ -168,15 +181,13 @@ public class AnnotationUtils {
     /**
      * <p>Generate a hash code for the given annotation.</p>
      *
-     * <p>Dynamically created {@link Annotation} instances are always proxy
-     * objects which cannot be depended upon to know how to implement
-     * {@link Annotation#hashCode()} correctly.</p>
-     *
-     * @param a the Annotation for a hash code calculation is desired, not null
+     * @param a the Annotation for a hash code calculation is desired, not
+     * {@code null}
      * @return the calculated hash code
-     * @throws RuntimeException if IllegalAccessException or InvocationTargetException
-     * or any other Exception is thrown during annotation access
-     * @throws IllegalStateException if an annotation method invocation returns {@code null}
+     * @throws RuntimeException if an {@code Exception} is encountered during
+     * annotation member access
+     * @throws IllegalStateException if an annotation method invocation returns
+     * {@code null}
      */
     public static int hashCode(Annotation a) {
         int result = 0;
@@ -203,7 +214,8 @@ public class AnnotationUtils {
      * {@link Annotation#toString()}.</p>
      *
      * @param a the annotation of which a string representation is desired
-     * @return the standard string representation of an annotation, not null
+     * @return the standard string representation of an annotation, not
+     * {@code null}
      */
     public static String toString(final Annotation a) {
         ToStringBuilder builder = new ToStringBuilder(a, TO_STRING_STYLE);
@@ -226,11 +238,12 @@ public class AnnotationUtils {
      * <p>Checks if the specified type is permitted as an annotation member.</p>
      *
      * <p>The Java language specification only permits certain types to be used
-     * in annotations. These include {@link String}, {@link Class}, primitive types,
-     * {@link Annotation}, {@link Enum}, and arrays of these types.</p>
+     * in annotations. These include {@link String}, {@link Class}, primitive
+     * types, {@link Annotation}, {@link Enum}, and single-dimensional arrays of
+     * these types.</p>
      *
-     * @param type the type to check, null returns false
-     * @return true if the type is a valid type to use in an annotation
+     * @param type the type to check, {@code null}
+     * @return {@code true} if the type is a valid type to use in an annotation
      */
     public static boolean isValidAnnotationMemberType(Class<?> type) {
         if (type == null) {
@@ -351,7 +364,7 @@ public class AnnotationUtils {
      *
      * @param componentType the component type of the array
      * @param o the array
-     * @return a hash code for this array
+     * @return a hash code for the specified array
      */
     private static int arrayMemberHash(Class<?> componentType, Object o) {
         if (componentType.equals(Byte.TYPE)) {
@@ -382,9 +395,10 @@ public class AnnotationUtils {
     }
 
     /**
-     * Helper method to look for the CDI Nonbinding annotation on an Annotation member.
+     * Helper method to look for the CDI {@code Nonbinding} annotation on an
+     * {@link Annotation} member.
      * @param accessor the accessor method to check
-     * @return whether the Nonbinding annotation was found
+     * @return whether the {@code Nonbinding} annotation was found
      */
     private static boolean isNonbindingMember(Method accessor) {
         return NONBINDING_ANNOTATION_TYPE != null
