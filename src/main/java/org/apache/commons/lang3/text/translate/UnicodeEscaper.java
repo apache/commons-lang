@@ -83,8 +83,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @return the newly created {@code UnicodeEscaper} instance
      */
     public static UnicodeEscaper outsideOf(int codepointLow, int codepointHigh) {
-        UnicodeEscaper escaper = new UnicodeEscaper(codepointLow, codepointHigh, false);
-        return escaper;
+        return new UnicodeEscaper(codepointLow, codepointHigh, false);
     }
 
     /**
@@ -95,8 +94,7 @@ public class UnicodeEscaper extends CodePointTranslator {
      * @return the newly created {@code UnicodeEscaper} instance
      */
     public static UnicodeEscaper between(int codepointLow, int codepointHigh) {
-        UnicodeEscaper escaper = new UnicodeEscaper(codepointLow, codepointHigh, true);
-        return escaper;
+        return new UnicodeEscaper(codepointLow, codepointHigh, true);
     }
 
     /**
