@@ -135,45 +135,24 @@ public class CharSet implements Serializable {
      *
      * <p>All CharSet objects returned by this method will be immutable.</p>
      *
-     * @param setStr  the String describing the set, may be null
-     * @return a CharSet instance
-     * @since 2.0
-     */
-    public static CharSet getInstance(String setStr) {
-        Object set = COMMON.get(setStr);
-        if (set != null) {
-            return (CharSet) set;
-        }
-        return new CharSet(setStr);
-    }
-
-    /**
-     * <p>Constructs a new CharSet using the set syntax.
-     * Each string is merged in with the set.</p>
-     *
-     * @param setStrs  Strings to merge into the initial set, may be null
+     * @param setStrs  Strings to merge into the set, may be null
      * @return a CharSet instance
      * @since 2.4
      */
-    public static CharSet getInstance(String[] setStrs) {
+    public static CharSet getInstance(String... setStrs) {
         if (setStrs == null) {
             return null;
+        }
+        if (setStrs.length == 1) {
+            CharSet common = COMMON.get(setStrs[0]);
+            if (common != null) {
+                return common;
+            }
         }
         return new CharSet(setStrs); 
     }
 
     //-----------------------------------------------------------------------
-    /**
-     * <p>Constructs a new CharSet using the set syntax.</p>
-     *
-     * @param setStr  the String describing the set, may be null
-     * @since 2.0
-     */
-    protected CharSet(String setStr) {
-        super();
-        add(setStr);
-    }
-
     /**
      * <p>Constructs a new CharSet using the set syntax.
      * Each string is merged in with the set.</p>
@@ -181,7 +160,7 @@ public class CharSet implements Serializable {
      * @param set  Strings to merge into the initial set
      * @throws NullPointerException if set is {@code null}
      */
-    protected CharSet(String[] set) {
+    protected CharSet(String... set) {
         super();
         int sz = set.length;
         for (int i = 0; i < sz; i++) {
