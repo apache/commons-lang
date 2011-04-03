@@ -435,7 +435,7 @@ public class ClassUtils {
      * @param toClassArray  the array of Classes to try to assign into, may be {@code null}
      * @return {@code true} if assignment possible
      */
-    public static boolean isAssignable(Class<?>[] classArray, Class<?>[] toClassArray) {
+    public static boolean isAssignable(Class<?>[] classArray, Class<?>... toClassArray) {
         return isAssignable(classArray, toClassArray, SystemUtils.isJavaVersionAtLeast(JavaVersion.JAVA_1_5));
     }
 
@@ -654,7 +654,7 @@ public class ClassUtils {
      * Empty array if an empty array passed in.
      * @since 2.1
      */
-    public static Class<?>[] primitivesToWrappers(Class<?>[] classes) {
+    public static Class<?>[] primitivesToWrappers(Class<?>... classes) {
         if (classes == null) {
             return null;
         }
@@ -704,7 +704,7 @@ public class ClassUtils {
      * @see #wrapperToPrimitive(Class)
      * @since 2.4
      */
-    public static Class<?>[] wrappersToPrimitives(Class<?>[] classes) {
+    public static Class<?>[] wrappersToPrimitives(Class<?>... classes) {
         if (classes == null) {
             return null;
         }
@@ -846,7 +846,7 @@ public class ClassUtils {
      * @throws NoSuchMethodException if the method is not found in the given class
      *  or if the metothod doen't conform with the requirements
      */
-    public static Method getPublicMethod(Class<?> cls, String methodName, Class<?> parameterTypes[])
+    public static Method getPublicMethod(Class<?> cls, String methodName, Class<?>... parameterTypes)
             throws SecurityException, NoSuchMethodException {
 
         Method declaredMethod = cls.getMethod(methodName, parameterTypes);
@@ -915,7 +915,7 @@ public class ClassUtils {
      * @return a {@code Class} array, {@code null} if null array input
      * @since 2.4
      */
-    public static Class<?>[] toClass(Object[] array) {
+    public static Class<?>[] toClass(Object... array) {
         if (array == null) {
             return null;
         } else if (array.length == 0) {
