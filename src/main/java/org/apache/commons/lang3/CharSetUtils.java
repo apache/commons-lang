@@ -64,31 +64,8 @@ public class CharSetUtils {
      * @param set  the character set to use for manipulation, may be null
      * @return the modified String, {@code null} if null string input
      */
-    public static String squeeze(String str, String set) {
-        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(set)) {
-            return str;
-        }
-        String[] strs = new String[1];
-        strs[0] = set;
-        return squeeze(str, strs);
-    }
-
-    /**
-     * <p>Squeezes any repetitions of a character that is mentioned in the
-     * supplied set.</p>
-     *
-     * <p>An example is:</p>
-     * <ul>
-     *   <li>squeeze(&quot;hello&quot;, {&quot;el&quot;}) => &quot;helo&quot;</li>
-     * </ul>
-     * 
-     * @see CharSet#getInstance(java.lang.String) for set-syntax.
-     * @param str  the string to squeeze, may be null
-     * @param set  the character set to use for manipulation, may be null
-     * @return the modified String, {@code null} if null string input
-     */
-    public static String squeeze(String str, String[] set) {
-        if (StringUtils.isEmpty(str) || ArrayUtils.isEmpty(set)) {
+    public static String squeeze(String str, String... set) {
+        if (StringUtils.isEmpty(str) || deepEmpty(set)) {
             return str;
         }
         CharSet chars = CharSet.getInstance(set);
@@ -127,42 +104,17 @@ public class CharSetUtils {
      *
      * @see CharSet#getInstance(java.lang.String) for set-syntax.
      * @param str  String to count characters in, may be null
-     * @param set  String set of characters to count, may be null
-     * @return the character count, zero if null string input
-     */
-    public static int count(String str, String set) {
-        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(set)) {
-            return 0;
-        }
-        String[] strs = new String[1];
-        strs[0] = set;
-        return count(str, strs);
-    }
-    
-    /**
-     * <p>Takes an argument in set-syntax, see evaluateSet,
-     * and returns the number of characters present in the specified string.</p>
-     *
-     * <p>An example would be:</p>
-     * <ul>
-     *  <li>count(&quot;hello&quot;, {&quot;c-f&quot;, &quot;o&quot;}) returns 2.</li>
-     * </ul>
-     *
-     * @see CharSet#getInstance(java.lang.String) for set-syntax.
-     * @param str  String to count characters in, may be null
      * @param set  String[] set of characters to count, may be null
      * @return the character count, zero if null string input
      */
-    public static int count(String str, String[] set) {
-        if (StringUtils.isEmpty(str) || ArrayUtils.isEmpty(set)) {
+    public static int count(String str, String... set) {
+        if (StringUtils.isEmpty(str) || deepEmpty(set)) {
             return 0;
         }
         CharSet chars = CharSet.getInstance(set);
         int count = 0;
-        char[] chrs = str.toCharArray();
-        int sz = chrs.length;
-        for(int i=0; i<sz; i++) {
-            if(chars.contains(chrs[i])) {
+        for (char c : str.toCharArray()) {
+            if (chars.contains(c)) {
                 count++;
             }
         }
@@ -186,43 +138,15 @@ public class CharSetUtils {
      *
      * @see CharSet#getInstance(java.lang.String) for set-syntax.
      * @param str  String to keep characters from, may be null
-     * @param set  String set of characters to keep, may be null
-     * @return the modified String, {@code null} if null string input
-     * @since 2.0
-     */
-    public static String keep(String str, String set) {
-        if (str == null) {
-            return null;
-        }
-        if (str.length() == 0 || StringUtils.isEmpty(set)) {
-            return "";
-        }
-        String[] strs = new String[1];
-        strs[0] = set;
-        return keep(str, strs);
-    }
-    
-    /**
-     * <p>Takes an argument in set-syntax, see evaluateSet,
-     * and keeps any of characters present in the specified string.</p>
-     *
-     * <p>An example would be:</p>
-     * <ul>
-     *  <li>keep(&quot;hello&quot;, {&quot;c-f&quot;, &quot;o&quot;})
-     *   returns &quot;eo&quot;</li>
-     * </ul>
-     *
-     * @see CharSet#getInstance(java.lang.String) for set-syntax.
-     * @param str  String to keep characters from, may be null
      * @param set  String[] set of characters to keep, may be null
      * @return the modified String, {@code null} if null string input
      * @since 2.0
      */
-    public static String keep(String str, String[] set) {
+    public static String keep(String str, String... set) {
         if (str == null) {
             return null;
         }
-        if (str.length() == 0 || ArrayUtils.isEmpty(set)) {
+        if (str.length() == 0 || deepEmpty(set)) {
             return "";
         }
         return modify(str, set, true);
@@ -245,35 +169,11 @@ public class CharSetUtils {
      *
      * @see CharSet#getInstance(java.lang.String) for set-syntax.
      * @param str  String to delete characters from, may be null
-     * @param set  String set of characters to delete, may be null
-     * @return the modified String, {@code null} if null string input
-     */
-    public static String delete(String str, String set) {
-        if (StringUtils.isEmpty(str) || StringUtils.isEmpty(set)) {
-            return str;
-        }
-        String[] strs = new String[1];
-        strs[0] = set;
-        return delete(str, strs);
-    }
-    
-    /**
-     * <p>Takes an argument in set-syntax, see evaluateSet,
-     * and deletes any of characters present in the specified string.</p>
-     *
-     * <p>An example would be:</p>
-     * <ul>
-     *  <li>delete(&quot;hello&quot;, {&quot;c-f&quot;, &quot;o&quot;}) returns
-     *   &quot;hll&quot;</li>
-     * </ul>
-     *
-     * @see CharSet#getInstance(java.lang.String) for set-syntax.
-     * @param str  String to delete characters from, may be null
      * @param set  String[] set of characters to delete, may be null
      * @return the modified String, {@code null} if null string input
      */
-    public static String delete(String str, String[] set) {
-        if (StringUtils.isEmpty(str) || ArrayUtils.isEmpty(set)) {
+    public static String delete(String str, String... set) {
+        if (StringUtils.isEmpty(str) || deepEmpty(set)) {
             return str;
         }
         return modify(str, set, false);
@@ -301,4 +201,14 @@ public class CharSetUtils {
         return buffer.toString();
     }
 
+    private static boolean deepEmpty(String[] strings) {
+        if (strings != null) {
+            for (String s : strings) {
+                if (StringUtils.isNotEmpty(s)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
