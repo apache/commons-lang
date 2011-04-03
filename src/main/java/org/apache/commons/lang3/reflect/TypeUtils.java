@@ -886,7 +886,7 @@ public class TypeUtils {
             }
         }
 
-        return types.toArray(new Type[0]);
+        return types.toArray(new Type[types.size()]);
     }
 
     /**
