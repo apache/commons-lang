@@ -641,9 +641,7 @@ public class StringUtils {
      *
      * @since 3.0
      */
-    // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their
-    // unaccented equivalent (and uncommited bug fix:
-    // https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
+    // See also Lucene's ASCIIFoldingFilter (Lucene 2.9) that replaces accented characters by their unaccented equivalent (and uncommited bug fix: https://issues.apache.org/jira/browse/LUCENE-1343?focusedCommentId=12858907&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#action_12858907).
     public static String stripAccents(CharSequence input) {
         if(input == null) {
             return null;
@@ -655,8 +653,7 @@ public class StringUtils {
             } else if (sunAvailable) {
                 result = removeAccentsSUN(input);
             } else {
-                throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least "
-                        + "Java 1.6 or a Sun JVM");
+                throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least Java 1.6 or a Sun JVM");
             }
             // Note that none of the above methods correctly remove ligatures...
             return result;
@@ -674,15 +671,9 @@ public class StringUtils {
     /**
      * Use {@code java.text.Normalizer#normalize(CharSequence, Normalizer.Form)}
      * (but be careful, this classe exists in Java 1.3, with an entirely different meaning!)
-     *
-     * @param text the text to be processed
-     * @return the processed string
-     * @throws IllegalAccessException may be thrown by a reflection call
-     * @throws InvocationTargetException if a reflection call throws an exception
-     * @throws IllegalStateException if the {@code Normalizer} class is not available
+     * @param text
      */
-    private static String removeAccentsJava6(CharSequence text)
-        throws IllegalAccessException, InvocationTargetException {
+    private static String removeAccentsJava6(CharSequence text) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         /*
         String decomposed = java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
         return java6Pattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
@@ -698,15 +689,8 @@ public class StringUtils {
 
     /**
      * Use {@code sun.text.Normalizer#decompose(String, boolean, int)}
-     *
-     * @param text the text to be processed
-     * @return the processed string
-     * @throws IllegalAccessException may be thrown by a reflection call
-     * @throws InvocationTargetException if a reflection call throws an exception
-     * @throws IllegalStateException if the {@code Normalizer} class is not available
      */
-    private static String removeAccentsSUN(CharSequence text)
-        throws IllegalAccessException, InvocationTargetException {
+    private static String removeAccentsSUN(CharSequence text) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         /*
         String decomposed = sun.text.Normalizer.decompose(text, false, 0);
         return sunPattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
@@ -734,13 +718,10 @@ public class StringUtils {
         try {
             // java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
             // Be careful not to get Java 1.3 java.text.Normalizer!
-            Class<?> normalizerFormClass = Thread.currentThread().getContextClassLoader()
-                .loadClass("java.text.Normalizer$Form");//$NON-NLS-1$
+            Class<?> normalizerFormClass = Thread.currentThread().getContextClassLoader().loadClass("java.text.Normalizer$Form");//$NON-NLS-1$
             java6NormalizerFormNFD = normalizerFormClass.getField("NFD").get(null);//$NON-NLS-1$
-            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
-                .loadClass("java.text.Normalizer");//$NON-NLS-1$
-            java6NormalizeMethod = normalizerClass.getMethod("normalize",
-                    new Class[] {CharSequence.class, normalizerFormClass});//$NON-NLS-1$
+            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader().loadClass("java.text.Normalizer");//$NON-NLS-1$
+            java6NormalizeMethod = normalizerClass.getMethod("normalize", new Class[] {CharSequence.class, normalizerFormClass});//$NON-NLS-1$
             java6Available = true;
         } catch (ClassNotFoundException e) {
             java6Available = false;
@@ -754,10 +735,8 @@ public class StringUtils {
 
         try {
             // sun.text.Normalizer.decompose(text, false, 0);
-            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
-                .loadClass("sun.text.Normalizer");//$NON-NLS-1$
-            sunDecomposeMethod = normalizerClass.getMethod("decompose",
-                    new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
+            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader().loadClass("sun.text.Normalizer");//$NON-NLS-1$
+            sunDecomposeMethod = normalizerClass.getMethod("decompose", new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
             sunAvailable = true;
         } catch (ClassNotFoundException e) {
             sunAvailable = false;
@@ -821,10 +800,10 @@ public class StringUtils {
     // IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Finds the first index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#indexOf(int, int)} if possible.</p>
+     * <p>Finds the first index within a String, handling {@code null}.
+     * This method uses {@link String#indexOf(int)}.</p>
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code INDEX_NOT_FOUND (-1)}.</p>
+     * <p>A {@code null} or empty ("") String will return {@code INDEX_NOT_FOUND (-1)}.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *)         = -1
@@ -833,25 +812,25 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", 'b') = 2
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
+     * @param str  the String to check, may be null
      * @param searchChar  the character to find
      * @return the first index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(CharSequence seq, int searchChar) {
-        if (isEmpty(seq)) {
+    public static int indexOf(String str, int searchChar) {
+        if (isEmpty(str)) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.indexOfSequence(seq, searchChar, 0);
+        return str.indexOf(searchChar);
     }
 
     /**
-     * <p>Finds the first index within a CharSequence from a start position,
+     * <p>Finds the first index within a String from a start position,
      * handling {@code null}.
-     * This method uses {@link String#indexOf(int, int)} if possible.</p>
+     * This method uses {@link String#indexOf(int, int)}.</p>
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code (INDEX_NOT_FOUND) -1}.
+     * <p>A {@code null} or empty ("") String will return {@code (INDEX_NOT_FOUND) -1}.
      * A negative start position is treated as zero.
      * A start position greater than the string length returns {@code -1}.</p>
      *
@@ -864,25 +843,25 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", 'b', -1) = 2
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
+     * @param str  the String to check, may be null
      * @param searchChar  the character to find
      * @param startPos  the start position, negative treated as zero
      * @return the first index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(CharSequence seq, int searchChar, int startPos) {
-        if (isEmpty(seq)) {
+    public static int indexOf(String str, int searchChar, int startPos) {
+        if (isEmpty(str)) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.indexOfSequence(seq, searchChar, startPos);
+        return str.indexOf(searchChar, startPos);
     }
 
     /**
-     * <p>Finds the first index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#indexOf(String, int)} if possible.</p>
+     * <p>Finds the first index within a String, handling {@code null}.
+     * This method uses {@link String#indexOf(String)}.</p>
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.</p>
+     * <p>A {@code null} String will return {@code -1}.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *)          = -1
@@ -895,28 +874,28 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", "")   = 0
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchSeq  the CharSequence to find, may be null
-     * @return the first index of the search CharSequence,
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
+     * @return the first index of the search String,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(CharSequence seq, CharSequence searchSeq) {
-        if (seq == null || searchSeq == null) {
+    public static int indexOf(String str, String searchStr) {
+        if (str == null || searchStr == null) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.indexOfSequence(seq, searchSeq, 0);
+        return str.indexOf(searchStr);
     }
 
     /**
-     * <p>Finds the first index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#indexOf(String, int)} if possible.</p>
+     * <p>Finds the first index within a String, handling {@code null}.
+     * This method uses {@link String#indexOf(String, int)}.</p>
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
+     * <p>A {@code null} String will return {@code -1}.
      * A negative start position is treated as zero.
-     * An empty ("") search CharSequence always matches.
+     * An empty ("") search String always matches.
      * A start position greater than the string length only matches
-     * an empty search CharSequence.</p>
+     * an empty search String.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *, *)          = -1
@@ -933,18 +912,18 @@ public class StringUtils {
      * StringUtils.indexOf("abc", "", 9)        = 3
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchSeq  the CharSequence to find, may be null
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search CharSequence,
+     * @return the first index of the search String,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(CharSequence seq, CharSequence searchSeq, int startPos) {
-        if (seq == null || searchSeq == null) {
+    public static int indexOf(String str, String searchStr, int startPos) {
+        if (str == null || searchStr == null) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.indexOfSequence(seq, searchSeq, startPos);
+        return str.indexOf(searchStr, startPos);
     }
 
     /**
@@ -1105,10 +1084,10 @@ public class StringUtils {
     // LastIndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Finds the last index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#lastIndexOf(int)} if possible.</p>
+     * <p>Finds the last index within a String, handling {@code null}.
+     * This method uses {@link String#lastIndexOf(int)}.</p>
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code -1}.</p>
+     * <p>A {@code null} or empty ("") String will return {@code -1}.</p>
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *)         = -1
@@ -1117,25 +1096,25 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
+     * @param str  the String to check, may be null
      * @param searchChar  the character to find
      * @return the last index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int lastIndexOf(CharSequence seq, int searchChar) {
-        if (isEmpty(seq)) {
+    public static int lastIndexOf(String str, int searchChar) {
+        if (isEmpty(str)) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.lastIndexOfSequence(seq, searchChar, seq.length());
+        return str.lastIndexOf(searchChar);
     }
 
     /**
-     * <p>Finds the last index within a CharSequence from a start position,
+     * <p>Finds the last index within a String from a start position,
      * handling {@code null}.
-     * This method uses {@link String#lastIndexOf(int, int)} if possible.</p>
+     * This method uses {@link String#lastIndexOf(int, int)}.</p>
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code -1}.
+     * <p>A {@code null} or empty ("") String will return {@code -1}.
      * A negative start position returns {@code -1}.
      * A start position greater than the string length searches the whole string.</p>
      *
@@ -1150,25 +1129,25 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'a', 0)  = 0
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
+     * @param str  the String to check, may be null
      * @param searchChar  the character to find
      * @param startPos  the start position
      * @return the last index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int lastIndexOf(CharSequence seq, int searchChar, int startPos) {
-        if (isEmpty(seq)) {
+    public static int lastIndexOf(String str, int searchChar, int startPos) {
+        if (isEmpty(str)) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.lastIndexOfSequence(seq, searchChar, startPos);
+        return str.lastIndexOf(searchChar, startPos);
     }
 
     /**
-     * <p>Finds the last index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#lastIndexOf(String)} if possible.</p>
+     * <p>Finds the last index within a String, handling {@code null}.
+     * This method uses {@link String#lastIndexOf(String)}.</p>
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.</p>
+     * <p>A {@code null} String will return {@code -1}.</p>
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *)          = -1
@@ -1180,17 +1159,17 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", "")   = 8
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchSeq  the CharSequence to find, may be null
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
      * @return the last index of the search String,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int lastIndexOf(CharSequence seq, CharSequence searchSeq) {
-        if (seq == null || searchSeq == null) {
+    public static int lastIndexOf(String str, String searchStr) {
+        if (str == null || searchStr == null) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.lastIndexOfSequence(seq, searchSeq, seq.length());
+        return str.lastIndexOf(searchStr);
     }
 
     /**
@@ -1231,12 +1210,12 @@ public class StringUtils {
     }
 
     /**
-     * <p>Finds the first index within a CharSequence, handling {@code null}.
-     * This method uses {@link String#lastIndexOf(String, int)} if possible.</p>
+     * <p>Finds the first index within a String, handling {@code null}.
+     * This method uses {@link String#lastIndexOf(String, int)}.</p>
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
+     * <p>A {@code null} String will return {@code -1}.
      * A negative start position returns {@code -1}.
-     * An empty ("") search CharSequence always matches unless the start position is negative.
+     * An empty ("") search String always matches unless the start position is negative.
      * A start position greater than the string length searches the whole string.</p>
      *
      * <pre>
@@ -1251,18 +1230,18 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", "b", 0)  = -1
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchSeq  the CharSequence to find, may be null
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search CharSequence,
+     * @return the first index of the search String,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int lastIndexOf(CharSequence seq, CharSequence searchSeq, int startPos) {
-        if (seq == null || searchSeq == null) {
+    public static int lastIndexOf(String str, String searchStr, int startPos) {
+        if (str == null || searchStr == null) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.lastIndexOfSequence(seq, searchSeq, startPos);
+        return str.lastIndexOf(searchStr, startPos);
     }
 
     /**
@@ -1347,10 +1326,10 @@ public class StringUtils {
     // Contains
     //-----------------------------------------------------------------------
     /**
-     * <p>Checks if CharSequence contains a search character, handling {@code null}.
-     * This method uses {@link String#indexOf(int)} if possible.</p>
+     * <p>Checks if String contains a search character, handling {@code null}.
+     * This method uses {@link String#indexOf(int)}.</p>
      *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.</p>
+     * <p>A {@code null} or empty ("") String will return {@code false}.</p>
      *
      * <pre>
      * StringUtils.contains(null, *)    = false
@@ -1359,24 +1338,24 @@ public class StringUtils {
      * StringUtils.contains("abc", 'z') = false
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
+     * @param str  the String to check, may be null
      * @param searchChar  the character to find
-     * @return true if the CharSequence contains the search character,
+     * @return true if the String contains the search character,
      *  false if not or {@code null} string input
      * @since 2.0
      */
-    public static boolean contains(CharSequence seq, int searchChar) {
-        if (isEmpty(seq)) {
+    public static boolean contains(String str, int searchChar) {
+        if (isEmpty(str)) {
             return false;
         }
-        return indexOfSequence(seq, searchChar, 0) >= 0;
+        return str.indexOf(searchChar) >= 0;
     }
 
     /**
-     * <p>Checks if CharSequence contains a search CharSequence, handling {@code null}.
-     * This method uses {@link String#indexOf(String)} if possible.</p>
+     * <p>Checks if String contains a search String, handling {@code null}.
+     * This method uses {@link String#indexOf(String)}.</p>
      *
-     * <p>A {@code null} CharSequence will return {@code false}.</p>
+     * <p>A {@code null} String will return {@code false}.</p>
      *
      * <pre>
      * StringUtils.contains(null, *)     = false
@@ -1387,17 +1366,17 @@ public class StringUtils {
      * StringUtils.contains("abc", "z")  = false
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchSeq  the CharSequence to find, may be null
-     * @return true if the CharSequence contains the search CharSequence,
+     * @param str  the String to check, may be null
+     * @param searchStr  the String to find, may be null
+     * @return true if the String contains the search String,
      *  false if not or {@code null} string input
      * @since 2.0
      */
-    public static boolean contains(CharSequence seq, CharSequence searchSeq) {
-        if (seq == null || searchSeq == null) {
+    public static boolean contains(String str, String searchStr) {
+        if (str == null || searchStr == null) {
             return false;
         }
-        return indexOfSequence(seq, searchSeq, 0) >= 0;
+        return str.indexOf(searchStr) >= 0;
     }
 
     /**
@@ -1438,21 +1417,21 @@ public class StringUtils {
     }
 
     /**
-     * Check whether the given CharSequence contains any whitespace characters.
-     * @param seq the CharSequence to check (may be {@code null})
-     * @return {@code true} if the CharSequence is not empty and
+     * Check whether the given String contains any whitespace characters.
+     * @param str the String to check (may be {@code null})
+     * @return {@code true} if the String is not empty and
      * contains at least 1 whitespace character
      * @see java.lang.Character#isWhitespace
      * @since 3.0
      */
     // From org.springframework.util.StringUtils, under Apache License 2.0
-    public static boolean containsWhitespace(CharSequence seq) {
-        if (isEmpty(seq)) {
+    public static boolean containsWhitespace(String str) {
+        if (isEmpty(str)) {
             return false;
         }
-        int strLen = seq.length();
+        int strLen = str.length();
         for (int i = 0; i < strLen; i++) {
-            if (Character.isWhitespace(seq.charAt(i))) {
+            if (Character.isWhitespace(str.charAt(i))) {
                 return true;
             }
         }
@@ -1531,13 +1510,13 @@ public class StringUtils {
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
-     * @since 3.0 Changed signature from indexOfAny(String, String) to indexOfAny(CharSequence, CharSequence)
+     * @since 3.0 Changed signature from indexOfAny(String, String) to indexOfAny(CharSequence, String)
      */
-    public static int indexOfAny(CharSequence cs, CharSequence searchChars) {
+    public static int indexOfAny(CharSequence cs, String searchChars) {
         if (isEmpty(cs) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        return indexOfAny(cs, toCharArraySequence(searchChars));
+        return indexOfAny(cs, searchChars.toCharArray());
     }
 
     // ContainsAny
@@ -1565,7 +1544,7 @@ public class StringUtils {
      * {@code false} if no match or null input
      * @since 2.4
      */
-    public static boolean containsAny(CharSequence cs, char[] searchChars) {
+    public static boolean containsAny(String cs, char[] searchChars) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return false;
         }
@@ -1622,11 +1601,11 @@ public class StringUtils {
      * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
      * @since 2.4
      */
-    public static boolean containsAny(CharSequence cs, CharSequence searchChars) {
+    public static boolean containsAny(String cs, String searchChars) {
         if (searchChars == null) {
             return false;
         }
-        return containsAny(cs, toCharArraySequence(searchChars));
+        return containsAny(cs, searchChars.toCharArray());
     }
 
     // IndexOfAnyBut chars
@@ -1683,10 +1662,10 @@ public class StringUtils {
     }
 
     /**
-     * <p>Search a CharSequence to find the first index of any
+     * <p>Search a String to find the first index of any
      * character not in the given set of characters.</p>
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
+     * <p>A {@code null} String will return {@code -1}.
      * A {@code null} or empty search string will return {@code -1}.</p>
      *
      * <pre>
@@ -1699,22 +1678,22 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut("aba","ab")         = -1
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
+     * @param str  the String to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
      */
-    public static int indexOfAnyBut(CharSequence seq, CharSequence searchChars) {
-        if (isEmpty(seq) || isEmpty(searchChars)) {
+    public static int indexOfAnyBut(String str, String searchChars) {
+        if (isEmpty(str) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        int strLen = seq.length();
+        int strLen = str.length();
         for (int i = 0; i < strLen; i++) {
-            char ch = seq.charAt(i);
-            boolean chFound = indexOfSequence(searchChars, ch, 0) >= 0;
+            char ch = str.charAt(i);
+            boolean chFound = searchChars.indexOf(ch) >= 0;
             if (i + 1 < strLen && Character.isHighSurrogate(ch)) {
-                char ch2 = seq.charAt(i + 1);
-                if (chFound && indexOfSequence(searchChars, ch2, 0) < 0) {
+                char ch2 = str.charAt(i + 1);
+                if (chFound && searchChars.indexOf(ch2) < 0) {
                     return i;
                 }
             } else {
@@ -1745,7 +1724,7 @@ public class StringUtils {
      * StringUtils.containsOnly("abz", 'abc')  = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param cs  the String to check, may be null
      * @param valid  an array of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
      * @since 3.0 Changed signature from containsOnly(String, char[]) to containsOnly(CharSequence, char[])
@@ -1782,16 +1761,16 @@ public class StringUtils {
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
-     * @param validChars  a CharSequence of valid chars, may be null
+     * @param validChars  a String of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
      * @since 2.0
-     * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, CharSequence)
+     * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, String)
      */
-    public static boolean containsOnly(CharSequence cs, CharSequence validChars) {
+    public static boolean containsOnly(CharSequence cs, String validChars) {
         if (cs == null || validChars == null) {
             return false;
         }
-        return containsOnly(cs, toCharArraySequence(validChars));
+        return containsOnly(cs, validChars.toCharArray());
     }
 
     // ContainsNone
@@ -1867,16 +1846,16 @@ public class StringUtils {
      * </pre>
      *
      * @param cs  the CharSequence to check, may be null
-     * @param invalidChars  a CharSequence of invalid chars, may be null
+     * @param invalidChars  a String of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
      * @since 2.0
-     * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, CharSequence)
+     * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
      */
-    public static boolean containsNone(CharSequence cs, CharSequence invalidChars) {
+    public static boolean containsNone(CharSequence cs, String invalidChars) {
         if (cs == null || invalidChars == null) {
             return true;
         }
-        return containsNone(cs, toCharArraySequence(invalidChars));
+        return containsNone(cs, invalidChars.toCharArray());
     }
 
     // IndexOfAny strings
@@ -1884,11 +1863,11 @@ public class StringUtils {
     /**
      * <p>Find the first index of any of a set of potential substrings.</p>
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
+     * <p>A {@code null} String will return {@code -1}.
      * A {@code null} or zero length search array will return {@code -1}.
      * A {@code null} search array entry will be ignored, but a search
      * array containing "" will return {@code 0} if {@code str} is not
-     * null. This method uses {@link String#indexOf(String)} if possible.</p>
+     * null. This method uses {@link String#indexOf(String)}.</p>
      *
      * <pre>
      * StringUtils.indexOfAny(null, *)                     = -1
@@ -1903,11 +1882,11 @@ public class StringUtils {
      * StringUtils.indexOfAny("", ["a"])                   = -1
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStrs  the CharSequences to search for, may be null
+     * @param str  the String to check, may be null
+     * @param searchStrs  the Strings to search for, may be null
      * @return the first index of any of the searchStrs in str, -1 if no match
      */
-    public static int indexOfAny(CharSequence str, CharSequence[] searchStrs) {
+    public static int indexOfAny(String str, String[] searchStrs) {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
@@ -1918,11 +1897,11 @@ public class StringUtils {
 
         int tmp = 0;
         for (int i = 0; i < sz; i++) {
-            CharSequence search = searchStrs[i];
+            String search = searchStrs[i];
             if (search == null) {
                 continue;
             }
-            tmp = indexOfSequence(str, search, 0);
+            tmp = str.indexOf(search);
             if (tmp == INDEX_NOT_FOUND) {
                 continue;
             }
@@ -1938,11 +1917,11 @@ public class StringUtils {
     /**
      * <p>Find the latest index of any of a set of potential substrings.</p>
      *
-     * <p>A {@code null} CharSequence will return {@code -1}.
+     * <p>A {@code null} String will return {@code -1}.
      * A {@code null} search array will return {@code -1}.
      * A {@code null} or zero length search array entry will be ignored,
      * but a search array containing "" will return the length of {@code str}
-     * if {@code str} is not null. This method uses {@link String#indexOf(String)} if possible</p>
+     * if {@code str} is not null. This method uses {@link String#indexOf(String)}</p>
      *
      * <pre>
      * StringUtils.lastIndexOfAny(null, *)                   = -1
@@ -1956,11 +1935,11 @@ public class StringUtils {
      * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn",""])   = 10
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStrs  the CharSequences to search for, may be null
-     * @return the last index of any of the CharSequences, -1 if no match
+     * @param str  the String to check, may be null
+     * @param searchStrs  the Strings to search for, may be null
+     * @return the last index of any of the Strings, -1 if no match
      */
-    public static int lastIndexOfAny(CharSequence str, CharSequence[] searchStrs) {
+    public static int lastIndexOfAny(String str, String[] searchStrs) {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
@@ -1968,11 +1947,11 @@ public class StringUtils {
         int ret = INDEX_NOT_FOUND;
         int tmp = 0;
         for (int i = 0; i < sz; i++) {
-            CharSequence search = searchStrs[i];
+            String search = searchStrs[i];
             if (search == null) {
                 continue;
             }
-            tmp = lastIndexOfSequence(str, search, str.length());
+            tmp = str.lastIndexOf(search);
             if (tmp > ret) {
                 ret = tmp;
             }
@@ -1983,13 +1962,13 @@ public class StringUtils {
     // Substring
     //-----------------------------------------------------------------------
     /**
-     * <p>Gets a substring from the specified CharSequence avoiding exceptions.</p>
+     * <p>Gets a substring from the specified String avoiding exceptions.</p>
      *
      * <p>A negative start position can be used to start {@code n}
-     * characters from the end of the CharSequence.</p>
+     * characters from the end of the String.</p>
      *
-     * <p>A {@code null} CharSequence will return {@code null}.
-     * An empty ("") CharSequence will return "".</p>
+     * <p>A {@code null} String will return {@code null}.
+     * An empty ("") String will return "".</p>
      *
      * <pre>
      * StringUtils.substring(null, *)   = null
@@ -2001,12 +1980,12 @@ public class StringUtils {
      * StringUtils.substring("abc", -4) = "abc"
      * </pre>
      *
-     * @param str  the CharSequence to get the substring from, may be null
+     * @param str  the String to get the substring from, may be null
      * @param start  the position to start from, negative means
-     *  count back from the end of the CharSequence by this many characters
-     * @return substring from start position, {@code null} if null CharSequence input
+     *  count back from the end of the String by this many characters
+     * @return substring from start position, {@code null} if null String input
      */
-    public static String substring(CharSequence str, int start) {
+    public static String substring(String str, int start) {
         if (str == null) {
             return null;
         }
@@ -2023,20 +2002,20 @@ public class StringUtils {
             return EMPTY;
         }
 
-        return str.subSequence(start, str.length()).toString();
+        return str.substring(start);
     }
 
     /**
-     * <p>Gets a substring from the specified CharSequence avoiding exceptions.</p>
+     * <p>Gets a substring from the specified String avoiding exceptions.</p>
      *
      * <p>A negative start position can be used to start/end {@code n}
-     * characters from the end of the CharSequence.</p>
+     * characters from the end of the String.</p>
      *
      * <p>The returned substring starts with the character in the {@code start}
      * position and ends before the {@code end} position. All position counting is
      * zero-based -- i.e., to start at the beginning of the string use
      * {@code start = 0}. Negative start and end positions can be used to
-     * specify offsets relative to the end of the CharSequence.</p>
+     * specify offsets relative to the end of the String.</p>
      *
      * <p>If {@code start} is not strictly to the left of {@code end}, ""
      * is returned.</p>
@@ -2053,15 +2032,15 @@ public class StringUtils {
      * StringUtils.substring("abc", -4, 2)  = "ab"
      * </pre>
      *
-     * @param str  the CharSequence to get the substring from, may be null
+     * @param str  the String to get the substring from, may be null
      * @param start  the position to start from, negative means
-     *  count back from the end of the CharSequence by this many characters
+     *  count back from the end of the String by this many characters
      * @param end  the position to end at (exclusive), negative means
-     *  count back from the end of the CharSequence by this many characters
+     *  count back from the end of the String by this many characters
      * @return substring from start position to end positon,
-     *  {@code null} if null CharSequence input
+     *  {@code null} if null String input
      */
-    public static String substring(CharSequence str, int start, int end) {
+    public static String substring(String str, int start, int end) {
         if (str == null) {
             return null;
         }
@@ -2091,7 +2070,7 @@ public class StringUtils {
             end = 0;
         }
 
-        return str.subSequence(start, end).toString();
+        return str.substring(start, end);
     }
 
     // Left/Right/Mid
@@ -2112,21 +2091,21 @@ public class StringUtils {
      * StringUtils.left("abc", 4)   = "abc"
      * </pre>
      *
-     * @param seq  the CharSequence to get the leftmost characters from, may be null
+     * @param str  the String to get the leftmost characters from, may be null
      * @param len  the length of the required String
      * @return the leftmost characters, {@code null} if null String input
      */
-    public static String left(CharSequence seq, int len) {
-        if (seq == null) {
+    public static String left(String str, int len) {
+        if (str == null) {
             return null;
         }
         if (len < 0) {
             return EMPTY;
         }
-        if (seq.length() <= len) {
-            return seq.toString();
+        if (str.length() <= len) {
+            return str;
         }
-        return seq.subSequence(0, len).toString();
+        return str.substring(0, len);
     }
 
     /**
@@ -2145,21 +2124,21 @@ public class StringUtils {
      * StringUtils.right("abc", 4)   = "abc"
      * </pre>
      *
-     * @param seq  the CharSequence to get the rightmost characters from, may be null
+     * @param str  the String to get the rightmost characters from, may be null
      * @param len  the length of the required String
      * @return the rightmost characters, {@code null} if null String input
      */
-    public static String right(CharSequence seq, int len) {
-        if (seq == null) {
+    public static String right(String str, int len) {
+        if (str == null) {
             return null;
         }
         if (len < 0) {
             return EMPTY;
         }
-        if (seq.length() <= len) {
-            return seq.toString();
+        if (str.length() <= len) {
+            return str;
         }
-        return StringUtils.subSequence(seq, seq.length() - len).toString();
+        return str.substring(str.length() - len);
     }
 
     /**
@@ -2169,7 +2148,7 @@ public class StringUtils {
      * of the String will be returned without an exception. If the
      * String is {@code null}, {@code null} will be returned.
      * An empty String is returned if len is negative or exceeds the
-     * length of {@code seq}.</p>
+     * length of {@code str}.</p>
      *
      * <pre>
      * StringUtils.mid(null, *, *)    = null
@@ -2182,25 +2161,25 @@ public class StringUtils {
      * StringUtils.mid("abc", -2, 2)  = "ab"
      * </pre>
      *
-     * @param seq  the CharSequence to get the characters from, may be null
+     * @param str  the String to get the characters from, may be null
      * @param pos  the position to start from, negative treated as zero
      * @param len  the length of the required String
      * @return the middle characters, {@code null} if null String input
      */
-    public static String mid(CharSequence seq, int pos, int len) {
-        if (seq == null) {
+    public static String mid(String str, int pos, int len) {
+        if (str == null) {
             return null;
         }
-        if (len < 0 || pos > seq.length()) {
+        if (len < 0 || pos > str.length()) {
             return EMPTY;
         }
         if (pos < 0) {
             pos = 0;
         }
-        if (seq.length() <= (pos + len)) {
-            return StringUtils.subSequence(seq, pos).toString();
+        if (str.length() <= (pos + len)) {
+            return str.substring(pos);
         }
-        return seq.subSequence(pos, pos + len).toString();
+        return str.substring(pos, pos + len);
     }
 
     // SubStringAfter/SubStringBefore
@@ -4576,13 +4555,13 @@ public class StringUtils {
      * StringUtils.rightPad("bat", -1) = "bat"
      * </pre>
      *
-     * @param seq  the CharSequence to pad out, may be null
+     * @param str  the String to pad out, may be null
      * @param size  the size to pad to
      * @return right padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      */
-    public static String rightPad(CharSequence seq, int size) {
-        return rightPad(seq, size, ' ');
+    public static String rightPad(String str, int size) {
+        return rightPad(str, size, ' ');
     }
 
     /**
@@ -4599,25 +4578,25 @@ public class StringUtils {
      * StringUtils.rightPad("bat", -1, 'z') = "bat"
      * </pre>
      *
-     * @param seq  the CharSequence to pad out, may be null
+     * @param str  the String to pad out, may be null
      * @param size  the size to pad to
      * @param padChar  the character to pad with
      * @return right padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      * @since 2.0
      */
-    public static String rightPad(CharSequence seq, int size, char padChar) {
-        if (seq == null) {
+    public static String rightPad(String str, int size, char padChar) {
+        if (str == null) {
             return null;
         }
-        int pads = size - seq.length();
+        int pads = size - str.length();
         if (pads <= 0) {
-            return seq.toString(); // returns original String when possible
+            return str; // returns original String when possible
         }
         if (pads > PAD_LIMIT) {
-            return rightPad(seq, size, String.valueOf(padChar));
+            return rightPad(str, size, String.valueOf(padChar));
         }
-        return seq.toString().concat(padding(pads, padChar));
+        return str.concat(padding(pads, padChar));
     }
 
     /**
@@ -4637,40 +4616,40 @@ public class StringUtils {
      * StringUtils.rightPad("bat", 5, "")    = "bat  "
      * </pre>
      *
-     * @param seq  the CharSequence to pad out, may be null
+     * @param str  the String to pad out, may be null
      * @param size  the size to pad to
      * @param padStr  the String to pad with, null or empty treated as single space
      * @return right padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      */
-    public static String rightPad(CharSequence seq, int size, CharSequence padStr) {
-        if (seq == null) {
+    public static String rightPad(String str, int size, String padStr) {
+        if (str == null) {
             return null;
         }
         if (isEmpty(padStr)) {
             padStr = " ";
         }
         int padLen = padStr.length();
-        int strLen = seq.length();
+        int strLen = str.length();
         int pads = size - strLen;
         if (pads <= 0) {
-            return seq.toString(); // returns original String when possible
+            return str; // returns original String when possible
         }
         if (padLen == 1 && pads <= PAD_LIMIT) {
-            return rightPad(seq, size, padStr.charAt(0));
+            return rightPad(str, size, padStr.charAt(0));
         }
 
         if (pads == padLen) {
-            return seq.toString().concat(padStr.toString());
+            return str.concat(padStr);
         } else if (pads < padLen) {
-            return seq.toString().concat(padStr.subSequence(0, pads).toString());
+            return str.concat(padStr.substring(0, pads));
         } else {
             char[] padding = new char[pads];
-            char[] padChars = padStr.toString().toCharArray();
+            char[] padChars = padStr.toCharArray();
             for (int i = 0; i < pads; i++) {
                 padding[i] = padChars[i % padLen];
             }
-            return seq.toString().concat(new String(padding));
+            return str.concat(new String(padding));
         }
     }
 
@@ -4688,13 +4667,13 @@ public class StringUtils {
      * StringUtils.leftPad("bat", -1) = "bat"
      * </pre>
      *
-     * @param seq  the CharSequence to pad out, may be null
+     * @param str  the String to pad out, may be null
      * @param size  the size to pad to
      * @return left padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      */
-    public static String leftPad(CharSequence seq, int size) {
-        return leftPad(seq, size, ' ');
+    public static String leftPad(String str, int size) {
+        return leftPad(str, size, ' ');
     }
 
     /**
@@ -4711,25 +4690,25 @@ public class StringUtils {
      * StringUtils.leftPad("bat", -1, 'z') = "bat"
      * </pre>
      *
-     * @param seq  the CharSequence to pad out, may be null
+     * @param str  the String to pad out, may be null
      * @param size  the size to pad to
      * @param padChar  the character to pad with
      * @return left padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      * @since 2.0
      */
-    public static String leftPad(CharSequence seq, int size, char padChar) {
-        if (seq == null) {
+    public static String leftPad(String str, int size, char padChar) {
+        if (str == null) {
             return null;
         }
-        int pads = size - seq.length();
+        int pads = size - str.length();
         if (pads <= 0) {
-            return seq.toString(); // returns original String when possible
+            return str; // returns original String when possible
         }
         if (pads > PAD_LIMIT) {
-            return leftPad(seq, size, String.valueOf(padChar));
+            return leftPad(str, size, String.valueOf(padChar));
         }
-        return padding(pads, padChar).concat(seq.toString());
+        return padding(pads, padChar).concat(str);
     }
 
     /**
@@ -4749,40 +4728,40 @@ public class StringUtils {
      * StringUtils.leftPad("bat", 5, "")    = "  bat"
      * </pre>
      *
-     * @param seq  the CharSequence to pad out, may be null
+     * @param str  the String to pad out, may be null
      * @param size  the size to pad to
-     * @param padStr  the CharSequence to pad with, null or empty treated as single space
+     * @param padStr  the String to pad with, null or empty treated as single space
      * @return left padded String or original String if no padding is necessary,
      *  {@code null} if null String input
      */
-    public static String leftPad(CharSequence seq, int size, CharSequence padStr) {
-        if (seq == null) {
+    public static String leftPad(String str, int size, String padStr) {
+        if (str == null) {
             return null;
         }
         if (isEmpty(padStr)) {
             padStr = " ";
         }
         int padLen = padStr.length();
-        int strLen = seq.length();
+        int strLen = str.length();
         int pads = size - strLen;
         if (pads <= 0) {
-            return seq.toString(); // returns original String when possible
+            return str; // returns original String when possible
         }
         if (padLen == 1 && pads <= PAD_LIMIT) {
-            return leftPad(seq, size, padStr.charAt(0));
+            return leftPad(str, size, padStr.charAt(0));
         }
 
         if (pads == padLen) {
-            return padStr.toString().concat(seq.toString());
+            return padStr.concat(str);
         } else if (pads < padLen) {
-            return padStr.subSequence(0, pads).toString().concat(seq.toString());
+            return padStr.substring(0, pads).concat(str);
         } else {
             char[] padding = new char[pads];
-            char[] padChars = padStr.toString().toCharArray();
+            char[] padChars = padStr.toCharArray();
             for (int i = 0; i < pads; i++) {
                 padding[i] = padChars[i % padLen];
             }
-            return new String(padding).concat(seq.toString());
+            return new String(padding).concat(str);
         }
     }
 
@@ -4822,12 +4801,12 @@ public class StringUtils {
      * StringUtils.center("a", 4)    = " a  "
      * </pre>
      *
-     * @param seq  the CharSequence to center, may be null
+     * @param str  the String to center, may be null
      * @param size  the int size of new String, negative treated as zero
      * @return centered String, {@code null} if null String input
      */
-    public static String center(CharSequence seq, int size) {
-        return center(seq, size, ' ');
+    public static String center(String str, int size) {
+        return center(str, size, ' ');
     }
 
     /**
@@ -4848,27 +4827,24 @@ public class StringUtils {
      * StringUtils.center("a", 4, 'y')    = "yayy"
      * </pre>
      *
-     * @param seq  the CharSequence to center, may be null
+     * @param str  the String to center, may be null
      * @param size  the int size of new String, negative treated as zero
      * @param padChar  the character to pad the new String with
      * @return centered String, {@code null} if null String input
      * @since 2.0
      */
-    public static String center(CharSequence seq, int size, char padChar) {
-        if (seq == null) {
-            return null;
+    public static String center(String str, int size, char padChar) {
+        if (str == null || size <= 0) {
+            return str;
         }
-        if (size <= 0) {
-            return seq.toString();
-        }
-        int strLen = seq.length();
+        int strLen = str.length();
         int pads = size - strLen;
         if (pads <= 0) {
-            return seq.toString();
+            return str;
         }
-        String tmp = leftPad(seq, strLen + pads / 2, padChar);
-        tmp = rightPad(tmp, size, padChar);
-        return tmp;
+        str = leftPad(str, strLen + pads / 2, padChar);
+        str = rightPad(str, size, padChar);
+        return str;
     }
 
     /**
@@ -4891,30 +4867,27 @@ public class StringUtils {
      * StringUtils.center("abc", 7, "")   = "  abc  "
      * </pre>
      *
-     * @param seq  the CharSequence to center, may be null
+     * @param str  the String to center, may be null
      * @param size  the int size of new String, negative treated as zero
-     * @param padStr  the CharSequence to pad the new String with, must not be null or empty
+     * @param padStr  the String to pad the new String with, must not be null or empty
      * @return centered String, {@code null} if null String input
      * @throws IllegalArgumentException if padStr is {@code null} or empty
      */
-    public static String center(CharSequence seq, int size, CharSequence padStr) {
-        if (seq == null) {
-            return null;
-        }
-        if (size <= 0) {
-            return seq.toString();
+    public static String center(String str, int size, String padStr) {
+        if (str == null || size <= 0) {
+            return str;
         }
         if (isEmpty(padStr)) {
             padStr = " ";
         }
-        int strLen = seq.length();
+        int strLen = str.length();
         int pads = size - strLen;
         if (pads <= 0) {
-            return seq.toString();
+            return str;
         }
-        String tmp = leftPad(seq, strLen + pads / 2, padStr);
-        tmp = rightPad(tmp, size, padStr);
-        return tmp;
+        str = leftPad(str, strLen + pads / 2, padStr);
+        str = rightPad(str, size, padStr);
+        return str;
     }
 
     // Case conversion
@@ -4932,17 +4905,17 @@ public class StringUtils {
      *
      * <p><strong>Note:</strong> As described in the documentation for {@link String#toUpperCase()},
      * the result of this method is affected by the current locale.
-     * For platform-independent case transformations, the method {@link #lowerCase(CharSequence, Locale)}
+     * For platform-independent case transformations, the method {@link #lowerCase(String, Locale)}
      * should be used with a specific locale (e.g. {@link Locale#ENGLISH}).</p>
      *
-     * @param seq  the CharSequence to upper case, may be null
+     * @param str  the String to upper case, may be null
      * @return the upper cased String, {@code null} if null String input
      */
-    public static String upperCase(CharSequence seq) {
-        if (seq == null) {
+    public static String upperCase(String str) {
+        if (str == null) {
             return null;
         }
-        return seq.toString().toUpperCase();
+        return str.toUpperCase();
     }
 
     /**
@@ -4956,16 +4929,16 @@ public class StringUtils {
      * StringUtils.upperCase("aBc", Locale.ENGLISH) = "ABC"
      * </pre>
      *
-     * @param seq  the CharSequence to upper case, may be null
+     * @param str  the String to upper case, may be null
      * @param locale  the locale that defines the case transformation rules, must not be null
      * @return the upper cased String, {@code null} if null String input
      * @since 2.5
      */
-    public static String upperCase(CharSequence seq, Locale locale) {
-        if (seq == null) {
+    public static String upperCase(String str, Locale locale) {
+        if (str == null) {
             return null;
         }
-        return seq.toString().toUpperCase(locale);
+        return str.toUpperCase(locale);
     }
 
     /**
@@ -4981,17 +4954,17 @@ public class StringUtils {
      *
      * <p><strong>Note:</strong> As described in the documentation for {@link String#toLowerCase()},
      * the result of this method is affected by the current locale.
-     * For platform-independent case transformations, the method {@link #lowerCase(CharSequence, Locale)}
+     * For platform-independent case transformations, the method {@link #lowerCase(String, Locale)}
      * should be used with a specific locale (e.g. {@link Locale#ENGLISH}).</p>
      *
-     * @param seq  the CharSequence to lower case, may be null
+     * @param str  the String to lower case, may be null
      * @return the lower cased String, {@code null} if null String input
      */
-    public static String lowerCase(CharSequence seq) {
-        if (seq == null) {
+    public static String lowerCase(String str) {
+        if (str == null) {
             return null;
         }
-        return seq.toString().toLowerCase();
+        return str.toLowerCase();
     }
 
     /**
@@ -5005,16 +4978,16 @@ public class StringUtils {
      * StringUtils.lowerCase("aBc", Locale.ENGLISH) = "abc"
      * </pre>
      *
-     * @param seq  the CharSequence to lower case, may be null
+     * @param str  the String to lower case, may be null
      * @param locale  the locale that defines the case transformation rules, must not be null
      * @return the lower cased String, {@code null} if null String input
      * @since 2.5
      */
-    public static String lowerCase(CharSequence seq, Locale locale) {
-        if (seq == null) {
+    public static String lowerCase(String str, Locale locale) {
+        if (str == null) {
             return null;
         }
-        return seq.toString().toLowerCase(locale);
+        return str.toLowerCase(locale);
     }
 
     /**
@@ -5111,22 +5084,19 @@ public class StringUtils {
      * If you only use ASCII, you will notice no change.
      * That functionality is available in org.apache.commons.lang3.text.WordUtils.</p>
      *
-     * @param seq  the CharSequence to swap case, may be null
+     * @param str  the String to swap case, may be null
      * @return the changed String, {@code null} if null String input
      */
-    public static String swapCase(CharSequence seq) {
+    public static String swapCase(String str) {
         int strLen;
-        if (seq == null) {
-            return null;
-        }
-        if ( (strLen = seq.length()) == 0) {
-            return seq.toString();
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
         }
         StringBuilder buffer = new StringBuilder(strLen);
 
         char ch = 0;
         for (int i = 0; i < strLen; i++) {
-            ch = seq.charAt(i);
+            ch = str.charAt(i);
             if (Character.isUpperCase(ch)) {
                 ch = Character.toLowerCase(ch);
             } else if (Character.isTitleCase(ch)) {
@@ -5671,7 +5641,7 @@ public class StringUtils {
      * <ul>
      *   <li>If {@code str} is less than {@code maxWidth} characters
      *       long, return it.</li>
-     *   <li>Else abbreviate it to {@code (substring(seq, 0, max-3) + "...")}.</li>
+     *   <li>Else abbreviate it to {@code (substring(str, 0, max-3) + "...")}.</li>
      *   <li>If {@code maxWidth} is less than {@code 4}, throw an
      *       {@code IllegalArgumentException}.</li>
      *   <li>In no case will it return a String of length greater than
@@ -5689,14 +5659,14 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefg", 3) = IllegalArgumentException
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
+     * @param str  the String to check, may be null
      * @param maxWidth  maximum length of result String, must be at least 4
      * @return abbreviated String, {@code null} if null String input
      * @throws IllegalArgumentException if the width is too small
      * @since 2.0
      */
-    public static String abbreviate(CharSequence seq, int maxWidth) {
-        return abbreviate(seq, 0, maxWidth);
+    public static String abbreviate(String str, int maxWidth) {
+        return abbreviate(str, 0, maxWidth);
     }
 
     /**
@@ -5727,40 +5697,40 @@ public class StringUtils {
      * StringUtils.abbreviate("abcdefghij", 5, 6)        = IllegalArgumentException
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
+     * @param str  the String to check, may be null
      * @param offset  left edge of source String
      * @param maxWidth  maximum length of result String, must be at least 4
      * @return abbreviated String, {@code null} if null String input
      * @throws IllegalArgumentException if the width is too small
      * @since 2.0
      */
-    public static String abbreviate(CharSequence seq, int offset, int maxWidth) {
-        if (seq == null) {
+    public static String abbreviate(String str, int offset, int maxWidth) {
+        if (str == null) {
             return null;
         }
         if (maxWidth < 4) {
             throw new IllegalArgumentException("Minimum abbreviation width is 4");
         }
-        if (seq.length() <= maxWidth) {
-            return seq.toString();
+        if (str.length() <= maxWidth) {
+            return str;
         }
-        if (offset > seq.length()) {
-            offset = seq.length();
+        if (offset > str.length()) {
+            offset = str.length();
         }
-        if ((seq.length() - offset) < (maxWidth - 3)) {
-            offset = seq.length() - (maxWidth - 3);
+        if ((str.length() - offset) < (maxWidth - 3)) {
+            offset = str.length() - (maxWidth - 3);
         }
         final String abrevMarker = "...";
         if (offset <= 4) {
-            return seq.subSequence(0, maxWidth - 3) + abrevMarker;
+            return str.substring(0, maxWidth - 3) + abrevMarker;
         }
         if (maxWidth < 7) {
             throw new IllegalArgumentException("Minimum abbreviation width with offset is 7");
         }
-        if ((offset + (maxWidth - 3)) < seq.length()) {
-            return abrevMarker + abbreviate(StringUtils.subSequence(seq, offset), maxWidth - 3);
+        if ((offset + (maxWidth - 3)) < str.length()) {
+            return abrevMarker + abbreviate(str.substring(offset), maxWidth - 3);
         }
-        return abrevMarker + StringUtils.subSequence(seq, seq.length() - (maxWidth - 3));
+        return abrevMarker + str.substring(str.length() - (maxWidth - 3));
     }
 
     /**
@@ -5786,32 +5756,29 @@ public class StringUtils {
      * StringUtils.abbreviateMiddle("abcdef", ".", 4)     = "ab.f"
      * </pre>
      *
-     * @param seq  the CharSequence to abbreviate, may be null
-     * @param middle the CharSequence to replace the middle characters with, may be null
-     * @param length the length to abbreviate {@code seq} to.
+     * @param str  the String to abbreviate, may be null
+     * @param middle the String to replace the middle characters with, may be null
+     * @param length the length to abbreviate {@code str} to.
      * @return the abbreviated String if the above criteria is met, or the original String supplied for abbreviation.
      * @since 2.5
      */
-    public static String abbreviateMiddle(CharSequence seq, CharSequence middle, int length) {
-        if (seq == null) {
-            return null;
-        }
-        if (isEmpty(seq) || isEmpty(middle)) {
-            return seq.toString();
+    public static String abbreviateMiddle(String str, String middle, int length) {
+        if (isEmpty(str) || isEmpty(middle)) {
+            return str;
         }
 
-        if (length >= seq.length() || length < (middle.length()+2)) {
-            return seq.toString();
+        if (length >= str.length() || length < (middle.length()+2)) {
+            return str;
         }
 
         int targetSting = length-middle.length();
         int startOffset = targetSting/2+targetSting%2;
-        int endOffset = seq.length()-targetSting/2;
+        int endOffset = str.length()-targetSting/2;
 
         StringBuilder builder = new StringBuilder(length);
-        builder.append(seq.subSequence(0,startOffset));
+        builder.append(str.substring(0,startOffset));
         builder.append(middle);
-        builder.append(StringUtils.subSequence(seq, endOffset));
+        builder.append(str.substring(endOffset));
 
         return builder.toString();
     }
@@ -5879,8 +5846,7 @@ public class StringUtils {
      * @param cs2  the second CharSequence, may be null
      * @return the index where cs1 and cs2 begin to differ; -1 if they are equal
      * @since 2.0
-     * @since 3.0 Changed signature from indexOfDifference(String, String) to
-     * indexOfDifference(CharSequence, CharSequence)
+     * @since 3.0 Changed signature from indexOfDifference(String, String) to indexOfDifference(CharSequence, CharSequence)
      */
     public static int indexOfDifference(CharSequence cs1, CharSequence cs2) {
         if (cs1 == cs2) {
@@ -6079,8 +6045,7 @@ public class StringUtils {
      * @param t  the second String, must not be null
      * @return result distance
      * @throws IllegalArgumentException if either String input {@code null}
-     * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to
-     * getLevenshteinDistance(CharSequence, CharSequence)
+     * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to getLevenshteinDistance(CharSequence, CharSequence)
      */
     public static int getLevenshteinDistance(CharSequence s, CharSequence t) {
         if (s == null || t == null) {
@@ -6424,7 +6389,7 @@ public class StringUtils {
     /**
      * <p>Returns a new {@code CharSequence} that is a subsequence of this
      * sequence starting with the {@code char} value at the specified index.</p>
-     *
+     * 
      * <p>This provides the {@code CharSequence} equivalent to {@link String#substring(int)}.
      * The length (in {@code char}) of the returned sequence is {@code length() - start},
      * so if {@code start == end} then an empty sequence is returned.</p>
@@ -6432,127 +6397,11 @@ public class StringUtils {
      * @param cs  the specified subsequence, null returns null
      * @param start  the start index, inclusive, valid
      * @return a new subsequence, may be null
-     * @throws IndexOutOfBoundsException if {@code start} is negative or if
+     * @throws IndexOutOfBoundsException if {@code start} is negative or if 
      *  {@code start} is greater than {@code length()}
      */
     public static CharSequence subSequence(CharSequence cs, int start) {
         return cs == null ? null : cs.subSequence(start, cs.length());
-    }
-
-    // The following methods are used to support basic java.lang.String functionality
-    // for CharSequences. Currently keeping these as package private; they may be
-    // useful as public methods so others can also support CharSequence instead of
-    // String. At that point they may make more sense on a CharSequenceUtils and
-    // will want a name change.
-
-    /**
-     * Used by the indexOf(CharSequence methods) as a green implementation of
-     * indexOf.
-     *
-     * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the char to be searched for
-     * @param start the start index
-     * @return the index where the search char was found
-     */
-    static int indexOfSequence(CharSequence cs, int searchChar, int start) {
-        if (cs instanceof String) {
-            return ((String) cs).indexOf(searchChar, start);
-        } else {
-            int sz = cs.length();
-            if ( start < 0 ) {
-                start = 0;
-            }
-            for ( int i=start; i < sz; i++ ) {
-                if ( cs.charAt(i) == searchChar) {
-                    return i;
-                }
-            }
-            return -1;
-        }
-    }
-
-    /**
-     * Used by the indexOf(CharSequence methods) as a green implementation of indexOf.
-     *
-     * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the {@code CharSequence} to be searched for
-     * @param start the start index
-     * @return the index where the search sequence was found
-     */
-    static int indexOfSequence(CharSequence cs, CharSequence searchChar, int start) {
-        if (cs instanceof String && searchChar instanceof String) {
-            // TODO: Do we assume searchChar is usually relatively small;
-            //       If so then calling toString() on it is better than reverting to
-            //       the green implementation in the else block
-            return ((String) cs).indexOf( (String) searchChar, start);
-        } else {
-            // TODO: Implement rather than convert to String
-            return cs.toString().indexOf(searchChar.toString(), start);
-        }
-    }
-
-    /**
-     * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
-     *
-     * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the char to be searched for
-     * @param start the start index
-     * @return the index where the search char was found
-     */
-    static int lastIndexOfSequence(CharSequence cs, int searchChar, int start) {
-        if (cs instanceof String) {
-            return ((String) cs).lastIndexOf(searchChar, start);
-        } else {
-            int sz = cs.length();
-            if ( start < 0 ) {
-                return -1;
-            }
-            if ( start >= sz ) {
-                start = sz - 1;
-            }
-            for ( int i=start; i >= 0; --i ) {
-                if ( cs.charAt(i) == searchChar) {
-                    return i;
-                }
-            }
-            return -1;
-        }
-    }
-
-    /**
-     * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
-     *
-     * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the {@code CharSequence} to be searched for
-     * @param start the start index
-     * @return the index where the search sequence was found
-     */
-    static int lastIndexOfSequence(CharSequence cs, CharSequence searchChar, int start) {
-        if (cs instanceof String && searchChar instanceof String) {
-            // TODO: Do we assume searchChar is usually relatively small;
-            //       If so then calling toString() on it is better than reverting to
-            //       the green implementation in the else block
-            return ((String) cs).lastIndexOf( (String) searchChar, start);
-        } else {
-            // TODO: Implement rather than convert to String
-            return cs.toString().lastIndexOf(searchChar.toString(), start);
-        }
-    }
-
-    /**
-     * Green implementation of toCharArray.
-     *
-     * @param cs the {@code CharSequence} to be processed
-     * @return the resulting char array
-     */
-    //
-    static char[] toCharArraySequence(CharSequence cs) {
-        if (cs instanceof String) {
-            return ((String) cs).toCharArray();
-        } else {
-            // TODO: Implement rather than convert to String
-            return cs.toString().toCharArray();
-        }
     }
 
 }
