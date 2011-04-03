@@ -551,7 +551,7 @@ public class ExceptionUtils {
                 frames.add(trace.get(j));
             }
         }
-        return frames.toArray(new String[0]);
+        return frames.toArray(new String[frames.size()]);
     }
 
     /**
