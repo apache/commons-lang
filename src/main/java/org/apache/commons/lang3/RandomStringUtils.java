@@ -187,7 +187,7 @@ public class RandomStringUtils {
      * @throws ArrayIndexOutOfBoundsException if there are not
      *  {@code (end - start) + 1} characters in the set array.
      */
-    public static String random(int count, int start, int end, boolean letters, boolean numbers, char[] chars) {
+    public static String random(int count, int start, int end, boolean letters, boolean numbers, char... chars) {
         return random(count, start, end, letters, numbers, chars, RANDOM);
     }
 
@@ -316,7 +316,7 @@ public class RandomStringUtils {
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      */
-    public static String random(int count, char[] chars) {
+    public static String random(int count, char... chars) {
         if (chars == null) {
             return random(count, 0, 0, false, false, null, RANDOM);
         }
