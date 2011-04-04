@@ -580,7 +580,7 @@ public class StringUtils {
      * @param strs  the array to remove whitespace from, may be null
      * @return the stripped Strings, {@code null} if null array input
      */
-    public static String[] stripAll(String[] strs) {
+    public static String[] stripAll(String... strs) {
         return stripAll(strs, null);
     }
 
@@ -1461,9 +1461,9 @@ public class StringUtils {
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
-     * @since 3.0 Changed signature from indexOfAny(String, char[]) to indexOfAny(CharSequence, char[])
+     * @since 3.0 Changed signature from indexOfAny(String, char[]) to indexOfAny(CharSequence, char...)
      */
-    public static int indexOfAny(CharSequence cs, char[] searchChars) {
+    public static int indexOfAny(CharSequence cs, char... searchChars) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
@@ -1544,7 +1544,7 @@ public class StringUtils {
      * {@code false} if no match or null input
      * @since 2.4
      */
-    public static boolean containsAny(String cs, char[] searchChars) {
+    public static boolean containsAny(String cs, char... searchChars) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return false;
         }
@@ -1632,9 +1632,9 @@ public class StringUtils {
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
-     * @since 3.0 Changed signature from indexOfAnyBut(String, char[]) to indexOfAnyBut(CharSequence, char[])
+     * @since 3.0 Changed signature from indexOfAnyBut(String, char[]) to indexOfAnyBut(CharSequence, char...)
      */
-    public static int indexOfAnyBut(CharSequence cs, char[] searchChars) {
+    public static int indexOfAnyBut(CharSequence cs, char... searchChars) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
@@ -1727,9 +1727,9 @@ public class StringUtils {
      * @param cs  the String to check, may be null
      * @param valid  an array of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
-     * @since 3.0 Changed signature from containsOnly(String, char[]) to containsOnly(CharSequence, char[])
+     * @since 3.0 Changed signature from containsOnly(String, char[]) to containsOnly(CharSequence, char...)
      */
-    public static boolean containsOnly(CharSequence cs, char[] valid) {
+    public static boolean containsOnly(CharSequence cs, char... valid) {
         // All these pre-checks are to maintain API with an older version
         if (valid == null || cs == null) {
             return false;
@@ -1796,9 +1796,9 @@ public class StringUtils {
      * @param searchChars  an array of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
      * @since 2.0
-     * @since 3.0 Changed signature from containsNone(String, char[]) to containsNone(CharSequence, char[])
+     * @since 3.0 Changed signature from containsNone(String, char[]) to containsNone(CharSequence, char...)
      */
-    public static boolean containsNone(CharSequence cs, char[] searchChars) {
+    public static boolean containsNone(CharSequence cs, char... searchChars) {
         if (cs == null || searchChars == null) {
             return true;
         }
@@ -1886,7 +1886,7 @@ public class StringUtils {
      * @param searchStrs  the Strings to search for, may be null
      * @return the first index of any of the searchStrs in str, -1 if no match
      */
-    public static int indexOfAny(String str, String[] searchStrs) {
+    public static int indexOfAny(String str, String... searchStrs) {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
@@ -1939,7 +1939,7 @@ public class StringUtils {
      * @param searchStrs  the Strings to search for, may be null
      * @return the last index of any of the Strings, -1 if no match
      */
-    public static int lastIndexOfAny(String str, String[] searchStrs) {
+    public static int lastIndexOfAny(String str, String... searchStrs) {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
