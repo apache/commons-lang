@@ -119,12 +119,6 @@ public class StringUtilsTest extends TestCase {
                      "", StringUtils.capitalize("") );
         assertEquals("capitalize(single-char-string) failed",
                 "X", StringUtils.capitalize("x") );
-        assertEquals("capitalize(single-char-string) failed",
-                "X", StringUtils.capitalize(new StringBuilder("x")) );
-        assertEquals("capitalize(single-char-string) failed",
-                "X", StringUtils.capitalize(new StringBuffer("x")) );
-        assertEquals("capitalize(single-char-string) failed",
-                "X", StringUtils.capitalize(CharBuffer.wrap("x")) );
         
         assertEquals("uncapitalize(String) failed",
                      FOO_UNCAP, StringUtils.uncapitalize(FOO_CAP) );
@@ -132,12 +126,6 @@ public class StringUtilsTest extends TestCase {
                      "", StringUtils.uncapitalize("") );
         assertEquals("uncapitalize(single-char-string) failed",
                 "x", StringUtils.uncapitalize("X") );
-        assertEquals("uncapitalize(single-char-string) failed",
-                "x", StringUtils.uncapitalize(new StringBuilder("X")) );
-        assertEquals("uncapitalize(single-char-string) failed",
-                "x", StringUtils.uncapitalize(new StringBuffer("X")) );
-        assertEquals("uncapitalize(single-char-string) failed",
-                "x", StringUtils.uncapitalize(CharBuffer.wrap("X")) );
                      
         // reflection type of tests: Sentences.
         assertEquals("uncapitalize(capitalize(String)) failed",

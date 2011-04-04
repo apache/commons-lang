@@ -5004,29 +5004,25 @@ public class StringUtils {
      * StringUtils.capitalize("cAt") = "CAt"
      * </pre>
      *
-     * @param cs the String to capitalize, may be null
+     * @param str the String to capitalize, may be null
      * @return the capitalized String, {@code null} if null String input
      * @see org.apache.commons.lang3.text.WordUtils#capitalize(String)
-     * @see #uncapitalize(CharSequence)
+     * @see #uncapitalize(String)
      * @since 2.0
-     * @since 3.0 Changed signature from capitalize(String) to capitalize(CharSequence)
      */
-    public static String capitalize(CharSequence cs) {
-        if (cs == null ) {
-            return null;
-        }
+    public static String capitalize(String str) {
         int strLen;
-        if ((strLen = cs.length()) == 0) {
-            return cs.toString();
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
         }
         return new StringBuilder(strLen)
-            .append(Character.toTitleCase(cs.charAt(0)))
-            .append(StringUtils.subSequence(cs, 1))
+            .append(Character.toTitleCase(str.charAt(0)))
+            .append(str.substring(1))
             .toString();
     }
 
     /**
-     * <p>Uncapitalizes a CharSequence changing the first letter to title case as
+     * <p>Uncapitalizes a String changing the first letter to title case as
      * per {@link Character#toLowerCase(char)}. No other letters are changed.</p>
      *
      * <p>For a word based algorithm, see {@link org.apache.commons.lang3.text.WordUtils#uncapitalize(String)}.
@@ -5039,24 +5035,20 @@ public class StringUtils {
      * StringUtils.uncapitalize("CAT") = "cAT"
      * </pre>
      *
-     * @param cs the String to uncapitalize, may be null
+     * @param str the String to uncapitalize, may be null
      * @return the uncapitalized String, {@code null} if null String input
      * @see org.apache.commons.lang3.text.WordUtils#uncapitalize(String)
-     * @see #capitalize(CharSequence)
+     * @see #capitalize(String)
      * @since 2.0
-     * @since 3.0 Changed signature from uncapitalize(String) to uncapitalize(CharSequence)
      */
-    public static String uncapitalize(CharSequence cs) {
-        if (cs == null ) {
-            return null;
-        }
+    public static String uncapitalize(String str) {
         int strLen;
-        if ((strLen = cs.length()) == 0) {
-            return cs.toString();
+        if (str == null || (strLen = str.length()) == 0) {
+            return str;
         }
         return new StringBuilder(strLen)
-            .append(Character.toLowerCase(cs.charAt(0)))
-            .append(StringUtils.subSequence(cs, 1))
+            .append(Character.toLowerCase(str.charAt(0)))
+            .append(str.substring(1))
             .toString();
     }
 
