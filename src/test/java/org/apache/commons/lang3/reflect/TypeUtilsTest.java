@@ -39,7 +39,6 @@ import org.junit.Test;
 
 /**
  * Test TypeUtils
- * @author David M. Sledge
  * @version $Id$
  */
 @SuppressWarnings({ "unchecked", "unused" , "rawtypes", "null"})

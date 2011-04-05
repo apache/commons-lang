@@ -18,7 +18,6 @@ package org.apache.commons.lang3.reflect.testbed;
 
 /**
  * {@link GenericParent} subclass that explicitly specifies <T> as {@link String}.
- * @author mbenson
  * @version $Id$
  */
 public class StringParameterizedChild extends GenericParent<String> {

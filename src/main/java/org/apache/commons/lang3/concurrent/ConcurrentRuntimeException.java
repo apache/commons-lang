@@ -30,7 +30,6 @@ package org.apache.commons.lang3.concurrent;
  * does not want to be bothered with checked exceptions.
  * </p>
  *
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

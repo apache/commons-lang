@@ -33,8 +33,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests for {@link LocaleUtils}.
  *
- * @author Apache Software Foundation
- * @author Chris Hyzer
  * @version $Id$
  */
 public class LocaleUtilsTest extends TestCase {

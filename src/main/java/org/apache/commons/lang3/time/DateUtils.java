@@ -40,13 +40,6 @@ import java.util.TimeZone;
  * kind of date-field you want your result, for instance milliseconds or days.
  * </p>
  *
- * @author Apache Software Foundation
- * @author <a href="mailto:sergek@lokitech.com">Serge Knystautas</a>
- * @author Janek Bogucki
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @author Phil Steitz
- * @author Robert Scholte
- * @author Paul Benedict
  * @since 2.0
  * @version $Id$
  */

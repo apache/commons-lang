@@ -27,7 +27,6 @@ import org.junit.Test;
 /**
  * Test class for {@code ConstantInitializer}.
  *
- * @author Apache Software Foundation
  * @version $Id$
  */
 public class ConstantInitializerTest {

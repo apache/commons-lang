@@ -26,7 +26,6 @@ import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.ToStringStyle#SHORT_PREFIX_STYLE}.
  * 
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @version $Id$
  */
 public class ShortPrefixToStringStyleTest extends TestCase {

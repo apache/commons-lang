@@ -25,8 +25,6 @@ import org.apache.commons.lang3.exception.ContextedExceptionTest.ObjectWithFault
 
 /**
  * JUnit tests for ContextedRuntimeException.
- * @author D. Ashmore
- * @author Apache Software Foundation
  *
  */
 public class ContextedRuntimeExceptionTest extends TestCase {

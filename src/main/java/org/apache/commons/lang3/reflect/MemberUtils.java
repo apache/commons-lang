@@ -27,9 +27,6 @@ import org.apache.commons.lang3.ClassUtils;
  * refactored from <code>MethodUtils</code> when it was imported from Commons
  * BeanUtils.
  *
- * @author Apache Software Foundation
- * @author Steve Cohen
- * @author Matt Benson
  * @since 2.5
  * @version $Id$
  */

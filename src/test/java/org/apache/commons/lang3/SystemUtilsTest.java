@@ -34,9 +34,6 @@ import static org.apache.commons.lang3.JavaVersion.*;
  * 
  * Only limited testing can be performed.
  * 
- * @author Apache Software Foundation
- * @author Tetsuya Kaneuchi
- * @author Gary D. Gregory
  * @version $Id$
  */
 public class SystemUtilsTest extends TestCase {

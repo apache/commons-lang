@@ -33,8 +33,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang3.SerializationUtils}.
  *
- * @author Apache Software Foundation
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
  * @version $Id$
  */
 public class SerializationUtilsTest extends TestCase {

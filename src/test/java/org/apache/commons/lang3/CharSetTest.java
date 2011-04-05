@@ -25,8 +25,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang3.CharSet}.
  *
- * @author Apache Software Foundation
- * @author Phil Steitz
  * @version $Id$
  */
 public class CharSetTest extends TestCase {

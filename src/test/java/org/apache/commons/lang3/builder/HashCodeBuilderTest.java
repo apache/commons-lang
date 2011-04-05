@@ -22,7 +22,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.HashCodeBuilder}.
  * 
- * @author Apache Software Foundation
  * @version $Id$
  */
 public class HashCodeBuilderTest extends TestCase {

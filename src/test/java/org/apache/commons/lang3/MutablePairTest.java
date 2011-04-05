@@ -30,7 +30,6 @@ import org.junit.Test;
 
 /**
  * Test the MutablePair class.
- * @author Matt Benson
  * @version $Id$
  */
 public class MutablePairTest {

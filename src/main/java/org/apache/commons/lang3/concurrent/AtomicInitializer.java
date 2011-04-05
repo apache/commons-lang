@@ -60,7 +60,6 @@ import java.util.concurrent.atomic.AtomicReference;
  * {@link LazyInitializer} is more appropriate.
  * </p>
  *
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  * @param <T> the type of the object managed by this initializer class

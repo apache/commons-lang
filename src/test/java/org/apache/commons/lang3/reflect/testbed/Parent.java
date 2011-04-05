@@ -17,7 +17,6 @@
 package org.apache.commons.lang3.reflect.testbed;
 
 /**
- * @author mbenson
  * @version $Id$
  */
 class Parent implements Foo {

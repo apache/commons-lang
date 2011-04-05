@@ -77,12 +77,6 @@ import org.apache.commons.lang3.Pair;
  * }
  * </pre>
  *
- * @author Apache Software Foundation
- * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
- * @author Gary Gregory
- * @author Pete Gieser
- * @author Arun Mammen Thomas
- * @author Oliver Sauder
  * @since 1.0
  * @version $Id$
  */

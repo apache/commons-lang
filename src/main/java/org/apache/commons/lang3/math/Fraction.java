@@ -29,11 +29,6 @@ import java.math.BigInteger;
  * based and thus suffers from various overflow issues. For a BigInteger based 
  * equivalent, please see the Commons Math BigFraction class. </p>
  *
- * @author Apache Software Foundation
- * @author Travis Reeder
- * @author Tim O'Brien
- * @author Pete Gieser
- * @author C. Scott Ananian
  * @since 2.0
  * @version $Id$
  */

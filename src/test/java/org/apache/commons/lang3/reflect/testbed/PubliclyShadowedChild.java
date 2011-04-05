@@ -17,7 +17,6 @@
 package org.apache.commons.lang3.reflect.testbed;
 
 /**
- * @author mbenson
  * @version $Id$
  */
 @SuppressWarnings("hiding") // deliberate re-use of variable names

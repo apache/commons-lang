@@ -34,7 +34,6 @@ import junit.framework.TestCase;
  * A month with 29 or 30 days will be rounded up from the 16th
  * A month with 31 days will be rounded up from the 17th
  * 
- * @author Robert Scholte
  * @since 3.0
  * @version $Id$
  */

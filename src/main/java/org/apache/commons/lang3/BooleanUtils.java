@@ -26,9 +26,6 @@ import org.apache.commons.lang3.math.NumberUtils;
  * Each method documents its behaviour in more detail.</p>
  * 
  * <p>#ThreadSafe#</p>
- * @author Apache Software Foundation
- * @author Matthew Hawthorne
- * @author Gary Gregory
  * @since 2.0
  * @version $Id$
  */

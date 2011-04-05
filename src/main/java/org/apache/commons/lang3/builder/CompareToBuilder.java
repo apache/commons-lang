@@ -82,10 +82,6 @@ import org.apache.commons.lang3.ArrayUtils;
  * @see java.lang.Object#hashCode()
  * @see EqualsBuilder
  * @see HashCodeBuilder
- * @author Apache Software Foundation
- * @author <a href="mailto:steve.downey@netfolio.com">Steve Downey</a>
- * @author Gary Gregory
- * @author Pete Gieser
  * @since 1.0
  * @version $Id$
  */

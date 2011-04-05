@@ -21,7 +21,6 @@ package org.apache.commons.lang3.mutable;
  * 
  * @see Short
  * @since 2.1
- * @author Apache Software Foundation
  * @version $Id$
  */
 public class MutableShort extends Number implements Comparable<MutableShort>, Mutable<Number> {

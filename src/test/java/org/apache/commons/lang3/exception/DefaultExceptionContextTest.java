@@ -24,7 +24,6 @@ import org.apache.commons.lang3.exception.ContextedExceptionTest.ObjectWithFault
 
 /**
  * JUnit tests for DefaultExceptionContext.
- * @author D. Ashmore
  *
  */
 public class DefaultExceptionContextTest extends TestCase {

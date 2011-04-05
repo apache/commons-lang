@@ -25,9 +25,6 @@ package org.apache.commons.lang3.builder;
  * store the result in a public static final variable for the rest of the
  * program to access.</p>
  *
- * @author Apache Software Foundation
- * @author Pete Gieser
- * @author Gary Gregory
  * @since 1.0
  * @version $Id$
  */

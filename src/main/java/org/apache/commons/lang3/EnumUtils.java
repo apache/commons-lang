@@ -27,7 +27,6 @@ import java.util.Map;
  *
  * <p>#ThreadSafe#</p>
  *
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

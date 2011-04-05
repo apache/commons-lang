@@ -66,8 +66,6 @@ import org.apache.commons.lang3.SystemUtils;
  * clone method so could not be used. From 3.0 onwards it no longer implements 
  * the interface. 
  *
- * @author Apache Software Foundation
- * @author Robert Scholte
  * @since 2.2
  * @version $Id$
  */

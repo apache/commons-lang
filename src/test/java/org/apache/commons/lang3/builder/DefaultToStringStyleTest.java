@@ -26,7 +26,6 @@ import org.apache.commons.lang3.builder.ToStringStyleTest.Person;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.DefaultToStringStyleTest}.
  *
- * @author Apache Software Foundation
  * @version $Id$
  */
 public class DefaultToStringStyleTest extends TestCase {

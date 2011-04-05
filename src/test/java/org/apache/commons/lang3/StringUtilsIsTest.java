@@ -21,8 +21,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
  *
- * @author Apache Software Foundation
- * @author Michael Davey
  * @version $Id$
  */
 public class StringUtilsIsTest extends TestCase {

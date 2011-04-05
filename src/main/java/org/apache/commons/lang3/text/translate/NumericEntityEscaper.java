@@ -22,7 +22,6 @@ import java.io.Writer;
 /**
  * Translates codepoints to their XML numeric entity escaped value.
  *
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

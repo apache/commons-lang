@@ -25,7 +25,6 @@ import java.util.Comparator;
  * or you need to supply a {@code java.util.Comparator}. </p>
  *
  * <p>#ThreadSafe# if the comparables are thread-safe</p>
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

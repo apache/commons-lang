@@ -19,13 +19,6 @@ package org.apache.commons.lang3;
 /**
  * <p>Operations on bit-mapped fields.</p>
  *
- * @author Apache Software Foundation
- * @author Apache Jakarta POI
- * @author Scott Sanders (sanders at apache dot org)
- * @author Marc Johnson (mjohnson at apache dot org)
- * @author Andrew C. Oliver (acoliver at apache dot org)
- * @author Pete Gieser
- * @author Gary Gregory
  * @since 2.0
  * @version $Id$
  */

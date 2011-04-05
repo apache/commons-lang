@@ -20,7 +20,6 @@ import java.util.List;
 
 /**
  * Holds generic testbed types.
- * @author mbenson
  * @version $Id$
  */
 public class GenericTypeHolder {

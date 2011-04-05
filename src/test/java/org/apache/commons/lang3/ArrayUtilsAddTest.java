@@ -24,7 +24,6 @@ import junit.framework.TestCase;
 /**
  * Tests ArrayUtils add methods.
  *
- * @author Gary D. Gregory
  * @version $Id$
  */
 public class ArrayUtilsAddTest extends TestCase {

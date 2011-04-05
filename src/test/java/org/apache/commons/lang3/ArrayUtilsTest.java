@@ -27,16 +27,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang3.ArrayUtils}.
  *
- * @author Apache Software Foundation
- * @author Moritz Petersen
- * @author Nikolay Metchev
- * @author Matthew Hawthorne
- * @author Tim O'Brien
- * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
- * @author Fredrik Westermarck
- * @author Gary Gregory
- * @author Maarten Coene
- * @author <a href="mailto:levon@lk.otherinbox.com">Levon Karayan</a>
  * @version $Id$
  */
 public class ArrayUtilsTest extends TestCase {

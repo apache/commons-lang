@@ -24,7 +24,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang3.CharUtils}.
  *
- * @author Apache Software Foundation
  * @version $Id$
  */
 public class CharUtilsTest extends TestCase {

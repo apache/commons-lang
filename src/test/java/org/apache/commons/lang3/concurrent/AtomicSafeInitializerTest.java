@@ -26,7 +26,6 @@ import org.junit.Test;
 /**
  * Test class for {@code AtomicSafeInitializer}.
  *
- * @author Apache Software Foundation
  * @version $Id$
  */
 public class AtomicSafeInitializerTest extends

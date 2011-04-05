@@ -30,10 +30,6 @@ import java.util.Random;
  * chosen high surrogate. </p>
  *
  * <p>#ThreadSafe#</p>
- * @author Apache Software Foundation
- * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @author Gary Gregory
- * @author Phil Steitz
  * @since 1.0
  * @version $Id$
  */

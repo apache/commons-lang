@@ -28,7 +28,6 @@ import org.apache.commons.lang3.mutable.MutableObject;
 /**
  * Test class for StrSubstitutor.
  *
- * @author Oliver Heger
  * @version $Id$
  */
 public class StrSubstitutorTest extends TestCase {

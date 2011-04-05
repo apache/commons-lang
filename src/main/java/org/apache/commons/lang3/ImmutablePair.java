@@ -21,7 +21,6 @@ package org.apache.commons.lang3;
  *
  * <p>#ThreadSafe# if the objects are threadsafe</p>
  * @since Lang 3.0
- * @author Matt Benson
  * @version $Id$
  *
  * @param <L> left generic type

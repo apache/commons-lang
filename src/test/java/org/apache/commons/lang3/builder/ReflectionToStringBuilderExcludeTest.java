@@ -27,7 +27,6 @@ import junit.framework.TestCase;
 import org.apache.commons.lang3.ArrayUtils;
 
 /**
- * @author <a href="mailto:ggregory@seagullsw.com">ggregory</a>
  * @version $Id$
  */
 public class ReflectionToStringBuilderExcludeTest extends TestCase {

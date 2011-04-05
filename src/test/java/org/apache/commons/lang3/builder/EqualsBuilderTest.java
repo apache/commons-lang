@@ -23,11 +23,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang3.builder.EqualsBuilder}.
  *
- * @author Apache Software Foundation
- * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @author Maarten Coene
- * @author Oliver Sauder
  * @version $Id$
  */
 public class EqualsBuilderTest extends TestCase {

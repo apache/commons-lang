@@ -21,7 +21,6 @@ package org.apache.commons.lang3.mutable;
  * 
  * @see Byte
  * @since 2.1
- * @author Apache Software Foundation
  * @version $Id$
  */
 public class MutableByte extends Number implements Comparable<MutableByte>, Mutable<Number> {

@@ -34,7 +34,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang3.JavaVersion}.
  *
- * @author Apache Software Foundation
  * @version $Id: JavaVersionTest.java 918366 2010-03-03 08:56:22Z bayard $
  */
 public class JavaVersionTest extends TestCase {

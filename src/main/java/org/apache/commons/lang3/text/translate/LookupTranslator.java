@@ -23,7 +23,6 @@ import java.util.HashMap;
 /**
  * Translates a value using a lookup table.
  * 
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

@@ -88,9 +88,6 @@ import org.apache.commons.lang3.ClassUtils;
  * constructor.
  * </p>
  *
- * @author Apache Software Foundation
- * @author Gary Gregory
- * @author Pete Gieser
  * @since 2.0
  * @version $Id$
  */

@@ -21,9 +21,6 @@ import junit.framework.TestCase;
 /**
  * Class to test BitField functionality
  *
- * @author Scott Sanders
- * @author Marc Johnson
- * @author Glen Stampoultzis
  * @version $Id$
  */
 public class BitFieldTest extends TestCase {

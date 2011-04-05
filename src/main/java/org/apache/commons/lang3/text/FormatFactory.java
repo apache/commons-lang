@@ -22,7 +22,6 @@ import java.util.Locale;
 /**
  * Format factory.
  * 
- * @author Apache Software Foundation
  * @since 2.4
  * @version $Id$
  */

@@ -59,12 +59,6 @@ import org.apache.commons.lang3.Validate;
  * This introduces a minor incompatibility with Java 1.4, but at a gain of
  * useful functionality.</p>
  *
- * @author Apache Software Foundation
- * @author TeaTrove project
- * @author Brian S O'Neill
- * @author Sean Schofield
- * @author Gary Gregory
- * @author Nikolay Metchev
  * @since 2.0
  * @version $Id$
  */

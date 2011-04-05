@@ -25,10 +25,6 @@ import org.apache.commons.lang3.SystemUtils;
  * An exception will not be thrown for a <code>null</code> input.
  * Each method documents its behaviour in more detail.</p>
  * 
- * @author Apache Software Foundation
- * @author Apache Jakarta Velocity
- * @author <a href="mailto:hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @author Gary Gregory
  * @since 2.0
  * @version $Id$
  */

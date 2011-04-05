@@ -29,13 +29,6 @@ import org.apache.commons.lang3.SystemUtils;
 /**
  * Unit tests {@link org.apache.commons.lang3.math.NumberUtils}.
  *
- * @author Apache Software Foundation
- * @author <a href="mailto:rand_mcneely@yahoo.com">Rand McNeely</a>
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @author Eric Pugh
- * @author Phil Steitz
- * @author Matthew Hawthorne
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @version $Id$
  */
 public class NumberUtilsTest extends TestCase {

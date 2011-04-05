@@ -74,7 +74,6 @@ package org.apache.commons.lang3.builder;
  * 
  * @param <T> the type of object that the builder will construct or compute.
  * 
- * @author <a href="mailto:mwooten.dev@gmail.com">Michael Wooten</a>
  * @since 3.0
  * @version $Id$
  */

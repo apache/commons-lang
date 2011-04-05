@@ -21,7 +21,6 @@ package org.apache.commons.lang3.mutable;
  * 
  * @see Float
  * @since 2.1
- * @author Apache Software Foundation
  * @version $Id$
  */
 public class MutableFloat extends Number implements Comparable<MutableFloat>, Mutable<Number> {

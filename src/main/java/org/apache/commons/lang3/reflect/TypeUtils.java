@@ -35,9 +35,6 @@ import org.apache.commons.lang3.ClassUtils;
  * <p> Utility methods focusing on type inspection, particularly with regard to
  * generics. </p>
  *
- * @author David M. Sledge
- * @author Matt Benson
- * @author James Carman
  * @since 3.0
  * @version $Id$
  */

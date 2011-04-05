@@ -35,17 +35,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * element may throw an exception. Each method documents its behaviour.</p>
  *
  * <p>#ThreadSafe#</p>
- * @author Apache Software Foundation
- * @author Moritz Petersen
- * @author <a href="mailto:fredrik@westermarck.com">Fredrik Westermarck</a>
- * @author Nikolay Metchev
- * @author Matthew Hawthorne
- * @author Tim O'Brien
- * @author Pete Gieser
- * @author Gary Gregory
- * @author <a href="mailto:equinus100@hotmail.com">Ashwin S</a>
- * @author Maarten Coene
- * @author <a href="mailto:levon@lk.otherinbox.com">Levon Karayan</a>
  * @since 2.0
  * @version $Id$
  */

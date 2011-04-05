@@ -23,9 +23,6 @@ import java.util.Random;
 /**
  * Unit tests {@link org.apache.commons.lang3.RandomStringUtils}.
  *
- * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @author Phil Steitz
  * @version $Id$
  */
 public class RandomStringUtilsTest extends junit.framework.TestCase {

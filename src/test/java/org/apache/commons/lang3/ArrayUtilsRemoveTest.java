@@ -24,7 +24,6 @@ import junit.framework.TestCase;
 /**
  * Tests ArrayUtils remove and removeElement methods.
  * 
- * @author Maarten Coene
  * @version $Id$
  */
 public class ArrayUtilsRemoveTest extends TestCase {
