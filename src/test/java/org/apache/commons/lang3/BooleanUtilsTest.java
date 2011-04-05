@@ -24,8 +24,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang3.BooleanUtils}.
  *
- * @author Apache Software Foundation
- * @author Matthew Hawthorne
  * @version $Id$
  */
 public class BooleanUtilsTest extends TestCase {

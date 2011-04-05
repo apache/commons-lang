@@ -45,10 +45,6 @@ import junit.framework.TestCase;
  * Gary Gregory; August 16, 2006.
  * </p>
  * 
- * @author Apache Software Foundation
- * @author Daniel L. Rall
- * @author <a href="mailto:steven@caswell.name">Steven Caswell</a>
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 1.0
  */
 public class ExceptionUtilsTest extends TestCase {

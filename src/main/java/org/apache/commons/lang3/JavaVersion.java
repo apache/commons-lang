@@ -21,7 +21,6 @@ package org.apache.commons.lang3;
  * This is intended to mirror available values from the
  * <em>java.specification.version</em> System property. </p>
  *
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id: $
  */

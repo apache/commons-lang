@@ -27,7 +27,6 @@ package org.apache.commons.lang3.builder;
  * This is necessary to disambiguate the occasional duplicate
  * identityHashCodes that can occur.
  * 
- * @author Apache Software Foundation
  */ 
 final class IDKey {
         private final Object value;

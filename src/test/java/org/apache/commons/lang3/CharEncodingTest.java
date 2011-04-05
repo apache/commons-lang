@@ -26,7 +26,6 @@ import junit.framework.TestCase;
  * Tests CharEncoding.
  * 
  * @see CharEncoding
- * @author Gary D. Gregory
  * @version $Id$
  */
 public class CharEncodingTest extends TestCase {

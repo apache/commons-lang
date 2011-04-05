@@ -24,7 +24,6 @@ package org.apache.commons.lang3;
  * Each method documents its behaviour in more detail.</p>
  * 
  * <p>#ThreadSafe#</p>
- * @author Apache Software Foundation
  * @since 2.1
  * @version $Id$
  */

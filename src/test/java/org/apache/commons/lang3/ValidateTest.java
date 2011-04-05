@@ -33,8 +33,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang3.Validate}.
  *
- * @author Apache Software Foundation
- * @author Norm Deane
  * @version $Id$
  */
 public class ValidateTest extends TestCase {

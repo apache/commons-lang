@@ -27,7 +27,6 @@ import java.util.concurrent.TimeUnit;
  * java.util.concurrent} package.
  * </p>
  *
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

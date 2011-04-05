@@ -34,9 +34,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests {@link org.apache.commons.lang3.ClassUtils}.
  *
- * @author Apache Software Foundation
- * @author Gary D. Gregory
- * @author Tomasz Blachowicz
  * @version $Id$
  */
 public class ClassUtilsTest extends TestCase {

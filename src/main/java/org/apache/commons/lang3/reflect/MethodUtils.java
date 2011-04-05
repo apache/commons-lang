@@ -41,15 +41,6 @@ import org.apache.commons.lang3.ClassUtils;
  * This call will only succeed when the application has sufficient security privileges. 
  * If this call fails then the method may fail.</p>
  *
- * @author Apache Software Foundation
- * @author Craig R. McClanahan
- * @author Ralph Schaer
- * @author Chris Audley
- * @author Rey Fran&#231;ois
- * @author Gregor Ra&#253;man
- * @author Jan Sorensen
- * @author Robert Burrell Donkin
- * @author Matt Benson
  * @since 2.5
  * @version $Id$
  */

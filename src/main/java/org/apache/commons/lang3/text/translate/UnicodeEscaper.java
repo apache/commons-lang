@@ -22,7 +22,6 @@ import java.io.Writer;
 /**
  * Translates codepoints to their unicode escaped value.
  *
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

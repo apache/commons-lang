@@ -28,7 +28,6 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * Unit tests ConstructorUtils
- * @author mbenson
  * @version $Id$
  */
 public class ConstructorUtilsTest extends TestCase {

@@ -21,7 +21,6 @@ package org.apache.commons.lang3.text.translate;
  * the LookupTranslator.
  * All arrays are of length [*][2].
  *
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

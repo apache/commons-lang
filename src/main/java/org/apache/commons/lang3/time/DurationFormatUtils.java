@@ -38,11 +38,6 @@ import org.apache.commons.lang3.StringUtils;
  *  <tr><td>S</td><td>milliseconds</td></tr>
  * </table>
  *
- * @author Apache Software Foundation
- * @author Apache Ant - DateUtils
- * @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
- * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @since 2.1
  * @version $Id$
  */

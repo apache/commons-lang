@@ -24,7 +24,6 @@ import junit.framework.TestCase;
  * 
  * @since 2.2
  * @see MutableBoolean
- * @author Apache Software Foundation
  * @version $Id$
  */
 public class MutableBooleanTest extends TestCase {

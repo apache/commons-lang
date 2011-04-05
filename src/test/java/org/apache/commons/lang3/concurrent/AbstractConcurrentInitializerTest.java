@@ -34,7 +34,6 @@ import org.junit.Test;
  * tests are executed.
  * </p>
  *
- * @author Apache Software Foundation
  * @version $Id$
  */
 public abstract class AbstractConcurrentInitializerTest {

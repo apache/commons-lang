@@ -64,8 +64,6 @@ import org.apache.commons.lang3.Validate;
  * </ul>
  * </p>
  *
- * @author Apache Software Foundation
- * @author Matt Benson
  * @since 2.4
  * @version $Id$
  */

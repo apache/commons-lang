@@ -25,7 +25,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * Abstract Pair (or 2-element Tuple).
  *
  * @since Lang 3.0
- * @author Matt Benson
  * @version $Id$
  */
 public abstract class Pair<L, R> implements Serializable, Map.Entry<L, R> {

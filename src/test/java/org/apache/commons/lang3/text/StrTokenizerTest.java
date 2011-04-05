@@ -30,7 +30,6 @@ import org.apache.commons.lang3.ObjectUtils;
 /**
  * Unit test for Tokenizer.
  * 
- * @author Matthew Inger
  */
 public class StrTokenizerTest extends TestCase {
 

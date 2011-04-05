@@ -40,11 +40,6 @@ import java.util.regex.Pattern;
  * </pre>
  *
  * <p>#ThreadSafe#</p>
- * @author Apache Software Foundation
- * @author <a href="mailto:ola.berg@arkitema.se">Ola Berg</a>
- * @author Gary Gregory
- * @author Norm Deane
- * @author Paul Benedict
  * @version $Id$
  * @see java.lang.String#format(String, Object...)
  * @since 2.0

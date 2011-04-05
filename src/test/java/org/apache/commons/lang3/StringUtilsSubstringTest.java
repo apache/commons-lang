@@ -22,9 +22,6 @@ import org.junit.Assert;
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
  *
- * @author Apache Software Foundation
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @author Phil Steitz
  * @version $Id$
  */
 public class StringUtilsSubstringTest extends TestCase {

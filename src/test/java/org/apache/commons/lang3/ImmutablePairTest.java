@@ -30,7 +30,6 @@ import org.junit.Test;
 
 /**
  * Test the Pair class.
- * @author Matt Benson
  * @version $Id$
  */
 public class ImmutablePairTest {

@@ -25,7 +25,6 @@ import org.apache.commons.lang3.ArrayUtils;
  * Executes a sequence of translators one after the other. Execution ends whenever 
  * the first translator consumes codepoints from the input.
  * 
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

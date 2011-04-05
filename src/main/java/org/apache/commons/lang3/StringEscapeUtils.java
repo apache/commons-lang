@@ -33,16 +33,6 @@ import org.apache.commons.lang3.text.translate.UnicodeUnescaper;
  * Java, Java Script, HTML and XML.</p>
  *
  * <p>#ThreadSafe#</p>
- * @author Apache Software Foundation
- * @author Apache Jakarta Turbine
- * @author Purple Technology
- * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
- * @author Antony Riley
- * @author Helge Tesgaard
- * @author <a href="sean@boohai.com">Sean Brown</a>
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
- * @author Phil Steitz
- * @author Pete Gieser
  * @since 2.0
  * @version $Id$
  */

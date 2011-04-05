@@ -23,7 +23,6 @@ import java.io.Writer;
  * Helper subclass to CharSequenceTranslator to allow for translations that 
  * will replace up to one character at a time.
  * 
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

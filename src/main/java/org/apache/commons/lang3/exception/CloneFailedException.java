@@ -20,7 +20,6 @@ package org.apache.commons.lang3.exception;
  * Exception thrown when a clone cannot be created. In contrast to
  * {@link CloneNotSupportedException} this is a {@link RuntimeException}.
  * 
- * @author Apache Software Foundation
  * @since 3.0
  */
 public class CloneFailedException extends RuntimeException {

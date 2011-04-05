@@ -26,7 +26,6 @@ import junit.framework.TestCase;
 /**
  * Unit tests for {@link StringEscapeUtils}.
  *
- * @author <a href="mailto:alex@purpletech.com">Alexander Day Chaffee</a>
  * @version $Id$
  */
 public class StringEscapeUtilsTest extends TestCase {

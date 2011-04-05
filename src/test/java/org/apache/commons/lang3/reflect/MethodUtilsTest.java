@@ -30,7 +30,6 @@ import org.apache.commons.lang3.mutable.MutableObject;
 
 /**
  * Unit tests MethodUtils
- * @author mbenson
  * @version $Id$
  */
 public class MethodUtilsTest extends TestCase {

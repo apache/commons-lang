@@ -81,9 +81,6 @@ import org.apache.commons.lang3.ArrayUtils;
  *  </tr>
  * </table>
  *
- * @author Apache Software Foundation
- * @author Matthew Inger
- * @author Gary D. Gregory
  * @since 2.2
  * @version $Id$
  */

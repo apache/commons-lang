@@ -94,9 +94,6 @@ import org.apache.commons.lang3.ArrayUtils;
  * }
  * </pre>
  *
- * @author Apache Software Foundation
- * @author Gary Gregory
- * @author Pete Gieser
  * @since 1.0
  * @version $Id$
  */

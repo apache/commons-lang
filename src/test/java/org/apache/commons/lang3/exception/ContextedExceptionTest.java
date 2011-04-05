@@ -25,8 +25,6 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * JUnit tests for ContextedException.
- * @author D. Ashmore
- * @author Apache Software Foundation
  */
 public class ContextedExceptionTest extends TestCase {
     

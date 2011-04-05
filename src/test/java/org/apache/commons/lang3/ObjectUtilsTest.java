@@ -30,10 +30,6 @@ import org.apache.commons.lang3.mutable.MutableObject;
 /**
  * Unit tests {@link org.apache.commons.lang3.ObjectUtils}.
  *
- * @author Apache Software Foundation
- * @author <a href="mailto:jmcnally@collab.net">John McNally</a>
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @author <a href="mailto:ggregory@seagullsw.com">Gary Gregory</a>
  * @version $Id$
  */
 public class ObjectUtilsTest extends TestCase {

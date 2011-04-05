@@ -29,7 +29,6 @@ package org.apache.commons.lang3.concurrent;
  * exceptions are thrown directly.
  * </p>
  *
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

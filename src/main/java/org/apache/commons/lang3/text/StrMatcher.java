@@ -25,7 +25,6 @@ import java.util.Arrays;
  * This class comes complete with various factory methods.
  * If these do not suffice, you can subclass and implement your own matcher.
  *
- * @author Apache Software Foundation
  * @since 2.2
  * @version $Id$
  */

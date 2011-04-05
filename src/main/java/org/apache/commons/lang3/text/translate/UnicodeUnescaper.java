@@ -25,7 +25,6 @@ import java.util.EnumSet;
  * Translates escaped unicode values of the form \\u+\d\d\d\d back to 
  * unicode.
  * 
- * @author Apache Software Foundation
  * @since 3.0
  * @version $Id$
  */

@@ -30,15 +30,6 @@ import java.io.File;
  * #ThreadSafe#
  * </p>
  *
- * @author Apache Software Foundation
- * @author Based on code from Avalon Excalibur
- * @author Based on code from Lucene
- * @author <a href="mailto:sdowney@panix.com">Steve Downey</a>
- * @author Gary Gregory
- * @author Michael Becke
- * @author Tetsuya Kaneuchi
- * @author Rafal Krupinski
- * @author Jason Gritman
  * @since 1.0
  * @version $Id$
  */

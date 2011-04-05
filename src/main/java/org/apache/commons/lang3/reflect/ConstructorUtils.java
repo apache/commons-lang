@@ -40,15 +40,6 @@ import org.apache.commons.lang3.ClassUtils;
  * succeed when the application has sufficient security privilages. If this call
  * fails then a warning will be logged and the method may fail.</p>
  *
- * @author Apache Software Foundation
- * @author Craig R. McClanahan
- * @author Ralph Schaer
- * @author Chris Audley
- * @author Rey Francois
- * @author Gregor Rayman
- * @author Jan Sorensen
- * @author Robert Burrell Donkin
- * @author Rodney Waldhoff
  * @since 2.5
  * @version $Id$
  */

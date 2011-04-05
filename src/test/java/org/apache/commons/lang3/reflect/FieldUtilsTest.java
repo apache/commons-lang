@@ -32,7 +32,6 @@ import org.apache.commons.lang3.reflect.testbed.StaticContainerChild;
 
 /**
  * Unit tests FieldUtils
- * @author mbenson
  * @version $Id$
  */
 public class FieldUtilsTest extends TestCase {

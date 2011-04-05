@@ -33,7 +33,6 @@ import java.util.concurrent.ConcurrentMap;
  * An exception will not be thrown for a {@code null} input.
  * Each method documents its behaviour in more detail.</p>
  *
- * @author Apache Software Foundation
  * @since 2.2
  * @version $Id$
  */

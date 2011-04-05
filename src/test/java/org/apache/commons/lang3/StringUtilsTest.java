@@ -31,16 +31,6 @@ import org.apache.commons.lang3.text.WordUtils;
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils}.
  *
- * @author Apache Software Foundation
- * @author Daniel L. Rall
- * @author <a href="mailto:ridesmet@users.sourceforge.net">Ringo De Smet</a>
- * @author <a href="mailto:fredrik@westermarck.com>Fredrik Westermarck</a>
- * @author Holger Krauth
- * @author <a href="hps@intermeta.de">Henning P. Schmiedehausen</a>
- * @author Phil Steitz
- * @author Gary D. Gregory
- * @author Scott Johnson
- * @author Al Chou
  * @version $Id$
  */
 public class StringUtilsTest extends TestCase {

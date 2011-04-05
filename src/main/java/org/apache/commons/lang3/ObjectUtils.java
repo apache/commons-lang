@@ -31,13 +31,6 @@ import org.apache.commons.lang3.exception.CloneFailedException;
  * Each method documents its behaviour in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
- * @author Apache Software Foundation
- * @author <a href="mailto:nissim@nksystems.com">Nissim Karpenstein</a>
- * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
- * @author Daniel L. Rall
- * @author Gary Gregory
- * @author Mario Winterer
- * @author <a href="mailto:david@davidkarlsen.com">David J. M. Karlsen</a>
  * @since 1.0
  * @version $Id$
  */

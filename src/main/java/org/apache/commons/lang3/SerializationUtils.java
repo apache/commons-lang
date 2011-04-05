@@ -39,12 +39,6 @@ import java.io.Serializable;
  * Each method documents its behaviour in more detail.</p>
  *
  * <p>#ThreadSafe#</p>
- * @author Apache Software Foundation
- * @author <a href="mailto:nissim@nksystems.com">Nissim Karpenstein</a>
- * @author <a href="mailto:janekdb@yahoo.co.uk">Janek Bogucki</a>
- * @author Daniel L. Rall
- * @author Jeff Varszegi
- * @author Gary Gregory
  * @since 1.0
  * @version $Id$
  */

@@ -26,9 +26,6 @@ import java.util.NoSuchElementException;
  * <p>Instances are immutable.</p>
  *
  * <p>#ThreadSafe#</p>
- * @author Apache Software Foundation
- * @author Chris Feldhacker
- * @author Gary Gregory
  * @since 1.0
  * @version $Id$
  */

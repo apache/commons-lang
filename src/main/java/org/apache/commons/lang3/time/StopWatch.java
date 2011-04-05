@@ -52,7 +52,6 @@ package org.apache.commons.lang3.time;
  * 
  * <p>This class is not thread-safe</p>
  * 
- * @author Apache Software Foundation
  * @since 2.0
  * @version $Id$
  */

@@ -60,10 +60,6 @@ import org.apache.commons.lang3.SystemUtils;
  * </pre>
  * </p>
  *
- * @author Apache Software Foundation
- * @author Gary Gregory
- * @author Pete Gieser
- * @author Masato Tezuka
  * @since 1.0
  * @version $Id$
  */

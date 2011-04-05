@@ -25,9 +25,6 @@ package org.apache.commons.lang3;
  * 
  * <p>#ThreadSafe#</p>
  * @see CharSet
- * @author Apache Software Foundation
- * @author Phil Steitz
- * @author Gary Gregory
  * @since 1.0
  * @version $Id$
  */

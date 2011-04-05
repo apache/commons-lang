@@ -21,7 +21,6 @@ package org.apache.commons.lang3.mutable;
  * 
  * @see Long
  * @since 2.1
- * @author Apache Software Foundation
  * @version $Id$
  */
 public class MutableLong extends Number implements Comparable<MutableLong>, Mutable<Number> {
