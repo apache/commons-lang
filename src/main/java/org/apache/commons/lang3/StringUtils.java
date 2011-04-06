@@ -6491,4 +6491,14 @@ public class StringUtils {
         }
     }
 
+    static boolean regionMatchesSequence(CharSequence cs, boolean ignoreCase, int thisStart, 
+                                         CharSequence substring, int start, int length)
+    {
+        if (cs instanceof String) {
+            return ((String) cs).regionMatches(ignoreCase, thisStart, substring, start, length);
+        } else {
+            // TODO: Implement rather than convert to String
+            return cs.toString().regionMatches(ignoreCase, thisStart, substring, start, length);
+    }
+
 }
