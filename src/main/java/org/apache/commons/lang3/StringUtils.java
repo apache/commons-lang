@@ -781,10 +781,10 @@ public class StringUtils {
     // IndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Finds the first index within a String, handling {@code null}.
-     * This method uses {@link String#indexOf(int)}.</p>
+     * <p>Finds the first index within a CharSequence, handling {@code null}.
+     * This method uses {@link String#indexOf(int, int)} if possible.</p>
      *
-     * <p>A {@code null} or empty ("") String will return {@code INDEX_NOT_FOUND (-1)}.</p>
+     * <p>A {@code null} or empty ("") CharSequence will return {@code INDEX_NOT_FOUND (-1)}.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *)         = -1
@@ -793,25 +793,25 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", 'b') = 2
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param seq  the CharSequence to check, may be null
      * @param searchChar  the character to find
      * @return the first index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(String str, int searchChar) {
-        if (isEmpty(str)) {
+    public static int indexOf(CharSequence seq, int searchChar) {
+        if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return str.indexOf(searchChar);
+        return StringUtils.indexOfSequence(seq, searchChar, 0);
     }
 
     /**
-     * <p>Finds the first index within a String from a start position,
+     * <p>Finds the first index within a CharSequence from a start position,
      * handling {@code null}.
-     * This method uses {@link String#indexOf(int, int)}.</p>
+     * This method uses {@link String#indexOf(int, int)} if possible.</p>
      *
-     * <p>A {@code null} or empty ("") String will return {@code (INDEX_NOT_FOUND) -1}.
+     * <p>A {@code null} or empty ("") CharSequence will return {@code (INDEX_NOT_FOUND) -1}.
      * A negative start position is treated as zero.
      * A start position greater than the string length returns {@code -1}.</p>
      *
@@ -824,25 +824,25 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", 'b', -1) = 2
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param seq  the CharSequence to check, may be null
      * @param searchChar  the character to find
      * @param startPos  the start position, negative treated as zero
      * @return the first index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(String str, int searchChar, int startPos) {
-        if (isEmpty(str)) {
+    public static int indexOf(CharSequence seq, int searchChar, int startPos) {
+        if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return str.indexOf(searchChar, startPos);
+        return StringUtils.indexOfSequence(seq, searchChar, startPos);
     }
 
     /**
-     * <p>Finds the first index within a String, handling {@code null}.
-     * This method uses {@link String#indexOf(String)}.</p>
+     * <p>Finds the first index within a CharSequence, handling {@code null}.
+     * This method uses {@link String#indexOf(String, int)} if possible.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.</p>
+     * <p>A {@code null} CharSequence will return {@code -1}.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *)          = -1
@@ -855,28 +855,28 @@ public class StringUtils {
      * StringUtils.indexOf("aabaabaa", "")   = 0
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
-     * @return the first index of the search String,
+     * @param seq  the CharSequence to check, may be null
+     * @param searchSeq  the CharSequence to find, may be null
+     * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(String str, String searchStr) {
-        if (str == null || searchStr == null) {
+    public static int indexOf(CharSequence seq, CharSequence searchSeq) {
+        if (seq == null || searchSeq == null) {
             return INDEX_NOT_FOUND;
         }
-        return str.indexOf(searchStr);
+        return StringUtils.indexOfSequence(seq, searchSeq, 0);
     }
 
     /**
-     * <p>Finds the first index within a String, handling {@code null}.
-     * This method uses {@link String#indexOf(String, int)}.</p>
+     * <p>Finds the first index within a CharSequence, handling {@code null}.
+     * This method uses {@link String#indexOf(String, int)} if possible.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.
+     * <p>A {@code null} CharSequence will return {@code -1}.
      * A negative start position is treated as zero.
-     * An empty ("") search String always matches.
+     * An empty ("") search CharSequence always matches.
      * A start position greater than the string length only matches
-     * an empty search String.</p>
+     * an empty search CharSequence.</p>
      *
      * <pre>
      * StringUtils.indexOf(null, *, *)          = -1
@@ -893,18 +893,18 @@ public class StringUtils {
      * StringUtils.indexOf("abc", "", 9)        = 3
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
+     * @param seq  the CharSequence to check, may be null
+     * @param searchSeq  the CharSequence to find, may be null
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search String,
+     * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int indexOf(String str, String searchStr, int startPos) {
-        if (str == null || searchStr == null) {
+    public static int indexOf(CharSequence seq, CharSequence searchSeq, int startPos) {
+        if (seq == null || searchSeq == null) {
             return INDEX_NOT_FOUND;
         }
-        return str.indexOf(searchStr, startPos);
+        return StringUtils.indexOfSequence(seq, searchSeq, startPos);
     }
 
     /**
@@ -1065,10 +1065,10 @@ public class StringUtils {
     // LastIndexOf
     //-----------------------------------------------------------------------
     /**
-     * <p>Finds the last index within a String, handling {@code null}.
-     * This method uses {@link String#lastIndexOf(int)}.</p>
+     * <p>Finds the last index within a CharSequence, handling {@code null}.
+     * This method uses {@link String#lastIndexOf(int)} if possible.</p>
      *
-     * <p>A {@code null} or empty ("") String will return {@code -1}.</p>
+     * <p>A {@code null} or empty ("") CharSequence will return {@code -1}.</p>
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *)         = -1
@@ -1077,25 +1077,25 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'b') = 5
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param seq  the CharSequence to check, may be null
      * @param searchChar  the character to find
      * @return the last index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int lastIndexOf(String str, int searchChar) {
-        if (isEmpty(str)) {
+    public static int lastIndexOf(CharSequence seq, int searchChar) {
+        if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return str.lastIndexOf(searchChar);
+        return StringUtils.lastIndexOfSequence(seq, searchChar, seq.length());
     }
 
     /**
-     * <p>Finds the last index within a String from a start position,
+     * <p>Finds the last index within a CharSequence from a start position,
      * handling {@code null}.
-     * This method uses {@link String#lastIndexOf(int, int)}.</p>
+     * This method uses {@link String#lastIndexOf(int, int)} if possible.</p>
      *
-     * <p>A {@code null} or empty ("") String will return {@code -1}.
+     * <p>A {@code null} or empty ("") CharSequence will return {@code -1}.
      * A negative start position returns {@code -1}.
      * A start position greater than the string length searches the whole string.</p>
      *
@@ -1110,25 +1110,25 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", 'a', 0)  = 0
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param seq  the CharSequence to check, may be null
      * @param searchChar  the character to find
      * @param startPos  the start position
      * @return the last index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int lastIndexOf(String str, int searchChar, int startPos) {
-        if (isEmpty(str)) {
+    public static int lastIndexOf(CharSequence seq, int searchChar, int startPos) {
+        if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return str.lastIndexOf(searchChar, startPos);
+        return StringUtils.lastIndexOfSequence(seq, searchChar, startPos);
     }
 
     /**
-     * <p>Finds the last index within a String, handling {@code null}.
-     * This method uses {@link String#lastIndexOf(String)}.</p>
+     * <p>Finds the last index within a CharSequence, handling {@code null}.
+     * This method uses {@link String#lastIndexOf(String)} if possible.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.</p>
+     * <p>A {@code null} CharSequence will return {@code -1}.</p>
      *
      * <pre>
      * StringUtils.lastIndexOf(null, *)          = -1
@@ -1140,17 +1140,17 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", "")   = 8
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
+     * @param seq  the CharSequence to check, may be null
+     * @param searchSeq  the CharSequence to find, may be null
      * @return the last index of the search String,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int lastIndexOf(String str, String searchStr) {
-        if (str == null || searchStr == null) {
+    public static int lastIndexOf(CharSequence seq, CharSequence searchSeq) {
+        if (seq == null || searchSeq == null) {
             return INDEX_NOT_FOUND;
         }
-        return str.lastIndexOf(searchStr);
+        return StringUtils.lastIndexOfSequence(seq, searchSeq, seq.length());
     }
 
     /**
@@ -1191,12 +1191,12 @@ public class StringUtils {
     }
 
     /**
-     * <p>Finds the first index within a String, handling {@code null}.
-     * This method uses {@link String#lastIndexOf(String, int)}.</p>
+     * <p>Finds the first index within a CharSequence, handling {@code null}.
+     * This method uses {@link String#lastIndexOf(String, int)} if possible.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.
+     * <p>A {@code null} CharSequence will return {@code -1}.
      * A negative start position returns {@code -1}.
-     * An empty ("") search String always matches unless the start position is negative.
+     * An empty ("") search CharSequence always matches unless the start position is negative.
      * A start position greater than the string length searches the whole string.</p>
      *
      * <pre>
@@ -1211,18 +1211,18 @@ public class StringUtils {
      * StringUtils.lastIndexOf("aabaabaa", "b", 0)  = -1
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
+     * @param seq  the CharSequence to check, may be null
+     * @param searchSeq  the CharSequence to find, may be null
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search String,
+     * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.0
      */
-    public static int lastIndexOf(String str, String searchStr, int startPos) {
-        if (str == null || searchStr == null) {
+    public static int lastIndexOf(CharSequence seq, CharSequence searchSeq, int startPos) {
+        if (seq == null || searchSeq == null) {
             return INDEX_NOT_FOUND;
         }
-        return str.lastIndexOf(searchStr, startPos);
+        return StringUtils.lastIndexOfSequence(seq, searchSeq, startPos);
     }
 
     /**
@@ -1307,10 +1307,10 @@ public class StringUtils {
     // Contains
     //-----------------------------------------------------------------------
     /**
-     * <p>Checks if String contains a search character, handling {@code null}.
-     * This method uses {@link String#indexOf(int)}.</p>
+     * <p>Checks if CharSequence contains a search character, handling {@code null}.
+     * This method uses {@link String#indexOf(int)} if possible.</p>
      *
-     * <p>A {@code null} or empty ("") String will return {@code false}.</p>
+     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.</p>
      *
      * <pre>
      * StringUtils.contains(null, *)    = false
@@ -1319,24 +1319,24 @@ public class StringUtils {
      * StringUtils.contains("abc", 'z') = false
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param seq  the CharSequence to check, may be null
      * @param searchChar  the character to find
-     * @return true if the String contains the search character,
+     * @return true if the CharSequence contains the search character,
      *  false if not or {@code null} string input
      * @since 2.0
      */
-    public static boolean contains(String str, int searchChar) {
-        if (isEmpty(str)) {
+    public static boolean contains(CharSequence seq, int searchChar) {
+        if (isEmpty(seq)) {
             return false;
         }
-        return str.indexOf(searchChar) >= 0;
+        return indexOfSequence(seq, searchChar, 0) >= 0;
     }
 
     /**
-     * <p>Checks if String contains a search String, handling {@code null}.
-     * This method uses {@link String#indexOf(String)}.</p>
+     * <p>Checks if CharSequence contains a search CharSequence, handling {@code null}.
+     * This method uses {@link String#indexOf(String)} if possible.</p>
      *
-     * <p>A {@code null} String will return {@code false}.</p>
+     * <p>A {@code null} CharSequence will return {@code false}.</p>
      *
      * <pre>
      * StringUtils.contains(null, *)     = false
@@ -1347,17 +1347,17 @@ public class StringUtils {
      * StringUtils.contains("abc", "z")  = false
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
-     * @return true if the String contains the search String,
+     * @param seq  the CharSequence to check, may be null
+     * @param searchSeq  the CharSequence to find, may be null
+     * @return true if the CharSequence contains the search CharSequence,
      *  false if not or {@code null} string input
      * @since 2.0
      */
-    public static boolean contains(String str, String searchStr) {
-        if (str == null || searchStr == null) {
+    public static boolean contains(CharSequence seq, CharSequence searchSeq) {
+        if (seq == null || searchSeq == null) {
             return false;
         }
-        return str.indexOf(searchStr) >= 0;
+        return indexOfSequence(seq, searchSeq, 0) >= 0;
     }
 
     /**
@@ -1398,21 +1398,21 @@ public class StringUtils {
     }
 
     /**
-     * Check whether the given String contains any whitespace characters.
-     * @param str the String to check (may be {@code null})
-     * @return {@code true} if the String is not empty and
+     * Check whether the given CharSequence contains any whitespace characters.
+     * @param seq the CharSequence to check (may be {@code null})
+     * @return {@code true} if the CharSequence is not empty and
      * contains at least 1 whitespace character
      * @see java.lang.Character#isWhitespace
      * @since 3.0
      */
     // From org.springframework.util.StringUtils, under Apache License 2.0
-    public static boolean containsWhitespace(String str) {
-        if (isEmpty(str)) {
+    public static boolean containsWhitespace(CharSequence seq) {
+        if (isEmpty(seq)) {
             return false;
         }
-        int strLen = str.length();
+        int strLen = seq.length();
         for (int i = 0; i < strLen; i++) {
-            if (Character.isWhitespace(str.charAt(i))) {
+            if (Character.isWhitespace(seq.charAt(i))) {
                 return true;
             }
         }
@@ -1524,8 +1524,9 @@ public class StringUtils {
      * @return the {@code true} if any of the chars are found,
      * {@code false} if no match or null input
      * @since 2.4
+     * @since 3.0 Changed signature from containsAny(String, char[]) to containsAny(CharSequence, char[])
      */
-    public static boolean containsAny(String cs, char... searchChars) {
+    public static boolean containsAny(CharSequence cs, char[] searchChars) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return false;
         }
@@ -1581,12 +1582,13 @@ public class StringUtils {
      *            the chars to search for, may be null
      * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
      * @since 2.4
+     * @since 3.0 Changed signature from containsAny(String, String) to containsAny(CharSequence, CharSequence)
      */
-    public static boolean containsAny(String cs, String searchChars) {
+    public static boolean containsAny(CharSequence cs, CharSequence searchChars) {
         if (searchChars == null) {
             return false;
         }
-        return containsAny(cs, searchChars.toCharArray());
+        return containsAny(cs, toCharArraySequence(searchChars));
     }
 
     // IndexOfAnyBut chars
@@ -1613,9 +1615,9 @@ public class StringUtils {
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
-     * @since 3.0 Changed signature from indexOfAnyBut(String, char[]) to indexOfAnyBut(CharSequence, char...)
+     * @since 3.0 Changed signature from indexOfAnyBut(String, char[]) to indexOfAnyBut(CharSequence, char[])
      */
-    public static int indexOfAnyBut(CharSequence cs, char... searchChars) {
+    public static int indexOfAnyBut(CharSequence cs, char[] searchChars) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
@@ -1643,10 +1645,10 @@ public class StringUtils {
     }
 
     /**
-     * <p>Search a String to find the first index of any
+     * <p>Search a CharSequence to find the first index of any
      * character not in the given set of characters.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.
+     * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} or empty search string will return {@code -1}.</p>
      *
      * <pre>
@@ -1659,22 +1661,22 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut("aba","ab")         = -1
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param seq  the CharSequence to check, may be null
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
      */
-    public static int indexOfAnyBut(String str, String searchChars) {
-        if (isEmpty(str) || isEmpty(searchChars)) {
+    public static int indexOfAnyBut(CharSequence seq, CharSequence searchChars) {
+        if (isEmpty(seq) || isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
-        int strLen = str.length();
+        int strLen = seq.length();
         for (int i = 0; i < strLen; i++) {
-            char ch = str.charAt(i);
-            boolean chFound = searchChars.indexOf(ch) >= 0;
+            char ch = seq.charAt(i);
+            boolean chFound = indexOfSequence(searchChars, ch, 0) >= 0;
             if (i + 1 < strLen && Character.isHighSurrogate(ch)) {
-                char ch2 = str.charAt(i + 1);
-                if (chFound && searchChars.indexOf(ch2) < 0) {
+                char ch2 = seq.charAt(i + 1);
+                if (chFound && indexOfSequence(searchChars, ch2, 0) < 0) {
                     return i;
                 }
             } else {
@@ -1844,11 +1846,11 @@ public class StringUtils {
     /**
      * <p>Find the first index of any of a set of potential substrings.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.
+     * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} or zero length search array will return {@code -1}.
      * A {@code null} search array entry will be ignored, but a search
      * array containing "" will return {@code 0} if {@code str} is not
-     * null. This method uses {@link String#indexOf(String)}.</p>
+     * null. This method uses {@link String#indexOf(String)} if possible.</p>
      *
      * <pre>
      * StringUtils.indexOfAny(null, *)                     = -1
@@ -1863,11 +1865,11 @@ public class StringUtils {
      * StringUtils.indexOfAny("", ["a"])                   = -1
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStrs  the Strings to search for, may be null
+     * @param str  the CharSequence to check, may be null
+     * @param searchStrs  the CharSequences to search for, may be null
      * @return the first index of any of the searchStrs in str, -1 if no match
      */
-    public static int indexOfAny(String str, String... searchStrs) {
+    public static int indexOfAny(CharSequence str, CharSequence[] searchStrs) {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
@@ -1878,11 +1880,11 @@ public class StringUtils {
 
         int tmp = 0;
         for (int i = 0; i < sz; i++) {
-            String search = searchStrs[i];
+            CharSequence search = searchStrs[i];
             if (search == null) {
                 continue;
             }
-            tmp = str.indexOf(search);
+            tmp = indexOfSequence(str, search, 0);
             if (tmp == INDEX_NOT_FOUND) {
                 continue;
             }
@@ -1898,11 +1900,11 @@ public class StringUtils {
     /**
      * <p>Find the latest index of any of a set of potential substrings.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.
+     * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} search array will return {@code -1}.
      * A {@code null} or zero length search array entry will be ignored,
      * but a search array containing "" will return the length of {@code str}
-     * if {@code str} is not null. This method uses {@link String#indexOf(String)}</p>
+     * if {@code str} is not null. This method uses {@link String#indexOf(String)} if possible</p>
      *
      * <pre>
      * StringUtils.lastIndexOfAny(null, *)                   = -1
@@ -1916,11 +1918,11 @@ public class StringUtils {
      * StringUtils.lastIndexOfAny("zzabyycdxx", ["mn",""])   = 10
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStrs  the Strings to search for, may be null
-     * @return the last index of any of the Strings, -1 if no match
+     * @param str  the CharSequence to check, may be null
+     * @param searchStrs  the CharSequences to search for, may be null
+     * @return the last index of any of the CharSequences, -1 if no match
      */
-    public static int lastIndexOfAny(String str, String... searchStrs) {
+    public static int lastIndexOfAny(CharSequence str, CharSequence[] searchStrs) {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
@@ -1928,11 +1930,11 @@ public class StringUtils {
         int ret = INDEX_NOT_FOUND;
         int tmp = 0;
         for (int i = 0; i < sz; i++) {
-            String search = searchStrs[i];
+            CharSequence search = searchStrs[i];
             if (search == null) {
                 continue;
             }
-            tmp = str.lastIndexOf(search);
+            tmp = lastIndexOfSequence(str, search, str.length());
             if (tmp > ret) {
                 ret = tmp;
             }
@@ -6375,6 +6377,118 @@ public class StringUtils {
      */
     public static CharSequence subSequence(CharSequence cs, int start) {
         return cs == null ? null : cs.subSequence(start, cs.length());
+    }
+
+    //-----------------------------------------------------------------------
+
+    /**
+     * Used by the indexOf(CharSequence methods) as a green implementation of
+     * indexOf.
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @param searchChar the char to be searched for
+     * @param start the start index
+     * @return the index where the search char was found
+     */
+    static int indexOfSequence(CharSequence cs, int searchChar, int start) {
+        if (cs instanceof String) {
+            return ((String) cs).indexOf(searchChar, start);
+        } else {
+            int sz = cs.length();
+            if ( start < 0 ) {
+                start = 0;
+            }
+            for ( int i=start; i < sz; i++ ) {
+                if ( cs.charAt(i) == searchChar) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
+
+    /**
+     * Used by the indexOf(CharSequence methods) as a green implementation of indexOf.
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @param searchChar the {@code CharSequence} to be searched for
+     * @param start the start index
+     * @return the index where the search sequence was found
+     */
+    static int indexOfSequence(CharSequence cs, CharSequence searchChar, int start) {
+        if (cs instanceof String && searchChar instanceof String) {
+            // TODO: Do we assume searchChar is usually relatively small;
+            //       If so then calling toString() on it is better than reverting to
+            //       the green implementation in the else block
+            return ((String) cs).indexOf( (String) searchChar, start);
+        } else {
+            // TODO: Implement rather than convert to String
+            return cs.toString().indexOf(searchChar.toString(), start);
+        }
+    }
+
+    /**
+     * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @param searchChar the char to be searched for
+     * @param start the start index
+     * @return the index where the search char was found
+     */
+    static int lastIndexOfSequence(CharSequence cs, int searchChar, int start) {
+        if (cs instanceof String) {
+            return ((String) cs).lastIndexOf(searchChar, start);
+        } else {
+            int sz = cs.length();
+            if ( start < 0 ) {
+                return -1;
+            }
+            if ( start >= sz ) {
+                start = sz - 1;
+            }
+            for ( int i=start; i >= 0; --i ) {
+                if ( cs.charAt(i) == searchChar) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
+
+    /**
+     * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @param searchChar the {@code CharSequence} to be searched for
+     * @param start the start index
+     * @return the index where the search sequence was found
+     */
+    static int lastIndexOfSequence(CharSequence cs, CharSequence searchChar, int start) {
+        if (cs instanceof String && searchChar instanceof String) {
+            // TODO: Do we assume searchChar is usually relatively small;
+            //       If so then calling toString() on it is better than reverting to
+            //       the green implementation in the else block
+            return ((String) cs).lastIndexOf( (String) searchChar, start);
+        } else {
+            // TODO: Implement rather than convert to String
+            return cs.toString().lastIndexOf(searchChar.toString(), start);
+        }
+    }
+
+    /**
+     * Green implementation of toCharArray.
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @return the resulting char array
+     */
+    //
+    static char[] toCharArraySequence(CharSequence cs) {
+        if (cs instanceof String) {
+            return ((String) cs).toCharArray();
+        } else {
+            // TODO: Implement rather than convert to String
+            return cs.toString().toCharArray();
+        }
     }
 
 }
