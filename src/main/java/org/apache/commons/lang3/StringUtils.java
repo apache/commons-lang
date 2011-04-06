@@ -6103,7 +6103,7 @@ public class StringUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Check if a String starts with a specified prefix.</p>
+     * <p>Check if a CharSequence starts with a specified prefix.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case sensitive.</p>
@@ -6117,18 +6117,18 @@ public class StringUtils {
      * </pre>
      *
      * @see java.lang.String#startsWith(String)
-     * @param str  the String to check, may be null
+     * @param str  the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
-     * @return {@code true} if the String starts with the prefix, case sensitive, or
+     * @return {@code true} if the CharSequence starts with the prefix, case sensitive, or
      *  both {@code null}
      * @since 2.4
      */
-    public static boolean startsWith(String str, String prefix) {
+    public static boolean startsWith(CharSequence str, CharSequence prefix) {
         return startsWith(str, prefix, false);
     }
 
     /**
-     * <p>Case insensitive check if a String starts with a specified prefix.</p>
+     * <p>Case insensitive check if a CharSequence starts with a specified prefix.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case insensitive.</p>
@@ -6142,39 +6142,39 @@ public class StringUtils {
      * </pre>
      *
      * @see java.lang.String#startsWith(String)
-     * @param str  the String to check, may be null
+     * @param str  the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
-     * @return {@code true} if the String starts with the prefix, case insensitive, or
+     * @return {@code true} if the CharSequence starts with the prefix, case insensitive, or
      *  both {@code null}
      * @since 2.4
      */
-    public static boolean startsWithIgnoreCase(String str, String prefix) {
+    public static boolean startsWithIgnoreCase(CharSequence str, CharSequence prefix) {
         return startsWith(str, prefix, true);
     }
 
     /**
-     * <p>Check if a String starts with a specified prefix (optionally case insensitive).</p>
+     * <p>Check if a CharSequence starts with a specified prefix (optionally case insensitive).</p>
      *
      * @see java.lang.String#startsWith(String)
-     * @param str  the String to check, may be null
+     * @param str  the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
      * @param ignoreCase inidicates whether the compare should ignore case
      *  (case insensitive) or not.
-     * @return {@code true} if the String starts with the prefix or
+     * @return {@code true} if the CharSequence starts with the prefix or
      *  both {@code null}
      */
-    private static boolean startsWith(String str, String prefix, boolean ignoreCase) {
+    private static boolean startsWith(CharSequence str, CharSequence prefix, boolean ignoreCase) {
         if (str == null || prefix == null) {
             return (str == null && prefix == null);
         }
         if (prefix.length() > str.length()) {
             return false;
         }
-        return str.regionMatches(ignoreCase, 0, prefix, 0, prefix.length());
+        return regionMatchesSequence(str, ignoreCase, 0, prefix, 0, prefix.length());
     }
 
     /**
-     * <p>Check if a String starts with any of an array of specified strings.</p>
+     * <p>Check if a CharSequence starts with any of an array of specified strings.</p>
      *
      * <pre>
      * StringUtils.startsWithAny(null, null)      = false
@@ -6185,18 +6185,18 @@ public class StringUtils {
      * StringUtils.startsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
      * </pre>
      *
-     * @param string  the String to check, may be null
-     * @param searchStrings the Strings to find, may be null or empty
-     * @return {@code true} if the String starts with any of the the prefixes, case insensitive, or
+     * @param string  the CharSequence to check, may be null
+     * @param searchStrings the CharSequences to find, may be null or empty
+     * @return {@code true} if the CharSequence starts with any of the the prefixes, case insensitive, or
      *  both {@code null}
      * @since 2.5
      */
-    public static boolean startsWithAny(String string, String... searchStrings) {
+    public static boolean startsWithAny(CharSequence string, CharSequence... searchStrings) {
         if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
         for (int i = 0; i < searchStrings.length; i++) {
-            String searchString = searchStrings[i];
+            CharSequence searchString = searchStrings[i];
             if (StringUtils.startsWith(string, searchString)) {
                 return true;
             }
@@ -6208,7 +6208,7 @@ public class StringUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Check if a String ends with a specified suffix.</p>
+     * <p>Check if a CharSequence ends with a specified suffix.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case sensitive.</p>
@@ -6223,18 +6223,18 @@ public class StringUtils {
      * </pre>
      *
      * @see java.lang.String#endsWith(String)
-     * @param str  the String to check, may be null
+     * @param str  the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
-     * @return {@code true} if the String ends with the suffix, case sensitive, or
+     * @return {@code true} if the CharSequence ends with the suffix, case sensitive, or
      *  both {@code null}
      * @since 2.4
      */
-    public static boolean endsWith(String str, String suffix) {
+    public static boolean endsWith(CharSequence str, CharSequence suffix) {
         return endsWith(str, suffix, false);
     }
 
     /**
-     * <p>Case insensitive check if a String ends with a specified suffix.</p>
+     * <p>Case insensitive check if a CharSequence ends with a specified suffix.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case insensitive.</p>
@@ -6249,28 +6249,28 @@ public class StringUtils {
      * </pre>
      *
      * @see java.lang.String#endsWith(String)
-     * @param str  the String to check, may be null
+     * @param str  the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
-     * @return {@code true} if the String ends with the suffix, case insensitive, or
+     * @return {@code true} if the CharSequence ends with the suffix, case insensitive, or
      *  both {@code null}
      * @since 2.4
      */
-    public static boolean endsWithIgnoreCase(String str, String suffix) {
+    public static boolean endsWithIgnoreCase(CharSequence str, CharSequence suffix) {
         return endsWith(str, suffix, true);
     }
 
     /**
-     * <p>Check if a String ends with a specified suffix (optionally case insensitive).</p>
+     * <p>Check if a CharSequence ends with a specified suffix (optionally case insensitive).</p>
      *
      * @see java.lang.String#endsWith(String)
-     * @param str  the String to check, may be null
+     * @param str  the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
      * @param ignoreCase inidicates whether the compare should ignore case
      *  (case insensitive) or not.
-     * @return {@code true} if the String starts with the prefix or
+     * @return {@code true} if the CharSequence starts with the prefix or
      *  both {@code null}
      */
-    private static boolean endsWith(String str, String suffix, boolean ignoreCase) {
+    private static boolean endsWith(CharSequence str, CharSequence suffix, boolean ignoreCase) {
         if (str == null || suffix == null) {
             return str == null && suffix == null;
         }
@@ -6278,7 +6278,7 @@ public class StringUtils {
             return false;
         }
         int strOffset = str.length() - suffix.length();
-        return str.regionMatches(ignoreCase, strOffset, suffix, 0, suffix.length());
+        return regionMatchesSequence(str, ignoreCase, strOffset, suffix, 0, suffix.length());
     }
 
     /**
@@ -6330,7 +6330,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Check if a String ends with any of an array of specified strings.</p>
+     * <p>Check if a CharSequence ends with any of an array of specified strings.</p>
      *
      * <pre>
      * StringUtils.endsWithAny(null, null)      = false
@@ -6341,18 +6341,18 @@ public class StringUtils {
      * StringUtils.endsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
      * </pre>
      *
-     * @param string  the String to check, may be null
-     * @param searchStrings the Strings to find, may be null or empty
-     * @return {@code true} if the String ends with any of the the prefixes, case insensitive, or
+     * @param string  the CharSequence to check, may be null
+     * @param searchStrings the CharSequences to find, may be null or empty
+     * @return {@code true} if the CharSequence ends with any of the the prefixes, case insensitive, or
      *  both {@code null}
      * @since 3.1
      */
-    public static boolean endsWithAny(String string, String... searchStrings) {
+    public static boolean endsWithAny(CharSequence string, CharSequence... searchStrings) {
         if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
             return false;
         }
         for (int i = 0; i < searchStrings.length; i++) {
-            String searchString = searchStrings[i];
+            CharSequence searchString = searchStrings[i];
             if (StringUtils.endsWith(string, searchString)) {
                 return true;
             }
@@ -6488,6 +6488,17 @@ public class StringUtils {
         } else {
             // TODO: Implement rather than convert to String
             return cs.toString().toCharArray();
+        }
+    }
+
+    static boolean regionMatchesSequence(CharSequence cs, boolean ignoreCase, int thisStart, 
+                                         CharSequence substring, int start, int length)
+    {
+        if (cs instanceof String && substring instanceof String) {
+            return ((String) cs).regionMatches(ignoreCase, thisStart, ((String)substring), start, length);
+        } else {
+            // TODO: Implement rather than convert to String
+            return cs.toString().regionMatches(ignoreCase, thisStart, substring.toString(), start, length);
         }
     }
 
