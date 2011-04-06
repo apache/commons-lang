@@ -908,10 +908,10 @@ public class StringUtils {
     }
 
     /**
-     * <p>Finds the n-th index within a String, handling {@code null}.
-     * This method uses {@link String#indexOf(String)}.</p>
+     * <p>Finds the n-th index within a CharSequence, handling {@code null}.
+     * This method uses {@link String#indexOf(String)} if possible.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.</p>
+     * <p>A {@code null} CharSequence will return {@code -1}.</p>
      *
      * <pre>
      * StringUtils.ordinalIndexOf(null, *, *)          = -1
@@ -927,38 +927,38 @@ public class StringUtils {
      * StringUtils.ordinalIndexOf("aabaabaa", "", 2)   = 0
      * </pre>
      *
-     * <p>Note that 'head(String str, int n)' may be implemented as: </p>
+     * <p>Note that 'head(CharSequence str, int n)' may be implemented as: </p>
      *
      * <pre>
      *   str.substring(0, lastOrdinalIndexOf(str, "\n", n))
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
+     * @param str  the CharSequence to check, may be null
+     * @param searchStr  the CharSequence to find, may be null
      * @param ordinal  the n-th {@code searchStr} to find
-     * @return the n-th index of the search String,
+     * @return the n-th index of the search CharSequence,
      *  {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input
      * @since 2.1
      */
-    public static int ordinalIndexOf(String str, String searchStr, int ordinal) {
+    public static int ordinalIndexOf(CharSequence str, CharSequence searchStr, int ordinal) {
         return ordinalIndexOf(str, searchStr, ordinal, false);
     }
 
     /**
      * <p>Finds the n-th index within a String, handling {@code null}.
-     * This method uses {@link String#indexOf(String)}.</p>
+     * This method uses {@link String#indexOf(String)} if possible.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.</p>
+     * <p>A {@code null} CharSequence will return {@code -1}.</p>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
+     * @param str  the CharSequence to check, may be null
+     * @param searchStr  the CharSequence to find, may be null
      * @param ordinal  the n-th {@code searchStr} to find
      * @param lastIndex true if lastOrdinalIndexOf() otherwise false if ordinalIndexOf()
-     * @return the n-th index of the search String,
+     * @return the n-th index of the search CharSequence,
      *  {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input
      */
     // Shared code between ordinalIndexOf(String,String,int) and lastOrdinalIndexOf(String,String,int)
-    private static int ordinalIndexOf(String str, String searchStr, int ordinal, boolean lastIndex) {
+    private static int ordinalIndexOf(CharSequence str, CharSequence searchStr, int ordinal, boolean lastIndex) {
         if (str == null || searchStr == null || ordinal <= 0) {
             return INDEX_NOT_FOUND;
         }
@@ -969,9 +969,9 @@ public class StringUtils {
         int index = lastIndex ? str.length() : INDEX_NOT_FOUND;
         do {
             if (lastIndex) {
-                index = str.lastIndexOf(searchStr, index - 1);
+                index = lastIndexOfSequence(str, searchStr, index - 1);
             } else {
-                index = str.indexOf(searchStr, index + 1);
+                index = indexOfSequence(str, searchStr, index + 1);
             }
             if (index < 0) {
                 return index;
@@ -1173,20 +1173,20 @@ public class StringUtils {
      * StringUtils.lastOrdinalIndexOf("aabaabaa", "", 2)   = 8
      * </pre>
      *
-     * <p>Note that 'tail(String str, int n)' may be implemented as: </p>
+     * <p>Note that 'tail(CharSequence str, int n)' may be implemented as: </p>
      *
      * <pre>
      *   str.substring(lastOrdinalIndexOf(str, "\n", n) + 1)
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
+     * @param str  the CharSequence to check, may be null
+     * @param searchStr  the CharSequence to find, may be null
      * @param ordinal  the n-th last {@code searchStr} to find
-     * @return the n-th last index of the search String,
+     * @return the n-th last index of the search CharSequence,
      *  {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input
      * @since 2.5
      */
-    public static int lastOrdinalIndexOf(String str, String searchStr, int ordinal) {
+    public static int lastOrdinalIndexOf(CharSequence str, CharSequence searchStr, int ordinal) {
         return ordinalIndexOf(str, searchStr, ordinal, true);
     }
 
@@ -5087,7 +5087,7 @@ public class StringUtils {
     // Count matches
     //-----------------------------------------------------------------------
     /**
-     * <p>Counts how many times the substring appears in the larger String.</p>
+     * <p>Counts how many times the substring appears in the larger string.</p>
      *
      * <p>A {@code null} or empty ("") String input returns {@code 0}.</p>
      *
@@ -5101,17 +5101,17 @@ public class StringUtils {
      * StringUtils.countMatches("abba", "xxx") = 0
      * </pre>
      *
-     * @param str  the String to check, may be null
+     * @param str  the CharSequence to check, may be null
      * @param sub  the substring to count, may be null
-     * @return the number of occurrences, 0 if either String is {@code null}
+     * @return the number of occurrences, 0 if either CharSequence is {@code null}
      */
-    public static int countMatches(String str, String sub) {
+    public static int countMatches(CharSequence str, CharSequence sub) {
         if (isEmpty(str) || isEmpty(sub)) {
             return 0;
         }
         int count = 0;
         int idx = 0;
-        while ((idx = str.indexOf(sub, idx)) != INDEX_NOT_FOUND) {
+        while ((idx = indexOfSequence(str, sub, idx)) != INDEX_NOT_FOUND) {
             count++;
             idx += sub.length();
         }
