@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import junit.framework.TestCase;
+import org.apache.commons.lang3.text.StrBuilder;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - StartsWith/EndsWith methods
@@ -144,6 +145,8 @@ public class StringUtilsStartsEndsWithTest extends TestCase {
         assertTrue("StringUtils.endsWithAny(abcxyz, new String[] {null, xyz, abc})", StringUtils.endsWithAny("abcxyz", new String[] {null, "xyz", "abc"}));
         assertFalse("StringUtils.endsWithAny(defg, new String[] {null, xyz, abc})", StringUtils.endsWithAny("defg", new String[] {null, "xyz", "abc"}));
 
+        assertTrue("StringUtils.endsWithAny(abcxyz, StringBuilder(abc), StringBuffer(xyz))", StringUtils.endsWithAny("abcxyz", new StringBuilder("abc"), new StringBuffer("xyz")));
+        assertTrue("StringUtils.endsWithAny( StrBuilder(abcxyz), StringBuilder(abc), StringBuffer(xyz))", StringUtils.endsWithAny( new StrBuilder("abcxyz"), new StringBuilder("abc"), new StringBuffer("xyz")));
     }
 
 
