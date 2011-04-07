@@ -60,7 +60,7 @@ abstract class MemberUtils {
                 && isPackageAccess(m.getDeclaringClass().getModifiers())) {
             try {
                 o.setAccessible(true);
-            } catch (SecurityException e) {
+            } catch (SecurityException e) { // NOPMD
                 // ignore in favor of subsequent IllegalAccessException
             }
         }

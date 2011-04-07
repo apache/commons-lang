@@ -261,7 +261,7 @@ public class ConstructorUtils {
             Constructor<T> ctor = cls.getConstructor(parameterTypes);
             MemberUtils.setAccessibleWorkaround(ctor);
             return ctor;
-        } catch (NoSuchMethodException e) { /* SWALLOW */
+        } catch (NoSuchMethodException e) { // NOPMD - Swallow
         }
         Constructor<T> result = null;
         /*

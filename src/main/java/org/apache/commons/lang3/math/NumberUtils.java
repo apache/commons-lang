@@ -504,8 +504,8 @@ public class NumberUtils {
                         && (numeric.charAt(0) == '-' && isDigits(numeric.substring(1)) || isDigits(numeric))) {
                         try {
                             return createLong(numeric);
-                        } catch (NumberFormatException nfe) {
-                            //Too big for a long
+                        } catch (NumberFormatException nfe) { // NOPMD
+                            // Too big for a long
                         }
                         return createBigInteger(numeric);
 
@@ -521,7 +521,7 @@ public class NumberUtils {
                             return f;
                         }
 
-                    } catch (NumberFormatException nfe) {
+                    } catch (NumberFormatException nfe) { // NOPMD
                         // ignore the bad number
                     }
                     //$FALL-THROUGH$
@@ -532,12 +532,12 @@ public class NumberUtils {
                         if (!(d.isInfinite() || (d.floatValue() == 0.0D && !allZeros))) {
                             return d;
                         }
-                    } catch (NumberFormatException nfe) {
+                    } catch (NumberFormatException nfe) { // NOPMD
                         // ignore the bad number
                     }
                     try {
                         return createBigDecimal(numeric);
-                    } catch (NumberFormatException e) {
+                    } catch (NumberFormatException e) { // NOPMD
                         // ignore the bad number
                     }
                     //$FALL-THROUGH$
@@ -557,12 +557,12 @@ public class NumberUtils {
                 //Must be an int,long,bigint
                 try {
                     return createInteger(str);
-                } catch (NumberFormatException nfe) {
+                } catch (NumberFormatException nfe) { // NOPMD
                     // ignore the bad number
                 }
                 try {
                     return createLong(str);
-                } catch (NumberFormatException nfe) {
+                } catch (NumberFormatException nfe) { // NOPMD
                     // ignore the bad number
                 }
                 return createBigInteger(str);
@@ -575,7 +575,7 @@ public class NumberUtils {
                     if (!(f.isInfinite() || (f.floatValue() == 0.0F && !allZeros))) {
                         return f;
                     }
-                } catch (NumberFormatException nfe) {
+                } catch (NumberFormatException nfe) { // NOPMD
                     // ignore the bad number
                 }
                 try {
@@ -583,7 +583,7 @@ public class NumberUtils {
                     if (!(d.isInfinite() || (d.doubleValue() == 0.0D && !allZeros))) {
                         return d;
                     }
-                } catch (NumberFormatException nfe) {
+                } catch (NumberFormatException nfe) { // NOPMD
                     // ignore the bad number
                 }
 

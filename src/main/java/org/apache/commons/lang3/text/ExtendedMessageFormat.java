@@ -345,7 +345,7 @@ public class ExtendedMessageFormat extends MessageFormat {
             if ((c == START_FMT || c == END_FE) && result.length() > 0) {
                 try {
                     return Integer.parseInt(result.toString());
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException e) { // NOPMD
                     // we've already ensured only digits, so unless something
                     // outlandishly large was specified we should be okay.
                 }
