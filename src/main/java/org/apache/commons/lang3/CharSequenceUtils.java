@@ -22,7 +22,7 @@ package org.apache.commons.lang3;
  *
  * @see java.lang.CharSequence
  * @since 3.0
- * @version $Id: StringUtils.java 1089734 2011-04-07 04:37:52Z bayard $
+ * @version $Id$
  */
 public class CharSequenceUtils {
 
