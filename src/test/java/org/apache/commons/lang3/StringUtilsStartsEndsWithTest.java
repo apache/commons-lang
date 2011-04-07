@@ -84,6 +84,19 @@ public class StringUtilsStartsEndsWithTest extends TestCase {
         assertFalse("startsWithIgnoreCase(FOOBAR, bar)", StringUtils.startsWithIgnoreCase(FOOBAR, bar));
     }
 
+    public void testStartsWithAny() {
+        assertFalse(StringUtils.startsWithAny(null, (String[])null));
+        assertFalse(StringUtils.startsWithAny(null, "abc"));
+        assertFalse(StringUtils.startsWithAny("abcxyz", (String[])null));
+        assertFalse(StringUtils.startsWithAny("abcxyz"));
+        assertTrue(StringUtils.startsWithAny("abcxyz", "abc"));
+        assertTrue(StringUtils.startsWithAny("abcxyz", null, "xyz", "abc"));
+        assertFalse(StringUtils.startsWithAny("abcxyz", null, "xyz", "abcd"));
+
+        assertTrue("StringUtils.startsWithAny(abcxyz, StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny("abcxyz", new StringBuilder("xyz"), new StringBuffer("abc")));
+        assertTrue("StringUtils.startsWithAny( StrBuilder(abcxyz), StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny( new StrBuilder("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")));
+    }
+ 
 
     /**
      * Test StringUtils.endsWith()
