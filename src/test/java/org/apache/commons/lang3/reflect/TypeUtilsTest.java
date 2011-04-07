@@ -258,7 +258,7 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 9, 8, false);
         list10 = list8;
         delegateBooleanAssertion(types, 8, 10, true);
-        list8 = list10;
+        list8 = (List<Object>[]) list10; // NOTE cast is required by Sun Jave, but not by Eclipse
         delegateBooleanAssertion(types, 10, 8, false);
         // list11 = list8;
         delegateBooleanAssertion(types, 8, 11, false);
