@@ -117,7 +117,7 @@ public class SerializationUtils {
                 if (out != null) {
                     out.close();
                 }
-            } catch (IOException ex) {
+            } catch (IOException ex) { // NOPMD
                 // ignore close exception
             }
         }
@@ -173,7 +173,7 @@ public class SerializationUtils {
                 if (in != null) {
                     in.close();
                 }
-            } catch (IOException ex) {
+            } catch (IOException ex) { // NOPMD
                 // ignore close exception
             }
         }

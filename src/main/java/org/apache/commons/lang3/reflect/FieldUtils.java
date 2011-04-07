@@ -106,7 +106,7 @@ public class FieldUtils {
                     }
                 }
                 return field;
-            } catch (NoSuchFieldException ex) {
+            } catch (NoSuchFieldException ex) { // NOPMD
                 // ignore
             }
         }
@@ -127,7 +127,7 @@ public class FieldUtils {
                                     + "; a matching field exists on two or more implemented interfaces.");
                 }
                 match = test;
-            } catch (NoSuchFieldException ex) {
+            } catch (NoSuchFieldException ex) { // NOPMD
                 // ignore
             }
         }
@@ -176,7 +176,8 @@ public class FieldUtils {
                 }
             }
             return field;
-        } catch (NoSuchFieldException e) {
+        } catch (NoSuchFieldException e) { // NOPMD
+            // ignore
         }
         return null;
     }

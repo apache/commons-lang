@@ -203,20 +203,20 @@ public class ExceptionUtils {
         Method method = null;
         try {
             method = throwable.getClass().getMethod(methodName, (Class[]) null);
-        } catch (NoSuchMethodException ignored) {
+        } catch (NoSuchMethodException ignored) { // NOPMD
             // exception ignored
-        } catch (SecurityException ignored) {
+        } catch (SecurityException ignored) { // NOPMD
             // exception ignored
         }
 
         if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
             try {
                 return (Throwable) method.invoke(throwable, ArrayUtils.EMPTY_OBJECT_ARRAY);
-            } catch (IllegalAccessException ignored) {
+            } catch (IllegalAccessException ignored) { // NOPMD
                 // exception ignored
-            } catch (IllegalArgumentException ignored) {
+            } catch (IllegalArgumentException ignored) { // NOPMD
                 // exception ignored
-            } catch (InvocationTargetException ignored) {
+            } catch (InvocationTargetException ignored) { // NOPMD
                 // exception ignored
             }
         }

@@ -465,7 +465,7 @@ public class MethodUtils {
                 try {
                     method = interfaces[i].getDeclaredMethod(methodName,
                             parameterTypes);
-                } catch (NoSuchMethodException e) {
+                } catch (NoSuchMethodException e) { // NOPMD
                     /*
                      * Swallow, if no method is found after the loop then this
                      * method returns null.
@@ -511,7 +511,7 @@ public class MethodUtils {
             Method method = cls.getMethod(methodName, parameterTypes);
             MemberUtils.setAccessibleWorkaround(method);
             return method;
-        } catch (NoSuchMethodException e) { /* SWALLOW */
+        } catch (NoSuchMethodException e) { /* SWALLOW - NOPMD */
         }
         // search through all methods
         Method bestMatch = null;
