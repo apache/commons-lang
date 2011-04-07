@@ -1894,7 +1894,7 @@ public class StringUtilsTest extends TestCase {
     // should take a String or String[] parameter and return String or String[].
     // This test enforces that this is done.
     public void testStringUtilsCharSequenceContract() {
-        Class c = StringUtils.class;
+        Class<StringUtils> c = StringUtils.class;
         Method[] methods = c.getMethods();
         for (int i=0; i<methods.length; i++) {
             Method m = methods[i];
@@ -1902,14 +1902,14 @@ public class StringUtilsTest extends TestCase {
                 // Assume this is mutable and ensure the first parameter is not CharSequence.
                 // It may be String or it may be something else (String[], Object, Object[]) so 
                 // don't actively test for that.
-                Class[] params = m.getParameterTypes();
+                Class<?>[] params = m.getParameterTypes();
                 if ( params.length > 0 && (params[0] == CharSequence.class || params[0] == CharSequence[].class)) {
                     fail("The method " + m + " appears to be mutable in spirit and therefore must not accept a CharSequence");
                 }
             } else {
                 // Assume this is immutable in spirit and ensure the first parameter is not String.
                 // As above, it may be something other than CharSequence.
-                Class[] params = m.getParameterTypes();
+                Class<?>[] params = m.getParameterTypes();
                 if ( params.length > 0 && (params[0] == String.class || params[0] == String[].class)) {
                     fail("The method " + m + " appears to be immutable in spirit and therefore must not accept a String");
                 }
