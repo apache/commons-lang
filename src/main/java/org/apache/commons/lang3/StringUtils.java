@@ -6489,8 +6489,12 @@ public class StringUtils {
         if (cs instanceof String) {
             return ((String) cs).toCharArray();
         } else {
-            // TODO: Implement rather than convert to String
-            return cs.toString().toCharArray();
+            int sz = cs.length();
+            char[] array = new char[cs.length()];
+            for (int i=0; i < sz; i++) {
+                array[i] = cs.charAt(i);
+            }
+            return array;
         }
     }
 
