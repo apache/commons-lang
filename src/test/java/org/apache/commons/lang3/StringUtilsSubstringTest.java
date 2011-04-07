@@ -17,7 +17,6 @@
 package org.apache.commons.lang3;
 
 import junit.framework.TestCase;
-import org.junit.Assert;
 
 /**
  * Unit tests {@link org.apache.commons.lang3.StringUtils} - Substring methods
