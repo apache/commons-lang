@@ -198,6 +198,13 @@ public class CharSetUtils {
         return buffer.toString();
     }
 
+    /** 
+     * Determines whether or not all the Strings in an array are 
+     * empty or not.
+     *
+     * @param strings String[] whose elements are being checked for emptiness
+     * @return whether or not the String is empty
+     */
     private static boolean deepEmpty(String[] strings) {
         if (strings != null) {
             for (String s : strings) {
