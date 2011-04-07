@@ -26,7 +26,6 @@ import java.util.Locale;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.commons.lang3.text.WordUtils;
 
 /**
@@ -1864,19 +1863,6 @@ public class StringUtilsTest extends TestCase {
         assertEquals("i am a ", StringUtils.getCommonPrefix("i am a machine", "i am a robot"));
     }
         
-    public void testStartsWithAny() {
-        assertFalse(StringUtils.startsWithAny(null, (String[])null));
-        assertFalse(StringUtils.startsWithAny(null, "abc"));
-        assertFalse(StringUtils.startsWithAny("abcxyz", (String[])null));
-        assertFalse(StringUtils.startsWithAny("abcxyz"));
-        assertTrue(StringUtils.startsWithAny("abcxyz", "abc"));
-        assertTrue(StringUtils.startsWithAny("abcxyz", null, "xyz", "abc"));
-        assertFalse(StringUtils.startsWithAny("abcxyz", null, "xyz", "abcd"));
-
-        assertTrue("StringUtils.startsWithAny(abcxyz, StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny("abcxyz", new StringBuilder("xyz"), new StringBuffer("abc")));
-        assertTrue("StringUtils.startsWithAny( StrBuilder(abcxyz), StringBuilder(xyz), StringBuffer(abc))", StringUtils.startsWithAny( new StrBuilder("abcxyz"), new StringBuilder("xyz"), new StringBuffer("abc")));
-    }
- 
     public void testNormalizeSpace() {
         assertEquals(null, StringUtils.normalizeSpace(null));
         assertEquals("", StringUtils.normalizeSpace(""));
