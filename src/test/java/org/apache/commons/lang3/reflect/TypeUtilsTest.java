@@ -125,7 +125,7 @@ public class TypeUtilsTest<B> {
                 List.class, List.class, List.class, List.class, List[].class, List[].class,
                 List[].class, List[].class, List[].class, List[].class, List[].class);
         Type[] types = method.getGenericParameterTypes();
-        list0 = list0;
+//        list0 = list0;
         delegateBooleanAssertion(types, 0, 0, true);
         list1 = list0;
         delegateBooleanAssertion(types, 0, 1, true);
@@ -151,7 +151,7 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 0, 6, true);
         list0 = list6;
         delegateBooleanAssertion(types, 6, 0, true);
-        list1 = list1;
+//        list1 = list1;
         delegateBooleanAssertion(types, 1, 1, true);
         list2 = list1;
         delegateBooleanAssertion(types, 1, 2, true);
@@ -173,7 +173,7 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 1, 6, true);
         list1 = (List<Object>) list6;
         delegateBooleanAssertion(types, 6, 1, false);
-        list2 = list2;
+//        list2 = list2;
         delegateBooleanAssertion(types, 2, 2, true);
         list2 = list3;
         delegateBooleanAssertion(types, 2, 3, false);
@@ -189,7 +189,7 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 5, 2, true);
         list5 = (List<? extends String>) list2;
         delegateBooleanAssertion(types, 2, 6, false);
-        list3 = list3;
+//        list3 = list3;
         delegateBooleanAssertion(types, 6, 2, true);
         list6 = (List<? super String>) list2;
         delegateBooleanAssertion(types, 3, 3, true);
@@ -205,7 +205,7 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 3, 6, true);
         list3 = (List<? super Object>) list6;
         delegateBooleanAssertion(types, 6, 3, false);
-        list4 = list4;
+//        list4 = list4;
         delegateBooleanAssertion(types, 4, 4, true);
         list5 = list4;
         delegateBooleanAssertion(types, 4, 5, true);
@@ -215,16 +215,16 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 4, 6, true);
         list4 = (List<String>) list6;
         delegateBooleanAssertion(types, 6, 4, false);
-        list5 = list5;
+//        list5 = list5;
         delegateBooleanAssertion(types, 5, 5, true);
         list6 = (List<? super String>) list5;
         delegateBooleanAssertion(types, 5, 6, false);
         list5 = (List<? extends String>) list6;
         delegateBooleanAssertion(types, 6, 5, false);
-        list6 = list6;
+//        list6 = list6;
         delegateBooleanAssertion(types, 6, 6, true);
 
-        list7 = list7;
+//        list7 = list7;
         delegateBooleanAssertion(types, 7, 7, true);
         list8 = list7;
         delegateBooleanAssertion(types, 7, 8, true);
@@ -250,7 +250,7 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 7, 13, true);
         list7 = list13;
         delegateBooleanAssertion(types, 13, 7, true);
-        list8 = list8;
+//        list8 = list8;
         delegateBooleanAssertion(types, 8, 8, true);
         list9 = list8;
         delegateBooleanAssertion(types, 8, 9, true);
@@ -258,7 +258,7 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 9, 8, false);
         list10 = list8;
         delegateBooleanAssertion(types, 8, 10, true);
-        list8 = (List<Object>[]) list10;
+        list8 = list10;
         delegateBooleanAssertion(types, 10, 8, false);
         // list11 = list8;
         delegateBooleanAssertion(types, 8, 11, false);
@@ -272,7 +272,7 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 8, 13, true);
         list8 = (List<Object>[]) list13;
         delegateBooleanAssertion(types, 13, 8, false);
-        list9 = list9;
+//        list9 = list9;
         delegateBooleanAssertion(types, 9, 9, true);
         list10 = (List<? super Object>[]) list9;
         delegateBooleanAssertion(types, 9, 10, false);
@@ -290,7 +290,7 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 9, 13, false);
         list9 = list13;
         delegateBooleanAssertion(types, 13, 9, true);
-        list10 = list10;
+//        list10 = list10;
         delegateBooleanAssertion(types, 10, 10, true);
         // list11 = list10;
         delegateBooleanAssertion(types, 10, 11, false);
@@ -304,7 +304,7 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 10, 13, true);
         list10 = (List<? super Object>[]) list13;
         delegateBooleanAssertion(types, 13, 10, false);
-        list11 = list11;
+//        list11 = list11;
         delegateBooleanAssertion(types, 11, 11, true);
         list12 = list11;
         delegateBooleanAssertion(types, 11, 12, true);
@@ -314,13 +314,13 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 11, 13, true);
         list11 = (List<String>[]) list13;
         delegateBooleanAssertion(types, 13, 11, false);
-        list12 = list12;
+//        list12 = list12;
         delegateBooleanAssertion(types, 12, 12, true);
         list13 = (List<? super String>[]) list12;
         delegateBooleanAssertion(types, 12, 13, false);
         list12 = (List<? extends String>[]) list13;
         delegateBooleanAssertion(types, 13, 12, false);
-        list13 = list13;
+//        list13 = list13;
         delegateBooleanAssertion(types, 13, 13, true);
         Type disType = getClass().getField("dis").getGenericType();
         // Reporter.log( ( ( ParameterizedType ) disType
