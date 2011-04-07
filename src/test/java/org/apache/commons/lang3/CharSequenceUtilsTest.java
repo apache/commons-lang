@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 /**
  * Tests CharSequenceUtils
  *
- * @author Gary Gregory
  * @version $Id: CharSequenceUtilsTest.java 1066341 2011-02-02 06:21:53Z bayard $
  */
 public class CharSequenceUtilsTest extends TestCase {
