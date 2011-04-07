@@ -6505,7 +6505,6 @@ public class StringUtils {
      * @param cs the {@code CharSequence} to be processed
      * @return the resulting char array
      */
-    //
     static char[] toCharArraySequence(CharSequence cs) {
         if (cs instanceof String) {
             return ((String) cs).toCharArray();
@@ -6519,6 +6518,17 @@ public class StringUtils {
         }
     }
 
+    /**
+     * Green implementation of regionMatches.
+     *
+     * @param cs the {@code CharSequence} to be processed
+     * @param ignoreCase whether or not to be case insensitive
+     * @param thisStart the index to start on the {@code cs} CharSequence
+     * @param substring the {@code CharSequence} to be looked for
+     * @param start the index to start on the {@code substring} CharSequence
+     * @param length character length of the region
+     * @return whether the region matched
+     */
     static boolean regionMatchesSequence(CharSequence cs, boolean ignoreCase, int thisStart, 
                                          CharSequence substring, int start, int length)
     {
