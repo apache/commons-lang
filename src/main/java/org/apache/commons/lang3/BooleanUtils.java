@@ -64,7 +64,7 @@ public class BooleanUtils {
         if (bool == null) {
             return null;
         }
-        return (bool.booleanValue() ? Boolean.FALSE : Boolean.TRUE);
+        return bool.booleanValue() ? Boolean.FALSE : Boolean.TRUE;
     }
     
     // boolean Boolean methods
@@ -84,10 +84,7 @@ public class BooleanUtils {
      * @since 2.1
      */
     public static boolean isTrue(Boolean bool) {
-        if (bool == null) {
-            return false;
-        }
-        return bool.booleanValue() ? true : false;
+        return Boolean.TRUE.equals(bool);
     }
 
     /**
@@ -123,10 +120,7 @@ public class BooleanUtils {
      * @since 2.1
      */
     public static boolean isFalse(Boolean bool) {
-        if (bool == null) {
-            return false;
-        }
-        return bool.booleanValue() ? false : true;
+        return Boolean.FALSE.equals(bool);
     }
 
     /**
@@ -162,10 +156,7 @@ public class BooleanUtils {
      * @return {@code true} or {@code false}, {@code null} returns {@code false}
      */
     public static boolean toBoolean(Boolean bool) {
-        if (bool == null) {
-            return false;
-        }
-        return bool.booleanValue() ? true : false;
+        return bool != null && bool.booleanValue();
     }
     
     /**
@@ -185,7 +176,7 @@ public class BooleanUtils {
         if (bool == null) {
             return valueIfNull;
         }
-        return bool.booleanValue() ? true : false;
+        return bool.booleanValue();
     }
     
     // Integer to Boolean methods
@@ -205,7 +196,7 @@ public class BooleanUtils {
      *  if zero
      */
     public static boolean toBoolean(int value) {
-        return value == 0 ? false : true;
+        return value != 0;
     }
     
     /**
@@ -270,7 +261,8 @@ public class BooleanUtils {
     public static boolean toBoolean(int value, int trueValue, int falseValue) {
         if (value == trueValue) {
             return true;
-        } else if (value == falseValue) {
+        }
+        if (value == falseValue) {
             return false;
         }
         // no match
@@ -298,7 +290,8 @@ public class BooleanUtils {
         if (value == null) {
             if (trueValue == null) {
                 return true;
-            } else if (falseValue == null) {
+            }
+            if (falseValue == null) {
                 return false;
             }
         } else if (value.equals(trueValue)) {
@@ -331,9 +324,11 @@ public class BooleanUtils {
     public static Boolean toBooleanObject(int value, int trueValue, int falseValue, int nullValue) {
         if (value == trueValue) {
             return Boolean.TRUE;
-        } else if (value == falseValue) {
+        }
+        if (value == falseValue) {
             return Boolean.FALSE;
-        } else if (value == nullValue) {
+        }
+        if (value == nullValue) {
             return null;
         }
         // no match
@@ -362,9 +357,11 @@ public class BooleanUtils {
         if (value == null) {
             if (trueValue == null) {
                 return Boolean.TRUE;
-            } else if (falseValue == null) {
+            }
+            if (falseValue == null) {
                 return Boolean.FALSE;
-            } else if (nullValue == null) {
+            }
+            if (nullValue == null) {
                 return null;
             }
         } else if (value.equals(trueValue)) {
@@ -649,9 +646,11 @@ public class BooleanUtils {
         if (str == null) {
             if (trueString == null) {
                 return Boolean.TRUE;
-            } else if (falseString == null) {
+            }
+            if (falseString == null) {
                 return Boolean.FALSE;
-            } else if (nullString == null) {
+            }
+            if (nullString == null) {
                 return null;
             }
         } else if (str.equals(trueString)) {
@@ -716,7 +715,8 @@ public class BooleanUtils {
         if (str == null) {
             if (trueString == null) {
                 return true;
-            } else if (falseString == null) {
+            }
+            if (falseString == null) {
                 return false;
             }
         } else if (str.equals(trueString)) {
@@ -890,7 +890,8 @@ public class BooleanUtils {
         // Validates input
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             throw new IllegalArgumentException("Array is empty");
         }
 
@@ -930,7 +931,8 @@ public class BooleanUtils {
     public static Boolean xor(Boolean... array) {
         if (array == null) {
             throw new IllegalArgumentException("The Array must not be null");
-        } else if (array.length == 0) {
+        }
+        if (array.length == 0) {
             throw new IllegalArgumentException("Array is empty");
         }
         boolean[] primitive = null;
