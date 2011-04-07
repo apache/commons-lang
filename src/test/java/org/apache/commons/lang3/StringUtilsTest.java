@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.CharBuffer;
 import java.util.Arrays;
@@ -1886,5 +1887,33 @@ public class StringUtilsTest extends TestCase {
     public void testLANG666() {
         assertEquals("12",StringUtils.stripEnd("120.00", ".0"));
         assertEquals("121",StringUtils.stripEnd("121.00", ".0"));
+    }
+
+    // Methods on StringUtils that are immutable in spirit (i.e. calculate the length) 
+    // should take a CharSequence parameter. Methods that are mutable in spirit (i.e. capitalize) 
+    // should take a String or String[] parameter and return String or String[].
+    // This test enforces that this is done.
+    public void testStringUtilsCharSequenceContract() {
+        Class c = StringUtils.class;
+        Method[] methods = c.getMethods();
+        for (int i=0; i<methods.length; i++) {
+            Method m = methods[i];
+            if (m.getReturnType() == String.class || m.getReturnType() == String[].class) {
+                // Assume this is mutable and ensure the first parameter is not CharSequence.
+                // It may be String or it may be something else (String[], Object, Object[]) so 
+                // don't actively test for that.
+                Class[] params = m.getParameterTypes();
+                if ( params.length > 0 && (params[0] == CharSequence.class || params[0] == CharSequence[].class)) {
+                    fail("The method " + m + " appears to be mutable in spirit and therefore must not accept a CharSequence");
+                }
+            } else {
+                // Assume this is immutable in spirit and ensure the first parameter is not String.
+                // As above, it may be something other than CharSequence.
+                Class[] params = m.getParameterTypes();
+                if ( params.length > 0 && (params[0] == String.class || params[0] == String[].class)) {
+                    fail("The method " + m + " appears to be immutable in spirit and therefore must not accept a String");
+                }
+            }
+        }
     }
 }
