@@ -72,11 +72,11 @@ public class CharSequenceUtils {
             return ((String) cs).indexOf(searchChar, start);
         } else {
             int sz = cs.length();
-            if ( start < 0 ) {
+            if (start < 0) {
                 start = 0;
             }
-            for ( int i=start; i < sz; i++ ) {
-                if ( cs.charAt(i) == searchChar) {
+            for (int i = start; i < sz; i++) {
+                if (cs.charAt(i) == searchChar) {
                     return i;
                 }
             }
@@ -97,7 +97,7 @@ public class CharSequenceUtils {
             // TODO: Do we assume searchChar is usually relatively small;
             //       If so then calling toString() on it is better than reverting to
             //       the green implementation in the else block
-            return ((String) cs).indexOf( (String) searchChar, start);
+            return ((String) cs).indexOf((String) searchChar, start);
         } else {
             // TODO: Implement rather than convert to String
             return cs.toString().indexOf(searchChar.toString(), start);
@@ -117,14 +117,14 @@ public class CharSequenceUtils {
             return ((String) cs).lastIndexOf(searchChar, start);
         } else {
             int sz = cs.length();
-            if ( start < 0 ) {
+            if (start < 0) {
                 return -1;
             }
-            if ( start >= sz ) {
+            if (start >= sz) {
                 start = sz - 1;
             }
-            for ( int i=start; i >= 0; --i ) {
-                if ( cs.charAt(i) == searchChar) {
+            for (int i = start; i >= 0; --i) {
+                if (cs.charAt(i) == searchChar) {
                     return i;
                 }
             }
@@ -145,7 +145,7 @@ public class CharSequenceUtils {
             // TODO: Do we assume searchChar is usually relatively small;
             //       If so then calling toString() on it is better than reverting to
             //       the green implementation in the else block
-            return ((String) cs).lastIndexOf( (String) searchChar, start);
+            return ((String) cs).lastIndexOf((String) searchChar, start);
         } else {
             // TODO: Implement rather than convert to String
             return cs.toString().lastIndexOf(searchChar.toString(), start);
@@ -164,7 +164,7 @@ public class CharSequenceUtils {
         } else {
             int sz = cs.length();
             char[] array = new char[cs.length()];
-            for (int i=0; i < sz; i++) {
+            for (int i = 0; i < sz; i++) {
                 array[i] = cs.charAt(i);
             }
             return array;
@@ -182,11 +182,10 @@ public class CharSequenceUtils {
      * @param length character length of the region
      * @return whether the region matched
      */
-    static boolean regionMatches(CharSequence cs, boolean ignoreCase, int thisStart, 
-                                         CharSequence substring, int start, int length)
-    {
+    static boolean regionMatches(CharSequence cs, boolean ignoreCase, int thisStart,
+            CharSequence substring, int start, int length)    {
         if (cs instanceof String && substring instanceof String) {
-            return ((String) cs).regionMatches(ignoreCase, thisStart, ((String)substring), start, length);
+            return ((String) cs).regionMatches(ignoreCase, thisStart, ((String) substring), start, length);
         } else {
             // TODO: Implement rather than convert to String
             return cs.toString().regionMatches(ignoreCase, thisStart, substring.toString(), start, length);
