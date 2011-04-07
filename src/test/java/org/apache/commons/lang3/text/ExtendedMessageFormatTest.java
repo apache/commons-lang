@@ -133,7 +133,7 @@ public class ExtendedMessageFormatTest extends TestCase {
 //    /**
 //     * Test extended formats with choice format.
 //     *
-//     * N.B. FAILING - currently sub-formats not supported
+//     * NOTE: FAILING - currently sub-formats not supported
 //     */
 //    public void testExtendedWithChoiceFormat() {
 //        String pattern = "Choice: {0,choice,1.0#{1,lower}|2.0#{1,upper}}";
@@ -150,7 +150,7 @@ public class ExtendedMessageFormatTest extends TestCase {
 //    /**
 //     * Test mixed extended and built-in formats with choice format.
 //     *
-//     * N.B. FAILING - currently sub-formats not supported
+//     * NOTE: FAILING - currently sub-formats not supported
 //     */
 //    public void testExtendedAndBuiltInWithChoiceFormat() {
 //        String pattern = "Choice: {0,choice,1.0#{0} {1,lower} {2,number}|2.0#{0} {1,upper} {2,number,currency}}";
