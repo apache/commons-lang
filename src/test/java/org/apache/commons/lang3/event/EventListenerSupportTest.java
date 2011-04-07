@@ -187,6 +187,7 @@ public class EventListenerSupportTest extends TestCase
         @SuppressWarnings("serial")
         EventListenerSupport<VetoableChangeListener> eventListenerSupport = new EventListenerSupport<VetoableChangeListener>(
                 VetoableChangeListener.class) {
+            @Override
             protected java.lang.reflect.InvocationHandler createInvocationHandler() {
                 return new ProxyInvocationHandler() {
                     /**
@@ -200,7 +201,7 @@ public class EventListenerSupportTest extends TestCase
                                 : super.invoke(proxy, method, args);
                     }
                 };
-            };
+            }
         };
 
         VetoableChangeListener listener = EasyMock.createNiceMock(VetoableChangeListener.class);
