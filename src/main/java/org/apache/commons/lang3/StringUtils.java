@@ -634,8 +634,8 @@ public class StringUtils {
             } else if (sunAvailable) {
                 result = removeAccentsSUN(input);
             } else {
-                throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least "
-                        + "Java 1.6 or a Sun JVM");
+                throw new UnsupportedOperationException(
+                    "The stripAccents(CharSequence) method requires at least Java 1.6 or a Sun JVM");
             }
             // Note that none of the above methods correctly remove ligatures...
             return result;
