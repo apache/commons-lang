@@ -634,7 +634,8 @@ public class StringUtils {
             } else if (sunAvailable) {
                 result = removeAccentsSUN(input);
             } else {
-                throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least Java 1.6 or a Sun JVM");
+                throw new UnsupportedOperationException("The stripAccents(CharSequence) method requires at least "
+                        + "Java 1.6 or a Sun JVM");
             }
             // Note that none of the above methods correctly remove ligatures...
             return result;
@@ -652,9 +653,15 @@ public class StringUtils {
     /**
      * Use {@code java.text.Normalizer#normalize(CharSequence, Normalizer.Form)}
      * (but be careful, this classe exists in Java 1.3, with an entirely different meaning!)
-     * @param text
+     *
+     * @param text the text to be processed
+     * @return the processed string
+     * @throws IllegalAccessException may be thrown by a reflection call
+     * @throws InvocationTargetException if a reflection call throws an exception
+     * @throws IllegalStateException if the {@code Normalizer} class is not available
      */
-    private static String removeAccentsJava6(CharSequence text) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    private static String removeAccentsJava6(CharSequence text)
+        throws IllegalAccessException, InvocationTargetException {
         /*
         String decomposed = java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
         return java6Pattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
@@ -670,8 +677,15 @@ public class StringUtils {
 
     /**
      * Use {@code sun.text.Normalizer#decompose(String, boolean, int)}
+     *
+     * @param text the text to be processed
+     * @return the processed string
+     * @throws IllegalAccessException may be thrown by a reflection call
+     * @throws InvocationTargetException if a reflection call throws an exception
+     * @throws IllegalStateException if the {@code Normalizer} class is not available
      */
-    private static String removeAccentsSUN(CharSequence text) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    private static String removeAccentsSUN(CharSequence text)
+        throws IllegalAccessException, InvocationTargetException {
         /*
         String decomposed = sun.text.Normalizer.decompose(text, false, 0);
         return sunPattern.matcher(decomposed).replaceAll("");//$NON-NLS-1$
@@ -699,10 +713,13 @@ public class StringUtils {
         try {
             // java.text.Normalizer.normalize(CharSequence, Normalizer.Form.NFD);
             // Be careful not to get Java 1.3 java.text.Normalizer!
-            Class<?> normalizerFormClass = Thread.currentThread().getContextClassLoader().loadClass("java.text.Normalizer$Form");//$NON-NLS-1$
+            Class<?> normalizerFormClass = Thread.currentThread().getContextClassLoader()
+                .loadClass("java.text.Normalizer$Form");//$NON-NLS-1$
             java6NormalizerFormNFD = normalizerFormClass.getField("NFD").get(null);//$NON-NLS-1$
-            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader().loadClass("java.text.Normalizer");//$NON-NLS-1$
-            java6NormalizeMethod = normalizerClass.getMethod("normalize", new Class[] {CharSequence.class, normalizerFormClass});//$NON-NLS-1$
+            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
+                .loadClass("java.text.Normalizer");//$NON-NLS-1$
+            java6NormalizeMethod = normalizerClass.getMethod("normalize",
+                    new Class[] {CharSequence.class, normalizerFormClass});//$NON-NLS-1$
             java6Available = true;
         } catch (ClassNotFoundException e) {
             java6Available = false;
@@ -716,8 +733,10 @@ public class StringUtils {
 
         try {
             // sun.text.Normalizer.decompose(text, false, 0);
-            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader().loadClass("sun.text.Normalizer");//$NON-NLS-1$
-            sunDecomposeMethod = normalizerClass.getMethod("decompose", new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
+            Class<?> normalizerClass = Thread.currentThread().getContextClassLoader()
+                .loadClass("sun.text.Normalizer");//$NON-NLS-1$
+            sunDecomposeMethod = normalizerClass.getMethod("decompose",
+                    new Class[] {String.class, Boolean.TYPE, Integer.TYPE});//$NON-NLS-1$
             sunAvailable = true;
         } catch (ClassNotFoundException e) {
             sunAvailable = false;
@@ -5824,7 +5843,8 @@ public class StringUtils {
      * @param cs2  the second CharSequence, may be null
      * @return the index where cs1 and cs2 begin to differ; -1 if they are equal
      * @since 2.0
-     * @since 3.0 Changed signature from indexOfDifference(String, String) to indexOfDifference(CharSequence, CharSequence)
+     * @since 3.0 Changed signature from indexOfDifference(String, String) to
+     * indexOfDifference(CharSequence, CharSequence)
      */
     public static int indexOfDifference(CharSequence cs1, CharSequence cs2) {
         if (cs1 == cs2) {
@@ -6023,7 +6043,8 @@ public class StringUtils {
      * @param t  the second String, must not be null
      * @return result distance
      * @throws IllegalArgumentException if either String input {@code null}
-     * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to getLevenshteinDistance(CharSequence, CharSequence)
+     * @since 3.0 Changed signature from getLevenshteinDistance(String, String) to
+     * getLevenshteinDistance(CharSequence, CharSequence)
      */
     public static int getLevenshteinDistance(CharSequence s, CharSequence t) {
         if (s == null || t == null) {
@@ -6367,7 +6388,7 @@ public class StringUtils {
     /**
      * <p>Returns a new {@code CharSequence} that is a subsequence of this
      * sequence starting with the {@code char} value at the specified index.</p>
-     * 
+     *
      * <p>This provides the {@code CharSequence} equivalent to {@link String#substring(int)}.
      * The length (in {@code char}) of the returned sequence is {@code length() - start},
      * so if {@code start == end} then an empty sequence is returned.</p>
