@@ -754,7 +754,7 @@ public class StringUtils {
     }
 
     /**
-     * <p>Compares two Strings, returning {@code true} if they are equal ignoring
+     * <p>Compares two CharSequences, returning {@code true} if they are equal ignoring
      * the case.</p>
      *
      * <p>{@code null}s are handled without exceptions. Two {@code null}
@@ -768,14 +768,17 @@ public class StringUtils {
      * StringUtils.equalsIgnoreCase("abc", "ABC") = true
      * </pre>
      *
-     * @see java.lang.String#equalsIgnoreCase(String)
-     * @param str1  the first String, may be null
-     * @param str2  the second String, may be null
-     * @return {@code true} if the Strings are equal, case insensitive, or
+     * @param str1  the first CharSequence, may be null
+     * @param str2  the second CharSequence, may be null
+     * @return {@code true} if the CharSequence are equal, case insensitive, or
      *  both {@code null}
      */
-    public static boolean equalsIgnoreCase(String str1, String str2) {
-        return str1 == null ? str2 == null : str1.equalsIgnoreCase(str2);
+    public static boolean equalsIgnoreCase(CharSequence str1, CharSequence str2) {
+        if (str1 == null || str2 == null) {
+            return str1 == str2;
+        } else {
+            return regionMatchesSequence(str1, true, 0, str2, 0, Math.max(str1.length(), str2.length()));
+        }
     }
 
     // IndexOf
@@ -982,13 +985,13 @@ public class StringUtils {
     }
 
     /**
-     * <p>Case in-sensitive find of the first index within a String.</p>
+     * <p>Case in-sensitive find of the first index within a CharSequence.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.
+     * <p>A {@code null} CharSequence will return {@code -1}.
      * A negative start position is treated as zero.
-     * An empty ("") search String always matches.
+     * An empty ("") search CharSequence always matches.
      * A start position greater than the string length only matches
-     * an empty search String.</p>
+     * an empty search CharSequence.</p>
      *
      * <pre>
      * StringUtils.indexOfIgnoreCase(null, *)          = -1
@@ -999,25 +1002,25 @@ public class StringUtils {
      * StringUtils.indexOfIgnoreCase("aabaabaa", "ab") = 1
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
-     * @return the first index of the search String,
+     * @param str  the CharSequence to check, may be null
+     * @param searchStr  the CharSequence to find, may be null
+     * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.5
      */
-    public static int indexOfIgnoreCase(String str, String searchStr) {
+    public static int indexOfIgnoreCase(CharSequence str, CharSequence searchStr) {
         return indexOfIgnoreCase(str, searchStr, 0);
     }
 
     /**
-     * <p>Case in-sensitive find of the first index within a String
+     * <p>Case in-sensitive find of the first index within a CharSequence
      * from the specified position.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.
+     * <p>A {@code null} CharSequence will return {@code -1}.
      * A negative start position is treated as zero.
-     * An empty ("") search String always matches.
+     * An empty ("") search CharSequence always matches.
      * A start position greater than the string length only matches
-     * an empty search String.</p>
+     * an empty search CharSequence.</p>
      *
      * <pre>
      * StringUtils.indexOfIgnoreCase(null, *, *)          = -1
@@ -1033,14 +1036,14 @@ public class StringUtils {
      * StringUtils.indexOfIgnoreCase("abc", "", 9)        = 3
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
+     * @param str  the CharSequence to check, may be null
+     * @param searchStr  the CharSequence to find, may be null
      * @param startPos  the start position, negative treated as zero
-     * @return the first index of the search String,
+     * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.5
      */
-    public static int indexOfIgnoreCase(String str, String searchStr, int startPos) {
+    public static int indexOfIgnoreCase(CharSequence str, CharSequence searchStr, int startPos) {
         if (str == null || searchStr == null) {
             return INDEX_NOT_FOUND;
         }
@@ -1055,7 +1058,7 @@ public class StringUtils {
             return startPos;
         }
         for (int i = startPos; i < endLimit; i++) {
-            if (str.regionMatches(true, i, searchStr, 0, searchStr.length())) {
+            if (regionMatchesSequence(str, true, i, searchStr, 0, searchStr.length())) {
                 return i;
             }
         }
@@ -1226,11 +1229,11 @@ public class StringUtils {
     }
 
     /**
-     * <p>Case in-sensitive find of the last index within a String.</p>
+     * <p>Case in-sensitive find of the last index within a CharSequence.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.
+     * <p>A {@code null} CharSequence will return {@code -1}.
      * A negative start position returns {@code -1}.
-     * An empty ("") search String always matches unless the start position is negative.
+     * An empty ("") search CharSequence always matches unless the start position is negative.
      * A start position greater than the string length searches the whole string.</p>
      *
      * <pre>
@@ -1241,13 +1244,13 @@ public class StringUtils {
      * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "AB") = 4
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
-     * @return the first index of the search String,
+     * @param str  the CharSequence to check, may be null
+     * @param searchStr  the CharSequence to find, may be null
+     * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.5
      */
-    public static int lastIndexOfIgnoreCase(String str, String searchStr) {
+    public static int lastIndexOfIgnoreCase(CharSequence str, CharSequence searchStr) {
         if (str == null || searchStr == null) {
             return INDEX_NOT_FOUND;
         }
@@ -1255,12 +1258,12 @@ public class StringUtils {
     }
 
     /**
-     * <p>Case in-sensitive find of the last index within a String
+     * <p>Case in-sensitive find of the last index within a CharSequence
      * from the specified position.</p>
      *
-     * <p>A {@code null} String will return {@code -1}.
+     * <p>A {@code null} CharSequence will return {@code -1}.
      * A negative start position returns {@code -1}.
-     * An empty ("") search String always matches unless the start position is negative.
+     * An empty ("") search CharSequence always matches unless the start position is negative.
      * A start position greater than the string length searches the whole string.</p>
      *
      * <pre>
@@ -1275,14 +1278,14 @@ public class StringUtils {
      * StringUtils.lastIndexOfIgnoreCase("aabaabaa", "B", 0)  = -1
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
+     * @param str  the CharSequence to check, may be null
+     * @param searchStr  the CharSequence to find, may be null
      * @param startPos  the start position
-     * @return the first index of the search String,
-     *  -1 if no match or {@code null} string input
+     * @return the first index of the search CharSequence,
+     *  -1 if no match or {@code null} input
      * @since 2.5
      */
-    public static int lastIndexOfIgnoreCase(String str, String searchStr, int startPos) {
+    public static int lastIndexOfIgnoreCase(CharSequence str, CharSequence searchStr, int startPos) {
         if (str == null || searchStr == null) {
             return INDEX_NOT_FOUND;
         }
@@ -1297,7 +1300,7 @@ public class StringUtils {
         }
 
         for (int i = startPos; i >= 0; i--) {
-            if (str.regionMatches(true, i, searchStr, 0, searchStr.length())) {
+            if (regionMatchesSequence(str, true, i, searchStr, 0, searchStr.length())) {
                 return i;
             }
         }
@@ -1361,11 +1364,11 @@ public class StringUtils {
     }
 
     /**
-     * <p>Checks if String contains a search String irrespective of case,
+     * <p>Checks if CharSequence contains a search CharSequence irrespective of case,
      * handling {@code null}. Case-insensitivity is defined as by
      * {@link String#equalsIgnoreCase(String)}.
      *
-     * <p>A {@code null} String will return {@code false}.</p>
+     * <p>A {@code null} CharSequence will return {@code false}.</p>
      *
      * <pre>
      * StringUtils.contains(null, *) = false
@@ -1378,19 +1381,19 @@ public class StringUtils {
      * StringUtils.contains("abc", "Z") = false
      * </pre>
      *
-     * @param str  the String to check, may be null
-     * @param searchStr  the String to find, may be null
-     * @return true if the String contains the search String irrespective of
+     * @param str  the CharSequence to check, may be null
+     * @param searchStr  the CharSequence to find, may be null
+     * @return true if the CharSequence contains the search CharSequence irrespective of
      * case or false if not or {@code null} string input
      */
-    public static boolean containsIgnoreCase(String str, String searchStr) {
+    public static boolean containsIgnoreCase(CharSequence str, CharSequence searchStr) {
         if (str == null || searchStr == null) {
             return false;
         }
         int len = searchStr.length();
         int max = str.length() - len;
         for (int i = 0; i <= max; i++) {
-            if (str.regionMatches(true, i, searchStr, 0, len)) {
+            if (regionMatchesSequence(str, true, i, searchStr, 0, len)) {
                 return true;
             }
         }
