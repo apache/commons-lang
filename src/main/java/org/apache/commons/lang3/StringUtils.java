@@ -796,7 +796,7 @@ public class StringUtils {
         if (str1 == null || str2 == null) {
             return str1 == str2;
         } else {
-            return regionMatchesSequence(str1, true, 0, str2, 0, Math.max(str1.length(), str2.length()));
+            return CharSequenceUtils.regionMatches(str1, true, 0, str2, 0, Math.max(str1.length(), str2.length()));
         }
     }
 
@@ -825,7 +825,7 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.indexOfSequence(seq, searchChar, 0);
+        return CharSequenceUtils.indexOf(seq, searchChar, 0);
     }
 
     /**
@@ -857,7 +857,7 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.indexOfSequence(seq, searchChar, startPos);
+        return CharSequenceUtils.indexOf(seq, searchChar, startPos);
     }
 
     /**
@@ -887,7 +887,7 @@ public class StringUtils {
         if (seq == null || searchSeq == null) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.indexOfSequence(seq, searchSeq, 0);
+        return CharSequenceUtils.indexOf(seq, searchSeq, 0);
     }
 
     /**
@@ -926,7 +926,7 @@ public class StringUtils {
         if (seq == null || searchSeq == null) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.indexOfSequence(seq, searchSeq, startPos);
+        return CharSequenceUtils.indexOf(seq, searchSeq, startPos);
     }
 
     /**
@@ -991,9 +991,9 @@ public class StringUtils {
         int index = lastIndex ? str.length() : INDEX_NOT_FOUND;
         do {
             if (lastIndex) {
-                index = lastIndexOfSequence(str, searchStr, index - 1);
+                index = CharSequenceUtils.lastIndexOf(str, searchStr, index - 1);
             } else {
-                index = indexOfSequence(str, searchStr, index + 1);
+                index = CharSequenceUtils.indexOf(str, searchStr, index + 1);
             }
             if (index < 0) {
                 return index;
@@ -1077,7 +1077,7 @@ public class StringUtils {
             return startPos;
         }
         for (int i = startPos; i < endLimit; i++) {
-            if (regionMatchesSequence(str, true, i, searchStr, 0, searchStr.length())) {
+            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStr.length())) {
                 return i;
             }
         }
@@ -1109,7 +1109,7 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.lastIndexOfSequence(seq, searchChar, seq.length());
+        return CharSequenceUtils.lastIndexOf(seq, searchChar, seq.length());
     }
 
     /**
@@ -1143,7 +1143,7 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.lastIndexOfSequence(seq, searchChar, startPos);
+        return CharSequenceUtils.lastIndexOf(seq, searchChar, startPos);
     }
 
     /**
@@ -1172,7 +1172,7 @@ public class StringUtils {
         if (seq == null || searchSeq == null) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.lastIndexOfSequence(seq, searchSeq, seq.length());
+        return CharSequenceUtils.lastIndexOf(seq, searchSeq, seq.length());
     }
 
     /**
@@ -1244,7 +1244,7 @@ public class StringUtils {
         if (seq == null || searchSeq == null) {
             return INDEX_NOT_FOUND;
         }
-        return StringUtils.lastIndexOfSequence(seq, searchSeq, startPos);
+        return CharSequenceUtils.lastIndexOf(seq, searchSeq, startPos);
     }
 
     /**
@@ -1319,7 +1319,7 @@ public class StringUtils {
         }
 
         for (int i = startPos; i >= 0; i--) {
-            if (regionMatchesSequence(str, true, i, searchStr, 0, searchStr.length())) {
+            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, searchStr.length())) {
                 return i;
             }
         }
@@ -1351,7 +1351,7 @@ public class StringUtils {
         if (isEmpty(seq)) {
             return false;
         }
-        return indexOfSequence(seq, searchChar, 0) >= 0;
+        return CharSequenceUtils.indexOf(seq, searchChar, 0) >= 0;
     }
 
     /**
@@ -1379,7 +1379,7 @@ public class StringUtils {
         if (seq == null || searchSeq == null) {
             return false;
         }
-        return indexOfSequence(seq, searchSeq, 0) >= 0;
+        return CharSequenceUtils.indexOf(seq, searchSeq, 0) >= 0;
     }
 
     /**
@@ -1412,7 +1412,7 @@ public class StringUtils {
         int len = searchStr.length();
         int max = str.length() - len;
         for (int i = 0; i <= max; i++) {
-            if (regionMatchesSequence(str, true, i, searchStr, 0, len)) {
+            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, len)) {
                 return true;
             }
         }
@@ -1610,7 +1610,7 @@ public class StringUtils {
         if (searchChars == null) {
             return false;
         }
-        return containsAny(cs, toCharArraySequence(searchChars));
+        return containsAny(cs, CharSequenceUtils.toCharArray(searchChars));
     }
 
     // IndexOfAnyBut chars
@@ -1695,10 +1695,10 @@ public class StringUtils {
         int strLen = seq.length();
         for (int i = 0; i < strLen; i++) {
             char ch = seq.charAt(i);
-            boolean chFound = indexOfSequence(searchChars, ch, 0) >= 0;
+            boolean chFound = CharSequenceUtils.indexOf(searchChars, ch, 0) >= 0;
             if (i + 1 < strLen && Character.isHighSurrogate(ch)) {
                 char ch2 = seq.charAt(i + 1);
-                if (chFound && indexOfSequence(searchChars, ch2, 0) < 0) {
+                if (chFound && CharSequenceUtils.indexOf(searchChars, ch2, 0) < 0) {
                     return i;
                 }
             } else {
@@ -1906,7 +1906,7 @@ public class StringUtils {
             if (search == null) {
                 continue;
             }
-            tmp = indexOfSequence(str, search, 0);
+            tmp = CharSequenceUtils.indexOf(str, search, 0);
             if (tmp == INDEX_NOT_FOUND) {
                 continue;
             }
@@ -1956,7 +1956,7 @@ public class StringUtils {
             if (search == null) {
                 continue;
             }
-            tmp = lastIndexOfSequence(str, search, str.length());
+            tmp = CharSequenceUtils.lastIndexOf(str, search, str.length());
             if (tmp > ret) {
                 ret = tmp;
             }
@@ -5133,7 +5133,7 @@ public class StringUtils {
         }
         int count = 0;
         int idx = 0;
-        while ((idx = indexOfSequence(str, sub, idx)) != INDEX_NOT_FOUND) {
+        while ((idx = CharSequenceUtils.indexOf(str, sub, idx)) != INDEX_NOT_FOUND) {
             count++;
             idx += sub.length();
         }
@@ -6194,7 +6194,7 @@ public class StringUtils {
         if (prefix.length() > str.length()) {
             return false;
         }
-        return regionMatchesSequence(str, ignoreCase, 0, prefix, 0, prefix.length());
+        return CharSequenceUtils.regionMatches(str, ignoreCase, 0, prefix, 0, prefix.length());
     }
 
     /**
@@ -6302,7 +6302,7 @@ public class StringUtils {
             return false;
         }
         int strOffset = str.length() - suffix.length();
-        return regionMatchesSequence(str, ignoreCase, strOffset, suffix, 0, suffix.length());
+        return CharSequenceUtils.regionMatches(str, ignoreCase, strOffset, suffix, 0, suffix.length());
     }
 
     /**
@@ -6382,162 +6382,6 @@ public class StringUtils {
             }
         }
         return false;
-    }
-
-    //-----------------------------------------------------------------------
-    /**
-     * <p>Returns a new {@code CharSequence} that is a subsequence of this
-     * sequence starting with the {@code char} value at the specified index.</p>
-     *
-     * <p>This provides the {@code CharSequence} equivalent to {@link String#substring(int)}.
-     * The length (in {@code char}) of the returned sequence is {@code length() - start},
-     * so if {@code start == end} then an empty sequence is returned.</p>
-     *
-     * @param cs  the specified subsequence, null returns null
-     * @param start  the start index, inclusive, valid
-     * @return a new subsequence, may be null
-     * @throws IndexOutOfBoundsException if {@code start} is negative or if 
-     *  {@code start} is greater than {@code length()}
-     */
-    public static CharSequence subSequence(CharSequence cs, int start) {
-        return cs == null ? null : cs.subSequence(start, cs.length());
-    }
-
-    //-----------------------------------------------------------------------
-
-    /**
-     * Used by the indexOf(CharSequence methods) as a green implementation of
-     * indexOf.
-     *
-     * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the char to be searched for
-     * @param start the start index
-     * @return the index where the search char was found
-     */
-    static int indexOfSequence(CharSequence cs, int searchChar, int start) {
-        if (cs instanceof String) {
-            return ((String) cs).indexOf(searchChar, start);
-        } else {
-            int sz = cs.length();
-            if ( start < 0 ) {
-                start = 0;
-            }
-            for ( int i=start; i < sz; i++ ) {
-                if ( cs.charAt(i) == searchChar) {
-                    return i;
-                }
-            }
-            return -1;
-        }
-    }
-
-    /**
-     * Used by the indexOf(CharSequence methods) as a green implementation of indexOf.
-     *
-     * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the {@code CharSequence} to be searched for
-     * @param start the start index
-     * @return the index where the search sequence was found
-     */
-    static int indexOfSequence(CharSequence cs, CharSequence searchChar, int start) {
-        if (cs instanceof String && searchChar instanceof String) {
-            // TODO: Do we assume searchChar is usually relatively small;
-            //       If so then calling toString() on it is better than reverting to
-            //       the green implementation in the else block
-            return ((String) cs).indexOf( (String) searchChar, start);
-        } else {
-            // TODO: Implement rather than convert to String
-            return cs.toString().indexOf(searchChar.toString(), start);
-        }
-    }
-
-    /**
-     * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
-     *
-     * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the char to be searched for
-     * @param start the start index
-     * @return the index where the search char was found
-     */
-    static int lastIndexOfSequence(CharSequence cs, int searchChar, int start) {
-        if (cs instanceof String) {
-            return ((String) cs).lastIndexOf(searchChar, start);
-        } else {
-            int sz = cs.length();
-            if ( start < 0 ) {
-                return -1;
-            }
-            if ( start >= sz ) {
-                start = sz - 1;
-            }
-            for ( int i=start; i >= 0; --i ) {
-                if ( cs.charAt(i) == searchChar) {
-                    return i;
-                }
-            }
-            return -1;
-        }
-    }
-
-    /**
-     * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
-     *
-     * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the {@code CharSequence} to be searched for
-     * @param start the start index
-     * @return the index where the search sequence was found
-     */
-    static int lastIndexOfSequence(CharSequence cs, CharSequence searchChar, int start) {
-        if (cs instanceof String && searchChar instanceof String) {
-            // TODO: Do we assume searchChar is usually relatively small;
-            //       If so then calling toString() on it is better than reverting to
-            //       the green implementation in the else block
-            return ((String) cs).lastIndexOf( (String) searchChar, start);
-        } else {
-            // TODO: Implement rather than convert to String
-            return cs.toString().lastIndexOf(searchChar.toString(), start);
-        }
-    }
-
-    /**
-     * Green implementation of toCharArray.
-     *
-     * @param cs the {@code CharSequence} to be processed
-     * @return the resulting char array
-     */
-    static char[] toCharArraySequence(CharSequence cs) {
-        if (cs instanceof String) {
-            return ((String) cs).toCharArray();
-        } else {
-            int sz = cs.length();
-            char[] array = new char[cs.length()];
-            for (int i=0; i < sz; i++) {
-                array[i] = cs.charAt(i);
-            }
-            return array;
-        }
-    }
-
-    /**
-     * Green implementation of regionMatches.
-     *
-     * @param cs the {@code CharSequence} to be processed
-     * @param ignoreCase whether or not to be case insensitive
-     * @param thisStart the index to start on the {@code cs} CharSequence
-     * @param substring the {@code CharSequence} to be looked for
-     * @param start the index to start on the {@code substring} CharSequence
-     * @param length character length of the region
-     * @return whether the region matched
-     */
-    static boolean regionMatchesSequence(CharSequence cs, boolean ignoreCase, int thisStart, 
-                                         CharSequence substring, int start, int length)
-    {
-        if (cs instanceof String && substring instanceof String) {
-            return ((String) cs).regionMatches(ignoreCase, thisStart, ((String)substring), start, length);
-        } else {
-            // TODO: Implement rather than convert to String
-            return cs.toString().regionMatches(ignoreCase, thisStart, substring.toString(), start, length);
-        }
     }
 
 }
