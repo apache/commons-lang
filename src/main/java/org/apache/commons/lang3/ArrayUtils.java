@@ -136,7 +136,7 @@ public class ArrayUtils {
     }
 
 
-    // N.B. Cannot use {@code} to enclose text which includes {}, but <code></code> is OK
+    // NOTE: Cannot use {@code} to enclose text which includes {}, but <code></code> is OK
 
 
     // Basic methods handling multi-dimensional arrays

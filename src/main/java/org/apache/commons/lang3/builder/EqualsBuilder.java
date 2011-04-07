@@ -92,7 +92,7 @@ public class EqualsBuilder implements Builder<Boolean> {
     private static final ThreadLocal<Set<Pair<IDKey, IDKey>>> REGISTRY = new ThreadLocal<Set<Pair<IDKey, IDKey>>>();
 
     /*
-     * N.B. we cannot store the actual objects in a HashSet, as that would use the very hashCode()
+     * NOTE: we cannot store the actual objects in a HashSet, as that would use the very hashCode()
      * we are in the process of calculating.
      *
      * So we generate a one-to-one mapping from the original object to a new object.
