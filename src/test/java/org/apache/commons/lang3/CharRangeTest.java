@@ -37,7 +37,8 @@ public class CharRangeTest extends TestCase {
 
     //-----------------------------------------------------------------------
     public void testClass() {
-        assertEquals(true, Modifier.isPublic(CharRange.class.getModifiers()));
+        // class changed to non-public in 3.0
+        assertEquals(false, Modifier.isPublic(CharRange.class.getModifiers()));
         assertEquals(true, Modifier.isFinal(CharRange.class.getModifiers()));
     }
 

@@ -29,7 +29,9 @@ import java.util.NoSuchElementException;
  * @since 1.0
  * @version $Id$
  */
-public final class CharRange implements Iterable<Character>, Serializable {
+// TODO: This is no longer public and will be removed later as CharSet is moved 
+// to depend on Range.
+final class CharRange implements Iterable<Character>, Serializable {
 
     /**
      * Required for serialization support. Lang version 2.0. 
