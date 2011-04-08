@@ -19,6 +19,8 @@ package org.apache.commons.lang3.text.translate;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang3.Range;
+
 /**
  * Unit tests for {@link org.apache.commons.lang3.text.translate.NumericEntityEscaper}.
  * @version $Id$
@@ -26,7 +28,7 @@ import junit.framework.TestCase;
 public class NumericEntityEscaperTest extends TestCase {
 
     public void testBelow() {
-        NumericEntityEscaper nee = NumericEntityEscaper.below('F');
+        NumericEntityEscaper nee = new NumericEntityEscaper(Range.between(0, (int)'E'));
 
         String input = "ADFGZ";
         String result = nee.translate(input);
@@ -34,7 +36,7 @@ public class NumericEntityEscaperTest extends TestCase {
     }
 
     public void testBetween() {
-        NumericEntityEscaper nee = NumericEntityEscaper.between('F', 'L');
+        NumericEntityEscaper nee = new NumericEntityEscaper(Range.between((int)'F', (int)'L'));
 
         String input = "ADFGZ";
         String result = nee.translate(input);
@@ -42,7 +44,7 @@ public class NumericEntityEscaperTest extends TestCase {
     }
 
     public void testAbove() {
-        NumericEntityEscaper nee = NumericEntityEscaper.above('F');
+        NumericEntityEscaper nee = new NumericEntityEscaper(Range.between((int)'G', Integer.MAX_VALUE));
 
         String input = "ADFGZ";
         String result = nee.translate(input);
