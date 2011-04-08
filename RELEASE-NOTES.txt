@@ -82,6 +82,7 @@ IMPROVEMENTS IN 3.0
     [LANG-504] bring ArrayUtils.isEmpty to the generics world.
     [LANG-505] Rewrite StringEscapeUtils.
     [LANG-507] StringEscapeUtils.unescapeJava should support \u+ notation.
+    [LANG-510] Convert StringUtils API to take CharSequence.
     [LANG-513] Better EnumUtils.
     [LANG-528] Mutable classes should implement an appropriately typed Mutable interface.
     [LANG-539] Compile commons.lang for CDC 1.1/Foundation 1.1.
