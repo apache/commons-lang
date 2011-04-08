@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">
+    <action type="update" issues="LANG-510">Convert StringUtils API to take CharSequence</action>
     <action type="fix" issue="LANG-685">EqualsBuilder synchronizes on HashCodeBuilder</action>
     <action type="fix" issue="LANG-428">StringUtils.isAlpha, isAlphanumeric and isNumeric now return false for ""</action>
     <action type="add" issue="LANG-678">Add support for ConcurrentMap.putIfAbsent()</action>
