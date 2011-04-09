@@ -56,7 +56,7 @@ public class CharSetUtils {
      * CharSetUtils.squeeze("hello", "a-e") = "hello"
      * </pre>
      *
-     * @see CharSet#getInstance(java.lang.String) for set-syntax.
+     * @see CharSet#getInstance(java.lang.String...) for set-syntax.
      * @param str  the string to squeeze, may be null
      * @param set  the character set to use for manipulation, may be null
      * @return the modified String, {@code null} if null string input
@@ -99,7 +99,7 @@ public class CharSetUtils {
      * CharSetUtils.count("hello", "a-e") = 1
      * </pre>
      *
-     * @see CharSet#getInstance(java.lang.String) for set-syntax.
+     * @see CharSet#getInstance(java.lang.String...) for set-syntax.
      * @param str  String to count characters in, may be null
      * @param set  String[] set of characters to count, may be null
      * @return the character count, zero if null string input
@@ -133,7 +133,7 @@ public class CharSetUtils {
      * CharSetUtils.keep("hello", "le")  = "ell"
      * </pre>
      *
-     * @see CharSet#getInstance(java.lang.String) for set-syntax.
+     * @see CharSet#getInstance(java.lang.String...) for set-syntax.
      * @param str  String to keep characters from, may be null
      * @param set  String[] set of characters to keep, may be null
      * @return the modified String, {@code null} if null string input
@@ -164,7 +164,7 @@ public class CharSetUtils {
      * CharSetUtils.delete("hello", "le")  = "ho"
      * </pre>
      *
-     * @see CharSet#getInstance(java.lang.String) for set-syntax.
+     * @see CharSet#getInstance(java.lang.String...) for set-syntax.
      * @param str  String to delete characters from, may be null
      * @param set  String[] set of characters to delete, may be null
      * @return the modified String, {@code null} if null string input
