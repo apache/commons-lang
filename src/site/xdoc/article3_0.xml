@@ -142,11 +142,16 @@ available in the <a href="userguide.html#lang.concurrent.">user guide</a>.</p>
 </pre>
 <p>Here we see that <code>ESCAPE_XML</code> is a '<code>CharSequenceTranslator</code>', which in turn is made up of two lookup translators based on the basic XML escapes and another to escape apostrophes. This shows one way to combine translators. Another can be shown by looking at the example to achieve the old XML escaping functionality (escaping non-ASCII): </p>
 <pre>
-          StringEscapeUtils.ESCAPE_XML.with( UnicodeEscaper.above(0x7f) );
+          StringEscapeUtils.ESCAPE_XML.with( new UnicodeEscaper(Range.between(0x7f, Integer.MAX_VALUE) ) );
 </pre>
 <p>That takes the standard Commons Lang provided escape functionality, and adds on another translation layer. Another JIRA requested option was to also escape non-printable ASCII, this is now achievable with a modification of the above: </p>
 <pre>
-          StringEscapeUtils.ESCAPE_XML.with( UnicodeEscaper.outsideOf(32, 0x7f) );
+          StringEscapeUtils.ESCAPE_XML.with(
+              new AggregateTranslator(
+                  new UnicodeEscaper(Range.between(0, 31)),
+                  new UnicodeEscaper(Range.between(0x80, Integer.MAX_VALUE))
+              )
+          )
 </pre>
 <p>You can also implement your own translators (be they for escaping, unescaping or some aspect of your own). See the <code>CharSequenceTranslator</code> and its <code>CodePointTranslator</code> helper subclass for details - primarily a case of implementing the translate(CharSequence, int, Writer);int method. </p>
 </section>
