@@ -511,7 +511,7 @@ public class MethodUtils {
             Method method = cls.getMethod(methodName, parameterTypes);
             MemberUtils.setAccessibleWorkaround(method);
             return method;
-        } catch (NoSuchMethodException e) { /* SWALLOW - NOPMD */
+        } catch (NoSuchMethodException e) { // NOPMD - Swallow the exception
         }
         // search through all methods
         Method bestMatch = null;
