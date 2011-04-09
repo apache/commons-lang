@@ -502,7 +502,7 @@ public class StringEscapeUtils {
      * <p>Note that unicode characters greater than 0x7f are as of 3.0, no longer 
      *    escaped. If you still wish this functionality, you can achieve it 
      *    via the following: 
-     * {@code StringEscapeUtils.ESCAPE_XML.with( UnicodeEscaper.above(0x7f) );}</p>
+     * {@code StringEscapeUtils.ESCAPE_XML.with( new UnicodeEscaper(Range.between(0x7f, Integer.MAX_VALUE)) );}</p>
      *
      * @param input  the {@code String} to escape, may be null
      * @return a new escaped {@code String}, {@code null} if null string input
