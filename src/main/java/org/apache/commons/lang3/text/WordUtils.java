@@ -479,7 +479,7 @@ public class WordUtils {
                 buf[count++] = ch;
                 lastWasGap = false;
             } else {
-                // ignore ch
+                continue; // ignore ch
             }
         }
         return new String(buf, 0, count);
