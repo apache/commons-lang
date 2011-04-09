@@ -22,7 +22,7 @@
   <body>
 
   <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">
-    <action type="update" issues="LANG-510">Convert StringUtils API to take CharSequence</action>
+    <action type="update" issues="LANG-687">Convert more of the StringUtils API to take CharSequence</action>
     <action type="fix" issue="LANG-685">EqualsBuilder synchronizes on HashCodeBuilder</action>
     <action type="fix" issue="LANG-428">StringUtils.isAlpha, isAlphanumeric and isNumeric now return false for ""</action>
     <action type="add" issue="LANG-678">Add support for ConcurrentMap.putIfAbsent()</action>
@@ -58,6 +58,7 @@
     <action type="fix" issue="LANG-638">NumberUtils createNumber throws a StringIndexOutOfBoundsException when argument containing "e" and "E" is passed in</action>
     <!-- 3.0 beta below here -->
     <action>NOTE: The below were included in the Commons Lang 3.0-beta release.</action>
+    <action type="update" issues="LANG-510">Convert StringUtils API to take CharSequence</action>
     <action type="update">Push down WordUtils to "text" sub-package.</action>
     <action type="add" issue="LANG-610">Extend exception handling in ConcurrentUtils to runtime exceptions.</action>
     <action type="fix" issue="LANG-608">Some StringUtils methods should take an int character instead of char to use String API features.</action>
