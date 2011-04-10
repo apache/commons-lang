@@ -241,28 +241,6 @@ public class EqualsBuilder implements Builder<Boolean> {
      *
      * @param lhs  <code>this</code> object
      * @param rhs  the other object
-     * @return <code>true</code> if the two Objects have tested equals.
-     */
-    public static boolean reflectionEquals(Object lhs, Object rhs) {
-        return reflectionEquals(lhs, rhs, false, null, null);
-    }
-
-    /**
-     * <p>This method uses reflection to determine if the two <code>Object</code>s
-     * are equal.</p>
-     *
-     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
-     * fields. This means that it will throw a security exception if run under
-     * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly.</p>
-     *
-     * <p>Transient members will be not be tested, as they are likely derived
-     * fields, and not part of the value of the Object.</p>
-     *
-     * <p>Static fields will not be tested. Superclass fields will be included.</p>
-     *
-     * @param lhs  <code>this</code> object
-     * @param rhs  the other object
      * @param excludeFields  Collection of String field names to exclude from testing
      * @return <code>true</code> if the two Objects have tested equals.
      */
@@ -289,7 +267,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @param excludeFields  array of field names to exclude from testing
      * @return <code>true</code> if the two Objects have tested equals.
      */
-    public static boolean reflectionEquals(Object lhs, Object rhs, String[] excludeFields) {
+    public static boolean reflectionEquals(Object lhs, Object rhs, String... excludeFields) {
         return reflectionEquals(lhs, rhs, false, null, excludeFields);
     }
 
@@ -314,36 +292,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @return <code>true</code> if the two Objects have tested equals.
      */
     public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients) {
-        return reflectionEquals(lhs, rhs, testTransients, null, null);
-    }
-
-    /**
-     * <p>This method uses reflection to determine if the two <code>Object</code>s
-     * are equal.</p>
-     *
-     * <p>It uses <code>AccessibleObject.setAccessible</code> to gain access to private
-     * fields. This means that it will throw a security exception if run under
-     * a security manager, if the permissions are not set up correctly. It is also
-     * not as efficient as testing explicitly.</p>
-     *
-     * <p>If the testTransients parameter is set to <code>true</code>, transient
-     * members will be tested, otherwise they are ignored, as they are likely
-     * derived fields, and not part of the value of the <code>Object</code>.</p>
-     *
-     * <p>Static fields will not be included. Superclass fields will be appended
-     * up to and including the specified superclass. A null superclass is treated
-     * as java.lang.Object.</p>
-     *
-     * @param lhs  <code>this</code> object
-     * @param rhs  the other object
-     * @param testTransients  whether to include transient fields
-     * @param reflectUpToClass  the superclass to reflect up to (inclusive),
-     *  may be <code>null</code>
-     * @return <code>true</code> if the two Objects have tested equals.
-     * @since 2.0
-     */
-    public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients, Class<?> reflectUpToClass) {
-        return reflectionEquals(lhs, rhs, testTransients, reflectUpToClass, null);
+        return reflectionEquals(lhs, rhs, testTransients, null);
     }
 
     /**
@@ -373,7 +322,7 @@ public class EqualsBuilder implements Builder<Boolean> {
      * @since 2.0
      */
     public static boolean reflectionEquals(Object lhs, Object rhs, boolean testTransients, Class<?> reflectUpToClass,
-            String[] excludeFields) {
+            String... excludeFields) {
         if (lhs == rhs) {
             return true;
         }

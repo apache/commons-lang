@@ -290,19 +290,6 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
     }
 
     /**
-     * Builds a String for a toString method excluding the given field name.
-     *
-     * @param object
-     *            The object to "toString".
-     * @param excludeFieldName
-     *            The field name to exclude
-     * @return The toString value.
-     */
-    public static String toStringExclude(Object object, final String excludeFieldName) {
-        return toStringExclude(object, new String[] { excludeFieldName });
-    }
-
-    /**
      * Builds a String for a toString method excluding the given field names.
      *
      * @param object
@@ -360,7 +347,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            The field names to exclude
      * @return The toString value.
      */
-    public static String toStringExclude(Object object, String[] excludeFieldNames) {
+    public static String toStringExclude(Object object, String... excludeFieldNames) {
         return new ReflectionToStringBuilder(object).setExcludeFieldNames(excludeFieldNames).toString();
     }
 
@@ -657,11 +644,11 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      *            The excludeFieldNames to excluding from toString or <code>null</code>.
      * @return <code>this</code>
      */
-    public ReflectionToStringBuilder setExcludeFieldNames(String[] excludeFieldNamesParam) {
+    public ReflectionToStringBuilder setExcludeFieldNames(String... excludeFieldNamesParam) {
         if (excludeFieldNamesParam == null) {
             this.excludeFieldNames = null;
         } else {
-            this.excludeFieldNames = toNoNullStringArray(excludeFieldNamesParam);
+            this.excludeFieldNames = excludeFieldNamesParam.clone();
             Arrays.sort(this.excludeFieldNames);
         }
         return this;
