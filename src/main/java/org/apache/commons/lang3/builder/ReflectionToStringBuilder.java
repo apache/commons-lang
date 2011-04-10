@@ -299,7 +299,7 @@ public class ReflectionToStringBuilder extends ToStringBuilder {
      * @return The toString value.
      */
     public static String toStringExclude(Object object, final String excludeFieldName) {
-        return toStringExclude(object, new String[]{excludeFieldName});
+        return toStringExclude(object, new String[] { excludeFieldName });
     }
 
     /**
