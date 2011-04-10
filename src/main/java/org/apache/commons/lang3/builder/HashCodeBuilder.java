@@ -235,7 +235,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the number is zero or even
      */
     public static int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object object) {
-        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, false, null, null);
+        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, false, null);
     }
 
     /**
@@ -279,32 +279,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      */
     public static int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, Object object,
             boolean testTransients) {
-        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, testTransients, null,
-                null);
-    }
-
-    /**
-     * Calls {@link #reflectionHashCode(int, int, Object, boolean, Class, String[])} with excludeFields set to
-     * <code>null</code>.
-     *
-     * @param <T>
-     *            the type of the object involved
-     * @param initialNonZeroOddNumber
-     *            a non-zero, odd number used as the initial value
-     * @param multiplierNonZeroOddNumber
-     *            a non-zero, odd number used as the multiplier
-     * @param object
-     *            the Object to create a <code>hashCode</code> for
-     * @param testTransients
-     *            whether to include transient fields
-     * @param reflectUpToClass
-     *            the superclass to reflect up to (inclusive), may be <code>null</code>
-     * @return int hash code
-     */
-    public static <T> int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, T object,
-            boolean testTransients, Class<? super T> reflectUpToClass) {
-        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, testTransients,
-                reflectUpToClass, null);
+        return reflectionHashCode(initialNonZeroOddNumber, multiplierNonZeroOddNumber, object, testTransients, null);
     }
 
     /**
@@ -355,7 +330,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @since 2.0
      */
     public static <T> int reflectionHashCode(int initialNonZeroOddNumber, int multiplierNonZeroOddNumber, T object,
-            boolean testTransients, Class<? super T> reflectUpToClass, String[] excludeFields) {
+            boolean testTransients, Class<? super T> reflectUpToClass, String... excludeFields) {
 
         if (object == null) {
             throw new IllegalArgumentException("The object to build a hash code for must not be null");
@@ -368,40 +343,6 @@ public class HashCodeBuilder implements Builder<Integer> {
             reflectionAppend(object, clazz, builder, testTransients, excludeFields);
         }
         return builder.toHashCode();
-    }
-
-    /**
-     * <p>
-     * This method uses reflection to build a valid hash code.
-     * </p>
-     *
-     * <p>
-     * This constructor uses two hard coded choices for the constants needed to build a hash code.
-     * </p>
-     *
-     * <p>
-     * It uses <code>AccessibleObject.setAccessible</code> to gain access to private fields. This means that it will
-     * throw a security exception if run under a security manager, if the permissions are not set up correctly. It is
-     * also not as efficient as testing explicitly.
-     * </p>
-     *
-     * <p>
-     * Transient members will be not be used, as they are likely derived fields, and not part of the value of the
-     * <code>Object</code>.
-     * </p>
-     *
-     * <p>
-     * Static fields will not be tested. Superclass fields will be included.
-     * </p>
-     *
-     * @param object
-     *            the Object to create a <code>hashCode</code> for
-     * @return int hash code
-     * @throws IllegalArgumentException
-     *             if the object is <code>null</code>
-     */
-    public static int reflectionHashCode(Object object) {
-        return reflectionHashCode(17, 37, object, false, null, null);
     }
 
     /**
@@ -437,7 +378,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      *             if the object is <code>null</code>
      */
     public static int reflectionHashCode(Object object, boolean testTransients) {
-        return reflectionHashCode(17, 37, object, testTransients, null, null);
+        return reflectionHashCode(17, 37, object, testTransients, null);
     }
 
     /**
@@ -510,7 +451,7 @@ public class HashCodeBuilder implements Builder<Integer> {
      * @throws IllegalArgumentException
      *             if the object is <code>null</code>
      */
-    public static int reflectionHashCode(Object object, String[] excludeFields) {
+    public static int reflectionHashCode(Object object, String... excludeFields) {
         return reflectionHashCode(17, 37, object, false, null, excludeFields);
     }
 

@@ -132,7 +132,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *  with <code>lhs</code>
      */
     public static int reflectionCompare(Object lhs, Object rhs) {
-        return reflectionCompare(lhs, rhs, false, null, null);
+        return reflectionCompare(lhs, rhs, false, null);
     }
 
     /**
@@ -164,7 +164,7 @@ public class CompareToBuilder implements Builder<Integer> {
      *  with <code>lhs</code>
      */
     public static int reflectionCompare(Object lhs, Object rhs, boolean compareTransients) {
-        return reflectionCompare(lhs, rhs, compareTransients, null, null);
+        return reflectionCompare(lhs, rhs, compareTransients, null);
     }
 
     /**
@@ -229,44 +229,8 @@ public class CompareToBuilder implements Builder<Integer> {
      *  with <code>lhs</code>
      * @since 2.2
      */
-    public static int reflectionCompare(Object lhs, Object rhs, String[] excludeFields) {
+    public static int reflectionCompare(Object lhs, Object rhs, String... excludeFields) {
         return reflectionCompare(lhs, rhs, false, null, excludeFields);
-    }
-
-    /**
-     * <p>Compares two <code>Object</code>s via reflection.</p>
-     *
-     * <p>Fields can be private, thus <code>AccessibleObject.setAccessible</code>
-     * is used to bypass normal access control checks. This will fail under a 
-     * security manager unless the appropriate permissions are set.</p>
-     *
-     * <ul>
-     * <li>Static fields will not be compared</li>
-     * <li>If the <code>compareTransients</code> is <code>true</code>,
-     *     compares transient members.  Otherwise ignores them, as they
-     *     are likely derived fields.</li>
-     * <li>Compares superclass fields up to and including <code>reflectUpToClass</code>.
-     *     If <code>reflectUpToClass</code> is <code>null</code>, compares all superclass fields.</li>
-     * </ul>
-     *
-     * <p>If both <code>lhs</code> and <code>rhs</code> are <code>null</code>,
-     * they are considered equal.</p>
-     *
-     * @param lhs  left-hand object
-     * @param rhs  right-hand object
-     * @param compareTransients  whether to compare transient fields
-     * @param reflectUpToClass  last superclass for which fields are compared
-     * @return a negative integer, zero, or a positive integer as <code>lhs</code>
-     *  is less than, equal to, or greater than <code>rhs</code>
-     * @throws NullPointerException  if either <code>lhs</code> or <code>rhs</code>
-     *  (but not both) is <code>null</code>
-     * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
-     *  with <code>lhs</code>
-     * @since 2.0
-     */
-    public static int reflectionCompare(
-            Object lhs, Object rhs, boolean compareTransients, Class<?> reflectUpToClass) {
-        return reflectionCompare(lhs, rhs, compareTransients, reflectUpToClass, null);
     }
 
     /**
@@ -299,14 +263,14 @@ public class CompareToBuilder implements Builder<Integer> {
      *  (but not both) is <code>null</code>
      * @throws ClassCastException  if <code>rhs</code> is not assignment-compatible
      *  with <code>lhs</code>
-     * @since 2.2
+     * @since 2.2 (2.0 as <code>reflectionCompare(Object, Object, boolean, Class)</code>)
      */
     public static int reflectionCompare(
         Object lhs, 
         Object rhs, 
         boolean compareTransients, 
         Class<?> reflectUpToClass, 
-        String[] excludeFields) {
+        String... excludeFields) {
 
         if (lhs == rhs) {
             return 0;
