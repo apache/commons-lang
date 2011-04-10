@@ -26,8 +26,33 @@
   <!-- Reason: Optimization to use == -->
   <Match>
     <Class name="org.apache.commons.lang3.BooleanUtils" />
-    <Method name="toBoolean" />
+    <Or>
+      <Method name="toBoolean" />
+      <Method name="toBooleanObject" />
+    </Or>
     <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ" />
+  </Match>
+  <Match>
+    <Class name="org.apache.commons.lang3.BooleanUtils" />
+    <Method name="toBoolean" />
+    <Bug pattern="RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN" />
+  </Match>
+
+  <!-- Reason: Behavior documented in javadoc -->
+  <Match>
+    <Class name="org.apache.commons.lang3.BooleanUtils" />
+    <Or>
+      <Method name="negate" />
+      <Method name="toBooleanObject" />
+    </Or>
+    <Bug pattern="NP_BOOLEAN_RETURN_NULL" />
+  </Match>
+
+  <!-- Reason: base class cannot be changed and field is properly checked against null so behavior is OK -->
+  <Match>
+    <Class name="org.apache.commons.lang3.text.ExtendedMessageFormat" />
+    <Method name="applyPattern" />
+    <Bug pattern="UR_UNINIT_READ_CALLED_FROM_SUPER_CONSTRUCTOR" />
   </Match>
 
   <!-- Reason: Optimization to use == -->
