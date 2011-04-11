@@ -107,7 +107,7 @@ public class EventUtils {
          * @throws Throwable if an error occurs
          */
         public Object invoke(final Object proxy, final Method method, final Object[] parameters) throws Throwable {
-            if ( eventTypes.isEmpty() || eventTypes.contains(method.getName())) {
+            if (eventTypes.isEmpty() || eventTypes.contains(method.getName())) {
                 if (hasMatchingParametersMethod(method)) {
                     return MethodUtils.invokeMethod(target, methodName, parameters);
                 } else {
