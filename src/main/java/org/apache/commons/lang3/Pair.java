@@ -70,7 +70,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * 
      * @return the left element, may be null
      */
-    public abstract L getLeftElement();
+    public abstract L getLeft();
 
     /**
      * <p>Gets the right element from this pair.</p>
@@ -79,7 +79,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * 
      * @return the right element, may be null
      */
-    public abstract R getRightElement();
+    public abstract R getRight();
 
     /**
      * <p>Gets the key from this pair.</p>
@@ -90,7 +90,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return the left element as the key, may be null
      */
     public final L getKey() {
-        return getLeftElement();
+        return getLeft();
     }
 
     /**
@@ -102,7 +102,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return the right element as the value, may be null
      */
     public R getValue() {
-        return getRightElement();
+        return getRight();
     }
 
     //-----------------------------------------------------------------------
@@ -114,8 +114,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return negative if this is less, zero if equal, positive if greater
      */
     public int compareTo(Pair<L, R> other) {
-      return new CompareToBuilder().append(getLeftElement(), other.getLeftElement())
-              .append(getRightElement(), other.getRightElement()).toComparison();
+      return new CompareToBuilder().append(getLeft(), other.getLeft())
+              .append(getRight(), other.getRight()).toComparison();
     }
 
     /**
@@ -174,6 +174,6 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      * @return a string for this object
      */
     public String toString(String format) {
-        return String.format(format, getClass().getSimpleName(), getLeftElement(), getRightElement());
+        return String.format(format, getClass().getSimpleName(), getLeft(), getRight());
     }
 }

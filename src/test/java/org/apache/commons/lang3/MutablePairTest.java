@@ -37,18 +37,18 @@ public class MutablePairTest {
     @Test
     public void testBasic() throws Exception {
         MutablePair<Integer, String> pair = new MutablePair<Integer, String>(0, "foo");
-        assertEquals(0, pair.getLeftElement().intValue());
-        assertEquals("foo", pair.getRightElement());
+        assertEquals(0, pair.getLeft().intValue());
+        assertEquals("foo", pair.getRight());
         MutablePair<Object, String> pair2 = new MutablePair<Object, String>(null, "bar");
-        assertNull(pair2.getLeftElement());
-        assertEquals("bar", pair2.getRightElement());
+        assertNull(pair2.getLeft());
+        assertEquals("bar", pair2.getRight());
     }
 
     @Test
     public void testDefault() throws Exception {
         MutablePair<Integer, String> pair = new MutablePair<Integer, String>();
-        assertNull(pair.getLeftElement());
-        assertNull(pair.getRightElement());
+        assertNull(pair.getLeft());
+        assertNull(pair.getRight());
     }
     
     @Test
@@ -56,18 +56,18 @@ public class MutablePairTest {
         MutablePair<Integer, String> pair = new MutablePair<Integer, String>(0, "foo");
         pair.setLeftElement(42);
         pair.setRightElement("bar");
-        assertEquals(42, pair.getLeftElement().intValue());
-        assertEquals("bar", pair.getRightElement());
+        assertEquals(42, pair.getLeft().intValue());
+        assertEquals("bar", pair.getRight());
     }
 
     @Test
     public void testPairOf() throws Exception {
         MutablePair<Integer, String> pair = MutablePair.of(0, "foo");
-        assertEquals(0, pair.getLeftElement().intValue());
-        assertEquals("foo", pair.getRightElement());
+        assertEquals(0, pair.getLeft().intValue());
+        assertEquals("foo", pair.getRight());
         MutablePair<Object, String> pair2 = MutablePair.of(null, "bar");
-        assertNull(pair2.getLeftElement());
-        assertEquals("bar", pair2.getRightElement());
+        assertNull(pair2.getLeft());
+        assertEquals("bar", pair2.getRight());
     }
 
     @Test
