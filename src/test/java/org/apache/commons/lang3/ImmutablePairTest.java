@@ -80,10 +80,10 @@ public class ImmutablePairTest {
 
     @Test
     public void testToString() throws Exception {
-        assertEquals("ImmutablePair(null,null)", ImmutablePair.of(null, null).toString());
-        assertEquals("ImmutablePair(null,two)", ImmutablePair.of(null, "two").toString());
-        assertEquals("ImmutablePair(one,null)", ImmutablePair.of("one", null).toString());
-        assertEquals("ImmutablePair(one,two)", ImmutablePair.of("one", "two").toString());
+        assertEquals("(null,null)", ImmutablePair.of(null, null).toString());
+        assertEquals("(null,two)", ImmutablePair.of(null, "two").toString());
+        assertEquals("(one,null)", ImmutablePair.of("one", null).toString());
+        assertEquals("(one,two)", ImmutablePair.of("one", "two").toString());
     }
 
     @Test

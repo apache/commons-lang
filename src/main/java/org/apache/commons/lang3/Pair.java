@@ -19,79 +19,142 @@ package org.apache.commons.lang3;
 import java.io.Serializable;
 import java.util.Map;
 
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 
 /**
- * Abstract Pair (or 2-element Tuple).
+ * <p>A pair consisting of two elements.</p>
+ * 
+ * <p>This class is an abstract implementation defining the basic API.
+ * It refers to the elements as 'left' and 'right'. It also implements the
+ * {@code Map.Entry} interface where the key is 'left' and the value is 'right'.</p>
+ * 
+ * <p>Subclass implementations may be mutable or immutable.
+ * However, there is no restriction on the type of the stored objects that may be stored.
+ * If mutable objects are stored in the pair, then the pair itself effectively becomes mutable.</p>
+ *
+ * @param <L> the first element type
+ * @param <R> the second element type
  *
  * @since Lang 3.0
  * @version $Id$
  */
-public abstract class Pair<L, R> implements Serializable, Map.Entry<L, R> {
+public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Serializable {
+
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
     /**
-     * Get the "left" element of the pair.
-     * @return L
+     * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
+     * 
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     * 
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param left  the left element, may be null
+     * @param right  the right element, may be null
+     * @return a pair formed from the two parameters, not null
+     */
+    public static <L, R> Pair<L, R> of(L left, R right) {
+        return new ImmutablePair<L, R>(left, right);
+    }
+
+    //-----------------------------------------------------------------------
+    /**
+     * <p>Gets the left element from this pair.</p>
+     * 
+     * <p>When treated as a key-value pair, this is the key.</p>
+     * 
+     * @return the left element, may be null
      */
     public abstract L getLeftElement();
 
     /**
-     * Get the "right" element of the pair.
-     * @return R
+     * <p>Gets the right element from this pair.</p>
+     * 
+     * <p>When treated as a key-value pair, this is the value.</p>
+     * 
+     * @return the right element, may be null
      */
     public abstract R getRightElement();
 
     /**
-     * Return {@link #getLeftElement()} as a {@link java.util.Map.Entry}'s key.
-     * @return L
+     * <p>Gets the key from this pair.</p>
+     * 
+     * <p>This method implements the {@code Map.Entry} interface returning the
+     * left element as the key.</p>
+     * 
+     * @return the left element as the key, may be null
      */
     public final L getKey() {
         return getLeftElement();
     }
 
     /**
-     * Return {@link #getRightElement()} as a {@link java.util.Map.Entry}'s value.
-     * @return R
+     * <p>Gets the value from this pair.</p>
+     * 
+     * <p>This method implements the {@code Map.Entry} interface returning the
+     * right element as the value.</p>
+     * 
+     * @return the right element as the value, may be null
      */
     public R getValue() {
         return getRightElement();
     }
 
+    //-----------------------------------------------------------------------
     /**
-     * {@inheritDoc}
+     * <p>Compares the pair based on the first element followed by the second element.
+     * The types must be {@code Comparable}.</p>
+     * 
+     * @param other  the other pair, not null
+     * @return negative if this is less, zero if equal, positive if greater
+     */
+    public int compareTo(Pair<L, R> other) {
+      return new CompareToBuilder().append(getLeftElement(), other.getLeftElement())
+              .append(getRightElement(), other.getRightElement()).toComparison();
+    }
+
+    /**
+     * <p>Compares this pair to another based on the two elements.</p>
+     * 
+     * @param obj  the object to compare to, null returns false
+     * @return true if the elements of the pair are equal
      */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof Pair<?, ?> == false) {
-            return false;
+        if (obj instanceof Map.Entry<?, ?>) {
+            Map.Entry<?, ?> other = (Map.Entry<?, ?>) obj;
+            return ObjectUtils.equals(getKey(), other.getKey())
+                    && ObjectUtils.equals(getValue(), other.getValue());
         }
-        Pair<?, ?> other = (Pair<?, ?>) obj;
-        return ObjectUtils.equals(getLeftElement(), other.getLeftElement())
-                && ObjectUtils.equals(getRightElement(), other.getRightElement());
+        return false;
     }
 
     /**
-     * {@inheritDoc}
+     * <p>Returns a suitable hash code.
+     * The hash code follows the definition in {@code Map.Entry}.</p>
+     * 
+     * @return the hash code
      */
     @Override
     public int hashCode() {
-        // TODO should the hashCodeBuilder be seeded per concrete type?
-        return new HashCodeBuilder().append(getLeftElement()).append(getRightElement())
-                .toHashCode();
+        // see Map.Entry API specification
+        return (getKey() == null ? 0 : getKey().hashCode()) ^
+                (getValue() == null ? 0 : getValue().hashCode());
     }
 
     /**
-     * Returns a String representation of the Pair in the form: (L,R)
+     * <p>Returns a String representation of the Pair in the form: (L,R).</p>
+     * 
      * @return a string for this object
      */
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
+        StringBuilder builder = new StringBuilder();
         builder.append("(");
         builder.append(getLeftElement());
         builder.append(",");
@@ -100,16 +163,4 @@ public abstract class Pair<L, R> implements Serializable, Map.Entry<L, R> {
         return builder.toString();
     }
 
-    /**
-     * Static fluent creation method for a {@link Pair}<L, R>:
-     * <code>Pair.of(left, right)</code>
-     * @param <L> the left generic type
-     * @param <R> the right generic type
-     * @param left the left value
-     * @param right the right value
-     * @return ImmutablePair<L, R>(left, right)
-     */
-    public static <L, R> Pair<L, R> of(L left, R right) {
-        return new ImmutablePair<L, R>(left, right);
-    }
 }

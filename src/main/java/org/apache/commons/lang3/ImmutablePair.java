@@ -17,16 +17,23 @@
 package org.apache.commons.lang3;
 
 /**
- * Immutable concrete manifestation of the {@link Pair} type.
- *
+ * <p>An immutable pair consisting of two {@code Object} elements.</p>
+ * 
+ * <p>Although the implementation is immutable, there is no restriction on the objects
+ * that may be stored. If mutable objects are stored in the pair, then the pair
+ * itself effectively becomes mutable. The class is also not {@code final}, so a subclass
+ * could add undesirable behaviour.</p>
+ * 
  * <p>#ThreadSafe# if the objects are threadsafe</p>
+ *
+ * @param <L> the first element type
+ * @param <R> the second element type
+ *
  * @since Lang 3.0
  * @version $Id$
- *
- * @param <L> left generic type
- * @param <R> right generic type
  */
 public class ImmutablePair<L, R> extends Pair<L, R> {
+
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
@@ -36,10 +43,26 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     public final R right;
 
     /**
-     * Create a new ImmutablePair instance.
+     * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
+     * 
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     * 
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param left  the left element, may be null
+     * @param right  the right element, may be null
+     * @return a pair formed from the two parameters, not null
+     */
+    public static <L, R> ImmutablePair<L, R> of(L left, R right) {
+        return new ImmutablePair<L, R>(left, right);
+    }
+
+    /**
+     * Create a new pair instance.
      *
-     * @param left the left value
-     * @param right the right value
+     * @param left  the left value, may be null
+     * @param right  the right value, may be null
      */
     public ImmutablePair(L left, R right) {
         super();
@@ -47,6 +70,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
         this.right = right;
     }
 
+    //-----------------------------------------------------------------------
     /**
      * {@inheritDoc}
      */
@@ -64,29 +88,16 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * {@link java.util.Map.Entry#setValue(Object)} implementation. Because this
-     * class is immutable the {@code setValue()} operation is not supported.
-     * Therefore always an exception is thrown.
+     * <p>Throws {@code UnsupportedOperationException}.</p>
+     * 
+     * <p>This pair is immutable, so this operation is not supported.</p>
      *
-     * @param value the value to set
-     * @return the old right value
+     * @param value  the value to set
+     * @return never
      * @throws UnsupportedOperationException as this operation is not supported
      */
     public R setValue(R value) {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * Static fluent creation method for an {@link ImmutablePair}<L, R>:
-     * <code>ImmutablePair.of(left, right)</code>
-     *
-     * @param <L> the left generic type
-     * @param <R> the right generic type
-     * @param left the let value
-     * @param right the right value
-     * @return ImmutablePair<L, R>(left, right)
-     */
-    public static <L, R> ImmutablePair<L, R> of(L left, R right) {
-        return new ImmutablePair<L, R>(left, right);
-    }
 }
