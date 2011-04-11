@@ -38,9 +38,6 @@ limitations under the License.
     <module name="RedundantThrows">
       <property name="allowUnchecked" value="true"/>
     </module>
-    <module name="LineLength">
-      <property name="max" value="120"/>
-    </module>
     <module name="JavadocMethod">
       <property name="allowUndeclaredRTE" value="true"/>
     </module>
