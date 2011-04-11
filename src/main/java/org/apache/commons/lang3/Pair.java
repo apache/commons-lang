@@ -17,6 +17,7 @@
 package org.apache.commons.lang3;
 
 import java.io.Serializable;
+import java.util.Formatter;
 import java.util.Map;
 
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -163,4 +164,12 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
         return builder.toString();
     }
 
+    /**
+     * Returns a String representation in the given format.
+     * @param format a {@link Formatter} String.
+     * @return a string for this object
+     */
+    public String toString(String format) {
+        return String.format(format, getClass().getSimpleName(), getLeftElement(), getRightElement());
+    }
 }
