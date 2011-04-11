@@ -68,21 +68,9 @@
         </copy>
     </target>
 
-    <!-- Compile EnumUtilsLang76Test using source/target 1.5 if JDK 1.5 present (see LANG-76) -->
-    <target name="test.compile.jdk15" depends="compile" description="Run test for LANG-76" if="jdk.1.5.present">
-        <echo message="Compiling EnumUtilsLang76Test using source/target 1.5"/>
-        <mkdir dir="${build.home}/tests"/>
-        <javac srcdir="${test.home}" destdir="${build.home}/tests"
-               target="1.5" source="1.5"
-               includes="org/apache/commons/lang/enums/EnumUtilsLang76Test.java">
-            <classpath refid="test.classpath"/>
-        </javac>
-    </target>
-
-    <target name="compile.tests" depends="compile,test.compile.jdk15" description="Compile unit test cases">
+    <target name="compile.tests" depends="compile" description="Compile unit test cases">
         <mkdir dir="${build.home}/tests"/>
         <javac srcdir="${test.home}" destdir="${build.home}/tests" debug="${compile.debug}" deprecation="off" target="${compile.target}" source="${compile.source}" optimize="${compile.optimize}">
-            <exclude name="org/apache/commons/lang/enums/EnumUtilsLang76Test.java" if="jdk.1.5.present"/>
             <classpath refid="test.classpath"/>
         </javac>
         <copy todir="${build.home}/tests" filtering="on">
@@ -103,25 +91,8 @@
                 <fileset dir="${test.home}">
                     <include name="**/*Test.java"/>
                     <exclude name="**/Abstract*Test.java"/>
-                    <exclude name="**/EntitiesPerformanceTest.java"/>
-                    <exclude name="**/RandomUtilsFreqTest.java"/>
                 </fileset>
             </batchtest>
-        </junit>
-    </target>
-
-    <!--
-     RandomUtils frequency tests have been put in a separate test case which
-     is only run when using this target because it fails too frequently.
-     See https://issues.apache.org/jira/browse/LANG-592
-     -->
-    <target name="test-random-freq" depends="compile.tests" description="Run RandomUtilsFreqTest">
-        <echo message="Running RandomUtilsFreqTest unit test ..."/>
-        <mkdir dir="${build.home}/test-reports"/>
-        <junit printsummary="true" showoutput="true" fork="yes" haltonfailure="${test.failonerror}">
-            <classpath refid="test.classpath"/>
-            <formatter type="plain" usefile="true" />
-            <test name="org.apache.commons.lang.math.RandomUtilsFreqTest" todir="${build.home}/test-reports"/>
         </junit>
     </target>
 
@@ -140,7 +111,7 @@
         </tstamp>
         <javadoc sourcepath="${source.home}" 
                  destdir="${build.home}/apidocs" 
-                 overview="${source.home}/org/apache/commons/lang/overview.html" 
+                 overview="${source.home}/org/apache/commons/lang3/overview.html" 
                  packagenames="org.apache.commons.*" 
                  excludepackagenames="${javadoc.excludepackagenames}" 
                  author="false" 
