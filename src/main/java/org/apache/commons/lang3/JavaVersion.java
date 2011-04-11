@@ -25,7 +25,10 @@ package org.apache.commons.lang3;
  * @version $Id: $
  */
 public enum JavaVersion {
-    JAVA_0_9(1.5f, "0.9"),    // Android
+    /**
+     * The Java version reported by Android. This is not an official Java version number.
+     */
+    JAVA_0_9(1.5f, "0.9"),
     JAVA_1_1(1.1f, "1.1"),
     JAVA_1_2(1.2f, "1.2"),
     JAVA_1_3(1.3f, "1.3"),
