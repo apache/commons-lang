@@ -168,7 +168,7 @@ public abstract class StrMatcher {
      * @param chars  the characters to match, null or empty matches nothing
      * @return a new matcher for the given char[]
      */
-    public static StrMatcher charSetMatcher(char[] chars) {
+    public static StrMatcher charSetMatcher(char... chars) {
         if (chars == null || chars.length == 0) {
             return NONE_MATCHER;
         }
