@@ -91,7 +91,7 @@ public abstract class Pair<L, R> implements Serializable, Map.Entry<L, R> {
      */
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder(ClassUtils.getShortClassName(this, null));
+        StringBuilder builder = new StringBuilder(this.getClass().getSimpleName());
         builder.append("(");
         builder.append(getLeftElement());
         builder.append(",");
