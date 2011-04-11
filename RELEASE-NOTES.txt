@@ -68,6 +68,7 @@ REMOVALS IN 3.0
     [LANG-493] Remove code that does not hold enough value to remain.
     [LANG-590] Remove JDK 1.2/1.3 bug handling in StringUtils.indexOf(String, String, int).
     [LANG-673] WordUtils.abbreviate() removed
+    [LANG-691] Removed DateUtils.UTC_TIME_ZONE
 
 IMPROVEMENTS IN 3.0
 ===================
