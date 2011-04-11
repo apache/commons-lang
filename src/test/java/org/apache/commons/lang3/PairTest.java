@@ -57,4 +57,10 @@ public class PairTest {
         assertFalse(pair.equals(pair2));
         assertFalse(pair.hashCode() == pair2.hashCode());
     }
+
+    @Test
+    public void testToString() throws Exception {
+        Pair<String, String> pair = Pair.of("Key", "Value");
+        assertEquals("ImmutablePair(Key,Value)", pair.toString());
+    }
 }
