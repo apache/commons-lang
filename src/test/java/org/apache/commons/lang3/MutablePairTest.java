@@ -88,10 +88,10 @@ public class MutablePairTest {
 
     @Test
     public void testToString() throws Exception {
-        assertEquals("MutablePair(null,null)", MutablePair.of(null, null).toString());
-        assertEquals("MutablePair(null,two)", MutablePair.of(null, "two").toString());
-        assertEquals("MutablePair(one,null)", MutablePair.of("one", null).toString());
-        assertEquals("MutablePair(one,two)", MutablePair.of("one", "two").toString());
+        assertEquals("(null,null)", MutablePair.of(null, null).toString());
+        assertEquals("(null,two)", MutablePair.of(null, "two").toString());
+        assertEquals("(one,null)", MutablePair.of("one", null).toString());
+        assertEquals("(one,two)", MutablePair.of("one", "two").toString());
     }
 
     @Test

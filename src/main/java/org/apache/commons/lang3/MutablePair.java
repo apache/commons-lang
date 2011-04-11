@@ -17,55 +17,77 @@
 package org.apache.commons.lang3;
 
 /**
- * Mutable concrete manifestation of the {@link Pair} type.
+ * <p>A mutable pair consisting of two {@code Object} elements.</p>
+ * 
+ * <p>Not #ThreadSafe#</p>
  *
- * <p>#ThreadSafe# if the objects are threadsafe</p>
+ * @param <L> the first element type
+ * @param <R> the second element type
+ *
  * @since Lang 3.0
  * @version $Id$
- *
- * @param <L> left generic type
- * @param <R> right generic type
  */
 public class MutablePair<L, R> extends Pair<L, R> {
+
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
-    private L leftElement;
-    private R rightElement;
+    /** Left object */
+    public L left;
+    /** Right object */
+    public R right;
 
     /**
-     * Create a new MutablePair instance.
+     * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
+     * 
+     * <p>This factory allows the pair to be created using inference to
+     * obtain the generic types.</p>
+     * 
+     * @param <L> the left element type
+     * @param <R> the right element type
+     * @param left  the left element, may be null
+     * @param right  the right element, may be null
+     * @return a pair formed from the two parameters, not null
+     */
+    public static <L, R> MutablePair<L, R> of(L left, R right) {
+        return new MutablePair<L, R>(left, right);
+    }
+
+    /**
+     * Create a new pair instance of two nulls.
      */
     public MutablePair() {
         super();
     }
 
     /**
-     * Create a new MutablePair instance.
+     * Create a new pair instance.
      *
-     * @param leftElement the left value
-     * @param rightElement the right value
+     * @param left  the left value, may be null
+     * @param right  the right value, may be null
      */
-    public MutablePair(L leftElement, R rightElement) {
+    public MutablePair(L left, R right) {
         super();
-        this.leftElement = leftElement;
-        this.rightElement = rightElement;
+        this.left = left;
+        this.right = right;
     }
 
+    //-----------------------------------------------------------------------
     /**
      * {@inheritDoc}
      */
     @Override
     public L getLeftElement() {
-        return leftElement;
+        return left;
     }
 
     /**
      * Set the left element of the pair.
-     * @param leftElement the value of the left element
+     * 
+     * @param left  the new value of the left element, may be null
      */
-    public void setLeftElement(L leftElement) {
-        this.leftElement = leftElement;
+    public void setLeftElement(L left) {
+        this.left = left;
     }
 
     /**
@@ -73,20 +95,23 @@ public class MutablePair<L, R> extends Pair<L, R> {
      */
     @Override
     public R getRightElement() {
-        return rightElement;
+        return right;
     }
 
     /**
      * Set the right element of the pair.
-     * @param rightElement the value of the right element
+     * 
+     * @param right  the value of the right element
      */
-    public void setRightElement(R rightElement) {
-        this.rightElement = rightElement;
+    public void setRightElement(R right) {
+        this.right = right;
     }
 
     /**
-     * Implement {@link java.util.Map.Entry#setValue(Object)}.
-     * @param value value (<code>rightElement</code>) to set
+     * Sets the {@code Map.Entry} value.
+     * This sets the right element of the pair.
+     * 
+     * @param value  the right value to set, not null
      * @return the old value for the right element
      */
     public R setValue(R value) {
@@ -95,16 +120,4 @@ public class MutablePair<L, R> extends Pair<L, R> {
         return result;
     }
 
-    /**
-     * Static fluent creation method for a {@link MutablePair}<L, R>:
-     * <code>MutablePair.of(left, right)</code>
-     * @param <L> the left generic type
-     * @param <R> the right generic type
-     * @param left the left value
-     * @param right the right value
-     * @return MutablePair<L, R>(left, right)
-     */
-    public static <L, R> MutablePair<L, R> of(L left, R right) {
-        return new MutablePair<L, R>(left, right);
-    }
 }

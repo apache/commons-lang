@@ -21,7 +21,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map.Entry;
 
 import org.junit.Test;
 
@@ -44,7 +46,7 @@ public class PairTest {
     }
 
     @Test
-    public void testCompatibility() throws Exception {
+    public void testCompatibilityBetweenPairs() throws Exception {
         Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
         Pair<Integer, String> pair2 = MutablePair.of(0, "foo");
         assertEquals(pair, pair2);
@@ -59,8 +61,39 @@ public class PairTest {
     }
 
     @Test
+    public void testMapEntry() throws Exception {
+        Pair<Integer, String> pair = ImmutablePair.of(0, "foo");
+        HashMap<Integer, String> map = new HashMap<Integer, String>();
+        map.put(0, "foo");
+        Entry<Integer, String> entry = map.entrySet().iterator().next();
+        assertEquals(pair, entry);
+        assertEquals(pair.hashCode(), entry.hashCode());
+    }
+
+    @Test
+    public void testComparable1() throws Exception {
+        Pair<String, String> pair1 = Pair.of("A", "D");
+        Pair<String, String> pair2 = Pair.of("B", "C");
+        assertEquals(true, pair1.compareTo(pair1) == 0);
+        assertEquals(true, pair1.compareTo(pair2) < 0);
+        assertEquals(true, pair2.compareTo(pair2) == 0);
+        assertEquals(true, pair2.compareTo(pair1) > 0);
+    }
+
+    @Test
+    public void testComparable2() throws Exception {
+        Pair<String, String> pair1 = Pair.of("A", "C");
+        Pair<String, String> pair2 = Pair.of("A", "D");
+        assertEquals(true, pair1.compareTo(pair1) == 0);
+        assertEquals(true, pair1.compareTo(pair2) < 0);
+        assertEquals(true, pair2.compareTo(pair2) == 0);
+        assertEquals(true, pair2.compareTo(pair1) > 0);
+    }
+
+    @Test
     public void testToString() throws Exception {
         Pair<String, String> pair = Pair.of("Key", "Value");
-        assertEquals("ImmutablePair(Key,Value)", pair.toString());
+        assertEquals("(Key,Value)", pair.toString());
     }
+
 }
