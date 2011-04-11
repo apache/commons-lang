@@ -156,6 +156,8 @@ public class ClassUtils {
 
     /**
      * <p>Gets the class name minus the package name from a {@code Class}.</p>
+     * 
+     * <p>Consider using the Java 5 API {@link Class#getSimpleName()} instead.</p>
      *
      * @param cls  the class to get the short name for.
      * @return the class name without the package name or an empty string
