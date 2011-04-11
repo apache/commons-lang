@@ -91,7 +91,7 @@ public class EventUtils {
          * @param methodName the name of the method to be invoked
          * @param eventTypes the names of the supported event types
          */
-        public EventBindingInvocationHandler(final Object target, final String methodName, String[] eventTypes) {
+        EventBindingInvocationHandler(final Object target, final String methodName, String[] eventTypes) {
             this.target = target;
             this.methodName = methodName;
             this.eventTypes = new HashSet<String>(Arrays.asList(eventTypes));
