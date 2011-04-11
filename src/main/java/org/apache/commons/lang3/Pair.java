@@ -165,8 +165,16 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * Returns a String representation in the given format.
-     * @param format a {@link Formatter} String.
+     * Returns a String representation in the given format. The format is in the {@link Formatter} syntax. There are three arguments
+     * available:
+     * <ol>
+     * <li>The simple class name</li>
+     * <li>The left object</li>
+     * <li>The right object</li>
+     * </ol>
+     * 
+     * @param format
+     *            a {@link Formatter} String.
      * @return a string for this object
      */
     public String toString(String format) {
