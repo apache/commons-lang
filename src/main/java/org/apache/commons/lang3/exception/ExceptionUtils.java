@@ -111,9 +111,6 @@ public class ExceptionUtils {
      *  <li><code>getNested()</code></li>
      * </ul>
      * 
-     * <p>In the absence of any such method, the object is inspected for a
-     * <code>detail</code> field assignable to a <code>Throwable</code>.</p>
-     *
      * <p>If none of the above is found, returns <code>null</code>.</p>
      *
      * @param throwable  the throwable to introspect for a cause, may be null
@@ -129,12 +126,6 @@ public class ExceptionUtils {
 
     /**
      * <p>Introspects the <code>Throwable</code> to obtain the cause.</p>
-     *
-     * <ol>
-     * <li>Try known exception types.</li>
-     * <li>Try the supplied array of method names.</li>
-     * <li>Try the field 'detail'.</li>
-     * </ol>
      *
      * <p>A <code>null</code> set of method names means use the default set.
      * A <code>null</code> in the set of method names will be ignored.</p>
