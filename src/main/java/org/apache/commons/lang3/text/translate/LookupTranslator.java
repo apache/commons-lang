@@ -45,10 +45,10 @@ public class LookupTranslator extends CharSequenceTranslator {
             for (CharSequence[] seq : lookup) {
                 this.lookupMap.put(seq[0], seq[1]);
                 int sz = seq[0].length();
-                if(sz < _shortest) {
+                if (sz < _shortest) {
                     _shortest = sz;
                 }
-                if(sz > _longest) {
+                if (sz > _longest) {
                     _longest = sz;
                 }
             }
@@ -63,14 +63,14 @@ public class LookupTranslator extends CharSequenceTranslator {
     @Override
     public int translate(CharSequence input, int index, Writer out) throws IOException {
         int max = longest;
-        if(index + longest > input.length()) {
+        if (index + longest > input.length()) {
             max = input.length() - index;
         }
         // descend so as to get a greedy algorithm
-        for(int i=max; i >= shortest; i--) {
+        for (int i = max; i >= shortest; i--) {
             CharSequence subSeq = input.subSequence(index, index + i);
             CharSequence result = lookupMap.get(subSeq);
-            if(result != null) {
+            if (result != null) {
                 out.write(result.toString());
                 return i;
             }
