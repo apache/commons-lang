@@ -946,9 +946,9 @@ public class HashCodeBuilder implements Builder<Integer> {
 
     /**
      * <p>
-     * The computed <code>hashCode</code> from toHashCode() is returned due to the likelyhood
-     * of bugs in mis-calling toHashCode() and the unlikelyness of it mattering what the hashCode for
-     * HashCodeBuilder itself is.
+     * The computed <code>hashCode</code> from toHashCode() is returned due to the likelihood
+     * of bugs in mis-calling toHashCode() and the unlikeliness of it mattering what the hashCode for
+     * HashCodeBuilder itself is.</p>
      *
      * @return <code>hashCode</code> based on the fields appended
      * @since 2.5
