@@ -44,6 +44,8 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
+    private static final String DEFAULT_FORMAT_STRING = "(%2$s,%3$s)";
+
     /**
      * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
      * 
@@ -155,13 +157,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
      */
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("(");
-        builder.append(getLeftElement());
-        builder.append(",");
-        builder.append(getRightElement());
-        builder.append(")");
-        return builder.toString();
+        return toString(DEFAULT_FORMAT_STRING);
     }
 
     /**
