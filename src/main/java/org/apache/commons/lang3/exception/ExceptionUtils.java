@@ -193,7 +193,7 @@ public class ExceptionUtils {
     private static Throwable getCauseUsingMethodName(Throwable throwable, String methodName) {
         Method method = null;
         try {
-            method = throwable.getClass().getMethod(methodName, (Class[]) null);
+            method = throwable.getClass().getMethod(methodName);
         } catch (NoSuchMethodException ignored) { // NOPMD
             // exception ignored
         } catch (SecurityException ignored) { // NOPMD
@@ -202,7 +202,7 @@ public class ExceptionUtils {
 
         if (method != null && Throwable.class.isAssignableFrom(method.getReturnType())) {
             try {
-                return (Throwable) method.invoke(throwable, ArrayUtils.EMPTY_OBJECT_ARRAY);
+                return (Throwable) method.invoke(throwable);
             } catch (IllegalAccessException ignored) { // NOPMD
                 // exception ignored
             } catch (IllegalArgumentException ignored) { // NOPMD
