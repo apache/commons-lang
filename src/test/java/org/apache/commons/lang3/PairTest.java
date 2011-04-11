@@ -96,4 +96,15 @@ public class PairTest {
         assertEquals("(Key,Value)", pair.toString());
     }
 
+    @Test
+    public void testToStringFormat() throws Exception {
+        Pair<String, String> pair = Pair.of("Key", "Value");
+        assertEquals("ImmutablePair", pair.toString("%1$s"));
+        assertEquals("Key", pair.toString("%2$s"));
+        assertEquals("Value", pair.toString("%3$s"));
+        assertEquals("Key: Value", pair.toString("%2$s: %3$s"));
+        pair = Pair.of(null, null);
+        assertEquals("null: null", pair.toString("%2$s: %3$s"));
+    }
+
 }
