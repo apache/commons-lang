@@ -77,7 +77,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * {@inheritDoc}
      */
     @Override
-    public L getLeftElement() {
+    public L getLeft() {
         return left;
     }
 
@@ -94,7 +94,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * {@inheritDoc}
      */
     @Override
-    public R getRightElement() {
+    public R getRight() {
         return right;
     }
 
@@ -115,7 +115,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * @return the old value for the right element
      */
     public R setValue(R value) {
-        R result = getRightElement();
+        R result = getRight();
         setRightElement(value);
         return result;
     }

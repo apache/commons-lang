@@ -38,28 +38,28 @@ public class ImmutablePairTest {
     public void testBasic() throws Exception {
         ImmutablePair<Integer, String> pair = new ImmutablePair<Integer, String>(0, "foo");
         assertEquals(0, pair.left.intValue());
-        assertEquals(0, pair.getLeftElement().intValue());
+        assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.right);
-        assertEquals("foo", pair.getRightElement());
+        assertEquals("foo", pair.getRight());
         ImmutablePair<Object, String> pair2 = new ImmutablePair<Object, String>(null, "bar");
         assertNull(pair2.left);
-        assertNull(pair2.getLeftElement());
+        assertNull(pair2.getLeft());
         assertEquals("bar", pair2.right);
-        assertEquals("bar", pair2.getRightElement());
+        assertEquals("bar", pair2.getRight());
     }
 
     @Test
     public void testPairOf() throws Exception {
         ImmutablePair<Integer, String> pair = ImmutablePair.of(0, "foo");
         assertEquals(0, pair.left.intValue());
-        assertEquals(0, pair.getLeftElement().intValue());
+        assertEquals(0, pair.getLeft().intValue());
         assertEquals("foo", pair.right);
-        assertEquals("foo", pair.getRightElement());
+        assertEquals("foo", pair.getRight());
         ImmutablePair<Object, String> pair2 = ImmutablePair.of(null, "bar");
         assertNull(pair2.left);
-        assertNull(pair2.getLeftElement());
+        assertNull(pair2.getLeft());
         assertEquals("bar", pair2.right);
-        assertEquals("bar", pair2.getRightElement());
+        assertEquals("bar", pair2.getRight());
     }
 
     @Test

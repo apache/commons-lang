@@ -75,7 +75,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * {@inheritDoc}
      */
     @Override
-    public L getLeftElement() {
+    public L getLeft() {
         return left;
     }
 
@@ -83,7 +83,7 @@ public class ImmutablePair<L, R> extends Pair<L, R> {
      * {@inheritDoc}
      */
     @Override
-    public R getRightElement() {
+    public R getRight() {
         return right;
     }
 
