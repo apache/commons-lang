@@ -37,18 +37,20 @@ public class LookupTranslator extends CharSequenceTranslator {
      *
      * @param lookup CharSequence[][] table of size [*][2]
      */
-    public LookupTranslator(CharSequence[][] lookup) {
+    public LookupTranslator(CharSequence[]... lookup) {
         lookupMap = new HashMap<CharSequence, CharSequence>();
         int _shortest = Integer.MAX_VALUE;
         int _longest = 0;
-        for(CharSequence[] seq : lookup) {
-            this.lookupMap.put(seq[0], seq[1]);
-            int sz = seq[0].length();
-            if(sz < _shortest) {
-                _shortest = sz;
-            }
-            if(sz > _longest) {
-                _longest = sz;
+        if (lookup != null) {
+            for (CharSequence[] seq : lookup) {
+                this.lookupMap.put(seq[0], seq[1]);
+                int sz = seq[0].length();
+                if(sz < _shortest) {
+                    _shortest = sz;
+                }
+                if(sz > _longest) {
+                    _longest = sz;
+                }
             }
         }
         shortest = _shortest;
