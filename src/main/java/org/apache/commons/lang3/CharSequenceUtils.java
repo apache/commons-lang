@@ -57,15 +57,14 @@ public class CharSequenceUtils {
     }
 
     //-----------------------------------------------------------------------
-
     /**
-     * Used by the indexOf(CharSequence methods) as a green implementation of
-     * indexOf.
+     * <p>Finds the first index in the {@code CharSequence} that matches the
+     * specified character.</p>
      *
-     * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the char to be searched for
-     * @param start the start index
-     * @return the index where the search char was found
+     * @param cs  the {@code CharSequence} to be processed, not null
+     * @param searchChar  the char to be searched for
+     * @param start  the start index, negative starts at the string start
+     * @return the index where the search char was found, -1 if not found
      */
     static int indexOf(CharSequence cs, int searchChar, int start) {
         if (cs instanceof String) {
@@ -93,24 +92,26 @@ public class CharSequenceUtils {
      * @return the index where the search sequence was found
      */
     static int indexOf(CharSequence cs, CharSequence searchChar, int start) {
-        if (cs instanceof String && searchChar instanceof String) {
-            // TODO: Do we assume searchChar is usually relatively small;
-            //       If so then calling toString() on it is better than reverting to
-            //       the green implementation in the else block
-            return ((String) cs).indexOf((String) searchChar, start);
-        } else {
-            // TODO: Implement rather than convert to String
-            return cs.toString().indexOf(searchChar.toString(), start);
-        }
+        return cs.toString().indexOf(searchChar.toString(), start);
+//        if (cs instanceof String && searchChar instanceof String) {
+//            // TODO: Do we assume searchChar is usually relatively small;
+//            //       If so then calling toString() on it is better than reverting to
+//            //       the green implementation in the else block
+//            return ((String) cs).indexOf((String) searchChar, start);
+//        } else {
+//            // TODO: Implement rather than convert to String
+//            return cs.toString().indexOf(searchChar.toString(), start);
+//        }
     }
 
     /**
-     * Used by the lastIndexOf(CharSequence methods) as a green implementation of lastIndexOf
+     * <p>Finds the last index in the {@code CharSequence} that matches the
+     * specified character.</p>
      *
-     * @param cs the {@code CharSequence} to be processed
-     * @param searchChar the char to be searched for
-     * @param start the start index
-     * @return the index where the search char was found
+     * @param cs  the {@code CharSequence} to be processed
+     * @param searchChar  the char to be searched for
+     * @param start  the start index, negative returns -1, beyond length starts at end
+     * @return the index where the search char was found, -1 if not found
      */
     static int lastIndexOf(CharSequence cs, int searchChar, int start) {
         if (cs instanceof String) {
@@ -141,15 +142,16 @@ public class CharSequenceUtils {
      * @return the index where the search sequence was found
      */
     static int lastIndexOf(CharSequence cs, CharSequence searchChar, int start) {
-        if (cs instanceof String && searchChar instanceof String) {
-            // TODO: Do we assume searchChar is usually relatively small;
-            //       If so then calling toString() on it is better than reverting to
-            //       the green implementation in the else block
-            return ((String) cs).lastIndexOf((String) searchChar, start);
-        } else {
-            // TODO: Implement rather than convert to String
-            return cs.toString().lastIndexOf(searchChar.toString(), start);
-        }
+        return cs.toString().lastIndexOf(searchChar.toString(), start);
+//        if (cs instanceof String && searchChar instanceof String) {
+//            // TODO: Do we assume searchChar is usually relatively small;
+//            //       If so then calling toString() on it is better than reverting to
+//            //       the green implementation in the else block
+//            return ((String) cs).lastIndexOf((String) searchChar, start);
+//        } else {
+//            // TODO: Implement rather than convert to String
+//            return cs.toString().lastIndexOf(searchChar.toString(), start);
+//        }
     }
 
     /**
