@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * <p>Assists in implementing {@link Object#equals(Object)} methods.</p>
