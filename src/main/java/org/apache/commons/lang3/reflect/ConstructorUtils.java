@@ -219,7 +219,7 @@ public class ConstructorUtils {
         try {
             return getAccessibleConstructor(cls.getConstructor(parameterTypes));
         } catch (NoSuchMethodException e) {
-            return (null);
+            return null;
         }
     }
 
