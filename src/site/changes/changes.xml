@@ -22,6 +22,7 @@
   <body>
 
   <release version="3.0" date="Unreleased" description="Backwards incompatible update of Commons Lang to Java 5">
+    <action type="add" issue="LANG-692">Add hashCodeMulti varargs method</action>
     <action type="remove" issue="LANG-691">Removed DateUtils.UTC_TIME_ZONE</action>
     <action type="update" issues="LANG-687">Convert more of the StringUtils API to take CharSequence</action>
     <action type="fix" issue="LANG-685">EqualsBuilder synchronizes on HashCodeBuilder</action>

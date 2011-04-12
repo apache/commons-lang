@@ -59,6 +59,7 @@ ADDITIONS IN 3.0
     [LANG-667] Add a Null-safe compare() method to ObjectUtils
     [LANG-676] Documented potential NPE if auto-boxing occurs for some BooleanUtils methods
     [LANG-678] Add support for ConcurrentMap.putIfAbsent()
+    [LANG-692] Add hashCodeMulti varargs method
 
 REMOVALS IN 3.0
 ===============
