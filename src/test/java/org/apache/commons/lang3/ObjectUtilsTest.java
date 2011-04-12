@@ -18,9 +18,11 @@ package org.apache.commons.lang3;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -95,6 +97,30 @@ public class ObjectUtilsTest extends TestCase {
     public void testHashCode() {
         assertEquals(0, ObjectUtils.hashCode(null));
         assertEquals("a".hashCode(), ObjectUtils.hashCode("a"));
+    }
+
+    public void testHashCodeMulti_multiple_emptyArray() {
+        Object[] array = new Object[0];
+        assertEquals(1, ObjectUtils.hashCodeMulti(array));
+    }
+
+    public void testHashCodeMulti_multiple_nullArray() {
+        Object[] array = null;
+        assertEquals(1, ObjectUtils.hashCodeMulti(array));
+    }
+
+    public void testHashCodeMulti_multiple_likeList() {
+        List<Object> list0 = new ArrayList<Object>(Arrays.asList());
+        assertEquals(list0.hashCode(), ObjectUtils.hashCodeMulti());
+        
+        List<Object> list1 = new ArrayList<Object>(Arrays.asList("a"));
+        assertEquals(list1.hashCode(), ObjectUtils.hashCodeMulti("a"));
+        
+        List<Object> list2 = new ArrayList<Object>(Arrays.asList("a", "b"));
+        assertEquals(list2.hashCode(), ObjectUtils.hashCodeMulti("a", "b"));
+        
+        List<Object> list3 = new ArrayList<Object>(Arrays.asList("a", "b", "c"));
+        assertEquals(list3.hashCode(), ObjectUtils.hashCodeMulti("a", "b", "c"));
     }
 
 //    /**
