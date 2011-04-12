@@ -370,7 +370,7 @@ public class MethodUtils {
             return getAccessibleMethod(cls.getMethod(methodName,
                     parameterTypes));
         } catch (NoSuchMethodException e) {
-            return (null);
+            return null;
         }
     }
 
