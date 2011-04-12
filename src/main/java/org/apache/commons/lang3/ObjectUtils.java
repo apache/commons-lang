@@ -189,7 +189,39 @@ public class ObjectUtils {
      * @since 2.1
      */
     public static int hashCode(Object obj) {
+        // hashCode(Object) retained for performance, as hash code is often critical
         return (obj == null) ? 0 : obj.hashCode();
+    }
+
+    /**
+     * <p>Gets the hash code for multiple objects.</p>
+     * 
+     * <p>This allows a hash code to be rapidly calculated for a number of objects.
+     * The hash code for a single object is the <em>not</em> same as {@link #hashCode(Object)}.
+     * The hash code for multiple objects is the same as that calculated by an
+     * {@code ArrayList} containing the specified objects.</p>
+     *
+     * <pre>
+     * ObjectUtils.hashCodeMulti()                 = 1
+     * ObjectUtils.hashCodeMulti((Object[]) null)  = 1
+     * ObjectUtils.hashCodeMulti(a)                = 31 + a.hashCode()
+     * ObjectUtils.hashCodeMulti(a,b)              = (31 + a.hashCode()) * 31 + b.hashCode()
+     * ObjectUtils.hashCodeMulti(a,b,c)            = ((31 + a.hashCode()) * 31 + b.hashCode()) * 31 + c.hashCode()
+     * </pre>
+     *
+     * @param first  the first object, may be {@code null}
+     * @param objects  the objects to obtain the hash code of, may be {@code null}
+     * @return the hash code of the objects, or zero if null
+     * @since 3.0
+     */
+    public static int hashCodeMulti(Object... objects) {
+        int hash = 1;
+        if (objects != null) {
+            for (int i = 0; i < objects.length; i++) {
+                hash = hash * 31 + ObjectUtils.hashCode(objects[i]);
+            }
+        }
+        return hash;
     }
 
     // Identity ToString
