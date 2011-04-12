@@ -43,7 +43,9 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
 
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
-
+    /**
+     * The default format for the toString method.
+     */
     private static final String DEFAULT_FORMAT_STRING = "(%2$s,%3$s)";
 
     /**
@@ -153,7 +155,7 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * <p>Returns a String representation of the Pair in the form: (L,R).</p>
      * 
-     * @return a string for this object
+     * @return a string describing this object, not null
      */
     @Override
     public String toString() {
@@ -161,19 +163,21 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * Returns a String representation in the given format. The format is in the {@link Formatter} syntax. There are three arguments
-     * available:
+     * <p>Returns a String representation in the given format.</p>
+     * 
+     * <p>The format specified uses the syntax from {@link Formatter}.
+     * There are three arguments available:</p>
      * <ol>
      * <li>The simple class name</li>
      * <li>The left object</li>
      * <li>The right object</li>
      * </ol>
      * 
-     * @param format
-     *            a {@link Formatter} String.
-     * @return a string for this object
+     * @param format  the format suitable for use with {@code Formatter}, not null
+     * @return a string describing for this object, not null
      */
     public String toString(String format) {
         return String.format(format, getClass().getSimpleName(), getLeft(), getRight());
     }
+
 }
