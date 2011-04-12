@@ -163,7 +163,7 @@ available in the <a href="userguide.html#lang.concurrent.">user guide</a>.</p>
 <li><code>CharSequenceUtils</code></li>
 <li><code>EnumUtils</code></li>
 <li><code>JavaVersion</code> - used in SystemUtils</li>
-<li><code>Pair</code></li>
+<li><code>Pair, ImmutablePair and MutablePair</code></li>
 <li><code>Range</code> - replaces the old math.*Range classes</li>
 <li><code>builder.Builder</code></li>
 <li><code>exception.ContextedException</code></li>
