@@ -23,7 +23,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.TimeZone;
 
 /**
  * <p>A suite of utilities surrounding the use of the
