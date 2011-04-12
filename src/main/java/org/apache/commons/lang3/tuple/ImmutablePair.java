@@ -14,12 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.lang3;
+package org.apache.commons.lang3.tuple;
 
 /**
- * <p>A mutable pair consisting of two {@code Object} elements.</p>
+ * <p>An immutable pair consisting of two {@code Object} elements.</p>
  * 
- * <p>Not #ThreadSafe#</p>
+ * <p>Although the implementation is immutable, there is no restriction on the objects
+ * that may be stored. If mutable objects are stored in the pair, then the pair
+ * itself effectively becomes mutable. The class is also not {@code final}, so a subclass
+ * could add undesirable behaviour.</p>
+ * 
+ * <p>#ThreadSafe# if the objects are threadsafe</p>
  *
  * @param <L> the first element type
  * @param <R> the second element type
@@ -27,15 +32,15 @@ package org.apache.commons.lang3;
  * @since Lang 3.0
  * @version $Id$
  */
-public class MutablePair<L, R> extends Pair<L, R> {
+public class ImmutablePair<L, R> extends Pair<L, R> {
 
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
 
     /** Left object */
-    public L left;
+    public final L left;
     /** Right object */
-    public R right;
+    public final R right;
 
     /**
      * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
@@ -49,15 +54,8 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * @param right  the right element, may be null
      * @return a pair formed from the two parameters, not null
      */
-    public static <L, R> MutablePair<L, R> of(L left, R right) {
-        return new MutablePair<L, R>(left, right);
-    }
-
-    /**
-     * Create a new pair instance of two nulls.
-     */
-    public MutablePair() {
-        super();
+    public static <L, R> ImmutablePair<L, R> of(L left, R right) {
+        return new ImmutablePair<L, R>(left, right);
     }
 
     /**
@@ -66,7 +64,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * @param left  the left value, may be null
      * @param right  the right value, may be null
      */
-    public MutablePair(L left, R right) {
+    public ImmutablePair(L left, R right) {
         super();
         this.left = left;
         this.right = right;
@@ -82,15 +80,6 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * Set the left element of the pair.
-     * 
-     * @param left  the new value of the left element, may be null
-     */
-    public void setLeftElement(L left) {
-        this.left = left;
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -99,25 +88,16 @@ public class MutablePair<L, R> extends Pair<L, R> {
     }
 
     /**
-     * Set the right element of the pair.
+     * <p>Throws {@code UnsupportedOperationException}.</p>
      * 
-     * @param right  the value of the right element
-     */
-    public void setRightElement(R right) {
-        this.right = right;
-    }
-
-    /**
-     * Sets the {@code Map.Entry} value.
-     * This sets the right element of the pair.
-     * 
-     * @param value  the right value to set, not null
-     * @return the old value for the right element
+     * <p>This pair is immutable, so this operation is not supported.</p>
+     *
+     * @param value  the value to set
+     * @return never
+     * @throws UnsupportedOperationException as this operation is not supported
      */
     public R setValue(R value) {
-        R result = getRight();
-        setRightElement(value);
-        return result;
+        throw new UnsupportedOperationException();
     }
 
 }
