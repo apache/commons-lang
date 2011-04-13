@@ -209,7 +209,6 @@ public class ObjectUtils {
      * ObjectUtils.hashCodeMulti(a,b,c)            = ((31 + a.hashCode()) * 31 + b.hashCode()) * 31 + c.hashCode()
      * </pre>
      *
-     * @param first  the first object, may be {@code null}
      * @param objects  the objects to obtain the hash code of, may be {@code null}
      * @return the hash code of the objects, or zero if null
      * @since 3.0
