@@ -1909,9 +1909,9 @@ public class StringUtils {
      * @param str  the CharSequence to check, may be null
      * @param searchStrs  the CharSequences to search for, may be null
      * @return the first index of any of the searchStrs in str, -1 if no match
-     * @since 3.0 Changed signature from indexOfAny(String, String[]) to indexOfAny(CharSequence, CharSequence[])
+     * @since 3.0 Changed signature from indexOfAny(String, String[]) to indexOfAny(CharSequence, CharSequence...)
      */
-    public static int indexOfAny(CharSequence str, CharSequence[] searchStrs) {
+    public static int indexOfAny(CharSequence str, CharSequence... searchStrs) {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
@@ -1963,9 +1963,9 @@ public class StringUtils {
      * @param str  the CharSequence to check, may be null
      * @param searchStrs  the CharSequences to search for, may be null
      * @return the last index of any of the CharSequences, -1 if no match
-     * @since 3.0 Changed signature from lastIndexOfAny(String, String[]) to lastIndexOfAny(CharSequence, CharSequence[])
+     * @since 3.0 Changed signature from lastIndexOfAny(String, String[]) to lastIndexOfAny(CharSequence, CharSequence)
      */
-    public static int lastIndexOfAny(CharSequence str, CharSequence[] searchStrs) {
+    public static int lastIndexOfAny(CharSequence str, CharSequence... searchStrs) {
         if (str == null || searchStrs == null) {
             return INDEX_NOT_FOUND;
         }
