@@ -791,6 +791,7 @@ public class StringUtils {
      * @param str2  the second CharSequence, may be null
      * @return {@code true} if the CharSequence are equal, case insensitive, or
      *  both {@code null}
+     * @since 3.0 Changed signature from equalsIgnoreCase(String, String) to equalsIgnoreCase(CharSequence, CharSequence)
      */
     public static boolean equalsIgnoreCase(CharSequence str1, CharSequence str2) {
         if (str1 == null || str2 == null) {
@@ -820,6 +821,7 @@ public class StringUtils {
      * @return the first index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
+     * @since 3.0 Changed signature from indexOf(String, int) to indexOf(CharSequence, int)
      */
     public static int indexOf(CharSequence seq, int searchChar) {
         if (isEmpty(seq)) {
@@ -852,6 +854,7 @@ public class StringUtils {
      * @return the first index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
+     * @since 3.0 Changed signature from indexOf(String, int, int) to indexOf(CharSequence, int, int)
      */
     public static int indexOf(CharSequence seq, int searchChar, int startPos) {
         if (isEmpty(seq)) {
@@ -882,6 +885,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.0
+     * @since 3.0 Changed signature from indexOf(String, String) to indexOf(CharSequence, CharSequence)
      */
     public static int indexOf(CharSequence seq, CharSequence searchSeq) {
         if (seq == null || searchSeq == null) {
@@ -921,6 +925,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.0
+     * @since 3.0 Changed signature from indexOf(String, String, int) to indexOf(CharSequence, CharSequence, int)
      */
     public static int indexOf(CharSequence seq, CharSequence searchSeq, int startPos) {
         if (seq == null || searchSeq == null) {
@@ -961,6 +966,7 @@ public class StringUtils {
      * @return the n-th index of the search CharSequence,
      *  {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input
      * @since 2.1
+     * @since 3.0 Changed signature from ordinalIndexOf(String, String, int) to ordinalIndexOf(CharSequence, CharSequence, int)
      */
     public static int ordinalIndexOf(CharSequence str, CharSequence searchStr, int ordinal) {
         return ordinalIndexOf(str, searchStr, ordinal, false);
@@ -1026,6 +1032,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.5
+     * @since 3.0 Changed signature from indexOfIgnoreCase(String, String) to indexOfIgnoreCase(CharSequence, CharSequence)
      */
     public static int indexOfIgnoreCase(CharSequence str, CharSequence searchStr) {
         return indexOfIgnoreCase(str, searchStr, 0);
@@ -1061,6 +1068,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.5
+     * @since 3.0 Changed signature from indexOfIgnoreCase(String, String, int) to indexOfIgnoreCase(CharSequence, CharSequence, int)
      */
     public static int indexOfIgnoreCase(CharSequence str, CharSequence searchStr, int startPos) {
         if (str == null || searchStr == null) {
@@ -1104,6 +1112,7 @@ public class StringUtils {
      * @return the last index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
+     * @since 3.0 Changed signature from lastIndexOf(String, int) to lastIndexOf(CharSequence, int)
      */
     public static int lastIndexOf(CharSequence seq, int searchChar) {
         if (isEmpty(seq)) {
@@ -1138,6 +1147,7 @@ public class StringUtils {
      * @return the last index of the search character,
      *  -1 if no match or {@code null} string input
      * @since 2.0
+     * @since 3.0 Changed signature from lastIndexOf(String, int, int) to lastIndexOf(CharSequence, int, int)
      */
     public static int lastIndexOf(CharSequence seq, int searchChar, int startPos) {
         if (isEmpty(seq)) {
@@ -1167,6 +1177,7 @@ public class StringUtils {
      * @return the last index of the search String,
      *  -1 if no match or {@code null} string input
      * @since 2.0
+     * @since 3.0 Changed signature from lastIndexOf(String, String) to lastIndexOf(CharSequence, CharSequence)
      */
     public static int lastIndexOf(CharSequence seq, CharSequence searchSeq) {
         if (seq == null || searchSeq == null) {
@@ -1207,6 +1218,7 @@ public class StringUtils {
      * @return the n-th last index of the search CharSequence,
      *  {@code -1} ({@code INDEX_NOT_FOUND}) if no match or {@code null} string input
      * @since 2.5
+     * @since 3.0 Changed signature from lastOrdinalIndexOf(String, String, int) to lastOrdinalIndexOf(CharSequence, CharSequence, int)
      */
     public static int lastOrdinalIndexOf(CharSequence str, CharSequence searchStr, int ordinal) {
         return ordinalIndexOf(str, searchStr, ordinal, true);
@@ -1239,6 +1251,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.0
+     * @since 3.0 Changed signature from lastIndexOf(String, String, int) to lastIndexOf(CharSequence, CharSequence, int)
      */
     public static int lastIndexOf(CharSequence seq, CharSequence searchSeq, int startPos) {
         if (seq == null || searchSeq == null) {
@@ -1268,6 +1281,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} string input
      * @since 2.5
+     * @since 3.0 Changed signature from lastIndexOfIgnoreCase(String, String) to lastIndexOfIgnoreCase(CharSequence, CharSequence)
      */
     public static int lastIndexOfIgnoreCase(CharSequence str, CharSequence searchStr) {
         if (str == null || searchStr == null) {
@@ -1303,6 +1317,7 @@ public class StringUtils {
      * @return the first index of the search CharSequence,
      *  -1 if no match or {@code null} input
      * @since 2.5
+     * @since 3.0 Changed signature from lastIndexOfIgnoreCase(String, String, int) to lastIndexOfIgnoreCase(CharSequence, CharSequence, int)
      */
     public static int lastIndexOfIgnoreCase(CharSequence str, CharSequence searchStr, int startPos) {
         if (str == null || searchStr == null) {
@@ -1346,6 +1361,7 @@ public class StringUtils {
      * @return true if the CharSequence contains the search character,
      *  false if not or {@code null} string input
      * @since 2.0
+     * @since 3.0 Changed signature from contains(String, int) to contains(CharSequence, int)
      */
     public static boolean contains(CharSequence seq, int searchChar) {
         if (isEmpty(seq)) {
@@ -1374,6 +1390,7 @@ public class StringUtils {
      * @return true if the CharSequence contains the search CharSequence,
      *  false if not or {@code null} string input
      * @since 2.0
+     * @since 3.0 Changed signature from contains(String, String) to contains(CharSequence, CharSequence)
      */
     public static boolean contains(CharSequence seq, CharSequence searchSeq) {
         if (seq == null || searchSeq == null) {
@@ -1404,6 +1421,7 @@ public class StringUtils {
      * @param searchStr  the CharSequence to find, may be null
      * @return true if the CharSequence contains the search CharSequence irrespective of
      * case or false if not or {@code null} string input
+     * @since 3.0 Changed signature from containsIgnoreCase(String, String) to containsIgnoreCase(CharSequence, CharSequence)
      */
     public static boolean containsIgnoreCase(CharSequence str, CharSequence searchStr) {
         if (str == null || searchStr == null) {
