@@ -1705,6 +1705,7 @@ public class StringUtils {
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
+     * @since 3.0 Changed signature from indexOfAnyBut(String, String) to indexOfAnyBut(CharSequence, CharSequence)
      */
     public static int indexOfAnyBut(CharSequence seq, CharSequence searchChars) {
         if (isEmpty(seq) || isEmpty(searchChars)) {
@@ -1908,6 +1909,7 @@ public class StringUtils {
      * @param str  the CharSequence to check, may be null
      * @param searchStrs  the CharSequences to search for, may be null
      * @return the first index of any of the searchStrs in str, -1 if no match
+     * @since 3.0 Changed signature from indexOfAny(String, String[]) to indexOfAny(CharSequence, CharSequence[])
      */
     public static int indexOfAny(CharSequence str, CharSequence[] searchStrs) {
         if (str == null || searchStrs == null) {
@@ -1961,6 +1963,7 @@ public class StringUtils {
      * @param str  the CharSequence to check, may be null
      * @param searchStrs  the CharSequences to search for, may be null
      * @return the last index of any of the CharSequences, -1 if no match
+     * @since 3.0 Changed signature from lastIndexOfAny(String, String[]) to lastIndexOfAny(CharSequence, CharSequence[])
      */
     public static int lastIndexOfAny(CharSequence str, CharSequence[] searchStrs) {
         if (str == null || searchStrs == null) {
@@ -5144,6 +5147,7 @@ public class StringUtils {
      * @param str  the CharSequence to check, may be null
      * @param sub  the substring to count, may be null
      * @return the number of occurrences, 0 if either CharSequence is {@code null}
+     * @since 3.0 Changed signature from countMatches(String, String) to countMatches(CharSequence, CharSequence)
      */
     public static int countMatches(CharSequence str, CharSequence sub) {
         if (isEmpty(str) || isEmpty(sub)) {
@@ -6164,6 +6168,7 @@ public class StringUtils {
      * @return {@code true} if the CharSequence starts with the prefix, case sensitive, or
      *  both {@code null}
      * @since 2.4
+     * @since 3.0 Changed signature from startsWith(String, String) to startsWith(CharSequence, CharSequence)
      */
     public static boolean startsWith(CharSequence str, CharSequence prefix) {
         return startsWith(str, prefix, false);
@@ -6189,6 +6194,7 @@ public class StringUtils {
      * @return {@code true} if the CharSequence starts with the prefix, case insensitive, or
      *  both {@code null}
      * @since 2.4
+     * @since 3.0 Changed signature from startsWithIgnoreCase(String, String) to startsWithIgnoreCase(CharSequence, CharSequence)
      */
     public static boolean startsWithIgnoreCase(CharSequence str, CharSequence prefix) {
         return startsWith(str, prefix, true);
@@ -6232,6 +6238,7 @@ public class StringUtils {
      * @return {@code true} if the CharSequence starts with any of the the prefixes, case insensitive, or
      *  both {@code null}
      * @since 2.5
+     * @since 3.0 Changed signature from startsWithAny(String, String[]) to startsWithAny(CharSequence, CharSequence...)
      */
     public static boolean startsWithAny(CharSequence string, CharSequence... searchStrings) {
         if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
@@ -6270,6 +6277,7 @@ public class StringUtils {
      * @return {@code true} if the CharSequence ends with the suffix, case sensitive, or
      *  both {@code null}
      * @since 2.4
+     * @since 3.0 Changed signature from endsWith(String, String) to endsWith(CharSequence, CharSequence)
      */
     public static boolean endsWith(CharSequence str, CharSequence suffix) {
         return endsWith(str, suffix, false);
@@ -6296,6 +6304,7 @@ public class StringUtils {
      * @return {@code true} if the CharSequence ends with the suffix, case insensitive, or
      *  both {@code null}
      * @since 2.4
+     * @since 3.0 Changed signature from endsWithIgnoreCase(String, String) to endsWithIgnoreCase(CharSequence, CharSequence)
      */
     public static boolean endsWithIgnoreCase(CharSequence str, CharSequence suffix) {
         return endsWith(str, suffix, true);
@@ -6387,7 +6396,7 @@ public class StringUtils {
      * @param searchStrings the CharSequences to find, may be null or empty
      * @return {@code true} if the CharSequence ends with any of the the prefixes, case insensitive, or
      *  both {@code null}
-     * @since 3.1
+     * @since 3.0
      */
     public static boolean endsWithAny(CharSequence string, CharSequence... searchStrings) {
         if (isEmpty(string) || ArrayUtils.isEmpty(searchStrings)) {
