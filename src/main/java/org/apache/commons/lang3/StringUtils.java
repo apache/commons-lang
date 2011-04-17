@@ -1564,9 +1564,9 @@ public class StringUtils {
      * @return the {@code true} if any of the chars are found,
      * {@code false} if no match or null input
      * @since 2.4
-     * @since 3.0 Changed signature from containsAny(String, char[]) to containsAny(CharSequence, char[])
+     * @since 3.0 Changed signature from containsAny(String, char[]) to containsAny(CharSequence, char...)
      */
-    public static boolean containsAny(CharSequence cs, char[] searchChars) {
+    public static boolean containsAny(CharSequence cs, char... searchChars) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return false;
         }
@@ -1655,9 +1655,9 @@ public class StringUtils {
      * @param searchChars  the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
-     * @since 3.0 Changed signature from indexOfAnyBut(String, char[]) to indexOfAnyBut(CharSequence, char[])
+     * @since 3.0 Changed signature from indexOfAnyBut(String, char[]) to indexOfAnyBut(CharSequence, char...)
      */
-    public static int indexOfAnyBut(CharSequence cs, char[] searchChars) {
+    public static int indexOfAnyBut(CharSequence cs, char... searchChars) {
         if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
