@@ -208,6 +208,10 @@ public class NumberUtilsTest extends TestCase {
 
         // LANG-638
         assertFalse("createNumber(String) succeeded", checkCreateNumber("1eE"));
+
+        // LANG-693
+        assertEquals("createNumber(String) LANG-693 failed", Double.MAX_VALUE, NumberUtils
+                    .createNumber("" + Double.MAX_VALUE));
     }
 
     public void testCreateFloat() {
