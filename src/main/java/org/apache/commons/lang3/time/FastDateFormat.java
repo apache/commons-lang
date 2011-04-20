@@ -23,16 +23,14 @@ import java.text.DateFormatSymbols;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.apache.commons.lang3.Validate;
 
@@ -99,15 +97,15 @@ public class FastDateFormat extends Format {
      */
     public static final int SHORT = DateFormat.SHORT;
 
-    //@GuardedBy("this")
-    private static String cDefaultPattern; // lazily initialised by getInstance()
+    private static final FormatCache<FastDateFormat> cache= new FormatCache<FastDateFormat>() {
+        @Override
+        protected FastDateFormat createInstance(String pattern,    TimeZone timeZone, Locale locale) {
+            return new FastDateFormat(pattern, timeZone, locale);
+        }
+    };
 
-    private static final Map<FastDateFormat, FastDateFormat> cInstanceCache =
-        new HashMap<FastDateFormat, FastDateFormat>(7);
-    private static final Map<Object, FastDateFormat> cDateInstanceCache = new HashMap<Object, FastDateFormat>(7);
-    private static final Map<Object, FastDateFormat> cTimeInstanceCache = new HashMap<Object, FastDateFormat>(7);
-    private static final Map<Object, FastDateFormat> cDateTimeInstanceCache = new HashMap<Object, FastDateFormat>(7);
-    private static final Map<Object, String> cTimeZoneDisplayCache = new HashMap<Object, String>(7);
+    private static ConcurrentMap<TimeZoneDisplayKey, String> cTimeZoneDisplayCache =
+        new ConcurrentHashMap<TimeZoneDisplayKey, String>(7);
 
     /**
      * The pattern.
@@ -118,17 +116,9 @@ public class FastDateFormat extends Format {
      */
     private final TimeZone mTimeZone;
     /**
-     * Whether the time zone overrides any on Calendars.
-     */
-    private final boolean mTimeZoneForced;
-    /**
      * The locale.
      */
     private final Locale mLocale;
-    /**
-     * Whether the locale overrides the default.
-     */
-    private final boolean mLocaleForced;
     /**
      * The parsed rules.
      */
@@ -146,7 +136,7 @@ public class FastDateFormat extends Format {
      * @return a date/time formatter
      */
     public static FastDateFormat getInstance() {
-        return getInstance(getDefaultPattern(), null, null);
+        return cache.getDateTimeInstance(SHORT, SHORT, null, null);
     }
 
     /**
@@ -159,7 +149,7 @@ public class FastDateFormat extends Format {
      * @throws IllegalArgumentException if pattern is invalid
      */
     public static FastDateFormat getInstance(String pattern) {
-        return getInstance(pattern, null, null);
+        return cache.getInstance(pattern, null, null);
     }
 
     /**
@@ -174,7 +164,7 @@ public class FastDateFormat extends Format {
      * @throws IllegalArgumentException if pattern is invalid
      */
     public static FastDateFormat getInstance(String pattern, TimeZone timeZone) {
-        return getInstance(pattern, timeZone, null);
+        return cache.getInstance(pattern, timeZone, null);
     }
 
     /**
@@ -188,7 +178,7 @@ public class FastDateFormat extends Format {
      * @throws IllegalArgumentException if pattern is invalid
      */
     public static FastDateFormat getInstance(String pattern, Locale locale) {
-        return getInstance(pattern, null, locale);
+        return cache.getInstance(pattern, null, locale);
     }
 
     /**
@@ -204,15 +194,8 @@ public class FastDateFormat extends Format {
      * @throws IllegalArgumentException if pattern is invalid
      *  or <code>null</code>
      */
-    public static synchronized FastDateFormat getInstance(String pattern, TimeZone timeZone, Locale locale) {
-        FastDateFormat emptyFormat = new FastDateFormat(pattern, timeZone, locale);
-        FastDateFormat format = cInstanceCache.get(emptyFormat);
-        if (format == null) {
-            format = emptyFormat;
-            format.init();  // convert shell format into usable one
-            cInstanceCache.put(format, format);  // this is OK!
-        }
-        return format;
+    public static FastDateFormat getInstance(String pattern, TimeZone timeZone, Locale locale) {
+        return cache.getInstance(pattern, timeZone, locale);
     }
 
     //-----------------------------------------------------------------------
@@ -227,7 +210,7 @@ public class FastDateFormat extends Format {
      * @since 2.1
      */
     public static FastDateFormat getDateInstance(int style) {
-        return getDateInstance(style, null, null);
+        return cache.getDateTimeInstance(style, null, null, null);
     }
 
     /**
@@ -242,7 +225,7 @@ public class FastDateFormat extends Format {
      * @since 2.1
      */
     public static FastDateFormat getDateInstance(int style, Locale locale) {
-        return getDateInstance(style, null, locale);
+        return cache.getDateTimeInstance(style, null, null, locale);
     }
 
     /**
@@ -258,8 +241,9 @@ public class FastDateFormat extends Format {
      * @since 2.1
      */
     public static FastDateFormat getDateInstance(int style, TimeZone timeZone) {
-        return getDateInstance(style, timeZone, null);
+        return cache.getDateTimeInstance(style, null, timeZone, null);
     }
+    
     /**
      * <p>Gets a date formatter instance using the specified style, time
      * zone and locale.</p>
@@ -272,31 +256,8 @@ public class FastDateFormat extends Format {
      * @throws IllegalArgumentException if the Locale has no date
      *  pattern defined
      */
-    public static synchronized FastDateFormat getDateInstance(int style, TimeZone timeZone, Locale locale) {
-        Object key = Integer.valueOf(style);
-        if (timeZone != null) {
-            key = new Pair(key, timeZone);
-        }
-
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
-
-        key = new Pair(key, locale);
-
-        FastDateFormat format = cDateInstanceCache.get(key);
-        if (format == null) {
-            try {
-                SimpleDateFormat formatter = (SimpleDateFormat) DateFormat.getDateInstance(style, locale);
-                String pattern = formatter.toPattern();
-                format = getInstance(pattern, timeZone, locale);
-                cDateInstanceCache.put(key, format);
-
-            } catch (ClassCastException ex) {
-                throw new IllegalArgumentException("No date pattern for locale: " + locale);
-            }
-        }
-        return format;
+    public static FastDateFormat getDateInstance(int style, TimeZone timeZone, Locale locale) {
+        return cache.getDateTimeInstance(style, null, timeZone, locale);
     }
 
     //-----------------------------------------------------------------------
@@ -311,7 +272,7 @@ public class FastDateFormat extends Format {
      * @since 2.1
      */
     public static FastDateFormat getTimeInstance(int style) {
-        return getTimeInstance(style, null, null);
+        return cache.getDateTimeInstance(null, style, null, null);
     }
 
     /**
@@ -326,7 +287,7 @@ public class FastDateFormat extends Format {
      * @since 2.1
      */
     public static FastDateFormat getTimeInstance(int style, Locale locale) {
-        return getTimeInstance(style, null, locale);
+        return cache.getDateTimeInstance(null, style, null, locale);
     }
 
     /**
@@ -342,7 +303,7 @@ public class FastDateFormat extends Format {
      * @since 2.1
      */
     public static FastDateFormat getTimeInstance(int style, TimeZone timeZone) {
-        return getTimeInstance(style, timeZone, null);
+        return cache.getDateTimeInstance(null, style, timeZone, null);
     }
 
     /**
@@ -357,32 +318,8 @@ public class FastDateFormat extends Format {
      * @throws IllegalArgumentException if the Locale has no time
      *  pattern defined
      */
-    public static synchronized FastDateFormat getTimeInstance(int style, TimeZone timeZone, Locale locale) {
-        Object key = Integer.valueOf(style);
-        if (timeZone != null) {
-            key = new Pair(key, timeZone);
-        }
-        if (locale != null) {
-            key = new Pair(key, locale);
-        }
-
-        FastDateFormat format = cTimeInstanceCache.get(key);
-        if (format == null) {
-            if (locale == null) {
-                locale = Locale.getDefault();
-            }
-
-            try {
-                SimpleDateFormat formatter = (SimpleDateFormat) DateFormat.getTimeInstance(style, locale);
-                String pattern = formatter.toPattern();
-                format = getInstance(pattern, timeZone, locale);
-                cTimeInstanceCache.put(key, format);
-
-            } catch (ClassCastException ex) {
-                throw new IllegalArgumentException("No date pattern for locale: " + locale);
-            }
-        }
-        return format;
+    public static FastDateFormat getTimeInstance(int style, TimeZone timeZone, Locale locale) {
+        return cache.getDateTimeInstance(null, style, timeZone, locale);
     }
 
     //-----------------------------------------------------------------------
@@ -397,9 +334,8 @@ public class FastDateFormat extends Format {
      *  pattern defined
      * @since 2.1
      */
-    public static FastDateFormat getDateTimeInstance(
-            int dateStyle, int timeStyle) {
-        return getDateTimeInstance(dateStyle, timeStyle, null, null);
+    public static FastDateFormat getDateTimeInstance(int dateStyle, int timeStyle) {
+        return cache.getDateTimeInstance(dateStyle, timeStyle, null, null);
     }
 
     /**
@@ -414,9 +350,8 @@ public class FastDateFormat extends Format {
      *  pattern defined
      * @since 2.1
      */
-    public static FastDateFormat getDateTimeInstance(
-            int dateStyle, int timeStyle, Locale locale) {
-        return getDateTimeInstance(dateStyle, timeStyle, null, locale);
+    public static FastDateFormat getDateTimeInstance(int dateStyle, int timeStyle, Locale locale) {
+        return cache.getDateTimeInstance(dateStyle, timeStyle, null, locale);
     }
 
     /**
@@ -432,8 +367,7 @@ public class FastDateFormat extends Format {
      *  pattern defined
      * @since 2.1
      */
-    public static FastDateFormat getDateTimeInstance(
-            int dateStyle, int timeStyle, TimeZone timeZone) {
+    public static FastDateFormat getDateTimeInstance(int dateStyle, int timeStyle, TimeZone timeZone) {
         return getDateTimeInstance(dateStyle, timeStyle, timeZone, null);
     }
     /**
@@ -449,32 +383,9 @@ public class FastDateFormat extends Format {
      * @throws IllegalArgumentException if the Locale has no date/time
      *  pattern defined
      */
-    public static synchronized FastDateFormat getDateTimeInstance(int dateStyle, int timeStyle, TimeZone timeZone,
-            Locale locale) {
-
-        Object key = new Pair(Integer.valueOf(dateStyle), Integer.valueOf(timeStyle));
-        if (timeZone != null) {
-            key = new Pair(key, timeZone);
-        }
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
-        key = new Pair(key, locale);
-
-        FastDateFormat format = cDateTimeInstanceCache.get(key);
-        if (format == null) {
-            try {
-                SimpleDateFormat formatter = (SimpleDateFormat) DateFormat.getDateTimeInstance(dateStyle, timeStyle,
-                        locale);
-                String pattern = formatter.toPattern();
-                format = getInstance(pattern, timeZone, locale);
-                cDateTimeInstanceCache.put(key, format);
-
-            } catch (ClassCastException ex) {
-                throw new IllegalArgumentException("No date time pattern for locale: " + locale);
-            }
-        }
-        return format;
+    public static FastDateFormat getDateTimeInstance(
+            int dateStyle, int timeStyle, TimeZone timeZone, Locale locale) {
+        return cache.getDateTimeInstance(dateStyle, timeStyle, timeZone, locale);
     }
 
     //-----------------------------------------------------------------------
@@ -488,27 +399,18 @@ public class FastDateFormat extends Format {
      * @param locale  the locale to use
      * @return the textual name of the time zone
      */
-    static synchronized String getTimeZoneDisplay(TimeZone tz, boolean daylight, int style, Locale locale) {
-        Object key = new TimeZoneDisplayKey(tz, daylight, style, locale);
+    static String getTimeZoneDisplay(TimeZone tz, boolean daylight, int style, Locale locale) {
+        TimeZoneDisplayKey key = new TimeZoneDisplayKey(tz, daylight, style, locale);
         String value = cTimeZoneDisplayCache.get(key);
         if (value == null) {
             // This is a very slow call, so cache the results.
             value = tz.getDisplayName(daylight, style, locale);
-            cTimeZoneDisplayCache.put(key, value);
+            String prior = cTimeZoneDisplayCache.putIfAbsent(key, value);
+            if (prior != null) {
+                value= prior;
+            }
         }
         return value;
-    }
-
-    /**
-     * <p>Gets the default pattern.</p>
-     *
-     * @return the default pattern
-     */
-    private static synchronized String getDefaultPattern() {
-        if (cDefaultPattern == null) {
-            cDefaultPattern = new SimpleDateFormat().toPattern();
-        }
-        return cDefaultPattern;
     }
 
     // Constructor
@@ -516,40 +418,23 @@ public class FastDateFormat extends Format {
     /**
      * <p>Constructs a new FastDateFormat.</p>
      *
-     * @param pattern  {@link java.text.SimpleDateFormat} compatible
-     *  pattern
-     * @param timeZone  time zone to use, <code>null</code> means use
-     *  default for <code>Date</code> and value within for
-     *  <code>Calendar</code>
-     * @param locale  locale, <code>null</code> means use system
-     *  default
-     * @throws IllegalArgumentException if pattern is invalid or
-     *  <code>null</code>
+     * @param pattern  {@link java.text.SimpleDateFormat} compatible pattern
+     * @param timeZone  non-null time zone to use
+     * @param locale  non-null locale to use
+     * @throws NullPointerException if pattern, timeZone, or locale is null.
      */
     protected FastDateFormat(String pattern, TimeZone timeZone, Locale locale) {
-        super();
-        if (pattern == null) {
-            throw new IllegalArgumentException("The pattern must not be null");
-        }
         mPattern = pattern;
-
-        mTimeZoneForced = (timeZone != null);
-        if (timeZone == null) {
-            timeZone = TimeZone.getDefault();
-        }
         mTimeZone = timeZone;
-
-        mLocaleForced = (locale != null);
-        if (locale == null) {
-            locale = Locale.getDefault();
-        }
         mLocale = locale;
+
+        init();
     }
 
     /**
      * <p>Initializes the instance for first use.</p>
      */
-    protected void init() {
+    private void init() {
         List<Rule> rulesList = parsePattern();
         mRules = rulesList.toArray(new Rule[rulesList.size()]);
 
@@ -662,9 +547,9 @@ public class FastDateFormat extends Format {
                 break;
             case 'z': // time zone (text)
                 if (tokenLen >= 4) {
-                    rule = new TimeZoneNameRule(mTimeZone, mTimeZoneForced, mLocale, TimeZone.LONG);
+                    rule = new TimeZoneNameRule(mTimeZone, mLocale, TimeZone.LONG);
                 } else {
-                    rule = new TimeZoneNameRule(mTimeZone, mTimeZoneForced, mLocale, TimeZone.SHORT);
+                    rule = new TimeZoneNameRule(mTimeZone, mLocale, TimeZone.SHORT);
                 }
                 break;
             case 'Z': // time zone (value)
@@ -812,7 +697,7 @@ public class FastDateFormat extends Format {
      * @return the formatted string
      */
     public String format(Date date) {
-        Calendar c = new GregorianCalendar(mTimeZone, mLocale);
+        Calendar c = Calendar.getInstance(mTimeZone, mLocale);
         c.setTime(date);
         return applyRules(c, new StringBuffer(mMaxLengthEstimate)).toString();
     }
@@ -849,7 +734,7 @@ public class FastDateFormat extends Format {
      * @return the specified string buffer
      */
     public StringBuffer format(Date date, StringBuffer buf) {
-        Calendar c = new GregorianCalendar(mTimeZone);
+        Calendar c = Calendar.getInstance(mTimeZone, mLocale);
         c.setTime(date);
         return applyRules(c, buf);
     }
@@ -863,11 +748,6 @@ public class FastDateFormat extends Format {
      * @return the specified string buffer
      */
     public StringBuffer format(Calendar calendar, StringBuffer buf) {
-        if (mTimeZoneForced) {
-            calendar.getTimeInMillis(); /// LANG-538
-            calendar = (Calendar) calendar.clone();
-            calendar.setTimeZone(mTimeZone);
-        }
         return applyRules(calendar, buf);
     }
 
@@ -880,10 +760,8 @@ public class FastDateFormat extends Format {
      * @return the specified string buffer
      */
     protected StringBuffer applyRules(Calendar calendar, StringBuffer buf) {
-        Rule[] rules = mRules;
-        int len = mRules.length;
-        for (int i = 0; i < len; i++) {
-            rules[i].appendTo(buf, calendar);
+        for (Rule rule : mRules) {
+            rule.appendTo(buf, calendar);
         }
         return buf;
     }
@@ -918,26 +796,12 @@ public class FastDateFormat extends Format {
     /**
      * <p>Gets the time zone used by this formatter.</p>
      *
-     * <p>This zone is always used for <code>Date</code> formatting.
-     * If a <code>Calendar</code> is passed in to be formatted, the
-     * time zone on that may be used depending on
-     * {@link #getTimeZoneOverridesCalendar()}.</p>
+     * <p>This zone is always used for <code>Date</code> formatting. </p>
      *
      * @return the time zone
      */
     public TimeZone getTimeZone() {
         return mTimeZone;
-    }
-
-    /**
-     * <p>Returns <code>true</code> if the time zone of the
-     * calendar overrides the time zone of the formatter.</p>
-     *
-     * @return <code>true</code> if time zone of formatter
-     *  overridden for calendars
-     */
-    public boolean getTimeZoneOverridesCalendar() {
-        return mTimeZoneForced;
     }
 
     /**
@@ -976,16 +840,9 @@ public class FastDateFormat extends Format {
             return false;
         }
         FastDateFormat other = (FastDateFormat) obj;
-        if (
-            (mPattern == other.mPattern || mPattern.equals(other.mPattern)) &&
-            (mTimeZone == other.mTimeZone || mTimeZone.equals(other.mTimeZone)) &&
-            (mLocale == other.mLocale || mLocale.equals(other.mLocale)) &&
-            (mTimeZoneForced == other.mTimeZoneForced) &&
-            (mLocaleForced == other.mLocaleForced)
-            ) {
-            return true;
-        }
-        return false;
+        return mPattern.equals(other.mPattern)
+            && mTimeZone.equals(other.mTimeZone) 
+            && mLocale.equals(other.mLocale);
     }
 
     /**
@@ -995,13 +852,7 @@ public class FastDateFormat extends Format {
      */
     @Override
     public int hashCode() {
-        int total = 0;
-        total += mPattern.hashCode();
-        total += mTimeZone.hashCode();
-        total += (mTimeZoneForced ? 1 : 0);
-        total += mLocale.hashCode();
-        total += (mLocaleForced ? 1 : 0);
-        return total;
+        return mPattern.hashCode() + 13 * (mTimeZone.hashCode() + 13 * mLocale.hashCode());
     }
 
     /**
@@ -1517,9 +1368,6 @@ public class FastDateFormat extends Format {
      */
     private static class TimeZoneNameRule implements Rule {
         private final TimeZone mTimeZone;
-        private final boolean mTimeZoneForced;
-        private final Locale mLocale;
-        private final int mStyle;
         private final String mStandard;
         private final String mDaylight;
 
@@ -1527,55 +1375,31 @@ public class FastDateFormat extends Format {
          * Constructs an instance of <code>TimeZoneNameRule</code> with the specified properties.
          *
          * @param timeZone the time zone
-         * @param timeZoneForced if <code>true</code> the time zone is forced into standard and daylight
          * @param locale the locale
          * @param style the style
          */
-        TimeZoneNameRule(TimeZone timeZone, boolean timeZoneForced, Locale locale, int style) {
+        TimeZoneNameRule(TimeZone timeZone, Locale locale, int style) {
             mTimeZone = timeZone;
-            mTimeZoneForced = timeZoneForced;
-            mLocale = locale;
-            mStyle = style;
 
-            if (timeZoneForced) {
-                mStandard = getTimeZoneDisplay(timeZone, false, style, locale);
-                mDaylight = getTimeZoneDisplay(timeZone, true, style, locale);
-            } else {
-                mStandard = null;
-                mDaylight = null;
-            }
+            mStandard = getTimeZoneDisplay(timeZone, false, style, locale);
+            mDaylight = getTimeZoneDisplay(timeZone, true, style, locale);
         }
 
         /**
          * {@inheritDoc}
          */
         public int estimateLength() {
-            if (mTimeZoneForced) {
-                return Math.max(mStandard.length(), mDaylight.length());
-            } else if (mStyle == TimeZone.SHORT) {
-                return 4;
-            } else {
-                return 40;
-            }
+            return Math.max(mStandard.length(), mDaylight.length());
         }
 
         /**
          * {@inheritDoc}
          */
         public void appendTo(StringBuffer buffer, Calendar calendar) {
-            if (mTimeZoneForced) {
-                if (mTimeZone.useDaylightTime() && calendar.get(Calendar.DST_OFFSET) != 0) {
-                    buffer.append(mDaylight);
-                } else {
-                    buffer.append(mStandard);
-                }
+            if (mTimeZone.useDaylightTime() && calendar.get(Calendar.DST_OFFSET) != 0) {
+                buffer.append(mDaylight);
             } else {
-                TimeZone timeZone = calendar.getTimeZone();
-                if (timeZone.useDaylightTime() && calendar.get(Calendar.DST_OFFSET) != 0) {
-                    buffer.append(getTimeZoneDisplay(timeZone, true, mStyle, mLocale));
-                } else {
-                    buffer.append(getTimeZoneDisplay(timeZone, false, mStyle, mLocale));
-                }
+                buffer.append(mStandard);
             }
         }
     }
@@ -1665,7 +1489,7 @@ public class FastDateFormat extends Format {
          */
         @Override
         public int hashCode() {
-            return mStyle * 31 + mLocale.hashCode();
+            return (mStyle * 31 + mLocale.hashCode() ) * 31 + mTimeZone.hashCode();
         }
 
         /**
@@ -1686,67 +1510,4 @@ public class FastDateFormat extends Format {
             return false;
         }
     }
-
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Helper class for creating compound objects.</p>
-     *
-     * <p>One use for this class is to create a hashtable key
-     * out of multiple objects.</p>
-     */
-    private static class Pair {
-        private final Object mObj1;
-        private final Object mObj2;
-
-        /**
-         * Constructs an instance of <code>Pair</code> to hold the specified objects.
-         * @param obj1 one object in the pair
-         * @param obj2 second object in the pair
-         */
-        public Pair(Object obj1, Object obj2) {
-            mObj1 = obj1;
-            mObj2 = obj2;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-
-            if (!(obj instanceof Pair)) {
-                return false;
-            }
-
-            Pair key = (Pair)obj;
-
-            return
-                (mObj1 == null ?
-                 key.mObj1 == null : mObj1.equals(key.mObj1)) &&
-                (mObj2 == null ?
-                 key.mObj2 == null : mObj2.equals(key.mObj2));
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public int hashCode() {
-            return
-                (mObj1 == null ? 0 : mObj1.hashCode()) +
-                (mObj2 == null ? 0 : mObj2.hashCode());
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String toString() {
-            return "[" + mObj1 + ':' + mObj2 + ']';
-        }
-    }
-
 }
