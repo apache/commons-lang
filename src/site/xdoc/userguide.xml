@@ -32,14 +32,14 @@ limitations under the License.
       <h2>Users Guide</h2>
       <br />
       <a href="#Description">[Description]</a>
-      <a href="#lang.">[lang.*]</a>
-      <a href="#lang.builder.">[lang.builder.*]</a>
-      <a href="#lang.exception.">[lang.exception.*]</a>
-      <a href="#lang.math.">[lang.math.*]</a>
-      <a href="#lang.mutable.">[lang.mutable.*]</a>
-      <a href="#lang.text.">[lang.text.*]</a>
-      <a href="#lang.time.">[lang.time.*]</a>
-      <a href="#lang.concurrent.">[lang.concurrent.*]</a>
+      <a href="#lang3.">[lang3.*]</a>
+      <a href="#lang3.builder.">[lang3.builder.*]</a>
+      <a href="#lang3.exception.">[lang3.exception.*]</a>
+      <a href="#lang3.math.">[lang3.math.*]</a>
+      <a href="#lang3.mutable.">[lang3.mutable.*]</a>
+      <a href="#lang3.text.">[lang3.text.*]</a>
+      <a href="#lang3.time.">[lang3.time.*]</a>
+      <a href="#lang3.concurrent.">[lang3.concurrent.*]</a>
       <br /><br />
     </div>
   </section>
@@ -52,7 +52,7 @@ limitations under the License.
    <p>Before we begin, it's a good time to mention the Utils classes. They all contain empty public constructors with warnings not to use. This may seem an odd thing to do, but it allows tools like Velocity to access the class as if it were a bean. In other words, yes we know about private constructors and have chosen not to use them. </p>
   </section>
 
-   <section name="lang.*">
+   <section name="lang3.*">
     <subsection name="String manipulation - StringUtils, StringEscapeUtils, RandomStringUtils, Tokenizer, WordUtils">
      <p>Lang has a series of String utilities. The first is StringUtils, oodles and oodles of functions which tweak, transform, squeeze and cuddle java.lang.Strings. In addition to StringUtils, there are a series of other String manipulating classes; RandomStringUtils, StringEscapeUtils and Tokenizer. RandomStringUtils speaks for itself. It's provides ways in which to generate pieces of text, such as might be used for default passwords. StringEscapeUtils contains methods to escape and unescape Java, JavaScript, HTML, XML and SQL. Tokenizer is an improved alternative to java.util.StringTokenizer. </p>
      <p>These are ideal classes to start using if you're looking to get into Lang. StringUtils' capitalize, substringBetween/Before/After, split and join are good methods to begin with. If you use java.sql.Statements a lot, StringEscapeUtils.escapeSql might be of interest. </p>
@@ -110,7 +110,7 @@ limitations under the License.
     </subsection>
    </section>
 
-   <section name="lang.builder.*">
+   <section name="lang3.builder.*">
    <!--
    CompareToBuilder
    EqualsBuilder
@@ -123,7 +123,7 @@ limitations under the License.
     <p>When you write a hashcode, do you check Bloch's Effective Java? No? You just hack in a quick number? Well HashCodeBuilder will save your day. It, and its buddies (EqualsBuilder, CompareToBuilder, ToStringBuilder), take care of the nasty bits while you focus on the important bits, like which fields will go into making up the hashcode.</p>
    </section>
 
-   <section name="lang.math.*">
+   <section name="lang3.math.*">
    <!--
    Fraction
    NumberUtils
@@ -133,7 +133,7 @@ limitations under the License.
     <p>There are two aspects of this package I would like to highlight. The first is <code>NumberUtils.createNumber(String)</code>, a method which does its best to convert a String into a Number object. You have no idea what type of Number it will return, so you should call the relevant <code>xxxValue</code> method when you reach the point of needing a number. NumberUtils also has a related <code>isNumber</code> method. </p>
    </section>
 
-   <section name="lang.mutable.*">
+   <section name="lang3.mutable.*">
    <!--
    Mutable
    MutableByte
@@ -148,7 +148,7 @@ limitations under the License.
     </p>
    </section>
 
-   <section name="lang.text.*">
+   <section name="lang3.text.*">
    <!--
    CompositeFormat
    StrLookup
@@ -160,7 +160,7 @@ limitations under the License.
    <p>The text package was added in Lang 2.2. It provides, amongst other classes, a replacement for StringBuffer named <code>StrBuilder</code>, a class for substituting variables within a String named <code>StrSubstitutor</code> and a replacement for StringTokenizer named <code>StrTokenizer</code>. While somewhat ungainly, the <code>Str</code> prefix has been used to ensure we don't clash with any current or future standard Java classes. </p>
    </section>
 
-   <section name="lang.time.*">
+   <section name="lang3.time.*">
    <!--
    DateFormatUtils
    DateUtils
@@ -172,7 +172,7 @@ limitations under the License.
     <p>New in Lang 2.1 is the DurationFormatUtils class, which provides various methods for formatting durations. </p>
    </section>
 
-   <section name="lang.concurrent.*">
+   <section name="lang3.concurrent.*">
    <p>
      In Lang 3.0 a new <em>concurrent</em> package was introduced containing
      interfaces and classes to support programming with multiple threads. Its
