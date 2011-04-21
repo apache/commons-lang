@@ -17,11 +17,13 @@
 package org.apache.commons.lang3.tuple;
 
 import java.io.Serializable;
+import java.util.Formattable;
 import java.util.Formatter;
 import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.CompareToBuilder;
+import org.apache.commons.lang3.util.FormattableUtils;
 
 /**
  * <p>A pair consisting of two elements.</p>
@@ -40,14 +42,15 @@ import org.apache.commons.lang3.builder.CompareToBuilder;
  * @since Lang 3.0
  * @version $Id$
  */
-public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Serializable {
+public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, R>>, Formattable, Serializable {
 
     /** Serialization version */
     private static final long serialVersionUID = 4954918890077093841L;
+
     /**
-     * The default format for the toString method.
+     * Basic format pattern.
      */
-    private static final String DEFAULT_FORMAT_STRING = "(%2$s,%3$s)";
+    private static final String DEFAULT_FORMAT_STRING = "(%1$s,%2$s)";
 
     /**
      * <p>Obtains an immutable pair of from two objects inferring the generic types.</p>
@@ -154,31 +157,27 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Returns a String representation of the Pair in the form: (L,R).</p>
+     * <p>Returns a String representation of this Pair as completed by
+     * {@link #formatTo(Formatter, int, int, int)}.</p>
      * 
      * @return a string describing this object, not null
      */
     @Override
     public String toString() {
-        return toString(DEFAULT_FORMAT_STRING);
+        return FormattableUtils.toString(this);
     }
 
     /**
-     * <p>Returns a String representation in the given format.</p>
+     * <p>Format this {@link Pair}.  Basic format is in the form: (L,R).</p>
      * 
-     * <p>The format specified uses the syntax from {@link Formatter}.
-     * There are three arguments available:</p>
-     * <ol>
-     * <li>The simple class name</li>
-     * <li>The left object</li>
-     * <li>The right object</li>
-     * </ol>
-     * 
-     * @param format  the format suitable for use with {@code Formatter}, not null
-     * @return a string describing for this object, not null
+     * @param formatter target
+     * @param flags for output format
+     * @param width of output
+     * @param precision of output
      */
-    public String toString(String format) {
-        return String.format(format, getClass().getSimpleName(), getLeft(), getRight());
+    public void formatTo(Formatter formatter, int flags, int width, int precision) {
+        FormattableUtils.append(String.format(DEFAULT_FORMAT_STRING, getLeft(), getRight()),
+                formatter, flags, width, precision);
     }
 
 }
