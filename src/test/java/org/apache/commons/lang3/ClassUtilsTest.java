@@ -99,11 +99,55 @@ public class ClassUtilsTest extends TestCase {
         assertEquals("String[][][][]", ClassUtils.getShortClassName(String[][][][].class));
     }
 
+
+
     public void test_getShortClassName_String() {
         assertEquals("ClassUtils", ClassUtils.getShortClassName(ClassUtils.class.getName()));
         assertEquals("Map.Entry", ClassUtils.getShortClassName(Map.Entry.class.getName()));
         assertEquals("", ClassUtils.getShortClassName((String) null));
         assertEquals("", ClassUtils.getShortClassName(""));
+    }
+
+    public void test_getSimpleName_Class() {
+        assertEquals("ClassUtils", ClassUtils.getSimpleName(ClassUtils.class));
+        assertEquals("Entry", ClassUtils.getSimpleName(Map.Entry.class));
+        assertEquals("", ClassUtils.getSimpleName((Class<?>) null));
+
+        // LANG-535
+        assertEquals("String[]", ClassUtils.getSimpleName(String[].class));
+        assertEquals("Entry[]", ClassUtils.getSimpleName(Map.Entry[].class));
+
+        // Primitives
+        assertEquals("boolean", ClassUtils.getSimpleName(boolean.class));
+        assertEquals("byte", ClassUtils.getSimpleName(byte.class));
+        assertEquals("char", ClassUtils.getSimpleName(char.class));
+        assertEquals("short", ClassUtils.getSimpleName(short.class));
+        assertEquals("int", ClassUtils.getSimpleName(int.class));
+        assertEquals("long", ClassUtils.getSimpleName(long.class));
+        assertEquals("float", ClassUtils.getSimpleName(float.class));
+        assertEquals("double", ClassUtils.getSimpleName(double.class));
+
+        // Primitive Arrays
+        assertEquals("boolean[]", ClassUtils.getSimpleName(boolean[].class));
+        assertEquals("byte[]", ClassUtils.getSimpleName(byte[].class));
+        assertEquals("char[]", ClassUtils.getSimpleName(char[].class));
+        assertEquals("short[]", ClassUtils.getSimpleName(short[].class));
+        assertEquals("int[]", ClassUtils.getSimpleName(int[].class));
+        assertEquals("long[]", ClassUtils.getSimpleName(long[].class));
+        assertEquals("float[]", ClassUtils.getSimpleName(float[].class));
+        assertEquals("double[]", ClassUtils.getSimpleName(double[].class));
+
+        // Arrays of arrays of ...
+        assertEquals("String[][]", ClassUtils.getSimpleName(String[][].class));
+        assertEquals("String[][][]", ClassUtils.getSimpleName(String[][][].class));
+        assertEquals("String[][][][]", ClassUtils.getSimpleName(String[][][][].class));
+    }
+
+    public void test_getSimpleName_Object() {
+        assertEquals("ClassUtils", ClassUtils.getSimpleName(new ClassUtils(), "<null>"));
+        assertEquals("Inner", ClassUtils.getSimpleName(new Inner(), "<null>"));
+        assertEquals("String", ClassUtils.getSimpleName("hello", "<null>"));
+        assertEquals("<null>", ClassUtils.getSimpleName(null, "<null>"));
     }
 
     // -------------------------------------------------------------------------

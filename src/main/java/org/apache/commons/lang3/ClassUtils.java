@@ -213,6 +213,37 @@ public class ClassUtils {
         return out + arrayPrefix;
     }
 
+    /**
+     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     *
+     * @param cls the class for which to get the simple name.
+     * @return the simple class name.
+     * @since 3.0
+     * @see Class#getSimpleName()
+     */
+    public static String getSimpleName(Class<?> cls) {
+        if (cls == null) {
+            return StringUtils.EMPTY;
+        }
+        return cls.getSimpleName();
+    }
+
+    /**
+     * <p>Null-safe version of <code>aClass.getSimpleName()</code></p>
+     *
+     * @param object the object for which to get the simple class name.
+     * @param valueIfNull the value to return if <code>object</code> is <code>null</code>
+     * @return the simple class name.
+     * @since 3.0
+     * @see Class#getSimpleName()
+     */
+    public static String getSimpleName(Object object, String valueIfNull) {
+        if (object == null) {
+            return valueIfNull;
+        }
+        return getSimpleName(object.getClass());
+    }
+
     // Package name
     // ----------------------------------------------------------------------
     /**
