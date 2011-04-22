@@ -4473,7 +4473,7 @@ public class StringUtils {
             return str;
         }
         if (inputLength == 1 && repeat <= PAD_LIMIT) {
-            return padding(repeat, str.charAt(0));
+            return pad(repeat, str.charAt(0));
         }
 
         int outputLength = inputLength * repeat;
@@ -4540,7 +4540,7 @@ public class StringUtils {
      * <pre>
      * StringUtils.padding(0, 'e')  = ""
      * StringUtils.padding(3, 'e')  = "eee"
-     * StringUtils.padding(-2, 'e') = IndexOutOfBoundsException
+     * StringUtils.padding(-2, 'e') throws IndexOutOfBoundsException
      * </pre>
      *
      * <p>Note: this method doesn't not support padding with
@@ -4556,7 +4556,7 @@ public class StringUtils {
      * @throws IndexOutOfBoundsException if <code>repeat &lt; 0</code>
      * @see #repeat(String, int)
      */
-    private static String padding(int repeat, char padChar) throws IndexOutOfBoundsException {
+    public static String pad(int repeat, char padChar) throws IndexOutOfBoundsException {
         if (repeat < 0) {
             throw new IndexOutOfBoundsException("Cannot pad a negative amount: " + repeat);
         }
@@ -4622,7 +4622,7 @@ public class StringUtils {
         if (pads > PAD_LIMIT) {
             return rightPad(str, size, String.valueOf(padChar));
         }
-        return str.concat(padding(pads, padChar));
+        return str.concat(pad(pads, padChar));
     }
 
     /**
@@ -4734,7 +4734,7 @@ public class StringUtils {
         if (pads > PAD_LIMIT) {
             return leftPad(str, size, String.valueOf(padChar));
         }
-        return padding(pads, padChar).concat(str);
+        return pad(pads, padChar).concat(str);
     }
 
     /**
