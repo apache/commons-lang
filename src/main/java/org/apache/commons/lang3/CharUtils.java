@@ -138,9 +138,9 @@ public class CharUtils {
      * <p>Converts the Character to a char throwing an exception for {@code null}.</p>
      * 
      * <pre>
-     *   CharUtils.toChar(null) = IllegalArgumentException
      *   CharUtils.toChar(' ')  = ' '
      *   CharUtils.toChar('A')  = 'A'
+     *   CharUtils.toChar(null) throws IllegalArgumentException
      * </pre>
      *
      * @param ch  the character to convert
@@ -180,10 +180,10 @@ public class CharUtils {
      * an exception on empty Strings.</p>
      * 
      * <pre>
-     *   CharUtils.toChar(null) = IllegalArgumentException
-     *   CharUtils.toChar("")   = IllegalArgumentException
      *   CharUtils.toChar("A")  = 'A'
      *   CharUtils.toChar("BA") = 'B'
+     *   CharUtils.toChar(null) throws IllegalArgumentException
+     *   CharUtils.toChar("")   throws IllegalArgumentException
      * </pre>
      *
      * @param str  the character to convert
@@ -228,7 +228,7 @@ public class CharUtils {
      *
      * <pre>
      *   CharUtils.toIntValue('3')  = 3
-     *   CharUtils.toIntValue('A')  = IllegalArgumentException
+     *   CharUtils.toIntValue('A')  throws IllegalArgumentException
      * </pre>
      *
      * @param ch  the character to convert
@@ -271,9 +271,9 @@ public class CharUtils {
      * <p>This method coverts the char '1' to the int 1 and so on.</p>
      *
      * <pre>
-     *   CharUtils.toIntValue(null) = IllegalArgumentException
      *   CharUtils.toIntValue('3')  = 3
-     *   CharUtils.toIntValue('A')  = IllegalArgumentException
+     *   CharUtils.toIntValue(null) throws IllegalArgumentException
+     *   CharUtils.toIntValue('A')  throws IllegalArgumentException
      * </pre>
      *
      * @param ch  the character to convert, not null
