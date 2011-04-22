@@ -23,7 +23,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.builder.CompareToBuilder;
-import org.apache.commons.lang3.util.FormattableUtils;
+import org.apache.commons.lang3.text.FormattableUtils;
 
 /**
  * <p>A pair consisting of two elements.</p>
