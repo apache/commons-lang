@@ -22,6 +22,7 @@ import java.util.Formattable;
 import java.util.Formatter;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 
 /**
@@ -128,7 +129,7 @@ public class FormattableUtils {
                 "Specified ellipsis '%1$s' exceeds precision of %2$s", ellipsis, precision);
         StringBuilder buf = new StringBuilder(seq);
         if (precision >= 0 && precision < seq.length()) {
-            CharSequence _ellipsis = ObjectUtils.defaultIfNull(ellipsis, "");
+            CharSequence _ellipsis = ObjectUtils.defaultIfNull(ellipsis, StringUtils.EMPTY);
             buf.replace(precision - _ellipsis.length(), seq.length(), _ellipsis.toString());
         }
         boolean leftJustify = (flags & LEFT_JUSTIFY) == LEFT_JUSTIFY;
