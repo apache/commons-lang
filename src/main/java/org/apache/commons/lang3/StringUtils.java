@@ -3219,6 +3219,7 @@ public class StringUtils {
      * StringUtils.join([null, "", "a"]) = "a"
      * </pre>
      *
+     * @param <T> the specific type of values to join together
      * @param elements  the values to join together, may be null
      * @return the joined String, {@code null} if null array input
      * @since 2.0
