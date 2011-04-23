@@ -51,7 +51,7 @@ public class FormattableUtils {
      * Get the default formatted representation of the specified
      * {@link Formattable}.
      * 
-     * @param formattable
+     * @param formattable to convert to a String
      * @return String
      */
     public static String toString(Formattable formattable) {
