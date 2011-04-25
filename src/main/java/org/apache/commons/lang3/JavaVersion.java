@@ -123,7 +123,7 @@ public enum JavaVersion {
     /**
      * <p>The string value is overridden to return the standard name.</p>
      *
-     * <p>For example, '1.5'.</p>
+     * <p>For example, <code>"1.5"</code>.</p>
      *
      * @return the name, not null
      */
