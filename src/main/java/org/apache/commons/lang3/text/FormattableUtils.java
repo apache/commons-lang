@@ -33,7 +33,7 @@ import org.apache.commons.lang3.Validate;
  */
 public class FormattableUtils {
 
-    private static final String SIMPLEST_FORMAT = "%1$s";
+    private static final String SIMPLEST_FORMAT = "%s";
 
     /**
      * <p>{@link FormattableUtils} instances should NOT be constructed in
