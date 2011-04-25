@@ -186,7 +186,7 @@ public class MutableDouble extends Number implements Comparable<MutableDouble>, 
     }
 
     //-----------------------------------------------------------------------
-    // shortValue and bytValue rely on Number implementation
+    // shortValue and byteValue rely on Number implementation
     /**
      * Returns the value of this MutableDouble as an int.
      *
