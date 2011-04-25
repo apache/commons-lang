@@ -180,4 +180,15 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
                 formatter, flags, width, precision);
     }
 
+    /**
+     * Formats the receiver using the given string.
+     * 
+     * @param format
+     *            The format string where <code>%1$</code> is the key (left) and <code>%2$</code> is the value (right).
+     * @return The formatted string
+     */
+    public Object toString(String format) {
+        return String.format(format, getLeft(), getRight());
+    }
+
 }

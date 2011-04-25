@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
@@ -29,6 +30,7 @@ import org.junit.Test;
 
 /**
  * Test the Pair class.
+ * 
  * @version $Id$
  */
 public class PairTest {
@@ -96,4 +98,12 @@ public class PairTest {
         assertEquals("(Key,Value)", pair.toString());
     }
 
+    @Test
+    public void testToStringCustom() throws Exception {
+        Calendar date = Calendar.getInstance();
+        date.set(2011, Calendar.APRIL, 25);
+        Pair<String, Calendar> pair = Pair.of("DOB", date);
+        assertEquals("Test created on " + "04-25-2011", pair.toString("Test created on %2$tm-%2$td-%2$tY"));
+    }
+    
 }
