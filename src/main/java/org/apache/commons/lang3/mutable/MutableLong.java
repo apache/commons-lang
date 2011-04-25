@@ -167,7 +167,7 @@ public class MutableLong extends Number implements Comparable<MutableLong>, Muta
     }
 
     //-----------------------------------------------------------------------
-    // shortValue and bytValue rely on Number implementation
+    // shortValue and byteValue rely on Number implementation
     /**
      * Returns the value of this MutableLong as an int.
      *

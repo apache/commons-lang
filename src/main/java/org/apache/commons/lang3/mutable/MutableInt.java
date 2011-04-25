@@ -167,7 +167,7 @@ public class MutableInt extends Number implements Comparable<MutableInt>, Mutabl
     }
 
     //-----------------------------------------------------------------------
-    // shortValue and bytValue rely on Number implementation
+    // shortValue and byteValue rely on Number implementation
     /**
      * Returns the value of this MutableInt as an int.
      *

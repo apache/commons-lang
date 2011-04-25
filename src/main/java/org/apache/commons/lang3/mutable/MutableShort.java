@@ -167,7 +167,7 @@ public class MutableShort extends Number implements Comparable<MutableShort>, Mu
     }
 
     //-----------------------------------------------------------------------
-    // bytValue relies on Number implementation
+    // byteValue relies on Number implementation
     /**
      * Returns the value of this MutableShort as a short.
      *

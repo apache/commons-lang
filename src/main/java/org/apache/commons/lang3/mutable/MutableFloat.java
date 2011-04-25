@@ -186,7 +186,7 @@ public class MutableFloat extends Number implements Comparable<MutableFloat>, Mu
     }
 
     //-----------------------------------------------------------------------
-    // shortValue and bytValue rely on Number implementation
+    // shortValue and byteValue rely on Number implementation
     /**
      * Returns the value of this MutableFloat as an int.
      *
