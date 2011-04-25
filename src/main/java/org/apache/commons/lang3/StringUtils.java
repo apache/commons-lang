@@ -4474,18 +4474,13 @@ public class StringUtils {
             return str;
         }
         if (inputLength == 1 && repeat <= PAD_LIMIT) {
-            return pad(repeat, str.charAt(0));
+            return repeat(str.charAt(0), repeat);
         }
 
         int outputLength = inputLength * repeat;
         switch (inputLength) {
             case 1 :
-                char ch = str.charAt(0);
-                char[] output1 = new char[outputLength];
-                for (int i = repeat - 1; i >= 0; i--) {
-                    output1[i] = ch;
-                }
-                return new String(output1);
+                return repeat(str.charAt(0), repeat);
             case 2 :
                 char ch0 = str.charAt(0);
                 char ch1 = str.charAt(1);
@@ -4539,9 +4534,9 @@ public class StringUtils {
      * to a given length.</p>
      *
      * <pre>
-     * StringUtils.padding(0, 'e')  = ""
-     * StringUtils.padding(3, 'e')  = "eee"
-     * StringUtils.padding(-2, 'e') throws IndexOutOfBoundsException
+     * StringUtils.repeat(0, 'e')  = ""
+     * StringUtils.repeat(3, 'e')  = "eee"
+     * StringUtils.repeat(-2, 'e') = ""
      * </pre>
      *
      * <p>Note: this method doesn't not support padding with
@@ -4551,19 +4546,15 @@ public class StringUtils {
      * consider using {@link #repeat(String, int)} instead.
      * </p>
      *
-     * @param repeat  number of times to repeat delim
-     * @param padChar  character to repeat
+     * @param ch  character to repeat
+     * @param repeat  number of times to repeat char, negative treated as zero
      * @return String with repeated character
-     * @throws IndexOutOfBoundsException if <code>repeat &lt; 0</code>
      * @see #repeat(String, int)
      */
-    public static String pad(int repeat, char padChar) throws IndexOutOfBoundsException {
-        if (repeat < 0) {
-            throw new IndexOutOfBoundsException("Cannot pad a negative amount: " + repeat);
-        }
-        final char[] buf = new char[repeat];
-        for (int i = 0; i < buf.length; i++) {
-            buf[i] = padChar;
+    public static String repeat(char ch, int repeat) {
+        char[] buf = new char[repeat];
+        for (int i = repeat - 1; i >= 0; i--) {
+            buf[i] = ch;
         }
         return new String(buf);
     }
@@ -4623,7 +4614,7 @@ public class StringUtils {
         if (pads > PAD_LIMIT) {
             return rightPad(str, size, String.valueOf(padChar));
         }
-        return str.concat(pad(pads, padChar));
+        return str.concat(repeat(padChar, pads));
     }
 
     /**
@@ -4735,7 +4726,7 @@ public class StringUtils {
         if (pads > PAD_LIMIT) {
             return leftPad(str, size, String.valueOf(padChar));
         }
-        return pad(pads, padChar).concat(str);
+        return repeat(padChar, pads).concat(str);
     }
 
     /**
