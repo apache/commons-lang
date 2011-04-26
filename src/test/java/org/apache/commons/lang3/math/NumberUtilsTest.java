@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,7 +46,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(true, Modifier.isPublic(NumberUtils.class.getModifiers()));
         assertEquals(false, Modifier.isFinal(NumberUtils.class.getModifiers()));
     }
-    
+
     //---------------------------------------------------------------------
 
     /**
@@ -210,7 +210,7 @@ public class NumberUtilsTest extends TestCase {
         assertFalse("createNumber(String) succeeded", checkCreateNumber("1eE"));
 
         // LANG-693
-        assertEquals("createNumber(String) LANG-693 failed", Double.MAX_VALUE, NumberUtils
+        assertEquals("createNumber(String) LANG-693 failed", Double.valueOf(Double.MAX_VALUE), NumberUtils
                     .createNumber("" + Double.MAX_VALUE));
     }
 
@@ -652,7 +652,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals(10, NumberUtils.max(new double[] { -10, -5, 0, 5, 10 }), 0.0001);
         assertEquals(10, NumberUtils.max(new double[] { -5, 0, 10, 5, -10 }), 0.0001);
     }
- 
+
     public void testMaxFloat() {
         final float[] f = null;
         try {
@@ -813,7 +813,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Double.compare(Double.NaN, -1.2d) == +1);
         assertTrue(Double.compare(Double.NaN, -Double.MAX_VALUE) == +1);
         assertTrue(Double.compare(Double.NaN, Double.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Double.compare(Double.POSITIVE_INFINITY, Double.NaN) == -1);
         assertTrue(Double.compare(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY) == 0);
         assertTrue(Double.compare(Double.POSITIVE_INFINITY, Double.MAX_VALUE) == +1);
@@ -823,7 +823,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Double.compare(Double.POSITIVE_INFINITY, -1.2d) == +1);
         assertTrue(Double.compare(Double.POSITIVE_INFINITY, -Double.MAX_VALUE) == +1);
         assertTrue(Double.compare(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Double.compare(Double.MAX_VALUE, Double.NaN) == -1);
         assertTrue(Double.compare(Double.MAX_VALUE, Double.POSITIVE_INFINITY) == -1);
         assertTrue(Double.compare(Double.MAX_VALUE, Double.MAX_VALUE) == 0);
@@ -833,7 +833,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Double.compare(Double.MAX_VALUE, -1.2d) == +1);
         assertTrue(Double.compare(Double.MAX_VALUE, -Double.MAX_VALUE) == +1);
         assertTrue(Double.compare(Double.MAX_VALUE, Double.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Double.compare(1.2d, Double.NaN) == -1);
         assertTrue(Double.compare(1.2d, Double.POSITIVE_INFINITY) == -1);
         assertTrue(Double.compare(1.2d, Double.MAX_VALUE) == -1);
@@ -843,7 +843,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Double.compare(1.2d, -1.2d) == +1);
         assertTrue(Double.compare(1.2d, -Double.MAX_VALUE) == +1);
         assertTrue(Double.compare(1.2d, Double.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Double.compare(0.0d, Double.NaN) == -1);
         assertTrue(Double.compare(0.0d, Double.POSITIVE_INFINITY) == -1);
         assertTrue(Double.compare(0.0d, Double.MAX_VALUE) == -1);
@@ -853,7 +853,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Double.compare(0.0d, -1.2d) == +1);
         assertTrue(Double.compare(0.0d, -Double.MAX_VALUE) == +1);
         assertTrue(Double.compare(0.0d, Double.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Double.compare(-0.0d, Double.NaN) == -1);
         assertTrue(Double.compare(-0.0d, Double.POSITIVE_INFINITY) == -1);
         assertTrue(Double.compare(-0.0d, Double.MAX_VALUE) == -1);
@@ -863,7 +863,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Double.compare(-0.0d, -1.2d) == +1);
         assertTrue(Double.compare(-0.0d, -Double.MAX_VALUE) == +1);
         assertTrue(Double.compare(-0.0d, Double.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Double.compare(-1.2d, Double.NaN) == -1);
         assertTrue(Double.compare(-1.2d, Double.POSITIVE_INFINITY) == -1);
         assertTrue(Double.compare(-1.2d, Double.MAX_VALUE) == -1);
@@ -873,7 +873,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Double.compare(-1.2d, -1.2d) == 0);
         assertTrue(Double.compare(-1.2d, -Double.MAX_VALUE) == +1);
         assertTrue(Double.compare(-1.2d, Double.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Double.compare(-Double.MAX_VALUE, Double.NaN) == -1);
         assertTrue(Double.compare(-Double.MAX_VALUE, Double.POSITIVE_INFINITY) == -1);
         assertTrue(Double.compare(-Double.MAX_VALUE, Double.MAX_VALUE) == -1);
@@ -883,7 +883,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Double.compare(-Double.MAX_VALUE, -1.2d) == -1);
         assertTrue(Double.compare(-Double.MAX_VALUE, -Double.MAX_VALUE) == 0);
         assertTrue(Double.compare(-Double.MAX_VALUE, Double.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Double.compare(Double.NEGATIVE_INFINITY, Double.NaN) == -1);
         assertTrue(Double.compare(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY) == -1);
         assertTrue(Double.compare(Double.NEGATIVE_INFINITY, Double.MAX_VALUE) == -1);
@@ -905,7 +905,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Float.compare(Float.NaN, -1.2f) == +1);
         assertTrue(Float.compare(Float.NaN, -Float.MAX_VALUE) == +1);
         assertTrue(Float.compare(Float.NaN, Float.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Float.compare(Float.POSITIVE_INFINITY, Float.NaN) == -1);
         assertTrue(Float.compare(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY) == 0);
         assertTrue(Float.compare(Float.POSITIVE_INFINITY, Float.MAX_VALUE) == +1);
@@ -915,7 +915,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Float.compare(Float.POSITIVE_INFINITY, -1.2f) == +1);
         assertTrue(Float.compare(Float.POSITIVE_INFINITY, -Float.MAX_VALUE) == +1);
         assertTrue(Float.compare(Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Float.compare(Float.MAX_VALUE, Float.NaN) == -1);
         assertTrue(Float.compare(Float.MAX_VALUE, Float.POSITIVE_INFINITY) == -1);
         assertTrue(Float.compare(Float.MAX_VALUE, Float.MAX_VALUE) == 0);
@@ -925,7 +925,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Float.compare(Float.MAX_VALUE, -1.2f) == +1);
         assertTrue(Float.compare(Float.MAX_VALUE, -Float.MAX_VALUE) == +1);
         assertTrue(Float.compare(Float.MAX_VALUE, Float.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Float.compare(1.2f, Float.NaN) == -1);
         assertTrue(Float.compare(1.2f, Float.POSITIVE_INFINITY) == -1);
         assertTrue(Float.compare(1.2f, Float.MAX_VALUE) == -1);
@@ -935,7 +935,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Float.compare(1.2f, -1.2f) == +1);
         assertTrue(Float.compare(1.2f, -Float.MAX_VALUE) == +1);
         assertTrue(Float.compare(1.2f, Float.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Float.compare(0.0f, Float.NaN) == -1);
         assertTrue(Float.compare(0.0f, Float.POSITIVE_INFINITY) == -1);
         assertTrue(Float.compare(0.0f, Float.MAX_VALUE) == -1);
@@ -945,7 +945,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Float.compare(0.0f, -1.2f) == +1);
         assertTrue(Float.compare(0.0f, -Float.MAX_VALUE) == +1);
         assertTrue(Float.compare(0.0f, Float.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Float.compare(-0.0f, Float.NaN) == -1);
         assertTrue(Float.compare(-0.0f, Float.POSITIVE_INFINITY) == -1);
         assertTrue(Float.compare(-0.0f, Float.MAX_VALUE) == -1);
@@ -955,7 +955,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Float.compare(-0.0f, -1.2f) == +1);
         assertTrue(Float.compare(-0.0f, -Float.MAX_VALUE) == +1);
         assertTrue(Float.compare(-0.0f, Float.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Float.compare(-1.2f, Float.NaN) == -1);
         assertTrue(Float.compare(-1.2f, Float.POSITIVE_INFINITY) == -1);
         assertTrue(Float.compare(-1.2f, Float.MAX_VALUE) == -1);
@@ -965,7 +965,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Float.compare(-1.2f, -1.2f) == 0);
         assertTrue(Float.compare(-1.2f, -Float.MAX_VALUE) == +1);
         assertTrue(Float.compare(-1.2f, Float.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Float.compare(-Float.MAX_VALUE, Float.NaN) == -1);
         assertTrue(Float.compare(-Float.MAX_VALUE, Float.POSITIVE_INFINITY) == -1);
         assertTrue(Float.compare(-Float.MAX_VALUE, Float.MAX_VALUE) == -1);
@@ -975,7 +975,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(Float.compare(-Float.MAX_VALUE, -1.2f) == -1);
         assertTrue(Float.compare(-Float.MAX_VALUE, -Float.MAX_VALUE) == 0);
         assertTrue(Float.compare(-Float.MAX_VALUE, Float.NEGATIVE_INFINITY) == +1);
-        
+
         assertTrue(Float.compare(Float.NEGATIVE_INFINITY, Float.NaN) == -1);
         assertTrue(Float.compare(Float.NEGATIVE_INFINITY, Float.POSITIVE_INFINITY) == -1);
         assertTrue(Float.compare(Float.NEGATIVE_INFINITY, Float.MAX_VALUE) == -1);
@@ -995,7 +995,7 @@ public class NumberUtilsTest extends TestCase {
         assertEquals("isDigits(String) neg 3 failed", false, NumberUtils.isDigits("1ab"));
         assertEquals("isDigits(String) neg 4 failed", false, NumberUtils.isDigits("abc"));
     }
-    
+
     /**
      * Tests isNumber(String) and tests that createNumber(String) returns
      * a valid number iff isNumber(String) returns false.
@@ -1105,25 +1105,25 @@ public class NumberUtilsTest extends TestCase {
         assertTrue("isNumber(String)/createNumber(String) 14 Neg failed", !checkCreateNumber(val));
         val = "11a";
         assertTrue("isNumber(String) 15 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 15 Neg failed", !checkCreateNumber(val)); 
+        assertTrue("isNumber(String)/createNumber(String) 15 Neg failed", !checkCreateNumber(val));
         val = "1a";
         assertTrue("isNumber(String) 16 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 16 Neg failed", !checkCreateNumber(val)); 
+        assertTrue("isNumber(String)/createNumber(String) 16 Neg failed", !checkCreateNumber(val));
         val = "a";
         assertTrue("isNumber(String) 17 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 17 Neg failed", !checkCreateNumber(val)); 
+        assertTrue("isNumber(String)/createNumber(String) 17 Neg failed", !checkCreateNumber(val));
         val = "11g";
         assertTrue("isNumber(String) 18 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 18 Neg failed", !checkCreateNumber(val)); 
+        assertTrue("isNumber(String)/createNumber(String) 18 Neg failed", !checkCreateNumber(val));
         val = "11z";
         assertTrue("isNumber(String) 19 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 19 Neg failed", !checkCreateNumber(val)); 
+        assertTrue("isNumber(String)/createNumber(String) 19 Neg failed", !checkCreateNumber(val));
         val = "11def";
         assertTrue("isNumber(String) 20 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 20 Neg failed", !checkCreateNumber(val)); 
+        assertTrue("isNumber(String)/createNumber(String) 20 Neg failed", !checkCreateNumber(val));
         val = "11d11";
         assertTrue("isNumber(String) 21 Neg failed", !NumberUtils.isNumber(val));
-        assertTrue("isNumber(String)/createNumber(String) 21 Neg failed", !checkCreateNumber(val)); 
+        assertTrue("isNumber(String)/createNumber(String) 21 Neg failed", !checkCreateNumber(val));
         val = "11 11";
         assertTrue("isNumber(String) 22 Neg failed", !NumberUtils.isNumber(val));
         assertTrue("isNumber(String)/createNumber(String) 22 Neg failed", !checkCreateNumber(val));
@@ -1175,7 +1175,7 @@ public class NumberUtilsTest extends TestCase {
         assertTrue(NumberUtils.FLOAT_ZERO instanceof Float);
         assertTrue(NumberUtils.FLOAT_ONE instanceof Float);
         assertTrue(NumberUtils.FLOAT_MINUS_ONE instanceof Float);
-        
+
         assertTrue(NumberUtils.LONG_ZERO.longValue() == 0);
         assertTrue(NumberUtils.LONG_ONE.longValue() == 1);
         assertTrue(NumberUtils.LONG_MINUS_ONE.longValue() == -1);
@@ -1222,5 +1222,5 @@ public class NumberUtilsTest extends TestCase {
         float[] bF = new float[] { Float.NaN, 1.2f, Float.NaN, 3.7f, 27.0f, 42.0f, Float.NaN };
         assertTrue(Float.isNaN(NumberUtils.max(bF)));
     }
-    
+
 }
