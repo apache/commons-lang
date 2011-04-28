@@ -92,6 +92,7 @@ public class ConstructorUtilsTest extends TestCase {
                 (Object[]) ArrayUtils.EMPTY_CLASS_ARRAY).toString());
         assertEquals("()", ConstructorUtils.invokeConstructor(TestBean.class,
                 (Object[]) null).toString());
+        assertEquals("()", ConstructorUtils.invokeConstructor(TestBean.class).toString());
         assertEquals("(String)", ConstructorUtils.invokeConstructor(
                 TestBean.class, "").toString());
         assertEquals("(Object)", ConstructorUtils.invokeConstructor(
