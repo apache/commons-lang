@@ -157,7 +157,9 @@ public class ClassUtils {
     /**
      * <p>Gets the class name minus the package name from a {@code Class}.</p>
      * 
-     * <p>Consider using the Java 5 API {@link Class#getSimpleName()} instead.</p>
+     * <p>Consider using the Java 5 API {@link Class#getSimpleName()} instead. 
+     * The one known difference is that this code will return {@code "Map.Entry"} while 
+     * the {@code java.lang.Class} variant will simply return {@code "Entry"}. </p>
      *
      * @param cls  the class to get the short name for.
      * @return the class name without the package name or an empty string
@@ -173,6 +175,10 @@ public class ClassUtils {
      * <p>Gets the class name minus the package name from a String.</p>
      *
      * <p>The string passed in is assumed to be a class name - it is not checked.</p>
+
+     * <p>Note that this method differs from Class.getSimpleName() in that this will 
+     * return {@code "Map.Entry"} whilst the {@code java.lang.Class} variant will simply 
+     * return {@code "Entry"}. </p>
      *
      * @param className  the className to get the short name for
      * @return the class name of the class without the package name or an empty string
