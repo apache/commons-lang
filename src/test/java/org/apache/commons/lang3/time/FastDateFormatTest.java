@@ -5,9 +5,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -96,7 +96,7 @@ public class FastDateFormatTest extends TestCase {
 
             assertTrue(format1 != format2); // -- junit 3.8 version -- assertFalse(format1 == format2);
             assertSame(format1, format3);
-            assertSame(Locale.GERMANY, format1.getLocale());
+            assertEquals(Locale.GERMANY, format1.getLocale());
 
         } finally {
             Locale.setDefault(realDefaultLocale);
@@ -217,13 +217,13 @@ public class FastDateFormatTest extends TestCase {
             fdf = FastDateFormat.getInstance(pattern);
             sdf = new SimpleDateFormat(pattern);
             assertEquals(sdf.format(date1), fdf.format(date1));
-            assertEquals(sdf.format(date2), fdf.format(date2));            
+            assertEquals(sdf.format(date2), fdf.format(date2));
         } finally {
             Locale.setDefault(realDefaultLocale);
             TimeZone.setDefault(realDefaultZone);
         }
     }
-    
+
     /**
      * Test case for {@link FastDateFormat#getDateInstance(int, java.util.Locale)}.
      */
