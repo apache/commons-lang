@@ -170,10 +170,10 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * <p>Format this {@link Pair}.  Basic format is in the form: (L,R).</p>
      * 
-     * @param formatter target
-     * @param flags for output format
-     * @param width of output
-     * @param precision of output
+     * @param formatter  the target formatter to append to, not null
+     * @param flags  the flags for output format, see {@code Formattable}
+     * @param width  the width of the output, see {@code Formattable}
+     * @param precision the precision of the output, see {@code Formattable}
      */
     public void formatTo(Formatter formatter, int flags, int width, int precision) {
         FormattableUtils.append(String.format(DEFAULT_FORMAT_STRING, getLeft(), getRight()),
@@ -183,9 +183,9 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     /**
      * Formats the receiver using the given string.
      * 
-     * @param format
-     *            The format string where <code>%1$</code> is the key (left) and <code>%2$</code> is the value (right).
-     * @return The formatted string
+     * @param format  the {@code Formattable} format string, where {@code %1$} is
+     *  the left element (key) and {@code %2$} is the right element (value), not null
+     * @return the formatted string, not null
      */
     public Object toString(String format) {
         return String.format(format, getLeft(), getRight());
