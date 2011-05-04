@@ -109,7 +109,7 @@ public class FormattableUtils {
      * @param flags  the flags for formatting, see {@code Formattable}
      * @param width  the width of the output, see {@code Formattable}
      * @param precision  the precision of the output, see {@code Formattable}
-     * @param ellipsis  the ellipsos to use when precision dictates truncation, null or
+     * @param ellipsis  the ellipsis to use when precision dictates truncation, null or
      *  empty causes a hard truncation
      * @return the {@code formatter} instance, not null
      */
@@ -127,7 +127,7 @@ public class FormattableUtils {
      * @param width  the width of the output, see {@code Formattable}
      * @param precision  the precision of the output, see {@code Formattable}
      * @param padChar  the pad character to use
-     * @param ellipsis  the ellipsos to use when precision dictates truncation, null or
+     * @param ellipsis  the ellipsis to use when precision dictates truncation, null or
      *  empty causes a hard truncation
      * @return the {@code formatter} instance, not null
      */
