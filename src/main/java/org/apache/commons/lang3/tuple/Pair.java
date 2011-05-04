@@ -157,14 +157,13 @@ public abstract class Pair<L, R> implements Map.Entry<L, R>, Comparable<Pair<L, 
     }
 
     /**
-     * <p>Returns a String representation of this Pair as completed by
-     * {@link #formatTo(Formatter, int, int, int)}.</p>
+     * <p>Returns a String representation of this pair using the format {@code ($left,$right)}.</p>
      * 
      * @return a string describing this object, not null
      */
     @Override
     public String toString() {
-        return FormattableUtils.toString(this);
+        return new StringBuilder().append('(').append(getLeft()).append(',').append(getRight()).append(')').toString();
     }
 
     /**
