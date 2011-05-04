@@ -103,6 +103,7 @@ public class TypeUtilsTest<B> {
             List<? super String>[] list13) {
     }
 
+    @SuppressWarnings("boxing") // deliberately used here
     @Test
     public void testIsAssignable() throws SecurityException, NoSuchMethodException,
             NoSuchFieldException {
@@ -258,7 +259,7 @@ public class TypeUtilsTest<B> {
         delegateBooleanAssertion(types, 9, 8, false);
         list10 = list8;
         delegateBooleanAssertion(types, 8, 10, true);
-        list8 = (List<Object>[]) list10; // NOTE cast is required by Sun Jave, but not by Eclipse
+        list8 = (List<Object>[]) list10; // NOTE cast is required by Sun Java, but not by Eclipse
         delegateBooleanAssertion(types, 10, 8, false);
         // list11 = list8;
         delegateBooleanAssertion(types, 8, 11, false);
@@ -371,7 +372,7 @@ public class TypeUtilsTest<B> {
         Assert.assertTrue(TypeUtils.isAssignable(long.class, double.class));
         du = fl;
         Assert.assertTrue(TypeUtils.isAssignable(float.class, double.class));
-        // du = bo;
+        lo = in;
         Assert.assertTrue(TypeUtils.isAssignable(int.class, long.class));
         lo = new Integer(0);
         Assert.assertTrue(TypeUtils.isAssignable(Integer.class, long.class));
@@ -455,6 +456,7 @@ public class TypeUtilsTest<B> {
         }
     }
 
+    @SuppressWarnings("boxing") // boxing is deliberate here
     @Test
     public void testIsInstance() throws SecurityException, NoSuchFieldException {
         Type intComparableType = getClass().getField("intComparable").getGenericType();
