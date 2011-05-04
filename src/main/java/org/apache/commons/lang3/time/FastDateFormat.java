@@ -395,7 +395,7 @@ public class FastDateFormat extends Format {
      *
      * @param tz  the zone to query
      * @param daylight  true if daylight savings
-     * @param style  the style to use {@code TimeZone.LONG} or {@ TimeZone.SHORT}
+     * @param style  the style to use {@code TimeZone.LONG} or {@code TimeZone.SHORT}
      * @param locale  the locale to use
      * @return the textual name of the time zone
      */
