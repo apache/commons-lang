@@ -105,5 +105,17 @@ public class PairTest {
         Pair<String, Calendar> pair = Pair.of("DOB", date);
         assertEquals("Test created on " + "04-25-2011", pair.toString("Test created on %2$tm-%2$td-%2$tY"));
     }
-    
+
+    @Test
+    public void testFormattable_simple() throws Exception {
+        Pair<String, String> pair = Pair.of("Key", "Value");
+        assertEquals("(Key,Value)", String.format("%1$s", pair));
+    }
+
+    @Test
+    public void testFormattable_padded() throws Exception {
+        Pair<String, String> pair = Pair.of("Key", "Value");
+        assertEquals("         (Key,Value)", String.format("%1$20s", pair));
+    }
+
 }
