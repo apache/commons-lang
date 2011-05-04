@@ -39,21 +39,21 @@ import org.apache.commons.lang3.Validate;
  * {@link java.text.SimpleDateFormat}.</p>
  *
  * <p>This class can be used as a direct replacement to
- * <code>SimpleDateFormat</code> in most formatting situations.
+ * {@code SimpleDateFormat} in most formatting situations.
  * This class is especially useful in multi-threaded server environments.
- * <code>SimpleDateFormat</code> is not thread-safe in any JDK version,
+ * {@code SimpleDateFormat} is not thread-safe in any JDK version,
  * nor will it be as Sun have closed the bug/RFE.
  * </p>
  *
  * <p>Only formatting is supported, but all patterns are compatible with
  * SimpleDateFormat (except time zones - see below).</p>
  *
- * <p>Java 1.4 introduced a new pattern letter, <code>'Z'</code>, to represent
- * time zones in RFC822 format (eg. <code>+0800</code> or <code>-1100</code>).
+ * <p>Java 1.4 introduced a new pattern letter, {@code 'Z'}, to represent
+ * time zones in RFC822 format (eg. {@code +0800} or {@code -1100}).
  * This pattern letter can be used here (on all JDK versions).</p>
  *
- * <p>In addition, the pattern <code>'ZZ'</code> has been made to represent
- * ISO8601 full format time zones (eg. <code>+08:00</code> or <code>-11:00</code>).
+ * <p>In addition, the pattern {@code 'ZZ'} has been made to represent
+ * ISO8601 full format time zones (eg. {@code +08:00} or {@code -11:00}).
  * This introduces a minor incompatibility with Java 1.4, but at a gain of
  * useful functionality.</p>
  *
@@ -192,7 +192,7 @@ public class FastDateFormat extends Format {
      * @param locale  optional locale, overrides system locale
      * @return a pattern based date/time formatter
      * @throws IllegalArgumentException if pattern is invalid
-     *  or <code>null</code>
+     *  or {@code null}
      */
     public static FastDateFormat getInstance(String pattern, TimeZone timeZone, Locale locale) {
         return cache.getInstance(pattern, timeZone, locale);
@@ -394,8 +394,7 @@ public class FastDateFormat extends Format {
      *
      * @param tz  the zone to query
      * @param daylight  true if daylight savings
-     * @param style  the style to use <code>TimeZone.LONG</code>
-     *  or <code>TimeZone.SHORT</code>
+     * @param style  the style to use {@code TimeZone.LONG} or {@ TimeZone.SHORT}
      * @param locale  the locale to use
      * @return the textual name of the time zone
      */
@@ -451,7 +450,7 @@ public class FastDateFormat extends Format {
     /**
      * <p>Returns a list of Rules given a pattern.</p>
      *
-     * @return a <code>List</code> of Rule objects
+     * @return a {@code List} of Rule objects
      * @throws IllegalArgumentException if pattern is invalid
      */
     protected List<Rule> parsePattern() {
@@ -657,8 +656,8 @@ public class FastDateFormat extends Format {
     // Format methods
     //-----------------------------------------------------------------------
     /**
-     * <p>Formats a <code>Date</code>, <code>Calendar</code> or
-     * <code>Long</code> (milliseconds) object.</p>
+     * <p>Formats a {@code Date}, {@code Calendar} or
+     * {@code Long} (milliseconds) object.</p>
      *
      * @param obj  the object to format
      * @param toAppendTo  the buffer to append to
@@ -680,7 +679,7 @@ public class FastDateFormat extends Format {
     }
 
     /**
-     * <p>Formats a millisecond <code>long</code> value.</p>
+     * <p>Formats a millisecond {@code long} value.</p>
      *
      * @param millis  the millisecond value to format
      * @return the formatted string
@@ -691,7 +690,7 @@ public class FastDateFormat extends Format {
     }
 
     /**
-     * <p>Formats a <code>Date</code> object.</p>
+     * <p>Formats a {@code Date} object.</p>
      *
      * @param date  the date to format
      * @return the formatted string
@@ -703,7 +702,7 @@ public class FastDateFormat extends Format {
     }
 
     /**
-     * <p>Formats a <code>Calendar</code> object.</p>
+     * <p>Formats a {@code Calendar} object.</p>
      *
      * @param calendar  the calendar to format
      * @return the formatted string
@@ -713,8 +712,8 @@ public class FastDateFormat extends Format {
     }
 
     /**
-     * <p>Formats a milliseond <code>long</code> value into the
-     * supplied <code>StringBuffer</code>.</p>
+     * <p>Formats a milliseond {@code long} value into the
+     * supplied {@code StringBuffer}.</p>
      *
      * @param millis  the millisecond value to format
      * @param buf  the buffer to format into
@@ -726,8 +725,8 @@ public class FastDateFormat extends Format {
     }
 
     /**
-     * <p>Formats a <code>Date</code> object into the
-     * supplied <code>StringBuffer</code>.</p>
+     * <p>Formats a {@code Date} object into the
+     * supplied {@code StringBuffer}.</p>
      *
      * @param date  the date to format
      * @param buf  the buffer to format into
@@ -740,8 +739,8 @@ public class FastDateFormat extends Format {
     }
 
     /**
-     * <p>Formats a <code>Calendar</code> object into the
-     * supplied <code>StringBuffer</code>.</p>
+     * <p>Formats a {@code Calendar} object into the
+     * supplied {@code StringBuffer}.</p>
      *
      * @param calendar  the calendar to format
      * @param buf  the buffer to format into
@@ -773,7 +772,7 @@ public class FastDateFormat extends Format {
      *
      * @param source  the string to parse
      * @param pos  the parsing position
-     * @return <code>null</code> as not supported
+     * @return {@code null} as not supported
      */
     @Override
     public Object parseObject(String source, ParsePosition pos) {
@@ -796,7 +795,7 @@ public class FastDateFormat extends Format {
     /**
      * <p>Gets the time zone used by this formatter.</p>
      *
-     * <p>This zone is always used for <code>Date</code> formatting. </p>
+     * <p>This zone is always used for {@code Date} formatting. </p>
      *
      * @return the time zone
      */
@@ -832,7 +831,7 @@ public class FastDateFormat extends Format {
      * <p>Compares two objects for equality.</p>
      *
      * @param obj  the object to compare to
-     * @return <code>true</code> if equal
+     * @return {@code true} if equal
      */
     @Override
     public boolean equals(Object obj) {
@@ -922,7 +921,7 @@ public class FastDateFormat extends Format {
         private final char mValue;
 
         /**
-         * Constructs a new instance of <code>CharacterLiteral</code>
+         * Constructs a new instance of {@code CharacterLiteral}
          * to hold the specified value.
          *
          * @param value the character literal
@@ -953,7 +952,7 @@ public class FastDateFormat extends Format {
         private final String mValue;
 
         /**
-         * Constructs a new instance of <code>StringLiteral</code>
+         * Constructs a new instance of {@code StringLiteral}
          * to hold the specified value.
          *
          * @param value the string literal
@@ -985,7 +984,7 @@ public class FastDateFormat extends Format {
         private final String[] mValues;
 
         /**
-         * Constructs an instance of <code>TextField</code>
+         * Constructs an instance of {@code TextField}
          * with the specified field and values.
          *
          * @param field the field
@@ -1025,7 +1024,7 @@ public class FastDateFormat extends Format {
         private final int mField;
 
         /**
-         * Constructs an instance of <code>UnpadedNumberField</code> with the specified field.
+         * Constructs an instance of {@code UnpadedNumberField} with the specified field.
          *
          * @param field the field
          */
@@ -1069,7 +1068,7 @@ public class FastDateFormat extends Format {
         static final UnpaddedMonthField INSTANCE = new UnpaddedMonthField();
 
         /**
-         * Constructs an instance of <code>UnpaddedMonthField</code>.
+         * Constructs an instance of {@code UnpaddedMonthField}.
          *
          */
         UnpaddedMonthField() {
@@ -1111,7 +1110,7 @@ public class FastDateFormat extends Format {
         private final int mSize;
 
         /**
-         * Constructs an instance of <code>PaddedNumberField</code>.
+         * Constructs an instance of {@code PaddedNumberField}.
          *
          * @param field the field
          * @param size size of the output field
@@ -1172,7 +1171,7 @@ public class FastDateFormat extends Format {
         private final int mField;
 
         /**
-         * Constructs an instance of <code>TwoDigitNumberField</code> with the specified field.
+         * Constructs an instance of {@code TwoDigitNumberField} with the specified field.
          *
          * @param field the field
          */
@@ -1214,7 +1213,7 @@ public class FastDateFormat extends Format {
         static final TwoDigitYearField INSTANCE = new TwoDigitYearField();
 
         /**
-         * Constructs an instance of <code>TwoDigitYearField</code>.
+         * Constructs an instance of {@code TwoDigitYearField}.
          */
         TwoDigitYearField() {
             super();
@@ -1250,7 +1249,7 @@ public class FastDateFormat extends Format {
         static final TwoDigitMonthField INSTANCE = new TwoDigitMonthField();
 
         /**
-         * Constructs an instance of <code>TwoDigitMonthField</code>.
+         * Constructs an instance of {@code TwoDigitMonthField}.
          */
         TwoDigitMonthField() {
             super();
@@ -1286,8 +1285,8 @@ public class FastDateFormat extends Format {
         private final NumberRule mRule;
 
         /**
-         * Constructs an instance of <code>TwelveHourField</code> with the specified
-         * <code>NumberRule</code>.
+         * Constructs an instance of {@code TwelveHourField} with the specified
+         * {@code NumberRule}.
          *
          * @param rule the rule
          */
@@ -1328,8 +1327,8 @@ public class FastDateFormat extends Format {
         private final NumberRule mRule;
 
         /**
-         * Constructs an instance of <code>TwentyFourHourField</code> with the specified
-         * <code>NumberRule</code>.
+         * Constructs an instance of {@code TwentyFourHourField} with the specified
+         * {@code NumberRule}.
          *
          * @param rule the rule
          */
@@ -1372,7 +1371,7 @@ public class FastDateFormat extends Format {
         private final String mDaylight;
 
         /**
-         * Constructs an instance of <code>TimeZoneNameRule</code> with the specified properties.
+         * Constructs an instance of {@code TimeZoneNameRule} with the specified properties.
          *
          * @param timeZone the time zone
          * @param locale the locale
@@ -1405,8 +1404,8 @@ public class FastDateFormat extends Format {
     }
 
     /**
-     * <p>Inner class to output a time zone as a number <code>+/-HHMM</code>
-     * or <code>+/-HH:MM</code>.</p>
+     * <p>Inner class to output a time zone as a number {@code +/-HHMM}
+     * or {@code +/-HH:MM}.</p>
      */
     private static class TimeZoneNumberRule implements Rule {
         static final TimeZoneNumberRule INSTANCE_COLON = new TimeZoneNumberRule(true);
@@ -1415,9 +1414,9 @@ public class FastDateFormat extends Format {
         final boolean mColon;
 
         /**
-         * Constructs an instance of <code>TimeZoneNumberRule</code> with the specified properties.
+         * Constructs an instance of {@code TimeZoneNumberRule} with the specified properties.
          *
-         * @param colon add colon between HH and MM in the output if <code>true</code>
+         * @param colon add colon between HH and MM in the output if {@code true}
          */
         TimeZoneNumberRule(boolean colon) {
             mColon = colon;
@@ -1467,10 +1466,10 @@ public class FastDateFormat extends Format {
         private final Locale mLocale;
 
         /**
-         * Constructs an instance of <code>TimeZoneDisplayKey</code> with the specified properties.
+         * Constructs an instance of {@code TimeZoneDisplayKey} with the specified properties.
          *
          * @param timeZone the time zone
-         * @param daylight adjust the style for daylight saving time if <code>true</code>
+         * @param daylight adjust the style for daylight saving time if {@code true}
          * @param style the timezone style
          * @param locale the timezone locale
          */
