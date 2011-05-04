@@ -26,6 +26,7 @@ import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -690,13 +691,13 @@ public class FastDateFormat extends Format {
     }
 
     /**
-     * <p>Formats a {@code Date} object.</p>
+     * <p>Formats a {@code Date} object using a {@code GregorianCalendar}.</p>
      *
      * @param date  the date to format
      * @return the formatted string
      */
     public String format(Date date) {
-        Calendar c = Calendar.getInstance(mTimeZone, mLocale);
+        Calendar c = new GregorianCalendar(mTimeZone, mLocale);  // hard code GregorianCalendar
         c.setTime(date);
         return applyRules(c, new StringBuffer(mMaxLengthEstimate)).toString();
     }
@@ -726,14 +727,14 @@ public class FastDateFormat extends Format {
 
     /**
      * <p>Formats a {@code Date} object into the
-     * supplied {@code StringBuffer}.</p>
+     * supplied {@code StringBuffer} using a {@code GregorianCalendar}.</p>
      *
      * @param date  the date to format
      * @param buf  the buffer to format into
      * @return the specified string buffer
      */
     public StringBuffer format(Date date, StringBuffer buf) {
-        Calendar c = Calendar.getInstance(mTimeZone, mLocale);
+        Calendar c = new GregorianCalendar(mTimeZone, mLocale);  // hard code GregorianCalendar
         c.setTime(date);
         return applyRules(c, buf);
     }
