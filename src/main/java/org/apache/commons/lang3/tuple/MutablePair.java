@@ -86,7 +86,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * 
      * @param left  the new value of the left element, may be null
      */
-    public void setLeftElement(L left) {
+    public void setLeft(L left) {
         this.left = left;
     }
 
@@ -103,7 +103,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      * 
      * @param right  the value of the right element
      */
-    public void setRightElement(R right) {
+    public void setRight(R right) {
         this.right = right;
     }
 
@@ -116,7 +116,7 @@ public class MutablePair<L, R> extends Pair<L, R> {
      */
     public R setValue(R value) {
         R result = getRight();
-        setRightElement(value);
+        setRight(value);
         return result;
     }
 

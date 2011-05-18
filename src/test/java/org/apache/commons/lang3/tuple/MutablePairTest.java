@@ -54,8 +54,8 @@ public class MutablePairTest {
     @Test
     public void testMutate() throws Exception {
         MutablePair<Integer, String> pair = new MutablePair<Integer, String>(0, "foo");
-        pair.setLeftElement(42);
-        pair.setRightElement("bar");
+        pair.setLeft(42);
+        pair.setRight("bar");
         assertEquals(42, pair.getLeft().intValue());
         assertEquals("bar", pair.getRight());
     }
