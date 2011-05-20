@@ -6366,7 +6366,7 @@ public class StringUtils {
      * @since 3.0
      */
     public static String normalizeSpace(String str) {
-        if(str == null) {
+        if (str == null) {
             return null;
         }
         return WHITESPACE_BLOCK.matcher(trim(str)).replaceAll(" ");
